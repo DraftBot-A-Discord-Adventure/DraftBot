@@ -29,7 +29,7 @@ const generateGeneralHelpMessage = function (message) {
  * @param commandname - the args given by the user to tell what command he need help about.
  */
 const generateHelpMessageForSpecificCommand = function (message,commandname) {
-    let helpMessage = Text.commands.help[commandname];
+    let helpMessage = Text.commands.help.commands[commandname];
     if(helpMessage === undefined)
         helpMessage = generateGeneralHelpMessage(message);
     return helpMessage;

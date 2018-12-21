@@ -2,8 +2,26 @@
     "commands": {
         "help": {
             "intro": "** :notebook_with_decorative_cover: ",
-            "main": " voici la liste des commandes disponibles :**\n\n```\n!respawn\n!ping\n!profile\n!rapport\n!regen\n!switch\n!sell\n!top\n!inventaire\n!levelup\n!combat\n!daily\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `!aide [nom de la commande]` :wink:",
-            "ping": "aide de ping"
+            "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nregen\nswitch\nsell\ntop\ninventory\nlevelup\nfight\ndaily\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `aide [nom de la commande]` :wink:",
+            "commands": {
+                "ping": ":ping_pong: ping :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
+                "respawn": ":angel: respawn\n\nPermet de recommencer à jouer après avoir été tué.",
+                "profile": ":bust_in_silhouette: profile\n\nAffiche des informations sur votre personnage :\n\n:heart: Vie | :trophy: Classement | :moneybag: Argent | :medal: Score | :smiley: Etat de santé.",
+                "regen": ":heartpulse: regen\n\nPermet de retirer à votre personnage ses altération d'état. L'hopital ne rend pas de points de vie et n'est fait que pour vous permettre de reprendre l'aventure",
+                "switch": ":repeat: switch\n\nEchange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire.",
+                "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous et qui ont le même niveau que vous ",
+                "levelup": ":up: levelup\n\nPermet de monter en niveau et donc de débloquer de nombreux avantages  Voici les fonctionnalités et avantages que vous pouvez débloquer:\n:military_medal: Accés au classement.\n:heartpulse: Récupération de vie.\n:gift: Découverte d'objets plus puissants.\n:heart_decoration: Amélioration du nombre maximal de points de vie.\n:crossed_swords: Débloquage des combats.\n:dagger: Boost de l'attaque.\n:shield: Boost de la défense.\n:fast_forward: Boost de la vitesse.",
+                "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
+                "top": ":trophy: top [numéro de page]\n\nAffiche le classement général du jeu par tranche de 15 joueurs, Les joueurs dans la meme guilde que vous sont marqués par une pastille spécifique (qu'il sera possible de personaliser bientôt)",
+                "topguild": ":trophy: topguild [numéro de page]\n\nAffiche le classement des joueurs se trouvant sur le même serveur que vous.",
+                "inventory": ":school_satchel: inventory\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un objet de type item.",
+                "report": ":newspaper: report\n\nPermet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières.",
+                "sell": ":moneybag: sell\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
+                "daily": ":calendar: daily\n\nCertains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`.",
+                "invite": ":inbox_tray: invite\n\nCette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !",
+                "badge": ":military_medal: Badges\n\nLes badges sont des distinctions trés difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\n:egg: - **Chasseur d'easter egg** | `Avoir trouvé tout les easter eggs du bot`\n:trophy: - **Top 1 - Fin de Saison** | `Etre premier du classement lors de la réinitialisation de celui-ci`\n:medal: - **Top 10 - Fin de Saison** | `Etre dans les 10 premiers du classement lors de la réinitialisation de celui-ci`\n:gear: - **Equipe technique** | `Faire partie (ou avoir fait partie) de l'équipe technique du bot`\n:helmet_with_cross: - **Premiers soutien** | `Etre l'un des 20 premiers membres du serveur du bot`\n:crown: - **Owner** | `Etre le créateur du bot`",
+                "eastereggs": ":egg: Oh un chasseur d'easter eggs !\n\nTrés bien comme tu as réussi à trouver cette petite aide je vais t'aider en te fournissant quelques indications sur les easters eggs du jeu :wink:\nPourquoi chercher tout ces petits trucs cachés ? Tout simplement parce que c'est fun !\n\nDu coup voilà la liste actuelle des easter eggs :\n:banana: Banane\n:school_satchel: L'inventaire plein d'eau\n:trophy: L'homme à sa place dans le classement\n:expressionless: L'aide ultime\n:fish: Etat Didescient\n:hammer: L'homme banni\n\nBeaucoup d'indices sont offerts dans les salons d'information du discord du bot nottament sur les personnes à contacter :eyes: N'hésitez pas à fouiller partout :wink:"
+            }
         }
     }
 }
