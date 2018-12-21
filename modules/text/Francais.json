@@ -1,8 +1,9 @@
 {
     "commands": {
         "help": {
-            "main": "** :notebook_with_decorative_cover: <@146939714212069376> voici la liste des commandes disponibles :**\n\n```\n!respawn\n!ping\n!profile\n!rapport\n!regen\n!switch\n!sell\n!top\n!inventaire\n!levelup\n!combat\n!daily\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `!aide [nom de la commande]` :wink:",
-            "test": ""
+            "intro": "** :notebook_with_decorative_cover: ",
+            "main": " voici la liste des commandes disponibles :**\n\n```\n!respawn\n!ping\n!profile\n!rapport\n!regen\n!switch\n!sell\n!top\n!inventaire\n!levelup\n!combat\n!daily\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `!aide [nom de la commande]` :wink:",
+            "ping": "aide de ping"
         }
     }
 }

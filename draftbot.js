@@ -9,10 +9,12 @@ const CommandReader = require('./modules/CommandReader');
 let commandReader = new CommandReader();
 
 client.on("ready", () => {
-    console.log(`Another Dimension Bot - v${Config.version}`);
+    console.log(`DraftBot - v${Config.version}`);
 });
 
 client.on("message", (message) => {
+     //check if the user is a bot before doing anything
+    if (message.author.bot) return;
     commandReader.handleMessage(message);
 });
 
