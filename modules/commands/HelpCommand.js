@@ -13,8 +13,9 @@ const helpCommand = function (message, args) {
 };
 
 /**
- * Returns a string containing a list of all the known commands, as well as some extra comment.
- * @returns {string} - A string containing a list of all the known commands.
+ * Returns a string containing the general help message.
+ * @returns {string} - A string containing an help message.
+ * @param message - the message sent by the user that lauch the command.
  */
 const generateGeneralHelpMessage = function (message) {
     let helpMessage = Text.commands.help.intro + message.author.username + Text.commands.help.main;
@@ -22,8 +23,10 @@ const generateGeneralHelpMessage = function (message) {
 };
 
 /**
- * Returns a string containing a list of all the known commands, as well as some extra comment.
- * @returns {string} - A string containing a list of all the known commands.
+ * Returns a string containing a specific help message about one command.
+ * @returns {string} - A string containing help about a command.
+ * @param message - the message sent by the user that lauch the command.
+ * @param commandname - the args given by the user to tell what command he need help about.
  */
 const generateHelpMessageForSpecificCommand = function (message,commandname) {
     let helpMessage = Text.commands.help[commandname];
@@ -35,6 +38,7 @@ const generateHelpMessageForSpecificCommand = function (message,commandname) {
 /**
  * Returns a boolean containing false if the user ask help for a specific command.
  * @returns {boolean} - A boolean containing false if the user ask help for a specific command.
+ * @param args - arguments typed by the user in addition to the command
  */
 function userAskForGeneralHelp(args) {
     return (args === undefined);
