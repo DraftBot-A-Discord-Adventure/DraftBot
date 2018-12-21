@@ -1,0 +1,8 @@
+{
+    "commands": {
+        "help": {
+            "main": "Need help ?",
+            "test": ""
+        }
+    }
+}
