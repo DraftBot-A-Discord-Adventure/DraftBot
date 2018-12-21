@@ -1,3 +1,4 @@
+const Config = require('./utils/Config');
 const PlayerManager = require('./PlayerManager');
 const CommandTable = require('./CommandTable');
 
@@ -13,9 +14,10 @@ class CommandReader {
     handleMessage(message) {
         console.log(`${message.author.username} passed ${message.content}\n`);
         let command = CommandReader.getCommandFromMessage(message);
+        let args = CommandReader.getArgsFromMessage(message);
         if (CommandTable.has(command)) {
             //TODO: Test commandResult's type, and process it!
-            let commandResult = CommandTable.get(command)(message);
+            let commandResult = CommandTable.get(command)(message,args);
         }
     }
 
@@ -25,16 +27,18 @@ class CommandReader {
      * @returns {string} - The command, extracted from the message.
      */
     static getCommandFromMessage(message) {
-        return message.content.trim().split(' ')[0];
+        return CommandReader.getArgsFromMessage(message).shift().toLowerCase();
     }
 
-    /**
-     * This function asks the PlayerManager class about the whereabouts of the message's author.
-     * @param message - The message that contained the command. Used to get the author's Discord User ID
+        /**
+     * Sanitizes the string and return the args. The 1st argument is not an args.
+     * @param message - The message to extract the command from.
+     * @returns [string] - args, extracted from the message.
      */
-    getPlayerPlace(message) {
-        
+    static getArgsFromMessage(message) {
+        return message.content.slice(Config.prefix.length).trim().split(/ +/g);
     }
+
 }
 
 module.exports = CommandReader;
