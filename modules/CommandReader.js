@@ -15,10 +15,8 @@ class CommandReader {
         console.log(`${message.author.username} passed ${message.content}\n`);
         let command = CommandReader.getCommandFromMessage(message);
         let args = CommandReader.getArgsFromMessage(message);
-        if (CommandTable.has(command)) {
-            //TODO: Test commandResult's type, and process it!
-            let commandResult = CommandTable.get(command)(message,args);
-        }
+        if (CommandTable.has(command))
+            CommandTable.get(command)(message, args)
     }
 
     /**
@@ -30,7 +28,7 @@ class CommandReader {
         return CommandReader.getArgsFromMessage(message).shift().toLowerCase();
     }
 
-        /**
+    /**
      * Sanitizes the string and return the args. The 1st argument is not an args.
      * @param message - The message to extract the command from.
      * @returns [string] - args, extracted from the message.

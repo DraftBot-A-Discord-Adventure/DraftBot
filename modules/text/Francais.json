@@ -22,6 +22,9 @@
                 "badge": ":military_medal: Badges\n\nLes badges sont des distinctions trés difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\n:egg: - **Chasseur d'easter egg** | `Avoir trouvé tout les easter eggs du bot`\n:trophy: - **Top 1 - Fin de Saison** | `Etre premier du classement lors de la réinitialisation de celui-ci`\n:medal: - **Top 10 - Fin de Saison** | `Etre dans les 10 premiers du classement lors de la réinitialisation de celui-ci`\n:gear: - **Equipe technique** | `Faire partie (ou avoir fait partie) de l'équipe technique du bot`\n:helmet_with_cross: - **Premiers soutien** | `Etre l'un des 20 premiers membres du serveur du bot`\n:crown: - **Owner** | `Etre le créateur du bot`",
                 "eastereggs": ":egg: Oh un chasseur d'easter eggs !\n\nTrés bien comme tu as réussi à trouver cette petite aide je vais t'aider en te fournissant quelques indications sur les easters eggs du jeu :wink:\nPourquoi chercher tout ces petits trucs cachés ? Tout simplement parce que c'est fun !\n\nDu coup voilà la liste actuelle des easter eggs :\n:banana: Banane\n:school_satchel: L'inventaire plein d'eau\n:trophy: L'homme à sa place dans le classement\n:expressionless: L'aide ultime\n:fish: Etat Didescient\n:hammer: L'homme banni\n\nBeaucoup d'indices sont offerts dans les salons d'information du discord du bot nottament sur les personnes à contacter :eyes: N'hésitez pas à fouiller partout :wink:"
             }
+        },
+        "ping":{
+            "main":":ping_pong: Pong !"
         }
     }
 }
