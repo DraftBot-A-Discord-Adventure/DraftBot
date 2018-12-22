@@ -24,7 +24,10 @@
             }
         },
         "ping":{
-            "main":":ping_pong: Pong !"
+            "main":":ping_pong: Pong"
+        },
+        "invite":{
+            "main":"Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
         }
     }
 }
