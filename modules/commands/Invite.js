@@ -1,4 +1,4 @@
-const Text = require('../text/Anglais');
+const Text = require('../text/Francais');
 
 /**
  * Display the ping of the bot and allow user to check if the bot is online

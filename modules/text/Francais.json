@@ -23,11 +23,11 @@
                 "eastereggs": ":egg: Oh un chasseur d'easter eggs !\n\nTrés bien comme tu as réussi à trouver cette petite aide je vais t'aider en te fournissant quelques indications sur les easters eggs du jeu :wink:\nPourquoi chercher tout ces petits trucs cachés ? Tout simplement parce que c'est fun !\n\nDu coup voilà la liste actuelle des easter eggs :\n:banana: Banane\n:school_satchel: L'inventaire plein d'eau\n:trophy: L'homme à sa place dans le classement\n:expressionless: L'aide ultime\n:fish: Etat Didescient\n:hammer: L'homme banni\n\nBeaucoup d'indices sont offerts dans les salons d'information du discord du bot nottament sur les personnes à contacter :eyes: N'hésitez pas à fouiller partout :wink:"
             }
         },
-        "ping":{
-            "main":":ping_pong: Pong"
+        "ping": {
+            "main": ":ping_pong: Pong"
         },
-        "invite":{
-            "main":"Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
+        "invite": {
+            "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
         }
     }
 }
