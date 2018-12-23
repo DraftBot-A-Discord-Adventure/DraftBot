@@ -20,8 +20,6 @@ class PlayerManager {
     }
 
 
-
-
 }
 
 module.exports = PlayerManager;

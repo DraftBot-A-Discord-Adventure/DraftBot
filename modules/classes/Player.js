@@ -1,5 +1,5 @@
 const Config = require('../utils/Config');
-const Entity = require('./classes/Entity');
+const Entity = require('./Entity');
 const TypeOperators = require('../utils/TypeOperators');
 
 /**
