@@ -12,10 +12,23 @@ class Entity {
         } else {
             this.maxHealth = 100;
             this.health = this.maxHealth;
-            this.attack = 1;
-            this.magicAttack = 1;
-            this.defense = 1;
-            this.magicDefense = 1;
+            this.attack = 20;
+            this.defense = 20;
+            this.speed = 10;
+
+        }
+    }
+
+    constructor(maxHealth,health,attack,defense,speed) {
+        if (new.target === Entity) {
+            throw new TypeError("Cannot instantiate Entity: Abstract Class");
+        } else {
+            this.maxHealth = maxHealth;
+            this.health = health;
+            this.attack = attack;
+            this.defense = defense;
+            this.speed = speed;
+
         }
     }
 
@@ -74,24 +87,6 @@ class Entity {
     }
 
     /**
-     * Returns this Entity's Magic Attack value.
-     * @returns {number} - How strong are this Entity's Magic Attacks.
-     */
-    getMagicAttack() {
-        return this.magicAttack;
-    }
-
-    /**
-     * Set this Entity's Magic Attack value.
-     * @param magicAttack - How strong this Entity's Magic Attacks should be. Must be a positive or null Number.
-     */
-    setMagicAttack(magicAttack) {
-        if (TypeOperators.isAPositiveNumberOrNull(magicAttack)) {
-            this.magicAttack = magicAttack;
-        }
-    }
-
-    /**
      * Returns this Entity's Defense value.
      * @returns {number} - How resistant to Physical/Ranged Attacks this Entity is.
      */
@@ -109,13 +104,7 @@ class Entity {
         }
     }
 
-    /**
-     * Returns this Entity's Magic Defense value.
-     * @returns {number} - How resistant to Magic Attacks this Entity is.
-     */
-    getMagicDefense() {
-        return this.magicDefense;
-    }
+
 }
 
 module.exports = Entity;

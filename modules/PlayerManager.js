@@ -1,62 +1,27 @@
-const TypeOperators = require('./utils/TypeOperators');
-
 class PlayerManager {
-    constructor() {
-        this.players = [];
+
+    constructor(sql) {
+        this.sql = sql;
     }
 
-    /**
-     * Returns the array of Player instances.
-     * @returns {Array} - The array where Player instances are registered.
-     */
-    getPlayers() {
-        return this.players;
-    }
-
-    /**
-     * Returns the Player instance associated with the provided Discord User ID.
-     * @param id The Discord User ID to look for.
-     * @returns {*} - The Player associated to the Discord User ID if found, null otherwise.
-     */
-    getPlayerById(id) {
-        let i = 0;
-        while (i < this.getNumberOfPlayers()) {
-            if (this.players[i].getDiscordId() === id) {
-                return this.players[i];
+    getCurrentPlayer(message) {
+        sql.get(`SELECT * FROM player WHERE userId ="${message.author.id}"`).then(player => {
+            if (!player) { //player is not in the database
+                console.log(`Utilisateur inconnu : ${message.author.username}`);
+                return new Player(message.createdTimestamp);
+            } else { //player is in the database
+                console.log(`Utilisateur reconnu : ${message.author.username}`);
+                return new Player(player.maxHealth,player.health,player.attack,player.defense,player.speed,player.discordId,player.level,player.experience,player.money,player.effect,player.lastReport)
             }
-            i++;
-        }
-        return null;
+        }).catch(() => { //there is no database
+            console.error("ERROR : Le joueur n'a pas pu être chargé")
+            return false;
+        })
     }
 
-    /**
-     * Returns the number of players registered in the PlayerManager.
-     * @returns {number} - The number of player instances registered in the PlayerManager.
-     */
-    getNumberOfPlayers() {
-        return this.getPlayers().length;
-    }
 
-    /**
-     * Adds a player to the array of players.
-     * @param player - The player to add.
-     */
-    addPlayer(player) {
-        if (TypeOperators.isAPlayer(player)) {
-            this.players.push(player);
-        }
-    }
 
-    /**
-     * Removes a player from the array of players.
-     * @param player - The player to remove.
-     */
-    removePlayer(player) {
-        let playerIndex = this.getPlayers().indexOf(player);
-        if (playerIndex !== -1) {
-            this.players.splice(playerIndex, 1);
-        }
-    }
+
 }
 
 module.exports = PlayerManager;

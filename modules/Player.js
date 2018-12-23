@@ -6,15 +6,27 @@ const TypeOperators = require('./utils/TypeOperators');
  * Represents a Player.
  */
 class Player extends Entity {
-    constructor() {
+
+    constructor(timeOfCreation) {
         super();
-        this.name = "";
         this.discordId = -1;
         this.level = 1;
         this.experience = 0;
         this.money = 0;
-        this.place = Places.Town;
+        this.effect = ":baby:";
+        this.lastReport = timeOfCreation;
     }
+
+    constructor(maxHealth,health,attack,defense,speed,discordId,level,experience,money,effect,lastReport) {
+        super(maxHealth,health,attack,defense,speed);
+        this.discordId = discordId;
+        this.level = level;
+        this.experience = experience;
+        this.money = money;
+        this.effect = effect;
+        this.lastReport = lastReport;
+    }
+
 
     /**
      * Returns the amount of experience needed to level up. The formula for the amount of experience is:
