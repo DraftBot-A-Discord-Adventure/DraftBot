@@ -1,4 +1,4 @@
-const Text = require('../text/Francais');
+const Text = require('../text/Anglais');
 
 /**
  * Display help for a player 

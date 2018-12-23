@@ -1,8 +1,33 @@
 {
     "commands": {
-        "help": {
-            "main": "Need help ?",
-            "test": ""
-        }
+       "help": {
+          "commands": {
+             "badge": ":military_medal: Badges\n\nBadges are distinctions very difficults to obtain that have been created to reward people who have most supported the development of the bot. Here is the list of badges that can be obtained and the conditions what was required to have them.\n\n:egg: - **Easter eggs Hunter ** | `Found all easter eggs of the bot.`\n:trophy: - **Top 1 - End of the Season** | `Be first in the ranking when re-initializing.`\n:medal: - **Top 10 - End of the Season ** | `Be in the top 10 of the rankings when re-initializing.`\n:gear: - **Technical Team** | `Participate in (or have been part) of the bot Technical Team`\n:helmet_with_cross:- **First support** | `Be one of the 20 first members of the bot server.`\n:crown: - **Owner** | `Be the bot creator`",
+             "daily": ":calendar: daily\n\nSome items give you a daily or monthly bonus. Use this command to recover these bonuses. To find out if an item gives you a daily bonus, make the command `inventory`.",
+             "eastereggs": ":egg: Oh un chasseur d'easter eggs !\n\nTrés bien comme tu as réussi à trouver cette petite aide je vais t'aider en te fournissant quelques indications sur les easters eggs du jeu :wink:\nPourquoi chercher tout ces petits trucs cachés ? Tout simplement parce que c'est fun !\n\nDu coup voilà la liste actuelle des easter eggs :\n:banana: Banane\n:school_satchel: L'inventaire plein d'eau\n:trophy: L'homme à sa place dans le classement\n:expressionless: L'aide ultime\n:fish: Etat Didescient\n:hammer: L'homme banni\n\nBeaucoup d'indices sont offerts dans les salons d'information du discord du bot nottament sur les personnes à contacter :eyes: N'hésitez pas à fouiller partout :wink:",
+             "fight": ":crossed_swords: fight\n\nUse this command to challenge the other people who are in the same server as you and who has the same level as you.",
+             "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
+             "inventory": ":school_satchel: inventory\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un objet de type item.",
+             "invite": ":inbox_tray: invite\n\nThis command allows you to get a link to bring the bot to your server or to join the help server!",
+             "levelup": ":up: levelup\n\nAllows you to level up and unlock many advantages. Here are the features and benefits you can unlock:\n\n:military_medal: Acces to the ranking \n:heartpulse: Recover of life \n:gift: Discovery of more powerful items.\n:heart_decoration: Improve the maximum number of health points. \n:crossed_swords: Releasing of the fights.\n:dagger: Attack boost.\n:shield: Defence boost. \n:fast_forward: Speed boost.",
+             "ping": ":ping_pong: ping :\n\nKnows if the bot is online. (The time displayed is the response time of the bot and not your ping: a correct response time will be less than 500ms). :clock1:",
+             "profile": ":bust_in_silhouette: profile\n\nShow informations about your person:\n\n:heart: HP | :trophy: Rank | :moneybag: Money | :medal: Score | :smiley: Health condition",
+             "regen": ":heartpulse: regen\n\nEnables you to remove your character from his state alterations. The hospital does not give back points of life and is only made to allow you to resume the adventure.",
+             "report": ":newspaper: report\n\nPermet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières.",
+             "respawn": ":angel: respawn\n\nLet’s start playing again after being killed.",
+             "sell": ":moneybag: sell\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
+             "switch": ":repeat: switch\n\nSwitch the item that is in your reserve with the item that is in the \"item\" box of your inventory.",
+             "top": ":trophy: top [numéro de page]\n\nAffiche le classement général du jeu par tranche de 15 joueurs, Les joueurs dans la meme guilde que vous sont marqués par une pastille spécifique (qu'il sera possible de personaliser bientôt)",
+             "topguild": ":trophy: topguild [page number]\n\nDisplays the ranking of players on the same server as you."
+          },
+          "intro": "** :notebook_with_decorative_cover: ",
+          "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nregen\nswitch\nsell\ntop\ninventory\nlevelup\nfight\ndaily\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `aide [nom de la commande]` :wink:"
+       },
+       "invite": {
+          "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
+       },
+       "ping": {
+          "main": ":ping_pong: Pong !"
+       }
     }
-}
+ }
