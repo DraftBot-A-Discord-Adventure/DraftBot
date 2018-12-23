@@ -1,4 +1,4 @@
-const TypeOperators = require('./utils/TypeOperators');
+const TypeOperators = require('../utils/TypeOperators');
 
 /**
  * Base class that shouldn't be instantiated. Instead, Entities are meant to extend this class.

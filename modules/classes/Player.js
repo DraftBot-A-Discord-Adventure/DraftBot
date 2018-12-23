@@ -1,6 +1,6 @@
-const Config = require('./utils/Config');
-const Entity = require('./Entity');
-const TypeOperators = require('./utils/TypeOperators');
+const Config = require('../utils/Config');
+const Entity = require('./classes/Entity');
+const TypeOperators = require('../utils/TypeOperators');
 
 /**
  * Represents a Player.

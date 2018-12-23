@@ -1,5 +1,5 @@
 const Config = require('./utils/Config');
-const PlayerManager = require('./PlayerManager');
+const PlayerManager = require('./classes/PlayerManager');
 const CommandTable = require('./CommandTable');
 
 class CommandReader {
