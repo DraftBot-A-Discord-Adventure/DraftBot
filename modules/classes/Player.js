@@ -7,20 +7,10 @@ const TypeOperators = require('../utils/TypeOperators');
  */
 class Player extends Entity {
 
-    constructor(timeOfCreation) {
-        super();
-        this.discordId = -1;
-        this.level = 1;
-        this.experience = 0;
-        this.money = 0;
-        this.effect = ":baby:";
-        this.lastReport = timeOfCreation;
-        this.badges = "";
-    }
-
-    constructor(maxHealth,health,attack,defense,speed,discordId,level,experience,money,effect,lastReport,badges) {
-        super(maxHealth,health,attack,defense,speed);
+    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges) {
+        super(discordId, maxHealth, health, attack, defense, speed);
         this.discordId = discordId;
+        this.score = score;
         this.level = level;
         this.experience = experience;
         this.money = money;
@@ -38,7 +28,7 @@ class Player extends Entity {
      */
     getExperienceToLevelUp() {
         return Math.round(Config.PLAYER_BASE_EXPERIENCE_PER_LEVEL *
-                          Math.pow(this.level, Config.PLAYER_BASE_EXPERIENCE_RATIO));
+            Math.pow(this.level, Config.PLAYER_BASE_EXPERIENCE_RATIO));
     }
 
     /**
@@ -162,24 +152,6 @@ class Player extends Entity {
         return (this.experience >= this.getExperienceToLevelUp());
     }
 
-    /**
-     * Move the player to the specified place.
-     * @see Places
-     * @param place - The player to move the player to. Must exist within Places.
-     */
-    moveToPlace(place) {
-        if (this.getPlace() !== place && place in Places) {
-            this.place = place;
-        }
-    }
-
-    /**
-     * Returns the Player instance's whereabouts.
-     * @returns {string|*} - Where the Player currently is located.
-     */
-    getPlace() {
-        return this.place;
-    }
 
     /**
      * Changes the name of the Player.
@@ -216,6 +188,33 @@ class Player extends Entity {
     getDiscordId() {
         return this.discordId;
     }
+
+    /**
+     * Returns the score of the player.
+     * @returns {number} - The score of the player
+     */
+    getScore() {
+        return this.score;
+    }
+
+    /**
+     * Returns the current state of the player
+     * @returns {string} - The effect that affect the player 
+     */
+    getEffect() {
+        return this.effect;
+    }
+
+    /**
+     * edit the state of a player
+     * @param {string} - The new effect
+     */
+    setEffect(effect) {
+        this.effect = effect;
+    }
+
+    //TODO : add and remove points from score
+
 }
 
 module.exports = Player;

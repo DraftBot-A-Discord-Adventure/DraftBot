@@ -28,6 +28,16 @@
         },
         "invite": {
             "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
+        },
+        "profile":{
+            "main":":crossed_swords: | **",
+            "level":"** |** LVL ",
+            "health":"** | :heart: ",
+            "rank":" | :trophy:  ",
+            "money":" | :moneybag: ",
+            "score":" | :medal:  ",
+            "effect":"  | Etat actuel : ",
+            "separator":"/"
         }
     }
 }

@@ -23,9 +23,9 @@ class DatabaseManager {
         //table entity
         sql.run("CREATE TABLE IF NOT EXISTS entity (id TEXT, maxHealth INTEGER, health INTEGER, attack INTEGER, defense INTEGER, speed INTEGER)");
         //table player
-        sql.run("CREATE TABLE IF NOT EXISTS player (discordId TEXT, level INTEGER, experience INTEGER, money INTEGER, effect TEXT, lastReport INTEGER, badges TEXT)");
+        sql.run("CREATE TABLE IF NOT EXISTS player (discordId TEXT,score INTEGER, level INTEGER, experience INTEGER, money INTEGER, effect TEXT, lastReport INTEGER, badges TEXT)");
         //table server
-        sql.run("CREATE TABLE IF NOT EXISTS player (id TEXT, prefix TEXT, language TEXT)");
+        sql.run("CREATE TABLE IF NOT EXISTS server (id TEXT, prefix TEXT, language TEXT)");
 
         //table only used to store the version of the bot when the database was created
         sql.run("CREATE TABLE IF NOT EXISTS database (version TEXT)").then(() => {

@@ -6,12 +6,6 @@ const TypeOperators = require('../utils/TypeOperators');
  */
 class Server {
 
-    constructor(idServer) {
-        this.id = idServer;
-        this.prefix = "!";
-        this.language = "Francais";
-    }
-
     constructor(idServer, prefix, language) {
         this.id = idServer;
         this.prefix = prefix;

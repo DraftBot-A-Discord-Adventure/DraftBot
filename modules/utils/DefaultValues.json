@@ -1,0 +1,17 @@
+{
+    "entity": {
+        "maxHealth": "100",
+        "health": "100",
+        "attack": "20",
+        "defense": "20",
+        "speed": "10"
+    },
+    "player": {
+        "score":"0",
+        "level": "0",
+        "experience": "0",
+        "money": "0",
+        "effect": ":baby:",
+        "badges": ""
+    }
+}

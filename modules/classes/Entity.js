@@ -6,18 +6,6 @@ const TypeOperators = require('../utils/TypeOperators');
  */
 class Entity {
     
-    constructor() {
-        if (new.target === Entity) {
-            throw new TypeError("Cannot instantiate Entity: Abstract Class");
-        } else {
-            this.maxHealth = 100;
-            this.health = this.maxHealth;
-            this.attack = 20;
-            this.defense = 20;
-            this.speed = 10;
-        }
-    }
-
     constructor(id,maxHealth,health,attack,defense,speed) {
         if (new.target === Entity) {
             throw new TypeError("Cannot instantiate Entity: Abstract Class");
