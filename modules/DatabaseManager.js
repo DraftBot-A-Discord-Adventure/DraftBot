@@ -18,14 +18,22 @@ class DatabaseManager {
      * @param sql - a sqlite file.
      */
     createDatabase(sql) {
-        console.log("... Database is not valid !");
-        console.log("Database Generation ...");
+        console.log("... Database is not valid !\nDatabase Generation ...");
+
+        //table entity
         sql.run("CREATE TABLE IF NOT EXISTS entity (id TEXT, maxHealth INTEGER, health INTEGER, attack INTEGER, defense INTEGER, speed INTEGER)");
+        //table player
+        sql.run("CREATE TABLE IF NOT EXISTS player (discordId TEXT, level INTEGER, experience INTEGER, money INTEGER, effect TEXT, lastReport INTEGER, badges TEXT)");
+        //table server
+        sql.run("CREATE TABLE IF NOT EXISTS player (id TEXT, prefix TEXT, language TEXT)");
+
+        //table only used to store the version of the bot when the database was created
         sql.run("CREATE TABLE IF NOT EXISTS database (version TEXT)").then(() => {
             sql.run(`INSERT INTO database (version) VALUES (\"${Config.version}\")`).then(() => {
                 console.log("... Generation Complete !");
             });
         });
+
     }
 }
 

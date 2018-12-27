@@ -5,17 +5,18 @@ const client = new Discord.Client();
 //We just need those modules, CommandReader does all the work.
 const Config = require('./modules/utils/Config');
 const CommandReader = require('./modules/CommandReader');
-const DatabaseCreator = require('./modules/DatabaseCreator');
+const DatabaseManager = require('./modules/DatabaseManager');
 
+//database loading : I use sqlite because it is a promise based system like discord.js so it make sense
 const sql = require("sqlite");
 sql.open("./modules/data/database.sqlite");
 
 let commandReader = new CommandReader();
-let databaseCreator = new DatabaseCreator();
+let databaseManager = new DatabaseManager();
 
 client.on("ready", () => {
     console.log(`DraftBot - v${Config.version}`);
-    databaseCreator.checkDatabaseValidity(sql);    
+    databaseManager.checkDatabaseValidity(sql);    
 });
 
 client.on("message", (message) => {
