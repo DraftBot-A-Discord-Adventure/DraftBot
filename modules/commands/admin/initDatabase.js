@@ -9,7 +9,7 @@ const initDatabaseCommand = function (message) {
       return console.log(message.author.username + " tried to use an admin command");
    } else { // the author of the command is the author of the bot
       console.log('Start the database creation script');
-     
+      Config.sql.run("CREATE TABLE IF NOT EXISTS entity (id TEXT, maxHealth INTEGER, health INTEGER, attack INTEGER, defense INTEGER, speed INTEGER)")
    }
 };
 

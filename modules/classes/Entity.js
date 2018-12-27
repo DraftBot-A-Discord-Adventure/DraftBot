@@ -15,20 +15,19 @@ class Entity {
             this.attack = 20;
             this.defense = 20;
             this.speed = 10;
-
         }
     }
 
-    constructor(maxHealth,health,attack,defense,speed) {
+    constructor(id,maxHealth,health,attack,defense,speed) {
         if (new.target === Entity) {
             throw new TypeError("Cannot instantiate Entity: Abstract Class");
         } else {
+            this.id = id;
             this.maxHealth = maxHealth;
             this.health = health;
             this.attack = attack;
             this.defense = defense;
             this.speed = speed;
-
         }
     }
 

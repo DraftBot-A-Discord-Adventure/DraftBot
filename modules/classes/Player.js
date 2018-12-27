@@ -15,9 +15,10 @@ class Player extends Entity {
         this.money = 0;
         this.effect = ":baby:";
         this.lastReport = timeOfCreation;
+        this.badges = "";
     }
 
-    constructor(maxHealth,health,attack,defense,speed,discordId,level,experience,money,effect,lastReport) {
+    constructor(maxHealth,health,attack,defense,speed,discordId,level,experience,money,effect,lastReport,badges) {
         super(maxHealth,health,attack,defense,speed);
         this.discordId = discordId;
         this.level = level;
@@ -25,6 +26,7 @@ class Player extends Entity {
         this.money = money;
         this.effect = effect;
         this.lastReport = lastReport;
+        this.badges = badges;
     }
 
 

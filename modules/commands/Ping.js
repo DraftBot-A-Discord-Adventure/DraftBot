@@ -12,7 +12,6 @@ const pingCommand = function (message) {
 };
 
 
-
 /**
  * Display the latency of the bot.
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message
