@@ -1,6 +1,10 @@
 const PlayerManager = require('../classes/PlayerManager');
 const Text = require('../text/Francais');
 
+/**
+ * Display information about the player that sent the command
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
 const profileCommand = async function (message) {
     let playerManager = new PlayerManager();
     let player = await playerManager.getCurrentPlayer(message);
@@ -10,7 +14,7 @@ const profileCommand = async function (message) {
 
 /**
  * Returns a string containing the profile message.
- * @returns {string} - A string containing an help message.
+ * @returns {string} - A string containing the profile message.
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const generateProfileMessage = function (message, player) {
