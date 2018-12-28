@@ -19,7 +19,7 @@ Le bot est en réécriture. Je vous conseille d'attendre la fin de la réécritu
 ![](http://35.237.77.248/ressources/tuto.png)
 
 # Liens
-* [Ste web](http://draftbot.tk)
+* [Site web](http://draftbot.tk)
 * [Serveur Discord](https://discord.gg/p2HQVmT)
 * [Tableau Trello](https://trello.com/b/mJidA4EI/draftbot)
 * [Compte Twitter](https://twitter.com/DraftBot_?s=09)
