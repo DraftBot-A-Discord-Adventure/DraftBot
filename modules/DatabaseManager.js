@@ -23,7 +23,7 @@ class DatabaseManager {
         //table entity
         sql.run("CREATE TABLE IF NOT EXISTS entity (id TEXT, maxHealth INTEGER, health INTEGER, attack INTEGER, defense INTEGER, speed INTEGER)");
         //table player
-        sql.run("CREATE TABLE IF NOT EXISTS player (discordId TEXT,score INTEGER, level INTEGER, experience INTEGER, money INTEGER, effect TEXT, lastReport INTEGER, badges TEXT)");
+        sql.run("CREATE TABLE IF NOT EXISTS player (discordId TEXT, score INTEGER, level INTEGER, experience INTEGER, money INTEGER, effect TEXT, lastReport INTEGER, badges TEXT)");
         //table server
         sql.run("CREATE TABLE IF NOT EXISTS server (id TEXT, prefix TEXT, language TEXT)");
 

@@ -102,7 +102,7 @@ class Player extends Entity {
      */
     addMoney(money) {
         if (TypeOperators.isANumber(money)) {
-            if (money > 0) {
+            if (money >= 0) {
                 this.money += money;
             } else {
                 this.removeMoney(-money);
@@ -118,7 +118,7 @@ class Player extends Entity {
      */
     removeMoney(money) {
         if (TypeOperators.isANumber(money)) {
-            if (money > 0) {
+            if (money >= 0) {
                 this.money -= money;
             } else {
                 this.addMoney(-money);
@@ -214,6 +214,64 @@ class Player extends Entity {
     }
 
     //TODO : add and remove points from score
+
+    /**
+     * Check if a player si alive or not
+     *@returns {boolean} - Trus if the player is dead
+     */
+    isDead() {
+        return this.effect === ":skull:";
+    }
+
+    /**
+     *  Allow to restore all the pv of the player
+     */
+    heal() {
+        this.heal = this.maxHealth
+    }
+
+    /**
+     * Update the timecode matching the last time the player has been see
+     * @param {Integer} time - the timecode to set
+     */
+    updateLastReport(time) {
+        this.lastReport = time;
+    }
+
+
+    /**
+     * Removes the specified amount of points from the Player's score.
+     * Note: If points is negative, then addScore is called.
+     * @see addScore
+     * @param points - The amount of points to remove. Must be a Number.
+     */
+    removeScore(points) {
+        if (TypeOperators.isANumber(points)) {
+            if (points >= 0) {
+                this.score -= points;
+            } else {
+                this.addScore(-points);
+            }
+        }
+    }
+
+
+    /**
+   * add the specified amount of points from the Player's score.
+   * Note: If points is negative, then removeScore is called.
+   * @see removeScore
+   * @param points - The amount of points to add. Must be a Number.
+   */
+    addScore(points) {
+        if (TypeOperators.isANumber(points)) {
+            if (points >= 0) {
+                this.score += points;
+            } else {
+                this.removeScore(-points);
+            }
+        }
+    }
+
 
 }
 
