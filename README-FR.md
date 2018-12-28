@@ -12,7 +12,7 @@ DraftBot est une bot Discord développé en Node.js par [@BastLast](https://gith
 
 <br>
 
-# Status du développement
+# Statut du développement
 Le bot est en réécriture. Je vous conseille d'attendre la fin de la réécriture avant d'y contribuer.
 
 # Images
