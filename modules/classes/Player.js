@@ -224,15 +224,8 @@ class Player extends Entity {
     }
 
     /**
-     *  Allow to restore all the pv of the player
-     */
-    heal() {
-        this.heal = this.maxHealth
-    }
-
-    /**
      * Update the timecode matching the last time the player has been see
-     * @param {Integer} time - the timecode to set
+     * @param {Number} time - the timecode to set
      */
     updateLastReport(time) {
         this.lastReport = time;
