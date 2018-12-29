@@ -15,11 +15,12 @@ const reportCommand = async function (message) {
    let eventManager = new EventManager;
    let playerManager = new PlayerManager;
    let player = new Player;
-   
+
 
    //test phase : display the event "arbre":
    let event = eventManager.loadEvent(1)
    let reponse = await displayEvent(message, event);
+   let eventIsOpen = true;
 
    const filter = (reaction, user) => {
       return (reactionIsCorrect(event, reaction) && user.id === message.author.id);
@@ -29,9 +30,18 @@ const reportCommand = async function (message) {
       time: 120000
    });
 
-   collector.on('collect', (reaction, reactionCollector) => {
+   collector.on('collect', (reaction) => {
       let possibility = eventManager.loadPossibility(1, reaction.emoji.name, 1);
       displayPossibility(message, possibility, player);
+      eventIsOpen = false;
+   });
+
+   //fin du temps imparti pour répondre à l'evenement
+   collector.on('end', () => {
+      if (eventIsOpen) {
+         let possibility = eventManager.loadPossibility(1,"end",1);
+         displayPossibility(message, possibility, player);
+      }
    });
 
 };
@@ -70,9 +80,9 @@ const displayPossibility = function (message, possibility, player) {
       possibilityMessage += Text.commands.report.healthLoose + possibility.healthPointsChange;
    if (TypeOperators.isAPositiveNumber(possibility.healthPointsChange))
       possibilityMessage += Text.commands.report.healthWin + possibility.healthPointsChange;
-   
+
    possibilityMessage += Text.possibilities[possibility.idEvent][possibility.emoji][possibility.id]
-      message.channel.send(possibilityMessage);
+   message.channel.send(possibilityMessage);
 };
 
 

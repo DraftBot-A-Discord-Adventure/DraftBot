@@ -2,16 +2,14 @@
     "commands": {
         "help": {
             "intro": "** :notebook_with_decorative_cover: ",
-            "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nregen\nswitch\nsell\ntop\ninventory\nlevelup\nfight\ndaily\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `aide [nom de la commande]` :wink:",
+            "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nregen\nswitch\nsell\ntop\ninventory\nfight\ndaily\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `aide [nom de la commande]` :wink:",
             "commands": {
                 "ping": ":ping_pong: ping :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
                 "respawn": ":angel: respawn\n\nPermet de recommencer à jouer après avoir été tué.",
                 "profile": ":bust_in_silhouette: profile\n\nAffiche des informations sur votre personnage :\n\n:heart: Vie | :trophy: Classement | :moneybag: Argent | :medal: Score | :smiley: Etat de santé.",
                 "regen": ":heartpulse: regen\n\nPermet de retirer à votre personnage ses altération d'état. L'hopital ne rend pas de points de vie et n'est fait que pour vous permettre de reprendre l'aventure",
                 "switch": ":repeat: switch\n\nEchange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire.",
-                "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous et qui ont le même niveau que vous ",
-                "levelup": ":up: levelup\n\nPermet de monter en niveau et donc de débloquer de nombreux avantages  Voici les fonctionnalités et avantages que vous pouvez débloquer:\n:military_medal: Accés au classement.\n:heartpulse: Récupération de vie.\n:gift: Découverte d'objets plus puissants.\n:heart_decoration: Amélioration du nombre maximal de points de vie.\n:crossed_swords: Débloquage des combats.\n:dagger: Boost de l'attaque.\n:shield: Boost de la défense.\n:fast_forward: Boost de la vitesse.",
-                "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
+                "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous et qui ont le même niveau que vous ",                "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
                 "top": ":trophy: top [numéro de page]\n\nAffiche le classement général du jeu par tranche de 15 joueurs, Les joueurs dans la meme guilde que vous sont marqués par une pastille spécifique (qu'il sera possible de personaliser bientôt)",
                 "topguild": ":trophy: topguild [numéro de page]\n\nAffiche le classement des joueurs se trouvant sur le même serveur que vous.",
                 "inventory": ":school_satchel: inventory\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un objet de type item.",
@@ -67,6 +65,9 @@
             "🚶": {
                 "1": "** | :walking: Passer par un autre chemin semblait être une bonne solution vous n'avez pas perdu de temps !",
                 "2": "** | :walking: Passer par un autre chemin semblait être une bonne solution, malheureusement vous vous êtes blessé en marchant."
+            },
+            "end":{
+                "1": "** | :scissors: L'arbre a bien été coupé et la route est dégagée malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !"
             }
         }
     }
