@@ -27,7 +27,7 @@ class EventManager {
      * @return {*} - The possibility loaded
      */
     loadPossibility(idEvent, emoji, id) {
-        let possibility = new Possibility(idEvent, EventsData.possibility[idEvent][emoji][id])
+        let possibility = new Possibility(idEvent,emoji,id,EventsData.possibility[idEvent][emoji][id].timeLost,EventsData.possibility[idEvent][emoji][id].healthPointsChange,EventsData.possibility[idEvent][emoji][id].newEffect,EventsData.possibility[idEvent][emoji][id].xpGained,EventsData.possibility[idEvent][emoji][id].moneyGained)
         return possibility;
     }
 

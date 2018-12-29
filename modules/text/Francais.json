@@ -46,15 +46,28 @@
             "revived2": " points :medal: ont été retiré de votre score durant l'opération !",
             "notDead": "** il semblerait que vous ne soyez pas K.O... Vous n'avez pas besoin de nos services."
         },
-        "report":{
-            "eventStart": ":newspaper: **Journal de "
+        "report": {
+            "eventStart": ":newspaper: **Journal de ",
+            "points": " :** :medal:  Points gagnés : **",
+            "moneyWin": "** | :moneybag: Argent gagné : **",
+            "moneyLoose": "** | :money_with_wings: Argent perdu : **",
+            "healthLoose": "** | :broken_heart: Vie perdue : **",
+            "healthWin": "** | :heart: Vie gagnée : **"
         }
     },
     "events": {
         "1": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:scissors: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "2": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*"
     },
-    "possibilities":{
-
+    "possibilities": {
+        "1": {
+            "✂": {
+                "1": "** | :scissors: Couper cet arbre aura pris 30 minutes !"
+            },
+            "🚶": {
+                "1": "** | :walking: Passer par un autre chemin semblait être une bonne solution vous n'avez pas perdu de temps !",
+                "2": "** | :walking: Passer par un autre chemin semblait être une bonne solution, malheureusement vous vous êtes blessé en marchant."
+            }
+        }
     }
 }

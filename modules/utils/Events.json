@@ -66,7 +66,7 @@
             "✂": {
                 "1": {
                     "timeLost": "30",
-                    "healthPointsLost": "0",
+                    "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
                     "moneyGained": "0"
@@ -75,14 +75,14 @@
             "🚶": {
                 "1": {
                     "timeLost": "0",
-                    "healthPointsLost": "0",
+                    "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
                     "timeLost": "30",
-                    "healthPointsLost": "5",
+                    "healthPointsChange": "-5",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
                     "moneyGained": "0"
