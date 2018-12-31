@@ -9,7 +9,8 @@
                 "profile": ":bust_in_silhouette: profile\n\nAffiche des informations sur votre personnage :\n\n:heart: Vie | :trophy: Classement | :moneybag: Argent | :medal: Score | :smiley: Etat de santé.",
                 "regen": ":heartpulse: regen\n\nPermet de retirer à votre personnage ses altération d'état. L'hopital ne rend pas de points de vie et n'est fait que pour vous permettre de reprendre l'aventure",
                 "switch": ":repeat: switch\n\nEchange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire.",
-                "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous et qui ont le même niveau que vous ",                "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
+                "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous et qui ont le même niveau que vous ",
+                "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
                 "top": ":trophy: top [numéro de page]\n\nAffiche le classement général du jeu par tranche de 15 joueurs, Les joueurs dans la meme guilde que vous sont marqués par une pastille spécifique (qu'il sera possible de personaliser bientôt)",
                 "topguild": ":trophy: topguild [numéro de page]\n\nAffiche le classement des joueurs se trouvant sur le même serveur que vous.",
                 "inventory": ":school_satchel: inventory\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un objet de type item.",
@@ -55,7 +56,9 @@
     },
     "events": {
         "1": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:scissors: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
-        "2": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*"
+        "2": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
+        "3": " : ** :lock: Vous avez trouvé un coffret ! Malheureusement il est verouillé...\n\n:key: Chercher la clef autour du lieu de découverte.\n:pick: Attaquer le cadenas à coups de pioche.\n:arrow_forward: Abandonner le coffret à l'endroit où vous l'avez trouvé.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "4": " : ** :stars: Vous avez décidé de profiter d'une nuit calme pour continuer votre progression.Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!\n\n:speaking_head: Faire un vœu.\n:runner: Ignorer cet évènement.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
     },
     "possibilities": {
         "1": {
@@ -66,8 +69,58 @@
                 "1": "** | :walking: Passer par un autre chemin semblait être une bonne solution vous n'avez pas perdu de temps !",
                 "2": "** | :walking: Passer par un autre chemin semblait être une bonne solution, malheureusement vous vous êtes blessé en marchant."
             },
-            "end":{
+            "end": {
                 "1": "** | :scissors: L'arbre a bien été coupé et la route est dégagée malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !"
+            }
+        },
+        "2": {
+            "🏃": {
+                "1": "** | :runner: Après 15 minutes de poursuite vous parvenez à semer le chien, il ne semblait pas très amical !",
+                "2": "** | :runner: En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer ! :sick:"
+            },
+            "🐕": {
+                "1": "** | :dog2: Vous perdez la trace du chien au bout de quelques minutes, il allait trop vite !",
+                "2": "** | :dog2: Vous perdez la trace du chien au bout de quelques minutes à côté d'un arbre. En regardant autour de vous vous découvrez pleins de petites pièces disséminées un peu partout !"
+            },
+            "end": {
+                "1": "** | :dog: Vous avez pris la décision de ne pas bouger, cela n'a pas du plaire au chien puisque celui-ci vous a mordu avant de s'enfuir !"
+            }
+        },
+        "3": {
+            "⛏": {
+                "1": "** | :pick: Après avoir perdu 30 minutes à casser la serrure, vous découvrez que le coffre est vide !",
+                "2": "** | :pick: Après avoir perdu 30 minutes à exploser la serrure, vous découvrez que le coffre est vide !",
+                "3": "** | :pick: Après avoir perdu 15 minutes à exploser la serrure, vous découvrez 6 pièces d'or !"
+            },
+            "🔑": {
+                "1": "** | :key: Après 50 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle vous permet de découvrir 100 pièces d'or !",
+                "2": "** | :key: Après avoir passé 1 heure à tenter de retrouver la clef, vous finissez par abandonner et laissez le coffret derrière vous.",
+                "3": "** | :key: Après 40 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle est tellement endomagée qu'il vous est impossible d'ouvrir le coffre ! Vous finissez par abandonner et laissez le coffret derrière vous.",
+                "4": "** | :key: Après 20 minutes passées à creuser partout autour du petit coffre, vous finissez par abandonner et laissez le coffret derrière vous.",
+                "5": "** | :key: Après 2 heures de recherches, vous finissez par abandonner et laissez le coffret derrière vous."
+            },
+            "▶": {
+                "1": "** | :arrow_forward: Vous passez votre chemin : le vol c'est mal et ce coffret ne vous appartient pas !",
+                "2": "** | :arrow_forward: Vous décidez de ne pas vous approcher du petit coffre, estimant qu'il ne vaut pas un arrêt qui vous ferait perdre du temps précieux"
+            },
+            "end": {
+                "1": "** | :arrow_forward: C'est surement un piège ! En tout cas il est hors de question que vous vous approchiez plus près du coffret ! Vous continuez calmement votre route."
+            }
+        },
+        "4": {
+            "🗣": {
+                "1": "** | :speaking_head: Vous faites un vœu et fermer vos yeux... En ouvrant les yeux vous découvrez un sac remplit d'argent devant vous ! Perdre ces 10 minutes valait le coup !",
+                "2": "** | :speaking_head: Vous faites un vœu et fermer vos yeux... En ouvrant les yeux vous ne découvrez absolument rien ! Après avoir attendu 10 minutes pour rien vous repartez.",
+                "3": "** | :speaking_head: Vous faites un vœu et fermer vos yeux... En ouvrant les yeux vous découvrez qu'il ne s'est rien passé ! Après avoir attendu 10 minutes pour rien vous repartez.",
+                "4": "** | :speaking_head: Vous faites un vœu et fermer vos yeux... En ouvrant les yeux vous découvrez ... Rien du tout ! Après avoir attendu 10 minutes pour rien vous repartez.",
+                "5": "** | :speaking_head: Vous faites un vœu et fermer vos yeux... Il est en générale préférable de ne pas continuer de marcher les yeux fermés, vous vous blessez en trébuchant sur un caillou et perdez 10 minutes avant de pouvoir vous remettre en route."
+            },
+            "🏃": {
+                "1": "** | :runner: Vous continuez votre route sans faire attention à l'étoile filante, vous nous n'avez pas perdu de temps !",
+                "2": "** | :runner: Vous continuez sans prêter plus d'attention au phénomène mais continuez de regarder le ciel avec admiration... Distrait, vous ne remarquez pas immédiatement l'immense crevasse devant vous ! Vous finissez écrasé au fond du trou, secoué et choqué, vous vous rassurez en vous disant qu'au moins vous n'êtes pas blessé trop gravement !"
+            },
+            "end": {
+                "1": "** | :runner: Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !"
             }
         }
     }

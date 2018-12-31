@@ -17,8 +17,10 @@ const reportCommand = async function (message) {
    let player = new Player;
 
 
-   //test phase : display the event "arbre":
-   let event = eventManager.loadEvent(1)
+   //let eventNumber = eventManager.chooseARandomEvent();
+   let eventNumber = 4; //allow to select a specific event in testing purpose
+
+   let event = eventManager.loadEvent(eventNumber)
    let reponse = await displayEvent(message, event);
    let eventIsOpen = true;
 
@@ -31,7 +33,8 @@ const reportCommand = async function (message) {
    });
 
    collector.on('collect', (reaction) => {
-      let possibility = eventManager.loadPossibility(1, reaction.emoji.name, 1);
+      let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber,reaction.emoji.name);
+      let possibility = eventManager.loadPossibility(eventNumber, reaction.emoji.name, possibilityNumber);
       displayPossibility(message, possibility, player);
       eventIsOpen = false;
    });
@@ -39,12 +42,14 @@ const reportCommand = async function (message) {
    //fin du temps imparti pour répondre à l'evenement
    collector.on('end', () => {
       if (eventIsOpen) {
-         let possibility = eventManager.loadPossibility(1,"end",1);
+         let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber,"end");
+         let possibility = eventManager.loadPossibility(eventNumber,"end",possibilityNumber);
          displayPossibility(message, possibility, player);
       }
    });
 
 };
+
 
 /**
  * display an event to the player
@@ -59,7 +64,6 @@ const displayEvent = function (message, event) {
       return msg;
    })
 };
-
 
 /**
  * display a possibility to the player
@@ -77,7 +81,7 @@ const displayPossibility = function (message, possibility, player) {
       possibilityMessage += Text.commands.report.moneyLoose + moneyChange;
    }
    if (TypeOperators.isANegativeNumber(possibility.healthPointsChange))
-      possibilityMessage += Text.commands.report.healthLoose + possibility.healthPointsChange;
+      possibilityMessage += Text.commands.report.healthLoose + -possibility.healthPointsChange;
    if (TypeOperators.isAPositiveNumber(possibility.healthPointsChange))
       possibilityMessage += Text.commands.report.healthWin + possibility.healthPointsChange;
 
@@ -113,7 +117,6 @@ const calculateMoney = function (player, possibility) {
 const reactionIsCorrect = function (event, reaction) {
    let contains = false;
    for (reac in event.emojis) {
-      console.log(event.emojis[reac] + " / " + reaction.emoji.name)
       if (event.emojis[reac] == reaction.emoji.name)
          contains = true;
    }

@@ -27,9 +27,37 @@ class EventManager {
      * @return {*} - The possibility loaded
      */
     loadPossibility(idEvent, emoji, id) {
-        let possibility = new Possibility(idEvent,emoji,id,EventsData.possibility[idEvent][emoji][id].timeLost,EventsData.possibility[idEvent][emoji][id].healthPointsChange,EventsData.possibility[idEvent][emoji][id].newEffect,EventsData.possibility[idEvent][emoji][id].xpGained,EventsData.possibility[idEvent][emoji][id].moneyGained)
+        let possibility = new Possibility(idEvent, emoji, id, EventsData.possibility[idEvent][emoji][id].timeLost, EventsData.possibility[idEvent][emoji][id].healthPointsChange, EventsData.possibility[idEvent][emoji][id].newEffect, EventsData.possibility[idEvent][emoji][id].xpGained, EventsData.possibility[idEvent][emoji][id].moneyGained)
         return possibility;
     }
+
+    /**
+     * Select a random possibility id from the list of the avalables one for a selected event
+     * @param {Number} idEvent - The id of the event that the player is confronting to
+     * @param {String} emojiSelected - The emoji that has been selected
+     * @returns {Number} - The id of a possibility
+     */
+    chooseARandomPossibility(idEvent, emojiSelected) {
+        let maxLimit = 0;
+        let possibility;
+        for (possibility in EventsData.possibility[idEvent][emojiSelected]) {
+            maxLimit++;
+        }
+        return Math.round(Math.random() * (maxLimit - 1) + 1)
+    };
+
+    /**
+    * Select a random event id from the list of the avalables one 
+    * @returns {Number} - The id of an event
+    */
+    chooseARandomEvent() {
+        let maxLimit = 0;
+        let event;
+        for (event in EventsData.event) {
+            maxLimit++;
+        }
+        return Math.round(Math.random() * (maxLimit - 1) + 1)
+    };
 
 
 
