@@ -17,8 +17,8 @@ const reportCommand = async function (message) {
    let player = new Player;
 
 
-   //let eventNumber = eventManager.chooseARandomEvent();
-   let eventNumber = 4; //allow to select a specific event in testing purpose
+   let eventNumber = eventManager.chooseARandomEvent();
+  // let eventNumber = 11; //allow to select a specific event in testing purpose
 
    let event = eventManager.loadEvent(eventNumber)
    let reponse = await displayEvent(message, event);
@@ -33,17 +33,19 @@ const reportCommand = async function (message) {
    });
 
    collector.on('collect', (reaction) => {
-      let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber,reaction.emoji.name);
+      if (eventIsOpen) {
+      let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, reaction.emoji.name);
       let possibility = eventManager.loadPossibility(eventNumber, reaction.emoji.name, possibilityNumber);
       displayPossibility(message, possibility, player);
       eventIsOpen = false;
+      }
    });
 
    //fin du temps imparti pour répondre à l'evenement
    collector.on('end', () => {
       if (eventIsOpen) {
-         let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber,"end");
-         let possibility = eventManager.loadPossibility(eventNumber,"end",possibilityNumber);
+         let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, "end");
+         let possibility = eventManager.loadPossibility(eventNumber, "end", possibilityNumber);
          displayPossibility(message, possibility, player);
       }
    });
@@ -85,6 +87,9 @@ const displayPossibility = function (message, possibility, player) {
    if (TypeOperators.isAPositiveNumber(possibility.healthPointsChange))
       possibilityMessage += Text.commands.report.healthWin + possibility.healthPointsChange;
 
+   if (TypeOperators.isAPositiveNumber(possibility.timeLost))
+      possibilityMessage += Text.commands.report.timeLost + afficherTemps(possibility.timeLost);
+
    possibilityMessage += Text.possibilities[possibility.idEvent][possibility.emoji][possibility.id]
    message.channel.send(possibilityMessage);
 };
@@ -106,6 +111,24 @@ const calculatePoints = function (player, possibility) {
  */
 const calculateMoney = function (player, possibility) {
    return 350;
+};
+
+/**
+ * return a string containing a proper display of a duration
+ * @param {Number} minutes - The number of minutes to display
+ * @returns {String} - The  string to display
+ */
+const afficherTemps = function (minutes) {
+   let heures = 0;
+   let display = "";
+   while (minutes >= 60) {
+      heures++;
+      minutes -= 60;
+   }
+   if (TypeOperators.isAPositiveNumber(heures))
+      display += heures + " H ";
+   display+= minutes + " Min";
+   return display
 };
 
 

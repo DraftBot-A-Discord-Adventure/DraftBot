@@ -51,14 +51,24 @@
             "moneyWin": "** | :moneybag: Argent gagné : **",
             "moneyLoose": "** | :money_with_wings: Argent perdu : **",
             "healthLoose": "** | :broken_heart: Vie perdue : **",
-            "healthWin": "** | :heart: Vie gagnée : **"
+            "healthWin": "** | :heart: Vie gagnée : **",
+            "timeLost": "** | :clock10: Temps perdu : **"
         }
     },
     "events": {
         "1": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:scissors: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "2": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "3": " : ** :lock: Vous avez trouvé un coffret ! Malheureusement il est verouillé...\n\n:key: Chercher la clef autour du lieu de découverte.\n:pick: Attaquer le cadenas à coups de pioche.\n:arrow_forward: Abandonner le coffret à l'endroit où vous l'avez trouvé.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "4": " : ** :stars: Vous avez décidé de profiter d'une nuit calme pour continuer votre progression.Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!\n\n:speaking_head: Faire un vœu.\n:runner: Ignorer cet évènement.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+        "4": " : ** :stars: Vous avez décidé de profiter d'une nuit calme pour continuer votre progression.Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!\n\n:speaking_head: Faire un vœu.\n:runner: Ignorer cet évènement.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "5": " : **  :fountain: Vous avez trouvé une fontaine !\n\n:sweat_drops: Se reposer et boire pour reprendre des forces.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "6": " : ** :fork_knife_plate: Vous vous étiez arrêté dans une grotte pour manger et vous hésitez à repartir... \n\n:flashlight: Entrer plus profondément dans la grotte.\n:runner: Continuer votre route, pas de temps à perdre !\n:mag: Fouiller les alentours\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "7": " : **  :house: Vous avez découvert une maison ! Elle semble abandonnée...\n\n:door: Aller visiter l'intérieur.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !.*",
+        "8": " : ** :mountain_snow: Vous avez décidé de profiter de l'été pour passer par les montagnes tant que les cols ne sont pas trop enneigés, cependant l'ascension s'avère plus difficile que prévu...\n\n🌲 Continuer à travers la forêt de sapin\n:park: Renoncer à grimper jusqu'en haut et rester proche des plaines\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "9": " : ** :bust_in_silhouette: Au milieu d'un champ, vous rencontrez un paysan. Ce dernier a perdu sa fourche...\n\n:mag_right: Aider le paysan à chercher sa fourche.\n:arrow_forward: Passer son chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "10": " : ** :fish: Alors que vous passiez près d'un plan d'eau, vous remarquez un homme qui semble en difficulté sur sa partie de pêche !\n\n:fishing_pole_and_fish: Proposer son aide.\n:runner: Continuer votre route, pas de temps à perdre !\n:hand_splayed: Pousser le pêcheur dans l'eau !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "11": " : **  :interrobang: Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.\n\n:deciduous_tree: Traverser quand même la forêt.\n:point_left: Suivre les conseils de l'inconnue.\n:point_right: Eviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "12": " : ** 🏞️ Vous voyez une rivière devant vous, de l'autre coté du rivage, vous apercevez un village.\n\n🏊 Traverser la rivière en nageant \n🚣 Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
     },
     "possibilities": {
         "1": {
@@ -121,6 +131,167 @@
             },
             "end": {
                 "1": "** | :runner: Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !"
+            }
+        },
+        "5": {
+            "💦": {
+                "1": "** | :sweat_drops: Cela fait du bien de se reposer parfois... ces 30 minutes de repos ont été bénéfiques !",
+                "2": "** | :sweat_drops: Cela fait du bien de se reposer parfois... mais il ne faut pas oublier d'avancer ! Après avoir perdu 3 heures à vous reposer, vous reprenez la route."
+            },
+            "🚶": {
+                "1": "** | :walking: Il est parfois bon de ne pas être trop paresseux vous n'avez pas perdu de temps !",
+                "2": "** | :walking: Pas de temps pour le repos ! il y a une princesse à sauver !",
+                "3": "** | :walking: Vous faites le choix de ne pas vous arrêter et vous continuez à avancer.",
+                "4": "** | :walking: Vous continuez votre aventure sans prêter plus d'attention à cette fontaine",
+                "5": "** | :zzz: Il faut savoir se reposer lorsqu'on est fatigué. extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. il faudra dormir avant de continuer !"
+            },
+            "end": {
+                "1": "** | :money_mouth:  Vous avez passé une bonne heure à ramasser les pièces dispersées au fond de l'eau mais il semblerait que ça ai valu la peine ! "
+            }
+        },
+        "6": {
+            "🔦": {
+                "1": "** | :flashlight: Vous vous perdez rapidement dans ce labyrinthe, mais vous finissez par en ressortir au bout de quelques heures !",
+                "2": "** | :flashlight: Vous passez quelques minutes à explorer la grotte de fond en comble et trouvez un objet qui pourra peut être vous servir... !",
+                "3": "** | :flashlight: La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdis ! il faudra vous soigner ! :confounded: "
+            },
+            "🏃": {
+                "1": "** | :runner: Vous n'êtes pas du genre à risquer de perdre du temps pour des explorations sans intérêt ! Vous finissez de manger et passez votre chemin."
+            },
+            "🔍": {
+                "1": "** | :mag: Au bout de 30 minutes vous finissez par découvrir un objet étrange...",
+                "2": "** | :mag: Au bout de 60 minutes vous finissez par abandonner vos recherches sans avoir rien découvert...",
+                "3": "** | :mag: Alors que vous commenciez vos recherches vous faites tomber un grand sac de pièces au fond d'un grand trou ! Il ne sera pas possible de le récuperer...",
+                "4": "** | :mag: Alors que vous cherchiez des objets à ramasser, une énorme branche se détache de l'arbre à côté de vous et vous tombe sur la jambe ! Vous parvenez à vous relever, sonné, mais il faudra aller vous soigner ! :confounded: "
+            },
+            "end": {
+                "1": "** | :clock1030: hum... Il semblerait que vous soyez resté là sans rien faire plus longtemps que prévu !"
+            }
+        },
+        "7": {
+            "🚪": {
+                "1": "** | :door: En forcant la porte vous vous blessez profondement, il faut absolument vous soigner ! :sick:",
+                "2": "** | :door: Après avoir passé presque 1 heure à tenter de rentrer dans la maison, vous finissez par abandonner. En partant vous trouvez un objet qui pourra peut être vous être utile !",
+                "3": "** | :door: Vous entrez dans la maison et posez vos affaire pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. :zzz: ",
+                "4": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. En sortant vous trouvez un objet qui pourra peut être vous être utile !",
+                "5": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. Vous finissez par abandonner vos recherches sans avoir rien trouvé."
+            },
+            "🚶": {
+                "1": "** | :walking: Vous continuez votre route sans vous soucier de la maison."
+            },
+            "end": {
+                "1": "** | :walking:  Vous avez passé près de quinze minutes sans bouger il est temps de repartir ! "
+            }
+        },
+        "8": {
+            "🌲": {
+                "1": "** | 🌲 Vous traversez la forêt sans trop de difficulté et continuez votre route !",
+                "2": "** | 🌲 Vous avancez lentement à travers les sapins, sur le chemin vous ramassez des branches de sapin et vous fabriquez des petits objets que vous pourrez utiliser ou revendre...",
+                "3": "** | 🌲 Vous progressez lentement dans la forêt. Malheureusement le sol est glissant et vous tombez au fond d'un fossé ! Vous parvenez à en ressortir mais vous êtes blessé ! :sick:"
+            },
+            "🏞": {
+                "1": "** | 🏞 Vous changez finalement d'avis et décidez de rester sur les plaines, moins dangereux ce chemin est également plus long, vous perdez beaucoup de temps !",
+                "2": "** | 🏞 Vous changez finalement d'avis et décidez de rester sur les plaines, moins dangereux ce chemin est également plus long, vous perdez beaucoup de temps ! Au bout de quelques kilomètres, vous vous arrêtez pour vous reposer dans une auberge."
+            },
+            "end": {
+                "1": "** | :walking: Vous vous reposer pendant quelques minutes avant de repartir doucement vers les cols. Vous finissez par arriver épuisé de l'autre coté, il faudra vous reposer avant de repartir ! :zzz:"
+            }
+        },
+        "9": {
+            "🔎": {
+                "1": "** | :mag_right: Après un quart d'heure à chercher, vous retrouvez la fourche à côté d'un tas de foin. Pour vous remercier, le paysan vous offre quelques pièces.",
+                "2": "** | :mag_right: Après une demi-heure de recherches, vous ne trouvez pas la fourche. Vous découvrez cependant un objet qui pourra peut être vous être utile !",
+                "3": "** | :mag_right: En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille. :sick:",
+                "4": "** | :mag_right: Vous cherchez la fourche pendant presque une heure mais vous ne parvenez pas à la retrouver. Vous quittez poliment le paysan et continuez votre route"
+            },
+            "▶": {
+                "1": "** | :walking: Vous continuez votre chemin sans prêter attention au paysan.",
+                "2": "** | :arrow_right: En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied. :sick:"
+            },
+            "end": {
+                "1": "** | :walking: Vous regardez bêtement pendant 15 minutes le paysan chercher sa fourche avant de repartir."
+            }
+        },
+        "10": {
+            "🎣": {
+                "1": "** | :walking: L'homme refuse gentiment votre aide, vous poursuivez votre route.",
+                "2": "** | :tropical_fish: Grâce à vous l'homme attrape un superbe poisson de 3 KG ! Pour vous remercier il vous offre quelque chose qui pourrait vous être utile...",
+                "3": "** |  :sweat_drops: Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:"
+            },
+            "🏃": {
+                "1": "** | :runner: Vous n'avez pas une minute à perdre pour aider un simple pêcheur ! Vous passez votre chemin."
+            },
+            "🖐": {
+                "1": "** | :hand_splayed: Mais pourquoi avoir fait cela ? :thinking: Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner."
+            },
+            "end": {
+                "1": "** | :walking: Vous finissez par passer votre chemin sans prêter plus d'attention à cette situation somme toute assez banale !"
+            }
+        },
+        "11": {
+            "🌳": {
+                "1": "** | :deciduous_tree: Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégats.",
+                "2": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la foret mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile ! (ou pas)",
+                "3": "** | :deciduous_tree: En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! :sick:"
+            },
+            "👈": {
+                "1": "** | :walking: C'était en effet un raccourci !",
+                "2": "** | :deciduous_tree: Vous tombez dans une embuscade ! Après vous avoir volé tous vos bien, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui. :sick:"
+            },
+            "👉": {
+                "1": "** | :walking: Vous ne savez pas trop pourquoi vous avez pris un chemin 10 fois plus long que celui que vous aviez prévu au départ mais vous avez fini par arriver à bon port."
+            },
+            "end": {
+                "1": "** | :walking:  Vous avez passé de longues minutes à discuter avec l'inconnue vous finissez par repartir ! En suivant ses indications vous arrivez rapidement à bon port."
+            }
+        },
+        "12": {
+            "🚶": {
+                "1": "** | 🚶 Vous décidez de partir dans un autre sens, mais vous mettez une bonne heure avant de trouver une direction qui vous convienne !"
+            },
+            "🏊": {
+                "1": "** | 🏊 L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté que vous vous rendez compte de votre erreur, vous êtes gelé et affaiblis. Il faudra vous soigner avant de continuer ! :snowflake:",
+                "2": "** | 🏊 Vous atteignez l'autre côté facilement, arrivé au village, les gens vous accueillent et vous donnent à manger."
+            },
+            "🚣": {
+                "1": "** | 🚣 En tentant de fabriquer votre embarcation vous vous blessez ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
+                "2": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaiblis. Il faudra vous soigner avant de continuer ! :snowflake:",
+                "3": "** | 🚣 Vous fabriquez une petite barque en quelques heures et vous atteignez l'autre côté facilement. Vous décidez de conserver votre rame en vous disant qu'a défaut de vous en servir comme d'une arme vous trouverez bien quelqu'un pour vous la racheter !"
+            },
+            "🌉": {
+                "1": "** | 🌉 Au bout de 30 minutes vous finissez par abandonner et vous reprenez votre route dans une autre direction...",
+                "2": "** | 🌉 Au bout de 60 minutes, vous finissez par trouver un passage à gué. Vous décidez alors de ne pas rejoindre le village qui est maintenant trop loin et vous reprenez votre route.",
+                "3": "** | 🌉 Au bout de quelques minutes vous trouvez un petit pont en bois, vous arrivez rapidement au village où les habitants, heureux de rencontrer un étranger pour la première fois depuis des années, vous offrent quelques pièces.",
+                "4": "** | 🌉 Au bout de quelques minutes vous trouvez un petit pont en bois. Malheureusement il est délabré car personne ne l'a emprunté depuis des années et après quelques pas, il s'effondre sous votre poids ! Vous parvenez à vous accrocher à la rive de la rivière sans être mouillé et vous vous relevez, sonné, il faudra aller vous soigner ! :confounded:"
+            },
+            "end": {
+                "1": "** | :clock1030: Au bout de quelques heures au bord de la rivière, vous finissez par repartir dans une direction aléatoire."
+            }
+        },
+        "13": {
+            "🚶": {
+                "1": "** | 🚶 Vous traversez le petit bourg en une petite demie-heure et continuez votre route.",
+                "2": "** | 🚶 Vous perdez une bonne heure à contourner la ville mais reprenez votre route tranquilement."
+            },
+            "🏠": {
+                "1": "** | 🏠 Après avoir discuté pendant 2 heures avec l'aubergiste, vous finissez par apprendre qu'il n'y a aucune chambre disponible pour la nuit ! Vous reprenez la route, frustré de ne pas avoir pu profité d'une bonne nuit de repos.",
+                "2": "** | 🏠 Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure :zzz: ",
+                "3": "** | 🏠 L'auberge semble abandonnée depuis plusieurs années... Vous continuez votre route sans vous poser plus de questions."
+            },
+            "🔨": {
+                "1": "** | 🔨 Il n’y a rien d’intéressant dans cette forge... Vous quittez rapidement les lieux et reprenez votre route.",
+                "2": "** | 🔨 En essayant une épée, vous brisez la fenêtre de la forge, le forgeron demande remboursement !",
+                "3": "** | 🔨 Personne n'est présent dans la forge qui semble abandonnée depuis des années. Avant de partir vous remarquez cependant un objet qui pourrait vous servir pour la suite de votre aventure...",
+                "4": "** | 🔨 La forge semble abandonnée depuis des années. Vous reprenez donc votre route.",
+                "5": "** | 🔨 Vous entrez et saluez le forgerons. Après une rapide inspection de son travail vous comprenez que vous ne trouverez rien d'interessant ici. Vous reprenez votre route."
+            },
+            "🎪": {
+                "1": "** | 🎪 Vous explorez le marché en 30 minutes avant de découvrir un petit objet au sol qui pourrait vous être utile...",
+                "2": "** | 🎪 Après avoir perdu 60 minutes à vous ballader dans les étales, vous finissez par quitter la ville sans avoir pu trouver quoi que ce soit d'interesant.",
+                "3": "** | 🎪 Alors que votre vigilance était au plus bas sur le marché, vous recevez un coup violent derrière la tête et vous vous effondrez à terre... Après ce moment, plus aucun souvenir. Il faudra vous soigner avant de pouvoir continuer à avancer ! 😵 "
+            },
+            "end": {
+                "1": "** | 🚶 Vous visitez la ville pendant plusieurs heures avant de continuer votre route."
             }
         }
     }
