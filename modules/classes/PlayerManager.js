@@ -42,8 +42,8 @@ class PlayerManager {
     /**
      * Allow to revive a player and save its new state in the database
      * @param {*} player - the player that has to be revived
-     * @param {Integer} time - the timecode of the date of revive
-     * @returns {Integer} - the amount of points the player loosed during the revive process
+     * @param {Number} time - the timecode of the date of revive
+     * @returns {Number} - the amount of points the player loosed during the revive process
      */
     revivePlayer(player, time) {
         let scoreRomoved = Math.round(player.getScore() * Config.PART_OF_SCORE_REMOVED_DURING_RESPAWN);

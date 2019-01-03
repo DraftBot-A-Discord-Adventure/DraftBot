@@ -13,7 +13,7 @@ DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLas
 <br>
 
 # Development status
-The bot is rewriting. I advise you to wait until the end of the rewrite before contributing.
+The bot is being rewritten.
 
 # Screenshots
 ![](http://35.237.77.248/ressources/tuto.png)

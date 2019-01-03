@@ -5,8 +5,8 @@ const TypeOperators = require('../utils/TypeOperators');
  * Entities are things like Enemies, Players...
  */
 class Entity {
-    
-    constructor(id,maxHealth,health,attack,defense,speed) {
+
+    constructor(id, maxHealth, health, attack, defense, speed) {
         if (new.target === Entity) {
             throw new TypeError("Cannot instantiate Entity: Abstract Class");
         } else {
@@ -24,7 +24,7 @@ class Entity {
      * @param maxHealth - The new maximum amount of health this Entity can have. Must be a positive Number.
      */
     setMaxHealth(maxHealth) {
-        if(TypeOperators.isAPositiveNumber(maxHealth)) {
+        if (TypeOperators.isAPositiveNumber(maxHealth)) {
             this.maxHealth = maxHealth;
         }
     }
@@ -89,6 +89,13 @@ class Entity {
         if (TypeOperators.isAPositiveNumberOrNull(defense)) {
             this.defense = defense;
         }
+    }
+
+    /**
+    *  Allow to restore all the pv of the entity
+    */
+    heal() {
+        this.heal = this.maxHealth
     }
 
 

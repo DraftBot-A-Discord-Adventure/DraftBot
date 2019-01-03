@@ -101,12 +101,10 @@ class Player extends Entity {
      * @param money - The amount of money to add. Must be a Number.
      */
     addMoney(money) {
-        if (TypeOperators.isANumber(money)) {
-            if (money >= 0) {
-                this.money += money;
-            } else {
-                this.removeMoney(-money);
-            }
+        if (TypeOperators.isAPositiveNumberOrNull(money)) {
+            this.money += money;
+        } else {
+            this.removeMoney(-money);
         }
     }
 
@@ -117,12 +115,10 @@ class Player extends Entity {
      * @param money - The amount of money to remove. Must be a Number.
      */
     removeMoney(money) {
-        if (TypeOperators.isANumber(money)) {
-            if (money >= 0) {
-                this.money -= money;
-            } else {
-                this.addMoney(-money);
-            }
+        if (TypeOperators.isAPositiveNumberOrNull(money)) {
+            this.money -= money;
+        } else {
+            this.addMoney(-money);
         }
     }
 
@@ -158,9 +154,7 @@ class Player extends Entity {
      * @param name - The Player's new name.
      */
     setName(name) {
-        if (TypeOperators.isAString(name)) {
-            this.name = name;
-        }
+        this.name = name;
     }
 
     /**
@@ -224,15 +218,8 @@ class Player extends Entity {
     }
 
     /**
-     *  Allow to restore all the pv of the player
-     */
-    heal() {
-        this.heal = this.maxHealth
-    }
-
-    /**
      * Update the timecode matching the last time the player has been see
-     * @param {Integer} time - the timecode to set
+     * @param {Number} time - the timecode to set
      */
     updateLastReport(time) {
         this.lastReport = time;
@@ -246,12 +233,10 @@ class Player extends Entity {
      * @param points - The amount of points to remove. Must be a Number.
      */
     removeScore(points) {
-        if (TypeOperators.isANumber(points)) {
-            if (points >= 0) {
-                this.score -= points;
-            } else {
-                this.addScore(-points);
-            }
+        if (TypeOperators.isAPositiveNumberOrNull(points)) {
+            this.score -= points;
+        } else {
+            this.addScore(-points);
         }
     }
 
@@ -263,12 +248,10 @@ class Player extends Entity {
    * @param points - The amount of points to add. Must be a Number.
    */
     addScore(points) {
-        if (TypeOperators.isANumber(points)) {
-            if (points >= 0) {
-                this.score += points;
-            } else {
-                this.removeScore(-points);
-            }
+        if (TypeOperators.isAPositiveNumberOrNull(points)) {
+            this.score += points;
+        } else {
+            this.removeScore(-points);
         }
     }
 
