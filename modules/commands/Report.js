@@ -13,15 +13,16 @@ const Text = require('../text/Francais');
 const reportCommand = async function (message) {
 
    let eventManager = new EventManager;
-   let playerManager = new PlayerManager;
-   let player = new Player;
-
 
    let eventNumber = eventManager.chooseARandomEvent();
-  // let eventNumber = 11; //allow to select a specific event in testing purpose
+   // let eventNumber = 11; //allow to select a specific event in testing purpose
 
-   let event = eventManager.loadEvent(eventNumber)
+   //load the event to display
+   let event = eventManager.loadEvent(eventNumber);
+
+   //display a message containing informations about the event and get this message back
    let reponse = await displayEvent(message, event);
+
    let eventIsOpen = true;
 
    const filter = (reaction, user) => {
@@ -32,21 +33,22 @@ const reportCommand = async function (message) {
       time: 120000
    });
 
+   //todo if a user answer to the event
    collector.on('collect', (reaction) => {
       if (eventIsOpen) {
-      let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, reaction.emoji.name);
-      let possibility = eventManager.loadPossibility(eventNumber, reaction.emoji.name, possibilityNumber);
-      displayPossibility(message, possibility, player);
-      eventIsOpen = false;
+         let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, reaction.emoji.name);
+         let possibility = eventManager.loadPossibility(eventNumber, reaction.emoji.name, possibilityNumber);
+         execPossibility(message, possibility);
+         eventIsOpen = false;
       }
    });
 
-   //fin du temps imparti pour répondre à l'evenement
+   //end of the time the user have to answer to the event
    collector.on('end', () => {
       if (eventIsOpen) {
          let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, "end");
          let possibility = eventManager.loadPossibility(eventNumber, "end", possibilityNumber);
-         displayPossibility(message, possibility, player);
+         execPossibility(message, possibility, player);
       }
    });
 
@@ -68,28 +70,17 @@ const displayEvent = function (message, event) {
 };
 
 /**
- * display a possibility to the player
+ * execute a possibility to the player
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param {*} possibility - The possibility that has to be displayed
- * @param {*} player - The player that is reacting to the event
+ * @param {*} possibility - The possibility that has to be executed
  */
-const displayPossibility = function (message, possibility, player) {
+const execPossibility = async function (message, possibility) {
+   let playerManager = new PlayerManager;
+   let player = await playerManager.getCurrentPlayer(message);
    let pointsGained = calculatePoints(player, possibility);
    let moneyChange = calculateMoney(player, possibility)
-   let possibilityMessage = Text.commands.report.eventStart + message.author + Text.commands.report.points + pointsGained;
-   if (TypeOperators.isAPositiveNumberOrNull(moneyChange)) {
-      possibilityMessage += Text.commands.report.moneyWin + moneyChange;
-   } else {
-      possibilityMessage += Text.commands.report.moneyLoose + moneyChange;
-   }
-   if (TypeOperators.isANegativeNumber(possibility.healthPointsChange))
-      possibilityMessage += Text.commands.report.healthLoose + -possibility.healthPointsChange;
-   if (TypeOperators.isAPositiveNumber(possibility.healthPointsChange))
-      possibilityMessage += Text.commands.report.healthWin + possibility.healthPointsChange;
-
-   if (TypeOperators.isAPositiveNumber(possibility.timeLost))
-      possibilityMessage += Text.commands.report.timeLost + afficherTemps(possibility.timeLost);
-
+   let possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
+   applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager)
    possibilityMessage += Text.possibilities[possibility.idEvent][possibility.emoji][possibility.id]
    message.channel.send(possibilityMessage);
 };
@@ -127,7 +118,7 @@ const afficherTemps = function (minutes) {
    }
    if (TypeOperators.isAPositiveNumber(heures))
       display += heures + " H ";
-   display+= minutes + " Min";
+   display += minutes + " Min";
    return display
 };
 
@@ -146,7 +137,58 @@ const reactionIsCorrect = function (event, reaction) {
    return contains
 }
 
+/**
+ * display a possibility to the player
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param {*} possibility - The possibility that has to be displayed
+ * @param {Integer} pointsGained - The amount of points the user gained during this event
+ * @param {Integer} moneyChange - The amount of money los or gained by the player during this event
+ */
+function displayPossibility(message, pointsGained, moneyChange, possibility) {
+   let possibilityMessage = Text.commands.report.eventStart + message.author + Text.commands.report.points + pointsGained;
+   if (TypeOperators.isAPositiveNumberOrNull(moneyChange)) {
+      possibilityMessage += Text.commands.report.moneyWin + moneyChange;
+   }
+   else {
+      possibilityMessage += Text.commands.report.moneyLoose + moneyChange;
+   }
+   if (TypeOperators.isANegativeNumber(possibility.healthPointsChange))
+      possibilityMessage += Text.commands.report.healthLoose + -possibility.healthPointsChange;
+   if (TypeOperators.isAPositiveNumber(possibility.healthPointsChange))
+      possibilityMessage += Text.commands.report.healthWin + possibility.healthPointsChange;
+   if (TypeOperators.isAPositiveNumber(possibility.timeLost))
+      possibilityMessage += Text.commands.report.timeLost + afficherTemps(possibility.timeLost);
+   return possibilityMessage;
+}
+
+/**
+ * display a possibility to the player
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param {*} possibility - The possibility that has to be displayed
+ * @param {*} player - The player that is reacting to the event
+ * @param {Integer} pointsGained - The amount of points the user gained during this event
+ * @param {Integer} moneyChange - The amount of money los or gained by the player during this event
+ * @param {*} playerManager - The player manager
+ */
+function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager) {
+   
+
+   //adding score
+   player.addScore(pointsGained);
+
+   player.addMoney(moneyChange);
+   // if the number is below 0, remove money will be called by the add money method
+
+   //the last time the player has been saw is now
+   player.updateLastReport(message.createdTimestamp);
+
+   player.addHealthPoints(parseInt(possibility.healthPointsChange));
+   // if the number is below 0, remove health Points will be called by the add Health Points method
+   // we have to parse int this because elsewhere it is considered as a screen and it do 2 + 2 = 22
+      
+
+   playerManager.updatePlayer(player);
+}
+
 
 module.exports.ReportCommand = reportCommand;
-
-

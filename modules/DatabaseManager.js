@@ -21,11 +21,11 @@ class DatabaseManager {
         console.log("... Database is not valid !\nDatabase Generation ...");
 
         //table entity
-        sql.run("CREATE TABLE IF NOT EXISTS entity (id TEXT, maxHealth INTEGER, health INTEGER, attack INTEGER, defense INTEGER, speed INTEGER)");
+        sql.run("CREATE TABLE IF NOT EXISTS entity (id TEXT, maxHealth INTEGER, health INTEGER, attack INTEGER, defense INTEGER, speed INTEGER, effect TEXT)").catch(console.error);
         //table player
-        sql.run("CREATE TABLE IF NOT EXISTS player (discordId TEXT, score INTEGER, level INTEGER, experience INTEGER, money INTEGER, effect TEXT, lastReport INTEGER, badges TEXT)");
+        sql.run("CREATE TABLE IF NOT EXISTS player (discordId TEXT, score INTEGER, level INTEGER, experience INTEGER, money INTEGER, lastReport INTEGER, badges TEXT)").catch(console.error);
         //table server
-        sql.run("CREATE TABLE IF NOT EXISTS server (id TEXT, prefix TEXT, language TEXT)");
+        sql.run("CREATE TABLE IF NOT EXISTS server (id TEXT, prefix TEXT, language TEXT)").catch(console.error);
 
         //table only used to store the version of the bot when the database was created
         sql.run("CREATE TABLE IF NOT EXISTS database (version TEXT)").then(() => {

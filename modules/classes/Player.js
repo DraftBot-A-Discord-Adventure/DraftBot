@@ -8,13 +8,12 @@ const TypeOperators = require('../utils/TypeOperators');
 class Player extends Entity {
 
     constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges) {
-        super(discordId, maxHealth, health, attack, defense, speed);
+        super(discordId, maxHealth, health, attack, defense, speed, effect);
         this.discordId = discordId;
         this.score = score;
         this.level = level;
         this.experience = experience;
         this.money = money;
-        this.effect = effect;
         this.lastReport = lastReport;
         this.badges = badges;
     }
@@ -191,31 +190,6 @@ class Player extends Entity {
         return this.score;
     }
 
-    /**
-     * Returns the current state of the player
-     * @returns {string} - The effect that affect the player 
-     */
-    getEffect() {
-        return this.effect;
-    }
-
-    /**
-     * edit the state of a player
-     * @param {string} - The new effect
-     */
-    setEffect(effect) {
-        this.effect = effect;
-    }
-
-    //TODO : add and remove points from score
-
-    /**
-     * Check if a player si alive or not
-     *@returns {boolean} - Trus if the player is dead
-     */
-    isDead() {
-        return this.effect === ":skull:";
-    }
 
     /**
      * Update the timecode matching the last time the player has been see
@@ -254,6 +228,9 @@ class Player extends Entity {
             this.removeScore(-points);
         }
     }
+
+
+
 
 
 }
