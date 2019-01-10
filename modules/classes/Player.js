@@ -1,6 +1,7 @@
 const Config = require('../utils/Config');
 const Entity = require('./Entity');
 const TypeOperators = require('../utils/TypeOperators');
+const DefaultValues = require('../utils/DefaultValues')
 
 /**
  * Represents a Player.
@@ -231,11 +232,15 @@ class Player extends Entity {
 
     /**
      * Calculate the time difference in minute betwin now and the last time the player has been seen
-     * @param {Integer} time 
+     * @param {Integer} currentTime 
      * @returns {Integer}
      */
-    calcTemps(time) {
-        return Math.floor((time - this.lastReport) / (1000 * 60))
+    calcTime(currentTime) {
+        let time = Math.floor((currentTime - this.lastReport) / (1000 * 60))
+        if (time > DefaultValues.report.timeLimit) {
+            time = DefaultValues.report.timeLimit;
+         }
+         return time
     }
 
 

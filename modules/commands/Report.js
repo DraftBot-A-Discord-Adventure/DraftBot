@@ -17,27 +17,23 @@ const reportCommand = async function (message) {
    let player = await playerManager.getCurrentPlayer(message);
    //loading of the current player
 
-   let pointsGained = calculatePoints(player);
-   let moneyChange = calculateMoney(player);
+   let time = player.calcTime(message.createdTimestamp);
+   time = 200;
+   let pointsGained = calculatePoints(player, time);
+   let moneyChange = calculateMoney(player, time);
 
 
    let eventManager = new EventManager;
    let eventNumber = eventManager.chooseARandomEvent();
    // let eventNumber = 11; //allow to select a specific event in testing purpose
 
-   let temps = player.calcTemps(message.createdTimestamp);
-
-   if (temps > DefaultValues.report.timeLimit) {
-      temps = DefaultValues.report.timeLimit;
-   }
-
    switch (true) {
 
-      case temps < DefaultValues.report.minimalTime:
+      case time < DefaultValues.report.minimalTime:
          displayErrorReport(message);
          break;
 
-      case temps <= DefaultValues.report.maximalTime && Math.round(Math.random() * DefaultValues.report.maximalTime) > temps:
+      case time <= DefaultValues.report.maximalTime && Math.round(Math.random() * DefaultValues.report.maximalTime) > time:
          let possibility = loadNothingToSayPossibility(eventManager);
          execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained);
          break;
@@ -80,17 +76,29 @@ const execPossibility = function (message, possibility, playerManager, player, m
 /**
  * calculate the amount of point a player will win during the event
  * @param {*} player - The player that is reacting to the event
+ * 
+ * 
  */
-const calculatePoints = function (player) {
-   return 350;
+const calculatePoints = function (player, time) {
+   return time + Math.round(
+      Math.random() * (
+         time / 10 + player.getLevel()
+      )
+   );
 };
 
 /**
  * calculate the amount of money a player will or loose win during the event
  * @param {*} player - The player that is reacting to the event
+ * 
+ * 
  */
-const calculateMoney = function (player) {
-   return 350;
+const calculateMoney = function (player, time) {
+   return time / 10 + Math.round(
+      Math.random() * (
+         time / 10 + player.getLevel() / 5
+      )
+   );
 };
 
 /**
@@ -98,7 +106,7 @@ const calculateMoney = function (player) {
  * @param {Number} minutes - The number of minutes to display
  * @returns {String} - The  string to display
  */
-const afficherTemps = function (minutes) {
+const displayDuration = function (minutes) {
    let heures = 0;
    let display = "";
    while (minutes >= 60) {
@@ -193,7 +201,7 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
    if (TypeOperators.isAPositiveNumber(possibility.healthPointsChange))
       possibilityMessage += Text.commands.report.healthWin + possibility.healthPointsChange;
    if (TypeOperators.isAPositiveNumber(possibility.timeLost))
-      possibilityMessage += Text.commands.report.timeLost + afficherTemps(possibility.timeLost);
+      possibilityMessage += Text.commands.report.timeLost + displayDuration(possibility.timeLost);
    return possibilityMessage;
 }
 

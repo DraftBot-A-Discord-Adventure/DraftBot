@@ -164,7 +164,7 @@
             },
             "end": {
                 "1": {
-                    "timeLost": "1000",
+                    "timeLost": "100",
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
