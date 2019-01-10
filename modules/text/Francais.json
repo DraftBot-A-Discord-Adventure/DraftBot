@@ -72,6 +72,20 @@
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
     },
     "possibilities": {
+        "report": {
+            "nothingToSay": {
+                "1": "** | :smiley: Aucun incident ni évènement notable à signaler.",
+                "2": "** | :smiley: Il ne s'est rien passé de particulier depuis le précèdent rapport.",
+                "3": "** | :smiley: Vous n'avez rencontré aucune difficulté à progresser durant les dernières heures, vous continuez d'avancer tranquilement.",
+                "4": "** | :smiley: Rien à signaler, vous continuez d'avancer.",
+                "5": "** | :smiley: Pas d'obstacle en vue, Rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
+                "6": "** | :smiley: La voie est libre, aucune raison de s'arrêter, Vous continuez d'avancer",
+                "7": "** | :smiley: Rien d'important ne s'est passé depuis le rapport précèdent.",
+                "8": "** | :smiley: Pas d'évènement notable depuis la dernière fois.",
+                "9": "** | :smiley: Les chiens aboient et la caravane passe. Vous continuez tranquilement votre route",
+                "10": "** | :smiley: La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
+            }
+        },
         "1": {
             "✂": {
                 "1": "** | :scissors: Couper cet arbre aura pris 30 minutes !"

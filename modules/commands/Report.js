@@ -27,13 +27,25 @@ const reportCommand = async function (message) {
 
    let temps = player.calcTemps(message.createdTimestamp);
 
-   if (temps < DefaultValues.report.minimalTime) {
-      displayErrorReport(message);
-   } else {
-      generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained);
+   if (temps > DefaultValues.report.timeLimit) {
+      temps = DefaultValues.report.timeLimit;
    }
 
-   
+   switch (true) {
+
+      case temps < DefaultValues.report.minimalTime:
+         displayErrorReport(message);
+         break;
+
+      case temps <= DefaultValues.report.maximalTime && Math.round(Math.random() * DefaultValues.report.maximalTime) > temps:
+         let possibility = loadNothingToSayPossibility(eventManager);
+         execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained);
+         break;
+
+      default:
+         generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained);
+   }
+
 };
 
 
@@ -56,7 +68,7 @@ const displayEvent = function (message, event) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} possibility - The possibility that has to be executed
  */
-const execPossibility = async function (message, possibility, playerManager, player, moneyChange, pointsGained) {
+const execPossibility = function (message, possibility, playerManager, player, moneyChange, pointsGained) {
 
    let possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
    applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager)
@@ -112,6 +124,14 @@ const reactionIsCorrect = function (event, reaction) {
          contains = true;
    }
    return contains
+}
+/**
+ * allow to load the possibility to display if nothing happend since the previous report
+ * @param {*} eventManager - The event manager class
+ */
+function loadNothingToSayPossibility(eventManager) {
+   let possibilityNumber = eventManager.chooseARandomPossibility("report", "nothingToSay");
+   return eventManager.loadPossibility("report", "nothingToSay", possibilityNumber);
 }
 
 /**

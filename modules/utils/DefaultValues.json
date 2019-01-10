@@ -16,6 +16,7 @@
     },
     "report": {
         "minimalTime": "60",
-        "maximalTime": "600"
+        "maximalTime": "400",
+        "timeLimit": "1000"
     }
 }
