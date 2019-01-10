@@ -1,6 +1,7 @@
 const PlayerManager = require('../classes/PlayerManager');
 const EventManager = require('../classes/EventManager');
 const TypeOperators = require('../utils/TypeOperators');
+const DefaultValues = require('../utils/DefaultValues')
 const Player = require('../classes/Player');
 
 const Text = require('../text/Francais');
@@ -12,46 +13,27 @@ const Text = require('../text/Francais');
  */
 const reportCommand = async function (message) {
 
-   let eventManager = new EventManager;
+   let playerManager = new PlayerManager;
+   let player = await playerManager.getCurrentPlayer(message);
+   //loading of the current player
 
+   let pointsGained = calculatePoints(player);
+   let moneyChange = calculateMoney(player);
+
+
+   let eventManager = new EventManager;
    let eventNumber = eventManager.chooseARandomEvent();
    // let eventNumber = 11; //allow to select a specific event in testing purpose
 
-   //load the event to display
-   let event = eventManager.loadEvent(eventNumber);
+   let temps = player.calcTemps(message.createdTimestamp);
 
-   //display a message containing informations about the event and get this message back
-   let reponse = await displayEvent(message, event);
+   if (temps < DefaultValues.report.minimalTime) {
+      displayErrorReport(message);
+   } else {
+      generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained);
+   }
 
-   let eventIsOpen = true;
-
-   const filter = (reaction, user) => {
-      return (reactionIsCorrect(event, reaction) && user.id === message.author.id);
-   };
-
-   const collector = reponse.createReactionCollector(filter, {
-      time: 120000
-   });
-
-   //todo if a user answer to the event
-   collector.on('collect', (reaction) => {
-      if (eventIsOpen) {
-         let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, reaction.emoji.name);
-         let possibility = eventManager.loadPossibility(eventNumber, reaction.emoji.name, possibilityNumber);
-         execPossibility(message, possibility);
-         eventIsOpen = false;
-      }
-   });
-
-   //end of the time the user have to answer to the event
-   collector.on('end', () => {
-      if (eventIsOpen) {
-         let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, "end");
-         let possibility = eventManager.loadPossibility(eventNumber, "end", possibilityNumber);
-         execPossibility(message, possibility, player);
-      }
-   });
-
+   
 };
 
 
@@ -61,7 +43,7 @@ const reportCommand = async function (message) {
  * @param {*} event - The event that has to be displayed
  */
 const displayEvent = function (message, event) {
-   return message.channel.send(Text.commands.report.eventStart + message.author.username + Text.events[event.id]).then(msg => {
+   return message.channel.send(Text.commands.report.reportStart + message.author.username + Text.events[event.id]).then(msg => {
       for (reac in event.emojis) {
          msg.react(event.emojis[reac]);
       }
@@ -74,11 +56,8 @@ const displayEvent = function (message, event) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} possibility - The possibility that has to be executed
  */
-const execPossibility = async function (message, possibility) {
-   let playerManager = new PlayerManager;
-   let player = await playerManager.getCurrentPlayer(message);
-   let pointsGained = calculatePoints(player, possibility);
-   let moneyChange = calculateMoney(player, possibility)
+const execPossibility = async function (message, possibility, playerManager, player, moneyChange, pointsGained) {
+
    let possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
    applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager)
    possibilityMessage += Text.possibilities[possibility.idEvent][possibility.emoji][possibility.id]
@@ -88,19 +67,17 @@ const execPossibility = async function (message, possibility) {
 
 /**
  * calculate the amount of point a player will win during the event
- * @param {*} possibility - The possibility that has been chosen by the player
  * @param {*} player - The player that is reacting to the event
  */
-const calculatePoints = function (player, possibility) {
+const calculatePoints = function (player) {
    return 350;
 };
 
 /**
  * calculate the amount of money a player will or loose win during the event
- * @param {*} possibility - The possibility that has been chosen by the player
  * @param {*} player - The player that is reacting to the event
  */
-const calculateMoney = function (player, possibility) {
+const calculateMoney = function (player) {
    return 350;
 };
 
@@ -138,6 +115,45 @@ const reactionIsCorrect = function (event, reaction) {
 }
 
 /**
+ * Allow to perform an event to a player
+ * @param {*} message - The message that cause the event do be generated
+ * @param {*} eventManager - The class that manage the event
+ * @param {*} eventNumber  - The id of the event the player falls on
+ */
+async function generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained) {
+
+   //load the event to display
+   let event = eventManager.loadEvent(eventNumber);
+   //display a message containing informations about the event and get this message back
+   let reponse = await displayEvent(message, event);
+   let eventIsOpen = true;
+
+   const filter = (reaction, user) => {
+      return (reactionIsCorrect(event, reaction) && user.id === message.author.id);
+   };
+   const collector = reponse.createReactionCollector(filter, {
+      time: 120000
+   });
+   //todo if a user answer to the event
+   collector.on('collect', (reaction) => {
+      if (eventIsOpen) {
+         let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, reaction.emoji.name);
+         let possibility = eventManager.loadPossibility(eventNumber, reaction.emoji.name, possibilityNumber);
+         execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained);
+         eventIsOpen = false;
+      }
+   });
+   //end of the time the user have to answer to the event
+   collector.on('end', () => {
+      if (eventIsOpen) {
+         let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, "end");
+         let possibility = eventManager.loadPossibility(eventNumber, "end", possibilityNumber);
+         execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained);
+      }
+   });
+}
+
+/**
  * display a possibility to the player
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} possibility - The possibility that has to be displayed
@@ -145,7 +161,7 @@ const reactionIsCorrect = function (event, reaction) {
  * @param {Integer} moneyChange - The amount of money los or gained by the player during this event
  */
 function displayPossibility(message, pointsGained, moneyChange, possibility) {
-   let possibilityMessage = Text.commands.report.eventStart + message.author + Text.commands.report.points + pointsGained;
+   let possibilityMessage = Text.commands.report.reportStart + message.author + Text.commands.report.points + pointsGained;
    if (TypeOperators.isAPositiveNumberOrNull(moneyChange)) {
       possibilityMessage += Text.commands.report.moneyWin + moneyChange;
    }
@@ -171,7 +187,7 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
  * @param {*} playerManager - The player manager
  */
 function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager) {
-   
+
 
    //adding score
    player.addScore(pointsGained);
@@ -185,9 +201,17 @@ function applyPossibility(message, pointsGained, moneyChange, possibility, playe
    player.addHealthPoints(parseInt(possibility.healthPointsChange));
    // if the number is below 0, remove health Points will be called by the add Health Points method
    // we have to parse int this because elsewhere it is considered as a screen and it do 2 + 2 = 22
-      
+
 
    playerManager.updatePlayer(player);
+}
+
+/**
+ * display an error to the user if he has not waiting more that 1 hour
+ * @param {*} message - The message that cause the command to be called
+ */
+function displayErrorReport(message) {
+   message.channel.send(Text.commands.report.reportStart + message.author.username + Text.commands.report.noReport);
 }
 
 

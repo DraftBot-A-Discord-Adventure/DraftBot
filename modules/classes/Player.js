@@ -229,8 +229,14 @@ class Player extends Entity {
         }
     }
 
-
-
+    /**
+     * Calculate the time difference in minute betwin now and the last time the player has been seen
+     * @param {Integer} time 
+     * @returns {Integer}
+     */
+    calcTemps(time) {
+        return Math.floor((time - this.lastReport) / (1000 * 60))
+    }
 
 
 }

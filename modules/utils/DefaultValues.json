@@ -4,14 +4,18 @@
         "health": "100",
         "attack": "20",
         "defense": "20",
-        "speed": "10"
+        "speed": "10",
+        "effect": ":smiley:"
     },
     "player": {
-        "score":"0",
+        "score": "0",
         "level": "0",
         "experience": "0",
         "money": "0",
-        "effect": ":skull:",
         "badges": ""
+    },
+    "report": {
+        "minimalTime": "60",
+        "maximalTime": "600"
     }
 }

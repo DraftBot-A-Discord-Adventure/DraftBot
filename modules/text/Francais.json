@@ -46,13 +46,14 @@
             "notDead": "** il semblerait que vous ne soyez pas K.O... Vous n'avez pas besoin de nos services."
         },
         "report": {
-            "eventStart": ":newspaper: **Journal de ",
+            "reportStart": ":newspaper: **Journal de ",
             "points": " :** :medal:  Points gagnés : **",
             "moneyWin": "** | :moneybag: Argent gagné : **",
             "moneyLoose": "** | :money_with_wings: Argent perdu : **",
             "healthLoose": "** | :broken_heart: Vie perdue : **",
             "healthWin": "** | :heart: Vie gagnée : **",
-            "timeLost": "** | :clock10: Temps perdu : **"
+            "timeLost": "** | :clock10: Temps perdu : **",
+            "noReport": " : ** :x: Aucun nouveau rapport n'a été transmis ! Revenez dans quelques heures !"
         }
     },
     "events": {
