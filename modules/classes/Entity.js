@@ -1,4 +1,4 @@
-const TypeOperators = require('../utils/TypeOperators');
+const Tools = require('../utils/Tools');
 
 /**
  * Base class that shouldn't be instantiated. Instead, Entities are meant to extend this class.
@@ -25,7 +25,7 @@ class Entity {
      * @param maxHealth - The new maximum amount of health this Entity can have. Must be a positive Number.
      */
     setMaxHealth(maxHealth) {
-        if (TypeOperators.isAPositiveNumber(maxHealth)) {
+        if (Tools.isAPositiveNumber(maxHealth)) {
             this.maxHealth = maxHealth;
         }
     }
@@ -43,7 +43,7 @@ class Entity {
      * @param health - The new amount of health this Entity has. Must be a positive or null Number.
      */
     setHealth(health) {
-        if (TypeOperators.isAPositiveNumberOrNull(health)) {
+        if (Tools.isAPositiveNumberOrNull(health)) {
             this.health = health;
         }
     }
@@ -69,7 +69,7 @@ class Entity {
      * @param attack - How strong this Entity's Physical/Ranged Attacks should be. Must be a positive or null Number.
      */
     setAttack(attack) {
-        if (TypeOperators.isAPositiveNumberOrNull(attack)) {
+        if (Tools.isAPositiveNumberOrNull(attack)) {
             this.magicAttack = attack;
         }
     }
@@ -87,7 +87,7 @@ class Entity {
      * @param defense - How resistant to Physical/Ranged Attacks this Entity should be. Must be a positive or null Number.
      */
     setDefense(defense) {
-        if (TypeOperators.isAPositiveNumberOrNull(defense)) {
+        if (Tools.isAPositiveNumberOrNull(defense)) {
             this.defense = defense;
         }
     }
@@ -106,9 +106,9 @@ class Entity {
      * @param points - The amount of health points to remove. Must be a Number.
      */
     removeHealthPoints(points) {
-        if (TypeOperators.isAPositiveNumberOrNull(points)) {
+        if (Tools.isAPositiveNumberOrNull(points)) {
             this.health -= points;
-            if (TypeOperators.isANegativeOrNullNumber(this.health))
+            if (Tools.isANegativeOrNullNumber(this.health))
                 this.kill()
         } else {
             this.addHealthPoints(-points);
@@ -123,7 +123,7 @@ class Entity {
      * @param points - The amount of health points to add. Must be a Number.
      */
     addHealthPoints(points) {
-        if (TypeOperators.isAPositiveNumberOrNull(points)) {
+        if (Tools.isAPositiveNumberOrNull(points)) {
             this.health += points;
             if (this.health>this.maxHealth)
             this.restoreHealthCompletely()

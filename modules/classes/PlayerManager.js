@@ -2,10 +2,12 @@ const Player = require('./Player');
 const DefaultValues = require('../utils/DefaultValues')
 const Config = require('../utils/Config')
 const sql = require("sqlite");
+const Text = require('../text/Francais');
 
 sql.open("./modules/data/database.sqlite");
 
 class PlayerManager {
+
 
     /**
     * Return a promise that will contain the player that sent a message once it has been resolved
@@ -58,6 +60,19 @@ class PlayerManager {
         return scoreRomoved;
     }
 
+
+    /**
+     * Allow to set the state of a player to occupied in order to ensure he dont cheat
+     * @param {*} player - the player that has to be saved
+     */
+    setPlayerAsOccupied(player) {
+
+        console.log("Updating player ...");
+        sql.run(`UPDATE entity SET effect = ":clock10:" WHERE id = ${player.discordId}`).catch(console.error);
+        console.log("Player updated !");
+    }
+
+
     /**
      * Allow to save the current state of a player in the database
      * @param {*} player - the player that has to be saved
@@ -93,6 +108,26 @@ class PlayerManager {
     getNumberOfPlayer() {
         return 1;
         //TODO
+    }
+
+    /**
+     * check if the player is healthy or not. if the player is sick, display an error message
+     * @param message - The message that caused the function to be called. Used to retrieve the author of the message
+     * @returns {boolean} - True is the player is in good health
+     */
+    checkState(player, message) {
+        let result = false;
+        switch (player.getEffect()) {
+            case ":smiley:":
+                result = true;
+                break;
+
+            default:
+                message.channel.send(Text.playerManager.errorEmoji + message.author + Text.playerManager.errorMain);
+
+
+        }
+        return result
     }
 }
 

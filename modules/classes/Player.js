@@ -1,6 +1,6 @@
 const Config = require('../utils/Config');
 const Entity = require('./Entity');
-const TypeOperators = require('../utils/TypeOperators');
+const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
 
 /**
@@ -38,7 +38,7 @@ class Player extends Entity {
      * @param experience - The amount of experience to add. Must be a positive Number.
      */
     addExperience(experience) {
-        if (TypeOperators.isAPositiveNumber(experience)) {
+        if (Tools.isAPositiveNumber(experience)) {
             this.setExperience(this.experience + experience);
             if (this.hasEnoughExperienceToLevelUp()) {
                 this.levelUp();
@@ -59,7 +59,7 @@ class Player extends Entity {
      * @param experience - The amount of experience this instance should have. Must be a positive or null Number.
      */
     setExperience(experience) {
-        if (TypeOperators.isAPositiveNumberOrNull(experience)) {
+        if (Tools.isAPositiveNumberOrNull(experience)) {
             this.experience = experience;
             if (this.hasEnoughExperienceToLevelUp()) {
                 this.levelUp();
@@ -80,7 +80,7 @@ class Player extends Entity {
      * @param level - The level this Player instance should be. Must be a positive Number.
      */
     setLevel(level) {
-        if (TypeOperators.isAPositiveNumber(level)) {
+        if (Tools.isAPositiveNumber(level)) {
             this.level = level;
         }
     }
@@ -101,7 +101,7 @@ class Player extends Entity {
      * @param money - The amount of money to add. Must be a Number.
      */
     addMoney(money) {
-        if (TypeOperators.isAPositiveNumberOrNull(money)) {
+        if (Tools.isAPositiveNumberOrNull(money)) {
             this.money += money;
         } else {
             this.removeMoney(-money);
@@ -115,7 +115,7 @@ class Player extends Entity {
      * @param money - The amount of money to remove. Must be a Number.
      */
     removeMoney(money) {
-        if (TypeOperators.isAPositiveNumberOrNull(money)) {
+        if (Tools.isAPositiveNumberOrNull(money)) {
             this.money -= money;
         } else {
             this.addMoney(-money);
@@ -127,7 +127,7 @@ class Player extends Entity {
      * @param money - The amount of money this Player instance should have. Must be a positive or null Number.
      */
     setMoney(money) {
-        if (TypeOperators.isAPositiveNumberOrNull(money)) {
+        if (Tools.isAPositiveNumberOrNull(money)) {
             this.money = money;
         }
     }
@@ -170,7 +170,7 @@ class Player extends Entity {
      * @param discordId - The Discord User ID to assign to the player.
      */
     setDiscordId(discordId) {
-        if (TypeOperators.isANegativeNumber(this.discordId)) {
+        if (Tools.isANegativeNumber(this.discordId)) {
             this.discordId = discordId;
         }
     }
@@ -208,7 +208,7 @@ class Player extends Entity {
      * @param points - The amount of points to remove. Must be a Number.
      */
     removeScore(points) {
-        if (TypeOperators.isAPositiveNumberOrNull(points)) {
+        if (Tools.isAPositiveNumberOrNull(points)) {
             this.score -= points;
         } else {
             this.addScore(-points);
@@ -224,7 +224,7 @@ class Player extends Entity {
    */
     addScore(points) {
         console.log(points);
-        if (TypeOperators.isAPositiveNumberOrNull(points)) {
+        if (Tools.isAPositiveNumberOrNull(points)) {
             this.score += points;
         } else {
             this.removeScore(-points);

@@ -1,9 +1,7 @@
 const PlayerManager = require('../classes/PlayerManager');
 const EventManager = require('../classes/EventManager');
-const TypeOperators = require('../utils/TypeOperators');
+const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
-const Player = require('../classes/Player');
-
 const Text = require('../text/Francais');
 
 
@@ -15,40 +13,41 @@ const reportCommand = async function (message) {
 
    let eventManager = new EventManager;
    let playerManager = new PlayerManager;
-   let player = await playerManager.getCurrentPlayer(message);
 
    //loading of the current player
+   let player = await playerManager.getCurrentPlayer(message);
+   playerManager.setPlayerAsOccupied(player);
 
-   if (TypeOperators.isANullNumber(player.getScore())) {
-      generateEvent(message, eventManager, 0, playerManager, player, DefaultValues.report.startMoney, DefaultValues.report.startScore);
-      return;
+   if (playerManager.checkState(player, message)) { //check if the player is not dead or sick
+
+      if (Tools.isANullNumber(player.getScore())) {
+         generateEvent(message, eventManager, 0, playerManager, player, DefaultValues.report.startMoney, DefaultValues.report.startScore);
+         return;
+      }
+
+      let time = player.calcTime(message.createdTimestamp);
+      time = 200;
+      let pointsGained = calculatePoints(player, time);
+      let moneyChange = calculateMoney(player, time);
+
+      let eventNumber = eventManager.chooseARandomEvent();
+      // let eventNumber = 11; //allow to select a specific event in testing purpose
+
+      switch (true) {
+
+         case time < DefaultValues.report.minimalTime:
+            displayErrorReport(message);
+            break;
+
+         case time <= DefaultValues.report.maximalTime && Math.round(Math.random() * DefaultValues.report.maximalTime) > time:
+            let possibility = loadNothingToSayPossibility(eventManager);
+            execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained);
+            break;
+
+         default:
+            generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained);
+      }
    }
-
-   let time = player.calcTime(message.createdTimestamp);
-   time = 200;
-   let pointsGained = calculatePoints(player, time);
-   let moneyChange = calculateMoney(player, time);
-
-
-
-   let eventNumber = eventManager.chooseARandomEvent();
-   // let eventNumber = 11; //allow to select a specific event in testing purpose
-
-   switch (true) {
-
-      case time < DefaultValues.report.minimalTime:
-         displayErrorReport(message);
-         break;
-
-      case time <= DefaultValues.report.maximalTime && Math.round(Math.random() * DefaultValues.report.maximalTime) > time:
-         let possibility = loadNothingToSayPossibility(eventManager);
-         execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained);
-         break;
-
-      default:
-         generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained);
-   }
-
 };
 
 
@@ -118,23 +117,7 @@ const calculateMoney = function (player, time) {
    );
 };
 
-/**
- * return a string containing a proper display of a duration
- * @param {Number} minutes - The number of minutes to display
- * @returns {String} - The  string to display
- */
-const displayDuration = function (minutes) {
-   let heures = 0;
-   let display = "";
-   while (minutes >= 60) {
-      heures++;
-      minutes -= 60;
-   }
-   if (TypeOperators.isAPositiveNumber(heures))
-      display += heures + " H ";
-   display += minutes + " Min";
-   return display
-};
+
 
 
 /**
@@ -213,18 +196,18 @@ async function generateEvent(message, eventManager, eventNumber, playerManager, 
  */
 function displayPossibility(message, pointsGained, moneyChange, possibility) {
    let possibilityMessage = Text.commands.report.reportStart + message.author + Text.commands.report.points + pointsGained;
-   if (TypeOperators.isAPositiveNumberOrNull(moneyChange)) {
+   if (Tools.isAPositiveNumberOrNull(moneyChange)) {
       possibilityMessage += Text.commands.report.moneyWin + moneyChange;
    }
    else {
       possibilityMessage += Text.commands.report.moneyLoose + moneyChange;
    }
-   if (TypeOperators.isANegativeNumber(possibility.healthPointsChange))
+   if (Tools.isANegativeNumber(possibility.healthPointsChange))
       possibilityMessage += Text.commands.report.healthLoose + -possibility.healthPointsChange;
-   if (TypeOperators.isAPositiveNumber(possibility.healthPointsChange))
+   if (Tools.isAPositiveNumber(possibility.healthPointsChange))
       possibilityMessage += Text.commands.report.healthWin + possibility.healthPointsChange;
-   if (TypeOperators.isAPositiveNumber(possibility.timeLost))
-      possibilityMessage += Text.commands.report.timeLost + displayDuration(possibility.timeLost);
+   if (Tools.isAPositiveNumber(possibility.timeLost))
+      possibilityMessage += Text.commands.report.timeLost + Tools.displayDuration(possibility.timeLost);
    return possibilityMessage;
 }
 
@@ -268,7 +251,8 @@ function launchAdventure(message, pointsGained, moneyChange, player, possibility
    player.addMoney(moneyChange);
    // if the number is below 0, remove money will be called by the add money method
    //the last time the player has been saw is now
-   player.updateLastReport(message.createdTimestamp);
+   let penalite = Tools.convertMinutesInMiliseconds(possibility.timeLost) 
+   player.updateLastReport(message.createdTimestamp + penalite);
    player.setEffect(possibility.newEffect);
    playerManager.addPlayer(player);
 }
