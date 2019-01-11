@@ -6,7 +6,7 @@
             "commands": {
                 "ping": ":ping_pong: ping :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
                 "respawn": ":angel: respawn\n\nPermet de recommencer à jouer après avoir été tué.",
-                "profile": ":bust_in_silhouette: profile\n\nAffiche des informations sur votre personnage :\n\n:heart: Vie | :trophy: Classement | :moneybag: Argent | :medal: Score | :smiley: Etat de santé.",
+                "profile": ":bust_in_silhouette: profile\n\nAffiche des informations sur votre personnage :\n\n:heart: Vie | :trophy: Classement | :moneybag: Argent | :medal: Score | :smiley: État de santé.",
                 "regen": ":heartpulse: regen\n\nPermet de retirer à votre personnage ses altération d'état. L'hopital ne rend pas de points de vie et n'est fait que pour vous permettre de reprendre l'aventure",
                 "switch": ":repeat: switch\n\nEchange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire.",
                 "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous et qui ont le même niveau que vous ",
@@ -19,7 +19,7 @@
                 "daily": ":calendar: daily\n\nCertains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`.",
                 "invite": ":inbox_tray: invite\n\nCette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !",
                 "badge": ":military_medal: Badges\n\nLes badges sont des distinctions trés difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\n:egg: - **Chasseur d'easter egg** | `Avoir trouvé tout les easter eggs du bot`\n:trophy: - **Top 1 - Fin de Saison** | `Etre premier du classement lors de la réinitialisation de celui-ci`\n:medal: - **Top 10 - Fin de Saison** | `Etre dans les 10 premiers du classement lors de la réinitialisation de celui-ci`\n:gear: - **Equipe technique** | `Faire partie (ou avoir fait partie) de l'équipe technique du bot`\n:helmet_with_cross: - **Premiers soutien** | `Etre l'un des 20 premiers membres du serveur du bot`\n:crown: - **Owner** | `Etre le créateur du bot`",
-                "eastereggs": ":egg: Oh un chasseur d'easter eggs !\n\nTrés bien comme tu as réussi à trouver cette petite aide je vais t'aider en te fournissant quelques indications sur les easters eggs du jeu :wink:\nPourquoi chercher tout ces petits trucs cachés ? Tout simplement parce que c'est fun !\n\nDu coup voilà la liste actuelle des easter eggs :\n:banana: Banane\n:school_satchel: L'inventaire plein d'eau\n:trophy: L'homme à sa place dans le classement\n:expressionless: L'aide ultime\n:fish: Etat Didescient\n:hammer: L'homme banni\n\nBeaucoup d'indices sont offerts dans les salons d'information du discord du bot nottament sur les personnes à contacter :eyes: N'hésitez pas à fouiller partout :wink:"
+                "eastereggs": ":egg: Oh un chasseur d'easter eggs !\n\nTrés bien comme tu as réussi à trouver cette petite aide je vais t'aider en te fournissant quelques indications sur les easters eggs du jeu :wink:\nPourquoi chercher tout ces petits trucs cachés ? Tout simplement parce que c'est fun !\n\nDu coup voilà la liste actuelle des easter eggs :\n:banana: Banane\n:school_satchel: L'inventaire plein d'eau\n:trophy: L'homme à sa place dans le classement\n:expressionless: L'aide ultime\n:fish: État Didescient\n:hammer: L'homme banni\n\nBeaucoup d'indices sont offerts dans les salons d'information du discord du bot nottament sur les personnes à contacter :eyes: N'hésitez pas à fouiller partout :wink:"
             }
         },
         "ping": {
@@ -35,7 +35,7 @@
             "rank": " | :trophy:  ",
             "money": " | :moneybag: ",
             "score": " | :medal:  ",
-            "effect": "  | Etat actuel : ",
+            "effect": "  | État actuel : ",
             "separator": "/"
         },
         "respawn": {
@@ -57,6 +57,7 @@
         }
     },
     "events": {
+        "0": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `aide` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récuperer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",
         "1": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:scissors: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "2": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "3": " : ** :lock: Vous avez trouvé un coffret ! Malheureusement il est verouillé...\n\n:key: Chercher la clef autour du lieu de découverte.\n:pick: Attaquer le cadenas à coups de pioche.\n:arrow_forward: Abandonner le coffret à l'endroit où vous l'avez trouvé.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
@@ -84,6 +85,17 @@
                 "8": "** | :smiley: Pas d'évènement notable depuis la dernière fois.",
                 "9": "** | :smiley: Les chiens aboient et la caravane passe. Vous continuez tranquilement votre route",
                 "10": "** | :smiley: La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
+            }
+        },
+        "0": {
+            "🤔": {
+                "1": "** | :joy: Ne vous faites pas de soucis, tout va bien se passer ! Voici 100 points :medal: pour débuter votre aventure ! Faites `!profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !"
+            },
+            "🚶": {
+                "1": "** | :smirk: J'aime cette détermination ! Voici 100 points :medal: pour débuter votre aventure ! Faites `!profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !"
+            },
+            "end": {
+                "1": "** | :x: Le tutoriel n'a pas été terminé ! Vous pouvez le recommencer à tout moment en écrivant `!report` !"
             }
         },
         "1": {

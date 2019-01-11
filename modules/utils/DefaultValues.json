@@ -5,7 +5,7 @@
         "attack": "20",
         "defense": "20",
         "speed": "10",
-        "effect": ":smiley:"
+        "effect": ":baby:"
     },
     "player": {
         "score": "0",
@@ -17,6 +17,8 @@
     "report": {
         "minimalTime": "60",
         "maximalTime": "400",
-        "timeLimit": "1000"
+        "timeLimit": "1000",
+        "startMoney" : "10",
+        "startScore" : "100"
     }
 }

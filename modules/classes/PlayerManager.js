@@ -64,10 +64,10 @@ class PlayerManager {
      */
     updatePlayer(player) {
 
-        console.log("Saving Data ...")
+        console.log("Updating player ...");
         sql.run(`UPDATE entity SET maxHealth = ${player.maxHealth}, health = ${player.health}, attack = ${player.attack}, defense = ${player.defense}, speed = ${player.speed}, effect = "${player.effect}" WHERE id = ${player.discordId}`).catch(console.error);
         sql.run(`UPDATE player SET score = ${player.score}, level = ${player.level}, experience = ${player.experience}, money = ${player.money}, lastReport = ${player.lastReport}, badges = "${player.badges}" WHERE discordId = ${player.discordId}`).catch(console.error);
-
+        console.log("Player updated !");
     }
 
     /**
@@ -76,10 +76,10 @@ class PlayerManager {
      */
     addPlayer(player) {
 
-        console.log("Creating Data ...")
+        console.log("Creating player ...");
         sql.run(`INSERT INTO entity (maxHealth, health, attack, defense, speed, id, effect) VALUES ( ${player.maxHealth}, ${player.health}, ${player.attack} , ${player.defense} , ${player.speed} , ${player.discordId},"${player.effect}")`).catch(console.error);
-        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges) VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, ${player.badges}) `).catch(console.error);
-
+        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges) VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, "${player.badges}") `).catch(console.error);
+        console.log("Player created !");
     }
 
 

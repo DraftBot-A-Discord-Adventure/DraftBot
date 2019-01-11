@@ -223,6 +223,7 @@ class Player extends Entity {
    * @param points - The amount of points to add. Must be a Number.
    */
     addScore(points) {
+        console.log(points);
         if (TypeOperators.isAPositiveNumberOrNull(points)) {
             this.score += points;
         } else {
