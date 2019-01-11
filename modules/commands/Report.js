@@ -79,7 +79,7 @@ const execPossibility = function (message, possibility, playerManager, player, m
          possibilityMessage = displayPossibility(message, 0, 0, possibility);
       } else {
          possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
-         launchAdventure(message, pointsGained, moneyChange, player, playerManager)
+         launchAdventure(message, pointsGained, moneyChange, possibility, player, playerManager)
       }
    } else {
       possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
@@ -230,9 +230,9 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
 
 
 /**
- * display a possibility to the player
+ * save the effect of a possibility on a player 
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param {*} possibility - The possibility that has to be displayed
+ * @param {*} possibility - The possibility that has been selected
  * @param {*} player - The player that is reacting to the event
  * @param {Integer} pointsGained - The amount of points the user gained during this event
  * @param {Integer} moneyChange - The amount of money los or gained by the player during this event
@@ -248,6 +248,7 @@ function applyPossibility(message, pointsGained, moneyChange, possibility, playe
    player.addHealthPoints(parseInt(possibility.healthPointsChange));
    // if the number is below 0, remove health Points will be called by the add Health Points method
    // we have to parse int this because elsewhere it is considered as a screen and it do 2 + 2 = 22
+   player.setEffect(possibility.newEffect);
    playerManager.updatePlayer(player);
 }
 
@@ -258,15 +259,17 @@ function applyPossibility(message, pointsGained, moneyChange, possibility, playe
  * @param {*} player - The player that is reacting to the event
  * @param {Integer} pointsGained - The amount of points the user gained during this event
  * @param {Integer} moneyChange - The amount of money los or gained by the player during this event
+ * @param {*} possibility - The possibility that has been selected
  * @param {*} playerManager - The player manager
  */
-function launchAdventure(message, pointsGained, moneyChange, player, playerManager) {
+function launchAdventure(message, pointsGained, moneyChange, player, possibility, playerManager) {
    //adding score
    player.addScore(pointsGained);
    player.addMoney(moneyChange);
    // if the number is below 0, remove money will be called by the add money method
    //the last time the player has been saw is now
    player.updateLastReport(message.createdTimestamp);
+   player.setEffect(possibility.newEffect);
    playerManager.addPlayer(player);
 }
 
