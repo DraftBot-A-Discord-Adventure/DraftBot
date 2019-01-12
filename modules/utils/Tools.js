@@ -72,14 +72,16 @@ const displayDuration = function (minutes) {
     let heures = 0;
     let display = "";
     while (minutes >= 60) {
-       heures++;
-       minutes -= 60;
+        heures++;
+        minutes -= 60;
     }
     if (isAPositiveNumber(heures))
-       display += heures + " H ";
+        display += heures + " H ";
     display += minutes + " Min";
+    if (heures == 0 && minutes == 0)
+        display = "Quelques secondes...";
     return display
- };
+};
 
 
 //Exports

@@ -65,7 +65,7 @@
             ":snowflake:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":confounded:": "** Il est malheureusement impossible de continuer à jouer en étant confus ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":clock10:": "** Une autre commande a été lancée recemment et attend des instructions de votre part ! Veuillez répondre à cette commande pour continuer à jouer. `Si vous n'avez aucune tâche en cours veuillez contacter un administrateur du bot`",
-            ":clock2:": "** Il semblerait que vous soyez déjà occupé... Veuillez attendre la fin de la tache pour continuer à jouer !"
+            ":clock2:": "** Il semblerait que vous soyez déjà occupé... Veuillez attendre la fin de la tâche pour continuer à jouer !"
         },
         "intro": " | **",
         "timeLeft": " `Temps restant : ",

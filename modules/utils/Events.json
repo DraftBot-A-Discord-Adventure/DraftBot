@@ -66,7 +66,7 @@
         }
     },
     "possibility": {
-        "report" : {
+        "report": {
             "nothingToSay": {
                 "1": {
                     "timeLost": "0",
@@ -629,22 +629,22 @@
             "🌲": {
                 "1": {
                     "timeLost": "0",
-                    "healthPointsChange": "-25",
-                    "newEffect": ":sick:",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
-                    "timeLost": "55",
+                    "timeLost": "0",
                     "healthPointsChange": "0",
-                    "newEffect": ":clock2:",
+                    "newEffect": ":smiley:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "3": {
                     "timeLost": "0",
-                    "healthPointsChange": "0",
-                    "newEffect": ":zzz:",
+                    "healthPointsChange": "-25",
+                    "newEffect": ":sick:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
