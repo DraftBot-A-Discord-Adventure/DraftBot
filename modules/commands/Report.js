@@ -1,4 +1,5 @@
 const PlayerManager = require('../classes/PlayerManager');
+const Player = require('../classes/Player');
 const EventManager = require('../classes/EventManager');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
@@ -16,9 +17,12 @@ const reportCommand = async function (message) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-   playerManager.setPlayerAsOccupied(player);
 
-   if (playerManager.checkState(player, message)) { //check if the player is not dead or sick
+
+
+   if (playerManager.checkState(player, message, ":baby::smiley:")) {  //check if the player is not dead or sick
+
+      playerManager.setPlayerAsOccupied(player);
 
       if (Tools.isANullNumber(player.getScore())) {
          generateEvent(message, eventManager, 0, playerManager, player, DefaultValues.report.startMoney, DefaultValues.report.startScore);
@@ -31,7 +35,7 @@ const reportCommand = async function (message) {
       let moneyChange = calculateMoney(player, time);
 
       let eventNumber = eventManager.chooseARandomEvent();
-      // let eventNumber = 11; //allow to select a specific event in testing purpose
+      // let eventNumber = XX; //allow to select a specific event in testing purpose
 
       switch (true) {
 
@@ -78,7 +82,7 @@ const execPossibility = function (message, possibility, playerManager, player, m
          possibilityMessage = displayPossibility(message, 0, 0, possibility);
       } else {
          possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
-         launchAdventure(message, pointsGained, moneyChange, possibility, player, playerManager)
+         launchAdventure(message, pointsGained, moneyChange, player, possibility, playerManager)
       }
    } else {
       possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
@@ -227,8 +231,8 @@ function applyPossibility(message, pointsGained, moneyChange, possibility, playe
    player.addMoney(moneyChange);
    // if the number is below 0, remove money will be called by the add money method
    //the last time the player has been saw is now
-   player.updateLastReport(message.createdTimestamp);
-   player.addHealthPoints(parseInt(possibility.healthPointsChange));
+   player.updateLastReport(message.createdTimestamp, possibility.timeLost, possibility.newEffect);
+   player.addHealthPoints(possibility.healthPointsChange);
    // if the number is below 0, remove health Points will be called by the add Health Points method
    // we have to parse int this because elsewhere it is considered as a screen and it do 2 + 2 = 22
    player.setEffect(possibility.newEffect);
@@ -246,13 +250,13 @@ function applyPossibility(message, pointsGained, moneyChange, possibility, playe
  * @param {*} playerManager - The player manager
  */
 function launchAdventure(message, pointsGained, moneyChange, player, possibility, playerManager) {
+   ;
    //adding score
    player.addScore(pointsGained);
    player.addMoney(moneyChange);
    // if the number is below 0, remove money will be called by the add money method
    //the last time the player has been saw is now
-   let penalite = Tools.convertMinutesInMiliseconds(possibility.timeLost) 
-   player.updateLastReport(message.createdTimestamp + penalite);
+   player.updateLastReport(message.createdTimestamp, possibility.timeLost, possibility.newEffect);
    player.setEffect(possibility.newEffect);
    playerManager.addPlayer(player);
 }

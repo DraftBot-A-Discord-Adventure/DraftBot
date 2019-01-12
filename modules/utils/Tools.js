@@ -54,6 +54,16 @@ const convertMinutesInMiliseconds = function (minutes) {
 
 
 /**
+ * convert a number of milliseconds in a number of minutes
+ * @param miliseconds - The number of milliseconds
+ * @returns {Integer} - The number of minutes
+ */
+const convertMillisecondsInMinutes = function (milliseconds) {
+    return Math.round(milliseconds / 60000);
+};
+
+
+/**
  * return a string containing a proper display of a duration
  * @param {Number} minutes - The number of minutes to display
  * @returns {String} - The  string to display
@@ -79,5 +89,6 @@ module.exports.isANegativeNumber = isANegativeNumber;
 module.exports.isANegativeOrNullNumber = isANegativeOrNullNumber;
 module.exports.isANullNumber = isANullNumber;
 module.exports.convertMinutesInMiliseconds = convertMinutesInMiliseconds;
+module.exports.convertMillisecondsInMinutes = convertMillisecondsInMinutes;
 module.exports.displayDuration = displayDuration;
 

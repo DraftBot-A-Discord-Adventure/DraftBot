@@ -57,14 +57,26 @@
         }
     },
     "playerManager": {
-        "errorMain": " Votre profil semble actuellement corrompu... Veuillez prendre contact avec un administrateur du bot.",
-        "errorEmoji": ":x: "
+        "errorMain": {
+            ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourrant ! Veuillez attendre la fin des soins de vos altération d'état.",
+            ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de vos altération d'état.",
+            ":skull:": "** Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
+            ":zzz:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de vos altération d'état.",
+            ":snowflake:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de vos altération d'état.",
+            ":confounded:": "** Il est malheureusement impossible de continuer à jouer en étant confus ! Veuillez attendre la fin des soins de vos altération d'état.",
+            ":clock10:": "** Une autre commande a été lancée recemment et attend des instructions de votre part ! Veuillez répondre à cette commande pour continuer à jouer. `Si vous n'avez aucune tâche en cours veuillez contacter un administrateur du bot`",
+            ":clock2:": "** Il semblerait que vous soyez déjà occupé... Veuillez attendre la fin de la tache pour continuer à jouer !"
+        },
+        "intro": " | **",
+        "timeLeft": " `Temps restant : ",
+        "outro": "`",
+        "noTimeLeft": " :hospital: `Reprise du jeu possible`"
     },
     "events": {
         "0": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `aide` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récuperer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",
         "1": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:scissors: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "2": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
-        "3": " : ** :lock: Vous avez trouvé un coffret ! Malheureusement il est verouillé...\n\n:key: Chercher la clef autour du lieu de découverte.\n:pick: Attaquer le cadenas à coups de pioche.\n:arrow_forward: Abandonner le coffret à l'endroit où vous l'avez trouvé.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "3": " : ** :lock: Vous avez trouvé un coffret ! Malheureusement il est verrouillé...\n\n:key: Chercher la clef autour du lieu de découverte.\n:pick: Attaquer le cadenas à coups de pioche.\n:arrow_forward: Abandonner le coffret à l'endroit où vous l'avez trouvé.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "4": " : ** :stars: Vous avez décidé de profiter d'une nuit calme pour continuer votre progression.Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!\n\n:speaking_head: Faire un vœu.\n:runner: Ignorer cet évènement.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "5": " : **  :fountain: Vous avez trouvé une fontaine !\n\n:sweat_drops: Se reposer et boire pour reprendre des forces.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "6": " : ** :fork_knife_plate: Vous vous étiez arrêté dans une grotte pour manger et vous hésitez à repartir... \n\n:flashlight: Entrer plus profondément dans la grotte.\n:runner: Continuer votre route, pas de temps à perdre !\n:mag: Fouiller les alentours\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",

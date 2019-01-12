@@ -174,7 +174,7 @@
                 "1": {
                     "timeLost": "30",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -190,7 +190,7 @@
                 "2": {
                     "timeLost": "30",
                     "healthPointsChange": "-5",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -199,7 +199,7 @@
                 "1": {
                     "timeLost": "100",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -210,7 +210,7 @@
                 "1": {
                     "timeLost": "20",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -226,7 +226,7 @@
                 "1": {
                     "timeLost": "15",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -253,21 +253,21 @@
                 "1": {
                     "timeLost": "30",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
                     "timeLost": "30",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "3": {
                     "timeLost": "15",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "6"
                 }
@@ -276,35 +276,35 @@
                 "1": {
                     "timeLost": "50",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "100"
                 },
                 "2": {
                     "timeLost": "60",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "3": {
                     "timeLost": "40",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "4": {
                     "timeLost": "20",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "5": {
                     "timeLost": "120",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -340,35 +340,35 @@
                 "1": {
                     "timeLost": "10",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "40"
                 },
                 "2": {
                     "timeLost": "10",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "3": {
                     "timeLost": "10",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "4": {
                     "timeLost": "10",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "5": {
                     "timeLost": "10",
                     "healthPointsChange": "-5",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -420,14 +420,14 @@
                 "1": {
                     "timeLost": "30",
                     "healthPointsChange": "5",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
                     "timeLost": "180",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -489,7 +489,7 @@
                 "1": {
                     "timeLost": "60",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "65"
                 }
@@ -500,14 +500,14 @@
                 "1": {
                     "timeLost": "200",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
                     "timeLost": "20",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -532,14 +532,14 @@
                 "1": {
                     "timeLost": "30",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
                     "timeLost": "60",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -562,7 +562,7 @@
                 "1": {
                     "timeLost": "270",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -580,7 +580,7 @@
                 "2": {
                     "timeLost": "55",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -594,14 +594,14 @@
                 "4": {
                     "timeLost": "15",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "5": {
                     "timeLost": "15",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -619,7 +619,7 @@
                 "1": {
                     "timeLost": "15",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -637,7 +637,7 @@
                 "2": {
                     "timeLost": "55",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -653,14 +653,14 @@
                 "1": {
                     "timeLost": "150",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
                     "timeLost": "150",
                     "healthPointsChange": "10",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -680,14 +680,14 @@
                 "1": {
                     "timeLost": "15",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "25"
                 },
                 "2": {
                     "timeLost": "30",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -701,7 +701,7 @@
                 "4": {
                     "timeLost": "50",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -726,7 +726,7 @@
                 "1": {
                     "timeLost": "15",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -744,7 +744,7 @@
                 "2": {
                     "timeLost": "30",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -789,14 +789,14 @@
                 "1": {
                     "timeLost": "200",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
                     "timeLost": "130",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -828,7 +828,7 @@
                 "1": {
                     "timeLost": "140",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -837,7 +837,7 @@
                 "1": {
                     "timeLost": "45",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -848,7 +848,7 @@
                 "1": {
                     "timeLost": "55",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -873,7 +873,7 @@
                 "1": {
                     "timeLost": "30",
                     "healthPointsChange": "-5",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -887,7 +887,7 @@
                 "3": {
                     "timeLost": "140",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -896,14 +896,14 @@
                 "1": {
                     "timeLost": "30",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
                     "timeLost": "60",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -926,7 +926,7 @@
                 "1": {
                     "timeLost": "165",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -944,7 +944,7 @@
                 "2": {
                     "timeLost": "40",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "-300"
                 },
@@ -965,7 +965,7 @@
                 "5": {
                     "timeLost": "20",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -974,7 +974,7 @@
                 "1": {
                     "timeLost": "120",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -997,14 +997,14 @@
                 "1": {
                     "timeLost": "25",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
                     "timeLost": "70",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -1013,14 +1013,14 @@
                 "1": {
                     "timeLost": "30",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
                     "timeLost": "60",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -1036,7 +1036,7 @@
                 "1": {
                     "timeLost": "200",
                     "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":clock2:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }

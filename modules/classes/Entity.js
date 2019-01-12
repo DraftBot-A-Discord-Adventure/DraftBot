@@ -107,7 +107,7 @@ class Entity {
      */
     removeHealthPoints(points) {
         if (Tools.isAPositiveNumberOrNull(points)) {
-            this.health -= points;
+            this.health -= parseInt(points);
             if (Tools.isANegativeOrNullNumber(this.health))
                 this.kill()
         } else {
@@ -124,7 +124,7 @@ class Entity {
      */
     addHealthPoints(points) {
         if (Tools.isAPositiveNumberOrNull(points)) {
-            this.health += points;
+            this.health += parseInt(points);
             if (this.health>this.maxHealth)
             this.restoreHealthCompletely()
         } else {

@@ -39,7 +39,7 @@ class Player extends Entity {
      */
     addExperience(experience) {
         if (Tools.isAPositiveNumber(experience)) {
-            this.setExperience(this.experience + experience);
+            this.setExperience(this.experience + parseInt(experience));
             if (this.hasEnoughExperienceToLevelUp()) {
                 this.levelUp();
             }
@@ -102,7 +102,7 @@ class Player extends Entity {
      */
     addMoney(money) {
         if (Tools.isAPositiveNumberOrNull(money)) {
-            this.money += money;
+            this.money += parseInt(money);
         } else {
             this.removeMoney(-money);
         }
@@ -116,7 +116,7 @@ class Player extends Entity {
      */
     removeMoney(money) {
         if (Tools.isAPositiveNumberOrNull(money)) {
-            this.money -= money;
+            this.money -= parseInt(money);
         } else {
             this.addMoney(-money);
         }
@@ -194,10 +194,13 @@ class Player extends Entity {
 
     /**
      * Update the timecode matching the last time the player has been see
-     * @param {Number} time - the timecode to set
+     * @param {Number} time - The timecode to set
+     * @param {Number} malusTime - A malus that has to be added to the lasReportTime
+     * @param {String} effectMalus The current effect of the player in case it gave an other malus
      */
-    updateLastReport(time) {
-        this.lastReport = time;
+    updateLastReport(time, malusTime, effectMalus) {
+        let realMalus = DefaultValues.effectMalus[effectMalus];
+        this.lastReport = parseInt(time) + parseInt(Tools.convertMinutesInMiliseconds(malusTime)) + parseInt(realMalus);
     }
 
 
@@ -209,7 +212,7 @@ class Player extends Entity {
      */
     removeScore(points) {
         if (Tools.isAPositiveNumberOrNull(points)) {
-            this.score -= points;
+            this.score -= parseInt(points);
         } else {
             this.addScore(-points);
         }
@@ -217,15 +220,15 @@ class Player extends Entity {
 
 
     /**
-   * add the specified amount of points from the Player's score.
-   * Note: If points is negative, then removeScore is called.
-   * @see removeScore
-   * @param points - The amount of points to add. Must be a Number.
-   */
+     * add the specified amount of points from the Player's score.
+     * Note: If points is negative, then removeScore is called.
+     * @see removeScore
+     * @param points - The amount of points to add. Must be a Number.
+     */
     addScore(points) {
         console.log(points);
         if (Tools.isAPositiveNumberOrNull(points)) {
-            this.score += points;
+            this.score += parseInt(points);
         } else {
             this.removeScore(-points);
         }
@@ -240,8 +243,8 @@ class Player extends Entity {
         let time = Math.floor((currentTime - this.lastReport) / (1000 * 60))
         if (time > DefaultValues.report.timeLimit) {
             time = DefaultValues.report.timeLimit;
-         }
-         return time
+        }
+        return time
     }
 
 

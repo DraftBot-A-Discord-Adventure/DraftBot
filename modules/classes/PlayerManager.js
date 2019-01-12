@@ -3,6 +3,7 @@ const DefaultValues = require('../utils/DefaultValues')
 const Config = require('../utils/Config')
 const sql = require("sqlite");
 const Text = require('../text/Francais');
+const Tools = require('../utils/Tools');
 
 sql.open("./modules/data/database.sqlite");
 
@@ -87,7 +88,7 @@ class PlayerManager {
 
     /**
      * Allow to save a new player in the database
-     * @param {*} player - the player that has to be saved
+     * @param {*} player - The player that has to be saved
      */
     addPlayer(player) {
 
@@ -112,22 +113,48 @@ class PlayerManager {
 
     /**
      * check if the player is healthy or not. if the player is sick, display an error message
-     * @param message - The message that caused the function to be called. Used to retrieve the author of the message
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the createdTimestamp
+     * @param {*} player - The player that has to be tested
+     * @param {String} allowedStates - A string containig the allowed states
      * @returns {boolean} - True is the player is in good health
      */
-    checkState(player, message) {
+    checkState(player, message, allowedStates) {
         let result = false;
-        switch (player.getEffect()) {
-            case ":smiley:":
+        let rejectMessage;
+        if (allowedStates.includes(player.getEffect())) { 
+            result = true; // le joueur est dans un état authorisé
+        } else {
+            console.log(message.createdTimestamp);
+            console.log(player.lastReport)
+            if (player.getEffect() != ":clock10:" && message.createdTimestamp > player.lastReport) {
                 result = true;
-                break;
-
-            default:
-                message.channel.send(Text.playerManager.errorEmoji + message.author + Text.playerManager.errorMain);
-
-
+            } else {
+                rejectMessage = player.getEffect() + Text.playerManager.intro + message.author.username + Text.playerManager.errorMain[player.getEffect()];
+                if (message.createdTimestamp < player.lastReport)
+                    rejectMessage += this.displayTimeLeft(player, message)
+                message.channel.send(rejectMessage);
+            }
         }
         return result
+    }
+
+
+    /**
+     * display the time a player have before beeing able to play again
+     * @param {*} player - The player that has to be tested
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the createdTimestamp
+     * @returns {String} - A string vontaining the duration
+     */
+    displayTimeLeft(player, message) {
+        if (!":baby::smiley::clock10:".includes(player.getEffect())) { //these states dont have a duration to display
+            if (message.createdTimestamp < player.lastReport) {
+                return Text.playerManager.timeLeft + Tools.displayDuration(Tools.convertMillisecondsInMinutes(player.lastReport - message.createdTimestamp)) + Text.playerManager.outro;
+            } else {
+                return Text.playerManager.noTimeLeft;
+            }
+        } else {
+            return "";
+        }
     }
 }
 
