@@ -1,12 +1,11 @@
 const Event = require('./Event');
 const Possibility = require('./Possibility');
 const Config = require('../utils/Config');
-
 const EventsData = require('../utils/Events');
 
 
-
 class EventManager {
+
 
     /**
      * Load an event from the event file
@@ -31,6 +30,7 @@ class EventManager {
         return possibility;
     }
 
+
     /**
      * Select a random possibility id from the list of the avalables one for a selected event
      * @param {Number} idEvent - The id of the event that the player is confronting to
@@ -46,6 +46,7 @@ class EventManager {
         return Math.round(Math.random() * (maxLimit - 1) + 1)
     };
 
+
     /**
     * Select a random event id from the list of the avalables one 
     * @returns {Number} - The id of an event
@@ -58,9 +59,6 @@ class EventManager {
         }
         return Math.round(Math.random() * (maxLimit - 1) + 1)
     };
-
-
-
 }
 
 module.exports = EventManager;
