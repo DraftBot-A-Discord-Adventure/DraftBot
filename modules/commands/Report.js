@@ -96,8 +96,8 @@ const execPossibility = function (message, possibility, playerManager, player, m
 /**
  * Calculate the amount of point a player will win during the event
  * @param {*} player - The player that is reacting to the event
- * @param {number} time - The time elapsed since the previous report
- * @returns {number} - The amount of points
+ * @param {Number} time - The time elapsed since the previous report
+ * @returns {Number} - The amount of points
  */
 const calculatePoints = function (player, time) {
    return time + Math.round(
@@ -110,8 +110,8 @@ const calculatePoints = function (player, time) {
 /**
  * Calculate the amount of money a player will or loose win during the event
  * @param {*} player - The player that is reacting to the event
- * @param {number} time - The time elapsed since the previous report
- * @returns {number} - The amount of money
+ * @param {Number} time - The time elapsed since the previous report
+ * @returns {Number} - The amount of money
  */
 const calculateMoney = function (player, time) {
    return time / 10 + Math.round(
@@ -194,8 +194,8 @@ async function generateEvent(message, eventManager, eventNumber, playerManager, 
  * display a possibility to the player
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} possibility - The possibility that has to be displayed
- * @param {number} pointsGained - The amount of points the user gained during this event
- * @param {number} moneyChange - The amount of money los or gained by the player during this event
+ * @param {Number} pointsGained - The amount of points the user gained during this event
+ * @param {Number} moneyChange - The amount of money los or gained by the player during this event
  * @returns {String} - The message that has to be sent
  */
 function displayPossibility(message, pointsGained, moneyChange, possibility) {
@@ -221,8 +221,8 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} possibility - The possibility that has been selected
  * @param {*} player - The player that is reacting to the event
- * @param {number} pointsGained - The amount of points the user gained during this event
- * @param {number} moneyChange - The amount of money los or gained by the player during this event
+ * @param {Number} pointsGained - The amount of points the user gained during this event
+ * @param {Number} moneyChange - The amount of money los or gained by the player during this event
  * @param {*} playerManager - The player manager
  */
 function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager) {
@@ -244,8 +244,8 @@ function applyPossibility(message, pointsGained, moneyChange, possibility, playe
  * Create a new player in the database
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} player - The player that is reacting to the event
- * @param {number} pointsGained - The amount of points the user gained during this event
- * @param {number} moneyChange - The amount of money los or gained by the player during this event
+ * @param {Number} pointsGained - The amount of points the user gained during this event
+ * @param {Number} moneyChange - The amount of money los or gained by the player during this event
  * @param {*} possibility - The possibility that has been selected
  * @param {*} playerManager - The player manager
  */

@@ -28,7 +28,7 @@ class Item {
 
     /**
      * Returns the rareness of the item
-     * @returns {number} - The rareness
+     * @returns {Number} - The rareness
      */
     getRareness() {
         return this.rareness;
@@ -37,7 +37,7 @@ class Item {
 
     /**
      * Returns the power of the item
-     * @returns {number} - The power 
+     * @returns {Number} - The power 
      */
     getPower() {
         return this.power;
@@ -45,7 +45,7 @@ class Item {
 
     /**
      * Save a weapon in the weapon slot of the inventory
-     * @param {number} weapon - The weapon that has to be saved
+     * @param {Number} weapon - The weapon that has to be saved
      */
     upgrade(powerToAdd) {
         if (Tools.isAPositiveNumber && this.power + powerToAdd < DefaultValues.item.maxPower)

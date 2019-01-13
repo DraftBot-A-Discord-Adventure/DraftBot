@@ -24,7 +24,7 @@ class Player extends Entity {
      * Returns the amount of experience needed to level up. The formula for the amount of experience is:
      * f(level) = 75 * level ^ 1.35, where 75 and 1.35 are constants defined in NumberConstants.js.
      * @see NumberConstants
-     * @returns {number} Returns the experience needed to level up.
+     * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
         return Math.round(Config.PLAYER_BASE_EXPERIENCE_PER_LEVEL *
@@ -48,7 +48,7 @@ class Player extends Entity {
 
     /**
      * Returns this Player instance's current experience.
-     * @returns {number} - The amount of experience this Player instance currently has.
+     * @returns {Number} - The amount of experience this Player instance currently has.
      */
     getExperience() {
         return this.experience;
@@ -69,7 +69,7 @@ class Player extends Entity {
 
     /**
      * Returns this Player instance's current experience.
-     * @returns {number} - The level of this Player instance.
+     * @returns {Number} - The level of this Player instance.
      */
     getLevel() {
         return this.level;
@@ -134,7 +134,7 @@ class Player extends Entity {
 
     /**
      * Returns this Player instance's currently held money.
-     * @returns {number} - The amount of money held by this Player instance.
+     * @returns {Number} - The amount of money held by this Player instance.
      */
     getMoney() {
         return this.money;
@@ -159,7 +159,7 @@ class Player extends Entity {
 
     /**
      * Returns this Player instance's name.
-     * @returns {string} - The name of this Player instance.
+     * @returns {String} - The name of this Player instance.
      */
     getName() {
         return this.name;
@@ -185,7 +185,7 @@ class Player extends Entity {
 
     /**
      * Returns the score of the player.
-     * @returns {number} - The score of the player
+     * @returns {Number} - The score of the player
      */
     getScore() {
         return this.score;
@@ -236,8 +236,8 @@ class Player extends Entity {
 
     /**
      * Calculate the time difference in minute betwin now and the last time the player has been seen
-     * @param {number} currentTime 
-     * @returns {number}
+     * @param {Number} currentTime 
+     * @returns {Number}
      */
     calcTime(currentTime) {
         let time = Math.floor((currentTime - this.lastReport) / (1000 * 60))

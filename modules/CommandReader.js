@@ -22,7 +22,7 @@ class CommandReader {
     /**
      * Sanitizes the string and return the command. The command should always be the 1st argument.
      * @param message - The message to extract the command from.
-     * @returns {string} - The command, extracted from the message.
+     * @returns {String} - The command, extracted from the message.
      */
     static getCommandFromMessage(message) {
         return CommandReader.getArgsFromMessage(message).shift().toLowerCase();

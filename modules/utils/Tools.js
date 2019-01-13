@@ -46,7 +46,7 @@ const isANullNumber = function (n) {
 /**
  * convert a number of minutes in a number of miliseconds
  * @param minutes - The number of minutes
- * @returns {number} - The number of miliseconds
+ * @returns {Number} - The number of miliseconds
  */
 const convertMinutesInMiliseconds = function (minutes) {
     return minutes * 60000;
@@ -56,7 +56,7 @@ const convertMinutesInMiliseconds = function (minutes) {
 /**
  * convert a number of milliseconds in a number of minutes
  * @param miliseconds - The number of milliseconds
- * @returns {number} - The number of minutes
+ * @returns {Number} - The number of minutes
  */
 const convertMillisecondsInMinutes = function (milliseconds) {
     return Math.round(milliseconds / 60000);

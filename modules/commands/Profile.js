@@ -14,7 +14,7 @@ const profileCommand = async function (message) {
 
 /**
  * Returns a string containing the profile message.
- * @returns {string} - A string containing the profile message.
+ * @returns {String} - A string containing the profile message.
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const generateProfileMessage = function (message, player) {

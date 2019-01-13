@@ -32,7 +32,7 @@ class Entity {
 
     /**
      * Returns this Entity's maximum health value.
-     * @returns {number} - How much health this Entity can have.
+     * @returns {Number} - How much health this Entity can have.
      */
     getMaxHealth() {
         return this.maxHealth;
@@ -50,7 +50,7 @@ class Entity {
 
     /**
      * Returns the current amount of health this Entity has.
-     * @returns {number} - The current amount of health this Entity has.
+     * @returns {Number} - The current amount of health this Entity has.
      */
     getHealth() {
         return this.health;
@@ -58,7 +58,7 @@ class Entity {
 
     /**
      * Returns this Entity's Physical/Ranged Attack value.
-     * @returns {number} - How strong are this Entity's Physical/Ranged Attacks.
+     * @returns {Number} - How strong are this Entity's Physical/Ranged Attacks.
      */
     getAttack() {
         return this.attack;
@@ -76,7 +76,7 @@ class Entity {
 
     /**
      * Returns this Entity's Defense value.
-     * @returns {number} - How resistant to Physical/Ranged Attacks this Entity is.
+     * @returns {Number} - How resistant to Physical/Ranged Attacks this Entity is.
      */
     getDefense() {
         return this.defense;
@@ -134,7 +134,7 @@ class Entity {
 
     /**
      * Returns the current state of the player
-     * @returns {string} - The effect that affect the player 
+     * @returns {String} - The effect that affect the player 
      */
     getEffect() {
         return this.effect;
@@ -142,7 +142,7 @@ class Entity {
 
     /**
      * edit the state of a player
-     * @param {string} - The new effect
+     * @param {String} - The new effect
      */
     setEffect(effect) {
         this.effect = effect;

@@ -21,7 +21,7 @@ class EventManager {
     /**
      * Load one of the possibilities of the event
      * @param {Number} idEvent - The event the player is curently facing
-     * @param {string} emoji  - The emoji the player selected
+     * @param {String} emoji  - The emoji the player selected
      * @param {Number} id  - The random id generated to select a posibility
      * @return {*} - The possibility loaded
      */

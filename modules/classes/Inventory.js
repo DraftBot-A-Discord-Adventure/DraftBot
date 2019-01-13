@@ -18,7 +18,7 @@ class Inventory {
 
     /**
      * Returns the id of the player that own this inventory
-     * @returns {number} - The id of the player
+     * @returns {Number} - The id of the player
      */
     getplayerId() {
         return this.playerId;
