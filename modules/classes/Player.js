@@ -236,8 +236,8 @@ class Player extends Entity {
 
     /**
      * Calculate the time difference in minute betwin now and the last time the player has been seen
-     * @param {Integer} currentTime 
-     * @returns {Integer}
+     * @param {number} currentTime 
+     * @returns {number}
      */
     calcTime(currentTime) {
         let time = Math.floor((currentTime - this.lastReport) / (1000 * 60))

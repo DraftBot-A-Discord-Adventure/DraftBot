@@ -44,9 +44,9 @@ class PlayerManager {
 
     /**
      * Allow to revive a player and save its new state in the database
-     * @param {*} player - the player that has to be revived
-     * @param {Number} time - the timecode of the date of revive
-     * @returns {Number} - the amount of points the player loosed during the revive process
+     * @param {*} player - The player that has to be revived
+     * @param {Number} time - The timecode of the date of revive
+     * @returns {Number} - The amount of points the player loosed during the revive process
      */
     revivePlayer(player, time) {
         let scoreRomoved = Math.round(player.getScore() * Config.PART_OF_SCORE_REMOVED_DURING_RESPAWN);
@@ -64,7 +64,7 @@ class PlayerManager {
 
     /**
      * Allow to set the state of a player to occupied in order to ensure he dont cheat
-     * @param {*} player - the player that has to be saved
+     * @param {*} player - The player that has to be saved
      */
     setPlayerAsOccupied(player) {
 
@@ -76,7 +76,7 @@ class PlayerManager {
 
     /**
      * Allow to save the current state of a player in the database
-     * @param {*} player - the player that has to be saved
+     * @param {*} player - The player that has to be saved
      */
     updatePlayer(player) {
 
