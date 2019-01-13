@@ -30,5 +30,8 @@
         ":snowflake:": "3600000",
         ":confounded:": "2400000",
         ":clock2:": "0"
+    },
+    "item": {
+        "maxPower": "10"
     }
 }
