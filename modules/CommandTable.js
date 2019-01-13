@@ -4,6 +4,7 @@ const Invite = require('./commands/Invite');
 const Profile = require('./commands/Profile');
 const Respawn = require('./commands/Respawn');
 const Report = require('./commands/Report');
+const Inventory = require('./commands/Inventory');
 
 
 const InitDatabase = require('./commands/admin/initDatabase');
@@ -17,6 +18,8 @@ const CommandTable = new Map(
         ["profile", Profile.ProfileCommand],
         ["report", Report.ReportCommand],
         ["respawn", Respawn.RespawnCommand],
+        ["inventory", Inventory.InventoryCommand],
+        ["inv", Inventory.InventoryCommand],
 
         ["init", InitDatabase.InitDatabaseCommand],
         

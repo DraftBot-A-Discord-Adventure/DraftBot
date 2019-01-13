@@ -96,3 +96,5 @@ class Inventory {
         this.object = object;
     }
 }
+
+module.exports = Inventory;
