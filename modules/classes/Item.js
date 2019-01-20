@@ -5,6 +5,7 @@ const DefaultValues = require('../utils/DefaultValues')
 /**
  * Base class that shouldn't be instantiated. Instead, Items are meant to extend this class.
  * Items are things like Objects, weapons...
+ * there are no setters methods for items because they are not editables
  */
 class Item {
 

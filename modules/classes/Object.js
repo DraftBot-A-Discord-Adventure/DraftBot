@@ -1,8 +1,5 @@
 const Item = require('./Item');
-const DefaultValues = require('../utils/DefaultValues')
-const Config = require('../utils/Config')
 const sql = require("sqlite");
-const Tools = require('../utils/Tools');
 
 sql.open("./modules/data/database.sqlite");
 
@@ -11,11 +8,30 @@ sql.open("./modules/data/database.sqlite");
  */
 class Object extends Item {
 
-    constructor(name, rareness, power, effectDescription) {
+
+    constructor(name, rareness, power, effectDescription, natureEffect) {
         super(name, rareness, power);
-      this.effectDescription = effectDescription
+        this.effectDescription = effectDescription
+        this.natureEffect = natureEffect
     }
 
+
+    /**
+     * Returns a description that explain what the object do
+     * @returns {String} - The description of the effect
+     */
+    getEffectDescription() {
+        return this.name;
+    }
+
+
+    /**
+     * a number that match with an id of the effect applied by the object
+     * @returns {number} - The id of the effect.
+     */
+    getNatureEffect() {
+        return this.natureEffect;
+    }
 }
 
 module.exports = Object;
