@@ -40,7 +40,7 @@ class InventoryManager {
      */
     getNewInventory(message) {
         console.log('Generating a new inventory...');
-        return new Inventory(message.author.id, new Equipement(DefaultValues.weapon), new Equipement(DefaultValues.armor), new Potion(DefaultValues.potion), new Object(DefaultValues.weapon));
+        return new Inventory(message.author.id, DefaultValues.inventory.weapon, DefaultValues.inventory.armor, DefaultValues.inventory.potion, DefaultValues.inventory.object);
     }
 
 

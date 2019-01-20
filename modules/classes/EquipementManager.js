@@ -11,3 +11,5 @@ class EquipementManager{
 
 
 }
+
+module.exports = EquipementManager;

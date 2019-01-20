@@ -7,12 +7,12 @@ const DefaultValues = require('../utils/DefaultValues')
  */
 class Inventory {
 
-    constructor(playerId, weaponName, armorName, potionName, objectName, backupItem) {
+    constructor(playerId, weaponId, armorId, potionId, objectId, backupItem) {
         this.playerId = playerId;
-        this.weaponName = weaponName;
-        this.armorName = armorName;
-        this.potionName = potionName;
-        this.objectName = objectName;
+        this.weaponId = weaponId;
+        this.armorId = armorId;
+        this.potionId = potionId;
+        this.objectId = objectId;
     }
 
 
@@ -29,8 +29,8 @@ class Inventory {
      * Returns the weapon name that is present in this inventory
      * @returns {String} - The weapon name
      */
-    getWeaponName() {
-        return this.weaponName;
+    getWeaponId() {
+        return this.weaponId;
     }
 
 
@@ -38,8 +38,8 @@ class Inventory {
      * Returns the armor name that is present in this inventory
      * @returns {String} - The armor name
      */
-    getArmorName() {
-        return this.armorName;
+    getArmorId() {
+        return this.armorId;
     }
 
 
@@ -47,8 +47,8 @@ class Inventory {
      * Returns the potion that is present in this inventory
      * @returns {String} - The potion name
      */
-    getPotionName() {
-        return this.potionName;
+    getPotionId() {
+        return this.potionId;
     }
 
 
@@ -57,43 +57,43 @@ class Inventory {
      * @returns {String} - The object name
      */
     getObjectNam() {
-        return this.objectName;
+        return this.objectId;
     }
 
 
     /**
      * Save a weapon name in the weapon slot of the inventory
-     * @param {String} weaponName - The weapon name that has to be saved
+     * @param {String} weaponId - The weapon name that has to be saved
      */
-    setWeaponName(weaponName) {
-        this.weaponName = weaponName;
+    setWeaponId(weaponId) {
+        this.weaponId = weaponId;
     }
 
 
     /**
      * Save a armor in the armor slot of the inventory
-     * @param {String} armorName - The armor name that has to be saved
+     * @param {String} armorId - The armor name that has to be saved
      */
-    setArmorName(armorName) {
-        this.armorName = armorName;
+    setArmorId(armorId) {
+        this.armorId = armorId;
     }
 
 
     /**
      * Save a potion in the potion slot of the inventory
-     * @param {String} potionName - The potion name that has to be saved
+     * @param {String} potionId - The potion name that has to be saved
      */
-    setPotionName(potionName) {
-        this.potionName = potionName;
+    setPotionId(potionId) {
+        this.potionId = potionId;
     }
 
 
     /**
      * Save a object in the object slot of the inventory
-     * @param {String} ObjectName - The Object name that has to be saved
+     * @param {String} ObjectId - The Object name that has to be saved
      */
-    setObjectName(ObjectName) {
-        this.ObjectName = ObjectName;
+    setObjectId(ObjectId) {
+        this.ObjectId = ObjectId;
     }
 }
 

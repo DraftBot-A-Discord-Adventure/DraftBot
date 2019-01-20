@@ -10,8 +10,8 @@ sql.open("./modules/data/database.sqlite");
 class Potion extends Item {
 
 
-    constructor(name, rareness, power, effectDescription, natureEffect, numberOfUse) {
-        super(name, rareness, power);
+    constructor(id, name, rareness, power, effectDescription, natureEffect, numberOfUse) {
+        super(id, name, rareness, power);
         this.effectDescription = effectDescription
         this.natureEffect = natureEffect
         this.numberOfUse = numberOfUse

@@ -7,4 +7,7 @@ const Tools = require('../utils/Tools');
 sql.open("./modules/data/database.sqlite");
 
 class ObjectManager {
+
 }
+
+module.exports = ObjectManager;

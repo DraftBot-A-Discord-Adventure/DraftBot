@@ -9,21 +9,11 @@ sql.open("./modules/data/database.sqlite");
 class Object extends Item {
 
 
-    constructor(name, rareness, power, effectDescription, natureEffect) {
-        super(name, rareness, power);
-        this.effectDescription = effectDescription
+    constructor(id, name, rareness, power, natureEffect) {
+        super(id, name, rareness, power);
         this.natureEffect = natureEffect
     }
-
-
-    /**
-     * Returns a description that explain what the object do
-     * @returns {String} - The description of the effect
-     */
-    getEffectDescription() {
-        return this.name;
-    }
-
+    
 
     /**
      * a number that match with an id of the effect applied by the object

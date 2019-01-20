@@ -33,5 +33,11 @@
     },
     "item": {
         "maxPower": "10"
+    },
+    "inventory": {
+        "weapon" : "default",
+        "armor" : "default",
+        "potion" : "default",
+        "object" : "default"
     }
 }

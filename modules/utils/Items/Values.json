@@ -1,0 +1,29 @@
+{
+    "weapon": {
+        "default": {
+            "rareness": "0",
+            "power": "1"
+        }
+    },
+    "armor": {
+        "default": {
+            "rareness": "0",
+            "power": "1"
+        }
+    },
+    "potion": {
+        "default": {
+            "rareness": "0",
+            "power": "1",
+            "nature" : "0",
+            "use" : "0"
+        }
+    },
+    "object": {
+        "default": {
+            "rareness": "0",
+            "power": "1",
+            "nature": "0"
+        }
+    }
+}

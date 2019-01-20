@@ -5,6 +5,7 @@ const Profile = require('./commands/Profile');
 const Respawn = require('./commands/Respawn');
 const Report = require('./commands/Report');
 const Inventory = require('./commands/Inventory');
+const Test = require('./commands/Test');
 
 
 const InitDatabase = require('./commands/admin/initDatabase');
@@ -20,6 +21,7 @@ const CommandTable = new Map(
         ["respawn", Respawn.RespawnCommand],
         ["inventory", Inventory.InventoryCommand],
         ["inv", Inventory.InventoryCommand],
+        ["test", Test.TestCommand],
 
         ["init", InitDatabase.InitDatabaseCommand],
         

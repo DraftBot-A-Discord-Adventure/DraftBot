@@ -8,3 +8,5 @@ sql.open("./modules/data/database.sqlite");
 
 class PotionManager {
 }
+
+module.exports = PotionManager;

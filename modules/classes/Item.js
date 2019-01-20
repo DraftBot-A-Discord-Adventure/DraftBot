@@ -9,10 +9,20 @@ const DefaultValues = require('../utils/DefaultValues')
  */
 class Item {
 
-    constructor(name, rareness, power) {
-        this.name = name; // the name is also the id of the item
+    constructor(id, name, rareness, power) {
+        this.id = id;
+        this.name = name;
         this.rareness = rareness;
         this.power = power;
+    }
+
+
+  /**
+     * Returns the id of the item
+     * @returns {String} - The id
+     */
+    getId() {
+        return this.id;
     }
 
 

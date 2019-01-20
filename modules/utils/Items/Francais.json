@@ -1,0 +1,14 @@
+{
+    "weapon": {
+        "default": ":punch:  **Poing**"
+    },
+    "armor": {
+        "default": ":black_large_square:  **Pas de bouclier ni d'armure**"
+    },
+    "potion": {
+        "default": ":black_large_square:  **Pas de potion**"
+    },
+    "object": {
+        "default": ":black_large_square:  **Emplacement libre**"
+    }
+}
