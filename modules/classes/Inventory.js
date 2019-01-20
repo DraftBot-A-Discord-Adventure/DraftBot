@@ -3,16 +3,16 @@ const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
 
 /**
- * Represents an Inventory.
+ * Represents an Inventory. Store the name of the objects the user have in its inventory. An item name is also an ID
  */
 class Inventory {
 
-    constructor(playerId, weapon, armor, potion, object, backupItem) {
+    constructor(playerId, weaponName, armorName, potionName, objectName, backupItem) {
         this.playerId = playerId;
-        this.weapon = weapon;
-        this.armor = armor;
-        this.potion = potion;
-        this.object = object;
+        this.weaponName = weaponName;
+        this.armorName = armorName;
+        this.potionName = potionName;
+        this.objectName = objectName;
     }
 
 
@@ -26,74 +26,74 @@ class Inventory {
 
 
     /**
-     * Returns the weapon that is present in this inventory
-     * @returns {*} - The weapon
+     * Returns the weapon name that is present in this inventory
+     * @returns {String} - The weapon name
      */
-    getWeapon() {
-        return this.weapon;
+    getWeaponName() {
+        return this.weaponName;
     }
 
 
     /**
-     * Returns the armor that is present in this inventory
-     * @returns {*} - The armor
+     * Returns the armor name that is present in this inventory
+     * @returns {String} - The armor name
      */
-    getArmor() {
-        return this.armor;
+    getArmorName() {
+        return this.armorName;
     }
 
 
     /**
      * Returns the potion that is present in this inventory
-     * @returns {*} - The potion
+     * @returns {String} - The potion name
      */
-    getPotion() {
-        return this.potion;
+    getPotionName() {
+        return this.potionName;
     }
 
 
     /**
      * Returns the object that is present in this inventory
-     * @returns {*} - The object
+     * @returns {String} - The object name
      */
-    getObject() {
-        return this.object;
+    getObjectNam() {
+        return this.objectName;
     }
 
 
     /**
-     * Save a weapon in the weapon slot of the inventory
-     * @param {*} weapon - The weapon that has to be saved
+     * Save a weapon name in the weapon slot of the inventory
+     * @param {String} weaponName - The weapon name that has to be saved
      */
-    setWeapon(weapon) {
-        this.weapon = weapon;
+    setWeaponName(weaponName) {
+        this.weaponName = weaponName;
     }
 
 
     /**
      * Save a armor in the armor slot of the inventory
-     * @param {*} armor - The armor that has to be saved
+     * @param {String} armorName - The armor name that has to be saved
      */
-    setArmor(armor) {
-        this.armor = armor;
+    setArmorName(armorName) {
+        this.armorName = armorName;
     }
 
 
     /**
      * Save a potion in the potion slot of the inventory
-     * @param {*} potion - The potion that has to be saved
+     * @param {String} potionName - The potion name that has to be saved
      */
-    setPotion(potion) {
-        this.potion = potion;
+    setPotionName(potionName) {
+        this.potionName = potionName;
     }
 
 
     /**
      * Save a object in the object slot of the inventory
-     * @param {*} object - The object that has to be saved
+     * @param {String} ObjectName - The Object name that has to be saved
      */
-    setObject(object) {
-        this.object = object;
+    setObjectName(ObjectName) {
+        this.ObjectName = ObjectName;
     }
 }
 

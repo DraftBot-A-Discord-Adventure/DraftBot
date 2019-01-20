@@ -9,12 +9,10 @@ const DefaultValues = require('../utils/DefaultValues')
 class Item {
 
     constructor(name, rareness, power) {
-        this.name = name;
+        this.name = name; // the name is also the id of the item
         this.rareness = rareness;
         this.power = power;
     }
-
-
 
 
     /**
@@ -42,14 +40,6 @@ class Item {
     getPower() {
         return this.power;
     }
-
-    /**
-     * Save a weapon in the weapon slot of the inventory
-     * @param {Number} weapon - The weapon that has to be saved
-     */
-    upgrade(powerToAdd) {
-        if (Tools.isAPositiveNumber && this.power + powerToAdd < DefaultValues.item.maxPower)
-            this.power = this.power + powerToAdd;
-    }
-
 }
+
+module.exports = Item;

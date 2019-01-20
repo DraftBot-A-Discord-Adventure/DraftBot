@@ -6,11 +6,16 @@ const Tools = require('../utils/Tools');
 
 sql.open("./modules/data/database.sqlite");
 
+/**
+ * Represent an object
+ */
 class Object extends Item {
 
-    constructor(name, rareness, power) {
+    constructor(name, rareness, power, effectDescription) {
         super(name, rareness, power);
-      
+      this.effectDescription = effectDescription
     }
 
 }
+
+module.exports = Object;

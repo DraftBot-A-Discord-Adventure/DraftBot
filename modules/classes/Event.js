@@ -7,8 +7,7 @@ class Event {
         this.id = id;
         this.emojis = emojis;
     }
-
-
+    
 }
 
 module.exports = Event;
