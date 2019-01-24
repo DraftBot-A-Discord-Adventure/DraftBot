@@ -24,7 +24,7 @@ class InventoryManager {
                 return this.getNewInventory(message);
             } else { //inventory is in the database
                 console.log(`Utilisateur reconnu : ${message.author.username}`);
-                return new Inventory(inventory.playerId, inventory.weapon, inventory.armor, inventory.potion, inventory.object, inventory.backupItem)
+                return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -40,7 +40,7 @@ class InventoryManager {
      */
     getNewInventory(message) {
         console.log('Generating a new inventory...');
-        return new Inventory(message.author.id, DefaultValues.inventory.weapon, DefaultValues.inventory.armor, DefaultValues.inventory.potion, DefaultValues.inventory.object);
+        return new Inventory(message.author.id, DefaultValues.inventory.weapon, DefaultValues.inventory.armor, DefaultValues.inventory.potion, DefaultValues.inventory.object, DefaultValues.inventory.backupItem);
     }
 
 

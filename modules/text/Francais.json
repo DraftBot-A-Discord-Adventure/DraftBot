@@ -54,6 +54,24 @@
             "healthWin": "** | :heart: Vie gagnée : **",
             "timeLost": "** | :clock10: Temps perdu : **",
             "noReport": " : ** :x: Aucun nouveau rapport n'a été transmis ! Revenez dans quelques heures !"
+        },
+        "inventory": {
+            "title": ":school_satchel:** |  Inventaire de ",
+            "lineEnd1": " :**\n\n",
+            "lineEnd2": "\n",
+            "separatorLevel": " | LVL ",
+            "backupTitle": "\n\n:briefcase:  **Réserve d'item :**\n",
+            "rarities": {
+                "1": ":small_orange_diamond: Basique",
+                "2": ":large_orange_diamond: Commun",
+                "3": ":fire: Peu commun",
+                "4": ":trident: Exotique",
+                "5": ":comet: Rare",
+                "6": ":dizzy: Special",
+                "7": ":star: Epique",
+                "8": ":star2: Legendaire",
+                "9": ":gem: Unique"
+            }
         }
     },
     "playerManager": {

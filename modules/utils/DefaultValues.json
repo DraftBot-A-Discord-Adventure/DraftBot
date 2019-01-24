@@ -38,6 +38,7 @@
         "weapon" : "default",
         "armor" : "default",
         "potion" : "default",
-        "object" : "default"
+        "object" : "default",
+        "backupItem" : "default"
     }
 }
