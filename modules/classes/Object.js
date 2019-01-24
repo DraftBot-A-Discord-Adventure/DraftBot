@@ -9,8 +9,8 @@ sql.open("./modules/data/database.sqlite");
 class Object extends Item {
 
 
-    constructor(id, name, rareness, power, natureEffect) {
-        super(id, name, rareness, power);
+    constructor(id, rareness, power, natureEffect) {
+        super(id, rareness, power);
         this.natureEffect = natureEffect
     }
     

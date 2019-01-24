@@ -59,19 +59,7 @@
             "title": ":school_satchel:** |  Inventaire de ",
             "lineEnd1": " :**\n\n",
             "lineEnd2": "\n",
-            "separatorLevel": " | LVL ",
-            "backupTitle": "\n\n:briefcase:  **Réserve d'item :**\n",
-            "rarities": {
-                "1": ":small_orange_diamond: Basique",
-                "2": ":large_orange_diamond: Commun",
-                "3": ":fire: Peu commun",
-                "4": ":trident: Exotique",
-                "5": ":comet: Rare",
-                "6": ":dizzy: Special",
-                "7": ":star: Epique",
-                "8": ":star2: Legendaire",
-                "9": ":gem: Unique"
-            }
+            "backupTitle": "\n\n:briefcase:  **Réserve d'item :**\n"
         }
     },
     "playerManager": {
@@ -89,6 +77,54 @@
         "timeLeft": " `Temps restant : ",
         "outro": "`",
         "noTimeLeft": " :hospital: `Reprise du jeu possible`"
+    },
+    "equipementManager": {
+        "separator1": " | Puissance ",
+        "separator2": " |"
+    },
+    "potionManager": {
+        "separator": " | ",
+        "use": " | :arrows_counterclockwise: Utilisations restantes : "
+    },
+    "objectManager": {
+        "separator": " |"
+    },
+    "rarities": {
+        "0": ":small_orange_diamond: Basique",
+        "1": ":large_orange_diamond: Commun",
+        "2": ":fire: Peu commun",
+        "3": ":trident: Exotique",
+        "4": ":comet: Rare",
+        "5": ":dizzy: Special",
+        "6": ":star: Epique",
+        "7": ":star2: Legendaire",
+        "8": ":gem: Unique"
+    },
+    "nature": {
+        "intro": {
+            "0": " :x: Aucun effet",
+            "1": " :heart: Vie + ",
+            "2": " :rocket: Vitesse + ",
+            "3": " :crossed_swords: Attaque + ",
+            "4": " :shield: Defense + ",
+            "5": " :hospital: Annule une altération d'état d'une durée de soin inférieure à ",
+            "6": " :moneybag: Argent + "
+        },
+        "outroObject": {
+            "1": "  par jour",
+            "2": " en combat",
+            "3": " en combat",
+            "4": " en combat",
+            "6": "  par jour"
+        },
+        "outroPotion": {
+            "1": "",
+            "2": " pendant une heure",
+            "3": " pendant une heure",
+            "4": " pendant une heure",
+            "5": " heure(s)",
+            "6": ""
+        }
     },
     "events": {
         "0": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `aide` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récuperer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",

@@ -10,21 +10,12 @@ sql.open("./modules/data/database.sqlite");
 class Potion extends Item {
 
 
-    constructor(id, name, rareness, power, effectDescription, natureEffect, numberOfUse) {
-        super(id, name, rareness, power);
-        this.effectDescription = effectDescription
+    constructor(id, rareness, power,  natureEffect, numberOfUse) {
+        super(id, rareness, power);
         this.natureEffect = natureEffect
         this.numberOfUse = numberOfUse
     }
 
-
-    /**
-     * Returns a description that explain what the potion do
-     * @returns {String} - The description of the effect
-     */
-    getEffectDescription() {
-        return this.name;
-    }
 
     /**
      * a number that match with an id of the effect applied by the potion
