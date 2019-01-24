@@ -10,6 +10,8 @@ class DatabaseManager {
         console.log('Checking Database ...');
         sql.get(`SELECT version FROM database`).catch(() => {
             this.createDatabase(sql);
+        }).then(() => {
+            console.log('... Database is valid !');
         })
     }
 
@@ -26,6 +28,8 @@ class DatabaseManager {
         sql.run("CREATE TABLE IF NOT EXISTS player (discordId TEXT, score INTEGER, level INTEGER, experience INTEGER, money INTEGER, lastReport INTEGER, badges TEXT)").catch(console.error);
         //table server
         sql.run("CREATE TABLE IF NOT EXISTS server (id TEXT, prefix TEXT, language TEXT)").catch(console.error);
+        //table inventory
+        sql.run("CREATE TABLE IF NOT EXISTS inventory (playerId TEXT, weaponId TEXT, armorId TEXT, potionId TEXT, objectId TEXT, backupItemId TEXT)").catch(console.error);
 
         //table only used to store the version of the bot when the database was created
         sql.run("CREATE TABLE IF NOT EXISTS database (version TEXT)").then(() => {
