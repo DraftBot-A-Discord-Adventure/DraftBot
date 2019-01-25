@@ -80,7 +80,7 @@
     },
     "equipementManager": {
         "separator1": " | Puissance ",
-        "separator2": " |"
+        "separator2": " | "
     },
     "potionManager": {
         "separator": " | ",

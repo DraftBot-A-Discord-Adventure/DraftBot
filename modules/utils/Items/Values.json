@@ -3,6 +3,174 @@
         "default": {
             "rareness": "0",
             "power": "1"
+        },
+        "1": {
+            "rareness": "6",
+            "power": "8"
+        },
+        "2": {
+            "rareness": "1",
+            "power": "3"
+        },
+        "3": {
+            "rareness": "2",
+            "power": "4"
+        },
+        "4": {
+            "rareness": "2",
+            "power": "4"
+        },
+        "5": {
+            "rareness": "1",
+            "power": "5"
+        },
+        "6": {
+            "rareness": "2",
+            "power": "7"
+        },
+        "7": {
+            "rareness": "4",
+            "power": "9"
+        },
+        "8": {
+            "rareness": "2",
+            "power": "2"
+        },
+        "9": {
+            "rareness": "1",
+            "power": "3"
+        },
+        "10": {
+            "rareness": "2",
+            "power": "4"
+        },
+        "11": {
+            "rareness": "4",
+            "power": "1"
+        },
+        "12": {
+            "rareness": "4",
+            "power": "6"
+        },
+        "13": {
+            "rareness": "5",
+            "power": "9"
+        },
+        "14": {
+            "rareness": "2",
+            "power": "1"
+        },
+        "15": {
+            "rareness": "4",
+            "power": "10"
+        },
+        "16": {
+            "rareness": "3",
+            "power": "5"
+        },
+        "17": {
+            "rareness": "3",
+            "power": "5"
+        },
+        "18": {
+            "rareness": "1",
+            "power": "2"
+        },
+        "19": {
+            "rareness": "2",
+            "power": "4"
+        },
+        "20": {
+            "rareness": "1",
+            "power": "1"
+        },
+        "21": {
+            "rareness": "2",
+            "power": "4"
+        },
+        "22": {
+            "rareness": "5",
+            "power": "8"
+        },
+        "23": {
+            "rareness": "5",
+            "power": "3"
+        },
+        "24": {
+            "rareness": "3",
+            "power": "2"
+        },
+        "25": {
+            "rareness": "3",
+            "power": "6"
+        },
+        "26": {
+            "rareness": "2",
+            "power": "4"
+        },
+        "27": {
+            "rareness": "7",
+            "power": "10"
+        },
+        "28": {
+            "rareness": "5",
+            "power": "5"
+        },
+        "29": {
+            "rareness": "3",
+            "power": "7"
+        },
+        "30": {
+            "rareness": "1",
+            "power": "8"
+        },
+        "31": {
+            "rareness": "1",
+            "power": "6"
+        },
+        "32": {
+            "rareness": "2",
+            "power": "3"
+        },
+        "33": {
+            "rareness": "2",
+            "power": "9"
+        },
+        "34": {
+            "rareness": "4",
+            "power": "5"
+        },
+        "35": {
+            "rareness": "5",
+            "power": "6"
+        },
+        "36": {
+            "rareness": "4",
+            "power": "8"
+        },
+        "37": {
+            "rareness": "4",
+            "power": "6"
+        },
+        "38": {
+            "rareness": "7",
+            "power": "9"
+        },
+        "39": {
+            "rareness": "5",
+            "power": "10"
+        },
+        "40": {
+            "rareness": "7",
+            "power": "9"
+        },
+        "41": {
+            "rareness": "5",
+            "power": "9"
+        },
+        "42": {
+            "rareness": "6",
+            "power": "10"
         }
     },
     "armor": {
