@@ -58,6 +58,7 @@ class EquipementManager {
         return ItemNames.armor[equipement.id];
     }
 
+    
     /**
      * Return the real value of the power that is applied whe it is used
      * @param equipement - The equipement that has to be displayed
@@ -73,7 +74,7 @@ class EquipementManager {
      * @returns {*} - A random weapon
      */
     generateRandomWeapon() {
-        this.generateRandomRareness();
+        let desiredRareness = this.generateRandomRareness();
         let id = this.generateRandomWeaponId();
         let tries = 1;
         while (ItemValues.weapon[id].rareness != desiredRareness) {
@@ -83,6 +84,7 @@ class EquipementManager {
         console.log("Item généré ! Nombre d'essais: " + tries)
         return this.getWeaponById(id);
     }
+
 
     /**
      * Generate an id of an existing weapon totally randomly without taking care of the rareness
@@ -131,8 +133,6 @@ class EquipementManager {
         }
         return desiredRareness;
     }
-
-
 }
 
 module.exports = EquipementManager;

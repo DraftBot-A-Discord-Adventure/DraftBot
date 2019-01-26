@@ -32,13 +32,45 @@ class PlayerManager {
 
 
     /**
-    * Return a player created from the defaul values
-    * @param message - The message that caused the function to be called. Used to retrieve the author of the message
-    * @returns {*} - A new player
-    */
+     * Return a promise that will contain the player that sent a message once it has been resolved
+     * @param id - The id of the user 
+     * @returns {promise} - The promise that will be resolved into a player
+     */
+    getPlayerById(id) {
+        return sql.get(`SELECT * FROM entity JOIN player on entity.id = player.discordId WHERE discordId ="${id}"`).then(player => {
+            if (!player) { //player is not in the database
+                console.log(`Utilisateur inconnu : ${id}`);
+                return this.getNewPlayerById(id);
+            } else { //player is in the database
+                console.log(`Utilisateur reconnu : ${id}`);
+                return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport)
+            }
+        }).catch(error => { //there is no database
+            console.error(error)
+            return false;
+        })
+    }
+
+
+    /**
+     * Return a player created from the defaul values
+     * @param message - The message that caused the function to be called. Used to retrieve the author of the message
+     * @returns {*} - A new player
+     */
     getNewPlayer(message) {
         console.log('Generating a new player...');
         return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, message.author.id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect, message.createdTimestamp, DefaultValues.player.badges);
+    }
+
+
+    /**
+     * Return a player created from the defaul values
+     * @param id - The id of the player that has to be created
+     * @returns {*} - A new player
+     */
+    getNewPlayerById(message) {
+        console.log('Generating a new player...');
+        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect, message.createdTimestamp, DefaultValues.player.badges);
     }
 
 
@@ -79,7 +111,6 @@ class PlayerManager {
      * @param {*} player - The player that has to be saved
      */
     updatePlayer(player) {
-
         console.log("Updating player ...");
         sql.run(`UPDATE entity SET maxHealth = ${player.maxHealth}, health = ${player.health}, attack = ${player.attack}, defense = ${player.defense}, speed = ${player.speed}, effect = "${player.effect}" WHERE id = ${player.discordId}`).catch(console.error);
         sql.run(`UPDATE player SET score = ${player.score}, level = ${player.level}, experience = ${player.experience}, money = ${player.money}, lastReport = ${player.lastReport}, badges = "${player.badges}" WHERE discordId = ${player.discordId}`).catch(console.error);
@@ -91,7 +122,6 @@ class PlayerManager {
      * @param {*} player - The player that has to be saved
      */
     addPlayer(player) {
-
         console.log("Creating player ...");
         sql.run(`INSERT INTO entity (maxHealth, health, attack, defense, speed, id, effect) VALUES ( ${player.maxHealth}, ${player.health}, ${player.attack} , ${player.defense} , ${player.speed} , ${player.discordId},"${player.effect}")`).catch(console.error);
         sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges) VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, "${player.badges}") `).catch(console.error);
@@ -121,7 +151,7 @@ class PlayerManager {
     checkState(player, message, allowedStates) {
         let result = false;
         let rejectMessage;
-        if (allowedStates.includes(player.getEffect())) { 
+        if (allowedStates.includes(player.getEffect())) {
             result = true; // le joueur est dans un état authorisé
         } else {
             console.log(message.createdTimestamp);

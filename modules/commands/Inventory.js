@@ -23,7 +23,6 @@ const inventoryCommand = async function (message) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const generateInventoryMessage = function (message, inventory) {
-    console.log(inventory);
     let equipementManager = new EquipementManager();
     let potionManager = new PotionManager();
     let objectManager = new ObjectManager();
@@ -33,11 +32,11 @@ const generateInventoryMessage = function (message, inventory) {
     let objectBackup = objectManager.getObjectById(inventory.backupItemId);
     let potion = potionManager.getPotionById(inventory.potionId);
     inventoryMessage = Text.commands.inventory.title + message.author.username + Text.commands.inventory.lineEnd1 +
-        equipementManager.displayEquipement(weapon) + Text.commands.inventory.lineEnd2;
+        equipementManager.displayWeapon(weapon) + Text.commands.inventory.lineEnd2;
     if (inventory.armorId == DefaultValues.inventory.armor) { //the user doesnt have any armor or shield
         inventoryMessage += equipementManager.displayDefaultArmor(armor);
     } else { //the user have a armor
-        inventoryMessage += equipementManager.displayEquipement(armor);
+        inventoryMessage += equipementManager.displayArmor(armor);
     }
     inventoryMessage += Text.commands.inventory.lineEnd2;
     if (inventory.potionId == DefaultValues.inventory.potion) { //the user doesnt have any potion
