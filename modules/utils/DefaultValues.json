@@ -35,25 +35,27 @@
         "maxPower": "10"
     },
     "inventory": {
-        "weapon" : "1",
-        "armor" : "default",
-        "potion" : "default",
-        "object" : "default",
-        "backupItem" : "default"
+        "weapon": "default",
+        "armor": "default",
+        "potion": "default",
+        "object": "default",
+        "backupItem": "default"
     },
-    "numberOfExistingItem":{
+    "numberOfExistingItem": {
         "weapon": "",
-        "armor" : "",
+        "armor": "",
         "potion": "",
         "object": ""
     },
-    "raritiesGenerator":{
+    "raritiesGenerator": {
         "0": "2500",
         "1": "5000",
         "2": "7000",
         "3": "8500",
         "4": "9500",
         "5": "9900",
-        "6": "9975"
+        "6": "9975",
+        "maxValue": "10000",
+        "numberOfWeapon" : "42"
     }
 }
