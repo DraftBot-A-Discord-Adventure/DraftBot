@@ -9,6 +9,7 @@ const Test = require('./commands/Test');
 
 
 const InitDatabase = require('./commands/admin/initDatabase');
+const Give = require('./commands/admin/give');
 
 const CommandTable = new Map(
     [
@@ -24,6 +25,7 @@ const CommandTable = new Map(
         ["test", Test.TestCommand],
 
         ["init", InitDatabase.InitDatabaseCommand],
+        ["give", Give.GiveCommand],
         
     ]
 );
