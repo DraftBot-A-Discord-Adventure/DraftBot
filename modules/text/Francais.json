@@ -77,7 +77,10 @@
         "timeLeft": " `Temps restant : ",
         "outro": "`",
         "noTimeLeft": " :hospital: `Reprise du jeu possible`",
-        "newItem": "**Un nouvel item a été placé dans votre inventaire !** :new: Vous recevez :\n\n"
+        "newItem": "**Un nouvel item a été placé dans votre inventaire !** :new: Vous recevez :\n\n",
+        "sell": "** Vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",
+        "sellEnd": "**",
+        "sellEmoji": ":gift: **"
     },
     "equipementManager": {
         "separator1": " | Puissance ",

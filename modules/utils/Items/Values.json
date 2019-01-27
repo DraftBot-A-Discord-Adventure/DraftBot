@@ -276,6 +276,136 @@
             "rareness": "0",
             "power": "1",
             "nature": "0"
+        },
+        "1": {
+            "rareness": "6",
+            "power": "9",
+            "nature": "1"
+        },
+        "2": {
+            "rareness": "3",
+            "power": "20",
+            "nature": "6"
+        },
+        "3": {
+            "rareness": "7",
+            "power": "140",
+            "nature": "3"
+        },
+        "4": {
+            "rareness": "7",
+            "power": "135",
+            "nature": "2"
+        },
+        "5": {
+            "rareness": "6",
+            "power": "90",
+            "nature": "4"
+        },
+        "6": {
+            "rareness": "3",
+            "power": "25",
+            "nature": "2"
+        },
+        "7": {
+            "rareness": "5",
+            "power": "45",
+            "nature": "6"
+        },
+        "8": {
+            "rareness": "4",
+            "power": "55",
+            "nature": "2"
+        },
+        "9": {
+            "rareness": "1",
+            "power": "3",
+            "nature": "6"
+        },
+        "10": {
+            "rareness": "2",
+            "power": "15",
+            "nature": "2"
+        },
+        "11": {
+            "rareness": "7",
+            "power": "13",
+            "nature": "1"
+        },
+        "12": {
+            "rareness": "4",
+            "power": "60",
+            "nature": "4"
+        },
+        "13": {
+            "rareness": "1",
+            "power": "1",
+            "nature": "0"
+        },
+        "14": {
+            "rareness": "2",
+            "power": "1",
+            "nature": "1"
+        },
+        "15": {
+            "rareness": "3",
+            "power": "2",
+            "nature": "1"
+        },
+        "16": {
+            "rareness": "5",
+            "power": "6",
+            "nature": "1"
+        },
+        "17": {
+            "rareness": "1",
+            "power": "5",
+            "nature": "2"
+        },
+        "18": {
+            "rareness": "2",
+            "power": "15",
+            "nature": "3"
+        },
+        "19": {
+            "rareness": "3",
+            "power": "25",
+            "nature": "4"
+        },
+        "20": {
+            "rareness": "4",
+            "power": "35",
+            "nature": "6"
+        },
+        "21": {
+            "rareness": "3",
+            "power": "3",
+            "nature": "1"
+        },
+        "22": {
+            "rareness": "6",
+            "power": "85",
+            "nature": "3"
+        },
+        "23": {
+            "rareness": "5",
+            "power": "50",
+            "nature": "4"
+        },
+        "24": {
+            "rareness": "1",
+            "power": "1",
+            "nature": "0"
+        },
+        "25": {
+            "rareness": "1",
+            "power": "1",
+            "nature": "0"
+        },
+        "26": {
+            "rareness": "1",
+            "power": "1",
+            "nature": "2"
         }
     },
     "effect": {

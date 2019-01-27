@@ -41,6 +41,17 @@
         "object": "default",
         "backupItem": "default"
     },
+    "raritiesValues": {
+        "0": "0",
+        "1": "4",
+        "2": "30",
+        "3": "80",
+        "4": "120",
+        "5": "250",
+        "6": "1000",
+        "7": "5000",
+        "8": "1000"
+    },
     "numberOfExistingItem": {
         "weapon": "",
         "armor": "",

@@ -222,7 +222,7 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
  * @param {Number} moneyChange - The amount of money los or gained by the player during this event
  * @param {*} playerManager - The player manager
  */
-function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager) {
+async function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager) {
    //adding score
    player.addScore(pointsGained);
    player.addMoney(moneyChange);
@@ -234,7 +234,7 @@ function applyPossibility(message, pointsGained, moneyChange, possibility, playe
    // we have to parse int this because elsewhere it is considered as a screen and it do 2 + 2 = 22
    player.setEffect(possibility.newEffect);
    if (possibility.item == "true") {
-     playerManager.giveRandomItem(message)
+     player = await playerManager.giveRandomItem(message,player);
    }
    playerManager.updatePlayer(player);
 }

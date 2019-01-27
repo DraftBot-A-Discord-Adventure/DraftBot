@@ -188,8 +188,12 @@ class PlayerManager {
         }
     }
 
-
-    async giveRandomItem(message) {
+    /**
+     * give to the player that send the message a random item
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} player - The player that is playing
+     */
+    async giveRandomItem(message, player) {
         let inventoryManager = new InventoryManager();
         let equipementManager = new EquipementManager();
         let potionManager = new PotionManager();
@@ -198,39 +202,68 @@ class PlayerManager {
         let type = this.chooseARandomItemType();
         switch (type) {
             case "weapon":
-                let weapon = await equipementManager.generateRandomWeapon();
-                let neww = equipementManager.getEquipementEfficiency(weapon);
-                let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
-
-                console.log(neww + "/" + old);
-                console.log(neww > old)
-                if (neww > old) {
-                    inventory.weaponId = weapon.id;
-                    message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon));
-                    inventoryManager.updateInventory(inventory);
-                } else {
-                    message.channel.send("Vous ne ramasssez rien parce que vous avez déjà un item mieux bla bla à changer bas les couilles c'est du test");
-                }
+                player = await this.giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player);
                 break;
             case "armor":
-                let armor = await equipementManager.generateRandomArmor();
-                let neww2 = equipementManager.getEquipementEfficiency(armor);
-                let old2 = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
-                console.log(neww2 + "/" + old2);
-                console.log(neww2 > old2)
-                if (neww2 > old2) {
-                    inventory.armorId = armor.id;
-                    message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor));
-                    inventoryManager.updateInventory(inventory);
-                } else {
-                    message.channel.send("Vous ne ramasssez rien parce que vous avez déjà un item mieux bla bla à changer bas les couilles c'est du test");
-                }
+                player = await this.giveRandomArmor(equipementManager, inventory, message, inventoryManager, player);
                 break;
             default:
                 message.channel.send("item à donner de type :" + type);
                 break;
         }
+        return player
+    }
 
+
+    /**
+     * add a random armor into an inventory and save the result
+     * @param {*} equipementManager - The equipement manager class
+     * @param {*} inventory - the inventory of the player
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} inventoryManager - The inventory manager class
+     * @param {*} player - The player that is playing
+     */
+    async giveRandomArmor(equipementManager, inventory, message, inventoryManager, player) {
+        let armor = await equipementManager.generateRandomArmor();
+        let neww = equipementManager.getEquipementEfficiency(armor);
+        let old = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
+        console.log(neww + "/" + old);
+        console.log(neww > old);
+        if (neww > old) {
+            inventory.armorId = armor.id;
+            message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor));
+            inventoryManager.updateInventory(inventory);
+        }
+        else {
+            player = this.sellEquipement(player, armor, message);
+        }
+        return player
+    }
+
+
+    /**
+     * add a random armor into an inventory and save the result
+     * @param {*} equipementManager - The equipement manager class
+     * @param {*} inventory - the inventory of the player
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} inventoryManager - The inventory manager class
+     * @param {*} player - The player that is playing
+     */
+    async giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player) {
+        let weapon = await equipementManager.generateRandomWeapon();
+        let neww = equipementManager.getEquipementEfficiency(weapon);
+        let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
+        console.log(neww + "/" + old);
+        console.log(neww > old);
+        if (neww > old) {
+            inventory.weaponId = weapon.id;
+            message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon));
+            inventoryManager.updateInventory(inventory);
+        }
+        else {
+            player = this.sellEquipement(player, weapon, message);
+        }
+        return player
     }
 
 
@@ -241,6 +274,21 @@ class PlayerManager {
     chooseARandomItemType() {
         return DefaultValues.itemGenerator.tab[Math.round(Math.random() * (DefaultValues.itemGenerator.max - 1) + 1)];
     };
+
+
+    /**
+     * allow the player to gain some money corresponding to an equipement
+     * @param {*} equipement - The equipement that has to be sold
+     * @param {*} player - The player that will recieve the money
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the channel
+     */
+    sellEquipement(player, equipement, message) {
+        let value = parseInt(DefaultValues.raritiesValues[equipement.rareness] + equipement.power);
+        console.log("the item has been sold ! " + equipement.rareness);
+        player.addMoney(value);
+        message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd)
+        return player;
+    }
 }
 
 module.exports = PlayerManager;
