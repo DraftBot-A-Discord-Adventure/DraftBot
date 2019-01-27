@@ -17,7 +17,7 @@ const reportCommand = async function (message) {
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
 
-   if (playerManager.checkState(player, message, ":baby::smiley::clock2::sick::snowflake::dizzy_face:")) {  //check if the player is not dead or sick
+   if (playerManager.checkState(player, message, ":baby::smiley::clock2::sick::snowflake::dizzy_face::zzz::confounded:")) {  //check if the player is not dead or sick
 
       playerManager.setPlayerAsOccupied(player);
 
@@ -234,7 +234,7 @@ function applyPossibility(message, pointsGained, moneyChange, possibility, playe
    // we have to parse int this because elsewhere it is considered as a screen and it do 2 + 2 = 22
    player.setEffect(possibility.newEffect);
    if (possibility.item == "true") {
-     console.log(playerManager.giveRandomItem(message))
+     playerManager.giveRandomItem(message)
    }
    playerManager.updatePlayer(player);
 }

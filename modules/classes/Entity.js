@@ -108,8 +108,9 @@ class Entity {
     removeHealthPoints(points) {
         if (Tools.isAPositiveNumberOrNull(points)) {
             this.health -= parseInt(points);
-            if (Tools.isANegativeOrNullNumber(this.health))
+            if (Tools.isANegativeOrNullNumber(this.health)) {
                 this.kill()
+            }
         } else {
             this.addHealthPoints(-points);
         }
@@ -125,8 +126,9 @@ class Entity {
     addHealthPoints(points) {
         if (Tools.isAPositiveNumberOrNull(points)) {
             this.health += parseInt(points);
-            if (this.health>this.maxHealth)
-            this.restoreHealthCompletely()
+            if (this.health > this.maxHealth) {
+                this.restoreHealthCompletely()
+            }
         } else {
             this.removeHealthPoints(-points);
         }
@@ -156,9 +158,9 @@ class Entity {
         return this.effect === ":skull:";
     }
 
-     /**
-     * kill a player
-     */
+    /**
+    * kill a player
+    */
     kill() {
         this.setEffect(":skull:");
         this.setHealth(0);

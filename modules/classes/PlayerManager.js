@@ -200,6 +200,9 @@ class PlayerManager {
         switch (type) {
             case "weapon":
                 let weapon = equipementManager.generateRandomWeapon();
+                console.log(equipementManager.getEquipementEfficiency(weapon));
+                console.log("/")
+                console.log(equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId)))
                 if (equipementManager.getEquipementEfficiency(weapon) > equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId))) {
                     inventory.weaponId = weapon.id;
                     message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon));
@@ -209,6 +212,9 @@ class PlayerManager {
                 break;
             case "armor":
                 let armor = equipementManager.generateRandomArmor();
+                console.log(equipementManager.getEquipementEfficiency(armor));
+                console.log("/")
+                console.log(equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId)))
                 if (equipementManager.getEquipementEfficiency(armor) > equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId))) {
                     inventory.armorId = armor.id;
                     message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor));
