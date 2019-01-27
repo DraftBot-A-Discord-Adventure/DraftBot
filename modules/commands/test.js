@@ -15,10 +15,10 @@ const PlayerManager = require('../classes/PlayerManager')
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const testCommand = async function (message) {
-
-    let playerManager = new PlayerManager()
-    playerManager.giveRandomItem(message)
-
+    for (let index = 0; index < 200; index++) {
+        objectManager = new ObjectManager()
+        message.channel.send(objectManager.displayObject(objectManager.generateRandomObject()))
+    }
 }
 
 

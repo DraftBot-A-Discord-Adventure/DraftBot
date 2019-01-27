@@ -2,6 +2,7 @@ const Object = require('./Object');
 const ItemNames = require('../utils/items/Francais');
 const ItemValues = require('../utils/items/Values');
 const Text = require('../text/Francais');
+const DefaultValues = require('../utils/DefaultValues');
 
 class ObjectManager {
 
@@ -40,6 +41,45 @@ class ObjectManager {
         return ItemNames.object[object.id];
     }
 
+
+    /**
+     * Choose a random object in the existing ones. (take care of the rareness)
+     * @returns {*} - A random object
+     */
+    generateRandomObject() {
+        let desiredRareness = this.generateRandomRareness();
+        let id = this.generateRandomObjectId();
+        let tries = 1;
+        while (ItemValues.object[id].rareness != desiredRareness) {
+            tries++;
+            id = this.generateRandomObjectId();
+        }
+        console.log("Item généré ! Nombre d'essais: " + tries)
+        return this.getObjectById(id);
+    }
+
+
+    /**
+     * Generate an id of an existing object totally randomly without taking care of the rareness
+     * @returns {Number} - A random Id
+     */
+    generateRandomObjectId() {
+        return Math.round(Math.random() * (DefaultValues.raritiesGenerator.numberOfObject - 1)) + 1;
+    }
+
+
+    /**
+     * Generate a random rareness. Legendary is very rare and common is not rare at all
+     * @returns {Number} - the number refering to a rareness (1 - 7) 
+     */
+    generateRandomRareness() {
+        let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
+        let desiredRareness = 1;
+        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness - 1]) {
+            desiredRareness++;
+        }
+        return desiredRareness;
+    }
 
 }
 
