@@ -962,7 +962,8 @@
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
-                    "moneyGained": "0"
+                    "moneyGained": "0",
+                    "item": "true"
                 },
                 "4": {
                     "timeLost": "0",

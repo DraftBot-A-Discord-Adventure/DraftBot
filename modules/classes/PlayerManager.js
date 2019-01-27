@@ -195,29 +195,33 @@ class PlayerManager {
         let potionManager = new PotionManager();
         let objectManager = new ObjectManager();
         let inventory = await inventoryManager.getCurrentInventory(message);
-
         let type = this.chooseARandomItemType();
         switch (type) {
             case "weapon":
-                let weapon = equipementManager.generateRandomWeapon();
-                console.log(equipementManager.getEquipementEfficiency(weapon));
-                console.log("/")
-                console.log(equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId)))
-                if (equipementManager.getEquipementEfficiency(weapon) > equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId))) {
+                let weapon = await equipementManager.generateRandomWeapon();
+                let neww = equipementManager.getEquipementEfficiency(weapon);
+                let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
+
+                console.log(neww + "/" + old);
+                console.log(neww > old)
+                if (neww > old) {
                     inventory.weaponId = weapon.id;
                     message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon));
+                    inventoryManager.updateInventory(inventory);
                 } else {
                     message.channel.send("Vous ne ramasssez rien parce que vous avez déjà un item mieux bla bla à changer bas les couilles c'est du test");
                 }
                 break;
             case "armor":
-                let armor = equipementManager.generateRandomArmor();
-                console.log(equipementManager.getEquipementEfficiency(armor));
-                console.log("/")
-                console.log(equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId)))
-                if (equipementManager.getEquipementEfficiency(armor) > equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId))) {
+                let armor = await equipementManager.generateRandomArmor();
+                let neww2 = equipementManager.getEquipementEfficiency(armor);
+                let old2 = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
+                console.log(neww2 + "/" + old2);
+                console.log(neww2 > old2)
+                if (neww2 > old2) {
                     inventory.armorId = armor.id;
                     message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor));
+                    inventoryManager.updateInventory(inventory);
                 } else {
                     message.channel.send("Vous ne ramasssez rien parce que vous avez déjà un item mieux bla bla à changer bas les couilles c'est du test");
                 }
@@ -226,7 +230,7 @@ class PlayerManager {
                 message.channel.send("item à donner de type :" + type);
                 break;
         }
-        inventoryManager.updateInventory(inventory);
+
     }
 
 

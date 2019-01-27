@@ -42,7 +42,11 @@
         "39": ":crossed_swords: **Epees doubles**",
         "40": ":crossed_swords: **Epee en diamant**",
         "41": ":crossed_swords: **Epee sharpness 4**",
-        "42": ":gun:  **Pistolet chargé**"
+        "42": ":gun:  **Pistolet chargé**",
+        "43": ":cucumber:  **Cornichon**",
+        "44": ":bouquet: **Bouquet de rose**",
+        "45": ":banana: **Bannane**",
+        "46": ":bookmark: **Vieux grimmoire**"
     },
     "armor": {
         "default": ":black_large_square:  **Pas de bouclier ni d'armure**",

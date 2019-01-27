@@ -171,6 +171,22 @@
         "42": {
             "rareness": "6",
             "power": "10"
+        },
+        "43": {
+            "rareness": "1",
+            "power": "1"
+        },
+        "44": {
+            "rareness": "1",
+            "power": "1"
+        },
+        "45": {
+            "rareness": "4",
+            "power": "1"
+        },
+        "46": {
+            "rareness": "6",
+            "power": "1"
         }
     },
     "armor": {

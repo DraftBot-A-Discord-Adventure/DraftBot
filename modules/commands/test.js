@@ -7,23 +7,31 @@ const EquipementManager = require('../classes/EquipementManager');
 const PotionManager = require('../classes/PotionManager');
 const ObjectManager = require('../classes/ObjectManager');
 const Text = require('../text/Francais');
+const PlayerManager = require('../classes/PlayerManager')
 
 
 /**
  * Display the content of the inventory's inventory
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const testCommand = async function (message) {
-    let equipementManager = new EquipementManager();
-    let test = 0
-    for (let index = 0; index < 200000000; index++) {
-        let result = equipementManager.generateRandomWeapon()
-        if (result > test) {
-            test = result;
-            message.channel.send("Nouveau record ! "+ test + " iteration numéro : " + index)
-        }
+const testCommand = async function (message, args) {
+    let rarities = {
+        "1": "0",
+        "2": "0",
+        "3": "0",
+        "4": "0",
+        "5": "0",
+        "6": "0",
+        "7": "0"
     }
-message.channel.send("fin : " + test);
+    let equipementManager = new EquipementManager()
+    for (let index = 0; index < args[1]; index++) {
+        let test = equipementManager.generateRandomRareness()
+        rarities[test]++
+    }
+    for (let index = 1; index < 8; index++) {
+        message.channel.send(index + " : " + rarities[index]);
+    }
 }
 
 

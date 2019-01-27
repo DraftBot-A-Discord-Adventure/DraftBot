@@ -65,7 +65,7 @@ class EquipementManager {
      * @returns {Number} - The real power of a piece of equipement
      */
     getEquipementEfficiency(equipement) {
-        return ItemValues.effect[equipement.rareness][equipement.power];
+        return parseInt(ItemValues.effect[equipement.rareness][equipement.power]);
     }
 
 
@@ -128,7 +128,7 @@ class EquipementManager {
     generateRandomRareness() {
         let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
         let desiredRareness = 1;
-        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness]) {
+        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness-1]) {
             desiredRareness++;
         }
         return desiredRareness;
