@@ -4,6 +4,10 @@ const Config = require('../utils/Config')
 const sql = require("sqlite");
 const Text = require('../text/Francais');
 const Tools = require('../utils/Tools');
+const InventoryManager = require('../classes/InventoryManager');
+const EquipementManager = require('../classes/EquipementManager');
+const PotionManager = require('../classes/PotionManager');
+const ObjectManager = require('../classes/ObjectManager');
 
 sql.open("./modules/data/database.sqlite");
 
@@ -99,7 +103,6 @@ class PlayerManager {
      * @param {*} player - The player that has to be saved
      */
     setPlayerAsOccupied(player) {
-
         console.log("Updating player ...");
         sql.run(`UPDATE entity SET effect = ":clock10:" WHERE id = ${player.discordId}`).catch(console.error);
         console.log("Player updated !");
@@ -154,8 +157,6 @@ class PlayerManager {
         if (allowedStates.includes(player.getEffect())) {
             result = true; // le joueur est dans un état authorisé
         } else {
-            console.log(message.createdTimestamp);
-            console.log(player.lastReport)
             if (player.getEffect() != ":clock10:" && message.createdTimestamp > player.lastReport) {
                 result = true;
             } else {
@@ -186,6 +187,50 @@ class PlayerManager {
             return "";
         }
     }
+
+
+    async giveRandomItem(message) {
+        let inventoryManager = new InventoryManager();
+        let equipementManager = new EquipementManager();
+        let potionManager = new PotionManager();
+        let objectManager = new ObjectManager();
+        let inventory = await inventoryManager.getCurrentInventory(message);
+
+        let type = this.chooseARandomItemType();
+        switch (type) {
+            case "weapon":
+                let weapon = equipementManager.generateRandomWeapon();
+                if (equipementManager.getEquipementEfficiency(weapon) > equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId))) {
+                    inventory.weaponId = weapon.id;
+                    message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon));
+                } else {
+                    message.channel.send("Vous ne ramasssez rien parce que vous avez déjà un item mieux bla bla à changer bas les couilles c'est du test");
+                }
+                break;
+            case "armor":
+                let armor = equipementManager.generateRandomArmor();
+                if (equipementManager.getEquipementEfficiency(armor) > equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId))) {
+                    inventory.armorId = armor.id;
+                    message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor));
+                } else {
+                    message.channel.send("Vous ne ramasssez rien parce que vous avez déjà un item mieux bla bla à changer bas les couilles c'est du test");
+                }
+                break;
+            default:
+                message.channel.send("item à donner de type :" + type);
+                break;
+        }
+        inventoryManager.updateInventory(inventory);
+    }
+
+
+    /**
+     * Select a random item Type 
+     * @returns {String} - The type of the item that has been selected
+     */
+    chooseARandomItemType() {
+        return DefaultValues.itemGenerator.tab[Math.round(Math.random() * (DefaultValues.itemGenerator.max - 1) + 1)];
+    };
 }
 
 module.exports = PlayerManager;

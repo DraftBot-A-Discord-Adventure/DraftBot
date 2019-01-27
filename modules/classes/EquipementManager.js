@@ -103,7 +103,7 @@ class EquipementManager {
         let desiredRareness = this.generateRandomRareness();
         let id = this.generateRandomArmorId();
         let tries = 1;
-        while (ItemValues.weapon[id].rareness != desiredRareness) {
+        while (ItemValues.armor[id].rareness != desiredRareness) {
             tries++;
             id = this.generateRandomArmorId();
         }
@@ -117,7 +117,7 @@ class EquipementManager {
      * @returns {Number} - A random Id
      */
     generateRandomArmorId() {
-        return Math.round(Math.random() * (DefaultValues.raritiesGenerator.numberOArmor - 1)) + 1;
+        return Math.round(Math.random() * (DefaultValues.raritiesGenerator.numberOfArmor - 1)) + 1;
     }
 
 

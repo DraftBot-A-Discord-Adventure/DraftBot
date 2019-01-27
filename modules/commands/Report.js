@@ -1,5 +1,4 @@
 const PlayerManager = require('../classes/PlayerManager');
-const Player = require('../classes/Player');
 const EventManager = require('../classes/EventManager');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
@@ -18,9 +17,7 @@ const reportCommand = async function (message) {
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
 
-
-
-   if (playerManager.checkState(player, message, ":baby::smiley:")) {  //check if the player is not dead or sick
+   if (playerManager.checkState(player, message, ":baby::smiley::clock2::sick::snowflake::dizzy_face:")) {  //check if the player is not dead or sick
 
       playerManager.setPlayerAsOccupied(player);
 
@@ -157,7 +154,7 @@ function loadNothingToSayPossibility(eventManager) {
  * @param {*} eventNumber  - The id of the event the player falls on
  */
 async function generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained) {
-
+   console.log(eventNumber);
    //load the event to display
    let event = eventManager.loadEvent(eventNumber);
    //display a message containing informations about the event and get this message back
@@ -236,6 +233,9 @@ function applyPossibility(message, pointsGained, moneyChange, possibility, playe
    // if the number is below 0, remove health Points will be called by the add Health Points method
    // we have to parse int this because elsewhere it is considered as a screen and it do 2 + 2 = 22
    player.setEffect(possibility.newEffect);
+   if (possibility.item == "true") {
+     console.log(playerManager.giveRandomItem(message))
+   }
    playerManager.updatePlayer(player);
 }
 

@@ -76,7 +76,8 @@
         "intro": " | **",
         "timeLeft": " `Temps restant : ",
         "outro": "`",
-        "noTimeLeft": " :hospital: `Reprise du jeu possible`"
+        "noTimeLeft": " :hospital: `Reprise du jeu possible`",
+        "newItem": "**Un nouvel item a été placé dans votre inventaire !** :new: Vous recevez :\n\n"
     },
     "equipementManager": {
         "separator1": " | Puissance ",
@@ -146,12 +147,12 @@
         "report": {
             "nothingToSay": {
                 "1": "** | :smiley: Aucun incident ni évènement notable à signaler.",
-                "2": "** | :smiley: Il ne s'est rien passé de particulier depuis le précèdent rapport.",
+                "2": "** | :smiley: Il ne s'est rien passé de particulier depuis le précédent rapport.",
                 "3": "** | :smiley: Vous n'avez rencontré aucune difficulté à progresser durant les dernières heures, vous continuez d'avancer tranquilement.",
                 "4": "** | :smiley: Rien à signaler, vous continuez d'avancer.",
                 "5": "** | :smiley: Pas d'obstacle en vue, Rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
                 "6": "** | :smiley: La voie est libre, aucune raison de s'arrêter, Vous continuez d'avancer",
-                "7": "** | :smiley: Rien d'important ne s'est passé depuis le rapport précèdent.",
+                "7": "** | :smiley: Rien d'important ne s'est passé depuis le rapport précédent.",
                 "8": "** | :smiley: Pas d'évènement notable depuis la dernière fois.",
                 "9": "** | :smiley: Les chiens aboient et la caravane passe. Vous continuez tranquilement votre route",
                 "10": "** | :smiley: La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
@@ -328,7 +329,7 @@
         "11": {
             "🌳": {
                 "1": "** | :deciduous_tree: Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégats.",
-                "2": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la foret mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile ! (ou pas)",
+                "2": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la foret mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
                 "3": "** | :deciduous_tree: En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! :sick:"
             },
             "👈": {
@@ -353,7 +354,7 @@
             "🚣": {
                 "1": "** | 🚣 En tentant de fabriquer votre embarcation vous vous blessez ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
                 "2": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaiblis. Il faudra vous soigner avant de continuer ! :snowflake:",
-                "3": "** | 🚣 Vous fabriquez une petite barque en quelques heures et vous atteignez l'autre côté facilement. Vous décidez de conserver votre rame en vous disant qu'a défaut de vous en servir comme d'une arme vous trouverez bien quelqu'un pour vous la racheter !"
+                "3": "** | 🚣 Vous fabriquez une petite barque en quelques heures et vous atteignez l'autre côté facilement. En sortant de votre bateau vous ramassez un objet qui, à défault de vous servir, sera facile à revendre !"
             },
             "🌉": {
                 "1": "** | 🌉 Au bout de 30 minutes vous finissez par abandonner et vous reprenez votre route dans une autre direction...",

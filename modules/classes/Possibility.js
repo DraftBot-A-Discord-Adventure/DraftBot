@@ -3,7 +3,7 @@
  */
 class Possibility {
 
-    constructor(idEvent, emoji, id, timeLost, healthPointsChange, newEffect, xpGained, moneyGained) {
+    constructor(idEvent, emoji, id, timeLost, healthPointsChange, newEffect, xpGained, moneyGained,item) {
         this.idEvent = idEvent;
         this.emoji = emoji;
         this.id = id;
@@ -12,6 +12,7 @@ class Possibility {
         this.newEffect = newEffect;
         this.xpGained = xpGained;
         this.moneyGained = moneyGained;
+        this.item = item;
     }
 
 
