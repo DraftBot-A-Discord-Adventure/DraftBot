@@ -62,7 +62,7 @@
         },
         "14": {
             "1": "🔨",
-            "2": "💲",
+            "2": "☕",
             "3": "🚶"
         }
     },
@@ -947,7 +947,8 @@
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
-                    "moneyGained": "0"
+                    "moneyGained": "0",
+                    "item": "true"
                 },
                 "2": {
                     "timeLost": "10",
@@ -964,16 +965,30 @@
                     "moneyGained": "0"
                 }
             },
-            "💲": {
+            "☕": {
                 "1": {
+                    "timeLost": "500",
+                    "healthPointsChange": "20",
+                    "newEffect": ":zzz:",
+                    "xpGained": "0",
+                    "moneyGained": "0"
+                },
+                "2": {
+                    "timeLost": "30",
+                    "healthPointsChange": "5",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "0"
+                },
+                "3": {
                     "timeLost": "0",
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
-                    "moneyGained": "-20"
+                    "moneyGained": "0"
                 },
-                "2": {
-                    "timeLost": "0",
+                "4": {
+                    "timeLost": "10",
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
@@ -987,6 +1002,20 @@
                     "newEffect": ":smiley:",
                     "xpGained": "0",
                     "moneyGained": "0"
+                },
+                "2": {
+                    "timeLost": "20",
+                    "healthPointsChange": "10",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "0"
+                },
+                "3": {
+                    "timeLost": "5",
+                    "healthPointsChange": "-10",
+                    "newEffect": ":dizzy_face:",
+                    "moneyGained": "0",
+                    "xpGained": "0"
                 }
             },
             "end": {

@@ -69,7 +69,7 @@
         "11": " : **  :interrobang: Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.\n\n:deciduous_tree: Traverser quand même la forêt.\n:point_left: Suivre les conseils de l'inconnue.\n:point_right: Eviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "12": " : ** 🏞️ Vous voyez une rivière devant vous, de l'autre coté du rivage, vous apercevez un village.\n\n🏊 Traverser la rivière en nageant \n🚣 Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une maison ressemblant à une forge, vous vous approchez et entendez des coups de marteau sur de l'acier.\n\n:hammer: Regarder le forgeron\n:heavy_dollar_sign: Le soutenir en lui donnant un peu d'argent\n:walking: Passer son chemin\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+        "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une maison ressemblant à une forge, vous vous approchez et entendez des coups de marteau sur de l'acier.\n\n:hammer: Regarder le forgeron\n☕ Demander une boisson pour vous reposer et reprendre des force\n:walking: Passer son chemin\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
     },
     "possibilities": {
         "1": {
@@ -297,16 +297,20 @@
         },
         "14": {
             "🔨": {
-                "1": "** | Le forgeron vous aperçoit et vous propose de vous fabriquer une épée avec lui. Après près d'une heure, votre magnifique épée est refroidie !",
+                "1": "** | Le forgeron vous aperçoit et vous propose de vous fabriquer une épée avec lui. Après près d'une heure, l'épée est magnifique et le forgeron vous donne une récompense qui pourra vous être utile !",
                 "2": "** | Vous regardez le forgeron fabriquer une hache et vous repartez après 10 minutes.",
                 "3": "** | Le forgeron vous aperçoit et vous propose de vous fabriquer une épée avec lui. Malheureusement, le marteau vous tombe dessus d'un coup et vous blesse :dizzy_face: !"
             },
-            "💲": {
-                "1": "** | Le forgeron vous remercie de votre aide.",
-                "2": "** | Le forgeron n'accepta pas votre cadeau et dit de garder votre argent pour vous mais il te remercie tout de même."
+            "☕": {
+                "1": "** | Vous demandez gentillement au forgeron de boire une boisson chaude. Il vous répond chaleureusement en vous proposant un café. Il vous invite dans sa maison :house: et vous buvez un excellent café :coffee:. Il vous propose en plus de dormir chez lui en voyant votre tête fatiguée. Vous acceptez. :zzz:",
+                "2": "** | Vous demandez gentillement au forgeron de boire une boisson chaude. Il vous répond chaleureusement en vous proposant un café. Après ce délicieux café :coffee:, vous repartez avec le sourire aux lèvres.",
+                "3": "** | Vous demandez gentillement au forgeron de boire une boisson chaude. Il se retourne et sursaute. \"Je ne vous avais pas vu !\" dit-il :scream:. Il s'excuse que sa femme n'aimait pas trop les inconnus. Vous répondez que cela n'est pas grave et vous repartez avec la maison derrière vous.",
+                "4": "**| Vous essayez de demander gentillement une boisson au forgeron mais il a l'air concentré dans son travail, après 10 minutes, vous n'insistez pas plus."
             },
             "🚶": {
-                "1": "** | Vous partez sans perdre de temps. :runner:"
+                "1": "** | Vous partez sans perdre de temps. :runner:",
+                "2": "** | Vous partez sans faire attention à où vous marchez mais vous tombez :dizzy_face:. Heureusement le forgeron vous a vu et vous ramène chez lui. Il vous offre quelques vivres pour reprendre des forces et vous repartez quelques minutes plus tard.",
+                "3": "** | Vous partez sans faire attention à où vous marcher mais vous tombez :dizzy_face:."
             },
             "end": {
                 "1": "** | Vous partez directement."
