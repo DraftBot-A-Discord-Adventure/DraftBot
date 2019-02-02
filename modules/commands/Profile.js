@@ -14,7 +14,7 @@ const profileCommand = async function (message) {
 
 /**
  * Returns a string containing the profile message.
- * @returns {string} - A string containing the profile message.
+ * @returns {String} - A string containing the profile message.
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const generateProfileMessage = function (message, player) {
@@ -22,7 +22,7 @@ const generateProfileMessage = function (message, player) {
     let profileMessage = Text.commands.profile.main + message.author.username + Text.commands.profile.level + player.getLevel() +
      Text.commands.profile.health + player.getHealth() +Text.commands.profile.separator + player.getMaxHealth() + Text.commands.profile.rank +
       playerManager.getRank(player) + Text.commands.profile.separator + playerManager.getNumberOfPlayer() + Text.commands.profile.money + player.getMoney()+
-       Text.commands.profile.score + player.getScore() + Text.commands.profile.effect + player.getEffect();
+       Text.commands.profile.score + player.getScore() + Text.commands.profile.effect + player.getEffect() + playerManager.displayTimeLeft(player, message);
     return profileMessage;
 };
 

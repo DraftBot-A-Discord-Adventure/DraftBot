@@ -1,6 +1,7 @@
 const Config = require('../utils/Config');
 const Entity = require('./Entity');
-const TypeOperators = require('../utils/TypeOperators');
+const Tools = require('../utils/Tools');
+const DefaultValues = require('../utils/DefaultValues')
 
 /**
  * Represents a Player.
@@ -8,13 +9,12 @@ const TypeOperators = require('../utils/TypeOperators');
 class Player extends Entity {
 
     constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges) {
-        super(discordId, maxHealth, health, attack, defense, speed);
+        super(discordId, maxHealth, health, attack, defense, speed, effect);
         this.discordId = discordId;
         this.score = score;
         this.level = level;
         this.experience = experience;
         this.money = money;
-        this.effect = effect;
         this.lastReport = lastReport;
         this.badges = badges;
     }
@@ -24,7 +24,7 @@ class Player extends Entity {
      * Returns the amount of experience needed to level up. The formula for the amount of experience is:
      * f(level) = 75 * level ^ 1.35, where 75 and 1.35 are constants defined in NumberConstants.js.
      * @see NumberConstants
-     * @returns {number} Returns the experience needed to level up.
+     * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
         return Math.round(Config.PLAYER_BASE_EXPERIENCE_PER_LEVEL *
@@ -38,8 +38,8 @@ class Player extends Entity {
      * @param experience - The amount of experience to add. Must be a positive Number.
      */
     addExperience(experience) {
-        if (TypeOperators.isAPositiveNumber(experience)) {
-            this.setExperience(this.experience + experience);
+        if (Tools.isAPositiveNumber(experience)) {
+            this.setExperience(this.experience + parseInt(experience));
             if (this.hasEnoughExperienceToLevelUp()) {
                 this.levelUp();
             }
@@ -48,7 +48,7 @@ class Player extends Entity {
 
     /**
      * Returns this Player instance's current experience.
-     * @returns {number} - The amount of experience this Player instance currently has.
+     * @returns {Number} - The amount of experience this Player instance currently has.
      */
     getExperience() {
         return this.experience;
@@ -59,7 +59,7 @@ class Player extends Entity {
      * @param experience - The amount of experience this instance should have. Must be a positive or null Number.
      */
     setExperience(experience) {
-        if (TypeOperators.isAPositiveNumberOrNull(experience)) {
+        if (Tools.isAPositiveNumberOrNull(experience)) {
             this.experience = experience;
             if (this.hasEnoughExperienceToLevelUp()) {
                 this.levelUp();
@@ -69,7 +69,7 @@ class Player extends Entity {
 
     /**
      * Returns this Player instance's current experience.
-     * @returns {number} - The level of this Player instance.
+     * @returns {Number} - The level of this Player instance.
      */
     getLevel() {
         return this.level;
@@ -80,7 +80,7 @@ class Player extends Entity {
      * @param level - The level this Player instance should be. Must be a positive Number.
      */
     setLevel(level) {
-        if (TypeOperators.isAPositiveNumber(level)) {
+        if (Tools.isAPositiveNumber(level)) {
             this.level = level;
         }
     }
@@ -101,8 +101,8 @@ class Player extends Entity {
      * @param money - The amount of money to add. Must be a Number.
      */
     addMoney(money) {
-        if (TypeOperators.isAPositiveNumberOrNull(money)) {
-            this.money += money;
+        if (Tools.isAPositiveNumberOrNull(money)) {
+            this.money += parseInt(money);
         } else {
             this.removeMoney(-money);
         }
@@ -115,8 +115,8 @@ class Player extends Entity {
      * @param money - The amount of money to remove. Must be a Number.
      */
     removeMoney(money) {
-        if (TypeOperators.isAPositiveNumberOrNull(money)) {
-            this.money -= money;
+        if (Tools.isAPositiveNumberOrNull(money)) {
+            this.money -= parseInt(money);
         } else {
             this.addMoney(-money);
         }
@@ -127,14 +127,14 @@ class Player extends Entity {
      * @param money - The amount of money this Player instance should have. Must be a positive or null Number.
      */
     setMoney(money) {
-        if (TypeOperators.isAPositiveNumberOrNull(money)) {
+        if (Tools.isAPositiveNumberOrNull(money)) {
             this.money = money;
         }
     }
 
     /**
      * Returns this Player instance's currently held money.
-     * @returns {number} - The amount of money held by this Player instance.
+     * @returns {Number} - The amount of money held by this Player instance.
      */
     getMoney() {
         return this.money;
@@ -159,7 +159,7 @@ class Player extends Entity {
 
     /**
      * Returns this Player instance's name.
-     * @returns {string} - The name of this Player instance.
+     * @returns {String} - The name of this Player instance.
      */
     getName() {
         return this.name;
@@ -170,7 +170,7 @@ class Player extends Entity {
      * @param discordId - The Discord User ID to assign to the player.
      */
     setDiscordId(discordId) {
-        if (TypeOperators.isANegativeNumber(this.discordId)) {
+        if (Tools.isANegativeNumber(this.discordId)) {
             this.discordId = discordId;
         }
     }
@@ -185,44 +185,22 @@ class Player extends Entity {
 
     /**
      * Returns the score of the player.
-     * @returns {number} - The score of the player
+     * @returns {Number} - The score of the player
      */
     getScore() {
         return this.score;
     }
 
-    /**
-     * Returns the current state of the player
-     * @returns {string} - The effect that affect the player 
-     */
-    getEffect() {
-        return this.effect;
-    }
-
-    /**
-     * edit the state of a player
-     * @param {string} - The new effect
-     */
-    setEffect(effect) {
-        this.effect = effect;
-    }
-
-    //TODO : add and remove points from score
-
-    /**
-     * Check if a player si alive or not
-     *@returns {boolean} - Trus if the player is dead
-     */
-    isDead() {
-        return this.effect === ":skull:";
-    }
 
     /**
      * Update the timecode matching the last time the player has been see
-     * @param {Number} time - the timecode to set
+     * @param {Number} time - The timecode to set
+     * @param {Number} malusTime - A malus that has to be added to the lasReportTime
+     * @param {String} effectMalus The current effect of the player in case it gave an other malus
      */
-    updateLastReport(time) {
-        this.lastReport = time;
+    updateLastReport(time, malusTime, effectMalus) {
+        let realMalus = DefaultValues.effectMalus[effectMalus];
+        this.lastReport = parseInt(time) + parseInt(Tools.convertMinutesInMiliseconds(malusTime)) + parseInt(realMalus);
     }
 
 
@@ -233,8 +211,8 @@ class Player extends Entity {
      * @param points - The amount of points to remove. Must be a Number.
      */
     removeScore(points) {
-        if (TypeOperators.isAPositiveNumberOrNull(points)) {
-            this.score -= points;
+        if (Tools.isAPositiveNumberOrNull(points)) {
+            this.score -= parseInt(points);
         } else {
             this.addScore(-points);
         }
@@ -242,17 +220,30 @@ class Player extends Entity {
 
 
     /**
-   * add the specified amount of points from the Player's score.
-   * Note: If points is negative, then removeScore is called.
-   * @see removeScore
-   * @param points - The amount of points to add. Must be a Number.
-   */
+     * add the specified amount of points from the Player's score.
+     * Note: If points is negative, then removeScore is called.
+     * @see removeScore
+     * @param points - The amount of points to add. Must be a Number.
+     */
     addScore(points) {
-        if (TypeOperators.isAPositiveNumberOrNull(points)) {
-            this.score += points;
+        if (Tools.isAPositiveNumberOrNull(points)) {
+            this.score += parseInt(points);
         } else {
             this.removeScore(-points);
         }
+    }
+
+    /**
+     * Calculate the time difference in minute betwin now and the last time the player has been seen
+     * @param {Number} currentTime 
+     * @returns {Number}
+     */
+    calcTime(currentTime) {
+        let time = Math.floor((currentTime - this.lastReport) / (1000 * 60))
+        if (time > DefaultValues.report.timeLimit) {
+            time = DefaultValues.report.timeLimit;
+        }
+        return time
     }
 
 

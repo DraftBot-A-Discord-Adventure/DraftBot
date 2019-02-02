@@ -1,5 +1,5 @@
 const Config = require('../utils/Config');
-const TypeOperators = require('../utils/TypeOperators');
+const Tools = require('../utils/Tools');
 
 /**
  * Represents a server where the bot is present.

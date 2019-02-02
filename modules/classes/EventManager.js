@@ -1,12 +1,12 @@
 const Event = require('./Event');
 const Possibility = require('./Possibility');
 const Config = require('../utils/Config');
-
 const EventsData = require('../utils/Events');
-
+const DefaultValues = require('../utils/DefaultValues')
 
 
 class EventManager {
+
 
     /**
      * Load an event from the event file
@@ -22,14 +22,15 @@ class EventManager {
     /**
      * Load one of the possibilities of the event
      * @param {Number} idEvent - The event the player is curently facing
-     * @param {string} emoji  - The emoji the player selected
+     * @param {String} emoji  - The emoji the player selected
      * @param {Number} id  - The random id generated to select a posibility
      * @return {*} - The possibility loaded
      */
     loadPossibility(idEvent, emoji, id) {
-        let possibility = new Possibility(idEvent, emoji, id, EventsData.possibility[idEvent][emoji][id].timeLost, EventsData.possibility[idEvent][emoji][id].healthPointsChange, EventsData.possibility[idEvent][emoji][id].newEffect, EventsData.possibility[idEvent][emoji][id].xpGained, EventsData.possibility[idEvent][emoji][id].moneyGained)
+        let possibility = new Possibility(idEvent, emoji, id, EventsData.possibility[idEvent][emoji][id].timeLost, EventsData.possibility[idEvent][emoji][id].healthPointsChange, EventsData.possibility[idEvent][emoji][id].newEffect, EventsData.possibility[idEvent][emoji][id].xpGained, EventsData.possibility[idEvent][emoji][id].moneyGained, EventsData.possibility[idEvent][emoji][id].item)
         return possibility;
     }
+
 
     /**
      * Select a random possibility id from the list of the avalables one for a selected event
@@ -46,21 +47,19 @@ class EventManager {
         return Math.round(Math.random() * (maxLimit - 1) + 1)
     };
 
+
     /**
-    * Select a random event id from the list of the avalables one 
-    * @returns {Number} - The id of an event
-    */
+     * Select a random event id from the list of the avalables one 
+     * @returns {Number} - The id of an event
+     */
     chooseARandomEvent() {
-        let maxLimit = 0;
+        let maxLimit = -1; // we start from -1 because we must ignore the tuto event
         let event;
         for (event in EventsData.event) {
             maxLimit++;
         }
         return Math.round(Math.random() * (maxLimit - 1) + 1)
     };
-
-
-
 }
 
 module.exports = EventManager;

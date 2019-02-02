@@ -17,7 +17,7 @@ const helpCommand = function (message, args) {
 
 /**
  * Returns a string containing the general help message.
- * @returns {string} - A string containing an help message.
+ * @returns {String} - A string containing an help message.
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const generateGeneralHelpMessage = function (message) {
@@ -27,9 +27,9 @@ const generateGeneralHelpMessage = function (message) {
 
 /**
  * Returns a string containing a specific help message about one command.
- * @returns {string} - A string containing help about a command.
+ * @returns {String} - A string containing help about a command.
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param commandname - the args given by the user to tell what command he need help about.
+ * @param commandname - The args given by the user to tell what command he need help about.
  */
 const generateHelpMessageForSpecificCommand = function (message,commandname) {
     let helpMessage = Text.commands.help.commands[commandname];
