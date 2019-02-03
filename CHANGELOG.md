@@ -14,14 +14,14 @@
 
 
 ## 0.0.9
-> Publié le 21/08/218
+> Publiée le 21/08/218
 
 ### Ajouts
 * **Commande `!daily` :** Permet d'utiliser les pouvoirs de certains objets
 * **Commande `!invite` :** Permet d'obtenir le lien pour ajouter le bot sur son serveur
 * **Message d'explication lors de l'arrivée du bot dans un serveur :** Le message sera envoyé au propriétaire du serveur uniquement si les salons privés sont ouverts
 * **Elements dans la console**
-* **Le bot quitte les serveurs ayant un pourcentage de bot par rapport au humains trop élevé :** Evite les tentatives de triches
+* **Le bot quitte les serveurs ayant un pourcentage de bot par rapport aux humains trop élevé :** Evite les tentatives de triches
 * **Message lorsque le classement est en train de chargé :** Pour les commandes `!top` et `!profile`
 * ***Easter eggs***
     * **Deux nouveaux *easter eggs***
@@ -32,8 +32,8 @@
 ### Modifications
 * **Classement**
     * **15 joueurs par page dans le top**
-    * **Les joueurs avec lequels un rapport est disponible est indiqué dans la commande `!top`**
-    * **Les joueurs avec lequels un rapport est en attente est indiqué dans la commande `!top`**
+    * **Les joueurs avec lesquels un rapport est disponible est indiqué dans la commande `!top`**
+    * **Les joueurs avec lesquels un rapport est en attente est indiqué dans la commande `!top`**
 * **Modification du message de bienvenue :** Ajout d'un conseil et réorganisation
 * **Amélioration de la commande `!aide`**
 * **Augmentation des gains à la vente d'un objet :** Avec la commande `!sell`
@@ -42,7 +42,7 @@
     * **Les rapports reprennent après le temps du soin :** Non plus après la sortie de l'hôpital
 * **Combat bloqué avant le niveau 10**
 * **La commande `!levelup` a été complétement retravaillée**
-* **Correction d'erreurs d'orthographes**
+* **Correction d'erreurs d'orthographe**
 
 ### Corrections de bugs
 * **DB008-1 :** Le classement n'affiche pas le bon nombre de joueurs
@@ -51,7 +51,7 @@
 
 
 ## 0.0.8
-> Publié le 26/06/2018
+> Publiée le 26/06/2018
 
 ### Ajouts
 * **Commande `!topguild` :** Permet de voir le classement du serveur sur lequel la commande a été exécutée
@@ -75,13 +75,13 @@
 
 
 ## 0.0.7
-> Publié le 19/06/2018
+> Publiée le 19/06/2018
 
 **RENITIALISATION DE L'AVANCEMENT DE TOUS LES JOUEURS**
 
 ### Ajouts
 * **Niveaux**
-    * **Système de niveaux de joueur**
+    * **Système de niveaux**
     * **Commande `!levelup` :** Permet de monter en niveau
 * **Combats**
     * **Système de combat :** Entre deux joueurs
@@ -104,7 +104,7 @@
 
 
 ## 0.0.6
-> Publié le 29/05/2018
+> Publiée le 29/05/2018
 
 ### Modifications
 * **L'hôpital de redonne plus de points de vie**
@@ -116,7 +116,7 @@
 
 
 ## 0.0.5
-> Publié le 19/05/2018
+> Publiée le 19/05/2018
 
 ### Ajouts
 * **Commande `!inventaire` :** Permet de voir le contenu de son inventaire
@@ -135,7 +135,7 @@
 
 
 ## 0.0.4
-> Publié le 06/05/2018
+> Publiée le 06/05/2018
 
 ### Ajouts
 * **Commande `!respawn` :** Permet de recommencer après d'être mort
@@ -146,7 +146,7 @@
 ### Modifications
 * **La commande `!regen` a été complétement revue :** Elle affiche maintenant le temps avant la fin de la guérison
 * **Le temps de guérison a été maintenant fixer à sa valeur normale**
-* **Le système d'événements a été amélioré :** Afin d'améliorer l'ajouts de nouveaux événéments
+* **Le système d'événements a été amélioré :** Afin d'améliorer l'ajout de nouveaux événements
 
 ### Suppressions
 * **Commande `!random`**
@@ -155,40 +155,40 @@
 
 ### Corrections de bugs
 * **DB003-4 :** Le joueur reste à l'hôpital lors du plantage du bot
-* **DB003-5 :** Le temps du rapport n'est parfois pas rénitialisé
+* **DB003-5 :** Le temps du rapport n'est parfois pas réinitialisé
 * **DB003-6 :** Les événements aléatoires ne sont pas lancés
 
 
 ## 0.0.3
-> Publié le 22/07/2018
+> Publiée le 22/07/2018
 
 ### Ajouts
 * **Commande `!random` :** Permet d'avoir un nombre aléatoire entre 0 et 1
 * **Maladies**
     * **Système de maladie**
-    * **Commande `!regen` :** Permet de se soigner et récuperer un peu de vie
+    * **Commande `!regen` :** Permet de se soigner et récupérer un peu de vie
     * **Impossibilité d'avoir un rapport lorsque le joueur est malade ou en train de se faire soigner**
     * **Indication sur l'état dans la commande `!profile` :** Pour savoir si le joueur est malade ou en train se faire soigner
 * **Un événement :** Ajout par *`Gren'#4601`*
 
 ### Corrections de bugs
-* **DB003-1 :** La rénitialisation met le joueur malade
-* **DB003-2 :** Le temps est mal calculé lorsque un événement apparait de manière aléatoire
+* **DB003-1 :** La réinitialisation met le joueur malade
+* **DB003-2 :** Le temps est mal calculé lorsqu'un événement apparaît de manière aléatoire
 
 
 ## 0.0.2
-> Publié le 18/04/2018
+> Publiée le 18/04/2018
 
 ### Ajouts
 * **Commande `!rapport` :** Permet d'avoir un rapport avec les éléments collectés pendant votre absence
 * **Deux événements :** Ajout de *`Z_runner#7515`*
-* **Les événements apparaissent aléatoirement :** Ils peuvent bénifiques ou maléfiques
-* **Plus le temps entre deux rapports est long plus les ressources collectés sont importantes :** Cependant au bout de 10 heures plus rien n'est collecté
+* **Les événements apparaissent aléatoirement :** Ils peuvent bénéfiques ou maléfiques
+* **Plus le temps entre deux rapports est long plus les ressources collectées sont importantes :** Cependant au bout de 10 heures plus rien n'est collecté
 * **Plus le temps entre deux rapports est long plus il y a de chances qu'un événement se produise**
 
 
 ## 0.0.1
-> Publié le 16/04/2018
+> Publiée le 16/04/2018
 
 ### Ajouts
 * **Commande `!ping` :** Permet de tester sir le bot est en ligne
@@ -196,7 +196,7 @@
 * **Commande `!profile` :** Permet d'afficher les informations principales du joueur
 * **Commande `!reset` :** Permet de supprimer un joueur de la base de données
 * **Commande `!destroy` :** Permet d'éteindre le bot
-* **Commande `!purge` :** Permet de supprimer un certain nombre de message
+* **Commande `!purge` :** Permet de supprimer un certain nombre de messages
 * **Commande `!reload` :** Permet de recharger une commande
 * **Système d'événements**
 * **Base de données**
