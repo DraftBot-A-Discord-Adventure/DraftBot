@@ -69,7 +69,7 @@
 ### Suppressions
 * **Mentions inutiles dans la commande `!regen`**
 
-### Corrections du bugs
+### Corrections de bugs
 * **DB007-1 :** L'événement de la forêt indique une perte de 20 points de vie alors que la réalité est 40 points de vie
 * **DB007-2 :** Le classement bug si la première commande d'un joueur est `!top`
 
