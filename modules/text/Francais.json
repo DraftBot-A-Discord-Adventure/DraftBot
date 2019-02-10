@@ -146,7 +146,8 @@
         "12": " : ** 🏞️ Vous voyez une rivière devant vous, de l'autre coté du rivage, vous apercevez un village.\n\n🏊 Traverser la rivière en nageant \n🚣 Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une maison ressemblant à une forge, vous vous approchez et entendez des coups de marteau sur de l'acier.\n\n:hammer: Regarder le forgeron\n☕ Demander une boisson pour vous reposer et reprendre des force\n:walking: Passer son chemin\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
-    },
+        "15": ":moneybag: Vous marchez tranquillement derrière une vieille dame quand soudain, elle fait tomber une bourse d'argent derrière elle.\n\n:older_woman: Vous prevenez la dame que sa bourse est tombé\n:smiling_imp: Vous prenez l'argent discrètement\n:walking: Vous ignorez l'incident\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+},
     "possibilities": {
         "report": {
             "nothingToSay": {
@@ -416,6 +417,23 @@
             "end": {
                 "1": "** | Vous partez directement."
             }
-        }
+        },
+        "15": {
+              "👵": {
+                  "1": "** | Vous rapportez à la dame la bourse, pour vous remerciez, elle vous récompense en vous donnant des pièces !",
+                  "2": "** | Après un moment d'hésitation, vous finnissez par être honnête et rapporter la bourse, mais c'était trop tard, elle était déjà partie. Vous gardez la bourse pour vous.",
+              },
+              "😈": {
+                  "1": "** | Vous prenez l'argent le plus discrètement possible et repartez avec.",
+                  "2": "** | Vous prenez l'argent mais la dame vous voit en flagrant délit et vous frappe avec son sac à main. Aïe...",
+              },
+              "🚶": {
+                  "1": "** | Vous continuer votre route sans vous souciez de cette incident.",
+                  "2": "** | Vous marchez sans attention à la bourse d'argent, mais soudainement, vous trébuchez dessus ! Vous vous rassurez en vous disant que vous avez juste une petit égratignure.",
+              },
+              "end": {
+                  "1": "** | Vous hésitez à rapporter la bourse à la vielle dame pendant 10 minutes, vous décidez finalement de ne pas y toucher."
+              }
+          }
     }
 }
