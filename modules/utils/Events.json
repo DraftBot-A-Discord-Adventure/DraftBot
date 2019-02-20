@@ -66,7 +66,7 @@
         },
         "14": {
             "1": "🔨",
-            "2": "☕",
+            "2": "🛏",
             "3": "🚶"
         }
     },
@@ -1077,23 +1077,23 @@
                 },
                 "3": {
                     "timeLost": "40",
-                    "healthPointsChange": "-50",
+                    "healthPointsChange": "-70",
                     "newEffect": ":dizzy_face:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
             },
-            "☕": {
+            "🛏": {
                 "1": {
-                    "timeLost": "500",
+                    "timeLost": "0",
                     "healthPointsChange": "20",
                     "newEffect": ":zzz:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
                 "2": {
-                    "timeLost": "30",
-                    "healthPointsChange": "5",
+                    "timeLost": "0",
+                    "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
                     "moneyGained": "0"
@@ -1106,8 +1106,8 @@
                     "moneyGained": "0"
                 },
                 "4": {
-                    "timeLost": "10",
-                    "healthPointsChange": "0",
+                    "timeLost": "300",
+                    "healthPointsChange": "5",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
                     "moneyGained": "0"
@@ -1129,9 +1129,9 @@
                     "moneyGained": "0"
                 },
                 "3": {
-                    "timeLost": "5",
-                    "healthPointsChange": "-10",
-                    "newEffect": ":dizzy_face:",
+                    "timeLost": "0",
+                    "healthPointsChange": "-40",
+                    "newEffect": ":sick:",
                     "moneyGained": "0",
                     "xpGained": "0"
                 }
