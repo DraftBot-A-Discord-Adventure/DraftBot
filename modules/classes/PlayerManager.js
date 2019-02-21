@@ -308,7 +308,7 @@ class PlayerManager {
      */
     sellItem(player, item, message) {
         let value = parseInt(DefaultValues.raritiesValues[item.rareness] + item.power);
-        console.log("the item has been sold ! " + item.rareness);
+        console.log("the item has been sold ! " + item);
         player.addMoney(value);
         message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd)
         return player;
