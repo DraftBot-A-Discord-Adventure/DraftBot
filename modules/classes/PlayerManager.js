@@ -200,7 +200,6 @@ class PlayerManager {
         let objectManager = new ObjectManager();
         let inventory = await inventoryManager.getCurrentInventory(message);
         let type = this.chooseARandomItemType();
-        type = "object";
         switch (type) {
             case "weapon":
                 player = await this.giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player);
@@ -307,8 +306,8 @@ class PlayerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the channel
      */
     sellItem(player, item, message) {
-        let value = parseInt(DefaultValues.raritiesValues[item.rareness] + item.power);
-        console.log("the item has been sold ! " + item);
+        let value = parseInt(DefaultValues.raritiesValues[item.rareness]) + parseInt(item.power);
+        console.log("the item has been sold ! " + item.rareness + " / " + item.power);
         player.addMoney(value);
         message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd)
         return player;
