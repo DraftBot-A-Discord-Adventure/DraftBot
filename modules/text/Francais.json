@@ -145,7 +145,7 @@
         "11": " : **  :interrobang: Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.\n\n:deciduous_tree: Traverser quand même la forêt.\n:point_left: Suivre les conseils de l'inconnue.\n:point_right: Eviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "12": " : ** 🏞️ Vous voyez une rivière devant vous, de l'autre coté du rivage, vous apercevez un village.\n\n🏊 Traverser la rivière en nageant \n🚣 Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester la nuit pour vous reposer et reprendre des force\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+        "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
     },
     "possibilities": {
         "report": {
@@ -398,15 +398,15 @@
         },
         "14": {
             "🔨": {
-                "1": "** | 🔨 L'homme vous aperçoit et vous propose de vous fabriquer une épée avec lui. Après près d'une heure, l'épée est magnifique et le forgeron vous donne une récompense qui pourra vous être utile !",
+                "1": "** | 🔨 L'homme vous aperçoit et vous propose de vous fabriquer un objet avec lui. Après près d'une heure, votre création est terminée. L'homme vous l'offre en récompense !",
                 "2": "** | 🔨 Vous regardez l'ouvrier fabriquer une hache pendant une dizaine de minutes avant de vous décider à reprendre la route.",
                 "3": "** | 🔨 L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l’idée d’obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l’idée de créer votre propre arme. :dizzy_face: !"
             },
             "🛏": {
                 "1": "** | 🛏 Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Epuisé, vous vous écroulez de fatigue sur le lit :zzz:",
                 "2": "** | 🛏 L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refuser poliement et reprenez votre route.",
-                "3": "** | 🛏 Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semble ne pas aprécier les étrangés",
-                "4": "** | 🛏 L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son pain. Affamé et épuisé, vous acceptez son offre."
+                "3": "** | 🛏 Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas aprécier les étrangers",
+                "4": "** | 🛏 L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son soupé. Affamé et épuisé, vous acceptez son offre."
             },
             "🚶": {
                 "1": "** | 🚶 Vous partez sans perdre de temps.",
@@ -414,7 +414,7 @@
                 "3": "** | 🚶 Vous décidez de continuer à marcher malgrès la fatigue. Après quelques kilomètres, vous vous écroulez au bord du chemin. :sick:"
             },
             "end": {
-                "1": "** | Vous contournez la maison et continuez votre route."
+                "1": "** | 🚶 Vous contournez la maison et continuez votre route."
             }
         }
     }
