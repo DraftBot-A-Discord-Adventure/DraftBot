@@ -200,12 +200,16 @@ class PlayerManager {
         let objectManager = new ObjectManager();
         let inventory = await inventoryManager.getCurrentInventory(message);
         let type = this.chooseARandomItemType();
+        type = "object";
         switch (type) {
             case "weapon":
                 player = await this.giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player);
                 break;
             case "armor":
                 player = await this.giveRandomArmor(equipementManager, inventory, message, inventoryManager, player);
+                break;
+            case "object":
+                player = await this.giveRandomObject(objectManager, inventory, message, inventoryManager, player);
                 break;
             default:
                 message.channel.send("item à donner de type :" + type);
@@ -227,15 +231,13 @@ class PlayerManager {
         let armor = await equipementManager.generateRandomArmor();
         let neww = equipementManager.getEquipementEfficiency(armor);
         let old = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
-        console.log(neww + "/" + old);
-        console.log(neww > old);
         if (neww > old) {
             inventory.armorId = armor.id;
             message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellEquipement(player, armor, message);
+            player = this.sellItem(player, armor, message);
         }
         return player
     }
@@ -253,15 +255,37 @@ class PlayerManager {
         let weapon = await equipementManager.generateRandomWeapon();
         let neww = equipementManager.getEquipementEfficiency(weapon);
         let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
-        console.log(neww + "/" + old);
-        console.log(neww > old);
         if (neww > old) {
             inventory.weaponId = weapon.id;
             message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellEquipement(player, weapon, message);
+            player = this.sellItem(player, weapon, message);
+        }
+        return player
+    }
+
+
+    /**
+     * add a random armor into an inventory and save the result
+     * @param {*} objectManager - The object manager class
+     * @param {*} inventory - the inventory of the player
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} inventoryManager - The inventory manager class
+     * @param {*} player - The player that is playing
+     */
+    async giveRandomObject(objectManager, inventory, message, inventoryManager, player) {
+        let object = await objectManager.generateRandomObject();
+        let neww = objectManager.getObjectEfficiency(object);
+        let old = objectManager.getObjectEfficiency(objectManager.getObjectById(inventory.backupItemId));
+        if (neww > old) {
+            inventory.backupItemId = object.id;
+            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object));
+            inventoryManager.updateInventory(inventory);
+        }
+        else {
+            player = this.sellItem(player, object, message);
         }
         return player
     }
@@ -278,13 +302,13 @@ class PlayerManager {
 
     /**
      * allow the player to gain some money corresponding to an equipement
-     * @param {*} equipement - The equipement that has to be sold
+     * @param {*} item - The equipement that has to be sold
      * @param {*} player - The player that will recieve the money
      * @param {*} message - The message that caused the function to be called. Used to retrieve the channel
      */
-    sellEquipement(player, equipement, message) {
-        let value = parseInt(DefaultValues.raritiesValues[equipement.rareness] + equipement.power);
-        console.log("the item has been sold ! " + equipement.rareness);
+    sellItem(player, item, message) {
+        let value = parseInt(DefaultValues.raritiesValues[item.rareness] + item.power);
+        console.log("the item has been sold ! " + item.rareness);
         player.addMoney(value);
         message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd)
         return player;

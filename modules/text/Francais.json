@@ -95,14 +95,14 @@
     },
     "rarities": {
         "0": ":small_orange_diamond: Basique",
-        "1": ":large_orange_diamond: Commun",
-        "2": ":fire: Peu commun",
-        "3": ":trident: Exotique",
-        "4": ":comet: Rare",
-        "5": ":dizzy: Special",
-        "6": ":star: Epique",
-        "7": ":star2: Legendaire",
-        "8": ":gem: Unique"
+        "1": " :large_orange_diamond: Commun",
+        "2": " :fire: Peu commun",
+        "3": " :trident: Exotique",
+        "4": " :comet: Rare",
+        "5": " :dizzy: Special",
+        "6": " :star: Epique",
+        "7": " :star2: Legendaire",
+        "8": " :gem: Unique"
     },
     "nature": {
         "intro": {

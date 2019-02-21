@@ -23,7 +23,6 @@ class ObjectManager {
      * @returns {String} - The description of the object
      */
     displayObject(object) {
-        console.log(object);
         let stringResult = ItemNames.object[object.id] + Text.objectManager.separator + Text.rarities[object.rareness] + Text.objectManager.separator + Text.nature.intro[object.natureEffect];
         if (object.natureEffect != 0) { // affichage de la puissance de l'effet si il existe
             stringResult += object.power + Text.nature.outroObject[object.natureEffect];
@@ -79,6 +78,16 @@ class ObjectManager {
             desiredRareness++;
         }
         return desiredRareness;
+    }
+
+
+    /**
+     * Return the real value of the power that is applied when it is used
+     * @param object - The object that has to be displayed
+     * @returns {Number} - The real power of a piece of object
+     */
+    getObjectEfficiency(object) {
+        return parseInt(ItemValues.effect[object.rareness][object.power]);
     }
 
 }
