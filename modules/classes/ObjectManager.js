@@ -87,7 +87,7 @@ class ObjectManager {
      * @returns {Number} - The real power of a piece of object
      */
     getObjectEfficiency(object) {
-        return parseInt(ItemValues.effect[object.rareness][object.power]);
+        return parseInt(object.rareness);
     }
 
 }

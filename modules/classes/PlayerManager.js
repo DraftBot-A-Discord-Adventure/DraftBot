@@ -210,6 +210,9 @@ class PlayerManager {
             case "object":
                 player = await this.giveRandomObject(objectManager, inventory, message, inventoryManager, player);
                 break;
+            case "potion":
+                player = await this.giveRandomPotion(potionManager, inventory, message, inventoryManager, player);
+                break;
             default:
                 message.channel.send("item à donner de type :" + type);
                 break;
@@ -267,7 +270,7 @@ class PlayerManager {
 
 
     /**
-     * add a random armor into an inventory and save the result
+     * add a random object into an inventory and save the result
      * @param {*} objectManager - The object manager class
      * @param {*} inventory - the inventory of the player
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
@@ -289,6 +292,29 @@ class PlayerManager {
         return player
     }
 
+
+    /**
+     * add a random potion into an inventory and save the result
+     * @param {*} potionManager - The potion manager class
+     * @param {*} inventory - the inventory of the player
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} inventoryManager - The inventory manager class
+     * @param {*} player - The player that is playing
+     */
+    async giveRandomPotion(potionManager, inventory, message, inventoryManager, player) {
+        let potion = await potionManager.generateRandomPotion();
+        let neww = potionManager.getPotionEfficiency(potion);
+        let old = potionManager.getPotionEfficiency(potionManager.getPotionById(inventory.potionId));
+        if (neww > old) {
+            inventory.potionId = potion.id;
+            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion));
+            inventoryManager.updateInventory(inventory);
+        }
+        else {
+            player = this.sellItem(player, potion, message);
+        }
+        return player
+    }
 
     /**
      * Select a random item Type 

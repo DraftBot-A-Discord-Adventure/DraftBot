@@ -5,33 +5,23 @@ sql.open("./modules/data/database.sqlite");
 
 
 /**
- * Represent a potion
+ * Represent a potion This is like a normal object but it can only be used one time
  */
 class Potion extends Item {
 
 
-    constructor(id, rareness, power,  natureEffect, numberOfUse) {
+    constructor(id, rareness, power,  natureEffect) {
         super(id, rareness, power);
-        this.natureEffect = natureEffect
-        this.numberOfUse = numberOfUse
+        this.natureEffect = natureEffect;
     }
 
 
     /**
-     * a number that match with an id of the effect applied by the potion
+     * A number that match with an id of the effect applied by the potion
      * @returns {number} - The id of the effect.
      */
     getNatureEffect() {
         return this.natureEffect;
-    }
-
-
-    /**
-     * the number of time the potion can be used before beeing deleted
-     * @returns {number} - The number of use
-     */
-    getNumberOfUse() {
-        return this.numberOfUse;
     }
 }
 

@@ -87,8 +87,7 @@
         "separator2": " | "
     },
     "potionManager": {
-        "separator": " | ",
-        "use": " | :arrows_counterclockwise: Utilisations restantes : "
+        "separator": " | "
     },
     "objectManager": {
         "separator": " |"
@@ -111,7 +110,7 @@
             "2": " :rocket: Vitesse + ",
             "3": " :crossed_swords: Attaque + ",
             "4": " :shield: Defense + ",
-            "5": " :hospital: Annule une altération d'état d'une durée de soin inférieure à ",
+            "5": " :hospital: Annule une altération d'état d'une durée de soin (en heures) inférieure à ",
             "6": " :moneybag: Argent + "
         },
         "outroObject": {

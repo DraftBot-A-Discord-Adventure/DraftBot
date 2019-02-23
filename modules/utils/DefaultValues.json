@@ -68,7 +68,8 @@
         "maxValue": "10000",
         "numberOfWeapon": "46",
         "numberOfArmor": "17",
-        "numberOfObject": "26"
+        "numberOfObject": "26",
+        "numberOfPotion": "33"
     },
     "itemGenerator": {
         "max": "10",
