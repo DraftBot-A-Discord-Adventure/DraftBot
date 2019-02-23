@@ -90,6 +90,7 @@ class InventoryManager {
         console.log("Inventory updated !");
     }
 
+
     /**
      * Allow to save a new inventory in the database
      * @param {*} inventory - The inventory that has to be saved
@@ -101,6 +102,16 @@ class InventoryManager {
     }
 
 
+    /**
+     * Allow to switch the item in the backup slot within the one that is active
+     * @param {*} inventory - The inventory that has to be changed
+     */
+    switch(inventory) {
+        let passage = inventory.objectId;
+        inventory.objectId = inventory.backupItemId;
+        inventory.backupItemId = passage;
+        this.updateInventory(inventory);
+    }
 }
 
 module.exports = InventoryManager;

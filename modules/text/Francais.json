@@ -60,6 +60,10 @@
             "lineEnd1": " :**\n\n",
             "lineEnd2": "\n",
             "backupTitle": "\n\n:briefcase:  **Réserve d'item :**\n"
+        },
+        "switch": {
+            "debut": "**",
+            "fin": "** :repeat: L'item actif et l'item en réserve ont été inversés !"
         }
     },
     "playerManager": {

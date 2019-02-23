@@ -9,16 +9,8 @@ const ObjectManager = require('../classes/ObjectManager');
 const Text = require('../text/Francais');
 const PlayerManager = require('../classes/PlayerManager')
 
-
-/**
- * Display the content of the inventory's inventory
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
 const testCommand = async function (message) {
-    for (let index = 0; index < 5; index++) {
-        potionManager = new PotionManager()
-        message.channel.send(potionManager.displayPotion(potionManager.generateRandomPotion()))
-    }
+
 }
 
 
