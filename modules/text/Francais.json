@@ -36,7 +36,10 @@
             "money": " | :moneybag: ",
             "score": " | :medal:  ",
             "effect": "  | État actuel : ",
-            "separator": "/"
+            "separator": "/",
+            "statsAttack": " :dagger: ",
+            "statsDefense": " :shield: ",
+            "statsSpeed": " :rocket: "
         },
         "respawn": {
             "thinking": ":thinking: | **",

@@ -93,6 +93,25 @@ class Entity {
     }
 
     /**
+     * Returns this Entity's Speed value.
+     * @returns {Number} - How rapid this Entity is.
+     */
+    getSpeed() {
+        return this.defense;
+    }
+
+    /**
+     * Set this Entity's Speed value.
+     * @param speed - How rapid this Entity should be. Must be a positive or null Number.
+     */
+    setSpeed(speed) {
+        if (Tools.isAPositiveNumberOrNull(speed)) {
+            this.speed = speed;
+        }
+    }
+
+
+    /**
     *  Allow to restore all the health of the entity
     */
     restoreHealthCompletely() {
