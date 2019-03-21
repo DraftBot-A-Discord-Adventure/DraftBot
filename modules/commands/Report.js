@@ -27,7 +27,7 @@ const reportCommand = async function (message) {
       }
 
       let time = player.calcTime(message.createdTimestamp);
-      time = 200; // in testing purpose : Remove for realease
+      //time = 200; // in testing purpose : Remove for realease
       let pointsGained = calculatePoints(player, time);
       let moneyChange = calculateMoney(player, time);
 
@@ -38,6 +38,7 @@ const reportCommand = async function (message) {
 
          case time < DefaultValues.report.minimalTime:
             displayErrorReport(message);
+            playerManager.setPlayerAsUnOccupied(player);
             break;
 
          case time <= DefaultValues.report.maximalTime && Math.round(Math.random() * DefaultValues.report.maximalTime) > time:

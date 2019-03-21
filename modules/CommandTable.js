@@ -7,10 +7,11 @@ const Report = require('./commands/Report');
 const Inventory = require('./commands/Inventory');
 const Test = require('./commands/Test');
 const Switch = require('./commands/Switch');
+const Drink = require('./commands/Drink');
 
 
-const InitDatabase = require('./commands/admin/initDatabase');
-const Give = require('./commands/admin/give');
+const InitDatabase = require('./commands/admin/InitDatabase');
+const Give = require('./commands/admin/Give');
 
 const CommandTable = new Map(
     [
@@ -25,6 +26,7 @@ const CommandTable = new Map(
         ["inv", Inventory.InventoryCommand],
         ["test", Test.TestCommand],
         ["switch", Switch.SwitchCommand],
+        ["drink", Drink.DrinkCommand],
 
         ["init", InitDatabase.InitDatabaseCommand],
         ["give", Give.GiveCommand],

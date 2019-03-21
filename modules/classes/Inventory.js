@@ -1,6 +1,8 @@
 const Config = require('../utils/Config');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('../utils/DefaultValues');
+const Potion = require('../classes/Potion');
+const ItemValues = require('../utils/items/Values');
 
 /**
  * Represents an Inventory. Store the id of the objects the user have in its inventory. An item id is also an ID
@@ -112,6 +114,15 @@ class Inventory {
      */
     setBackupItemId(backupItemId) {
         this.backupItemId = backupItemId;
+    }
+
+
+    /**
+     * Return the contained potion as an object
+     * @returns {*} the potion
+     */
+    getPotion(){
+        return new Potion(this.potionId,parseInt(ItemValues.potion[this.potionId].rareness),parseInt(ItemValues.potion[this.potionId].power),parseInt(ItemValues.potion[this.potionId].nature))
     }
 }
 

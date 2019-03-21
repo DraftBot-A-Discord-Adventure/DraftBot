@@ -29,17 +29,16 @@
             "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
         },
         "profile": {
-            "main": ":crossed_swords: | **",
+            "main": " | **",
             "level": "** |** LVL ",
             "health": "** | :heart: ",
             "rank": " | :trophy:  ",
             "money": " | :moneybag: ",
             "score": " | :medal:  ",
-            "effect": "  | État actuel : ",
             "separator": "/",
-            "statsAttack": " :dagger: ",
-            "statsDefense": " :shield: ",
-            "statsSpeed": " :rocket: "
+            "statsAttack": " | :dagger: ",
+            "statsDefense": " | :shield: ",
+            "statsSpeed": " | :rocket: "
         },
         "respawn": {
             "thinking": ":thinking: | **",
@@ -65,8 +64,23 @@
             "backupTitle": "\n\n:briefcase:  **Réserve d'item :**\n"
         },
         "switch": {
-            "debut": "**",
-            "fin": "** :repeat: L'item actif et l'item en réserve ont été inversés !"
+            "debut": "**:repeat: ",
+            "fin": "**, l'item actif et l'item en réserve ont été inversés !"
+        }
+        ,
+        "drink": {
+            "errorDebut": "** ",
+            "errorFin": "**,  Vous consommez le breuvage que vous transportiez... Ca ne semble pas très efficace !",
+            "combatDebut": "** ",
+            "combatFin": "**,  Cette potion ne peut pas être bue maintenant. Elle sera utilisée lors de votre prochain combat !",
+            "noDebut": "**:x: ",
+            "noFin": "**, vous n'avez malheureusement rien à boire dans votre inventaire !",
+            "healDebut" : "** ",
+            "healBonus" : "**, :heart: Vie gagnée : ** ",
+            "healFin" : "** | Vous buvez un breuvage revigorant et sentez une énergie nouvelle vous porter !",
+            "hospitalDebut" : "** ",
+            "hospitalBonus" : "**, :clock1030: Vous avez avancé de ** ",
+            "hospitalFin" : "** heure(s) | Vous buvez le breuvage et sentez une sensation étrange... Le temps semble être passé plus vite, mais uniquement pour vous !"
         }
     },
     "playerManager": {
@@ -117,7 +131,7 @@
             "2": " :rocket: Vitesse + ",
             "3": " :crossed_swords: Attaque + ",
             "4": " :shield: Defense + ",
-            "5": " :hospital: Annule une altération d'état d'une durée de soin (en heures) inférieure à ",
+            "5": " :clock1030: Avance le temps plus rapidement pendant ",
             "6": " :moneybag: Argent + "
         },
         "outroObject": {
@@ -129,9 +143,9 @@
         },
         "outroPotion": {
             "1": "",
-            "2": " pendant une heure",
-            "3": " pendant une heure",
-            "4": " pendant une heure",
+            "2": " pendant le prochain combat",
+            "3": " pendant le prochain combat",
+            "4": " pendant le prochain combat",
             "5": " heure(s)",
             "6": ""
         }

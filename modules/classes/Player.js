@@ -59,7 +59,7 @@ class Player extends Entity {
      * @param experience - The amount of experience this instance should have. Must be a positive or null Number.
      */
     setExperience(experience) {
-        if (Tools.isAPositiveNumberOrNull(experience)) {
+        if (Tols.isAPositiveNumberOrNull(experience)) {
             this.experience = experience;
             if (this.hasEnoughExperienceToLevelUp()) {
                 this.levelUp();
@@ -140,6 +140,25 @@ class Player extends Entity {
         return this.money;
     }
 
+
+    /**
+     * Changes the last Report time of a player
+     * @param lastReport - The Player's new lastReport.
+     */
+    setLastReport(lastReport) {
+        this.lastReport = lastReport;
+    }
+
+
+    /**
+     * Returns this Player instance's currently lastReport.
+     * @returns {Number} - The lastReport of this Player instance.
+     */
+    getMoney() {
+        return this.lastReport;
+    }
+
+
     /**
      * Returns whether the Player has enough experience to level up or not.
      * @returns {boolean} True if the player has the needed amount of experience to level up, false otherwise.
@@ -156,6 +175,7 @@ class Player extends Entity {
     setName(name) {
         this.name = name;
     }
+
 
     /**
      * Returns this Player instance's name.

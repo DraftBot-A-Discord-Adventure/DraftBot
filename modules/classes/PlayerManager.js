@@ -108,6 +108,16 @@ class PlayerManager {
         console.log("Player updated !");
     }
 
+    /**
+     * Allow to set the state of a player to normal in order to allow him to play
+     * @param {*} player - The player that has to be saved
+     */
+    setPlayerAsUnOccupied(player) {
+        console.log("Updating player ...");
+        sql.run(`UPDATE entity SET effect = ":smiley:" WHERE id = ${player.discordId}`).catch(console.error);
+        console.log("Player updated !");
+    }
+
 
     /**
      * Allow to save the current state of a player in the database
