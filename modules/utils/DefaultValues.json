@@ -12,7 +12,8 @@
         "level": "0",
         "experience": "0",
         "money": "0",
-        "badges": ""
+        "badges": "",
+        "rank": "0"
     },
     "report": {
         "minimalTime": "60",

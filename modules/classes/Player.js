@@ -8,7 +8,7 @@ const DefaultValues = require('../utils/DefaultValues')
  */
 class Player extends Entity {
 
-    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges) {
+    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank) {
         super(discordId, maxHealth, health, attack, defense, speed, effect);
         this.discordId = discordId;
         this.score = score;
@@ -17,6 +17,7 @@ class Player extends Entity {
         this.money = money;
         this.lastReport = lastReport;
         this.badges = badges;
+        this.rank = rank
     }
 
 
@@ -154,7 +155,7 @@ class Player extends Entity {
      * Returns this Player instance's currently lastReport.
      * @returns {Number} - The lastReport of this Player instance.
      */
-    getMoney() {
+    getLastReport() {
         return this.lastReport;
     }
 
@@ -209,6 +210,15 @@ class Player extends Entity {
      */
     getScore() {
         return this.score;
+    }
+
+
+    /**
+     * Returns the rank of the player.
+     * @returns {Number} - The rank of the player
+     */
+    getRank() {
+        return this.rank;
     }
 
 
