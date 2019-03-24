@@ -148,7 +148,7 @@
         "separator": " |"
     },
     "entity" :{
-        "killMessage" : ":crossed_swords:  Bonjour Combatant !\n\nIl semblerait que vous ayez été mis K.O...  :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à  vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est couteuse et votre score a donc été impacté  par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`",
+        "killMessage" : ":crossed_swords:  Bonjour Combattant !\n\nIl semblerait que vous ayez été mis K.O...  :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à  vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est couteuse et votre score a donc été impacté  par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`",
         "killPublicIntro" : ":skull: | **",
         "killPublicMessage" : " ** a été mit K.O !"
     },
@@ -301,7 +301,7 @@
             },
             "🚶": {
                 "1": "** | :walking: Il est parfois bon de ne pas être trop paresseux vous n'avez pas perdu de temps !",
-                "2": "** | :walking: Pas de temps pour le repos ! il y a une princesse à sauver !",
+                "2": "** | :walking: Pas de temps pour le repos ! Il y a une princesse à sauver !",
                 "3": "** | :walking: Vous faites le choix de ne pas vous arrêter et vous continuez à avancer.",
                 "4": "** | :walking: Vous continuez votre aventure sans prêter plus d'attention à cette fontaine",
                 "5": "** | :zzz: Il faut savoir se reposer lorsqu'on est fatigué. extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. il faudra dormir avant de continuer !"
@@ -314,7 +314,7 @@
             "🔦": {
                 "1": "** | :flashlight: Vous vous perdez rapidement dans ce labyrinthe, mais vous finissez par en ressortir au bout de quelques heures !",
                 "2": "** | :flashlight: Vous passez quelques minutes à explorer la grotte de fond en comble et trouvez un objet qui pourra peut être vous servir... !",
-                "3": "** | :flashlight: La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdis ! il faudra vous soigner ! :confounded: "
+                "3": "** | :flashlight: La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdis ! Il faudra vous soigner ! :confounded: "
             },
             "🏃": {
                 "1": "** | :runner: Vous n'êtes pas du genre à risquer de perdre du temps pour des explorations sans intérêt ! Vous finissez de manger et passez votre chemin."
@@ -392,7 +392,7 @@
         "11": {
             "🌳": {
                 "1": "** | :deciduous_tree: Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégats.",
-                "2": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la foret mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
+                "2": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la forêt mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
                 "3": "** | :deciduous_tree: En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! :sick:"
             },
             "👈": {
@@ -448,7 +448,7 @@
             },
             "🎪": {
                 "1": "** | 🎪 Vous explorez le marché en 30 minutes avant de découvrir un petit objet au sol qui pourrait vous être utile...",
-                "2": "** | 🎪 Après avoir perdu 60 minutes à vous ballader dans les étales, vous finissez par quitter la ville sans avoir pu trouver quoi que ce soit d'interesant.",
+                "2": "** | 🎪 Après avoir perdu 60 minutes à vous balader dans les étales, vous finissez par quitter la ville sans avoir pu trouver quoi que ce soit d'intéressant.",
                 "3": "** | 🎪 Alors que votre vigilance était au plus bas sur le marché, vous recevez un coup violent derrière la tête et vous vous effondrez à terre... Après ce moment, plus aucun souvenir. Il faudra vous soigner avant de pouvoir continuer à avancer ! 😵 "
             },
             "end": {

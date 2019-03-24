@@ -191,8 +191,6 @@ class Entity {
         message.author.send(Text.entity.killMessage)
     }
 
-
-
 }
 
 module.exports = Entity;
