@@ -44,51 +44,12 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     let classementJoueur;
     data.forEach(function (player) { //for each player that the bot have to display
         messageTop = getPlacementEmoji(player, messageTop, message);
-        let pseudo;
-        if (client.users.get(player.discordId) != null) {
-            pseudo = client.users.get(player.discordId).username;
-        } else {
-            pseudo = Text.commands.top.unknownPlayer
-        }
-        messageTop += player.rank + Text.commands.top.boldEnd + pseudo + Text.commands.top.scoreDisplayDebut + player.score + Text.commands.top.scoreDisplayFin;
-
-        let temps = Math.floor((message.createdTimestamp - player.lastReport) / (1000 * 60)); //temps en minutes depuis le dernier rapport
-        if (player.effect != ":smiley:") {
-            messageTop += Text.commands.top.effectSeparator + player.effect;
-        } else {
-            if (temps > 60) {
-                messageTop += Text.commands.top.availableReport
-            }
-        }
-        messageTop += Text.commands.top.endOfLine;
+        let pseudo = getPlayerPseudo(client, player);
+        messageTop = displayPlayerInfos(messageTop, player, pseudo, message);
     });
-
     classementJoueur = actualPlayer.rank;
-    console.log("classement : " + classementJoueur)
-    
-    if (classementJoueur != 1) {
-        messageTop += getYourPlacementEmoji(classementJoueur, messageTop);
-        if (actualPlayer.score > 100) {
-            messageTop += Text.commands.top.boldStart + message.author.username + Text.commands.top.endSentenceStart + classementJoueur + Text.commands.top.endSentenceMiddle + totalJoueur + Text.commands.top.endSentenceEnd;
-            let pajejoueur = Math.ceil(classementJoueur / DefaultValues.top.playersByPage);
-            if (page != pajejoueur) {
-                messageTop += Text.commands.top.pageSentenceStart + pajejoueur + Text.commands.top.separatorSlash + pageMax + Text.commands.top.pageSentenceEnd
-            }
-        } else {
-            messageTop += Text.commands.top.boldStart + message.author.username + Text.commands.top.errorNotRanked;
-        }
-
-    } else {
-        messageTop += Text.commands.top.winningIntro + message.author.username + Text.commands.top.winningOutro + totalJoueur + Text.commands.top.endSentenceEnd;
-    }
-
-    if (totalJoueur < 1) {
-        messageTop = Text.commands.top.errorDebut + message.author.username + Text.commands.top.noUserError
-    } else {
-        if (messageTop.length > 2000) {
-            messageTop = Text.commands.top.errorDebut + message.author.username + Text.commands.top.tooMuchUserError
-        }
-    }
+    messageTop = getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax);
+    messageTop = checkPotentialDatabaseError(totalJoueur, messageTop, message);
     return messageTop;
 };
 
@@ -114,6 +75,99 @@ const testAbsurdsPages = function (message, page, pageMax) {
         return 1;
     }
     return 0;
+}
+
+/**
+ * Check if the top can be displayed without any problem
+ * @param {Integer} totalJoueur - The count of player in the game
+ * @param {String} messageTop - The string that will be displayed to the player
+ * @param {*} message - The original command message, used to retrieve the author and the channel
+ * @returns {String} - The eventually corrected topMessage
+ */
+function checkPotentialDatabaseError(totalJoueur, messageTop, message) {
+    if (totalJoueur < 1) {
+        messageTop = Text.commands.top.errorDebut + message.author.username + Text.commands.top.noUserError;
+    }
+    else {
+        if (messageTop.length > 2000) {
+            messageTop = Text.commands.top.errorDebut + message.author.username + Text.commands.top.tooMuchUserError;
+        }
+    }
+    return messageTop;
+}
+
+
+/**
+ * Allow to display information to the player about his position in the ranking
+ * @param {Integer} classementJoueur - The rank of the player that asked for the top
+ * @param {String} messageTop - The string that will be displayed to the player
+ * @param {*} actualPlayer - The player that asked for the top
+ * @param {*} message - The original command message, used to retrieve the author and the channel
+ * @param {Integer} totalJoueur - The count of player in the game
+ * @param {Integer} page - The current page number
+ * @param {Integer} pageMax - The last page number
+ * @returns {String} - The end sentence
+ */
+function getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax) {
+    if (classementJoueur != 1) {
+        messageTop += getYourPlacementEmoji(classementJoueur, messageTop);
+        if (actualPlayer.score > 100) {
+            messageTop += Text.commands.top.boldStart + message.author.username + Text.commands.top.endSentenceStart + classementJoueur + Text.commands.top.endSentenceMiddle + totalJoueur + Text.commands.top.endSentenceEnd;
+            let pajejoueur = Math.ceil(classementJoueur / DefaultValues.top.playersByPage);
+            if (page != pajejoueur) {
+                messageTop += Text.commands.top.pageSentenceStart + pajejoueur + Text.commands.top.separatorSlash + pageMax + Text.commands.top.pageSentenceEnd;
+            }
+        }
+        else {
+            messageTop += Text.commands.top.boldStart + message.author.username + Text.commands.top.errorNotRanked;
+        }
+    }
+    else {
+        messageTop += Text.commands.top.winningIntro + message.author.username + Text.commands.top.winningOutro + totalJoueur + Text.commands.top.endSentenceEnd;
+    }
+    return messageTop;
+}
+
+
+/**
+ * Display a player in the top
+ * @param {String} messageTop - The string that will be displayed to the player
+ * @param {*} player - The player that is displayed
+ * @param {String} pseudo - The username of the player
+ * @param {*} message - The original command message, used to retrieve the author and the channel
+ * @returns {String} - The player infos
+ */
+function displayPlayerInfos(messageTop, player, pseudo, message) {
+    messageTop += player.rank + Text.commands.top.boldEnd + pseudo + Text.commands.top.scoreDisplayDebut + player.score + Text.commands.top.scoreDisplayFin;
+    let temps = Math.floor((message.createdTimestamp - player.lastReport) / (1000 * 60)); //temps en minutes depuis le dernier rapport
+    if (player.effect != ":smiley:") {
+        messageTop += Text.commands.top.effectSeparator + player.effect;
+    }
+    else {
+        if (temps > 60) {
+            messageTop += Text.commands.top.availableReport;
+        }
+    }
+    messageTop += Text.commands.top.endOfLine;
+    return messageTop;
+}
+
+
+/**
+ * get the username of a player
+ * @param {*} client - The instance of the bot
+ * @param {*} player - The player that we need the username
+ * @returns {String} - The username
+ */
+function getPlayerPseudo(client, player) {
+    let pseudo;
+    if (client.users.get(player.discordId) != null) {
+        pseudo = client.users.get(player.discordId).username;
+    }
+    else {
+        pseudo = Text.commands.top.unknownPlayer;
+    }
+    return pseudo;
 }
 
 /**
