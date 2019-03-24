@@ -88,10 +88,11 @@ class PlayerManager {
         let scoreRomoved = Math.round(player.getScore() * Config.PART_OF_SCORE_REMOVED_DURING_RESPAWN);
 
         player.setEffect(":smiley:");
-        player.heal();
-        player.updateLastReport(time);
+        player.restoreHealthCompletely();
+        player.updateLastReport(time,0,":smiley:");
         player.removeScore(scoreRomoved);
 
+        console.log(player);
         this.updatePlayer(player);
 
         return scoreRomoved;
@@ -203,7 +204,7 @@ class PlayerManager {
      * @returns {String} - A string vontaining the duration
      */
     displayTimeLeft(player, message) {
-        if (!":baby::smiley::clock10:".includes(player.getEffect())) { //these states dont have a duration to display
+        if (!":baby::smiley::clock10::skull:".includes(player.getEffect())) { //these states dont have a duration to display
             if (message.createdTimestamp < player.lastReport) {
                 return Text.playerManager.timeLeft + Tools.displayDuration(Tools.convertMillisecondsInMinutes(player.lastReport - message.createdTimestamp)) + Text.playerManager.outro;
             } else {

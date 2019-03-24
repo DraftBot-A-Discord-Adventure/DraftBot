@@ -147,6 +147,11 @@
     "objectManager": {
         "separator": " |"
     },
+    "entity" :{
+        "killMessage" : ":crossed_swords:  Bonjour Combatant !\n\nIl semblerait que vous ayez été mis K.O...  :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à  vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est couteuse et votre score a donc été impacté  par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`",
+        "killPublicIntro" : ":skull: | **",
+        "killPublicMessage" : " ** a été mit K.O !"
+    },
     "rarities": {
         "0": ":small_orange_diamond: Basique",
         "1": " :large_orange_diamond: Commun",

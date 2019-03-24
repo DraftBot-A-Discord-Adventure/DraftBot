@@ -13,6 +13,7 @@ const respawnCommand = async function (message) {
     if (!player.isDead()) { //player is not dead
         message.channel.send(Text.commands.respawn.thinking + message.author.username + Text.commands.respawn.notDead)
     } else { //player is dead
+        console.log(message.createdTimestamp);
         let scoreRemoved = playerManager.revivePlayer(player,message.createdTimestamp);
         message.channel.send(Text.commands.respawn.angel + message.author.username + Text.commands.respawn.revived1 + scoreRemoved + Text.commands.respawn.revived2);
     }

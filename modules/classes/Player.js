@@ -226,7 +226,7 @@ class Player extends Entity {
      * Update the timecode matching the last time the player has been see
      * @param {Number} time - The timecode to set
      * @param {Number} malusTime - A malus that has to be added to the lasReportTime
-     * @param {String} effectMalus The current effect of the player in case it gave an other malus
+     * @param {String} effectMalus - The current effect of the player in case it gave an other malus
      */
     updateLastReport(time, malusTime, effectMalus) {
         let realMalus = DefaultValues.effectMalus[effectMalus];

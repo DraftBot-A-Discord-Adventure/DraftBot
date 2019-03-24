@@ -224,17 +224,22 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
  * @param {*} playerManager - The player manager
  */
 async function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager) {
+
    //adding score
    player.addScore(pointsGained);
+
    player.addMoney(moneyChange);
    // if the number is below 0, remove money will be called by the add money method
+
    //the last time the player has been saw is now
    player.updateLastReport(message.createdTimestamp, possibility.timeLost, possibility.newEffect);
-   player.addHealthPoints(possibility.healthPointsChange);
-   // if the number is below 0, remove health Points will be called by the add Health Points method
-   // we have to parse int this because elsewhere it is considered as a screen and it do 2 + 2 = 22
+
    player.setEffect(possibility.newEffect);
-   if (possibility.item == "true") {
+   
+   player.addHealthPoints(possibility.healthPointsChange,message);
+   // if the number is below 0, remove health Points will be called by the add Health Points method
+
+   if (possibility.item == "true") { //have to give an item to the player
      player = await playerManager.giveRandomItem(message,player);
    }
    playerManager.updatePlayer(player);
@@ -251,14 +256,18 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
  * @param {*} playerManager - The player manager
  */
 function launchAdventure(message, pointsGained, moneyChange, player, possibility, playerManager) {
-   ;
+   
    //adding score
    player.addScore(pointsGained);
+
    player.addMoney(moneyChange);
    // if the number is below 0, remove money will be called by the add money method
+
    //the last time the player has been saw is now
    player.updateLastReport(message.createdTimestamp, possibility.timeLost, possibility.newEffect);
+
    player.setEffect(possibility.newEffect);
+
    playerManager.addPlayer(player);
 }
 
