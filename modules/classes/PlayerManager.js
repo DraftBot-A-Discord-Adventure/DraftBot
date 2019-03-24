@@ -143,10 +143,10 @@ class PlayerManager {
 
 
     /**
-     * Get the total number of player in the database
-     * @returns {Integer} - The number of player
+     * Get the total number of players in the database
+     * @returns {Integer} - The number of players
      */
-    getNumberOfPlayer() {
+    getNumberOfPlayers() {
         return sql.get(`SELECT COUNT(*) as count FROM player WHERE score > 100`).then(number => {
             return number.count
         }).catch(error => { //there is no database
@@ -154,6 +154,21 @@ class PlayerManager {
             return 0;
         })
     }
+
+
+    /**
+     * Get the total number of actives players in the database
+     * @returns {Integer} - The number of players
+     */
+    getNumberOfActivePlayers() {
+        return sql.get(`select MAX(rank) as count from player`).then(number => {
+            return number.count
+        }).catch(error => { //there is no database
+            console.error(error)
+            return 0;
+        })
+    }
+
 
     /**
      * check if the player is healthy or not. if the player is sick, display an error message
@@ -348,6 +363,24 @@ class PlayerManager {
         player.addMoney(value);
         message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd)
         return player;
+    }
+
+    /**
+     * Allow to retrieve the data from the top between 2 limits
+     * @param {Integer} borneinf - The lower limit of the top
+     * @param {Integer} bornesup - The uppper limit of the top
+     * @returns {*} -The data of the top (an array of players)
+     */
+    getTopData(borneinf, bornesup) {
+        let playerArray = Array();
+        let i = 0;
+        return sql.all(`SELECT * FROM player JOIN entity ON discordId = id WHERE rank >= ${borneinf} AND rank <= ${bornesup} AND score > 100 ORDER BY score DESC`).then(data => {
+            data.forEach(function (player) {
+                playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
+                i++;
+            });
+            return playerArray;
+        });
     }
 }
 

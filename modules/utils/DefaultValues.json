@@ -86,5 +86,8 @@
             "9": "object",
             "10": "potion"
         }
+    },
+    "top" :{
+        "playersByPage" : "15"
     }
 }

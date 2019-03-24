@@ -64,23 +64,57 @@
             "backupTitle": "\n\n:briefcase:  **Réserve d'item :**\n"
         },
         "switch": {
-            "debut": "**:repeat: ",
+            "debut": "**:repeat: | ",
             "fin": "**, l'item actif et l'item en réserve ont été inversés !"
-        }
-        ,
+        },
         "drink": {
-            "errorDebut": "** ",
+            "errorDebut": " |** ",
             "errorFin": "**,  Vous consommez le breuvage que vous transportiez... Ca ne semble pas très efficace !",
-            "combatDebut": "** ",
+            "combatDebut": " |** ",
             "combatFin": "**,  Cette potion ne peut pas être bue maintenant. Elle sera utilisée lors de votre prochain combat !",
-            "noDebut": "**:x: ",
+            "noDebut": "**:x: | ",
             "noFin": "**, vous n'avez malheureusement rien à boire dans votre inventaire !",
-            "healDebut" : "** ",
-            "healBonus" : "**, :heart: Vie gagnée : ** ",
-            "healFin" : "** | Vous buvez un breuvage revigorant et sentez une énergie nouvelle vous porter !",
-            "hospitalDebut" : "** ",
-            "hospitalBonus" : "**, :clock1030: Vous avez avancé de ** ",
-            "hospitalFin" : "** heure(s) | Vous buvez le breuvage et sentez une sensation étrange... Le temps semble être passé plus vite, mais uniquement pour vous !"
+            "healDebut": " |** ",
+            "healBonus": "**, :heart: Vie gagnée : ** ",
+            "healFin": "** | Vous buvez un breuvage revigorant et sentez une énergie nouvelle vous porter !",
+            "hospitalDebut": " |** ",
+            "hospitalBonus": "**, :clock1030: Vous avez avancé de ** ",
+            "hospitalFin": "** heure(s) | Vous buvez le breuvage et sentez une sensation étrange... Le temps semble être passé plus vite, mais uniquement pour vous !"
+        },
+        "top": {
+            "errorDebut": ":x: | **",
+            "invalidNumber": "** Veuillez entrer un numéro de page valide !",
+            "tooMuchError": "** Vous avez saisi un numéro de page trop grand ! La page maximale est : ",
+            "introDebut": "**:trophy: Affichage du top ",
+            "pageNumberSeparator": " à ",
+            "introFin": " : ** \n\n",
+            "firstPlaceEmoji": ":first_place: ",
+            "secondPlaceEmoji": ":second_place: ",
+            "thirdPlaceEmoji": ":third_place: ",
+            "top5Emoji": ":military_medal: ",
+            "youEmoji": ":white_circle: ",
+            "otherEmoji": ":black_circle:",
+            "sameGuild": ":large_blue_circle:",
+            "unknownPlayer": " Pseudo Introuvable ",
+            "boldEnd": " **",
+            "boldStart": "**",
+            "scoreDisplayDebut": " | **`",
+            "scoreDisplayFin": "`",
+            "effectSeparator": "** |** ",
+            "availableReport": "** |** :newspaper2:",
+            "endOfLine": "\n",
+            "tada" : ":tada:",
+            "endSentenceStart" : ", vous êtes actuellement classé ",
+            "endSentenceMiddle" :" ème** sur un total de ",
+            "endSentenceEnd" : " joueurs ! ",
+            "pageSentenceStart" : "`(Vous vous trouverez à la page ",
+            "separatorSlash" : " / ",
+            "pageSentenceEnd" : ")`",
+            "errorNotRanked" : ", vous n'êtes actuellement pas classé ! utilisez la commande `report` pour apparaitre dans le top !**",
+            "winningIntro" : "\n :trophy: Félicitation ",
+            "winningOutro" : " ! **Vous êtes actuellement le meilleur** sur un total de ",
+            "noUserError" : "** Aucun joueur n'est classé pour le moment ! Vous devez être niveau 1 pour apparaitre dans le top !",
+            "tooMuchUserError" : "** La page que vous avez demandé contient trop de joueurs !"
         }
     },
     "playerManager": {
@@ -184,13 +218,13 @@
         },
         "0": {
             "🤔": {
-                "1": "** | :joy: Ne vous faites pas de soucis, tout va bien se passer ! Voici 100 points :medal: pour débuter votre aventure ! Faites `!profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !"
+                "1": "** | :joy: Ne vous faites pas de soucis, tout va bien se passer ! Voici 100 points :medal: pour débuter votre aventure ! Utilisez la commande `profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !"
             },
             "🚶": {
-                "1": "** | :smirk: J'aime cette détermination ! Voici 100 points :medal: pour débuter votre aventure ! Faites `!profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !"
+                "1": "** | :smirk: J'aime cette détermination ! Voici 100 points :medal: pour débuter votre aventure ! Utilisez la commande `profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !"
             },
             "end": {
-                "1": "** | :x: Le tutoriel n'a pas été terminé ! Vous pouvez le recommencer à tout moment en écrivant `!report` !"
+                "1": "** | :x: Le tutoriel n'a pas été terminé ! Vous pouvez le recommencer à tout moment en utilisant la commande `report` !"
             }
         },
         "1": {

@@ -8,7 +8,7 @@ const Text = require('../text/Francais');
 const profileCommand = async function (message) {
     let playerManager = new PlayerManager();
     let player = await playerManager.getCurrentPlayer(message);
-    let numberOfPlayer = await playerManager.getNumberOfPlayer();
+    let numberOfPlayer = await playerManager.getNumberOfPlayers();
     let messageProfile = generateProfileMessage(message, player, numberOfPlayer);
     message.channel.send(messageProfile);
 }
@@ -27,7 +27,7 @@ const generateProfileMessage = function (message, player, numberOfPlayer) {
         Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense + player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed() +
         Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +
         Text.commands.profile.money + player.getMoney() +
-        Text.commands.profile.score + player.getScore() +
+        Text.commands.profile.score + player.getScore() + 
         playerManager.displayTimeLeft(player, message);
     return profileMessage;
 };
