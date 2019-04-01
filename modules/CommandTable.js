@@ -8,6 +8,7 @@ const Inventory = require('./commands/Inventory');
 const Test = require('./commands/Test');
 const Switch = require('./commands/Switch');
 const Drink = require('./commands/Drink');
+const Daily = require('./commands/Daily');
 const Top = require('./commands/Top');
 
 
@@ -21,14 +22,18 @@ const CommandTable = new Map(
         ["ping", Ping.PingCommand],
         ["invite", Invite.InviteCommand],
         ["profile", Profile.ProfileCommand],
+        ["p", Profile.ProfileCommand],
         ["report", Report.ReportCommand],
+        ["r", Report.ReportCommand],
         ["respawn", Respawn.RespawnCommand],
         ["inventory", Inventory.InventoryCommand],
         ["inv", Inventory.InventoryCommand],
         ["test", Test.TestCommand],
         ["switch", Switch.SwitchCommand],
         ["drink", Drink.DrinkCommand],
+        ["daily", Daily.DailyCommand],
         ["top", Top.TopCommand],
+        ["t", Top.TopCommand],
 
         ["init", InitDatabase.InitDatabaseCommand],
         ["give", Give.GiveCommand],
