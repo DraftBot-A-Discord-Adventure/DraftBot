@@ -11,8 +11,6 @@ const Drink = require('./commands/Drink');
 const Daily = require('./commands/Daily');
 const Top = require('./commands/Top');
 
-
-const InitDatabase = require('./commands/admin/InitDatabase');
 const Give = require('./commands/admin/Give');
 
 const CommandTable = new Map(
@@ -35,7 +33,6 @@ const CommandTable = new Map(
         ["top", Top.TopCommand],
         ["t", Top.TopCommand],
 
-        ["init", InitDatabase.InitDatabaseCommand],
         ["give", Give.GiveCommand],
         
     ]
