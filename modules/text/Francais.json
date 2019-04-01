@@ -1,4 +1,4 @@
-{
+
     "commands": {
         "help": {
             "intro": "** :notebook_with_decorative_cover: ",
@@ -202,8 +202,9 @@
         "11": " : **  :interrobang: Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.\n\n:deciduous_tree: Traverser quand même la forêt.\n:point_left: Suivre les conseils de l'inconnue.\n:point_right: Eviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "12": " : ** 🏞️ Vous voyez une rivière devant vous, de l'autre coté du rivage, vous apercevez un village.\n\n🏊 Traverser la rivière en nageant \n🚣 Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
-    },
+        "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "15": " : ** :walking: Alors que vous passiez près d'une clairière, vous remarquez un groupe d'individu semblant être de riches marchands. \n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Essayer de les voler.
+   },
     "possibilities": {
         "report": {
             "nothingToSay": {
@@ -473,6 +474,25 @@
             "end": {
                 "1": "** | 🚶 Vous contournez la maison et continuez votre route."
             }
+        },
+        "15": {
+            "👥": {
+                "1": "** | 👥 Vous discutez un moment avec ces sympathiques marchands qui décident de commercer avec vous !",
+                "2": "** | 👥 Malheureusement pour vous, le groupe de marchands n'a rien a vendre , vous passez donc votre chemin",
+                "3": "** | 👥 Il s'avère que le groupe est constitué de voleurs ! Ils prennent rapidement votre argent avant de s'enfuir",
+                "4": "** | 👥 Vous achetez finalement une superbe épée à un des marchands, et reprenez votre route . Quelques minutes après vous l'essayez sur un arbre... il semblerait que vous ayez été arnaqué , car elle se brise dès le premier coup porté. L'arbre n'a pas la moindre égratinure !  "
+            },
+            "🏃": {
+                "1": "** | 🏃 Le chemin est encore long, pas le temps de s'arrêter! ",
+                "2": "** | 🏃 À continuer votre route en les regardant, vous trébuchez sur une pierre et vous vous blessez! "
+            },
+            "💰": {
+                "1": "** | 💰 Ces marchands sont fort peu vigilant, les délester de leur argent ne vous a demandé que 30 minutes!",
+                "2": "** | 💰 Vous essayez de les voler mais... vous découvrez qu'ils ne possèdent quasiment rien. Pris de remords d'avoir tenté de voler des personnes si pauvres, vous leur offrez un peu d'argent. ",
+                "3": "** | 💰 Le groupe est constitué de voleurs! tel est prit qui croyait prendre, ils vous passent à tabac et vous volent tous vos biens. "
+            },
+            "end": {
+                "1": "** | 🚶 Vous passez de longues minutes à bêtement les regarder installer leur bivouac, avant de reprendre vos esprits et continuer votre route. ",
+            }
         }
-    }
 }
