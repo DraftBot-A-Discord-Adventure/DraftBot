@@ -68,6 +68,11 @@
             "1": "🔨",
             "2": "🛏",
             "3": "🚶"
+        },
+        "15": {
+            "1": "👥",
+            "2": "🏃",
+            "3": "💰"
         }
     },
     "possibility": {
@@ -1146,5 +1151,86 @@
                 }
             }
         }
-    }
+    },
+    "15": {
+            "👥": {
+                "1": {
+                    "timeLost": "45",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "-100",
+                    "item": "true"
+                },
+                "2": {
+                    "timeLost": "10",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "0"
+                },
+                "3": {
+                    "timeLost": "0",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "-70"
+                },
+                "4": {
+                    "timeLost": "45",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "-100"
+                }
+            },
+            "🏃": {
+                "1": {
+                    "timeLost": "0",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "0"
+                },
+                "2": {
+                    "timeLost": "0",
+                    "healthPointsChange": "-20",
+                    "newEffect": ":dizzy_face:",
+                    "xpGained": "0",
+                    "moneyGained": "0"
+            },
+            "💰": {
+                "1": {
+                    "timeLost": "30",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "100",
+                    "item": "false"
+                },
+                "2": {
+                    "timeLost": "0",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "-50"
+                },
+                "3": {
+                    "timeLost": "0",
+                    "healthPointsChange": "-15",
+                    "newEffect": ":confounded:",
+                    "xpGained": "0",
+                    "moneyGained": "-100"
+                }
+            },
+            "end": {
+                "1": {
+                    "timeLost": "25",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "0"
+                }
+         }
+       }
 }
