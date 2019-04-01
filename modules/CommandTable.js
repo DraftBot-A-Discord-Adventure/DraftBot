@@ -31,7 +31,6 @@ const CommandTable = new Map(
         ["drink", Drink.DrinkCommand],
         ["daily", Daily.DailyCommand],
         ["top", Top.TopCommand],
-        ["t", Top.TopCommand],
 
         ["give", Give.GiveCommand],
         

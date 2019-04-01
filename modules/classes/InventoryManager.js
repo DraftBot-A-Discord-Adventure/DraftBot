@@ -97,7 +97,7 @@ class InventoryManager {
      */
     addInventory(inventory) {
         console.log("Creating inventory ...");
-        sql.run(`INSERT INTO inventory (playerId, weaponId, armorId, potionId, objectId, backupItemId) VALUES (${inventory.playerId},"${inventory.weaponId}","${inventory.armorId}","${inventory.potionId}","${inventory.objectId}","${inventory.backupItemId}","${inventory.lastDaily}") `).catch(console.error);
+        sql.run(`INSERT INTO inventory (playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily) VALUES (${inventory.playerId},"${inventory.weaponId}","${inventory.armorId}","${inventory.potionId}","${inventory.objectId}","${inventory.backupItemId}","${inventory.lastDaily}") `).catch(console.error);
         console.log("inventory created !");
     }
 

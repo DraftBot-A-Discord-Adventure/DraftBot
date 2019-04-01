@@ -1150,9 +1150,8 @@
                     "moneyGained": "0"
                 }
             }
-        }
-    },
-    "15": {
+        },
+        "15": {
             "👥": {
                 "1": {
                     "timeLost": "45",
@@ -1198,10 +1197,11 @@
                     "newEffect": ":dizzy_face:",
                     "xpGained": "0",
                     "moneyGained": "0"
+                }
             },
             "💰": {
                 "1": {
-                    "timeLost": "30",
+                    "timeLost": "0",
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
@@ -1209,7 +1209,7 @@
                     "item": "false"
                 },
                 "2": {
-                    "timeLost": "0",
+                    "timeLost": "30",
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "0",
@@ -1231,6 +1231,7 @@
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
-         }
-       }
+            }
+        }
+    }
 }
