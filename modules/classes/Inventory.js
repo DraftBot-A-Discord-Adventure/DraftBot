@@ -2,6 +2,7 @@ const Config = require('../utils/Config');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
 const Potion = require('../classes/Potion');
+const Object = require('../classes/Object');
 const ItemValues = require('../utils/items/Values');
 
 /**
@@ -137,16 +138,16 @@ class Inventory {
      * Return the contained potion as an object
      * @returns {*} the potion
      */
-    getPotion(){
-        return new Potion(this.potionId,parseInt(ItemValues.potion[this.potionId].rareness),parseInt(ItemValues.potion[this.potionId].power),parseInt(ItemValues.potion[this.potionId].nature))
+    getPotion() {
+        return new Potion(this.potionId, parseInt(ItemValues.potion[this.potionId].rareness), parseInt(ItemValues.potion[this.potionId].power), parseInt(ItemValues.potion[this.potionId].nature))
     }
 
     /**
      * Return the contained object as an object
      * @returns {*} the current active object
      */
-    getCurrentObject(){
-        return new Object(this.objectId,parseInt(ItemValues.object[this.objectId].rareness),parseInt(ItemValues.object[this.objectId].power),parseInt(ItemValues.object[this.objectId].nature))
+    getCurrentObject() {
+        return new Object(this.objectId, parseInt(ItemValues.object[this.objectId].rareness), parseInt(ItemValues.object[this.objectId].power), parseInt(ItemValues.object[this.objectId].nature))
     }
 }
 

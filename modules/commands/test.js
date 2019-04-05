@@ -10,7 +10,7 @@ const Text = require('../text/Francais');
 const PlayerManager = require('../classes/PlayerManager')
 
 const testCommand = async function (message) {
-
+    
 }
 
 

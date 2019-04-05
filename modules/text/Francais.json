@@ -67,17 +67,36 @@
         },
         "drink": {
             "errorDebut": " |** ",
-            "errorFin": "**,  Vous consommez le breuvage que vous transportiez... Ca ne semble pas très efficace !",
+            "errorFin": "**,  vous consommez le breuvage que vous transportiez... Ca ne semble pas très efficace !",
             "combatDebut": " |** ",
-            "combatFin": "**,  Cette potion ne peut pas être bue maintenant. Elle sera utilisée lors de votre prochain combat !",
+            "combatFin": "**,  cette potion ne peut pas être bue maintenant. Elle sera utilisée lors de votre prochain combat !",
             "noDebut": "**:x: | ",
             "noFin": "**, vous n'avez malheureusement rien à boire dans votre inventaire !",
             "healDebut": " |** ",
-            "healBonus": "**, :heart: Vie gagnée : ** ",
+            "healBonus": "**, **:heart: Vie gagnée : ** ",
             "healFin": "** | Vous buvez un breuvage revigorant et sentez une énergie nouvelle vous porter !",
             "hospitalDebut": " |** ",
-            "hospitalBonus": "**, :clock1030: Vous avez avancé de ** ",
+            "hospitalBonus": "**, **:clock1030: Vous avez avancé de ** ",
             "hospitalFin": "** heure(s) | Vous buvez le breuvage et sentez une sensation étrange... Le temps semble être passé plus vite, mais uniquement pour vous !"
+        },
+        "daily": {
+            "errorDebut": " |** ",
+            "errorFin": "**,  vous tentez d'utiliser le pouvoir de l'objet que vous transportez... Mais cela n'a aucun effet !",
+            "errorDebutTiming": ":hourglass: |** ",
+            "errorFinTiming": "**, Il semblerait que vous ayez déjà utilisé le pouvoir d'un objet aujourd'hui... Revenez demain !",
+            "combatDebut": " |** ",
+            "combatFin": "**,  le pouvoir de l'objet que vous transportez est actif automatiquement durant les combats !",
+            "noDebut": "**:x: | ",
+            "noFin": "**, vous n'avez malheureusement aucun objet actif dans votre inventaire !",
+            "healDebut": " |** ",
+            "healBonus": "**, **:heart: Vie gagnée : ** ",
+            "healFin": " | Vous utilisez les pouvoirs de l'objet actif de votre inventaire et sentez une énergie nouvelle vous porter !",
+            "moneyDebut": " |** ",
+            "moneyBonus": "**, **:moneybag: Argent gagné : ** ",
+            "moneyFin": " | Vous utilisez les pouvoirs de l'objet actif de votre inventaire et invoquez quelques pièces !",
+            "hospitalDebut": " |** ",
+            "hospitalBonus": "**, **:clock1030: Vous avez avancé de ** ",
+            "hospitalFin": "** heure(s) | Vous utilisez les pouvoirs de l'objet actif de votre inventaire et sentez une sensation étrange... Le temps semble être passé plus vite, mais uniquement pour vous !"
         },
         "top": {
             "errorDebut": ":x: | **",
@@ -489,7 +508,7 @@
             "💰": {
                 "1": "** | 💰 Vous ramassez quelques pièces et fuyez aussi vite que possible sans éprouver le moindre remords.",
                 "2": "** | 💰 Malheureusement, il n'y a rien à voler. Par contre votre tentative n'est pas passée innaperçue ! Honteux, vous dédommagez les propriétaires et reprenez la route.",
-                "3": "** | 💰 Pris la main dans le sac ! face aux 5 hommes à la carrure imposante qui vous entourent, vous regrettez amèrement votre geste maleureux. Vous repartez groggy après avoir versé un dédommagement."
+                "3": "** | 💰 Pris la main dans le sac ! Face aux 5 hommes à la carrure imposante qui vous entourent, vous regrettez amèrement votre geste malhfeureux. Vous repartez groggy après avoir versé un dédommagement. :confounded:"
             },
             "end": {
                 "1": "** | 🚶 Vous passez de longues minutes à bêtement les regarder installer leur bivouac, avant de reprendre vos esprits et continuer votre route."
