@@ -354,12 +354,12 @@ class PlayerManager {
 
     /**
      * allow the player to gain some money corresponding to an equipement
-     * @param {*} item - The equipement that has to be sold
+     * @param {Item} item - The equipement that has to be sold
      * @param {*} player - The player that will recieve the money
      * @param {*} message - The message that caused the function to be called. Used to retrieve the channel
      */
     sellItem(player, item, message) {
-        let value = parseInt(DefaultValues.raritiesValues[item.rareness]) + parseInt(item.power);
+        let value = item.getValue();
         console.log("the item has been sold ! " + item.rareness + " / " + item.power);
         player.addMoney(value);
         message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd)

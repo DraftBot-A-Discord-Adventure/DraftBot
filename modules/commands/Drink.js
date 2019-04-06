@@ -16,9 +16,9 @@ const drinkCommand = async function (message) {
     let messageDrink;
     switch (potion.getNatureEffect()) {
         case 0:
-            if (inventory.potionId != "default") { //there is a potion that do nothing in the inventory
+            if (inventory.potionId != DefaultValues.inventory.potion) { //there is a potion that do nothing in the inventory
                 messageDrink = generateDrinkErrorMessage(message, potion);
-                inventory.potionId = "default";
+                inventory.potionId = DefaultValues.inventory.potion;
             } else { //there is no potion in the inventory
                 messageDrink = generateNoDrinkMessage(message);
             }
@@ -26,7 +26,7 @@ const drinkCommand = async function (message) {
         case 1: //the potion is a heal potion
             messageDrink = generateDrinkHealthMessage(message, potion);
             player.addHealthPoints(potion.power);
-            inventory.potionId = "default";
+            inventory.potionId = DefaultValues.inventory.potion;
             break;
         case 2: //the potion is a speed potion
             messageDrink = generateDrinkCombatMessage(message, potion);
@@ -40,11 +40,11 @@ const drinkCommand = async function (message) {
         case 5: //the potion is a hospital potion
             messageDrink = generateDrinkHospitalMessage(message, potion);
             player.setLastReport(parseInt(player.lastReport - parseInt(Tools.convertHoursInMiliseconds(potion.power))));
-            inventory.potionId = "default";
+            inventory.potionId = DefaultValues.inventory.potion;
             break;
 
         default:
-            inventory.potionId = "default";
+            inventory.potionId = DefaultValues.inventory.potion;
             console.log("ERROR : A unknown potion type has been drinked !" + potion.getNatureEffect())
             break;
     }

@@ -23,7 +23,7 @@ const dailyCommand = async function (message) {
         //this is the first use of an object today
         switch (object.getNatureEffect()) {
             case 0:
-                if (inventory.objectId != "default") { //there is a object that do nothing in the inventory
+                if (inventory.objectId != DefaultValues.inventory.object) { //there is a object that do nothing in the inventory
                     messageDaily = generateDailyErrorMessage(message, object);
                 } else { //there is no object in the inventory
                     messageDaily = generateNoDailyMessage(message);

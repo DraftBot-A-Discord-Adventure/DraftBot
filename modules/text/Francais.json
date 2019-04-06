@@ -98,6 +98,16 @@
             "hospitalBonus": "**, **:clock1030: Vous avez avancé de ** ",
             "hospitalFin": "** heure(s) | Vous utilisez les pouvoirs de l'objet actif de votre inventaire et sentez une sensation étrange... Le temps semble être passé plus vite, mais uniquement pour vous !"
         },
+        "sell": {
+            "noDebut": "**:x: | ",
+            "noFin": "**, vous n'avez malheureusement aucun objet dans votre réserve !",
+            "confirmDebut" : "**:interrobang: | ",
+            "confirmIntro" : "** , êtes vous sûr de vouloir vous séparer de ",
+            "confirmMiddle" : " pour **",
+            "confirmEnd": "** d'argent ?",
+            "cancelStart": ":x: | ",
+            "cancelEnd": ", la vente a bien été annulée !"
+        },
         "top": {
             "errorDebut": ":x: | **",
             "invalidNumber": "** Veuillez entrer un numéro de page valide !",
@@ -498,7 +508,7 @@
             "👥": {
                 "1": "** | 👥 Vous discutez un moment avec ces sympathiques marchands qui décident de commercer avec vous !",
                 "2": "** | 👥 Malheureusement pour vous, le groupe de marchands n'a rien à vendre, vous passez donc votre chemin.",
-                "3": "** | 👥 Moins acceuillant que vous ne l'espériez, le groupe d'homme vous prend à partie et vous soulage de quelques sous avant de prendre la fuite !",
+                "3": "** | 👥 Moins acceuillant que vous ne l'espériez, le groupe d'homme vous encercle rapidement et sous menace de coups, vous soulage de quelques sous avant de prendre la fuite !",
                 "4": "** | 👥 Vous auriez dû vous fier à votre intuition et refuser cette \"bonne affaire\"... La magnifique épée sertie de diamant que l'on vous a promis semble plutôt faite de mousse molle et la porte de l'échoppe semble définitivement fermée ! Jurant de ne plus jamais vous faire avoir, vous reprenez votre route."
             },
             "🏃": {
