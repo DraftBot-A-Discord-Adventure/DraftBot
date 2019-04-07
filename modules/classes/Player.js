@@ -1,7 +1,8 @@
 const Config = require('../utils/Config');
 const Entity = require('./Entity');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('../utils/DefaultValues');
+const Text = require('../text/Francais');
 
 /**
  * Represents a Player.
@@ -29,20 +30,21 @@ class Player extends Entity {
      */
     getExperienceToLevelUp() {
         return Math.round(Config.PLAYER_BASE_EXPERIENCE_PER_LEVEL *
-            Math.pow(this.level, Config.PLAYER_BASE_EXPERIENCE_RATIO));
+            Math.pow(this.level + 1, Config.PLAYER_BASE_EXPERIENCE_RATIO));
     }
 
     /**
      * Add the specified amount of experience to the player's experience total. If it allows the Player to
      * level up, the levelUp function will be called.
      * @see levelUp
-     * @param experience - The amount of experience to add. Must be a positive Number.
+     * @param {Number} experience - The amount of experience to add. Must be a positive Number.
+     * @param {*} message - The message that caused the xp gain
      */
-    addExperience(experience) {
+    addExperience(experience, message) {
         if (Tools.isAPositiveNumber(experience)) {
-            this.setExperience(this.experience + parseInt(experience));
+            this.setExperience(this.experience + parseInt(experience), message);
             if (this.hasEnoughExperienceToLevelUp()) {
-                this.levelUp();
+                this.levelUp(message);
             }
         }
     }
@@ -58,12 +60,13 @@ class Player extends Entity {
     /**
      * Set this Player instance's current experience.
      * @param experience - The amount of experience this instance should have. Must be a positive or null Number.
+     * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
-    setExperience(experience) {
-        if (Tols.isAPositiveNumberOrNull(experience)) {
+    setExperience(experience, message) {
+        if (Tools.isAPositiveNumberOrNull(experience)) {
             this.experience = experience;
             if (this.hasEnoughExperienceToLevelUp()) {
-                this.levelUp();
+                this.levelUp(message);
             }
         }
     }
@@ -78,7 +81,7 @@ class Player extends Entity {
 
     /**
      * Set this Player instance's level.
-     * @param level - The level this Player instance should be. Must be a positive Number.
+     * @param {Number} level - The level this Player instance should be. Must be a positive Number.
      */
     setLevel(level) {
         if (Tools.isAPositiveNumber(level)) {
@@ -89,10 +92,59 @@ class Player extends Entity {
     /**
      * Increments the Player's level, and subtract the experience needed for the level up from the Player's
      * experience.
+     * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
-    levelUp() {
+    levelUp(message) {
         this.setExperience(this.getExperience() - this.getExperienceToLevelUp());
         this.setLevel(this.getLevel() + 1);
+        let messageLevelUp = Text.playerManager.levelUp.intro + message.author.username + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
+        let bonus = false;
+        if (this.getLevel() % 10 == 0) {
+            this.restoreHealthCompletely();
+            messageLevelUp += Text.playerManager.levelUp.healthRestored;
+            bonus = true;
+        } else {
+            if (this.getLevel() % 5 == 0) {
+                this.setMaxHealth(this.getMaxHealth() + 5);
+                this.addHealthPoints(5,message);
+                messageLevelUp += Text.playerManager.levelUp.moreMaxHealth;
+                bonus = true;
+            }
+        }
+
+        if (this.getLevel() % 9 == 0) {
+            this.setSpeed(this.getSpeed() + 5);
+            if (bonus == false) {
+                messageLevelUp += Text.playerManager.levelUp.firstBonus;
+            }
+            messageLevelUp += Text.playerManager.levelUp.moreSpeed;
+            bonus = true;
+        } else {
+            if (this.getLevel() % 6 == 0) {
+                this.setAttack(this.getAttack() + 5);
+                if (bonus == false) {
+                    messageLevelUp += Text.playerManager.levelUp.firstBonus;
+                }
+                messageLevelUp += Text.playerManager.levelUp.moreAttack;
+                bonus = true;
+            } else {
+                if (this.getLevel() % 3 == 0) {
+                    this.setDefense(this.getDefense() + 5);
+                    if (bonus == false) {
+                        messageLevelUp += Text.playerManager.levelUp.firstBonus;
+                    }
+                    messageLevelUp += Text.playerManager.levelUp.moreDefense;
+                    bonus = true;
+                }
+            }
+        }
+
+        if (bonus == false) {
+            messageLevelUp += Text.playerManager.levelUp.noBonus;
+        }
+
+        message.channel.send(messageLevelUp);
+
     }
 
     /**

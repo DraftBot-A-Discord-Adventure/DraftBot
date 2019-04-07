@@ -23,7 +23,9 @@ const profileCommand = async function (message) {
 const generateProfileMessage = function (message, player, numberOfPlayer) {
     let playerManager = new PlayerManager();
     let profileMessage = player.getEffect() + Text.commands.profile.main + message.author.username +
-        Text.commands.profile.level + player.getLevel() + Text.commands.profile.health + player.getHealth() + Text.commands.profile.separator + player.getMaxHealth() +
+        Text.commands.profile.level + player.getLevel() + 
+        Text.commands.profile.xp + player.getExperience() + Text.commands.profile.separator + player.getExperienceToLevelUp() +
+        Text.commands.profile.health + player.getHealth() + Text.commands.profile.separator + player.getMaxHealth() +
         Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense + player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed() +
         Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +
         Text.commands.profile.money + player.getMoney() +

@@ -29,7 +29,8 @@
         "profile": {
             "main": " | **",
             "level": "** |** LVL ",
-            "health": "** | :heart: ",
+            "xp": "** :star: ",
+            "health": " | :heart: ",
             "rank": " | :trophy:  ",
             "money": " | :moneybag: ",
             "score": " | :medal:  ",
@@ -101,9 +102,9 @@
         "sell": {
             "noDebut": "**:x: | ",
             "noFin": "**, vous n'avez malheureusement aucun objet dans votre réserve !",
-            "confirmDebut" : "**:interrobang: | ",
-            "confirmIntro" : "** , êtes vous sûr de vouloir vous séparer de ",
-            "confirmMiddle" : " pour **",
+            "confirmDebut": "**:interrobang: | ",
+            "confirmIntro": "** , êtes vous sûr de vouloir vous séparer de ",
+            "confirmMiddle": " pour **",
             "confirmEnd": "** d'argent ?",
             "cancelStart": ":x: | ",
             "cancelEnd": ", la vente a bien été annulée !"
@@ -162,7 +163,20 @@
         "newItem": "**Un nouvel item a été placé dans votre inventaire !** :new: Vous recevez :\n\n",
         "sell": "** Vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",
         "sellEnd": "**",
-        "sellEmoji": ":gift: **"
+        "sellEmoji": ":gift: **",
+        "levelUp": {
+            "intro": ":star: | **",
+            "main": "**, viens d'atteindre le niveau **",
+            "end" : "**",
+            "healthRestored" : "\n\n:heart: | Vie restaurée à son maximum",
+            "moreMaxHealth" : "\n\n:heartpulse: | Vie maximale augmentée de 5 points",
+            "firstBonus" : "\n\n",
+            "moreSpeed" : ":rocket: | Vitesse augmentée de 5 points",
+            "moreAttack" : ":crossed_sword: | Attaque augmentée de 5 points",
+            "moreDefense" : ":shield: | Defense augmentée de 5 points",
+            "noBonus" : "\n\n:x: | Aucun bonus de passage de niveau"
+
+        }
     },
     "equipementManager": {
         "separator1": " | Puissance ",
