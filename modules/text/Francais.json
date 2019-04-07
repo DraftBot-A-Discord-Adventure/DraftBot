@@ -166,14 +166,14 @@
         "sellEmoji": ":gift: **",
         "levelUp": {
             "intro": ":star: | **",
-            "main": "**, viens d'atteindre le niveau **",
+            "main": "**, vient d'atteindre le niveau **",
             "end" : "**",
-            "healthRestored" : "\n\n:heart: | Vie restaurée à son maximum",
-            "moreMaxHealth" : "\n\n:heartpulse: | Vie maximale augmentée de 5 points",
+            "healthRestored" : "\n\n:heart: | Vie restaurée à son maximum\n",
+            "moreMaxHealth" : "\n\n:heartpulse: | Vie maximale augmentée de 5 points\n",
             "firstBonus" : "\n\n",
-            "moreSpeed" : ":rocket: | Vitesse augmentée de 5 points",
-            "moreAttack" : ":crossed_sword: | Attaque augmentée de 5 points",
-            "moreDefense" : ":shield: | Defense augmentée de 5 points",
+            "moreSpeed" : ":rocket: | Vitesse augmentée de 5 points\n",
+            "moreAttack" : ":crossed_swords: | Attaque augmentée de 5 points\n",
+            "moreDefense" : ":shield: | Defense augmentée de 5 points\n",
             "noBonus" : "\n\n:x: | Aucun bonus de passage de niveau"
 
         }

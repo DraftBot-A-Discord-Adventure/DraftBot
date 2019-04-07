@@ -95,7 +95,6 @@ class Player extends Entity {
      * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
     levelUp(message) {
-        this.setExperience(this.getExperience() - this.getExperienceToLevelUp());
         this.setLevel(this.getLevel() + 1);
         let messageLevelUp = Text.playerManager.levelUp.intro + message.author.username + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
         let bonus = false;
@@ -144,6 +143,7 @@ class Player extends Entity {
         }
 
         message.channel.send(messageLevelUp);
+        this.setExperience(this.getExperience() - this.getExperienceToLevelUp(),message);
 
     }
 

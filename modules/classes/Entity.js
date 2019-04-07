@@ -71,7 +71,7 @@ class Entity {
      */
     setAttack(attack) {
         if (Tools.isAPositiveNumberOrNull(attack)) {
-            this.magicAttack = attack;
+            this.attack = attack;
         }
     }
 
