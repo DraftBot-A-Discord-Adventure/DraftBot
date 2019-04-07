@@ -23,7 +23,9 @@ class PlayerManager {
         return sql.get(`SELECT * FROM entity JOIN player on entity.id = player.discordId WHERE discordId ="${message.author.id}"`).then(player => {
             if (!player) { //player is not in the database
                 console.log(`Utilisateur inconnu : ${message.author.username}`);
-                return this.getNewPlayer(message);
+                let player = this.getNewPlayer(message)
+                this.addPlayer(player);
+                return player;
             } else { //player is in the database
                 console.log(`Utilisateur reconnu : ${message.author.username}`);
                 return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
@@ -89,7 +91,7 @@ class PlayerManager {
 
         player.setEffect(":smiley:");
         player.restoreHealthCompletely();
-        player.updateLastReport(time,0,":smiley:");
+        player.updateLastReport(time, 0, ":smiley:");
         player.removeScore(scoreRomoved);
 
         console.log(player);

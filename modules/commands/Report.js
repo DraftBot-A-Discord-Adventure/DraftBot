@@ -16,7 +16,6 @@ const reportCommand = async function (message) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-
    if (playerManager.checkState(player, message, ":baby::smiley::clock2::sick::snowflake::dizzy_face::zzz::confounded:")) {  //check if the player is not dead or sick
 
       playerManager.setPlayerAsOccupied(player);
@@ -236,12 +235,12 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
    player.updateLastReport(message.createdTimestamp, possibility.timeLost, possibility.newEffect);
 
    player.setEffect(possibility.newEffect);
-   
-   player.addHealthPoints(possibility.healthPointsChange,message);
+
+   player.addHealthPoints(possibility.healthPointsChange, message);
    // if the number is below 0, remove health Points will be called by the add Health Points method
 
    if (possibility.item == "true") { //have to give an item to the player
-     player = await playerManager.giveRandomItem(message,player);
+      player = await playerManager.giveRandomItem(message, player);
    }
    playerManager.updatePlayer(player);
 }
@@ -257,7 +256,7 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
  * @param {*} playerManager - The player manager
  */
 function launchAdventure(message, pointsGained, moneyChange, player, possibility, playerManager) {
-   
+
    //adding score
    player.addScore(pointsGained);
 
@@ -269,7 +268,7 @@ function launchAdventure(message, pointsGained, moneyChange, player, possibility
 
    player.setEffect(possibility.newEffect);
 
-   playerManager.addPlayer(player);
+   playerManager.updatePlayer(player);
 }
 
 
