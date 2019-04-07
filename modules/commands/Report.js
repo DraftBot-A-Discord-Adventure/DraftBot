@@ -32,7 +32,7 @@ const reportCommand = async function (message) {
       let moneyChange = calculateMoney(player, time);
 
       let eventNumber = eventManager.chooseARandomEvent();
-      eventNumber = 15; //allow to select a specific event in testing purpose
+      //eventNumber = 15; //allow to select a specific event in testing purpose
 
       switch (true) {
 
@@ -74,6 +74,7 @@ const displayEvent = function (message, event) {
  * @param {*} possibility - The possibility that has to be executed
  */
 const execPossibility = function (message, possibility, playerManager, player, moneyChange, pointsGained) {
+   moneyChange = moneyChange + parseInt(possibility.moneyGained);
    let possibilityMessage;
    if (possibility.idEvent == 0) {
       if (possibility.emoji == "end") {
