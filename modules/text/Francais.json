@@ -2,24 +2,22 @@
     "commands": {
         "help": {
             "intro": "** :notebook_with_decorative_cover: ",
-            "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nregen\nswitch\nsell\ntop\ninventory\nfight\ndaily\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `aide [nom de la commande]` :wink:",
+            "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nsell\ntop\ninventory\nfight\ndaily\ndrink\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `aide [nom de la commande]` :wink:",
             "commands": {
                 "ping": ":ping_pong: ping :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
                 "respawn": ":angel: respawn\n\nPermet de recommencer à jouer après avoir été tué.",
                 "profile": ":bust_in_silhouette: profile\n\nAffiche des informations sur votre personnage :\n\n:heart: Vie | :trophy: Classement | :moneybag: Argent | :medal: Score | :smiley: État de santé.",
-                "regen": ":heartpulse: regen\n\nPermet de retirer à votre personnage ses altération d'état. L'hopital ne rend pas de points de vie et n'est fait que pour vous permettre de reprendre l'aventure",
                 "switch": ":repeat: switch\n\nEchange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire.",
-                "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous et qui ont le même niveau que vous ",
+                "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous et qui ont le même niveau que vous.",
                 "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
-                "top": ":trophy: top [numéro de page]\n\nAffiche le classement général du jeu par tranche de 15 joueurs, Les joueurs dans la meme guilde que vous sont marqués par une pastille spécifique (qu'il sera possible de personaliser bientôt)",
-                "topguild": ":trophy: topguild [numéro de page]\n\nAffiche le classement des joueurs se trouvant sur le même serveur que vous.",
+                "top": ":trophy: top [numéro de page]\n\nAffiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans la même guilde que vous sont marqués par une pastille bleue.",
                 "inventory": ":school_satchel: inventory\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un objet de type item.",
                 "report": ":newspaper: report\n\nPermet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières.",
                 "sell": ":moneybag: sell\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
                 "daily": ":calendar: daily\n\nCertains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`.",
                 "invite": ":inbox_tray: invite\n\nCette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !",
-                "badge": ":military_medal: Badges\n\nLes badges sont des distinctions trés difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\n:egg: - **Chasseur d'easter egg** | `Avoir trouvé tout les easter eggs du bot`\n:trophy: - **Top 1 - Fin de Saison** | `Etre premier du classement lors de la réinitialisation de celui-ci`\n:medal: - **Top 10 - Fin de Saison** | `Etre dans les 10 premiers du classement lors de la réinitialisation de celui-ci`\n:gear: - **Equipe technique** | `Faire partie (ou avoir fait partie) de l'équipe technique du bot`\n:helmet_with_cross: - **Premiers soutien** | `Etre l'un des 20 premiers membres du serveur du bot`\n:crown: - **Owner** | `Etre le créateur du bot`",
-                "eastereggs": ":egg: Oh un chasseur d'easter eggs !\n\nTrés bien comme tu as réussi à trouver cette petite aide je vais t'aider en te fournissant quelques indications sur les easters eggs du jeu :wink:\nPourquoi chercher tout ces petits trucs cachés ? Tout simplement parce que c'est fun !\n\nDu coup voilà la liste actuelle des easter eggs :\n:banana: Banane\n:school_satchel: L'inventaire plein d'eau\n:trophy: L'homme à sa place dans le classement\n:expressionless: L'aide ultime\n:fish: État Didescient\n:hammer: L'homme banni\n\nBeaucoup d'indices sont offerts dans les salons d'information du discord du bot nottament sur les personnes à contacter :eyes: N'hésitez pas à fouiller partout :wink:"
+                "badge": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\n:egg: - **Chasseur d'easter egg** | `Avoir trouvé tout les easter eggs du bot`\n:trophy: - **Top 1 - Fin de Saison** | `Etre premier du classement lors de la réinitialisation de celui-ci`\n:medal: - **Top 10 - Fin de Saison** | `Etre dans les 10 premiers du classement lors de la réinitialisation de celui-ci`\n:gear: - **Equipe technique** | `Faire partie (ou avoir fait partie) de l'équipe technique du bot`\n:helmet_with_cross: - **Premiers soutien** | `Etre l'un des 20 premiers membres du serveur du bot`\n:crown: - **Owner** | `Etre le créateur du bot`",
+                "drink": ":tropical_drink: drink\n\nCette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat."
             }
         },
         "ping": {
@@ -29,14 +27,17 @@
             "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
         },
         "profile": {
-            "main": ":crossed_swords: | **",
+            "main": " | **",
             "level": "** |** LVL ",
-            "health": "** | :heart: ",
+            "xp": "** :star: ",
+            "health": " | :heart: ",
             "rank": " | :trophy:  ",
             "money": " | :moneybag: ",
             "score": " | :medal:  ",
-            "effect": "  | État actuel : ",
-            "separator": "/"
+            "separator": "/",
+            "statsAttack": " | :dagger: ",
+            "statsDefense": " | :shield: ",
+            "statsSpeed": " | :rocket: "
         },
         "respawn": {
             "thinking": ":thinking: | **",
@@ -60,6 +61,88 @@
             "lineEnd1": " :**\n\n",
             "lineEnd2": "\n",
             "backupTitle": "\n\n:briefcase:  **Réserve d'item :**\n"
+        },
+        "switch": {
+            "debut": "**:repeat: | ",
+            "fin": "**, l'item actif et l'item en réserve ont été inversés !"
+        },
+        "drink": {
+            "errorDebut": " |** ",
+            "errorFin": "**,  vous consommez le breuvage que vous transportiez... Ca ne semble pas très efficace !",
+            "combatDebut": " |** ",
+            "combatFin": "**,  cette potion ne peut pas être bue maintenant. Elle sera utilisée lors de votre prochain combat !",
+            "noDebut": "**:x: | ",
+            "noFin": "**, vous n'avez malheureusement rien à boire dans votre inventaire !",
+            "healDebut": " |** ",
+            "healBonus": "**, **:heart: Vie gagnée : ** ",
+            "healFin": "** | Vous buvez un breuvage revigorant et sentez une énergie nouvelle vous porter !",
+            "hospitalDebut": " |** ",
+            "hospitalBonus": "**, **:clock1030: Vous avez avancé de ** ",
+            "hospitalFin": "** heure(s) | Vous buvez le breuvage et sentez une sensation étrange... Le temps semble être passé plus vite, mais uniquement pour vous !"
+        },
+        "daily": {
+            "errorDebut": " |** ",
+            "errorFin": "**,  vous tentez d'utiliser le pouvoir de l'objet que vous transportez... Mais cela n'a aucun effet !",
+            "errorDebutTiming": ":hourglass: |** ",
+            "errorFinTiming": "**, Il semblerait que vous ayez déjà utilisé le pouvoir d'un objet aujourd'hui... Revenez demain !",
+            "combatDebut": " |** ",
+            "combatFin": "**,  le pouvoir de l'objet que vous transportez est actif automatiquement durant les combats !",
+            "noDebut": "**:x: | ",
+            "noFin": "**, vous n'avez malheureusement aucun objet actif dans votre inventaire !",
+            "healDebut": " |** ",
+            "healBonus": "**, **:heart: Vie gagnée : ** ",
+            "healFin": " | Vous utilisez les pouvoirs de l'objet actif de votre inventaire et sentez une énergie nouvelle vous porter !",
+            "moneyDebut": " |** ",
+            "moneyBonus": "**, **:moneybag: Argent gagné : ** ",
+            "moneyFin": " | Vous utilisez les pouvoirs de l'objet actif de votre inventaire et invoquez quelques pièces !",
+            "hospitalDebut": " |** ",
+            "hospitalBonus": "**, **:clock1030: Vous avez avancé de ** ",
+            "hospitalFin": "** heure(s) | Vous utilisez les pouvoirs de l'objet actif de votre inventaire et sentez une sensation étrange... Le temps semble être passé plus vite, mais uniquement pour vous !"
+        },
+        "sell": {
+            "noDebut": "**:x: | ",
+            "noFin": "**, vous n'avez malheureusement aucun objet dans votre réserve !",
+            "confirmDebut": "**:interrobang: | ",
+            "confirmIntro": "** , êtes vous sûr de vouloir vous séparer de ",
+            "confirmMiddle": " pour **",
+            "confirmEnd": "** d'argent ?",
+            "cancelStart": ":x: | ",
+            "cancelEnd": ", la vente a bien été annulée !"
+        },
+        "top": {
+            "errorDebut": ":x: | **",
+            "invalidNumber": "** Veuillez entrer un numéro de page valide !",
+            "tooMuchError": "** Vous avez saisi un numéro de page trop grand ! La page maximale est : ",
+            "introDebut": "**:trophy: Affichage du top ",
+            "pageNumberSeparator": " à ",
+            "introFin": " : ** \n\n",
+            "firstPlaceEmoji": ":first_place: ",
+            "secondPlaceEmoji": ":second_place: ",
+            "thirdPlaceEmoji": ":third_place: ",
+            "top5Emoji": ":military_medal: ",
+            "youEmoji": ":white_circle: ",
+            "otherEmoji": ":black_circle: ",
+            "sameGuild": ":large_blue_circle: ",
+            "unknownPlayer": " Pseudo Introuvable ",
+            "boldEnd": " **",
+            "boldStart": "**",
+            "scoreDisplayDebut": " | **`",
+            "scoreDisplayFin": "`",
+            "effectSeparator": "** |** ",
+            "availableReport": "** |** :newspaper2:",
+            "endOfLine": "\n",
+            "tada": ":tada: ",
+            "endSentenceStart": ", vous êtes actuellement classé ",
+            "endSentenceMiddle": " ème** sur un total de ",
+            "endSentenceEnd": " joueurs ! ",
+            "pageSentenceStart": "`(Vous vous trouverez à la page ",
+            "separatorSlash": " / ",
+            "pageSentenceEnd": ")`",
+            "errorNotRanked": ", vous n'êtes actuellement pas classé ! Utilisez la commande `report` pour apparaitre dans le top !**",
+            "winningIntro": "\n :trophy: Félicitation ",
+            "winningOutro": " ! **Vous êtes actuellement le meilleur** sur un total de ",
+            "noUserError": "** Aucun joueur n'est classé pour le moment ! Vous devez être niveau 1 pour apparaitre dans le top !",
+            "tooMuchUserError": "** La page que vous avez demandé contient trop de joueurs !"
         }
     },
     "playerManager": {
@@ -74,35 +157,52 @@
             ":clock2:": "** Il semblerait que vous soyez déjà occupé... Veuillez attendre la fin de la tâche pour continuer à jouer !"
         },
         "intro": " | **",
-        "timeLeft": " `Temps restant : ",
+        "timeLeft": " | `Temps restant : ",
         "outro": "`",
-        "noTimeLeft": " :hospital: `Reprise du jeu possible`",
+        "noTimeLeft": " | :hospital: `Reprise du jeu possible`",
         "newItem": "**Un nouvel item a été placé dans votre inventaire !** :new: Vous recevez :\n\n",
         "sell": "** Vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",
         "sellEnd": "**",
-        "sellEmoji": ":gift: **"
+        "sellEmoji": ":gift: **",
+        "levelUp": {
+            "intro": ":star: | **",
+            "main": "**, vient d'atteindre le niveau **",
+            "end" : "**",
+            "healthRestored" : "\n\n:heart: | Vie restaurée à son maximum\n",
+            "moreMaxHealth" : "\n\n:heartpulse: | Vie maximale augmentée de 5 points\n",
+            "firstBonus" : "\n\n",
+            "moreSpeed" : ":rocket: | Vitesse augmentée de 5 points\n",
+            "moreAttack" : ":crossed_swords: | Attaque augmentée de 5 points\n",
+            "moreDefense" : ":shield: | Defense augmentée de 5 points\n",
+            "noBonus" : "\n\n:x: | Aucun bonus de passage de niveau"
+
+        }
     },
     "equipementManager": {
         "separator1": " | Puissance ",
         "separator2": " | "
     },
     "potionManager": {
-        "separator": " | ",
-        "use": " | :arrows_counterclockwise: Utilisations restantes : "
+        "separator": " | "
     },
     "objectManager": {
         "separator": " |"
     },
+    "entity": {
+        "killMessage": ":crossed_swords:  Bonjour Combattant !\n\nIl semblerait que vous ayez été mis K.O...  :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à  vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est couteuse et votre score a donc été impacté  par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`",
+        "killPublicIntro": ":skull: | **",
+        "killPublicMessage": " ** a été mit K.O !"
+    },
     "rarities": {
         "0": ":small_orange_diamond: Basique",
-        "1": ":large_orange_diamond: Commun",
-        "2": ":fire: Peu commun",
-        "3": ":trident: Exotique",
-        "4": ":comet: Rare",
-        "5": ":dizzy: Special",
-        "6": ":star: Epique",
-        "7": ":star2: Legendaire",
-        "8": ":gem: Unique"
+        "1": " :large_orange_diamond: Commun",
+        "2": " :fire: Peu commun",
+        "3": " :trident: Exotique",
+        "4": " :comet: Rare",
+        "5": " :dizzy: Special",
+        "6": " :star: Epique",
+        "7": " :star2: Legendaire",
+        "8": " :gem: Unique"
     },
     "nature": {
         "intro": {
@@ -111,7 +211,7 @@
             "2": " :rocket: Vitesse + ",
             "3": " :crossed_swords: Attaque + ",
             "4": " :shield: Defense + ",
-            "5": " :hospital: Annule une altération d'état d'une durée de soin inférieure à ",
+            "5": " :clock1030: Avance le temps plus rapidement pendant ",
             "6": " :moneybag: Argent + "
         },
         "outroObject": {
@@ -123,9 +223,9 @@
         },
         "outroPotion": {
             "1": "",
-            "2": " pendant une heure",
-            "3": " pendant une heure",
-            "4": " pendant une heure",
+            "2": " pendant le prochain combat",
+            "3": " pendant le prochain combat",
+            "4": " pendant le prochain combat",
             "5": " heure(s)",
             "6": ""
         }
@@ -145,9 +245,10 @@
         "11": " : **  :interrobang: Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.\n\n:deciduous_tree: Traverser quand même la forêt.\n:point_left: Suivre les conseils de l'inconnue.\n:point_right: Eviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "12": " : ** 🏞️ Vous voyez une rivière devant vous, de l'autre coté du rivage, vous apercevez un village.\n\n🏊 Traverser la rivière en nageant \n🚣 Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une maison ressemblant à une forge, vous vous approchez et entendez des coups de marteau sur de l'acier.\n\n:hammer: Regarder le forgeron\n☕ Demander une boisson pour vous reposer et reprendre des force\n:walking: Passer son chemin\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
-        "15": ":moneybag: Vous marchez tranquillement derrière une vieille dame quand soudain, elle fait tomber une bourse d'argent derrière elle.\n\n:older_woman: Vous prevenez la dame que sa bourse est tombé\n:smiling_imp: Vous prenez l'argent discrètement\n:walking: Vous ignorez l'incident\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
-},
+        "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part!*",
+        "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'homme discute tranquilement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.",
+        "16": " : ** :moneybag: Vous marchez tranquillement derrière une vieille dame quand soudain, elle fait tomber une bourse d'argent derrière elle.\n\n:older_woman: Vous prevenez la dame que sa bourse est tombé\n:smiling_imp: Vous prenez l'argent discrètement\n:smiling_imp: Vous prenez l'argent discrètement\n:walking: Vous ignorez l'incident\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+    },
     "possibilities": {
         "report": {
             "nothingToSay": {
@@ -165,13 +266,13 @@
         },
         "0": {
             "🤔": {
-                "1": "** | :joy: Ne vous faites pas de soucis, tout va bien se passer ! Voici 100 points :medal: pour débuter votre aventure ! Faites `!profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !"
+                "1": "** | :joy: Ne vous faites pas de soucis, tout va bien se passer ! Voici 100 points :medal: pour débuter votre aventure ! Utilisez la commande `profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !"
             },
             "🚶": {
-                "1": "** | :smirk: J'aime cette détermination ! Voici 100 points :medal: pour débuter votre aventure ! Faites `!profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !"
+                "1": "** | :smirk: J'aime cette détermination ! Voici 100 points :medal: pour débuter votre aventure ! Utilisez la commande `profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !"
             },
             "end": {
-                "1": "** | :x: Le tutoriel n'a pas été terminé ! Vous pouvez le recommencer à tout moment en écrivant `!report` !"
+                "1": "** | :x: Le tutoriel n'a pas été terminé ! Vous pouvez le recommencer à tout moment en utilisant la commande `report` !"
             }
         },
         "1": {
@@ -243,7 +344,7 @@
             },
             "🚶": {
                 "1": "** | :walking: Il est parfois bon de ne pas être trop paresseux vous n'avez pas perdu de temps !",
-                "2": "** | :walking: Pas de temps pour le repos ! il y a une princesse à sauver !",
+                "2": "** | :walking: Pas de temps pour le repos ! Il y a une princesse à sauver !",
                 "3": "** | :walking: Vous faites le choix de ne pas vous arrêter et vous continuez à avancer.",
                 "4": "** | :walking: Vous continuez votre aventure sans prêter plus d'attention à cette fontaine",
                 "5": "** | :zzz: Il faut savoir se reposer lorsqu'on est fatigué. extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. il faudra dormir avant de continuer !"
@@ -256,7 +357,7 @@
             "🔦": {
                 "1": "** | :flashlight: Vous vous perdez rapidement dans ce labyrinthe, mais vous finissez par en ressortir au bout de quelques heures !",
                 "2": "** | :flashlight: Vous passez quelques minutes à explorer la grotte de fond en comble et trouvez un objet qui pourra peut être vous servir... !",
-                "3": "** | :flashlight: La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdis ! il faudra vous soigner ! :confounded: "
+                "3": "** | :flashlight: La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdis ! Il faudra vous soigner ! :confounded: "
             },
             "🏃": {
                 "1": "** | :runner: Vous n'êtes pas du genre à risquer de perdre du temps pour des explorations sans intérêt ! Vous finissez de manger et passez votre chemin."
@@ -334,7 +435,7 @@
         "11": {
             "🌳": {
                 "1": "** | :deciduous_tree: Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégats.",
-                "2": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la foret mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
+                "2": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la forêt mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
                 "3": "** | :deciduous_tree: En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! :sick:"
             },
             "👈": {
@@ -390,7 +491,7 @@
             },
             "🎪": {
                 "1": "** | 🎪 Vous explorez le marché en 30 minutes avant de découvrir un petit objet au sol qui pourrait vous être utile...",
-                "2": "** | 🎪 Après avoir perdu 60 minutes à vous ballader dans les étales, vous finissez par quitter la ville sans avoir pu trouver quoi que ce soit d'interesant.",
+                "2": "** | 🎪 Après avoir perdu 60 minutes à vous balader dans les étals, vous finissez par quitter la ville sans avoir pu trouver quoi que ce soit d'intéressant.",
                 "3": "** | 🎪 Alors que votre vigilance était au plus bas sur le marché, vous recevez un coup violent derrière la tête et vous vous effondrez à terre... Après ce moment, plus aucun souvenir. Il faudra vous soigner avant de pouvoir continuer à avancer ! 😵 "
             },
             "end": {
@@ -399,41 +500,63 @@
         },
         "14": {
             "🔨": {
-                "1": "** | Le forgeron vous aperçoit et vous propose de vous fabriquer une épée avec lui. Après près d'une heure, l'épée est magnifique et le forgeron vous donne une récompense qui pourra vous être utile !",
-                "2": "** | Vous regardez le forgeron fabriquer une hache et vous repartez après 10 minutes.",
-                "3": "** | Le forgeron vous aperçoit et vous propose de vous fabriquer une épée avec lui. Malheureusement, le marteau vous tombe dessus d'un coup et vous blesse :dizzy_face: !"
+                "1": "** | 🔨 L'homme vous aperçoit et vous propose de vous fabriquer un objet avec lui. Après près d'une heure, votre création est terminée. L'homme vous l'offre en récompense !",
+                "2": "** | 🔨 Vous regardez l'ouvrier fabriquer une hache pendant une dizaine de minutes avant de vous décider à reprendre la route.",
+                "3": "** | 🔨 L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l’idée d’obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l’idée de créer votre propre arme. :dizzy_face: !"
             },
-            "☕": {
-                "1": "** | Vous demandez gentillement au forgeron de boire une boisson chaude. Il vous répond chaleureusement en vous proposant un café. Il vous invite dans sa maison :house: et vous buvez un excellent café :coffee:. Il vous propose en plus de dormir chez lui en voyant votre tête fatiguée. Vous acceptez. :zzz:",
-                "2": "** | Vous demandez gentillement au forgeron de boire une boisson chaude. Il vous répond chaleureusement en vous proposant un café. Après ce délicieux café :coffee:, vous repartez avec le sourire aux lèvres.",
-                "3": "** | Vous demandez gentillement au forgeron de boire une boisson chaude. Il se retourne et sursaute. \"Je ne vous avais pas vu !\" dit-il :scream:. Il s'excuse que sa femme n'aimait pas trop les inconnus. Vous répondez que cela n'est pas grave et vous repartez avec la maison derrière vous.",
-                "4": "**| Vous essayez de demander gentillement une boisson au forgeron mais il a l'air concentré dans son travail, après 10 minutes, vous n'insistez pas plus."
+            "🛏": {
+                "1": "** | 🛏 Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Epuisé, vous vous écroulez de fatigue sur le lit :zzz:",
+                "2": "** | 🛏 L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refuser poliement et reprenez votre route.",
+                "3": "** | 🛏 Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas aprécier les étrangers",
+                "4": "** | 🛏 L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son soupé. Affamé et épuisé, vous acceptez son offre."
             },
             "🚶": {
-                "1": "** | Vous partez sans perdre de temps. :runner:",
-                "2": "** | Vous partez sans faire attention à où vous marchez mais vous tombez :dizzy_face:. Heureusement le forgeron vous a vu et vous ramène chez lui. Il vous offre quelques vivres pour reprendre des forces et vous repartez quelques minutes plus tard.",
-                "3": "** | Vous partez sans faire attention à où vous marcher mais vous tombez :dizzy_face:."
+                "1": "** | 🚶 Vous partez sans perdre de temps.",
+                "2": "** | 🚶 Vous continuez votre route en contournant la prairie.",
+                "3": "** | 🚶 Vous décidez de continuer à marcher malgrès la fatigue. Après quelques kilomètres, vous vous écroulez au bord du chemin. :sick:"
             },
             "end": {
-                "1": "** | Vous partez directement."
+                "1": "** | 🚶 Vous contournez la maison et continuez votre route."
             }
         },
         "15": {
-              "👵": {
-                  "1": "** | Vous rapportez à la dame la bourse, pour vous remerciez, elle vous récompense en vous donnant des pièces !",
-                  "2": "** | Après un moment d'hésitation, vous finnissez par être honnête et rapporter la bourse, mais c'était trop tard, elle était déjà partie. Vous gardez la bourse pour vous.",
-              },
-              "😈": {
-                  "1": "** | Vous prenez l'argent le plus discrètement possible et repartez avec.",
-                  "2": "** | Vous prenez l'argent mais la dame vous voit en flagrant délit et vous frappe avec son sac à main. Aïe...",
-              },
-              "🚶": {
-                  "1": "** | Vous continuer votre route sans vous souciez de cette incident.",
-                  "2": "** | Vous marchez sans attention à la bourse d'argent, mais soudainement, vous trébuchez dessus ! Vous vous rassurez en vous disant que vous avez juste une petit égratignure.",
-              },
-              "end": {
-                  "1": "** | Vous hésitez à rapporter la bourse à la vielle dame pendant 10 minutes, vous décidez finalement de ne pas y toucher."
-              }
-          }
+            "👥": {
+                "1": "** | 👥 Vous discutez un moment avec ces sympathiques marchands qui décident de commercer avec vous !",
+                "2": "** | 👥 Malheureusement pour vous, le groupe de marchands n'a rien à vendre, vous passez donc votre chemin.",
+                "3": "** | 👥 Moins acceuillant que vous ne l'espériez, le groupe d'homme vous encercle rapidement et sous menace de coups, vous soulage de quelques sous avant de prendre la fuite !",
+                "4": "** | 👥 Vous auriez dû vous fier à votre intuition et refuser cette \"bonne affaire\"... La magnifique épée sertie de diamant que l'on vous a promis semble plutôt faite de mousse molle et la porte de l'échoppe semble définitivement fermée ! Jurant de ne plus jamais vous faire avoir, vous reprenez votre route."
+            },
+            "🏃": {
+                "1": "** | 🏃 Le chemin est encore long, pas le temps de s'arrêter !",
+                "2": "** | 🏃 Vous continuez sans vous arrêter en sillonant les petites rues. Au coin de l'une d'entre elles, vous vous faites sauvagement bousculer par un homme qui prend rapidement la fuite."
+            },
+            "💰": {
+                "1": "** | 💰 Vous ramassez quelques pièces et fuyez aussi vite que possible sans éprouver le moindre remords.",
+                "2": "** | 💰 Malheureusement, il n'y a rien à voler. Par contre votre tentative n'est pas passée innaperçue ! Honteux, vous dédommagez les propriétaires et reprenez la route.",
+                "3": "** | 💰 Pris la main dans le sac ! Face aux 5 hommes à la carrure imposante qui vous entourent, vous regrettez amèrement votre geste malhfeureux. Vous repartez groggy après avoir versé un dédommagement. :confounded:"
+            },
+            "end": {
+                "1": "** | 🚶 Vous passez de longues minutes à bêtement les regarder installer leur bivouac, avant de reprendre vos esprits et continuer votre route."
+            }
+        },
+        "16": {
+        "👵": {
+            "1": "** | Vous rapportez la bourse à la dame, pour vous remerciez, elle vous récompense en vous donnant des pièces !",
+            "2": "** | Après un moment d'hésitation, vous finissez par être honnête et rapporter la bourse, mais c'était trop tard, elle était déjà partie. Vous gardez la bourse pour vous.",
+            "3": "** | Vous prenez la bourse pour la rendre mais elle vous voit et croit que vous voulez la dérober. Suite à ce quipropro, elle vous frappe avec son sac à main"
+        },
+        "😈": {
+            "1": "** | Vous prenez l'argent le plus discrètement possible et repartez avec.",
+            "2": "** | Vous prenez l'argent mais la dame vous voit en flagrant délit et vous frappe avec son sac à main. Aïe..."
+        },
+        "🚶": {
+            "1": "** | Vous continuez votre route sans vous souciez de cette incident.",
+            "2": "** | Vous marchez sans attention à la bourse d'argent, mais soudainement, vous trébuchez dessus ! Vous vous rassurez en vous disant que vous avez juste une petit égratignure."
+        },
+        "end": {
+            "1": "** | A force de tergiverser, vous décidez de rapporter la bourse aux objets trouvés",
+            "2": "** | A force de tergiverser, quelqu'un la ramasse devant vous et s'en va"
+        }
+    }
     }
 }
