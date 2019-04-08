@@ -247,7 +247,7 @@
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'homme discute tranquilement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.",
-        "17": " : ** :european_castle:Vous trouvez un château abandonné sur votre route.\n:mag_right: Chercher si il est possible de trouver quelque chose dans les salles du château.\n :arrow_right:Passer son chemin sans y faire attention\n :repeat: Faire le tour du château\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* "
+        "16": " : ** :european_castle: Vous trouvez un château abandonné sur votre route.\n:mag_right: Chercher si il est possible de trouver quelque chose dans les salles du château.\n :arrow_right:Passer son chemin sans y faire attention\n :repeat: Faire le tour du château\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* "
     },
     "possibilities": {
         "report": {
@@ -539,23 +539,23 @@
                 "1": "** | 🚶 Vous passez de longues minutes à bêtement les regarder installer leur bivouac, avant de reprendre vos esprits et continuer votre route."
             }
         },
-        "17": {
+        "16": {
             "🔎": {
-                "1": "** |🔎 Vous entrez dans le château mais un piège s'active et une flèche empoisonné vous touche à la poitrine, vous courez avec peine pour sortir du château pour être en sécurité.",
-                "2": "** |🔎 Vous entrez dans le château et vous trouvez l'armurerie, vous prenez ce qui vous tombe sous la main et vous sortez.",
-                "3": "** |🔎 Vous entrez dans le château mais une vieille personne vous frappe sur la tête dés votre premier pas dans la 1ère salle. vous vous enfuyez avec un fort mal au crâne."
+                "1": "** | 🔎 Vous entrez dans le château mais un piège s'active et une flèche empoisonné vous touche à la poitrine, vous courez avec peine pour sortir du château pour être en sécurité.",
+                "2": "** | 🔎 Vous entrez dans le château et vous trouvez l'armurerie, vous prenez ce qui vous tombe sous la main et vous sortez.",
+                "3": "** | 🔎 Vous entrez dans le château mais une vieille personne vous frappe sur la tête dés votre premier pas dans la 1ère salle. vous vous enfuyez avec un fort mal au crâne."
             },
             "➡": {
-                "1": "** |➡ Vous passez votre chemin sans y faire attention, vous avez surement loupé quelque chose mais vous vous dites qu'un vieux château délabré ne doit pas contenir grand chose intéressant. ",
+                "1": "** | ➡ Vous passez votre chemin sans y faire attention, vous avez surement loupé quelque chose mais vous vous dites qu'un vieux château délabré ne doit pas contenir grand chose intéressant. "
             },
             "🔁": {
-                "1": "** |🔁 Vous faites le tour du château mais vous ne trouvez rien, vous avez perdu votre temps et vous continuez votre chemin.",
-                "2": "** |🔁 En faisant le tour du château vous trouvez une entrée secrète qui vous emmène droit vers la salle du trésor, Vous repartez heureux et fortuné sur votre chemin.",
-                "3": "** |🔁 Alors que vous commenciez a faire le tour du château, vous tombez par accident dans un trou,vous vous blessez et vous passez plusieurs heures a sortir de ce pétrin."
+                "1": "** | 🔁 Vous faites le tour du château mais vous ne trouvez rien, vous avez perdu votre temps et vous continuez votre chemin.",
+                "2": "** | 🔁 En faisant le tour du château vous trouvez une entrée secrète qui vous emmène droit vers la salle du trésor, Vous repartez heureux et fortuné sur votre chemin.",
+                "3": "** | 🔁 Alors que vous commenciez a faire le tour du château, vous tombez par accident dans un trou,vous vous blessez et vous passez plusieurs heures a sortir de ce pétrin."
             },
             "end": {
-                "1": "** |🚶 En prenant votre temps et en regardant  bien le château et ses alentours, vous voyez un sac plein a l'abandon enterré et vous partez le chercher.",
-                "2": "** |🚶 Vous observez ce magnifique château pendant 15minutes puis vous repartez sur votre chemin. Pourquoi étiez vous si intéressé par ce château délabré au milieu de nul part ?"
+                "1": "** | 🚶 En prenant votre temps et en regardant  bien le château et ses alentours, vous voyez un sac plein a l'abandon enterré et vous partez le chercher.",
+                "2": "** | 🚶 Vous observez ce magnifique château pendant 15minutes puis vous repartez sur votre chemin. Pourquoi étiez vous si intéressé par ce château délabré au milieu de nul part ?"
             }
         }
     }
