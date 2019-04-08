@@ -1,4 +1,5 @@
 const Tools = require('../utils/Tools');
+const Text = require('../text/Francais');
 
 /**
  * Base class that shouldn't be instantiated. Instead, Entities are meant to extend this class.
@@ -70,7 +71,7 @@ class Entity {
      */
     setAttack(attack) {
         if (Tools.isAPositiveNumberOrNull(attack)) {
-            this.magicAttack = attack;
+            this.attack = attack;
         }
     }
 
@@ -93,10 +94,29 @@ class Entity {
     }
 
     /**
+     * Returns this Entity's Speed value.
+     * @returns {Number} - How rapid this Entity is.
+     */
+    getSpeed() {
+        return this.defense;
+    }
+
+    /**
+     * Set this Entity's Speed value.
+     * @param speed - How rapid this Entity should be. Must be a positive or null Number.
+     */
+    setSpeed(speed) {
+        if (Tools.isAPositiveNumberOrNull(speed)) {
+            this.speed = speed;
+        }
+    }
+
+
+    /**
     *  Allow to restore all the health of the entity
     */
     restoreHealthCompletely() {
-        this.restoreHealthCompletely = this.maxHealth
+        this.health = this.maxHealth
     }
 
     /**
@@ -104,15 +124,16 @@ class Entity {
      * Note: If points is negative, then addScore is called.
      * @see addHealthPoints
      * @param points - The amount of health points to remove. Must be a Number.
+     * @param message  - The message that caused the heath change
      */
-    removeHealthPoints(points) {
+    removeHealthPoints(points, message) {
         if (Tools.isAPositiveNumberOrNull(points)) {
             this.health -= parseInt(points);
             if (Tools.isANegativeOrNullNumber(this.health)) {
-                this.kill()
+                this.kill(message)
             }
         } else {
-            this.addHealthPoints(-points);
+            this.addHealthPoints(-points, message);
         }
     }
 
@@ -122,15 +143,16 @@ class Entity {
      * Note: If points is negative, then removeScore is called.
      * @see removeHealthPoints
      * @param points - The amount of health points to add. Must be a Number.
+     * @param message  - The message that caused the heath change
      */
-    addHealthPoints(points) {
+    addHealthPoints(points, message) {
         if (Tools.isAPositiveNumberOrNull(points)) {
             this.health += parseInt(points);
             if (this.health > this.maxHealth) {
                 this.restoreHealthCompletely()
             }
         } else {
-            this.removeHealthPoints(-points);
+            this.removeHealthPoints(-points, message);
         }
     }
 
@@ -160,13 +182,14 @@ class Entity {
 
     /**
     * kill a player
+    * @param {*} message - The message that caused the death of the player
     */
-    kill() {
+    kill(message) {
         this.setEffect(":skull:");
         this.setHealth(0);
+        message.channel.send(Text.entity.killPublicIntro + message.author.username + Text.entity.killPublicMessage)
+        message.author.send(Text.entity.killMessage)
     }
-
-
 
 }
 

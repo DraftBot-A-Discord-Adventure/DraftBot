@@ -3,7 +3,7 @@ const EquipementManager = require('../classes/EquipementManager');
 const PotionManager = require('../classes/PotionManager');
 const ObjectManager = require('../classes/ObjectManager');
 const Text = require('../text/Francais');
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('../utils/DefaultValues');
 
 
 /**
@@ -51,7 +51,7 @@ const generateInventoryMessage = function (message, inventory) {
         inventoryMessage += objectManager.displayObject(object);
     }
     inventoryMessage += Text.commands.inventory.backupTitle;
-    if (inventory.objectId == DefaultValues.inventory.object) { //the user doesnt have any object in the backup place
+    if (inventory.backupItemId == DefaultValues.inventory.object) { //the user doesnt have any object in the backup place
         inventoryMessage += objectManager.displayDefaultObject(objectBackup);
     } else { //the user have an object in the backup place
         inventoryMessage += objectManager.displayObject(objectBackup);

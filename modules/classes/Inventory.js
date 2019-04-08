@@ -1,19 +1,23 @@
 const Config = require('../utils/Config');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('../utils/DefaultValues');
+const Potion = require('../classes/Potion');
+const Object = require('../classes/Object');
+const ItemValues = require('../utils/items/Values');
 
 /**
  * Represents an Inventory. Store the id of the objects the user have in its inventory. An item id is also an ID
  */
 class Inventory {
 
-    constructor(playerId, weaponId, armorId, potionId, objectId, backupItemId) {
+    constructor(playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily) {
         this.playerId = playerId;
         this.weaponId = weaponId;
         this.armorId = armorId;
         this.potionId = potionId;
         this.objectId = objectId;
-        this.backupItemId = backupItemId
+        this.backupItemId = backupItemId;
+        this.lastDaily = lastDaily;
     }
 
 
@@ -70,6 +74,14 @@ class Inventory {
         return this.backupItemId;
     }
 
+    /**
+     * Returns the number of the day where the last daily has been asked 
+     * @returns {String} - The last daily day
+     */
+    getBackupItemId() {
+        return this.backupItemId;
+    }
+
 
     /**
      * Save a weapon id in the weapon slot of the inventory
@@ -112,6 +124,30 @@ class Inventory {
      */
     setBackupItemId(backupItemId) {
         this.backupItemId = backupItemId;
+    }
+
+    /**
+     * Save the day that the last daily has been asked
+     * @param {Integer} lastDaily - The number of the day
+     */
+    setLastDaily(lastDaily) {
+        this.backupItemId = backupItemId;
+    }
+
+    /**
+     * Return the contained potion as an object
+     * @returns {*} the potion
+     */
+    getPotion() {
+        return new Potion(this.potionId, parseInt(ItemValues.potion[this.potionId].rareness), parseInt(ItemValues.potion[this.potionId].power), parseInt(ItemValues.potion[this.potionId].nature))
+    }
+
+    /**
+     * Return the contained object as an object
+     * @returns {*} the current active object
+     */
+    getCurrentObject() {
+        return new Object(this.objectId, parseInt(ItemValues.object[this.objectId].rareness), parseInt(ItemValues.object[this.objectId].power), parseInt(ItemValues.object[this.objectId].nature))
     }
 }
 

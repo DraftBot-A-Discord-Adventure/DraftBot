@@ -23,10 +23,12 @@ class PlayerManager {
         return sql.get(`SELECT * FROM entity JOIN player on entity.id = player.discordId WHERE discordId ="${message.author.id}"`).then(player => {
             if (!player) { //player is not in the database
                 console.log(`Utilisateur inconnu : ${message.author.username}`);
-                return this.getNewPlayer(message);
+                let player = this.getNewPlayer(message)
+                this.addPlayer(player);
+                return player;
             } else { //player is in the database
                 console.log(`Utilisateur reconnu : ${message.author.username}`);
-                return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport)
+                return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -47,7 +49,7 @@ class PlayerManager {
                 return this.getNewPlayerById(id);
             } else { //player is in the database
                 console.log(`Utilisateur reconnu : ${id}`);
-                return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport)
+                return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -63,7 +65,7 @@ class PlayerManager {
      */
     getNewPlayer(message) {
         console.log('Generating a new player...');
-        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, message.author.id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect, message.createdTimestamp, DefaultValues.player.badges);
+        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, message.author.id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect, message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank);
     }
 
 
@@ -72,9 +74,9 @@ class PlayerManager {
      * @param id - The id of the player that has to be created
      * @returns {*} - A new player
      */
-    getNewPlayerById(message) {
-        console.log('Generating a new player...');
-        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect, message.createdTimestamp, DefaultValues.player.badges);
+    getNewPlayerById(id) {
+        console.log('Generating a new player by id...');
+        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect, message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank);
     }
 
 
@@ -88,10 +90,11 @@ class PlayerManager {
         let scoreRomoved = Math.round(player.getScore() * Config.PART_OF_SCORE_REMOVED_DURING_RESPAWN);
 
         player.setEffect(":smiley:");
-        player.heal();
-        player.updateLastReport(time);
+        player.restoreHealthCompletely();
+        player.updateLastReport(time, 0, ":smiley:");
         player.removeScore(scoreRomoved);
 
+        console.log(player);
         this.updatePlayer(player);
 
         return scoreRomoved;
@@ -105,6 +108,16 @@ class PlayerManager {
     setPlayerAsOccupied(player) {
         console.log("Updating player ...");
         sql.run(`UPDATE entity SET effect = ":clock10:" WHERE id = ${player.discordId}`).catch(console.error);
+        console.log("Player updated !");
+    }
+
+    /**
+     * Allow to set the state of a player to normal in order to allow him to play
+     * @param {*} player - The player that has to be saved
+     */
+    setPlayerAsUnOccupied(player) {
+        console.log("Updating player ...");
+        sql.run(`UPDATE entity SET effect = ":smiley:" WHERE id = ${player.discordId}`).catch(console.error);
         console.log("Player updated !");
     }
 
@@ -127,22 +140,38 @@ class PlayerManager {
     addPlayer(player) {
         console.log("Creating player ...");
         sql.run(`INSERT INTO entity (maxHealth, health, attack, defense, speed, id, effect) VALUES ( ${player.maxHealth}, ${player.health}, ${player.attack} , ${player.defense} , ${player.speed} , ${player.discordId},"${player.effect}")`).catch(console.error);
-        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges) VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, "${player.badges}") `).catch(console.error);
+        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, tampon, rank) VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, "${player.badges}",1,0) `).catch(console.error);
         console.log("Player created !");
     }
 
 
-    //TODO
-    getRank(player) {
-        return 1;
-        //TODO
+    /**
+     * Get the total number of players in the database
+     * @returns {Integer} - The number of players
+     */
+    getNumberOfPlayers() {
+        return sql.get(`SELECT COUNT(*) as count FROM player WHERE score > 100`).then(number => {
+            return number.count
+        }).catch(error => { //there is no database
+            console.error(error)
+            return 0;
+        })
     }
 
-    //TODO
-    getNumberOfPlayer() {
-        return 1;
-        //TODO
+
+    /**
+     * Get the total number of actives players in the database
+     * @returns {Integer} - The number of players
+     */
+    getNumberOfActivePlayers() {
+        return sql.get(`select MAX(rank) as count from player`).then(number => {
+            return number.count
+        }).catch(error => { //there is no database
+            console.error(error)
+            return 0;
+        })
     }
+
 
     /**
      * check if the player is healthy or not. if the player is sick, display an error message
@@ -177,7 +206,7 @@ class PlayerManager {
      * @returns {String} - A string vontaining the duration
      */
     displayTimeLeft(player, message) {
-        if (!":baby::smiley::clock10:".includes(player.getEffect())) { //these states dont have a duration to display
+        if (!":baby::smiley::clock10::skull:".includes(player.getEffect())) { //these states dont have a duration to display
             if (message.createdTimestamp < player.lastReport) {
                 return Text.playerManager.timeLeft + Tools.displayDuration(Tools.convertMillisecondsInMinutes(player.lastReport - message.createdTimestamp)) + Text.playerManager.outro;
             } else {
@@ -207,6 +236,12 @@ class PlayerManager {
             case "armor":
                 player = await this.giveRandomArmor(equipementManager, inventory, message, inventoryManager, player);
                 break;
+            case "object":
+                player = await this.giveRandomObject(objectManager, inventory, message, inventoryManager, player);
+                break;
+            case "potion":
+                player = await this.giveRandomPotion(potionManager, inventory, message, inventoryManager, player);
+                break;
             default:
                 message.channel.send("item à donner de type :" + type);
                 break;
@@ -227,15 +262,13 @@ class PlayerManager {
         let armor = await equipementManager.generateRandomArmor();
         let neww = equipementManager.getEquipementEfficiency(armor);
         let old = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
-        console.log(neww + "/" + old);
-        console.log(neww > old);
         if (neww > old) {
             inventory.armorId = armor.id;
             message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellEquipement(player, armor, message);
+            player = this.sellItem(player, armor, message);
         }
         return player
     }
@@ -253,19 +286,64 @@ class PlayerManager {
         let weapon = await equipementManager.generateRandomWeapon();
         let neww = equipementManager.getEquipementEfficiency(weapon);
         let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
-        console.log(neww + "/" + old);
-        console.log(neww > old);
         if (neww > old) {
             inventory.weaponId = weapon.id;
             message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellEquipement(player, weapon, message);
+            player = this.sellItem(player, weapon, message);
         }
         return player
     }
 
+
+    /**
+     * add a random object into an inventory and save the result
+     * @param {*} objectManager - The object manager class
+     * @param {*} inventory - the inventory of the player
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} inventoryManager - The inventory manager class
+     * @param {*} player - The player that is playing
+     */
+    async giveRandomObject(objectManager, inventory, message, inventoryManager, player) {
+        let object = await objectManager.generateRandomObject();
+        let neww = objectManager.getObjectEfficiency(object);
+        let old = objectManager.getObjectEfficiency(objectManager.getObjectById(inventory.backupItemId));
+        if (neww > old) {
+            inventory.backupItemId = object.id;
+            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object));
+            inventoryManager.updateInventory(inventory);
+        }
+        else {
+            player = this.sellItem(player, object, message);
+        }
+        return player
+    }
+
+
+    /**
+     * add a random potion into an inventory and save the result
+     * @param {*} potionManager - The potion manager class
+     * @param {*} inventory - the inventory of the player
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} inventoryManager - The inventory manager class
+     * @param {*} player - The player that is playing
+     */
+    async giveRandomPotion(potionManager, inventory, message, inventoryManager, player) {
+        let potion = await potionManager.generateRandomPotion();
+        let neww = potionManager.getPotionEfficiency(potion);
+        let old = potionManager.getPotionEfficiency(potionManager.getPotionById(inventory.potionId));
+        if (neww > old) {
+            inventory.potionId = potion.id;
+            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion));
+            inventoryManager.updateInventory(inventory);
+        }
+        else {
+            player = this.sellItem(player, potion, message);
+        }
+        return player
+    }
 
     /**
      * Select a random item Type 
@@ -278,16 +356,34 @@ class PlayerManager {
 
     /**
      * allow the player to gain some money corresponding to an equipement
-     * @param {*} equipement - The equipement that has to be sold
+     * @param {Item} item - The equipement that has to be sold
      * @param {*} player - The player that will recieve the money
      * @param {*} message - The message that caused the function to be called. Used to retrieve the channel
      */
-    sellEquipement(player, equipement, message) {
-        let value = parseInt(DefaultValues.raritiesValues[equipement.rareness] + equipement.power);
-        console.log("the item has been sold ! " + equipement.rareness);
+    sellItem(player, item, message) {
+        let value = item.getValue();
+        console.log("the item has been sold ! " + item.rareness + " / " + item.power);
         player.addMoney(value);
         message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd)
         return player;
+    }
+
+    /**
+     * Allow to retrieve the data from the top between 2 limits
+     * @param {Integer} borneinf - The lower limit of the top
+     * @param {Integer} bornesup - The uppper limit of the top
+     * @returns {*} -The data of the top (an array of players)
+     */
+    getTopData(borneinf, bornesup) {
+        let playerArray = Array();
+        let i = 0;
+        return sql.all(`SELECT * FROM player JOIN entity ON discordId = id WHERE rank >= ${borneinf} AND rank <= ${bornesup} AND score > 100 ORDER BY score DESC`).then(data => {
+            data.forEach(function (player) {
+                playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
+                i++;
+            });
+            return playerArray;
+        });
     }
 }
 

@@ -54,6 +54,16 @@ const convertMinutesInMiliseconds = function (minutes) {
 
 
 /**
+ * convert a number of hours in a number of miliseconds
+ * @param hours - The number of hours
+ * @returns {Number} - The number of miliseconds
+ */
+const convertHoursInMiliseconds = function (hours) {
+    return this.convertMinutesInMiliseconds(hours * 60);
+};
+
+
+/**
  * convert a number of milliseconds in a number of minutes
  * @param miliseconds - The number of milliseconds
  * @returns {Number} - The number of minutes
@@ -90,6 +100,7 @@ module.exports.isAPositiveNumberOrNull = isAPositiveNumberOrNull;
 module.exports.isANegativeNumber = isANegativeNumber;
 module.exports.isANegativeOrNullNumber = isANegativeOrNullNumber;
 module.exports.isANullNumber = isANullNumber;
+module.exports.convertHoursInMiliseconds = convertHoursInMiliseconds;
 module.exports.convertMinutesInMiliseconds = convertMinutesInMiliseconds;
 module.exports.convertMillisecondsInMinutes = convertMillisecondsInMinutes;
 module.exports.displayDuration = displayDuration;

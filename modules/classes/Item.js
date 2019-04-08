@@ -41,6 +41,14 @@ class Item {
     getPower() {
         return this.power;
     }
+
+    /**
+     * Return the value of the item
+     * @returns {Number} - The value of the item
+     */
+    getValue(){
+        return parseInt(DefaultValues.raritiesValues[this.rareness]) + parseInt(this.power);
+    }
 }
 
 module.exports = Item;

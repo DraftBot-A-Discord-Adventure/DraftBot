@@ -6,10 +6,13 @@ const Respawn = require('./commands/Respawn');
 const Report = require('./commands/Report');
 const Inventory = require('./commands/Inventory');
 const Test = require('./commands/Test');
+const Switch = require('./commands/Switch');
+const Drink = require('./commands/Drink');
+const Daily = require('./commands/Daily');
+const Top = require('./commands/Top');
+const Sell = require('./commands/Sell');
 
-
-const InitDatabase = require('./commands/admin/initDatabase');
-const Give = require('./commands/admin/give');
+const Give = require('./commands/admin/Give');
 
 const CommandTable = new Map(
     [
@@ -18,13 +21,19 @@ const CommandTable = new Map(
         ["ping", Ping.PingCommand],
         ["invite", Invite.InviteCommand],
         ["profile", Profile.ProfileCommand],
+        ["p", Profile.ProfileCommand],
         ["report", Report.ReportCommand],
+        ["r", Report.ReportCommand],
         ["respawn", Respawn.RespawnCommand],
         ["inventory", Inventory.InventoryCommand],
         ["inv", Inventory.InventoryCommand],
         ["test", Test.TestCommand],
+        ["switch", Switch.SwitchCommand],
+        ["drink", Drink.DrinkCommand],
+        ["daily", Daily.DailyCommand],
+        ["top", Top.TopCommand],
+        ["sell", Sell.SellCommand],
 
-        ["init", InitDatabase.InitDatabaseCommand],
         ["give", Give.GiveCommand],
         
     ]

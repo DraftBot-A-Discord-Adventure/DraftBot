@@ -24,7 +24,7 @@ class InventoryManager {
                 return this.getNewInventory(message);
             } else { //inventory is in the database
                 console.log(`Utilisateur reconnu : ${message.author.username}`);
-                return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId)
+                return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -45,7 +45,7 @@ class InventoryManager {
                 return this.getNewInventoryById(id);
             } else { //inventory is in the database
                 console.log(`Utilisateur reconnu : ${id}`);
-                return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId)
+                return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -61,7 +61,7 @@ class InventoryManager {
      */
     getNewInventory(message) {
         console.log('Generating a new inventory...');
-        let inventory = new Inventory(message.author.id, DefaultValues.inventory.weapon, DefaultValues.inventory.armor, DefaultValues.inventory.potion, DefaultValues.inventory.object, DefaultValues.inventory.backupItem);
+        let inventory = new Inventory(message.author.id, DefaultValues.inventory.weapon, DefaultValues.inventory.armor, DefaultValues.inventory.potion, DefaultValues.inventory.object, DefaultValues.inventory.backupItem, DefaultValues.inventory.lastDaily);
         this.addInventory(inventory);
         return inventory;
     }
@@ -74,7 +74,7 @@ class InventoryManager {
      */
     getNewInventoryById(id) {
         console.log('Generating a new inventory...');
-        let inventory = new Inventory(id, DefaultValues.inventory.weapon, DefaultValues.inventory.armor, DefaultValues.inventory.potion, DefaultValues.inventory.object, DefaultValues.inventory.backupItem);
+        let inventory = new Inventory(id, DefaultValues.inventory.weapon, DefaultValues.inventory.armor, DefaultValues.inventory.potion, DefaultValues.inventory.object, DefaultValues.inventory.backupItem, DefaultValues.inventory.lastDaily);
         this.addInventory(inventory);
         return inventory;
     }
@@ -86,9 +86,10 @@ class InventoryManager {
      */
     updateInventory(inventory) {
         console.log("Updating inventory ...");
-        sql.run(`UPDATE inventory SET playerId = ${inventory.playerId}, weaponId = "${inventory.weaponId}", armorId = "${inventory.armorId}", potionId = "${inventory.potionId}", objectId = "${inventory.objectId}", backupItemId = "${inventory.backupItemId}" WHERE playerId = ${inventory.playerId}`).catch(console.error);
+        sql.run(`UPDATE inventory SET playerId = ${inventory.playerId}, weaponId = "${inventory.weaponId}", armorId = "${inventory.armorId}", potionId = "${inventory.potionId}", objectId = "${inventory.objectId}", backupItemId = "${inventory.backupItemId}",lastDaily = "${inventory.lastDaily}" WHERE playerId = ${inventory.playerId}`).catch(console.error);
         console.log("Inventory updated !");
     }
+
 
     /**
      * Allow to save a new inventory in the database
@@ -96,11 +97,21 @@ class InventoryManager {
      */
     addInventory(inventory) {
         console.log("Creating inventory ...");
-        sql.run(`INSERT INTO inventory (playerId, weaponId, armorId, potionId, objectId, backupItemId) VALUES (${inventory.playerId},"${inventory.weaponId}","${inventory.armorId}","${inventory.potionId}","${inventory.objectId}","${inventory.backupItemId}") `).catch(console.error);
+        sql.run(`INSERT INTO inventory (playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily) VALUES (${inventory.playerId},"${inventory.weaponId}","${inventory.armorId}","${inventory.potionId}","${inventory.objectId}","${inventory.backupItemId}","${inventory.lastDaily}") `).catch(console.error);
         console.log("inventory created !");
     }
 
 
+    /**
+     * Allow to switch the item in the backup slot within the one that is active
+     * @param {*} inventory - The inventory that has to be changed
+     */
+    switch(inventory) {
+        let passage = inventory.objectId;
+        inventory.objectId = inventory.backupItemId;
+        inventory.backupItemId = passage;
+        this.updateInventory(inventory);
+    }
 }
 
 module.exports = InventoryManager;

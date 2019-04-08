@@ -60,7 +60,7 @@ class EquipementManager {
 
     
     /**
-     * Return the real value of the power that is applied whe it is used
+     * Return the real value of the power that is applied when it is used
      * @param equipement - The equipement that has to be displayed
      * @returns {Number} - The real power of a piece of equipement
      */

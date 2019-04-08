@@ -1210,20 +1210,12 @@
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
                     "xpGained": "100",
-                    "moneyGained": "100",
-                    "item": "false"
+                    "moneyGained": "-70"
                 },
-                "2": {
-                    "timeLost": "30",
+                "4": {
+                    "timeLost": "45",
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
-                    "xpGained": "100",
-                    "moneyGained": "-50"
-                },
-                "3": {
-                    "timeLost": "0",
-                    "healthPointsChange": "-15",
-                    "newEffect": ":confounded:",
                     "xpGained": "100",
                     "moneyGained": "-100"
                 }
@@ -1233,6 +1225,13 @@
                     "timeLost": "25",
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
+                    "xpGained": "100",
+                    "moneyGained": "0"
+                },
+                "2": {
+                    "timeLost": "0",
+                    "healthPointsChange": "-20",
+                    "newEffect": ":dizzy_face:",
                     "xpGained": "100",
                     "moneyGained": "0"
                 }

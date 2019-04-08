@@ -1,37 +1,48 @@
 const Item = require('./Item');
-const sql = require("sqlite");
-
-sql.open("./modules/data/database.sqlite");
-
+const ItemNames = require('../utils/items/Francais');
 
 /**
- * Represent a potion
+ * Represent a potion This is like a normal object but it can only be used one time
  */
 class Potion extends Item {
 
 
-    constructor(id, rareness, power,  natureEffect, numberOfUse) {
+    constructor(id, rareness, power, natureEffect) {
         super(id, rareness, power);
-        this.natureEffect = natureEffect
-        this.numberOfUse = numberOfUse
+        this.natureEffect = natureEffect;
     }
 
 
     /**
-     * a number that match with an id of the effect applied by the potion
+     * A number that match with an id of the effect applied by the potion
      * @returns {number} - The id of the effect.
      */
     getNatureEffect() {
         return this.natureEffect;
     }
 
+    /**
+     * The amount of power of the potion
+     * @returns {number} - The power of the potion.
+     */
+    getPower() {
+        return this.power;
+    }
 
     /**
-     * the number of time the potion can be used before beeing deleted
-     * @returns {number} - The number of use
+     * Return the name of the potion
+     * @returns {String} - The name
      */
-    getNumberOfUse() {
-        return this.numberOfUse;
+    getName() {
+        return ItemNames.potion[this.id];
+    }
+
+    /**
+     * return the emoji that correspond to the potion
+     * @returns {String} - The emoji
+     */
+    getEmoji() {
+        return ItemNames.potion[this.id].split(" ")[0];
     }
 }
 

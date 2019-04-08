@@ -15,7 +15,6 @@ const giveCommand = async function (message, args) {
         inventoryManager = new InventoryManager();
         let inventory = await inventoryManager.getInventoryById(playerId);
         inventory[itemType] = itemId;
-        console.log(inventory)
         inventoryManager.updateInventory(inventory);
         message.channel.send(":white_check_mark:  Operation terminée !")
     }

@@ -16,7 +16,6 @@ const reportCommand = async function (message) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-
    if (playerManager.checkState(player, message, ":baby::smiley::clock2::sick::snowflake::dizzy_face::zzz::confounded:")) {  //check if the player is not dead or sick
 
       playerManager.setPlayerAsOccupied(player);
@@ -32,12 +31,13 @@ const reportCommand = async function (message) {
       let moneyChange = calculateMoney(player, time);
 
       let eventNumber = eventManager.chooseARandomEvent();
-      // let eventNumber = XX; //allow to select a specific event in testing purpose
+      //eventNumber = 15; //allow to select a specific event in testing purpose
 
       switch (true) {
 
          case time < DefaultValues.report.minimalTime:
             displayErrorReport(message);
+            playerManager.setPlayerAsUnOccupied(player);
             break;
 
          case time <= DefaultValues.report.maximalTime && Math.round(Math.random() * DefaultValues.report.maximalTime) > time:
@@ -73,6 +73,7 @@ const displayEvent = function (message, event) {
  * @param {*} possibility - The possibility that has to be executed
  */
 const execPossibility = function (message, possibility, playerManager, player, moneyChange, pointsGained) {
+   moneyChange = moneyChange + parseInt(possibility.moneyGained);
    let possibilityMessage;
    if (possibility.idEvent == 0) {
       if (possibility.emoji == "end") {
@@ -223,18 +224,25 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
  * @param {*} playerManager - The player manager
  */
 async function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager) {
+
    //adding score
    player.addScore(pointsGained);
+
    player.addMoney(moneyChange);
    // if the number is below 0, remove money will be called by the add money method
+
    //the last time the player has been saw is now
    player.updateLastReport(message.createdTimestamp, possibility.timeLost, possibility.newEffect);
-   player.addHealthPoints(possibility.healthPointsChange);
-   // if the number is below 0, remove health Points will be called by the add Health Points method
-   // we have to parse int this because elsewhere it is considered as a screen and it do 2 + 2 = 22
+
    player.setEffect(possibility.newEffect);
-   if (possibility.item == "true") {
-     player = await playerManager.giveRandomItem(message,player);
+
+   player.addHealthPoints(possibility.healthPointsChange, message);
+   // if the number is below 0, remove health Points will be called by the add Health Points method
+
+   player.addExperience(possibility.xpGained, message)
+
+   if (possibility.item == "true") { //have to give an item to the player
+      player = await playerManager.giveRandomItem(message, player);
    }
    playerManager.updatePlayer(player);
 }
@@ -250,15 +258,19 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
  * @param {*} playerManager - The player manager
  */
 function launchAdventure(message, pointsGained, moneyChange, player, possibility, playerManager) {
-   ;
+
    //adding score
    player.addScore(pointsGained);
+
    player.addMoney(moneyChange);
    // if the number is below 0, remove money will be called by the add money method
+
    //the last time the player has been saw is now
    player.updateLastReport(message.createdTimestamp, possibility.timeLost, possibility.newEffect);
+
    player.setEffect(possibility.newEffect);
-   playerManager.addPlayer(player);
+
+   playerManager.updatePlayer(player);
 }
 
 

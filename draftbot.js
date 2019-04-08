@@ -22,7 +22,7 @@ client.on("ready", () => {
 client.on("message", (message) => {
     //check if the user is a bot before doing anything
     if (message.author.bot) return;
-    commandReader.handleMessage(message);
+    commandReader.handleMessage(message,client);
 });
 
 client.login(Config.DISCORD_CLIENT_TOKEN);
