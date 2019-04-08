@@ -10,13 +10,14 @@ class CommandReader {
     /**
      * This function analyses the passed message and calls the associated function if there is one.
      * @param message - A command posted by an user.
+     * @param client - The bot user in case we have to make him do things
      */
-    handleMessage(message) {
+    handleMessage(message,client) {
         console.log(`${message.author.username} passed ${message.content}\n`);
         let command = CommandReader.getCommandFromMessage(message);
         let args = CommandReader.getArgsFromMessage(message);
         if (CommandTable.has(command))
-            CommandTable.get(command)(message, args)
+            CommandTable.get(command)(message, args, client)
     }
 
     /**

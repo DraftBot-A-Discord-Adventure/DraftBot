@@ -1,10 +1,95 @@
-const Item = require('./Item');
-const DefaultValues = require('../utils/DefaultValues')
-const Config = require('../utils/Config')
-const sql = require("sqlite");
-const Tools = require('../utils/Tools');
+const Potion = require('./Potion');
+const ItemNames = require('../utils/items/Francais');
+const ItemValues = require('../utils/items/Values');
+const Text = require('../text/Francais');
+const DefaultValues = require('../utils/DefaultValues');
 
-sql.open("./modules/data/database.sqlite");
 
 class PotionManager {
+
+
+    /**
+     * Return an potion matching with the piece of potion that own a specific id
+     * @param id - The id of the potion that has to be loaded
+     * @returns {*} - An potion
+     */
+    getPotionById(id) {
+        return new Potion(id, ItemValues.potion[id].rareness, ItemValues.potion[id].power, ItemValues.potion[id].nature, ItemValues.potion[id].use);
+    }
+
+
+    /**
+     * Return string containing a description of an potion
+     * @param potion - The potion that has to be displayed
+     * @returns {String} - The description of the potion
+     */
+    displayPotion(potion) {
+        console.log(potion);
+        let stringResult = ItemNames.potion[potion.id] + Text.potionManager.separator + Text.rarities[potion.rareness] + Text.potionManager.separator + Text.nature.intro[potion.natureEffect];
+        if (potion.natureEffect != 0) { // affichage de la puissance de l'effet si il existe
+            stringResult += potion.power + Text.nature.outroPotion[potion.natureEffect];
+        }
+        return stringResult;
+    }
+
+
+    /**
+     * Return string containing a description of an potion in case this potion is the default armor
+     * @param potion - The potion that has to be displayed
+     * @returns {String} - The description of the potion
+     */
+    displayDefaultPotion(potion) {
+        return ItemNames.potion[potion.id];
+    }
+
+
+    /**
+     * Choose a random potion in the existing ones. (take care of the rareness)
+     * @returns {*} - A random potion
+     */
+    generateRandomPotion() {
+        let desiredRareness = this.generateRandomRareness();
+        let id = this.generateRandomPotionId();
+        let tries = 1;
+        while (ItemValues.potion[id].rareness != desiredRareness) {
+            tries++;
+            id = this.generateRandomPotionId();
+        }
+        console.log("Item généré ! Nombre d'essais: " + tries)
+        return this.getPotionById(id);
+    }
+
+
+    /**
+     * Generate a random rareness. Legendary is very rare and common is not rare at all
+     * @returns {Number} - the number refering to a rareness (1 - 7) 
+     */
+    generateRandomRareness() {
+        let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
+        let desiredRareness = 1;
+        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness - 1]) {
+            desiredRareness++;
+        }
+        return desiredRareness;
+    }
+
+
+    /**
+     * Generate an id of an existing potion totally randomly without taking care of the rareness
+     * @returns {Number} - A random Id
+     */
+    generateRandomPotionId() {
+        return Math.round(Math.random() * (DefaultValues.raritiesGenerator.numberOfPotion - 1)) + 1;
+    }
+
+    /**
+     * Return the real value of the power that is applied when it is used
+     * @param potion - The potion that has to be displayed
+     * @returns {Number} - The real power of a piece of potion
+     */
+    getPotionEfficiency(potion) {
+        return parseInt(potion.rareness);
+    }
 }
+
+module.exports = PotionManager;

@@ -12,7 +12,8 @@
         "level": "0",
         "experience": "0",
         "money": "0",
-        "badges": ""
+        "badges": "",
+        "rank": "0"
     },
     "report": {
         "minimalTime": "60",
@@ -33,5 +34,60 @@
     },
     "item": {
         "maxPower": "10"
+    },
+    "inventory": {
+        "weapon": "default",
+        "armor": "default",
+        "potion": "default",
+        "object": "default",
+        "backupItem": "default"
+    },
+    "raritiesValues": {
+        "0": "0",
+        "1": "4",
+        "2": "30",
+        "3": "80",
+        "4": "120",
+        "5": "250",
+        "6": "1000",
+        "7": "5000",
+        "8": "1000"
+    },
+    "numberOfExistingItem": {
+        "weapon": "",
+        "armor": "",
+        "potion": "",
+        "object": ""
+    },
+    "raritiesGenerator": {
+        "0": "4375",
+        "1": "6875",
+        "2": "8375",
+        "3": "9375",
+        "4": "9875",
+        "5": "9975",
+        "maxValue": "10000",
+        "numberOfWeapon": "46",
+        "numberOfArmor": "17",
+        "numberOfObject": "26",
+        "numberOfPotion": "33"
+    },
+    "itemGenerator": {
+        "max": "10",
+        "tab": {
+            "1": "weapon",
+            "2": "weapon",
+            "3": "weapon",
+            "4": "weapon",
+            "5": "armor",
+            "6": "armor",
+            "7": "armor",
+            "8": "object",
+            "9": "object",
+            "10": "potion"
+        }
+    },
+    "top" :{
+        "playersByPage" : "15"
     }
 }

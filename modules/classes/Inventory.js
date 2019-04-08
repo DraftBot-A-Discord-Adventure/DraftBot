@@ -1,18 +1,23 @@
 const Config = require('../utils/Config');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('../utils/DefaultValues');
+const Potion = require('../classes/Potion');
+const Object = require('../classes/Object');
+const ItemValues = require('../utils/items/Values');
 
 /**
- * Represents an Inventory.
+ * Represents an Inventory. Store the id of the objects the user have in its inventory. An item id is also an ID
  */
 class Inventory {
 
-    constructor(playerId, weapon, armor, potion, object, backupItem) {
+    constructor(playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily) {
         this.playerId = playerId;
-        this.weapon = weapon;
-        this.armor = armor;
-        this.potion = potion;
-        this.object = object;
+        this.weaponId = weaponId;
+        this.armorId = armorId;
+        this.potionId = potionId;
+        this.objectId = objectId;
+        this.backupItemId = backupItemId;
+        this.lastDaily = lastDaily;
     }
 
 
@@ -26,74 +31,123 @@ class Inventory {
 
 
     /**
-     * Returns the weapon that is present in this inventory
-     * @returns {*} - The weapon
+     * Returns the weapon id that is present in this inventory
+     * @returns {String} - The weapon id
      */
-    getWeapon() {
-        return this.weapon;
+    getWeaponId() {
+        return this.weaponId;
     }
 
 
     /**
-     * Returns the armor that is present in this inventory
-     * @returns {*} - The armor
+     * Returns the armor id that is present in this inventory
+     * @returns {String} - The armor id
      */
-    getArmor() {
-        return this.armor;
+    getArmorId() {
+        return this.armorId;
     }
 
 
     /**
      * Returns the potion that is present in this inventory
-     * @returns {*} - The potion
+     * @returns {String} - The potion id
      */
-    getPotion() {
-        return this.potion;
+    getPotionId() {
+        return this.potionId;
     }
 
 
     /**
      * Returns the object that is present in this inventory
-     * @returns {*} - The object
+     * @returns {String} - The object id
      */
-    getObject() {
-        return this.object;
+    getObjectId() {
+        return this.objectId;
     }
 
 
     /**
-     * Save a weapon in the weapon slot of the inventory
-     * @param {*} weapon - The weapon that has to be saved
+     * Returns the backupItem that is present in this inventory
+     * @returns {String} - The backupItem id
      */
-    setWeapon(weapon) {
-        this.weapon = weapon;
+    getBackupItemId() {
+        return this.backupItemId;
+    }
+
+    /**
+     * Returns the number of the day where the last daily has been asked 
+     * @returns {String} - The last daily day
+     */
+    getBackupItemId() {
+        return this.backupItemId;
+    }
+
+
+    /**
+     * Save a weapon id in the weapon slot of the inventory
+     * @param {String} weaponId - The weapon id that has to be saved
+     */
+    setWeaponId(weaponId) {
+        this.weaponId = weaponId;
     }
 
 
     /**
      * Save a armor in the armor slot of the inventory
-     * @param {*} armor - The armor that has to be saved
+     * @param {String} armorId - The armor id that has to be saved
      */
-    setArmor(armor) {
-        this.armor = armor;
+    setArmorId(armorId) {
+        this.armorId = armorId;
     }
 
 
     /**
      * Save a potion in the potion slot of the inventory
-     * @param {*} potion - The potion that has to be saved
+     * @param {String} potionId - The potion id that has to be saved
      */
-    setPotion(potion) {
-        this.potion = potion;
+    setPotionId(potionId) {
+        this.potionId = potionId;
     }
 
 
     /**
      * Save a object in the object slot of the inventory
-     * @param {*} object - The object that has to be saved
+     * @param {String} ObjectId - The Object id that has to be saved
      */
-    setObject(object) {
-        this.object = object;
+    setObjectId(ObjectId) {
+        this.ObjectId = ObjectId;
+    }
+
+    /**
+     * Save a backupItem in the backupItem slot of the inventory
+     * @param {String} backupItemId - The BackupItem id that has to be saved
+     */
+    setBackupItemId(backupItemId) {
+        this.backupItemId = backupItemId;
+    }
+
+    /**
+     * Save the day that the last daily has been asked
+     * @param {Integer} lastDaily - The number of the day
+     */
+    setLastDaily(lastDaily) {
+        this.backupItemId = backupItemId;
+    }
+
+    /**
+     * Return the contained potion as an object
+     * @returns {*} the potion
+     */
+    getPotion() {
+        return new Potion(this.potionId, parseInt(ItemValues.potion[this.potionId].rareness), parseInt(ItemValues.potion[this.potionId].power), parseInt(ItemValues.potion[this.potionId].nature))
+    }
+
+    /**
+     * Return the contained object as an object
+     * @returns {*} the current active object
+     */
+    getCurrentObject() {
+        return new Object(this.objectId, parseInt(ItemValues.object[this.objectId].rareness), parseInt(ItemValues.object[this.objectId].power), parseInt(ItemValues.object[this.objectId].nature))
     }
 }
 

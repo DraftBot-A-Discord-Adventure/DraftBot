@@ -5,24 +5,23 @@ const DefaultValues = require('../utils/DefaultValues')
 /**
  * Base class that shouldn't be instantiated. Instead, Items are meant to extend this class.
  * Items are things like Objects, weapons...
+ * there are no setters methods for items because they are not editables
  */
 class Item {
 
-    constructor(name, rareness, power) {
-        this.name = name;
+    constructor(id, rareness, power) {
+        this.id = id;
         this.rareness = rareness;
         this.power = power;
     }
 
 
-
-
-    /**
-     * Returns the name of the item
-     * @returns {String} - The name
+  /**
+     * Returns the id of the item
+     * @returns {String} - The id
      */
-    getName() {
-        return this.name;
+    getId() {
+        return this.id;
     }
 
 
@@ -44,12 +43,12 @@ class Item {
     }
 
     /**
-     * Save a weapon in the weapon slot of the inventory
-     * @param {Number} weapon - The weapon that has to be saved
+     * Return the value of the item
+     * @returns {Number} - The value of the item
      */
-    upgrade(powerToAdd) {
-        if (Tools.isAPositiveNumber && this.power + powerToAdd < DefaultValues.item.maxPower)
-            this.power = this.power + powerToAdd;
+    getValue(){
+        return parseInt(DefaultValues.raritiesValues[this.rareness]) + parseInt(this.power);
     }
-
 }
+
+module.exports = Item;

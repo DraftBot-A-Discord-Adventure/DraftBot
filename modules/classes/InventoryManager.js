@@ -24,7 +24,7 @@ class InventoryManager {
                 return this.getNewInventory(message);
             } else { //inventory is in the database
                 console.log(`Utilisateur reconnu : ${message.author.username}`);
-                return new Inventory(inventory.playerId, inventory.weapon, inventory.armor, inventory.potion, inventory.object, inventory.backupItem)
+                return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -34,16 +34,84 @@ class InventoryManager {
 
 
     /**
-     * Return an inventory created from the defaul values
+    * Return a promise that will contain the inventory that is owned by the person who send the message
+    * @param id - the id of the inventory that own the inventory
+    * @returns {promise} - The promise that will be resolved into a inventory
+    */
+    getInventoryById(id) {
+        return sql.get(`SELECT * FROM inventory WHERE playerId ="${id}"`).then(inventory => {
+            if (!inventory) { //inventory is not in the database
+                console.log(`Utilisateur inconnu : ${id}`);
+                return this.getNewInventoryById(id);
+            } else { //inventory is in the database
+                console.log(`Utilisateur reconnu : ${id}`);
+                return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
+            }
+        }).catch(error => { //there is no database
+            console.error(error)
+            return false;
+        })
+    }
+
+
+    /**
+     * Return an inventory created from the defaul values and save it to the database
      * @param message - The message that caused the function to be called. Used to retrieve the author of the message
      * @returns {*} - A new inventory
      */
     getNewInventory(message) {
         console.log('Generating a new inventory...');
-        return new Inventory(message.author.id, new Equipement(DefaultValues.weapon), new Equipement(DefaultValues.armor), new Potion(DefaultValues.potion), new Object(DefaultValues.weapon));
+        let inventory = new Inventory(message.author.id, DefaultValues.inventory.weapon, DefaultValues.inventory.armor, DefaultValues.inventory.potion, DefaultValues.inventory.object, DefaultValues.inventory.backupItem, DefaultValues.inventory.lastDaily);
+        this.addInventory(inventory);
+        return inventory;
     }
 
 
+    /**
+     * Return an inventory created from the defaul values and save it to the database
+     * @param id - The id that has to be used to create the inventory
+     * @returns {*} - A new inventory
+     */
+    getNewInventoryById(id) {
+        console.log('Generating a new inventory...');
+        let inventory = new Inventory(id, DefaultValues.inventory.weapon, DefaultValues.inventory.armor, DefaultValues.inventory.potion, DefaultValues.inventory.object, DefaultValues.inventory.backupItem, DefaultValues.inventory.lastDaily);
+        this.addInventory(inventory);
+        return inventory;
+    }
+
+
+    /**
+     * Allow to save the current state of a inventory in the database
+     * @param {*} inventory - The inventory that has to be saved
+     */
+    updateInventory(inventory) {
+        console.log("Updating inventory ...");
+        sql.run(`UPDATE inventory SET playerId = ${inventory.playerId}, weaponId = "${inventory.weaponId}", armorId = "${inventory.armorId}", potionId = "${inventory.potionId}", objectId = "${inventory.objectId}", backupItemId = "${inventory.backupItemId}",lastDaily = "${inventory.lastDaily}" WHERE playerId = ${inventory.playerId}`).catch(console.error);
+        console.log("Inventory updated !");
+    }
+
+
+    /**
+     * Allow to save a new inventory in the database
+     * @param {*} inventory - The inventory that has to be saved
+     */
+    addInventory(inventory) {
+        console.log("Creating inventory ...");
+        sql.run(`INSERT INTO inventory (playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily) VALUES (${inventory.playerId},"${inventory.weaponId}","${inventory.armorId}","${inventory.potionId}","${inventory.objectId}","${inventory.backupItemId}","${inventory.lastDaily}") `).catch(console.error);
+        console.log("inventory created !");
+    }
+
+
+    /**
+     * Allow to switch the item in the backup slot within the one that is active
+     * @param {*} inventory - The inventory that has to be changed
+     */
+    switch(inventory) {
+        let passage = inventory.objectId;
+        inventory.objectId = inventory.backupItemId;
+        inventory.backupItemId = passage;
+        this.updateInventory(inventory);
+    }
 }
 
 module.exports = InventoryManager;

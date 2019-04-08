@@ -1,16 +1,49 @@
 const Item = require('./Item');
-const DefaultValues = require('../utils/DefaultValues')
-const Config = require('../utils/Config')
-const sql = require("sqlite");
-const Tools = require('../utils/Tools');
+const ItemNames = require('../utils/items/Francais');
 
-sql.open("./modules/data/database.sqlite");
-
+/**
+ * Represent an object
+ */
 class Object extends Item {
 
-    constructor(name, rareness, power) {
-        super(name, rareness, power);
-      
+
+    constructor(id, rareness, power, natureEffect) {
+        super(id, rareness, power);
+        this.natureEffect = natureEffect
     }
 
+
+    /**
+     * a number that match with an id of the effect applied by the object
+     * @returns {number} - The id of the effect.
+     */
+    getNatureEffect() {
+        return this.natureEffect;
+    }
+
+    /**
+   * The amount of power of the potion
+   * @returns {number} - The power of the potion.
+   */
+    getPower() {
+        return this.power;
+    }
+
+    /**
+     * Return the name of the object
+     * @returns {String} - The name
+     */
+    getName() {
+        return ItemNames.object[this.id];
+    }
+
+    /**
+     * return the emoji that correspond to the object
+     * @returns {String} - The emoji
+     */
+    getEmoji() {
+        return ItemNames.object[this.id].split(" ")[0];
+    }
 }
+
+module.exports = Object;

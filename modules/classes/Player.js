@@ -1,14 +1,15 @@
 const Config = require('../utils/Config');
 const Entity = require('./Entity');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('../utils/DefaultValues');
+const Text = require('../text/Francais');
 
 /**
  * Represents a Player.
  */
 class Player extends Entity {
 
-    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges) {
+    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank) {
         super(discordId, maxHealth, health, attack, defense, speed, effect);
         this.discordId = discordId;
         this.score = score;
@@ -17,6 +18,7 @@ class Player extends Entity {
         this.money = money;
         this.lastReport = lastReport;
         this.badges = badges;
+        this.rank = rank
     }
 
 
@@ -28,20 +30,21 @@ class Player extends Entity {
      */
     getExperienceToLevelUp() {
         return Math.round(Config.PLAYER_BASE_EXPERIENCE_PER_LEVEL *
-            Math.pow(this.level, Config.PLAYER_BASE_EXPERIENCE_RATIO));
+            Math.pow(this.level + 1, Config.PLAYER_BASE_EXPERIENCE_RATIO));
     }
 
     /**
      * Add the specified amount of experience to the player's experience total. If it allows the Player to
      * level up, the levelUp function will be called.
      * @see levelUp
-     * @param experience - The amount of experience to add. Must be a positive Number.
+     * @param {Number} experience - The amount of experience to add. Must be a positive Number.
+     * @param {*} message - The message that caused the xp gain
      */
-    addExperience(experience) {
+    addExperience(experience, message) {
         if (Tools.isAPositiveNumber(experience)) {
-            this.setExperience(this.experience + parseInt(experience));
+            this.setExperience(this.experience + parseInt(experience), message);
             if (this.hasEnoughExperienceToLevelUp()) {
-                this.levelUp();
+                this.levelUp(message);
             }
         }
     }
@@ -57,12 +60,13 @@ class Player extends Entity {
     /**
      * Set this Player instance's current experience.
      * @param experience - The amount of experience this instance should have. Must be a positive or null Number.
+     * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
-    setExperience(experience) {
+    setExperience(experience, message) {
         if (Tools.isAPositiveNumberOrNull(experience)) {
             this.experience = experience;
             if (this.hasEnoughExperienceToLevelUp()) {
-                this.levelUp();
+                this.levelUp(message);
             }
         }
     }
@@ -77,7 +81,7 @@ class Player extends Entity {
 
     /**
      * Set this Player instance's level.
-     * @param level - The level this Player instance should be. Must be a positive Number.
+     * @param {Number} level - The level this Player instance should be. Must be a positive Number.
      */
     setLevel(level) {
         if (Tools.isAPositiveNumber(level)) {
@@ -88,10 +92,59 @@ class Player extends Entity {
     /**
      * Increments the Player's level, and subtract the experience needed for the level up from the Player's
      * experience.
+     * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
-    levelUp() {
-        this.setExperience(this.getExperience() - this.getExperienceToLevelUp());
+    levelUp(message) {
         this.setLevel(this.getLevel() + 1);
+        let messageLevelUp = Text.playerManager.levelUp.intro + message.author.username + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
+        let bonus = false;
+        if (this.getLevel() % 10 == 0) {
+            this.restoreHealthCompletely();
+            messageLevelUp += Text.playerManager.levelUp.healthRestored;
+            bonus = true;
+        } else {
+            if (this.getLevel() % 5 == 0) {
+                this.setMaxHealth(this.getMaxHealth() + 5);
+                this.addHealthPoints(5,message);
+                messageLevelUp += Text.playerManager.levelUp.moreMaxHealth;
+                bonus = true;
+            }
+        }
+
+        if (this.getLevel() % 9 == 0) {
+            this.setSpeed(this.getSpeed() + 5);
+            if (bonus == false) {
+                messageLevelUp += Text.playerManager.levelUp.firstBonus;
+            }
+            messageLevelUp += Text.playerManager.levelUp.moreSpeed;
+            bonus = true;
+        } else {
+            if (this.getLevel() % 6 == 0) {
+                this.setAttack(this.getAttack() + 5);
+                if (bonus == false) {
+                    messageLevelUp += Text.playerManager.levelUp.firstBonus;
+                }
+                messageLevelUp += Text.playerManager.levelUp.moreAttack;
+                bonus = true;
+            } else {
+                if (this.getLevel() % 3 == 0) {
+                    this.setDefense(this.getDefense() + 5);
+                    if (bonus == false) {
+                        messageLevelUp += Text.playerManager.levelUp.firstBonus;
+                    }
+                    messageLevelUp += Text.playerManager.levelUp.moreDefense;
+                    bonus = true;
+                }
+            }
+        }
+
+        if (bonus == false) {
+            messageLevelUp += Text.playerManager.levelUp.noBonus;
+        }
+
+        message.channel.send(messageLevelUp);
+        this.setExperience(this.getExperience() - this.getExperienceToLevelUp(),message);
+
     }
 
     /**
@@ -140,6 +193,25 @@ class Player extends Entity {
         return this.money;
     }
 
+
+    /**
+     * Changes the last Report time of a player
+     * @param lastReport - The Player's new lastReport.
+     */
+    setLastReport(lastReport) {
+        this.lastReport = lastReport;
+    }
+
+
+    /**
+     * Returns this Player instance's currently lastReport.
+     * @returns {Number} - The lastReport of this Player instance.
+     */
+    getLastReport() {
+        return this.lastReport;
+    }
+
+
     /**
      * Returns whether the Player has enough experience to level up or not.
      * @returns {boolean} True if the player has the needed amount of experience to level up, false otherwise.
@@ -156,6 +228,7 @@ class Player extends Entity {
     setName(name) {
         this.name = name;
     }
+
 
     /**
      * Returns this Player instance's name.
@@ -193,10 +266,19 @@ class Player extends Entity {
 
 
     /**
+     * Returns the rank of the player.
+     * @returns {Number} - The rank of the player
+     */
+    getRank() {
+        return this.rank;
+    }
+
+
+    /**
      * Update the timecode matching the last time the player has been see
      * @param {Number} time - The timecode to set
      * @param {Number} malusTime - A malus that has to be added to the lasReportTime
-     * @param {String} effectMalus The current effect of the player in case it gave an other malus
+     * @param {String} effectMalus - The current effect of the player in case it gave an other malus
      */
     updateLastReport(time, malusTime, effectMalus) {
         let realMalus = DefaultValues.effectMalus[effectMalus];
@@ -226,7 +308,6 @@ class Player extends Entity {
      * @param points - The amount of points to add. Must be a Number.
      */
     addScore(points) {
-        console.log(points);
         if (Tools.isAPositiveNumberOrNull(points)) {
             this.score += parseInt(points);
         } else {
