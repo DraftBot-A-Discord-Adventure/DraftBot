@@ -151,10 +151,12 @@
             ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":skull:": "** Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
             ":zzz:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de vos altération d'état.",
+            ":head_bandage:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ! Veuillez attendre la fin des soins de vos altération d'état.", 
             ":snowflake:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":confounded:": "** Il est malheureusement impossible de continuer à jouer en étant confus ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":clock10:": "** Une autre commande a été lancée récemment et attend des instructions de votre part ! Veuillez répondre à cette commande pour continuer à jouer. `Si vous n'avez aucune tâche en cours veuillez contacter un administrateur du bot`",
             ":clock2:": "** Il semblerait que vous soyez déjà occupé... Veuillez attendre la fin de la tâche pour continuer à jouer !"
+       
         },
         "intro": " | **",
         "timeLeft": " | `Temps restant : ",
@@ -247,7 +249,7 @@
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'homme discute tranquilement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.",
-        "16": " : ** :european_castle: Vous trouvez un château abandonné sur votre route.\n:mag_right: Chercher si il est possible de trouver quelque chose dans les salles du château.\n :arrow_right:Passer son chemin sans y faire attention\n :repeat: Faire le tour du château\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* "
+        "16": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* "
     },
     "possibilities": {
         "report": {
@@ -257,7 +259,7 @@
                 "3": "** | :smiley: Vous n'avez rencontré aucune difficulté à progresser durant les dernières heures, vous continuez d'avancer tranquilement.",
                 "4": "** | :smiley: Rien à signaler, vous continuez d'avancer.",
                 "5": "** | :smiley: Pas d'obstacle en vue, Rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
-                "6": "** | :smiley: La voie est libre, aucune raison de s'arrêter, Vous continuez d'avancer",
+                "6": "** | :smiley: La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer",
                 "7": "** | :smiley: Rien d'important ne s'est passé depuis le rapport précédent.",
                 "8": "** | :smiley: Pas d'évènement notable depuis la dernière fois.",
                 "9": "** | :smiley: Les chiens aboient et la caravane passe. Vous continuez tranquilement votre route",
@@ -475,7 +477,7 @@
         "13": {
             "🚶": {
                 "1": "** | 🚶 Vous traversez le petit bourg en une petite demie-heure et continuez votre route.",
-                "2": "** | 🚶 Vous perdez une bonne heure à contourner la ville mais reprenez votre route tranquilement."
+                "2": "** | 🚶 Vous perdez une bonne heure à contourner la ville mais reprenez votre route tranquillement."
             },
             "🏠": {
                 "1": "** | 🏠 Après avoir discuté pendant 2 heures avec l'aubergiste, vous finissez par apprendre qu'il n'y a aucune chambre disponible pour la nuit ! Vous reprenez la route, frustré de ne pas avoir pu profité d'une bonne nuit de repos.",
@@ -541,21 +543,21 @@
         },
         "16": {
             "🔎": {
-                "1": "** | 🔎 Vous entrez dans le château mais un piège s'active et une flèche empoisonné vous touche à la poitrine, vous courez avec peine pour sortir du château pour être en sécurité.",
-                "2": "** | 🔎 Vous entrez dans le château et vous trouvez l'armurerie, vous prenez ce qui vous tombe sous la main et vous sortez.",
-                "3": "** | 🔎 Vous entrez dans le château mais une vieille personne vous frappe sur la tête dés votre premier pas dans la 1ère salle. vous vous enfuyez avec un fort mal au crâne."
+                "1": "** | 🔎 Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonné depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, c'est un immense morceau du plafond se décroche sur vous ! Avec beaucoup de difficulté, vous parvenez à ressortir du bâtiment.",
+                "2": "** | 🔎 Vous entrez dans le château et parcourez rapidement les lieux. Au bout de quelques minutes, vous trouvez une pièce qui semble être l'ancienne armurerie. Pressé de ressortir du bâtiment, vous ramassez le premier objet qui vous tombe sous la main et ressortez en pressant le pas.",
+                "3": "** | 🔎 Il semblerait que ce château soit moins abandonné qu'il en a l'air ! Peu après votre entrée vous entendez de nombreux bruits en provenance de différentes salles. Peu rassuré, vous préferez reprendre votre route."
             },
             "➡": {
-                "1": "** | ➡ Vous passez votre chemin sans y faire attention, vous avez surement loupé quelque chose mais vous vous dites qu'un vieux château délabré ne doit pas contenir grand chose intéressant. "
+                "1": "** | ➡ Vous continuez votre route sans prêter plus d'attention à ce château"
             },
             "🔁": {
-                "1": "** | 🔁 Vous faites le tour du château mais vous ne trouvez rien, vous avez perdu votre temps et vous continuez votre chemin.",
-                "2": "** | 🔁 En faisant le tour du château vous trouvez une entrée secrète qui vous emmène droit vers la salle du trésor, Vous repartez heureux et fortuné sur votre chemin.",
-                "3": "** | 🔁 Alors que vous commenciez a faire le tour du château, vous tombez par accident dans un trou,vous vous blessez et vous passez plusieurs heures a sortir de ce pétrin."
+                "1": "** | 🔁 Vous faites le tour du château mais vous ne trouvez rien. Estimant avoir perdu suffisamment de temps, vous continuez votre chemin.",
+                "2": "** | 🔁 Cette ronde ne vous en apprendra pas beaucoup sur la grande bâtisse. Cependant, vous découvrez tout au long de celle-ci un grand nombre de petites pièces d'or disséminées autour du château. Heureux de votre découverte, vous reprenez votre route.",
+                "3": "** | 🔁 Alors que vous commenciez à faire le tour du château, vous tombez par accident dans un trou. Légèrement blessé à la jambe, cette ronde vous aura coûté beaucoup de temps ! :sick:"
             },
             "end": {
-                "1": "** | 🚶 En prenant votre temps et en regardant  bien le château et ses alentours, vous voyez un sac plein a l'abandon enterré et vous partez le chercher.",
-                "2": "** | 🚶 Vous observez ce magnifique château pendant 15minutes puis vous repartez sur votre chemin. Pourquoi étiez vous si intéressé par ce château délabré au milieu de nul part ?"
+                "1": "** | 🚶 Après avoir admiré le bâtiment pendant une quinzaine de minute, vous reprenez votre route.",
+                "2": "** | 🚶 Vous vous délectez de la vue du château... Puis finissez par vous souvenir de votre quête et reprenez votre route."
             }
         }
     }

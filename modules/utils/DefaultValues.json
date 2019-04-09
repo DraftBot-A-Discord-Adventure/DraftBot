@@ -25,6 +25,7 @@
     "effectMalus": {
         ":smiley:": "0",
         ":sick:": "21600000",
+        ":head_bandage:" : "5400000",
         ":dizzy_face:": "43200000",
         ":skull:": "0",
         ":zzz:": "10800000",
