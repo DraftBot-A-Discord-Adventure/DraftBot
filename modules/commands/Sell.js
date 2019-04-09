@@ -70,7 +70,9 @@ async function generateConfirmation(message, object, player, inventory, inventor
     });
     //end of the time the user have to answer to the event
     collector.on('end', () => {
+        if (confirmIsOpen) {
         message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.sell.cancelEnd);
+        }
     });
 }
 
