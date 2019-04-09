@@ -1213,25 +1213,9 @@
                     "moneyGained": "100"
                 },
                 "2": {
-                    "timeLost": "30",
-                    "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
-                    "xpGained": "100",
-                    "moneyGained": "-50"
-                },
-                "3": {
                     "timeLost": "0",
-                    "healthPointsChange": "-15",
-                    "newEffect": ":confounded:",
-                    "xpGained": "100",
-                    "moneyGained": "-100"
-                }
-            },
-            "end": {
-                "1": {
-                    "timeLost": "25",
-                    "healthPointsChange": "0",
-                    "newEffect": ":smiley:",
+                    "healthPointsChange": "-20",
+                    "newEffect": ":dizzy_face:",
                     "xpGained": "100",
                     "moneyGained": "0"
                 }
