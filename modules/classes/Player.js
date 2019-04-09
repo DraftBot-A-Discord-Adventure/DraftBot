@@ -23,15 +23,38 @@ class Player extends Entity {
 
 
     /**
-     * Returns the amount of experience needed to level up. The formula for the amount of experience is:
-     * f(level) = 75 * level ^ 1.35, where 75 and 1.35 are constants defined in NumberConstants.js.
+     * Returns the amount of experience needed to level up. 
      * @see NumberConstants
      * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
         return Math.round(Config.PLAYER_BASE_EXPERIENCE_PER_LEVEL *
-            Math.pow(this.level + 1, Config.PLAYER_BASE_EXPERIENCE_RATIO));
+            Math.pow(this.level + 1, this.getCoefficientActuel()));
     }
+
+    /**
+     * Allow to get a coefficient that allow to calculate the xp needed for a levelup
+     * @returns {Number} - The coefficient
+     */
+    getCoefficientActuel() {
+        let coefficient =Config.PLAYER_BASE_EXPERIENCE_RATIO - (this.level / 3000);
+        if (coefficient < 1.04) {
+            coefficient = 1.04
+        }
+        console.log("waw" +coefficient)
+        return coefficient;
+    }
+
+    /**
+     * Returns the amount of experience used to level up. 
+     * @see NumberConstants
+     * @returns {Number} Returns the experience used to level up.
+     */
+    getExperienceUsedToLevelUp() {
+        return Math.round(Config.PLAYER_BASE_EXPERIENCE_PER_LEVEL *
+            Math.pow(this.level, this.getCoefficientActuel()));
+    }
+
 
     /**
      * Add the specified amount of experience to the player's experience total. If it allows the Player to
@@ -43,9 +66,6 @@ class Player extends Entity {
     addExperience(experience, message) {
         if (Tools.isAPositiveNumber(experience)) {
             this.setExperience(this.experience + parseInt(experience), message);
-            if (this.hasEnoughExperienceToLevelUp()) {
-                this.levelUp(message);
-            }
         }
     }
 
@@ -105,7 +125,7 @@ class Player extends Entity {
         } else {
             if (this.getLevel() % 5 == 0) {
                 this.setMaxHealth(this.getMaxHealth() + 5);
-                this.addHealthPoints(5,message);
+                this.addHealthPoints(5, message);
                 messageLevelUp += Text.playerManager.levelUp.moreMaxHealth;
                 bonus = true;
             }
@@ -141,10 +161,8 @@ class Player extends Entity {
         if (bonus == false) {
             messageLevelUp += Text.playerManager.levelUp.noBonus;
         }
-
         message.channel.send(messageLevelUp);
-        this.setExperience(this.getExperience() - this.getExperienceToLevelUp(),message);
-
+        this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message);
     }
 
     /**

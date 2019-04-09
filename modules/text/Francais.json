@@ -50,6 +50,7 @@
             "reportStart": ":newspaper: **Journal de ",
             "points": " :** :medal:  Points gagnés : **",
             "moneyWin": "** | :moneybag: Argent gagné : **",
+            "xpWin": "** | :star: XP gagné : **",
             "moneyLoose": "** | :money_with_wings: Argent perdu : **",
             "healthLoose": "** | :broken_heart: Vie perdue : **",
             "healthWin": "** | :heart: Vie gagnée : **",

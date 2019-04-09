@@ -31,7 +31,7 @@ const reportCommand = async function (message) {
       let moneyChange = calculateMoney(player, time);
 
       let eventNumber = eventManager.chooseARandomEvent();
-      eventNumber = 16; //allow to select a specific event in testing purpose
+      eventNumber = 1; //allow to select a specific event in testing purpose
 
       switch (true) {
 
@@ -204,6 +204,8 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
    else {
       possibilityMessage += Text.commands.report.moneyLoose + moneyChange;
    }
+   if (Tools.isAPositiveNumber(possibility.xpGained))
+      possibilityMessage += Text.commands.report.xpWin + possibility.xpGained;
    if (Tools.isANegativeNumber(possibility.healthPointsChange))
       possibilityMessage += Text.commands.report.healthLoose + -possibility.healthPointsChange;
    if (Tools.isAPositiveNumber(possibility.healthPointsChange))
