@@ -28,8 +28,10 @@ class Player extends Entity {
      * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
-        return Math.round(Config.PLAYER_BASE_EXPERIENCE_PER_LEVEL *
-            Math.pow(this.level + 1, this.getCoefficientActuel()));
+        let xpToLevelUp = DefaultValues.xp[this.level+1];
+        if(this.level+1 >100)
+         xpToLevelUp =100;
+        return xpToLevelUp;
     }
 
     /**
@@ -51,8 +53,10 @@ class Player extends Entity {
      * @returns {Number} Returns the experience used to level up.
      */
     getExperienceUsedToLevelUp() {
-        return Math.round(Config.PLAYER_BASE_EXPERIENCE_PER_LEVEL *
-            Math.pow(this.level, this.getCoefficientActuel()));
+        let xpToLevelUp = DefaultValues.xp[this.level];
+        if(this.level >100)
+         xpToLevelUp =100;
+        return xpToLevelUp;
     }
 
 
