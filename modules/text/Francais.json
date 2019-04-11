@@ -37,7 +37,8 @@
             "separator": "/",
             "statsAttack": " | :dagger: ",
             "statsDefense": " | :shield: ",
-            "statsSpeed": " | :rocket: "
+            "statsSpeed": " | :rocket: ",
+            "notAPlayer" : "** | Utilisez la commande `report` pour commencer votre aventure !"
         },
         "respawn": {
             "thinking": ":thinking: | **",
