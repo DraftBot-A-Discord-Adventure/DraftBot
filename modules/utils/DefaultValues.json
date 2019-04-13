@@ -91,6 +91,9 @@
     "top" :{
         "playersByPage" : "15"
     },
+    "fight" :{
+        "minimalLevel" : "8"
+    },
     "xp" :{
         "0": "0",
         "1": "300",

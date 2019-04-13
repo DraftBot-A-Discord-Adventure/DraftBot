@@ -10,7 +10,9 @@ const Text = require('../text/Francais');
 const PlayerManager = require('../classes/PlayerManager')
 
 const testCommand = async function (message) {
-    
+    let playerManager = new PlayerManager();
+    let player = await playerManager.getCurrentPlayer(message);
+    playerManager.setPlayerAsUnOccupied(player);
 }
 
 

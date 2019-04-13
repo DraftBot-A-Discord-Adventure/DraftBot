@@ -40,9 +40,10 @@ class PlayerManager {
     /**
      * Return a promise that will contain the player that sent a message once it has been resolved
      * @param id - The id of the user 
+     * @param message - The message that caused the user to be called
      * @returns {promise} - The promise that will be resolved into a player
      */
-    getPlayerById(id) {
+    getPlayerById(id, message) {
         return sql.get(`SELECT * FROM entity JOIN player on entity.id = player.discordId WHERE discordId ="${id}"`).then(player => {
             if (!player) { //player is not in the database
                 console.log(`Utilisateur inconnu : ${id}`);
@@ -60,7 +61,7 @@ class PlayerManager {
 
     /**
      * Return a player created from the defaul values
-     * @param message - The message that caused the function to be called. Used to retrieve the author of the message
+     * @param message - The message that caused the function to be called. Used to retrieve the timestamp of the message
      * @returns {*} - A new player
      */
     getNewPlayer(message) {
@@ -72,9 +73,10 @@ class PlayerManager {
     /**
      * Return a player created from the defaul values
      * @param id - The id of the player that has to be created
+     * @param message - The message that caused the function to be called. Used to retrieve the timestamp of the message
      * @returns {*} - A new player
      */
-    getNewPlayerById(id) {
+    getNewPlayerById(id, message) {
         console.log('Generating a new player by id...');
         return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect, message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank);
     }
