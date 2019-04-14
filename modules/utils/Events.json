@@ -205,8 +205,8 @@
                 "2": {
                     "timeLost": "30",
                     "healthPointsChange": "-5",
-                    "newEffect": ":0:",
-                    "xpGained": "25",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
                     "moneyGained": "0"
                 }
             },
@@ -214,7 +214,7 @@
                 "1": {
                     "timeLost": "100",
                     "healthPointsChange": "0",
-                    "newEffect": "25",
+                    "newEffect": ":clock2:",
                     "xpGained": "25",
                     "moneyGained": "0"
                 }
