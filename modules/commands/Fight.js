@@ -20,74 +20,101 @@ const fightCommand = async function (message) {
 
     //loading of the current player
     let player = await playerManager.getCurrentPlayer(message);
-    if (playerManager.checkState(player, message, ":smiley:")) {  //check if the player is not dead or sick or something else
-        playerManager.setPlayerAsOccupied(player);
+    if (player.level < DefaultValues.fight.minimalLevel) {
+        displayErrorSkillMissing(message, attacker);
+    } else {
+        if (playerManager.checkState(player, message, ":smiley:")) {  //check if the player is not dead or sick or something else
+            playerManager.setPlayerAsOccupied(player);
 
-        let messageIntro = await generateIntroMessage(message, attacker);
-        messageIntro.react("⚔").then(a => {
-            messageIntro.react("❌");
-        });
-        let fightIsOpen = true;
+            let messageIntro = await generateIntroMessage(message, attacker);
+            messageIntro.react("⚔").then(a => {
+                messageIntro.react("❌");
+            });
+            let fightIsOpen = true;
 
-        const filter = (reaction, user) => {
-            return (reactionIsCorrect(reaction, user));
-        };
+            const filter = (reaction, user) => {
+                return (reactionIsCorrect(reaction, user));
+            };
 
-        const collector = messageIntro.createReactionCollector(filter, {
-            time: 120000
-        });
+            const collector = messageIntro.createReactionCollector(filter, {
+                time: 120000
+            });
 
-        //execute this if a user answer to the demand
-        collector.on('collect', async (reaction) => {
-            if (fightIsOpen) {
-                defender = reaction.users.last();
+            //execute this if a user answer to the demand
+            collector.on('collect', async (reaction) => {
+                if (fightIsOpen) {
+                    defender = reaction.users.last();
 
-                if (fightHasToBeCanceled(reaction)) {
-                    ({ fightIsOpen, spamchecker } = treatFightCancel(defender, message, fightIsOpen, attacker, playerManager, player, spamchecker));
-                } else {
-                    if (defender.id === message.author.id) { // le defenseur et l'attaquant sont la même personne
-                        ({ spamchecker, fightIsOpen } = cancelFightLaunch(spamchecker, message, attacker, fightIsOpen, playerManager, player));
-                    } else {// le defenseur n'est pas l'attaquant
-                        let defenderPlayer = playerManager.getPlayerById(defender.id,message);
-                        if (defenderPlayer.level < DefaultValues.fight.minimalLevel) {
-                            message.channel.send("erreur t'es trop nul pour combattre");
-                        } else {
-                            fightIsOpen = false;
-                            message.channel.send(Text.commands.fight.startStart + attacker + Text.commands.fight.startJoin + defender + Text.commands.fight.startEnd);
+                    if (fightHasToBeCanceled(reaction)) {
+                        ({ fightIsOpen, spamchecker } = treatFightCancel(defender, message, fightIsOpen, attacker, playerManager, player, spamchecker));
+                    } else {
+                        if (defender.id === message.author.id) { // le defenseur et l'attaquant sont la même personne
+                            ({ spamchecker, fightIsOpen } = cancelFightLaunch(spamchecker, message, attacker, fightIsOpen, playerManager, player));
+                        } else {// le defenseur n'est pas l'attaquant
+                            let defenderPlayer = await playerManager.getPlayerById(defender.id, message);
+                            console.log(defenderPlayer)
+                            if (defenderPlayer.level < DefaultValues.fight.minimalLevel) {
+                                displayErrorSkillMissing(message, defender);
+                            } else {
+                                if (playerManager.checkState(defenderPlayer, message, ":smiley:")) {  //check if the player is not dead or sick or something else
+                                    playerManager.setPlayerAsOccupied(player);
+                                    fightIsOpen = false;
+                                    message.channel.send(Text.commands.fight.startStart + attacker + Text.commands.fight.startJoin + defender + Text.commands.fight.startEnd);
 
-                            let actualUser = attacker;
-                            let actuelPlayer = player;
-                            let lastMessageFromBot = undefined;
+                                    let actualUser = attacker;
+                                    let actuelPlayer = player;
+                                    let lastMessageFromBot = undefined;
 
-                            while (nobodyLooses(attackerPower, defenderPower)) {
+                                    while (nobodyLooses(attackerPower, defenderPower)) {
+                                        lastMessageFromBot = await message.channel.send(Text.commands.fight.menuStart + actualUser + Text.commands.fight.menuEnd);
+                                        lastMessageFromBot.react("⚔");
+                                        lastMessageFromBot.react("🗡");
+                                        lastMessageFromBot.react("💣");
+                                        lastMessageFromBot.react("🛡");
+                                        lastMessageFromBot.react("🚀");
 
-                                lastMessageFromBot = await message.channel.send(Text.commands.fight.menuStart + actualUser + Text.commands.fight.menuEnd);
 
-                                if (actualUser == attacker) {
-                                    actualUser = defender;
-                                    actuelPlayer = defenderPlayer
-                                } else {
-                                    actualUser = attacker;
-                                    actuelPlayer = player
+                                        ({ actualUser, actuelPlayer } = switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player));
+
+                                    }
+                                    //what happen when someone loose
+                                    /*
+                                    TODO
+                                    */
                                 }
                             }
                         }
                     }
+
                 }
+            });
 
-            }
-        });
-
-        //end of the time the users have to answer to the demand
-        collector.on('end', () => {
-            if (fightIsOpen) {
-                message.channel.send(Text.commands.fight.errorEmoji + attacker + Text.commands.fight.noAnswerError);
-                playerManager.setPlayerAsUnOccupied(player);
-            }
-        });
+            //end of the time the users have to answer to the demand
+            collector.on('end', () => {
+                if (fightIsOpen) {
+                    message.channel.send(Text.commands.fight.errorEmoji + attacker + Text.commands.fight.noAnswerError);
+                    playerManager.setPlayerAsUnOccupied(player);
+                }
+            });
+        }
     }
-
 };
+
+function displayErrorSkillMissing(message, user) {
+    message.channel.send(Text.commands.fight.errorEmoji + user + Text.commands.fight.notEnoughSkillError);
+}
+
+function switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player) {
+    if (actualUser == attacker) {
+        actualUser = defender;
+        actuelPlayer = defenderPlayer;
+    }
+    else {
+        actualUser = attacker;
+        actuelPlayer = player;
+    }
+    return { actualUser, actuelPlayer };
+}
 
 function cancelFightLaunch(spamchecker, message, attacker, fightIsOpen, playerManager, player) {
     spamchecker++;
