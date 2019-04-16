@@ -124,7 +124,8 @@
             "startStart" : ":crossed_swords:  | **Un combat est lancé entre ",
             "startJoin" : " et ",
             "startEnd" : " !**",
-            "notEnoughSkillError" : ", vous devez être **LVL 5** pour accèder aux combats ! Revenez plus tard !",
+            "notEnoughSkillError1" : ", vous devez être **LVL ",
+            "notEnoughSkillError2" : "** pour accèder aux combats ! Revenez plus tard !",
             "menuStart" : ":crossed_swords:  | **C'est au tour de ",
             "menuEnd" : " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver"
         },
@@ -166,6 +167,7 @@
     },
     "playerManager": {
         "errorMain": {
+            ":baby:" : "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
             ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourrant ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":skull:": "** Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
@@ -237,9 +239,9 @@
         },
         "outroObject": {
             "1": "  par jour",
-            "2": " en combat",
-            "3": " en combat",
-            "4": " en combat",
+            "2": " pendant les combats",
+            "3": " pendant les combats",
+            "4": " pendant les combats",
             "6": "  par jour"
         },
         "outroPotion": {

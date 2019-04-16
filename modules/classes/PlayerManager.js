@@ -47,7 +47,7 @@ class PlayerManager {
         return sql.get(`SELECT * FROM entity JOIN player on entity.id = player.discordId WHERE discordId ="${id}"`).then(player => {
             if (!player) { //player is not in the database
                 console.log(`Utilisateur inconnu : ${id}`);
-                return this.getNewPlayerById(id);
+                return this.getNewPlayerById(id, message);
             } else { //player is in the database
                 console.log(`Utilisateur reconnu : ${id}`);
                 return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
@@ -180,9 +180,10 @@ class PlayerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the createdTimestamp
      * @param {*} player - The player that has to be tested
      * @param {String} allowedStates - A string containig the allowed states
+     * @param {String} username - An optionnal value that allow to display a custom username
      * @returns {boolean} - True is the player is in good health
      */
-    checkState(player, message, allowedStates) {
+    checkState(player, message, allowedStates, username) {
         let result = false;
         let rejectMessage;
         if (allowedStates.includes(player.getEffect())) {
@@ -191,7 +192,11 @@ class PlayerManager {
             if (player.getEffect() != ":clock10:" && message.createdTimestamp > player.lastReport) {
                 result = true;
             } else {
-                rejectMessage = player.getEffect() + Text.playerManager.intro + message.author.username + Text.playerManager.errorMain[player.getEffect()];
+                console.log(username);
+                if (username == undefined) {
+                    username = message.author.username;
+                }
+                rejectMessage = player.getEffect() + Text.playerManager.intro + username + Text.playerManager.errorMain[player.getEffect()];
                 if (message.createdTimestamp < player.lastReport)
                     rejectMessage += this.displayTimeLeft(player, message)
                 message.channel.send(rejectMessage);

@@ -92,7 +92,7 @@
         "playersByPage" : "15"
     },
     "fight" :{
-        "minimalLevel" : "8"
+        "minimalLevel" : "1"
     },
     "xp" :{
         "0": "0",

@@ -12,8 +12,8 @@ const fightCommand = async function (message) {
 
     let playerManager = new PlayerManager;
 
-    let attackerPower = 100;
-    let defenderPower = 100;
+    let attackerPower = 1000;
+    let defenderPower = 1000;
     let attacker = message.author;
     let defender = undefined;
     let spamchecker = 0;
@@ -52,31 +52,23 @@ const fightCommand = async function (message) {
                             ({ spamchecker, fightIsOpen } = cancelFightLaunch(spamchecker, message, attacker, fightIsOpen, playerManager, player));
                         } else {// le defenseur n'est pas l'attaquant
                             let defenderPlayer = await playerManager.getPlayerById(defender.id, message);
-                            console.log(defenderPlayer)
                             if (defenderPlayer.level < DefaultValues.fight.minimalLevel) {
                                 displayErrorSkillMissing(message, defender);
                             } else {
-                                if (playerManager.checkState(defenderPlayer, message, ":smiley:")) {  //check if the player is not dead or sick or something else
+                                if (playerManager.checkState(defenderPlayer, message, ":smiley:", defender.username)) {  //check if the player is not dead or sick or something else
                                     playerManager.setPlayerAsOccupied(player);
                                     fightIsOpen = false;
                                     message.channel.send(Text.commands.fight.startStart + attacker + Text.commands.fight.startJoin + defender + Text.commands.fight.startEnd);
 
                                     let actualUser = attacker;
                                     let actuelPlayer = player;
+                                    let opponentUser = defender;
+                                    let opponentPlayer = defenderPlayer;
                                     let lastMessageFromBot = undefined;
-
-                                    while (nobodyLooses(attackerPower, defenderPower)) {
-                                        lastMessageFromBot = await message.channel.send(Text.commands.fight.menuStart + actualUser + Text.commands.fight.menuEnd);
-                                        lastMessageFromBot.react("⚔");
-                                        lastMessageFromBot.react("🗡");
-                                        lastMessageFromBot.react("💣");
-                                        lastMessageFromBot.react("🛡");
-                                        lastMessageFromBot.react("🚀");
+                                    let compteur = 5;
+                                    ({ lastMessageFromBot, compteur, attackerPower } = await fight(lastMessageFromBot, message, actualUser, compteur, player, attackerPower, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer));
 
 
-                                        ({ actualUser, actuelPlayer } = switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player));
-
-                                    }
                                     //what happen when someone loose
                                     /*
                                     TODO
@@ -85,7 +77,6 @@ const fightCommand = async function (message) {
                             }
                         }
                     }
-
                 }
             });
 
@@ -100,18 +91,88 @@ const fightCommand = async function (message) {
     }
 };
 
+async function fight(lastMessageFromBot, message, actualUser, compteur, player, attackerPower, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer) {
+    lastMessageFromBot = await displayFightMenu(lastMessageFromBot, message, actualUser);
+    let playerHasResponded = true;
+
+    const filter = (reaction, user) => {
+        return (reactionFightIsCorrect(reaction, user));
+    };
+
+    const collector = lastMessageFromBot.createReactionCollector(filter, {
+        time: 30000
+    });
+
+    //execute this if a user answer to the demand
+    collector.on('collect', async (reaction) => {
+        if (playerHasResponded) {
+            playerHasResponded = false;
+            if (reaction.users.last() === actualUser) { //On check que c'est le bon joueur qui réagis
+                compteur = compteur - 1;
+                let puissanceAttaque = player.attack;
+                console.log(puissanceAttaque);
+                attackerPower = attackerPower - 30;
+                switch (reaction.name) {
+                    case "🗡": //attaque rapide
+                    // Bonus de 20% sur un adversaire plus lent
+                    // Malus de 80% sur un adversaire plus fort en défense
+
+                        break;
+                    case "⚔": //attaque simple
+                    // Malus de 60 % sur un adversaire plus fort en défense
+                    // Malus de 30 % sur un adversaire plus rapide
+                        break;
+                    case "💣": //attaque ultime
+                    // Malus de 90 % sur un adversaire plus rapide
+                        break;
+                    case "🛡": //defendre
+                    // augmente la défense de 30 points
+                        break;
+                    default: // esquive
+                    // augmente la vitesse de 30 points
+                        break;
+                }
+                ({ actualUser, actuelPlayer, opponentPlayer, opponentUser } = switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player, opponentPlayer, opponentUser));
+                ({ lastMessageFromBot, compteur, attackerPower } = await fight(lastMessageFromBot, message, actualUser, compteur, player, attackerPower, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer));
+            }
+        }
+    });
+    //end of the time the users have to answer to the demand
+    collector.on('end', () => {
+        if (playerHasResponded) { //the player has quit the fight
+            playerHasResponded = false;
+        }
+    });
+
+    return { lastMessageFromBot, compteur, attackerPower };
+}
+
+async function displayFightMenu(lastMessageFromBot, message, actualUser) {
+    lastMessageFromBot = await message.channel.send(Text.commands.fight.menuStart + actualUser + Text.commands.fight.menuEnd);
+    lastMessageFromBot.react("⚔");
+    lastMessageFromBot.react("🗡");
+    lastMessageFromBot.react("💣");
+    lastMessageFromBot.react("🛡");
+    lastMessageFromBot.react("🚀");
+    return lastMessageFromBot;
+}
+
 function displayErrorSkillMissing(message, user) {
-    message.channel.send(Text.commands.fight.errorEmoji + user + Text.commands.fight.notEnoughSkillError);
+    message.channel.send(Text.commands.fight.errorEmoji + user + Text.commands.fight.notEnoughSkillError1 + DefaultValues.fight.minimalLevel + Text.commands.fight.notEnoughSkillError2);
 }
 
 function switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player) {
     if (actualUser == attacker) {
         actualUser = defender;
         actuelPlayer = defenderPlayer;
+        opponentUser = defender;
+        opponentPlayer = defenderPlayer;
     }
     else {
         actualUser = attacker;
         actuelPlayer = player;
+        opponentUser = defender;
+        opponentPlayer = defenderPlayer;
     }
     return { actualUser, actuelPlayer };
 }
@@ -195,6 +256,31 @@ const reactionIsCorrect = function (reaction, user) {
         contains = true;
     }
     if (reaction.emoji.name == "❌" && !user.bot) {
+        contains = true;
+    }
+    return contains
+}
+
+/**
+* Check if the reaction recieved is valid
+* @param {*} reaction - The reaction recieved
+* @returns {Boolean} - true is the reaction is correct
+*/
+const reactionFightIsCorrect = function (reaction, user) {
+    let contains = false;
+    if (reaction.emoji.name == "⚔" && !user.bot) {
+        contains = true;
+    }
+    if (reaction.emoji.name == "🗡" && !user.bot) {
+        contains = true;
+    }
+    if (reaction.emoji.name == "💣" && !user.bot) {
+        contains = true;
+    }
+    if (reaction.emoji.name == "🛡" && !user.bot) {
+        contains = true;
+    }
+    if (reaction.emoji.name == "🚀" && !user.bot) {
         contains = true;
     }
     return contains
