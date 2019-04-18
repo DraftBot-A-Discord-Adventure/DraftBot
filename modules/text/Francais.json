@@ -38,7 +38,7 @@
             "statsAttack": " | :dagger: ",
             "statsDefense": " | :shield: ",
             "statsSpeed": " | :rocket: ",
-            "notAPlayer" : "** | Utilisez la commande `report` pour commencer votre aventure !"
+            "notAPlayer": "** | Utilisez la commande `report` pour commencer votre aventure !"
         },
         "respawn": {
             "thinking": ":thinking: | **",
@@ -114,20 +114,44 @@
         "fight": {
             "startEmoji": "**:crossed_swords: | ",
             "startIntro": "** souhaite lancer un combat ! Pour y participer, cliquez sur la réaction ci-dessous !",
-            "errorEmoji" : ":x: | ",
-            "validEmoji" : ":white_check_mark: | ",
-            "spamError" : " Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
-            "noAnswerError" :" Malheureusement, personne ne semble disponible pour combattre sur ce serveur. Votre demande de combat a été annulée.",
-            "alreadyAttackerError" : " Il est impossible de se combattre soi-même ! trouvez un autre adversaire.",
-            "fightCanceled" : " Votre demande de combat a bien été annulée.",
-            "fightNotCanceled" : " Seul l'initiateur d'un combat peut l'annuler !",
-            "startStart" : ":crossed_swords:  | **Un combat est lancé entre ",
-            "startJoin" : " et ",
-            "startEnd" : " !**",
-            "notEnoughSkillError1" : ", vous devez être **LVL ",
-            "notEnoughSkillError2" : "** pour accèder aux combats ! Revenez plus tard !",
-            "menuStart" : ":crossed_swords:  | **C'est au tour de ",
-            "menuEnd" : " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver"
+            "errorEmoji": ":x: | ",
+            "validEmoji": ":white_check_mark: | ",
+            "spamError": " Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
+            "noAnswerError": " Malheureusement, personne ne semble disponible pour combattre sur ce serveur. Votre demande de combat a été annulée.",
+            "alreadyAttackerError": " Il est impossible de se combattre soi-même ! trouvez un autre adversaire.",
+            "fightCanceled": " Votre demande de combat a bien été annulée.",
+            "fightNotCanceled": " Seul l'initiateur d'un combat peut l'annuler !",
+            "startStart": ":crossed_swords:  | **Un combat est lancé entre ",
+            "startJoin": " et ",
+            "startEnd": " !**",
+            "notEnoughSkillError1": ", vous devez être **LVL ",
+            "notEnoughSkillError2": "** pour accèder aux combats ! Revenez plus tard !",
+            "menuStart": ":crossed_swords:  | **C'est au tour de ",
+            "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
+            "endIntroStart" : " | **",
+            "attackRapide": {
+                "ok": {
+                    "1": " ** effectue une attaque rapide ! Parfaitement réalisée !",
+                    "2": " ** effectue une attaque rapide ! Elle est magnifique !",
+                    "3": " ** effectue une superbe attaque rapide ! Parfaitement réalisée !",
+                    "4": " ** effectue une attaque rapide ! Incroyablement réussie !",
+                    "5": " ** effectue une attaque rapide ! C'était risqué mais ça passe !",
+                    "6": " ** lance une attaque rapide !",
+                    "7": " ** utilise une attaque rapide ! Magistrale !",
+                    "8": " ** choisi une attaque rapide !  Très bonne innitiative"
+                },
+                "ko": {
+                    "1": " ** effectue une attaque rapide ! C'est raté !",
+                    "2": " ** effectue une attaque rapide ! L'attaque échoue lamantablement !",
+                    "3": " ** effectue une mauvaise attaque rapide ! Un manque cruel de technique pour le joueur français !",
+                    "4": " ** effectue une attaque rapide ! Quelle erreur !",
+                    "5": " ** effectue une attaque rapide ! C'était risqué et ça n'est pas passé !",
+                    "6": " ** lance une attaque rapide !",
+                    "7": " ** utilise une attaque rapide ! Un choix peu judicieux !",
+                    "8": " ** choisi une attaque rapide !  Mauvaise innitiative"
+                }
+                
+            }
         },
         "top": {
             "errorDebut": ":x: | **",
@@ -167,17 +191,16 @@
     },
     "playerManager": {
         "errorMain": {
-            ":baby:" : "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
+            ":baby:": "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
             ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourrant ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":skull:": "** Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
             ":zzz:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de vos altération d'état.",
-            ":head_bandage:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ! Veuillez attendre la fin des soins de vos altération d'état.", 
+            ":head_bandage:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":snowflake:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":confounded:": "** Il est malheureusement impossible de continuer à jouer en étant confus ! Veuillez attendre la fin des soins de vos altération d'état.",
             ":clock10:": "** Une autre commande a été lancée récemment et attend des instructions de votre part ! Veuillez répondre à cette commande pour continuer à jouer. `Si vous n'avez aucune tâche en cours veuillez contacter un administrateur du bot`",
             ":clock2:": "** Il semblerait que vous soyez déjà occupé... Veuillez attendre la fin de la tâche pour continuer à jouer !"
-       
         },
         "intro": " | **",
         "timeLeft": " | `Temps restant : ",
@@ -190,15 +213,14 @@
         "levelUp": {
             "intro": ":star: | **",
             "main": "**, vient d'atteindre le niveau **",
-            "end" : "**",
-            "healthRestored" : "\n\n:heart: | Vie restaurée à son maximum\n",
-            "moreMaxHealth" : "\n\n:heartpulse: | Vie maximale augmentée de 5 points\n",
-            "firstBonus" : "\n\n",
-            "moreSpeed" : ":rocket: | Vitesse augmentée de 5 points\n",
-            "moreAttack" : ":crossed_swords: | Attaque augmentée de 5 points\n",
-            "moreDefense" : ":shield: | Defense augmentée de 5 points\n",
-            "noBonus" : "\n\n:x: | Aucun bonus de passage de niveau"
-
+            "end": "**",
+            "healthRestored": "\n\n:heart: | Vie restaurée à son maximum\n",
+            "moreMaxHealth": "\n\n:heartpulse: | Vie maximale augmentée de 5 points\n",
+            "firstBonus": "\n\n",
+            "moreSpeed": ":rocket: | Vitesse augmentée de 5 points\n",
+            "moreAttack": ":crossed_swords: | Attaque augmentée de 5 points\n",
+            "moreDefense": ":shield: | Defense augmentée de 5 points\n",
+            "noBonus": "\n\n:x: | Aucun bonus de passage de niveau"
         }
     },
     "equipementManager": {

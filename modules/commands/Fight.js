@@ -11,9 +11,6 @@ const Text = require('../text/Francais');
 const fightCommand = async function (message) {
 
     let playerManager = new PlayerManager;
-
-    let attackerPower = 1000;
-    let defenderPower = 1000;
     let attacker = message.author;
     let defender = undefined;
     let spamchecker = 0;
@@ -65,9 +62,9 @@ const fightCommand = async function (message) {
                                     let opponentUser = defender;
                                     let opponentPlayer = defenderPlayer;
                                     let lastMessageFromBot = undefined;
-                                    let compteur = 5;
-                                    ({ lastMessageFromBot, compteur, attackerPower } = await fight(lastMessageFromBot, message, actualUser, compteur, player, attackerPower, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer));
-
+                                    let attackerPower = 1000;
+                                    let defenderPower = 1000;
+                                    attackerPower = await fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower);
 
                                     //what happen when someone loose
                                     /*
@@ -91,8 +88,10 @@ const fightCommand = async function (message) {
     }
 };
 
-async function fight(lastMessageFromBot, message, actualUser, compteur, player, attackerPower, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer) {
+async function fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower) {
     lastMessageFromBot = await displayFightMenu(lastMessageFromBot, message, actualUser);
+
+    console.log(opponentPlayer);
     let playerHasResponded = true;
 
     const filter = (reaction, user) => {
@@ -108,32 +107,76 @@ async function fight(lastMessageFromBot, message, actualUser, compteur, player, 
         if (playerHasResponded) {
             playerHasResponded = false;
             if (reaction.users.last() === actualUser) { //On check que c'est le bon joueur qui réagis
-                compteur = compteur - 1;
-                let puissanceAttaque = player.attack;
-                console.log(puissanceAttaque);
                 attackerPower = attackerPower - 30;
-                switch (reaction.name) {
+                let attackPower;
+
+                switch (reaction.emoji.name) {
                     case "🗡": //attaque rapide
-                    // Bonus de 20% sur un adversaire plus lent
-                    // Malus de 80% sur un adversaire plus fort en défense
+                        // Bonus de 20% sur un adversaire plus lent
+                        // Malus de 80% sur un adversaire plus fort en défense
+                        attackPower = player.attack;
+                        if (opponentPlayer.speed < actuelPlayer.speed) {
+                            attackPower = attackPower * 1.2;
+                        }
+                        if (opponentPlayer.defense > actuelPlayer.defense) {
+                            attackPower = attackPower * 0.2;
+                        }
+
+                        let messageAttaqueRapide = "";
+                        let defensePower = opponentPlayer.defense;
+                        let degats = attackPower - defensePower;
+                        let random = Tools.generateRandomNumber(1, 8);
+                        console.log(degats);
+                        if (degats > 0) {
+                            ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, attackPower, opponentPlayer, attackerPower));
+                            messageAttaqueRapide = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackRapide.ok[random];
+                        } else {
+                            messageAttaqueRapide = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackRapide.ko[random];
+                        }
+                        message.channel.send(messageAttaqueRapide);
 
                         break;
                     case "⚔": //attaque simple
-                    // Malus de 60 % sur un adversaire plus fort en défense
-                    // Malus de 30 % sur un adversaire plus rapide
+                        // Malus de 60 % sur un adversaire plus fort en défense
+                        // Malus de 30 % sur un adversaire plus rapide
+                        attackPower = player.attack;
+                        if (opponentPlayer.speed > actuelPlayer.speed) {
+                            attackPower = attackPower * 0.7;
+                        }
+                        if (opponentPlayer.defense > actuelPlayer.defense) {
+                            attackPower = attackPower * 0.4;
+                        }
+                        ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, attackPower, opponentPlayer, attackerPower));
                         break;
                     case "💣": //attaque ultime
-                    // Malus de 90 % sur un adversaire plus rapide
+                        // Malus de 80 % sur un adversaire plus rapide
+                        // Malus de 20 % sur un adversaire plus fort en défense
+                        // Bonus de 60 % sur un adversaire plus lent et plus faible
+                        attackPower = player.attack;
+                        if (opponentPlayer.speed > actuelPlayer.speed) {
+                            attackPower = attackPower * 0.2;
+                        }
+                        if (opponentPlayer.defense > actuelPlayer.defense) {
+                            attackPower = attackPower * 0.8;
+                        }
+                        if (opponentPlayer.defense < actuelPlayer.defense && opponentPlayer.speed < actuelPlayer.speed) {
+                            attackPower = attackPower * 1.6;
+                        }
+                        ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, attackPower, opponentPlayer, attackerPower));
                         break;
                     case "🛡": //defendre
-                    // augmente la défense de 30 points
+                        // augmente la défense de 30 points
+                        actuelPlayer.defense += 30;
                         break;
                     default: // esquive
-                    // augmente la vitesse de 30 points
+                        // augmente la vitesse de 30 points
+                        actuelPlayer.speed += 30;
                         break;
                 }
                 ({ actualUser, actuelPlayer, opponentPlayer, opponentUser } = switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player, opponentPlayer, opponentUser));
-                ({ lastMessageFromBot, compteur, attackerPower } = await fight(lastMessageFromBot, message, actualUser, compteur, player, attackerPower, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer));
+                console.log(actualUser, actuelPlayer, opponentPlayer, opponentUser)
+
+                attackerPower = await fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower);
             }
         }
     });
@@ -144,16 +187,26 @@ async function fight(lastMessageFromBot, message, actualUser, compteur, player, 
         }
     });
 
-    return { lastMessageFromBot, compteur, attackerPower };
+    return attackerPower;
+}
+
+function updatePlayerPower(attacker, actualUser, defenderPower, attackPower, opponentPlayer, attackerPower) {
+    if (attacker == actualUser) {
+        defenderPower = defenderPower - (attackPower - opponentPlayer.defense);
+    }
+    else {
+        attackerPower = attackerPower - (attackPower - opponentPlayer.defense);
+    }
+    return { defenderPower, attackerPower };
 }
 
 async function displayFightMenu(lastMessageFromBot, message, actualUser) {
     lastMessageFromBot = await message.channel.send(Text.commands.fight.menuStart + actualUser + Text.commands.fight.menuEnd);
-    lastMessageFromBot.react("⚔");
+    // lastMessageFromBot.react("⚔");
     lastMessageFromBot.react("🗡");
-    lastMessageFromBot.react("💣");
-    lastMessageFromBot.react("🛡");
-    lastMessageFromBot.react("🚀");
+    //lastMessageFromBot.react("💣");
+    // lastMessageFromBot.react("🛡");
+    // lastMessageFromBot.react("🚀");
     return lastMessageFromBot;
 }
 
@@ -165,8 +218,8 @@ function switchActiveUser(actualUser, attacker, defender, actuelPlayer, defender
     if (actualUser == attacker) {
         actualUser = defender;
         actuelPlayer = defenderPlayer;
-        opponentUser = defender;
-        opponentPlayer = defenderPlayer;
+        opponentUser = attacker;
+        opponentPlayer = player;
     }
     else {
         actualUser = attacker;
@@ -174,7 +227,7 @@ function switchActiveUser(actualUser, attacker, defender, actuelPlayer, defender
         opponentUser = defender;
         opponentPlayer = defenderPlayer;
     }
-    return { actualUser, actuelPlayer };
+    return { actualUser, actuelPlayer, opponentUser, opponentPlayer };
 }
 
 function cancelFightLaunch(spamchecker, message, attacker, fightIsOpen, playerManager, player) {
