@@ -74,6 +74,17 @@ const convertMillisecondsInMinutes = function (milliseconds) {
 
 
 /**
+ * generate a random number
+ * @param min - The minimal Value
+ * @param max - The maximal Value
+ * @returns {Number} - A random Number
+ */
+const generateRandomNumber = function (min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+};
+
+
+/**
  * return a string containing a proper display of a duration
  * @param {Number} minutes - The number of minutes to display
  * @returns {String} - The  string to display
@@ -104,4 +115,5 @@ module.exports.convertHoursInMiliseconds = convertHoursInMiliseconds;
 module.exports.convertMinutesInMiliseconds = convertMinutesInMiliseconds;
 module.exports.convertMillisecondsInMinutes = convertMillisecondsInMinutes;
 module.exports.displayDuration = displayDuration;
+module.exports.generateRandomNumber = generateRandomNumber;
 
