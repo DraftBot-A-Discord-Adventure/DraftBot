@@ -98,7 +98,7 @@ class Entity {
      * @returns {Number} - How rapid this Entity is.
      */
     getSpeed() {
-        return this.defense;
+        return this.speed;
     }
 
     /**
