@@ -129,6 +129,13 @@
             "menuStart": ":crossed_swords:  | **C'est au tour de ",
             "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
             "endIntroStart" : " | **",
+            "statusIntro" :":crossed_swords: | **Etat actuel du combat \n\n",
+            "statusPoints": "**\n:large_blue_circle: ",
+            "endLine" : "\n\n**",
+            "attackerEmoji" : ":crossed_swords: **|** Attaquant : ",
+            "defenderEmoji" : ":shield: **|** Défenseur : ",
+            "degatsIntro" : " `Dégats infligés : ",
+            "degatsOutro" : " `",
             "attackRapide": {
                 "ok": {
                     "1": " ** effectue une attaque rapide ! Parfaitement réalisée !",
@@ -136,7 +143,7 @@
                     "3": " ** effectue une superbe attaque rapide ! Parfaitement réalisée !",
                     "4": " ** effectue une attaque rapide ! Incroyablement réussie !",
                     "5": " ** effectue une attaque rapide ! C'était risqué mais ça passe !",
-                    "6": " ** lance une attaque rapide !",
+                    "6": " ** lance une bonne attaque rapide !",
                     "7": " ** utilise une attaque rapide ! Magistrale !",
                     "8": " ** choisi une attaque rapide !  Très bonne innitiative"
                 },
@@ -146,11 +153,54 @@
                     "3": " ** effectue une mauvaise attaque rapide ! Un manque cruel de technique pour le joueur français !",
                     "4": " ** effectue une attaque rapide ! Quelle erreur !",
                     "5": " ** effectue une attaque rapide ! C'était risqué et ça n'est pas passé !",
-                    "6": " ** lance une attaque rapide !",
+                    "6": " ** lance une mauvaise attaque rapide !",
                     "7": " ** utilise une attaque rapide ! Un choix peu judicieux !",
                     "8": " ** choisi une attaque rapide !  Mauvaise innitiative"
-                }
-                
+                }  
+            },
+            "attackSimple": {
+                "ok": {
+                    "1": " ** effectue une attaque simple ! Parfaitement réalisée !",
+                    "2": " ** effectue une attaque simple ! Elle est magnifique !",
+                    "3": " ** effectue une superbe attaque simple ! Parfaitement réalisée !",
+                    "4": " ** effectue une attaque simple ! Incroyablement réussie !",
+                    "5": " ** effectue une attaque simple ! C'était risqué mais ça passe !",
+                    "6": " ** lance une bonne attaque simple !",
+                    "7": " ** utilise une attaque simple ! Magistrale !",
+                    "8": " ** choisi une attaque simple !  Très bonne innitiative"
+                },
+                "ko": {
+                    "1": " ** effectue une attaque simple ! C'est raté !",
+                    "2": " ** effectue une attaque simple ! L'attaque échoue lamantablement !",
+                    "3": " ** effectue une mauvaise attaque simple ! Un manque cruel de technique pour le joueur français !",
+                    "4": " ** effectue une attaque simple ! Quelle erreur !",
+                    "5": " ** effectue une attaque simple ! C'était risqué et ça n'est pas passé !",
+                    "6": " ** lance une mauvaise attaque simple !",
+                    "7": " ** utilise une attaque simple ! Un choix peu judicieux !",
+                    "8": " ** choisi une attaque simple !  Mauvaise innitiative."
+                }  
+            },
+            "attackUltime": {
+                "ok": {
+                    "1": " ** effectue une attaque ultime ! Parfaitement réalisée ! `Vitesse réduite de 10 %`",
+                    "2": " ** effectue une attaque ultime ! Elle est magnifique ! `Vitesse réduite de 10 %`",
+                    "3": " ** effectue une superbe attaque ultime ! Parfaitement réalisée ! `Vitesse réduite de 10 %`",
+                    "4": " ** effectue une attaque ultime ! Incroyablement réussie ! `Vitesse réduite de 10 %`",
+                    "5": " ** effectue une attaque ultime ! C'était risqué mais ça passe ! `Vitesse réduite de 10 %`",
+                    "6": " ** lance une bonne attaque ultime ! `Vitesse réduite de 10 %`",
+                    "7": " ** utilise une attaque ultime ! Magistrale ! `Vitesse réduite de 10 %`",
+                    "8": " ** choisi une attaque ultime !  Très bonne innitiative. `Vitesse réduite de 10 %`"
+                },
+                "ko": {
+                    "1": " ** effectue une attaque ultime ! C'est raté ! `Vitesse réduite de 10 %`",
+                    "2": " ** effectue une attaque ultime ! L'attaque échoue lamantablement ! `Vitesse réduite de 10 %`",
+                    "3": " ** effectue une mauvaise attaque ultime ! Un manque cruel de technique pour le joueur français ! `Vitesse réduite de 10 %`",
+                    "4": " ** effectue une attaque ultime ! Quelle erreur ! `Vitesse réduite de 10 %`",
+                    "5": " ** effectue une attaque ultime ! C'était risqué et ça n'est pas passé ! `Vitesse réduite de 10 %`",
+                    "6": " ** lance une mauvaise attaque ultime ! `Vitesse réduite de 10 %`",
+                    "7": " ** utilise une attaque ultime ! Un choix peu judicieux ! `Vitesse réduite de 10 %`",
+                    "8": " ** choisi une attaque ultime !  Mauvaise innitiative. `Vitesse réduite de 10 %`"
+                }  
             }
         },
         "top": {
