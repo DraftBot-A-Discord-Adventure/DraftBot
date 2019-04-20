@@ -14,7 +14,8 @@ const fightCommand = async function (message) {
     let attacker = message.author;
     let defender = undefined;
     let spamchecker = 0;
-
+    let attackerDefenseAdd = 20;
+    let defenderDefenseAdd = 20;
     //loading of the current player
     let player = await playerManager.getCurrentPlayer(message);
 
@@ -62,9 +63,10 @@ const fightCommand = async function (message) {
                                     let opponentUser = defender;
                                     let opponentPlayer = defenderPlayer;
                                     let lastMessageFromBot = undefined;
-                                    let attackerPower = 1000;
-                                    let defenderPower = 1000;
-                                    fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower);
+                                    let lastEtatFight = undefined;
+                                    let attackerPower = player.maxHealth + player.level * 10;
+                                    let defenderPower = defenderPlayer.maxHealth + defenderPlayer.level * 10;
+                                    fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight);
                                 }
                             }
                         }
@@ -74,6 +76,7 @@ const fightCommand = async function (message) {
 
             //end of the time the users have to answer to the demand
             collector.on('end', () => {
+                console.log("testbanane")
                 if (fightIsOpen) {
                     message.channel.send(Text.commands.fight.errorEmoji + attacker + Text.commands.fight.noAnswerError);
                     playerManager.setPlayerAsUnOccupied(player);
@@ -95,7 +98,7 @@ async function displayIntroMessage(message, attacker) {
     return messageIntro;
 }
 
-async function fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower) {
+async function fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight) {
     let actualUserPoints = 0;
     let opponentUserPoints = 0;
     if (actualUser == attacker) {
@@ -105,8 +108,11 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
         actualUserPoints = defenderPower;
         opponentUserPoints = attackerPower;
     }
-
-    message.channel.send(Text.commands.fight.statusIntro + Text.commands.fight.attackerEmoji + actualUser.username +
+    if (lastMessageFromBot != undefined)
+        lastMessageFromBot.delete().catch();
+    if (lastEtatFight != undefined)
+        lastEtatFight.delete().catch();
+    lastEtatFight = await message.channel.send(Text.commands.fight.statusIntro + Text.commands.fight.attackerEmoji + actualUser.username +
         Text.commands.fight.statusPoints + actualUserPoints + Text.commands.profile.statsAttack + actuelPlayer.attack +
         Text.commands.profile.statsDefense + actuelPlayer.defense + Text.commands.profile.statsSpeed + actuelPlayer.speed +
         Text.commands.fight.endLine + Text.commands.fight.defenderEmoji + opponentUser.username +
@@ -114,7 +120,7 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
         Text.commands.profile.statsDefense + opponentPlayer.defense + Text.commands.profile.statsSpeed + opponentPlayer.speed)
 
 
-    lastMessageFromBot = await displayFightMenu(lastMessageFromBot, message, actualUser);
+    lastMessageFromBot = await displayFightMenu(message, actualUser);
 
     let playerHasResponded = true;
 
@@ -132,7 +138,6 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
             if (reaction.users.last() === actualUser) { //On check que c'est le bon joueur qui réagis
                 playerHasResponded = false;
                 let attackPower;
-
                 switch (reaction.emoji.name) {
                     case "🗡": //attaque rapide
                         // Malus de 15% de base
@@ -154,18 +159,33 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                         ({ defenderPower, attackerPower } = attaqueUltime(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "🛡": //defendre
-                        // augmente la défense de 30 points
-                        actuelPlayer.defense += 30;
-                        message.channel.send();
+                        // augmente la défense
+                        if (actualUser == attacker) {
+                            actuelPlayer.defense += attackerDefenseAdd;
+                            message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + attackerDefenseAdd + Text.commands.fight.degatsOutro);
+                            attackerDefenseAdd = Math.round(attackerDefenseAdd * 0.5);
+                        } else {
+                            actuelPlayer.defense += defenderDefenseAdd;
+                            message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + defenderDefenseAdd + Text.commands.fight.degatsOutro);
+                            defenderDefenseAdd = Math.round(defenderDefenseAdd * 0.5);
+                        }
                         break;
                     default: // esquive
                         // augmente la vitesse de 30 points
                         actuelPlayer.speed += 30;
-                        message.channel.send();
+                        message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.speedAdd);
                         break;
                 }
                 ({ actualUser, actuelPlayer, opponentPlayer, opponentUser } = switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player, opponentPlayer, opponentUser));
-                fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower);
+                if (nobodyLooses(attackerPower, defenderPower)) {
+                    fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight);
+                } else {
+                    message.channel.send("qqun a perdu");
+                    if (lastMessageFromBot != undefined)
+                        lastMessageFromBot.delete().catch();
+                    if (lastEtatFight != undefined)
+                        lastEtatFight.delete().catch();
+                }
             }
         }
     });
@@ -192,11 +212,16 @@ function attaqueUltime(attackPower, player, opponentPlayer, actuelPlayer, defend
     actuelPlayer.speed = Math.round(actuelPlayer.speed * 0.9);
     let messageAttaqueUltime = "";
     let defensePower = opponentPlayer.defense;
-    let degats = attackPower - defensePower;
+    let degats = attackPower - Math.round(defensePower * 0.5);
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
-        ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
-        messageAttaqueUltime = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackUltime.ok[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+        if (degats >= actuelPlayer.attack - defensePower) {
+            ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
+            messageAttaqueUltime = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackUltime.ok[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+        } else {
+            ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
+            messageAttaqueUltime = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackUltime.meh[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+        }
     }
     else {
         degats = 0;
@@ -216,11 +241,17 @@ function attaqueSimple(attackPower, player, opponentPlayer, actuelPlayer, defend
     }
     let messageAttaqueSimple = "";
     let defensePower = opponentPlayer.defense;
-    let degats = attackPower - defensePower;
+    let degats = attackPower - Math.round(defensePower * 0.5);
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
-        ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
-        messageAttaqueSimple = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackSimple.ok[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+        if (degats >= actuelPlayer.attack - defensePower) {
+            ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
+            messageAttaqueSimple = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackSimple.ok[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+        }
+        else {
+            ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
+            messageAttaqueSimple = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackSimple.meh[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+        }
     }
     else {
         degats = 0;
@@ -240,11 +271,17 @@ function attaqueRapide(attackPower, player, opponentPlayer, actuelPlayer, defend
     }
     let messageAttaqueRapide = "";
     let defensePower = opponentPlayer.defense;
-    let degats = attackPower - defensePower;
+    let degats = attackPower - Math.round(defensePower * 0.5);
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
-        ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
-        messageAttaqueRapide = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackRapide.ok[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+        if (degats >= actuelPlayer.attack - defensePower) {
+            ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
+            messageAttaqueRapide = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackRapide.ok[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+        }
+        else {
+            ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
+            messageAttaqueRapide = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackRapide.meh[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+        }
     }
     else {
         degats = 0;
@@ -264,8 +301,8 @@ function updatePlayerPower(attacker, actualUser, defenderPower, degats, attacker
     return { defenderPower, attackerPower };
 }
 
-async function displayFightMenu(lastMessageFromBot, message, actualUser) {
-    lastMessageFromBot = await message.channel.send(Text.commands.fight.menuStart + actualUser + Text.commands.fight.menuEnd);
+async function displayFightMenu(message, actualUser) {
+    let lastMessageFromBot = await message.channel.send(Text.commands.fight.menuStart + actualUser + Text.commands.fight.menuEnd);
     lastMessageFromBot.react("⚔");
     lastMessageFromBot.react("🗡");
     lastMessageFromBot.react("💣");

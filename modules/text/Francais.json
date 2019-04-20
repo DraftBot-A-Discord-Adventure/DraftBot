@@ -136,6 +136,8 @@
             "defenderEmoji" : ":shield: **|** Défenseur : ",
             "degatsIntro" : " `Dégats infligés : ",
             "degatsOutro" : " `",
+            "defenseAdd" : "  ** renforce sa défense ! `Défense + ",
+            "speedAdd" : "   ** renforce sa vitesse ! `Vitesse + 30`",
             "attackRapide": {
                 "ok": {
                     "1": " ** effectue une attaque rapide ! Parfaitement réalisée !",
@@ -146,6 +148,16 @@
                     "6": " ** lance une bonne attaque rapide !",
                     "7": " ** utilise une attaque rapide ! Magistrale !",
                     "8": " ** choisi une attaque rapide !  Très bonne innitiative"
+                },
+                "meh": {
+                    "1": " ** effectue une attaque rapide ! Ca fonctionne mais c'était pas incroyable.",
+                    "2": " ** effectue une attaque rapide ! Mouais...",
+                    "3": " ** effectue une attaque rapide vraiment moyenne ! Pas ouf !",
+                    "4": " ** effectue une attaque rapide ! Ca n'est pas très efficace...",
+                    "5": " ** effectue une attaque rapide ! C'est pas très réussi.",
+                    "6": " ** lance une attaque rapide ! Médiocre",
+                    "7": " ** utilise une attaque rapide ! Faiblarde !",
+                    "8": " ** choisi une attaque rapide !  Le résultat est assez pitoyable."
                 },
                 "ko": {
                     "1": " ** effectue une attaque rapide ! C'est raté !",
@@ -169,6 +181,16 @@
                     "7": " ** utilise une attaque simple ! Magistrale !",
                     "8": " ** choisi une attaque simple !  Très bonne innitiative"
                 },
+                "meh": {
+                    "1": " ** effectue une attaque simple ! Ca fonctionne mais c'était pas incroyable.",
+                    "2": " ** effectue une attaque simple ! Mouais...",
+                    "3": " ** effectue une attaque simple vraiment moyenne ! Pas ouf !",
+                    "4": " ** effectue une attaque simple ! Ca n'est pas très efficace...",
+                    "5": " ** effectue une attaque simple ! C'est pas très réussi.",
+                    "6": " ** lance une attaque simple ! Médiocre",
+                    "7": " ** utilise une attaque simple ! Faiblarde !",
+                    "8": " ** choisi une attaque simple !  Le résultat est assez pitoyable."
+                },
                 "ko": {
                     "1": " ** effectue une attaque simple ! C'est raté !",
                     "2": " ** effectue une attaque simple ! L'attaque échoue lamantablement !",
@@ -190,6 +212,16 @@
                     "6": " ** lance une bonne attaque ultime ! `Vitesse réduite de 10 %`",
                     "7": " ** utilise une attaque ultime ! Magistrale ! `Vitesse réduite de 10 %`",
                     "8": " ** choisi une attaque ultime !  Très bonne innitiative. `Vitesse réduite de 10 %`"
+                },
+                "meh": {
+                    "1": " ** effectue une attaque ultime ! Ca fonctionne mais c'était pas incroyable.",
+                    "2": " ** effectue une attaque ultime ! Mouais...",
+                    "3": " ** effectue une attaque ultime vraiment moyenne ! Pas ouf !",
+                    "4": " ** effectue une attaque ultime ! Ca n'est pas très efficace...",
+                    "5": " ** effectue une attaque ultime ! C'est pas très réussi.",
+                    "6": " ** lance une attaque ultime ! Médiocre",
+                    "7": " ** utilise une attaque ultime ! Faiblarde !",
+                    "8": " ** choisi une attaque ultime !  Le résultat est assez pitoyable."
                 },
                 "ko": {
                     "1": " ** effectue une attaque ultime ! C'est raté ! `Vitesse réduite de 10 %`",
