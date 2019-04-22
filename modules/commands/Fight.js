@@ -1,4 +1,5 @@
 const PlayerManager = require('../classes/PlayerManager');
+const InventoryManager = require('../classes/InventoryManager');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
 const Text = require('../text/Francais');
@@ -41,7 +42,6 @@ const fightCommand = async function (message) {
             collector.on('collect', async (reaction) => {
                 if (fightIsOpen) {
                     defender = reaction.users.last();
-
                     if (fightHasToBeCanceled(reaction)) {
                         ({ fightIsOpen, spamchecker } = treatFightCancel(defender, message, fightIsOpen, attacker, playerManager, player, spamchecker));
                     } else {
@@ -56,8 +56,6 @@ const fightCommand = async function (message) {
                                     playerManager.setPlayerAsOccupied(player);
                                     fightIsOpen = false;
                                     displayFightStartMessage(message, attacker, defender);
-
-
                                     let actualUser = attacker;
                                     let actuelPlayer = player;
                                     let opponentUser = defender;
@@ -66,6 +64,10 @@ const fightCommand = async function (message) {
                                     let lastEtatFight = undefined;
                                     let attackerPower = player.maxHealth + player.level * 10;
                                     let defenderPower = defenderPlayer.maxHealth + defenderPlayer.level * 10;
+
+
+
+
                                     fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight);
                                 }
                             }
@@ -76,7 +78,6 @@ const fightCommand = async function (message) {
 
             //end of the time the users have to answer to the demand
             collector.on('end', () => {
-                console.log("testbanane")
                 if (fightIsOpen) {
                     message.channel.send(Text.commands.fight.errorEmoji + attacker + Text.commands.fight.noAnswerError);
                     playerManager.setPlayerAsUnOccupied(player);
@@ -160,15 +161,7 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                         break;
                     case "🛡": //defendre
                         // augmente la défense
-                        if (actualUser == attacker) {
-                            actuelPlayer.defense += attackerDefenseAdd;
-                            message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + attackerDefenseAdd + Text.commands.fight.degatsOutro);
-                            attackerDefenseAdd = Math.round(attackerDefenseAdd * 0.5);
-                        } else {
-                            actuelPlayer.defense += defenderDefenseAdd;
-                            message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + defenderDefenseAdd + Text.commands.fight.degatsOutro);
-                            defenderDefenseAdd = Math.round(defenderDefenseAdd * 0.5);
-                        }
+                        ({ attackerDefenseAdd, defenderDefenseAdd } = ImproveDefense(actualUser, attacker, actuelPlayer, attackerDefenseAdd, message, reaction, defenderDefenseAdd));
                         break;
                     default: // esquive
                         // augmente la vitesse de 30 points
@@ -180,11 +173,7 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                 if (nobodyLooses(attackerPower, defenderPower)) {
                     fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight);
                 } else {
-                    message.channel.send("qqun a perdu");
-                    if (lastMessageFromBot != undefined)
-                        lastMessageFromBot.delete().catch();
-                    if (lastEtatFight != undefined)
-                        lastEtatFight.delete().catch();
+                    finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, message, lastMessageFromBot, lastEtatFight);
                 }
             }
         }
@@ -193,9 +182,65 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
     collector.on('end', () => {
         if (playerHasResponded) { //the player has quit the fight
             playerHasResponded = false;
-            message.channel.send("un joueur a quitté le combat")
+            if (actualUser = attacker) {
+                attackerPower = 0;
+            } else {
+                defenderPower = 0;
+            }
+            finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, message, lastMessageFromBot, lastEtatFight);
         }
     });
+}
+
+
+function finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, message, lastMessageFromBot, lastEtatFight) {
+    let elo = 0;
+    let messageFinCombat;
+    if (player.score < defenderPlayer.score) {
+        elo = Math.round((player.score / defenderPlayer.score) * 100) / 100;
+    }
+    else {
+        elo = Math.round((defenderPlayer.score / player.score) * 100) / 100;
+    }
+    let pts;
+    if (attackerPower <= 0) { //the attacker has loose
+        pts = 100 * player.level * Math.round((player.score / defenderPlayer.score) * 100) / 100;
+        messageFinCombat = Text.commands.fight.finStart + defender + Text.commands.fight.finDebut + attacker +
+            Text.commands.fight.finEndLine + elo + Text.commands.fight.finPts + pts + Text.commands.fight.finFin;
+        player.score = player.score - pts;
+        defenderPlayer.score = defenderPlayer.score + pts;
+    }
+    else { //the defender has loose
+        pts = 100 * defenderPlayer.level * Math.round((defenderPlayer.score / player.score) * 100) / 100;
+        messageFinCombat = Text.commands.fight.finStart + attacker + Text.commands.fight.finDebut + defender +
+            Text.commands.fight.finEndLine + elo + Text.commands.fight.finPts + pts + Text.commands.fight.finFin;
+        player.score = player.score + pts;
+        defenderPlayer.score = defenderPlayer.score - pts;
+    }
+    let playerManager = new PlayerManager;
+    playerManager.updatePlayer(player);
+    playerManager.setPlayerAsUnOccupied(player);
+    playerManager.setPlayerAsUnOccupied(defenderPlayer);
+    
+    message.channel.send(messageFinCombat);
+    if (lastMessageFromBot != undefined)
+        lastMessageFromBot.delete(1000).catch();
+    if (lastEtatFight != undefined)
+        lastEtatFight.delete(1000).catch();
+}
+
+function ImproveDefense(actualUser, attacker, actuelPlayer, attackerDefenseAdd, message, reaction, defenderDefenseAdd) {
+    if (actualUser == attacker) {
+        actuelPlayer.defense += attackerDefenseAdd;
+        message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + attackerDefenseAdd + Text.commands.fight.degatsOutro);
+        attackerDefenseAdd = Math.round(attackerDefenseAdd * 0.5);
+    }
+    else {
+        actuelPlayer.defense += defenderDefenseAdd;
+        message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + defenderDefenseAdd + Text.commands.fight.degatsOutro);
+        defenderDefenseAdd = Math.round(defenderDefenseAdd * 0.5);
+    }
+    return { attackerDefenseAdd, defenderDefenseAdd };
 }
 
 function attaqueUltime(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message) {
@@ -357,7 +402,7 @@ function treatFightCancel(defender, message, fightIsOpen, attacker, playerManage
 
 
 /**
- * 
+ * Allow to cancel a fight
  * @param {*} message - The message that caused the fight to be created
  * @param {*} attacker - The attacker
  * @param {Boolean} fightIsOpen - Is true if the fight has not already been canceled or launched
@@ -373,7 +418,7 @@ function cancelFight(message, attacker, fightIsOpen, playerManager, player) {
 
 
 /**
- * check if the reaction recieved correspond to a fight cancel
+ * Check if the reaction recieved correspond to a fight cancel
  * @param {*} reaction - The reaction that has been recieved
  */
 function fightHasToBeCanceled(reaction) {
