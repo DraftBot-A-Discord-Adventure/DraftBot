@@ -1,6 +1,3 @@
-const Config = require('../utils/Config');
-const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues');
 const Potion = require('../classes/Potion');
 const Object = require('../classes/Object');
 const ItemValues = require('../utils/items/Values');
