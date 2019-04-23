@@ -1,6 +1,8 @@
 const DefaultValues = require('../utils/DefaultValues');
 const sql = require("sqlite");
 
+const Server = require('./Server')
+
 sql.open("./modules/data/database.sqlite");
 
 class ServerManager {
@@ -13,8 +15,8 @@ class ServerManager {
      * Allow to get the prefix of the current server
      * @param {*} message - The message that caused the function to be called. Used to retrieve the server of the message
      */
-    getServerPrefix(message) {
-        let serveur = this.getServer(message);
+    async getServerPrefix(message) {
+        let serveur = await this.getServer(message);
         return serveur.prefix;
     }
 
@@ -30,6 +32,26 @@ class ServerManager {
             } else { //server is in the database
                 console.log(`server reconnu : ${message.guild.name}`);
                 return new Server(server.id, server.prefix, server.language)
+            }
+        }).catch(error => { //there is no database
+            console.error(error)
+            return false;
+        })
+    }
+
+    /**
+    * Return a promise that will contain the server that correspond to the id
+    * @param id - the id of the server that own the server
+    * @returns {promise} - The promise that will be resolved into a server
+    */
+    getServerById(id) {
+        return sql.get(`SELECT * FROM server WHERE id ="${id}"`).then(server => {
+            if (!server) { //server is not in the database
+                console.log(`Aucun serveur enregistré pour cette id: ${id}`);
+                return 0;
+            } else { //server is in the database
+                console.log(`server reconnu : ${id}`);
+                return new Server(server.id, server.prefix, server.lang)
             }
         }).catch(error => { //there is no database
             console.error(error)

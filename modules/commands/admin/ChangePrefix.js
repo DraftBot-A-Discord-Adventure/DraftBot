@@ -1,22 +1,21 @@
 const Config = require('../../utils/Config');
-const InventoryManager = require('../../classes/InventoryManager');
+const ServerManager = require('../../classes/ServerManager');
 
 /**
- * Allow an admin to give an item to somebody
+ * Allow an admin to change the prefix the bot use in a specific server
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const giveCommand = async function (message, args) {
+const changePrefixCommand = async function (message, args) {
     if (userIsNotTheOwnerOfTheBot(message)) { // the author of the command is not the owner of the bot
         return console.log(message.author.username + " tried to use an admin command");
     } else { // the author of the command is the author of the bot
-        let playerId = args[1];
-        let itemType = args[2]+"Id";
-        let itemId = args[3];
-        let inventoryManager = new InventoryManager();
-        let inventory = await inventoryManager.getInventoryById(playerId);
-        inventory[itemType] = itemId;
-        inventoryManager.updateInventory(inventory);
-        message.channel.send(":white_check_mark:  Operation terminée !")
+        let serverId = args[1];
+        let newPrefix = args[2];
+        let serverManager = new ServerManager();
+        let server = await serverManager.getServerById(serverId);
+        server.prefix = newPrefix;
+        serverManager.updateServer(server);
+        message.channel.send(":white_check_mark: Le serveur d'id : "+ serverId + " a désormais pour préfix : " + newPrefix);
     }
 };
 
@@ -31,6 +30,6 @@ function userIsNotTheOwnerOfTheBot(message) {
 
 
 
-module.exports.GiveCommand = giveCommand;
+module.exports.ChangePrefixCommand = changePrefixCommand;
 
 

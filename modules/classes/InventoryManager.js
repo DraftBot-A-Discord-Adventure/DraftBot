@@ -30,7 +30,7 @@ class InventoryManager {
 
 
     /**
-    * Return a promise that will contain the inventory that is owned by the person who send the message
+    * Return a promise that will contain the inventory that correspond to the id
     * @param id - the id of the inventory that own the inventory
     * @returns {promise} - The promise that will be resolved into a inventory
     */
