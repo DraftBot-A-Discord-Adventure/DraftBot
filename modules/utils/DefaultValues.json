@@ -15,6 +15,10 @@
         "badges": "",
         "rank": "0"
     },
+    "server": {
+        "prefix": "!",
+        "language": "fr"
+    },
     "report": {
         "minimalTime": "60",
         "maximalTime": "400",
@@ -25,7 +29,7 @@
     "effectMalus": {
         ":smiley:": "0",
         ":sick:": "21600000",
-        ":head_bandage:" : "5400000",
+        ":head_bandage:": "5400000",
         ":dizzy_face:": "43200000",
         ":skull:": "0",
         ":zzz:": "10800000",
@@ -88,13 +92,13 @@
             "10": "potion"
         }
     },
-    "top" :{
-        "playersByPage" : "15"
+    "top": {
+        "playersByPage": "15"
     },
-    "fight" :{
-        "minimalLevel" : "1"
+    "fight": {
+        "minimalLevel": "1"
     },
-    "xp" :{
+    "xp": {
         "0": "0",
         "1": "300",
         "2": "350",
