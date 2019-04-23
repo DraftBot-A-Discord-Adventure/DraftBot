@@ -22,6 +22,7 @@ const fightCommand = async function (message) {
     let defenderDefenseAdd = 20;
     let attackerSpeedAdd = 30;
     let defenderSpeedAdd = 30;
+    let nbTours = 0;
     //loading of the current player
     let player = await playerManager.getCurrentPlayer(message);
 
@@ -72,7 +73,7 @@ const fightCommand = async function (message) {
 
                                     await addItemBonus(inventoryManager, player, defenderPlayer);
 
-                                    fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd);
+                                    fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd, nbTours);
                                 }
                             }
                         }
@@ -139,7 +140,7 @@ async function displayIntroMessage(message, attacker) {
  * @param {*} attackerSpeedAdd 
  * @param {*} defenderSpeedAdd 
  */
-async function fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd) {
+async function fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd, nbTours) {
     let actualUserPoints = 0;
     let opponentUserPoints = 0;
     if (actualUser == attacker) {
@@ -150,9 +151,9 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
         opponentUserPoints = attackerPower;
     }
     if (lastMessageFromBot != undefined)
-        lastMessageFromBot.delete().catch();
+        lastMessageFromBot.delete(5000).catch();
     if (lastEtatFight != undefined)
-        lastEtatFight.delete().catch();
+        lastEtatFight.delete(5000).catch();
     lastEtatFight = await message.channel.send(Text.commands.fight.statusIntro + Text.commands.fight.attackerEmoji + actualUser.username +
         Text.commands.fight.statusPoints + actualUserPoints + Text.commands.profile.statsAttack + actuelPlayer.attack +
         Text.commands.profile.statsDefense + actuelPlayer.defense + Text.commands.profile.statsSpeed + actuelPlayer.speed +
@@ -210,7 +211,15 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                 }
                 ({ actualUser, actuelPlayer, opponentPlayer, opponentUser } = switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player, opponentPlayer, opponentUser));
                 if (nobodyLooses(attackerPower, defenderPower)) {
-                    fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd);
+                    if (nbTours < 20) {
+                        nbTours++;
+                        fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd, nbTours);
+                    } else {
+                        let playerManager = new PlayerManager();
+                        playerManager.setPlayerAsUnOccupied(player);
+                        playerManager.setPlayerAsUnOccupied(defenderPlayer);
+                        message.channel.send(Text.commands.fight.finStart + attacker + Text.commands.fight.finEgalite + defender + Text.commands.fight.finEgaliteEnd);
+                    }
                 } else {
                     finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, message, lastMessageFromBot, lastEtatFight);
                 }
@@ -221,10 +230,8 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
     collector.on('end', () => {
         if (playerHasResponded) { //the player has quit the fight
             playerHasResponded = false;
-            if (actualUser = attacker) {
+            if (actualUser == attacker) {
                 attackerPower = 0;
-            } else {
-                defenderPower = 0;
             }
             finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, message, lastMessageFromBot, lastEtatFight);
         }
@@ -238,14 +245,14 @@ function finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, 
     elo = calculateElo(player, defenderPlayer, elo);
     let pts;
     if (attackerPower <= 0) { //the attacker has loose
-        pts = 100 * player.level * Math.round((player.score / defenderPlayer.score) * 100) / 100;
+        pts = Math.round(100 + 10 * player.level * Math.round((player.score / defenderPlayer.score) * 100) / 100);
         messageFinCombat = Text.commands.fight.finStart + defender + Text.commands.fight.finDebut + attacker +
             Text.commands.fight.finEndLine + elo + Text.commands.fight.finPts + pts + Text.commands.fight.finFin;
         player.score = player.score - pts;
         defenderPlayer.score = defenderPlayer.score + pts;
     }
     else { //the defender has loose
-        pts = 100 * defenderPlayer.level * Math.round((defenderPlayer.score / player.score) * 100) / 100;
+        pts = Math.round(100 + 10 * defenderPlayer.level * Math.round((defenderPlayer.score / player.score) * 100) / 100);
         messageFinCombat = Text.commands.fight.finStart + attacker + Text.commands.fight.finDebut + defender +
             Text.commands.fight.finEndLine + elo + Text.commands.fight.finPts + pts + Text.commands.fight.finFin;
         player.score = player.score + pts;
@@ -259,9 +266,9 @@ function finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, 
 
     message.channel.send(messageFinCombat);
     if (lastMessageFromBot != undefined)
-        lastMessageFromBot.delete(1000).catch();
+        lastMessageFromBot.delete(5000).catch();
     if (lastEtatFight != undefined)
-        lastEtatFight.delete(1000).catch();
+        lastEtatFight.delete(5000).catch();
 }
 
 function calculateElo(player, defenderPlayer, elo) {
@@ -407,11 +414,11 @@ function updatePlayerPower(attacker, actualUser, defenderPower, degats, attacker
 
 async function displayFightMenu(message, actualUser) {
     let lastMessageFromBot = await message.channel.send(Text.commands.fight.menuStart + actualUser + Text.commands.fight.menuEnd);
-    lastMessageFromBot.react("⚔");
-    lastMessageFromBot.react("🗡");
-    lastMessageFromBot.react("💣");
-    lastMessageFromBot.react("🛡");
-    lastMessageFromBot.react("🚀");
+    await lastMessageFromBot.react("⚔");
+    await lastMessageFromBot.react("🗡");
+    await lastMessageFromBot.react("💣");
+    await lastMessageFromBot.react("🛡");
+    await lastMessageFromBot.react("🚀");
     return lastMessageFromBot;
 }
 

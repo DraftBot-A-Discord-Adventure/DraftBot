@@ -139,7 +139,9 @@
             "defenseAdd" : "** renforce sa défense ! `Défense + ",
             "speedAdd" : "** augmente sa vitesse ! `Vitesse + ",
             "finStart" : ":newspaper: |** ",
-            "finDebut" :" Remporte le match contre ",
+            "finEgalite" :" termine son match contre ",
+            "finEgaliteEnd" :" sur une égalité ! **",
+            "finDebut" :" remporte le match contre ",
             "finEndLine" :"**\n\n:bar_chart: Elo de la partie : `",
             "finPts" :"`\n:medal: Points gagnés/perdus : `",
             "finFin" :"`",
@@ -306,7 +308,7 @@
             "firstBonus": "\n\n",
             "moreSpeed": ":rocket: | Vitesse augmentée de 5 points\n",
             "moreAttack": ":crossed_swords: | Attaque augmentée de 5 points\n",
-            "moreDefense": ":shield: | Defense augmentée de 5 points\n",
+            "moreDefense": ":shield: | Défense augmentée de 5 points\n",
             "noBonus": "\n\n:x: | Aucun bonus de passage de niveau"
         }
     },
