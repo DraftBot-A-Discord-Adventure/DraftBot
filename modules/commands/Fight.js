@@ -1,5 +1,7 @@
 const PlayerManager = require('../classes/PlayerManager');
+const Player = require('../classes/Player');
 const InventoryManager = require('../classes/InventoryManager');
+const Inventory = require('../classes/Inventory');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
 const Text = require('../text/Francais');
@@ -12,6 +14,7 @@ const Text = require('../text/Francais');
 const fightCommand = async function (message) {
 
     let playerManager = new PlayerManager;
+    let inventoryManager = new InventoryManager;
     let attacker = message.author;
     let defender = undefined;
     let spamchecker = 0;
@@ -65,8 +68,7 @@ const fightCommand = async function (message) {
                                     let attackerPower = player.maxHealth + player.level * 10;
                                     let defenderPower = defenderPlayer.maxHealth + defenderPlayer.level * 10;
 
-
-
+                                    await addItemBonus(inventoryManager, player, defenderPlayer);
 
                                     fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight);
                                 }
@@ -86,6 +88,21 @@ const fightCommand = async function (message) {
         }
     }
 };
+
+async function addItemBonus(inventoryManager, player, defenderPlayer) {
+    let bonus = await inventoryManager.getDamageById(player.id);
+    player.attack = player.attack + bonus;
+    bonus = await inventoryManager.getDamageById(defenderPlayer.id);
+    defenderPlayer.attack = defenderPlayer.attack + bonus;
+    bonus = await inventoryManager.getDefenseById(player.id);
+    player.defense = player.defense + bonus;
+    bonus = await inventoryManager.getDefenseById(defenderPlayer.id);
+    defenderPlayer.defense = defenderPlayer.defense + bonus;
+    bonus = await inventoryManager.getSpeedById(player.id);
+    player.speed = player.speed + bonus;
+    bonus = await inventoryManager.getSpeedById(defenderPlayer.id);
+    defenderPlayer.speed = defenderPlayer.speed + bonus;
+}
 
 function displayFightStartMessage(message, attacker, defender) {
     message.channel.send(Text.commands.fight.startStart + attacker + Text.commands.fight.startJoin + defender + Text.commands.fight.startEnd);
@@ -196,12 +213,7 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
 function finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, message, lastMessageFromBot, lastEtatFight) {
     let elo = 0;
     let messageFinCombat;
-    if (player.score < defenderPlayer.score) {
-        elo = Math.round((player.score / defenderPlayer.score) * 100) / 100;
-    }
-    else {
-        elo = Math.round((defenderPlayer.score / player.score) * 100) / 100;
-    }
+    elo = calculateElo(player, defenderPlayer, elo);
     let pts;
     if (attackerPower <= 0) { //the attacker has loose
         pts = 100 * player.level * Math.round((player.score / defenderPlayer.score) * 100) / 100;
@@ -218,15 +230,26 @@ function finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, 
         defenderPlayer.score = defenderPlayer.score - pts;
     }
     let playerManager = new PlayerManager;
-    playerManager.updatePlayer(player);
+    playerManager.updatePlayerScore(player);
+    playerManager.updatePlayerScore(defenderPlayer);
     playerManager.setPlayerAsUnOccupied(player);
     playerManager.setPlayerAsUnOccupied(defenderPlayer);
-    
+
     message.channel.send(messageFinCombat);
     if (lastMessageFromBot != undefined)
         lastMessageFromBot.delete(1000).catch();
     if (lastEtatFight != undefined)
         lastEtatFight.delete(1000).catch();
+}
+
+function calculateElo(player, defenderPlayer, elo) {
+    if (player.score < defenderPlayer.score) {
+        elo = Math.round((player.score / defenderPlayer.score) * 100) / 100;
+    }
+    else {
+        elo = Math.round((defenderPlayer.score / player.score) * 100) / 100;
+    }
+    return elo;
 }
 
 function ImproveDefense(actualUser, attacker, actuelPlayer, attackerDefenseAdd, message, reaction, defenderDefenseAdd) {

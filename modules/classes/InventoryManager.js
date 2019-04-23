@@ -1,11 +1,7 @@
 const Inventory = require('./Inventory');
-const Object = require('./Object');
-const Equipement = require('./Equipement');
-const Potion = require('./Potion');
-const DefaultValues = require('../utils/DefaultValues')
-const Config = require('../utils/Config')
+const ItemValues = require('../utils/items/Values');
+const DefaultValues = require('../utils/DefaultValues');
 const sql = require("sqlite");
-const Tools = require('../utils/Tools');
 
 sql.open("./modules/data/database.sqlite");
 
@@ -100,6 +96,56 @@ class InventoryManager {
         sql.run(`INSERT INTO inventory (playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily) VALUES (${inventory.playerId},"${inventory.weaponId}","${inventory.armorId}","${inventory.potionId}","${inventory.objectId}","${inventory.backupItemId}","${inventory.lastDaily}") `).catch(console.error);
         console.log("inventory created !");
     }
+
+
+    /**
+     * Return the value of the damage bonus
+     * @returns {Number} the bonus effect from the inventory
+     */
+    async getDamageById(id) {
+        let inv = await this.getInventoryById(id);
+        let damage = parseInt(ItemValues.weapon[inv.weaponId].power);
+        if (ItemValues.object[inv.objectId].nature == 3) //if the object offer a damage bonus
+            damage = damage + parseInt(ItemValues.object[inv.objectId].power);
+        if (ItemValues.potion[inv.potionId].nature == 3) { //if the potion offer a damage bonus
+            damage = damage + parseInt(ItemValues.potion[inv.potionId].power);
+            inv.potionId = DefaultValues.inventory.potion;
+        }
+        return damage;
+    }
+
+    /**
+     * Return the value of the defense bonus
+     * @returns {Number} the bonus effect from the inventory
+     */
+    async getDefenseById(id) {
+        let inv = await this.getInventoryById(id);
+        let defense = parseInt(ItemValues.armor[inv.armorId].power);
+        if (ItemValues.object[inv.objectId].nature == 4) //if the object offer a defense bonus
+            defense = defense + parseInt(ItemValues.object[inv.objectId].power);
+        if (ItemValues.potion[inv.potionId].nature == 4) { //if the potion offer a defense bonus
+            defense = defense + parseInt(ItemValues.potion[inv.potionId].power);
+            inv.potionId = DefaultValues.inventory.potion;
+        }
+        return defense;
+    }
+
+    /**
+     * Return the value of the speed bonus
+     * @returns {Number} the bonus effect from the inventory
+     */
+    async getSpeedById(id) {
+        let inv = await this.getInventoryById(id);
+        let speed = 0;
+        if (ItemValues.object[inv.objectId].nature == 2) //if the object offer a speed bonus
+            speed = speed + parseInt(ItemValues.object[inv.objectId].power);
+        if (ItemValues.potion[inv.potionId].nature == 2) { //if the potion offer a speed bonus
+            speed = speed + parseInt(ItemValues.potion[inv.potionId].power);
+            inv.potionId = DefaultValues.inventory.potion;
+        }
+        return speed;
+    }
+
 
 
     /**

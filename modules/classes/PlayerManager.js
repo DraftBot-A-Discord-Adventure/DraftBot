@@ -136,6 +136,16 @@ class PlayerManager {
     }
 
     /**
+     * Allow to save the new score of a player without saving the other attributes
+     * @param {*} player - The player that has to be saved
+     */
+    updatePlayerScore(player) {
+        console.log("Updating player ...");
+        sql.run(`UPDATE player SET score = ${player.score} WHERE discordId = ${player.discordId}`).catch(console.error);
+        console.log("Player updated !");
+    }
+
+    /**
      * Allow to save a new player in the database
      * @param {*} player - The player that has to be saved
      */
