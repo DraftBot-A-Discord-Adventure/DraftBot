@@ -120,7 +120,7 @@ class Player extends Entity {
      */
     levelUp(message) {
         this.setLevel(this.getLevel() + 1);
-        let messageLevelUp = Text.playerManager.levelUp.intro + message.author.username + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
+        let messageLevelUp = Text.playerManager.levelUp.intro + message.author + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
         let bonus = false;
         if (this.getLevel() % 10 == 0) {
             this.restoreHealthCompletely();
