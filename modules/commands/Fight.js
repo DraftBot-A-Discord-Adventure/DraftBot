@@ -20,6 +20,8 @@ const fightCommand = async function (message) {
     let spamchecker = 0;
     let attackerDefenseAdd = 20;
     let defenderDefenseAdd = 20;
+    let attackerSpeedAdd = 30;
+    let defenderSpeedAdd = 30;
     //loading of the current player
     let player = await playerManager.getCurrentPlayer(message);
 
@@ -70,7 +72,7 @@ const fightCommand = async function (message) {
 
                                     await addItemBonus(inventoryManager, player, defenderPlayer);
 
-                                    fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight);
+                                    fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd);
                                 }
                             }
                         }
@@ -116,7 +118,28 @@ async function displayIntroMessage(message, attacker) {
     return messageIntro;
 }
 
-async function fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight) {
+
+/**
+ * Allow to do one turn of the fight
+ * @param {*} lastMessageFromBot 
+ * @param {*} message 
+ * @param {*} actualUser 
+ * @param {*} player 
+ * @param {*} actuelPlayer 
+ * @param {*} opponentPlayer 
+ * @param {*} opponentUser 
+ * @param {*} attacker 
+ * @param {*} defender 
+ * @param {*} defenderPlayer 
+ * @param {*} attackerPower 
+ * @param {*} defenderPower 
+ * @param {*} defenderDefenseAdd 
+ * @param {*} attackerDefenseAdd 
+ * @param {*} lastEtatFight 
+ * @param {*} attackerSpeedAdd 
+ * @param {*} defenderSpeedAdd 
+ */
+async function fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd) {
     let actualUserPoints = 0;
     let opponentUserPoints = 0;
     if (actualUser == attacker) {
@@ -182,13 +205,12 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                         break;
                     default: // esquive
                         // augmente la vitesse de 30 points
-                        actuelPlayer.speed += 30;
-                        message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.speedAdd);
+                        ({ attackerSpeedAdd, defenderSpeedAdd } = ImproveSpeed(actualUser, attacker, actuelPlayer, attackerSpeedAdd, message, reaction, defenderSpeedAdd));
                         break;
                 }
                 ({ actualUser, actuelPlayer, opponentPlayer, opponentUser } = switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player, opponentPlayer, opponentUser));
                 if (nobodyLooses(attackerPower, defenderPower)) {
-                    fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight);
+                    fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd);
                 } else {
                     finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, message, lastMessageFromBot, lastEtatFight);
                 }
@@ -256,14 +278,28 @@ function ImproveDefense(actualUser, attacker, actuelPlayer, attackerDefenseAdd, 
     if (actualUser == attacker) {
         actuelPlayer.defense += attackerDefenseAdd;
         message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + attackerDefenseAdd + Text.commands.fight.degatsOutro);
-        attackerDefenseAdd = Math.round(attackerDefenseAdd * 0.5);
+        attackerDefenseAdd = Math.floor(attackerDefenseAdd * 0.5);
     }
     else {
         actuelPlayer.defense += defenderDefenseAdd;
         message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + defenderDefenseAdd + Text.commands.fight.degatsOutro);
-        defenderDefenseAdd = Math.round(defenderDefenseAdd * 0.5);
+        defenderDefenseAdd = Math.floor(defenderDefenseAdd * 0.5);
     }
     return { attackerDefenseAdd, defenderDefenseAdd };
+}
+
+function ImproveSpeed(actualUser, attacker, actuelPlayer, attackerSpeedAdd, message, reaction, defenderSpeedAdd) {
+    if (actualUser == attacker) {
+        actuelPlayer.speed += attackerSpeedAdd;
+        message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.speedAdd + attackerSpeedAdd + Text.commands.fight.degatsOutro);
+        attackerSpeedAdd = Math.floor(attackerSpeedAdd * 0.5);
+    }
+    else {
+        actuelPlayer.speed += defenderSpeedAdd;
+        message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.speedAdd + defenderSpeedAdd + Text.commands.fight.degatsOutro);
+        defenderSpeedAdd = Math.floor(defenderSpeedAdd * 0.5);
+    }
+    return { attackerSpeedAdd, defenderSpeedAdd };
 }
 
 function attaqueUltime(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message) {
