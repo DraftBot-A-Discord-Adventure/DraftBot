@@ -36,6 +36,8 @@ const generateProfileMessage = function (message, player, numberOfPlayer) {
             Text.commands.profile.score + player.getScore() +
             playerManager.displayTimeLeft(player, message);
     }
+    if (player.getBadges() != "")
+        profileMessage = profileMessage + Text.commands.profile.badges + player.getBadges();
     return profileMessage;
 };
 

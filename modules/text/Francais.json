@@ -38,6 +38,7 @@
             "statsAttack": " | :dagger: ",
             "statsDefense": " | :shield: ",
             "statsSpeed": " | :rocket: ",
+            "badges": "\n\n**Badges :** ",
             "notAPlayer": "** | Utilisez la commande `report` pour commencer votre aventure !"
         },
         "respawn": {

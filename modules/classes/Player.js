@@ -297,6 +297,14 @@ class Player extends Entity {
         return this.rank;
     }
 
+    /**
+     * Returns the badges of the player.
+     * @returns {String} - The badges of the player
+     */
+    getBadges() {
+        return this.badges;
+    }
+
 
     /**
      * Update the timecode matching the last time the player has been see
