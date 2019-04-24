@@ -16,7 +16,7 @@ const reportCommand = async function (message) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-   if (playerManager.checkState(player, message, ":baby::smiley::clock2::sick::snowflake::dizzy_face::zzz::confounded:")) {  //check if the player is not dead or sick
+   if (playerManager.checkState(player, message, ":baby::smiley:")) {  //check if the player is not dead or sick
 
       playerManager.setPlayerAsOccupied(player);
 
@@ -26,7 +26,8 @@ const reportCommand = async function (message) {
       }
 
       let time = player.calcTime(message.createdTimestamp);
-      time = 200; // in testing purpose : Remove for realease
+      //time = 200; // in testing purpose : Remove for realease
+      
       let pointsGained = calculatePoints(player, time);
       let moneyChange = calculateMoney(player, time);
 
@@ -59,9 +60,9 @@ const reportCommand = async function (message) {
  * @returns {*} - The message object that has been sent by the bot
  */
 const displayEvent = function (message, event) {
-   return message.channel.send(Text.commands.report.reportStart + message.author.username + Text.events[event.id]).then(msg => {
+   return message.channel.send(Text.commands.report.reportStart + message.author.username + Text.events[event.id]).then(async msg => {
       for (reac in event.emojis) {
-         msg.react(event.emojis[reac]);
+        await msg.react(event.emojis[reac]);
       }
       return msg;
    })
@@ -202,7 +203,7 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
       possibilityMessage += Text.commands.report.moneyWin + moneyChange;
    }
    else {
-      possibilityMessage += Text.commands.report.moneyLoose + moneyChange;
+      possibilityMessage += Text.commands.report.moneyLoose + -moneyChange;
    }
    if (Tools.isAPositiveNumber(possibility.xpGained))
       possibilityMessage += Text.commands.report.xpWin + possibility.xpGained;

@@ -16,7 +16,8 @@ let databaseManager = new DatabaseManager();
 
 client.on("ready", () => {
     console.log(`DraftBot - v${Config.version}`);
-    databaseManager.checkDatabaseValidity(sql);    
+    databaseManager.checkDatabaseValidity(sql); 
+    databaseManager.setEverybodyAsUnOccupied();    
 });
 
 client.on("message", (message) => {

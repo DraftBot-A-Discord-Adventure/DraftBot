@@ -28,9 +28,9 @@ class Player extends Entity {
      * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
-        let xpToLevelUp = DefaultValues.xp[this.level+1];
-        if(this.level+1 >100)
-         xpToLevelUp =100;
+        let xpToLevelUp = DefaultValues.xp[this.level + 1];
+        if (this.level + 1 > 100)
+            xpToLevelUp = 100;
         return xpToLevelUp;
     }
 
@@ -39,11 +39,11 @@ class Player extends Entity {
      * @returns {Number} - The coefficient
      */
     getCoefficientActuel() {
-        let coefficient =Config.PLAYER_BASE_EXPERIENCE_RATIO - (this.level / 3000);
+        let coefficient = Config.PLAYER_BASE_EXPERIENCE_RATIO - (this.level / 3000);
         if (coefficient < 1.04) {
             coefficient = 1.04
         }
-        console.log("waw" +coefficient)
+        console.log("waw" + coefficient)
         return coefficient;
     }
 
@@ -54,8 +54,8 @@ class Player extends Entity {
      */
     getExperienceUsedToLevelUp() {
         let xpToLevelUp = DefaultValues.xp[this.level];
-        if(this.level >100)
-         xpToLevelUp =100;
+        if (this.level > 100)
+            xpToLevelUp = 100;
         return xpToLevelUp;
     }
 
@@ -192,6 +192,8 @@ class Player extends Entity {
     removeMoney(money) {
         if (Tools.isAPositiveNumberOrNull(money)) {
             this.money -= parseInt(money);
+            if (Tools.isANegativeNumber(this.money))
+                this.money = 0;
         } else {
             this.addMoney(-money);
         }
@@ -347,7 +349,7 @@ class Player extends Entity {
         if (time > DefaultValues.report.timeLimit) {
             time = DefaultValues.report.timeLimit;
         }
-        return time
+        return parseInt(time)
     }
 
 

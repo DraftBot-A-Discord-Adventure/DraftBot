@@ -1,4 +1,6 @@
 const Config = require('./utils/Config');
+const sql = require("sqlite");
+sql.open("./modules/data/database.sqlite");
 
 class DatabaseManager {
 
@@ -13,6 +15,15 @@ class DatabaseManager {
         }).then(() => {
             console.log('... Database is valid !');
         })
+    }
+
+       /**
+     * Allow to set the state of all the player to normal in order to allow them to play
+     */
+    setEverybodyAsUnOccupied() {
+        console.log("Updating everybody ...");
+        sql.run(`UPDATE entity SET effect = ":smiley:" WHERE effect = ":clock10:"`).catch(console.error);
+        console.log("everybody updated !");
     }
 
     /**
