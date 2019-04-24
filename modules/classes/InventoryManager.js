@@ -104,7 +104,8 @@ class InventoryManager {
      */
     async getDamageById(id) {
         let inv = await this.getInventoryById(id);
-        let damage = parseInt(ItemValues.weapon[inv.weaponId].power);
+        let damage =  parseInt(ItemValues.effect[ItemValues.weapon[inv.weaponId].rareness][ItemValues.weapon[inv.weaponId].power]);
+        console.log(damage)
         if (ItemValues.object[inv.objectId].nature == 3) //if the object offer a damage bonus
             damage = damage + parseInt(ItemValues.object[inv.objectId].power);
         if (ItemValues.potion[inv.potionId].nature == 3) { //if the potion offer a damage bonus
@@ -120,7 +121,7 @@ class InventoryManager {
      */
     async getDefenseById(id) {
         let inv = await this.getInventoryById(id);
-        let defense = parseInt(ItemValues.armor[inv.armorId].power);
+        let defense =  parseInt(ItemValues.effect[ItemValues.weapon[inv.armorId].rareness][ItemValues.weapon[inv.armorId].power]);
         if (ItemValues.object[inv.objectId].nature == 4) //if the object offer a defense bonus
             defense = defense + parseInt(ItemValues.object[inv.objectId].power);
         if (ItemValues.potion[inv.potionId].nature == 4) { //if the potion offer a defense bonus
