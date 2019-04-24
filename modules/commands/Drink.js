@@ -2,6 +2,7 @@ const InventoryManager = require('../classes/InventoryManager');
 const PlayerManager = require('../classes/PlayerManager');
 const Text = require('../text/Francais');
 const Tools = require('../utils/Tools');
+const DefaultValues = require('../utils/DefaultValues');
 
 /**
  * Allow to use the potion if the player has one in the dedicated slot of his inventory
