@@ -8,7 +8,7 @@
                 "respawn": ":angel: respawn\n\nPermet de recommencer à jouer après avoir été tué.",
                 "profile": ":bust_in_silhouette: profile\n\nAffiche des informations sur votre personnage :\n\n:heart: Vie | :trophy: Classement | :moneybag: Argent | :medal: Score | :smiley: État de santé.",
                 "switch": ":repeat: switch\n\nEchange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire.",
-                "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous et qui ont le même niveau que vous.",
+                "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.",
                 "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
                 "top": ":trophy: top [numéro de page]\n\nAffiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans la même guilde que vous sont marqués par une pastille bleue.",
                 "inventory": ":school_satchel: inventory\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un objet de type item.",
