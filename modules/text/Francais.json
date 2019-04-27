@@ -382,7 +382,8 @@
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'homme discute tranquillement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.",
-        "16": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* "
+        "16": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* ",
+        "17": " : 👩 Sur une route sinueuse, une dame vous interpelle et demande de l'aide ! \n\n👩 - Vous l'aidez.\n🚶 - Vous faites comme si vous ne l'aviez pas entendu.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*  " 
     },
     "possibilities": {
         "report": {
@@ -691,6 +692,20 @@
             "end": {
                 "1": "** | 🚶 Après avoir admiré le bâtiment pendant une quinzaine de minute, vous reprenez votre route.",
                 "2": "** | 🚶 Vous vous délectez de la vue du château... Puis finissez par vous souvenir de votre quête et reprenez votre route."
+            }
+        },
+        "17": {
+            "👩": {
+                "1": "** | Vous perdez 1 heure à l’aidez, elle fini par vous donner 50 pièces",
+                "2": "** | Vous perdez 2 heures à l’aidez, elle vous remercie infiniment en vous donnant un objet", 
+                "3": "** |  Elle vous emmène dans un piège, où vous vous faites dépouiller, vous êtes blessé"
+            },
+            "🚶": {
+                "1": "** | Vous partez comme si de rien n’était",
+                "2": "** | La femme vous frappe violemment par derrière vous êtes blessé"
+            },
+            "end":{
+                "1": "** | Vous continuez votre périple"
             }
         }
     }
