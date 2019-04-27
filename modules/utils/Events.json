@@ -78,6 +78,10 @@
             "1": "🔎",
             "2": "➡",
             "3": "🔁"
+        },
+        "17":{
+            "1": "👩",
+            "2": "🚶"
         }
     },
     "possibility": {
@@ -1292,6 +1296,57 @@
                    "newEffect": ":clock2:",
                    "xpGained": "25",
                    "moneyGained": "0"
+                }
+            }
+        }, 
+        "17":{
+            "👩":{
+                "1":{
+                    "timeLost": "60",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "50",
+                    "moneyGained": "50"
+                },
+                "2":{
+                    "timeLost": "60",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "50",
+                    "moneyGained": "0", 
+                    "item": "true"
+                },
+                "3":{
+                    "timeLost": "180",
+                    "healthPointsChange": "-20",
+                    "newEffect": ":sick:",
+                    "xpGained": "50",
+                    "moneyGained": ""
+                }
+            },
+            "🚶": {
+                "1":{
+                    "timeLost": "0",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "25",
+                    "moneyGained": "0"
+                },
+                "2":{
+                    "timeLost": "60",
+                    "healthPointsChange": "-30",
+                    "newEffect": ":sick:",
+                    "xpGained": "25",
+                    "moneyGained": "0"
+                }
+            }, 
+            "end": {
+                "1":{
+                    "timeLost": "20",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "50",
+                    "moneyGained": "0"
                 }
             }
         }
