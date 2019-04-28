@@ -901,7 +901,7 @@
                     "moneyGained": "0"
                 },
                 "2": {
-                    "timeLost": "140",
+                    "timeLost": "0",
                     "healthPointsChange": "-5",
                     "newEffect": ":snowflake:",
                     "xpGained": "0",
