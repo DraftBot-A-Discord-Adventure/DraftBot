@@ -275,7 +275,7 @@
             "errorNotRanked": ", vous n'êtes actuellement pas classé ! Utilisez la commande `report` pour apparaitre dans le top !**",
             "winningIntro": "\n :trophy: Félicitation ",
             "winningOutro": " ! **Vous êtes actuellement le meilleur** sur un total de ",
-            "noUserError": "** Aucun joueur n'est classé pour le moment ! Vous devez être niveau 1 pour apparaitre dans le top !",
+            "noUserError": "** Aucun joueur n'est classé pour le moment ! Utilisez la commande `report` pour pour apparaitre dans le top !",
             "tooMuchUserError": "** La page que vous avez demandé contient trop de joueurs !"
         }
     },
@@ -378,7 +378,7 @@
         "9": " : ** :bust_in_silhouette: Au milieu d'un champ, vous rencontrez un paysan. Ce dernier a perdu sa fourche...\n\n:mag_right: Aider le paysan à chercher sa fourche.\n:arrow_forward: Passer son chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "10": " : ** :fish: Alors que vous passiez près d'un plan d'eau, vous remarquez un homme qui semble en difficulté sur sa partie de pêche !\n\n:fishing_pole_and_fish: Proposer son aide.\n:runner: Continuer votre route, pas de temps à perdre !\n:hand_splayed: Pousser le pêcheur dans l'eau !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "11": " : **  :interrobang: Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.\n\n:deciduous_tree: Traverser quand même la forêt.\n:point_left: Suivre les conseils de l'inconnue.\n:point_right: Eviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "12": " : ** 🏞️ Vous voyez une rivière devant vous, de l'autre coté du rivage, vous apercevez un village.\n\n🏊 Traverser la rivière en nageant \n🚣 Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "12": " : ** 🏞️ Vous voyez une rivière devant vous, de l'autre côté du rivage, vous apercevez un village.\n\n🏊 Traverser la rivière en nageant \n🚣 Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'homme discute tranquillement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.",
@@ -391,7 +391,7 @@
                 "2": "** | :smiley: Il ne s'est rien passé de particulier depuis le précédent rapport.",
                 "3": "** | :smiley: Vous n'avez rencontré aucune difficulté à progresser durant les dernières heures, vous continuez d'avancer tranquillement.",
                 "4": "** | :smiley: Rien à signaler, vous continuez d'avancer.",
-                "5": "** | :smiley: Pas d'obstacle en vue, Rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
+                "5": "** | :smiley: Pas d'obstacle en vue, rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
                 "6": "** | :smiley: La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer",
                 "7": "** | :smiley: Rien d'important ne s'est passé depuis le rapport précédent.",
                 "8": "** | :smiley: Pas d'évènement notable depuis la dernière fois.",
@@ -589,7 +589,7 @@
                 "1": "** | 🚶 Vous décidez de partir dans un autre sens, mais vous mettez une bonne heure avant de trouver une direction qui vous convienne !"
             },
             "🏊": {
-                "1": "** | 🏊 L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté que vous vous rendez compte de votre erreur, vous êtes gelé et affaiblis. Il faudra vous soigner avant de continuer ! :snowflake:",
+                "1": "** | 🏊 L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté, vous vous rendez compte de votre erreur. Vous êtes gelé et affaibli. Il faudra vous soigner avant de continuer ! :snowflake:",
                 "2": "** | 🏊 Vous atteignez l'autre côté facilement, arrivé au village, les gens vous accueillent et vous donnent à manger."
             },
             "🚣": {
