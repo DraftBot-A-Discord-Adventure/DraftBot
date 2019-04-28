@@ -1163,7 +1163,7 @@
                     "healthPointsChange": "0",
                     "newEffect": ":clock2:",
                     "xpGained": "305",
-                    "moneyGained": "-100",
+                    "moneyGained": "-200",
                     "item": "true"
                 },
                 "2": {
@@ -1185,7 +1185,7 @@
                     "healthPointsChange": "0",
                     "newEffect": ":clock2:",
                     "xpGained": "5",
-                    "moneyGained": "-100"
+                    "moneyGained": "-200"
                 }
             },
             "🏃": {
