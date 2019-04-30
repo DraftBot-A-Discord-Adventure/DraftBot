@@ -27,7 +27,7 @@ const reportCommand = async function (message) {
 
       let time = player.calcTime(message.createdTimestamp);
       //time = 200; // in testing purpose : Remove for realease
-      
+
       let pointsGained = calculatePoints(player, time);
       let moneyChange = calculateMoney(player, time);
 
@@ -62,7 +62,7 @@ const reportCommand = async function (message) {
 const displayEvent = function (message, event) {
    return message.channel.send(Text.commands.report.reportStart + message.author.username + Text.events[event.id]).then(async msg => {
       for (reac in event.emojis) {
-        await msg.react(event.emojis[reac]);
+         await msg.react(event.emojis[reac]);
       }
       return msg;
    })
@@ -113,9 +113,11 @@ const calculatePoints = function (player, time) {
  * @returns {Number} - The amount of money
  */
 const calculateMoney = function (player, time) {
-   return time / 10 + Math.round(
-      Math.random() * (
-         time / 10 + player.getLevel() / 5
+   return Math.round(
+      time / 10 + Math.round(
+         Math.random() * (
+            time / 10 + player.getLevel() / 5
+         )
       )
    );
 };
