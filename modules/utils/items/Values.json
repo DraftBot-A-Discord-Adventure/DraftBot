@@ -570,6 +570,11 @@
             "rareness": "1",
             "power": "1",
             "nature": "2"
+        },
+        "27": {
+            "rareness": "8",
+            "power": "4",
+            "nature": "1"
         }
     },
     "effect": {

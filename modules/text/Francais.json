@@ -1,7 +1,7 @@
 {
     "commands": {
         "help": {
-            "mp" :":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nAu cas où tu ai besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot, obtenir des détails sur le bot, n'hésite pas à cliquer sur ce lien pour nous rejoindre !\n\nhttps://discord.gg/USnCxg4",
+            "mp" :":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4",
             "intro": "** :notebook_with_decorative_cover: ",
             "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nsell\ntop\ninventory\nfight\ndaily\ndrink\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `aide [nom de la commande]` :wink:",
             "commands": {
