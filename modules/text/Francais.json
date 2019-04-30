@@ -1,6 +1,7 @@
 {
     "commands": {
         "help": {
+            "mp" :":crossed_swords: Hey !\n\nAu cas où tu ai besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot, obtenir des détails sur le bot, n'hésite pas à cliquer sur ce lien pour nous rejoindre !\n\nhttps://discord.gg/USnCxg4",
             "intro": "** :notebook_with_decorative_cover: ",
             "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nsell\ntop\ninventory\nfight\ndaily\ndrink\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `aide [nom de la commande]` :wink:",
             "commands": {
@@ -524,7 +525,7 @@
         },
         "8": {
             "🌲": {
-                "1": "** | 🌲 Vous traversez la forêt sans trop de difficulté et continuez votre route !",
+                "1": "** | 🌲 Vous traversez la forêt sans trop de difficultés et continuez votre route !",
                 "2": "** | 🌲 Vous avancez lentement à travers les sapins, sur le chemin vous ramassez des branches de sapin et vous fabriquez des petits objets que vous pourrez utiliser ou revendre...",
                 "3": "** | 🌲 Vous progressez lentement dans la forêt. Malheureusement le sol est glissant et vous tombez au fond d'un fossé ! Vous parvenez à en ressortir mais vous êtes blessé ! :sick:"
             },
@@ -668,7 +669,7 @@
             "💰": {
                 "1": "** | 💰 Vous ramassez quelques pièces et fuyez aussi vite que possible sans éprouver le moindre remords.",
                 "2": "** | 💰 Malheureusement, il n'y a rien à voler. Par contre votre tentative n'est pas passée innaperçue ! Honteux, vous dédommagez les propriétaires et reprenez la route.",
-                "3": "** | 💰 Pris la main dans le sac ! Face aux 5 hommes à la carrure imposante qui vous entourent, vous regrettez amèrement votre geste malhfeureux. Vous repartez groggy après avoir versé un dédommagement. :confounded:"
+                "3": "** | 💰 Pris la main dans le sac ! Face aux 5 hommes à la carrure imposante qui vous entourent, vous regrettez amèrement votre geste malheureux. Vous repartez groggy après avoir versé un dédommagement. :confounded:"
             },
             "end": {
                 "1": "** | 🚶 Vous passez de longues minutes à bêtement les regarder installer leur bivouac, avant de reprendre vos esprits et continuer votre route."
@@ -676,7 +677,7 @@
         },
         "16": {
             "🔎": {
-                "1": "** | 🔎 Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, un immense morceau du plafond qui se décroche sur vous ! Avec beaucoup de difficulté, vous parvenez à ressortir du bâtiment.",
+                "1": "** | 🔎 Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, un immense morceau du plafond qui se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment.",
                 "2": "** | 🔎 Vous entrez dans le château et parcourez rapidement les lieux. Au bout de quelques minutes, vous trouvez une pièce qui semble être l'ancienne armurerie. Pressé de ressortir du bâtiment, vous ramassez le premier objet qui vous tombe sous la main et ressortez en pressant le pas.",
                 "3": "** | 🔎 Il semblerait que ce château soit moins abandonné qu'il en a l'air ! Peu après votre entrée vous entendez de nombreux bruits en provenance de différentes salles. Peu rassuré, vous préférez reprendre votre route."
             },

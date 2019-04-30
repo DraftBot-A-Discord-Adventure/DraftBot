@@ -5,12 +5,15 @@ const Text = require('../text/Francais');
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
-const helpCommand = function (message, args) {
+const helpCommand = function (message, args, client) {
     let helpMessage;
     if (userAskForGeneralHelp(args[1]))
         helpMessage = generateGeneralHelpMessage(message);
     else
         helpMessage = generateHelpMessageForSpecificCommand(message,args[1]);
+        if (helpAskerIsNotInHelpGuild(client, message)){
+            message.author.send(Text.commands.help.mp)
+        }
 
     message.channel.send(helpMessage);
 };
@@ -37,6 +40,15 @@ const generateHelpMessageForSpecificCommand = function (message,commandname) {
         helpMessage = generateGeneralHelpMessage(message);
     return helpMessage;
 };
+
+/**
+ * Return true if the author is not in the guild where he can recieve help
+ * @param {*} client - The client of the bot
+ * @param {*} message - The message that lauched the command
+ */
+function helpAskerIsNotInHelpGuild(client, message) {
+    return client.guilds.get("429765017332613120").members.find(val => val.id === message.author.id) == undefined;
+}
 
 /**
  * Returns a boolean containing false if the user ask help for a specific command.

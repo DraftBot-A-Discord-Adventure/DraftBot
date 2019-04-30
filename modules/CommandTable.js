@@ -18,7 +18,6 @@ const ChangePrefix = require('./commands/admin/ChangePrefix');
 const CommandTable = new Map(
     [
         ["help", Help.HelpCommand],
-        ["aide", Help.HelpCommand],
         ["ping", Ping.PingCommand],
         ["invite", Invite.InviteCommand],
         ["profile", Profile.ProfileCommand],
