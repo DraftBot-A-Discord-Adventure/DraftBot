@@ -1213,6 +1213,13 @@
                     "moneyGained": "100"
                 },
                 "2": {
+                    "timeLost": "30",
+                    "healthPointsChange": "0",
+                    "newEffect": ":clock2:",
+                    "xpGained": "5",
+                    "moneyGained": "-200"
+                },
+                "3": {
                     "timeLost": "0",
                     "healthPointsChange": "-20",
                     "newEffect": ":dizzy_face:",
