@@ -13,6 +13,7 @@ const Sell = require('./commands/Sell');
 const Fight = require('./commands/Fight');
 
 const Give = require('./commands/admin/Give');
+const GiveBadge = require('./commands/admin/GiveBadge');
 const ChangePrefix = require('./commands/admin/ChangePrefix');
 
 const CommandTable = new Map(
@@ -35,9 +36,10 @@ const CommandTable = new Map(
         ["fight", Fight.FightCommand],
         ["f", Fight.FightCommand],
 
+        ["gb", GiveBadge.GiveBadgeCommand],
         ["give", Give.GiveCommand],
         ["cp", ChangePrefix.ChangePrefixCommand],
-        
+
     ]
 );
 
