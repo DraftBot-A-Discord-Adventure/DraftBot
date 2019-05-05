@@ -6,6 +6,7 @@ const client = new Discord.Client();
 const Config = require('./modules/utils/Config');
 const CommandReader = require('./modules/CommandReader');
 const DatabaseManager = require('./modules/DatabaseManager');
+const ServerManager = require('./modules/classes/ServerManager');
 
 //database loading : I use sqlite because it is a promise based system like discord.js so it make sense
 const sql = require("sqlite");
@@ -16,7 +17,8 @@ let databaseManager = new DatabaseManager();
 
 client.on("guildCreate", guilde => {
     let resultat = "";
-    let { validation, nbMembres, nbBot, ratio } = getValidationInfos(guilde);
+    let serverManager = new ServerManager;
+    let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
     resultat += `**:inbox_tray: Serveur discord rejoint :** \`${guilde}\` | :bust_in_silhouette: : \`${nbMembres}\`  | :robot: : \`${nbBot}\` | Ratio bot/Humain : \`${ratio}\` % | Validation : ${validation}\n`;
     client.guilds.get("429765017332613120").channels.get("433541702070960128").send(resultat);
     if (validation == ":x:") {
@@ -45,7 +47,8 @@ client.on("guildCreate", guilde => {
   
   client.on("guildDelete", guilde => {
     let resultat = "";
-    let { validation, nbMembres, nbBot, ratio } = getValidationInfos(guilde);
+    let serverManager = new ServerManager;
+    let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
     resultat += ` **:outbox_tray: Serveur discord quitté :** \`${guilde}\` | :bust_in_silhouette: : \`${nbMembres}\`  | :robot: : \`${nbBot}\` | Ratio bot/Humain : \`${ratio}\` % | Validation : ${validation}\n`;
     client.guilds.get("429765017332613120").channels.get("433541702070960128").send(resultat);
   });
@@ -65,19 +68,5 @@ client.on("message", (message) => {
 
 client.login(Config.DISCORD_CLIENT_TOKEN);
 
-function getValidationInfos(guilde) {
-    let nbMembres = guilde.members.filter(member => !member.user.bot).size;
-    let nbBot = guilde.members.filter(member => member.user.bot).size;
-    let ratio = Math.round((nbBot / nbMembres) * 100);
-    let validation = ":white_check_mark:";
-    if (ratio > 30 || nbMembres < 30 || (nbMembres < 100 && ratio > 20)) {
-        validation = ":x:";
-    }
-    else {
-        if (ratio > 20 || nbBot > 15 || nbMembres < 100) {
-            validation = ":warning:";
-        }
-    }
-    return { validation, nbMembres, nbBot, ratio };
-}
+
 

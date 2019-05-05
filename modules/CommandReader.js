@@ -13,20 +13,13 @@ class CommandReader {
      * @param {*} client - The bot user in case we have to make him do things
      */
     async handleMessage(message, client) {
-        console.log(`${message.author.username} passed ${message.content}\n`);
         let serverPrefix = await this.serverManager.getServerPrefix(message);
         let prefix = CommandReader.getUsedPrefix(message);
         if (prefix == serverPrefix) {
-            let command = CommandReader.getCommandFromMessage(message);
-            let args = CommandReader.getArgsFromMessage(message);
-            if (CommandTable.has(command))
-                CommandTable.get(command)(message, args, client)
-        }else{
+            launchCommand(message, client);
+        } else {
             if (prefix == Config.BOT_OWNER_PREFIX && message.author.id == Config.BOT_OWNER_ID) {
-                let command = CommandReader.getCommandFromMessage(message);
-                let args = CommandReader.getArgsFromMessage(message);
-                if (CommandTable.has(command))
-                    CommandTable.get(command)(message, args, client)
+                launchCommand(message, client);
             }
         }
 
@@ -56,9 +49,23 @@ class CommandReader {
     static getUsedPrefix(message) {
         return message.content.substr(0, 1);
     }
+}
 
+/**
+ * 
+ * @param {*} message - A command posted by an user.
+ * @param {*} client - The bot user in case we have to make him do things
+ */
+function launchCommand(message, client) {
+    console.log(`${message.author.username} passed ${message.content}\n`);
+    let command = CommandReader.getCommandFromMessage(message);
+    let args = CommandReader.getArgsFromMessage(message);
+    if (CommandTable.has(command))
+        CommandTable.get(command)(message, args, client);
 }
 
 module.exports = CommandReader;
+
+
 
 
