@@ -17,9 +17,6 @@ let databaseManager = new DatabaseManager();
 client.on("guildCreate", guilde => {
     let resultat = "";
     let { validation, nbMembres, nbBot, ratio } = getValidationInfos(guilde);
-    if (config.gidexception.includes(guilde.id)) {
-      validation = ":newspaper:";
-    }
     resultat += `**:inbox_tray: Serveur discord rejoint :** \`${guilde}\` | :bust_in_silhouette: : \`${nbMembres}\`  | :robot: : \`${nbBot}\` | Ratio bot/Humain : \`${ratio}\` % | Validation : ${validation}\n`;
     client.guilds.get("429765017332613120").channels.get("433541702070960128").send(resultat);
     if (validation == ":x:") {
