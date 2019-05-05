@@ -3,7 +3,7 @@
         "help": {
             "mp" :":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4",
             "intro": "** :notebook_with_decorative_cover: ",
-            "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nsell\ntop\ninventory\nfight\ndaily\ndrink\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `aide [nom de la commande]` :wink:",
+            "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nsell\ntop\ninventory\nfight\ndaily\ndrink\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:",
             "commands": {
                 "ping": ":ping_pong: ping :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
                 "respawn": ":angel: respawn\n\nPermet de recommencer à jouer après avoir été tué.",
@@ -127,7 +127,7 @@
             "startJoin": " et ",
             "startEnd": " !**",
             "notEnoughSkillError1": ", vous devez être **LVL ",
-            "notEnoughSkillError2": "** pour accèder aux combats ! Revenez plus tard !",
+            "notEnoughSkillError2": "** pour accéder aux combats ! Revenez plus tard !",
             "menuStart": ":crossed_swords:  | **C'est au tour de ",
             "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
             "endIntroStart" : " | **",
@@ -276,7 +276,7 @@
             "errorNotRanked": ", vous n'êtes actuellement pas classé ! Utilisez la commande `report` pour apparaitre dans le top !**",
             "winningIntro": "\n :trophy: Félicitation ",
             "winningOutro": " ! **Vous êtes actuellement le meilleur** sur un total de ",
-            "noUserError": "** Aucun joueur n'est classé pour le moment ! Utilisez la commande `report` pour pour apparaitre dans le top !",
+            "noUserError": "** Aucun joueur n'est classé pour le moment ! Utilisez la commande `report` pour apparaitre dans le top !",
             "tooMuchUserError": "** La page que vous avez demandé contient trop de joueurs !"
         }
     },
@@ -325,7 +325,7 @@
         "separator": " |"
     },
     "entity": {
-        "killMessage": ":crossed_swords:  Bonjour Combattant !\n\nIl semblerait que vous ayez été mis K.O...  :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à  vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est couteuse et votre score a donc été impacté  par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`",
+        "killMessage": ":crossed_swords:  Bonjour Combattant !\n\nIl semblerait que vous ayez été mis K.O...  :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à  vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté  par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`",
         "killPublicIntro": ":skull: | **",
         "killPublicMessage": " ** a été mit K.O !"
     },
@@ -367,11 +367,11 @@
         }
     },
     "events": {
-        "0": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `aide` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récuperer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",
+        "0": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `help` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récuperer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",
         "1": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:scissors: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "2": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "3": " : ** :lock: Vous avez trouvé un coffret ! Malheureusement il est verrouillé...\n\n:key: Chercher la clef autour du lieu de découverte.\n:pick: Attaquer le cadenas à coups de pioche.\n:arrow_forward: Abandonner le coffret à l'endroit où vous l'avez trouvé.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "4": " : ** :stars: Vous avez décidé de profiter d'une nuit calme pour continuer votre progression.Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!\n\n:speaking_head: Faire un vœu.\n:runner: Ignorer cet évènement.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "4": " : ** :stars: Vous avez décidé de profiter d'une nuit calme pour continuer votre progression. Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!\n\n:speaking_head: Faire un vœu.\n:runner: Ignorer cet évènement.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "5": " : **  :fountain: Vous avez trouvé une fontaine !\n\n:sweat_drops: Se reposer et boire pour reprendre des forces.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "6": " : ** :fork_knife_plate: Vous vous étiez arrêté dans une grotte pour manger et vous hésitez à repartir... \n\n:flashlight: Entrer plus profondément dans la grotte.\n:runner: Continuer votre route, pas de temps à perdre !\n:mag: Fouiller les alentours\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "7": " : **  :house: Vous avez découvert une maison ! Elle semble abandonnée...\n\n:door: Aller visiter l'intérieur.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !.*",
@@ -459,14 +459,14 @@
         },
         "4": {
             "🗣": {
-                "1": "** | :speaking_head: Vous faites un vœu et fermer vos yeux... En ouvrant les yeux vous découvrez un sac remplit d'argent devant vous ! Perdre ces 10 minutes valait le coup !",
-                "2": "** | :speaking_head: Vous faites un vœu et fermer vos yeux... En ouvrant les yeux vous ne découvrez absolument rien ! Après avoir attendu 10 minutes pour rien vous repartez.",
-                "3": "** | :speaking_head: Vous faites un vœu et fermer vos yeux... En ouvrant les yeux vous découvrez qu'il ne s'est rien passé ! Après avoir attendu 10 minutes pour rien vous repartez.",
-                "4": "** | :speaking_head: Vous faites un vœu et fermer vos yeux... En ouvrant les yeux vous découvrez ... Rien du tout ! Après avoir attendu 10 minutes pour rien vous repartez.",
-                "5": "** | :speaking_head: Vous faites un vœu et fermer vos yeux... Il est en générale préférable de ne pas continuer de marcher les yeux fermés, vous vous blessez en trébuchant sur un caillou et perdez 10 minutes avant de pouvoir vous remettre en route."
+                "1": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez un sac remplit d'argent devant vous ! Perdre ces 10 minutes valait le coup !",
+                "2": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous ne découvrez absolument rien ! Après avoir attendu 10 minutes pour rien vous repartez.",
+                "3": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez qu'il ne s'est rien passé ! Après avoir attendu 10 minutes pour rien vous repartez.",
+                "4": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez ... Rien du tout ! Après avoir attendu 10 minutes pour rien vous repartez.",
+                "5": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... Il est en générale préférable de ne pas continuer de marcher les yeux fermés, vous vous blessez en trébuchant sur un caillou et perdez 10 minutes avant de pouvoir vous remettre en route."
             },
             "🏃": {
-                "1": "** | :runner: Vous continuez votre route sans faire attention à l'étoile filante, vous nous n'avez pas perdu de temps !",
+                "1": "** | :runner: Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
                 "2": "** | :runner: Vous continuez sans prêter plus d'attention au phénomène mais continuez de regarder le ciel avec admiration... Distrait, vous ne remarquez pas immédiatement l'immense crevasse devant vous ! Vous finissez écrasé au fond du trou, secoué et choqué, vous vous rassurez en vous disant qu'au moins vous n'êtes pas blessé trop gravement !"
             },
             "end": {
@@ -501,7 +501,7 @@
             "🔍": {
                 "1": "** | :mag: Au bout de 30 minutes vous finissez par découvrir un objet étrange...",
                 "2": "** | :mag: Au bout de 60 minutes vous finissez par abandonner vos recherches sans avoir rien découvert...",
-                "3": "** | :mag: Alors que vous commenciez vos recherches vous faites tomber un grand sac de pièces au fond d'un grand trou ! Il ne sera pas possible de le récuperer...",
+                "3": "** | :mag: Alors que vous commenciez vos recherches vous faites tomber un grand sac de pièces au fond d'un grand trou ! Il ne sera pas possible de le récupérer...",
                 "4": "** | :mag: Alors que vous cherchiez des objets à ramasser, une énorme branche se détache de l'arbre à côté de vous et vous tombe sur la jambe ! Vous parvenez à vous relever, sonné, mais il faudra aller vous soigner ! :confounded: "
             },
             "end": {
@@ -677,7 +677,7 @@
         },
         "16": {
             "🔎": {
-                "1": "** | 🔎 Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, un immense morceau du plafond qui se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment.",
+                "1": "** | 🔎 Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, alors que vous entrez dans une grande salle délabrée, un immense morceau du plafond se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment.",
                 "2": "** | 🔎 Vous entrez dans le château et parcourez rapidement les lieux. Au bout de quelques minutes, vous trouvez une pièce qui semble être l'ancienne armurerie. Pressé de ressortir du bâtiment, vous ramassez le premier objet qui vous tombe sous la main et ressortez en pressant le pas.",
                 "3": "** | 🔎 Il semblerait que ce château soit moins abandonné qu'il en a l'air ! Peu après votre entrée vous entendez de nombreux bruits en provenance de différentes salles. Peu rassuré, vous préférez reprendre votre route."
             },
