@@ -261,11 +261,15 @@
             "unknownPlayer": " Pseudo Introuvable ",
             "boldEnd": " **",
             "boldStart": "**",
-            "scoreDisplayDebut": " | **`",
+            "scoreDisplayDebut": " **| **`",
             "scoreDisplayFin": "`",
-            "effectSeparator": "** |** ",
+            "levelDisplayDebut": " **| **`Niveau ",
+            "levelDisplayFin": "`",
+            "separator": "** |** ",
+            "endSeparator": "** | ",
             "availableReport": "** |** :newspaper2:",
             "endOfLine": "\n",
+            "endOfLineWBold": "**\n",
             "tada": ":tada: ",
             "endSentenceStart": ", vous êtes actuellement classé ",
             "endSentenceMiddle": " ème** sur un total de ",
@@ -383,7 +387,8 @@
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'homme discute tranquillement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "16": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* "
+        "16": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* ",
+        "17": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* "
     },
     "possibilities": {
         "report": {
