@@ -1,7 +1,7 @@
 {
     "commands": {
         "help": {
-            "mp" :":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4",
+            "mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4",
             "intro": "** :notebook_with_decorative_cover: ",
             "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nsell\ntop\ninventory\nfight\ndaily\ndrink\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:",
             "commands": {
@@ -130,23 +130,23 @@
             "notEnoughSkillError2": "** pour accéder aux combats ! Revenez plus tard !",
             "menuStart": ":crossed_swords:  | **C'est au tour de ",
             "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
-            "endIntroStart" : " | **",
-            "statusIntro" :":crossed_swords: | **Etat actuel du combat \n\n",
+            "endIntroStart": " | **",
+            "statusIntro": ":crossed_swords: | **Etat actuel du combat \n\n",
             "statusPoints": "**\n:large_blue_circle: ",
-            "endLine" : "\n\n**",
-            "attackerEmoji" : ":crossed_swords: **|** Attaquant : ",
-            "defenderEmoji" : ":shield: **|** Défenseur : ",
-            "degatsIntro" : " `Dégats infligés : ",
-            "degatsOutro" : " `",
-            "defenseAdd" : "** renforce sa défense ! `Défense + ",
-            "speedAdd" : "** augmente sa vitesse ! `Vitesse + ",
-            "finStart" : ":newspaper: |** ",
-            "finEgalite" :" termine son match contre ",
-            "finEgaliteEnd" :" sur une égalité ! **",
-            "finDebut" :" remporte le match contre ",
-            "finEndLine" :"**\n\n:bar_chart: Elo de la partie : `",
-            "finPts" :"`\n:medal: Points gagnés/perdus : `",
-            "finFin" :"`",
+            "endLine": "\n\n**",
+            "attackerEmoji": ":crossed_swords: **|** Attaquant : ",
+            "defenderEmoji": ":shield: **|** Défenseur : ",
+            "degatsIntro": " `Dégats infligés : ",
+            "degatsOutro": " `",
+            "defenseAdd": "** renforce sa défense ! `Défense + ",
+            "speedAdd": "** augmente sa vitesse ! `Vitesse + ",
+            "finStart": ":newspaper: |** ",
+            "finEgalite": " termine son match contre ",
+            "finEgaliteEnd": " sur une égalité ! **",
+            "finDebut": " remporte le match contre ",
+            "finEndLine": "**\n\n:bar_chart: Elo de la partie : `",
+            "finPts": "`\n:medal: Points gagnés/perdus : `",
+            "finFin": "`",
             "attackRapide": {
                 "ok": {
                     "1": " ** effectue une attaque rapide ! Parfaitement réalisée !",
@@ -177,7 +177,7 @@
                     "6": " ** lance une mauvaise attaque rapide !",
                     "7": " ** utilise une attaque rapide ! Un choix peu judicieux !",
                     "8": " ** choisi une attaque rapide !  Mauvaise initiative"
-                }  
+                }
             },
             "attackSimple": {
                 "ok": {
@@ -209,7 +209,7 @@
                     "6": " ** lance une mauvaise attaque simple !",
                     "7": " ** utilise une attaque simple ! Un choix peu judicieux !",
                     "8": " ** choisi une attaque simple !  Mauvaise initiative."
-                }  
+                }
             },
             "attackUltime": {
                 "ok": {
@@ -241,7 +241,7 @@
                     "6": " ** lance une mauvaise attaque ultime ! `Vitesse réduite de 10 %`",
                     "7": " ** utilise une attaque ultime ! Un choix peu judicieux ! `Vitesse réduite de 10 %`",
                     "8": " ** choisi une attaque ultime !  Mauvaise initiative. `Vitesse réduite de 10 %`"
-                }  
+                }
             }
         },
         "top": {
@@ -312,6 +312,7 @@
             "healthRestored": "\n\n:heart: | Vie restaurée à son maximum\n",
             "moreMaxHealth": "\n\n:heartpulse: | Vie maximale augmentée de 5 points\n",
             "firstBonus": "\n\n",
+            "fightUnlocked": "\n\n:dagger: | Combats débloqués ! (Utilisez la commande `fight` pour lancer un combat)",
             "moreSpeed": ":rocket: | Vitesse augmentée de 5 points\n",
             "moreAttack": ":crossed_swords: | Attaque augmentée de 5 points\n",
             "moreDefense": ":shield: | Défense augmentée de 5 points\n",

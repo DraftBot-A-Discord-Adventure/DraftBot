@@ -122,6 +122,10 @@ class Player extends Entity {
         this.setLevel(this.getLevel() + 1);
         let messageLevelUp = Text.playerManager.levelUp.intro + message.author + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
         let bonus = false;
+        if(this.getLevel() == DefaultValues.fight.minimalLevel){
+            messageLevelUp += Text.playerManager.levelUp.fightUnlocked;
+            bonus = true;
+        }
         if (this.getLevel() % 10 == 0) {
             this.restoreHealthCompletely();
             messageLevelUp += Text.playerManager.levelUp.healthRestored;
