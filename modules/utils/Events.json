@@ -1226,6 +1226,15 @@
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
+            },
+            "end": {
+                "1": {
+                    "timeLost": "15",
+                    "healthPointsChange": "0",
+                    "newEffect": ":clock2:",
+                    "xpGained": "25",
+                    "moneyGained": "0"
+                }
             }
         },
         "16": {
