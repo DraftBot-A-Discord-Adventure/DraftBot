@@ -1,5 +1,5 @@
 <center>
-<img src="http://35.237.77.248/ressources/couronne.png" style="border-radius: 50%; width: 300px">
+<img src="https://cdn.discordapp.com/attachments/456120666874183680/575235193384861716/couronne.png" style="border-radius: 50%; width: 300px">
 
 # **DraftBot - A Discord Adventure**
 DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLast) based on an adventure game on text.
@@ -16,7 +16,7 @@ DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLas
 The bot is being rewritten.
 
 # Screenshots
-![](http://35.237.77.248/ressources/tuto.png)
+![](https://cdn.discordapp.com/attachments/456120666874183680/575235223776788480/tuto.PNG)
 
 # Links
 * [Web site *(in french)*](http://draftbot.tk)
