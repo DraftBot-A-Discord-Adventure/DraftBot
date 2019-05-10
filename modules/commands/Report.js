@@ -16,7 +16,7 @@ const reportCommand = async function (message) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-   if (playerManager.checkState(player, message, ":baby::smiley:")) {  //check if the player is not dead or sick
+   if (playerManager.checkState(player, message, ":baby::smiley:")|| true) {  //check if the player is not dead or sick
 
       playerManager.setPlayerAsOccupied(player);
 
@@ -26,13 +26,13 @@ const reportCommand = async function (message) {
       }
 
       let time = player.calcTime(message.createdTimestamp);
-      //time = 200; // in testing purpose : Remove for realease
+      time = 200; // in testing purpose : Remove for realease
 
       let pointsGained = calculatePoints(player, time);
       let moneyChange = calculateMoney(player, time);
 
       let eventNumber = eventManager.chooseARandomEvent();
-      //eventNumber = 1; //allow to select a specific event in testing purpose
+      eventNumber = 17; //allow to select a specific event in testing purpose
 
       switch (true) {
 

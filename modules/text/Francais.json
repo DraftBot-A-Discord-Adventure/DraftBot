@@ -388,7 +388,8 @@
         "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'homme discute tranquillement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "16": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* "
+        "16": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* ",
+        "17": " : **:stew:  Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.\n\n:apple: Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits\n:mushroom: Cueillir les champignons.\n:salad: Concocter une salade avec les plantes que vous trouvez\n:deer: Tenter de chasser un animal sauvage\n:walking: Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* "
     },
     "possibilities": {
         "report": {
@@ -669,7 +670,7 @@
             },
             "🏃": {
                 "1": "** | 🏃 Le chemin est encore long, pas le temps de s'arrêter !",
-                "2": "** | 🏃 Vous continuez sans vous arrêter en sillonant les petites rues. Au coin de l'une d'entre elles, vous vous faites sauvagement bousculer par un homme qui prend rapidement la fuite."
+                "2": "** | 🏃 Vous continuez sans vous arrêter en sillonant les petites rues. Au coin de l'une d'entre elles, vous vous faites sauvagement bousculer par un homme qui prend rapidement la fuite. :confounded:"
             },
             "💰": {
                 "1": "** | 💰 Vous ramassez quelques pièces et fuyez aussi vite que possible sans éprouver le moindre remords.",
@@ -677,7 +678,7 @@
                 "3": "** | 💰 Pris la main dans le sac ! Face aux 5 hommes à la carrure imposante qui vous entourent, vous regrettez amèrement votre geste malheureux. Vous repartez groggy après avoir versé un dédommagement. :confounded:"
             },
             "end": {
-                "1": "** | 🚶 Après quelques minutes dans la boutique, vous ressortez dans rien acheter."
+                "1": "** | 🚶 Vous passez de longues minutes à bêtement les regarder installer leur bivouac, avant de reprendre vos esprits et continuer votre route."
             }
         },
         "16": {
@@ -697,6 +698,36 @@
             "end": {
                 "1": "** | 🚶 Après avoir admiré le bâtiment pendant une quinzaine de minute, vous reprenez votre route.",
                 "2": "** | 🚶 Vous vous délectez de la vue du château... Puis finissez par vous souvenir de votre quête et reprenez votre route."
+            }
+        },
+        "17": {
+            "🍎": {
+                "1": "** | 🍎 Vous grimpez le plus haut possible et décrochez un fruit. Vous comblez rapidement votre faim et sentez vos forces se revigorer de cet aport de sucre.",
+                "2": "** | 🍎 Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'éffondre sous votre poid ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprennez votre route. :confounded:",
+                "3": "** | 🍎 Vous cueillez rapidement un fruit et croquez vigoureusement dedans... Ce n'est que quelques heures plus tard que vous prendrez mesure de votre erreur. :sick:"
+            },
+            "🍄": {
+                "1": "** | 🍄 Alors que vous vous penchez pour ramasser les champignons, vous appercevez un étrange objet briller sur le sol...",
+                "2": "** | 🍄 Vous ramassez quelques champignons avant de remarquer que vous n'avez rien pour les cuisiner. Abandonnant votre cueillette, vous repprenez la route. ",
+                "3": "** | 🍄 Vous croquez à pleine dents dans un champignon rouge avec des petits points blancs... et regrettez rapidement cette action ! :dizzy_face:"
+            },
+            "🥗": {
+                "1": "** | 🥗 Vous effectuez une petite ceuillette et avalez votre préparation. Fort de l'énergie apportée par ce repas, vous reprennez votre route.",
+                "2": "** | 🥗 Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprennez donc votre route sans rien manger.",
+                "3": "** | 🥗 Vous changez rapidement d'avis en regardant autour de vous et en découvrant l'épaisse végétation qui vous empecherait de ceuillir quoi que ce soit. Sans perdre plus de temps, vous repprenez votre route."
+            },
+            "🦌": {
+                "1": "** | 🦌 Aucun animal en vue, vous repprenez donc votre route sans plus attendre",
+                "2": "** | 🦌 Après une course poursuite effrénée avec un animal sauvage, celui-ci cesse de vous fuir et vous charge furieusement. Abasourdi par la violence de l'attaque, vous ne parvenez pas à l'éviter et subissez la totale colère de la bête. Gravement blessé, il vous faudra du temps avant de reprendre votre aventure :dizzy_face:",
+                "3": "** | 🦌 Vous transpercez rapidement quelques petits animaux de votre lame et dévorez vos proies avec grand appétit avant de reprendre la route, repus."
+            },
+            "🚶": {
+                "1": "** | 🚶 Vous continuez votre route sans perdre plus de temps.",
+                "2": "** | 🚶 Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route. :zzz:"
+            },
+            "end": {
+                "1": "** | 🚶 Après quelques instants de reflexion vous décidez de reprendre la route promptement.",
+                "2": "** | 🚶 Vous cherchez une autre source de nourriture pendant quelques instants mais vous vous rendez compte au bout de longues recherches que ces dernières sont vaines. Pas convaincu par les options qui s'offrent à vous, vous repprenez votre route."
             }
         }
     }
