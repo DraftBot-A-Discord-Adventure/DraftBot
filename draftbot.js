@@ -57,7 +57,7 @@ client.on("ready", () => {
     console.log(`DraftBot - v${Config.version}`);
     databaseManager.checkDatabaseValidity(sql); 
     databaseManager.setEverybodyAsUnOccupied();  
-    client.guilds.get("429765017332613120").channels.get("433541702070960128").send(`:robot: **DraftBot** - v${Config.version}`)  
+    client.guilds.get("429765017332613120").channels.get("433541702070960128").send(`:robot: **DraftBot** - v${Config.version}`).catch(err => {})  
 });
 
 client.on("message", (message) => {
