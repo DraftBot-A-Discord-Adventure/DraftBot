@@ -6,15 +6,16 @@ const PlayerManager = require('../../classes/PlayerManager');
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const giveBadgeCommand = async function (message, args) {
-    if (userIsNotTheOwnerOfTheBot(message)) { // the author of the command is not the owner of the bot
+    if (userIsNotTheOwnerOfTheBotOrABadgeManager(message)) { // the author of the command is not the owner of the bot
         return console.log(message.author.username + " tried to use an admin command");
     } else { // the author of the command is the author of the bot
         let playerManager = new PlayerManager();
         let playerId = args[2]
+        playerId = playerId.substring(2,playerId.length-1)
         let player = await playerManager.getPlayerById(playerId);
         player.badges = player.badges + args[1];
         playerManager.updatePlayer(player);
-        message.channel.send(":white_check_mark: Le joueur a recu le badge : " + args[1]);
+        message.channel.send(":white_check_mark: Le joueur " +args[2] + " a recu le badge : " + args[1]);
     }
 };
 
@@ -23,8 +24,8 @@ const giveBadgeCommand = async function (message, args) {
  * @returns {boolean} - A boolean containing false if the user is the owner.
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-function userIsNotTheOwnerOfTheBot(message) {
-    return message.author.id != Config.BOT_OWNER_ID;
+function userIsNotTheOwnerOfTheBotOrABadgeManager(message) {
+    return message.author.id != Config.BOT_OWNER_ID && !Config.BADGE_MANAGER_ID.includes(message.author.id) ;
 }
 
 
