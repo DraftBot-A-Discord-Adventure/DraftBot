@@ -29,6 +29,8 @@
         },
         "profile": {
             "main": " | **",
+            "errorMain" : ":x: |** ",
+            "errorExp" : "**, le joueur demandé semble ne pas avoir commencé l'aventure !",
             "level": "** |** LVL ",
             "xp": "** :star: ",
             "health": " | :heart: ",
@@ -40,7 +42,7 @@
             "statsDefense": " | :shield: ",
             "statsSpeed": " | :rocket: ",
             "badges": "\n\n**Badges :** ",
-            "notAPlayer": "** | Utilisez la commande `report` pour commencer votre aventure !"
+            "notAPlayer": "**, utilisez la commande `report` pour commencer votre aventure !"
         },
         "respawn": {
             "thinking": ":thinking: | **",
