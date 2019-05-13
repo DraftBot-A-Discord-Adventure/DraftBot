@@ -17,6 +17,7 @@ const Servers = require('./commands/admin/Servers');
 const GiveBadge = require('./commands/admin/GiveBadge');
 const ResetBadge = require('./commands/admin/ResetBadge');
 const ChangePrefix = require('./commands/admin/ChangePrefix');
+const SendData = require('./commands/admin/SendData');
 const Invitations = require('./commands/admin/Invitations');
 
 const CommandTable = new Map(
@@ -45,6 +46,7 @@ const CommandTable = new Map(
         ["give", Give.GiveCommand],
         ["cp", ChangePrefix.ChangePrefixCommand],
         ["rb", ResetBadge.ResetBadgeCommand],
+        ["senddata", SendData.SendDataCommand],
 
     ]
 );
