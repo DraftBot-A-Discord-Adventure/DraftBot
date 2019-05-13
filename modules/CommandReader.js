@@ -1,6 +1,7 @@
 const Config = require('./utils/Config');
 const ServerManager = require('./classes/ServerManager');
 const CommandTable = require('./CommandTable');
+const Text = require('./text/Francais');
 
 class CommandReader {
     constructor() {
@@ -61,7 +62,11 @@ function launchCommand(message, client) {
     let command = CommandReader.getCommandFromMessage(message);
     let args = CommandReader.getArgsFromMessage(message);
     if (CommandTable.has(command))
-        CommandTable.get(command)(message, args, client);
+        if (!message.channel.permissionsFor(client.user).serialize().SEND_MESSAGES) {
+            message.author.send(Text.error.noSpeakPermission);
+        } else {
+            CommandTable.get(command)(message, args, client);
+        }
 }
 
 module.exports = CommandReader;

@@ -284,6 +284,9 @@
             "tooMuchUserError": "** La page que vous avez demandé contient trop de joueurs !"
         }
     },
+    "error": {
+        "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : http://draftbot.tk/ !"
+    },
     "playerManager": {
         "errorMain": {
             ":baby:": "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
