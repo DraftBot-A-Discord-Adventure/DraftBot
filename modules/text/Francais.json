@@ -34,9 +34,9 @@
             "level": "** |** LVL ",
             "xp": "** :star: ",
             "health": " | :heart: ",
-            "rank": " | :trophy:  ",
+            "rank": " | :trophy: ",
             "money": " | :moneybag: ",
-            "score": " | :medal:  ",
+            "score": " | :medal: ",
             "separator": "/",
             "statsAttack": " | :dagger: ",
             "statsDefense": " | :shield: ",
@@ -81,7 +81,7 @@
             "noFin": "**, vous n'avez malheureusement rien à boire dans votre inventaire !",
             "healDebut": " |** ",
             "healBonus": "**, **:heart: Vie gagnée : ** ",
-            "healFin": "** | Vous buvez un breuvage revigorant et sentez une énergie nouvelle vous porter !",
+            "healFin": " | Vous buvez un breuvage revigorant et sentez une énergie nouvelle vous porter !",
             "hospitalDebut": " |** ",
             "hospitalBonus": "**, **:clock1030: Vous avez avancé de ** ",
             "hospitalFin": "** heure(s) | Vous buvez le breuvage et sentez une sensation étrange... Le temps semble être passé plus vite, mais uniquement pour vous !"
@@ -122,7 +122,7 @@
             "validEmoji": ":white_check_mark: | ",
             "spamError": " Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
             "noAnswerError": " Malheureusement, personne ne semble disponible pour combattre sur ce serveur. Votre demande de combat a été annulée.",
-            "alreadyAttackerError": " Il est impossible de se combattre soi-même ! trouvez un autre adversaire.",
+            "alreadyAttackerError": " Il est impossible de se combattre soi-même ! Trouvez un autre adversaire.",
             "fightCanceled": " Votre demande de combat a bien été annulée.",
             "fightNotCanceled": " Seul l'initiateur d'un combat peut l'annuler !",
             "startStart": ":crossed_swords:  | **Un combat est lancé entre ",
@@ -292,14 +292,14 @@
     "playerManager": {
         "errorMain": {
             ":baby:": "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
-            ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourrant ! Veuillez attendre la fin des soins de vos altération d'état.",
-            ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de vos altération d'état.",
+            ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourrant ! Veuillez attendre la fin des soins de votre altération d'état.",
+            ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de votre altération d'état.",
             ":skull:": "** Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
-            ":zzz:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de vos altération d'état.",
-            ":head_bandage:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ! Veuillez attendre la fin des soins de vos altération d'état.",
-            ":snowflake:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de vos altération d'état.",
-            ":confounded:": "** Il est malheureusement impossible de continuer à jouer en étant confus ! Veuillez attendre la fin des soins de vos altération d'état.",
-            ":clock10:": "** Une autre commande a été lancée récemment et attend des instructions de votre part ! Veuillez répondre à cette commande pour continuer à jouer. `Si vous n'avez aucune tâche en cours veuillez contacter un administrateur du bot`",
+            ":zzz:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de votre altération d'état.",
+            ":head_bandage:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ! Veuillez attendre la fin des soins de votre altération d'état.",
+            ":snowflake:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de votre altération d'état.",
+            ":confounded:": "** Il est malheureusement impossible de continuer à jouer en étant confus ! Veuillez attendre la fin des soins de votre altération d'état.",
+            ":clock10:": "** Une autre commande a été lancée récemment et attend des instructions de votre part ! Veuillez répondre à cette commande pour continuer à jouer. `Si vous n'avez aucune tâche en cours, veuillez contacter un administrateur du bot.`",
             ":clock2:": "** Il semblerait que vous soyez déjà occupé... Veuillez attendre la fin de la tâche pour continuer à jouer !"
         },
         "intro": " | **",
@@ -377,7 +377,7 @@
         }
     },
     "events": {
-        "0": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `help` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récuperer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",
+        "0": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `help` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récuperer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons-y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",
         "1": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:scissors: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "2": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "3": " : ** :lock: Vous avez trouvé un coffret ! Malheureusement il est verrouillé...\n\n:key: Chercher la clef autour du lieu de découverte.\n:pick: Attaquer le cadenas à coups de pioche.\n:arrow_forward: Abandonner le coffret à l'endroit où vous l'avez trouvé.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
@@ -431,7 +431,7 @@
                 "2": "** | :walking: Passer par un autre chemin semblait être une bonne solution, malheureusement vous vous êtes blessé en marchant."
             },
             "end": {
-                "1": "** | :scissors: L'arbre a bien été coupé et la route est dégagée malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !"
+                "1": "** | :scissors: L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !"
             }
         },
         "2": {
@@ -465,7 +465,7 @@
                 "2": "** | :arrow_forward: Vous décidez de ne pas vous approcher du petit coffre, estimant qu'il ne vaut pas un arrêt qui vous ferait perdre du temps précieux"
             },
             "end": {
-                "1": "** | :arrow_forward: C'est surement un piège ! En tout cas il est hors de question que vous vous approchiez plus près du coffret ! Vous continuez calmement votre route."
+                "1": "** | :arrow_forward: C'est sûrement un piège ! En tout cas il est hors de question que vous vous approchiez plus près du coffret ! Vous continuez calmement votre route."
             }
         },
         "4": {
@@ -474,7 +474,7 @@
                 "2": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous ne découvrez absolument rien ! Après avoir attendu 10 minutes pour rien vous repartez.",
                 "3": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez qu'il ne s'est rien passé ! Après avoir attendu 10 minutes pour rien vous repartez.",
                 "4": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez ... Rien du tout ! Après avoir attendu 10 minutes pour rien vous repartez.",
-                "5": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... Il est en générale préférable de ne pas continuer de marcher les yeux fermés, vous vous blessez en trébuchant sur un caillou et perdez 10 minutes avant de pouvoir vous remettre en route."
+                "5": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... Il est en général préférable de ne pas continuer de marcher les yeux fermés, vous vous blessez en trébuchant sur un caillou et perdez 10 minutes avant de pouvoir vous remettre en route."
             },
             "🏃": {
                 "1": "** | :runner: Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
@@ -494,7 +494,7 @@
                 "2": "** | :walking: Pas de temps pour le repos ! Il y a une princesse à sauver !",
                 "3": "** | :walking: Vous faites le choix de ne pas vous arrêter et vous continuez à avancer.",
                 "4": "** | :walking: Vous continuez votre aventure sans prêter plus d'attention à cette fontaine",
-                "5": "** | :zzz: Il faut savoir se reposer lorsqu'on est fatigué. extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. il faudra dormir avant de continuer !"
+                "5": "** | :zzz: Il faut savoir se reposer lorsqu'on est fatigué. Extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. il faudra dormir avant de continuer !"
             },
             "end": {
                 "1": "** | :money_mouth:  Vous avez passé une bonne heure à ramasser les pièces dispersées au fond de l'eau mais il semblerait que ça ai valu la peine ! "
@@ -504,7 +504,7 @@
             "🔦": {
                 "1": "** | :flashlight: Vous vous perdez rapidement dans ce labyrinthe, mais vous finissez par en ressortir au bout de quelques heures !",
                 "2": "** | :flashlight: Vous passez quelques minutes à explorer la grotte de fond en comble et trouvez un objet qui pourra peut être vous servir... !",
-                "3": "** | :flashlight: La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdis ! Il faudra vous soigner ! :confounded: "
+                "3": "** | :flashlight: La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdi ! Il faudra vous soigner ! :confounded: "
             },
             "🏃": {
                 "1": "** | :runner: Vous n'êtes pas du genre à risquer de perdre du temps pour des explorations sans intérêt ! Vous finissez de manger et passez votre chemin."
@@ -512,7 +512,7 @@
             "🔍": {
                 "1": "** | :mag: Au bout de 30 minutes vous finissez par découvrir un objet étrange...",
                 "2": "** | :mag: Au bout de 60 minutes vous finissez par abandonner vos recherches sans avoir rien découvert...",
-                "3": "** | :mag: Alors que vous commenciez vos recherches vous faites tomber un grand sac de pièces au fond d'un grand trou ! Il ne sera pas possible de le récupérer...",
+                "3": "** | :mag: Alors que vous commenciez vos recherches,vous faites tomber un grand sac de pièces au fond d'un grand trou ! Il ne sera pas possible de le récupérer...",
                 "4": "** | :mag: Alors que vous cherchiez des objets à ramasser, une énorme branche se détache de l'arbre à côté de vous et vous tombe sur la jambe ! Vous parvenez à vous relever, sonné, mais il faudra aller vous soigner ! :confounded: "
             },
             "end": {
@@ -531,7 +531,7 @@
                 "1": "** | :walking: Vous continuez votre route sans vous soucier de la maison."
             },
             "end": {
-                "1": "** | :walking:  Vous avez passé près de quinze minutes sans bouger il est temps de repartir ! "
+                "1": "** | :walking:  Vous avez passé près de quinze minutes sans bouger, il est temps de repartir ! "
             }
         },
         "8": {
@@ -606,7 +606,7 @@
             },
             "🚣": {
                 "1": "** | 🚣 En tentant de fabriquer votre embarcation vous vous blessez ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
-                "2": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaiblis. Il faudra vous soigner avant de continuer ! :snowflake:",
+                "2": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer ! :snowflake:",
                 "3": "** | 🚣 Vous fabriquez une petite barque en quelques heures et vous atteignez l'autre côté facilement. En sortant de votre bateau vous ramassez un objet qui, à défault de vous servir, sera facile à revendre !"
             },
             "🌉": {
@@ -653,8 +653,8 @@
             },
             "🛏": {
                 "1": "** | 🛏 Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Epuisé, vous vous écroulez de fatigue sur le lit :zzz:",
-                "2": "** | 🛏 L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refuser poliement et reprenez votre route.",
-                "3": "** | 🛏 Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas aprécier les étrangers",
+                "2": "** | 🛏 L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refusez poliment et reprenez votre route.",
+                "3": "** | 🛏 Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers",
                 "4": "** | 🛏 L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son soupé. Affamé et épuisé, vous acceptez son offre."
             },
             "🚶": {
@@ -671,14 +671,14 @@
                 "1": "** | 👥 Vous discutez un moment avec ces sympathiques marchands qui décident de commercer avec vous !",
                 "2": "** | 👥 Malheureusement pour vous, le groupe de marchands n'a rien à vendre, vous passez donc votre chemin.",
                 "3": "** | 👥 Moins accueillant que vous ne l'espériez, le groupe d'homme vous encercle rapidement et sous menace de coups, vous soulage de quelques sous avant de prendre la fuite !",
-                "4": "** | 👥 Vous auriez dû vous fier à votre intuition et refuser cette \"bonne affaire\"... La magnifique épée sertie de diamant que l'on vous a promis semble plutôt faite de mousse molle. Vous revenez rapidement sur vos pas mais la porte de l'échoppe semble définitivement fermée ! Jurant de ne plus jamais vous faire avoir, vous reprenez votre route."
+                "4": "** | 👥 Vous auriez dû vous fier à votre intuition et refuser cette \"bonne affaire\"... La magnifique épée sertie de diamants que l'on vous a promis semble plutôt faite de mousse molle. Vous revenez rapidement sur vos pas mais la porte de l'échoppe semble définitivement fermée ! Jurant de ne plus jamais vous faire avoir, vous reprenez votre route."
             },
             "🏃": {
                 "1": "** | 🏃 Le chemin est encore long, pas le temps de s'arrêter !",
                 "2": "** | 🏃 Vous continuez sans vous arrêter en sillonant les petites rues. Au coin de l'une d'entre elles, vous vous faites sauvagement bousculer par un homme qui prend rapidement la fuite. :confounded:"
             },
             "💰": {
-                "1": "** | 💰 Vous ramassez quelques pièces et fuyez aussi vite que possible sans éprouver le moindre remords.",
+                "1": "** | 💰 Vous ramassez quelques pièces et fuyez aussi vite que possible sans éprouver le moindre remord.",
                 "2": "** | 💰 Malheureusement, il n'y a rien à voler. Par contre votre tentative n'est pas passée innaperçue ! Honteux, vous dédommagez les propriétaires et reprenez la route.",
                 "3": "** | 💰 Pris la main dans le sac ! Face aux 5 hommes à la carrure imposante qui vous entourent, vous regrettez amèrement votre geste malheureux. Vous repartez groggy après avoir versé un dédommagement. :confounded:"
             },

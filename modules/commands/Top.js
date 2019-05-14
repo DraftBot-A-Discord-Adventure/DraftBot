@@ -150,8 +150,6 @@ function displayPlayerInfos(messageTop, player, pseudo, message) {
     }
     messageTop += Text.commands.top.scoreDisplayDebut + player.score + Text.commands.top.scoreDisplayFin;
     messageTop += Text.commands.top.levelDisplayDebut + player.level + Text.commands.top.levelDisplayFin;
-    if (player.badges != "")
-        messageTop += Text.commands.top.separator + player.badges;
 
     messageTop += Text.commands.top.endOfLineWBold;
     return messageTop;
