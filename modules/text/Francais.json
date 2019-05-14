@@ -394,8 +394,9 @@
         "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'homme discute tranquillement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "16": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* ",
-        "17": " : **:stew:  Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.\n\n:apple: Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits\n:mushroom: Cueillir les champignons.\n:salad: Concocter une salade avec les plantes que vous trouvez\n:deer: Tenter de chasser un animal sauvage\n:walking: Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* "
-    },
+        "17": " : **:stew:  Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.\n\n:apple: Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits\n:mushroom: Cueillir les champignons.\n:salad: Concocter une salade avec les plantes que vous trouvez\n:deer: Tenter de chasser un animal sauvage\n:walking: Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* ",
+        "18": " : ** :house_abandoned: Vous arrivez dans une ville, sans y trouver âme qui vive. En la traversant, vous apercevez un chantier qui semble tout aussi désert.\n\n:mag_right: Fouiller le chantier.\n:chains: Fouiller les échafaudages.\n:walking: Poursuivre votre voyage sans y prêter attention.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+        },
     "possibilities": {
         "report": {
             "nothingToSay": {
@@ -733,6 +734,25 @@
             "end": {
                 "1": "** | 🚶 Après quelques instants de reflexion vous décidez de reprendre la route promptement.",
                 "2": "** | 🚶 Vous cherchez une autre source de nourriture pendant quelques instants mais vous vous rendez compte au bout de longues recherches que ces dernières sont vaines. Pas convaincu par les options qui s'offrent à vous, vous repprenez votre route."
+            }
+        },
+        "18": {
+            "🔎": {
+                "1": "** | 🔎 Vous cherchez pendant 30 minutes, mais vous ne trouvez rien d'intéressant.",
+                "2": "** | 🔎 Après avoir cherché 40 minutes, vous finissez par trouver quelque chose qui pourrait être utile!",
+                "3": "** | 🔎 Alors que vous cherchiez dans une boîte a outils, vous vous entaillez la main sur une pince rouillée! :dizzy_face:"
+            },
+            "⛓": {
+                "1": "** | ⛓ Vous grimpez jusqu'en haut des échafaudages, mais à l'exception d'un magnifique paysage, vous ne trouvez rien. Après avoir passé 20 minutes a l'admirer, vous repartez.",
+                "2": "** | ⛓ En grimpant sur la structure instable, vous finissez par trouver quelque chose d'intéressant !",
+                "3": "** | ⛓ Vous montez sur la première échelle, mais arrivé a mi-chemin, un barreau casse et vous tombez au sol! Vous vous blessez la cheville en vous réceptionnant, vous abandonnez donc l'idée d'explorer ce chantier et vous restez vous reposer."
+            },
+            "🚶": {
+                "1": "** | 🚶 Vous décidez d'ignorer ce chantier et vous poursuivez votre route",
+                "2": "** | 🚶 Vous observez le chantier de loin, sans voir la pioche posée au sol. Vous vous entaillez le pied en repartant. :dizzy_face:"
+            },
+            "end": {
+                "1": "** | 🚶 Vous observez le chantier quelques minutes, puis vous réalisez qu'il est vraiment désert. Vous reprenez votre route."
             }
         }
     }
