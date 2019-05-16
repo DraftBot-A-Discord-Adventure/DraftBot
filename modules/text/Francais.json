@@ -395,8 +395,10 @@
         "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'homme discute tranquillement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "16": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* ",
         "17": " : **:stew:  Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.\n\n:apple: Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits\n:mushroom: Cueillir les champignons.\n:salad: Concocter une salade avec les plantes que vous trouvez\n:deer: Tenter de chasser un animal sauvage\n:walking: Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* ",
-        "18": " : ** :house_abandoned: Vous arrivez dans une ville, sans y trouver âme qui vive. En la traversant, vous apercevez un chantier qui semble tout aussi désert.\n\n:mag_right: Fouiller le chantier.\n:chains: Fouiller les échafaudages.\n:walking: Poursuivre votre voyage sans y prêter attention.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
-        },
+        "18": " : ** :house_abandoned: Vous arrivez dans une ville, sans y trouver âme qui vive. En la traversant, vous apercevez un chantier qui semble tout aussi désert.\n\n:mag_right: Fouiller le chantier.\n:chains: Fouiller les échafaudages.\n:walking: Poursuivre votre voyage sans y prêter attention.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "19": " : ** :fox: Après de longs jours sans avoir pu vous sustenter, vous voyez sur le bord du chemin un cadavre de renard, semblant tout frais.\n\n:fork_knife_plate: tenter de cuisiner le renard\n:walking: ignorer simplement cela et vous dépêcher de rejoindre la plus proche auberge\n:knife: dépecer le renard pour revendre sa peau.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+
+},
     "possibilities": {
         "report": {
             "nothingToSay": {
@@ -753,6 +755,26 @@
             },
             "end": {
                 "1": "** | 🚶 Vous observez le chantier quelques minutes, puis vous réalisez qu'il est vraiment désert. Vous reprenez votre route."
+            }
+        },
+        "19": {
+            "🍽": {
+                "1": " | 🍽 Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, mais vous tombez malade peu de temps après l'avoir mangé",
+                "2": " | 🍽 Malgré vos compétences réduites en cuisine, votre renard à la broche a le mérite de vous avoir nourri",
+                "3": " | 🍽 Vous vous approchez du renard afin de le ramasser, quand tout à coup il se lève et vous mord ! vous fuyez, blessé et l'estomac dans les talons",
+                "4": " | 🍽 Vous avez étonnamment bien cuisiné ce renard, après l'avoir mangé vous vous sentez requinqué"
+            },
+            "🚶": {
+                "1": " | 🚶 Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps",
+                "2": " | 🚶 Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps.... à peine l'avez-vous dépassé que le renard se lève et vous mord violemment !"
+            },
+            ":knife:": {
+                "1": " | 🔪 Vous vous approchez du cadavre, et le dépecez. Vous vendez sa fourrure au premier marchand itinérant que vous croisez",
+                "2": " | 🔪 Vous dépecez le renard et partez en quête d'un moyen de vendre ses peaux. Quelques minutes plus tard vous croisez un marchand qui vous propose de le troquer contre un de ses objets de qualité, et vous acceptez",
+                "3": " | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, mais il semblerait que vous soyez tombé malade!"
+            },
+            "end": {
+                "1": " | 👀 Vous regardez un moment la bête étendue au sol, hésitant. Finalement vous reprenez votre chemin"
             }
         }
     }
