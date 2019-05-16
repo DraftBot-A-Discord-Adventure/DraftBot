@@ -739,13 +739,13 @@
         "18": {
             "🔎": {
                 "1": "** | 🔎 Vous cherchez pendant 30 minutes, mais vous ne trouvez rien d'intéressant.",
-                "2": "** | 🔎 Après avoir cherché 40 minutes, vous finissez par trouver quelque chose qui pourrait être utile!",
-                "3": "** | 🔎 Alors que vous cherchiez dans une boîte a outils, vous vous entaillez la main sur une pince rouillée! :dizzy_face:"
+                "2": "** | 🔎 Après avoir cherché 40 minutes, vous finissez par trouver quelque chose qui pourrait être utile !",
+                "3": "** | 🔎 Alors que vous cherchiez dans une boîte a outils, vous vous entaillez la main sur une pince rouillée. La blessure est vraiment profonde !:sick:"
             },
             "⛓": {
-                "1": "** | ⛓ Vous grimpez jusqu'en haut des échafaudages, mais à l'exception d'un magnifique paysage, vous ne trouvez rien. Après avoir passé 20 minutes a l'admirer, vous repartez.",
-                "2": "** | ⛓ En grimpant sur la structure instable, vous finissez par trouver quelque chose d'intéressant !",
-                "3": "** | ⛓ Vous montez sur la première échelle, mais arrivé a mi-chemin, un barreau casse et vous tombez au sol! Vous vous blessez la cheville en vous réceptionnant, vous abandonnez donc l'idée d'explorer ce chantier et vous restez vous reposer."
+                "1": "** | ⛓ Vous grimpez jusqu'en haut des échafaudages, mais à l'exception d'un magnifique paysage, vous ne trouvez rien. Après avoir passé quelques minutes à l'admirer, vous repartez.",
+                "2": "** | ⛓ En grimpant sur la structure instable, vous découvrez une vue imprenable sur la région.  !",
+                "3": "** | ⛓ Vous montez sur la première échelle, mais arrivé a mi-chemin, un barreau casse et vous tombez au sol! étourdi par la chute, vous repprenez lentement vos esprits."
             },
             "🚶": {
                 "1": "** | 🚶 Vous décidez d'ignorer ce chantier et vous poursuivez votre route",

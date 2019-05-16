@@ -1470,7 +1470,7 @@
                 "3": {
                     "timeLost": "0",
                     "healthPointsChange": "-20",
-                    "newEffect": ":confounded:",
+                    "newEffect": ":sick:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
