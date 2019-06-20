@@ -759,22 +759,22 @@
         },
         "19": {
             "🍽": {
-                "1": " | 🍽 Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, mais vous tombez malade peu de temps après l'avoir mangé",
-                "2": " | 🍽 Malgré vos compétences réduites en cuisine, votre renard à la broche a le mérite de vous avoir nourri",
-                "3": " | 🍽 Vous vous approchez du renard afin de le ramasser, quand tout à coup il se lève et vous mord ! vous fuyez, blessé et l'estomac dans les talons",
-                "4": " | 🍽 Vous avez étonnamment bien cuisiné ce renard, après l'avoir mangé vous vous sentez requinqué"
+                "1": "** | 🍽 Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, mais vous tombez malade peu de temps après l'avoir mangé",
+                "2": "** | 🍽 Malgré vos compétences réduites en cuisine, votre renard à la broche a le mérite de vous avoir nourri",
+                "3": "** | 🍽 Vous vous approchez du renard afin de le ramasser, quand tout à coup il se lève et vous mord ! vous fuyez, blessé et l'estomac dans les talons",
+                "4": "** | 🍽 Vous avez étonnamment bien cuisiné ce renard, après l'avoir mangé vous vous sentez requinqué"
             },
             "🚶": {
-                "1": " | 🚶 Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps",
-                "2": " | 🚶 Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps.... à peine l'avez-vous dépassé que le renard se lève et vous mord violemment !"
+                "1": "** | 🚶 Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps",
+                "2": "** | 🚶 Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps... à peine l'avez-vous dépassé que le renard se lève et vous mord violemment !"
             },
-            ":knife:": {
-                "1": " | 🔪 Vous vous approchez du cadavre, et le dépecez. Vous vendez sa fourrure au premier marchand itinérant que vous croisez",
-                "2": " | 🔪 Vous dépecez le renard et partez en quête d'un moyen de vendre ses peaux. Quelques minutes plus tard vous croisez un marchand qui vous propose de le troquer contre un de ses objets de qualité, et vous acceptez",
-                "3": " | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, mais il semblerait que vous soyez tombé malade!"
+            "🔪": {
+                "1": "** | 🔪 Vous vous approchez du cadavre, et le dépecez. Vous vendez sa fourrure au premier marchand itinérant que vous croisez",
+                "2": "** | 🔪 Vous dépecez le renard et partez en quête d'un moyen de vendre ses peaux. Quelques minutes plus tard vous croisez un marchand qui vous propose de le troquer contre un de ses objets de qualité, et vous acceptez",
+                "3": "** | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, mais il semblerait que vous soyez tombé malade!"
             },
             "end": {
-                "1": " | 👀 Vous regardez un moment la bête étendue au sol, hésitant. Finalement vous reprenez votre chemin"
+                "1": "** | 👀 Vous regardez un moment la bête étendue au sol, hésitant. Finalement vous reprenez votre chemin"
             }
         }
     }

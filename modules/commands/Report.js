@@ -32,7 +32,7 @@ const reportCommand = async function (message) {
       let moneyChange = calculateMoney(player, time);
 
       let eventNumber = eventManager.chooseARandomEvent();
-      eventNumber = 18; //allow to select a specific event in testing purpose
+      eventNumber = 19; //allow to select a specific event in testing purpose
 
       switch (true) {
 
