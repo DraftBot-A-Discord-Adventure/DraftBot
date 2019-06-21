@@ -26,13 +26,13 @@ const reportCommand = async function (message) {
       }
 
       let time = player.calcTime(message.createdTimestamp);
-      time = 200; // in testing purpose : Remove for realease
+      time = 1000; // in testing purpose : Remove for realease
 
       let pointsGained = calculatePoints(player, time);
       let moneyChange = calculateMoney(player, time);
 
       let eventNumber = eventManager.chooseARandomEvent();
-      eventNumber = 19; //allow to select a specific event in testing purpose
+      eventNumber = 23; //allow to select a specific event in testing purpose
 
       switch (true) {
 
