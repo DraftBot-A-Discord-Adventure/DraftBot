@@ -109,7 +109,7 @@
             "noDebut": "**:x: | ",
             "noFin": "**, vous n'avez malheureusement aucun objet dans votre réserve !",
             "confirmDebut": "**:interrobang: | ",
-            "confirmIntro": "** , êtes vous sûr de vouloir vous séparer de ",
+            "confirmIntro": "** , êtes-vous sûr de vouloir vous séparer de ",
             "confirmMiddle": " pour **",
             "confirmEnd": "** d'argent ?",
             "cancelStart": ":x: | ",
@@ -377,7 +377,7 @@
         }
     },
     "events": {
-        "0": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `help` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récuperer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons-y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",
+        "0": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `help` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récupérer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons-y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",
         "1": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:scissors: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "2": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
         "3": " : ** :lock: Vous avez trouvé un coffret ! Malheureusement il est verrouillé...\n\n:key: Chercher la clef autour du lieu de découverte.\n:pick: Attaquer le cadenas à coups de pioche.\n:arrow_forward: Abandonner le coffret à l'endroit où vous l'avez trouvé.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
@@ -390,13 +390,23 @@
         "10": " : ** :fish: Alors que vous passiez près d'un plan d'eau, vous remarquez un homme qui semble en difficulté sur sa partie de pêche !\n\n:fishing_pole_and_fish: Proposer son aide.\n:runner: Continuer votre route, pas de temps à perdre !\n:hand_splayed: Pousser le pêcheur dans l'eau !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "11": " : **  :interrobang: Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.\n\n:deciduous_tree: Traverser quand même la forêt.\n:point_left: Suivre les conseils de l'inconnue.\n:point_right: Eviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "12": " : ** 🏞️ Vous voyez une rivière devant vous, de l'autre côté du rivage, vous apercevez un village.\n\n🏊 Traverser la rivière en nageant \n🚣 Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "13": " : **  🏘 Après avoir passé plusieures semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "13": " : **  🏘 Après avoir passé plusieurs semaines à marcher sans effectuer la moindre rencontre humaine, vous entrez finalement dans une petite bourgade qui semble plutôt animée.\n\n🏠 Aller à l’auberge \n🔨 Aller à la forge \n🎪 Aller au marché \n🚶 Repartir\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "14": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'homme discute tranquillement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "15": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'hommes discute tranquillement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "16": " : ** :european_castle: Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:mag_right: Entrer pour fouiller le château.\n:arrow_right: Continuer votre route\n:repeat: Faire le tour du château par l'extérieur\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* ",
         "17": " : **:stew:  Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.\n\n:apple: Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits\n:mushroom: Cueillir les champignons.\n:salad: Concocter une salade avec les plantes que vous trouvez\n:deer: Tenter de chasser un animal sauvage\n:walking: Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* ",
         "18": " : ** :house_abandoned: Vous arrivez dans une ville, sans y trouver âme qui vive. En la traversant, vous apercevez un chantier qui semble tout aussi désert.\n\n:mag_right: Fouiller le chantier.\n:chains: Fouiller les échafaudages.\n:walking: Poursuivre votre voyage sans y prêter attention.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "19": " : ** :fox: Après de longs jours sans avoir pu vous sustenter, vous voyez sur le bord du chemin un cadavre de renard, semblant tout frais.\n\n:fork_knife_plate: tenter de cuisiner le renard\n:walking: ignorer simplement cela et vous dépêcher de rejoindre la plus proche auberge\n:knife: dépecer le renard pour revendre sa peau.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+        "19": " : ** :fox: Après de longs jours sans avoir pu vous sustenter, vous voyez sur le bord du chemin un cadavre de renard, semblant tout frais.\n\n:fork_knife_plate: Tenter de cuisiner le renard\n:walking: Ignorer simplement cela et vous dépêcher de rejoindre l'auberge la plus proche\n:knife: Dépecer le renard pour revendre sa peau.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "20": " : ** :bust_in_silhouette: En vous baladant tranquillement dans un village, vous remarquez du coin de l'œil un garde volant une pauvre femme.\n\n:punch: Attaquer le garde par surprise dans l'optique d'aider la femme\n:walking: Passer votre chemin.\n:call_me: Contactez des gardes un peu plus loin et les prévenir des actes du corrompu.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "21": " : ** :bridge_at_night: En continuant votre périple, vous arrivez devant un pont délabré, qui plus est, est au dessus d'un énorme gouffre. \n\n:walking: Prendre le risque d'emprunter ce pont.\n:bridge_at_night: Chercher un autre chemin un peu plus loin\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "22": " : ** :apple: Alors que vous traversez la propriété d'un fermier, vous voyez un pommier aux fruits forts appétissants. \n\n:euro: Aller acheter des fruits à cet homme\n:busts_in_silhouette: Aller voler des fruits dans l'arbre\n:runner: Ne pas s'en préoccuper\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "23": " : ** :walking: Vous vous baladez en forêt, quand soudain vous apercevez un chariot qui semble cassé. Autour le groupe de personnes semble mal en point.\n\n:hammer: Aider ces habitants à réparer leur chariot\n:runner: Ne pas se préoccuper de ces individus vous semblant suspects.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "24": " : ** :fireworks: Vous montez sur une colline. Alors que vous regardez autour de vous, vous voyez des lumières au loin. Au fur et à mesure que vous vous approchez, vous entendez également de la musique. C'est un festival ! Excité de faire la fête, vous courez vers la ville.\n\n:dart: Aller à un stand de jeu\n:circus_tent: Aller à un stand de vente d'objet\n:oden: Aller à un stand de nourriture \n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "25": " : ** :mag_right: A force d'errer, vous tombez sur un champ de bataille, aux alentours, vous remarquez plusieurs soldats à la recherche de possibles survivants à ce massacre.\n\n:handshake: Proposer son aide\n:spy: Piller les corps\n:walking: Ne pas les aider\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "26": " : ** :walking: En vous promenant dans un village, vous remarquez un regroupement de personnes. En allant voir, vous constatez très vite qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n:money_with_wings: Voler des passants assistant au massacre.\n:punch: S'interposer et empêcher cet homme de mourir.\n:walking: Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "27": " : ** :walking: En vous promenant dans le petit village que vous avez trouvé, vous remarquez un puit avec un petit objet brillant au fond.\n\n:point_down: Tenter de descendre pour récupérer l'objet.\n:handshake: Tenter d'attraper l'objet avec le seau du puit\n:walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "28": " : ** :angel: Pendant votre périple, un individu \"prêchant la parole de Dieu\" selon ses dires, vous invite à rejoindre leur cause. \n\n:white_check_mark: Accepter de la rejoindre\n:x: Refuser gentiment la proposition.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "29": " : ** :thermometer: En cette période où les températures dépassent les 30°C, vous commencez à être fatigué, de ce fait, vous décidez de chercher un moyen de vous délasser pour repartir en meilleure forme.\n\n:mag: Trouver un point d'eau aux alentours.\n:deciduous_tree: Se reposer au pied d'un arbre\n:zzz: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
 
 },
     "possibilities": {
@@ -459,7 +469,7 @@
             "🔑": {
                 "1": "** | :key: Après 50 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle vous permet de découvrir 100 pièces d'or !",
                 "2": "** | :key: Après avoir passé 1 heure à tenter de retrouver la clef, vous finissez par abandonner et laissez le coffret derrière vous.",
-                "3": "** | :key: Après 40 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle est tellement endomagée qu'il vous est impossible d'ouvrir le coffre ! Vous finissez par abandonner et laissez le coffret derrière vous.",
+                "3": "** | :key: Après 40 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle est tellement endommagée qu'il vous est impossible d'ouvrir le coffre ! Vous finissez par abandonner et laissez le coffret derrière vous.",
                 "4": "** | :key: Après 20 minutes passées à creuser partout autour du petit coffre, vous finissez par abandonner et laissez le coffret derrière vous.",
                 "5": "** | :key: Après 2 heures de recherches, vous finissez par abandonner et laissez le coffret derrière vous."
             },
@@ -473,7 +483,7 @@
         },
         "4": {
             "🗣": {
-                "1": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez un sac remplit d'argent devant vous ! Perdre ces 10 minutes valait le coup !",
+                "1": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez un sac rempli d'argent devant vous ! Perdre ces 10 minutes valait le coup !",
                 "2": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous ne découvrez absolument rien ! Après avoir attendu 10 minutes pour rien vous repartez.",
                 "3": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez qu'il ne s'est rien passé ! Après avoir attendu 10 minutes pour rien vous repartez.",
                 "4": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez ... Rien du tout ! Après avoir attendu 10 minutes pour rien vous repartez.",
@@ -497,10 +507,10 @@
                 "2": "** | :walking: Pas de temps pour le repos ! Il y a une princesse à sauver !",
                 "3": "** | :walking: Vous faites le choix de ne pas vous arrêter et vous continuez à avancer.",
                 "4": "** | :walking: Vous continuez votre aventure sans prêter plus d'attention à cette fontaine",
-                "5": "** | :zzz: Il faut savoir se reposer lorsqu'on est fatigué. Extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. il faudra dormir avant de continuer !"
+                "5": "** | :zzz: Il faut savoir se reposer lorsqu'on est fatigué. Extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. Il faudra dormir avant de continuer !"
             },
             "end": {
-                "1": "** | :money_mouth:  Vous avez passé une bonne heure à ramasser les pièces dispersées au fond de l'eau mais il semblerait que ça ai valu la peine ! "
+                "1": "** | :money_mouth:  Vous avez passé une bonne heure à ramasser les pièces dispersées au fond de l'eau mais il semblerait que ça ait valu la peine ! "
             }
         },
         "6": {
@@ -515,7 +525,7 @@
             "🔍": {
                 "1": "** | :mag: Au bout de 30 minutes vous finissez par découvrir un objet étrange...",
                 "2": "** | :mag: Au bout de 60 minutes vous finissez par abandonner vos recherches sans avoir rien découvert...",
-                "3": "** | :mag: Alors que vous commenciez vos recherches,vous faites tomber un grand sac de pièces au fond d'un grand trou ! Il ne sera pas possible de le récupérer...",
+                "3": "** | :mag: Alors que vous commenciez vos recherches, vous faites tomber un grand sac de pièces au fond d'un grand trou ! Il ne sera pas possible de le récupérer...",
                 "4": "** | :mag: Alors que vous cherchiez des objets à ramasser, une énorme branche se détache de l'arbre à côté de vous et vous tombe sur la jambe ! Vous parvenez à vous relever, sonné, mais il faudra aller vous soigner ! :confounded: "
             },
             "end": {
@@ -526,7 +536,7 @@
             "🚪": {
                 "1": "** | :door: En forcant la porte vous vous blessez profondement, il faut absolument vous soigner ! :sick:",
                 "2": "** | :door: Après avoir passé presque 1 heure à tenter de rentrer dans la maison, vous finissez par abandonner. En partant vous trouvez un objet qui pourra peut être vous être utile !",
-                "3": "** | :door: Vous entrez dans la maison et posez vos affaire pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. :zzz: ",
+                "3": "** | :door: Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. :zzz: ",
                 "4": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. En sortant vous trouvez un objet qui pourra peut être vous être utile !",
                 "5": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. Vous finissez par abandonner vos recherches sans avoir rien trouvé."
             },
@@ -569,7 +579,7 @@
         "10": {
             "🎣": {
                 "1": "** | :walking: L'homme refuse gentiment votre aide, vous poursuivez votre route.",
-                "2": "** | :tropical_fish: Grâce à vous l'homme attrape un superbe poisson de 3 KG ! Pour vous remercier il vous offre quelque chose qui pourrait vous être utile...",
+                "2": "** | :tropical_fish: Grâce à vous, l'homme attrape un superbe poisson de 3 KG ! Pour vous remercier, il vous offre quelque chose qui pourrait vous être utile...",
                 "3": "** |  :sweat_drops: Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:"
             },
             "🏃": {
@@ -610,7 +620,7 @@
             "🚣": {
                 "1": "** | 🚣 En tentant de fabriquer votre embarcation vous vous blessez ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
                 "2": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer ! :snowflake:",
-                "3": "** | 🚣 Vous fabriquez une petite barque en quelques heures et vous atteignez l'autre côté facilement. En sortant de votre bateau vous ramassez un objet qui, à défault de vous servir, sera facile à revendre !"
+                "3": "** | 🚣 Vous fabriquez une petite barque en quelques heures et vous atteignez l'autre côté facilement. En sortant de votre bateau vous ramassez un objet qui, à défaut de vous servir, sera facile à revendre !"
             },
             "🌉": {
                 "1": "** | 🌉 Au bout de 30 minutes vous finissez par abandonner et vous reprenez votre route dans une autre direction...",
@@ -658,12 +668,12 @@
                 "1": "** | 🛏 Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Epuisé, vous vous écroulez de fatigue sur le lit :zzz:",
                 "2": "** | 🛏 L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refusez poliment et reprenez votre route.",
                 "3": "** | 🛏 Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers",
-                "4": "** | 🛏 L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son soupé. Affamé et épuisé, vous acceptez son offre."
+                "4": "** | 🛏 L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son souper. Affamé et épuisé, vous acceptez son offre."
             },
             "🚶": {
                 "1": "** | 🚶 Vous partez sans perdre de temps.",
                 "2": "** | 🚶 Vous continuez votre route en contournant la prairie.",
-                "3": "** | 🚶 Vous décidez de continuer à marcher malgrès la fatigue. Après quelques kilomètres, vous vous écroulez au bord du chemin. :sick:"
+                "3": "** | 🚶 Vous décidez de continuer à marcher malgré la fatigue. Après quelques kilomètres, vous vous écroulez au bord du chemin. :sick:"
             },
             "end": {
                 "1": "** | 🚶 Vous contournez la maison et continuez votre route."
@@ -673,7 +683,7 @@
             "👥": {
                 "1": "** | 👥 Vous discutez un moment avec ces sympathiques marchands qui décident de commercer avec vous !",
                 "2": "** | 👥 Malheureusement pour vous, le groupe de marchands n'a rien à vendre, vous passez donc votre chemin.",
-                "3": "** | 👥 Moins accueillant que vous ne l'espériez, le groupe d'homme vous encercle rapidement et sous menace de coups, vous soulage de quelques sous avant de prendre la fuite !",
+                "3": "** | 👥 Moins accueillant que vous ne l'espériez, le groupe d'hommes vous encercle rapidement et sous menace de coups, vous soulage de quelques sous avant de prendre la fuite !",
                 "4": "** | 👥 Vous auriez dû vous fier à votre intuition et refuser cette \"bonne affaire\"... La magnifique épée sertie de diamants que l'on vous a promis semble plutôt faite de mousse molle. Vous revenez rapidement sur vos pas mais la porte de l'échoppe semble définitivement fermée ! Jurant de ne plus jamais vous faire avoir, vous reprenez votre route."
             },
             "🏃": {
@@ -682,7 +692,7 @@
             },
             "💰": {
                 "1": "** | 💰 Vous ramassez quelques pièces et fuyez aussi vite que possible sans éprouver le moindre remord.",
-                "2": "** | 💰 Malheureusement, il n'y a rien à voler. Par contre votre tentative n'est pas passée innaperçue ! Honteux, vous dédommagez les propriétaires et reprenez la route.",
+                "2": "** | 💰 Malheureusement, il n'y a rien à voler. Par contre, votre tentative n'est pas passée inaperçue ! Honteux, vous dédommagez les propriétaires et reprenez la route.",
                 "3": "** | 💰 Pris la main dans le sac ! Face aux 5 hommes à la carrure imposante qui vous entourent, vous regrettez amèrement votre geste malheureux. Vous repartez groggy après avoir versé un dédommagement. :confounded:"
             },
             "end": {
@@ -759,23 +769,209 @@
         },
         "19": {
             "🍽": {
-                "1": "** | 🍽 Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, mais vous tombez malade peu de temps après l'avoir mangé",
-                "2": "** | 🍽 Malgré vos compétences réduites en cuisine, votre renard à la broche a le mérite de vous avoir nourri",
-                "3": "** | 🍽 Vous vous approchez du renard afin de le ramasser, quand tout à coup il se lève et vous mord ! vous fuyez, blessé et l'estomac dans les talons",
-                "4": "** | 🍽 Vous avez étonnamment bien cuisiné ce renard, après l'avoir mangé vous vous sentez requinqué"
+                "1": " | 🍽 Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, mais vous tombez malade peu de temps après l'avoir mangé :sick: ",
+                "2": " | 🍽 Malgré vos compétences réduites en cuisine, votre renard à la broche a le mérite de vous avoir nourri",
+                "3": " | 🍽 Vous vous approchez du renard afin de le ramasser, quand tout à coup il se lève et vous mord ! Vous fuyez, blessé et l'estomac dans les talons",
+                "4": " | 🍽 Vous avez étonnamment bien cuisiné ce renard, après l'avoir mangé vous vous sentez requinqué"
             },
             "🚶": {
-                "1": "** | 🚶 Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps",
-                "2": "** | 🚶 Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps... à peine l'avez-vous dépassé que le renard se lève et vous mord violemment !"
+                "1": " | 🚶 Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps",
+                "2": " | 🚶 Vous choisissez d'ignorer ce cadavre et de ne pas perdre de temps.... A peine l'avez-vous dépassé que le renard se lève et vous mord violemment !"
             },
-            "🔪": {
-                "1": "** | 🔪 Vous vous approchez du cadavre, et le dépecez. Vous vendez sa fourrure au premier marchand itinérant que vous croisez",
-                "2": "** | 🔪 Vous dépecez le renard et partez en quête d'un moyen de vendre ses peaux. Quelques minutes plus tard vous croisez un marchand qui vous propose de le troquer contre un de ses objets de qualité, et vous acceptez",
-                "3": "** | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, mais il semblerait que vous soyez tombé malade!"
+            ":knife:": {
+                "1": " | 🔪 Vous vous approchez du cadavre, et le dépecez. Vous vendez sa fourrure au premier marchand itinérant que vous croisez",
+                "2": " | 🔪 Vous dépecez le renard et partez en quête d'un moyen de vendre ses peaux. Quelques minutes plus tard vous croisez un marchand qui vous propose de le troquer contre un de ses objets de qualité, et vous acceptez",
+                "3": " | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, mais il semblerait que vous soyez tombé malade !"
             },
             "end": {
-                "1": "** | 👀 Vous regardez un moment la bête étendue au sol, hésitant. Finalement vous reprenez votre chemin"
+                "1": " | 👀 Vous regardez un moment la bête étendue au sol, hésitant. Finalement vous reprenez votre chemin"
             }
-        }
+        },
+        "20":{
+            "👊": {
+                "1": " | 👊 Vous parvenez à assommer le garde et récupérez un objet précieux qu'il portait",
+                "2": " | 👊 Au dernier moment, le garde se retourne et vous attaque. Il vous laisse néanmoins en vie.",
+                "3": " | 👊 Le garde esquive et la femme parvient à s'enfuir. Elle vous retrouve plus loin, hors de danger, pour vous remercier avec quelques pièces d'or."
+            },
+            "🚶": {    
+                "1": " | 🚶 Vous ne prêtez donc pas attention au garde.",
+                "2": " | 🚶 En passant votre chemin, vous trébuchez et tombez par terre."
+            },
+            "🤙":{
+                "1": " | 🤙 Les gardes vous suivent et arrêtent le corrompu, la femme vous donne un objet en gage de remerciements.",
+                "2": " | 🤙 Les gardes, étant aussi des criminels, vous attaquent à la hanche. Vous restez malgré tout en vie."
+            },
+            "end": {
+                "1": " | 🚶 Vous continuez votre chemin sans prêter attention au garde.",
+                "2": " | 🚶 Abasourdi, vous restez contempler ce massacre pendant 5min. Puis quand le garde vous remarque vous reprenez vos esprits et passez votre chemin. "
+            }
+        },
+        "21":{
+            "🚶": {
+                "1": " | 🚶 La traversée vous semble risquée, mais vous n'avez pas de temps à perdre et traversez donc. Après 5 minutes de marche sur ce pont vous arrivez au bout sain et sauf.",
+                "2": " | 🚶 En traversant ce pont vous voyez un petit sac, en l'ouvrant vous remarquez un nombre conséquent de pièces",
+                "3": " | 🚶 En marchant sur le pont, vous entendez de petits craquements, quand soudain, une planche tombe, et vous tombez avec. :nauseated_face:",
+                "4": " | 🚶 Au cours de votre traversée, une planche tombe, heureusement, vous réussissez à vous accrocher à une autre planche, elle plus solide. Après quelques minutes à vous remettre de vos émotions, vous continuez votre route."
+            },
+            "🌉": {    
+                "1": " | 🌉 Après une bonne heure de marche, vous trouvez une autre pont, qui lui, semble en bien meilleur état et décidez de l'emprunter.",
+                "2": " | 🌉 Durant votre chemin, vous remarquez une petit caisse et l'ouvrez, dans celle-ci un objet semblant utile. Vous le récupérez et continuez votre route.",
+                "3": " | 🌉 Vous apercevez un pont et vous précipitez pour pour le rejoindre au plus vite, cependant vous trébuchez sur un tronc d'arbre et vous blessez. :confounded:"
+            },
+            "end": {
+                "1": " | 🕑 Vous attendez une vingtaine de minutes en observant ce pont. Puis vous continuez votre route.",
+                "2": " | 🚶 Pas de temps à perdre, vous continuez votre chemin, sans vous préoccuper de ce dangereux chemin."
+            }
+        },
+        "22": {
+            "💶":{
+                "1": " | 💶 Vous voyez le fermier, et allez lui demander des fruits, celui vous en donne en l'échange quelques pièces. Une quinzaine de minutes plus tard, vous remarquez qu'ils étaient empoisonnés et tombez à même le sol. :nauseated_face:",
+                "2": " | 💶 Le fermier accepte vous vendre 2 pommes contre quelques pièces. Après les avoir manger, vous regagnez beaucoup d'énergie et repartez.",
+                "3": " | 💶 Le fermier refuse de vous vendre des fruits, vous continuez donc votre route sans perdre plus de temps."
+            },
+            "👥":{
+                "1": " | 👥 Après quelques minutes passées sur place, vous repartez avec plusieurs fruits. Vous décidez d'en tirer profit en les vendant dans le village d'à côté.",
+                "2": " | 👥 Le fermier se rend compte de votre présence dans ses champs, et vous rue de coups.",
+                "3": " | 👥 Après avoir mangé quelques fruits, vous repartez en ayant re-gagné de l'énergie.",
+                "4": " | 👥 Le fermier se rend rapidement compte de votre tentative et vous attrape. Après avoir récupéré ses fruits, il vous demande une compensation."
+            },
+            "🏃": {
+                "1": " | 🏃 Vous continuez simplement votre route sans vous préoccuper de ces fruits qui semblaient pourtant appétissants."
+            }, 
+            "end": {
+                "1": " | 👀 Vous observez l'arbre pendant une vingtaine de minutes et repartez.",
+                "2": " | 👀 Le fermier vous voit, et vous propose quelques fruits que vous acceptez volontiers."
+            }
+        },
+        "23": {
+            "🔨":{
+                "1": " | 🔨 Vous décidez de vous approcher et d'aller les aider. Après avoir passé 45 minutes à les aider, ces individus vous remercient et vous donnent de l'argent",
+                "2": " | 🔨 Vous passez près d'une heure à réparer leur chariot. Une fois celui réparé, le groupe de personnes se jette sur vous et vous vole une partie de vos biens.",
+                "3": " | 🔨 Vous réparez rapidement leur chariot. Heureux, ils vous remercient et vous offre un cadeau qui vous servira sûrement pour la suite de votre périple."
+            },
+            "🚶":{
+                "1": " | 🚶 Vous ne voulez pas perdre de temps, et continuez votre route.",
+                "2": " | 🚶 En partant, vous trébuchez dans un trou et vous blessez. :nauseated_face:"
+            },
+            "end": {
+                "1": " | 👀 Vous passez 15 minutes à les regarder et vous décidez de continuer votre route sans y prêter plus d'attention."
+            } 
+        },
+        "24": {
+            "🎯": {  
+                "1": " | 🎯 Vous décidez de vous approcher et d'aller les aider. Après avoir passé 45 minutes à les aider, ces individus vous remercient et vous donnent de l'argent",
+                "2": " | 🎯 Vous passez près d'une heure à réparer leur chariot. Une fois celui réparé, le groupe de personnes se jette sur vous et vous vole une partie de vos biens.",
+                "3": " | 🎯 Vous réparez rapidement leur chariot. Heureux, ils vous remercient et vous offre un cadeau qui vous servira sûrement pour la suite de votre périple."
+            },
+            "🎪":{
+                "1": " | 🎪 Vous recherchez pendant des heures cet objet que vous vouliez mais personne ne l'a. Pour ne rien acheter d'inutile, vous décidez finalement de ne rien acheter du tout.",
+                "2": " | 🎪 Vous passez près d'une heure à réparer leur chariot. Une fois celui réparé, le groupe de personnes se jette sur vous et vous vole une partie de vos biens."
+            },
+            "🍢": {  
+                "1": " | 🍢 Cette nourriture, elle est incroyable ! De votre vie, jamais vous n'avez mangé quelque chose d'aussi bon. Vous vous sentez revigoré et apaisé.",
+                "2": " | 🍢 Cette nourriture, elle est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé.",
+                "3": " | 🍢 Cette nourriture, elle est classique. Vous ne ressentez rien en la mangeant ni après avoir fini puis en oubliez vite le goût "
+            }, 
+            "end": {
+                "1": " | 🚶 Aucun des stands ne vous intéresse et vous sorrez rapidement de la ville après quelque coups d'oeil.",
+                "2": " | 🚶 Vous décidez de ne rien acheter mais vous flanez tout de même un long moment entre les stands."
+            }
+        },
+        "25": {
+            "🤝": {
+                "1": " | 🤝 Vous décidez d'aller voir les soldats, et vous leur proposez votre aide pour chercher des survivants. Après 45 minutes d'aide, un soldat vous offre un peu d'argent pour vous remercier de votre aide si précieuse.",
+                "2": " | 🤝 En allant chercher des survivants, vous vous faites attaquer par une personne étant en train de piller des corps après vous être débattu, vous fuyez et continuez votre route."
+            },
+            "🕵": {
+                "1": " | 🕵 Vous décidez de contourner les soldats, et allez piller les corps des pauvres défunts pour tenter de vous enrichir un petit peu.",
+                "2": " | 🕵 En pillant les corps, vous vous faites attraper brusquement par un soldat. Vous rendez donc immédiatement ce que vous avez récupéré avant de continuer votre route rapidement."
+            }, 
+            "🚶": {  
+                "1": " | 🚶 Vous ne prêtez pas attention au massacre qui a eu lieu, et allez vous reposer un peu plus loin.",
+                "2": " | 🚶 Pas de temps à perdre ! Vous continuez votre route. ",
+                "3": " | 🚶  Pressés de continuer votre route, vous trébuchez sur un corps sans vie, et vous blessez. :nauseated_face:"
+            }, 
+            "end": {
+                "1": " | 👀 Vous restez à regarder les soldats pendant une quinzaine de minutes, puis continuez votre route.",
+                "2": " | 👀 Fatigués, vous tombez raide et vous endormez au sol. :zzz:"
+            }
+        }, 
+        "26": {
+            "💸": {
+                "1": " | 💸 Après avoir dépouillé quelques personnes, vous repartez avec un objet qui semble fort intéressant après avoir marcher une trentaine de minutes, vous regardez ce que c'est.",
+                "2": " | 💸 Vous volez un habitant quand soudain il se retourne, et vous attrape fermement avant de vous ruer de coups. Après vous êtes débattu, vous fuyez."
+            },
+            "👊": {
+                "1": " | 👊 Après vous être débattu pour traverser la foule, vous intervenez au plus vite et réussissez à extirper cet homme de là. Après avoir couru à travers le village, cet homme, très reconnaissant vous offre un objet qui vous servira pour la suite de votre aventure.",
+                "2": " | 👊 Durant votre traversée de la foule pour tenter d'aller empêcher ce meurtre, vous vous faites fortement bousculer, et tombez au sol.",
+                "3": " | 👊 Après avoir réussi à partir d'ici avec l'homme, vous vous faites rattraper et,  frapper par un groupe de personnes. Une fois relevé, vous remarquez que ces individus vous ont volé.",
+                "4": " | 👊 Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamnés à la peine capitale. :skull:"
+            }, 
+            "🚶": {  
+                "1": " | 🚶 Horrifiés par cet acte de barbarie, vous continuez rapidement votre route.",
+                "2": " | 🚶 Durant votre course, vous voyez au loin, un coffret ouvert. Après quelques minutes de marche, vous y êtes, à l'intérieur de celui-ci, un sac remplis d'argent."
+            }, 
+            "end": {
+                "1": " | 👀 Après avoir passé 15 minutes à observer cette scène, vous repartez, choqués, mais continuez votre aventure."
+            }
+        },
+        "27": {
+            "👇":{
+                "1": " | 👇 Vous vous blessez grièvement lors de la descente et restez bloqué au fond plusieurs heures avant que quelqu'un ne vous retrouve.",
+                "2": " | 👇 Vous arrivez en bas sans soucis, récupérez l'objet, et continuez votre route.",
+                "3": " | 👇 Vous sautez dans le puit mais n'y trouvez rien, vous remontez donc sans perdre davantage de temps.",
+                "4": " | 👇 Une fois en bas, vous découvrez une grand quantité de pièces d'or que vous récupérez avant de continuer votre périple."
+            }, 
+            "🤝":{  
+                "1": " | 🤝 Après une heure de tentatives, vous obtenez enfin cet objet, qui se révèle être en réalité un simple bout de ferraille.",
+                "2": " | 🤝 Concentrés sur votre objectif, vous ne vous rendez pas compte qu'un jeune du village vous attrape, et vous fait tomber dans le puit. Sonné, vous ne vous réveillez que plusieurs heures après. :zzz:",
+                "3": " | 🤝 Rapidement, vous récupérez l'argent qui se trouvait au fond, et continuez votre route."
+            },
+            "🚶":{  
+                "1": " | 🚶 Pas de temps à perdre ! Vous continuez votre route sans prêter la moindre attention à ceci.",
+                "2": " | 🚶 Vous continuez votre route, mais après une petit heure de marche, tombez nez à nez avec un groupe de personnes habillées de noir. Après vous être débattu avec acharnement, vous réussissez à partir, mais vous vous êtes fait dépouiller."
+            },
+            "end":{  
+                "1": " | 👀 Vous observez bêtement l'objet pendant 20 minutes puis repartez.",
+                "2": " | 🚶 Vous observez, penché au dessus du puit, l'objet. C'est alors que vous basculez et y tombez, heureusement vous arrivez à rapidement remonter, mais vous ressortez de cette aventure grièvement blessé. :nauseated_face:"
+            }
+
+        },
+        "28": {
+            "✅":{
+                "1": " | ✅ Vous les rejoignez, vous perdez 3 heures à assistez à une cérémonie religieuse, qui se résume à une chorale chrétienne.",
+                "2": " | ✅ Vous les rejoignez, vous partez au bout de 30 minutes vous rendant compte de la stupidité de leurs choses",
+                "3": " | ✅ Les hommes vous ont tendus un piège, ils vous encerclent et vous en subissez les conséquences !",
+                "4": " | ✅ Vous les rejoignez, vous repartez aussi vite en volant un objet qui pourra vous être utile."
+            },
+            "❌": { 
+                "1": " | ❌ Vous lui dites poliment que sa cause ne vous intéresse pas, vous repartez.",
+                "2": " | ❌ L'homme n'est pas ouvert à la discussion, son groupe d'hommes vous force à rentrer dedans avec violence."
+            },
+            "end":{
+                "1": " | 🚶 L'homme s'en va rapidement voyant un individu semblant inerte"
+            }
+        },
+        "29":{
+            "🔍":{
+                "1": " | 🔍 Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
+                "2": " | 🔍 Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Sur le chemin vous trouvez un item qui vous sera sûrement utile. Arrivé au lac, l'eau est trop froide pour s'y baigner..",
+                "3": " | 🔍 Vous cherchez un point d'eau en vain, du fait de votre fatigue, vous faites un malaise. :zzz:"            
+            }, 
+            "🌳":{  
+                "1": " | 🌳 Vous voyez une zone d'ombre sous les arbres, et décidez d'y aller. Après une petite heure de sommeil, vous repartez et continuez votre route.",
+                "2": " | 🌳 Vous vous dirigez vers une zone ombragée, où vous vous reposer. Mais, à votre réveil, vous remarquez que vous vous êtes fait dépouiller de vos affaires."            
+            },
+            "💤":{  
+                "1": " | 💤 Vous vous reposez, cependant, le sol est très inconfortable",
+                "2": " | 💤 Vous vous reposez, après votre bonne sieste, vous repartez plus motivé que jamais"
+            },
+            "end":{  
+                "1": " | 👀 Vous restez à votre place, en plein soleil pendant une quinzaine de minutes, puis vous écroulez",
+                "2": " | 🚶 Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps"
+            }
+
+       }
+
     }
 }
