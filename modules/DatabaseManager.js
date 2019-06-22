@@ -22,7 +22,6 @@ class DatabaseManager {
      */
     setEverybodyAsUnOccupied() {
         console.log("Updating everybody ...");
-        sql.run(`UPDATE player SET badges = ""`).catch(console.error);
         sql.run(`UPDATE entity SET effect = ":smiley:" WHERE effect = ":clock10:"`).catch(console.error);
         console.log("everybody updated !");
     }
