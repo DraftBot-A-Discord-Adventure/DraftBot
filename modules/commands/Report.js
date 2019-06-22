@@ -16,7 +16,7 @@ const reportCommand = async function (message) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-   if (playerManager.checkState(player, message, ":baby::smiley:")|| true) {  //check if the player is not dead or sick
+   if (playerManager.checkState(player, message, ":baby::smiley:")) {  //check if the player is not dead or sick
 
       playerManager.setPlayerAsOccupied(player);
 
@@ -79,6 +79,7 @@ const execPossibility = function (message, possibility, playerManager, player, m
    if (possibility.idEvent == 0) {
       if (possibility.emoji == "end") {
          possibilityMessage = displayPossibility(message, 0, 0, possibility);
+         applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager)
       } else {
          possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
          launchAdventure(message, pointsGained, moneyChange, player, possibility, playerManager)
