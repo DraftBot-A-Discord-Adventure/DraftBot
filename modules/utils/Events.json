@@ -1753,7 +1753,7 @@
                 "3": {
                     "timeLost": "0",
                     "healthPointsChange": "-60",
-                    "newEffect": ":nauseated_face:",
+                    "newEffect": ":sick:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -1811,7 +1811,7 @@
                 "1": {
                     "timeLost": "0",
                     "healthPointsChange": "-30",
-                    "newEffect": ":nauseated_face:",
+                    "newEffect": ":sick:",
                     "xpGained": "0",
                     "moneyGained": "-50"
                 },
@@ -1923,7 +1923,7 @@
                 "2": {
                     "timeLost": "0",
                     "healthPointsChange": "-35",
-                    "newEffect": ":nauseated_face:",
+                    "newEffect": ":sick:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -1990,7 +1990,7 @@
                 "2": {
                     "timeLost": "0",
                     "healthPointsChange": "-100",
-                    "newEffect": ":nauseated_face:",
+                    "newEffect": ":sick:",
                     "xpGained": "0",
                     "moneyGained": "-20"
                 },
@@ -2070,7 +2070,7 @@
                 "3": {
                     "timeLost": "0",
                     "healthPointsChange": "-15",
-                    "newEffect": ":nauseated_face:",
+                    "newEffect": ":sick:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -2249,7 +2249,7 @@
                 "2": {
                     "timeLost": "0",
                     "healthPointsChange": "-45",
-                    "newEffect": ":nauseated_face:",
+                    "newEffect": ":sick:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
