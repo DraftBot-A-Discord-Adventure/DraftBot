@@ -89,11 +89,13 @@ function askForAnotherPlayer(args) {
  * @param {*} player - The player that is displayed
  * @param {*} msg - The message that contain the profile of the player
  */
-function displayBadges(player, msg) {
+async function displayBadges(player, msg) {
     if (player.getBadges() != "") {
         let str = player.getBadges();
+        str = str.split('-');
         for (var i = 0; i < str.length; i++) {
-            msg.react(str.charAt(i)).catch(err => { });
+            console.log(i + ":" +str[i])
+            await msg.react(str[i]);
         }
     }
 }
