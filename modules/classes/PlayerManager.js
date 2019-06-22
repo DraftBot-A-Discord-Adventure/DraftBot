@@ -22,12 +22,12 @@ class PlayerManager {
     getCurrentPlayer(message) {
         return sql.get(`SELECT * FROM entity JOIN player on entity.id = player.discordId WHERE discordId ="${message.author.id}"`).then(player => {
             if (!player) { //player is not in the database
-                console.log(`Utilisateur inconnu : ${message.author.username}`);
+                console.log(`user unknown : ${message.author.username}`);
                 let player = this.getNewPlayer(message)
                 this.addPlayer(player);
                 return player;
             } else { //player is in the database
-                console.log(`Utilisateur reconnu : ${message.author.username}`);
+                console.log(`user loaded : ${message.author.username}`);
                 return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
             }
         }).catch(error => { //there is no database
@@ -46,10 +46,10 @@ class PlayerManager {
     getPlayerById(id, message) {
         return sql.get(`SELECT * FROM entity JOIN player on entity.id = player.discordId WHERE discordId ="${id}"`).then(player => {
             if (!player) { //player is not in the database
-                console.log(`Utilisateur inconnu : ${id}`);
+                console.log(`user unknown : ${id}`);
                 return this.getNewPlayerById(id, message);
             } else { //player is in the database
-                console.log(`Utilisateur reconnu : ${id}`);
+                console.log(`user loaded : ${id}`);
                 return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
             }
         }).catch(error => { //there is no database

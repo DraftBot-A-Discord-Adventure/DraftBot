@@ -88,6 +88,7 @@
         },
         "daily": {
             "errorDebut": " |** ",
+            "errorDead": "**,  il est impossible d'utiliser le pouvoir d'un objet en étant K.O !",
             "errorFin": "**,  vous tentez d'utiliser le pouvoir de l'objet que vous transportez... Mais cela n'a aucun effet !",
             "errorDebutTiming": ":hourglass: |** ",
             "errorFinTiming": "**, Il semblerait que vous ayez déjà utilisé le pouvoir d'un objet aujourd'hui... Revenez demain !",
@@ -335,7 +336,7 @@
         "separator": " |"
     },
     "entity": {
-        "killMessage": ":crossed_swords:  Bonjour Combattant !\n\nIl semblerait que vous ayez été mis K.O...  :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à  vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté  par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`",
+        "killMessage": ":crossed_swords:  Bonjour Combattant !\n\nIl semblerait que vous ayez été mis K.O... :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté  par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`",
         "killPublicIntro": ":skull: | **",
         "killPublicMessage": " ** a été mit K.O !"
     },

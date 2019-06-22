@@ -27,10 +27,10 @@ class ServerManager {
     getServer(message) {
         return sql.get(`SELECT * FROM server WHERE id ="${message.guild.id}"`).then(server => {
             if (!server) { //server is not in the database
-                console.log(`serveur inconnu : ${message.guild.name}`);
+                console.log(`serveur unknown : ${message.guild.name}`);
                 return this.getNewServer(message);
             } else { //server is in the database
-                console.log(`server reconnu : ${message.guild.name}`);
+                console.log(`server loaded : ${message.guild.name}`);
                 return new Server(server.id, server.prefix, server.language)
             }
         }).catch(error => { //there is no database
@@ -50,7 +50,7 @@ class ServerManager {
                 console.log(`Aucun serveur enregistré pour cette id: ${id}`);
                 return 0;
             } else { //server is in the database
-                console.log(`server reconnu : ${id}`);
+                console.log(`server loaded : ${id}`);
                 return new Server(server.id, server.prefix, server.lang)
             }
         }).catch(error => { //there is no database

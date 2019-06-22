@@ -16,48 +16,53 @@ const dailyCommand = async function (message) {
     let inventory = await inventoryManager.getCurrentInventory(message);
     let object = inventory.getCurrentObject();
     let messageDaily;
-    if (currentDay.getDay() == inventory.lastDaily) { 
-        //an item has already been activated today
-        messageDaily = generateDailyTimingErrorMessage(message);
+    if (player.isDead()) {
+        //the player is dead
+        messageDaily = generateDailyDeadMessage(message, player);
     } else {
-        console.log(object)
-        //this is the first use of an object today
-        switch (object.getNatureEffect()) {
-            case 0:
-                if (inventory.objectId != DefaultValues.inventory.object) { //there is a object that do nothing in the inventory
-                    messageDaily = generateDailyErrorMessage(message, object);
-                } else { //there is no object in the inventory
-                    messageDaily = generateNoDailyMessage(message);
-                }
-                break;
-            case 1: //the object is a heal object
-                messageDaily = generateDailyHealthMessage(message, object);
-                player.addHealthPoints(object.power);
-                inventory.lastDaily = currentDay.getDay();
-                break;
-            case 2: //the object is a speed object
-                messageDaily = generateDailyCombatMessage(message, object);
-                break;
-            case 3: //the object is a defense object
-                messageDaily = generateDailyCombatMessage(message, object);
-                break;
-            case 4: //the object is a attack object
-                messageDaily = generateDailyCombatMessage(message, object);
-                break;
-            case 5: //the object is a hospital object
-                messageDaily = generateDailyHospitalMessage(message, object);
-                player.setLastReport(parseInt(player.lastReport - parseInt(Tools.convertHoursInMiliseconds(object.power))));
-                inventory.lastDaily = currentDay.getDay();
-                break;
-            case 6: //the object is a money giving object
-                messageDaily = generateDailyMoneyMessage(message, object);
-                player.addMoney(object.power);
-                inventory.lastDaily = currentDay.getDay();
-                break;
-            default:
-                inventory.lastDaily = currentDay.getDay();
-                console.log("ERROR : A unknown object type has been dailyed !" + object.getNatureEffect())
-                break;
+        if (currentDay.getDay() == inventory.lastDaily) {
+            //an item has already been activated today
+            messageDaily = generateDailyTimingErrorMessage(message);
+        } else {
+            console.log(object)
+            //this is the first use of an object today
+            switch (object.getNatureEffect()) {
+                case 0:
+                    if (inventory.objectId != DefaultValues.inventory.object) { //there is a object that do nothing in the inventory
+                        messageDaily = generateDailyErrorMessage(message, object);
+                    } else { //there is no object in the inventory
+                        messageDaily = generateNoDailyMessage(message);
+                    }
+                    break;
+                case 1: //the object is a heal object
+                    messageDaily = generateDailyHealthMessage(message, object);
+                    player.addHealthPoints(object.power);
+                    inventory.lastDaily = currentDay.getDay();
+                    break;
+                case 2: //the object is a speed object
+                    messageDaily = generateDailyCombatMessage(message, object);
+                    break;
+                case 3: //the object is a defense object
+                    messageDaily = generateDailyCombatMessage(message, object);
+                    break;
+                case 4: //the object is a attack object
+                    messageDaily = generateDailyCombatMessage(message, object);
+                    break;
+                case 5: //the object is a hospital object
+                    messageDaily = generateDailyHospitalMessage(message, object);
+                    player.setLastReport(parseInt(player.lastReport - parseInt(Tools.convertHoursInMiliseconds(object.power))));
+                    inventory.lastDaily = currentDay.getDay();
+                    break;
+                case 6: //the object is a money giving object
+                    messageDaily = generateDailyMoneyMessage(message, object);
+                    player.addMoney(object.power);
+                    inventory.lastDaily = currentDay.getDay();
+                    break;
+                default:
+                    inventory.lastDaily = currentDay.getDay();
+                    console.log("ERROR : A unknown object type has been dailyed !" + object.getNatureEffect())
+                    break;
+            }
         }
     }
     playerManager.updatePlayer(player);
@@ -85,6 +90,17 @@ const generateNoDailyMessage = function (message) {
 const generateDailyErrorMessage = function (message, object) {
     return object.getEmoji() + Text.commands.daily.errorDebut + message.author.username + Text.commands.daily.errorFin;
 };
+
+/**
+ * Returns a string containing the daily error message.
+ * @returns {String} - A string containing the daily message that has to be send when the object do nothing
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param player - The player that is dead
+ */
+const generateDailyDeadMessage = function (message, player) {
+    return player.effect + Text.commands.daily.errorDebut + message.author.username + Text.commands.daily.errorDead;
+};
+
 
 
 /**
