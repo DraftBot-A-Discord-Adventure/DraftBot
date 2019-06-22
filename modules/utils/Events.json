@@ -2272,7 +2272,7 @@
                     "moneyGained": "0"
                 },
                 "3": {
-                    "timeLost": "120",
+                    "timeLost": "15",
                     "healthPointsChange": "-25",
                     "newEffect": ":clock2:",
                     "xpGained": "0",
