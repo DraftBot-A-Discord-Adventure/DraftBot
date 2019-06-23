@@ -166,6 +166,9 @@ function getPlayerPseudo(client, player) {
     let pseudo;
     if (client.users.get(player.discordId) != null) {
         pseudo = client.users.get(player.discordId).username;
+        if (pseudo=="@everyone") {
+            pseudo = "@ everyone";
+        }
     }
     else {
         pseudo = Text.commands.top.unknownPlayer;
