@@ -10,8 +10,7 @@ const giveBadgeCommand = async function (message, args) {
         return console.log(message.author.username + " tried to use an admin command");
     } else { // the author of the command is the author of the bot
         let playerManager = new PlayerManager();
-        let playerId = args[2]
-        playerId = playerId.substring(2,playerId.length-1)
+        let playerId = message.mentions.users.last().id;
         let player = await playerManager.getPlayerById(playerId);
         player.badges = player.badges + args[1];
         playerManager.updatePlayer(player);

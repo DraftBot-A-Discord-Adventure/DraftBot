@@ -60,6 +60,21 @@ class PlayerManager {
 
 
     /**
+     * Return a promise that will contain theid of the player matching a rank given as an input
+     * @param rank - The rank of the user 
+     * @returns {promise} - The promise that will be resolved into a player
+     */
+    getIdByRank(rank) {
+        return sql.get(`SELECT discordId FROM player WHERE rank ="${rank}"`).then(id => {
+            return id.discordId;
+        }).catch(error => { //there is no database
+            console.error(error)
+            return false;
+        })
+    }
+
+
+    /**
      * Return a player created from the defaul values
      * @param message - The message that caused the function to be called. Used to retrieve the timestamp of the message
      * @returns {*} - A new player

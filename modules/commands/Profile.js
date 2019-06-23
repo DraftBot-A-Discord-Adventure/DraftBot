@@ -5,17 +5,17 @@ const Text = require('../text/Francais');
  * Display information about the player that sent the command
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const profileCommand = async function (message, args) {
+const profileCommand = async function (message, args, client) {
     let playerManager = new PlayerManager();
     let player = await playerManager.getCurrentPlayer(message);
     if (askForAnotherPlayer(args)) {
-        let playerId = args[1];
-        player = await getAskedPlayer(playerId, player, playerManager, message);
+        let playerId;
+        player = await getAskedPlayer(playerId, player, playerManager, message, args); //recupération de l'id du joueur demandé
         if (askedPlayerIsInvalid(player))
             return message.channel.send(Text.commands.profile.errorMain + message.author.username + Text.commands.profile.errorExp)
     }
     let numberOfPlayer = await playerManager.getNumberOfPlayers();
-    let messageProfile = generateProfileMessage(message, player, numberOfPlayer);
+    let messageProfile = generateProfileMessage(message, player, numberOfPlayer, args, client);
     message.channel.send(messageProfile).then(msg => {
         displayBadges(player, msg);
     });
@@ -28,17 +28,12 @@ const profileCommand = async function (message, args) {
  * @param message - The message that caused the function to be called. Used to retrieve the channel of the message.
  * @param player - The player that send the message
  * @param numberOfPlayer - The total number of player in the database
+ * @param {*} client - The bot client
  */
-const generateProfileMessage = function (message, player, numberOfPlayer) {
+const generateProfileMessage = function (message, player, numberOfPlayer, args, client) {
     let playerManager = new PlayerManager();
     let profileMessage;
-    let pseudo;
-    try {
-        pseudo = message.mentions.users.last().username;
-    } catch (err) {
-        pseudo = message.author.username;
-    }
-
+    let pseudo = getPlayerPseudo(client, player);
     if (player.getEffect() == ":baby:") {
         profileMessage = player.getEffect() + Text.commands.profile.main + pseudo + Text.commands.profile.notAPlayer;
     } else {
@@ -61,9 +56,19 @@ const generateProfileMessage = function (message, player, numberOfPlayer) {
  * @param {*} player - The player that is asked for
  * @param {*} playerManager - The player manager
  * @param {*} message - The message that initiate the command
+
  */
-async function getAskedPlayer(playerId, player, playerManager, message) {
-    playerId = playerId.substring(2, playerId.length - 1);
+async function getAskedPlayer(playerId, player, playerManager, message, args) {
+    if (isNaN(args[1])) {
+        try {
+            playerId = message.mentions.users.last().id;
+        } catch (err) { // the input is not a mention or a user rank
+            playerId = "0"
+        }
+    } else {
+        playerId = await playerManager.getIdByRank(args[1]);
+
+    }
     player = await playerManager.getPlayerById(playerId, message);
     return player;
 }
@@ -94,10 +99,27 @@ async function displayBadges(player, msg) {
         let str = player.getBadges();
         str = str.split('-');
         for (var i = 0; i < str.length; i++) {
-            console.log(i + ":" +str[i])
+            console.log(i + ":" + str[i])
             await msg.react(str[i]);
         }
     }
+}
+
+/**
+ * get the username of a player
+ * @param {*} client - The instance of the bot
+ * @param {*} player - The player that we need the username
+ * @returns {String} - The username
+ */
+function getPlayerPseudo(client, player) {
+    let pseudo;
+    if (client.users.get(player.discordId) != null) {
+        pseudo = client.users.get(player.discordId).username;
+    }
+    else {
+        pseudo = Text.commands.top.unknownPlayer;
+    }
+    return pseudo;
 }
 
 module.exports.ProfileCommand = profileCommand;
