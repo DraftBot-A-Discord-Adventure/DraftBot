@@ -29,8 +29,6 @@ class Player extends Entity {
      */
     getExperienceToLevelUp() {
         let xpToLevelUp = DefaultValues.xp[this.level + 1];
-        if (this.level + 1 > 100)
-            xpToLevelUp = 100;
         return xpToLevelUp;
     }
 
