@@ -140,14 +140,19 @@ function getEndSentence(classementJoueur, messageTop, actualPlayer, message, tot
 function displayPlayerInfos(messageTop, player, pseudo, message) {
     messageTop += player.rank + Text.commands.top.boldEnd + pseudo;
     let temps = Math.floor((message.createdTimestamp - player.lastReport) / (1000 * 60)); //temps en minutes depuis le dernier rapport
-    if (player.effect != ":smiley:") {
-        messageTop += Text.commands.top.separator + player.effect;
-    }
-    else {
+    if (temps > 1440) {
+        messageTop += Text.commands.top.innactive;
+    } else {
         if (temps > 60) {
             messageTop += Text.commands.top.availableReport;
+        } else {
+            if (player.effect != ":smiley:") {
+                messageTop += Text.commands.top.separator + player.effect;
+            }
         }
     }
+
+
     messageTop += Text.commands.top.scoreDisplayDebut + player.score + Text.commands.top.scoreDisplayFin;
     messageTop += Text.commands.top.levelDisplayDebut + player.level + Text.commands.top.levelDisplayFin;
 
