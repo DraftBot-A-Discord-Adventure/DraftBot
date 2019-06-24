@@ -3,7 +3,7 @@
         "help": {
             "mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4",
             "intro": "** :notebook_with_decorative_cover: ",
-            "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nsell\ntop\ninventory\nfight\ndaily\ndrink\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:",
+            "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nsell\ntop\ninventory\nfight\ndaily\ndrink\n```\nSi tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\nIl est aussi possible de demander de l'aide sur les badges en écrivant `help badges`",
             "commands": {
                 "ping": ":ping_pong: ping :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
                 "respawn": ":angel: respawn\n\nPermet de recommencer à jouer après avoir été tué.",
@@ -17,7 +17,8 @@
                 "sell": ":moneybag: sell\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
                 "daily": ":calendar: daily\n\nCertains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`.",
                 "invite": ":inbox_tray: invite\n\nCette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !",
-                "badge": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\n:egg: - **Chasseur d'easter egg** | `Avoir trouvé tout les easter eggs du bot`\n:trophy: - **Top 1 - Fin de Saison** | `Etre premier du classement lors de la réinitialisation de celui-ci`\n:medal: - **Top 10 - Fin de Saison** | `Etre dans les 10 premiers du classement lors de la réinitialisation de celui-ci`\n:gear: - **Equipe technique** | `Faire partie (ou avoir fait partie) de l'équipe technique du bot`\n:helmet_with_cross: - **Premiers soutien** | `Etre l'un des 20 premiers membres du serveur du bot`\n:crown: - **Owner** | `Etre le créateur du bot`",
+                "badge": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\n:trophy:  `Meilleur joueur au moment du reset de la 1.0`\n:medal:  `Joueur dans le top 10 au reset de la 1.0`\n:crown:  `Propriétaire du bot`\n:gear:  `Personne ayant participé très activement aux tests du bot`\n:egg:  `Personne ayant trouvé tous les secrets du bot`\n:newspaper:  `Personne ayant effectué une pull request pour un évent`\n:heart:  `Personne ayant le grade Soutien sur ce serveur (cf. #infos–grades) `\n:heartpulse:  `Personne ayant le grade Soutien-Légendaire sur ce serveur`\n:four_leaf_clover:  `Badge pouvant être gagné de temps en temps dans des concours sur ce serveur ou sur twitter`\n:gem:  `Staff sur le serveur du bot`\n:money_with_wings:  `Donateur`\n:pen_ballpoint:  `Personne ayant aidé à corriger de nombreuses fautes d'orthographes`\n:beetle:  `Personne ayant signalé des bugs majeurs`\n:wrench:  `Personne ayant fait parti de l'équipe technique du bot avant la version 1.0 du bot`\n:orange_book:  `Badge unique pour une relecture particulière`\n:books:  `Personne ayant démontré ses connaissances approfondies sur le bot`\n:pencil:  `Personne appartenant au groupe d'écriture de nouveaux évents`\n:rosette:  `Gérants des badges`\n:slot_machine:  `Badge donné de manière totalement random`\n:helmet_with_cross:  `20 première personnes à avoir rejoint ce serveur`",
+                "badges": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\n:trophy:  `Meilleur joueur au moment du reset de la 1.0`\n:medal:  `Joueur dans le top 10 au reset de la 1.0`\n:crown:  `Propriétaire du bot`\n:gear:  `Personne ayant participé très activement aux tests du bot`\n:egg:  `Personne ayant trouvé tous les secrets du bot`\n:newspaper:  `Personne ayant effectué une pull request pour un évent`\n:heart:  `Personne ayant le grade Soutien sur ce serveur (cf. #infos–grades) `\n:heartpulse:  `Personne ayant le grade Soutien-Légendaire sur ce serveur`\n:four_leaf_clover:  `Badge pouvant être gagné de temps en temps dans des concours sur ce serveur ou sur twitter`\n:gem:  `Staff sur le serveur du bot`\n:money_with_wings:  `Donateur`\n:pen_ballpoint:  `Personne ayant aidé à corriger de nombreuses fautes d'orthographes`\n:beetle:  `Personne ayant signalé des bugs majeurs`\n:wrench:  `Personne ayant fait parti de l'équipe technique du bot avant la version 1.0 du bot`\n:orange_book:  `Badge unique pour une relecture particulière`\n:books:  `Personne ayant démontré ses connaissances approfondies sur le bot`\n:pencil:  `Personne appartenant au groupe d'écriture de nouveaux évents`\n:rosette:  `Gérants des badges`\n:slot_machine:  `Badge donné de manière totalement random`\n:helmet_with_cross:  `20 première personnes à avoir rejoint ce serveur`",
                 "drink": ":tropical_drink: drink\n\nCette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat."
             }
         },
@@ -286,6 +287,28 @@
             "noUserError": "** Aucun joueur n'est classé pour le moment ! Utilisez la commande `report` pour apparaitre dans le top !",
             "tooMuchUserError": "** La page que vous avez demandé contient trop de joueurs !"
         }
+    },
+    "badges": {
+        "🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
+        "🏅": ":medal:  `Joueur dans le top 10 au reset de la 1.0`",
+        "👑": ":crown:  `Propriétaire du bot`",
+        "⚙": ":gear:  `Personne ayant participé très activement aux tests du bot`",
+        "🥚": ":egg:  `Personne ayant trouvé tous les secrets du bot`",
+        "📰": ":newspaper:  `Personne ayant effectué une pull request pour un évent`",
+        "❤": ":heart:  `Personne ayant le grade Soutien sur le serveur du bot`",
+        "💗": ":heartpulse:  `Personne ayant le grade Soutien-Légendaire sur le serveur du bot`",
+        "🍀": ":four_leaf_clover:  `Badge pouvant être gagné de temps en temps dans des concours sur ce serveur ou sur twitter`",
+        "💎": ":gem:  `Staff sur le serveur du bot`",
+        "💸": ":money_with_wings:  `Donateur`",
+        "🖊": ":pen_ballpoint:  `Personne ayant aidé à corriger de nombreuses fautes d'orthographes`",
+        "🐞": ":beetle:  `Personne ayant signalé des bugs majeurs`",
+        "🔧": ":wrench:  `Personne ayant fait parti de l'équipe technique du bot avant la version 1.0 du bot`",
+        "📙": ":orange_book:  `Badge unique pour une relecture particulière`",
+        "📚": ":books:  `Personne ayant démontré ses connaissances approfondies sur le bot`",
+        "📝": ":pencil:  `Personne appartenant au groupe d'écriture de nouveaux évents`",
+        "🏵": ":rosette:  `Gérants des badges`",
+        "🎰": ":slot_machine:  `Badge donné de manière totalement random`",
+        "⛑": ":helmet_with_cross:  `20 première personnes à avoir rejoint ce serveur`"
     },
     "error": {
         "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : http://draftbot.tk/ !"
