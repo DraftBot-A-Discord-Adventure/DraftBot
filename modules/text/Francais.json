@@ -386,11 +386,11 @@
             "6": " :moneybag: Argent + "
         },
         "outroObject": {
-            "1": "  par jour",
+            "1": " par jour",
             "2": " pendant les combats",
             "3": " pendant les combats",
             "4": " pendant les combats",
-            "6": "  par jour"
+            "6": " par jour"
         },
         "outroPotion": {
             "1": "",

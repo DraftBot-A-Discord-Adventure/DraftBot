@@ -433,6 +433,11 @@
             "rareness": "1",
             "power": "1",
             "nature": "0"
+        },
+        "34": {
+            "rareness": "8",
+            "power": "9",
+            "nature": "1"
         }
     },
     "object": {
@@ -575,6 +580,11 @@
             "rareness": "8",
             "power": "4",
             "nature": "1"
+        },
+        "28": {
+            "rareness": "8",
+            "power": "78",
+            "nature": "3"
         }
     },
     "effect": {

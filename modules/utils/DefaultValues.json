@@ -58,12 +58,6 @@
         "7": "5000",
         "8": "1000"
     },
-    "numberOfExistingItem": {
-        "weapon": "",
-        "armor": "",
-        "potion": "",
-        "object": ""
-    },
     "raritiesGenerator": {
         "0": "4375",
         "1": "6875",

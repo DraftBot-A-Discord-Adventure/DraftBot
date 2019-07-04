@@ -102,7 +102,8 @@
         "30" : ":tumbler_glass:  **Alcool**",
         "31" : ":shallow_pan_of_food:  **Soupe de grand mère**",
         "32" : ":droplet:  **Eau purifiée**",
-        "33" : ":wine_glass:  **Vin rouge**"
+        "33" : ":wine_glass:  **Vin rouge**",
+        "34" : ":hatching_chick: **Essence de volaille n°5**"
     },
     "object": {
         "default": ":black_large_square:  **Emplacement libre**",
@@ -132,6 +133,7 @@
         "24": ":oil:  **Baril metallique**",
         "25": ":candle:  **Vielle bougie**",
         "26": ":amphora:  **Pot en terre cuite**",
-        "27": ":saxophone:  **Saxo magique**"
+        "27": ":saxophone:  **Saxo magique**",
+        "28": ":guitar:  **Guitare terrifiante**"
     }
 }
