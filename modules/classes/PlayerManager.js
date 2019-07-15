@@ -251,7 +251,7 @@ class PlayerManager {
 
     /**
      * give to the player that send the message a random item
-     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the channel where the message has been send
      * @param {*} player - The player that is playing
      */
     async giveRandomItem(message, player) {
@@ -277,6 +277,139 @@ class PlayerManager {
             default:
                 message.channel.send("item à donner de type :" + type);
                 break;
+        }
+        return player
+    }
+
+
+    /**
+     * give to the player that send the message a random item
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the channel where the message has been send
+     * @param {*} player - The player that is playing
+     */
+    async giveItem(message, player, item) {
+        let inventoryManager = new InventoryManager();
+        let equipementManager = new EquipementManager();
+        let potionManager = new PotionManager();
+        let objectManager = new ObjectManager();
+        let inventory = await inventoryManager.getCurrentInventory(message);
+        let type = item.type();
+        switch (type) {
+            case "weapon":
+                player = await this.giveWeapon(equipementManager, inventory, message, inventoryManager, player, item.id);
+                break;
+            case "armor":
+                player = await this.giveArmor(equipementManager, inventory, message, inventoryManager, player, item.id);
+                break;
+            case "object":
+                player = await this.giveObject(objectManager, inventory, message, inventoryManager, player, item.id);
+                break;
+            case "potion":
+                player = await this.givePotion(potionManager, inventory, message, inventoryManager, player, item.id);
+                break;
+            default:
+                message.channel.send("item à donner de type :" + type);
+                break;
+        }
+        return player
+    }
+
+
+    /**
+     * add a selected armor into an inventory and save the result
+     * @param {*} equipementManager - The equipement manager class
+     * @param {*} inventory - the inventory of the player
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} inventoryManager - The inventory manager class
+     * @param {*} player - The player that is playing
+     * @param {*} id - The id of the armor
+     */
+    async giveArmor(equipementManager, inventory, message, inventoryManager, player, id) {
+        let armor = await equipementManager.getArmorById(id);
+        let neww = equipementManager.getEquipementEfficiency(armor);
+        let old = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
+        if (neww > old) {
+            inventory.armorId = armor.id;
+            message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor));
+            inventoryManager.updateInventory(inventory);
+        }
+        else {
+            player = this.sellItem(player, armor, message);
+        }
+        return player
+    }
+
+
+    /**
+     * add a selected armor into an inventory and save the result
+     * @param {*} equipementManager - The equipement manager class
+     * @param {*} inventory - the inventory of the player
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} inventoryManager - The inventory manager class
+     * @param {*} player - The player that is playing
+     * @param {*} id - The id of the weapon
+     */
+    async giveWeapon(equipementManager, inventory, message, inventoryManager, player, id) {
+        let weapon = await equipementManager.getWeaponById(id);
+        let neww = equipementManager.getEquipementEfficiency(weapon);
+        let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
+        if (neww > old) {
+            inventory.weaponId = weapon.id;
+            message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon));
+            inventoryManager.updateInventory(inventory);
+        }
+        else {
+            player = this.sellItem(player, weapon, message);
+        }
+        return player
+    }
+
+
+    /**
+     * add a selected object into an inventory and save the result
+     * @param {*} objectManager - The object manager class
+     * @param {*} inventory - the inventory of the player
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} inventoryManager - The inventory manager class
+     * @param {*} player - The player that is playing
+     * @param {*} id - The id of the object
+     */
+    async giveObject(objectManager, inventory, message, inventoryManager, player, id) {
+        let object = await objectManager.getObjectById(id);
+        let neww = objectManager.getObjectEfficiency(object);
+        let old = objectManager.getObjectEfficiency(objectManager.getObjectById(inventory.backupItemId));
+        if (neww > old) {
+            inventory.backupItemId = object.id;
+            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object));
+            inventoryManager.updateInventory(inventory);
+        }
+        else {
+            player = this.sellItem(player, object, message);
+        }
+        return player
+    }
+
+
+    /**
+     * add a selected potion into an inventory and save the result
+     * @param {*} potionManager - The potion manager class
+     * @param {*} inventory - the inventory of the player
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the author
+     * @param {*} inventoryManager - The inventory manager class
+     * @param {*} player - The player that is playing
+     * @param {*} id - The id of the potion
+     */
+    async givePotion(potionManager, inventory, message, inventoryManager, player, id) {
+        let potion = await potionManager.getPotionById(id);
+        let neww = potionManager.getPotionEfficiency(potion);
+        let old = potionManager.getPotionEfficiency(potionManager.getPotionById(inventory.potionId));
+        if (neww > old) {
+            inventory.potionId = potion.id;
+            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion));
+            inventoryManager.updateInventory(inventory);
+        }
+        else {
+            player = this.sellItem(player, potion, message);
         }
         return player
     }
