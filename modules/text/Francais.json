@@ -52,6 +52,15 @@
             "revived2": " points :medal: ont été retiré de votre score durant l'opération !",
             "notDead": "** il semblerait que vous ne soyez pas K.O... Vous n'avez pas besoin de nos services."
         },
+        "shop": {
+            "errorEmoji" : ":x: **",
+            "noMoney": "**, Vous ne pouvez pas accèder au magasin avec des dettes !",
+            "intro" : ":shopping_cart: **Affichage du magasin :**\n\n```🗓 Vente du jour :```\n",
+            "priceTagStart": " | `",
+            "priceTagEnd": " 💵`",
+            "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `250💵`\n:hospital: **Soin des altérations d'état** | `500 💵`\n:heartpulse: **Regen complet de la vie** | `3000 💵`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💵`\n\n```▶ Choisissez votre achat :```"
+            
+        },
         "report": {
             "reportStart": ":newspaper: **Journal de ",
             "points": " :** :medal:  Points gagnés : **",

@@ -1,7 +1,7 @@
 const PlayerManager = require('../classes/PlayerManager');
 const EventManager = require('../classes/EventManager');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('../utils/DefaultValues');
 const Text = require('../text/Francais');
 
 

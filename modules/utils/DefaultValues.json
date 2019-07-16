@@ -26,6 +26,13 @@
         "startMoney": "10",
         "startScore": "100"
     },
+    "shop": {
+        "priceItem": "250",
+        "priceStatus": "500",
+        "priceHeal": "250",
+        "priceBadge": "25000",
+        "addedValue" : "200"
+    },
     "effectMalus": {
         ":smiley:": "0",
         ":sick:": "21600000",
@@ -49,11 +56,11 @@
     },
     "raritiesValues": {
         "0": "0",
-        "1": "4",
-        "2": "30",
-        "3": "80",
-        "4": "120",
-        "5": "250",
+        "1": "20",
+        "2": "80",
+        "3": "120",
+        "4": "250",
+        "5": "500",
         "6": "1000",
         "7": "5000",
         "8": "1000"
@@ -77,12 +84,12 @@
             "1": "weapon",
             "2": "weapon",
             "3": "weapon",
-            "4": "weapon",
+            "4": "armor",
             "5": "armor",
             "6": "armor",
-            "7": "armor",
+            "7": "object",
             "8": "object",
-            "9": "object",
+            "9": "potion",
             "10": "potion"
         }
     },

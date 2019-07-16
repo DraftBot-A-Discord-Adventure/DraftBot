@@ -11,6 +11,7 @@ const Daily = require('./commands/Daily');
 const Top = require('./commands/Top');
 const Sell = require('./commands/Sell');
 const Fight = require('./commands/Fight');
+const shop = require('./commands/shop');
 
 const Give = require('./commands/admin/Give');
 const Servers = require('./commands/admin/Servers');
@@ -39,6 +40,8 @@ const CommandTable = new Map(
         ["sell", Sell.SellCommand],
         ["fight", Fight.FightCommand],
         ["f", Fight.FightCommand],
+        ["s", shop.ShopCommand],
+        ["shop", shop.ShopCommand],
 
         ["invi", Invitations.InvitationsCommand],
         ["servs", Servers.ServersCommand],
