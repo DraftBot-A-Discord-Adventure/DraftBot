@@ -4,6 +4,7 @@ const Text = require('../text/Francais');
 /**
  * Display information about the player that sent the command
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param args - arguments typed by the user in addition to the command
  */
 const profileCommand = async function (message, args, client) {
     let playerManager = new PlayerManager();
