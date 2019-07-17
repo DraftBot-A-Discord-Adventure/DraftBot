@@ -24,7 +24,7 @@ const sellCommand = async function (message, args, client, talkedRecently) {
             message.channel.send(messageSell);
             talkedRecently.delete(message.author.id);
         } else {
-            generateConfirmation(message, object, player, inventory, inventoryManager, playerManager)
+            generateConfirmation(message, object, player, inventory, inventoryManager, playerManager, talkedRecently)
         }
     }
 }
@@ -46,7 +46,7 @@ const generateErrorSellMessage = function (message) {
  * @param {*} inventoryManager - The manager of the inventory
  * @param {*} playerManager - The manager of the player
  */
-async function generateConfirmation(message, object, player, inventory, inventoryManager, playerManager) {
+async function generateConfirmation(message, object, player, inventory, inventoryManager, playerManager, talkedRecently) {
     let confirmMessage = generateConfirmMessage(message, object);
     let confirmIsOpen = true;
 
