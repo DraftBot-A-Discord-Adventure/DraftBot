@@ -11,8 +11,10 @@ const Text = require('../text/Francais');
  * Allow the user to launch a fight
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const fightCommand = async function (message) {
-
+const fightCommand = async function (message, args, client, talkedRecently) {
+    if (talkedRecently.has(message.author.id)) {
+       return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
+    } 
     let playerManager = new PlayerManager;
     let inventoryManager = new InventoryManager;
     let attacker = message.author;

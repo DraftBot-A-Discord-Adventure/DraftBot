@@ -9,8 +9,10 @@ const Text = require('../text/Francais');
  * Allow the user to learn more about what is going on with his character
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const reportCommand = async function (message) {
-
+const reportCommand = async function (message, args, client, talkedRecently) {
+   if (talkedRecently.has(message.author.id)) {
+      return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
+   }
    let eventManager = new EventManager;
    let playerManager = new PlayerManager;
 
@@ -26,7 +28,7 @@ const reportCommand = async function (message) {
       }
 
       let time = player.calcTime(message.createdTimestamp);
-     //time = 1000; // in testing purpose : Remove for realease
+      //time = 1000; // in testing purpose : Remove for realease
 
       let pointsGained = calculatePoints(player, time);
       let moneyChange = calculateMoney(player, time);

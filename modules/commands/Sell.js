@@ -8,21 +8,26 @@ const Text = require('../text/Francais');
  * Allow to sell the item that is stored in the backup position of the inventory of the player
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const sellCommand = async function (message) {
-    let playerManager = new PlayerManager();
-    let player = await playerManager.getCurrentPlayer(message);
-    let inventoryManager = new InventoryManager();
-    let inventory = await inventoryManager.getCurrentInventory(message);
-    let objectManager = new ObjectManager();
-    let object = objectManager.getObjectById(inventory.getBackupItemId());
-    if (object.id == DefaultValues.inventory.object) {
-        let messageSell = generateErrorSellMessage(message);
-        message.channel.send(messageSell);
+const sellCommand = async function (message, args, client, talkedRecently) {
+    if (talkedRecently.has(message.author.id)) {
+        message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
     } else {
-        generateConfirmation(message, object, player, inventory, inventoryManager, playerManager)
+        talkedRecently.add(message.author.id);
+        let playerManager = new PlayerManager();
+        let player = await playerManager.getCurrentPlayer(message);
+        let inventoryManager = new InventoryManager();
+        let inventory = await inventoryManager.getCurrentInventory(message);
+        let objectManager = new ObjectManager();
+        let object = objectManager.getObjectById(inventory.getBackupItemId());
+        if (object.id == DefaultValues.inventory.object) {
+            let messageSell = generateErrorSellMessage(message);
+            message.channel.send(messageSell);
+            talkedRecently.delete(message.author.id);
+        } else {
+            generateConfirmation(message, object, player, inventory, inventoryManager, playerManager)
+        }
     }
 }
-
 /**
  * Returns a string containing the error sell message.
  * @returns {String} - A string containing the error sell message.
@@ -56,22 +61,24 @@ async function generateConfirmation(message, object, player, inventory, inventor
     //execute this if a user answer to the event
     collector.on('collect', (reaction) => {
         if (confirmIsOpen) {
-            if(reaction.emoji.name == "✅"){
+            talkedRecently.delete(message.author.id);
+            if (reaction.emoji.name == "✅") {
                 playerManager.sellItem(player, object, message);
                 inventory.setBackupItemId(DefaultValues.inventory.object);
                 inventoryManager.updateInventory(inventory);
                 playerManager.updatePlayer(player);
-            }else{
+            } else {
                 message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.sell.cancelEnd);
             }
             confirmIsOpen = false;
-            
+
         }
     });
     //end of the time the user have to answer to the event
     collector.on('end', () => {
         if (confirmIsOpen) {
-        message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.sell.cancelEnd);
+            talkedRecently.delete(message.author.id);
+            message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.sell.cancelEnd);
         }
     });
 }
