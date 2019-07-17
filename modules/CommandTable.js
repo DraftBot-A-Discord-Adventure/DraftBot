@@ -11,7 +11,7 @@ const Daily = require('./commands/Daily');
 const Top = require('./commands/Top');
 const Sell = require('./commands/Sell');
 const Fight = require('./commands/Fight');
-const shop = require('./commands/shop');
+const Shop = require('./commands/Shop');
 
 const Give = require('./commands/admin/Give');
 const Servers = require('./commands/admin/Servers');
