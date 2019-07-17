@@ -13,6 +13,7 @@ const Text = require('./modules/text/Francais');
 const sql = require("sqlite");
 sql.open("./modules/data/database.sqlite");
 
+const talkedRecently = new Set();
 let commandReader = new CommandReader();
 let databaseManager = new DatabaseManager();
 
@@ -64,7 +65,7 @@ client.on("ready", () => {
 client.on("message", (message) => {
   //check if the user is a bot before doing anything
   if (message.author.bot) return;
-  commandReader.handleMessage(message, client);
+  commandReader.handleMessage(message, client,talkedRecently);
 });
 
 client.on("messageReactionAdd", (reaction) => {

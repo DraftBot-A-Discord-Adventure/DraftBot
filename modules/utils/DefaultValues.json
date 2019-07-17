@@ -29,7 +29,7 @@
     "shop": {
         "priceItem": "250",
         "priceStatus": "500",
-        "priceHeal": "250",
+        "priceHeal": "3000",
         "priceBadge": "25000",
         "addedValue" : "200"
     },

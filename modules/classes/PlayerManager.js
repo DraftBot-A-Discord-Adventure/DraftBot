@@ -214,7 +214,7 @@ class PlayerManager {
         if (allowedStates.includes(player.getEffect())) {
             result = true; // le joueur est dans un état authorisé
         } else {
-            if (player.getEffect() != ":clock10:" && message.createdTimestamp > player.lastReport) {
+            if (player.getEffect() != ":clock10:" && player.getEffect() != ":skull:" && message.createdTimestamp > player.lastReport) {
                 result = true;
             } else {
                 console.log(username);

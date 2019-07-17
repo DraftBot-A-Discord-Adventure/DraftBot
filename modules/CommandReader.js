@@ -12,15 +12,16 @@ class CommandReader {
      * This function analyses the passed message and calls the associated function if there is one.
      * @param {*} message - A command posted by an user.
      * @param {*} client - The bot user in case we have to make him do things
+     * @param {*} talkedRecently - The list of user that has been seen recently
      */
-    async handleMessage(message, client) {
+    async handleMessage(message, client, talkedRecently) {
         let serverPrefix = await this.serverManager.getServerPrefix(message);
         let prefix = CommandReader.getUsedPrefix(message);
         if (prefix == serverPrefix) {
-            launchCommand(message, client);
+            launchCommand(message, client, talkedRecently);
         } else {
             if (prefix == Config.BOT_OWNER_PREFIX && message.author.id == Config.BOT_OWNER_ID) {
-                launchCommand(message, client);
+                launchCommand(message, client, talkedRecently);
             }
         }
 
@@ -56,8 +57,9 @@ class CommandReader {
  * 
  * @param {*} message - A command posted by an user.
  * @param {*} client - The bot user in case we have to make him do things
+ * @param {*} talkedRecently - The list of user that has been seen recently
  */
-function launchCommand(message, client) {
+function launchCommand(message, client, talkedRecently) {
     console.log(`${message.author.username} passed ${message.content}\n`);
     let command = CommandReader.getCommandFromMessage(message);
     let args = CommandReader.getArgsFromMessage(message);
@@ -65,7 +67,7 @@ function launchCommand(message, client) {
         if (!message.channel.permissionsFor(client.user).serialize().SEND_MESSAGES) {
             message.author.send(Text.error.noSpeakPermission);
         } else {
-            CommandTable.get(command)(message, args, client);
+            CommandTable.get(command)(message, args, client, talkedRecently);
         }
 }
 

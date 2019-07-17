@@ -53,13 +53,43 @@
             "notDead": "** il semblerait que vous ne soyez pas K.O... Vous n'avez pas besoin de nos services."
         },
         "shop": {
-            "errorEmoji" : ":x: **",
+            "errorEmoji": ":x: **",
+            "dmIntro": ":money_mouth: | Le badge du shop a été acheté par le joueur : ",
+            "dm": " id du joueur : ",
+            "console" : ":money_mouth: | Le badge du shop a été acheté par le joueur : ",
+            "badgeWarning" : ":warning: | Merci pour votre achat du badge :money_mouth:.\n\nSi vous en êtes arrivé à faire un tel achat c'est que vous avez déjà beaucoup joué à mon petit jeu et je vous en remercie. Votre badge vous sera remis dans les prochaines heures par un membre du staff du bot.",
             "noMoney": "**, Vous ne pouvez pas accèder au magasin avec des dettes !",
-            "intro" : ":shopping_cart: **Affichage du magasin :**\n\n```🗓 Vente du jour :```\n",
+            "emojiIntro" : ":shopping_cart: ",
+            "intro": ":shopping_cart:  **Affichage du magasin :**\n\n```🗓 Vente du jour :```\n",
             "priceTagStart": " | `",
             "priceTagEnd": " 💵`",
-            "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `250💵`\n:hospital: **Soin des altérations d'état** | `500 💵`\n:heartpulse: **Regen complet de la vie** | `3000 💵`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💵`\n\n```▶ Choisissez votre achat :```"
-            
+            "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `250 💵`\n:hospital: **Soin des altérations d'état** | `500 💵`\n:heartpulse: **Regen complet de la vie** | `3000 💵`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💵`\n\n```▶ Choisissez votre achat :```",
+            "emojis": {
+                "a": "❓",
+                "b": "🏥",
+                "c": "💗",
+                "d": "🤑"
+            },
+            "choices": {
+                "a": ":question: **Un item random** | `250 💵`",
+                "b": ":hospital: **Soin des altérations d'état** | `500 💵`",
+                "c": ":heartpulse: **Regen complet de la vie** | `3000 💵`",
+                "d": ":money_mouth: **Badge \"MoneyMouth\"** | `25000 💵`"
+            },
+            "infos": {
+                "aa": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
+                "a": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmis tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
+                "b": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
+                "c": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
+                "d": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `aide badges`"
+            },
+            "confirmIntro": ", **Vous avez sélectionné le produit suivant :**\n\n",
+            "confirmStart": ":white_check_mark: | ",
+            "confirmEnd": ", Votre achat a bien été validé !",
+            "cancelStart": ":x: | ",
+            "cancelEnd": ", L'achat a bien été annulé !",
+            "notEnoughEnd": ", Vous n'avez pas assez d'argent pour effectuer cet achat !",
+            "tooMuchShop" : ", Vous ne pouvez pas ouvrir 2 instances du magasin en même temps ! `(Si vous n'avez pas fait récemment de commande shop, attendez 2 minutes et réessayez)`"
         },
         "report": {
             "reportStart": ":newspaper: **Journal de ",
@@ -325,6 +355,7 @@
     },
     "playerManager": {
         "errorMain": {
+            ":smiley" : "** Il semblerait que vous ne soyez pas atteint par une altération d'état !",
             ":baby:": "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
             ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourrant ! Veuillez attendre la fin des soins de votre altération d'état.",
             ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de votre altération d'état.",
