@@ -15,7 +15,7 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
     } else {
         let playerManager = new PlayerManager();
         let player = await playerManager.getCurrentPlayer(message);
-        if (playerManager.checkState(player, message, ":dizzy_face::nauseated_face::zzz::head_bandage::snowflake::confounded::clock2::smiley:")) {
+        if (playerManager.checkState(player, message, ":dizzy_face::sick::zzz::head_bandage::snowflake::confounded::clock2::smiley:")) {
             if (Tools.isANegativeNumber(player.money)) {
                 let ShopMessage = Text.commands.shop.errorEmoji + message.author.username + Text.commands.shop.noMoney;
                 return message.channel.send(ShopMessage);

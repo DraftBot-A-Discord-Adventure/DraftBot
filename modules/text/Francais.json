@@ -64,7 +64,7 @@
             "intro": ":shopping_cart:  **Affichage du magasin :**\n\n```🗓 Vente du jour :```\n",
             "priceTagStart": " | `",
             "priceTagEnd": " 💵`",
-            "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `250 💵`\n:hospital: **Soin des altérations d'état** | `500 💵`\n:heartpulse: **Regen complet de la vie** | `3000 💵`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💵`\n\n```▶ Choisissez votre achat :```",
+            "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `350 💵`\n:hospital: **Soin des altérations d'état** | `500 💵`\n:heartpulse: **Regen complet de la vie** | `3000 💵`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💵`\n\n```▶ Choisissez votre achat :```",
             "emojis": {
                 "a": "❓",
                 "b": "🏥",
@@ -72,7 +72,7 @@
                 "d": "🤑"
             },
             "choices": {
-                "a": ":question: **Un item random** | `250 💵`",
+                "a": ":question: **Un item random** | `350 💵`",
                 "b": ":hospital: **Soin des altérations d'état** | `500 💵`",
                 "c": ":heartpulse: **Regen complet de la vie** | `3000 💵`",
                 "d": ":money_mouth: **Badge \"MoneyMouth\"** | `25000 💵`"
@@ -414,7 +414,7 @@
         "2": " :fire: Peu commun",
         "3": " :trident: Exotique",
         "4": " :comet: Rare",
-        "5": " :dizzy: Special",
+        "5": " :dizzy: Spécial",
         "6": " :star: Epique",
         "7": " :star2: Legendaire",
         "8": " :gem: Unique"
@@ -883,7 +883,7 @@
             },
             "🚶": {
                 "1": "** | 🚶 Après une bonne heure de marche, vous trouvez un autre pont, qui lui, semble en bien meilleur état et décidez de l'emprunter.",
-                "2": "** | 🚶 Durant votre chemin, vous remarquez une petit caisse et l'ouvrez, dans celle-ci un objet semblant utile. Vous le récupérez et continuez votre route.",
+                "2": "** | 🚶 Durant votre chemin, vous remarquez une petite caisse et l'ouvrez, dans celle-ci un objet semblant utile. Vous le récupérez et continuez votre route.",
                 "3": "** | 🚶 Vous apercevez un pont et vous précipitez pour pour le rejoindre au plus vite, cependant vous trébuchez sur un tronc d'arbre et vous blessez. :confounded:"
             },
             "end": {

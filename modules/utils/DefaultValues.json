@@ -27,7 +27,7 @@
         "startScore": "100"
     },
     "shop": {
-        "priceItem": "250",
+        "priceItem": "350",
         "priceStatus": "500",
         "priceHeal": "3000",
         "priceBadge": "25000",
