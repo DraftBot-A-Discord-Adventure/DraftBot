@@ -69,7 +69,7 @@
         "17": ":high_brightness:  **Bouclier solaire**"
     },
     "potion": {
-        "default": ":black_large_square:  **Pas de potion**",
+        "default": "⬛  **Pas de potion**",
         "1": "<:Potion:548219908736155658>  **Potion rouge**",
         "2": "<:Potion:548219908736155658>  **Potion simple**",
         "3": "<:Potion:548219908736155658>  **Potion**",
@@ -94,16 +94,16 @@
         "22": "<:LovePotion:548221051063107594>  **Potion de soin**",
         "23": "<:LovePotion:548221051063107594>  **Potion de soin ultime**",
         "24": "<:LovePotion:548221051063107594>  **Potion de guérison**",
-        "25": ":tropical_drink:  **Boisson tropicale**",
-        "26" : ":milk:  **Verre de lait**",
-        "27" : ":baby_bottle:  **Biberon**",
-        "28" : ":tea:  **Thé**",
-        "29" : ":coffee:  **Café**",
-        "30" : ":tumbler_glass:  **Alcool**",
-        "31" : ":shallow_pan_of_food:  **Soupe de grand mère**",
-        "32" : ":droplet:  **Eau purifiée**",
-        "33" : ":wine_glass:  **Vin rouge**",
-        "34" : ":hatching_chick: **Essence de volaille n°5**"
+        "25": "🍹  **Boisson tropicale**",
+        "26" : "🥛  **Verre de lait**",
+        "27" : "🍼  **Biberon**",
+        "28" : "🍵  **Thé**",
+        "29" : "☕  **Café**",
+        "30" : "🥃  **Alcool**",
+        "31" : "🥘  **Soupe de grand mère**",
+        "32" : "💧  **Eau purifiée**",
+        "33" : " 🍷  **Vin rouge**",
+        "34" : "🐣 **Essence de volaille n°5**"
     },
     "object": {
         "default": ":black_large_square:  **Emplacement libre**",

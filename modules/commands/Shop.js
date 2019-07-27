@@ -42,10 +42,6 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                     let messageChoice = Text.commands.shop.emojiIntro + message.author + Text.commands.shop.confirmIntro;
                     let potionPrice = dailyPotion.getValue() + parseInt(DefaultValues.shop.addedValue);
                     switch (reaction.emoji.name) {
-                        case dailyPotion.getEmoji().split(':')[1]:
-                            choice = "aa";
-                            messageChoice += potionManager.displayPotion(dailyPotion) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + Text.commands.shop.infos.aa;
-                            break;
                         case Text.commands.shop.emojis.a:
                             choice = "a";
                             messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
@@ -63,6 +59,8 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                             messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
                             break;
                         default:
+                            choice = "aa";
+                            messageChoice += potionManager.displayPotion(dailyPotion) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + Text.commands.shop.infos.aa;
                             break;
                     }
                     let messageconfirm = await displayConfirmMessage(message, messageChoice);
@@ -98,7 +96,7 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                                         break;
                                     case "b":
                                         if (player.money >= DefaultValues.shop.priceStatus) {
-                                            player.updateLastReport(message.createdTimestamp,0,":smiley:");
+                                            player.updateLastReport(message.createdTimestamp, 0, ":smiley:");
                                             player.money -= DefaultValues.shop.priceStatus;
                                             player.effect = ":smiley:";
                                             console.log(player)
@@ -108,23 +106,23 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                                         }
                                         break;
                                     case "c":
-                                            if (player.money >= DefaultValues.shop.priceHeal) {
-                                                player.money -= DefaultValues.shop.priceHeal;
-                                                player.restoreHealthCompletely()
-                                                playerManager.updatePlayer(player);
-                                            } else {
-                                                return notEnoughMoney(message);
-                                            }
+                                        if (player.money >= DefaultValues.shop.priceHeal) {
+                                            player.money -= DefaultValues.shop.priceHeal;
+                                            player.restoreHealthCompletely()
+                                            playerManager.updatePlayer(player);
+                                        } else {
+                                            return notEnoughMoney(message);
+                                        }
                                         break;
                                     case "d":
-                                            if (player.money >= DefaultValues.shop.priceBadge) {
-                                                message.author.send(Text.commands.shop.badgeWarning);
-                                                client.users.get('375334479306293260').send(Text.commands.shop.dmIntro + message.author + Text.commands.shop.dm + message.author.id );
-                                                player.money -= DefaultValues.shop.priceBadge;
-                                                playerManager.updatePlayer(player);
-                                            } else {
-                                                return notEnoughMoney(message);
-                                            }
+                                        if (player.money >= DefaultValues.shop.priceBadge) {
+                                            message.author.send(Text.commands.shop.badgeWarning);
+                                            client.users.get('375334479306293260').send(Text.commands.shop.dmIntro + message.author + Text.commands.shop.dm + message.author.id);
+                                            player.money -= DefaultValues.shop.priceBadge;
+                                            playerManager.updatePlayer(player);
+                                        } else {
+                                            return notEnoughMoney(message);
+                                        }
                                         break;
 
                                     default:
@@ -180,7 +178,7 @@ const displayConfirmMessage = function (message, confirmMessage) {
 */
 const choiceReactionIsCorrect = function (reaction, dailyPotion, shopmenu) {
     let contains = false;
-    if (!shopmenu && (reaction.emoji.name == dailyPotion.getEmoji().split(':')[1] || reaction.emoji.name == Text.commands.shop.emojis.a || reaction.emoji.name == Text.commands.shop.emojis.b || reaction.emoji.name == Text.commands.shop.emojis.c || reaction.emoji.name == Text.commands.shop.emojis.d)) {
+    if (!shopmenu && (reaction.emoji.name == dailyPotion.getEmoji().split(':')[1] || reaction.emoji.name == dailyPotion.getEmoji() || reaction.emoji.name == Text.commands.shop.emojis.a || reaction.emoji.name == Text.commands.shop.emojis.b || reaction.emoji.name == Text.commands.shop.emojis.c || reaction.emoji.name == Text.commands.shop.emojis.d)) {
         contains = true;
     }
     return contains
@@ -244,9 +242,13 @@ function notEnoughMoney(message) {
  * @param {*} msg - The message that contain the shop message
  */
 async function addShopReactions(dailyPotion, msg) {
-    let emojiId = dailyPotion.getEmoji(dailyPotion).split(':')[2];
-    emojiId = emojiId.substring(0, emojiId.length - 1);
-    await msg.react(emojiId);
+    try {
+        await msg.react(dailyPotion.getEmoji(dailyPotion));
+    } catch (err) {
+        let emojiId = dailyPotion.getEmoji(dailyPotion).split(':')[2];
+        emojiId = emojiId.substring(0, emojiId.length - 1);
+        await msg.react(emojiId);
+    }
     for (reac in Text.commands.shop.emojis) {
         await msg.react(Text.commands.shop.emojis[reac]);
     }
