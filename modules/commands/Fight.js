@@ -60,8 +60,11 @@ const fightCommand = async function (message, args, client, talkedRecently) {
                             if (defenderPlayer.level < DefaultValues.fight.minimalLevel) {
                                 displayErrorSkillMissing(message, defender);
                             } else {
+                                if (talkedRecently.has(defender.id)) {
+                                    return message.channel.send(Text.commands.sell.cancelStart + defender + Text.commands.shop.tooMuchShop);
+                                 } 
                                 if (playerManager.checkState(defenderPlayer, message, ":smiley:", defender.username)) {  //check if the player is not dead or sick or something else
-                                    playerManager.setPlayerAsOccupied(player);
+                                    playerManager.setPlayerAsOccupied(defenderPlayer);
                                     fightIsOpen = false;
                                     displayFightStartMessage(message, attacker, defender);
                                     let actualUser = attacker;
