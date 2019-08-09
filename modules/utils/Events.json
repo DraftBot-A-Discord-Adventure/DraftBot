@@ -347,7 +347,7 @@
                     "timeLost": "15",
                     "healthPointsChange": "0",
                     "newEffect": ":clock2:",
-                    "xpGained": "25",
+                    "xpGained": "125",
                     "moneyGained": "6"
                 }
             },
@@ -999,7 +999,7 @@
                     "timeLost": "0",
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
-                    "xpGained": "150",
+                    "xpGained": "250",
                     "moneyGained": "30"
                 },
                 "4": {
@@ -1556,7 +1556,7 @@
                     "timeLost": "0",
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
-                    "xpGained": "0",
+                    "xpGained": "150",
                     "moneyGained": "0"
                 },
                 "2": {
@@ -1604,7 +1604,7 @@
                     "timeLost": "40",
                     "healthPointsChange": "20",
                     "newEffect": ":clock2:",
-                    "xpGained": "125",
+                    "xpGained": "225",
                     "moneyGained": "0"
                 }
             },
@@ -1974,7 +1974,7 @@
                     "timeLost": "0",
                     "healthPointsChange": "0",
                     "newEffect": ":smiley:",
-                    "xpGained": "325",
+                    "xpGained": "450",
                     "moneyGained": "-200",
                     "item": "true"
                 }
