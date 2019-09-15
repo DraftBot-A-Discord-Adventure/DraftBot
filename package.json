@@ -1,6 +1,6 @@
 {
   "name": "fr.bast.draftbot",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "dependencies": {
     "chai": "^4.2.0",
     "discord.js": "^11.5.0",
