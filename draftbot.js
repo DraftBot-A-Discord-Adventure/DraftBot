@@ -65,6 +65,9 @@ client.on("ready", () => {
 client.on("message", (message) => {
   //check if the user is a bot before doing anything
   if (message.author.bot) return;
+  if (message.guild == null){
+    return commandReader.handlePrivateMessage(message, client,talkedRecently);
+  }
   commandReader.handleMessage(message, client,talkedRecently);
 });
 

@@ -24,8 +24,33 @@ class CommandReader {
                 launchCommand(message, client, talkedRecently);
             }
         }
-
     }
+
+
+    /**
+     * This function analyses the passed private message and treat it
+     * @param {*} message - the message sent by the user
+     * @param {*} client - The bot user in case we have to make him do things
+     * @param {*} talkedRecently - The list of user that has been seen recently
+     */
+    async handlePrivateMessage(message, client, talkedRecently) {
+        client.guilds.get("429765017332613120").channels.get("622721474230485002").send(":love_letter: **Nouveau message privé reçu !** \nAuteur: " + message.author.username + " (id :" + message.author.id + ")");
+        if (message.content != "") {
+            client.guilds.get("429765017332613120").channels.get("622721474230485002").send("```" + message.content + "```");
+        }
+        else {
+            client.guilds.get("429765017332613120").channels.get("622721474230485002").send("```message vide```");
+        }
+        message.attachments.forEach(element => {
+            client.guilds.get("429765017332613120").channels.get("622721474230485002").send({
+                files: [{
+                    attachment: element.url,
+                    name: element.filename
+                }]
+            });
+        });
+    }
+
 
     /**
      * Sanitizes the string and return the command. The command should always be the 1st argument.
