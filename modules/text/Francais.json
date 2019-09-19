@@ -456,7 +456,7 @@
         "4": " : ** :stars: Vous avez décidé de profiter d'une nuit calme pour continuer votre progression. Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!\n\n:speaking_head: Faire un vœu.\n:runner: Ignorer cet évènement.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "5": " : ** :fountain: Vous avez trouvé une fontaine !\n\n:sweat_drops: Se reposer et boire pour reprendre des forces.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "6": " : ** :fork_knife_plate: Vous vous étiez arrêté dans une grotte pour manger et vous hésitez à repartir... \n\n:flashlight: Entrer plus profondément dans la grotte.\n:runner: Continuer votre route, pas de temps à perdre !\n:mag: Fouiller les alentours\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "7": " : ** :house: Vous avez découvert une maison ! Elle semble abandonnée...\n\n:door: Aller visiter l'intérieur.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !.*",
+        "7": " : ** :house: Vous avez découvert une maison ! Elle semble abandonnée...\n\n:door: Aller visiter l'intérieur.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "8": " : ** :mountain_snow: Vous avez décidé de profiter de l'été pour passer par les montagnes tant que les cols ne sont pas trop enneigés, cependant l'ascension s'avère plus difficile que prévu...\n\n:evergreen_tree: Continuer à travers la forêt de sapin\n:park: Renoncer à grimper jusqu'en haut et rester proche des plaines\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "9": " : ** :bust_in_silhouette: Au milieu d'un champ, vous rencontrez un paysan. Ce dernier a perdu sa fourche...\n\n:mag_right: Aider le paysan à chercher sa fourche.\n:arrow_forward: Passer son chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "10": " : ** :fish: Alors que vous passiez près d'un plan d'eau, vous remarquez un homme qui semble en difficulté sur sa partie de pêche !\n\n:fishing_pole_and_fish: Proposer son aide.\n:runner: Continuer votre route, pas de temps à perdre !\n:hand_splayed: Pousser le pêcheur dans l'eau !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
@@ -874,7 +874,7 @@
             },
             "end": {
                 "1": "** | 🚶 Vous continuez votre chemin sans prêter attention au garde.",
-                "2": "** | 🚶 Abasourdi, vous restez contempler ce massacre pendant 5min. Puis quand le garde vous remarque vous reprenez vos esprits et passez votre chemin. "
+                "2": "** | 🚶 Abasourdi, vous regardez la scène, tétanisé, pendant cinq minutes. Le garde finit par vous remarquer, vous vous hâtez donc de passer votre chemin."
             }
         },
         "21": {
@@ -976,10 +976,10 @@
                 "1": "** | 👊 Après vous être débattu pour traverser la foule, vous intervenez au plus vite et réussissez à extirper cet homme de là. Après avoir couru à travers le village, cet homme, très reconnaissant vous offre un objet qui vous servira pour la suite de votre aventure.",
                 "2": "** | 👊 Durant votre traversée de la foule pour tenter d'aller empêcher ce meurtre, vous vous faites fortement bousculer, et tombez au sol.",
                 "3": "** | 👊 Après avoir réussi à partir d'ici avec l'homme, vous vous faites rattraper et,  frapper par un groupe de personnes. Une fois relevé, vous remarquez que ces individus vous ont volé.",
-                "4": "** | 👊 Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamnéà la peine capitale. :skull:"
+                "4": "** | 👊 Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamné à la peine capitale. :skull:"
             },
             "🚶": {
-                "1": "** | 🚶 Horrifiés par cet acte de barbarie, vous continuez rapidement votre route.",
+                "1": "** | 🚶 Horrifié par cet acte de barbarie, vous continuez rapidement votre route.",
                 "2": "** | 🚶 Durant votre course, vous voyez au loin, un coffret ouvert. Après quelques minutes de marche, vous y êtes, à l'intérieur de celui-ci, un sac rempli d'argent."
             },
             "end": {
@@ -991,7 +991,7 @@
                 "1": "** | 👇 Vous vous blessez grièvement lors de la descente et restez bloqué au fond plusieurs heures avant que quelqu'un ne vous retrouve.",
                 "2": "** | 👇 Vous arrivez en bas sans soucis, récupérez l'objet, et continuez votre route.",
                 "3": "** | 👇 Vous sautez dans le puits mais n'y trouvez rien, vous remontez donc sans perdre davantage de temps.",
-                "4": "** | 👇 Une fois en bas, vous découvrez une grand quantité de pièces d'or que vous récupérez avant de continuer votre périple."
+                "4": "** | 👇 Une fois en bas, vous découvrez une grande quantité de pièces d'or que vous récupérez avant de continuer votre périple."
             },
             "🤝": {
                 "1": "** | 🤝 Après une heure de tentatives, vous obtenez enfin cet objet, qui se révèle être en réalité un simple bout de ferraille.",
@@ -1019,7 +1019,7 @@
                 "2": "** | ❌ Le groupe se montre rapidement agressif face à votre refus. Finalement, vous vous retrouvez contraint de les écouter palabrer pendant de longues minutes afin d'éviter de prendre plus de coups."
             },
             "end": {
-                "1": "** | 🚶 Face à votre béatitude, le groupe se lasse rapidement et pars à la rencontre d'un autre passant."
+                "1": "** | 🚶 Face à votre béatitude, le groupe se lasse rapidement et part à la rencontre d'un autre passant."
             }
         },
         "29": {

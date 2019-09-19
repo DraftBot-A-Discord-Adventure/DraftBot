@@ -2341,7 +2341,7 @@
             "🌳": {
                 "1": {
                     "timeLost": "55",
-                    "healthPointsChange": "+10",
+                    "healthPointsChange": "10",
                     "newEffect": ":clock2:",
                     "xpGained": "75",
                     "moneyGained": "0"
