@@ -14,7 +14,7 @@ const resetBadgeCommand = async function (message, args) {
         let player = await playerManager.getPlayerById(playerId);
         player.badges = "";
         playerManager.updatePlayer(player);
-        message.channel.send(":white_check_mark: Les badges ont été reset");
+        message.channel.send(":white_check_mark: | Les badges ont été reset");
     }
 };
 
