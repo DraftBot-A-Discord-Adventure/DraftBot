@@ -28,7 +28,7 @@ client.on("guildCreate", guilde => {
       
   Vous recevez ce message car je ne peux pas rester sur votre serveur : \`${guilde}\`
           
-  Malheureusement votre serveur ne remplit pas certaines des conditions d'utilisation du bot qui ont été mises en place pour maintenir un minimum de confort aux joueurs en garantissant des performances normales. C'est pourquoi il est demandé aux serveurs souhaitant utiliser le bot d'avoir au minimum 150 êtres humains et de posséder moins de 20% de bot.
+  Malheureusement votre serveur ne remplit pas certaines des conditions d'utilisation du bot qui ont été mises en place pour maintenir un minimum de confort aux joueurs en garantissant des performances normales. Pour plus de détails sur ces limitations, consultez https://draftbot.fandom.com/fr/wiki/Restrictions.
       
   Si vous avez des questions sur le fonctionnement du bot ou si vous souhaiter contester ce départ je vous invite à visiter le site internet : http://draftbot.tk où vous pourrez trouver un lien vers le discord de support du bot !
       
@@ -41,7 +41,7 @@ client.on("guildCreate", guilde => {
           
   Comme vous êtes le propriétaire d'un serveur hébergeant le DraftBot vous obtenez le droit à un grade sur le serveur du bot : https://discord.gg/AP3Wmzb
       
-  Si vous avez des questions sur le fonctionnement du bot je vous invite à visiter le site internet : http://draftbot.tk
+  Si vous avez des questions sur le fonctionnement du bot je vous invite à visiter le wiki :  https://draftbot.fandom.com/fr/wiki/Commandes
       
   Cordialement - DraftBot`);
   }
