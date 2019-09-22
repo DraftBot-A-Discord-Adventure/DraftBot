@@ -5,7 +5,7 @@ const Config = require('../../utils/Config');
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const sendCommand = async function (message, args, client) {
-    if (userIsNotTheOwnerOfTheBot(message)) { // the author of the command is not the owner of the bot
+    if (userIsNotTheOwnerOfTheBotOrASupportMember(message)) { // the author of the command is not the owner of the bot
         return console.log(message.author.username + " tried to use an admin command");
     } else { // the author of the command is the author of the bot
         let playerId = args[1];
@@ -18,12 +18,12 @@ const sendCommand = async function (message, args, client) {
 };
 
 /**
- * Test if the person who sent the message is the owner of the bot.
+ * Test if the person who sent the message is the owner of the bot or a support member.
  * @returns {boolean} - A boolean containing false if the user is the owner.
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-function userIsNotTheOwnerOfTheBot(message) {
-    return message.author.id != Config.BOT_OWNER_ID;
+function userIsNotTheOwnerOfTheBotOrASupportMember(message) {
+    return message.author.id != Config.BOT_OWNER_ID && !Config.SUPPORT_ID.includes(message.author.id) ;
 }
 
 

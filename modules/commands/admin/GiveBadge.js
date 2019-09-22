@@ -19,7 +19,7 @@ const giveBadgeCommand = async function (message, args) {
 };
 
 /**
- * Test if the person who sent the message is the owner of the bot.
+ * Test if the person who sent the message is the owner of the bot or a badge manager.
  * @returns {boolean} - A boolean containing false if the user is the owner.
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
