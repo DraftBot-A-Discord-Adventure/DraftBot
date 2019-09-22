@@ -44,6 +44,7 @@ const CommandTable = new Map(
         ["f", Fight.FightCommand],
         ["s", Shop.ShopCommand],
         ["shop", Shop.ShopCommand],
+        ["prefix", ChangePrefix.ChangePrefixCommand],
 
         ["invi", Invitations.InvitationsCommand],
         ["points", Points.PointsCommand],
