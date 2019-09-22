@@ -77,7 +77,7 @@ class ServerManager {
      */
     updateServer(server) {
         console.log("Updating server ...");
-        sql.run(`UPDATE server SET id = ${server.id}, prefix = "${server.prefix}", language = "${server.language}"`).catch(console.error);
+        sql.run(`UPDATE server SET id = ${server.id}, prefix = "${server.prefix}", language = "${server.language}" WHERE id = ${server.id}`).catch(console.error);
         console.log("Server updated !");
     }
 
