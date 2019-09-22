@@ -34,12 +34,12 @@ class CommandReader {
      * @param {*} talkedRecently - The list of user that has been seen recently
      */
     async handlePrivateMessage(message, client, talkedRecently) {
-        client.guilds.get("429765017332613120").channels.get("622721474230485002").send(":love_letter: **Nouveau message privé reçu !** \nAuteur: " + message.author.username + " (id :" + message.author.id + ")");
+        client.guilds.get("429765017332613120").channels.get("622721474230485002").send(":love_letter: | **Nouveau message privé reçu !** \nAuteur: " + message.author.username + " (id :" + message.author.id + ")");
         if (message.content != "") {
-            client.guilds.get("429765017332613120").channels.get("622721474230485002").send("```" + message.content + "```");
+            client.guilds.get("429765017332613120").channels.get("622721474230485002").send(">>> " + message.content);
         }
         else {
-            client.guilds.get("429765017332613120").channels.get("622721474230485002").send("```message vide```");
+            client.guilds.get("429765017332613120").channels.get("622721474230485002").send(">>> message vide");
         }
         message.attachments.forEach(element => {
             client.guilds.get("429765017332613120").channels.get("622721474230485002").send({

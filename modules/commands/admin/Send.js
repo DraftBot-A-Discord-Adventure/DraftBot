@@ -5,6 +5,7 @@ const Config = require('../../utils/Config');
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const sendCommand = async function (message, args, client) {
+    message.delete();
     if (userIsNotTheOwnerOfTheBotOrASupportMember(message)) { // the author of the command is not the owner of the bot
         return console.log(message.author.username + " tried to use an admin command");
     } else { // the author of the command is the author of the bot
@@ -12,8 +13,14 @@ const sendCommand = async function (message, args, client) {
         let user = client.users.get(playerId)
         let string = message.content.substr(message.content.indexOf(" ") + 2);
         let finalmessage = string.substr(string.indexOf(" ") + 1);
-        user.send(finalmessage).catch(err => {message.channel.send(":x: | La personne a désactivé ses messages privés !")}).then(err => {message.channel.send(":white_check_mark: | DM envoyé !")});
-     
+        finalmessage = finalmessage +"\n\n"+ message.author.username;
+        user.send(finalmessage).then(err => {
+            console.log(finalmessage)
+            message.channel.send(":white_check_mark: | DM envoyé à **" + client.users.get(playerId).username + "** :\n\n>>> " + finalmessage + "");
+        }).catch(err => {
+            message.channel.send(":x: | La personne a désactivé ses messages privés !")
+        });
+
     }
 };
 
@@ -23,7 +30,7 @@ const sendCommand = async function (message, args, client) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 function userIsNotTheOwnerOfTheBotOrASupportMember(message) {
-    return message.author.id != Config.BOT_OWNER_ID && !Config.SUPPORT_ID.includes(message.author.id) ;
+    return message.author.id != Config.BOT_OWNER_ID && !Config.SUPPORT_ID.includes(message.author.id);
 }
 
 
