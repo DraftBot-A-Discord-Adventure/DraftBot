@@ -56,6 +56,7 @@ client.on("guildDelete", guilde => {
 });
 
 client.on("ready", () => {
+  client.user.setActivity(`Aide disponible en DM !`);
   console.log(`DraftBot - v${Config.version}`);
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
