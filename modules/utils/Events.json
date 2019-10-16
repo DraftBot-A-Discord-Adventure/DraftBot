@@ -113,17 +113,17 @@
         "23": {
             "1": "🔨",
             "2": "🚶"
-        }, 
+        },
         "24": {
             "1": "🎯",
             "2": "🎪",
             "3": "🍢"
-        }, 
+        },
         "25": {
             "1": "🤝",
             "2": "🕵",
             "3": "🚶"
-        }, 
+        },
         "26": {
             "1": "💸",
             "2": "👊",
@@ -142,6 +142,11 @@
             "1": "🔍",
             "2": "🌳",
             "3": "💤"
+        },
+        "30": {
+            "1": "🔥",
+            "2": "🏠",
+            "3": "⛺"
         }
     },
     "possibility": {
@@ -1937,7 +1942,7 @@
                     "moneyGained": "0"
                 }
             }
-        }, 
+        },
         "24": {
             "🎯": {
                 "1": {
@@ -2245,7 +2250,7 @@
                     "newEffect": ":smiley:",
                     "xpGained": "25",
                     "moneyGained": "0"
-                },  
+                },
                 "2": {
                     "timeLost": "0",
                     "healthPointsChange": "-45",
@@ -2385,7 +2390,94 @@
                     "xpGained": "150",
                     "moneyGained": "0"
                 }
+            },
+            "🔥":{
+               "1": {
+                   "timeLost": "15",
+                   "healthPointsChange": "5",
+                   "newEffect": ":clock2:",
+                   "xpGained": "300",
+                   "moneyGained": "25"
+               },
+               "2": {
+                   "timeLost": "25",
+                   "healthPointsChange": "0",
+                   "newEffect": ":smiley:",
+                   "xpGained": "125",
+                   "moneyGained": "50"
+               },
+               "3": {
+                   "timeLost": "25",
+                   "healthPointsChange": "0",
+                   "new effect": ":clock2:",
+                   "xpGained": "500",
+                   "moneyGained": "75",
+                   "item": "true"
+               },
+               "4": {
+                   "timeLost": "0",
+                   "healthPointsChange": "-15",
+                   "newEffect": ":confounded:",
+                   "xpGained": "25",
+                   "moneyGained": "0"
+               }
+            },
+            "🏠": {
+               "1": {
+                   "timeLost": "5",
+                   "healthPointsChange": "0",
+                   "newEffect": ":clock2:",
+                   "xpGained": "250",
+                   "moneyGained": "75"
+               },
+               "2": {
+                   "timeLost": "60",
+                   "healthPointsChange": "-50",
+                   "newEffect": ":snowflake:",
+                   "xpGained": "175",
+                   "moneyGained": "25"
+               },
+               "3": {
+                   "timeLost": "330",
+                   "healthPointsChange": "20",
+                   "newEffect": ":zzz:",
+                   "xpGained": "400",
+                   "moneyGained": "75"
+               }
+            },
+            "⛺": {
+               "1": {
+                   "timeLost": "30",
+                   "healthPointsChange": "5",
+                   "newEffect": ":clock2:",
+                   "xpGained": "500",
+                   "moneyGained": "100"
+               },
+               "2": {
+                   "timeLost": "15",
+                   "healthPointsChange": "-40",
+                   "newEffect": ":dizzy_face:",
+                   "xpGained": "225",
+                   "moneyGained": "25"
+               }
+            },
+            "end": {
+                "1": {
+                    "timeLost": "30",
+                    "healthPointsChange": "-15",
+                    "newEffect": ":clock2:",
+                    "xpGained": "50",
+                    "moneyGained": "0"
+                },
+                "2": {
+                    "timeLost": "10",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "25",
+                    "moneyGained": "10"
+                }
             }
         }
     }
 }
+
