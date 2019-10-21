@@ -479,7 +479,8 @@
         "26": " : ** :walking: En vous promenant dans un village, vous remarquez un regroupement de personnes. En allant voir, vous constatez très vite qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n:money_with_wings: Voler des passants assistant au massacre.\n:punch: S'interposer et empêcher cet homme de mourir.\n:walking: Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "27": " : ** :walking: En vous promenant dans le petit village que vous avez trouvé, vous remarquez un puits avec un petit objet brillant au fond.\n\n:point_down: Tenter de descendre pour récupérer l'objet.\n:handshake: Tenter d'attraper l'objet avec le seau du puits\n:walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "28": " : ** :angel: Pendant votre périple, un groupe d'hommes \"prêchant la parole des Dieux\", vous invite à rejoindre leur cause. \n\n:white_check_mark: Accepter de la rejoindre\n:x: Refuser gentiment la proposition.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "29": " : ** :thermometer: En cette période où les températures dépassent les 30°C, vous commencez à être fatigué, de ce fait, vous décidez de chercher un moyen de vous délasser pour repartir en meilleure forme.\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:zzz: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+        "29": " : ** :thermometer: En cette période où les températures dépassent les 30°C, vous commencez à être fatigué, de ce fait, vous décidez de chercher un moyen de vous délasser pour repartir en meilleure forme.\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:zzz: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "30": " : ** :head_bandage: Alors que vous marchiez tranquillement sur un chemin de terre dans une forêt, vous êtes soudainement pris d'un horrible mal de tête. \n\n:house: demander de l'aide dans une vieille grange non loin de votre position \n:zzz: se reposer auprès d'un arbre \n:walking: continuer sa route \n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     },
     "possibilities": {
         "report": {
@@ -1040,6 +1041,26 @@
             "end": {
                 "1": "** | 👀 Vous restez à votre place, en plein soleil pendant une quinzaine de minutes, puis vous écroulez",
                 "2": "** | 🚶 Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps"
+            }
+        },
+        "30": {
+            "🏠": {
+                "1": "** | 🏚 Cette grange est totalement vide, personne ne peut vous aider. Vous vous éffonfrez au sol lourdement. Vous vous réveillez quelques heures plus tard",
+                "2": "** | 💊 Cette grange est habitée par de sympathiques paysans qui vous offre de quoi vous soigner, vous reprenez votre route après les avoirs remercié",
+                "3": "** | 🛏 Les habitants de cette grange vous propose de vous reposer quelques heures chez eux avant de repartir, vous ne pouvez refuser et vous endormez rapidement"
+            },
+            "💤": {
+                "1": "** | 🌳 Vous vous allongez auprès d'un grand arbre vous procurant beaucoup d'ombre, votre mal de crâne disparait lentement, après de longues minutes, vous pouvez enfin reprendre la route",
+                "2": "** | 🌳 Vous vous allongez auprès d'un grand arbre vous procurant beaucoup d'ombre, malheureusement votre mal de tête ne diminue pas. vous décidez de reprendre la route malgré celui-ci",
+                "3": "** | 🌳 Vous vous allongez auprès d'un grand arbre vous procurant beaucoup d'ombre, des brigands surgissent de nul part et vous frappent la tête, vous tomber dans les pommes. A votre réveil, votre mal de crâne à disparu, votre bourse aussi",
+            },
+            "🚶": {
+                "1": "** | 🚶 Vous décidez de ne pas vous arrêter, votre mal de tête diminue au fur et à mesure de votre avancée, puis disparait",
+                "2": "** | 🚶 Vous décidez que votre mal de tête passe après votre quête et décidez donc de continuer, malheureusement celui-ci semble plus fort que vous.après quelques minutes de marche, vous vous effondrez au sol.",
+            },
+            "end": {
+                "1": "** | 😖 Vous vous stoppez sur place en espérant que le mal de tête passera. Au bout de 10 minutes, celui-ci a nettement diminué et vous pouvez reprendre votre route",
+                "2": "** | 🚶 Votre aventure passe avant tout, vous continuez malgré la douleur qui ne tarde pas à se faire oublier"
             }
         }
     }
