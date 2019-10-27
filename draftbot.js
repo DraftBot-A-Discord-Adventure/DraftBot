@@ -8,6 +8,7 @@ const CommandReader = require('./modules/CommandReader');
 const DatabaseManager = require('./modules/DatabaseManager');
 const ServerManager = require('./modules/classes/ServerManager');
 const Text = require('./modules/text/Francais');
+const Console = require('./modules/text/Console');
 
 //database loading : I use sqlite because it is a promise based system like discord.js so it make sense
 const sql = require("sqlite");
@@ -21,7 +22,7 @@ client.on("guildCreate", guilde => {
   let resultat = "";
   let serverManager = new ServerManager;
   let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
-  resultat += `**:inbox_tray: Serveur discord rejoint :** \`${guilde}\` | :bust_in_silhouette: : \`${nbMembres}\`  | :robot: : \`${nbBot}\` | Ratio bot/Humain : \`${ratio}\` % | Validation : ${validation}\n`;
+  resultat += Console.guildJoin.begin + guilde +Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot +Console.guildJoin.ratio+  ratio  +  Console.guildJoin.validation + validation;
   client.guilds.get("429765017332613120").channels.get("433541702070960128").send(resultat);
   if (validation == ":x:") {
     guilde.owner.send(`:warning:  Bonjour ! 
@@ -57,7 +58,7 @@ client.on("guildDelete", guilde => {
 
 client.on("ready", () => {
   client.user.setActivity(`Aide disponible en DM !`);
-  console.log(`DraftBot - v${Config.version}`);
+  console.log(Console.reboot);
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
   client.guilds.get("429765017332613120").channels.get("433541702070960128").send(`:robot: **DraftBot** - v${Config.version}`).catch(err => { })

@@ -2,6 +2,7 @@ const Config = require('./utils/Config');
 const ServerManager = require('./classes/ServerManager');
 const CommandTable = require('./CommandTable');
 const Text = require('./text/Francais');
+const Console = require('./text/Console');
 
 class CommandReader {
     constructor() {
@@ -34,12 +35,12 @@ class CommandReader {
      * @param {*} talkedRecently - The list of user that has been seen recently
      */
     async handlePrivateMessage(message, client, talkedRecently) {
-        client.guilds.get("429765017332613120").channels.get("622721474230485002").send(":love_letter: | **Nouveau message privé reçu !** \nAuteur: " + message.author.username + " (id :" + message.author.id + ")");
+        client.guilds.get("429765017332613120").channels.get("622721474230485002").send(Console.dm.alertBegin + message.author.username + Console.dm.alertId + message.author.id + Console.dm.alertEnd);
         if (message.content != "") {
-            client.guilds.get("429765017332613120").channels.get("622721474230485002").send(">>> " + message.content);
+            client.guilds.get("429765017332613120").channels.get("622721474230485002").send(Console.dm.quote + message.content);
         }
         else {
-            client.guilds.get("429765017332613120").channels.get("622721474230485002").send(">>> message vide");
+            client.guilds.get("429765017332613120").channels.get("622721474230485002").send(Console.dm.empty);
         }
         message.attachments.forEach(element => {
             client.guilds.get("429765017332613120").channels.get("622721474230485002").send({

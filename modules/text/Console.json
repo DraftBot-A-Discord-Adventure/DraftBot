@@ -1,0 +1,17 @@
+{
+    "reboot": "####################\n\n\nDémarage du DraftBot\n\n\n####################",
+    "dm": {
+        "empty": ">>> message vide",
+        "alertBegin": ":love_letter: | **Nouveau message privé reçu !** \nAuteur: ",
+        "alertId": " (id :",
+        "alertEnd": ")",
+        "quote": ">>> "
+    },
+    "guildJoin": {
+        "begin :": "**:inbox_tray: Serveur discord rejoint :** ",
+        "persons": " | :bust_in_silhouette: : ",
+        "ratio" : "| Ratio bot/Humain : ",
+        "bots" : "| :robot: : ",
+        "validation" : "| Validation : "
+    }
+}
