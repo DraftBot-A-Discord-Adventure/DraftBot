@@ -1,5 +1,3 @@
-const Config = require('../utils/Config');
-const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
 
 /**

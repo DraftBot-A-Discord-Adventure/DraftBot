@@ -1,7 +1,7 @@
 const Config = require('./utils/Config');
 const ServerManager = require('./classes/ServerManager');
 const CommandTable = require('./CommandTable');
-const Text = require('./text/Francais');
+const Text = require('./text/fr');
 const Console = require('./text/Console');
 
 class CommandReader {

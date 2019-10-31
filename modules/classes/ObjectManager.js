@@ -1,8 +1,8 @@
 const Object = require('./Object');
-const ItemNames = require('../utils/items/Francais');
 const ItemValues = require('../utils/items/Values');
-const Text = require('../text/Francais');
 const DefaultValues = require('../utils/DefaultValues');
+let ItemNames;
+let Text;
 
 class ObjectManager {
 
@@ -20,9 +20,12 @@ class ObjectManager {
     /**
      * Return string containing a description of an object
      * @param object - The object that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the object
      */
-    displayObject(object) {
+    displayObject(object, language) {
+        Text = require('../text/' + language);
+        ItemNames = require('../utils/items/' + language);
         let stringResult = ItemNames.object[object.id] + Text.objectManager.separator + Text.rarities[object.rareness] + Text.objectManager.separator + Text.nature.intro[object.natureEffect];
         if (object.natureEffect != 0) { // affichage de la puissance de l'effet si il existe
             stringResult += object.power + Text.nature.outroObject[object.natureEffect];
@@ -34,9 +37,11 @@ class ObjectManager {
     /**
      * Return string containing a description of an object in case this object is the default armor
      * @param object - The object that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the object
      */
-    displayDefaultObject(object) {
+    displayDefaultObject(object,language) {
+        ItemNames = require('../utils/items/' + language);
         return ItemNames.object[object.id];
     }
 

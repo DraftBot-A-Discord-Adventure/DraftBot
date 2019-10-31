@@ -17,7 +17,7 @@
     },
     "server": {
         "prefix": "!",
-        "language": "fr"
+        "language": "en"
     },
     "report": {
         "minimalTime": "60",

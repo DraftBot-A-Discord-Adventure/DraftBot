@@ -1,21 +1,48 @@
 const PlayerManager = require('../classes/PlayerManager');
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text;
+let language;
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
 const PotionManager = require('../classes/PotionManager');
 const InventoryManager = require('../classes/InventoryManager');
+
+
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
+
+/**
+ * Allow to get the language the bot has to respond with
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @returns {string} - the code of the server language
+ */
+const detectLanguage = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    return server.language
+}
 
 /**
  * Give a random thing to a player in exchange for 100 coins
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const ShopCommand = async function (message, args, client, talkedRecently) {
+    Text = await chargeText(message);
+    language = await detectLanguage(message);
     if (talkedRecently.has(message.author.id)) {
         message.channel.send(Text.commands.shop.cancelStart + message.author + Text.commands.shop.tooMuchShop);
     } else {
         let playerManager = new PlayerManager();
         let player = await playerManager.getCurrentPlayer(message);
-        if (playerManager.checkState(player, message, ":dizzy_face::sick::zzz::head_bandage::snowflake::confounded::clock2::smiley:")) {
+        if (playerManager.checkState(player, message, ":dizzy_face::sick::zzz::head_bandage::snowflake::confounded::clock2::smiley:", language)) {
             if (Tools.isANegativeNumber(player.money)) {
                 let ShopMessage = Text.commands.shop.errorEmoji + message.author.username + Text.commands.shop.noMoney;
                 return message.channel.send(ShopMessage);
@@ -23,7 +50,7 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
             talkedRecently.add(message.author.id);
             let potionManager = new PotionManager();
             let dailyPotion = generateDailyPotion();
-            let ShopMessage = generateShopMessage(dailyPotion, potionManager);
+            let ShopMessage = generateShopMessage(dailyPotion, potionManager, language);
             message.channel.send(ShopMessage).then(async msg => {
                 await addShopReactions(dailyPotion, msg);
 
@@ -60,7 +87,7 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                             break;
                         default:
                             choice = "aa";
-                            messageChoice += potionManager.displayPotion(dailyPotion) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + Text.commands.shop.infos.aa;
+                            messageChoice += potionManager.displayPotion(dailyPotion, language) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + Text.commands.shop.infos.aa;
                             break;
                     }
                     let messageconfirm = await displayConfirmMessage(message, messageChoice);
@@ -259,9 +286,9 @@ async function addShopReactions(dailyPotion, msg) {
  * @param {*} dailyPotion - The potion that has to be displayed
  * @param {*} potionManager - The potion manager
  */
-function generateShopMessage(dailyPotion, potionManager) {
+function generateShopMessage(dailyPotion, potionManager, language) {
     let potionPrice = dailyPotion.getValue() + parseInt(DefaultValues.shop.addedValue);
-    let ShopMessage = Text.commands.shop.intro + potionManager.displayPotion(dailyPotion) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + Text.commands.shop.outro;
+    let ShopMessage = Text.commands.shop.intro + potionManager.displayPotion(dailyPotion, language) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + Text.commands.shop.outro;
     return ShopMessage;
 }
 

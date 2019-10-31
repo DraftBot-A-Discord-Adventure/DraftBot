@@ -1,8 +1,6 @@
 const Event = require('./Event');
 const Possibility = require('./Possibility');
-const Config = require('../utils/Config');
 const EventsData = require('../utils/Events');
-const DefaultValues = require('../utils/DefaultValues')
 
 
 class EventManager {

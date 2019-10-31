@@ -2,13 +2,26 @@ const PlayerManager = require('../classes/PlayerManager');
 const ObjectManager = require('../classes/ObjectManager');
 const InventoryManager = require('../classes/InventoryManager');
 const DefaultValues = require('../utils/DefaultValues');
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text
+
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
 
 /**
  * Allow to sell the item that is stored in the backup position of the inventory of the player
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const sellCommand = async function (message, args, client, talkedRecently) {
+    Text = await chargeText(message);
     if (talkedRecently.has(message.author.id)) {
         message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
     } else {

@@ -1,5 +1,17 @@
 const Tools = require('../utils/Tools');
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text
+
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
 
 /**
  * Base class that shouldn't be instantiated. Instead, Entities are meant to extend this class.

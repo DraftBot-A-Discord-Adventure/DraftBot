@@ -1,8 +1,8 @@
 const Potion = require('./Potion');
-const ItemNames = require('../utils/items/Francais');
 const ItemValues = require('../utils/items/Values');
-const Text = require('../text/Francais');
 const DefaultValues = require('../utils/DefaultValues');
+let Text;
+let ItemNames;
 
 
 class PotionManager {
@@ -21,10 +21,12 @@ class PotionManager {
     /**
      * Return string containing a description of an potion
      * @param potion - The potion that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the potion
      */
-    displayPotion(potion) {
-        console.log(potion);
+    displayPotion(potion, language) {
+        Text = require('../text/' + language);
+        ItemNames = require('../utils/items/' +language);
         let stringResult = ItemNames.potion[potion.id] + Text.potionManager.separator + Text.rarities[potion.rareness] + Text.potionManager.separator + Text.nature.intro[potion.natureEffect];
         if (potion.natureEffect != 0) { // affichage de la puissance de l'effet si il existe
             stringResult += potion.power + Text.nature.outroPotion[potion.natureEffect];
@@ -36,9 +38,11 @@ class PotionManager {
     /**
      * Return string containing a description of an potion in case this potion is the default armor
      * @param potion - The potion that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the potion
      */
-    displayDefaultPotion(potion) {
+    displayDefaultPotion(potion,language) {
+        ItemNames = require('../utils/items/' + language);
         return ItemNames.potion[potion.id];
     }
 

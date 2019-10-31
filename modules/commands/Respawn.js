@@ -1,5 +1,17 @@
 const PlayerManager = require('../classes/PlayerManager');
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text
+
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
 const Config = require('../utils/Config');
 
 /**
@@ -7,6 +19,7 @@ const Config = require('../utils/Config');
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const respawnCommand = async function (message) {
+    Text = await chargeText(message);
     let playerManager = new PlayerManager();
     let player = await playerManager.getCurrentPlayer(message);
 

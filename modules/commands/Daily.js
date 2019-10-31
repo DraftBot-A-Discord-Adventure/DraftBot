@@ -1,6 +1,18 @@
 const InventoryManager = require('../classes/InventoryManager');
 const PlayerManager = require('../classes/PlayerManager');
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text
+
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
 
@@ -9,6 +21,7 @@ const DefaultValues = require('../utils/DefaultValues');
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const dailyCommand = async function (message) {
+    Text = await chargeText(message);
     currentDay = new Date()
     let inventoryManager = new InventoryManager();
     let playerManager = new PlayerManager();

@@ -2,14 +2,25 @@ const Player = require('./Player');
 const DefaultValues = require('../utils/DefaultValues')
 const Config = require('../utils/Config')
 const sql = require("sqlite");
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
 const Tools = require('../utils/Tools');
 const InventoryManager = require('../classes/InventoryManager');
 const EquipementManager = require('../classes/EquipementManager');
 const PotionManager = require('../classes/PotionManager');
 const ObjectManager = require('../classes/ObjectManager');
-
 sql.open("./modules/data/database.sqlite");
+let Text;
+
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
 
 class PlayerManager {
 
@@ -206,9 +217,11 @@ class PlayerManager {
      * @param {*} player - The player that has to be tested
      * @param {String} allowedStates - A string containig the allowed states
      * @param {String} username - An optionnal value that allow to display a custom username
+     * @param {String} language - The language the answer has to be displayed in
      * @returns {boolean} - True is the player is in good health
      */
-    checkState(player, message, allowedStates, username) {
+    checkState(player, message, allowedStates, language, username) {
+        Text = require('../text/' + language);
         let result = false;
         let rejectMessage;
         if (allowedStates.includes(player.getEffect())) {
@@ -223,7 +236,7 @@ class PlayerManager {
                 }
                 rejectMessage = player.getEffect() + Text.playerManager.intro + username + Text.playerManager.errorMain[player.getEffect()];
                 if (message.createdTimestamp < player.lastReport)
-                    rejectMessage += this.displayTimeLeft(player, message)
+                    rejectMessage += this.displayTimeLeft(player, message, language)
                 message.channel.send(rejectMessage);
             }
         }
@@ -235,9 +248,11 @@ class PlayerManager {
      * display the time a player have before beeing able to play again
      * @param {*} player - The player that has to be tested
      * @param {*} message - The message that caused the function to be called. Used to retrieve the createdTimestamp
+     * @param {String} language - The language the answer has to be displayed in
      * @returns {String} - A string vontaining the duration
      */
-    displayTimeLeft(player, message) {
+    displayTimeLeft(player, message, language) {
+        Text = require('../text/' + language);
         if (!":baby::smiley::clock10::skull:".includes(player.getEffect())) { //these states dont have a duration to display
             if (message.createdTimestamp < player.lastReport) {
                 return Text.playerManager.timeLeft + Tools.displayDuration(Tools.convertMillisecondsInMinutes(player.lastReport - message.createdTimestamp)) + Text.playerManager.outro;
@@ -247,6 +262,17 @@ class PlayerManager {
         } else {
             return "";
         }
+    }
+
+    /**
+     * Allow to get the language the bot has to respond with
+     * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+     * @returns {string} - the code of the server language
+     */
+    async detectLanguage(message) {
+        let serverManager = new ServerManager();
+        let server = await serverManager.getServer(message);
+        return server.language
     }
 
     /**
@@ -275,7 +301,7 @@ class PlayerManager {
                 player = await this.giveRandomPotion(potionManager, inventory, message, inventoryManager, player);
                 break;
             default:
-                message.channel.send("item à donner de type :" + type);
+                // this is never supposed to occure
                 break;
         }
         return player
@@ -325,16 +351,18 @@ class PlayerManager {
      * @param {*} id - The id of the armor
      */
     async giveArmor(equipementManager, inventory, message, inventoryManager, player, id) {
+        Text = await chargeText(message);
+        let language = await this.detectLanguage(message);
         let armor = await equipementManager.getArmorById(id);
         let neww = equipementManager.getEquipementEfficiency(armor);
         let old = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
         if (neww > old) {
             inventory.armorId = armor.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor));
+            message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, armor, message);
+            player = this.sellItem(player, armor, message, language);
         }
         return player
     }
@@ -350,16 +378,18 @@ class PlayerManager {
      * @param {*} id - The id of the weapon
      */
     async giveWeapon(equipementManager, inventory, message, inventoryManager, player, id) {
+        Text = await chargeText(message);
+        let language = await this.detectLanguage(message);
         let weapon = await equipementManager.getWeaponById(id);
         let neww = equipementManager.getEquipementEfficiency(weapon);
         let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
         if (neww > old) {
             inventory.weaponId = weapon.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon));
+            message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, weapon, message);
+            player = this.sellItem(player, weapon, message, language);
         }
         return player
     }
@@ -375,16 +405,18 @@ class PlayerManager {
      * @param {*} id - The id of the object
      */
     async giveObject(objectManager, inventory, message, inventoryManager, player, id) {
+        Text = await chargeText(message);
+        let language = await this.detectLanguage(message);
         let object = await objectManager.getObjectById(id);
         let neww = objectManager.getObjectEfficiency(object);
         let old = objectManager.getObjectEfficiency(objectManager.getObjectById(inventory.backupItemId));
         if (neww > old) {
             inventory.backupItemId = object.id;
-            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object));
+            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, object, message);
+            player = this.sellItem(player, object, message, language);
         }
         return player
     }
@@ -400,16 +432,18 @@ class PlayerManager {
      * @param {*} id - The id of the potion
      */
     async givePotion(potionManager, inventory, message, inventoryManager, player, id) {
+        Text = await chargeText(message);
+        let language = await this.detectLanguage(message);
         let potion = await potionManager.getPotionById(id);
         let neww = potionManager.getPotionEfficiency(potion);
         let old = potionManager.getPotionEfficiency(potionManager.getPotionById(inventory.potionId));
         if (neww > old) {
             inventory.potionId = potion.id;
-            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion));
+            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, potion, message);
+            player = this.sellItem(player, potion, message, language);
         }
         return player
     }
@@ -424,16 +458,18 @@ class PlayerManager {
      * @param {*} player - The player that is playing
      */
     async giveRandomArmor(equipementManager, inventory, message, inventoryManager, player) {
+        Text = await chargeText(message);
+        let language = await this.detectLanguage(message);
         let armor = await equipementManager.generateRandomArmor();
         let neww = equipementManager.getEquipementEfficiency(armor);
         let old = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
         if (neww > old) {
             inventory.armorId = armor.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor));
+            message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, armor, message);
+            player = this.sellItem(player, armor, message, language);
         }
         return player
     }
@@ -448,16 +484,18 @@ class PlayerManager {
      * @param {*} player - The player that is playing
      */
     async giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player) {
+        Text = await chargeText(message);
+        let language = await this.detectLanguage(message);
         let weapon = await equipementManager.generateRandomWeapon();
         let neww = equipementManager.getEquipementEfficiency(weapon);
         let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
         if (neww > old) {
             inventory.weaponId = weapon.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon));
+            message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, weapon, message);
+            player = this.sellItem(player, weapon, message, language);
         }
         return player
     }
@@ -472,16 +510,18 @@ class PlayerManager {
      * @param {*} player - The player that is playing
      */
     async giveRandomObject(objectManager, inventory, message, inventoryManager, player) {
+        Text = await chargeText(message);
+        let language = await this.detectLanguage(message);
         let object = await objectManager.generateRandomObject();
         let neww = objectManager.getObjectEfficiency(object);
         let old = objectManager.getObjectEfficiency(objectManager.getObjectById(inventory.backupItemId));
         if (neww > old) {
             inventory.backupItemId = object.id;
-            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object));
+            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, object, message);
+            player = this.sellItem(player, object, message, language);
         }
         return player
     }
@@ -496,16 +536,18 @@ class PlayerManager {
      * @param {*} player - The player that is playing
      */
     async giveRandomPotion(potionManager, inventory, message, inventoryManager, player) {
+        Text = await chargeText(message);
+        let language = await this.detectLanguage(message);
         let potion = await potionManager.generateRandomPotion();
         let neww = potionManager.getPotionEfficiency(potion);
         let old = potionManager.getPotionEfficiency(potionManager.getPotionById(inventory.potionId));
         if (neww > old) {
             inventory.potionId = potion.id;
-            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion));
+            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, potion, message);
+            player = this.sellItem(player, potion, message, language);
         }
         return player
     }
@@ -524,8 +566,10 @@ class PlayerManager {
      * @param {Item} item - The equipement that has to be sold
      * @param {*} player - The player that will recieve the money
      * @param {*} message - The message that caused the function to be called. Used to retrieve the channel
+     * @param {String} language - The language the answer has to be displayed in
      */
-    sellItem(player, item, message) {
+    sellItem(player, item, message, language) {
+        Text = require('../text/' + language);
         let value = item.getValue();
         console.log("the item has been sold ! " + item.rareness + " / " + item.power);
         player.addMoney(value);

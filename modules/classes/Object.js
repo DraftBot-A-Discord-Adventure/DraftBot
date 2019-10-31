@@ -1,5 +1,5 @@
 const Item = require('./Item');
-const ItemNames = require('../utils/items/Francais');
+const ItemNames = require('../utils/items/fr');
 
 /**
  * Represent an object

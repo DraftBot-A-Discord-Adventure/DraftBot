@@ -1,6 +1,3 @@
-const Config = require('../utils/Config');
-const Tools = require('../utils/Tools');
-
 /**
  * Represents a server where the bot is present.
  */

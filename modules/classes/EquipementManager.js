@@ -1,8 +1,8 @@
 const Equipement = require('./Equipement');
-const ItemNames = require('../utils/items/Francais');
 const ItemValues = require('../utils/items/Values');
-const Text = require('../text/Francais');
 const DefaultValues = require('../utils/DefaultValues');
+let ItemNames;
+let Text;
 
 class EquipementManager {
 
@@ -30,35 +30,46 @@ class EquipementManager {
     /**
      * Return string containing a description of an equipement wich is a weapon
      * @param equipement - The equipement that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the equipement
      */
-    displayWeapon(equipement) {
-        return ItemNames.weapon[equipement.id] + Text.equipementManager.separator1 + this.getEquipementEfficiency(equipement) + Text.equipementManager.separator2
+    displayWeapon(equipement, language) {
+        console.log(language)
+        Text = require('../text/' + language);
+        ItemNames = require('../utils/items/' + language);
+        let stringResult = ItemNames.weapon[equipement.id] + Text.equipementManager.separator1 + this.getEquipementEfficiency(equipement) + Text.equipementManager.separator2
             + Text.rarities[equipement.rareness];
+        return stringResult;
     }
 
 
     /**
      * Return string containing a description of an equipement wich is a weapon
      * @param equipement - The equipement that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the equipement
      */
-    displayArmor(equipement) {
-        return ItemNames.armor[equipement.id] + Text.equipementManager.separator1 + this.getEquipementEfficiency(equipement) + Text.equipementManager.separator2
+    async displayArmor(equipement, message) {
+        Text = require('../text/' + language);
+        ItemNames = require('../utils/items/' + language);
+        let stringResult = ItemNames.armor[equipement.id] + Text.equipementManager.separator1 + this.getEquipementEfficiency(equipement) + Text.equipementManager.separator2
             + Text.rarities[equipement.rareness];
+        return stringResult;
     }
 
 
     /**
      * Return string containing a description of an equipement in case this equipement is the default armor
      * @param equipement - The equipement that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the equipement
      */
-    displayDefaultArmor(equipement) {
+    displayDefaultArmor(equipement, language) {
+        ItemNames = require('../utils/items/' + language);
         return ItemNames.armor[equipement.id];
     }
 
-    
+
     /**
      * Return the real value of the power that is applied when it is used
      * @param equipement - The equipement that has to be displayed
@@ -128,7 +139,7 @@ class EquipementManager {
     generateRandomRareness() {
         let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
         let desiredRareness = 1;
-        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness-1]) {
+        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness - 1]) {
             desiredRareness++;
         }
         return desiredRareness;

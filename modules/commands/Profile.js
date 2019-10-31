@@ -1,12 +1,37 @@
 const PlayerManager = require('../classes/PlayerManager');
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text
+
+/**
+ * Allow to charge the correct text file
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
+
+/**
+ * Allow to get the language the bot has to respond with
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @returns {string} - the code of the server language
+ */
+const detectLanguage = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    return server.language
+}
 
 /**
  * Display information about the player that sent the command
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param args - arguments typed by the user in addition to the command
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param {*} args - arguments typed by the user in addition to the command
  */
 const profileCommand = async function (message, args, client) {
+    Text = await chargeText(message);
+    let language = await detectLanguage(message);
     let playerManager = new PlayerManager();
     let player = await playerManager.getCurrentPlayer(message);
     if (askForAnotherPlayer(args)) {
@@ -16,7 +41,7 @@ const profileCommand = async function (message, args, client) {
             return message.channel.send(Text.commands.profile.errorMain + message.author.username + Text.commands.profile.errorExp)
     }
     let numberOfPlayer = await playerManager.getNumberOfPlayers();
-    let messageProfile = generateProfileMessage(message, player, numberOfPlayer, args, client);
+    let messageProfile = generateProfileMessage(message, player, numberOfPlayer, client, language);
     message.channel.send(messageProfile).then(msg => {
         displayBadges(player, msg);
     });
@@ -26,12 +51,13 @@ const profileCommand = async function (message, args, client) {
 /**
  * Returns a string containing the profile message.
  * @returns {String} - A string containing the profile message.
- * @param message - The message that caused the function to be called. Used to retrieve the channel of the message.
- * @param player - The player that send the message
- * @param numberOfPlayer - The total number of player in the database
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the channel of the message.
+ * @param {*} player - The player that send the message
+ * @param {Integer} numberOfPlayer - The total number of player in the database
+ * @param {String} language - The language the answer has to be displayed in
  * @param {*} client - The bot client
  */
-const generateProfileMessage = function (message, player, numberOfPlayer, args, client) {
+const generateProfileMessage = function (message, player, numberOfPlayer, client, language) {
     let playerManager = new PlayerManager();
     let profileMessage;
     let pseudo = getPlayerPseudo(client, player);
@@ -46,7 +72,7 @@ const generateProfileMessage = function (message, player, numberOfPlayer, args, 
             Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +
             Text.commands.profile.money + player.getMoney() +
             Text.commands.profile.score + player.getScore() +
-            playerManager.displayTimeLeft(player, message);
+            playerManager.displayTimeLeft(player, message, language);
     }
     return profileMessage;
 };

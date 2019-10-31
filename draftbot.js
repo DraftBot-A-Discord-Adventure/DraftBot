@@ -7,7 +7,7 @@ const Config = require('./modules/utils/Config');
 const CommandReader = require('./modules/CommandReader');
 const DatabaseManager = require('./modules/DatabaseManager');
 const ServerManager = require('./modules/classes/ServerManager');
-const Text = require('./modules/text/Francais');
+const Text = require('./modules/text/fr');
 const Console = require('./modules/text/Console');
 
 //database loading : I use sqlite because it is a promise based system like discord.js so it make sense

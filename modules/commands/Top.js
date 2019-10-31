@@ -1,5 +1,17 @@
 const PlayerManager = require('../classes/PlayerManager');
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text
+
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
 const DefaultValues = require('../utils/DefaultValues')
 
 /**
@@ -8,6 +20,7 @@ const DefaultValues = require('../utils/DefaultValues')
  * @param args - arguments typed by the user in addition to the command
  */
 const topCommand = async function (message, args, client) {
+    Text = await chargeText(message);
     let playerManager = new PlayerManager();
 
     let actualPlayer = await playerManager.getCurrentPlayer(message);

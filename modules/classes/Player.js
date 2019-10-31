@@ -2,7 +2,19 @@ const Config = require('../utils/Config');
 const Entity = require('./Entity');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text
+
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
 
 /**
  * Represents a Player.
@@ -116,7 +128,8 @@ class Player extends Entity {
      * experience.
      * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
-    levelUp(message) {
+    async levelUp(message) {
+        Text = await chargeText(message);
         this.setLevel(this.getLevel() + 1);
         let messageLevelUp = Text.playerManager.levelUp.intro + message.author + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
         let bonus = false;

@@ -1,20 +1,43 @@
 const PlayerManager = require('../classes/PlayerManager');
-const Player = require('../classes/Player');
 const InventoryManager = require('../classes/InventoryManager');
-const Inventory = require('../classes/Inventory');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text;
+let language;
 
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
+
+/**
+ * Allow to get the language the bot has to respond with
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @returns {string} - the code of the server language
+ */
+const detectLanguage = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    return server.language
+}
 
 /**
  * Allow the user to launch a fight
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const fightCommand = async function (message, args, client, talkedRecently) {
+    Text = await chargeText(message);
+    language = await detectLanguage(message);
     if (talkedRecently.has(message.author.id)) {
-       return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
-    } 
+        return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
+    }
     let playerManager = new PlayerManager;
     let inventoryManager = new InventoryManager;
     let attacker = message.author;
@@ -31,7 +54,7 @@ const fightCommand = async function (message, args, client, talkedRecently) {
     if (player.level < DefaultValues.fight.minimalLevel) {
         displayErrorSkillMissing(message, attacker);
     } else {
-        if (playerManager.checkState(player, message, ":smiley:")) {  //check if the player is not dead or sick or something else
+        if (playerManager.checkState(player, message, ":smiley:", language)) {  //check if the player is not dead or sick or something else
             playerManager.setPlayerAsOccupied(player);
 
             let messageIntro = await displayIntroMessage(message, attacker);
@@ -62,8 +85,8 @@ const fightCommand = async function (message, args, client, talkedRecently) {
                             } else {
                                 if (talkedRecently.has(defender.id)) {
                                     return message.channel.send(Text.commands.sell.cancelStart + defender + Text.commands.shop.tooMuchShop);
-                                 } 
-                                if (playerManager.checkState(defenderPlayer, message, ":smiley:", defender.username)) {  //check if the player is not dead or sick or something else
+                                }
+                                if (playerManager.checkState(defenderPlayer, message, ":smiley:", language, defender.username)) {  //check if the player is not dead or sick or something else
                                     playerManager.setPlayerAsOccupied(defenderPlayer);
                                     fightIsOpen = false;
                                     displayFightStartMessage(message, attacker, defender);

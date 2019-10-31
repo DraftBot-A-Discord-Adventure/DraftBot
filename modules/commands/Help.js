@@ -1,11 +1,24 @@
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text
+
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    let address = '../text/' + server.language;
+    return require(address);
+}
 
 /**
  * Display help for a player 
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
-const helpCommand = function (message, args, client) {
+const helpCommand = async function (message, args, client) {
+    Text = await chargeText(message);
     let helpMessage;
     if (userAskForGeneralHelp(args[1]))
         helpMessage = generateGeneralHelpMessage(message);

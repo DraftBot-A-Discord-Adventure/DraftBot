@@ -2,14 +2,39 @@ const PlayerManager = require('../classes/PlayerManager');
 const EventManager = require('../classes/EventManager');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
-const Text = require('../text/Francais');
+const ServerManager = require('../classes/ServerManager');
+let Text;
+let language;
 
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+   let serverManager = new ServerManager();
+   let server = await serverManager.getServer(message);
+   let address = '../text/' + server.language;
+   return require(address);
+}
+
+/**
+ * Allow to get the language the bot has to respond with
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @returns {string} - the code of the server language
+ */
+const detectLanguage = async function (message) {
+   let serverManager = new ServerManager();
+   let server = await serverManager.getServer(message);
+   return server.language
+}
 
 /**
  * Allow the user to learn more about what is going on with his character
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const reportCommand = async function (message, args, client, talkedRecently) {
+   Text = await chargeText(message);
+   language = await detectLanguage(message);
    if (talkedRecently.has(message.author.id)) {
       return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
    }
@@ -18,7 +43,7 @@ const reportCommand = async function (message, args, client, talkedRecently) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-   if (playerManager.checkState(player, message, ":baby::smiley:")) {  //check if the player is not dead or sick
+   if (playerManager.checkState(player, message, ":baby::smiley:", language)) {  //check if the player is not dead or sick
 
       playerManager.setPlayerAsOccupied(player);
 
