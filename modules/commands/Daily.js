@@ -30,7 +30,7 @@ const dailyCommand = async function (message) {
     let playerManager = new PlayerManager();
     let player = await playerManager.getCurrentPlayer(message);
     let inventory = await inventoryManager.getCurrentInventory(message);
-    let object = invenFtory.getCurrentObject();
+    let object = inventory.getCurrentObject();
     let messageDaily;
     if (player.isDead()) {
         //the player is dead

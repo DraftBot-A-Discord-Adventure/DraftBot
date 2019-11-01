@@ -40,7 +40,7 @@ client.on("guildDelete", guilde => {
 });
 
 client.on("ready", () => {
-  client.user.setActivity(`Aide disponible en DM !`);
+  client.user.setActivity(`!language -> english`);
   console.log(Console.reboot);
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
