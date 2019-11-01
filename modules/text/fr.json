@@ -18,8 +18,8 @@
                 "sell": ":moneybag: sell\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
                 "daily": ":calendar: daily\n\nCertains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`.",
                 "invite": ":inbox_tray: invite\n\nCette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !",
-                "badge": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\n:trophy:  `Meilleur joueur au moment du reset de la 1.0`\n:medal:  `Joueur dans le top 10 au reset de la 1.0`\n:crown:  `Propriétaire du bot`\n:gear:  `Personne ayant participé très activement aux tests du bot`\n:egg:  `Personne ayant trouvé tous les secrets du bot`\n:newspaper:  `Personne ayant effectué une pull request pour un évent`\n:heart:  `Personne ayant le grade Soutien sur le serveur du bot (cf. #infos–grades) `\n:heartpulse:  `Personne ayant le grade Soutien-Légendaire sur le serveur du bot`\n:four_leaf_clover:  `Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter`\n:gem:  `Staff sur le serveur du bot`\n:money_with_wings:  `Donateur`\n:pen_ballpoint:  `Personne ayant aidé à corriger de nombreuses fautes d'orthographes`\n:beetle:  `Personne ayant signalé des bugs majeurs`\n:wrench:  `Personne ayant fait parti de l'équipe technique du bot avant la version 1.0 du bot`\n:orange_book:  `Badge unique pour une relecture particulière`\n:books:  `Personne ayant démontré ses connaissances approfondies sur le bot`\n:pencil:  `Personne appartenant au groupe d'écriture de nouveaux évents`\n:rosette:  `Gérants des badges`\n:slot_machine:  `Badge donné de manière totalement random`\n:helmet_with_cross:  `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`\n:bird:  `Personne suivant le bot sur twitter`\n:first_place:  `Personne ayant atteint la première place du classement après le reset`\n:money_mouth:  `Badge acheté dans le shop`\n:star2:  `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`\n:pen_fountain:  `Personne ayant participé à la rédaction du wiki`\n:dollar:  `Personne ayant participé à l'amélioration du cadre de développement du bot`",
-                "badges": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\n:trophy:  `Meilleur joueur au moment du reset de la 1.0`\n:medal:  `Joueur dans le top 10 au reset de la 1.0`\n:crown:  `Propriétaire du bot`\n:gear:  `Personne ayant participé très activement aux tests du bot`\n:egg:  `Personne ayant trouvé tous les secrets du bot`\n:newspaper:  `Personne ayant effectué une pull request pour un évent`\n:heart:  `Personne ayant le grade Soutien sur le serveur du bot (cf. #infos–grades) `\n:heartpulse:  `Personne ayant le grade Soutien-Légendaire sur le serveur du bot`\n:four_leaf_clover:  `Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter`\n:gem:  `Staff sur le serveur du bot`\n:money_with_wings:  `Donateur`\n:pen_ballpoint:  `Personne ayant aidé à corriger de nombreuses fautes d'orthographes`\n:beetle:  `Personne ayant signalé des bugs majeurs`\n:wrench:  `Personne ayant fait parti de l'équipe technique du bot avant la version 1.0 du bot`\n:orange_book:  `Badge unique pour une relecture particulière`\n:books:  `Personne ayant démontré ses connaissances approfondies sur le bot`\n:pencil:  `Personne appartenant au groupe d'écriture de nouveaux évents`\n:rosette:  `Gérants des badges`\n:slot_machine:  `Badge donné de manière totalement random`\n:helmet_with_cross:  `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`\n:bird:  `Personne suivant le bot sur twitter`\n:first_place:  `Personne ayant atteint la première place du classement après le reset`\n:money_mouth:  `Badge acheté dans le shop`\n:star2:  `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`\n:pen_fountain:  `Personne ayant participé à la rédaction du wiki`\n:dollar:  `Personne ayant participé à l'amélioration du cadre de développement du bot`",
+                "badge": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\nhttps://frama.link/Badges",
+                "badges": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\nhttps://frama.link/Badges",
                 "drink": ":tropical_drink: drink\n\nCette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat.",
                 "shop": ":shopping_cart: shop\n\nCette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
             }
@@ -83,7 +83,7 @@
             },
             "infos": {
                 "aa": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
-                "a": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmis tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
+                "a": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
                 "b": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
                 "c": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
                 "d": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `aide badges`"
@@ -327,7 +327,7 @@
             "separatorSlash": " / ",
             "pageSentenceEnd": ")`",
             "errorNotRanked": ", vous n'êtes actuellement pas classé ! Utilisez la commande `report` pour apparaitre dans le top !**",
-            "winningIntro": "\n :trophy: Félicitation ",
+            "winningIntro": "\n :trophy: Félicitations ",
             "winningOutro": " ! **Vous êtes actuellement le meilleur** sur un total de ",
             "noUserError": "** Aucun joueur n'est classé pour le moment ! Utilisez la commande `report` pour apparaitre dans le top !",
             "tooMuchUserError": "** La page que vous avez demandé contient trop de joueurs !"
@@ -359,7 +359,9 @@
         "🤑": ":money_mouth:  `Badge acheté dans le shop`",
         "🌟":":star2:  `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`",
         "🖋":":pen_fountain:  `Personne ayant participé à la rédaction du wiki`",
-        "💵":":dollar:  `Personne ayant participé à l'amélioration du cadre de développement  du bot`"
+        "💵":":dollar:  `Personne ayant participé à l'amélioration du cadre de développement  du bot`",
+        "⭐":":star:  `Personne ayant star le repository du bot sur github`",
+        "🌍":":earth_africa:  `Traducteur`"
     },
     "error": {
         "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : http://draftbot.tk/ !"
@@ -844,7 +846,7 @@
         },
         "19": {
             "🍽": {
-                "1": "** | 🍽 Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, vous tombez malade peu de temps après avoir gouté votre préparation. :sick: ",
+                "1": "** | 🍽 Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, vous tombez malade peu de temps après avoir goûté votre préparation. :sick: ",
                 "2": "** | 🍽 Malgré vos compétences réduites en cuisine, votre renard à la broche a le mérite de vous avoir nourri.",
                 "3": "** | 🍽 Vous vous approchez du renard afin de le ramasser, quand tout à coup il se lève et vous mord ! Vous fuyez, blessé et l'estomac dans les talons.",
                 "4": "** | 🍽 Vous avez étonnamment bien cuisiné ce renard, après l'avoir mangé vous vous sentez requinqué."
@@ -964,11 +966,11 @@
             "🚶": {
                 "1": "** | 🚶 Vous ne prêtez pas attention au massacre qui a eu lieu, et allez vous reposer un peu plus loin.",
                 "2": "** | 🚶 Pas de temps à perdre ! Vous continuez votre route. ",
-                "3": "** | 🚶 Pressés de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. :nauseated_face:"
+                "3": "** | 🚶 Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. :nauseated_face:"
             },
             "end": {
                 "1": "** | 👀 Vous restez regarder les soldats pendant une quinzaine de minutes, puis continuez votre route.",
-                "2": "** | 👀 Fatigués, vous tombez raide et vous endormez au sol. :zzz:"
+                "2": "** | 👀 Fatigué, vous tombez raide et vous endormez au sol. :zzz:"
             }
         },
         "26": {
@@ -984,7 +986,7 @@
             },
             "🚶": {
                 "1": "** | 🚶 Horrifié par cet acte de barbarie, vous continuez rapidement votre route.",
-                "2": "** | 🚶 Durant votre course, vous voyez au loin, un coffret ouvert. Après quelques minutes de marche, vous y êtes, à l'intérieur de celui-ci, un sac rempli d'argent."
+                "2": "** | 🚶 Durant votre course, vous voyez au loin, un coffret ouvert. Après quelques minutes de marche, vous atteignez le coffret. Vous l'ouvrez et découvrez un sac rempli d'argent."
             },
             "end": {
                 "1": "** | 👀 Après avoir passé 15 minutes à observer cette scène, vous repartez, choqué, mais continuez votre aventure."
