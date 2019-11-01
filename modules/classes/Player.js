@@ -12,6 +12,9 @@ let Text
 const chargeText = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
+    if (message.channel.id == 639446722845868101) {
+        server.language = "en";
+    }
     let address = '../text/' + server.language;
     return require(address);
 }
@@ -133,7 +136,7 @@ class Player extends Entity {
         this.setLevel(this.getLevel() + 1);
         let messageLevelUp = Text.playerManager.levelUp.intro + message.author + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
         let bonus = false;
-        if(this.getLevel() == DefaultValues.fight.minimalLevel){
+        if (this.getLevel() == DefaultValues.fight.minimalLevel) {
             messageLevelUp += Text.playerManager.levelUp.fightUnlocked;
             bonus = true;
         }

@@ -9,6 +9,9 @@ const chargeText = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
     console.log(server)
+    if (message.channel.id == 639446722845868101) {
+        server.language = "en";
+    }
     let address = '../text/' + server.language;
     return require(address);
 }
@@ -33,9 +36,9 @@ const pingCommand = async function (message) {
 function displayPing(message, pingMessage) {
 
     message.channel.send(pingMessage).then(msg => {
-        let pingValue = calculateTimeDifferenceBetweenTwoMessages(message,msg);
-        msg.edit(pingMessage + " | " +pingValue + " ms");
-    })   
+        let pingValue = calculateTimeDifferenceBetweenTwoMessages(message, msg);
+        msg.edit(pingMessage + " | " + pingValue + " ms");
+    })
 
 }
 
@@ -45,7 +48,7 @@ function displayPing(message, pingMessage) {
  * @param messageOne - The first message
  * @param messageTwo - The second message
  */
-function calculateTimeDifferenceBetweenTwoMessages(messageOne,messageTwo) {
+function calculateTimeDifferenceBetweenTwoMessages(messageOne, messageTwo) {
 
     let startTime = messageOne.createdTimestamp;
     let endTime = messageTwo.createdTimestamp;

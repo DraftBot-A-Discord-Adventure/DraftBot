@@ -49,7 +49,7 @@ class EquipementManager {
      * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the equipement
      */
-    async displayArmor(equipement, message) {
+    displayArmor(equipement, language) {
         Text = require('../text/' + language);
         ItemNames = require('../utils/items/' + language);
         let stringResult = ItemNames.armor[equipement.id] + Text.equipementManager.separator1 + this.getEquipementEfficiency(equipement) + Text.equipementManager.separator2

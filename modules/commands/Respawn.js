@@ -9,6 +9,9 @@ let Text
 const chargeText = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
+    if (message.channel.id == 639446722845868101) {
+        server.language = "en";
+    }
     let address = '../text/' + server.language;
     return require(address);
 }
@@ -27,7 +30,7 @@ const respawnCommand = async function (message) {
         message.channel.send(Text.commands.respawn.thinking + message.author.username + Text.commands.respawn.notDead)
     } else { //player is dead
         console.log(message.createdTimestamp);
-        let scoreRemoved = playerManager.revivePlayer(player,message.createdTimestamp);
+        let scoreRemoved = playerManager.revivePlayer(player, message.createdTimestamp);
         message.channel.send(Text.commands.respawn.angel + message.author.username + Text.commands.respawn.revived1 + scoreRemoved + Text.commands.respawn.revived2);
     }
 }

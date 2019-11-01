@@ -8,6 +8,9 @@ let Text
 const chargeText = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
+    if (message.channel.id == 639446722845868101) {
+        server.language = "en";
+    }
     let address = '../text/' + server.language;
     return require(address);
 }
@@ -23,10 +26,10 @@ const helpCommand = async function (message, args, client) {
     if (userAskForGeneralHelp(args[1]))
         helpMessage = generateGeneralHelpMessage(message);
     else
-        helpMessage = generateHelpMessageForSpecificCommand(message,args[1]);
-        if (helpAskerIsNotInHelpGuild(client, message)){
-            message.author.send(Text.commands.help.mp)
-        }
+        helpMessage = generateHelpMessageForSpecificCommand(message, args[1]);
+    if (helpAskerIsNotInHelpGuild(client, message)) {
+        message.author.send(Text.commands.help.mp)
+    }
 
     message.channel.send(helpMessage);
 };
@@ -47,9 +50,9 @@ const generateGeneralHelpMessage = function (message) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param commandname - The args given by the user to tell what command he need help about.
  */
-const generateHelpMessageForSpecificCommand = function (message,commandname) {
+const generateHelpMessageForSpecificCommand = function (message, commandname) {
     let helpMessage = Text.commands.help.commands[commandname];
-    if(helpMessage === undefined)
+    if (helpMessage === undefined)
         helpMessage = generateGeneralHelpMessage(message);
     return helpMessage;
 };

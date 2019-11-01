@@ -10,6 +10,9 @@ let Text
 const chargeText = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
+    if (message.channel.id == 639446722845868101) {
+        server.language = "en";
+    }
     let address = '../text/' + server.language;
     return require(address);
 }
@@ -27,7 +30,7 @@ const dailyCommand = async function (message) {
     let playerManager = new PlayerManager();
     let player = await playerManager.getCurrentPlayer(message);
     let inventory = await inventoryManager.getCurrentInventory(message);
-    let object = inventory.getCurrentObject();
+    let object = invenFtory.getCurrentObject();
     let messageDaily;
     if (player.isDead()) {
         //the player is dead

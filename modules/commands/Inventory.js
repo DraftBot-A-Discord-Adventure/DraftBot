@@ -13,6 +13,9 @@ let Text
 const chargeText = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
+    if (message.channel.id == 639446722845868101) {
+        server.language = "en";
+    }
     let address = '../text/' + server.language;
     return require(address);
 }
@@ -25,7 +28,10 @@ const chargeText = async function (message) {
 const detectLanguage = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
-    return server.language
+    if (message.channel.id == 639446722845868101) {
+        server.language = "en";
+    }
+    return server.language;
 }
 
 
@@ -65,25 +71,25 @@ const generateInventoryMessage = async function (message, inventory) {
     inventoryMessage = Text.commands.inventory.title + message.author.username + Text.commands.inventory.lineEnd1 +
         equipementManager.displayWeapon(weapon, language) + Text.commands.inventory.lineEnd2;
     if (inventory.armorId == DefaultValues.inventory.armor) { //the user doesnt have any armor or shield
-        inventoryMessage += equipementManager.displayDefaultArmor(armor,language);
+        inventoryMessage += equipementManager.displayDefaultArmor(armor, language);
     } else { //the user have a armor
         inventoryMessage += equipementManager.displayArmor(armor, language);
     }
     inventoryMessage += Text.commands.inventory.lineEnd2;
     if (inventory.potionId == DefaultValues.inventory.potion) { //the user doesnt have any potion
-        inventoryMessage += potionManager.displayDefaultPotion(potion,language);
+        inventoryMessage += potionManager.displayDefaultPotion(potion, language);
     } else { //the user have a potion
         inventoryMessage += potionManager.displayPotion(potion, language);
     }
     inventoryMessage += Text.commands.inventory.lineEnd2;
     if (inventory.objectId == DefaultValues.inventory.object) { //the user doesnt have any object
-        inventoryMessage += objectManager.displayDefaultObject(object,language);
+        inventoryMessage += objectManager.displayDefaultObject(object, language);
     } else { //the user have an object
         inventoryMessage += objectManager.displayObject(object, language);
     }
     inventoryMessage += Text.commands.inventory.backupTitle;
     if (inventory.backupItemId == DefaultValues.inventory.object) { //the user doesnt have any object in the backup place
-        inventoryMessage += objectManager.displayDefaultObject(objectBackup,language);
+        inventoryMessage += objectManager.displayDefaultObject(objectBackup, language);
     } else { //the user have an object in the backup place
         inventoryMessage += objectManager.displayObject(objectBackup, language);
     }

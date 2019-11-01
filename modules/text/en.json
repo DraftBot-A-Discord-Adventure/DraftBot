@@ -92,7 +92,7 @@
             "confirmStart": ":white_check_mark: | ",
             "confirmEnd": " Transaction successful!",
             "cancelStart": ":x: | ",
-            "cancelEnd": " Transaction failed!",
+            "cancelEnd": " Transaction canceled!",
             "notEnoughEnd": ", You don't have enough money to buy this!",
             "tooMuchShop": ", The shop is on cooldown. `(If you haven't recently used the command shop or sold anything, wait 2 minutes and try again)`"
         },
@@ -177,7 +177,7 @@
             "notEnoughSkillError1": ", you must be **LVL ",
             "notEnoughSkillError2": "** to proceed to the fights! Come back later!",
             "menuStart": ":crossed_swords: | **It's ",
-            "menuEnd": " 's turn to play\n\n:crossed_swords: - Use a basic attack \n:dagger:- Use a quick attack\n:bomb:- Use an ultimate attack\n:shield:- Prepare to shield yourself\n:rocket:- Prepare to dodge",
+            "menuEnd": " 's turn to play**\n\n:crossed_swords: - Use a basic attack \n:dagger:- Use a quick attack\n:bomb:- Use an ultimate attack\n:shield:- Prepare to shield yourself\n:rocket:- Prepare to dodge",
             "endIntroStart": " | **",
             "statusIntro": ":crossed_swords: | **Current battle state\n\n",
             "statusPoints": "**\n:large_blue_circle: ",
@@ -192,7 +192,7 @@
             "finEgalite": " finished their match against ",
             "finEgaliteEnd": " on a draw! **",
             "finDebut": " win the match against ",
-            "finEndLine": "**\n\n:bar_chart: Skill level of the party",
+            "finEndLine": "**\n\n:bar_chart: Skill level of the party: `",
             "finPts": "`\n:medal: Points gained/lost:`",
             "finFin": "`",
             "attackRapide": {
@@ -251,7 +251,7 @@
                 "ko": {
                     "1": " ** uses a quick attack! It misses the mark!",
                     "2": " ** uses a basic attack! It fails miserably!",
-                    "3": " ** performs a bad basic attack! A cruel lack of technique from the bastard!",
+                    "3": " ** performs a bad basic attack! A cruel lack of technique from the fighter!",
                     "4": " ** uses a basic attack! What a mistake!",
                     "5": " ** uses a basic attack! It was risky, and didn't pay off!",
                     "6": " ** launches a bad basic attack!",

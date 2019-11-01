@@ -13,6 +13,9 @@ let language;
 const chargeText = async function (message) {
    let serverManager = new ServerManager();
    let server = await serverManager.getServer(message);
+   if (message.channel.id == 639446722845868101) {
+      server.language = "en";
+   }
    let address = '../text/' + server.language;
    return require(address);
 }
@@ -25,7 +28,10 @@ const chargeText = async function (message) {
 const detectLanguage = async function (message) {
    let serverManager = new ServerManager();
    let server = await serverManager.getServer(message);
-   return server.language
+   if (message.channel.id == 639446722845868101) {
+      server.language = "en";
+   }
+   return server.language;
 }
 
 /**
