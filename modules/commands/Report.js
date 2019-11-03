@@ -264,6 +264,7 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
  */
 async function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager) {
 
+   let language = await detectLanguage(message);
    //adding score
    player.addScore(pointsGained);
 
@@ -278,7 +279,7 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
    player.addHealthPoints(possibility.healthPointsChange, message);
    // if the number is below 0, remove health Points will be called by the add Health Points method
 
-   player.addExperience(possibility.xpGained, message)
+   player.addExperience(possibility.xpGained, message, language)
 
    if (possibility.item == "true") { //have to give an item to the player
       player = await playerManager.giveRandomItem(message, player);

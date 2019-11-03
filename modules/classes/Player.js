@@ -3,21 +3,7 @@ const Entity = require('./Entity');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
 const ServerManager = require('../classes/ServerManager');
-let Text
-
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
+let Text;
 
 /**
  * Represents a Player.
@@ -48,19 +34,6 @@ class Player extends Entity {
     }
 
     /**
-     * Allow to get a coefficient that allow to calculate the xp needed for a levelup
-     * @returns {Number} - The coefficient
-     */
-    getCoefficientActuel() {
-        let coefficient = Config.PLAYER_BASE_EXPERIENCE_RATIO - (this.level / 3000);
-        if (coefficient < 1.04) {
-            coefficient = 1.04
-        }
-        console.log("waw" + coefficient)
-        return coefficient;
-    }
-
-    /**
      * Returns the amount of experience used to level up. 
      * @see NumberConstants
      * @returns {Number} Returns the experience used to level up.
@@ -80,9 +53,9 @@ class Player extends Entity {
      * @param {Number} experience - The amount of experience to add. Must be a positive Number.
      * @param {*} message - The message that caused the xp gain
      */
-    addExperience(experience, message) {
+    addExperience(experience, message, language) {
         if (Tools.isAPositiveNumber(experience)) {
-            this.setExperience(this.experience + parseInt(experience), message);
+            this.setExperience(this.experience + parseInt(experience), message, language);
         }
     }
 
@@ -99,11 +72,11 @@ class Player extends Entity {
      * @param experience - The amount of experience this instance should have. Must be a positive or null Number.
      * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
-    setExperience(experience, message) {
+    setExperience(experience, message, language) {
         if (Tools.isAPositiveNumberOrNull(experience)) {
             this.experience = experience;
             if (this.hasEnoughExperienceToLevelUp()) {
-                this.levelUp(message);
+                this.levelUp(message, language);
             }
         }
     }
@@ -131,8 +104,8 @@ class Player extends Entity {
      * experience.
      * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
-    async levelUp(message) {
-        Text = await chargeText(message);
+    levelUp(message, language) {
+        Text = require('../text/' + language);
         this.setLevel(this.getLevel() + 1);
         let messageLevelUp = Text.playerManager.levelUp.intro + message.author + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
         let bonus = false;
@@ -184,7 +157,7 @@ class Player extends Entity {
             messageLevelUp += Text.playerManager.levelUp.noBonus;
         }
         message.channel.send(messageLevelUp);
-        this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message);
+        this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message, language);
     }
 
     /**
