@@ -1,7 +1,11 @@
 const InventoryManager = require('../classes/InventoryManager');
 const PlayerManager = require('../classes/PlayerManager');
 const ServerManager = require('../classes/ServerManager');
-let Text
+const Tools = require('../utils/Tools');
+const DefaultValues = require('../utils/DefaultValues');
+let Text;
+let language;
+
 
 /**
  * Allow to charge the correct text file
@@ -16,8 +20,21 @@ const chargeText = async function (message) {
     let address = '../text/' + server.language;
     return require(address);
 }
-const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues');
+
+/**
+ * Allow to get the language the bot has to respond with
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @returns {string} - the code of the server language
+ */
+const detectLanguage = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    if (message.channel.id == 639446722845868101) {
+        server.language = "en";
+    }
+    return server.language;;
+}
+
 
 /**
  * Allow to use the object if the player has one in the dedicated slot of his inventory
@@ -25,6 +42,7 @@ const DefaultValues = require('../utils/DefaultValues');
  */
 const dailyCommand = async function (message) {
     Text = await chargeText(message);
+    language = await detectLanguage(message);
     currentDay = new Date()
     let inventoryManager = new InventoryManager();
     let playerManager = new PlayerManager();
