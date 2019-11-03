@@ -42,7 +42,7 @@ const drinkCommand = async function (message) {
             break;
         case 1: //the potion is a heal potion
             messageDrink = generateDrinkHealthMessage(message, potion);
-            player.addHealthPoints(potion.power);
+            player.addHealthPoints(potion.power, message, language);
             inventory.potionId = DefaultValues.inventory.potion;
             break;
         case 2: //the potion is a speed potion

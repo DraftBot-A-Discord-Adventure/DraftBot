@@ -120,7 +120,7 @@ class Player extends Entity {
         } else {
             if (this.getLevel() % 5 == 0) {
                 this.setMaxHealth(this.getMaxHealth() + 5);
-                this.addHealthPoints(5, message);
+                this.addHealthPoints(5, message, language);
                 messageLevelUp += Text.playerManager.levelUp.moreMaxHealth;
                 bonus = true;
             }

@@ -1,6 +1,6 @@
 const Tools = require('../utils/Tools');
 const ServerManager = require('../classes/ServerManager');
-let Text
+let Text;
 
 /**
  * Allow to charge the correct text file
@@ -141,14 +141,14 @@ class Entity {
      * @param points - The amount of health points to remove. Must be a Number.
      * @param message  - The message that caused the heath change
      */
-    removeHealthPoints(points, message) {
+    removeHealthPoints(points, message, language) {
         if (Tools.isAPositiveNumberOrNull(points)) {
             this.health -= parseInt(points);
             if (Tools.isANegativeOrNullNumber(this.health)) {
-                this.kill(message)
+                this.kill(message, language)
             }
         } else {
-            this.addHealthPoints(-points, message);
+            this.addHealthPoints(-points, message, language);
         }
     }
 
@@ -160,14 +160,15 @@ class Entity {
      * @param points - The amount of health points to add. Must be a Number.
      * @param message  - The message that caused the heath change
      */
-    addHealthPoints(points, message) {
+    
+     addHealthPoints(points, message, language) {
         if (Tools.isAPositiveNumberOrNull(points)) {
             this.health += parseInt(points);
             if (this.health > this.maxHealth) {
                 this.restoreHealthCompletely()
             }
         } else {
-            this.removeHealthPoints(-points, message);
+            this.removeHealthPoints(-points, message, language);
         }
     }
 
@@ -199,7 +200,8 @@ class Entity {
     * kill a player
     * @param {*} message - The message that caused the death of the player
     */
-    kill(message) {
+    kill(message, language) {
+        Text = require('../text/' + language);
         this.setEffect(":skull:");
         this.setHealth(0);
         message.channel.send(Text.entity.killPublicIntro + message.author.username + Text.entity.killPublicMessage)

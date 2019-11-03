@@ -52,7 +52,7 @@ const dailyCommand = async function (message) {
                     break;
                 case 1: //the object is a heal object
                     messageDaily = generateDailyHealthMessage(message, object);
-                    player.addHealthPoints(object.power);
+                    player.addHealthPoints(object.power, message, language);
                     inventory.lastDaily = currentDay.getDay();
                     break;
                 case 2: //the object is a speed object

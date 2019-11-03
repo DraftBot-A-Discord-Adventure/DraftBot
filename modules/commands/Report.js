@@ -276,7 +276,7 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
 
    player.setEffect(possibility.newEffect);
 
-   player.addHealthPoints(possibility.healthPointsChange, message);
+   player.addHealthPoints(possibility.healthPointsChange, message, language);
    // if the number is below 0, remove health Points will be called by the add Health Points method
 
    player.addExperience(possibility.xpGained, message, language)
