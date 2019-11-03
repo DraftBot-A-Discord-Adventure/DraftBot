@@ -3,7 +3,7 @@ const ObjectManager = require('../classes/ObjectManager');
 const InventoryManager = require('../classes/InventoryManager');
 const DefaultValues = require('../utils/DefaultValues');
 const ServerManager = require('../classes/ServerManager');
-let Text
+let Text;
 
 /**
  * Allow to charge the correct text file
@@ -17,6 +17,20 @@ const chargeText = async function (message) {
     }
     let address = '../text/' + server.language;
     return require(address);
+}
+
+/**
+ * Allow to get the language the bot has to respond with
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @returns {string} - the code of the server language
+ */
+const detectLanguage = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    if (message.channel.id == 639446722845868101) {
+        server.language = "en";
+    }
+    return server.language;
 }
 
 /**
@@ -67,7 +81,7 @@ async function generateConfirmation(message, object, player, inventory, inventor
     let confirmIsOpen = true;
 
     let msg = await displayConfirmMessage(message, confirmMessage);
-
+    let language = await detectLanguage(message);
     const filter = (reaction, user) => {
         return (reactionIsCorrect(reaction) && user.id === message.author.id);
     };
@@ -79,7 +93,7 @@ async function generateConfirmation(message, object, player, inventory, inventor
         if (confirmIsOpen) {
             talkedRecently.delete(message.author.id);
             if (reaction.emoji.name == "✅") {
-                playerManager.sellItem(player, object, message);
+                playerManager.sellItem(player, object, message, language);
                 inventory.setBackupItemId(DefaultValues.inventory.object);
                 inventoryManager.updateInventory(inventory);
                 playerManager.updatePlayer(player);
