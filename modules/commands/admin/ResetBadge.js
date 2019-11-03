@@ -10,8 +10,8 @@ const resetBadgeCommand = async function (message, args) {
         return console.log(message.author.username + " tried to use an admin command");
     } else { // the author of the command is the author of the bot
         let playerManager = new PlayerManager();
-        let playerId = args[1]
-        let player = await playerManager.getPlayerById(playerId);
+        let playerId = message.mentions.users.last().id;
+        let player = await playerManager.getPlayerById(playerId,message);
         player.badges = "";
         playerManager.updatePlayer(player);
         message.channel.send(":white_check_mark: | Les badges ont été reset");
