@@ -4,7 +4,7 @@ const PotionManager = require('../classes/PotionManager');
 const ObjectManager = require('../classes/ObjectManager');
 const DefaultValues = require('../utils/DefaultValues');
 const ServerManager = require('../classes/ServerManager');
-let Text
+let Text;
 
 /**
  * Allow to charge the correct text file
@@ -68,6 +68,8 @@ const generateInventoryMessage = async function (message, inventory) {
 
     //chargement de la langue
     let language = await detectLanguage(message);
+
+
     inventoryMessage = Text.commands.inventory.title + message.author.username + Text.commands.inventory.lineEnd1 +
         equipementManager.displayWeapon(weapon, language) + Text.commands.inventory.lineEnd2;
     if (inventory.armorId == DefaultValues.inventory.armor) { //the user doesnt have any armor or shield
