@@ -35,7 +35,7 @@ client.on("guildDelete", guilde => {
   let resultat = "";
   let serverManager = new ServerManager;
   let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
-  resultat += ` **:outbox_tray: Serveur discord quitté :** \`${guilde}\` | :bust_in_silhouette: : \`${nbMembres}\`  | :robot: : \`${nbBot}\` | Ratio bot/Humain : \`${ratio}\` % | Validation : ${validation}\n`;
+  resultat += Console.guildJoin.beginquit + guilde + Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot + Console.guildJoin.ratio + ratio + Console.guildJoin.validation + validation;
   client.guilds.get("429765017332613120").channels.get("433541702070960128").send(resultat);
 });
 

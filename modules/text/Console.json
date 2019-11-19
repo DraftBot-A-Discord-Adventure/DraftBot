@@ -8,10 +8,11 @@
         "quote": ">>> "
     },
     "guildJoin": {
-        "begin :": "**:inbox_tray: Serveur discord rejoint :** ",
-        "persons": " | :bust_in_silhouette: : ",
-        "ratio" : "| Ratio bot/Humain : ",
-        "bots" : "| :robot: : ",
-        "validation" : "| Validation : "
+        "beginquit": "**:outbox_tray: Serveur discord quitté :** `",
+        "begin": "**:inbox_tray: Serveur discord rejoint :** `",
+        "persons": "` | :bust_in_silhouette: : `",
+        "ratio" : "` | Ratio bot/Humain : `",
+        "bots" : "` | :robot: : `",
+        "validation" : "` % | Validation : "
     }
 }
