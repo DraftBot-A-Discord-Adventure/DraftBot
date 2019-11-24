@@ -43,9 +43,50 @@ const inventoryCommand = async function (message) {
     Text = await chargeText(message);
     let inventoryManager = new InventoryManager();
     let inventory = await inventoryManager.getCurrentInventory(message);
+    if (askForAnotherPlayer(args)) {
+        let playerId;
+        player = await getAskedPlayer(playerId, player, playerManager, message, args); //recupération de l'id du joueur demandé
+        inventory = await inventoryManager.getInventoryById(playerId)
+        if (askedPlayerIsInvalid(player))
+            return message.channel.send(Text.commands.inventory.errorMain + message.author.username + Text.commands.inventory.errorInv)
+    }
     let messageInventory = await generateInventoryMessage(message, inventory);
     message.channel.send(messageInventory);
 }
+
+
+/**
+ * check if the user ask for its own profile or the one of someone else
+ * @param {*} args - The args given by the user that made the command
+ */
+function askForAnotherPlayer(args) {
+    return args[1] != undefined;
+}
+
+
+/**
+ * Allow to recover the asked player if needed
+ * @param {*} playerId - The asked id of the player
+ * @param {*} player - The player that is asked for
+ * @param {*} playerManager - The player manager
+ * @param {*} message - The message that initiate the command
+
+ */
+async function getAskedPlayer(playerId, player, playerManager, message, args) {
+    if (isNaN(args[1])) {
+        try {
+            playerId = message.mentions.users.last().id;
+        } catch (err) { // the input is not a mention or a user rank
+            playerId = "0"
+        }
+    } else {
+        playerId = await playerManager.getIdByRank(args[1]);
+
+    }
+    player = await playerManager.getPlayerById(playerId, message);
+    return player;
+}
+
 
 /**
  * Returns a string containing the inventory message.
