@@ -108,6 +108,8 @@
             "noReport": " : ** :x: Aucun nouveau rapport n'a été transmis ! Revenez dans quelques heures !"
         },
         "inventory": {
+            "errorMain" : ":x: |** ",
+            "errorInv" : "**, le joueur demandé semble ne pas avoir commencé l'aventure !",
             "title": ":school_satchel:** |  Inventaire de ",
             "lineEnd1": " :**\n\n",
             "lineEnd2": "\n",
