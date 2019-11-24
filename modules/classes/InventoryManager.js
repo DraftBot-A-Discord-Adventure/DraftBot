@@ -37,10 +37,10 @@ class InventoryManager {
     getInventoryById(id) {
         return sql.get(`SELECT * FROM inventory WHERE playerId ="${id}"`).then(inventory => {
             if (!inventory) { //inventory is not in the database
-                console.log(`user unknown : ${id}`);
+                console.log(`user unknown 1 : ${id}`);
                 return this.getNewInventoryById(id);
             } else { //inventory is in the database
-                console.log(`user loaded : ${id}`);
+                console.log(`user loaded 1 : ${id}`);
                 return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
             }
         }).catch(error => { //there is no database
