@@ -108,6 +108,8 @@
             "noReport": " : ** :x: You don’t have any new reports! Come back in a few hours!"
         },
         "inventory": {
+            "errorMain" : ":x: |** ",
+            "errorInv" : "**, it seems the player you asked for hasn't started the adventure yet!",
             "title": ":school_satchel:** | ",
             "lineEnd1": "'s inventory:**\n\n",
             "lineEnd2": "\n",
@@ -362,7 +364,6 @@
         "💵": ":dollar: `People who participed in the improvement of the bot development environment`",
         "⭐":":star:  `People who starred the bot's github repository`",
         "🌍":":earth_africa:  `Translator`"
-
     },
     "error": {
         "noSpeakPermission": ":zipper_mouth: | **Hello! You are receiving this message because you tried using one of my commands in a channel where I have the permissions to see messages but not send them!**\n\nYour request was thus voided. To resolve this problem, please send a message to the owner of the server you tried to use me in. If you can't resolve this problem, I invite you to join the bot's support available here: 'http://draftbot.tk/'!"
