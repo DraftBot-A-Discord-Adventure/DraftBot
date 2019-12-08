@@ -229,21 +229,20 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                 let attackPower;
                 switch (reaction.emoji.name) {
                     case "🗡": //attaque rapide
-                        // Malus de 15% de base
-                        // Bonus de 40% sur un adversaire plus lent
-                        // Malus de 80% sur un adversaire plus fort en défense
+                        // 85% des points d'attaque sont utilisés
+                        // Taux de réussite de 30% qui monte à 95% sur un adversaire plus lent
                         ({ defenderPower, attackerPower } = quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "⚔": //attaque simple
-                        // Malus de 30 % sur un adversaire plus rapide
+                        // 100% des points d'attaque sont utilisés
+                        // Taux de réussite de 60% qui monte à 70% sur un adversaire plus lent
                         ({ defenderPower, attackerPower } = simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "💣": //attaque ultime
-                        // Bonus de 50 % de base
+                        // 150% ou 200% des points d'attaque sont utilisés
                         // Diminue la vitesse de 10 % pour le prochain tour
-                        // Malus de 80 % sur un adversaire plus rapide
-                        // Malus de 20 % sur un adversaire plus fort en défense
-                        // Bonus de 60 % sur un adversaire plus lent et plus faible
+                        // 5% de réussite totale sur un adversaire plus rapide et 10% de réussite partielle
+                        // 20% de réussite totale sur un adversaire plus lent et 40% de réusite partielle
                         ({ defenderPower, attackerPower } = powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "🛡": //defendre
@@ -257,7 +256,7 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                 }
                 ({ actualUser, actuelPlayer, opponentPlayer, opponentUser } = switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player, opponentPlayer, opponentUser));
                 if (nobodyLooses(attackerPower, defenderPower)) {
-                    if (nbTours < 20) {
+                    if (nbTours < 25) {
                         nbTours++;
                         fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd, nbTours);
                     } else {
@@ -355,7 +354,7 @@ function calculateElo(player, defenderPlayer, elo) {
  */
 function ImproveDefense(actualUser, attacker, actuelPlayer, attackerDefenseAdd, message, reaction, defenderDefenseAdd) {
     if (actualUser == attacker) {
-        actuelPlayer.defense += attackerDefenseAdd;
+        actuelPlayer.defense += attackerDefenseAdd + Tools.generateRandomNumber(0, 5);
         message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + attackerDefenseAdd + Text.commands.fight.degatsOutro);
         attackerDefenseAdd = Math.floor(attackerDefenseAdd * 0.5);
     }
@@ -379,7 +378,7 @@ function ImproveDefense(actualUser, attacker, actuelPlayer, attackerDefenseAdd, 
  */
 function ImproveSpeed(actualUser, attacker, actuelPlayer, attackerSpeedAdd, message, reaction, defenderSpeedAdd) {
     if (actualUser == attacker) {
-        actuelPlayer.speed += attackerSpeedAdd;
+        actuelPlayer.speed += attackerSpeedAdd + Tools.generateRandomNumber(0, 5);
         message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.speedAdd + attackerSpeedAdd + Text.commands.fight.degatsOutro);
         attackerSpeedAdd = Math.floor(attackerSpeedAdd * 0.5);
     }
@@ -405,23 +404,33 @@ function ImproveSpeed(actualUser, attacker, actuelPlayer, attackerSpeedAdd, mess
  * @param {*} message 
  */
 function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message) {
-    attackPower = player.attack * 1.5;
+    //test which player is quicker
+    let succes = Tools.generateRandomNumber(1, 100);
+    let powerchanger = 0;
     if (opponentPlayer.speed > actuelPlayer.speed) {
-        attackPower = Math.round(attackPower * 0.2);
+        if (succes <= 15 && succes > 5) { //partial success
+            powerchanger = 1.25;
+        }
+        if (succes <= 5) { // total success
+            powerchanger = 2;
+        }
+    }else{
+        if (succes <= 60 && succes > 20) { //partial success
+            powerchanger = 1.25;
+        }
+        if (succes <= 20) { // total success
+            powerchanger = 2;
+        } 
     }
-    if (opponentPlayer.defense > actuelPlayer.defense) {
-        attackPower = Math.round(attackPower * 0.8);
-    }
-    if (opponentPlayer.defense < actuelPlayer.defense && opponentPlayer.speed < actuelPlayer.speed) {
-        attackPower = Math.round(attackPower * 1.6);
-    }
+    attackPower = player.attack * powerchanger;
+    //lower speed for next turn
     actuelPlayer.speed = Math.round(actuelPlayer.speed * 0.9);
     let messageAttaqueUltime = "";
     let defensePower = opponentPlayer.defense;
     let degats = attackPower - Math.round(defensePower * 0.5);
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
-        if (degats >= actuelPlayer.attack - defensePower) {
+        if (powerchanger ==2) {
             ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
             messageAttaqueUltime = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackUltime.ok[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
         } else {
@@ -451,16 +460,24 @@ function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defe
  * @param {*} message 
  */
 function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message) {
-    attackPower = player.attack;
+    let succes = Tools.generateRandomNumber(1, 100);
+    let powerchanger = 0.1;
     if (opponentPlayer.speed > actuelPlayer.speed) {
-        attackPower = Math.round(attackPower * 0.7);
+       if (succes <= 60) { // total success
+            powerchanger = 1;
+        }
+    }else{
+        if (succes <= 70) { // total success
+            powerchanger = 1;
+        } 
     }
+    attackPower = player.attack * powerchanger;
     let messageAttaqueSimple = "";
     let defensePower = opponentPlayer.defense;
     let degats = attackPower - Math.round(defensePower * 0.5);
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
-        if (degats >= actuelPlayer.attack - defensePower) {
+        if (degats >= 100) {
             ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
             messageAttaqueSimple = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackSimple.ok[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
         }
@@ -491,16 +508,21 @@ function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defende
  * @param {*} message 
  */
 function quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message) {
-    attackPower = Math.round(player.attack * 0.85);
-    if (opponentPlayer.speed < actuelPlayer.speed) {
-        attackPower = Math.round(attackPower * 1.2);
+    let succes = Tools.generateRandomNumber(1, 100);
+    let powerchanger = 0.1;
+    if (opponentPlayer.speed > actuelPlayer.speed) {
+       if (succes <= 30) { // total success
+            powerchanger = 0.85;
+        }
+    }else{
+        if (succes <= 80) { // total success
+            powerchanger = 0.85;
+        } 
     }
-    if (opponentPlayer.defense > actuelPlayer.defense) {
-        attackPower = Math.round(attackPower * 0.2);
-    }
+    attackPower = player.attack * powerchanger;
     let messageAttaqueRapide = "";
     let defensePower = opponentPlayer.defense;
-    let degats = attackPower - Math.round(defensePower * 0.5);
+    let degats = attackPower - Math.round(defensePower * 0.25);
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= actuelPlayer.attack - defensePower) {
