@@ -354,11 +354,13 @@ function calculateElo(player, defenderPlayer, elo) {
  */
 function ImproveDefense(actualUser, attacker, actuelPlayer, attackerDefenseAdd, message, reaction, defenderDefenseAdd) {
     if (actualUser == attacker) {
-        actuelPlayer.defense += attackerDefenseAdd + Tools.generateRandomNumber(0, 5);
+        attackerDefenseAdd += Tools.generateRandomNumber(0, Math.round(attackerDefenseAdd/2))
+        actuelPlayer.defense += attackerDefenseAdd;
         message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + attackerDefenseAdd + Text.commands.fight.degatsOutro);
         attackerDefenseAdd = Math.floor(attackerDefenseAdd * 0.5);
     }
     else {
+        defenderDefenseAdd += Tools.generateRandomNumber(0, Math.round(defenderDefenseAdd/2))
         actuelPlayer.defense += defenderDefenseAdd;
         message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.defenseAdd + defenderDefenseAdd + Text.commands.fight.degatsOutro);
         defenderDefenseAdd = Math.floor(defenderDefenseAdd * 0.5);
@@ -378,11 +380,13 @@ function ImproveDefense(actualUser, attacker, actuelPlayer, attackerDefenseAdd, 
  */
 function ImproveSpeed(actualUser, attacker, actuelPlayer, attackerSpeedAdd, message, reaction, defenderSpeedAdd) {
     if (actualUser == attacker) {
-        actuelPlayer.speed += attackerSpeedAdd + Tools.generateRandomNumber(0, 5);
+        attackerSpeedAdd += Tools.generateRandomNumber(0, Math.round(attackerSpeedAdd/2))
+        actuelPlayer.speed += attackerSpeedAdd;
         message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.speedAdd + attackerSpeedAdd + Text.commands.fight.degatsOutro);
         attackerSpeedAdd = Math.floor(attackerSpeedAdd * 0.5);
     }
     else {
+        defenderSpeedAdd += Tools.generateRandomNumber(0, Math.round(defenderSpeedAdd/2))
         actuelPlayer.speed += defenderSpeedAdd;
         message.channel.send(reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.speedAdd + defenderSpeedAdd + Text.commands.fight.degatsOutro);
         defenderSpeedAdd = Math.floor(defenderSpeedAdd * 0.5);
@@ -422,12 +426,12 @@ function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defe
             powerchanger = 2;
         } 
     }
-    attackPower = player.attack * powerchanger;
+    attackPower = actuelPlayer.attack * powerchanger;
     //lower speed for next turn
     actuelPlayer.speed = Math.round(actuelPlayer.speed * 0.9);
     let messageAttaqueUltime = "";
     let defensePower = opponentPlayer.defense;
-    let degats = attackPower - Math.round(defensePower * 0.5);
+    let degats = Math.round(attackPower - Math.round(defensePower * 0.5));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (powerchanger ==2) {
@@ -471,10 +475,10 @@ function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defende
             powerchanger = 1;
         } 
     }
-    attackPower = player.attack * powerchanger;
+    attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueSimple = "";
     let defensePower = opponentPlayer.defense;
-    let degats = attackPower - Math.round(defensePower * 0.5);
+    let degats = Math.round(attackPower - Math.round(defensePower * 0.5));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= 100) {
@@ -519,10 +523,10 @@ function quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defender
             powerchanger = 0.85;
         } 
     }
-    attackPower = player.attack * powerchanger;
+    attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueRapide = "";
     let defensePower = opponentPlayer.defense;
-    let degats = attackPower - Math.round(defensePower * 0.25);
+    let degats = Math.round(attackPower - Math.round(defensePower * 0.25));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= actuelPlayer.attack - defensePower) {
