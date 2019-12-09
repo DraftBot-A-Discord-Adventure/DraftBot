@@ -18,8 +18,8 @@
                 "sell": ":moneybag: sell\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
                 "daily": ":calendar: daily\n\nCertains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`.",
                 "invite": ":inbox_tray: invite\n\nCette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !",
-                "badge": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\nhttps://frama.link/Badges",
-                "badges": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\nhttps://frama.link/Badges",
+                "badge": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\nhttps://frama.link/badges",
+                "badges": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. Voici la liste des badges qu'il est possible d'obtenir et les conditions à remplir.\n\nhttps://frama.link/badges",
                 "drink": ":tropical_drink: drink\n\nCette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat.",
                 "shop": ":shopping_cart: shop\n\nCette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
             }
@@ -363,7 +363,9 @@
         "🖋":":pen_fountain:  `Personne ayant participé à la rédaction du wiki`",
         "💵":":dollar:  `Personne ayant participé à l'amélioration du cadre de développement  du bot`",
         "⭐":":star:  `Personne ayant star le repository du bot sur github`",
-        "🌍":":earth_africa:  `Traducteur`"
+        "🌍":":earth_africa:  `Traducteur`",
+        "🍌":":banana:  `Petit cadeau pour une mention`",
+        "🔍":":mag:  `Personne ayant résolu une chasse`"
     },
     "error": {
         "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : http://draftbot.tk/ !"
