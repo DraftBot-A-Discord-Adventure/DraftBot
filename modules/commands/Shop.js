@@ -240,7 +240,7 @@ const generateDailyPotion = function () {
     let dailyPotion = potionManager.getPotionById(dailyPotionSeed % (DefaultValues.raritiesGenerator.numberOfPotion - 1) + 1);
     while (dailyPotion.rareness == 8 || dailyPotion.natureEffect == 0) {
         dailyPotionSeed = Math.round(dailyPotionSeed / 7);
-        dailyPotion = potionManager.getPotionById(dailyPotionSeed % DefaultValues.raritiesGenerator.numberOfPotion);
+        dailyPotion = potionManager.getPotionById(1+(dailyPotionSeed % (DefaultValues.raritiesGenerator.numberOfPotion-1)));
     }
     return dailyPotion;
 }
