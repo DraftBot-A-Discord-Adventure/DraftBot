@@ -1,12 +1,15 @@
 const Config = require('./utils/Config');
 const ServerManager = require('./classes/ServerManager');
+const PlayerManager = require('./classes/PlayerManager');
 const CommandTable = require('./CommandTable');
+const DisplayStyleManager = require('./DisplayStyleManager');
 const Text = require('./text/fr');
 const Console = require('./text/Console');
 
 class CommandReader {
     constructor() {
         this.serverManager = new ServerManager();
+        this.playerManager = new PlayerManager();
     }
 
     /**
@@ -86,15 +89,18 @@ class CommandReader {
  * @param {*} client - The bot user in case we have to make him do things
  * @param {*} talkedRecently - The list of user that has been seen recently
  */
-function launchCommand(message, client, talkedRecently) {
+async function launchCommand(message, client, talkedRecently) {
     console.log(`${message.author.username} passed ${message.content}\n`);
     let command = CommandReader.getCommandFromMessage(message);
     let args = CommandReader.getArgsFromMessage(message);
+    const displayStyleManager = new DisplayStyleManager();
     if (CommandTable.has(command))
         if (!message.channel.permissionsFor(client.user).serialize().SEND_MESSAGES) { //test if the bot can speak in the channel where a command has been read
             message.author.send(Text.error.noSpeakPermission);
         } else {
-            CommandTable.get(command)(message, args, client, talkedRecently);
+            if(await displayStyleManager.checkDisplayStyleValidity(message, command)) { //if wantsEmbed param is not undefined
+                CommandTable.get(command)(message, args, client, talkedRecently, await displayStyleManager.getDisplayStyle(message));
+            }             
         }
 }
 

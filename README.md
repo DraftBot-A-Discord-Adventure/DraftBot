@@ -3,6 +3,8 @@
 
 # **DraftBot - A Discord Adventure**
 DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLast) based on an adventure game on text.
+<br>
+Fork by Mw3y.
 
 [![](https://img.shields.io/discord/429765017332613120.svg)](https://discord.gg/AP3Wmzb)
 [![](https://img.shields.io/github/stars/BastLast/DraftBot-A-Discord-Adventure.svg?label=Stars&style=social)](https://github.com/BastLast/DraftBot-A-Discord-Adventure)

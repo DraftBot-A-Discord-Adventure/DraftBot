@@ -9,6 +9,16 @@ const DatabaseManager = require('./modules/DatabaseManager');
 const ServerManager = require('./modules/classes/ServerManager');
 const Console = require('./modules/text/Console');
 
+//trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
+setInterval(function(){ // Set interval for checking
+  const date = new Date(); // Create a Date object to find out what time it is
+  if(date.getDay() === 0 && date.getHours() === 23 && date.getMinutes() <= 1) { // Check the time (if day returns 0, it's sunday)
+    const databaseManager = new DatabaseManager();
+    databaseManager.resetWeeklyScoreAndRank();
+    console.log("# WARNING # Weekly leaderboard has been reset !");
+  }
+}, 60000); // Repeat every 60000 milliseconds (1 minute)
+
 //database loading : I use sqlite because it is a promise based system like discord.js so it make sense
 const sql = require("sqlite");
 sql.open("./modules/data/database.sqlite");
@@ -74,12 +84,11 @@ client.on("messageReactionAdd", async (reaction) => {
 
 client.login(Config.DISCORD_CLIENT_TOKEN);
 
-/**
+/**Z
  * Send a message to the owner of a guild when the bot is added to its server
  * @param {*} guilde 
  */
 function sendArrivalMessage(guilde) {
-
   guilde.owner.send(Console.arrivalMessage);
 }
 

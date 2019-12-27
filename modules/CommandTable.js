@@ -9,6 +9,9 @@ const Switch = require('./commands/Switch');
 const Drink = require('./commands/Drink');
 const Daily = require('./commands/Daily');
 const Top = require('./commands/Top');
+//Mw3y's commit
+const WeeklyTop = require('./commands/WeeklyTop');
+//
 const Sell = require('./commands/Sell');
 const Fight = require('./commands/Fight');
 const Shop = require('./commands/Shop');
@@ -23,6 +26,7 @@ const Invitations = require('./commands/admin/Invitations');
 const Points = require('./commands/admin/Points');
 const Send = require('./commands/admin/Send');
 const Language = require('./commands/admin/Language');
+//const DisplayStyle = require('./commands/settings/DisplayStyle');
 
 const CommandTable = new Map(
     [
@@ -40,6 +44,7 @@ const CommandTable = new Map(
         ["drink", Drink.DrinkCommand],
         ["daily", Daily.DailyCommand],
         ["top", Top.TopCommand],
+        ["weeklytop", WeeklyTop.WeeklyTopCommand],
         ["sell", Sell.SellCommand],
         ["fight", Fight.FightCommand],
         ["f", Fight.FightCommand],
@@ -47,6 +52,7 @@ const CommandTable = new Map(
         ["shop", Shop.ShopCommand],
         ["prefix", ChangePrefix.ChangePrefixCommand],
         ["language", Language.ChangeLanguageCommand],
+        //["displaystyle", DisplayStyle.changeDisplayStyle],
 
         ["invi", Invitations.InvitationsCommand],
         ["points", Points.PointsCommand],
