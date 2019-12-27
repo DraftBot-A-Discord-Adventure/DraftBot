@@ -26,7 +26,6 @@ const Invitations = require('./commands/admin/Invitations');
 const Points = require('./commands/admin/Points');
 const Send = require('./commands/admin/Send');
 const Language = require('./commands/admin/Language');
-//const DisplayStyle = require('./commands/settings/DisplayStyle');
 
 const CommandTable = new Map(
     [
@@ -52,7 +51,6 @@ const CommandTable = new Map(
         ["shop", Shop.ShopCommand],
         ["prefix", ChangePrefix.ChangePrefixCommand],
         ["language", Language.ChangeLanguageCommand],
-        //["displaystyle", DisplayStyle.changeDisplayStyle],
 
         ["invi", Invitations.InvitationsCommand],
         ["points", Points.PointsCommand],

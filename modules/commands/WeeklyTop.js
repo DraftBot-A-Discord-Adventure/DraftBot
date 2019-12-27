@@ -26,7 +26,7 @@ const DefaultValues = require('../utils/DefaultValues')
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
-const weeklyTopCommand = async function (message, args, client, talkedRecently, displaytype) {
+const weeklyTopCommand = async function (message, args, client) {
     Text = await chargeText(message);
     let playerManager = new PlayerManager();
     let actualPlayer = await playerManager.getCurrentPlayer(message);
@@ -38,7 +38,7 @@ const weeklyTopCommand = async function (message, args, client, talkedRecently, 
         let bornesup = page * DefaultValues.weeklytop.playersByPage
         let borneinf = bornesup - (DefaultValues.weeklytop.playersByPage - 1);
         let data = await playerManager.getWeeklyTopData(borneinf, bornesup)
-        const messageTop = generateTopMessage(message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client, displaytype);
+        const messageTop = generateTopMessage(message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client);
         message.channel.send(messageTop);
     }
 }
@@ -58,36 +58,22 @@ const weeklyTopCommand = async function (message, args, client, talkedRecently, 
  * @param {*} data - The data of the page that has been required
  * @param {*} client - The bot client, used to retrieve the username of the players
  */
-const generateTopMessage = function (message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client, displaystyle) {
+const generateTopMessage = function (message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client) {
     let messageTop = Text.commands.weeklytop.introDebut + borneinf + Text.commands.weeklytop.pageNumberSeparator + bornesup + Text.commands.weeklytop.introFin;
     let classementJoueur = actualPlayer.weeklyRank;
-    let returnedMessage;
     let start = "\n\u208b\n";
 
-    if (displaystyle === "embed") {
-        const embed = new Discord.RichEmbed();
-        embed.setColor(Config.EMBED_COLOR);
-        embed.setTitle(messageTop);
-        if (data === null) {
-            embed.setDescription(Text.commands.weeklytop.noPlayersInTop);
-        } else {
-            embed.setDescription(start + generateTopDataText(data, totalJoueur, messageTop, message, client, displaystyle));
-            embed.addField(Text.commands.weeklytop.ranked, getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax), false)
-        }
-        returnedMessage = embed;
+    const embed = new Discord.RichEmbed();
+    embed.setColor(Config.EMBED_COLOR);
+    embed.setTitle(messageTop);
+    if (data === null) {
+        embed.setDescription(Text.commands.weeklytop.noPlayersInTop);
     } else {
-        if (data === null) {
-            messageTop += Text.commands.weeklytop.noPlayersInTop;
-        } else {
-            messageTop = generateTopDataText(data, totalJoueur, messageTop, message, client, displaystyle);
-
-            messageTop += "\n" + getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax);
-        }
-        messageTop = checkPotentialDatabaseError(totalJoueur, messageTop, message);
-        returnedMessage = messageTop;
+        embed.setDescription(start + generateTopDataText(data, totalJoueur, messageTop, message, client));
+        embed.addField(Text.commands.weeklytop.ranked, getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax), false)
     }
 
-    return returnedMessage;
+    return embed;
 }
 
 /**
@@ -99,8 +85,8 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
  * @param {*} displaystyle - The displaystyle param.
  */
 
-function generateTopDataText(data, totalJoueur, messageTop, message, client, displaystyle) {
-    if(displaystyle === "embed") messageTop = "";
+function generateTopDataText(data, totalJoueur, messageTop, message, client) {
+    messageTop = "";
     messageTop = checkPotentialDatabaseError(totalJoueur, messageTop, message);
     data.forEach(function (player) { //for each player that the bot have to display
         messageTop = getPlacementEmoji(player, messageTop, message);

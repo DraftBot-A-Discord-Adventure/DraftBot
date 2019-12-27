@@ -31,10 +31,6 @@ class DatabaseManager {
         await sql.run("UPDATE player SET weeklyScore = 0").catch(console.error);
         //Define default weeklyRank value
         await sql.run("UPDATE player SET weeklyRank = 0").catch(console.error);
-        //Add displaystyle column
-        //await sql.run("ALTER TABLE player ADD displaystyle TEXT").catch(console.error);
-        //Define default displaystyle value
-        //await sql.run(`UPDATE player SET displaystyle = "undefined"`).catch(console.error);
         
         console.log("database updated !")
     }
