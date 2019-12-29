@@ -1,4 +1,7 @@
 {
+    "settings": {
+        "displaystyle": "undefined"
+    },
     "entity": {
         "maxHealth": "100",
         "health": "100",
@@ -9,11 +12,13 @@
     },
     "player": {
         "score": "0",
+        "weeklyScore": "0",
         "level": "0",
         "experience": "0",
         "money": "0",
         "badges": "",
-        "rank": "0"
+        "rank": "0",
+        "weeklyRank": "0"
     },
     "server": {
         "prefix": "!",
@@ -94,6 +99,9 @@
         }
     },
     "top": {
+        "playersByPage": "15"
+    },
+    "weeklytop": {
         "playersByPage": "15"
     },
     "fight": {

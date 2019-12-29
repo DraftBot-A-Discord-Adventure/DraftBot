@@ -42,7 +42,9 @@ class PlayerManager {
                 return player;
             } else { //player is in the database
                 console.log(`user loaded : ${message.author.username}`);
-                return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
+                return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, 
+                    player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, 
+                    player.rank, player.weeklyScore, player.weeklyRank, player.displaystyle)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -64,7 +66,9 @@ class PlayerManager {
                 return this.getNewPlayerById(id, message);
             } else { //player is in the database
                 console.log(`user loaded : ${id}`);
-                return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
+                return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, 
+                    player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, 
+                    player.rank, player.weeklyScore, player.weeklyRank, player.displaystyle)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -95,7 +99,10 @@ class PlayerManager {
      */
     getNewPlayer(message) {
         console.log('Generating a new player...');
-        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, message.author.id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect, message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank);
+        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, 
+            message.author.id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect,
+             message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank, DefaultValues.player.weeklyScore, DefaultValues.player.weeklyRank, 
+             DefaultValues.settings.displaystyle);
     }
 
 
@@ -107,7 +114,10 @@ class PlayerManager {
      */
     getNewPlayerById(id, message) {
         console.log('Generating a new player by id...');
-        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect, message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank);
+        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed,
+            id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect,
+            message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank, DefaultValues.player.weeklyScore, DefaultValues.player.weeklyRank, 
+            DefaultValues.settings.displaystyle);
     }
 
 
@@ -159,8 +169,11 @@ class PlayerManager {
      */
     updatePlayer(player) {
         console.log("Updating player ...");
-        sql.run(`UPDATE entity SET maxHealth = ${player.maxHealth}, health = ${player.health}, attack = ${player.attack}, defense = ${player.defense}, speed = ${player.speed}, effect = "${player.effect}" WHERE id = ${player.discordId}`).catch(console.error);
-        sql.run(`UPDATE player SET score = ${player.score}, level = ${player.level}, experience = ${player.experience}, money = ${player.money}, lastReport = ${player.lastReport}, badges = "${player.badges}" WHERE discordId = ${player.discordId}`).catch(console.error);
+        sql.run(`UPDATE entity SET maxHealth = ${player.maxHealth}, health = ${player.health}, attack = ${player.attack}, defense = ${player.defense}, speed = ${player.speed},
+         effect = "${player.effect}" WHERE id = ${player.discordId}`).catch(console.error);
+        sql.run(`UPDATE player SET score = ${player.score}, level = ${player.level}, experience = ${player.experience}, money = ${player.money},
+         lastReport = ${player.lastReport}, badges = "${player.badges}", weeklyScore = ${player.weeklyScore}, 
+         weeklyRank = ${player.weeklyRank}, displaystyle = "${player.displaystyle}" WHERE discordId = ${player.discordId}`).catch(console.error);
         console.log("Player updated !");
     }
 
@@ -171,6 +184,7 @@ class PlayerManager {
     updatePlayerScore(player) {
         console.log("Updating player ...");
         sql.run(`UPDATE player SET score = ${player.score} WHERE discordId = ${player.discordId}`).catch(console.error);
+        sql.run(`UPDATE player SET weeklyScore = ${player.weeklyScore} WHERE discordId = ${player.discordId}`).catch(console.error);
         console.log("Player updated !");
     }
 
@@ -180,8 +194,11 @@ class PlayerManager {
      */
     addPlayer(player) {
         console.log("Creating player ...");
-        sql.run(`INSERT INTO entity (maxHealth, health, attack, defense, speed, id, effect) VALUES ( ${player.maxHealth}, ${player.health}, ${player.attack} , ${player.defense} , ${player.speed} , ${player.discordId},"${player.effect}")`).catch(console.error);
-        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, tampon, rank) VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, "${player.badges}",1,0) `).catch(console.error);
+        sql.run(`INSERT INTO entity (maxHealth, health, attack, defense, speed, id, effect) VALUES ( ${player.maxHealth}, ${player.health}, ${player.attack} , ${player.defense} ,
+        ${player.speed} , ${player.discordId},"${player.effect}")`).catch(console.error);
+        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, tampon, rank, weeklyScore, weeklyRank, displaystyle) 
+        VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, "${player.badges}",1,0,${player.weeklyScore}, 
+        0, "undefined")`).catch(console.error);
         console.log("Player created !");
     }
 
@@ -594,10 +611,32 @@ class PlayerManager {
         let i = 0;
         return sql.all(`SELECT * FROM player JOIN entity ON discordId = id WHERE rank >= ${borneinf} AND rank <= ${bornesup} AND score > 100 ORDER BY score DESC`).then(data => {
             data.forEach(function (player) {
-                playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank)
+                playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
+                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
+                      player.weeklyRank, player.displaystyle)
                 i++;
             });
             return playerArray;
+        });
+    }
+
+        /**
+     * Allow to retrieve the data from the top between 2 limits
+     * @param {Integer} borneinf - The lower limit of the top
+     * @param {Integer} bornesup - The uppper limit of the top
+     * @returns {*} -The data of the top (an array of players)
+     */
+    getWeeklyTopData(borneinf, bornesup) {
+        let playerArray = Array();
+        let i = 0;
+        return sql.all(`SELECT * FROM player JOIN entity ON discordId = id WHERE weeklyRank >= ${0} AND weeklyRank <= ${10000} AND weeklyScore >= 100 ORDER BY weeklyScore DESC`).then(data => {
+            data.forEach(function (player) {
+                playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
+                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore, 
+                     player.weeklyRank, player.displaystyle)
+                i++;
+            });
+            return i === 0 ? null : playerArray;
         });
     }
 }

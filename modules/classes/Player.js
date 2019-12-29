@@ -10,7 +10,7 @@ let Text;
  */
 class Player extends Entity {
 
-    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank) {
+    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank, weeklyScore, weeklyRank, displaystyle) {
         super(discordId, maxHealth, health, attack, defense, speed, effect);
         this.discordId = discordId;
         this.score = score;
@@ -20,8 +20,27 @@ class Player extends Entity {
         this.lastReport = lastReport;
         this.badges = badges;
         this.rank = rank
+        this.weeklyScore = weeklyScore;
+        this.weeklyRank = weeklyRank;
+        this.displaystyle = displaystyle;
     }
 
+    /**
+     * Returns the setting for embed usage.
+     * @returns {*} - Return the display type.
+     */
+    getDisplayStyle() {
+        return this.displaystyle;
+    }
+
+    
+    /**
+     * Set this Player instance's displaystyle param.
+     * @param {*} displaystyle - The value of the param.
+     */
+    setDisplayStyle(displaystyle) {
+        this.displaystyle = displaystyle;
+    }
 
     /**
      * Returns the amount of experience needed to level up. 
@@ -279,6 +298,14 @@ class Player extends Entity {
         return this.score;
     }
 
+    /**
+     * Returns the weekly score of the player.
+     * @returns {Number} - The score of the player
+     */
+    getWeeklyScore() {
+        return this.weeklyScore;
+    }
+
 
     /**
      * Returns the rank of the player.
@@ -286,6 +313,15 @@ class Player extends Entity {
      */
     getRank() {
         return this.rank;
+    }
+
+    
+    /**
+     * Returns the weekly rank of the player.
+     * @returns {Number} - The rank of the player
+     */
+    getWeeklyRank() {
+        return this.weeklyRank;
     }
 
     /**
@@ -318,6 +354,7 @@ class Player extends Entity {
     removeScore(points) {
         if (Tools.isAPositiveNumberOrNull(points)) {
             this.score -= parseInt(points);
+            this.weeklyScore -= parseInt(points);
         } else {
             this.addScore(-points);
         }
@@ -333,6 +370,7 @@ class Player extends Entity {
     addScore(points) {
         if (Tools.isAPositiveNumberOrNull(points)) {
             this.score += parseInt(points);
+            this.weeklyScore += parseInt(points);
         } else {
             this.removeScore(-points);
         }
