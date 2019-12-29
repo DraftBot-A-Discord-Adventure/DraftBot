@@ -379,7 +379,7 @@
           "noUserError": " Aucun joueur n'est classé pour le moment ! Utilisez la commande `report` pour apparaitre dans le top de la semaine !",
           "tooMuchUserError": " La page que vous avez demandé contient trop de joueurs !",
           "noPlayersInTop": "**Oups,** revenez plus tard.\nIl semble qu'il n'y ait encore personne dans le classement de la semaine.\n",
-          "ranked": "Classement"
+          "ranked": "Votre classement :"
       }
   },
   "badges": {

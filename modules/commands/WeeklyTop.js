@@ -61,15 +61,13 @@ const weeklyTopCommand = async function (message, args, client) {
 const generateTopMessage = function (message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client) {
     let messageTop = Text.commands.weeklytop.introDebut + borneinf + Text.commands.weeklytop.pageNumberSeparator + bornesup + Text.commands.weeklytop.introFin;
     let classementJoueur = actualPlayer.weeklyRank;
-    let start = "\n\u208b\n";
-
     const embed = new Discord.RichEmbed();
     embed.setColor(Config.EMBED_COLOR);
     embed.setTitle(messageTop);
     if (data === null) {
         embed.setDescription(Text.commands.weeklytop.noPlayersInTop);
     } else {
-        embed.setDescription(start + generateTopDataText(data, totalJoueur, messageTop, message, client));
+        embed.setDescription(generateTopDataText(data, totalJoueur, messageTop, message, client));
         embed.addField(Text.commands.weeklytop.ranked, getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax), false)
     }
 

@@ -379,7 +379,7 @@
             "noUserError": "** There's no ranked player yet! Use the `report` command to appear in the weekly leaderboard!",
             "tooMuchUserError": "** The page you asked for contains too many players!",
             "noPlayersInTop": "`**Oops**, please come back later.\nIt seems like there is nobody yet in the weekly leaderboard.\n",
-            "ranked": "Rank"
+            "ranked": "Your rank :"
         }
     },
     "badges": {
