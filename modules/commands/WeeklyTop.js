@@ -30,7 +30,7 @@ const weeklyTopCommand = async function (message, args, client) {
     Text = await chargeText(message);
     let playerManager = new PlayerManager();
     let actualPlayer = await playerManager.getCurrentPlayer(message);
-    totalJoueur = await playerManager.getNumberOfPlayers();
+    totalJoueur = await playerManager.getNumberOfWeeklyPlayers();
     let pageMax = Math.ceil(await playerManager.getNumberOfActivePlayers() / DefaultValues.weeklytop.playersByPage);
     let page = getRequiredPageNumber(args);
     let erreur = testAbsurdsPages(message, page, pageMax);
@@ -67,23 +67,23 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     if (data === null) {
         embed.setDescription(Text.commands.weeklytop.noPlayersInTop);
     } else {
-        embed.setDescription(generateTopDataText(data, totalJoueur, messageTop, message, client));
-        embed.addField(Text.commands.weeklytop.ranked, getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax), false)
-    }
+        embed.setDescription(generateTopDataText(data, totalJoueur, message, client));
+        embed.addField("Temps restant avant reset :", "🕥 3h50", false)
+        embed.addField(Text.commands.weeklytop.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
 
+    }
     return embed;
 }
 
 /**
  * @param {*} data - The data of the page that has been required
  * @param {*} totalJoueur - The count of player in the game
- * @param {*} messageTop - Text
  * @param {*} message - The message that query this commannd.
  * @param {*} client - The bot client.
  */
 
-function generateTopDataText(data, totalJoueur, messageTop, message, client) {
-    messageTop = "";
+function generateTopDataText(data, totalJoueur, message, client) {
+    let messageTop = "";
     messageTop = checkPotentialDatabaseError(totalJoueur, messageTop, message);
     data.forEach(function (player) { //for each player that the bot have to display
         messageTop = getPlacementEmoji(player, messageTop, message);
@@ -148,25 +148,25 @@ function checkPotentialDatabaseError(totalJoueur, messageTop, message) {
  * @param {Integer} pageMax - The last page number
  * @returns {String} - The end sentence
  */
-function getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax) {
+function getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax) {
+    let endSentence = ""
     if (classementJoueur != 1) {
-        //messageTop = getYourPlacementEmoji(classementJoueur, messageTop);
-        messageTop = "";
+        endSentence = getYourPlacementEmoji(classementJoueur, endSentence);
         if (actualPlayer.weeklyScore > 100) {
-            messageTop += "**" + message.author.username + "**" + Text.commands.weeklytop.endSentenceStart + "**" + classementJoueur + Text.commands.weeklytop.endSentenceMiddle + totalJoueur + Text.commands.weeklytop.endSentenceEnd;
+            endSentence += "**" + message.author.username + "**" + Text.commands.weeklytop.endSentenceStart + "**" + classementJoueur + Text.commands.weeklytop.endSentenceMiddle + totalJoueur + Text.commands.weeklytop.endSentenceEnd;
             let pajejoueur = Math.ceil(classementJoueur / DefaultValues.weeklytop.playersByPage);
             if (page != pajejoueur) {
-                messageTop += Text.commands.weeklytop.pageSentenceStart + pajejoueur + Text.commands.weeklytop.separatorSlash + pageMax + Text.commands.weeklytop.pageSentenceEnd;
+                endSentence += Text.commands.weeklytop.pageSentenceStart + pajejoueur + Text.commands.weeklytop.separatorSlash + pageMax + Text.commands.weeklytop.pageSentenceEnd;
             }
         }
         else {
-            messageTop += message.author.username + Text.commands.weeklytop.errorNotRanked;
+            endSentence += message.author.username + Text.commands.weeklytop.errorNotRanked;
         }
     }
     else {
-        messageTop += Text.commands.weeklytop.winningIntro + message.author.username + Text.commands.weeklytop.winningOutro + totalJoueur + Text.commands.weeklytop.endSentenceEnd;
+        endSentence += Text.commands.weeklytop.winningIntro + message.author.username + Text.commands.weeklytop.winningOutro + totalJoueur + Text.commands.weeklytop.endSentenceEnd;
     }
-    return messageTop;
+    return endSentence;
 }
 
 

@@ -214,6 +214,18 @@ class PlayerManager {
         })
     }
 
+    /**
+     * Get the total number of players in the database that played this week
+     * @returns {Integer} - The number of players
+     */
+    getNumberOfWeeklyPlayers() {
+        return sql.get(`SELECT COUNT(*) as count FROM player WHERE weeklyScore > 100`).then(number => {
+            return number.count
+        }).catch(error => { //there is no database
+            console.error(error)
+            return 0;
+        })
+    }
 
     /**
      * Get the total number of actives players in the database
