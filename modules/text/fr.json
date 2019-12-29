@@ -1,17 +1,4 @@
 {
-  "settings": {
-    "displaystyle": {
-      "title": ":video_game: Avant toute chose, définissez un style d'affichage.",
-      "title2": ":video_game: Configuration du style d'affichage.",
-      "description": "L'affichage des messages du `DraftBot` peut être configuré en deux styles :\n    - Le style **embed**, celui que vous voyez actuellement. [Cliquez ici](https://i.imgur.com/rx19vvi.png)\n    - Le style **classic**, un style très simple, sans embeds. [Cliquez ici](https://i.imgur.com/ToKbi0y.png)",
-      "currentStyle": "\n\u208b\nLe style que vous avez appliqué est **",
-      "point": "**.",
-      "endSentence": "Pour définir un mode d'affichage, faites la commande :\n`displaystyle <embed|classic>`.",
-      "help": "Aide",
-      "setToEmbed": ":video_game: | Les messages du `DraftBot` vont désormais s'afficher dans le style `embed` pour vous !",
-      "setToClassic": ":video_game: | Les messages du `DraftBot` vont désormais s'afficher dans le style `classic` pour vous !"
-    }
-  },
   "commands": {
       "help": {
           "mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://draftbot.fandom.com/fr/wiki/Commandes",

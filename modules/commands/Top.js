@@ -81,7 +81,6 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
      * @param {*} messageTop - Text
      * @param {*} message - The message that query this commannd.
      * @param {*} client - The bot client.
-     * @param {*} displaystyle - The displaystyle param.
      */
 
     function generateTopDataText(data, totalJoueur, messageTop, message, client) {

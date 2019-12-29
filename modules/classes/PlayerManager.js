@@ -44,7 +44,7 @@ class PlayerManager {
                 console.log(`user loaded : ${message.author.username}`);
                 return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, 
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, 
-                    player.rank, player.weeklyScore, player.weeklyRank, player.displaystyle)
+                    player.rank, player.weeklyScore, player.weeklyRank)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -68,7 +68,7 @@ class PlayerManager {
                 console.log(`user loaded : ${id}`);
                 return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed, 
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, 
-                    player.rank, player.weeklyScore, player.weeklyRank, player.displaystyle)
+                    player.rank, player.weeklyScore, player.weeklyRank)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -101,8 +101,7 @@ class PlayerManager {
         console.log('Generating a new player...');
         return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed, 
             message.author.id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect,
-             message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank, DefaultValues.player.weeklyScore, DefaultValues.player.weeklyRank, 
-             DefaultValues.settings.displaystyle);
+             message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank, DefaultValues.player.weeklyScore, DefaultValues.player.weeklyRank);
     }
 
 
@@ -116,8 +115,7 @@ class PlayerManager {
         console.log('Generating a new player by id...');
         return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed,
             id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect,
-            message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank, DefaultValues.player.weeklyScore, DefaultValues.player.weeklyRank, 
-            DefaultValues.settings.displaystyle);
+            message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank, DefaultValues.player.weeklyScore, DefaultValues.player.weeklyRank);
     }
 
 
@@ -173,7 +171,7 @@ class PlayerManager {
          effect = "${player.effect}" WHERE id = ${player.discordId}`).catch(console.error);
         sql.run(`UPDATE player SET score = ${player.score}, level = ${player.level}, experience = ${player.experience}, money = ${player.money},
          lastReport = ${player.lastReport}, badges = "${player.badges}", weeklyScore = ${player.weeklyScore}, 
-         weeklyRank = ${player.weeklyRank}, displaystyle = "${player.displaystyle}" WHERE discordId = ${player.discordId}`).catch(console.error);
+         weeklyRank = ${player.weeklyRank}" WHERE discordId = ${player.discordId}`).catch(console.error);
         console.log("Player updated !");
     }
 
@@ -196,7 +194,7 @@ class PlayerManager {
         console.log("Creating player ...");
         sql.run(`INSERT INTO entity (maxHealth, health, attack, defense, speed, id, effect) VALUES ( ${player.maxHealth}, ${player.health}, ${player.attack} , ${player.defense} ,
         ${player.speed} , ${player.discordId},"${player.effect}")`).catch(console.error);
-        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, tampon, rank, weeklyScore, weeklyRank, displaystyle) 
+        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, tampon, rank, weeklyScore, weeklyRank) 
         VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, "${player.badges}",1,0,${player.weeklyScore}, 
         0, "undefined")`).catch(console.error);
         console.log("Player created !");
@@ -613,7 +611,7 @@ class PlayerManager {
             data.forEach(function (player) {
                 playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                      player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
-                      player.weeklyRank, player.displaystyle)
+                      player.weeklyRank)
                 i++;
             });
             return playerArray;
@@ -633,7 +631,7 @@ class PlayerManager {
             data.forEach(function (player) {
                 playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                      player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore, 
-                     player.weeklyRank, player.displaystyle)
+                     player.weeklyRank)
                 i++;
             });
             return i === 0 ? null : playerArray;
