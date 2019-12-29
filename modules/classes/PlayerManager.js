@@ -171,7 +171,7 @@ class PlayerManager {
          effect = "${player.effect}" WHERE id = ${player.discordId}`).catch(console.error);
         sql.run(`UPDATE player SET score = ${player.score}, level = ${player.level}, experience = ${player.experience}, money = ${player.money},
          lastReport = ${player.lastReport}, badges = "${player.badges}", weeklyScore = ${player.weeklyScore}, 
-         weeklyRank = ${player.weeklyRank}" WHERE discordId = ${player.discordId}`).catch(console.error);
+         weeklyRank = ${player.weeklyRank} WHERE discordId = ${player.discordId}`).catch(console.error);
         console.log("Player updated !");
     }
 
