@@ -84,8 +84,7 @@ client.on("messageReactionAdd", async (reaction) => {
 
 client.login(Config.DISCORD_CLIENT_TOKEN);
 
-
-/**Z
+/**
  * Send a message to the owner of a guild when the bot is added to its server
  * @param {*} guilde 
  */

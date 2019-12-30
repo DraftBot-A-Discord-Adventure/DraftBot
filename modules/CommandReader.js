@@ -96,7 +96,7 @@ function launchCommand(message, client, talkedRecently) {
         if (!message.channel.permissionsFor(client.user).serialize().SEND_MESSAGES) { //test if the bot can speak in the channel where a command has been read
             message.author.send(Text.error.noSpeakPermission);
         } else {
-            CommandTable.get(command)(message, args, client,talkedRecently);
+            CommandTable.get(command)(message, args, client, talkedRecently);
         }
 }
 
