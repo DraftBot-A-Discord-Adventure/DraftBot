@@ -636,7 +636,7 @@ class PlayerManager {
      * @param {Integer} bornesup - The uppper limit of the top
      * @returns {*} -The data of the top (an array of players)
      */
-    getWeeklyTopData(borneinf, bornesup) {
+    getTopWeekData(borneinf, bornesup) {
         let playerArray = Array();
         let i = 0;
         return sql.all(`SELECT * FROM player JOIN entity ON discordId = id WHERE weeklyRank >= ${0} AND weeklyRank <= ${10000} AND weeklyScore >= 100 ORDER BY weeklyScore DESC`).then(data => {

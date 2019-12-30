@@ -10,7 +10,7 @@ const Drink = require('./commands/Drink');
 const Daily = require('./commands/Daily');
 const Top = require('./commands/Top');
 //Mw3y's commit
-const WeeklyTop = require('./commands/WeeklyTop');
+const TopWeek = require('./commands/TopWeek');
 //
 const Sell = require('./commands/Sell');
 const Fight = require('./commands/Fight');
@@ -45,9 +45,9 @@ const CommandTable = new Map(
         ["daily", Daily.DailyCommand],
         ["da", Daily.DailyCommand],
         ["top", Top.TopCommand],
-        ["topweek", WeeklyTop.WeeklyTopCommand],
-        ["topw", WeeklyTop.WeeklyTopCommand],
-        ["tw", WeeklyTop.WeeklyTopCommand],
+        ["topweek", TopWeek.TopWeekCommand],
+        ["topw", TopWeek.TopWeekCommand],
+        ["tw", TopWeek.TopWeekCommand],
         ["sell", Sell.SellCommand],
         ["fight", Fight.FightCommand],
         ["f", Fight.FightCommand],

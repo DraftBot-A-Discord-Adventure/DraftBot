@@ -1,6 +1,6 @@
 //Discord API
 const Discord = require("discord.js");
-
+const moment = require("moment");
 const Config = require('../utils/Config')
 const PlayerManager = require('../classes/PlayerManager');
 const ServerManager = require('../classes/ServerManager');
@@ -26,18 +26,18 @@ const DefaultValues = require('../utils/DefaultValues')
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
-const weeklyTopCommand = async function (message, args, client) {
+const TopWeekCommand = async function (message, args, client) {
     Text = await chargeText(message);
     let playerManager = new PlayerManager();
     let actualPlayer = await playerManager.getCurrentPlayer(message);
     totalJoueur = await playerManager.getNumberOfWeeklyPlayers();
-    let pageMax = Math.ceil(await playerManager.getNumberOfActivePlayers() / DefaultValues.weeklytop.playersByPage);
+    let pageMax = Math.ceil(await playerManager.getNumberOfActivePlayers() / DefaultValues.TopWeek.playersByPage);
     let page = getRequiredPageNumber(args);
     let erreur = testAbsurdsPages(message, page, pageMax);
     if (erreur == 0) {
-        let bornesup = page * DefaultValues.weeklytop.playersByPage
-        let borneinf = bornesup - (DefaultValues.weeklytop.playersByPage - 1);
-        let data = await playerManager.getWeeklyTopData(borneinf, bornesup)
+        let bornesup = page * DefaultValues.TopWeek.playersByPage
+        let borneinf = bornesup - (DefaultValues.TopWeek.playersByPage - 1);
+        let data = await playerManager.getTopWeekData(borneinf, bornesup)
         const messageTop = generateTopMessage(message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client);
         message.channel.send(messageTop);
     }
@@ -51,15 +51,15 @@ const weeklyTopCommand = async function (message, args, client) {
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {Integer} borneinf -The upper limit of the page
  * @param {Integer} bornesup  - The lower limit of the page
- * @param {Integer} pageMax - The number of pages that are available on the weeklytop
+ * @param {Integer} pageMax - The number of pages that are available on the TopWeek
  * @param {Integer} page - The number of the actual page that is displayed
- * @param {*} actualPlayer - The player instant of the perso who asked for the weeklytop
+ * @param {*} actualPlayer - The player instant of the perso who asked for the TopWeek
  * @param {Integer} totalJoueur - The account of player in the game
  * @param {*} data - The data of the page that has been required
  * @param {*} client - The bot client, used to retrieve the username of the players
  */
 const generateTopMessage = function (message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client) {
-    let messageTop = Text.commands.weeklytop.introDebut + borneinf + Text.commands.weeklytop.pageNumberSeparator + bornesup + Text.commands.weeklytop.introFin;
+    let messageTop = Text.commands.TopWeek.introDebut + borneinf + Text.commands.TopWeek.pageNumberSeparator + bornesup + Text.commands.TopWeek.introFin;
     let classementJoueur = actualPlayer.weeklyRank;
 
     let space = "\u200b";
@@ -68,10 +68,10 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     embed.setTitle(messageTop);
     embed.setThumbnail("https://i.imgur.com/qwECDVq.png");
     if (data === null) {
-        embed.setDescription(Text.commands.weeklytop.noPlayersInTop);
+        embed.setDescription(Text.commands.TopWeek.noPlayersInTop);
     } else {
         embed.setDescription(space + "\n" + generateTopDataText(data, totalJoueur, message, client) + space);
-        embed.addField(Text.commands.weeklytop.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
+        embed.addField(Text.commands.TopWeek.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
         embed.setFooter("Classement réinitialisé dans" + `${getResetDate()}`, "https://i.imgur.com/OpL9WpR.png");
     }
     return embed;
@@ -105,22 +105,22 @@ function generateTopDataText(data, totalJoueur, message, client) {
  */
 const testAbsurdsPages = function (message, page, pageMax) {
     if (isNaN(page)) {
-        message.channel.send(Text.commands.weeklytop.errorDebut + message.author.username + Text.commands.weeklytop.invalidNumber);
+        message.channel.send(Text.commands.TopWeek.errorDebut + message.author.username + Text.commands.TopWeek.invalidNumber);
         return 1;
     }
     if (page <= 0) {
-        message.channel.send(Text.commands.weeklytop.errorDebut + message.author.username + Text.commands.weeklytop.invalidNumber);
+        message.channel.send(Text.commands.TopWeek.errorDebut + message.author.username + Text.commands.TopWeek.invalidNumber);
         return 1;
     }
     if (page > pageMax) {
-        message.channel.send(Text.commands.weeklytop.errorDebut + message.author.username + Text.commands.weeklytop.tooMuchError + pageMax);
+        message.channel.send(Text.commands.TopWeek.errorDebut + message.author.username + Text.commands.TopWeek.tooMuchError + pageMax);
         return 1;
     }
     return 0;
 }
 
 /**
- * Check if the weeklytop can be displayed without any problem
+ * Check if the TopWeek can be displayed without any problem
  * @param {Integer} totalJoueur - The count of player in the game
  * @param {String} messageTop - The string that will be displayed to the player
  * @param {*} message - The original command message, used to retrieve the author and the channel
@@ -128,11 +128,11 @@ const testAbsurdsPages = function (message, page, pageMax) {
  */
 function checkPotentialDatabaseError(totalJoueur, messageTop, message) {
     if (totalJoueur < 1) {
-        messageTop = Text.commands.weeklytop.errorDebut + message.author.username + Text.commands.weeklytop.noUserError;
+        messageTop = Text.commands.TopWeek.errorDebut + message.author.username + Text.commands.TopWeek.noUserError;
     }
     else {
         if (messageTop.length > 2000) {
-            messageTop = Text.commands.weeklytop.errorDebut + message.author.username + Text.commands.weeklytop.tooMuchUserError;
+            messageTop = Text.commands.TopWeek.errorDebut + message.author.username + Text.commands.TopWeek.tooMuchUserError;
         }
     }
     return messageTop;
@@ -141,9 +141,9 @@ function checkPotentialDatabaseError(totalJoueur, messageTop, message) {
 
 /**
  * Allow to display information to the player about his position in the ranking
- * @param {Integer} classementJoueur - The weeklyRank of the player that asked for the weeklytop
+ * @param {Integer} classementJoueur - The weeklyRank of the player that asked for the TopWeek
  * @param {String} messageTop - The string that will be displayed to the player
- * @param {*} actualPlayer - The player that asked for the weeklytop
+ * @param {*} actualPlayer - The player that asked for the TopWeek
  * @param {*} message - The original command message, used to retrieve the author and the channel
  * @param {Integer} totalJoueur - The count of player in the game
  * @param {Integer} page - The current page number
@@ -155,25 +155,25 @@ function getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, pa
     if (classementJoueur != 1) {
         endSentence = getYourPlacementEmoji(classementJoueur, endSentence);
         if (actualPlayer.weeklyScore > 100) {
-            endSentence += "**" + message.author.username + "**" + Text.commands.weeklytop.endSentenceStart + "**" + classementJoueur + Text.commands.weeklytop.endSentenceMiddle + totalJoueur + Text.commands.weeklytop.endSentenceEnd;
-            let pajejoueur = Math.ceil(classementJoueur / DefaultValues.weeklytop.playersByPage);
+            endSentence += "**" + message.author.username + "**" + Text.commands.TopWeek.endSentenceStart + "**" + classementJoueur + Text.commands.TopWeek.endSentenceMiddle + totalJoueur + Text.commands.TopWeek.endSentenceEnd;
+            let pajejoueur = Math.ceil(classementJoueur / DefaultValues.TopWeek.playersByPage);
             if (page != pajejoueur) {
-                endSentence += Text.commands.weeklytop.pageSentenceStart + pajejoueur + Text.commands.weeklytop.separatorSlash + pageMax + Text.commands.weeklytop.pageSentenceEnd;
+                endSentence += Text.commands.TopWeek.pageSentenceStart + pajejoueur + Text.commands.TopWeek.separatorSlash + pageMax + Text.commands.TopWeek.pageSentenceEnd;
             }
         }
         else {
-            endSentence += message.author.username + Text.commands.weeklytop.errorNotRanked;
+            endSentence += message.author.username + Text.commands.TopWeek.errorNotRanked;
         }
     }
     else {
-        endSentence += Text.commands.weeklytop.winningIntro + message.author.username + Text.commands.weeklytop.winningOutro + totalJoueur + Text.commands.weeklytop.endSentenceEnd;
+        endSentence += Text.commands.TopWeek.winningIntro + message.author.username + Text.commands.TopWeek.winningOutro + totalJoueur + Text.commands.TopWeek.endSentenceEnd;
     }
     return endSentence;
 }
 
 
 /**
- * Display a player in the weeklytop
+ * Display a player in the TopWeek
  * @param {String} messageTop - The string that will be displayed to the player
  * @param {*} player - The player that is displayed
  * @param {String} pseudo - The username of the player
@@ -181,25 +181,25 @@ function getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, pa
  * @returns {String} - The player infos
  */
 function displayPlayerInfos(messageTop, player, pseudo, message) {
-    messageTop += player.weeklyRank + Text.commands.weeklytop.boldEnd + pseudo;
+    messageTop += player.weeklyRank + Text.commands.TopWeek.boldEnd + pseudo;
     let temps = Math.floor((message.createdTimestamp - player.lastReport) / (1000 * 60)); //temps en minutes depuis le dernier rapport
     if (temps > 1440) {
-        messageTop += Text.commands.weeklytop.innactive;
+        messageTop += Text.commands.TopWeek.innactive;
     } else {
         if (temps > 60) {
-            messageTop += Text.commands.weeklytop.availableReport;
+            messageTop += Text.commands.TopWeek.availableReport;
         } else {
             if (player.effect != ":smiley:") {
-                messageTop += Text.commands.weeklytop.separator + player.effect;
+                messageTop += Text.commands.TopWeek.separator + player.effect;
             }
         }
     }
 
 
-    messageTop += Text.commands.weeklytop.scoreDisplayDebut + player.weeklyScore + Text.commands.weeklytop.scoreDisplayFin;
-    messageTop += Text.commands.weeklytop.levelDisplayDebut + player.level + Text.commands.weeklytop.levelDisplayFin;
+    messageTop += Text.commands.TopWeek.scoreDisplayDebut + player.weeklyScore + Text.commands.TopWeek.scoreDisplayFin;
+    messageTop += Text.commands.TopWeek.levelDisplayDebut + player.level + Text.commands.TopWeek.levelDisplayFin;
 
-    messageTop += Text.commands.weeklytop.endOfLineWBold;
+    messageTop += Text.commands.TopWeek.endOfLineWBold;
     return messageTop;
 }
 
@@ -216,7 +216,7 @@ function getPlayerPseudo(client, player) {
         pseudo = client.users.get(player.discordId).username;
     }
     else {
-        pseudo = Text.commands.weeklytop.unknownPlayer;
+        pseudo = Text.commands.TopWeek.unknownPlayer;
     }
     return pseudo;
 }
@@ -229,22 +229,22 @@ function getPlayerPseudo(client, player) {
 function getYourPlacementEmoji(classementJoueur, messageTop) {
     let emoji = ""
     if (classementJoueur == 2) {
-        emoji += Text.commands.weeklytop.endOfLine + Text.commands.weeklytop.secondPlaceEmoji;
+        emoji += Text.commands.TopWeek.endOfLine + Text.commands.TopWeek.secondPlaceEmoji;
     }
     else {
         if (classementJoueur == 3) {
-            emoji += Text.commands.weeklytop.endOfLine + Text.commands.weeklytop.thirdPlaceEmoji;
+            emoji += Text.commands.TopWeek.endOfLine + Text.commands.TopWeek.thirdPlaceEmoji;
         }
         else {
             if (classementJoueur <= 5) {
-                emoji += Text.commands.weeklytop.endOfLine + Text.commands.weeklytop.top5Emoji;
+                emoji += Text.commands.TopWeek.endOfLine + Text.commands.TopWeek.top5Emoji;
             }
             else {
                 if (classementJoueur <= 10) {
-                    emoji += Text.commands.weeklytop.endOfLine + Text.commands.weeklytop.tada;
+                    emoji += Text.commands.TopWeek.endOfLine + Text.commands.TopWeek.tada;
                 }
                 else {
-                    emoji += Text.commands.weeklytop.endOfLine + Text.commands.weeklytop.otherEmoji;
+                    emoji += Text.commands.TopWeek.endOfLine + Text.commands.TopWeek.otherEmoji;
                 }
             }
         }
@@ -260,30 +260,30 @@ function getYourPlacementEmoji(classementJoueur, messageTop) {
  */
 function getPlacementEmoji(player, messageTop, message) {
     if (player.weeklyRank == 1) {
-        messageTop += Text.commands.weeklytop.firstPlaceEmoji;
+        messageTop += Text.commands.TopWeek.firstPlaceEmoji;
     }
     else {
         if (player.weeklyRank == 2) {
-            messageTop += Text.commands.weeklytop.secondPlaceEmoji;
+            messageTop += Text.commands.TopWeek.secondPlaceEmoji;
         }
         else {
             if (player.weeklyRank == 3) {
-                messageTop += Text.commands.weeklytop.thirdPlaceEmoji;
+                messageTop += Text.commands.TopWeek.thirdPlaceEmoji;
             }
             else {
                 if (player.weeklyRank <= 5) {
-                    messageTop += Text.commands.weeklytop.top5Emoji;
+                    messageTop += Text.commands.TopWeek.top5Emoji;
                 }
                 else {
                     if (message.author.id == player.discordId) {
-                        messageTop += Text.commands.weeklytop.youEmoji;
+                        messageTop += Text.commands.TopWeek.youEmoji;
                     }
                     else {
                         if (message.guild.members.find(val => val.id === player.discordId) != null) {
-                            messageTop += Text.commands.weeklytop.sameGuild;
+                            messageTop += Text.commands.TopWeek.sameGuild;
                         }
                         else {
-                            messageTop += Text.commands.weeklytop.otherEmoji;
+                            messageTop += Text.commands.TopWeek.otherEmoji;
                         }
                     }
                 }
@@ -312,7 +312,6 @@ function getRequiredPageNumber(args) {
  * @returns {String} - The time formatted in a string.
  */
 function getResetDate() {
-    const moment = require("moment");
     //Creating Dates
     var now = new Date(); //The current date
     var dateOfReset = new Date(); // The next Sunday
@@ -326,9 +325,9 @@ function getResetDate() {
     const diffHours = momentOfReset.diff(nowMoment, 'hours');
     const diffMinutes = momentOfReset.diff(nowMoment, 'minutes');
     //Converting into a String
-    var parsedTime = " " + diffDays + Text.commands.weeklytop.days + " " +
-    (diffHours - diffDays * 24) + Text.commands.weeklytop.hours + " " +
-    (diffMinutes - diffHours * 60) + Text.commands.weeklytop.minutes + ".";
+    var parsedTime = " " + diffDays + Text.commands.TopWeek.days + " " +
+    (diffHours - diffDays * 24) + Text.commands.TopWeek.hours + " " +
+    (diffMinutes - diffHours * 60) + Text.commands.TopWeek.minutes + ".";
 
     console.log(dateOfReset.toString());
     console.log(parsedTime);
@@ -336,4 +335,4 @@ function getResetDate() {
 }
 
 
-module.exports.WeeklyTopCommand = weeklyTopCommand;
+module.exports.TopWeekCommand = TopWeekCommand;
