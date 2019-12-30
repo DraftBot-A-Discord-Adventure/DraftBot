@@ -61,6 +61,7 @@ const weeklyTopCommand = async function (message, args, client) {
 const generateTopMessage = function (message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client) {
     let messageTop = Text.commands.weeklytop.introDebut + borneinf + Text.commands.weeklytop.pageNumberSeparator + bornesup + Text.commands.weeklytop.introFin;
     let classementJoueur = actualPlayer.weeklyRank;
+
     let space = "\u200b";
     const embed = new Discord.RichEmbed();
     embed.setColor(Config.EMBED_COLOR);
