@@ -68,7 +68,7 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     if (data === null) {
         embed.setDescription(Text.commands.top.noPlayersInTop);
     } else {
-        embed.setDescription(generateTopDataText(data, totalJoueur, messageTop, message, client));
+        embed.setDescription("\u200b\n" + generateTopDataText(data, totalJoueur, messageTop, message, client)+ "\u200b");
         embed.addField(Text.commands.top.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
     }
     return embed;

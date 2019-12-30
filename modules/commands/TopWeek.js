@@ -61,8 +61,6 @@ const TopWeekCommand = async function (message, args, client) {
 const generateTopMessage = function (message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client) {
     let messageTop = Text.commands.TopWeek.introDebut + borneinf + Text.commands.TopWeek.pageNumberSeparator + bornesup + Text.commands.TopWeek.introFin;
     let classementJoueur = actualPlayer.weeklyRank;
-
-    let space = "\u200b";
     const embed = new Discord.RichEmbed();
     embed.setColor(Config.EMBED_COLOR);
     embed.setTitle(messageTop);
@@ -70,7 +68,7 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     if (data === null) {
         embed.setDescription(Text.commands.TopWeek.noPlayersInTop);
     } else {
-        embed.setDescription(space + "\n" + generateTopDataText(data, totalJoueur, message, client) + space);
+        embed.setDescription("\u200b\n" + generateTopDataText(data, totalJoueur, message, client) + "\u200b");
         embed.addField(Text.commands.TopWeek.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
         embed.setFooter("Classement réinitialisé dans" + `${getResetDate()}`, "https://i.imgur.com/OpL9WpR.png");
     }
@@ -315,7 +313,7 @@ function getResetDate() {
     //Creating Dates
     var now = new Date(); //The current date
     var dateOfReset = new Date(); // The next Sunday
-    dateOfReset.setDate(now.getDate() + (0+(7-now.getDay())) % 7); // Calculating next Sunday
+    dateOfReset.setDate(now.getDate() + (0 + (7 - now.getDay())) % 7); // Calculating next Sunday
     dateOfReset.setHours(23, 59, 59); // Defining hours, min, sec to 23, 59, 59
     //Parsing dates to moment
     var nowMoment = new moment(now);
@@ -326,8 +324,8 @@ function getResetDate() {
     const diffMinutes = momentOfReset.diff(nowMoment, 'minutes');
     //Converting into a String
     var parsedTime = " " + diffDays + Text.commands.TopWeek.days + " " +
-    (diffHours - diffDays * 24) + Text.commands.TopWeek.hours + " " +
-    (diffMinutes - diffHours * 60) + Text.commands.TopWeek.minutes + ".";
+        (diffHours - diffDays * 24) + Text.commands.TopWeek.hours + " " +
+        (diffMinutes - diffHours * 60) + Text.commands.TopWeek.minutes + ".";
 
     console.log(dateOfReset.toString());
     console.log(parsedTime);

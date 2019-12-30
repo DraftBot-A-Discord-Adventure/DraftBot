@@ -310,7 +310,7 @@
           "youEmoji": ":white_circle: ",
           "otherEmoji": ":black_circle: ",
           "sameGuild": ":blue_circle: ",
-          "unknownPlayer": "Pseudo Introuvable ",
+          "unknownPlayer": "Pseudo 404",
           "boldEnd": " **",
           "boldStart": "**",
           "scoreDisplayDebut": " **| **`",
