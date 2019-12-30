@@ -18,6 +18,7 @@ class DatabaseManager {
         }).then(() => {
             console.log('... Database is valid !');
         });
+        
     }
 
     async updateDatabase(sql) {

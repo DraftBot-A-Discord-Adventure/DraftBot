@@ -55,8 +55,8 @@
             "revived2": " points :medal: were deducted from your score as a result of this action!",
             "notDead": "** it seems that you are not yet KO'd... You don't need our services."
         },
-        "admin":{
-            "error" :":x: | You have to be `Admin` on this server to perform this command!"
+        "admin": {
+            "error": ":x: | You have to be `Admin` on this server to perform this command!"
         },
         "shop": {
             "errorEmoji": ":x: **",
@@ -109,8 +109,8 @@
             "noReport": " : ** :x: You don’t have any new reports! Come back in a few hours!"
         },
         "inventory": {
-            "errorMain" : ":x: |** ",
-            "errorInv" : "**, it seems the player you asked for hasn't started the adventure yet!",
+            "errorMain": ":x: |** ",
+            "errorInv": "**, it seems the player you asked for hasn't started the adventure yet!",
             "title": ":school_satchel:** | ",
             "lineEnd1": "'s inventory:**\n\n",
             "lineEnd2": "\n",
@@ -343,7 +343,7 @@
             "invalidNumber": "** Please enter a valid page number!",
             "notMuchError": "** You gave a page number smaller than the first page! The first page is: ",
             "tooMuchError": "** You gave a page number larger than the last page! The last page is: ",
-            "introDebut": "**:trophy: Displaying weekly ranking ",
+            "introDebut": "**Displaying weekly ranking ",
             "pageNumberSeparator": " to ",
             "introFin": " : ** \n\n",
             "firstPlaceEmoji": ":first_place: ",
@@ -373,13 +373,16 @@
             "pageSentenceStart": "(You are on page ",
             "separatorSlash": " / ",
             "pageSentenceEnd": ")",
-            "errorNotRanked": ", you aren't ranked yet! Use the `report` command to join the weekly leaderboard!",
+            "errorNotRanked": ", you aren't ranked yet!\nUse the `report` command to join the weekly leaderboard!",
             "winningIntro": "\n :trophy: Congratulations ",
-            "winningOutro": " ! **You are actually the best** out of a total of ",
-            "noUserError": "** There's no ranked player yet! Use the `report` command to appear in the weekly leaderboard!",
+            "winningOutro": " !\n**You are actually the best** out of a total of ",
+            "noUserError": "** There's no ranked player yet!\nUse the `report` command to appear in the weekly leaderboard!",
             "tooMuchUserError": "** The page you asked for contains too many players!",
             "noPlayersInTop": "`**Oops**, please come back later.\nIt seems like there is nobody yet in the weekly leaderboard.\n",
-            "ranked": "Your rank :"
+            "ranked": "Your rank :",
+            "days": " J",
+            "hours": " H",
+            "minutes": " Min"
         }
     },
     "badges": {
@@ -409,10 +412,10 @@
         "🌟": ":star2: `People who helped put the bot on a server of over 2000 members`",
         "🖋": ":pen_fountain: `Someone who has participated in editing the wiki`",
         "💵": ":dollar: `People who participed in the improvement of the bot development environment`",
-        "⭐":":star:  `People who starred the bot's github repository`",
-        "🌍":":earth_africa:  `Translator`",
-        "🍌":":banana:  `Present for a ping`",
-        "🔍":":mag:  `Investigator`"
+        "⭐": ":star:  `People who starred the bot's github repository`",
+        "🌍": ":earth_africa:  `Translator`",
+        "🍌": ":banana:  `Present for a ping`",
+        "🔍": ":mag:  `Investigator`"
     },
     "error": {
         "noSpeakPermission": ":zipper_mouth: | **Hello! You are receiving this message because you tried using one of my commands in a channel where I have the permissions to see messages but not send them!**\n\nYour request was thus voided. To resolve this problem, please send a message to the owner of the server you tried to use me in. If you can't resolve this problem, I invite you to join the bot's support available here: 'http://draftbot.tk/'!"

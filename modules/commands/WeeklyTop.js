@@ -61,16 +61,18 @@ const weeklyTopCommand = async function (message, args, client) {
 const generateTopMessage = function (message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client) {
     let messageTop = Text.commands.weeklytop.introDebut + borneinf + Text.commands.weeklytop.pageNumberSeparator + bornesup + Text.commands.weeklytop.introFin;
     let classementJoueur = actualPlayer.weeklyRank;
+
+    let space = "\u200b";
     const embed = new Discord.RichEmbed();
     embed.setColor(Config.EMBED_COLOR);
     embed.setTitle(messageTop);
+    embed.setThumbnail("https://i.imgur.com/qwECDVq.png");
     if (data === null) {
         embed.setDescription(Text.commands.weeklytop.noPlayersInTop);
     } else {
-        embed.setDescription(generateTopDataText(data, totalJoueur, message, client));
-        embed.addField("Temps restant avant reset :", "🕥 3h50", false)
+        embed.setDescription(space + "\n" + generateTopDataText(data, totalJoueur, message, client) + space);
         embed.addField(Text.commands.weeklytop.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
-
+        embed.setFooter("Classement réinitialisé dans" + `${getResetDate()}`, "https://i.imgur.com/OpL9WpR.png");
     }
     return embed;
 }
@@ -303,6 +305,34 @@ function getRequiredPageNumber(args) {
     }
     page = parseInt(page, 10);
     return page;
+}
+
+/**
+ * Allow to retrieve the time before the leaderboard reset.
+ * @returns {String} - The time formatted in a string.
+ */
+function getResetDate() {
+    const moment = require("moment");
+    //Creating Dates
+    var now = new Date(); //The current date
+    var dateOfReset = new Date(); // The next Sunday
+    dateOfReset.setDate(now.getDate() + (0+(7-now.getDay())) % 7); // Calculating next Sunday
+    dateOfReset.setHours(23, 59, 59); // Defining hours, min, sec to 23, 59, 59
+    //Parsing dates to moment
+    var nowMoment = new moment(now);
+    var momentOfReset = new moment(dateOfReset);
+    //Creating the date difference string.
+    const diffDays = momentOfReset.diff(nowMoment, 'days');
+    const diffHours = momentOfReset.diff(nowMoment, 'hours');
+    const diffMinutes = momentOfReset.diff(nowMoment, 'minutes');
+    //Converting into a String
+    var parsedTime = " " + diffDays + Text.commands.weeklytop.days + " " +
+    (diffHours - diffDays * 24) + Text.commands.weeklytop.hours + " " +
+    (diffMinutes - diffHours * 60) + Text.commands.weeklytop.minutes + ".";
+
+    console.log(dateOfReset.toString());
+    console.log(parsedTime);
+    return parsedTime;
 }
 
 
