@@ -10,7 +10,6 @@ class DatabaseManager {
      */
     checkDatabaseValidity(sql) {
         console.log('Checking Database ...');
-
         sql.get(`SELECT version FROM database`).catch(() => {
             this.createDatabase(sql);
         });
@@ -19,6 +18,7 @@ class DatabaseManager {
         }).then(() => {
             console.log('... Database is valid !');
         });
+        
     }
 
     async updateDatabase(sql) {
@@ -31,13 +31,13 @@ class DatabaseManager {
         await sql.run("UPDATE player SET weeklyScore = 0").catch(console.error);
         //Define default weeklyRank value
         await sql.run("UPDATE player SET weeklyRank = 0").catch(console.error);
-        
+
         console.log("database updated !")
     }
 
-       /**
-     * Allow to set the state of all the player to normal in order to allow them to play
-     */
+    /**
+  * Allow to set the state of all the player to normal in order to allow them to play
+  */
     setEverybodyAsUnOccupied() {
         console.log("Updating everybody ...");
         sql.run(`UPDATE entity SET effect = ":smiley:" WHERE effect = ":clock10:"`).catch(console.error);
@@ -55,7 +55,7 @@ class DatabaseManager {
         sql.run("CREATE TABLE IF NOT EXISTS entity (id TEXT, maxHealth INTEGER, health INTEGER, attack INTEGER, defense INTEGER, speed INTEGER, effect TEXT)").catch(console.error);
         //table player
         sql.run("CREATE TABLE IF NOT EXISTS player (discordId TEXT, score INTEGER, weeklyScore INTEGER, level INTEGER, experience INTEGER, money INTEGER, lastReport INTEGER, badges TEXT, tampon INTEGER, rank INTEGER, weeklyRank INTEGER)").then(() => {
-            
+
             //trigger to calculate the score of all the users at any moment
             sql.run(`CREATE TRIGGER IF NOT EXISTS calcrank 
             AFTER UPDATE OF score ON player 

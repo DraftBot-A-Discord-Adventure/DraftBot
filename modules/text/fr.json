@@ -1,17 +1,4 @@
 {
-  "settings": {
-    "displaystyle": {
-      "title": ":video_game: Avant toute chose, définissez un style d'affichage.",
-      "title2": ":video_game: Configuration du style d'affichage.",
-      "description": "L'affichage des messages du `DraftBot` peut être configuré en deux styles :\n    - Le style **embed**, celui que vous voyez actuellement. [Cliquez ici](https://i.imgur.com/rx19vvi.png)\n    - Le style **classic**, un style très simple, sans embeds. [Cliquez ici](https://i.imgur.com/ToKbi0y.png)",
-      "currentStyle": "\n\u208b\nLe style que vous avez appliqué est **",
-      "point": "**.",
-      "endSentence": "Pour définir un mode d'affichage, faites la commande :\n`displaystyle <embed|classic>`.",
-      "help": "Aide",
-      "setToEmbed": ":video_game: | Les messages du `DraftBot` vont désormais s'afficher dans le style `embed` pour vous !",
-      "setToClassic": ":video_game: | Les messages du `DraftBot` vont désormais s'afficher dans le style `classic` pour vous !"
-    }
-  },
   "commands": {
       "help": {
           "mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://draftbot.fandom.com/fr/wiki/Commandes",
@@ -349,14 +336,14 @@
           "noUserError": "** Aucun joueur n'est classé pour le moment ! Utilisez la commande `report` pour apparaitre dans le top !",
           "tooMuchUserError": "** La page que vous avez demandé contient trop de joueurs !",
           "noPlayersInTop": "**Oups,** revenez plus tard.\nIl semble qu'il n'y ait encore personne dans le classement.\n",
-          "ranked": "Classement"
+          "ranked": "Votre classement :"
       },
       "weeklytop": {
           "errorDebut": ":x: | **",
           "invalidNumber": "** Veuillez entrer un numéro de page valide !",
           "notMuchError": "** Vous avez saisi un numéro de page trop petit ! La page minimum est : ",
           "tooMuchError": "** Vous avez saisi un numéro de page trop grand ! La page maximale est : ",
-          "introDebut": "**:trophy: Affichage du top de la semaine ",
+          "introDebut": "**Affichage du top de la semaine ",
           "pageNumberSeparator": " à ",
           "introFin": " : ** \n\n",
           "firstPlaceEmoji": ":first_place: ",
@@ -386,13 +373,16 @@
           "pageSentenceStart": "(Vous vous trouverez à la page ",
           "separatorSlash": " / ",
           "pageSentenceEnd": ")",
-          "errorNotRanked": ", vous n'êtes actuellement pas classé ! Utilisez la commande `report` pour apparaitre dans le top de la semaine !",
+          "errorNotRanked": ", vous n'êtes actuellement pas classé !\nUtilisez la commande `report` pour apparaitre dans le top de la semaine !",
           "winningIntro": "\n :trophy: Félicitations ",
-          "winningOutro": " ! **Vous êtes actuellement le meilleur** sur un total de ",
-          "noUserError": " Aucun joueur n'est classé pour le moment ! Utilisez la commande `report` pour apparaitre dans le top de la semaine !",
+          "winningOutro": " ! \n**Vous êtes actuellement le meilleur** sur un total de ",
+          "noUserError": " Aucun joueur n'est classé pour le moment !\n Utilisez la commande `report` pour apparaitre dans le top de la semaine !",
           "tooMuchUserError": " La page que vous avez demandé contient trop de joueurs !",
           "noPlayersInTop": "**Oups,** revenez plus tard.\nIl semble qu'il n'y ait encore personne dans le classement de la semaine.\n",
-          "ranked": "Classement"
+          "ranked": "Votre classement :",
+          "days": " J",
+          "hours": " H",
+          "minutes": " Min"
       }
   },
   "badges": {

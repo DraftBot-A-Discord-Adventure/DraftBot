@@ -10,7 +10,7 @@ let Text;
  */
 class Player extends Entity {
 
-    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank, weeklyScore, weeklyRank, displaystyle) {
+    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank, weeklyScore, weeklyRank) {
         super(discordId, maxHealth, health, attack, defense, speed, effect);
         this.discordId = discordId;
         this.score = score;
@@ -22,24 +22,6 @@ class Player extends Entity {
         this.rank = rank
         this.weeklyScore = weeklyScore;
         this.weeklyRank = weeklyRank;
-        this.displaystyle = displaystyle;
-    }
-
-    /**
-     * Returns the setting for embed usage.
-     * @returns {*} - Return the display type.
-     */
-    getDisplayStyle() {
-        return this.displaystyle;
-    }
-
-    
-    /**
-     * Set this Player instance's displaystyle param.
-     * @param {*} displaystyle - The value of the param.
-     */
-    setDisplayStyle(displaystyle) {
-        this.displaystyle = displaystyle;
     }
 
     /**

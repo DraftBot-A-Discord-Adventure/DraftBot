@@ -61,17 +61,15 @@ const topCommand = async function (message, args, client) {
  */
 const generateTopMessage = function (message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client) {
     let messageTop = Text.commands.top.introDebut + borneinf + Text.commands.top.pageNumberSeparator + bornesup + Text.commands.top.introFin;
-    let classementJoueur = actualPlayer.weeklyRank;
-    let start = "\n\u208b\n";
-
+    let classementJoueur = actualPlayer.rank;
     const embed = new Discord.RichEmbed();
     embed.setColor(Config.EMBED_COLOR);
     embed.setTitle(messageTop);
     if (data === null) {
         embed.setDescription(Text.commands.top.noPlayersInTop);
     } else {
-        embed.setDescription(start + generateTopDataText(data, totalJoueur, messageTop, message, client));
-        embed.addField(Text.commands.top.ranked, getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax), false)
+        embed.setDescription(generateTopDataText(data, totalJoueur, messageTop, message, client));
+        embed.addField(Text.commands.top.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
     }
     return embed;
 }
@@ -83,7 +81,6 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
      * @param {*} messageTop - Text
      * @param {*} message - The message that query this commannd.
      * @param {*} client - The bot client.
-     * @param {*} displaystyle - The displaystyle param.
      */
 
     function generateTopDataText(data, totalJoueur, messageTop, message, client) {
@@ -144,7 +141,6 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     /**
      * Allow to display information to the player about his position in the ranking
      * @param {Integer} classementJoueur - The weeklyRank of the player that asked for the top
-     * @param {String} messageTop - The string that will be displayed to the player
      * @param {*} actualPlayer - The player that asked for the top
      * @param {*} message - The original command message, used to retrieve the author and the channel
      * @param {Integer} totalJoueur - The count of player in the game
@@ -152,25 +148,25 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
      * @param {Integer} pageMax - The last page number
      * @returns {String} - The end sentence
      */
-    function getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax) {
+    function getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax) {
+        let endSentence = "";
         if (classementJoueur != 1) {
-            //messageTop = getYourPlacementEmoji(classementJoueur, messageTop);
-            messageTop = "";
-            if (actualPlayer.weeklyScore > 100) {
-                messageTop += "**" + message.author.username + "**" + Text.commands.top.endSentenceStart + "**" + classementJoueur + Text.commands.top.endSentenceMiddle + totalJoueur + Text.commands.top.endSentenceEnd;
+            endSentence = getYourPlacementEmoji(classementJoueur);
+            if (actualPlayer.score > 100) {
+                endSentence += "**" + message.author.username + "**" + Text.commands.top.endSentenceStart + "**" + classementJoueur + Text.commands.top.endSentenceMiddle + totalJoueur + Text.commands.top.endSentenceEnd;
                 let pajejoueur = Math.ceil(classementJoueur / DefaultValues.top.playersByPage);
                 if (page != pajejoueur) {
-                    messageTop += Text.commands.top.pageSentenceStart + pajejoueur + Text.commands.top.separatorSlash + pageMax + Text.commands.top.pageSentenceEnd;
+                    endSentence += Text.commands.top.pageSentenceStart + pajejoueur + Text.commands.top.separatorSlash + pageMax + Text.commands.top.pageSentenceEnd;
                 }
             }
             else {
-                messageTop += message.author.username + Text.commands.top.errorNotRanked;
+                endSentence += message.author.username + Text.commands.top.errorNotRanked;
             }
         }
         else {
-            messageTop += Text.commands.top.winningIntro + message.author.username + Text.commands.top.winningOutro + totalJoueur + Text.commands.top.endSentenceEnd;
+            endSentence += Text.commands.top.winningIntro + message.author.username + Text.commands.top.winningOutro + totalJoueur + Text.commands.top.endSentenceEnd;
         }
-        return messageTop;
+        return endSentence;
     }
 
 
@@ -226,9 +222,8 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     /**
      * Allow to get an emoji that depend on the ranking of the player
      * @param {*} classementJoueur - The ranking of the player
-     * @param {*} messageTop - The string that has to be returned
      */
-    function getYourPlacementEmoji(classementJoueur, messageTop) {
+    function getYourPlacementEmoji(classementJoueur) {
         let emoji = ""
         if (classementJoueur == 2) {
             emoji += Text.commands.top.endOfLine + Text.commands.top.secondPlaceEmoji;

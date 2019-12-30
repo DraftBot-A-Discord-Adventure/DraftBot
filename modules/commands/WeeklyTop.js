@@ -30,7 +30,7 @@ const weeklyTopCommand = async function (message, args, client) {
     Text = await chargeText(message);
     let playerManager = new PlayerManager();
     let actualPlayer = await playerManager.getCurrentPlayer(message);
-    totalJoueur = await playerManager.getNumberOfPlayers();
+    totalJoueur = await playerManager.getNumberOfWeeklyPlayers();
     let pageMax = Math.ceil(await playerManager.getNumberOfActivePlayers() / DefaultValues.weeklytop.playersByPage);
     let page = getRequiredPageNumber(args);
     let erreur = testAbsurdsPages(message, page, pageMax);
@@ -61,32 +61,30 @@ const weeklyTopCommand = async function (message, args, client) {
 const generateTopMessage = function (message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client) {
     let messageTop = Text.commands.weeklytop.introDebut + borneinf + Text.commands.weeklytop.pageNumberSeparator + bornesup + Text.commands.weeklytop.introFin;
     let classementJoueur = actualPlayer.weeklyRank;
-    let start = "\n\u208b\n";
-
+    let space = "\u200b";
     const embed = new Discord.RichEmbed();
     embed.setColor(Config.EMBED_COLOR);
     embed.setTitle(messageTop);
+    embed.setThumbnail("https://i.imgur.com/qwECDVq.png");
     if (data === null) {
         embed.setDescription(Text.commands.weeklytop.noPlayersInTop);
     } else {
-        embed.setDescription(start + generateTopDataText(data, totalJoueur, messageTop, message, client));
-        embed.addField(Text.commands.weeklytop.ranked, getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax), false)
+        embed.setDescription(space + "\n" + generateTopDataText(data, totalJoueur, message, client) + space);
+        embed.addField(Text.commands.weeklytop.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
+        embed.setFooter("Classement réinitialisé dans" + `${getResetDate()}`, "https://i.imgur.com/OpL9WpR.png");
     }
-
     return embed;
 }
 
 /**
  * @param {*} data - The data of the page that has been required
  * @param {*} totalJoueur - The count of player in the game
- * @param {*} messageTop - Text
  * @param {*} message - The message that query this commannd.
  * @param {*} client - The bot client.
- * @param {*} displaystyle - The displaystyle param.
  */
 
-function generateTopDataText(data, totalJoueur, messageTop, message, client) {
-    messageTop = "";
+function generateTopDataText(data, totalJoueur, message, client) {
+    let messageTop = "";
     messageTop = checkPotentialDatabaseError(totalJoueur, messageTop, message);
     data.forEach(function (player) { //for each player that the bot have to display
         messageTop = getPlacementEmoji(player, messageTop, message);
@@ -151,25 +149,25 @@ function checkPotentialDatabaseError(totalJoueur, messageTop, message) {
  * @param {Integer} pageMax - The last page number
  * @returns {String} - The end sentence
  */
-function getEndSentence(classementJoueur, messageTop, actualPlayer, message, totalJoueur, page, pageMax) {
+function getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax) {
+    let endSentence = ""
     if (classementJoueur != 1) {
-        //messageTop = getYourPlacementEmoji(classementJoueur, messageTop);
-        messageTop = "";
+        endSentence = getYourPlacementEmoji(classementJoueur, endSentence);
         if (actualPlayer.weeklyScore > 100) {
-            messageTop += "**" + message.author.username + "**" + Text.commands.weeklytop.endSentenceStart + "**" + classementJoueur + Text.commands.weeklytop.endSentenceMiddle + totalJoueur + Text.commands.weeklytop.endSentenceEnd;
+            endSentence += "**" + message.author.username + "**" + Text.commands.weeklytop.endSentenceStart + "**" + classementJoueur + Text.commands.weeklytop.endSentenceMiddle + totalJoueur + Text.commands.weeklytop.endSentenceEnd;
             let pajejoueur = Math.ceil(classementJoueur / DefaultValues.weeklytop.playersByPage);
             if (page != pajejoueur) {
-                messageTop += Text.commands.weeklytop.pageSentenceStart + pajejoueur + Text.commands.weeklytop.separatorSlash + pageMax + Text.commands.weeklytop.pageSentenceEnd;
+                endSentence += Text.commands.weeklytop.pageSentenceStart + pajejoueur + Text.commands.weeklytop.separatorSlash + pageMax + Text.commands.weeklytop.pageSentenceEnd;
             }
         }
         else {
-            messageTop += message.author.username + Text.commands.weeklytop.errorNotRanked;
+            endSentence += message.author.username + Text.commands.weeklytop.errorNotRanked;
         }
     }
     else {
-        messageTop += Text.commands.weeklytop.winningIntro + message.author.username + Text.commands.weeklytop.winningOutro + totalJoueur + Text.commands.weeklytop.endSentenceEnd;
+        endSentence += Text.commands.weeklytop.winningIntro + message.author.username + Text.commands.weeklytop.winningOutro + totalJoueur + Text.commands.weeklytop.endSentenceEnd;
     }
-    return messageTop;
+    return endSentence;
 }
 
 
@@ -306,6 +304,34 @@ function getRequiredPageNumber(args) {
     }
     page = parseInt(page, 10);
     return page;
+}
+
+/**
+ * Allow to retrieve the time before the leaderboard reset.
+ * @returns {String} - The time formatted in a string.
+ */
+function getResetDate() {
+    const moment = require("moment");
+    //Creating Dates
+    var now = new Date(); //The current date
+    var dateOfReset = new Date(); // The next Sunday
+    dateOfReset.setDate(now.getDate() + (0+(7-now.getDay())) % 7); // Calculating next Sunday
+    dateOfReset.setHours(23, 59, 59); // Defining hours, min, sec to 23, 59, 59
+    //Parsing dates to moment
+    var nowMoment = new moment(now);
+    var momentOfReset = new moment(dateOfReset);
+    //Creating the date difference string.
+    const diffDays = momentOfReset.diff(nowMoment, 'days');
+    const diffHours = momentOfReset.diff(nowMoment, 'hours');
+    const diffMinutes = momentOfReset.diff(nowMoment, 'minutes');
+    //Converting into a String
+    var parsedTime = " " + diffDays + Text.commands.weeklytop.days + " " +
+    (diffHours - diffDays * 24) + Text.commands.weeklytop.hours + " " +
+    (diffMinutes - diffHours * 60) + Text.commands.weeklytop.minutes + ".";
+
+    console.log(dateOfReset.toString());
+    console.log(parsedTime);
+    return parsedTime;
 }
 
 
