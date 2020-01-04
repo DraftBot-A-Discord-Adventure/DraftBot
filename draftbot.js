@@ -40,6 +40,11 @@ client.on("guildDelete", guilde => {
 client.on("ready", () => {
   client.user.setActivity(`!language -> english`);
   console.log(Console.reboot);
+  sql.run(`CREATE TRIGGER IF NOT EXISTS calcrankweekbis 
+            AFTER UPDATE OF weeklyScore ON player 
+            BEGIN
+            UPDATE player SET tampon = tampon +1;      
+            END;`);
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
   client.guilds.get("429765017332613120").channels.get("433541702070960128").send(`:robot: **DraftBot** - v${Config.version}`).catch(err => { })
