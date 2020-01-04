@@ -78,7 +78,7 @@ class DatabaseManager {
             sql.run(`CREATE TRIGGER IF NOT EXISTS calcrankweekbis 
             AFTER UPDATE OF weeklyScore ON player 
             BEGIN
-            UPDATE player SET tampon = tampon +1;      
+            UPDATE player SET tampon = tampon +1 where score > 1;      
             END;`);
             sql.run(`CREATE TRIGGER IF NOT EXISTS calcrankbis 
             AFTER UPDATE OF tampon ON player 
