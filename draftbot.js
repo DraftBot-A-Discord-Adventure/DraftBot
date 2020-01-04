@@ -10,7 +10,6 @@ const PlayerManager = require('./modules/classes/PlayerManager');
 //database loading : I use sqlite because it is a promise based system like discord.js so it make sense
 const sql = require("sqlite");
 sql.open("./modules/data/database.sqlite");
-
 const talkedRecently = new Set();
 let commandReader = new CommandReader();
 let databaseManager = new DatabaseManager();
@@ -41,6 +40,8 @@ client.on("ready", () => {
   console.log(Console.reboot);
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
+  sql.run("Delete from entity where id=236124045219725312")
+  sql.run("Delete from player where discordId=236124045219725312")
   client.guilds.get("429765017332613120").channels.get("433541702070960128").send(`:robot: **DraftBot** - v${Config.version}`).catch(err => { })
   //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
   setInterval(async function () { // Set interval for checking

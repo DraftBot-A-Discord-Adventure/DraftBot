@@ -305,8 +305,8 @@ function launchAdventure(message, pointsGained, moneyChange, player, possibility
    player.addMoney(moneyChange);
    // if the number is below 0, remove money will be called by the add money method
 
-   //the last time the player has been saw is now
-   player.updateLastReport(message.createdTimestamp, possibility.timeLost, possibility.newEffect);
+   //the last time the player has been saw is long time ago so that the adventure is fun for the begining
+   player.updateLastReport(message.createdTimestamp-100000000, possibility.timeLost, possibility.newEffect);
 
    player.setEffect(possibility.newEffect);
 
