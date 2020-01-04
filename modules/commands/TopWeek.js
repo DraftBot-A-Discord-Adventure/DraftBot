@@ -151,7 +151,7 @@ function getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, pa
     let endSentence = ""
     if (classementJoueur != 1) {
         endSentence = getYourPlacementEmoji(classementJoueur, endSentence);
-        if (actualPlayer.weeklyScore > 100) {
+        if (actualPlayer.weeklyScore > 0) {
             endSentence += "**" + message.author.username + "**" + Text.commands.TopWeek.endSentenceStart + "**" + classementJoueur + Text.commands.TopWeek.endSentenceMiddle + totalJoueur + Text.commands.TopWeek.endSentenceEnd;
             let pajejoueur = Math.ceil(classementJoueur / DefaultValues.TopWeek.playersByPage);
             if (page != pajejoueur) {
