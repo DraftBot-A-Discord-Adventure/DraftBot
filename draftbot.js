@@ -1,8 +1,5 @@
-//Discord API
 const Discord = require("discord.js");
 const client = new Discord.Client();
-
-//We just need those modules, CommandReader does all the work.
 const Config = require('./modules/utils/Config');
 const CommandReader = require('./modules/CommandReader');
 const DatabaseManager = require('./modules/DatabaseManager');
@@ -10,14 +7,23 @@ const ServerManager = require('./modules/classes/ServerManager');
 const Console = require('./modules/text/Console');
 
 //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
-setInterval(function(){ // Set interval for checking
-  const date = new Date(); // Create a Date object to find out what time it is
-  if(date.getDay() === 0 && date.getHours() === 23 && date.getMinutes() <= 1) { // Check the time (if day returns 0, it's sunday)
-    const databaseManager = new DatabaseManager();
-    databaseManager.resetWeeklyScoreAndRank();
+setInterval(async function () { // Set interval for checking
+  let date = new Date(); // Create a Date object to find out what time it is
+  let firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+  let pastDaysOfYear = (date - firstDayOfYear) / 86400000;
+  let weekNumber = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+  let lastweekNumber = await sql.get(`SELECT lastReset FROM database`);
+  lastweekNumber = lastweekNumber.lastReset;
+  if (lastweekNumber.lastReset == null) {
+    sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
+  }
+  if (lastweekNumber != weekNumber) {
+    sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
+    client.guilds.get("429765017332613120").channels.get("433541702070960128").send(":trophy: **Le classement de la semaine est terminé ! L")
+    //databaseManager.resetWeeklyScoreAndRank();
     console.log("# WARNING # Weekly leaderboard has been reset !");
   }
-}, 60000); // Repeat every 60000 milliseconds (1 minute)
+}, 1000); // Repeat every 10000 milliseconds (10 seconds)
 
 //database loading : I use sqlite because it is a promise based system like discord.js so it make sense
 const sql = require("sqlite");
