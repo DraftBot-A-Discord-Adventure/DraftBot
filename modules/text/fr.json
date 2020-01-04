@@ -336,7 +336,7 @@
       "winningOutro": " ! **Vous êtes actuellement le meilleur** sur un total de ",
       "noUserError": "** Aucun joueur n'est classé pour le moment ! Utilisez la commande `report` pour apparaitre dans le top !",
       "tooMuchUserError": "** La page que vous avez demandé contient trop de joueurs !",
-      "noPlayersInTop": "**Oups,** revenez plus tard.\nIl semble qu'il n'y ait encore personne dans le classement.\n",
+      "noPlayersInTop": "**Oups,** revenez plus tard.\nAucun joueur n'est classé pour le moment.\n",
       "ranked": "Votre classement :"
     },
     "TopWeek": {
