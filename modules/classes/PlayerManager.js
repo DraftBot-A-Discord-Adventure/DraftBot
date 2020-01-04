@@ -196,7 +196,7 @@ class PlayerManager {
         ${player.speed} , ${player.discordId},"${player.effect}")`).catch(console.error);
         sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, tampon, rank, weeklyScore, weeklyRank) 
         VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, "${player.badges}",1,0,${player.weeklyScore}, 
-        0, "undefined")`).catch(console.error);
+        0)`).catch(console.error);
         console.log("Player created !");
     }
 
