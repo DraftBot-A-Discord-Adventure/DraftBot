@@ -13,7 +13,6 @@ class DatabaseManager {
         sql.get(`SELECT version FROM database`).catch(() => {
             this.createDatabase(sql);
         });
-        this.updateDatabase(sql);
         sql.get("SELECT weeklyScore FROM player").catch(() => {
             this.updateDatabase(sql);
         }).then(() => {
