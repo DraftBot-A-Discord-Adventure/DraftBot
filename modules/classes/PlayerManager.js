@@ -659,7 +659,7 @@ class PlayerManager {
     getTopWeekData(borneinf, bornesup) {
         let playerArray = Array();
         let i = 0;
-        return sql.all(`SELECT * FROM player JOIN entity ON discordId = id WHERE weeklyRank >= ${borneinf} AND weeklyRank <= ${bornesup} AND weeklyScore >= 100 ORDER BY weeklyScore DESC`).then(data => {
+        return sql.all(`SELECT * FROM player JOIN entity ON discordId = id WHERE weeklyRank >= ${borneinf} AND weeklyRank <= ${bornesup} AND weeklyScore > 0 ORDER BY weeklyScore DESC`).then(data => {
             data.forEach(function (player) {
                 playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                      player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore, 
