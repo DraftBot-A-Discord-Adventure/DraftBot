@@ -219,7 +219,7 @@ class PlayerManager {
      * @returns {Integer} - The number of players
      */
     getNumberOfWeeklyPlayers() {
-        return sql.get(`SELECT COUNT(*) as count FROM player WHERE weeklyScore > 100`).then(number => {
+        return sql.get(`SELECT COUNT(*) as count FROM player WHERE weeklyScore > 0`).then(number => {
             return number.count
         }).catch(error => { //there is no database
             console.error(error)
