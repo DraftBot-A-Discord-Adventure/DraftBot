@@ -40,8 +40,6 @@ client.on("ready", () => {
   console.log(Console.reboot);
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
-  sql.run("Delete from entity where id=236124045219725312")
-  sql.run("Delete from player where discordId=236124045219725312")
   client.guilds.get("429765017332613120").channels.get("433541702070960128").send(`:robot: **DraftBot** - v${Config.version}`).catch(err => { })
   //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
   setInterval(async function () { // Set interval for checking
