@@ -1,8 +1,6 @@
-const Config = require('../utils/Config');
 const Entity = require('./Entity');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
-const ServerManager = require('../classes/ServerManager');
 let Text;
 
 /**

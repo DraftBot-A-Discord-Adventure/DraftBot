@@ -5,25 +5,7 @@ const CommandReader = require('./modules/CommandReader');
 const DatabaseManager = require('./modules/DatabaseManager');
 const ServerManager = require('./modules/classes/ServerManager');
 const Console = require('./modules/text/Console');
-
-//trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
-setInterval(async function () { // Set interval for checking
-  let date = new Date(); // Create a Date object to find out what time it is
-  let firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-  let pastDaysOfYear = (date - firstDayOfYear) / 86400000;
-  let weekNumber = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
-  let lastweekNumber = await sql.get(`SELECT lastReset FROM database`);
-  lastweekNumber = lastweekNumber.lastReset;
-  if (lastweekNumber.lastReset == null) {
-    sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
-  }
-  if (lastweekNumber != weekNumber) {
-    sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
-    client.guilds.get("429765017332613120").channels.get("433541702070960128").send(":trophy: **Le classement de la semaine est terminé ! L")
-    //databaseManager.resetWeeklyScoreAndRank();
-    console.log("# WARNING # Weekly leaderboard has been reset !");
-  }
-}, 1000); // Repeat every 10000 milliseconds (10 seconds)
+const PlayerManager = require('./modules/classes/PlayerManager');
 
 //database loading : I use sqlite because it is a promise based system like discord.js so it make sense
 const sql = require("sqlite");
@@ -61,6 +43,37 @@ client.on("ready", () => {
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
   client.guilds.get("429765017332613120").channels.get("433541702070960128").send(`:robot: **DraftBot** - v${Config.version}`).catch(err => { })
+  //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
+  setInterval(async function () { // Set interval for checking
+    let date = new Date(); // Create a Date object to find out what time it is
+    let firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+    let pastDaysOfYear = (date - firstDayOfYear) / 86400000;
+    let weekNumber = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+    let lastweekNumber = await sql.get(`SELECT lastReset FROM database`);
+    lastweekNumber = lastweekNumber.lastReset;
+    if (lastweekNumber.lastReset == null) {
+      sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
+    }
+    if (lastweekNumber != weekNumber) {
+      sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
+      let gagnant = await sql.get(`SELECT * FROM player WHERE weeklyRank=1`).catch(console.error);
+      playerManager = new PlayerManager();
+      let player = await playerManager.getPlayerById(gagnant.discordId);
+      client.guilds.get("429765017332613120").channels.get("440879632837902346").send(":trophy: **Le classement de la semaine est terminé ! Le gagnant est :**  <@" + gagnant.discordId + ">");
+      if (player.badges != "") {
+        if (player.badges.includes("🎗️")) {
+          console.log("Le joueur a déjà le badge")
+        } else {
+          player.badges = player.badges + "-🎗️"
+        }
+      } else {
+        player.badges = "🎗️"
+      }
+      playerManager.updatePlayer(player);
+      databaseManager.resetWeeklyScoreAndRank();
+      console.log("# WARNING # Weekly leaderboard has been reset !");
+    }
+  }, 10000); // Repeat every 10000 milliseconds (10 seconds)
 });
 
 client.on("message", (message) => {

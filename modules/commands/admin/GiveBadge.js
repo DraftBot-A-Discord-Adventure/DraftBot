@@ -15,7 +15,7 @@ const giveBadgeCommand = async function (message, args) {
         if (player.badges != "") {
             player.badges = player.badges + "-" + args[1];
         }else{
-            player.badges = player.badges + args[1];
+            player.badges = args[1];
         }
         playerManager.updatePlayer(player);
         message.channel.send(":white_check_mark: Le joueur " + args[2] + " a recu le badge : " + args[1]);
