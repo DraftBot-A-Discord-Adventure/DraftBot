@@ -38,13 +38,6 @@ client.on("guildDelete", guilde => {
 });
 
 client.on("ready", () => {
-  sql.run(`drop trigger calcrankweekbis`);
-  sql.run(`CREATE TRIGGER IF NOT EXISTS calcrankweekbis 
-            AFTER UPDATE OF weeklyScore ON player 
-            BEGIN
-            UPDATE player SET tampon = tampon +1 where score > 1;      
-            END;`);
-  client.user.setActivity(`!language -> english`);
   console.log(Console.reboot);
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
