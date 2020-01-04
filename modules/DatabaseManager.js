@@ -18,7 +18,7 @@ class DatabaseManager {
         }).then(() => {
             console.log('... Database is valid !');
         });
-        
+
     }
 
     async updateDatabase(sql) {
@@ -27,6 +27,8 @@ class DatabaseManager {
         await sql.run("ALTER TABLE player ADD weeklyScore INTEGER").catch(console.error);
         //Add weeklyRank column
         await sql.run("ALTER TABLE player ADD weeklyRank INTEGER").catch(console.error);
+        // add lastReset column
+        await sql.run("ALTER TABLE database ADD lastReset INTEGER").catch(console.error);
         //Copy score value to weeklyScore
         await sql.run("UPDATE player SET weeklyScore = 0").catch(console.error);
         //Define default weeklyRank value
@@ -86,7 +88,7 @@ class DatabaseManager {
         sql.run("CREATE TABLE IF NOT EXISTS inventory (playerId TEXT, weaponId TEXT, armorId TEXT, potionId TEXT, objectId TEXT, backupItemId TEXT, lastDaily INTEGER)").catch(console.error);
 
         //table only used to store the version of the bot when the database was created
-        sql.run("CREATE TABLE IF NOT EXISTS database (version TEXT)").then(() => {
+        sql.run("CREATE TABLE IF NOT EXISTS database (version TEXT, lastReset INTEGER)").then(() => {
             sql.run(`INSERT INTO database (version) VALUES (\"${Config.version}\")`).then(() => {
                 console.log("... Generation Complete !");
             });
@@ -98,6 +100,8 @@ class DatabaseManager {
      * Allow to reset the weekly top.
      */
     async resetWeeklyScoreAndRank() {
+
+
         //Reset weeklyScore column.
         await sql.run("UPDATE player SET weeklyScore = 0");
         //Reset weeklyRank column.
