@@ -540,7 +540,7 @@
     "25": " : ** :mag_right: A force d'errer, vous tombez sur un champ de bataille, aux alentours, vous remarquez plusieurs soldats à la recherche de possibles survivants à ce massacre.\n\n:handshake: Proposer son aide\n:spy: Piller les corps\n:walking: Ne pas les aider\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "26": " : ** :walking: En vous promenant dans un village, vous remarquez un regroupement de personnes. En allant voir, vous constatez très vite qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n:money_with_wings: Voler des passants assistant au massacre.\n:punch: S'interposer et empêcher cet homme de mourir.\n:walking: Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "27": " : ** :walking: En vous promenant dans le petit village que vous avez trouvé, vous remarquez un puits avec un petit objet brillant au fond.\n\n:point_down: Tenter de descendre pour récupérer l'objet.\n:handshake: Tenter d'attraper l'objet avec le seau du puits\n:walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "28": " : ** :angel: Pendant votre périple, un groupe d'hommes \"prêchant la parole des Dieux\", vous invite à rejoindre leur cause. \n\n:white_check_mark: Accepter de la rejoindre\n:x: Refuser gentiment la proposition.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "28": " : ** :angel: Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause. \n\n:white_check_mark: Accepter de la rejoindre\n:x: Refuser gentiment la proposition.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "29": " : ** :thermometer: En cette période où les températures dépassent les 30°C, vous commencez à être fatigué, de ce fait, vous décidez de chercher un moyen de vous délasser pour repartir en meilleure forme.\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:zzz: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
   },
   "possibilities": {
@@ -898,7 +898,7 @@
         "2": "** | 🚶 Vous observez le chantier de loin, sans voir la pioche posée au sol. Vous vous entaillez le pied en repartant. :confounded:"
       },
       "end": {
-        "1": "** | 🚶 Vous observez le chantier quelques minutes, puis vous réalisez qu'il est vraiment désert. Vous reprenez votre route."
+        "1": "** | 🚶 Vous observez le chantier quelques minutes puis vous réalisez qu'il est vraiment désert. Vous reprenez votre route."
       }
     },
     "19": {
@@ -1026,7 +1026,7 @@
         "3": "** | 🚶 Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. :nauseated_face:"
       },
       "end": {
-        "1": "** | 👀 Vous restez regarder les soldats pendant une quinzaine de minutes, puis continuez votre route.",
+        "1": "** | 👀 Vous restez regarder les soldats pendant une quinzaine de minutes puis continuez votre route.",
         "2": "** | 👀 Fatigué, vous tombez raide et vous endormez au sol. :zzz:"
       }
     },
@@ -1075,7 +1075,7 @@
         "1": "** | ✅ Vous les rejoignez... Et vous perdez 3 heures à assister à une cérémonie religieuse.",
         "2": "** | ✅ Vous les rejoignez... Mais vous décidez de repartir au bout de 30 minutes vous rendant compte qu'il vous reste une princesse à sauver et que vous n'avez pas plus de temps à consacrer à votre foi",
         "3": "** | ✅ Remarquant votre manque de sensibilité face à leurs discours, le groupe commence à se montrer agressif ! Vous mettrez plusieurs minutes à vous en échapper, non sans avoir reçu quelques coups. ",
-        "4": "** | ✅ Vous les rejoignez, puis repartez aussi vite en volant un objet qui pourra vous être utile."
+        "4": "** | ✅ Vous les rejoignez puis repartez aussi vite en volant un objet qui pourra vous être utile."
       },
       "❌": {
         "1": "** | ❌ Vous coupez court à tout dialogue et continuez votre route.",
