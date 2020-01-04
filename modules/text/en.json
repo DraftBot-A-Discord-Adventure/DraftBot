@@ -336,7 +336,7 @@
             "winningOutro": " ! **You are actually the best** out of a total of ",
             "noUserError": " There's no ranked player yet! Use the `report` command to appear in the leaderboard!",
             "tooMuchUserError": " The page you asked for contains too many players!",
-            "noPlayersInTop": "`**Oops**, please come back later.\nIt seems like there is nobody yet in the weekly leaderboard.\n",
+            "noPlayersInTop": "**Oops**, please come back later.\nIt seems like there is nobody yet in the weekly leaderboard.\n",
             "ranked": "Your rank :"
         },
         "TopWeek": {
@@ -379,7 +379,7 @@
             "winningOutro": " !\n**You are actually the best** out of a total of ",
             "noUserError": "** There's no ranked player yet!\nUse the `report` command to appear in the weekly leaderboard!",
             "tooMuchUserError": "** The page you asked for contains too many players!",
-            "noPlayersInTop": "`**Oops**, please come back later.\nIt seems like there is nobody yet in the weekly leaderboard.\n",
+            "noPlayersInTop": "**Oops**, please come back later.\nIt seems like there is nobody yet in the weekly leaderboard.\n",
             "ranked": "Your rank :",
             "days": " J",
             "hours": " H",
