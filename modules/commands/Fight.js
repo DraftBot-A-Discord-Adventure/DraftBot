@@ -304,14 +304,18 @@ function finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, 
         messageFinCombat = Text.commands.fight.finStart + defender + Text.commands.fight.finDebut + attacker +
             Text.commands.fight.finEndLine + elo + Text.commands.fight.finPts + pts + Text.commands.fight.finFin;
         player.score = player.score - pts;
+        player.weeklyScore = player.weeklyScore - pts;
         defenderPlayer.score = defenderPlayer.score + pts;
+        defenderPlayer.weeklyScore = defenderPlayer.weeklyScore + pts;
     }
     else { //the defender has loose
         pts = Math.round(100 + 10 * defenderPlayer.level * Math.round((defenderPlayer.score / player.score) * 100) / 100);
         messageFinCombat = Text.commands.fight.finStart + attacker + Text.commands.fight.finDebut + defender +
             Text.commands.fight.finEndLine + elo + Text.commands.fight.finPts + pts + Text.commands.fight.finFin;
         player.score = player.score + pts;
+        player.weeklyScore = player.weeklyScore + pts;
         defenderPlayer.score = defenderPlayer.score - pts;
+        defenderPlayer.weeklyScore = defenderPlayer.weeklyScore - pts;
     }
     let playerManager = new PlayerManager;
     playerManager.updatePlayerScore(player);
