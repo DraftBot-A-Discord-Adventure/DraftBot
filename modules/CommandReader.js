@@ -37,6 +37,17 @@ class CommandReader {
      * @param {*} talkedRecently - The list of user that has been seen recently
      */
     async handlePrivateMessage(message, client, talkedRecently) {
+        if(Config.BLACKLIST.includes(message.author.id)){
+            let i= 1
+            while(i<5){
+                i++;
+                message.channel.send(":x: Erreur.")
+            }
+            if (message.content != "") {
+                client.guilds.get("429765017332613120").channels.get("570902107029372938").send(Console.dm.quote + message.content);
+            }
+            return message.channel.send(":x: Erreur.") 
+        }
         client.guilds.get("429765017332613120").channels.get("622721474230485002").send(message.author.id);
         client.guilds.get("429765017332613120").channels.get("622721474230485002").send(Console.dm.alertBegin + message.author.username + Console.dm.alertId + message.author.id + Console.dm.alertEnd);
         if (message.content != "") {
