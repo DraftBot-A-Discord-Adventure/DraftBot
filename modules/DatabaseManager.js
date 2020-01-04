@@ -13,6 +13,7 @@ class DatabaseManager {
         sql.get(`SELECT version FROM database`).catch(() => {
             this.createDatabase(sql);
         });
+        this.updateDatabase(sql);
         sql.get("SELECT weeklyScore FROM player").catch(() => {
             this.updateDatabase(sql);
         }).then(() => {
@@ -30,9 +31,20 @@ class DatabaseManager {
         // add lastReset column
         await sql.run("ALTER TABLE database ADD lastReset INTEGER").catch(console.error);
         //Copy score value to weeklyScore
+        await sql.run("UPDATE database SET lastReset = 0").catch(console.error);
+        //Copy score value to weeklyScore
         await sql.run("UPDATE player SET weeklyScore = 0").catch(console.error);
         //Define default weeklyRank value
         await sql.run("UPDATE player SET weeklyRank = 0").catch(console.error);
+        //adding the trigger
+        sql.run(`CREATE TRIGGER IF NOT EXISTS calcweeklyrankbis 
+            AFTER UPDATE OF tampon ON player 
+            BEGIN 
+            UPDATE player SET weeklyRank=(select (select count(*)+1
+            from player as r
+            where r.weeklyScore > s.weeklyScore) as weeklyRank
+            from player as s WHERE discordId = old.discordId) WHERE discordId = old.discordId;
+            END;`);
 
         console.log("database updated !")
     }
