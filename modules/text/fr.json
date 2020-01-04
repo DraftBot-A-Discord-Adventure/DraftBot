@@ -427,7 +427,7 @@
     "errorMain": {
       ":smiley": "** Il semblerait que vous ne soyez pas atteint par une altération d'état !",
       ":baby:": "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
-      ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourrant ! Veuillez attendre la fin des soins de votre altération d'état.",
+      ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourant ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":skull:": "** Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
       ":zzz:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de votre altération d'état.",
@@ -472,7 +472,7 @@
   "entity": {
     "killMessage": ":crossed_swords:  Bonjour Combattant !\n\nIl semblerait que vous ayez été mis K.O... :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`",
     "killPublicIntro": ":skull: | **",
-    "killPublicMessage": "** a été mit K.O !"
+    "killPublicMessage": "** a été mis K.O !"
   },
   "rarities": {
     "0": ":small_orange_diamond: Basique",
@@ -535,7 +535,7 @@
     "20": " : ** :bust_in_silhouette: En vous baladant tranquillement dans un village, vous remarquez du coin de l'œil un garde volant une pauvre femme.\n\n:punch: Attaquer le garde par surprise dans l'optique d'aider la femme\n:walking: Passer votre chemin.\n:call_me: Contactez des gardes un peu plus loin et les prévenir des actes du corrompu.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "21": " : ** :bridge_at_night: En continuant votre périple, vous arrivez devant un pont délabré qui, de plus, est au dessus d'un énorme gouffre. \n\n:bridge_at_night: Prendre le risque d'emprunter ce pont.\n:walking: Chercher un autre chemin un peu plus loin\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "22": " : ** :apple: Alors que vous traversez la propriété d'un fermier, vous voyez un pommier aux fruits forts appétissants. \n\n:euro: Aller acheter des fruits à cet homme\n:busts_in_silhouette: Aller voler des fruits dans l'arbre\n:runner: Ne pas s'en préoccuper\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "23": " : ** :walking: Vous vous baladez en forêt, quand soudain vous apercevez un chariot qui semble cassé. Autour le groupe de personnes semble mal en point.\n\n:hammer: Aider ces gens à réparer leur chariot\n:runner: Ne pas se préoccuper de ces individus vous semblant suspects.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "23": " : ** :walking: Vous vous baladez en forêt, quand soudain vous apercevez un chariot qui semble cassé. Autour le groupe de personnes semble mal en point.\n\n:hammer: Aider ces gens à réparer leur chariot\n:person_walking: Ne pas se préoccuper de ces individus vous semblant suspects.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "24": " : ** :fireworks: Vous montez sur une colline. Alors que vous regardez autour de vous, vous voyez des lumières au loin. Au fur et à mesure que vous vous approchez, vous entendez également de la musique. C'est un festival ! Excité de faire la fête, vous courez vers la ville.\n\n:dart: Aller à un stand de jeu\n:circus_tent: Aller à un stand de vente d'objets\n:oden: Aller à un stand de nourriture \n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "25": " : ** :mag_right: A force d'errer, vous tombez sur un champ de bataille, aux alentours, vous remarquez plusieurs soldats à la recherche de possibles survivants à ce massacre.\n\n:handshake: Proposer son aide\n:spy: Piller les corps\n:walking: Ne pas les aider\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "26": " : ** :walking: En vous promenant dans un village, vous remarquez un regroupement de personnes. En allant voir, vous constatez très vite qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n:money_with_wings: Voler des passants assistant au massacre.\n:punch: S'interposer et empêcher cet homme de mourir.\n:walking: Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
