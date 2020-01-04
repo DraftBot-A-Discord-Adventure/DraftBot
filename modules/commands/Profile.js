@@ -1,5 +1,9 @@
 const PlayerManager = require('../classes/PlayerManager');
 const ServerManager = require('../classes/ServerManager');
+const Discord = require("discord.js");
+const embed = new Discord.RichEmbed();
+const DefaultValues = require('../utils/DefaultValues');
+
 let Text
 
 /**
@@ -44,7 +48,7 @@ const profileCommand = async function (message, args, client) {
         let playerId;
         player = await getAskedPlayer(playerId, player, playerManager, message, args); //recupération de l'id du joueur demandé
         if (askedPlayerIsInvalid(player))
-            return message.channel.send(Text.commands.profile.errorMain + message.author.username + Text.commands.profile.errorExp)
+            return message.channel.send(Text.commands.profile.errorMain + "**" + message.author.username + "**" + Text.commands.profile.errorExp)
     }
     let numberOfPlayer = await playerManager.getNumberOfPlayers();
     let messageProfile = generateProfileMessage(message, player, numberOfPlayer, client, language);
@@ -64,24 +68,33 @@ const profileCommand = async function (message, args, client) {
  * @param {*} client - The bot client
  */
 const generateProfileMessage = function (message, player, numberOfPlayer, client, language) {
+    const embed = new Discord.RichEmbed();
     let playerManager = new PlayerManager();
     let profileMessage;
     let pseudo = getPlayerPseudo(client, player);
     if (player.getEffect() == ":baby:") {
-        profileMessage = player.getEffect() + Text.commands.profile.main + pseudo + Text.commands.profile.notAPlayer;
+        profileMessage = player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
     } else {
-        profileMessage = player.getEffect() + Text.commands.profile.main + pseudo +
-            Text.commands.profile.level + player.getLevel() +
-            Text.commands.profile.xp + player.getExperience() + Text.commands.profile.separator + player.getExperienceToLevelUp() +
+        profileMessage = Text.commands.profile.xp + player.getExperience() + Text.commands.profile.separator + player.getExperienceToLevelUp() +
             Text.commands.profile.health + player.getHealth() + Text.commands.profile.separator + player.getMaxHealth() +
             Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense + player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed() +
             Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +
             Text.commands.profile.money + player.getMoney() +
-            Text.commands.profile.score + player.getScore() +
-            playerManager.displayTimeLeft(player, message, language);
+            Text.commands.profile.score + player.getScore();
     }
-    return profileMessage;
-};
+    embed.setColor(DefaultValues.embed.color);
+    embed.setTitle(player.getEffect() + Text.commands.profile.main + pseudo +
+        Text.commands.profile.level + player.getLevel());
+    //embed.setDescription("\u200b\n" + profileMessage + "\u200b");
+    embed.addField(player.getEffect() + Text.commands.profile.timeleft, playerManager.displayTimeLeftProfile(player, message, language), true)
+    
+    //time left
+    if (playerManager.displayTimeLeftProfile(player, message, language) != "")
+        embed.addField(player.getEffect() + Text.commands.profile.timeleft, playerManager.displayTimeLeftProfile(player, message, language), true)
+    return embed;
+}
+
+
 
 /**
  * Allow to recover the asked player if needed

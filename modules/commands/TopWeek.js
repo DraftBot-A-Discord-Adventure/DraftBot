@@ -1,9 +1,9 @@
-//Discord API
 const Discord = require("discord.js");
 const moment = require("moment");
-const Config = require('../utils/Config')
+const DefaultValues = require('../utils/DefaultValues');
 const PlayerManager = require('../classes/PlayerManager');
 const ServerManager = require('../classes/ServerManager');
+
 let Text
 
 /**
@@ -19,7 +19,6 @@ const chargeText = async function (message) {
     let address = '../text/' + server.language;
     return require(address);
 }
-const DefaultValues = require('../utils/DefaultValues')
 
 /**
  * Allow to display the rankings of the players
@@ -62,7 +61,7 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     let messageTop = Text.commands.TopWeek.introDebut + borneinf + Text.commands.TopWeek.pageNumberSeparator + bornesup + Text.commands.TopWeek.introFin;
     let classementJoueur = actualPlayer.weeklyRank;
     const embed = new Discord.RichEmbed();
-    embed.setColor(Config.EMBED_COLOR);
+    embed.setColor(DefaultValues.embed.color);
     embed.setTitle(messageTop);
     embed.setThumbnail("https://i.imgur.com/qwECDVq.png");
     if (data === null) {

@@ -295,6 +295,26 @@ class PlayerManager {
     }
 
     /**
+     * display the time a player have before beeing able to play again
+     * @param {*} player - The player that has to be tested
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the createdTimestamp
+     * @param {String} language - The language the answer has to be displayed in
+     * @returns {String} - A string vontaining the duration
+     */
+    displayTimeLeftProfile(player, message, language) {
+        Text = require('../text/' + language);
+        if (!":baby::smiley::clock10::skull:".includes(player.getEffect())) { //these states dont have a duration to display
+            if (message.createdTimestamp < player.lastReport) {
+                return Tools.displayDuration(Tools.convertMillisecondsInMinutes(player.lastReport - message.createdTimestamp))
+            } else {
+                return Text.playerManager.noTimeLeft;
+            }
+        } else {
+            return "";
+        }
+    }
+
+    /**
      * Allow to get the language the bot has to respond with
      * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
      * @returns {string} - the code of the server language
