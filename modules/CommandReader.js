@@ -21,7 +21,7 @@ class CommandReader {
         let serverPrefix = await this.serverManager.getServerPrefix(message);
         let prefix = CommandReader.getUsedPrefix(message);
         if (prefix == serverPrefix) {
-            if (message.author.id != Config.BOT_OWNER_ID) return message.channel.send(":x: Le Draftbot est actuellement en maintenance: la mise à jour **1.4.0** est en cours :) Pour plus d'infos, visitez le discord du bot http://draftbot.tk \n\n :flag_um: The bot is being updated please be patient :) ");
+            //if (message.author.id != Config.BOT_OWNER_ID) return message.channel.send(":x: Le Draftbot est actuellement en maintenance: la mise à jour **1.4.0** est en cours :) Pour plus d'infos, visitez le discord du bot http://draftbot.tk \n\n :flag_um: The bot is being updated please be patient :) ");
             launchCommand(message, client, talkedRecently);
         } else {
             if (prefix == Config.BOT_OWNER_PREFIX && message.author.id == Config.BOT_OWNER_ID) {
