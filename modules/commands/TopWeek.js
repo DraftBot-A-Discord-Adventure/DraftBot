@@ -313,7 +313,7 @@ function getResetDate() {
     var now = new Date(); //The current date
     var dateOfReset = new Date(); // The next Sunday
     dateOfReset.setDate(now.getDate() + (0 + (7 - now.getDay())) % 7); // Calculating next Sunday
-    dateOfReset.setHours(23, 59, 59); // Defining hours, min, sec to 23, 59, 59
+    dateOfReset.setHours(22, 59, 59); // Defining hours, min, sec to 23, 59, 59
     //Parsing dates to moment
     var nowMoment = new moment(now);
     var momentOfReset = new moment(dateOfReset);

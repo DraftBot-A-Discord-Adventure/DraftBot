@@ -44,9 +44,7 @@ client.on("ready", () => {
   //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
   setInterval(async function () { // Set interval for checking
     let date = new Date(); // Create a Date object to find out what time it is
-    let firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-    let pastDaysOfYear = (date - firstDayOfYear) / 86400000;
-    let weekNumber = Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+    let weekNumber = date.getWeek()+1;
     let lastweekNumber = await sql.get(`SELECT lastReset FROM database`);
     lastweekNumber = lastweekNumber.lastReset;
     if (lastweekNumber.lastReset == null) {
@@ -71,8 +69,21 @@ client.on("ready", () => {
       databaseManager.resetWeeklyScoreAndRank();
       console.log("# WARNING # Weekly leaderboard has been reset !");
     }
-  }, 10000); // Repeat every 10000 milliseconds (10 seconds)
+  }, 60000); // Repeat every 10000 milliseconds (10 seconds)
 });
+
+// Returns the ISO week of the date.
+Date.prototype.getWeek = function() {
+  var date = new Date(this.getTime());
+  date.setHours(0, 0, 0, 0);
+  // Thursday in current week decides the year.
+  date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+  // January 4 is always in week 1.
+  var week1 = new Date(date.getFullYear(), 0, 4);
+  // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+  return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
+                        - 3 + (week1.getDay() + 6) % 7) / 7);
+}
 
 client.on("message", (message) => {
   //check if the user is a bot before doing anything
