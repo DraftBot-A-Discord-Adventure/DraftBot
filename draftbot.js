@@ -53,9 +53,9 @@ client.on("ready", () => {
     if (lastweekNumber != weekNumber) {
       sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
       let gagnant = await sql.get(`SELECT * FROM player WHERE weeklyRank=1`).catch(console.error);
-      playerManager = new PlayerManager();
+      let playerManager = new PlayerManager();
       let player = await playerManager.getPlayerById(gagnant.discordId);
-      client.guilds.get("429765017332613120").channels.get("440879632837902346").send(":trophy: **Le classement de la semaine est terminé ! Le gagnant est :**  <@" + gagnant.discordId + ">");
+      client.guilds.get("429765017332613120").channels.get("433541702070960128").send(":trophy: **Le classement de la semaine est terminé ! Le gagnant est :**  <@" + gagnant.discordId + ">");
       if (player.badges != "") {
         if (player.badges.includes("🎗️")) {
           console.log("Le joueur a déjà le badge")
@@ -69,7 +69,7 @@ client.on("ready", () => {
       databaseManager.resetWeeklyScoreAndRank();
       console.log("# WARNING # Weekly leaderboard has been reset !");
     }
-  }, 60000); // Repeat every 10000 milliseconds (10 seconds)
+  }, 1000); // Repeat every 10000 milliseconds (10 seconds)
 });
 
 // Returns the ISO week of the date.

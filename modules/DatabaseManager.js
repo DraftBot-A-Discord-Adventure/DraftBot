@@ -75,11 +75,6 @@ class DatabaseManager {
             BEGIN
             UPDATE player SET tampon = tampon +1 where score > 1;      
             END;`);
-            sql.run(`CREATE TRIGGER IF NOT EXISTS calcrankweekbis 
-            AFTER UPDATE OF weeklyScore ON player 
-            BEGIN
-            UPDATE player SET tampon = tampon +1 where score > 1;      
-            END;`);
             sql.run(`CREATE TRIGGER IF NOT EXISTS calcrankbis 
             AFTER UPDATE OF tampon ON player 
             BEGIN 
@@ -87,6 +82,11 @@ class DatabaseManager {
             from player as r
             where r.score > s.score) as rank
             from player as s WHERE discordId = old.discordId) WHERE discordId = old.discordId;
+            END;`);
+            sql.run(`CREATE TRIGGER IF NOT EXISTS calcrankweekbis 
+            AFTER UPDATE OF weeklyScore ON player 
+            BEGIN
+            UPDATE player SET tampon = tampon +1 where score > 1;      
             END;`);
             sql.run(`CREATE TRIGGER IF NOT EXISTS calcweeklyrankbis 
             AFTER UPDATE OF tampon ON player 
@@ -116,12 +116,25 @@ class DatabaseManager {
      * Allow to reset the weekly top.
      */
     async resetWeeklyScoreAndRank() {
-
-
+        await sql.run("DROP TRIGGER calcrankweekbis").catch(console.error);
+        await sql.run("DROP TRIGGER calcweeklyrankbis").catch(console.error);
         //Reset weeklyScore column.
-        await sql.run("UPDATE player SET weeklyScore = 0");
+        await sql.run("UPDATE player SET weeklyScore = 0").catch(console.error);
         //Reset weeklyRank column.
-        await sql.run("UPDATE player SET weeklyRank = 0");
+        await sql.run("UPDATE player SET weeklyRank = 0").catch(console.error);
+        await sql.run(`CREATE TRIGGER IF NOT EXISTS calcrankweekbis 
+            AFTER UPDATE OF weeklyScore ON player 
+            BEGIN
+            UPDATE player SET tampon = tampon +1 where score > 1;      
+            END;`);
+        await sql.run(`CREATE TRIGGER IF NOT EXISTS calcweeklyrankbis 
+            AFTER UPDATE OF tampon ON player 
+            BEGIN 
+            UPDATE player SET weeklyRank=(select (select count(*)+1
+            from player as r
+            where r.weeklyScore > s.weeklyScore) as weeklyRank
+            from player as s WHERE discordId = old.discordId) WHERE discordId = old.discordId;
+            END;`);
     }
 
 }
