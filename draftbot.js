@@ -1,28 +1,15 @@
-//Discord API
 const Discord = require("discord.js");
 const client = new Discord.Client();
-
-//We just need those modules, CommandReader does all the work.
 const Config = require('./modules/utils/Config');
 const CommandReader = require('./modules/CommandReader');
 const DatabaseManager = require('./modules/DatabaseManager');
 const ServerManager = require('./modules/classes/ServerManager');
 const Console = require('./modules/text/Console');
-
-//trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
-setInterval(function(){ // Set interval for checking
-  const date = new Date(); // Create a Date object to find out what time it is
-  if(date.getDay() === 0 && date.getHours() === 23 && date.getMinutes() <= 1) { // Check the time (if day returns 0, it's sunday)
-    const databaseManager = new DatabaseManager();
-    databaseManager.resetWeeklyScoreAndRank();
-    console.log("# WARNING # Weekly leaderboard has been reset !");
-  }
-}, 60000); // Repeat every 60000 milliseconds (1 minute)
+const PlayerManager = require('./modules/classes/PlayerManager');
 
 //database loading : I use sqlite because it is a promise based system like discord.js so it make sense
 const sql = require("sqlite");
 sql.open("./modules/data/database.sqlite");
-
 const talkedRecently = new Set();
 let commandReader = new CommandReader();
 let databaseManager = new DatabaseManager();
@@ -50,12 +37,55 @@ client.on("guildDelete", guilde => {
 });
 
 client.on("ready", () => {
-  client.user.setActivity(`!language -> english`);
   console.log(Console.reboot);
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
   client.guilds.get("429765017332613120").channels.get("433541702070960128").send(`:robot: **DraftBot** - v${Config.version}`).catch(err => { })
+  //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
+  setInterval(async function () { // Set interval for checking
+    let date = new Date(); // Create a Date object to find out what time it is
+    let weekNumber = date.getWeek() + 1;
+    let lastweekNumber = await sql.get(`SELECT lastReset FROM database`);
+    lastweekNumber = lastweekNumber.lastReset;
+    if (lastweekNumber.lastReset == null) {
+      sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
+    }
+    if (lastweekNumber != weekNumber) {
+      sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
+      let gagnant = await sql.get(`SELECT * FROM player WHERE weeklyRank=1`).catch(console.error);
+      if (gagnant != null) {
+        let playerManager = new PlayerManager();
+        let player = await playerManager.getPlayerById(gagnant.discordId);
+        client.guilds.get("429765017332613120").channels.get("433541702070960128").send(":trophy: **Le classement de la semaine est terminé ! Le gagnant est :**  <@" + gagnant.discordId + ">");
+        if (player.badges != "") {
+          if (player.badges.includes("🎗️")) {
+            console.log("Le joueur a déjà le badge")
+          } else {
+            player.badges = player.badges + "-🎗️"
+          }
+        } else {
+          player.badges = "🎗️"
+        }
+        playerManager.updatePlayer(player);
+      }
+      databaseManager.resetWeeklyScoreAndRank();
+      console.log("# WARNING # Weekly leaderboard has been reset !");
+    }
+  }, 1000); // Repeat every 10000 milliseconds (10 seconds)
 });
+
+// Returns the ISO week of the date.
+Date.prototype.getWeek = function () {
+  var date = new Date(this.getTime());
+  date.setHours(0, 0, 0, 0);
+  // Thursday in current week decides the year.
+  date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+  // January 4 is always in week 1.
+  var week1 = new Date(date.getFullYear(), 0, 4);
+  // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+  return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
+    - 3 + (week1.getDay() + 6) % 7) / 7);
+}
 
 client.on("message", (message) => {
   //check if the user is a bot before doing anything

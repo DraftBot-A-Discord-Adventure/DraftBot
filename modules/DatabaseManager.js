@@ -13,12 +13,12 @@ class DatabaseManager {
         sql.get(`SELECT version FROM database`).catch(() => {
             this.createDatabase(sql);
         });
-        sql.get("SELECT weeklyScore FROM player").catch(() => {
+        sql.get("SELECT lastReset FROM player").catch(() => {
             this.updateDatabase(sql);
         }).then(() => {
             console.log('... Database is valid !');
         });
-        
+
     }
 
     async updateDatabase(sql) {
@@ -27,10 +27,23 @@ class DatabaseManager {
         await sql.run("ALTER TABLE player ADD weeklyScore INTEGER").catch(console.error);
         //Add weeklyRank column
         await sql.run("ALTER TABLE player ADD weeklyRank INTEGER").catch(console.error);
+        // add lastReset column
+        await sql.run("ALTER TABLE database ADD lastReset INTEGER").catch(console.error);
+        //Copy score value to weeklyScore
+        await sql.run("UPDATE database SET lastReset = 0").catch(console.error);
         //Copy score value to weeklyScore
         await sql.run("UPDATE player SET weeklyScore = 0").catch(console.error);
         //Define default weeklyRank value
         await sql.run("UPDATE player SET weeklyRank = 0").catch(console.error);
+        //adding the trigger
+        sql.run(`CREATE TRIGGER IF NOT EXISTS calcweeklyrankbis 
+            AFTER UPDATE OF tampon ON player 
+            BEGIN 
+            UPDATE player SET weeklyRank=(select (select count(*)+1
+            from player as r
+            where r.weeklyScore > s.weeklyScore) as weeklyRank
+            from player as s WHERE discordId = old.discordId) WHERE discordId = old.discordId;
+            END;`);
 
         console.log("database updated !")
     }
@@ -70,6 +83,11 @@ class DatabaseManager {
             where r.score > s.score) as rank
             from player as s WHERE discordId = old.discordId) WHERE discordId = old.discordId;
             END;`);
+            sql.run(`CREATE TRIGGER IF NOT EXISTS calcrankweekbis 
+            AFTER UPDATE OF weeklyScore ON player 
+            BEGIN
+            UPDATE player SET tampon = tampon +1 where score > 1;      
+            END;`);
             sql.run(`CREATE TRIGGER IF NOT EXISTS calcweeklyrankbis 
             AFTER UPDATE OF tampon ON player 
             BEGIN 
@@ -86,7 +104,7 @@ class DatabaseManager {
         sql.run("CREATE TABLE IF NOT EXISTS inventory (playerId TEXT, weaponId TEXT, armorId TEXT, potionId TEXT, objectId TEXT, backupItemId TEXT, lastDaily INTEGER)").catch(console.error);
 
         //table only used to store the version of the bot when the database was created
-        sql.run("CREATE TABLE IF NOT EXISTS database (version TEXT)").then(() => {
+        sql.run("CREATE TABLE IF NOT EXISTS database (version TEXT, lastReset INTEGER)").then(() => {
             sql.run(`INSERT INTO database (version) VALUES (\"${Config.version}\")`).then(() => {
                 console.log("... Generation Complete !");
             });
@@ -98,10 +116,25 @@ class DatabaseManager {
      * Allow to reset the weekly top.
      */
     async resetWeeklyScoreAndRank() {
+        await sql.run("DROP TRIGGER calcrankweekbis").catch(console.error);
+        await sql.run("DROP TRIGGER calcweeklyrankbis").catch(console.error);
         //Reset weeklyScore column.
-        await sql.run("UPDATE player SET weeklyScore = 0");
+        await sql.run("UPDATE player SET weeklyScore = 0").catch(console.error);
         //Reset weeklyRank column.
-        await sql.run("UPDATE player SET weeklyRank = 0");
+        await sql.run("UPDATE player SET weeklyRank = 0").catch(console.error);
+        await sql.run(`CREATE TRIGGER IF NOT EXISTS calcrankweekbis 
+            AFTER UPDATE OF weeklyScore ON player 
+            BEGIN
+            UPDATE player SET tampon = tampon +1 where score > 1;      
+            END;`);
+        await sql.run(`CREATE TRIGGER IF NOT EXISTS calcweeklyrankbis 
+            AFTER UPDATE OF tampon ON player 
+            BEGIN 
+            UPDATE player SET weeklyRank=(select (select count(*)+1
+            from player as r
+            where r.weeklyScore > s.weeklyScore) as weeklyRank
+            from player as s WHERE discordId = old.discordId) WHERE discordId = old.discordId;
+            END;`);
     }
 
 }

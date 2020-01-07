@@ -1,5 +1,9 @@
 const PlayerManager = require('../classes/PlayerManager');
 const ServerManager = require('../classes/ServerManager');
+const Discord = require("discord.js");
+const embed = new Discord.RichEmbed();
+const DefaultValues = require('../utils/DefaultValues');
+
 let Text
 
 /**
@@ -44,7 +48,7 @@ const profileCommand = async function (message, args, client) {
         let playerId;
         player = await getAskedPlayer(playerId, player, playerManager, message, args); //recupération de l'id du joueur demandé
         if (askedPlayerIsInvalid(player))
-            return message.channel.send(Text.commands.profile.errorMain + message.author.username + Text.commands.profile.errorExp)
+            return message.channel.send(Text.commands.profile.errorMain + "**" + message.author.username + "**" + Text.commands.profile.errorExp)
     }
     let numberOfPlayer = await playerManager.getNumberOfPlayers();
     let messageProfile = generateProfileMessage(message, player, numberOfPlayer, client, language);
@@ -64,24 +68,49 @@ const profileCommand = async function (message, args, client) {
  * @param {*} client - The bot client
  */
 const generateProfileMessage = function (message, player, numberOfPlayer, client, language) {
+    const embed = new Discord.RichEmbed();
     let playerManager = new PlayerManager();
     let profileMessage;
     let pseudo = getPlayerPseudo(client, player);
     if (player.getEffect() == ":baby:") {
-        profileMessage = player.getEffect() + Text.commands.profile.main + pseudo + Text.commands.profile.notAPlayer;
-    } else {
-        profileMessage = player.getEffect() + Text.commands.profile.main + pseudo +
-            Text.commands.profile.level + player.getLevel() +
-            Text.commands.profile.xp + player.getExperience() + Text.commands.profile.separator + player.getExperienceToLevelUp() +
-            Text.commands.profile.health + player.getHealth() + Text.commands.profile.separator + player.getMaxHealth() +
-            Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense + player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed() +
-            Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +
-            Text.commands.profile.money + player.getMoney() +
-            Text.commands.profile.score + player.getScore() +
-            playerManager.displayTimeLeft(player, message, language);
+        return profileMessage = player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
     }
-    return profileMessage;
-};
+    embed.setColor(DefaultValues.embed.color);
+    embed.setTitle(Text.commands.profile.profileOf + pseudo +
+        Text.commands.profile.level + player.getLevel());
+
+    let displayTimeLeft = playerManager.displayTimeLeftProfile(player, message, language);
+    let desc = "\u200b";
+    if (displayTimeLeft != "") {
+        console.log(displayTimeLeft)
+        if (displayTimeLeft.includes("Reprise du jeu possible") || displayTimeLeft.includes("You can continue playing now")) {
+            desc = displayTimeLeft.substr(15).replace("`", "") + "."
+        } else {
+            desc = `${Text.commands.profile.activeEffect} ${player.getEffect()}\n${Text.commands.profile.timeleft} ${displayTimeLeft}`;
+        }
+    } else {
+        desc = Text.commands.profile.noActiveEffect;
+    }
+
+    embed.setDescription(desc);
+
+    embed.addField(Text.commands.profile.stats,
+        "• " + player.getAttack() + Text.commands.profile.statsAttack +
+        player.getDefense() + Text.commands.profile.statsDefense + player.getSpeed() + Text.commands.profile.statsSpeed, false);
+
+    embed.addField(Text.commands.profile.infos,
+        "• " + player.getHealth() + Text.commands.profile.separator + player.getMaxHealth() + Text.commands.profile.health +
+        player.getExperience() + Text.commands.profile.separator + player.getExperienceToLevelUp() + Text.commands.profile.xp +
+        player.getMoney() + Text.commands.profile.money, false);
+
+    embed.addField(Text.commands.profile.rankAndScore,
+        "• " + player.getRank() + Text.commands.profile.separator + numberOfPlayer + Text.commands.profile.rank +
+        player.getScore() + Text.commands.profile.score, false);
+
+    return embed;
+}
+
+
 
 /**
  * Allow to recover the asked player if needed

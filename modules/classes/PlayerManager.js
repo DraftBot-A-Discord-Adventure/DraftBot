@@ -196,7 +196,7 @@ class PlayerManager {
         ${player.speed} , ${player.discordId},"${player.effect}")`).catch(console.error);
         sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, tampon, rank, weeklyScore, weeklyRank) 
         VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, "${player.badges}",1,0,${player.weeklyScore}, 
-        0, "undefined")`).catch(console.error);
+        0)`).catch(console.error);
         console.log("Player created !");
     }
 
@@ -219,7 +219,7 @@ class PlayerManager {
      * @returns {Integer} - The number of players
      */
     getNumberOfWeeklyPlayers() {
-        return sql.get(`SELECT COUNT(*) as count FROM player WHERE weeklyScore > 100`).then(number => {
+        return sql.get(`SELECT COUNT(*) as count FROM player WHERE weeklyScore > 0`).then(number => {
             return number.count
         }).catch(error => { //there is no database
             console.error(error)
@@ -286,6 +286,26 @@ class PlayerManager {
         if (!":baby::smiley::clock10::skull:".includes(player.getEffect())) { //these states dont have a duration to display
             if (message.createdTimestamp < player.lastReport) {
                 return Text.playerManager.timeLeft + Tools.displayDuration(Tools.convertMillisecondsInMinutes(player.lastReport - message.createdTimestamp)) + Text.playerManager.outro;
+            } else {
+                return Text.playerManager.noTimeLeft;
+            }
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * display the time a player have before beeing able to play again
+     * @param {*} player - The player that has to be tested
+     * @param {*} message - The message that caused the function to be called. Used to retrieve the createdTimestamp
+     * @param {String} language - The language the answer has to be displayed in
+     * @returns {String} - A string vontaining the duration
+     */
+    displayTimeLeftProfile(player, message, language) {
+        Text = require('../text/' + language);
+        if (!":baby::smiley::clock10::skull:".includes(player.getEffect())) { //these states dont have a duration to display
+            if (message.createdTimestamp < player.lastReport) {
+                return Tools.displayDuration(Tools.convertMillisecondsInMinutes(player.lastReport - message.createdTimestamp))
             } else {
                 return Text.playerManager.noTimeLeft;
             }
@@ -636,10 +656,10 @@ class PlayerManager {
      * @param {Integer} bornesup - The uppper limit of the top
      * @returns {*} -The data of the top (an array of players)
      */
-    getWeeklyTopData(borneinf, bornesup) {
+    getTopWeekData(borneinf, bornesup) {
         let playerArray = Array();
         let i = 0;
-        return sql.all(`SELECT * FROM player JOIN entity ON discordId = id WHERE weeklyRank >= ${0} AND weeklyRank <= ${10000} AND weeklyScore >= 100 ORDER BY weeklyScore DESC`).then(data => {
+        return sql.all(`SELECT * FROM player JOIN entity ON discordId = id WHERE weeklyRank >= ${borneinf} AND weeklyRank <= ${bornesup} AND weeklyScore > 0 ORDER BY weeklyScore DESC`).then(data => {
             data.forEach(function (player) {
                 playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                      player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore, 

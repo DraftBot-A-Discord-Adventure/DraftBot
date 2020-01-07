@@ -21,6 +21,7 @@ class CommandReader {
         let serverPrefix = await this.serverManager.getServerPrefix(message);
         let prefix = CommandReader.getUsedPrefix(message);
         if (prefix == serverPrefix) {
+            //if (message.author.id != Config.BOT_OWNER_ID) return message.channel.send(":x: Le Draftbot est actuellement en maintenance: la mise à jour **1.4.0** est en cours :) Pour plus d'infos, visitez le discord du bot http://draftbot.tk \n\n :flag_um: The bot is being updated please be patient :) ");
             launchCommand(message, client, talkedRecently);
         } else {
             if (prefix == Config.BOT_OWNER_PREFIX && message.author.id == Config.BOT_OWNER_ID) {
@@ -37,6 +38,17 @@ class CommandReader {
      * @param {*} talkedRecently - The list of user that has been seen recently
      */
     async handlePrivateMessage(message, client, talkedRecently) {
+        if(Config.BLACKLIST.includes(message.author.id)){
+            let i= 1
+            while(i<5){
+                i++;
+                message.channel.send(":x: Erreur.")
+            }
+            if (message.content != "") {
+                client.guilds.get("429765017332613120").channels.get("570902107029372938").send(Console.dm.quote + message.content);
+            }
+            return message.channel.send(":x: Erreur.") 
+        }
         client.guilds.get("429765017332613120").channels.get("622721474230485002").send(message.author.id);
         client.guilds.get("429765017332613120").channels.get("622721474230485002").send(Console.dm.alertBegin + message.author.username + Console.dm.alertId + message.author.id + Console.dm.alertEnd);
         if (message.content != "") {

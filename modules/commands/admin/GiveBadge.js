@@ -12,7 +12,11 @@ const giveBadgeCommand = async function (message, args) {
         let playerManager = new PlayerManager();
         let playerId = message.mentions.users.last().id;
         let player = await playerManager.getPlayerById(playerId);
-        player.badges = player.badges + args[1];
+        if (player.badges != "") {
+            player.badges = player.badges + "-" + args[1];
+        }else{
+            player.badges = args[1];
+        }
         playerManager.updatePlayer(player);
         message.channel.send(":white_check_mark: Le joueur " + args[2] + " a recu le badge : " + args[1]);
     }
@@ -24,7 +28,7 @@ const giveBadgeCommand = async function (message, args) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 function userIsNotTheOwnerOfTheBotOrABadgeManager(message) {
-    return message.author.id != Config.BOT_OWNER_ID && !Config.BADGE_MANAGER_ID.includes(message.author.id) ;
+    return message.author.id != Config.BOT_OWNER_ID && !Config.BADGE_MANAGER_ID.includes(message.author.id);
 }
 
 
