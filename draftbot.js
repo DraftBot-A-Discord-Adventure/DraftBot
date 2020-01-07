@@ -67,7 +67,6 @@ client.on("ready", () => {
           player.badges = "🎗️"
         }
         playerManager.updatePlayer(player);
-      }
       databaseManager.resetWeeklyScoreAndRank();
       console.log("# WARNING # Weekly leaderboard has been reset !");
     }
