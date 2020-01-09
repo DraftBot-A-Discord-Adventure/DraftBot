@@ -67,8 +67,8 @@ client.on("ready", () => {
           player.badges = "🎗️"
         }
         playerManager.updatePlayer(player);
-      databaseManager.resetWeeklyScoreAndRank();
       }
+      databaseManager.resetWeeklyScoreAndRank();
       console.log("# WARNING # Weekly leaderboard has been reset !");
     }
   }, 1000); // Repeat every 10000 milliseconds (10 seconds)
