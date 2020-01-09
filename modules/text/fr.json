@@ -52,7 +52,8 @@
       "notAPlayer": ", utilisez la commande `report` pour commencer votre aventure !",
       "activeEffect": "Effet Actif : ",
       "noEffect": "Aucun effet actif :x:.",
-      "profileOf": "Profil de "
+      "profileOf": "Profil de ",
+      "1": "1"
     },
     "respawn": {
       "thinking": ":thinking: | **",
