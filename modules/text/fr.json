@@ -51,7 +51,7 @@
       "statsSpeed": " :rocket:",
       "notAPlayer": ", utilisez la commande `report` pour commencer votre aventure !",
       "activeEffect": "Effet Actif : ",
-      "noActiveEffect": "Aucun effet actif :x:.",
+      "noActiveEffect": "Aucun effet actif. :x:",
       "profileOf": "Profil de "
     },
     "respawn": {
@@ -118,10 +118,10 @@
     "inventory": {
       "errorMain": ":x: |** ",
       "errorInv": "**, le joueur demandé semble ne pas avoir commencé l'aventure !",
-      "title": ":school_satchel:** |  Inventaire de ",
+      "title": " :briefcase:** Inventaire de ",
       "lineEnd1": " :**\n\n",
       "lineEnd2": "\n",
-      "backupTitle": "\n\n:briefcase:  **Réserve d'item :**\n"
+      "backupTitle": "Réserve d'item :"
     },
     "switch": {
       "debut": "**:repeat: | ",

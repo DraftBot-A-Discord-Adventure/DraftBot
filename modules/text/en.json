@@ -51,7 +51,7 @@
             "statsSpeed": " :rocket:",
             "notAPlayer": ", use the command `report` to start your adventure!",
             "activeEffect": "Active Effect : ",
-            "noActiveEffect": "No active effect :x:.",
+            "noActiveEffect": "No active effect. :x:",
             "profileOf": "Profile of "
         },
         "respawn": {
@@ -118,10 +118,10 @@
         "inventory": {
             "errorMain": ":x: |** ",
             "errorInv": "**, it seems the player you asked for hasn't started the adventure yet!",
-            "title": ":school_satchel:** | ",
+            "title": " :briefcase:** ",
             "lineEnd1": "'s inventory:**\n\n",
             "lineEnd2": "\n",
-            "backupTitle": "\n\n:briefcase: ** Reserve item: **\n"
+            "backupTitle": "Reserve item:"
         },
         "switch": {
             "debut": "**:repeat: | ",

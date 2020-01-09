@@ -5,6 +5,7 @@ const ObjectManager = require('../classes/ObjectManager');
 const DefaultValues = require('../utils/DefaultValues');
 const ServerManager = require('../classes/ServerManager');
 const PlayerManager = require('../classes/PlayerManager');
+const Discord = require('discord.js');
 let Text;
 
 /**
@@ -130,6 +131,8 @@ async function getAskedPlayer(playerId, player, playerManager, message, args) {
  * @returns {String} - A string containing the inventory message.
  */
 const generateInventoryMessage = async function (message, pseudo, inventory) {
+    const embed = new Discord.RichEmbed();
+    embed.setColor(DefaultValues.embed.color);
 
     //chargement des managers
     let equipementManager = new EquipementManager();
@@ -147,9 +150,10 @@ const generateInventoryMessage = async function (message, pseudo, inventory) {
     //chargement de la langue
     let language = await detectLanguage(message);
 
+    embed.setTitle(Text.commands.inventory.title + pseudo + Text.commands.inventory.lineEnd1)
 
-    inventoryMessage = Text.commands.inventory.title + pseudo + Text.commands.inventory.lineEnd1 +
-        equipementManager.displayWeapon(weapon, language) + Text.commands.inventory.lineEnd2;
+    inventoryMessage = "\n\u200b\n" + //spacing
+    equipementManager.displayWeapon(weapon, language) + Text.commands.inventory.lineEnd2;
     if (inventory.armorId == DefaultValues.inventory.armor) { //the user doesnt have any armor or shield
         inventoryMessage += equipementManager.displayDefaultArmor(armor, language);
     } else { //the user have a armor
@@ -167,13 +171,20 @@ const generateInventoryMessage = async function (message, pseudo, inventory) {
     } else { //the user have an object
         inventoryMessage += objectManager.displayObject(object, language);
     }
-    inventoryMessage += Text.commands.inventory.backupTitle;
+
+    inventoryMessage += "\n\u200b\n"; //spacing
+
+    embed.setDescription(inventoryMessage);
+
     if (inventory.backupItemId == DefaultValues.inventory.object) { //the user doesnt have any object in the backup place
-        inventoryMessage += objectManager.displayDefaultObject(objectBackup, language);
+        inventoryMessage = objectManager.displayDefaultObject(objectBackup, language);
     } else { //the user have an object in the backup place
-        inventoryMessage += objectManager.displayObject(objectBackup, language);
+        inventoryMessage = objectManager.displayObject(objectBackup, language);
     }
-    return inventoryMessage;
+
+    embed.addField(Text.commands.inventory.backupTitle, inventoryMessage);
+
+    return embed;
 };
 
 module.exports.InventoryCommand = inventoryCommand;
