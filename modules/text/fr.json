@@ -94,7 +94,7 @@
         "a": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
         "b": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
         "c": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
-        "d": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `help badges`"
+        "d": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `aide badges`"
       },
       "confirmIntro": ", **Vous avez sélectionné le produit suivant :**\n\n",
       "confirmStart": ":white_check_mark: | ",
