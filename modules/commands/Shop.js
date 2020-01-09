@@ -6,6 +6,7 @@ const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
 const PotionManager = require('../classes/PotionManager');
 const InventoryManager = require('../classes/InventoryManager');
+const Discord = require('discord.js')
 
 
 /**
@@ -294,9 +295,30 @@ async function addShopReactions(dailyPotion, msg) {
  */
 function generateShopMessage(dailyPotion, potionManager, language) {
     let potionPrice = dailyPotion.getValue() + parseInt(DefaultValues.shop.addedValue);
-    let ShopMessage = Text.commands.shop.intro + potionManager.displayPotion(dailyPotion, language) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + Text.commands.shop.outro;
-    return ShopMessage;
+
+    const embed = new Discord.RichEmbed();
+    embed.setColor(DefaultValues.embed.color);
+    embed.setTitle(Text.commands.shop.intro);
+    embed.setDescription(Text.commands.shop.dailySell + displayPotion(dailyPotion, language) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + 
+    Text.commands.shop.outro)
+
+    return embed;
 }
+
+    /**
+     * Return string containing a description of an potion
+     * @param potion - The potion that has to be displayed
+     * @param language - The language the object has to be displayed in
+     * @returns {String} - The description of the potion
+     */
+    function displayPotion(potion, language) {
+        ItemNames = require('../utils/items/' +language);
+        let stringResult = ItemNames.potion[potion.id] + Text.potionManager.separator + Text.rarities[potion.rareness] + "\n" + Text.nature.introShop[potion.natureEffect];
+        if (potion.natureEffect != 0) { // affichage de la puissance de l'effet si il existe
+            stringResult += potion.power + Text.nature.outroPotion[potion.natureEffect];
+        }
+        return stringResult;
+    }
 
 module.exports.ShopCommand = ShopCommand;
 

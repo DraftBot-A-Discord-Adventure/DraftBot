@@ -72,7 +72,8 @@
             "badgeWarning": ":warning: | Thank you for buying the badge :money_mouth:.\n\nIf you got to the point of buying this, it means you've already done quite a bit of playing and I thank you for that. Your badge will be handed to you by a staff member in the next few hours.",
             "noMoney": "**, you can't access the shop with debt!",
             "emojiIntro": ":shopping_cart: ",
-            "intro": ":shopping_cart: **Shop's overlay:**\n\n```🗓 Today's item:```\n",
+            "intro": ":shopping_cart: **Shop's overlay:**",
+            "dailySell": "```🗓 Today's item:```\n",
             "priceTagStart": " | `",
             "priceTagEnd": " 💵`",
             "outro": "\n\n```🛍 Permanent sales:```\n:question: **A random item** | `350 💵`\n:hospital: **Heal alterations** | `500 💵`\n:heartpulse: **Full heal** | `3000 💵`\n:money_mouth: **\"MoneyMouth\" badge** | `25000 💵`\n\n```▶ Choose your purchase:```",
@@ -499,6 +500,15 @@
             "4": " :shield: Defense + ",
             "5": " :clock1030: Speeds up time for ",
             "6": " :moneybag: Money + "
+        },
+        "introShop": {
+            "0": " No effect :x: ",
+            "1": " Health :heart: + ",
+            "2": " Speed :rocket: + ",
+            "3": " Attack :crossed_swords: + ",
+            "4": " Defense :shield: + ",
+            "5": " Speeds up time :clock1030: for ",
+            "6": " Money :moneybag: + "
         },
         "outroObject": {
             "1": " per day",

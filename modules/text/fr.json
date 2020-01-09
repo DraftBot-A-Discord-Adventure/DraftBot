@@ -43,8 +43,8 @@
       "money": " :moneybag:",
       "score": ":medal:",
       "separator": "/",
-      "stats" :":crossed_swords: Statistiques",
-      "infos" :":reminder_ribbon: Informations",
+      "stats": ":crossed_swords: Statistiques",
+      "infos": ":reminder_ribbon: Informations",
       "rankAndScore": ":sparkles: Classement et Score",
       "statsAttack": " :dagger: | ",
       "statsDefense": " :shield: | ",
@@ -72,7 +72,8 @@
       "badgeWarning": ":warning: | Merci pour votre achat du badge :money_mouth:.\n\nSi vous en êtes arrivé à faire un tel achat c'est que vous avez déjà beaucoup joué à mon petit jeu et je vous en remercie. Votre badge vous sera remis dans les prochaines heures par un membre du staff du bot.",
       "noMoney": "**, Vous ne pouvez pas accèder au magasin avec des dettes !",
       "emojiIntro": ":shopping_cart: ",
-      "intro": ":shopping_cart:  **Affichage du magasin :**\n\n```🗓 Vente du jour :```\n",
+      "intro": ":shopping_cart:  **Affichage du magasin :**",
+      "dailySell": "```🗓 Vente du jour :```\n",
       "priceTagStart": " | `",
       "priceTagEnd": " 💵`",
       "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `350 💵`\n:hospital: **Soin des altérations d'état** | `500 💵`\n:heartpulse: **Regen complet de la vie** | `3000 💵`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💵`\n\n```▶ Choisissez votre achat :```",
@@ -93,7 +94,7 @@
         "a": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
         "b": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
         "c": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
-        "d": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `aide badges`"
+        "d": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `help badges`"
       },
       "confirmIntro": ", **Vous avez sélectionné le produit suivant :**\n\n",
       "confirmStart": ":white_check_mark: | ",
@@ -499,6 +500,15 @@
       "4": " :shield: Defense + ",
       "5": " :clock1030: Avance le temps plus rapidement pendant ",
       "6": " :moneybag: Argent + "
+    },
+    "introShop": {
+      "0": " Aucun effet :x: ",
+      "1": " Vie :heart: + ",
+      "2": " Vitesse :rocket: + ",
+      "3": " Attaque :crossed_swords: + ",
+      "4": " Defense :shield: + ",
+      "5": " Avance le temps :clock1030: plus rapidement pendant ",
+      "6": " Argent :moneybag: + "
     },
     "outroObject": {
       "1": " par jour",
