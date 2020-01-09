@@ -52,8 +52,7 @@
             "notAPlayer": ", use the command `report` to start your adventure!",
             "activeEffect": "Active Effect : ",
             "noEffect": "No active effect :x:.",
-            "profileOf": "Profile of ",
-            "1": "1"
+            "profileOf": "Profile of "
         },
         "respawn": {
             "thinking": ":thinking: | **",
