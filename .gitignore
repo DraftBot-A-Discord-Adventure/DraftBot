@@ -3,3 +3,4 @@ modules/utils/Config.js
 modules/data/
 .idea/
 
+modules/classes/Guild.js

@@ -869,7 +869,7 @@
         "3": "** | 🍄 Vous croquez à pleine dents dans un champignon rouge avec des petits points blancs... et regrettez rapidement cette action ! :dizzy_face:"
       },
       "🥗": {
-        "1": "** | 🥗 Vous effectuez une petite cueillette et avalez votre préparation. Fort de l'énergie apportée par ce repas, vous reprennez votre route.",
+        "1": "** | 🥗 Vous effectuez une petite cueillette et avalez votre préparation. Fort de l'énergie apportée par ce repas, vous reprenez votre route.",
         "2": "** | 🥗 Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprennez donc votre route sans rien manger.",
         "3": "** | 🥗 Vous changez rapidement d'avis en regardant autour de vous et en découvrant l'épaisse végétation qui vous empêcherait de cueillir quoi que ce soit. Sans perdre plus de temps, vous reprenez votre route."
       },
@@ -1043,7 +1043,7 @@
       "👊": {
         "1": "** | 👊 Après vous être débattu pour traverser la foule, vous intervenez au plus vite et réussissez à extirper cet homme de là. Après avoir couru à travers le village, cet homme, très reconnaissant vous offre un objet qui vous servira pour la suite de votre aventure.",
         "2": "** | 👊 Durant votre traversée de la foule pour tenter d'aller empêcher ce meurtre, vous vous faites fortement bousculer, et tombez au sol.",
-        "3": "** | 👊 Après avoir réussi à partir d'ici avec l'homme, vous vous faites rattraper et,  frapper par un groupe de personnes. Une fois relevé, vous remarquez que ces individus vous ont volé.",
+        "3": "** | 👊 Après avoir réussi à partir d'ici avec l'homme, vous vous faites rattraper et frapper par un groupe de personnes. Une fois relevé, vous remarquez que ces individus vous ont volé.",
         "4": "** | 👊 Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamné à la peine capitale. :skull:"
       },
       "🚶": {
