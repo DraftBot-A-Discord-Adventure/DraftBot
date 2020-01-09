@@ -71,6 +71,7 @@ const generateProfileMessage = function (message, player, numberOfPlayer, client
     const embed = new Discord.RichEmbed();
     let playerManager = new PlayerManager();
     let pseudo = getPlayerPseudo(client, player);
+    let profileMessage;
     if (player.getEffect() == ":baby:") {
         return profileMessage = player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
     }
