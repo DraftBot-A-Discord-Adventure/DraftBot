@@ -105,7 +105,7 @@ const generateProfileMessage = function (message, player, numberOfPlayer, client
     embed.addField(Text.commands.profile.rankAndScore,
         "• " + player.getRank() + Text.commands.profile.separator + numberOfPlayer + Text.commands.profile.rank +
         player.getScore() + Text.commands.profile.score, false);
-
+  
     return embed;
 }
 
