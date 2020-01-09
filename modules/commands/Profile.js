@@ -78,20 +78,6 @@ const generateProfileMessage = function (message, player, numberOfPlayer, client
     embed.setTitle(Text.commands.profile.profileOf + pseudo +
         Text.commands.profile.level + player.getLevel());
 
-    let displayTimeLeft = playerManager.displayTimeLeftProfile(player, message, language);
-    let desc = "\u200b";
-    if (displayTimeLeft != "") {
-        if (displayTimeLeft.includes("Reprise du jeu possible") || displayTimeLeft.includes("You can continue playing now")) {
-            desc = displayTimeLeft.substr(15).replace("`", "") + "."
-        } else {
-            desc = `${Text.commands.profile.activeEffect} ${player.getEffect()}\n${Text.commands.profile.timeleft} ${displayTimeLeft}`;
-        }
-    } else {
-        desc = Text.commands.profile.noActiveEffect;
-    }
-
-    embed.setDescription(desc);
-
     embed.addField(Text.commands.profile.stats,
         "• " + player.getAttack() + Text.commands.profile.statsAttack +
         player.getDefense() + Text.commands.profile.statsDefense + player.getSpeed() + Text.commands.profile.statsSpeed, false);
