@@ -51,7 +51,7 @@
       "statsSpeed": " :rocket:",
       "notAPlayer": ", utilisez la commande `report` pour commencer votre aventure !",
       "activeEffect": "Effet Actif : ",
-      "noEffect": "Aucun effet actif :x:.",
+      "noActiveEffect": "Aucun effet actif :x:.",
       "profileOf": "Profil de "
     },
     "respawn": {

@@ -26,6 +26,7 @@ client.on("guildCreate", guilde => {
   } else {
     sendArrivalMessage(guilde);
   }
+  console.log(resultat);
 });
 
 client.on("guildDelete", guilde => {
@@ -34,6 +35,7 @@ client.on("guildDelete", guilde => {
   let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
   resultat += Console.guildJoin.beginquit + guilde + Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot + Console.guildJoin.ratio + ratio + Console.guildJoin.validation + validation;
   client.guilds.get("429765017332613120").channels.get("433541702070960128").send(resultat);
+  console.log(resultat);
 });
 
 client.on("ready", () => {

@@ -71,9 +71,8 @@ const generateProfileMessage = function (message, player, numberOfPlayer, client
     const embed = new Discord.RichEmbed();
     let playerManager = new PlayerManager();
     let pseudo = getPlayerPseudo(client, player);
-    let profileMessage;
     if (player.getEffect() == ":baby:") {
-        return profileMessage = player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
+        return player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
     }
     embed.setColor(DefaultValues.embed.color);
     embed.setTitle(Text.commands.profile.profileOf + pseudo +
@@ -82,7 +81,6 @@ const generateProfileMessage = function (message, player, numberOfPlayer, client
     let displayTimeLeft = playerManager.displayTimeLeftProfile(player, message, language);
     let desc = "\u200b";
     if (displayTimeLeft != "") {
-        console.log(displayTimeLeft)
         if (displayTimeLeft.includes("Reprise du jeu possible") || displayTimeLeft.includes("You can continue playing now")) {
             desc = displayTimeLeft.substr(15).replace("`", "") + "."
         } else {
