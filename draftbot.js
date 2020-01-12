@@ -101,13 +101,14 @@ client.on("message", (message) => {
 client.on("messageReactionAdd", async (reaction) => {
   //check if the user is a bot before doing anything
   if (reaction.users.last().bot) return;
-  let serverManager = new ServerManager();
-  let server = await serverManager.getServer(reaction.message);
-  if (reaction.message.channel.id == 639446722845868101) {
-    server.language = "en";
+  let Text = await chargeText(reaction);
+  let test;
+  try {
+    test = reaction.message.embeds[0].fields[0].name.includes("Information");
+  } catch (error) { //the reaction was not added on a profile message
+    test = false
   }
-  let Text = require('./modules/text/' + server.language)
-  if (reaction.message.content.includes("LVL") && reaction.message.author.id == client.user.id) {
+  if (test && reaction.me && reaction.message.author.id == client.user.id) {
     reaction.message.channel.send(Text.badges[reaction.emoji]).then(msg => {
       msg.delete(5000);
     }).catch(err => { });
@@ -115,6 +116,16 @@ client.on("messageReactionAdd", async (reaction) => {
 });
 
 client.login(Config.DISCORD_CLIENT_TOKEN);
+
+async function chargeText(reaction) {
+  let serverManager = new ServerManager();
+  let server = await serverManager.getServer(reaction.message);
+  if (reaction.message.channel.id == 639446722845868101) {
+    server.language = "en";
+  }
+  let Text = require('./modules/text/' + server.language);
+  return Text;
+}
 
 /**
  * Send a message to the owner of a guild when the bot is added to its server
