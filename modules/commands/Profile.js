@@ -51,7 +51,7 @@ const profileCommand = async function (message, args, client) {
             return message.channel.send(Text.commands.profile.errorMain + "**" + message.author.username + "**" + Text.commands.profile.errorExp)
     }
     let numberOfPlayer = await playerManager.getNumberOfPlayers();
-    let messageProfile = generateProfileMessage(message, player, numberOfPlayer, client, language);
+    let messageProfile = generateProfileMessage(player, numberOfPlayer, client);
     message.channel.send(messageProfile).then(msg => {
         displayBadges(player, msg);
     });
@@ -61,36 +61,33 @@ const profileCommand = async function (message, args, client) {
 /**
  * Returns a string containing the profile message.
  * @returns {String} - A string containing the profile message.
- * @param {*} message - The message that caused the function to be called. Used to retrieve the channel of the message.
  * @param {*} player - The player that send the message
  * @param {Integer} numberOfPlayer - The total number of player in the database
- * @param {String} language - The language the answer has to be displayed in
  * @param {*} client - The bot client
  */
-const generateProfileMessage = function (message, player, numberOfPlayer, client, language) {
+const generateProfileMessage = function (player, numberOfPlayer, client) {
     const embed = new Discord.RichEmbed();
-    let playerManager = new PlayerManager();
     let pseudo = getPlayerPseudo(client, player);
     if (player.getEffect() == ":baby:") {
         return player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
     }
     embed.setColor(DefaultValues.embed.color);
-    embed.setTitle(Text.commands.profile.profileOf + pseudo +
+    embed.setTitle(player.getEffect() + Text.commands.profile.main + pseudo +
         Text.commands.profile.level + player.getLevel());
 
-    embed.addField(Text.commands.profile.stats,
-        "• " + player.getAttack() + Text.commands.profile.statsAttack +
-        player.getDefense() + Text.commands.profile.statsDefense + player.getSpeed() + Text.commands.profile.statsSpeed, false);
-
     embed.addField(Text.commands.profile.infos,
-        "• " + player.getHealth() + Text.commands.profile.separator + player.getMaxHealth() + Text.commands.profile.health +
-        player.getExperience() + Text.commands.profile.separator + player.getExperienceToLevelUp() + Text.commands.profile.xp +
-        player.getMoney() + Text.commands.profile.money, false);
+        Text.commands.profile.health + player.getHealth() + Text.commands.profile.separator + player.getMaxHealth() +
+        Text.commands.profile.xp + player.getExperience() + Text.commands.profile.separator + player.getExperienceToLevelUp() +
+        Text.commands.profile.money + player.getMoney(), false);
+
+    embed.addField(Text.commands.profile.stats,
+        Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense +
+        player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed(), false);
 
     embed.addField(Text.commands.profile.rankAndScore,
-        "• " + player.getRank() + Text.commands.profile.separator + numberOfPlayer + Text.commands.profile.rank +
-        player.getScore() + Text.commands.profile.score, false);
-  
+        Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +
+        Text.commands.profile.score + player.getScore(), false);
+
     return embed;
 }
 

@@ -152,30 +152,28 @@ const generateInventoryMessage = async function (message, pseudo, inventory) {
 
     embed.setTitle(Text.commands.inventory.title + pseudo + Text.commands.inventory.lineEnd1)
 
-    inventoryMessage = "\n\u200b\n" + //spacing
-    equipementManager.displayWeapon(weapon, language) + Text.commands.inventory.lineEnd2;
+    let armureText;
+    let potionText;
+    let objectText;
+    embed.addField("Arme :", equipementManager.displayWeapon(weapon, language) + Text.commands.inventory.lineEnd2);
     if (inventory.armorId == DefaultValues.inventory.armor) { //the user doesnt have any armor or shield
-        inventoryMessage += equipementManager.displayDefaultArmor(armor, language);
+        armureText = equipementManager.displayDefaultArmor(armor, language);
     } else { //the user have a armor
-        inventoryMessage += equipementManager.displayArmor(armor, language);
-    }
-    inventoryMessage += Text.commands.inventory.lineEnd2;
+        armureText = equipementManager.displayArmor(armor, language);
+    };
+    embed.addField("Armure/Bouclier :", armureText);
     if (inventory.potionId == DefaultValues.inventory.potion) { //the user doesnt have any potion
-        inventoryMessage += potionManager.displayDefaultPotion(potion, language);
+        potionText = potionManager.displayDefaultPotion(potion, language);
     } else { //the user have a potion
-        inventoryMessage += potionManager.displayPotion(potion, language);
+        potionText = potionManager.displayPotion(potion, language);
     }
-    inventoryMessage += Text.commands.inventory.lineEnd2;
+    embed.addField("Potion :", potionText);
     if (inventory.objectId == DefaultValues.inventory.object) { //the user doesnt have any object
-        inventoryMessage += objectManager.displayDefaultObject(object, language);
+        objectText = objectManager.displayDefaultObject(object, language);
     } else { //the user have an object
-        inventoryMessage += objectManager.displayObject(object, language);
+        objectText = objectManager.displayObject(object, language);
     }
-
-    inventoryMessage += "\n\u200b\n"; //spacing
-
-    embed.setDescription(inventoryMessage);
-
+    embed.addField("Objet actif :", objectText);
     if (inventory.backupItemId == DefaultValues.inventory.object) { //the user doesnt have any object in the backup place
         inventoryMessage = objectManager.displayDefaultObject(objectBackup, language);
     } else { //the user have an object in the backup place
