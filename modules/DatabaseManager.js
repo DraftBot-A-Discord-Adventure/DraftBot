@@ -13,7 +13,7 @@ class DatabaseManager {
         sql.get(`SELECT version FROM database`).catch(() => {
             this.createDatabase(sql);
         });
-        sql.get("SELECT weeklyScore FROM player").catch(() => {
+        sql.get("SELECT lastReset FROM player").catch(() => {
             this.updateDatabase(sql);
         }).then(() => {
             console.log('... Database is valid !');
@@ -29,7 +29,6 @@ class DatabaseManager {
         await sql.run("ALTER TABLE player ADD weeklyRank INTEGER").catch(console.error);
         // add lastReset column
         await sql.run("ALTER TABLE database ADD lastReset INTEGER").catch(console.error);
-        //Copy score value to weeklyScore
         await sql.run("UPDATE database SET lastReset = 0").catch(console.error);
         //Copy score value to weeklyScore
         await sql.run("UPDATE player SET weeklyScore = 0").catch(console.error);

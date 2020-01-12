@@ -32,22 +32,27 @@
             "main": "To get the bot on your server, use this link: http://draftbot.tk :smiley:"
         },
         "profile": {
-            "timeleft": " Time left: ",
+            "timeleft": "Time Left:",
             "main": " | ",
             "errorMain": ":x: | ",
             "errorExp": ", it seems the player you asked for hasn't started the adventure yet!",
             "level": " | Level ",
-            "xp": ":star: Experience:",
-            "health": ":heart: Health:",
-            "rank": ":trophy: Rank:",
-            "money": ":moneybag: Money:",
-            "score": ":medal: Score:",
+            "xp": " :star: | ",
+            "health": " :heart: | ",
+            "rank": " :trophy: | ",
+            "money": " :moneybag:",
+            "score": ":medal:",
             "separator": "/",
-            "stats": ":crossed_swords: Stats:",
-            "statsAttack": ":dagger: ",
-            "statsDefense": " | :shield: ",
-            "statsSpeed": " | :rocket: ",
-            "notAPlayer": ", use the command `report` to start your adventure!"
+            "stats" :":crossed_swords: Statistics",
+            "infos" :":reminder_ribbon: Informations",
+            "rankAndScore": ":sparkles: Rank and Score",
+            "statsAttack": " :dagger: | ",
+            "statsDefense": " :shield: | ",
+            "statsSpeed": " :rocket:",
+            "notAPlayer": ", use the command `report` to start your adventure!",
+            "activeEffect": "Active Effect : ",
+            "noActiveEffect": "No active effect. :x:",
+            "profileOf": "Profile of "
         },
         "respawn": {
             "thinking": ":thinking: | **",
@@ -67,7 +72,8 @@
             "badgeWarning": ":warning: | Thank you for buying the badge :money_mouth:.\n\nIf you got to the point of buying this, it means you've already done quite a bit of playing and I thank you for that. Your badge will be handed to you by a staff member in the next few hours.",
             "noMoney": "**, you can't access the shop with debt!",
             "emojiIntro": ":shopping_cart: ",
-            "intro": ":shopping_cart: **Shop's overlay:**\n\n```🗓 Today's item:```\n",
+            "intro": ":shopping_cart: **Shop's overlay:**",
+            "dailySell": "```🗓 Today's item:```\n",
             "priceTagStart": " | `",
             "priceTagEnd": " 💵`",
             "outro": "\n\n```🛍 Permanent sales:```\n:question: **A random item** | `350 💵`\n:hospital: **Heal alterations** | `500 💵`\n:heartpulse: **Full heal** | `3000 💵`\n:money_mouth: **\"MoneyMouth\" badge** | `25000 💵`\n\n```▶ Choose your purchase:```",
@@ -112,10 +118,10 @@
         "inventory": {
             "errorMain": ":x: |** ",
             "errorInv": "**, it seems the player you asked for hasn't started the adventure yet!",
-            "title": ":school_satchel:** | ",
+            "title": " :briefcase:** ",
             "lineEnd1": "'s inventory:**\n\n",
             "lineEnd2": "\n",
-            "backupTitle": "\n\n:briefcase: ** Reserve item: **\n"
+            "backupTitle": "Reserve item:"
         },
         "switch": {
             "debut": "**:repeat: | ",
@@ -440,7 +446,7 @@
         "intro": " | **",
         "timeLeft": " | `Time left: ",
         "outro": "`",
-        "noTimeLeft": " | :hospital: `You can continue playing now!`",
+        "noTimeLeft": " | :hospital: `You can continue playing now`",
         "newItem": "**You obtained a new item!** :new: You got:\n\n",
         "sell": "** You obtain a bag containing some gold coins... It will be useful for the continuation of your adventure! :moneybag: Money obtained: **",
         "sellEnd": "**",
@@ -495,6 +501,15 @@
             "5": " :clock1030: Speeds up time for ",
             "6": " :moneybag: Money + "
         },
+        "introShop": {
+            "0": " No effect :x: ",
+            "1": " Health :heart: + ",
+            "2": " Speed :rocket: + ",
+            "3": " Attack :crossed_swords: + ",
+            "4": " Defense :shield: + ",
+            "5": " Speeds up time :clock1030: for ",
+            "6": " Money :moneybag: + "
+        },
         "outroObject": {
             "1": " per day",
             "2": " during fights",
@@ -535,7 +550,7 @@
         "20": " : ** :bust_in_silhouette: while walking peacefully in a village, you see a guard stealing from a poor woman.\n\n:punch: Attack the guard to help the lady.\n:walking: Keep walking.\n:call_me: Contact another guard and warn them of the corrupt guard.\n\n*- Use the reactions for make an action :warning: Not answering is also considered an action!*",
         "21": " : ** :bridge_at_night: Continuing your trip, you arrive in front of a dilapidated bridge above a enormous chasm.\n\n:bridge_at_night: Take a risk crossing the bridge\n:walking: Find another way forward.\n\n*- Use the reactions for make an action :warning: Not answering is also considered an action!*",
         "22": " : ** :apple: As you walk through a farmer's property, you see an apple tree with very appetizing fruit. \n\n:euro: Go buy fruit from this man\n:busts_in_silhouette: Go steal fruit from the tree\n:runner: Don't worry about it\n\n*-Use reaction to make an action :warning: Not responding is consided a separate choice!*",
-        "23": " : ** :walking: You walk through the forest, when suddenly you see a cart that looks broken. Around, a group of people seems to be in bad shape.\n\n:hammer: Help these people repair their cart.\n:runner: Don't worry about these individuals, they seem suspicious. !\n\n*-Use reaction to make an action :warning: Not responding is consided a separate choice!*",
+        "23": " : ** :walking: You walk through the forest, when suddenly you see a cart that looks broken. Around, a group of people seems to be in bad shape.\n\n:hammer: Help these people repair their cart.\n:runner: Don't worry about these individuals, they seem suspicious!\n\n*-Use reaction to make an action :warning: Not responding is consided a separate choice!*",
         "24": " : ** :fireworks: You're going up a hill. As you look around, you see lights in the distance. As you get closer, you also hear music. It's a festival! Excited to party, you run to the city.\n\n:dart: Go to a game stand\n:circus_tent: Go to an item stand\n:oden: Go to a food stand \n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
         "25": " : ** :mag_right: As you wander around, you come across a battlefield, in the surrounding area, you notice several soldiers looking for possible survivors of a massacre.\n\n:handshake: Offer to help\n:spy: Steal bodies\n:walking: Don't help them\n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
         "26": " : ** :walking: While walking through a village, you notice a group of people. Up close, you quickly notice a hanging in progress. After some discussion, you learn this person is sentenced to death for \"words contrary to the values of the church\"\n\n:money_with_wings: Steal from the audience.\n:punch: Stand in the way to prevent the man from dying.\n:walking: Continue on your journey peacefully\n\n*-React to take an action :warning: Not responding is consided a separate choice!*",

@@ -70,36 +70,27 @@ const profileCommand = async function (message, args, client) {
 const generateProfileMessage = function (message, player, numberOfPlayer, client, language) {
     const embed = new Discord.RichEmbed();
     let playerManager = new PlayerManager();
-    let profileMessage;
     let pseudo = getPlayerPseudo(client, player);
     if (player.getEffect() == ":baby:") {
-        return profileMessage = player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
-    } 
+        return player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
+    }
     embed.setColor(DefaultValues.embed.color);
-    embed.setTitle(player.getEffect() + Text.commands.profile.main + pseudo +
+    embed.setTitle(Text.commands.profile.profileOf + pseudo +
         Text.commands.profile.level + player.getLevel());
-    
-    //health
-    embed.addField(Text.commands.profile.health, player.getHealth() + Text.commands.profile.separator + player.getMaxHealth(), true);
-    
-    //experience
-    embed.addField(Text.commands.profile.xp, player.getExperience() + Text.commands.profile.separator + player.getExperienceToLevelUp(), true);
 
-    //stats
-    embed.addField(Text.commands.profile.stats, Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense + player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed(), true)
+    embed.addField(Text.commands.profile.stats,
+        "• " + player.getAttack() + Text.commands.profile.statsAttack +
+        player.getDefense() + Text.commands.profile.statsDefense + player.getSpeed() + Text.commands.profile.statsSpeed, false);
 
-    //rank
-    embed.addField(Text.commands.profile.rank, player.getRank() + Text.commands.profile.separator + numberOfPlayer, true);
+    embed.addField(Text.commands.profile.infos,
+        "• " + player.getHealth() + Text.commands.profile.separator + player.getMaxHealth() + Text.commands.profile.health +
+        player.getExperience() + Text.commands.profile.separator + player.getExperienceToLevelUp() + Text.commands.profile.xp +
+        player.getMoney() + Text.commands.profile.money, false);
 
-    //score
-    embed.addField(Text.commands.profile.score , player.getScore(), true);
-
-     //argent
-     embed.addField(Text.commands.profile.money , player.getMoney(), true);
-
-    //time left
-    if (playerManager.displayTimeLeftProfile(player, message, language) != "")
-        embed.addField(player.getEffect() + Text.commands.profile.timeleft, playerManager.displayTimeLeftProfile(player, message, language))
+    embed.addField(Text.commands.profile.rankAndScore,
+        "• " + player.getRank() + Text.commands.profile.separator + numberOfPlayer + Text.commands.profile.rank +
+        player.getScore() + Text.commands.profile.score, false);
+  
     return embed;
 }
 

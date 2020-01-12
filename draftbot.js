@@ -26,6 +26,7 @@ client.on("guildCreate", guilde => {
   } else {
     sendArrivalMessage(guilde);
   }
+  console.log(resultat);
 });
 
 client.on("guildDelete", guilde => {
@@ -34,6 +35,7 @@ client.on("guildDelete", guilde => {
   let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
   resultat += Console.guildJoin.beginquit + guilde + Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot + Console.guildJoin.ratio + ratio + Console.guildJoin.validation + validation;
   client.guilds.get("429765017332613120").channels.get("433541702070960128").send(resultat);
+  console.log(resultat);
 });
 
 client.on("ready", () => {
@@ -44,7 +46,7 @@ client.on("ready", () => {
   //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
   setInterval(async function () { // Set interval for checking
     let date = new Date(); // Create a Date object to find out what time it is
-    let weekNumber = date.getWeek()+1;
+    let weekNumber = date.getWeek() + 1;
     let lastweekNumber = await sql.get(`SELECT lastReset FROM database`);
     lastweekNumber = lastweekNumber.lastReset;
     if (lastweekNumber.lastReset == null) {
@@ -53,19 +55,21 @@ client.on("ready", () => {
     if (lastweekNumber != weekNumber) {
       sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
       let gagnant = await sql.get(`SELECT * FROM player WHERE weeklyRank=1`).catch(console.error);
-      let playerManager = new PlayerManager();
-      let player = await playerManager.getPlayerById(gagnant.discordId);
-      client.guilds.get("429765017332613120").channels.get("433541702070960128").send(":trophy: **Le classement de la semaine est terminé ! Le gagnant est :**  <@" + gagnant.discordId + ">");
-      if (player.badges != "") {
-        if (player.badges.includes("🎗️")) {
-          console.log("Le joueur a déjà le badge")
+      if (gagnant != null) {
+        let playerManager = new PlayerManager();
+        let player = await playerManager.getPlayerById(gagnant.discordId);
+        client.guilds.get("429765017332613120").channels.get("433541702070960128").send(":trophy: **Le classement de la semaine est terminé ! Le gagnant est :**  <@" + gagnant.discordId + ">");
+        if (player.badges != "") {
+          if (player.badges.includes("🎗️")) {
+            console.log("Le joueur a déjà le badge")
+          } else {
+            player.badges = player.badges + "-🎗️"
+          }
         } else {
-          player.badges = player.badges + "-🎗️"
+          player.badges = "🎗️"
         }
-      } else {
-        player.badges = "🎗️"
+        playerManager.updatePlayer(player);
       }
-      playerManager.updatePlayer(player);
       databaseManager.resetWeeklyScoreAndRank();
       console.log("# WARNING # Weekly leaderboard has been reset !");
     }
@@ -73,7 +77,7 @@ client.on("ready", () => {
 });
 
 // Returns the ISO week of the date.
-Date.prototype.getWeek = function() {
+Date.prototype.getWeek = function () {
   var date = new Date(this.getTime());
   date.setHours(0, 0, 0, 0);
   // Thursday in current week decides the year.
@@ -82,7 +86,7 @@ Date.prototype.getWeek = function() {
   var week1 = new Date(date.getFullYear(), 0, 4);
   // Adjust to Thursday in week 1 and count number of weeks from date to week1.
   return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
-                        - 3 + (week1.getDay() + 6) % 7) / 7);
+    - 3 + (week1.getDay() + 6) % 7) / 7);
 }
 
 client.on("message", (message) => {
