@@ -155,25 +155,25 @@ const generateInventoryMessage = async function (message, pseudo, inventory) {
     let armureText;
     let potionText;
     let objectText;
-    embed.addField("Arme :", equipementManager.displayWeapon(weapon, language) + Text.commands.inventory.lineEnd2);
+    embed.addField(Text.commands.inventory.weaponTitle, equipementManager.displayWeapon(weapon, language) + Text.commands.inventory.lineEnd2);
     if (inventory.armorId == DefaultValues.inventory.armor) { //the user doesnt have any armor or shield
         armureText = equipementManager.displayDefaultArmor(armor, language);
     } else { //the user have a armor
         armureText = equipementManager.displayArmor(armor, language);
     };
-    embed.addField("Armure/Bouclier :", armureText);
+    embed.addField(Text.commands.inventory.armorTitle, armureText);
     if (inventory.potionId == DefaultValues.inventory.potion) { //the user doesnt have any potion
         potionText = potionManager.displayDefaultPotion(potion, language);
     } else { //the user have a potion
         potionText = potionManager.displayPotion(potion, language);
     }
-    embed.addField("Potion :", potionText);
+    embed.addField(Text.commands.inventory.potionTitle, potionText);
     if (inventory.objectId == DefaultValues.inventory.object) { //the user doesnt have any object
         objectText = objectManager.displayDefaultObject(object, language);
     } else { //the user have an object
         objectText = objectManager.displayObject(object, language);
     }
-    embed.addField("Objet actif :", objectText);
+    embed.addField(Text.commands.inventory.objectTitle, objectText);
     if (inventory.backupItemId == DefaultValues.inventory.object) { //the user doesnt have any object in the backup place
         inventoryMessage = objectManager.displayDefaultObject(objectBackup, language);
     } else { //the user have an object in the backup place

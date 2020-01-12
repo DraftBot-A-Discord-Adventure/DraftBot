@@ -118,7 +118,11 @@
             "title": " :briefcase:** ",
             "lineEnd1": "'s inventory:**\n\n",
             "lineEnd2": "\n",
-            "backupTitle": "Reserve item:"
+            "backupTitle": "Reserve item:",
+            "potionTitle": "Potion :",
+            "objectTitle": "Active item :",
+            "weaponTitle": "Weapon :",
+            "armorTitle": "Armor/Shield :"
         },
         "switch": {
             "debut": "**:repeat: | ",

@@ -73,7 +73,7 @@ client.on("ready", () => {
       databaseManager.resetWeeklyScoreAndRank();
       console.log("# WARNING # Weekly leaderboard has been reset !");
     }
-  }, 1000); // Repeat every 10000 milliseconds (10 seconds)
+  }, 10000); // Repeat every 10000 milliseconds (10 seconds)
 });
 
 // Returns the ISO week of the date.
@@ -102,20 +102,18 @@ client.on("messageReactionAdd", async (reaction) => {
   //check if the user is a bot before doing anything
   if (reaction.users.last().bot) return;
   let Text = await chargeText(reaction);
-  let test;
+  let isUnderAProfileMessage;
   try {
-    test = reaction.message.embeds[0].fields[0].name.includes("Information");
+    isUnderAProfileMessage = reaction.message.embeds[0].fields[0].name.includes("Information");
   } catch (error) { //the reaction was not added on a profile message
-    test = false
+    isUnderAProfileMessage = false
   }
-  if (test && reaction.me && reaction.message.author.id == client.user.id) {
+  if (isUnderAProfileMessage && reaction.me && reaction.message.author.id == client.user.id) {
     reaction.message.channel.send(Text.badges[reaction.emoji]).then(msg => {
       msg.delete(5000);
     }).catch(err => { });
   }
 });
-
-client.login(Config.DISCORD_CLIENT_TOKEN);
 
 async function chargeText(reaction) {
   let serverManager = new ServerManager();
@@ -143,3 +141,4 @@ function sendLeavingMessage(guilde) {
   guilde.owner.send(Console.departurMessage);
 }
 
+client.login(Config.DISCORD_CLIENT_TOKEN);

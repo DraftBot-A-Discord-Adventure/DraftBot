@@ -118,7 +118,11 @@
       "title": " :briefcase:** Inventaire de ",
       "lineEnd1": " :**\n\n",
       "lineEnd2": "\n",
-      "backupTitle": "Réserve d'item :"
+      "backupTitle": "Réserve d'item :",
+      "potionTitle": "Potion :",
+      "objectTitle": "Objet actif :",
+      "weaponTitle": "Arme :",
+      "armorTitle": "Armure/Bouclier :"
     },
     "switch": {
       "debut": "**:repeat: | ",
@@ -486,7 +490,7 @@
     "5": " :dizzy: Spécial",
     "6": " :star: Epique",
     "7": " :star2: Legendaire",
-    "8": " :gem: Unique"
+    "8": " :gem: Mythique"
   },
   "nature": {
     "intro": {

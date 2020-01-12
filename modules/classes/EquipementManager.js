@@ -134,7 +134,7 @@ class EquipementManager {
 
     /**
      * Generate a random rareness. Legendary is very rare and common is not rare at all
-     * @returns {Number} - the number refering to a rareness (1 - 7) 
+     * @returns {Number} - the number refering to a rareness (1 - 8) 
      */
     generateRandomRareness() {
         let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
