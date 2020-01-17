@@ -24,4 +24,4 @@ The bot is fully functionnal and is available in english and in french !
 * [Twitter account *(in french)*](https://twitter.com/DraftBot_?s=09)
 
 # Credits
-Thx to [@Formula-9] https://github.com/Formula-9 for the basic structure of the bot.
+Thx to [@Formula-9](https://github.com/Formula-9) for the basic structure of the bot.
