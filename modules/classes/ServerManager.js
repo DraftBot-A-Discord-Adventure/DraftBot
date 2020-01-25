@@ -24,13 +24,12 @@ class ServerManager {
      * Allow to get the current server
      * @param {*} message - The message that caused the function to be called. Used to retrieve the server of the message
      */
-    getServer(message) {
+    getServer(message, client) {
         return sql.get(`SELECT * FROM server WHERE id ="${message.guild.id}"`).then(server => {
             if (!server) { //server is not in the database
                 console.log(`server unknown : ${message.guild.name}`);
                 return this.getNewServer(message);
             } else { //server is in the database
-                console.log(`server loaded : ${message.guild.name}`);
                 return new Server(server.id, server.prefix, server.language)
             }
         }).catch(error => { //there is no database
