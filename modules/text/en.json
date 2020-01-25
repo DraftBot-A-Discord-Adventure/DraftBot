@@ -447,7 +447,7 @@
         "intro": " | **",
         "timeLeft": " | `Time left: ",
         "outro": "`",
-        "noTimeLeft": " | :hospital: `You can continue playing now`",
+        "noTimeLeft": ":hospital: You can continue playing now",
         "newItem": "**You obtained a new item!** :new: You got:\n\n",
         "sell": "** You obtain a bag containing some gold coins... It will be useful for the continuation of your adventure! :moneybag: Money obtained: **",
         "sellEnd": "**",

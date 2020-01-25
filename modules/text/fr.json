@@ -32,7 +32,7 @@
       "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
     },
     "profile": {
-      "timeleft": "Temps restant :",
+      "timeleft": " Temps restant :",
       "main": " | ",
       "errorMain": ":x: | ",
       "errorExp": ", le joueur demandé semble ne pas avoir commencé l'aventure !",
@@ -447,7 +447,7 @@
     "intro": " | **",
     "timeLeft": " | `Temps restant : ",
     "outro": "`",
-    "noTimeLeft": " | :hospital: `Reprise du jeu possible`",
+    "noTimeLeft": ":hospital: Reprise du jeu possible",
     "newItem": "**Un nouvel item a été placé dans votre inventaire !** :new: Vous recevez :\n\n",
     "sell": "** Vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",
     "sellEnd": "**",
