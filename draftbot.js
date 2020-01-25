@@ -46,6 +46,7 @@ client.on("ready", () => {
   //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
   setInterval(async function () { // Set interval for checking
     let date = new Date(); // Create a Date object to find out what time it is
+    date.setHours(date.getHours() + 1);
     let weekNumber = date.getWeek() + 1;
     let lastweekNumber = await sql.get(`SELECT lastReset FROM database`);
     lastweekNumber = lastweekNumber.lastReset;
@@ -65,7 +66,6 @@ client.on("ready", () => {
           } else {
             player.badges = player.badges + "-🎗️"
           }
-        } else {
           player.badges = "🎗️"
         }
         playerManager.updatePlayer(player);
