@@ -73,7 +73,7 @@ client.on("ready", () => {
       databaseManager.resetWeeklyScoreAndRank();
       console.log("# WARNING # Weekly leaderboard has been reset !");
     }
-  }, 10000); // Repeat every 10000 milliseconds (10 seconds)
+  }, 100000); // Repeat every 10000 milliseconds (100 seconds)
 });
 
 // Returns the ISO week of the date.
