@@ -23,8 +23,6 @@ client.on("guildCreate", guilde => {
   if (validation == ":x:") {
     sendLeavingMessage(guilde);
     guilde.leave()
-  } else {
-    sendArrivalMessage(guilde);
   }
   console.log(resultat);
 });
@@ -125,13 +123,6 @@ async function chargeText(reaction) {
   return Text;
 }
 
-/**
- * Send a message to the owner of a guild when the bot is added to its server
- * @param {*} guilde 
- */
-function sendArrivalMessage(guilde) {
-  guilde.owner.send(Console.arrivalMessage);
-}
 
 /**
  * Send a message to the owner of the guild the bot is leaving
