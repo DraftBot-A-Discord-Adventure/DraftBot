@@ -123,30 +123,58 @@ function checkReactionIsUnderAProfileMessage(reaction) {
  * Check if the top week need to be reset and if so, proceed to reset the top week
  */
 async function checkTopWeek() {
-  let date = new Date(); // Create a Date object to find out what time it is
-  date.setHours(date.getHours() + 1);
-  let weekNumber = date.getWeek() + 1;
+  let weekNumber = getCurrentWeekNumber();
+  let lastweekNumber = await getLastWeekNumber(weekNumber);
+  if (lastweekNumber != weekNumber) {
+    await resetTopWeek(weekNumber);
+  }
+}
+
+/**
+ * Get the week number of the last time the topweek has been reseted
+ * @param {*} weekNumber 
+ */
+async function getLastWeekNumber(weekNumber) {
   let lastweekNumber = await sql.get(`SELECT lastReset FROM database`);
   lastweekNumber = lastweekNumber.lastReset;
   if (lastweekNumber.lastReset == null) {
     sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
   }
-  if (lastweekNumber != weekNumber) {
-    sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
-    let gagnant = await sql.get(`SELECT * FROM player WHERE weeklyRank=1`).catch(console.error);
-    if (gagnant != null) {
-      let playerManager = new PlayerManager();
-      let player = await playerManager.getPlayerById(gagnant.discordId);
-      displayAnnouncementsChannel(":trophy: **Le classement de la semaine est terminé ! Le gagnant est :**  <@" + gagnant.discordId + ">", ":trophy: **The weekly ranking has ended! The winner is:**  <@" + gagnant.discordId + ">");
-
-      giveTopWeekBadge(player);
-      playerManager.updatePlayer(player);
-    }
-    databaseManager.resetWeeklyScoreAndRank();
-    console.log("# WARNING # Weekly leaderboard has been reset !");
-  }
+  return lastweekNumber;
 }
 
+/**
+ * Get the current week number
+ */
+function getCurrentWeekNumber() {
+  let date = new Date(); // Create a Date object to find out what time it is
+  date.setHours(date.getHours() + 1);
+  let weekNumber = date.getWeek() + 1;
+  return weekNumber;
+}
+
+/**
+ * Reset the topweek
+ * @param {*} weekNumber Current week number used to save the last time the topweek has been reseted
+ */
+async function resetTopWeek(weekNumber) {
+  sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
+  let gagnant = await sql.get(`SELECT * FROM player WHERE weeklyRank=1`).catch(console.error);
+  if (gagnant != null) {
+    let playerManager = new PlayerManager();
+    let player = await playerManager.getPlayerById(gagnant.discordId);
+    displayAnnouncementsChannel(":trophy: **Le classement de la semaine est terminé ! Le gagnant est :**  <@" + gagnant.discordId + ">", ":trophy: **The weekly ranking has ended! The winner is:**  <@" + gagnant.discordId + ">");
+    giveTopWeekBadge(player);
+    playerManager.updatePlayer(player);
+  }
+  databaseManager.resetWeeklyScoreAndRank();
+  console.log("# WARNING # Weekly leaderboard has been reset !");
+}
+
+/**
+ * Give the winner the badge for leading the topweek
+ * @param {*} player 
+ */
 function giveTopWeekBadge(player) {
   if (player.badges != "") {
     if (player.badges.includes("🎗️")) {
