@@ -1,5 +1,6 @@
 const Tools = require('../utils/Tools');
 const ServerManager = require('../classes/ServerManager');
+const Config = require('../utils/Config');
 let Text;
 
 /**
@@ -9,7 +10,7 @@ let Text;
 const chargeText = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
+    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
         server.language = "en";
     }
     let address = '../text/' + server.language;

@@ -1,13 +1,14 @@
 const PlayerManager = require('../classes/PlayerManager');
 const ServerManager = require('../classes/ServerManager');
-let Text;
-let language;
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
 const PotionManager = require('../classes/PotionManager');
 const InventoryManager = require('../classes/InventoryManager');
 const Discord = require('discord.js')
+const Config = require('../utils/Config');
 
+let Text;
+let language;
 
 /**
  * Allow to charge the correct text file
@@ -16,7 +17,7 @@ const Discord = require('discord.js')
 const chargeText = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
+    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
         server.language = "en";
     }
     let address = '../text/' + server.language;
@@ -31,7 +32,7 @@ const chargeText = async function (message) {
 const detectLanguage = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
+    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
         server.language = "en";
     }
     return server.language;

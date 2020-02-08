@@ -3,6 +3,7 @@ const ObjectManager = require('../classes/ObjectManager');
 const InventoryManager = require('../classes/InventoryManager');
 const DefaultValues = require('../utils/DefaultValues');
 const ServerManager = require('../classes/ServerManager');
+const Config = require('../utils/Config');
 let Text;
 
 /**
@@ -12,7 +13,7 @@ let Text;
 const chargeText = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
+    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
         server.language = "en";
     }
     let address = '../text/' + server.language;
@@ -27,7 +28,7 @@ const chargeText = async function (message) {
 const detectLanguage = async function (message) {
     let serverManager = new ServerManager();
     let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
+    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
         server.language = "en";
     }
     return server.language;
