@@ -46,7 +46,7 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
     Text = await chargeText(message);
     language = await detectLanguage(message);
     if (talkedRecently.has(message.author.id)) {
-        message.channel.send(Text.commands.shop.cancelStart + message.author + Text.commands.shop.tooMuchShop);
+        displaySpamErrorMessage(message);
     } else {
         let playerManager = new PlayerManager();
         let player = await playerManager.getCurrentPlayer(message);
@@ -79,19 +79,19 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                     switch (reaction.emoji.name) {
                         case Text.commands.shop.emojis.a:
                             choice = "a";
-                            messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
+                            messageChoice = addChoiceToMessageChoice(messageChoice, choice);
                             break;
                         case Text.commands.shop.emojis.b:
                             choice = "b";
-                            messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
+                            messageChoice = addChoiceToMessageChoice(messageChoice, choice);
                             break;
                         case Text.commands.shop.emojis.c:
                             choice = "c";
-                            messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
+                            messageChoice = addChoiceToMessageChoice(messageChoice, choice);
                             break;
                         case Text.commands.shop.emojis.d:
                             choice = "d";
-                            messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
+                            messageChoice = addChoiceToMessageChoice(messageChoice, choice);
                             break;
                         default:
                             choice = "aa";
@@ -100,9 +100,11 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                     }
                     let messageconfirm = await displayConfirmMessage(message, messageChoice);
                     let confirmIsOpen = true;
+
                     const filterConfirm = (reaction, user) => {
                         return (confirmReactionIsCorrect(reaction) && user.id === message.author.id);
                     };
+
                     const collectorConfirm = messageconfirm.createReactionCollector(filterConfirm, {
                         time: 120000
                     });
@@ -245,6 +247,24 @@ const generateDailyPotion = function () {
         dailyPotion = potionManager.getPotionById(1+(dailyPotionSeed % (DefaultValues.raritiesGenerator.numberOfPotion-1)));
     }
     return dailyPotion;
+}
+
+/**
+ * Update the message choice with the text corresponding to the choixe the user made
+ * @param {*} messageChoice - The orinal messageChoice
+ * @param {*} choice - The choice made
+ */
+function addChoiceToMessageChoice(messageChoice, choice) {
+    messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
+    return messageChoice;
+}
+
+/**
+ * Display an error if the user is spamming the command
+ * @param {*} message - The message that triggered the command
+ */
+function displaySpamErrorMessage(message) {
+    message.channel.send(Text.commands.shop.cancelStart + message.author + Text.commands.shop.tooMuchShop);
 }
 
 /**
