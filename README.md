@@ -19,7 +19,7 @@ The bot is fully functionnal and is available in english and in french !
 ![](https://cdn.discordapp.com/attachments/456120666874183680/575235223776788480/tuto.PNG)
 
 # Links
-* [Discord server *(in french)*](https://discord.gg/p2HQVmT)
+* [Discord server *(in french)*](https://discord.gg/AP3Wmzb)
 * [Trello board *(in french)*](https://trello.com/b/mJidA4EI/draftbot)
 * [Twitter account *(in french)*](https://twitter.com/DraftBot_?s=09)
 
