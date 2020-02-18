@@ -27,7 +27,7 @@ const reportCommand = async function (message, args, client, talkedRecently) {
 
       playerManager.setPlayerAsOccupied(player);
 
-      if (Tools.isANullNumber(player.getScore())) {
+      if (player.getScore() == 0) {
          generateEvent(message, eventManager, 0, playerManager, player, DefaultValues.report.startMoney, DefaultValues.report.startScore);
          return;
       }
@@ -209,19 +209,19 @@ async function generateEvent(message, eventManager, eventNumber, playerManager, 
  */
 function displayPossibility(message, pointsGained, moneyChange, possibility) {
    let possibilityMessage = Text.commands.report.reportStart + message.author + Text.commands.report.points + pointsGained;
-   if (Tools.isAPositiveNumberOrNull(moneyChange)) {
+   if (moneyChange >= 0) {
       possibilityMessage += Text.commands.report.moneyWin + moneyChange;
    }
    else {
       possibilityMessage += Text.commands.report.moneyLoose + -moneyChange;
    }
-   if (Tools.isAPositiveNumber(possibility.xpGained))
+   if (possibility.xpGained > 0)
       possibilityMessage += Text.commands.report.xpWin + possibility.xpGained;
-   if (Tools.isANegativeNumber(possibility.healthPointsChange))
+   if (possibility.healthPointsChange < 0)
       possibilityMessage += Text.commands.report.healthLoose + -possibility.healthPointsChange;
-   if (Tools.isAPositiveNumber(possibility.healthPointsChange))
+   if (possibility.healthPointsChange > 0)
       possibilityMessage += Text.commands.report.healthWin + possibility.healthPointsChange;
-   if (Tools.isAPositiveNumber(possibility.timeLost))
+   if (possibility.timeLost > 0)
       possibilityMessage += Text.commands.report.timeLost + Tools.displayDuration(possibility.timeLost);
    return possibilityMessage;
 }

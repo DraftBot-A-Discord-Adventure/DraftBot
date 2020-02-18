@@ -24,7 +24,7 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
         let playerManager = new PlayerManager();
         let player = await playerManager.getCurrentPlayer(message);
         if (playerManager.checkState(player, message, ":dizzy_face::sick::zzz::head_bandage::snowflake::confounded::clock2::smiley:", language)) {
-            if (Tools.isANegativeNumber(player.money)) {
+            if (player.money < 0) {
                 let ShopMessage = Text.commands.shop.errorEmoji + message.author.username + Text.commands.shop.noMoney;
                 return message.channel.send(ShopMessage);
             }

@@ -23,7 +23,7 @@ class Player extends Entity {
     }
 
     /**
-     * Returns the amount of experience needed to level up. 
+     * Returns the amount of experience needed to level up.
      * @see NumberConstants
      * @returns {Number} Returns the experience needed to level up.
      */
@@ -33,7 +33,7 @@ class Player extends Entity {
     }
 
     /**
-     * Returns the amount of experience used to level up. 
+     * Returns the amount of experience used to level up.
      * @see NumberConstants
      * @returns {Number} Returns the experience used to level up.
      */
@@ -53,7 +53,7 @@ class Player extends Entity {
      * @param {*} message - The message that caused the xp gain
      */
     addExperience(experience, message, language) {
-        if (Tools.isAPositiveNumber(experience)) {
+        if (experience > 0) {
             this.setExperience(this.experience + parseInt(experience), message, language);
         }
     }
@@ -72,7 +72,7 @@ class Player extends Entity {
      * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
     setExperience(experience, message, language) {
-        if (Tools.isAPositiveNumberOrNull(experience)) {
+        if (experience >= 0) {
             this.experience = experience;
             if (this.hasEnoughExperienceToLevelUp()) {
                 this.levelUp(message, language);
@@ -93,7 +93,7 @@ class Player extends Entity {
      * @param {Number} level - The level this Player instance should be. Must be a positive Number.
      */
     setLevel(level) {
-        if (Tools.isAPositiveNumber(level)) {
+        if (level > 0) {
             this.level = level;
         }
     }
@@ -166,7 +166,7 @@ class Player extends Entity {
      * @param money - The amount of money to add. Must be a Number.
      */
     addMoney(money) {
-        if (Tools.isAPositiveNumberOrNull(money)) {
+        if (money >= 0) {
             this.money += parseInt(money);
         } else {
             this.removeMoney(-money);
@@ -180,9 +180,9 @@ class Player extends Entity {
      * @param money - The amount of money to remove. Must be a Number.
      */
     removeMoney(money) {
-        if (Tools.isAPositiveNumberOrNull(money)) {
+        if (money >= 0) {
             this.money -= parseInt(money);
-            if (Tools.isANegativeNumber(this.money))
+            if (this.money < 0)
                 this.money = 0;
         } else {
             this.addMoney(-money);
@@ -194,7 +194,7 @@ class Player extends Entity {
      * @param money - The amount of money this Player instance should have. Must be a positive or null Number.
      */
     setMoney(money) {
-        if (Tools.isAPositiveNumberOrNull(money)) {
+        if (money >= 0) {
             this.money = money;
         }
     }
@@ -257,7 +257,7 @@ class Player extends Entity {
      * @param discordId - The Discord User ID to assign to the player.
      */
     setDiscordId(discordId) {
-        if (Tools.isANegativeNumber(this.discordId)) {
+        if (this.discordId < 0) {
             this.discordId = discordId;
         }
     }
@@ -295,7 +295,7 @@ class Player extends Entity {
         return this.rank;
     }
 
-    
+
     /**
      * Returns the weekly rank of the player.
      * @returns {Number} - The rank of the player
@@ -332,7 +332,7 @@ class Player extends Entity {
      * @param points - The amount of points to remove. Must be a Number.
      */
     removeScore(points) {
-        if (Tools.isAPositiveNumberOrNull(points)) {
+        if (points >= 0) {
             this.score -= parseInt(points);
             this.weeklyScore -= parseInt(points);
         } else {
@@ -348,7 +348,7 @@ class Player extends Entity {
      * @param points - The amount of points to add. Must be a Number.
      */
     addScore(points) {
-        if (Tools.isAPositiveNumberOrNull(points)) {
+        if (points >= 0) {
             this.score += parseInt(points);
             this.weeklyScore += parseInt(points);
         } else {
@@ -358,7 +358,7 @@ class Player extends Entity {
 
     /**
      * Calculate the time difference in minute betwin now and the last time the player has been seen
-     * @param {Number} currentTime 
+     * @param {Number} currentTime
      * @returns {Number}
      */
     calcTime(currentTime) {
