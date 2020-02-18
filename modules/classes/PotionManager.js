@@ -52,7 +52,7 @@ class PotionManager {
      * @returns {*} - A random potion
      */
     generateRandomPotion() {
-        let desiredRareness = this.generateRandomRareness();
+        let desiredRareness = Tools.generateRandomRareness();
         let id = this.generateRandomPotionId();
         let tries = 1;
         while (ItemValues.potion[id].rareness != desiredRareness) {
@@ -62,21 +62,6 @@ class PotionManager {
         console.log("Item généré ! Nombre d'essais: " + tries)
         return this.getPotionById(id);
     }
-
-
-    /**
-     * Generate a random rareness. Legendary is very rare and common is not rare at all
-     * @returns {Number} - the number refering to a rareness (1 - 8) 
-     */
-    generateRandomRareness() {
-        let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
-        let desiredRareness = 1;
-        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness - 1]) {
-            desiredRareness++;
-        }
-        return desiredRareness;
-    }
-
 
     /**
      * Generate an id of an existing potion totally randomly without taking care of the rareness

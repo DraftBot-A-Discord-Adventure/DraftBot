@@ -85,14 +85,14 @@ class EquipementManager {
      * @returns {*} - A random weapon
      */
     generateRandomWeapon() {
-        let desiredRareness = this.generateRandomRareness();
+        let desiredRareness = Tools.generateRandomRareness();
         let id = this.generateRandomWeaponId();
         let tries = 1;
         while (ItemValues.weapon[id].rareness != desiredRareness) {
             tries++;
             id = this.generateRandomWeaponId();
         }
-        console.log("Item généré ! Nombre d'essais: " + tries)
+        console.log("Item généré ! Nombre d'essais: " + tries);
         return this.getWeaponById(id);
     }
 
@@ -111,7 +111,7 @@ class EquipementManager {
      * @returns {*} - A random armor
      */
     generateRandomArmor() {
-        let desiredRareness = this.generateRandomRareness();
+        let desiredRareness = Tools.generateRandomRareness();
         let id = this.generateRandomArmorId();
         let tries = 1;
         while (ItemValues.armor[id].rareness != desiredRareness) {
@@ -131,20 +131,4 @@ class EquipementManager {
         return Math.round(Math.random() * (DefaultValues.raritiesGenerator.numberOfArmor - 1)) + 1;
     }
 
-
-    /**
-     * Generate a random rareness. Legendary is very rare and common is not rare at all
-     * @returns {Number} - the number refering to a rareness (1 - 8) 
-     */
-    generateRandomRareness() {
-        let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
-        let desiredRareness = 1;
-        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness - 1]) {
-            desiredRareness++;
-        }
-        return desiredRareness;
-    }
-}
-
 module.exports = EquipementManager;
-
