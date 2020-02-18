@@ -4,20 +4,6 @@ const Config = require('../utils/Config');
 let Text;
 
 /**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
-
-/**
  * Base class that shouldn't be instantiated. Instead, Entities are meant to extend this class.
  * Entities are things like Enemies, entitys...
  */
