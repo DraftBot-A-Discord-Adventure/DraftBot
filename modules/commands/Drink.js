@@ -7,33 +7,6 @@ const Config = require('../utils/Config');
 let Text;
 let language;
 
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
-
-/**
- * Allow to get the language the bot has to respond with
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @returns {string} - the code of the server language
- */
-const detectLanguage = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    return server.language;
-}
 
 /**
  * Allow to use the potion if the player has one in the dedicated slot of his inventory
@@ -42,8 +15,8 @@ const detectLanguage = async function (message) {
 const drinkCommand = async function (message) {
 
     //chargement de la langue
-    Text = await chargeText(message);
-    language = await detectLanguage(message);
+    Text = await Tools.chargeText(message);
+    language = await Tools.detectLanguage(message);
 
     let inventoryManager = new InventoryManager();
     let playerManager = new PlayerManager();

@@ -7,41 +7,14 @@ const Config = require('../utils/Config');
 let Text;
 let language;
 
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
-
-/**
- * Allow to get the language the bot has to respond with
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @returns {string} - the code of the server language
- */
-const detectLanguage = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    return server.language;;
-}
 
 /**
  * Allow the user to launch a fight
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const fightCommand = async function (message, args, client, talkedRecently) {
-    Text = await chargeText(message);
-    language = await detectLanguage(message);
+    Text = await Tools.chargeText(message);
+    language = await Tools.detectLanguage(message);
     if (talkedRecently.has(message.author.id)) {
         return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
     }
@@ -150,9 +123,9 @@ async function addItemBonus(inventoryManager, player, defenderPlayer) {
 
 /**
  * Allow to display the message that announce the begining of the fight
- * @param {*} message 
+ * @param {*} message
  * @param {*} attacker - The first player
- * @param {*} defender 
+ * @param {*} defender
  */
 function displayFightStartMessage(message, attacker, defender) {
     message.channel.send(Text.commands.fight.startStart + attacker + Text.commands.fight.startJoin + defender + Text.commands.fight.startEnd);
@@ -169,24 +142,24 @@ async function displayIntroMessage(message, attacker) {
 
 /**
  * Allow to make one round of the fight
- * @param {*} lastMessageFromBot 
- * @param {*} message 
- * @param {*} actualUser - The user that is currently playing 
+ * @param {*} lastMessageFromBot
+ * @param {*} message
+ * @param {*} actualUser - The user that is currently playing
  * @param {*} player - The first player
- * @param {*} actuelPlayer 
- * @param {*} opponentPlayer 
- * @param {*} opponentUser 
+ * @param {*} actuelPlayer
+ * @param {*} opponentPlayer
+ * @param {*} opponentUser
  * @param {*} attacker - The first player
- * @param {*} defender 
- * @param {*} defenderPlayer 
- * @param {*} attackerPower 
- * @param {*} defenderPower 
- * @param {*} defenderDefenseAdd 
- * @param {*} attackerDefenseAdd 
- * @param {*} lastEtatFight 
- * @param {*} attackerSpeedAdd 
- * @param {*} defenderSpeedAdd 
- * @param {*} nbTours 
+ * @param {*} defender
+ * @param {*} defenderPlayer
+ * @param {*} attackerPower
+ * @param {*} defenderPower
+ * @param {*} defenderDefenseAdd
+ * @param {*} attackerDefenseAdd
+ * @param {*} lastEtatFight
+ * @param {*} attackerSpeedAdd
+ * @param {*} defenderSpeedAdd
+ * @param {*} nbTours
  */
 async function fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd, nbTours) {
     let actualUserPoints = 0;
@@ -401,16 +374,16 @@ function ImproveSpeed(actualUser, attacker, actuelPlayer, attackerSpeedAdd, mess
 
 /**
  * Allow to pake a powerfull attack
- * @param {*} attackPower 
+ * @param {*} attackPower
  * @param {*} player - The first player
- * @param {*} opponentPlayer 
- * @param {*} actuelPlayer 
- * @param {*} defenderPower 
- * @param {*} attackerPower 
- * @param {*} attacker - The first player 
- * @param {*} actualUser - The user that is currently playing 
- * @param {*} reaction 
- * @param {*} message 
+ * @param {*} opponentPlayer
+ * @param {*} actuelPlayer
+ * @param {*} defenderPower
+ * @param {*} attackerPower
+ * @param {*} attacker - The first player
+ * @param {*} actualUser - The user that is currently playing
+ * @param {*} reaction
+ * @param {*} message
  */
 function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message) {
     //test which player is quicker
@@ -429,7 +402,7 @@ function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defe
         }
         if (succes <= 20) { // total success
             powerchanger = 2;
-        } 
+        }
     }
     attackPower = actuelPlayer.attack * powerchanger;
     //lower speed for next turn
@@ -457,16 +430,16 @@ function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defe
 
 /**
  * allow to perform a basic attack
- * @param {*} attackPower 
+ * @param {*} attackPower
  * @param {*} player - The first player
- * @param {*} opponentPlayer 
- * @param {*} actuelPlayer 
- * @param {*} defenderPower 
- * @param {*} attackerPower 
- * @param {*} attacker - The first player 
- * @param {*} actualUser - The user that is currently playing 
- * @param {*} reaction 
- * @param {*} message 
+ * @param {*} opponentPlayer
+ * @param {*} actuelPlayer
+ * @param {*} defenderPower
+ * @param {*} attackerPower
+ * @param {*} attacker - The first player
+ * @param {*} actualUser - The user that is currently playing
+ * @param {*} reaction
+ * @param {*} message
  */
 function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message) {
     let succes = Tools.generateRandomNumber(1, 100);
@@ -478,7 +451,7 @@ function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defende
     }else{
         if (succes <= 70) { // total success
             powerchanger = 1;
-        } 
+        }
     }
     attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueSimple = "";
@@ -505,16 +478,16 @@ function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defende
 
 /**
  * Allow to perform a quick attack
- * @param {*} attackPower 
+ * @param {*} attackPower
  * @param {*} player - The first player
- * @param {*} opponentPlayer 
- * @param {*} actuelPlayer 
- * @param {*} defenderPower 
- * @param {*} attackerPower 
+ * @param {*} opponentPlayer
+ * @param {*} actuelPlayer
+ * @param {*} defenderPower
+ * @param {*} attackerPower
  * @param {*} attacker - The first player
- * @param {*} actualUser - The user that is currently playing 
- * @param {*} reaction 
- * @param {*} message 
+ * @param {*} actualUser - The user that is currently playing
+ * @param {*} reaction
+ * @param {*} message
  */
 function quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message) {
     let succes = Tools.generateRandomNumber(1, 100);
@@ -526,7 +499,7 @@ function quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defender
     }else{
         if (succes <= 80) { // total success
             powerchanger = 0.85;
-        } 
+        }
     }
     attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueRapide = "";
@@ -552,12 +525,12 @@ function quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defender
 }
 
 /**
- * 
+ *
  * @param {*} attacker - The first player
- * @param {*} actualUser - The user that is currently playing 
- * @param {*} defenderPower 
- * @param {*} degats 
- * @param {*} attackerPower 
+ * @param {*} actualUser - The user that is currently playing
+ * @param {*} defenderPower
+ * @param {*} degats
+ * @param {*} attackerPower
  */
 function updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower) {
     if (attacker == actualUser) {
@@ -570,9 +543,9 @@ function updatePlayerPower(attacker, actualUser, defenderPower, degats, attacker
 }
 
 /**
- * 
- * @param {*} message 
- * @param {*} actualUser - The user that is currently playing 
+ *
+ * @param {*} message
+ * @param {*} actualUser - The user that is currently playing
  */
 async function displayFightMenu(message, actualUser) {
     let lastMessageFromBot = await message.channel.send(Text.commands.fight.menuStart + actualUser + Text.commands.fight.menuEnd);
@@ -585,21 +558,21 @@ async function displayFightMenu(message, actualUser) {
 }
 
 /**
- * 
- * @param {*} message 
- * @param {*} user 
+ *
+ * @param {*} message
+ * @param {*} user
  */
 function displayErrorSkillMissing(message, user) {
     message.channel.send(Text.commands.fight.errorEmoji + user + Text.commands.fight.notEnoughSkillError1 + DefaultValues.fight.minimalLevel + Text.commands.fight.notEnoughSkillError2);
 }
 
 /**
- * 
- * @param {*} actualUser - The user that is currently playing 
+ *
+ * @param {*} actualUser - The user that is currently playing
  * @param {*} attacker - The first player
- * @param {*} defender 
- * @param {*} actuelPlayer 
- * @param {*} defenderPlayer 
+ * @param {*} defender
+ * @param {*} actuelPlayer
+ * @param {*} defenderPlayer
  * @param {*} player - The first player
  */
 function switchActiveUser(actualUser, attacker, defender, actuelPlayer, defenderPlayer, player) {
@@ -619,12 +592,12 @@ function switchActiveUser(actualUser, attacker, defender, actuelPlayer, defender
 }
 
 /**
- * 
- * @param {*} spamchecker 
- * @param {*} message 
+ *
+ * @param {*} spamchecker
+ * @param {*} message
  * @param {*} attacker - The first player
- * @param {*} fightIsOpen 
- * @param {*} playerManager 
+ * @param {*} fightIsOpen
+ * @param {*} playerManager
  * @param {*} player - The first player
  */
 function cancelFightLaunch(spamchecker, message, attacker, fightIsOpen, playerManager, player) {
@@ -639,14 +612,14 @@ function cancelFightLaunch(spamchecker, message, attacker, fightIsOpen, playerMa
 }
 
 /**
- * 
- * @param {*} defender 
- * @param {*} message 
- * @param {*} fightIsOpen 
+ *
+ * @param {*} defender
+ * @param {*} message
+ * @param {*} fightIsOpen
  * @param {*} attacker - The first player
- * @param {*} playerManager 
+ * @param {*} playerManager
  * @param {*} player - The first player
- * @param {*} spamchecker 
+ * @param {*} spamchecker
  */
 function treatFightCancel(defender, message, fightIsOpen, attacker, playerManager, player, spamchecker) {
     if (defender.id === message.author.id) { // le defenseur et l'attaquant sont la même personne

@@ -7,42 +7,14 @@ const Config = require('../utils/Config');
 let Text;
 
 /**
- * Allow to charge the correct text file
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
-
-/**
- * Allow to get the language the bot has to respond with
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @returns {string} - the code of the server language
- */
-const detectLanguage = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    return server.language;
-}
-
-/**
  * Display information about the player that sent the command
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} args - arguments typed by the user in addition to the command
  */
 const profileCommand = async function (message, args, client) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     let playerManager = new PlayerManager();
-    let language = await detectLanguage(message);
+    let language = await Tools.detectLanguage(message);
     let player = await playerManager.getCurrentPlayer(message);
     if (askForAnotherPlayer(args)) {
         let playerId;
@@ -180,5 +152,3 @@ function getPlayerPseudo(client, player) {
 }
 
 module.exports.ProfileCommand = profileCommand;
-
-
