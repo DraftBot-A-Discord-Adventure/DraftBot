@@ -45,9 +45,7 @@ class CommandReader {
      */
     async handlePrivateMessage(message, client, talkedRecently) {
         if (Config.BLACKLIST.includes(message.author.id)) {
-            let i = 1
-            while (i < 5) {
-                i++;
+            for (let i=1; i < 5; i++) {
                 message.channel.send(":x: Erreur.")
             }
             if (message.content != "") {
@@ -101,7 +99,7 @@ class CommandReader {
 }
 
 /**
- * 
+ *
  * @param {*} message - A command posted by an user.
  * @param {*} client - The bot user in case we have to make him do things
  * @param {*} talkedRecently - The list of user that has been seen recently
@@ -118,7 +116,3 @@ function launchCommand(message, client, talkedRecently) {
 }
 
 module.exports = CommandReader;
-
-
-
-
