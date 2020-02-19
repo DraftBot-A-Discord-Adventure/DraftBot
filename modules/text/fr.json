@@ -557,7 +557,8 @@
     "26": " : ** :walking: En vous promenant dans un village, vous remarquez un regroupement de personnes. Vous constatez très vite en vous approchant qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n:money_with_wings: Voler des passants assistant au massacre.\n:punch: S'interposer et empêcher cet homme de mourir.\n:walking: Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "27": " : ** :walking: En vous promenant dans le petit village que vous avez trouvé, vous remarquez un puits avec un petit objet brillant au fond.\n\n:point_down: Tenter de descendre pour récupérer l'objet.\n:handshake: Tenter d'attraper l'objet avec le seau du puits\n:walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "28": " : ** :angel: Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause. \n\n:white_check_mark: Accepter de la rejoindre\n:x: Refuser gentiment la proposition.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "29": " : ** :thermometer: Les températures dépassant les 30°C depuis plusieurs jours vous accablent depuis maintenant plusieurs jours. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous reflechissez à une stratégie à suivre...\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:zzz: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+    "29": " : ** :thermometer: Les températures dépassant les 30°C depuis plusieurs jours vous accablent depuis maintenant plusieurs jours. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous reflechissez à une stratégie à suivre...\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:zzz: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "30": ""
   },
   "possibilities": {
     "report": {
@@ -1119,6 +1120,28 @@
         "1": "** | 👀 Vous restez à votre place, en plein soleil pendant une quinzaine de minutes, puis vous écroulez",
         "2": "** | 🚶 Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps"
       }
+    },
+    "IDENTIFIANT": {
+        "A": {
+            "1": "** | texte issue 1 emoji A",
+            "2": "** | texte issue 2 emoji A",
+            "3": "** | texte issue 3 emoji A"
+        },
+        "B": {
+            "1": "** | texte issue 1 emoji B",
+            "2": "** | texte issue 2 emoji B",
+            "3": "** | texte issue 3 emoji B",
+            "4": "** | texte issue 4 emoji B"
+        },
+        "C": {
+            "1": "** | texte issue 3 emoji C",
+            "2": "** | texte issue 3 emoji C",
+            "3": "** | texte issue 3 emoji C"
+        },
+        "end": {
+            "1": "** | texte issue 1 sans réponse",
+            "2": "** | texte issue 2 sans réponse"
+        }
     }
   }
 }
