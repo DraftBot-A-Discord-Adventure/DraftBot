@@ -3,10 +3,8 @@ const EquipementManager = require('../classes/EquipementManager');
 const PotionManager = require('../classes/PotionManager');
 const ObjectManager = require('../classes/ObjectManager');
 const DefaultValues = require('../utils/DefaultValues');
-const ServerManager = require('../classes/ServerManager');
 const PlayerManager = require('../classes/PlayerManager');
 const Discord = require('discord.js');
-const Config = require('../utils/Config');
 let Text;
 
 /**

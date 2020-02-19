@@ -2,8 +2,6 @@ const PlayerManager = require('../classes/PlayerManager');
 const EventManager = require('../classes/EventManager');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
-const ServerManager = require('../classes/ServerManager');
-const Config = require('../utils/Config');
 let Text;
 let language;
 
@@ -42,7 +40,6 @@ const reportCommand = async function (message, args, client, talkedRecently) {
       //eventNumber = 29; //allow to select a specific event in testing purpose
 
       switch (true) {
-
          case time < DefaultValues.report.minimalTime:
             displayErrorReport(message);
             playerManager.setPlayerAsUnOccupied(player);

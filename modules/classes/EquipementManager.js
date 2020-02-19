@@ -131,4 +131,6 @@ class EquipementManager {
         return Math.round(Math.random() * (DefaultValues.raritiesGenerator.numberOfArmor - 1)) + 1;
     }
 
+}
+
 module.exports = EquipementManager;

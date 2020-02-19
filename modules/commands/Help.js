@@ -1,20 +1,8 @@
-const ServerManager = require('../classes/ServerManager');
-const Config = require('../utils/Config');
+const Tools = require('../utils/Tools');
+
 let Text
 
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
+
 
 /**
  * Display help for a player 
@@ -22,7 +10,7 @@ const chargeText = async function (message) {
  * @param args - arguments typed by the user in addition to the command
  */
 const helpCommand = async function (message, args, client) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     let helpMessage;
     if (userAskForGeneralHelp(args[1]))
         helpMessage = generateGeneralHelpMessage(message);

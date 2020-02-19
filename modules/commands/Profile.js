@@ -1,8 +1,7 @@
 const PlayerManager = require('../classes/PlayerManager');
-const ServerManager = require('../classes/ServerManager');
 const Discord = require("discord.js");
 const DefaultValues = require('../utils/DefaultValues');
-const Config = require('../utils/Config');
+const Tools = require('../utils/Tools');
 
 let Text;
 

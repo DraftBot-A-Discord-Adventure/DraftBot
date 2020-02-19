@@ -1,5 +1,6 @@
-const DefaultValues = require('DefaultValues');
-
+const DefaultValues = require('../utils/DefaultValues');
+const ServerManager = require('../classes/ServerManager');
+const Config = require('../utils/Config');
 
 /**
  * convert a number of minutes in a number of miliseconds

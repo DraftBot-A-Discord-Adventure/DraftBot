@@ -1,28 +1,14 @@
 const PlayerManager = require('../classes/PlayerManager');
-const ServerManager = require('../classes/ServerManager');
-const Config = require('../utils/Config');
-let Text
+const Tools = require('../utils/Tools');
 
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
+let Text
 
 /**
  * Allow a player who is dead to continue playing
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const respawnCommand = async function (message) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     let playerManager = new PlayerManager();
     let player = await playerManager.getCurrentPlayer(message);
 

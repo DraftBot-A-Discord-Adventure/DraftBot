@@ -2,24 +2,9 @@ const Discord = require("discord.js");
 const moment = require("moment");
 const DefaultValues = require('../utils/DefaultValues');
 const PlayerManager = require('../classes/PlayerManager');
-const ServerManager = require('../classes/ServerManager');
-const Config = require('../utils/Config');
+const Tools = require('../utils/Tools');
 
 let Text
-
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
 
 /**
  * Allow to display the rankings of the players
@@ -27,7 +12,7 @@ const chargeText = async function (message) {
  * @param args - arguments typed by the user in addition to the command
  */
 const TopWeekCommand = async function (message, args, client) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     let playerManager = new PlayerManager();
     let actualPlayer = await playerManager.getCurrentPlayer(message);
     totalJoueur = await playerManager.getNumberOfWeeklyPlayers();

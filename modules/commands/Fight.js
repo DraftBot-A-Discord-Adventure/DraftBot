@@ -2,8 +2,6 @@ const PlayerManager = require('../classes/PlayerManager');
 const InventoryManager = require('../classes/InventoryManager');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
-const ServerManager = require('../classes/ServerManager');
-const Config = require('../utils/Config');
 let Text;
 let language;
 
