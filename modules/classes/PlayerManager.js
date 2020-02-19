@@ -8,6 +8,7 @@ const InventoryManager = require('../classes/InventoryManager');
 const EquipementManager = require('../classes/EquipementManager');
 const PotionManager = require('../classes/PotionManager');
 const ObjectManager = require('../classes/ObjectManager');
+
 sql.open("./modules/data/database.sqlite");
 let Text;
 

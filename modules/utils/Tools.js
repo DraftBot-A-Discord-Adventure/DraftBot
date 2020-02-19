@@ -55,7 +55,7 @@ const displayDuration = function (minutes) {
         heures++;
         minutes -= 60;
     }
-    if (isAPositiveNumber(heures))
+    if (heures > 0)
         display += heures + " H ";
     display += minutes + " Min";
     if (heures == 0 && minutes == 0)
@@ -96,21 +96,22 @@ const detectLanguage = async function (message) {
  * Generate a random rareness. Legendary is very rare and common is not rare at all
  * @returns {Number} - the number refering to a rareness (1 - 8)
  */
-const generateRandomRareness = function() {
+const generateRandomRareness = function () {
     let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
-    if (0 < randomValue <= DefaultValues.raritiesGenerator['0']) {
+    console.log(randomValue)
+    if (randomValue <= DefaultValues.raritiesGenerator['0']) {
         return 1;
-    } else if (DefaultValues.raritiesGenerator['0'] < randomValue <= DefaultValues.raritiesGenerator['1']) {
+    } else if (randomValue <= DefaultValues.raritiesGenerator['1']) {
         return 2;
-    } else if (DefaultValues.raritiesGenerator['1'] < randomValue <= DefaultValues.raritiesGenerator['2']) {
+    } else if (randomValue <= DefaultValues.raritiesGenerator['2']) {
         return 3;
-    } else if (DefaultValues.raritiesGenerator['2'] < randomValue <= DefaultValues.raritiesGenerator['3']) {
+    } else if (randomValue <= DefaultValues.raritiesGenerator['3']) {
         return 4;
-    } else if (DefaultValues.raritiesGenerator['3'] < randomValue <= DefaultValues.raritiesGenerator['4']) {
+    } else if (randomValue <= DefaultValues.raritiesGenerator['4']) {
         return 5;
-    } else if (DefaultValues.raritiesGenerator['4'] < randomValue <= DefaultValues.raritiesGenerator['5']) {
+    } else if (randomValue <= DefaultValues.raritiesGenerator['5']) {
         return 6;
-    } else if (DefaultValues.raritiesGenerator['5'] < randomValue <= DefaultValues.raritiesGenerator['6']) {
+    } else if (randomValue <= DefaultValues.raritiesGenerator['6']) {
         return 7;
     } else {
         return 8;

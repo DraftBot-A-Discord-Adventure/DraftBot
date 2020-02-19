@@ -1,6 +1,8 @@
 const Potion = require('./Potion');
 const ItemValues = require('../utils/items/Values');
 const DefaultValues = require('../utils/DefaultValues');
+const Tools = require('../utils/tools');
+
 let Text;
 let ItemNames;
 
@@ -53,6 +55,7 @@ class PotionManager {
      */
     generateRandomPotion() {
         let desiredRareness = Tools.generateRandomRareness();
+        console.log(desiredRareness);
         let id = this.generateRandomPotionId();
         let tries = 1;
         while (ItemValues.potion[id].rareness != desiredRareness) {

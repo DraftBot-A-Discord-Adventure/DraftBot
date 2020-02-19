@@ -1,6 +1,8 @@
 const Object = require('./Object');
 const ItemValues = require('../utils/items/Values');
 const DefaultValues = require('../utils/DefaultValues');
+const Tools = require('../utils/tools');
+
 let ItemNames;
 let Text;
 
@@ -52,6 +54,7 @@ class ObjectManager {
      */
     generateRandomObject() {
         let desiredRareness = Tools.generateRandomRareness();
+        console.log(desiredRareness);
         let id = this.generateRandomObjectId();
         let tries = 1;
         while (ItemValues.object[id].rareness != desiredRareness) {

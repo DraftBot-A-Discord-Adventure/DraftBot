@@ -1,6 +1,8 @@
 const Equipement = require('./Equipement');
 const ItemValues = require('../utils/items/Values');
 const DefaultValues = require('../utils/DefaultValues');
+const Tools = require('../utils/tools');
+
 let ItemNames;
 let Text;
 
@@ -86,6 +88,7 @@ class EquipementManager {
      */
     generateRandomWeapon() {
         let desiredRareness = Tools.generateRandomRareness();
+        console.log(desiredRareness);
         let id = this.generateRandomWeaponId();
         let tries = 1;
         while (ItemValues.weapon[id].rareness != desiredRareness) {
