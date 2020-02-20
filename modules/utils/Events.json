@@ -142,6 +142,12 @@
             "1": "🔍",
             "2": "🌳",
             "3": "💤"
+        },
+        "30": {
+            "1": "🤴",
+            "2": "🎉",
+            "3": "🎁",
+            "4": "🍌"
         }
     },
     "possibility": {
@@ -2404,9 +2410,9 @@
                     "moneyGained": "150"
                 },
                 "3": {
-                    "timeLost": "180",
+                    "timeLost": "0",
                     "healthPointsChange": "0",
-                    "newEffect": ":clock2:",
+                    "newEffect": ":lock:",
                     "xpGained": "25",
                     "moneyGained": "0"
                 }
@@ -2460,9 +2466,9 @@
             },
             "🍌": {
                 "1": {
-                    "timeLost": "180",
+                    "timeLost": "0",
                     "healthPointsChange": "0",
-                    "newEffect": ":clock2:",
+                    "newEffect": ":lock:",
                     "xpGained": "25",
                     "moneyGained": "0"
                 },
@@ -2478,8 +2484,7 @@
                     "healthPointsChange": "0",
                     "newEffect": ":sick:",
                     "xpGained": "0",
-                    "moneyGained": "0",
-                    "item": "true"
+                    "moneyGained": "0"
                 }
             },
             "end":{
