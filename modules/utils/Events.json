@@ -2386,6 +2386,118 @@
                     "moneyGained": "0"
                 }
             }
+        },
+        "30": {
+            "🤴": {
+                "1": {
+                    "timeLost": "50",
+                    "healthPointsChange": "10",
+                    "newEffect": ":clock2:",
+                    "xpGained": "75",
+                    "moneyGained": "0"
+                },
+                "2": {
+                    "timeLost": "30",
+                    "healthPointsChange": "0",
+                    "newEffect": ":clock2:",
+                    "xpGained": "125",
+                    "moneyGained": "150"
+                },
+                "3": {
+                    "timeLost": "180",
+                    "healthPointsChange": "0",
+                    "newEffect": ":clock2:",
+                    "xpGained": "25",
+                    "moneyGained": "0"
+                }
+            },
+            "🎉": {
+                "1": {
+                    "timeLost": "155",
+                    "healthPointsChange": "0",
+                    "newEffect": ":clock2:",
+                    "xpGained": "25",
+                    "moneyGained": "0"
+                },
+                "2": {
+                    "timeLost": "85",
+                    "healthPointsChange": "0",
+                    "newEffect": ":clock2:",
+                    "xpGained": "25",
+                    "moneyGained": "-100"
+                },
+                "3": {
+                    "timeLost": "60",
+                    "healthPointsChange": "50",
+                    "newEffect": ":clock2:",
+                    "xpGained": "225",
+                    "moneyGained": "0"
+                }
+            },
+            "🎁": {
+                "1": {
+                    "timeLost": "0",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "150",
+                    "moneyGained": "-1000"
+                },
+                "2": {
+                    "timeLost": "35",
+                    "healthPointsChange": "0",
+                    "newEffect": ":clock2:",
+                    "xpGained": "25",
+                    "moneyGained": "0"
+                },
+                "3": {
+                    "timeLost": "0",
+                    "healthPointsChange": "0",
+                    "newEffect": ":clock2:",
+                    "xpGained": "450",
+                    "moneyGained": "0",
+                    "item": "true"
+                }
+            },
+            "🍌": {
+                "1": {
+                    "timeLost": "180",
+                    "healthPointsChange": "0",
+                    "newEffect": ":clock2:",
+                    "xpGained": "25",
+                    "moneyGained": "0"
+                },
+                "2": {
+                    "timeLost": "0",
+                    "healthPointsChange": "20",
+                    "newEffect": ":smiley:",
+                    "xpGained": "350",
+                    "moneyGained": "0"
+                },
+                "3": {
+                    "timeLost": "0",
+                    "healthPointsChange": "0",
+                    "newEffect": ":sick:",
+                    "xpGained": "0",
+                    "moneyGained": "0",
+                    "item": "true"
+                }
+            },
+            "end":{
+                "1": {
+                    "timeLost": "0",
+                    "healthPointsChange": "0",
+                    "newEffect": ":smiley:",
+                    "xpGained": "150",
+                    "moneyGained": "0"
+                },
+                "2": {
+                    "timeLost": "0",
+                    "healthPointsChange": "-1",
+                    "newEffect": ":smiley:",
+                    "xpGained": "0",
+                    "moneyGained": "0"
+                }
+            }
         }
     }
 }
