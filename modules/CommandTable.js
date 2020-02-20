@@ -55,7 +55,7 @@ const CommandTable = new Map(
         ["prefix", ChangePrefix.ChangePrefixCommand],
         ["language", Language.ChangeLanguageCommand],
 
-        ["reset", Reset.ResetCommand],
+        ["destroy", Reset.ResetCommand],
         ["invi", Invitations.InvitationsCommand],
         ["points", Points.PointsCommand],
         ["servs", Servers.ServersCommand],
