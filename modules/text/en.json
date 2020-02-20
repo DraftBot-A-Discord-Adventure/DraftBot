@@ -557,7 +557,8 @@
         "26": " : ** :walking: While walking through a village, you notice a group of people. Up close, you quickly notice a hanging in progress. After some discussion, you learn this person is sentenced to death for \"words contrary to the values of the church\"\n\n:money_with_wings: Steal from the audience.\n:punch: Stand in the way to prevent the man from dying.\n:walking: Continue on your journey peacefully\n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
         "27": " : ** :walking: Walking through the small village you found, you notice a well with a small shiny object at the bottom.\n\n:point_down: Try to descend and retrieve the object.\n:handshake: Try to grab the object with the well's bucket\n:walking: Continue on your journey\n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
         "28": " : ** :angel: On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause. \n\n:white_check_mark: Agree to join them\n:x: Gently reject the proposal.\n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
-        "29": " : ** :thermometer: In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape. \n\n:mag: Search the surroundings for a body of water\n:deciduous_tree: Rest at the foot of a tree\n:zzz: Rest right here\n\n*-React to take an action :warning: Not responding is consided a separate choice!*"
+        "29": " : ** :thermometer: In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape. \n\n:mag: Search the surroundings for a body of water\n:deciduous_tree: Rest at the foot of a tree\n:zzz: Rest right here\n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
+        "30": " : ** :european_castle: You see a castle in the distance. You decide to approach the main entrance, it seems to be that of Duke Benatis. Known for his banana farms, he organizes a party for his 21st birthday. When you approach a little closer, a guard invites you to enter as the Duke wants everyone to participate in the party. When you return, you see a huge feast awaiting the attendees.\n\n:prince: Go to the Duke\n:tada: Stay at the party\n:gift: give him a present\n:banana: Go and steal bananas from his farm"
     },
     "possibilities": {
         "report": {
@@ -1118,6 +1119,32 @@
             "end": {
                 "1": "** | 👀 You stay where you belong in full sunlight for about 15 minutes, then collapse",
                 "2": "** | 🚶 You decide to use your reserves, and continue your journey to not waste time"
+            }
+        },
+        "30": {
+            "🤴": {
+              "1": "** | 🤴 You go to the Duke and compliment him. The Duke thanks you and decides to offer you some rest at his castle.",
+              "2": "** | 🤴 You go see the Duke and compliment him. The Duke thanks you and decides to offer you a few coins, telling you to make good use of them, then you go back on your way.",
+              "3": "** | 🤴 You go to the Duke and try to compliment him, but rhetoric is not your forte and as the Duke gets offended, he locks you up.."
+            },
+            "🎉": {
+              "1": "** | 🎉 You go home and enjoy a party that is going to last for a while",
+              "2": "** | 🎉 The guard sees your dirty shoes and asks you to come back with something more appropriate. Luckily, a young beggar standing right next to you offers to shine them for you. This way, you can enjoy the birthday party.",
+              "3": "** | 🎉 The party buffet is a feast. You enjoy all these bananas."
+            },
+            "🎁": {
+              "1": "** | 🎁 You feel like giving a gift to Duke Benatis, but you can't find anything that would do the trick. You decide to simply give him some of the money you've collected during your adventures. The Duke accepts your gift",
+              "2": "** | 🎁 You approach the Duke to give him a gift. Seeing you arrive, the Duke understands your intention and tells you kindly that it's not necessary, so you just chat with him and then leave the party.",
+              "3": "** | 🎁 As you go to give a gift to the Duke, the Duke stands up and declares that he has decided to distribute gifts to everyone present. You understand that it would then be useless to give him one, and accept the one handed to you by the servants."
+            },
+            "🍌": {
+              "1": "** | 🍌 As you're about to leave the farm with your loot, a slave alerts the others and shames you. You end up locked in a cell...",
+              "2": "** | 🍌 You discreetly come out with your delicious loot that joins your stomach swiftly.",
+              "3": "** | 🍌 To your great misfortune, you didn't notice the writing \"Unfit for sale\" in front of your freshly acquired bananas and they quickly make you sick! :nauseated_face:"
+            },
+            "end": {
+              "1": "** | 🚶 You don't feel like partying today, so you decide to turn back and continue your journey quietly.",
+              "2": "** | 🚶 You're not ready to party today, so you go back on the road. When you stumble and come face to face with a banana, but it doesn't seem to be any good."
             }
         }
     }
