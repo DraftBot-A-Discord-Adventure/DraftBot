@@ -168,7 +168,7 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
  * @param {*} confirmMessage - The string of the confirmation message
  */
 const displayConfirmMessage = function (message, confirmMessage) {
-    return message.channel.send(confirmMessage).then(async msg => {
+    return message.channel.send(new Discord.RichEmbed().setDescription(confirmMessage)).then(async msg => {
         let valid = "✅"
         await msg.react(valid);
         let notValid = "❌"
