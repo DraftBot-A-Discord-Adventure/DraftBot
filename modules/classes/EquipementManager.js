@@ -1,7 +1,7 @@
 const Equipement = require('./Equipement');
 const ItemValues = require('../utils/items/Values');
 const DefaultValues = require('../utils/DefaultValues');
-const Tools = require('../utils/tools');
+const Tools = require('../utils/Tools');
 
 let ItemNames;
 let Text;
