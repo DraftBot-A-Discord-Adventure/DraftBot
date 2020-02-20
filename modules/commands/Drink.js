@@ -1,14 +1,21 @@
 const InventoryManager = require('../classes/InventoryManager');
 const PlayerManager = require('../classes/PlayerManager');
-const Text = require('../text/Francais');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
+let Text;
+let language;
+
 
 /**
  * Allow to use the potion if the player has one in the dedicated slot of his inventory
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const drinkCommand = async function (message) {
+
+    //chargement de la langue
+    Text = await Tools.chargeText(message);
+    language = await Tools.detectLanguage(message);
+
     let inventoryManager = new InventoryManager();
     let playerManager = new PlayerManager();
     let player = await playerManager.getCurrentPlayer(message);
@@ -26,7 +33,7 @@ const drinkCommand = async function (message) {
             break;
         case 1: //the potion is a heal potion
             messageDrink = generateDrinkHealthMessage(message, potion);
-            player.addHealthPoints(potion.power);
+            player.addHealthPoints(potion.power, message, language);
             inventory.potionId = DefaultValues.inventory.potion;
             break;
         case 2: //the potion is a speed potion

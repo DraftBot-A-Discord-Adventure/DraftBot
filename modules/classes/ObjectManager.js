@@ -1,8 +1,10 @@
 const Object = require('./Object');
-const ItemNames = require('../utils/items/Francais');
 const ItemValues = require('../utils/items/Values');
-const Text = require('../text/Francais');
 const DefaultValues = require('../utils/DefaultValues');
+const Tools = require('../utils/Tools');
+
+let ItemNames;
+let Text;
 
 class ObjectManager {
 
@@ -20,9 +22,12 @@ class ObjectManager {
     /**
      * Return string containing a description of an object
      * @param object - The object that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the object
      */
-    displayObject(object) {
+    displayObject(object, language) {
+        Text = require('../text/' + language);
+        ItemNames = require('../utils/items/' + language);
         let stringResult = ItemNames.object[object.id] + Text.objectManager.separator + Text.rarities[object.rareness] + Text.objectManager.separator + Text.nature.intro[object.natureEffect];
         if (object.natureEffect != 0) { // affichage de la puissance de l'effet si il existe
             stringResult += object.power + Text.nature.outroObject[object.natureEffect];
@@ -34,9 +39,11 @@ class ObjectManager {
     /**
      * Return string containing a description of an object in case this object is the default armor
      * @param object - The object that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the object
      */
-    displayDefaultObject(object) {
+    displayDefaultObject(object,language) {
+        ItemNames = require('../utils/items/' + language);
         return ItemNames.object[object.id];
     }
 
@@ -46,7 +53,8 @@ class ObjectManager {
      * @returns {*} - A random object
      */
     generateRandomObject() {
-        let desiredRareness = this.generateRandomRareness();
+        let desiredRareness = Tools.generateRandomRareness();
+        console.log(desiredRareness);
         let id = this.generateRandomObjectId();
         let tries = 1;
         while (ItemValues.object[id].rareness != desiredRareness) {
@@ -64,20 +72,6 @@ class ObjectManager {
      */
     generateRandomObjectId() {
         return Math.round(Math.random() * (DefaultValues.raritiesGenerator.numberOfObject - 1)) + 1;
-    }
-
-
-    /**
-     * Generate a random rareness. Legendary is very rare and common is not rare at all
-     * @returns {Number} - the number refering to a rareness (1 - 7) 
-     */
-    generateRandomRareness() {
-        let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
-        let desiredRareness = 1;
-        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness - 1]) {
-            desiredRareness++;
-        }
-        return desiredRareness;
     }
 
 

@@ -1,41 +1,45 @@
 const PlayerManager = require('../classes/PlayerManager');
 const EventManager = require('../classes/EventManager');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues')
-const Text = require('../text/Francais');
+const DefaultValues = require('../utils/DefaultValues');
+let Text;
+let language;
 
 
 /**
  * Allow the user to learn more about what is going on with his character
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const reportCommand = async function (message) {
-
+const reportCommand = async function (message, args, client, talkedRecently) {
+   Text = await Tools.chargeText(message);
+   language = await Tools.detectLanguage(message);
+   if (talkedRecently.has(message.author.id)) {
+      return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
+   }
    let eventManager = new EventManager;
    let playerManager = new PlayerManager;
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-   if (playerManager.checkState(player, message, ":baby::smiley:")|| true) {  //check if the player is not dead or sick
+   if (playerManager.checkState(player, message, ":baby::smiley:", language)) {  //check if the player is not dead or sick
 
       playerManager.setPlayerAsOccupied(player);
 
-      if (Tools.isANullNumber(player.getScore())) {
+      if (player.getScore() == 0) {
          generateEvent(message, eventManager, 0, playerManager, player, DefaultValues.report.startMoney, DefaultValues.report.startScore);
          return;
       }
 
       let time = player.calcTime(message.createdTimestamp);
-      time = 200; // in testing purpose : Remove for realease
+      //time = 1000; // in testing purpose : Remove for realease
 
       let pointsGained = calculatePoints(player, time);
       let moneyChange = calculateMoney(player, time);
 
       let eventNumber = eventManager.chooseARandomEvent();
-      eventNumber = 18; //allow to select a specific event in testing purpose
+      //eventNumber = 29; //allow to select a specific event in testing purpose
 
       switch (true) {
-
          case time < DefaultValues.report.minimalTime:
             displayErrorReport(message);
             playerManager.setPlayerAsUnOccupied(player);
@@ -79,6 +83,7 @@ const execPossibility = function (message, possibility, playerManager, player, m
    if (possibility.idEvent == 0) {
       if (possibility.emoji == "end") {
          possibilityMessage = displayPossibility(message, 0, 0, possibility);
+         applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager)
       } else {
          possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
          launchAdventure(message, pointsGained, moneyChange, player, possibility, playerManager)
@@ -201,26 +206,26 @@ async function generateEvent(message, eventManager, eventNumber, playerManager, 
  */
 function displayPossibility(message, pointsGained, moneyChange, possibility) {
    let possibilityMessage = Text.commands.report.reportStart + message.author + Text.commands.report.points + pointsGained;
-   if (Tools.isAPositiveNumberOrNull(moneyChange)) {
+   if (moneyChange >= 0) {
       possibilityMessage += Text.commands.report.moneyWin + moneyChange;
    }
    else {
       possibilityMessage += Text.commands.report.moneyLoose + -moneyChange;
    }
-   if (Tools.isAPositiveNumber(possibility.xpGained))
+   if (possibility.xpGained > 0)
       possibilityMessage += Text.commands.report.xpWin + possibility.xpGained;
-   if (Tools.isANegativeNumber(possibility.healthPointsChange))
+   if (possibility.healthPointsChange < 0)
       possibilityMessage += Text.commands.report.healthLoose + -possibility.healthPointsChange;
-   if (Tools.isAPositiveNumber(possibility.healthPointsChange))
+   if (possibility.healthPointsChange > 0)
       possibilityMessage += Text.commands.report.healthWin + possibility.healthPointsChange;
-   if (Tools.isAPositiveNumber(possibility.timeLost))
+   if (possibility.timeLost > 0)
       possibilityMessage += Text.commands.report.timeLost + Tools.displayDuration(possibility.timeLost);
    return possibilityMessage;
 }
 
 
 /**
- * save the effect of a possibility on a player 
+ * save the effect of a possibility on a player
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} possibility - The possibility that has been selected
  * @param {*} player - The player that is reacting to the event
@@ -230,6 +235,7 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
  */
 async function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager) {
 
+   let language = await Tools.detectLanguage(message);
    //adding score
    player.addScore(pointsGained);
 
@@ -241,10 +247,10 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
 
    player.setEffect(possibility.newEffect);
 
-   player.addHealthPoints(possibility.healthPointsChange, message);
+   player.addHealthPoints(possibility.healthPointsChange, message, language);
    // if the number is below 0, remove health Points will be called by the add Health Points method
 
-   player.addExperience(possibility.xpGained, message)
+   player.addExperience(possibility.xpGained, message, language)
 
    if (possibility.item == "true") { //have to give an item to the player
       player = await playerManager.giveRandomItem(message, player);
@@ -270,8 +276,8 @@ function launchAdventure(message, pointsGained, moneyChange, player, possibility
    player.addMoney(moneyChange);
    // if the number is below 0, remove money will be called by the add money method
 
-   //the last time the player has been saw is now
-   player.updateLastReport(message.createdTimestamp, possibility.timeLost, possibility.newEffect);
+   //the last time the player has been saw is long time ago so that the adventure is fun for the begining
+   player.updateLastReport(message.createdTimestamp-100000000, possibility.timeLost, possibility.newEffect);
 
    player.setEffect(possibility.newEffect);
 

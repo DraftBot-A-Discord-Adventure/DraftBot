@@ -16,21 +16,20 @@ class ServerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the server of the message
      */
     async getServerPrefix(message) {
-        let serveur = await this.getServer(message);
-        return serveur.prefix;
+        let server = await this.getServer(message);
+        return server.prefix;
     }
 
     /**
-     * Allow to get the current serveur
+     * Allow to get the current server
      * @param {*} message - The message that caused the function to be called. Used to retrieve the server of the message
      */
-    getServer(message) {
+    getServer(message, client) {
         return sql.get(`SELECT * FROM server WHERE id ="${message.guild.id}"`).then(server => {
             if (!server) { //server is not in the database
-                console.log(`serveur inconnu : ${message.guild.name}`);
+                console.log(`server unknown : ${message.guild.name}`);
                 return this.getNewServer(message);
             } else { //server is in the database
-                console.log(`server reconnu : ${message.guild.name}`);
                 return new Server(server.id, server.prefix, server.language)
             }
         }).catch(error => { //there is no database
@@ -50,8 +49,8 @@ class ServerManager {
                 console.log(`Aucun serveur enregistré pour cette id: ${id}`);
                 return 0;
             } else { //server is in the database
-                console.log(`server reconnu : ${id}`);
-                return new Server(server.id, server.prefix, server.lang)
+                console.log(`server loaded : ${id}`);
+                return new Server(server.id, server.prefix, server.language)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -77,7 +76,7 @@ class ServerManager {
      */
     updateServer(server) {
         console.log("Updating server ...");
-        sql.run(`UPDATE server SET id = ${server.id}, prefix = "${server.prefix}", language = "${server.language}"`).catch(console.error);
+        sql.run(`UPDATE server SET id = ${server.id}, prefix = "${server.prefix}", language = "${server.language}" WHERE id = ${server.id}`).catch(console.error);
         console.log("Server updated !");
     }
 

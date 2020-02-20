@@ -1,4 +1,7 @@
 {
+    "embed": {
+        "color": ""
+    },
     "entity": {
         "maxHealth": "100",
         "health": "100",
@@ -9,15 +12,17 @@
     },
     "player": {
         "score": "0",
+        "weeklyScore": "0",
         "level": "0",
         "experience": "0",
         "money": "0",
         "badges": "",
-        "rank": "0"
+        "rank": "0",
+        "weeklyRank": "0"
     },
     "server": {
         "prefix": "!",
-        "language": "fr"
+        "language": "en"
     },
     "report": {
         "minimalTime": "60",
@@ -25,6 +30,13 @@
         "timeLimit": "1000",
         "startMoney": "10",
         "startScore": "100"
+    },
+    "shop": {
+        "priceItem": "350",
+        "priceStatus": "500",
+        "priceHeal": "3000",
+        "priceBadge": "25000",
+        "addedValue": "200"
     },
     "effectMalus": {
         ":smiley:": "0",
@@ -49,20 +61,14 @@
     },
     "raritiesValues": {
         "0": "0",
-        "1": "4",
-        "2": "30",
-        "3": "80",
-        "4": "120",
-        "5": "250",
+        "1": "20",
+        "2": "80",
+        "3": "120",
+        "4": "250",
+        "5": "500",
         "6": "1000",
         "7": "5000",
         "8": "1000"
-    },
-    "numberOfExistingItem": {
-        "weapon": "",
-        "armor": "",
-        "potion": "",
-        "object": ""
     },
     "raritiesGenerator": {
         "0": "4375",
@@ -71,11 +77,12 @@
         "3": "9375",
         "4": "9875",
         "5": "9975",
+        "6": "9999",
         "maxValue": "10000",
-        "numberOfWeapon": "46",
-        "numberOfArmor": "17",
-        "numberOfObject": "26",
-        "numberOfPotion": "33"
+        "numberOfWeapon": "64",
+        "numberOfArmor": "35",
+        "numberOfObject": "36",
+        "numberOfPotion": "35"
     },
     "itemGenerator": {
         "max": "10",
@@ -83,16 +90,19 @@
             "1": "weapon",
             "2": "weapon",
             "3": "weapon",
-            "4": "weapon",
+            "4": "armor",
             "5": "armor",
             "6": "armor",
-            "7": "armor",
+            "7": "object",
             "8": "object",
-            "9": "object",
+            "9": "potion",
             "10": "potion"
         }
     },
     "top": {
+        "playersByPage": "15"
+    },
+    "TopWeek": {
         "playersByPage": "15"
     },
     "fight": {
@@ -130,6 +140,16 @@
         "28": "1275",
         "29": "1325",
         "30": "1450",
+        "31": "1455",
+        "32": "1460",
+        "33": "1475",
+        "34": "1480",
+        "35": "1485",
+        "36": "1495",
+        "37": "1500",
+        "38": "1510",
+        "39": "1515",
+        "40": "1520",
         "41": "1525",
         "42": "1600",
         "43": "1675",
@@ -189,6 +209,7 @@
         "97": "12000",
         "98": "12500",
         "99": "15000",
-        "100": "25000"
+        "100": "25000",
+        "101": "infini"
     }
 }

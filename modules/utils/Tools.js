@@ -1,47 +1,6 @@
-/**
- * Returns whether n is a Number AND is positive.
- * @param n - The object to test
- * @returns {boolean} - True if n is a Number AND is positive, false otherwise.
- */
-const isAPositiveNumber = function (n) {
-    return n > 0;
-};
-
-/**
- * Returns whether n is a Number AND is positive or null.
- * @param n - The object to test
- * @returns {boolean} - True if n is a Number AND is positive or null, false otherwise.
- */
-const isAPositiveNumberOrNull = function (n) {
-    return n >= 0;
-};
-
-/**
- * Returns whether n is a Number AND is negative.
- * @param n - The object to test
- * @returns {boolean} - True if n is a Number AND is negative, false otherwise.
- */
-const isANegativeNumber = function (n) {
-    return n < 0;
-};
-
-/**
- * Returns whether n is a Number AND is negative or null.
- * @param n - The object to test
- * @returns {boolean} - True if n is a Number AND is negative or null, false otherwise.
- */
-const isANegativeOrNullNumber = function (n) {
-    return n <= 0;
-};
-
-/**
- * Returns whether n is a Number AND is negative or null.
- * @param n - The object to test
- * @returns {boolean} - True if n is a Number AND is negative or null, false otherwise.
- */
-const isANullNumber = function (n) {
-    return n == 0;
-};
+const DefaultValues = require('../utils/DefaultValues');
+const ServerManager = require('../classes/ServerManager');
+const Config = require('../utils/Config');
 
 /**
  * convert a number of minutes in a number of miliseconds
@@ -96,7 +55,7 @@ const displayDuration = function (minutes) {
         heures++;
         minutes -= 60;
     }
-    if (isAPositiveNumber(heures))
+    if (heures > 0)
         display += heures + " H ";
     display += minutes + " Min";
     if (heures == 0 && minutes == 0)
@@ -105,15 +64,66 @@ const displayDuration = function (minutes) {
 };
 
 
+/**
+ * Allow to charge the correct text file
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const chargeText = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
+        server.language = "en";
+    }
+    let address = '../text/' + server.language;
+    return require(address);
+}
+
+/**
+ * Allow to get the language the bot has to respond with
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @returns {string} - the code of the server language
+ */
+const detectLanguage = async function (message) {
+    let serverManager = new ServerManager();
+    let server = await serverManager.getServer(message);
+    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
+        server.language = "en";
+    }
+    return server.language;;
+}
+
+/**
+ * Generate a random rareness. Legendary is very rare and common is not rare at all
+ * @returns {Number} - the number refering to a rareness (1 - 8)
+ */
+const generateRandomRareness = function () {
+    let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
+    console.log(randomValue)
+    if (randomValue <= DefaultValues.raritiesGenerator['0']) {
+        return 1;
+    } else if (randomValue <= DefaultValues.raritiesGenerator['1']) {
+        return 2;
+    } else if (randomValue <= DefaultValues.raritiesGenerator['2']) {
+        return 3;
+    } else if (randomValue <= DefaultValues.raritiesGenerator['3']) {
+        return 4;
+    } else if (randomValue <= DefaultValues.raritiesGenerator['4']) {
+        return 5;
+    } else if (randomValue <= DefaultValues.raritiesGenerator['5']) {
+        return 6;
+    } else if (randomValue <= DefaultValues.raritiesGenerator['6']) {
+        return 7;
+    } else {
+        return 8;
+    }
+}
+
 //Exports
-module.exports.isAPositiveNumber = isAPositiveNumber;
-module.exports.isAPositiveNumberOrNull = isAPositiveNumberOrNull;
-module.exports.isANegativeNumber = isANegativeNumber;
-module.exports.isANegativeOrNullNumber = isANegativeOrNullNumber;
-module.exports.isANullNumber = isANullNumber;
 module.exports.convertHoursInMiliseconds = convertHoursInMiliseconds;
 module.exports.convertMinutesInMiliseconds = convertMinutesInMiliseconds;
 module.exports.convertMillisecondsInMinutes = convertMillisecondsInMinutes;
 module.exports.displayDuration = displayDuration;
 module.exports.generateRandomNumber = generateRandomNumber;
-
+module.exports.chargeText = chargeText;
+module.exports.detectLanguage = detectLanguage;
+module.exports.generateRandomRareness = generateRandomRareness;

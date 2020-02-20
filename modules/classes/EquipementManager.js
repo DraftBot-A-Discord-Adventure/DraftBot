@@ -1,8 +1,10 @@
 const Equipement = require('./Equipement');
-const ItemNames = require('../utils/items/Francais');
 const ItemValues = require('../utils/items/Values');
-const Text = require('../text/Francais');
 const DefaultValues = require('../utils/DefaultValues');
+const Tools = require('../utils/Tools');
+
+let ItemNames;
+let Text;
 
 class EquipementManager {
 
@@ -30,35 +32,46 @@ class EquipementManager {
     /**
      * Return string containing a description of an equipement wich is a weapon
      * @param equipement - The equipement that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the equipement
      */
-    displayWeapon(equipement) {
-        return ItemNames.weapon[equipement.id] + Text.equipementManager.separator1 + this.getEquipementEfficiency(equipement) + Text.equipementManager.separator2
+    displayWeapon(equipement, language) {
+        console.log(language)
+        Text = require('../text/' + language);
+        ItemNames = require('../utils/items/' + language);
+        let stringResult = ItemNames.weapon[equipement.id] + Text.equipementManager.separator1 + this.getEquipementEfficiency(equipement) + Text.equipementManager.separator2
             + Text.rarities[equipement.rareness];
+        return stringResult;
     }
 
 
     /**
      * Return string containing a description of an equipement wich is a weapon
      * @param equipement - The equipement that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the equipement
      */
-    displayArmor(equipement) {
-        return ItemNames.armor[equipement.id] + Text.equipementManager.separator1 + this.getEquipementEfficiency(equipement) + Text.equipementManager.separator2
+    displayArmor(equipement, language) {
+        Text = require('../text/' + language);
+        ItemNames = require('../utils/items/' + language);
+        let stringResult = ItemNames.armor[equipement.id] + Text.equipementManager.separator1 + this.getEquipementEfficiency(equipement) + Text.equipementManager.separator2
             + Text.rarities[equipement.rareness];
+        return stringResult;
     }
 
 
     /**
      * Return string containing a description of an equipement in case this equipement is the default armor
      * @param equipement - The equipement that has to be displayed
+     * @param language - The language the object has to be displayed in
      * @returns {String} - The description of the equipement
      */
-    displayDefaultArmor(equipement) {
+    displayDefaultArmor(equipement, language) {
+        ItemNames = require('../utils/items/' + language);
         return ItemNames.armor[equipement.id];
     }
 
-    
+
     /**
      * Return the real value of the power that is applied when it is used
      * @param equipement - The equipement that has to be displayed
@@ -74,14 +87,15 @@ class EquipementManager {
      * @returns {*} - A random weapon
      */
     generateRandomWeapon() {
-        let desiredRareness = this.generateRandomRareness();
+        let desiredRareness = Tools.generateRandomRareness();
+        console.log(desiredRareness);
         let id = this.generateRandomWeaponId();
         let tries = 1;
         while (ItemValues.weapon[id].rareness != desiredRareness) {
             tries++;
             id = this.generateRandomWeaponId();
         }
-        console.log("Item généré ! Nombre d'essais: " + tries)
+        console.log("Item généré ! Nombre d'essais: " + tries);
         return this.getWeaponById(id);
     }
 
@@ -100,7 +114,7 @@ class EquipementManager {
      * @returns {*} - A random armor
      */
     generateRandomArmor() {
-        let desiredRareness = this.generateRandomRareness();
+        let desiredRareness = Tools.generateRandomRareness();
         let id = this.generateRandomArmorId();
         let tries = 1;
         while (ItemValues.armor[id].rareness != desiredRareness) {
@@ -120,20 +134,6 @@ class EquipementManager {
         return Math.round(Math.random() * (DefaultValues.raritiesGenerator.numberOfArmor - 1)) + 1;
     }
 
-
-    /**
-     * Generate a random rareness. Legendary is very rare and common is not rare at all
-     * @returns {Number} - the number refering to a rareness (1 - 7) 
-     */
-    generateRandomRareness() {
-        let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
-        let desiredRareness = 1;
-        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness-1]) {
-            desiredRareness++;
-        }
-        return desiredRareness;
-    }
 }
 
 module.exports = EquipementManager;
-

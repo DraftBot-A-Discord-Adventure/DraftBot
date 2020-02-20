@@ -1,15 +1,14 @@
-const Config = require('../utils/Config');
 const Entity = require('./Entity');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
-const Text = require('../text/Francais');
+let Text;
 
 /**
  * Represents a Player.
  */
 class Player extends Entity {
 
-    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank) {
+    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank, weeklyScore, weeklyRank) {
         super(discordId, maxHealth, health, attack, defense, speed, effect);
         this.discordId = discordId;
         this.score = score;
@@ -19,36 +18,22 @@ class Player extends Entity {
         this.lastReport = lastReport;
         this.badges = badges;
         this.rank = rank
+        this.weeklyScore = weeklyScore;
+        this.weeklyRank = weeklyRank;
     }
 
-
     /**
-     * Returns the amount of experience needed to level up. 
+     * Returns the amount of experience needed to level up.
      * @see NumberConstants
      * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
         let xpToLevelUp = DefaultValues.xp[this.level + 1];
-        if (this.level + 1 > 100)
-            xpToLevelUp = 100;
         return xpToLevelUp;
     }
 
     /**
-     * Allow to get a coefficient that allow to calculate the xp needed for a levelup
-     * @returns {Number} - The coefficient
-     */
-    getCoefficientActuel() {
-        let coefficient = Config.PLAYER_BASE_EXPERIENCE_RATIO - (this.level / 3000);
-        if (coefficient < 1.04) {
-            coefficient = 1.04
-        }
-        console.log("waw" + coefficient)
-        return coefficient;
-    }
-
-    /**
-     * Returns the amount of experience used to level up. 
+     * Returns the amount of experience used to level up.
      * @see NumberConstants
      * @returns {Number} Returns the experience used to level up.
      */
@@ -67,9 +52,9 @@ class Player extends Entity {
      * @param {Number} experience - The amount of experience to add. Must be a positive Number.
      * @param {*} message - The message that caused the xp gain
      */
-    addExperience(experience, message) {
-        if (Tools.isAPositiveNumber(experience)) {
-            this.setExperience(this.experience + parseInt(experience), message);
+    addExperience(experience, message, language) {
+        if (experience > 0) {
+            this.setExperience(this.experience + parseInt(experience), message, language);
         }
     }
 
@@ -86,11 +71,11 @@ class Player extends Entity {
      * @param experience - The amount of experience this instance should have. Must be a positive or null Number.
      * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
-    setExperience(experience, message) {
-        if (Tools.isAPositiveNumberOrNull(experience)) {
+    setExperience(experience, message, language) {
+        if (experience >= 0) {
             this.experience = experience;
             if (this.hasEnoughExperienceToLevelUp()) {
-                this.levelUp(message);
+                this.levelUp(message, language);
             }
         }
     }
@@ -108,7 +93,7 @@ class Player extends Entity {
      * @param {Number} level - The level this Player instance should be. Must be a positive Number.
      */
     setLevel(level) {
-        if (Tools.isAPositiveNumber(level)) {
+        if (level > 0) {
             this.level = level;
         }
     }
@@ -118,11 +103,12 @@ class Player extends Entity {
      * experience.
      * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
-    levelUp(message) {
+    levelUp(message, language) {
+        Text = require('../text/' + language);
         this.setLevel(this.getLevel() + 1);
         let messageLevelUp = Text.playerManager.levelUp.intro + message.author + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
         let bonus = false;
-        if(this.getLevel() == DefaultValues.fight.minimalLevel){
+        if (this.getLevel() == DefaultValues.fight.minimalLevel) {
             messageLevelUp += Text.playerManager.levelUp.fightUnlocked;
             bonus = true;
         }
@@ -133,7 +119,7 @@ class Player extends Entity {
         } else {
             if (this.getLevel() % 5 == 0) {
                 this.setMaxHealth(this.getMaxHealth() + 5);
-                this.addHealthPoints(5, message);
+                this.addHealthPoints(5, message, language);
                 messageLevelUp += Text.playerManager.levelUp.moreMaxHealth;
                 bonus = true;
             }
@@ -170,7 +156,7 @@ class Player extends Entity {
             messageLevelUp += Text.playerManager.levelUp.noBonus;
         }
         message.channel.send(messageLevelUp);
-        this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message);
+        this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message, language);
     }
 
     /**
@@ -180,7 +166,7 @@ class Player extends Entity {
      * @param money - The amount of money to add. Must be a Number.
      */
     addMoney(money) {
-        if (Tools.isAPositiveNumberOrNull(money)) {
+        if (money >= 0) {
             this.money += parseInt(money);
         } else {
             this.removeMoney(-money);
@@ -194,9 +180,9 @@ class Player extends Entity {
      * @param money - The amount of money to remove. Must be a Number.
      */
     removeMoney(money) {
-        if (Tools.isAPositiveNumberOrNull(money)) {
+        if (money >= 0) {
             this.money -= parseInt(money);
-            if (Tools.isANegativeNumber(this.money))
+            if (this.money < 0)
                 this.money = 0;
         } else {
             this.addMoney(-money);
@@ -208,7 +194,7 @@ class Player extends Entity {
      * @param money - The amount of money this Player instance should have. Must be a positive or null Number.
      */
     setMoney(money) {
-        if (Tools.isAPositiveNumberOrNull(money)) {
+        if (money >= 0) {
             this.money = money;
         }
     }
@@ -271,7 +257,7 @@ class Player extends Entity {
      * @param discordId - The Discord User ID to assign to the player.
      */
     setDiscordId(discordId) {
-        if (Tools.isANegativeNumber(this.discordId)) {
+        if (this.discordId < 0) {
             this.discordId = discordId;
         }
     }
@@ -292,6 +278,14 @@ class Player extends Entity {
         return this.score;
     }
 
+    /**
+     * Returns the weekly score of the player.
+     * @returns {Number} - The score of the player
+     */
+    getWeeklyScore() {
+        return this.weeklyScore;
+    }
+
 
     /**
      * Returns the rank of the player.
@@ -299,6 +293,15 @@ class Player extends Entity {
      */
     getRank() {
         return this.rank;
+    }
+
+
+    /**
+     * Returns the weekly rank of the player.
+     * @returns {Number} - The rank of the player
+     */
+    getWeeklyRank() {
+        return this.weeklyRank;
     }
 
     /**
@@ -329,8 +332,9 @@ class Player extends Entity {
      * @param points - The amount of points to remove. Must be a Number.
      */
     removeScore(points) {
-        if (Tools.isAPositiveNumberOrNull(points)) {
+        if (points >= 0) {
             this.score -= parseInt(points);
+            this.weeklyScore -= parseInt(points);
         } else {
             this.addScore(-points);
         }
@@ -344,8 +348,9 @@ class Player extends Entity {
      * @param points - The amount of points to add. Must be a Number.
      */
     addScore(points) {
-        if (Tools.isAPositiveNumberOrNull(points)) {
+        if (points >= 0) {
             this.score += parseInt(points);
+            this.weeklyScore += parseInt(points);
         } else {
             this.removeScore(-points);
         }
@@ -353,7 +358,7 @@ class Player extends Entity {
 
     /**
      * Calculate the time difference in minute betwin now and the last time the player has been seen
-     * @param {Number} currentTime 
+     * @param {Number} currentTime
      * @returns {Number}
      */
     calcTime(currentTime) {

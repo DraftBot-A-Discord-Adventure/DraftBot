@@ -1,0 +1,20 @@
+{
+    "reboot": "####################\n\n\nDémarage du DraftBot\n\n\n####################",
+    "dm": {
+        "empty": ">>> message vide",
+        "alertBegin": ":love_letter: | <@&433289098141106210> **Nouveau message privé reçu !** \nAuteur: ",
+        "alertId": " (id :",
+        "alertEnd": ")",
+        "quote": ">>> "
+    },
+    "guildJoin": {
+        "beginquit": "**:outbox_tray: Serveur discord quitté :** `",
+        "begin": "**:inbox_tray: Serveur discord rejoint :** `",
+        "persons": "` | :bust_in_silhouette: : `",
+        "ratio": "` | Ratio bot/Humain : `",
+        "bots": "` | :robot: : `",
+        "validation": "` % | Validation : "
+    },
+    "startStatus": ":robot: **DraftBot** - v",
+    "departurMessage":":flag_fr:  Bonjour !\n\nVous recevez ce message car je ne peux pas rester sur votre serveur.\n\nMalheureusement votre serveur ne remplit pas certaines des conditions d'utilisation du bot qui ont été mises en place pour maintenir un minimum de confort aux joueurs en garantissant des performances normales. Pour plus de détails sur ces limitations, consultez https://draftbot.fandom.com/fr/wiki/Restrictions.\n\nSi vous avez des questions sur le fonctionnement du bot ou si vous souhaiter contester ce départ je vous invite à visiter le site internet : http://draftbot.tk où vous pourrez trouver un lien vers le discord de support du bot !\n\nCordialement - DraftBot\n\n\n:flag_gb:  Hello!\n\nYou received this message because I can't stay on your server.\n\nUnfortunately, your server doesn't fulfill some of the bot's requirements. These requirements are put in place to guarantee normal performance. For more details on these limitations, see https://draftbot.fandom.com/en/wiki/Restrictions\n\nIf you have questions about how the bot works, or if you want to discuss this, visit http://draftbot.tk where you can find a link to the bot’s support Discord!\n\nSincerely - DraftBot"
+}

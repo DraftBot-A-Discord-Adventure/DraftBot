@@ -1,19 +1,24 @@
-const Text = require('../text/Francais');
+const Tools = require('../utils/Tools');
+
+let Text
+
+
 
 /**
  * Display help for a player 
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
-const helpCommand = function (message, args, client) {
+const helpCommand = async function (message, args, client) {
+    Text = await Tools.chargeText(message);
     let helpMessage;
     if (userAskForGeneralHelp(args[1]))
         helpMessage = generateGeneralHelpMessage(message);
     else
-        helpMessage = generateHelpMessageForSpecificCommand(message,args[1]);
-        if (helpAskerIsNotInHelpGuild(client, message)){
-            message.author.send(Text.commands.help.mp)
-        }
+        helpMessage = generateHelpMessageForSpecificCommand(message, args[1]);
+    if (helpAskerIsNotInHelpGuild(client, message)) {
+        message.author.send(Text.commands.help.mp)
+    }
 
     message.channel.send(helpMessage);
 };
@@ -34,9 +39,9 @@ const generateGeneralHelpMessage = function (message) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param commandname - The args given by the user to tell what command he need help about.
  */
-const generateHelpMessageForSpecificCommand = function (message,commandname) {
+const generateHelpMessageForSpecificCommand = function (message, commandname) {
     let helpMessage = Text.commands.help.commands[commandname];
-    if(helpMessage === undefined)
+    if (helpMessage === undefined)
         helpMessage = generateGeneralHelpMessage(message);
     return helpMessage;
 };

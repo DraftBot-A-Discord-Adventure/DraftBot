@@ -1,11 +1,14 @@
-const Text = require('../text/Francais');
+const Tools = require('../utils/Tools');
+
+let Text
+
 
 /**
  * Display the ping of the bot and allow user to check if the bot is online
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message
  */
-const pingCommand = function (message) {
-
+const pingCommand = async function (message) {
+    Text = await Tools.chargeText(message);
     let pingMessage = Text.commands.ping.main;
     displayPing(message, pingMessage);
 
@@ -20,9 +23,9 @@ const pingCommand = function (message) {
 function displayPing(message, pingMessage) {
 
     message.channel.send(pingMessage).then(msg => {
-        let pingValue = calculateTimeDifferenceBetweenTwoMessages(message,msg);
-        msg.edit(pingMessage + " | " +pingValue + " ms");
-    })   
+        let pingValue = calculateTimeDifferenceBetweenTwoMessages(message, msg);
+        msg.edit(pingMessage + " | " + pingValue + " ms");
+    })
 
 }
 
@@ -32,7 +35,7 @@ function displayPing(message, pingMessage) {
  * @param messageOne - The first message
  * @param messageTwo - The second message
  */
-function calculateTimeDifferenceBetweenTwoMessages(messageOne,messageTwo) {
+function calculateTimeDifferenceBetweenTwoMessages(messageOne, messageTwo) {
 
     let startTime = messageOne.createdTimestamp;
     let endTime = messageTwo.createdTimestamp;
