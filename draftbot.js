@@ -56,7 +56,7 @@ client.on("ready", () => {
   //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
   setInterval(async function () { // Set interval for checking
     await checkTopWeek();
-  }, 5000);
+  }, 50000);
 
 });
 
@@ -136,8 +136,7 @@ async function checkTopWeek() {
  */
 async function getLastWeekNumber(weekNumber) {
   let lastweekNumber = await sql.get(`SELECT * FROM database`)
-  console.log(lastweekNumber)
-  //lastweekNumber = lastweekNumber.lastReset;
+  lastweekNumber = lastweekNumber.lastReset;
   if (lastweekNumber.lastReset == null) {
     sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
   }
@@ -168,7 +167,7 @@ async function resetTopWeek(weekNumber) {
     giveTopWeekBadge(player);
     playerManager.updatePlayer(player);
   }
-  databaseManager.resetWeeklyScoreAndRank();
+ // databaseManager.resetWeeklyScoreAndRank();
   console.log("# WARNING # Weekly leaderboard has been reset !");
 }
 
