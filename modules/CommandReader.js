@@ -18,10 +18,10 @@ class CommandReader {
      * @param {*} talkedRecently - The list of user that has been seen recently
      */
     async handleMessage(message, client, talkedRecently) {
-        this.traceMessage(message, client);
         let serverPrefix = await this.serverManager.getServerPrefix(message);
         let prefix = CommandReader.getUsedPrefix(message);
         if (prefix == serverPrefix) {
+            this.traceMessage(message, client);
             //if (message.author.id != Config.BOT_OWNER_ID) return message.channel.send(":x: Le Draftbot est actuellement en maintenance: Pour plus d'infos, visitez le discord du bot http://draftbot.tk \n\n :flag_um: The bot is being updated please be patient :) ");
             launchCommand(message, client, talkedRecently);
         } else {
