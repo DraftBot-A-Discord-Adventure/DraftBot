@@ -5,6 +5,8 @@ const ObjectManager = require('../classes/ObjectManager');
 const DefaultValues = require('../utils/DefaultValues');
 const PlayerManager = require('../classes/PlayerManager');
 const Discord = require('discord.js');
+const Tools = require('../utils/Tools');
+
 let Text;
 
 /**
