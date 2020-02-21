@@ -56,7 +56,7 @@ client.on("ready", () => {
   //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
   setInterval(async function () { // Set interval for checking
     await checkTopWeek();
-  }, 100000);
+  }, 5000);
 
 });
 
@@ -135,8 +135,9 @@ async function checkTopWeek() {
  * @param {*} weekNumber 
  */
 async function getLastWeekNumber(weekNumber) {
-  let lastweekNumber = await sql.get(`SELECT lastReset FROM database`);
-  lastweekNumber = lastweekNumber.lastReset;
+  let lastweekNumber = await sql.get(`SELECT * FROM database`)
+  console.log(lastweekNumber)
+  //lastweekNumber = lastweekNumber.lastReset;
   if (lastweekNumber.lastReset == null) {
     sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
   }
@@ -159,7 +160,7 @@ function getCurrentWeekNumber() {
  */
 async function resetTopWeek(weekNumber) {
   sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
-  let gagnant = await sql.get(`SELECT * FROM player WHERE weeklyRank=1`).catch(console.error);
+  let gagnant = await sql.get(`select * from player order by weeklyScore desc limit 1`).catch(console.error);
   if (gagnant != null) {
     let playerManager = new PlayerManager();
     let player = await playerManager.getPlayerById(gagnant.discordId);
