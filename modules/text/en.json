@@ -425,7 +425,8 @@
         "🍌": ":banana:  `Present for a ping`",
         "🔍": ":mag:  `Investigator`",
         "🎗️": ":reminder_ribbon:  `People who lead the topweek`",
-        "🎄": ":christmas_tree:  `This badge can be win on giveaway every christmas`"
+        "🎄": ":christmas_tree:  `This badge can be win on giveaway every christmas`",
+        "😂": ":joy:  `Badge given to funny people`"
     },
     "error": {
         "noSpeakPermission": ":zipper_mouth: | **Hello! You are receiving this message because you tried using one of my commands in a channel where I have the permissions to see messages but not send them!**\n\nYour request was thus voided. To resolve this problem, please send a message to the owner of the server you tried to use me in. If you can't resolve this problem, I invite you to join the bot's support available here: 'http://draftbot.tk/'!"
