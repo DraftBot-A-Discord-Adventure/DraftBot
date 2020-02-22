@@ -23,6 +23,7 @@ const ChangePrefix = require('./commands/admin/ChangePrefix');
 const SendData = require('./commands/admin/SendData');
 const Invitations = require('./commands/admin/Invitations');
 const Points = require('./commands/admin/Points');
+const PointsWeek = require('./commands/admin/PointsWeek');
 const Send = require('./commands/admin/Send');
 const Language = require('./commands/admin/Language');
 
@@ -58,6 +59,7 @@ const CommandTable = new Map(
         ["destroy", Reset.ResetCommand],
         ["invi", Invitations.InvitationsCommand],
         ["points", Points.PointsCommand],
+        ["pointsw", PointsWeek.PointsWeekCommand],
         ["servs", Servers.ServersCommand],
         ["gb", GiveBadge.GiveBadgeCommand],
         ["give", Give.GiveCommand],
