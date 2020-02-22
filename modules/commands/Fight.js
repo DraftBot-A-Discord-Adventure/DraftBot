@@ -206,12 +206,13 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                         ({ defenderPower, attackerPower } = quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "⚔": //attaque simple
-                        // 100% des points d'attaque sont utilisés
-                        // Taux de réussite de 70% qui monte à 80% sur un adversaire plus lent
+                        // 100% ou 50% des points d'attaque sont utilisés
+                        // Taux de réussite de 60% qui monte à 80% sur un adversaire plus lent
+                        // En plus des 60% de réussite, 30% de chance de réussite partielle sur un adversaire plus rapide
                         ({ defenderPower, attackerPower } = simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "💣": //attaque ultime
-                        // 150% ou 200% des points d'attaque sont utilisés
+                        // 125% ou 200% des points d'attaque sont utilisés
                         // Diminue la vitesse de 10 % pour le prochain tour
                         // 5% de réussite totale sur un adversaire plus rapide et 40% de réussite partielle
                         // 30% de réussite totale sur un adversaire plus lent et 70% de réusite partielle
