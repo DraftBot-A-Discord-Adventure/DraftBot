@@ -167,7 +167,7 @@ async function resetTopWeek(weekNumber) {
     giveTopWeekBadge(player);
     playerManager.updatePlayer(player);
   }
- // databaseManager.resetWeeklyScoreAndRank();
+ databaseManager.resetWeeklyScoreAndRank();
   console.log("# WARNING # Weekly leaderboard has been reset !");
 }
 
