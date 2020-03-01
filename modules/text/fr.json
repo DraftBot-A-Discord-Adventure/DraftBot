@@ -433,7 +433,7 @@
   },
   "playerManager": {
     "errorMain": {
-      ":smiley": "** Il semblerait que vous ne soyez pas atteint par une altération d'état !",
+      ":smiley:": "** Il semblerait que vous ne soyez pas atteint par une altération d'état !",
       ":baby:": "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
       ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourant ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de votre altération d'état.",
