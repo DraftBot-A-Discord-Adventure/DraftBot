@@ -1,8 +1,7 @@
 const Tools = require('../utils/Tools');
+const Config = require('../utils/Config');
 
 let Text
-
-
 
 /**
  * Display help for a player 
@@ -52,7 +51,7 @@ const generateHelpMessageForSpecificCommand = function (message, commandname) {
  * @param {*} message - The message that lauched the command
  */
 function helpAskerIsNotInHelpGuild(client, message) {
-    return client.guilds.get("429765017332613120").members.find(val => val.id === message.author.id) == undefined;
+    return client.guilds.get(Config.MAIN_SERVER_ID).members.find(val => val.id === message.author.id) == undefined;
 }
 
 /**

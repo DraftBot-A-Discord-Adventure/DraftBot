@@ -88,7 +88,6 @@ class EquipementManager {
      */
     generateRandomWeapon() {
         let desiredRareness = Tools.generateRandomRareness();
-        console.log(desiredRareness);
         let id = this.generateRandomWeaponId();
         let tries = 1;
         while (ItemValues.weapon[id].rareness != desiredRareness) {

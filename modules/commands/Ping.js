@@ -21,7 +21,6 @@ const pingCommand = async function (message) {
  * @param pingMessage - The text used to make the answer more beautiful
  */
 function displayPing(message, pingMessage) {
-
     message.channel.send(pingMessage).then(msg => {
         let pingValue = calculateTimeDifferenceBetweenTwoMessages(message, msg);
         msg.edit(pingMessage + " | " + pingValue + " ms");
@@ -36,12 +35,10 @@ function displayPing(message, pingMessage) {
  * @param messageTwo - The second message
  */
 function calculateTimeDifferenceBetweenTwoMessages(messageOne, messageTwo) {
-
     let startTime = messageOne.createdTimestamp;
     let endTime = messageTwo.createdTimestamp;
     let pingValue = endTime - startTime;
     return pingValue;
-
 }
 
 module.exports.PingCommand = pingCommand;

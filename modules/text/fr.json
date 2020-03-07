@@ -425,18 +425,20 @@
     "🍌": ":banana:  `Petit cadeau pour une mention`",
     "🔍": ":mag:  `Personne ayant résolu une chasse`",
     "🎗️": ":reminder_ribbon:  `Personne ayant dominé un classement de la semaine`",
-    "🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`"
+    "🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`",
+    "😂": ":joy:  `Badge offert à une personne drôle`"
   },
   "error": {
     "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : http://draftbot.tk/ !"
   },
   "playerManager": {
     "errorMain": {
-      ":smiley": "** Il semblerait que vous ne soyez pas atteint par une altération d'état !",
+      ":smiley:": "** Il semblerait que vous ne soyez pas atteint par une altération d'état !",
       ":baby:": "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
       ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourant ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":skull:": "** Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
+      ":lock:" : "** Vous êtes actuellement enfermé ! Veuillez attendre la fin de votre altération d'état.",
       ":zzz:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":head_bandage:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":snowflake:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de votre altération d'état.",
@@ -557,8 +559,8 @@
     "26": " : ** :walking: En vous promenant dans un village, vous remarquez un regroupement de personnes. Vous constatez très vite en vous approchant qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n:money_with_wings: Voler des passants assistant au massacre.\n:punch: S'interposer et empêcher cet homme de mourir.\n:walking: Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "27": " : ** :walking: En vous promenant dans le petit village que vous avez trouvé, vous remarquez un puits avec un petit objet brillant au fond.\n\n:point_down: Tenter de descendre pour récupérer l'objet.\n:handshake: Tenter d'attraper l'objet avec le seau du puits\n:walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "28": " : ** :angel: Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause. \n\n:white_check_mark: Accepter de la rejoindre\n:x: Refuser gentiment la proposition.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "29": " : ** :thermometer: Les températures dépassant les 30°C depuis plusieurs jours vous accablent depuis maintenant plusieurs jours. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous reflechissez à une stratégie à suivre...\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:zzz: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "30": " : ** :european_castle: Vous apercevez un château au loin, vous décidez de vous en approcher par l'entrée principale. Cette demeure semble être celle du Duc Benatis, connu pour ses exploitations de bananes. Il organise une fête en l'honneur de ses 21 ans. Lorsque vous approchez un peu plus, un garde vous invite à rentrer car le duc souhaite que tout le monde participe à la fête. Une fois rentré vous voyez un grand festin.\n:prince: Aller voir le duc\n:tada: Rester à la fête\n:gift: Lui offrir un cadeau\n:banana:Sortir pour aller lui voler des bananes dans son exploitation\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+    "29": " : ** :thermometer: Les températures dépassant les 30°C depuis plusieurs jours vous accablent. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous reflechissez à une stratégie à suivre...\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:zzz: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "30": " : ** :european_castle: Vous apercevez un château au loin, vous décidez de vous en approcher par l'entrée principale. Cette demeure semble être celle du Duc Benatis, connu pour ses exploitations de bananes. Il organise une fête en l'honneur de ses 21 ans. Lorsque vous approchez un peu plus, un garde vous invite à rentrer car le duc souhaite que tout le monde participe à la fête. Une fois rentré vous faites face à un immense festin.\n\n:prince: Aller voir le duc\n:tada: Rester à la fête\n:gift: Lui offrir un cadeau\n:banana:Sortir pour aller lui voler des bananes dans son exploitation\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
    },
   "possibilities": {
     "report": {
@@ -1125,7 +1127,7 @@
       "🤴": {
         "1": "** | 🤴 Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir un peu de repos chez lui",
         "2": "** | 🤴 Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir quelques pièces en vous disant d'en faire bon usage, vous repartez ensuite sur votre chemin",
-        "3": "** | 🤴 Vous allez voir le duc et vous essayez de le complimenter, cependant la rhétorique n'est pas votre fort et le duc se sentant offensé vous fait enfermer."
+        "3": "** | 🤴 Vous allez voir le duc et vous essayez de le complimenter, cependant la rhétorique n'est pas votre fort et le duc se sentant offensé vous fait enfermer. :lock:"
       },
       "🎉": {
         "1": "** | 🎉 Vous rentrez et profitez de la fête qui va durer jusque très tard dans la nuit.",
@@ -1138,7 +1140,7 @@
         "3": "** | 🎁 Alors que vous allez pour donner un cadeau au Duc, celui-ci se lève et déclare qu'il a décidé de distribuer des cadeaux à tout le monde présent. Vous comprenez qu'il ne servirait alors à rien de lui en offrir un, et acceptez celui qui vous est tendu par les servants"
       },
       "🍌": {
-        "1": "** | 🍌 Alors que vous vous apprêtiez à sortir de l'exploitation avec votre butin, un esclave vous interpelle et vous dénonce. Vous finissez enfermé",
+        "1": "** | 🍌 Alors que vous vous apprêtiez à sortir de l'exploitation avec votre butin, un esclave vous interpelle et vous dénonce. Vous finissez enfermé. :lock:",
         "2": "** | 🍌 Vous ressortez discrètement avec votre délicieux butin que vous finissez rapidement de manger",
         "3": "** | 🍌 À votre grand malheur, vous n'aviez pas remarqué l'écrit \"Impropres à la vente\" devant vos bananes fraichement acquises et celles-ci ont vite fait de vous rendre malade ! :nauseated_face: "
       },

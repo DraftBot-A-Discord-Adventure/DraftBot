@@ -18,10 +18,10 @@ class CommandReader {
      * @param {*} talkedRecently - The list of user that has been seen recently
      */
     async handleMessage(message, client, talkedRecently) {
-        this.traceMessage(message, client);
         let serverPrefix = await this.serverManager.getServerPrefix(message);
         let prefix = CommandReader.getUsedPrefix(message);
         if (prefix == serverPrefix) {
+            this.traceMessage(message, client);
             //if (message.author.id != Config.BOT_OWNER_ID) return message.channel.send(":x: Le Draftbot est actuellement en maintenance: Pour plus d'infos, visitez le discord du bot http://draftbot.tk \n\n :flag_um: The bot is being updated please be patient :) ");
             launchCommand(message, client, talkedRecently);
         } else {
@@ -49,20 +49,20 @@ class CommandReader {
                 message.channel.send(":x: Erreur.")
             }
             if (message.content != "") {
-                client.guilds.get("429765017332613120").channels.get("570902107029372938").send(Console.dm.quote + message.content);
+                client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.TRASH_DM_CHANNEL_ID).send(Console.dm.quote + message.content);
             }
             return message.channel.send(":x: Erreur.")
         }
-        client.guilds.get("429765017332613120").channels.get("622721474230485002").send(message.author.id);
-        client.guilds.get("429765017332613120").channels.get("622721474230485002").send(Console.dm.alertBegin + message.author.username + Console.dm.alertId + message.author.id + Console.dm.alertEnd);
+        client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(message.author.id);
+        client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.alertBegin + message.author.username + Console.dm.alertId + message.author.id + Console.dm.alertEnd);
         if (message.content != "") {
-            client.guilds.get("429765017332613120").channels.get("622721474230485002").send(Console.dm.quote + message.content);
+            client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.quote + message.content);
         }
         else {
-            client.guilds.get("429765017332613120").channels.get("622721474230485002").send(Console.dm.empty);
+            client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.empty);
         }
         message.attachments.forEach(element => {
-            client.guilds.get("429765017332613120").channels.get("622721474230485002").send({
+            client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send({
                 files: [{
                     attachment: element.url,
                     name: element.filename
