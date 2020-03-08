@@ -75,7 +75,7 @@ const displayEvent = function (message, event, Text) {
  * @param {*} possibility - The possibility that has to be executed
  */
 const execPossibility = function (message, possibility, playerManager, player, moneyChange, pointsGained, language, Text) {
-   moneyChange = moneyChange + parseInt(possibility.moneyGained);
+   moneyChange = calculateMoneychange(moneyChange, possibility);
    let possibilityMessage;
    if (possibility.idEvent == 0) {
       if (possibility.emoji == "end") {
@@ -142,6 +142,18 @@ const reactionIsCorrect = function (event, reaction) {
    return contains
 }
 
+/**
+ * Calculate the money change
+ * @param {*} moneyChange 
+ * @param {*} possibility 
+ */
+function calculateMoneychange(moneyChange, possibility) {
+   moneyChange = moneyChange + parseInt(possibility.moneyGained);
+   if (parseInt(possibility.moneyGained) < 0 && moneyChange > 0) {
+      moneyChange = Math.round(possibility.moneyGained / 2);
+   }
+   return moneyChange;
+}
 
 /**
  * allow to load the possibility to display if nothing happend since the previous report
