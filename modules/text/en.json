@@ -71,7 +71,7 @@
             "noMoney": "**, you can't access the shop with debt!",
             "emojiIntro": ":shopping_cart: ",
             "intro": ":shopping_cart: **Shop's overlay:**",
-            "dailySell": "```🗓 Today's item:```\n",
+            "dailySell": "```🗓 Today's potion:```\n",
             "priceTagStart": " | `",
             "priceTagEnd": " 💵`",
             "outro": "\n\n```🛍 Permanent sales:```\n:question: **A random item** | `350 💵`\n:hospital: **Heal alterations** | `500 💵`\n:heartpulse: **Full heal** | `3000 💵`\n:money_mouth: **\"MoneyMouth\" badge** | `25000 💵`\n\n```▶ Choose your purchase:```",
