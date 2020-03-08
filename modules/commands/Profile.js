@@ -58,7 +58,7 @@ const generateProfileMessage = function (message, player, numberOfPlayer, client
 
     embed.addField(Text.commands.profile.stats,
         Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense +
-        player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed()+ Text.commands.profile.statsFightPower + player.getSpeed(), false); 
+        player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed()+ Text.commands.profile.statsFightPower + player.getFightPower(), false); 
 
     embed.addField(Text.commands.profile.rankAndScore,
         Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +
