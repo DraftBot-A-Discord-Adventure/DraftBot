@@ -73,8 +73,8 @@
             "intro": ":shopping_cart: **Shop's overlay:**",
             "dailySell": "```🗓 Today's potion:```\n",
             "priceTagStart": " | `",
-            "priceTagEnd": " 💵`",
-            "outro": "\n\n```🛍 Permanent sales:```\n:question: **A random item** | `350 💵`\n:hospital: **Heal alterations** | `500 💵`\n:heartpulse: **Full heal** | `3000 💵`\n:money_mouth: **\"MoneyMouth\" badge** | `25000 💵`\n\n```▶ Choose your purchase:```",
+            "priceTagEnd": " 💰`",
+            "outro": "\n\n```🛍 Permanent sales:```\n:question: **A random item** | `350 💰`\n:hospital: **Heal alterations** | `500 💰`\n:heartpulse: **Full heal** | `3000 💰`\n:money_mouth: **\"MoneyMouth\" badge** | `25000 💰`\n\n```▶ Choose your purchase:```",
             "emojis": {
                 "a": "❓",
                 "b": "🏥",
@@ -82,10 +82,10 @@
                 "d": "🤑"
             },
             "choices": {
-                "a": ":question: **A random item** | `350 💵`",
-                "b": ":hospital: **Heal alterations** | `500 💵`",
-                "c": ":heartpulse: **Complete health regeneration** | `3000💵`",
-                "d": ":money_mouth: **\"MoneyMouth\" Badge** | `25000💵`"
+                "a": ":question: **A random item** | `350 :moneybag:`",
+                "b": ":hospital: **Heal alterations** | `500 :moneybag:`",
+                "c": ":heartpulse: **Complete health regeneration** | `3000 :moneybag:`",
+                "d": ":money_mouth: **\"MoneyMouth\" Badge** | `25000 :moneybag:`"
             },
             "infos": {
                 "aa": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
