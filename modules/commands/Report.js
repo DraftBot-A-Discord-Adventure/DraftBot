@@ -21,8 +21,8 @@ const reportCommand = async function (message, args, client, talkedRecently) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-   //if (playerManager.checkState(player, message, ":baby::smiley:", language)) {  //check if the player is not dead or sick
-   if (true) {
+   if (playerManager.checkState(player, message, ":baby::smiley:", language)) {  //check if the player is not dead or sick
+   //if (true) {
       playerManager.setPlayerAsOccupied(player);
 
       if (player.getScore() == 0) {
