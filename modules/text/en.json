@@ -532,7 +532,7 @@
     },
     "events": {
         "0": " : ** :mailbox_with_mail: **Welcome!** :crown: The king searches for a mighty knight to marry his daughter and **you** have been chosen to be part of the selection contest! I'll be your partner for this journey, and I'll do my best to help you triumph!\n:triangular_flag_on_post: Our goal for this game is to collect as many points as we can, to show the king our might!:muscle: I'll explain how it works...\n:notebook_with_decorative_cover: Of course, I won't make a long and monotonous speech, so if you want more details, please use `!help`\nSo, let's start! It's pretty simple, I'll do whatever you ask! I'm going to collect resources :moneybag: for you while you're gone, and you'll just have to use `!report` to get them. If I ever have problems, I'll ask you what to do and you'll help me continue!\n\n:walking: Let's go!\n🤔 I don't really know...\n\n*-Use Discord reactions to accomplish any action :warning: If you don't answer, you'll have to start the tutorial again :wink:.*",
-        "1": " : ** :deciduous_tree: A tree fell on the path and blocked it!\n\n:scissors: Cut the tree up and continue.\n:walking: Go another way.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*",
+        "1": " : ** :deciduous_tree: A tree fell on the path and blocked it!\n\n:axe: Cut the tree up and continue.\n:walking: Go another way.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*",
         "2": " : ** :dog: In front of you, a dog arrives, and circles you. He seems to want you to follow him!\n\n:dog2: Follow the dog.\n:runner: Continue without worrying about the dog.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*",
         "3": " : ** :lock: You found a box! But it's closed...\n\n:key: Look around for the key.\n:pick: Attack the padlock with a pickaxe.\n:arrow_forward: Abandon the box where you found it.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*",
         "4": " : ** :stars: You have decided to enjoy a quiet night to continue your progress. The sky is magnificient and after a few minutes scrutinizing the sky, you observe a shooting star!\n\n:speaking_head: Make a wish.\n:runner: Ignore this event.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*",
@@ -598,14 +598,14 @@
         },
         "1": {
             "✂": {
-                "1": "** | :scissors: Felling this tree took half an hour!"
+                "1": "** | :axe: Felling this tree took half an hour!"
             },
             "🚶": {
                 "1": "** | :walking: Finding another way seemed to be a good decision, you didn't waste any time!",
                 "2": "** | :walking: Going down another path seemed like a good solution, unfortunately you got hurt while taking it."
             },
             "end": {
-                "1": "** | :scissors: The tree has been cut down and the road is clear. Unfortunately, looters have stolen everything you collected since the last report!"
+                "1": "** | :axe: The tree has been cut down and the road is clear. Unfortunately, looters have stolen everything you collected since the last report!"
             }
         },
         "2": {
