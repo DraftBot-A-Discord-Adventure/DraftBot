@@ -1302,7 +1302,7 @@
               "2": "** | 🚶 You just keep walking... a few minutes later, the rain stops and you arrive at the village gates.", 
               "3": "** | 🚶 You keep walking quietly."
              },
-            "": {
+            "🏃": {
               "1": "** | 🏃 You start running and you arrive at the village less than 15 minutes later.", 
               "2": "** | 🏃 You start running, fortunately, the rain stops quickly. So you return to your normal pace."
              },
