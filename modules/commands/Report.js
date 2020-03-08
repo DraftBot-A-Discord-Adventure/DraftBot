@@ -18,7 +18,7 @@ const reportCommand = async function (message, args, client, talkedRecently) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-   if (playerManager.checkState(player, message, ":baby::smiley:", language, Text)) {  //check if the player is not dead or sick
+   if (playerManager.checkState(player, message, ":baby::smiley:", language)) {  //check if the player is not dead or sick
    //if (true) {
       playerManager.setPlayerAsOccupied(player);
 
@@ -38,7 +38,7 @@ const reportCommand = async function (message, args, client, talkedRecently) {
 
       switch (true) {
          case time < DefaultValues.report.minimalTime:
-            displayErrorReport(message);
+            displayErrorReport(message, Text);
             playerManager.setPlayerAsUnOccupied(player);
             break;
 
@@ -299,7 +299,7 @@ function launchAdventure(message, pointsGained, moneyChange, player, possibility
  * display an error to the user if he has not waiting more that 1 hour
  * @param {*} message - The message that cause the command to be called
  */
-function displayErrorReport(message) {
+function displayErrorReport(message, Text) {
    message.channel.send(Text.commands.report.reportStart + message.author.username + Text.commands.report.noReport);
 }
 
