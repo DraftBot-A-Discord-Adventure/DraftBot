@@ -566,7 +566,7 @@
     "33": " : ** Vous arrivez dans une ferme où se déroule un grand festin. Les gens paraissent accueillants. \n\n:lips: S'asseoir tranquillement pour bavarder \n:poultry_leg: En profiter pour s'empiffrer de nourriture \n:detective: Profiter de l'animation générale pour voler les gens \n:man_walking: Continuer sans s'arrêter\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "34": " : ** Au détour d'une rue, des passants vous ont reconnu et vous abordent. Ils se rappellent parfaitement de l'aide que vous leur aviez apportée, et insistent pour vous remercier en vous offrant un cadeau. Ils vous demandent ce qui vous ferait le plus plaisir.\n\n:four_leaf_clover: Cadeau en nature\n:moneybag: Cadeau en monnaie\n:innocent: Cadeau en santé\n:salad: Cadeau alimentaire\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "35": " : ** :beers: Vous entrez dans un bar, et le barman vous interpelle, vous disant qu'il aimerait \"tester de nouvelles boissons\" sur vous.\n\n:beer: Accepter de servir de cobaye\n:x: Refuser sa proposition\n:moneybag: Refuser, et tenter de voler des gens\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "36": " : ** Au cours de votre très long périple vous arrivez dans un petit village fort charmant. Vous atteignez le centre du village, mais il s'avère qu'il est très petit et qu'il n'y a que deux commerces : la bijouterie et une auberge . Vous découvrez grâce à un passant que la bijouterie est gérée par un vieillard et qu'il fait de magnifiques bijoux et colliers. L'auberge est, quant à elle, dirigée par un couple, et il paraît qu'elle a un grand succès .\n\n:speaking_head: Aller voir le bijoutier et discuter\n:money_with_wings: Essayer de voler le bijoutier\n:house_with_garden: Aller à l'auberge se reposer\n:person_walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "36": " : ** Au cours de votre très long périple vous arrivez dans un petit village fort charmant. Vous atteignez le centre du village, mais il s'avère qu'il est très petit et qu'il n'y a que deux commerces : la bijouterie et une auberge . Vous découvrez grâce à un passant que la bijouterie est gérée par un vieillard et qu'il fait de magnifiques bijoux et colliers. L'auberge est, quant à elle, dirigée par un couple, et il paraît qu'elle a un grand succès.\n\n:speaking_head: Aller voir le bijoutier et discuter\n:money_with_wings: Essayer de voler le bijoutier\n:house_with_garden: Aller à l'auberge se reposer\n:person_walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "37": " : ** :person_walking: Vous marchez tranquillement, le temps est clair et la route bonne. Vous pensez à la douce nuit que vous passerez dans une auberge du prochain village que vous traverserez, et cela vous donne à nouveau le courage d'avancer. La route est pour le moment si calme que, tout en marchant, vous vous plongez dans vos pensées. Vous vous rendez compte que, bien qu'ayant commencé votre aventure dans le but de prouver votre valeur et d'épouser la princesse, vous prenez de plus en plus goût à votre voyage. Alors que vous n'êtes plus très loin du village qui est votre objectif du jour, il commence à pleuvoir.\n\n:person_walking: Continuer à marcher\n:person_running: Accélérer afin de ne pas trop se mouiller\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
    },
   "possibilities": {
@@ -1185,7 +1185,7 @@
        },
       "🔪": {
         "1": "** | 🔪 Vous dégainez votre épée et vous achevez le blessé. C'était cependant sans compter sur les témoins de la scène qui, révoltés par votre acte vous attaquent sauvagement.",
-        "2": "** | 🔪 Vous allez tuer la personne blessée lorsque vous êtes interrompu par un passant, vous décidez donc d'abandonner cette idée, et vous continuez votre chemin.", 
+        "2": "** | 🔪 Vous vous apprêtiez à tuer la personne blessée lorsque vous êtes interrompu par un passant, vous décidez donc d'abandonner cette idée, et vous continuez votre chemin.", 
         "3": "** | 🔪 Lorsque vous dégainez votre épée l'homme crie mais personne ne l'entend, vous le tuez avant de le dépouiller."
        },
       "🗣️": {
@@ -1196,7 +1196,7 @@
        },
        "end": {
         "1": "** | 🚶‍♂️ En continuant votre route, vous décidez de vous arrêter près d'un arbre et trouvez quelques pièces d'or.",
-        "2": "** | 🚶‍♂️ En partant hâtivement, des gens vous voient et décident de vous poursuivre. Vous courez pendant de longues minutes avant de les semer.",
+        "2": "** | 🚶‍♂️ Alors que vous partez hâtivement, des gens vous voient et décident de vous poursuivre. Vous courez pendant de longues minutes avant de les semer.",
         "3": "** | 🚶‍♂️ Vous continuez votre route comme si de rien n'était.",
         "4": "** | 🚶‍♂️ En vous éloignant vous croisez des braconniers qui vous dépouillent."
        }
@@ -1252,7 +1252,7 @@
        },
        "end": {
         "1": "** | 🚶‍♂️ Face à l'absence de réponse de votre part, le groupe d'amis décide malgré tout de partir vous chercher un cadeau. Alors que vous les attendez poliment, vous angoissez de plus en plus à l'idée de perdre du temps. Le risque de ne pas arriver à sauver la princesse vous obsède, vous rend malade même... et vous finissez par tomber dans les pommes. Vous découvrant inanimé en revenant, les honnêtes individus vous adossent à un arbre pour vous permettre de vous reposer, et vous laissent ce cadeau, avant de reprendre la route. ",
-        "2": "** | 🚶‍♂️ Les quidams, voyant l'inactivité émanant de vous, n'insistent pas. Vous continuez votre route sans y prêter attention. ",
+        "2": "** | 🚶‍♂️ Face à votre absence de réaction, les quidams n'insistent pas. Vous continuez votre route sans y prêter attention. ",
         "3": "** | 🚶‍♂️ Vous voyant hésiter trop longtemps, les jeunes hommes décident finalement de vous offrir un peu d'argent pour vous permettre l'achat de quelques babioles. Vous les remerciez avant de reprendre votre route."
        }
     },
@@ -1280,7 +1280,7 @@
         "2": "** | 🗣️ Vous décidez de tenter de marchander afin de vous acheter un des bijoux, pour peu cher. Vous discutez un long moment mais le vieillard est un très bon marchand et il ne cède pas. Vous repartez après avoir compris qu'il ne compte pas baisser ses prix."
        },
       "💸": {
-        "1": "** | 💸 Vous avez confiance à vos capacités d'infiltration. Vous y allez, et fort heureusement le vieillard était absent. Vous arrivez à voler le contenu de la caisse et déguerpissez.",
+        "1": "** | 💸 Vous faites confiance à vos capacités d'infiltration. Vous y allez, et fort heureusement le vieillard était absent. Vous arrivez à voler le contenu de la caisse et déguerpissez.",
         "2": "** | 💸 Vous arrivez devant la boutique et vous entrez dedans dans le but de voler le bijoutier. Alors que vous vous emparez de l'argent du bijoutier, un garde personnel vous assomme. Vous vous réveillez quelques heures plus tard, le long d'un sentier."
        },
       "🏡": {
@@ -1304,7 +1304,7 @@
        },
       "🏃": {
         "1": "** | 🏃 Vous vous mettez à courir, et moins d'un quart d'heure après, arrivez dans le village.", 
-        "2": "** | 🏃 Vous vous mettez à courir, heureusement la pluie s'arrête vite. Vous reprenez un pas plus modéré et ne tardez pas à arriver au village"
+        "2": "** | 🏃 Vous vous mettez à courir, heureusement la pluie s'arrête vite. Vous reprenez un pas plus modéré et ne tardez pas à arriver au village."
        },
        "end": {
         "1": "** | Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder, lorsque vous remarquez à quelques pas de vous une bourse rebondie de pièces et un objet posé à côté. Vous les récupérez, ressortez de l'espèce de bosquet, et repartez en direction du village."
