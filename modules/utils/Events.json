@@ -355,7 +355,7 @@
                 "2": {
                     "timeLost": "0",
                     "healthPointsChange": "-15",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -697,7 +697,7 @@
                 "1": {
                     "timeLost": "0",
                     "healthPointsChange": "-25",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -771,7 +771,7 @@
                 "3": {
                     "timeLost": "0",
                     "healthPointsChange": "-25",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -822,7 +822,7 @@
                 "3": {
                     "timeLost": "0",
                     "healthPointsChange": "0",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -845,7 +845,7 @@
                 "2": {
                     "timeLost": "0",
                     "healthPointsChange": "-10",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -933,7 +933,7 @@
                 "3": {
                     "timeLost": "0",
                     "healthPointsChange": "-20",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -949,7 +949,7 @@
                 "2": {
                     "timeLost": "0",
                     "healthPointsChange": "-40",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -1349,7 +1349,7 @@
                 "1": {
                     "timeLost": "0",
                     "healthPointsChange": "-35",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -1396,7 +1396,7 @@
                 "3": {
                     "timeLost": "0",
                     "healthPointsChange": "-20",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -1565,7 +1565,7 @@
                 "3": {
                     "timeLost": "0",
                     "healthPointsChange": "-20",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -1796,7 +1796,7 @@
                 "3": {
                     "timeLost": "0",
                     "healthPointsChange": "-60",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },
@@ -1966,7 +1966,7 @@
                 "2": {
                     "timeLost": "0",
                     "healthPointsChange": "-35",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -2113,7 +2113,7 @@
                 "3": {
                     "timeLost": "0",
                     "healthPointsChange": "-15",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -2292,7 +2292,7 @@
                 "2": {
                     "timeLost": "0",
                     "healthPointsChange": "-45",
-                    "newEffect": ":sick:",
+                    "newEffect": ":head_bandage:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 }
@@ -2851,7 +2851,7 @@
                 "1": {
                     "timeLost": "0",
                     "healthPointsChange": "-20",
-                    "newEffect": ":smiley:",
+                    "newEffect": ":confounded:",
                     "xpGained": "0",
                     "moneyGained": "0"
                 },

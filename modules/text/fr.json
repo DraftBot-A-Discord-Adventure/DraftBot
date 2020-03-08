@@ -611,7 +611,7 @@
     "2": {
       "🏃": {
         "1": "** | :runner: Après 15 minutes de poursuite vous parvenez à semer le chien, il ne semblait pas très amical !",
-        "2": "** | :runner: En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer ! :sick:"
+        "2": "** | :runner: En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer ! :head_bandage:"
       },
       "🐕": {
         "1": "** | :dog2: Vous perdez la trace du chien au bout de quelques minutes, il allait trop vite !",
@@ -695,7 +695,7 @@
     },
     "7": {
       "🚪": {
-        "1": "** | :door: En forcant la porte vous vous blessez profondement, il faut absolument vous soigner ! :sick:",
+        "1": "** | :door: En forcant la porte vous vous blessez profondement, il faut absolument vous soigner ! :head_bandage:",
         "2": "** | :door: Après avoir passé presque 1 heure à tenter de rentrer dans la maison, vous finissez par abandonner. En partant vous trouvez un objet qui pourra peut être vous être utile !",
         "3": "** | :door: Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. :sleeping: ",
         "4": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. En sortant vous trouvez un objet qui pourra peut être vous être utile !",
@@ -712,7 +712,7 @@
       "🌲": {
         "1": "** | 🌲 Vous traversez la forêt sans trop de difficultés et continuez votre route !",
         "2": "** | 🌲 Vous avancez lentement à travers les sapins, sur le chemin vous ramassez des branches de sapin et vous fabriquez des petits objets que vous pourrez utiliser ou revendre...",
-        "3": "** | 🌲 Vous progressez lentement dans la forêt. Malheureusement le sol est glissant et vous tombez au fond d'un fossé ! Vous parvenez à en ressortir mais vous êtes blessé ! :sick:"
+        "3": "** | 🌲 Vous progressez lentement dans la forêt. Malheureusement le sol est glissant et vous tombez au fond d'un fossé ! Vous parvenez à en ressortir mais vous êtes blessé ! :head_bandage:"
       },
       "🏞": {
         "1": "** | 🏞 Vous changez finalement d'avis et décidez de rester sur les plaines, moins dangereux ce chemin est également plus long, vous perdez beaucoup de temps !",
@@ -726,12 +726,12 @@
       "🔎": {
         "1": "** | :mag_right: Après un quart d'heure à chercher, vous retrouvez la fourche à côté d'un tas de foin. Pour vous remercier, le paysan vous offre quelques pièces.",
         "2": "** | :mag_right: Après une demi-heure de recherches, vous ne trouvez pas la fourche. Vous découvrez cependant un objet qui pourra peut être vous être utile !",
-        "3": "** | :mag_right: En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille. :sick:",
+        "3": "** | :mag_right: En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille. :head_bandage:",
         "4": "** | :mag_right: Vous cherchez la fourche pendant presque une heure mais vous ne parvenez pas à la retrouver. Vous quittez poliment le paysan et continuez votre route"
       },
       "▶": {
         "1": "** | :walking: Vous continuez votre chemin sans prêter attention au paysan.",
-        "2": "** | :arrow_right: En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied. :sick:"
+        "2": "** | :arrow_right: En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied. :head_bandage:"
       },
       "end": {
         "1": "** | :walking: Vous regardez bêtement pendant 15 minutes le paysan chercher sa fourche avant de repartir."
@@ -757,11 +757,11 @@
       "🌳": {
         "1": "** | :deciduous_tree: Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégats.",
         "2": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la forêt mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
-        "3": "** | :deciduous_tree: En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! :sick:"
+        "3": "** | :deciduous_tree: En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! :head_bandage:"
       },
       "👈": {
         "1": "** | :walking: C'était en effet un raccourci !",
-        "2": "** | :deciduous_tree: Vous tombez dans une embuscade ! Après vous avoir volé tous vos bien, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui. :sick:"
+        "2": "** | :deciduous_tree: Vous tombez dans une embuscade ! Après vous avoir volé tous vos bien, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui. :head_bandage:"
       },
       "👉": {
         "1": "** | :walking: Vous ne savez pas trop pourquoi vous avez pris un chemin 10 fois plus long que celui que vous aviez prévu au départ mais vous avez fini par arriver à bon port."
@@ -862,7 +862,7 @@
     },
     "16": {
       "🔎": {
-        "1": "** | 🔎 Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, alors que vous entrez dans une grande salle délabrée, un immense morceau du plafond se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment.",
+        "1": "** | 🔎 Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, alors que vous entrez dans une grande salle délabrée, un immense morceau du plafond se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment, blessé. :head_bandage:",
         "2": "** | 🔎 Vous entrez dans le château et parcourez rapidement les lieux. Au bout de quelques minutes, vous trouvez une pièce qui semble être l'ancienne armurerie. Pressé de ressortir du bâtiment, vous ramassez le premier objet qui vous tombe sous la main et ressortez en pressant le pas.",
         "3": "** | 🔎 Il semblerait que ce château soit moins abandonné qu'il en a l'air ! Peu après votre entrée vous entendez de nombreux bruits en provenance de différentes salles. Peu rassuré, vous préférez reprendre votre route."
       },
@@ -872,7 +872,7 @@
       "🔁": {
         "1": "** | 🔁 Vous faites le tour du château mais vous ne trouvez rien. Estimant avoir perdu suffisamment de temps, vous continuez votre chemin.",
         "2": "** | 🔁 Cette ronde ne vous en apprendra pas beaucoup sur la grande bâtisse. Cependant, vous découvrez tout au long de celle-ci un grand nombre de petites pièces d'or disséminées autour du château. Heureux de votre découverte, vous reprenez votre route.",
-        "3": "** | 🔁 Alors que vous commenciez à faire le tour du château, vous tombez par accident dans un trou. Légèrement blessé à la jambe, cette ronde vous aura coûté beaucoup de temps ! :sick:"
+        "3": "** | 🔁 Alors que vous commenciez à faire le tour du château, vous tombez par accident dans un trou. Blessé à la jambe, il faudra vous soigner avant de continuer ! :head_bandage:"
       },
       "end": {
         "1": "** | 🚶 Après avoir admiré le bâtiment pendant une quinzaine de minute, vous reprenez votre route.",
@@ -913,7 +913,7 @@
       "🔎": {
         "1": "** | 🔎 Vous cherchez pendant 30 minutes, mais vous ne trouvez rien d'intéressant.",
         "2": "** | 🔎 Après avoir cherché 40 minutes, vous finissez par trouver quelque chose qui pourrait être utile !",
-        "3": "** | 🔎 Alors que vous cherchiez dans une boîte a outils, vous vous entaillez la main sur une pince rouillée. La blessure est vraiment profonde !:sick:"
+        "3": "** | 🔎 Alors que vous cherchiez dans une boîte a outils, vous vous entaillez la main sur une pince rouillée. La blessure est vraiment profonde ! :head_bandage:"
       },
       "⛓": {
         "1": "** | ⛓ Vous grimpez jusqu'en haut des échafaudages, mais à l'exception d'un magnifique paysage, vous ne trouvez rien. Après avoir passé quelques minutes à l'admirer, vous repartez.",
@@ -942,7 +942,7 @@
       "🔪": {
         "1": "** | 🔪 Vous vous approchez du cadavre, et le dépecez. Vous vendez sa fourrure au premier marchand itinérant que vous croisez.",
         "2": "** | 🔪 Vous dépecez le renard et partez en quête d'un moyen de vendre sa peau. Quelques minutes plus tard vous croisez un marchand qui vous propose de la troquer contre un de ses objets de qualité, et vous acceptez.",
-        "3": "** | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, mais il semblerait que vous soyez tombé malade !"
+        "3": "** | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, un peu tard puisque vous vous sentez rapidement mal en point ! :sick:"
       },
       "end": {
         "1": "** | 👀 Vous regardez un moment la bête étendue au sol, hésitant. Finalement vous reprenez votre chemin."
@@ -971,7 +971,7 @@
       "🌉": {
         "1": "** | 🌉 La traversée vous semble risquée, mais vous n'avez pas de temps à perdre et traversez donc. Après 5 minutes de marche sur ce pont vous arrivez au bout sain et sauf.",
         "2": "** | 🌉 En traversant ce pont vous voyez un petit sac, en l'ouvrant vous remarquez un nombre conséquent de pièces",
-        "3": "** | 🌉 En marchant sur le pont, vous entendez de petits craquements, quand soudain, une planche tombe, et vous tombez avec. :nauseated_face:",
+        "3": "** | 🌉 En marchant sur le pont, vous entendez de petits craquements, quand soudain, une planche tombe, et vous tombez avec. :head_bandage:",
         "4": "** | 🌉 Au cours de votre traversée, une planche tombe, heureusement, vous réussissez à vous accrocher à une autre planche, elle plus solide. Après quelques minutes à vous remettre de vos émotions, vous continuez votre route."
       },
       "🚶": {
@@ -986,7 +986,7 @@
     },
     "22": {
       "💶": {
-        "1": "** | 💶 Vous vous approchez du fermier,et lui demandez des fruits, celui-ci vous en donne en échange de quelques pièces. Une quinzaine de minutes plus tard, vous remarquez qu'ils étaient empoisonnés et tombez à même le sol. :nauseated_face:",
+        "1": "** | 💶 Vous vous approchez du fermier et lui demandez des fruits, celui-ci vous en donne en échange de quelques pièces. Une quinzaine de minutes plus tard, vous remarquez qu'ils étaient empoisonnés et tombez à même le sol. :sick:",
         "2": "** | 💶 Le fermier accepte de vous vendre 2 pommes contre quelques pièces. Après les avoir mangées, vous regagnez beaucoup d'énergie et repartez.",
         "3": "** | 💶 Le fermier refuse de vous vendre des fruits, vous continuez donc votre route sans perdre plus de temps."
       },
@@ -1012,7 +1012,7 @@
       },
       "🚶": {
         "1": "** | 🚶 Vous ne voulez pas perdre de temps, et continuez votre route.",
-        "2": "** | 🚶 En partant, vous trébuchez dans un trou et vous blessez. :nauseated_face:"
+        "2": "** | 🚶 En partant, vous trébuchez dans un trou et vous blessez. :head_bandage:"
       },
       "end": {
         "1": "** | 👀 Vous passez 15 minutes à les regarder et vous décidez de continuer votre route sans y prêter plus d'attention."
@@ -1030,7 +1030,7 @@
       },
       "🍢": {
         "1": "** | 🍢 Cette nourriture est incroyable ! De votre vie, jamais vous n'avez mangé quelque chose d'aussi bon. Vous vous sentez revigoré et apaisé.",
-        "2": "** | 🍢 Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé.",
+        "2": "** | 🍢 Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé. :sick:",
         "3": "** | 🍢 Cette nourriture est assez classique. Vous ne ressentez rien en la mangeant ni après avoir fini puis en oubliez vite le goût "
       },
       "end": {
@@ -1050,7 +1050,7 @@
       "🚶": {
         "1": "** | 🚶 Vous ne prêtez pas attention au massacre qui a eu lieu, et allez vous reposer un peu plus loin.",
         "2": "** | 🚶 Pas de temps à perdre ! Vous continuez votre route. ",
-        "3": "** | 🚶 Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. :nauseated_face:"
+        "3": "** | 🚶 Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. :head_bandage:"
       },
       "end": {
         "1": "** | 👀 Vous restez regarder les soldats pendant une quinzaine de minutes puis continuez votre route.",
@@ -1094,7 +1094,7 @@
       },
       "end": {
         "1": "** | 👀 Vous observez bêtement l'objet pendant 20 minutes puis repartez.",
-        "2": "** | 🚶 Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez et y tombez, heureusement vous arrivez à rapidement remonter, mais vous ressortez de cette aventure grièvement blessé. :nauseated_face:"
+        "2": "** | 🚶 Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez, heureusement vous arrivez à rapidement remonter nous sans vous être sévèrement blessé. :head_bandage:"
       }
     },
     "28": {
@@ -1150,7 +1150,7 @@
       "🍌": {
         "1": "** | 🍌 Alors que vous vous apprêtiez à sortir de l'exploitation avec votre butin, un esclave vous interpelle et vous dénonce. Vous finissez enfermé. :lock:",
         "2": "** | 🍌 Vous ressortez discrètement avec votre délicieux butin que vous finissez rapidement de manger",
-        "3": "** | 🍌 À votre grand malheur, vous n'aviez pas remarqué l'écrit \"Impropres à la vente\" devant vos bananes fraichement acquises et celles-ci ont vite fait de vous rendre malade ! :nauseated_face: "
+        "3": "** | 🍌 À votre grand malheur, vous n'aviez pas remarqué l'écrit \"Impropres à la vente\" devant vos bananes fraichement acquises et celles-ci ont vite fait de vous rendre malade ! :sick: "
       },
       "end": {
         "1": "** | 🚶 Vous ne vous sentez pas d'humeur à faire la fête aujourd'hui, vous décidez donc de rebrousser chemin et de continuer tranquillement votre route.",
@@ -1212,7 +1212,7 @@
        },
       "🍗": {
         "1": "** | 🍗 Cette bonne nourriture vous donne un regain d'énergie !",
-        "2": "** | 🍗 Pas de chance ! Vous tombez sur un morceau avarié et tombez malade. :nauseated_face:", 
+        "2": "** | 🍗 Pas de chance ! Vous tombez sur un morceau avarié et tombez malade. :sick:", 
         "3": "** | 🍗 Vous vous empiffrez de nourriture, vous aurez besoin d'une bonne digestion pour reprendre la route.", 
         "4": "** | 🍗 Vous avec bien mangé, vous bavardez avec votre voisin qui ne cesse de vous servir à boire. Vous finissez par vous effondrer, ivre. :zany_face:"
        },
@@ -1226,7 +1226,7 @@
         "3": "** | 🚶 Vous courez de peur qu'ils viennent à votre rencontre. Épuisé, vous vous reposez."
        },
        "end": {
-        "1": "** | Vous ne voyez pas la chèvre foncer sur vous et vous tombez à terre, étourdi. ",
+        "1": "** | Vous ne voyez pas la chèvre foncer sur vous et vous tombez à terre, étourdi. :confounded:",
         "2": "** | Les individus viennent vous voir pour vous amener à table. Vous êtes forcé de manger avec eux, ce qui vous redonne de l'énergie !"
        }
     },
@@ -1247,7 +1247,7 @@
         "3": "** | 😇 Ils ne s'attendaient pas à ce genre de demande et restent dubitatifs quant à la réponse à vous donner. Ne voulant pas laisser s'installer le malaise, vous reprenez votre route."
        },
        "🥗": {
-        "1": "** | 🥗 L'un d'entre eux vous tend une soupe plutôt appétissante. Vous la buvez sans vous méfier. Ces malandrins vous ont tendu un piège ! Attendant depuis longtemps de vous mettre à mal pour vous piller, le breuvage contenait juste assez d'amanite tue-mouches pour rendre malade. Vous vous sentez partir tout en voyant vos poches se faire dépouiller, impuissant. :nauseated_face:",
+        "1": "** | 🥗 L'un d'entre eux vous tend une soupe plutôt appétissante. Vous la buvez sans vous méfier. Ces malandrins vous ont tendu un piège ! Attendant depuis longtemps de vous mettre à mal pour vous piller, le breuvage contenait juste assez d'amanite tue-mouches pour rendre malade. Vous vous sentez partir tout en voyant vos poches se faire dépouiller, impuissant. :sick:",
         "2": "** | 🥗 Ces passants ont cuisiné pour vous un met des plus savoureux, digne d'une potion de gaulois. En regardant de plus près, vous apercevez un objet laissé au fond du bol. Il pourrait bien vous être utile pour la suite.", 
         "3": "** | 🥗 Ravis de vous rendre service, le groupe part vous acheter la spécialité du coin. Voyant le plat arriver, vous faites bonne figure mais la dégustez avec un certain dégoût : vous n'aimez pas les champignons ! Non sans mal, vous continuez votre route. "
        },
@@ -1260,7 +1260,7 @@
     "35": {
       "🍺": {
         "1": "** | 🍺 Vous acceptez sa proposition, et buvez le liquide épais qu'il vous tend. C'est délicieux et cela répand en vous une douce chaleur. ",
-        "2": "** | 🍺 Vous prenez sans plus de cérémonie la chope qu'il vous tend, remplie d'un liquide épais et verdâtre. Vous buvez celui-ci d'un trait. Quelques secondes après, vous réalisez l'horrible goût que ça a, et vomissez le tout par terre. Le barman s'excuse et vous donne une poignée de pièces en dédommagement, mais vous vous sentez malade. :nauseated_face:", 
+        "2": "** | 🍺 Vous prenez sans plus de cérémonie la chope qu'il vous tend, remplie d'un liquide épais et verdâtre. Vous buvez celui-ci d'un trait. Quelques secondes après, vous réalisez l'horrible goût que ça a, et vomissez le tout par terre. Le barman s'excuse et vous donne une poignée de pièces en dédommagement, mais vous vous sentez malade. :sick:", 
         "3": "** | 🍺 Vous acceptez sa requête, et il vous donne une chope. Vous la buvez, et sentez un petit arrière goût pas piqué des hannetons. Vous donnez au barman vos impressions, il vous remercie, puis vous reprenez votre route. "
        },
       "❌": {
