@@ -560,7 +560,14 @@
         "27": " : ** :walking: Walking through the small village you found, you notice a well with a small shiny object at the bottom.\n\n:point_down: Try to descend and retrieve the object.\n:handshake: Try to grab the object with the well's bucket\n:walking: Continue on your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "28": " : ** :angel: On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause. \n\n:white_check_mark: Agree to join them\n:x: Gently reject the proposal.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "29": " : ** :thermometer: In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape. \n\n:mag: Search the surroundings for a body of water\n:deciduous_tree: Rest at the foot of a tree\n:zzz: Rest right here\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
-        "30": " : ** :european_castle: You see a castle in the distance. You decide to approach the main entrance, it seems to be that of Duke Benatis. Known for his banana farms, he organizes a party for his 21st birthday. When you approach a little closer, a guard invites you to enter as the Duke wants everyone to participate in the party. When you return, you see a huge feast awaiting the attendees.\n\n:prince: Go to the Duke\n:tada: Stay at the party\n:gift: Give him a present\n:banana: Go and steal bananas from his farm\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+        "30": " : ** :european_castle: You see a castle in the distance. You decide to approach the main entrance, it seems to be that of Duke Benatis. Known for his banana farms, he organizes a party for his 21st birthday. When you approach a little closer, a guard invites you to enter as the Duke wants everyone to participate in the party. When you return, you see a huge feast awaiting the attendees.\n\n:prince: Go to the Duke\n:tada: Stay at the party\n:gift: Give him a present\n:banana: Go and steal bananas from his farm\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "31": " : ** :horse_racing: You hear the rhythm of a gallop from far away. You turn back and see a black armoured  (British spelling) knight with a coat of arms that you do not recognise. (flows better imo)\n\n:man_walking: Keep going normally.\n:herb: Hide in a bush at the roadside.\n:wave: Motion to him to stop.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "32": " : ** You are walking quietly in a forest when you hear a scream. The voice seems to be that of a man, you decide to go towards the direction of the scream where you find a seriously injured man near a kind of camp.\n\n:syringe: Try to find something to heal the wounded man\n:knife: Shorten the man’s suffers to steal his equipment\n:speaking_head:  Yell and try to alert people.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "33": " : ** You arrive in farm in which festivities are conducted. The people seem to receive you with hospitality.\n\n:lips: Sit down to chat.\n:poultry_leg: Have a go at the food.\n:detective: Take advantage of the commotion to rob some of them.\n:person_walking: Continue without stopping.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "34": " : ** At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n:four_leaf_clover: - Gift in kind\n:moneybag: - Money Gift\n:innocent: - Gift of Health\n:salad: - Gift of Food\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "35": " : ** :beers: You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you.\n\n:beer: Accept the proposal\n:x: Refuse the proposal\n:moneybag:Refuse, and try to rob other customers\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "36": " : ** At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewellery such as necklaces and rings. As for the inn run by a couple, it seems pretty successful\n\n:speaking_head: Go and have a talk with the jeweller\n:money_with_wings: Try to rob the jeweller\n:house_with_garden: Go to rest at the inn\n:person_walking: Continue your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "37": " : ** :person_walking: You are walking quietly, the weather is clear, just like the road. You think about the sweet night you will spend in an inn at the next village you will cross, and this allows you to keep the courage to move forward. The road is so calm that, while walking, you immerse yourself in your thoughts. You realize that, although you have begun your adventure in order to prove your worth and to marry the princess, you start to love your journey more and more. While you are no longer very far from the village which is your objective of the day, it starts raining.\n\n:person_walking: Continue to walk\n:person_running: Speed up so you don’t get too wet\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
     },
     "possibilities": {
         "report": {
@@ -1148,6 +1155,160 @@
               "1": "** | 🚶 You don't feel like partying today, so you decide to turn back and continue your journey quietly.",
               "2": "** | 🚶 You're not ready to party today, so you go back on the road. When you stumble and come face to face with a banana, but it doesn't seem to be any good."
             }
-        }
+        },
+        "31": {
+            "🚶‍♂️": {
+              "1": "** | 🚶‍♂️ The knight hits you at full speed. You fly over 5 metres before crashing to the ground. The knight is already gone, only a cloud of dust remains...",
+              "2": "** | 🚶‍♂️ As the knight approaches you, he sees your difficulty walking under the blazing sun. He offers you a little water from his gourd and continues on his way.", 
+              "3": "** | 🚶‍♂️ The knight catches up to you and asks you for directions. You show him a route and continue on your way."
+             },
+            "🌿": {
+              "1": "** | 🌿 You hide in the bush just in time. This dark knight was about to push you over... You recover your emotions and leave.",
+              "2": "** | 🌿 You dive into the bush. However, you didn't notice that it was actually brambles...", 
+              "3": "** | 🌿  After diving into the bush, you watch the mysterious knight pass by and see an object falling out of his satchel. You pick it up. "
+             },
+            "👋": {
+              "1": "** | 👋 As he notices you waving, the knight comes to a halt by your side. You quickly realise that he his very friendly. ",
+              "2": "** | 👋 The knight comes to a halt next to you and violently hits you, you fall to the ground and pass out. When you wake up, you discover that your pockets have been emptied...", 
+              "3": "** | 👋 The knight passes you by. Perhaps he didn't see your sign, or had no time to waste."
+             },
+             "end": {
+              "1": "** | 🚶‍♂️ The knight passes by without paying attention to you. You continue on your way peacefully."
+             }
+          },
+          "32": {
+            "💉": {
+              "1": "** | 💉 You run in the forest in search of medicinal plants, you find some and you heal the man. He thanks you with a few coins and you go back on your way.",
+              "2": "** | 💉 You decide to fetch medicinal plants in the forest, unfortunately you can’t cure him, you go back on your way, head down.", 
+              "3": "** | 💉 You go to the nearest village for help. Now accompanied, you return to the person, but your companion decides to knock you out. When you wake up, you find the person dead and you’re butt-naked.",
+              "4": "** | 💉 You rush to the nearest city in order to search for tools to heal the man. Once you get back to him, you heal him, he survives and decides to give you compensation for your help. When you leave, you realize that you hurt yourself when treating him."
+             },
+            "🔪": {
+              "1": "** | 🔪 You draw your sword and finish the wounded. However, passers-by who witnessed your horrid acts are revolted and attack you fiercely.",
+              "2": "** | 🔪 You decide to kill the injured person but get interrupted by a bystander. He convinces you to give up this idea and you continue on your way.", 
+              "3": "** | 🔪 When you draw your sword, the man screams for help in vain, you kill him before..."
+             },
+            "🗣️": {
+              "1": "** | 🗣️ You scream frantically and finally someone comes and helps you. To thank you, To thank you, the wounded man gives you a little something before you leave.",
+              "2": "** | 🗣️ You scream frantically. Unfortunately, no one comes, but you attract animals and a wild boar charges right at you.", 
+              "3": "** | 🗣️ You scream frantically. Unfortunately, no one comes and the person dies. Feeling helpless, you go back on your way.",
+              "4": "** | 🗣️ Because of your screams, people from the nearby camp hear you and decide to come to take care of the man. As they thought you tried to assassinate him, they bring you back to their camp by threatening you. After a long discussion, you manage to settle the misunderstanding and they offer you to rest in the camp. You gladly accept their proposal."
+             },
+             "end": {
+              "1": "** | 🚶‍♂️ You continue on your way without paying attention to the man. You decide to stop by a tree and find some gold coins on the way.",
+              "2": "** | 🚶‍♂️ You leave as fast as you can, people see you and decide to chase you. You run for a while and only stop after making sure they lost sight of you.",
+              "3": "** | 🚶‍♂️ You continue on as if nothing happened.",
+              "4": "** | 🚶‍♂️ As you are getting away, you encounter a group of poachers who decide to rob you."
+             }
+          },
+          "33": {
+            "👄": {
+              "1": "** | 👄 Time goes by quickly as you chat during 2 hour with a farmer about the countryside.",
+              "2": "** | 👄 You bond with the guy sitting next to you whom gifts you a present for the sake of it. ", 
+              "3": "** | 👄 As the alcohol kicks in, some people starts getting aggressive and you watch a fight happen before going away.",
+              "4": "** | 👄 A generous young man insists on giving you a bag of money and some drinks.",
+              "5": "** | 👄 You accept politely and stay for a bit, before faking being in a rush and going."
+             },
+            "🍗": {
+              "1": "** | 🍗 This good food makes you full of energy.",
+              "2": "** | 🍗 Not your lucky day, you end up eating a part which turned bad. :nauseated_face:", 
+              "3": "** | 🍗 You stuff yourself full. You'll need a good time to digest and be ready to resume your adventure.", 
+              "4": "** | 🍗 You ate very well, you chat with a random person who keeps giving you drinks. You end up passing out. :zany_face:"
+             },
+            "🕵️": {
+              "1": "** | 🕵️ You take advantage of the situation to gather some gold here and there.",
+              "2": "** | 🕵️ You get caught but succeed in running away."
+             },
+             "🚶": {
+              "1": "** | 🚶 The locals caught sight of you and interpreted your action as disrespect and as such, take all your belongings. ",
+              "2": "** | 🚶 You continue, not caring and find some gold on the way.", 
+              "3": "** | 🚶 You run as you are afraid of social interaction. After a while, you rest as you are exhausted."
+             },
+             "end": {
+              "1": "** | You don't notice the goat coming right at you, you fall down stunned by the shock.",
+              "2": "** | The people comes to get you to the table. They force you to eat with them, which gives you energy!"
+             }
+          },
+          "34": {
+            "🍀": {
+              "1": "** | 🍀 The group of friends tells you that they went in search of the ideal gift. Unfortunately, they didn't find anything you fancy. Disappointed, you continue on your way.",
+              "2": "** | 🍀 These crafty little fellows decided to pull a prank on you and give you a shady gift. But they didn't expect that a board of needles would be dangerous to unwrap. Furious, you leave to take care of yourself.", 
+              "3": "** | 🍀 Your generous donors are proud of their gift, found in a market. They give you an object of which the sight excites you greatly. "
+             },
+            "💰": {
+              "1": "** | 💰 Not listening to your answer, they would rather give you an object. For them, money is not a real gift!",
+              "2": "** | 💰 Gathered in a circle, each and every one of them takes out a few coins from their purses. Together, they finally hand you a nice sum, fruit of the entire group's contribution. After advising you to make good use of it, they wish you a good trip and leave.", 
+              "3": "** | 💰 The few individuals have contributed to offer you a nice sum. You find their attitude suspicious and you quickly realize that this money originates from a robbery. You decide to honestly approach a guard to return this dirty money. Without you expecting it, the guard questions you and then interrogates you about the details of the case and the role you played in it."
+             },
+            "😇": {
+              "1": "** | 😇 The group brings you to the valley, where they offer you an invigorating treatment in the thermal waters. Back on your feet, you are ready to hit the road again.",
+              "2": "** | 😇 The few people offer you a treatment in a massage center near there. While you are getting a massage, one of the candles hanging on the wall falls into the jar of essential oils, setting the whole establishment on fire. You manage to, after plenty of difficulties, get out of the inferno that was once called a building.", 
+              "3": "** | 😇 They did not expect this kind of request and remain doubtful about what they should say. Not wanting to let awkwardness grow, you go on your way."
+             },
+             "🥗": {
+              "1": "** | 🥗 One of them hands you a rather appetizing soup. You drink it carelessly. Those scoundrels set up a trap for you! They had waited for a long time to plunder you, the drink contained just enough fly agaric to make you sick. You feel increasingly ill while seeing your pockets being stripped leaving you helpless. :nauseated_face:",
+              "2": "** | 🥗 These passers-by cooked a tasty dish for you, worthy of a Gallic potion. As you look closer, you see an object laying at the bottom of the bowl. It could be useful for what will happen after.", 
+              "3": "** | 🥗 Glad to be able to help out, the group leaves to buy you a local dish. Seeing it coming, you make an effort to make it seem like you're enjoying it but it disgusts you: you don't like mushrooms! After what seems to be an eternity, you continue on your way."
+             },
+             "end": {
+              "1": "** | 🚶‍♂️ Faced with your lack of response, the group of friends decides to go and get you a gift. As you wait for them politely, you become more and more anxious at the idea of wasting time. The eventuality of not being able to save the princess scares you and even makes you sick... so much that you end up fainting. On their way back, the honest people discovered you and leaned you against a tree to let you rest, while still unconscious, they leftyou with a gift before you set out on your journey.",
+              "2": "** | 🚶‍♂️ The quidams, seeing you inactive, decide to not insist further. You continue on your way without caring.",
+              "3": "** | 🚶‍♂️ Seeing you hesitating for so long, the young men finally decide to offer you some money to allow you to buy some random toys. You thank them before going back on your way."
+             }
+          },
+          "35": {
+            "🍺": {
+              "1": "** | 🍺 You accept his proposal and drink the thick liquid he gives you. It is delicious and spreads a sweet warmth within you.",
+              "2": "** | 🍺 You, without further ado, take the mug filled with a thick, greenish liquid he holds out to you. You drink it in one gulp. A few seconds later, you realize how horrible it tastes and you throw up on the floor. The bartender apologizes and gives you a handful of coins as compensation, but you don't feel well. :nauseated_face:", 
+              "3": "** | 🍺 You accept his request and he gives you a mug. You drink it and feel a little pleasant aftertaste. You give the bartender your impressions, he thanks you, then you go on your way."
+             },
+            "❌": {
+              "1": "** | ❌ You think that drinking unknown things is a bad idea, so you politely decline the bartender’s proposal. However, you order him a good pint of beer, which you empty quietly while chatting with regulars.",
+              "2": "** | ❌ You literally assault the bartender asking him if he thinks you’re a dyke trying to get you to drink any filth. He kicks you out of his bar, so you take revenge by lighting it on fire, and then you go on your way.", 
+              "3": "** | ❌ You explain to the bartender that you don’t want to drink something of which the origins are unknown, let alone be a guinea pig. He reassures you by telling you that he just mixed two alcohols and some plant extracts. So you drink and tell him your impressions."
+             },
+            "💰": {
+              "1": "** | 💰 You explain to him that you don’t really want to be a guinea pig, so the bartender, seemingly disappointed. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pocket three people without worries, but the fourth notices you and shouts at the thief. You run away."
+             },
+             "end": {
+              "1": "** | 🚶‍♂️ You ignore him and just leave the inn."
+             }
+          },
+          "36": {
+            "🗣️": {
+              "1": "** | 🗣️ You talk with the jeweller and you bond with him. He then offers you an object as a token of this new friendship. ",
+              "2": "** | 🗣️ You decide to try to haggle in order to buy yourself one of the jewels for a smaller price. You talk for a long time but the old man is very tough in business and he does not give in. You leave after finally understanding that he does not intend to lower his prices."
+             },
+            "💸": {
+              "1": "** | 💸 You trust your infiltration abilities. You go to the jewelry store and, fortunately, the old man is absent. You manage to steal the contents of one of the crates and run away.",
+              "2": "** | 💸 You arrive in front of the shop and you enter in order to rob the jeweller. As you grab the jeweller’s money, a personal guard knocks you out. You wake up a few hours later, on the side of a road."
+             },
+            "🏡": {
+              "1": "** | 🏡 You arrive at the inn and regain some strenght after a good meal and a well deserved nap.",
+              "2": "** | 🏡 You arrive at the inn which is fully booked. You still have a take-away meal, and go on your way.", 
+              "3": "** | 🏡 Unfortunately the inn is closed and you decide to hit the road, hungry and tired."
+             },
+            "🚶": {
+              "1": "** | 🚶‍♂️ You continue your journey. As you leave the village, you meet a priest whom offers you a piece of bread for your journey"
+             },
+             "end": {
+              "1": "** | 🚶‍♂️ You wait a long time in this square and then merchants start to settle down. It’s your lucky day! It’s a market, and apples are cheap. You buy some and go on your way.",
+              "2": "** | 🚶‍♂️ You wait a little while in this square, then you realize that there is nothing very interesting to do, and go back on your journey."
+             }
+          },
+          "37": {
+            "🚶": {
+              "1": "** | 🚶 You keep walking quietly, after all it's only a light rain and you don't want to run just for that.",
+              "2": "** | 🚶 You just keep walking... a few minutes later, the rain stops and you arrive at the village gates.", 
+              "3": "** | 🚶 You keep walking quietly."
+             },
+            "": {
+              "1": "** | 🏃 You start running and you arrive at the village less than 15 minutes later.", 
+              "2": "** | 🏃 You start running, fortunately, the rain stops quickly. So you return to your normal pace."
+             },
+             "end": {
+              "1": "** | You don’t know what to do, but you notice a small forest on your right. You are a bit thirsty, fortunately you hear the run-off of a stream of water. You head towards it and drink from it. What a thirst-quenching water! You feel way better. As you were busy doing all this, the rain stopped, it lasted for only about ten minutes. As you are about to resume your journey, you notice a bag full of coins and an object lying next to it. You take it all, get out of the forest and leave in the direction of the village ."
+             }
+          }
     }
 }
