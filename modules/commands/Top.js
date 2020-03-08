@@ -169,7 +169,7 @@ function getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, pa
 function displayPlayerInfos(messageTop, player, pseudo, message) {
     messageTop += player.rank + Text.commands.top.boldEnd + pseudo;
     let temps = Math.floor((message.createdTimestamp - player.lastReport) / (1000 * 60)); //temps en minutes depuis le dernier rapport
-    if (temps > 1440) {
+    if (temps > 1440 * DefaultValues.top.daysBeforeInnactive) {
         messageTop += Text.commands.top.innactive;
     } else {
         if (temps > 60) {

@@ -436,13 +436,14 @@
             ":smiley": "** it seems you are not inflicted by any bad status!",
             ":baby:": "** It looks like you haven't begun to play! To start your adventure, use the `report` command.",
             ":dizzy_face:": "** It is unfortunately not possible to continue playing while almost dead! Please wait for the end of the healing of your status.",
-            ":sick:": "** It is unfortunately not possible to continue playing while hurt or ill! Please wait for the end of the healing of your status.",
+            ":sick:": "** It is unfortunately not possible to continue playing while ill! Please wait for the end of the healing of your status.",
             ":skull:": "** You are KO'd! You need to respawn using the `respawn` command.",
             ":lock:" : "** You are currently locked. Please wait for the end of the healing of your status.",
-            ":zzz:": "** It is unfortunately not possible to continue playing while sleeping! Please wait for the end of the healing of your status.",
+            ":sleeping:": "** It is unfortunately not possible to continue playing while sleeping! Please wait for the end of the healing of your status.",
             ":head_bandage:": "** It is unfortunately not possible to continue playing while hurt! Please wait for the end of the healing of your status.",
-            ":snowflake:": "**  It is unfortunately not possible to continue playing while frozen! Please wait for the end of the healing of your status.",
+            ":cold_face:": "**  It is unfortunately not possible to continue playing while frozen! Please wait for the end of the healing of your status.",
             ":confounded:": "** It is unfortunately not possible to continue playing while confused! Please wait for the end of the healing of your status.",
+            ":zany_face:":"** It is unfortunately not possible to continue playing while drunk! Please wait for the end of the healing of your status.",
             ":clock10:": "** Another command was used by you recently and is still waiting for instructions! Please terminate the last command before continuing to play. `If there is no other task waiting for instructions, please contact a bot administrator`",
             ":clock2:": "** It seems you already have something on your hands! Please wait for the end of the task to continue playing!"
         },
@@ -559,7 +560,7 @@
         "26": " : ** :walking: While walking through a village, you notice a group of people. Up close, you quickly notice a hanging in progress. After some discussion, you learn this person is sentenced to death for \"words contrary to the values of the church\"\n\n:money_with_wings: Steal from the audience.\n:punch: Stand in the way to prevent the man from dying.\n:walking: Continue on your journey peacefully\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "27": " : ** :walking: Walking through the small village you found, you notice a well with a small shiny object at the bottom.\n\n:point_down: Try to descend and retrieve the object.\n:handshake: Try to grab the object with the well's bucket\n:walking: Continue on your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "28": " : ** :angel: On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause. \n\n:white_check_mark: Agree to join them\n:x: Gently reject the proposal.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
-        "29": " : ** :thermometer: In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape. \n\n:mag: Search the surroundings for a body of water\n:deciduous_tree: Rest at the foot of a tree\n:zzz: Rest right here\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "29": " : ** :thermometer: In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape. \n\n:mag: Search the surroundings for a body of water\n:deciduous_tree: Rest at the foot of a tree\n:sleeping: Rest right here\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "30": " : ** :european_castle: You see a castle in the distance. You decide to approach the main entrance, it seems to be that of Duke Benatis. Known for his banana farms, he organizes a party for his 21st birthday. When you approach a little closer, a guard invites you to enter as the Duke wants everyone to participate in the party. When you return, you see a huge feast awaiting the attendees.\n\n:prince: Go to the Duke\n:tada: Stay at the party\n:gift: Give him a present\n:banana: Go and steal bananas from his farm\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "31": " : ** :horse_racing: You hear the rhythm of a gallop from far away. You turn back and see a black armoured  (British spelling) knight with a coat of arms that you do not recognise. (flows better imo)\n\n:man_walking: Keep going normally.\n:herb: Hide in a bush at the roadside.\n:wave: Motion to him to stop.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "32": " : ** You are walking quietly in a forest when you hear a scream. The voice seems to be that of a man, you decide to go towards the direction of the scream where you find a seriously injured man near a kind of camp.\n\n:syringe: Try to find something to heal the wounded man\n:knife: Shorten the man’s suffers to steal his equipment\n:speaking_head:  Yell and try to alert people.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
@@ -667,7 +668,7 @@
                 "2": "** | :walking: No time to rest! There's a princess to save!",
                 "3": "** | :walking: You make the choice to not stop and continue forward.",
                 "4": "** | :walking: You continue your adventure without paying any more attention to this fountain",
-                "5": "** | :zzz: You have to know to rest when you are tired. Exhausted, you collapse a few minutes after passing the fountain. You have to sleep before you can continue!"
+                "5": "** | :sleeping: You have to know to rest when you are tired. Exhausted, you collapse a few minutes after passing the fountain. You have to sleep before you can continue!"
             },
             "end": {
                 "1": "** | :money_mouth: You spent a good hour picking up the scattered pieces from the bottom of the water, but it seems to have been worth it! "
@@ -696,7 +697,7 @@
             "🚪": {
                 "1": "** | :door: By forcing the door open, you seriously hurt yourself, you must absolutely be healed! :sick:",
                 "2": "** | :door: After spending almost an hour trying to get into the house, you give up. Leaving, you find an object which may be useful!",
-                "3": "** | :door: You enter the house and put down your things to rest. Taken by a deep sleep, you will need to rest before continuing your adventure. :zzz: ",
+                "3": "** | :door: You enter the house and put down your things to rest. Taken by a deep sleep, you will need to rest before continuing your adventure. :sleeping: ",
                 "4": "** | :door: You enter the house and search around for about fifteen minutes. On leaving, you find an object that may be useful to you!",
                 "5": "** | :door: You enter the house and search around for about fifteen minutes. You end up abandoning your search without finding anything."
             },
@@ -718,7 +719,7 @@
                 "2": "** | 🏞 You finally change your mind and decide to stay on the plains. While less dangerous, this path is also longer, so you lose a lot of time! After a few kilometers, you stop to rest in an inn."
             },
             "end": {
-                "1": "** | :walking: You rest for a few minutes before slowly leaving for the passes. You end up getting exhausted on the other side, you will have to rest before leaving! :zzz:"
+                "1": "** | :walking: You rest for a few minutes before slowly leaving for the passes. You end up getting exhausted on the other side, you will have to rest before leaving! :sleeping:"
             }
         },
         "9": {
@@ -774,12 +775,12 @@
                 "1": "** | 🚶 You decide to go in another direction, but it takes you an entire hour to find a direction that suits you!"
             },
             "🏊": {
-                "1": "** | 🏊 The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing! :snowflake:",
+                "1": "** | 🏊 The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing! :cold_face:",
                 "2": "** | 🏊 You reach the other side easily, and arrive at the village. People greet you and give you food."
             },
             "🚣": {
                 "1": "** | 🚣 When trying to build the raft you hurt yourself! You decide to forget building it after spending several hours on it and leave in another direction.",
-                "2": "** | 🚣 After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue! :snowflake:",
+                "2": "** | 🚣 After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue! :cold_face:",
                 "3": "** | 🚣 You build a small raft in a few hours and reach the other side easily. When you leave your raft, you pick up an object that, if you don't use, will be easy to sell!"
             },
             "🌉": {
@@ -799,7 +800,7 @@
             },
             "🏠": {
                 "1": "** | 🏠 After talking with the innkeeper for 2 hours, you finally learn there are no rooms available tonight! You continue on your way, frustrated you couldn't enjoy a good night's rest.",
-                "2": "** | 🏠 You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure :zzz: ",
+                "2": "** | 🏠 You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure :sleeping: ",
                 "3": "** | 🏠 The inn looks like it's been abandoned for many years... You continue on your way without asking yourself any more questions."
             },
             "🔨": {
@@ -825,7 +826,7 @@
                 "3": "** | 🔨 The worker sees you and suggests that you make a sword with him. Enthusiastic about getting a new weapon, you accept. You don't take long to clumsily drop your heavy creation onto your foot. Seriously wounded, you give up the idea of creating your own weapon. :dizzy_face: !"
             },
             "🛏": {
-                "1": "** | 🛏 After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed :zzz:",
+                "1": "** | 🛏 After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed :sleeping:",
                 "2": "** | 🛏 The man quickly admits he can't accommodate you for the night, but offers to share his meal with you. You politely refuse and go back on your way.",
                 "3": "** | 🛏 You only get a simple growl in response. The residents of the region seem to dislike foreigners",
                 "4": "** | 🛏 The man quickly refuses to share his bed with you but offers to share his dinner with you. Hungry and exhausted, you accept his offer."
@@ -901,7 +902,7 @@
             },
             "🚶": {
                 "1": "** | 🚶 You continue your journey without wasting any more time.",
-                "2": "** | 🚶 You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road. :zzz:"
+                "2": "** | 🚶 You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road. :sleeping:"
             },
             "end": {
                 "1": "** | 🚶 After a few moments of reflection you decide to quickly continue on your journey.",
@@ -1053,7 +1054,7 @@
             },
             "end": {
                 "1": "** | 👀 You stay and watch the soldiers for about fifteen minutes, then continue on your way.",
-                "2": "** | 👀 Tired, you fall sound asleep on the ground. :zzz:"
+                "2": "** | 👀 Tired, you fall sound asleep on the ground. :sleeping:"
             }
         },
         "26": {
@@ -1115,7 +1116,7 @@
             "🔍": {
                 "1": "** | 🔍 You remember passing by a lake, so you go there. When you get there, you enjoy a swim that feels great. You're now refreshed, and in better shape to continue on your journey across the country.",
                 "2": "** | 🔍 You remember passing by a lake, so you go there... on the way, you find an item that will surely be useful to you. When you arrive, you enjoy a swim that feels great. You are now refreshed, and in better shape to continue your journey across the country.",
-                "3": "** | 🔍 You look for a body of water in vain.... Because of this fatigue, you fall ill :zzz:"
+                "3": "** | 🔍 You look for a body of water in vain.... Because of this fatigue, you fall ill :sleeping:"
             },
             "🌳": {
                 "1": "** | 🌳 You discover a shadowed area under the trees, and decide to go there. After a short hour of sleep, you leave and continue on your way.",

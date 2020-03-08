@@ -436,13 +436,14 @@
       ":smiley:": "** Il semblerait que vous ne soyez pas atteint par une altération d'état !",
       ":baby:": "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
       ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourant ! Veuillez attendre la fin des soins de votre altération d'état.",
-      ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de votre altération d'état.",
+      ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant malade ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":skull:": "** Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
       ":lock:" : "** Vous êtes actuellement enfermé ! Veuillez attendre la fin de votre altération d'état.",
-      ":zzz:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de votre altération d'état.",
+      ":sleeping:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":head_bandage:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ! Veuillez attendre la fin des soins de votre altération d'état.",
-      ":snowflake:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de votre altération d'état.",
+      ":cold_face:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":confounded:": "** Il est malheureusement impossible de continuer à jouer en étant confus ! Veuillez attendre la fin des soins de votre altération d'état.",
+      ":zany_face:":"** Il est malheureusement impossible de continuer à jouer en étant ivre ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":clock10:": "** Une autre commande a été lancée récemment et attend des instructions de votre part ! Veuillez répondre à cette commande pour continuer à jouer. `Si vous n'avez aucune tâche en cours, veuillez contacter un administrateur du bot.`",
       ":clock2:": "** Il semblerait que vous soyez déjà occupé... Veuillez attendre la fin de la tâche pour continuer à jouer !"
     },
@@ -559,7 +560,7 @@
     "26": " : ** :walking: En vous promenant dans un village, vous remarquez un regroupement de personnes. Vous constatez très vite en vous approchant qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n:money_with_wings: Voler des passants assistant au massacre.\n:punch: S'interposer et empêcher cet homme de mourir.\n:walking: Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "27": " : ** :walking: En vous promenant dans le petit village que vous avez trouvé, vous remarquez un puits avec un petit objet brillant au fond.\n\n:point_down: Tenter de descendre pour récupérer l'objet.\n:handshake: Tenter d'attraper l'objet avec le seau du puits\n:walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "28": " : ** :angel: Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause. \n\n:white_check_mark: Accepter de la rejoindre\n:x: Refuser gentiment la proposition.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "29": " : ** :thermometer: Les températures dépassant les 30°C depuis plusieurs jours vous accablent. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous reflechissez à une stratégie à suivre...\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:zzz: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "29": " : ** :thermometer: Les températures dépassant les 30°C depuis plusieurs jours vous accablent. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous reflechissez à une stratégie à suivre...\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:sleeping: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "30": " : ** :european_castle: Vous apercevez un château au loin, vous décidez de vous en approcher par l'entrée principale. Cette demeure semble être celle du Duc Benatis, connu pour ses exploitations de bananes. Il organise une fête en l'honneur de ses 21 ans. Lorsque vous approchez un peu plus, un garde vous invite à rentrer car le duc souhaite que tout le monde participe à la fête. Une fois rentré vous faites face à un immense festin.\n\n:prince: Aller voir le duc\n:tada: Rester à la fête\n:gift: Lui offrir un cadeau\n:banana:Sortir pour aller lui voler des bananes dans son exploitation\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "31": " : ** :horse_racing: Vous entendez un bruit de galop au loin. Vous vous retournez et voyez un chevalier à l'armure noire et au blason inconnu.\n\n:man_walking: Continuer votre route normalement.\n:herb: Se cacher dans un buisson au bord de la route.\n:wave: Lui faire signe pour qu'il s'arrête.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "32": " : ** Vous continuez votre chemin tranquillement dans une forêt, lorsque vous entendez un cri. La voix semble être celle d'un homme, vous décidez d'aller vers le cri et vous trouvez un homme gravement blessé près d'une sorte de campement.\n\n:syringe: Aller chercher de quoi soigner l'homme blessé\n:knife: Achever l'homme pour récupérer son équipement\n:speaking_head: Crier afin d'alerter des gens.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
@@ -667,7 +668,7 @@
         "2": "** | :walking: Pas de temps pour le repos ! Il y a une princesse à sauver !",
         "3": "** | :walking: Vous faites le choix de ne pas vous arrêter et vous continuez à avancer.",
         "4": "** | :walking: Vous continuez votre aventure sans prêter plus d'attention à cette fontaine",
-        "5": "** | :zzz: Il faut savoir se reposer lorsqu'on est fatigué. Extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. Il faudra dormir avant de continuer !"
+        "5": "** | :sleeping: Il faut savoir se reposer lorsqu'on est fatigué. Extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. Il faudra dormir avant de continuer !"
       },
       "end": {
         "1": "** | :money_mouth:  Vous avez passé une bonne heure à ramasser les pièces dispersées au fond de l'eau mais il semblerait que ça ait valu la peine ! "
@@ -696,7 +697,7 @@
       "🚪": {
         "1": "** | :door: En forcant la porte vous vous blessez profondement, il faut absolument vous soigner ! :sick:",
         "2": "** | :door: Après avoir passé presque 1 heure à tenter de rentrer dans la maison, vous finissez par abandonner. En partant vous trouvez un objet qui pourra peut être vous être utile !",
-        "3": "** | :door: Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. :zzz: ",
+        "3": "** | :door: Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. :sleeping: ",
         "4": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. En sortant vous trouvez un objet qui pourra peut être vous être utile !",
         "5": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. Vous finissez par abandonner vos recherches sans avoir rien trouvé."
       },
@@ -718,7 +719,7 @@
         "2": "** | 🏞 Vous changez finalement d'avis et décidez de rester sur les plaines, moins dangereux ce chemin est également plus long, vous perdez beaucoup de temps ! Au bout de quelques kilomètres, vous vous arrêtez pour vous reposer dans une auberge."
       },
       "end": {
-        "1": "** | :walking: Vous vous reposez pendant quelques minutes avant de repartir doucement vers les cols. Vous finissez par arriver épuisé de l'autre coté, il faudra vous reposer avant de repartir ! :zzz:"
+        "1": "** | :walking: Vous vous reposez pendant quelques minutes avant de repartir doucement vers les cols. Vous finissez par arriver épuisé de l'autre coté, il faudra vous reposer avant de repartir ! :sleeping:"
       }
     },
     "9": {
@@ -774,12 +775,12 @@
         "1": "** | 🚶 Vous décidez de partir dans un autre sens, mais vous mettez une bonne heure avant de trouver une direction qui vous convienne !"
       },
       "🏊": {
-        "1": "** | 🏊 L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté, vous vous rendez compte de votre erreur. Vous êtes gelé et affaibli. Il faudra vous soigner avant de continuer ! :snowflake:",
+        "1": "** | 🏊 L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté, vous vous rendez compte de votre erreur. Vous êtes gelé et affaibli. Il faudra vous soigner avant de continuer ! :cold_face:",
         "2": "** | 🏊 Vous atteignez l'autre côté facilement, arrivé au village, les gens vous accueillent et vous donnent à manger."
       },
       "🚣": {
         "1": "** | 🚣 En tentant de fabriquer votre embarcation vous vous blessez ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
-        "2": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer ! :snowflake:",
+        "2": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer ! :cold_face:",
         "3": "** | 🚣 Vous fabriquez une petite barque en quelques heures et vous atteignez l'autre côté facilement. En sortant de votre bateau vous ramassez un objet qui, à défaut de vous servir, sera facile à revendre !"
       },
       "🌉": {
@@ -799,7 +800,7 @@
       },
       "🏠": {
         "1": "** | 🏠 Après avoir discuté pendant 2 heures avec l'aubergiste, vous finissez par apprendre qu'il n'y a aucune chambre disponible pour la nuit ! Vous reprenez la route, frustré de ne pas avoir pu profité d'une bonne nuit de repos.",
-        "2": "** | 🏠 Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure :zzz: ",
+        "2": "** | 🏠 Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure :sleeping: ",
         "3": "** | 🏠 L'auberge semble abandonnée depuis plusieurs années... Vous continuez votre route sans vous poser plus de questions."
       },
       "🔨": {
@@ -825,7 +826,7 @@
         "3": "** | 🔨 L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l’idée d’obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l’idée de créer votre propre arme. :dizzy_face: !"
       },
       "🛏": {
-        "1": "** | 🛏 Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Epuisé, vous vous écroulez de fatigue sur le lit :zzz:",
+        "1": "** | 🛏 Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Epuisé, vous vous écroulez de fatigue sur le lit :sleeping:",
         "2": "** | 🛏 L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refusez poliment et reprenez votre route.",
         "3": "** | 🛏 Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers",
         "4": "** | 🛏 L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son souper. Affamé et épuisé, vous acceptez son offre."
@@ -901,7 +902,7 @@
       },
       "🚶": {
         "1": "** | 🚶 Vous continuez votre route sans perdre plus de temps.",
-        "2": "** | 🚶 Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route. :zzz:"
+        "2": "** | 🚶 Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route. :sleeping:"
       },
       "end": {
         "1": "** | 🚶 Après quelques instants de reflexion vous décidez de reprendre la route promptement.",
@@ -1053,7 +1054,7 @@
       },
       "end": {
         "1": "** | 👀 Vous restez regarder les soldats pendant une quinzaine de minutes puis continuez votre route.",
-        "2": "** | 👀 Fatigué, vous tombez raide et vous endormez au sol. :zzz:"
+        "2": "** | 👀 Fatigué, vous tombez raide et vous endormez au sol. :sleeping:"
       }
     },
     "26": {
@@ -1115,7 +1116,7 @@
       "🔍": {
         "1": "** | 🔍 Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
         "2": "** | 🔍 Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Sur le chemin vous trouvez un item qui vous sera sûrement utile. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
-        "3": "** | 🔍 Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise :zzz:"
+        "3": "** | 🔍 Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise :sleeping:"
       },
       "🌳": {
         "1": "** | 🌳 Vous voyez une zone d'ombre sous les arbres, et décidez d'y aller. Après une petite heure de sommeil, vous repartez et continuez votre route.",
