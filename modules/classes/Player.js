@@ -116,7 +116,6 @@ class Player extends Entity {
         let bonus = false;
         if (this.getLevel() == DefaultValues.fight.minimalLevel) {
             messageLevelUp += Text.playerManager.levelUp.fightUnlocked;
-            bonus = true;
         }
         if (this.getLevel() % 10 == 0) {
             this.restoreHealthCompletely();
@@ -157,10 +156,10 @@ class Player extends Entity {
                 }
             }
         }
-
         if (bonus == false) {
-            messageLevelUp += Text.playerManager.levelUp.noBonus;
+            messageLevelUp += Text.playerManager.levelUp.firstBonus;
         }
+        messageLevelUp += Text.playerManager.levelUp.noBonus;
         message.channel.send(messageLevelUp);
         this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message, language);
     }
