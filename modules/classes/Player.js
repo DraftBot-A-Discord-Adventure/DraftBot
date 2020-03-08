@@ -79,6 +79,12 @@ class Player extends Entity {
             }
         }
     }
+    /**
+     * Returns this player instance's current fight power
+     */
+    getFightPower() {
+        return this.maxHealth + this.level * 10;
+    }
 
     /**
      * Returns this Player instance's current experience.

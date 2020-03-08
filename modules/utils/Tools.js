@@ -1,6 +1,7 @@
 const DefaultValues = require('../utils/DefaultValues');
 const ServerManager = require('../classes/ServerManager');
 const Config = require('../utils/Config');
+const InventoryManager = require('../classes/InventoryManager');
 
 /**
  * convert a number of minutes in a number of miliseconds
@@ -119,6 +120,34 @@ const generateRandomRareness = function () {
     return result;
 }
 
+/**
+ * Allow to add to the player stats the bonuses of its items
+ * @param {*} player - One of the player that has to recieve the bonus
+ */
+const addItemBonus = async function (player) {
+    let inventoryManager = new InventoryManager()
+    let bonus = await inventoryManager.getDamageById(player.id);
+    player.attack = player.attack + bonus;
+    bonus = await inventoryManager.getDefenseById(player.id);
+    player.defense = player.defense + bonus;
+    bonus = await inventoryManager.getSpeedById(player.id);
+    player.speed = player.speed + bonus;
+}
+
+/**
+ * Allow to add to the player stats the bonuses of its items
+ * @param {*} player - One of the player that has to recieve the bonus
+ */
+const seeItemBonus = async function (player) {
+    let inventoryManager = new InventoryManager()
+    let bonus = await inventoryManager.seeDamageById(player.id);
+    player.attack = player.attack + bonus;
+    bonus = await inventoryManager.seeDefenseById(player.id);
+    player.defense = player.defense + bonus;
+    bonus = await inventoryManager.seeSpeedById(player.id);
+    player.speed = player.speed + bonus;
+}
+
 //Exports
 module.exports.convertHoursInMiliseconds = convertHoursInMiliseconds;
 module.exports.convertMinutesInMiliseconds = convertMinutesInMiliseconds;
@@ -127,4 +156,6 @@ module.exports.displayDuration = displayDuration;
 module.exports.generateRandomNumber = generateRandomNumber;
 module.exports.chargeText = chargeText;
 module.exports.detectLanguage = detectLanguage;
+module.exports.addItemBonus = addItemBonus;
+module.exports.seeItemBonus = seeItemBonus;
 module.exports.generateRandomRareness = generateRandomRareness;

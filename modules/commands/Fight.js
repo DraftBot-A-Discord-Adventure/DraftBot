@@ -1,5 +1,4 @@
 const PlayerManager = require('../classes/PlayerManager');
-const InventoryManager = require('../classes/InventoryManager');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues')
 let Text;
@@ -17,7 +16,6 @@ const fightCommand = async function (message, args, client, talkedRecently) {
         return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
     }
     let playerManager = new PlayerManager;
-    let inventoryManager = new InventoryManager;
     let attacker = message.author;
     let defender = undefined;
     let spamchecker = 0;
@@ -74,11 +72,11 @@ const fightCommand = async function (message, args, client, talkedRecently) {
                                     let opponentPlayer = defenderPlayer;
                                     let lastMessageFromBot = undefined;
                                     let lastEtatFight = undefined;
-                                    let attackerPower = player.maxHealth + player.level * 10;
-                                    let defenderPower = defenderPlayer.maxHealth + defenderPlayer.level * 10;
+                                    let attackerPower = player.getFightPower();
+                                    let defenderPower = defenderPlayer.getFightPower();
 
-                                    await addItemBonus(inventoryManager, player, defenderPlayer);
-
+                                    await Tools.addItemBonus(player);
+                                    await Tools.addItemBonus(defenderPlayer);
                                     fight(lastMessageFromBot, message, actualUser, player, actuelPlayer, opponentPlayer, opponentUser, attacker, defender, defenderPlayer, attackerPower, defenderPower, defenderDefenseAdd, attackerDefenseAdd, lastEtatFight, attackerSpeedAdd, defenderSpeedAdd, nbTours);
                                 }
                             }
@@ -98,26 +96,6 @@ const fightCommand = async function (message, args, client, talkedRecently) {
     }
 };
 
-/**
- * Allow to add to the player stats the bonuses of its items
- * @param {*} inventoryManager - The inventory manager
- * @param {*} player - One of the player that has to recieve the bonuses
- * @param {*} defenderPlayer - The other one
- */
-async function addItemBonus(inventoryManager, player, defenderPlayer) {
-    let bonus = await inventoryManager.getDamageById(player.id);
-    player.attack = player.attack + bonus;
-    bonus = await inventoryManager.getDamageById(defenderPlayer.id);
-    defenderPlayer.attack = defenderPlayer.attack + bonus;
-    bonus = await inventoryManager.getDefenseById(player.id);
-    player.defense = player.defense + bonus;
-    bonus = await inventoryManager.getDefenseById(defenderPlayer.id);
-    defenderPlayer.defense = defenderPlayer.defense + bonus;
-    bonus = await inventoryManager.getSpeedById(player.id);
-    player.speed = player.speed + bonus;
-    bonus = await inventoryManager.getSpeedById(defenderPlayer.id);
-    defenderPlayer.speed = defenderPlayer.speed + bonus;
-}
 
 /**
  * Allow to display the message that announce the begining of the fight
@@ -202,17 +180,20 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                 switch (reaction.emoji.name) {
                     case "🗡": //attaque rapide
                         // 85% des points d'attaque sont utilisés
+                        // 100% des points de défense sont utilisés
                         // Taux de réussite de 30% qui monte à 95% sur un adversaire plus lent
                         ({ defenderPower, attackerPower } = quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "⚔": //attaque simple
                         // 100% ou 50% des points d'attaque sont utilisés
+                        // 75% des points de défense sont utilisés
                         // Taux de réussite de 60% qui monte à 80% sur un adversaire plus lent
                         // En plus des 60% de réussite, 30% de chance de réussite partielle sur un adversaire plus rapide
                         ({ defenderPower, attackerPower } = simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "💣": //attaque ultime
                         // 125% ou 200% des points d'attaque sont utilisés
+                        // 50% des points de défense sont utilisés
                         // Diminue la vitesse de 10 % pour le prochain tour
                         // 5% de réussite totale sur un adversaire plus rapide et 40% de réussite partielle
                         // 30% de réussite totale sur un adversaire plus lent et 70% de réusite partielle
@@ -471,7 +452,7 @@ function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defende
     attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueSimple = "";
     let defensePower = opponentPlayer.defense;
-    let degats = Math.round(attackPower - Math.round(defensePower * 0.5));
+    let degats = Math.round(attackPower - Math.round(defensePower * 0.75));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= 100) {
@@ -519,7 +500,7 @@ function quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defender
     attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueRapide = "";
     let defensePower = opponentPlayer.defense;
-    let degats = Math.round(attackPower - Math.round(defensePower * 0.25));
+    let degats = Math.round(attackPower - Math.round(defensePower * 1));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= actuelPlayer.attack - defensePower) {

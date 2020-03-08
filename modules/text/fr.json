@@ -48,7 +48,8 @@
       "rankAndScore": "Classement et Score :",
       "statsAttack": " :dagger: ",
       "statsDefense": " | :shield: ",
-      "statsSpeed": " | :rocket:",
+      "statsSpeed": " | :rocket: ",
+      "statsFightPower": " | :blue_heart: ",
       "notAPlayer": ", utilisez la commande `report` pour commencer votre aventure !"
     },
     "respawn": {
@@ -191,7 +192,7 @@
       "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
       "endIntroStart": " | **",
       "statusIntro": ":crossed_swords: | **Etat actuel du combat \n\n",
-      "statusPoints": "**\n:blue_circle: ",
+      "statusPoints": "**\n:blue_heart: ",
       "endLine": "\n\n**",
       "attackerEmoji": ":crossed_swords: **|** Attaquant : ",
       "defenderEmoji": ":shield: **|** Défenseur : ",
