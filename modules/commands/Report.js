@@ -2,17 +2,14 @@ const PlayerManager = require('../classes/PlayerManager');
 const EventManager = require('../classes/EventManager');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
-let Text;
-let language;
-
 
 /**
  * Allow the user to learn more about what is going on with his character
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const reportCommand = async function (message, args, client, talkedRecently) {
-   Text = await Tools.chargeText(message);
-   language = await Tools.detectLanguage(message);
+   let Text = await Tools.chargeText(message);;
+   let language = await Tools.detectLanguage(message);
    if (talkedRecently.has(message.author.id)) {
       return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
    }
@@ -21,12 +18,12 @@ const reportCommand = async function (message, args, client, talkedRecently) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-   if (playerManager.checkState(player, message, ":baby::smiley:", language)) {  //check if the player is not dead or sick
-   //if (true) {
+   //if (playerManager.checkState(player, message, ":baby::smiley:", language, Text)) {  //check if the player is not dead or sick
+   if (true) {
       playerManager.setPlayerAsOccupied(player);
 
       if (player.getScore() == 0) {
-         generateEvent(message, eventManager, 0, playerManager, player, DefaultValues.report.startMoney, DefaultValues.report.startScore);
+         generateEvent(message, eventManager, 0, playerManager, player, DefaultValues.report.startMoney, DefaultValues.report.startScore, language, Text);
          return;
       }
 
@@ -47,11 +44,11 @@ const reportCommand = async function (message, args, client, talkedRecently) {
 
          case time <= DefaultValues.report.maximalTime && Math.round(Math.random() * DefaultValues.report.maximalTime) > time:
             let possibility = loadNothingToSayPossibility(eventManager);
-            execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained);
+            execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained, language, Text);
             break;
 
          default:
-            generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained);
+            generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained, language, Text);
       }
    }
 };
@@ -63,7 +60,7 @@ const reportCommand = async function (message, args, client, talkedRecently) {
  * @param {*} event - The event that has to be displayed
  * @returns {*} - The message object that has been sent by the bot
  */
-const displayEvent = function (message, event) {
+const displayEvent = function (message, event, Text) {
    return message.channel.send(Text.commands.report.reportStart + message.author.username + Text.events[event.id]).then(async msg => {
       for (reac in event.emojis) {
          await msg.react(event.emojis[reac]);
@@ -77,20 +74,20 @@ const displayEvent = function (message, event) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} possibility - The possibility that has to be executed
  */
-const execPossibility = function (message, possibility, playerManager, player, moneyChange, pointsGained) {
+const execPossibility = function (message, possibility, playerManager, player, moneyChange, pointsGained, language, Text) {
    moneyChange = moneyChange + parseInt(possibility.moneyGained);
    let possibilityMessage;
    if (possibility.idEvent == 0) {
       if (possibility.emoji == "end") {
-         possibilityMessage = displayPossibility(message, 0, 0, possibility);
-         applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager)
+         possibilityMessage = displayPossibility(message, 0, 0, possibility, Text);
+         applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager, language, Text)
       } else {
-         possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
-         launchAdventure(message, pointsGained, moneyChange, player, possibility, playerManager)
+         possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility, Text);
+         launchAdventure(message, pointsGained, moneyChange, player, possibility, playerManager, language, Text)
       }
    } else {
-      possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility);
-      applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager)
+      possibilityMessage = displayPossibility(message, pointsGained, moneyChange, possibility, Text);
+      applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager, language, Text)
    }
    possibilityMessage += Text.possibilities[possibility.idEvent][possibility.emoji][possibility.id]
    message.channel.send(possibilityMessage);
@@ -162,12 +159,13 @@ function loadNothingToSayPossibility(eventManager) {
  * @param {*} eventManager - The class that manage the event
  * @param {*} eventNumber  - The id of the event the player falls on
  */
-async function generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained) {
+async function generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained, language, Text) {
+
    console.log(eventNumber);
    //load the event to display
    let event = eventManager.loadEvent(eventNumber);
    //display a message containing informations about the event and get this message back
-   let reponse = await displayEvent(message, event);
+   let reponse = await displayEvent(message, event, Text);
    let eventIsOpen = true;
 
    const filter = (reaction, user) => {
@@ -178,10 +176,11 @@ async function generateEvent(message, eventManager, eventNumber, playerManager, 
    });
    //execute this if a user answer to the event
    collector.on('collect', (reaction) => {
+
       if (eventIsOpen) {
          let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, reaction.emoji.name);
          let possibility = eventManager.loadPossibility(eventNumber, reaction.emoji.name, possibilityNumber);
-         execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained);
+         execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained, language, Text);
          eventIsOpen = false;
       }
    });
@@ -190,7 +189,7 @@ async function generateEvent(message, eventManager, eventNumber, playerManager, 
       if (eventIsOpen) {
          let possibilityNumber = eventManager.chooseARandomPossibility(eventNumber, "end");
          let possibility = eventManager.loadPossibility(eventNumber, "end", possibilityNumber);
-         execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained);
+         execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained, language, Text);
       }
    });
 }
@@ -204,7 +203,7 @@ async function generateEvent(message, eventManager, eventNumber, playerManager, 
  * @param {Number} moneyChange - The amount of money los or gained by the player during this event
  * @returns {String} - The message that has to be sent
  */
-function displayPossibility(message, pointsGained, moneyChange, possibility) {
+function displayPossibility(message, pointsGained, moneyChange, possibility, Text) {
    let possibilityMessage = Text.commands.report.reportStart + message.author + Text.commands.report.points + pointsGained;
    if (moneyChange >= 0) {
       possibilityMessage += Text.commands.report.moneyWin + moneyChange;
@@ -233,9 +232,8 @@ function displayPossibility(message, pointsGained, moneyChange, possibility) {
  * @param {Number} moneyChange - The amount of money los or gained by the player during this event
  * @param {*} playerManager - The player manager
  */
-async function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager) {
+async function applyPossibility(message, pointsGained, moneyChange, possibility, player, playerManager, language, Text) {
 
-   let language = await Tools.detectLanguage(message);
    //adding score
    player.addScore(pointsGained);
 
@@ -247,10 +245,10 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
 
    player.setEffect(possibility.newEffect);
 
-   player.addHealthPoints(possibility.healthPointsChange, message, language);
+   player.addHealthPoints(possibility.healthPointsChange, message, language, Text);
    // if the number is below 0, remove health Points will be called by the add Health Points method
 
-   player.addExperience(possibility.xpGained, message, language)
+   player.addExperience(possibility.xpGained, message, language, Text)
 
    if (possibility.item == "true") { //have to give an item to the player
       player = await playerManager.giveRandomItem(message, player);
