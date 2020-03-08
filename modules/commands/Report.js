@@ -21,8 +21,8 @@ const reportCommand = async function (message, args, client, talkedRecently) {
 
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
-   if (playerManager.checkState(player, message, ":baby::smiley:", language)) {  //check if the player is not dead or sick
-
+   //if (playerManager.checkState(player, message, ":baby::smiley:", language)) {  //check if the player is not dead or sick
+   if (true) {
       playerManager.setPlayerAsOccupied(player);
 
       if (player.getScore() == 0) {
@@ -31,7 +31,7 @@ const reportCommand = async function (message, args, client, talkedRecently) {
       }
 
       let time = player.calcTime(message.createdTimestamp);
-      //time = 1000; // in testing purpose : Remove for realease
+      time = 1000; // in testing purpose : Remove for realease
 
       let pointsGained = calculatePoints(player, time);
       let moneyChange = calculateMoney(player, time);
@@ -277,7 +277,7 @@ function launchAdventure(message, pointsGained, moneyChange, player, possibility
    // if the number is below 0, remove money will be called by the add money method
 
    //the last time the player has been saw is long time ago so that the adventure is fun for the begining
-   player.updateLastReport(message.createdTimestamp-100000000, possibility.timeLost, possibility.newEffect);
+   player.updateLastReport(message.createdTimestamp - 100000000, possibility.timeLost, possibility.newEffect);
 
    player.setEffect(possibility.newEffect);
 

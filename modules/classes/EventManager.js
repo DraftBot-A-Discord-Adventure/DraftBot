@@ -1,7 +1,7 @@
 const Event = require('./Event');
 const Possibility = require('./Possibility');
 const EventsData = require('../utils/Events');
-
+const Tools = require('../utils/Tools');
 
 class EventManager {
 
@@ -38,7 +38,7 @@ class EventManager {
      */
     chooseARandomPossibility(idEvent, emojiSelected) {
         let maxLimit = Object.keys(EventsData.possibility[idEvent][emojiSelected]).length;
-        return Math.round(Math.random() * (maxLimit - 1) + 1)
+        return Tools.generateRandomNumber(1,maxLimit);
     };
 
 
@@ -48,7 +48,7 @@ class EventManager {
      */
     chooseARandomEvent() {
         let maxLimit = Object.keys(EventsData.event).length - 1;
-        return Math.round(Math.random() * (maxLimit - 1) + 1)
+        return Tools.generateRandomNumber(31,maxLimit);
     };
 }
 
