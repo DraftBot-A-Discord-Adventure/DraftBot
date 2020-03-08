@@ -461,13 +461,13 @@
             "main": "** just reached level **",
             "end": "**",
             "healthRestored": "\n\n:heart: | All HP recovered\n",
-            "moreMaxHealth": "\n\n:heartpulse: | Maximum health increased by 5 points\n",
+            "moreMaxHealth": "\n\n:heartpulse: | Maximum health increased by 5\n",
             "firstBonus": "\n\n",
             "fightUnlocked": "\n\n:dagger: | Battle unlocked ! (Use `!fight` to start a battle)",
             "moreSpeed": ":rocket: | Speed increased by 5\n",
             "moreAttack": ":crossed_swords: | Attack increased by 5\n",
-            "moreDefense": ":shield: | Defense increased by 5 points\n",
-            "noBonus": "\n\n:x: | No level-up bonus"
+            "moreDefense": ":shield: | Defense increased by 5\n",
+            "noBonus": "\n\n:blue_heart: | Fight points increased"
         }
     },
     "equipementManager": {

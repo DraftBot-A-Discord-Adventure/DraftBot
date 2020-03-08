@@ -180,13 +180,13 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                 switch (reaction.emoji.name) {
                     case "🗡": //attaque rapide
                         // 85% des points d'attaque sont utilisés
-                        // 100% des points de défense sont utilisés
+                        // 50% des points de défense sont utilisés
                         // Taux de réussite de 30% qui monte à 95% sur un adversaire plus lent
                         ({ defenderPower, attackerPower } = quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "⚔": //attaque simple
                         // 100% ou 50% des points d'attaque sont utilisés
-                        // 75% des points de défense sont utilisés
+                        // 85% des points de défense sont utilisés
                         // Taux de réussite de 60% qui monte à 80% sur un adversaire plus lent
                         // En plus des 60% de réussite, 30% de chance de réussite partielle sur un adversaire plus rapide
                         ({ defenderPower, attackerPower } = simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
@@ -452,7 +452,7 @@ function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defende
     attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueSimple = "";
     let defensePower = opponentPlayer.defense;
-    let degats = Math.round(attackPower - Math.round(defensePower * 0.75));
+    let degats = Math.round(attackPower - Math.round(defensePower * 0.85));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= 100) {
@@ -500,7 +500,7 @@ function quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defender
     attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueRapide = "";
     let defensePower = opponentPlayer.defense;
-    let degats = Math.round(attackPower - Math.round(defensePower * 1));
+    let degats = Math.round(attackPower - Math.round(defensePower * 0.5));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= actuelPlayer.attack - defensePower) {
