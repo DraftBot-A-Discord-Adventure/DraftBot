@@ -467,7 +467,7 @@
             "moreSpeed": ":rocket: | Speed increased by 5\n",
             "moreAttack": ":crossed_swords: | Attack increased by 5\n",
             "moreDefense": ":shield: | Defense increased by 5\n",
-            "noBonus": "\n\n:blue_heart: | Fight points increased"
+            "noBonus": ":blue_heart: | Fight points increased"
         }
     },
     "equipementManager": {
