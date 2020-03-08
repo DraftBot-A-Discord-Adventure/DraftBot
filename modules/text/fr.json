@@ -740,7 +740,7 @@
     "10": {
       "🎣": {
         "1": "** | :walking: L'homme refuse gentiment votre aide, vous poursuivez votre route.",
-        "2": "** | :tropical_fish: Grâce à vous, l'homme attrape un superbe poisson de 3 KG ! Pour vous remercier, il vous offre quelque chose qui pourrait vous être utile...",
+        "2": "** | :tropical_fish: Grâce à vous, l'homme attrape un superbe poisson de 3 kg ! Pour vous remercier, il vous offre quelque chose qui pourrait vous être utile...",
         "3": "** |  :sweat_drops: Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:"
       },
       "🏃": {
@@ -808,7 +808,7 @@
         "2": "** | 🔨 En essayant une épée, vous brisez la fenêtre de la forge, le forgeron demande remboursement !",
         "3": "** | 🔨 Personne n'est présent dans la forge qui semble abandonnée depuis des années. Avant de partir vous remarquez cependant un objet qui pourrait vous servir pour la suite de votre aventure...",
         "4": "** | 🔨 La forge semble abandonnée depuis des années. Vous reprenez donc votre route.",
-        "5": "** | 🔨 Vous entrez et saluez le forgerons. Après une rapide inspection de son travail vous comprenez que vous ne trouverez rien d'interessant ici. Vous reprenez votre route."
+        "5": "** | 🔨 Vous entrez et saluez le forgeron. Après une rapide inspection de son travail vous comprenez que vous ne trouverez rien d'intéressant ici. Vous reprenez votre route."
       },
       "🎪": {
         "1": "** | 🎪 Vous explorez le marché en 30 minutes avant de découvrir un petit objet au sol qui pourrait vous être utile...",
@@ -1034,7 +1034,7 @@
         "3": "** | 🍢 Cette nourriture est assez classique. Vous ne ressentez rien en la mangeant ni après avoir fini puis en oubliez vite le goût "
       },
       "end": {
-        "1": "** | 🚶 Aucun des stands ne vous intéresse et vous sorrez rapidement de la ville après quelque coups d'oeil.",
+        "1": "** | 🚶 Aucun des stands ne vous intéresse et vous sortez rapidement de la ville après quelques coups d'oeil.",
         "2": "** | 🚶 Vous décidez de ne rien acheter mais vous flanez tout de même un long moment entre les stands."
       }
     },
