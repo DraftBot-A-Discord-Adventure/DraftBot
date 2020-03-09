@@ -46,7 +46,7 @@ class DatabaseManager {
 
         //table only used to store the version of the bot when the database was created
         sql.run("CREATE TABLE IF NOT EXISTS database (version TEXT, lastReset INTEGER)").then(() => {
-            sql.run(`INSERT INTO database (version) VALUES (\"${Config.version}\")`).then(() => {
+            sql.run(`INSERT INTO database (version, lastReset) VALUES (\"${Config.version}\",0)`).then(() => {
                 console.log("... Generation Complete !");
             });
         });

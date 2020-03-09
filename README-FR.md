@@ -12,8 +12,27 @@ DraftBot est une bot Discord développé en Node.js par [@BastLast](https://gith
 
 <br>
 
-# Statut du développement
-Le bot a été réécris
+# Comment lancer le bot
+
+*Avant de vouloir créer votre propre instance sachez qu'il vous est possible d'inviter le bot sur votre serveur via le lien disponible sur le discord du bot*
+**Si vous décidez de vous lancer dans la création de votre propre instance du bot, vous êtes supposé maîtriser un minimum l'outil informatique. Le support du bot priorise les joueurs de l'instance principal et ne pourra vous fournir qu'une assistance limitée.**
+
+Voilà un petit guides des étapes importantes à effectuer.
+
+* Téléchargez ou clonez le dépot.
+* Effectuez la commande `npm install`
+* Créez un dossier DraftBot-A-Discord-Adventure/modules/data
+* Editez le fichier DraftBot-A-Discord-Adventure/modules/utils/Config-Exemple.js
+* Rennomez le fichier DraftBot-A-Discord-Adventure/modules/utils/Config-Exemple.js en DraftBot-A-Discord-Adventure/modules/utils/Config.js
+* Lancez le bot en utilisant la commande `node draftbot`
+* Attendez la génération de la base de donnée
+* Relancez le bot en réitérant la commande ci-dessus
+
+# Erreurs communes :
+
+* Certaines potions (id 1 à 24) font appel à des émojis personalisés. Remplacez ces derniers dans les fichiers suivants :
+DraftBot-A-Discord-Adventure\modules\utils\items\en.json
+DraftBot-A-Discord-Adventure\modules\utils\items\fr.json
 
 # Images
 ![](http://35.237.77.248/ressources/tuto.png)
