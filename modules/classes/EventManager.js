@@ -48,7 +48,7 @@ class EventManager {
      */
     chooseARandomEvent() {
         let maxLimit = Object.keys(EventsData.event).length - 1;
-        return Tools.generateRandomNumber(1,maxLimit);
+        return Tools.generateRandomNumber(2,maxLimit);
     };
 }
 

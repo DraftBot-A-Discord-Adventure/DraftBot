@@ -3,8 +3,8 @@
   "version": "1.4.4",
   "main": "draftbot.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/BastLast/DraftBot-A-Discord-Adventure.git"
+    "type": "git",
+    "url": "https://github.com/BastLast/DraftBot-A-Discord-Adventure.git"
   },
   "dependencies": {
     "chai": "^4.2.0",
