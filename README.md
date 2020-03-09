@@ -14,8 +14,8 @@ DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLas
 
 # How to launch the bot
 
-* Before creating your own instance, please note that you can add the bot to your server through the link available on the bot's discord *
-** If you decide to work on the creation of your own instance of the bot, you are supposed to have a minimum of computer skills. Bot support team will prioritizes players of the main instance and will only provide limited assistance. **
+*Before creating your own instance, please note that you can add the bot to your server through the link available on the bot's discord*
+**If you decide to work on the creation of your own instance of the bot, you are supposed to have a minimum of computer skills. Bot support team will prioritizes players of the main instance and will only provide limited assistance.**
 
 Here is a short start guide.
 
@@ -26,7 +26,7 @@ Here is a short start guide.
 * Rename the file `DraftBot-A-Discord-Adventure/modules/utils/Config-Example.js to DraftBot-A-Discord-Adventure/modules/utils/Config.js
 * Launch the bot using the `node draftbot` command
 * Wait for the generation of the database (~10 secs)
-* Restart the bot by repeating the above command
+* Restart the bot by repeating the command above
 
 # Common errors:
 
