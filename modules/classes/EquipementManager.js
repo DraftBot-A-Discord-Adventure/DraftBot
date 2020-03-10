@@ -36,7 +36,6 @@ class EquipementManager {
      * @returns {String} - The description of the equipement
      */
     displayWeapon(equipement, language) {
-        console.log(language)
         Text = require('../text/' + language);
         ItemNames = require('../utils/items/' + language);
         let stringResult = ItemNames.weapon[equipement.id] + Text.equipementManager.separator1 + this.getEquipementEfficiency(equipement) + Text.equipementManager.separator2
