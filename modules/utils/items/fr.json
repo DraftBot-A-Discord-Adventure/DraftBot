@@ -64,7 +64,9 @@
         "61": ":syringe:  **Seringue sale**",
         "62": ":microbe:  **Bio-Arme**",
         "63": ":bomb:  **Bombe atomique**",
-        "64": ":candle:  **Brûleur**"
+        "64": ":candle:  **Brûleur**",
+        "65": "🥢  **Pew Pew**",
+        "66": "⚔️  **Beat Saber**"
     },
     "armor": {
         "default": ":black_large_square:  **Pas de bouclier ni d'armure**",

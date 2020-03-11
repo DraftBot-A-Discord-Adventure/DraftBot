@@ -64,7 +64,9 @@
         "61": "💉  **Dirty syringe**",
         "62": "🦠  **Biological weapon**",
         "63": "💣  **Atomic bomb**",
-        "64": "🕯️  **Burner**"
+        "64": "🕯️  **Burner**",
+        "65": "🥢  **Pew Pew**",
+        "66": "⚔️  **Beat Saber**"
     },
     "armor": {
         "default": ":black_large_square: **No shield or armor**",

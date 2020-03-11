@@ -259,6 +259,14 @@
         "64": {
             "rareness": "4",
             "power": "5"
+        },
+        "65": {
+            "rareness": "3",
+            "power": "10"
+        },
+        "66": {
+            "rareness": "6",
+            "power": "5"
         }
     },
     "armor": {
