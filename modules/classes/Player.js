@@ -8,7 +8,7 @@ let Text;
  */
 class Player extends Entity {
 
-    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank, weeklyScore, weeklyRank) {
+    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank, weeklyScore, weeklyRank, guildId) {
         super(discordId, maxHealth, health, attack, defense, speed, effect);
         this.discordId = discordId;
         this.score = score;
@@ -20,6 +20,7 @@ class Player extends Entity {
         this.rank = rank
         this.weeklyScore = weeklyScore;
         this.weeklyRank = weeklyRank;
+        this.guildId = guildId;
     }
 
     /**
@@ -209,6 +210,22 @@ class Player extends Entity {
 
 
     /**
+     * Set this Player instance's guildId
+     * @param guildId - The guild id
+     */
+    setGuildId(guildId) {
+        this.guildId = guildId;
+    }
+
+    /**
+     * Returns this Player instance's guildId
+     * @returns {Number} - The guild id
+     */
+    getGuildId() {
+        return guildId.guildId;
+    }
+
+    /**
      * Changes the last Report time of a player
      * @param lastReport - The Player's new lastReport.
      */
@@ -295,7 +312,7 @@ class Player extends Entity {
         return this.rank;
     }
 
-    
+
     /**
      * Returns the weekly rank of the player.
      * @returns {Number} - The rank of the player
