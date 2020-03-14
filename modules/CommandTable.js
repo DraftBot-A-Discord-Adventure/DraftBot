@@ -14,6 +14,12 @@ const Sell = require('./commands/Sell');
 const Fight = require('./commands/Fight');
 const Shop = require('./commands/Shop');
 
+const Items = require('./commands/Items');
+
+const Guild = require('./commands/guild/Guild');
+const GuildAdd = require('./commands/guild/GuildAdd');
+const GuildCreate = require('./commands/guild/GuildCreate');
+
 const Reset = require('./commands/admin/Reset');
 const Give = require('./commands/admin/Give');
 const Servers = require('./commands/admin/Servers');
@@ -54,6 +60,15 @@ const CommandTable = new Map(
         ["shop", Shop.ShopCommand],
         ["prefix", ChangePrefix.ChangePrefixCommand],
         ["language", Language.ChangeLanguageCommand],
+
+        ["guild", Guild.guildCommand],
+        ["g", Guild.guildCommand],
+        ["guildadd", GuildAdd.guildAddCommand],
+        ["gadd", GuildAdd.guildAddCommand],
+        ["guildcreate", GuildCreate.guildCreateCommand],
+        ["gcreate", GuildCreate.guildCreateCommand],
+
+        ["items", Items.displayItems],
 
         ["reset", Reset.ResetCommand],
         ["invi", Invitations.InvitationsCommand],
