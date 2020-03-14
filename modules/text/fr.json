@@ -3,26 +3,27 @@
     "help": {
       "mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://draftbot.fandom.com/fr/wiki/Commandes",
       "intro": "** :notebook_with_decorative_cover: ",
-      "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\nTopWeek\ninventory\nfight\ndaily\ndrink\nprefix\n```\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! https://draftbot.fandom.com/fr/wiki/Commandes",
+      "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\ntopWeek\ninventory\nfight\ndaily\ndrink\nprefix\nlanguage\n```\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! https://draftbot.fandom.com/fr/wiki/Commandes",
       "commands": {
-        "prefix": ":interrobang: prefix {Nouveau préfix} :\n\nPermet, si vous êtes administrateur sur un serveur, de changer le préfix utilisé par le bot.",
-        "ping": ":ping_pong: ping :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
-        "respawn": ":angel: respawn\n\nPermet de recommencer à jouer après avoir été tué.",
-        "profile": ":bust_in_silhouette: profile\n\nAffiche des informations sur votre personnage :\n\n:smiley: État de santé | Pseudo | Level :star: XP | :heart: Vie | :dagger: Attaque | :shield: Défense | :rocket: Vitesse | :trophy: Classement | :moneybag: Argent | :medal: Score",
-        "switch": ":repeat: switch\n\nEchange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire.",
-        "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.",
-        "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
-        "top": ":trophy: top [numéro de page]\n\nAffiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans la même guilde que vous sont marqués par une pastille bleue.",
-        "TopWeek": ":trophy: TopWeek [numéro de page]\n\nAffiche le classement général de la semaine du jeu par tranche de 15 joueurs. Les joueurs dans la même guilde que vous sont marqués par une pastille bleue.",
-        "inventory": ":school_satchel: inventory\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un second objet de type item le temps que vous décidiez si vous le conservez ou non.\n\n:warning: **La réserve n'est pas un endroit sûr pour conserver un objet précieux !**\nLes objets en réserve peuvent être remplacés automatiquement par un nouvel objet quand vous en trouvez un.",
-        "report": ":newspaper: report\n\nPermet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières.",
-        "sell": ":moneybag: sell\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
-        "daily": ":calendar: daily\n\nCertains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`.",
-        "invite": ":inbox_tray: invite\n\nCette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !",
-        "badge": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
-        "badges": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
-        "drink": ":tropical_drink: drink\n\nCette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat.",
-        "shop": ":shopping_cart: shop\n\nCette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
+        "prefix": ":interrobang: `prefix {Nouveau préfix}` :\n\nPermet, si vous êtes administrateur sur un serveur, de changer le préfix utilisé par le bot.",
+        "ping": ":ping_pong: `ping` :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
+        "respawn": ":angel: `respawn`\n\nPermet de recommencer à jouer après avoir été tué.",
+        "profile": ":bust_in_silhouette: `profile`\n\nAffiche des informations sur votre personnage :\n\n:smiley: État de santé | Pseudo | Level :star: XP | :heart: Vie | :dagger: Attaque | :shield: Défense | :rocket: Vitesse | :blue_heart: Points de combat | :trophy: Classement | :moneybag: Argent | :medal: Score\n\nLes badges sont affichés sur votre profil sous forme de réaction.",
+        "switch": ":repeat: `switch`\n\nEchange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire.",
+        "fight": ":crossed_swords: `fight`\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.",
+        "help": ":notebook_with_decorative_cover: `help`\n\n:expressionless:",
+        "language": ":flag_gb: `language`\n\nChange la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur.",
+        "top": ":trophy: `top [numéro de page]`\n\nAffiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans la même guilde que vous sont marqués par une pastille bleue.",
+        "topWeek": ":trophy: `topWeek [numéro de page]`\n\nAffiche le classement général de la semaine du jeu par tranche de 15 joueurs. Les joueurs dans la même guilde que vous sont marqués par une pastille bleue.",
+        "inventory": ":school_satchel: `inventory`\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un second objet de type item le temps que vous décidiez si vous le conservez ou non.\n\n:warning: **La réserve n'est pas un endroit sûr pour conserver un objet précieux !**\nLes objets en réserve peuvent être remplacés automatiquement par un nouvel objet quand vous en trouvez un.",
+        "report": ":newspaper: `report`\n\nPermet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières.",
+        "sell": ":moneybag: `sell`\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
+        "daily": ":calendar: `daily`\n\nCertains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`.",
+        "invite": ":inbox_tray: `invite`\n\nCette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !",
+        "badge": ":military_medal: `badges`\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
+        "badges": ":military_medal: `badges`\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
+        "drink": ":tropical_drink: `drink`\n\nCette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat.",
+        "shop": ":shopping_cart: `shop`\n\nCette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
       }
     },
     "ping": {
@@ -391,7 +392,8 @@
       "ranked": "Votre classement :",
       "days": " J",
       "hours": " H",
-      "minutes": " Min"
+      "minutes": " Min",
+      "footer": "Classement réinitialisé dans"
     }
   },
   "badges": {

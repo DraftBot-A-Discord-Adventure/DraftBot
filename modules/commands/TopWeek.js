@@ -55,7 +55,7 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     } else {
         embed.setDescription("\u200b\n" + generateTopDataText(data, totalJoueur, message, client) + "\u200b");
         embed.addField(Text.commands.TopWeek.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
-        embed.setFooter("Classement réinitialisé dans" + `${getResetDate()}`, "https://i.imgur.com/OpL9WpR.png");
+        embed.setFooter(Text.commands.TopWeek.footer + `${getResetDate()}`, "https://i.imgur.com/OpL9WpR.png");
     }
     return embed;
 }

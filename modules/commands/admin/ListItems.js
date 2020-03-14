@@ -1,5 +1,6 @@
 const Config = require('../../utils/Config');
 const EquipementManager = require('../../classes/EquipementManager');
+const DefaultValues = require('../../utils/DefaultValues');
 
 /**
  * Allow an admin to list all items
@@ -11,17 +12,34 @@ const listItemsCommand = async function (message, args) {
     } else { // the author of the command is the author of the bot
         equipementManager = new EquipementManager();
         if (args[1] > 1) {
-            for (let i = 1; i < 100; i++) {
-                let element = equipementManager.getWeaponById(i);
-                message.channel.send(equipementManager.displayWeapon(element, "fr"))
-            }
+            listWeapons(message);
         }
-        for (let i = 1; i < 100; i++) {
-            let element = equipementManager.getArmorById(i);
-            message.channel.send(equipementManager.displayArmor(element, "fr"))
-        }
+        listArmors(message);
     }
 };
+
+
+/**
+ * Send a list of all the armors of the bot
+ * @param {*} message 
+ */
+function listArmors(message) {
+    for (let i = 1; i < DefaultValues.raritiesGenerator.numberOfArmor; i++) {
+        let element = equipementManager.getArmorById(i);
+        message.channel.send(equipementManager.displayArmor(element, "fr"));
+    }
+}
+
+/**
+ * Send a list of all the weapons of the bot
+ * @param {*} message 
+ */
+function listWeapons(message) {
+    for (let i = 1; i < DefaultValues.raritiesGenerator.numberOfWeapon; i++) {
+        let element = equipementManager.getWeaponById(i);
+        message.channel.send(equipementManager.displayWeapon(element, "fr"));
+    }
+}
 
 /**
  * Test if the person who sent the message is the owner of the bot.
