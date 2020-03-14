@@ -392,7 +392,8 @@
       "ranked": "Votre classement :",
       "days": " J",
       "hours": " H",
-      "minutes": " Min"
+      "minutes": " Min",
+      "footer": "Classement réinitialisé dans"
     }
   },
   "badges": {

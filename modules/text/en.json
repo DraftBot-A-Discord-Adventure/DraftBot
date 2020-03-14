@@ -392,7 +392,8 @@
             "ranked": "Your rank :",
             "days": " J",
             "hours": " H",
-            "minutes": " Min"
+            "minutes": " Min",
+            "footer": "Next reset:"
         }
     },
     "badges": {
