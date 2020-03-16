@@ -79,6 +79,7 @@ class Player extends Entity {
             }
         }
     }
+
     /**
      * Returns this player instance's current fight power
      */
@@ -132,36 +133,35 @@ class Player extends Entity {
 
         if (this.getLevel() % 9 == 0) {
             this.setSpeed(this.getSpeed() + 5);
-            if (bonus == false) {
-                messageLevelUp += Text.playerManager.levelUp.firstBonus;
-            }
+            messageLevelUp = ifFirstBonus(bonus, messageLevelUp);
             messageLevelUp += Text.playerManager.levelUp.moreSpeed;
             bonus = true;
         } else {
             if (this.getLevel() % 6 == 0) {
                 this.setAttack(this.getAttack() + 5);
-                if (bonus == false) {
-                    messageLevelUp += Text.playerManager.levelUp.firstBonus;
-                }
+                messageLevelUp = ifFirstBonus(bonus, messageLevelUp);
                 messageLevelUp += Text.playerManager.levelUp.moreAttack;
                 bonus = true;
             } else {
                 if (this.getLevel() % 3 == 0) {
                     this.setDefense(this.getDefense() + 5);
-                    if (bonus == false) {
-                        messageLevelUp += Text.playerManager.levelUp.firstBonus;
-                    }
+                    messageLevelUp = ifFirstBonus(bonus, messageLevelUp);
                     messageLevelUp += Text.playerManager.levelUp.moreDefense;
                     bonus = true;
                 }
             }
         }
-        if (bonus == false) {
-            messageLevelUp += Text.playerManager.levelUp.firstBonus;
-        }
+        messageLevelUp = ifFirstBonus(bonus, messageLevelUp);
         messageLevelUp += Text.playerManager.levelUp.noBonus;
         message.channel.send(messageLevelUp);
         this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message, language);
+    }
+
+    ifFirstBonus(bonus, messageLevelUp) {
+        if (bonus == false) {
+            messageLevelUp += Text.playerManager.levelUp.firstBonus;
+        }
+        return messageLevelUp;
     }
 
     /**
