@@ -19,7 +19,7 @@ const topCommand = async function (message, args, client) {
 
     let actualPlayer = await playerManager.getCurrentPlayer(message);
     totalJoueur = await playerManager.getNumberOfPlayers();
-    let pageMax = Math.ceil(await playerManager.getNumberOfPlayers() / DefaultValues.top.playersByPage);
+    let pageMax = Math.ceil(totalJoueur / DefaultValues.top.playersByPage);
     let page = getRequiredPageNumber(args);
     let erreur = testAbsurdsPages(message, page, pageMax);
     if (erreur == 0) {

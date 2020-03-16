@@ -16,7 +16,7 @@ const TopWeekCommand = async function (message, args, client) {
     let playerManager = new PlayerManager();
     let actualPlayer = await playerManager.getCurrentPlayer(message);
     totalJoueur = await playerManager.getNumberOfWeeklyPlayers();
-    let pageMax = Math.ceil(await playerManager.getNumberOfWeeklyPlayers() / DefaultValues.TopWeek.playersByPage);
+    let pageMax = Math.ceil(totalJoueur / DefaultValues.TopWeek.playersByPage);
     let page = getRequiredPageNumber(args);
     let erreur = testAbsurdsPages(message, page, pageMax);
     if (erreur == 0) {
