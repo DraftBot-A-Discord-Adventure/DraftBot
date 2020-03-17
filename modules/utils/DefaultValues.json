@@ -108,6 +108,9 @@
     "TopWeek": {
         "playersByPage": "15"
     },
+    "TopServ": {
+        "playersByPage": "15"
+    },
     "fight": {
         "minimalLevel": "8"
     },

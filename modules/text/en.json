@@ -310,7 +310,7 @@
             "invalidNumber": "** Please enter a valid page number!",
             "notMuchError": "** You gave a page number smaller than the first page! The first page is: ",
             "tooMuchError": "** You gave a page number larger than the last page! The last page is: ",
-            "introDebut": "**:trophy: Displaying ranking ",
+            "introDebut": "**:trophy: Displaying players with rank ",
             "pageNumberSeparator": " to ",
             "introFin": " : ** \n\n",
             "firstPlaceEmoji": ":first_place: ",
@@ -348,12 +348,15 @@
             "noPlayersInTop": "**Oops**, please come back later.\nIt seems like there is nobody yet in the weekly leaderboard.\n",
             "ranked": "Your rank :"
         },
+        "topServ": {
+            "introDebut": "**:trophy: Displaying players on this server with rank "
+        },
         "TopWeek": {
             "errorDebut": ":x: | **",
             "invalidNumber": "** Please enter a valid page number!",
             "notMuchError": "** You gave a page number smaller than the first page! The first page is: ",
             "tooMuchError": "** You gave a page number larger than the last page! The last page is: ",
-            "introDebut": "**Displaying weekly ranking ",
+            "introDebut": "** Displaying players on this server with weekly rank ",
             "pageNumberSeparator": " to ",
             "introFin": " : ** \n\n",
             "firstPlaceEmoji": ":first_place: ",
