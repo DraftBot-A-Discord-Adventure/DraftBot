@@ -348,12 +348,15 @@
       "noPlayersInTop": "**Oups,** revenez plus tard.\nAucun joueur n'est classé pour le moment.\n",
       "ranked": "Votre classement :"
     },
+    "topServ": {
+      "introDebut": "**:trophy: Affichage du top du serveur "
+    },
     "TopWeek": {
       "errorDebut": ":x: | **",
       "invalidNumber": "** Veuillez entrer un numéro de page valide !",
       "notMuchError": "** Vous avez saisi un numéro de page trop petit ! La page minimum est : ",
       "tooMuchError": "** Vous avez saisi un numéro de page trop grand ! La page maximale est : ",
-      "introDebut": "**Affichage du top de la semaine ",
+      "introDebut": "**:trophy: Affichage du top de la semaine ",
       "pageNumberSeparator": " à ",
       "introFin": " : ** \n\n",
       "firstPlaceEmoji": ":first_place: ",

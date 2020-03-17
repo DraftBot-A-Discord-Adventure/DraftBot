@@ -103,9 +103,9 @@ const generateRandomRareness = function () {
     if (randomValue <= DefaultValues.raritiesGenerator['0']) {
         result = 1;
     } else if (randomValue <= DefaultValues.raritiesGenerator['1']) {
-        result =2;
+        result = 2;
     } else if (randomValue <= DefaultValues.raritiesGenerator['2']) {
-        result =3;
+        result = 3;
     } else if (randomValue <= DefaultValues.raritiesGenerator['3']) {
         result = 4;
     } else if (randomValue <= DefaultValues.raritiesGenerator['4']) {
@@ -148,7 +148,19 @@ const seeItemBonus = async function (player) {
     player.speed = player.speed + bonus;
 }
 
+/**
+ * Return the id list of all the users of a server 
+ * @param {*} message the message used to retrieve the server
+ */
+const getIdListServMember = function (message) {
+    let idlist = ""
+    message.guild.members.forEach(member => idlist += member.id + ",");
+    return idlist.substring(0, idlist.length - 1);
+
+}
+
 //Exports
+module.exports.getIdListServMember = getIdListServMember;
 module.exports.convertHoursInMiliseconds = convertHoursInMiliseconds;
 module.exports.convertMinutesInMiliseconds = convertMinutesInMiliseconds;
 module.exports.convertMillisecondsInMinutes = convertMillisecondsInMinutes;
