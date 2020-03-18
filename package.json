@@ -1,19 +1,15 @@
 {
   "name": "fr.bast.draftbot",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "main": "draftbot.js",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/BastLast/DraftBot-A-Discord-Adventure.git"
+    "type": "git",
+    "url": "https://github.com/BastLast/DraftBot-A-Discord-Adventure.git"
   },
   "dependencies": {
     "chai": "^4.2.0",
-    "discord.js": "^11.5.0",
-    "js": "^0.1.0",
-    "mocha": "^5.2.0",
+    "discord.js": "^11.6.2",
     "moment": "^2.24.0",
-    "sinon": "^6.3.5",
-    "sinon-chai": "^3.2.0",
     "sqlite": "^3.0.3"
   }
 }

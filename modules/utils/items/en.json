@@ -19,7 +19,7 @@
         "16": ":pick:  **Pickaxe**",
         "17": ":wrench:  **Sledgehammer**",
         "18": ":cricket: **Stick**",
-        "19": ":knife:  **Old knife**",
+        "19": ":knife:  **Ancient knife**",
         "20": ":herb: **Flexible branch**",
         "21": ":pick:  **Damaged pickaxe**",
         "22": ":bow_and_arrow:  **Bow**",
@@ -64,7 +64,9 @@
         "61": "💉  **Dirty syringe**",
         "62": "🦠  **Biological weapon**",
         "63": "💣  **Atomic bomb**",
-        "64": "🕯️  **Burner**"
+        "64": "🕯️  **Burner**",
+        "65": "🥢  **Pew Pew**",
+        "66": "⚔️  **Beat Saber**"
     },
     "armor": {
         "default": ":black_large_square: **No shield or armor**",

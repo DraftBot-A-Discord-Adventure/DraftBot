@@ -35,7 +35,7 @@ class PlayerManager {
     * @returns {promise} - The promise that will be resolved into a player
     */
     getCurrentPlayer(message) {
-        return sql.get(`select *from(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = "${message.author.id}"`).then(player => {
+        return sql.get(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = "${message.author.id}"`).then(player => {
             if (!player) { //player is not in the database
                 console.log(`user unknown : ${message.author.username}`);
                 let player = this.getNewPlayer(message)
@@ -53,6 +53,21 @@ class PlayerManager {
         })
     }
 
+    /**
+     * Get the rank of a player on a server
+     * @param idList - The list of ids of the players of the server
+     * @param id - The id of the player
+     * @returns {Integer} - The server rank of the player
+     */
+    getServRank(idList,id) {
+        return sql.get(`SELECT rank FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) AS rank FROM entity JOIN player on entity.id = player.discordId  AND entity.id IN(${idList}) ) WHERE score > 100 AND id=${id} ORDER BY score DESC`).then(player => {
+            return player.rank
+        }).catch(error => { //there is no database
+            console.error(error)
+            return 0;
+        })
+    }
+
 
     /**
      * Return a promise that will contain the player that sent a message once it has been resolved
@@ -61,7 +76,7 @@ class PlayerManager {
      * @returns {promise} - The promise that will be resolved into a player
      */
     getPlayerById(id, message) {
-        return sql.get(`select *from(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = "${id}"`).then(player => {
+        return sql.get(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = "${id}"`).then(player => {
             if (!player) { //player is not in the database
                 console.log(`user unknown : ${id}`);
                 return this.getNewPlayerById(id, message);
@@ -84,7 +99,7 @@ class PlayerManager {
      * @returns {promise} - The promise that will be resolved into a player
      */
     getIdByRank(rank) {
-        return sql.get(`select *from(SELECT discordId, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank = "${rank}"`).then(id => {
+        return sql.get(`SELECT *FROM(SELECT discordId, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank = "${rank}"`).then(id => {
             return id.discordId;
         }).catch(error => { //there is no database
             console.error(error)
@@ -94,7 +109,7 @@ class PlayerManager {
 
 
     /**
-     * Return a player created from the defaul values
+     * Return a player created FROM the defaul values
      * @param message - The message that caused the function to be called. Used to retrieve the timestamp of the message
      * @returns {*} - A new player
      */
@@ -107,7 +122,7 @@ class PlayerManager {
 
 
     /**
-     * Return a player created from the defaul values
+     * Return a player created FROM the defaul values
      * @param id - The id of the player that has to be created
      * @param message - The message that caused the function to be called. Used to retrieve the timestamp of the message
      * @returns {*} - A new player
@@ -214,11 +229,11 @@ class PlayerManager {
     }
 
     /**
-     * Get the total number of players in the database that played this week
-     * @returns {Integer} - The number of players
+     * Get the total number of player in the database that are on the idList given 
+     * @param {*} idList the list of id of the users of a server
      */
-    getNumberOfWeeklyPlayers() {
-        return sql.get(`SELECT COUNT(*) as count FROM player WHERE weeklyScore > 0`).then(number => {
+    getNumberOfServPlayers(idList) {
+        return sql.get(`SELECT COUNT(*) AS count FROM player WHERE score >100 AND discordId IN(${idList})`).then(number => {
             return number.count
         }).catch(error => { //there is no database
             console.error(error)
@@ -226,12 +241,14 @@ class PlayerManager {
         })
     }
 
+
+
     /**
-     * Get the total number of actives players in the database
+     * Get the total number of players in the database that played this week
      * @returns {Integer} - The number of players
      */
-    getNumberOfActivePlayers() {
-        return sql.get(`select count(discordId) as count from player where score >100`).then(number => {
+    getNumberOfWeeklyPlayers() {
+        return sql.get(`SELECT COUNT(*) AS count FROM player WHERE weeklyScore > 0`).then(number => {
             return number.count
         }).catch(error => { //there is no database
             console.error(error)
@@ -394,7 +411,7 @@ class PlayerManager {
 
 
     /**
-     * add a selected armor into an inventory and save the result
+     * add a SELECTed armor into an inventory and save the result
      * @param {*} equipementManager - The equipement manager class
      * @param {*} inventory - the inventory of the player
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
@@ -421,7 +438,7 @@ class PlayerManager {
 
 
     /**
-     * add a selected armor into an inventory and save the result
+     * add a SELECTed armor into an inventory and save the result
      * @param {*} equipementManager - The equipement manager class
      * @param {*} inventory - the inventory of the player
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
@@ -448,7 +465,7 @@ class PlayerManager {
 
 
     /**
-     * add a selected object into an inventory and save the result
+     * add a SELECTed object into an inventory and save the result
      * @param {*} objectManager - The object manager class
      * @param {*} inventory - the inventory of the player
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
@@ -475,7 +492,7 @@ class PlayerManager {
 
 
     /**
-     * add a selected potion into an inventory and save the result
+     * add a SELECTed potion into an inventory and save the result
      * @param {*} potionManager - The potion manager class
      * @param {*} inventory - the inventory of the player
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
@@ -606,7 +623,7 @@ class PlayerManager {
 
     /**
      * Select a random item Type 
-     * @returns {String} - The type of the item that has been selected
+     * @returns {String} - The type of the item that has been SELECTed
      */
     chooseARandomItemType() {
         return DefaultValues.itemGenerator.tab[Math.round(Math.random() * (DefaultValues.itemGenerator.max - 1) + 1)];
@@ -630,7 +647,7 @@ class PlayerManager {
     }
 
     /**
-     * Allow to retrieve the data from the top between 2 limits
+     * Allow to retrieve the data FROM the top between 2 limits
      * @param {Integer} borneinf - The lower limit of the top
      * @param {Integer} bornesup - The uppper limit of the top
      * @returns {*} -The data of the top (an array of players)
@@ -638,7 +655,7 @@ class PlayerManager {
     getTopData(borneinf, bornesup) {
         let playerArray = Array();
         let i = 0;
-        return sql.all(`select *from(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank >= ${borneinf} AND rank <= ${bornesup} AND score > 100 ORDER BY score DESC`).then(data => {
+        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) AS rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) AS weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank >= ${borneinf} AND rank <= ${bornesup} AND score > 100 ORDER BY score DESC`).then(data => {
             data.forEach(function (player) {
                 playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
@@ -650,7 +667,28 @@ class PlayerManager {
     }
 
     /**
- * Allow to retrieve the data from the top between 2 limits
+     * Allow to retrieve the data FROM the top between 2 limits
+     * @param {Integer} borneinf - The lower limit of the top
+     * @param {Integer} bornesup - The uppper limit of the top
+     * @param {String} idList - The list of id where the discord id of the user has to be
+     * @returns {*} -The data of the top (an array of players)
+     */
+    getTopServData(borneinf, bornesup, idList) {
+        let playerArray = Array();
+        let i = 0;
+        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) AS rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) AS weeklyRank FROM entity JOIN player on entity.id = player.discordId  AND entity.id IN(${idList}) ) WHERE rank >= ${borneinf} AND rank <= ${bornesup} AND score > 100 ORDER BY score DESC`).then(data => {
+            data.forEach(function (player) {
+                playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
+                    player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
+                    player.weeklyRank)
+                i++;
+            });
+            return playerArray;
+        });
+    }
+
+    /**
+ * Allow to retrieve the data FROM the top between 2 limits
  * @param {Integer} borneinf - The lower limit of the top
  * @param {Integer} bornesup - The uppper limit of the top
  * @returns {*} -The data of the top (an array of players)
@@ -658,7 +696,7 @@ class PlayerManager {
     getTopWeekData(borneinf, bornesup) {
         let playerArray = Array();
         let i = 0;
-        return sql.all(`select *from(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE weeklyRank >= ${borneinf} AND weeklyRank <= ${bornesup} AND weeklyScore > 0 ORDER BY weeklyScore DESC`).then(data => {
+        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE weeklyRank >= ${borneinf} AND weeklyRank <= ${bornesup} AND weeklyScore > 0 ORDER BY weeklyScore DESC`).then(data => {
             data.forEach(function (player) {
                 playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,

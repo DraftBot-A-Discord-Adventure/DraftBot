@@ -1,6 +1,7 @@
 const DefaultValues = require('../utils/DefaultValues');
 const ServerManager = require('../classes/ServerManager');
 const Config = require('../utils/Config');
+const InventoryManager = require('../classes/InventoryManager');
 
 /**
  * convert a number of minutes in a number of miliseconds
@@ -102,9 +103,9 @@ const generateRandomRareness = function () {
     if (randomValue <= DefaultValues.raritiesGenerator['0']) {
         result = 1;
     } else if (randomValue <= DefaultValues.raritiesGenerator['1']) {
-        result =2;
+        result = 2;
     } else if (randomValue <= DefaultValues.raritiesGenerator['2']) {
-        result =3;
+        result = 3;
     } else if (randomValue <= DefaultValues.raritiesGenerator['3']) {
         result = 4;
     } else if (randomValue <= DefaultValues.raritiesGenerator['4']) {
@@ -119,7 +120,47 @@ const generateRandomRareness = function () {
     return result;
 }
 
+/**
+ * Allow to add to the player stats the bonuses of its items
+ * @param {*} player - One of the player that has to recieve the bonus
+ */
+const addItemBonus = async function (player) {
+    let inventoryManager = new InventoryManager()
+    let bonus = await inventoryManager.getDamageById(player.id);
+    player.attack = player.attack + bonus;
+    bonus = await inventoryManager.getDefenseById(player.id);
+    player.defense = player.defense + bonus;
+    bonus = await inventoryManager.getSpeedById(player.id);
+    player.speed = player.speed + bonus;
+}
+
+/**
+ * Allow to add to the player stats the bonuses of its items
+ * @param {*} player - One of the player that has to recieve the bonus
+ */
+const seeItemBonus = async function (player) {
+    let inventoryManager = new InventoryManager()
+    let bonus = await inventoryManager.seeDamageById(player.id);
+    player.attack = player.attack + bonus;
+    bonus = await inventoryManager.seeDefenseById(player.id);
+    player.defense = player.defense + bonus;
+    bonus = await inventoryManager.seeSpeedById(player.id);
+    player.speed = player.speed + bonus;
+}
+
+/**
+ * Return the id list of all the users of a server 
+ * @param {*} message the message used to retrieve the server
+ */
+const getIdListServMember = function (message) {
+    let idlist = ""
+    message.guild.members.forEach(member => idlist += member.id + ",");
+    return idlist.substring(0, idlist.length - 1);
+
+}
+
 //Exports
+module.exports.getIdListServMember = getIdListServMember;
 module.exports.convertHoursInMiliseconds = convertHoursInMiliseconds;
 module.exports.convertMinutesInMiliseconds = convertMinutesInMiliseconds;
 module.exports.convertMillisecondsInMinutes = convertMillisecondsInMinutes;
@@ -127,4 +168,6 @@ module.exports.displayDuration = displayDuration;
 module.exports.generateRandomNumber = generateRandomNumber;
 module.exports.chargeText = chargeText;
 module.exports.detectLanguage = detectLanguage;
+module.exports.addItemBonus = addItemBonus;
+module.exports.seeItemBonus = seeItemBonus;
 module.exports.generateRandomRareness = generateRandomRareness;

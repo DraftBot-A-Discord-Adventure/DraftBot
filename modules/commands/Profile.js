@@ -22,6 +22,7 @@ const profileCommand = async function (message, args, client) {
             return message.channel.send(Text.commands.profile.errorMain + "**" + message.author.username + "**" + Text.commands.profile.errorExp)
     }
     let numberOfPlayer = await playerManager.getNumberOfPlayers();
+    await Tools.seeItemBonus(player)
     let messageProfile = generateProfileMessage(message, player, numberOfPlayer, client, language);
     message.channel.send(messageProfile).then(msg => {
         displayBadges(player, msg);
@@ -57,7 +58,7 @@ const generateProfileMessage = function (message, player, numberOfPlayer, client
 
     embed.addField(Text.commands.profile.stats,
         Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense +
-        player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed(), false);
+        player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed()+ Text.commands.profile.statsFightPower + player.getFightPower(), false); 
 
     embed.addField(Text.commands.profile.rankAndScore,
         Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +

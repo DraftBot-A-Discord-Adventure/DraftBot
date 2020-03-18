@@ -16,7 +16,7 @@ const TopWeekCommand = async function (message, args, client) {
     let playerManager = new PlayerManager();
     let actualPlayer = await playerManager.getCurrentPlayer(message);
     totalJoueur = await playerManager.getNumberOfWeeklyPlayers();
-    let pageMax = Math.ceil(await playerManager.getNumberOfWeeklyPlayers() / DefaultValues.TopWeek.playersByPage);
+    let pageMax = Math.ceil(totalJoueur / DefaultValues.TopWeek.playersByPage);
     let page = getRequiredPageNumber(args);
     let erreur = testAbsurdsPages(message, page, pageMax);
     if (erreur == 0) {
@@ -55,7 +55,7 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     } else {
         embed.setDescription("\u200b\n" + generateTopDataText(data, totalJoueur, message, client) + "\u200b");
         embed.addField(Text.commands.TopWeek.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
-        embed.setFooter("Classement réinitialisé dans" + `${getResetDate()}`, "https://i.imgur.com/OpL9WpR.png");
+        embed.setFooter(Text.commands.TopWeek.footer + `${getResetDate()}`, "https://i.imgur.com/OpL9WpR.png");
     }
     return embed;
 }
@@ -166,7 +166,7 @@ function getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, pa
 function displayPlayerInfos(messageTop, player, pseudo, message) {
     messageTop += player.weeklyRank + Text.commands.TopWeek.boldEnd + pseudo;
     let temps = Math.floor((message.createdTimestamp - player.lastReport) / (1000 * 60)); //temps en minutes depuis le dernier rapport
-    if (temps > 1440) {
+    if (temps > 1440 * DefaultValues.top.daysBeforeInnactive) {
         messageTop += Text.commands.TopWeek.innactive;
     } else {
         if (temps > 60) {

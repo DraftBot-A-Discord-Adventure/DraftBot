@@ -10,12 +10,14 @@ const Drink = require('./commands/Drink');
 const Daily = require('./commands/Daily');
 const Top = require('./commands/Top');
 const TopWeek = require('./commands/TopWeek');
+const TopServ = require('./commands/TopServ');
 const Sell = require('./commands/Sell');
 const Fight = require('./commands/Fight');
 const Shop = require('./commands/Shop');
 
 const Reset = require('./commands/admin/Reset');
 const Give = require('./commands/admin/Give');
+const ListItems = require('./commands/admin/ListItems');
 const Servers = require('./commands/admin/Servers');
 const GiveBadge = require('./commands/admin/GiveBadge');
 const ResetBadge = require('./commands/admin/ResetBadge');
@@ -47,6 +49,8 @@ const CommandTable = new Map(
         ["top", Top.TopCommand],
         ["topweek", TopWeek.TopWeekCommand],
         ["topw", TopWeek.TopWeekCommand],
+        ["tops", TopServ.TopServCommand],
+        ["topserv", TopServ.TopServCommand],
         ["tw", TopWeek.TopWeekCommand],
         ["sell", Sell.SellCommand],
         ["fight", Fight.FightCommand],
@@ -56,6 +60,7 @@ const CommandTable = new Map(
         ["prefix", ChangePrefix.ChangePrefixCommand],
         ["language", Language.ChangeLanguageCommand],
 
+        ["list", ListItems.ListItemsCommand],
         ["destroy", Reset.ResetCommand],
         ["invi", Invitations.InvitationsCommand],
         ["points", Points.PointsCommand],

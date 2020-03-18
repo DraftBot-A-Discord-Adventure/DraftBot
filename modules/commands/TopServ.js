@@ -1,32 +1,31 @@
-//Discord API
 const Discord = require("discord.js");
+const moment = require("moment");
 const DefaultValues = require('../utils/DefaultValues');
 const PlayerManager = require('../classes/PlayerManager');
 const Tools = require('../utils/Tools');
 
-
 let Text
-
 
 /**
  * Allow to display the rankings of the players
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
-const topCommand = async function (message, args, client) {
+const TopServCommand = async function (message, args, client) {
     Text = await Tools.chargeText(message);
     let playerManager = new PlayerManager();
-
     let actualPlayer = await playerManager.getCurrentPlayer(message);
-    totalJoueur = await playerManager.getNumberOfPlayers();
-    let pageMax = Math.ceil(totalJoueur / DefaultValues.top.playersByPage);
+    let idList = Tools.getIdListServMember(message);
+    actualPlayer.rank = await playerManager.getServRank(idList,actualPlayer.discordId)
+    totalJoueur = await playerManager.getNumberOfServPlayers(idList);
+    let pageMax = Math.ceil(totalJoueur / DefaultValues.TopServ.playersByPage);
     let page = getRequiredPageNumber(args);
     let erreur = testAbsurdsPages(message, page, pageMax);
     if (erreur == 0) {
-        let bornesup = page * DefaultValues.top.playersByPage
-        let borneinf = bornesup - (DefaultValues.top.playersByPage - 1);
-        let data = await playerManager.getTopData(borneinf, bornesup)
-        let messageTop = generateTopMessage(message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client);
+        let bornesup = page * DefaultValues.TopServ.playersByPage
+        let borneinf = bornesup - (DefaultValues.TopServ.playersByPage - 1);
+        let data = await playerManager.getTopServData(borneinf, bornesup, idList)
+        const messageTop = generateTopMessage(message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client);
         message.channel.send(messageTop);
     }
 }
@@ -47,7 +46,7 @@ const topCommand = async function (message, args, client) {
  * @param {*} client - The bot client, used to retrieve the username of the players
  */
 const generateTopMessage = function (message, borneinf, bornesup, pageMax, page, actualPlayer, totalJoueur, data, client) {
-    let messageTop = Text.commands.top.introDebut + borneinf + Text.commands.top.pageNumberSeparator + bornesup + Text.commands.top.introFin;
+    let messageTop = Text.commands.topServ.introDebut + borneinf + Text.commands.top.pageNumberSeparator + bornesup + Text.commands.top.introFin;
     let classementJoueur = actualPlayer.rank;
     const embed = new Discord.RichEmbed();
     embed.setColor(DefaultValues.embed.color);
@@ -264,12 +263,7 @@ function getPlacementEmoji(player, messageTop, message) {
                         messageTop += Text.commands.top.youEmoji;
                     }
                     else {
-                        if (message.guild.members.find(val => val.id === player.discordId) != null) {
-                            messageTop += Text.commands.top.sameGuild;
-                        }
-                        else {
-                            messageTop += Text.commands.top.otherEmoji;
-                        }
+                        messageTop += Text.commands.top.otherEmoji;
                     }
                 }
             }
@@ -293,4 +287,4 @@ function getRequiredPageNumber(args) {
 }
 
 
-module.exports.TopCommand = topCommand;
+module.exports.TopServCommand = TopServCommand;
