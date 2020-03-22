@@ -399,6 +399,11 @@
             "footer": "Next reset:"
         }
     },
+    "commandReader": {
+        "resetIsNowTitle": ":trophy: The weekly ranking is currently being reinitialized. The winner will soon be announced on the bot's server!",
+        "resetIsNowFooter": "\n\n:clock12: The game will resume in less than 5 minutes!",
+        "resetIsNowFooterFight": "\n\n:clock12: The fights will resume in less than 15 minutes!"
+    },
     "badges": {
         "🏆": ":trophy: `Best player by rank when resetting to 1.0.`",
         "🏅": ":medal: `Player in the top 10 by rank before the 1.0 reset.`",

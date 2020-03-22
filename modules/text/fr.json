@@ -399,6 +399,11 @@
       "footer": "Classement réinitialisé dans"
     }
   },
+  "commandReader":{
+    "resetIsNowTitle" : ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot !",
+    "resetIsNowFooter" : "\n\n:clock12: Le jeu reprendra dans moins de 5 minutes !",
+    "resetIsNowFooterFight": "\n\n:clock12: Les combats reprendront dans moins de 15 minutes !"
+  },
   "badges": {
     "🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
     "🏅": ":medal:  `Joueur dans le top 10 au reset de la 1.0`",

@@ -8,7 +8,7 @@ const DefaultValues = require('../utils/DefaultValues');
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const reportCommand = async function (message, args, client, talkedRecently) {
-   let Text = await Tools.chargeText(message);;
+   let Text = await Tools.chargeText(message);
    let language = await Tools.detectLanguage(message);
    if (talkedRecently.has(message.author.id)) {
       return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
