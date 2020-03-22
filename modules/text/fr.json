@@ -218,7 +218,7 @@
           "5": " ** effectue une attaque rapide ! C'était risqué mais ça passe !",
           "6": " ** lance une bonne attaque rapide !",
           "7": " ** utilise une attaque rapide ! Magistral !",
-          "8": " ** choisi une attaque rapide !  Très bonne initiative"
+          "8": " ** choisit une attaque rapide !  Très bonne initiative"
         },
         "meh": {
           "1": " ** effectue une attaque rapide ! Ca fonctionne mais c'était pas incroyable.",
@@ -228,7 +228,7 @@
           "5": " ** effectue une attaque rapide ! C'est pas très réussi.",
           "6": " ** lance une attaque rapide ! Médiocre",
           "7": " ** utilise une attaque rapide ! Faiblarde !",
-          "8": " ** choisi une attaque rapide !  Le résultat est assez pitoyable."
+          "8": " ** choisit une attaque rapide !  Le résultat est assez pitoyable."
         },
         "ko": {
           "1": " ** effectue une attaque rapide ! C'est raté !",
@@ -238,7 +238,7 @@
           "5": " ** effectue une attaque rapide ! C'était risqué et ça n'est pas passé !",
           "6": " ** lance une mauvaise attaque rapide !",
           "7": " ** utilise une attaque rapide ! Un choix peu judicieux !",
-          "8": " ** choisi une attaque rapide !  Mauvaise initiative"
+          "8": " ** choisit une attaque rapide !  Mauvaise initiative"
         }
       },
       "attackSimple": {
@@ -250,7 +250,7 @@
           "5": " ** effectue une attaque simple ! C'était risqué mais ça passe !",
           "6": " ** lance une bonne attaque simple !",
           "7": " ** utilise une attaque simple ! Magistrale !",
-          "8": " ** choisi une attaque simple !  Très bonne initiative"
+          "8": " ** choisit une attaque simple !  Très bonne initiative"
         },
         "meh": {
           "1": " ** effectue une attaque simple ! Ca fonctionne mais c'était pas incroyable.",
@@ -260,7 +260,7 @@
           "5": " ** effectue une attaque simple ! C'est pas très réussi.",
           "6": " ** lance une attaque simple ! Médiocre",
           "7": " ** utilise une attaque simple ! Faiblarde !",
-          "8": " ** choisi une attaque simple !  Le résultat est assez pitoyable."
+          "8": " ** choisit une attaque simple !  Le résultat est assez pitoyable."
         },
         "ko": {
           "1": " ** effectue une attaque simple ! C'est raté !",
@@ -270,7 +270,7 @@
           "5": " ** effectue une attaque simple ! C'était risqué et ça n'est pas passé !",
           "6": " ** lance une mauvaise attaque simple !",
           "7": " ** utilise une attaque simple ! Un choix peu judicieux !",
-          "8": " ** choisi une attaque simple !  Mauvaise initiative."
+          "8": " ** choisit une attaque simple !  Mauvaise initiative."
         }
       },
       "attackUltime": {
@@ -282,7 +282,7 @@
           "5": " ** effectue une attaque ultime ! C'était risqué mais ça passe ! `Vitesse réduite de 10 %`",
           "6": " ** lance une bonne attaque ultime ! `Vitesse réduite de 10 %`",
           "7": " ** utilise une attaque ultime ! Magistrale ! `Vitesse réduite de 10 %`",
-          "8": " ** choisi une attaque ultime !  Très bonne initiative. `Vitesse réduite de 10 %`"
+          "8": " ** choisit une attaque ultime !  Très bonne initiative. `Vitesse réduite de 10 %`"
         },
         "meh": {
           "1": " ** effectue une attaque ultime ! Ca fonctionne mais c'était pas incroyable.",
@@ -292,7 +292,7 @@
           "5": " ** effectue une attaque ultime ! C'est pas très réussi.",
           "6": " ** lance une attaque ultime ! Médiocre",
           "7": " ** utilise une attaque ultime ! Faiblarde !",
-          "8": " ** choisi une attaque ultime !  Le résultat est assez pitoyable."
+          "8": " ** choisit une attaque ultime !  Le résultat est assez pitoyable."
         },
         "ko": {
           "1": " ** effectue une attaque ultime ! C'est raté ! `Vitesse réduite de 10 %`",
@@ -302,7 +302,7 @@
           "5": " ** effectue une attaque ultime ! C'était risqué et ça n'est pas passé ! `Vitesse réduite de 10 %`",
           "6": " ** lance une mauvaise attaque ultime ! `Vitesse réduite de 10 %`",
           "7": " ** utilise une attaque ultime ! Un choix peu judicieux ! `Vitesse réduite de 10 %`",
-          "8": " ** choisi une attaque ultime !  Mauvaise initiative. `Vitesse réduite de 10 %`"
+          "8": " ** choisit une attaque ultime !  Mauvaise initiative. `Vitesse réduite de 10 %`"
         }
       }
     },
