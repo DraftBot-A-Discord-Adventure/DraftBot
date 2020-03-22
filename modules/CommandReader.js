@@ -4,6 +4,10 @@ const PlayerManager = require('./classes/PlayerManager');
 const CommandTable = require('./CommandTable');
 const Text = require('./text/fr');
 const Console = require('./text/Console');
+const moment = require("moment");
+const Discord = require("discord.js");
+const DefaultValues = require('./utils/DefaultValues');
+const Tools = require('./utils/Tools');
 
 class CommandReader {
     constructor() {
@@ -22,6 +26,11 @@ class CommandReader {
         let prefix = CommandReader.getUsedPrefix(message);
         if (prefix == serverPrefix) {
             this.traceMessage(message, client);
+            const diffMinutes = getMinutesBeforeReset();
+            if (resetIsNow(diffMinutes)) {
+                const embed = await generateResetTopWeekEmbed(message);
+                return message.channel.send(embed)
+            }
             //if (message.author.id != Config.BOT_OWNER_ID) return message.channel.send(":x: Le Draftbot est actuellement en maintenance: Pour plus d'infos, visitez le discord du bot http://draftbot.tk \n\n :flag_um: The bot is being updated please be patient :) ");
             launchCommand(message, client, talkedRecently);
         } else {
@@ -31,7 +40,10 @@ class CommandReader {
         }
     }
 
-
+    /**
+     * log the recieved message on the console
+     * @param {*} message 
+     */
     traceMessage(message) {
         let trace = `---------\nMessage recu sur le serveur : ${message.guild.name} - id ${message.guild.id}\nAuteur du message : ${message.author.username} - id ${message.author.id}\nMessage : ${message.content}`;
         console.log(trace);
@@ -45,7 +57,7 @@ class CommandReader {
      */
     async handlePrivateMessage(message, client, talkedRecently) {
         if (Config.BLACKLIST.includes(message.author.id)) {
-            for (let i=1; i < 5; i++) {
+            for (let i = 1; i < 5; i++) {
                 message.channel.send(":x: Erreur.")
             }
             if (message.content != "") {
@@ -96,6 +108,42 @@ class CommandReader {
     static getUsedPrefix(message) {
         return message.content.substr(0, 1);
     }
+}
+
+/**
+ * Generate the embed that the bot has to send if the top week is curently beeing reset
+ * @param {*} message - the message used to get this embed
+ */
+async function generateResetTopWeekEmbed(message) {
+    const embed = new Discord.RichEmbed();
+    let Text = await Tools.chargeText(message);
+    embed.setColor(DefaultValues.embed.color);
+    embed.setTitle(Text.commandReader.resetIsNowTitle);
+    embed.setDescription(Text.commandReader.resetIsNowFooter);
+    return embed;
+}
+
+/**
+ * True if the reset is now (every sunday at midnight)
+ * @param {*} diffMinutes - The amount of minutes before the next reset
+ */
+function resetIsNow(diffMinutes) {
+    return diffMinutes < 3 && diffMinutes > -1;
+}
+
+/**
+ * Get the amount of minutes before the next reset
+ */
+function getMinutesBeforeReset() {
+    var now = new Date(); //The current date
+    var dateOfReset = new Date(); // The next Sunday
+    dateOfReset.setDate(now.getDate() + (0 + (7 - now.getDay())) % 7); // Calculating next Sunday
+    dateOfReset.setHours(22, 59, 59); // Defining hours, min, sec to 23, 59, 59
+    //Parsing dates to moment
+    var nowMoment = new moment(now);
+    var momentOfReset = new moment(dateOfReset);
+    const diffMinutes = momentOfReset.diff(nowMoment, 'minutes');
+    return diffMinutes;
 }
 
 /**
