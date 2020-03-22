@@ -66,7 +66,8 @@
         "63": ":bomb:  **Bombe atomique**",
         "64": ":candle:  **Brûleur**",
         "65": "🥢  **Pew Pew**",
-        "66": "⚔️  **Beat Saber**"
+        "66": "⚔️  **Beat Saber**",
+        "67": ":wolf: **Familier loup**"
     },
     "armor": {
         "default": ":black_large_square:  **Pas de bouclier ni d'armure**",
@@ -184,6 +185,8 @@
         "36": ":adhesive_bandage: Pansement",
         "37": ":skier: Skis glissants",
         "38" : ":cyclone: Amulette cyclonique",
-        "39" : ":diamond_shape_with_a_dot_inside: Pouvoir de Nayru"
+        "39" : ":diamond_shape_with_a_dot_inside: Pouvoir de Nayru",
+        "40" : ":angel: **bague de l'ange sans vie**",
+        "41" : ":amphora: **urne ornée du minotaure**
     }
 }

@@ -267,6 +267,10 @@
         "66": {
             "rareness": "6",
             "power": "5"
+        },
+        "67": {
+            "rareness": "6",
+            "power": "9"
         }
     },
     "armor": {
@@ -797,6 +801,16 @@
             "rareness": "4",
             "power": "38",
             "nature": "3"
+        },
+        "40": {
+            "rareness": "6",
+            "power": "11",
+            "nature": "1"
+        },
+        "41": {
+            "rareness": "6",
+            "power": "111",
+            "nature": "6"
         }
     },
     "effect": {
