@@ -16,10 +16,10 @@ class InventoryManager {
     getCurrentInventory(message) {
         return sql.get(`SELECT * FROM inventory WHERE playerId ="${message.author.id}"`).then(inventory => {
             if (!inventory) { //inventory is not in the database
-                console.log(`user unknown : ${message.author.username}`);
+                console.log(`inventory unknown : ${message.author.username}`);
                 return this.getNewInventory(message);
             } else { //inventory is in the database
-                console.log(`user loaded : ${message.author.username}`);
+                console.log(`inventory loaded : ${message.author.username}`);
                 return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
             }
         }).catch(error => { //there is no database
@@ -37,10 +37,10 @@ class InventoryManager {
     getInventoryById(id) {
         return sql.get(`SELECT * FROM inventory WHERE playerId ="${id}"`).then(inventory => {
             if (!inventory) { //inventory is not in the database
-                console.log(`user unknown 1 : ${id}`);
+                console.log(`inventory unknown : ${id}`);
                 return this.getNewInventoryById(id);
             } else { //inventory is in the database
-                console.log(`user loaded 1 : ${id}`);
+                console.log(`inventory loaded : ${id}`);
                 return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
             }
         }).catch(error => { //there is no database
