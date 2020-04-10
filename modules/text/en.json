@@ -84,10 +84,10 @@
                 "d": "🤑"
             },
             "choices": {
-                "a": ":question: **A random item** | `350 :moneybag:`",
-                "b": ":hospital: **Heal alterations** | `500 :moneybag:`",
-                "c": ":heartpulse: **Complete health regeneration** | `3000 :moneybag:`",
-                "d": ":money_mouth: **\"MoneyMouth\" Badge** | `25000 :moneybag:`"
+                "a": ":question: **A random item** | `350 💰`",
+                "b": ":hospital: **Heal alterations** | `500 💰`",
+                "c": ":heartpulse: **Complete health regeneration** | `3000 💰`",
+                "d": ":money_mouth: **\"MoneyMouth\" Badge** | `25000 💰`"
             },
             "infos": {
                 "aa": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
