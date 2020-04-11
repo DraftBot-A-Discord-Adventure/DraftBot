@@ -171,6 +171,14 @@ class Guild {
         this.name = name;
     }
 
+    /**
+     * Returns this Guild instance's name.
+     * @returns {String} - The name of this Guild instance.
+     */
+    getName() {
+        return this.name;
+    }
+
 
     /**
      * Returns this Guild instance's chief.
@@ -187,15 +195,6 @@ class Guild {
      */
     setChief(chief) {
         this.chief = chief;
-    }
-
-
-    /**
-     * Returns this Guild instance's name.
-     * @returns {String} - The name of this Guild instance.
-     */
-    getName() {
-        return this.name;
     }
 
     /**

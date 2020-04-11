@@ -409,6 +409,7 @@
       "over5": "/5",
       "error": "Erreur",
       "notFound": "Aucune guilde n'a été trouvée.",
+      "notInAGuild": " ne fait partie d'aucune guilde.",
       "playerDataStart": " - ",
       "playerDataInfosStart": " (",
       "trophy": " :trophy: | ",
@@ -472,6 +473,14 @@
       "characters2": "Le nom de la guilde doit être compris entre 1 et 15 caractères.",
       "emptyName": "Tu dois donner un nom à la guilde avant de l'acheter :\n`",
       "emptyName2": "guildcreate <nom>`"
+    },
+    "guildKick": {
+      "confirmKick": ", es-tu certains de vouloir exclure ",
+      "confirmKickEnd": " ?",
+      "gKicked": " a été exclu de la guilde `",
+      "gKickedEnd": "` !",
+      "gKickCancelled": " n'a pas été exclu de la guilde.",
+      "notInAGuild": " ne fais partie d'aucune guilde."
     }
   },
   "commandReader":{

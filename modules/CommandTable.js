@@ -19,6 +19,7 @@ const Guild = require('./commands/guilds/Guild');
 const GuildAdd = require('./commands/guilds/GuildAdd');
 const GuildLeave = require('./commands/guilds/GuildLeave');
 const GuildCreate = require('./commands/guilds/GuildCreate');
+const GuildKick = require('./commands/guilds/GuildKick');
 
 const Reset = require('./commands/admin/Reset');
 const Give = require('./commands/admin/Give');
@@ -86,6 +87,8 @@ const CommandTable = new Map(
         ["gleave", GuildLeave.guildLeaveCommand],
         ["guildcreate", GuildCreate.guildCreateCommand],
         ["gcreate", GuildCreate.guildCreateCommand],
+        ["guildkick", GuildKick.guildKickCommand],
+        ["gkick", GuildKick.guildKickCommand],
     ]
 );
 

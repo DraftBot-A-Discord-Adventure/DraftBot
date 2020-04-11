@@ -1,10 +1,7 @@
 const Guild = require('./Guild');
 const Player = require('./Player');
 const DefaultValues = require('../utils/DefaultValues')
-const Config = require('../utils/Config')
 const sql = require("sqlite");
-const ServerManager = require('./ServerManager');
-const PlayerManager = require('./PlayerManager');
 sql.open("./modules/data/database.sqlite");
 
 class GuildManager {

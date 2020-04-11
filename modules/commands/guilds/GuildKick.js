@@ -22,15 +22,17 @@ const chargePrefix = async function (message) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
-const guildLeaveCommand = async function (message, args, client) {
+const guildKickCommand = async function (message, args, client) {
     Text = await Tools.chargeText(message);
-    let guildManager = new GuildManager();
+    const guildManager = new GuildManager();
+    const playerManager = new PlayerManager();
+
     let serverPrefix = await chargePrefix(message);
     let user = message.author;
     let userGuild = await guildManager.getGuildByUserId(user.id);
 
     if(userGuild === null) { //Player is not in any guild
-        message.channel.send(generateNotInAGuildException(user));
+        message.channel.send(generateUserNotInAGuildException(user));
         return;
     }
 
@@ -39,15 +41,20 @@ const guildLeaveCommand = async function (message, args, client) {
         return;
     }
 
-    let user = getUserFromMention(args[1], client)
-    playerManager.getPlayerById(user.id); //Add the user to the database if it is missing.
-    if(user === null || user === undefined) {
+    let target = getUserFromMention(args[1], client)
+    playerManager.getPlayerById(target.id); //Add the user to the database if it is missing.
+    if(target === null || target === undefined) {
         message.channel.send(generateNoUserException(userGuild, serverPrefix));
         return;
     }
 
-    confirmKick(message, message.author, userGuild, user);
+    let targetGuild = await guildManager.getGuildByUserId(target.id);
+    if(targetGuild === null) {
+        message.channel.send(generateNotInAGuildException(target));
+        return;
+    }
 
+    confirmKick(message, user, userGuild, target);
 }
 
 /**
@@ -67,7 +74,7 @@ const confirmReactionIsCorrect = function (reaction) {
 * Display a confirm message
 */
 const confirmKick = async function (message, user, guild, target) {
-    let messageGuild = generateGuildKickMessage(message, user, guild);
+    let messageGuild = generateGuildKickMessage(user, guild, target);
     message.channel.send(messageGuild).then(async msg => {
         await addBasicReactions(msg); //Add reactions
         const filterConfirm = (reaction, user1) => {
@@ -77,7 +84,7 @@ const confirmKick = async function (message, user, guild, target) {
             time: 120000
         });
         //execute this if a user answer to the event
-        await createKickCollector(collector, message, user, guild);
+        await createKickCollector(collector, message, user, target, guild);
     });
 }
 
@@ -85,21 +92,21 @@ const confirmKick = async function (message, user, guild, target) {
  * Creating the reactions collector and possibilities
  * @param {*} collector - The collector
  */
-async function createKickCollector(collector, message, user, guild) {
+async function createKickCollector(collector, message, user, target, guild) {
     return collector.on('collect', async (reaction) => {
         switch (reaction.emoji.name) {
             case "✅":
-                await removePlayerFromGuild(guild);
-                message.channel.send(Text.commands.guildAdd.checkMark + user.toString() + Text.commands.guildLeave.gLeave + guild.name + Text.commands.guildLeave.gLeaveEnd);
+                await removePlayerFromGuild(target);
+                message.channel.send(Text.commands.guildAdd.checkMark + target.toString() + Text.commands.guildKick.gKicked + guild.getName() + Text.commands.guildKick.gKickedEnd);
                 break;
             case "❌":
-                message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildLeave.gLeaveRefuse);
+                message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildKick.gKickCancelled);
                 break;
         }
     });
 }
 
-async function removePlayerFromGuild(user, guild) {
+async function removePlayerFromGuild(user) {
     let playerManager = new PlayerManager();
     let player = await playerManager.getPlayerById(user.id);
     player.setGuildId("0");
@@ -122,10 +129,10 @@ async function addBasicReactions(message) {
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} client - The bot client, used to retrieve the username of the players
  */
-const generateGuildDestroyMessage = function (message, user, guild) {
+const generateGuildKickMessage = function (user, guild, target) {
     const embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.guild + guild.getName());
-    embed.setDescription(user.toString() + Text.commands.guildLeave.confirmDestroy + guild.getName() + Text.commands.guildLeave.confirmDestroyEnd);
+    embed.setDescription(user.toString() + Text.commands.guildKick.confirmKick + target.toString() + Text.commands.guildKick.confirmKickEnd);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     return embed;
 }
@@ -143,20 +150,6 @@ const generateNotTheGuildHostException = function(user) {
 }
 
 /**
- * /**
- * Returns a string containing the nodrink message.
- * @returns {String} - An embed message containing the guildAdd message.
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const generateGuildLeaveMessage = async function (message, user, guild) {
-    const embed = generateDefaultEmbed();
-    embed.setTitle(Text.commands.guildAdd.guild + guild.getName());
-    embed.setDescription(user.toString() + Text.commands.guildLeave.confirmLeave + guild.getName() + Text.commands.guildLeave.confirmLeaveEnd);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
-    return embed;
-}
-
-/**
  * @returns {String} - A RichEmbed message wich display the NoUserException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
@@ -164,7 +157,19 @@ const generateNotInAGuildException = function(user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
-    embed.setDescription(user.toString() + Text.commands.guildLeave.PIError1);
+    embed.setDescription(user.toString() + Text.commands.guild.notInAGuild);
+    return embed;
+}
+
+/**
+ * @returns {String} - A RichEmbed message wich display the NoUserException
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const generateUserNotInAGuildException = function(user) {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setDescription(Text.commands.guildKick.notInAGuild);
     return embed;
 }
 
@@ -189,4 +194,4 @@ const generateDefaultEmbed = function () {
     return new Discord.RichEmbed().setColor(DefaultValues.embed.color);
 }
 
-module.exports.guildLeaveCommand = guildLeaveCommand;
+module.exports.guildKickCommand = guildKickCommand;
