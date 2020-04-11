@@ -3,39 +3,11 @@ const EquipementManager = require('../classes/EquipementManager');
 const PotionManager = require('../classes/PotionManager');
 const ObjectManager = require('../classes/ObjectManager');
 const DefaultValues = require('../utils/DefaultValues');
-const ServerManager = require('../classes/ServerManager');
 const PlayerManager = require('../classes/PlayerManager');
 const Discord = require('discord.js');
+const Tools = require('../utils/Tools');
+
 let Text;
-
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
-
-/**
- * Allow to get the language the bot has to respond with
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @returns {string} - the code of the server language
- */
-const detectLanguage = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    return server.language;
-}
-
 
 /**
  * Display the content of the inventory's inventory
@@ -44,7 +16,7 @@ const detectLanguage = async function (message) {
  * @param {*} client - The instance of the bot
  */
 const inventoryCommand = async function (message, args, client) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     let player;
     let pseudo = message.author.username;
     let playerManager = new PlayerManager();
@@ -148,7 +120,7 @@ const generateInventoryMessage = async function (message, pseudo, inventory) {
     let potion = potionManager.getPotionById(inventory.potionId);
 
     //chargement de la langue
-    let language = await detectLanguage(message);
+    let language = await Tools.detectLanguage(message);
 
     embed.setTitle(Text.commands.inventory.title + pseudo + Text.commands.inventory.lineEnd1)
 

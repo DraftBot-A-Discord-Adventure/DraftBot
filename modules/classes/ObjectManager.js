@@ -1,6 +1,8 @@
 const Object = require('./Object');
 const ItemValues = require('../utils/items/Values');
 const DefaultValues = require('../utils/DefaultValues');
+const Tools = require('../utils/Tools');
+
 let ItemNames;
 let Text;
 
@@ -51,7 +53,8 @@ class ObjectManager {
      * @returns {*} - A random object
      */
     generateRandomObject() {
-        let desiredRareness = this.generateRandomRareness();
+        let desiredRareness = Tools.generateRandomRareness();
+        console.log(desiredRareness);
         let id = this.generateRandomObjectId();
         let tries = 1;
         while (ItemValues.object[id].rareness != desiredRareness) {
@@ -69,20 +72,6 @@ class ObjectManager {
      */
     generateRandomObjectId() {
         return Math.round(Math.random() * (DefaultValues.raritiesGenerator.numberOfObject - 1)) + 1;
-    }
-
-
-    /**
-     * Generate a random rareness. Legendary is very rare and common is not rare at all
-     * @returns {Number} - the number refering to a rareness (1 - 8) 
-     */
-    generateRandomRareness() {
-        let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
-        let desiredRareness = 1;
-        while (randomValue > DefaultValues.raritiesGenerator[desiredRareness - 1]) {
-            desiredRareness++;
-        }
-        return desiredRareness;
     }
 
 

@@ -3,26 +3,28 @@
         "help": {
             "mp": ":crossed_swords: Hey! This message was sent because you asked for help.\n\nIf you need help, you can join the bot server!\n\nYou will be able to be a part of the bot's development and you will get details about it!\n\nhttps://discord.gg/USnCxg4\n\nIf you don't want to join us (:sob:) you can also read the bot's wiki!\nhttps://draftbot.fandom.com/fr/wiki/Commandes",
             "intro": "** :notebook_with_decorative_cover: ",
-            "main": " here is the list of the available commands:**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\nTopWeek\ninventory\nfight\ndaily\ndrink\nprefix\n```\n:arrow_forward: If you want more information about a specific command write: `help [name of the command]` :wink:\n\n:arrow_forward: You can ask for help about badges by writing `help badges`\n\n:arrow_forward: For more help you can visit the bot's wiki! https://draftbot.fandom.com/fr/wiki/Commandes",
+            "main": " here is the list of the available commands:**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\ntopWeek\ntopServ\ninventory\nfight\ndaily\ndrink\nprefix\nlanguage\n```\n:arrow_forward: If you want more information about a specific command write: `help [name of the command]` :wink:\n\n:arrow_forward: You can ask for help about badges by writing `help badges`\n\n:arrow_forward: For more help you can visit the bot's wiki! https://draftbot.fandom.com/fr/wiki/Commandes",
             "commands": {
-                "prefix": ":interrobang: prefix {New prefix} :\n\nAllows you, if you are admin of a server, to change the prefix used by the bot on this server.",
-                "ping": ":ping_pong: ping:\n\nCheck if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. :clock1:):",
-                "respawn": ":angel: respawn\n\nLets you continue playing after dying.",
-                "profile": ":bust_in_silhouette: profile\n\nYour character's information:\n\n:smiley: Status effects | Nickname | Level :star: XP | :heart: Health | :dagger: Attack | :shield: Armor | :rocket: Speed | :trophy: Ranking | :moneybag: Money | :medal: Points",
-                "switch": ":repeat: switch\n\nSwitches the item currently in use with the one in your inventory.",
-                "fight": ":crossed_swords: fight\n\nUse this command to duel other players on the same server as you.",
+                "prefix": ":interrobang: `prefix {New prefix}` :\n\nAllows you, if you are admin of a server, to change the prefix used by the bot on this server.",
+                "ping": ":ping_pong: `ping`:\n\nCheck if the bot is online.\n\n(Note: Time displayed is the response time from the bot, not your ping, a correct ping should be less than 500 ms. :clock1:):",
+                "respawn": ":angel: `respawn`\n\nLets you continue playing after dying.",
+                "profile": ":bust_in_silhouette: `profile`\n\nYour character's information:\n\n:smiley: Status effects | Nickname | Level :star: XP | :heart: Health | :dagger: Attack | :shield: Armor | :rocket: Speed | :blue_heart: Fight points | :trophy: Ranking | :moneybag: Money | :medal: Points\n\nBadges are displayed using reactions.",
+                "switch": ":repeat: `switch`\n\nSwitches the item currently in use with the one in your inventory.",
+                "fight": ":crossed_swords: `fight`\n\nUse this command to duel other players on the same server as you.",
                 "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
-                "top": ":trophy: top [page number]\n\nDisplays the general ranking of the game in 15 player intervals. Players in the same guild of you are shown by a blue dot.",
-                "TopWeek": ":trophy: TopWeek [page number]\n\nDisplays the general weekly ranking of the game in pages of 15 players. Players in the same guild as you are shown with a blue dot.",
-                "inventory": ":school_satchel: inventory\n\nShows the items in your inventory, can contain 4 types of objects:\n```\n-Weapons\n-Armors\n-Potions\n-Items\n```\nThe command also shows the reserve that can contain another type of item temporarily during the time you deliberate whether or not to keep it.\n\n:warning: **The reserve is not to be trusted if you want to keep anything precious**\nThe items kept in here can be replaced whenever you find a new one.",
-                "report": ":newspaper: report\n\nLets you obtain the resources and intel your character got during your absence.\nFrom time to time, events will be triggered and will necessitate special actions or choices.",
-                "sell": ":moneybag: sell\n\nLets you sell the item currently in your reserve. The value of the item is set to be equal to its power, it can be 0 if the item is not very good :wink:.",
-                "daily": ":calendar: daily\n\nSome items give you bonuses daily or monthly. Use this command to obtain said bonuses. You can learn whether or not an item gives you a bonus by using the command `inventory`.",
-                "invite": ":inbox_tray: invite\n\nThis command allows you to get an invite url to get the bot on your server, or join the support server!",
-                "badge": ":military_medal: badges\n\nBadges are rewards very hard to get created to honor people who helped the bot development. The list of available badges is diplayed on the bot's discord server. (you can have the link of the server using the `invite` command)",
-                "badges": ":military_medal: badges\n\nBadges are very difficult distinctions to obtain and have been created to reward people who have most supported the development of the bot. The list of available badges is diplayed on the bot's discord server. (you can have the link of the server using the `invite` command)",
-                "drink": ":tropical_drink: drink\n\nThis command allows you to drink the potion you have. Some potions cannot be drunk and are consumed automatically during a fight.",
-                "shop": ":shopping_cart: shop\n\nThis command allows you to spend your money to facilitate your adventure. Besides the 4 main choices which are always available, you can buy an exclusive potion every day, available on sale for only 24h."
+                "language": ":flag_fr: `language` \n\n Change the language the bot use to french. You can use this command if you are admin of a server.",
+                "top": ":trophy: `top [page number]`\n\nDisplays the general ranking of the game in 15 player intervals. Players in the same server as you are shown by a blue dot.",
+                "topWeek": ":trophy: `topWeek [page number]`\n\nDisplays the general weekly ranking of the game in pages of 15 players. Players in the same server as you are shown with a blue dot.",
+                "topServ": ":trophy: `topServ [page number]`\n\nDisplays this server's ranking of the game in pages of 15 players.",
+                "inventory": ":school_satchel: `inventory`\n\nShows the items in your inventory, can contain 4 types of objects:\n```\n-Weapons\n-Armors\n-Potions\n-Items\n```\nThe command also shows the reserve that can contain another type of item temporarily during the time you deliberate whether or not to keep it.\n\n:warning: **The reserve is not to be trusted if you want to keep anything precious**\nThe items kept in here can be replaced whenever you find a new one.",
+                "report": ":newspaper: `report`\n\nLets you obtain the resources and intel your character got during your absence.\nFrom time to time, events will be triggered and will necessitate special actions or choices.",
+                "sell": ":moneybag: `sell`\n\nLets you sell the item currently in your reserve. The value of the item is set to be equal to its power, it can be 0 if the item is not very good :wink:.",
+                "daily": ":calendar: `daily`\n\nSome items give you bonuses daily or monthly. Use this command to obtain said bonuses. You can learn whether or not an item gives you a bonus by using the command `inventory`.",
+                "invite": ":inbox_tray: `invite`\n\nThis command allows you to get an invite url to get the bot on your server, or join the support server!",
+                "badge": ":military_medal: `badges`\n\nBadges are rewards very hard to get created to honor people who helped the bot development. The list of available badges is diplayed on the bot's discord server. (you can have the link of the server using the `invite` command)",
+                "badges": ":military_medal: `badges`\n\nBadges are very difficult distinctions to obtain and have been created to reward people who have most supported the development of the bot. The list of available badges is diplayed on the bot's discord server. (you can have the link of the server using the `invite` command)",
+                "drink": ":tropical_drink: `drink`\n\nThis command allows you to drink the potion you have. Some potions cannot be drunk and are consumed automatically during a fight.",
+                "shop": ":shopping_cart: `shop`\n\nThis command allows you to spend your money to facilitate your adventure. Besides the 4 main choices which are always available, you can buy an exclusive potion every day, available on sale for only 24h."
             }
         },
         "ping": {
@@ -48,7 +50,8 @@
             "rankAndScore": "Ranking and score :",
             "statsAttack": " :dagger: ",
             "statsDefense": " | :shield: ",
-            "statsSpeed": " | :rocket:",
+            "statsSpeed": " | :rocket: ",
+            "statsFightPower": " | :blue_heart: ",
             "notAPlayer": ", use the command `report` to start your adventure!"
         },
         "respawn": {
@@ -70,10 +73,10 @@
             "noMoney": "**, you can't access the shop with debt!",
             "emojiIntro": ":shopping_cart: ",
             "intro": ":shopping_cart: **Shop's overlay:**",
-            "dailySell": "```🗓 Today's item:```\n",
+            "dailySell": "```🗓 Today's potion:```\n",
             "priceTagStart": " | `",
-            "priceTagEnd": " 💵`",
-            "outro": "\n\n```🛍 Permanent sales:```\n:question: **A random item** | `350 💵`\n:hospital: **Heal alterations** | `500 💵`\n:heartpulse: **Full heal** | `3000 💵`\n:money_mouth: **\"MoneyMouth\" badge** | `25000 💵`\n\n```▶ Choose your purchase:```",
+            "priceTagEnd": " 💰`",
+            "outro": "\n\n```🛍 Permanent sales:```\n:question: **A random item** | `350 💰`\n:hospital: **Heal alterations** | `500 💰`\n:heartpulse: **Full heal** | `3000 💰`\n:money_mouth: **\"MoneyMouth\" badge** | `25000 💰`\n\n```▶ Choose your purchase:```",
             "emojis": {
                 "a": "❓",
                 "b": "🏥",
@@ -81,10 +84,10 @@
                 "d": "🤑"
             },
             "choices": {
-                "a": ":question: **A random item** | `350 💵`",
-                "b": ":hospital: **Heal alterations** | `500 💵`",
-                "c": ":heartpulse: **Complete health regeneration** | `3000💵`",
-                "d": ":money_mouth: **\"MoneyMouth\" Badge** | `25000💵`"
+                "a": ":question: **A random item** | `350 :moneybag:`",
+                "b": ":hospital: **Heal alterations** | `500 :moneybag:`",
+                "c": ":heartpulse: **Complete health regeneration** | `3000 :moneybag:`",
+                "d": ":money_mouth: **\"MoneyMouth\" Badge** | `25000 :moneybag:`"
             },
             "infos": {
                 "aa": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
@@ -191,7 +194,7 @@
             "menuEnd": " 's turn to play**\n\n:crossed_swords: - Use a basic attack \n:dagger:- Use a quick attack\n:bomb:- Use an ultimate attack\n:shield:- Prepare to shield yourself\n:rocket:- Prepare to dodge",
             "endIntroStart": " | **",
             "statusIntro": ":crossed_swords: | **Current battle state\n\n",
-            "statusPoints": "**\n:blue_circle: ",
+            "statusPoints": "**\n:blue_heart: ",
             "endLine": "\n\n**",
             "attackerEmoji": ":crossed_swords: **|** Attacker: ",
             "defenderEmoji": ":shield: **|** Defender: ",
@@ -308,7 +311,7 @@
             "invalidNumber": "** Please enter a valid page number!",
             "notMuchError": "** You gave a page number smaller than the first page! The first page is: ",
             "tooMuchError": "** You gave a page number larger than the last page! The last page is: ",
-            "introDebut": "**:trophy: Displaying ranking ",
+            "introDebut": "**:trophy: Displaying players with rank ",
             "pageNumberSeparator": " to ",
             "introFin": " : ** \n\n",
             "firstPlaceEmoji": ":first_place: ",
@@ -346,12 +349,15 @@
             "noPlayersInTop": "**Oops**, please come back later.\nIt seems like there is nobody yet in the weekly leaderboard.\n",
             "ranked": "Your rank :"
         },
+        "topServ": {
+            "introDebut": "**:trophy: Displaying players on this server with rank "
+        },
         "TopWeek": {
             "errorDebut": ":x: | **",
             "invalidNumber": "** Please enter a valid page number!",
             "notMuchError": "** You gave a page number smaller than the first page! The first page is: ",
             "tooMuchError": "** You gave a page number larger than the last page! The last page is: ",
-            "introDebut": "**Displaying weekly ranking ",
+            "introDebut": "** Displaying players on this server with weekly rank ",
             "pageNumberSeparator": " to ",
             "introFin": " : ** \n\n",
             "firstPlaceEmoji": ":first_place: ",
@@ -390,8 +396,14 @@
             "ranked": "Your rank :",
             "days": " J",
             "hours": " H",
-            "minutes": " Min"
+            "minutes": " Min",
+            "footer": "Next reset:"
         }
+    },
+    "commandReader": {
+        "resetIsNowTitle": ":trophy: The weekly ranking is currently being reinitialized. The winner will soon be announced on the bot's server!",
+        "resetIsNowFooter": "\n\n:clock12: The game will resume in less than 5 minutes!",
+        "resetIsNowFooterFight": "\n\n:clock12: The fights will resume in less than 15 minutes!"
     },
     "badges": {
         "🏆": ":trophy: `Best player by rank when resetting to 1.0.`",
@@ -425,7 +437,8 @@
         "🍌": ":banana:  `Present for a ping`",
         "🔍": ":mag:  `Investigator`",
         "🎗️": ":reminder_ribbon:  `People who lead the topweek`",
-        "🎄": ":christmas_tree:  `This badge can be win on giveaway every christmas`"
+        "🎄": ":christmas_tree:  `This badge can be win on giveaway every christmas`",
+        "😂": ":joy:  `Badge given to funny people`"
     },
     "error": {
         "noSpeakPermission": ":zipper_mouth: | **Hello! You are receiving this message because you tried using one of my commands in a channel where I have the permissions to see messages but not send them!**\n\nYour request was thus voided. To resolve this problem, please send a message to the owner of the server you tried to use me in. If you can't resolve this problem, I invite you to join the bot's support available here: 'http://draftbot.tk/'!"
@@ -435,19 +448,21 @@
             ":smiley": "** it seems you are not inflicted by any bad status!",
             ":baby:": "** It looks like you haven't begun to play! To start your adventure, use the `report` command.",
             ":dizzy_face:": "** It is unfortunately not possible to continue playing while almost dead! Please wait for the end of the healing of your status.",
-            ":sick:": "** It is unfortunately not possible to continue playing while hurt or ill! Please wait for the end of the healing of your status.",
+            ":sick:": "** It is unfortunately not possible to continue playing while ill! Please wait for the end of the healing of your status.",
             ":skull:": "** You are KO'd! You need to respawn using the `respawn` command.",
-            ":zzz:": "** It is unfortunately not possible to continue playing while sleeping! Please wait for the end of the healing of your status.",
+            ":lock:": "** You are currently locked. Please wait for the end of the healing of your status.",
+            ":sleeping:": "** It is unfortunately not possible to continue playing while sleeping! Please wait for the end of the healing of your status.",
             ":head_bandage:": "** It is unfortunately not possible to continue playing while hurt! Please wait for the end of the healing of your status.",
-            ":snowflake:": "**  It is unfortunately not possible to continue playing while frozen! Please wait for the end of the healing of your status.",
+            ":cold_face:": "**  It is unfortunately not possible to continue playing while frozen! Please wait for the end of the healing of your status.",
             ":confounded:": "** It is unfortunately not possible to continue playing while confused! Please wait for the end of the healing of your status.",
+            ":zany_face:": "** It is unfortunately not possible to continue playing while drunk! Please wait for the end of the healing of your status.",
             ":clock10:": "** Another command was used by you recently and is still waiting for instructions! Please terminate the last command before continuing to play. `If there is no other task waiting for instructions, please contact a bot administrator`",
             ":clock2:": "** It seems you already have something on your hands! Please wait for the end of the task to continue playing!"
         },
         "intro": " | **",
         "timeLeft": " | `Time left: ",
         "outro": "`",
-        "noTimeLeft": " | :hospital: `You can continue playing now`",
+        "noTimeLeft": ":hospital: You can continue playing now",
         "newItem": "**You obtained a new item!** :new: You got:\n\n",
         "sell": "** You obtain a bag containing some gold coins... It will be useful for the continuation of your adventure! :moneybag: Money obtained: **",
         "sellEnd": "**",
@@ -457,13 +472,13 @@
             "main": "** just reached level **",
             "end": "**",
             "healthRestored": "\n\n:heart: | All HP recovered\n",
-            "moreMaxHealth": "\n\n:heartpulse: | Maximum health increased by 5 points\n",
+            "moreMaxHealth": "\n\n:heartpulse: | Maximum health increased by 5\n",
             "firstBonus": "\n\n",
             "fightUnlocked": "\n\n:dagger: | Battle unlocked ! (Use `!fight` to start a battle)",
             "moreSpeed": ":rocket: | Speed increased by 5\n",
             "moreAttack": ":crossed_swords: | Attack increased by 5\n",
-            "moreDefense": ":shield: | Defense increased by 5 points\n",
-            "noBonus": "\n\n:x: | No level-up bonus"
+            "moreDefense": ":shield: | Defense increased by 5\n",
+            "noBonus": ":blue_heart: | Fight points increased"
         }
     },
     "equipementManager": {
@@ -529,8 +544,8 @@
     },
     "events": {
         "0": " : ** :mailbox_with_mail: **Welcome!** :crown: The king searches for a mighty knight to marry his daughter and **you** have been chosen to be part of the selection contest! I'll be your partner for this journey, and I'll do my best to help you triumph!\n:triangular_flag_on_post: Our goal for this game is to collect as many points as we can, to show the king our might!:muscle: I'll explain how it works...\n:notebook_with_decorative_cover: Of course, I won't make a long and monotonous speech, so if you want more details, please use `!help`\nSo, let's start! It's pretty simple, I'll do whatever you ask! I'm going to collect resources :moneybag: for you while you're gone, and you'll just have to use `!report` to get them. If I ever have problems, I'll ask you what to do and you'll help me continue!\n\n:walking: Let's go!\n🤔 I don't really know...\n\n*-Use Discord reactions to accomplish any action :warning: If you don't answer, you'll have to start the tutorial again :wink:.*",
-        "1": " : ** :deciduous_tree: A tree fell on the path and blocked it!\n\n:scissors: Cut the tree up and continue.\n:walking: Go another way.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice.*",
-        "2": " : ** :dog: In front of you, a dog arrives, and circles you. He seems to want you to follow him!\n\n:dog2: Follow the dog.\n:runner: Continue without worrying about the dog.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice.*",
+        "1": " : ** :deciduous_tree: A tree fell on the path and blocked it!\n\n:axe: Cut the tree up and continue.\n:walking: Go another way.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*",
+        "2": " : ** :dog: In front of you, a dog arrives, and circles you. He seems to want you to follow him!\n\n:dog2: Follow the dog.\n:runner: Continue without worrying about the dog.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*",
         "3": " : ** :lock: You found a box! But it's closed...\n\n:key: Look around for the key.\n:pick: Attack the padlock with a pickaxe.\n:arrow_forward: Abandon the box where you found it.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*",
         "4": " : ** :stars: You have decided to enjoy a quiet night to continue your progress. The sky is magnificient and after a few minutes scrutinizing the sky, you observe a shooting star!\n\n:speaking_head: Make a wish.\n:runner: Ignore this event.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*",
         "5": " : ** :fountain: You have found a fountain!\n\n:sweat_drops: Rest and drink to regain strength.\n:walking: Do not stop and continue on your way.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*",
@@ -542,22 +557,30 @@
         "11": " : ** :interrobang: As you get ready to enter a forest, a mysterious woman explains there is a shorter path through the west.\n\n:deciduous_tree: Keep going the same way.\n:point_left: Follow the advice of the mysterious woman.\n:point_right: Avoid the forest by going the opposite way you were told.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*",
         "12": " : ** :park: You see a river in front of you. On the other shore, you catch a glimpse of a village.\n\n:swimmer: Swim across the river.\n:rowboat: Try to make a raft.\n:bridge_at_night: Look for a bridge further away.\n:walking: Go another way.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*",
         "13": " : ** :homes: After spending several weeks walking without any human encounter, you finally enter a small town that seems rather lively.\n\n:house: Go to the inn.\n:hammer: Go to the forge.\n:circus_tent: Go to the marketplace.\n:walking: Leave.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*",
-        "14": " : ** :house: You arrive at a plain where a single small house stands. As you get closer, you see a man working on an incandescent piece of metal.\n\n:hammer: Chat with the worker\n🛏 Ask to stay the night to rest and recover\n:walking: You don't have time to lose! Continue walking!\n\n*-Use the reactions to take an action\n:warning: Not reacting is also considered a choice!*",
-        "15": " : ** :cityscape: As you are walking through a town through narrow alleys, you enter what seems to be a small shop where a group of men are quietly chatting.\n\n:busts_in_silhouette: Try trading with them.\n:runner: Continue walking without losing time.\n :moneybag: Discreetly take a few coins from the register.\n\n*-Use the reactions to take an action.\n:warning: Not reacting is also considered a choice!*",
-        "16": " : ** :european_castle: After following a small river for hours, you discover what seems to be a abandoned castle by the riverside.\n\n:mag_right: Enter and explore the castle.\n:arrow_right: Continue walking\n:repeat: Walk around the castle's exterior\n\n*-Use the reactions to execute an action.\n:warning: Not reacting is also considered a choice!* ",
-        "17": " : ** :stew: Hungry after your day of travel, you decide to stop and look for something to eat around you.\n\n:apple: Climb the huge tree facing you and get fruit from it.\n:mushroom: Gather mushrooms.\n:salad: Make a salad with the plants you find.\n:deer: Attempt to hunt a wild animal\n:walking: Forget eating here. Leave in hopes of finding a better place to eat.\n\n*-Use the reactions to take an action.\n:warning: Not reacting is also considered a choice!*",
+        "14": " : ** :house: YFou arrive at a plain where a single small house stands. As you get closer, you see a man working on an incandescent piece of metal.\n\n:hammer: Chat with the worker\n🛏 Ask to stay the night to rest and recover\n:walking: You don't have time to lose! Continue walking!\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "15": " : ** :cityscape: As you are walking through a town through narrow alleys, you enter what seems to be a small shop where a group of men are quietly chatting.\n\n:busts_in_silhouette: Try trading with them.\n:runner: Continue walking without losing time.\n :moneybag: Discreetly take a few coins from the register.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "16": " : ** :european_castle: After following a small river for hours, you discover what seems to be a abandoned castle by the riverside.\n\n:mag_right: Enter and explore the castle.\n:arrow_right: Continue walking\n:repeat: Walk around the castle's exterior\n\n*-Use the reactions to execute an action. :warning: Not reacting is also considered a choice!* ",
+        "17": " : ** :stew: Hungry after your day of travel, you decide to stop and look for something to eat around you.\n\n:apple: Climb the huge tree facing you and get fruit from it.\n:mushroom: Gather mushrooms.\n:salad: Make a salad with the plants you find.\n:deer: Attempt to hunt a wild animal\n:walking: Forget eating here. Leave in hopes of finding a better place to eat.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "18": " : ** :house_abandoned: You arrive at a city without finding anyone. After crossing you spot a building site that also seems deserted.\n\n:mag_right: Search the building site.\n:chains: Search the scaffolding.\n:walking: Move on without worrying.\n\n*- Use reactions to take an action :warning: Not responding is considered a separate choice.*",
         "19": " : ** :fox: After many days without sustenance, you see a dead fox on the side of the road, looking fresh. \n\n:fork_knife_plate: Try to cook the fox\n:walking: Simply ignore it and hurry to the nearest inn\n:knife: Butcher the fox and resell its skin.\n\n*-Use reaction to make an action :warning: Not responding is consided a separate choice!*",
         "20": " : ** :bust_in_silhouette: while walking peacefully in a village, you see a guard stealing from a poor woman.\n\n:punch: Attack the guard to help the lady.\n:walking: Keep walking.\n:call_me: Contact another guard and warn them of the corrupt guard.\n\n*- Use the reactions for make an action :warning: Not answering is also considered an action!*",
         "21": " : ** :bridge_at_night: Continuing your trip, you arrive in front of a dilapidated bridge above a enormous chasm.\n\n:bridge_at_night: Take a risk crossing the bridge\n:walking: Find another way forward.\n\n*- Use the reactions for make an action :warning: Not answering is also considered an action!*",
         "22": " : ** :apple: As you walk through a farmer's property, you see an apple tree with very appetizing fruit. \n\n:euro: Go buy fruit from this man\n:busts_in_silhouette: Go steal fruit from the tree\n:runner: Don't worry about it\n\n*-Use reaction to make an action :warning: Not responding is consided a separate choice!*",
         "23": " : ** :walking: You walk through the forest, when suddenly you see a cart that looks broken. Around, a group of people seems to be in bad shape.\n\n:hammer: Help these people repair their cart.\n:runner: Don't worry about these individuals, they seem suspicious!\n\n*-Use reaction to make an action :warning: Not responding is consided a separate choice!*",
-        "24": " : ** :fireworks: You're going up a hill. As you look around, you see lights in the distance. As you get closer, you also hear music. It's a festival! Excited to party, you run to the city.\n\n:dart: Go to a game stand\n:circus_tent: Go to an item stand\n:oden: Go to a food stand \n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
-        "25": " : ** :mag_right: As you wander around, you come across a battlefield, in the surrounding area, you notice several soldiers looking for possible survivors of a massacre.\n\n:handshake: Offer to help\n:spy: Steal bodies\n:walking: Don't help them\n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
-        "26": " : ** :walking: While walking through a village, you notice a group of people. Up close, you quickly notice a hanging in progress. After some discussion, you learn this person is sentenced to death for \"words contrary to the values of the church\"\n\n:money_with_wings: Steal from the audience.\n:punch: Stand in the way to prevent the man from dying.\n:walking: Continue on your journey peacefully\n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
-        "27": " : ** :walking: Walking through the small village you found, you notice a well with a small shiny object at the bottom.\n\n:point_down: Try to descend and retrieve the object.\n:handshake: Try to grab the object with the well's bucket\n:walking: Continue on your journey\n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
-        "28": " : ** :angel: On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause. \n\n:white_check_mark: Agree to join them\n:x: Gently reject the proposal.\n\n*-React to take an action :warning: Not responding is consided a separate choice!*",
-        "29": " : ** :thermometer: In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape. \n\n:mag: Search the surroundings for a body of water\n:deciduous_tree: Rest at the foot of a tree\n:zzz: Rest right here\n\n*-React to take an action :warning: Not responding is consided a separate choice!*"
+        "24": " : ** :fireworks: You're going up a hill. As you look around, you see lights in the distance. As you get closer, you also hear music. It's a festival! Excited to party, you run to the city.\n\n:dart: Go to a game stand\n:circus_tent: Go to an item stand\n:oden: Go to a food stand \n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "25": " : ** :mag_right: As you wander around, you come across a battlefield, in the surrounding area, you notice several soldiers looking for possible survivors of a massacre.\n\n:handshake: Offer to help\n:spy: Steal bodies\n:walking: Don't help them\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "26": " : ** :walking: While walking through a village, you notice a group of people. Up close, you quickly notice a hanging in progress. After some discussion, you learn this person is sentenced to death for \"words contrary to the values of the church\"\n\n:money_with_wings: Steal from the audience.\n:punch: Stand in the way to prevent the man from dying.\n:walking: Continue on your journey peacefully\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "27": " : ** :walking: Walking through the small village you found, you notice a well with a small shiny object at the bottom.\n\n:point_down: Try to descend and retrieve the object.\n:handshake: Try to grab the object with the well's bucket\n:walking: Continue on your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "28": " : ** :angel: On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause. \n\n:white_check_mark: Agree to join them\n:x: Gently reject the proposal.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "29": " : ** :thermometer: In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape. \n\n:mag: Search the surroundings for a body of water\n:deciduous_tree: Rest at the foot of a tree\n:sleeping: Rest right here\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "30": " : ** :european_castle: You see a castle in the distance. You decide to approach the main entrance, it seems to be that of Duke Benatis. Known for his banana farms, he organizes a party for his 21st birthday. When you approach a little closer, a guard invites you to enter as the Duke wants everyone to participate in the party. When you return, you see a huge feast awaiting the attendees.\n\n:prince: Go to the Duke\n:tada: Stay at the party\n:gift: Give him a present\n:banana: Go and steal bananas from his farm\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "31": " : ** :horse_racing: You hear the rhythm of a gallop from far away. You turn back and see a black armoured  (British spelling) knight with a coat of arms that you do not recognise. (flows better imo)\n\n:man_walking: Keep going normally.\n:herb: Hide in a bush at the roadside.\n:wave: Motion to him to stop.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "32": " : ** You are walking quietly in a forest when you hear a scream. The voice seems to be that of a man, you decide to go towards the direction of the scream where you find a seriously injured man near a kind of camp.\n\n:syringe: Try to find something to heal the wounded man\n:knife: Shorten the man’s suffers to steal his equipment\n:speaking_head:  Yell and try to alert people.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "33": " : ** You arrive in farm in which festivities are conducted. The people seem to receive you with hospitality.\n\n:lips: Sit down to chat.\n:poultry_leg: Have a go at the food.\n:detective: Take advantage of the commotion to rob some of them.\n:person_walking: Continue without stopping.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "34": " : ** At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n:four_leaf_clover: - Gift in kind\n:moneybag: - Money Gift\n:innocent: - Gift of Health\n:salad: - Gift of Food\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "35": " : ** :beers: You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you.\n\n:beer: Accept the proposal\n:x: Refuse the proposal\n:moneybag:Refuse, and try to rob other customers\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "36": " : ** At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewellery such as necklaces and rings. As for the inn run by a couple, it seems pretty successful\n\n:speaking_head: Go and have a talk with the jeweller\n:money_with_wings: Try to rob the jeweller\n:house_with_garden: Go to rest at the inn\n:person_walking: Continue your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "37": " : ** :person_walking: You are walking quietly, the weather is clear, just like the road. You think about the sweet night you will spend in an inn at the next village you will cross, and this allows you to keep the courage to move forward. The road is so calm that, while walking, you immerse yourself in your thoughts. You realize that, although you have begun your adventure in order to prove your worth and to marry the princess, you start to love your journey more and more. While you are no longer very far from the village which is your objective of the day, it starts raining.\n\n:person_walking: Continue to walk\n:person_running: Speed up so you don’t get too wet\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
     },
     "possibilities": {
         "report": {
@@ -586,21 +609,21 @@
             }
         },
         "1": {
-            "✂": {
-                "1": "** | :scissors: Felling this tree took half an hour!"
+            "🪓": {
+                "1": "** | :axe: Felling this tree took half an hour!"
             },
             "🚶": {
                 "1": "** | :walking: Finding another way seemed to be a good decision, you didn't waste any time!",
                 "2": "** | :walking: Going down another path seemed like a good solution, unfortunately you got hurt while taking it."
             },
             "end": {
-                "1": "** | :scissors: The tree has been cut down and the road is clear. Unfortunately, looters have stolen everything you collected since the last report!"
+                "1": "** | :axe: The tree has been cut down and the road is clear. Unfortunately, looters have stolen everything you collected since the last report!"
             }
         },
         "2": {
             "🏃": {
                 "1": "** | :runner: After 15 minutes of chasing you manage to lose the dog, he didn't seem very friendly!",
-                "2": "** | :runner: When you try fleeing, you suddenly fall into a ditch. The injury is serious... You'll have to get better before you continue! :sick:"
+                "2": "** | :runner: When you try fleeing, you suddenly fall into a ditch. The injury is serious... You'll have to get better before you continue! :head_bandage:"
             },
             "🐕": {
                 "1": "** | :dog2: You lose track of the dog after a few minutes, he was going too fast!",
@@ -657,7 +680,7 @@
                 "2": "** | :walking: No time to rest! There's a princess to save!",
                 "3": "** | :walking: You make the choice to not stop and continue forward.",
                 "4": "** | :walking: You continue your adventure without paying any more attention to this fountain",
-                "5": "** | :zzz: You have to know to rest when you are tired. Exhausted, you collapse a few minutes after passing the fountain. You have to sleep before you can continue!"
+                "5": "** | :sleeping: You have to know to rest when you are tired. Exhausted, you collapse a few minutes after passing the fountain. You have to sleep before you can continue!"
             },
             "end": {
                 "1": "** | :money_mouth: You spent a good hour picking up the scattered pieces from the bottom of the water, but it seems to have been worth it! "
@@ -684,9 +707,9 @@
         },
         "7": {
             "🚪": {
-                "1": "** | :door: By forcing the door open, you seriously hurt yourself, you must absolutely be healed! :sick:",
+                "1": "** | :door: By forcing the door open, you seriously hurt yourself, you must absolutely be healed! :head_bandage:",
                 "2": "** | :door: After spending almost an hour trying to get into the house, you give up. Leaving, you find an object which may be useful!",
-                "3": "** | :door: You enter the house and put down your things to rest. Taken by a deep sleep, you will need to rest before continuing your adventure. :zzz: ",
+                "3": "** | :door: You enter the house and put down your things to rest. Taken by a deep sleep, you will need to rest before continuing your adventure. :sleeping: ",
                 "4": "** | :door: You enter the house and search around for about fifteen minutes. On leaving, you find an object that may be useful to you!",
                 "5": "** | :door: You enter the house and search around for about fifteen minutes. You end up abandoning your search without finding anything."
             },
@@ -701,26 +724,26 @@
             "🌲": {
                 "1": "** | 🌲 You cross the forest without too many difficulties, and continue your journey!",
                 "2": "** | 🌲 You walk slowly through the firs. On the way, you pick up fir branches and make small objects you can use or sell...",
-                "3": "** | 🌲 You are progressing slowly through the forest. Unfortunately, the ground is slippery and you fall to the bottom of a ditch! You manage to come back out but you're hurt! :sick:"
+                "3": "** | 🌲 You are progressing slowly through the forest. Unfortunately, the ground is slippery and you fall to the bottom of a ditch! You manage to come back out but you're hurt! :head_bandage:"
             },
             "🏞": {
                 "1": "** | 🏞 You finally change your mind and decide to stay on the plains. While less dangerous, this path is also longer, so you lose a lot of time!",
                 "2": "** | 🏞 You finally change your mind and decide to stay on the plains. While less dangerous, this path is also longer, so you lose a lot of time! After a few kilometers, you stop to rest in an inn."
             },
             "end": {
-                "1": "** | :walking: You rest for a few minutes before slowly leaving for the passes. You end up getting exhausted on the other side, you will have to rest before leaving! :zzz:"
+                "1": "** | :walking: You rest for a few minutes before slowly leaving for the passes. You end up getting exhausted on the other side, you will have to rest before leaving! :sleeping:"
             }
         },
         "9": {
             "🔎": {
                 "1": "** | :mag_right: After a quarter hour looking, you find the pitchfork next to a pile of hay. To thank you, the farmer offers you some coins.",
                 "2": "** | :mag_right: After half an hour of searching, you can not find the pitchfork. You discover, however, an object that may be useful to you!",
-                "3": "** | :mag_right: Looking for the pitchfork, you step on it and get a nasty cut. :sick:",
+                "3": "** | :mag_right: Looking for the pitchfork, you step on it and get a nasty cut. :head_bandage:",
                 "4": "** | :mag_right: You look for the pitchfork for almost an hour, but you can't find it. You leave the peasant politely and continue your journey"
             },
             "▶": {
                 "1": "** | :walking: You continue your way without paying attention to the peasant.",
-                "2": "** | :arrow_right: Continuing through the field, you fall on the pitchfork, severely cutting your foot. :sick:"
+                "2": "** | :arrow_right: Continuing through the field, you fall on the pitchfork, severely cutting your foot. :head_bandage:"
             },
             "end": {
                 "1": "** | :walking: You stare blankly for 15 minutes as the farmer looks for his pitchfork before leaving."
@@ -746,11 +769,11 @@
             "🌳": {
                 "1": "** | :deciduous_tree: You get lost for several hours in the forest but find your way out without damage.",
                 "2": "** | :deciduous_tree: You waste a lot of time moving through the forest, but you finally succeed in crossing it! When you come out, you pick up an object that may be useful to you!",
-                "3": "** | :deciduous_tree: While crossing the forest, you take a big fall into a ditch. The injury is serious, you absolutely have to heal yourself! :sick:"
+                "3": "** | :deciduous_tree: While crossing the forest, you take a big fall into a ditch. The injury is serious, you absolutely have to heal yourself! :head_bandage:"
             },
             "👈": {
                 "1": "** | :walking: Indeed, it was a shortcut!",
-                "2": "** | :deciduous_tree: You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious. :sick:"
+                "2": "** | :deciduous_tree: You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious. :head_bandage:"
             },
             "👉": {
                 "1": "** | :walking: You're not sure why you took a route 10 times longer than you originally planned, but you finally arrived at the right place."
@@ -764,12 +787,12 @@
                 "1": "** | 🚶 You decide to go in another direction, but it takes you an entire hour to find a direction that suits you!"
             },
             "🏊": {
-                "1": "** | 🏊 The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing! :snowflake:",
+                "1": "** | 🏊 The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing! :cold_face:",
                 "2": "** | 🏊 You reach the other side easily, and arrive at the village. People greet you and give you food."
             },
             "🚣": {
                 "1": "** | 🚣 When trying to build the raft you hurt yourself! You decide to forget building it after spending several hours on it and leave in another direction.",
-                "2": "** | 🚣 After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue! :snowflake:",
+                "2": "** | 🚣 After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue! :cold_face:",
                 "3": "** | 🚣 You build a small raft in a few hours and reach the other side easily. When you leave your raft, you pick up an object that, if you don't use, will be easy to sell!"
             },
             "🌉": {
@@ -789,7 +812,7 @@
             },
             "🏠": {
                 "1": "** | 🏠 After talking with the innkeeper for 2 hours, you finally learn there are no rooms available tonight! You continue on your way, frustrated you couldn't enjoy a good night's rest.",
-                "2": "** | 🏠 You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure :zzz: ",
+                "2": "** | 🏠 You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure :sleeping: ",
                 "3": "** | 🏠 The inn looks like it's been abandoned for many years... You continue on your way without asking yourself any more questions."
             },
             "🔨": {
@@ -815,7 +838,7 @@
                 "3": "** | 🔨 The worker sees you and suggests that you make a sword with him. Enthusiastic about getting a new weapon, you accept. You don't take long to clumsily drop your heavy creation onto your foot. Seriously wounded, you give up the idea of creating your own weapon. :dizzy_face: !"
             },
             "🛏": {
-                "1": "** | 🛏 After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed :zzz:",
+                "1": "** | 🛏 After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed :sleeping:",
                 "2": "** | 🛏 The man quickly admits he can't accommodate you for the night, but offers to share his meal with you. You politely refuse and go back on your way.",
                 "3": "** | 🛏 You only get a simple growl in response. The residents of the region seem to dislike foreigners",
                 "4": "** | 🛏 The man quickly refuses to share his bed with you but offers to share his dinner with you. Hungry and exhausted, you accept his offer."
@@ -851,7 +874,7 @@
         },
         "16": {
             "🔎": {
-                "1": "** | 🔎 Shortly after entering the castle, you realize how unsanitary the place is. Abandoned for years, the building is totally damaged. After a few minutes of exploration, you enter a large, ruined room, as a huge piece of the ceiling falls onto you! With great difficulty, you manage to get out of the building.",
+                "1": "** | 🔎 Shortly after entering the castle, you realize how unsanitary the place is. Abandoned for years, the building is totally damaged. After a few minutes of exploration, you enter a large, ruined room, as a huge piece of the ceiling falls onto you! With great difficulty, you manage to get out of the building, hurt. :head_bandage:",
                 "2": "** | 🔎 You enter the castle and quickly walk through the area. After a few minutes, you find a room that looks like the old armory. In a hurry to get out of the building, you pick up the first object that falls into your hands and get like a bat out of hell!",
                 "3": "** | 🔎 It seems that this castle is less abandoned than it looks! Shortly after your entrance you hear many noises coming from different rooms. Not reassured, you prefer to go back on your way."
             },
@@ -861,7 +884,7 @@
             "🔁": {
                 "1": "** | 🔁 You go around the castle but you can't find anything. Believing you wasted enough time, you continue your way.",
                 "2": "** | 🔁 This sweep doesn't tell you much about the big building. However, you discover a large number of small gold coins scattered around the castle. Happy with your discovery, you head back on your way.",
-                "3": "** | 🔁 As you began to walk around the castle, you accidentally fell into a hole. Slightly injuring your leg, this sweep will cost you a lot of time! :sick:"
+                "3": "** | 🔁 As you began to walk around the castle, you accidentally fell into a hole. Injuring your leg, this sweep will cost you a lot of time! :head_bandage:"
             },
             "end": {
                 "1": "** | 🚶 After admiring the building for about fifteen minutes, you go back on your way.",
@@ -891,7 +914,7 @@
             },
             "🚶": {
                 "1": "** | 🚶 You continue your journey without wasting any more time.",
-                "2": "** | 🚶 You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road. :zzz:"
+                "2": "** | 🚶 You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road. :sleeping:"
             },
             "end": {
                 "1": "** | 🚶 After a few moments of reflection you decide to quickly continue on your journey.",
@@ -902,7 +925,7 @@
             "🔎": {
                 "1": "** | 🔎 You search for 30 minutes, but you find nothing of interest.",
                 "2": "** | 🔎 After 40 minutes of searching, you finally find something which could be useful!",
-                "3": "** | 🔎 While searching a toolbox, you cut yourself on some rusty pliers. It's very deep!:sick:"
+                "3": "** | 🔎 While searching a toolbox, you cut yourself on some rusty pliers. It's very deep! :head_bandage:"
             },
             "⛓": {
                 "1": "** | ⛓ You climb to the top of the scaffolding, but except for a beautiful landscape, you find nothing. After spending a few minutes admiring it, you leave.",
@@ -919,7 +942,7 @@
         },
         "19": {
             "🍽": {
-                "1": "** | 🍽 Considering your poor cooking skills, you should've expected it, but you get sick soon after tasting your meal. :sick: ",
+                "1": "** | 🍽 Considering your poor cooking skills, you should've expected it, but you get sick soon after tasting your meal. :sick:",
                 "2": "** | 🍽 Despite your reduced cooking skills, your fox on the spit satiates you well.",
                 "3": "** | 🍽 You approach the fox to pick him up, when all of a sudden, he jumps up and bites you! You run away, injured in your stomach and your heels.",
                 "4": "** | 🍽 You cooked this fox surprisingly well. After eating it, you feel refreshed."
@@ -931,7 +954,7 @@
             "🔪": {
                 "1": "** | 🔪 You approach the fox and butcher him. You sell his fur to the first wandering merchant you meet.",
                 "2": "** | 🔪 You butcher the fox and go in search of a way to sell his skin. A few minutes later, you meet a merchant who offers to trade it for one of his quality items, and you accept.",
-                "3": "** | 🔪 You butcher the fox and look for a place to sell his fur. Unfortunately, it rots very quickly, and flies begin to swarm you. You end up leaving him by the side of the road, but it seems you still fell ill!"
+                "3": "** | 🔪 You butcher the fox and look for a place to sell his fur. Unfortunately, it rots very quickly, and flies begin to swarm you. You end up leaving him by the side of the road, but it seems you still fell ill! :sick:"
             },
             "end": {
                 "1": "** | 👀 For a few seconds you consider the beast on the ground, hesitating. Finally, you continue on your way."
@@ -960,7 +983,7 @@
             "🌉": {
                 "1": "** | 🌉 The bridge seems unsafe, but you have no time to waste, so cross. After 5 minutes on the bridge you reach the end, safe and sound.",
                 "2": "** | 🌉 While crossing the bridge you see a small sack. When you open it, you notice a large amount of coins",
-                "3": "** | 🌉 While crossing the bridge, you hear some small cracks, and suddenly, a plank snaps and falls, and you with it. :nauseated_face:",
+                "3": "** | 🌉 While crossing the bridge, you hear some small cracks, and suddenly, a plank snaps and falls, and you with it. :head_bandage:",
                 "4": "** | 🌉 While crossing, a plank snaps out from under you. Fortunately, you manage to hang on to another, more reliable board. After a few minutes spent recovering your emotions, you continue on your way."
             },
             "🚶": {
@@ -975,7 +998,7 @@
         },
         "22": {
             "💶": {
-                "1": "** | 💶 You approach the farmer and ask him for fruit. He gives you some in exchange for a few coins. About fifteen minutes later, you notice they were poisoned and fall to the ground. :nauseated_face:",
+                "1": "** | 💶 You approach the farmer and ask him for fruit. He gives you some in exchange for a few coins. About fifteen minutes later, you notice they were poisoned and fall to the ground. :sick:",
                 "2": "** | 💶 The farmer agrees to sell you 2 apples for a few coins. After leaving, you eat them, regaining your energy.",
                 "3": "** | 💶 The farmer refuses to sell you fruit, so you continue on your way without wasting any more time."
             },
@@ -986,7 +1009,7 @@
                 "4": "** | 👥 The farmer quickly notices your attempt, and catches you. After retrieving his fruits, he asks you for compensation."
             },
             "🏃": {
-                "1": "** | 🏃 you carry on with your adventure without worrying about the fruit, however appetizing they may seem."
+                "1": "** | 🏃 You carry on with your adventure without worrying about the fruit, however appetizing they may seem."
             },
             "end": {
                 "1": "** | 👀 You watch the tree for about twenty minutes, then leave.",
@@ -1001,7 +1024,7 @@
             },
             "🚶": {
                 "1": "** | 🚶 You have no intention of wasting any time, and continue on your journey.",
-                "2": "** | 🚶 When you leave, you stumble into a hole and hurt yourself. :nauseated_face:"
+                "2": "** | 🚶 When you leave, you stumble into a hole and hurt yourself. :head_bandage:"
             },
             "end": {
                 "1": "** | 👀 You spend 15 minutes watching them and decide to continue your journey without paying any more attention."
@@ -1019,7 +1042,7 @@
             },
             "🍢": {
                 "1": "** | 🍢 This food is incredible! You've never eaten anything so good in your entire life. You feel invigorated and relaxed.",
-                "2": "** | 🍢 This food is strange. As soon as you eat it, you get a headache, begin hallucinating, and feel nausea. You were poisoned! From the smile of your cook, there is no doubt about it. You throw the poison back up onto the table, but you're not sure if you threw it all up.",
+                "2": "** | 🍢 This food is strange. As soon as you eat it, you get a headache, begin hallucinating, and feel nausea. You were poisoned! From the smile of your cook, there is no doubt about it. You throw the poison back up onto the table, but you're not sure if you threw it all up. :sick:",
                 "3": "** | 🍢 This food is rather standard. You don't feel anything while eating it or after you finish it. You quickly forget the taste "
             },
             "end": {
@@ -1039,11 +1062,11 @@
             "🚶": {
                 "1": "** | 🚶 You don't look at the massacre that took place, instead going a little further to rest.",
                 "2": "** | 🚶 No time to lose ! You continue your journey. ",
-                "3": "** | 🚶 In a hurry to continue your journey, you trip on a lifeless body, and get hurt. :nauseated_face:"
+                "3": "** | 🚶 In a hurry to continue your journey, you trip on a lifeless body, and get hurt. :head_bandage:"
             },
             "end": {
                 "1": "** | 👀 You stay and watch the soldiers for about fifteen minutes, then continue on your way.",
-                "2": "** | 👀 Tired, you fall sound asleep on the ground. :zzz:"
+                "2": "** | 👀 Tired, you fall sound asleep on the ground. :sleeping:"
             }
         },
         "26": {
@@ -1083,7 +1106,7 @@
             },
             "end": {
                 "1": "** | 👀 You blankly stare at the object for 20 minutes, then leave.",
-                "2": "** | 🚶 Leaning over the well, you observe the object. It is then that you fall over. Fortunately, you manage to quickly climb back up, but you emerge from this adventure seriously injured. :nauseated_face:"
+                "2": "** | 🚶 Leaning over the well, you observe the object. It is then that you fall over. Fortunately, you manage to quickly climb back up, but you emerge from this adventure seriously injured. :head_bandage:"
             }
         },
         "28": {
@@ -1105,7 +1128,7 @@
             "🔍": {
                 "1": "** | 🔍 You remember passing by a lake, so you go there. When you get there, you enjoy a swim that feels great. You're now refreshed, and in better shape to continue on your journey across the country.",
                 "2": "** | 🔍 You remember passing by a lake, so you go there... on the way, you find an item that will surely be useful to you. When you arrive, you enjoy a swim that feels great. You are now refreshed, and in better shape to continue your journey across the country.",
-                "3": "** | 🔍 You look for a body of water in vain.... Because of this fatigue, you fall ill :zzz:"
+                "3": "** | 🔍 You look for a body of water in vain.... Because of this fatigue, you fall ill :sleeping:"
             },
             "🌳": {
                 "1": "** | 🌳 You discover a shadowed area under the trees, and decide to go there. After a short hour of sleep, you leave and continue on your way.",
@@ -1118,6 +1141,186 @@
             "end": {
                 "1": "** | 👀 You stay where you belong in full sunlight for about 15 minutes, then collapse",
                 "2": "** | 🚶 You decide to use your reserves, and continue your journey to not waste time"
+            }
+        },
+        "30": {
+            "🤴": {
+                "1": "** | 🤴 You go to the Duke and compliment him. The Duke thanks you and decides to offer you some rest at his castle.",
+                "2": "** | 🤴 You go see the Duke and compliment him. The Duke thanks you and decides to offer you a few coins, telling you to make good use of them, then you go back on your way.",
+                "3": "** | 🤴 You go to the Duke and try to compliment him, but rhetoric is not your forte and as the Duke gets offended, he locks you up.."
+            },
+            "🎉": {
+                "1": "** | 🎉 You go home and enjoy a party that is going to last for a while",
+                "2": "** | 🎉 The guard sees your dirty shoes and asks you to come back with something more appropriate. Luckily, a young beggar standing right next to you offers to shine them for you. This way, you can enjoy the birthday party.",
+                "3": "** | 🎉 The party buffet is a feast. You enjoy all these bananas."
+            },
+            "🎁": {
+                "1": "** | 🎁 You feel like giving a gift to Duke Benatis, but you can't find anything that would do the trick. You decide to simply give him some of the money you've collected during your adventures. The Duke accepts your gift",
+                "2": "** | 🎁 You approach the Duke to give him a gift. Seeing you arrive, the Duke understands your intention and tells you kindly that it's not necessary, so you just chat with him and then leave the party.",
+                "3": "** | 🎁 As you go to give a gift to the Duke, the Duke stands up and declares that he has decided to distribute gifts to everyone present. You understand that it would then be useless to give him one, and accept the one handed to you by the servants."
+            },
+            "🍌": {
+                "1": "** | 🍌 As you're about to leave the farm with your loot, a slave alerts the others and shames you. You end up locked in a cell...",
+                "2": "** | 🍌 You discreetly come out with your delicious loot that joins your stomach swiftly.",
+                "3": "** | 🍌 To your great misfortune, you didn't notice the writing \"Unfit for sale\" in front of your freshly acquired bananas and they quickly make you sick! :sick:"
+            },
+            "end": {
+                "1": "** | 🚶 You don't feel like partying today, so you decide to turn back and continue your journey quietly.",
+                "2": "** | 🚶 You're not ready to party today, so you go back on the road. When you stumble and come face to face with a banana, but it doesn't seem to be any good."
+            }
+        },
+        "31": {
+            "🚶‍♂️": {
+                "1": "** | 🚶‍♂️ The knight hits you at full speed. You fly over 5 metres before crashing to the ground. The knight is already gone, only a cloud of dust remains...",
+                "2": "** | 🚶‍♂️ As the knight approaches you, he sees your difficulty walking under the blazing sun. He offers you a little water from his gourd and continues on his way.",
+                "3": "** | 🚶‍♂️ The knight catches up to you and asks you for directions. You show him a route and continue on your way."
+            },
+            "🌿": {
+                "1": "** | 🌿 You hide in the bush just in time. This dark knight was about to push you over... You recover your emotions and leave.",
+                "2": "** | 🌿 You dive into the bush. However, you didn't notice that it was actually brambles...",
+                "3": "** | 🌿  After diving into the bush, you watch the mysterious knight pass by and see an object falling out of his satchel. You pick it up. "
+            },
+            "👋": {
+                "1": "** | 👋 As he notices you waving, the knight comes to a halt by your side. You quickly realise that he his very friendly. ",
+                "2": "** | 👋 The knight comes to a halt next to you and violently hits you, you fall to the ground and pass out. When you wake up, you discover that your pockets have been emptied...",
+                "3": "** | 👋 The knight passes you by. Perhaps he didn't see your sign, or had no time to waste."
+            },
+            "end": {
+                "1": "** | 🚶‍♂️ The knight passes by without paying attention to you. You continue on your way peacefully."
+            }
+        },
+        "32": {
+            "💉": {
+                "1": "** | 💉 You run in the forest in search of medicinal plants, you find some and you heal the man. He thanks you with a few coins and you go back on your way.",
+                "2": "** | 💉 You decide to fetch medicinal plants in the forest, unfortunately you can’t cure him, you go back on your way, head down.",
+                "3": "** | 💉 You go to the nearest village for help. Now accompanied, you return to the person, but your companion decides to knock you out. When you wake up, you find the person dead and you’re butt-naked.",
+                "4": "** | 💉 You rush to the nearest city in order to search for tools to heal the man. Once you get back to him, you heal him, he survives and decides to give you compensation for your help. When you leave, you realize that you hurt yourself when treating him."
+            },
+            "🔪": {
+                "1": "** | 🔪 You draw your sword and finish the wounded. However, passers-by who witnessed your horrid acts are revolted and attack you fiercely.",
+                "2": "** | 🔪 You decide to kill the injured person but get interrupted by a bystander. He convinces you to give up this idea and you continue on your way.",
+                "3": "** | 🔪 When you draw your sword, the man screams for help in vain, you kill him before..."
+            },
+            "🗣️": {
+                "1": "** | 🗣️ You scream frantically and finally someone comes and helps you. To thank you, To thank you, the wounded man gives you a little something before you leave.",
+                "2": "** | 🗣️ You scream frantically. Unfortunately, no one comes, but you attract animals and a wild boar charges right at you.",
+                "3": "** | 🗣️ You scream frantically. Unfortunately, no one comes and the person dies. Feeling helpless, you go back on your way.",
+                "4": "** | 🗣️ Because of your screams, people from the nearby camp hear you and decide to come to take care of the man. As they thought you tried to assassinate him, they bring you back to their camp by threatening you. After a long discussion, you manage to settle the misunderstanding and they offer you to rest in the camp. You gladly accept their proposal."
+            },
+            "end": {
+                "1": "** | 🚶‍♂️ You continue on your way without paying attention to the man. You decide to stop by a tree and find some gold coins on the way.",
+                "2": "** | 🚶‍♂️ You leave as fast as you can, people see you and decide to chase you. You run for a while and only stop after making sure they lost sight of you.",
+                "3": "** | 🚶‍♂️ You continue on as if nothing happened.",
+                "4": "** | 🚶‍♂️ As you are getting away, you encounter a group of poachers who decide to rob you."
+            }
+        },
+        "33": {
+            "👄": {
+                "1": "** | 👄 Time goes by quickly as you chat during 2 hour with a farmer about the countryside.",
+                "2": "** | 👄 You bond with the guy sitting next to you whom gifts you a present for the sake of it. ",
+                "3": "** | 👄 As the alcohol kicks in, some people starts getting aggressive and you watch a fight happen before going away.",
+                "4": "** | 👄 A generous young man insists on giving you a bag of money and some drinks.",
+                "5": "** | 👄 You accept politely and stay for a bit, before faking being in a rush and going."
+            },
+            "🍗": {
+                "1": "** | 🍗 This good food makes you full of energy.",
+                "2": "** | 🍗 Not your lucky day, you end up eating a part which turned bad. :sick:",
+                "3": "** | 🍗 You stuff yourself full. You'll need a good time to digest and be ready to resume your adventure.",
+                "4": "** | 🍗 You ate very well, you chat with a random person who keeps giving you drinks. You end up passing out. :zany_face:"
+            },
+            "🕵️": {
+                "1": "** | 🕵️ You take advantage of the situation to gather some gold here and there.",
+                "2": "** | 🕵️ You get caught but succeed in running away."
+            },
+            "🚶": {
+                "1": "** | 🚶 The locals caught sight of you and interpreted your action as disrespect and as such, take all your belongings. ",
+                "2": "** | 🚶 You continue, not caring and find some gold on the way.",
+                "3": "** | 🚶 You run as you are afraid of social interaction. After a while, you rest as you are exhausted."
+            },
+            "end": {
+                "1": "** | You don't notice the goat coming right at you, you fall down stunned by the shock. :confounded:",
+                "2": "** | The people comes to get you to the table. They force you to eat with them, which gives you energy!"
+            }
+        },
+        "34": {
+            "🍀": {
+                "1": "** | 🍀 The group of friends tells you that they went in search of the ideal gift. Unfortunately, they didn't find anything you fancy. Disappointed, you continue on your way.",
+                "2": "** | 🍀 These crafty little fellows decided to pull a prank on you and give you a shady gift. But they didn't expect that a board of needles would be dangerous to unwrap. Furious, you leave to take care of yourself.",
+                "3": "** | 🍀 Your generous donors are proud of their gift, found in a market. They give you an object of which the sight excites you greatly. "
+            },
+            "💰": {
+                "1": "** | 💰 Not listening to your answer, they would rather give you an object. For them, money is not a real gift!",
+                "2": "** | 💰 Gathered in a circle, each and every one of them takes out a few coins from their purses. Together, they finally hand you a nice sum, fruit of the entire group's contribution. After advising you to make good use of it, they wish you a good trip and leave.",
+                "3": "** | 💰 The few individuals have contributed to offer you a nice sum. You find their attitude suspicious and you quickly realize that this money originates from a robbery. You decide to honestly approach a guard to return this dirty money. Without you expecting it, the guard questions you and then interrogates you about the details of the case and the role you played in it."
+            },
+            "😇": {
+                "1": "** | 😇 The group brings you to the valley, where they offer you an invigorating treatment in the thermal waters. Back on your feet, you are ready to hit the road again.",
+                "2": "** | 😇 The few people offer you a treatment in a massage center near there. While you are getting a massage, one of the candles hanging on the wall falls into the jar of essential oils, setting the whole establishment on fire. You manage to, after plenty of difficulties, get out of the inferno that was once called a building.",
+                "3": "** | 😇 They did not expect this kind of request and remain doubtful about what they should say. Not wanting to let awkwardness grow, you go on your way."
+            },
+            "🥗": {
+                "1": "** | 🥗 One of them hands you a rather appetizing soup. You drink it carelessly. Those scoundrels set up a trap for you! They had waited for a long time to plunder you, the drink contained just enough fly agaric to make you sick. You feel increasingly ill while seeing your pockets being stripped leaving you helpless. :sick:",
+                "2": "** | 🥗 These passers-by cooked a tasty dish for you, worthy of a Gallic potion. As you look closer, you see an object laying at the bottom of the bowl. It could be useful for what will happen after.",
+                "3": "** | 🥗 Glad to be able to help out, the group leaves to buy you a local dish. Seeing it coming, you make an effort to make it seem like you're enjoying it but it disgusts you: you don't like mushrooms! After what seems to be an eternity, you continue on your way."
+            },
+            "end": {
+                "1": "** | 🚶‍♂️ Faced with your lack of response, the group of friends decides to go and get you a gift. As you wait for them politely, you become more and more anxious at the idea of wasting time. The eventuality of not being able to save the princess scares you and even makes you sick... so much that you end up fainting. On their way back, the honest people discovered you and leaned you against a tree to let you rest, while still unconscious, they leftyou with a gift before you set out on your journey.",
+                "2": "** | 🚶‍♂️ The quidams, seeing you inactive, decide to not insist further. You continue on your way without caring.",
+                "3": "** | 🚶‍♂️ Seeing you hesitating for so long, the young men finally decide to offer you some money to allow you to buy some random toys. You thank them before going back on your way."
+            }
+        },
+        "35": {
+            "🍺": {
+                "1": "** | 🍺 You accept his proposal and drink the thick liquid he gives you. It is delicious and spreads a sweet warmth within you.",
+                "2": "** | 🍺 You, without further ado, take the mug filled with a thick, greenish liquid he holds out to you. You drink it in one gulp. A few seconds later, you realize how horrible it tastes and you throw up on the floor. The bartender apologizes and gives you a handful of coins as compensation, but you don't feel well. :sick:",
+                "3": "** | 🍺 You accept his request and he gives you a mug. You drink it and feel a little pleasant aftertaste. You give the bartender your impressions, he thanks you, then you go on your way."
+            },
+            "❌": {
+                "1": "** | ❌ You think that drinking unknown things is a bad idea, so you politely decline the bartender’s proposal. However, you order him a good pint of beer, which you empty quietly while chatting with regulars.",
+                "2": "** | ❌ You literally assault the bartender asking him if he thinks you’re a dyke trying to get you to drink any filth. He kicks you out of his bar, so you take revenge by lighting it on fire, and then you go on your way.",
+                "3": "** | ❌ You explain to the bartender that you don’t want to drink something of which the origins are unknown, let alone be a guinea pig. He reassures you by telling you that he just mixed two alcohols and some plant extracts. So you drink and tell him your impressions."
+            },
+            "💰": {
+                "1": "** | 💰 You explain to him that you don’t really want to be a guinea pig, so the bartender, seemingly disappointed. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pocket three people without worries, but the fourth notices you and shouts at the thief. You run away."
+            },
+            "end": {
+                "1": "** | 🚶‍♂️ You ignore him and just leave the inn."
+            }
+        },
+        "36": {
+            "🗣️": {
+                "1": "** | 🗣️ You talk with the jeweller and you bond with him. He then offers you an object as a token of this new friendship. ",
+                "2": "** | 🗣️ You decide to try to haggle in order to buy yourself one of the jewels for a smaller price. You talk for a long time but the old man is very tough in business and he does not give in. You leave after finally understanding that he does not intend to lower his prices."
+            },
+            "💸": {
+                "1": "** | 💸 You trust your infiltration abilities. You go to the jewelry store and, fortunately, the old man is absent. You manage to steal the contents of one of the crates and run away.",
+                "2": "** | 💸 You arrive in front of the shop and you enter in order to rob the jeweller. As you grab the jeweller’s money, a personal guard knocks you out. You wake up a few hours later, on the side of a road."
+            },
+            "🏡": {
+                "1": "** | 🏡 You arrive at the inn and regain some strenght after a good meal and a well deserved nap.",
+                "2": "** | 🏡 You arrive at the inn which is fully booked. You still have a take-away meal, and go on your way.",
+                "3": "** | 🏡 Unfortunately the inn is closed and you decide to hit the road, hungry and tired."
+            },
+            "🚶": {
+                "1": "** | 🚶‍♂️ You continue your journey. As you leave the village, you meet a priest whom offers you a piece of bread for your journey"
+            },
+            "end": {
+                "1": "** | 🚶‍♂️ You wait a long time in this square and then merchants start to settle down. It’s your lucky day! It’s a market, and apples are cheap. You buy some and go on your way.",
+                "2": "** | 🚶‍♂️ You wait a little while in this square, then you realize that there is nothing very interesting to do, and go back on your journey."
+            }
+        },
+        "37": {
+            "🚶": {
+                "1": "** | 🚶 You keep walking quietly, after all it's only a light rain and you don't want to run just for that.",
+                "2": "** | 🚶 You just keep walking... a few minutes later, the rain stops and you arrive at the village gates.",
+                "3": "** | 🚶 You keep walking quietly."
+            },
+            "🏃": {
+                "1": "** | 🏃 You start running and you arrive at the village less than 15 minutes later.",
+                "2": "** | 🏃 You start running, fortunately, the rain stops quickly. So you return to your normal pace."
+            },
+            "end": {
+                "1": "** | You don’t know what to do, but you notice a small forest on your right. You are a bit thirsty, fortunately you hear the run-off of a stream of water. You head towards it and drink from it. What a thirst-quenching water! You feel way better. As you were busy doing all this, the rain stopped, it lasted for only about ten minutes. As you are about to resume your journey, you notice a bag full of coins and an object lying next to it. You take it all, get out of the forest and leave in the direction of the village ."
             }
         }
     }

@@ -1,7 +1,7 @@
 const Event = require('./Event');
 const Possibility = require('./Possibility');
 const EventsData = require('../utils/Events');
-
+const Tools = require('../utils/Tools');
 
 class EventManager {
 
@@ -37,26 +37,18 @@ class EventManager {
      * @returns {Number} - The id of a possibility
      */
     chooseARandomPossibility(idEvent, emojiSelected) {
-        let maxLimit = 0;
-        let possibility;
-        for (possibility in EventsData.possibility[idEvent][emojiSelected]) {
-            maxLimit++;
-        }
-        return Math.round(Math.random() * (maxLimit - 1) + 1)
+        let maxLimit = Object.keys(EventsData.possibility[idEvent][emojiSelected]).length;
+        return Tools.generateRandomNumber(1,maxLimit);
     };
 
 
     /**
-     * Select a random event id from the list of the avalables one 
+     * Select a random event id from the list of the avalables one
      * @returns {Number} - The id of an event
      */
     chooseARandomEvent() {
-        let maxLimit = -1; // we start from -1 because we must ignore the tuto event
-        let event;
-        for (event in EventsData.event) {
-            maxLimit++;
-        }
-        return Math.round(Math.random() * (maxLimit - 1) + 1)
+        let maxLimit = Object.keys(EventsData.event).length - 1;
+        return Tools.generateRandomNumber(1,maxLimit);
     };
 }
 

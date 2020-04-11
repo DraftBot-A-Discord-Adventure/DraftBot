@@ -2,23 +2,9 @@ const Discord = require("discord.js");
 const moment = require("moment");
 const DefaultValues = require('../utils/DefaultValues');
 const PlayerManager = require('../classes/PlayerManager');
-const ServerManager = require('../classes/ServerManager');
+const Tools = require('../utils/Tools');
 
 let Text
-
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
 
 /**
  * Allow to display the rankings of the players
@@ -26,11 +12,11 @@ const chargeText = async function (message) {
  * @param args - arguments typed by the user in addition to the command
  */
 const TopWeekCommand = async function (message, args, client) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     let playerManager = new PlayerManager();
     let actualPlayer = await playerManager.getCurrentPlayer(message);
     totalJoueur = await playerManager.getNumberOfWeeklyPlayers();
-    let pageMax = Math.ceil(await playerManager.getNumberOfActivePlayers() / DefaultValues.TopWeek.playersByPage);
+    let pageMax = Math.ceil(totalJoueur / DefaultValues.TopWeek.playersByPage);
     let page = getRequiredPageNumber(args);
     let erreur = testAbsurdsPages(message, page, pageMax);
     if (erreur == 0) {
@@ -69,7 +55,7 @@ const generateTopMessage = function (message, borneinf, bornesup, pageMax, page,
     } else {
         embed.setDescription("\u200b\n" + generateTopDataText(data, totalJoueur, message, client) + "\u200b");
         embed.addField(Text.commands.TopWeek.ranked, getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, page, pageMax), false)
-        embed.setFooter("Classement réinitialisé dans" + `${getResetDate()}`, "https://i.imgur.com/OpL9WpR.png");
+        embed.setFooter(Text.commands.TopWeek.footer + `${getResetDate()}`, "https://i.imgur.com/OpL9WpR.png");
     }
     return embed;
 }
@@ -180,7 +166,7 @@ function getEndSentence(classementJoueur, actualPlayer, message, totalJoueur, pa
 function displayPlayerInfos(messageTop, player, pseudo, message) {
     messageTop += player.weeklyRank + Text.commands.TopWeek.boldEnd + pseudo;
     let temps = Math.floor((message.createdTimestamp - player.lastReport) / (1000 * 60)); //temps en minutes depuis le dernier rapport
-    if (temps > 1440) {
+    if (temps > 1440 * DefaultValues.top.daysBeforeInnactive) {
         messageTop += Text.commands.TopWeek.innactive;
     } else {
         if (temps > 60) {

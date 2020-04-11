@@ -3,26 +3,28 @@
     "help": {
       "mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://draftbot.fandom.com/fr/wiki/Commandes",
       "intro": "** :notebook_with_decorative_cover: ",
-      "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\nTopWeek\ninventory\nfight\ndaily\ndrink\nprefix\n```\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! https://draftbot.fandom.com/fr/wiki/Commandes",
+      "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\ntopWeek\ntopServ\ninventory\nfight\ndaily\ndrink\nprefix\nlanguage\n```\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! https://draftbot.fandom.com/fr/wiki/Commandes",
       "commands": {
-        "prefix": ":interrobang: prefix {Nouveau préfix} :\n\nPermet, si vous êtes administrateur sur un serveur, de changer le préfix utilisé par le bot.",
-        "ping": ":ping_pong: ping :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
-        "respawn": ":angel: respawn\n\nPermet de recommencer à jouer après avoir été tué.",
-        "profile": ":bust_in_silhouette: profile\n\nAffiche des informations sur votre personnage :\n\n:smiley: État de santé | Pseudo | Level :star: XP | :heart: Vie | :dagger: Attaque | :shield: Défense | :rocket: Vitesse | :trophy: Classement | :moneybag: Argent | :medal: Score",
-        "switch": ":repeat: switch\n\nEchange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire.",
-        "fight": ":crossed_swords: fight\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.",
-        "help": ":notebook_with_decorative_cover: help\n\n:expressionless:",
-        "top": ":trophy: top [numéro de page]\n\nAffiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans la même guilde que vous sont marqués par une pastille bleue.",
-        "TopWeek": ":trophy: TopWeek [numéro de page]\n\nAffiche le classement général de la semaine du jeu par tranche de 15 joueurs. Les joueurs dans la même guilde que vous sont marqués par une pastille bleue.",
-        "inventory": ":school_satchel: inventory\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un second objet de type item le temps que vous décidiez si vous le conservez ou non.\n\n:warning: **La réserve n'est pas un endroit sûr pour conserver un objet précieux !**\nLes objets en réserve peuvent être remplacés automatiquement par un nouvel objet quand vous en trouvez un.",
-        "report": ":newspaper: report\n\nPermet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières.",
-        "sell": ":moneybag: sell\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
-        "daily": ":calendar: daily\n\nCertains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`.",
-        "invite": ":inbox_tray: invite\n\nCette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !",
-        "badge": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
-        "badges": ":military_medal: badges\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
-        "drink": ":tropical_drink: drink\n\nCette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat.",
-        "shop": ":shopping_cart: shop\n\nCette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
+        "prefix": ":interrobang: `prefix {Nouveau préfix}` :\n\nPermet, si vous êtes administrateur sur un serveur, de changer le préfix utilisé par le bot.",
+        "ping": ":ping_pong: `ping` :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
+        "respawn": ":angel: `respawn`\n\nPermet de recommencer à jouer après avoir été tué.",
+        "profile": ":bust_in_silhouette: `profile`\n\nAffiche des informations sur votre personnage :\n\n:smiley: État de santé | Pseudo | Level :star: XP | :heart: Vie | :dagger: Attaque | :shield: Défense | :rocket: Vitesse | :blue_heart: Points de combat | :trophy: Classement | :moneybag: Argent | :medal: Score\n\nLes badges sont affichés sur votre profil sous forme de réaction.",
+        "switch": ":repeat: `switch`\n\nEchange l'item qui se trouve dans votre réserve avec l'item qui se trouve dans la case \"item\" de votre inventaire.",
+        "fight": ":crossed_swords: `fight`\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.",
+        "help": ":notebook_with_decorative_cover: `help`\n\n:expressionless:",
+        "language": ":flag_gb: `language`\n\nChange la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur.",
+        "top": ":trophy: `top [numéro de page]`\n\nAffiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue.",
+        "topWeek": ":trophy: `topWeek [numéro de page]`\n\nAffiche le classement général de la semaine du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue.",
+        "topServ": ":trophy: `topServ [numéro de page]`\n\nAffiche le classement du serveur par tranche de 15 joueurs.",
+        "inventory": ":school_satchel: `inventory`\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un second objet de type item le temps que vous décidiez si vous le conservez ou non.\n\n:warning: **La réserve n'est pas un endroit sûr pour conserver un objet précieux !**\nLes objets en réserve peuvent être remplacés automatiquement par un nouvel objet quand vous en trouvez un.",
+        "report": ":newspaper: `report`\n\nPermet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières.",
+        "sell": ":moneybag: `sell`\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
+        "daily": ":calendar: `daily`\n\nCertains items vous donnent un bonus journalier ou mensuel. Utilisez cette commande pour récupérer ces bonus. Pour savoir si un item vous donne un bonus journalier, effectuez la commande `inventory`.",
+        "invite": ":inbox_tray: `invite`\n\nCette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !",
+        "badge": ":military_medal: `badges`\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
+        "badges": ":military_medal: `badges`\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
+        "drink": ":tropical_drink: `drink`\n\nCette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat.",
+        "shop": ":shopping_cart: `shop`\n\nCette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
       }
     },
     "ping": {
@@ -32,7 +34,7 @@
       "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
     },
     "profile": {
-      "timeleft": "Temps restant :",
+      "timeleft": " Temps restant :",
       "main": " | ",
       "errorMain": ":x: | ",
       "errorExp": ", le joueur demandé semble ne pas avoir commencé l'aventure !",
@@ -48,10 +50,9 @@
       "rankAndScore": "Classement et Score :",
       "statsAttack": " :dagger: ",
       "statsDefense": " | :shield: ",
-      "statsSpeed": " | :rocket:",
-      "notAPlayer": ", utilisez la commande `report` pour commencer votre aventure !",
-      "playerLevel": "Niveau ",
-      "style": "```"
+      "statsSpeed": " | :rocket: ",
+      "statsFightPower": " | :blue_heart: ",
+      "notAPlayer": ", utilisez la commande `report` pour commencer votre aventure !"
     },
     "respawn": {
       "thinking": ":thinking: | **",
@@ -72,10 +73,10 @@
       "noMoney": "**, Vous ne pouvez pas accèder au magasin avec des dettes !",
       "emojiIntro": ":shopping_cart: ",
       "intro": ":shopping_cart:  **Affichage du magasin :**",
-      "dailySell": "```🗓 Vente du jour :```\n",
+      "dailySell": "```🗓 Potion du jour :```\n",
       "priceTagStart": " | `",
-      "priceTagEnd": " 💵`",
-      "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `350 💵`\n:hospital: **Soin des altérations d'état** | `500 💵`\n:heartpulse: **Regen complet de la vie** | `3000 💵`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💵`\n\n```▶ Choisissez votre achat :```",
+      "priceTagEnd": " 💰`",
+      "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `350 💰`\n:hospital: **Soin des altérations d'état** | `500 💰`\n:heartpulse: **Regen complet de la vie** | `3000 💰`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`\n\n```▶ Choisissez votre achat :```",
       "emojis": {
         "a": "❓",
         "b": "🏥",
@@ -83,10 +84,10 @@
         "d": "🤑"
       },
       "choices": {
-        "a": ":question: **Un item random** | `350 💵`",
-        "b": ":hospital: **Soin des altérations d'état** | `500 💵`",
-        "c": ":heartpulse: **Regen complet de la vie** | `3000 💵`",
-        "d": ":money_mouth: **Badge \"MoneyMouth\"** | `25000 💵`"
+        "a": ":question: **Un item random** | `350 💰`",
+        "b": ":hospital: **Soin des altérations d'état** | `500 💰`",
+        "c": ":heartpulse: **Regen complet de la vie** | `3000 💰`",
+        "d": ":money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`"
       },
       "infos": {
         "aa": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
@@ -193,7 +194,7 @@
       "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
       "endIntroStart": " | **",
       "statusIntro": ":crossed_swords: | **Etat actuel du combat \n\n",
-      "statusPoints": "**\n:blue_circle: ",
+      "statusPoints": "**\n:blue_heart: ",
       "endLine": "\n\n**",
       "attackerEmoji": ":crossed_swords: **|** Attaquant : ",
       "defenderEmoji": ":shield: **|** Défenseur : ",
@@ -217,7 +218,7 @@
           "5": " ** effectue une attaque rapide ! C'était risqué mais ça passe !",
           "6": " ** lance une bonne attaque rapide !",
           "7": " ** utilise une attaque rapide ! Magistral !",
-          "8": " ** choisi une attaque rapide !  Très bonne initiative"
+          "8": " ** choisit une attaque rapide !  Très bonne initiative"
         },
         "meh": {
           "1": " ** effectue une attaque rapide ! Ca fonctionne mais c'était pas incroyable.",
@@ -227,7 +228,7 @@
           "5": " ** effectue une attaque rapide ! C'est pas très réussi.",
           "6": " ** lance une attaque rapide ! Médiocre",
           "7": " ** utilise une attaque rapide ! Faiblarde !",
-          "8": " ** choisi une attaque rapide !  Le résultat est assez pitoyable."
+          "8": " ** choisit une attaque rapide !  Le résultat est assez pitoyable."
         },
         "ko": {
           "1": " ** effectue une attaque rapide ! C'est raté !",
@@ -237,7 +238,7 @@
           "5": " ** effectue une attaque rapide ! C'était risqué et ça n'est pas passé !",
           "6": " ** lance une mauvaise attaque rapide !",
           "7": " ** utilise une attaque rapide ! Un choix peu judicieux !",
-          "8": " ** choisi une attaque rapide !  Mauvaise initiative"
+          "8": " ** choisit une attaque rapide !  Mauvaise initiative"
         }
       },
       "attackSimple": {
@@ -249,7 +250,7 @@
           "5": " ** effectue une attaque simple ! C'était risqué mais ça passe !",
           "6": " ** lance une bonne attaque simple !",
           "7": " ** utilise une attaque simple ! Magistrale !",
-          "8": " ** choisi une attaque simple !  Très bonne initiative"
+          "8": " ** choisit une attaque simple !  Très bonne initiative"
         },
         "meh": {
           "1": " ** effectue une attaque simple ! Ca fonctionne mais c'était pas incroyable.",
@@ -259,7 +260,7 @@
           "5": " ** effectue une attaque simple ! C'est pas très réussi.",
           "6": " ** lance une attaque simple ! Médiocre",
           "7": " ** utilise une attaque simple ! Faiblarde !",
-          "8": " ** choisi une attaque simple !  Le résultat est assez pitoyable."
+          "8": " ** choisit une attaque simple !  Le résultat est assez pitoyable."
         },
         "ko": {
           "1": " ** effectue une attaque simple ! C'est raté !",
@@ -269,7 +270,7 @@
           "5": " ** effectue une attaque simple ! C'était risqué et ça n'est pas passé !",
           "6": " ** lance une mauvaise attaque simple !",
           "7": " ** utilise une attaque simple ! Un choix peu judicieux !",
-          "8": " ** choisi une attaque simple !  Mauvaise initiative."
+          "8": " ** choisit une attaque simple !  Mauvaise initiative."
         }
       },
       "attackUltime": {
@@ -281,7 +282,7 @@
           "5": " ** effectue une attaque ultime ! C'était risqué mais ça passe ! `Vitesse réduite de 10 %`",
           "6": " ** lance une bonne attaque ultime ! `Vitesse réduite de 10 %`",
           "7": " ** utilise une attaque ultime ! Magistrale ! `Vitesse réduite de 10 %`",
-          "8": " ** choisi une attaque ultime !  Très bonne initiative. `Vitesse réduite de 10 %`"
+          "8": " ** choisit une attaque ultime !  Très bonne initiative. `Vitesse réduite de 10 %`"
         },
         "meh": {
           "1": " ** effectue une attaque ultime ! Ca fonctionne mais c'était pas incroyable.",
@@ -291,7 +292,7 @@
           "5": " ** effectue une attaque ultime ! C'est pas très réussi.",
           "6": " ** lance une attaque ultime ! Médiocre",
           "7": " ** utilise une attaque ultime ! Faiblarde !",
-          "8": " ** choisi une attaque ultime !  Le résultat est assez pitoyable."
+          "8": " ** choisit une attaque ultime !  Le résultat est assez pitoyable."
         },
         "ko": {
           "1": " ** effectue une attaque ultime ! C'est raté ! `Vitesse réduite de 10 %`",
@@ -301,7 +302,7 @@
           "5": " ** effectue une attaque ultime ! C'était risqué et ça n'est pas passé ! `Vitesse réduite de 10 %`",
           "6": " ** lance une mauvaise attaque ultime ! `Vitesse réduite de 10 %`",
           "7": " ** utilise une attaque ultime ! Un choix peu judicieux ! `Vitesse réduite de 10 %`",
-          "8": " ** choisi une attaque ultime !  Mauvaise initiative. `Vitesse réduite de 10 %`"
+          "8": " ** choisit une attaque ultime !  Mauvaise initiative. `Vitesse réduite de 10 %`"
         }
       }
     },
@@ -348,12 +349,15 @@
       "noPlayersInTop": "**Oups,** revenez plus tard.\nAucun joueur n'est classé pour le moment.\n",
       "ranked": "Votre classement :"
     },
+    "topServ": {
+      "introDebut": "**:trophy: Affichage du top du serveur "
+    },
     "TopWeek": {
       "errorDebut": ":x: | **",
       "invalidNumber": "** Veuillez entrer un numéro de page valide !",
       "notMuchError": "** Vous avez saisi un numéro de page trop petit ! La page minimum est : ",
       "tooMuchError": "** Vous avez saisi un numéro de page trop grand ! La page maximale est : ",
-      "introDebut": "**Affichage du top de la semaine ",
+      "introDebut": "**:trophy: Affichage du top de la semaine ",
       "pageNumberSeparator": " à ",
       "introFin": " : ** \n\n",
       "firstPlaceEmoji": ":first_place: ",
@@ -392,8 +396,8 @@
       "ranked": "Votre classement :",
       "days": " J",
       "hours": " H",
-      "minutes": " Min"
-    },
+      "minutes": " Min",
+      "footer": "Classement réinitialisé dans"
     "guild": {
       "guildIcon": "https://i.imgur.com/sQHBly4.png",
       "guild": "Guilde ",
@@ -455,7 +459,13 @@
       "characters2": "Le nom de la guilde doit être compris entre 1 et 15 caractères.",
       "emptyName": "Tu dois donner un nom à la guilde avant de l'acheter :\n`",
       "emptyName2": "guildcreate <nom>`"
+    },
     }
+  },
+  "commandReader":{
+    "resetIsNowTitle" : ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot !",
+    "resetIsNowFooter" : "\n\n:clock12: Le jeu reprendra dans moins de 5 minutes !",
+    "resetIsNowFooterFight": "\n\n:clock12: Les combats reprendront dans moins de 15 minutes !"
   },
   "badges": {
     "🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
@@ -489,29 +499,32 @@
     "🍌": ":banana:  `Petit cadeau pour une mention`",
     "🔍": ":mag:  `Personne ayant résolu une chasse`",
     "🎗️": ":reminder_ribbon:  `Personne ayant dominé un classement de la semaine`",
-    "🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`"
+    "🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`",
+    "😂": ":joy:  `Badge offert à une personne drôle`"
   },
   "error": {
     "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : http://draftbot.tk/ !"
   },
   "playerManager": {
     "errorMain": {
-      ":smiley": "** Il semblerait que vous ne soyez pas atteint par une altération d'état !",
+      ":smiley:": "** Il semblerait que vous ne soyez pas atteint par une altération d'état !",
       ":baby:": "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
       ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourant ! Veuillez attendre la fin des soins de votre altération d'état.",
-      ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ou malade ! Veuillez attendre la fin des soins de votre altération d'état.",
+      ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant malade ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":skull:": "** Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
-      ":zzz:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de votre altération d'état.",
+      ":lock:": "** Vous êtes actuellement enfermé ! Veuillez attendre la fin de votre altération d'état.",
+      ":sleeping:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":head_bandage:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ! Veuillez attendre la fin des soins de votre altération d'état.",
-      ":snowflake:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de votre altération d'état.",
+      ":cold_face:": "**  Il est malheureusement impossible de continuer à jouer en étant gelé ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":confounded:": "** Il est malheureusement impossible de continuer à jouer en étant confus ! Veuillez attendre la fin des soins de votre altération d'état.",
+      ":zany_face:": "** Il est malheureusement impossible de continuer à jouer en étant ivre ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":clock10:": "** Une autre commande a été lancée récemment et attend des instructions de votre part ! Veuillez répondre à cette commande pour continuer à jouer. `Si vous n'avez aucune tâche en cours, veuillez contacter un administrateur du bot.`",
       ":clock2:": "** Il semblerait que vous soyez déjà occupé... Veuillez attendre la fin de la tâche pour continuer à jouer !"
     },
     "intro": " | **",
     "timeLeft": " | `Temps restant : ",
     "outro": "`",
-    "noTimeLeft": " | :hospital: `Reprise du jeu possible`",
+    "noTimeLeft": ":hospital: Reprise du jeu possible",
     "newItem": "**Un nouvel item a été placé dans votre inventaire !** :new: Vous recevez :\n\n",
     "sell": "** Vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",
     "sellEnd": "**",
@@ -527,7 +540,7 @@
       "moreSpeed": ":rocket: | Vitesse augmentée de 5 points\n",
       "moreAttack": ":crossed_swords: | Attaque augmentée de 5 points\n",
       "moreDefense": ":shield: | Défense augmentée de 5 points\n",
-      "noBonus": "\n\n:x: | Aucun bonus de passage de niveau"
+      "noBonus": ":blue_heart: | Points de combats augmentés"
     }
   },
   "equipementManager": {
@@ -593,7 +606,7 @@
   },
   "events": {
     "0": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `help` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récupérer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons-y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",
-    "1": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:scissors: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
+    "1": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:axe: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
     "2": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
     "3": " : ** :lock: Vous avez trouvé un coffret ! Malheureusement il est verrouillé...\n\n:key: Chercher la clef autour du lieu de découverte.\n:pick: Attaquer le cadenas à coups de pioche.\n:arrow_forward: Abandonner le coffret à l'endroit où vous l'avez trouvé.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "4": " : ** :stars: Vous avez décidé de profiter d'une nuit calme pour continuer votre progression. Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!\n\n:speaking_head: Faire un vœu.\n:runner: Ignorer cet évènement.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
@@ -617,11 +630,19 @@
     "22": " : ** :apple: Alors que vous traversez la propriété d'un fermier, vous voyez un pommier aux fruits forts appétissants. \n\n:euro: Aller acheter des fruits à cet homme\n:busts_in_silhouette: Aller voler des fruits dans l'arbre\n:runner: Ne pas s'en préoccuper\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "23": " : ** :walking: Vous vous baladez en forêt, quand soudain vous apercevez un chariot qui semble cassé. Autour le groupe de personnes semble mal en point.\n\n:hammer: Aider ces gens à réparer leur chariot\n:person_walking: Ne pas se préoccuper de ces individus vous semblant suspects.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "24": " : ** :fireworks: Vous montez sur une colline. Alors que vous regardez autour de vous, vous voyez des lumières au loin. Au fur et à mesure que vous vous approchez, vous entendez également de la musique. C'est un festival ! Excité de faire la fête, vous courez vers la ville.\n\n:dart: Aller à un stand de jeu\n:circus_tent: Aller à un stand de vente d'objets\n:oden: Aller à un stand de nourriture \n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "25": " : ** :mag_right: A force d'errer, vous tombez sur un champ de bataille, aux alentours, vous remarquez plusieurs soldats à la recherche de possibles survivants à ce massacre.\n\n:handshake: Proposer son aide\n:spy: Piller les corps\n:walking: Ne pas les aider\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "26": " : ** :walking: En vous promenant dans un village, vous remarquez un regroupement de personnes. En allant voir, vous constatez très vite qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n:money_with_wings: Voler des passants assistant au massacre.\n:punch: S'interposer et empêcher cet homme de mourir.\n:walking: Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "25": " : ** :mag_right: Après plusieurs jours de voyage sans encombre vous finissez par arriver sur les lieux d'une petite escarmouche entre deux groupes armés. Les esprits semblent cependant s'être calmés et vous remarquez plusieurs soldats affairés à rechercher des éventuels survivants.\n\n:handshake: Proposer son aide\n:spy: Piller les corps\n:walking: Ne pas les aider\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "26": " : ** :walking: En vous promenant dans un village, vous remarquez un regroupement de personnes. Vous constatez très vite en vous approchant qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n:money_with_wings: Voler des passants assistant au massacre.\n:punch: S'interposer et empêcher cet homme de mourir.\n:walking: Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "27": " : ** :walking: En vous promenant dans le petit village que vous avez trouvé, vous remarquez un puits avec un petit objet brillant au fond.\n\n:point_down: Tenter de descendre pour récupérer l'objet.\n:handshake: Tenter d'attraper l'objet avec le seau du puits\n:walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "28": " : ** :angel: Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause. \n\n:white_check_mark: Accepter de la rejoindre\n:x: Refuser gentiment la proposition.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "29": " : ** :thermometer: En cette période où les températures dépassent les 30°C, vous commencez à être fatigué, de ce fait, vous décidez de chercher un moyen de vous délasser pour repartir en meilleure forme.\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:zzz: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+    "29": " : ** :thermometer: Les températures dépassant les 30°C depuis plusieurs jours vous accablent. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous reflechissez à une stratégie à suivre...\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:sleeping: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "30": " : ** :european_castle: Vous apercevez un château au loin, vous décidez de vous en approcher par l'entrée principale. Cette demeure semble être celle du Duc Benatis, connu pour ses exploitations de bananes. Il organise une fête en l'honneur de ses 21 ans. Lorsque vous approchez un peu plus, un garde vous invite à rentrer car le duc souhaite que tout le monde participe à la fête. Une fois rentré vous faites face à un immense festin.\n\n:prince: Aller voir le duc\n:tada: Rester à la fête\n:gift: Lui offrir un cadeau\n:banana:Sortir pour aller lui voler des bananes dans son exploitation\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "31": " : ** :horse_racing: Vous entendez un bruit de galop au loin. Vous vous retournez et voyez un chevalier à l'armure noire et au blason inconnu.\n\n:man_walking: Continuer votre route normalement.\n:herb: Se cacher dans un buisson au bord de la route.\n:wave: Lui faire signe pour qu'il s'arrête.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "32": " : ** Vous continuez votre chemin tranquillement dans une forêt, lorsque vous entendez un cri. La voix semble être celle d'un homme, vous décidez d'aller vers le cri et vous trouvez un homme gravement blessé près d'une sorte de campement.\n\n:syringe: Aller chercher de quoi soigner l'homme blessé\n:knife: Achever l'homme pour récupérer son équipement\n:speaking_head: Crier afin d'alerter des gens.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "33": " : ** Vous arrivez dans une ferme où se déroule un grand festin. Les gens paraissent accueillants. \n\n:lips: S'asseoir tranquillement pour bavarder \n:poultry_leg: En profiter pour s'empiffrer de nourriture \n:detective: Profiter de l'animation générale pour voler les gens \n:man_walking: Continuer sans s'arrêter\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "34": " : ** Au détour d'une rue, des passants vous ont reconnu et vous abordent. Ils se rappellent parfaitement de l'aide que vous leur aviez apportée, et insistent pour vous remercier en vous offrant un cadeau. Ils vous demandent ce qui vous ferait le plus plaisir.\n\n:four_leaf_clover: Cadeau en nature\n:moneybag: Cadeau en monnaie\n:innocent: Cadeau en santé\n:salad: Cadeau alimentaire\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "35": " : ** :beers: Vous entrez dans un bar, et le barman vous interpelle, vous disant qu'il aimerait \"tester de nouvelles boissons\" sur vous.\n\n:beer: Accepter de servir de cobaye\n:x: Refuser sa proposition\n:moneybag: Refuser, et tenter de voler des gens\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "36": " : ** Au cours de votre très long périple vous arrivez dans un petit village fort charmant. Vous atteignez le centre du village, mais il s'avère qu'il est très petit et qu'il n'y a que deux commerces : la bijouterie et une auberge . Vous découvrez grâce à un passant que la bijouterie est gérée par un vieillard et qu'il fait de magnifiques bijoux et colliers. L'auberge est, quant à elle, dirigée par un couple, et il paraît qu'elle a un grand succès.\n\n:speaking_head: Aller voir le bijoutier et discuter\n:money_with_wings: Essayer de voler le bijoutier\n:house_with_garden: Aller à l'auberge se reposer\n:person_walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "37": " : ** :person_walking: Vous marchez tranquillement, le temps est clair et la route bonne. Vous pensez à la douce nuit que vous passerez dans une auberge du prochain village que vous traverserez, et cela vous donne à nouveau le courage d'avancer. La route est pour le moment si calme que, tout en marchant, vous vous plongez dans vos pensées. Vous vous rendez compte que, bien qu'ayant commencé votre aventure dans le but de prouver votre valeur et d'épouser la princesse, vous prenez de plus en plus goût à votre voyage. Alors que vous n'êtes plus très loin du village qui est votre objectif du jour, il commence à pleuvoir.\n\n:person_walking: Continuer à marcher\n:person_running: Accélérer afin de ne pas trop se mouiller\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
   },
   "possibilities": {
     "report": {
@@ -650,21 +671,21 @@
       }
     },
     "1": {
-      "✂": {
-        "1": "** | :scissors: Couper cet arbre aura pris 30 minutes !"
+      "🪓": {
+        "1": "** | :axe: Couper cet arbre aura pris 30 minutes !"
       },
       "🚶": {
         "1": "** | :walking: Passer par un autre chemin semblait être une bonne solution vous n'avez pas perdu de temps !",
         "2": "** | :walking: Passer par un autre chemin semblait être une bonne solution, malheureusement vous vous êtes blessé en marchant."
       },
       "end": {
-        "1": "** | :scissors: L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !"
+        "1": "** | :axe: L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !"
       }
     },
     "2": {
       "🏃": {
         "1": "** | :runner: Après 15 minutes de poursuite vous parvenez à semer le chien, il ne semblait pas très amical !",
-        "2": "** | :runner: En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer ! :sick:"
+        "2": "** | :runner: En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer ! :head_bandage:"
       },
       "🐕": {
         "1": "** | :dog2: Vous perdez la trace du chien au bout de quelques minutes, il allait trop vite !",
@@ -721,7 +742,7 @@
         "2": "** | :walking: Pas de temps pour le repos ! Il y a une princesse à sauver !",
         "3": "** | :walking: Vous faites le choix de ne pas vous arrêter et vous continuez à avancer.",
         "4": "** | :walking: Vous continuez votre aventure sans prêter plus d'attention à cette fontaine",
-        "5": "** | :zzz: Il faut savoir se reposer lorsqu'on est fatigué. Extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. Il faudra dormir avant de continuer !"
+        "5": "** | :sleeping: Il faut savoir se reposer lorsqu'on est fatigué. Extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. Il faudra dormir avant de continuer !"
       },
       "end": {
         "1": "** | :money_mouth:  Vous avez passé une bonne heure à ramasser les pièces dispersées au fond de l'eau mais il semblerait que ça ait valu la peine ! "
@@ -748,9 +769,9 @@
     },
     "7": {
       "🚪": {
-        "1": "** | :door: En forcant la porte vous vous blessez profondement, il faut absolument vous soigner ! :sick:",
+        "1": "** | :door: En forcant la porte vous vous blessez profondement, il faut absolument vous soigner ! :head_bandage:",
         "2": "** | :door: Après avoir passé presque 1 heure à tenter de rentrer dans la maison, vous finissez par abandonner. En partant vous trouvez un objet qui pourra peut être vous être utile !",
-        "3": "** | :door: Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. :zzz: ",
+        "3": "** | :door: Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. :sleeping: ",
         "4": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. En sortant vous trouvez un objet qui pourra peut être vous être utile !",
         "5": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. Vous finissez par abandonner vos recherches sans avoir rien trouvé."
       },
@@ -765,26 +786,26 @@
       "🌲": {
         "1": "** | 🌲 Vous traversez la forêt sans trop de difficultés et continuez votre route !",
         "2": "** | 🌲 Vous avancez lentement à travers les sapins, sur le chemin vous ramassez des branches de sapin et vous fabriquez des petits objets que vous pourrez utiliser ou revendre...",
-        "3": "** | 🌲 Vous progressez lentement dans la forêt. Malheureusement le sol est glissant et vous tombez au fond d'un fossé ! Vous parvenez à en ressortir mais vous êtes blessé ! :sick:"
+        "3": "** | 🌲 Vous progressez lentement dans la forêt. Malheureusement le sol est glissant et vous tombez au fond d'un fossé ! Vous parvenez à en ressortir mais vous êtes blessé ! :head_bandage:"
       },
       "🏞": {
         "1": "** | 🏞 Vous changez finalement d'avis et décidez de rester sur les plaines, moins dangereux ce chemin est également plus long, vous perdez beaucoup de temps !",
         "2": "** | 🏞 Vous changez finalement d'avis et décidez de rester sur les plaines, moins dangereux ce chemin est également plus long, vous perdez beaucoup de temps ! Au bout de quelques kilomètres, vous vous arrêtez pour vous reposer dans une auberge."
       },
       "end": {
-        "1": "** | :walking: Vous vous reposer pendant quelques minutes avant de repartir doucement vers les cols. Vous finissez par arriver épuisé de l'autre coté, il faudra vous reposer avant de repartir ! :zzz:"
+        "1": "** | :walking: Vous vous reposez pendant quelques minutes avant de repartir doucement vers les cols. Vous finissez par arriver épuisé de l'autre coté, il faudra vous reposer avant de repartir ! :sleeping:"
       }
     },
     "9": {
       "🔎": {
         "1": "** | :mag_right: Après un quart d'heure à chercher, vous retrouvez la fourche à côté d'un tas de foin. Pour vous remercier, le paysan vous offre quelques pièces.",
         "2": "** | :mag_right: Après une demi-heure de recherches, vous ne trouvez pas la fourche. Vous découvrez cependant un objet qui pourra peut être vous être utile !",
-        "3": "** | :mag_right: En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille. :sick:",
+        "3": "** | :mag_right: En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille. :head_bandage:",
         "4": "** | :mag_right: Vous cherchez la fourche pendant presque une heure mais vous ne parvenez pas à la retrouver. Vous quittez poliment le paysan et continuez votre route"
       },
       "▶": {
         "1": "** | :walking: Vous continuez votre chemin sans prêter attention au paysan.",
-        "2": "** | :arrow_right: En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied. :sick:"
+        "2": "** | :arrow_right: En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied. :head_bandage:"
       },
       "end": {
         "1": "** | :walking: Vous regardez bêtement pendant 15 minutes le paysan chercher sa fourche avant de repartir."
@@ -793,7 +814,7 @@
     "10": {
       "🎣": {
         "1": "** | :walking: L'homme refuse gentiment votre aide, vous poursuivez votre route.",
-        "2": "** | :tropical_fish: Grâce à vous, l'homme attrape un superbe poisson de 3 KG ! Pour vous remercier, il vous offre quelque chose qui pourrait vous être utile...",
+        "2": "** | :tropical_fish: Grâce à vous, l'homme attrape un superbe poisson de 3 kg ! Pour vous remercier, il vous offre quelque chose qui pourrait vous être utile...",
         "3": "** |  :sweat_drops: Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:"
       },
       "🏃": {
@@ -810,11 +831,11 @@
       "🌳": {
         "1": "** | :deciduous_tree: Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégats.",
         "2": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la forêt mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
-        "3": "** | :deciduous_tree: En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! :sick:"
+        "3": "** | :deciduous_tree: En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! :head_bandage:"
       },
       "👈": {
         "1": "** | :walking: C'était en effet un raccourci !",
-        "2": "** | :deciduous_tree: Vous tombez dans une embuscade ! Après vous avoir volé tous vos bien, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui. :sick:"
+        "2": "** | :deciduous_tree: Vous tombez dans une embuscade ! Après vous avoir volé tous vos bien, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui. :head_bandage:"
       },
       "👉": {
         "1": "** | :walking: Vous ne savez pas trop pourquoi vous avez pris un chemin 10 fois plus long que celui que vous aviez prévu au départ mais vous avez fini par arriver à bon port."
@@ -828,12 +849,12 @@
         "1": "** | 🚶 Vous décidez de partir dans un autre sens, mais vous mettez une bonne heure avant de trouver une direction qui vous convienne !"
       },
       "🏊": {
-        "1": "** | 🏊 L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté, vous vous rendez compte de votre erreur. Vous êtes gelé et affaibli. Il faudra vous soigner avant de continuer ! :snowflake:",
+        "1": "** | 🏊 L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté, vous vous rendez compte de votre erreur. Vous êtes gelé et affaibli. Il faudra vous soigner avant de continuer ! :cold_face:",
         "2": "** | 🏊 Vous atteignez l'autre côté facilement, arrivé au village, les gens vous accueillent et vous donnent à manger."
       },
       "🚣": {
         "1": "** | 🚣 En tentant de fabriquer votre embarcation vous vous blessez ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
-        "2": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer ! :snowflake:",
+        "2": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer ! :cold_face:",
         "3": "** | 🚣 Vous fabriquez une petite barque en quelques heures et vous atteignez l'autre côté facilement. En sortant de votre bateau vous ramassez un objet qui, à défaut de vous servir, sera facile à revendre !"
       },
       "🌉": {
@@ -853,7 +874,7 @@
       },
       "🏠": {
         "1": "** | 🏠 Après avoir discuté pendant 2 heures avec l'aubergiste, vous finissez par apprendre qu'il n'y a aucune chambre disponible pour la nuit ! Vous reprenez la route, frustré de ne pas avoir pu profité d'une bonne nuit de repos.",
-        "2": "** | 🏠 Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure :zzz: ",
+        "2": "** | 🏠 Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure :sleeping: ",
         "3": "** | 🏠 L'auberge semble abandonnée depuis plusieurs années... Vous continuez votre route sans vous poser plus de questions."
       },
       "🔨": {
@@ -861,7 +882,7 @@
         "2": "** | 🔨 En essayant une épée, vous brisez la fenêtre de la forge, le forgeron demande remboursement !",
         "3": "** | 🔨 Personne n'est présent dans la forge qui semble abandonnée depuis des années. Avant de partir vous remarquez cependant un objet qui pourrait vous servir pour la suite de votre aventure...",
         "4": "** | 🔨 La forge semble abandonnée depuis des années. Vous reprenez donc votre route.",
-        "5": "** | 🔨 Vous entrez et saluez le forgerons. Après une rapide inspection de son travail vous comprenez que vous ne trouverez rien d'interessant ici. Vous reprenez votre route."
+        "5": "** | 🔨 Vous entrez et saluez le forgeron. Après une rapide inspection de son travail vous comprenez que vous ne trouverez rien d'intéressant ici. Vous reprenez votre route."
       },
       "🎪": {
         "1": "** | 🎪 Vous explorez le marché en 30 minutes avant de découvrir un petit objet au sol qui pourrait vous être utile...",
@@ -879,7 +900,7 @@
         "3": "** | 🔨 L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l’idée d’obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l’idée de créer votre propre arme. :dizzy_face: !"
       },
       "🛏": {
-        "1": "** | 🛏 Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Epuisé, vous vous écroulez de fatigue sur le lit :zzz:",
+        "1": "** | 🛏 Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Epuisé, vous vous écroulez de fatigue sur le lit :sleeping:",
         "2": "** | 🛏 L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refusez poliment et reprenez votre route.",
         "3": "** | 🛏 Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers",
         "4": "** | 🛏 L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son souper. Affamé et épuisé, vous acceptez son offre."
@@ -915,7 +936,7 @@
     },
     "16": {
       "🔎": {
-        "1": "** | 🔎 Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, alors que vous entrez dans une grande salle délabrée, un immense morceau du plafond se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment.",
+        "1": "** | 🔎 Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, alors que vous entrez dans une grande salle délabrée, un immense morceau du plafond se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment, blessé. :head_bandage:",
         "2": "** | 🔎 Vous entrez dans le château et parcourez rapidement les lieux. Au bout de quelques minutes, vous trouvez une pièce qui semble être l'ancienne armurerie. Pressé de ressortir du bâtiment, vous ramassez le premier objet qui vous tombe sous la main et ressortez en pressant le pas.",
         "3": "** | 🔎 Il semblerait que ce château soit moins abandonné qu'il en a l'air ! Peu après votre entrée vous entendez de nombreux bruits en provenance de différentes salles. Peu rassuré, vous préférez reprendre votre route."
       },
@@ -925,7 +946,7 @@
       "🔁": {
         "1": "** | 🔁 Vous faites le tour du château mais vous ne trouvez rien. Estimant avoir perdu suffisamment de temps, vous continuez votre chemin.",
         "2": "** | 🔁 Cette ronde ne vous en apprendra pas beaucoup sur la grande bâtisse. Cependant, vous découvrez tout au long de celle-ci un grand nombre de petites pièces d'or disséminées autour du château. Heureux de votre découverte, vous reprenez votre route.",
-        "3": "** | 🔁 Alors que vous commenciez à faire le tour du château, vous tombez par accident dans un trou. Légèrement blessé à la jambe, cette ronde vous aura coûté beaucoup de temps ! :sick:"
+        "3": "** | 🔁 Alors que vous commenciez à faire le tour du château, vous tombez par accident dans un trou. Blessé à la jambe, il faudra vous soigner avant de continuer ! :head_bandage:"
       },
       "end": {
         "1": "** | 🚶 Après avoir admiré le bâtiment pendant une quinzaine de minute, vous reprenez votre route.",
@@ -955,7 +976,7 @@
       },
       "🚶": {
         "1": "** | 🚶 Vous continuez votre route sans perdre plus de temps.",
-        "2": "** | 🚶 Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route. :zzz:"
+        "2": "** | 🚶 Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route. :sleeping:"
       },
       "end": {
         "1": "** | 🚶 Après quelques instants de reflexion vous décidez de reprendre la route promptement.",
@@ -966,7 +987,7 @@
       "🔎": {
         "1": "** | 🔎 Vous cherchez pendant 30 minutes, mais vous ne trouvez rien d'intéressant.",
         "2": "** | 🔎 Après avoir cherché 40 minutes, vous finissez par trouver quelque chose qui pourrait être utile !",
-        "3": "** | 🔎 Alors que vous cherchiez dans une boîte a outils, vous vous entaillez la main sur une pince rouillée. La blessure est vraiment profonde !:sick:"
+        "3": "** | 🔎 Alors que vous cherchiez dans une boîte a outils, vous vous entaillez la main sur une pince rouillée. La blessure est vraiment profonde ! :head_bandage:"
       },
       "⛓": {
         "1": "** | ⛓ Vous grimpez jusqu'en haut des échafaudages, mais à l'exception d'un magnifique paysage, vous ne trouvez rien. Après avoir passé quelques minutes à l'admirer, vous repartez.",
@@ -995,7 +1016,7 @@
       "🔪": {
         "1": "** | 🔪 Vous vous approchez du cadavre, et le dépecez. Vous vendez sa fourrure au premier marchand itinérant que vous croisez.",
         "2": "** | 🔪 Vous dépecez le renard et partez en quête d'un moyen de vendre sa peau. Quelques minutes plus tard vous croisez un marchand qui vous propose de la troquer contre un de ses objets de qualité, et vous acceptez.",
-        "3": "** | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, mais il semblerait que vous soyez tombé malade !"
+        "3": "** | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, un peu tard puisque vous vous sentez rapidement mal en point ! :sick:"
       },
       "end": {
         "1": "** | 👀 Vous regardez un moment la bête étendue au sol, hésitant. Finalement vous reprenez votre chemin."
@@ -1024,13 +1045,13 @@
       "🌉": {
         "1": "** | 🌉 La traversée vous semble risquée, mais vous n'avez pas de temps à perdre et traversez donc. Après 5 minutes de marche sur ce pont vous arrivez au bout sain et sauf.",
         "2": "** | 🌉 En traversant ce pont vous voyez un petit sac, en l'ouvrant vous remarquez un nombre conséquent de pièces",
-        "3": "** | 🌉 En marchant sur le pont, vous entendez de petits craquements, quand soudain, une planche tombe, et vous tombez avec. :nauseated_face:",
+        "3": "** | 🌉 En marchant sur le pont, vous entendez de petits craquements, quand soudain, une planche tombe, et vous tombez avec. :head_bandage:",
         "4": "** | 🌉 Au cours de votre traversée, une planche tombe, heureusement, vous réussissez à vous accrocher à une autre planche, elle plus solide. Après quelques minutes à vous remettre de vos émotions, vous continuez votre route."
       },
       "🚶": {
         "1": "** | 🚶 Après une bonne heure de marche, vous trouvez un autre pont, qui lui, semble en bien meilleur état et décidez de l'emprunter.",
         "2": "** | 🚶 Durant votre chemin, vous remarquez une petite caisse et l'ouvrez, dans celle-ci un objet semblant utile. Vous le récupérez et continuez votre route.",
-        "3": "** | 🚶 Vous apercevez un pont et vous précipitez pour pour le rejoindre au plus vite, cependant vous trébuchez sur un tronc d'arbre et vous blessez. :confounded:"
+        "3": "** | 🚶 Vous apercevez un pont et vous précipitez pour le rejoindre au plus vite, cependant vous trébuchez sur un tronc d'arbre et vous blessez. :confounded:"
       },
       "end": {
         "1": "** | 🕑 Vous attendez une vingtaine de minutes en observant ce pont. Puis vous continuez votre route.",
@@ -1039,7 +1060,7 @@
     },
     "22": {
       "💶": {
-        "1": "** | 💶 Vous vous approchez du fermier,et lui demandez des fruits, celui-ci vous en donne en échange de quelques pièces. Une quinzaine de minutes plus tard, vous remarquez qu'ils étaient empoisonnés et tombez à même le sol. :nauseated_face:",
+        "1": "** | 💶 Vous vous approchez du fermier et lui demandez des fruits, celui-ci vous en donne en échange de quelques pièces. Une quinzaine de minutes plus tard, vous remarquez qu'ils étaient empoisonnés et tombez à même le sol. :sick:",
         "2": "** | 💶 Le fermier accepte de vous vendre 2 pommes contre quelques pièces. Après les avoir mangées, vous regagnez beaucoup d'énergie et repartez.",
         "3": "** | 💶 Le fermier refuse de vous vendre des fruits, vous continuez donc votre route sans perdre plus de temps."
       },
@@ -1065,7 +1086,7 @@
       },
       "🚶": {
         "1": "** | 🚶 Vous ne voulez pas perdre de temps, et continuez votre route.",
-        "2": "** | 🚶 En partant, vous trébuchez dans un trou et vous blessez. :nauseated_face:"
+        "2": "** | 🚶 En partant, vous trébuchez dans un trou et vous blessez. :head_bandage:"
       },
       "end": {
         "1": "** | 👀 Vous passez 15 minutes à les regarder et vous décidez de continuer votre route sans y prêter plus d'attention."
@@ -1083,11 +1104,11 @@
       },
       "🍢": {
         "1": "** | 🍢 Cette nourriture est incroyable ! De votre vie, jamais vous n'avez mangé quelque chose d'aussi bon. Vous vous sentez revigoré et apaisé.",
-        "2": "** | 🍢 Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé.",
+        "2": "** | 🍢 Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé. :sick:",
         "3": "** | 🍢 Cette nourriture est assez classique. Vous ne ressentez rien en la mangeant ni après avoir fini puis en oubliez vite le goût "
       },
       "end": {
-        "1": "** | 🚶 Aucun des stands ne vous intéresse et vous sorrez rapidement de la ville après quelque coups d'oeil.",
+        "1": "** | 🚶 Aucun des stands ne vous intéresse et vous sortez rapidement de la ville après quelques coups d'oeil.",
         "2": "** | 🚶 Vous décidez de ne rien acheter mais vous flanez tout de même un long moment entre les stands."
       }
     },
@@ -1103,11 +1124,11 @@
       "🚶": {
         "1": "** | 🚶 Vous ne prêtez pas attention au massacre qui a eu lieu, et allez vous reposer un peu plus loin.",
         "2": "** | 🚶 Pas de temps à perdre ! Vous continuez votre route. ",
-        "3": "** | 🚶 Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. :nauseated_face:"
+        "3": "** | 🚶 Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. :head_bandage:"
       },
       "end": {
         "1": "** | 👀 Vous restez regarder les soldats pendant une quinzaine de minutes puis continuez votre route.",
-        "2": "** | 👀 Fatigué, vous tombez raide et vous endormez au sol. :zzz:"
+        "2": "** | 👀 Fatigué, vous tombez raide et vous endormez au sol. :sleeping:"
       }
     },
     "26": {
@@ -1147,7 +1168,7 @@
       },
       "end": {
         "1": "** | 👀 Vous observez bêtement l'objet pendant 20 minutes puis repartez.",
-        "2": "** | 🚶 Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez et y tombez, heureusement vous arrivez à rapidement remonter, mais vous ressortez de cette aventure grièvement blessé. :nauseated_face:"
+        "2": "** | 🚶 Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez, heureusement vous arrivez à rapidement remonter nous sans vous être sévèrement blessé. :head_bandage:"
       }
     },
     "28": {
@@ -1169,7 +1190,7 @@
       "🔍": {
         "1": "** | 🔍 Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
         "2": "** | 🔍 Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Sur le chemin vous trouvez un item qui vous sera sûrement utile. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
-        "3": "** | 🔍 Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise :zzz:"
+        "3": "** | 🔍 Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise :sleeping:"
       },
       "🌳": {
         "1": "** | 🌳 Vous voyez une zone d'ombre sous les arbres, et décidez d'y aller. Après une petite heure de sommeil, vous repartez et continuez votre route.",
@@ -1182,6 +1203,186 @@
       "end": {
         "1": "** | 👀 Vous restez à votre place, en plein soleil pendant une quinzaine de minutes, puis vous écroulez",
         "2": "** | 🚶 Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps"
+      }
+    },
+    "30": {
+      "🤴": {
+        "1": "** | 🤴 Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir un peu de repos chez lui",
+        "2": "** | 🤴 Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir quelques pièces en vous disant d'en faire bon usage, vous repartez ensuite sur votre chemin",
+        "3": "** | 🤴 Vous allez voir le duc et vous essayez de le complimenter, cependant la rhétorique n'est pas votre fort et le duc se sentant offensé vous fait enfermer. :lock:"
+      },
+      "🎉": {
+        "1": "** | 🎉 Vous rentrez et profitez de la fête qui va durer jusque très tard dans la nuit.",
+        "2": "** | 🎉 Le garde aperçoit vos chaussures sales et vous demande de revenir uniquement avec une tenue plus adaptée. Heureusement, un jeune mendiant se trouvant juste a côté de vous propose de vous les cirer. Vous pouvez ainsi profiter de l'anniversaire.",
+        "3": "** | 🎉 La buffet de la fête est un festin. Vous vous régalez avec toutes ces bananes."
+      },
+      "🎁": {
+        "1": "** | 🎁 Vous avez envie d'offrir un cadeau au Duc Benatis, mais vous ne trouvez rien qui pourrait faire l'affaire. Vous décidez de simplement lui donner de l'argent amassé pendant vos péripéties. Le Duc accepte votre cadeau ",
+        "2": "** | 🎁 Vous vous approchez du Duc pour lui donner un cadeau. En vous voyant arriver, le Duc comprend votre intention et vous dit aimablement que c'est n'est pas la peine, alors vous discutez juste avec lui puis partez de la fête",
+        "3": "** | 🎁 Alors que vous allez pour donner un cadeau au Duc, celui-ci se lève et déclare qu'il a décidé de distribuer des cadeaux à tout le monde présent. Vous comprenez qu'il ne servirait alors à rien de lui en offrir un, et acceptez celui qui vous est tendu par les servants"
+      },
+      "🍌": {
+        "1": "** | 🍌 Alors que vous vous apprêtiez à sortir de l'exploitation avec votre butin, un esclave vous interpelle et vous dénonce. Vous finissez enfermé. :lock:",
+        "2": "** | 🍌 Vous ressortez discrètement avec votre délicieux butin que vous finissez rapidement de manger",
+        "3": "** | 🍌 À votre grand malheur, vous n'aviez pas remarqué l'écrit \"Impropres à la vente\" devant vos bananes fraichement acquises et celles-ci ont vite fait de vous rendre malade ! :sick: "
+      },
+      "end": {
+        "1": "** | 🚶 Vous ne vous sentez pas d'humeur à faire la fête aujourd'hui, vous décidez donc de rebrousser chemin et de continuer tranquillement votre route.",
+        "2": "** | 🚶 Vous n'êtes pas prêt à faire la fête aujourd'hui, vous reprenez votre route. Lorsque vous trébuchez et tombez nez à nez avec une banane, cependant celle-ci semble ne pas être bonne."
+      }
+    },
+    "31": {
+      "🚶‍♂️": {
+        "1": "** | 🚶‍♂️ Le chevalier vous rentre dedans à pleine vitesse. Vous volez sur 5 mètres avant de vous écraser au sol. Le chevalier n'est déjà plus là il ne reste qu'un nuage de poussière...",
+        "2": "** | 🚶‍♂️ Arrivé à votre hauteur, le chevalier voit votre difficulté à avancer sous ce soleil de plomb. Il vous offre un peu d'eau de sa gourde et poursuit sa route.",
+        "3": "** | 🚶‍♂️ Le chevalier vous rattrape et vous demande son chemin. Vous lui indiquez une route et continuez votre périple."
+      },
+      "🌿": {
+        "1": "** | 🌿 Vous sautez dans le buisson juste à temps. Ce cavalier ténébreux allait vous bousculer... Vous vous remettez de vos émotions et partez. ",
+        "2": "** | 🌿 Vous vous jetez dans le buisson. Cependant vous n'aviez pas remarqué que c'était en fait des ronces... ",
+        "3": "** | 🌿 Après avoir sauté dans le buisson, vous regardez passer ce mystérieux chevalier et voyez un objet tomber de sa sacoche. Vous le récupérez."
+      },
+      "👋": {
+        "1": "** | 👋 Ayant vu votre signe de la main, le chevalier s'arrête à vos côtés. Vous vous rendez vite compte qu'il est très sympathique. Vous discutez près d'une heure, avant de chacun reprendre route de votre côté",
+        "2": "** | 👋 Le chevalier s'arrête près de vous et vous frappe violemment, vous tombez à terre, assommé. Quand vous vous réveillez, vous remarquez que vos poches sont vides...",
+        "3": "** | 👋 Le chevalier vous passe à côté. Il n'a sûrement pas vu votre signe ou n'a pas de temps à perdre."
+      },
+      "end": {
+        "1": "** | 🚶‍♂️ Le chevalier passe sans prêter attention à vous. Vous continuez votre route paisiblement."
+      }
+    },
+    "32": {
+      "💉": {
+        "1": "** | 💉 Vous courez dans la forêt à la recherche de plantes médicinales, vous en trouvez et vous soignez la personne. L'homme vous remercie avec quelques pièces  et vous décidez de reprendre votre route.",
+        "2": "** | 💉 Vous décidez d'aller chercher des plantes médicinales dans la forêt, malheureusement vous n'arrivez pas à le soigner, vous décidez de reprendre votre route, la tête baissée.",
+        "3": "** | 💉 Vous allez chercher de l'aide dans le village le plus proche. Accompagné, vous revenez vers la personne, mais votre accompagnateur décide de vous assommer. A votre réveil, vous trouvez la personne morte et vous êtes dépouillé.",
+        "4": "** | 💉 Vous foncez dans la ville la plus proche afin de chercher des outils pour soigner l'homme. Une fois revenu près de lui, vous le soignez : il survit et décide de vous donner une compensation pour votre courage. En repartant que vous vous rendez compte que vous vous êtes blessé en le soignant."
+      },
+      "🔪": {
+        "1": "** | 🔪 Vous dégainez votre épée et vous achevez le blessé. C'était cependant sans compter sur les témoins de la scène qui, révoltés par votre acte vous attaquent sauvagement.",
+        "2": "** | 🔪 Vous vous apprêtiez à tuer la personne blessée lorsque vous êtes interrompu par un passant, vous décidez donc d'abandonner cette idée, et vous continuez votre chemin.",
+        "3": "** | 🔪 Lorsque vous dégainez votre épée l'homme crie mais personne ne l'entend, vous le tuez avant de le dépouiller."
+      },
+      "🗣️": {
+        "1": "** | 🗣️ Vous criez encore et encore et finalement, quelqu'un arrive et vous aide. Pour vous remercier la personne vous donne un petit quelque chose avant que vous repartiez.",
+        "2": "** | 🗣️ Vous criez encore et encore. Malheureusement, personne ne passe mais vous attirez les animaux : un sanglier arrive et vous charge.",
+        "3": "** | 🗣️ Vous criez jusqu'à ce que vous repreniez votre souffle, malheureusement personne ne vient et la personne meurt. Pris d'un sentiment d'impuissance, vous repartez sur votre route.",
+        "4": "** | 🗣️ En criant, des gens du campement à proximité vous entendent, ils décident donc de venir s'occuper de l'homme. Pensant que vous avez tenté de l'assassiner ils vous amènent à leur campement sous la menace d'une arme. Après une longue discussion le quiproquo se règle et ils vous proposent de vous reposer dans le camp. Vous acceptez leur proposition avec joie."
+      },
+      "end": {
+        "1": "** | 🚶‍♂️ En continuant votre route, vous décidez de vous arrêter près d'un arbre et trouvez quelques pièces d'or.",
+        "2": "** | 🚶‍♂️ Alors que vous partez hâtivement, des gens vous voient et décident de vous poursuivre. Vous courez pendant de longues minutes avant de les semer.",
+        "3": "** | 🚶‍♂️ Vous continuez votre route comme si de rien n'était.",
+        "4": "** | 🚶‍♂️ En vous éloignant vous croisez des braconniers qui vous dépouillent."
+      }
+    },
+    "33": {
+      "👄": {
+        "1": "** | 👄 Vous ne voyez pas le temps passer et discutez pendant 2h avec un fermier au sujet de la campagne.",
+        "2": "** | 👄 Vous vous liez d'amitié avec votre voisin de table qui vous donne un objet en guise de cadeau.",
+        "3": "** | 👄 Avec l'alcool, les esprits s'échauffent et vous assistez à une bagarre avant de vous en aller.",
+        "4": "** | 👄 Un jeune homme généreux tient à vous offrir une bourse et à boire.",
+        "5": "** | 👄 Vous acceptez poliment et restez quelques minutes, avant de repartir, feignant d'être pressé."
+      },
+      "🍗": {
+        "1": "** | 🍗 Cette bonne nourriture vous donne un regain d'énergie !",
+        "2": "** | 🍗 Pas de chance ! Vous tombez sur un morceau avarié et tombez malade. :sick:",
+        "3": "** | 🍗 Vous vous empiffrez de nourriture, vous aurez besoin d'une bonne digestion pour reprendre la route.",
+        "4": "** | 🍗 Vous avec bien mangé, vous bavardez avec votre voisin qui ne cesse de vous servir à boire. Vous finissez par vous effondrer, ivre. :zany_face:"
+      },
+      "🕵️": {
+        "1": "** | 🕵️ Vous en profitez pour amasser quelques pièces d'or récupérés çà et là. ",
+        "2": "** | 🕵️ Vous vous faites repérer par des gens, mais réussissez à vous enfuir."
+      },
+      "🚶": {
+        "1": "** | 🚶 Les habitants vous ayant vu prennent cela pour une marque d'impolitesse et vous volent votre bourse.",
+        "2": "** | 🚶 Vous continuez sans y prêter attention et trouvez quelques pièces sur le chemin.",
+        "3": "** | 🚶 Vous courez de peur qu'ils viennent à votre rencontre. Épuisé, vous vous reposez."
+      },
+      "end": {
+        "1": "** | Vous ne voyez pas la chèvre foncer sur vous et vous tombez à terre, étourdi. :confounded:",
+        "2": "** | Les individus viennent vous voir pour vous amener à table. Vous êtes forcé de manger avec eux, ce qui vous redonne de l'énergie !"
+      }
+    },
+    "34": {
+      "🍀": {
+        "1": "** | 🍀 Le groupe d'amis vous raconte être parti à la recherche du cadeau idéal. Malheureusement, ils n'ont rien trouvé qui pourrait vous plaire. Déçu, vous continuez votre route.",
+        "2": "** | 🍀 Ces petits malins ont décidé de vous faire une farce et de vous offrir un cadeau mesquin. Ils ne pensaient pourtant pas qu'une planche aux clous saillants serait dangereuse à déballer. Les doigts en sang, vous partez, furieux, pour vous soigner.",
+        "3": "** | 🍀 Vos généreux donateurs sont fiers de leur trouvaille, dénichée dans un marché. Ils vous tendent un objet qui, dès le premier coup d’œil, vous intéresse fortement."
+      },
+      "💰": {
+        "1": "** | 💰 N'écoutant pas votre réponse, les quelques personnes préfèrent vous donner un objet. Pour eux, l'argent, ça n'est pas un vrai cadeau !",
+        "2": "** | 💰 Réunis en cercle, chacun sort quelques pièces de sa bourse. Ensemble, ils vous tendent finalement une jolie somme, fruit de leur cotisation. Après vous avoir conseillé d'en faire bon usage, ils vous souhaitent une bonne route et repartent. ",
+        "3": "** | 💰 Les quelques individus se sont cotisés pour vous offrir une jolie somme. Vous trouvez leur attitude suspecte et vous rendez rapidement compte que cette monnaie provient d'un vol. Vous décidez d'aborder, en tout honnêteté, un garde pour rendre cet argent sale. Sans que vous ne vous y attendiez, celui-ci vous interpelle puis vous interroge longuement sur les détails de l'affaire et votre implication dans le méfait."
+      },
+      "😇": {
+        "1": "** | 😇 Le groupe d'individus vous accompagne dans la vallée, où ils vous offrent un soin revigorant dans les eaux thermales. Requinqué, vous être prêt à reprendre la route.",
+        "2": "** | 😇 Les quelques personnes vous proposent un soin dans un centre de massage près de là. Pendant que vous vous faites masser, une des chandelles accrochées au mur dégringole dans le pot d'huiles essentielles, mettant ainsi feu à tout l'établissement. Vous arrivez, non sans mal, à sortir du brasier qui émane du bâtiment.",
+        "3": "** | 😇 Ils ne s'attendaient pas à ce genre de demande et restent dubitatifs quant à la réponse à vous donner. Ne voulant pas laisser s'installer le malaise, vous reprenez votre route."
+      },
+      "🥗": {
+        "1": "** | 🥗 L'un d'entre eux vous tend une soupe plutôt appétissante. Vous la buvez sans vous méfier. Ces malandrins vous ont tendu un piège ! Attendant depuis longtemps de vous mettre à mal pour vous piller, le breuvage contenait juste assez d'amanite tue-mouches pour rendre malade. Vous vous sentez partir tout en voyant vos poches se faire dépouiller, impuissant. :sick:",
+        "2": "** | 🥗 Ces passants ont cuisiné pour vous un met des plus savoureux, digne d'une potion de gaulois. En regardant de plus près, vous apercevez un objet laissé au fond du bol. Il pourrait bien vous être utile pour la suite.",
+        "3": "** | 🥗 Ravis de vous rendre service, le groupe part vous acheter la spécialité du coin. Voyant le plat arriver, vous faites bonne figure mais la dégustez avec un certain dégoût : vous n'aimez pas les champignons ! Non sans mal, vous continuez votre route. "
+      },
+      "end": {
+        "1": "** | 🚶‍♂️ Face à l'absence de réponse de votre part, le groupe d'amis décide malgré tout de partir vous chercher un cadeau. Alors que vous les attendez poliment, vous angoissez de plus en plus à l'idée de perdre du temps. Le risque de ne pas arriver à sauver la princesse vous obsède, vous rend malade même... et vous finissez par tomber dans les pommes. Vous découvrant inanimé en revenant, les honnêtes individus vous adossent à un arbre pour vous permettre de vous reposer, et vous laissent ce cadeau, avant de reprendre la route. ",
+        "2": "** | 🚶‍♂️ Face à votre absence de réaction, les quidams n'insistent pas. Vous continuez votre route sans y prêter attention. ",
+        "3": "** | 🚶‍♂️ Vous voyant hésiter trop longtemps, les jeunes hommes décident finalement de vous offrir un peu d'argent pour vous permettre l'achat de quelques babioles. Vous les remerciez avant de reprendre votre route."
+      }
+    },
+    "35": {
+      "🍺": {
+        "1": "** | 🍺 Vous acceptez sa proposition, et buvez le liquide épais qu'il vous tend. C'est délicieux et cela répand en vous une douce chaleur. ",
+        "2": "** | 🍺 Vous prenez sans plus de cérémonie la chope qu'il vous tend, remplie d'un liquide épais et verdâtre. Vous buvez celui-ci d'un trait. Quelques secondes après, vous réalisez l'horrible goût que ça a, et vomissez le tout par terre. Le barman s'excuse et vous donne une poignée de pièces en dédommagement, mais vous vous sentez malade. :sick:",
+        "3": "** | 🍺 Vous acceptez sa requête, et il vous donne une chope. Vous la buvez, et sentez un petit arrière goût pas piqué des hannetons. Vous donnez au barman vos impressions, il vous remercie, puis vous reprenez votre route. "
+      },
+      "❌": {
+        "1": "** | ❌ Vous ne pensez pas que ce soit une bonne idée de boire des choses inconnues pour tester, alors vous déclinez poliment la proposition du barman. Cependant, vous lui commandez une bonne pinte de bière, que vous videz tranquillement en discutant avec des habitués.",
+        "2": "** | ❌ Vous agressez littéralement le barman lui demandant s'il vous prend pour un gougnafier à essayer de vous faire boire n'importe quelle cochonnerie. Il vous exclu de son bar, alors vous vous vengez en y allumant un feu, puis reprenez chemin.",
+        "3": "** | ❌ Vous expliquez au barman que vous n'avez pas trop envie de boire quelque chose d'inconnu, et encore moins de servir de cobaye. Il vous rassure en vous disant qu'il a juste mixé deux alcools et quelques extraits de plantes sans danger. Vous buvez donc, et lui dites vos impressions."
+      },
+      "💰": {
+        "1": "** | 💰 Vous lui expliquez que vous n'avez pas trop envie de lui servir de cobaye, alors le barman, semblant déçu, vous laisse. Vous vous attelez donc à la tâche qui vous faisait envie depuis votre entrée dans le bar : dépouiller discrètement les clients. Vous faites les poches à trois personnes sans soucis, mais la quatrième vous remarque et crie au voleur. Vous prenez la fuite."
+      },
+      "end": {
+        "1": "** | 🚶‍♂️ Vous l'ignorez, et repartez juste de son auberge."
+      }
+    },
+    "36": {
+      "🗣️": {
+        "1": "** | 🗣️ Vous discutez avec le bijoutier et vous vous liez d'amitié avec lui. Il vous offre alors une objet en gage de cette nouvelle amitié. ",
+        "2": "** | 🗣️ Vous décidez de tenter de marchander afin de vous acheter un des bijoux, pour peu cher. Vous discutez un long moment mais le vieillard est un très bon marchand et il ne cède pas. Vous repartez après avoir compris qu'il ne compte pas baisser ses prix."
+      },
+      "💸": {
+        "1": "** | 💸 Vous faites confiance à vos capacités d'infiltration. Vous y allez, et fort heureusement le vieillard était absent. Vous arrivez à voler le contenu de la caisse et déguerpissez.",
+        "2": "** | 💸 Vous arrivez devant la boutique et vous entrez dedans dans le but de voler le bijoutier. Alors que vous vous emparez de l'argent du bijoutier, un garde personnel vous assomme. Vous vous réveillez quelques heures plus tard, le long d'un sentier."
+      },
+      "🏡": {
+        "1": "** | 🏡 Vous arrivez à l'auberge et vous reprenez un peu d'énergie grâce à un bon repas et une sieste bien méritée.",
+        "2": "** | 🏡 Vous arrivez à l'auberge qui est malheureusement pleine. Vous y prenez quand même un repas, et reprenez votre chemin.",
+        "3": "** | 🏡 Par malheur l'auberge est fermée et vous décidez de continuer votre chemin affamé et fatigué."
+      },
+      "🚶": {
+        "1": "** | 🚶‍♂️ Vous continuez votre route. En sortant du village, vous croisez un prêtre qui vous offre un morceau de pain pour votre périple."
+      },
+      "end": {
+        "1": "** | 🚶‍♂️ Vous attendez un long moment sur cette place et tout d'un coup des marchands commencent à s'installer. C'est votre jour de chance ! Il s'agit d'un marché, et les pommes sont très peu chères. Vous en achetez quelques-unes et pour reprenez votre chemin.",
+        "2": "** | 🚶‍♂️ Vous attendez un petit moment sur cette place, puis vous rendez compte qu'il n'y a rien de bien intéressant à faire, et reprenez route."
+      }
+    },
+    "37": {
+      "🚶": {
+        "1": "** | 🚶 Vous marchez tranquillement, après tout ce n'est qu'une faible pluie, et vous n'avez pas envie de courir juste pour ça.",
+        "2": "** | 🚶 Vous continuez simplement à marcher... quelques minutes plus tard, la légère pluie s'arrête et vous arrivez en vue du village.",
+        "3": "** | 🚶 Vous continuez tranquillement à marcher."
+      },
+      "🏃": {
+        "1": "** | 🏃 Vous vous mettez à courir, et moins d'un quart d'heure après, arrivez dans le village.",
+        "2": "** | 🏃 Vous vous mettez à courir, heureusement la pluie s'arrête vite. Vous reprenez un pas plus modéré et ne tardez pas à arriver au village."
+      },
+      "end": {
+        "1": "** | Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder, lorsque vous remarquez à quelques pas de vous une bourse rebondie de pièces et un objet posé à côté. Vous les récupérez, ressortez de l'espèce de bosquet, et repartez en direction du village."
       }
     }
   }

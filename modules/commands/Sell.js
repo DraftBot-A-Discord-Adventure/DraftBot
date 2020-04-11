@@ -2,43 +2,17 @@ const PlayerManager = require('../classes/PlayerManager');
 const ObjectManager = require('../classes/ObjectManager');
 const InventoryManager = require('../classes/InventoryManager');
 const DefaultValues = require('../utils/DefaultValues');
-const ServerManager = require('../classes/ServerManager');
+const Tools = require('../utils/Tools');
+
 let Text;
 
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
-
-/**
- * Allow to get the language the bot has to respond with
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @returns {string} - the code of the server language
- */
-const detectLanguage = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    return server.language;
-}
 
 /**
  * Allow to sell the item that is stored in the backup position of the inventory of the player
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const sellCommand = async function (message, args, client, talkedRecently) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     if (talkedRecently.has(message.author.id)) {
         message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
     } else {
@@ -81,7 +55,7 @@ async function generateConfirmation(message, object, player, inventory, inventor
     let confirmIsOpen = true;
 
     let msg = await displayConfirmMessage(message, confirmMessage);
-    let language = await detectLanguage(message);
+    let language = await Tools.detectLanguage(message);
     const filter = (reaction, user) => {
         return (reactionIsCorrect(reaction) && user.id === message.author.id);
     };

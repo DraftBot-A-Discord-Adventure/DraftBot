@@ -1,20 +1,7 @@
 const Tools = require('../utils/Tools');
 const ServerManager = require('../classes/ServerManager');
+const Config = require('../utils/Config');
 let Text;
-
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
 
 /**
  * Base class that shouldn't be instantiated. Instead, Entities are meant to extend this class.
@@ -41,7 +28,7 @@ class Entity {
      * @param maxHealth - The new maximum amount of health this Entity can have. Must be a positive Number.
      */
     setMaxHealth(maxHealth) {
-        if (Tools.isAPositiveNumber(maxHealth)) {
+        if (maxHealth > 0) {
             this.maxHealth = maxHealth;
         }
     }
@@ -59,7 +46,7 @@ class Entity {
      * @param health - The new amount of health this Entity has. Must be a positive or null Number.
      */
     setHealth(health) {
-        if (Tools.isAPositiveNumberOrNull(health)) {
+        if (health >= 0) {
             this.health = health;
         }
     }
@@ -85,7 +72,7 @@ class Entity {
      * @param attack - How strong this Entity's Physical/Ranged Attacks should be. Must be a positive or null Number.
      */
     setAttack(attack) {
-        if (Tools.isAPositiveNumberOrNull(attack)) {
+        if (attack >= 0) {
             this.attack = attack;
         }
     }
@@ -103,7 +90,7 @@ class Entity {
      * @param defense - How resistant to Physical/Ranged Attacks this Entity should be. Must be a positive or null Number.
      */
     setDefense(defense) {
-        if (Tools.isAPositiveNumberOrNull(defense)) {
+        if (defense >= 0) {
             this.defense = defense;
         }
     }
@@ -121,7 +108,7 @@ class Entity {
      * @param speed - How rapid this Entity should be. Must be a positive or null Number.
      */
     setSpeed(speed) {
-        if (Tools.isAPositiveNumberOrNull(speed)) {
+        if (speed > 0) {
             this.speed = speed;
         }
     }
@@ -142,9 +129,9 @@ class Entity {
      * @param message  - The message that caused the heath change
      */
     removeHealthPoints(points, message, language) {
-        if (Tools.isAPositiveNumberOrNull(points)) {
+        if (points >= 0) {
             this.health -= parseInt(points);
-            if (Tools.isANegativeOrNullNumber(this.health)) {
+            if (this.health <= 0) {
                 this.kill(message, language)
             }
         } else {
@@ -160,9 +147,9 @@ class Entity {
      * @param points - The amount of health points to add. Must be a Number.
      * @param message  - The message that caused the heath change
      */
-    
+
      addHealthPoints(points, message, language) {
-        if (Tools.isAPositiveNumberOrNull(points)) {
+        if (points >= 0) {
             this.health += parseInt(points);
             if (this.health > this.maxHealth) {
                 this.restoreHealthCompletely()
@@ -174,7 +161,7 @@ class Entity {
 
     /**
      * Returns the current state of the player
-     * @returns {String} - The effect that affect the player 
+     * @returns {String} - The effect that affect the player
      */
     getEffect() {
         return this.effect;

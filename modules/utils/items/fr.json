@@ -12,14 +12,14 @@
         "9": ":wrench:  **Clé rouillée**",
         "10": ":crossed_swords:  **Epee en bois**",
         "11": ":gun:  **Pistolet vide**",
-        "12": ":syringe:  **Seringue contaminnée**",
+        "12": ":syringe:  **Seringue infectée**",
         "13": ":bomb:  **Bombe**",
         "14": ":guitar:  **Guitare lourde**",
         "15": ":crossed_swords:  **Double dagues**",
         "16": ":pick:  **Pioche**",
         "17": ":wrench:  **Masse**",
         "18": ":cricket:  **Bâton**",
-        "19": ":knife:  **Vieux couteau**",
+        "19": ":knife:  **Couteau Ancien**",
         "20": ":herb:  **Branche souple**",
         "21": ":pick:  **Pioche abimée**",
         "22": ":bow_and_arrow:  **Arc**",
@@ -46,7 +46,7 @@
         "43": ":cucumber:  **Cornichon**",
         "44": ":bouquet:  **Bouquet de rose**",
         "45": ":banana:  **Banane**",
-        "46": ":bookmark:  **Vieux grimmoire**",
+        "46": ":bookmark:  **Vieux grimoire**",
         "47": ":snowflake:  **Boule de neige**",
         "48": ":bow_and_arrow:  **Arc de chevalier**",
         "49": ":bow_and_arrow:  **Arc de soldat**",
@@ -55,7 +55,7 @@
         "52": ":razor:  **Rasoir**",
         "53": ":chair:  **Chaise**",
         "54": ":bricks:  **Brique**",
-        "55": ":fork_and_knife:  **fouchettcouteau**",
+        "55": ":fork_and_knife:  **Fouchettcouteau**",
         "56": ":dagger:  **Épée Kokiri**",
         "57": ":fire_extinguisher:  **Extincteur**",
         "58": ":bookmark:  **Gros livre**",
@@ -64,7 +64,10 @@
         "61": ":syringe:  **Seringue sale**",
         "62": ":microbe:  **Bio-Arme**",
         "63": ":bomb:  **Bombe atomique**",
-        "64": ":candle:  **Brûleur**"
+        "64": ":candle:  **Brûleur**",
+        "65": "🥢  **Pew Pew**",
+        "66": "⚔️  **Beat Saber**",
+        "67": ":wolf: **Familier loup**"
     },
     "armor": {
         "default": ":black_large_square:  **Pas de bouclier ni d'armure**",
@@ -179,6 +182,11 @@
         "33": ":jack_o_lantern:  **Citrouille**",
         "34": ":teddy_bear:  **Ours en peluche**",
         "35": ":magnet: Aimant",
-        "36": ":adhesive_bandage: Pansement"
+        "36": ":adhesive_bandage: Pansement",
+        "37": ":skier: Skis glissants",
+        "38" : ":cyclone: Amulette cyclonique",
+        "39" : ":diamond_shape_with_a_dot_inside: Pouvoir de Nayru",
+        "40" : ":angel: **bague de l'ange sans vie**",
+        "41" : ":amphora: **urne ornée du minotaure**"
     }
 }

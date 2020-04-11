@@ -16,10 +16,10 @@ class InventoryManager {
     getCurrentInventory(message) {
         return sql.get(`SELECT * FROM inventory WHERE playerId ="${message.author.id}"`).then(inventory => {
             if (!inventory) { //inventory is not in the database
-                console.log(`user unknown : ${message.author.username}`);
+                console.log(`inventory unknown : ${message.author.username}`);
                 return this.getNewInventory(message);
             } else { //inventory is in the database
-                console.log(`user loaded : ${message.author.username}`);
+                console.log(`inventory loaded : ${message.author.username}`);
                 return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
             }
         }).catch(error => { //there is no database
@@ -37,10 +37,10 @@ class InventoryManager {
     getInventoryById(id) {
         return sql.get(`SELECT * FROM inventory WHERE playerId ="${id}"`).then(inventory => {
             if (!inventory) { //inventory is not in the database
-                console.log(`user unknown 1 : ${id}`);
+                console.log(`inventory unknown : ${id}`);
                 return this.getNewInventoryById(id);
             } else { //inventory is in the database
-                console.log(`user loaded 1 : ${id}`);
+                console.log(`inventory loaded : ${id}`);
                 return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
             }
         }).catch(error => { //there is no database
@@ -104,7 +104,7 @@ class InventoryManager {
      */
     async getDamageById(id) {
         let inv = await this.getInventoryById(id);
-        let damage =  parseInt(ItemValues.effect[ItemValues.weapon[inv.weaponId].rareness][ItemValues.weapon[inv.weaponId].power]);
+        let damage = parseInt(ItemValues.effect[ItemValues.weapon[inv.weaponId].rareness][ItemValues.weapon[inv.weaponId].power]);
         console.log(damage)
         if (ItemValues.object[inv.objectId].nature == 3) //if the object offer a damage bonus
             damage = damage + parseInt(ItemValues.object[inv.objectId].power);
@@ -117,12 +117,28 @@ class InventoryManager {
     }
 
     /**
+     * Return the value of the damage bonus
+     * @returns {Number} the bonus effect from the inventory
+     */
+    async seeDamageById(id) {
+        let inv = await this.getInventoryById(id);
+        let damage = parseInt(ItemValues.effect[ItemValues.weapon[inv.weaponId].rareness][ItemValues.weapon[inv.weaponId].power]);
+        console.log(damage)
+        if (ItemValues.object[inv.objectId].nature == 3) //if the object offer a damage bonus
+            damage = damage + parseInt(ItemValues.object[inv.objectId].power);
+        if (ItemValues.potion[inv.potionId].nature == 3) { //if the potion offer a damage bonus
+            damage = damage + parseInt(ItemValues.potion[inv.potionId].power);
+        }
+        return damage;
+    }
+
+    /**
      * Return the value of the defense bonus
      * @returns {Number} the bonus effect from the inventory
      */
     async getDefenseById(id) {
         let inv = await this.getInventoryById(id);
-        let defense =  parseInt(ItemValues.effect[ItemValues.armor[inv.armorId].rareness][ItemValues.armor[inv.armorId].power]);
+        let defense = parseInt(ItemValues.effect[ItemValues.armor[inv.armorId].rareness][ItemValues.armor[inv.armorId].power]);
         if (ItemValues.object[inv.objectId].nature == 4) //if the object offer a defense bonus
             defense = defense + parseInt(ItemValues.object[inv.objectId].power);
         if (ItemValues.potion[inv.potionId].nature == 4) { //if the potion offer a defense bonus
@@ -132,6 +148,23 @@ class InventoryManager {
         }
         return defense;
     }
+
+
+    /**
+     * Return the value of the defense bonus
+     * @returns {Number} the bonus effect from the inventory
+     */
+    async seeDefenseById(id) {
+        let inv = await this.getInventoryById(id);
+        let defense = parseInt(ItemValues.effect[ItemValues.armor[inv.armorId].rareness][ItemValues.armor[inv.armorId].power]);
+        if (ItemValues.object[inv.objectId].nature == 4) //if the object offer a defense bonus
+            defense = defense + parseInt(ItemValues.object[inv.objectId].power);
+        if (ItemValues.potion[inv.potionId].nature == 4) { //if the potion offer a defense bonus
+            defense = defense + parseInt(ItemValues.potion[inv.potionId].power);
+        }
+        return defense;
+    }
+
 
     /**
      * Return the value of the speed bonus
@@ -146,6 +179,21 @@ class InventoryManager {
             speed = speed + parseInt(ItemValues.potion[inv.potionId].power);
             inv.potionId = DefaultValues.inventory.potion;
             this.updateInventory(inv);
+        }
+        return speed;
+    }
+
+    /**
+     * Return the value of the speed bonus
+     * @returns {Number} the bonus effect from the inventory
+     */
+    async seeSpeedById(id) {
+        let inv = await this.getInventoryById(id);
+        let speed = 0;
+        if (ItemValues.object[inv.objectId].nature == 2) //if the object offer a speed bonus
+            speed = speed + parseInt(ItemValues.object[inv.objectId].power);
+        if (ItemValues.potion[inv.potionId].nature == 2) { //if the potion offer a speed bonus
+            speed = speed + parseInt(ItemValues.potion[inv.potionId].power);
         }
         return speed;
     }

@@ -1,38 +1,9 @@
 const PlayerManager = require('../classes/PlayerManager');
-const ServerManager = require('../classes/ServerManager');
 const Discord = require("discord.js");
-const embed = new Discord.RichEmbed();
 const DefaultValues = require('../utils/DefaultValues');
+const Tools = require('../utils/Tools');
 
-let Text
-
-/**
- * Allow to charge the correct text file
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
-
-/**
- * Allow to get the language the bot has to respond with
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @returns {string} - the code of the server language
- */
-const detectLanguage = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    return server.language;
-}
+let Text;
 
 /**
  * Display information about the player that sent the command
@@ -40,9 +11,9 @@ const detectLanguage = async function (message) {
  * @param {*} args - arguments typed by the user in addition to the command
  */
 const profileCommand = async function (message, args, client) {
-    Text = await chargeText(message);
-    let language = await detectLanguage(message);
+    Text = await Tools.chargeText(message);
     let playerManager = new PlayerManager();
+    let language = await Tools.detectLanguage(message);
     let player = await playerManager.getCurrentPlayer(message);
     if (askForAnotherPlayer(args)) {
         let playerId;
@@ -51,7 +22,8 @@ const profileCommand = async function (message, args, client) {
             return message.channel.send(Text.commands.profile.errorMain + "**" + message.author.username + "**" + Text.commands.profile.errorExp)
     }
     let numberOfPlayer = await playerManager.getNumberOfPlayers();
-    let messageProfile = generateProfileMessage(player, numberOfPlayer, client);
+    await Tools.seeItemBonus(player)
+    let messageProfile = generateProfileMessage(message, player, numberOfPlayer, client, language);
     message.channel.send(messageProfile).then(msg => {
         displayBadges(player, msg);
     });
@@ -61,17 +33,21 @@ const profileCommand = async function (message, args, client) {
 /**
  * Returns a string containing the profile message.
  * @returns {String} - A string containing the profile message.
+ * @param {*} message - The message that caused the command to be triggered
  * @param {*} player - The player that send the message
  * @param {Integer} numberOfPlayer - The total number of player in the database
  * @param {*} client - The bot client
+ * @param {String} language - The language the answer has to be displayed in
  */
-const generateProfileMessage = function (player, numberOfPlayer, client) {
+const generateProfileMessage = function (message, player, numberOfPlayer, client, language) {
     const embed = new Discord.RichEmbed();
     let pseudo = getPlayerPseudo(client, player);
+    let playerManager = new PlayerManager();
     if (player.getEffect() == ":baby:") {
         return player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
     }
     embed.setColor(DefaultValues.embed.color);
+
     embed.setTitle(player.getEffect() + Text.commands.profile.main + pseudo +
         Text.commands.profile.level + player.getLevel());
 
@@ -82,11 +58,22 @@ const generateProfileMessage = function (player, numberOfPlayer, client) {
 
     embed.addField(Text.commands.profile.stats,
         Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense +
-        player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed(), false);
+        player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed()+ Text.commands.profile.statsFightPower + player.getFightPower(), false); 
 
     embed.addField(Text.commands.profile.rankAndScore,
         Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +
         Text.commands.profile.score + player.getScore(), false);
+
+
+    if (playerManager.displayTimeLeftProfile(player, message, language) != "") {
+        let timeLeftMessage;
+        if (!playerManager.displayTimeLeftProfile(player, message, language).includes(":hospital:")) { //the player is not cured
+            timeLeftMessage = player.getEffect() + " " + playerManager.displayTimeLeftProfile(player, message, language);
+        } else {
+            timeLeftMessage = playerManager.displayTimeLeftProfile(player, message, language);
+        }
+        embed.addField(Text.commands.profile.timeleft, timeLeftMessage)
+    }
 
     return embed;
 }
@@ -142,7 +129,6 @@ async function displayBadges(player, msg) {
         let str = player.getBadges();
         str = str.split('-');
         for (var i = 0; i < str.length; i++) {
-            console.log(i + ":" + str[i])
             await msg.react(str[i]);
         }
     }
@@ -166,5 +152,3 @@ function getPlayerPseudo(client, player) {
 }
 
 module.exports.ProfileCommand = profileCommand;
-
-

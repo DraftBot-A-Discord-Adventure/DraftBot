@@ -10,6 +10,7 @@ const Drink = require('./commands/Drink');
 const Daily = require('./commands/Daily');
 const Top = require('./commands/Top');
 const TopWeek = require('./commands/TopWeek');
+const TopServ = require('./commands/TopServ');
 const Sell = require('./commands/Sell');
 const Fight = require('./commands/Fight');
 const Shop = require('./commands/Shop');
@@ -22,6 +23,7 @@ const GuildCreate = require('./commands/guild/GuildCreate');
 
 const Reset = require('./commands/admin/Reset');
 const Give = require('./commands/admin/Give');
+const ListItems = require('./commands/admin/ListItems');
 const Servers = require('./commands/admin/Servers');
 const GiveBadge = require('./commands/admin/GiveBadge');
 const ResetBadge = require('./commands/admin/ResetBadge');
@@ -29,6 +31,7 @@ const ChangePrefix = require('./commands/admin/ChangePrefix');
 const SendData = require('./commands/admin/SendData');
 const Invitations = require('./commands/admin/Invitations');
 const Points = require('./commands/admin/Points');
+const PointsWeek = require('./commands/admin/PointsWeek');
 const Send = require('./commands/admin/Send');
 const Language = require('./commands/admin/Language');
 
@@ -52,6 +55,8 @@ const CommandTable = new Map(
         ["top", Top.TopCommand],
         ["topweek", TopWeek.TopWeekCommand],
         ["topw", TopWeek.TopWeekCommand],
+        ["tops", TopServ.TopServCommand],
+        ["topserv", TopServ.TopServCommand],
         ["tw", TopWeek.TopWeekCommand],
         ["sell", Sell.SellCommand],
         ["fight", Fight.FightCommand],
@@ -61,18 +66,17 @@ const CommandTable = new Map(
         ["prefix", ChangePrefix.ChangePrefixCommand],
         ["language", Language.ChangeLanguageCommand],
 
-        ["guild", Guild.guildCommand],
-        ["g", Guild.guildCommand],
-        ["guildadd", GuildAdd.guildAddCommand],
-        ["gadd", GuildAdd.guildAddCommand],
-        ["guildcreate", GuildCreate.guildCreateCommand],
+        ["list", ListItems.ListItemsCommand],
+        ["destroy", Reset.ResetCommand],
         ["gcreate", GuildCreate.guildCreateCommand],
-
-        ["items", Items.displayItems],
-
-        ["reset", Reset.ResetCommand],
+        ["guildcreate", GuildCreate.guildCreateCommand],
+        ["gadd", GuildAdd.guildAddCommand],
+        ["guildadd", GuildAdd.guildAddCommand],
+        ["g", Guild.guildCommand],
+        ["guild", Guild.guildCommand],
         ["invi", Invitations.InvitationsCommand],
         ["points", Points.PointsCommand],
+        ["pointsw", PointsWeek.PointsWeekCommand],
         ["servs", Servers.ServersCommand],
         ["gb", GiveBadge.GiveBadgeCommand],
         ["give", Give.GiveCommand],

@@ -1,19 +1,7 @@
-const ServerManager = require('../classes/ServerManager');
-let Text
+const Tools = require('../utils/Tools');
+const Config = require('../utils/Config');
 
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
+let Text
 
 /**
  * Display help for a player 
@@ -21,7 +9,7 @@ const chargeText = async function (message) {
  * @param args - arguments typed by the user in addition to the command
  */
 const helpCommand = async function (message, args, client) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     let helpMessage;
     if (userAskForGeneralHelp(args[1]))
         helpMessage = generateGeneralHelpMessage(message);
@@ -63,7 +51,7 @@ const generateHelpMessageForSpecificCommand = function (message, commandname) {
  * @param {*} message - The message that lauched the command
  */
 function helpAskerIsNotInHelpGuild(client, message) {
-    return client.guilds.get("429765017332613120").members.find(val => val.id === message.author.id) == undefined;
+    return client.guilds.get(Config.MAIN_SERVER_ID).members.find(val => val.id === message.author.id) == undefined;
 }
 
 /**

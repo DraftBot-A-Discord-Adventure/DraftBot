@@ -1,56 +1,28 @@
 const PlayerManager = require('../classes/PlayerManager');
-const ServerManager = require('../classes/ServerManager');
-let Text;
-let language;
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
 const PotionManager = require('../classes/PotionManager');
 const InventoryManager = require('../classes/InventoryManager');
 const Discord = require('discord.js')
 
+let Text;
+let language;
 
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
-
-/**
- * Allow to get the language the bot has to respond with
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @returns {string} - the code of the server language
- */
-const detectLanguage = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    return server.language;
-}
 
 /**
  * Give a random thing to a player in exchange for 100 coins
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const ShopCommand = async function (message, args, client, talkedRecently) {
-    Text = await chargeText(message);
-    language = await detectLanguage(message);
+    Text = await Tools.chargeText(message);
+    language = await Tools.detectLanguage(message);
     if (talkedRecently.has(message.author.id)) {
-        message.channel.send(Text.commands.shop.cancelStart + message.author + Text.commands.shop.tooMuchShop);
+        displaySpamErrorMessage(message);
     } else {
         let playerManager = new PlayerManager();
         let player = await playerManager.getCurrentPlayer(message);
-        if (playerManager.checkState(player, message, ":dizzy_face::sick::zzz::head_bandage::snowflake::confounded::clock2::smiley:", language)) {
-            if (Tools.isANegativeNumber(player.money)) {
+        if (playerManager.checkState(player, message, ":dizzy_face::zany_face::sick::sleeping::head_bandage::cold_face::confounded::clock2::smiley:", language)) {
+            if (player.money < 0) {
                 let ShopMessage = Text.commands.shop.errorEmoji + message.author.username + Text.commands.shop.noMoney;
                 return message.channel.send(ShopMessage);
             }
@@ -78,19 +50,19 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                     switch (reaction.emoji.name) {
                         case Text.commands.shop.emojis.a:
                             choice = "a";
-                            messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
+                            messageChoice = addChoiceToMessageChoice(messageChoice, choice);
                             break;
                         case Text.commands.shop.emojis.b:
                             choice = "b";
-                            messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
+                            messageChoice = addChoiceToMessageChoice(messageChoice, choice);
                             break;
                         case Text.commands.shop.emojis.c:
                             choice = "c";
-                            messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
+                            messageChoice = addChoiceToMessageChoice(messageChoice, choice);
                             break;
                         case Text.commands.shop.emojis.d:
                             choice = "d";
-                            messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
+                            messageChoice = addChoiceToMessageChoice(messageChoice, choice);
                             break;
                         default:
                             choice = "aa";
@@ -99,9 +71,11 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                     }
                     let messageconfirm = await displayConfirmMessage(message, messageChoice);
                     let confirmIsOpen = true;
+
                     const filterConfirm = (reaction, user) => {
                         return (confirmReactionIsCorrect(reaction) && user.id === message.author.id);
                     };
+
                     const collectorConfirm = messageconfirm.createReactionCollector(filterConfirm, {
                         time: 120000
                     });
@@ -194,7 +168,7 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
  * @param {*} confirmMessage - The string of the confirmation message
  */
 const displayConfirmMessage = function (message, confirmMessage) {
-    return message.channel.send(confirmMessage).then(async msg => {
+    return message.channel.send(new Discord.RichEmbed().setDescription(confirmMessage)).then(async msg => {
         let valid = "✅"
         await msg.react(valid);
         let notValid = "❌"
@@ -244,6 +218,24 @@ const generateDailyPotion = function () {
         dailyPotion = potionManager.getPotionById(1+(dailyPotionSeed % (DefaultValues.raritiesGenerator.numberOfPotion-1)));
     }
     return dailyPotion;
+}
+
+/**
+ * Update the message choice with the text corresponding to the choixe the user made
+ * @param {*} messageChoice - The orinal messageChoice
+ * @param {*} choice - The choice made
+ */
+function addChoiceToMessageChoice(messageChoice, choice) {
+    messageChoice += Text.commands.shop.choices[choice] + Text.commands.shop.infos[choice];
+    return messageChoice;
+}
+
+/**
+ * Display an error if the user is spamming the command
+ * @param {*} message - The message that triggered the command
+ */
+function displaySpamErrorMessage(message) {
+    message.channel.send(Text.commands.shop.cancelStart + message.author + Text.commands.shop.tooMuchShop);
 }
 
 /**
@@ -299,7 +291,7 @@ function generateShopMessage(dailyPotion, potionManager, language) {
     const embed = new Discord.RichEmbed();
     embed.setColor(DefaultValues.embed.color);
     embed.setTitle(Text.commands.shop.intro);
-    embed.setDescription(Text.commands.shop.dailySell + displayPotion(dailyPotion, language) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + 
+    embed.setDescription(Text.commands.shop.dailySell + displayPotion(dailyPotion, language) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd +
     Text.commands.shop.outro)
 
     return embed;
@@ -321,8 +313,3 @@ function generateShopMessage(dailyPotion, potionManager, language) {
     }
 
 module.exports.ShopCommand = ShopCommand;
-
-
-
-
-

@@ -24,7 +24,7 @@ class Player extends Entity {
     }
 
     /**
-     * Returns the amount of experience needed to level up. 
+     * Returns the amount of experience needed to level up.
      * @see NumberConstants
      * @returns {Number} Returns the experience needed to level up.
      */
@@ -34,7 +34,7 @@ class Player extends Entity {
     }
 
     /**
-     * Returns the amount of experience used to level up. 
+     * Returns the amount of experience used to level up.
      * @see NumberConstants
      * @returns {Number} Returns the experience used to level up.
      */
@@ -54,7 +54,7 @@ class Player extends Entity {
      * @param {*} message - The message that caused the xp gain
      */
     addExperience(experience, message, language) {
-        if (Tools.isAPositiveNumber(experience)) {
+        if (experience > 0) {
             this.setExperience(this.experience + parseInt(experience), message, language);
         }
     }
@@ -73,12 +73,19 @@ class Player extends Entity {
      * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
     setExperience(experience, message, language) {
-        if (Tools.isAPositiveNumberOrNull(experience)) {
+        if (experience >= 0) {
             this.experience = experience;
             if (this.hasEnoughExperienceToLevelUp()) {
                 this.levelUp(message, language);
             }
         }
+    }
+
+    /**
+     * Returns this player instance's current fight power
+     */
+    getFightPower() {
+        return this.maxHealth + this.level * 10;
     }
 
     /**
@@ -94,7 +101,7 @@ class Player extends Entity {
      * @param {Number} level - The level this Player instance should be. Must be a positive Number.
      */
     setLevel(level) {
-        if (Tools.isAPositiveNumber(level)) {
+        if (level > 0) {
             this.level = level;
         }
     }
@@ -111,7 +118,6 @@ class Player extends Entity {
         let bonus = false;
         if (this.getLevel() == DefaultValues.fight.minimalLevel) {
             messageLevelUp += Text.playerManager.levelUp.fightUnlocked;
-            bonus = true;
         }
         if (this.getLevel() % 10 == 0) {
             this.restoreHealthCompletely();
@@ -128,36 +134,40 @@ class Player extends Entity {
 
         if (this.getLevel() % 9 == 0) {
             this.setSpeed(this.getSpeed() + 5);
-            if (bonus == false) {
-                messageLevelUp += Text.playerManager.levelUp.firstBonus;
-            }
+            messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
             messageLevelUp += Text.playerManager.levelUp.moreSpeed;
             bonus = true;
         } else {
             if (this.getLevel() % 6 == 0) {
                 this.setAttack(this.getAttack() + 5);
-                if (bonus == false) {
-                    messageLevelUp += Text.playerManager.levelUp.firstBonus;
-                }
+                messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
                 messageLevelUp += Text.playerManager.levelUp.moreAttack;
                 bonus = true;
             } else {
                 if (this.getLevel() % 3 == 0) {
                     this.setDefense(this.getDefense() + 5);
-                    if (bonus == false) {
-                        messageLevelUp += Text.playerManager.levelUp.firstBonus;
-                    }
+                    messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
                     messageLevelUp += Text.playerManager.levelUp.moreDefense;
                     bonus = true;
                 }
             }
         }
-
-        if (bonus == false) {
-            messageLevelUp += Text.playerManager.levelUp.noBonus;
-        }
+        messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
+        messageLevelUp += Text.playerManager.levelUp.noBonus;
         message.channel.send(messageLevelUp);
         this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message, language);
+    }
+
+    /**
+     * 
+     * @param {*} bonus 
+     * @param {*} messageLevelUp 
+     */
+    ifFirstBonus(bonus, messageLevelUp) {
+        if (bonus == false) {
+            messageLevelUp += Text.playerManager.levelUp.firstBonus;
+        }
+        return messageLevelUp;
     }
 
     /**
@@ -167,7 +177,7 @@ class Player extends Entity {
      * @param money - The amount of money to add. Must be a Number.
      */
     addMoney(money) {
-        if (Tools.isAPositiveNumberOrNull(money)) {
+        if (money >= 0) {
             this.money += parseInt(money);
         } else {
             this.removeMoney(-money);
@@ -181,9 +191,9 @@ class Player extends Entity {
      * @param money - The amount of money to remove. Must be a Number.
      */
     removeMoney(money) {
-        if (Tools.isAPositiveNumberOrNull(money)) {
+        if (money >= 0) {
             this.money -= parseInt(money);
-            if (Tools.isANegativeNumber(this.money))
+            if (this.money < 0)
                 this.money = 0;
         } else {
             this.addMoney(-money);
@@ -195,7 +205,7 @@ class Player extends Entity {
      * @param money - The amount of money this Player instance should have. Must be a positive or null Number.
      */
     setMoney(money) {
-        if (Tools.isAPositiveNumberOrNull(money)) {
+        if (money >= 0) {
             this.money = money;
         }
     }
@@ -274,7 +284,7 @@ class Player extends Entity {
      * @param discordId - The Discord User ID to assign to the player.
      */
     setDiscordId(discordId) {
-        if (Tools.isANegativeNumber(this.discordId)) {
+        if (this.discordId < 0) {
             this.discordId = discordId;
         }
     }
@@ -349,7 +359,7 @@ class Player extends Entity {
      * @param points - The amount of points to remove. Must be a Number.
      */
     removeScore(points) {
-        if (Tools.isAPositiveNumberOrNull(points)) {
+        if (points >= 0) {
             this.score -= parseInt(points);
             this.weeklyScore -= parseInt(points);
         } else {
@@ -365,7 +375,7 @@ class Player extends Entity {
      * @param points - The amount of points to add. Must be a Number.
      */
     addScore(points) {
-        if (Tools.isAPositiveNumberOrNull(points)) {
+        if (points >= 0) {
             this.score += parseInt(points);
             this.weeklyScore += parseInt(points);
         } else {
@@ -375,7 +385,7 @@ class Player extends Entity {
 
     /**
      * Calculate the time difference in minute betwin now and the last time the player has been seen
-     * @param {Number} currentTime 
+     * @param {Number} currentTime
      * @returns {Number}
      */
     calcTime(currentTime) {

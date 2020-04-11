@@ -1,27 +1,14 @@
 const InventoryManager = require('../classes/InventoryManager');
-const ServerManager = require('../classes/ServerManager');
-let Text
+const Tools = require('../utils/Tools');
 
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
+let Text
 
 /**
  * Allow to exchange the object that is in the player packup slot within the one that is active
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const switchCommand = async function (message) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     let inventoryManager = new InventoryManager();
     let inventory = await inventoryManager.getCurrentInventory(message);
     inventoryManager.switch(inventory);

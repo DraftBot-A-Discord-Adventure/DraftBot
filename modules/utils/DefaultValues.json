@@ -41,12 +41,14 @@
     "effectMalus": {
         ":smiley:": "0",
         ":sick:": "21600000",
-        ":head_bandage:": "5400000",
+        ":head_bandage:": "21600000",
         ":dizzy_face:": "43200000",
         ":skull:": "0",
-        ":zzz:": "10800000",
-        ":snowflake:": "3600000",
+        ":lock:": "86400000",
+        ":sleeping:": "10800000",
+        ":cold_face:": "3600000",
         ":confounded:": "2400000",
+        ":zany_face:": "14400000",
         ":clock2:": "0"
     },
     "item": {
@@ -68,7 +70,7 @@
         "5": "500",
         "6": "1000",
         "7": "5000",
-        "8": "1000"
+        "8": "10000"
     },
     "raritiesGenerator": {
         "0": "4375",
@@ -77,11 +79,11 @@
         "3": "9375",
         "4": "9875",
         "5": "9975",
-        "6": "9999",
+        "6": "9998",
         "maxValue": "10000",
-        "numberOfWeapon": "64",
+        "numberOfWeapon": "67",
         "numberOfArmor": "35",
-        "numberOfObject": "36",
+        "numberOfObject": "41",
         "numberOfPotion": "35"
     },
     "itemGenerator": {
@@ -100,9 +102,13 @@
         }
     },
     "top": {
-        "playersByPage": "15"
+        "playersByPage": "15",
+        "daysBeforeInnactive": "7"
     },
     "TopWeek": {
+        "playersByPage": "15"
+    },
+    "TopServ": {
         "playersByPage": "15"
     },
     "fight": {
