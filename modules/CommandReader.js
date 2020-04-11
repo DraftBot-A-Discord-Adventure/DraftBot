@@ -22,7 +22,6 @@ class CommandReader {
      * @param {*} talkedRecently - The list of user that has been seen recently
      */
     async handleMessage(message, client, talkedRecently) {
-        this.traceMessage(message, client);
         let serverPrefix = await this.serverManager.getServerPrefix(message);
         let prefix = CommandReader.getUsedPrefix(message);
         if (prefix == serverPrefix) {
@@ -45,11 +44,6 @@ class CommandReader {
      * log the recieved message on the console
      * @param {*} message 
      */
-    traceMessage(message) {
-        let trace = `---------\nMessage recu sur le serveur : ${message.guild.name} - id ${message.guild.id}\nAuteur du message : ${message.author.username} - id ${message.author.id}\nMessage : ${message.content}`;
-        console.log(trace);
-    }
-
     traceMessage(message) {
         let trace = `---------\nMessage recu sur le serveur : ${message.guild.name} - id ${message.guild.id}\nAuteur du message : ${message.author.username} - id ${message.author.id}\nMessage : ${message.content}`;
         console.log(trace);
