@@ -475,6 +475,7 @@
       "emptyName2": "guildcreate <nom>`"
     },
     "guildKick": {
+      "debug": "",
       "confirmKick": ", es-tu certains de vouloir exclure ",
       "confirmKickEnd": " ?",
       "gKicked": " a été exclu de la guilde `",

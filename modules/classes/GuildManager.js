@@ -7,7 +7,7 @@ sql.open("./modules/data/database.sqlite");
 class GuildManager {
 
     deleteGuild(guildId) {
-        sql.all(`DELETE FROM guild WHERE guildId = ${guildId}`);
+        sql.all(`DELETE FROM guild WHERE guildId = ${guildId}`)
     }
 
     /**

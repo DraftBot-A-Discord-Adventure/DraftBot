@@ -19,7 +19,7 @@ class Guild {
 
     /**
      * Returns the amount of experience needed to level up. 
-     * @see NumberConstants
+     * @see NumberConstants 
      * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {

@@ -6,7 +6,7 @@ const ServerManager = require('../../classes/ServerManager');
 const GuildManager = require('../../classes/GuildManager');
 const Tools = require('../../utils/Tools');
 
-let Text
+let Text;
 
 /**
  * Allow to charge the prefix of the server
