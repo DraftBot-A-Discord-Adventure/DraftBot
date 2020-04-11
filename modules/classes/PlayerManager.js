@@ -5,6 +5,7 @@ const sql = require("sqlite");
 const ServerManager = require('../classes/ServerManager');
 const Tools = require('../utils/Tools');
 const InventoryManager = require('../classes/InventoryManager');
+const ItemManager = require("../classes/ItemManager");
 const EquipementManager = require('../classes/EquipementManager');
 const PotionManager = require('../classes/PotionManager');
 const ObjectManager = require('../classes/ObjectManager');
@@ -348,8 +349,9 @@ class PlayerManager {
      * give to the player that send the message a random item
      * @param {*} message - The message that caused the function to be called. Used to retrieve the channel where the message has been send
      * @param {*} player - The player that is playing
+     * @param {boolean} displayNameIfSold - Display the name of the item if the item is sold
      */
-    async giveRandomItem(message, player) {
+    async giveRandomItem(message, player, displayNameIfSold) {
         let inventoryManager = new InventoryManager();
         let equipementManager = new EquipementManager();
         let potionManager = new PotionManager();
@@ -358,16 +360,16 @@ class PlayerManager {
         let type = this.chooseARandomItemType();
         switch (type) {
             case "weapon":
-                player = await this.giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player);
+                player = await this.giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player, displayNameIfSold);
                 break;
             case "armor":
-                player = await this.giveRandomArmor(equipementManager, inventory, message, inventoryManager, player);
+                player = await this.giveRandomArmor(equipementManager, inventory, message, inventoryManager, player, displayNameIfSold);
                 break;
             case "object":
-                player = await this.giveRandomObject(objectManager, inventory, message, inventoryManager, player);
+                player = await this.giveRandomObject(objectManager, inventory, message, inventoryManager, player, displayNameIfSold);
                 break;
             case "potion":
-                player = await this.giveRandomPotion(potionManager, inventory, message, inventoryManager, player);
+                player = await this.giveRandomPotion(potionManager, inventory, message, inventoryManager, player, displayNameIfSold);
                 break;
             default:
                 // this is never supposed to occure
@@ -431,7 +433,7 @@ class PlayerManager {
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, armor, message, language);
+            player = this.sellItem(player, armor, false, message, language);
         }
         return player
     }
@@ -458,7 +460,7 @@ class PlayerManager {
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, weapon, message, language);
+            player = this.sellItem(player, weapon, false, message, language);
         }
         return player
     }
@@ -485,7 +487,7 @@ class PlayerManager {
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, object, message, language);
+            player = this.sellItem(player, object, false, message, language);
         }
         return player
     }
@@ -512,7 +514,7 @@ class PlayerManager {
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, potion, message, language);
+            player = this.sellItem(player, potion, false, message, language);
         }
         return player
     }
@@ -525,8 +527,9 @@ class PlayerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
      * @param {*} inventoryManager - The inventory manager class
      * @param {*} player - The player that is playing
+     * @param {boolean} displayNameIfSold - Display the name of the item if the item is sold
      */
-    async giveRandomArmor(equipementManager, inventory, message, inventoryManager, player) {
+    async giveRandomArmor(equipementManager, inventory, message, inventoryManager, player, displayNameIfSold) {
         Text = await chargeText(message);
         let language = await this.detectLanguage(message);
         let armor = await equipementManager.generateRandomArmor();
@@ -538,7 +541,7 @@ class PlayerManager {
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, armor, message, language);
+            player = this.sellItem(player, armor, displayNameIfSold, message, language);
         }
         return player
     }
@@ -551,8 +554,9 @@ class PlayerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
      * @param {*} inventoryManager - The inventory manager class
      * @param {*} player - The player that is playing
+     * @param {boolean} displayNameIfSold - Display the name of the item if the item is sold
      */
-    async giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player) {
+    async giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player, displayNameIfSold) {
         Text = await chargeText(message);
         let language = await this.detectLanguage(message);
         let weapon = await equipementManager.generateRandomWeapon();
@@ -564,7 +568,7 @@ class PlayerManager {
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, weapon, message, language);
+            player = this.sellItem(player, weapon, displayNameIfSold, message, language);
         }
         return player
     }
@@ -577,8 +581,9 @@ class PlayerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
      * @param {*} inventoryManager - The inventory manager class
      * @param {*} player - The player that is playing
+     * @param {boolean} displayNameIfSold - Display the name of the item if the item is sold
      */
-    async giveRandomObject(objectManager, inventory, message, inventoryManager, player) {
+    async giveRandomObject(objectManager, inventory, message, inventoryManager, player, displayNameIfSold) {
         Text = await chargeText(message);
         let language = await this.detectLanguage(message);
         let object = await objectManager.generateRandomObject();
@@ -590,7 +595,7 @@ class PlayerManager {
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, object, message, language);
+            player = this.sellItem(player, object, displayNameIfSold, message, language);
         }
         return player
     }
@@ -603,8 +608,9 @@ class PlayerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
      * @param {*} inventoryManager - The inventory manager class
      * @param {*} player - The player that is playing
+     * @param {boolean} displayNameIfSold - Display the name of the item if the item is sold
      */
-    async giveRandomPotion(potionManager, inventory, message, inventoryManager, player) {
+    async giveRandomPotion(potionManager, inventory, message, inventoryManager, player, displayNameIfSold) {
         Text = await chargeText(message);
         let language = await this.detectLanguage(message);
         let potion = await potionManager.generateRandomPotion();
@@ -616,7 +622,7 @@ class PlayerManager {
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, potion, message, language);
+            player = this.sellItem(player, potion, displayNameIfSold, message, language);
         }
         return player
     }
@@ -634,15 +640,20 @@ class PlayerManager {
      * allow the player to gain some money corresponding to an equipement
      * @param {Item} item - The equipement that has to be sold
      * @param {*} player - The player that will recieve the money
+     * @param {boolean} displayName - Displays or not the name of the item
      * @param {*} message - The message that caused the function to be called. Used to retrieve the channel
      * @param {String} language - The language the answer has to be displayed in
      */
-    sellItem(player, item, message, language) {
+    sellItem(player, item, displayName, message, language) {
         Text = require('../text/' + language);
         let value = item.getValue();
         console.log("the item has been sold ! " + item.rareness + " / " + item.power);
         player.addMoney(value);
-        message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd)
+        if (displayName) {
+            message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sellItem1 + new ItemManager().getItemSimpleName(item, language) + Text.playerManager.sellItem2 + value + Text.playerManager.sellEnd);
+        } else {
+            message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd);
+        }
         return player;
     }
 

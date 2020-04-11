@@ -1,3 +1,4 @@
+const ItemManager = require("../classes/ItemManager");
 const PlayerManager = require('../classes/PlayerManager');
 const ObjectManager = require('../classes/ObjectManager');
 const InventoryManager = require('../classes/InventoryManager');
@@ -51,7 +52,7 @@ const generateErrorSellMessage = function (message) {
  * @param {*} playerManager - The manager of the player
  */
 async function generateConfirmation(message, object, player, inventory, inventoryManager, playerManager, talkedRecently) {
-    let confirmMessage = generateConfirmMessage(message, object);
+    let confirmMessage = await generateConfirmMessage(message, object);
     let confirmIsOpen = true;
 
     let msg = await displayConfirmMessage(message, confirmMessage);
@@ -67,7 +68,7 @@ async function generateConfirmation(message, object, player, inventory, inventor
         if (confirmIsOpen) {
             talkedRecently.delete(message.author.id);
             if (reaction.emoji.name == "✅") {
-                playerManager.sellItem(player, object, message, language);
+                playerManager.sellItem(player, object, false, message, language);
                 inventory.setBackupItemId(DefaultValues.inventory.object);
                 inventoryManager.updateInventory(inventory);
                 playerManager.updatePlayer(player);
@@ -122,9 +123,10 @@ const reactionIsCorrect = function (reaction) {
  * @returns {String} - A string containing the error sell message.
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateConfirmMessage = function (message, object) {
+const generateConfirmMessage = async function (message, object) {
     let value = object.getValue();
-    return Text.commands.sell.confirmDebut + message.author.username + Text.commands.sell.confirmIntro + object.getName() + Text.commands.sell.confirmMiddle + value + Text.commands.sell.confirmEnd;
+    let language = await Tools.detectLanguage(message);
+    return Text.commands.sell.confirmDebut + message.author.username + Text.commands.sell.confirmIntro + new ItemManager().getItemSimpleName(object, language) + Text.commands.sell.confirmMiddle + value + Text.commands.sell.confirmEnd;
 };
 
 module.exports.SellCommand = sellCommand;

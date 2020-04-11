@@ -8,7 +8,7 @@ class Potion extends Item {
 
 
     constructor(id, rareness, power, natureEffect) {
-        super(id, rareness, power);
+        super(id, rareness, power, 'potion');
         this.natureEffect = natureEffect;
     }
 

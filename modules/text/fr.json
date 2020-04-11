@@ -195,7 +195,7 @@
       "notEnoughSkillError2": "** pour accéder aux combats ! Revenez plus tard !",
       "chosenOpponentNotEnoughSkill1": ", votre adversaire doit être **LVL ",
       "chosenOpponentNotEnoughSkill2": "** pour combattre ! ",
-      "chosenOpponentDontPlay": ", il semblerait que cette personne n'ait pas encore commencé l'aventure !",
+      "chosenOpponentDontPlay": ", il semblerait que cette personne n'aie pas encore commencé l'aventure !",
       "menuStart": ":crossed_swords:  | **C'est au tour de ",
       "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
       "endIntroStart": " | **",
@@ -471,6 +471,8 @@
     "noTimeLeft": ":hospital: Reprise du jeu possible",
     "newItem": "**Un nouvel item a été placé dans votre inventaire !** :new: Vous recevez :\n\n",
     "sell": "** Vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",
+    "sellItem1": "** Vous décidez de vendre ",
+    "sellItem2": " pour quelques pièces d'or car cet objet ne vous semble pas très utile... :moneybag: Argent gagné : **",
     "sellEnd": "**",
     "sellEmoji": ":gift: **",
     "levelUp": {

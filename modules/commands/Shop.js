@@ -95,7 +95,7 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                                         break;
                                     case "a":
                                         if (player.money >= DefaultValues.shop.priceItem) {
-                                            player = await playerManager.giveRandomItem(message, player);
+                                            player = await playerManager.giveRandomItem(message, player, true);
                                             player.money -= DefaultValues.shop.priceItem;
                                             playerManager.updatePlayer(player);
                                         } else {
