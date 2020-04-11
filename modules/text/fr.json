@@ -3,7 +3,7 @@
     "help": {
       "mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://draftbot.fandom.com/fr/wiki/Commandes",
       "intro": "** :notebook_with_decorative_cover: ",
-      "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\ntopWeek\ninventory\nfight\ndaily\ndrink\nprefix\nlanguage\n```\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! https://draftbot.fandom.com/fr/wiki/Commandes",
+      "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\ntopWeek\ntopServ\ninventory\nfight\ndaily\ndrink\nprefix\nlanguage\n```\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! https://draftbot.fandom.com/fr/wiki/Commandes",
       "commands": {
         "prefix": ":interrobang: `prefix {Nouveau préfix}` :\n\nPermet, si vous êtes administrateur sur un serveur, de changer le préfix utilisé par le bot.",
         "ping": ":ping_pong: `ping` :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
@@ -13,8 +13,9 @@
         "fight": ":crossed_swords: `fight`\n\nUtilisez cette commande pour défier les autres joueurs qui se trouvent sur le même serveur que vous.",
         "help": ":notebook_with_decorative_cover: `help`\n\n:expressionless:",
         "language": ":flag_gb: `language`\n\nChange la langue utilisée par le bot pour l'anglais. Utilisable si vous êtes administrateur sur un serveur.",
-        "top": ":trophy: `top [numéro de page]`\n\nAffiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans la même guilde que vous sont marqués par une pastille bleue.",
-        "topWeek": ":trophy: `topWeek [numéro de page]`\n\nAffiche le classement général de la semaine du jeu par tranche de 15 joueurs. Les joueurs dans la même guilde que vous sont marqués par une pastille bleue.",
+        "top": ":trophy: `top [numéro de page]`\n\nAffiche le classement général du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue.",
+        "topWeek": ":trophy: `topWeek [numéro de page]`\n\nAffiche le classement général de la semaine du jeu par tranche de 15 joueurs. Les joueurs dans le même serveur que vous sont marqués par une pastille bleue.",
+        "topServ": ":trophy: `topServ [numéro de page]`\n\nAffiche le classement du serveur par tranche de 15 joueurs.",
         "inventory": ":school_satchel: `inventory`\n\nAffiche le contenu de votre inventaire qui peut contenir 4 types d'objets :\n```\n-armes\n-armures\n-potions\n-items\n```\nLa commande affiche également le contenu de la réserve qui peut contenir un second objet de type item le temps que vous décidiez si vous le conservez ou non.\n\n:warning: **La réserve n'est pas un endroit sûr pour conserver un objet précieux !**\nLes objets en réserve peuvent être remplacés automatiquement par un nouvel objet quand vous en trouvez un.",
         "report": ":newspaper: `report`\n\nPermet de collecter les informations et les ressources collectées par votre personnage durant votre absence. De temps en temps, des évenements se déclenchent et demandent des actions particulières.",
         "sell": ":moneybag: `sell`\n\nPermet de vendre l'objet qui se trouve dans votre réserve, la valeur de l'objet est determinée en fonction de sa puissance et peut être égale à 0 si l'objet est pas tip top :wink:.",
@@ -217,7 +218,7 @@
           "5": " ** effectue une attaque rapide ! C'était risqué mais ça passe !",
           "6": " ** lance une bonne attaque rapide !",
           "7": " ** utilise une attaque rapide ! Magistral !",
-          "8": " ** choisi une attaque rapide !  Très bonne initiative"
+          "8": " ** choisit une attaque rapide !  Très bonne initiative"
         },
         "meh": {
           "1": " ** effectue une attaque rapide ! Ca fonctionne mais c'était pas incroyable.",
@@ -227,7 +228,7 @@
           "5": " ** effectue une attaque rapide ! C'est pas très réussi.",
           "6": " ** lance une attaque rapide ! Médiocre",
           "7": " ** utilise une attaque rapide ! Faiblarde !",
-          "8": " ** choisi une attaque rapide !  Le résultat est assez pitoyable."
+          "8": " ** choisit une attaque rapide !  Le résultat est assez pitoyable."
         },
         "ko": {
           "1": " ** effectue une attaque rapide ! C'est raté !",
@@ -237,7 +238,7 @@
           "5": " ** effectue une attaque rapide ! C'était risqué et ça n'est pas passé !",
           "6": " ** lance une mauvaise attaque rapide !",
           "7": " ** utilise une attaque rapide ! Un choix peu judicieux !",
-          "8": " ** choisi une attaque rapide !  Mauvaise initiative"
+          "8": " ** choisit une attaque rapide !  Mauvaise initiative"
         }
       },
       "attackSimple": {
@@ -249,7 +250,7 @@
           "5": " ** effectue une attaque simple ! C'était risqué mais ça passe !",
           "6": " ** lance une bonne attaque simple !",
           "7": " ** utilise une attaque simple ! Magistrale !",
-          "8": " ** choisi une attaque simple !  Très bonne initiative"
+          "8": " ** choisit une attaque simple !  Très bonne initiative"
         },
         "meh": {
           "1": " ** effectue une attaque simple ! Ca fonctionne mais c'était pas incroyable.",
@@ -259,7 +260,7 @@
           "5": " ** effectue une attaque simple ! C'est pas très réussi.",
           "6": " ** lance une attaque simple ! Médiocre",
           "7": " ** utilise une attaque simple ! Faiblarde !",
-          "8": " ** choisi une attaque simple !  Le résultat est assez pitoyable."
+          "8": " ** choisit une attaque simple !  Le résultat est assez pitoyable."
         },
         "ko": {
           "1": " ** effectue une attaque simple ! C'est raté !",
@@ -269,7 +270,7 @@
           "5": " ** effectue une attaque simple ! C'était risqué et ça n'est pas passé !",
           "6": " ** lance une mauvaise attaque simple !",
           "7": " ** utilise une attaque simple ! Un choix peu judicieux !",
-          "8": " ** choisi une attaque simple !  Mauvaise initiative."
+          "8": " ** choisit une attaque simple !  Mauvaise initiative."
         }
       },
       "attackUltime": {
@@ -281,7 +282,7 @@
           "5": " ** effectue une attaque ultime ! C'était risqué mais ça passe ! `Vitesse réduite de 10 %`",
           "6": " ** lance une bonne attaque ultime ! `Vitesse réduite de 10 %`",
           "7": " ** utilise une attaque ultime ! Magistrale ! `Vitesse réduite de 10 %`",
-          "8": " ** choisi une attaque ultime !  Très bonne initiative. `Vitesse réduite de 10 %`"
+          "8": " ** choisit une attaque ultime !  Très bonne initiative. `Vitesse réduite de 10 %`"
         },
         "meh": {
           "1": " ** effectue une attaque ultime ! Ca fonctionne mais c'était pas incroyable.",
@@ -291,7 +292,7 @@
           "5": " ** effectue une attaque ultime ! C'est pas très réussi.",
           "6": " ** lance une attaque ultime ! Médiocre",
           "7": " ** utilise une attaque ultime ! Faiblarde !",
-          "8": " ** choisi une attaque ultime !  Le résultat est assez pitoyable."
+          "8": " ** choisit une attaque ultime !  Le résultat est assez pitoyable."
         },
         "ko": {
           "1": " ** effectue une attaque ultime ! C'est raté ! `Vitesse réduite de 10 %`",
@@ -301,7 +302,7 @@
           "5": " ** effectue une attaque ultime ! C'était risqué et ça n'est pas passé ! `Vitesse réduite de 10 %`",
           "6": " ** lance une mauvaise attaque ultime ! `Vitesse réduite de 10 %`",
           "7": " ** utilise une attaque ultime ! Un choix peu judicieux ! `Vitesse réduite de 10 %`",
-          "8": " ** choisi une attaque ultime !  Mauvaise initiative. `Vitesse réduite de 10 %`"
+          "8": " ** choisit une attaque ultime !  Mauvaise initiative. `Vitesse réduite de 10 %`"
         }
       }
     },
@@ -398,6 +399,11 @@
       "minutes": " Min",
       "footer": "Classement réinitialisé dans"
     }
+  },
+  "commandReader":{
+    "resetIsNowTitle" : ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot !",
+    "resetIsNowFooter" : "\n\n:clock12: Le jeu reprendra dans moins de 5 minutes !",
+    "resetIsNowFooterFight": "\n\n:clock12: Les combats reprendront dans moins de 15 minutes !"
   },
   "badges": {
     "🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
@@ -983,7 +989,7 @@
       "🚶": {
         "1": "** | 🚶 Après une bonne heure de marche, vous trouvez un autre pont, qui lui, semble en bien meilleur état et décidez de l'emprunter.",
         "2": "** | 🚶 Durant votre chemin, vous remarquez une petite caisse et l'ouvrez, dans celle-ci un objet semblant utile. Vous le récupérez et continuez votre route.",
-        "3": "** | 🚶 Vous apercevez un pont et vous précipitez pour pour le rejoindre au plus vite, cependant vous trébuchez sur un tronc d'arbre et vous blessez. :confounded:"
+        "3": "** | 🚶 Vous apercevez un pont et vous précipitez pour le rejoindre au plus vite, cependant vous trébuchez sur un tronc d'arbre et vous blessez. :confounded:"
       },
       "end": {
         "1": "** | 🕑 Vous attendez une vingtaine de minutes en observant ce pont. Puis vous continuez votre route.",
