@@ -34,23 +34,20 @@ const guildLeaveCommand = async function (message, args, client) {
         return;
     }
 
-    if(userGuild.getChief() === user.id) { //Player is the guild chief
-        await confirmGuildDestroy(message, user, userGuild);
+    if(userGuild.getChief() !== user.id) { //Player is the guild chief
+        message.channel.send(generateNotTheGuildHostException(user));
         return;
     }
 
-    let messageGuild = await generateGuildLeaveMessage(message, user, userGuild);
-    message.channel.send(messageGuild).then(async msg => {
-        await addBasicReactions(msg); //Add reactions
-        const filterConfirm = (reaction, user1) => {
-            return (confirmReactionIsCorrect(reaction) && user1.id === user.id);
-        };
-        const collector = msg.createReactionCollector(filterConfirm, {
-            time: 120000
-        });
-        //execute this if a user answer to the event
-        await createLeaveCollector(collector, message, user, userGuild);
-    });
+    let user = getUserFromMention(args[1], client)
+    playerManager.getPlayerById(user.id); //Add the user to the database if it is missing.
+    if(user === null || user === undefined) {
+        message.channel.send(generateNoUserException(userGuild, serverPrefix));
+        return;
+    }
+
+    confirmKick(message, message.author, userGuild, user);
+
 }
 
 /**
@@ -69,8 +66,8 @@ const confirmReactionIsCorrect = function (reaction) {
 /**
 * Display a confirm message
 */
-const confirmGuildDestroy = async function (message, user, guild) {
-    let messageGuild = generateGuildDestroyMessage(message, user, guild);
+const confirmKick = async function (message, user, guild, target) {
+    let messageGuild = generateGuildKickMessage(message, user, guild);
     message.channel.send(messageGuild).then(async msg => {
         await addBasicReactions(msg); //Add reactions
         const filterConfirm = (reaction, user1) => {
@@ -80,7 +77,7 @@ const confirmGuildDestroy = async function (message, user, guild) {
             time: 120000
         });
         //execute this if a user answer to the event
-        await createDestroyCollector(collector, message, user, guild);
+        await createKickCollector(collector, message, user, guild);
     });
 }
 
@@ -88,29 +85,11 @@ const confirmGuildDestroy = async function (message, user, guild) {
  * Creating the reactions collector and possibilities
  * @param {*} collector - The collector
  */
-async function createDestroyCollector(collector, message, user, guild) {
+async function createKickCollector(collector, message, user, guild) {
     return collector.on('collect', async (reaction) => {
         switch (reaction.emoji.name) {
             case "✅":
-                await destroyGuild(guild);
-                message.channel.send(Text.commands.guildAdd.checkMark + user.toString() + Text.commands.guildLeave.gLeave + guild.name + Text.commands.guildLeave.gLeaveEnd);
-                break;
-            case "❌":
-                message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildLeave.gLeaveRefuse);
-                break;
-        }
-    });
-}
-
-/**
- * Creating the reactions collector and possibilities
- * @param {*} collector - The collector
- */
-async function createLeaveCollector(collector, message, user, guild) {
-    return collector.on('collect', async (reaction) => {
-        switch (reaction.emoji.name) {
-            case "✅":
-                await removePlayerFromGuild(user, guild)
+                await removePlayerFromGuild(guild);
                 message.channel.send(Text.commands.guildAdd.checkMark + user.toString() + Text.commands.guildLeave.gLeave + guild.name + Text.commands.guildLeave.gLeaveEnd);
                 break;
             case "❌":
@@ -125,19 +104,6 @@ async function removePlayerFromGuild(user, guild) {
     let player = await playerManager.getPlayerById(user.id);
     player.setGuildId("0");
     playerManager.updatePlayer(player);
-}
-
-async function destroyGuild(guild) {
-    const guildManager = new GuildManager();
-    let members = await guildManager.getGuildMembers(guild.getGuildId());
-    await members.forEach(m => kickMember(m));
-    guildManager.deleteGuild(guild.getGuildId());
-}
-
-function kickMember(member) {
-    let playerManager = new PlayerManager();
-    member.setGuildId("0");
-    playerManager.updatePlayer(member);
 }
 
 /**
@@ -161,6 +127,18 @@ const generateGuildDestroyMessage = function (message, user, guild) {
     embed.setTitle(Text.commands.guildAdd.guild + guild.getName());
     embed.setDescription(user.toString() + Text.commands.guildLeave.confirmDestroy + guild.getName() + Text.commands.guildLeave.confirmDestroyEnd);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    return embed;
+}
+
+/**
+ * @returns {String} - A RichEmbed message wich display the NoUserException
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const generateNotTheGuildHostException = function(user) {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setDescription(user.toString() + Text.commands.guildAdd.PIError5);
     return embed;
 }
 

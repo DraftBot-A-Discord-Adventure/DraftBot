@@ -181,7 +181,7 @@ const generateNotInAGuildException = function(user) {
 }
 
 /**
- * @returns {String} - A RichEmbed message wich display the NoUserException
+ * @returns {String} - A RichEmbed message wich display the NotChiefException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const generateNotTheGuildHostException = function(user) {

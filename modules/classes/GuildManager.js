@@ -34,7 +34,7 @@ class GuildManager {
      * @returns {Integer} - The number of players
      */
     async getNumberOfMembersWithGuildId(guildId) {
-        return sql.get(`SELECT COUNT(*) as count FROM player WHERE guildId = ${guildId}`).then(number => {
+        return sql.get(`SELECT COUNT(*) as count FROM player WHERE guildId = "${guildId}"`).then(number => {
             return number.count
         }).catch(error => { //there is no database
             console.error(error)
@@ -50,7 +50,7 @@ class GuildManager {
         let MembersArray = Array();
         let i = 0;
         return sql.all(`SELECT * FROM player WHERE guildId = "${guildId}" ORDER BY score DESC`).then(data => {
-            data.forEach(function (player) {
+            data.forEach(function(player) {
                 MembersArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
                     player.weeklyRank, player.guildId)
