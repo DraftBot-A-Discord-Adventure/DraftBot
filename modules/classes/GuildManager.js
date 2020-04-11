@@ -25,6 +25,10 @@ const chargeText = async function (message) {
 
 class GuildManager {
 
+    deleteGuild(guildId) {
+        sql.all(`DELETE FROM guild WHERE guildId = ${guildId}`);
+    }
+
     /**
      * Get the total number of players in the database
      * @returns {Integer} - The number of players
