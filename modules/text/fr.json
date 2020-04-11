@@ -398,6 +398,7 @@
       "hours": " H",
       "minutes": " Min",
       "footer": "Classement réinitialisé dans"
+    },
     "guild": {
       "guildIcon": "https://i.imgur.com/sQHBly4.png",
       "guild": "Guilde ",
@@ -439,6 +440,18 @@
       "PIError5": ", tu n'es pas le chef de la guilde, tu ne peux donc pas inviter quelqu'un.",
       "PIError6": ", la guilde est pleine, personne ne peut la rejoindre."
     },
+    "guildLeave": {
+      "confirmLeave": ", es-tu certain de vouloir quitter la guilde `",
+      "confirmLeaveEnd": "` ?",
+      "gLeave": ", tu viens de quitter la guilde `",
+      "gLeaveEnd": "` !",
+      "gDestroy": ", tu viens de détruire la guilde `",
+      "gDestroyEnd": "` !",
+      "confirmDestroy": ", es-tu certain de vouloir quitter la guilde `",
+      "confirmDestroyEnd": "` et par conséquent de la **détruire** ?\n\n:warning: **Cette action est irrévocable !**",
+      "gLeaveRefuse": ", tu restes dans la guilde !",
+      "PIError1": ", tu n'es dans aucune guilde, tu ne peux donc pas en quitter une."
+    },
     "guildCreate": {
       "x": "❌ | ",
       "cancelled": ", l'achat a bien été annulé !",
@@ -459,7 +472,6 @@
       "characters2": "Le nom de la guilde doit être compris entre 1 et 15 caractères.",
       "emptyName": "Tu dois donner un nom à la guilde avant de l'acheter :\n`",
       "emptyName2": "guildcreate <nom>`"
-    },
     }
   },
   "commandReader":{

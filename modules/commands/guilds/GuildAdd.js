@@ -4,22 +4,9 @@ const DefaultValues = require('../../utils/DefaultValues');
 const PlayerManager = require('../../classes/PlayerManager');
 const ServerManager = require('../../classes/ServerManager');
 const GuildManager = require('../../classes/GuildManager');
+const Tools = require('../../utils/Tools');
 
 let Text
-
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../../text/' + server.language;
-    return require(address);
-}
 
 /**
  * Allow to charge the prefix of the server
@@ -31,12 +18,12 @@ const chargePrefix = async function (message) {
 }
 
 /**
- * Allow to display the rankings of the players
+ * Allow to add a player into your guild
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
 const guildAddCommand = async function (message, args, client) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     let guildManager = new GuildManager();
     let playerManager = new PlayerManager();
     let serverPrefix = await chargePrefix(message);

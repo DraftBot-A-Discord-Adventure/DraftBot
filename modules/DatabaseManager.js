@@ -23,7 +23,7 @@ class DatabaseManager {
 
     updateDatabase(sql) {
         //Add guildId column
-        await sql.run("ALTER TABLE player ADD guildId Text").catch(console.error);
+        sql.run("ALTER TABLE player ADD guildId Text").catch(console.error);
         //guild server
         sql.run("CREATE TABLE IF NOT EXISTS guild (guildId TEXT, name TEXT, chief TEXT, score TEXT, level TEXT, experience TEXT, rank TEXT)").catch(console.error);
 

@@ -15,11 +15,10 @@ const Sell = require('./commands/Sell');
 const Fight = require('./commands/Fight');
 const Shop = require('./commands/Shop');
 
-const Items = require('./commands/Items');
-
-const Guild = require('./commands/guild/Guild');
-const GuildAdd = require('./commands/guild/GuildAdd');
-const GuildCreate = require('./commands/guild/GuildCreate');
+const Guild = require('./commands/guilds/Guild');
+const GuildAdd = require('./commands/guilds/GuildAdd');
+const GuildLeave = require('./commands/guilds/GuildLeave');
+const GuildCreate = require('./commands/guilds/GuildCreate');
 
 const Reset = require('./commands/admin/Reset');
 const Give = require('./commands/admin/Give');
@@ -68,12 +67,6 @@ const CommandTable = new Map(
 
         ["list", ListItems.ListItemsCommand],
         ["destroy", Reset.ResetCommand],
-        ["gcreate", GuildCreate.guildCreateCommand],
-        ["guildcreate", GuildCreate.guildCreateCommand],
-        ["gadd", GuildAdd.guildAddCommand],
-        ["guildadd", GuildAdd.guildAddCommand],
-        ["g", Guild.guildCommand],
-        ["guild", Guild.guildCommand],
         ["invi", Invitations.InvitationsCommand],
         ["points", Points.PointsCommand],
         ["pointsw", PointsWeek.PointsWeekCommand],
@@ -84,6 +77,15 @@ const CommandTable = new Map(
         ["rb", ResetBadge.ResetBadgeCommand],
         ["senddata", SendData.SendDataCommand],
         ["dm", Send.SendCommand],
+
+        ["guild", Guild.guildCommand],
+        ["g", Guild.guildCommand],
+        ["guildadd", GuildAdd.guildAddCommand],
+        ["gadd", GuildAdd.guildAddCommand],
+        ["guildleave", GuildLeave.guildLeaveCommand],
+        ["gleave", GuildLeave.guildLeaveCommand],
+        ["guildcreate", GuildCreate.guildCreateCommand],
+        ["gcreate", GuildCreate.guildCreateCommand],
     ]
 );
 

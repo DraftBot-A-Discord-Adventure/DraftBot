@@ -5,22 +5,10 @@ const PlayerManager = require('../../classes/PlayerManager');
 const ServerManager = require('../../classes/ServerManager');
 const GuildManager = require('../../classes/GuildManager');
 const ProgressBar = require('../../classes/ProgressBar');
+const Tools = require('../../utils/Tools');
 
 let Text
-
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../../text/' + server.language;
-    return require(address);
-}
+let playerManager = new PlayerManager();
 
 /**
  * Allow to charge the prefix of the server
@@ -37,7 +25,7 @@ const chargePrefix = async function (message) {
  * @param args - arguments typed by the user in addition to the command
  */
 const guildCommand = async function (message, args, client) {
-    Text = await chargeText(message);
+    Text = await Tools.chargeText(message);
     let serverPrefix = await chargePrefix(message);
     let guildName = await message.content.slice(serverPrefix.length).trim().replace(args[0], "").substring(1); //substring is used to remove the space before the guild name
 
@@ -170,7 +158,7 @@ async function generatePlayersData(client, members) {
  */
 const generatePlayerData = async function (client, player) {
     let user = await getUserById(client, player.discordId);
-    return Text.commands.guild.playerDataStart + user.toString() + Text.commands.guild.playerDataInfosStart + player.getRank() + Text.commands.guild.trophy + player.getScore() + Text.commands.guild.medal;
+    return Text.commands.guild.playerDataStart + user.toString() + Text.commands.guild.playerDataInfosStart + await playerManager.getPlayerRank(user.id) + Text.commands.guild.trophy + player.getScore() + Text.commands.guild.medal;
 }
 
 /**
