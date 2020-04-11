@@ -5,23 +5,7 @@ const Config = require('../utils/Config')
 const sql = require("sqlite");
 const ServerManager = require('./ServerManager');
 const PlayerManager = require('./PlayerManager');
-const Tools = require('../utils/Tools');
 sql.open("./modules/data/database.sqlite");
-let Text;
-
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == 639446722845868101) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
 
 class GuildManager {
 
@@ -271,20 +255,6 @@ class GuildManager {
             console.error(error)
             return 0;
         })
-    }
-
-    /**
-     * Allow to get the language the bot has to respond with
-     * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
-     * @returns {string} - the code of the server language
-     */
-    async detectLanguage(message) {
-        let serverManager = new ServerManager();
-        let server = await serverManager.getServer(message);
-        if (message.channel.id == 639446722845868101) {
-            server.language = "en";
-        }
-        return server.language;
     }
 
     /**
