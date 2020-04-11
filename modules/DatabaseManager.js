@@ -21,7 +21,7 @@ class DatabaseManager {
 
     }
 
-
+    updateDatabase(sql) {
         //Add guildId column
         await sql.run("ALTER TABLE player ADD guildId Text").catch(console.error);
         //guild server
