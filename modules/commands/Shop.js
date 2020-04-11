@@ -103,14 +103,18 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                                         }
                                         break;
                                     case "b":
-                                        if (player.money >= DefaultValues.shop.priceStatus) {
-                                            player.updateLastReport(message.createdTimestamp, 0, ":smiley:");
-                                            player.money -= DefaultValues.shop.priceStatus;
-                                            player.effect = ":smiley:";
-                                            console.log(player)
-                                            playerManager.updatePlayer(player);
+                                        if (player.getEffect() !== ':smiley:') {
+                                            if (player.money >= DefaultValues.shop.priceStatus) {
+                                                player.updateLastReport(message.createdTimestamp, 0, ":smiley:");
+                                                player.money -= DefaultValues.shop.priceStatus;
+                                                player.effect = ":smiley:";
+                                                console.log(player)
+                                                playerManager.updatePlayer(player);
+                                            } else {
+                                                return notEnoughMoney(message);
+                                            }
                                         } else {
-                                            return notEnoughMoney(message);
+                                            return message.channel.send(Text.commands.shop.cancelStart + message.author + Text.commands.shop.noAlteration);
                                         }
                                         break;
                                     case "c":

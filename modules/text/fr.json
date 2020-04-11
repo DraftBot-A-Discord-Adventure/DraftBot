@@ -102,7 +102,8 @@
       "cancelStart": ":x: | ",
       "cancelEnd": ", L'achat a bien été annulé !",
       "notEnoughEnd": ", Vous n'avez pas assez d'argent pour effectuer cet achat !",
-      "tooMuchShop": ", il est impossible de donner suite à votre requête car une autre commande est en attente d'une action de votre part ! `(Si vous n'avez pas fait récemment de commande shop ou sell, attendez 2 minutes et réessayez)`"
+      "tooMuchShop": ", il est impossible de donner suite à votre requête car une autre commande est en attente d'une action de votre part ! `(Si vous n'avez pas fait récemment de commande shop ou sell, attendez 2 minutes et réessayez)`",
+      "noAlteration": ", vous n'avez pas d'altération d'état actuellement !"
     },
     "report": {
       "reportStart": ":newspaper: **Journal de ",
@@ -177,7 +178,9 @@
     },
     "fight": {
       "startEmoji": "**:crossed_swords: | ",
-      "startIntro": "** souhaite lancer un combat ! Pour y participer, cliquez sur la réaction ci-dessous !",
+      "startIntro": "** souhaite lancer un combat",
+      "introAgainstSomeone": " contre ",
+      "endIntro": " ! Pour y participer, cliquez sur la réaction ci-dessous !",
       "errorEmoji": ":x: | ",
       "validEmoji": ":white_check_mark: | ",
       "spamError": " Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
@@ -190,6 +193,9 @@
       "startEnd": " !**",
       "notEnoughSkillError1": ", vous devez être **LVL ",
       "notEnoughSkillError2": "** pour accéder aux combats ! Revenez plus tard !",
+      "chosenOpponentNotEnoughSkill1": ", votre adversaire doit être **LVL ",
+      "chosenOpponentNotEnoughSkill2": "** pour combattre ! ",
+      "chosenOpponentDontPlay": ", il semblerait que cette personne n'ait pas encore commencé l'aventure !",
       "menuStart": ":crossed_swords:  | **C'est au tour de ",
       "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
       "endIntroStart": " | **",
