@@ -416,7 +416,7 @@
       "error": "❌ | Erreur",
       "notFound": "Aucune guilde n'a été trouvée.",
       "notInTheGuildError": ", cet utilisateur ne fait pas parti de votre guilde.",
-      "notInAGuildError" :", vous devez faire partie d'une guilde pour utiliser cette commande.",
+      "notInAGuildError": ", vous devez faire partie d'une guilde pour utiliser cette commande.",
       "playerDataStart": " - ",
       "playerDataInfosStart": " (",
       "trophy": " :trophy: | ",
@@ -443,6 +443,7 @@
       "errorBegin": "Le joueur ",
       "alreadyInAGuildError": " est déjà dans une guilde.",
       "spamError": "Vous avez une action en cours en rapport avec les guildes. (Expulsion, création ou invitation) Terminez cette action avant d'en débuter une nouvelle.",
+      "spamOccupiedError": "La personne que vous essayez d'inviter est occupée pour le moment.",
       "pingError": ", vous devez mentionner le joueur pour lui envoyer une invitation :\n`",
       "guildAddExemple": "guildadd @user`",
       "notInAGuildError": ", vous devez faire partie d'une guilde pour effectuer cette action.",
@@ -477,11 +478,12 @@
       "error": "❌ | Erreur",
       "Gname": "Le nom `",
       "Gname2": "` est déjà utilisé par une autre guilde.",
-      "alreadyInAGuild": "Tu fais déjà partie d'une guilde.",
+      "alreadyInAGuild": "Il est impossible de créer une guilde en étant déjà dans une guilde.",
       "characters": "Le nom de la guilde ne doit pas comporter de ponctuation ou de caractères spéciaux.",
       "characters2": "Le nom de la guilde doit être compris entre 1 et 15 caractères.",
       "emptyName": "Tu dois donner un nom à la guilde avant de l'acheter :\n`",
-      "emptyName2": "guildcreate <nom>`"
+      "emptyName2": "guildcreate <nom>`",
+      "spamError": "Il est impossible de créer une guilde tant qu'une autre commande requiert votre attention."
     },
     "guildKick": {
       "confirmKick": ", êtes-vous certains de vouloir exclure ",

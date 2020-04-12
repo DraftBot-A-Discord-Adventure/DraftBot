@@ -46,6 +46,11 @@ const guildAddCommand = async function (message, args, client, talkedRecently) {
     let hostGuild = await guildManager.getCurrentGuild(message);
     let userGuild = await guildManager.getGuildByUserId(user.id);
 
+    if (talkedRecently.has(user.id + "g")) {
+        message.channel.send(displaySpamErrorUserOccupiedMessage());
+        return;
+    }
+
     if (userGuild !== null) {
         message.channel.send(generateAlreadyInAGuildException(user));
         return;
@@ -75,10 +80,11 @@ const guildAddCommand = async function (message, args, client, talkedRecently) {
             return (confirmReactionIsCorrect(reaction) && user1.id === user.id);
         };
         const collector = msg.createReactionCollector(filterConfirm, {
-            time: 1200000
+            time: 120000
         });
         //execute this if a user answer to the event
         talkedRecently.add(message.author.id + "g");
+        talkedRecently.add(user.id + "g");
         await createCollector(collector, message, user, hostGuild, talkedRecently);
     });
 }
@@ -105,6 +111,7 @@ async function createCollector(collector, message, user, guild, talkedRecently) 
     collector.on('end', () => {
         if (confirmIsOpen) {
             talkedRecently.delete(message.author.id + "g");
+            talkedRecently.delete(user.id + "g");
             message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildAdd.gJoinRefuse);
         }
     });
@@ -112,6 +119,7 @@ async function createCollector(collector, message, user, guild, talkedRecently) 
         if (confirmIsOpen) {
             confirmIsOpen = false;
             talkedRecently.delete(message.author.id + "g");
+            talkedRecently.delete(user.id + "g");
             switch (reaction.emoji.name) {
                 case "✅":
                     await addPlayerToGuild(user, guild)
@@ -145,6 +153,17 @@ function displaySpamErrorMessage() {
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(Text.commands.guildAdd.spamError);
+    return embed;
+}
+
+/**
+ * Display an error if the user is spamming the command
+ */
+function displaySpamErrorUserOccupiedMessage() {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setDescription(Text.commands.guildAdd.spamOccupiedError);
     return embed;
 }
 

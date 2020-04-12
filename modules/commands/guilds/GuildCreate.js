@@ -22,14 +22,19 @@ const chargePrefix = async function (message) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
-guildCreateCommand = async function (message, args, client) {
+guildCreateCommand = async function (message, args, client, talkedRecently) {
     Text = await Tools.chargeText(message);
     let guildManager = new GuildManager();
     let serverPrefix = await chargePrefix(message);
     let guildName;
     let guild = await guildManager.getCurrentGuild(message);
 
-    if(guild !== null) {
+    if (talkedRecently.has(message.author.id + "g") || talkedRecently.has(message.author.id)) {
+        message.channel.send(displaySpamErrorMessage());
+        return;
+    }
+
+    if (guild !== null) {
         message.channel.send(generateAlreadyInAGuildException(message));
         return;
     }
@@ -49,7 +54,9 @@ guildCreateCommand = async function (message, args, client) {
                             time: 120000
                         });
                         //execute this if a user answer to the event
-                        await createCollector(collector, message, message.author, guildName);
+                        talkedRecently.add(message.author.id + "g");
+                        talkedRecently.add(message.author.id);
+                        await createCollector(collector, message, message.author, guildName, talkedRecently);
                     });
                 } else {
                     message.channel.send(generateNameNotAvailableException(message, guildName));
@@ -89,19 +96,43 @@ const confirmReactionIsCorrect = function (reaction) {
 }
 
 /**
+ * Display an error if the user is spamming the command
+ */
+function displaySpamErrorMessage() {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setDescription(Text.commands.guildCreate.spamError);
+    return embed;
+}
+
+/**
  * Creating the reactions collector and possibilities
  * @param {*} collector - The collector
  */
-async function createCollector(collector, message, user, guildName) {
+async function createCollector(collector, message, user, guildName, talkedRecently) {
     let playerManager = new PlayerManager();
+    let confirmIsOpen = true
+    collector.on('end', () => {
+        if (confirmIsOpen) {
+            talkedRecently.delete(message.author.id + "g");
+            talkedRecently.delete(message.author.id);
+            message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildAdd.gJoinRefuse);
+        }
+    });
     return collector.on('collect', async (reaction) => {
-        switch (reaction.emoji.name) {
-            case "✅":
-                await checkIfUserHasEnoughMoney(message, await playerManager.getPlayerById(user.id, message), guildName, user)
-                break;
-            case "❌":
-                message.channel.send(Text.commands.guildCreate.x + user.toString() + Text.commands.guildCreate.cancelled);
-                break;
+        if (confirmIsOpen) {
+            confirmIsOpen = false;
+            talkedRecently.delete(message.author.id);
+            talkedRecently.delete(message.author.id + "g");
+            switch (reaction.emoji.name) {
+                case "✅":
+                    await checkIfUserHasEnoughMoney(message, await playerManager.getPlayerById(user.id, message), guildName, user)
+                    break;
+                case "❌":
+                    message.channel.send(Text.commands.guildCreate.x + user.toString() + Text.commands.guildCreate.cancelled);
+                    break;
+            }
         }
     });
 }
@@ -181,7 +212,7 @@ const generateGuildCreateMessage = async function (message, guildName) {
  * @returns {String} - A RichEmbed message wich display the EmptyNameException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateEmptyNameException = function(message, serverPrefix) {
+const generateEmptyNameException = function (message, serverPrefix) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setThumbnail(Text.commands.guildCreate.guildIcon);
@@ -194,7 +225,7 @@ const generateEmptyNameException = function(message, serverPrefix) {
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} guildName - The name wanted for his guild by the user
  */
-const generateNameNotAvailableException = function(message, guildName) {
+const generateNameNotAvailableException = function (message, guildName) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setThumbnail(Text.commands.guildCreate.guildIcon);
@@ -206,7 +237,7 @@ const generateNameNotAvailableException = function(message, guildName) {
  * @returns {String} - A RichEmbed message wich display the AlreadyInAGuildException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateAlreadyInAGuildException = function(message) {
+const generateAlreadyInAGuildException = function (message) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setThumbnail(Text.commands.guildCreate.guildIcon);
@@ -218,7 +249,7 @@ const generateAlreadyInAGuildException = function(message) {
  * @returns {String} - A RichEmbed message wich display the NoPunctuationException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateNoPunctuationException = function(message) {
+const generateNoPunctuationException = function (message) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setThumbnail(Text.commands.guildCreate.guildIcon);
@@ -230,7 +261,7 @@ const generateNoPunctuationException = function(message) {
  * @returns {String} - A RichEmbed message wich display the TooLongNameException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateTooLongNameException = function(message) {
+const generateTooLongNameException = function (message) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setThumbnail(Text.commands.guildCreate.guildIcon);
