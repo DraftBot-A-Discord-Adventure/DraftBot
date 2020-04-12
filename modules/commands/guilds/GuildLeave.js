@@ -186,7 +186,7 @@ const generateNotInAGuildException = function(user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
-    embed.setDescription(user.toString() + Text.commands.guildLeave.PIError1);
+    embed.setDescription(user.toString() + Text.commands.guildLeave.alreadyInAGuildError);
     return embed;
 }
 

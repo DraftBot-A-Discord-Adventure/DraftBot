@@ -22,13 +22,18 @@ const chargePrefix = async function (message) {
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
-const guildKickCommand = async function (message, args, client) {
+const guildKickCommand = async function (message, args, client, talkedRecently) {
     Text = await Tools.chargeText(message);
     const guildManager = new GuildManager();
 
     let serverPrefix = await chargePrefix(message);
     let user = message.author;
     let userGuild = await guildManager.getGuildByUserId(user.id);
+
+    if (talkedRecently.has(message.author.id + "g")) {
+        message.channel.send(displaySpamErrorMessage());
+        return;
+    }
 
     if (userGuild === null) {
         message.channel.send(generateNotInAGuildException(user));
@@ -64,7 +69,7 @@ const guildKickCommand = async function (message, args, client) {
     }
 
 
-    confirmKick(message, user, userGuild, target);
+    confirmKick(message, user, userGuild, target, talkedRecently);
 }
 
 /**
@@ -83,7 +88,8 @@ const confirmReactionIsCorrect = function (reaction) {
 /**
 * Display a confirm message
 */
-const confirmKick = async function (message, user, guild, target) {
+const confirmKick = async function (message, user, guild, target, talkedRecently) {
+    talkedRecently.add(message.author.id + "g");
     let messageGuild = generateGuildKickMessage(user, guild, target);
     message.channel.send(messageGuild).then(async msg => {
         await addBasicReactions(msg); //Add reactions
@@ -94,7 +100,7 @@ const confirmKick = async function (message, user, guild, target) {
             time: 120000
         });
         //execute this if a user answer to the event
-        await createKickCollector(collector, message, user, target, guild);
+        await createKickCollector(collector, message, user, target, guild, talkedRecently);
     });
 }
 
@@ -102,16 +108,27 @@ const confirmKick = async function (message, user, guild, target) {
  * Creating the reactions collector and possibilities
  * @param {*} collector - The collector
  */
-async function createKickCollector(collector, message, user, target, guild) {
+async function createKickCollector(collector, message, user, target, guild, talkedRecently) {
+    let confirmIsOpen = true
+    collector.on('end', () => {
+        if (confirmIsOpen) {
+            talkedRecently.delete(message.author.id + "g");
+            message.channel.send(Text.commands.guildAdd.x + target.toString() + Text.commands.guildKick.gKickCancelled);
+        }
+    });
     return collector.on('collect', async (reaction) => {
-        switch (reaction.emoji.name) {
-            case "✅":
-                await removePlayerFromGuild(target);
-                message.channel.send(Text.commands.guildAdd.checkMark + target.toString() + Text.commands.guildKick.gKicked + guild.getName() + Text.commands.guildKick.gKickedEnd);
-                break;
-            case "❌":
-                message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildKick.gKickCancelled);
-                break;
+        if (confirmIsOpen) {
+            confirmIsOpen = false;
+            talkedRecently.delete(message.author.id + "g");
+            switch (reaction.emoji.name) {
+                case "✅":
+                    await removePlayerFromGuild(target);
+                    message.channel.send(Text.commands.guildAdd.checkMark + target.toString() + Text.commands.guildKick.gKicked + guild.getName() + Text.commands.guildKick.gKickedEnd);
+                    break;
+                case "❌":
+                    message.channel.send(Text.commands.guildAdd.x + target.toString() + Text.commands.guildKick.gKickCancelled);
+                    break;
+            }
         }
     });
 }
@@ -147,6 +164,17 @@ const generateGuildKickMessage = function (user, guild, target) {
     embed.setTitle(Text.commands.guildAdd.guild + guild.getName());
     embed.setDescription(user.toString() + Text.commands.guildKick.confirmKick + target.toString() + Text.commands.guildKick.confirmKickEnd);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    return embed;
+}
+
+/**
+ * Display an error if the user is spamming the command
+ */
+function displaySpamErrorMessage() {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setDescription(Text.commands.guildAdd.spamError);
     return embed;
 }
 
@@ -197,6 +225,8 @@ const generateNotInAGuildException = function (user) {
     embed.setDescription(user.toString() + Text.commands.guild.notInAGuildError);
     return embed;
 }
+
+
 /**
  * get the user from the args
  * @param {*} args 
