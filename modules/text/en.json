@@ -480,7 +480,7 @@
             "healthRestored": "\n\n:heart: | All HP recovered\n",
             "moreMaxHealth": "\n\n:heartpulse: | Maximum health increased by 5\n",
             "firstBonus": "\n\n",
-            "fightUnlocked": "\n\n:dagger: | Battle unlocked ! (Use `!fight` to start a battle)",
+            "fightUnlocked": "\n\n:dagger: | Battle unlocked ! (Use `!fight` to start a battle)\n",
             "moreSpeed": ":rocket: | Speed increased by 5\n",
             "moreAttack": ":crossed_swords: | Attack increased by 5\n",
             "moreDefense": ":shield: | Defense increased by 5\n",
@@ -586,7 +586,10 @@
         "34": " : ** At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n:four_leaf_clover: - Gift in kind\n:moneybag: - Money Gift\n:innocent: - Gift of Health\n:salad: - Gift of Food\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "35": " : ** :beers: You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you.\n\n:beer: Accept the proposal\n:x: Refuse the proposal\n:moneybag:Refuse, and try to rob other customers\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "36": " : ** At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewellery such as necklaces and rings. As for the inn run by a couple, it seems pretty successful\n\n:speaking_head: Go and have a talk with the jeweller\n:money_with_wings: Try to rob the jeweller\n:house_with_garden: Go to rest at the inn\n:person_walking: Continue your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
-        "37": " : ** :person_walking: You are walking quietly, the weather is clear, just like the road. You think about the sweet night you will spend in an inn at the next village you will cross, and this allows you to keep the courage to move forward. The road is so calm that, while walking, you immerse yourself in your thoughts. You realize that, although you have begun your adventure in order to prove your worth and to marry the princess, you start to love your journey more and more. While you are no longer very far from the village which is your objective of the day, it starts raining.\n\n:person_walking: Continue to walk\n:person_running: Speed up so you don’t get too wet\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+        "37": " : ** :person_walking: You are walking quietly, the weather is clear, just like the road. You think about the sweet night you will spend in an inn at the next village you will cross, and this allows you to keep the courage to move forward. The road is so calm that, while walking, you immerse yourself in your thoughts. You realize that, although you have begun your adventure in order to prove your worth and to marry the princess, you start to love your journey more and more. While you are no longer very far from the village which is your objective of the day, it starts raining.\n\n:person_walking: Continue to walk\n:person_running: Speed up so you don’t get too wet\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "38": " : ** :person_walking: On your way, you meet a traveling merchant. He says that he possesses some nice items that might interest you, for cheap.\n\n:money_with_wings: Buy a cheap item.\n:moneybag: Try your luck by buying one of his most expensive ones.\n:x: Decline his offer.\n:detective: Attempt to rob him.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "39": " : ** :bust_in_silhouette: During your journey you arrive in a seaside town. There you meet a man, who says that his name is Price and that he is a mercenary.\n\n:person_walking: Pay him to accompany you to your next destination\n:meat_on_bone: Get to know each other over a good meal\n:money_mouth: Try to steal money from him\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "40": " : ** :evergreen_tree: As you go deep into a dark forest, you see the silhouette of a man in the distance. While going closer, you realize he's a hermit, out for the picking. You approach his house, on which you read the inscription \"Xetrix\", which is probably his name. You're thinking about what to do...\n\n:mag_right: Break into his house\n:speaking_head: Ask the hermit for advices\n:person_walking: Go back the way you came from\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
     },
     "possibilities": {
         "report": {
@@ -1327,6 +1330,70 @@
             },
             "end": {
                 "1": "** | You don’t know what to do, but you notice a small forest on your right. You are a bit thirsty, fortunately you hear the run-off of a stream of water. You head towards it and drink from it. What a thirst-quenching water! You feel way better. As you were busy doing all this, the rain stopped, it lasted for only about ten minutes. As you are about to resume your journey, you notice a bag full of coins and an object lying next to it. You take it all, get out of the forest and leave in the direction of the village ."
+            }
+        },
+        "38":{
+            "💸": {
+              "1": "** | 💸 You buy a cheap item in exchange of some gold coins. As you feel satisfied by it, you store the item in your bag.",
+              "2": "** | 💸 You decide to buy a cheap item. However, as you inspect its quality, you realize that it is in very poor condition. You were taken advantage of, and that guy already fled the scene while you were busy with the item. You swear not to be fooled this way again."
+            },
+            "💰": {
+              "1": "** | 💰 You decide to buy one of his most expensive items so as to be well prepared. He gives you a beautiful one and you pocket it. You send him off warmly as he leaves.",
+              "2": "** | 💰 You buy a rather expensive item of very good quality. Satisfied, you then resume your adventure.",
+              "3": "** | 💰 As you decide to buy one his most expensive items, you find it to be an old rusty sword covered in paint. Unfortunately it is now too late as the man already left when you were inspecting your sword... Frustrated, you swear ruthlessly to behead him the next time you see him."
+            },
+            "❌": {
+              "1": "** | ❌ You politely refuse his proposal and continue on your way."
+            },
+            "🕵️": {
+              "1": "** | 🕵️ You discreetly steal one of his items and flee.",
+              "2": "** | 🕵️ He catches you red-handed and asks you to return his goods. He lets you go out of kindness of heart and you do so gladly.", 
+              "3": "** | 🕵️ The merchant notices you as you start robbing him. He knocks your teeth out with a punch then leaves. :head_bandage:"
+            },
+            "end": {
+              "1": "** | :person_walking: You completely ignore the merchant and go your way.",
+              "2": "** | :busts_in_silhouette: You end up walking up to him. You finally befriend him after talking for a long time and he offers you a small item that he thinks could be helpful for your adventure.",
+              "3": "** | :busts_in_silhouette: You chat with him for a long time. However as the sun starts to set, it's time for you to part. You send him off and then end up leaving."
+            }
+        },
+        "39": {
+            "🚶": {
+              "1": "** | 🚶 For a little money, he agrees to come with you.  You leave, and shortly afterwards you come across a shiny sword stuck within a rock. You try to pull it out, but you aren't successful. Price tries too, and he manages to dislodge the weapon from its stony shell. Knowing that he wouldn't have gotten it without you, he gives you much more money than you paid him as a thank you. The rest of the trip being uneventful, you split up after a few days.",
+              "2": "** | 🚶 For a little money, he agrees to come with you. During your journey, you come across an abandoned satchel along the way. Happy with this discovery, you decide to share its contents with Price. You thus obtain a small sum of money, and an item which you think will be useful for your adventure.",
+              "3": "** | 🚶 For a little money, he agrees to come with you. You walk together for a little while without anything special happening, except for a small incident with thieves which didn't last long with Price's help. You then split up",
+              "4": "** | 🚶 You give him a few coins to accompany you until the next town. You leave quickly, and when the sun goes down, you bivouac and then you set. You are suddenly woken up by the sound of metal clattering together, and it takes a few seconds to realize that Price is taking your money away. Without thinking twice about it, determined to stop him, you run to him. He violently punches you into the temple, and runs away with your possessions while you are dizzy. :head_bandage:"
+            },
+            "🍖": {
+              "1": "** | 🍖 You offer Price something to eat together, which he gladly accepts. You talk for a while, drink a little, laugh a lot, exchange tips, and get to know each other. It is with a slight twinge of heart, that Price bids you farewell after a few hours, having to go and honour a contract.",
+              "2": "** | 🍖 You ask Price if he wants to come eat with you at the local tavern. He declines, telling you he has work to do, and takes his leave."
+            },
+            "🤑": {
+              "1": "** | 🤑 You try to steal from him, but he notices your undoing and knocks you out cold. :head_bandage:",
+              "2": "** | 🤑 He notices your attempted theft immediately, but lets you go, yet not without giving you a look of disdain. You run away quickly, fearful of what he might have done to you."
+            },
+            "end": {
+              "1": "** | :speaking_head: You stay and chat with Price for a few minutes, then hit the road.",
+              "2": "** | :speaking_head: After you've had a little chat, you split up. A few blocks away, you're attacked by a group of rude-looking people, who lighten your purse under the threat of their blows."
+            }
+          },
+          "40": {
+            "🔎": {
+              "1": "** | 🔎 You think about it, and then realize that breaking into the house is possible. You thus decide to do so and steal a few coins before leaving as fast as possible.",
+              "2": "** | 🔎 You decide to get into this Xetrix's house, and are stealing him as he comes in... He sees and rushes to you but you manage to escape after some struggle, : you're more agile than him. However, you are injured and have lost all of your loot in the altercation. :head_bandage:",
+              "3": "** | 🔎 You enter the house to wait for the man. Once he's there, you talk and he invites you to dinner. After a delicious meal, you leave with a full stomach and in great shape."
+            },
+            "🗣️": {
+              "1": "** | 🗣️ You go in to Xetrix and wait for him. He comes home shortly afterwards, and you ask him for some advice, especially about the location of the nearest town. He shows you one path and you thank him before following it. After many hours of walking, you realize that the hermit has played you for a fool and, having nothing else to do, you continue on your way.",
+              "2": "** | 🗣️ You enter the man's house, wait for him, and ask him for some advice on how to cook a meal using the forest's ingredients. He gives you a recipe that you follow meticulously. You end up eating a fairly good meal and leave sated.",
+              "3": "** | 🗣️ You see him come in, so you go after him to ask for advices. Eventually you hit it off and he invites you over for dinner. During the meal you drink a little too much and end up drunk. :zany_face:"
+            },
+            "🚶": {
+              "1": "** | 🚶 You decide to go back the way you came from and find a few coins on the road, next to a holed bag.",
+              "2": "** | 🚶 You leave, and soon after that you find an injured man. While trying to help him, you find out it's an ambush! Men appear and dispossess you, then leave."
+            },
+            "end": {
+              "1": "** | 🚶 You stand there and think: you can't make up your mind, you thus decide to leave after a few minutes.",
+              "2": "** | 🚶  You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. :sick:"
             }
         }
     }

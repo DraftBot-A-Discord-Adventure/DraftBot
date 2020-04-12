@@ -568,7 +568,7 @@
       "healthRestored": "\n\n:heart: | Vie restaurée à son maximum\n",
       "moreMaxHealth": "\n\n:heartpulse: | Vie maximale augmentée de 5 points\n",
       "firstBonus": "\n\n",
-      "fightUnlocked": "\n\n:dagger: | Combats débloqués ! (Utilisez la commande `fight` pour lancer un combat)",
+      "fightUnlocked": "\n\n:dagger: | Combats débloqués ! (Utilisez la commande `fight` pour lancer un combat)\n",
       "moreSpeed": ":rocket: | Vitesse augmentée de 5 points\n",
       "moreAttack": ":crossed_swords: | Attaque augmentée de 5 points\n",
       "moreDefense": ":shield: | Défense augmentée de 5 points\n",
@@ -674,7 +674,10 @@
     "34": " : ** Au détour d'une rue, des passants vous ont reconnu et vous abordent. Ils se rappellent parfaitement de l'aide que vous leur aviez apportée, et insistent pour vous remercier en vous offrant un cadeau. Ils vous demandent ce qui vous ferait le plus plaisir.\n\n:four_leaf_clover: Cadeau en nature\n:moneybag: Cadeau en monnaie\n:innocent: Cadeau en santé\n:salad: Cadeau alimentaire\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "35": " : ** :beers: Vous entrez dans un bar, et le barman vous interpelle, vous disant qu'il aimerait \"tester de nouvelles boissons\" sur vous.\n\n:beer: Accepter de servir de cobaye\n:x: Refuser sa proposition\n:moneybag: Refuser, et tenter de voler des gens\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "36": " : ** Au cours de votre très long périple vous arrivez dans un petit village fort charmant. Vous atteignez le centre du village, mais il s'avère qu'il est très petit et qu'il n'y a que deux commerces : la bijouterie et une auberge . Vous découvrez grâce à un passant que la bijouterie est gérée par un vieillard et qu'il fait de magnifiques bijoux et colliers. L'auberge est, quant à elle, dirigée par un couple, et il paraît qu'elle a un grand succès.\n\n:speaking_head: Aller voir le bijoutier et discuter\n:money_with_wings: Essayer de voler le bijoutier\n:house_with_garden: Aller à l'auberge se reposer\n:person_walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "37": " : ** :person_walking: Vous marchez tranquillement, le temps est clair et la route bonne. Vous pensez à la douce nuit que vous passerez dans une auberge du prochain village que vous traverserez, et cela vous donne à nouveau le courage d'avancer. La route est pour le moment si calme que, tout en marchant, vous vous plongez dans vos pensées. Vous vous rendez compte que, bien qu'ayant commencé votre aventure dans le but de prouver votre valeur et d'épouser la princesse, vous prenez de plus en plus goût à votre voyage. Alors que vous n'êtes plus très loin du village qui est votre objectif du jour, il commence à pleuvoir.\n\n:person_walking: Continuer à marcher\n:person_running: Accélérer afin de ne pas trop se mouiller\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+    "37": " : ** :person_walking: Vous marchez tranquillement, le temps est clair et la route bonne. Vous pensez à la douce nuit que vous passerez dans une auberge du prochain village que vous traverserez, et cela vous donne à nouveau le courage d'avancer. La route est pour le moment si calme que, tout en marchant, vous vous plongez dans vos pensées. Vous vous rendez compte que, bien qu'ayant commencé votre aventure dans le but de prouver votre valeur et d'épouser la princesse, vous prenez de plus en plus goût à votre voyage. Alors que vous n'êtes plus très loin du village qui est votre objectif du jour, il commence à pleuvoir.\n\n:person_walking: Continuer à marcher\n:person_running: Accélérer afin de ne pas trop se mouiller\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "38": " : ** :person_walking: Faisant route, vous croisez un marchand itinérant, qui vous interpelle. Il dit avoir des objets qui pourraient vous intéresser, et ce à des prix tout à fait abordables.\n\n:money_with_wings: Accepter de lui acheter un objet peu cher\n:moneybag: Lui acheter un de ses plus chers objets\n:x: Refuser\n:detective: Voler sa marchandise\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "39": " : ** :bust_in_silhouette: Durant votre périple vous arrivez dans une ville en bord de mer. Vous faites là-bas la rencontre d'un homme, disant s'appeler Price et être mercenaire. \n\n:person_walking: Le payer pour vous escorter jusqu'à votre prochaine destination\n:meat_on_bone: Faire connaissance autour d'un bon repas\n:money_mouth: Tenter de lui voler de l'argent\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "40": " : ** :evergreen_tree: Vous vous enfoncez dans une forêt sombre, et apercevez la silhouette d'un homme au loin. Vous décidez de vous approcher et comprenez que c'est un ermite, sorti pour la cueillette. Vous vous approchez de sa maison, sur laquelle vous lisez l'inscription \"Xetrix\", ce qui est probablement son nom. Vous réfléchissez encore à quoi faire...\n\n:mag_right: S'introduire dans la maison\n:speaking_head: Demander des conseils à l'ermite\n:person_walking: Repartir par là d'où vous venez\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
   },
   "possibilities": {
     "report": {
@@ -1414,7 +1417,71 @@
         "2": "** | 🏃 Vous vous mettez à courir, heureusement la pluie s'arrête vite. Vous reprenez un pas plus modéré et ne tardez pas à arriver au village."
       },
       "end": {
-        "1": "** | Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder, lorsque vous remarquez à quelques pas de vous une bourse rebondie de pièces et un objet posé à côté. Vous les récupérez, ressortez de l'espèce de bosquet, et repartez en direction du village."
+        "1": "** | 🌳 Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder, lorsque vous remarquez à quelques pas de vous une bourse rebondie de pièces et un objet posé à côté. Vous les récupérez, ressortez de l'espèce de bosquet, et repartez en direction du village."
+      }
+    },
+    "38":{
+      "💸": {
+        "1": "** | 💸 Vous achetez un objet peu cher en échange de quelques pièces d'or. Vous êtes satisfait de l'item qu'il vous a vendu et vous le rangez dans votre sac.",
+        "2": "** | 💸 Vous achetez l'un de ses objets à faible valeur, mais au moment où vous recevez votre item et commencez à l'inspecter, vous vous rendez compte qu'il vous a vendu un item en piteux état. L'arnaqueur à profité de votre naïveté et du moment où vous observiez l'objet pour prendre ses jambes à son cou. Vous jurez de ne plus vous faire berner par ce type."
+      },
+      "💰": {
+        "1": "** | 💰 Vous décidez d'acheter un de ses objets les plus chers afin d'être le mieux équipé en échange d'une certaine quantité d'or. Il vous donne un superbe objet et vous le rangez dans votre sac. Vous saluez chaleureusement le vendeur avant qu'il s'en aille.",
+        "2": "** | 💰 Vous achetez un objet assez cher, il est d'une très bonne qualité, alors vous repartez satisfait.",
+        "3": "** | 💰 Vous achetez l'un de ses objets les plus chers, mais lorsque vous il'inspectez vous vous rendez compte qu'il vous a vendu une épée rouillée couverte de peinture. Malheureusement c'est trop tard et l'arnaqueur est parti en profitant du moment où vous inspectiez votre épée... Vous êtes en colère et jurez de le décapiter la prochaine fois que vous le rencontrerez."
+      },
+      "❌": {
+        "1": "** | ❌ Vous refusez poliment sa proposition et continuez votre chemin."
+      },
+      "🕵️": {
+        "1": "** | 🕵️ Vous volez discrètement un de ses objets, et prenez prestement vos jambes à votre cou.",
+        "2": "** | 🕵️ Le marchand remarque ce que vous essayez de faire, alors il vous demande de lui rendre sa marchandise. Il décide par clémence de vous laisser partir, ce que vous faites sans demander votre reste.", 
+        "3": "** | 🕵️ Vous commencez à voler le marchand, qui le remarque. Il vous assène un violent coup de poing, puis repart. :head_bandage:"
+      },
+      "end": {
+        "1": "** | :person_walking: Vous ignorez complètement le marchand et reprenez votre route.",
+        "2": "** | :busts_in_silhouette: Vous finissez par aller voir le marchand, vous discutez un long moment avec lui, et vous vous liez d'amitié. Avant de partir il vous offre un petit objet qui pourrait peut être vous servir durant votre voyage.",
+        "3": "** | :busts_in_silhouette: Vous discutez un moment avec le marchand, sympathisez avec lui, et lorsque le soleil commence à se coucher, il vous annonce qu'il est temps pour lui de partir. Vous vous saluez, et repartez chacun de votre côté."
+      }
+    },
+    "39": {
+      "🚶": {
+        "1": "** | 🚶 Contre un peu d'argent, il accepte de vous accompagner. Vous partez donc, et peu de temps plus tard, vous tombez sur une rutilante épée plantée dans un rocher. Vous tentez de la sortir, mais vos efforts ne s'avèrent pas concluants. Price essaie à son tour, et arrive à déloger l'arme de sa carapace pierreuse. Sachant qu'il ne serait pas tombé dessus sans vous, il vous donne de l'argent en remerciement, bien plus que ce que vous l'aviez payé. Le reste du voyage se déroulant sans histoire, vous vous séparez après quelques dizaines de kilomètres.",
+        "2": "** | 🚶 Contre un peu d'argent, il accepte de vous accompagner. Pendant votre périple, vous tombez par chance sur une sacoche abandonnée le long du chemin. Heureux de cette découverte, vous décidez d'en partager le contenu avec Price. Vous obtenez ainsi une rondelette somme d'argent, et un objet qui sera, vous le pensez, utile à votre aventure.",
+        "3": "** | 🚶 Contre un peu d'argent, il accepte de vous accompagner. Vous cheminez ensemble pendant un petit moment sans que rien de particulier ne se passe, excepté un petit incident avec des voleurs qui ne firent pas long feu face à Price. Puis vous vous quittez.",
+        "4": "** | 🚶 Vous lui donnez quelques pièces afin qu'il vous accompagne jusqu'à la prochaine ville. Vous partez vite, et lorsque le soleil se couche, vous bivouaquez puis vous couchez. Vous êtes brusquement réveillé par un bruit de métal s'entrechoquant, et mettez quelques secondes à réaliser que Price rassemble votre argent. Sans y réfléchir à deux fois, vous foncez sur lui, déterminé à le stopper. Il vous assène un violent coup de poing à la tempe, et c'est sonné que vous le voyez s'enfuir avec vos possessions. :head_bandage:"
+      },
+      "🍖": {
+        "1": "** | 🍖 Vous proposez à Price de manger quelque chose ensemble, et il accepte. Vous discutez un moment, buvez un peu, riez beaucoup, échangez des astuces, commencez à vous connaître. C'est avec un léger pincement au coeur que Price vous dit adieux au bout de quelques heures, devant aller honorer un contrat.",
+        "2": "** | 🍖 Vous demandez à Price s'il veut venir manger avec vous à la taverne locale. Il décline, disant avoir du travail, et part."
+      },
+      "🤑": {
+        "1": "** | 🤑 Vous essayez de le voler, mais il vous remarque, et vous assomme proprement. :head_bandage:",
+        "2": "** | 🤑 Il vous remarque aussitôt, mais vous laisse partir, non sans vous avoir jeté un regard empli de mépris. Vous décampez sans demander votre reste, intimidé."
+      },
+      "end": {
+        "1": "** | :speaking_head: Vous restez à discuter quelques minutes avec Price, puis reprenez votre route.",
+        "2": "** | :speaking_head: Après avoir un peu discuté, vous vous séparez. Quelques rues plus loin, vous êtes agressé par un groupe de personne à l'air peu amène, qui allègent votre bourse sous la menace de leurs coups."
+      }
+    },
+    "40": {
+      "🔎": {
+        "1": "** | 🔎 Vous réfléchissez, puis vous vous dites que s'introduire dans la maison est possible. Vous y volerz donc quelques pièces avant de repartir le plus vite possible.",
+        "2": "** | 🔎 Vous décidez de rentrer dans la maison de ce Xetrix, vous commencez à le voler alors qu'il arrive.. Il vous voit et vous fonce dessus mais vous réussissez à fuir après vous être débattu, car vous êtes plus agile que lui. Cependant vous êtes blessé et avez perdu tout votre butin dans l'altercation. :head_bandage:",
+        "3": "** | 🔎 Vous rentrez dans la maison afin d'attendre l'homme. Une fois venu, vous discutez et il décide de vous inviter à diner. Après un délicieux plat vous repartez, le ventre plein et en pleine forme."
+      },
+      "🗣️": {
+        "1": "** | 🗣️ Vous entrez chez Xetrix et l'attendez. après qu'il soit rentré, vous échangez quelques conseils et apprenez ainsi où se trouve la ville la plus proche. Après de longues heures de marche, vous comprenez vite que l'ermite s'est joué de vous et n'ayant pas autre chose à faire, vous continuez votre route.",
+        "2": "** | 🗣️ Vous entrez dans la maison de l'homme, l'attendez, et lui demandez quelques conseils pour concocter un repas avec les éléments de la forêt. Il vous donne une recette que vous suivez méticuleusement. Vous finissez par manger un assez bon repas et repartez repu.",
+        "3": "** | 🗣️ Vous le voyez rentrer, alors vous entrez à sa suite, et lui demandez des conseils. Finalement vous sympathisez et il vous invite pour diner. Pendant le repas vous buvez un peu trop et finissez ivre. :zany_face: "
+      },
+      "🚶": {
+        "1": "** | 🚶 Vous décidez de repartir par là d'où vous venez, sur le chemin vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
+        "2": "** | 🚶 Vous repartez, lorsque vous trouvez un homme blessé. En essayant de l'aider vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent, avant de repartir."
+      },
+      "end": {
+        "1": "** | 🚶 Vous restez planté là, et réfléchissez : il vous est impossible de faire votre choix, alors vous décidez de partir après quelques minutes.",
+        "2": "** | 🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles. :sick: "
       }
     }
   }

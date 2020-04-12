@@ -276,7 +276,6 @@ class PlayerManager {
             if (player.getEffect() != ":clock10:" && player.getEffect() != ":skull:" && message.createdTimestamp > player.lastReport) {
                 result = true;
             } else {
-                console.log(username);
                 if (username == undefined) {
                     username = message.author.username;
                 }
