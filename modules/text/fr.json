@@ -413,9 +413,9 @@
       "memberIcon": ":person_pouting:",
       "members": " membres",
       "over5": "/5",
-      "error": "Erreur",
+      "error": "❌ | Erreur",
       "notFound": "Aucune guilde n'a été trouvée.",
-      "notInAGuild": " ne fait partie d'aucune guilde.",
+      "notInTheGuildError": ", cet utilisateur ne fait pas parti de votre guilde.",
       "playerDataStart": " - ",
       "playerDataInfosStart": " (",
       "trophy": " :trophy: | ",
@@ -438,14 +438,15 @@
       "gInfos2": "guild ",
       "gInfos3": "`\nUtilise les réactions pour répondre.",
       "guildIcon": "https://i.imgur.com/sQHBly4.png",
-      "error": "Erreur",
+      "error": "❌ | Erreur",
       "PIError": "Le joueur ",
       "PIError1": "est déjà dans une guilde.",
-      "PIError2": ", tu dois mentionner le joueur pour lui envoyer une invitation :\n`",
+      "pingError": ", vous devez mentionner le joueur pour lui envoyer une invitation :\n`",
       "PIError3": "guildadd @user`",
-      "PIError4": ", tu n'es dans aucune guilde, tu ne peux donc pas inviter quelqu'un.",
-      "PIError5": ", tu n'es pas le chef de la guilde, tu ne peux donc pas inviter quelqu'un.",
-      "PIError6": ", la guilde est pleine, personne ne peut la rejoindre."
+      "notInAGuildError": ", vous devez faire partie d'une guilde pour effectuer cette action.",
+      "notChiefError": ", vous devez être chef de la guilde pour effectuer cette action.",
+      "guildFullError": ", la guilde est pleine et ne peut donc pas accueillir de nouveaux membres.",
+      "tryingToKickHimselfError": ", vous ne pouvez pas vous exclure vous-même."
     },
     "guildLeave": {
       "confirmLeave": ", es-tu certain de vouloir quitter la guilde `",
@@ -464,14 +465,14 @@
       "cancelled": ", l'achat a bien été annulé !",
       "checkmark": "✅ | ",
       "guildIcon": "https://i.imgur.com/sQHBly4.png",
-      "valid": ", ton achat a bien été validé ! La guilde `",
+      "valid": ", La guilde `",
       "create": "` a été créée avec succès.",
       "cancelled2": ", une erreur est survenue pendant la création de la guilde. L'achat a été annulé !",
       "Gbuy": "Achat d'une guilde",
       "Gcreate": ", tu es sur le point de créer une guilde qui sera nommée `",
       "price": "` pour `5 000` :moneybag:.\nEs-tu sûr de vouloir faire ça ? Clique sur les réactions pour répondre.",
       "rename": "Attention, le staff se réserve le droit de renommer ta guilde.",
-      "error": "Erreur",
+      "error": "❌ | Erreur",
       "Gname": "Le nom `",
       "Gname2": "` est déjà utilisé par une autre guilde.",
       "alreadyInAGuild": "Tu fais déjà partie d'une guilde.",
@@ -481,8 +482,7 @@
       "emptyName2": "guildcreate <nom>`"
     },
     "guildKick": {
-      "debug": "",
-      "confirmKick": ", es-tu certains de vouloir exclure ",
+      "confirmKick": ", êtes-vous certains de vouloir exclure ",
       "confirmKickEnd": " ?",
       "gKicked": " a été exclu de la guilde `",
       "gKickedEnd": "` !",
@@ -490,9 +490,9 @@
       "notInAGuild": " ne fais partie d'aucune guilde."
     }
   },
-  "commandReader":{
-    "resetIsNowTitle" : ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot !",
-    "resetIsNowFooter" : "\n\n:clock12: Le jeu reprendra dans moins de 5 minutes !",
+  "commandReader": {
+    "resetIsNowTitle": ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot !",
+    "resetIsNowFooter": "\n\n:clock12: Le jeu reprendra dans moins de 5 minutes !",
     "resetIsNowFooterFight": "\n\n:clock12: Les combats reprendront dans moins de 15 minutes !"
   },
   "badges": {

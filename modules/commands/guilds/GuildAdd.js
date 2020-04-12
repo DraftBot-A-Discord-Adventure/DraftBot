@@ -164,7 +164,7 @@ const generateNoUserException = function(user, serverPrefix) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
-    embed.setDescription(user.toString() + Text.commands.guildAdd.PIError2 + serverPrefix + Text.commands.guildAdd.PIError3);
+    embed.setDescription(user.toString() + Text.commands.guildAdd.pingError + serverPrefix + Text.commands.guildAdd.PIError3);
     return embed;
 }
 
@@ -176,7 +176,7 @@ const generateNotInAGuildException = function(user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
-    embed.setDescription(user.toString() + Text.commands.guildAdd.PIError4);
+    embed.setDescription(user.toString() + Text.commands.guildAdd.notInAGuildError);
     return embed;
 }
 
@@ -188,7 +188,7 @@ const generateNotTheGuildHostException = function(user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
-    embed.setDescription(user.toString() + Text.commands.guildAdd.PIError5);
+    embed.setDescription(user.toString() + Text.commands.guildAdd.notChiefError);
     return embed;
 }
 
@@ -200,7 +200,7 @@ const generateGuildFullException = function(user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
-    embed.setDescription(user.toString() + Text.commands.guildAdd.PIError6);
+    embed.setDescription(user.toString() + Text.commands.guildAdd.guildFullError);
     return embed;
 }
 

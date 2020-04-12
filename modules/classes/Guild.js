@@ -7,14 +7,15 @@ let Text;
  */
 class Guild {
 
-    constructor(guildId, name, chief, score, level, experience, rank) {
+    constructor(guildId, name, chief, score, level, experience, rank, lastInvocation) {
         this.guildId = guildId;
         this.name = name;
         this.chief = chief;
         this.score = score;
         this.level = level;
         this.experience = experience;
-        this.rank = rank
+        this.rank = rank;
+        this.lastInvocation = lastInvocation;
     }
 
     /**

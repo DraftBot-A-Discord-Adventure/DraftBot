@@ -31,12 +31,12 @@ const guildKickCommand = async function (message, args, client) {
     let user = message.author;
     let userGuild = await guildManager.getGuildByUserId(user.id);
 
-    if(userGuild === null) { //Player is not in any guild
-        message.channel.send(generateUserNotInAGuildException(user));
+    if(userGuild != userGuild.guildId) { //Player is not the guild
+        message.channel.send(generateUserNotInTheGuildException(user));
         return;
     }
 
-    if(userGuild.getChief() !== user.id) { //Player is the guild chief
+    if(userGuild.getChief() !== user.id) { //Player is not the guild chief
         message.channel.send(generateNotTheGuildHostException(user));
         return;
     }
@@ -45,6 +45,11 @@ const guildKickCommand = async function (message, args, client) {
     playerManager.getPlayerById(target.id); //Add the user to the database if it is missing.
     if(target === null || target === undefined) {
         message.channel.send(generateNoUserException(userGuild, serverPrefix));
+        return;
+    }
+
+    if(userGuild.getChief() == target.id) { //Player try to kick himself
+        message.channel.send(generateTryingToKickHimselfException(user));
         return;
     }
 
@@ -106,6 +111,10 @@ async function createKickCollector(collector, message, user, target, guild) {
     });
 }
 
+/**
+ * Allow to remove a player from a guild
+ * @param {*} user 
+ */
 async function removePlayerFromGuild(user) {
     let playerManager = new PlayerManager();
     let player = await playerManager.getPlayerById(user.id);
@@ -123,8 +132,7 @@ async function addBasicReactions(message) {
 }
 
 /**
- * /**
- * Returns a string containing the nodrink message.
+ * Returns a string containing the kick message.
  * @returns {String} - An embed message containing the guildAdd message.
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} client - The bot client, used to retrieve the username of the players
@@ -145,7 +153,19 @@ const generateNotTheGuildHostException = function(user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
-    embed.setDescription(user.toString() + Text.commands.guildAdd.PIError5);
+    embed.setDescription(user.toString() + Text.commands.guildAdd.notChiefError);
+    return embed;
+}
+
+/**
+ * @returns {String} - A RichEmbed message wich display the TryingToKickHimselfException
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const generateTryingToKickHimselfException = function(user) {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setDescription(user.toString() + Text.commands.guildAdd.tryingToKickHimselfError);
     return embed;
 }
 
@@ -153,23 +173,11 @@ const generateNotTheGuildHostException = function(user) {
  * @returns {String} - A RichEmbed message wich display the NoUserException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateNotInAGuildException = function(user) {
+const generateUserNotInTheGuildException = function(user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
-    embed.setDescription(user.toString() + Text.commands.guild.notInAGuild);
-    return embed;
-}
-
-/**
- * @returns {String} - A RichEmbed message wich display the NoUserException
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const generateUserNotInAGuildException = function(user) {
-    let embed = generateDefaultEmbed();
-    embed.setTitle(Text.commands.guildAdd.error);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
-    embed.setDescription(Text.commands.guildKick.notInAGuild);
+    embed.setDescription(user.toString() + Text.commands.guild.notInTheGuildError);
     return embed;
 }
 
