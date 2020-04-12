@@ -25,39 +25,44 @@ const chargePrefix = async function (message) {
 const guildKickCommand = async function (message, args, client) {
     Text = await Tools.chargeText(message);
     const guildManager = new GuildManager();
-    const playerManager = new PlayerManager();
 
     let serverPrefix = await chargePrefix(message);
     let user = message.author;
     let userGuild = await guildManager.getGuildByUserId(user.id);
 
-    if(userGuild != userGuild.guildId) { //Player is not the guild
-        message.channel.send(generateUserNotInTheGuildException(user));
+    if (userGuild === null) {
+        message.channel.send(generateNotInAGuildException(user));
         return;
     }
 
-    if(userGuild.getChief() !== user.id) { //Player is not the guild chief
+    if (userGuild.getChief() !== user.id) { //Player is not the guild chief
         message.channel.send(generateNotTheGuildHostException(user));
         return;
     }
 
-    let target = getUserFromMention(args[1], client)
-    playerManager.getPlayerById(target.id); //Add the user to the database if it is missing.
-    if(target === null || target === undefined) {
+    let target = getUserFromMention(message);
+    if (target === null || target === undefined) {
         message.channel.send(generateNoUserException(userGuild, serverPrefix));
         return;
     }
 
-    if(userGuild.getChief() == target.id) { //Player try to kick himself
+    if (userGuild.getChief() == target.id) { //Player try to kick himself
         message.channel.send(generateTryingToKickHimselfException(user));
         return;
     }
 
     let targetGuild = await guildManager.getGuildByUserId(target.id);
-    if(targetGuild === null) {
-        message.channel.send(generateNotInAGuildException(target));
+
+    if (targetGuild === null) {
+        message.channel.send(generateUserNotInTheGuildException(user));
         return;
     }
+
+    if (userGuild.guildId != targetGuild.guildId) { //Player is not the guild
+        message.channel.send(generateUserNotInTheGuildException(user));
+        return;
+    }
+
 
     confirmKick(message, user, userGuild, target);
 }
@@ -149,7 +154,7 @@ const generateGuildKickMessage = function (user, guild, target) {
  * @returns {String} - A RichEmbed message wich display the NoUserException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateNotTheGuildHostException = function(user) {
+const generateNotTheGuildHostException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
@@ -161,7 +166,7 @@ const generateNotTheGuildHostException = function(user) {
  * @returns {String} - A RichEmbed message wich display the TryingToKickHimselfException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateTryingToKickHimselfException = function(user) {
+const generateTryingToKickHimselfException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
@@ -173,7 +178,7 @@ const generateTryingToKickHimselfException = function(user) {
  * @returns {String} - A RichEmbed message wich display the NoUserException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateUserNotInTheGuildException = function(user) {
+const generateUserNotInTheGuildException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
@@ -181,18 +186,28 @@ const generateUserNotInTheGuildException = function(user) {
     return embed;
 }
 
-const getUserFromMention = function(mention, client) {
-	// The id is the first and only match found by the RegEx.
-	const matches = mention.match(/^<@!?(\d+)>$/);
-
-	// If supplied variable was not a mention, matches will be null instead of an array.
-	if (!matches) return;
-
-	// However the first element in the matches array will be the entire mention, not just the ID,
-	// so use index 1.
-	const id = matches[1];
-
-	return client.users.get(id);
+/**
+ * @returns {String} - A RichEmbed message wich display the NoUserException
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ */
+const generateNotInAGuildException = function (user) {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setDescription(user.toString() + Text.commands.guild.notInAGuildError);
+    return embed;
+}
+/**
+ * get the user from the args
+ * @param {*} args 
+ */
+const getUserFromMention = function (message) {
+    try {
+        player = message.mentions.users.last();
+    } catch (err) { // the input is not a mention or a user rank
+        player = "0"
+    }
+    return player;
 }
 
 /**

@@ -416,6 +416,7 @@
       "error": "❌ | Erreur",
       "notFound": "Aucune guilde n'a été trouvée.",
       "notInTheGuildError": ", cet utilisateur ne fait pas parti de votre guilde.",
+      "notInAGuildError" :", vous devez faire partie d'une guilde pour utiliser cette commande.",
       "playerDataStart": " - ",
       "playerDataInfosStart": " (",
       "trophy": " :trophy: | ",
