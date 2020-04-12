@@ -474,7 +474,7 @@
       "healthRestored": "\n\n:heart: | Vie restaurée à son maximum\n",
       "moreMaxHealth": "\n\n:heartpulse: | Vie maximale augmentée de 5 points\n",
       "firstBonus": "\n\n",
-      "fightUnlocked": "\n\n:dagger: | Combats débloqués ! (Utilisez la commande `fight` pour lancer un combat)",
+      "fightUnlocked": "\n\n:dagger: | Combats débloqués ! (Utilisez la commande `fight` pour lancer un combat)\n",
       "moreSpeed": ":rocket: | Vitesse augmentée de 5 points\n",
       "moreAttack": ":crossed_swords: | Attaque augmentée de 5 points\n",
       "moreDefense": ":shield: | Défense augmentée de 5 points\n",

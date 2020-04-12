@@ -474,7 +474,7 @@
             "healthRestored": "\n\n:heart: | All HP recovered\n",
             "moreMaxHealth": "\n\n:heartpulse: | Maximum health increased by 5\n",
             "firstBonus": "\n\n",
-            "fightUnlocked": "\n\n:dagger: | Battle unlocked ! (Use `!fight` to start a battle)",
+            "fightUnlocked": "\n\n:dagger: | Battle unlocked ! (Use `!fight` to start a battle)\n",
             "moreSpeed": ":rocket: | Speed increased by 5\n",
             "moreAttack": ":crossed_swords: | Attack increased by 5\n",
             "moreDefense": ":shield: | Defense increased by 5\n",
