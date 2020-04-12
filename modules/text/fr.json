@@ -580,7 +580,8 @@
     "34": " : ** Au détour d'une rue, des passants vous ont reconnu et vous abordent. Ils se rappellent parfaitement de l'aide que vous leur aviez apportée, et insistent pour vous remercier en vous offrant un cadeau. Ils vous demandent ce qui vous ferait le plus plaisir.\n\n:four_leaf_clover: Cadeau en nature\n:moneybag: Cadeau en monnaie\n:innocent: Cadeau en santé\n:salad: Cadeau alimentaire\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "35": " : ** :beers: Vous entrez dans un bar, et le barman vous interpelle, vous disant qu'il aimerait \"tester de nouvelles boissons\" sur vous.\n\n:beer: Accepter de servir de cobaye\n:x: Refuser sa proposition\n:moneybag: Refuser, et tenter de voler des gens\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
     "36": " : ** Au cours de votre très long périple vous arrivez dans un petit village fort charmant. Vous atteignez le centre du village, mais il s'avère qu'il est très petit et qu'il n'y a que deux commerces : la bijouterie et une auberge . Vous découvrez grâce à un passant que la bijouterie est gérée par un vieillard et qu'il fait de magnifiques bijoux et colliers. L'auberge est, quant à elle, dirigée par un couple, et il paraît qu'elle a un grand succès.\n\n:speaking_head: Aller voir le bijoutier et discuter\n:money_with_wings: Essayer de voler le bijoutier\n:house_with_garden: Aller à l'auberge se reposer\n:person_walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-    "37": " : ** :person_walking: Vous marchez tranquillement, le temps est clair et la route bonne. Vous pensez à la douce nuit que vous passerez dans une auberge du prochain village que vous traverserez, et cela vous donne à nouveau le courage d'avancer. La route est pour le moment si calme que, tout en marchant, vous vous plongez dans vos pensées. Vous vous rendez compte que, bien qu'ayant commencé votre aventure dans le but de prouver votre valeur et d'épouser la princesse, vous prenez de plus en plus goût à votre voyage. Alors que vous n'êtes plus très loin du village qui est votre objectif du jour, il commence à pleuvoir.\n\n:person_walking: Continuer à marcher\n:person_running: Accélérer afin de ne pas trop se mouiller\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
+    "37": " : ** :person_walking: Vous marchez tranquillement, le temps est clair et la route bonne. Vous pensez à la douce nuit que vous passerez dans une auberge du prochain village que vous traverserez, et cela vous donne à nouveau le courage d'avancer. La route est pour le moment si calme que, tout en marchant, vous vous plongez dans vos pensées. Vous vous rendez compte que, bien qu'ayant commencé votre aventure dans le but de prouver votre valeur et d'épouser la princesse, vous prenez de plus en plus goût à votre voyage. Alors que vous n'êtes plus très loin du village qui est votre objectif du jour, il commence à pleuvoir.\n\n:person_walking: Continuer à marcher\n:person_running: Accélérer afin de ne pas trop se mouiller\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+    "38": " : ** :person_walking: Faisant route, vous croisez un marchand itinérant, qui vous interpelle. Il dit avoir des objets qui pourraient vous intéresser, et ce, à des prix tout à fait abordables.\n\n:money_with_wings: Accepter de lui acheter un objet peu cher\n:moneybag: Lui acheter un de ses plus chers objets\n:x: Refuser\n:detective: Voler sa marchandise\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*"
   },
   "possibilities": {
     "report": {
@@ -1320,7 +1321,31 @@
         "2": "** | 🏃 Vous vous mettez à courir, heureusement la pluie s'arrête vite. Vous reprenez un pas plus modéré et ne tardez pas à arriver au village."
       },
       "end": {
-        "1": "** | Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder, lorsque vous remarquez à quelques pas de vous une bourse rebondie de pièces et un objet posé à côté. Vous les récupérez, ressortez de l'espèce de bosquet, et repartez en direction du village."
+        "1": "** | 🌳 Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder, lorsque vous remarquez à quelques pas de vous une bourse rebondie de pièces et un objet posé à côté. Vous les récupérez, ressortez de l'espèce de bosquet, et repartez en direction du village."
+      }
+    },
+    "38":{
+      "💸": {
+        "1": "** | 💸 Vous achetez un objet peu cher en échange de quelques pièces d'or. Vous êtes satisfait de l'item qu'il vous a vendu et vous le rangez dans votre sac.",
+        "2": "** | 💸 Vous achetez l'un de ses objets à faible valeur, mais au moment où vous recevez votre item et commencez à l'inspecter, vous vous rendez compte qu'il vous a vendu un item en piteux état. L'arnaqueur à profité de votre naïveté et du moment où vous observiez l'objet pour prendre ses jambes à son cou. Vous jurez de ne plus vous faire berner par ce type."
+      },
+      "💰": {
+        "1": "** | 💰 Vous décidez d'acheter un de ses objets les plus chers afin d'être le mieux équipé en échange d'une certaine quantité d'or. Il vous donne un superbe objet et vous le rangez dans votre sac. Vous saluez chaleureusement le vendeur avant qu'il s'en aille.",
+        "2": "** | 💰 Vous achetez un objet assez cher, il est d'une très bonne qualité, alors vous repartez satisfait.",
+        "3": "** | 💰 Vous achetez l'un de ses objets les plus chers, mais lorsque vous il'inspectez vous vous rendez compte qu'il vous a vendu une épée rouillée couverte de peinture. Malheureusement c'est trop tard et l'arnaqueur est parti en profitant du moment où vous inspectiez votre épée... Vous êtes en colère et jurez de le décapiter la prochaine fois que vous le rencontrerez."
+      },
+      "❌": {
+        "1": "** | ❌ Vous refusez poliment sa proposition et continuez votre chemin."
+      },
+      "🕵️": {
+        "1": "** | 🕵️ Vous volez discrètement un de ses objets, et prenez prestement vos jambes à votre cou.",
+        "2": "** | 🕵️ Le marchand remarque ce que vous essayez de faire, alors il vous demande de lui rendre sa marchandise. Il décide par clémence de vous laisser partir, ce que vous faites sans demander votre reste.", 
+        "3": "** | 🕵️ Vous commencez à voler le marchand, qui le remarque. Il vous assène un violent coup de poing, puis repart. :head_bandage:"
+      },
+      "end": {
+        "1": "** | :person_walking: Vous ignorez complètement le marchand et reprenez votre route.",
+        "2": "** | :busts_in_silhouette: Vous finissez par aller voir le marchand, vous discutez un long moment avec lui, et vous vous liez d'amitié. Avant de partir il vous offre un petit objet qui pourrait peut être vous servir durant votre voyage.",
+        "3": "** | :busts_in_silhouette: Vous discutez un moment avec le marchand, sympathisez avec lui, et lorsque le soleil commence à se coucher, il vous annonce qu'il est temps pour lui de partir. Vous vous saluez, et repartez chacun de votre côté."
       }
     }
   }

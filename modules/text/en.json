@@ -580,7 +580,8 @@
         "34": " : ** At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n:four_leaf_clover: - Gift in kind\n:moneybag: - Money Gift\n:innocent: - Gift of Health\n:salad: - Gift of Food\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "35": " : ** :beers: You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you.\n\n:beer: Accept the proposal\n:x: Refuse the proposal\n:moneybag:Refuse, and try to rob other customers\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "36": " : ** At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewellery such as necklaces and rings. As for the inn run by a couple, it seems pretty successful\n\n:speaking_head: Go and have a talk with the jeweller\n:money_with_wings: Try to rob the jeweller\n:house_with_garden: Go to rest at the inn\n:person_walking: Continue your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
-        "37": " : ** :person_walking: You are walking quietly, the weather is clear, just like the road. You think about the sweet night you will spend in an inn at the next village you will cross, and this allows you to keep the courage to move forward. The road is so calm that, while walking, you immerse yourself in your thoughts. You realize that, although you have begun your adventure in order to prove your worth and to marry the princess, you start to love your journey more and more. While you are no longer very far from the village which is your objective of the day, it starts raining.\n\n:person_walking: Continue to walk\n:person_running: Speed up so you don’t get too wet\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+        "37": " : ** :person_walking: You are walking quietly, the weather is clear, just like the road. You think about the sweet night you will spend in an inn at the next village you will cross, and this allows you to keep the courage to move forward. The road is so calm that, while walking, you immerse yourself in your thoughts. You realize that, although you have begun your adventure in order to prove your worth and to marry the princess, you start to love your journey more and more. While you are no longer very far from the village which is your objective of the day, it starts raining.\n\n:person_walking: Continue to walk\n:person_running: Speed up so you don’t get too wet\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "38": " : ** :person_walking: On your way, you meet a traveling merchant. He says that he possesses some nice items that might interest you, for cheap.\n\n:money_with_wings: Buy a cheap item.\n:moneybag: Try your luck by buying one of his most expensive ones.\n:x: Decline his offer.\n:detective: Attempt to rob him.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
     },
     "possibilities": {
         "report": {
@@ -1321,6 +1322,30 @@
             },
             "end": {
                 "1": "** | You don’t know what to do, but you notice a small forest on your right. You are a bit thirsty, fortunately you hear the run-off of a stream of water. You head towards it and drink from it. What a thirst-quenching water! You feel way better. As you were busy doing all this, the rain stopped, it lasted for only about ten minutes. As you are about to resume your journey, you notice a bag full of coins and an object lying next to it. You take it all, get out of the forest and leave in the direction of the village ."
+            }
+        },
+        "38":{
+            "💸": {
+              "1": "** | 💸 You buy a cheap item in exchange of some gold coins. As you feel satisfied by it, you store the item in your bag.",
+              "2": "** | 💸 You decide to buy a cheap item. However, as you inspect its quality, you realize that it is in very poor condition. You were taken advantage of, and that guy already fled the scene while you were busy with the item. You swear not to be fooled this way again."
+            },
+            "💰": {
+              "1": "** | 💰 You decide to buy one of his most expensive items so as to be well prepared. He gives you a beautiful one and you pocket it. You send him off warmly as he leaves.",
+              "2": "** | 💰 You buy a rather expensive item of very good quality. Satisfied, you then resume your adventure.",
+              "3": "** | 💰 As you decide to buy one his most expensive items, you find it to be an old rusty sword covered in paint. Unfortunately it is now too late as the man already left when you were inspecting your sword... Frustrated, you swear ruthlessly to behead him the next time you see him."
+            },
+            "❌": {
+              "1": "** | ❌ You politely refuse his proposal and continue on your way."
+            },
+            "🕵️": {
+              "1": "** | 🕵️ You discreetly steal one of his items and flee.",
+              "2": "** | 🕵️ He catches you red-handed and asks you to return his goods. He lets you go out of kindness of heart and you do so gladly.", 
+              "3": "** | 🕵️ The merchant notices you as you start robbing him. He knocks your teeth out with a punch then leaves. :head_bandage:"
+            },
+            "end": {
+              "1": "** | :person_walking: You completely ignore the merchant and go your way.",
+              "2": "** | :busts_in_silhouette: You end up walking up to him. You finally befriend him after talking for a long time and he offers you a small item that he thinks could be helpful for your adventure.",
+              "3": "** | :busts_in_silhouette: You chat with him for a long time. However as the sun starts to set, it's time for you to part. You send him off and then end up leaving."
             }
         }
     }
