@@ -1352,7 +1352,7 @@
     },
     "39": {
       "🚶": {
-        "1": "** | 🚶 Contre un peu d'argent, il accepte de vous accompagner. Vous partez donc, et c'est peu après que vous tombez sur une rutilante épée plantée dans un rocher. Vous tentez de la sortir, mais vos efforts ne s'avèrent pas concluants. Price essaie à son tour, et arrive à déloger l'arme de sa carapace pierreuse. Sachant qu'il ne serait pas tombé dessus sans vous, il vous donne de l'argent en remerciement, bien plus que ce que vous l'aviez payé. Le reste du voyage se déroulant sans histoire, vous vous séparez après quelques jours.",
+        "1": "** | 🚶 Contre un peu d'argent, il accepte de vous accompagner. Vous partez donc, et peu de temps plus tard, vous tombez sur une rutilante épée plantée dans un rocher. Vous tentez de la sortir, mais vos efforts ne s'avèrent pas concluants. Price essaie à son tour, et arrive à déloger l'arme de sa carapace pierreuse. Sachant qu'il ne serait pas tombé dessus sans vous, il vous donne de l'argent en remerciement, bien plus que ce que vous l'aviez payé. Le reste du voyage se déroulant sans histoire, vous vous séparez après quelques dizaines de kilomètres.",
         "2": "** | 🚶 Contre un peu d'argent, il accepte de vous accompagner. Pendant votre périple, vous tombez par chance sur une sacoche abandonnée le long du chemin. Heureux de cette découverte, vous décidez d'en partager le contenu avec Price. Vous obtenez ainsi une rondelette somme d'argent, et un objet qui sera, vous le pensez, utile à votre aventure.",
         "3": "** | 🚶 Contre un peu d'argent, il accepte de vous accompagner. Vous cheminez ensemble pendant un petit moment sans que rien de particulier ne se passe, excepté un petit incident avec des voleurs qui ne firent pas long feu face à Price. Puis vous vous quittez.",
         "4": "** | 🚶 Vous lui donnez quelques pièces afin qu'il vous accompagne jusqu'à la prochaine ville. Vous partez vite, et lorsque le soleil se couche, vous bivouaquez puis vous couchez. Vous êtes brusquement réveillé par un bruit de métal s'entrechoquant, et mettez quelques secondes à réaliser que Price rassemble votre argent. Sans y réfléchir à deux fois, vous foncez sur lui, déterminé à le stopper. Il vous assène un violent coup de poing à la tempe, et c'est sonné que vous le voyez s'enfuir avec vos possessions. :head_bandage:"
@@ -1363,7 +1363,7 @@
       },
       "🤑": {
         "1": "** | 🤑 Vous essayez de le voler, mais il vous remarque, et vous assomme proprement. :head_bandage:",
-        "2": "** | 🤑 Il vous remarque aussitôt, mais vous laisse partir, non sans vous jeter un regard empli de mépris. Vous décampez sans demander votre reste, intimidé."
+        "2": "** | 🤑 Il vous remarque aussitôt, mais vous laisse partir, non sans vous avoir jeté un regard empli de mépris. Vous décampez sans demander votre reste, intimidé."
       },
       "end": {
         "1": "** | :speaking_head: Vous restez à discuter quelques minutes avec Price, puis reprenez votre route.",
@@ -1372,12 +1372,12 @@
     },
     "40": {
       "🔎": {
-        "1": "** | 🔎 Vous réfléchissez, puis vous vous dites que s'introduire dans la maison est possible. Vous décidez donc de le faire et de voler quelques pièces avant de repartir le plus vite possible.",
+        "1": "** | 🔎 Vous réfléchissez, puis vous vous dites que s'introduire dans la maison est possible. Vous y volerz donc quelques pièces avant de repartir le plus vite possible.",
         "2": "** | 🔎 Vous décidez de rentrer dans la maison de ce Xetrix, vous commencez à le voler alors qu'il arrive.. Il vous voit et vous fonce dessus mais vous réussissez à fuir après vous être débattu, car vous êtes plus agile que lui. Cependant vous êtes blessé et avez perdu tout votre butin dans l'altercation. :head_bandage:",
         "3": "** | 🔎 Vous rentrez dans la maison afin d'attendre l'homme. Une fois venu, vous discutez et il décide de vous inviter à diner. Après un délicieux plat vous repartez, le ventre plein et en pleine forme."
       },
       "🗣️": {
-        "1": "** | 🗣️ Vous entrez chez Xetrix et l'attendez. Il rentre peu après, et vous lui demandez quelques conseils, notamment sur où se trouve la ville la plus proche. Il vous indique une direction et vous le remerciez avant de la suivre. Après de longues heures de marche, vous comprenez vite que l'ermite s'est joué de vous et n'ayant pas autre chose à faire, vous continuez votre route.",
+        "1": "** | 🗣️ Vous entrez chez Xetrix et l'attendez. après qu'il soit rentré, vous échangez quelques conseils et apprenez ainsi où se trouve la ville la plus proche. Après de longues heures de marche, vous comprenez vite que l'ermite s'est joué de vous et n'ayant pas autre chose à faire, vous continuez votre route.",
         "2": "** | 🗣️ Vous entrez dans la maison de l'homme, l'attendez, et lui demandez quelques conseils pour concocter un repas avec les éléments de la forêt. Il vous donne une recette que vous suivez méticuleusement. Vous finissez par manger un assez bon repas et repartez repu.",
         "3": "** | 🗣️ Vous le voyez rentrer, alors vous entrez à sa suite, et lui demandez des conseils. Finalement vous sympathisez et il vous invite pour diner. Pendant le repas vous buvez un peu trop et finissez ivre. :zany_face: "
       },
