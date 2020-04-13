@@ -24,7 +24,7 @@ class Guild {
      * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
-        let xpToLevelUp = DefaultValues.guildXp[this.level + 1];
+        let xpToLevelUp = DefaultValues.guildXp[parseInt(this.level + 1)];
         return xpToLevelUp;
     }
 
