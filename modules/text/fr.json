@@ -70,7 +70,7 @@
       "dm": " id du joueur : ",
       "console": ":money_mouth: | Le badge du shop a été acheté par le joueur : ",
       "badgeWarning": ":warning: | Merci pour votre achat du badge :money_mouth:.\n\nSi vous en êtes arrivé à faire un tel achat c'est que vous avez déjà beaucoup joué à mon petit jeu et je vous en remercie. Votre badge vous sera remis dans les prochaines heures par un membre du staff du bot.",
-      "noMoney": "**, Vous ne pouvez pas accèder au magasin avec des dettes !",
+      "noMoney": "**, vous ne pouvez pas accèder au magasin avec des dettes !",
       "emojiIntro": ":shopping_cart: ",
       "intro": ":shopping_cart:  **Affichage du magasin :**",
       "dailySell": "```🗓 Potion du jour :```\n",
@@ -101,10 +101,10 @@
       },
       "confirmIntro": ", **Vous avez sélectionné le produit suivant :**\n\n",
       "confirmStart": ":white_check_mark: | ",
-      "confirmEnd": ", Votre achat a bien été validé !",
+      "confirmEnd": ", votre achat a bien été validé !",
       "cancelStart": ":x: | ",
       "cancelEnd": ", L'achat a bien été annulé !",
-      "notEnoughEnd": ", Vous n'avez pas assez d'argent pour effectuer cet achat !",
+      "notEnoughEnd": ", vous n'avez pas assez d'argent pour effectuer cet achat !",
       "tooMuchShop": ", il est impossible de donner suite à votre requête car une autre commande est en attente d'une action de votre part ! `(Si vous n'avez pas fait récemment de commande shop ou sell, attendez 2 minutes et réessayez)`",
       "noAlteration": ", vous n'êtes victime d'aucune altération d'état. Votre achat a été annulé."
     },
@@ -430,7 +430,7 @@
       "style": "```"
     },
     "guildAdd": {
-      "addSentence1": ", Vous êtes invité à rejoindre la guilde : `",
+      "addSentence1": ", vous êtes invité à rejoindre la guilde : `",
       "addSentence2": "`",
       "checkMark": "✅ | ",
       "gJoin": ", a rejoint une guilde.`",

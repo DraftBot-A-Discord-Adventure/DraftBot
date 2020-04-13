@@ -151,7 +151,7 @@ async function addPlayerToGuild(user, guild) {
 function displaySpamErrorMessage() {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setDescription(Text.commands.guildAdd.spamError);
     return embed;
 }
@@ -162,7 +162,7 @@ function displaySpamErrorMessage() {
 function displaySpamErrorUserOccupiedMessage() {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setDescription(Text.commands.guildAdd.spamOccupiedError);
     return embed;
 }
@@ -198,7 +198,7 @@ const generateGuildAddMessage = async function (message, user, guild, serverPref
 const generateAlreadyInAGuildException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setDescription(Text.commands.guildAdd.errorBegin + user.toString() + Text.commands.guildAdd.alreadyInAGuildError);
     return embed;
 }
@@ -210,7 +210,7 @@ const generateAlreadyInAGuildException = function (user) {
 const generateNoUserException = function (user, serverPrefix) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setDescription(user.toString() + Text.commands.guildAdd.pingError + serverPrefix + Text.commands.guildAdd.guildAddExemple);
     return embed;
 }
@@ -222,7 +222,7 @@ const generateNoUserException = function (user, serverPrefix) {
 const generateNotInAGuildException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setDescription(user.toString() + Text.commands.guildAdd.notInAGuildError);
     return embed;
 }
@@ -234,7 +234,7 @@ const generateNotInAGuildException = function (user) {
 const generateNotTheGuildHostException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setDescription(user.toString() + Text.commands.guildAdd.notChiefError);
     return embed;
 }
@@ -246,7 +246,7 @@ const generateNotTheGuildHostException = function (user) {
 const generateGuildFullException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setDescription(user.toString() + Text.commands.guildAdd.guildFullError);
     return embed;
 }

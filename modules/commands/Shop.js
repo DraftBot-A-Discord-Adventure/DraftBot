@@ -110,7 +110,11 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                                     if (player.money >= DefaultValues.shop.priceGuildXp) {
                                         let guildManager = new GuildManager();
                                         let guild = await guildManager.getCurrentGuild(message);
-                                        let experience = Tools.generateRandomNumber(50,450);
+                                        if (guild === null) {
+                                            message.channel.send(generateNotInAGuildException(message.author));
+                                            return;
+                                        }
+                                        let experience = Tools.generateRandomNumber(50, 450);
                                         guild.addExperience(experience, message, language);
                                         guildManager.updateGuild(guild);
                                     } else {
@@ -159,6 +163,20 @@ const displayConfirmMessage = function (message, confirmMessage) {
         return msg;
     })
 };
+
+/**
+ * @returns {String} - A RichEmbed message wich display the NoUserException
+ * @param {*} user - the user that the error refeirs to
+ */
+const generateNotInAGuildException = function (user) {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
+    embed.setDescription(user.toString() + Text.commands.guildAdd.notInAGuildError);
+    return embed;
+}
+
+
 
 /**
 * Check if the reaction recieved is valid
@@ -319,7 +337,11 @@ function addChoiceToMessageChoice(messageChoice, choice) {
  * @param {*} message - The message that triggered the command
  */
 function displaySpamErrorMessage(message) {
-    message.channel.send(Text.commands.shop.cancelStart + message.author + Text.commands.shop.tooMuchShop);
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
+    embed.setDescription(message.author.toString() + Text.commands.shop.tooMuchShop);
+    return message.channel.send(embed);
 }
 
 /**
@@ -343,8 +365,13 @@ async function sellDailyPotion(player, dailyPotion, potionPrice, playerManager) 
  * @param {*} message - The message that launched the command
  */
 function notEnoughMoney(message) {
-    return message.channel.send(Text.commands.shop.cancelStart + message.author + Text.commands.shop.notEnoughEnd);
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
+    embed.setDescription(message.author.toString() + Text.commands.shop.notEnoughEnd);
+    return message.channel.send(embed);
 }
+
 
 /**
  * Allow to add the reactions under the shop message
@@ -394,6 +421,13 @@ function displayPotion(potion, language) {
         stringResult += potion.power + Text.nature.outroPotion[potion.natureEffect];
     }
     return stringResult;
+}
+
+/**
+ * The default embed style for the bot
+ */
+const generateDefaultEmbed = function () {
+    return new Discord.RichEmbed().setColor(DefaultValues.embed.color);
 }
 
 module.exports.ShopCommand = ShopCommand;

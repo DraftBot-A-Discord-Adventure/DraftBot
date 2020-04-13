@@ -102,7 +102,6 @@ function displaySpamErrorMessage() {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(Text.commands.guildCreate.spamError);
     return embed;
 }
@@ -210,54 +209,47 @@ const generateGuildCreateMessage = async function (message, guildName) {
 }
 
 /**
- * @returns {String} - A RichEmbed message wich display the EmptyNameException
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * Return a empty name exception
+ * @param {*} serverPrefix 
  */
-const generateEmptyNameException = function (message, serverPrefix) {
+const generateEmptyNameException = function (serverPrefix) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setThumbnail(Text.commands.guildCreate.guildIcon);
     embed.setDescription(Text.commands.guildCreate.emptyName + serverPrefix + Text.commands.guildCreate.emptyName2);
     return embed;
 }
 
 /**
  * @returns {String} - A RichEmbed message wich display the NameNotAvailableException
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param {*} guildName - The name wanted for his guild by the user
  */
-const generateNameNotAvailableException = function (message, guildName) {
+const generateNameNotAvailableException = function ( guildName) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setThumbnail(Text.commands.guildCreate.guildIcon);
     embed.setDescription(Text.commands.guildCreate.Gname + guildName + Text.commands.guildCreate.Gname2);
     return embed;
 }
 
 /**
  * @returns {String} - A RichEmbed message wich display the AlreadyInAGuildException
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateAlreadyInAGuildException = function (message) {
+const generateAlreadyInAGuildException = function () {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setThumbnail(Text.commands.guildCreate.guildIcon);
     embed.setDescription(Text.commands.guildCreate.alreadyInAGuild);
     return embed;
 }
 
 /**
  * @returns {String} - A RichEmbed message wich display the NoPunctuationException
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateNoPunctuationException = function (message) {
+const generateNoPunctuationException = function () {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setThumbnail(Text.commands.guildCreate.guildIcon);
     embed.setDescription(Text.commands.guildCreate.characters);
     return embed;
 }
@@ -266,11 +258,10 @@ const generateNoPunctuationException = function (message) {
  * @returns {String} - A RichEmbed message wich display the TooLongNameException
  * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-const generateTooLongNameException = function (message) {
+const generateTooLongNameException = function () {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setThumbnail(Text.commands.guildCreate.guildIcon);
     embed.setDescription(Text.commands.guildCreate.characters2);
     return embed;
 }

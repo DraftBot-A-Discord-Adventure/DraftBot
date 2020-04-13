@@ -163,7 +163,6 @@ const generateGuildKickMessage = function (user, guild, target) {
     const embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.guild + guild.getName());
     embed.setDescription(user.toString() + Text.commands.guildKick.confirmKick + target.toString() + Text.commands.guildKick.confirmKickEnd);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     return embed;
 }
 
@@ -174,7 +173,6 @@ function displaySpamErrorMessage() {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(Text.commands.guildAdd.spamError);
     return embed;
 }
