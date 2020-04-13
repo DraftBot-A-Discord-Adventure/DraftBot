@@ -326,5 +326,107 @@
         "99": "15000",
         "100": "25000",
         "101": "infini"
+    },
+    "guildChances": {
+        "10": {
+            "personalXP": 50,
+            "guildXP": 150,
+            "money": 598,
+            "randomItem": 50,
+            "badge": 0,
+            "fullHeal": 2,
+            "partialHeal": 50,
+            "alterationHeal": 100
+        },
+        "20": {
+            "personalXP": 50,
+            "guildXP": 150,
+            "money": 557,
+            "randomItem": 80,
+            "badge": 0,
+            "fullHeal": 3,
+            "partialHeal": 60,
+            "alterationHeal": 100
+        },
+        "30": {
+            "personalXP": 50,
+            "guildXP": 150,
+            "money": 526,
+            "randomItem": 110,
+            "badge": 0,
+            "fullHeal": 4,
+            "partialHeal": 60,
+            "alterationHeal": 100
+        },
+        "40": {
+            "personalXP": 100,
+            "guildXP": 100,
+            "money": 495,
+            "randomItem": 140,
+            "badge": 0,
+            "fullHeal": 5,
+            "partialHeal": 60,
+            "alterationHeal": 100
+        },
+        "50": {
+            "personalXP": 100,
+            "guildXP": 100,
+            "money": 454,
+            "randomItem": 170,
+            "badge": 10,
+            "fullHeal": 6,
+            "partialHeal": 60,
+            "alterationHeal": 100
+        },
+        "60": {
+            "personalXP": 100,
+            "guildXP": 100,
+            "money": 413,
+            "randomItem": 200,
+            "badge": 20,
+            "fullHeal": 7,
+            "partialHeal": 60,
+            "alterationHeal": 100
+        },
+        "70": {
+            "personalXP": 100,
+            "guildXP": 100,
+            "money": 372,
+            "randomItem": 230,
+            "badge": 30,
+            "fullHeal": 8,
+            "partialHeal": 60,
+            "alterationHeal": 100
+        },
+        "80": {
+            "personalXP": 150,
+            "guildXP": 50,
+            "money": 331,
+            "randomItem": 260,
+            "badge": 40,
+            "fullHeal": 9,
+            "partialHeal": 60,
+            "alterationHeal": 100
+        },
+        "90": {
+            "personalXP": 150,
+            "guildXP": 50,
+            "money": 290,
+            "randomItem": 290,
+            "badge": 50,
+            "fullHeal": 10,
+            "partialHeal": 60,
+            "alterationHeal": 100
+        },
+        "100": {
+            "personalXP": 200,
+            "guildXP": 0,
+            "money": 205,
+            "randomItem": 320,
+            "badge": 100,
+            "fullHeal": 15,
+            "partialHeal": 60,
+            "alterationHeal": 100
+        }
     }
 }
