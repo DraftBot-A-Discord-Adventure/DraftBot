@@ -25,7 +25,7 @@ class DatabaseManager {
         //Add guildId column
         sql.run("ALTER TABLE player ADD guildId Text").catch(console.error);
         //guild server
-        sql.run("CREATE TABLE IF NOT EXISTS guild (guildId TEXT, name TEXT, chief TEXT, score INTEGER, level INTEGER, experience INTEGER, lastInvocation INTEGER )").catch(console.error);
+        sql.run("CREATE TABLE IF NOT EXISTS guild (guildId TEXT, name TEXT, chief TEXT, score INTEGER, level INTEGER, experience INTEGER, lastInvocation INTEGER)").catch(console.error);
 
         console.log("database updated !")
     }

@@ -32,6 +32,7 @@ class GuildManager {
         let i = 0;
         return sql.all(`SELECT * FROM player WHERE guildId = "${guildId}" ORDER BY score DESC`).then(data => {
             data.forEach(function (player) {
+                //TODO Mettre à jour ici les rank c'est plus dans la database
                 MembersArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
                     player.weeklyRank, player.guildId)
@@ -91,7 +92,7 @@ class GuildManager {
                 return null;
             } else { //Guild is in the database
                 console.log(`guild loaded from player ${chief}`);
-                return new Guild(guild.guildId, guild.name, guild.chief, guild.score, guild.level, guild.experience, guild.rank);
+                return new Guild(guild.guildId, guild.name, guild.chief, guild.score, guild.level, guild.experience, guild.lastInvocation);
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -111,7 +112,7 @@ class GuildManager {
                 return null;
             } else { //Guild is in the database
                 console.log(`guild loaded from name ${name}`);
-                return new Guild(guild.guildId, guild.name, guild.chief, guild.score, guild.level, guild.experience, guild.rank, guild.lastInvocation);
+                return new Guild(guild.guildId, guild.name, guild.chief, guild.score, guild.level, guild.experience, guild.lastInvocation);
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -133,7 +134,7 @@ class GuildManager {
                 return null;
             } else { //Guild is in the database
                 console.log(`guild loaded : ${id}`);
-                return new Guild(guild.guildId, guild.name, guild.chief, guild.score, guild.level, guild.experience, guild.rank, guild.lastInvocation);
+                return new Guild(guild.guildId, guild.name, guild.chief, guild.score, guild.level, guild.experience, guild.lastInvocation);
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -166,7 +167,7 @@ class GuildManager {
      */
     async getNewGuild(message, chief, guildName) {
         console.log('Generating a new Guild...');
-        return new Guild(message.id, guildName, chief, 0, 0, 0, 0, message.createdTimestamp);
+        return new Guild(message.id, guildName, chief, 0, 0, 0, message.createdTimestamp);
     }
 
 
@@ -176,7 +177,7 @@ class GuildManager {
      */
     updateGuild(Guild) {
         console.log("Updating Guild ...");
-        sql.run(`UPDATE guild SET name = "${Guild.name}", chief = ${Guild.chief}, score = ${Guild.score}, level = ${Guild.level}, experience = ${Guild.experience}, lestInvocation = ${Guild.lastInvocation} WHERE guildId = ${Guild.guildId}`).catch(console.error);
+        sql.run(`UPDATE guild SET name = "${Guild.name}", chief = ${Guild.chief}, score = ${Guild.score}, level = ${Guild.level}, experience = ${Guild.experience}, lastInvocation = ${Guild.lastInvocation} WHERE guildId = ${Guild.guildId}`).catch(console.error);
         console.log("Guild updated !");
     }
 

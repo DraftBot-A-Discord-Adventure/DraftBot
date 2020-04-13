@@ -185,7 +185,6 @@ const generateNotTheGuildHostException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(user.toString() + Text.commands.guildAdd.notChiefError);
     return embed;
 }
@@ -198,7 +197,6 @@ const generateTryingToKickHimselfException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(user.toString() + Text.commands.guildAdd.tryingToKickHimselfError);
     return embed;
 }

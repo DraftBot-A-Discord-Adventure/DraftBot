@@ -128,7 +128,6 @@ function generateNoGuildException() {
     let embed = generateDefaultEmbed();
     embed.setColor(DefaultValues.guild.errorColor);
     embed.setTitle(Text.commands.guild.error);
-    embed.setThumbnail(Text.commands.guild.guildIcon);
     embed.setDescription(Text.commands.guild.notFound);
     return embed;
 }

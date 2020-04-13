@@ -7,14 +7,13 @@ let Text;
  */
 class Guild {
 
-    constructor(guildId, name, chief, score, level, experience, rank, lastInvocation) {
+    constructor(guildId, name, chief, score, level, experience, lastInvocation) {
         this.guildId = guildId;
         this.name = name;
         this.chief = chief;
         this.score = score;
         this.level = level;
         this.experience = experience;
-        this.rank = rank;
         this.lastInvocation = lastInvocation;
     }
 
@@ -174,14 +173,6 @@ class Guild {
      */
     getScore() {
         return this.score;
-    }
-
-    /**
-     * Returns the rank of the Guild.
-     * @returns {Number} - The rank of the Guild
-     */
-    getRank() {
-        return this.rank;
     }
 
     /**
