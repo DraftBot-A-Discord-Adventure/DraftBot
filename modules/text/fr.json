@@ -103,7 +103,7 @@
       "cancelEnd": ", L'achat a bien été annulé !",
       "notEnoughEnd": ", Vous n'avez pas assez d'argent pour effectuer cet achat !",
       "tooMuchShop": ", il est impossible de donner suite à votre requête car une autre commande est en attente d'une action de votre part ! `(Si vous n'avez pas fait récemment de commande shop ou sell, attendez 2 minutes et réessayez)`",
-      "noAlteration": ", vous n'avez pas d'altération d'état actuellement !"
+      "noAlteration": ", vous n'êtes victime d'aucune altération d'état. Votre achat a été annulé."
     },
     "report": {
       "reportStart": ":newspaper: **Journal de ",
