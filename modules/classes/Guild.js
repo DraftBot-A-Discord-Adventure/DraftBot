@@ -24,7 +24,7 @@ class Guild {
      * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
-        let xpToLevelUp = DefaultValues.guildXp[parseInt(this.level + 1)];
+        let xpToLevelUp = DefaultValues.guildXp[parseInt(this.level) + 1];
         return xpToLevelUp;
     }
 
@@ -34,7 +34,7 @@ class Guild {
      * @returns {Number} Returns the experience used to level up.
      */
     getExperienceUsedToLevelUp() {
-        let xpToLevelUp = DefaultValues.guildXp[this.level];
+        let xpToLevelUp = DefaultValues.guildXp[parseInt(this.level)];
         if (this.level > 100)
             xpToLevelUp = 100;
         return xpToLevelUp;
@@ -49,8 +49,8 @@ class Guild {
      * @param {*} message - The message that caused the xp gain
      */
     addExperience(experience, message, language) {
-        if (Tools.isAPositiveNumber(experience)) {
-            this.setExperience(this.experience + parseInt(experience), message, language);
+        if (experience > 0) {
+            this.setExperience(parseInt(this.experience) + parseInt(experience), message, language);
         }
     }
 
@@ -59,7 +59,7 @@ class Guild {
      * @returns {Number} - The amount of experience this Guild instance currently has.
      */
     getExperience() {
-        return this.experience;
+        return parseInt(this.experience)
     }
 
     /**
@@ -68,8 +68,8 @@ class Guild {
      * @param {*} message - The message that caused the levelup. Used to send a level up message
      */
     setExperience(experience, message, language) {
-        if (Tools.isAPositiveNumberOrNull(experience)) {
-            this.experience = experience;
+        if (experience >= 0) {
+            this.experience = parseInt(experience);
             if (this.hasEnoughExperienceToLevelUp()) {
                 this.levelUp(message, language);
             }
@@ -81,7 +81,7 @@ class Guild {
      * @returns {Number} - The level of this Guild instance.
      */
     getLevel() {
-        return this.level;
+        return parseInt(this.level);
     }
 
     /**
@@ -89,7 +89,7 @@ class Guild {
      * @param {Number} level - The level this Guild instance should be. Must be a positive Number.
      */
     setLevel(level) {
-        if (Tools.isAPositiveNumber(level)) {
+        if (level > 0) {
             this.level = level;
         }
     }
@@ -102,55 +102,7 @@ class Guild {
     levelUp(message, language) {
         Text = require('../text/' + language);
         this.setLevel(this.getLevel() + 1);
-        let messageLevelUp = Text.GuildManager.levelUp.intro + message.author + Text.GuildManager.levelUp.main + this.getLevel() + Text.GuildManager.levelUp.end;
-        let bonus = false;
-        if (this.getLevel() == DefaultValues.fight.minimalLevel) {
-            messageLevelUp += Text.GuildManager.levelUp.fightUnlocked;
-            bonus = true;
-        }
-        if (this.getLevel() % 10 == 0) {
-            this.restoreHealthCompletely();
-            messageLevelUp += Text.GuildManager.levelUp.healthRestored;
-            bonus = true;
-        } else {
-            if (this.getLevel() % 5 == 0) {
-                this.setMaxHealth(this.getMaxHealth() + 5);
-                this.addHealthPoints(5, message, language);
-                messageLevelUp += Text.GuildManager.levelUp.moreMaxHealth;
-                bonus = true;
-            }
-        }
-
-        if (this.getLevel() % 9 == 0) {
-            this.setSpeed(this.getSpeed() + 5);
-            if (bonus == false) {
-                messageLevelUp += Text.GuildManager.levelUp.firstBonus;
-            }
-            messageLevelUp += Text.GuildManager.levelUp.moreSpeed;
-            bonus = true;
-        } else {
-            if (this.getLevel() % 6 == 0) {
-                this.setAttack(this.getAttack() + 5);
-                if (bonus == false) {
-                    messageLevelUp += Text.GuildManager.levelUp.firstBonus;
-                }
-                messageLevelUp += Text.GuildManager.levelUp.moreAttack;
-                bonus = true;
-            } else {
-                if (this.getLevel() % 3 == 0) {
-                    this.setDefense(this.getDefense() + 5);
-                    if (bonus == false) {
-                        messageLevelUp += Text.GuildManager.levelUp.firstBonus;
-                    }
-                    messageLevelUp += Text.GuildManager.levelUp.moreDefense;
-                    bonus = true;
-                }
-            }
-        }
-
-        if (bonus == false) {
-            messageLevelUp += Text.GuildManager.levelUp.noBonus;
-        }
+        let messageLevelUp = Text.guildManager.levelUp.intro + this.name + Text.guildManager.levelUp.main + this.getLevel() + Text.guildManager.levelUp.end;
         message.channel.send(messageLevelUp);
         this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message, language);
     }
@@ -160,7 +112,7 @@ class Guild {
      * @returns {boolean} True if the Guild has the needed amount of experience to level up, false otherwise.
      */
     hasEnoughExperienceToLevelUp() {
-        return (this.experience >= this.getExperienceToLevelUp());
+        return (parseInt(this.experience) >= this.getExperienceToLevelUp());
     }
 
 
@@ -189,7 +141,7 @@ class Guild {
         return this.chief;
     }
 
-    
+
     /**
      * Changes the chief of the Guild.
      * @param name - The Guild's new chief.
@@ -203,7 +155,7 @@ class Guild {
      * @param id - The ID to assign to the Guild.
      */
     setGuildId(guildId) {
-        if (Tools.isANegativeNumber(this.guildId)) {
+        if (this.guildId < 0) {
             this.guildId = guildId;
         }
     }
@@ -239,7 +191,7 @@ class Guild {
      * @param points - The amount of points to remove. Must be a Number.
      */
     removeScore(points) {
-        if (Tools.isAPositiveNumberOrNull(points)) {
+        if (points >= 0) {
             this.score -= parseInt(points);
             this.weeklyScore -= parseInt(points);
         } else {
@@ -254,7 +206,7 @@ class Guild {
      * @param points - The amount of points to add. Must be a Number.
      */
     addScore(points) {
-        if (Tools.isAPositiveNumberOrNull(points)) {
+        if (points >= 0) {
             this.score += parseInt(points);
             this.weeklyScore += parseInt(points);
         } else {

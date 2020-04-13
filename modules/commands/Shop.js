@@ -2,6 +2,7 @@ const PlayerManager = require('../classes/PlayerManager');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
 const PotionManager = require('../classes/PotionManager');
+const GuildManager = require('../classes/GuildManager');
 const InventoryManager = require('../classes/InventoryManager');
 const Discord = require('discord.js')
 
@@ -107,7 +108,11 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                                     break;
                                 case "guildXp":
                                     if (player.money >= DefaultValues.shop.priceGuildXp) {
-                                        
+                                        let guildManager = new GuildManager();
+                                        let guild = await guildManager.getCurrentGuild(message);
+                                        let experience = Tools.generateRandomNumber(50,450);
+                                        guild.addExperience(experience, message, language);
+                                        guildManager.updateGuild(guild);
                                     } else {
                                         return notEnoughMoney(message);
                                     }

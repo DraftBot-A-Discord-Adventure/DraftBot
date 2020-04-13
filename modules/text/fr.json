@@ -582,6 +582,13 @@
     "separator1": " | Puissance ",
     "separator2": " | "
   },
+  "guildManager" :{
+    "levelUp": {
+      "intro": ":star: | La guilde : **",
+      "main": "**, vient d'atteindre le niveau **",
+      "end": "**"
+    }
+  },
   "potionManager": {
     "separator": " | "
   },
