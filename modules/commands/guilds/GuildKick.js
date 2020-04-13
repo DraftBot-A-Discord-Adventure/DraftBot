@@ -173,6 +173,7 @@ const generateGuildKickMessage = function (user, guild, target) {
 function displaySpamErrorMessage() {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(Text.commands.guildAdd.spamError);
     return embed;
@@ -185,6 +186,7 @@ function displaySpamErrorMessage() {
 const generateNotTheGuildHostException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(user.toString() + Text.commands.guildAdd.notChiefError);
     return embed;
@@ -197,6 +199,7 @@ const generateNotTheGuildHostException = function (user) {
 const generateTryingToKickHimselfException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(user.toString() + Text.commands.guildAdd.tryingToKickHimselfError);
     return embed;
@@ -209,6 +212,7 @@ const generateTryingToKickHimselfException = function (user) {
 const generateUserNotInTheGuildException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(user.toString() + Text.commands.guild.notInTheGuildError);
     return embed;
@@ -221,6 +225,7 @@ const generateUserNotInTheGuildException = function (user) {
 const generateNotInAGuildException = function (user) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(user.toString() + Text.commands.guild.notInAGuildError);
     return embed;

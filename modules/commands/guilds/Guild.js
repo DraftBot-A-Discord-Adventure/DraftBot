@@ -33,7 +33,7 @@ const guildCommand = async function (message, args, client) {
     let guild;
 
     if (args.length >= 2) {
-        let userMention = getUserFromMention(args[1], client);
+        let userMention = getUserFromMention(message);
 
         if (userMention !== null && userMention !== undefined) {
             guild = await guildManager.getGuildByUserId(userMention.id)
@@ -90,18 +90,17 @@ const generateGuildMessage = async function (message, client, guild, members) {
     return embed;
 }
 
-const getUserFromMention = function (mention, client) {
-    // The id is the first and only match found by the RegEx.
-    const matches = mention.match(/^<@!?(\d+)>$/);
-
-    // If supplied variable was not a mention, matches will be null instead of an array.
-    if (!matches) return;
-
-    // However the first element in the matches array will be the entire mention, not just the ID,
-    // so use index 1.
-    const id = matches[1];
-
-    return client.users.get(id);
+/**
+ * get the user from the args
+ * @param {*} args 
+ */
+const getUserFromMention = function (message) {
+    try {
+        player = message.mentions.users.last();
+    } catch (err) { // the input is not a mention or a user rank
+        player = "0"
+    }
+    return player;
 }
 
 /**
@@ -124,10 +123,10 @@ const getGuildMembersCount = function (members) {
 
 /**
  * @returns {String} - A RichEmbed message wich display the generateNoGuildException
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
-function generateNoGuildException(message) {
+function generateNoGuildException() {
     let embed = generateDefaultEmbed();
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setTitle(Text.commands.guild.error);
     embed.setThumbnail(Text.commands.guild.guildIcon);
     embed.setDescription(Text.commands.guild.notFound);

@@ -101,6 +101,7 @@ const confirmReactionIsCorrect = function (reaction) {
 function displaySpamErrorMessage() {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildAdd.guildIcon);
     embed.setDescription(Text.commands.guildCreate.spamError);
     return embed;
@@ -215,6 +216,7 @@ const generateGuildCreateMessage = async function (message, guildName) {
 const generateEmptyNameException = function (message, serverPrefix) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildCreate.guildIcon);
     embed.setDescription(Text.commands.guildCreate.emptyName + serverPrefix + Text.commands.guildCreate.emptyName2);
     return embed;
@@ -228,6 +230,7 @@ const generateEmptyNameException = function (message, serverPrefix) {
 const generateNameNotAvailableException = function (message, guildName) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildCreate.guildIcon);
     embed.setDescription(Text.commands.guildCreate.Gname + guildName + Text.commands.guildCreate.Gname2);
     return embed;
@@ -240,6 +243,7 @@ const generateNameNotAvailableException = function (message, guildName) {
 const generateAlreadyInAGuildException = function (message) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildCreate.guildIcon);
     embed.setDescription(Text.commands.guildCreate.alreadyInAGuild);
     return embed;
@@ -252,6 +256,7 @@ const generateAlreadyInAGuildException = function (message) {
 const generateNoPunctuationException = function (message) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildCreate.guildIcon);
     embed.setDescription(Text.commands.guildCreate.characters);
     return embed;
@@ -264,6 +269,7 @@ const generateNoPunctuationException = function (message) {
 const generateTooLongNameException = function (message) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
+    embed.setColor(DefaultValues.guild.errorColor);
     embed.setThumbnail(Text.commands.guildCreate.guildIcon);
     embed.setDescription(Text.commands.guildCreate.characters2);
     return embed;
