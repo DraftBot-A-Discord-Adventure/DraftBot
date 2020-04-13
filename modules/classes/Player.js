@@ -42,7 +42,7 @@ class Player extends Entity {
      * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
-        let xpToLevelUp = DefaultValues.xp[this.level + 1];
+        let xpToLevelUp = DefaultValues.xp[parseInt(this.level + 1)];
         return xpToLevelUp;
     }
 
@@ -53,8 +53,6 @@ class Player extends Entity {
      */
     getExperienceUsedToLevelUp() {
         let xpToLevelUp = DefaultValues.xp[this.level];
-        if (this.level > 100)
-            xpToLevelUp = 100;
         return xpToLevelUp;
     }
 
