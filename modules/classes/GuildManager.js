@@ -31,7 +31,7 @@ class GuildManager {
         let MembersArray = Array();
         let i = 0;
         return sql.all(`SELECT * FROM player WHERE guildId = "${guildId}" ORDER BY score DESC`).then(data => {
-            data.forEach(function(player) {
+            data.forEach(function (player) {
                 MembersArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
                     player.weeklyRank, player.guildId)
@@ -65,19 +65,19 @@ class GuildManager {
     * @param id - The user id
     * @returns {promise} - The promise that will be resolved into a Guild
     */
-   async getGuildByUserId(id) {
-    return sql.get(`SELECT * FROM player WHERE discordId ="${id}"`).then(Player => {
-        if (!Player) { //Player is not in the database
-            return null;
-        } else { //Player is in the database
-            let guild = this.getGuildById(Player.guildId);
-            return guild;
-        }
-    }).catch(error => { //there is no database
-        console.error(error)
-        return false;
-    })
-}
+    async getGuildByUserId(id) {
+        return sql.get(`SELECT * FROM player WHERE discordId ="${id}"`).then(Player => {
+            if (!Player) { //Player is not in the database
+                return null;
+            } else { //Player is in the database
+                let guild = this.getGuildById(Player.guildId);
+                return guild;
+            }
+        }).catch(error => { //there is no database
+            console.error(error)
+            return false;
+        })
+    }
 
     /**
     * Return a promise that will contain the Guild that sent a message once it has been resolved
@@ -111,7 +111,7 @@ class GuildManager {
                 return null;
             } else { //Guild is in the database
                 console.log(`guild loaded from name ${name}`);
-                return new Guild(guild.guildId, guild.name, guild.chief, guild.score, guild.level, guild.experience, guild.rank);
+                return new Guild(guild.guildId, guild.name, guild.chief, guild.score, guild.level, guild.experience, guild.rank, guild.lastInvocation);
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -133,7 +133,7 @@ class GuildManager {
                 return null;
             } else { //Guild is in the database
                 console.log(`guild loaded : ${id}`);
-                return new Guild(guild.guildId, guild.name, guild.chief, guild.score, guild.level, guild.experience, guild.rank);
+                return new Guild(guild.guildId, guild.name, guild.chief, guild.score, guild.level, guild.experience, guild.rank, guild.lastInvocation);
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -160,41 +160,15 @@ class GuildManager {
 
 
     /**
-     * Return a promise that will contain theid of the Guild matching a rank given as an input
-     * @param rank - The rank of the guild 
-     * @returns {promise} - The promise that will be resolved into a Guild
-     */
-    getIdByRank(rank) {
-        return sql.get(`SELECT guildId FROM guild WHERE rank ="${rank}"`).then(id => {
-            return id.guildId;
-        }).catch(error => { //there is no database
-            console.error(error)
-            return false;
-        })
-    }
-
-
-    /**
      * Return a Guild created from the defaul values
      * @param message - The message that caused the function to be called. Used to retrieve the timestamp of the message
      * @returns {*} - A new Guild
      */
     async getNewGuild(message, chief, guildName) {
         console.log('Generating a new Guild...');
-        return new Guild(await this.getNewGuildId(message), guildName, chief, 0, 0, 0, 0);
+        return new Guild(message.id, guildName, chief, 0, 0, 0, 0, message.createdTimestamp);
     }
 
-
-    /**
-     * Return an id for a new guild
-     * @returns {*} - A new guild id
-     */
-    async getNewGuildId(message) {
-        console.log('Generating a new Guild Id...');
-        let id = message.createdTimestamp;
-        console.log('Generated a new guild with id ' + id);
-        return id;
-    }
 
     /**
      * Allow to save the current state of a Guild in the database
@@ -202,8 +176,7 @@ class GuildManager {
      */
     updateGuild(Guild) {
         console.log("Updating Guild ...");
-        sql.run(`UPDATE guild SET name = "${Guild.name}", chief = ${Guild.chief} WHERE guildId = ${Guild.guildId}`).catch(console.error);
-        sql.run(`UPDATE guild SET score = ${Guild.score}, level = ${Guild.level}, experience = ${Guild.experience} WHERE guildId = ${Guild.guildId}`).catch(console.error);
+        sql.run(`UPDATE guild SET name = "${Guild.name}", chief = ${Guild.chief}, score = ${Guild.score}, level = ${Guild.level}, experience = ${Guild.experience}, lestInvocation = ${Guild.lastInvocation} WHERE guildId = ${Guild.guildId}`).catch(console.error);
         console.log("Guild updated !");
     }
 
@@ -223,54 +196,10 @@ class GuildManager {
      */
     addGuild(guild) {
         console.log("Creating Guild ...");
-        sql.run(`INSERT INTO guild (guildId, name, chief, score, level, experience, rank) VALUES ("${guild.guildId}", "${guild.name}", "${guild.chief}", ${guild.score}, ${guild.level}, ${guild.experience}, ${guild.rank})`);
+        sql.run(`INSERT INTO guild (guildId, name, chief, score, level, experience, lastInvocation) VALUES ("${guild.guildId}", "${guild.name}", "${guild.chief}", ${guild.score}, ${guild.level}, ${guild.experience}, ${guild.lastInvocation})`);
         console.log("Guild created !");
     }
 
-
-    /**
-     * Get the total number of Guilds in the database
-     * @returns {Integer} - The number of Guilds
-     */
-    getNumberOfGuilds() {
-        return sql.get(`SELECT COUNT(*) as count FROM guild WHERE score > 100`).then(number => {
-            return number.count
-        }).catch(error => { //there is no database
-            console.error(error)
-            return 0;
-        })
-    }
-
-    /**
-     * Get the total number of actives Guilds in the database
-     * @returns {Integer} - The number of Guilds
-     */
-    getNumberOfActiveGuilds() {
-        return sql.get(`select MAX(rank) as count from guild`).then(number => {
-            return number.count
-        }).catch(error => { //there is no database
-            console.error(error)
-            return 0;
-        })
-    }
-
-    /**
-     * Allow to retrieve the data from the top between 2 limits
-     * @param {Integer} borneinf - The lower limit of the top
-     * @param {Integer} bornesup - The uppper limit of the top
-     * @returns {*} -The data of the top (an array of Guilds)
-     */
-    getTopData(borneinf, bornesup) {
-        let GuildArray = Array();
-        let i = 0;
-        return sql.all(`SELECT * FROM guild WHERE rank >= ${borneinf} AND rank <= ${bornesup} AND score > 100 ORDER BY score DESC`).then(data => {
-            data.forEach(function (Guild) {
-                GuildArray[i] = new Guild(guildId, name, chief, score, level, experience, rank)
-                i++;
-            });
-            return GuildArray;
-        });
-    }
 }
 
 module.exports = GuildManager;
