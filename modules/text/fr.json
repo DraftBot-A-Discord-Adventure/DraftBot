@@ -76,25 +76,28 @@
       "dailySell": "```🗓 Potion du jour :```\n",
       "priceTagStart": " | `",
       "priceTagEnd": " 💰`",
-      "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `350 💰`\n:hospital: **Soin des altérations d'état** | `500 💰`\n:heartpulse: **Regen complet de la vie** | `3000 💰`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`\n\n```▶ Choisissez votre achat :```",
+      "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `350 💰`\n:hospital: **Soin des altérations d'état** | `500 💰`\n:heartpulse: **Regen complet de la vie** | `3000 💰`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`\n:star: **Un peu d'xp pour votre guilde** | `1000 💰`\n\n```▶ Choisissez votre achat :```",
       "emojis": {
-        "a": "❓",
-        "b": "🏥",
-        "c": "💗",
-        "d": "🤑"
+        "randomItem": "❓",
+        "alterationHeal": "🏥",
+        "completeHeal": "💗",
+        "badge": "🤑",
+        "guildXp" : "⭐"
       },
       "choices": {
-        "a": ":question: **Un item random** | `350 💰`",
-        "b": ":hospital: **Soin des altérations d'état** | `500 💰`",
-        "c": ":heartpulse: **Regen complet de la vie** | `3000 💰`",
-        "d": ":money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`"
+        "randomItem": ":question: **Un item random** | `350 💰`",
+        "alterationHeal": ":hospital: **Soin des altérations d'état** | `500 💰`",
+        "completeHeal": ":heartpulse: **Regen complet de la vie** | `3000 💰`",
+        "badge": ":money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`",
+        "guildXp" : ":star: **Un peu d'xp pour votre guilde** | `1000 💰`"
       },
       "infos": {
-        "aa": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
-        "a": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
-        "b": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
-        "c": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
-        "d": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `aide badges`"
+        "dailyPotion": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
+        "randomItem": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
+        "alterationHeal": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
+        "completeHeal": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
+        "badge": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `aide badges`",
+        "guildXp" : "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde comprise entre 50 et 450"
       },
       "confirmIntro": ", **Vous avez sélectionné le produit suivant :**\n\n",
       "confirmStart": ":white_check_mark: | ",

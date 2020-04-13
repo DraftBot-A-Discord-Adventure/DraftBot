@@ -76,25 +76,28 @@
             "dailySell": "```🗓 Today's potion:```\n",
             "priceTagStart": " | `",
             "priceTagEnd": " 💰`",
-            "outro": "\n\n```🛍 Permanent sales:```\n:question: **A random item** | `350 💰`\n:hospital: **Heal alterations** | `500 💰`\n:heartpulse: **Full heal** | `3000 💰`\n:money_mouth: **\"MoneyMouth\" badge** | `25000 💰`\n\n```▶ Choose your purchase:```",
+            "outro": "\n\n```🛍 Permanent sales:```\n:question: **A random item** | `350 💰`\n:hospital: **Heal alterations** | `500 💰`\n:heartpulse: **Full heal** | `3000 💰`\n:money_mouth: **\"MoneyMouth\" badge** | `25000 💰`\n:star: **Some xp for your guild** | `1000 💰`\n\n```▶ Choose your purchase:```",
             "emojis": {
-                "a": "❓",
-                "b": "🏥",
-                "c": "💗",
-                "d": "🤑"
+                "randomItem": "❓",
+                "alterationHeal": "🏥",
+                "completeHeal": "💗",
+                "badge": "🤑",
+                "guildXp" : "⭐"
             },
             "choices": {
-                "a": ":question: **A random item** | `350 💰`",
-                "b": ":hospital: **Heal alterations** | `500 💰`",
-                "c": ":heartpulse: **Complete health regeneration** | `3000 💰`",
-                "d": ":money_mouth: **\"MoneyMouth\" Badge** | `25000 💰`"
+                "randomItem": ":question: **A random item** | `350 💰`",
+                "alterationHeal": ":hospital: **Heal alterations** | `500 💰`",
+                "completeHeal": ":heartpulse: **Complete health regeneration** | `3000 💰`",
+                "badge": ":money_mouth: **\"MoneyMouth\" Badge** | `25000 💰`",
+                "guildXp" : ":star: **Some xp for your guild** | `1000 💰`"
             },
             "infos": {
-                "aa": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
-                "a": "\n\n:warning: You will recieve a random item (Weapon / Armor / Misc or Potion) among all those existing in the game. If you already have an item of higher value than the one created, you will recieve a small monetary compensation.",
-                "b": "\n\n:warning: Your status will be reset and the next report will be available in an hour.",
-                "c": "\n\n:warning: You will be fully healed but your status will stay unchanged.",
-                "d": "\n\n:warning: You will receive the badge in the hours following your payment. For more information on badges, use the command `help badges`"
+                "dailyPotion": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
+                "randomItem": "\n\n:warning: You will recieve a random item (Weapon / Armor / Misc or Potion) among all those existing in the game. If you already have an item of higher value than the one created, you will recieve a small monetary compensation.",
+                "alterationHeal": "\n\n:warning: Your status will be reset and the next report will be available in an hour.",
+                "completeHeal": "\n\n:warning: You will be fully healed but your status will stay unchanged.",
+                "badge": "\n\n:warning: You will receive the badge in the hours following your payment. For more information on badges, use the command `help badges`",
+                "guildXp" : "\n\n:warning: You will receive a random amount (between 50 and 450) of guild xp."
             },
             "confirmIntro": ", **You have selected this product:**\n\n",
             "confirmStart": ":white_check_mark: | ",
