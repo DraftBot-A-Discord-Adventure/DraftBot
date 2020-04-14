@@ -328,7 +328,17 @@
         "101": "infini"
     },
     "guildChances": {
-        "10": {
+        "0": {
+            "personalXP": 0,
+            "guildXP": 0,
+            "money": 1000,
+            "randomItem": 0,
+            "badge": 0,
+            "fullHeal": 0,
+            "partialHeal": 0,
+            "alterationHeal": 0
+        },
+        "1": {
             "personalXP": 50,
             "guildXP": 150,
             "money": 598,
@@ -338,7 +348,7 @@
             "partialHeal": 50,
             "alterationHeal": 100
         },
-        "20": {
+        "2": {
             "personalXP": 50,
             "guildXP": 150,
             "money": 557,
@@ -348,7 +358,7 @@
             "partialHeal": 60,
             "alterationHeal": 100
         },
-        "30": {
+        "3": {
             "personalXP": 50,
             "guildXP": 150,
             "money": 526,
@@ -358,7 +368,7 @@
             "partialHeal": 60,
             "alterationHeal": 100
         },
-        "40": {
+        "4": {
             "personalXP": 100,
             "guildXP": 100,
             "money": 495,
@@ -368,7 +378,7 @@
             "partialHeal": 60,
             "alterationHeal": 100
         },
-        "50": {
+        "5": {
             "personalXP": 100,
             "guildXP": 100,
             "money": 454,
@@ -378,7 +388,7 @@
             "partialHeal": 60,
             "alterationHeal": 100
         },
-        "60": {
+        "6": {
             "personalXP": 100,
             "guildXP": 100,
             "money": 413,
@@ -388,7 +398,7 @@
             "partialHeal": 60,
             "alterationHeal": 100
         },
-        "70": {
+        "7": {
             "personalXP": 100,
             "guildXP": 100,
             "money": 372,
@@ -398,7 +408,7 @@
             "partialHeal": 60,
             "alterationHeal": 100
         },
-        "80": {
+        "8": {
             "personalXP": 150,
             "guildXP": 50,
             "money": 331,
@@ -408,7 +418,7 @@
             "partialHeal": 60,
             "alterationHeal": 100
         },
-        "90": {
+        "9": {
             "personalXP": 150,
             "guildXP": 50,
             "money": 290,
@@ -418,7 +428,7 @@
             "partialHeal": 60,
             "alterationHeal": 100
         },
-        "100": {
+        "10": {
             "personalXP": 200,
             "guildXP": 0,
             "money": 205,
