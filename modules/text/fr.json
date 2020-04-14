@@ -88,14 +88,14 @@
         "alterationHeal": "🏥",
         "completeHeal": "💗",
         "badge": "🤑",
-        "guildXp" : "⭐"
+        "guildXp": "⭐"
       },
       "choices": {
         "randomItem": ":question: **Un item random** | `350 💰`",
         "alterationHeal": ":hospital: **Soin des altérations d'état** | `500 💰`",
         "completeHeal": ":heartpulse: **Regen complet de la vie** | `3000 💰`",
         "badge": ":money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`",
-        "guildXp" : ":star: **Un peu d'xp pour votre guilde** | `1000 💰`"
+        "guildXp": ":star: **Un peu d'xp pour votre guilde** | `1000 💰`"
       },
       "infos": {
         "dailyPotion": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
@@ -103,7 +103,7 @@
         "alterationHeal": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
         "completeHeal": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
         "badge": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `aide badges`",
-        "guildXp" : "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde comprise entre 50 et 450"
+        "guildXp": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde comprise entre 50 et 450"
       },
       "confirmIntro": ", **Vous avez sélectionné le produit suivant :**\n\n",
       "confirmStart": ":white_check_mark: | ",
@@ -566,10 +566,11 @@
     "timeLeft": " | `Temps restant : ",
     "outro": "`",
     "noTimeLeft": ":hospital: Reprise du jeu possible",
-    "newItem": "**Un nouvel item a été placé dans votre inventaire !** :new: Vous recevez :\n\n",
-    "sell": "** Vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",
+    "newItemEmoji": ":new: | ",
+    "newItem": ", **un nouvel item a été placé dans votre inventaire !** Vous recevez :\n\n",
+    "sell": ", vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",
     "sellEnd": "**",
-    "sellEmoji": ":gift: **",
+    "sellEmoji": ":gift: | ",
     "levelUp": {
       "intro": ":star: | **",
       "main": "**, vient d'atteindre le niveau **",
@@ -588,7 +589,7 @@
     "separator1": " | Puissance ",
     "separator2": " | "
   },
-  "guildManager" :{
+  "guildManager": {
     "levelUp": {
       "intro": ":star: | La guilde : **",
       "main": "**, vient d'atteindre le niveau **",
@@ -1436,7 +1437,7 @@
         "1": "** | 🌳 Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder, lorsque vous remarquez à quelques pas de vous une bourse rebondie de pièces et un objet posé à côté. Vous les récupérez, ressortez de l'espèce de bosquet, et repartez en direction du village."
       }
     },
-    "38":{
+    "38": {
       "💸": {
         "1": "** | 💸 Vous achetez un objet peu cher en échange de quelques pièces d'or. Vous êtes satisfait de l'item qu'il vous a vendu et vous le rangez dans votre sac.",
         "2": "** | 💸 Vous achetez l'un de ses objets à faible valeur, mais au moment où vous recevez votre item et commencez à l'inspecter, vous vous rendez compte qu'il vous a vendu un item en piteux état. L'arnaqueur à profité de votre naïveté et du moment où vous observiez l'objet pour prendre ses jambes à son cou. Vous jurez de ne plus vous faire berner par ce type."
@@ -1451,7 +1452,7 @@
       },
       "🕵️": {
         "1": "** | 🕵️ Vous volez discrètement un de ses objets, et prenez prestement vos jambes à votre cou.",
-        "2": "** | 🕵️ Le marchand remarque ce que vous essayez de faire, alors il vous demande de lui rendre sa marchandise. Il décide par clémence de vous laisser partir, ce que vous faites sans demander votre reste.", 
+        "2": "** | 🕵️ Le marchand remarque ce que vous essayez de faire, alors il vous demande de lui rendre sa marchandise. Il décide par clémence de vous laisser partir, ce que vous faites sans demander votre reste.",
         "3": "** | 🕵️ Vous commencez à voler le marchand, qui le remarque. Il vous assène un violent coup de poing, puis repart. :head_bandage:"
       },
       "end": {
