@@ -427,7 +427,7 @@ class PlayerManager {
         let old = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
         if (neww > old) {
             inventory.armorId = armor.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + equipementManager.displayArmor(armor, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
@@ -454,7 +454,7 @@ class PlayerManager {
         let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
         if (neww > old) {
             inventory.weaponId = weapon.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
@@ -481,7 +481,7 @@ class PlayerManager {
         let old = objectManager.getObjectEfficiency(objectManager.getObjectById(inventory.backupItemId));
         if (neww > old) {
             inventory.backupItemId = object.id;
-            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + objectManager.displayObject(object, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
@@ -508,7 +508,7 @@ class PlayerManager {
         let old = potionManager.getPotionEfficiency(potionManager.getPotionById(inventory.potionId));
         if (neww > old) {
             inventory.potionId = potion.id;
-            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + potionManager.displayPotion(potion, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
@@ -534,7 +534,7 @@ class PlayerManager {
         let old = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
         if (neww > old) {
             inventory.armorId = armor.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + equipementManager.displayArmor(armor, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
@@ -560,7 +560,8 @@ class PlayerManager {
         let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
         if (neww > old) {
             inventory.weaponId = weapon.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
+            let user = await client.users.get(id);
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
@@ -586,7 +587,7 @@ class PlayerManager {
         let old = objectManager.getObjectEfficiency(objectManager.getObjectById(inventory.backupItemId));
         if (neww > old) {
             inventory.backupItemId = object.id;
-            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + objectManager.displayObject(object, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
@@ -612,7 +613,7 @@ class PlayerManager {
         let old = potionManager.getPotionEfficiency(potionManager.getPotionById(inventory.potionId));
         if (neww > old) {
             inventory.potionId = potion.id;
-            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + potionManager.displayPotion(potion, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
@@ -642,7 +643,7 @@ class PlayerManager {
         let value = item.getValue();
         console.log("the item has been sold ! " + item.rareness + " / " + item.power);
         player.addMoney(value);
-        message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd)
+        message.channel.send(Text.playerManager.sellEmoji + mentionPlayer(player) + Text.playerManager.sell + value + Text.playerManager.sellEnd)
         return player;
     }
 
@@ -713,7 +714,7 @@ class PlayerManager {
     async getPlayerRank(playerId) {
         return sql.all(`select *from(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM player) WHERE discordId = ? AND score > 100 ORDER BY score DESC`, [playerId]).then(player => {
             let playerRank = player[0];
-            if(playerRank === undefined) return "0";
+            if (playerRank === undefined) return "0";
             return playerRank.rank;
         });
     }
@@ -721,3 +722,7 @@ class PlayerManager {
 }
 
 module.exports = PlayerManager;
+
+function mentionPlayer(player) {
+    return "<@" + player.discordId + ">";
+}
