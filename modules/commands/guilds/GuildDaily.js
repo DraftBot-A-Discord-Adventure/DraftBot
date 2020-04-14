@@ -29,19 +29,19 @@ const guildDailyCommand = async function (message, args, client) {
     let members = await guildManager.getGuildMembers(guild.getGuildId());
     let rewardType = chooseRewardType(guild);
     switch (rewardType) {
-        case "personalXPh":
+        case "personalXP":
             let xpWon = giveXpToGuildMembers(members, message);
             message.channel.send("les joueurs ont recu " + xpWon + "xp")
             break;
-        case "guildXph":
+        case "guildXp":
             let xpGuildWon = giveXpToGuild(guild, message);
             message.channel.send("la guilde a recu " + xpGuildWon + "xp")
             break;
-        case "moneyh":
+        case "money":
             let moneyWon = giveMoneyGuildMembers(members, message);
             message.channel.send("les joueurs ont recu " + moneyWon + "d'argent")
             break;
-        case "randomItemh":
+        case "randomItem":
             giveRandomItemGuildMembers(members, message);
             message.channel.send("les joueurs ont recu un item random")
             break;
