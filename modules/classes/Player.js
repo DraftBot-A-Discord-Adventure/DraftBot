@@ -20,6 +20,7 @@ class Player extends Entity {
         this.rank = rank
         this.weeklyScore = weeklyScore;
         this.weeklyRank = weeklyRank;
+        //TODO : Ajouter le champ guild et mettre à jour cette classe et le playermanager
     }
 
     /**

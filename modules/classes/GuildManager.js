@@ -30,9 +30,8 @@ class GuildManager {
     async getGuildMembers(guildId) {
         let MembersArray = Array();
         let i = 0;
-        return sql.all(`SELECT * FROM player WHERE guildId = ? ORDER BY score DESC`, [guildId]).then(data => {
+        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE guildId = ? ORDER BY score DESC`, [guildId]).then(data => {
             data.forEach(function (player) {
-                //TODO Mettre à jour ici les rank c'est plus dans la database
                 MembersArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
                     player.weeklyRank, player.guildId)
