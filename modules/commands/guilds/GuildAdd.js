@@ -6,14 +6,17 @@ const ServerManager = require('../../classes/ServerManager');
 const GuildManager = require('../../classes/GuildManager');
 const Tools = require('../../utils/Tools');
 
-let Text
+let Text;
+
+let guildManager = new GuildManager();
+let serverManager = new ServerManager();
+let playerManager = new PlayerManager();
 
 /**
  * Allow to charge the prefix of the server
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const chargePrefix = async function (message) {
-    let serverManager = new ServerManager();
     return await serverManager.getServerPrefix(message);
 }
 
@@ -24,7 +27,7 @@ const chargePrefix = async function (message) {
  */
 const guildAddCommand = async function (message, args, client, talkedRecently) {
     Text = await Tools.chargeText(message);
-    let guildManager = new GuildManager();
+
     let serverPrefix = await chargePrefix(message);
     let host = message.author;
 
@@ -139,7 +142,6 @@ async function createCollector(collector, message, user, guild, talkedRecently) 
  * @param {*} guild 
  */
 async function addPlayerToGuild(user, guild) {
-    let playerManager = new PlayerManager();
     let player = await playerManager.getPlayerById(user.id);
     player.setGuildId(guild.guildId);
     playerManager.updatePlayer(player);

@@ -9,13 +9,14 @@ const Tools = require('../../utils/Tools');
 
 let Text
 let playerManager = new PlayerManager();
+let serverManager = new ServerManager();
+let guildManager = new GuildManager();
 
 /**
  * Allow to charge the prefix of the server
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const chargePrefix = async function (message) {
-    let serverManager = new ServerManager();
     return await serverManager.getServerPrefix(message);
 }
 
@@ -28,8 +29,6 @@ const guildCommand = async function (message, args, client) {
     Text = await Tools.chargeText(message);
     let serverPrefix = await chargePrefix(message);
     let guildName = await message.content.slice(serverPrefix.length).trim().replace(args[0], "").substring(1); //substring is used to remove the space before the guild name
-
-    let guildManager = new GuildManager();
     let guild;
 
     if (args.length >= 2) {

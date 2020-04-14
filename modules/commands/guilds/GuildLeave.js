@@ -6,16 +6,10 @@ const ServerManager = require('../../classes/ServerManager');
 const GuildManager = require('../../classes/GuildManager');
 const Tools = require('../../utils/Tools');
 
-let Text
+let Text;
 
-/**
- * Allow to charge the prefix of the server
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargePrefix = async function (message) {
-    let serverManager = new ServerManager();
-    return await serverManager.getServerPrefix(message);
-}
+let guildManager = new GuildManager();
+let playerManager = new PlayerManager();
 
 /**
  * Allow to leave a guild
@@ -24,8 +18,6 @@ const chargePrefix = async function (message) {
  */
 const guildLeaveCommand = async function (message, args, client) {
     Text = await Tools.chargeText(message);
-    let guildManager = new GuildManager();
-    let serverPrefix = await chargePrefix(message);
     let user = message.author;
     let userGuild = await guildManager.getGuildByUserId(user.id);
 
@@ -121,21 +113,18 @@ async function createLeaveCollector(collector, message, user, guild) {
 }
 
 async function removePlayerFromGuild(user, guild) {
-    let playerManager = new PlayerManager();
     let player = await playerManager.getPlayerById(user.id);
     player.setGuildId("0");
     playerManager.updatePlayer(player);
 }
 
 async function destroyGuild(guild) {
-    const guildManager = new GuildManager();
     let members = await guildManager.getGuildMembers(guild.getGuildId());
     await members.forEach(m => kickMember(m));
     guildManager.deleteGuild(guild.getGuildId());
 }
 
 function kickMember(member) {
-    let playerManager = new PlayerManager();
     member.setGuildId("0");
     playerManager.updatePlayer(member);
 }
