@@ -3,7 +3,7 @@
     "help": {
       "mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://draftbot.fandom.com/fr/wiki/Commandes",
       "intro": "** :notebook_with_decorative_cover: ",
-      "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\ntopWeek\ntopServ\ninventory\nfight\ndaily\ndrink\nprefix\nlanguage\nguildcreate\nguildleave\nguildkick\nguildadd\nguild\nguilddaily\n```\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! https://draftbot.fandom.com/fr/wiki/Commandes",
+      "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\ntopWeek\ntopServ\ninventory\nfight\ndaily\ndrink\nprefix\nlanguage\nguildCreate\nguildLeave\nguildKick\nguildAdd\nguild\nguildDaily\n```\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! https://draftbot.fandom.com/fr/wiki/Commandes",
       "commands": {
         "prefix": ":interrobang: `prefix [Nouveau préfix]` :\n\nPermet, si vous êtes administrateur sur un serveur, de changer le préfix utilisé par le bot.",
         "ping": ":ping_pong: `ping` :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
@@ -25,12 +25,12 @@
         "badges": ":military_medal: `badges`\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
         "drink": ":tropical_drink: `drink`\n\nCette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat.",
         "shop": ":shopping_cart: `shop`\n\nCette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement.",
-        "guildcreate": ":pencil: `guildcreate [Nom de guilde]`\n\nPermet de créer une guilde.",
-        "guildleave": ":outbox_tray: `guildleave`\n\nPermet de quitter votre guilde.",
-        "guild": ":arena: `guild [nom de guilde ou mention]`\n\nPermet d'afficher les informations sur une guilde.",
-        "guilddaily": ":newspaper: `guilddaily`\n\nPermet de récupérer des récompenses de guildes.",
-        "guildkick": ":leg: `guildkick`\n\nPermet d'expulser un membre d'une guilde, nécessite d'être chef de guilde.",
-        "guildadd": ":incoming_envelope: `guildadd [mention]`\n\nPermet d'ajouter un utilisateur à une guilde, nécessite d'être chef de guilde."
+        "guildCreate": ":pencil: `guildcreate [Nom de guilde]`\n\nPermet de créer une guilde.",
+        "guildLeave": ":outbox_tray: `guildLeave`\n\nPermet de quitter votre guilde.",
+        "guild": ":stadium: `guild [nom de guilde ou mention]`\n\nPermet d'afficher les informations sur une guilde.",
+        "guildDaily": ":newspaper: `guildDaily`\n\nPermet de récupérer des récompenses quotidiennes de guildes.",
+        "guildKick": ":leg: `guildKick`\n\nPermet d'expulser un membre d'une guilde, nécessite d'être chef de guilde.",
+        "guildAdd": ":incoming_envelope: `guildAdd [mention]`\n\nPermet d'ajouter un utilisateur à une guilde, nécessite d'être chef de guilde."
       }
     },
     "ping": {
