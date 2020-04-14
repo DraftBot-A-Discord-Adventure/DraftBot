@@ -26,9 +26,10 @@ const guildDailyCommand = async function (message, args, client) {
         message.channel.send(generateNotInAGuildException(message.author));
         return;
     }
+    //todo : Verifier que lastInvocation date de plus de 22H
     let members = await guildManager.getGuildMembers(guild.getGuildId());
     let rewardType = chooseRewardType(guild);
-    switch (rewardType) {
+    switch (rewardType) { //TODO : Faire des embeds propre pr dire ce que les joueurs ont recu + traduction
         case "personalXP":
             let xpWon = giveXpToGuildMembers(members, message);
             message.channel.send("les joueurs ont recu " + xpWon + "xp")
@@ -45,8 +46,21 @@ const guildDailyCommand = async function (message, args, client) {
             giveRandomItemGuildMembers(members, message);
             message.channel.send("les joueurs ont recu un item random")
             break;
+        case "badge":
+            //todo : donner le badge aux joueurs (badge :gem:)
+            message.channel.send("les joueurs ont recu un item random")
+            break;
+        case "fullHeal":
+            //todo : heal tous les joueurs de la team
+            message.channel.send("les joueurs ont été soignés complètement")
+            break;
+        case "partialHeal":
+            //todo : heal tous les joueurs de la team
+            message.channel.send("les joueurs ont été soignés")
+            break;
         default:
-
+            //todo soigner les altérations d'état ( seulement si c'est l'une de ces alterations : :dizzy_face::zany_face::nauseated_face::sleeping::head_bandage::cold_face::confounded::clock2::smiley:)
+            message.channel.send("les altérations d'état des joueurs ont été soignées")
     }
     message.channel.send(rewardType)
 }
