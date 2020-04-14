@@ -37,7 +37,7 @@
       "main": ":ping_pong: Pong"
     },
     "invite": {
-      "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
+      "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : https://discord.gg/USnCxg4 :smiley:"
     },
     "profile": {
       "timeleft": " Temps restant :",
@@ -537,14 +537,12 @@
     "💵": ":dollar:  `Personne ayant participé à l'amélioration du cadre de développement  du bot`",
     "⭐": ":star:  `Personne ayant star le repository du bot sur github`",
     "🌍": ":earth_africa:  `Traducteur`",
-    "🍌": ":banana:  `Petit cadeau pour une mention`",
-    "🔍": ":mag:  `Personne ayant résolu une chasse`",
     "🎗️": ":reminder_ribbon:  `Personne ayant dominé un classement de la semaine`",
     "🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`",
     "😂": ":joy:  `Badge offert à une personne drôle`"
   },
   "error": {
-    "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : http://draftbot.tk/ !"
+    "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : https://discord.gg/USnCxg4/ !"
   },
   "playerManager": {
     "errorMain": {
