@@ -624,7 +624,7 @@
                 "1": "** | :smirk: I like this determination! Here're 100 points :medal: to start your adventure! Use the command `profile` to see your points :wink: I'll let you discover the other commands! Don't hesitate to check your reports regularly!"
             },
             "end": {
-                "1": "** | : x: The tutorial hasn't been finished! You can restart it when you want using the `report` command!"
+                "1": "** | :x: The tutorial hasn't been finished! You can restart it when you want using the `report` command!"
             }
         },
         "1": {
