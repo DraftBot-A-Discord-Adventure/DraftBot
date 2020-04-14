@@ -6,7 +6,10 @@ const GuildManager = require('../../classes/GuildManager');
 const Tools = require('../../utils/Tools');
 
 let Text
+let language
+
 let playerManager = new PlayerManager();
+let guildManager = new GuildManager();
 
 
 /**
@@ -16,26 +19,47 @@ let playerManager = new PlayerManager();
  */
 const guildDailyCommand = async function (message, args, client) {
     Text = await Tools.chargeText(message);
-    let guildManager = new GuildManager();
+    language = await Tools.detectLanguage(message);
+
     let guild = await guildManager.getCurrentGuild(message);
     if (guild === null) {
-        message.channel.send(generateNotInAGuildException(user));
+        message.channel.send(generateNotInAGuildException(message.author));
         return;
     }
     let members = await guildManager.getGuildMembers(guild.getGuildId());
-    console.log(members)
-    message.channel.send(guild.toString());
+    let rewardType = chooseRewardType(guild);
+    switch (rewardType) {
+        case "personalXPh":
+            let xpWon = giveXpToGuildMembers(members, message);
+            message.channel.send("les joueurs ont recu " + xpWon + "xp")
+            break;
+        case "guildXph":
+            let xpGuildWon = giveXpToGuild(guild, message);
+            message.channel.send("la guilde a recu " + xpGuildWon + "xp")
+            break;
+        case "moneyh":
+            let moneyWon = giveMoneyGuildMembers(members, message);
+            message.channel.send("les joueurs ont recu " + moneyWon + "d'argent")
+            break;
+        case "randomItemh":
+            giveRandomItemGuildMembers(members, message);
+            message.channel.send("les joueurs ont recu un item random")
+            break;
+        default:
+
+    }
+    message.channel.send(rewardType)
 }
 
-
 /**
- * @returns {String} - A RichEmbed message wich display the generateNoGuildException
+ * @returns {String} - A RichEmbed message wich display the NoUserException
+ * @param {*} user - the user that the error refeirs to
  */
-function generateNoGuildException() {
+const generateNotInAGuildException = function (user) {
     let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setTitle(Text.commands.guild.error);
-    embed.setDescription(Text.commands.guild.notFound);
+    embed.setDescription(user.toString() + Text.commands.guildAdd.notInAGuildError);
     return embed;
 }
 
@@ -47,3 +71,74 @@ const generateDefaultEmbed = function () {
 }
 
 module.exports.guildDailyCommand = guildDailyCommand;
+
+/**
+ * give a random amount of xp to all member of a guild
+ * @param {*} members - the array of members that will recieve the xp
+ * @param {*} message 
+ */
+function giveXpToGuildMembers(members, message) {
+    let xpWon = Tools.generateRandomNumber(1, 20) * 5;
+    for (let i in members) {
+        members[i].addExperience(xpWon, message, language);
+        playerManager.updatePlayer(members[i]);
+    }
+    return xpWon;
+}
+
+/**
+ * give a random amount of money to all member of a guild
+ * @param {*} members - the array of members that will recieve the xp
+ * @param {*} message 
+ */
+function giveMoneyGuildMembers(members, message) {
+    let moneyWon = Tools.generateRandomNumber(10, 300);
+    for (let i in members) {
+        members[i].addMoney(moneyWon)
+        playerManager.updatePlayer(members[i]);
+    }
+    return moneyWon;
+}
+
+/**
+ * give a random amount of money to all member of a guild
+ * @param {*} members - the array of members that will recieve the xp
+ * @param {*} message 
+ */
+async function giveRandomItemGuildMembers(members, message) {
+    for (let i in members) {
+        members[i] = await playerManager.giveRandomItem(message, members[i])
+        playerManager.updatePlayer(members[i]);
+    }
+}
+
+/**
+ * give a random amount of xp to all member of a guild
+ * @param {*} guild  - the guild that will recieve the xp
+ * @param {*} message 
+ */
+function giveXpToGuild(guild, message) {
+    let xpWon = Tools.generateRandomNumber(20, 80);
+    guild.addExperience(xpWon, message, language);
+    guildManager.updateGuild(guild);
+    return xpWon;
+}
+
+/**
+ * get the reward the user will get
+ * @param {*} guild 
+ */
+function chooseRewardType(guild) {
+    let resultNumber = Tools.generateRandomNumber(0, 1000);
+    let rewardLevel = Math.floor(guild.level / 10);
+    let recompenses = DefaultValues.guildChances[rewardLevel];
+    for (const property in recompenses) {
+        if (recompenses[property] < resultNumber) {
+            resultNumber -= recompenses[property];
+        }
+        else {
+            return property;
+        }
+    }
+    ;
+}
