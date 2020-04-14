@@ -8,12 +8,15 @@ const Tools = require('../../utils/Tools');
 
 let Text
 
+let serverManager = new ServerManager();
+let guildManager = new GuildManager();
+let playerManager = new PlayerManager();
+
 /**
  * Allow to charge the prefix of the server
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const chargePrefix = async function (message) {
-    let serverManager = new ServerManager();
     return await serverManager.getServerPrefix(message);
 }
 
@@ -24,7 +27,6 @@ const chargePrefix = async function (message) {
  */
 guildCreateCommand = async function (message, args, client, talkedRecently) {
     Text = await Tools.chargeText(message);
-    let guildManager = new GuildManager();
     let serverPrefix = await chargePrefix(message);
     let guildName;
     let guild = await guildManager.getCurrentGuild(message);
@@ -111,7 +113,6 @@ function displaySpamErrorMessage() {
  * @param {*} collector - The collector
  */
 async function createCollector(collector, message, user, guildName, talkedRecently) {
-    let playerManager = new PlayerManager();
     let confirmIsOpen = true
     collector.on('end', () => {
         if (confirmIsOpen) {
@@ -155,8 +156,6 @@ async function checkIfUserHasEnoughMoney(message, player, guildName, user) {
  * Create the new guild and add the chief into it
  */
 async function setupGuild(message, user, guildName, player) {
-    let guildManager = new GuildManager();
-    let playerManager = new PlayerManager();
     let guild = await guildManager.getNewGuild(message, user.id, guildName);
     guildManager.addGuild(guild);
     player.setGuildId(guild.guildId);
