@@ -15,7 +15,7 @@ class GuildManager {
      * @returns {Integer} - The number of players
      */
     async getNumberOfMembersWithGuildId(guildId) {
-        return sql.get(`SELECT COUNT(*) as count FROM player WHERE guildId = "${guildId}"`).then(number => {
+        return sql.get(`SELECT COUNT(*) as count FROM player WHERE guildId = ?`, ["" + guildId]).then(number => {
             return number.count
         }).catch(error => { //there is no database
             console.error(error)
@@ -30,7 +30,7 @@ class GuildManager {
     async getGuildMembers(guildId) {
         let MembersArray = Array();
         let i = 0;
-        return sql.all(`SELECT * FROM player WHERE guildId = "${guildId}" ORDER BY score DESC`).then(data => {
+        return sql.all(`SELECT * FROM player WHERE guildId = ? ORDER BY score DESC`, [guildId]).then(data => {
             data.forEach(function (player) {
                 //TODO Mettre à jour ici les rank c'est plus dans la database
                 MembersArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
@@ -48,7 +48,7 @@ class GuildManager {
     * @returns {promise} - The promise that will be resolved into a Guild
     */
     async getCurrentGuild(message) {
-        return sql.get(`SELECT * FROM player WHERE discordId ="${message.author.id}"`).then(Player => {
+        return sql.get(`SELECT * FROM player WHERE discordId = ?`, ["" + message.author.id]).then(Player => {
             if (!Player) { //Player is not in the database
                 return null;
             } else { //Player is in the database
@@ -67,7 +67,7 @@ class GuildManager {
     * @returns {promise} - The promise that will be resolved into a Guild
     */
     async getGuildByUserId(id) {
-        return sql.get(`SELECT * FROM player WHERE discordId ="${id}"`).then(Player => {
+        return sql.get(`SELECT * FROM player WHERE discordId = ?`, ["" + id]).then(Player => {
             if (!Player) { //Player is not in the database
                 return null;
             } else { //Player is in the database
@@ -86,7 +86,7 @@ class GuildManager {
     * @returns {promise} - The promise that will be resolved into a Guild
     */
     async getGuildByChiefId(chief) {
-        return sql.get(`SELECT * FROM guild WHERE chief ="${chief}"`).then(guild => {
+        return sql.get(`SELECT * FROM guild WHERE chief = ?`, ["" + chief]).then(guild => {
             if (!guild) { //Guild is not in the database
                 console.log(`unknown guild loaded from ${chief}`);
                 return null;
@@ -106,7 +106,7 @@ class GuildManager {
     * @returns {promise} - The promise that will be resolved into a Guild
     */
     async getGuildByName(name) {
-        return sql.get(`SELECT * FROM guild WHERE name ="${name}"`).then(guild => {
+        return sql.get(`SELECT * FROM guild WHERE name = ?`, ["" + name]).then(guild => {
             if (!guild) { //Guild is not in the database
                 console.log(`unknown guild loaded from name ${name}`);
                 return null;
@@ -128,7 +128,7 @@ class GuildManager {
      * @returns {promise} - The promise that will be resolved into a Guild
      */
     async getGuildById(id) {
-        return sql.get(`SELECT * FROM guild WHERE guildId ="${id}"`).then(guild => {
+        return sql.get(`SELECT * FROM guild WHERE guildId = ?`, ["" + id]).then(guild => {
             if (!guild) { //Guild is not in the database
                 console.log(`guild unknown : ${id}`);
                 return null;
@@ -147,7 +147,7 @@ class GuildManager {
     * @returns {boolean} - If guild name is available
     */
     async checkNewNameAvailability(name) {
-        return sql.get(`SELECT * FROM guild WHERE name ="${name}"`).then(name => {
+        return sql.get(`SELECT * FROM guild WHERE name = ?`, ["" + name]).then(name => {
             if (!name) { //name is not in the database
                 return true;
             } else { //name is in the database
@@ -177,7 +177,8 @@ class GuildManager {
      */
     updateGuild(Guild) {
         console.log("Updating Guild ...");
-        sql.run(`UPDATE guild SET name = "${Guild.name}", chief = ${Guild.chief}, score = ${Guild.score}, level = ${Guild.level}, experience = ${Guild.experience}, lastInvocation = ${Guild.lastInvocation} WHERE guildId = ${Guild.guildId}`).catch(console.error);
+        sql.run(`UPDATE guild SET name = ?, chief = ?, score = ?, level = ?, experience = ?, lastInvocation = ? WHERE guildId = ?`,
+            ["" + Guild.name, Guild.chief, Guild.score, Guild.level, Guild.experience, Guild.lastInvocation, Guild.guildId]).catch(console.error);
         console.log("Guild updated !");
     }
 
@@ -187,7 +188,7 @@ class GuildManager {
      */
     updateGuildScore(Guild) {
         console.log("Updating Guild ...");
-        sql.run(`UPDATE guild SET score = ${Guild.score} WHERE guildId = ${Guild.guildId}`).catch(console.error);
+        sql.run(`UPDATE guild SET score = ? WHERE guildId = ?`, [Guild.score, Guild.guildId]).catch(console.error);
         console.log("Guild updated !");
     }
 
@@ -197,7 +198,8 @@ class GuildManager {
      */
     addGuild(guild) {
         console.log("Creating Guild ...");
-        sql.run(`INSERT INTO guild (guildId, name, chief, score, level, experience, lastInvocation) VALUES ("${guild.guildId}", "${guild.name}", "${guild.chief}", ${guild.score}, ${guild.level}, ${guild.experience}, ${guild.lastInvocation})`);
+        sql.run(`INSERT INTO guild (guildId, name, chief, score, level, experience, lastInvocation) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            ["" + guild.guildId, "" + guild.name, "" + guild.chief, guild.score, guild.level, guild.experience, guild.lastInvocation]);
         console.log("Guild created !");
     }
 

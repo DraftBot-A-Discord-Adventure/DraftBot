@@ -302,7 +302,7 @@ function saveChoice(reaction, choice, messageChoice, potionManager, dailyPotion,
             break;
         default:
             choice = "dailyPotion";
-            messageChoice += potionManager.displayPotion(dailyPotion, language) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + Text.commands.shop.infos.aa;
+            messageChoice += potionManager.displayPotion(dailyPotion, language) + Text.commands.shop.priceTagStart + potionPrice + Text.commands.shop.priceTagEnd + Text.commands.shop.infos.dailyPotion;
             break;
     }
     return { choice, messageChoice };
