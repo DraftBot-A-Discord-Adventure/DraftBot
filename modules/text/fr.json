@@ -76,7 +76,7 @@
       "dm": " id du joueur : ",
       "console": ":money_mouth: | Le badge du shop a été acheté par le joueur : ",
       "badgeWarning": ":warning: | Merci pour votre achat du badge :money_mouth:.\n\nSi vous en êtes arrivé à faire un tel achat c'est que vous avez déjà beaucoup joué à mon petit jeu et je vous en remercie. Votre badge vous sera remis dans les prochaines heures par un membre du staff du bot.",
-      "noMoney": "**, vous ne pouvez pas accèder au magasin avec des dettes !",
+      "noMoney": "**, vous ne pouvez pas accéder au magasin avec des dettes !",
       "emojiIntro": ":shopping_cart: ",
       "intro": ":shopping_cart:  **Affichage du magasin :**",
       "dailySell": "```🗓 Potion du jour :```\n",
@@ -103,7 +103,7 @@
         "alterationHeal": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
         "completeHeal": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
         "badge": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `aide badges`",
-        "guildXp": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde comprise entre 50 et 450"
+        "guildXp": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450"
       },
       "confirmIntro": ", **Vous avez sélectionné le produit suivant :**\n\n",
       "confirmStart": ":white_check_mark: | ",
@@ -143,7 +143,7 @@
     },
     "drink": {
       "errorDebut": " |** ",
-      "errorFin": "**,  vous consommez le breuvage que vous transportiez... Ca ne semble pas très efficace !",
+      "errorFin": "**,  vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
       "combatDebut": " |** ",
       "combatFin": "**,  cette potion ne peut pas être bue maintenant. Elle sera utilisée lors de votre prochain combat !",
       "noDebut": "**:x: | ",
@@ -236,10 +236,10 @@
           "8": " ** choisit une attaque rapide !  Très bonne initiative"
         },
         "meh": {
-          "1": " ** effectue une attaque rapide ! Ca fonctionne mais c'était pas incroyable.",
+          "1": " ** effectue une attaque rapide ! Ça fonctionne mais c'était pas incroyable.",
           "2": " ** effectue une attaque rapide ! Mouais...",
           "3": " ** effectue une attaque rapide vraiment moyenne ! Pas ouf !",
-          "4": " ** effectue une attaque rapide ! Ca n'est pas très efficace...",
+          "4": " ** effectue une attaque rapide ! Ça n'est pas très efficace...",
           "5": " ** effectue une attaque rapide ! C'est pas très réussi.",
           "6": " ** lance une attaque rapide ! Médiocre",
           "7": " ** utilise une attaque rapide ! Faiblarde !",
@@ -268,10 +268,10 @@
           "8": " ** choisit une attaque simple !  Très bonne initiative"
         },
         "meh": {
-          "1": " ** effectue une attaque simple ! Ca fonctionne mais c'était pas incroyable.",
+          "1": " ** effectue une attaque simple ! Ça fonctionne mais c'était pas incroyable.",
           "2": " ** effectue une attaque simple ! Mouais...",
           "3": " ** effectue une attaque simple vraiment moyenne ! Pas ouf !",
-          "4": " ** effectue une attaque simple ! Ca n'est pas très efficace...",
+          "4": " ** effectue une attaque simple ! Ça n'est pas très efficace...",
           "5": " ** effectue une attaque simple ! C'est pas très réussi.",
           "6": " ** lance une attaque simple ! Médiocre",
           "7": " ** utilise une attaque simple ! Faiblarde !",
@@ -300,10 +300,10 @@
           "8": " ** choisit une attaque ultime !  Très bonne initiative. `Vitesse réduite de 10 %`"
         },
         "meh": {
-          "1": " ** effectue une attaque ultime ! Ca fonctionne mais c'était pas incroyable.",
+          "1": " ** effectue une attaque ultime ! Ça fonctionne mais c'était pas incroyable.",
           "2": " ** effectue une attaque ultime ! Mouais...",
           "3": " ** effectue une attaque ultime vraiment moyenne ! Pas ouf !",
-          "4": " ** effectue une attaque ultime ! Ca n'est pas très efficace...",
+          "4": " ** effectue une attaque ultime ! Ça n'est pas très efficace...",
           "5": " ** effectue une attaque ultime ! C'est pas très réussi.",
           "6": " ** lance une attaque ultime ! Médiocre",
           "7": " ** utilise une attaque ultime ! Faiblarde !",
@@ -439,7 +439,7 @@
       "addSentence1": ", vous êtes invité à rejoindre la guilde : `",
       "addSentence2": "`",
       "checkMark": "✅ | ",
-      "gJoin": ", a rejoint une guilde `",
+      "gJoin": ", a rejoint la guilde `",
       "gJoinEnd": "` !",
       "x": "❌ |",
       "gJoinRefuse": " n'a pas rejoint la guilde !",
@@ -470,7 +470,7 @@
       "confirmDestroy": ", êtes-vous certain de vouloir quitter la guilde `",
       "confirmDestroyEnd": "` et par conséquent de la **détruire** ?\n\n:warning: **Cette action est irrévocable !**",
       "gLeaveRefuse": ", vous restez dans la guilde !",
-      "alreadyInAGuildError": ", vous n'êtes dans aucune guilde, tu ne peux donc pas en quitter une."
+      "notInAGuildError": ", vous n'êtes dans aucune guilde."
     },
     "guildCreate": {
       "x": "❌ | ",
@@ -513,7 +513,7 @@
       "badge": ":gem: | Les membres de la guilde ont reçu un badge. Les membres qui l'avaient déjà ont reçu un objet à la place.",
       "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
       "partialHeal": "Les membres de la guilde ont été partiellement soignés :",
-      "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été soignées."
+      "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées."
     }
   },
   "commandReader": {
