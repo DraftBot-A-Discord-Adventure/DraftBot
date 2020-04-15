@@ -342,7 +342,11 @@ class Player extends Entity {
      */
     addBadge(badge) {
         if(!this.badges.includes(badge)) {
-            this.badges += `-` + badge;
+            if(this.badges.length === 0) {
+                this.badges += badge;
+            } else {
+                this.badges += `-` + badge;
+            }
             return true;
         } else {
             return false;
