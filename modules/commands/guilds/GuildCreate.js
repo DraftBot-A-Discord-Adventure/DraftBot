@@ -42,7 +42,7 @@ guildCreateCommand = async function (message, args, client, talkedRecently) {
     }
 
     if (args.length > 1) { //There is a name
-        guildName = await message.content.slice(serverPrefix.length).trim().replace(args[0], "").substring(1); //substring is used to remove the space before the guild nam
+        guildName = await message.content.slice(serverPrefix.length).trim().replace(args[0], "").substring(1); //substring is used to remove the space before the guild name
         if (guildName.length > 1 && guildName.length < 15) { //Configure guild name length
             if (!containsPunctuation(guildName)) {
                 let nameAvailability = await guildManager.checkNewNameAvailability(guildName)
@@ -61,7 +61,7 @@ guildCreateCommand = async function (message, args, client, talkedRecently) {
                         await createCollector(collector, message, message.author, guildName, talkedRecently);
                     });
                 } else {
-                    message.channel.send(generateNameNotAvailableException(message, guildName));
+                    message.channel.send(generateNameNotAvailableException(guildName));
                 }
             } else {
                 message.channel.send(generateNoPunctuationException(message));
@@ -223,7 +223,7 @@ const generateEmptyNameException = function (serverPrefix) {
  * @returns {String} - A RichEmbed message wich display the NameNotAvailableException
  * @param {*} guildName - The name wanted for his guild by the user
  */
-const generateNameNotAvailableException = function ( guildName) {
+const generateNameNotAvailableException = function (guildName) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildCreate.error);
     embed.setColor(DefaultValues.guild.errorColor);
