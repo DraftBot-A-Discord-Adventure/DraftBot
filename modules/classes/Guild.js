@@ -131,6 +131,22 @@ class Guild {
         return this.name;
     }
 
+    /**
+     * Changes the date of the last invocation.
+     * @param date - The date.
+     */
+    setLastInvocation(date) {
+        this.lastInvocation = lastInvocation;
+    }
+
+    /**
+     * Returns the date of the last invocation.
+     * @returns {Date} - The date
+     */
+    getLastInvocation() {
+        return new Date(this.lastInvocation);
+    }
+
 
     /**
      * Returns this Guild instance's chief.

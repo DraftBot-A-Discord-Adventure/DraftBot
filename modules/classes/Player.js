@@ -336,6 +336,19 @@ class Player extends Entity {
         return this.badges;
     }
 
+    /**
+     * Add a badge to the player.
+     * @param {String} - The badge
+     */
+    addBadge(badge) {
+        if(!this.badges.includes(badge)) {
+            this.badges += `-` + badge;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * Update the timecode matching the last time the player has been see

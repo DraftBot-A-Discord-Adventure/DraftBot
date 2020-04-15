@@ -11,7 +11,6 @@ let language
 let playerManager = new PlayerManager();
 let guildManager = new GuildManager();
 
-
 /**
  * Allow to display the rankings of the players
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
@@ -26,7 +25,15 @@ const guildDailyCommand = async function (message, args, client) {
         message.channel.send(generateNotInAGuildException(message.author));
         return;
     }
-    //todo : Verifier que lastInvocation date de plus de 22H
+    
+    //check if lastInvocaton has been triggered more than 22hours from now
+    var diffHours = Math.abs(guild.getLastInovaton() - new Date()) / 36e5;
+    if(diffHours >= 22) {
+        //daily
+    } else {
+        //error
+    }
+
     let members = await guildManager.getGuildMembers(guild.getGuildId());
     let rewardType = chooseRewardType(guild);
     switch (rewardType) { //TODO : Faire des embeds propre pr dire ce que les joueurs ont recu + traduction
@@ -47,19 +54,19 @@ const guildDailyCommand = async function (message, args, client) {
             message.channel.send("les joueurs ont recu un item random")
             break;
         case "badge":
-            //todo : donner le badge aux joueurs (badge :gem:)
-            message.channel.send("les joueurs ont recu un item random")
+            giveBadgeToGuildMembers(members, message);
+            message.channel.send("les joueurs ont recu un badge")
             break;
         case "fullHeal":
-            //todo : heal tous les joueurs de la team
+            completelyHealGuildMembers(members, message);
             message.channel.send("les joueurs ont été soignés complètement")
             break;
         case "partialHeal":
-            //todo : heal tous les joueurs de la team
+            partiallyHealGuildMembers(members, message);
             message.channel.send("les joueurs ont été soignés")
             break;
         default:
-            //todo soigner les altérations d'état ( seulement si c'est l'une de ces alterations : :dizzy_face::zany_face::nauseated_face::sleeping::head_bandage::cold_face::confounded::clock2::smiley:)
+            healStateOfGuildMembers(members, message);
             message.channel.send("les altérations d'état des joueurs ont été soignées")
     }
     message.channel.send(rewardType)
@@ -84,8 +91,6 @@ const generateDefaultEmbed = function () {
     return new Discord.RichEmbed().setColor(DefaultValues.embed.color);
 }
 
-module.exports.guildDailyCommand = guildDailyCommand;
-
 /**
  * give a random amount of xp to all member of a guild
  * @param {*} members - the array of members that will recieve the xp
@@ -98,6 +103,55 @@ function giveXpToGuildMembers(members, message) {
         playerManager.updatePlayer(members[i]);
     }
     return xpWon;
+}
+
+/**
+ * give a badge (:gem:) to all member of a guild
+ * @param {*} members - the array of members that will recieve the badge
+ */
+function giveBadgeToGuildMembers(members, message) {
+    for (let i in members) {
+        members[i].addBadge("💎");
+        playerManager.updatePlayer(members[i]);
+    }
+}
+
+/**
+ * completely heal all guild members
+ * @param {*} members - the array of members that will be healed
+ */
+function completelyHealGuildMembers(members, message) {
+    for (let i in members) {
+        members[i].restoreHealthCompletely();
+        playerManager.updatePlayer(members[i]);
+    }
+}
+
+/**
+ * partially heal all guild members
+ * @param {*} members - the array of members that will be healed
+ */
+function partiallyHealGuildMembers(members, message) {
+    for (let i in members) {
+        var healthToAdd = Tools.generateRandomNumber(1, 15);
+        members[i].addHealthPoints(healthToAdd, message, language);
+        playerManager.updatePlayer(members[i]);
+    }
+}
+
+/**
+ * clear player alterations
+ * @param {*} members - the array of members that will get healed
+ */
+function healStateOfGuildMembers(members, message) {
+    var allowedStates = ":dizzy_face::zany_face::nauseated_face::sleeping::head_bandage::cold_face::confounded::clock2::smiley:"
+    for (let i in members) {
+        if (allowedStates.includes(members[i].getEffect())) {
+            members[i].updateLastReport(message.createdTimestamp, 0, ":smiley:");
+            members[i].effect = ":smiley:";
+            playerManager.updatePlayer(members[i]);
+        }
+    }
 }
 
 /**
@@ -153,6 +207,8 @@ function chooseRewardType(guild) {
         else {
             return property;
         }
-    }
-    ;
+    };
 }
+
+module.exports.guildDailyCommand = guildDailyCommand;
+
