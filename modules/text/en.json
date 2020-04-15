@@ -84,10 +84,10 @@
                 "d": "🤑"
             },
             "choices": {
-                "a": ":question: **A random item** | `350 :moneybag:`",
-                "b": ":hospital: **Heal alterations** | `500 :moneybag:`",
-                "c": ":heartpulse: **Complete health regeneration** | `3000 :moneybag:`",
-                "d": ":money_mouth: **\"MoneyMouth\" Badge** | `25000 :moneybag:`"
+                "a": ":question: **A random item** | `350 💰`",
+                "b": ":hospital: **Heal alterations** | `500 💰`",
+                "c": ":heartpulse: **Complete health regeneration** | `3000 💰`",
+                "d": ":money_mouth: **\"MoneyMouth\" Badge** | `25000 💰`"
             },
             "infos": {
                 "aa": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
@@ -557,7 +557,7 @@
         "11": " : ** :interrobang: As you get ready to enter a forest, a mysterious woman explains there is a shorter path through the west.\n\n:deciduous_tree: Keep going the same way.\n:point_left: Follow the advice of the mysterious woman.\n:point_right: Avoid the forest by going the opposite way you were told.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*",
         "12": " : ** :park: You see a river in front of you. On the other shore, you catch a glimpse of a village.\n\n:swimmer: Swim across the river.\n:rowboat: Try to make a raft.\n:bridge_at_night: Look for a bridge further away.\n:walking: Go another way.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*",
         "13": " : ** :homes: After spending several weeks walking without any human encounter, you finally enter a small town that seems rather lively.\n\n:house: Go to the inn.\n:hammer: Go to the forge.\n:circus_tent: Go to the marketplace.\n:walking: Leave.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*",
-        "14": " : ** :house: YFou arrive at a plain where a single small house stands. As you get closer, you see a man working on an incandescent piece of metal.\n\n:hammer: Chat with the worker\n🛏 Ask to stay the night to rest and recover\n:walking: You don't have time to lose! Continue walking!\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "14": " : ** :house: You arrive at a plain where a single small house stands. As you get closer, you see a man working on an incandescent piece of metal.\n\n:hammer: Chat with the worker\n🛏 Ask to stay the night to rest and recover\n:walking: You don't have time to lose! Continue walking!\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "15": " : ** :cityscape: As you are walking through a town through narrow alleys, you enter what seems to be a small shop where a group of men are quietly chatting.\n\n:busts_in_silhouette: Try trading with them.\n:runner: Continue walking without losing time.\n :moneybag: Discreetly take a few coins from the register.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "16": " : ** :european_castle: After following a small river for hours, you discover what seems to be a abandoned castle by the riverside.\n\n:mag_right: Enter and explore the castle.\n:arrow_right: Continue walking\n:repeat: Walk around the castle's exterior\n\n*-Use the reactions to execute an action. :warning: Not reacting is also considered a choice!* ",
         "17": " : ** :stew: Hungry after your day of travel, you decide to stop and look for something to eat around you.\n\n:apple: Climb the huge tree facing you and get fruit from it.\n:mushroom: Gather mushrooms.\n:salad: Make a salad with the plants you find.\n:deer: Attempt to hunt a wild animal\n:walking: Forget eating here. Leave in hopes of finding a better place to eat.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
@@ -574,8 +574,8 @@
         "28": " : ** :angel: On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause. \n\n:white_check_mark: Agree to join them\n:x: Gently reject the proposal.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "29": " : ** :thermometer: In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape. \n\n:mag: Search the surroundings for a body of water\n:deciduous_tree: Rest at the foot of a tree\n:sleeping: Rest right here\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "30": " : ** :european_castle: You see a castle in the distance. You decide to approach the main entrance, it seems to be that of Duke Benatis. Known for his banana farms, he organizes a party for his 21st birthday. When you approach a little closer, a guard invites you to enter as the Duke wants everyone to participate in the party. When you return, you see a huge feast awaiting the attendees.\n\n:prince: Go to the Duke\n:tada: Stay at the party\n:gift: Give him a present\n:banana: Go and steal bananas from his farm\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
-        "31": " : ** :horse_racing: You hear the rhythm of a gallop from far away. You turn back and see a black armoured  (British spelling) knight with a coat of arms that you do not recognise. (flows better imo)\n\n:man_walking: Keep going normally.\n:herb: Hide in a bush at the roadside.\n:wave: Motion to him to stop.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
-        "32": " : ** You are walking quietly in a forest when you hear a scream. The voice seems to be that of a man, you decide to go towards the direction of the scream where you find a seriously injured man near a kind of camp.\n\n:syringe: Try to find something to heal the wounded man\n:knife: Shorten the man’s suffers to steal his equipment\n:speaking_head:  Yell and try to alert people.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "31": " : ** :horse_racing: You hear the rhythm of a gallop from far away. You turn back and see a black armoured knight with a coat of arms that you do not recognise.\n\n:man_walking: Keep going normally.\n:herb: Hide in a bush at the roadside.\n:wave: Motion to him to stop.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
+        "32": " : ** You are walking quietly in a forest when you hear a scream. The voice seems to be that of a man, you decide to go towards the direction of the scream where you find a seriously injured man near a kind of camp.\n\n:syringe: Try to find something to heal the wounded man\n:knife: Shorten the man’s suffering to steal his equipment\n:speaking_head:  Yell and try to alert people.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "33": " : ** You arrive in farm in which festivities are conducted. The people seem to receive you with hospitality.\n\n:lips: Sit down to chat.\n:poultry_leg: Have a go at the food.\n:detective: Take advantage of the commotion to rob some of them.\n:person_walking: Continue without stopping.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "34": " : ** At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n:four_leaf_clover: - Gift in kind\n:moneybag: - Money Gift\n:innocent: - Gift of Health\n:salad: - Gift of Food\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
         "35": " : ** :beers: You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you.\n\n:beer: Accept the proposal\n:x: Refuse the proposal\n:moneybag:Refuse, and try to rob other customers\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*",
@@ -661,7 +661,7 @@
             "🗣": {
                 "1": "** | :speaking_head: You make a wish and close your eyes... When you open them back up, you discover a bag filled with money in front of you! Spending those 10 minutes was worth it!",
                 "2": "** | :speaking_head: You make a wish and close your eyes... When you open them back up you don't discover anything! After wasting 10 minutes on nothing you walk away.",
-                "3": "** :speaking_head: You make a wish and close your eyes... When you reopen them, you discover that nothing happened! After waiting 10 minutes for nothing, you leave.",
+                "3": "** | :speaking_head: You make a wish and close your eyes... When you reopen them, you discover that nothing happened! After waiting 10 minutes for nothing, you leave.",
                 "4": "** | :speaking_head: You make a wish and close your eyes... Reopening them, you discover... nothing at all! After waiting 10 minutes for nothing, you leave.",
                 "5": "** | :speaking_head: You make a wish and close your eyes... It's usually better not to keep walking with your eyes closed. You hurt yourself stumbling on a rock and lose 10 minutes before being able to continue."
             },
@@ -1386,7 +1386,7 @@
               "2": "** | 🚶 You leave, and soon after that you find an injured man. While trying to help him, you find out it's an ambush! Men appear and dispossess you, then leave."
             },
             "end": {
-              "1": "** | 🚶 You stand there and think: you can't make up your mind, you thus decide to leave after a few minutes.",
+              "1": "** | 🚶 You stand there and think... you can't make up your mind, you thus decide to leave after a few minutes.",
               "2": "** | 🚶  You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. :sick:"
             }
         }
