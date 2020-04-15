@@ -501,6 +501,19 @@
       "gKickedEnd": "` !",
       "gKickCancelled": " n'a pas été exclu de la guilde.",
       "notInAGuild": " ne fais partie d'aucune guilde."
+    },
+    "guildDaily": {
+      "rewardTitle": "Récompense de la guilde ",
+      "personalXPIntro": ":star: | Les membres de la guilde ont reçu `",
+      "XPEnd": " points d'xp`.",
+      "guildXPIntro": ":star: | La guilde a reçu `",
+      "moneyIntro": ":moneybag: | Les membres de la guilde ont reçu `",
+      "moneyEnd": " pièces d'or`.",
+      "item": ":gift: | Les membres de la guilde ont reçu un objet au hasard.",
+      "badge": ":gem: | Les membres de la guilde ont reçu un badge.",
+      "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
+      "partialHeal": "Les membres de la guilde ont été partiellement soignés :",
+      "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été soignées."
     }
   },
   "commandReader": {

@@ -27,50 +27,56 @@ const guildDailyCommand = async function (message, args, client) {
     }
     
     //check if lastInvocaton has been triggered more than 22hours from now
-    var diffHours = Math.abs(guild.getLastInovaton() - new Date()) / 36e5;
+    /*var diffHours = Math.abs(guild.getLastInovaton() - new Date()) / 36e5;
     if(diffHours >= 22) {
         //daily
     } else {
         //error
-    }
+    }*/
 
     let members = await guildManager.getGuildMembers(guild.getGuildId());
     let rewardType = chooseRewardType(guild);
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildDaily.rewardTitle + guild.getName());
     switch (rewardType) { //TODO : Faire des embeds propre pr dire ce que les joueurs ont recu + traduction
         case "personalXP":
             let xpWon = giveXpToGuildMembers(members, message);
-            message.channel.send("les joueurs ont recu " + xpWon + "xp");
+            embed.setDescription(Text.commands.guildDaily.personalXPIntro + xpWon + Text.commands.guildDaily.XPEnd);
             break;
         case "guildXp":
             let xpGuildWon = giveXpToGuild(guild, message);
-            message.channel.send("la guilde a recu " + xpGuildWon + "xp");
+            embed.setDescription(Text.commands.guildDaily.guildXPIntro + xpGuildWon + Text.commands.guildDaily.XPEnd);
             break;
         case "money":
             let moneyWon = giveMoneyGuildMembers(members, message);
-            message.channel.send("les joueurs ont recu " + moneyWon + "d'argent");
+            embed.setDescription(Text.commands.guildDaily.moneyIntro + moneyWon + Text.commands.guildDaily.moneyEnd);
             break;
         case "randomItem":
             giveRandomItemGuildMembers(members, message);
-            message.channel.send("les joueurs ont recu un item random");
+            embed.setDescription(Text.commands.guildDaily.item);
             break;
         case "badge":
             giveBadgeToGuildMembers(members, message);
-            message.channel.send("les joueurs ont recu un badge");
+            embed.setDescription(Text.commands.guildDaily.badge);
             break;
         case "fullHeal":
             completelyHealGuildMembers(members, message);
-            message.channel.send("les joueurs ont été soignés complètement");
+            embed.setDescription(Text.commands.guildDaily.fullHeal);
             break;
         case "partialHeal":
-            partiallyHealGuildMembers(members, message);
-            message.channel.send("les joueurs ont été soignés");
+            let addedHealth = partiallyHealGuildMembers(members, message);
+            let msg = Text.commands.guildDaily.partialHeal;
+            for (let i = 0; i < members.length; ++i) {
+                msg += "\n- <@" + members[i].discordId + "> (+" + addedHealth[i] + " :heart:)";
+            }
+            embed.setDescription(msg);
             break;
         default:
             healStateOfGuildMembers(members, message);
-            message.channel.send("les altérations d'état des joueurs ont été soignées");
+            embed.setDescription(Text.commands.guildDaily.alterationHeal);
     }
-    message.channel.send(rewardType)
-}
+    await message.channel.send(embed);
+};
 
 /**
  * @returns {String} - A RichEmbed message wich display the NoUserException
@@ -132,11 +138,14 @@ function completelyHealGuildMembers(members, message) {
  * @param {*} members - the array of members that will be healed
  */
 function partiallyHealGuildMembers(members, message) {
-    for (let i in members) {
+    let healthAdded = new Array(members.length);
+    for (let i = 0; i < members.length; ++i) {
         var healthToAdd = Tools.generateRandomNumber(1, 15);
+        healthAdded[i] = healthToAdd;
         members[i].addHealthPoints(healthToAdd, message, language);
         playerManager.updatePlayer(members[i]);
     }
+    return healthAdded;
 }
 
 /**
