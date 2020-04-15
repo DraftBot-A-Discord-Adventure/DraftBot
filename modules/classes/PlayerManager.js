@@ -560,7 +560,6 @@ class PlayerManager {
         let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
         if (neww > old) {
             inventory.weaponId = weapon.id;
-            let user = await client.users.get(id);
             message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
             inventoryManager.updateInventory(inventory);
         }
