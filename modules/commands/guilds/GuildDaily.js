@@ -39,35 +39,35 @@ const guildDailyCommand = async function (message, args, client) {
     switch (rewardType) { //TODO : Faire des embeds propre pr dire ce que les joueurs ont recu + traduction
         case "personalXP":
             let xpWon = giveXpToGuildMembers(members, message);
-            message.channel.send("les joueurs ont recu " + xpWon + "xp")
+            message.channel.send("les joueurs ont recu " + xpWon + "xp");
             break;
         case "guildXp":
             let xpGuildWon = giveXpToGuild(guild, message);
-            message.channel.send("la guilde a recu " + xpGuildWon + "xp")
+            message.channel.send("la guilde a recu " + xpGuildWon + "xp");
             break;
         case "money":
             let moneyWon = giveMoneyGuildMembers(members, message);
-            message.channel.send("les joueurs ont recu " + moneyWon + "d'argent")
+            message.channel.send("les joueurs ont recu " + moneyWon + "d'argent");
             break;
         case "randomItem":
             giveRandomItemGuildMembers(members, message);
-            message.channel.send("les joueurs ont recu un item random")
+            message.channel.send("les joueurs ont recu un item random");
             break;
         case "badge":
             giveBadgeToGuildMembers(members, message);
-            message.channel.send("les joueurs ont recu un badge")
+            message.channel.send("les joueurs ont recu un badge");
             break;
         case "fullHeal":
             completelyHealGuildMembers(members, message);
-            message.channel.send("les joueurs ont été soignés complètement")
+            message.channel.send("les joueurs ont été soignés complètement");
             break;
         case "partialHeal":
             partiallyHealGuildMembers(members, message);
-            message.channel.send("les joueurs ont été soignés")
+            message.channel.send("les joueurs ont été soignés");
             break;
         default:
             healStateOfGuildMembers(members, message);
-            message.channel.send("les altérations d'état des joueurs ont été soignées")
+            message.channel.send("les altérations d'état des joueurs ont été soignées");
     }
     message.channel.send(rewardType)
 }

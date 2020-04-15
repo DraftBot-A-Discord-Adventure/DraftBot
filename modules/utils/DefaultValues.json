@@ -330,7 +330,7 @@
     "guildChances": {
         "0": {
             "personalXP": 0,
-            "guildXP": 0,
+            "guildXp": 0,
             "money": 1000,
             "randomItem": 0,
             "badge": 0,
@@ -340,7 +340,7 @@
         },
         "1": {
             "personalXP": 50,
-            "guildXP": 150,
+            "guildXp": 150,
             "money": 598,
             "randomItem": 50,
             "badge": 0,
@@ -350,7 +350,7 @@
         },
         "2": {
             "personalXP": 50,
-            "guildXP": 150,
+            "guildXp": 150,
             "money": 557,
             "randomItem": 80,
             "badge": 0,
@@ -360,7 +360,7 @@
         },
         "3": {
             "personalXP": 50,
-            "guildXP": 150,
+            "guildXp": 150,
             "money": 526,
             "randomItem": 110,
             "badge": 0,
@@ -370,7 +370,7 @@
         },
         "4": {
             "personalXP": 100,
-            "guildXP": 100,
+            "guildXp": 100,
             "money": 495,
             "randomItem": 140,
             "badge": 0,
@@ -380,7 +380,7 @@
         },
         "5": {
             "personalXP": 100,
-            "guildXP": 100,
+            "guildXp": 100,
             "money": 454,
             "randomItem": 170,
             "badge": 10,
@@ -390,7 +390,7 @@
         },
         "6": {
             "personalXP": 100,
-            "guildXP": 100,
+            "guildXp": 100,
             "money": 413,
             "randomItem": 200,
             "badge": 20,
@@ -400,7 +400,7 @@
         },
         "7": {
             "personalXP": 100,
-            "guildXP": 100,
+            "guildXp": 100,
             "money": 372,
             "randomItem": 230,
             "badge": 30,
@@ -410,7 +410,7 @@
         },
         "8": {
             "personalXP": 150,
-            "guildXP": 50,
+            "guildXp": 50,
             "money": 331,
             "randomItem": 260,
             "badge": 40,
@@ -420,7 +420,7 @@
         },
         "9": {
             "personalXP": 150,
-            "guildXP": 50,
+            "guildXp": 50,
             "money": 290,
             "randomItem": 290,
             "badge": 50,
@@ -430,7 +430,7 @@
         },
         "10": {
             "personalXP": 200,
-            "guildXP": 0,
+            "guildXp": 0,
             "money": 205,
             "randomItem": 320,
             "badge": 100,
