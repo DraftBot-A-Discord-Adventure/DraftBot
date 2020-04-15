@@ -38,7 +38,7 @@ const guildDailyCommand = async function (message, args, client) {
     let rewardType = chooseRewardType(guild);
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildDaily.rewardTitle + guild.getName());
-    switch (rewardType) { //TODO : Faire des embeds propre pr dire ce que les joueurs ont recu + traduction
+    switch (rewardType) {
         case "personalXP":
             let xpWon = giveXpToGuildMembers(members, message);
             embed.setDescription(Text.commands.guildDaily.personalXPIntro + xpWon + Text.commands.guildDaily.XPEnd);
