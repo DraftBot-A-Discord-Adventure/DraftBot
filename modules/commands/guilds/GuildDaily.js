@@ -118,7 +118,7 @@ function giveXpToGuildMembers(members, message) {
 async function giveBadgeToGuildMembers(members, message) {
     for (let i in members) {
         if (members[i].getBadges().includes("💎")) {
-            await playerManager.giveRandomItem(message, members[i]);
+            await playerManager.giveRandomItem(message, members[i], true);
         } else {
             members[i].addBadge("💎");
         }
@@ -188,7 +188,7 @@ function giveMoneyGuildMembers(members, message) {
  */
 async function giveRandomItemGuildMembers(members, message) {
     for (let i in members) {
-        members[i] = await playerManager.giveRandomItem(message, members[i])
+        members[i] = await playerManager.giveRandomItem(message, members[i], true);
         playerManager.updatePlayer(members[i]);
     }
 }

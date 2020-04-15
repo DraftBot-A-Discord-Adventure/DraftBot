@@ -263,7 +263,7 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
    player.addExperience(possibility.xpGained, message, language, Text)
 
    if (possibility.item == "true") { //have to give an item to the player
-      player = await playerManager.giveRandomItem(message, player);
+      player = await playerManager.giveRandomItem(message, player, false);
    }
    playerManager.updatePlayer(player);
 }

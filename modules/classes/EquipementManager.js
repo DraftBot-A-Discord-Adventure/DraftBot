@@ -15,7 +15,7 @@ class EquipementManager {
      * @returns {*} - An equipement
      */
     getWeaponById(id) {
-        return new Equipement(id, ItemValues.weapon[id].rareness, ItemValues.weapon[id].power);
+        return new Equipement(id, ItemValues.weapon[id].rareness, ItemValues.weapon[id].power, 'weapon');
     }
 
 
@@ -25,7 +25,7 @@ class EquipementManager {
      * @returns {*} - An equipement
      */
     getArmorById(id) {
-        return new Equipement(id, ItemValues.armor[id].rareness, ItemValues.armor[id].power);
+        return new Equipement(id, ItemValues.armor[id].rareness, ItemValues.armor[id].power, 'armor');
     }
 
 

@@ -546,6 +546,8 @@
         "newItemEmoji": ":new: | ",
         "newItem": "**, you obtained a new item!** You got:\n\n",
         "sell": ", you obtain a bag containing some gold coins... It will be useful for the continuation of your adventure! :moneybag: Money obtained: **",
+        "sellItem1": ", you decide to sell ",
+        "sellItem2": " for some golds coins because this item doesn't seem useful... :moneybag: Money obtained : **",
         "sellEnd": "**",
         "sellEmoji": ":gift: | ",
         "levelUp": {

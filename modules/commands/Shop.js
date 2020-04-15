@@ -179,12 +179,12 @@ const generateNotInAGuildException = function (user) {
 
 
 /**
-* Check if the reaction recieved is valid
-* @param {*} reaction - The reaction recieved
-* @param {Boolean} shopmenu - An option has not already been selected
-* @param {*} dailyPotion - the potion of the day
-* @returns {Boolean} - true is the reaction is correct
-*/
+ * Check if the reaction recieved is valid
+ * @param {*} reaction - The reaction recieved
+ * @param {Boolean} shopmenu - An option has not already been selected
+ * @param {*} dailyPotion - the potion of the day
+ * @returns {Boolean} - true is the reaction is correct
+ */
 const choiceReactionIsCorrect = function (reaction, dailyPotion, shopmenu) {
     let contains = false;
     if (!shopmenu && (reaction.emoji.name == dailyPotion.getEmoji().split(':')[1] || reaction.emoji.name == dailyPotion.getEmoji() || reaction.emoji.name == Text.commands.shop.emojis.randomItem || reaction.emoji.name == Text.commands.shop.emojis.alterationHeal || reaction.emoji.name == Text.commands.shop.emojis.completeHeal || reaction.emoji.name == Text.commands.shop.emojis.guildXp || reaction.emoji.name == Text.commands.shop.emojis.badge)) {
@@ -194,10 +194,10 @@ const choiceReactionIsCorrect = function (reaction, dailyPotion, shopmenu) {
 }
 
 /**
-* Check if the reaction recieved is valid
-* @param {*} reaction - The reaction recieved
-* @returns {Boolean} - true is the reaction is correct
-*/
+ * Check if the reaction recieved is valid
+ * @param {*} reaction - The reaction recieved
+ * @returns {Boolean} - true is the reaction is correct
+ */
 const confirmReactionIsCorrect = function (reaction) {
     let contains = false;
     if (reaction.emoji.name == "✅" || reaction.emoji.name == "❌") {
@@ -223,8 +223,8 @@ const generateDailyPotion = function () {
 
 /**
  * Cancel the sell and free the user
- * @param {*} talkedRecently 
- * @param {*} message 
+ * @param {*} talkedRecently
+ * @param {*} message
  */
 function cancelTheSell(talkedRecently, message) {
     talkedRecently.delete(message.author.id);
@@ -233,10 +233,10 @@ function cancelTheSell(talkedRecently, message) {
 
 /**
  * sell the badge money mouth to a user
- * @param {*} message 
- * @param {*} client 
- * @param {*} player 
- * @param {*} playerManager 
+ * @param {*} message
+ * @param {*} client
+ * @param {*} player
+ * @param {*} playerManager
  */
 function sellBadge(message, client, player, playerManager) {
     message.author.send(Text.commands.shop.badgeWarning);
@@ -247,8 +247,8 @@ function sellBadge(message, client, player, playerManager) {
 
 /**
  * Sell a complete heal to a user
- * @param {*} player 
- * @param {*} playerManager 
+ * @param {*} player
+ * @param {*} playerManager
  */
 function sellCompleteHeal(player, playerManager) {
     player.money -= DefaultValues.shop.priceHeal;
@@ -258,12 +258,12 @@ function sellCompleteHeal(player, playerManager) {
 
 /**
  * Sell a random item to a user
- * @param {*} player 
- * @param {*} playerManager 
- * @param {*} message 
+ * @param {*} player
+ * @param {*} playerManager
+ * @param {*} message
  */
 async function sellRandomItem(player, playerManager, message) {
-    player = await playerManager.giveRandomItem(message, player);
+    player = await playerManager.giveRandomItem(message, player, true);
     player.money -= DefaultValues.shop.priceItem;
     playerManager.updatePlayer(player);
     return player;
@@ -271,12 +271,12 @@ async function sellRandomItem(player, playerManager, message) {
 
 /**
  * read and save the choice made in the shop menu
- * @param {*} reaction 
- * @param {*} choice 
- * @param {*} messageChoice 
- * @param {*} potionManager 
- * @param {*} dailyPotion 
- * @param {*} potionPrice 
+ * @param {*} reaction
+ * @param {*} choice
+ * @param {*} messageChoice
+ * @param {*} potionManager
+ * @param {*} dailyPotion
+ * @param {*} potionPrice
  */
 function saveChoice(reaction, choice, messageChoice, potionManager, dailyPotion, potionPrice) {
     switch (reaction.emoji.name) {
@@ -310,9 +310,9 @@ function saveChoice(reaction, choice, messageChoice, potionManager, dailyPotion,
 
 /**
  * remove the alteration of a player
- * @param {*} player 
- * @param {*} message 
- * @param {*} playerManager 
+ * @param {*} player
+ * @param {*} message
+ * @param {*} playerManager
  */
 function removeAlteration(player, message, playerManager) {
     player.updateLastReport(message.createdTimestamp, 0, ":smiley:");
