@@ -115,9 +115,13 @@ function giveXpToGuildMembers(members, message) {
  * give a badge (:gem:) to all member of a guild
  * @param {*} members - the array of members that will recieve the badge
  */
-function giveBadgeToGuildMembers(members, message) {
+async function giveBadgeToGuildMembers(members, message) {
     for (let i in members) {
-        members[i].addBadge("💎");
+        if (members[i].getBadges().includes("💎")) {
+            await playerManager.giveRandomItem(message, members[i]);
+        } else {
+            members[i].addBadge("💎");
+        }
         playerManager.updatePlayer(members[i]);
     }
 }

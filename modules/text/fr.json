@@ -510,7 +510,7 @@
       "moneyIntro": ":moneybag: | Les membres de la guilde ont reçu `",
       "moneyEnd": " pièces d'or`.",
       "item": ":gift: | Les membres de la guilde ont reçu un objet au hasard.",
-      "badge": ":gem: | Les membres de la guilde ont reçu un badge.",
+      "badge": ":gem: | Les membres de la guilde ont reçu un badge. Les membres qui l'avaient déjà ont reçu un objet à la place.",
       "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
       "partialHeal": "Les membres de la guilde ont été partiellement soignés :",
       "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été soignées."
