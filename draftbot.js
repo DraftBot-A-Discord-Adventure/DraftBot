@@ -27,7 +27,7 @@ client.on("guildCreate", guilde => {
   displayConsoleChannel(string);
   if (validation == ":x:") {
     sendLeavingMessage(guilde);
-    guilde.leave()
+    //guilde.leave() //temporairement désactivé pour top.gg
   }
   console.log(string);
 });
