@@ -30,7 +30,7 @@ const guildDailyCommand = async function (message, args, client) {
         message.channel.send(generateTooQuickException(message.author));
         return;
     }
-    guild.lastInvocation = message.createdTimestamp;
+    updateLastInvocation(guild, message);
 
 
     let members = await guildManager.getGuildMembers(guild.getGuildId());
@@ -108,6 +108,15 @@ const generateTooQuickException = function (user) {
  */
 const generateDefaultEmbed = function () {
     return new Discord.RichEmbed().setColor(DefaultValues.embed.color);
+}
+
+/**
+ * update the moment where the daily guild was used
+ * @param {*} guild 
+ * @param {*} message 
+ */
+function updateLastInvocation(guild, message) {
+    guild.lastInvocation = message.createdTimestamp;
 }
 
 /**
