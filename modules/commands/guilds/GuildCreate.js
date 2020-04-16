@@ -44,7 +44,7 @@ guildCreateCommand = async function (message, args, client, talkedRecently) {
     if (args.length > 1) { //There is a name
         guildName = await message.content.slice(serverPrefix.length).trim().replace(args[0], "").substring(1); //substring is used to remove the space before the guild name
         if (guildName.length > 1 && guildName.length < 15) { //Configure guild name length
-            if (!containsPunctuation(guildName)) {
+            if (guildNameCorrect(guildName)) {
                 let nameAvailability = await guildManager.checkNewNameAvailability(guildName)
                 if (nameAvailability === true) {
                     message.channel.send(await generateGuildCreateMessage(message, guildName)).then(async msg => {
@@ -175,11 +175,11 @@ async function addBasicReactions(message) {
 /**
  *
  * Returns a string containing the guildCreate message.
- * @returns {String} - A string containing the nodrink message.
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @returns {boolean} - If the name if correct
+ * @param {*} guildName - The name of the guild
  */
-const containsPunctuation = function (guildName) {
-    const regex = RegExp(/[.,;:?/!*¨^ÆÅÊŸ$£¤µ%°#@|`<>&~{}[]"\"]/) //List of banned caracters
+const guildNameCorrect = function (guildName) {
+    const regex = RegExp(/^[A-Za-z0-9]+$/)
     return regex.test(guildName);;
 }
 
