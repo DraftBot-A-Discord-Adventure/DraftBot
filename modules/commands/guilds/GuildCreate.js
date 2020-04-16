@@ -179,8 +179,9 @@ async function addBasicReactions(message) {
  * @param {*} guildName - The name of the guild
  */
 const guildNameCorrect = function (guildName) {
-    const regex = RegExp(/^[A-Za-z0-9]+$/)
-    return regex.test(guildName);;
+    const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
+    const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
+    return regexAllowed.test(guildName) && !regexSpecialCases.test(guildName);
 }
 
 /**

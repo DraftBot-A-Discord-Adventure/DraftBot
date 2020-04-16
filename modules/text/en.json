@@ -488,7 +488,7 @@
           "Gname": "The name `",
           "Gname2": "` is already used by another guild.",
           "alreadyInAGuild": "It's impossible to create a guild while being a guild member.",
-          "characters": "The guild's name can't include punctuation or special characters.",
+          "characters": "The rules for the guild's name are the following:\n- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed",
           "characters2": "A guild's name must be between 1 and 15 characters.",
           "emptyName": "You must name your guild before you purchase it :\n`",
           "emptyName2": "guildcreate <nom>`",
