@@ -145,6 +145,8 @@ async function addPlayerToGuild(user, guild) {
     let player = await playerManager.getPlayerById(user.id);
     player.setGuildId(guild.guildId);
     playerManager.updatePlayer(player);
+    updateLastInvocation(guild,message);
+    guildManager.updateGuild(guild);
 }
 
 /**
@@ -167,6 +169,15 @@ function displaySpamErrorUserOccupiedMessage() {
     embed.setColor(DefaultValues.guild.errorColor);
     embed.setDescription(Text.commands.guildAdd.spamOccupiedError);
     return embed;
+}
+
+/**
+ * update the moment where the daily guild was used
+ * @param {*} guild 
+ * @param {*} message 
+ */
+function updateLastInvocation(guild, message) {
+    guild.lastInvocation = message.createdTimestamp;
 }
 
 /**

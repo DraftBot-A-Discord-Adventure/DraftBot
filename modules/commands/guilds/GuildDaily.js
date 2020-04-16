@@ -26,13 +26,12 @@ const guildDailyCommand = async function (message, args, client) {
         return;
     }
     
-    //check if lastInvocaton has been triggered more than 22hours from now
-    /*var diffHours = Math.abs(guild.getLastInovaton() - new Date()) / 36e5;
-    if(diffHours >= 22) {
-        //daily
-    } else {
-        //error
-    }*/
+    if (message.createdTimestamp - guild.lastInvocation< 79200000){
+        message.channel.send(generateTooQuickException(message.author));
+        return;
+    }
+    updateLastInvocation(guild, message);
+
 
     let members = await guildManager.getGuildMembers(guild.getGuildId());
     let rewardType = chooseRewardType(guild);
@@ -76,6 +75,7 @@ const guildDailyCommand = async function (message, args, client) {
             embed.setDescription(Text.commands.guildDaily.alterationHeal);
     }
     await message.channel.send(embed);
+    guildManager.updateGuild(guild);
 };
 
 /**
@@ -91,10 +91,32 @@ const generateNotInAGuildException = function (user) {
 }
 
 /**
+ * @returns {String} - A RichEmbed message wich display the NoUserException
+ * @param {*} user - the user that the error refeirs to
+ */
+const generateTooQuickException = function (user) {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
+    embed.setDescription(user.toString() + Text.commands.guildDaily.tooQuickError);
+    return embed;
+}
+
+
+/**
  * The default embed style for the bot
  */
 const generateDefaultEmbed = function () {
     return new Discord.RichEmbed().setColor(DefaultValues.embed.color);
+}
+
+/**
+ * update the moment where the daily guild was used
+ * @param {*} guild 
+ * @param {*} message 
+ */
+function updateLastInvocation(guild, message) {
+    guild.lastInvocation = message.createdTimestamp;
 }
 
 /**
@@ -118,7 +140,7 @@ function giveXpToGuildMembers(members, message) {
 async function giveBadgeToGuildMembers(members, message) {
     for (let i in members) {
         if (members[i].getBadges().includes("💎")) {
-            await playerManager.giveRandomItem(message, members[i]);
+            await playerManager.giveRandomItem(message, members[i], true);
         } else {
             members[i].addBadge("💎");
         }
@@ -188,7 +210,7 @@ function giveMoneyGuildMembers(members, message) {
  */
 async function giveRandomItemGuildMembers(members, message) {
     for (let i in members) {
-        members[i] = await playerManager.giveRandomItem(message, members[i])
+        members[i] = await playerManager.giveRandomItem(message, members[i], true);
         playerManager.updatePlayer(members[i]);
     }
 }
@@ -201,7 +223,6 @@ async function giveRandomItemGuildMembers(members, message) {
 function giveXpToGuild(guild, message) {
     let xpWon = Tools.generateRandomNumber(20, 80);
     guild.addExperience(xpWon, message, language);
-    guildManager.updateGuild(guild);
     return xpWon;
 }
 
