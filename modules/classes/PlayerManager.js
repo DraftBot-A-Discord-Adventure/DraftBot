@@ -210,7 +210,7 @@ class PlayerManager {
         console.log("Creating player ...");
         sql.run(`INSERT INTO entity (maxHealth, health, attack, defense, speed, id, effect) VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, "" + player.effect]).catch(console.error);
-        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, weeklyScore) 
+        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, weeklyScore, guildId) 
         VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)`,
             [player.discordId, player.score, player.level, player.experience, player.money, player.lastReport, "" + player.badges]).catch(console.error);
         console.log("Player created !");
