@@ -235,7 +235,7 @@ class PlayerManager {
      * @param {*} idList the list of id of the users of a server
      */
     getNumberOfServPlayers(idList) {
-        return sql.get(`SELECT COUNT(*) AS count FROM player WHERE score >100 AND discordId IN(?)`, [idList]).then(number => {
+        return sql.get(`SELECT COUNT(*) AS count FROM player WHERE score >100 AND discordId IN(${idList})`).then(number => {
             return number.count
         }).catch(error => { //there is no database
             console.error(error)
@@ -687,7 +687,7 @@ class PlayerManager {
     getTopServData(borneinf, bornesup, idList) {
         let playerArray = Array();
         let i = 0;
-        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) AS rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) AS weeklyRank FROM entity JOIN player on entity.id = player.discordId  AND entity.id IN(?) ) WHERE rank >= ? AND rank <= ? AND score > 100 ORDER BY score DESC`, [idList, borneinf, bornesup]).then(data => {
+        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) AS rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) AS weeklyRank FROM entity JOIN player on entity.id = player.discordId  AND entity.id IN(${idList}) ) WHERE rank >= ? AND rank <= ? AND score > 100 ORDER BY score DESC`, [borneinf, bornesup]).then(data => {
             data.forEach(function (player) {
                 playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
