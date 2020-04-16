@@ -8,6 +8,7 @@ const Discord = require('discord.js')
 
 let Text;
 let language;
+let guildManager = new GuildManager();
 
 
 /**
@@ -108,7 +109,6 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                                     break;
                                 case "guildXp":
                                     if (player.money >= DefaultValues.shop.priceGuildXp) {
-                                        let guildManager = new GuildManager();
                                         let guild = await guildManager.getCurrentGuild(message);
                                         if (guild === null) {
                                             message.channel.send(generateNotInAGuildException(message.author));
@@ -117,6 +117,8 @@ const ShopCommand = async function (message, args, client, talkedRecently) {
                                         let experience = Tools.generateRandomNumber(50, 450);
                                         guild.addExperience(experience, message, language);
                                         guildManager.updateGuild(guild);
+                                        player.money -= DefaultValues.shop.priceGuildXp;
+                                        playerManager.updatePlayer(player);
                                     } else {
                                         return notEnoughMoney(message);
                                     }
