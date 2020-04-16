@@ -409,8 +409,8 @@
             "alterationHeal": 100
         },
         "8": {
-            "personalXP": 150,
-            "guildXp": 50,
+            "personalXP": 50,
+            "guildXp": 150,
             "money": 331,
             "randomItem": 260,
             "badge": 40,
@@ -419,9 +419,9 @@
             "alterationHeal": 100
         },
         "9": {
-            "personalXP": 150,
-            "guildXp": 50,
-            "money": 290,
+            "personalXP": 50,
+            "guildXp": 240,
+            "money": 200,
             "randomItem": 290,
             "badge": 50,
             "fullHeal": 10,
