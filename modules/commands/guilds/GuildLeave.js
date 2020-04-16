@@ -16,18 +16,25 @@ let playerManager = new PlayerManager();
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  * @param args - arguments typed by the user in addition to the command
  */
-const guildLeaveCommand = async function (message, args, client) {
+const guildLeaveCommand = async function (message, args, client, talkedRecently) {
     Text = await Tools.chargeText(message);
     let user = message.author;
     let userGuild = await guildManager.getGuildByUserId(user.id);
+
+    if (talkedRecently.has(message.author.id + "g")) {
+        message.channel.send(displaySpamErrorMessage());
+        return;
+    }
 
     if(userGuild === null) { //Player is not in any guild
         message.channel.send(generateNotInAGuildException(user));
         return;
     }
 
+    talkedRecently.add(message.author.id + "g");
+
     if(userGuild.getChief() === user.id) { //Player is the guild chief
-        await confirmGuildDestroy(message, user, userGuild);
+        await confirmGuildDestroy(message, user, userGuild, talkedRecently);
         return;
     }
 
@@ -41,7 +48,7 @@ const guildLeaveCommand = async function (message, args, client) {
             time: 120000
         });
         //execute this if a user answer to the event
-        await createLeaveCollector(collector, message, user, userGuild);
+        await createLeaveCollector(collector, message, user, userGuild, talkedRecently);
     });
 }
 
@@ -61,7 +68,7 @@ const confirmReactionIsCorrect = function (reaction) {
 /**
 * Display a confirm message
 */
-const confirmGuildDestroy = async function (message, user, guild) {
+const confirmGuildDestroy = async function (message, user, guild, talkedRecently) {
     let messageGuild = generateGuildDestroyMessage(message, user, guild);
     message.channel.send(messageGuild).then(async msg => {
         await addBasicReactions(msg); //Add reactions
@@ -72,7 +79,7 @@ const confirmGuildDestroy = async function (message, user, guild) {
             time: 120000
         });
         //execute this if a user answer to the event
-        await createDestroyCollector(collector, message, user, guild);
+        await createDestroyCollector(collector, message, user, guild, talkedRecently);
     });
 }
 
@@ -80,16 +87,27 @@ const confirmGuildDestroy = async function (message, user, guild) {
  * Creating the reactions collector and possibilities
  * @param {*} collector - The collector
  */
-async function createDestroyCollector(collector, message, user, guild) {
+async function createDestroyCollector(collector, message, user, guild, talkedRecently) {
+    let confirmIsOpen = true;
+    collector.on('end', () => {
+        if (confirmIsOpen) {
+            talkedRecently.delete(user.id + "g");
+            message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildLeave.gLeaveRefuse);
+        }
+    });
     return collector.on('collect', async (reaction) => {
-        switch (reaction.emoji.name) {
-            case "✅":
-                await destroyGuild(guild);
-                message.channel.send(Text.commands.guildAdd.checkMark + user.toString() + Text.commands.guildLeave.gLeave + guild.name + Text.commands.guildLeave.gLeaveEnd);
-                break;
-            case "❌":
-                message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildLeave.gLeaveRefuse);
-                break;
+        if (confirmIsOpen) {
+            confirmIsOpen = false;
+            talkedRecently.delete(user.id + "g");
+            switch (reaction.emoji.name) {
+                case "✅":
+                    await destroyGuild(guild);
+                    message.channel.send(Text.commands.guildAdd.checkMark + user.toString() + Text.commands.guildLeave.gLeave + guild.name + Text.commands.guildLeave.gLeaveEnd);
+                    break;
+                case "❌":
+                    message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildLeave.gLeaveRefuse);
+                    break;
+            }
         }
     });
 }
@@ -98,16 +116,27 @@ async function createDestroyCollector(collector, message, user, guild) {
  * Creating the reactions collector and possibilities
  * @param {*} collector - The collector
  */
-async function createLeaveCollector(collector, message, user, guild) {
+async function createLeaveCollector(collector, message, user, guild, talkedRecently) {
+    let confirmIsOpen = true;
+    collector.on('end', () => {
+        if (confirmIsOpen) {
+            talkedRecently.delete(user.id + "g");
+            message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildLeave.gLeaveRefuse);
+        }
+    });
     return collector.on('collect', async (reaction) => {
-        switch (reaction.emoji.name) {
-            case "✅":
-                await removePlayerFromGuild(user, guild)
-                message.channel.send(Text.commands.guildAdd.checkMark + user.toString() + Text.commands.guildLeave.gLeave + guild.name + Text.commands.guildLeave.gLeaveEnd);
-                break;
-            case "❌":
-                message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildLeave.gLeaveRefuse);
-                break;
+        if (confirmIsOpen) {
+            confirmIsOpen = false;
+            talkedRecently.delete(user.id + "g");
+            switch (reaction.emoji.name) {
+                case "✅":
+                    await removePlayerFromGuild(user, guild)
+                    message.channel.send(Text.commands.guildAdd.checkMark + user.toString() + Text.commands.guildLeave.gLeave + guild.name + Text.commands.guildLeave.gLeaveEnd);
+                    break;
+                case "❌":
+                    message.channel.send(Text.commands.guildAdd.x + user.toString() + Text.commands.guildLeave.gLeaveRefuse);
+                    break;
+            }
         }
     });
 }
@@ -199,6 +228,17 @@ const getUserFromMention = function(mention, client) {
  */
 const generateDefaultEmbed = function () {
     return new Discord.RichEmbed().setColor(DefaultValues.embed.color);
+}
+
+/**
+ * Display an error if the user is spamming the command
+ */
+function displaySpamErrorMessage() {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
+    embed.setDescription(Text.commands.guildAdd.spamError);
+    return embed;
 }
 
 module.exports.guildLeaveCommand = guildLeaveCommand;

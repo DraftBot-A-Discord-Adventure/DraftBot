@@ -125,7 +125,7 @@ async function createCollector(collector, message, user, guild, talkedRecently) 
             talkedRecently.delete(user.id + "g");
             switch (reaction.emoji.name) {
                 case "✅":
-                    await addPlayerToGuild(user, guild)
+                    await addPlayerToGuild(user, guild, message)
                     message.channel.send(Text.commands.guildAdd.checkMark + user.toString() + Text.commands.guildAdd.gJoin + guild.name + Text.commands.guildAdd.gJoinEnd);
                     break;
                 case "❌":
@@ -139,9 +139,10 @@ async function createCollector(collector, message, user, guild, talkedRecently) 
 /**
  * add the player into the guild
  * @param {*} user 
- * @param {*} guild 
+ * @param {*} guild
+ * @param {*} message
  */
-async function addPlayerToGuild(user, guild) {
+async function addPlayerToGuild(user, guild, message) {
     let player = await playerManager.getPlayerById(user.id);
     player.setGuildId(guild.guildId);
     playerManager.updatePlayer(player);

@@ -451,7 +451,7 @@
       "error": "❌ | Erreur",
       "errorBegin": "Le joueur ",
       "alreadyInAGuildError": " est déjà dans une guilde.",
-      "spamError": "Vous avez une action en cours en rapport avec les guildes (Expulsion, création ou invitation). Terminez cette action avant d'en débuter une nouvelle.",
+      "spamError": "Vous avez une action en cours en rapport avec les guildes (Expulsion, création, invitation ou quitter). Terminez cette action avant d'en débuter une nouvelle.",
       "spamOccupiedError": "La personne que vous essayez d'inviter est occupée pour le moment.",
       "pingError": ", vous devez mentionner le joueur pour lui envoyer une invitation :\n`",
       "guildAddExemple": "guildadd @user`",

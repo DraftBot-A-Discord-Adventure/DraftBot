@@ -451,7 +451,7 @@
           "error": "❌ | Error",
           "errorBegin": "The player ",
           "alreadyInAGuildError": " is already in another guild.",
-          "spamError": "You have a guild command pending (kick, creation or invitation). Finish it before starting another one.",
+          "spamError": "You have a guild command pending (kick, creation, invitation or leave). Finish it before starting another one.",
           "spamOccupiedError": "The player you want to invite is busy.",
           "pingError": ", you have to mention the player to invite them:\n`",
           "guildAddExemple": "guildadd @user`",
