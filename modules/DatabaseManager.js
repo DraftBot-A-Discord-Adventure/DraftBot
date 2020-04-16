@@ -12,12 +12,23 @@ class DatabaseManager {
         console.log('Checking Database ...');
         sql.get(`SELECT version FROM database`).catch(() => {
             this.createDatabase(sql);
+        });
+        sql.get("SELECT guildId FROM player").catch(() => {
+            this.updateDatabase(sql);
         }).then(() => {
             console.log('... Database is valid !');
         });
 
     }
 
+    updateDatabase(sql) {
+        //Add guildId column
+        sql.run("ALTER TABLE player ADD guildId Text").catch(console.error);
+        //guild server
+        sql.run("CREATE TABLE IF NOT EXISTS guild (guildId TEXT, name TEXT, chief TEXT, score INTEGER, level INTEGER, experience INTEGER, lastInvocation INTEGER)").catch(console.error);
+
+        console.log("database updated !")
+    }
 
     /**
   * Allow to set the state of all the player to normal in order to allow them to play
@@ -43,6 +54,8 @@ class DatabaseManager {
         sql.run("CREATE TABLE IF NOT EXISTS server (id TEXT, prefix TEXT, language TEXT)").catch(console.error);
         //table inventory
         sql.run("CREATE TABLE IF NOT EXISTS inventory (playerId TEXT, weaponId TEXT, armorId TEXT, potionId TEXT, objectId TEXT, backupItemId TEXT, lastDaily INTEGER)").catch(console.error);
+        //guild server
+        sql.run("CREATE TABLE IF NOT EXISTS guild (guildId TEXT, name TEXT, chief TEXT, score INTEGER, level INTEGER, experience INTEGER, lastInvocation INTEGER)").catch(console.error);
 
         //table only used to store the version of the bot when the database was created
         sql.run("CREATE TABLE IF NOT EXISTS database (version TEXT, lastReset INTEGER)").then(() => {

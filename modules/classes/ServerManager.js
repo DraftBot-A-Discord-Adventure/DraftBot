@@ -25,7 +25,7 @@ class ServerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the server of the message
      */
     getServer(message, client) {
-        return sql.get(`SELECT * FROM server WHERE id ="${message.guild.id}"`).then(server => {
+        return sql.get(`SELECT * FROM server WHERE id = ?`, ["" + message.guild.id]).then(server => {
             if (!server) { //server is not in the database
                 console.log(`server unknown : ${message.guild.name}`);
                 return this.getNewServer(message);
@@ -44,7 +44,7 @@ class ServerManager {
     * @returns {promise} - The promise that will be resolved into a server
     */
     getServerById(id) {
-        return sql.get(`SELECT * FROM server WHERE id ="${id}"`).then(server => {
+        return sql.get(`SELECT * FROM server WHERE id = ?`, ["" + id]).then(server => {
             if (!server) { //server is not in the database
                 console.log(`Aucun serveur enregistré pour cette id: ${id}`);
                 return 0;
@@ -76,7 +76,8 @@ class ServerManager {
      */
     updateServer(server) {
         console.log("Updating server ...");
-        sql.run(`UPDATE server SET id = ${server.id}, prefix = "${server.prefix}", language = "${server.language}" WHERE id = ${server.id}`).catch(console.error);
+        sql.run(`UPDATE server SET id = ?, prefix = ?, language = ? WHERE id = ?`,
+            [server.id, "" + server.prefix, "" + server.language, server.id]).catch(console.error);
         console.log("Server updated !");
     }
 
@@ -87,7 +88,8 @@ class ServerManager {
      */
     addServer(server) {
         console.log("Creating server ...");
-        sql.run(`INSERT INTO server (id, prefix, language) VALUES (${server.id},"${server.prefix}","${server.language}") `).catch(console.error);
+        sql.run(`INSERT INTO server (id, prefix, language) VALUES (?, ?, ?)`,
+            [server.id, "" + server.prefix, "" + server.language]).catch(console.error);
         console.log("server created !");
     }
 

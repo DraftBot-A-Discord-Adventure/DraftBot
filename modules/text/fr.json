@@ -3,9 +3,9 @@
     "help": {
       "mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://draftbot.fandom.com/fr/wiki/Commandes",
       "intro": "** :notebook_with_decorative_cover: ",
-      "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\ntopWeek\ntopServ\ninventory\nfight\ndaily\ndrink\nprefix\nlanguage\n```\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! https://draftbot.fandom.com/fr/wiki/Commandes",
+      "main": " voici la liste des commandes disponibles :**\n\n```\nrespawn\nping\nprofile\nreport\nswitch\nshop\nsell\ntop\ntopWeek\ntopServ\ninventory\nfight\ndaily\ndrink\nprefix\nlanguage\nguildCreate\nguildLeave\nguildKick\nguildAdd\nguild\nguildDaily\n```\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! https://draftbot.fandom.com/fr/wiki/Commandes",
       "commands": {
-        "prefix": ":interrobang: `prefix {Nouveau préfix}` :\n\nPermet, si vous êtes administrateur sur un serveur, de changer le préfix utilisé par le bot.",
+        "prefix": ":interrobang: `prefix [Nouveau préfix]` :\n\nPermet, si vous êtes administrateur sur un serveur, de changer le préfix utilisé par le bot.",
         "ping": ":ping_pong: `ping` :\n\nPermet de savoir si le bot est en ligne.\n\n(Note : Le temps affiché est le temps de réponse du bot et non pas votre ping: un temps de réponse correct sera inférieur à 500ms. :clock1:",
         "respawn": ":angel: `respawn`\n\nPermet de recommencer à jouer après avoir été tué.",
         "profile": ":bust_in_silhouette: `profile`\n\nAffiche des informations sur votre personnage :\n\n:smiley: État de santé | Pseudo | Level :star: XP | :heart: Vie | :dagger: Attaque | :shield: Défense | :rocket: Vitesse | :blue_heart: Points de combat | :trophy: Classement | :moneybag: Argent | :medal: Score\n\nLes badges sont affichés sur votre profil sous forme de réaction.",
@@ -24,14 +24,20 @@
         "badge": ":military_medal: `badges`\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
         "badges": ":military_medal: `badges`\n\nLes badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)",
         "drink": ":tropical_drink: `drink`\n\nCette commande permet de consommer la potion que vous transportez. Certaines potions ne peuvent pas être bues et sont consommées automatiquement lors d'un combat.",
-        "shop": ":shopping_cart: `shop`\n\nCette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement."
+        "shop": ":shopping_cart: `shop`\n\nCette commande permet de dépenser votre argent pour faciliter votre aventure. En plus des 4 choix de base qui seront disponible de façon permanente, vous pourrez, chaque jour, profiter d'une potion exclusive, disponible à la vente durant 24 heures uniquement.",
+        "guildCreate": ":pencil: `guildcreate [Nom de guilde]`\n\nPermet de créer une guilde.",
+        "guildLeave": ":outbox_tray: `guildLeave`\n\nPermet de quitter votre guilde.",
+        "guild": ":stadium: `guild [nom de guilde ou mention]`\n\nPermet d'afficher les informations sur une guilde.",
+        "guildDaily": ":newspaper: `guildDaily`\n\nPermet de récupérer des récompenses quotidiennes de guildes.",
+        "guildKick": ":leg: `guildKick`\n\nPermet d'expulser un membre d'une guilde, nécessite d'être chef de guilde.",
+        "guildAdd": ":incoming_envelope: `guildAdd [mention]`\n\nPermet d'ajouter un utilisateur à une guilde, nécessite d'être chef de guilde."
       }
     },
     "ping": {
       "main": ":ping_pong: Pong"
     },
     "invite": {
-      "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : http://draftbot.tk :smiley:"
+      "main": "Pour faire venir le bot sur votre serveur, utilisez ce lien : https://discord.gg/USnCxg4 :smiley:"
     },
     "profile": {
       "timeleft": " Temps restant :",
@@ -70,39 +76,43 @@
       "dm": " id du joueur : ",
       "console": ":money_mouth: | Le badge du shop a été acheté par le joueur : ",
       "badgeWarning": ":warning: | Merci pour votre achat du badge :money_mouth:.\n\nSi vous en êtes arrivé à faire un tel achat c'est que vous avez déjà beaucoup joué à mon petit jeu et je vous en remercie. Votre badge vous sera remis dans les prochaines heures par un membre du staff du bot.",
-      "noMoney": "**, Vous ne pouvez pas accèder au magasin avec des dettes !",
+      "noMoney": "**, vous ne pouvez pas accéder au magasin avec des dettes !",
       "emojiIntro": ":shopping_cart: ",
       "intro": ":shopping_cart:  **Affichage du magasin :**",
       "dailySell": "```🗓 Potion du jour :```\n",
       "priceTagStart": " | `",
       "priceTagEnd": " 💰`",
-      "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `350 💰`\n:hospital: **Soin des altérations d'état** | `500 💰`\n:heartpulse: **Regen complet de la vie** | `3000 💰`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`\n\n```▶ Choisissez votre achat :```",
+      "outro": "\n\n```🛍 Ventes permanentes :```\n:question: **Un item random** | `350 💰`\n:hospital: **Soin des altérations d'état** | `500 💰`\n:heartpulse: **Regen complet de la vie** | `3000 💰`\n:money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`\n:star: **Un peu d'xp pour votre guilde** | `1000 💰`\n\n```▶ Choisissez votre achat :```",
       "emojis": {
-        "a": "❓",
-        "b": "🏥",
-        "c": "💗",
-        "d": "🤑"
+        "randomItem": "❓",
+        "alterationHeal": "🏥",
+        "completeHeal": "💗",
+        "badge": "🤑",
+        "guildXp": "⭐"
       },
       "choices": {
-        "a": ":question: **Un item random** | `350 💰`",
-        "b": ":hospital: **Soin des altérations d'état** | `500 💰`",
-        "c": ":heartpulse: **Regen complet de la vie** | `3000 💰`",
-        "d": ":money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`"
+        "randomItem": ":question: **Un item random** | `350 💰`",
+        "alterationHeal": ":hospital: **Soin des altérations d'état** | `500 💰`",
+        "completeHeal": ":heartpulse: **Regen complet de la vie** | `3000 💰`",
+        "badge": ":money_mouth: **Badge \"MoneyMouth\"** | `25000 💰`",
+        "guildXp": ":star: **Un peu d'xp pour votre guilde** | `1000 💰`"
       },
       "infos": {
-        "aa": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
-        "a": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
-        "b": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
-        "c": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
-        "d": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `aide badges`"
+        "dailyPotion": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
+        "randomItem": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
+        "alterationHeal": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
+        "completeHeal": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
+        "badge": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `aide badges`",
+        "guildXp": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450"
       },
       "confirmIntro": ", **Vous avez sélectionné le produit suivant :**\n\n",
       "confirmStart": ":white_check_mark: | ",
-      "confirmEnd": ", Votre achat a bien été validé !",
+      "confirmEnd": ", votre achat a bien été validé !",
       "cancelStart": ":x: | ",
       "cancelEnd": ", L'achat a bien été annulé !",
-      "notEnoughEnd": ", Vous n'avez pas assez d'argent pour effectuer cet achat !",
-      "tooMuchShop": ", il est impossible de donner suite à votre requête car une autre commande est en attente d'une action de votre part ! `(Si vous n'avez pas fait récemment de commande shop ou sell, attendez 2 minutes et réessayez)`"
+      "notEnoughEnd": ", vous n'avez pas assez d'argent pour effectuer cet achat !",
+      "tooMuchShop": ", il est impossible de donner suite à votre requête car une autre commande est en attente d'une action de votre part ! `(Si vous n'avez pas fait récemment de commande shop ou sell, attendez 2 minutes et réessayez)`",
+      "noAlteration": ", vous n'êtes victime d'aucune altération d'état. Votre achat a été annulé."
     },
     "report": {
       "reportStart": ":newspaper: **Journal de ",
@@ -133,7 +143,7 @@
     },
     "drink": {
       "errorDebut": " |** ",
-      "errorFin": "**,  vous consommez le breuvage que vous transportiez... Ca ne semble pas très efficace !",
+      "errorFin": "**,  vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
       "combatDebut": " |** ",
       "combatFin": "**,  cette potion ne peut pas être bue maintenant. Elle sera utilisée lors de votre prochain combat !",
       "noDebut": "**:x: | ",
@@ -177,7 +187,9 @@
     },
     "fight": {
       "startEmoji": "**:crossed_swords: | ",
-      "startIntro": "** souhaite lancer un combat ! Pour y participer, cliquez sur la réaction ci-dessous !",
+      "startIntro": "** souhaite lancer un combat",
+      "introAgainstSomeone": " contre ",
+      "endIntro": " ! Pour y participer, cliquez sur la réaction ci-dessous !",
       "errorEmoji": ":x: | ",
       "validEmoji": ":white_check_mark: | ",
       "spamError": " Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
@@ -190,6 +202,9 @@
       "startEnd": " !**",
       "notEnoughSkillError1": ", vous devez être **LVL ",
       "notEnoughSkillError2": "** pour accéder aux combats ! Revenez plus tard !",
+      "chosenOpponentNotEnoughSkill1": ", votre adversaire doit être **LVL ",
+      "chosenOpponentNotEnoughSkill2": "** pour combattre ! ",
+      "chosenOpponentDontPlay": ", il semblerait que cette personne n'aie pas encore commencé l'aventure !",
       "menuStart": ":crossed_swords:  | **C'est au tour de ",
       "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
       "endIntroStart": " | **",
@@ -221,10 +236,10 @@
           "8": " ** choisit une attaque rapide !  Très bonne initiative"
         },
         "meh": {
-          "1": " ** effectue une attaque rapide ! Ca fonctionne mais c'était pas incroyable.",
+          "1": " ** effectue une attaque rapide ! Ça fonctionne mais c'était pas incroyable.",
           "2": " ** effectue une attaque rapide ! Mouais...",
           "3": " ** effectue une attaque rapide vraiment moyenne ! Pas ouf !",
-          "4": " ** effectue une attaque rapide ! Ca n'est pas très efficace...",
+          "4": " ** effectue une attaque rapide ! Ça n'est pas très efficace...",
           "5": " ** effectue une attaque rapide ! C'est pas très réussi.",
           "6": " ** lance une attaque rapide ! Médiocre",
           "7": " ** utilise une attaque rapide ! Faiblarde !",
@@ -253,10 +268,10 @@
           "8": " ** choisit une attaque simple !  Très bonne initiative"
         },
         "meh": {
-          "1": " ** effectue une attaque simple ! Ca fonctionne mais c'était pas incroyable.",
+          "1": " ** effectue une attaque simple ! Ça fonctionne mais c'était pas incroyable.",
           "2": " ** effectue une attaque simple ! Mouais...",
           "3": " ** effectue une attaque simple vraiment moyenne ! Pas ouf !",
-          "4": " ** effectue une attaque simple ! Ca n'est pas très efficace...",
+          "4": " ** effectue une attaque simple ! Ça n'est pas très efficace...",
           "5": " ** effectue une attaque simple ! C'est pas très réussi.",
           "6": " ** lance une attaque simple ! Médiocre",
           "7": " ** utilise une attaque simple ! Faiblarde !",
@@ -285,10 +300,10 @@
           "8": " ** choisit une attaque ultime !  Très bonne initiative. `Vitesse réduite de 10 %`"
         },
         "meh": {
-          "1": " ** effectue une attaque ultime ! Ca fonctionne mais c'était pas incroyable.",
+          "1": " ** effectue une attaque ultime ! Ça fonctionne mais c'était pas incroyable.",
           "2": " ** effectue une attaque ultime ! Mouais...",
           "3": " ** effectue une attaque ultime vraiment moyenne ! Pas ouf !",
-          "4": " ** effectue une attaque ultime ! Ca n'est pas très efficace...",
+          "4": " ** effectue une attaque ultime ! Ça n'est pas très efficace...",
           "5": " ** effectue une attaque ultime ! C'est pas très réussi.",
           "6": " ** lance une attaque ultime ! Médiocre",
           "7": " ** utilise une attaque ultime ! Faiblarde !",
@@ -398,50 +413,139 @@
       "hours": " H",
       "minutes": " Min",
       "footer": "Classement réinitialisé dans"
+    },
+    "guild": {
+      "guildIcon": "https://i.imgur.com/sQHBly4.png",
+      "guild": "Guilde ",
+      "chief": "Chef de Guilde : ",
+      "chiefIcon": ":military_medal:",
+      "memberIcon": ":person_pouting:",
+      "members": " membres",
+      "over5": "/5",
+      "error": "❌ | Erreur",
+      "notFound": "Aucune guilde n'a été trouvée.",
+      "notInTheGuildError": ", cet utilisateur ne fait pas partie de votre guilde.",
+      "notInAGuildError": ", vous devez faire partie d'une guilde pour utiliser cette commande.",
+      "playerDataStart": " - ",
+      "playerDataInfosStart": " (",
+      "trophy": " :trophy: | ",
+      "medal": " :medal:)\n",
+      "star": ":star: ",
+      "expSeparator": "/",
+      "guildLevel": " | Niveau ",
+      "style": "```"
+    },
+    "guildAdd": {
+      "addSentence1": ", vous êtes invité à rejoindre la guilde : `",
+      "addSentence2": "`",
+      "checkMark": "✅ | ",
+      "gJoin": ", a rejoint la guilde `",
+      "gJoinEnd": "` !",
+      "x": "❌ |",
+      "gJoinRefuse": " n'a pas rejoint la guilde !",
+      "guild": "Guilde ",
+      "gInfos": ", pour voir les informations sur la guilde, faites `",
+      "gInfos2": "guild ",
+      "gInfos3": "`\nUtilisez les réactions pour répondre.",
+      "guildIcon": "https://i.imgur.com/sQHBly4.png",
+      "error": "❌ | Erreur",
+      "errorBegin": "Le joueur ",
+      "alreadyInAGuildError": " est déjà dans une guilde.",
+      "spamError": "Vous avez une action en cours en rapport avec les guildes (Expulsion, création, invitation ou quitter). Terminez cette action avant d'en débuter une nouvelle.",
+      "spamOccupiedError": "La personne que vous essayez d'inviter est occupée pour le moment.",
+      "pingError": ", vous devez mentionner le joueur pour lui envoyer une invitation :\n`",
+      "guildAddExemple": "guildadd @user`",
+      "notInAGuildError": ", vous devez faire partie d'une guilde pour effectuer cette action.",
+      "notChiefError": ", vous devez être chef de la guilde pour effectuer cette action.",
+      "guildFullError": ", la guilde est pleine et ne peut donc pas accueillir de nouveaux membres.",
+      "tryingToKickHimselfError": ", vous ne pouvez pas vous exclure vous-même."
+    },
+    "guildLeave": {
+      "confirmLeave": ", êtes-vous certain de vouloir quitter la guilde `",
+      "confirmLeaveEnd": "` ?",
+      "gLeave": ", vous venez de quitter la guilde `",
+      "gLeaveEnd": "` !",
+      "gDestroy": ", vous venez de détruire la guilde `",
+      "gDestroyEnd": "` !",
+      "confirmDestroy": ", êtes-vous certain de vouloir quitter la guilde `",
+      "confirmDestroyEnd": "` et par conséquent de la **détruire** ?\n\n:warning: **Cette action est irrévocable !**",
+      "gLeaveRefuse": ", vous restez dans la guilde !",
+      "notInAGuildError": ", vous n'êtes dans aucune guilde."
+    },
+    "guildCreate": {
+      "x": "❌ | ",
+      "cancelled": ", l'achat a bien été annulé !",
+      "checkmark": "✅ | ",
+      "guildIcon": "https://i.imgur.com/sQHBly4.png",
+      "valid": ", La guilde `",
+      "create": "` a été créée avec succès.",
+      "cancelled2": ", une erreur est survenue pendant la création de la guilde. L'achat a été annulé !",
+      "Gbuy": "Achat d'une guilde",
+      "Gcreate": ", vous êtes sur le point de créer une guilde qui sera nommée `",
+      "price": "` pour `5 000` :moneybag:.\nÊtes-vous sûr de vouloir faire ça ? Cliquez sur les réactions pour répondre.",
+      "rename": "Attention, le staff se réserve le droit de renommer votre guilde.",
+      "error": "❌ | Erreur",
+      "Gname": "Le nom `",
+      "Gname2": "` est déjà utilisé par une autre guilde.",
+      "alreadyInAGuild": "Il est impossible de créer une guilde en étant déjà dans une guilde.",
+      "characters": "Les règles pour le nom de la guilde sont les suivantes:\n- Utiliser au moins une lettre\n- Ne pas mettre plus de 2 espaces consécutifs\n- Les caractères spéciaux ne sont pas autorisés",
+      "characters2": "Le nom de la guilde doit être compris entre 1 et 15 caractères.",
+      "emptyName": "Vous devez donner un nom à la guilde avant de l'acheter :\n`",
+      "emptyName2": "guildcreate <nom>`",
+      "spamError": "Il est impossible de créer une guilde tant qu'une autre commande requiert votre attention."
+    },
+    "guildKick": {
+      "confirmKick": ", êtes-vous certains de vouloir exclure ",
+      "confirmKickEnd": " ?",
+      "gKicked": " a été exclu de la guilde `",
+      "gKickedEnd": "` !",
+      "gKickCancelled": " n'a pas été exclu de la guilde.",
+      "notInAGuild": " ne fais partie d'aucune guilde."
+    },
+    "guildDaily": {
+      "rewardTitle": "Récompense de la guilde ",
+      "personalXPIntro": ":star: | Les membres de la guilde ont reçu `",
+      "XPEnd": " points d'xp`.",
+      "guildXPIntro": ":star: | La guilde a reçu `",
+      "moneyIntro": ":moneybag: | Les membres de la guilde ont reçu `",
+      "moneyEnd": " pièces d'or`.",
+      "item": ":gift: | Les membres de la guilde ont reçu un objet au hasard.",
+      "badge": ":gem: | Les membres de la guilde ont reçu un badge. Les membres qui l'avaient déjà ont reçu un objet à la place.",
+      "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
+      "partialHeal": "Les membres de la guilde ont été partiellement soignés :",
+      "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées.",
+      "tooQuickError": ", la récompense de guilde n'est disponible qu'une fois toute les 22H. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur."
     }
   },
-  "commandReader":{
-    "resetIsNowTitle" : ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot !",
-    "resetIsNowFooter" : "\n\n:clock12: Le jeu reprendra dans moins de 5 minutes !",
+  "commandReader": {
+    "resetIsNowTitle": ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot !",
+    "resetIsNowFooter": "\n\n:clock12: Le jeu reprendra dans moins de 5 minutes !",
     "resetIsNowFooterFight": "\n\n:clock12: Les combats reprendront dans moins de 15 minutes !"
   },
   "badges": {
     "🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
     "🏅": ":medal:  `Joueur dans le top 10 au reset de la 1.0`",
     "👑": ":crown:  `Propriétaire du bot`",
-    "⚙": ":gear:  `Personne ayant participé très activement aux tests du bot`",
+    "⚙": ":gear:  `Equipe technique`",
     "🥚": ":egg:  `Personne ayant trouvé tous les secrets du bot`",
-    "📰": ":newspaper:  `Personne ayant effectué une pull request pour un évent`",
     "❤": ":heart:  `Personne ayant le grade Soutien sur le serveur du bot`",
-    "💗": ":heartpulse:  `Personne ayant le grade Soutien-Légendaire sur le serveur du bot`",
     "🍀": ":four_leaf_clover:  `Badge pouvant être gagné de temps en temps dans des concours sur sur le serveur du bot ou sur twitter`",
-    "💎": ":gem:  `Staff sur le serveur du bot`",
     "💸": ":money_with_wings:  `Donateur`",
-    "🖊": ":pen_ballpoint:  `Personne ayant aidé à corriger de nombreuses fautes d'orthographes`",
     "🐞": ":beetle:  `Personne ayant signalé des bugs majeurs`",
-    "🔧": ":wrench:  `Personne ayant fait parti de l'équipe technique du bot avant la version 1.0 du bot`",
-    "📙": ":orange_book:  `Badge unique pour une relecture particulière`",
-    "📚": ":books:  `Personne ayant démontré ses connaissances approfondies sur le bot`",
-    "📝": ":pencil:  `Personne appartenant au groupe d'écriture de nouveaux évents`",
-    "🏵": ":rosette:  `Gérants des badges`",
     "🎰": ":slot_machine:  `Badge donné de manière totalement random`",
     "⛑": ":helmet_with_cross:  `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
-    "🐦": ":bird:  `Personne suivant le bot sur twitter`",
     "🥇": ":first_place:  `Personne ayant atteint la première place du classement après le reset`",
     "🤑": ":money_mouth:  `Badge acheté dans le shop`",
     "🌟": ":star2:  `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`",
-    "🖋": ":pen_fountain:  `Personne ayant participé à la rédaction du wiki`",
-    "💵": ":dollar:  `Personne ayant participé à l'amélioration du cadre de développement  du bot`",
-    "⭐": ":star:  `Personne ayant star le repository du bot sur github`",
+    "🖋": ":pen_fountain:  `Rédacteur du bot`",
     "🌍": ":earth_africa:  `Traducteur`",
-    "🍌": ":banana:  `Petit cadeau pour une mention`",
-    "🔍": ":mag:  `Personne ayant résolu une chasse`",
     "🎗️": ":reminder_ribbon:  `Personne ayant dominé un classement de la semaine`",
     "🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`",
-    "😂": ":joy:  `Badge offert à une personne drôle`"
+    "😂": ":joy:  `Badge offert à une personne drôle`",
+    "💎": ":gem: `Membre d'une guilde puissante`"
   },
   "error": {
-    "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : http://draftbot.tk/ !"
+    "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : https://discord.gg/USnCxg4/ !"
   },
   "playerManager": {
     "errorMain": {
@@ -463,10 +567,13 @@
     "timeLeft": " | `Temps restant : ",
     "outro": "`",
     "noTimeLeft": ":hospital: Reprise du jeu possible",
-    "newItem": "**Un nouvel item a été placé dans votre inventaire !** :new: Vous recevez :\n\n",
-    "sell": "** Vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",
+    "newItemEmoji": ":new: | ",
+    "newItem": ", **un nouvel item a été placé dans votre inventaire !** Vous recevez :\n\n",
+    "sell": ", vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",
+    "sellItem1": ", vous décidez de vendre ",
+    "sellItem2": " pour quelques pièces d'or car cet objet ne vous semble pas très utile... :moneybag: Argent gagné : **",
     "sellEnd": "**",
-    "sellEmoji": ":gift: **",
+    "sellEmoji": ":gift: | ",
     "levelUp": {
       "intro": ":star: | **",
       "main": "**, vient d'atteindre le niveau **",
@@ -484,6 +591,13 @@
   "equipementManager": {
     "separator1": " | Puissance ",
     "separator2": " | "
+  },
+  "guildManager": {
+    "levelUp": {
+      "intro": ":star: | La guilde : **",
+      "main": "**, vient d'atteindre le niveau **",
+      "end": "**"
+    }
   },
   "potionManager": {
     "separator": " | "
@@ -1326,7 +1440,7 @@
         "1": "** | 🌳 Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder, lorsque vous remarquez à quelques pas de vous une bourse rebondie de pièces et un objet posé à côté. Vous les récupérez, ressortez de l'espèce de bosquet, et repartez en direction du village."
       }
     },
-    "38":{
+    "38": {
       "💸": {
         "1": "** | 💸 Vous achetez un objet peu cher en échange de quelques pièces d'or. Vous êtes satisfait de l'item qu'il vous a vendu et vous le rangez dans votre sac.",
         "2": "** | 💸 Vous achetez l'un de ses objets à faible valeur, mais au moment où vous recevez votre item et commencez à l'inspecter, vous vous rendez compte qu'il vous a vendu un item en piteux état. L'arnaqueur à profité de votre naïveté et du moment où vous observiez l'objet pour prendre ses jambes à son cou. Vous jurez de ne plus vous faire berner par ce type."
@@ -1341,7 +1455,7 @@
       },
       "🕵️": {
         "1": "** | 🕵️ Vous volez discrètement un de ses objets, et prenez prestement vos jambes à votre cou.",
-        "2": "** | 🕵️ Le marchand remarque ce que vous essayez de faire, alors il vous demande de lui rendre sa marchandise. Il décide par clémence de vous laisser partir, ce que vous faites sans demander votre reste.", 
+        "2": "** | 🕵️ Le marchand remarque ce que vous essayez de faire, alors il vous demande de lui rendre sa marchandise. Il décide par clémence de vous laisser partir, ce que vous faites sans demander votre reste.",
         "3": "** | 🕵️ Vous commencez à voler le marchand, qui le remarque. Il vous assène un violent coup de poing, puis repart. :head_bandage:"
       },
       "end": {
