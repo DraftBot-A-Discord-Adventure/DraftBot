@@ -513,7 +513,8 @@
           "badge": ":gem: | Guild's members received a badge. Members who already had it received a random object.",
           "fullHeal": ":heartpulse: | Guild's members were fully healed.",
           "partialHeal": "Guild's members were partly healed :",
-          "alterationHeal": ":hospital: | Guild's members' statuses were reset."
+          "alterationHeal": ":hospital: | Guild's members' statuses were reset.",
+          "tooQuickError": ", the daily guild reward is only available 22 hours after the las time it was asked or a user joined the guild."
         }
     },
     "commandReader": {
