@@ -26,13 +26,12 @@ const guildDailyCommand = async function (message, args, client) {
         return;
     }
     
-    //check if lastInvocaton has been triggered more than 22hours from now
-    /*var diffHours = Math.abs(guild.getLastInovaton() - new Date()) / 36e5;
-    if(diffHours >= 22) {
-        //daily
-    } else {
-        //error
-    }*/
+    if (message.createdTimestamp - guild.lastInvocation< 79200000){
+        message.channel.send(generateTooQuickException(message.author));
+        return;
+    }
+    guild.lastInvocation = message.createdTimestamp;
+
 
     let members = await guildManager.getGuildMembers(guild.getGuildId());
     let rewardType = chooseRewardType(guild);
@@ -76,6 +75,7 @@ const guildDailyCommand = async function (message, args, client) {
             embed.setDescription(Text.commands.guildDaily.alterationHeal);
     }
     await message.channel.send(embed);
+    guildManager.updateGuild(guild);
 };
 
 /**
@@ -89,6 +89,19 @@ const generateNotInAGuildException = function (user) {
     embed.setDescription(user.toString() + Text.commands.guildAdd.notInAGuildError);
     return embed;
 }
+
+/**
+ * @returns {String} - A RichEmbed message wich display the NoUserException
+ * @param {*} user - the user that the error refeirs to
+ */
+const generateTooQuickException = function (user) {
+    let embed = generateDefaultEmbed();
+    embed.setTitle(Text.commands.guildAdd.error);
+    embed.setColor(DefaultValues.guild.errorColor);
+    embed.setDescription(user.toString() + Text.commands.guildDaily.tooQuickError);
+    return embed;
+}
+
 
 /**
  * The default embed style for the bot
@@ -201,7 +214,6 @@ async function giveRandomItemGuildMembers(members, message) {
 function giveXpToGuild(guild, message) {
     let xpWon = Tools.generateRandomNumber(20, 80);
     guild.addExperience(xpWon, message, language);
-    guildManager.updateGuild(guild);
     return xpWon;
 }
 
