@@ -38,15 +38,41 @@ const fightCommand = async function (message, args, client, talkedRecently) {
         displayErrorSkillMissing(message, attacker);
     } else {
         if (playerManager.checkState(player, message, ":smiley:", language)) {  //check if the player is not dead or sick or something else
+
+            let chosenOpponent = undefined;
+            if (askForAnotherPlayer(args)) { //check if an opponent was asked
+                let chosenOpponentId;
+                chosenOpponent = await getAskedPlayer(chosenOpponentId, chosenOpponent, playerManager, message, args);
+                if (askedPlayerIsInvalid(chosenOpponent)) {
+                    return message.channel.send(Text.commands.fight.errorEmoji + message.author + Text.commands.fight.chosenOpponentDontPlay);
+                }
+                if (chosenOpponent.id === player.id) {
+                    return message.channel.send(Text.commands.fight.errorEmoji + attacker + Text.commands.fight.alreadyAttackerError);
+                }
+                if (chosenOpponent.getLevel() < DefaultValues.fight.minimalLevel) {
+                    return message.channel.send(Text.commands.fight.errorEmoji + message.author + Text.commands.fight.chosenOpponentNotEnoughSkill1 + DefaultValues.fight.minimalLevel + Text.commands.fight.chosenOpponentNotEnoughSkill2);
+                }
+            }
+
             playerManager.setPlayerAsOccupied(player);
 
-            let messageIntro = await displayIntroMessage(message, attacker);
+            let messageIntro = await displayIntroMessage(message, attacker, chosenOpponent);
 
             let fightIsOpen = true;
 
-            const filter = (reaction, user) => {
-                return (reactionIsCorrect(reaction, user));
-            };
+            let filter;
+            if (chosenOpponent === undefined) {
+                filter = (reaction, user) => { //filter if no one was asked
+                    return (reactionIsCorrect(reaction, user));
+                };
+            }
+            else {
+                filter = (reaction, user) => { //filter if an opponent was asked
+                    if (chosenOpponent.id === user.id || attacker.id === user.id) {
+                        return (reactionIsCorrect(reaction, user));
+                    }
+                };
+            }
 
             const collector = messageIntro.createReactionCollector(filter, {
                 time: 120000
@@ -151,8 +177,8 @@ function displayFightStartMessage(message, attacker, defender) {
     message.channel.send(Text.commands.fight.startStart + attacker + Text.commands.fight.startJoin + defender + Text.commands.fight.startEnd);
 }
 
-async function displayIntroMessage(message, attacker) {
-    let messageIntro = await generateIntroMessage(message, attacker);
+async function displayIntroMessage(message, attacker, chosenOpponent) {
+    let messageIntro = await generateIntroMessage(message, attacker, chosenOpponent);
     messageIntro.react("⚔").then(a => {
         messageIntro.react("❌");
     });
@@ -705,8 +731,12 @@ function fightHasToBeCanceled(reaction) {
  * @param {*} attacker - The attacker that asked for the fight
  */
 
-async function generateIntroMessage(message, attacker) {
-    return await message.channel.send(Text.commands.fight.startEmoji + attacker.username + Text.commands.fight.startIntro);
+async function generateIntroMessage(message, attacker, chosenOpponent) {
+    if (chosenOpponent === undefined) {
+        return await message.channel.send(Text.commands.fight.startEmoji + attacker.username + Text.commands.fight.startIntro + Text.commands.fight.endIntro);
+    } else {
+        return await message.channel.send(Text.commands.fight.startEmoji + attacker.username + Text.commands.fight.startIntro + Text.commands.fight.introAgainstSomeone + "<@" + chosenOpponent.discordId + ">" + Text.commands.fight.endIntro);
+    }
 }
 
 /**
@@ -759,5 +789,43 @@ const reactionFightIsCorrect = function (reaction, user) {
     return contains
 }
 
+/**
+ * Allow to recover the asked player if needed
+ * @param {*} playerId - The asked id of the player
+ * @param {*} player - The player that is asked for
+ * @param {*} playerManager - The player manager
+ * @param {*} message - The message that initiate the command
+
+ */
+async function getAskedPlayer(playerId, player, playerManager, message, args) {
+    if (isNaN(args[1])) {
+        try {
+            playerId = message.mentions.users.last().id;
+        } catch (err) { // the input is not a mention or a user rank
+            playerId = "0"
+        }
+    } else {
+        playerId = await playerManager.getIdByRank(args[1]);
+
+    }
+    player = await playerManager.getPlayerById(playerId, message);
+    return player;
+}
+
+/**
+ * check if the asked player is valid
+ * @param {*} player - The player that has been asked for
+ */
+function askedPlayerIsInvalid(player) {
+    return player.getEffect() == ":baby:";
+}
+
+/**
+ * check if the user ask for its own profile or the one of someone else
+ * @param {*} args - The args given by the user that made the command
+ */
+function askForAnotherPlayer(args) {
+    return args[1] != undefined;
+}
 
 module.exports.FightCommand = fightCommand;
