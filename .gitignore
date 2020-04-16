@@ -2,3 +2,4 @@ node_modules/
 modules/utils/Config.js
 modules/data/
 .idea/
+modules/commands/admin/Invitations.js
