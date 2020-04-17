@@ -25,8 +25,8 @@ const guildDailyCommand = async function (message, args, client) {
         message.channel.send(generateNotInAGuildException(message.author));
         return;
     }
-    
-    if (message.createdTimestamp - guild.lastInvocation< 79200000){
+
+    if (message.createdTimestamp - guild.lastInvocation < 792) {
         message.channel.send(generateTooQuickException(message.author));
         return;
     }
@@ -179,12 +179,14 @@ function partiallyHealGuildMembers(members, message) {
  * @param {*} members - the array of members that will get healed
  */
 function healStateOfGuildMembers(members, message) {
-    var allowedStates = ":dizzy_face::zany_face::nauseated_face::sleeping::head_bandage::cold_face::confounded::clock2::smiley:"
+    var allowedStates = ":dizzy_face::zany_face::nauseated_face::sleeping::head_bandage::cold_face::confounded::clock2:"
     for (let i in members) {
         if (allowedStates.includes(members[i].getEffect())) {
-            members[i].updateLastReport(message.createdTimestamp, 0, ":smiley:");
-            members[i].effect = ":smiley:";
-            playerManager.updatePlayer(members[i]);
+            if (!playerManager.displayTimeLeftProfile(members[i], message, language).includes(":hospital:")) { //the player is not cured
+                members[i].updateLastReport(message.createdTimestamp, 0, ":smiley:");
+                members[i].effect = ":smiley:";
+                playerManager.updatePlayer(members[i]);
+            }
         }
     }
 }

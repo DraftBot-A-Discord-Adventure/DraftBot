@@ -152,7 +152,7 @@
             "healBonus": "**, **:heart: HP recovered : ** ",
             "healFin": " | You drink a health potion and feel a rush of energy coming to you!",
             "hospitalDebut": " |** ",
-            "hospitalBonus": "**, **:clock1030: You leapt forward** ",
+            "hospitalBonus": "**, :clock1030: You leapt forward** ",
             "hospitalFin": "** hour(s)! You drink the beverage and feel something strange... It's like time went faster, but only for you!"
         },
         "daily": {
@@ -172,7 +172,7 @@
             "moneyBonus": "**, **:moneybag: Money earned: ** ",
             "moneyFin": " | You use the powers of the active object of your inventory and summon some coins!",
             "hospitalDebut": " |** ",
-            "hospitalBonus": "**, **:clock1030: You leapt forward from ** ",
+            "hospitalBonus": "**, :clock1030: You leapt forward from ** ",
             "hospitalFin": "** hour(s) | You use the powers of the active object in your inventory and feel a strange sensation ... Time seems to have passed faster, but only for you!"
         },
         "sell": {
@@ -489,7 +489,7 @@
           "Gname2": "` is already used by another guild.",
           "alreadyInAGuild": "It's impossible to create a guild while being a guild member.",
           "characters": "The rules for the guild's name are the following:\n- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed",
-          "characters2": "A guild's name must be between 1 and 15 characters.",
+          "characters2": "A guild's name must be between 2 and 14 characters.",
           "emptyName": "You must name your guild before you purchase it :\n`",
           "emptyName2": "guildcreate <nom>`",
           "spamError": "It's impossible to create a guild while another command is pending."
