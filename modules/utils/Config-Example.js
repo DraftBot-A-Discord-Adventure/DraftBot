@@ -1,0 +1,34 @@
+const packageJson = require('../../package.json');
+
+const DISCORD_CLIENT_TOKEN = ""; //put your token here
+const BOT_OWNER_ID = ""; //the bot will use this to check if you can use admins commands
+const BADGE_MANAGER_ID = ""; // put ids of the persons that will be able to manage badges separated by a comma 
+const SUPPORT_ID = ""; // put ids of the persons that will be able to send dms with the bot separated by a comma 
+const BOT_OWNER_PREFIX = "p"; // the prefix only the bot owner can use
+const PREFIXLENGTH = 1; // please keep this value to 1 otherwise some stuff may have problems
+const PART_OF_SCORE_REMOVED_DURING_RESPAWN = 0.1; //equals to 10 % by default
+const MAIN_SERVER_ID = ""; //id of the discord server where the support will be done
+const CONSOLE_CHANNEL_ID = ""; //id of the channel where the main status messages from the bot will be sent
+const FRENCH_ANNOUNCEMENT_CHANNEL_ID = ""; // id of the channel where important public announcement will be sent in french
+const ENGLISH_ANNOUNCEMENT_CHANNEL_ID = ""; // id of the channel where important public announcement will be sent in english
+const SUPPORT_CHANNEL_ID = ""; // id of the channel where important public announcement will be sent in english
+const BLACKLIST = ""; //ids of the persons that will not be able to send dms to the bot separated by a comma
+const TRASH_DM_CHANNEL_ID = ""; //id of the channel where the messages from blacklisted persons whill be sent
+const ENGLISH_CHANNEL_ID = ""; //id of a channel where the bot will always speak in english put 0 here to disable the feature
+
+exports.ENGLISH_CHANNEL_ID = ENGLISH_CHANNEL_ID;
+exports.TRASH_DM_CHANNEL_ID = TRASH_DM_CHANNEL_ID;
+exports.BLACKLIST = BLACKLIST;
+exports.MAIN_SERVER_ID = MAIN_SERVER_ID;
+exports.CONSOLE_CHANNEL_ID = CONSOLE_CHANNEL_ID;
+exports.FRENCH_ANNOUNCEMENT_CHANNEL_ID = FRENCH_ANNOUNCEMENT_CHANNEL_ID;
+exports.ENGLISH_ANNOUNCEMENT_CHANNEL_ID = ENGLISH_ANNOUNCEMENT_CHANNEL_ID;
+exports.SUPPORT_CHANNEL_ID = SUPPORT_CHANNEL_ID;
+exports.DISCORD_CLIENT_TOKEN = DISCORD_CLIENT_TOKEN;
+exports.BOT_OWNER_ID = BOT_OWNER_ID;
+exports.BADGE_MANAGER_ID = BADGE_MANAGER_ID;
+exports.SUPPORT_ID = SUPPORT_ID;
+exports.BOT_OWNER_PREFIX = BOT_OWNER_PREFIX;
+exports.PART_OF_SCORE_REMOVED_DURING_RESPAWN = PART_OF_SCORE_REMOVED_DURING_RESPAWN;
+exports.PREFIXLENGTH = PREFIXLENGTH;
+exports.version = packageJson.version;
