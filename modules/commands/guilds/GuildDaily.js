@@ -26,7 +26,7 @@ const guildDailyCommand = async function (message, args, client) {
         return;
     }
 
-    if (message.createdTimestamp - guild.lastInvocation < 792) {
+    if (message.createdTimestamp - guild.lastInvocation < 79200000) {
         message.channel.send(generateTooQuickException(message.author));
         return;
     }
