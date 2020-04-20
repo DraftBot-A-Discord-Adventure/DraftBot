@@ -27,7 +27,7 @@ client.on("guildCreate", guilde => {
   displayConsoleChannel(string);
   if (validation == ":x:") {
     sendLeavingMessage(guilde);
-    guilde.leave()
+    //guilde.leave() //temporairement désactivé pour top.gg
   }
   console.log(string);
 });
@@ -52,7 +52,7 @@ client.on("ready", () => {
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
   displayConsoleChannel(Console.startStatus + Config.version);
-
+  client.user.setActivity("❓ - Dm me for Help !")
   //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
   setInterval(async function () { // Set interval for checking
     await checkTopWeek();

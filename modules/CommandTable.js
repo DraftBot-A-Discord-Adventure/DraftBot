@@ -15,6 +15,13 @@ const Sell = require('./commands/Sell');
 const Fight = require('./commands/Fight');
 const Shop = require('./commands/Shop');
 
+const Guild = require('./commands/guilds/Guild');
+const GuildAdd = require('./commands/guilds/GuildAdd');
+const GuildLeave = require('./commands/guilds/GuildLeave');
+const GuildCreate = require('./commands/guilds/GuildCreate');
+const GuildKick = require('./commands/guilds/GuildKick');
+const GuildDaily = require('./commands/guilds/GuildDaily');
+
 const Reset = require('./commands/admin/Reset');
 const Give = require('./commands/admin/Give');
 const ListItems = require('./commands/admin/ListItems');
@@ -23,7 +30,6 @@ const GiveBadge = require('./commands/admin/GiveBadge');
 const ResetBadge = require('./commands/admin/ResetBadge');
 const ChangePrefix = require('./commands/admin/ChangePrefix');
 const SendData = require('./commands/admin/SendData');
-const Invitations = require('./commands/admin/Invitations');
 const Points = require('./commands/admin/Points');
 const PointsWeek = require('./commands/admin/PointsWeek');
 const Send = require('./commands/admin/Send');
@@ -62,7 +68,6 @@ const CommandTable = new Map(
 
         ["list", ListItems.ListItemsCommand],
         ["destroy", Reset.ResetCommand],
-        ["invi", Invitations.InvitationsCommand],
         ["points", Points.PointsCommand],
         ["pointsw", PointsWeek.PointsWeekCommand],
         ["servs", Servers.ServersCommand],
@@ -72,6 +77,21 @@ const CommandTable = new Map(
         ["rb", ResetBadge.ResetBadgeCommand],
         ["senddata", SendData.SendDataCommand],
         ["dm", Send.SendCommand],
+
+        ["guild", Guild.guildCommand],
+        ["g", Guild.guildCommand],
+        ["guildadd", GuildAdd.guildAddCommand],
+        ["gadd", GuildAdd.guildAddCommand],
+        ["ga", GuildAdd.guildAddCommand],
+        ["guildleave", GuildLeave.guildLeaveCommand],
+        ["gleave", GuildLeave.guildLeaveCommand],
+        ["guildcreate", GuildCreate.guildCreateCommand],
+        ["gcreate", GuildCreate.guildCreateCommand],
+        ["guildkick", GuildKick.guildKickCommand],
+        ["gkick", GuildKick.guildKickCommand],
+        ["gdaily", GuildDaily.guildDailyCommand],
+        ["guilddaily", GuildDaily.guildDailyCommand],
+        ["gd", GuildDaily.guildDailyCommand],
     ]
 );
 

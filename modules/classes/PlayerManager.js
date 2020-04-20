@@ -5,6 +5,7 @@ const sql = require("sqlite");
 const ServerManager = require('../classes/ServerManager');
 const Tools = require('../utils/Tools');
 const InventoryManager = require('../classes/InventoryManager');
+const ItemManager = require("../classes/ItemManager");
 const EquipementManager = require('../classes/EquipementManager');
 const PotionManager = require('../classes/PotionManager');
 const ObjectManager = require('../classes/ObjectManager');
@@ -45,7 +46,7 @@ class PlayerManager {
                 console.log(`user loaded : ${message.author.username}`);
                 return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges,
-                    player.rank, player.weeklyScore, player.weeklyRank)
+                    player.rank, player.weeklyScore, player.weeklyRank, player.guildId)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -59,7 +60,7 @@ class PlayerManager {
      * @param id - The id of the player
      * @returns {Integer} - The server rank of the player
      */
-    getServRank(idList,id) {
+    getServRank(idList, id) {
         return sql.get(`SELECT rank FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) AS rank FROM entity JOIN player on entity.id = player.discordId  AND entity.id IN(${idList}) ) WHERE score > 100 AND id=${id} ORDER BY score DESC`).then(player => {
             return player.rank
         }).catch(error => { //there is no database
@@ -76,7 +77,7 @@ class PlayerManager {
      * @returns {promise} - The promise that will be resolved into a player
      */
     getPlayerById(id, message) {
-        return sql.get(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = "${id}"`).then(player => {
+        return sql.get(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = ?`, ["" + id]).then(player => {
             if (!player) { //player is not in the database
                 console.log(`user unknown : ${id}`);
                 return this.getNewPlayerById(id, message);
@@ -84,7 +85,7 @@ class PlayerManager {
                 console.log(`user loaded : ${id}`);
                 return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges,
-                    player.rank, player.weeklyScore, player.weeklyRank)
+                    player.rank, player.weeklyScore, player.weeklyRank, player.guildId)
             }
         }).catch(error => { //there is no database
             console.error(error)
@@ -99,7 +100,7 @@ class PlayerManager {
      * @returns {promise} - The promise that will be resolved into a player
      */
     getIdByRank(rank) {
-        return sql.get(`SELECT *FROM(SELECT discordId, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank = "${rank}"`).then(id => {
+        return sql.get(`SELECT *FROM(SELECT discordId, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank = ?`, ["" + rank]).then(id => {
             return id.discordId;
         }).catch(error => { //there is no database
             console.error(error)
@@ -117,7 +118,7 @@ class PlayerManager {
         console.log('Generating a new player...');
         return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed,
             message.author.id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect,
-            message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank, DefaultValues.player.weeklyScore, DefaultValues.player.weeklyRank);
+            message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank, DefaultValues.player.weeklyScore, DefaultValues.player.weeklyRank, DefaultValues.player.guildId);
     }
 
 
@@ -131,7 +132,7 @@ class PlayerManager {
         console.log('Generating a new player by id...');
         return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed,
             id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect,
-            message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.weeklyScore);
+            message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.weeklyScore, DefaultValues.player.guildId);
     }
 
 
@@ -162,7 +163,7 @@ class PlayerManager {
      */
     setPlayerAsOccupied(player) {
         console.log("Updating player ...");
-        sql.run(`UPDATE entity SET effect = ":clock10:" WHERE id = ${player.discordId}`).catch(console.error);
+        sql.run(`UPDATE entity SET effect = ":clock10:" WHERE id = ?`, [player.discordId]).catch(console.error);
         console.log("Player updated !");
     }
 
@@ -172,7 +173,7 @@ class PlayerManager {
      */
     setPlayerAsUnOccupied(player) {
         console.log("Updating player ...");
-        sql.run(`UPDATE entity SET effect = ":smiley:" WHERE id = ${player.discordId}`).catch(console.error);
+        sql.run(`UPDATE entity SET effect = ":smiley:" WHERE id = ?`, [player.discordId]).catch(console.error);
         console.log("Player updated !");
     }
 
@@ -183,10 +184,10 @@ class PlayerManager {
      */
     updatePlayer(player) {
         console.log("Updating player ...");
-        sql.run(`UPDATE entity SET maxHealth = ${player.maxHealth}, health = ${player.health}, attack = ${player.attack}, defense = ${player.defense}, speed = ${player.speed},
-         effect = "${player.effect}" WHERE id = ${player.discordId}`).catch(console.error);
-        sql.run(`UPDATE player SET score = ${player.score}, level = ${player.level}, experience = ${player.experience}, money = ${player.money},
-         lastReport = ${player.lastReport}, badges = "${player.badges}", weeklyScore = ${player.weeklyScore} WHERE discordId = ${player.discordId}`).catch(console.error);
+        sql.run(`UPDATE entity SET maxHealth = ?, health = ?, attack = ?, defense = ?, speed = ?, effect = ? WHERE id = ?`,
+            [player.maxHealth, player.health, player.attack, player.defense, player.speed, "" + player.effect, player.discordId]).catch(console.error);
+        sql.run(`UPDATE player SET score = ?, level = ?, experience = ?, money = ?, lastReport = ?, badges = ?, weeklyScore = ?, guildId = ? WHERE discordId = ?`,
+            [player.score, player.level, player.experience, player.money, player.lastReport, "" + player.badges, player.weeklyScore, player.guildId, player.discordId]).catch(console.error);
         console.log("Player updated !");
     }
 
@@ -196,8 +197,8 @@ class PlayerManager {
      */
     updatePlayerScore(player) {
         console.log("Updating player ...");
-        sql.run(`UPDATE player SET score = ${player.score} WHERE discordId = ${player.discordId}`).catch(console.error);
-        sql.run(`UPDATE player SET weeklyScore = ${player.weeklyScore} WHERE discordId = ${player.discordId}`).catch(console.error);
+        sql.run(`UPDATE player SET score = ? WHERE discordId = ?`, [player.score, player.discordId]).catch(console.error);
+        sql.run(`UPDATE player SET weeklyScore = ? WHERE discordId = ?`, [player.weeklyScore, player.discordId]).catch(console.error);
         console.log("Player updated !");
     }
 
@@ -207,10 +208,11 @@ class PlayerManager {
      */
     addPlayer(player) {
         console.log("Creating player ...");
-        sql.run(`INSERT INTO entity (maxHealth, health, attack, defense, speed, id, effect) VALUES ( ${player.maxHealth}, ${player.health}, ${player.attack} , ${player.defense} ,
-        ${player.speed} , ${player.discordId},"${player.effect}")`).catch(console.error);
-        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, weeklyScore) 
-        VALUES (${player.discordId},${player.score},${player.level},${player.experience},${player.money}, ${player.lastReport}, "${player.badges}",0)`).catch(console.error);
+        sql.run(`INSERT INTO entity (maxHealth, health, attack, defense, speed, id, effect) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, "" + player.effect]).catch(console.error);
+        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, weeklyScore, guildId) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)`,
+            [player.discordId, player.score, player.level, player.experience, player.money, player.lastReport, "" + player.badges]).catch(console.error);
         console.log("Player created !");
     }
 
@@ -347,8 +349,9 @@ class PlayerManager {
      * give to the player that send the message a random item
      * @param {*} message - The message that caused the function to be called. Used to retrieve the channel where the message has been send
      * @param {*} player - The player that is playing
+     * @param {boolean} displayNameIfSold - Display the name of the item if the item is sold
      */
-    async giveRandomItem(message, player) {
+    async giveRandomItem(message, player, displayNameIfSold) {
         let inventoryManager = new InventoryManager();
         let equipementManager = new EquipementManager();
         let potionManager = new PotionManager();
@@ -357,16 +360,16 @@ class PlayerManager {
         let type = this.chooseARandomItemType();
         switch (type) {
             case "weapon":
-                player = await this.giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player);
+                player = await this.giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player, displayNameIfSold);
                 break;
             case "armor":
-                player = await this.giveRandomArmor(equipementManager, inventory, message, inventoryManager, player);
+                player = await this.giveRandomArmor(equipementManager, inventory, message, inventoryManager, player, displayNameIfSold);
                 break;
             case "object":
-                player = await this.giveRandomObject(objectManager, inventory, message, inventoryManager, player);
+                player = await this.giveRandomObject(objectManager, inventory, message, inventoryManager, player, displayNameIfSold);
                 break;
             case "potion":
-                player = await this.giveRandomPotion(potionManager, inventory, message, inventoryManager, player);
+                player = await this.giveRandomPotion(potionManager, inventory, message, inventoryManager, player, displayNameIfSold);
                 break;
             default:
                 // this is never supposed to occure
@@ -426,11 +429,11 @@ class PlayerManager {
         let old = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
         if (neww > old) {
             inventory.armorId = armor.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + equipementManager.displayArmor(armor, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, armor, message, language);
+            player = this.sellItem(player, armor, false, message, language);
         }
         return player
     }
@@ -453,11 +456,11 @@ class PlayerManager {
         let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
         if (neww > old) {
             inventory.weaponId = weapon.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, weapon, message, language);
+            player = this.sellItem(player, weapon, false, message, language);
         }
         return player
     }
@@ -480,11 +483,11 @@ class PlayerManager {
         let old = objectManager.getObjectEfficiency(objectManager.getObjectById(inventory.backupItemId));
         if (neww > old) {
             inventory.backupItemId = object.id;
-            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + objectManager.displayObject(object, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, object, message, language);
+            player = this.sellItem(player, object, false, message, language);
         }
         return player
     }
@@ -507,11 +510,11 @@ class PlayerManager {
         let old = potionManager.getPotionEfficiency(potionManager.getPotionById(inventory.potionId));
         if (neww > old) {
             inventory.potionId = potion.id;
-            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + potionManager.displayPotion(potion, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, potion, message, language);
+            player = this.sellItem(player, potion, false, message, language);
         }
         return player
     }
@@ -524,8 +527,9 @@ class PlayerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
      * @param {*} inventoryManager - The inventory manager class
      * @param {*} player - The player that is playing
+     * @param {boolean} displayNameIfSold - Display the name of the item if the item is sold
      */
-    async giveRandomArmor(equipementManager, inventory, message, inventoryManager, player) {
+    async giveRandomArmor(equipementManager, inventory, message, inventoryManager, player, displayNameIfSold) {
         Text = await chargeText(message);
         let language = await this.detectLanguage(message);
         let armor = await equipementManager.generateRandomArmor();
@@ -533,11 +537,11 @@ class PlayerManager {
         let old = equipementManager.getEquipementEfficiency(equipementManager.getArmorById(inventory.armorId));
         if (neww > old) {
             inventory.armorId = armor.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayArmor(armor, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + equipementManager.displayArmor(armor, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, armor, message, language);
+            player = this.sellItem(player, armor, displayNameIfSold, message, language);
         }
         return player
     }
@@ -550,8 +554,9 @@ class PlayerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
      * @param {*} inventoryManager - The inventory manager class
      * @param {*} player - The player that is playing
+     * @param {boolean} displayNameIfSold - Display the name of the item if the item is sold
      */
-    async giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player) {
+    async giveRandomWeapon(equipementManager, inventory, message, inventoryManager, player, displayNameIfSold) {
         Text = await chargeText(message);
         let language = await this.detectLanguage(message);
         let weapon = await equipementManager.generateRandomWeapon();
@@ -559,11 +564,11 @@ class PlayerManager {
         let old = equipementManager.getEquipementEfficiency(equipementManager.getWeaponById(inventory.weaponId));
         if (neww > old) {
             inventory.weaponId = weapon.id;
-            message.channel.send(Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + equipementManager.displayWeapon(weapon, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, weapon, message, language);
+            player = this.sellItem(player, weapon, displayNameIfSold, message, language);
         }
         return player
     }
@@ -576,8 +581,9 @@ class PlayerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
      * @param {*} inventoryManager - The inventory manager class
      * @param {*} player - The player that is playing
+     * @param {boolean} displayNameIfSold - Display the name of the item if the item is sold
      */
-    async giveRandomObject(objectManager, inventory, message, inventoryManager, player) {
+    async giveRandomObject(objectManager, inventory, message, inventoryManager, player, displayNameIfSold) {
         Text = await chargeText(message);
         let language = await this.detectLanguage(message);
         let object = await objectManager.generateRandomObject();
@@ -585,11 +591,11 @@ class PlayerManager {
         let old = objectManager.getObjectEfficiency(objectManager.getObjectById(inventory.backupItemId));
         if (neww > old) {
             inventory.backupItemId = object.id;
-            message.channel.send(Text.playerManager.newItem + objectManager.displayObject(object, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + objectManager.displayObject(object, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, object, message, language);
+            player = this.sellItem(player, object, displayNameIfSold, message, language);
         }
         return player
     }
@@ -602,8 +608,9 @@ class PlayerManager {
      * @param {*} message - The message that caused the function to be called. Used to retrieve the author
      * @param {*} inventoryManager - The inventory manager class
      * @param {*} player - The player that is playing
+     * @param {boolean} displayNameIfSold - Display the name of the item if the item is sold
      */
-    async giveRandomPotion(potionManager, inventory, message, inventoryManager, player) {
+    async giveRandomPotion(potionManager, inventory, message, inventoryManager, player, displayNameIfSold) {
         Text = await chargeText(message);
         let language = await this.detectLanguage(message);
         let potion = await potionManager.generateRandomPotion();
@@ -611,11 +618,11 @@ class PlayerManager {
         let old = potionManager.getPotionEfficiency(potionManager.getPotionById(inventory.potionId));
         if (neww > old) {
             inventory.potionId = potion.id;
-            message.channel.send(Text.playerManager.newItem + potionManager.displayPotion(potion, language));
+            message.channel.send(Text.playerManager.newItemEmoji + mentionPlayer(player) + Text.playerManager.newItem + potionManager.displayPotion(potion, language));
             inventoryManager.updateInventory(inventory);
         }
         else {
-            player = this.sellItem(player, potion, message, language);
+            player = this.sellItem(player, potion, displayNameIfSold, message, language);
         }
         return player
     }
@@ -633,15 +640,20 @@ class PlayerManager {
      * allow the player to gain some money corresponding to an equipement
      * @param {Item} item - The equipement that has to be sold
      * @param {*} player - The player that will recieve the money
+     * @param {boolean} displayName - Displays or not the name of the item
      * @param {*} message - The message that caused the function to be called. Used to retrieve the channel
      * @param {String} language - The language the answer has to be displayed in
      */
-    sellItem(player, item, message, language) {
+    sellItem(player, item, displayName, message, language) {
         Text = require('../text/' + language);
         let value = item.getValue();
         console.log("the item has been sold ! " + item.rareness + " / " + item.power);
         player.addMoney(value);
-        message.channel.send(Text.playerManager.sellEmoji + message.author.username + Text.playerManager.sell + value + Text.playerManager.sellEnd)
+        if (displayName) {
+            message.channel.send(Text.playerManager.sellEmoji + mentionPlayer(player) + Text.playerManager.sellItem1 + new ItemManager().getItemSimpleName(item, language) + Text.playerManager.sellItem2 + value + Text.playerManager.sellEnd);
+        } else {
+            message.channel.send(Text.playerManager.sellEmoji + mentionPlayer(player) + Text.playerManager.sell + value + Text.playerManager.sellEnd);
+        }
         return player;
     }
 
@@ -654,11 +666,11 @@ class PlayerManager {
     getTopData(borneinf, bornesup) {
         let playerArray = Array();
         let i = 0;
-        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) AS rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) AS weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank >= ${borneinf} AND rank <= ${bornesup} AND score > 100 ORDER BY score DESC`).then(data => {
+        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) AS rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) AS weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank >= ? AND rank <= ? AND score > 100 ORDER BY score DESC`, [borneinf, bornesup]).then(data => {
             data.forEach(function (player) {
                 playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
-                    player.weeklyRank)
+                    player.weeklyRank, player.guildId)
                 i++;
             });
             return playerArray;
@@ -675,11 +687,11 @@ class PlayerManager {
     getTopServData(borneinf, bornesup, idList) {
         let playerArray = Array();
         let i = 0;
-        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) AS rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) AS weeklyRank FROM entity JOIN player on entity.id = player.discordId  AND entity.id IN(${idList}) ) WHERE rank >= ${borneinf} AND rank <= ${bornesup} AND score > 100 ORDER BY score DESC`).then(data => {
+        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) AS rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) AS weeklyRank FROM entity JOIN player on entity.id = player.discordId  AND entity.id IN(${idList}) ) WHERE rank >= ? AND rank <= ? AND score > 100 ORDER BY score DESC`, [borneinf, bornesup]).then(data => {
             data.forEach(function (player) {
                 playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
-                    player.weeklyRank)
+                    player.weeklyRank, player.guildId)
                 i++;
             });
             return playerArray;
@@ -695,16 +707,32 @@ class PlayerManager {
     getTopWeekData(borneinf, bornesup) {
         let playerArray = Array();
         let i = 0;
-        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE weeklyRank >= ${borneinf} AND weeklyRank <= ${bornesup} AND weeklyScore > 0 ORDER BY weeklyScore DESC`).then(data => {
+        return sql.all(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE weeklyRank >= ? AND weeklyRank <= ? AND weeklyScore > 0 ORDER BY weeklyScore DESC`, [borneinf, bornesup]).then(data => {
             data.forEach(function (player) {
                 playerArray[i] = new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
                     player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges, player.rank, player.weeklyScore,
-                    player.weeklyRank)
+                    player.weeklyRank, player.guildId)
                 i++;
             });
             return i === 0 ? null : playerArray;
         });
     }
+
+    /**
+    * @returns {*} -The rank of the player
+    */
+    async getPlayerRank(playerId) {
+        return sql.all(`select *from(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM player) WHERE discordId = ? AND score > 100 ORDER BY score DESC`, [playerId]).then(player => {
+            let playerRank = player[0];
+            if (playerRank === undefined) return "0";
+            return playerRank.rank;
+        });
+    }
+
 }
 
 module.exports = PlayerManager;
+
+function mentionPlayer(player) {
+    return "<@" + player.discordId + ">";
+}

@@ -8,7 +8,7 @@ let Text;
  */
 class Player extends Entity {
 
-    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank, weeklyScore, weeklyRank) {
+    constructor(maxHealth, health, attack, defense, speed, discordId, score, level, experience, money, effect, lastReport, badges, rank, weeklyScore, weeklyRank, guildId) {
         super(discordId, maxHealth, health, attack, defense, speed, effect);
         this.discordId = discordId;
         this.score = score;
@@ -20,6 +20,21 @@ class Player extends Entity {
         this.rank = rank
         this.weeklyScore = weeklyScore;
         this.weeklyRank = weeklyRank;
+        this.guildId = guildId
+    }
+
+    /**
+     * Returns the guild id
+     */
+    getGuildId() {
+        return this.guildId;
+    }
+
+    /**
+     * Set the guild id
+     */
+    setGuildId(newGuildId) {
+        this.guildId = newGuildId;
     }
 
     /**
@@ -28,7 +43,7 @@ class Player extends Entity {
      * @returns {Number} Returns the experience needed to level up.
      */
     getExperienceToLevelUp() {
-        let xpToLevelUp = DefaultValues.xp[this.level + 1];
+        let xpToLevelUp = DefaultValues.xp[parseInt(this.level + 1)];
         return xpToLevelUp;
     }
 
@@ -39,8 +54,6 @@ class Player extends Entity {
      */
     getExperienceUsedToLevelUp() {
         let xpToLevelUp = DefaultValues.xp[this.level];
-        if (this.level > 100)
-            xpToLevelUp = 100;
         return xpToLevelUp;
     }
 
@@ -321,6 +334,23 @@ class Player extends Entity {
      */
     getBadges() {
         return this.badges;
+    }
+
+    /**
+     * Add a badge to the player.
+     * @param {String} - The badge
+     */
+    addBadge(badge) {
+        if(!this.badges.includes(badge)) {
+            if(this.badges.length === 0) {
+                this.badges += badge;
+            } else {
+                this.badges += `-` + badge;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
