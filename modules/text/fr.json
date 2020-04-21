@@ -514,7 +514,8 @@
       "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
       "partialHeal": "Les membres de la guilde ont été partiellement soignés :",
       "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées.",
-      "tooQuickError": ", la récompense de guilde n'est disponible qu'une fois toute les 22H. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur."
+      "tooQuickError": ", la récompense de guilde n'est disponible qu'une fois toute les 22H. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochain récompense: **",
+      "tooQuickErrorEnd": "**"
     }
   },
   "commandReader": {

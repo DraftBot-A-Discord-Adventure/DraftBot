@@ -27,7 +27,7 @@ const guildDailyCommand = async function (message, args, client) {
     }
 
     if (message.createdTimestamp - guild.lastInvocation < 79200000) {
-        message.channel.send(generateTooQuickException(message.author));
+        message.channel.send(generateTooQuickException(message.author, 79200000 - message.createdTimestamp + guild.lastInvocation));
         return;
     }
     updateLastInvocation(guild, message);
@@ -93,12 +93,16 @@ const generateNotInAGuildException = function (user) {
 /**
  * @returns {String} - A RichEmbed message wich display the NoUserException
  * @param {*} user - the user that the error refeirs to
+ * @param {*} remainingTime - Time remaining before next reward
  */
-const generateTooQuickException = function (user) {
+const generateTooQuickException = function (user, remainingTime) {
     let embed = generateDefaultEmbed();
     embed.setTitle(Text.commands.guildAdd.error);
     embed.setColor(DefaultValues.guild.errorColor);
-    embed.setDescription(user.toString() + Text.commands.guildDaily.tooQuickError);
+    console.log(remainingTime);
+    let minutes = Math.floor(remainingTime / 60000) % 60;
+    let hours = Math.floor(remainingTime / 3600000);
+    embed.setDescription(user.toString() + Text.commands.guildDaily.tooQuickError + hours + " h " + ("0" + minutes).slice(-2) + " min" + Text.commands.guildDaily.tooQuickErrorEnd);
     return embed;
 }
 
