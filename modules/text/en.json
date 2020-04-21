@@ -95,7 +95,7 @@
                 "alterationHeal": ":hospital: **Heal alterations** | `500 💰`",
                 "completeHeal": ":heartpulse: **Complete health regeneration** | `3000 💰`",
                 "badge": ":money_mouth: **\"MoneyMouth\" Badge** | `25000 💰`",
-                "guildXp": ":star: **Some xp for your guild** | `1000 💰`
+                "guildXp": ":star: **Some xp for your guild** | `1000 💰`"
             },
             "infos": {
                 "dailyPotion": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
@@ -573,7 +573,7 @@
         "newItem": "**, you obtained a new item!** You got:\n\n",
         "sell": ", you obtain a bag containing some gold coins... It will be useful for the continuation of your adventure! :moneybag: Money obtained: **",
         "sellItem1": ", you decide to sell ",
-        "sellItem2": " for some golds coins because this item doesn't seem useful... :moneybag: Money obtained : **",
+        "sellItem2": " for some gold coins because it doesn't seem useful... :moneybag: Money obtained : **",
         "sellEnd": "**",
         "sellEmoji": ":gift: | ",
         "levelUp": {
