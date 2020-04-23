@@ -290,24 +290,24 @@
             },
             "attackUltime": {
                 "ok": {
-                    "1": " ** performs an ultimate attack! Perfectly executed! `Speed reduced by 10%`",
-                    "2": " ** performs an ultimate attack! Magnificent! `Speed reduced by 10%`",
-                    "3": " ** performs a great ultimate attack! Perfectly executed! `Speed reduced by 10%`",
-                    "4": " ** performs an ultimate attack! Incredibly well done! `Speed reduced by 10%`",
-                    "5": " ** performs an ultimate attack! It was risky but worth it! `Speed reduced by 10%`",
-                    "6": " ** lanches a great ultimate attack! `Speed decrease : 10%`",
-                    "7": " ** uses an ultimate attack! How grand! `Speed reduced by 10%`",
-                    "8": " ** opts for an ultimate attack! Really good initiative. `Speed reduced by 10%`"
+                    "1": " ** performs an ultimate attack! Perfectly executed! `Speed reduced by 25%`",
+                    "2": " ** performs an ultimate attack! Magnificent! `Speed reduced by 25%",
+                    "3": " ** performs a great ultimate attack! Perfectly executed! `Speed reduced by 25%`",
+                    "4": " ** performs an ultimate attack! Incredibly well done! `Speed reduced by 25%`",
+                    "5": " ** performs an ultimate attack! It was risky but worth it! `Speed reduced by 25%`",
+                    "6": " ** lanches a great ultimate attack! `Speed reduced  by 25%`",
+                    "7": " ** uses an ultimate attack! How grand! `Speed reduced by 25%`",
+                    "8": " ** opts for an ultimate attack! Really good initiative. `Speed reduced by 25%`"
                 },
                 "meh": {
-                    "1": " ** executes an ultimate attack! It works, but wasn't great.",
-                    "2": " ** uses an ultimate attack! Meh...",
-                    "3": " ** executes a really average quick attack! Not that good!",
-                    "4": " ** executes an ultimate attack! It doesn't really work...",
-                    "5": " ** executes an ultimate attack! It wasn't that well done.",
-                    "6": " ** launches an ultimate attack! Pitiful",
-                    "7": " ** is using an ultimate attack! Weak!",
-                    "8": " ** chose an ultimate attack!  The result is quite pathetic."
+                    "1": " ** executes an ultimate attack! It works, but wasn't great. `Speed reduced by 25%`",
+                    "2": " ** uses an ultimate attack! Meh... `Speed reduced by 25%`",
+                    "3": " ** executes a really average quick attack! Not that good! `Speed reduced by 25%`",
+                    "4": " ** executes an ultimate attack! It doesn't really work... `Speed reduced by 25%`",
+                    "5": " ** executes an ultimate attack! It wasn't that well done. `Speed reduced by 25%`",
+                    "6": " ** launches an ultimate attack! Pitiful `Speed reduced by 25%`",
+                    "7": " ** is using an ultimate attack! Weak! `Speed reduced by 25%`",
+                    "8": " ** chose an ultimate attack!  The result is quite pathetic. `Speed reduced by 25%`"
                 },
                 "ko": {
                     "1": " ** makes an ultimate attack! It's a failure! `Speed reduced by 10%`",
