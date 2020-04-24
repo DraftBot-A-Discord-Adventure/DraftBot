@@ -7,10 +7,11 @@ const DefaultValues = require('../utils/DefaultValues')
  */
 class Item {
 
-    constructor(id, rareness, power) {
+    constructor(id, rareness, power, type) {
         this.id = id;
         this.rareness = rareness;
         this.power = power;
+        this.type = type;
     }
 
 
@@ -46,6 +47,14 @@ class Item {
      */
     getValue(){
         return parseInt(DefaultValues.raritiesValues[this.rareness]) + parseInt(this.power);
+    }
+
+    /**
+     * Returns the type of the item
+     * @returns {String} - The type of the item
+     */
+    getType() {
+        return this.type;
     }
 }
 

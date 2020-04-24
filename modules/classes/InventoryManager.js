@@ -14,12 +14,12 @@ class InventoryManager {
     * @returns {promise} - The promise that will be resolved into a inventory
     */
     getCurrentInventory(message) {
-        return sql.get(`SELECT * FROM inventory WHERE playerId ="${message.author.id}"`).then(inventory => {
+        return sql.get(`SELECT * FROM inventory WHERE playerId = ?`, ["" + message.author.id]).then(inventory => {
             if (!inventory) { //inventory is not in the database
-                console.log(`user unknown : ${message.author.username}`);
+                console.log(`inventory unknown : ${message.author.username}`);
                 return this.getNewInventory(message);
             } else { //inventory is in the database
-                console.log(`user loaded : ${message.author.username}`);
+                console.log(`inventory loaded : ${message.author.username}`);
                 return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
             }
         }).catch(error => { //there is no database
@@ -35,12 +35,12 @@ class InventoryManager {
     * @returns {promise} - The promise that will be resolved into a inventory
     */
     getInventoryById(id) {
-        return sql.get(`SELECT * FROM inventory WHERE playerId ="${id}"`).then(inventory => {
+        return sql.get(`SELECT * FROM inventory WHERE playerId = ?`, ["" + id]).then(inventory => {
             if (!inventory) { //inventory is not in the database
-                console.log(`user unknown 1 : ${id}`);
+                console.log(`inventory unknown : ${id}`);
                 return this.getNewInventoryById(id);
             } else { //inventory is in the database
-                console.log(`user loaded 1 : ${id}`);
+                console.log(`inventory loaded : ${id}`);
                 return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
             }
         }).catch(error => { //there is no database
@@ -82,7 +82,8 @@ class InventoryManager {
      */
     updateInventory(inventory) {
         console.log("Updating inventory ...");
-        sql.run(`UPDATE inventory SET playerId = ${inventory.playerId}, weaponId = "${inventory.weaponId}", armorId = "${inventory.armorId}", potionId = "${inventory.potionId}", objectId = "${inventory.objectId}", backupItemId = "${inventory.backupItemId}",lastDaily = "${inventory.lastDaily}" WHERE playerId = ${inventory.playerId}`).catch(console.error);
+        sql.run(`UPDATE inventory SET playerId = ?, weaponId = ?, armorId = ?, potionId = ?, objectId = ?, backupItemId = ?,lastDaily = ? WHERE playerId = ?`,
+            [inventory.playerId, "" + inventory.weaponId, "" + inventory.armorId, "" + inventory.potionId, "" + inventory.objectId, "" + inventory.backupItemId, "" + inventory.lastDaily, inventory.playerId]).catch(console.error);
         console.log("Inventory updated !");
     }
 
@@ -93,7 +94,8 @@ class InventoryManager {
      */
     addInventory(inventory) {
         console.log("Creating inventory ...");
-        sql.run(`INSERT INTO inventory (playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily) VALUES (${inventory.playerId},"${inventory.weaponId}","${inventory.armorId}","${inventory.potionId}","${inventory.objectId}","${inventory.backupItemId}","${inventory.lastDaily}") `).catch(console.error);
+        sql.run(`INSERT INTO inventory (playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [inventory.playerId, "" + inventory.weaponId, "" + inventory.armorId, "" + inventory.potionId, "" + inventory.objectId, "" + inventory.backupItemId, "" + inventory.lastDaily]).catch(console.error);
         console.log("inventory created !");
     }
 

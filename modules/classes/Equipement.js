@@ -8,8 +8,8 @@ sql.open("./modules/data/database.sqlite");
  */
 class Equipement extends Item {
 
-    constructor(id, rareness, power) {
-        super(id, rareness, power);
+    constructor(id, rareness, power, type) {
+        super(id, rareness, power, type);
     }
 
 }

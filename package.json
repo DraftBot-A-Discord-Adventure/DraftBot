@@ -1,6 +1,6 @@
 {
   "name": "fr.bast.draftbot",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "main": "draftbot.js",
   "repository": {
     "type": "git",

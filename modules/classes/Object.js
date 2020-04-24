@@ -8,7 +8,7 @@ class Object extends Item {
 
 
     constructor(id, rareness, power, natureEffect) {
-        super(id, rareness, power);
+        super(id, rareness, power, 'object');
         this.natureEffect = natureEffect
     }
 

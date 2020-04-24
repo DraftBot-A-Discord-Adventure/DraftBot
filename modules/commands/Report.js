@@ -8,7 +8,7 @@ const DefaultValues = require('../utils/DefaultValues');
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
  */
 const reportCommand = async function (message, args, client, talkedRecently) {
-   let Text = await Tools.chargeText(message);;
+   let Text = await Tools.chargeText(message);
    let language = await Tools.detectLanguage(message);
    if (talkedRecently.has(message.author.id)) {
       return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
@@ -34,7 +34,7 @@ const reportCommand = async function (message, args, client, talkedRecently) {
       let moneyChange = calculateMoney(player, time);
 
       let eventNumber = eventManager.chooseARandomEvent();
-      //eventNumber = 29; //allow to select a specific event in testing purpose
+      //eventNumber = 39; //allow to select a specific event in testing purpose
 
       switch (true) {
          case time < DefaultValues.report.minimalTime:
@@ -263,7 +263,7 @@ async function applyPossibility(message, pointsGained, moneyChange, possibility,
    player.addExperience(possibility.xpGained, message, language, Text)
 
    if (possibility.item == "true") { //have to give an item to the player
-      player = await playerManager.giveRandomItem(message, player);
+      player = await playerManager.giveRandomItem(message, player, false);
    }
    playerManager.updatePlayer(player);
 }

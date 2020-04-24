@@ -1,6 +1,8 @@
 const PlayerManager = require('../classes/PlayerManager');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('../utils/DefaultValues');
+const moment = require("moment");
+const Discord = require("discord.js");
 let Text;
 let language;
 
@@ -12,6 +14,11 @@ let language;
 const fightCommand = async function (message, args, client, talkedRecently) {
     Text = await Tools.chargeText(message);
     language = await Tools.detectLanguage(message);
+    const diffMinutes = getMinutesBeforeReset();
+    if (resetIsNow(diffMinutes)) {
+        const embed = await generateResetTopWeekEmbed(message);
+        return message.channel.send(embed)
+    }
     if (talkedRecently.has(message.author.id)) {
         return message.channel.send(Text.commands.sell.cancelStart + message.author + Text.commands.shop.tooMuchShop);
     }
@@ -31,15 +38,41 @@ const fightCommand = async function (message, args, client, talkedRecently) {
         displayErrorSkillMissing(message, attacker);
     } else {
         if (playerManager.checkState(player, message, ":smiley:", language)) {  //check if the player is not dead or sick or something else
+
+            let chosenOpponent = undefined;
+            if (askForAnotherPlayer(args)) { //check if an opponent was asked
+                let chosenOpponentId;
+                chosenOpponent = await getAskedPlayer(chosenOpponentId, chosenOpponent, playerManager, message, args);
+                if (askedPlayerIsInvalid(chosenOpponent)) {
+                    return message.channel.send(Text.commands.fight.errorEmoji + message.author + Text.commands.fight.chosenOpponentDontPlay);
+                }
+                if (chosenOpponent.id === player.id) {
+                    return message.channel.send(Text.commands.fight.errorEmoji + attacker + Text.commands.fight.alreadyAttackerError);
+                }
+                if (chosenOpponent.getLevel() < DefaultValues.fight.minimalLevel) {
+                    return message.channel.send(Text.commands.fight.errorEmoji + message.author + Text.commands.fight.chosenOpponentNotEnoughSkill1 + DefaultValues.fight.minimalLevel + Text.commands.fight.chosenOpponentNotEnoughSkill2);
+                }
+            }
+
             playerManager.setPlayerAsOccupied(player);
 
-            let messageIntro = await displayIntroMessage(message, attacker);
+            let messageIntro = await displayIntroMessage(message, attacker, chosenOpponent);
 
             let fightIsOpen = true;
 
-            const filter = (reaction, user) => {
-                return (reactionIsCorrect(reaction, user));
-            };
+            let filter;
+            if (chosenOpponent === undefined) {
+                filter = (reaction, user) => { //filter if no one was asked
+                    return (reactionIsCorrect(reaction, user));
+                };
+            }
+            else {
+                filter = (reaction, user) => { //filter if an opponent was asked
+                    if (chosenOpponent.id === user.id || attacker.id === user.id) {
+                        return (reactionIsCorrect(reaction, user));
+                    }
+                };
+            }
 
             const collector = messageIntro.createReactionCollector(filter, {
                 time: 120000
@@ -98,6 +131,43 @@ const fightCommand = async function (message, args, client, talkedRecently) {
 
 
 /**
+ * Generate the embed that the bot has to send if the top week is curently beeing reset
+ * @param {*} message - the message used to get this embed
+ */
+async function generateResetTopWeekEmbed(message) {
+    const embed = new Discord.RichEmbed();
+    let Text = await Tools.chargeText(message);
+    embed.setColor(DefaultValues.embed.color);
+    embed.setTitle(Text.commandReader.resetIsNowTitle);
+    embed.setDescription(Text.commandReader.resetIsNowFooterFight);
+    return embed;
+}
+
+/**
+ * True if the reset is now (every sunday at midnight)
+ * @param {*} diffMinutes - The amount of minutes before the next reset
+ */
+function resetIsNow(diffMinutes) {
+    return diffMinutes < 15 && diffMinutes > -1;
+}
+
+/**
+ * Get the amount of minutes before the next reset
+ */
+function getMinutesBeforeReset() {
+    var now = new Date(); //The current date
+    var dateOfReset = new Date(); // The next Sunday
+    dateOfReset.setDate(now.getDate() + (0 + (7 - now.getDay())) % 7); // Calculating next Sunday
+    dateOfReset.setHours(22, 59, 59); // Defining hours, min, sec to 23, 59, 59
+    //Parsing dates to moment
+    var nowMoment = new moment(now);
+    var momentOfReset = new moment(dateOfReset);
+    const diffMinutes = momentOfReset.diff(nowMoment, 'minutes');
+    return diffMinutes;
+}
+
+
+/**
  * Allow to display the message that announce the begining of the fight
  * @param {*} message
  * @param {*} attacker - The first player
@@ -107,8 +177,8 @@ function displayFightStartMessage(message, attacker, defender) {
     message.channel.send(Text.commands.fight.startStart + attacker + Text.commands.fight.startJoin + defender + Text.commands.fight.startEnd);
 }
 
-async function displayIntroMessage(message, attacker) {
-    let messageIntro = await generateIntroMessage(message, attacker);
+async function displayIntroMessage(message, attacker, chosenOpponent) {
+    let messageIntro = await generateIntroMessage(message, attacker, chosenOpponent);
     messageIntro.react("⚔").then(a => {
         messageIntro.react("❌");
     });
@@ -179,22 +249,22 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                 let attackPower;
                 switch (reaction.emoji.name) {
                     case "🗡": //attaque rapide
-                        // 85% des points d'attaque sont utilisés
-                        // 50% des points de défense sont utilisés
+                        // 75% des points d'attaque sont utilisés
+                        // 30% des points de défense sont utilisés
                         // Taux de réussite de 30% qui monte à 95% sur un adversaire plus lent
                         ({ defenderPower, attackerPower } = quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "⚔": //attaque simple
                         // 100% ou 50% des points d'attaque sont utilisés
-                        // 85% des points de défense sont utilisés
+                        // 100% des points de défense sont utilisés
                         // Taux de réussite de 60% qui monte à 80% sur un adversaire plus lent
                         // En plus des 60% de réussite, 30% de chance de réussite partielle sur un adversaire plus rapide
                         ({ defenderPower, attackerPower } = simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "💣": //attaque ultime
                         // 125% ou 200% des points d'attaque sont utilisés
-                        // 50% des points de défense sont utilisés
-                        // Diminue la vitesse de 10 % pour le prochain tour
+                        // 100% des points de défense sont utilisés
+                        // Diminue la vitesse de 10 ou 25 % pour le prochain tour
                         // 5% de réussite totale sur un adversaire plus rapide et 40% de réussite partielle
                         // 30% de réussite totale sur un adversaire plus lent et 70% de réusite partielle
                         ({ defenderPower, attackerPower } = powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
@@ -390,19 +460,18 @@ function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defe
             powerchanger = 2;
         }
     } else {
-        if (succes <= 70 && succes > 30) { //partial success
+        if (succes <= 80 && succes > 30) { //partial success
             powerchanger = 1.25;
         }
-        if (succes <= 30) { // total success
+        if (succes <= 40) { // total success
             powerchanger = 2;
         }
     }
+    lowerSpeed(powerchanger, actuelPlayer);
     attackPower = actuelPlayer.attack * powerchanger;
-    //lower speed for next turn
-    actuelPlayer.speed = Math.round(actuelPlayer.speed * 0.9);
     let messageAttaqueUltime = "";
     let defensePower = opponentPlayer.defense;
-    let degats = Math.round(attackPower - Math.round(defensePower * 0.5));
+    let degats = Math.round(attackPower - Math.round(defensePower));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (powerchanger == 2) {
@@ -419,6 +488,20 @@ function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defe
     }
     message.channel.send(messageAttaqueUltime);
     return { defenderPower, attackerPower };
+}
+
+/**
+ * lower speed after a powerful attack
+ * @param {*} powerchanger 
+ * @param {*} actuelPlayer 
+ */
+function lowerSpeed(powerchanger, actuelPlayer) {
+    if (powerchanger > 1) {
+        actuelPlayer.speed = Math.round(actuelPlayer.speed * 0.75);
+    }
+    else {
+        actuelPlayer.speed = Math.round(actuelPlayer.speed * 0.9);
+    }
 }
 
 /**
@@ -452,7 +535,7 @@ function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defende
     attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueSimple = "";
     let defensePower = opponentPlayer.defense;
-    let degats = Math.round(attackPower - Math.round(defensePower * 0.85));
+    let degats = Math.round(attackPower - Math.round(defensePower));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= 100) {
@@ -490,17 +573,17 @@ function quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defender
     let powerchanger = 0.1;
     if (opponentPlayer.speed > actuelPlayer.speed) {
         if (succes <= 30) { // total success
-            powerchanger = 0.85;
+            powerchanger = 0.75;
         }
     } else {
         if (succes <= 95) { // total success
-            powerchanger = 0.85;
+            powerchanger = 0.75;
         }
     }
     attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueRapide = "";
     let defensePower = opponentPlayer.defense;
-    let degats = Math.round(attackPower - Math.round(defensePower * 0.5));
+    let degats = Math.round(attackPower - Math.round(defensePower * 0.3));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= actuelPlayer.attack - defensePower) {
@@ -661,8 +744,12 @@ function fightHasToBeCanceled(reaction) {
  * @param {*} attacker - The attacker that asked for the fight
  */
 
-async function generateIntroMessage(message, attacker) {
-    return await message.channel.send(Text.commands.fight.startEmoji + attacker.username + Text.commands.fight.startIntro);
+async function generateIntroMessage(message, attacker, chosenOpponent) {
+    if (chosenOpponent === undefined) {
+        return await message.channel.send(Text.commands.fight.startEmoji + attacker.username + Text.commands.fight.startIntro + Text.commands.fight.endIntro);
+    } else {
+        return await message.channel.send(Text.commands.fight.startEmoji + attacker.username + Text.commands.fight.startIntro + Text.commands.fight.introAgainstSomeone + "<@" + chosenOpponent.discordId + ">" + Text.commands.fight.endIntro);
+    }
 }
 
 /**
@@ -715,5 +802,43 @@ const reactionFightIsCorrect = function (reaction, user) {
     return contains
 }
 
+/**
+ * Allow to recover the asked player if needed
+ * @param {*} playerId - The asked id of the player
+ * @param {*} player - The player that is asked for
+ * @param {*} playerManager - The player manager
+ * @param {*} message - The message that initiate the command
+
+ */
+async function getAskedPlayer(playerId, player, playerManager, message, args) {
+    if (isNaN(args[1])) {
+        try {
+            playerId = message.mentions.users.last().id;
+        } catch (err) { // the input is not a mention or a user rank
+            playerId = "0"
+        }
+    } else {
+        playerId = await playerManager.getIdByRank(args[1]);
+
+    }
+    player = await playerManager.getPlayerById(playerId, message);
+    return player;
+}
+
+/**
+ * check if the asked player is valid
+ * @param {*} player - The player that has been asked for
+ */
+function askedPlayerIsInvalid(player) {
+    return player.getEffect() == ":baby:";
+}
+
+/**
+ * check if the user ask for its own profile or the one of someone else
+ * @param {*} args - The args given by the user that made the command
+ */
+function askForAnotherPlayer(args) {
+    return args[1] != undefined;
+}
 
 module.exports.FightCommand = fightCommand;
