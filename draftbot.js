@@ -45,12 +45,29 @@ client.on("guildDelete", guilde => {
 });
 
 /**
+ * Checks if the easter eggs file exists and copy the default one if not
+ */
+function checkEasterEggsFile() {
+  const fs = require("fs");
+  if (!fs.existsSync("./modules/utils/eastereggs/EasterEggs.js")) {
+    fs.copyFileSync('./modules/utils/eastereggs/EasterEggs.js.default', './modules/utils/eastereggs/EasterEggs.js', (err) => {
+      if (err) throw err;
+    });
+    console.warn("./modules/utils/eastereggs/EasterEggs.js not found. ./modules/utils/eastereggs/EasterEggs.js.default copied to be used.");
+    console.warn("Ignore this message if you don't have the key to decrypt the file.");
+  }
+}
+
+/**
  * Will be executed whenever the bot has started
  */
 client.on("ready", () => {
   console.log(Console.reboot);
+  checkEasterEggsFile();
   databaseManager.checkDatabaseValidity(sql);
   databaseManager.setEverybodyAsUnOccupied();
+  let EasterEggs = require("./modules/utils/eastereggs/EasterEggs");
+  EasterEggs.init();
   displayConsoleChannel(Console.startStatus + Config.version);
   client.user.setActivity("❓ - Dm me for Help !")
   //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.

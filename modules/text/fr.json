@@ -514,7 +514,8 @@
       "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
       "partialHeal": "Les membres de la guilde ont été partiellement soignés :",
       "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées.",
-      "tooQuickError": ", la récompense de guilde n'est disponible qu'une fois toute les 22H. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur."
+      "tooQuickError": ", la récompense de guilde n'est disponible qu'une fois toute les 22H. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochain récompense: **",
+      "tooQuickErrorEnd": "**"
     }
   },
   "commandReader": {
@@ -526,18 +527,18 @@
     "🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
     "🏅": ":medal:  `Joueur dans le top 10 au reset de la 1.0`",
     "👑": ":crown:  `Propriétaire du bot`",
-    "⚙": ":gear:  `Equipe technique`",
+    "⚙️": ":gear:  `Equipe technique`",
     "🥚": ":egg:  `Personne ayant trouvé tous les secrets du bot`",
-    "❤": ":heart:  `Personne ayant le grade Soutien sur le serveur du bot`",
+    "❤️": ":heart:  `Personne ayant le grade Soutien sur le serveur du bot`",
     "🍀": ":four_leaf_clover:  `Badge pouvant être gagné de temps en temps dans des concours sur sur le serveur du bot ou sur twitter`",
     "💸": ":money_with_wings:  `Donateur`",
     "🐞": ":beetle:  `Personne ayant signalé des bugs majeurs`",
     "🎰": ":slot_machine:  `Badge donné de manière totalement random`",
-    "⛑": ":helmet_with_cross:  `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
+    "⛑️": ":helmet_with_cross:  `Personne faisant partie des 20 premières à avoir rejoint le serveur du bot`",
     "🥇": ":first_place:  `Personne ayant atteint la première place du classement après le reset`",
     "🤑": ":money_mouth:  `Badge acheté dans le shop`",
     "🌟": ":star2:  `Personne ayant aidé à mettre le bot sur un serv de plus de 2000 membres`",
-    "🖋": ":pen_fountain:  `Rédacteur du bot`",
+    "🖋️": ":pen_fountain:  `Rédacteur du bot`",
     "🌍": ":earth_africa:  `Traducteur`",
     "🎗️": ":reminder_ribbon:  `Personne ayant dominé un classement de la semaine`",
     "🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`",
@@ -1406,7 +1407,7 @@
     },
     "36": {
       "🗣️": {
-        "1": "** | 🗣️ Vous discutez avec le bijoutier et vous vous liez d'amitié avec lui. Il vous offre alors une objet en gage de cette nouvelle amitié. ",
+        "1": "** | 🗣️ Vous discutez avec le bijoutier et vous vous liez d'amitié avec lui. Il vous offre alors un objet en gage de cette nouvelle amitié. ",
         "2": "** | 🗣️ Vous décidez de tenter de marchander afin de vous acheter un des bijoux, pour peu cher. Vous discutez un long moment mais le vieillard est un très bon marchand et il ne cède pas. Vous repartez après avoir compris qu'il ne compte pas baisser ses prix."
       },
       "💸": {
