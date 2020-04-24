@@ -336,7 +336,6 @@
       "youEmoji": ":white_circle: ",
       "otherEmoji": ":black_circle: ",
       "sameGuild": ":blue_circle: ",
-      "unknownPlayer": "Pseudo 404",
       "boldEnd": " **",
       "boldStart": "**",
       "scoreDisplayDebut": " **| **`",
@@ -382,7 +381,6 @@
       "youEmoji": ":white_circle: ",
       "otherEmoji": ":black_circle: ",
       "sameGuild": ":blue_circle: ",
-      "unknownPlayer": "Pseudo Introuvable ",
       "boldEnd": " **",
       "boldStart": "**",
       "scoreDisplayDebut": " **| **`",
@@ -517,6 +515,9 @@
       "tooQuickError": ", la récompense de guilde n'est disponible qu'une fois toute les 22H. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochain récompense: **",
       "tooQuickErrorEnd": "**"
     }
+  },
+  "player": {
+    "unknownPlayer": "Pseudo 404"
   },
   "commandReader": {
     "resetIsNowTitle": ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot !",

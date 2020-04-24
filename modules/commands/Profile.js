@@ -41,7 +41,10 @@ const profileCommand = async function (message, args, client) {
  */
 const generateProfileMessage = function (message, player, numberOfPlayer, client, language) {
     const embed = new Discord.RichEmbed();
-    let pseudo = getPlayerPseudo(client, player);
+    let pseudo = player.getPseudo(client);
+        if(pseudo == null){
+            pseudo = Text.player.unknownPlayer
+        }
     let playerManager = new PlayerManager();
     if (player.getEffect() == ":baby:") {
         return player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
@@ -132,23 +135,6 @@ async function displayBadges(player, msg) {
             await msg.react(str[i]);
         }
     }
-}
-
-/**
- * get the username of a player
- * @param {*} client - The instance of the bot
- * @param {*} player - The player that we need the username
- * @returns {String} - The username
- */
-function getPlayerPseudo(client, player) {
-    let pseudo;
-    if (client.users.get(player.discordId) != null) {
-        pseudo = client.users.get(player.discordId).username;
-    }
-    else {
-        pseudo = Text.commands.top.unknownPlayer;
-    }
-    return pseudo;
 }
 
 module.exports.ProfileCommand = profileCommand;

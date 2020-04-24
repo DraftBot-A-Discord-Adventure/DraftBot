@@ -336,7 +336,6 @@
             "youEmoji": ":white_circle: ",
             "otherEmoji": ":black_circle: ",
             "sameGuild": ":blue_circle: ",
-            "unknownPlayer": "player 404",
             "boldEnd": " **",
             "boldStart": "**",
             "scoreDisplayDebut": " **| **`",
@@ -382,7 +381,6 @@
             "youEmoji": ":white_circle: ",
             "otherEmoji": ":black_circle: ",
             "sameGuild": ":blue_circle: ",
-            "unknownPlayer": "Unknown player ",
             "boldEnd": " **",
             "boldStart": "**",
             "scoreDisplayDebut": " **| **`",
@@ -518,6 +516,9 @@
           "tooQuickErrorEnd": "**"
         }
     },
+  "player": {
+    "unknownPlayer": "Player 404"
+  },
     "commandReader": {
         "resetIsNowTitle": ":trophy: The weekly ranking is currently being reinitialized. The winner will soon be announced on the bot's server!",
         "resetIsNowFooter": "\n\n:clock12: The game will resume in less than 5 minutes!",

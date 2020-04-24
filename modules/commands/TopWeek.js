@@ -72,7 +72,10 @@ function generateTopDataText(data, totalJoueur, message, client) {
     messageTop = checkPotentialDatabaseError(totalJoueur, messageTop, message);
     data.forEach(function (player) { //for each player that the bot have to display
         messageTop = getPlacementEmoji(player, messageTop, message);
-        let pseudo = getPlayerPseudo(client, player);
+        let pseudo = player.getPseudo(client);
+        if (pseudo == null) {
+            pseudo = Text.player.unknownPlayer
+        }
         messageTop = displayPlayerInfos(messageTop, player, pseudo, message);
     });
     return messageTop;
@@ -184,24 +187,6 @@ function displayPlayerInfos(messageTop, player, pseudo, message) {
 
     messageTop += Text.commands.TopWeek.endOfLineWBold;
     return messageTop;
-}
-
-
-/**
- * get the username of a player
- * @param {*} client - The instance of the bot
- * @param {*} player - The player that we need the username
- * @returns {String} - The username
- */
-function getPlayerPseudo(client, player) {
-    let pseudo;
-    if (client.users.get(player.discordId) != null) {
-        pseudo = client.users.get(player.discordId).username;
-    }
-    else {
-        pseudo = Text.commands.TopWeek.unknownPlayer;
-    }
-    return pseudo;
 }
 
 /**

@@ -1,4 +1,3 @@
-const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
 let Text;
 

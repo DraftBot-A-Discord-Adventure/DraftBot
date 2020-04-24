@@ -1,6 +1,7 @@
 const Entity = require('./Entity');
 const Tools = require('../utils/Tools');
 const DefaultValues = require('../utils/DefaultValues');
+
 let Text;
 
 /**
@@ -341,8 +342,8 @@ class Player extends Entity {
      * @param {String} - The badge
      */
     addBadge(badge) {
-        if(!this.badges.includes(badge)) {
-            if(this.badges.length === 0) {
+        if (!this.badges.includes(badge)) {
+            if (this.badges.length === 0) {
                 this.badges += badge;
             } else {
                 this.badges += `-` + badge;
@@ -365,6 +366,17 @@ class Player extends Entity {
         this.lastReport = parseInt(time) + parseInt(Tools.convertMinutesInMiliseconds(malusTime)) + parseInt(realMalus);
     }
 
+    /**
+     * get the username of a player
+     * @param {*} client - The instance of the bot
+     * @returns {String} - The username
+     */
+    getPseudo(client) {
+        if (client.users.get(this.discordId) != null) {
+            return client.users.get(this.discordId).username;
+        }
+        return null;
+    }
 
     /**
      * Removes the specified amount of points from the Player's score.
