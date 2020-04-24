@@ -54,7 +54,6 @@ class ObjectManager {
      */
     generateRandomObject() {
         let desiredRareness = Tools.generateRandomRareness();
-        console.log(desiredRareness);
         let id = this.generateRandomObjectId();
         let tries = 1;
         while (ItemValues.object[id].rareness != desiredRareness) {

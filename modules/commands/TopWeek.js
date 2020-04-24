@@ -296,9 +296,6 @@ function getResetDate() {
     var parsedTime = " " + diffDays + Text.commands.TopWeek.days + " " +
         (diffHours - diffDays * 24) + Text.commands.TopWeek.hours + " " +
         (diffMinutes - diffHours * 60) + Text.commands.TopWeek.minutes + ".";
-
-    console.log(dateOfReset.toString());
-    console.log(parsedTime);
     return parsedTime;
 }
 

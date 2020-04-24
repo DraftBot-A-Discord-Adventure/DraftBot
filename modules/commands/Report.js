@@ -19,7 +19,7 @@ const reportCommand = async function (message, args, client, talkedRecently) {
    //loading of the current player
    let player = await playerManager.getCurrentPlayer(message);
    if (playerManager.checkState(player, message, ":baby::smiley:", language)) {  //check if the player is not dead or sick
-   //if (true) {
+      //if (true) {
       playerManager.setPlayerAsOccupied(player);
 
       if (player.getScore() == 0) {
@@ -173,7 +173,7 @@ function loadNothingToSayPossibility(eventManager) {
  */
 async function generateEvent(message, eventManager, eventNumber, playerManager, player, moneyChange, pointsGained, language, Text) {
 
-   console.log(eventNumber);
+   console.log("Event généré numéro : " + eventNumber);
    //load the event to display
    let event = eventManager.loadEvent(eventNumber);
    //display a message containing informations about the event and get this message back

@@ -15,7 +15,6 @@ const sendCommand = async function (message, args, client) {
         let finalmessage = string.substr(string.indexOf(" ") + 1);
         finalmessage = finalmessage +"\n\n- "+ message.author.username;
         user.send(finalmessage).then(err => {
-            console.log(finalmessage)
             message.channel.send(":white_check_mark: | DM envoyé à **" + client.users.get(playerId).username + "** :\n\n>>> " + finalmessage + "");
         }).catch(err => {
             message.channel.send(":x: | La personne a désactivé ses messages privés !")

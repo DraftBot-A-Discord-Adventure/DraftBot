@@ -100,7 +100,6 @@ const generateInventoryMessage = async function (message, pseudo, inventory) {
     let objectManager = new ObjectManager();
 
     //chargement des objets de l'inventaire
-    console.log(inventory.weaponId)
     let weapon = equipementManager.getWeaponById(inventory.weaponId);
     let armor = equipementManager.getArmorById(inventory.armorId);
     let object = objectManager.getObjectById(inventory.objectId);

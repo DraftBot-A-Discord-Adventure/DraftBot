@@ -320,7 +320,6 @@ function removeAlteration(player, message, playerManager) {
     player.updateLastReport(message.createdTimestamp, 0, ":smiley:");
     player.money -= DefaultValues.shop.priceStatus;
     player.effect = ":smiley:";
-    console.log(player);
     playerManager.updatePlayer(player);
 }
 

@@ -150,7 +150,6 @@ class PlayerManager {
         player.updateLastReport(time, 0, ":smiley:");
         player.removeScore(scoreRomoved);
 
-        console.log(player);
         this.updatePlayer(player);
 
         return scoreRomoved;

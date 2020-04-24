@@ -22,7 +22,6 @@ const changeLanguageCommand = async function (message, args) {
         let serverId = message.guild.id
         let serverManager = new ServerManager();
         let server = await serverManager.getServerById(serverId);
-        console.log(server)
         if(server.language == "fr"){
             server.language = "en";
             message.channel.send(":flag_gb: | Draftbot will now speak in english on this server!");
@@ -30,7 +29,7 @@ const changeLanguageCommand = async function (message, args) {
             server.language = "fr";
             message.channel.send(":flag_fr: | Draftbot va désormais parler français sur ce serveur !");
         }
-        console.log(server)
+        Console.log("Changement de langue effectué sur le serveur : " + server)
         serverManager.updateServer(server);
     }else{
         Text = await chargeText(message);

@@ -55,7 +55,6 @@ class PotionManager {
      */
     generateRandomPotion() {
         let desiredRareness = Tools.generateRandomRareness();
-        console.log(desiredRareness);
         let id = this.generateRandomPotionId();
         let tries = 1;
         while (ItemValues.potion[id].rareness != desiredRareness) {
