@@ -261,7 +261,7 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                         // En plus des 60% de réussite, 30% de chance de réussite partielle sur un adversaire plus rapide
                         ({ defenderPower, attackerPower } = simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
-                    case "💣": //attaque ultime
+                    case "💣": //attaque puissante
                         // 125% ou 200% des points d'attaque sont utilisés
                         // 100% des points de défense sont utilisés
                         // Diminue la vitesse de 10 ou 25 % pour le prochain tour
@@ -469,24 +469,24 @@ function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defe
     }
     lowerSpeed(powerchanger, actuelPlayer);
     attackPower = actuelPlayer.attack * powerchanger;
-    let messageAttaqueUltime = "";
+    let messagePowerfulAttack = "";
     let defensePower = opponentPlayer.defense;
     let degats = Math.round(attackPower - Math.round(defensePower));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (powerchanger == 2) {
             ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
-            messageAttaqueUltime = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackUltime.ok[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+            messagePowerfulAttack = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.powerfulAttack.ok[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
         } else {
             ({ defenderPower, attackerPower } = updatePlayerPower(attacker, actualUser, defenderPower, degats, attackerPower));
-            messageAttaqueUltime = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackUltime.meh[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+            messagePowerfulAttack = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.powerfulAttack.meh[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
         }
     }
     else {
         degats = 0;
-        messageAttaqueUltime = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.attackUltime.ko[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
+        messagePowerfulAttack = reaction.emoji.name + Text.commands.fight.endIntroStart + actualUser.username + Text.commands.fight.powerfulAttack.ko[random] + Text.commands.fight.degatsIntro + degats + Text.commands.fight.degatsOutro;
     }
-    message.channel.send(messageAttaqueUltime);
+    message.channel.send(messagePowerfulAttack);
     return { defenderPower, attackerPower };
 }
 

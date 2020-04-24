@@ -206,7 +206,7 @@
             "chosenOpponentNotEnoughSkill2": "** to proceed to the fights ! ",
             "chosenOpponentDontPlay": ", it seems the player you asked for hasn't started the adventure yet!",
             "menuStart": ":crossed_swords: | **It's ",
-            "menuEnd": " 's turn to play**\n\n:crossed_swords: - Use a basic attack \n:dagger:- Use a quick attack\n:bomb:- Use an ultimate attack\n:shield:- Prepare to shield yourself\n:rocket:- Prepare to dodge",
+            "menuEnd": " 's turn to play**\n\n:crossed_swords: - Use a basic attack \n:dagger:- Use a quick attack\n:bomb:- Use an powerful attack\n:shield:- Prepare to shield yourself\n:rocket:- Prepare to dodge",
             "endIntroStart": " | **",
             "statusIntro": ":crossed_swords: | **Current battle state\n\n",
             "statusPoints": "**\n:blue_heart: ",
@@ -288,36 +288,36 @@
                     "8": " ** chose a simple attack! Bad move."
                 }
             },
-            "attackUltime": {
+            "powerfulAttack": {
                 "ok": {
-                    "1": " ** performs an ultimate attack! Perfectly executed! `Speed reduced by 25%`",
-                    "2": " ** performs an ultimate attack! Magnificent! `Speed reduced by 25%",
-                    "3": " ** performs a great ultimate attack! Perfectly executed! `Speed reduced by 25%`",
-                    "4": " ** performs an ultimate attack! Incredibly well done! `Speed reduced by 25%`",
-                    "5": " ** performs an ultimate attack! It was risky but worth it! `Speed reduced by 25%`",
-                    "6": " ** lanches a great ultimate attack! `Speed reduced  by 25%`",
-                    "7": " ** uses an ultimate attack! How grand! `Speed reduced by 25%`",
-                    "8": " ** opts for an ultimate attack! Really good initiative. `Speed reduced by 25%`"
+                    "1": " ** performs an powerful attack! Perfectly executed! `Speed reduced by 25%`",
+                    "2": " ** performs an powerful attack! Magnificent! `Speed reduced by 25%",
+                    "3": " ** performs a great powerful attack! Perfectly executed! `Speed reduced by 25%`",
+                    "4": " ** performs an powerful attack! Incredibly well done! `Speed reduced by 25%`",
+                    "5": " ** performs an powerful attack! It was risky but worth it! `Speed reduced by 25%`",
+                    "6": " ** lanches a great powerful attack! `Speed reduced  by 25%`",
+                    "7": " ** uses an powerful attack! How grand! `Speed reduced by 25%`",
+                    "8": " ** opts for an powerful attack! Really good initiative. `Speed reduced by 25%`"
                 },
                 "meh": {
-                    "1": " ** executes an ultimate attack! It works, but wasn't great. `Speed reduced by 25%`",
-                    "2": " ** uses an ultimate attack! Meh... `Speed reduced by 25%`",
+                    "1": " ** executes an powerful attack! It works, but wasn't great. `Speed reduced by 25%`",
+                    "2": " ** uses an powerful attack! Meh... `Speed reduced by 25%`",
                     "3": " ** executes a really average quick attack! Not that good! `Speed reduced by 25%`",
-                    "4": " ** executes an ultimate attack! It doesn't really work... `Speed reduced by 25%`",
-                    "5": " ** executes an ultimate attack! It wasn't that well done. `Speed reduced by 25%`",
-                    "6": " ** launches an ultimate attack! Pitiful `Speed reduced by 25%`",
-                    "7": " ** is using an ultimate attack! Weak! `Speed reduced by 25%`",
-                    "8": " ** chose an ultimate attack!  The result is quite pathetic. `Speed reduced by 25%`"
+                    "4": " ** executes an powerful attack! It doesn't really work... `Speed reduced by 25%`",
+                    "5": " ** executes an powerful attack! It wasn't that well done. `Speed reduced by 25%`",
+                    "6": " ** launches an powerful attack! Pitiful `Speed reduced by 25%`",
+                    "7": " ** is using an powerful attack! Weak! `Speed reduced by 25%`",
+                    "8": " ** chose an powerful attack!  The result is quite pathetic. `Speed reduced by 25%`"
                 },
                 "ko": {
-                    "1": " ** makes an ultimate attack! It's a failure! `Speed reduced by 10%`",
-                    "2": " ** makes an ultimate attack! The attack failed miserably! `Speed reduced by 10%`",
-                    "3": " ** makes a bad ultimate attack! A cruel lack of technique from our foolish fiend! `Speed reduced by 10%`",
-                    "4": " ** performs an ultimate attack! What a mistake! `Speed reduced by 10%`",
-                    "5": " ** performs an ultimate attack! It was risky and didn't succeed! `Speed reduced by 10%`",
-                    "6": " ** launches a bad ultimate attack! `Speed reduced by 10%`",
-                    "7": " ** uses an ultimate attack! Not that good of a choice! `Speed reduced by 10%`",
-                    "8": " ** opts for an ultimate attack! Bad initiative. `Speed reduced by 10%`"
+                    "1": " ** makes an powerful attack! It's a failure! `Speed reduced by 10%`",
+                    "2": " ** makes an powerful attack! The attack failed miserably! `Speed reduced by 10%`",
+                    "3": " ** makes a bad powerful attack! A cruel lack of technique from our foolish fiend! `Speed reduced by 10%`",
+                    "4": " ** performs an powerful attack! What a mistake! `Speed reduced by 10%`",
+                    "5": " ** performs an powerful attack! It was risky and didn't succeed! `Speed reduced by 10%`",
+                    "6": " ** launches a bad powerful attack! `Speed reduced by 10%`",
+                    "7": " ** uses an powerful attack! Not that good of a choice! `Speed reduced by 10%`",
+                    "8": " ** opts for an powerful attack! Bad initiative. `Speed reduced by 10%`"
                 }
             }
         },
@@ -1158,7 +1158,7 @@
                 "3": "** | 🎯 You managed to win the jackpot! Happy and jumping with excitement, you pick it up and get out of town."
             },
             "🎪": {
-                "1": "** | 🎪 For hours you search for the object you want, but no one has it. To avoid buying anything useless, you ultimately decide to buy nothing at all.",
+                "1": "** | 🎪 For hours you search for the object you want, but no one has it. To avoid buying anything useless, you powerfully decide to buy nothing at all.",
                 "2": "** | 🎪 There it is! You've been looking for this object for days and you finally found it! You buy it quickly without paying attention to the price and then leave."
             },
             "🍢": {

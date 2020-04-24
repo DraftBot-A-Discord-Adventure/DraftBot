@@ -206,7 +206,7 @@
       "chosenOpponentNotEnoughSkill2": "** pour combattre ! ",
       "chosenOpponentDontPlay": ", il semblerait que cette personne n'aie pas encore commencé l'aventure !",
       "menuStart": ":crossed_swords:  | **C'est au tour de ",
-      "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
+      "menuEnd": " de jouer !**\n\n:crossed_swords: - Lancer une attaque simple \n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque puissante\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
       "endIntroStart": " | **",
       "statusIntro": ":crossed_swords: | **Etat actuel du combat \n\n",
       "statusPoints": "**\n:blue_heart: ",
@@ -288,36 +288,36 @@
           "8": " ** choisit une attaque simple !  Mauvaise initiative."
         }
       },
-      "attackUltime": {
+      "powerfulAttack": {
         "ok": {
-          "1": " ** effectue une attaque ultime ! Parfaitement réalisée ! `Vitesse réduite de 25 %`",
-          "2": " ** effectue une attaque ultime ! Elle est magnifique ! `Vitesse réduite de 25 %`",
-          "3": " ** effectue une superbe attaque ultime ! Parfaitement réalisée ! `Vitesse réduite de 25 %`",
-          "4": " ** effectue une attaque ultime ! Incroyablement réussie ! `Vitesse réduite de 25 %`",
-          "5": " ** effectue une attaque ultime ! C'était risqué mais ça passe ! `Vitesse réduite de 25 %`",
-          "6": " ** lance une bonne attaque ultime ! `Vitesse réduite de 25 %`",
-          "7": " ** utilise une attaque ultime ! Magistrale ! `Vitesse réduite de 25 %`",
-          "8": " ** choisit une attaque ultime !  Très bonne initiative. `Vitesse réduite de 25 %`"
+          "1": " ** effectue une attaque puissante ! Parfaitement réalisée ! `Vitesse réduite de 25 %`",
+          "2": " ** effectue une attaque puissante ! Elle est magnifique ! `Vitesse réduite de 25 %`",
+          "3": " ** effectue une superbe attaque puissante ! Parfaitement réalisée ! `Vitesse réduite de 25 %`",
+          "4": " ** effectue une attaque puissante ! Incroyablement réussie ! `Vitesse réduite de 25 %`",
+          "5": " ** effectue une attaque puissante ! C'était risqué mais ça passe ! `Vitesse réduite de 25 %`",
+          "6": " ** lance une bonne attaque puissante ! `Vitesse réduite de 25 %`",
+          "7": " ** utilise une attaque puissante ! Magistrale ! `Vitesse réduite de 25 %`",
+          "8": " ** choisit une attaque puissante !  Très bonne initiative. `Vitesse réduite de 25 %`"
         },
         "meh": {
-          "1": " ** effectue une attaque ultime ! Ça fonctionne mais c'était pas incroyable.  `Vitesse réduite de 25 %`",
-          "2": " ** effectue une attaque ultime ! Mouais...  `Vitesse réduite de 25 %`",
-          "3": " ** effectue une attaque ultime vraiment moyenne ! Pas ouf !  `Vitesse réduite de 25 %`",
-          "4": " ** effectue une attaque ultime ! Ça n'est pas très efficace...  `Vitesse réduite de 25 %`",
-          "5": " ** effectue une attaque ultime ! C'est pas très réussi.  `Vitesse réduite de 25 %`",
-          "6": " ** lance une attaque ultime ! Médiocre  `Vitesse réduite de 25 %`",
-          "7": " ** utilise une attaque ultime ! Faiblarde !  `Vitesse réduite de 25 %`",
-          "8": " ** choisit une attaque ultime !  Le résultat est assez pitoyable.  `Vitesse réduite de 25 %`"
+          "1": " ** effectue une attaque puissante ! Ça fonctionne mais c'était pas incroyable.  `Vitesse réduite de 25 %`",
+          "2": " ** effectue une attaque puissante ! Mouais...  `Vitesse réduite de 25 %`",
+          "3": " ** effectue une attaque puissante vraiment moyenne ! Pas ouf !  `Vitesse réduite de 25 %`",
+          "4": " ** effectue une attaque puissante ! Ça n'est pas très efficace...  `Vitesse réduite de 25 %`",
+          "5": " ** effectue une attaque puissante ! C'est pas très réussi.  `Vitesse réduite de 25 %`",
+          "6": " ** lance une attaque puissante ! Médiocre  `Vitesse réduite de 25 %`",
+          "7": " ** utilise une attaque puissante ! Faiblarde !  `Vitesse réduite de 25 %`",
+          "8": " ** choisit une attaque puissante !  Le résultat est assez pitoyable.  `Vitesse réduite de 25 %`"
         },
         "ko": {
-          "1": " ** effectue une attaque ultime ! C'est raté ! `Vitesse réduite de 10 %`",
-          "2": " ** effectue une attaque ultime ! L'attaque échoue lamentablement ! `Vitesse réduite de 10 %`",
-          "3": " ** effectue une mauvaise attaque ultime ! Un manque cruel de technique pour le joueur français ! `Vitesse réduite de 10 %`",
-          "4": " ** effectue une attaque ultime ! Quelle erreur ! `Vitesse réduite de 10 %`",
-          "5": " ** effectue une attaque ultime ! C'était risqué et ça n'est pas passé ! `Vitesse réduite de 10 %`",
-          "6": " ** lance une mauvaise attaque ultime ! `Vitesse réduite de 10 %`",
-          "7": " ** utilise une attaque ultime ! Un choix peu judicieux ! `Vitesse réduite de 10 %`",
-          "8": " ** choisit une attaque ultime !  Mauvaise initiative. `Vitesse réduite de 10 %`"
+          "1": " ** effectue une attaque puissante ! C'est raté ! `Vitesse réduite de 10 %`",
+          "2": " ** effectue une attaque puissante ! L'attaque échoue lamentablement ! `Vitesse réduite de 10 %`",
+          "3": " ** effectue une mauvaise attaque puissante ! Un manque cruel de technique pour le joueur français ! `Vitesse réduite de 10 %`",
+          "4": " ** effectue une attaque puissante ! Quelle erreur ! `Vitesse réduite de 10 %`",
+          "5": " ** effectue une attaque puissante ! C'était risqué et ça n'est pas passé ! `Vitesse réduite de 10 %`",
+          "6": " ** lance une mauvaise attaque puissante ! `Vitesse réduite de 10 %`",
+          "7": " ** utilise une attaque puissante ! Un choix peu judicieux ! `Vitesse réduite de 10 %`",
+          "8": " ** choisit une attaque puissante !  Mauvaise initiative. `Vitesse réduite de 10 %`"
         }
       }
     },
