@@ -249,22 +249,22 @@ async function fight(lastMessageFromBot, message, actualUser, player, actuelPlay
                 let attackPower;
                 switch (reaction.emoji.name) {
                     case "🗡": //attaque rapide
-                        // 85% des points d'attaque sont utilisés
-                        // 50% des points de défense sont utilisés
+                        // 75% des points d'attaque sont utilisés
+                        // 30% des points de défense sont utilisés
                         // Taux de réussite de 30% qui monte à 95% sur un adversaire plus lent
                         ({ defenderPower, attackerPower } = quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "⚔": //attaque simple
                         // 100% ou 50% des points d'attaque sont utilisés
-                        // 85% des points de défense sont utilisés
+                        // 100% des points de défense sont utilisés
                         // Taux de réussite de 60% qui monte à 80% sur un adversaire plus lent
                         // En plus des 60% de réussite, 30% de chance de réussite partielle sur un adversaire plus rapide
                         ({ defenderPower, attackerPower } = simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
                         break;
                     case "💣": //attaque ultime
                         // 125% ou 200% des points d'attaque sont utilisés
-                        // 50% des points de défense sont utilisés
-                        // Diminue la vitesse de 10 % pour le prochain tour
+                        // 100% des points de défense sont utilisés
+                        // Diminue la vitesse de 10 ou 25 % pour le prochain tour
                         // 5% de réussite totale sur un adversaire plus rapide et 40% de réussite partielle
                         // 30% de réussite totale sur un adversaire plus lent et 70% de réusite partielle
                         ({ defenderPower, attackerPower } = powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defenderPower, attackerPower, attacker, actualUser, reaction, message));
@@ -460,19 +460,18 @@ function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defe
             powerchanger = 2;
         }
     } else {
-        if (succes <= 70 && succes > 30) { //partial success
+        if (succes <= 80 && succes > 30) { //partial success
             powerchanger = 1.25;
         }
-        if (succes <= 30) { // total success
+        if (succes <= 40) { // total success
             powerchanger = 2;
         }
     }
+    lowerSpeed(powerchanger, actuelPlayer);
     attackPower = actuelPlayer.attack * powerchanger;
-    //lower speed for next turn
-    actuelPlayer.speed = Math.round(actuelPlayer.speed * 0.9);
     let messageAttaqueUltime = "";
     let defensePower = opponentPlayer.defense;
-    let degats = Math.round(attackPower - Math.round(defensePower * 0.5));
+    let degats = Math.round(attackPower - Math.round(defensePower));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (powerchanger == 2) {
@@ -489,6 +488,20 @@ function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defe
     }
     message.channel.send(messageAttaqueUltime);
     return { defenderPower, attackerPower };
+}
+
+/**
+ * lower speed after a powerful attack
+ * @param {*} powerchanger 
+ * @param {*} actuelPlayer 
+ */
+function lowerSpeed(powerchanger, actuelPlayer) {
+    if (powerchanger > 1) {
+        actuelPlayer.speed = Math.round(actuelPlayer.speed * 0.75);
+    }
+    else {
+        actuelPlayer.speed = Math.round(actuelPlayer.speed * 0.9);
+    }
 }
 
 /**
@@ -522,7 +535,7 @@ function simpleAttack(attackPower, player, opponentPlayer, actuelPlayer, defende
     attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueSimple = "";
     let defensePower = opponentPlayer.defense;
-    let degats = Math.round(attackPower - Math.round(defensePower * 0.85));
+    let degats = Math.round(attackPower - Math.round(defensePower));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= 100) {
@@ -560,17 +573,17 @@ function quickAttack(attackPower, player, opponentPlayer, actuelPlayer, defender
     let powerchanger = 0.1;
     if (opponentPlayer.speed > actuelPlayer.speed) {
         if (succes <= 30) { // total success
-            powerchanger = 0.85;
+            powerchanger = 0.75;
         }
     } else {
         if (succes <= 95) { // total success
-            powerchanger = 0.85;
+            powerchanger = 0.75;
         }
     }
     attackPower = actuelPlayer.attack * powerchanger;
     let messageAttaqueRapide = "";
     let defensePower = opponentPlayer.defense;
-    let degats = Math.round(attackPower - Math.round(defensePower * 0.5));
+    let degats = Math.round(attackPower - Math.round(defensePower * 0.3));
     let random = Tools.generateRandomNumber(1, 8);
     if (degats > 0) {
         if (degats >= actuelPlayer.attack - defensePower) {
