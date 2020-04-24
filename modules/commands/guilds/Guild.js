@@ -154,8 +154,11 @@ async function generatePlayersData(client, members) {
  * @param {*} player - The player
  */
 const generatePlayerData = async function (client, player) {
-    let user = await getUserById(client, player.discordId);
-    return Text.commands.guild.playerDataStart + user.toString() + Text.commands.guild.playerDataInfosStart + await playerManager.getPlayerRank(user.id) + Text.commands.guild.trophy + player.getScore() + Text.commands.guild.medal;
+    let pseudo = player.getPseudo(client);
+    if (pseudo == null) {
+        pseudo = Text.player.unknownPlayer
+    }
+    return Text.commands.guild.playerDataStart + pseudo + Text.commands.guild.playerDataInfosStart + await playerManager.getPlayerRank(player.id) + Text.commands.guild.trophy + player.getScore() + Text.commands.guild.medal;
 }
 
 /**
