@@ -106,7 +106,7 @@ client.on("messageReactionAdd", async (reaction) => {
 
 /**
  * Check if the recieved reaction has been set under a profile message.
- * @param {*} reaction 
+ * @param {*} reaction
  */
 function checkReactionIsUnderAProfileMessage(reaction) {
   let isUnderAProfileMessage;
@@ -124,33 +124,20 @@ function checkReactionIsUnderAProfileMessage(reaction) {
  */
 async function checkTopWeek() {
   let weekNumber = getCurrentWeekNumber();
-  let lastweekNumber = await getLastWeekNumber(weekNumber);
-  if (lastweekNumber != weekNumber) {
+  let lastweekNumber = await sql.get(`SELECT * FROM database`);
+  if (lastweekNumber.lastReset !== weekNumber) {
     await resetTopWeek(weekNumber);
   }
 }
 
 /**
- * Get the week number of the last time the topweek has been reseted
- * @param {*} weekNumber 
- */
-async function getLastWeekNumber(weekNumber) {
-  let lastweekNumber = await sql.get(`SELECT * FROM database`)
-  lastweekNumber = lastweekNumber.lastReset;
-  if (lastweekNumber.lastReset == null) {
-    sql.run(`UPDATE database SET lastReset = ${weekNumber}`).catch(console.error);
-  }
-  return lastweekNumber;
-}
-
-/**
  * Get the current week number
+ * @return {int}
  */
 function getCurrentWeekNumber() {
   let date = new Date(); // Create a Date object to find out what time it is
   date.setHours(date.getHours() + 1);
-  let weekNumber = date.getWeek() + 1;
-  return weekNumber;
+  return date.getWeek() + 1;
 }
 
 /**
@@ -173,7 +160,7 @@ async function resetTopWeek(weekNumber) {
 
 /**
  * Give the winner the badge for leading the topweek
- * @param {*} player 
+ * @param {*} player
  */
 function giveTopWeekBadge(player) {
   if (player.badges != "") {
@@ -191,7 +178,7 @@ function giveTopWeekBadge(player) {
 
 /**
  * Send a message in the channel "console" of the bot main server
- * @param {String} message 
+ * @param {String} message
  */
 function displayConsoleChannel(message) {
   client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.CONSOLE_CHANNEL_ID).send(message).catch(err => { });
@@ -209,7 +196,7 @@ function displayAnnouncementsChannel(messagefr, messageen) {
 
 /**
  * Charge the english file
- * @param {*} reaction 
+ * @param {*} reaction
  */
 async function chargeText(reaction) {
   let serverManager = new ServerManager();
