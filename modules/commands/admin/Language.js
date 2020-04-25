@@ -29,7 +29,7 @@ const changeLanguageCommand = async function (message, args) {
             server.language = "fr";
             message.channel.send(":flag_fr: | Draftbot va désormais parler français sur ce serveur !");
         }
-        Console.log("Changement de langue effectué sur le serveur : " + server)
+        console.log("Changement de langue effectué sur le serveur : " + server)
         serverManager.updateServer(server);
     }else{
         Text = await chargeText(message);
