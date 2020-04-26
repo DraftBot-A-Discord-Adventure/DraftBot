@@ -1,6 +1,6 @@
 const Config = require('../../utils/Config');
 const EquipementManager = require('../../classes/EquipementManager');
-const DefaultValues = require('../../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 
 /**
  * Allow an admin to list all items
@@ -21,7 +21,7 @@ const listItemsCommand = async function (message, args) {
 
 /**
  * Send a list of all the armors of the bot
- * @param {*} message 
+ * @param {*} message
  */
 function listArmors(message) {
     for (let i = 1; i < DefaultValues.raritiesGenerator.numberOfArmor; i++) {
@@ -32,7 +32,7 @@ function listArmors(message) {
 
 /**
  * Send a list of all the weapons of the bot
- * @param {*} message 
+ * @param {*} message
  */
 function listWeapons(message) {
     for (let i = 1; i < DefaultValues.raritiesGenerator.numberOfWeapon; i++) {

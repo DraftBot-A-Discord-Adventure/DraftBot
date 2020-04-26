@@ -1,6 +1,6 @@
 //Discord API
 const Discord = require("discord.js");
-const DefaultValues = require('../../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const PlayerManager = require('../../classes/PlayerManager');
 const GuildManager = require('../../classes/GuildManager');
 const Tools = require('../../utils/Tools');
@@ -115,8 +115,8 @@ const generateDefaultEmbed = function () {
 
 /**
  * update the moment where the daily guild was used
- * @param {*} guild 
- * @param {*} message 
+ * @param {*} guild
+ * @param {*} message
  */
 function updateLastInvocation(guild, message) {
     guild.lastInvocation = message.createdTimestamp;
@@ -125,7 +125,7 @@ function updateLastInvocation(guild, message) {
 /**
  * give a random amount of xp to all member of a guild
  * @param {*} members - the array of members that will recieve the xp
- * @param {*} message 
+ * @param {*} message
  */
 function giveXpToGuildMembers(members, message) {
     let xpWon = Tools.generateRandomNumber(1, 20) * 5;
@@ -197,7 +197,7 @@ function healStateOfGuildMembers(members, message) {
 /**
  * give a random amount of money to all member of a guild
  * @param {*} members - the array of members that will recieve the xp
- * @param {*} message 
+ * @param {*} message
  */
 function giveMoneyGuildMembers(members, message) {
     let moneyWon = Tools.generateRandomNumber(10, 300);
@@ -211,7 +211,7 @@ function giveMoneyGuildMembers(members, message) {
 /**
  * give a random amount of money to all member of a guild
  * @param {*} members - the array of members that will recieve the xp
- * @param {*} message 
+ * @param {*} message
  */
 async function giveRandomItemGuildMembers(members, message) {
     for (let i in members) {
@@ -223,7 +223,7 @@ async function giveRandomItemGuildMembers(members, message) {
 /**
  * give a random amount of xp to all member of a guild
  * @param {*} guild  - the guild that will recieve the xp
- * @param {*} message 
+ * @param {*} message
  */
 function giveXpToGuild(guild, message) {
     let xpWon = Tools.generateRandomNumber(20, 80);
@@ -233,7 +233,7 @@ function giveXpToGuild(guild, message) {
 
 /**
  * get the reward the user will get
- * @param {*} guild 
+ * @param {*} guild
  */
 function chooseRewardType(guild) {
     let resultNumber = Tools.generateRandomNumber(0, 1000);

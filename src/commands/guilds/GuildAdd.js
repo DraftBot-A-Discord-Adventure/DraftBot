@@ -1,6 +1,6 @@
 //Discord API
 const Discord = require("discord.js");
-const DefaultValues = require('../../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const PlayerManager = require('../../classes/PlayerManager');
 const ServerManager = require('../../classes/ServerManager');
 const GuildManager = require('../../classes/GuildManager');
@@ -138,7 +138,7 @@ async function createCollector(collector, message, user, guild, talkedRecently) 
 
 /**
  * add the player into the guild
- * @param {*} user 
+ * @param {*} user
  * @param {*} guild
  * @param {*} message
  */
@@ -174,8 +174,8 @@ function displaySpamErrorUserOccupiedMessage() {
 
 /**
  * update the moment where the daily guild was used
- * @param {*} guild 
- * @param {*} message 
+ * @param {*} guild
+ * @param {*} message
  */
 function updateLastInvocation(guild, message) {
     guild.lastInvocation = message.createdTimestamp;
@@ -267,7 +267,7 @@ const generateGuildFullException = function (user) {
 
 /**
  * get the user from the args
- * @param {*} args 
+ * @param {*} args
  */
 const getUserFromMention = function (message) {
     try {

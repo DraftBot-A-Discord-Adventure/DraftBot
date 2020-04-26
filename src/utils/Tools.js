@@ -1,4 +1,4 @@
-const DefaultValues = require('../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const ServerManager = require('../classes/ServerManager');
 const Config = require('../utils/Config');
 const InventoryManager = require('../classes/InventoryManager');

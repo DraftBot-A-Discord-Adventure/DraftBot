@@ -1,14 +1,12 @@
-const Potion = require('./Potion');
-const ItemValues = require('../utils/items/Values');
-const DefaultValues = require('../utils/DefaultValues');
-const Tools = require('../utils/Tools');
+const Potion = require("orm/entities/Potion");
 
-let Text;
-let ItemNames;
+class PotionRepository {
 
+    constructor(sql) {
+        this.sql = sql;
+    }
 
-class PotionManager {
-
+    // TODO after
 
     /**
      * Return an potion matching with the piece of potion that own a specific id
@@ -81,6 +79,7 @@ class PotionManager {
     getPotionEfficiency(potion) {
         return parseInt(potion.rareness);
     }
+
 }
 
-module.exports = PotionManager;
+module.exports = PotionRepository;

@@ -1,6 +1,6 @@
 const Guild = require('./Guild');
 const Player = require('./Player');
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('data/text/DefaultValues');
 const sql = require("sqlite");
 // sql.open("./src/data/database.sqlite");
 
