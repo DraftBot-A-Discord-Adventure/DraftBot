@@ -149,7 +149,7 @@ const seeItemBonus = async function (player) {
 }
 
 /**
- * Return the id list of all the users of a server 
+ * Return the id list of all the users of a server
  * @param {*} message the message used to retrieve the server
  */
 const getIdListServMember = function (message) {
@@ -160,14 +160,16 @@ const getIdListServMember = function (message) {
 }
 
 //Exports
-module.exports.getIdListServMember = getIdListServMember;
-module.exports.convertHoursInMiliseconds = convertHoursInMiliseconds;
-module.exports.convertMinutesInMiliseconds = convertMinutesInMiliseconds;
-module.exports.convertMillisecondsInMinutes = convertMillisecondsInMinutes;
-module.exports.displayDuration = displayDuration;
-module.exports.generateRandomNumber = generateRandomNumber;
-module.exports.chargeText = chargeText;
-module.exports.detectLanguage = detectLanguage;
-module.exports.addItemBonus = addItemBonus;
-module.exports.seeItemBonus = seeItemBonus;
-module.exports.generateRandomRareness = generateRandomRareness;
+module.exports = {
+    getIdListServMember,
+    convertHoursInMiliseconds,
+    convertMinutesInMiliseconds,
+    convertMillisecondsInMinutes,
+    displayDuration,
+    generateRandomNumber,
+    chargeText,
+    detectLanguage,
+    addItemBonus,
+    seeItemBonus,
+    generateRandomRareness
+};

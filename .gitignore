@@ -1,7 +1,8 @@
 node_modules/
-modules/utils/Config.js
-modules/data/
+src/utils/Config.js
+src/data/
 .idea/
-modules/utils/eastereggs/EasterEggs.js
-modules/utils/eastereggs/key
-modules/utils/eastereggs/iv
+src/utils/eastereggs/EasterEggs.js
+src/utils/eastereggs/key
+src/utils/eastereggs/iv
+config/app.json

@@ -3,7 +3,7 @@ const sql = require("sqlite");
 
 const Server = require('./Server')
 
-sql.open("./modules/data/database.sqlite");
+// sql.open("./src/data/database.sqlite");
 
 class ServerManager {
 

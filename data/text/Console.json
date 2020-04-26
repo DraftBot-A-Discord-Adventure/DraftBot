@@ -1,5 +1,6 @@
 {
-    "reboot": "####################\n\n\nDémarage du DraftBot\n\n\n####################",
+    "reboot": "DraftBot",
+    "br": "############################################\n",
     "dm": {
         "empty": ">>> message vide",
         "alertBegin": ":love_letter: | <@&433289098141106210> **Nouveau message privé reçu !** \nAuteur: ",
