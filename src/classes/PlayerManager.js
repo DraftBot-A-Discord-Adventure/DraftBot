@@ -10,7 +10,7 @@ const EquipementManager = require('../classes/EquipementManager');
 const PotionManager = require('../classes/PotionManager');
 const ObjectManager = require('../classes/ObjectManager');
 
-sql.open("./modules/data/database.sqlite");
+// sql.open("./src/data/database.sqlite");
 let Text;
 
 /**
@@ -72,7 +72,7 @@ class PlayerManager {
 
     /**
      * Return a promise that will contain the player that sent a message once it has been resolved
-     * @param id - The id of the user 
+     * @param id - The id of the user
      * @param message - The message that caused the user to be called
      * @returns {promise} - The promise that will be resolved into a player
      */
@@ -96,7 +96,7 @@ class PlayerManager {
 
     /**
      * Return a promise that will contain theid of the player matching a rank given as an input
-     * @param rank - The rank of the user 
+     * @param rank - The rank of the user
      * @returns {promise} - The promise that will be resolved into a player
      */
     getIdByRank(rank) {
@@ -230,7 +230,7 @@ class PlayerManager {
     }
 
     /**
-     * Get the total number of player in the database that are on the idList given 
+     * Get the total number of player in the database that are on the idList given
      * @param {*} idList the list of id of the users of a server
      */
     getNumberOfServPlayers(idList) {
@@ -627,7 +627,7 @@ class PlayerManager {
     }
 
     /**
-     * Select a random item Type 
+     * Select a random item Type
      * @returns {String} - The type of the item that has been SELECTed
      */
     chooseARandomItemType() {

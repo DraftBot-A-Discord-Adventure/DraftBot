@@ -3,7 +3,7 @@ const ItemValues = require('../utils/items/Values');
 const DefaultValues = require('../utils/DefaultValues');
 const sql = require("sqlite");
 
-sql.open("./modules/data/database.sqlite");
+// sql.open("./src/data/database.sqlite");
 
 class InventoryManager {
 

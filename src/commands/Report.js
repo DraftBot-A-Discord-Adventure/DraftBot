@@ -144,8 +144,8 @@ const reactionIsCorrect = function (event, reaction) {
 
 /**
  * Calculate the money change
- * @param {*} moneyChange 
- * @param {*} possibility 
+ * @param {*} moneyChange
+ * @param {*} possibility
  */
 function calculateMoneychange(moneyChange, possibility) {
    moneyChange = moneyChange + parseInt(possibility.moneyGained);

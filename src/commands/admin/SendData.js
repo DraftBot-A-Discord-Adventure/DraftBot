@@ -10,7 +10,7 @@ const sendDataCommand = async function (message, args) {
     } else { // the author of the command is the author of the bot
         message.channel.send({
             files: [{
-                attachment: './modules/data/database.sqlite',
+                attachment: './src/data/database.sqlite',
                 name: 'data.sqlite'
             }]
         })

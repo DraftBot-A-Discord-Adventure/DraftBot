@@ -23,7 +23,7 @@ Here is a short start guide.
 * Execute the `npm install` command
 * Create a `DraftBot-A-Discord-Adventure/modules/data` folder
 * Edit the `DraftBot-A-Discord-Adventure/modules/utils/Config-Example.js` file
-* Rename the file `DraftBot-A-Discord-Adventure/modules/utils/Config-Example.js to DraftBot-A-Discord-Adventure/modules/utils/Config.js
+* Rename the file `DraftBot-A-Discord-Adventure/modules/utils/Config-Example.js to DraftBot-A-Discord-Adventure/modules/utils/Config.json
 * Launch the bot using the `node draftbot` command
 * Wait for the generation of the database (~10 secs)
 * Restart the bot by repeating the command above

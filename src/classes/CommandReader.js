@@ -1,15 +1,16 @@
-const Config = require('./utils/Config');
-const ServerManager = require('./classes/ServerManager');
-const PlayerManager = require('./classes/PlayerManager');
-const CommandTable = require('./CommandTable');
-const Text = require('./text/fr');
-const Console = require('./text/Console');
+const Config = require('../utils/Config');
+const ServerManager = require('./ServerManager');
+const PlayerManager = require('./PlayerManager');
+const CommandTable = require('../CommandTable');
+const Text = require('../../data/text/fr.json');
+const Console = require('../../data/text/Console.json');
 const moment = require("moment");
 const Discord = require("discord.js");
-const DefaultValues = require('./utils/DefaultValues');
-const Tools = require('./utils/Tools');
+const DefaultValues = require('../utils/DefaultValues.json');
+const Tools = require('../utils/Tools');
 
 class CommandReader {
+
     constructor() {
         this.serverManager = new ServerManager();
         this.playerManager = new PlayerManager();
@@ -23,8 +24,9 @@ class CommandReader {
      */
     async handleMessage(message, client, talkedRecently) {
         let serverPrefix = await this.serverManager.getServerPrefix(message);
-        let prefix = CommandReader.getUsedPrefix(message);
-        if (prefix == serverPrefix) {
+        let prefix = CommandReader.getUsedPrefix(message, serverPrefix);
+
+        if (prefix === serverPrefix) {
             this.traceMessage(message, client);
             const diffMinutes = getMinutesBeforeReset();
             if (resetIsNow(diffMinutes)) {
@@ -32,17 +34,18 @@ class CommandReader {
                 return message.channel.send(embed)
             }
             //if (message.author.id != Config.BOT_OWNER_ID) return message.channel.send(":x: Le Draftbot est actuellement en maintenance: Pour plus d'infos, visitez le discord du bot https://discord.gg/USnCxg4 \n\n :flag_um: The bot is being updated please be patient :) ");
-            launchCommand(message, client, talkedRecently);
+            launchCommand(message, prefix, client, talkedRecently);
         } else {
-            if (prefix == Config.BOT_OWNER_PREFIX && message.author.id == Config.BOT_OWNER_ID) {
-                launchCommand(message, client, talkedRecently);
+            prefix = CommandReader.getUsedPrefix(message, Config.BOT_OWNER_PREFIX);
+            if (prefix === Config.BOT_OWNER_PREFIX && message.author.id == Config.BOT_OWNER_ID) {
+                launchCommand(message, prefix, client, talkedRecently);
             }
         }
     }
 
     /**
      * log the recieved message on the console
-     * @param {*} message 
+     * @param {*} message
      */
     traceMessage(message) {
         let trace = `---------\nMessage recu sur le serveur : ${message.guild.name} - id ${message.guild.id}\nAuteur du message : ${message.author.username} - id ${message.author.id}\nMessage : ${message.content}`;
@@ -83,30 +86,23 @@ class CommandReader {
         });
     }
 
-
     /**
      * Sanitizes the string and return the command. The command should always be the 1st argument.
      * @param {*} message - The message to extract the command from.
+     * @param {string} prefix - The current prefix in the message content
      * @returns {String} - The command, extracted from the message.
      */
-    static getCommandFromMessage(message) {
-        return CommandReader.getArgsFromMessage(message).shift().toLowerCase();
+    static getCommandFromMessage(message, prefix) {
+        return message.content.substring(prefix.length).toLowerCase();
     }
 
     /**
-     * Sanitizes the string and return the args. The 1st argument is not an args.
-     * @param {*} message - The message to extract the command from.
-     * @returns {string} - args, extracted from the message.
-     */
-    static getArgsFromMessage(message) {
-        return message.content.slice(Config.PREFIXLENGTH).trim().split(/ +/g);
-    }
-    /**
      * Get the prefix that the user just used to make the command
-     * @param {*} message - The message to extract the command from.
+     * @param {*} message - The message to extract the command from
+     * @param {string} serverPrefix - The prefix used by current server
      */
-    static getUsedPrefix(message) {
-        return message.content.substr(0, 1);
+    static getUsedPrefix(message, serverPrefix) {
+        return message.content.substr(0, serverPrefix.length);
     }
 }
 
@@ -149,17 +145,17 @@ function getMinutesBeforeReset() {
 /**
  *
  * @param {*} message - A command posted by an user.
+ * @param {string} prefix - The current prefix in the message content
  * @param {*} client - The bot user in case we have to make him do things
  * @param {*} talkedRecently - The list of user that has been seen recently
  */
-function launchCommand(message, client, talkedRecently) {
-    let command = CommandReader.getCommandFromMessage(message);
-    let args = CommandReader.getArgsFromMessage(message);
+function launchCommand(message, prefix, client, talkedRecently) {
+    let command = CommandReader.getCommandFromMessage(message, prefix);
     if (CommandTable.has(command))
         if (!message.channel.permissionsFor(client.user).serialize().SEND_MESSAGES) { //test if the bot can speak in the channel where a command has been read
             message.author.send(Text.error.noSpeakPermission);
         } else {
-            CommandTable.get(command)(message, args, client, talkedRecently);
+            CommandTable.get(command)(message, prefix, client, talkedRecently);
         }
 }
 

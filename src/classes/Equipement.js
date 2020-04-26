@@ -1,7 +1,7 @@
 const Item = require('./Item');
 const sql = require("sqlite");
 
-sql.open("./modules/data/database.sqlite");
+// sql.open("./src/data/database.sqlite");
 
 /**
  * Represent a weapon or an armor
