@@ -1,7 +1,6 @@
-node_modules/
-src/utils/Config.js
-src/data/
 .idea/
+node_modules/
+/data/database/
 src/utils/eastereggs/EasterEggs.js
 src/utils/eastereggs/key
 src/utils/eastereggs/iv
