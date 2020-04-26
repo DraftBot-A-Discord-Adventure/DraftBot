@@ -1,4 +1,4 @@
-const DefaultValues = require('../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 let Text;
 
 /**

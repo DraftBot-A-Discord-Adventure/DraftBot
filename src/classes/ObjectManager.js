@@ -1,6 +1,6 @@
 const Object = require('./Object');
 const ItemValues = require('../utils/items/Values');
-const DefaultValues = require('../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const Tools = require('../utils/Tools');
 
 let ItemNames;

@@ -2,7 +2,7 @@ const ItemManager = require("../classes/ItemManager");
 const PlayerManager = require('../classes/PlayerManager');
 const ObjectManager = require('../classes/ObjectManager');
 const InventoryManager = require('../classes/InventoryManager');
-const DefaultValues = require('../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const Tools = require('../utils/Tools');
 
 let Text;

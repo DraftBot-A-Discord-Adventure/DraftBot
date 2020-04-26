@@ -1,6 +1,6 @@
 const PlayerManager = require('../classes/PlayerManager');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const moment = require("moment");
 const Discord = require("discord.js");
 let Text;
@@ -358,7 +358,7 @@ function finDeCombat(player, defenderPlayer, attackerPower, defender, attacker, 
 
 /**
  * Permet de limiter les gains maximals lors d'un combat
- * @param {*} pts 
+ * @param {*} pts
  */
 function capMaxWin(pts) {
     if (pts > 2000) {
@@ -492,8 +492,8 @@ function powerfullAttack(attackPower, player, opponentPlayer, actuelPlayer, defe
 
 /**
  * lower speed after a powerful attack
- * @param {*} powerchanger 
- * @param {*} actuelPlayer 
+ * @param {*} powerchanger
+ * @param {*} actuelPlayer
  */
 function lowerSpeed(powerchanger, actuelPlayer) {
     if (powerchanger > 1) {

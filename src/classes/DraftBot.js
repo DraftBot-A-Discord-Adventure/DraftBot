@@ -1,25 +1,13 @@
-const sqlite3 = require("sqlite3");
-const sqlite = require("sqlite");
+const RepositoryManager = require('orm/RepositoryManager');
 const CommandReader = require('class/CommandReader');
-const DatabaseManager = require('class/DatabaseManager');
 const Discord = require("discord.js");
 
-class DraftBot
-{
+class DraftBot {
 
-    constructor(config) {
-        this.config = config;
-        let asyncSql = async () => {
-            this.sql = await sqlite
-                .open({
-                    filename: "data/database/database.sqlite",
-                    driver: sqlite3.cached.Database
-                });
-            this.databaseManager = new DatabaseManager(this.sql, this.config);
-        };
-        this.commandReader = new CommandReader();
+    constructor() {
+        this.repositoryManager = new RepositoryManager();
+        this.commandReader = new CommandReader(this.repositoryManager);
         this.client = new Discord.Client();
-        asyncSql();
     }
 
     /**
@@ -46,8 +34,8 @@ class DraftBot
      */
     displayConsoleChannel(message) {
         this.client
-            .guilds.cache.get(this.config.MAIN_SERVER_ID)
-            .channels.cache.get(this.config.CONSOLE_CHANNEL_ID)
+            .guilds.cache.get(Config.MAIN_SERVER_ID)
+            .channels.cache.get(Config.CONSOLE_CHANNEL_ID)
             .send(message)
             .catch(console.error);
     }

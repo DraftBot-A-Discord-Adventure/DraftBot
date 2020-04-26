@@ -1,6 +1,6 @@
 const Entity = require('./Entity');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 
 let Text;
 
@@ -173,9 +173,9 @@ class Player extends Entity {
     }
 
     /**
-     * 
-     * @param {*} bonus 
-     * @param {*} messageLevelUp 
+     *
+     * @param {*} bonus
+     * @param {*} messageLevelUp
      */
     ifFirstBonus(bonus, messageLevelUp) {
         if (bonus == false) {

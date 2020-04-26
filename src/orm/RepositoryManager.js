@@ -1,8 +1,28 @@
-class DatabaseManager {
+const sqlite3 = require("sqlite3");
+const sqlite = require("sqlite");
+const fs = require("fs");
 
-    constructor(sql, config) {
-        this.sql = sql;
-        this.config = config;
+class RepositoryManager {
+
+    constructor() {
+        let asyncConstructor = async () => {
+            this.sql = await sqlite
+                .open({
+                    filename: "data/database/database.sqlite",
+                    driver: sqlite3.cached.Database
+                });
+
+            await fs.promises.readdir("src/orm/repositories")
+                .then(repositories => {
+                    repositories.forEach(repository => {
+                        if (!repository.endsWith(".js")) return;
+                        let repositoryName = repository.split(".")[0];
+                        this[repositoryName] = new (require("orm/repositories/" + repositoryName))(this.sql);
+                    });
+                })
+                .catch(console.error);
+        };
+        asyncConstructor();
     }
 
     /**
@@ -54,7 +74,7 @@ class DatabaseManager {
             .run("CREATE TABLE IF NOT EXISTS database (version TEXT, lastReset INTEGER)")
             .then(async () => {
                 await this.sql
-                    .run(`INSERT INTO database (version, lastReset) VALUES (?, 0)`, this.config.version)
+                    .run(`INSERT INTO database (version, lastReset) VALUES (?, 0)`, Config.version)
                     .then(() => {
                         console.log("Database ::: created ::: end");
                     })
@@ -88,10 +108,7 @@ class DatabaseManager {
         console.log("Database ::: setEverybodyAsUnOccupied ::: start");
 
         await this.sql
-            .run(`UPDATE entity SET effect = ? WHERE effect = ?`,
-                ':smiley:',
-                ':clock10:'
-            )
+            .run(`UPDATE entity SET effect = ? WHERE effect = ?`, ':smiley:', ':clock10:')
             .then(async () => {
                 console.log("Database ::: setEverybodyAsUnOccupied ::: end");
             })
@@ -102,9 +119,10 @@ class DatabaseManager {
      * Allow to reset the weekly top.
      */
     async resetWeeklyScoreAndRank() {
-        //Reset weeklyScore column.
-        await sql.run("UPDATE player SET weeklyScore = 0").catch(console.error);
+        await this.sql
+            .run("UPDATE player SET weeklyScore = ?", 0)
+            .catch(console.error);
     }
 }
 
-module.exports = DatabaseManager;
+module.exports = RepositoryManager;

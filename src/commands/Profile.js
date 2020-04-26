@@ -1,6 +1,6 @@
 const PlayerManager = require('../classes/PlayerManager');
 const Discord = require("discord.js");
-const DefaultValues = require('../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const Tools = require('../utils/Tools');
 
 let Text;
@@ -61,7 +61,7 @@ const generateProfileMessage = function (message, player, numberOfPlayer, client
 
     embed.addField(Text.commands.profile.stats,
         Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense +
-        player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed()+ Text.commands.profile.statsFightPower + player.getFightPower(), false); 
+        player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed()+ Text.commands.profile.statsFightPower + player.getFightPower(), false);
 
     embed.addField(Text.commands.profile.rankAndScore,
         Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +

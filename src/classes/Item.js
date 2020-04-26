@@ -1,4 +1,4 @@
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('data/text/DefaultValues');
 
 /**
  * Base class that shouldn't be instantiated. Instead, Items are meant to extend this class.
@@ -35,7 +35,7 @@ class Item {
 
     /**
      * Returns the power of the item
-     * @returns {Number} - The power 
+     * @returns {Number} - The power
      */
     getPower() {
         return this.power;

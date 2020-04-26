@@ -1,6 +1,6 @@
 const Inventory = require('./Inventory');
 const ItemValues = require('../utils/items/Values');
-const DefaultValues = require('../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const sql = require("sqlite");
 
 // sql.open("./src/data/database.sqlite");

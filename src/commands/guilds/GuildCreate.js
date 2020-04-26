@@ -1,6 +1,6 @@
 //Discord API
 const Discord = require("discord.js");
-const DefaultValues = require('../../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const PlayerManager = require('../../classes/PlayerManager');
 const ServerManager = require('../../classes/ServerManager');
 const GuildManager = require('../../classes/GuildManager');
@@ -210,7 +210,7 @@ const generateGuildCreateMessage = async function (message, guildName) {
 
 /**
  * Return a empty name exception
- * @param {*} serverPrefix 
+ * @param {*} serverPrefix
  */
 const generateEmptyNameException = function (serverPrefix) {
     let embed = generateDefaultEmbed();

@@ -1,5 +1,5 @@
 const Player = require('./Player');
-const DefaultValues = require('../utils/DefaultValues')
+const DefaultValues = require('data/text/DefaultValues');
 const Config = require('../utils/Config')
 const sql = require("sqlite");
 const ServerManager = require('../classes/ServerManager');

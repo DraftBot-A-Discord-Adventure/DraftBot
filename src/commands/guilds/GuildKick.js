@@ -1,6 +1,6 @@
 //Discord API
 const Discord = require("discord.js");
-const DefaultValues = require('../../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const PlayerManager = require('../../classes/PlayerManager');
 const ServerManager = require('../../classes/ServerManager');
 const GuildManager = require('../../classes/GuildManager');
@@ -138,7 +138,7 @@ async function createKickCollector(collector, message, user, target, guild, talk
 
 /**
  * Allow to remove a player from a guild
- * @param {*} user 
+ * @param {*} user
  */
 async function removePlayerFromGuild(user) {
     let player = await playerManager.getPlayerById(user.id);
@@ -232,7 +232,7 @@ const generateNotInAGuildException = function (user) {
 
 /**
  * get the user from the args
- * @param {*} args 
+ * @param {*} args
  */
 const getUserFromMention = function (message) {
     try {

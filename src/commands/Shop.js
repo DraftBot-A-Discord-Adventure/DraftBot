@@ -1,6 +1,6 @@
 const PlayerManager = require('../classes/PlayerManager');
 const Tools = require('../utils/Tools');
-const DefaultValues = require('../utils/DefaultValues');
+const DefaultValues = require('data/text/DefaultValues');
 const PotionManager = require('../classes/PotionManager');
 const GuildManager = require('../classes/GuildManager');
 const InventoryManager = require('../classes/InventoryManager');

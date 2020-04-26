@@ -16,7 +16,8 @@
     "data": "./data",
     "class": "./src/classes",
     "commands": "./src/commands",
-    "utils": "./src/utils"
+    "utils": "./src/utils",
+    "orm": "./src/orm"
   },
   "dependencies": {
     "chai": "^4.2.0",
