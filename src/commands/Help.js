@@ -1,22 +1,23 @@
-const Tools = require('../utils/Tools');
-const Config = require('../utils/Config');
-
-let Text
-
 /**
- * Display help for a player 
+ * Display help for a player
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param prefix
+ * @param client
  * @param args - arguments typed by the user in addition to the command
+ * @param serverLanguage
+ * @return {Promise<void>}
  */
-const helpCommand = async function (message, args, client) {
-    Text = await Tools.chargeText(message);
+const HelpCommand = async (message, prefix, client, args, serverLanguage) => {
     let helpMessage;
-    if (userAskForGeneralHelp(args[1]))
-        helpMessage = generateGeneralHelpMessage(message);
-    else
-        helpMessage = generateHelpMessageForSpecificCommand(message, args[1]);
-    if (helpAskerIsNotInHelpGuild(client, message)) {
-        message.author.send(Text.commands.help.mp)
+
+    if (args[0] === undefined) {
+        helpMessage = getGeneralHelpMessage(message, serverLanguage);
+    } else {
+        helpMessage = getHelpMessageForSpecificCommand(message, serverLanguage, args[0]);
+    }
+
+    if (client.guilds.cache.get(Config.MAIN_SERVER_ID).members.cache.find(val => val.id === message.author.id) === undefined) {
+        await message.author.send(Config.text[serverLanguage].commands.help.mp);
     }
 
     message.channel.send(helpMessage);
@@ -24,44 +25,29 @@ const helpCommand = async function (message, args, client) {
 
 /**
  * Returns a string containing the general help message.
- * @returns {String} - A string containing an help message.
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param {string} serverLanguage
+ * @returns {string} - A string containing an help message.
  */
-const generateGeneralHelpMessage = function (message) {
-    let helpMessage = Text.commands.help.intro + message.author.username + Text.commands.help.main;
-    return helpMessage;
+const getGeneralHelpMessage = (message, serverLanguage) => {
+    return Config.text[serverLanguage].commands.help.intro + message.author.username + Config.text[serverLanguage].commands.help.main;
 };
 
 /**
  * Returns a string containing a specific help message about one command.
- * @returns {String} - A string containing help about a command.
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param commandname - The args given by the user to tell what command he need help about.
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param {string} serverLanguage
+ * @param {string} arg - The args given by the user to tell what command he need help about.
+ * @return {string} - A string containing help about a command.
  */
-const generateHelpMessageForSpecificCommand = function (message, commandname) {
-    let helpMessage = Text.commands.help.commands[commandname];
-    if (helpMessage === undefined)
-        helpMessage = generateGeneralHelpMessage(message);
+const getHelpMessageForSpecificCommand = function (message, serverLanguage, arg) {
+    let helpMessage = Config.text[serverLanguage].commands.help.commands[arg];
+
+    if (helpMessage === undefined) {
+        return getGeneralHelpMessage(message, serverLanguage);
+    }
+
     return helpMessage;
 };
 
-/**
- * Return true if the author is not in the guild where he can recieve help
- * @param {*} client - The client of the bot
- * @param {*} message - The message that lauched the command
- */
-function helpAskerIsNotInHelpGuild(client, message) {
-    return client.guilds.get(Config.MAIN_SERVER_ID).members.find(val => val.id === message.author.id) == undefined;
-}
-
-/**
- * Returns a boolean containing false if the user ask help for a specific command.
- * @returns {boolean} - A boolean containing false if the user ask help for a specific command.
- * @param args - arguments typed by the user in addition to the command
- */
-function userAskForGeneralHelp(args) {
-    return (args === undefined);
-}
-
-
-module.exports.HelpCommand = helpCommand;
+module.exports.HelpCommand = HelpCommand;

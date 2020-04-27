@@ -1,27 +1,4 @@
-const Tools = require('../utils/Tools');
-const ServerManager = require('../classes/ServerManager');
-const Config = require('../utils/Config');
-let Text;
-
-/**
- * Base class that shouldn't be instantiated. Instead, Entities are meant to extend this class.
- * Entities are things like Enemies, entitys...
- */
 class Entity {
-
-    constructor(id, maxHealth, health, attack, defense, speed, effect) {
-        if (new.target === Entity) {
-            throw new TypeError("Cannot instantiate Entity: Abstract Class");
-        } else {
-            this.id = id;
-            this.maxHealth = maxHealth;
-            this.health = health;
-            this.attack = attack;
-            this.defense = defense;
-            this.speed = speed;
-            this.effect = effect;
-        }
-    }
 
     /**
      * Set the Entity's maximum health value.
@@ -31,14 +8,6 @@ class Entity {
         if (maxHealth > 0) {
             this.maxHealth = maxHealth;
         }
-    }
-
-    /**
-     * Returns this Entity's maximum health value.
-     * @returns {Number} - How much health this Entity can have.
-     */
-    getMaxHealth() {
-        return this.maxHealth;
     }
 
     /**
@@ -52,22 +21,6 @@ class Entity {
     }
 
     /**
-     * Returns the current amount of health this Entity has.
-     * @returns {Number} - The current amount of health this Entity has.
-     */
-    getHealth() {
-        return this.health;
-    }
-
-    /**
-     * Returns this Entity's Physical/Ranged Attack value.
-     * @returns {Number} - How strong are this Entity's Physical/Ranged Attacks.
-     */
-    getAttack() {
-        return this.attack;
-    }
-
-    /**
      * Set this Entity's Physical/Ranged Attack value.
      * @param attack - How strong this Entity's Physical/Ranged Attacks should be. Must be a positive or null Number.
      */
@@ -75,14 +28,6 @@ class Entity {
         if (attack >= 0) {
             this.attack = attack;
         }
-    }
-
-    /**
-     * Returns this Entity's Defense value.
-     * @returns {Number} - How resistant to Physical/Ranged Attacks this Entity is.
-     */
-    getDefense() {
-        return this.defense;
     }
 
     /**
@@ -96,14 +41,6 @@ class Entity {
     }
 
     /**
-     * Returns this Entity's Speed value.
-     * @returns {Number} - How rapid this Entity is.
-     */
-    getSpeed() {
-        return this.speed;
-    }
-
-    /**
      * Set this Entity's Speed value.
      * @param speed - How rapid this Entity should be. Must be a positive or null Number.
      */
@@ -112,7 +49,6 @@ class Entity {
             this.speed = speed;
         }
     }
-
 
     /**
     *  Allow to restore all the health of the entity
@@ -157,22 +93,6 @@ class Entity {
         } else {
             this.removeHealthPoints(-points, message, language);
         }
-    }
-
-    /**
-     * Returns the current state of the player
-     * @returns {String} - The effect that affect the player
-     */
-    getEffect() {
-        return this.effect;
-    }
-
-    /**
-     * edit the state of a player
-     * @param {String} - The new effect
-     */
-    setEffect(effect) {
-        this.effect = effect;
     }
 
     /**

@@ -54,6 +54,10 @@ class RepositoryManager {
      * This function analyses the passed database and check if it is valid.
      */
     async checkDatabaseValidity() {
+
+        // TODO rework database update & create
+        // TODO : Remove tampon of player
+
         await this.sql
             .get(`SELECT version FROM database`)
             .catch(async () => {

@@ -26,7 +26,7 @@ class EntityAbstract {
      */
     set(field, value) {
         if (field in this === undefined) {
-            throw new Error();
+            throw new Error("This field doesn't exist in class property");
         }
 
         this[field] = value;

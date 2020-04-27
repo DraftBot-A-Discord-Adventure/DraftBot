@@ -13,4 +13,5 @@
   "BLACKLIST_IDS": "", // Put ids of the persons that will not be able to send dms to the bot separated by a comma
   "TRASH_DM_CHANNEL_ID": "", // Put id of the channel where the messages from blacklisted persons whill be sent
   "ENGLISH_CHANNEL_ID": "" // Put id of a channel where the bot will always speak in english put 0 here to disable the feature
+  "MODE_MAINTENANCE": false // Boolean to tell if the bot is under maintenance or not
 }

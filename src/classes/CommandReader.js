@@ -1,14 +1,9 @@
-// const PlayerManager = require('./PlayerManager');
-// const CommandTable = require('../CommandTable');
-// const Text = require('../../data/text/fr.json');
 // const moment = require("moment");
-// const Discord = require("discord.js");
-// const Tools = require('../utils/Tools');
 
 class CommandReader {
 
     constructor() {
-        // this.playerManager = new PlayerManager();
+        this.commandTable = require('commands/CommandTable');
     }
 
     /**
@@ -18,31 +13,70 @@ class CommandReader {
      * @param {*} talkedRecently - The list of user that has been seen recently
      */
     async handleMessage(client, message) {
-        let serverPrefix = (await draftbot.repositoryManager.ServerRepository.getByIdOrCreate(message.guild.id)).get('prefix');
+        let server = await draftbot.repositoryManager.ServerRepository.getByIdOrCreate(message.guild.id);
+        let serverPrefix = server.get('prefix');
+        let serverLanguage = server.get('language');
 
-        let weapon = (await draftbot.repositoryManager.PotionRepository.getDefaultPotion()).display('fr');
+        if (serverPrefix === this.getUsedPrefix(message, serverPrefix)) {
 
-        message.channel.send(weapon);
+            if (message.author.id !== Config.BOT_OWNER_ID && Config.MODE_MAINTENANCE) {
+                return message.channel.send(":x: Le Draftbot est actuellement en maintenance: Pour plus d'infos, visitez le discord du bot https://discord.gg/USnCxg4 \n\n :flag_um: The bot is being updated please be patient :) ");
+            }
 
-        console.log(weapon);
-        // let prefix = CommandReader.getUsedPrefix(message, serverPrefix);
-        return;
+            // TODO
+            // this.traceMessage(message, client);
+            // const diffMinutes = getMinutesBeforeReset();
+            // if (resetIsNow(diffMinutes)) {
+            //     const embed = await generateResetTopWeekEmbed(message);
+            //     return message.channel.send(embed)
+            // }
 
-        // if (prefix === serverPrefix) {
-        //     this.traceMessage(message, client);
-        //     const diffMinutes = getMinutesBeforeReset();
-        //     if (resetIsNow(diffMinutes)) {
-        //         const embed = await generateResetTopWeekEmbed(message);
-        //         return message.channel.send(embed)
-        //     }
-        //     //if (message.author.id != Config.BOT_OWNER_ID) return message.channel.send(":x: Le Draftbot est actuellement en maintenance: Pour plus d'infos, visitez le discord du bot https://discord.gg/USnCxg4 \n\n :flag_um: The bot is being updated please be patient :) ");
-        //     launchCommand(message, prefix, client, talkedRecently);
-        // } else {
-        //     prefix = CommandReader.getUsedPrefix(message, Config.BOT_OWNER_PREFIX);
-        //     if (prefix === Config.BOT_OWNER_PREFIX && message.author.id == Config.BOT_OWNER_ID) {
-        //         launchCommand(message, prefix, client, talkedRecently);
-        //     }
-        // }
+            this.launchCommand(client, message, serverPrefix, serverLanguage);
+        } else {
+            if (this.getUsedPrefix(message, Config.BOT_OWNER_PREFIX) === Config.BOT_OWNER_PREFIX && message.author.id == Config.BOT_OWNER_ID) {
+                this.launchCommand(client, message, Config.BOT_OWNER_PREFIX, serverLanguage);
+            }
+        }
+    }
+
+    /**
+     * Get the prefix that the user just used to make the command
+     * @param {*} message - The message to extract the command from
+     * @param {string} prefix - The prefix used by current server
+     * @return {string}
+     */
+    getUsedPrefix(message, prefix) {
+        return message.content.substr(0, prefix.length);
+    }
+
+    /**
+     *
+     * @param {*} message - A command posted by an user.
+     * @param {string} prefix - The current prefix in the message content
+     * @param {*} client - The bot user in case we have to make him do things
+     * @param {string} serverLanguage - The language for the current server
+     */
+    async launchCommand(client, message, prefix, serverLanguage) {
+        let args = this.getCommandWithArgsFromMessage(message, prefix);
+        let command = args.shift().toLowerCase();
+
+        if (this.commandTable.has(command)) {
+            if (!message.channel.permissionsFor(client.user).serialize().SEND_MESSAGES) {
+                await message.author.send(Config.text[serverLanguage].error.noSpeakPermission);
+            } else {
+                this.commandTable.get(command)(message, prefix, client, args, serverLanguage);
+            }
+        }
+    }
+
+    /**
+     * Sanitizes the string and return the command with args.
+     * @param {*} message - The message to extract the command from.
+     * @param {string} prefix - The current prefix in the message content
+     * @returns {[string]}
+     */
+    getCommandWithArgsFromMessage(message, prefix) {
+        return message.content.slice(prefix.length).trim().split(/ +/g);
     }
 
     // /**
@@ -87,25 +121,6 @@ class CommandReader {
     //         });
     //     });
     // }
-    //
-    // /**
-    //  * Sanitizes the string and return the command. The command should always be the 1st argument.
-    //  * @param {*} message - The message to extract the command from.
-    //  * @param {string} prefix - The current prefix in the message content
-    //  * @returns {String} - The command, extracted from the message.
-    //  */
-    // static getCommandFromMessage(message, prefix) {
-    //     return message.content.substring(prefix.length).toLowerCase();
-    // }
-    //
-    // /**
-    //  * Get the prefix that the user just used to make the command
-    //  * @param {*} message - The message to extract the command from
-    //  * @param {string} serverPrefix - The prefix used by current server
-    //  */
-    // static getUsedPrefix(message, serverPrefix) {
-    //     return message.content.substr(0, serverPrefix.length);
-    // }
 }
 
 // /**
@@ -142,23 +157,6 @@ class CommandReader {
 //     var momentOfReset = new moment(dateOfReset);
 //     const diffMinutes = momentOfReset.diff(nowMoment, 'minutes');
 //     return diffMinutes;
-// }
-//
-// /**
-//  *
-//  * @param {*} message - A command posted by an user.
-//  * @param {string} prefix - The current prefix in the message content
-//  * @param {*} client - The bot user in case we have to make him do things
-//  * @param {*} talkedRecently - The list of user that has been seen recently
-//  */
-// function launchCommand(message, prefix, client, talkedRecently) {
-//     let command = CommandReader.getCommandFromMessage(message, prefix);
-//     if (CommandTable.has(command))
-//         if (!message.channel.permissionsFor(client.user).serialize().SEND_MESSAGES) { //test if the bot can speak in the channel where a command has been read
-//             message.author.send(Text.error.noSpeakPermission);
-//         } else {
-//             CommandTable.get(command)(message, prefix, client, talkedRecently);
-//         }
 // }
 
 module.exports = CommandReader;
