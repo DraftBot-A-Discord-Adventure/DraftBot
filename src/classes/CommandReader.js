@@ -19,8 +19,13 @@ class CommandReader {
      */
     async handleMessage(client, message) {
         let serverPrefix = (await draftbot.repositoryManager.ServerRepository.getByIdOrCreate(message.guild.id)).get('prefix');
-        // let prefix = CommandReader.getUsedPrefix(message, serverPrefix);
 
+        let weapon = (await draftbot.repositoryManager.WeaponRepository.getRandomWeaponWithRareness()).display('fr');
+
+        message.channel.send(weapon);
+
+        console.log(weapon);
+        // let prefix = CommandReader.getUsedPrefix(message, serverPrefix);
         return;
 
         // if (prefix === serverPrefix) {
