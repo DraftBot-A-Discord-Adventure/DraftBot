@@ -2,7 +2,7 @@ const Entity = require("entities/Entity");
 
 class Player extends Entity {
 
-    constructor(id, maxHealth, health, attack, defense, speed, effect, score, weeklyScore, level, experience, money, lastReport, badges, guildId) {
+    constructor(id, maxHealth, health, attack, defense, speed, effect, score, weeklyScore, level, experience, money, lastReport, badges, guildId, rank, weeklyRank) {
         super(id, maxHealth, health, attack, defense, speed, effect);
 
         this.discordId = id;
@@ -17,8 +17,8 @@ class Player extends Entity {
 
         // Virtual properties
         this.name = null;
-        this.rank = null;
-        this.weeklyRank = null;
+        this.rank = rank;
+        this.weeklyRank = weeklyRank;
     }
 
     // https://github.com/jshint/jshint/issues/3381

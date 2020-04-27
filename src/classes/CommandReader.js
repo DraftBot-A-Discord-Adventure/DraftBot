@@ -31,10 +31,10 @@ class CommandReader {
             //     return message.channel.send(embed)
             // }
 
-            this.launchCommand(client, message, serverPrefix, serverLanguage);
+            await this.launchCommand(client, message, serverPrefix, serverLanguage);
         } else {
             if (this.getUsedPrefix(message, Config.BOT_OWNER_PREFIX) === Config.BOT_OWNER_PREFIX && message.author.id == Config.BOT_OWNER_ID) {
-                this.launchCommand(client, message, Config.BOT_OWNER_PREFIX, serverLanguage);
+                await this.launchCommand(client, message, Config.BOT_OWNER_PREFIX, serverLanguage);
             }
         }
     }
@@ -64,7 +64,7 @@ class CommandReader {
             if (!message.channel.permissionsFor(client.user).serialize().SEND_MESSAGES) {
                 await message.author.send(Config.text[serverLanguage].error.noSpeakPermission);
             } else {
-                this.commandTable.get(command)(message, prefix, client, args, serverLanguage);
+                await this.commandTable.get(command)(message, prefix, client, args, serverLanguage);
             }
         }
     }

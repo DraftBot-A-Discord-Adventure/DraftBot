@@ -1,58 +1,4 @@
-const Player = require('./Player');
-const DefaultValues = require('data/text/DefaultValues');
-const Config = require('../utils/Config')
-const sql = require("sqlite");
-const ServerManager = require('../classes/ServerManager');
-const Tools = require('../utils/Tools');
-const InventoryManager = require('../classes/InventoryManager');
-const ItemManager = require("../classes/ItemManager");
-const EquipementManager = require('../classes/EquipementManager');
-const PotionManager = require('../classes/PotionManager');
-const ObjectManager = require('../classes/ObjectManager');
-
-// sql.open("./src/data/database.sqlite");
-let Text;
-
-/**
- * Allow to charge the correct text file
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargeText = async function (message) {
-    let serverManager = new ServerManager();
-    let server = await serverManager.getServer(message);
-    if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-        server.language = "en";
-    }
-    let address = '../text/' + server.language;
-    return require(address);
-}
-
 class PlayerManager {
-
-
-    /**
-    * Return a promise that will contain the player that sent a message once it has been resolved
-    * @param message - The message that caused the function to be called. Used to retrieve the author of the message
-    * @returns {promise} - The promise that will be resolved into a player
-    */
-    getCurrentPlayer(message) {
-        return sql.get(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = "${message.author.id}"`).then(player => {
-            if (!player) { //player is not in the database
-                console.log(`user unknown : ${message.author.username}`);
-                let player = this.getNewPlayer(message)
-                this.addPlayer(player);
-                return player;
-            } else { //player is in the database
-                console.log(`user loaded : ${message.author.username}`);
-                return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
-                    player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges,
-                    player.rank, player.weeklyScore, player.weeklyRank, player.guildId)
-            }
-        }).catch(error => { //there is no database
-            console.error(error)
-            return false;
-        })
-    }
 
     /**
      * Get the rank of a player on a server
@@ -106,33 +52,6 @@ class PlayerManager {
             console.error(error)
             return false;
         })
-    }
-
-
-    /**
-     * Return a player created FROM the defaul values
-     * @param message - The message that caused the function to be called. Used to retrieve the timestamp of the message
-     * @returns {*} - A new player
-     */
-    getNewPlayer(message) {
-        console.log('Generating a new player...');
-        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed,
-            message.author.id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect,
-            message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.rank, DefaultValues.player.weeklyScore, DefaultValues.player.weeklyRank, DefaultValues.player.guildId);
-    }
-
-
-    /**
-     * Return a player created FROM the defaul values
-     * @param id - The id of the player that has to be created
-     * @param message - The message that caused the function to be called. Used to retrieve the timestamp of the message
-     * @returns {*} - A new player
-     */
-    getNewPlayerById(id, message) {
-        console.log('Generating a new player by id...');
-        return new Player(DefaultValues.entity.maxHealth, DefaultValues.entity.health, DefaultValues.entity.attack, DefaultValues.entity.defense, DefaultValues.entity.speed,
-            id, DefaultValues.player.score, DefaultValues.player.level, DefaultValues.player.experience, DefaultValues.player.money, DefaultValues.entity.effect,
-            message.createdTimestamp, DefaultValues.player.badges, DefaultValues.player.weeklyScore, DefaultValues.player.guildId);
     }
 
 
@@ -200,21 +119,6 @@ class PlayerManager {
         sql.run(`UPDATE player SET weeklyScore = ? WHERE discordId = ?`, [player.weeklyScore, player.discordId]).catch(console.error);
         console.log("Player updated !");
     }
-
-    /**
-     * Allow to save a new player in the database
-     * @param {*} player - The player that has to be saved
-     */
-    addPlayer(player) {
-        console.log("Creating player ...");
-        sql.run(`INSERT INTO entity (maxHealth, health, attack, defense, speed, id, effect) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [player.maxHealth, player.health, player.attack, player.defense, player.speed, player.discordId, "" + player.effect]).catch(console.error);
-        sql.run(`INSERT INTO player (discordId, score, level, experience, money, lastReport, badges, weeklyScore, guildId) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)`,
-            [player.discordId, player.score, player.level, player.experience, player.money, player.lastReport, "" + player.badges]).catch(console.error);
-        console.log("Player created !");
-    }
-
 
     /**
      * Get the total number of players in the database

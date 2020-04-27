@@ -19,7 +19,7 @@ let draftbot = new DraftBot();
  */
 draftbot.client.on("ready", async () => {
 
-  await draftbot.repositoryManager.checkDatabaseValidity();
+  await draftbot.repositoryManager.checkDatabaseMigrations();
 
   // draftbot.checkEasterEggsFile();
 

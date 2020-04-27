@@ -46,7 +46,7 @@ class ServerRepository extends RepositoryAbstract {
      */
     async create(server) {
         return await this.sql
-            .run(`INSERT INTO server (id, prefix, language) VALUES (?, ?, ?)`, server.id, server.prefix, server.language)
+            .run(`INSERT INTO server (id, prefix, language) VALUES (?, ?, ?)`, server.get('id'), server.get('prefix'), server.get('language'))
             .then(() => {
                 return server;
             })
@@ -60,7 +60,7 @@ class ServerRepository extends RepositoryAbstract {
      */
     async update(server) {
         return await this.sql
-            .run(`UPDATE server SET id = ?, prefix = ?, language = ? WHERE id = ?`, server.id, server.prefix, server.language, server.id)
+            .run(`UPDATE server SET id = ?, prefix = ?, language = ? WHERE id = ?`, server.get('id'), server.get('prefix'), server.get('language'), server.get('id'))
             .then(() => {
                 return server;
             })

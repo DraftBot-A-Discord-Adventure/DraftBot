@@ -40,7 +40,7 @@ const getGeneralHelpMessage = (message, serverLanguage) => {
  * @param {string} arg - The args given by the user to tell what command he need help about.
  * @return {string} - A string containing help about a command.
  */
-const getHelpMessageForSpecificCommand = function (message, serverLanguage, arg) {
+const getHelpMessageForSpecificCommand = (message, serverLanguage, arg) => {
     let helpMessage = Config.text[serverLanguage].commands.help.commands[arg];
 
     if (helpMessage === undefined) {
