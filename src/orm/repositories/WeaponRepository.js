@@ -41,7 +41,7 @@ class WeaponRepository extends RepositoryAbstract {
      * @return {Promise<Weapon>}
      */
     async getRandomWeapon() {
-        const id = Math.round(Math.random() * (Config.raritiesGenerator.numberOfWeapon - 1)) + 1; // TODO Config.raritiesGenerator.numberOfWeapon peut etre remplacé par length - 1 du nbr d'armor ?
+        const id = Math.round(Math.random() * (Config.raritiesGenerator.numberOfWeapon - 1)) + 1; // TODO Config.raritiesGenerator.numberOfWeapon peut etre remplacé par length - 1 du nbr weapon ?
         return new Weapon(
             id,
             this.text.items.weapon[id].rareness,
