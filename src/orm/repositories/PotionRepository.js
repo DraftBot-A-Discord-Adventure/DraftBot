@@ -4,6 +4,20 @@ const Potion = require("entities/Potion");
 class PotionRepository extends RepositoryAbstract {
 
     /**
+     * Return default potion
+     * @return {Promise<Potion>}
+     */
+    async getDefaultPotion() {
+        return new Potion(
+            "default",
+            this.text.items.potion.default.rareness,
+            this.text.items.potion.default.power,
+            this.text.items.potion.default.translations,
+            this.text.items.potion.default.nature
+        );
+    }
+
+    /**
      * Return an potion by id
      * @param {number} id
      * @return {Promise<Potion>}

@@ -14,12 +14,17 @@ class Potion extends ItemAbstract {
      */
     display(language) {
         let result = this.getTranslation(language);
+
+        if (this.get('id') === 'default') {
+            return result;
+        }
+
         result += Config.text[language].potionManager.separator;
         result += Config.text[language].rarities[this.get('rareness')];
         result += Config.text[language].potionManager.separator;
         result += Config.text[language].nature.intro[this.get('nature')];
 
-        if (this.get('nature') !== 0) {
+        if (this.get('nature') !== "0") {
             result += this.get('power') + Config.text[language].nature.outroPotion[this.get('nature')];
         }
 

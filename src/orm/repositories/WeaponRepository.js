@@ -4,20 +4,6 @@ const Weapon = require("entities/Weapon");
 class WeaponRepository extends RepositoryAbstract {
 
     /**
-     * Return default weapon
-     * @return {Promise<Weapon>}
-     */
-    async getDefaultWeapon() {
-        return new Weapon(
-            "default",
-            this.text.items.weapon.default.rareness,
-            this.text.items.weapon.default.power,
-            this.text.items.weapon.default.translations,
-            this.text.items.effect[this.text.items.weapon.default.rareness][this.text.items.weapon.default.power]
-        );
-    }
-
-    /**
      * Return a weapon by id
      * @param {number} id
      * @return {Promise<Weapon>}

@@ -14,6 +14,11 @@ class Armor extends ItemAbstract {
      */
     display(language) {
         let result = this.getTranslation(language);
+
+        if (this.get('id') === 'default') {
+            return result;
+        }
+
         result += Config.text[language].equipementManager.separator1;
         result += this.get('effect');
         result += Config.text[language].equipementManager.separator2;

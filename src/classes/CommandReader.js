@@ -20,7 +20,7 @@ class CommandReader {
     async handleMessage(client, message) {
         let serverPrefix = (await draftbot.repositoryManager.ServerRepository.getByIdOrCreate(message.guild.id)).get('prefix');
 
-        let weapon = (await draftbot.repositoryManager.WeaponRepository.getRandomWeaponWithRareness()).display('fr');
+        let weapon = (await draftbot.repositoryManager.PotionRepository.getDefaultPotion()).display('fr');
 
         message.channel.send(weapon);
 
