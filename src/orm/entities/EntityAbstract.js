@@ -1,4 +1,10 @@
-class Entity {
+class EntityAbstract {
+
+    constructor() {
+        if (this.constructor === EntityAbstract) {
+            throw new Error("Abstract class EntityAbstract cannot be instantiated directly");
+        }
+    }
 
     /**
      * @param {string} field
@@ -7,7 +13,7 @@ class Entity {
      */
     get(field) {
         if (field in this === undefined) {
-            throw new Error();
+            throw new Error("This field doesn't exist in class property");
         }
 
         return this[field];
@@ -28,4 +34,4 @@ class Entity {
 
 }
 
-module.exports = Entity;
+module.exports = EntityAbstract;

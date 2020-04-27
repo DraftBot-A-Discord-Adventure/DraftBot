@@ -12,12 +12,37 @@ class RepositoryManager {
                     driver: sqlite3.cached.Database
                 });
 
+            this.text = {};
+            this.text.items = require("data/items/Values.json");
+
+            await fs.promises.readdir("data/items")
+                .then(files => {
+                    files.forEach(file => {
+                        if (!file.endsWith(".json")) return;
+                        if (file.includes("Values.json")) return;
+
+                        let language = file.split(".")[0];
+                        let fileContent = require("data/items/" + file);
+
+                        Object.entries(fileContent).forEach(entry => {
+                            Object.entries(entry[1]).forEach(subEntry => {
+                                if (this.text.items[entry[0]][subEntry[0]].translations === undefined) {
+                                    this.text.items[entry[0]][subEntry[0]].translations = {};
+                                }
+                                this.text.items[entry[0]][subEntry[0]].translations[language] = subEntry[1];
+                            });
+                        });
+                    });
+                })
+                .catch(console.error);
+
             await fs.promises.readdir("src/orm/repositories")
-                .then(repositories => {
-                    repositories.forEach(repository => {
-                        if (!repository.endsWith(".js")) return;
-                        let repositoryName = repository.split(".")[0];
-                        this[repositoryName] = new (require("orm/repositories/" + repositoryName))(this.sql);
+                .then(files => {
+                    files.forEach(file => {
+                        if (!file.endsWith(".js")) return;
+                        if (file.endsWith("Abstract.js")) return;
+                        let repositoryName = file.split(".")[0];
+                        this[repositoryName] = new (require("repositories/" + repositoryName))(this.sql, this.text);
                     });
                 })
                 .catch(console.error);
@@ -114,6 +139,8 @@ class RepositoryManager {
             })
             .catch(console.error);
     }
+
+    // TODO Refactor after
 
     /**
      * Allow to reset the weekly top.

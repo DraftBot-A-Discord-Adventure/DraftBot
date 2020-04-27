@@ -1,10 +1,7 @@
+const RepositoryAbstract = require("repositories/RepositoryAbstract");
 const Server = require("orm/entities/Server");
 
-class ServerRepository {
-
-    constructor(sql) {
-        this.sql = sql;
-    }
+class ServerRepository extends RepositoryAbstract {
 
     /**
      * Allow to get the current server

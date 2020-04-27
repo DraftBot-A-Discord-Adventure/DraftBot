@@ -19,8 +19,6 @@ class CommandReader {
      */
     async handleMessage(client, message) {
         let serverPrefix = (await draftbot.repositoryManager.ServerRepository.getByIdOrCreate(message.guild.id)).get('prefix');
-        console.log(serverPrefix);
-
         // let prefix = CommandReader.getUsedPrefix(message, serverPrefix);
 
         return;

@@ -1,4 +1,5 @@
 Config = require("utils/Config");
+Tools = require('utils/Tools');
 require("colors");
 const Figlet = require("figlet");
 const DraftBot = require("class/DraftBot");
@@ -90,6 +91,8 @@ draftbot.client.on("messageReactionAdd", async (reaction) => {
 
 draftbot.client.login(Config.DISCORD_CLIENT_TOKEN);
 
+global.Config = Config;
+global.Tools = Tools;
 global.draftbot = draftbot;
 
 // const talkedRecently = new Set();

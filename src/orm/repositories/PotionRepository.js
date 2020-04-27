@@ -1,83 +1,53 @@
-const Potion = require("orm/entities/Potion");
+const RepositoryAbstract = require("repositories/RepositoryAbstract");
+const Potion = require("entities/Potion");
 
-class PotionRepository {
-
-    constructor(sql) {
-        this.sql = sql;
-    }
-
-    // TODO after
+class PotionRepository extends RepositoryAbstract {
 
     /**
-     * Return an potion matching with the piece of potion that own a specific id
-     * @param id - The id of the potion that has to be loaded
-     * @returns {*} - An potion
+     * Return an potion by id
+     * @param {number} id
+     * @return {Promise<Potion>}
      */
-    getPotionById(id) {
-        return new Potion(id, ItemValues.potion[id].rareness, ItemValues.potion[id].power, ItemValues.potion[id].nature, ItemValues.potion[id].use);
+    async getPotionById(id) {
+        return new Potion(
+            id,
+            this.text.items.potion[id].rareness,
+            this.text.items.potion[id].power,
+            this.text.items.potion[id].translations,
+            this.text.items.potion[id].nature
+        );
     }
-
-
-    /**
-     * Return string containing a description of an potion
-     * @param potion - The potion that has to be displayed
-     * @param language - The language the object has to be displayed in
-     * @returns {String} - The description of the potion
-     */
-    displayPotion(potion, language) {
-        Text = require('../text/' + language);
-        ItemNames = require('../utils/items/' +language);
-        let stringResult = ItemNames.potion[potion.id] + Text.potionManager.separator + Text.rarities[potion.rareness] + Text.potionManager.separator + Text.nature.intro[potion.natureEffect];
-        if (potion.natureEffect != 0) { // affichage de la puissance de l'effet si il existe
-            stringResult += potion.power + Text.nature.outroPotion[potion.natureEffect];
-        }
-        return stringResult;
-    }
-
-
-    /**
-     * Return string containing a description of an potion in case this potion is the default armor
-     * @param potion - The potion that has to be displayed
-     * @param language - The language the object has to be displayed in
-     * @returns {String} - The description of the potion
-     */
-    displayDefaultPotion(potion,language) {
-        ItemNames = require('../utils/items/' + language);
-        return ItemNames.potion[potion.id];
-    }
-
 
     /**
      * Choose a random potion in the existing ones. (take care of the rareness)
-     * @returns {*} - A random potion
+     * @return {Promise<Potion>}
      */
-    generateRandomPotion() {
-        let desiredRareness = Tools.generateRandomRareness();
-        let id = this.generateRandomPotionId();
-        let tries = 1;
-        while (ItemValues.potion[id].rareness != desiredRareness) {
-            tries++;
-            id = this.generateRandomPotionId();
-        }
-        console.log("Item généré ! Nombre d'essais: " + tries)
-        return this.getPotionById(id);
+    async getRandomPotionWithRareness() {
+        const desiredRareness = Tools.generateRandomRareness();
+        const possiblePotions = Object.entries(this.text.items.potion).filter(key => parseInt(this.text.items.potion[key[0]].rareness) === desiredRareness);
+        const id = possiblePotions[Math.floor(Math.random() * possiblePotions.length)][0];
+        return new Potion(
+            id,
+            this.text.items.potion[id].rareness,
+            this.text.items.potion[id].power,
+            this.text.items.potion[id].translations,
+            this.text.items.potion[id].nature
+        );
     }
 
     /**
-     * Generate an id of an existing potion totally randomly without taking care of the rareness
-     * @returns {Number} - A random Id
+     * Choose a potion totally randomly without taking care of the rareness
+     * @return {Promise<Potion>}
      */
-    generateRandomPotionId() {
-        return Math.round(Math.random() * (DefaultValues.raritiesGenerator.numberOfPotion - 1)) + 1;
-    }
-
-    /**
-     * Return the real value of the power that is applied when it is used
-     * @param potion - The potion that has to be displayed
-     * @returns {Number} - The real power of a piece of potion
-     */
-    getPotionEfficiency(potion) {
-        return parseInt(potion.rareness);
+    async getRandomPotion() {
+        const id = Math.round(Math.random() * (Config.raritiesGenerator.numberOfPotion - 1)) + 1; // TODO Config.raritiesGenerator.numberOfPotion peut etre remplacé par length - 1 du nbr de potions ?
+        return new Potion(
+            id,
+            this.text.items.potion[id].rareness,
+            this.text.items.potion[id].power,
+            this.text.items.potion[id].translations,
+            this.text.items.potion[id].nature
+        );
     }
 
 }

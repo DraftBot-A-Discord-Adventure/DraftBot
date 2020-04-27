@@ -1,6 +1,6 @@
-const Entity = require("orm/entities/Entity");
+const EntityAbstract = require("entities/EntityAbstract");
 
-class Server extends Entity {
+class Server extends EntityAbstract {
 
     constructor(id, prefix, language) {
         super();
