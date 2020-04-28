@@ -1,22 +1,25 @@
 /**
- * Display help for a player
- * @param {string} serverLanguage
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param {[string]} args - arguments typed by the user in addition to the command
- * @return {Promise<void>}
+ * Displays commands of the bot for a player, if arg match one command explain that command
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const HelpCommand = async (serverLanguage, message, args) => {
-    let helpMessage = Config.text[serverLanguage].commands.help.commands[args[0]];
+const HelpCommand = async (language, message, args) => {
+  let helpMessage = Config.text[language].commands.help.commands[args[0]];
 
-    if (helpMessage === undefined) {
-        helpMessage = Config.text[serverLanguage].commands.help.intro + message.author.username + Config.text[serverLanguage].commands.help.main;
-    }
+  if (helpMessage === undefined) {
+    helpMessage = Config.text[language].commands.help.intro + message.author.username +
+      Config.text[language].commands.help.main;
+  }
 
-    if (draftbot.client.guilds.cache.get(Config.MAIN_SERVER_ID).members.cache.find(val => val.id === message.author.id) === undefined) {
-        await message.author.send(Config.text[serverLanguage].commands.help.mp);
-    }
+  if (draftbot.client.guilds.cache.get(Config.MAIN_SERVER_ID)
+    .members
+    .cache
+    .find(val => val.id === message.author.id) === undefined) {
+    await message.author.send(Config.text[language].commands.help.mp);
+  }
 
-    message.channel.send(helpMessage);
+  await message.channel.send(helpMessage);
 };
 
 module.exports.HelpCommand = HelpCommand;

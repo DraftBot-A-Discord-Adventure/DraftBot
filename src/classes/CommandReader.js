@@ -11,11 +11,9 @@ class CommandReader {
      * @param {*} message - A command posted by an user.
      */
     async handleMessage(message) {
-        let server = await draftbot.repositoryManager.ServerRepository.getByIdOrCreate(message.guild.id);
-        let serverPrefix = server.get('prefix');
-        let serverLanguage = server.get('language');
+        let server = await draftbot.getRepository('server').getByIdOrCreate(message.guild.id);
 
-        if (serverPrefix === this.getUsedPrefix(message, serverPrefix)) {
+        if (server.prefix === this.getUsedPrefix(message, server.prefix)) {
 
             if (message.author.id !== Config.BOT_OWNER_ID && Config.MODE_MAINTENANCE) {
                 return message.channel.send(":x: Le Draftbot est actuellement en maintenance: Pour plus d'infos, visitez le discord du bot https://discord.gg/USnCxg4 \n\n :flag_um: The bot is being updated please be patient :) ");
@@ -29,10 +27,10 @@ class CommandReader {
             //     return message.channel.send(embed)
             // }
 
-            await this.launchCommand(serverLanguage, serverPrefix, message);
+            await this.launchCommand(server.language, server.prefix, message);
         } else {
             if (this.getUsedPrefix(message, Config.BOT_OWNER_PREFIX) === Config.BOT_OWNER_PREFIX && message.author.id === Config.BOT_OWNER_ID) {
-                await this.launchCommand(serverLanguage, Config.BOT_OWNER_PREFIX, message);
+                await this.launchCommand(server.language, Config.BOT_OWNER_PREFIX, message);
             }
         }
     }
@@ -54,7 +52,7 @@ class CommandReader {
      * @param {string} serverLanguage - The language for the current server
      */
     async launchCommand(serverLanguage,prefix, message) {
-        let args = this.getCommandWithArgsFromMessage(message, prefix);
+        let args = message.content.slice(prefix.length).trim().split(/ +/g);
         let command = args.shift().toLowerCase();
 
         if (this.commandTable.has(command)) {
@@ -64,16 +62,6 @@ class CommandReader {
                 await this.commandTable.get(command)(serverLanguage, message, args);
             }
         }
-    }
-
-    /**
-     * Sanitizes the string and return the command with args.
-     * @param {*} message - The message to extract the command from.
-     * @param {string} prefix - The current prefix in the message content
-     * @returns {[string]}
-     */
-    getCommandWithArgsFromMessage(message, prefix) {
-        return message.content.slice(prefix.length).trim().split(/ +/g);
     }
 
     // /**

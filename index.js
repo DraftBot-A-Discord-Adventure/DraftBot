@@ -62,15 +62,22 @@ draftbot.client.on("guildDelete", guilde => {
 });
 
 /**
- * Will be executed each time the bot recieve a message
+ * Will be executed each time the bot see a message
+ * @param {module:"discord.js".Message} message
+ * @return {Promise<void>}
  */
-draftbot.client.on("message", async (message) => {
+onDiscordMessage = async message => {
   if (message.author.bot) return;
   // if (message.guild == null) {
   //   draftbot.commandReader.handlePrivateMessage(message, client, talkedRecently);
   // }
   await draftbot.commandReader.handleMessage(message);
-});
+};
+
+/**
+ * Listener to see message
+ */
+draftbot.client.on("message", onDiscordMessage);
 
 /**
  * Will be executed each time a reaction is added to a message

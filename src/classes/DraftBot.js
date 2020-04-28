@@ -5,10 +5,21 @@ const Discord = require("discord.js");
 class DraftBot {
 
     constructor() {
+        this.repositories = new Map();
         this.repositoryManager = new RepositoryManager();
         this.commandReader = new CommandReader(this.repositoryManager);
+
         this.discord = Discord;
         this.client = new Discord.Client();
+    }
+
+    /**
+     *
+     * @param {string} repository - The repository to get
+     *
+     */
+    getRepository(repository) {
+        return this.repositories.get(repository);
     }
 
     /**

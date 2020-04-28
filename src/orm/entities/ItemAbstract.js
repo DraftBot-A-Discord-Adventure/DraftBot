@@ -21,7 +21,7 @@ class ItemAbstract extends EntityAbstract {
      * @return {string}
      */
     getTranslation(language) {
-        return this.translations[language]; // TODO peux etre monter cette méthode directement dans entity, a voir ...
+        return this.translations[language]; // TODO Question peux etre monter cette méthode directement dans entity, a voir ...
     }
 
     /**
