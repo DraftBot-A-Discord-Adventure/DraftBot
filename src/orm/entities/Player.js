@@ -23,10 +23,40 @@ class Player extends Entity {
 
     // https://github.com/jshint/jshint/issues/3381
     ['set'](field, value) {
-        if (['level', 'experience', 'money'].indexOf(field)) {
+        if (['score', 'weeklyScore', 'level', 'experience', 'money'].indexOf(field) !== -1) {
             this['set' + field.charAt(0).toUpperCase() + field.slice(1)](value);
         } else {
             super.set(field, value);
+        }
+    }
+
+    /**
+     * @param {number} value
+     */
+    changeScoreAndWeeklyScore(value) {
+        this.setScore(this.get('score') + value);
+        this.setWeeklyScore(this.get('weeklyScore') + value);
+    }
+
+    /**
+     * @param {number} value
+     */
+    setScore(value) {
+        if (value > 0) {
+            this.score = value;
+        } else {
+            this.score = 0;
+        }
+    }
+
+    /**
+     * @param {number} value
+     */
+    setWeeklyScore(value) {
+        if (value > 0) {
+            this.weeklyScore = value;
+        } else {
+            this.weeklyScore = 0;
         }
     }
 
@@ -97,25 +127,11 @@ class Player extends Entity {
     }
 
     /**
-     * TODO - WIP need testing
-     * Add or remove the specified amount of money to the Player's wallet.
-     * @param {number} value - The amount of money to add or remove.
+     * TODO : Pas de setMoney ce qui permet d'avoir de la monnaie négative (pour un systeme de prêt par exemple avec intérêts)
+     * @param {number} value -
      */
     changeMoney(value) {
-        this.setMoney(this.get('money') + value);
-    }
-
-    /**
-     * TODO - WIP need testing, maybe remove for stack load
-     * Set this Player instance's currently held amount of money.
-     * @param {number} value - The amount of money this Player instance should have.
-     */
-    setMoney(value) {
-        if (value > 0) {
-            this.money = value;
-        } else {
-            this.money = 0;
-        }
+        this.money = this.get('money') + value;
     }
 
     /**

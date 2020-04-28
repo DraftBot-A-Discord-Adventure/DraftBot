@@ -8,21 +8,21 @@
  * @return {Promise<void>}
  */
 const RespawnCommand = async (message, prefix, client, args, serverLanguage) => {
+    let player = await draftbot.repositoryManager.PlayerRepository.getByMessageOrCreate(message);
 
-    // TODO
+    if (player.get('health') !== 0) {
+        message.channel.send(Config.text[serverLanguage].commands.respawn.thinking + message.author.username + Config.text[serverLanguage].commands.respawn.notDead);
+    } else {
+        const scoreRemoved = Math.round(player.get('score') * Config.PART_OF_SCORE_REMOVED_DURING_RESPAWN);
+        player.set('effect', ':smiley:');
+        player.set('health', player.get('maxHealth'));
+        player.set('lastReport', message.createdTimestamp);
+        player.changeScoreAndWeeklyScore(-scoreRemoved);
 
-    let player = await draftbot.repositoryManager.PlayerRepository.getByIdOrCreate(message.author.id);
+        await draftbot.repositoryManager.PlayerRepository.update(player);
 
-    console.log(player);
-    return;
-
-    // if (!player.isDead()) { //player is not dead
-    //     message.channel.send(Text.commands.respawn.thinking + message.author.username + Text.commands.respawn.notDead)
-    // } else { //player is dead
-    //     console.log(message.createdTimestamp);
-    //     let scoreRemoved = playerManager.revivePlayer(player, message.createdTimestamp);
-    //     message.channel.send(Text.commands.respawn.angel + message.author.username + Text.commands.respawn.revived1 + scoreRemoved + Text.commands.respawn.revived2);
-    // }
+        message.channel.send(Config.text[serverLanguage].commands.respawn.angel + message.author.username + Config.text[serverLanguage].commands.respawn.revived1 + scoreRemoved + Config.text[serverLanguage].commands.respawn.revived2);
+    }
 };
 
 module.exports.RespawnCommand = RespawnCommand;

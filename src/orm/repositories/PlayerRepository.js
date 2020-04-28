@@ -5,6 +5,30 @@ class PlayerRepository extends RepositoryAbstract {
 
     /**
      * Return a promise that will contain the player that sent a message once it has been resolved
+     * @param {*} message
+     * @return {Promise<Player>}
+     */
+    async getByMessageOrCreate(message) {
+        return await this.sql
+            .get(`SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = ?`, message.author.id)
+            .then(async player => {
+                if (player) {
+                    return new Player(
+                        player.id, player.maxHealth, player.health, player.attack, player.defense, player.speed, player.effect,
+                        player.score, player.weeklyScore, player.level, player.experience, player.money, player.lastReport, player.badges, player.guildId, player.rank, player.weeklyRank
+                    );
+                } else {
+                    return await this.create(new Player(
+                        message.author.id, Config.entity.maxHealth, Config.entity.health, Config.entity.attack, Config.entity.defense, Config.entity.speed, Config.entity.effect,
+                        Config.player.score, Config.player.weeklyScore, Config.player.level, Config.player.experience, Config.player.money, message.createdTimestamp, Config.player.badges, Config.player.guildId, Config.player.rank, Config.player.weeklyRank
+                    ));
+                }
+            })
+            .catch(console.error);
+    }
+
+    /**
+     * Return a promise that will contain the player that sent a message once it has been resolved
      * @param {number} id
      * @return {Promise<Player>}
      */
@@ -15,7 +39,7 @@ class PlayerRepository extends RepositoryAbstract {
                 if (player) {
                     return new Player(
                         player.id, player.maxHealth, player.health, player.attack, player.defense, player.speed, player.effect,
-                        player.score, player.weeklyScore, player.level, player.experience, player.money, player.lastReport, player.badges, player.guildId, player.rank, plyaer.weeklyRank
+                        player.score, player.weeklyScore, player.level, player.experience, player.money, player.lastReport, player.badges, player.guildId, player.rank, player.weeklyRank
                     );
                 } else {
                     return await this.create(new Player(
@@ -28,9 +52,9 @@ class PlayerRepository extends RepositoryAbstract {
     }
 
     /**
-     * Return an server created from the defaul values and save it to the database
+     * Return an player created from the default values and save it to the database
      * @param {Player} player
-     * @return {Promise<Server|void>}
+     * @return {Promise<Player|void>}
      */
     async create(player) {
         await this.sql
@@ -44,6 +68,30 @@ class PlayerRepository extends RepositoryAbstract {
             .run(
                 `INSERT INTO player (discordId, score, weeklyScore, level, experience, money, lastReport, badges, guildId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                 player.get('discordId'), player.get('score'), player.get('weeklyScore'), player.get('level'), player.get('experience'), player.get('money'), player.get('lastReport'), player.get('badges'), player.get('guildId')
+            )
+            .then(() => {
+                return player;
+            })
+            .catch(console.error);
+    }
+
+    /**
+     * Return an player updated from the values and save it to the database
+     * @param {Player} player
+     * @return {Promise<Player|void>}
+     */
+    async update(player) {
+        await this.sql
+            .run(
+                `UPDATE entity SET maxHealth = ?, health = ?, attack = ?, defense = ?, speed = ?, effect = ? WHERE id = ?`,
+                player.get('maxHealth'), player.get('health'), player.get('attack'), player.get('defense'), player.get('speed'), player.get('effect'), player.get('id')
+            )
+            .catch(console.error);
+
+        return await this.sql
+            .run(
+                `UPDATE player SET score = ?, weeklyScore = ?, level = ?, experience = ?, money = ?, lastReport = ?, badges = ?, guildId = ? WHERE discordId = ?`,
+                player.get('score'), player.get('weeklyScore'), player.get('level'), player.get('experience'), player.get('money'), player.get('lastReport'), player.get('badges'), player.get('guildId'), player.get('discordId')
             )
             .then(() => {
                 return player;

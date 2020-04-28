@@ -101,36 +101,6 @@ class Player extends Entity {
     }
 
     /**
-     * Removes the specified amount of points from the Player's score.
-     * Note: If points is negative, then addScore is called.
-     * @see addScore
-     * @param points - The amount of points to remove. Must be a Number.
-     */
-    removeScore(points) {
-        if (points >= 0) {
-            this.score -= parseInt(points);
-            this.weeklyScore -= parseInt(points);
-        } else {
-            this.addScore(-points);
-        }
-    }
-
-    /**
-     * add the specified amount of points from the Player's score.
-     * Note: If points is negative, then removeScore is called.
-     * @see removeScore
-     * @param points - The amount of points to add. Must be a Number.
-     */
-    addScore(points) {
-        if (points >= 0) {
-            this.score += parseInt(points);
-            this.weeklyScore += parseInt(points);
-        } else {
-            this.removeScore(-points);
-        }
-    }
-
-    /**
      * Calculate the time difference in minute betwin now and the last time the player has been seen
      * @param {Number} currentTime
      * @returns {Number}

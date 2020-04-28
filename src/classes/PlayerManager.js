@@ -56,26 +56,6 @@ class PlayerManager {
 
 
     /**
-     * Allow to revive a player and save its new state in the database
-     * @param {*} player - The player that has to be revived
-     * @param {Number} time - The timecode of the date of revive
-     * @returns {Number} - The amount of points the player loosed during the revive process
-     */
-    revivePlayer(player, time) {
-        let scoreRomoved = Math.round(player.getScore() * Config.PART_OF_SCORE_REMOVED_DURING_RESPAWN);
-
-        player.setEffect(":smiley:");
-        player.restoreHealthCompletely();
-        player.updateLastReport(time, 0, ":smiley:");
-        player.removeScore(scoreRomoved);
-
-        this.updatePlayer(player);
-
-        return scoreRomoved;
-    }
-
-
-    /**
      * Allow to set the state of a player to occupied in order to ensure he dont cheat
      * @param {*} player - The player that has to be saved
      */
@@ -104,7 +84,7 @@ class PlayerManager {
         console.log("Updating player ...");
         sql.run(`UPDATE entity SET maxHealth = ?, health = ?, attack = ?, defense = ?, speed = ?, effect = ? WHERE id = ?`,
             [player.maxHealth, player.health, player.attack, player.defense, player.speed, "" + player.effect, player.discordId]).catch(console.error);
-        sql.run(`UPDATE player SET score = ?, level = ?, experience = ?, money = ?, lastReport = ?, badges = ?, weeklyScore = ?, guildId = ? WHERE discordId = ?`,
+        sql.run(``,
             [player.score, player.level, player.experience, player.money, player.lastReport, "" + player.badges, player.weeklyScore, player.guildId, player.discordId]).catch(console.error);
         console.log("Player updated !");
     }

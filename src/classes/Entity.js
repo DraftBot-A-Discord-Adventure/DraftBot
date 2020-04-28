@@ -51,13 +51,6 @@ class Entity {
     }
 
     /**
-    *  Allow to restore all the health of the entity
-    */
-    restoreHealthCompletely() {
-        this.health = this.maxHealth
-    }
-
-    /**
      * Removes the specified amount of points from the entity's health. If the health of the entity is below 0, kill the entity.
      * Note: If points is negative, then addScore is called.
      * @see addHealthPoints
