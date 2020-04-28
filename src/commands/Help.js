@@ -8,11 +8,7 @@
  * @return {Promise<void>}
  */
 const HelpCommand = async (message, prefix, client, args, serverLanguage) => {
-    let helpMessage;
-
-    if (args[0] !== undefined) {
-        helpMessage = Config.text[serverLanguage].commands.help.commands[args[0]];
-    }
+    let helpMessage = Config.text[serverLanguage].commands.help.commands[args[0]];
 
     if (helpMessage === undefined) {
         helpMessage = Config.text[serverLanguage].commands.help.intro + message.author.username + Config.text[serverLanguage].commands.help.main;
