@@ -1,4 +1,3 @@
-// const Invite = require('./commands/Invite');
 // const Profile = require('./commands/Profile');
 // const Report = require('./commands/Report');
 // const Inventory = require('./commands/Inventory');
@@ -36,7 +35,7 @@ const CommandTable = new Map(
     [
         ["help", require('commands/Help').HelpCommand],
         ["ping", require('commands/Ping').PingCommand],
-        // ["invite", Invite.InviteCommand],
+        ["invite", require('commands/Invite').InviteCommand],
         // ["profile", Profile.ProfileCommand],
         // ["p", Profile.ProfileCommand],
         // ["report", Report.ReportCommand],

@@ -1,16 +1,14 @@
-const Tools = require('../utils/Tools');
-
-let Text
-
 /**
- * Display the ping of the bot and allow user to check if the bot is online
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message
+ * Display the link to invite the bot to another server
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param prefix
+ * @param client
+ * @param args - arguments typed by the user in addition to the command
+ * @param serverLanguage
+ * @return {Promise<void>}
  */
-const inviteCommand = async function (message) {
-    Text = await Tools.chargeText(message);
-    let inviteMessage = Text.commands.invite.main;
-    message.channel.send(inviteMessage);
-
+const InviteCommand = async function (message, prefix, client, args, serverLanguage) {
+    message.channel.send(Config.text[serverLanguage].commands.invite.main);
 };
 
-module.exports.InviteCommand = inviteCommand;
+module.exports.InviteCommand = InviteCommand;
