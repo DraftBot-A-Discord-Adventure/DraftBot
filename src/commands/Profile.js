@@ -1,34 +1,30 @@
-const PlayerManager = require('../classes/PlayerManager');
-const Discord = require("discord.js");
-const DefaultValues = require('data/text/DefaultValues');
-const Tools = require('../utils/Tools');
-
-let Text;
-
 /**
  * Display information about the player that sent the command
- * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param {*} args - arguments typed by the user in addition to the command
+ * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param prefix
+ * @param client
+ * @param args - arguments typed by the user in addition to the command
+ * @param serverLanguage
+ * @return {Promise<void>}
  */
-const profileCommand = async function (message, args, client) {
-    Text = await Tools.chargeText(message);
-    let playerManager = new PlayerManager();
-    let language = await Tools.detectLanguage(message);
-    let player = await playerManager.getCurrentPlayer(message);
-    if (askForAnotherPlayer(args)) {
-        let playerId;
-        player = await getAskedPlayer(playerId, player, playerManager, message, args); //recupération de l'id du joueur demandé
-        if (askedPlayerIsInvalid(player))
-            return message.channel.send(Text.commands.profile.errorMain + "**" + message.author.username + "**" + Text.commands.profile.errorExp)
+const ProfileCommand = async function (message, prefix, client, args, serverLanguage) {
+    let player = await draftbot.repositoryManager.PlayerRepository.getByMessageOrCreate(message);
+
+    if (args[1] !== undefined) {
+        // TODO
+        // let playerId;
+        // player = await getAskedPlayer(playerId, player, playerManager, message, args); //recupération de l'id du joueur demandé
+        // if (askedPlayerIsInvalid(player))
+        //     return message.channel.send(Text.commands.profile.errorMain + "**" + message.author.username + "**" + Text.commands.profile.errorExp)
     }
+
     let numberOfPlayer = await playerManager.getNumberOfPlayers();
     await Tools.seeItemBonus(player)
     let messageProfile = generateProfileMessage(message, player, numberOfPlayer, client, language);
     message.channel.send(messageProfile).then(msg => {
         displayBadges(player, msg);
     });
-
-}
+};
 
 /**
  * Returns a string containing the profile message.
@@ -81,8 +77,6 @@ const generateProfileMessage = function (message, player, numberOfPlayer, client
     return embed;
 }
 
-
-
 /**
  * Allow to recover the asked player if needed
  * @param {*} playerId - The asked id of the player
@@ -115,14 +109,6 @@ function askedPlayerIsInvalid(player) {
 }
 
 /**
- * check if the user ask for its own profile or the one of someone else
- * @param {*} args - The args given by the user that made the command
- */
-function askForAnotherPlayer(args) {
-    return args[1] != undefined;
-}
-
-/**
  * display the badges of the player if he have some
  * @param {*} player - The player that is displayed
  * @param {*} msg - The message that contain the profile of the player
@@ -137,4 +123,4 @@ async function displayBadges(player, msg) {
     }
 }
 
-module.exports.ProfileCommand = profileCommand;
+module.exports.ProfileCommand = ProfileCommand;

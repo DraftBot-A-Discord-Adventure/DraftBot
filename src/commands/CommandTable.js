@@ -1,4 +1,3 @@
-// const Profile = require('./commands/Profile');
 // const Report = require('./commands/Report');
 // const Inventory = require('./commands/Inventory');
 // const Switch = require('./commands/Switch');
@@ -36,8 +35,8 @@ const CommandTable = new Map(
         ["help", require('commands/Help').HelpCommand],
         ["ping", require('commands/Ping').PingCommand],
         ["invite", require('commands/Invite').InviteCommand],
-        // ["profile", Profile.ProfileCommand],
-        // ["p", Profile.ProfileCommand],
+        ["profile", require('commands/Profile').ProfileCommand],
+        ["p", require('commands/Profile').ProfileCommand],
         // ["report", Report.ReportCommand],
         // ["r", Report.ReportCommand],
         ["respawn", require('commands/Respawn').RespawnCommand],
