@@ -89,18 +89,6 @@ class Player extends Entity {
     }
 
     /**
-     * get the username of a player
-     * @param {*} client - The instance of the bot
-     * @returns {String} - The username
-     */
-    getPseudo(client) {
-        if (client.users.get(this.discordId) != null) {
-            return client.users.get(this.discordId).username;
-        }
-        return null;
-    }
-
-    /**
      * Calculate the time difference in minute betwin now and the last time the player has been seen
      * @param {Number} currentTime
      * @returns {Number}

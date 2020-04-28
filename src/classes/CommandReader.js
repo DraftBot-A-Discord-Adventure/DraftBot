@@ -9,10 +9,8 @@ class CommandReader {
     /**
      * This function analyses the passed message and calls the associated function if there is one.
      * @param {*} message - A command posted by an user.
-     * @param {*} client - The bot user in case we have to make him do things
-     * @param {*} talkedRecently - The list of user that has been seen recently
      */
-    async handleMessage(client, message) {
+    async handleMessage(message) {
         let server = await draftbot.repositoryManager.ServerRepository.getByIdOrCreate(message.guild.id);
         let serverPrefix = server.get('prefix');
         let serverLanguage = server.get('language');
@@ -31,10 +29,10 @@ class CommandReader {
             //     return message.channel.send(embed)
             // }
 
-            await this.launchCommand(client, message, serverPrefix, serverLanguage);
+            await this.launchCommand(serverLanguage, serverPrefix, message);
         } else {
-            if (this.getUsedPrefix(message, Config.BOT_OWNER_PREFIX) === Config.BOT_OWNER_PREFIX && message.author.id == Config.BOT_OWNER_ID) {
-                await this.launchCommand(client, message, Config.BOT_OWNER_PREFIX, serverLanguage);
+            if (this.getUsedPrefix(message, Config.BOT_OWNER_PREFIX) === Config.BOT_OWNER_PREFIX && message.author.id === Config.BOT_OWNER_ID) {
+                await this.launchCommand(serverLanguage, Config.BOT_OWNER_PREFIX, message);
             }
         }
     }
@@ -53,18 +51,17 @@ class CommandReader {
      *
      * @param {*} message - A command posted by an user.
      * @param {string} prefix - The current prefix in the message content
-     * @param {*} client - The bot user in case we have to make him do things
      * @param {string} serverLanguage - The language for the current server
      */
-    async launchCommand(client, message, prefix, serverLanguage) {
+    async launchCommand(serverLanguage,prefix, message) {
         let args = this.getCommandWithArgsFromMessage(message, prefix);
         let command = args.shift().toLowerCase();
 
         if (this.commandTable.has(command)) {
-            if (!message.channel.permissionsFor(client.user).serialize().SEND_MESSAGES) {
+            if (!message.channel.permissionsFor(draftbot.client.user).serialize().SEND_MESSAGES) {
                 await message.author.send(Config.text[serverLanguage].error.noSpeakPermission);
             } else {
-                await this.commandTable.get(command)(message, prefix, client, args, serverLanguage);
+                await this.commandTable.get(command)(serverLanguage, message, args);
             }
         }
     }

@@ -69,7 +69,7 @@ draftbot.client.on("message", async (message) => {
   // if (message.guild == null) {
   //   draftbot.commandReader.handlePrivateMessage(message, client, talkedRecently);
   // }
-  await draftbot.commandReader.handleMessage(draftbot.client, message);
+  await draftbot.commandReader.handleMessage(message);
 });
 
 /**

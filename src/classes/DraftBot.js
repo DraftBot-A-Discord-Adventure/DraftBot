@@ -7,6 +7,7 @@ class DraftBot {
     constructor() {
         this.repositoryManager = new RepositoryManager();
         this.commandReader = new CommandReader(this.repositoryManager);
+        this.discord = Discord;
         this.client = new Discord.Client();
     }
 

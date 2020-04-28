@@ -1,14 +1,20 @@
 /**
  * Display information about the player that sent the command
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param prefix
- * @param client
- * @param args - arguments typed by the user in addition to the command
- * @param serverLanguage
+ * @param {string} serverLanguage
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param {[string]} args - arguments typed by the user in addition to the command
  * @return {Promise<void>}
  */
-const ProfileCommand = async function (message, prefix, client, args, serverLanguage) {
+const ProfileCommand = async function (serverLanguage, message, args) {
     let player = await draftbot.repositoryManager.PlayerRepository.getByMessageOrCreate(message);
+    let profilEmbed = await player.profilEmbed(serverLanguage);
+
+    const embed = new draftbot.discord.MessageEmbed()
+        .setColor(Config.embed.color)
+        .setTitle(profilEmbed.shift())
+        .addFields(profilEmbed);
+
+    message.channel.send(embed);
 
     if (args[1] !== undefined) {
         // TODO
@@ -18,12 +24,12 @@ const ProfileCommand = async function (message, prefix, client, args, serverLang
         //     return message.channel.send(Text.commands.profile.errorMain + "**" + message.author.username + "**" + Text.commands.profile.errorExp)
     }
 
-    let numberOfPlayer = await playerManager.getNumberOfPlayers();
-    await Tools.seeItemBonus(player)
-    let messageProfile = generateProfileMessage(message, player, numberOfPlayer, client, language);
-    message.channel.send(messageProfile).then(msg => {
-        displayBadges(player, msg);
-    });
+    // let numberOfPlayer = await playerManager.getNumberOfPlayers();
+    // await Tools.seeItemBonus(player)
+    // let messageProfile = generateProfileMessage(message, player, numberOfPlayer, client, language);
+    // message.channel.send(messageProfile).then(msg => {
+    //     displayBadges(player, msg);
+    // });
 };
 
 /**
@@ -36,33 +42,10 @@ const ProfileCommand = async function (message, prefix, client, args, serverLang
  * @param {String} language - The language the answer has to be displayed in
  */
 const generateProfileMessage = function (message, player, numberOfPlayer, client, language) {
-    const embed = new Discord.RichEmbed();
-    let pseudo = player.getPseudo(client);
-        if(pseudo == null){
-            pseudo = Text.player.unknownPlayer
-        }
-    let playerManager = new PlayerManager();
+
     if (player.getEffect() == ":baby:") {
         return player.getEffect() + Text.commands.profile.main + "**" + pseudo + "**" + Text.commands.profile.notAPlayer;
     }
-    embed.setColor(DefaultValues.embed.color);
-
-    embed.setTitle(player.getEffect() + Text.commands.profile.main + pseudo +
-        Text.commands.profile.level + player.getLevel());
-
-    embed.addField(Text.commands.profile.infos,
-        Text.commands.profile.health + player.getHealth() + Text.commands.profile.separator + player.getMaxHealth() +
-        Text.commands.profile.xp + player.getExperience() + Text.commands.profile.separator + player.getExperienceToLevelUp() +
-        Text.commands.profile.money + player.getMoney(), false);
-
-    embed.addField(Text.commands.profile.stats,
-        Text.commands.profile.statsAttack + player.getAttack() + Text.commands.profile.statsDefense +
-        player.getDefense() + Text.commands.profile.statsSpeed + player.getSpeed()+ Text.commands.profile.statsFightPower + player.getFightPower(), false);
-
-    embed.addField(Text.commands.profile.rankAndScore,
-        Text.commands.profile.rank + player.getRank() + Text.commands.profile.separator + numberOfPlayer +
-        Text.commands.profile.score + player.getScore(), false);
-
 
     if (playerManager.displayTimeLeftProfile(player, message, language) != "") {
         let timeLeftMessage;

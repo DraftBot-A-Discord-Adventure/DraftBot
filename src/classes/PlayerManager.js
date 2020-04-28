@@ -101,19 +101,6 @@ class PlayerManager {
     }
 
     /**
-     * Get the total number of players in the database
-     * @returns {Integer} - The number of players
-     */
-    getNumberOfPlayers() {
-        return sql.get(`SELECT COUNT(*) as count FROM player WHERE score > 100`).then(number => {
-            return number.count
-        }).catch(error => { //there is no database
-            console.error(error)
-            return 0;
-        })
-    }
-
-    /**
      * Get the total number of player in the database that are on the idList given
      * @param {*} idList the list of id of the users of a server
      */

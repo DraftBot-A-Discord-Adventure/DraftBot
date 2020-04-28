@@ -1,13 +1,11 @@
 /**
  * Allow a player who is dead to continue playing
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param prefix
- * @param client
- * @param args - arguments typed by the user in addition to the command
- * @param serverLanguage
+ * @param {string} serverLanguage
+ * @param {*} message - The message that caused the function to be called. Used to retrieve the author of the message.
+ * @param {[string]} args - arguments typed by the user in addition to the command
  * @return {Promise<void>}
  */
-const RespawnCommand = async (message, prefix, client, args, serverLanguage) => {
+const RespawnCommand = async (serverLanguage, message, args) => {
     let player = await draftbot.repositoryManager.PlayerRepository.getByMessageOrCreate(message);
 
     if (player.get('health') !== 0) {
