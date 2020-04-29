@@ -112,6 +112,12 @@ class PlayerRepository extends RepositoryAbstract {
             .catch(console.error);
     }
 
+    // TODO
+    async resetWeeklyScoreAndRank() {
+        await this.sql.run('UPDATE player SET weeklyScore = ?', 0).
+        catch(console.error);
+    }
+
 }
 
 module.exports = PlayerRepository;

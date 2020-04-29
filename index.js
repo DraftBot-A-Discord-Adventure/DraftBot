@@ -1,8 +1,8 @@
-Config = require("utils/Config");
+Config = require('utils/Config');
 Tools = require('utils/Tools');
-require("colors");
-const Figlet = require("figlet");
-const DraftBot = require("class/DraftBot");
+require('colors');
+const Figlet = require('figlet');
+const DraftBot = require('core/DraftBot');
 
 // const ServerManager = require('src/classes/ServerManager');
 // const PlayerManager = require('./src/classes/PlayerManager');
@@ -17,14 +17,20 @@ let draftbot = new DraftBot();
 /**
  * Will be executed whenever the bot has started
  */
-draftbot.client.on("ready", async () => {
-
-  await draftbot.repositoryManager.checkDatabaseMigrations();
+draftbot.client.on('ready', async () => {
 
   // draftbot.checkEasterEggsFile();
 
-  draftbot.displayConsoleChannel(Config.startStatus + Config.version);
-  draftbot.setActivity();
+  await draftbot.client.guilds.cache.get(Config.MAIN_SERVER_ID)
+      .channels
+      .cache
+      .get(Config.CONSOLE_CHANNEL_ID)
+      .send(Config.startStatus + Config.version)
+      .catch(console.error);
+
+  await draftbot.client.user
+      .setActivity('❓ - Dm me for Help !')
+      .catch(console.error);
 
   // //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
   // setInterval(async function () { // Set interval for checking
@@ -36,7 +42,7 @@ draftbot.client.on("ready", async () => {
 /**
  * Will be executed each time the bot join a new server
  */
-draftbot.client.on("guildCreate", guilde => {
+draftbot.client.on('guildCreate', guilde => {
   // let string = "";
   // let serverManager = new ServerManager();
   // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
@@ -52,7 +58,7 @@ draftbot.client.on("guildCreate", guilde => {
 /**
  * Will be executed each time the bot leave a server
  */
-draftbot.client.on("guildDelete", guilde => {
+draftbot.client.on('guildDelete', guilde => {
   // let string = "";
   // let serverManager = new ServerManager();
   // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
@@ -71,18 +77,18 @@ onDiscordMessage = async message => {
   // if (message.guild == null) {
   //   draftbot.commandReader.handlePrivateMessage(message, client, talkedRecently);
   // }
-  await draftbot.commandReader.handleMessage(message);
+  await draftbot.command.handleMessage(message);
 };
 
 /**
  * Listener to see message
  */
-draftbot.client.on("message", onDiscordMessage);
+draftbot.client.on('message', onDiscordMessage);
 
 /**
  * Will be executed each time a reaction is added to a message
  */
-draftbot.client.on("messageReactionAdd", async (reaction) => {
+draftbot.client.on('messageReactionAdd', async (reaction) => {
   //check if the user is a bot before doing anything
   // if (reaction.users.last().bot) return;
   //
@@ -95,8 +101,6 @@ draftbot.client.on("messageReactionAdd", async (reaction) => {
   //   }).catch(err => { });
   // }
 });
-
-draftbot.client.login(Config.DISCORD_CLIENT_TOKEN);
 
 global.Config = Config;
 global.Tools = Tools;

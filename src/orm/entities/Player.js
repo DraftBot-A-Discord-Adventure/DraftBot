@@ -31,7 +31,7 @@ class Player extends Entity {
      */
     async profilEmbed(language) {
         this.setPseudoByLanguage(language);
-        let numberOfPlayer = await draftbot.repositoryManager.PlayerRepository.getNumberOfPlayers();
+        let numberOfPlayer = await draftbot.getRepository("player").getNumberOfPlayers();
 
         let result = [];
         result.push(this.get('effect') + Config.text[language].commands.profile.main + this.get('pseudo') + Config.text[language].commands.profile.level + this.get('level'));

@@ -14,7 +14,7 @@
     "draftbot": ".",
     "config": "./config",
     "data": "./data",
-    "class": "./src/classes",
+    "core": "./src/core",
     "commands": "./src/commands",
     "utils": "./src/utils",
     "orm": "./src/orm",

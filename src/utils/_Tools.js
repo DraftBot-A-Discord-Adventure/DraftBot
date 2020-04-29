@@ -1,7 +1,7 @@
 const DefaultValues = require('data/text/DefaultValues');
-const ServerManager = require('../classes/ServerManager');
+const ServerManager = require('../core/ServerManager');
 const Config = require('../utils/Config');
-const InventoryManager = require('../classes/InventoryManager');
+const InventoryManager = require('../core/InventoryManager');
 
 /**
  * convert a number of minutes in a number of miliseconds
