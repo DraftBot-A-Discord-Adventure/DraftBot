@@ -22,6 +22,13 @@ class DraftBot {
     return this.repositories.get(repository);
   }
 
+  /**
+   * @return {Command}
+   */
+  getCommand() {
+    return this.command;
+  }
+
   // TODO 2.1 Question checkEasterEggsFile should be implemented but maybe not here
 
   /**

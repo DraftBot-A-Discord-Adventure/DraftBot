@@ -2,6 +2,7 @@ class Command {
 
   async init() {
     this.commands = new Map();
+    this.players = new Map();
     await (require('fs')).promises.readdir('src/commands').then(files => {
       files.forEach(file => {
         if (!file.endsWith('.js')) return;
@@ -16,6 +17,36 @@ class Command {
 
       });
     }).catch(console.error);
+  }
+
+  /**
+   * @param {String} id
+   */
+  hasPlayer(id) {
+    return this.players.has(id);
+  }
+
+  /**
+   * @param {String} id
+   * @return {String}
+   */
+  getPlayer(id) {
+    return this.players.get(id);
+  }
+
+  /**
+   * @param {String} id
+   * @param {String} context
+   */
+  addPlayer(id, context) {
+    this.players.set(id, context);
+  }
+
+  /**
+   * @param {String} id
+   */
+  removePlayer(id) {
+    this.players.delete(id);
   }
 
   /**
@@ -35,8 +66,13 @@ class Command {
             ':x: Le Draftbot est actuellement en maintenance: Pour plus d\'infos, visitez le discord du bot https://discord.gg/USnCxg4 \n\n :flag_um: The bot is being updated please be patient :) ');
       }
 
+      if (this.hasPlayer(message.author.id)) {
+        // TODO 2.0 Get text translationByContext
+        let context = this.getPlayer(message.author.id);
+        return message.channel.send(context);
+      }
+
       // TODO
-      // this.traceMessage(message, client);
       // const diffMinutes = getMinutesBeforeReset();
       // if (resetIsNow(diffMinutes)) {
       //     const embed = await generateResetTopWeekEmbed(message);

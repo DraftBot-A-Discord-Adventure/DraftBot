@@ -1,13 +1,13 @@
 /**
  * Displays information about the profile of the player who sent the command
- * @param {string} serverLanguage -
- * @param {module:"discord.js".Message} message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param {[string]} [args=undefined] - arguments typed by the user in addition to the command
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ProfileCommand = async function(serverLanguage, message, args) {
+const ProfileCommand = async function(language, message, args) {
   let player = await draftbot.getRepository('player').getByMessageOrCreate(
       message);
-  let profilEmbed = await player.profilEmbed(serverLanguage);
+  let profilEmbed = await player.profilEmbed(language);
 
   const embed = new draftbot.discord.MessageEmbed()
       .setColor(Config.embed.color)
