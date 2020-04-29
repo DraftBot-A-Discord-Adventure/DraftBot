@@ -22,48 +22,6 @@ const convertHoursInMiliseconds = function (hours) {
     return this.convertMinutesInMiliseconds(hours * 60);
 };
 
-
-/**
- * convert a number of milliseconds in a number of minutes
- * @param miliseconds - The number of milliseconds
- * @returns {Number} - The number of minutes
- */
-const convertMillisecondsInMinutes = function (milliseconds) {
-    return Math.round(milliseconds / 60000);
-};
-
-
-/**
- * generate a random number
- * @param min - The minimal Value
- * @param max - The maximal Value
- * @returns {Number} - A random Number
- */
-const generateRandomNumber = function (min, max) {
-    return Math.round(Math.random() * (max - min) + min);
-};
-
-
-/**
- * return a string containing a proper display of a duration
- * @param {Number} minutes - The number of minutes to display
- * @returns {String} - The  string to display
- */
-const displayDuration = function (minutes) {
-    let heures = 0;
-    let display = "";
-    while (minutes >= 60) {
-        heures++;
-        minutes -= 60;
-    }
-    if (heures > 0)
-        display += heures + " H ";
-    display += minutes + " Min";
-    if (heures == 0 && minutes == 0)
-        display = "Quelques secondes...";
-    return display
-};
-
 /**
  * Allow to get the language the bot has to respond with
  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.

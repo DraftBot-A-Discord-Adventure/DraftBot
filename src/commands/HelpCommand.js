@@ -8,14 +8,14 @@ const HelpCommand = async (language, message, args) => {
   let helpMessage = Config.text[language].commands.help.commands[args[0]];
 
   if (helpMessage === undefined) {
-    helpMessage = Config.text[language].commands.help.intro + message.author.username +
-      Config.text[language].commands.help.main;
+    helpMessage = Config.text[language].commands.help.intro +
+        message.author.username + Config.text[language].commands.help.main;
   }
 
   if (draftbot.client.guilds.cache.get(Config.MAIN_SERVER_ID)
-    .members
-    .cache
-    .find(val => val.id === message.author.id) === undefined) {
+      .members
+      .cache
+      .find(val => val.id === message.author.id) === undefined) {
     await message.author.send(Config.text[language].commands.help.mp);
   }
 
@@ -23,5 +23,5 @@ const HelpCommand = async (language, message, args) => {
 };
 
 module.exports = {
-  "help": HelpCommand
+  'help': HelpCommand,
 };

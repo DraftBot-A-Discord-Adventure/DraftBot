@@ -88,19 +88,6 @@ class Player extends Entity {
         this.lastReport = parseInt(time) + parseInt(Tools.convertMinutesInMiliseconds(malusTime)) + parseInt(realMalus);
     }
 
-    /**
-     * Calculate the time difference in minute betwin now and the last time the player has been seen
-     * @param {Number} currentTime
-     * @returns {Number}
-     */
-    calcTime(currentTime) {
-        let time = Math.floor((currentTime - this.lastReport) / (1000 * 60))
-        if (time > DefaultValues.report.timeLimit) {
-            time = DefaultValues.report.timeLimit;
-        }
-        return parseInt(time)
-    }
-
 }
 
 module.exports = Player;

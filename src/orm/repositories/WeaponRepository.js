@@ -5,10 +5,10 @@ class WeaponRepository extends RepositoryAbstract {
 
     /**
      * Return a weapon by id
-     * @param {number} id
+     * @param {number|String} id
      * @return {Promise<Weapon>}
      */
-    async getWeaponById(id) {
+    async getById(id) {
         return new Weapon(
             id,
             this.text.items.weapon[id].rareness,
@@ -22,7 +22,7 @@ class WeaponRepository extends RepositoryAbstract {
      * Choose a random weapon in the existing ones. (take care of the rareness)
      * @return {Promise<Weapon>}
      */
-    async getRandomWeaponWithRareness() {
+    async getRandomWithRareness() {
         const desiredRareness = Tools.generateRandomRareness();
         const possibleWeapons = Object.entries(this.text.items.weapon).filter(key => parseInt(this.text.items.weapon[key[0]].rareness) === desiredRareness);
         const id = possibleWeapons[Math.floor(Math.random() * possibleWeapons.length)][0];
@@ -40,8 +40,8 @@ class WeaponRepository extends RepositoryAbstract {
      * Choose a weapon totally randomly without taking care of the rareness
      * @return {Promise<Weapon>}
      */
-    async getRandomWeapon() {
-        const id = Math.round(Math.random() * (Config.raritiesGenerator.numberOfWeapon - 1)) + 1; // TODO Config.raritiesGenerator.numberOfWeapon peut etre remplacé par length - 1 du nbr weapon ?
+    async getRandom() {
+        const id = Math.round(Math.random() * (Config.raritiesGenerator.numberOfWeapon - 1)) + 1;
         return new Weapon(
             id,
             this.text.items.weapon[id].rareness,

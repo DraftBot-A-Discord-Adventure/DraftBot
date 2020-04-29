@@ -1,5 +1,5 @@
-Config = require('utils/Config');
-Tools = require('utils/Tools');
+Config = require('core/Config');
+Tools = require('core/Tools');
 require('colors');
 const Figlet = require('figlet');
 const DraftBot = require('core/DraftBot');

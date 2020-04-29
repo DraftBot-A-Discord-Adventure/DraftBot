@@ -56,27 +56,6 @@ class PlayerManager {
 
 
     /**
-     * Allow to set the state of a player to occupied in order to ensure he dont cheat
-     * @param {*} player - The player that has to be saved
-     */
-    setPlayerAsOccupied(player) {
-        console.log("Updating player ...");
-        sql.run(`UPDATE entity SET effect = ":clock10:" WHERE id = ?`, [player.discordId]).catch(console.error);
-        console.log("Player updated !");
-    }
-
-    /**
-     * Allow to set the state of a player to normal in order to allow him to play
-     * @param {*} player - The player that has to be saved
-     */
-    setPlayerAsUnOccupied(player) {
-        console.log("Updating player ...");
-        sql.run(`UPDATE entity SET effect = ":smiley:" WHERE id = ?`, [player.discordId]).catch(console.error);
-        console.log("Player updated !");
-    }
-
-
-    /**
      * Allow to save the current state of a player in the database
      * @param {*} player - The player that has to be saved
      */
@@ -126,79 +105,6 @@ class PlayerManager {
             console.error(error)
             return 0;
         })
-    }
-
-
-    /**
-     * check if the player is healthy or not. if the player is sick, display an error message
-     * @param {*} message - The message that caused the function to be called. Used to retrieve the createdTimestamp
-     * @param {*} player - The player that has to be tested
-     * @param {String} allowedStates - A string containig the allowed states
-     * @param {String} username - An optionnal value that allow to display a custom username
-     * @param {String} language - The language the answer has to be displayed in
-     * @returns {boolean} - True is the player is in good health
-     */
-    checkState(player, message, allowedStates, language, username) {
-        Text = require('../text/' + language);
-        let result = false;
-        let rejectMessage;
-        if (allowedStates.includes(player.getEffect())) {
-            result = true; // le joueur est dans un état authorisé
-        } else {
-            if (player.getEffect() != ":clock10:" && player.getEffect() != ":skull:" && message.createdTimestamp > player.lastReport) {
-                result = true;
-            } else {
-                if (username == undefined) {
-                    username = message.author.username;
-                }
-                rejectMessage = player.getEffect() + Text.playerManager.intro + username + Text.playerManager.errorMain[player.getEffect()];
-                if (message.createdTimestamp < player.lastReport)
-                    rejectMessage += this.displayTimeLeft(player, message, language)
-                message.channel.send(rejectMessage);
-            }
-        }
-        return result
-    }
-
-
-    /**
-     * display the time a player have before beeing able to play again
-     * @param {*} player - The player that has to be tested
-     * @param {*} message - The message that caused the function to be called. Used to retrieve the createdTimestamp
-     * @param {String} language - The language the answer has to be displayed in
-     * @returns {String} - A string vontaining the duration
-     */
-    displayTimeLeft(player, message, language) {
-        Text = require('../text/' + language);
-        if (!":baby::smiley::clock10::skull:".includes(player.getEffect())) { //these states dont have a duration to display
-            if (message.createdTimestamp < player.lastReport) {
-                return Text.playerManager.timeLeft + Tools.displayDuration(Tools.convertMillisecondsInMinutes(player.lastReport - message.createdTimestamp)) + Text.playerManager.outro;
-            } else {
-                return Text.playerManager.noTimeLeft;
-            }
-        } else {
-            return "";
-        }
-    }
-
-    /**
-     * display the time a player have before beeing able to play again
-     * @param {*} player - The player that has to be tested
-     * @param {*} message - The message that caused the function to be called. Used to retrieve the createdTimestamp
-     * @param {String} language - The language the answer has to be displayed in
-     * @returns {String} - A string vontaining the duration
-     */
-    displayTimeLeftProfile(player, message, language) {
-        Text = require('../text/' + language);
-        if (!":baby::smiley::clock10::skull:".includes(player.getEffect())) { //these states dont have a duration to display
-            if (message.createdTimestamp < player.lastReport) {
-                return Tools.displayDuration(Tools.convertMillisecondsInMinutes(player.lastReport - message.createdTimestamp))
-            } else {
-                return Text.playerManager.noTimeLeft;
-            }
-        } else {
-            return "";
-        }
     }
 
     /**

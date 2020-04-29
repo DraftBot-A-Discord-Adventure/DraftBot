@@ -13,6 +13,7 @@ class Repository {
     // TODO 2.1 Meilleur organisation des fichiers data
     this.text = {};
     this.text.items = require('data/items/Values.json');
+    this.text.events = require('data/text/Events.json');
     await fs.promises.readdir('data/items').then(files => {
       files.forEach(file => {
         if (!file.endsWith('.json')) return;

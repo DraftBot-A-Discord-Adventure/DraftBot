@@ -21,7 +21,7 @@ class ItemAbstract extends EntityAbstract {
      * @return {string}
      */
     getTranslation(language) {
-        return this.translations[language]; // TODO Question peux etre monter cette méthode directement dans entity, a voir ...
+        return this.translations[language];
     }
 
     /**
@@ -29,7 +29,7 @@ class ItemAbstract extends EntityAbstract {
      * @returns {string}
      */
     getEmoji() {
-        return this.getTranslation('en').split(" ")[0]; // TODO peux etre monter cette méthode directement dans entity, a voir ...
+        return this.getTranslation('en').split(" ")[0];
     }
 
     /**

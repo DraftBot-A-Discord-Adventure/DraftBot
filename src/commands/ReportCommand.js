@@ -8,61 +8,66 @@ const ReportCommand = async function(language, message, args) {
   let player = await draftbot.getRepository('player').getByMessageOrCreate(
       message);
 
-  if (playerManager.checkState(player, message, ':baby::smiley:', language)) {  //check if the player is not dead or sick
-    //if (true) {
-    playerManager.setPlayerAsOccupied(player);
+  // If player has a running Command that he need to terminate before
+  if (draftbot.getCommand().hasPlayer(message.author.id)) {
+    // TODO 2.0 Get text translationByContext
+    let context = this.getPlayer(message.author.id);
+    return message.channel.send(context);
+  }
 
-    if (player.getScore() == 0) {
-      generateEvent(message, eventManager, 0, playerManager, player,
-          DefaultValues.report.startMoney, DefaultValues.report.startScore,
-          language, Text);
+  // If player can use this command, because the player can be sick or dead
+  if (await player.checkEffect(language, message)) {
+    player.set('effect', ':clock10:');
+    player = await draftbot.getRepository('player').update(player);
+
+    // Fire special beginning adventure event
+    if (player.get('score') === 0) {
+      let event = await draftbot.getRepository('event').getById(0);
+      let eventDisplayed = await message.channel.send(
+          Config.text[language].commands.report.reportStart + player.get('pseudo') + event.getTranslation(language))
+          .then(async msg => {
+            let emojis = event.get('emojis');
+            for (let react in emojis) {
+              if (emojis.hasOwnProperty(react)) {
+                await msg.react(emojis[react]);
+              }
+            }
+            return msg;
+          });
+
+      // TODO Continue refactor
+      console.log(eventDisplayed);
       return;
     }
 
-    let time = player.calcTime(message.createdTimestamp);
-    //time = 1000; // in testing purpose : Remove for realease
-
-    let pointsGained = calculatePoints(player, time);
-    let moneyChange = calculateMoney(player, time);
-
-    let eventNumber = eventManager.chooseARandomEvent();
-    //eventNumber = 39; //allow to select a specific event in testing purpose
-
-    switch (true) {
-      case time < DefaultValues.report.minimalTime:
-        displayErrorReport(message, Text);
-        playerManager.setPlayerAsUnOccupied(player);
-        break;
-
-      case time <= DefaultValues.report.maximalTime &&
-      Math.round(Math.random() * DefaultValues.report.maximalTime) > time:
-        let possibility = loadNothingToSayPossibility(eventManager);
-        execPossibility(message, possibility, playerManager, player,
-            moneyChange, pointsGained, language, Text);
-        break;
-
-      default:
-        generateEvent(message, eventManager, eventNumber, playerManager, player,
-            moneyChange, pointsGained, language, Text);
+    let time = Math.floor((message.createdTimestamp - player.get('lastReport')) / (1000 * 60));
+    if (time > parseInt(Config.report.timeLimit)) {
+      time = parseInt(Config.report.timeLimit);
     }
+
+    if (time < Config.report.minimalTime) {
+      await message.channel.send(Config.text[language].commands.report.reportStart + player.get('pseudo') + Config.text[language].commands.report.noReport);
+      player.set('effect', ':smiley:');
+      await draftbot.getRepository('player').update(player);
+      return;
+    }
+
+    let pointsGained = time + Math.round(Math.random() * (time / 10 + player.get('level')));
+    let moneyGained = Math.round(time / 10 + Math.round(Math.random() * (time / 10 + player.get('level') / 5)));
+
+    if (time <= parseInt(Config.report.maximalTime) && Math.round(Math.random() * parseInt(Config.report.maximalTime)) > time) {
+      let possibility = await draftbot.getRepository('possibility').getRandomByIdAndEmoji('report', 'nothingToSay');
+
+      console.log(possibility);
+
+      // execPossibility(message, possibility, playerManager, player, moneyChange, pointsGained, language, Text);
+      return;
+    }
+
+    let event = await draftbot.getRepository('event').getRandom();
+
+    await message.channel.send('YES');
   }
-};
-
-/**
- * display an event to the player
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param {*} event - The event that has to be displayed
- * @returns {*} - The message object that has been sent by the bot
- */
-const displayEvent = function(message, event, Text) {
-  return message.channel.send(
-      Text.commands.report.reportStart + message.author.username +
-      Text.events[event.id]).then(async msg => {
-    for (reac in event.emojis) {
-      await msg.react(event.emojis[reac]);
-    }
-    return msg;
-  });
 };
 
 /**
@@ -97,36 +102,6 @@ const execPossibility = function(
 };
 
 /**
- * Calculate the amount of point a player will win during the event
- * @param {*} player - The player that is reacting to the event
- * @param {Number} time - The time elapsed since the previous report
- * @returns {Number} - The amount of points
- */
-const calculatePoints = function(player, time) {
-  return time + Math.round(
-      Math.random() * (
-          time / 10 + player.getLevel()
-      ),
-  );
-};
-
-/**
- * Calculate the amount of money a player will or loose win during the event
- * @param {*} player - The player that is reacting to the event
- * @param {Number} time - The time elapsed since the previous report
- * @returns {Number} - The amount of money
- */
-const calculateMoney = function(player, time) {
-  return Math.round(
-      time / 10 + Math.round(
-      Math.random() * (
-          time / 10 + player.getLevel() / 5
-      ),
-      ),
-  );
-};
-
-/**
  * Check if the reaction recieved is corresponding to a reaction of the event
  * @param {*} event - The event that is related with the reaction
  * @param {*} reaction - The reaction recieved
@@ -152,17 +127,6 @@ function calculateMoneychange(moneyChange, possibility) {
     moneyChange = Math.round(possibility.moneyGained / 2);
   }
   return moneyChange;
-}
-
-/**
- * allow to load the possibility to display if nothing happend since the previous report
- * @param {*} eventManager - The event manager class
- */
-function loadNothingToSayPossibility(eventManager) {
-  let possibilityNumber = eventManager.chooseARandomPossibility('report',
-      'nothingToSay');
-  return eventManager.loadPossibility('report', 'nothingToSay',
-      possibilityNumber);
 }
 
 /**
@@ -308,16 +272,6 @@ function launchAdventure(
   player.setEffect(possibility.newEffect);
 
   playerManager.updatePlayer(player);
-}
-
-/**
- * display an error to the user if he has not waiting more that 1 hour
- * @param {*} message - The message that cause the command to be called
- */
-function displayErrorReport(message, Text) {
-  message.channel.send(
-      Text.commands.report.reportStart + message.author.username +
-      Text.commands.report.noReport);
 }
 
 module.exports = {

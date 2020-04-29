@@ -66,12 +66,6 @@ class Command {
             ':x: Le Draftbot est actuellement en maintenance: Pour plus d\'infos, visitez le discord du bot https://discord.gg/USnCxg4 \n\n :flag_um: The bot is being updated please be patient :) ');
       }
 
-      if (this.hasPlayer(message.author.id)) {
-        // TODO 2.0 Get text translationByContext
-        let context = this.getPlayer(message.author.id);
-        return message.channel.send(context);
-      }
-
       // TODO
       // const diffMinutes = getMinutesBeforeReset();
       // if (resetIsNow(diffMinutes)) {
@@ -112,7 +106,13 @@ class Command {
 
     if (this.commands.has(command)) {
       if (!message.channel.permissionsFor(draftbot.client.user)
-          .serialize().SEND_MESSAGES) {
+          .serialize().SEND_MESSAGES ||
+          !message.channel.permissionsFor(draftbot.client.user)
+              .serialize().EMBED_LINKS ||
+          !message.channel.permissionsFor(draftbot.client.user)
+              .serialize().ADD_REACTIONS ||
+          !message.channel.permissionsFor(draftbot.client.user)
+              .serialize().USE_EXTERNAL_EMOJIS) {
         await message.author.send(
             Config.text[serverLanguage].error.noSpeakPermission);
       } else {

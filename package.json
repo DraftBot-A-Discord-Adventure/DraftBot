@@ -17,7 +17,6 @@
     "core": "./src/core",
     "commands": "./src/commands",
     "utils": "./src/utils",
-    "orm": "./src/orm",
     "entities": "./src/orm/entities",
     "repositories": "./src/orm/repositories"
   },
