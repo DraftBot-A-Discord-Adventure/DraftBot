@@ -13,7 +13,8 @@ class DraftBot {
         files: [
           'config/app.json',
           'ressources/text/console.json',
-          'draftbot/package.json'],
+          'draftbot/package.json',
+        ],
       });
 
       await this.repository.init();

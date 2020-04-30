@@ -9,15 +9,17 @@
   "scripts": {
     "start": "node index.js",
     "text": "node src/shell/index.js",
-    "postinstall": "link-module-alias"
+    "postinstall": "link-module-alias",
+    "preinstall": "which link-module-alias && link-module-alias clean || true"
   },
   "_moduleAliases": {
     "draftbot": ".",
     "config": "./config",
     "core": "./src/core",
     "commands": "./src/commands",
-    "entities": "./src/orm/entities",
-    "repositories": "./src/orm/repositories",
+    "datasources": "./src/core/orm/datasources",
+    "entities": "./src/core/orm/entities",
+    "repositories": "./src/core/orm/repositories",
     "ressources": "./ressources",
     "data": "./data"
   },

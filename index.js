@@ -4,6 +4,8 @@ require('colors');
 const Figlet = require('figlet');
 const draftbot = new (require('core/DraftBot'))();
 
+new (require('repositories/RepositoryAbstract'))();
+
 /**
  * Will be executed whenever the bot has started
  */
