@@ -3,13 +3,13 @@
 		"fr": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
 		"en": " : ** :dog: In front of you, a dog arrives, and circles you. He seems to want you to follow him!\n\n:dog2: Follow the dog.\n:runner: Continue without worrying about the dog.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*"
 	},
-	"reactions": [
-		"🐕",
-		"🏃"
-	],
 	"possibilities": {
 		"🐕": [
 			{
+				"translations": {
+					"fr": "** | :dog2: Vous perdez la trace du chien au bout de quelques minutes, il allait trop vite !",
+					"en": "** | :dog2: You lose track of the dog after a few minutes, he was going too fast!"
+				},
 				"timeLost": 20,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -18,6 +18,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | :dog2: Vous perdez la trace du chien au bout de quelques minutes à côté d'un arbre. En regardant autour de vous vous découvrez pleins de petites pièces disséminées un peu partout !",
+					"en": "** | :dog2: You lose track of the dog after a few minutes next to a tree. Looking around you, you discover a lot of small coins scattered all over the place!"
+				},
 				"timeLost": 0,
 				"healthPointsChange": 0,
 				"newEffect": ":smiley:",
@@ -28,6 +32,10 @@
 		],
 		"🏃": [
 			{
+				"translations": {
+					"fr": "** | :runner: Après 15 minutes de poursuite vous parvenez à semer le chien, il ne semblait pas très amical !",
+					"en": "** | :runner: After 15 minutes of chasing you manage to lose the dog, he didn't seem very friendly!"
+				},
 				"timeLost": 15,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -36,6 +44,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | :runner: En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer ! :head_bandage:",
+					"en": "** | :runner: When you try fleeing, you suddenly fall into a ditch. The injury is serious... You'll have to get better before you continue! :head_bandage:"
+				},
 				"timeLost": 0,
 				"healthPointsChange": -15,
 				"newEffect": ":head_bandage:",
@@ -46,6 +58,10 @@
 		],
 		"end": [
 			{
+				"translations": {
+					"fr": "** | :dog: Vous avez pris la décision de ne pas bouger, cela n'a pas du plaire au chien puisque celui-ci vous a mordu avant de s'enfuir !",
+					"en": "** :dog: You made the decision to not move, the dog must've not liked it because it bit you before running away!"
+				},
 				"timeLost": 0,
 				"healthPointsChange": -10,
 				"newEffect": ":smiley:",

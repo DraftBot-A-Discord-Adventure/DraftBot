@@ -4,20 +4,17 @@ require('colors');
 const Figlet = require('figlet');
 const DraftBot = require('core/DraftBot');
 
-// const ServerManager = require('src/classes/ServerManager');
-// const PlayerManager = require('./src/classes/PlayerManager');
-
-Figlet(Config.reboot, (err, data) => {
-  console.log(data.red);
-  console.log(Config.br.grey);
-});
-
 let draftbot = new DraftBot();
 
 /**
  * Will be executed whenever the bot has started
  */
 draftbot.client.on('ready', async () => {
+
+  Figlet(Config.reboot, (err, data) => {
+    console.log(data.red);
+    console.log(Config.br.grey);
+  });
 
   // draftbot.checkEasterEggsFile();
 
@@ -75,7 +72,10 @@ draftbot.client.on('guildDelete', guilde => {
 onDiscordMessage = async message => {
   if (message.author.bot) return;
 
-  const event = await draftbot.getRepository('event').getRandom();
+  const event = await draftbot.getRepository('armor').getById(0);
+
+  console.log(event);
+  return;
 
   const embed = new draftbot.discord.MessageEmbed()
       .setColor(Config.embed.color)

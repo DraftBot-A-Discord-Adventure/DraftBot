@@ -6,33 +6,19 @@ class Repository {
 
   async init() {
     this.sql = await sqlite.open({
-      filename: 'data/database/database.sqlite',
+      filename: 'database/database.sqlite',
       driver: sqlite3.cached.Database,
     });
 
-    // TODO 2.1 Meilleur organisation des fichiers data
-    this.text = {};
-    this.text.items = require('data/items/Values.json');
-    this.text.events = require('data/text/Events.json');
-    await fs.promises.readdir('data/items').then(files => {
-      files.forEach(file => {
-        if (!file.endsWith('.json')) return;
-        if (file.includes('Values.json')) return;
+    this.text = {
+      events: {},
+      weapons: {},
+      armors: {},
+      potions: {},
+      objects: {},
+    };
+    await this.loadFiles();
 
-        let language = file.split('.')[0];
-        let fileContent = require('data/items/' + file);
-
-        Object.entries(fileContent).forEach(entry => {
-          Object.entries(entry[1]).forEach(subEntry => {
-            if (this.text.items[entry[0]][subEntry[0]].translations ===
-                undefined) {
-              this.text.items[entry[0]][subEntry[0]].translations = {};
-            }
-            this.text.items[entry[0]][subEntry[0]].translations[language] = subEntry[1];
-          });
-        });
-      });
-    }).catch(console.error);
     await fs.promises.readdir('src/orm/repositories').then(files => {
       files.forEach(file => {
         if (!file.endsWith('.js')) return;
@@ -40,8 +26,8 @@ class Repository {
         let repositoryName = file.split('.')[0];
         draftbot.repositories.set(
             repositoryName.split('Repository')[0].toLowerCase(),
-            new (require(`repositories/${repositoryName}`))(this.sql,
-                this.text));
+            new (require(`repositories/${repositoryName}`))(this.sql, this.text),
+        );
       });
     }).catch(console.error);
 
@@ -50,11 +36,26 @@ class Repository {
   }
 
   /**
+   * @return {Promise<void>}
+   */
+  async loadFiles() {
+    const folders = await Object.keys(this.text);
+    for (const folder of folders) {
+      let files = await fs.promises.readdir(`ressources/text/${folder}`);
+      for (const file of files) {
+        if (!file.endsWith('.json')) continue;
+        let fileName = file.split('.')[0];
+        this.text[folder][fileName] = (require(`text/${folder}/${file}`));
+      }
+    }
+  }
+
+  /**
    * This function analyses the passed database and check if it is valid.
    */
   async checkDatabaseMigrations() {
     await this.sql.migrate({
-      migrationsPath: 'data/migrations',
+      migrationsPath: 'database/migrations',
     }).catch(console.error);
   }
 

@@ -9,12 +9,15 @@ class ArmorRepository extends RepositoryAbstract {
      * @return {Promise<Armor>}
      */
     async getById(id) {
+
+        console.log(this.text.armors[0]);
+
         return new Armor(
             id,
-            this.text.items.armor[id].rareness,
-            this.text.items.armor[id].power,
-            this.text.items.armor[id].translations,
-            this.text.items.effect[this.text.items.armor[id].rareness][this.text.items.armor[id].power]
+            this.text.armors[id].rareness,
+            this.text.armors[id].power,
+            this.text.armors[id].translations,
+            0 //this.text.items.effect[this.text.items.armor[id].rareness][this.text.items.armor[id].power]
         );
     }
 

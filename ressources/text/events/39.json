@@ -3,14 +3,13 @@
 		"fr": " : ** :bust_in_silhouette: Durant votre périple vous arrivez dans une ville en bord de mer. Vous faites là-bas la rencontre d'un homme, disant s'appeler Price et être mercenaire. \n\n:person_walking: Le payer pour vous escorter jusqu'à votre prochaine destination\n:meat_on_bone: Faire connaissance autour d'un bon repas\n:money_mouth: Tenter de lui voler de l'argent\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
 		"en": " : ** :bust_in_silhouette: During your journey you arrive in a seaside town. There you meet a man, who says that his name is Price and that he is a mercenary.\n\n:person_walking: Pay him to accompany you to your next destination\n:meat_on_bone: Get to know each other over a good meal\n:money_mouth: Try to steal money from him\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
 	},
-	"reactions": [
-		"🚶",
-		"🍖",
-		"🤑"
-	],
 	"possibilities": {
 		"🚶": [
 			{
+				"translations": {
+					"fr": "** | 🚶 Contre un peu d'argent, il accepte de vous accompagner. Vous partez donc, et peu de temps plus tard, vous tombez sur une rutilante épée plantée dans un rocher. Vous tentez de la sortir, mais vos efforts ne s'avèrent pas concluants. Price essaie à son tour, et arrive à déloger l'arme de sa carapace pierreuse. Sachant qu'il ne serait pas tombé dessus sans vous, il vous donne de l'argent en remerciement, bien plus que ce que vous l'aviez payé. Le reste du voyage se déroulant sans histoire, vous vous séparez après quelques dizaines de kilomètres.",
+					"en": "** | 🚶 For a little money, he agrees to come with you.  You leave, and shortly afterwards you come across a shiny sword stuck within a rock. You try to pull it out, but you aren't successful. Price tries too, and he manages to dislodge the weapon from its stony shell. Knowing that he wouldn't have gotten it without you, he gives you much more money than you paid him as a thank you. The rest of the trip being uneventful, you split up after a few days."
+				},
 				"timeLost": 0,
 				"healthPointsChange": 0,
 				"newEffect": ":smiley:",
@@ -19,6 +18,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🚶 Contre un peu d'argent, il accepte de vous accompagner. Pendant votre périple, vous tombez par chance sur une sacoche abandonnée le long du chemin. Heureux de cette découverte, vous décidez d'en partager le contenu avec Price. Vous obtenez ainsi une rondelette somme d'argent, et un objet qui sera, vous le pensez, utile à votre aventure.",
+					"en": "** | 🚶 For a little money, he agrees to come with you. During your journey, you come across an abandoned satchel along the way. Happy with this discovery, you decide to share its contents with Price. You thus obtain a small sum of money, and an item which you think will be useful for your adventure."
+				},
 				"timeLost": 0,
 				"healthPointsChange": 0,
 				"newEffect": ":smiley:",
@@ -27,6 +30,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🚶 Contre un peu d'argent, il accepte de vous accompagner. Vous cheminez ensemble pendant un petit moment sans que rien de particulier ne se passe, excepté un petit incident avec des voleurs qui ne firent pas long feu face à Price. Puis vous vous quittez.",
+					"en": "** | 🚶 For a little money, he agrees to come with you. You walk together for a little while without anything special happening, except for a small incident with thieves which didn't last long with Price's help. You then split up"
+				},
 				"timeLost": 0,
 				"healthPointsChange": 0,
 				"newEffect": ":smiley:",
@@ -35,6 +42,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🚶 Vous lui donnez quelques pièces afin qu'il vous accompagne jusqu'à la prochaine ville. Vous partez vite, et lorsque le soleil se couche, vous bivouaquez puis vous couchez. Vous êtes brusquement réveillé par un bruit de métal s'entrechoquant, et mettez quelques secondes à réaliser que Price rassemble votre argent. Sans y réfléchir à deux fois, vous foncez sur lui, déterminé à le stopper. Il vous assène un violent coup de poing à la tempe, et c'est sonné que vous le voyez s'enfuir avec vos possessions. :head_bandage:",
+					"en": "** | 🚶 You give him a few coins to accompany you until the next town. You leave quickly, and when the sun goes down, you bivouac and then you set. You are suddenly woken up by the sound of metal clattering together, and it takes a few seconds to realize that Price is taking your money away. Without thinking twice about it, determined to stop him, you run to him. He violently punches you into the temple, and runs away with your possessions while you are dizzy. :head_bandage:"
+				},
 				"timeLost": 0,
 				"healthPointsChange": -20,
 				"newEffect": ":head_bandage:",
@@ -45,6 +56,10 @@
 		],
 		"🍖": [
 			{
+				"translations": {
+					"fr": "** | 🍖 Vous proposez à Price de manger quelque chose ensemble, et il accepte. Vous discutez un moment, buvez un peu, riez beaucoup, échangez des astuces, commencez à vous connaître. C'est avec un léger pincement au coeur que Price vous dit adieux au bout de quelques heures, devant aller honorer un contrat.",
+					"en": "** | 🍖 You offer Price something to eat together, which he gladly accepts. You talk for a while, drink a little, laugh a lot, exchange tips, and get to know each other. It is with a slight twinge of heart, that Price bids you farewell after a few hours, having to go and honour a contract."
+				},
 				"timeLost": 120,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -53,6 +68,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🍖 Vous demandez à Price s'il veut venir manger avec vous à la taverne locale. Il décline, disant avoir du travail, et part.",
+					"en": "** | 🍖 You ask Price if he wants to come eat with you at the local tavern. He declines, telling you he has work to do, and takes his leave."
+				},
 				"timeLost": 0,
 				"healthPointsChange": 0,
 				"newEffect": ":smiley:",
@@ -63,6 +82,10 @@
 		],
 		"🤑": [
 			{
+				"translations": {
+					"fr": "** | 🤑 Vous essayez de le voler, mais il vous remarque, et vous assomme proprement. :head_bandage:",
+					"en": "** | 🤑 You try to steal from him, but he notices your undoing and knocks you out cold. :head_bandage:"
+				},
 				"timeLost": 0,
 				"healthPointsChange": -20,
 				"newEffect": ":head_bandage:",
@@ -71,6 +94,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🤑 Il vous remarque aussitôt, mais vous laisse partir, non sans vous avoir jeté un regard empli de mépris. Vous décampez sans demander votre reste, intimidé.",
+					"en": "** | 🤑 He notices your attempted theft immediately, but lets you go, yet not without giving you a look of disdain. You run away quickly, fearful of what he might have done to you."
+				},
 				"timeLost": 0,
 				"healthPointsChange": 0,
 				"newEffect": ":smiley:",
@@ -81,6 +108,10 @@
 		],
 		"end": [
 			{
+				"translations": {
+					"fr": "** | :speaking_head: Vous restez à discuter quelques minutes avec Price, puis reprenez votre route.",
+					"en": "** | :speaking_head: You stay and chat with Price for a few minutes, then hit the road."
+				},
 				"timeLost": 10,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -89,6 +120,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | :speaking_head: Après avoir un peu discuté, vous vous séparez. Quelques rues plus loin, vous êtes agressé par un groupe de personne à l'air peu amène, qui allègent votre bourse sous la menace de leurs coups.",
+					"en": "** | :speaking_head: After you've had a little chat, you split up. A few blocks away, you're attacked by a group of rude-looking people, who lighten your purse under the threat of their blows."
+				},
 				"timeLost": 0,
 				"healthPointsChange": 0,
 				"newEffect": ":smiley:",

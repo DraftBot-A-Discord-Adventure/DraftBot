@@ -1,5 +1,5 @@
 const RepositoryAbstract = require("repositories/RepositoryAbstract");
-const Server = require("orm/entities/Server");
+const Server = require("entities/Server");
 
 class ServerRepository extends RepositoryAbstract {
 

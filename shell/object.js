@@ -2,8 +2,8 @@ const fs = require('fs');
 require('colors');
 
 let object = Object.entries((require('data/items/Values.json')).object);
-let objectFr = (require('data/items/fr.json')).object;
-let objectEn = (require('data/items/en.json')).object;
+let objectFr = (require('legacy/data/items/fr.json')).object;
+let objectEn = (require('legacy/data/items/en.json')).object;
 
 object.forEach((value, key) => {
 

@@ -2,8 +2,8 @@ const fs = require('fs');
 require('colors');
 
 let potion = Object.entries((require('data/items/Values.json')).potion);
-let potionFr = (require('data/items/fr.json')).potion;
-let potionEn = (require('data/items/en.json')).potion;
+let potionFr = (require('legacy/data/items/fr.json')).potion;
+let potionEn = (require('legacy/data/items/en.json')).potion;
 
 potion.forEach((value, key) => {
 

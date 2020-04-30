@@ -2,8 +2,8 @@ const fs = require('fs');
 require('colors');
 
 let weapon = Object.entries((require('data/items/Values.json')).weapon);
-let weaponFr = (require('data/items/fr.json')).weapon;
-let weaponEn = (require('data/items/en.json')).weapon;
+let weaponFr = (require('legacy/data/items/fr.json')).weapon;
+let weaponEn = (require('legacy/data/items/en.json')).weapon;
 
 weapon.forEach((value, key) => {
 

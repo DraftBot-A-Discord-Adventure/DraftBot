@@ -3,13 +3,13 @@
 		"fr": " : ** :bridge_at_night: En continuant votre périple, vous arrivez devant un pont délabré qui, de plus, est au dessus d'un énorme gouffre. \n\n:bridge_at_night: Prendre le risque d'emprunter ce pont.\n:walking: Chercher un autre chemin un peu plus loin\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
 		"en": " : ** :bridge_at_night: Continuing your trip, you arrive in front of a dilapidated bridge above a enormous chasm.\n\n:bridge_at_night: Take a risk crossing the bridge\n:walking: Find another way forward.\n\n*- Use the reactions for make an action :warning: Not answering is also considered an action!*"
 	},
-	"reactions": [
-		"🌉",
-		"🚶"
-	],
 	"possibilities": {
 		"🌉": [
 			{
+				"translations": {
+					"fr": "** | 🌉 La traversée vous semble risquée, mais vous n'avez pas de temps à perdre et traversez donc. Après 5 minutes de marche sur ce pont vous arrivez au bout sain et sauf.",
+					"en": "** | 🌉 The bridge seems unsafe, but you have no time to waste, so cross. After 5 minutes on the bridge you reach the end, safe and sound."
+				},
 				"timeLost": 5,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -18,6 +18,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🌉 En traversant ce pont vous voyez un petit sac, en l'ouvrant vous remarquez un nombre conséquent de pièces",
+					"en": "** | 🌉 While crossing the bridge you see a small sack. When you open it, you notice a large amount of coins"
+				},
 				"timeLost": 10,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -26,6 +30,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🌉 En marchant sur le pont, vous entendez de petits craquements, quand soudain, une planche tombe, et vous tombez avec. :head_bandage:",
+					"en": "** | 🌉 While crossing the bridge, you hear some small cracks, and suddenly, a plank snaps and falls, and you with it. :head_bandage:"
+				},
 				"timeLost": 0,
 				"healthPointsChange": -60,
 				"newEffect": ":head_bandage:",
@@ -34,6 +42,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🌉 Au cours de votre traversée, une planche tombe, heureusement, vous réussissez à vous accrocher à une autre planche, elle plus solide. Après quelques minutes à vous remettre de vos émotions, vous continuez votre route.",
+					"en": "** | 🌉 While crossing, a plank snaps out from under you. Fortunately, you manage to hang on to another, more reliable board. After a few minutes spent recovering your emotions, you continue on your way."
+				},
 				"timeLost": 15,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -44,6 +56,10 @@
 		],
 		"🚶": [
 			{
+				"translations": {
+					"fr": "** | 🚶 Après une bonne heure de marche, vous trouvez un autre pont, qui lui, semble en bien meilleur état et décidez de l'emprunter.",
+					"en": "** | 🚶 After a good hour of walking, you find another bridge that looks in much better shape, and you decide to take it."
+				},
 				"timeLost": 60,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -52,6 +68,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🚶 Durant votre chemin, vous remarquez une petite caisse et l'ouvrez, dans celle-ci un objet semblant utile. Vous le récupérez et continuez votre route.",
+					"en": "** | 🚶 During your journey, you notice a little crate and open it. Inside, you find an object that appears to be useful. You take it and continue on your way."
+				},
 				"timeLost": 45,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -60,6 +80,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🚶 Vous apercevez un pont et vous précipitez pour le rejoindre au plus vite, cependant vous trébuchez sur un tronc d'arbre et vous blessez. :confounded:",
+					"en": "** | 🚶 You notice a bridge and rush to cross it as quickly as possible. However, you stumble on a trunk and injure yourself. :confounded:"
+				},
 				"timeLost": 0,
 				"healthPointsChange": 0,
 				"newEffect": ":confounded:",
@@ -70,6 +94,10 @@
 		],
 		"end": [
 			{
+				"translations": {
+					"fr": "** | 🕑 Vous attendez une vingtaine de minutes en observant ce pont. Puis vous continuez votre route.",
+					"en": "** | 🕑 You wait about twenty minutes, observing this bridge. Then, you continue your journey."
+				},
 				"timeLost": 20,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -78,6 +106,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | 🚶 Pas de temps à perdre, vous continuez votre chemin, sans vous préoccuper de ce dangereux chemin.",
+					"en": "** | 🚶 No time to waste! You continue on your way without worrying about this dangerous path."
+				},
 				"timeLost": 5,
 				"healthPointsChange": 0,
 				"newEffect": ":smiley:",

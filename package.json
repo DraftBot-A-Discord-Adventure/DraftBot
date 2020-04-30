@@ -14,11 +14,11 @@
   "_moduleAliases": {
     "draftbot": ".",
     "config": "./config",
-    "data": "./data",
     "core": "./src/core",
     "commands": "./src/commands",
     "entities": "./src/orm/entities",
-    "repositories": "./src/orm/repositories"
+    "repositories": "./src/orm/repositories",
+    "text": "./ressources/text"
   },
   "dependencies": {
     "chai": "^4.2.0",

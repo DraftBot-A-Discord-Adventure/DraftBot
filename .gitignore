@@ -1,6 +1,7 @@
 .idea/
+.vscode/
 node_modules/
-/data/database/
+/database/*.sqlite
 src/utils/eastereggs/EasterEggs.js
 src/utils/eastereggs/key
 src/utils/eastereggs/iv

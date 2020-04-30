@@ -3,13 +3,13 @@
 		"fr": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:axe: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
 		"en": " : ** :deciduous_tree: A tree fell on the path and blocked it!\n\n:axe: Cut the tree up and continue.\n:walking: Go another way.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*"
 	},
-	"reactions": [
-		"🪓",
-		"🚶"
-	],
 	"possibilities": {
 		"🪓": [
 			{
+				"translations": {
+					"fr": "** | :axe: Couper cet arbre aura pris 30 minutes !",
+					"en": "** | :axe: Felling this tree took half an hour!"
+				},
 				"timeLost": 30,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
@@ -20,6 +20,10 @@
 		],
 		"🚶": [
 			{
+				"translations": {
+					"fr": "** | :walking: Passer par un autre chemin semblait être une bonne solution vous n'avez pas perdu de temps !",
+					"en": "** | :walking: Finding another way seemed to be a good decision, you didn't waste any time!"
+				},
 				"timeLost": 0,
 				"healthPointsChange": 0,
 				"newEffect": ":smiley:",
@@ -28,6 +32,10 @@
 				"item": false
 			},
 			{
+				"translations": {
+					"fr": "** | :walking: Passer par un autre chemin semblait être une bonne solution, malheureusement vous vous êtes blessé en marchant.",
+					"en": "** | :walking: Going down another path seemed like a good solution, unfortunately you got hurt while taking it."
+				},
 				"timeLost": 30,
 				"healthPointsChange": -5,
 				"newEffect": ":smiley:",
@@ -38,6 +46,10 @@
 		],
 		"end": [
 			{
+				"translations": {
+					"fr": "** | :axe: L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !",
+					"en": "** | :axe: The tree has been cut down and the road is clear. Unfortunately, looters have stolen everything you collected since the last report!"
+				},
 				"timeLost": 100,
 				"healthPointsChange": 0,
 				"newEffect": ":clock2:",
