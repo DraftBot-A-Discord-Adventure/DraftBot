@@ -5,7 +5,7 @@ class PotionRepository extends RepositoryAbstract {
 
     /**
      * Return an potion by id
-     * @param {number|String} id
+     * @param {number} id
      * @return {Promise<Potion>}
      */
     async getById(id) {

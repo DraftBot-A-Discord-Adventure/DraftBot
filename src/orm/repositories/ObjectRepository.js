@@ -5,7 +5,7 @@ class ObjectRepository extends RepositoryAbstract {
 
     /**
      * Return an object by id
-     * @param {number|String} id
+     * @param {number} id
      * @return {Promise<Object>}
      */
     async getById(id) {

@@ -5,13 +5,10 @@ class ArmorRepository extends RepositoryAbstract {
 
     /**
      * Return an armor by id
-     * @param {number|String} id
+     * @param {number} id
      * @return {Promise<Armor>}
      */
     async getById(id) {
-
-        console.log(this.text.armors[0]);
-
         return new Armor(
             id,
             this.text.armors[id].rareness,

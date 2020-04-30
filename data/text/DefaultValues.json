@@ -60,11 +60,11 @@
         "maxPower": "10"
     },
     "inventory": {
-        "weapon": "default",
-        "armor": "default",
-        "potion": "default",
-        "object": "default",
-        "backupItem": "default"
+        "weapon": 0,
+        "armor": 0,
+        "potion": 0,
+        "object": 0,
+        "backupItem": 0
     },
     "raritiesValues": {
         "0": "0",

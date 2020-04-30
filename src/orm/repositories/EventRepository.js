@@ -5,7 +5,7 @@ class EventRepository extends RepositoryAbstract {
 
   /**
    * Get the requested event
-   * @param {number|String} id
+   * @param {number} id
    * @return {Promise<Event>}
    */
   async getById(id) {

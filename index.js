@@ -1,34 +1,34 @@
-Config = require('core/Config');
-Tools = require('core/Tools');
+const format = require("string-template");
+const Tools = require('core/Tools');
 require('colors');
 const Figlet = require('figlet');
-const DraftBot = require('core/DraftBot');
-
-let draftbot = new DraftBot();
+const draftbot = new (require('core/DraftBot'))();
 
 /**
  * Will be executed whenever the bot has started
  */
 draftbot.client.on('ready', async () => {
 
-  Figlet(Config.reboot, (err, data) => {
+  Figlet(JsonText.console.reboot, (err, data) => {
     console.log(data.red);
-    console.log(Config.br.grey);
+    console.log(JsonText.console.br.grey);
   });
 
+  // TODO 2.1
   // draftbot.checkEasterEggsFile();
 
-  await draftbot.client.guilds.cache.get(Config.MAIN_SERVER_ID)
+  await draftbot.client.guilds.cache.get(JsonText.app.MAIN_SERVER_ID)
       .channels
       .cache
-      .get(Config.CONSOLE_CHANNEL_ID)
-      .send(Config.startStatus + Config.version)
+      .get(JsonText.app.CONSOLE_CHANNEL_ID)
+      .send(JsonText.console.startStatus + JsonText.package.version)
       .catch(console.error);
 
   await draftbot.client.user
       .setActivity('❓ - Dm me for Help !')
       .catch(console.error);
 
+  // TODO 2.0
   // //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
   // setInterval(async function () { // Set interval for checking
   //   await checkTopWeek();
@@ -71,25 +71,10 @@ draftbot.client.on('guildDelete', guilde => {
  */
 onDiscordMessage = async message => {
   if (message.author.bot) return;
-
-  const event = await draftbot.getRepository('armor').getById(0);
-
-  console.log(event);
-  return;
-
-  const embed = new draftbot.discord.MessageEmbed()
-      .setColor(Config.embed.color)
-      .setTitle(Config.text['fr'].commands.report.reportStart + message.author.username)
-      .addFields(event.toEmbedObject('fr'));
-
-  await message.channel.send(embed);
-
-  await message.channel.send(event.getTranslation('fr'));
-
   // if (message.guild == null) {
   //   draftbot.commandReader.handlePrivateMessage(message, client, talkedRecently);
   // }
-  // await draftbot.command.handleMessage(message);
+  await draftbot.command.handleMessage(message);
 };
 
 /**
@@ -114,14 +99,9 @@ draftbot.client.on('messageReactionAdd', async (reaction) => {
   // }
 });
 
-global.Config = Config;
-global.Tools = Tools;
+global.format = format;
 global.draftbot = draftbot;
 
-// const talkedRecently = new Set();
-//
-//
-//
 // /**
 //  * Returns the ISO week of the date.
 //  */
@@ -218,21 +198,6 @@ global.draftbot = draftbot;
 //   client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.FRENCH_ANNOUNCEMENT_CHANNEL_ID).send(messagefr).catch(err => { });
 //   client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID).send(messageen).catch(err => { });
 // }
-//
-// /**
-//  * Charge the english file
-//  * @param {*} reaction
-//  */
-// async function chargeText(reaction) {
-//   let serverManager = new ServerManager();
-//   let server = await serverManager.getServer(reaction.message);
-//   if (reaction.message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-//     server.language = "en";
-//   }
-//   let Text = require('./src/text/' + server.language);
-//   return Text;
-// }
-//
 //
 // /**
 //  * Send a message to the owner of the guild the bot is leaving

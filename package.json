@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "text": "node shell/index.js",
+    "text": "node src/shell/index.js",
     "postinstall": "link-module-alias"
   },
   "_moduleAliases": {
@@ -18,7 +18,8 @@
     "commands": "./src/commands",
     "entities": "./src/orm/entities",
     "repositories": "./src/orm/repositories",
-    "text": "./ressources/text"
+    "ressources": "./ressources",
+    "data": "./data"
   },
   "dependencies": {
     "chai": "^4.2.0",
@@ -29,6 +30,7 @@
     "moment": "^2.24.0",
     "npm": "^6.14.4",
     "sqlite": "^4.0.7",
-    "sqlite3": "^4.1.1"
+    "sqlite3": "^4.1.1",
+    "string-template": "^1.0.0"
   }
 }

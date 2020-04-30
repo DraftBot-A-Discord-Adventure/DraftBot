@@ -60,6 +60,7 @@ class Repository {
   }
 
   /**
+   * TODO 2.0 Call entityRepository
    * Allow to set the state of all the player to normal in order to allow them to play
    */
   async setEverybodyAsUnOccupied() {

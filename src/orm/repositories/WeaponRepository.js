@@ -5,7 +5,7 @@ class WeaponRepository extends RepositoryAbstract {
 
     /**
      * Return a weapon by id
-     * @param {number|String} id
+     * @param {number} id
      * @return {Promise<Weapon>}
      */
     async getById(id) {

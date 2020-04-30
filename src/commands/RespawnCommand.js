@@ -8,19 +8,17 @@ const RespawnCommand = async (language, message, args) => {
   let player = await draftbot.getRepository('player').getByMessageOrCreate(message);
 
   if (player.get("health") !== 0) {
-    await message.channel.send(Config.text[language].commands.respawn.thinking + message.author.username +
-      Config.text[language].commands.respawn.notDead);
+    await message.channel.send(format(Text.commands.respawn.getTranslation('fr').alive, {pseudo: message.author.username}));
   } else {
-    const scoreRemoved = Math.round(player.get("score") * Config.PART_OF_SCORE_REMOVED_DURING_RESPAWN);
+    const lostScore = Math.round(player.get("score") * Config.PART_OF_SCORE_REMOVED_DURING_RESPAWN);
     player.set("effect", ":smiley:");
     player.set("health", player.get("maxHealth"));
     player.set("lastReport", message.createdTimestamp);
-    player.changeScoreAndWeeklyScore(-scoreRemoved);
+    player.changeScoreAndWeeklyScore(-lostScore);
 
     await draftbot.getRepository('player').update(player);
 
-    await message.channel.send(Config.text[language].commands.respawn.angel + message.author.username +
-      Config.text[language].commands.respawn.revived1 + scoreRemoved + Config.text[language].commands.respawn.revived2);
+    await message.channel.send(format(Text.commands.respawn.getTranslation('fr').respawn, {pseudo: message.author.username, lostScore: lostScore}));
   }
 };
 
