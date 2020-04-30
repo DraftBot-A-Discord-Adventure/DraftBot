@@ -1,0 +1,46 @@
+{
+	"translations": {
+		"fr": {
+			"timeleft": " Temps restant :",
+			"main": " | ",
+			"errorMain": ":x: | ",
+			"errorExp": ", le joueur demandé semble ne pas avoir commencé l'aventure !",
+			"level": " | Niveau ",
+			"xp": " | :star: ",
+			"health": ":heart: ",
+			"rank": ":trophy: ",
+			"money": " | :moneybag: ",
+			"score": " | :medal:",
+			"separator": "/",
+			"stats": "Statistiques :",
+			"infos": "Informations :",
+			"rankAndScore": "Classement et Score :",
+			"statsAttack": " :dagger: ",
+			"statsDefense": " | :shield: ",
+			"statsSpeed": " | :rocket: ",
+			"statsFightPower": " | :blue_heart: ",
+			"notAPlayer": ", utilisez la commande `report` pour commencer votre aventure !"
+		},
+		"en": {
+			"timeleft": "Time Left:",
+			"main": " | ",
+			"errorMain": ":x: | ",
+			"errorExp": ", it seems the player you asked for hasn't started the adventure yet!",
+			"level": " | Level ",
+			"xp": " | :star: ",
+			"health": ":heart: ",
+			"rank": ":trophy: ",
+			"money": " | :moneybag: ",
+			"score": " | :medal:",
+			"separator": "/",
+			"stats": "Stats :",
+			"infos": "Information :",
+			"rankAndScore": "Ranking and score :",
+			"statsAttack": " :dagger: ",
+			"statsDefense": " | :shield: ",
+			"statsSpeed": " | :rocket: ",
+			"statsFightPower": " | :blue_heart: ",
+			"notAPlayer": ", use the command `report` to start your adventure!"
+		}
+	}
+}

@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"thinking": ":thinking: | **",
+			"angel": ":angel: | **",
+			"revived1": " **Nous vous avons ressucité avec succès ! Cependant veuillez noter que ",
+			"revived2": " points :medal: ont été retirés de votre score durant l'opération !",
+			"notDead": "** il semblerait que vous ne soyez pas K.O... Vous n'avez pas besoin de nos services."
+		},
+		"en": {
+			"thinking": ":thinking: | **",
+			"angel": ":angel: | **",
+			"revived1": " **We successfully brought you back to life! However, please note that ",
+			"revived2": " points :medal: were deducted from your score as a result of this action!",
+			"notDead": "** it seems that you are not yet KO'd... You don't need our services."
+		}
+	}
+}
