@@ -1,33 +1,36 @@
 const fs = require('fs');
 
-class JsonText {
+class JsonReader {
 
   /**
    * @param {String[]} folders - Folders to load
    * @param {String[]} files - Files to load
-   * @return {Promise<JsonText>}
+   * @return {Promise<void>}
    */
-  async init({folders, files}) {
-    for (const folder of folders) {
-      await this.loadFolder(folder);
+  static async init({folders, files}) {
+    if (folders !== undefined && typeof folders[Symbol.iterator] === "function") {
+      for (const folder of folders) {
+        await JsonReader.loadFolder(folder);
+      }
     }
-    for (const file of files) {
-      await this.loadFile(file);
+    if (files !== undefined && typeof files[Symbol.iterator] === "function") {
+      for (const file of files) {
+        await JsonReader.loadFile(file);
+      }
     }
-
-    return this;
   }
 
   /**
    * @param {String} folder
    * @return {Promise<void>}
    */
-  async loadFolder(folder) {
+  static async loadFolder(folder) {
     let files = await fs.promises.readdir(folder);
     for (const file of files) {
       if (!file.endsWith('.json')) continue;
       let folderName = folder.split('/')[folder.split('/').length - 1];
-      let fileName = (file.split('.')[0]).split('/')[(file.split('.')[0]).split('/').length - 1];
+      let fileName = (file.split('.')[0]).split('/')[(file.split('.')[0]).split(
+          '/').length - 1];
       this[folderName] = {};
       this[folderName][fileName] = (require(`${folder}/${file}`));
       if (this[folderName][fileName].hasOwnProperty('translations')) {
@@ -40,9 +43,10 @@ class JsonText {
    * @param {String} file
    * @return {Promise<void>}
    */
-  async loadFile(file) {
+  static async loadFile(file) {
     if (!file.endsWith('.json')) return;
-    let fileName = (file.split('.')[0]).split('/')[(file.split('.')[0]).split('/').length - 1];
+    let fileName = (file.split('.')[0]).split('/')[(file.split('.')[0]).split(
+        '/').length - 1];
     this[fileName] = (require(file));
     if (this[fileName].hasOwnProperty('translations')) {
       this[fileName].getTranslation = this.getTranslation;
@@ -59,4 +63,7 @@ class JsonText {
 
 }
 
-module.exports.JsonText = JsonText;
+module.exports = {
+  init: JsonReader.init
+};
+global.JsonText = JsonReader;

@@ -1,7 +1,6 @@
 class DraftBot {
 
   constructor() {
-    this.jsonText = new (require("core/JsonText")).JsonText();
     this.repositories = new Map();
     this.repository = new (require('core/Repository'))();
     this.command = new (require('core/Command'))();
@@ -9,11 +8,13 @@ class DraftBot {
     this.client = new (require('discord.js')).Client();
 
     (async () => {
-      this.jsonText = await this.jsonText.init({
+      await (require('core/JsonReader')).init({
         folders: ['ressources/text/commands'],
-        files: ['config/app.json', 'ressources/text/console.json', 'draftbot/package.json']
+        files: [
+          'config/app.json',
+          'ressources/text/console.json',
+          'draftbot/package.json'],
       });
-      global.JsonText = this.jsonText;
 
       await this.repository.init();
       await this.command.init();
