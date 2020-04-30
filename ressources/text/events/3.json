@@ -1,0 +1,109 @@
+{
+	"translations": {
+		"fr": " : ** :lock: Vous avez trouvé un coffret ! Malheureusement il est verrouillé...\n\n:key: Chercher la clef autour du lieu de découverte.\n:pick: Attaquer le cadenas à coups de pioche.\n:arrow_forward: Abandonner le coffret à l'endroit où vous l'avez trouvé.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :lock: You found a box! But it's closed...\n\n:key: Look around for the key.\n:pick: Attack the padlock with a pickaxe.\n:arrow_forward: Abandon the box where you found it.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"reactions": [
+		"🔑",
+		"⛏",
+		"▶"
+	],
+	"possibilities": {
+		"⛏": [
+			{
+				"timeLost": 30,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 30,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 125,
+				"moneyGained": 6,
+				"item": false
+			}
+		],
+		"🔑": [
+			{
+				"timeLost": 50,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 125,
+				"moneyGained": 100,
+				"item": false
+			},
+			{
+				"timeLost": 60,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 40,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 20,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 120,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"▶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

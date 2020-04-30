@@ -1,0 +1,8 @@
+{
+	"translations": {
+		"fr": ":syringe:  **Seringue infectée**",
+		"en": ":syringe:  **Contaminated syringe**"
+	},
+	"rareness": 4,
+	"power": 6
+}

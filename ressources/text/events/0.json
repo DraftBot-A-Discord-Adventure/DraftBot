@@ -1,0 +1,42 @@
+{
+	"translations": {
+		"fr": " : ** :mailbox_with_mail: **Bienvenue ! ** :crown: Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Je serais votre compagnon durant ce voyage et je suis là pour vous aider à triompher ! :triangular_flag_on_post: Notre objectif durant ce jeu est de collecter le plus de points possible pour montrer au roi notre force ! :muscle: Je vais vous expliquer comment le jeu fonctionne...\n:notebook_with_decorative_cover: Bien entendu je ne vais pas pouvoir faire un grand discours long et monotone donc si vous voulez plus de détails vous pouvez utiliser la commande `help` ! \nBON ! Commençons ! Le principe est simple : je suis à vos ordres ! Je m'occupe de ramasser des ressources :moneybag: pour vous pendant votre absence et vous n'avez qu'à venir les récupérer en utilisant la commande `report`. Si j'ai eu des soucis pendant votre absence je vous demanderai quoi faire et vous m'aiderez à avancer !\n\n:walking: Allons-y !\n🤔 Je ne sais pas trop...\n\n*- Utilisez les réactions pour effectuer une action :warning: Si vous ne répondez pas vous devrez refaire le tuto :wink:.*",
+		"en": " : ** :mailbox_with_mail: **Welcome!** :crown: The king searches for a mighty knight to marry his daughter and **you** have been chosen to be part of the selection contest! I'll be your partner for this journey, and I'll do my best to help you triumph!\n:triangular_flag_on_post: Our goal for this game is to collect as many points as we can, to show the king our might!:muscle: I'll explain how it works...\n:notebook_with_decorative_cover: Of course, I won't make a long and monotonous speech, so if you want more details, please use `!help`\nSo, let's start! It's pretty simple, I'll do whatever you ask! I'm going to collect resources :moneybag: for you while you're gone, and you'll just have to use `!report` to get them. If I ever have problems, I'll ask you what to do and you'll help me continue!\n\n:walking: Let's go!\n🤔 I don't really know...\n\n*-Use Discord reactions to accomplish any action :warning: If you don't answer, you'll have to start the tutorial again :wink:.*"
+	},
+	"reactions": [
+		"🚶",
+		"🤔"
+	],
+	"possibilities": {
+		"🚶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🤔": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":baby:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

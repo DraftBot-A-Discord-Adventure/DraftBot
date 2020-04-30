@@ -74,10 +74,22 @@ draftbot.client.on('guildDelete', guilde => {
  */
 onDiscordMessage = async message => {
   if (message.author.bot) return;
+
+  const event = await draftbot.getRepository('event').getRandom();
+
+  const embed = new draftbot.discord.MessageEmbed()
+      .setColor(Config.embed.color)
+      .setTitle(Config.text['fr'].commands.report.reportStart + message.author.username)
+      .addFields(event.toEmbedObject('fr'));
+
+  await message.channel.send(embed);
+
+  await message.channel.send(event.getTranslation('fr'));
+
   // if (message.guild == null) {
   //   draftbot.commandReader.handlePrivateMessage(message, client, talkedRecently);
   // }
-  await draftbot.command.handleMessage(message);
+  // await draftbot.command.handleMessage(message);
 };
 
 /**

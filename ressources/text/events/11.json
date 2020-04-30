@@ -1,0 +1,77 @@
+{
+	"translations": {
+		"fr": " : ** :interrobang: Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.\n\n:deciduous_tree: Traverser quand même la forêt.\n:point_left: Suivre les conseils de l'inconnue.\n:point_right: Eviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :interrobang: As you get ready to enter a forest, a mysterious woman explains there is a shorter path through the west.\n\n:deciduous_tree: Keep going the same way.\n:point_left: Follow the advice of the mysterious woman.\n:point_right: Avoid the forest by going the opposite way you were told.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"reactions": [
+		"🌳",
+		"👈",
+		"👉"
+	],
+	"possibilities": {
+		"🌳": [
+			{
+				"timeLost": 200,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 130,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 325,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -20,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"👈": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -40,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"👉": [
+			{
+				"timeLost": 140,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 45,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

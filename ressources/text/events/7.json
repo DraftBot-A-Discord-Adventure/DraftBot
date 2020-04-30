@@ -1,0 +1,74 @@
+{
+	"translations": {
+		"fr": " : ** :house: Vous avez découvert une maison ! Elle semble abandonnée...\n\n:door: Aller visiter l'intérieur.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :house: You discovered a house! It seems abandoned...\n\n:door: Check inside.\n:walking: Don't stop and keep going.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"reactions": [
+		"🚪",
+		"🚶"
+	],
+	"possibilities": {
+		"🚪": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": -25,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 55,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 325,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":sleeping:",
+				"xpGained": 20,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 325,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

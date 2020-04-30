@@ -1,0 +1,152 @@
+{
+	"translations": {
+		"fr": " : ** Vous arrivez dans une ferme où se déroule un grand festin. Les gens paraissent accueillants. \n\n:lips: S'asseoir tranquillement pour bavarder \n:poultry_leg: En profiter pour s'empiffrer de nourriture \n:detective: Profiter de l'animation générale pour voler les gens \n:man_walking: Continuer sans s'arrêter\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** You arrive in farm in which festivities are conducted. The people seem to receive you with hospitality.\n\n:lips: Sit down to chat.\n:poultry_leg: Have a go at the food.\n:detective: Take advantage of the commotion to rob some of them.\n:person_walking: Continue without stopping.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"reactions": [
+		"👄",
+		"🍗",
+		"🕵️",
+		"🚶"
+	],
+	"possibilities": {
+		"👄": [
+			{
+				"timeLost": 120,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 450,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 20,
+				"newEffect": ":smiley:",
+				"xpGained": 450,
+				"moneyGained": 400,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🍗": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 10,
+				"newEffect": ":smiley:",
+				"xpGained": 350,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":sick:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 75,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":zany_face:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🕵️": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 1000,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 250,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": -200,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 100,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smile:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": -20,
+				"newEffect": ":confounded:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 180,
+				"healthPointsChange": 40,
+				"newEffect": ":smiley:",
+				"xpGained": 225,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

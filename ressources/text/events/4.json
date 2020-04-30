@@ -1,0 +1,100 @@
+{
+	"translations": {
+		"fr": " : ** :stars: Vous avez décidé de profiter d'une nuit calme pour continuer votre progression. Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!\n\n:speaking_head: Faire un vœu.\n:runner: Ignorer cet évènement.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :stars: You have decided to enjoy a quiet night to continue your progress. The sky is magnificient and after a few minutes scrutinizing the sky, you observe a shooting star!\n\n:speaking_head: Make a wish.\n:runner: Ignore this event.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"reactions": [
+		"🗣",
+		"🏃"
+	],
+	"possibilities": {
+		"🗣": [
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 125,
+				"moneyGained": 40,
+				"item": false
+			},
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 10,
+				"healthPointsChange": -5,
+				"newEffect": ":clock2:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🏃": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -20,
+				"newEffect": ":smiley:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"▶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

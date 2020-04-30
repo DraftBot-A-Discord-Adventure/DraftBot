@@ -1,0 +1,58 @@
+{
+	"translations": {
+		"fr": " : ** :dog: Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n:dog2: Suivre le chien.\n:runner: Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
+		"en": " : ** :dog: In front of you, a dog arrives, and circles you. He seems to want you to follow him!\n\n:dog2: Follow the dog.\n:runner: Continue without worrying about the dog.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"reactions": [
+		"🐕",
+		"🏃"
+	],
+	"possibilities": {
+		"🐕": [
+			{
+				"timeLost": 20,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 37,
+				"item": false
+			}
+		],
+		"🏃": [
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -15,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": -10,
+				"newEffect": ":smiley:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

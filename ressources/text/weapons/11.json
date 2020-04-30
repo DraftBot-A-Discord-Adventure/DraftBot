@@ -1,0 +1,8 @@
+{
+	"translations": {
+		"fr": ":gun:  **Pistolet vide**",
+		"en": ":gun: **Unloaded gun**"
+	},
+	"rareness": 4,
+	"power": 1
+}

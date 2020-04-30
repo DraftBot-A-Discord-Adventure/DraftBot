@@ -1,0 +1,100 @@
+{
+	"translations": {
+		"fr": " : ** :fountain: Vous avez trouvé une fontaine !\n\n:sweat_drops: Se reposer et boire pour reprendre des forces.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :fountain: You have found a fountain!\n\n:sweat_drops: Rest and drink to regain strength.\n:walking: Do not stop and continue on your way.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"reactions": [
+		"💦",
+		"🚶"
+	],
+	"possibilities": {
+		"💦": [
+			{
+				"timeLost": 30,
+				"healthPointsChange": 5,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 180,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🏃": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -20,
+				"newEffect": ":smiley:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -30,
+				"newEffect": ":sleeping:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 60,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 125,
+				"moneyGained": 65,
+				"item": false
+			}
+		]
+	}
+}

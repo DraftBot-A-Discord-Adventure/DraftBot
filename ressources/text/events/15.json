@@ -1,0 +1,101 @@
+{
+	"translations": {
+		"fr": " : ** :cityscape: Alors que vous traversez une ville en passant par des ruelles, vous entrez dans ce qui vous semble être une petite boutique où un groupe d'hommes discute tranquillement.\n\n:busts_in_silhouette: Tenter de commercer avec eux.\n:runner: Continuer votre route sans perdre de temps.\n :moneybag: Prendre discrètement quelques pièces dans la caisse.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :cityscape: As you are walking through a town through narrow alleys, you enter what seems to be a small shop where a group of men are quietly chatting.\n\n:busts_in_silhouette: Try trading with them.\n:runner: Continue walking without losing time.\n :moneybag: Discreetly take a few coins from the register.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"reactions": [
+		"👥",
+		"🏃",
+		"💰"
+	],
+	"possibilities": {
+		"👥": [
+			{
+				"timeLost": 45,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 325,
+				"moneyGained": -200,
+				"item": false
+			},
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": -70,
+				"item": false
+			},
+			{
+				"timeLost": 45,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": -200,
+				"item": false
+			}
+		],
+		"🏃": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -20,
+				"newEffect": ":confounded:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"💰": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 100,
+				"item": false
+			},
+			{
+				"timeLost": 30,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": -200,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -20,
+				"newEffect": ":confounded:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

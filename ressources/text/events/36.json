@@ -1,0 +1,104 @@
+{
+	"translations": {
+		"fr": " : ** Au cours de votre très long périple vous arrivez dans un petit village fort charmant. Vous atteignez le centre du village, mais il s'avère qu'il est très petit et qu'il n'y a que deux commerces : la bijouterie et une auberge . Vous découvrez grâce à un passant que la bijouterie est gérée par un vieillard et qu'il fait de magnifiques bijoux et colliers. L'auberge est, quant à elle, dirigée par un couple, et il paraît qu'elle a un grand succès.\n\n:speaking_head: Aller voir le bijoutier et discuter\n:money_with_wings: Essayer de voler le bijoutier\n:house_with_garden: Aller à l'auberge se reposer\n:person_walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewellery such as necklaces and rings. As for the inn run by a couple, it seems pretty successful\n\n:speaking_head: Go and have a talk with the jeweller\n:money_with_wings: Try to rob the jeweller\n:house_with_garden: Go to rest at the inn\n:person_walking: Continue your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"reactions": [
+		"🗣️",
+		"💸",
+		"🏡",
+		"🚶"
+	],
+	"possibilities": {
+		"🗣️": [
+			{
+				"timeLost": 50,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 325,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 75,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"💸": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 500,
+				"item": false
+			},
+			{
+				"timeLost": 180,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🏡": [
+			{
+				"timeLost": 60,
+				"healthPointsChange": 20,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 30,
+				"healthPointsChange": 10,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -15,
+				"newEffect": ":smiley:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 5,
+				"newEffect": ":smiley:",
+				"xpGained": 350,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 60,
+				"healthPointsChange": 20,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

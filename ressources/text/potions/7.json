@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": "<:BubbleGreenPotion:548221041940365353>  **Potion douteuse**",
+		"en": "<:BubbleGreenPotion:548221041940365353>  **Suspicious potion**"
+	},
+	"rareness": 1,
+	"power": 0,
+	"nature": 0
+}

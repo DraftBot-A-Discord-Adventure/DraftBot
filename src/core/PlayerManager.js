@@ -84,27 +84,29 @@ class PlayerManager {
      * @param {*} idList the list of id of the users of a server
      */
     getNumberOfServPlayers(idList) {
-        return sql.get(`SELECT COUNT(*) AS count FROM player WHERE score >100 AND discordId IN(${idList})`).then(number => {
-            return number.count
-        }).catch(error => { //there is no database
-            console.error(error)
-            return 0;
-        })
+        return sql.get(`SELECT COUNT(*) AS count FROM player WHERE score >100 AND discordId IN(${idList})`)
+            .then(number => {
+                return number.count
+            })
+            .catch(error => { //there is no database
+                console.error(error)
+                return 0;
+            });
     }
-
-
 
     /**
      * Get the total number of players in the database that played this week
      * @returns {Integer} - The number of players
      */
     getNumberOfWeeklyPlayers() {
-        return sql.get(`SELECT COUNT(*) AS count FROM player WHERE weeklyScore > 0`).then(number => {
+        return sql.get(`SELECT COUNT(*) AS count FROM player WHERE weeklyScore > 0`)
+            .then(number => {
             return number.count
-        }).catch(error => { //there is no database
+        })
+            .catch(error => { //there is no database
             console.error(error)
             return 0;
-        })
+        });
     }
 
     /**

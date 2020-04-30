@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": "<:GreenPotion:548221043618086921>  **Potion morvique**",
+		"en": "<:GreenPotion:548221043618086921>  **Snotty potion**"
+	},
+	"rareness": 2,
+	"power": 1,
+	"nature": 1
+}

@@ -1,0 +1,90 @@
+{
+	"translations": {
+		"fr": " : ** :bridge_at_night: En continuant votre périple, vous arrivez devant un pont délabré qui, de plus, est au dessus d'un énorme gouffre. \n\n:bridge_at_night: Prendre le risque d'emprunter ce pont.\n:walking: Chercher un autre chemin un peu plus loin\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :bridge_at_night: Continuing your trip, you arrive in front of a dilapidated bridge above a enormous chasm.\n\n:bridge_at_night: Take a risk crossing the bridge\n:walking: Find another way forward.\n\n*- Use the reactions for make an action :warning: Not answering is also considered an action!*"
+	},
+	"reactions": [
+		"🌉",
+		"🚶"
+	],
+	"possibilities": {
+		"🌉": [
+			{
+				"timeLost": 5,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 125,
+				"moneyGained": 50,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -60,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"timeLost": 60,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 45,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 325,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":confounded:",
+				"xpGained": 10,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 20,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 5,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": ":crystal_ball:  **Boule de verre magique**",
+		"en": ":crystal_ball: **Magic glass ball**"
+	},
+	"rareness": 3,
+	"power": 25,
+	"nature": 2
+}

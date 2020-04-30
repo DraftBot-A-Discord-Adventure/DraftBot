@@ -1,0 +1,101 @@
+{
+	"translations": {
+		"fr": " : ** :evergreen_tree: Vous vous enfoncez dans une forêt sombre, et apercevez la silhouette d'un homme au loin. Vous décidez de vous approcher et comprenez que c'est un ermite, sorti pour la cueillette. Vous vous approchez de sa maison, sur laquelle vous lisez l'inscription \"Xetrix\", ce qui est probablement son nom. Vous réfléchissez encore à quoi faire...\n\n:mag_right: S'introduire dans la maison\n:speaking_head: Demander des conseils à l'ermite\n:person_walking: Repartir par là d'où vous venez\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :evergreen_tree: As you go deep into a dark forest, you see the silhouette of a man in the distance. While going closer, you realize he's a hermit, out for the picking. You approach his house, on which you read the inscription \"Xetrix\", which is probably his name. You're thinking about what to do...\n\n:mag_right: Break into his house\n:speaking_head: Ask the hermit for advices\n:person_walking: Go back the way you came from\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"reactions": [
+		"🔎",
+		"🗣️",
+		"🚶"
+	],
+	"possibilities": {
+		"🔎": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 350,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -30,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 40,
+				"healthPointsChange": 40,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🗣️": [
+			{
+				"timeLost": 300,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 30,
+				"healthPointsChange": 25,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":zany_face:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 150,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": -250,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":sick:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

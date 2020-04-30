@@ -1,0 +1,69 @@
+{
+	"translations": {
+		"fr": " : ** :fish: Alors que vous passiez près d'un plan d'eau, vous remarquez un homme qui semble en difficulté sur sa partie de pêche !\n\n:fishing_pole_and_fish: Proposer son aide.\n:runner: Continuer votre route, pas de temps à perdre !\n:hand_splayed: Pousser le pêcheur dans l'eau !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :fish: As you pass a lake, you notice a man who seems to be having difficulties on his fishing trip!\n\n:fishing_pole_and_fish: Offer your help.\n:runner: Keep going, no time to waste! \n:hand_splayed: Push the fisherman into the water!\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"reactions": [
+		"🎣",
+		"🏃",
+		"🖐"
+	],
+	"possibilities": {
+		"🎣": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 30,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 325,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -10,
+				"newEffect": ":confounded:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🏃": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🖐": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": -500,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

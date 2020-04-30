@@ -105,7 +105,7 @@ class PlayerRepository extends RepositoryAbstract {
      */
     async getNumberOfPlayers() {
         return await this.sql
-            .get(`SELECT COUNT(*) as count FROM player WHERE score > 1`) // TODO : On enlève juste les joueurs qui n'ont jamais joué ... ? plutot que score > 100 sinon le classement est tout cassé
+            .get(`SELECT COUNT(*) as count FROM player WHERE score > 1`) // TODO : On enlève juste les joueurs qui n'ont jamais joué ... ?
             .then(number => {
                 return number.count;
             })

@@ -1,0 +1,85 @@
+{
+	"translations": {
+		"fr": " : ** :beers: Vous entrez dans un bar, et le barman vous interpelle, vous disant qu'il aimerait \"tester de nouvelles boissons\" sur vous.\n\n:beer: Accepter de servir de cobaye\n:x: Refuser sa proposition\n:moneybag: Refuser, et tenter de voler des gens\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :beers: You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you.\n\n:beer: Accept the proposal\n:x: Refuse the proposal\n:moneybag:Refuse, and try to rob other customers\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"reactions": [
+		"🍺",
+		"❌",
+		"💰"
+	],
+	"possibilities": {
+		"🍺": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 30,
+				"newEffect": ":smiley:",
+				"xpGained": 350,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":sick:",
+				"xpGained": 0,
+				"moneyGained": 250,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"❌": [
+			{
+				"timeLost": 30,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": -50,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"💰": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 1000,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

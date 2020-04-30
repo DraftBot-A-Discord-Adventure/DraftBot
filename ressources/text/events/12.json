@@ -1,0 +1,112 @@
+{
+	"translations": {
+		"fr": " : ** :park: Vous voyez une rivière devant vous, de l'autre côté du rivage, vous apercevez un village.\n\n:swimmer: Traverser la rivière en nageant \n:rowboat: Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :park: You see a river in front of you. On the other shore, you catch a glimpse of a village.\n\n:swimmer: Swim across the river.\n:rowboat: Try to make a raft.\n:bridge_at_night: Look for a bridge further away.\n:walking: Go another way.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"reactions": [
+		"🏊",
+		"🚣",
+		"🌉",
+		"🚶"
+	],
+	"possibilities": {
+		"🚶": [
+			{
+				"timeLost": 55,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🏊": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": -5,
+				"newEffect": ":cold_face:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 5,
+				"newEffect": ":smiley:",
+				"xpGained": 350,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🚣": [
+			{
+				"timeLost": 30,
+				"healthPointsChange": -5,
+				"newEffect": ":clock2:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -5,
+				"newEffect": ":cold_face:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 140,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 325,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🌉": [
+			{
+				"timeLost": 30,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 60,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 30,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -25,
+				"newEffect": ":confounded:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 165,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

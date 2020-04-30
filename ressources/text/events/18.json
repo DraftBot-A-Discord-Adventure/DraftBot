@@ -1,0 +1,93 @@
+{
+	"translations": {
+		"fr": " : ** :house_abandoned: Vous arrivez dans une ville, sans y trouver âme qui vive. En la traversant, vous apercevez un chantier qui semble tout aussi désert.\n\n:mag_right: Fouiller le chantier.\n:chains: Fouiller les échafaudages.\n:walking: Poursuivre votre voyage sans y prêter attention.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :house_abandoned: You arrive at a city without finding anyone. After crossing you spot a building site that also seems deserted.\n\n:mag_right: Search the building site.\n:chains: Search the scaffolding.\n:walking: Move on without worrying.\n\n*- Use reactions to take an action :warning: Not responding is considered a separate choice.*"
+	},
+	"reactions": [
+		"🔎",
+		"⛓",
+		"🚶"
+	],
+	"possibilities": {
+		"🔎": [
+			{
+				"timeLost": 30,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 40,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 325,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -20,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"⛓": [
+			{
+				"timeLost": 45,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 425,
+				"moneyGained": 30,
+				"item": false
+			},
+			{
+				"timeLost": 20,
+				"healthPointsChange": -30,
+				"newEffect": ":confounded:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 15,
+				"healthPointsChange": -15,
+				"newEffect": ":confounded:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

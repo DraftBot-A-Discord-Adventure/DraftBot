@@ -1,0 +1,101 @@
+{
+	"translations": {
+		"fr": " : ** :apple: Alors que vous traversez la propriété d'un fermier, vous voyez un pommier aux fruits forts appétissants. \n\n:euro: Aller acheter des fruits à cet homme\n:busts_in_silhouette: Aller voler des fruits dans l'arbre\n:runner: Ne pas s'en préoccuper\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :apple: As you walk through a farmer's property, you see an apple tree with very appetizing fruit. \n\n:euro: Go buy fruit from this man\n:busts_in_silhouette: Go steal fruit from the tree\n:runner: Don't worry about it\n\n*-Use reaction to make an action :warning: Not responding is consided a separate choice!*"
+	},
+	"reactions": [
+		"💶",
+		"👥",
+		"🏃"
+	],
+	"possibilities": {
+		"💶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": -30,
+				"newEffect": ":sick:",
+				"xpGained": 0,
+				"moneyGained": -50,
+				"item": false
+			},
+			{
+				"timeLost": 10,
+				"healthPointsChange": 5,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": -50,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"👥": [
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 125,
+				"moneyGained": 50,
+				"item": false
+			},
+			{
+				"timeLost": 15,
+				"healthPointsChange": -25,
+				"newEffect": ":smiley:",
+				"xpGained": 0,
+				"moneyGained": -50,
+				"item": false
+			},
+			{
+				"timeLost": 15,
+				"healthPointsChange": 10,
+				"newEffect": ":smiley:",
+				"xpGained": 225,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": -50,
+				"item": false
+			}
+		],
+		"🏃": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 20,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 5,
+				"newEffect": ":smiley:",
+				"xpGained": 350,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

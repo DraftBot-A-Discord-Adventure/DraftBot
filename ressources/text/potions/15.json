@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": "<:DarkPotion:548221047187439710>  **Potion magique**",
+		"en": "<:DarkPotion:548221047187439710>  **Magic potion**"
+	},
+	"rareness": 5,
+	"power": 175,
+	"nature": 3
+}

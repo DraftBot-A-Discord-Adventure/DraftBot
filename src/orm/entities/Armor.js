@@ -10,21 +10,14 @@ class Armor extends ItemAbstract {
     /**
      * Return string containing a description of an armor
      * @param {string} language - The language the object has to be displayed in
-     * @returns {string}
+     * @returns {Object[]}
      */
-    display(language) {
-        let result = this.getTranslation(language);
-
-        if (this.get('id') === 'default') {
-            return result;
-        }
-
-        result += Config.text[language].equipementManager.separator1;
-        result += this.get('effect');
-        result += Config.text[language].equipementManager.separator2;
-        result += Config.text[language].rarities[this.get('rareness')];
-
-        return result;
+    toEmbedObject(language) {
+        return [{
+            name: Config.text[language].commands.inventory.armorTitle,
+            value: (this.id === "default") ? this.getTranslation(language) : this.getTranslation(language) + Config.text[language].equipementManager.separator1 + this.get('effect') + Config.text[language].equipementManager.separator2 + Config.text[language].rarities[this.get('rareness')],
+            inline:  false
+        }];
     }
 
 }

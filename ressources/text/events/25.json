@@ -1,0 +1,93 @@
+{
+	"translations": {
+		"fr": " : ** :mag_right: Après plusieurs jours de voyage sans encombre vous finissez par arriver sur les lieux d'une petite escarmouche entre deux groupes armés. Les esprits semblent cependant s'être calmés et vous remarquez plusieurs soldats affairés à rechercher des éventuels survivants.\n\n:handshake: Proposer son aide\n:spy: Piller les corps\n:walking: Ne pas les aider\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :mag_right: As you wander around, you come across a battlefield, in the surrounding area, you notice several soldiers looking for possible survivors of a massacre.\n\n:handshake: Offer to help\n:spy: Steal bodies\n:walking: Don't help them\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"reactions": [
+		"🤝",
+		"🕵",
+		"🚶"
+	],
+	"possibilities": {
+		"🤝": [
+			{
+				"timeLost": 45,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 125,
+				"moneyGained": 100,
+				"item": false
+			},
+			{
+				"timeLost": 15,
+				"healthPointsChange": -10,
+				"newEffect": ":clock2:",
+				"xpGained": 0,
+				"moneyGained": -30,
+				"item": false
+			}
+		],
+		"🕵": [
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 125,
+				"moneyGained": 50,
+				"item": false
+			},
+			{
+				"timeLost": 25,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": -100,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"timeLost": 30,
+				"healthPointsChange": 10,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": -20,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -15,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -25,
+				"newEffect": ":sleeping:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

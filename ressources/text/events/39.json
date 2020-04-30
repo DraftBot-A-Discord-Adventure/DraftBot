@@ -1,0 +1,101 @@
+{
+	"translations": {
+		"fr": " : ** :bust_in_silhouette: Durant votre périple vous arrivez dans une ville en bord de mer. Vous faites là-bas la rencontre d'un homme, disant s'appeler Price et être mercenaire. \n\n:person_walking: Le payer pour vous escorter jusqu'à votre prochaine destination\n:meat_on_bone: Faire connaissance autour d'un bon repas\n:money_mouth: Tenter de lui voler de l'argent\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :bust_in_silhouette: During your journey you arrive in a seaside town. There you meet a man, who says that his name is Price and that he is a mercenary.\n\n:person_walking: Pay him to accompany you to your next destination\n:meat_on_bone: Get to know each other over a good meal\n:money_mouth: Try to steal money from him\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"reactions": [
+		"🚶",
+		"🍖",
+		"🤑"
+	],
+	"possibilities": {
+		"🚶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 350,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 550,
+				"moneyGained": 150,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": -150,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -20,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": -300,
+				"item": false
+			}
+		],
+		"🍖": [
+			{
+				"timeLost": 120,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": -150,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🤑": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": -20,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": -300,
+				"item": false
+			}
+		]
+	}
+}

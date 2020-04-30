@@ -1,0 +1,66 @@
+{
+	"translations": {
+		"fr": " : ** :mountain_snow: Vous avez décidé de profiter de l'été pour passer par les montagnes tant que les cols ne sont pas trop enneigés, cependant l'ascension s'avère plus difficile que prévu...\n\n:evergreen_tree: Continuer à travers la forêt de sapin\n:park: Renoncer à grimper jusqu'en haut et rester proche des plaines\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :mountain_snow: You decided to take advantage of the summer passing through the mountains as long as the passes aren't too snowy, however, the climb is more difficult than expected...\n\n:evergreen_tree: Continue through the fir forest\n:park: Forget climbing to the top and stay close to the plains\n\n*- Use reactions to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"reactions": [
+		"🌲",
+		"🏞"
+	],
+	"possibilities": {
+		"🌲": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 450,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -25,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🏞": [
+			{
+				"timeLost": 150,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 150,
+				"healthPointsChange": 10,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":sleeping:",
+				"xpGained": 20,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

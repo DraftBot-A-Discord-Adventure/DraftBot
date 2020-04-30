@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": "<:DarkPotion:548221047187439710>  **Potion foncée**",
+		"en": "<:DarkPotion:548221047187439710>  **Dark potion**"
+	},
+	"rareness": 4,
+	"power": 90,
+	"nature": 4
+}

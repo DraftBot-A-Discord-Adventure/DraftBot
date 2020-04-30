@@ -1,0 +1,101 @@
+{
+	"translations": {
+		"fr": " : ** :fireworks: Vous montez sur une colline. Alors que vous regardez autour de vous, vous voyez des lumières au loin. Au fur et à mesure que vous vous approchez, vous entendez également de la musique. C'est un festival ! Excité de faire la fête, vous courez vers la ville.\n\n:dart: Aller à un stand de jeu\n:circus_tent: Aller à un stand de vente d'objets\n:oden: Aller à un stand de nourriture \n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :fireworks: You're going up a hill. As you look around, you see lights in the distance. As you get closer, you also hear music. It's a festival! Excited to party, you run to the city.\n\n:dart: Go to a game stand\n:circus_tent: Go to an item stand\n:oden: Go to a food stand \n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"reactions": [
+		"🎯",
+		"🎪",
+		"🍢"
+	],
+	"possibilities": {
+		"🎯": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": -200,
+				"item": false
+			},
+			{
+				"timeLost": 30,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 250,
+				"moneyGained": 200,
+				"item": false
+			}
+		],
+		"🎪": [
+			{
+				"timeLost": 240,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 450,
+				"moneyGained": -200,
+				"item": false
+			}
+		],
+		"🍢": [
+			{
+				"timeLost": 30,
+				"healthPointsChange": 75,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": -20,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -100,
+				"newEffect": ":sick:",
+				"xpGained": 0,
+				"moneyGained": -20,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": -20,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 40,
+				"healthPointsChange": 5,
+				"newEffect": ":clock2:",
+				"xpGained": 225,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}

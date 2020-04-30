@@ -1,0 +1,66 @@
+{
+	"translations": {
+		"fr": " : ** :walking: Vous vous baladez en forêt, quand soudain vous apercevez un chariot qui semble cassé. Autour le groupe de personnes semble mal en point.\n\n:hammer: Aider ces gens à réparer leur chariot\n:person_walking: Ne pas se préoccuper de ces individus vous semblant suspects.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :walking: You walk through the forest, when suddenly you see a cart that looks broken. Around, a group of people seems to be in bad shape.\n\n:hammer: Help these people repair their cart.\n:runner: Don't worry about these individuals, they seem suspicious!\n\n*-Use reaction to make an action :warning: Not responding is consided a separate choice!*"
+	},
+	"reactions": [
+		"🔨",
+		"🚶"
+	],
+	"possibilities": {
+		"🔨": [
+			{
+				"timeLost": 45,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 125,
+				"moneyGained": 75,
+				"item": false
+			},
+			{
+				"timeLost": 55,
+				"healthPointsChange": -20,
+				"newEffect": ":clock2:",
+				"xpGained": 0,
+				"moneyGained": -50,
+				"item": false
+			},
+			{
+				"timeLost": 10,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 325,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"timeLost": 0,
+				"healthPointsChange": 0,
+				"newEffect": ":smiley:",
+				"xpGained": 150,
+				"moneyGained": 0,
+				"item": false
+			},
+			{
+				"timeLost": 0,
+				"healthPointsChange": -35,
+				"newEffect": ":head_bandage:",
+				"xpGained": 0,
+				"moneyGained": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"timeLost": 15,
+				"healthPointsChange": 0,
+				"newEffect": ":clock2:",
+				"xpGained": 25,
+				"moneyGained": 0,
+				"item": false
+			}
+		]
+	}
+}
