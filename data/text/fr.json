@@ -658,20 +658,17 @@
       "6": ""
     }
   },
-  "possibilities": {
-    "report": {
-      "nothingToSay": {
-        "1": "** | :smiley: Aucun incident ni évènement notable à signaler.",
-        "2": "** | :smiley: Il ne s'est rien passé de particulier depuis le précédent rapport.",
-        "3": "** | :smiley: Vous n'avez rencontré aucune difficulté à progresser durant les dernières heures, vous continuez d'avancer tranquillement.",
-        "4": "** | :smiley: Rien à signaler, vous continuez d'avancer.",
-        "5": "** | :smiley: Pas d'obstacle en vue, rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
-        "6": "** | :smiley: La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer",
-        "7": "** | :smiley: Rien d'important ne s'est passé depuis le rapport précédent.",
-        "8": "** | :smiley: Pas d'évènement notable depuis la dernière fois.",
-        "9": "** | :smiley: Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route",
-        "10": "** | :smiley: La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
-      }
-    }
+
+  "nothingToSay": {
+    "1": "** | :smiley: Aucun incident ni évènement notable à signaler.",
+    "2": "** | :smiley: Il ne s'est rien passé de particulier depuis le précédent rapport.",
+    "3": "** | :smiley: Vous n'avez rencontré aucune difficulté à progresser durant les dernières heures, vous continuez d'avancer tranquillement.",
+    "4": "** | :smiley: Rien à signaler, vous continuez d'avancer.",
+    "5": "** | :smiley: Pas d'obstacle en vue, rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
+    "6": "** | :smiley: La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer",
+    "7": "** | :smiley: Rien d'important ne s'est passé depuis le rapport précédent.",
+    "8": "** | :smiley: Pas d'évènement notable depuis la dernière fois.",
+    "9": "** | :smiley: Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route",
+    "10": "** | :smiley: La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
   }
 }

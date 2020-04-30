@@ -660,20 +660,16 @@
             "6": ""
         }
     },
-    "possibilities": {
-        "report": {
-            "nothingToSay": {
-                "1": "** | :smiley: No incidents or significant events to report.",
-                "2": "** | :smiley: Nothing special happened since the previous report.",
-                "3": "** | :smiley: You haven't encountered any difficulty in your progress during the last few hours, and you continue to progress quietly.",
-                "4": "** | :smiley: Nothing to report, you keep moving forward.",
-                "5": "** | :smiley: No obstacles in sight, nothing seems to be against you right now. You keep moving forward.",
-                "6": "** | :smiley: The way is clear, no reason to stop, you keep moving forward",
-                "7": "** | :smiley: Nothing significant has happened since the previous report.",
-                "8": "** | :smiley: No significant events since last time.",
-                "9": "** | :smiley: The dogs bark and the caravan passes by. You continue quietly on your way",
-                "10": "** | :smiley: The princess got closer to you! At least that's the impression you got... You carry on."
-            }
-        }
+    "nothingToSay": {
+        "1": "** | :smiley: No incidents or significant events to report.",
+        "2": "** | :smiley: Nothing special happened since the previous report.",
+        "3": "** | :smiley: You haven't encountered any difficulty in your progress during the last few hours, and you continue to progress quietly.",
+        "4": "** | :smiley: Nothing to report, you keep moving forward.",
+        "5": "** | :smiley: No obstacles in sight, nothing seems to be against you right now. You keep moving forward.",
+        "6": "** | :smiley: The way is clear, no reason to stop, you keep moving forward",
+        "7": "** | :smiley: Nothing significant has happened since the previous report.",
+        "8": "** | :smiley: No significant events since last time.",
+        "9": "** | :smiley: The dogs bark and the caravan passes by. You continue quietly on your way",
+        "10": "** | :smiley: The princess got closer to you! At least that's the impression you got... You carry on."
     }
 }
