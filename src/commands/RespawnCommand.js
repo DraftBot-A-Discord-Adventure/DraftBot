@@ -9,7 +9,7 @@ const RespawnCommand = async (language, message, args) => {
 
   if (player.health !== 0) {
     await message.channel.send(
-        format(JsonReader.commands.respawn.getTranslation('fr').alive,
+        format(JsonReader.commands.respawn.getTranslation(language).alive,
             {pseudo: message.author.username}));
   } else {
     const lostScore = Math.round(
@@ -24,7 +24,7 @@ const RespawnCommand = async (language, message, args) => {
     await getRepository('player').update(player);
 
     await message.channel.send(
-        format(JsonReader.commands.respawn.getTranslation('fr').respawn,
+        format(JsonReader.commands.respawn.getTranslation(language).respawn,
             {pseudo: message.author.username, lostScore: lostScore}));
   }
 };

@@ -21,9 +21,14 @@ class DraftBot {
     this.client = new (require('discord.js')).Client();
 
     // await this.command.init(); // TODO 2.0
-    await this.client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);
     return this;
   }
+
+  // TODO 2.0
+  // //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
+  // setInterval(async function () { // Set interval for checking
+  //   await checkTopWeek();
+  // }, 50000);
 
   /**
    * TODO 2.1

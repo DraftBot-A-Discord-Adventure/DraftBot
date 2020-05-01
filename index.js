@@ -26,12 +26,6 @@ const Draftbot = require('core/DraftBot');
     await draftbot.client.user
         .setActivity('❓ - Dm me for Help !')
         .catch(console.error);
-
-    // TODO 2.0
-    // //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
-    // setInterval(async function () { // Set interval for checking
-    //   await checkTopWeek();
-    // }, 50000);
   };
 
   /**
@@ -99,6 +93,8 @@ const Draftbot = require('core/DraftBot');
   draftbot.client.on('ready', onDiscordGuildDelete);
   draftbot.client.on('message', onDiscordMessage);
   draftbot.client.on('messageReactionAdd', onDiscordMessageReactionAdd);
+
+  await draftbot.client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);
 
 })(Draftbot);
 

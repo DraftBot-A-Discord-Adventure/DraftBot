@@ -49,7 +49,7 @@ class JsonReader {
         '/').length - 1];
     this[fileName] = (require(file));
     if (this[fileName].hasOwnProperty('translations')) {
-      this[fileName].getTranslation = this.getTranslation;
+      this[fileName].getTranslation = JsonReader.getTranslation;
     }
   }
 
@@ -57,7 +57,7 @@ class JsonReader {
    * @param {("fr"|"en")} language
    * @return {Object}
    */
-  getTranslation(language) {
+  static getTranslation(language) {
     return this.translations[language];
   }
 
