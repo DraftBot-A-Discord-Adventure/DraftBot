@@ -90,14 +90,6 @@ class Player extends Entity {
   /**
    * @param {number} value
    */
-  changeScoreAndWeeklyScore(value) {
-    this.setScore(this.get('score') + value);
-    this.setWeeklyScore(this.get('weeklyScore') + value);
-  }
-
-  /**
-   * @param {number} value
-   */
   setScore(value) {
     if (value > 0) {
       this.score = value;

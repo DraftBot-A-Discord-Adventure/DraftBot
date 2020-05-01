@@ -4,7 +4,6 @@
   "BADGE_MANAGER_IDS": "", // Put ids of the persons that will be able to manage badges separated by a comma
   "SUPPORT_IDS": "", // Put ids of the persons that will be able to send dms with the bot separated by a comma
   "BOT_OWNER_PREFIX": "", // The prefix only the bot owner can use
-  "PART_OF_SCORE_REMOVED_DURING_RESPAWN": 0.1, // Equals to 10 % by default
   "MAIN_SERVER_ID": "", // Put id of the discord server where the support will be done
   "CONSOLE_CHANNEL_ID": "", // Put id of the channel where the main status messages from the bot will be sent
   "FRENCH_ANNOUNCEMENT_CHANNEL_ID": "", // Put id of the channel where important public announcement will be sent in french

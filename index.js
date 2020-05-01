@@ -1,26 +1,20 @@
-const format = require("string-template");
-require('core/Tools');
 require('colors');
-const Figlet = require('figlet');
+require('core/Tools');
+const Draftbot = require('core/DraftBot');
 
-(async () => {
-  const draftbot = await (require('core/DraftBot')).init();
+(async Drafbot => {
+
+  const draftbot = await Drafbot.init();
 
   /**
    * Will be executed whenever the bot has started
+   * @return {Promise<void>}
    */
-  draftbot.client.on('ready', async () => {
-
-    let armor = await getRepository('event').getRandom();
-    console.log(armor);
-
-    Figlet(JsonReader.console.reboot, (err, data) => {
+  const onDiscordReady = async () => {
+    (require('figlet'))(JsonReader.console.reboot, (err, data) => {
       console.log(data.red);
       console.log(JsonReader.console.br.grey);
     });
-
-    // TODO 2.1
-    // draftbot.checkEasterEggsFile();
 
     await draftbot.client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
         .channels
@@ -38,13 +32,12 @@ const Figlet = require('figlet');
     // setInterval(async function () { // Set interval for checking
     //   await checkTopWeek();
     // }, 50000);
-
-  });
+  };
 
   /**
    * Will be executed each time the bot join a new server
    */
-  draftbot.client.on('guildCreate', guilde => {
+  const onDiscordGuildCreate = async guilde => {
     // let string = "";
     // let serverManager = new ServerManager();
     // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
@@ -55,19 +48,19 @@ const Figlet = require('figlet');
     //   //guilde.leave() //temporairement désactivé pour top.gg
     // }
     // console.log(string);
-  });
+  };
 
   /**
    * Will be executed each time the bot leave a server
    */
-  draftbot.client.on('guildDelete', guilde => {
+  const onDiscordGuildDelete = async guilde => {
     // let string = "";
     // let serverManager = new ServerManager();
     // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
     // string += Console.guildJoin.beginquit + guilde + Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot + Console.guildJoin.ratio + ratio + Console.guildJoin.validation + validation;
     // displayConsoleChannel(string);
     // console.log(string);
-  });
+  };
 
   /**
    * Will be executed each time the bot see a message
@@ -83,14 +76,11 @@ const Figlet = require('figlet');
   };
 
   /**
-   * Listener to see message
+   * Will be executed each time the bot see a reaction message
+   * @param {module:"discord.js".MessageReaction} reaction
+   * @return {Promise<void>}
    */
-  draftbot.client.on('message', onDiscordMessage);
-
-  /**
-   * Will be executed each time a reaction is added to a message
-   */
-  draftbot.client.on('messageReactionAdd', async (reaction) => {
+  const onDiscordMessageReactionAdd = async reaction => {
     //check if the user is a bot before doing anything
     // if (reaction.users.last().bot) return;
     //
@@ -102,9 +92,15 @@ const Figlet = require('figlet');
     //     msg.delete(5000);
     //   }).catch(err => { });
     // }
-  });
+  };
 
-})();
+  draftbot.client.on('ready', onDiscordReady);
+  draftbot.client.on('ready', onDiscordGuildCreate);
+  draftbot.client.on('ready', onDiscordGuildDelete);
+  draftbot.client.on('message', onDiscordMessage);
+  draftbot.client.on('messageReactionAdd', onDiscordMessageReactionAdd);
+
+})(Draftbot);
 
 // /**
 //  * Returns the ISO week of the date.

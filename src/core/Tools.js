@@ -49,3 +49,5 @@ global.minutesToString = function (minutes) {
     }
     return display;
 };
+
+const format = require('string-template');
