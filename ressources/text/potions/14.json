@@ -3,7 +3,7 @@
 		"fr": "<:DarkPotion:548221047187439710>  **Potion périmée**",
 		"en": "<:DarkPotion:548221047187439710>  **Expired potion**"
 	},
-	"rareness": 1,
+	"rarity": 1,
 	"power": 1,
 	"nature": 0
 }

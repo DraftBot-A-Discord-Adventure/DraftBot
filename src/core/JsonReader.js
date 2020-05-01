@@ -54,7 +54,7 @@ class JsonReader {
   }
 
   /**
-   * @param {String} language
+   * @param {("fr"|"en")} language
    * @return {Object}
    */
   getTranslation(language) {

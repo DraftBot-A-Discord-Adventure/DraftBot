@@ -1,5 +1,5 @@
 const format = require("string-template");
-const Tools = require('core/Tools');
+require('core/Tools');
 require('colors');
 const Figlet = require('figlet');
 
@@ -10,6 +10,9 @@ const Figlet = require('figlet');
    * Will be executed whenever the bot has started
    */
   draftbot.client.on('ready', async () => {
+
+    let armor = await getRepository('event').getRandom();
+    console.log(armor);
 
     Figlet(JsonReader.console.reboot, (err, data) => {
       console.log(data.red);

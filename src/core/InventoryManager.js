@@ -106,7 +106,7 @@ class InventoryManager {
      */
     async getDamageById(id) {
         let inv = await this.getInventoryById(id);
-        let damage = parseInt(ItemValues.effect[ItemValues.weapon[inv.weaponId].rareness][ItemValues.weapon[inv.weaponId].power]);
+        let damage = parseInt(ItemValues.effect[ItemValues.weapon[inv.weaponId].rarity][ItemValues.weapon[inv.weaponId].power]);
         console.log(damage)
         if (ItemValues.object[inv.objectId].nature == 3) //if the object offer a damage bonus
             damage = damage + parseInt(ItemValues.object[inv.objectId].power);
@@ -124,7 +124,7 @@ class InventoryManager {
      */
     async seeDamageById(id) {
         let inv = await this.getInventoryById(id);
-        let damage = parseInt(ItemValues.effect[ItemValues.weapon[inv.weaponId].rareness][ItemValues.weapon[inv.weaponId].power]);
+        let damage = parseInt(ItemValues.effect[ItemValues.weapon[inv.weaponId].rarity][ItemValues.weapon[inv.weaponId].power]);
         console.log(damage)
         if (ItemValues.object[inv.objectId].nature == 3) //if the object offer a damage bonus
             damage = damage + parseInt(ItemValues.object[inv.objectId].power);
@@ -140,7 +140,7 @@ class InventoryManager {
      */
     async getDefenseById(id) {
         let inv = await this.getInventoryById(id);
-        let defense = parseInt(ItemValues.effect[ItemValues.armor[inv.armorId].rareness][ItemValues.armor[inv.armorId].power]);
+        let defense = parseInt(ItemValues.effect[ItemValues.armor[inv.armorId].rarity][ItemValues.armor[inv.armorId].power]);
         if (ItemValues.object[inv.objectId].nature == 4) //if the object offer a defense bonus
             defense = defense + parseInt(ItemValues.object[inv.objectId].power);
         if (ItemValues.potion[inv.potionId].nature == 4) { //if the potion offer a defense bonus
@@ -158,7 +158,7 @@ class InventoryManager {
      */
     async seeDefenseById(id) {
         let inv = await this.getInventoryById(id);
-        let defense = parseInt(ItemValues.effect[ItemValues.armor[inv.armorId].rareness][ItemValues.armor[inv.armorId].power]);
+        let defense = parseInt(ItemValues.effect[ItemValues.armor[inv.armorId].rarity][ItemValues.armor[inv.armorId].power]);
         if (ItemValues.object[inv.objectId].nature == 4) //if the object offer a defense bonus
             defense = defense + parseInt(ItemValues.object[inv.objectId].power);
         if (ItemValues.potion[inv.potionId].nature == 4) { //if the potion offer a defense bonus

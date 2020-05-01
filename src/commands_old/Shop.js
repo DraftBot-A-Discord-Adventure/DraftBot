@@ -216,7 +216,7 @@ const generateDailyPotion = function () {
     let potionManager = new PotionManager();
     let dailyPotionSeed = Math.round(Date.now() / (1000 * 60 * 60 * 24));
     let dailyPotion = potionManager.getPotionById(dailyPotionSeed % (DefaultValues.raritiesGenerator.numberOfPotion - 1) + 1);
-    while (dailyPotion.rareness == 8 || dailyPotion.natureEffect == 0) {
+    while (dailyPotion.rarity == 8 || dailyPotion.natureEffect == 0) {
         dailyPotionSeed = Math.round(dailyPotionSeed / 7);
         dailyPotion = potionManager.getPotionById(1 + (dailyPotionSeed % (DefaultValues.raritiesGenerator.numberOfPotion - 1)));
     }
@@ -417,7 +417,7 @@ function generateShopMessage(dailyPotion, potionManager, language) {
  */
 function displayPotion(potion, language) {
     ItemNames = require('../utils/items/' + language);
-    let stringResult = ItemNames.potion[potion.id] + Text.potionManager.separator + Text.rarities[potion.rareness] + "\n" + Text.nature.introShop[potion.natureEffect];
+    let stringResult = ItemNames.potion[potion.id] + Text.potionManager.separator + Text.rarities[potion.rarity] + "\n" + Text.nature.introShop[potion.natureEffect];
     if (potion.natureEffect != 0) { // affichage de la puissance de l'effet si il existe
         stringResult += potion.power + Text.nature.outroPotion[potion.natureEffect];
     }

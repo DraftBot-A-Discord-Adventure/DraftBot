@@ -1,6 +1,10 @@
 const AppRepository = require("repositories/AppRepository");
 const Armor = require("entities/Armor");
 
+/**
+ * @property {String} datasource
+ * @property {Object} armors
+ */
 class ArmorRepository extends AppRepository {
 
     constructor() {
@@ -14,46 +18,18 @@ class ArmorRepository extends AppRepository {
      * @return {Promise<Armor>}
      */
     async getById(id) {
-        return new Armor(
-            id,
-            this.armors[id].rareness,
-            this.armors[id].power,
-            this.armors[id].translations,
-            JsonReader.effect[this.armors[id].rareness][this.armors[id].power]
-        );
+        return this.armors[id];
     }
 
     /**
-     * Choose a random armor in the existing ones. (take care of the rareness)
+     * Choose a random armor in the existing ones. (take care of the rarity)
      * @return {Promise<Armor>}
      */
-    async getRandomWithRareness() {
-        const desiredRareness = Tools.generateRandomRareness();
-        const possibleArmors = Object.entries(this.text.items.armor).filter(key => parseInt(this.text.items.armor[key[0]].rareness) === desiredRareness);
+    async getRandomWithRarity() {
+        const desiredRarity = generateRandomRarity();
+        const possibleArmors = Object.entries(this.armors).filter(key => this.armors[key[0]].rarity === desiredRarity);
         const id = possibleArmors[Math.floor(Math.random() * possibleArmors.length)][0];
-        return new Armor(
-            id,
-            this.text.items.armor[id].rareness,
-            this.text.items.armor[id].power,
-            this.text.items.armor[id].translations,
-            this.text.items.effect[this.text.items.armor[id].rareness][this.text.items.armor[id].power]
-        );
-    }
-
-
-    /**
-     * Choose a armor totally randomly without taking care of the rareness
-     * @return {Promise<Armor>}
-     */
-    async getRandom() {
-        const id = Math.round(Math.random() * (Config.raritiesGenerator.numberOfArmor - 1)) + 1;
-        return new Armor(
-            id,
-            this.text.items.armor[id].rareness,
-            this.text.items.armor[id].power,
-            this.text.items.armor[id].translations,
-            this.text.items.effect[this.text.items.armor[id].rareness][this.text.items.armor[id].power]
-        );
+        return this.armors[id];
     }
 
 }

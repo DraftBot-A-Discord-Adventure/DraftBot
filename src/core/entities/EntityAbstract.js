@@ -1,39 +1,10 @@
 class EntityAbstract {
 
-  /**
-   * @param {Object} document
-   */
-  constructor(document) {
+  constructor() {
     if (this.constructor === EntityAbstract) {
       throw new Error(
           'Abstract class EntityAbstract cannot be instantiated directly');
     }
-  }
-
-  /**
-   * @param {string} field
-   * @return {*} value
-   * @throws {Error}
-   */
-  get(field) {
-    if (field in this === undefined) {
-      throw new Error('This field doesn\'t exist in class property');
-    }
-
-    return this[field];
-  }
-
-  /**
-   * @param {string} field
-   * @param {*} value
-   * @throws {Error}
-   */
-  set(field, value) {
-    if (field in this === undefined) {
-      throw new Error('This field doesn\'t exist in class property');
-    }
-
-    this[field] = value;
   }
 
 }

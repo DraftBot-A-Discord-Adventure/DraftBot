@@ -3,7 +3,7 @@
 		"fr": "<:LovePotion:548221051063107594>  **Potion de soin ultime**",
 		"en": "<:LovePotion:548221051063107594>  **Ultimate healing potion**"
 	},
-	"rareness": 7,
+	"rarity": 7,
 	"power": 215,
 	"nature": 1
 }

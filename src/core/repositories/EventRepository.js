@@ -1,6 +1,10 @@
 const AppRepository = require("repositories/AppRepository");
 const Event = require("entities/Event");
 
+/**
+ * @property {String} datasource
+ * @property {Object} events
+ */
 class EventRepository extends AppRepository {
 
   constructor() {
@@ -14,30 +18,16 @@ class EventRepository extends AppRepository {
    * @return {Promise<Event>}
    */
   async getById(id) {
-    return new Event(
-        id,
-        {
-          "fr": Config.text.fr.events[id],
-          "en": Config.text.en.events[id]
-        },
-        this.text.events.event[id]
-    );
+    return this.events[id];
   }
 
   /**
-   * Get randomly an event
+   * Get randomly an event, exclude event 0
    * @return {Promise<Event>}
    */
   async getRandom() {
-    const id = Math.round(Math.random() * (Object.keys(this.text.events.event).length - 1)) + 1;
-    return new Event(
-        id,
-        {
-          "fr": Config.text.fr.events[id],
-          "en": Config.text.en.events[id]
-        },
-        this.text.events.event[id]
-    );
+    const id = Math.round(Math.random() * Object.keys(this.events).length) + 1;
+    return this.events[id];
   }
 
 }

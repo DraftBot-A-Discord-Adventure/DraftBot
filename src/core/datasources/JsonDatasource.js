@@ -25,8 +25,13 @@ class JsonDatasource {
       if (JsonDatasource[folder] === undefined) {
         JsonDatasource[folder] = {};
       }
-      JsonDatasource[folder][fileName] = (require(
-          `ressources/text/${folder}/${file}`));
+      let entityName = folder.charAt(0).toUpperCase() + folder.slice(1, -1);
+      if (entityName === 'Object') {
+        entityName = 'D_Object';
+      }
+      JsonDatasource[folder][fileName] = new (require(`entities/${entityName}`))(
+          Object.assign({id: parseInt(fileName)},
+              (require(`ressources/text/${folder}/${file}`))));
     }
     return JsonDatasource[folder];
   }

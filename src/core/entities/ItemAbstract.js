@@ -2,7 +2,15 @@ const EntityAbstract = require("entities/EntityAbstract");
 
 class ItemAbstract extends EntityAbstract {
 
-    constructor(id, rareness, power, translations) {
+    /**
+     * @param {Number} id
+     * @param {Number} rarity
+     * @param {Number} power
+     * @param {Object} translations
+     * @param {String} translations.fr
+     * @param {String} translations.en
+     */
+    constructor({id, rarity, power, translations}) {
         super();
 
         if (this.constructor === ItemAbstract) {
@@ -10,34 +18,26 @@ class ItemAbstract extends EntityAbstract {
         }
 
         this.id = id;
-        this.rareness = rareness;
+        this.rarity = rarity;
         this.power = power;
         this.translations = translations;
     }
 
     /**
-     * Return the name of the potion
-     * @param {string} language
-     * @return {string}
+     * @param {("fr"|"en")} language
+     * @return {Object}
      */
     getTranslation(language) {
         return this.translations[language];
     }
 
     /**
-     * Get the emoji that correspond to the potion
+     * TODO 2.0 Utilité de cette fonction ? (utile au poition seulement ?)
+     * Get the emoji
      * @returns {string}
      */
     getEmoji() {
         return this.getTranslation('en').split(" ")[0];
-    }
-
-    /**
-     * Return the value of the item
-     * @returns {number}
-     */
-    getAttack() {
-        return parseInt(Config.raritiesValues[this.get('rareness')]) + parseInt(this.get('power')); // TODO J'ai du mal à voir l'utilité de cette value ?! Peux etre le nom a revoir ?
     }
 }
 

@@ -3,7 +3,7 @@
 		"fr": ":game_die:  **Dé magique**",
 		"en": ":game_die: **Magic die**"
 	},
-	"rareness": 3,
+	"rarity": 3,
 	"power": 20,
 	"nature": 6
 }

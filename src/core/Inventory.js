@@ -136,7 +136,7 @@ class Inventory {
      * @returns {*} the potion
      */
     getPotion() {
-        return new Potion(this.potionId, parseInt(ItemValues.potion[this.potionId].rareness), parseInt(ItemValues.potion[this.potionId].power), parseInt(ItemValues.potion[this.potionId].nature))
+        return new Potion(this.potionId, parseInt(ItemValues.potion[this.potionId].rarity), parseInt(ItemValues.potion[this.potionId].power), parseInt(ItemValues.potion[this.potionId].nature))
     }
 
     /**
@@ -144,7 +144,7 @@ class Inventory {
      * @returns {*} the current active object
      */
     getCurrentObject() {
-        return new Object(this.objectId, parseInt(ItemValues.object[this.objectId].rareness), parseInt(ItemValues.object[this.objectId].power), parseInt(ItemValues.object[this.objectId].nature))
+        return new Object(this.objectId, parseInt(ItemValues.object[this.objectId].rarity), parseInt(ItemValues.object[this.objectId].power), parseInt(ItemValues.object[this.objectId].nature))
     }
 }
 

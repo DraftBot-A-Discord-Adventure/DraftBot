@@ -3,7 +3,7 @@
 		"fr": ":black_large_square:  **Emplacement libre**",
 		"en": ":black_large_square: **Unused space**"
 	},
-	"rareness": 0,
+	"rarity": 0,
 	"power": 1,
 	"nature": 0
 }

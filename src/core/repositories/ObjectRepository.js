@@ -1,6 +1,10 @@
 const AppRepository = require("repositories/AppRepository");
 const D_Object = require("entities/D_Object");
 
+/**
+ * @property {String} datasource
+ * @property {Object} objects
+ */
 class ObjectRepository extends AppRepository {
 
     constructor() {
@@ -14,45 +18,18 @@ class ObjectRepository extends AppRepository {
      * @return {Promise<Object>}
      */
     async getById(id) {
-        return new D_Object(
-            id,
-            this.text.items.object[id].rareness,
-            this.text.items.object[id].power,
-            this.text.items.object[id].translations,
-            this.text.items.object[id].nature
-        );
+        return this.objects[id];
     }
 
     /**
-     * Choose a random object in the existing ones. (take care of the rareness)
+     * Choose a random object in the existing ones. (take care of the rarity)
      * @return {Promise<Object>}
      */
-    async getRandomWithRareness() {
-        const desiredRareness = Tools.generateRandomRareness();
-        const possibleObjects = Object.entries(this.text.items.object).filter(key => parseInt(this.text.items.object[key[0]].rareness) === desiredRareness);
+    async getRandomWithRarity() {
+        const desiredRarity = generateRandomRarity();
+        const possibleObjects = Object.entries(this.objects).filter(key => this.object[key[0]].rarity === desiredRarity);
         const id = possibleObjects[Math.floor(Math.random() * possibleObjects.length)][0];
-        return new D_Object(
-            id,
-            this.text.items.object[id].rareness,
-            this.text.items.object[id].power,
-            this.text.items.object[id].translations,
-            this.text.items.object[id].nature
-        );
-    }
-
-    /**
-     * Choose a object totally randomly without taking care of the rareness
-     * @return {Promise<Object>}
-     */
-    async getRandom() {
-        const id = Math.round(Math.random() * (Config.raritiesGenerator.numberOfObject - 1)) + 1;
-        return new D_Object(
-            id,
-            this.text.items.object[id].rareness,
-            this.text.items.object[id].power,
-            this.text.items.object[id].translations,
-            this.text.items.object[id].nature
-        );
+        return this.objects[id];
     }
 
 }

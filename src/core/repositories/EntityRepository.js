@@ -8,7 +8,7 @@ class EntityRepository extends AppRepository {
     this.datasource = DATASOURCE.SQLITE;
   }
 
-  // TODO
+  // TODO 2.0
 
 }
 

@@ -2,7 +2,7 @@ const EntityAbstract = require('entities/EntityAbstract');
 
 class Event extends EntityAbstract {
 
-  constructor(id, translations, emojis) {
+  constructor({id, translations, emojis}) {
     super();
     this.id = id;
     this.translations = translations;
@@ -10,15 +10,15 @@ class Event extends EntityAbstract {
   }
 
   /**
-   * Return the name of the event
-   * @param {string} language
-   * @return {string}
+   * @param {("fr"|"en")} language
+   * @return {Object}
    */
   getTranslation(language) {
     return this.translations[language];
   }
 
   /**
+   * TODO 2.0 refactor
    * Return string containing a description of an armor
    * @param {string} language - The language the object has to be displayed in
    * @returns {Object[]}

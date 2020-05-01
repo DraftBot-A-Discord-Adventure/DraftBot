@@ -2,7 +2,7 @@ const EntityAbstract = require("entities/EntityAbstract");
 
 class Entity extends EntityAbstract {
 
-    constructor(id, maxHealth, health, attack, defense, speed, effect) {
+    constructor({id, maxHealth, health, attack, defense, speed, effect}) {
         super();
         this.id = id;
         this.maxHealth = maxHealth;

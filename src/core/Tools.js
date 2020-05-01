@@ -1,27 +1,27 @@
 /**
- * Generate a random rareness. Legendary is very rare and common is not rare at all
+ * Generate a random rarity. Legendary is very rare and common is not rare at all
  * @returns {Number}
  */
-const generateRandomRareness = function () {
-    let randomValue = Math.round(Math.random() * Config.raritiesGenerator.maxValue);
+global.generateRandomRarity = function () {
+    let randomValue = Math.round(Math.random() * JsonReader.values.raritiesGenerator.maxValue);
 
-    if (randomValue <= Config.raritiesGenerator['0']) {
+    if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
         return 1;
-    } else if (randomValue <= Config.raritiesGenerator['1']) {
+    } else if (randomValue <= JsonReader.values.raritiesGenerator['1']) {
         return 2;
-    } else if (randomValue <= Config.raritiesGenerator['2']) {
+    } else if (randomValue <= JsonReader.values.raritiesGenerator['2']) {
         return 3;
-    } else if (randomValue <= Config.raritiesGenerator['3']) {
+    } else if (randomValue <= JsonReader.values.raritiesGenerator['3']) {
         return 4;
-    } else if (randomValue <= Config.raritiesGenerator['4']) {
+    } else if (randomValue <= JsonReader.values.raritiesGenerator['4']) {
         return 5;
-    } else if (randomValue <= Config.raritiesGenerator['5']) {
+    } else if (randomValue <= JsonReader.values.raritiesGenerator['5']) {
         return 6;
-    } else if (randomValue <= Config.raritiesGenerator['6']) {
+    } else if (randomValue <= JsonReader.values.raritiesGenerator['6']) {
         return 7;
-    } else {
-        return 8;
     }
+
+    return 8;
 };
 
 /**
@@ -29,7 +29,7 @@ const generateRandomRareness = function () {
  * @param {Number} milliseconds - The number of milliseconds
  * @return {Number}
  */
-const millisecondsToMinutes = function (milliseconds) {
+global.millisecondsToMinutes = function (milliseconds) {
     return Math.round(milliseconds / 60000);
 };
 
@@ -38,7 +38,7 @@ const millisecondsToMinutes = function (milliseconds) {
  * @param {Number} minutes - The number of minutes to display
  * @return {String}
  */
-const minutesToString = function (minutes) {
+global.minutesToString = function (minutes) {
     let hours = Math.floor(minutes / 60);
     minutes = minutes - (hours * 60);
 
@@ -48,10 +48,4 @@ const minutesToString = function (minutes) {
         display = "Quelques secondes..."; // TODO 2.0 Should be translated
     }
     return display;
-};
-
-module.exports = {
-    generateRandomRareness,
-    millisecondsToMinutes,
-    minutesToString
 };

@@ -2,7 +2,7 @@ const EntityAbstract = require('entities/EntityAbstract');
 
 class Possibility extends EntityAbstract {
 
-  constructor(eventId, emoji, id, timeLost, healthPointsChange, newEffect, xpGained, moneyGained, item, translations) {
+  constructor({eventId, emoji, id, timeLost, healthPointsChange, newEffect, xpGained, moneyGained, item, translations}) {
     super();
     this.eventId = eventId;
     this.emoji = emoji;
@@ -17,9 +17,8 @@ class Possibility extends EntityAbstract {
   }
 
   /**
-   * Return the name of the possibility
-   * @param {string} language
-   * @return {string}
+   * @param {("fr"|"en")} language
+   * @return {Object}
    */
   getTranslation(language) {
     return this.translations[language];

@@ -2,12 +2,13 @@ const ItemAbstract = require("entities/ItemAbstract");
 
 class Potion extends ItemAbstract {
 
-    constructor(id, rareness, power, translations, nature) {
-        super(id, rareness, power, translations);
+    constructor({id, rarity, power, translations, nature}) {
+        super({id, rarity, power, translations});
         this.nature = nature;
     }
 
     /**
+     * TODO 2.0 Refactor
      * Return string containing a description of an potion
      * @param {string} language - The language the object has to be displayed in
      * @returns {string}
@@ -20,7 +21,7 @@ class Potion extends ItemAbstract {
         }
 
         result += Config.text[language].potionManager.separator;
-        result += Config.text[language].rarities[this.get('rareness')];
+        result += Config.text[language].rarities[this.get('rarity')];
         result += Config.text[language].potionManager.separator;
         result += Config.text[language].nature.intro[this.get('nature')];
 

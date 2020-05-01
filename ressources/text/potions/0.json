@@ -3,7 +3,7 @@
 		"fr": "⬛  **Pas de potion**",
 		"en": "⬛ **No potion**"
 	},
-	"rareness": 0,
+	"rarity": 0,
 	"power": 1,
 	"nature": 0
 }

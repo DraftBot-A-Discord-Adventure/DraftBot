@@ -1,6 +1,10 @@
 const AppRepository = require("repositories/AppRepository");
 const Potion = require("entities/Potion");
 
+/**
+ * @property {String} datasource
+ * @property {Object} potions
+ */
 class PotionRepository extends AppRepository {
 
     constructor() {
@@ -14,45 +18,18 @@ class PotionRepository extends AppRepository {
      * @return {Promise<Potion>}
      */
     async getById(id) {
-        return new Potion(
-            id,
-            this.text.items.potion[id].rareness,
-            this.text.items.potion[id].power,
-            this.text.items.potion[id].translations,
-            this.text.items.potion[id].nature
-        );
+        return this.potions[id];
     }
 
     /**
-     * Choose a random potion in the existing ones. (take care of the rareness)
+     * Choose a random potion in the existing ones. (take care of the rarity)
      * @return {Promise<Potion>}
      */
-    async getRandomWithRareness() {
-        const desiredRareness = Tools.generateRandomRareness();
-        const possiblePotions = Object.entries(this.text.items.potion).filter(key => parseInt(this.text.items.potion[key[0]].rareness) === desiredRareness);
+    async getRandomWithRarity() {
+        const desiredRarity = generateRandomRarity();
+        const possiblePotions = Object.entries(this.potions).filter(key => this.potions[key[0]].rarity === desiredRarity);
         const id = possiblePotions[Math.floor(Math.random() * possiblePotions.length)][0];
-        return new Potion(
-            id,
-            this.text.items.potion[id].rareness,
-            this.text.items.potion[id].power,
-            this.text.items.potion[id].translations,
-            this.text.items.potion[id].nature
-        );
-    }
-
-    /**
-     * Choose a potion totally randomly without taking care of the rareness
-     * @return {Promise<Potion>}
-     */
-    async getRandom() {
-        const id = Math.round(Math.random() * (Config.raritiesGenerator.numberOfPotion - 1)) + 1;
-        return new Potion(
-            id,
-            this.text.items.potion[id].rareness,
-            this.text.items.potion[id].power,
-            this.text.items.potion[id].translations,
-            this.text.items.potion[id].nature
-        );
+        return this.potions[id];
     }
 
 }

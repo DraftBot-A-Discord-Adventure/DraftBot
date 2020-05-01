@@ -3,7 +3,7 @@
 		"fr": "<:LovePotion:548221051063107594>  **Potion de guérison**",
 		"en": "<:LovePotion:548221051063107594>  **Regeneration potion**"
 	},
-	"rareness": 5,
+	"rarity": 5,
 	"power": 80,
 	"nature": 1
 }

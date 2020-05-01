@@ -37,10 +37,10 @@ const detectLanguage = async function (message) {
 }
 
 /**
- * Generate a random rareness. Legendary is very rare and common is not rare at all
- * @returns {Number} - the number refering to a rareness (1 - 8)
+ * Generate a random rarity. Legendary is very rare and common is not rare at all
+ * @returns {Number} - the number refering to a rarity (1 - 8)
  */
-const generateRandomRareness = function () {
+const generateRandomrarity = function () {
     let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
     let result;
     if (randomValue <= DefaultValues.raritiesGenerator['0']) {
@@ -114,5 +114,5 @@ module.exports = {
     detectLanguage,
     addItemBonus,
     seeItemBonus,
-    generateRandomRareness
+    generateRandomrarity
 };

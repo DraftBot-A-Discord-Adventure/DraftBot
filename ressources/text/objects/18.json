@@ -3,7 +3,7 @@
 		"fr": ":blue_book:  **Livre d'incantations Volume 2**",
 		"en": ":blue_book: **Spellbook volume 2**"
 	},
-	"rareness": 2,
+	"rarity": 2,
 	"power": 15,
 	"nature": 3
 }

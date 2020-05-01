@@ -6,6 +6,7 @@ class DraftBot {
       files: [
         'config/app.json',
         'draftbot/package.json',
+        'ressources/text/values.json',
         'ressources/text/console.json',
         'ressources/text/effect.json',
       ],

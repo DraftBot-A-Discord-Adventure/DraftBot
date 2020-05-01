@@ -425,7 +425,7 @@ class PlayerManager {
     sellItem(player, item, displayName, message, language) {
         Text = require('../text/' + language);
         let value = item.getValue();
-        console.log("the item has been sold ! " + item.rareness + " / " + item.power);
+        console.log("the item has been sold ! " + item.rarity + " / " + item.power);
         player.addMoney(value);
         if (displayName) {
             message.channel.send(Text.playerManager.sellEmoji + mentionPlayer(player) + Text.playerManager.sellItem1 + new ItemManager().getItemSimpleName(item, language) + Text.playerManager.sellItem2 + value + Text.playerManager.sellEnd);

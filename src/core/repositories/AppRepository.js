@@ -1,3 +1,6 @@
+/**
+ * @property {String} datasource
+ */
 class AppRepository {
 
   /**
