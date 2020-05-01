@@ -1,7 +1,12 @@
-const RepositoryAbstract = require("repositories/RepositoryAbstract");
+const AppRepository = require("repositories/AppRepository");
 const Weapon = require("entities/Weapon");
 
-class WeaponRepository extends RepositoryAbstract {
+class WeaponRepository extends AppRepository {
+
+    constructor() {
+        super();
+        this.datasource = DATASOURCE.JSON;
+    }
 
     /**
      * Return a weapon by id

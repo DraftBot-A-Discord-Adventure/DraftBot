@@ -66,4 +66,4 @@ class JsonReader {
 module.exports = {
   init: JsonReader.init
 };
-global.JsonText = JsonReader;
+global.JsonReader = JsonReader;

@@ -1,7 +1,12 @@
-const RepositoryAbstract = require("repositories/RepositoryAbstract");
+const AppRepository = require("repositories/AppRepository");
 const Potion = require("entities/Potion");
 
-class PotionRepository extends RepositoryAbstract {
+class PotionRepository extends AppRepository {
+
+    constructor() {
+        super();
+        this.datasource = DATASOURCE.JSON;
+    }
 
     /**
      * Return an potion by id

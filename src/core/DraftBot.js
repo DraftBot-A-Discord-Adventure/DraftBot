@@ -1,45 +1,27 @@
 class DraftBot {
 
-  constructor() {
-    this.repositories = new Map();
-    this.repository = new (require('core/Repository'))();
-    this.command = new (require('core/Command'))();
+  static async init() {
+    await (require('core/JsonReader')).init({
+      folders: ['ressources/text/commands'],
+      files: [
+        'config/app.json',
+        'draftbot/package.json',
+        'ressources/text/console.json',
+        'ressources/text/effect.json',
+      ],
+    });
+    await (require('core/Repository')).init();
+
+    // this.command = new (require('core/Command'))();
     this.discord = (require('discord.js'));
     this.client = new (require('discord.js')).Client();
 
-    (async () => {
-      await (require('core/JsonReader')).init({
-        folders: ['ressources/text/commands'],
-        files: [
-          'config/app.json',
-          'ressources/text/console.json',
-          'draftbot/package.json',
-        ],
-      });
-
-      await this.repository.init();
-      await this.command.init();
-      await this.client.login(JsonText.app.DISCORD_CLIENT_TOKEN);
-    })();
-  }
-
-  /**
-   * @param {String} repository - The repository to get
-   * @return An instance of the repository asked
-   */
-  getRepository(repository) {
-    return this.repositories.get(repository);
-  }
-
-  /**
-   * @return {Command}
-   */
-  getCommand() {
-    return this.command;
+    // await this.command.init();
+    await this.client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);
+    return this;
   }
 
   // TODO 2.1 Question checkEasterEggsFile should be implemented but maybe not here
-
   /**
    * Checks if the easter eggs file exists and copy the default one if not
    */
@@ -63,4 +45,6 @@ class DraftBot {
 
 }
 
-module.exports = DraftBot;
+module.exports = {
+  init: DraftBot.init
+};

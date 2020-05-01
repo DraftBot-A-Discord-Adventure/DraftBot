@@ -1,6 +1,6 @@
 const ItemAbstract = require("entities/ItemAbstract");
 
-class Object extends ItemAbstract {
+class D_Object extends ItemAbstract {
 
     constructor(id, rareness, power, translations, nature) {
         super(id, rareness, power, translations);
@@ -33,4 +33,4 @@ class Object extends ItemAbstract {
 
 }
 
-module.exports = Object;
+module.exports = D_Object;

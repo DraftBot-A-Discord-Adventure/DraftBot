@@ -36,7 +36,7 @@ class ItemAbstract extends EntityAbstract {
      * Return the value of the item
      * @returns {number}
      */
-    getValue() {
+    getAttack() {
         return parseInt(Config.raritiesValues[this.get('rareness')]) + parseInt(this.get('power')); // TODO J'ai du mal à voir l'utilité de cette value ?! Peux etre le nom a revoir ?
     }
 }

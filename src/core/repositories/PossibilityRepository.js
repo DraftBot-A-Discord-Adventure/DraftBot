@@ -1,7 +1,12 @@
-const RepositoryAbstract = require("repositories/RepositoryAbstract");
+const AppRepository = require("repositories/AppRepository");
 const Possibility = require("entities/Possibility");
 
-class PossibilityRepository extends RepositoryAbstract {
+class PossibilityRepository extends AppRepository {
+
+  constructor() {
+    super();
+    this.datasource = DATASOURCE.JSON;
+  }
 
   /**
    * Get the requested possibility

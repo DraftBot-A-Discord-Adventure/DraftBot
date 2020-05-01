@@ -1,7 +1,12 @@
-const RepositoryAbstract = require("repositories/RepositoryAbstract");
+const AppRepository = require("repositories/AppRepository");
 const Armor = require("entities/Armor");
 
-class ArmorRepository extends RepositoryAbstract {
+class ArmorRepository extends AppRepository {
+
+    constructor() {
+        super();
+        this.datasource = DATASOURCE.JSON;
+    }
 
     /**
      * Return an armor by id
@@ -11,10 +16,10 @@ class ArmorRepository extends RepositoryAbstract {
     async getById(id) {
         return new Armor(
             id,
-            this.text.armors[id].rareness,
-            this.text.armors[id].power,
-            this.text.armors[id].translations,
-            0 //this.text.items.effect[this.text.items.armor[id].rareness][this.text.items.armor[id].power]
+            this.armors[id].rareness,
+            this.armors[id].power,
+            this.armors[id].translations,
+            JsonReader.effect[this.armors[id].rareness][this.armors[id].power]
         );
     }
 

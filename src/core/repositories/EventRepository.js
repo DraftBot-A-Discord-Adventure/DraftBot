@@ -1,7 +1,12 @@
-const RepositoryAbstract = require("repositories/RepositoryAbstract");
+const AppRepository = require("repositories/AppRepository");
 const Event = require("entities/Event");
 
-class EventRepository extends RepositoryAbstract {
+class EventRepository extends AppRepository {
+
+  constructor() {
+    super();
+    this.datasource = DATASOURCE.JSON;
+  }
 
   /**
    * Get the requested event

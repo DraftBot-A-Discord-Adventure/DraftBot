@@ -1,7 +1,12 @@
-const RepositoryAbstract = require("repositories/RepositoryAbstract");
-const Object = require("entities/Object");
+const AppRepository = require("repositories/AppRepository");
+const D_Object = require("entities/D_Object");
 
-class ObjectRepository extends RepositoryAbstract {
+class ObjectRepository extends AppRepository {
+
+    constructor() {
+        super();
+        this.datasource = DATASOURCE.JSON;
+    }
 
     /**
      * Return an object by id
@@ -9,7 +14,7 @@ class ObjectRepository extends RepositoryAbstract {
      * @return {Promise<Object>}
      */
     async getById(id) {
-        return new Object(
+        return new D_Object(
             id,
             this.text.items.object[id].rareness,
             this.text.items.object[id].power,
@@ -26,7 +31,7 @@ class ObjectRepository extends RepositoryAbstract {
         const desiredRareness = Tools.generateRandomRareness();
         const possibleObjects = Object.entries(this.text.items.object).filter(key => parseInt(this.text.items.object[key[0]].rareness) === desiredRareness);
         const id = possibleObjects[Math.floor(Math.random() * possibleObjects.length)][0];
-        return new Object(
+        return new D_Object(
             id,
             this.text.items.object[id].rareness,
             this.text.items.object[id].power,
@@ -41,7 +46,7 @@ class ObjectRepository extends RepositoryAbstract {
      */
     async getRandom() {
         const id = Math.round(Math.random() * (Config.raritiesGenerator.numberOfObject - 1)) + 1;
-        return new Object(
+        return new D_Object(
             id,
             this.text.items.object[id].rareness,
             this.text.items.object[id].power,
