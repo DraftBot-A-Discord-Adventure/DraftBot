@@ -32,6 +32,24 @@ class ItemAbstract extends EntityAbstract {
     }
 
     /**
+     * Returns a string containing a description of the item
+     * @param {String} language - The language the item has to be displayed in
+     * @returns {String}
+     */
+    display(language) {
+        throw new Error('You must implement this function');
+    }
+
+    /**
+     * Returns the rarity translation of the item
+     * @param {("fr"|"en")} language
+     * @returns {String}
+     */
+    getRarityTranslation(language) {
+        return JsonReader.entities.item.getTranslation(language).rarities[this.rarity];
+    }
+
+    /**
      * TODO 2.0 Utilité de cette fonction ? (utile au poition seulement ?)
      * Get the emoji
      * @returns {String}

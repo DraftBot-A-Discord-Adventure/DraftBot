@@ -18,23 +18,32 @@ class InventoryRepository extends AppRepository {
    * @return {Promise<Inventory>}
    */
   async getByMessageOrCreate(message) {
-    return this.sql
-        .get(`SELECT *
+    return await this.getByPlayerId(message.author.id);
+  }
+
+    /**
+     * Return a promise that will contain the inventory that is owned by the person with the given id
+     * @param {string|String} playerId
+     * @return {Promise<Inventory>}
+     */
+    async getByPlayerId(playerId) {
+        return this.sql
+            .get(`SELECT *
               FROM inventory
               WHERE playerId = ?`,
-            message.author.id)
-        .then(async inventory => {
-          if (inventory) {
-            return new Inventory(inventory);
-          } else {
-            return await this.create(new Inventory(
-                Object.assign({
-                  playerId: message.author.id,
-                }, JsonReader.entities.inventory)));
-          }
-        })
-        .catch(console.error);
-  }
+                playerId)
+            .then(async inventory => {
+                if (inventory) {
+                    return new Inventory(inventory);
+                } else {
+                    return await this.create(new Inventory(
+                        Object.assign({
+                            playerId: playerId,
+                        }, JsonReader.entities.inventory)));
+                }
+            })
+            .catch(console.error);
+    }
 
   /**
    * Allow to save a new inventory in the database and return it

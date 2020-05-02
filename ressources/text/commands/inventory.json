@@ -1,0 +1,10 @@
+{
+  "translations": {
+    "fr": {
+      "playerNotFound": ":x: | {author}, le joueur demandé semble ne pas avoir commencé l'aventure !"
+    },
+    "en": {
+      "playerNotFound": ":x: | {author}, it seems the player you asked for hasn't started the adventure yet !"
+    }
+  }
+}
