@@ -1,0 +1,10 @@
+{
+  "translations": {
+    "fr": {
+      "display": "{itemName} | Puissance {power} | {rarity}"
+    },
+    "en": {
+      "display": "{itemName} | Power {power} | {rarity}"
+    }
+  }
+}

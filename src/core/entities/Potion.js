@@ -8,30 +8,20 @@ class Potion extends ItemAbstract {
     }
 
     /**
-     * TODO 2.0 Refactor
-     * Return string containing a description of an potion
-     * @param {String} language - The language the object has to be displayed in
+     * Returns a string containing a description of the item
+     * @param {String} language - The language the item has to be displayed in
      * @returns {String}
      */
     display(language) {
-        let result = this.getTranslation(language);
-
-        if (this.get('id') === 'default') {
-            return result;
+        if (this.id === 0) {
+            return this.getTranslation(language);
         }
-
-        result += Config.text[language].potionManager.separator;
-        result += Config.text[language].rarities[this.get('rarity')];
-        result += Config.text[language].potionManager.separator;
-        result += Config.text[language].nature.intro[this.get('nature')];
-
-        if (this.get('nature') !== "0") {
-            result += this.get('power') + Config.text[language].nature.outroPotion[this.get('nature')];
-        }
-
-        return result;
+        return format(JsonReader.entities.potion.getTranslation(language).display, {
+            itemName: this.getTranslation(language),
+            rarity: this.getRarityTranslation(language),
+            nature: format(JsonReader.entities.potion.getTranslation(language).natures[this.nature], {power: this.power})
+        });
     }
-
 }
 
 module.exports = Potion;

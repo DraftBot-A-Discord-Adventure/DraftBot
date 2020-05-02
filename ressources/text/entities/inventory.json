@@ -1,4 +1,22 @@
 {
+	"translations": {
+		"fr": {
+			"inventoryTitle": " :briefcase: **Inventaire de {player} :**\n\n",
+			"backupDObjectTitle": "Réserve d'item :",
+			"potionTitle": "Potion :",
+			"dObjectTitle": "Objet actif :",
+			"weaponTitle": "Arme :",
+			"armorTitle": "Armure/Bouclier :"
+		},
+		"en": {
+			"inventoryTitle": " :briefcase: **{player}'s inventory:**\n\n",
+			"backupDObjectTitle": "Reserve item :",
+			"potionTitle": "Potion :",
+			"dObjectTitle": "Active item :",
+			"weaponTitle": "Weapon :",
+			"armorTitle": "Armor/Shield :"
+		}
+	},
 	"weaponId": 0,
 	"armorId": 0,
 	"potionId": 0,

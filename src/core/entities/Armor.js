@@ -17,17 +17,15 @@ class Armor extends ItemAbstract {
     }
 
     /**
-     * TODO 2.0 Refactor
-     * Return string containing a description of an armor
-     * @param {String} language - The language the object has to be displayed in
-     * @returns {Object[]}
+     * Returns a string containing a description of the item
+     * @param {String} language - The language the item has to be displayed in
+     * @returns {String}
      */
-    toEmbedObject(language) {
-        return [{
-            name: Config.text[language].commands.inventory.armorTitle,
-            value: (this.id === "default") ? this.getTranslation(language) : this.getTranslation(language) + Config.text[language].equipementManager.separator1 + this.get('effect') + Config.text[language].equipementManager.separator2 + Config.text[language].rarities[this.get('rarity')],
-            inline:  false
-        }];
+    display(language) {
+        if (this.id === 0) {
+            return this.getTranslation(language);
+        }
+        return format(JsonReader.entities.armor.getTranslation(language).display, {itemName: this.getTranslation(language), power: this.power, rarity: this.getRarityTranslation(language)});
     }
 
     /**

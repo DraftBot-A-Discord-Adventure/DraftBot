@@ -300,6 +300,16 @@ class Player extends Entity {
     return "";
   }
 
+  /**
+   * Get the pseudo. Returns the default language's one if not found
+   * @param {"fr"|"en"} language
+   * @returns {Promise<string|null>}
+   */
+  getPseudo(language) {
+    this.setPseudoByLanguage(language);
+    return this.pseudo;
+  }
+
   // TODO 2.0 Legacy code
   // levelUp(message, language) {
   //   Text = require('../text/' + language);

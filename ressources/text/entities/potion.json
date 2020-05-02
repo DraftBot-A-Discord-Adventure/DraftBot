@@ -1,0 +1,28 @@
+{
+  "translations": {
+    "fr": {
+      "display": "{itemName} | {rarity} | {nature}",
+      "natures": [
+        ":x: Aucun effet",
+        ":heart: Vie + {power}",
+        ":rocket: Vitesse + {power} pendant le prochain combat",
+        ":crossed_swords: Attaque + {power} pendant le prochain combat",
+        ":shield: Defense + {power} pendant le prochain combat",
+        ":clock1030: Avance le temps plus rapidement pendant {power} heure(s)",
+        ":moneybag: Argent + {power}"
+      ]
+    },
+    "en": {
+      "display": "{itemName} | {rarity} | {nature}",
+      "natures": [
+        ":x: No effect",
+        ":heart: Health + {power}",
+        ":rocket: Speed + {power} during the next fight",
+        ":crossed_swords: Attack + {power} during the next fight",
+        ":shield: Defense + {power} during the next fight",
+        ":clock1030: Speeds up time for {power} hour(s)",
+        ":moneybag: Money + {power}"
+      ]
+    }
+  }
+}
