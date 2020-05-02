@@ -18,29 +18,16 @@ class PlayerRepository extends AppRepository {
    * @return {Promise<Player>}
    */
   async getByMessageOrCreate(message) {
-    return this.sql
-        .get(`SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = ?`,
-            message.author.id)
-        .then(async player => {
-          if (player) {
-            return new Player(player);
-          } else {
-            return await this.create(new Player(
-                Object.assign({
-                  id: message.author.id,
-                  lastReport: message.createdTimestamp,
-                }, JsonReader.entities.player)));
-          }
-        })
-        .catch(console.error);
+    return this.getByIdOrCreate(message.author.id, message.createdTimestamp);
   }
 
   /**
    * Return a promise that will contain the player that sent a message once it has been resolved
-   * @param {Number} id
+   * @param {String} id
+   * @param {Number} timestamp The timestamp for the last report. Do not provide for current time
    * @return {Promise<Player>}
    */
-  async getByIdOrCreate(id) {
+  async getByIdOrCreate(id, timestamp = Date.now()) {
     return this.sql
         .get(`SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = ?`,
             id)
@@ -51,7 +38,7 @@ class PlayerRepository extends AppRepository {
             return await this.create(new Player(
                 Object.assign({
                   id: id,
-                  lastReport: Date.now(),
+                  lastReport:timestamp,
                 }, JsonReader.entities.player)));
           }
         })

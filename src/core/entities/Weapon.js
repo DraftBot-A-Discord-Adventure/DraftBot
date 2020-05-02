@@ -8,19 +8,15 @@ class Weapon extends ItemAbstract {
     }
 
     /**
-     * TODO 2.0 Refactor
-     * Return string containing a description of an weapon
-     * @param {String} language - The language the object has to be displayed in
+     * Returns a string containing a description of the item
+     * @param {String} language - The language the item has to be displayed in
      * @returns {String}
      */
     display(language) {
-        let result = this.getTranslation(language);
-        result += Config.text[language].equipementManager.separator1;
-        result += this.get('effect');
-        result += Config.text[language].equipementManager.separator2;
-        result += Config.text[language].rarities[this.get('rarity')];
-
-        return result;
+        if (this.id === 0) {
+            return this.getTranslation(language);
+        }
+        return format(JsonReader.entities.weapon.getTranslation(language).display, {itemName: this.getTranslation(language), power: this.power, rarity: this.getRarityTranslation(language)});
     }
 
     /**
