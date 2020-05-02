@@ -2,25 +2,22 @@ class DraftBot {
 
   static async init() {
     await (require('core/JsonReader')).init({
-      folders: ['ressources/text/commands'],
+      folders: ['ressources/text/commands', 'ressources/text/entities'],
       files: [
         'config/app.json',
         'draftbot/package.json',
+        'ressources/text/bot.json',
         'ressources/text/values.json',
         'ressources/text/console.json',
         'ressources/text/effect.json',
       ],
     });
     await (require('core/Repository')).init();
+    await (require('core/Command')).init();
 
     // TODO 2.1
     // draftbot.checkEasterEggsFile();
 
-    // this.command = new (require('core/Command'))(); // TODO 2.0
-    this.discord = (require('discord.js'));
-    this.client = new (require('discord.js')).Client();
-
-    // await this.command.init(); // TODO 2.0
     return this;
   }
 
@@ -57,3 +54,6 @@ class DraftBot {
 module.exports = {
   init: DraftBot.init
 };
+
+global.discord = (require('discord.js'));
+global.client = new (require('discord.js')).Client();

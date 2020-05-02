@@ -1,0 +1,19 @@
+{
+	"translations": {
+		"fr": {
+			"unknownPlayer": "Pseudo 404"
+		},
+		"en": {
+			"unknownPlayer": "Player 404"
+		}
+	},
+	"score": 0,
+	"weeklyScore": 0,
+	"level": 0,
+	"experience": 0,
+	"money": 0,
+	"badges": "",
+	"rank": 0,
+	"weeklyRank": 0,
+	"guildId": 0
+}

@@ -5,13 +5,13 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ProfileCommand = async function(language, message, args) {
-  let player = await draftbot.getRepository('player').getByMessageOrCreate(
+  let player = await getRepository('player').getByMessageOrCreate(
       message);
 
   let profilEmbed = await player.profilEmbed(language);
 
-  const embed = new draftbot.discord.MessageEmbed()
-      .setColor(Config.embed.color)
+  const embed = new discord.MessageEmbed()
+      .setColor(JsonReader.bot.embed.color)
       .setTitle(profilEmbed.shift())
       .addFields(profilEmbed);
 

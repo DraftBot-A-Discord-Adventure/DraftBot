@@ -1,0 +1,15 @@
+{
+	"translations":{
+		"fr": {
+			"noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : https://discord.gg/USnCxg4/ !",
+			"maintenance": ":x: Le Draftbot est actuellement en maintenance: Pour plus d'infos, visitez le discord du bot https://discord.gg/USnCxg4 \n\n :flag_um: The bot is being updated please be patient :)"
+		},
+		"en": {
+			"noSpeakPermission": ":zipper_mouth: | **Hello! You are receiving this message because you tried using one of my commands in a channel where I have the permissions to see messages but not send them!**\n\nYour request was thus voided. To resolve this problem, please send a message to the owner of the server you tried to use me in. If you can't resolve this problem, I invite you to join the bot's support available here: 'https://discord.gg/USnCxg4/'!",
+			"maitenance": "TODO"
+		}
+	},
+	"embed": {
+		"color": "#FFA500"
+	}
+}

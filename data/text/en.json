@@ -482,9 +482,6 @@
       "tooQuickErrorEnd": "**"
     }
   },
-  "player": {
-    "unknownPlayer": "Player 404"
-  },
   "commandReader": {
     "resetIsNowTitle": ":trophy: The weekly ranking is currently being reinitialized. The winner will soon be announced on the bot's server!",
     "resetIsNowFooter": "\n\n:clock12: The game will resume in less than 5 minutes!",
@@ -513,9 +510,6 @@
     "🎗️": ":reminder_ribbon:  `People who lead the topweek`",
     "🎄": ":christmas_tree:  `This badge can be win on giveaway every christmas`",
     "😂": ":joy:  `Badge given to funny people`"
-  },
-  "error": {
-    "noSpeakPermission": ":zipper_mouth: | **Hello! You are receiving this message because you tried using one of my commands in a channel where I have the permissions to see messages but not send them!**\n\nYour request was thus voided. To resolve this problem, please send a message to the owner of the server you tried to use me in. If you can't resolve this problem, I invite you to join the bot's support available here: 'https://discord.gg/USnCxg4/'!"
   },
   "playerManager": {
     "errorMain": {

@@ -16,14 +16,14 @@ const Draftbot = require('core/DraftBot');
       console.log(JsonReader.console.br.grey);
     });
 
-    await draftbot.client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
+    await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
         .channels
         .cache
         .get(JsonReader.app.CONSOLE_CHANNEL_ID)
         .send(JsonReader.console.startStatus + JsonReader.package.version)
         .catch(console.error);
 
-    await draftbot.client.user
+    await client.user
         .setActivity('❓ - Dm me for Help !')
         .catch(console.error);
   };
@@ -66,7 +66,7 @@ const Draftbot = require('core/DraftBot');
     // if (message.guild == null) {
     //   draftbot.commandReader.handlePrivateMessage(message, client, talkedRecently);
     // }
-    await draftbot.command.handleMessage(message);
+    await handleMessage(message);
   };
 
   /**
@@ -88,13 +88,13 @@ const Draftbot = require('core/DraftBot');
     // }
   };
 
-  draftbot.client.on('ready', onDiscordReady);
-  draftbot.client.on('ready', onDiscordGuildCreate);
-  draftbot.client.on('ready', onDiscordGuildDelete);
-  draftbot.client.on('message', onDiscordMessage);
-  draftbot.client.on('messageReactionAdd', onDiscordMessageReactionAdd);
+  client.on('ready', onDiscordReady);
+  client.on('ready', onDiscordGuildCreate);
+  client.on('ready', onDiscordGuildDelete);
+  client.on('message', onDiscordMessage);
+  client.on('messageReactionAdd', onDiscordMessageReactionAdd);
 
-  await draftbot.client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);
+  await client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);
 
 })(Draftbot);
 

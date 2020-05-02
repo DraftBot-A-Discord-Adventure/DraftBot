@@ -31,10 +31,12 @@ class JsonReader {
       let folderName = folder.split('/')[folder.split('/').length - 1];
       let fileName = (file.split('.')[0]).split('/')[(file.split('.')[0]).split(
           '/').length - 1];
-      this[folderName] = {};
+      if (this[folderName] === undefined) {
+        this[folderName] = {};
+      }
       this[folderName][fileName] = (require(`${folder}/${file}`));
       if (this[folderName][fileName].hasOwnProperty('translations')) {
-        this[folderName][fileName].getTranslation = this.getTranslation;
+        this[folderName][fileName].getTranslation = JsonReader.getTranslation;
       }
     }
   }

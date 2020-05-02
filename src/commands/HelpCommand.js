@@ -12,11 +12,11 @@ const HelpCommand = async (language, message, args) => {
         message.author.username + Config.text[language].commands.help.main;
   }
 
-  if (draftbot.client.guilds.cache.get(Config.MAIN_SERVER_ID)
+  if (client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
       .members
       .cache
       .find(val => val.id === message.author.id) === undefined) {
-    await message.author.send(Config.text[language].commands.help.mp);
+    await message.author.send(JsonReader.commands.help.getTranslation(language).mp);
   }
 
   await message.channel.send(helpMessage);

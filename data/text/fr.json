@@ -489,9 +489,6 @@
       "notDead": "** il semblerait que vous ne soyez pas K.O... Vous n'avez pas besoin de nos services."
     }
   },
-  "player": {
-    "unknownPlayer": "Pseudo 404"
-  },
   "commandReader": {
     "resetIsNowTitle": ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot !",
     "resetIsNowFooter": "\n\n:clock12: Le jeu reprendra dans moins de 5 minutes !",
@@ -518,9 +515,6 @@
     "🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`",
     "😂": ":joy:  `Badge offert à une personne drôle`",
     "💎": ":gem: `Membre d'une guilde puissante`"
-  },
-  "error": {
-    "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : https://discord.gg/USnCxg4/ !"
   },
   "playerManager": {
     "errorMain": {

@@ -1,22 +1,35 @@
+const fs = require('fs');
+
 class Command {
 
-  async init() {
-    this.commands = new Map();
+  /**
+   * @return {Promise<void>}
+   */
+  static async init() {
+    Command.commands = new Map();
     this.players = new Map();
-    await (require('fs')).promises.readdir('src/commands').then(files => {
-      files.forEach(file => {
-        if (!file.endsWith('.js')) return;
-        let command = file.split('.')[0];
 
-        Object.keys(require(`commands/${command}`))
-            .forEach(key => {
-              this.commands.set(
-                  key,
-                  require(`commands/${command}`)[key]);
-            });
+    let commandsFiles = await fs.promises.readdir('src/commands');
+    for (const commandFile of commandsFiles) {
+      if (!commandFile.endsWith('.js')) continue;
+      let commandName = commandFile.split('.')[0];
 
-      });
-    }).catch(console.error);
+      let commandKeys = Object.keys(require(`commands/${commandName}`));
+      for (const commandKey of commandKeys) {
+        await Command.commands.set(
+            commandKey,
+            require(`commands/${commandName}`)[commandKey],
+        );
+      }
+    }
+  }
+
+  /**
+   * @param {String} command - The command to get
+   * @return An instance of the command asked
+   */
+  static getCommand(command) {
+    return Command.commands.get(command);
   }
 
   /**
@@ -53,33 +66,32 @@ class Command {
    * This function analyses the passed message and check if he can be processed
    * @param {*} message - A command posted by an user.
    */
-  async handleMessage(message) {
-    let server = await draftbot.getRepository('server')
+  static async handleMessage(message) {
+    let server = await getRepository('server')
         .getByIdOrCreate(message.guild.id);
 
-    if (server.prefix === this.getUsedPrefix(message, server.prefix)) {
+    if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
 
-      if (message.author.id !== Config.BOT_OWNER_ID &&
-          Config.MODE_MAINTENANCE) {
-        // TODO 2.0.1 Translate this message into data json
+      if (message.author.id !== JsonReader.app.BOT_OWNER_ID &&
+          JsonReader.app.MODE_MAINTENANCE) {
         return message.channel.send(
-            ':x: Le Draftbot est actuellement en maintenance: Pour plus d\'infos, visitez le discord du bot https://discord.gg/USnCxg4 \n\n :flag_um: The bot is being updated please be patient :) ');
+            JsonReader.bot.getTranslation(server.language).maitenance);
       }
 
-      // TODO
+      // TODO 2.0
       // const diffMinutes = getMinutesBeforeReset();
       // if (resetIsNow(diffMinutes)) {
       //     const embed = await generateResetTopWeekEmbed(message);
       //     return message.channel.send(embed)
       // }
 
-      await this.launchCommand(server.language, server.prefix, message);
+      await Command.launchCommand(server.language, server.prefix, message);
     } else {
-      if (this.getUsedPrefix(message, Config.BOT_OWNER_PREFIX) ===
-          Config.BOT_OWNER_PREFIX && message.author.id ===
-          Config.BOT_OWNER_ID) {
-        await this.launchCommand(server.language, Config.BOT_OWNER_PREFIX,
-            message);
+      if (this.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) ===
+          JsonReader.app.BOT_OWNER_PREFIX && message.author.id ===
+          JsonReader.app.BOT_OWNER_ID) {
+        await Command.launchCommand(server.language,
+            JsonReader.app.BOT_OWNER_PREFIX, message);
       }
     }
   }
@@ -90,7 +102,7 @@ class Command {
    * @param {string} prefix - The prefix used by current server
    * @return {string}
    */
-  getUsedPrefix(message, prefix) {
+  static getUsedPrefix(message, prefix) {
     return message.content.substr(0, prefix.length);
   }
 
@@ -98,25 +110,26 @@ class Command {
    *
    * @param {*} message - A command posted by an user.
    * @param {string} prefix - The current prefix in the message content
-   * @param {string} serverLanguage - The language for the current server
+   * @param {('fr'|'en')} language - The language for the current server
    */
-  async launchCommand(serverLanguage, prefix, message) {
+  static async launchCommand(language, prefix, message) {
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let command = args.shift().toLowerCase();
 
-    if (this.commands.has(command)) {
-      if (!message.channel.permissionsFor(draftbot.client.user)
+    if (Command.commands.has(command)) {
+      if (!message.channel.permissionsFor(client.user)
           .serialize().SEND_MESSAGES ||
-          !message.channel.permissionsFor(draftbot.client.user)
+          !message.channel.permissionsFor(client.user)
               .serialize().EMBED_LINKS ||
-          !message.channel.permissionsFor(draftbot.client.user)
+          !message.channel.permissionsFor(client.user)
               .serialize().ADD_REACTIONS ||
-          !message.channel.permissionsFor(draftbot.client.user)
+          !message.channel.permissionsFor(client.user)
               .serialize().USE_EXTERNAL_EMOJIS) {
-        await message.author.send(
-            Config.text[serverLanguage].error.noSpeakPermission);
+
+        await message.author.send(JsonReader.bot.getTranslation(language).noSpeakPermission);
+
       } else {
-        await this.commands.get(command)(serverLanguage, message, args);
+        await Command.commands.get(command)(language, message, args);
       }
     }
   }
@@ -193,4 +206,9 @@ class Command {
 //     return diffMinutes;
 // }
 
-module.exports = Command;
+module.exports = {
+  init: Command.init,
+};
+
+global.getCommand = Command.getCommand;
+global.handleMessage = Command.handleMessage;

@@ -5,7 +5,7 @@ class Player extends Entity {
   constructor(
       id, maxHealth, health, attack, defense, speed, effect, score, weeklyScore,
       level, experience, money, lastReport, badges, guildId, rank, weeklyRank) {
-    super(id, maxHealth, health, attack, defense, speed, effect);
+    super({id, maxHealth, health, attack, defense, speed, effect});
 
     this.discordId = id;
     this.score = score;
@@ -18,9 +18,8 @@ class Player extends Entity {
     this.guildId = guildId;
 
     // Virtual properties
-    if (draftbot.client.users.cache.get(this.get('discordId')) !== null) {
-      this.pseudo = draftbot.client.users.cache.get(
-          this.get('discordId')).username;
+    if (client.users.cache.get(this.discordId) !== null) {
+      this.pseudo = client.users.cache.get(this.discordId).username;
     } else {
       this.pseudo = null;
     }
@@ -34,45 +33,44 @@ class Player extends Entity {
    */
   async profilEmbed(language) {
     this.setPseudoByLanguage(language);
-    let numberOfPlayer = await draftbot.getRepository('player')
-        .getNumberOfPlayers();
+    let numberOfPlayer = await getRepository('player').getNumberOfPlayers();
 
     let result = [];
     result.push(
-        this.get('effect') + Config.text[language].commands.profile.main +
-        this.get('pseudo') + Config.text[language].commands.profile.level +
-        this.get('level'));
-    result.push({
-      name: Config.text[language].commands.profile.infos,
-      value: Config.text[language].commands.profile.health +
-          this.get('health') +
-          Config.text[language].commands.profile.separator +
-          this.get('maxHealth') + Config.text[language].commands.profile.xp +
-          this.get('experience') +
-          Config.text[language].commands.profile.separator +
-          this.getExperienceNeededToLevelUp() +
-          Config.text[language].commands.profile.money + this.get('money'),
-      inline: false,
-    });
-    result.push({
-      name: Config.text[language].commands.profile.stats,
-      value: Config.text[language].commands.profile.statsAttack +
-          this.get('attack') +
-          Config.text[language].commands.profile.statsDefense +
-          this.get('defense') +
-          Config.text[language].commands.profile.statsSpeed +
-          this.get('speed') +
-          Config.text[language].commands.profile.statsFightPower +
-          this.getFightPower(),
-      inline: false,
-    });
-    result.push({
-      name: Config.text[language].commands.profile.rankAndScore,
-      value: Config.text[language].commands.profile.rank + this.get('rank') +
-          Config.text[language].commands.profile.separator + numberOfPlayer +
-          Config.text[language].commands.profile.score + this.get('score'),
-      inline: false,
-    });
+        this.effect + JsonReader.commands.profile.getTranslation(language).main +
+        this.pseudo + JsonReader.commands.profile.getTranslation(language).level +
+        this.level);
+    // result.push({
+    //   name: Config.text[language].commands.profile.infos,
+    //   value: Config.text[language].commands.profile.health +
+    //       this.get('health') +
+    //       Config.text[language].commands.profile.separator +
+    //       this.get('maxHealth') + Config.text[language].commands.profile.xp +
+    //       this.get('experience') +
+    //       Config.text[language].commands.profile.separator +
+    //       this.getExperienceNeededToLevelUp() +
+    //       Config.text[language].commands.profile.money + this.get('money'),
+    //   inline: false,
+    // });
+    // result.push({
+    //   name: Config.text[language].commands.profile.stats,
+    //   value: Config.text[language].commands.profile.statsAttack +
+    //       this.get('attack') +
+    //       Config.text[language].commands.profile.statsDefense +
+    //       this.get('defense') +
+    //       Config.text[language].commands.profile.statsSpeed +
+    //       this.get('speed') +
+    //       Config.text[language].commands.profile.statsFightPower +
+    //       this.getFightPower(),
+    //   inline: false,
+    // });
+    // result.push({
+    //   name: Config.text[language].commands.profile.rankAndScore,
+    //   value: Config.text[language].commands.profile.rank + this.get('rank') +
+    //       Config.text[language].commands.profile.separator + numberOfPlayer +
+    //       Config.text[language].commands.profile.score + this.get('score'),
+    //   inline: false,
+    // });
 
     return result;
   }
@@ -196,8 +194,8 @@ class Player extends Entity {
    * @param {string} language
    */
   setPseudoByLanguage(language) {
-    if (this.get('pseudo') === null) {
-      this.set('pseudo', Config.text[language].player.unknownPlayer);
+    if (this.pseudo === null) {
+      this.pseudo = JsonReader.entities.player.getTranslation(language).unknownPlayer;
     }
   }
 
