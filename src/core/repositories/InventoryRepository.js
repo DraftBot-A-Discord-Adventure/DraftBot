@@ -21,29 +21,29 @@ class InventoryRepository extends AppRepository {
     return await this.getByPlayerId(message.author.id);
   }
 
-    /**
-     * Return a promise that will contain the inventory that is owned by the person with the given id
-     * @param {string|String} playerId
-     * @return {Promise<Inventory>}
-     */
-    async getByPlayerId(playerId) {
-        return this.sql
-            .get(`SELECT *
+  /**
+   * Return a promise that will contain the inventory that is owned by the person with the given id
+   * @param {string|String} playerId
+   * @return {Promise<Inventory>}
+   */
+  async getByPlayerId(playerId) {
+    return this.sql
+        .get(`SELECT *
               FROM inventory
               WHERE playerId = ?`,
-                playerId)
-            .then(async inventory => {
-                if (inventory) {
-                    return new Inventory(inventory);
-                } else {
-                    return await this.create(new Inventory(
-                        Object.assign({
-                            playerId: playerId,
-                        }, JsonReader.entities.inventory)));
-                }
-            })
-            .catch(console.error);
-    }
+            playerId)
+        .then(async inventory => {
+          if (inventory) {
+            return new Inventory(inventory);
+          } else {
+            return await this.create(new Inventory(
+                Object.assign({
+                  playerId: playerId,
+                }, JsonReader.entities.inventory)));
+          }
+        })
+        .catch(console.error);
+  }
 
   /**
    * Allow to save a new inventory in the database and return it
@@ -73,12 +73,12 @@ class InventoryRepository extends AppRepository {
     await this.sql
         .run(
               `UPDATE inventory
-               SET weaponId = ?,
-                   armorId = ?,
-                   potionId = ?,
-                   objectId = ?,
+               SET weaponId     = ?,
+                   armorId      = ?,
+                   potionId     = ?,
+                   objectId     = ?,
                    backupItemId = ?,
-                   lastDaily = ?
+                   lastDaily    = ?
                WHERE playerId = ?`,
             inventory.weaponId, inventory.armorId, inventory.potionId,
             inventory.objectId, inventory.backupItemId, inventory.lastDaily,

@@ -1,10 +1,12 @@
 {
   "translations": {
     "fr": {
-      "display": "{itemName} | Puissance {power} | {rarity}"
+      "fieldName": "Arme :",
+      "fieldValue": "{name} | Attaque {attack} | {rarity}"
     },
     "en": {
-      "display": "{itemName} | Power {power} | {rarity}"
+      "fieldName": "Weapon :",
+      "fieldValue": "{name} | Atatck {attack} | {rarity}"
     }
   }
 }

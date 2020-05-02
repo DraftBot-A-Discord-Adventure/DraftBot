@@ -10,8 +10,8 @@ const ProfileCommand = async function(language, message, args) {
 
   if (player.effect === EFFECT.BABY) {
     return await message.channel.send(
-        format(JsonReader.commands.profile.getTranslation(language).error,
-            {effect: player.effect, pseudo: player.pseudo}));
+        format(JsonReader.error.getTranslation(language).meIsbaby,
+            {pseudo: player.getPseudo(language)}));
   }
 
   if (args[1] !== undefined) {

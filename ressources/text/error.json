@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"meIsBaby": ":baby: | ** {pseudo} **, utilisez la commande `report` pour commencer votre aventure !",
+			"playerIsBaby": ":x: | ** {pseudo} **, {askedPseudo} semble ne pas avoir commencé l'aventure !"
+		},
+		"en": {
+			"meIsBaby": ":baby: | ** {pseudo} **, use the command `report` to start your adventure!",
+			"playerIsBaby": ":x: | ** {pseudo} **, it seems {askedPseudo} hasn't started the adventure yet !"
+		}
+	}
+}

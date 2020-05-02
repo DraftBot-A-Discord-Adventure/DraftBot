@@ -38,11 +38,63 @@ class PlayerRepository extends AppRepository {
             return await this.create(new Player(
                 Object.assign({
                   id: id,
-                  lastReport:timestamp,
+                  lastReport: timestamp,
                 }, JsonReader.entities.player)));
           }
         })
         .catch(console.error);
+  }
+
+  /**
+   * Return a player by id, or a mocked null player
+   * @param {String} id
+   * @return {Promise<Player>}
+   */
+  async getById(id) {
+    return this.sql.get(`SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = ?`,
+        id)
+        .then(player => {
+          if (player) {
+            return new Player(player);
+          } else {
+            return new Player({effect: EFFECT.BABY});
+          }
+        })
+        .catch(console.error);
+  }
+
+  /**
+   * Return a player by rank, or false if not player is found
+   * @param {String} rank - The rank of the player
+   * @return {Promise<Player>}
+   */
+  async getByRank(rank) {
+    return this.sql.get(`SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank = ?`,
+        rank)
+        .then(player => {
+          if (player) {
+            return new Player(player);
+          } else {
+            return new Player({effect: EFFECT.BABY});
+          }
+        })
+        .catch(console.error);
+  }
+
+  /**
+   * @param {String[]} args=[]
+   * @param {module:"discord.js".Message} message
+   * @return {Promise<Player>}
+   */
+  async getByArgs(args, message) {
+    let player;
+    if (isNaN(args[0])) {
+      player = await this.getById(message.mentions.users.last().id);
+    } else {
+      player = await this.getByRank(args[0]);
+    }
+
+    return player;
   }
 
   /**
@@ -132,46 +184,6 @@ class PlayerRepository extends AppRepository {
   //     return 0;
   //   })
   // }
-  //
-  //
-  // /**
-  //  * Return a promise that will contain the player that sent a message once it has been resolved
-  //  * @param id - The id of the user
-  //  * @param message - The message that caused the user to be called
-  //  * @returns {promise} - The promise that will be resolved into a player
-  //  */
-  // getPlayerById(id, message) {
-  //   return sql.get(`SELECT *FROM(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = ?`, ["" + id]).then(player => {
-  //     if (!player) { //player is not in the database
-  //       console.log(`user unknown : ${id}`);
-  //       return this.getNewPlayerById(id, message);
-  //     } else { //player is in the database
-  //       console.log(`user loaded : ${id}`);
-  //       return new Player(player.maxHealth, player.health, player.attack, player.defense, player.speed,
-  //           player.discordId, player.score, player.level, player.experience, player.money, player.effect, player.lastReport, player.badges,
-  //           player.rank, player.weeklyScore, player.weeklyRank, player.guildId)
-  //     }
-  //   }).catch(error => { //there is no database
-  //     console.error(error)
-  //     return false;
-  //   })
-  // }
-  //
-  //
-  // /**
-  //  * Return a promise that will contain theid of the player matching a rank given as an input
-  //  * @param rank - The rank of the user
-  //  * @returns {promise} - The promise that will be resolved into a player
-  //  */
-  // getIdByRank(rank) {
-  //   return sql.get(`SELECT *FROM(SELECT discordId, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank = ?`, ["" + rank]).then(id => {
-  //     return id.discordId;
-  //   }).catch(error => { //there is no database
-  //     console.error(error)
-  //     return false;
-  //   })
-  // }
-  //
   //
   // /**
   //  * Allow to save the current state of a player in the database

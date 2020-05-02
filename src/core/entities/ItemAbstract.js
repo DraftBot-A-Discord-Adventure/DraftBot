@@ -1,5 +1,13 @@
 const EntityAbstract = require("entities/EntityAbstract");
 
+/**
+ * @property {Number} id
+ * @property {Number} rarity
+ * @property {Number} power
+ * @property {Object} translations
+ * @property {String} translations.fr
+ * @property {String} translations.en
+ */
 class ItemAbstract extends EntityAbstract {
 
     /**
@@ -12,7 +20,6 @@ class ItemAbstract extends EntityAbstract {
      */
     constructor({id, rarity, power, translations}) {
         super();
-
         if (this.constructor === ItemAbstract) {
             throw new Error("Abstract class ItemAbstract cannot be instantiated directly");
         }
@@ -32,11 +39,11 @@ class ItemAbstract extends EntityAbstract {
     }
 
     /**
-     * Returns a string containing a description of the item
-     * @param {String} language - The language the item has to be displayed in
-     * @returns {String}
+     * Return an object display purposes
+     * @param {("fr"|"en")} language - The language the object has to be displayed in
+     * @returns {Object}
      */
-    display(language) {
+    toFieldObject(language) {
         throw new Error('You must implement this function');
     }
 
@@ -49,14 +56,6 @@ class ItemAbstract extends EntityAbstract {
         return JsonReader.entities.item.getTranslation(language).rarities[this.rarity];
     }
 
-    /**
-     * TODO 2.0 Utilité de cette fonction ? (utile au poition seulement ?)
-     * Get the emoji
-     * @returns {String}
-     */
-    getEmoji() {
-        return this.getTranslation('en').split(" ")[0];
-    }
 }
 
 module.exports = ItemAbstract;

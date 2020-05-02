@@ -9,8 +9,8 @@ const SwitchCommand = async (language, message, args) => {
 
   if (player.effect === EFFECT.BABY) {
     return await message.channel.send(
-        format(JsonReader.commands.switch.getTranslation(language).error,
-            {pseudo: player.pseudo}));
+        format(JsonReader.error.getTranslation(language).meIsBaby,
+            {pseudo: player.getPseudo(language)}));
   }
 
   let inventory = await getRepository('inventory')
@@ -22,7 +22,7 @@ const SwitchCommand = async (language, message, args) => {
   await getRepository('inventory').update(inventory);
   await message.channel.send(
       format(JsonReader.commands.switch.getTranslation(language).main,
-          {pseudo: player.pseudo}));
+          {pseudo: player.getPseudo(language)}));
 };
 
 module.exports = {

@@ -1,12 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"main": ":repeat: | ** {pseudo} **, l'item actif et l'item en réserve ont été inversés !",
-			"error": ":x: | ** {pseudo} **, vous ne semblez pas avoir encore commencé l'aventure !"
+			"main": ":repeat: | ** {pseudo} **, l'item actif et l'item en réserve ont été inversés !"
 		},
 		"en": {
-			"main": ":repeat: | ** {pseudo} **, The active and reserve items were swapped!",
-			"error": ":x: |** {pseudo} **, You don't seem to have started the adventure yet!"
+			"main": ":repeat: | ** {pseudo} **, The active and reserve items were swapped!"
 		}
 	}
 }

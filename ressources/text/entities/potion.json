@@ -1,19 +1,21 @@
 {
   "translations": {
     "fr": {
-      "display": "{itemName} | {rarity} | {nature}",
+      "fieldName": "Potion :",
+      "fieldValue": "{name} | {rarity} | {nature}",
       "natures": [
         ":x: Aucun effet",
         ":heart: Vie + {power}",
         ":rocket: Vitesse + {power} pendant le prochain combat",
         ":crossed_swords: Attaque + {power} pendant le prochain combat",
-        ":shield: Defense + {power} pendant le prochain combat",
+        ":shield: Défense + {power} pendant le prochain combat",
         ":clock1030: Avance le temps plus rapidement pendant {power} heure(s)",
         ":moneybag: Argent + {power}"
       ]
     },
     "en": {
-      "display": "{itemName} | {rarity} | {nature}",
+      "fieldName": "Potion :",
+      "fieldValue": "{name} | {rarity} | {nature}",
       "natures": [
         ":x: No effect",
         ":heart: Health + {power}",

@@ -6,29 +6,38 @@
  */
 const InventoryCommand = async (language, message, args) => {
 
-    let player = undefined;
-    if (args.length === 0) {
-        player = await getRepository('player').getByMessageOrCreate(message);
-    }
-    else {
-        //TODO 2.0 other player inventory
-    }
+  let player;
+  if (args.length === 0) {
+    player = await getRepository('player').getByMessageOrCreate(message);
 
-    if (player.effect === ":baby:") {
-        await message.channel.send(format(JsonReader.commands.inventory.getTranslation(language).playerNotFound, {author: message.author}));
-        return;
+    if (player.effect === EFFECT.BABY) {
+      return await message.channel.send(
+          format(JsonReader.error.getTranslation(language).meIsBaby,
+              {pseudo: player.getPseudo(language)}));
     }
+  } else {
+    player = await getRepository('player').getByArgs(args, message);
 
-    let inv = await getRepository('inventory').getByPlayerId(player.discordId);
-    let embedList = await inv.embedInventory(language, player.getPseudo(language));
-    let embed = new discord.MessageEmbed()
-        .setColor(JsonReader.bot.embed.color)
-        .setTitle(embedList.shift())
-        .addFields(embedList);
-    await message.channel.send(embed);
+    if (player.effect === EFFECT.BABY) {
+      return await message.channel.send(
+          format(JsonReader.error.getTranslation(language).playerIsBaby, {
+            pseudo: message.author.username,
+            askedPseudo: player.getPseudo(language),
+          }));
+    }
+  }
+
+  let inventoryPlayer = await getRepository('inventory')
+      .getByPlayerId(player.discordId);
+  let inventoryEmbed = await inventoryPlayer.toEmbedObject(language);
+
+  let embed = new discord.MessageEmbed().setColor(JsonReader.bot.embed.color)
+      .setTitle(inventoryEmbed.title)
+      .addFields(inventoryEmbed.fields);
+  return await message.channel.send(embed);
 };
 
 module.exports = {
-    'inventory': InventoryCommand,
-    'inv': InventoryCommand
+  'inventory': InventoryCommand,
+  'inv': InventoryCommand,
 };

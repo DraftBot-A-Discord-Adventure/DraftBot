@@ -1,4 +1,4 @@
-const EntityAbstract = require("entities/EntityAbstract");
+const EntityAbstract = require('entities/EntityAbstract');
 
 /**
  * @property {String} playerId
@@ -33,40 +33,41 @@ class Inventory extends EntityAbstract {
 
   /**
    * Returns the inventory as embed list
-   * @param {"fr"|"en"} language The language the inventory has to be displayed in
-   * @param playerName The name of the player. Provide it only if you have it, to avoid searching in the database. Else don't provide this argument or provide undefined
+   * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    * @returns {[string|{String}]}
    */
-  async embedInventory(language, playerName = undefined) {
-    if (playerName === undefined) {
-      playerName = (await getRepository('player').getByIdOrCreate(this.playerId)).getPseudo(language);
-    }
-    return [
-      format(JsonReader.entities.inventory.getTranslation(language).inventoryTitle, {player:playerName}),
-      {name: JsonReader.entities.inventory.getTranslation(language).weaponTitle, value: (await getRepository('weapon').getById(this.weaponId)).display(language)},
-      {name: JsonReader.entities.inventory.getTranslation(language).armorTitle, value: (await getRepository('armor').getById(this.armorId)).display(language)},
-      {name: JsonReader.entities.inventory.getTranslation(language).potionTitle, value: (await getRepository('potion').getById(this.potionId)).display(language)},
-      {name: JsonReader.entities.inventory.getTranslation(language).dObjectTitle, value: (await getRepository('object').getById(this.objectId)).display(language)},
-      {name: JsonReader.entities.inventory.getTranslation(language).dObjectTitle, value: (await getRepository('object').getById(this.backupItemId)).display(language)}
-    ];
-  }
+  async toEmbedObject(language) {
+    let result = {
+      title: format(
+          JsonReader.entities.inventory.getTranslation(language).title, {
+            pseudo: (await getRepository('player')
+                .getByIdOrCreate(this.playerId)).getPseudo(language),
+          }),
+      fields: [],
+    };
 
-  // TODO 2.0 Legacy code
-  // /**
-  //  * Return the contained potion as an object
-  //  * @returns {*} the potion
-  //  */
-  // getPotion() {
-  //   return new Potion(this.potionId, parseInt(ItemValues.potion[this.potionId].rarity), parseInt(ItemValues.potion[this.potionId].power), parseInt(ItemValues.potion[this.potionId].nature))
-  // }
-  //
-  // /**
-  //  * Return the contained object as an object
-  //  * @returns {*} the current active object
-  //  */
-  // getCurrentObject() {
-  //   return new Object(this.objectId, parseInt(ItemValues.object[this.objectId].rarity), parseInt(ItemValues.object[this.objectId].power), parseInt(ItemValues.object[this.objectId].nature))
-  // }
+    result.fields.push(
+        (await getRepository('weapon').getById(this.weaponId)).toFieldObject(
+            language));
+
+    result.fields.push(
+        (await getRepository('armor').getById(this.armorId)).toFieldObject(
+            language));
+
+    result.fields.push(
+        (await getRepository('potion').getById(this.potionId)).toFieldObject(
+            language));
+
+    result.fields.push(
+        (await getRepository('object').getById(this.objectId)).toFieldObject(
+            language, 'active'));
+
+    result.fields.push(
+        (await getRepository('object').getById(this.backupItemId)).toFieldObject(
+            language, 'backup'));
+
+    return result;
+  }
 
 }
 
