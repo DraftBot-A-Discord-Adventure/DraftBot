@@ -11,19 +11,13 @@ const InventoryCommand = async (language, message, args) => {
     player = await getRepository('player').getByMessageOrCreate(message);
 
     if (player.effect === EFFECT.BABY) {
-      return await message.channel.send(
-          format(JsonReader.error.getTranslation(language).meIsBaby,
-              {pseudo: player.getPseudo(language)}));
+      return await error(message, language, JsonReader.error.getTranslation(language).meIsBaby);
     }
   } else {
     player = await getRepository('player').getByArgs(args, message);
 
     if (player.effect === EFFECT.BABY) {
-      return await message.channel.send(
-          format(JsonReader.error.getTranslation(language).playerIsBaby, {
-            pseudo: message.author.username,
-            askedPseudo: player.getPseudo(language),
-          }));
+      return await error(message, language, format(JsonReader.error.getTranslation(language).playerIsBaby, {askedPseudo: player.getPseudo(language),}));
     }
   }
 
@@ -31,10 +25,10 @@ const InventoryCommand = async (language, message, args) => {
       .getByPlayerId(player.discordId);
   let inventoryEmbed = await inventoryPlayer.toEmbedObject(language);
 
-  let embed = new discord.MessageEmbed().setColor(JsonReader.bot.embed.color)
-      .setTitle(inventoryEmbed.title)
-      .addFields(inventoryEmbed.fields);
-  return await message.channel.send(embed);
+  return await message.channel.send(
+      new discord.MessageEmbed().setColor(JsonReader.bot.embed.default)
+          .setTitle(inventoryEmbed.title)
+          .addFields(inventoryEmbed.fields));
 };
 
 module.exports = {

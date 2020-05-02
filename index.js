@@ -1,5 +1,6 @@
 require('colors');
 require('core/Constant');
+require('core/MessageError');
 require('core/Tools');
 const Draftbot = require('core/DraftBot');
 

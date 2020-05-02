@@ -1,7 +1,4 @@
 {
-	"guild": {
-		"errorColor": "#D92D43"
-	},
 	"report": {
 		"minimalTime": "60",
 		"maximalTime": "400",

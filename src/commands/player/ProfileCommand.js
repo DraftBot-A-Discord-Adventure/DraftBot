@@ -26,7 +26,7 @@ const ProfileCommand = async function(language, message, args) {
 
   let profilEmbed = await player.toEmbedObject(language);
   const embed = new discord.MessageEmbed()
-      .setColor(JsonReader.bot.embed.color)
+      .setColor(JsonReader.bot.embed.default)
       .setTitle(profilEmbed.title)
       .addFields(profilEmbed.fields);
   //

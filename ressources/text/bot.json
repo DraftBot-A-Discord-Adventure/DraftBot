@@ -12,7 +12,8 @@
     "activity": "❓ - Dm me for Help !",
     "startStatus": ":robot: **DraftBot** - v",
     "embed": {
-        "color": "#FFA500"
+        "error": "#D92D43",
+        "default": "#FFA500"
     },
     "reboot": "DraftBot",
     "br": "############################################\n",
