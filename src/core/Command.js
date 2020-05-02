@@ -9,16 +9,16 @@ class Command {
     Command.commands = new Map();
     Command.players = new Map();
 
-    let commandsFiles = await fs.promises.readdir('src/commands');
+    let commandsFiles = await fs.promises.readdir('src/commands/player');
     for (const commandFile of commandsFiles) {
       if (!commandFile.endsWith('.js')) continue;
       let commandName = commandFile.split('.')[0];
 
-      let commandKeys = Object.keys(require(`commands/${commandName}`));
+      let commandKeys = Object.keys(require(`commands/player/${commandName}`));
       for (const commandKey of commandKeys) {
         await Command.commands.set(
             commandKey,
-            require(`commands/${commandName}`)[commandKey],
+            require(`commands/player/${commandName}`)[commandKey],
         );
       }
     }
@@ -64,7 +64,7 @@ class Command {
 
   /**
    * This function analyses the passed message and check if he can be processed
-   * @param {*} message - A command posted by an user.
+   * @param {module:"discord.js".Message} message - Message from the discord server
    */
   static async handleMessage(message) {
     let server = await getRepository('server')
@@ -97,10 +97,43 @@ class Command {
   }
 
   /**
+   * This function analyses the passed private message and process it
+   * @param {module:"discord.js".Message} message - Message from the discord server
+   */
+  static async handlePrivateMessage(message) {
+      // TODO 2.0 Refactor
+      // if (Config.BLACKLIST.includes(message.author.id)) {
+      //     for (let i = 1; i < 5; i++) {
+      //         message.channel.send(":x: Erreur.")
+      //     }
+      //     if (message.content != "") {
+      //         client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.TRASH_DM_CHANNEL_ID).send(Console.dm.quote + message.content);
+      //     }
+      //     return message.channel.send(":x: Erreur.")
+      // }
+      // client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(message.author.id);
+      // client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.alertBegin + message.author.username + Console.dm.alertId + message.author.id + Console.dm.alertEnd);
+      // if (message.content != "") {
+      //     client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.quote + message.content);
+      // }
+      // else {
+      //     client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.empty);
+      // }
+      // message.attachments.forEach(element => {
+      //     client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send({
+      //         files: [{
+      //             attachment: element.url,
+      //             name: element.filename
+      //         }]
+      //     });
+      // });
+  }
+
+  /**
    * Get the prefix that the user just used to make the command
    * @param {*} message - The message to extract the command from
-   * @param {string} prefix - The prefix used by current server
-   * @return {string}
+   * @param {String} prefix - The prefix used by current server
+   * @return {String}
    */
   static getUsedPrefix(message, prefix) {
     return message.content.substr(0, prefix.length);
@@ -109,7 +142,7 @@ class Command {
   /**
    *
    * @param {*} message - A command posted by an user.
-   * @param {string} prefix - The current prefix in the message content
+   * @param {String} prefix - The current prefix in the message content
    * @param {('fr'|'en')} language - The language for the current server
    */
   static async launchCommand(language, prefix, message) {
@@ -134,40 +167,6 @@ class Command {
     }
   }
 
-  //
-  // /**
-  //  * This function analyses the passed private message and treat it
-  //  * @param {*} message - the message sent by the user
-  //  * @param {*} client - The bot user in case we have to make him do things
-  //  * @param {*} talkedRecently - The list of user that has been seen recently
-  //  */
-  // async handlePrivateMessage(message, client, talkedRecently) {
-  //     if (Config.BLACKLIST.includes(message.author.id)) {
-  //         for (let i = 1; i < 5; i++) {
-  //             message.channel.send(":x: Erreur.")
-  //         }
-  //         if (message.content != "") {
-  //             client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.TRASH_DM_CHANNEL_ID).send(Console.dm.quote + message.content);
-  //         }
-  //         return message.channel.send(":x: Erreur.")
-  //     }
-  //     client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(message.author.id);
-  //     client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.alertBegin + message.author.username + Console.dm.alertId + message.author.id + Console.dm.alertEnd);
-  //     if (message.content != "") {
-  //         client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.quote + message.content);
-  //     }
-  //     else {
-  //         client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.empty);
-  //     }
-  //     message.attachments.forEach(element => {
-  //         client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send({
-  //             files: [{
-  //                 attachment: element.url,
-  //                 name: element.filename
-  //             }]
-  //         });
-  //     });
-  // }
 }
 
 // /**
@@ -216,3 +215,4 @@ global.hasBlockedPlayer = Command.hasBlockedPlayer;
 global.addBlockedPlayer = Command.addBlockedPlayer;
 global.removeBlockedPlayer = Command.removeBlockedPlayer;
 global.handleMessage = Command.handleMessage;
+global.handlePrivateMessage = Command.handlePrivateMessage;

@@ -5,29 +5,27 @@ const Draftbot = require('core/DraftBot');
 
 (async Drafbot => {
 
-  const draftbot = await Drafbot.init();
+  await Drafbot.init();
 
   /**
    * Will be executed whenever the bot has started
    * @return {Promise<void>}
    */
   const onDiscordReady = async () => {
-    (require('figlet'))(JsonReader.console.reboot, (err, data) => {
+    (require('figlet'))(JsonReader.bot.reboot, (err, data) => {
       console.log(data.red);
-      console.log(JsonReader.console.br.grey);
+      console.log(JsonReader.bot.br.grey);
     });
-
-    console.log(await getRepository('player').getByIdOrCreate('269573462987767809'));
 
     await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
         .channels
         .cache
         .get(JsonReader.app.CONSOLE_CHANNEL_ID)
-        .send(JsonReader.console.startStatus + JsonReader.package.version)
+        .send(JsonReader.bot.startStatus + JsonReader.package.version)
         .catch(console.error);
 
     await client.user
-        .setActivity('❓ - Dm me for Help !')
+        .setActivity(JsonReader.bot.activity)
         .catch(console.error);
   };
 
@@ -66,9 +64,9 @@ const Draftbot = require('core/DraftBot');
    */
   const onDiscordMessage = async message => {
     if (message.author.bot) return;
-    // if (message.guild == null) {
-    //   draftbot.commandReader.handlePrivateMessage(message, client, talkedRecently);
-    // }
+    if (message.guild === null) {
+      await handlePrivateMessage(message);
+    }
     await handleMessage(message);
   };
 
@@ -144,7 +142,7 @@ const Draftbot = require('core/DraftBot');
 //
 // /**
 //  * Get the current week number
-//  * @return {number}
+//  * @return {Number}
 //  */
 // function getCurrentWeekNumber() {
 //   let date = new Date(); // Create a Date object to find out what time it is

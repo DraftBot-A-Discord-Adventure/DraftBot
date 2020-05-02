@@ -14,7 +14,7 @@ class ServerRepository extends AppRepository {
 
   /**
    * Allow to get the current server
-   * @param {number} id
+   * @param {Number} id
    * @return {Promise<Server|boolean|void>}
    */
   async getById(id) {
@@ -24,7 +24,7 @@ class ServerRepository extends AppRepository {
               WHERE id = ?`, id)
         .then(server => {
           if (server) {
-            return new Server(server.id, server.prefix, server.language);
+            return new Server(server);
           } else {
             return false;
           }
@@ -34,18 +34,19 @@ class ServerRepository extends AppRepository {
 
   /**
    * Allow to get the current server or create if not exist
-   * @param {number} id
+   * @param {Number} id
    * @return {Promise<Server|void>}
    */
   async getByIdOrCreate(id) {
-    return await this.sql
+    return this.sql
         .get(`SELECT *
               FROM server
               WHERE id = ?`, id)
         .then(async server => {
           if (server) {
-            return new Server(server.id, server.prefix, server.language);
+            return new Server(server);
           } else {
+            // TODO 2.0
             return await this.create(
                 new Server(id, Config.server.prefix, Config.server.language));
           }
@@ -54,42 +55,39 @@ class ServerRepository extends AppRepository {
   }
 
   /**
-   * Return an server created from the defaul values and save it to the database
+   * Allow to save a new server in the database and return it
    * @param {Server} server
    * @return {Promise<Server|void>}
    */
   async create(server) {
-    return await this.sql
+    await this.sql
         .run(`INSERT INTO server (id, prefix, language)
-              VALUES (?, ?, ?)`, server.get('id'), server.get('prefix'),
-            server.get('language'))
-        .then(() => {
-          return server;
-        })
+              VALUES (?, ?, ?)`, server.id, server.prefix,
+            server.language)
         .catch(console.error);
+
+    return server;
   }
 
   /**
-   * Allow to save the current state of a server in the database
+   * Allow to update a server in the database and return it
    * @param {Server} server
    * @return {Promise<Server|void>}
    */
   async update(server) {
-    return await this.sql
+    await this.sql
         .run(`UPDATE server
-              SET id = ?,
-                  prefix = ?,
+              SET prefix   = ?,
                   language = ?
-              WHERE id = ?`, server.get('id'), server.get('prefix'),
-            server.get('language'), server.get('id'))
-        .then(() => {
-          return server;
-        })
+              WHERE id = ?`, server.prefix,
+            server.language, server.id)
         .catch(console.error);
+
+    return server;
   }
 
   /**
-   * TODO refactor
+   * TODO 2.0 refactor
    * Allow to get the validation informations of a guild
    * @param {*} guilde - The guild that has to be checked
    */

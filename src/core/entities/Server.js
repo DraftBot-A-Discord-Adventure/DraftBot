@@ -1,8 +1,18 @@
 const EntityAbstract = require("entities/EntityAbstract");
 
+/**
+ * @property {String} id
+ * @property {String} prefix
+ * @property {String} language
+ */
 class Server extends EntityAbstract {
 
-    constructor(id, prefix, language) {
+    /**
+     * @param {String} id
+     * @param {String} prefix
+     * @param {String} language
+     */
+    constructor({id, prefix, language}) {
         super();
         this.id = id;
         this.prefix = prefix;

@@ -16,7 +16,7 @@ class PossibilityRepository extends AppRepository {
    * Get the requested possibility
    * @param {number|String} eventId
    * @param {String} emoji
-   * @param {number} id
+   * @param {Number} id
    * @return {Promise<Possibility>}
    */
   async getByIdAndEmoji(eventId, emoji, id) {

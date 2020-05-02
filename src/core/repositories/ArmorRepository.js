@@ -14,7 +14,7 @@ class ArmorRepository extends AppRepository {
 
     /**
      * Return an armor by id
-     * @param {number} id
+     * @param {Number} id
      * @return {Promise<Armor>}
      */
     async getById(id) {

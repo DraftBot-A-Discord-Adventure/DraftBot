@@ -14,7 +14,7 @@ class PlayerRepository extends AppRepository {
 
   /**
    * Return a promise that will contain the player that sent a message once it has been resolved
-   * @param {*} message
+   * @param {module:"discord.js".Message} message
    * @return {Promise<Player>}
    */
   async getByMessageOrCreate(message) {
@@ -37,7 +37,7 @@ class PlayerRepository extends AppRepository {
 
   /**
    * Return a promise that will contain the player that sent a message once it has been resolved
-   * @param {number} id
+   * @param {Number} id
    * @return {Promise<Player>}
    */
   async getByIdOrCreate(id) {
@@ -59,7 +59,7 @@ class PlayerRepository extends AppRepository {
   }
 
   /**
-   * Return an player created from the default values and save it to the database
+   * Allow to save a new player in the database and return it
    * @param {Player} player
    * @return {Promise<Player|void>}
    */
@@ -85,7 +85,7 @@ class PlayerRepository extends AppRepository {
   }
 
   /**
-   * Return an player updated from the values and save it to the database
+   * Allow to update a player in the database and return it
    * @param {Player} player
    * @return {Promise<Player|void>}
    */
@@ -243,7 +243,7 @@ class PlayerRepository extends AppRepository {
   // /**
   //  * Allow to get the language the bot has to respond with
   //  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
-  //  * @returns {string} - the code of the server language
+  //  * @returns {String} - the code of the server language
   //  */
   // async detectLanguage(message) {
   //   let serverManager = new ServerManager();

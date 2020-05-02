@@ -119,7 +119,7 @@ global.format = (string, replacement) => {
 // /**
 //  * Allow to get the language the bot has to respond with
 //  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
-//  * @returns {string} - the code of the server language
+//  * @returns {String} - the code of the server language
 //  */
 // const detectLanguage = async function (message) {
 //   let serverManager = new ServerManager();

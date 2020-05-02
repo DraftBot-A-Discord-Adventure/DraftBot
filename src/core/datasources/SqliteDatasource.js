@@ -17,10 +17,32 @@ class SqliteDatasource {
       driver: sqlite3.cached.Database,
     });
 
+    await SqliteDatasource.databaseMigrations();
+    await SqliteDatasource.setEverybodyAsUnOccupied();
+
     return SqliteDatasource._instance;
   }
 
-  // TODO
+  /**
+   * This function analyses the passed database and check if it is valid.
+   */
+  static async databaseMigrations() {
+    await SqliteDatasource.sql.migrate({
+      migrationsPath: 'database/migrations',
+    }).catch(console.error);
+  }
+
+  /**
+   * Allow to set the state of all the player to normal in order to allow them to play
+   */
+  static async setEverybodyAsUnOccupied() {
+    await SqliteDatasource.sql
+        .run(`UPDATE entity
+              SET effect = ?
+              WHERE effect = ?`,
+            EFFECT.SMILEY, EFFECT.CLOCK10)
+        .catch(console.error);
+  }
 
 }
 

@@ -34,7 +34,7 @@ class ItemAbstract extends EntityAbstract {
     /**
      * TODO 2.0 Utilité de cette fonction ? (utile au poition seulement ?)
      * Get the emoji
-     * @returns {string}
+     * @returns {String}
      */
     getEmoji() {
         return this.getTranslation('en').split(" ")[0];

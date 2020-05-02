@@ -10,8 +10,8 @@ class Potion extends ItemAbstract {
     /**
      * TODO 2.0 Refactor
      * Return string containing a description of an potion
-     * @param {string} language - The language the object has to be displayed in
-     * @returns {string}
+     * @param {String} language - The language the object has to be displayed in
+     * @returns {String}
      */
     display(language) {
         let result = this.getTranslation(language);

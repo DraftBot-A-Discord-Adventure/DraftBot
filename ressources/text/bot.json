@@ -1,15 +1,35 @@
 {
-	"translations":{
-		"fr": {
-			"noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : https://discord.gg/USnCxg4/ !",
-			"maintenance": ":x: Le Draftbot est actuellement en maintenance: Pour plus d'infos, visitez le discord du bot https://discord.gg/USnCxg4 \n\n :flag_um: The bot is being updated please be patient :)"
-		},
-		"en": {
-			"noSpeakPermission": ":zipper_mouth: | **Hello! You are receiving this message because you tried using one of my commands in a channel where I have the permissions to see messages but not send them!**\n\nYour request was thus voided. To resolve this problem, please send a message to the owner of the server you tried to use me in. If you can't resolve this problem, I invite you to join the bot's support available here: 'https://discord.gg/USnCxg4/'!",
-			"maitenance": "TODO"
-		}
-	},
-	"embed": {
-		"color": "#FFA500"
-	}
+    "translations":{
+        "fr": {
+            "noSpeakPermission": ":zipper_mouth:  | **Bonjour ! Vous recevez ce message car vous avez tenté d'utiliser une de mes commandes dans un salon où j'ai la permission de voir les messages, mais pas celle d'en envoyer !**\n\nVotre requête a donc été annulée. Pour résoudre ce problème merci d'envoyer un message au propriétaire du serveur sur lequel vous avez essayé de m'utiliser. Si vous ne parvenez pas à résoudre ce problème je vous invite à rejoindre le discord support du bot disponible à adresse suivante : https://discord.gg/USnCxg4/ !",
+            "maintenance": ":x: Le Draftbot est actuellement en maintenance: Pour plus d'infos, visitez le discord du bot https://discord.gg/USnCxg4 \n\n :flag_um: The bot is being updated please be patient :)"
+        },
+        "en": {
+            "noSpeakPermission": ":zipper_mouth: | **Hello! You are receiving this message because you tried using one of my commands in a channel where I have the permissions to see messages but not send them!**\n\nYour request was thus voided. To resolve this problem, please send a message to the owner of the server you tried to use me in. If you can't resolve this problem, I invite you to join the bot's support available here: 'https://discord.gg/USnCxg4/'!",
+            "maitenance": "TODO"
+        }
+    },
+    "activity": "❓ - Dm me for Help !",
+    "startStatus": ":robot: **DraftBot** - v",
+    "embed": {
+        "color": "#FFA500"
+    },
+    "reboot": "DraftBot",
+    "br": "############################################\n",
+    "dm": {
+        "empty": ">>> message vide",
+        "alertBegin": ":love_letter: | <@&433289098141106210> **Nouveau message privé reçu !** \nAuteur: ",
+        "alertId": " (id :",
+        "alertEnd": ")",
+        "quote": ">>> "
+    },
+    "guildJoin": {
+        "beginquit": "**:outbox_tray: Serveur discord quitté :** `",
+        "begin": "**:inbox_tray: Serveur discord rejoint :** `",
+        "persons": "` | :bust_in_silhouette: : `",
+        "ratio": "` | Ratio bot/Humain : `",
+        "bots": "` | :robot: : `",
+        "validation": "` % | Validation : "
+    },
+    "departurMessage":":flag_fr:  Bonjour !\n\nVous recevez ce message car je ne peux pas rester sur votre serveur.\n\nMalheureusement votre serveur ne remplit pas certaines des conditions d'utilisation du bot qui ont été mises en place pour maintenir un minimum de confort aux joueurs en garantissant des performances normales. Pour plus de détails sur ces limitations, consultez https://draftbot.fandom.com/fr/wiki/Restrictions.\n\nSi vous avez des questions sur le fonctionnement du bot ou si vous souhaiter contester ce départ je vous invite à visiter le site internet : https://discord.gg/USnCxg4 où vous pourrez trouver un lien vers le discord de support du bot !\n\nCordialement - DraftBot\n\n\n:flag_gb:  Hello!\n\nYou received this message because I can't stay on your server.\n\nUnfortunately, your server doesn't fulfill some of the bot's requirements. These requirements are put in place to guarantee normal performance. For more details on these limitations, see https://draftbot.fandom.com/en/wiki/Restrictions\n\nIf you have questions about how the bot works, or if you want to discuss this, visit https://discord.gg/USnCxg4 where you can find a link to the bot’s support Discord!\n\nSincerely - DraftBot"
 }

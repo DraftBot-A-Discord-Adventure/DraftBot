@@ -14,7 +14,7 @@ class PotionRepository extends AppRepository {
 
     /**
      * Return an potion by id
-     * @param {number} id
+     * @param {Number} id
      * @return {Promise<Potion>}
      */
     async getById(id) {

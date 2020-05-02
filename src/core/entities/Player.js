@@ -66,8 +66,8 @@ class Player extends Entity {
   }
 
   /**
-   * @param {string} language - The language the player has to be displayed in
-   * @returns {[string|{string}]}
+   * @param {String} language - The language the player has to be displayed in
+   * @returns {[string|{String}]}
    */
   async profilEmbed(language) {
     this.setPseudoByLanguage(language);
@@ -124,7 +124,7 @@ class Player extends Entity {
   }
 
   /**
-   * @param {number} value
+   * @param {Number} value
    */
   setScore(value) {
     if (value > 0) {
@@ -135,7 +135,7 @@ class Player extends Entity {
   }
 
   /**
-   * @param {number} value
+   * @param {Number} value
    */
   setWeeklyScore(value) {
     if (value > 0) {
@@ -148,7 +148,7 @@ class Player extends Entity {
   /**
    * Increments the Player's level, and subtract the experience needed for the level up from the Player's experience.
    * @param {*} message - The message that caused the levelup. Used to send a level up message
-   * @param {string} language
+   * @param {String} language
    */
   setLevelUp(message, language) {
     // TODO
@@ -156,7 +156,7 @@ class Player extends Entity {
 
   /**
    * Set this Player instance's level.
-   * @param {number} value - The level this Player instance should be. Must be a positive Number.
+   * @param {Number} value - The level this Player instance should be. Must be a positive Number.
    */
   setLevel(value) {
     if (value > 0) {
@@ -166,7 +166,7 @@ class Player extends Entity {
 
   /**
    * Return the amount of experience needed to level up.
-   * @return {number} Return the experience needed to level up.
+   * @return {Number} Return the experience needed to level up.
    */
   getExperienceNeededToLevelUp() {
     return Config.xp[this.get('level') + 1];
@@ -183,7 +183,7 @@ class Player extends Entity {
   /**
    * TODO - WIP need testing
    * Add the specified amount of experience to the player's experience total.
-   * @param {number} value - The amount of experience to add. Must be a positive Number.
+   * @param {Number} value - The amount of experience to add. Must be a positive Number.
    * @return {string|void}
    */
   addExperience(value) {
@@ -199,7 +199,7 @@ class Player extends Entity {
   /**
    * TODO - WIP need testing, maybe remove for stack load
    * Set this Player instance's current experience.
-   * @param {number} value - The amount of experience this instance should have. Must be a positive or null Number.
+   * @param {Number} value - The amount of experience this instance should have. Must be a positive or null Number.
    * @return {string|void}
    */
   setExperience(value) {
@@ -213,7 +213,7 @@ class Player extends Entity {
 
   /**
    * TODO : Pas de setMoney ce qui permet d'avoir de la monnaie négative (pour un systeme de prêt par exemple avec intérêts)
-   * @param {number} value -
+   * @param {Number} value -
    */
   changeMoney(value) {
     this.money = this.get('money') + value;
@@ -221,7 +221,7 @@ class Player extends Entity {
 
   /**
    * Returns this player instance's current fight power
-   * @return {number}
+   * @return {Number}
    */
   getFightPower() {
     return this.get('maxHealth') + (this.get('level') * 10);
@@ -229,7 +229,7 @@ class Player extends Entity {
 
   /**
    * Only if pseudo is null
-   * @param {string} language
+   * @param {String} language
    */
   setPseudoByLanguage(language) {
     if (this.pseudo === null) {

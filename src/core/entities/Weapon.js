@@ -10,8 +10,8 @@ class Weapon extends ItemAbstract {
     /**
      * TODO 2.0 Refactor
      * Return string containing a description of an weapon
-     * @param {string} language - The language the object has to be displayed in
-     * @returns {string}
+     * @param {String} language - The language the object has to be displayed in
+     * @returns {String}
      */
     display(language) {
         let result = this.getTranslation(language);
@@ -26,7 +26,7 @@ class Weapon extends ItemAbstract {
     /**
      * TODO 2.0 Rename : Je ne comprend pas trop cette fonction = (real power)
      * Return the realPower of the item (only for weapon / armors)
-     * @returns {number}
+     * @returns {Number}
      */
     getvalue() {
         return parseInt(Config.raritiesValues[this.get('rarity')]) + parseInt(this.get('power'));

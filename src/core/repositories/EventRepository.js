@@ -14,7 +14,7 @@ class EventRepository extends AppRepository {
 
   /**
    * Get the requested event
-   * @param {number} id
+   * @param {Number} id
    * @return {Promise<Event>}
    */
   async getById(id) {

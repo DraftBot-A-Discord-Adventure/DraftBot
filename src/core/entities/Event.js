@@ -20,7 +20,7 @@ class Event extends EntityAbstract {
   /**
    * TODO 2.0 refactor
    * Return string containing a description of an armor
-   * @param {string} language - The language the object has to be displayed in
+   * @param {String} language - The language the object has to be displayed in
    * @returns {Object[]}
    */
   toEmbedObject(language) {

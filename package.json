@@ -8,7 +8,6 @@
   },
   "scripts": {
     "start": "node index.js",
-    "text": "node src/shell/index.js",
     "postinstall": "link-module-alias",
     "preinstall": "which link-module-alias && link-module-alias clean || true"
   },

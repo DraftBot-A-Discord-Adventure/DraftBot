@@ -8,7 +8,6 @@ class DraftBot {
         'draftbot/package.json',
         'ressources/text/bot.json',
         'ressources/text/values.json',
-        'ressources/text/console.json',
         'ressources/text/effect.json',
       ],
     });

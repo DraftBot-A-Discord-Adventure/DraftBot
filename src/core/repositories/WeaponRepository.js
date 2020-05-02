@@ -14,7 +14,7 @@ class WeaponRepository extends AppRepository {
 
     /**
      * Return a weapon by id
-     * @param {number} id
+     * @param {Number} id
      * @return {Promise<Weapon>}
      */
     async getById(id) {

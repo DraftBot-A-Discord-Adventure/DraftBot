@@ -14,7 +14,7 @@ class ObjectRepository extends AppRepository {
 
     /**
      * Return an object by id
-     * @param {number} id
+     * @param {Number} id
      * @return {Promise<Object>}
      */
     async getById(id) {

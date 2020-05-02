@@ -1,5 +1,5 @@
-const AppRepository = require("repositories/AppRepository");
-const Inventory = require("entities/Inventory");
+const AppRepository = require('repositories/AppRepository');
+const Inventory = require('entities/Inventory');
 
 /**
  * @property {String} datasource
@@ -12,28 +12,75 @@ class InventoryRepository extends AppRepository {
     this.datasource = DATASOURCE.SQLITE;
   }
 
+  /**
+   * Return a promise that will contain the inventory that is owned by the person who send the message
+   * @param {module:"discord.js".Message} message
+   * @return {Promise<Inventory>}
+   */
+  async getByMessageOrCreate(message) {
+    return this.sql
+        .get(`SELECT *
+              FROM inventory
+              WHERE playerId = ?`,
+            message.author.id)
+        .then(async inventory => {
+          if (inventory) {
+            return new Inventory(inventory);
+          } else {
+            return await this.create(new Inventory(
+                Object.assign({
+                  playerId: message.author.id,
+                }, JsonReader.entities.inventory)));
+          }
+        })
+        .catch(console.error);
+  }
+
+  /**
+   * Allow to save a new inventory in the database and return it
+   * @param {Inventory} inventory
+   * @return {Promise<Inventory|void>}
+   */
+  async create(inventory) {
+    await this.sql.run(
+          `INSERT INTO inventory (playerId, weaponId, armorId, potionId,
+                                  objectId, backupItemId, lastDaily)
+           VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        inventory.playerId, inventory.weaponId, inventory.armorId,
+        inventory.potionId, inventory.objectId, inventory.backupItemId,
+        inventory.lastDaily,
+        )
+        .catch(console.error);
+
+    return inventory;
+  }
+
+  /**
+   * Allow to update an inventory in the database and return it
+   * @param {Inventory} inventory
+   * @return {Promise<Inventory|void>}
+   */
+  async update(inventory) {
+    await this.sql
+        .run(
+              `UPDATE inventory
+               SET weaponId = ?,
+                   armorId = ?,
+                   potionId = ?,
+                   objectId = ?,
+                   backupItemId = ?,
+                   lastDaily = ?
+               WHERE playerId = ?`,
+            inventory.weaponId, inventory.armorId, inventory.potionId,
+            inventory.objectId, inventory.backupItemId, inventory.lastDaily,
+            inventory.playerId,
+        )
+        .catch(console.error);
+
+    return inventory;
+  }
+
   // TODO 2.0 Legacy code
-  // /**
-  //  * Return a promise that will contain the inventory that is owned by the person who send the message
-  //  * @param message - The message that caused the function to be called. Used to retrieve the author of the message
-  //  * @returns {promise} - The promise that will be resolved into a inventory
-  //  */
-  // getCurrentInventory(message) {
-  //   return sql.get(`SELECT * FROM inventory WHERE playerId = ?`, ["" + message.author.id]).then(inventory => {
-  //     if (!inventory) { //inventory is not in the database
-  //       console.log(`inventory unknown : ${message.author.username}`);
-  //       return this.getNewInventory(message);
-  //     } else { //inventory is in the database
-  //       console.log(`inventory loaded : ${message.author.username}`);
-  //       return new Inventory(inventory.playerId, inventory.weaponId, inventory.armorId, inventory.potionId, inventory.objectId, inventory.backupItemId, inventory.lastDaily)
-  //     }
-  //   }).catch(error => { //there is no database
-  //     console.error(error)
-  //     return false;
-  //   })
-  // }
-  //
-  //
   // /**
   //  * Return a promise that will contain the inventory that correspond to the id
   //  * @param id - the id of the inventory that own the inventory
@@ -54,20 +101,6 @@ class InventoryRepository extends AppRepository {
   //   })
   // }
   //
-  //
-  // /**
-  //  * Return an inventory created from the defaul values and save it to the database
-  //  * @param message - The message that caused the function to be called. Used to retrieve the author of the message
-  //  * @returns {*} - A new inventory
-  //  */
-  // getNewInventory(message) {
-  //   console.log('Generating a new inventory...');
-  //   let inventory = new Inventory(message.author.id, DefaultValues.inventory.weapon, DefaultValues.inventory.armor, DefaultValues.inventory.potion, DefaultValues.inventory.object, DefaultValues.inventory.backupItem, DefaultValues.inventory.lastDaily);
-  //   this.addInventory(inventory);
-  //   return inventory;
-  // }
-  //
-  //
   // /**
   //  * Return an inventory created from the defaul values and save it to the database
   //  * @param id - The id that has to be used to create the inventory
@@ -79,31 +112,6 @@ class InventoryRepository extends AppRepository {
   //   this.addInventory(inventory);
   //   return inventory;
   // }
-  //
-  //
-  // /**
-  //  * Allow to save the current state of a inventory in the database
-  //  * @param {*} inventory - The inventory that has to be saved
-  //  */
-  // updateInventory(inventory) {
-  //   console.log("Updating inventory ...");
-  //   sql.run(`UPDATE inventory SET playerId = ?, weaponId = ?, armorId = ?, potionId = ?, objectId = ?, backupItemId = ?,lastDaily = ? WHERE playerId = ?`,
-  //       [inventory.playerId, "" + inventory.weaponId, "" + inventory.armorId, "" + inventory.potionId, "" + inventory.objectId, "" + inventory.backupItemId, "" + inventory.lastDaily, inventory.playerId]).catch(console.error);
-  //   console.log("Inventory updated !");
-  // }
-  //
-  //
-  // /**
-  //  * Allow to save a new inventory in the database
-  //  * @param {*} inventory - The inventory that has to be saved
-  //  */
-  // addInventory(inventory) {
-  //   console.log("Creating inventory ...");
-  //   sql.run(`INSERT INTO inventory (playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-  //       [inventory.playerId, "" + inventory.weaponId, "" + inventory.armorId, "" + inventory.potionId, "" + inventory.objectId, "" + inventory.backupItemId, "" + inventory.lastDaily]).catch(console.error);
-  //   console.log("inventory created !");
-  // }
-  //
   //
   // /**
   //  * Return the value of the damage bonus
@@ -156,7 +164,6 @@ class InventoryRepository extends AppRepository {
   //   return defense;
   // }
   //
-  //
   // /**
   //  * Return the value of the defense bonus
   //  * @returns {Number} the bonus effect from the inventory
@@ -171,7 +178,6 @@ class InventoryRepository extends AppRepository {
   //   }
   //   return defense;
   // }
-  //
   //
   // /**
   //  * Return the value of the speed bonus
@@ -203,19 +209,6 @@ class InventoryRepository extends AppRepository {
   //     speed = speed + parseInt(ItemValues.potion[inv.potionId].power);
   //   }
   //   return speed;
-  // }
-  //
-  //
-  //
-  // /**
-  //  * Allow to switch the item in the backup slot within the one that is active
-  //  * @param {*} inventory - The inventory that has to be changed
-  //  */
-  // switch(inventory) {
-  //   let passage = inventory.objectId;
-  //   inventory.objectId = inventory.backupItemId;
-  //   inventory.backupItemId = passage;
-  //   this.updateInventory(inventory);
   // }
 
 }

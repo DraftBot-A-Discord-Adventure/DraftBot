@@ -22,9 +22,6 @@ class Repository {
           instanceOfRepository
       );
     }
-
-    // await this.checkDatabaseMigrations();
-    // await this.setEverybodyAsUnOccupied();
   }
 
   /**
@@ -34,25 +31,6 @@ class Repository {
   static getRepository(repository) {
     return Repository.repositories.get(repository);
   }
-
-  //
-  // /**
-  //  * This function analyses the passed database and check if it is valid.
-  //  */
-  // async checkDatabaseMigrations() {
-  //   await this.sql.migrate({
-  //     migrationsPath: 'database/migrations',
-  //   }).catch(console.error);
-  // }
-  //
-  // /**
-  //  * TODO 2.0 Call entityRepository
-  //  * Allow to set the state of all the player to normal in order to allow them to play
-  //  */
-  // async setEverybodyAsUnOccupied() {
-  //   await this.sql.run(`UPDATE entity SET effect = ? WHERE effect = ?`,
-  //       ':smiley:', ':clock10:').catch(console.error);
-  // }
 
 }
 

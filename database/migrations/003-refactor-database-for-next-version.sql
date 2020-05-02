@@ -9,7 +9,9 @@ CREATE TABLE player(discordId TEXT, score INTEGER, weeklyScore INTEGER, level IN
 INSERT INTO player SELECT discordId, score, weeklyScore, level, experience, money, lastReport, badges, guildId FROM player_backup;
 DROP TABLE player_backup;
 
-DROP TABLE database;
+DROP TABLE IF EXISTS database;
+
+CREATE TABLE IF NOT EXISTS database (lastweekReset INTEGER);
 
 --------------------------------------------------------------------------------
 -- Down

@@ -4,8 +4,10 @@ global.DATASOURCE = {
   JSON: "json"
 };
 
-// TODO 2.0 Terminer
-// Players effect
+// Effect
 global.EFFECT = {
-  CLOCK10: ":clock10:"
+  BABY: ":baby:",
+  SMILEY: ":smiley:",
+  CLOCK10: ":clock10:",
+  // TODO 2.0 Terminer
 };
