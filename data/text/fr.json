@@ -444,13 +444,6 @@
       "tooQuickError": ", la récompense de guilde n'est disponible qu'une fois toute les 22H. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochain récompense: **",
       "tooQuickErrorEnd": "**"
     },
-    "respawn": {
-      "thinking": ":thinking: | **",
-      "angel": ":angel: | **",
-      "revived1": " **Nous vous avons ressucité avec succès ! Cependant veuillez noter que ",
-      "revived2": " points :medal: ont été retirés de votre score durant l'opération !",
-      "notDead": "** il semblerait que vous ne soyez pas K.O... Vous n'avez pas besoin de nos services."
-    }
   },
   "commandReader": {
     "resetIsNowTitle": ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot !",

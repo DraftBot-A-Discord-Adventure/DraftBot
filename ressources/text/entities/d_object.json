@@ -1,19 +1,33 @@
 {
   "translations": {
     "fr": {
-      "display": "{itemName} | {rarity} | {nature}",
+      "active": {
+        "fieldName": "Objet actif :",
+        "fieldValue": "{name} | {rarity} | {nature}"
+      },
+      "backup": {
+        "fieldName": "Réserve d'item :",
+        "fieldValue": "{name} | {rarity} | {nature}"
+      },
       "natures": [
         ":x: Aucun effet",
         ":heart: Vie + {power} par jour",
         ":rocket: Vitesse + {power} pendant les combats",
         ":crossed_swords: Attaque + {power} pendant les combats",
-        ":shield: Defense + {power} pendant les combats",
+        ":shield: Défense + {power} pendant les combats",
         ":clock1030: Avance le temps plus rapidement pendant {power} heure(s)",
         ":moneybag: Argent + {power} par jour"
       ]
     },
     "en": {
-      "display": "{itemName} | {rarity} | {nature}",
+      "active": {
+        "fieldName": "Active item :",
+        "fieldValue": "{name} | {rarity} | {nature}"
+      },
+      "backup": {
+        "fieldName": "Reserve item :",
+        "fieldValue": "{name} | {rarity} | {nature}"
+      },
       "natures": [
         ":x: No effect",
         ":heart: Health + {power} per day",

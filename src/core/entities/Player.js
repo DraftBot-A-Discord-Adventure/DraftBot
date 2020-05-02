@@ -1,26 +1,26 @@
 const Entity = require('entities/Entity');
 
 /**
-* @property {String} id
-* @property {Number} maxHealth
-* @property {Number} health
-* @property {Number} attack
-* @property {Number} defense
-* @property {Number} speed
-* @property {String} effect
-* @property {String} discordId
-* @property {Number} score
-* @property {Number} weeklyScore
-* @property {Number} level
-* @property {Number} experience
-* @property {Number} money
-* @property {Number} lastReport
-* @property {String} badges
-* @property {String} guildId
-* @property {Number} rank
-* @property {Number} weeklyRank
-* @property {String} pseudo
-*/
+ * @property {String} id
+ * @property {Number} maxHealth
+ * @property {Number} health
+ * @property {Number} attack
+ * @property {Number} defense
+ * @property {Number} speed
+ * @property {String} effect
+ * @property {String} discordId
+ * @property {Number} score
+ * @property {Number} weeklyScore
+ * @property {Number} level
+ * @property {Number} experience
+ * @property {Number} money
+ * @property {Number} lastReport
+ * @property {String} badges
+ * @property {String} guildId
+ * @property {Number} rank
+ * @property {Number} weeklyRank
+ * @property {String} pseudo
+ */
 class Player extends Entity {
 
   /**
@@ -42,8 +42,10 @@ class Player extends Entity {
    * @param {Number} rank
    * @param {Number} weeklyRank
    */
-  constructor({id, maxHealth, health, attack, defense, speed, effect, score, weeklyScore,
-    level, experience, money, lastReport, badges, guildId, rank, weeklyRank}) {
+  constructor({
+    id, maxHealth, health, attack, defense, speed, effect, score, weeklyScore,
+    level, experience, money, lastReport, badges, guildId, rank, weeklyRank,
+  }) {
     super({id, maxHealth, health, attack, defense, speed, effect});
 
     this.discordId = id;
@@ -58,7 +60,7 @@ class Player extends Entity {
     this.rank = rank;
     this.weeklyRank = weeklyRank;
 
-    if (client.users.cache.get(this.discordId) !== null) {
+    if (this.discordId !== undefined && client.users.cache.get(this.discordId) !== null) {
       this.pseudo = client.users.cache.get(this.discordId).username;
     } else {
       this.pseudo = null;
@@ -66,18 +68,21 @@ class Player extends Entity {
   }
 
   /**
-   * Return an object[] of player for display purposes
-   * @param {String} language - The language the object has to be displayed in
-   * @returns {Object[]}
+   * Return an object of player for display purposes
+   * @param {("fr"|"en")} language - The language the object has to be displayed in
+   * @returns {Object}
    */
   async toEmbedObject(language) {
-    this.setPseudoByLanguage(language);
     let result = {
-      title: null,
-      fields: []
+      title: format(
+          JsonReader.commands.profile.getTranslation(language).title, {
+            effect: this.effect,
+            pseudo: this.getPseudo(language),
+            level: this.level,
+          }),
+      fields: [],
     };
 
-    result.title = format(JsonReader.commands.profile.getTranslation(language).title, {effect: this.effect, pseudo: this.pseudo, level: this.level});
     result.fields.push({
       name: JsonReader.commands.profile.getTranslation(language).infoName,
       value: format(JsonReader.commands.profile.getTranslation(language).info, {
@@ -85,10 +90,10 @@ class Player extends Entity {
         maxHealth: this.maxHealth,
         experience: this.experience,
         experienceNeededToLevelUp: this.getExperienceNeededToLevelUp(),
-        money: this.money
+        money: this.money,
       }),
-      inline: false,
     });
+
     result.fields.push({
       name: JsonReader.commands.profile.getTranslation(language).statName,
       value: format(JsonReader.commands.profile.getTranslation(language).info, {
@@ -96,13 +101,11 @@ class Player extends Entity {
         maxHealth: this.maxHealth,
         experience: this.experience,
         experienceNeededToLevelUp: this.getExperienceNeededToLevelUp(),
-        money: this.money
+        money: this.money,
       }),
-      inline: false,
     });
 
     let numberOfPlayer = await getRepository('player').getNumberOfPlayers();
-
 
     // result.push({
     //   name: Config.text[language].commands.profile.stats,
@@ -248,12 +251,23 @@ class Player extends Entity {
   }
 
   /**
+   * Get the pseudo. Returns the default language's one if not found
+   * @param {"fr"|"en"} language
+   * @returns {Promise<string|null>}
+   */
+  getPseudo(language) {
+    this.setPseudo(language);
+    return this.pseudo;
+  }
+
+  /**
    * Only if pseudo is null
    * @param {String} language
    */
-  setPseudoByLanguage(language) {
+  setPseudo(language) {
     if (this.pseudo === null) {
-      this.pseudo = JsonReader.entities.player.getTranslation(language).unknownPlayer;
+      this.pseudo = JsonReader.entities.player.getTranslation(
+          language).unknownPlayer;
     }
   }
 
@@ -274,7 +288,8 @@ class Player extends Entity {
 
     let resultMessage = this.get('effect') +
         Config.text[language].playerManager.intro + this.get('pseudo') +
-        Config.text[language].playerManager.errorMain[this.get('effect')] + this.getTimeLeft(language, message);
+        Config.text[language].playerManager.errorMain[this.get('effect')] +
+        this.getTimeLeft(language, message);
 
     await message.channel.send(resultMessage);
 
@@ -297,17 +312,7 @@ class Player extends Entity {
         return Config.text[language].playerManager.noTimeLeft;
       }
     }
-    return "";
-  }
-
-  /**
-   * Get the pseudo. Returns the default language's one if not found
-   * @param {"fr"|"en"} language
-   * @returns {Promise<string|null>}
-   */
-  getPseudo(language) {
-    this.setPseudoByLanguage(language);
-    return this.pseudo;
+    return '';
   }
 
   // TODO 2.0 Legacy code

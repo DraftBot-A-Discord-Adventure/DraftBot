@@ -3,8 +3,6 @@
 		"fr": {
 			"timeleft": " Temps restant :",
 			"main": " | ",
-			"errorMain": ":x: |",
-			"errorExp": ", le joueur demandé semble ne pas avoir commencé l'aventure !",
 			"rank": ":trophy: ",
 			"score": " | :medal:",
 			"rankAndScore": "Classement et Score :",
@@ -13,7 +11,6 @@
 			"statsSpeed": " | :rocket: ",
 			"statsFightPower": " | :blue_heart: ",
 
-			"error": "{effect} | ** {pseudo} **, utilisez la commande `report` pour commencer votre aventure !",
 			"title": "{effect} | {pseudo} | Niveau {level}",
 			"infoName": "Informations :",
 			"info": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}",
@@ -23,8 +20,6 @@
 		"en": {
 			"timeleft": "Time Left:",
 			"main": " | ",
-			"errorMain": ":x: | ",
-			"errorExp": ", it seems the player you asked for hasn't started the adventure yet!",
 			"rank": ":trophy: ",
 			"score": " | :medal:",
 			"rankAndScore": "Ranking and score :",
@@ -33,7 +28,6 @@
 			"statsSpeed": " | :rocket: ",
 			"statsFightPower": " | :blue_heart: ",
 
-			"error": "{effect} | ** {pseudo} **, use the command `report` to start your adventure!",
 			"title": "{effect} | {pseudo} | Level {level}",
 			"infoName": "Information :",
 			"info": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}",
