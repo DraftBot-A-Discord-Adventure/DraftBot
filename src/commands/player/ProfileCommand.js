@@ -8,14 +8,11 @@ const ProfileCommand = async function(language, message, args) {
   let player = await getRepository('player').getByMessageOrCreate(
       message);
 
-  let profilEmbed = await player.profilEmbed(language);
-
-  const embed = new discord.MessageEmbed()
-      .setColor(JsonReader.bot.embed.color)
-      .setTitle(profilEmbed.shift())
-      .addFields(profilEmbed);
-
-  await message.channel.send(embed);
+  if (player.effect === EFFECT.BABY) {
+    return await message.channel.send(
+        format(JsonReader.commands.profile.getTranslation(language).error,
+            {effect: player.effect, pseudo: player.pseudo}));
+  }
 
   if (args[1] !== undefined) {
     // TODO 2.0 Continue refactoring
@@ -25,45 +22,32 @@ const ProfileCommand = async function(language, message, args) {
     //     return message.channel.send(Text.commands.profile.errorMain + "**" + message.author.username + "**" + Text.commands.profile.errorExp)
   }
 
-  // let numberOfPlayer = await playerManager.getNumberOfPlayers();
   // await Tools.seeItemBonus(player)
-  // let messageProfile = generateProfileMessage(message, player, numberOfPlayer, client, language);
+
+  let profilEmbed = await player.toEmbedObject(language);
+  const embed = new discord.MessageEmbed()
+      .setColor(JsonReader.bot.embed.color)
+      .setTitle(profilEmbed.title)
+      .addFields(profilEmbed.fields);
+  //
+  // if (playerManager.displayTimeLeftProfile(player, message, language) != '') {
+  //   let timeLeftMessage;
+  //   if (!playerManager.displayTimeLeftProfile(player, message, language)
+  //       .includes(':hospital:')) { //the player is not cured
+  //     timeLeftMessage = player.getEffect() + ' ' +
+  //         playerManager.displayTimeLeftProfile(player, message, language);
+  //   } else {
+  //     timeLeftMessage = playerManager.displayTimeLeftProfile(player, message,
+  //         language);
+  //   }
+  //   embed.addField(Text.commands.profile.timeleft, timeLeftMessage);
+  // }
+  //
+  await message.channel.send(embed);
+
   // message.channel.send(messageProfile).then(msg => {
   //     displayBadges(player, msg);
   // });
-};
-
-/**
- * Returns a string containing the profile message.
- * @returns {String} - A string containing the profile message.
- * @param {*} message - The message that caused the command to be triggered
- * @param {*} player - The player that send the message
- * @param {Integer} numberOfPlayer - The total number of player in the database
- * @param {*} client - The bot client
- * @param {String} language - The language the answer has to be displayed in
- */
-const generateProfileMessage = function(
-    message, player, numberOfPlayer, client, language) {
-
-  if (player.getEffect() == ':baby:') {
-    return player.getEffect() + Text.commands.profile.main + '**' + pseudo +
-        '**' + Text.commands.profile.notAPlayer;
-  }
-
-  if (playerManager.displayTimeLeftProfile(player, message, language) != '') {
-    let timeLeftMessage;
-    if (!playerManager.displayTimeLeftProfile(player, message, language)
-        .includes(':hospital:')) { //the player is not cured
-      timeLeftMessage = player.getEffect() + ' ' +
-          playerManager.displayTimeLeftProfile(player, message, language);
-    } else {
-      timeLeftMessage = playerManager.displayTimeLeftProfile(player, message,
-          language);
-    }
-    embed.addField(Text.commands.profile.timeleft, timeLeftMessage);
-  }
-
-  return embed;
 };
 
 /**

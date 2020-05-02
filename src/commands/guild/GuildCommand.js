@@ -1,34 +1,17 @@
-//Discord API
-const Discord = require("discord.js");
-const DefaultValues = require('data/text/DefaultValues');
-const PlayerManager = require('../../core/PlayerManager');
-const ServerManager = require('../../core/ServerManager');
-const GuildManager = require('../../core/GuildManager');
-const ProgressBar = require('../../core/ProgressBar');
-const Tools = require('../../utils/Tools');
-
-let Text
-let playerManager = new PlayerManager();
-let serverManager = new ServerManager();
-let guildManager = new GuildManager();
-
-/**
- * Allow to charge the prefix of the server
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- */
-const chargePrefix = async function (message) {
-    return await serverManager.getServerPrefix(message);
-}
-
 /**
  * Allow to display the rankings of the players
- * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
- * @param args - arguments typed by the user in addition to the command
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const guildCommand = async function (message, args, client) {
-    Text = await Tools.chargeText(message);
-    let serverPrefix = await chargePrefix(message);
-    let guildName = await message.content.slice(serverPrefix.length).trim().replace(args[0], "").substring(1); //substring is used to remove the space before the guild name
+const GuildCommand = async (language, message, args) => {
+
+    if (args.length === 0) {
+        // TODO get currentGuild
+    }
+
+    // TODO 2.0
+    let guildName = await message.content.slice(serverPrefix.length).trim().replace(args[0], "").substring(1);
     let guild;
 
     if (args.length >= 2) {
@@ -56,7 +39,6 @@ const guildCommand = async function (message, args, client) {
     let messageGuild = await generateGuildMessage(message, client, guild, members);
     message.channel.send(messageGuild);
 }
-
 
 /**
  * Returns a string containing the nodrink message.
@@ -168,4 +150,7 @@ const generateDefaultEmbed = function () {
     return new Discord.RichEmbed().setColor(DefaultValues.embed.color);
 }
 
-module.exports.guildCommand = guildCommand;
+module.exports = {
+    "guild": GuildCommand,
+    "g": GuildCommand
+};

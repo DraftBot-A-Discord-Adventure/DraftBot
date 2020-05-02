@@ -66,30 +66,44 @@ class Player extends Entity {
   }
 
   /**
-   * @param {String} language - The language the player has to be displayed in
-   * @returns {[string|{String}]}
+   * Return an object[] of player for display purposes
+   * @param {String} language - The language the object has to be displayed in
+   * @returns {Object[]}
    */
-  async profilEmbed(language) {
+  async toEmbedObject(language) {
     this.setPseudoByLanguage(language);
+    let result = {
+      title: null,
+      fields: []
+    };
+
+    result.title = format(JsonReader.commands.profile.getTranslation(language).title, {effect: this.effect, pseudo: this.pseudo, level: this.level});
+    result.fields.push({
+      name: JsonReader.commands.profile.getTranslation(language).infoName,
+      value: format(JsonReader.commands.profile.getTranslation(language).info, {
+        health: this.health,
+        maxHealth: this.maxHealth,
+        experience: this.experience,
+        experienceNeededToLevelUp: this.getExperienceNeededToLevelUp(),
+        money: this.money
+      }),
+      inline: false,
+    });
+    result.fields.push({
+      name: JsonReader.commands.profile.getTranslation(language).statName,
+      value: format(JsonReader.commands.profile.getTranslation(language).info, {
+        health: this.health,
+        maxHealth: this.maxHealth,
+        experience: this.experience,
+        experienceNeededToLevelUp: this.getExperienceNeededToLevelUp(),
+        money: this.money
+      }),
+      inline: false,
+    });
+
     let numberOfPlayer = await getRepository('player').getNumberOfPlayers();
 
-    let result = [];
-    result.push(
-        this.effect + JsonReader.commands.profile.getTranslation(language).main +
-        this.pseudo + JsonReader.commands.profile.getTranslation(language).level +
-        this.level);
-    // result.push({
-    //   name: Config.text[language].commands.profile.infos,
-    //   value: Config.text[language].commands.profile.health +
-    //       this.get('health') +
-    //       Config.text[language].commands.profile.separator +
-    //       this.get('maxHealth') + Config.text[language].commands.profile.xp +
-    //       this.get('experience') +
-    //       Config.text[language].commands.profile.separator +
-    //       this.getExperienceNeededToLevelUp() +
-    //       Config.text[language].commands.profile.money + this.get('money'),
-    //   inline: false,
-    // });
+
     // result.push({
     //   name: Config.text[language].commands.profile.stats,
     //   value: Config.text[language].commands.profile.statsAttack +
@@ -109,6 +123,12 @@ class Player extends Entity {
     //       Config.text[language].commands.profile.score + this.get('score'),
     //   inline: false,
     // });
+
+    // return [{
+    //   name: Config.text[language].commands.inventory.armorTitle,
+    //   value: (this.id === "default") ? this.getTranslation(language) : this.getTranslation(language) + Config.text[language].equipementManager.separator1 + this.get('effect') + Config.text[language].equipementManager.separator2 + Config.text[language].rarities[this.get('rarity')],
+    //   inline:  false
+    // }];
 
     return result;
   }
@@ -169,7 +189,7 @@ class Player extends Entity {
    * @return {Number} Return the experience needed to level up.
    */
   getExperienceNeededToLevelUp() {
-    return Config.xp[this.get('level') + 1];
+    return JsonReader.entities.player.xp[this.level + 1];
   }
 
   /**
@@ -177,7 +197,7 @@ class Player extends Entity {
    * @returns {Number} Return the experience used to level up.
    */
   getExperienceUsedToLevelUp() {
-    return Config.xp[this.get('level')];
+    return JsonReader.entities.player.xp[this.level];
   }
 
   /**

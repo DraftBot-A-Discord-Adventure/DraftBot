@@ -9,17 +9,21 @@ class Command {
     Command.commands = new Map();
     Command.players = new Map();
 
-    let commandsFiles = await fs.promises.readdir('src/commands/player');
-    for (const commandFile of commandsFiles) {
-      if (!commandFile.endsWith('.js')) continue;
-      let commandName = commandFile.split('.')[0];
+    const folders = ['src/commands/admin', 'src/commands/guild', 'src/commands/player'];
+    for (let folder of folders) {
+      let commandsFiles = await fs.promises.readdir(folder);
+      for (const commandFile of commandsFiles) {
+        if (!commandFile.endsWith('.js')) continue;
+        folder = folder.replace('src/', '');
+        let commandName = commandFile.split('.')[0];
+        let commandKeys = Object.keys(require(`${folder}/${commandName}`));
 
-      let commandKeys = Object.keys(require(`commands/player/${commandName}`));
-      for (const commandKey of commandKeys) {
-        await Command.commands.set(
-            commandKey,
-            require(`commands/player/${commandName}`)[commandKey],
-        );
+        for (const commandKey of commandKeys) {
+          await Command.commands.set(
+              commandKey,
+              require(`${folder}/${commandName}`)[commandKey],
+          );
+        }
       }
     }
   }
