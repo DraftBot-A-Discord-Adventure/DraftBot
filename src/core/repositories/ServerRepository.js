@@ -1,6 +1,10 @@
 const AppRepository = require('repositories/AppRepository');
 const Server = require('entities/Server');
 
+/**
+ * @property {String} datasource
+ * @property {module:sqlite3.Database} sql
+ */
 class ServerRepository extends AppRepository {
 
   constructor() {

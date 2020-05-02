@@ -22,9 +22,3 @@ class AppRepository {
 }
 
 module.exports = AppRepository;
-
-// Defines allowed datasource
-global.DATASOURCE = {
-  SQLITE: "sqlite",
-  JSON: "json"
-};

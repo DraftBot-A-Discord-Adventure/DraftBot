@@ -7,6 +7,12 @@
 			"unknownPlayer": "Player 404"
 		}
 	},
+	"maxHealth": 100,
+	"health": 100,
+	"attack": 50,
+	"defense": 20,
+	"speed": 10,
+	"effect": ":baby:",
 	"score": 0,
 	"weeklyScore": 0,
 	"level": 0,
@@ -15,5 +21,5 @@
 	"badges": "",
 	"rank": 0,
 	"weeklyRank": 0,
-	"guildId": 0
+	"guildId": ""
 }

@@ -5,20 +5,20 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ReportCommand = async function(language, message, args) {
-  let player = await draftbot.getRepository('player').getByMessageOrCreate(
+  let player = await getRepository('player').getByMessageOrCreate(
       message);
 
   // If player has a running Command that he need to terminate before
-  if (draftbot.getCommand().hasPlayer(message.author.id)) {
+  if (hasBlockedPlayer(message.author.id)) {
     // TODO 2.0 Get text translationByContext
-    let context = this.getPlayer(message.author.id);
+    let context = getBlockedPlayer(message.author.id);
     return message.channel.send(context);
   }
 
   // If player can use this command, because the player can be sick or dead
   if (await player.checkEffect(language, message)) {
-    player.set('effect', ':clock10:');
-    player = await draftbot.getRepository('player').update(player);
+    player.effect = EFFECT.CLOCK10;
+    player = await getRepository('player').update(player);
 
     // Fire special beginning adventure event
     if (player.get('score') === 0) {

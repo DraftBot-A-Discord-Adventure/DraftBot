@@ -1,10 +1,49 @@
 const Entity = require('entities/Entity');
 
+/**
+* @property {String} id
+* @property {Number} maxHealth
+* @property {Number} health
+* @property {Number} attack
+* @property {Number} defense
+* @property {Number} speed
+* @property {String} effect
+* @property {String} discordId
+* @property {Number} score
+* @property {Number} weeklyScore
+* @property {Number} level
+* @property {Number} experience
+* @property {Number} money
+* @property {Number} lastReport
+* @property {String} badges
+* @property {String} guildId
+* @property {Number} rank
+* @property {Number} weeklyRank
+* @property {String} pseudo
+*/
 class Player extends Entity {
 
-  constructor(
-      id, maxHealth, health, attack, defense, speed, effect, score, weeklyScore,
-      level, experience, money, lastReport, badges, guildId, rank, weeklyRank) {
+  /**
+   * @param {String} id
+   * @param {Number} maxHealth
+   * @param {Number} health
+   * @param {Number} attack
+   * @param {Number} defense
+   * @param {Number} speed
+   * @param {String} effect
+   * @param {Number} score
+   * @param {Number} weeklyScore
+   * @param {Number} level
+   * @param {Number} experience
+   * @param {Number} money
+   * @param {Number} lastReport
+   * @param {String} badges
+   * @param {String} guildId
+   * @param {Number} rank
+   * @param {Number} weeklyRank
+   */
+  constructor({id, maxHealth, health, attack, defense, speed, effect, score, weeklyScore,
+    level, experience, money, lastReport, badges, guildId, rank, weeklyRank}) {
     super({id, maxHealth, health, attack, defense, speed, effect});
 
     this.discordId = id;
@@ -16,15 +55,14 @@ class Player extends Entity {
     this.lastReport = lastReport;
     this.badges = badges;
     this.guildId = guildId;
+    this.rank = rank;
+    this.weeklyRank = weeklyRank;
 
-    // Virtual properties
     if (client.users.cache.get(this.discordId) !== null) {
       this.pseudo = client.users.cache.get(this.discordId).username;
     } else {
       this.pseudo = null;
     }
-    this.rank = rank;
-    this.weeklyRank = weeklyRank;
   }
 
   /**
@@ -241,6 +279,95 @@ class Player extends Entity {
     }
     return "";
   }
+
+  // TODO 2.0 Legacy code
+  // levelUp(message, language) {
+  //   Text = require('../text/' + language);
+  //   this.setLevel(this.getLevel() + 1);
+  //   let messageLevelUp = Text.playerManager.levelUp.intro + message.author + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
+  //   let bonus = false;
+  //   if (this.getLevel() == DefaultValues.fight.minimalLevel) {
+  //     messageLevelUp += Text.playerManager.levelUp.fightUnlocked;
+  //     bonus = true;
+  //   }
+  //   if (this.getLevel() % 10 == 0) {
+  //     this.restoreHealthCompletely();
+  //     messageLevelUp += Text.playerManager.levelUp.healthRestored;
+  //     bonus = true;
+  //   } else {
+  //     if (this.getLevel() % 5 == 0) {
+  //       this.setMaxHealth(this.getMaxHealth() + 5);
+  //       this.addHealthPoints(5, message, language);
+  //       messageLevelUp += Text.playerManager.levelUp.moreMaxHealth;
+  //       bonus = true;
+  //     }
+  //   }
+  //
+  //   if (this.getLevel() % 9 == 0) {
+  //     this.setSpeed(this.getSpeed() + 5);
+  //     messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
+  //     messageLevelUp += Text.playerManager.levelUp.moreSpeed;
+  //     bonus = true;
+  //   } else {
+  //     if (this.getLevel() % 6 == 0) {
+  //       this.setAttack(this.getAttack() + 5);
+  //       messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
+  //       messageLevelUp += Text.playerManager.levelUp.moreAttack;
+  //       bonus = true;
+  //     } else {
+  //       if (this.getLevel() % 3 == 0) {
+  //         this.setDefense(this.getDefense() + 5);
+  //         messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
+  //         messageLevelUp += Text.playerManager.levelUp.moreDefense;
+  //         bonus = true;
+  //       }
+  //     }
+  //   }
+  //   messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
+  //   messageLevelUp += Text.playerManager.levelUp.noBonus;
+  //   message.channel.send(messageLevelUp);
+  //   this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message, language);
+  // }
+  //
+  // /**
+  //  *
+  //  * @param {*} bonus
+  //  * @param {*} messageLevelUp
+  //  */
+  // ifFirstBonus(bonus, messageLevelUp) {
+  //   if (bonus == false) {
+  //     messageLevelUp += Text.playerManager.levelUp.firstBonus;
+  //   }
+  //   return messageLevelUp;
+  // }
+  //
+  // /**
+  //  * Add a badge to the player.
+  //  * @param {String} - The badge
+  //  */
+  // addBadge(badge) {
+  //   if (!this.badges.includes(badge)) {
+  //     if (this.badges.length === 0) {
+  //       this.badges += badge;
+  //     } else {
+  //       this.badges += `-` + badge;
+  //     }
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+  //
+  // /**
+  //  * Update the timecode matching the last time the player has been see
+  //  * @param {Number} time - The timecode to set
+  //  * @param {Number} malusTime - A malus that has to be added to the lasReportTime
+  //  * @param {String} effectMalus - The current effect of the player in case it gave an other malus
+  //  */
+  // updateLastReport(time, malusTime, effectMalus) {
+  //   let realMalus = DefaultValues.effectMalus[effectMalus];
+  //   this.lastReport = parseInt(time) + parseInt(Tools.convertMinutesInMiliseconds(malusTime)) + parseInt(realMalus);
+  // }
 
 }
 

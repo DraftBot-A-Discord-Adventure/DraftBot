@@ -1,4 +1,5 @@
 require('colors');
+require('core/Constant');
 require('core/Tools');
 const Draftbot = require('core/DraftBot');
 
@@ -15,6 +16,8 @@ const Draftbot = require('core/DraftBot');
       console.log(data.red);
       console.log(JsonReader.console.br.grey);
     });
+
+    console.log(await getRepository('player').getByIdOrCreate('269573462987767809'));
 
     await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
         .channels

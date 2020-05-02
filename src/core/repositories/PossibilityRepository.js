@@ -1,6 +1,10 @@
 const AppRepository = require("repositories/AppRepository");
 const Possibility = require("entities/Possibility");
 
+/**
+ * @property {String} datasource
+ * @property {Object} events
+ */
 class PossibilityRepository extends AppRepository {
 
   constructor() {

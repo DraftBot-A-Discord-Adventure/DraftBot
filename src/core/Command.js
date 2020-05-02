@@ -7,7 +7,7 @@ class Command {
    */
   static async init() {
     Command.commands = new Map();
-    this.players = new Map();
+    Command.players = new Map();
 
     let commandsFiles = await fs.promises.readdir('src/commands');
     for (const commandFile of commandsFiles) {
@@ -35,31 +35,31 @@ class Command {
   /**
    * @param {String} id
    */
-  hasPlayer(id) {
-    return this.players.has(id);
+  static hasBlockedPlayer(id) {
+    return Command.players.has(id);
   }
 
   /**
    * @param {String} id
    * @return {String}
    */
-  getPlayer(id) {
-    return this.players.get(id);
+  static getBlockedPlayer(id) {
+    return Command.players.get(id);
   }
 
   /**
    * @param {String} id
    * @param {String} context
    */
-  addPlayer(id, context) {
-    this.players.set(id, context);
+  static addBlockedPlayer(id, context) {
+    Command.players.set(id, context);
   }
 
   /**
    * @param {String} id
    */
-  removePlayer(id) {
-    this.players.delete(id);
+  static removeBlockedPlayer(id) {
+    Command.players.delete(id);
   }
 
   /**
@@ -211,4 +211,8 @@ module.exports = {
 };
 
 global.getCommand = Command.getCommand;
+global.getBlockedPlayer = Command.getBlockedPlayer;
+global.hasBlockedPlayer = Command.hasBlockedPlayer;
+global.addBlockedPlayer = Command.addBlockedPlayer;
+global.removeBlockedPlayer = Command.removeBlockedPlayer;
 global.handleMessage = Command.handleMessage;
