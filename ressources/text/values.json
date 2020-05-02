@@ -2,10 +2,6 @@
 	"guild": {
 		"errorColor": "#D92D43"
 	},
-	"server": {
-		"prefix": "!",
-		"language": "en"
-	},
 	"report": {
 		"minimalTime": "60",
 		"maximalTime": "400",

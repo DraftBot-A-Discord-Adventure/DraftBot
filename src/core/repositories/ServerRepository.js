@@ -46,9 +46,8 @@ class ServerRepository extends AppRepository {
           if (server) {
             return new Server(server);
           } else {
-            // TODO 2.0
             return await this.create(
-                new Server(id, Config.server.prefix, Config.server.language));
+                new Server(Object.assign({id: id}, JsonReader.entities.server)));
           }
         })
         .catch(console.error);

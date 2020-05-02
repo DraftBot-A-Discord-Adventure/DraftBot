@@ -18,8 +18,8 @@
 	"level": 0,
 	"experience": 0,
 	"money": 0,
-	"badges": "",
+	"badges": null,
 	"rank": 0,
 	"weeklyRank": 0,
-	"guildId": ""
+	"guildId": null
 }

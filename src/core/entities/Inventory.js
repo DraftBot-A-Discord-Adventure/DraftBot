@@ -2,22 +2,22 @@ const EntityAbstract = require("entities/EntityAbstract");
 
 /**
  * @property {String} playerId
- * @property {String} weaponId
- * @property {String} armorId
- * @property {String} potionId
- * @property {String} objectId
- * @property {String} backupItemId
+ * @property {Number} weaponId
+ * @property {Number} armorId
+ * @property {Number} potionId
+ * @property {Number} objectId
+ * @property {Number} backupItemId
  * @property {Number} lastDaily
  */
 class Inventory extends EntityAbstract {
 
   /**
    * @param {String} playerId
-   * @param {String} weaponId
-   * @param {String} armorId
-   * @param {String} potionId
-   * @param {String} objectId
-   * @param {String} backupItemId
+   * @param {Number} weaponId
+   * @param {Number} armorId
+   * @param {Number} potionId
+   * @param {Number} objectId
+   * @param {Number} backupItemId
    * @param {Number} lastDaily
    */
   constructor({playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily}) {
