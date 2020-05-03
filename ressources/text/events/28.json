@@ -10,11 +10,11 @@
 					"fr": "** | ✅ Vous les rejoignez... Et vous perdez 3 heures à assister à une cérémonie religieuse.",
 					"en": "** | ✅ You join them... and lose 3 hours attending a religious ceremony."
 				},
-				"timeLost": 180,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 180,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | ✅ Vous les rejoignez... Mais vous décidez de repartir au bout de 30 minutes vous rendant compte qu'il vous reste une princesse à sauver et que vous n'avez pas plus de temps à consacrer à votre foi",
 					"en": "** | ✅ You join them.... but decide to leave after 30 minutes, realizing you still have a princess to save, and that you don't have more time to devote to faith"
 				},
-				"timeLost": 30,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | ✅ Remarquant votre manque de sensibilité face à leurs discours, le groupe commence à se montrer agressif ! Vous mettrez plusieurs minutes à vous en échapper, non sans avoir reçu quelques coups. ",
 					"en": "** | ✅ Noticing your lack of sensitivity to their speech, the group gets aggressive! It takes you several minutes to escape from them, but not without being hit a few times. "
 				},
-				"timeLost": 15,
-				"healthPointsChange": -25,
-				"newEffect": ":clock2:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": -25,
+				"effect": ":clock2:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -46,11 +46,11 @@
 					"fr": "** | ✅ Vous les rejoignez puis repartez aussi vite en volant un objet qui pourra vous être utile.",
 					"en": "** | ✅ You join them, then leave just as quickly, stealing an object that may be useful to you."
 				},
-				"timeLost": 20,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 20,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -60,11 +60,11 @@
 					"fr": "** | ❌ Vous coupez court à tout dialogue et continuez votre route.",
 					"en": "** | ❌ You cut the conversation short and continue your journey."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -72,11 +72,11 @@
 					"fr": "** | ❌ Le groupe se montre rapidement agressif face à votre refus. Finalement, vous vous retrouvez contraint de les écouter palabrer pendant de longues minutes afin d'éviter de prendre plus de coups.",
 					"en": "** | ❌ The group quickly becomes aggressive in the face of your refusal. Finally, you find yourself forced to listen to them talk for a long while to avoid taking any more blows."
 				},
-				"timeLost": 120,
-				"healthPointsChange": -10,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 120,
+				"health": -10,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -86,11 +86,11 @@
 					"fr": "** | 🚶 Face à votre béatitude, le groupe se lasse rapidement et part à la rencontre d'un autre passant.",
 					"en": "** | 🚶 Faced with your bliss, the group quickly tires, and goes to meet another passerby."
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		]

@@ -10,11 +10,11 @@
 					"fr": "** | 🔎 Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, alors que vous entrez dans une grande salle délabrée, un immense morceau du plafond se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment, blessé. :head_bandage:",
 					"en": "** | 🔎 Shortly after entering the castle, you realize how unsanitary the place is. Abandoned for years, the building is totally damaged. After a few minutes of exploration, you enter a large, ruined room, as a huge piece of the ceiling falls onto you! With great difficulty, you manage to get out of the building, hurt. :head_bandage:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -35,
-				"newEffect": ":head_bandage:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -35,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | 🔎 Vous entrez dans le château et parcourez rapidement les lieux. Au bout de quelques minutes, vous trouvez une pièce qui semble être l'ancienne armurerie. Pressé de ressortir du bâtiment, vous ramassez le premier objet qui vous tombe sous la main et ressortez en pressant le pas.",
 					"en": "** | 🔎 You enter the castle and quickly walk through the area. After a few minutes, you find a room that looks like the old armory. In a hurry to get out of the building, you pick up the first object that falls into your hands and get like a bat out of hell!"
 				},
-				"timeLost": 25,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 25,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | 🔎 Il semblerait que ce château soit moins abandonné qu'il en a l'air ! Peu après votre entrée vous entendez de nombreux bruits en provenance de différentes salles. Peu rassuré, vous préférez reprendre votre route.",
 					"en": "** | 🔎 It seems that this castle is less abandoned than it looks! Shortly after your entrance you hear many noises coming from different rooms. Not reassured, you prefer to go back on your way."
 				},
-				"timeLost": 10,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | ➡ Vous continuez votre route sans prêter plus d'attention à ce château",
 					"en": "** | You carry on with your adventure without worrying about the castle"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -62,11 +62,11 @@
 					"fr": "** | 🔁 Vous faites le tour du château mais vous ne trouvez rien. Estimant avoir perdu suffisamment de temps, vous continuez votre chemin.",
 					"en": "** | 🔁 You go around the castle but you can't find anything. Believing you wasted enough time, you continue your way."
 				},
-				"timeLost": 80,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 80,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -74,11 +74,11 @@
 					"fr": "** | 🔁 Cette ronde ne vous en apprendra pas beaucoup sur la grande bâtisse. Cependant, vous découvrez tout au long de celle-ci un grand nombre de petites pièces d'or disséminées autour du château. Heureux de votre découverte, vous reprenez votre route.",
 					"en": "** | 🔁 This sweep doesn't tell you much about the big building. However, you discover a large number of small gold coins scattered around the castle. Happy with your discovery, you head back on your way."
 				},
-				"timeLost": 80,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 225,
-				"moneyGained": 150,
+				"lostTime": 80,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 150,
 				"item": false
 			},
 			{
@@ -86,11 +86,11 @@
 					"fr": "** | 🔁 Alors que vous commenciez à faire le tour du château, vous tombez par accident dans un trou. Blessé à la jambe, il faudra vous soigner avant de continuer ! :head_bandage:",
 					"en": "** | 🔁 As you began to walk around the castle, you accidentally fell into a hole. Injuring your leg, this sweep will cost you a lot of time! :head_bandage:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -20,
-				"newEffect": ":head_bandage:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -20,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -100,11 +100,11 @@
 					"fr": "** | 🚶 Après avoir admiré le bâtiment pendant une quinzaine de minute, vous reprenez votre route.",
 					"en": "** | 🚶 After admiring the building for about fifteen minutes, you go back on your way."
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -112,11 +112,11 @@
 					"fr": "** | 🚶 Vous vous délectez de la vue du château... Puis finissez par vous souvenir de votre quête et reprenez votre route.",
 					"en": "** | 🚶 You enjoy the view of the castle.... Then finally remember your quest and go back on your way."
 				},
-				"timeLost": 30,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		]

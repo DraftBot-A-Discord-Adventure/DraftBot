@@ -10,11 +10,11 @@
 					"fr": "** | 🍎 Vous grimpez le plus haut possible et décrochez un fruit. Vous comblez rapidement votre faim et sentez vos forces se revigorer de cet aport de sucre.",
 					"en": "** | 🍎 You climb as high as you can and pick fruit. You quickly satisfy your hunger and feel your strength revitalised by this sugary boost."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 15,
-				"newEffect": ":smiley:",
-				"xpGained": 350,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 15,
+				"effect": ":smiley:",
+				"experience": 350,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | 🍎 Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'éffondre sous votre poid ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprennez votre route. :confounded:",
 					"en": "** | 🍎 As you were about to pick fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way. :confounded:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -10,
-				"newEffect": ":confounded:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":confounded:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | 🍎 Vous cueillez rapidement un fruit et croquez vigoureusement dedans... Ce n'est que quelques heures plus tard que vous prendrez mesure de votre erreur. :sick:",
 					"en": "** | 🍎 You quickly pick fruit and eagerly take a large bite... It's only a few hours later you realize your mistake. :sick:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -15,
-				"newEffect": ":sick:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -15,
+				"effect": ":sick:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | 🍄 Alors que vous vous penchez pour ramasser les champignons, vous apercevez un étrange objet briller sur le sol...",
 					"en": "** | 🍄 As you bend down to pick up the mushrooms, you see a strange object shining on the ground..."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 450,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -60,11 +60,11 @@
 					"fr": "** | 🍄 Vous ramassez quelques champignons avant de remarquer que vous n'avez rien pour les cuisiner. Abandonnant votre cueillette, vous reprenez la route. ",
 					"en": "** | 🍄 You pick a few mushrooms before you notice that you have nothing to cook them with. Abandoning the hunt, you go back to the road. "
 				},
-				"timeLost": 55,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 55,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -72,11 +72,11 @@
 					"fr": "** | 🍄 Vous croquez à pleine dents dans un champignon rouge avec des petits points blancs... et regrettez rapidement cette action ! :dizzy_face:",
 					"en": "** | 🍄 You bite into a red mushroom with small white dots... and quickly regret this action! :dizzy_face:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -40,
-				"newEffect": ":dizzy_face:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -40,
+				"effect": ":dizzy_face:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -86,11 +86,11 @@
 					"fr": "** | 🥗 Vous effectuez une petite cueillette et avalez votre préparation. Fort de l'énergie apportée par ce repas, vous reprenez votre route.",
 					"en": "** | 🥗 You pick a small amount and eat your meal. With the energy provided by it, you head back on your way."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 5,
-				"newEffect": ":smiley:",
-				"xpGained": 350,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 5,
+				"effect": ":smiley:",
+				"experience": 350,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -98,11 +98,11 @@
 					"fr": "** | 🥗 Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprennez donc votre route sans rien manger.",
 					"en": "** | 🥗 After some research, you don't really find any plants satisfying your hunger, so head back on your way without eating anything."
 				},
-				"timeLost": 100,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 100,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -110,11 +110,11 @@
 					"fr": "** | 🥗 Vous changez rapidement d'avis en regardant autour de vous et en découvrant l'épaisse végétation qui vous empêcherait de cueillir quoi que ce soit. Sans perdre plus de temps, vous reprenez votre route.",
 					"en": "** | 🥗 You quickly change your mind. While looking around, you discover thick vegetation preventing you from gathering anything. Without wasting any more time, you continue on your journey."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -124,11 +124,11 @@
 					"fr": "** | 🦌 Aucun animal en vue, vous reprenez donc votre route sans plus attendre",
 					"en": "** | 🦌 With no animals in sight, you continue your journey without further delay"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -136,11 +136,11 @@
 					"fr": "** | 🦌 Après une course poursuite effrénée avec un animal sauvage, celui-ci cesse de vous fuir et vous charge furieusement. Abasourdi par la violence de l'attaque, vous ne parvenez pas à l'éviter et subissez la totale colère de la bête. Gravement blessé, il vous faudra du temps avant de reprendre votre aventure :dizzy_face:",
 					"en": "** | 🦌 After a long frantic chase with a wild animal, it stops fleeing and charges you furiously. Stunned by the force of the attack, you are unable to dodge and suffer the beast's wrath. Seriously injured, it will take time before you can resume your adventure :dizzy_face:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -60,
-				"newEffect": ":dizzy_face:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -60,
+				"effect": ":dizzy_face:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -148,11 +148,11 @@
 					"fr": "** | 🦌 Vous transpercez rapidement quelques petits animaux de votre lame et dévorez vos proies avec grand appétit avant de reprendre la route, repu.",
 					"en": "** | 🦌 You quickly stab some critters with your blade and eat your prey with great hunger before continuing on your journey, full."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 20,
-				"newEffect": ":smiley:",
-				"xpGained": 350,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 20,
+				"effect": ":smiley:",
+				"experience": 350,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -162,11 +162,11 @@
 					"fr": "** | 🚶 Vous continuez votre route sans perdre plus de temps.",
 					"en": "** | 🚶 You continue your journey without wasting any more time."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -174,11 +174,11 @@
 					"fr": "** | 🚶 Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route. :sleeping:",
 					"en": "** | 🚶 You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road. :sleeping:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":sleeping:",
-				"xpGained": 20,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":sleeping:",
+				"experience": 20,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -188,11 +188,11 @@
 					"fr": "** | 🚶 Après quelques instants de reflexion vous décidez de reprendre la route promptement.",
 					"en": "** | 🚶 After a few moments of reflection you decide to quickly continue on your journey."
 				},
-				"timeLost": 10,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -200,11 +200,11 @@
 					"fr": "** | 🚶 Vous cherchez une autre source de nourriture pendant quelques instants mais vous vous rendez compte au bout de longues recherches que ces dernières sont vaines. Pas convaincu par les options qui s'offrent à vous, vous reprenez votre route.",
 					"en": "** | 🚶 You look for another food source, but after a long search you realize that there aren't any food sources. Not convinced by the options available to you, you go back on your way."
 				},
-				"timeLost": 260,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 260,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		]

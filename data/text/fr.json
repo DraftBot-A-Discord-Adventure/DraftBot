@@ -47,17 +47,6 @@
       "tooMuchShop": ", il est impossible de donner suite à votre requête car une autre commande est en attente d'une action de votre part ! `(Si vous n'avez pas fait récemment de commande shop ou sell, attendez 2 minutes et réessayez)`",
       "noAlteration": ", vous n'êtes victime d'aucune altération d'état. Votre achat a été annulé."
     },
-    "report": {
-      "reportStart": ":newspaper: **Journal de ",
-      "points": " :** :medal:  Points gagnés : **",
-      "moneyWin": "** | :moneybag: Argent gagné : **",
-      "xpWin": "** | :star: XP gagné : **",
-      "moneyLoose": "** | :money_with_wings: Argent perdu : **",
-      "healthLoose": "** | :broken_heart: Vie perdue : **",
-      "healthWin": "** | :heart: Vie gagnée : **",
-      "timeLost": "** | :clock10: Temps perdu : **",
-      "noReport": " : ** :x: Aucun nouveau rapport n'a été transmis ! Revenez dans quelques heures !"
-    },
     "drink": {
       "errorDebut": " |** ",
       "errorFin": "**,  vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
@@ -466,7 +455,6 @@
       ":baby:": "** Il semblerait que vous n'ayez pas encore commencé à jouer ! Pour débuter votre aventure, utilisez la commande `report`.",
       ":dizzy_face:": "** Il est malheureusement impossible de continuer à jouer en étant mourant ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":sick:": "** Il est malheureusement impossible de continuer à jouer en étant malade ! Veuillez attendre la fin des soins de votre altération d'état.",
-      ":skull:": "** Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
       ":lock:": "** Vous êtes actuellement enfermé ! Veuillez attendre la fin de votre altération d'état.",
       ":sleeping:": "** Il est malheureusement impossible de continuer à jouer en étant endormi ! Veuillez attendre la fin des soins de votre altération d'état.",
       ":head_bandage:": "** Il est malheureusement impossible de continuer à jouer en étant blessé ! Veuillez attendre la fin des soins de votre altération d'état.",

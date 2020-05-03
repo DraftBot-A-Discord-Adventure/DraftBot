@@ -10,11 +10,11 @@
 					"fr": "** | :mag_right: Après un quart d'heure à chercher, vous retrouvez la fourche à côté d'un tas de foin. Pour vous remercier, le paysan vous offre quelques pièces.",
 					"en": "** | :mag_right: After a quarter hour looking, you find the pitchfork next to a pile of hay. To thank you, the farmer offers you some coins."
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 125,
-				"moneyGained": 25,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 25,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | :mag_right: Après une demi-heure de recherches, vous ne trouvez pas la fourche. Vous découvrez cependant un objet qui pourra peut être vous être utile !",
 					"en": "** | :mag_right: After half an hour of searching, you can not find the pitchfork. You discover, however, an object that may be useful to you!"
 				},
-				"timeLost": 30,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | :mag_right: En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille. :head_bandage:",
 					"en": "** | :mag_right: Looking for the pitchfork, you step on it and get a nasty cut. :head_bandage:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":head_bandage:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -46,11 +46,11 @@
 					"fr": "** | :mag_right: Vous cherchez la fourche pendant presque une heure mais vous ne parvenez pas à la retrouver. Vous quittez poliment le paysan et continuez votre route",
 					"en": "** | :mag_right: You look for the pitchfork for almost an hour, but you can't find it. You leave the peasant politely and continue your journey"
 				},
-				"timeLost": 50,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 50,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -60,11 +60,11 @@
 					"fr": "** | :walking: Vous continuez votre chemin sans prêter attention au paysan.",
 					"en": "** | :walking: You continue your way without paying attention to the peasant."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -72,11 +72,11 @@
 					"fr": "** | :arrow_right: En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied. :head_bandage:",
 					"en": "** | :arrow_right: Continuing through the field, you fall on the pitchfork, severely cutting your foot. :head_bandage:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -10,
-				"newEffect": ":head_bandage:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -86,11 +86,11 @@
 					"fr": "** | :walking: Vous regardez bêtement pendant 15 minutes le paysan chercher sa fourche avant de repartir.",
 					"en": "** | :walking: You stare blankly for 15 minutes as the farmer looks for his pitchfork before leaving."
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		]

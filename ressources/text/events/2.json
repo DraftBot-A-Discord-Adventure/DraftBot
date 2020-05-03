@@ -10,11 +10,11 @@
 					"fr": "** | :dog2: Vous perdez la trace du chien au bout de quelques minutes, il allait trop vite !",
 					"en": "** | :dog2: You lose track of the dog after a few minutes, he was going too fast!"
 				},
-				"timeLost": 20,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 20,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | :dog2: Vous perdez la trace du chien au bout de quelques minutes à côté d'un arbre. En regardant autour de vous vous découvrez pleins de petites pièces disséminées un peu partout !",
 					"en": "** | :dog2: You lose track of the dog after a few minutes next to a tree. Looking around you, you discover a lot of small coins scattered all over the place!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 250,
-				"moneyGained": 37,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 250,
+				"money": 37,
 				"item": false
 			}
 		],
@@ -36,11 +36,11 @@
 					"fr": "** | :runner: Après 15 minutes de poursuite vous parvenez à semer le chien, il ne semblait pas très amical !",
 					"en": "** | :runner: After 15 minutes of chasing you manage to lose the dog, he didn't seem very friendly!"
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -48,11 +48,11 @@
 					"fr": "** | :runner: En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer ! :head_bandage:",
 					"en": "** | :runner: When you try fleeing, you suddenly fall into a ditch. The injury is serious... You'll have to get better before you continue! :head_bandage:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -15,
-				"newEffect": ":head_bandage:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -15,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -62,11 +62,11 @@
 					"fr": "** | :dog: Vous avez pris la décision de ne pas bouger, cela n'a pas du plaire au chien puisque celui-ci vous a mordu avant de s'enfuir !",
 					"en": "** :dog: You made the decision to not move, the dog must've not liked it because it bit you before running away!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -10,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		]

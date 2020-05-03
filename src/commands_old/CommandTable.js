@@ -1,6 +1,5 @@
 // TODO 2.0 Transfer this file directly into Commands class
 
-// const Inventory = require('./commands/Inventory');
 // const Drink = require('./commands/Drink');
 // const Daily = require('./commands/Daily');
 // const Top = require('./commands/Top');
@@ -32,8 +31,6 @@
 
 const CommandTable = new Map(
     [
-        // ["inventory", Inventory.InventoryCommand],
-        // ["inv", Inventory.InventoryCommand],
         // ["drink", Drink.DrinkCommand],
         // ["dr", Drink.DrinkCommand],
         // ["daily", Daily.DailyCommand],

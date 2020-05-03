@@ -10,11 +10,11 @@
 					"fr": "** | 💸 Après avoir dépouillé quelques personnes, vous repartez avec un objet qui semble fort intéressant ! Après avoir marché une trentaine de minutes, vous regardez ce que c'est.",
 					"en": "** | 💸 After robbing a few people, you leave with an object that seems very interesting! After walking for about 30 minutes, you look at what it is."
 				},
-				"timeLost": 30,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | 💸 Vous volez un habitant quand soudain il se retourne, et vous attrape fermement avant de vous rouer de coups. Après vous êtes débattu, vous fuyez.",
 					"en": "** | 💸 You're about to steal from a resident when, suddenly, he turns around and grabs you with a strong grip before kicking you. After a fight, you run away."
 				},
-				"timeLost": 25,
-				"healthPointsChange": -15,
-				"newEffect": ":clock2:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 25,
+				"health": -15,
+				"effect": ":clock2:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -36,11 +36,11 @@
 					"fr": "** | 👊 Après vous être débattu pour traverser la foule, vous intervenez au plus vite et réussissez à extirper cet homme de là. Après avoir couru à travers le village, cet homme, très reconnaissant vous offre un objet qui vous servira pour la suite de votre aventure.",
 					"en": "** | 👊 After struggling to get through the crowd, you intervene as quickly as possible and manage to get the man out of there. After running through the village, the man, very grateful, offers you an object that will serve you for the rest of your adventure."
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -48,11 +48,11 @@
 					"fr": "** | 👊 Durant votre traversée de la foule pour tenter d'aller empêcher ce meurtre, vous vous faites fortement bousculer, et tombez au sol.",
 					"en": "** | 👊 Passing through the crowd, you try to prevent this death, but get ambushed and fall to the ground."
 				},
-				"timeLost": 15,
-				"healthPointsChange": -10,
-				"newEffect": ":clock2:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": -10,
+				"effect": ":clock2:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -60,11 +60,11 @@
 					"fr": "** | 👊 Après avoir réussi à partir d'ici avec l'homme, vous vous faites rattraper et frapper par un groupe de personnes. Une fois relevé, vous remarquez que ces individus vous ont volé.",
 					"en": "** | 👊 After succeeding in leaving the site with the man, you get caught and beat up by a group of people. After initially feeling relieved, you notice these people have stolen from you."
 				},
-				"timeLost": 20,
-				"healthPointsChange": -15,
-				"newEffect": ":clock2:",
-				"xpGained": 0,
-				"moneyGained": -200,
+				"lostTime": 20,
+				"health": -15,
+				"effect": ":clock2:",
+				"experience": 0,
+				"money": -200,
 				"item": false
 			},
 			{
@@ -72,11 +72,11 @@
 					"fr": "** | 👊 Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamné à la peine capitale. :skull:",
 					"en": "** | 👊 After trying to violently intervene, the executioner grabs you by force. You're struggling, but nothing can change that. You, in turn, are sentenced to death. :skull:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -150,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -150,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -86,11 +86,11 @@
 					"fr": "** | 🚶 Horrifié par cet acte de barbarie, vous continuez rapidement votre route.",
 					"en": "** | 🚶 Horrified by this act of barbarity, you quickly continue on your journey."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -98,11 +98,11 @@
 					"fr": "** | 🚶 Durant votre course, vous voyez au loin, un coffret ouvert. Après quelques minutes de marche, vous atteignez le coffret. Vous l'ouvrez et découvrez un sac rempli d'argent.",
 					"en": "** | 🚶 During your run, you see an open box in the distance. After a few minutes of walking, you discover a bag full of money inside it."
 				},
-				"timeLost": 10,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 125,
-				"moneyGained": 75,
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 75,
 				"item": false
 			}
 		],
@@ -112,11 +112,11 @@
 					"fr": "** | 👀 Après avoir passé 15 minutes à observer cette scène, vous repartez, choqué, mais continuez votre aventure.",
 					"en": "** | 👀 After spending 15 minutes watching this scene, you leave, shocked, but continue your adventure."
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		]

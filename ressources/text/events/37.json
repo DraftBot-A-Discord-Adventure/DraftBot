@@ -10,11 +10,11 @@
 					"fr": "** | 🚶 Vous marchez tranquillement, après tout ce n'est qu'une faible pluie, et vous n'avez pas envie de courir juste pour ça.",
 					"en": "** | 🚶 You keep walking quietly, after all it's only a light rain and you don't want to run just for that."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | 🚶 Vous continuez simplement à marcher... quelques minutes plus tard, la légère pluie s'arrête et vous arrivez en vue du village.",
 					"en": "** | 🚶 You just keep walking... a few minutes later, the rain stops and you arrive at the village gates."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | 🚶 Vous continuez tranquillement à marcher.",
 					"en": "** | 🚶 You keep walking quietly."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | 🏃 Vous vous mettez à courir, et moins d'un quart d'heure après, arrivez dans le village.",
 					"en": "** | 🏃 You start running and you arrive at the village less than 15 minutes later."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -60,11 +60,11 @@
 					"fr": "** | 🏃 Vous vous mettez à courir, heureusement la pluie s'arrête vite. Vous reprenez un pas plus modéré et ne tardez pas à arriver au village.",
 					"en": "** | 🏃 You start running, fortunately, the rain stops quickly. So you return to your normal pace."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -74,11 +74,11 @@
 					"fr": "** | 🌳 Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder, lorsque vous remarquez à quelques pas de vous une bourse rebondie de pièces et un objet posé à côté. Vous les récupérez, ressortez de l'espèce de bosquet, et repartez en direction du village.",
 					"en": "** | You don’t know what to do, but you notice a small forest on your right. You are a bit thirsty, fortunately you hear the run-off of a stream of water. You head towards it and drink from it. What a thirst-quenching water! You feel way better. As you were busy doing all this, the rain stopped, it lasted for only about ten minutes. As you are about to resume your journey, you notice a bag full of coins and an object lying next to it. You take it all, get out of the forest and leave in the direction of the village ."
 				},
-				"timeLost": 10,
-				"healthPointsChange": 5,
-				"newEffect": ":smiley:",
-				"xpGained": 725,
-				"moneyGained": 500,
+				"lostTime": 10,
+				"health": 5,
+				"effect": ":smiley:",
+				"experience": 725,
+				"money": 500,
 				"item": false
 			}
 		]

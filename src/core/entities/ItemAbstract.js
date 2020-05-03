@@ -27,17 +27,6 @@ class ItemAbstract extends EntityAbstract {
    * @param {Number} defense
    * @param {Number} rawSpeed
    * @param {Number} speed
-   * @param {Number} rawMaxHealth
-   * @param {Number} maxHealth
-   * @param {Number} rawHealth
-   * @param {Number} health
-   * @param {Number} rawMaxHealthInFight
-   * @param {Number} maxHealthInFight
-   * @param {Number} rawExperience
-   * @param {Number} experience
-   * @param {Number} rawMoney
-   * @param {Number} money
-   * @param {Number} nature
    */
   constructor({id, rarity, translations, rawAttack, attack, rawDefense, defense, rawSpeed, speed}) {
     super();
@@ -63,15 +52,6 @@ class ItemAbstract extends EntityAbstract {
    */
   getTranslation(language) {
     return this.translations[language];
-  }
-
-  /**
-   * Return an object display purposes
-   * @param {("fr"|"en")} language - The language the object has to be displayed in
-   * @returns {Object}
-   */
-  toFieldObject(language) {
-    throw new Error('You must implement this function');
   }
 
   /**

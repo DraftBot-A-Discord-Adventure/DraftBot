@@ -10,11 +10,11 @@
 					"fr": "** | :pick: Après avoir perdu 30 minutes à casser la serrure, vous découvrez que le coffre est vide !",
 					"en": "** | :pick: After wasting 30 minutes breaking the lock, you discover that the chest is empty!"
 				},
-				"timeLost": 30,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | :pick: Après avoir perdu 30 minutes à exploser la serrure, vous découvrez que le coffre est vide !",
 					"en": "** | :pick: After wasting 30 minutes breaking the lock, you discover that the chest is empty!"
 				},
-				"timeLost": 30,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | :pick: Après avoir perdu 15 minutes à exploser la serrure, vous découvrez 6 pièces d'or !",
 					"en": "** | :pick: After wasting 15 minutes breaking the lock, you find 6 gold coins!"
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 125,
-				"moneyGained": 6,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 6,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | :key: Après 50 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle vous permet de découvrir 100 pièces d'or !",
 					"en": "** | :key: After about fifty minutes of searching, you finally find the key! Burried next to the chest, you now can open the chest and find 100 Gold Coins!"
 				},
-				"timeLost": 50,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 125,
-				"moneyGained": 100,
+				"lostTime": 50,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 100,
 				"item": false
 			},
 			{
@@ -60,11 +60,11 @@
 					"fr": "** | :key: Après avoir passé 1 heure à tenter de retrouver la clef, vous finissez par abandonner et laissez le coffret derrière vous.",
 					"en": "** | :key: After spending one hour searching for the key, you end giving up and carry on, without opening the chest."
 				},
-				"timeLost": 60,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 60,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -72,11 +72,11 @@
 					"fr": "** | :key: Après 40 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle est tellement endommagée qu'il vous est impossible d'ouvrir le coffre ! Vous finissez par abandonner et laissez le coffret derrière vous.",
 					"en": "** | :key: After about fourty minutes of searching, you finally find the key! Buried next to the chest, it's so damaged you can't even use it! You end giving up and carry on."
 				},
-				"timeLost": 40,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 40,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -84,11 +84,11 @@
 					"fr": "** | :key: Après 20 minutes passées à creuser partout autour du petit coffre, vous finissez par abandonner et laissez le coffret derrière vous.",
 					"en": "** | :key: After twenty minutes digging everywhere around the chest, you give up and carry on."
 				},
-				"timeLost": 20,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 20,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -96,11 +96,11 @@
 					"fr": "** | :key: Après 2 heures de recherches, vous finissez par abandonner et laissez le coffret derrière vous.",
 					"en": "** | :key: After spending two hours searching for the key, you give up and carry on without opening the chest."
 				},
-				"timeLost": 120,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 120,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -110,11 +110,11 @@
 					"fr": "** | :arrow_forward: Vous passez votre chemin : le vol c'est mal et ce coffret ne vous appartient pas !",
 					"en": "** | :arrow_forward: You continue on your way; robbery is wrong, and this chest is not yours!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -122,11 +122,11 @@
 					"fr": "** | :arrow_forward: Vous décidez de ne pas vous approcher du petit coffre, estimant qu'il ne vaut pas un arrêt qui vous ferait perdre du temps précieux",
 					"en": "** | :arrow_forward: You decide not to get closer to the little chest; it's a stop not worth losing precious time over"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -136,11 +136,11 @@
 					"fr": "** | :arrow_forward: C'est sûrement un piège ! En tout cas il est hors de question que vous vous approchiez plus près du coffret ! Vous continuez calmement votre route.",
 					"en": "** | :arrow_forward: It's surely a trap! In any case, there's no way you're getting any closer to that chest! You calmly continue on your way."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		]

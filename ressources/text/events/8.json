@@ -10,11 +10,11 @@
 					"fr": "** | 🌲 Vous traversez la forêt sans trop de difficultés et continuez votre route !",
 					"en": "** | 🌲 You cross the forest without too many difficulties, and continue your journey!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | 🌲 Vous avancez lentement à travers les sapins, sur le chemin vous ramassez des branches de sapin et vous fabriquez des petits objets que vous pourrez utiliser ou revendre...",
 					"en": "** | 🌲 You walk slowly through the firs. On the way, you pick up fir branches and make small objects you can use or sell..."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 450,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | 🌲 Vous progressez lentement dans la forêt. Malheureusement le sol est glissant et vous tombez au fond d'un fossé ! Vous parvenez à en ressortir mais vous êtes blessé ! :head_bandage:",
 					"en": "** | 🌲 You are progressing slowly through the forest. Unfortunately, the ground is slippery and you fall to the bottom of a ditch! You manage to come back out but you're hurt! :head_bandage:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -25,
-				"newEffect": ":head_bandage:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -25,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | 🏞 Vous changez finalement d'avis et décidez de rester sur les plaines, moins dangereux ce chemin est également plus long, vous perdez beaucoup de temps !",
 					"en": "** | 🏞 You finally change your mind and decide to stay on the plains. While less dangerous, this path is also longer, so you lose a lot of time!"
 				},
-				"timeLost": 150,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 150,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -60,11 +60,11 @@
 					"fr": "** | 🏞 Vous changez finalement d'avis et décidez de rester sur les plaines, moins dangereux ce chemin est également plus long, vous perdez beaucoup de temps ! Au bout de quelques kilomètres, vous vous arrêtez pour vous reposer dans une auberge.",
 					"en": "** | 🏞 You finally change your mind and decide to stay on the plains. While less dangerous, this path is also longer, so you lose a lot of time! After a few kilometers, you stop to rest in an inn."
 				},
-				"timeLost": 150,
-				"healthPointsChange": 10,
-				"newEffect": ":clock2:",
-				"xpGained": 225,
-				"moneyGained": 0,
+				"lostTime": 150,
+				"health": 10,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -74,11 +74,11 @@
 					"fr": "** | :walking: Vous vous reposez pendant quelques minutes avant de repartir doucement vers les cols. Vous finissez par arriver épuisé de l'autre coté, il faudra vous reposer avant de repartir ! :sleeping:",
 					"en": "** | :walking: You rest for a few minutes before slowly leaving for the passes. You end up getting exhausted on the other side, you will have to rest before leaving! :sleeping:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":sleeping:",
-				"xpGained": 20,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":sleeping:",
+				"experience": 20,
+				"money": 0,
 				"item": false
 			}
 		]

@@ -10,11 +10,11 @@
 					"fr": "** | :sweat_drops: Cela fait du bien de se reposer parfois... ces 30 minutes de repos ont été bénéfiques !",
 					"en": "** | :sweat_drops: It feels good to rest sometimes... these 30 minutes of rest have been beneficial!"
 				},
-				"timeLost": 30,
-				"healthPointsChange": 5,
-				"newEffect": ":clock2:",
-				"xpGained": 225,
-				"moneyGained": 0,
+				"lostTime": 30,
+				"health": 5,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | :sweat_drops: Cela fait du bien de se reposer parfois... mais il ne faut pas oublier d'avancer ! Après avoir perdu 3 heures à vous reposer, vous reprenez la route.",
 					"en": "** | :sweat_drops: It feels good to rest sometimes... but don't forget to move on! After wasting 3 hours resting, you are back on the road."
 				},
-				"timeLost": 180,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 180,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -36,11 +36,11 @@
 					"fr": "TODO",
 					"en": "TODO"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -48,11 +48,11 @@
 					"fr": "TODO",
 					"en": "TODO"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -20,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -20,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -62,11 +62,11 @@
 					"fr": "** | :walking: Il est parfois bon de ne pas être trop paresseux vous n'avez pas perdu de temps !",
 					"en": "** | :walking: It's sometimes good to not be too lazy. You haven't wasted any time!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -74,11 +74,11 @@
 					"fr": "** | :walking: Pas de temps pour le repos ! Il y a une princesse à sauver !",
 					"en": "** | :walking: No time to rest! There's a princess to save!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -86,11 +86,11 @@
 					"fr": "** | :walking: Vous faites le choix de ne pas vous arrêter et vous continuez à avancer.",
 					"en": "** | :walking: You make the choice to not stop and continue forward."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -98,11 +98,11 @@
 					"fr": "** | :walking: Vous continuez votre aventure sans prêter plus d'attention à cette fontaine",
 					"en": "** | :walking: You continue your adventure without paying any more attention to this fountain"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -110,11 +110,11 @@
 					"fr": "** | :sleeping: Il faut savoir se reposer lorsqu'on est fatigué. Extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. Il faudra dormir avant de continuer !",
 					"en": "** | :sleeping: You have to know to rest when you are tired. Exhausted, you collapse a few minutes after passing the fountain. You have to sleep before you can continue!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -30,
-				"newEffect": ":sleeping:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -30,
+				"effect": ":sleeping:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -124,11 +124,11 @@
 					"fr": "** | :money_mouth:  Vous avez passé une bonne heure à ramasser les pièces dispersées au fond de l'eau mais il semblerait que ça ait valu la peine ! ",
 					"en": "** | :money_mouth: You spent a good hour picking up the scattered pieces from the bottom of the water, but it seems to have been worth it! "
 				},
-				"timeLost": 60,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 125,
-				"moneyGained": 65,
+				"lostTime": 60,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 65,
 				"item": false
 			}
 		]

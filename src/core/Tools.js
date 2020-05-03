@@ -35,6 +35,15 @@ global.millisecondsToMinutes = (milliseconds) => {
 };
 
 /**
+ * Convert a number of minutes in a number of milliseconds
+ * @param {Number} minutes - The number of minutes
+ * @return {Number}
+ */
+global.minutesToMilliseconds = (minutes) => {
+  return minutes * 60000;
+};
+
+/**
  * Return a string containing a proper display of a duration
  * @param {Number} minutes - The number of minutes to display
  * @return {String}
@@ -95,18 +104,7 @@ global.format = (string, replacement) => {
 //   let bar = '[' + progressText + emptyProgressText + '] ' + percentageText; //Creating the bar
 //   return bar;
 // }
-
 // TODO 2.0 Legacy code
-// /**
-//  * convert a number of minutes in a number of miliseconds
-//  * @param minutes - The number of minutes
-//  * @returns {Number} - The number of miliseconds
-//  */
-// const convertMinutesInMiliseconds = function (minutes) {
-//   return minutes * 60000;
-// };
-//
-//
 // /**
 //  * convert a number of hours in a number of miliseconds
 //  * @param hours - The number of hours

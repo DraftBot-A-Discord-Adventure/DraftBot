@@ -131,8 +131,8 @@ class Player extends Entity {
       }),
     });
 
-    let timeLeft = await this.checkEffect(language, message);
-    if (timeLeft !== true) {
+    let timeLeft = await this.checkEffect(message);
+    if (typeof timeLeft === 'string') {
       result.fields.push({
         name: JsonReader.commands.profile.getTranslation(
             language).timeLeft.fieldName,
@@ -145,14 +145,12 @@ class Player extends Entity {
     return result;
   }
 
-  // https://github.com/jshint/jshint/issues/3381
-  ['set'](field, value) {
-    if (['score', 'weeklyScore', 'level', 'experience', 'money'].indexOf(
-        field) !== -1) {
-      this['set' + field.charAt(0).toUpperCase() + field.slice(1)](value);
-    } else {
-      super.set(field, value);
-    }
+  /**
+   * @param {Number} value
+   */
+  addScore(value) {
+    this.score += value;
+    this.setScore(this.score);
   }
 
   /**
@@ -169,11 +167,38 @@ class Player extends Entity {
   /**
    * @param {Number} value
    */
+  addWeeklyScore(value) {
+    this.weeklyScore += value;
+    this.setWeeklyScore(this.weeklyScore);
+  }
+
+  /**
+   * @param {Number} value
+   */
   setWeeklyScore(value) {
     if (value > 0) {
       this.weeklyScore = value;
     } else {
       this.weeklyScore = 0;
+    }
+  }
+
+  /**
+   * @param {Number} value
+   */
+  addMoney(value) {
+    this.money += value;
+    this.setMoney(this.money);
+  }
+
+  /**
+   * @param {Number} value
+   */
+  setMoney(value) {
+    if (value > 0) {
+      this.money = value;
+    } else {
+      this.money = 0;
     }
   }
 
@@ -184,16 +209,6 @@ class Player extends Entity {
    */
   setLevelUp(message, language) {
     // TODO
-  }
-
-  /**
-   * Set this Player instance's level.
-   * @param {Number} value - The level this Player instance should be. Must be a positive Number.
-   */
-  setLevel(value) {
-    if (value > 0) {
-      this.level = value;
-    }
   }
 
   /**
@@ -244,14 +259,6 @@ class Player extends Entity {
   }
 
   /**
-   * TODO : Pas de setMoney ce qui permet d'avoir de la monnaie négative (pour un systeme de prêt par exemple avec intérêts)
-   * @param {Number} value -
-   */
-  changeMoney(value) {
-    this.money = this.get('money') + value;
-  }
-
-  /**
    * Returns this player instance's current cumulative attack
    * @param {Weapon} weapon
    * @param {Armor} armor
@@ -260,8 +267,9 @@ class Player extends Entity {
    * @return {Number}
    */
   async getCumulativeAttack(weapon, armor, potion, object) {
-    return this.attack + weapon.getAttack() + armor.getAttack() +
+    let attack = this.attack + weapon.getAttack() + armor.getAttack() +
         potion.getAttack() + object.getAttack();
+    return (attack > 0) ? attack : 0;
   }
 
   /**
@@ -273,8 +281,9 @@ class Player extends Entity {
    * @return {Number}
    */
   async getCumulativeDefense(weapon, armor, potion, object) {
-    return this.defense + weapon.getDefense() + armor.getDefense() +
+    let defense = this.defense + weapon.getDefense() + armor.getDefense() +
         potion.getDefense() + object.getDefense();
+    return (defense > 0) ? defense : 0;
   }
 
   /**
@@ -286,8 +295,9 @@ class Player extends Entity {
    * @return {Number}
    */
   async getCumulativeSpeed(weapon, armor, potion, object) {
-    return this.speed + weapon.getSpeed() + armor.getSpeed() +
+    let speed = this.speed + weapon.getSpeed() + armor.getSpeed() +
         potion.getSpeed() + object.getSpeed();
+    return (speed > 0) ? speed : 0;
   }
 
   /**
@@ -320,22 +330,34 @@ class Player extends Entity {
   }
 
   /**
-   * @param {("fr"|"en")} language
    * @param {module:"discord.js".Message} message
    * @return {Promise<Boolean|String>}
    */
-  async checkEffect(language, message) {
+  async checkEffect(message) {
     if ([EFFECT.BABY, EFFECT.SMILEY].indexOf(this.effect) !== -1) {
       return true;
     }
 
-    if (this.effect !== EFFECT.CLOCK10 && this.effect !== EFFECT.SKULL &&
-        message.createdTimestamp >= this.lastReport) {
+    if (EFFECT.SKULL !== this.effect && EFFECT.CLOCK10 !== this.effect && message.createdTimestamp >= this.lastReport) {
       return true;
+    }
+
+    if (EFFECT.SKULL === this.effect || EFFECT.CLOCK10 === this.effect) {
+      return false;
     }
 
     return minutesToString(millisecondsToMinutes(
         this.lastReport - message.createdTimestamp));
+  }
+
+  /**
+   * Update the lastReport matching the last time the player has been see
+   * @param {Number} time
+   * @param {Number} timeMalus
+   * @param {String} effectMalus
+   */
+  setLastReportWithEffect(time, timeMalus, effectMalus) {
+    this.lastReport = time + minutesToMilliseconds(timeMalus) + JsonReader.entities.player.effectMalus[effectMalus];
   }
 
   // TODO 2.0 Legacy code
@@ -414,17 +436,6 @@ class Player extends Entity {
   //   } else {
   //     return false;
   //   }
-  // }
-  //
-  // /**
-  //  * Update the timecode matching the last time the player has been see
-  //  * @param {Number} time - The timecode to set
-  //  * @param {Number} malusTime - A malus that has to be added to the lasReportTime
-  //  * @param {String} effectMalus - The current effect of the player in case it gave an other malus
-  //  */
-  // updateLastReport(time, malusTime, effectMalus) {
-  //   let realMalus = DefaultValues.effectMalus[effectMalus];
-  //   this.lastReport = parseInt(time) + parseInt(Tools.convertMinutesInMiliseconds(malusTime)) + parseInt(realMalus);
   // }
 
 }

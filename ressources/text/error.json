@@ -3,12 +3,18 @@
 		"fr": {
 			"title": ":x: | ** {pseudo} **",
 			"meIsBaby": "Utilisez la commande `report` pour commencer votre aventure !",
-			"playerIsBaby": "{askedPseudo} semble ne pas avoir commencé l'aventure !"
+			"meIsSkull": "Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
+
+			"playerIsBaby": "{askedPseudo} semble ne pas avoir commencé l'aventure !",
+			"playerIsSkull": "TODO"
 		},
 		"en": {
 			"title": ":x: | ** {pseudo} **",
 			"meIsBaby": "Use the command `report` to start your adventure!",
-			"playerIsBaby": "It seems {askedPseudo} hasn't started the adventure yet !"
+			"meIsSkull": "You are KO'd! You need to respawn using the `respawn` command.",
+
+			"playerIsBaby": "It seems {askedPseudo} hasn't started the adventure yet !",
+			"playerIsSkull": "TODO"
 		}
 	}
 }

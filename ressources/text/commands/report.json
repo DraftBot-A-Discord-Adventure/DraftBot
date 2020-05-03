@@ -1,0 +1,29 @@
+{
+	"translations": {
+		"fr": {
+			"start": ":newspaper: ** Journal de {pseudo} {event}",
+			"points": " :** :medal:  Points gagnés : **",
+			"moneyWin": "** | :moneybag: Argent gagné : **",
+			"xpWin": "** | :star: XP gagné : **",
+			"moneyLoose": "** | :money_with_wings: Argent perdu : **",
+			"healthLoose": "** | :broken_heart: Vie perdue : **",
+			"healthWin": "** | :heart: Vie gagnée : **",
+			"timeLost": "** | :clock10: Temps perdu : **",
+			"noReport": ":newspaper: ** Journal de {pseudo} : ** :x: Aucun nouveau rapport n'a été transmis ! Revenez dans quelques heures !"
+		},
+		"en": {
+			"start": ":newspaper: ** Journal of {pseudo} {event}",
+			"points": " :** :medal:  Points earned: **",
+			"moneyWin": "**| :moneybag: Money earned: **",
+			"xpWin": "** | :star: XP earned: **",
+			"moneyLoose": "** | :money_with_wings: Money lost: **",
+			"healthLoose": "** | :broken_heart: Life lost: **",
+			"healthWin": "** | :heart: Life gained: **",
+			"timeLost": "** | :clock10: Time spent: **",
+			"noReport": ":newspaper: ** Journal of {pseudo} : ** :x: You don’t have any new reports! Come back in a few hours!"
+		}
+	},
+	"timeMinimal": 60,
+	"timeMaximal": 400,
+	"timeLimit": 1000
+}

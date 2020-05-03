@@ -10,11 +10,11 @@
 					"fr": "** | 🍀 Le groupe d'amis vous raconte être parti à la recherche du cadeau idéal. Malheureusement, ils n'ont rien trouvé qui pourrait vous plaire. Déçu, vous continuez votre route.",
 					"en": "** | 🍀 The group of friends tells you that they went in search of the ideal gift. Unfortunately, they didn't find anything you fancy. Disappointed, you continue on your way."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | 🍀 Ces petits malins ont décidé de vous faire une farce et de vous offrir un cadeau mesquin. Ils ne pensaient pourtant pas qu'une planche aux clous saillants serait dangereuse à déballer. Les doigts en sang, vous partez, furieux, pour vous soigner.",
 					"en": "** | 🍀 These crafty little fellows decided to pull a prank on you and give you a shady gift. But they didn't expect that a board of needles would be dangerous to unwrap. Furious, you leave to take care of yourself."
 				},
-				"timeLost": 0,
-				"healthPointsChange": -10,
-				"newEffect": ":confounded:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":confounded:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | 🍀 Vos généreux donateurs sont fiers de leur trouvaille, dénichée dans un marché. Ils vous tendent un objet qui, dès le premier coup d’œil, vous intéresse fortement.",
 					"en": "** | 🍀 Your generous donors are proud of their gift, found in a market. They give you an object of which the sight excites you greatly. "
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 450,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | 💰 N'écoutant pas votre réponse, les quelques personnes préfèrent vous donner un objet. Pour eux, l'argent, ça n'est pas un vrai cadeau !",
 					"en": "** | 💰 Not listening to your answer, they would rather give you an object. For them, money is not a real gift!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 450,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -60,11 +60,11 @@
 					"fr": "** | 💰 Réunis en cercle, chacun sort quelques pièces de sa bourse. Ensemble, ils vous tendent finalement une jolie somme, fruit de leur cotisation. Après vous avoir conseillé d'en faire bon usage, ils vous souhaitent une bonne route et repartent. ",
 					"en": "** | 💰 Gathered in a circle, each and every one of them takes out a few coins from their purses. Together, they finally hand you a nice sum, fruit of the entire group's contribution. After advising you to make good use of it, they wish you a good trip and leave."
 				},
-				"timeLost": 85,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 750,
+				"lostTime": 85,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 750,
 				"item": false
 			},
 			{
@@ -72,11 +72,11 @@
 					"fr": "** | 💰 Les quelques individus se sont cotisés pour vous offrir une jolie somme. Vous trouvez leur attitude suspecte et vous rendez rapidement compte que cette monnaie provient d'un vol. Vous décidez d'aborder, en tout honnêteté, un garde pour rendre cet argent sale. Sans que vous ne vous y attendiez, celui-ci vous interpelle puis vous interroge longuement sur les détails de l'affaire et votre implication dans le méfait.",
 					"en": "** | 💰 The few individuals have contributed to offer you a nice sum. You find their attitude suspicious and you quickly realize that this money originates from a robbery. You decide to honestly approach a guard to return this dirty money. Without you expecting it, the guard questions you and then interrogates you about the details of the case and the role you played in it."
 				},
-				"timeLost": 190,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 190,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -86,11 +86,11 @@
 					"fr": "** | 😇 Le groupe d'individus vous accompagne dans la vallée, où ils vous offrent un soin revigorant dans les eaux thermales. Requinqué, vous être prêt à reprendre la route.",
 					"en": "** | 😇 The group brings you to the valley, where they offer you an invigorating treatment in the thermal waters. Back on your feet, you are ready to hit the road again."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 30,
-				"newEffect": ":smiley:",
-				"xpGained": 350,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 30,
+				"effect": ":smiley:",
+				"experience": 350,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -98,11 +98,11 @@
 					"fr": "** | 😇 Les quelques personnes vous proposent un soin dans un centre de massage près de là. Pendant que vous vous faites masser, une des chandelles accrochées au mur dégringole dans le pot d'huiles essentielles, mettant ainsi feu à tout l'établissement. Vous arrivez, non sans mal, à sortir du brasier qui émane du bâtiment.",
 					"en": "** | 😇 The few people offer you a treatment in a massage center near there. While you are getting a massage, one of the candles hanging on the wall falls into the jar of essential oils, setting the whole establishment on fire. You manage to, after plenty of difficulties, get out of the inferno that was once called a building."
 				},
-				"timeLost": 0,
-				"healthPointsChange": -20,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -20,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -110,11 +110,11 @@
 					"fr": "** | 😇 Ils ne s'attendaient pas à ce genre de demande et restent dubitatifs quant à la réponse à vous donner. Ne voulant pas laisser s'installer le malaise, vous reprenez votre route.",
 					"en": "** | 😇 They did not expect this kind of request and remain doubtful about what they should say. Not wanting to let awkwardness grow, you go on your way."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -124,11 +124,11 @@
 					"fr": "** | 🥗 L'un d'entre eux vous tend une soupe plutôt appétissante. Vous la buvez sans vous méfier. Ces malandrins vous ont tendu un piège ! Attendant depuis longtemps de vous mettre à mal pour vous piller, le breuvage contenait juste assez d'amanite tue-mouches pour rendre malade. Vous vous sentez partir tout en voyant vos poches se faire dépouiller, impuissant. :sick:",
 					"en": "** | 🥗 One of them hands you a rather appetizing soup. You drink it carelessly. Those scoundrels set up a trap for you! They had waited for a long time to plunder you, the drink contained just enough fly agaric to make you sick. You feel increasingly ill while seeing your pockets being stripped leaving you helpless. :sick:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":sick:",
-				"xpGained": 0,
-				"moneyGained": -300,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":sick:",
+				"experience": 0,
+				"money": -300,
 				"item": false
 			},
 			{
@@ -136,11 +136,11 @@
 					"fr": "** | 🥗 Ces passants ont cuisiné pour vous un met des plus savoureux, digne d'une potion de gaulois. En regardant de plus près, vous apercevez un objet laissé au fond du bol. Il pourrait bien vous être utile pour la suite.",
 					"en": "** | 🥗 These passers-by cooked a tasty dish for you, worthy of a Gallic potion. As you look closer, you see an object laying at the bottom of the bowl. It could be useful for what will happen after."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 20,
-				"newEffect": ":smiley:",
-				"xpGained": 650,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 20,
+				"effect": ":smiley:",
+				"experience": 650,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -148,11 +148,11 @@
 					"fr": "** | 🥗 Ravis de vous rendre service, le groupe part vous acheter la spécialité du coin. Voyant le plat arriver, vous faites bonne figure mais la dégustez avec un certain dégoût : vous n'aimez pas les champignons ! Non sans mal, vous continuez votre route. ",
 					"en": "** | 🥗 Glad to be able to help out, the group leaves to buy you a local dish. Seeing it coming, you make an effort to make it seem like you're enjoying it but it disgusts you: you don't like mushrooms! After what seems to be an eternity, you continue on your way."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -162,11 +162,11 @@
 					"fr": "** | 🚶‍♂️ Face à l'absence de réponse de votre part, le groupe d'amis décide malgré tout de partir vous chercher un cadeau. Alors que vous les attendez poliment, vous angoissez de plus en plus à l'idée de perdre du temps. Le risque de ne pas arriver à sauver la princesse vous obsède, vous rend malade même... et vous finissez par tomber dans les pommes. Vous découvrant inanimé en revenant, les honnêtes individus vous adossent à un arbre pour vous permettre de vous reposer, et vous laissent ce cadeau, avant de reprendre la route. ",
 					"en": "** | 🚶‍♂️ Faced with your lack of response, the group of friends decides to go and get you a gift. As you wait for them politely, you become more and more anxious at the idea of wasting time. The eventuality of not being able to save the princess scares you and even makes you sick... so much that you end up fainting. On their way back, the honest people discovered you and leaned you against a tree to let you rest, while still unconscious, they leftyou with a gift before you set out on your journey."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 550,
-				"moneyGained": 250,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 550,
+				"money": 250,
 				"item": false
 			},
 			{
@@ -174,11 +174,11 @@
 					"fr": "** | 🚶‍♂️ Face à votre absence de réaction, les quidams n'insistent pas. Vous continuez votre route sans y prêter attention. ",
 					"en": "** | 🚶‍♂️ The quidams, seeing you inactive, decide to not insist further. You continue on your way without caring."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -186,11 +186,11 @@
 					"fr": "** | 🚶‍♂️ Vous voyant hésiter trop longtemps, les jeunes hommes décident finalement de vous offrir un peu d'argent pour vous permettre l'achat de quelques babioles. Vous les remerciez avant de reprendre votre route.",
 					"en": "** | 🚶‍♂️ Seeing you hesitating for so long, the young men finally decide to offer you some money to allow you to buy some random toys. You thank them before going back on your way."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 250,
-				"moneyGained": 450,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 250,
+				"money": 450,
 				"item": false
 			}
 		]

@@ -26,7 +26,7 @@ class EventRepository extends AppRepository {
    * @return {Promise<Event>}
    */
   async getRandom() {
-    const id = Math.round(Math.random() * Object.keys(this.events).length) + 1;
+    const id = Math.round(Math.random() * (Object.keys(this.events).length - 1)) + 1;
     return this.events[id];
   }
 

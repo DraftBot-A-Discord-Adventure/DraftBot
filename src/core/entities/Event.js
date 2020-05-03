@@ -1,12 +1,30 @@
 const EntityAbstract = require('entities/EntityAbstract');
 
+/**
+ * @property {Number} id
+ * @property {Object} translations
+ * @property {String} translations.fr
+ * @property {String} translations.en
+ * @property {Object} possibilities
+ * @property {String[]} reactions
+ */
 class Event extends EntityAbstract {
 
-  constructor({id, translations, emojis}) {
+  /**
+   * @param {Number} id
+   * @param {Object} translations
+   * @param {String} translations.fr
+   * @param {String} translations.en
+   * @param {Object} possibilities
+   */
+  constructor({id, translations, possibilities}) {
     super();
     this.id = id;
     this.translations = translations;
-    this.emojis = emojis;
+    this.possibilities = possibilities;
+    let possibilitiesKeys = Object.keys(possibilities);
+    possibilitiesKeys.pop();
+    this.reactions = possibilitiesKeys;
   }
 
   /**
@@ -15,31 +33,6 @@ class Event extends EntityAbstract {
    */
   getTranslation(language) {
     return this.translations[language];
-  }
-
-  /**
-   * TODO 2.0 refactor
-   * Return string containing a description of an armor
-   * @param {String} language - The language the object has to be displayed in
-   * @returns {Object[]}
-   */
-  toEmbedObject(language) {
-    let result = [];
-    this.translations[language].split('\n').forEach(line => {
-
-      if (line === '') {
-        line = '\u200b';
-      }
-
-      result.push({
-        name: '\u200b',
-        value: line,
-        inline: false,
-      });
-
-    });
-
-    return result;
   }
 
 }

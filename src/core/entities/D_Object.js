@@ -20,11 +20,17 @@ class D_Object extends ItemAbstract {
     /**
      * @param {Number} id
      * @param {Number} rarity
-     * @param {Number} power
      * @param {Object} translations
      * @param {String} translations.fr
      * @param {String} translations.en
+     * @param {Number} rawAttack
+     * @param {Number} attack
+     * @param {Number} rawDefense
+     * @param {Number} defense
+     * @param {Number} rawSpeed
+     * @param {Number} speed
      * @param {Number} nature
+     * @param {Number} power
      */
     constructor({id, rarity, translations, rawAttack, attack, rawDefense, defense, rawSpeed, speed, nature, power}) {
         super({id, rarity, translations, rawAttack, attack, rawDefense, defense, rawSpeed, speed});

@@ -1,11 +1,4 @@
 {
-	"report": {
-		"minimalTime": "60",
-		"maximalTime": "400",
-		"timeLimit": "1000",
-		"startMoney": "10",
-		"startScore": "100"
-	},
 	"shop": {
 		"priceItem": "350",
 		"priceStatus": "500",
@@ -13,19 +6,6 @@
 		"priceBadge": "25000",
 		"priceGuildXp": "1000",
 		"addedValue": "200"
-	},
-	"effectMalus": {
-		":smiley:": "0",
-		":sick:": "21600000",
-		":head_bandage:": "21600000",
-		":dizzy_face:": "43200000",
-		":skull:": "0",
-		":lock:": "86400000",
-		":sleeping:": "10800000",
-		":cold_face:": "3600000",
-		":confounded:": "2400000",
-		":zany_face:": "14400000",
-		":clock2:": "0"
 	},
 	"item": {
 		"maxPower": "10"

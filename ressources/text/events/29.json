@@ -10,11 +10,11 @@
 					"fr": "** | 🔍 Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
 					"en": "** | 🔍 You remember passing by a lake, so you go there. When you get there, you enjoy a swim that feels great. You're now refreshed, and in better shape to continue on your journey across the country."
 				},
-				"timeLost": 50,
-				"healthPointsChange": 10,
-				"newEffect": ":clock2:",
-				"xpGained": 225,
-				"moneyGained": 0,
+				"lostTime": 50,
+				"health": 10,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | 🔍 Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Sur le chemin vous trouvez un item qui vous sera sûrement utile. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
 					"en": "** | 🔍 You remember passing by a lake, so you go there... on the way, you find an item that will surely be useful to you. When you arrive, you enjoy a swim that feels great. You are now refreshed, and in better shape to continue your journey across the country."
 				},
-				"timeLost": 30,
-				"healthPointsChange": 10,
-				"newEffect": ":clock2:",
-				"xpGained": 525,
-				"moneyGained": 0,
+				"lostTime": 30,
+				"health": 10,
+				"effect": ":clock2:",
+				"experience": 525,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | 🔍 Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise :sleeping:",
 					"en": "** | 🔍 You look for a body of water in vain.... Because of this fatigue, you fall ill :sleeping:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -10,
-				"newEffect": ":sleeping:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":sleeping:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | 🌳 Vous voyez une zone d'ombre sous les arbres, et décidez d'y aller. Après une petite heure de sommeil, vous repartez et continuez votre route.",
 					"en": "** | 🌳 You discover a shadowed area under the trees, and decide to go there. After a short hour of sleep, you leave and continue on your way."
 				},
-				"timeLost": 55,
-				"healthPointsChange": 10,
-				"newEffect": ":clock2:",
-				"xpGained": 225,
-				"moneyGained": 0,
+				"lostTime": 55,
+				"health": 10,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -60,11 +60,11 @@
 					"fr": "** | 🌳 Vous vous dirigez vers une zone ombragée, où vous vous reposez. Mais, à votre réveil, vous remarquez que vous vous êtes fait dépouiller de vos affaires.",
 					"en": "** | 🌳 You go to a shaded area where you can rest. But when you wake up, you notice you've been stripped of your belongings."
 				},
-				"timeLost": 60,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": -100,
+				"lostTime": 60,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": -100,
 				"item": false
 			}
 		],
@@ -74,11 +74,11 @@
 					"fr": "TODO",
 					"en": "TODO"
 				},
-				"timeLost": 180,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 180,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -86,11 +86,11 @@
 					"fr": "TODO",
 					"en": "TODO"
 				},
-				"timeLost": 90,
-				"healthPointsChange": 1,
-				"newEffect": ":clock2:",
-				"xpGained": 225,
-				"moneyGained": 0,
+				"lostTime": 90,
+				"health": 1,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -100,11 +100,11 @@
 					"fr": "** | 👀 Vous restez à votre place, en plein soleil pendant une quinzaine de minutes, puis vous écroulez",
 					"en": "** | 👀 You stay where you belong in full sunlight for about 15 minutes, then collapse"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -20,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -20,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -112,11 +112,11 @@
 					"fr": "** | 🚶 Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps",
 					"en": "** | 🚶 You decide to use your reserves, and continue your journey to not waste time"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		]

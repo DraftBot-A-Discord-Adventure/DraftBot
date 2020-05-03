@@ -10,11 +10,11 @@
 					"fr": "** | :walking: L'homme refuse gentiment votre aide, vous poursuivez votre route.",
 					"en": "** | :walking: The man politely refuses your help, and you continue on your journey."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | :tropical_fish: Grâce à vous, l'homme attrape un superbe poisson de 3 kg ! Pour vous remercier, il vous offre quelque chose qui pourrait vous être utile...",
 					"en": "** | :tropical_fish: Thanks to you, the man catches a superb fish weighing in at 3 kg! To thank you, he offers you something that could be useful to you ..."
 				},
-				"timeLost": 30,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** |  :sweat_drops: Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:",
 					"en": "** |  :sweat_drops: The fish at the end of the line must be huge! You find yourself quickly pulled down to the bottom of the water! You are saved just in time by the fisherman. Stunned by this adventure, you will have to heal before continuing! :confounded:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -10,
-				"newEffect": ":confounded:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":confounded:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | :runner: Vous n'avez pas une minute à perdre pour aider un simple pêcheur ! Vous passez votre chemin.",
 					"en": "** | :runner: You don't have even a minute to lose to help a fisherman! You go your way."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -62,11 +62,11 @@
 					"fr": "** | :hand_splayed: Mais pourquoi avoir fait cela ? :thinking: Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner.",
 					"en": "** | :hand_splayed: But why did you do that? :thinking: Feeling remorse, you rescue the poor man and offer him some coins as compensation."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": -500,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": -500,
 				"item": false
 			}
 		],
@@ -76,11 +76,11 @@
 					"fr": "** | :walking: Vous finissez par passer votre chemin sans prêter plus d'attention à cette situation somme toute assez banale !",
 					"en": "** | :walking: You end up continuing on without paying any more attention to this rather boring situation!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		]

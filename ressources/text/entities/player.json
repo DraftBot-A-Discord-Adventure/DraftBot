@@ -150,5 +150,18 @@
 		12500,
 		15000,
 		25000
-	]
+	],
+	"effectMalus": {
+		":smiley:": 0,
+		":sick:": 21600000,
+		":head_bandage:": 21600000,
+		":dizzy_face:": 43200000,
+		":skull:": 0,
+		":lock:": 86400000,
+		":sleeping:": 10800000,
+		":cold_face:": 3600000,
+		":confounded:": 2400000,
+		":zany_face:": 14400000,
+		":clock2:": 0
+	}
 }

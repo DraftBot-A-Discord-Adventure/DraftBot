@@ -10,11 +10,11 @@
 					"fr": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez un sac rempli d'argent devant vous ! Perdre ces 10 minutes valait le coup !",
 					"en": "** | :speaking_head: You make a wish and close your eyes... When you open them back up, you discover a bag filled with money in front of you! Spending those 10 minutes was worth it!"
 				},
-				"timeLost": 10,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 125,
-				"moneyGained": 40,
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 40,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous ne découvrez absolument rien ! Après avoir attendu 10 minutes pour rien vous repartez.",
 					"en": "** | :speaking_head: You make a wish and close your eyes... When you open them back up you don't discover anything! After wasting 10 minutes on nothing you walk away."
 				},
-				"timeLost": 10,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez qu'il ne s'est rien passé ! Après avoir attendu 10 minutes pour rien vous repartez.",
 					"en": "** | :speaking_head: You make a wish and close your eyes... When you reopen them, you discover that nothing happened! After waiting 10 minutes for nothing, you leave."
 				},
-				"timeLost": 10,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -46,11 +46,11 @@
 					"fr": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez ... Rien du tout ! Après avoir attendu 10 minutes pour rien vous repartez.",
 					"en": "** | :speaking_head: You make a wish and close your eyes... Reopening them, you discover... nothing at all! After waiting 10 minutes for nothing, you leave."
 				},
-				"timeLost": 10,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -58,11 +58,11 @@
 					"fr": "** | :speaking_head: Vous faites un vœu et fermez vos yeux... Il est en général préférable de ne pas continuer de marcher les yeux fermés, vous vous blessez en trébuchant sur un caillou et perdez 10 minutes avant de pouvoir vous remettre en route.",
 					"en": "** | :speaking_head: You make a wish and close your eyes... It's usually better not to keep walking with your eyes closed. You hurt yourself stumbling on a rock and lose 10 minutes before being able to continue."
 				},
-				"timeLost": 10,
-				"healthPointsChange": -5,
-				"newEffect": ":clock2:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 10,
+				"health": -5,
+				"effect": ":clock2:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -72,11 +72,11 @@
 					"fr": "** | :runner: Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
 					"en": "** | :runner: You continue on your way without paying attention to the shooting star, you didn't waste any time!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -84,11 +84,11 @@
 					"fr": "** | :runner: Vous continuez sans prêter plus d'attention au phénomène mais continuez de regarder le ciel avec admiration... Distrait, vous ne remarquez pas immédiatement l'immense crevasse devant vous ! Vous finissez écrasé au fond du trou, secoué et choqué, vous vous rassurez en vous disant qu'au moins vous n'êtes pas blessé trop gravement !",
 					"en": "** | :runner: You continue on without paying any more attention to the phenomenon, but you keep watching the sky with admiration... Distracted, you don't immediately notice the huge crevasse in front of you! You end up crushed at the bottom of the hole, shaken and shocked, but you reassure yourself by realizing you aren't too critically injured!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -20,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -20,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -98,11 +98,11 @@
 					"fr": "TODO",
 					"en": "TODO"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -110,11 +110,11 @@
 					"fr": "TODO",
 					"en": "TODO"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -124,11 +124,11 @@
 					"fr": "** | :runner: Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
 					"en": "** | :runner: You continue on your way without paying attention to the shooting star, you didn't waste any time!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		]

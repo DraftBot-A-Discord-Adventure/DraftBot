@@ -10,11 +10,11 @@
 					"fr": "** | :flashlight: Vous vous perdez rapidement dans ce labyrinthe, mais vous finissez par en ressortir au bout de quelques heures !",
 					"en": "** | :flashlight: You get quickly lost in the maze, but you end up coming out of it after a few hours!"
 				},
-				"timeLost": 200,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 200,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | :flashlight: Vous passez quelques minutes à explorer la grotte de fond en comble et trouvez un objet qui pourra peut être vous servir... !",
 					"en": "** | :flashlight: You spend a few minutes exploring the cave from top to bottom and find an object which may be useful... !"
 				},
-				"timeLost": 20,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 20,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | :flashlight: La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdi ! Il faudra vous soigner ! :confounded: ",
 					"en": "** | :flashlight: The cave quickly turns out to be a dead end, but when you come out, you hit your head on the ceiling and get dizzy! You'll have to be treated! :confounded: "
 				},
-				"timeLost": 0,
-				"healthPointsChange": -1,
-				"newEffect": ":confounded:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -1,
+				"effect": ":confounded:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | :runner: Vous n'êtes pas du genre à risquer de perdre du temps pour des explorations sans intérêt ! Vous finissez de manger et passez votre chemin.",
 					"en": "** | :runner: You're not the type to risk wasting time on meaningless explorations! You finish eating and move on."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -62,11 +62,11 @@
 					"fr": "** | :mag: Au bout de 30 minutes vous finissez par découvrir un objet étrange...",
 					"en": "** | :mag: After 30 minutes you finally discover a strange object..."
 				},
-				"timeLost": 30,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -74,11 +74,11 @@
 					"fr": "** | :mag: Au bout de 60 minutes vous finissez par abandonner vos recherches sans avoir rien découvert...",
 					"en": "** | :mag: After 60 minutes you end up abandoning your search without having discovered anything..."
 				},
-				"timeLost": 60,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 60,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -86,11 +86,11 @@
 					"fr": "** | :mag: Alors que vous commenciez vos recherches, vous faites tomber un grand sac de pièces au fond d'un grand trou ! Il ne sera pas possible de le récupérer...",
 					"en": "** | :mag: As you began your search, you drop a large bag of coins at the bottom of a large hole! It's not possible to recover it..."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": -90,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": -90,
 				"item": false
 			},
 			{
@@ -98,11 +98,11 @@
 					"fr": "** | :mag: Alors que vous cherchiez des objets à ramasser, une énorme branche se détache de l'arbre à côté de vous et vous tombe sur la jambe ! Vous parvenez à vous relever, sonné, mais il faudra aller vous soigner ! :confounded: ",
 					"en": "** | :mag: As you were looking for things to pick up, a huge branch fell off the tree next to you and fell onto your leg! You can get up sound, but you'll have to go to the hospital! :confounded: "
 				},
-				"timeLost": 0,
-				"healthPointsChange": -25,
-				"newEffect": ":confounded:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -25,
+				"effect": ":confounded:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -112,11 +112,11 @@
 					"fr": "** | :clock1030: hum... Il semblerait que vous soyez resté là sans rien faire plus longtemps que prévu !",
 					"en": "** | :clock1030: um... It seems you've been sitting there doing nothing longer than expected!"
 				},
-				"timeLost": 270,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 270,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		]

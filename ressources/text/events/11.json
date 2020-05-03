@@ -10,11 +10,11 @@
 					"fr": "** | :deciduous_tree: Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégats.",
 					"en": "** | :deciduous_tree: You get lost for several hours in the forest but find your way out without damage."
 				},
-				"timeLost": 200,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 200,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la forêt mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
 					"en": "** | :deciduous_tree: You waste a lot of time moving through the forest, but you finally succeed in crossing it! When you come out, you pick up an object that may be useful to you!"
 				},
-				"timeLost": 130,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 130,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | :deciduous_tree: En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! :head_bandage:",
 					"en": "** | :deciduous_tree: While crossing the forest, you take a big fall into a ditch. The injury is serious, you absolutely have to heal yourself! :head_bandage:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -20,
-				"newEffect": ":head_bandage:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -20,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | :walking: C'était en effet un raccourci !",
 					"en": "** | :walking: Indeed, it was a shortcut!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -60,11 +60,11 @@
 					"fr": "** | :deciduous_tree: Vous tombez dans une embuscade ! Après vous avoir volé tous vos bien, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui. :head_bandage:",
 					"en": "** | :deciduous_tree: You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious. :head_bandage:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -40,
-				"newEffect": ":head_bandage:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -40,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -74,11 +74,11 @@
 					"fr": "** | :walking: Vous ne savez pas trop pourquoi vous avez pris un chemin 10 fois plus long que celui que vous aviez prévu au départ mais vous avez fini par arriver à bon port.",
 					"en": "** | :walking: You're not sure why you took a route 10 times longer than you originally planned, but you finally arrived at the right place."
 				},
-				"timeLost": 140,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 140,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -88,11 +88,11 @@
 					"fr": "** | :walking:  Vous avez passé de longues minutes à discuter avec l'inconnue vous finissez par repartir ! En suivant ses indications vous arrivez rapidement à bon port.",
 					"en": "** | :walking: After spending several minutes chatting with the mysterious woman you end up leaving. Following her directions, you arrive safely at the other end of the forest."
 				},
-				"timeLost": 45,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 45,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		]

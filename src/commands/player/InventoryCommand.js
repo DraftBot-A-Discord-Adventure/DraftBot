@@ -10,17 +10,16 @@ const InventoryCommand = async (language, message, args) => {
   if (args.length === 0) {
     player = await getRepository('player').getByMessageOrCreate(message);
 
-    if (player.effect === EFFECT.BABY) {
-      return await error(message, language,
-          JsonReader.error.getTranslation(language).meIsBaby);
+    let checkEffect = await player.checkEffect(message);
+    if (checkEffect !== true) {
+      return await errorMe(message, language, player);
     }
   } else {
     player = await getRepository('player').getByArgs(args, message);
 
-    if (player.effect === EFFECT.BABY) {
-      return await error(message, language,
-          format(JsonReader.error.getTranslation(language).playerIsBaby,
-              {askedPseudo: player.getPseudo(language)}));
+    let checkEffect = await player.checkEffect(message);
+    if (checkEffect !== true) {
+      return await errorPlayer(message, language, player);
     }
   }
 

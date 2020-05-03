@@ -10,11 +10,11 @@
 					"fr": "** | :smirk: J'aime cette détermination ! Voici 100 points :medal: pour débuter votre aventure ! Utilisez la commande `profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !",
 					"en": "** | :smirk: I like this determination! Here're 100 points :medal: to start your adventure! Use the command `profile` to see your points :wink: I'll let you discover the other commands! Don't hesitate to check your reports regularly!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -24,11 +24,11 @@
 					"fr": "** | :joy: Ne vous faites pas de soucis, tout va bien se passer ! Voici 100 points :medal: pour débuter votre aventure ! Utilisez la commande `profile` pour voir vos points :wink: Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !",
 					"en": "** | :joy: Don't worry, everything will be fine! Here are 100 points :medal: to start your adventure! Use the `profile` command to see your points :wink: I'll let you discover the different commands! Feel free to request regular reports!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -38,11 +38,11 @@
 					"fr": "** | :x: Le tutoriel n'a pas été terminé ! Vous pouvez le recommencer à tout moment en utilisant la commande `report` !",
 					"en": "** | :x: The tutorial hasn't been finished! You can restart it when you want using the `report` command!"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":baby:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":baby:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		]

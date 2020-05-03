@@ -47,17 +47,6 @@
       "tooMuchShop": ", The shop is on cooldown. `(If you haven't recently used the command shop or sold anything, wait 2 minutes and try again)`",
       "noAlteration": ", You currently don't have any alteration!"
     },
-    "report": {
-      "reportStart": ":newspaper: **Journal of ",
-      "points": " :** :medal:  Points earned: **",
-      "moneyWin": "**| :moneybag: Money earned: **",
-      "xpWin": "** | :star: XP earned: **",
-      "moneyLoose": "** | :money_with_wings: Money lost: **",
-      "healthLoose": "** | :broken_heart: Life lost: **",
-      "healthWin": "** | :heart: Life gained: **",
-      "timeLost": "** | :clock10: Time spent: **",
-      "noReport": " : ** :x: You don’t have any new reports! Come back in a few hours!"
-    },
     "drink": {
       "errorDebut": " |** ",
       "errorFin": "**, You consumed the beverage you carried... It wasn't that effective!",
@@ -468,7 +457,6 @@
       ":baby:": "** It looks like you haven't begun to play! To start your adventure, use the `report` command.",
       ":dizzy_face:": "** It is unfortunately not possible to continue playing while almost dead! Please wait for the end of the healing of your status.",
       ":sick:": "** It is unfortunately not possible to continue playing while ill! Please wait for the end of the healing of your status.",
-      ":skull:": "** You are KO'd! You need to respawn using the `respawn` command.",
       ":lock:": "** You are currently locked. Please wait for the end of the healing of your status.",
       ":sleeping:": "** It is unfortunately not possible to continue playing while sleeping! Please wait for the end of the healing of your status.",
       ":head_bandage:": "** It is unfortunately not possible to continue playing while hurt! Please wait for the end of the healing of your status.",

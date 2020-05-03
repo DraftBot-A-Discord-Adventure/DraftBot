@@ -10,11 +10,11 @@
 					"fr": "** | 👊 Vous parvenez à assommer le garde et récupérez un objet précieux qu'il portait",
 					"en": "** | 👊 You succeed in knocking out the guard and taking the precious object he was carrying"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 450,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | 👊 Au dernier moment, le garde se retourne et vous attaque. Il vous laisse néanmoins en vie.",
 					"en": "** | 👊 At the last moment, the guard turns around and attacks you. However, he leaves you alive."
 				},
-				"timeLost": 0,
-				"healthPointsChange": -10,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | 👊 Le garde esquive et la femme parvient à s'enfuir. Elle vous retrouve plus loin, hors de danger, pour vous remercier avec quelques pièces d'or.",
 					"en": "** | 👊 The guard dodges, and the woman manages to escape. She finds you further away, out of danger, thanking you with some gold coins."
 				},
-				"timeLost": 30,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 125,
-				"moneyGained": 25,
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 25,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | 🚶 Vous ne prêtez donc pas attention au garde.",
 					"en": "** | 🚶 You ignore the guard."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -60,11 +60,11 @@
 					"fr": "** | 🚶 En passant votre chemin, vous trébuchez et tombez par terre.",
 					"en": "** | 🚶 As you pass by, you fall to the ground."
 				},
-				"timeLost": 0,
-				"healthPointsChange": -5,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -5,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -74,11 +74,11 @@
 					"fr": "** | 🤙 Les gardes vous suivent et arrêtent le corrompu, la femme vous donne un objet en gage de remerciements.",
 					"en": "** | 🤙 The guards follow you and arrest the corrupt guard. The woman gives you an object as a token of her appreciation."
 				},
-				"timeLost": 10,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -86,11 +86,11 @@
 					"fr": "** | 🤙 Les gardes, étant aussi des criminels, vous attaquent à la hanche. Vous restez malgré tout en vie.",
 					"en": "** | 🤙 The guards, also being criminals, strike you on your hip, but leave you alive."
 				},
-				"timeLost": 0,
-				"healthPointsChange": -10,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -100,11 +100,11 @@
 					"fr": "** | 🚶 Vous continuez votre chemin sans prêter attention au garde.",
 					"en": "** | 🚶 You continue your journey without paying attention to the guard."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -112,11 +112,11 @@
 					"fr": "** | 🚶 Abasourdi, vous regardez la scène, tétanisé, pendant cinq minutes. Le garde finit par vous remarquer, vous vous hâtez donc de passer votre chemin.",
 					"en": "** | 🚶 Dazed, you watch the scene for five minutes. The guard finally notices you, so you hurry on."
 				},
-				"timeLost": 5,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 5,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		]

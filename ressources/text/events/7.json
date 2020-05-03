@@ -10,11 +10,11 @@
 					"fr": "** | :door: En forcant la porte vous vous blessez profondement, il faut absolument vous soigner ! :head_bandage:",
 					"en": "** | :door: By forcing the door open, you seriously hurt yourself, you must absolutely be healed! :head_bandage:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": -25,
-				"newEffect": ":head_bandage:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -25,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | :door: Après avoir passé presque 1 heure à tenter de rentrer dans la maison, vous finissez par abandonner. En partant vous trouvez un objet qui pourra peut être vous être utile !",
 					"en": "** | :door: After spending almost an hour trying to get into the house, you give up. Leaving, you find an object which may be useful!"
 				},
-				"timeLost": 55,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 55,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | :door: Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. :sleeping: ",
 					"en": "** | :door: You enter the house and put down your things to rest. Taken by a deep sleep, you will need to rest before continuing your adventure. :sleeping: "
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":sleeping:",
-				"xpGained": 20,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":sleeping:",
+				"experience": 20,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -46,11 +46,11 @@
 					"fr": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. En sortant vous trouvez un objet qui pourra peut être vous être utile !",
 					"en": "** | :door: You enter the house and search around for about fifteen minutes. On leaving, you find an object that may be useful to you!"
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 325,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -58,11 +58,11 @@
 					"fr": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. Vous finissez par abandonner vos recherches sans avoir rien trouvé.",
 					"en": "** | :door: You enter the house and search around for about fifteen minutes. You end up abandoning your search without finding anything."
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -72,11 +72,11 @@
 					"fr": "** | :walking: Vous continuez votre route sans vous soucier de la maison.",
 					"en": "** | :walking: You continue on your way without worrying about the house."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -86,11 +86,11 @@
 					"fr": "** | :walking:  Vous avez passé près de quinze minutes sans bouger, il est temps de repartir ! ",
 					"en": "** | :walking: You spent almost fifteen minutes without moving, it's time to go back! "
 				},
-				"timeLost": 15,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		]

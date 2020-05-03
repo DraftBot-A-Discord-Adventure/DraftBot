@@ -10,11 +10,11 @@
 					"fr": "** | 🤴 Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir un peu de repos chez lui",
 					"en": "** | 🤴 You go to the Duke and compliment him. The Duke thanks you and decides to offer you some rest at his castle."
 				},
-				"timeLost": 50,
-				"healthPointsChange": 10,
-				"newEffect": ":clock2:",
-				"xpGained": 75,
-				"moneyGained": 0,
+				"lostTime": 50,
+				"health": 10,
+				"effect": ":clock2:",
+				"experience": 75,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -22,11 +22,11 @@
 					"fr": "** | 🤴 Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir quelques pièces en vous disant d'en faire bon usage, vous repartez ensuite sur votre chemin",
 					"en": "** | 🤴 You go see the Duke and compliment him. The Duke thanks you and decides to offer you a few coins, telling you to make good use of them, then you go back on your way."
 				},
-				"timeLost": 30,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 125,
-				"moneyGained": 150,
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 150,
 				"item": false
 			},
 			{
@@ -34,11 +34,11 @@
 					"fr": "** | 🤴 Vous allez voir le duc et vous essayez de le complimenter, cependant la rhétorique n'est pas votre fort et le duc se sentant offensé vous fait enfermer. :lock:",
 					"en": "** | 🤴 You go to the Duke and try to compliment him, but rhetoric is not your forte and as the Duke gets offended, he locks you up.."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":lock:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":lock:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -48,11 +48,11 @@
 					"fr": "** | 🎉 Vous rentrez et profitez de la fête qui va durer jusque très tard dans la nuit.",
 					"en": "** | 🎉 You go home and enjoy a party that is going to last for a while"
 				},
-				"timeLost": 155,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 155,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -60,11 +60,11 @@
 					"fr": "** | 🎉 Le garde aperçoit vos chaussures sales et vous demande de revenir uniquement avec une tenue plus adaptée. Heureusement, un jeune mendiant se trouvant juste a côté de vous propose de vous les cirer. Vous pouvez ainsi profiter de l'anniversaire.",
 					"en": "** | 🎉 The guard sees your dirty shoes and asks you to come back with something more appropriate. Luckily, a young beggar standing right next to you offers to shine them for you. This way, you can enjoy the birthday party."
 				},
-				"timeLost": 85,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": -100,
+				"lostTime": 85,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": -100,
 				"item": false
 			},
 			{
@@ -72,11 +72,11 @@
 					"fr": "** | 🎉 La buffet de la fête est un festin. Vous vous régalez avec toutes ces bananes.",
 					"en": "** | 🎉 The party buffet is a feast. You enjoy all these bananas."
 				},
-				"timeLost": 60,
-				"healthPointsChange": 50,
-				"newEffect": ":clock2:",
-				"xpGained": 225,
-				"moneyGained": 0,
+				"lostTime": 60,
+				"health": 50,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -86,11 +86,11 @@
 					"fr": "** | 🎁 Vous avez envie d'offrir un cadeau au Duc Benatis, mais vous ne trouvez rien qui pourrait faire l'affaire. Vous décidez de simplement lui donner de l'argent amassé pendant vos péripéties. Le Duc accepte votre cadeau ",
 					"en": "** | 🎁 You feel like giving a gift to Duke Benatis, but you can't find anything that would do the trick. You decide to simply give him some of the money you've collected during your adventures. The Duke accepts your gift"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": -700,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": -700,
 				"item": false
 			},
 			{
@@ -98,11 +98,11 @@
 					"fr": "** | 🎁 Vous vous approchez du Duc pour lui donner un cadeau. En vous voyant arriver, le Duc comprend votre intention et vous dit aimablement que c'est n'est pas la peine, alors vous discutez juste avec lui puis partez de la fête",
 					"en": "** | 🎁 You approach the Duke to give him a gift. Seeing you arrive, the Duke understands your intention and tells you kindly that it's not necessary, so you just chat with him and then leave the party."
 				},
-				"timeLost": 35,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 35,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -110,11 +110,11 @@
 					"fr": "** | 🎁 Alors que vous allez pour donner un cadeau au Duc, celui-ci se lève et déclare qu'il a décidé de distribuer des cadeaux à tout le monde présent. Vous comprenez qu'il ne servirait alors à rien de lui en offrir un, et acceptez celui qui vous est tendu par les servants",
 					"en": "** | 🎁 As you go to give a gift to the Duke, the Duke stands up and declares that he has decided to distribute gifts to everyone present. You understand that it would then be useless to give him one, and accept the one handed to you by the servants."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":clock2:",
-				"xpGained": 450,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 450,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -124,11 +124,11 @@
 					"fr": "** | 🍌 Alors que vous vous apprêtiez à sortir de l'exploitation avec votre butin, un esclave vous interpelle et vous dénonce. Vous finissez enfermé. :lock:",
 					"en": "** | 🍌 As you're about to leave the farm with your loot, a slave alerts the others and shames you. You end up locked in a cell..."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":lock:",
-				"xpGained": 25,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":lock:",
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -136,11 +136,11 @@
 					"fr": "** | 🍌 Vous ressortez discrètement avec votre délicieux butin que vous finissez rapidement de manger",
 					"en": "** | 🍌 You discreetly come out with your delicious loot that joins your stomach swiftly."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 20,
-				"newEffect": ":smiley:",
-				"xpGained": 350,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 20,
+				"effect": ":smiley:",
+				"experience": 350,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -148,11 +148,11 @@
 					"fr": "** | 🍌 À votre grand malheur, vous n'aviez pas remarqué l'écrit \"Impropres à la vente\" devant vos bananes fraichement acquises et celles-ci ont vite fait de vous rendre malade ! :sick: ",
 					"en": "** | 🍌 To your great misfortune, you didn't notice the writing \"Unfit for sale\" in front of your freshly acquired bananas and they quickly make you sick! :sick:"
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":sick:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":sick:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		],
@@ -162,11 +162,11 @@
 					"fr": "** | 🚶 Vous ne vous sentez pas d'humeur à faire la fête aujourd'hui, vous décidez donc de rebrousser chemin et de continuer tranquillement votre route.",
 					"en": "** | 🚶 You don't feel like partying today, so you decide to turn back and continue your journey quietly."
 				},
-				"timeLost": 0,
-				"healthPointsChange": 0,
-				"newEffect": ":smiley:",
-				"xpGained": 150,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
 				"item": false
 			},
 			{
@@ -174,11 +174,11 @@
 					"fr": "** | 🚶 Vous n'êtes pas prêt à faire la fête aujourd'hui, vous reprenez votre route. Lorsque vous trébuchez et tombez nez à nez avec une banane, cependant celle-ci semble ne pas être bonne.",
 					"en": "** | 🚶 You're not ready to party today, so you go back on the road. When you stumble and come face to face with a banana, but it doesn't seem to be any good."
 				},
-				"timeLost": 0,
-				"healthPointsChange": -1,
-				"newEffect": ":smiley:",
-				"xpGained": 0,
-				"moneyGained": 0,
+				"lostTime": 0,
+				"health": -1,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
 				"item": false
 			}
 		]
