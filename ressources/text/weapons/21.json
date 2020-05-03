@@ -4,5 +4,5 @@
 		"en": ":pick:  **Damaged pickaxe**"
 	},
 	"rarity": 1,
-	"power": 4
+	"rawAttack": 4
 }

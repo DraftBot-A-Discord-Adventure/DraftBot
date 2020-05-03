@@ -1,10 +1,36 @@
 {
 	"translations": {
 		"fr": {
-			"unknownPlayer": "Pseudo 404"
+			"unknownPlayer": "Pseudo 404",
+			"title": "{effect} | {pseudo} | Niveau {level}",
+			"information": {
+				"fieldName": "Informations :",
+				"fieldValue": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}"
+			},
+			"statistique": {
+				"fieldName": "Statistiques :",
+				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :blue_heart: {cumulativeMaxHealth}"
+			},
+			"classement": {
+				"fieldName": "Classement et Score :",
+				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}"
+			}
 		},
 		"en": {
-			"unknownPlayer": "Player 404"
+			"unknownPlayer": "Player 404",
+			"title": "{effect} | {pseudo} | Level {level}",
+			"information": {
+				"fieldName": "Information :",
+				"fieldValue": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}"
+			},
+			"statistique": {
+				"fieldName": "Stats :",
+				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :blue_heart: {cumulativeMaxHealth}"
+			},
+			"classement": {
+				"fieldName": "Ranking and score :",
+				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}"
+			}
 		}
 	},
 	"maxHealth": 100,

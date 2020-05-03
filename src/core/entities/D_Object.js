@@ -1,13 +1,19 @@
 const ItemAbstract = require("entities/ItemAbstract");
 
 /**
- * @property {Number} id
- * @property {Number} rarity
- * @property {Number} power
- * @property {Object} translations
- * @property {String} translations.fr
- * @property {String} translations.en
- * @property {Number} nature
+ * @propery {Number} id
+ * @propery {Number} rarity
+ * @propery {Object} translations
+ * @propery {String} translations.fr
+ * @propery {String} translations.en
+ * @propery {Number} rawAttack
+ * @propery {Number} attack
+ * @propery {Number} rawDefense
+ * @propery {Number} defense
+ * @propery {Number} rawSpeed
+ * @propery {Number} speed
+ * @propery {Number} nature
+ * @propery {Number} power
  */
 class D_Object extends ItemAbstract {
 
@@ -20,8 +26,9 @@ class D_Object extends ItemAbstract {
      * @param {String} translations.en
      * @param {Number} nature
      */
-    constructor({id, rarity, power, translations, nature}) {
-        super({id, rarity, power, translations});
+    constructor({id, rarity, translations, rawAttack, attack, rawDefense, defense, rawSpeed, speed, nature, power}) {
+        super({id, rarity, translations, rawAttack, attack, rawDefense, defense, rawSpeed, speed});
+        this.power = power;
         this.nature = nature;
     }
 
@@ -37,8 +44,8 @@ class D_Object extends ItemAbstract {
             value: (this.id === 0) ? this.getTranslation(language) : format(
                 JsonReader.entities.d_object.getTranslation(language)[slot].fieldValue, {
                     name: this.getTranslation(language),
-                    nature: this.getNatureTranslation(language),
                     rarity: this.getRarityTranslation(language),
+                    nature: this.getNatureTranslation(language),
                 }),
         };
     }
@@ -50,6 +57,36 @@ class D_Object extends ItemAbstract {
      */
     getNatureTranslation(language) {
         return format(JsonReader.entities.d_object.getTranslation(language).natures[this.nature], {power: this.power});
+    }
+
+    /**
+     * @return {Number}
+     */
+    getAttack() {
+        if (this.nature === 3)
+            return this.power;
+
+        return 0;
+    }
+
+    /**
+     * @return {Number}
+     */
+    getDefense() {
+        if (this.nature === 4)
+            return this.power;
+
+        return 0;
+    }
+
+    /**
+     * @return {Number}
+     */
+    getSpeed() {
+        if (this.nature === 2)
+            return this.power;
+
+        return 0;
     }
 
 }

@@ -1,12 +1,10 @@
 {
   "translations": {
     "fr": {
-      "fieldName": "Arme :",
-      "fieldValue": "{name} | Attaque {attack} | {rarity}"
+      "fieldName": "Arme :"
     },
     "en": {
-      "fieldName": "Weapon :",
-      "fieldValue": "{name} | Atatck {attack} | {rarity}"
+      "fieldName": "Weapon :"
     }
   }
 }

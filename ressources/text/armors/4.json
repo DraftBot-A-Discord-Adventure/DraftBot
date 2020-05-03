@@ -4,5 +4,5 @@
 		"en": ":shield: **Wooden shield**"
 	},
 	"rarity": 2,
-	"power": 3
+	"rawDefense": 3
 }

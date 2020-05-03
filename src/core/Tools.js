@@ -46,7 +46,7 @@ global.minutesToString = (minutes) => {
   let display = (hours > 0) ? hours + ' H ' : '';
   display += minutes + ' Min';
   if (hours >= 0 && minutes === 0) {
-    display = 'Quelques secondes...'; // TODO 2.0 Should be translated
+    display = '< 1 Min';
   }
   return display;
 };
@@ -115,75 +115,6 @@ global.format = (string, replacement) => {
 // const convertHoursInMiliseconds = function (hours) {
 //   return this.convertMinutesInMiliseconds(hours * 60);
 // };
-//
-// /**
-//  * Allow to get the language the bot has to respond with
-//  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
-//  * @returns {String} - the code of the server language
-//  */
-// const detectLanguage = async function (message) {
-//   let serverManager = new ServerManager();
-//   let server = await serverManager.getServer(message);
-//   if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-//     server.language = "en";
-//   }
-//   return server.language;;
-// }
-//
-// /**
-//  * Generate a random rarity. Legendary is very rare and common is not rare at all
-//  * @returns {Number} - the number refering to a rarity (1 - 8)
-//  */
-// const generateRandomrarity = function () {
-//   let randomValue = Math.round(Math.random() * DefaultValues.raritiesGenerator.maxValue);
-//   let result;
-//   if (randomValue <= DefaultValues.raritiesGenerator['0']) {
-//     result = 1;
-//   } else if (randomValue <= DefaultValues.raritiesGenerator['1']) {
-//     result = 2;
-//   } else if (randomValue <= DefaultValues.raritiesGenerator['2']) {
-//     result = 3;
-//   } else if (randomValue <= DefaultValues.raritiesGenerator['3']) {
-//     result = 4;
-//   } else if (randomValue <= DefaultValues.raritiesGenerator['4']) {
-//     result = 5;
-//   } else if (randomValue <= DefaultValues.raritiesGenerator['5']) {
-//     result = 6;
-//   } else if (randomValue <= DefaultValues.raritiesGenerator['6']) {
-//     result = 7;
-//   } else {
-//     result = 8;
-//   }
-//   return result;
-// };
-//
-// /**
-//  * Allow to add to the player stats the bonuses of its items
-//  * @param {*} player - One of the player that has to recieve the bonus
-//  */
-// const addItemBonus = async function (player) {
-//   let inventoryManager = new InventoryManager()
-//   let bonus = await inventoryManager.getDamageById(player.id);
-//   player.attack = player.attack + bonus;
-//   bonus = await inventoryManager.getDefenseById(player.id);
-//   player.defense = player.defense + bonus;
-//   bonus = await inventoryManager.getSpeedById(player.id);
-//   player.speed = player.speed + bonus;
-// }
-//
-// /**
-//  * Allow to add to the player stats the bonuses of its items
-//  * @param {*} player - One of the player that has to recieve the bonus
-//  */
-// const seeItemBonus = async function (player) {
-//   let inventoryManager = new InventoryManager()
-//   let bonus = await inventoryManager.seeDamageById(player.id);
-//   player.attack = player.attack + bonus;
-//   bonus = await inventoryManager.seeDefenseById(player.id);
-//   player.defense = player.defense + bonus;
-//   bonus = await inventoryManager.seeSpeedById(player.id);
-//   player.speed = player.speed + bonus;
-// }
 //
 // /**
 //  * Return the id list of all the users of a server

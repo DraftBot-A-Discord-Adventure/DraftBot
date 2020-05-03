@@ -4,5 +4,5 @@
 		"en": ":shield:  **Gladiator's shield**"
 	},
 	"rarity": 4,
-	"power": 6
+	"rawDefense": 6
 }

@@ -4,5 +4,5 @@
 		"en": ":shield:  **Basic shield**"
 	},
 	"rarity": 2,
-	"power": 4
+	"rawDefense": 4
 }

@@ -58,18 +58,6 @@
       "timeLost": "** | :clock10: Time spent: **",
       "noReport": " : ** :x: You don’t have any new reports! Come back in a few hours!"
     },
-    "inventory": {
-      "errorMain": ":x: |** ",
-      "errorInv": "**, it seems the player you asked for hasn't started the adventure yet!",
-      "title": " :briefcase:** ",
-      "lineEnd1": "'s inventory:**\n\n",
-      "lineEnd2": "\n",
-      "backupTitle": "Reserve item:",
-      "potionTitle": "Potion :",
-      "objectTitle": "Active item :",
-      "weaponTitle": "Weapon :",
-      "armorTitle": "Armor/Shield :"
-    },
     "drink": {
       "errorDebut": " |** ",
       "errorFin": "**, You consumed the beverage you carried... It wasn't that effective!",
@@ -536,52 +524,6 @@
     "killMessage": ":crossed_swords:  Hey fighter!\n\nLooks like you have been KO'd... :skull:\nBut thanks to our advanced tech, we were able to modify past events so you avoided that painful death! :tada:\nSadly, it was very pricy, and your total score was impacted by it...\n\nTo play again, use `respawn`",
     "killPublicIntro": ":skull: | **",
     "killPublicMessage": "** has been KO'd!"
-  },
-  "rarities": {
-    "0": ":small_orange_diamond: Basic",
-    "1": " :large_orange_diamond: Common",
-    "2": " :fire: Uncommon",
-    "3": " :trident: Exotic",
-    "4": " :comet: Rare",
-    "5": " :dizzy: Special",
-    "6": " :star: Epic",
-    "7": " :star2: Legendary",
-    "8": " :gem: Unique"
-  },
-  "nature": {
-    "intro": {
-      "0": " :x: No effect",
-      "1": " :heart: Health + ",
-      "2": " :rocket: Speed + ",
-      "3": " :crossed_swords: Attack + ",
-      "4": " :shield: Defense + ",
-      "5": " :clock1030: Speeds up time for ",
-      "6": " :moneybag: Money + "
-    },
-    "introShop": {
-      "0": " No effect :x: ",
-      "1": " Health :heart: + ",
-      "2": " Speed :rocket: + ",
-      "3": " Attack :crossed_swords: + ",
-      "4": " Defense :shield: + ",
-      "5": " Speeds up time :clock1030: for ",
-      "6": " Money :moneybag: + "
-    },
-    "outroObject": {
-      "1": " per day",
-      "2": " during fights",
-      "3": " during fights",
-      "4": " during fights",
-      "6": " per day"
-    },
-    "outroPotion": {
-      "1": "",
-      "2": " during the next fight",
-      "3": " during the next fight",
-      "4": " during the next fight",
-      "5": " hour(s)",
-      "6": ""
-    }
   },
   "nothingToSay": {
     "1": "** | :smiley: No incidents or significant events to report.",

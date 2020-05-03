@@ -15,6 +15,13 @@ const ReportCommand = async function(language, message, args) {
     return message.channel.send(context);
   }
 
+  // let resultMessage = this.get('effect') +
+  //     Config.text[language].playerManager.intro + this.get('pseudo') +
+  //     Config.text[language].playerManager.errorMain[this.get('effect')] +
+  //     this.getTimeLeft(language, message);
+  //
+  // await message.channel.send(resultMessage);
+
   // If player can use this command, because the player can be sick or dead
   if (await player.checkEffect(language, message)) {
     player.effect = EFFECT.CLOCK10;

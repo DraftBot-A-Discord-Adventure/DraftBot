@@ -1,6 +1,10 @@
 {
   "translations": {
     "fr": {
+      "attack": ":dagger: {attack}",
+      "defense": ":shield: {defense}",
+      "speed": ":rocket: {speed}",
+      "fieldValue": "{name} | {rarity} | {values}",
       "active": {
         "fieldName": "Objet actif :",
         "fieldValue": "{name} | {rarity} | {nature}"
@@ -20,6 +24,10 @@
       ]
     },
     "en": {
+      "attack": ":dagger: {attack}",
+      "defense": ":shield: {defense}",
+      "speed": ":rocket: {speed}",
+      "fieldValue": "{name} | {rarity} | {values}",
       "active": {
         "fieldName": "Active item :",
         "fieldValue": "{name} | {rarity} | {nature}"

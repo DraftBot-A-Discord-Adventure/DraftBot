@@ -58,18 +58,6 @@
       "timeLost": "** | :clock10: Temps perdu : **",
       "noReport": " : ** :x: Aucun nouveau rapport n'a été transmis ! Revenez dans quelques heures !"
     },
-    "inventory": {
-      "errorMain": ":x: |** ",
-      "errorInv": "**, le joueur demandé semble ne pas avoir commencé l'aventure !",
-      "title": " :briefcase:** Inventaire de ",
-      "lineEnd1": " :**\n\n",
-      "lineEnd2": "\n",
-      "backupTitle": "Réserve d'item :",
-      "potionTitle": "Potion :",
-      "objectTitle": "Objet actif :",
-      "weaponTitle": "Arme :",
-      "armorTitle": "Armure/Bouclier :"
-    },
     "drink": {
       "errorDebut": " |** ",
       "errorFin": "**,  vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
@@ -535,53 +523,6 @@
     "killPublicIntro": ":skull: | **",
     "killPublicMessage": "** a été mis K.O !"
   },
-  "rarities": {
-    "0": ":small_orange_diamond: Basique",
-    "1": " :large_orange_diamond: Commun",
-    "2": " :fire: Peu commun",
-    "3": " :trident: Exotique",
-    "4": " :comet: Rare",
-    "5": " :dizzy: Spécial",
-    "6": " :star: Epique",
-    "7": " :star2: Legendaire",
-    "8": " :gem: Mythique"
-  },
-  "nature": {
-    "intro": {
-      "0": " :x: Aucun effet",
-      "1": " :heart: Vie + ",
-      "2": " :rocket: Vitesse + ",
-      "3": " :crossed_swords: Attaque + ",
-      "4": " :shield: Defense + ",
-      "5": " :clock1030: Avance le temps plus rapidement pendant ",
-      "6": " :moneybag: Argent + "
-    },
-    "introShop": {
-      "0": " Aucun effet :x: ",
-      "1": " Vie :heart: + ",
-      "2": " Vitesse :rocket: + ",
-      "3": " Attaque :crossed_swords: + ",
-      "4": " Defense :shield: + ",
-      "5": " Avance le temps :clock1030: plus rapidement pendant ",
-      "6": " Argent :moneybag: + "
-    },
-    "outroObject": {
-      "1": " par jour",
-      "2": " pendant les combats",
-      "3": " pendant les combats",
-      "4": " pendant les combats",
-      "6": " par jour"
-    },
-    "outroPotion": {
-      "1": "",
-      "2": " pendant le prochain combat",
-      "3": " pendant le prochain combat",
-      "4": " pendant le prochain combat",
-      "5": " heure(s)",
-      "6": ""
-    }
-  },
-
   "nothingToSay": {
     "1": "** | :smiley: Aucun incident ni évènement notable à signaler.",
     "2": "** | :smiley: Il ne s'est rien passé de particulier depuis le précédent rapport.",

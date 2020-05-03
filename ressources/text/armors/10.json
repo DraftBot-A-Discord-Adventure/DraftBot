@@ -4,5 +4,5 @@
 		"en": ":shield: **Heavy shield**"
 	},
 	"rarity": 4,
-	"power": 4
+	"rawDefense": 4
 }

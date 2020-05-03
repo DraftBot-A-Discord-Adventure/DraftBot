@@ -4,5 +4,5 @@
 		"en": ":shield:  **Vibranium shield**"
 	},
 	"rarity": 8,
-	"power": 10
+	"rawDefense": 10
 }

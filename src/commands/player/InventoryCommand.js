@@ -11,18 +11,21 @@ const InventoryCommand = async (language, message, args) => {
     player = await getRepository('player').getByMessageOrCreate(message);
 
     if (player.effect === EFFECT.BABY) {
-      return await error(message, language, JsonReader.error.getTranslation(language).meIsBaby);
+      return await error(message, language,
+          JsonReader.error.getTranslation(language).meIsBaby);
     }
   } else {
     player = await getRepository('player').getByArgs(args, message);
 
     if (player.effect === EFFECT.BABY) {
-      return await error(message, language, format(JsonReader.error.getTranslation(language).playerIsBaby, {askedPseudo: player.getPseudo(language),}));
+      return await error(message, language,
+          format(JsonReader.error.getTranslation(language).playerIsBaby,
+              {askedPseudo: player.getPseudo(language)}));
     }
   }
 
   let inventoryPlayer = await getRepository('inventory')
-      .getByPlayerId(player.discordId);
+      .getByPlayerIdOrCreate(player.discordId);
   let inventoryEmbed = await inventoryPlayer.toEmbedObject(language);
 
   return await message.channel.send(

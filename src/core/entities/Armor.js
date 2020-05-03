@@ -1,29 +1,19 @@
 const ItemAbstract = require('entities/ItemAbstract');
 
 /**
- * @property {Number} id
- * @property {Number} rarity
- * @property {Number} power
- * @property {Object} translations
- * @property {String} translations.fr
- * @property {String} translations.en
- * @property {Number} effect
+ * @propery {Number} id
+ * @propery {Number} rarity
+ * @propery {Object} translations
+ * @propery {String} translations.fr
+ * @propery {String} translations.en
+ * @propery {Number} rawAttack
+ * @propery {Number} attack
+ * @propery {Number} rawDefense
+ * @propery {Number} defense
+ * @propery {Number} rawSpeed
+ * @propery {Number} speed
  */
 class Armor extends ItemAbstract {
-
-  /**
-   * @param {Number} id
-   * @param {Number} rarity
-   * @param {Number} power
-   * @param {Object} translations
-   * @param {String} translations.fr
-   * @param {String} translations.en
-   * @param {Number} effect
-   */
-  constructor({id, rarity, power, translations, effect}) {
-    super({id, rarity, power, translations});
-    this.effect = JsonReader.effect[this.rarity][this.power];
-  }
 
   /**
    * Return an object of weapon for display purposes
@@ -34,20 +24,12 @@ class Armor extends ItemAbstract {
     return {
       name: JsonReader.entities.armor.getTranslation(language).fieldName,
       value: (this.id === 0) ? this.getTranslation(language) : format(
-          JsonReader.entities.armor.getTranslation(language).fieldValue, {
+          JsonReader.entities.d_object.getTranslation(language).fieldValue, {
             name: this.getTranslation(language),
-            defense: this.getDefense(),
             rarity: this.getRarityTranslation(language),
+            values: this.getValues(language),
           }),
     };
-  }
-
-  /**
-   * Return the realPower of the armor
-   * @returns {Number}
-   */
-  getDefense() {
-    return JsonReader.effect[this.rarity][this.power];
   }
 
 }

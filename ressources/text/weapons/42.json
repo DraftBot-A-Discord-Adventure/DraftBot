@@ -4,5 +4,5 @@
 		"en": ":gun: **Loaded gun**"
 	},
 	"rarity": 6,
-	"power": 10
+	"rawAttack": 10
 }

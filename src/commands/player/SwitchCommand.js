@@ -8,9 +8,7 @@ const SwitchCommand = async (language, message, args) => {
   let player = await getRepository('player').getByMessageOrCreate(message);
 
   if (player.effect === EFFECT.BABY) {
-    return await message.channel.send(
-        format(JsonReader.error.getTranslation(language).meIsBaby,
-            {pseudo: player.getPseudo(language)}));
+    return await error(message, language, JsonReader.error.getTranslation(language).meIsBaby);
   }
 
   let inventory = await getRepository('inventory')

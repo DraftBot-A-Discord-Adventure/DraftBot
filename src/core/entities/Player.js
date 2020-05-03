@@ -60,7 +60,8 @@ class Player extends Entity {
     this.rank = rank;
     this.weeklyRank = weeklyRank;
 
-    if (this.discordId !== undefined && client.users.cache.get(this.discordId) !== null) {
+    if (this.discordId !== undefined &&
+        client.users.cache.get(this.discordId) !== null) {
       this.pseudo = client.users.cache.get(this.discordId).username;
     } else {
       this.pseudo = null;
@@ -70,12 +71,13 @@ class Player extends Entity {
   /**
    * Return an object of player for display purposes
    * @param {("fr"|"en")} language - The language the object has to be displayed in
+   * @param {module:"discord.js".Message} message - Message from the discord server
    * @returns {Object}
    */
-  async toEmbedObject(language) {
+  async toEmbedObject(language, message) {
     let result = {
       title: format(
-          JsonReader.commands.profile.getTranslation(language).title, {
+          JsonReader.entities.player.getTranslation(language).title, {
             effect: this.effect,
             pseudo: this.getPseudo(language),
             level: this.level,
@@ -84,54 +86,61 @@ class Player extends Entity {
     };
 
     result.fields.push({
-      name: JsonReader.commands.profile.getTranslation(language).infoName,
-      value: format(JsonReader.commands.profile.getTranslation(language).info, {
+      name: JsonReader.entities.player.getTranslation(
+          language).information.fieldName,
+      value: format(JsonReader.entities.player.getTranslation(
+          language).information.fieldValue, {
         health: this.health,
         maxHealth: this.maxHealth,
         experience: this.experience,
         experienceNeededToLevelUp: this.getExperienceNeededToLevelUp(),
         money: this.money,
+      }),
+    });
+
+    let inventory = await getRepository('inventory')
+        .getByPlayerIdOrCreate(this.discordId);
+    let weapon = await getRepository('weapon').getById(inventory.weaponId);
+    let armor = await getRepository('armor').getById(inventory.armorId);
+    let potion = await getRepository('potion').getById(inventory.potionId);
+    let object = await getRepository('object').getById(inventory.objectId);
+
+    result.fields.push({
+      name: JsonReader.entities.player.getTranslation(
+          language).statistique.fieldName,
+      value: format(JsonReader.entities.player.getTranslation(
+          language).statistique.fieldValue, {
+        cumulativeAttack: (await this.getCumulativeAttack(weapon, armor, potion,
+            object)),
+        cumulativeDefense: (await this.getCumulativeDefense(weapon, armor,
+            potion, object)),
+        cumulativeSpeed: (await this.getCumulativeSpeed(weapon, armor, potion,
+            object)),
+        cumulativeMaxHealth: (await this.getCumulativeHealth()),
       }),
     });
 
     result.fields.push({
-      name: JsonReader.commands.profile.getTranslation(language).statName,
-      value: format(JsonReader.commands.profile.getTranslation(language).info, {
-        health: this.health,
-        maxHealth: this.maxHealth,
-        experience: this.experience,
-        experienceNeededToLevelUp: this.getExperienceNeededToLevelUp(),
-        money: this.money,
+      name: JsonReader.entities.player.getTranslation(
+          language).classement.fieldName,
+      value: format(JsonReader.entities.player.getTranslation(
+          language).classement.fieldValue, {
+        rank: this.rank,
+        numberOfPlayer: (await getRepository('player').getNumberOfPlayers()),
+        score: this.score,
       }),
     });
 
-    let numberOfPlayer = await getRepository('player').getNumberOfPlayers();
-
-    // result.push({
-    //   name: Config.text[language].commands.profile.stats,
-    //   value: Config.text[language].commands.profile.statsAttack +
-    //       this.get('attack') +
-    //       Config.text[language].commands.profile.statsDefense +
-    //       this.get('defense') +
-    //       Config.text[language].commands.profile.statsSpeed +
-    //       this.get('speed') +
-    //       Config.text[language].commands.profile.statsFightPower +
-    //       this.getFightPower(),
-    //   inline: false,
-    // });
-    // result.push({
-    //   name: Config.text[language].commands.profile.rankAndScore,
-    //   value: Config.text[language].commands.profile.rank + this.get('rank') +
-    //       Config.text[language].commands.profile.separator + numberOfPlayer +
-    //       Config.text[language].commands.profile.score + this.get('score'),
-    //   inline: false,
-    // });
-
-    // return [{
-    //   name: Config.text[language].commands.inventory.armorTitle,
-    //   value: (this.id === "default") ? this.getTranslation(language) : this.getTranslation(language) + Config.text[language].equipementManager.separator1 + this.get('effect') + Config.text[language].equipementManager.separator2 + Config.text[language].rarities[this.get('rarity')],
-    //   inline:  false
-    // }];
+    let timeLeft = await this.checkEffect(language, message);
+    if (timeLeft !== true) {
+      result.fields.push({
+        name: JsonReader.commands.profile.getTranslation(
+            language).timeLeft.fieldName,
+        value: format(JsonReader.commands.profile.getTranslation(
+            language).timeLeft.fieldValue,
+            {effect: this.effect, timeLeft: timeLeft}),
+      });
+    }
 
     return result;
   }
@@ -243,11 +252,50 @@ class Player extends Entity {
   }
 
   /**
-   * Returns this player instance's current fight power
+   * Returns this player instance's current cumulative attack
+   * @param {Weapon} weapon
+   * @param {Armor} armor
+   * @param {Potion} potion
+   * @param {D_Object} object
    * @return {Number}
    */
-  getFightPower() {
-    return this.get('maxHealth') + (this.get('level') * 10);
+  async getCumulativeAttack(weapon, armor, potion, object) {
+    return this.attack + weapon.getAttack() + armor.getAttack() +
+        potion.getAttack() + object.getAttack();
+  }
+
+  /**
+   * Returns this player instance's current cumulative defense
+   * @param {Weapon} weapon
+   * @param {Armor} armor
+   * @param {Potion} potion
+   * @param {D_Object} object
+   * @return {Number}
+   */
+  async getCumulativeDefense(weapon, armor, potion, object) {
+    return this.defense + weapon.getDefense() + armor.getDefense() +
+        potion.getDefense() + object.getDefense();
+  }
+
+  /**
+   * Returns this player instance's current cumulative speed
+   * @param {Weapon} weapon
+   * @param {Armor} armor
+   * @param {Potion} potion
+   * @param {D_Object} object
+   * @return {Number}
+   */
+  async getCumulativeSpeed(weapon, armor, potion, object) {
+    return this.speed + weapon.getSpeed() + armor.getSpeed() +
+        potion.getSpeed() + object.getSpeed();
+  }
+
+  /**
+   * Returns this player instance's current cumulative health
+   * @return {Number}
+   */
+  async getCumulativeHealth() {
+    return this.maxHealth + (this.level * 10);
   }
 
   /**
@@ -274,45 +322,20 @@ class Player extends Entity {
   /**
    * @param {("fr"|"en")} language
    * @param {module:"discord.js".Message} message
-   * @return {Promise<boolean|any>}
+   * @return {Promise<Boolean|String>}
    */
   async checkEffect(language, message) {
-    if (':baby::smiley:'.includes(this.get('effect'))) {
+    if ([EFFECT.BABY, EFFECT.SMILEY].indexOf(this.effect) !== -1) {
       return true;
     }
 
-    if (this.get('effect') !== ':clock10:' && this.get('effect') !==
-        ':skull:' && message.createdTimestamp >= this.get('lastReport')) {
+    if (this.effect !== EFFECT.CLOCK10 && this.effect !== EFFECT.SKULL &&
+        message.createdTimestamp >= this.lastReport) {
       return true;
     }
 
-    let resultMessage = this.get('effect') +
-        Config.text[language].playerManager.intro + this.get('pseudo') +
-        Config.text[language].playerManager.errorMain[this.get('effect')] +
-        this.getTimeLeft(language, message);
-
-    await message.channel.send(resultMessage);
-
-    return false;
-  }
-
-  /**
-   * @param {("fr"|"en")} language
-   * @param {module:"discord.js".Message} message
-   * @return {string|null}
-   */
-  getTimeLeft(language, message) {
-    if (!':clock10::skull:'.includes(this.get('effect'))) {
-      if (message.createdTimestamp < this.get('lastReport')) {
-        return Config.text[language].playerManager.timeLeft +
-            Tools.minutesToString(Tools.millisecondsToMinutes(
-                this.get('lastReport') - message.createdTimestamp)) +
-            Config.text[language].playerManager.outro;
-      } else {
-        return Config.text[language].playerManager.noTimeLeft;
-      }
-    }
-    return '';
+    return minutesToString(millisecondsToMinutes(
+        this.lastReport - message.createdTimestamp));
   }
 
   // TODO 2.0 Legacy code

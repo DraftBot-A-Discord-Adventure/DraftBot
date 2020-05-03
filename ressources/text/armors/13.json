@@ -4,5 +4,5 @@
 		"en": ":shield: **Ultimate shield**"
 	},
 	"rarity": 7,
-	"power": 10
+	"rawDefense": 10
 }

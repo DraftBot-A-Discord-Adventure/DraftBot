@@ -1,38 +1,16 @@
 {
 	"translations": {
 		"fr": {
-			"timeleft": " Temps restant :",
-			"main": " | ",
-			"rank": ":trophy: ",
-			"score": " | :medal:",
-			"rankAndScore": "Classement et Score :",
-			"statsAttack": " :dagger: ",
-			"statsDefense": " | :shield: ",
-			"statsSpeed": " | :rocket: ",
-			"statsFightPower": " | :blue_heart: ",
-
-			"title": "{effect} | {pseudo} | Niveau {level}",
-			"infoName": "Informations :",
-			"info": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}",
-			"statName": "Statistiques :",
-			"stat": ""
+			"timeLeft": {
+				"fieldName": "Temps restant :",
+				"fieldValue": "{effect} {timeLeft}"
+			}
 		},
 		"en": {
-			"timeleft": "Time Left:",
-			"main": " | ",
-			"rank": ":trophy: ",
-			"score": " | :medal:",
-			"rankAndScore": "Ranking and score :",
-			"statsAttack": " :dagger: ",
-			"statsDefense": " | :shield: ",
-			"statsSpeed": " | :rocket: ",
-			"statsFightPower": " | :blue_heart: ",
-
-			"title": "{effect} | {pseudo} | Level {level}",
-			"infoName": "Information :",
-			"info": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}",
-			"statName": "Stats :",
-			"stat": ""
+			"timeLeft": {
+				"fieldName": "Time left :",
+				"fieldValue": "{effect} {timeLeft}"
+			}
 		}
 	}
 }

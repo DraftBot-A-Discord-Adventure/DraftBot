@@ -4,5 +4,5 @@
 		"en": ":shield:  **Lynel's shield**"
 	},
 	"rarity": 4,
-	"power": 9
+	"rawDefense": 9
 }

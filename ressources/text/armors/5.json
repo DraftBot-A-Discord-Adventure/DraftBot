@@ -4,5 +4,5 @@
 		"en": ":shield: **Iron shield**"
 	},
 	"rarity": 4,
-	"power": 5
+	"rawDefense": 5
 }

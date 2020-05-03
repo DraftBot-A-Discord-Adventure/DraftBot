@@ -15,7 +15,7 @@ class ServerRepository extends AppRepository {
   /**
    * Allow to get the current server
    * @param {Number} id
-   * @return {Promise<Server|boolean|void>}
+   * @return {Promise<Server|Boolean|void>}
    */
   async getById(id) {
     return await this.sql

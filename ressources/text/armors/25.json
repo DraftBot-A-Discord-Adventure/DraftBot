@@ -4,5 +4,5 @@
 		"en": ":shield:  **Warrior's shield**"
 	},
 	"rarity": 3,
-	"power": 5
+	"rawDefense": 5
 }

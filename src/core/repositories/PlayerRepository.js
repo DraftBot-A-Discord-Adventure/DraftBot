@@ -186,30 +186,6 @@ class PlayerRepository extends AppRepository {
   // }
   //
   // /**
-  //  * Allow to save the current state of a player in the database
-  //  * @param {*} player - The player that has to be saved
-  //  */
-  // updatePlayer(player) {
-  //   console.log("Updating player ...");
-  //   sql.run(`UPDATE entity SET maxHealth = ?, health = ?, attack = ?, defense = ?, speed = ?, effect = ? WHERE id = ?`,
-  //       [player.maxHealth, player.health, player.attack, player.defense, player.speed, "" + player.effect, player.discordId]).catch(console.error);
-  //   sql.run(``,
-  //       [player.score, player.level, player.experience, player.money, player.lastReport, "" + player.badges, player.weeklyScore, player.guildId, player.discordId]).catch(console.error);
-  //   console.log("Player updated !");
-  // }
-  //
-  // /**
-  //  * Allow to save the new score of a player without saving the other attributes
-  //  * @param {*} player - The player that has to be saved
-  //  */
-  // updatePlayerScore(player) {
-  //   console.log("Updating player ...");
-  //   sql.run(`UPDATE player SET score = ? WHERE discordId = ?`, [player.score, player.discordId]).catch(console.error);
-  //   sql.run(`UPDATE player SET weeklyScore = ? WHERE discordId = ?`, [player.weeklyScore, player.discordId]).catch(console.error);
-  //   console.log("Player updated !");
-  // }
-  //
-  // /**
   //  * Get the total number of player in the database that are on the idList given
   //  * @param {*} idList the list of id of the users of a server
   //  */
@@ -237,20 +213,6 @@ class PlayerRepository extends AppRepository {
   //         console.error(error)
   //         return 0;
   //       });
-  // }
-  //
-  // /**
-  //  * Allow to get the language the bot has to respond with
-  //  * @param message - The message that caused the function to be called. Used to retrieve the author of the message.
-  //  * @returns {String} - the code of the server language
-  //  */
-  // async detectLanguage(message) {
-  //   let serverManager = new ServerManager();
-  //   let server = await serverManager.getServer(message);
-  //   if (message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-  //     server.language = "en";
-  //   }
-  //   return server.language;
   // }
   //
   // /**
@@ -623,17 +585,6 @@ class PlayerRepository extends AppRepository {
   //       i++;
   //     });
   //     return i === 0 ? null : playerArray;
-  //   });
-  // }
-  //
-  // /**
-  //  * @returns {*} -The rank of the player
-  //  */
-  // async getPlayerRank(playerId) {
-  //   return sql.all(`select *from(SELECT *, ROW_NUMBER () OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM player) WHERE discordId = ? AND score > 100 ORDER BY score DESC`, [playerId]).then(player => {
-  //     let playerRank = player[0];
-  //     if (playerRank === undefined) return "0";
-  //     return playerRank.rank;
   //   });
   // }
   //

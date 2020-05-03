@@ -1,12 +1,10 @@
 {
   "translations": {
     "fr": {
-      "fieldName": "Armure/Bouclier :",
-      "fieldValue": "{name} | Défense {defense} | {rarity}"
+      "fieldName": "Armure/Bouclier :"
     },
     "en": {
-      "fieldName": "Armor/Shield :",
-      "fieldValue": "{name} | Defense {defense} | {rarity}"
+      "fieldName": "Armor/Shield :"
     }
   }
 }

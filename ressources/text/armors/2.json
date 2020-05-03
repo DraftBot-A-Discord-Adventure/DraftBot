@@ -4,5 +4,5 @@
 		"en": ":helmet_with_cross: **Security helmet**"
 	},
 	"rarity": 1,
-	"power": 6
+	"rawDefense": 6
 }
