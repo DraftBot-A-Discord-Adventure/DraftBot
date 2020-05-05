@@ -51,8 +51,9 @@ class PlayerRepository extends AppRepository {
    * @return {Promise<Player>}
    */
   async getById(id) {
-    return this.sql.get(`SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = ?`,
-        id)
+    return this.sql
+        .get(`SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = ?`,
+            id)
         .then(player => {
           if (player) {
             return new Player(player);

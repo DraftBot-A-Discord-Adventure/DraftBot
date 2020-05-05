@@ -1,25 +1,27 @@
 {
 	"translations": {
 		"fr": {
-			"start": ":newspaper: ** Journal de {pseudo} {event}",
-			"points": " :** :medal:  Points gagnés : **",
-			"moneyWin": "** | :moneybag: Argent gagné : **",
-			"xpWin": "** | :star: XP gagné : **",
-			"moneyLoose": "** | :money_with_wings: Argent perdu : **",
-			"healthLoose": "** | :broken_heart: Vie perdue : **",
-			"healthWin": "** | :heart: Vie gagnée : **",
-			"timeLost": "** | :clock10: Temps perdu : **",
+			"doEvent": ":newspaper: ** Journal de {pseudo} {event}",
+			"doPossibility": ":newspaper: ** Journal de {pseudo} {result} {event}",
+			"points": " :** :medal: Points gagnés : ** {score}",
+			"money": "** | :moneybag: Argent gagné : ** {money}",
+			"experience": "** | :star: XP gagné : ** {experience}",
+			"moneyLoose": "** | :money_with_wings: Argent perdu : ** {money}",
+			"healthLoose": "** | :broken_heart: Vie perdue : ** {health}",
+			"health": "** | :heart: Vie gagnée : ** {health}",
+			"timeLost": "** | :clock10: Temps perdu : ** {timeLost}",
 			"noReport": ":newspaper: ** Journal de {pseudo} : ** :x: Aucun nouveau rapport n'a été transmis ! Revenez dans quelques heures !"
 		},
 		"en": {
-			"start": ":newspaper: ** Journal of {pseudo} {event}",
-			"points": " :** :medal:  Points earned: **",
-			"moneyWin": "**| :moneybag: Money earned: **",
-			"xpWin": "** | :star: XP earned: **",
-			"moneyLoose": "** | :money_with_wings: Money lost: **",
-			"healthLoose": "** | :broken_heart: Life lost: **",
-			"healthWin": "** | :heart: Life gained: **",
-			"timeLost": "** | :clock10: Time spent: **",
+			"doEvent": ":newspaper: ** Journal of {pseudo} {event}",
+			"doPossibility": ":newspaper: ** Journal of {pseudo} {result} {event}",
+			"points": " :** :medal: Points earned: ** {score}",
+			"money": "**| :moneybag: Money earned: ** {money}",
+			"experience": "** | :star: XP earned: ** {experience}",
+			"moneyLoose": "** | :money_with_wings: Money lost: ** {money}",
+			"healthLoose": "** | :broken_heart: Life lost: ** {health}",
+			"health": "** | :heart: Life gained: ** {health}",
+			"timeLost": "** | :clock10: Time spent: ** {timeLost}",
 			"noReport": ":newspaper: ** Journal of {pseudo} : ** :x: You don’t have any new reports! Come back in a few hours!"
 		}
 	},
