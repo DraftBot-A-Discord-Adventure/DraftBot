@@ -6,29 +6,23 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: false
     },
-    prefix: DataTypes.STRING(10),
-    language: DataTypes.STRING(2)
+    prefix: {
+      type: DataTypes.STRING(10),
+      defaultValue: JsonReader.entities.server.prefix
+    },
+    language: {
+      type: DataTypes.STRING(2),
+      defaultValue: JsonReader.entities.server.language
+    }
   }, {
-    tableName: 'server',
+    tableName: 'server', // Default table name is plurial, which is right, draftbot is wrong ! maybe rename all database to plurial form
     freezeTableName: true,
     timestamps: false
   });
 
   /**
-   * @param {String} id
-   * @return {Promise<[Server, boolean]>}
+   * @return {string}
    */
-  Server.getByIdOrCreate = async (id) => {
-    return Server.findOrCreate({
-      where: {id: id},
-      defaults: {
-        id: id,
-        prefix: JsonReader.entities.server.prefix,
-        language: JsonReader.entities.server.language
-      }
-    });
-  };
-
   Server.prototype.echo = function() {
       return `ID: ${this.id}, PREFIX: ${this.prefix}, LANGUAGE: ${this.language}`.green;
   };
