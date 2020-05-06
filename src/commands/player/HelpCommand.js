@@ -11,10 +11,7 @@ const HelpCommand = async (language, message, args) => {
     helpMessage = format(JsonReader.commands.help.getTranslation(language).main, {pseudo: message.author.username});
   }
 
-  if (client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
-      .members
-      .cache
-      .find(val => val.id === message.author.id) === undefined) {
+  if (client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID).members.cache.find(val => val.id === message.author.id) === undefined) {
     await message.author.send(JsonReader.commands.help.getTranslation(language).mp);
   }
 

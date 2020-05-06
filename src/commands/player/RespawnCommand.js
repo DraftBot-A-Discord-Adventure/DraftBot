@@ -5,7 +5,12 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const RespawnCommand = async (language, message, args) => {
+
   let player = await getRepository('player').getByMessageOrCreate(message);
+
+  if (!(await canPerformCommand(message, language, PERMISSION.ROLE.ALL, PERMISSION.EFFECT.SKULL, player))) {
+    return;
+  }
 
   if (player.effect !== EFFECT.SKULL) {
     await message.channel.send(

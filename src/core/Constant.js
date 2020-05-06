@@ -12,3 +12,15 @@ global.EFFECT = {
   SKULL: ":skull:"
   // TODO 2.0 Terminer
 };
+
+global.PERMISSION = {
+  ROLE: {
+    ADMINISTRATOR: 'administrator',
+    MANAGER: 'manager',
+    ALL: 'all'
+  },
+  EFFECT: {
+    SKULL: 'skull',
+    ALL: 'all'
+  }
+};

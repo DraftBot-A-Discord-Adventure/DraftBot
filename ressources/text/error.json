@@ -1,9 +1,9 @@
 {
 	"translations": {
 		"fr": {
-			"title": ":x: | ** {pseudo} **",
+			"title": ", vous êtes actuellement K.O !",
 			"meIsBaby": "Utilisez la commande `report` pour commencer votre aventure !",
-			"meIsSkull": "Vous êtes actuellement K.O ! Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
+			"meIsSkull": "Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
 
 			"playerIsBaby": "{askedPseudo} semble ne pas avoir commencé l'aventure !",
 			"playerIsSkull": "TODO"

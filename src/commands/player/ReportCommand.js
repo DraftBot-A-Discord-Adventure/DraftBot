@@ -5,19 +5,21 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ReportCommand = async function(language, message, args) {
-  let player = await getRepository('player').getByMessageOrCreate(message);
-  
-  // TODO -- Do a blocking handler
-  if (hasBlockedPlayer(message.author.id)) {
-    // TODO 2.0 errorMeBlocked
-    let context = getBlockedPlayer(message.author.id);
-    return await message.channel.send(context);
-  }
 
-  let checkEffect = await player.checkEffect(message);
-  if (checkEffect !== true) {
-    return await errorMe(message, language, player);
-  }
+  const PERMISSIONS = [];
+
+  let player = await getRepository('player').getByMessageOrCreate(message);
+
+  // TODO -- Do a blocking handler
+  let result = await canPerformCommand(message, [], []);
+
+  console.log(player);
+  return;
+
+  // let checkEffect = await player.checkEffect(message);
+  // if (checkEffect !== true) {
+  //   return await errorMe(message, language, player);
+  // }
   // TODO -- END a blocking handler
 
   let time = millisecondsToMinutes(message.createdTimestamp - player.lastReport);

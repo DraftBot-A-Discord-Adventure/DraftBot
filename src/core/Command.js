@@ -91,7 +91,7 @@ class Command {
 
       await Command.launchCommand(server.language, server.prefix, message);
     } else {
-      if (this.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) ===
+      if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) ===
           JsonReader.app.BOT_OWNER_PREFIX && message.author.id ===
           JsonReader.app.BOT_OWNER_ID) {
         await Command.launchCommand(server.language,

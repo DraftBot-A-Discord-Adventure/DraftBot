@@ -8,6 +8,13 @@ const Draftbot = require('core/DraftBot');
 
   await Drafbot.init();
 
+  // --- SEQUELIZE EXAMPLE START
+  let serverSet = await getModel('server').findAll();
+  serverSet.forEach(item => {
+    console.log(item.echo());
+  });
+  // --- SEQUELIZE EXAMPLE END
+
   /**
    * Will be executed whenever the bot has started
    * @return {Promise<void>}

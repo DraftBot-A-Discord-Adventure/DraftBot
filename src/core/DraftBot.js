@@ -12,7 +12,7 @@ class DraftBot {
         'ressources/text/power.json',
       ],
     });
-    await (require('core/Repository')).init();
+    await (require('core/Database')).init();
     await (require('core/Command')).init();
 
     // TODO 2.1
