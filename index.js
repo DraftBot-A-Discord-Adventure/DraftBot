@@ -13,6 +13,13 @@ const Draftbot = require('core/DraftBot');
   serverSet.forEach(item => {
     console.log(item.echo());
   });
+
+  let randomID = Math.random();
+  console.log(`Creating : ${randomID}`);
+  let serverSet2 = await getModel('server').getByIdOrCreate(randomID);
+  serverSet2.forEach(item => {
+    console.log(item.echo());
+  });
   // --- SEQUELIZE EXAMPLE END
 
   /**
