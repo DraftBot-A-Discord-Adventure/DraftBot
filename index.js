@@ -8,26 +8,6 @@ const Draftbot = require('core/DraftBot');
 
   await Drafbot.init();
 
-  // --- SEQUELIZE EXAMPLE START
-  // Create a new server
-  let randomID = Math.random();
-  console.log(`Creating : ${randomID}`);
-  /**
-   * @typedef {Server} Server
-   */
-  let [server, created] = await Server.findOrCreate({
-    where: {id: randomID}
-  });
-  console.log(server.echo());
-  console.log(created);
-
-  // Get all servers
-  let servers = await Server.findAll();
-  servers.forEach(server => {
-    console.log(server.echo());
-  });
-  // --- SEQUELIZE EXAMPLE END
-
   /**
    * Will be executed whenever the bot has started
    * @return {Promise<void>}

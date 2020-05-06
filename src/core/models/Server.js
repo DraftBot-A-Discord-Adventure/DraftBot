@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: JsonReader.entities.server.language
     }
   }, {
-    tableName: 'server', // Default table name is plurial, which is right, draftbot is wrong ! maybe rename all database to plurial form
+    tableName: 'servers',
     freezeTableName: true,
     timestamps: false
   });
