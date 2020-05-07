@@ -73,44 +73,17 @@ class Database {
     )`);
     let dbMigrations = await Database.sequelize.query(`SELECT id, name, up, down FROM "${table}" ORDER BY id ASC`);
 
-    const lastMigration = migrations[migrations.length - 1];
-    for (const migration of dbMigrations[0].slice().sort((a, b) => Math.sign(b.id - a.id))) {
-      if (!migrations.some(x => x.id === migration.id) || (force && migration.id === lastMigration.id)) {
-        await Database.sequelize.query('BEGIN');
-        try {
-          let queries = migration.down.split('\r\n');
-          queries.forEach(query => {
-            if (query !== '') {
-              Database.sequelize.query(query)
-                  .catch((err) => {console.log(err);});
-            }
-          });
-          await Database.sequelize.query(`DELETE FROM "${table}" WHERE id = ${migration.id}`);
-          await Database.sequelize.query('COMMIT');
-          dbMigrations[0] = dbMigrations[0].filter(x => x.id !== migration.id);
-        }
-        catch (err) {
-          await Database.sequelize.query('ROLLBACK');
-          throw err;
-        }
-      }
-      else {
-        break;
-      }
-    }
-
     const lastMigrationId = dbMigrations[0].length ? dbMigrations[0][dbMigrations[0].length - 1].id : 0;
     for (const migration of migrations) {
       if (migration.id > lastMigrationId) {
         await Database.sequelize.query('BEGIN');
         try {
           let queries = migration.up.split('\r\n');
-          queries.forEach(query => {
-            if (query !== '') {
-              Database.sequelize.query(query)
-                  .catch((err) => {console.log(err);});
+          for (const entry of queries) {
+            if (entry !== '') {
+              Database.sequelize.query(entry);
             }
-          });
+          }
           await Database.sequelize.query(`INSERT INTO "${table}" (id, name, up, down) VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`);
           await Database.sequelize.query('COMMIT');
         }
