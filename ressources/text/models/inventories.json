@@ -7,10 +7,10 @@
 			"title": ":briefcase: ** {pseudo}'s inventory : **"
 		}
 	},
-	"weaponId": 0,
-	"armorId": 0,
-	"potionId": 0,
-	"objectId": 0,
-	"backupItemId": 0,
-	"lastDaily": null
+	"lastDailyAt": null,
+	"weapon_id": 0,
+	"armor_id": 0,
+	"potion_id": 0,
+	"object_id": 0,
+	"backup_id": 0
 }

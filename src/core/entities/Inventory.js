@@ -39,7 +39,7 @@ class Inventory extends EntityAbstract {
   async toEmbedObject(language) {
     let result = {
       title: format(
-          JsonReader.entities.inventory.getTranslation(language).title, {
+          JsonReader.models.inventories.getTranslation(language).title, {
             pseudo: (await getRepository('player')
                 .getByIdOrCreate(this.playerId)).getPseudo(language),
           }),

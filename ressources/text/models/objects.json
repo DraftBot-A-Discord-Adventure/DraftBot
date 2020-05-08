@@ -46,5 +46,8 @@
         ":moneybag: Money + {power} per day"
       ]
     }
-  }
+  },
+  "rarity": 0,
+  "power": 0,
+  "nature": 0
 }

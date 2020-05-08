@@ -1,31 +1,33 @@
 module.exports = (sequelize, DataTypes) => {
 
-  const Server = sequelize.define('Server', {
+  const Servers = sequelize.define('Servers', {
     id: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: false
+      autoIncrement: true
     },
     prefix: {
       type: DataTypes.STRING(10),
-      defaultValue: JsonReader.entities.server.prefix
+      defaultValue: JsonReader.models.servers.prefix
     },
     language: {
       type: DataTypes.STRING(2),
-      defaultValue: JsonReader.entities.server.language
+      defaultValue: JsonReader.models.servers.language
+    },
+    discordGuild_id: {
+      type: DataTypes.STRING(64)
     }
   }, {
     tableName: 'servers',
-    freezeTableName: true,
-    timestamps: false
+    freezeTableName: true
   });
 
   /**
    * @return {string}
    */
-  Server.prototype.echo = function() {
+  Servers.prototype.echo = function() {
       return `ID: ${this.id}, PREFIX: ${this.prefix}, LANGUAGE: ${this.language}`.green;
   };
 
-  return Server;
+  return Servers;
 };

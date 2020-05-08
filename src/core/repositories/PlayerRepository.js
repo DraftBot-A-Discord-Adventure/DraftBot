@@ -39,7 +39,7 @@ class PlayerRepository extends AppRepository {
                 Object.assign({
                   id: id,
                   lastReport: timestamp,
-                }, JsonReader.entities.player)));
+                }, JsonReader.models.player)));
           }
         })
         .catch(console.error);

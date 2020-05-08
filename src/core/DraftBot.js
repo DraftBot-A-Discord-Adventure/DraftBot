@@ -2,7 +2,7 @@ class DraftBot {
 
   static async init() {
     await (require('core/JsonReader')).init({
-      folders: ['ressources/text/commands', 'ressources/text/entities'],
+      folders: ['ressources/text/commands', 'ressources/text/models'],
       files: [
         'config/app.json',
         'draftbot/package.json',

@@ -46,9 +46,9 @@ class D_Object extends ItemAbstract {
      */
     toFieldObject(language, slot) {
         return {
-            name: JsonReader.entities.d_object.getTranslation(language)[slot].fieldName,
+            name: JsonReader.models.objects.getTranslation(language)[slot].fieldName,
             value: (this.id === 0) ? this.getTranslation(language) : format(
-                JsonReader.entities.d_object.getTranslation(language)[slot].fieldValue, {
+                JsonReader.models.objects.getTranslation(language)[slot].fieldValue, {
                     name: this.getTranslation(language),
                     rarity: this.getRarityTranslation(language),
                     nature: this.getNatureTranslation(language),
@@ -62,7 +62,7 @@ class D_Object extends ItemAbstract {
      * @returns {String}
      */
     getNatureTranslation(language) {
-        return format(JsonReader.entities.d_object.getTranslation(language).natures[this.nature], {power: this.power});
+        return format(JsonReader.models.objects.getTranslation(language).natures[this.nature], {power: this.power});
     }
 
     /**

@@ -45,9 +45,9 @@ class Potion extends ItemAbstract {
      */
     toFieldObject(language) {
         return {
-            name: JsonReader.entities.potion.getTranslation(language).fieldName,
+            name: JsonReader.models.potions.getTranslation(language).fieldName,
             value: (this.id === 0) ? this.getTranslation(language) : format(
-                JsonReader.entities.potion.getTranslation(language).fieldValue, {
+                JsonReader.models.potions.getTranslation(language).fieldValue, {
                     name: this.getTranslation(language),
                     rarity: this.getRarityTranslation(language),
                     nature: this.getNatureTranslation(language),
@@ -61,7 +61,7 @@ class Potion extends ItemAbstract {
      * @returns {String}
      */
     getNatureTranslation(language) {
-        return format(JsonReader.entities.potion.getTranslation(language).natures[this.nature], {power: this.power});
+        return format(JsonReader.models.potions.getTranslation(language).natures[this.nature], {power: this.power});
     }
 
     /**

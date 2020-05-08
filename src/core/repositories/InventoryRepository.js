@@ -39,7 +39,7 @@ class InventoryRepository extends AppRepository {
             return await this.create(new Inventory(
                 Object.assign({
                   playerId: playerId,
-                }, JsonReader.entities.inventory)));
+                }, JsonReader.models.inventories)));
           }
         })
         .catch(console.error);

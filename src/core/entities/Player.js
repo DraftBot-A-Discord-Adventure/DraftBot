@@ -77,7 +77,7 @@ class Player extends Entity {
   async toEmbedObject(language, message) {
     let result = {
       title: format(
-          JsonReader.entities.player.getTranslation(language).title, {
+          JsonReader.models.players.getTranslation(language).title, {
             effect: this.effect,
             pseudo: this.getPseudo(language),
             level: this.level,
@@ -86,9 +86,9 @@ class Player extends Entity {
     };
 
     result.fields.push({
-      name: JsonReader.entities.player.getTranslation(
+      name: JsonReader.models.players.getTranslation(
           language).information.fieldName,
-      value: format(JsonReader.entities.player.getTranslation(
+      value: format(JsonReader.models.players.getTranslation(
           language).information.fieldValue, {
         health: this.health,
         maxHealth: this.maxHealth,
@@ -106,9 +106,9 @@ class Player extends Entity {
     let object = await getRepository('object').getById(inventory.objectId);
 
     result.fields.push({
-      name: JsonReader.entities.player.getTranslation(
+      name: JsonReader.models.players.getTranslation(
           language).statistique.fieldName,
-      value: format(JsonReader.entities.player.getTranslation(
+      value: format(JsonReader.models.players.getTranslation(
           language).statistique.fieldValue, {
         cumulativeAttack: (await this.getCumulativeAttack(weapon, armor, potion,
             object)),
@@ -121,9 +121,9 @@ class Player extends Entity {
     });
 
     result.fields.push({
-      name: JsonReader.entities.player.getTranslation(
+      name: JsonReader.models.players.getTranslation(
           language).classement.fieldName,
-      value: format(JsonReader.entities.player.getTranslation(
+      value: format(JsonReader.models.players.getTranslation(
           language).classement.fieldValue, {
         rank: this.rank,
         numberOfPlayer: (await getRepository('player').getNumberOfPlayers()),
@@ -216,7 +216,7 @@ class Player extends Entity {
    * @return {Number} Return the experience needed to level up.
    */
   getExperienceNeededToLevelUp() {
-    return JsonReader.entities.player.xp[this.level + 1];
+    return JsonReader.models.players.xp[this.level + 1];
   }
 
   /**
@@ -224,7 +224,7 @@ class Player extends Entity {
    * @returns {Number} Return the experience used to level up.
    */
   getExperienceUsedToLevelUp() {
-    return JsonReader.entities.player.xp[this.level];
+    return JsonReader.models.players.xp[this.level];
   }
 
   /**
@@ -324,7 +324,7 @@ class Player extends Entity {
    */
   setPseudo(language) {
     if (this.pseudo === null) {
-      this.pseudo = JsonReader.entities.player.getTranslation(
+      this.pseudo = JsonReader.models.players.getTranslation(
           language).unknownPlayer;
     }
   }
@@ -357,7 +357,7 @@ class Player extends Entity {
    * @param {String} effectMalus
    */
   setLastReportWithEffect(time, timeMalus, effectMalus) {
-    this.lastReport = time + minutesToMilliseconds(timeMalus) + JsonReader.entities.player.effectMalus[effectMalus];
+    this.lastReport = time + minutesToMilliseconds(timeMalus) + JsonReader.models.players.effectMalus[effectMalus];
   }
 
   // TODO 2.0 Legacy code

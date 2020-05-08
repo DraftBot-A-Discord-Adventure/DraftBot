@@ -22,9 +22,9 @@ class Weapon extends ItemAbstract {
    */
   toFieldObject(language) {
     return {
-      name: JsonReader.entities.weapon.getTranslation(language).fieldName,
+      name: JsonReader.models.weapons.getTranslation(language).fieldName,
       value: (this.id === 0) ? this.getTranslation(language) : format(
-          JsonReader.entities.d_object.getTranslation(language).fieldValue, {
+          JsonReader.models.objects.getTranslation(language).fieldValue, {
             name: this.getTranslation(language),
             rarity: this.getRarityTranslation(language),
             values: this.getValues(language),

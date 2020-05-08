@@ -33,21 +33,14 @@
 			}
 		}
 	},
-	"maxHealth": 100,
-	"health": 100,
-	"attack": 50,
-	"defense": 20,
-	"speed": 10,
-	"effect": ":baby:",
 	"score": 0,
 	"weeklyScore": 0,
 	"level": 0,
 	"experience": 0,
 	"money": 0,
 	"badges": null,
-	"rank": 0,
-	"weeklyRank": 0,
-	"guildId": null,
+	"lastReportAt": null,
+	"guild_id": null,
 	"xp": [
 		0,
 		150,

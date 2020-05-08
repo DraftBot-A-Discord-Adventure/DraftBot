@@ -15,15 +15,23 @@ class Database {
     });
 
     await Database.migrate();
-    await Database.setEverybodyAsUnOccupied();
 
     let modelsFiles = await fs.promises.readdir('src/core/models');
     for (let modelFile of modelsFiles) {
       let modelName = modelFile.split('.')[0];
       global[modelName] = Database.sequelize['import'](`models/${modelName}`);
     }
+
+    await Database.setAssociations();
+    await Database.populateJsonFilesTables([
+        'Armors', 'Weapons', 'Objects', 'Potions'
+    ]);
+    await Database.setEverybodyAsUnOccupied();
   }
 
+  /**
+   * @return {Promise<void>}
+   */
   static async migrate() {
     const config = {
       force: false,
@@ -95,8 +103,113 @@ class Database {
     }
   }
 
+  /**
+   * @return {Promise<void>}
+   */
+  static async setAssociations() {
+    Entities.hasOne(Players, {
+      foreignKey: 'entity_id',
+      as: 'Player'
+    });
+
+    Players.belongsTo(Entities, {
+      foreignKey: 'entity_id',
+      as: 'Entity'
+    });
+    Players.belongsTo(Guilds, {
+      foreignKey: 'guild_id',
+      as: 'Guild'
+    });
+    Players.belongsTo(Guilds, {
+      foreignKey: 'id',
+      targetKey: 'chief_id',
+      as: 'Chief'
+    });
+    Players.hasOne(Inventories, {
+      foreignKey: 'player_id',
+      as: 'Inventory'
+    });
+
+    Guilds.hasMany(Players, {
+      foreignKey: 'guild_id',
+      as: 'Members'
+    });
+    Guilds.hasOne(Players, {
+      foreignKey: 'id',
+      sourceKey: 'chief_id',
+      as: 'Chief'
+    });
+
+    Inventories.belongsTo(Players, {
+      foreignKey: 'player_id',
+      as: 'Player'
+    });
+    Inventories.hasOne(Weapons, {
+      foreignKey: 'id',
+      sourceKey: 'weapon_id',
+      as: 'Weapon'
+    });
+    Inventories.hasOne(Armors, {
+      foreignKey: 'id',
+      sourceKey: 'armor_id',
+      as: 'Armor'
+    });
+    Inventories.hasOne(Potions, {
+      foreignKey: 'id',
+      sourceKey: 'potion_id',
+      as: 'Potion'
+    });
+    Inventories.hasOne(Objects, {
+      foreignKey: 'id',
+      sourceKey: 'object_id',
+      as: 'ActiveObject'
+    });
+    Inventories.hasOne(Objects, {
+      foreignKey: 'id',
+      sourceKey: 'backup_id',
+      as: 'BackupObject'
+    });
+  }
+
+  /**
+   * @param {String[]} folders
+   * @return {Promise<void>}
+   */
+  static async populateJsonFilesTables(folders) {
+    for (const folder of folders) {
+      let files = await fs.promises.readdir(`ressources/text/${folder.toLowerCase()}`);
+
+      await global[folder].destroy({truncate: true});
+
+      let filesContent = [];
+      for (const file of files) {
+        let fileName = file.split('.')[0];
+        let fileContent = (require(`ressources/text/${folder.toLowerCase()}/${file}`));
+        fileContent.id = fileName;
+        fileContent.fr = fileContent.translations.fr;
+        fileContent.en = fileContent.translations.en;
+        filesContent.push(fileContent);
+      }
+
+      await global[folder].bulkCreate(filesContent);
+
+    }
+
+    // Handle special case Events & Possibilities
+    // TODO
+  }
+
+  /**
+   * @return {Promise<void>}
+   */
   static async setEverybodyAsUnOccupied() {
-    Database.sequelize.query(`UPDATE entities SET effect = "${EFFECT.SMILEY}" WHERE effect = "${EFFECT.CLOCK10}"`);
+    Entities.update({
+      effect: EFFECT.SMILEY
+    }, {
+      where: {
+        effect: EFFECT.CLOCK10
+      }
+    });
   }
 
 }

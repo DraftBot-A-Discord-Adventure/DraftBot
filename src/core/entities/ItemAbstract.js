@@ -60,7 +60,7 @@ class ItemAbstract extends EntityAbstract {
    * @returns {String}
    */
   getRarityTranslation(language) {
-    return JsonReader.entities.item.getTranslation(
+    return JsonReader.models.item.getTranslation(
         language).rarities[this.rarity];
   }
 
@@ -92,19 +92,19 @@ class ItemAbstract extends EntityAbstract {
     let values = [];
 
     if (this.getAttack() !== 0) {
-      values.push(format(JsonReader.entities.d_object.getTranslation(language).attack, {
+      values.push(format(JsonReader.models.objects.getTranslation(language).attack, {
         attack: this.getAttack()
       }));
     }
 
     if (this.getDefense() !== 0) {
-      values.push(format(JsonReader.entities.d_object.getTranslation(language).defense, {
+      values.push(format(JsonReader.models.objects.getTranslation(language).defense, {
         defense: this.getDefense()
       }));
     }
 
     if (this.getSpeed() !== 0) {
-      values.push(format(JsonReader.entities.d_object.getTranslation(language).speed, {
+      values.push(format(JsonReader.models.objects.getTranslation(language).speed, {
         speed: this.getSpeed()
       }));
     }
