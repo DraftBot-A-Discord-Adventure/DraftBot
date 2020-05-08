@@ -169,6 +169,16 @@ class Database {
       sourceKey: 'backup_id',
       as: 'BackupObject'
     });
+
+    Events.hasMany(Possibilities, {
+      foreignKey: 'event_id',
+      as: 'Possibilities'
+    });
+
+    Possibilities.belongsTo(Events, {
+      foreignKey: 'event_id',
+      as: 'Event'
+    });
   }
 
   /**
