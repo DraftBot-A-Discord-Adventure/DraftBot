@@ -177,9 +177,10 @@ class Database {
    */
   static async populateJsonFilesTables(folders) {
     for (const folder of folders) {
-      let files = await fs.promises.readdir(`ressources/text/${folder.toLowerCase()}`);
 
       await global[folder].destroy({truncate: true});
+
+      let files = await fs.promises.readdir(`ressources/text/${folder.toLowerCase()}`);
 
       let filesContent = [];
       for (const file of files) {
@@ -192,11 +193,45 @@ class Database {
       }
 
       await global[folder].bulkCreate(filesContent);
-
     }
 
     // Handle special case Events & Possibilities
-    // TODO
+    await Events.destroy({truncate: true});
+    await Possibilities.destroy({truncate: true});
+
+    let files = await fs.promises.readdir(`ressources/text/events`);
+    let eventsContent = [];
+    let possibilitiesContent = [];
+    for (const file of files) {
+      let fileName = file.split('.')[0];
+      let fileContent = (require(`ressources/text/events/${file}`));
+
+      fileContent.id = fileName;
+      fileContent.fr = fileContent.translations.fr;
+      fileContent.en = fileContent.translations.en;
+      eventsContent.push(fileContent);
+
+      for (const possibilityKey of Object.keys(fileContent.possibilities)) {
+        for (const possibility of fileContent.possibilities[possibilityKey]) {
+          let possibilityContent = {
+            possibilityKey: possibilityKey,
+            lostTime: possibility.lostTime,
+            health: possibility.health,
+            effect: possibility.effect,
+            experience: possibility.experience,
+            money: possibility.money,
+            item: possibility.item,
+            fr: possibility.translations.fr,
+            en: possibility.translations.en,
+            event_id: fileName,
+          };
+          possibilitiesContent.push(possibilityContent);
+        }
+      }
+    }
+
+    await Events.bulkCreate(eventsContent);
+    await Possibilities.bulkCreate(possibilitiesContent);
   }
 
   /**
