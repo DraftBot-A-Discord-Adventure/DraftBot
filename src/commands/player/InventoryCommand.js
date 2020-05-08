@@ -6,31 +6,25 @@
  */
 const InventoryCommand = async (language, message, args) => {
 
-  let player;
+  let entity;
+
   if (args.length === 0) {
-    player = await getRepository('player').getByMessageOrCreate(message);
+    [entity] = await Entities.getOrRegister(message.author.id);
 
-    let checkEffect = await player.checkEffect(message);
-    if (checkEffect !== true) {
-      return await errorMe(message, language, player);
-    }
+    // TODO quels sont les permissions ?
   } else {
-    player = await getRepository('player').getByArgs(args, message);
+    entity = await Entities.getByArgs(args, message);
 
-    let checkEffect = await player.checkEffect(message);
-    if (checkEffect !== true) {
-      return await errorPlayer(message, language, player);
-    }
+    // TODO quels sont les permissions ?
   }
 
-  let inventoryPlayer = await getRepository('inventory')
-      .getByPlayerIdOrCreate(player.discordId);
-  let inventoryEmbed = await inventoryPlayer.toEmbedObject(language);
+  let inventoryEmbed = entity.Player.Inventory.toEmbedObject(language);
 
   return await message.channel.send(
       new discord.MessageEmbed().setColor(JsonReader.bot.embed.default)
           .setTitle(inventoryEmbed.title)
-          .addFields(inventoryEmbed.fields));
+          .addFields(inventoryEmbed.fields)
+  );
 };
 
 module.exports = {

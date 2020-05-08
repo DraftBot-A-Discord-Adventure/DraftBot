@@ -13,58 +13,6 @@ class PlayerRepository extends AppRepository {
   }
 
   /**
-   * Return a promise that will contain the player that sent a message once it has been resolved
-   * @param {module:"discord.js".Message} message
-   * @return {Promise<Player>}
-   */
-  async getByMessageOrCreate(message) {
-    return this.getByIdOrCreate(message.author.id, message.createdTimestamp);
-  }
-
-  /**
-   * Return a promise that will contain the player that sent a message once it has been resolved
-   * @param {String} id
-   * @param {Number} timestamp The timestamp for the last report. Do not provide for current time
-   * @return {Promise<Player>}
-   */
-  async getByIdOrCreate(id, timestamp = Date.now()) {
-    return this.sql
-        .get(`SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = ?`,
-            id)
-        .then(async player => {
-          if (player) {
-            return new Player(player);
-          } else {
-            return await this.create(new Player(
-                Object.assign({
-                  id: id,
-                  lastReport: timestamp,
-                }, JsonReader.models.player)));
-          }
-        })
-        .catch(console.error);
-  }
-
-  /**
-   * Return a player by id, or a mocked null player
-   * @param {String} id
-   * @return {Promise<Player>}
-   */
-  async getById(id) {
-    return this.sql
-        .get(`SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE discordId = ?`,
-            id)
-        .then(player => {
-          if (player) {
-            return new Player(player);
-          } else {
-            return new Player({effect: EFFECT.BABY});
-          }
-        })
-        .catch(console.error);
-  }
-
-  /**
    * Return a player by rank, or false if not player is found
    * @param {String} rank - The rank of the player
    * @return {Promise<Player>}
@@ -80,77 +28,6 @@ class PlayerRepository extends AppRepository {
           }
         })
         .catch(console.error);
-  }
-
-  /**
-   * @param {String[]} args=[]
-   * @param {module:"discord.js".Message} message
-   * @return {Promise<Player>}
-   */
-  async getByArgs(args, message) {
-    let player;
-    if (isNaN(args[0])) {
-      player = await this.getById(message.mentions.users.last().id);
-    } else {
-      player = await this.getByRank(args[0]);
-    }
-
-    return player;
-  }
-
-  /**
-   * Allow to save a new player in the database and return it
-   * @param {Player} player
-   * @return {Promise<Player|void>}
-   */
-  async create(player) {
-    await this.sql.run(
-          `INSERT INTO entity (id, maxHealth, health, attack, defense, speed, effect) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        player.id, player.maxHealth, player.health, player.attack,
-        player.defense, player.speed, player.effect,
-        )
-        .catch(console.error);
-
-    await this.sql.run(
-          `INSERT INTO player (discordId, score, weeklyScore, level, experience, money, lastReport, badges, guildId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        player.discordId, player.score,
-        player.weeklyScore, player.level,
-        player.experience, player.money,
-        player.lastReport, player.badges,
-        player.guildId,
-        )
-        .catch(console.error);
-
-    return player;
-  }
-
-  /**
-   * Allow to update a player in the database and return it
-   * @param {Player} player
-   * @return {Promise<Player|void>}
-   */
-  async update(player) {
-    await this.sql
-        .run(
-              `UPDATE entity SET maxHealth = ?, health = ?, attack = ?, defense = ?, speed = ?, effect = ? WHERE id = ?`,
-            player.maxHealth, player.health, player.attack,
-            player.defense, player.speed, player.effect,
-            player.id,
-        )
-        .catch(console.error);
-
-    await this.sql
-        .run(
-              `UPDATE player SET score = ?, weeklyScore = ?, level = ?, experience = ?, money = ?, lastReport = ?, badges = ?, guildId = ? WHERE discordId = ?`,
-            player.score,
-            player.weeklyScore, player.level,
-            player.experience, player.money,
-            player.lastReport, player.badges,
-            player.guildId, player.discordId,
-        )
-        .catch(console.error);
-
-    return player;
   }
 
   /**

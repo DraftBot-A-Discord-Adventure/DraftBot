@@ -5,22 +5,20 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SwitchCommand = async (language, message, args) => {
-  let player = await getRepository('player').getByMessageOrCreate(message);
 
-  if (player.effect === EFFECT.BABY) {
-    return await error(message, language, JsonReader.error.getTranslation(language).meIsBaby);
+  let [entity] = await Entities.getOrRegister(message.author.id);
+
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+    return;
   }
 
-  let inventory = await getRepository('inventory')
-      .getByMessageOrCreate(message);
-  const temp = inventory.objectId;
-  inventory.objectId = inventory.backupItemId;
-  inventory.backupItemId = temp;
+  const temp = entity.Player.Inventory.object_id;
+  entity.Player.Inventory.object_id = entity.Player.Inventory.backup_id;
+  entity.Player.Inventory.backup_id = temp;
 
-  await getRepository('inventory').update(inventory);
-  await message.channel.send(
-      format(JsonReader.commands.switch.getTranslation(language).main,
-          {pseudo: player.getPseudo(language)}));
+  await entity.Player.Inventory.save();
+
+  await message.channel.send(format(JsonReader.commands.switch.getTranslation(language).main, {pseudo: message.author.username}));
 };
 
 module.exports = {

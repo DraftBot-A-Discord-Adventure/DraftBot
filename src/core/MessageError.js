@@ -30,6 +30,13 @@ class MessageError {
     return true;
   }
 
+  /**
+   * @param {module:"discord.js".Message} message - Message from the discord server
+   * @param {("fr"|"en")} language
+   * @param {Entities} entity
+   * @param {String} effect
+   * @return {Promise<Message>}
+   */
   static async effectsErrorMe(message, language, entity, effect) {
     let embed = new discord.MessageEmbed()
         .setColor(JsonReader.bot.embed.error);

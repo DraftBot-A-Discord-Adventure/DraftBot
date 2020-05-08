@@ -50,5 +50,41 @@ module.exports = (sequelize, DataTypes) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
+  /**
+   * @param {("fr"|"en")} language - The language the inventory has to be displayed in
+   */
+  Inventories.prototype.toEmbedObject = function(language) {
+    let result = {
+      // title: format(
+      //     JsonReader.models.inventories.getTranslation(language).title, {
+      //       pseudo: (await getRepository('player')
+      //           .getByIdOrCreate(this.playerId)).getPseudo(language),
+      //     }),
+      fields: [],
+    };
+
+    // result.fields.push(
+    //     (await getRepository('weapon').getById(this.weaponId)).toFieldObject(
+    //         language));
+    //
+    // result.fields.push(
+    //     (await getRepository('armor').getById(this.armorId)).toFieldObject(
+    //         language));
+    //
+    // result.fields.push(
+    //     (await getRepository('potion').getById(this.potionId)).toFieldObject(
+    //         language));
+    //
+    // result.fields.push(
+    //     (await getRepository('object').getById(this.objectId)).toFieldObject(
+    //         language, 'active'));
+    //
+    // result.fields.push(
+    //     (await getRepository('object').getById(this.backupItemId)).toFieldObject(
+    //         language, 'backup'));
+
+    return result;
+  };
+
   return Inventories;
 };
