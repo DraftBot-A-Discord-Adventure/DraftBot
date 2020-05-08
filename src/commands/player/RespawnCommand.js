@@ -19,7 +19,7 @@ const RespawnCommand = async (language, message, args) => {
 
     entity.effect = EFFECT.SMILEY;
     entity.health = entity.maxHealth;
-    entity.Player.lastReportAt = require('moment').utc(message.createdAt).format('YYYY-MM-DD HH:mm:ss'); // Save to utc date
+    entity.Player.lastReportAt = require('moment')(message.createdAt).format('YYYY-MM-DD HH:mm:ss');
     entity.Player.addScore(-lostScore);
     entity.Player.addWeeklyScore(-lostScore);
 

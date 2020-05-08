@@ -26,15 +26,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
+      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss')
     },
     createdAt: {
       type: DataTypes.DATE,
-      defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
+      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss')
     }
   }, {
     tableName: 'potions',
     freezeTableName: true
+  });
+
+  Potions.beforeSave((instance, options) => {
+    instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
   return Potions;
