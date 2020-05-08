@@ -28,6 +28,14 @@ module.exports = (sequelize, DataTypes) => {
         chief_id: {
             type: DataTypes.INTEGER
         },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
+        }
     }, {
         tableName: 'guilds',
         freezeTableName: true

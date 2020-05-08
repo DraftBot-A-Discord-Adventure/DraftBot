@@ -148,44 +148,6 @@ class Player extends Entity {
   /**
    * @param {Number} value
    */
-  addScore(value) {
-    this.score += value;
-    this.setScore(this.score);
-  }
-
-  /**
-   * @param {Number} value
-   */
-  setScore(value) {
-    if (value > 0) {
-      this.score = value;
-    } else {
-      this.score = 0;
-    }
-  }
-
-  /**
-   * @param {Number} value
-   */
-  addWeeklyScore(value) {
-    this.weeklyScore += value;
-    this.setWeeklyScore(this.weeklyScore);
-  }
-
-  /**
-   * @param {Number} value
-   */
-  setWeeklyScore(value) {
-    if (value > 0) {
-      this.weeklyScore = value;
-    } else {
-      this.weeklyScore = 0;
-    }
-  }
-
-  /**
-   * @param {Number} value
-   */
   addMoney(value) {
     this.money += value;
     this.setMoney(this.money);

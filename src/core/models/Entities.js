@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 
-  const Entities = sequelize.define('Entities', {
+  const Entities = sequelize.define('entities', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -35,16 +35,36 @@ module.exports = (sequelize, DataTypes) => {
     },
     updatedAt: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
     },
     createdAt: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
     }
   }, {
     tableName: 'entities',
     freezeTableName: true
   });
+
+  /**
+   * @param {String} discordUser_id
+   */
+  Entities.getOrRegister = (discordUser_id) => {
+    return Entities.findOrCreate({
+      where: {
+        discordUser_id: discordUser_id
+      },
+      defaults: {Player: {Inventory: {}}},
+      include: [{
+        model: Players,
+        as: 'Player',
+        include: [{
+          model: Inventories,
+          as: 'Inventory'
+        }]
+      }],
+    });
+  };
 
   return Entities;
 };

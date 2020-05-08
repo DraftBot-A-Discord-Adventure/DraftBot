@@ -5,7 +5,6 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ProfileCommand = async function(language, message, args) {
-
   let player;
   if (args.length === 0) {
     player = await getRepository('player').getByMessageOrCreate(message);

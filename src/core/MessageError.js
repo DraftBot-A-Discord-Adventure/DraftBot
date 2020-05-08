@@ -4,45 +4,49 @@ class MessageError {
    * @param {module:"discord.js".Message} message - Message from the discord server
    * @param {String} permission
    * @param {("fr"|"en")} language
-   * @param {String} effect
-   * @param {Player} player
+   * @param {String[]} disallowEffects
+   * @param {Entities} entity
    * @return {Promise<any>}
    */
-  static async canPerformCommand(message, language, permission, effect, player) {
+  static async canPerformCommand(message, language, permission, disallowEffects, entity) {
+
+    // Check role on permission
     if (permission === PERMISSION.ROLE.MANAGER || permission === PERMISSION.ROLE.ADMINISTRATOR) {
-      console.log('// Implement me');
+      console.log('// Implement me (Commands managers/admins)');
     }
 
-    await MessageError.errorMe(message, language, player);
+    // Check entity on blockedList
+
+    // Check disallowEffects on entity
+    let disallowEffect = disallowEffects.indexOf(entity.effect);
+    if (disallowEffect !== -1) {
+      if (message.author.id === entity.discordUser_id) {
+        return await MessageError.effectsErrorMe(message, language, entity, disallowEffects[disallowEffect]);
+      } else {
+        // MessageError.effectsErrorPlayer();
+      }
+    }
+
+    return true;
   }
 
-  /**
-   * Handle error if needed
-   */
-  static async errorMe(message, language, player) {
+  static async effectsErrorMe(message, language, entity, effect) {
     let embed = new discord.MessageEmbed()
-        .setColor(JsonReader.bot.embed.error)
-        // .setTitle(JsonReader.error.getTranslation(language).title)
-        .setAuthor(message.author.username + JsonReader.error.getTranslation(language).title, message.author.displayAvatarURL());
+        .setColor(JsonReader.bot.embed.error);
 
-    if (player.effect === EFFECT.BABY) {
+    // 1 ::: Dans tout les cas on vas d'abord tester le status BABY sur l'entity
+    if (entity.effect === EFFECT.BABY) {
       embed
-          .addFields({
-            name: JsonReader.error.getTranslation(language).title,
-            value: JsonReader.error.getTranslation(language).meIsBaby
-          });
+          .setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsBaby, {pseudo: message.author.username}), message.author.displayAvatarURL())
+          .setDescription(JsonReader.error.getTranslation(language).meIsBaby);
     }
 
-    if (player.effect === EFFECT.SKULL) {
+    // 2 ::: On va tester tout les autres effects à partir de l'effect
+    if (effect === EFFECT.SKULL) {
       embed
+          .setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsSkull, {pseudo: message.author.username}), message.author.displayAvatarURL())
           .setDescription(JsonReader.error.getTranslation(language).meIsSkull);
-    //       .addFields({
-    //         name: '\u200b',
-    //         value:
-    //       });
     }
-
-    // TODO handle other effect error
 
     return await message.channel.send(embed);
   }

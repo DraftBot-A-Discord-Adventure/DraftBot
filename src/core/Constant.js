@@ -18,9 +18,5 @@ global.PERMISSION = {
     ADMINISTRATOR: 'administrator',
     MANAGER: 'manager',
     ALL: 'all'
-  },
-  EFFECT: {
-    SKULL: 'skull',
-    ALL: 'all'
   }
 };

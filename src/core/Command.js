@@ -71,15 +71,16 @@ class Command {
    * @param {module:"discord.js".Message} message - Message from the discord server
    */
   static async handleMessage(message) {
-    let server = await getRepository('server')
-        .getByIdOrCreate(message.guild.id);
+    let [server] = await Servers.findOrCreate({
+      where: {
+        discordGuild_id: message.guild.id
+      }
+    });
 
     if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
 
-      if (message.author.id !== JsonReader.app.BOT_OWNER_ID &&
-          JsonReader.app.MODE_MAINTENANCE) {
-        return message.channel.send(
-            JsonReader.bot.getTranslation(server.language).maitenance);
+      if (message.author.id !== JsonReader.app.BOT_OWNER_ID && JsonReader.app.MODE_MAINTENANCE) {
+        return message.channel.send(JsonReader.bot.getTranslation(server.language).maitenance);
       }
 
       // TODO 2.0
@@ -91,11 +92,8 @@ class Command {
 
       await Command.launchCommand(server.language, server.prefix, message);
     } else {
-      if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) ===
-          JsonReader.app.BOT_OWNER_PREFIX && message.author.id ===
-          JsonReader.app.BOT_OWNER_ID) {
-        await Command.launchCommand(server.language,
-            JsonReader.app.BOT_OWNER_PREFIX, message);
+      if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) === JsonReader.app.BOT_OWNER_PREFIX && message.author.id === JsonReader.app.BOT_OWNER_ID) {
+        await Command.launchCommand(server.language, JsonReader.app.BOT_OWNER_PREFIX, message);
       }
     }
   }

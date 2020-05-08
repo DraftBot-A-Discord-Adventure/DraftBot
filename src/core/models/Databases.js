@@ -8,6 +8,14 @@ module.exports = (sequelize, DataTypes) => {
         },
         lastResetAt: {
             type: DataTypes.DATE
+        },
+        updatedAt: {
+            type: DataTypes.DATE,
+            defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
         }
     }, {
         tableName: 'databases',

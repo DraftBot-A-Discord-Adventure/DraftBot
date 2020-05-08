@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 
-  const Players = sequelize.define('Players', {
+  const Players = sequelize.define('players', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -41,10 +41,56 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: JsonReader.models.players.guild_id
     },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
+    }
   }, {
     tableName: 'players',
     freezeTableName: true
   });
+
+  /**
+   * @param {Number} score
+   */
+  Players.prototype.addScore = function(score) {
+    this.score += score;
+    this.setScore(this.score);
+  };
+
+  /**
+   * @param {Number} score
+   */
+  Players.prototype.setScore = function(score) {
+    if (score > 0) {
+      this.score = score;
+    } else {
+      this.score = 0;
+    }
+  };
+
+  /**
+   * @param {Number} weeklyScore
+   */
+  Players.prototype.addWeeklyScore = function(weeklyScore) {
+    this.weeklyScore += weeklyScore;
+    this.setWeeklyScore(this.weeklyScore);
+  };
+
+  /**
+   * @param {Number} weeklyScore
+   */
+  Players.prototype.setWeeklyScore = function(weeklyScore) {
+    if (weeklyScore > 0) {
+      this.weeklyScore = weeklyScore;
+    } else {
+      this.weeklyScore = 0;
+    }
+  };
 
   return Players;
 };

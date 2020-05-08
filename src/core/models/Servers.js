@@ -16,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     discordGuild_id: {
       type: DataTypes.STRING(64)
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
     }
   }, {
     tableName: 'servers',

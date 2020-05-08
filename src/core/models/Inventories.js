@@ -32,6 +32,14 @@ module.exports = (sequelize, DataTypes) => {
     backup_id: {
       type: DataTypes.INTEGER,
       defaultValue: JsonReader.models.inventories.backup_id
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: require('moment').utc().format('YYYY-MM-DD HH:mm:ss')
     }
   }, {
     tableName: 'inventories',
