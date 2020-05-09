@@ -1,12 +1,4 @@
 {
-  "translations": {
-    "fr": {
-      "fieldName": "Arme :"
-    },
-    "en": {
-      "fieldName": "Weapon :"
-    }
-  },
   "rarity": 0,
   "rawAttack": 0,
   "rawDefense": 0,

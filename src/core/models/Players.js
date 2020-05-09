@@ -61,10 +61,17 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} id
    */
-  Players.getRankById = async (id) => {
+  Players.getById = async (id) => {
     const query = `SELECT * FROM (SELECT id, RANK() OVER (ORDER BY score desc) rank, RANK() OVER (ORDER BY weeklyScore desc) weeklyRank FROM players) WHERE id = :id`;
-    let [player] = await Players.sequelize.query(query, {replacements: {id: id}, type: sequelize.QueryTypes.SELECT});
-    return player;
+    return await sequelize.query(query, {replacements: {id: id}, type: sequelize.QueryTypes.SELECT});
+  };
+
+  /**
+   * @param {Number} rank
+   */
+  Players.getByRank = async (rank) => {
+    const query = `SELECT * FROM (SELECT entity_id, RANK() OVER (ORDER BY score desc) rank, RANK() OVER (ORDER BY weeklyScore desc) weeklyRank FROM players) WHERE rank = :rank`;
+    return await sequelize.query(query, {replacements: {rank: rank}, type: sequelize.QueryTypes.SELECT});
   };
 
   /**
@@ -243,14 +250,15 @@ module.exports = (sequelize, DataTypes) => {
   Players.prototype.setPseudo = async function( language) {
     let entity = await this.getEntity();
 
-    if (client.users.cache.get(entity.discordUser_id) !== null) {
+    if (entity.discordUser_id !== undefined && client.users.cache.get(entity.discordUser_id) !== null) {
       this.pseudo = client.users.cache.get(entity.discordUser_id).username;
     } else {
-      this.pseudo = JsonReader.models.players.getTranslation(language).unknownPlayer;
+      this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
     }
   };
 
   /**
+   * @param {String} effect
    * @param {module:"discord.js".Message} message
    * @return {Boolean|String}
    */

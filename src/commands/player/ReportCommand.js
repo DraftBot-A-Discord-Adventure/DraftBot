@@ -6,28 +6,18 @@
  */
 const ReportCommand = async function(language, message, args) {
 
-  const PERMISSIONS = [];
+  let [entity] = await Entities.getOrRegister(message.author.id);
 
-  let player = await getRepository('player').getByMessageOrCreate(message);
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.SKULL], entity)) !== true) {
+    return;
+  }
 
-  // TODO -- Do a blocking handler
-  let result = await canPerformCommand(message, [], []);
-
-  console.log(player);
-  return;
-
-  // let checkEffect = await player.checkEffect(message);
-  // if (checkEffect !== true) {
-  //   return await errorMe(message, language, player);
-  // }
-  // TODO -- END a blocking handler
-
-  let time = millisecondsToMinutes(message.createdTimestamp - player.lastReport);
+  let time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.getTime());
   if (time > JsonReader.commands.report.timeLimit) {
     time = JsonReader.commands.report.timeLimit;
   }
 
-  if (player.score === 0 && player.effect === EFFECT.BABY) {
+  if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
     // TODO add player to blocked
     let event = await getRepository('event').getById(0);
     return await doEvent(message, language, event, player, time);

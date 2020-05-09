@@ -491,16 +491,6 @@
       "noBonus": ":blue_heart: | Fight points increased"
     }
   },
-  "equipementManager": {
-    "separator1": " | Power ",
-    "separator2": " | "
-  },
-  "potionManager": {
-    "separator": " | "
-  },
-  "objectManager": {
-    "separator": " |"
-  },
   "guildManager": {
     "levelUp": {
       "intro": ":star: | The guild : **",

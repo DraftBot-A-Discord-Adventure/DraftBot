@@ -42,14 +42,13 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   /**
-   * TODO 2.0 Garde t'on le cas specifique pour les id 0 ou on n'affiche pas la rarity et la valeur ?
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    */
   Potions.prototype.toFieldObject = async function(language) {
     return {
-      name: JsonReader.models.potions.getTranslation(language).fieldName,
+      name: JsonReader.items.getTranslation(language).potions.fieldName,
       value: (this.id === 0) ? this[language] : format(
-          JsonReader.models.potions.getTranslation(language).fieldValue, {
+          JsonReader.items.getTranslation(language).potions.fieldValue, {
             name: this[language],
             rarity: this.getRarityTranslation(language),
             nature: this.getNatureTranslation(language),
@@ -62,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
    * @return {String}
    */
   Potions.prototype.getRarityTranslation = function(language) {
-    return JsonReader.models.item.getTranslation(language).rarities[this.rarity];
+    return JsonReader.items.getTranslation(language).rarities[this.rarity];
   };
 
   /**
@@ -70,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
    * @return {String}
    */
   Potions.prototype.getNatureTranslation = function(language) {
-    return format(JsonReader.models.potions.getTranslation(language).natures[this.nature], {power: this.power});
+    return format(JsonReader.items.getTranslation(language).potions.natures[this.nature], {power: this.power});
   };
 
   /**

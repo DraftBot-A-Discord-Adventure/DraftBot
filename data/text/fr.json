@@ -489,22 +489,12 @@
       "noBonus": ":blue_heart: | Points de combats augmentés"
     }
   },
-  "equipementManager": {
-    "separator1": " | Puissance ",
-    "separator2": " | "
-  },
   "guildManager": {
     "levelUp": {
       "intro": ":star: | La guilde : **",
       "main": "**, vient d'atteindre le niveau **",
       "end": "**"
     }
-  },
-  "potionManager": {
-    "separator": " | "
-  },
-  "objectManager": {
-    "separator": " |"
   },
   "entity": {
     "killMessage": ":crossed_swords:  Bonjour Combattant !\n\nIl semblerait que vous ayez été mis K.O... :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`",

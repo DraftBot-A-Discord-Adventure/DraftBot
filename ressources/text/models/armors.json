@@ -1,12 +1,4 @@
 {
-  "translations": {
-    "fr": {
-      "fieldName": "Armure/Bouclier :"
-    },
-    "en": {
-      "fieldName": "Armor/Shield :"
-    }
-  },
   "rarity": 0,
   "rawAttack": 0,
   "rawDefense": 0,

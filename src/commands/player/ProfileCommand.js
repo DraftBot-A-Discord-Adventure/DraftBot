@@ -17,19 +17,19 @@ const ProfileCommand = async function(language, message, args) {
   }
 
   let profileEmbed = await entity.Player.toEmbedObject(language, message);
-  return await message.channel.send(
+  let msg = await message.channel.send(
       new discord.MessageEmbed()
           .setColor(JsonReader.bot.embed.default)
           .setTitle(profileEmbed.title)
-          .addFields(profileEmbed.fields),
-    ).then(async msg => {
-      if (entity.Player.badges !== null) {
-        let badges = entity.Player.badges.split('-');
-        for (let i = 0; i < badges.length; i++) {
-          await msg.react(badges[i]);
-        }
-      }
-    });
+          .addFields(profileEmbed.fields)
+    );
+
+  if (entity.Player.badges !== null) {
+    let badges = entity.Player.badges.split('-');
+    for (let i = 0; i < badges.length; i++) {
+      await msg.react(badges[i]);
+    }
+  }
 
 };
 

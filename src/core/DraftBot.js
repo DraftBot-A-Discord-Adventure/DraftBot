@@ -9,7 +9,7 @@ class DraftBot {
         'ressources/text/error.json',
         'ressources/text/bot.json',
         'ressources/text/values.json',
-        'ressources/text/power.json',
+        'ressources/text/items.json',
       ],
     });
     await (require('core/Database')).init();

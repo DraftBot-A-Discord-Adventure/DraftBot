@@ -58,14 +58,13 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   /**
-   * TODO 2.0 Garde t'on le cas specifique pour les id 0 ou on n'affiche pas la rarity et la valeur d'attaque ?
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    */
   Weapons.prototype.toFieldObject = async function(language) {
     return {
-      name: JsonReader.models.weapons.getTranslation(language).fieldName,
+      name: JsonReader.items.getTranslation(language).weapons.fieldName,
       value: (this.id === 0) ? this[language] : format(
-          JsonReader.models.objects.getTranslation(language).fieldValue, {
+          JsonReader.items.getTranslation(language).weapons.fieldValue, {
             name: this[language],
             rarity: this.getRarityTranslation(language),
             values: this.getValues(language),
@@ -78,7 +77,7 @@ module.exports = (sequelize, DataTypes) => {
    * @return {String}
    */
   Weapons.prototype.getRarityTranslation = function(language) {
-    return JsonReader.models.item.getTranslation(language).rarities[this.rarity];
+    return JsonReader.items.getTranslation(language).rarities[this.rarity];
   };
 
   /**
@@ -86,7 +85,7 @@ module.exports = (sequelize, DataTypes) => {
    * @returns {Number}
    */
   Weapons.prototype.getAttack = function() {
-    return JsonReader.power[this.rarity][this.rawAttack] + this.attack;
+    return JsonReader.items.power[this.rarity][this.rawAttack] + this.attack;
   };
 
   /**
@@ -94,7 +93,7 @@ module.exports = (sequelize, DataTypes) => {
    * @returns {Number}
    */
   Weapons.prototype.getDefense = function() {
-    return JsonReader.power[this.rarity][this.rawDefense] + this.defense;
+    return JsonReader.items.power[this.rarity][this.rawDefense] + this.defense;
   };
 
   /**
@@ -102,7 +101,7 @@ module.exports = (sequelize, DataTypes) => {
    * @returns {Number}
    */
   Weapons.prototype.getSpeed = function() {
-    return JsonReader.power[this.rarity][this.rawSpeed] + this.speed;
+    return JsonReader.items.power[this.rarity][this.rawSpeed] + this.speed;
   };
 
   /**
@@ -113,15 +112,15 @@ module.exports = (sequelize, DataTypes) => {
     let values = [];
 
     if (this.getAttack() !== 0) {
-      values.push(format(JsonReader.models.objects.getTranslation(language).attack, {attack: this.getAttack()}));
+      values.push(format(JsonReader.items.getTranslation(language).attack, {attack: this.getAttack()}));
     }
 
     if (this.getDefense() !== 0) {
-      values.push(format(JsonReader.models.objects.getTranslation(language).defense, {defense: this.getDefense()}));
+      values.push(format(JsonReader.items.getTranslation(language).defense, {defense: this.getDefense()}));
     }
 
     if (this.getSpeed() !== 0) {
-      values.push(format(JsonReader.models.objects.getTranslation(language).speed, {speed: this.getSpeed()}));
+      values.push(format(JsonReader.items.getTranslation(language).speed, {speed: this.getSpeed()}));
     }
 
     return values.join(' ');
