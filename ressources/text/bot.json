@@ -13,7 +13,7 @@
     "startStatus": ":robot: **DraftBot** - v",
     "embed": {
         "error": "#D92D43",
-        "default": "#FFA500"
+        "default": ""
     },
     "reboot": "DraftBot",
     "br": "############################################\n",

@@ -5,38 +5,31 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ProfileCommand = async function(language, message, args) {
-  let player;
+  let entity;
   if (args.length === 0) {
-    player = await getRepository('player').getByMessageOrCreate(message);
-
-    if (player.effect === EFFECT.BABY) {
-      return await error(message, language,
-          JsonReader.error.getTranslation(language).meIsBaby);
-    }
+    [entity] = await Entities.getOrRegister(message.author.id);
   } else {
-    player = await getRepository('player').getByArgs(args, message);
-
-    if (player.effect === EFFECT.BABY) {
-      return await error(message, language,
-          format(JsonReader.error.getTranslation(language).playerIsBaby,
-              {askedPseudo: player.getPseudo(language)}));
-    }
+    entity = await Entities.getByArgs(args, message);
   }
 
-  let profileEmbed = await player.toEmbedObject(language, message);
-  return message.channel.send(
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+    return;
+  }
+
+  let profileEmbed = await entity.Player.toEmbedObject(language, message);
+  return await message.channel.send(
       new discord.MessageEmbed()
           .setColor(JsonReader.bot.embed.default)
           .setTitle(profileEmbed.title)
           .addFields(profileEmbed.fields),
-  ).then(async msg => {
-    if (player.badges !== null) {
-      let badges = player.badges.split('-');
-      for (let i = 0; i < badges.length; i++) {
-        await msg.react(badges[i]);
+    ).then(async msg => {
+      if (entity.Player.badges !== null) {
+        let badges = entity.Player.badges.split('-');
+        for (let i = 0; i < badges.length; i++) {
+          await msg.react(badges[i]);
+        }
       }
-    }
-  });
+    });
 
 };
 

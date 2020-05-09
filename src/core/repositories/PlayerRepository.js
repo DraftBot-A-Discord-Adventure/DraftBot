@@ -1,33 +1,3 @@
-  /**
-   * Return a player by rank, or false if not player is found
-   * @param {String} rank - The rank of the player
-   * @return {Promise<Player>}
-   */
-  async getByRank(rank) {
-    return this.sql.get(`SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY score desc) as rank, ROW_NUMBER () OVER (ORDER BY weeklyScore desc) as weeklyRank FROM entity JOIN player on entity.id = player.discordId) WHERE rank = ?`,
-        rank)
-        .then(player => {
-          if (player) {
-            return new Player(player);
-          } else {
-            return new Player({effect: EFFECT.BABY});
-          }
-        })
-        .catch(console.error);
-  }
-
-  /**
-   * Get the total number of players in the database
-   * @returns {Promise<number>}
-   */
-  async getNumberOfPlayers() {
-    let result = await this.sql
-        .get(`SELECT COUNT(*) as count FROM player WHERE score > 100`) // TODO 2.1 Creer un systeme qui clean les joueurs inactifs, pour enlever le > 100
-        .catch(console.error);
-
-    return result.count;
-  }
-
   // TODO 2.0 Legacy code
   // async resetWeeklyScoreAndRank() {
   //   await this.sql.run('UPDATE player SET weeklyScore = ?', 0)
@@ -455,7 +425,3 @@
   // function mentionPlayer(player) {
   //   return "<@" + player.discordId + ">";
   // }
-
-}
-
-module.exports = PlayerRepository;
