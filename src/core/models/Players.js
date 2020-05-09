@@ -96,5 +96,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
+  /**
+   * @param {String} discordUser_id
+   * @param {"fr"|"en"} language
+   */
+  Players.prototype.getPseudo = function(discordUser_id, language) {
+    this.setPseudo(discordUser_id, language);
+    return this.pseudo;
+  };
+
+  /**
+   * @param {String} discordUser_id
+   * @param {"fr"|"en"} language
+   */
+  Players.prototype.setPseudo = function(discordUser_id, language) {
+    if (client.users.cache.get(discordUser_id) !== null) {
+      this.pseudo = client.users.cache.get(discordUser_id).username;
+    } else {
+      this.pseudo = JsonReader.models.players.getTranslation(language).unknownPlayer;
+    }
+  };
+
   return Players;
 };

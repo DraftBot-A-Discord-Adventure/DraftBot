@@ -1,12 +1,4 @@
 {
-	"translations": {
-		"fr": {
-			"title": ":briefcase: ** Inventaire de {pseudo} : **"
-		},
-		"en": {
-			"title": ":briefcase: ** {pseudo}'s inventory : **"
-		}
-	},
 	"lastDailyAt": null,
 	"weapon_id": 0,
 	"armor_id": 0,

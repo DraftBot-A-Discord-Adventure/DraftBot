@@ -1,35 +1,3 @@
-const EntityAbstract = require("entities/EntityAbstract");
-
-/**
- * @property {String} guildId
- * @property {String} name
- * @property {String} chiefId
- * @property {Number} score
- * @property {Number} level
- * @property {Number} experience
- * @property {Number} lastInvocation
- */
-class Guild extends EntityAbstract {
-
-  /**
-   * @param {String} guildId
-   * @param {String} name
-   * @param {String} chiefId
-   * @param {Number} score
-   * @param {Number} level
-   * @param {Number} experience
-   * @param {Number} lastInvocation
-   */
-  constructor({guildId, name, chiefId, score, level, experience, lastInvocation}) {
-    super();
-    this.guildId = guildId;
-    this.name = name;
-    this.chiefId = chiefId;
-    this.score = score;
-    this.level = level;
-    this.experience = experience;
-    this.lastInvocation = lastInvocation;
-  }
 
   // TODO 2.0 Legacy code
   // /**
@@ -248,7 +216,3 @@ class Guild extends EntityAbstract {
   //   }
   //   return parseInt(time)
   // }
-
-}
-
-module.exports = Guild;

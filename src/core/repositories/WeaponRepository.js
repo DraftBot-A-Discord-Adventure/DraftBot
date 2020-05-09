@@ -1,25 +1,4 @@
-const AppRepository = require("repositories/AppRepository");
-const Weapon = require("entities/Weapon");
 
-/**
- * @property {String} datasource
- * @property {Object} weapons
- */
-class WeaponRepository extends AppRepository {
-
-    constructor() {
-        super();
-        this.datasource = DATASOURCE.JSON;
-    }
-
-    /**
-     * Return a weapon by id
-     * @param {Number} id
-     * @return {Promise<Weapon>}
-     */
-    async getById(id) {
-        return this.weapons[id];
-    }
 
     /**
      * Choose a random weapon in the existing ones. (take care of the rarity)
@@ -31,7 +10,3 @@ class WeaponRepository extends AppRepository {
         const id = possibleWeapons[Math.floor(Math.random() * possibleWeapons.length)][0];
         return this.weapons[id];
     }
-
-}
-
-module.exports = WeaponRepository;

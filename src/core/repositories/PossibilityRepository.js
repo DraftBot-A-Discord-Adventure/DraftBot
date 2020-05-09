@@ -1,17 +1,3 @@
-const AppRepository = require('repositories/AppRepository');
-const Possibility = require('entities/Possibility');
-
-/**
- * @property {String} datasource
- * @property {Object} events
- */
-class PossibilityRepository extends AppRepository {
-
-  constructor() {
-    super();
-    this.datasource = DATASOURCE.JSON;
-  }
-
   /**
    * Get the requested possibility
    * @param {number|String} eventId
@@ -38,7 +24,3 @@ class PossibilityRepository extends AppRepository {
         Object.assign({eventId: eventId, emoji: emoji, id: id},
             this.events[eventId].possibilities[emoji][id]));
   }
-
-}
-
-module.exports = PossibilityRepository;

@@ -1,16 +1,3 @@
-const AppRepository = require("repositories/AppRepository");
-const Guild = require("entities/Guild");
-
-/**
- * @property {String} datasource
- * @property {module:sqlite3.Database} sql
- */
-class GuildRepository extends AppRepository {
-
-  constructor() {
-    super();
-    this.datasource = DATASOURCE.SQLITE;
-  }
 
   // TODO 2.0 Legacy code
   // deleteGuild(guildId) {

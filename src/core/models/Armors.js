@@ -57,5 +57,75 @@ module.exports = (sequelize, DataTypes) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
+  /**
+   * TODO 2.0 Garde t'on le cas specifique pour les id 0 ou on n'affiche pas la rarity et la valeur d'attaque ?
+   * @param {("fr"|"en")} language - The language the inventory has to be displayed in
+   */
+  Armors.prototype.toFieldObject = async function(language) {
+    return {
+      name: JsonReader.models.armors.getTranslation(language).fieldName,
+      value: (this.id === 0) ? this[language] : format(
+          JsonReader.models.objects.getTranslation(language).fieldValue, {
+            name: this[language],
+            rarity: this.getRarityTranslation(language),
+            values: this.getValues(language),
+          }),
+    };
+  };
+
+  /**
+   * @param {("fr"|"en")} language
+   * @return {String}
+   */
+  Armors.prototype.getRarityTranslation = function(language) {
+    return JsonReader.models.item.getTranslation(language).rarities[this.rarity];
+  };
+
+  /**
+   * Return the property from rawProperty and property modifier
+   * @returns {Number}
+   */
+  Armors.prototype.getAttack = function() {
+    return JsonReader.power[this.rarity][this.rawAttack] + this.attack;
+  };
+
+  /**
+   * Return the property from rawProperty and property modifier
+   * @returns {Number}
+   */
+  Armors.prototype.getDefense = function() {
+    return JsonReader.power[this.rarity][this.rawDefense] + this.defense;
+  };
+
+  /**
+   * Return the property from rawProperty and property modifier
+   * @returns {Number}
+   */
+  Armors.prototype.getSpeed = function() {
+    return JsonReader.power[this.rarity][this.rawSpeed] + this.speed;
+  };
+
+  /**
+   * @param {("fr"|"en")} language
+   * @return {String}
+   */
+  Armors.prototype.getValues = function(language) {
+    let values = [];
+
+    if (this.getAttack() !== 0) {
+      values.push(format(JsonReader.models.objects.getTranslation(language).attack, {attack: this.getAttack()}));
+    }
+
+    if (this.getDefense() !== 0) {
+      values.push(format(JsonReader.models.objects.getTranslation(language).defense, {defense: this.getDefense()}));
+    }
+
+    if (this.getSpeed() !== 0) {
+      values.push(format(JsonReader.models.objects.getTranslation(language).speed, {speed: this.getSpeed()}));
+    }
+
+    return values.join(' ');
+  };
+
   return Armors;
 };

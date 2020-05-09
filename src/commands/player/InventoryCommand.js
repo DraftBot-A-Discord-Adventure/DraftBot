@@ -11,19 +11,24 @@ const InventoryCommand = async (language, message, args) => {
   if (args.length === 0) {
     [entity] = await Entities.getOrRegister(message.author.id);
 
-    // TODO quels sont les permissions ?
+    if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+      return;
+    }
   } else {
     entity = await Entities.getByArgs(args, message);
 
-    // TODO quels sont les permissions ?
+    if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+      return;
+    }
   }
 
-  let inventoryEmbed = entity.Player.Inventory.toEmbedObject(language);
+  let inventoryEmbed = await entity.Player.Inventory.toEmbedObject(language);
 
   return await message.channel.send(
-      new discord.MessageEmbed().setColor(JsonReader.bot.embed.default)
-          .setTitle(inventoryEmbed.title)
-          .addFields(inventoryEmbed.fields)
+      new discord.MessageEmbed()
+          .setColor(JsonReader.bot.embed.default)
+          .setTitle(format(JsonReader.commands.inventory.getTranslation(language).title, {pseudo: entity.Player.getPseudo(entity.discordUser_id, language)}))
+          .addFields(inventoryEmbed)
   );
 };
 

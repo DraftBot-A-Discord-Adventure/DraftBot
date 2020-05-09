@@ -53,37 +53,14 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    */
-  Inventories.prototype.toEmbedObject = function(language) {
-    let result = {
-      // title: format(
-      //     JsonReader.models.inventories.getTranslation(language).title, {
-      //       pseudo: (await getRepository('player')
-      //           .getByIdOrCreate(this.playerId)).getPseudo(language),
-      //     }),
-      fields: [],
-    };
-
-    // result.fields.push(
-    //     (await getRepository('weapon').getById(this.weaponId)).toFieldObject(
-    //         language));
-    //
-    // result.fields.push(
-    //     (await getRepository('armor').getById(this.armorId)).toFieldObject(
-    //         language));
-    //
-    // result.fields.push(
-    //     (await getRepository('potion').getById(this.potionId)).toFieldObject(
-    //         language));
-    //
-    // result.fields.push(
-    //     (await getRepository('object').getById(this.objectId)).toFieldObject(
-    //         language, 'active'));
-    //
-    // result.fields.push(
-    //     (await getRepository('object').getById(this.backupItemId)).toFieldObject(
-    //         language, 'backup'));
-
-    return result;
+  Inventories.prototype.toEmbedObject = async function(language) {
+    return [
+      await (await this.getWeapon()).toFieldObject(language),
+      await (await this.getArmor()).toFieldObject(language),
+      await (await this.getPotion()).toFieldObject(language),
+      await (await this.getActiveObject()).toFieldObject(language, 'active'),
+      await (await this.getBackupObject()).toFieldObject(language, 'backup')
+    ];
   };
 
   return Inventories;

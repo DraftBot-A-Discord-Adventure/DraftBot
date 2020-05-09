@@ -1,17 +1,3 @@
-const AppRepository = require("repositories/AppRepository");
-const Armor = require("entities/Armor");
-
-/**
- * @property {String} datasource
- * @property {Object} armors
- */
-class ArmorRepository extends AppRepository {
-
-    constructor() {
-        super();
-        this.datasource = DATASOURCE.JSON;
-    }
-
     /**
      * Return an armor by id
      * @param {Number} id
@@ -31,7 +17,3 @@ class ArmorRepository extends AppRepository {
         const id = possibleArmors[Math.floor(Math.random() * possibleArmors.length)][0];
         return this.armors[id];
     }
-
-}
-
-module.exports = ArmorRepository;

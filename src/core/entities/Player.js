@@ -1,73 +1,3 @@
-const Entity = require('entities/Entity');
-
-/**
- * @property {String} id
- * @property {Number} maxHealth
- * @property {Number} health
- * @property {Number} attack
- * @property {Number} defense
- * @property {Number} speed
- * @property {String} effect
- * @property {String} discordId
- * @property {Number} score
- * @property {Number} weeklyScore
- * @property {Number} level
- * @property {Number} experience
- * @property {Number} money
- * @property {Number} lastReport
- * @property {String} badges
- * @property {String} guildId
- * @property {Number} rank
- * @property {Number} weeklyRank
- * @property {String} pseudo
- */
-class Player extends Entity {
-
-  /**
-   * @param {String} id
-   * @param {Number} maxHealth
-   * @param {Number} health
-   * @param {Number} attack
-   * @param {Number} defense
-   * @param {Number} speed
-   * @param {String} effect
-   * @param {Number} score
-   * @param {Number} weeklyScore
-   * @param {Number} level
-   * @param {Number} experience
-   * @param {Number} money
-   * @param {Number} lastReport
-   * @param {String} badges
-   * @param {String} guildId
-   * @param {Number} rank
-   * @param {Number} weeklyRank
-   */
-  constructor({
-    id, maxHealth, health, attack, defense, speed, effect, score, weeklyScore,
-    level, experience, money, lastReport, badges, guildId, rank, weeklyRank,
-  }) {
-    super({id, maxHealth, health, attack, defense, speed, effect});
-
-    this.discordId = id;
-    this.score = score;
-    this.weeklyScore = weeklyScore;
-    this.level = level;
-    this.experience = experience;
-    this.money = money;
-    this.lastReport = lastReport;
-    this.badges = badges;
-    this.guildId = guildId;
-    this.rank = rank;
-    this.weeklyRank = weeklyRank;
-
-    if (this.discordId !== undefined &&
-        client.users.cache.get(this.discordId) !== null) {
-      this.pseudo = client.users.cache.get(this.discordId).username;
-    } else {
-      this.pseudo = null;
-    }
-  }
-
   /**
    * Return an object of player for display purposes
    * @param {("fr"|"en")} language - The language the object has to be displayed in
@@ -268,27 +198,6 @@ class Player extends Entity {
    */
   async getCumulativeHealth() {
     return this.maxHealth + (this.level * 10);
-  }
-
-  /**
-   * Get the pseudo. Returns the default language's one if not found
-   * @param {"fr"|"en"} language
-   * @returns {Promise<string|null>}
-   */
-  getPseudo(language) {
-    this.setPseudo(language);
-    return this.pseudo;
-  }
-
-  /**
-   * Only if pseudo is null
-   * @param {String} language
-   */
-  setPseudo(language) {
-    if (this.pseudo === null) {
-      this.pseudo = JsonReader.models.players.getTranslation(
-          language).unknownPlayer;
-    }
   }
 
   /**

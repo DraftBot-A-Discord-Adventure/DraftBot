@@ -1,17 +1,3 @@
-const AppRepository = require('repositories/AppRepository');
-const Player = require('entities/Player');
-
-/**
- * @property {String} datasource
- * @property {module:sqlite3.Database} sql
- */
-class PlayerRepository extends AppRepository {
-
-  constructor() {
-    super();
-    this.datasource = DATASOURCE.SQLITE;
-  }
-
   /**
    * Return a player by rank, or false if not player is found
    * @param {String} rank - The rank of the player
