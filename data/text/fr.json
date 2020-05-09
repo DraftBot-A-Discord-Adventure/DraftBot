@@ -464,10 +464,6 @@
       ":clock10:": "** Une autre commande a été lancée récemment et attend des instructions de votre part ! Veuillez répondre à cette commande pour continuer à jouer. `Si vous n'avez aucune tâche en cours, veuillez contacter un administrateur du bot.`",
       ":clock2:": "** Il semblerait que vous soyez déjà occupé... Veuillez attendre la fin de la tâche pour continuer à jouer !"
     },
-    "intro": " | **",
-    "timeLeft": " | `Temps restant : ",
-    "outro": "`",
-    "noTimeLeft": ":hospital: Reprise du jeu possible",
     "newItemEmoji": ":new: | ",
     "newItem": ", **un nouvel item a été placé dans votre inventaire !** Vous recevez :\n\n",
     "sell": ", vous obtenez un sac rempli de quelques pièces d'or... Cela vous sera utile pour la suite de votre aventure ! :moneybag: Argent gagné : **",

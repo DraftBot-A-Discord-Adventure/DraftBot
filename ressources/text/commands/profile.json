@@ -17,6 +17,10 @@
 			"timeLeft": {
 				"fieldName": "Temps restant :",
 				"fieldValue": "{effect} {timeLeft}"
+			},
+			"noTimeLeft": {
+				"fieldName": "Temps restant :",
+				"fieldValue": ":hospital: Reprise du jeu possible"
 			}
 		},
 		"en": {
@@ -36,6 +40,10 @@
 			"timeLeft": {
 				"fieldName": "Time left :",
 				"fieldValue": "{effect} {timeLeft}"
+			},
+			"noTimeLeft": {
+				"fieldName": "Temps restant :",
+				"fieldValue": ":hospital: You can continue playing now"
 			}
 		}
 	}

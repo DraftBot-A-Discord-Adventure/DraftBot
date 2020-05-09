@@ -466,10 +466,6 @@
       ":clock10:": "** Another command was used by you recently and is still waiting for instructions! Please terminate the last command before continuing to play. `If there is no other task waiting for instructions, please contact a bot administrator`",
       ":clock2:": "** It seems you already have something on your hands! Please wait for the end of the task to continue playing!"
     },
-    "intro": " | **",
-    "timeLeft": " | `Time left: ",
-    "outro": "`",
-    "noTimeLeft": ":hospital: You can continue playing now",
     "newItemEmoji": ":new: | ",
     "newItem": "**, you obtained a new item!** You got:\n\n",
     "sell": ", you obtain a bag containing some gold coins... It will be useful for the continuation of your adventure! :moneybag: Money obtained: **",
