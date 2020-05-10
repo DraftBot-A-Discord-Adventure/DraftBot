@@ -176,7 +176,7 @@ module.exports = (sequelize, DataTypes) => {
    * @return {Boolean|String}
    */
   Entities.prototype.checkEffect = function() {
-    if ([EFFECT.BABY, EFFECT.SMILEY, EFFECT.SKULL, EFFECT.CLOCK10].indexOf(this.effect) !== -1) {
+    if ([EFFECT.BABY, EFFECT.SMILEY, EFFECT.SKULL].indexOf(this.effect) !== -1) {
       return true;
     }
     return false;

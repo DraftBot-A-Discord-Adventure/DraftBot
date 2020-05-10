@@ -1,34 +1,5 @@
 // TODO 2.0 Transfer this file directly into Commands class
 
-// const Drink = require('./commands/Drink');
-// const Daily = require('./commands/Daily');
-// const Top = require('./commands/Top');
-// const TopWeek = require('./commands/TopWeek');
-// const TopServ = require('./commands/TopServ');
-// const Sell = require('./commands/Sell');
-// const Fight = require('./commands/Fight');
-// const Shop = require('./commands/Shop');
-//
-// const Guild = require('./commands/guilds/Guild');
-// const GuildAdd = require('./commands/guilds/GuildAdd');
-// const GuildLeave = require('./commands/guilds/GuildLeave');
-// const GuildCreate = require('./commands/guilds/GuildCreate');
-// const GuildKick = require('./commands/guilds/GuildKick');
-// const GuildDaily = require('./commands/guilds/GuildDaily');
-//
-// const Reset = require('./commands/admin/Reset');
-// const Give = require('./commands/admin/Give');
-// const ListItems = require('./commands/admin/ListItems');
-// const Servers = require('./commands/admin/Servers');
-// const GiveBadge = require('./commands/admin/GiveBadge');
-// const ResetBadge = require('./commands/admin/ResetBadge');
-// const ChangePrefix = require('./commands/admin/ChangePrefix');
-// const SendData = require('./commands/admin/SendData');
-// const Points = require('./commands/admin/Points');
-// const PointsWeek = require('./commands/admin/PointsWeek');
-// const Send = require('./commands/admin/Send');
-// const Language = require('./commands/admin/Language');
-
 const CommandTable = new Map(
     [
         // ["drink", Drink.DrinkCommand],
@@ -58,7 +29,6 @@ const CommandTable = new Map(
         // ["give", Give.GiveCommand],
         // ["cp", ChangePrefix.ChangePrefixCommand],
         // ["rb", ResetBadge.ResetBadgeCommand],
-        // ["senddata", SendData.SendDataCommand],
         // ["dm", Send.SendCommand],
         //
         // ["guild", Guild.guildCommand],

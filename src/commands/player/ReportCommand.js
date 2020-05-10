@@ -19,36 +19,36 @@ const ReportCommand = async function(language, message, args) {
 
   if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
     // TODO add player to blocked
-    let event = await getRepository('event').getById(0);
-    return await doEvent(message, language, event, player, time);
+    let event = await Events.findOne({where: {id: 0}});
+    return await doEvent(message, language, event, entity, time);
   }
 
-  if (time < JsonReader.commands.report.timeMinimal) {
-    await getRepository('player').update(player);
-    return await message.channel.send(format(JsonReader.commands.report.noReport, {pseudo: message.author.username}));
-  }
+  // if (time < JsonReader.commands.report.timeMinimal) {
+  //   await getRepository('player').update(player);
+  //   return await message.channel.send(format(JsonReader.commands.report.noReport, {pseudo: message.author.username}));
+  // }
+  //
+  // // TODO add player to blocked
+  //
+  // if (time <= JsonReader.commands.report.timeMaximal && Math.round(Math.random() * JsonReader.commands.report.timeMaximal) > time) {
+  //   // TODO Exec special event nothingToSay
+  //   return;
+  // }
 
-  // TODO add player to blocked
-
-  if (time <= JsonReader.commands.report.timeMaximal && Math.round(Math.random() * JsonReader.commands.report.timeMaximal) > time) {
-    // TODO Exec special event nothingToSay
-    return;
-  }
-
-  let event = await getRepository('event').getRandom();
-  return await doEvent(message, language, event, player, time);
+  let event = await Events.findOne({order: (require('sequelize')).literal('RANDOM()')});
+  return await doEvent(message, language, event, entity, time);
 };
 
 /**
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Event} event
- * @param {Player} player
+ * @param {Entities} entity
  * @param {Number} time
  * @return {Promise<void>}
  */
-const doEvent = async (message, language, event, player, time) => {
-  const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {pseudo: message.author.username, event: event.getTranslation(language)}));
+const doEvent = async (message, language, event, entity, time) => {
+  const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {pseudo: message.author.username, event: event[language]}));
   const collector = eventDisplayed.createReactionCollector((reaction, user) => {return (event.reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);}, {time: 120000});
   collector.on('collect', async (reaction) => {
     collector.stop();

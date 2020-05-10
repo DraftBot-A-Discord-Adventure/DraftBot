@@ -8,7 +8,7 @@ class MessageError {
    * @param {Entities} entity
    * @return {Promise<any>}
    */
-  static async canPerformCommand(message, language, permission, disallowEffects, entity) {
+  static async canPerformCommand(message, language, permission, disallowEffects = null, entity = null) {
 
     // Check role on permission
     if (permission === PERMISSION.ROLE.MANAGER || permission === PERMISSION.ROLE.ADMINISTRATOR) {
