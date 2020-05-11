@@ -13,6 +13,17 @@ global.EFFECT = {
   // TODO 2.0 Terminer
 };
 
+// Object nature
+global.NATURE = {
+  NONE: 0,
+  HEALTH: 1,
+  SPEED: 2,
+  DEFENSE: 3,
+  ATTACK: 4,
+  HOSPITAL: 5,
+  MONEY:6
+};
+
 global.PERMISSION = {
   ROLE: {
     ADMINISTRATOR: 'administrator',

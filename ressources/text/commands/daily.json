@@ -1,0 +1,19 @@
+{
+    "translations": {
+        "fr": {
+            "objectDoNothingError": "Vous tentez d'utiliser le pouvoir de l'objet que vous transportez... Mais cela n'a aucun effet !",
+            "timingError": "Il semblerait que vous ayez déjà utilisé le pouvoir d'un objet aujourd'hui... Revenez demain !",
+            "objectIsActiveDuringFights": "Le pouvoir de l'objet que vous transportez est actif automatiquement durant les combats !",
+            "noDailyError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
+            "noActiveObjectdescription": "Vous n'avez malheureusement aucun objet actif dans votre inventaire !",
+            "dailySuccess": "{pseudo}, vous avez reçu votre récompense journalière !",
+            "healthDaily": "❤️ Vie gagnée : {value} !",
+            "moneyBonus": "💰 Argent gagné : {value} !",
+            "hospitalBonus": "🕥 Vous avez avancé de {value} heure(s) !"
+        },
+        "en": {
+            "alive": ":thinking: | ** {pseudo} ** it seems that you are not yet KO'd... You don't need our services.",
+            "respawn": ":angel: | ** {pseudo} ** We successfully brought you back to life! However, please note that {lostScore} points :medal: were deducted from your score as a result of this action!"
+        }
+    }
+}

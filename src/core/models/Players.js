@@ -107,6 +107,25 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
+    /**
+   * @param {Number} money
+   */
+  Players.prototype.addMoney = function (money) {
+    this.money += money;
+    this.setMoney(this.money);
+  };
+
+  /**
+   * @param {Number} money
+   */
+  Players.prototype.setMoney = function (money) {
+    if (money > 0) {
+      this.money = money;
+    } else {
+      this.money = 0;
+    }
+  };
+
   /**
    * @param {Number} weeklyScore
    */
