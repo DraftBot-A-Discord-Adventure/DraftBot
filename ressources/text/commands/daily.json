@@ -12,8 +12,15 @@
             "hospitalBonus": "🕥 Vous avez avancé de {value} heure(s) !"
         },
         "en": {
-            "alive": ":thinking: | ** {pseudo} ** it seems that you are not yet KO'd... You don't need our services.",
-            "respawn": ":angel: | ** {pseudo} ** We successfully brought you back to life! However, please note that {lostScore} points :medal: were deducted from your score as a result of this action!"
+            "objectDoNothingError": "You attempt to use the power of the object you're carrying... But it has no effect !",
+            "timingError": "It seems that you have already used the power of an object today ... Come back tomorrow!",
+            "objectIsActiveDuringFights": "The power of the object you are carrying is automatically activated during battle!",
+            "noDailyError": "{pseudo}, hmmm... It didn't work!",
+            "noActiveObjectdescription": "You unfortunately have no active items in your inventory!",
+            "dailySuccess": "{pseudo}, you have received your daily reward!",
+            "healthDaily": "❤️ Lifetime Achievement Award!",
+            "moneyBonus": "💰 Money Earned: {value} !",
+            "hospitalBonus": "🕥 You have moved up {value} hour(s)."
         }
     }
 }
