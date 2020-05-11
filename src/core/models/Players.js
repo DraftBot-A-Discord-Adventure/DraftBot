@@ -97,30 +97,6 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   /**
-   * @param {Number} health
-   */
-  Players.prototype.addHealth = function (health) {
-    this.health += health;
-    this.sethealth(this.health);
-  };
-
-  /**
-   * @param {Number} health
-   */
-  Players.prototype.sethealth = function (health) {
-    if (health < 0) {
-      // TODO: Kill the player (send death message and set skull status)
-      this.health = 0;
-    } else {
-      if (health > this.maxHealth) {
-        this.health = this.maxHealth;
-      } else {
-        this.health = health;
-      }
-    }
-  };
-
-  /**
    * @param {Number} score
    */
   Players.prototype.setScore = function (score) {
