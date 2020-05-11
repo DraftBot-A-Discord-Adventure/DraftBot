@@ -30,7 +30,7 @@ const DailyCommand = async function (language, message) {
         .setDescription(JsonReader.commands.daily.getTranslation(language).noActiveObjectdescription);
     }
   }
-  if (activeObject.nature == NATURE.HEAL) {
+  if (activeObject.nature == NATURE.HEALTH) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(JsonReader.commands.daily.getTranslation(language).dailySuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
       .setDescription(format(JsonReader.commands.daily.getTranslation(language).healthDaily, { value: activeObject.power }));
