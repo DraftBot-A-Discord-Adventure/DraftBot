@@ -18,7 +18,7 @@
             "noDailyError": "{pseudo}, hmmm... It didn't work!",
             "noActiveObjectdescription": "You unfortunately have no active items in your inventory!",
             "dailySuccess": "{pseudo}, you have received your daily reward!",
-            "healthDaily": "❤️ Lifetime Achievement Award!",
+            "healthDaily": "❤️ HP recovered : {value}!",
             "moneyBonus": "💰 Money Earned: {value} !",
             "hospitalBonus": "🕥 You have moved up {value} hour(s)."
         }
