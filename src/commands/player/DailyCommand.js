@@ -10,12 +10,20 @@ const DailyCommand = async function (language, message) {
     return;
   }
   let currentDay = new Date();
-
+  currentDay.setDate(currentDay.getDate() + 1)
   let activeObject = await entity.Player.Inventory.getActiveObject();
 
-  // TODO add player to blocked if daily has already been activated today
+  let lastDailyDay = await entity.Player.Inventory.get('lastDailyAt');
+
 
   let embed = new discord.MessageEmbed();
+  if (lastDailyDay < currentDay) {
+    embed.setColor(JsonReader.bot.embed.error)
+      .setAuthor(format(JsonReader.commands.daily.getTranslation(language).noDailyError, { pseudo: message.author.username }), message.author.displayAvatarURL())
+      .setDescription(JsonReader.commands.daily.getTranslation(language).alreadyClaimedError);
+    return await message.channel.send(embed);
+  }
+
 
   if (activeObject.nature == NATURE.NONE) {
     if (activeObject.id != JsonReader.models.inventories.object_id) {
@@ -35,7 +43,7 @@ const DailyCommand = async function (language, message) {
       .setAuthor(format(JsonReader.commands.daily.getTranslation(language).dailySuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
       .setDescription(format(JsonReader.commands.daily.getTranslation(language).healthDaily, { value: activeObject.power }));
     entity.addHealth(activeObject.power);
-    // TODO save the date of the daily
+    entity.Player.Inventory.updateLastDailyAt();
   }
   if (activeObject.nature == NATURE.SPEED || activeObject.nature == NATURE.DEFENSE || activeObject.nature == NATURE.ATTACK) { //Those objects are active only during fights
     embed.setColor(JsonReader.bot.embed.error)
@@ -47,14 +55,14 @@ const DailyCommand = async function (language, message) {
       .setAuthor(format(JsonReader.commands.daily.getTranslation(language).dailySuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
       .setDescription(format(JsonReader.commands.daily.getTranslation(language).hospitalBonus, { value: activeObject.power }));
     // TODO move lastReport to the correct new date
-    // TODO save the date of the daily
+    entity.Player.Inventory.updateLastDailyAt();
   }
   if (activeObject.nature == NATURE.MONEY) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(JsonReader.commands.daily.getTranslation(language).dailySuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
       .setDescription(format(JsonReader.commands.daily.getTranslation(language).moneyBonus, { value: activeObject.power }));
     entity.Player.addMoney(activeObject.power);
-    // TODO save the date of the daily
+    entity.Player.Inventory.updateLastDailyAt();
   }
 
   await Promise.all([
