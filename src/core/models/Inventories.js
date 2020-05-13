@@ -54,6 +54,11 @@ module.exports = (sequelize, DataTypes) => {
     this.lastDailyAt = new Date();
   };
 
+  Inventories.prototype.drinkPotion = function () {
+    this.potion_id = JsonReader.models.inventories.potion_id;
+  };
+
+
   /**
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    */

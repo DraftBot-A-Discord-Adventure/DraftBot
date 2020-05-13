@@ -31,7 +31,7 @@ const DrinkCommand = async function (language, message) {
             .setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
             .setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, { value: potion.power }));
         entity.addHealth(potion.power);
-        // TODO clear the potion of the inventory
+        entity.Player.Inventory.drinkPotion();
     }
     if (potion.nature == NATURE.SPEED || potion.nature == NATURE.DEFENSE || potion.nature == NATURE.ATTACK) { //Those objects are active only during fights
         embed.setColor(JsonReader.bot.embed.error)
@@ -42,15 +42,15 @@ const DrinkCommand = async function (language, message) {
         embed.setColor(JsonReader.bot.embed.default)
             .setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
             .setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, { value: potion.power }));
-        // TODO move lastReport to the correct new date
-        // TODO clear the potion of the inventory
+        entity.Player.fastForward(potion.power);
+        entity.Player.Inventory.drinkPotion();
     }
     if (potion.nature == NATURE.MONEY) {
         embed.setColor(JsonReader.bot.embed.default)
             .setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
             .setDescription(format(JsonReader.commands.drink.getTranslation(language).moneyBonus, { value: potion.power }));
         entity.Player.addMoney(potion.power);
-        // TODO clear the potion of the inventory
+        entity.Player.Inventory.drinkPotion();
     }
 
     await Promise.all([
