@@ -10,10 +10,10 @@ const DailyCommand = async function (language, message) {
     return;
   }
   let currentDay = new Date();
-  currentDay.setDate(currentDay.getDate() + 1)
+  currentDay.setDate(currentDay.getDate() - 1)
   let activeObject = await entity.Player.Inventory.getActiveObject();
 
-  let lastDailyDay = await entity.Player.Inventory.get('lastDailyAt');
+  let lastDailyDay = await entity.Player.Inventory.lastDailyAt;
 
 
   let embed = new discord.MessageEmbed();
@@ -54,8 +54,8 @@ const DailyCommand = async function (language, message) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(JsonReader.commands.daily.getTranslation(language).dailySuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
       .setDescription(format(JsonReader.commands.daily.getTranslation(language).hospitalBonus, { value: activeObject.power }));
-    // TODO move lastReport to the correct new date
-    entity.Player.Inventory.updateLastDailyAt();
+      entity.Player.fastForward(activeObject.power);
+      entity.Player.Inventory.updateLastDailyAt();
   }
   if (activeObject.nature == NATURE.MONEY) {
     embed.setColor(JsonReader.bot.embed.default)

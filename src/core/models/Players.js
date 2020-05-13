@@ -107,9 +107,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-    /**
-   * @param {Number} money
-   */
+  /**
+ * @param {Number} money
+ */
   Players.prototype.addMoney = function (money) {
     this.money += money;
     this.setMoney(this.money);
@@ -152,6 +152,17 @@ module.exports = (sequelize, DataTypes) => {
     await this.setPseudo(language);
     return this.pseudo;
   };
+
+  /**
+   * @param {Number} hours
+   */
+  Players.prototype.fastForward = async function (hours) {
+    let lastReport = new Date(this.lastReportAt);
+    lastReport.setHours(lastReport.getHours() + hours);
+    this.lastReportAt = lastReport;
+  };
+
+
 
   /**
    * @param {"fr"|"en"} language
