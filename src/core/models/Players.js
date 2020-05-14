@@ -158,7 +158,7 @@ module.exports = (sequelize, DataTypes) => {
    */
   Players.prototype.fastForward = async function (hours) {
     let lastReport = new Date(this.lastReportAt);
-    lastReport.setHours(lastReport.getHours() + hours);
+    lastReport.setHours(lastReport.getHours() - hours);
     this.lastReportAt = lastReport;
   };
 
