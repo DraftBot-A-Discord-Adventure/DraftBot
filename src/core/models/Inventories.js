@@ -51,7 +51,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Inventories.prototype.updateLastDailyAt = function () {
-    this.lastDailyAt = new Date();
+    let moment = require('moment');
+    this.lastDailyAt = new moment();
   };
 
   Inventories.prototype.drinkPotion = function () {

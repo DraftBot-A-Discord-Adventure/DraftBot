@@ -4,8 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
 const DrinkCommand = async function (language, message) {
-    let entity;
-    [entity] = await Entities.getOrRegister(message.author.id);
+   let [entity] = await Entities.getOrRegister(message.author.id);
     if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
         return;
     }

@@ -4,13 +4,12 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
 const DailyCommand = async function (language, message) {
-  let entity;
-  [entity] = await Entities.getOrRegister(message.author.id);
+  let [entity] = await Entities.getOrRegister(message.author.id);
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
     return;
   }
-  let currentDay = new Date();
-  currentDay.setDate(currentDay.getDate() - 1)
+  let moment =require('moment');
+  let currentDay = new moment().add(JsonReader.commands.daily.numberOfDayToReload, 'd');
   let activeObject = await entity.Player.Inventory.getActiveObject();
 
   let lastDailyDay = await entity.Player.Inventory.lastDailyAt;
@@ -54,8 +53,8 @@ const DailyCommand = async function (language, message) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(JsonReader.commands.daily.getTranslation(language).dailySuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
       .setDescription(format(JsonReader.commands.daily.getTranslation(language).hospitalBonus, { value: activeObject.power }));
-      entity.Player.fastForward(activeObject.power);
-      entity.Player.Inventory.updateLastDailyAt();
+    entity.Player.fastForward(activeObject.power);
+    entity.Player.Inventory.updateLastDailyAt();
   }
   if (activeObject.nature == NATURE.MONEY) {
     embed.setColor(JsonReader.bot.embed.default)

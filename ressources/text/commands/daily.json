@@ -22,5 +22,6 @@
             "moneyBonus": "💰 Money Earned: {value} !",
             "hospitalBonus": "🕥 You have moved up {value} hour(s)."
         }
-    }
+    },
+    "numberOfDayToReload": 1
 }

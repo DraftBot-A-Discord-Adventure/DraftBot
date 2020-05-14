@@ -157,8 +157,8 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Number} hours
    */
   Players.prototype.fastForward = async function (hours) {
-    let lastReport = new Date(this.lastReportAt);
-    lastReport.setHours(lastReport.getHours() - hours);
+    let moment =require('moment');
+    let lastReport = new moment(this.lastReportAt).subtract(hours,'h');
     this.lastReportAt = lastReport;
   };
 
@@ -169,7 +169,6 @@ module.exports = (sequelize, DataTypes) => {
    */
   Players.prototype.setPseudo = async function (language) {
     let entity = await this.getEntity();
-
     if (entity.discordUser_id !== undefined && client.users.cache.get(entity.discordUser_id) !== null) {
       this.pseudo = client.users.cache.get(entity.discordUser_id).username;
     } else {
