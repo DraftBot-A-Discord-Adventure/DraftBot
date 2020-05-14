@@ -50,10 +50,20 @@ module.exports = (sequelize, DataTypes) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
+  Inventories.prototype.updateLastDailyAt = function () {
+    let moment = require('moment');
+    this.lastDailyAt = new moment();
+  };
+
+  Inventories.prototype.drinkPotion = function () {
+    this.potion_id = JsonReader.models.inventories.potion_id;
+  };
+
+
   /**
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    */
-  Inventories.prototype.toEmbedObject = async function(language) {
+  Inventories.prototype.toEmbedObject = async function (language) {
     return [
       await (await this.getWeapon()).toFieldObject(language),
       await (await this.getArmor()).toFieldObject(language),
