@@ -26,8 +26,10 @@ global.NATURE = {
 
 global.PERMISSION = {
   ROLE: {
+    BOTOWNER: 'owner',
+    BADGEMANAGER: 'manager',
+    SUPPORT: 'support',
     ADMINISTRATOR: 'administrator',
-    MANAGER: 'manager',
     ALL: 'all'
   }
 };

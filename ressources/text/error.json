@@ -1,6 +1,13 @@
 {
 	"translations": {
 		"fr": {
+
+			"titlePermissionError": "{pseudo}, vous n'avez pas la permission d'utiliser cette commande !",
+			"badgeManagerPermissionMissing": "Vous devez être badge manager pour utiliser cette commande !",
+			"dmSupportPermissionMissing": "Vous devez être membre de l'équipe de support du bot pour utiliser cette commande !",
+			"administratorPermissionMissing": "Vous devez possèder la permission `Administrateur` sur ce serveur pour utiliser cette commande !",
+			"botOwnerPermissionMissing": "Cette commande est réservée au propriétaire du bot !",
+
 			"titleMeIsBaby": "{pseudo}, vous n'avez pas commencé l'aventure !",
 			"meIsBaby": "Utilisez la commande `report` pour commencer votre aventure !",
 
@@ -11,6 +18,12 @@
 			"playerIsSkull": "TODO"
 		},
 		"en": {
+			"titlePermissionError": "{pseudo}, you do not have the rights to perform this command!",
+			"badgeManagerPermissionMissing": "You need to be a badge manager!",
+			"dmSupportPermissionMissing": "You need to be a part of the support team!",
+			"administratorPermissionMissing": "You need to have the `Administrator` permission on this server!",
+			"botOwnerPermissionMissing": "This command is for the bot owner only!",
+
 			"title": ":x: | ** {pseudo} **",
 			"meIsBaby": "Use the command `report` to start your adventure!",
 			"meIsSkull": "You are KO'd! You need to respawn using the `respawn` command.",
