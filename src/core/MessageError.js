@@ -104,7 +104,7 @@ class MessageError {
     }
 
     // 2 ::: On va tester tout les autres effects à partir de l'effect
-    if (effect === EFFECT.SKULL) {
+    if (effect === EFFECT.DEAD) {
       embed
         .setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsSkull, { pseudo: message.author.username }), message.author.displayAvatarURL())
         .setDescription(JsonReader.error.getTranslation(language).meIsSkull);
@@ -129,14 +129,19 @@ class MessageError {
         });
     }
 
-    if (player.effect === EFFECT.SKULL) {
+    if (player.effect === EFFECT.DEAD) {
       embed
         .setDescription(JsonReader.error.getTranslation(language).playerIsSkull, {
           askedPseudo: player.getPseudo(language)
         });
     }
 
-    // TODO handle other effect error
+    if (player.effect === EFFECT.BABY) {
+      embed
+        .setDescription(JsonReader.error.getTranslation(language).playerIsBaby, {
+          askedPseudo: player.getPseudo(language)
+        });
+    }
 
     return await message.channel.send(embed);
   }
