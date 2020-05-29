@@ -8,7 +8,7 @@ global.DATASOURCE = {
 global.EFFECT = {
   BABY: ":baby:",
   SMILEY: ":smiley:",
-  AWAITINGANSWER: ":clock10:",
+  AWAITINGANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
   DEAD: ":skull:",
   SLEEPING: ":sleeping: ",
   DRUNK: ":zany_face:",
