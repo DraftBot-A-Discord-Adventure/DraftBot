@@ -46,6 +46,17 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
+  /**
+   * @param {("objectId")} objectId - The objectId
+   * @param {("objectType")} objectType - The objectType to know what kind of object is updated
+   */
+  Inventories.prototype.giveObject = function(objectId, objectType) {
+    if("potion" == objectType){this.potion_id = objectId;}
+    if("weapon" == objectType){this.weapon_id = objectId;}
+    if("armor" == objectType){this.armor_id = objectId;}
+    if("object" == objectType){this.backup_id = objectId;}
+  };
+
   Inventories.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
