@@ -17,7 +17,6 @@ const CommandTable = new Map(
         // ["f", Fight.FightCommand],
         // ["s", Shop.ShopCommand],
         // ["shop", Shop.ShopCommand],
-        // ["language", Language.ChangeLanguageCommand],
         //
         // ["list", ListItems.ListItemsCommand],
         // ["destroy", Reset.ResetCommand],

@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+            "title": "{pseudo}, vous avez changé la langue du serveur !",
+            "descfr": ":flag_gb: | Draftbot will now speak in english on this server!"
+        },
+		"en": {
+            "title": "{pseudo}, you have switch the language !",
+            "descen": ":flag_fr: | Draftbot va désormais parler anglais sur ce serveur !"
+		}
+	}
+}
