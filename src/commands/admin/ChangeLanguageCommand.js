@@ -18,13 +18,13 @@ const changeLanguageCommand = async function (language, message, args) {
         server.language = "en";
         embed.setColor(JsonReader.bot.embed.default)
         .setAuthor(format(JsonReader.commands.changeLanguage.getTranslation(language).title, { pseudo: message.author.username }), message.author.displayAvatarURL())
-        .setDescription(format(JsonReader.commands.changeLanguage.getTranslation(language).descfr));
+        .setDescription(format(JsonReader.commands.changeLanguage.getTranslation(language).desc));
         return await message.channel.send(embed);
     }else{
         server.language = "fr";
         embed.setColor(JsonReader.bot.embed.default)
         .setAuthor(format(JsonReader.commands.changeLanguage.getTranslation(language).title, { pseudo: message.author.username }), message.author.displayAvatarURL())
-        .setDescription(format(JsonReader.commands.changeLanguage.getTranslation(language).descen));
+        .setDescription(format(JsonReader.commands.changeLanguage.getTranslation(language).desc));
         return await message.channel.send(embed);
     }
     await server.save();
