@@ -12,7 +12,7 @@ const RespawnCommand = async (language, message, args) => {
     return;
   }
 
-  if (entity.effect !== EFFECT.SKULL) {
+  if (entity.effect !== EFFECT.DEAD) {
     await message.channel.send(format(JsonReader.commands.respawn.getTranslation(language).alive, {pseudo: message.author.username}));
   } else {
     const lostScore = Math.round(entity.Player.score * JsonReader.commands.respawn.score_remove_during_respawn);
