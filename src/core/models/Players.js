@@ -65,11 +65,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-   /**
-  * @param {("points")} points - A number
+  /**
+  * @param {("points")} points - A number representating the score
   */
   Players.prototype.setPoints = function(points) {
     this.score = points;
+  }; 
+
+  /**
+  * @param {("pointsWeek")} pointsWeek - A number representating the weekly score
+  */
+  Players.prototype.setPointsWeek = function(points) {
+    this.weeklyScore = points;
   }; 
 
   Players.beforeSave((instance, options) => {
