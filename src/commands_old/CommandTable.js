@@ -18,9 +18,7 @@ const CommandTable = new Map(
         // ["s", Shop.ShopCommand],
         // ["shop", Shop.ShopCommand],
         //
-        // ["list", ListItems.ListItemsCommand],
         // ["destroy", Reset.ResetCommand],
-        // ["points", Points.PointsCommand],
         // ["pointsw", PointsWeek.PointsWeekCommand],
         // ["servs", Servers.ServersCommand],
         // ["cp", ChangePrefix.ChangePrefixCommand],

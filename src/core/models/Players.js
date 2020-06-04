@@ -65,6 +65,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
+   /**
+  * @param {("points")} points - A number
+  */
+  Players.prototype.setPoints = function(points) {
+    this.score = points;
+  }; 
+
   Players.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
