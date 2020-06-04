@@ -17,11 +17,26 @@ const listItemsCommand = async function (language, message, args) {
     await message.channel.send(embed);
 
     //Delete all old list
-    fs.unlinkSync('allArmors.txt');
-    fs.unlinkSync('allWeapons.txt');
-    fs.unlinkSync('allPotions.txt');
-    fs.unlinkSync('allObjects.txt');
-    fs.unlinkSync('allItems.txt');
+    try {
+        fs.statSync('allArmors.txt');
+        fs.unlinkSync('allArmors.txt');
+    }catch (err) {}
+    try {
+        fs.statSync('allWeapons.txt');
+        fs.unlinkSync('allWeapons.txt');
+    }catch (err) {}
+    try {
+        fs.statSync('allPotions.txt');
+        fs.unlinkSync('allPotions.txt');
+    }catch (err) {}
+    try {
+        fs.statSync('allItems.txt');
+        fs.unlinkSync('allItems.txt');
+    }catch (err) {}
+    try {
+        fs.statSync('allObjects.txt');
+        fs.unlinkSync('allObjects.txt');
+    }catch (err) {}
 
     //List armors
     files = fs.readdirSync("ressources/text/armors");
@@ -41,10 +56,10 @@ const listItemsCommand = async function (language, message, args) {
         }
     });
     fs.appendFileSync('allItems.txt', "\n");
-    await message.channel.send({
+    message.channel.send({
         files: [{
             attachment: 'allArmors.txt',
-            name: 'allArmors',
+            name: 'allArmors.txt',
             }],
     });
 
@@ -66,10 +81,10 @@ const listItemsCommand = async function (language, message, args) {
         }
     });
     fs.appendFileSync('allItems.txt', "\n");
-    await message.channel.send({
+    message.channel.send({
         files: [{
             attachment: 'allWeapons.txt',
-            name: 'allWeapons',
+            name: 'allWeapon.txt',
             }],
     });
 
@@ -91,10 +106,10 @@ const listItemsCommand = async function (language, message, args) {
         }
     });
     fs.appendFileSync('allItems.txt', "\n");
-    await message.channel.send({
+    message.channel.send({
         files: [{
             attachment: 'allPotions.txt',
-            name: 'allPotions',
+            name: 'allPotions.txt',
             }],
     });
 
@@ -116,17 +131,17 @@ const listItemsCommand = async function (language, message, args) {
         }
     });
     fs.appendFileSync('allItems.txt', "\n");
-    await message.channel.send({
+    message.channel.send({
         files: [{
             attachment: 'allObjects.txt',
-            name: 'allObjects',
+            name: 'allObjects.txt',
             }],
     });
 
-    await message.channel.send({
+    message.channel.send({
         files: [{
             attachment: 'allItems.txt',
-            name: 'allItems',
+            name: 'allItems.txt',
             }],
     });
 };
