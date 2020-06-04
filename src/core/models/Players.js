@@ -54,6 +54,17 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
+  /**
+  * @param {("badgeID")} badgeID - The badgeID
+  */
+  Players.prototype.giveBadge = function(badgeID) {
+    if (this.badges != "") {
+      this.badges = this.badges + "-" + badgeID;
+    }else{
+      this.badges = badgeID;
+    }
+  };
+
   Players.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });

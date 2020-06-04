@@ -24,7 +24,6 @@ const CommandTable = new Map(
         // ["points", Points.PointsCommand],
         // ["pointsw", PointsWeek.PointsWeekCommand],
         // ["servs", Servers.ServersCommand],
-        // ["gb", GiveBadge.GiveBadgeCommand],
         // ["cp", ChangePrefix.ChangePrefixCommand],
         // ["rb", ResetBadge.ResetBadgeCommand],
         // ["dm", Send.SendCommand],
