@@ -17,7 +17,6 @@ const CommandTable = new Map(
         // ["f", Fight.FightCommand],
         // ["s", Shop.ShopCommand],
         // ["shop", Shop.ShopCommand],
-        // ["prefix", ChangePrefix.ChangePrefixCommand],
         // ["language", Language.ChangeLanguageCommand],
         //
         // ["list", ListItems.ListItemsCommand],
@@ -26,7 +25,6 @@ const CommandTable = new Map(
         // ["pointsw", PointsWeek.PointsWeekCommand],
         // ["servs", Servers.ServersCommand],
         // ["gb", GiveBadge.GiveBadgeCommand],
-        // ["give", Give.GiveCommand],
         // ["cp", ChangePrefix.ChangePrefixCommand],
         // ["rb", ResetBadge.ResetBadgeCommand],
         // ["dm", Send.SendCommand],
