@@ -252,7 +252,7 @@ class Database {
       effect: EFFECT.SMILEY
     }, {
       where: {
-        effect: EFFECT.CLOCK10
+        effect: EFFECT.AWAITINGANSWER
       }
     });
   }

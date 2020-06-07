@@ -8,7 +8,7 @@ const ReportCommand = async function(language, message, args) {
 
   let [entity] = await Entities.getOrRegister(message.author.id);
 
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.SKULL], entity)) !== true) {
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
     return;
   }
 
@@ -124,7 +124,7 @@ const doPossibility = async (message, language, possibility, player, time) => {
   await message.channel.send(result);
 
   // TODO remove player of blocked
-  // TODO CHECK STATUS (LVL UP / SKULL)
+  // TODO CHECK STATUS (LVL UP / DEAD)
 
   // return await XXX;
 };
