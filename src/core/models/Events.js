@@ -29,5 +29,17 @@ module.exports = (sequelize, DataTypes) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
+  /**
+   * @return {Promise<String[]>}
+   */
+  Events.prototype.getReactions = async function() {
+    let possibilities = await this.getPossibilities();
+    let reactions = [];
+    for (const possibility of possibilities) {
+      reactions.push(possibility.possibilityKey);
+    }
+    return reactions;
+  };
+
   return Events;
 };

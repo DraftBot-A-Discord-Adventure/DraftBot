@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
    */
   Players.getById = async (id) => {
     const query = `SELECT * FROM (SELECT id, RANK() OVER (ORDER BY score desc) rank, RANK() OVER (ORDER BY weeklyScore desc) weeklyRank FROM players) WHERE id = :id`;
-    return await sequelize.query(query, {replacements: {id: id}, type: sequelize.QueryTypes.SELECT});
+    return await sequelize.query(query, { replacements: { id: id }, type: sequelize.QueryTypes.SELECT });
   };
 
   /**
@@ -71,27 +71,27 @@ module.exports = (sequelize, DataTypes) => {
    */
   Players.getByRank = async (rank) => {
     const query = `SELECT * FROM (SELECT entity_id, RANK() OVER (ORDER BY score desc) rank, RANK() OVER (ORDER BY weeklyScore desc) weeklyRank FROM players) WHERE rank = :rank`;
-    return await sequelize.query(query, {replacements: {rank: rank}, type: sequelize.QueryTypes.SELECT});
+    return await sequelize.query(query, { replacements: { rank: rank }, type: sequelize.QueryTypes.SELECT });
   };
 
   /**
    * @return {Number} Return the experience needed to level up.
    */
-  Players.prototype.getExperienceNeededToLevelUp = function() {
+  Players.prototype.getExperienceNeededToLevelUp = function () {
     return JsonReader.models.players.xp[this.level + 1];
   };
 
   /**
    * @returns {Number} Return the experience used to level up.
    */
-  Players.prototype.getExperienceUsedToLevelUp = function() {
+  Players.prototype.getExperienceUsedToLevelUp = function () {
     return JsonReader.models.players.xp[this.level];
   };
 
   /**
    * @param {Number} score
    */
-  Players.prototype.addScore = function(score) {
+  Players.prototype.addScore = function (score) {
     this.score += score;
     this.setScore(this.score);
   };
@@ -99,7 +99,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} score
    */
-  Players.prototype.setScore = function(score) {
+  Players.prototype.setScore = function (score) {
     if (score > 0) {
       this.score = score;
     } else {
@@ -108,9 +108,28 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   /**
+ * @param {Number} money
+ */
+  Players.prototype.addMoney = function (money) {
+    this.money += money;
+    this.setMoney(this.money);
+  };
+
+  /**
+   * @param {Number} money
+   */
+  Players.prototype.setMoney = function (money) {
+    if (money > 0) {
+      this.money = money;
+    } else {
+      this.money = 0;
+    }
+  };
+
+  /**
    * @param {Number} weeklyScore
    */
-  Players.prototype.addWeeklyScore = function(weeklyScore) {
+  Players.prototype.addWeeklyScore = function (weeklyScore) {
     this.weeklyScore += weeklyScore;
     this.setWeeklyScore(this.weeklyScore);
   };
@@ -118,7 +137,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} weeklyScore
    */
-  Players.prototype.setWeeklyScore = function(weeklyScore) {
+  Players.prototype.setWeeklyScore = function (weeklyScore) {
     if (weeklyScore > 0) {
       this.weeklyScore = weeklyScore;
     } else {
@@ -129,17 +148,27 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {"fr"|"en"} language
    */
-  Players.prototype.getPseudo = async function( language) {
+  Players.prototype.getPseudo = async function (language) {
     await this.setPseudo(language);
     return this.pseudo;
   };
 
   /**
+   * @param {Number} hours
+   */
+  Players.prototype.fastForward = async function (hours) {
+    let moment =require('moment');
+    let lastReport = new moment(this.lastReportAt).subtract(hours,'h');
+    this.lastReportAt = lastReport;
+  };
+
+
+
+  /**
    * @param {"fr"|"en"} language
    */
-  Players.prototype.setPseudo = async function( language) {
+  Players.prototype.setPseudo = async function (language) {
     let entity = await this.getEntity();
-
     if (entity.discordUser_id !== undefined && client.users.cache.get(entity.discordUser_id) !== null) {
       this.pseudo = client.users.cache.get(entity.discordUser_id).username;
     } else {

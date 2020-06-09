@@ -176,10 +176,34 @@ module.exports = (sequelize, DataTypes) => {
    * @return {Boolean|String}
    */
   Entities.prototype.checkEffect = function() {
-    if ([EFFECT.BABY, EFFECT.SMILEY, EFFECT.SKULL].indexOf(this.effect) !== -1) {
+    if ([EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1) {
       return true;
     }
     return false;
+  };
+
+    /**
+   * @param {Number} health
+   */
+  Entities.prototype.addHealth = function (health) {
+    this.health += health;
+    this.sethealth(this.health);
+  };
+
+  /**
+   * @param {Number} health
+   */
+  Entities.prototype.sethealth = function (health) {
+    if (health < 0) {
+      // TODO: Kill the player (send death message and set skull status)
+      this.health = 0;
+    } else {
+      if (health > this.maxHealth) {
+        this.health = this.maxHealth;
+      } else {
+        this.health = health;
+      }
+    }
   };
 
   return Entities;
