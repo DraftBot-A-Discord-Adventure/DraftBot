@@ -1,0 +1,12 @@
+{
+    "translations": {
+        "fr":{
+            "dm_sent":"DM envoyé à **",
+            "no_dm":"Cet utilisateur a désactivé ses DMs !"
+        },
+        "en":{
+            "dm_sent":"DM sent to **",
+            "no_dm":"This user has disabled his DMs !"
+        }
+    }
+}
