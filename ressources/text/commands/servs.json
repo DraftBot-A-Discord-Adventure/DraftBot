@@ -1,0 +1,10 @@
+{
+    "translations": {
+        "fr":{
+            "total":"\n**Nombre total d'utilisateurs :**"
+        },
+        "en":{
+            "total":"\n**Total number of users:**"
+        }
+    }
+}
