@@ -34,5 +34,17 @@ module.exports = (sequelize, DataTypes) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
+  
+  /**
+   * @param {String} discordGuild_id
+   */
+  Servers.getOrRegister = (discordGuild_id) => {
+    return Servers.findOrCreate({
+      where: {
+        discordGuild_id: discordGuild_id
+      },
+    });
+  };
+
   return Servers;
 };
