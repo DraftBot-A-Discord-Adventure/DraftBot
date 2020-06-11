@@ -49,20 +49,21 @@ const ReportCommand = async function(language, message, args) {
  */
 const doEvent = async (message, language, event, entity, time) => {
   const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {pseudo: message.author.username, event: event[language]}));
-  const collector = eventDisplayed.createReactionCollector((reaction, user) => {return (event.reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);}, {time: 120000});
+  const reactions = await event.getReactions();
+  const collector = eventDisplayed.createReactionCollector(async (reaction, user) => {return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);}, {time: 120000});
   collector.on('collect', async (reaction) => {
     collector.stop();
-    let possibility = await getRepository('possibility').getRandomByIdAndEmoji(event.id, reaction.emoji.name);
+    let possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: reaction.emoji.name}});
     await doPossibility(message, language, possibility, player, time);
   });
   collector.on('end', async () => {
     if (!collector.ended) {
-      let possibility = await getRepository('possibility').getRandomByIdAndEmoji(event.id, 'end');
+      let possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: 'end'}});
       await doPossibility(message, language, possibility, player, time);
     }
   });
-  for (const react in event.reactions) {
-    await eventDisplayed.react(event.reactions[react]);
+  for (const reaction of reactions) {
+    await eventDisplayed.react(reaction);
   }
 };
 
