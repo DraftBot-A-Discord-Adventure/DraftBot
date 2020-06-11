@@ -54,6 +54,31 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
   });
 
+  /**
+  * @param {("badgeID")} badgeID - The badgeID
+  */
+  Players.prototype.giveBadge = function(badgeID) {
+    if (this.badges != "") {
+      this.badges = this.badges + "-" + badgeID;
+    }else{
+      this.badges = badgeID;
+    }
+  };
+
+  /**
+  * @param {("points")} points - A number representating the score
+  */
+  Players.prototype.setPoints = function(points) {
+    this.score = points;
+  }; 
+
+  /**
+  * @param {("pointsWeek")} pointsWeek - A number representating the weekly score
+  */
+  Players.prototype.setPointsWeek = function(points) {
+    this.weeklyScore = points;
+  }; 
+
   Players.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
