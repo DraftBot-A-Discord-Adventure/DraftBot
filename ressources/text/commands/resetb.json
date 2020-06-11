@@ -1,0 +1,10 @@
+{
+    "translations": {
+        "fr":{
+            "res_ok":"Les badges ont été reset."
+        },
+        "en":{
+            "res_ok":"Badges have been reset."
+        }
+    }
+}
