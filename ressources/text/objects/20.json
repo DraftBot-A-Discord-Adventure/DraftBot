@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": ":green_book:  **Livre d'incantations Volume 4**",
+		"en": ":green_book: **Spellbook volume 4**"
+	},
+	"rarity": 4,
+	"power": 35,
+	"nature": 6
+}

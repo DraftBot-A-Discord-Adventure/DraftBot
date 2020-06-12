@@ -1,0 +1,124 @@
+{
+	"translations": {
+		"fr": " : ** :house_abandoned: Vous arrivez dans une ville, sans y trouver âme qui vive. En la traversant, vous apercevez un chantier qui semble tout aussi désert.\n\n:mag_right: Fouiller le chantier.\n:chains: Fouiller les échafaudages.\n:walking: Poursuivre votre voyage sans y prêter attention.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :house_abandoned: You arrive at a city without finding anyone. After crossing you spot a building site that also seems deserted.\n\n:mag_right: Search the building site.\n:chains: Search the scaffolding.\n:walking: Move on without worrying.\n\n*- Use reactions to take an action :warning: Not responding is considered a separate choice.*"
+	},
+	"possibilities": {
+		"🔎": [
+			{
+				"translations": {
+					"fr": "** | 🔎 Vous cherchez pendant 30 minutes, mais vous ne trouvez rien d'intéressant.",
+					"en": "** | 🔎 You search for 30 minutes, but you find nothing of interest."
+				},
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🔎 Après avoir cherché 40 minutes, vous finissez par trouver quelque chose qui pourrait être utile !",
+					"en": "** | 🔎 After 40 minutes of searching, you finally find something which could be useful!"
+				},
+				"lostTime": 40,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🔎 Alors que vous cherchiez dans une boîte a outils, vous vous entaillez la main sur une pince rouillée. La blessure est vraiment profonde ! :head_bandage:",
+					"en": "** | 🔎 While searching a toolbox, you cut yourself on some rusty pliers. It's very deep! :head_bandage:"
+				},
+				"lostTime": 0,
+				"health": -20,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"⛓": [
+			{
+				"translations": {
+					"fr": "** | ⛓ Vous grimpez jusqu'en haut des échafaudages, mais à l'exception d'un magnifique paysage, vous ne trouvez rien. Après avoir passé quelques minutes à l'admirer, vous repartez.",
+					"en": "** | ⛓ You climb to the top of the scaffolding, but except for a beautiful landscape, you find nothing. After spending a few minutes admiring it, you leave."
+				},
+				"lostTime": 45,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | ⛓ En grimpant sur la structure instable, vous découvrez une vue imprenable sur la région !",
+					"en": "** | ⛓ Climbing the unstable structure, you discover a breathtaking view of the region!"
+				},
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 425,
+				"money": 30,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | ⛓ Vous montez sur l'échelle, mais arrivé a mi-chemin, un barreau casse et vous tombez au sol! étourdi par la chute, vous reprenez lentement vos esprits. :confounded:",
+					"en": "** | ⛓ You climb the ladder, but when you reach the halfway point, a bar breaks, and you fall to the ground! Shaken from the fall, you slowly come to your senses. :confounded:"
+				},
+				"lostTime": 20,
+				"health": -30,
+				"effect": ":confounded:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous décidez d'ignorer ce chantier et vous poursuivez votre route",
+					"en": "** | 🚶 You decide to ignore the site and you continue on your way"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous observez le chantier de loin, sans voir la pioche posée au sol. Vous vous entaillez le pied en repartant. :confounded:",
+					"en": "** | 🚶 You observe the site from a distance, without seeing the pickaxe on the ground. You cut your foot on it leaving. :confounded:"
+				},
+				"lostTime": 15,
+				"health": -15,
+				"effect": ":confounded:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous observez le chantier quelques minutes puis vous réalisez qu'il est vraiment désert. Vous reprenez votre route.",
+					"en": "** | 🚶 You observe the construction site for a few minutes, then you realize it's completely deserted. You're head back on your way."
+				},
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
+}

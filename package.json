@@ -8,16 +8,20 @@
   },
   "scripts": {
     "start": "node index.js",
-    "postinstall": "link-module-alias"
+    "postinstall": "link-module-alias",
+    "preinstall": "which link-module-alias && link-module-alias clean || true"
   },
   "_moduleAliases": {
     "draftbot": ".",
     "config": "./config",
-    "data": "./data",
-    "class": "./src/classes",
+    "core": "./src/core",
     "commands": "./src/commands",
-    "utils": "./src/utils",
-    "orm": "./src/orm"
+    "datasources": "./src/core/datasources",
+    "entities": "./src/core/entities",
+    "repositories": "./src/core/repositories",
+    "models": "./src/core/models",
+    "ressources": "./ressources",
+    "data": "./data"
   },
   "dependencies": {
     "chai": "^4.2.0",
@@ -26,6 +30,7 @@
     "figlet": "^1.3.0",
     "link-module-alias": "^1.2.0",
     "moment": "^2.24.0",
+    "sequelize": "^5.21.7",
     "sqlite": "^4.0.7",
     "sqlite3": "^4.1.1"
   }

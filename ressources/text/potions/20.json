@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": "<:PurplePotion:548221048768954418>  **Potion explosive**",
+		"en": "<:PurplePotion:548221048768954418>  **Explosive potion**"
+	},
+	"rarity": 4,
+	"power": 65,
+	"nature": 3
+}

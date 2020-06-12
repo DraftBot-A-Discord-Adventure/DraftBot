@@ -1,0 +1,98 @@
+{
+	"translations": {
+		"fr": " : ** :house: Vous avez découvert une maison ! Elle semble abandonnée...\n\n:door: Aller visiter l'intérieur.\n:walking: Ne pas s'arrêter et continuer sa route.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :house: You discovered a house! It seems abandoned...\n\n:door: Check inside.\n:walking: Don't stop and keep going.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"possibilities": {
+		"🚪": [
+			{
+				"translations": {
+					"fr": "** | :door: En forcant la porte vous vous blessez profondement, il faut absolument vous soigner ! :head_bandage:",
+					"en": "** | :door: By forcing the door open, you seriously hurt yourself, you must absolutely be healed! :head_bandage:"
+				},
+				"lostTime": 0,
+				"health": -25,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | :door: Après avoir passé presque 1 heure à tenter de rentrer dans la maison, vous finissez par abandonner. En partant vous trouvez un objet qui pourra peut être vous être utile !",
+					"en": "** | :door: After spending almost an hour trying to get into the house, you give up. Leaving, you find an object which may be useful!"
+				},
+				"lostTime": 55,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | :door: Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. :sleeping: ",
+					"en": "** | :door: You enter the house and put down your things to rest. Taken by a deep sleep, you will need to rest before continuing your adventure. :sleeping: "
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":sleeping:",
+				"experience": 20,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. En sortant vous trouvez un objet qui pourra peut être vous être utile !",
+					"en": "** | :door: You enter the house and search around for about fifteen minutes. On leaving, you find an object that may be useful to you!"
+				},
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | :door: Vous entrez dans la maison et fouillez autour de vous pendant une quinzaine de minutes. Vous finissez par abandonner vos recherches sans avoir rien trouvé.",
+					"en": "** | :door: You enter the house and search around for about fifteen minutes. You end up abandoning your search without finding anything."
+				},
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** | :walking: Vous continuez votre route sans vous soucier de la maison.",
+					"en": "** | :walking: You continue on your way without worrying about the house."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | :walking:  Vous avez passé près de quinze minutes sans bouger, il est temps de repartir ! ",
+					"en": "** | :walking: You spent almost fifteen minutes without moving, it's time to go back! "
+				},
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
+}

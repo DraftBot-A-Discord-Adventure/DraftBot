@@ -1,0 +1,50 @@
+{
+	"translations": {
+		"fr": {
+			"title": "{effect} | {pseudo} | Niveau {level}",
+			"information": {
+				"fieldName": "Informations :",
+				"fieldValue": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}"
+			},
+			"statistique": {
+				"fieldName": "Statistiques :",
+				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :blue_heart: {cumulativeMaxHealth}"
+			},
+			"classement": {
+				"fieldName": "Classement et Score :",
+				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}"
+			},
+			"timeLeft": {
+				"fieldName": "Temps restant :",
+				"fieldValue": "{effect} {timeLeft}"
+			},
+			"noTimeLeft": {
+				"fieldName": "Temps restant :",
+				"fieldValue": ":hospital: Reprise du jeu possible"
+			}
+		},
+		"en": {
+			"title": "{effect} | {pseudo} | Level {level}",
+			"information": {
+				"fieldName": "Information :",
+				"fieldValue": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}"
+			},
+			"statistique": {
+				"fieldName": "Stats :",
+				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :blue_heart: {cumulativeMaxHealth}"
+			},
+			"classement": {
+				"fieldName": "Ranking and score :",
+				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}"
+			},
+			"timeLeft": {
+				"fieldName": "Time left :",
+				"fieldValue": "{effect} {timeLeft}"
+			},
+			"noTimeLeft": {
+				"fieldName": "Temps restant :",
+				"fieldValue": ":hospital: You can continue playing now"
+			}
+		}
+	}
+}

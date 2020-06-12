@@ -1,0 +1,138 @@
+{
+	"translations": {
+		"fr": " : ** Au cours de votre très long périple vous arrivez dans un petit village fort charmant. Vous atteignez le centre du village, mais il s'avère qu'il est très petit et qu'il n'y a que deux commerces : la bijouterie et une auberge . Vous découvrez grâce à un passant que la bijouterie est gérée par un vieillard et qu'il fait de magnifiques bijoux et colliers. L'auberge est, quant à elle, dirigée par un couple, et il paraît qu'elle a un grand succès.\n\n:speaking_head: Aller voir le bijoutier et discuter\n:money_with_wings: Essayer de voler le bijoutier\n:house_with_garden: Aller à l'auberge se reposer\n:person_walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewellery such as necklaces and rings. As for the inn run by a couple, it seems pretty successful\n\n:speaking_head: Go and have a talk with the jeweller\n:money_with_wings: Try to rob the jeweller\n:house_with_garden: Go to rest at the inn\n:person_walking: Continue your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"possibilities": {
+		"🗣️": [
+			{
+				"translations": {
+					"fr": "** | 🗣️ Vous discutez avec le bijoutier et vous vous liez d'amitié avec lui. Il vous offre alors un objet en gage de cette nouvelle amitié. ",
+					"en": "** | 🗣️ You talk with the jeweller and you bond with him. He then offers you an object as a token of this new friendship. "
+				},
+				"lostTime": 50,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 325,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🗣️ Vous décidez de tenter de marchander afin de vous acheter un des bijoux, pour peu cher. Vous discutez un long moment mais le vieillard est un très bon marchand et il ne cède pas. Vous repartez après avoir compris qu'il ne compte pas baisser ses prix.",
+					"en": "** | 🗣️ You decide to try to haggle in order to buy yourself one of the jewels for a smaller price. You talk for a long time but the old man is very tough in business and he does not give in. You leave after finally understanding that he does not intend to lower his prices."
+				},
+				"lostTime": 75,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		],
+		"💸": [
+			{
+				"translations": {
+					"fr": "** | 💸 Vous faites confiance à vos capacités d'infiltration. Vous y allez, et fort heureusement le vieillard était absent. Vous arrivez à voler le contenu de la caisse et déguerpissez.",
+					"en": "** | 💸 You trust your infiltration abilities. You go to the jewelry store and, fortunately, the old man is absent. You manage to steal the contents of one of the crates and run away."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 250,
+				"money": 500,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 💸 Vous arrivez devant la boutique et vous entrez dedans dans le but de voler le bijoutier. Alors que vous vous emparez de l'argent du bijoutier, un garde personnel vous assomme. Vous vous réveillez quelques heures plus tard, le long d'un sentier.",
+					"en": "** | 💸 You arrive in front of the shop and you enter in order to rob the jeweller. As you grab the jeweller’s money, a personal guard knocks you out. You wake up a few hours later, on the side of a road."
+				},
+				"lostTime": 180,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🏡": [
+			{
+				"translations": {
+					"fr": "** | 🏡 Vous arrivez à l'auberge et vous reprenez un peu d'énergie grâce à un bon repas et une sieste bien méritée.",
+					"en": "** | 🏡 You arrive at the inn and regain some strenght after a good meal and a well deserved nap."
+				},
+				"lostTime": 60,
+				"health": 20,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🏡 Vous arrivez à l'auberge qui est malheureusement pleine. Vous y prenez quand même un repas, et reprenez votre chemin.",
+					"en": "** | 🏡 You arrive at the inn which is fully booked. You still have a take-away meal, and go on your way."
+				},
+				"lostTime": 30,
+				"health": 10,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🏡 Par malheur l'auberge est fermée et vous décidez de continuer votre chemin affamé et fatigué.",
+					"en": "** | 🏡 Unfortunately the inn is closed and you decide to hit the road, hungry and tired."
+				},
+				"lostTime": 0,
+				"health": -15,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** | 🚶‍♂️ Vous continuez votre route. En sortant du village, vous croisez un prêtre qui vous offre un morceau de pain pour votre périple.",
+					"en": "** | 🚶‍♂️ You continue your journey. As you leave the village, you meet a priest whom offers you a piece of bread for your journey"
+				},
+				"lostTime": 0,
+				"health": 5,
+				"effect": ":smiley:",
+				"experience": 350,
+				"money": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | 🚶‍♂️ Vous attendez un long moment sur cette place et tout d'un coup des marchands commencent à s'installer. C'est votre jour de chance ! Il s'agit d'un marché, et les pommes sont très peu chères. Vous en achetez quelques-unes et pour reprenez votre chemin.",
+					"en": "** | 🚶‍♂️ You wait a long time in this square and then merchants start to settle down. It’s your lucky day! It’s a market, and apples are cheap. You buy some and go on your way."
+				},
+				"lostTime": 60,
+				"health": 20,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶‍♂️ Vous attendez un petit moment sur cette place, puis vous rendez compte qu'il n'y a rien de bien intéressant à faire, et reprenez route.",
+					"en": "** | 🚶‍♂️ You wait a little while in this square, then you realize that there is nothing very interesting to do, and go back on your journey."
+				},
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
+}

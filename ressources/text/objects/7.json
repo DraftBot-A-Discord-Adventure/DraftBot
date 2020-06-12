@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": ":chains:  **Chaines magiques**",
+		"en": ":chains:  **Magic Chain**"
+	},
+	"rarity": 5,
+	"power": 45,
+	"nature": 6
+}

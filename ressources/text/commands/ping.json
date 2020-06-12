@@ -1,0 +1,12 @@
+{
+  "translations": {
+    "fr": {
+      "create": ":ping_pong: Pong",
+      "edit": ":ping_pong: Pong | {timeElasped} ms"
+    },
+    "en": {
+      "create": ":ping_pong: Pong",
+      "edit": ":ping_pong: Pong | {timeElasped} ms"
+    }
+  }
+}

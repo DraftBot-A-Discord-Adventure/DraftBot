@@ -1,0 +1,124 @@
+{
+	"translations": {
+		"fr": " : ** :bust_in_silhouette: En vous baladant tranquillement dans un village, vous remarquez du coin de l'œil un garde volant une pauvre femme.\n\n:punch: Attaquer le garde par surprise dans l'optique d'aider la femme\n:walking: Passer votre chemin.\n:call_me: Contactez des gardes un peu plus loin et les prévenir des actes du corrompu.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :bust_in_silhouette: while walking peacefully in a village, you see a guard stealing from a poor woman.\n\n:punch: Attack the guard to help the lady.\n:walking: Keep walking.\n:call_me: Contact another guard and warn them of the corrupt guard.\n\n*- Use the reactions for make an action :warning: Not answering is also considered an action!*"
+	},
+	"possibilities": {
+		"👊": [
+			{
+				"translations": {
+					"fr": "** | 👊 Vous parvenez à assommer le garde et récupérez un objet précieux qu'il portait",
+					"en": "** | 👊 You succeed in knocking out the guard and taking the precious object he was carrying"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 👊 Au dernier moment, le garde se retourne et vous attaque. Il vous laisse néanmoins en vie.",
+					"en": "** | 👊 At the last moment, the guard turns around and attacks you. However, he leaves you alive."
+				},
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 👊 Le garde esquive et la femme parvient à s'enfuir. Elle vous retrouve plus loin, hors de danger, pour vous remercier avec quelques pièces d'or.",
+					"en": "** | 👊 The guard dodges, and the woman manages to escape. She finds you further away, out of danger, thanking you with some gold coins."
+				},
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 25,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous ne prêtez donc pas attention au garde.",
+					"en": "** | 🚶 You ignore the guard."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 En passant votre chemin, vous trébuchez et tombez par terre.",
+					"en": "** | 🚶 As you pass by, you fall to the ground."
+				},
+				"lostTime": 0,
+				"health": -5,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🤙": [
+			{
+				"translations": {
+					"fr": "** | 🤙 Les gardes vous suivent et arrêtent le corrompu, la femme vous donne un objet en gage de remerciements.",
+					"en": "** | 🤙 The guards follow you and arrest the corrupt guard. The woman gives you an object as a token of her appreciation."
+				},
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🤙 Les gardes, étant aussi des criminels, vous attaquent à la hanche. Vous restez malgré tout en vie.",
+					"en": "** | 🤙 The guards, also being criminals, strike you on your hip, but leave you alive."
+				},
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous continuez votre chemin sans prêter attention au garde.",
+					"en": "** | 🚶 You continue your journey without paying attention to the guard."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 Abasourdi, vous regardez la scène, tétanisé, pendant cinq minutes. Le garde finit par vous remarquer, vous vous hâtez donc de passer votre chemin.",
+					"en": "** | 🚶 Dazed, you watch the scene for five minutes. The guard finally notices you, so you hurry on."
+				},
+				"lostTime": 5,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
+}

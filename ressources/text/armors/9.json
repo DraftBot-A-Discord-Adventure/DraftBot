@@ -1,0 +1,8 @@
+{
+	"translations": {
+		"fr": ":shield:  **Bouclier résistant**",
+		"en": ":shield: **Hardened shield**"
+	},
+	"rarity": 1,
+	"rawDefense": 8
+}

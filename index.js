@@ -1,101 +1,105 @@
-Config = require("utils/Config");
-require("colors");
-const Figlet = require("figlet");
-const DraftBot = require("class/DraftBot");
+require('colors');
+require('core/Constant');
+require('core/MessageError');
+require('core/Tools');
+const Draftbot = require('core/DraftBot');
 
-// const ServerManager = require('src/classes/ServerManager');
-// const PlayerManager = require('./src/classes/PlayerManager');
+(async Drafbot => {
 
-Figlet(Config.reboot, (err, data) => {
-  console.log(data.red);
-  console.log(Config.br.grey);
-});
+  await Drafbot.init();
 
-let draftbot = new DraftBot();
+  /**
+   * Will be executed whenever the bot has started
+   * @return {Promise<void>}
+   */
+  const onDiscordReady = async () => {
+    (require('figlet'))(JsonReader.bot.reboot, (err, data) => {
+      console.log(data.red);
+      console.log(JsonReader.bot.br.grey);
+    });
 
-/**
- * Will be executed whenever the bot has started
- */
-draftbot.client.on("ready", async () => {
+    await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
+        .channels
+        .cache
+        .get(JsonReader.app.CONSOLE_CHANNEL_ID)
+        .send(JsonReader.bot.startStatus + JsonReader.package.version)
+        .catch(console.error);
 
-  await draftbot.repositoryManager.checkDatabaseValidity();
+    await client.user
+        .setActivity(JsonReader.bot.activity)
+        .catch(console.error);
+  };
 
-  // draftbot.checkEasterEggsFile();
+  /**
+   * Will be executed each time the bot join a new server
+   */
+  const onDiscordGuildCreate = async guilde => {
+    // let string = "";
+    // let serverManager = new ServerManager();
+    // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
+    // string += Console.guildJoin.begin + guilde + Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot + Console.guildJoin.ratio + ratio + Console.guildJoin.validation + validation;
+    // displayConsoleChannel(string);
+    // if (validation == ":x:") {
+    //   sendLeavingMessage(guilde);
+    //   //guilde.leave() //temporairement désactivé pour top.gg
+    // }
+    // console.log(string);
+  };
 
-  draftbot.displayConsoleChannel(Config.startStatus + Config.version);
-  draftbot.setActivity();
+  /**
+   * Will be executed each time the bot leave a server
+   */
+  const onDiscordGuildDelete = async guilde => {
+    // let string = "";
+    // let serverManager = new ServerManager();
+    // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
+    // string += Console.guildJoin.beginquit + guilde + Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot + Console.guildJoin.ratio + ratio + Console.guildJoin.validation + validation;
+    // displayConsoleChannel(string);
+    // console.log(string);
+  };
 
-  // //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
-  // setInterval(async function () { // Set interval for checking
-  //   await checkTopWeek();
-  // }, 50000);
+  /**
+   * Will be executed each time the bot see a message
+   * @param {module:"discord.js".Message} message
+   * @return {Promise<void>}
+   */
+  const onDiscordMessage = async message => {
+    if (message.author.bot) return;
+    if (message.guild === null) {
+      await handlePrivateMessage(message);
+    }
+    await handleMessage(message);
+  };
 
-});
+  /**
+   * Will be executed each time the bot see a reaction message
+   * @param {module:"discord.js".MessageReaction} reaction
+   * @return {Promise<void>}
+   */
+  const onDiscordMessageReactionAdd = async reaction => {
+    //check if the user is a bot before doing anything
+    // if (reaction.users.last().bot) return;
+    //
+    // let Text = await chargeText(reaction);
+    // let isUnderAProfileMessage = checkReactionIsUnderAProfileMessage(reaction);
+    // if (isUnderAProfileMessage && reaction.me && reaction.message.author.id == client.user.id) {
+    //   //only answer if the reaction is a badge under a profile message
+    //   reaction.message.channel.send(Text.badges[reaction.emoji]).then(msg => {
+    //     msg.delete(5000);
+    //   }).catch(err => { });
+    // }
+  };
 
-/**
- * Will be executed each time the bot join a new server
- */
-draftbot.client.on("guildCreate", guilde => {
-  // let string = "";
-  // let serverManager = new ServerManager();
-  // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
-  // string += Console.guildJoin.begin + guilde + Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot + Console.guildJoin.ratio + ratio + Console.guildJoin.validation + validation;
-  // displayConsoleChannel(string);
-  // if (validation == ":x:") {
-  //   sendLeavingMessage(guilde);
-  //   //guilde.leave() //temporairement désactivé pour top.gg
-  // }
-  // console.log(string);
-});
+  client.on('ready', onDiscordReady);
+  client.on('ready', onDiscordGuildCreate);
+  client.on('ready', onDiscordGuildDelete);
+  client.on('message', onDiscordMessage);
+  client.on('messageReactionAdd', onDiscordMessageReactionAdd);
 
-/**
- * Will be executed each time the bot leave a server
- */
-draftbot.client.on("guildDelete", guilde => {
-  // let string = "";
-  // let serverManager = new ServerManager();
-  // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
-  // string += Console.guildJoin.beginquit + guilde + Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot + Console.guildJoin.ratio + ratio + Console.guildJoin.validation + validation;
-  // displayConsoleChannel(string);
-  // console.log(string);
-});
+  await client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);
 
-/**
- * Will be executed each time the bot recieve a message
- */
-draftbot.client.on("message", async (message) => {
-  if (message.author.bot) return;
-  // if (message.guild == null) {
-  //   draftbot.commandReader.handlePrivateMessage(message, client, talkedRecently);
-  // }
-  await draftbot.commandReader.handleMessage(draftbot.client, message);
-});
+})(Draftbot);
 
-/**
- * Will be executed each time a reaction is added to a message
- */
-draftbot.client.on("messageReactionAdd", async (reaction) => {
-  //check if the user is a bot before doing anything
-  // if (reaction.users.last().bot) return;
-  //
-  // let Text = await chargeText(reaction);
-  // let isUnderAProfileMessage = checkReactionIsUnderAProfileMessage(reaction);
-  // if (isUnderAProfileMessage && reaction.me && reaction.message.author.id == client.user.id) {
-  //   //only answer if the reaction is a badge under a profile message
-  //   reaction.message.channel.send(Text.badges[reaction.emoji]).then(msg => {
-  //     msg.delete(5000);
-  //   }).catch(err => { });
-  // }
-});
-
-draftbot.client.login(Config.DISCORD_CLIENT_TOKEN);
-
-global.draftbot = draftbot;
-
-// const talkedRecently = new Set();
-//
-//
-//
 // /**
 //  * Returns the ISO week of the date.
 //  */
@@ -139,7 +143,7 @@ global.draftbot = draftbot;
 //
 // /**
 //  * Get the current week number
-//  * @return {number}
+//  * @return {Number}
 //  */
 // function getCurrentWeekNumber() {
 //   let date = new Date(); // Create a Date object to find out what time it is
@@ -192,21 +196,6 @@ global.draftbot = draftbot;
 //   client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.FRENCH_ANNOUNCEMENT_CHANNEL_ID).send(messagefr).catch(err => { });
 //   client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.ENGLISH_ANNOUNCEMENT_CHANNEL_ID).send(messageen).catch(err => { });
 // }
-//
-// /**
-//  * Charge the english file
-//  * @param {*} reaction
-//  */
-// async function chargeText(reaction) {
-//   let serverManager = new ServerManager();
-//   let server = await serverManager.getServer(reaction.message);
-//   if (reaction.message.channel.id == Config.ENGLISH_CHANNEL_ID) {
-//     server.language = "en";
-//   }
-//   let Text = require('./src/text/' + server.language);
-//   return Text;
-// }
-//
 //
 // /**
 //  * Send a message to the owner of the guild the bot is leaving

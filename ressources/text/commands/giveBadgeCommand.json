@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+            "giveSuccess": "{pseudo}, vous avez donné un badge, j'espère que c'est mérité !",
+            "descGive": "Le badge {badge} a été donné à {player}"
+        },
+		"en": {
+            "giveSuccess": "{pseudo}, you gave a badge, i hope it is well deserved !",
+            "descGive": "The badge {badge} has been given to {player}"
+		}
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": "<:DarkPotion:548221047187439710>  **Potion bleue**",
+		"en": "<:DarkPotion:548221047187439710>  **Blue potion**"
+	},
+	"rarity": 2,
+	"power": 15,
+	"nature": 4
+}

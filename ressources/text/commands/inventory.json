@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": {
+			"title": ":briefcase: **Inventaire de {pseudo}**"
+		},
+		"en": {
+			"title": ":briefcase: **{pseudo}'s inventory**"
+		}
+	}
+}
