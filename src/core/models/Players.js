@@ -32,52 +32,55 @@ module.exports = (sequelize, DataTypes) => {
     },
     lastReportAt: {
       type: DataTypes.DATE,
-      defaultValue: JsonReader.models.players.lastReportAt
+      defaultValue: JsonReader.models.players.lastReportAt,
     },
     entity_id: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     guild_id: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.players.guild_id
+      defaultValue: JsonReader.models.players.guild_id,
     },
     updatedAt: {
       type: DataTypes.DATE,
-      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss')
+      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
     },
     createdAt: {
       type: DataTypes.DATE,
-      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss')
-    }
+      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+    },
   }, {
     tableName: 'players',
-    freezeTableName: true
+    freezeTableName: true,
   });
 
   /**
-  * @param {("badgeID")} badgeID - The badgeID
-  */
-  Players.prototype.giveBadge = function(badgeID) {
-    if (this.badges != "") {
-      this.badges = this.badges + "-" + badgeID;
-    }else{
-      this.badges = badgeID;
+   * Add a badge to the player badges
+   * @param {String} badge - The badge to be added to player
+   */
+  Players.prototype.addBadge = function(badge) {
+    if (this.badges !== null) {
+      this.badges += '-' + badge;
+    } else {
+      this.badges = badge;
     }
   };
 
   /**
-  * @param {("points")} points - A number representating the score
-  */
+   * @param {("points")} points - A number representating the score
+   * @deprecated 2.1.0 Directly use score attribute from entity
+   */
   Players.prototype.setPoints = function(points) {
     this.score = points;
-  }; 
+  };
 
   /**
-  * @param {("pointsWeek")} pointsWeek - A number representating the weekly score
-  */
+   * @param {("pointsWeek")} pointsWeek - A number representating the weekly score
+   * @deprecated 2.1.0 Directly use weeklyScore attribute from entity
+   */
   Players.prototype.setPointsWeek = function(points) {
     this.weeklyScore = points;
-  }; 
+  };
 
   Players.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
@@ -87,36 +90,48 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Number} id
    */
   Players.getById = async (id) => {
-    const query = `SELECT * FROM (SELECT id, RANK() OVER (ORDER BY score desc) rank, RANK() OVER (ORDER BY weeklyScore desc) weeklyRank FROM players) WHERE id = :id`;
-    return await sequelize.query(query, { replacements: { id: id }, type: sequelize.QueryTypes.SELECT });
+    const query = `SELECT *
+                   FROM (SELECT id,
+                                RANK() OVER (ORDER BY score desc)       rank,
+                                RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
+                         FROM players)
+                   WHERE id = :id`;
+    return await sequelize.query(query,
+        {replacements: {id: id}, type: sequelize.QueryTypes.SELECT});
   };
 
   /**
    * @param {Number} rank
    */
   Players.getByRank = async (rank) => {
-    const query = `SELECT * FROM (SELECT entity_id, RANK() OVER (ORDER BY score desc) rank, RANK() OVER (ORDER BY weeklyScore desc) weeklyRank FROM players) WHERE rank = :rank`;
-    return await sequelize.query(query, { replacements: { rank: rank }, type: sequelize.QueryTypes.SELECT });
+    const query = `SELECT *
+                   FROM (SELECT entity_id,
+                                RANK() OVER (ORDER BY score desc)       rank,
+                                RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
+                         FROM players)
+                   WHERE rank = :rank`;
+    return await sequelize.query(query,
+        {replacements: {rank: rank}, type: sequelize.QueryTypes.SELECT});
   };
 
   /**
    * @return {Number} Return the experience needed to level up.
    */
-  Players.prototype.getExperienceNeededToLevelUp = function () {
+  Players.prototype.getExperienceNeededToLevelUp = function() {
     return JsonReader.models.players.xp[this.level + 1];
   };
 
   /**
    * @returns {Number} Return the experience used to level up.
    */
-  Players.prototype.getExperienceUsedToLevelUp = function () {
+  Players.prototype.getExperienceUsedToLevelUp = function() {
     return JsonReader.models.players.xp[this.level];
   };
 
   /**
    * @param {Number} score
    */
-  Players.prototype.addScore = function (score) {
+  Players.prototype.addScore = function(score) {
     this.score += score;
     this.setScore(this.score);
   };
@@ -124,7 +139,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} score
    */
-  Players.prototype.setScore = function (score) {
+  Players.prototype.setScore = function(score) {
     if (score > 0) {
       this.score = score;
     } else {
@@ -133,9 +148,9 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   /**
- * @param {Number} money
- */
-  Players.prototype.addMoney = function (money) {
+   * @param {Number} money
+   */
+  Players.prototype.addMoney = function(money) {
     this.money += money;
     this.setMoney(this.money);
   };
@@ -143,7 +158,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} money
    */
-  Players.prototype.setMoney = function (money) {
+  Players.prototype.setMoney = function(money) {
     if (money > 0) {
       this.money = money;
     } else {
@@ -154,7 +169,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} weeklyScore
    */
-  Players.prototype.addWeeklyScore = function (weeklyScore) {
+  Players.prototype.addWeeklyScore = function(weeklyScore) {
     this.weeklyScore += weeklyScore;
     this.setWeeklyScore(this.weeklyScore);
   };
@@ -162,7 +177,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} weeklyScore
    */
-  Players.prototype.setWeeklyScore = function (weeklyScore) {
+  Players.prototype.setWeeklyScore = function(weeklyScore) {
     if (weeklyScore > 0) {
       this.weeklyScore = weeklyScore;
     } else {
@@ -173,7 +188,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {"fr"|"en"} language
    */
-  Players.prototype.getPseudo = async function (language) {
+  Players.prototype.getPseudo = async function(language) {
     await this.setPseudo(language);
     return this.pseudo;
   };
@@ -181,20 +196,19 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} hours
    */
-  Players.prototype.fastForward = async function (hours) {
-    let moment =require('moment');
-    let lastReport = new moment(this.lastReportAt).subtract(hours,'h');
+  Players.prototype.fastForward = async function(hours) {
+    let moment = require('moment');
+    let lastReport = new moment(this.lastReportAt).subtract(hours, 'h');
     this.lastReportAt = lastReport;
   };
-
-
 
   /**
    * @param {"fr"|"en"} language
    */
-  Players.prototype.setPseudo = async function (language) {
+  Players.prototype.setPseudo = async function(language) {
     let entity = await this.getEntity();
-    if (entity.discordUser_id !== undefined && client.users.cache.get(entity.discordUser_id) !== null) {
+    if (entity.discordUser_id !== undefined &&
+        client.users.cache.get(entity.discordUser_id) !== null) {
       this.pseudo = client.users.cache.get(entity.discordUser_id).username;
     } else {
       this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;

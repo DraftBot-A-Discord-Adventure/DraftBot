@@ -86,7 +86,7 @@ class Database {
       if (migration.id > lastMigrationId) {
         await Database.sequelize.query('BEGIN');
         try {
-          let queries = migration.up.split('\r\n');
+          let queries = migration.up.split((require('os')).EOL);
           for (const entry of queries) {
             if (entry !== '') {
               Database.sequelize.query(entry);
