@@ -84,18 +84,4 @@ module.exports = (sequelize, DataTypes) => {
     return Servers;
   };
   
-
-  
-  /**
-   * @param {String} discordGuild_id
-   */
-  Servers.getOrRegister = (discordGuild_id) => {
-    return Servers.findOrCreate({
-      where: {
-        discordGuild_id: discordGuild_id
-      },
-    });
-  };
-
-  return Servers;
 };
