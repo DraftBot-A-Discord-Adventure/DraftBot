@@ -36,6 +36,7 @@ class MessageError {
     }
 
     // Check disallowEffects on entity
+    if(disallowEffects == null){return true;}
     let disallowEffect = disallowEffects.indexOf(entity.effect);
     if (disallowEffect !== -1) {
       if (message.author.id === entity.discordUser_id) {

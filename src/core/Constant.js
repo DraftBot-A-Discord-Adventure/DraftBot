@@ -41,3 +41,10 @@ global.PERMISSION = {
     ALL: 'all'
   }
 };
+
+global.ITEMTYPE = {
+  POTION: 'potion',
+  WEAPON: 'weapon',
+  ARMOR: 'armor',
+  OBJECT: 'object'
+}

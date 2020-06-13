@@ -47,14 +47,14 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   /**
-   * @param {("objectId")} objectId - The objectId
-   * @param {("objectType")} objectType - The objectType to know what kind of object is updated
+   * @param {("itemID")} itemID - The itemID
+   * @param {("itemType")} itemType - The itemType to know what kind of object is updated
    */
-  Inventories.prototype.giveObject = function(objectId, objectType) {
-    if("potion" == objectType){this.potion_id = objectId;}
-    if("weapon" == objectType){this.weapon_id = objectId;}
-    if("armor" == objectType){this.armor_id = objectId;}
-    if("object" == objectType){this.backup_id = objectId;}
+  Inventories.prototype.giveObject = function(itemID, itemType) {
+    if(ITEMTYPE.POTION == itemType){this.potion_id = itemID;}
+    if(ITEMTYPE.WEAPON == itemType){this.weapon_id = itemID;}
+    if(ITEMTYPE.ARMOR == itemType){this.armor_id = itemID;}
+    if(ITEMTYPE.OBJECT == itemType){this.backup_id = itemID;}
   };
 
   Inventories.beforeSave((instance, options) => {
