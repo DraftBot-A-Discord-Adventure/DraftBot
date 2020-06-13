@@ -7,7 +7,7 @@ class Command {
    */
   static async init() {
     Command.commands = new Map();
-    Command.players = new Map();
+    Command.players = JsonReader.app.BLACKLIST_IDS.split('-');
 
     const folders = ['src/commands/admin', 'src/commands/guild', 'src/commands/player'];
     for (let folder of folders) {
@@ -20,8 +20,8 @@ class Command {
 
         for (const commandKey of commandKeys) {
           await Command.commands.set(
-              commandKey,
-              require(`${folder}/${commandName}`)[commandKey],
+            commandKey,
+            require(`${folder}/${commandName}`)[commandKey],
           );
         }
       }
@@ -40,7 +40,7 @@ class Command {
    * @param {String} id
    */
   static hasBlockedPlayer(id) {
-    return Command.players.has(id);
+    return Command.players.includes(id);
   }
 
   /**
@@ -56,14 +56,16 @@ class Command {
    * @param {String} context
    */
   static addBlockedPlayer(id, context) {
-    Command.players.set(id, context);
+    Command.players[id] = context;
   }
 
   /**
    * @param {String} id
    */
   static removeBlockedPlayer(id) {
-    Command.players.delete(id);
+    const index = Command.players.indexOf(id);
+    if (index > -1)
+      Command.players.splice(index, 1);
   }
 
   /**
@@ -79,9 +81,9 @@ class Command {
 
     if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
 
-      if (message.author.id !== JsonReader.app.BOT_OWNER_ID && JsonReader.app.MODE_MAINTENANCE) {
+      if (message.author.id !== JsonReader.app.BOT_OWNER_ID && JsonReader.app.MODE_MAINTENANCE)
         return message.channel.send(JsonReader.bot.getTranslation(server.language).maitenance);
-      }
+
 
       // TODO 2.0
       // const diffMinutes = getMinutesBeforeReset();
@@ -92,43 +94,57 @@ class Command {
 
       await Command.launchCommand(server.language, server.prefix, message);
     } else {
-      if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) === JsonReader.app.BOT_OWNER_PREFIX && message.author.id === JsonReader.app.BOT_OWNER_ID) {
+      if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) === JsonReader.app.BOT_OWNER_PREFIX && message.author.id === JsonReader.app.BOT_OWNER_ID)
         await Command.launchCommand(server.language, JsonReader.app.BOT_OWNER_PREFIX, message);
-      }
     }
   }
 
   /**
    * This function analyses the passed private message and process it
-   * @param {module:"discord.js".Message} message - Message from the discord server
+   * @param {module:"discord.js".Message} message - Message from the discord user
    */
   static async handlePrivateMessage(message) {
-      // TODO 2.0 Refactor
-      // if (Config.BLACKLIST.includes(message.author.id)) {
-      //     for (let i = 1; i < 5; i++) {
-      //         message.channel.send(":x: Erreur.")
-      //     }
-      //     if (message.content != "") {
-      //         client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.TRASH_DM_CHANNEL_ID).send(Console.dm.quote + message.content);
-      //     }
-      //     return message.channel.send(":x: Erreur.")
-      // }
-      // client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(message.author.id);
-      // client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.alertBegin + message.author.username + Console.dm.alertId + message.author.id + Console.dm.alertEnd);
-      // if (message.content != "") {
-      //     client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.quote + message.content);
-      // }
-      // else {
-      //     client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send(Console.dm.empty);
-      // }
-      // message.attachments.forEach(element => {
-      //     client.guilds.get(Config.MAIN_SERVER_ID).channels.get(Config.SUPPORT_CHANNEL_ID).send({
-      //         files: [{
-      //             attachment: element.url,
-      //             name: element.filename
-      //         }]
-      //     });
-      // });
+    await Command.sendSupportMessage(message, Command.hasBlockedPlayer(message.author.id));
+  }
+
+  /**
+   * Send a message to the support channel of the main server
+   * @param {module:"discord.js".Message} message - Message from the discord user
+   * @param {Boolean} isBlacklisted - Define if the user is blacklisted from the bot private messages
+   */
+  static async sendSupportMessage(message, isBlacklisted = false) {
+    if (message.content === '') return;
+    const mainServer = client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
+    const supportChannel = mainServer.channels.cache.get(JsonReader.app.SUPPORT_CHANNEL_ID);
+    const trashChannel = mainServer.channels.cache.get(JsonReader.app.TRASH_DM_CHANNEL_ID);
+    const channel = isBlacklisted ? trashChannel : supportChannel;
+    const language = message.author.locale === 'fr' ? 'fr' : 'en';
+
+    const sentence = format(JsonReader.bot.dm.supportAlert, {
+      roleMention: isBlacklisted ? '' : idToMention(JsonReader.app.SUPPORT_ROLE),
+      username: message.author.username,
+      id: message.author.id,
+      isBlacklisted: isBlacklisted ? JsonReader.bot.dm.blacklisted : ''
+    });
+
+    channel.send(sentence + message.content).catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
+    if (message.attachments.size > 0) await Command.sendMessageAttachments(message, channel);
+  }
+
+  /**
+   * Send all attachments from a message to a discord channel
+   * @param {module:"discord.js".Message} message - Message from the discord user
+   * @param {module:"discord.js".TextChannel} channel - The channel where all attachments will be sent
+   */
+  static async sendMessageAttachments(message, channel) {
+    message.attachments.forEach(element => {
+      channel.send({
+        files: [{
+          attachment: element.url,
+          name: element.filename
+        }]
+      });
+    });
   }
 
   /**
@@ -153,13 +169,13 @@ class Command {
 
     if (Command.commands.has(command)) {
       if (!message.channel.permissionsFor(client.user)
-          .serialize().SEND_MESSAGES ||
-          !message.channel.permissionsFor(client.user)
-              .serialize().EMBED_LINKS ||
-          !message.channel.permissionsFor(client.user)
-              .serialize().ADD_REACTIONS ||
-          !message.channel.permissionsFor(client.user)
-              .serialize().USE_EXTERNAL_EMOJIS) {
+        .serialize().SEND_MESSAGES ||
+        !message.channel.permissionsFor(client.user)
+        .serialize().EMBED_LINKS ||
+        !message.channel.permissionsFor(client.user)
+        .serialize().ADD_REACTIONS ||
+        !message.channel.permissionsFor(client.user)
+        .serialize().USE_EXTERNAL_EMOJIS) {
 
         await message.author.send(JsonReader.bot.getTranslation(language).noSpeakPermission);
 

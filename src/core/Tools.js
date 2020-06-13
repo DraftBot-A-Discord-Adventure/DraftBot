@@ -1,10 +1,18 @@
 /**
+ * Convert a discord id into a discord mention
+ * @param {*} id - The role/user id
+ */
+global.idToMention = (id) => {
+  return '<@&' + id + '>';
+}
+
+/**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
  * @returns {Number}
  */
 global.generateRandomRarity = () => {
   let randomValue = Math.round(
-      Math.random() * JsonReader.values.raritiesGenerator.maxValue);
+    Math.random() * JsonReader.values.raritiesGenerator.maxValue);
 
   if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
     return 1;
@@ -74,7 +82,7 @@ global.format = (string, replacement) => {
     let result;
 
     if (string[index - 1] === '{' &&
-        string[index + match.length] === '}') {
+      string[index + match.length] === '}') {
       return i;
     } else {
       result = replacement.hasOwnProperty(i) ? replacement[i] : null;
