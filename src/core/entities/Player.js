@@ -127,23 +127,6 @@
   //   }
   //   return messageLevelUp;
   // }
-  //
-  // /**
-  //  * Add a badge to the player.
-  //  * @param {String} - The badge
-  //  */
-  // addBadge(badge) {
-  //   if (!this.badges.includes(badge)) {
-  //     if (this.badges.length === 0) {
-  //       this.badges += badge;
-  //     } else {
-  //       this.badges += `-` + badge;
-  //     }
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
 }
 

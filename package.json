@@ -16,7 +16,6 @@
     "config": "./config",
     "core": "./src/core",
     "commands": "./src/commands",
-    "datasources": "./src/core/datasources",
     "entities": "./src/core/entities",
     "repositories": "./src/core/repositories",
     "models": "./src/core/models",
