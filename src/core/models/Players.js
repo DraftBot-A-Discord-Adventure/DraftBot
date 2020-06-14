@@ -187,8 +187,6 @@ module.exports = (sequelize, DataTypes) => {
     this.lastReportAt = lastReport;
   };
 
-
-
   /**
    * @param {"fr"|"en"} language
    */

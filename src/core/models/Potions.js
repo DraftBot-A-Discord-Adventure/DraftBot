@@ -102,5 +102,12 @@ module.exports = (sequelize, DataTypes) => {
     return 0;
   };
 
+  /**
+   * @return {Boolean}
+   */
+  Potions.prototype.isFightPotion = function() {
+    return this.getSpeed() !== 0 || this.getAttack() !== 0 || this.getDefense() !== 0;
+  };
+
   return Potions;
 };
