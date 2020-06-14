@@ -12,7 +12,7 @@
         "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}\n\n"
       },
       "end": {
-        "draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur un égalité !**",
+        "draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**",
         "win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n:bar_chart: Elo de la partie : `{elo}`\n:medal: Points gagnés/perdus : `{points}`"
       },
       "error": {
@@ -21,13 +21,18 @@
         "opponentNotAvailable": ":x: | Malheureusement, cette personne ne semble pas disponible pour le moment. Votre demande de combat a été annulée.",
         "fightHimself": ":x: | Il est impossible de se combattre soi-même ! Trouvez un autre adversaire.",
         "canceled": ":x: | Votre demande de combat a bien été annulée.",
+        "onlyInitiator": ":x: | {pseudo}, seul l'initiateur d'un combat peut l'annuler !",
         "levelTooLow": {
-          "direct": ":x: | Vous devez être **LVL {level}** pour accéder aux combats ! Revenez plus tard !",
+          "direct": ":x: | {pseudo}, vous devez être **LVL {level}** pour accéder aux combats ! Revenez plus tard !",
           "indirect": ":x: | Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
         },
         "cantFightStatus": {
-          "direct": ":x: | Vous n'être pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
+          "direct": ":x: | {pseudo}, vous n'être pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
           "indirect": ":x: | Cette personne ne semble pas en état de combattre pour le moment !"
+        },
+        "occupied": {
+          "direct": ":x: | {pseudo}, vous ne pouvez pas lancer de combat lorsque vous êtes occupé !",
+          "indirect": ":x: | Cette personne est occupée pour le moment !"
         },
         "defenderDoesntExist": ":x: | La personne demandée n'existe pas !"
       },
@@ -136,7 +141,7 @@
     },
     "en": {
       "wantsToFightAnyone": ":crossed_swords: | {player} wants to fight ! To duel them, click the emote below !",
-      "wantsToFightSomeone": ":crossed_swords: | {player} challenges {opponent} ! Pour accept or not, click the emote below !",
+      "wantsToFightSomeone": ":crossed_swords: | {player} challenges {opponent} ! To accept or not, click the emote below !",
       "intro": ":crossed_swords: | **A fight has begun between {player1} and {player2} !**",
       "turnIndications": ":crossed_swords: | **It's {pseudo} 's turn to play**\n\n:crossed_swords: - Use a basic attack\n:dagger: - Use a quick attack\n:bomb: - Use an powerful attack\n:shield: - Prepare to shield yourself\n:rocket: - Prepare to dodge",
       "summarize": {
@@ -155,6 +160,7 @@
         "opponentNotAvailable": ":x: | Sadly, this opponent is not available now. Your request has been cancelled.",
         "fightHimself": ":x: | You can't fight yourself! Find another opponent.",
         "canceled": ":x: | Your battle request has been canceled.",
+        "onlyInitiator": ":x: | Only the fight initiator can cancel it!",
         "levelTooLow": {
           "direct": ":x: | You must be **LVL {level}** to proceed to the fights! Come back later!",
           "indirect": ":x: | Your opponent must be **LVL {level}** to proceed to the fights!"
@@ -162,6 +168,10 @@
         "cantFightStatus": {
           "direct": ":x: | You can fight with your current state! Please wait for then end of your alteration state!",
           "indirect": ":x: | It seems that this person is currently not able to fight!"
+        },
+        "occupied": {
+          "direct": ":x: | {pseudo}, you can't start a fight if you're occupied !",
+          "indirect": ":x: | This person is currently occupied !"
         },
         "defenderDoesntExist": ":x: | Asked player doesn't exist!"
       },

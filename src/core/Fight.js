@@ -40,6 +40,7 @@ class Fighter {
     async consumePotionIfNeeded() {
         if ((await this.entity.Player.Inventory.getPotion()).isFightPotion()) {
             this.entity.Player.Inventory.drinkPotion();
+            this.entity.Player.save();
         }
     }
 
@@ -175,7 +176,7 @@ class Fight {
         let currentTurn = this.turn;
 
         this.message.channel.send(format(JsonReader.commands.fight.getTranslation(this.language).turnIndications, {
-            pseudo: await this.fighters[0].entity.Player.getPseudo(this.language),
+            pseudo: await this.getPlayingFighter().entity.getMention(),
         }))
             .then(async function (message) {
                 await message.react("⚔");
@@ -294,7 +295,7 @@ class Fight {
         else {
             section = section.notGood;
         }
-        msg += section[randInt(0, section.length) - 1];
+        msg += section[randInt(0, section.length - 1)];
         await this.message.channel.send(msg + format(JsonReader.commands.fight.getTranslation(this.language).actions.damages, { damages : fightActionResult.damage }));
     }
 
@@ -328,7 +329,10 @@ class Fight {
             this.calculateElo();
             this.calculatePoints();
             loser.entity.Player.addScore(-this.points);
-            this.getWinner().entity.Player.addScore(this.points);
+            loser.entity.Player.save();
+            let winner = this.getWinner();
+            winner.entity.Player.addScore(this.points);
+            winner.entity.Player.save();
         }
         for (let i = 0; i < this.fighters.length; i++) {
             global.removeBlockedPlayer(this.fighters[i].entity.discordUser_id);
@@ -424,7 +428,7 @@ class Fight {
     calculateElo() {
         let loser = this.getLoser();
         let winner = this.getWinner();
-        if (loser !== null && winner !== null) {
+        if (loser !== null && winner !== null && winner.entity.Player.score !== 0) {
             this.elo = Math.round((loser.entity.Player.score / winner.entity.Player.score) * 100) / 100;
         } else {
             this.elo = 0;
