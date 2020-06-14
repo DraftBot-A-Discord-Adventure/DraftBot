@@ -1,0 +1,22 @@
+{
+    "translations": {
+        "fr": {
+            "errorTitle": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
+            "noGuildException": "Aucune guilde n'a été trouvée",
+            "title": "Guilde {guildName}",
+            "chief": "Chef de Guilde : {pseudo} :military_medal:",
+            "members" : ":person_pouting: {memberCount}/{maxGuildMembers} membres",
+            "memberinfos" : " - {pseudo} ({ranking} :trophy: | {score} :medal:)\n"
+        },
+        "en": {
+            "errorTitle": "{pseudo}, hmmm... That didn't work!",
+            "noGuildException": "",
+            "title": "Guild {guildName}",
+            "chief": "Guild leader : {pseudo} :military_medal:",
+            "members" : ":person_pouting: {memberCount}/{maxGuildMembers} members",
+            "memberinfos" : " - {pseudo} ({ranking} :trophy: | {score} :medal:)\n"
+        }
+    },
+    "icon": "https://i.imgur.com/sQHBly4.png"
+}
+

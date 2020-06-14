@@ -73,6 +73,27 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {String} discordUser_id
    */
+  Entities.getByGuild = (guildId) => {
+    return Entities.findAll({
+      defaults: { Player: { Inventory: {} } },
+      include: [{
+        model: Players,
+        as: 'Player',
+        where: {
+          guild_id: guildId
+        },
+        include: [{
+          model: Inventories,
+          as: 'Inventory'
+        }]
+      }],
+    });
+  };
+
+
+  /**
+   * @param {String} discordUser_id
+   */
   Entities.getByDiscordUserId = (discordUser_id) => {
     return Entities.findOne({
       where: {
