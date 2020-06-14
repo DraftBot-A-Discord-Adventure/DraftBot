@@ -12,7 +12,7 @@ const ReportCommand = async function(language, message, args) {
     return;
   }
 
-  let time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.getTime());
+  let time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.valueOf());
   if (time > JsonReader.commands.report.timeLimit) {
     time = JsonReader.commands.report.timeLimit;
   }
@@ -54,12 +54,12 @@ const doEvent = async (message, language, event, entity, time) => {
   collector.on('collect', async (reaction) => {
     collector.stop();
     let possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: reaction.emoji.name}});
-    await doPossibility(message, language, possibility, player, time);
+    await doPossibility(message, language, possibility, entity, time);
   });
   collector.on('end', async () => {
     if (!collector.ended) {
       let possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: 'end'}});
-      await doPossibility(message, language, possibility, player, time);
+      await doPossibility(message, language, possibility, entity, time);
     }
   });
   for (const reaction of reactions) {
@@ -71,11 +71,12 @@ const doEvent = async (message, language, event, entity, time) => {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Possibility} possibility
- * @param {Player} player
+ * @param {Entity} entity
  * @param {Number} time
  * @return {Promise<Message>}
  */
-const doPossibility = async (message, language, possibility, player, time) => {
+const doPossibility = async (message, language, possibility, entity, time) => {
+  let player = entity.Player;
   let scoreChange = time + Math.round(Math.random() * (time / 10 + player.level));
   let moneyChange = possibility.money + Math.round(time / 10 + Math.round(Math.random() * (time / 10 + player.level / 5)));
   if (possibility.money < 0 && moneyChange > 0) {
@@ -97,13 +98,14 @@ const doPossibility = async (message, language, possibility, player, time) => {
   if (possibility.lostTime > 0) {
     result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: possibility.lostTime});
   }
-  result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {pseudo: message.author, result: result, event: possibility.getTranslation(language)});
+  result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {pseudo: message.author, result: result, event: possibility[language]});
 
-  player.effect = possibility.effect;
+  entity.effect = possibility.effect;
+  entity.addHealth(possibility.health);
+
   player.addScore(scoreChange);
   player.addMoney(moneyChange);
-  player.addHealth(possibility.health);
-  player.addExperience(possibility.experience);
+  player.experience += possibility.experience;
   player.setLastReportWithEffect(message.createdTimestamp, possibility.lostTime, possibility.effect);
 
   if (possibility.item === true) {
@@ -125,6 +127,9 @@ const doPossibility = async (message, language, possibility, player, time) => {
 
   // TODO remove player of blocked
   // TODO CHECK STATUS (LVL UP / DEAD)
+  if (player.needLevelUp()) {
+    // DO lvlUp
+  }
 
   // return await XXX;
 };
