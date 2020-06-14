@@ -18,7 +18,7 @@
     "reboot": "DraftBot",
     "br": "############################################\n",
     "dm": {
-        "supportAlert": ":love_letter: | {roleMention} **Nouveau message privé reçu !** {isBlacklisted}\n`Auteur: {username} (id : {id})`\n>>> ",
+        "supportAlert": ":love_letter: | {roleMention} **Nouveau message privé reçu !** {isBlacklisted}\n`Auteur: {username} (id : {id})`\n\n>>> ",
         "blacklisted": "(**JOUEUR BLACKLISTÉ**)"
     },
     "guildJoin": {

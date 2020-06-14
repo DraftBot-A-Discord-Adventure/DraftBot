@@ -126,25 +126,10 @@ class Command {
       id: message.author.id,
       isBlacklisted: isBlacklisted ? JsonReader.bot.dm.blacklisted : ''
     });
-
+    
+    channel.send(message.author.id).catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
     channel.send(sentence + message.content).catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
-    if (message.attachments.size > 0) await Command.sendMessageAttachments(message, channel);
-  }
-
-  /**
-   * Send all attachments from a message to a discord channel
-   * @param {module:"discord.js".Message} message - Message from the discord user
-   * @param {module:"discord.js".TextChannel} channel - The channel where all attachments will be sent
-   */
-  static async sendMessageAttachments(message, channel) {
-    message.attachments.forEach(element => {
-      channel.send({
-        files: [{
-          attachment: element.url,
-          name: element.filename
-        }]
-      });
-    });
+    if (message.attachments.size > 0) await sendMessageAttachments(message, channel);
   }
 
   /**
