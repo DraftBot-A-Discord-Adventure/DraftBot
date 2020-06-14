@@ -21,11 +21,36 @@ const ProfileCommand = async function (language, message, args) {
   let fields = [
     {
       name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
-      value: format(JsonReader.commands.profile.getTranslation(language).information.fieldValue, { health: entity.health, maxHealth: entity.maxHealth, experience: entity.Player.experience, experienceNeededToLevelUp: entity.Player.getExperienceNeededToLevelUp(), money: entity.Player.money, }),
+      value: format(JsonReader.commands.profile.getTranslation(language).information.fieldValue, {
+        health: entity.health,
+        maxHealth: entity.maxHealth,
+        experience: entity.Player.experience,
+        experienceNeededToLevelUp: entity.Player.getExperienceNeededToLevelUp(),
+        money: entity.Player.money,
+      }),
     },
     {
       name: JsonReader.commands.profile.getTranslation(language).statistique.fieldName,
-      value: format(JsonReader.commands.profile.getTranslation(language).statistique.fieldValue, { cumulativeAttack: entity.getCumulativeAttack(await entity.Player.Inventory.getWeapon(), await entity.Player.Inventory.getArmor(), await entity.Player.Inventory.getPotion(), await entity.Player.Inventory.getActiveObject()), cumulativeDefense: entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(), await entity.Player.Inventory.getArmor(), await entity.Player.Inventory.getPotion(), await entity.Player.Inventory.getActiveObject()), cumulativeSpeed: entity.getCumulativeSpeed(await entity.Player.Inventory.getWeapon(), await entity.Player.Inventory.getArmor(), await entity.Player.Inventory.getPotion(), await entity.Player.Inventory.getActiveObject()), cumulativeMaxHealth: entity.getCumulativeHealth(entity.Player), }),
+      value: format(JsonReader.commands.profile.getTranslation(language).statistique.fieldValue, {
+        cumulativeAttack: entity.getCumulativeAttack(
+          await entity.Player.Inventory.getWeapon(),
+          await entity.Player.Inventory.getArmor(),
+          await entity.Player.Inventory.getPotion(),
+          await entity.Player.Inventory.getActiveObject()
+        ),
+        cumulativeDefense: entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(),
+          await entity.Player.Inventory.getArmor(),
+          await entity.Player.Inventory.getPotion(),
+          await entity.Player.Inventory.getActiveObject()
+        ),
+        cumulativeSpeed: entity.getCumulativeSpeed(
+          await entity.Player.Inventory.getWeapon(),
+          await entity.Player.Inventory.getArmor(),
+          await entity.Player.Inventory.getPotion(),
+          await entity.Player.Inventory.getActiveObject()
+        ),
+        cumulativeMaxHealth: entity.getCumulativeHealth(entity.Player),
+      }),
     },
     {
       name: JsonReader.commands.profile.getTranslation(language).classement.fieldName,
