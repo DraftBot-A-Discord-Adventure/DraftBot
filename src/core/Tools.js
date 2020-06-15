@@ -1,10 +1,34 @@
 /**
+ * Convert a discord id into a discord mention
+ * @param {*} id - The role/user id
+ */
+global.idToMention = (id) => {
+  return '<@&' + id + '>';
+}
+
+/**
+ * Send all attachments from a message to a discord channel
+ * @param {module:"discord.js".Message} message - Message from the discord user
+ * @param {module:"discord.js".TextChannel} channel - The channel where all attachments will be sent
+ */
+global.sendMessageAttachments = (message, channel) => {
+  message.attachments.forEach(element => {
+    channel.send({
+      files: [{
+        attachment: element.url,
+        name: element.filename
+      }]
+    });
+  });
+}
+
+/**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
  * @returns {Number}
  */
 global.generateRandomRarity = () => {
   let randomValue = Math.round(
-      Math.random() * JsonReader.values.raritiesGenerator.maxValue);
+    Math.random() * JsonReader.values.raritiesGenerator.maxValue);
 
   if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
     return 1;
@@ -74,7 +98,7 @@ global.format = (string, replacement) => {
     let result;
 
     if (string[index - 1] === '{' &&
-        string[index + match.length] === '}') {
+      string[index + match.length] === '}') {
       return i;
     } else {
       result = replacement.hasOwnProperty(i) ? replacement[i] : null;
