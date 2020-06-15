@@ -67,7 +67,21 @@ module.exports = (sequelize, DataTypes) => {
             },
         });
     };
-    
+
+    /**
+     * @return {Number} Return the experience needed to level up.
+     */
+    Guilds.prototype.getExperienceNeededToLevelUp = function () {
+        return JsonReader.models.guilds.xp[this.level + 1];
+    };
+
+    /**
+     * @returns {Number} Return the experience used to level up.
+     */
+    Guilds.prototype.getExperienceUsedToLevelUp = function () {
+        return JsonReader.models.guilds.xp[this.level];
+    };
+
     return Guilds;
 };
 

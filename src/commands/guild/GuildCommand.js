@@ -42,6 +42,7 @@ const GuildCommand = async (language, message, args) => {
         message.channel.send(embed);
     }
     let members = await Entities.getByGuild(guild.id);
+
     let membersInfos = "";
     for (let index = 0; index < members.length; index++) {
         const member = members[index];
@@ -53,8 +54,6 @@ const GuildCommand = async (language, message, args) => {
             });
     }
 
-
-    message.channel.send(membersInfos)
     let chief = await Entities.getById(guild.chief_id);
 
     embed.setThumbnail(JsonReader.commands.guild.icon);
@@ -69,8 +68,11 @@ const GuildCommand = async (language, message, args) => {
         memberCount: members.length,
         maxGuildMembers: MAX_GUILD_MEMBER
     }), membersInfos);
-    //embed.addField(Text.commands.guild.memberIcon + member + Text.commands.guild.members, guildMembers);
-
+    embed.addField(format(JsonReader.commands.guild.getTranslation(language).experience, {
+        xp: guild.experience,
+        xpToLevelUp: guild.getExperienceNeededToLevelUp(),
+        level : guild.level
+    }), progressBar(guild.experience,guild.getExperienceNeededToLevelUp()));
 
     //embed.addField(Text.commands.guild.star + experience + Text.commands.guild.expSeparator + experienceToLevelUp
     //    + Text.commands.guild.guildLevel + level, Text.commands.guild.style + progressBar.createBar() + Text.commands.guild.style);
