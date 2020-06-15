@@ -50,3 +50,4 @@ global.ITEMTYPE = {
 };
 
 global.MAX_GUILD_MEMBER = 5; // the maximum amount of users in a guild
+global.PROGRESSBARS_SIZE = 20; 
