@@ -13,7 +13,6 @@ const changeLanguageCommand = async function(language, message, args) {
   let embed = new discord.MessageEmbed();
   let server;
 
-  //TODO Faire getOrRegister dans Servers.js de core/models
   [server] = await Servers.getOrRegister(message.guild.id);
   if (server.language == 'fr') {
     server.language = 'en';

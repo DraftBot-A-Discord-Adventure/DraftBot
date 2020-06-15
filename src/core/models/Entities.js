@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       where: {
         discordUser_id: discordUser_id
       },
-      defaults: {Player: {Inventory: {}}},
+      defaults: { Player: { Inventory: {} } },
       include: [{
         model: Players,
         as: 'Player',
@@ -73,12 +73,33 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {String} discordUser_id
    */
+  Entities.getByGuild = (guildId) => {
+    return Entities.findAll({
+      defaults: { Player: { Inventory: {} } },
+      include: [{
+        model: Players,
+        as: 'Player',
+        where: {
+          guild_id: guildId
+        },
+        include: [{
+          model: Inventories,
+          as: 'Inventory'
+        }]
+      }],
+    });
+  };
+
+
+  /**
+   * @param {String} discordUser_id
+   */
   Entities.getByDiscordUserId = (discordUser_id) => {
     return Entities.findOne({
       where: {
         discordUser_id: discordUser_id
       },
-      defaults: {Player: {Inventory: {}}},
+      defaults: { Player: { Inventory: {} } },
       include: [{
         model: Players,
         as: 'Player',
@@ -98,7 +119,7 @@ module.exports = (sequelize, DataTypes) => {
       where: {
         id: id
       },
-      defaults: {Player: {Inventory: {}}},
+      defaults: { Player: { Inventory: {} } },
       include: [{
         model: Players,
         as: 'Player',
@@ -131,7 +152,7 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Objects} object
    * @return {Number}
    */
-  Entities.prototype.getCumulativeAttack = function(weapon, armor, potion, object) {
+  Entities.prototype.getCumulativeAttack = function (weapon, armor, potion, object) {
     let attack = this.attack + weapon.getAttack() + armor.getAttack() + potion.getAttack() + object.getAttack();
     return (attack > 0) ? attack : 0;
   };
@@ -144,7 +165,7 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Objects} object
    * @return {Number}
    */
-  Entities.prototype.getCumulativeDefense = function(weapon, armor, potion, object) {
+  Entities.prototype.getCumulativeDefense = function (weapon, armor, potion, object) {
     let defense = this.defense + weapon.getDefense() + armor.getDefense() + potion.getDefense() + object.getDefense();
     return (defense > 0) ? defense : 0;
   };
@@ -157,7 +178,7 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Objects} object
    * @return {Number}
    */
-  Entities.prototype.getCumulativeSpeed = function(weapon, armor, potion, object) {
+  Entities.prototype.getCumulativeSpeed = function (weapon, armor, potion, object) {
     let speed = this.speed + weapon.getSpeed() + armor.getSpeed() + potion.getSpeed() + object.getSpeed();
     return (speed > 0) ? speed : 0;
   };
@@ -167,7 +188,7 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getCumulativeHealth = function(player) {
+  Entities.prototype.getCumulativeHealth = function (player) {
     return this.health + (player.level * 10);
   };
 
@@ -175,16 +196,16 @@ module.exports = (sequelize, DataTypes) => {
    * @param {module:"discord.js".Message} message
    * @return {Boolean|String}
    */
-  Entities.prototype.checkEffect = function() {
+  Entities.prototype.checkEffect = function () {
     if ([EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1) {
       return true;
     }
     return false;
   };
 
-    /**
-   * @param {Number} health
-   */
+  /**
+ * @param {Number} health
+ */
   Entities.prototype.addHealth = function (health) {
     this.health += health;
     this.sethealth(this.health);

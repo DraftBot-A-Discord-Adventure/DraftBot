@@ -87,23 +87,27 @@ global.format = (string, replacement) => {
   });
 };
 
-// TODO 2.0 ProgressBar
+
 /**
  * Create a text progress bar
+ * @param {Number} value
+ * @param {Number} maxValue
  * @returns {String} - The bar
  */
-// createBar({value, maxValue, barSize}) {
-//   let percentage = this.value / this.maxValue; //Calculate the percentage of the bar
-//   let progress = Math.round((this.barSize * percentage)); //Calculate the number of square caracters to fill the progress side.
-//   let emptyProgress = this.barSize - progress; //Calculate the number of dash caracters to fill the empty progress side.
-//
-//   let progressText = '▇'.repeat(progress); //Repeat is creating a string with progress * caracters in it
-//   let emptyProgressText = '—'.repeat(emptyProgress); //Repeat is creating a string with empty progress * caracters in it
-//   let percentageText = Math.round(percentage * 100) + '%'; //Displaying the percentage of the bar
-//
-//   let bar = '[' + progressText + emptyProgressText + '] ' + percentageText; //Creating the bar
-//   return bar;
-// }
+global.progressBar = (value, maxValue) => {
+  let percentage = value / maxValue; //Calculate the percentage of the bar
+  let progress = Math.round((PROGRESSBARS_SIZE * percentage)); //Calculate the number of square caracters to fill the progress side.
+  let emptyProgress = PROGRESSBARS_SIZE - progress; //Calculate the number of dash caracters to fill the empty progress side.
+
+  let progressText = '▇'.repeat(progress); //Repeat is creating a string with progress * caracters in it
+  let emptyProgressText = '—'.repeat(emptyProgress); //Repeat is creating a string with empty progress * caracters in it
+  let percentageText = Math.round(percentage * 100) + '%'; //Displaying the percentage of the bar
+
+  let bar = '[' + progressText + emptyProgressText + '] ' + percentageText; //Creating the bar
+  return bar;
+};
+
+
 // TODO 2.0 Legacy code
 // /**
 //  * convert a number of hours in a number of miliseconds

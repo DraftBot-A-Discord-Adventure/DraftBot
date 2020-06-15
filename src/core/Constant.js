@@ -34,10 +34,10 @@ global.NATURE = {
 
 global.PERMISSION = {
   ROLE: {
-    BOTOWNER: 'owner',
-    BADGEMANAGER: 'manager',
-    SUPPORT: 'support',
-    ADMINISTRATOR: 'administrator',
+    BOTOWNER: 'owner', //is the owner of the bot
+    BADGEMANAGER: 'manager', //has the badge manager role
+    SUPPORT: 'support', //has the support role
+    ADMINISTRATOR: 'administrator', //has the admin permission in a server where the bot is.
     ALL: 'all'
   }
 };
@@ -47,4 +47,7 @@ global.ITEMTYPE = {
   WEAPON: 'weapon',
   ARMOR: 'armor',
   OBJECT: 'object'
-}
+};
+
+global.MAX_GUILD_MEMBER = 5; // the maximum amount of users in a guild
+global.PROGRESSBARS_SIZE = 20; 
