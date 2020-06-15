@@ -57,6 +57,14 @@ module.exports = (sequelize, DataTypes) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
+  // TODO 2.0
+  // async getRandomWithRarity() {
+  //   const desiredRarity = generateRandomRarity();
+  //   const possibleArmors = Object.entries(this.armors).filter(key => this.armors[key[0]].rarity === desiredRarity);
+  //   const id = possibleArmors[Math.floor(Math.random() * possibleArmors.length)][0];
+  //   return this.armors[id];
+  // }
+
   /**
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    */
