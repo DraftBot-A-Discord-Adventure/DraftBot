@@ -4,7 +4,7 @@
  */
 global.idToMention = (id) => {
   return '<@&' + id + '>';
-}
+};
 
 /**
  * Send all attachments from a message to a discord channel
@@ -20,7 +20,7 @@ global.sendMessageAttachments = (message, channel) => {
       }]
     });
   });
-}
+};
 
 /**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
