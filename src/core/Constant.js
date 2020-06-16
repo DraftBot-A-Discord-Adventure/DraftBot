@@ -51,3 +51,18 @@ global.ITEMTYPE = {
 
 global.MAX_GUILD_MEMBER = 5; // the maximum amount of users in a guild
 global.PROGRESSBARS_SIZE = 20; 
+
+global.FIGHT = {
+  MAX_DEFENSE_IMPROVEMENT: 20,
+  MAX_SPEED_IMPROVEMENT: 30,
+  MAX_TURNS: 25,
+  REQUIRED_LEVEL: 8,
+  ACTION: {
+    QUICK_ATTACK: 0,
+    SIMPLE_ATTACK: 1,
+    POWERFUL_ATTACK: 2,
+    IMPROVE_DEFENSE: 3,
+    IMPROVE_SPEED: 4
+  }
+};
+

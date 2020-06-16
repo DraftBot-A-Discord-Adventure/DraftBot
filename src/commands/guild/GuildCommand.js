@@ -78,7 +78,7 @@ const GuildCommand = async (language, message, args) => {
     //    + Text.commands.guild.guildLevel + level, Text.commands.guild.style + progressBar.createBar() + Text.commands.guild.style);
 
     message.channel.send(embed);
-}
+};
 
 module.exports = {
     "guild": GuildCommand,

@@ -4,7 +4,7 @@
  */
 global.idToMention = (id) => {
   return '<@&' + id + '>';
-}
+};
 
 /**
  * Send all attachments from a message to a discord channel
@@ -20,7 +20,7 @@ global.sendMessageAttachments = (message, channel) => {
       }]
     });
   });
-}
+};
 
 /**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
@@ -111,7 +111,17 @@ global.format = (string, replacement) => {
   });
 };
 
+/**
+ * Generates a random int between min and max both included
+ * @param {Number} min
+ * @param {Number} max
+ * @returns {number}
+ */
+global.randInt = (min, max) => {
+  return Math.round(Math.random() * (max - min) + min);
+};
 
+// TODO 2.0 ProgressBar
 /**
  * Create a text progress bar
  * @param {Number} value
