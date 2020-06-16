@@ -265,38 +265,44 @@ class Fight {
      * @return {Promise<void>}
      */
     async sendActionMessage(action, fightActionResult) {
-        let msg = format(JsonReader.commands.fight.getTranslation(this.language).actions.intro, {player: await this.getPlayingFighter().entity.Player.getPseudo(this.language)});
+        let msg = JsonReader.commands.fight.getTranslation(this.language).actions.intro;
+        let player = await this.getPlayingFighter().entity.Player.getPseudo(this.language);
         let section;
         switch (action) {
             case FIGHT.ACTION.IMPROVE_DEFENSE:
-                await this.message.channel.send(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.defense, {defense: fightActionResult.defenseImprovement}));
+                await this.message.channel.send(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.defense, {defense: fightActionResult.defenseImprovement, player: player}));
                 return;
             case FIGHT.ACTION.IMPROVE_SPEED:
-                await this.message.channel.send(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.speed, {speed: fightActionResult.speedImprovement}));
+                await this.message.channel.send(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.speed, {speed: fightActionResult.speedImprovement, player: player}));
                 return;
             case FIGHT.ACTION.POWERFUL_ATTACK:
-                section = JsonReader.commands.fight.getTranslation(this.language).actions.powerful;
+                section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.powerful;
                 break;
             case FIGHT.ACTION.QUICK_ATTACK:
-                section = JsonReader.commands.fight.getTranslation(this.language).actions.quick;
+                section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.quick;
                 break;
             case FIGHT.ACTION.SIMPLE_ATTACK:
-                section = JsonReader.commands.fight.getTranslation(this.language).actions.simple;
+                section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.simple;
                 break;
             default:
                 return;
         }
+        let resMsg;
         if (fightActionResult.damage === 0) {
-            section = section.failed;
+            resMsg = "failed";
         }
         else if (fightActionResult.fullSuccess) {
-            section = section.succeed;
+            resMsg = "succeed";
         }
         else {
-            section = section.notGood;
+            resMsg = "notGood";
         }
-        msg += section[randInt(0, section.length - 1)];
-        await this.message.channel.send(msg + format(JsonReader.commands.fight.getTranslation(this.language).actions.damages, { damages : fightActionResult.damage }));
+        let resultSection = JsonReader.commands.fight.getTranslation(this.language).actions.attacksResults[resMsg];
+        msg += resultSection[randInt(0, resultSection.length - 1)];
+        await this.message.channel.send(
+            format(msg, {player: player, attack: section.name})
+            + section.end[resMsg]
+            + format(JsonReader.commands.fight.getTranslation(this.language).actions.damages, { damages : fightActionResult.damage }));
     }
 
     /********************************************************** INTERNAL MECHANICS FUNCTIONS **********************************************************/
@@ -360,12 +366,12 @@ class Fight {
         switch (action) {
             case FIGHT.ACTION.QUICK_ATTACK:
                 powerChanger = 0.1;
-                if (defender.speed > attacker.speed && success < 0.3) {
-                    powerChanger = 0.8;
+                if (defender.speed > attacker.speed && success < 0.2) {
+                    powerChanger = 0.7;
                 } else if (defender.speed < attacker.speed && success < 0.95) {
-                    powerChanger = 0.85;
+                    powerChanger = 0.75;
                 }
-                far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.5));
+                far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.7));
                 far.fullSuccess = far.damage >= attacker.attack - defender.power;
                 break;
 
@@ -376,6 +382,7 @@ class Fight {
                 } else if ((defender.speed > attacker.speed && success <= 0.9)) {
                     powerChanger = 0.5;
                 }
+                attacker.defense *= 1.15;
                 far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.85));
                 far.fullSuccess = far.damage >= 100;
                 break;
