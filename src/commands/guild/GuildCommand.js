@@ -17,7 +17,7 @@ const GuildCommand = async (language, message, args) => {
     if (args.length > 0 && message.mentions.users.last() === undefined) {
         // args is the name of a guild
         try {
-            guild = await Guilds.getByName(message.content.substr(message.content.indexOf(" ") + 1));
+            guild = await Guilds.getByName(args.join(" "));
         } catch (error) {
             guild = null;
         }
@@ -39,7 +39,7 @@ const GuildCommand = async (language, message, args) => {
                 pseudo: message.author.username
             }), message.author.displayAvatarURL())
             .setDescription(JsonReader.commands.guild.getTranslation(language).noGuildException);
-        message.channel.send(embed);
+        return message.channel.send(embed);
     }
     let members = await Entities.getByGuild(guild.id);
 
