@@ -66,7 +66,7 @@ const GuildCommand = async (language, message, args) => {
     }));
     embed.addField(format(JsonReader.commands.guild.getTranslation(language).members, {
         memberCount: members.length,
-        maxGuildMembers: MAX_GUILD_MEMBER
+        maxGuildMembers: GUILD.MAX_GUILD_MEMBER
     }), membersInfos);
     embed.addField(format(JsonReader.commands.guild.getTranslation(language).experience, {
         xp: guild.experience,
