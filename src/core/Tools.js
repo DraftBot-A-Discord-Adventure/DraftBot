@@ -111,7 +111,17 @@ global.format = (string, replacement) => {
   });
 };
 
+/**
+ * Generates a random int between min and max both included
+ * @param {Number} min
+ * @param {Number} max
+ * @returns {number}
+ */
+global.randInt = (min, max) => {
+  return Math.round(Math.random() * (max - min) + min);
+};
 
+// TODO 2.0 ProgressBar
 /**
  * Create a text progress bar
  * @param {Number} value

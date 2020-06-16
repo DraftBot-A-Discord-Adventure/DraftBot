@@ -259,6 +259,13 @@ module.exports = (sequelize, DataTypes) => {
     // this.setHealth(0);
     // message.channel.send(Text.entity.killPublicIntro + message.author.username + Text.entity.killPublicMessage)
     // message.author.send(Text.entity.killMessage)
+  }
+  
+  /**
+   * @returns {String}
+   */
+  Entities.prototype.getMention = function() {
+    return "<@" + this.discordUser_id + ">";
   };
 
   return Entities;
