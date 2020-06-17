@@ -1,0 +1,36 @@
+{
+    "translations": {
+        "fr": {
+            "errorTitle": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
+            "buyTitle": "{pseudo}, confirmation :",
+            "alreadyInAGuildException": "Vous appartenez déjà à une guilde.",
+            "noNameProvided": "Indiquez un nom pour votre guilde : `guildCreate VotreNomDeGuilde`.",
+            "invalidName": "Les règles pour le nom de la guilde sont les suivantes:\n- Utiliser au moins une lettre\n- Ne pas mettre plus de 2 espaces consécutifs\n- Les caractères spéciaux ne sont pas autorisés\n- Entre {min} et {max} caractères",
+            "nameAlreadyUsed" : "Le nom de guilde que vous avez choisi est déjà utilisé.",
+            "creationCancelled" : "La création de votre guilde a été annulée.",
+            "buyConfirm" : "Confirmer la création de la guilde **{guildName}** pour `{price}` :moneybag: ?",
+            "buyFooter" : "Attention, le staff se réserve le droit de renommer votre guilde.",
+            "notEnoughMoney":"Vous n'avez pas assez d'argent pour effectuer cet achat.",
+            "createTitle": "{pseudo}, félicitations !",
+            "createSuccess" : "La guilde **{guildName}** a été créée !"
+        },
+        "en": {
+            "errorTitle": "{pseudo}, hmmm... That didn't work!",
+            "buyTitle": "{pseudo}, confirmation :",
+            "alreadyInAGuildException": "You are already in a guild.",
+            "noNameProvided": "Please provide a name for your guild : `guildCreate YourGuildName`.",
+            "invalidName": "The rules for the guild's name are the followings:\n- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
+            "nameAlreadyUsed" : "The guild name you chose is already being used.",
+            "creationCancelled" : "The creation of your guild has been cancelled.",
+            "buyConfirm" : "Confirm that you want to create a guild named **{guildName}** for `{price}` :moneybag:?",
+            "buyFooter" :"Warning, the bot's staff keeps control on guild's names and may change it.",
+            "notEnoughMoney":"You don't have enough money to buy this.",
+            "createTitle": "{pseudo}, congratulation!",
+            "createSuccess" : "The guild **{guildName}** has been sucessfuly created."
+      
+        }
+    },
+    "icon": "https://i.imgur.com/sQHBly4.png",
+    "guildCreationPrice" : 5000
+}
+

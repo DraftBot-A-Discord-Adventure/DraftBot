@@ -68,17 +68,6 @@ module.exports = (sequelize, DataTypes) => {
           as: 'Inventory'
         }]
       }],
-      defaults: {Player: {Inventory: {}}},
-      include: [
-        {
-          model: Players,
-          as: 'Player',
-          include: [
-            {
-              model: Inventories,
-              as: 'Inventory',
-            }],
-        }],
     });
   };
 
@@ -259,7 +248,7 @@ module.exports = (sequelize, DataTypes) => {
     // this.setHealth(0);
     // message.channel.send(Text.entity.killPublicIntro + message.author.username + Text.entity.killPublicMessage)
     // message.author.send(Text.entity.killMessage)
-  }
+  };
   
   /**
    * @returns {String}

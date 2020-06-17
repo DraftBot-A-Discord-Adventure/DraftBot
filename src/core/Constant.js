@@ -49,8 +49,18 @@ global.ITEMTYPE = {
   OBJECT: 'object'
 };
 
-global.MAX_GUILD_MEMBER = 5; // the maximum amount of users in a guild
-global.PROGRESSBARS_SIZE = 20; 
+global.GUILD = {
+  MAX_GUILD_MEMBER: 5,
+  MAX_GUILDNAME_SIZE: 15,
+  MIN_GUILDNAME_SIZE: 2
+};
+
+global.MENU_REACTION = {
+  ACCEPT: "✅",
+  DENY: "❌"
+};
+
+global.PROGRESSBARS_SIZE = 20;
 
 global.FIGHT = {
   MAX_DEFENSE_IMPROVEMENT: 20,
