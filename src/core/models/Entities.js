@@ -68,17 +68,6 @@ module.exports = (sequelize, DataTypes) => {
           as: 'Inventory'
         }]
       }],
-      defaults: {Player: {Inventory: {}}},
-      include: [
-        {
-          model: Players,
-          as: 'Player',
-          include: [
-            {
-              model: Inventories,
-              as: 'Inventory',
-            }],
-        }],
     });
   };
 
