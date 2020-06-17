@@ -51,7 +51,13 @@ global.ITEMTYPE = {
 
 global.GUILD = {
   MAX_GUILD_MEMBER: 5,
-  MAX_GUILDNAME_SIZE: 15
+  MAX_GUILDNAME_SIZE: 15,
+  MIN_GUILDNAME_SIZE: 2
+};
+
+global.MENU_REACTION = {
+  ACCEPT: "✅",
+  DENY: "❌"
 };
 
 global.PROGRESSBARS_SIZE = 20;
