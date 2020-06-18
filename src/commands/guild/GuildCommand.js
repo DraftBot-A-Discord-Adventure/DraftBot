@@ -1,5 +1,5 @@
 /**
- * Allow to display the rankings of the players
+ * Allow to display the info of a guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
