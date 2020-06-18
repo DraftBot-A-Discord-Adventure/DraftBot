@@ -10,7 +10,8 @@
             "invitation": "La guilde `{guildName}` souhaiterai que vous la rejoigniez !",
             "successTitle": "{pseudo} a rejoint la guilde {guildName} !",
             "invitationSuccess": "Le délai avant la prochaine récompense journalière de guild a été réinitialisé.",
-            "invitationCancelled" : "Vous n'avez pas rejoint la guilde `{guildName}` !"
+            "invitationCancelled" : "Vous n'avez pas rejoint la guilde `{guildName}` !",
+            "guildFull" : "Votre guilde est pleine et ne peut pas acceuillir plus de membres."
         },
         "en": {
             "errorTitle": "{pseudo}, hmmm... That didn't work!",
@@ -22,7 +23,8 @@
             "invitation": "The guild `{guildName}` is inviting you!",
             "successTitle": "{pseudo} joined the guild {guildName}!",
             "invitationSuccess": "The cooldown before the next guild daily reward has been reset.",
-            "invitationCancelled" : "You did not join the guild `{guildName}`!"
+            "invitationCancelled" : "You did not join the guild `{guildName}`!",
+            "guildFull" : "Your guild is full."
         }
     }
 }
