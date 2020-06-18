@@ -44,8 +44,7 @@ const GuildCommand = async (language, message, args) => {
     let members = await Entities.getByGuild(guild.id);
 
     let membersInfos = "";
-    for (let index = 0; index < members.length; index++) {
-        const member = members[index];
+    for (const member of members) {
         membersInfos += format(JsonReader.commands.guild.getTranslation(language).memberinfos,
             {
                 pseudo: client.users.cache.get(member.discordUser_id).toString(),
@@ -71,8 +70,8 @@ const GuildCommand = async (language, message, args) => {
     embed.addField(format(JsonReader.commands.guild.getTranslation(language).experience, {
         xp: guild.experience,
         xpToLevelUp: guild.getExperienceNeededToLevelUp(),
-        level : guild.level
-    }), progressBar(guild.experience,guild.getExperienceNeededToLevelUp()));
+        level: guild.level
+    }), progressBar(guild.experience, guild.getExperienceNeededToLevelUp()));
 
     //embed.addField(Text.commands.guild.star + experience + Text.commands.guild.expSeparator + experienceToLevelUp
     //    + Text.commands.guild.guildLevel + level, Text.commands.guild.style + progressBar.createBar() + Text.commands.guild.style);
