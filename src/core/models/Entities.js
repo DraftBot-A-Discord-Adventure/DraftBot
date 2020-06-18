@@ -59,19 +59,38 @@ module.exports = (sequelize, DataTypes) => {
       where: {
         discordUser_id: discordUser_id,
       },
-      defaults: {Player: {Inventory: {}}},
-      include: [
-        {
-          model: Players,
-          as: 'Player',
-          include: [
-            {
-              model: Inventories,
-              as: 'Inventory',
-            }],
-        }],
+      defaults: { Player: { Inventory: {} } },
+      include: [{
+        model: Players,
+        as: 'Player',
+        include: [{
+          model: Inventories,
+          as: 'Inventory'
+        }]
+      }],
     });
   };
+
+  /**
+   * @param {String} discordUser_id
+   */
+  Entities.getByGuild = (guildId) => {
+    return Entities.findAll({
+      defaults: { Player: { Inventory: {} } },
+      include: [{
+        model: Players,
+        as: 'Player',
+        where: {
+          guild_id: guildId
+        },
+        include: [{
+          model: Inventories,
+          as: 'Inventory'
+        }]
+      }],
+    });
+  };
+
 
   /**
    * @param {String} discordUser_id
@@ -180,7 +199,7 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getCumulativeHealth = function(player) {
+  Entities.prototype.getCumulativeHealth = function (player) {
     return this.health + (player.level * 10);
   };
 
@@ -188,7 +207,7 @@ module.exports = (sequelize, DataTypes) => {
    * @param {module:"discord.js".Message} message
    * @return {Boolean|String}
    */
-  Entities.prototype.checkEffect = function() {
+  Entities.prototype.checkEffect = function () {
     if ([EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1) {
       return true;
     }
@@ -229,6 +248,13 @@ module.exports = (sequelize, DataTypes) => {
     // this.setHealth(0);
     // message.channel.send(Text.entity.killPublicIntro + message.author.username + Text.entity.killPublicMessage)
     // message.author.send(Text.entity.killMessage)
+  };
+  
+  /**
+   * @returns {String}
+   */
+  Entities.prototype.getMention = function() {
+    return "<@" + this.discordUser_id + ">";
   };
 
   return Entities;

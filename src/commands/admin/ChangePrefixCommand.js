@@ -22,7 +22,6 @@ const ChangePrefixCommand = async function (language, message, args) {
         return await message.channel.send(embed);
     }
     let server;
-    //TODO Faire getOrRegister dans Servers.js de core/models
     [server] = await Servers.getOrRegister(message.guild.id);
     server.prefix = newPrefix;
     await server.save();

@@ -18,11 +18,8 @@
     "reboot": "DraftBot",
     "br": "############################################\n",
     "dm": {
-        "empty": ">>> message vide",
-        "alertBegin": ":love_letter: | <@&433289098141106210> **Nouveau message privé reçu !** \nAuteur: ",
-        "alertId": " (id :",
-        "alertEnd": ")",
-        "quote": ">>> "
+        "supportAlert": ":love_letter: | {roleMention} **Nouveau message privé reçu !** {isBlacklisted}\n`Auteur: {username} (id : {id})`\n\n>>> ",
+        "blacklisted": "(**JOUEUR BLACKLISTÉ**)"
     },
     "guildJoin": {
         "beginquit": "**:outbox_tray: Serveur discord quitté :** `",
