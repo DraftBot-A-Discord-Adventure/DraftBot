@@ -3,12 +3,14 @@
 		"fr": {
             "error": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
 			"descError": "Entrez un préfixe après la commande svp",
-			"ok":"Le serveur {serverName} a désormais pour préfix : {newPrefix}"
+			"descOk":"Le serveur a désormais pour préfix : `{newPrefix}`",
+			"ok": "{pseudo}, préfix changé !"
 		},
 		"en": {
             "error": "{pseudo}, hmmm... It didn't work!",
 			"descError": "Indicate a prefix after the command please",
-			"ok":"Server {serverName} has prefix : {newPrefix}"
+			"descOk":"Server now has the prefix: `{newPrefix}`",
+			"ok": "{pseudo}, prefix changed!"
 		}
 	}
 }
