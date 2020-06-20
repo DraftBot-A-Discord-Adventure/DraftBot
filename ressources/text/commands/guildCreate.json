@@ -16,7 +16,7 @@
         },
         "en": {
             "errorTitle": "{pseudo}, hmmm... That didn't work!",
-            "buyTitle": "{pseudo}, confirmation :",
+            "buyTitle": "{pseudo}, confirmation:",
             "alreadyInAGuildException": "You are already in a guild.",
             "noNameProvided": "Please provide a name for your guild : `guildCreate YourGuildName`.",
             "invalidName": "The rules for the guild's name are the followings:\n- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
