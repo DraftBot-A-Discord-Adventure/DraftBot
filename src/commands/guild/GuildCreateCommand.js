@@ -7,12 +7,9 @@
 const GuildCreateCommand = async (language, message, args) => {
 
     let entity, guild;
+    let embed = new discord.MessageEmbed();
 
-    try {
-        entity = await Entities.getByArgs(args, message);
-    } catch (error) {
-        [entity] = await Entities.getOrRegister(message.author.id);
-    }
+    [entity] = await Entities.getOrRegister(message.author.id);
 
     // search for a user's guild
     try {
@@ -20,8 +17,6 @@ const GuildCreateCommand = async (language, message, args) => {
     } catch (error) {
         guild = null;
     }
-
-    let embed = new discord.MessageEmbed();
 
     if (guild !== null) { // already in a guild
         embed.setColor(JsonReader.bot.embed.error)
