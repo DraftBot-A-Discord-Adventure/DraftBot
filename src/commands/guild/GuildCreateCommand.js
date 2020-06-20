@@ -1,5 +1,3 @@
-const { Guild } = require("discord.js");
-
 /**
  * Allow to Create a guild
  * @param {("fr"|"en")} language - Language to use in the response
