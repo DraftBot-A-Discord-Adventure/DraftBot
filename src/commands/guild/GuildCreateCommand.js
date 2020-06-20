@@ -23,7 +23,7 @@ const GuildCreateCommand = async (language, message, args) => {
             .setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).errorTitle, {
                 pseudo: message.author.username
             }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildCreate.getTranslation(language).alreadyInAGuildException);
+            .setDescription(JsonReader.commands.guildCreate.getTranslation(language).alreadyInAGuild);
         return message.channel.send(embed);
     }
 
