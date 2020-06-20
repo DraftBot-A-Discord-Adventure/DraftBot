@@ -1,5 +1,3 @@
-const { Guild } = require("discord.js");
-
 /**
  * Allow to Create a guild
  * @param {("fr"|"en")} language - Language to use in the response
@@ -9,12 +7,9 @@ const { Guild } = require("discord.js");
 const GuildCreateCommand = async (language, message, args) => {
 
     let entity, guild;
+    let embed = new discord.MessageEmbed();
 
-    try {
-        entity = await Entities.getByArgs(args, message);
-    } catch (error) {
-        [entity] = await Entities.getOrRegister(message.author.id);
-    }
+    [entity] = await Entities.getOrRegister(message.author.id);
 
     // search for a user's guild
     try {
@@ -23,14 +18,12 @@ const GuildCreateCommand = async (language, message, args) => {
         guild = null;
     }
 
-    let embed = new discord.MessageEmbed();
-
     if (guild !== null) { // already in a guild
         embed.setColor(JsonReader.bot.embed.error)
             .setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).errorTitle, {
                 pseudo: message.author.username
             }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildCreate.getTranslation(language).alreadyInAGuildException);
+            .setDescription(JsonReader.commands.guildCreate.getTranslation(language).alreadyInAGuild);
         return message.channel.send(embed);
     }
 
