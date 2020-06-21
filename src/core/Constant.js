@@ -76,3 +76,11 @@ global.FIGHT = {
   }
 };
 
+global.SHOP = {
+  QUESTION: '❓',
+  HOSPITAL: '🏥',
+  HEART: '💗',
+  MONEY_MOUTH: '🤑',
+  STAR: '⭐'
+}
+

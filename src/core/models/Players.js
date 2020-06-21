@@ -60,11 +60,19 @@ module.exports = (sequelize, DataTypes) => {
    */
   Players.prototype.addBadge = function (badge) {
     if (this.badges !== null) {
-      this.badges += '-' + badge;
+      if (!this.hasBadge(badge))
+        this.badges += '-' + badge;
     } else {
       this.badges = badge;
     }
   };
+
+  /**
+   * @param {String} badge - The badge to be added to player
+   */
+  Players.prototype.hasBadge = function (badge) {
+    return this.badges === null ? false : this.badges.split('-').includes(badge);
+  }
 
   /**
    * @param {("points")} points - A number representating the score
@@ -96,8 +104,12 @@ module.exports = (sequelize, DataTypes) => {
                                 RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
                          FROM players)
                    WHERE id = :id`;
-    return await sequelize.query(query,
-      { replacements: { id: id }, type: sequelize.QueryTypes.SELECT });
+    return await sequelize.query(query, {
+      replacements: {
+        id: id
+      },
+      type: sequelize.QueryTypes.SELECT
+    });
   };
 
   /**
@@ -110,8 +122,12 @@ module.exports = (sequelize, DataTypes) => {
                                 RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
                          FROM players)
                    WHERE rank = :rank`;
-    return await sequelize.query(query,
-      { replacements: { rank: rank }, type: sequelize.QueryTypes.SELECT });
+    return await sequelize.query(query, {
+      replacements: {
+        rank: rank
+      },
+      type: sequelize.QueryTypes.SELECT
+    });
   };
 
   /**
@@ -219,7 +235,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @return {Boolean} True if the player has levelUp false otherwise
    */
-  Players.prototype.needLevelUp = function() {
+  Players.prototype.needLevelUp = function () {
     if ((this.experience >= this.getExperienceNeededToLevelUp())) {
       // TODO 2.0 Do the level up here ?
       return true;
@@ -294,7 +310,7 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Number} timeMalus
    * @param {String} effectMalus
    */
-  Players.prototype.setLastReportWithEffect = function(time, timeMalus, effectMalus) {
+  Players.prototype.setLastReportWithEffect = function (time, timeMalus, effectMalus) {
     this.lastReport = time + minutesToMilliseconds(timeMalus) + JsonReader.models.players.effectMalus[effectMalus];
   };
 
