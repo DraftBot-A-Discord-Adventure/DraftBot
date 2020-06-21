@@ -309,7 +309,7 @@ class Shop {
                 }), this.customer.displayAvatarURL())
                 .setDescription("\n\n" + format(this.selectedItem.give, {experience: toAdd})));
         } catch (err) {
-            notInAGuild(message);
+            this.notInAGuild(message);
         }
     }
 
@@ -354,7 +354,7 @@ class Shop {
             .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).error.title, {
                 pseudo: this.message.author.username
             }), this.message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guild.getTranslation(language).noGuildException);
+            .setDescription(JsonReader.commands.guild.getTranslation(this.language).noGuildException);
         this.message.channel.send(embed);
     }
 

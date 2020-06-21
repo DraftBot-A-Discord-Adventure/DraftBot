@@ -71,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
    * @param {String} badge - The badge to be added to player
    */
   Players.prototype.hasBadge = function (badge) {
-    return this.badges.split('-').includes(badge);
+    return this.badges === null ? false : this.badges.split('-').includes(badge);
   }
 
   /**
