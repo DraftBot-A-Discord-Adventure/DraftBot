@@ -219,6 +219,13 @@ class Shop {
         this.entity.Player.removeMoney(parseInt(this.dailyPotion.get('price'))); //Remove money
         this.entity.Player.Inventory.save(); //Save
         this.entity.Player.save(); //Save
+        message.delete();
+        message.channel.send(new discord.MessageEmbed()
+            .setColor(JsonReader.bot.embed.default)
+            .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).potion.give, {
+                pseudo: this.customer.username
+            }), this.customer.displayAvatarURL())
+            .setDescription("\n\n" + this.dailyPotion.get('potion').toPotionString(this.language)));
     }
 
     giveRandomItem(message) {
@@ -233,6 +240,13 @@ class Shop {
         this.entity.Player.removeMoney(parseInt(this.selectedItem.price)); //Remove money
         this.entity.save(); //Save
         this.entity.Player.save(); //Save
+        message.delete();
+        message.channel.send(new discord.MessageEmbed()
+            .setColor(JsonReader.bot.embed.default)
+            .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).success, {
+                pseudo: this.customer.username
+            }), this.customer.displayAvatarURL())
+            .setDescription("\n\n" + this.selectedItem.give));
     }
 
     /**
@@ -243,6 +257,13 @@ class Shop {
         this.entity.Player.removeMoney(parseInt(this.selectedItem.price)); //Remove money
         this.entity.save(); //Save
         this.entity.Player.save(); //Save
+        message.delete();
+        message.channel.send(new discord.MessageEmbed()
+            .setColor(JsonReader.bot.embed.default)
+            .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).success, {
+                pseudo: this.customer.username
+            }), this.customer.displayAvatarURL())
+            .setDescription("\n\n" + this.selectedItem.give));
     }
 
     /**
@@ -251,10 +272,19 @@ class Shop {
     giveMoneyMouthBadge(message) {
         if (this.entity.Player.hasBadge('🤑')) {
             this.alreadyHasItem(message);
+            message.delete();
         } else {
             this.entity.Player.addBadge('🤑'); //Give badge
             this.entity.Player.removeMoney(parseInt(this.selectedItem.price)); //Remove money
             this.entity.Player.save(); //Save
+
+            message.delete();
+            message.channel.send(new discord.MessageEmbed()
+                .setColor(JsonReader.bot.embed.default)
+                .setAuthor(format(this.selectedItem.give, {
+                    pseudo: this.customer.username
+                }), this.customer.displayAvatarURL())
+                .setDescription("\n\n" + this.selectedItem.name));
         }
     }
 
@@ -265,10 +295,19 @@ class Shop {
         //TODO test this
         try {
             const guild = await Guilds.getById(this.entity.Player.guild_id);
-            guild.addExperience(randInt(50, 450)); //Add xp
+            const toAdd = randInt(50, 450);
+            guild.addExperience(toAdd); //Add xp
             this.entity.Player.removeMoney(parseInt(this.selectedItem.price)); //Remove money
             this.entity.Player.save(); //Save
             guild.save();
+
+            message.delete();
+            message.channel.send(new discord.MessageEmbed()
+                .setColor(JsonReader.bot.embed.default)
+                .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).success, {
+                    pseudo: this.customer.username
+                }), this.customer.displayAvatarURL())
+                .setDescription("\n\n" + format(this.selectedItem.give, {experience: toAdd})));
         } catch (err) {
             notInAGuild(message);
         }
