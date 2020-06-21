@@ -83,7 +83,7 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     /**
-     * @param {Number} score
+     * @param {Number} experience
      */
     Guilds.prototype.addExperience = function (experience) {
         this.experience += experience;
@@ -91,7 +91,7 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     /**
-     * @param {Number} score
+     * @param {Number} experience
      */
     Guilds.prototype.setExperience = function (experience) {
         if (experience > 0) {

@@ -59,14 +59,6 @@ class Shop {
                 money: this.entity.Player.money
             })));
 
-        //Adding reactions
-        await message.react(potion.getEmoji());
-        await message.react(SHOP.QUESTION);
-        await message.react(SHOP.HOSPITAL);
-        await message.react(SHOP.HEART);
-        await message.react(SHOP.MONEY_MOUTH);
-        await message.react(SHOP.STAR);
-
         //Creating maps to get shop items everywhere
         this.dailyPotion = new Map().set('price', potionPrice).set('potion', potion);
         this.shopItems = new Map()
@@ -78,6 +70,16 @@ class Shop {
 
         //Asking for the user interaction
         this.createItemSelector(message);
+
+        //Adding reactions
+        await Promise.all([
+            message.react(potion.getEmoji()),
+            message.react(SHOP.QUESTION),
+            message.react(SHOP.HOSPITAL),
+            message.react(SHOP.HEART),
+            message.react(SHOP.MONEY_MOUTH),
+            message.react(SHOP.STAR)
+        ]);
     }
 
     /**
@@ -196,17 +198,19 @@ class Shop {
             }) + info);
 
         const confirmMessage = await this.message.channel.send(confirmEmbed);
-        await confirmMessage.react(MENU_REACTION.ACCEPT);
-        await confirmMessage.react(MENU_REACTION.DENY);
-
         this.createConfirmSelector(confirmMessage);
+
+        await Promise.all([
+            confirmMessage.react(MENU_REACTION.ACCEPT),
+            confirmMessage.react(MENU_REACTION.DENY)
+        ]);
     }
 
     /**
      * @param {*} price - The item price
      */
     canBuy(price) {
-        return this.entity.Player.money >= parseInt(price);
+        return this.entity.Player.money >= price;
     }
 
     /********************************************************** GIVE FUNCTIONS **********************************************************/
@@ -216,7 +220,7 @@ class Shop {
      */
     giveDailyPotion(message) {
         this.entity.Player.Inventory.giveObject(this.dailyPotion.get('potion').id, ITEMTYPE.POTION); //Give potion
-        this.entity.Player.removeMoney(parseInt(this.dailyPotion.get('price'))); //Remove money
+        this.entity.Player.addMoney(-this.dailyPotion.get('price')); //Remove money
         this.entity.Player.Inventory.save(); //Save
         this.entity.Player.save(); //Save
         message.delete();
@@ -237,7 +241,7 @@ class Shop {
      */
     healAlterations(message) {
         this.entity.effect = EFFECT.SMILEY; //Clear alterations
-        this.entity.Player.removeMoney(parseInt(this.selectedItem.price)); //Remove money
+        this.entity.Player.addMoney(-this.selectedItem.price); //Remove money
         this.entity.save(); //Save
         this.entity.Player.save(); //Save
         message.delete();
@@ -254,7 +258,7 @@ class Shop {
      */
     regenPlayer(message) {
         this.entity.setHealth(this.entity.maxHealth); //Heal Player
-        this.entity.Player.removeMoney(parseInt(this.selectedItem.price)); //Remove money
+        this.entity.Player.addMoney(-this.selectedItem.price); //Remove money
         this.entity.save(); //Save
         this.entity.Player.save(); //Save
         message.delete();
@@ -275,7 +279,7 @@ class Shop {
             message.delete();
         } else {
             this.entity.Player.addBadge('🤑'); //Give badge
-            this.entity.Player.removeMoney(parseInt(this.selectedItem.price)); //Remove money
+            this.entity.Player.addMoney(-this.selectedItem.price); //Remove money
             this.entity.Player.save(); //Save
 
             message.delete();
@@ -297,7 +301,7 @@ class Shop {
             const guild = await Guilds.getById(this.entity.Player.guild_id);
             const toAdd = randInt(50, 450);
             guild.addExperience(toAdd); //Add xp
-            this.entity.Player.removeMoney(parseInt(this.selectedItem.price)); //Remove money
+            this.entity.Player.addMoney(-this.selectedItem.price); //Remove money
             this.entity.Player.save(); //Save
             guild.save();
 
@@ -307,7 +311,9 @@ class Shop {
                 .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).success, {
                     pseudo: this.customer.username
                 }), this.customer.displayAvatarURL())
-                .setDescription("\n\n" + format(this.selectedItem.give, {experience: toAdd})));
+                .setDescription("\n\n" + format(this.selectedItem.give, {
+                    experience: toAdd
+                })));
         } catch (err) {
             this.notInAGuild(message);
         }
@@ -325,7 +331,7 @@ class Shop {
                 pseudo: this.message.author.username
             }), this.message.author.displayAvatarURL())
             .setDescription(format(JsonReader.commands.shop.getTranslation(this.language).error.cannotBuy, {
-                missingMoney: parseInt(price) - this.entity.Player.money
+                missingMoney: price - this.entity.Player.money
             }));
         this.message.channel.send(embed);
     }

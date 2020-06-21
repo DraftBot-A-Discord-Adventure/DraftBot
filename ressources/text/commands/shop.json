@@ -9,31 +9,31 @@
             "permanentItems": {
                 "randomItem": {
                     "name": ":question: **Un item random**",
-                    "price": "350",
+                    "price": 350,
                     "info": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
                     "give": "{pseudo}, Vous avez reçu un(e) nouvel(le) {type}:"
                 },
                 "healAlterations": {
                     "name": ":hospital: **Soin des altérations d'état**",
-                    "price": "500",
+                    "price": 500,
                     "info": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
                     "give": ":hospital: Vos altérations d'état ont été supprimés."
                 },
                 "regen": {
                     "name": ":heartpulse: **Regen complète de la vie**",
-                    "price": "3000",
+                    "price": 3000,
                     "info": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
                     "give": ":heartpulse: Vous avez été complétement soigné."
                 },
                 "badge": {
                     "name": ":money_mouth: **Badge \"MoneyMouth\"**",
-                    "price": "25000",
+                    "price": 25000,
                     "info": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `help badges`.",
                     "give": "{pseudo}, Vous avez reçu un nouveau badge :"
                 },
                 "guildXp": {
                     "name": ":star: **Un peu d'xp pour votre guilde**",
-                    "price": "1000",
+                    "price": 1000,
                     "info": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450.",
                     "give": "Votre guilde a reçu `{experience}⭐`."
                 }
@@ -60,31 +60,31 @@
             "permanentItems": {
                 "randomItem": {
                     "name": ":question: **A random item**",
-                    "price": "350",
+                    "price": 350,
                     "info": "\n\n:warning: You will recieve a random item (Weapon / Armor / Misc or Potion) among all those existing in the game. If you already have an item of higher value than the one created, you will recieve a small monetary compensation.",
                     "give": "{pseudo}, You received a new {type}:"
                 },
                 "healAlterations": {
                     "name": ":hospital: **Heal alterations**",
-                    "price": "500",
+                    "price": 500,
                     "info": "\n\n:warning: Your status will be reset and the next report will be available in an hour.",
                     "give": ":hospital: Your status has been reset."
                 },
                 "regen": {
                     "name": ":heartpulse: **Complete health regeneration**",
-                    "price": "3000",
+                    "price": 3000,
                     "info": "\n\n:warning: You will be fully healed but your status will stay unchanged.",
                     "give": ":heartpulse: You have been completely healed."
                 },
                 "badge": {
                     "name": ":money_mouth: **\"MoneyMouth\" Badge**",
-                    "price": "25000",
+                    "price": 25000,
                     "info": "\n\n:warning: You will receive the badge in the hours following your payment. For more information on badges, use the command `help badges`",
                     "give": "{pseudo}, You received a new badge:"
                 },
                 "guildXp": {
                     "name": ":star: **Some xp for your guild**",
-                    "price": "1000",
+                    "price": 1000,
                     "info": "\n\n:warning: You will receive a random amount (between 50 and 450) of guild xp.",
                     "give": "Your guild has received `{experience}⭐`."
                 }
@@ -104,12 +104,12 @@
         }
     },
     "prices": {
-        "priceItem": "350",
-        "priceStatus": "500",
-        "priceHeal": "3000",
-        "priceBadge": "25000",
-        "priceGuildXp": "1000",
-        "addedValue": "200"
+        "priceItem": 350,
+        "priceStatus": 500,
+        "priceHeal": 3000,
+        "priceBadge": 25000,
+        "priceGuildXp": 1000,
+        "addedValue": 200
     }
 
 }

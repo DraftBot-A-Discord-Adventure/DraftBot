@@ -174,13 +174,6 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} money
    */
-  Players.prototype.removeMoney = function (money) {
-    this.setMoney(this.money - money);
-  };
-
-  /**
-   * @param {Number} money
-   */
   Players.prototype.setMoney = function (money) {
     if (money > 0) {
       this.money = money;
