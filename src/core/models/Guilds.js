@@ -82,6 +82,24 @@ module.exports = (sequelize, DataTypes) => {
         return JsonReader.models.guilds.xp[this.level];
     };
 
+    /**
+     * @param {Number} score
+     */
+    Guilds.prototype.addExperience = function (experience) {
+        this.experience += experience;
+        this.setExperience(this.experience);
+    };
+
+    /**
+     * @param {Number} score
+     */
+    Guilds.prototype.setExperience = function (experience) {
+        if (experience > 0) {
+            this.experience = experience;
+        } else {
+            this.experience = 0;
+        }
+    };
+
     return Guilds;
 };
-
