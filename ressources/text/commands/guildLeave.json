@@ -8,7 +8,7 @@
             "leaveChiefDesc": "Souhaitez vous vraiment **détruire définitivement** la guilde `{guildName}` ?",
             "leavingCancelled": "Votre départ a été annulé.",
             "successTitle": "{pseudo} a quitté la guilde {guildName} !",
-            "leavingSuccess": "You'r poor lonesome cowboy and a long long way from home"
+            "leavingSuccess": "You'r poor lonesome cowboy and a long long way from home..."
         },
         "en": {
             "errorTitle": "{pseudo}, hmmm... That didn't work!",
@@ -18,7 +18,7 @@
             "leaveChiefDesc": "Do you really want to **permanently destroy** the guild `{guildName}`?",
             "leavingCancelled": "Your departure has been cancelled.",
             "successTitle": "{pseudo} left the guild {guildName}!",
-            "leavingSuccess": "You'r poor lonesome cowboy and a long long way from home"
+            "leavingSuccess": "You'r poor lonesome cowboy and a long long way from home..."
         }
     },
     "guildCreationPrice": 5000
