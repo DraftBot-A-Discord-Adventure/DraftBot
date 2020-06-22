@@ -6,6 +6,8 @@
  * @param {Number} power
  * @param {Number} maxDefenseImprovement
  * @param {Number} maxSpeedImprovement
+ * @param {Number} chargeTurns
+ * @param {FIGHT.ACTION} chargeAct
  */
 class Fighter {
 
@@ -32,6 +34,8 @@ class Fighter {
         this.power = this.entity.getCumulativeHealth(this.entity.Player);
         this.maxDefenseImprovement = FIGHT.MAX_DEFENSE_IMPROVEMENT;
         this.maxSpeedImprovement = FIGHT.MAX_SPEED_IMPROVEMENT;
+        this.chargeTurns = -1;
+        this.chargeAct = null;
     }
 
     /**
@@ -66,6 +70,16 @@ class Fighter {
         let r = this.maxSpeedImprovement;
         this.maxSpeedImprovement = Math.floor(this.maxSpeedImprovement * 0.5);
         return r;
+    }
+
+    /**
+     * Make a player charge an action for a certain number of turns
+     * @param {FIGHT.ACTION} action
+     * @param {number} turns
+     */
+    chargeAction(action, turns) {
+        this.chargeTurns = turns;
+        this.chargeAct = action;
     }
 }
 
@@ -181,6 +195,7 @@ class Fight {
             .then(async function (message) {
                 await message.react("⚔");
                 await message.react("🗡");
+                await message.react("🪓");
                 await message.react("💣");
                 await message.react("🛡");
                 await message.react("🚀");
@@ -199,7 +214,7 @@ class Fight {
                         case "🗡":
                             await fight.useAction(FIGHT.ACTION.QUICK_ATTACK);
                             break;
-                        case "💣":
+                        case "🪓":
                             await fight.useAction(FIGHT.ACTION.POWERFUL_ATTACK);
                             break;
                         case "🛡":
@@ -207,6 +222,9 @@ class Fight {
                             break;
                         case "🚀":
                             await fight.useAction(FIGHT.ACTION.IMPROVE_SPEED);
+                            break;
+                        case "💣":
+                            await fight.useAction(FIGHT.ACTION.ULTIMATE_ATTACK);
                             break;
                         default:
                             return;
@@ -284,6 +302,9 @@ class Fight {
             case FIGHT.ACTION.SIMPLE_ATTACK:
                 section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.simple;
                 break;
+            case FIGHT.ACTION.ULTIMATE_ATTACK:
+                section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.ultimate;
+                break;
             default:
                 return;
         }
@@ -317,8 +338,21 @@ class Fight {
             this.endFight();
             return;
         }
-        await this.summarizeFight();
-        await this.sendTurnIndications();
+        let playing = this.getPlayingFighter();
+        if (playing.chargeTurns > -1) {
+            playing.chargeTurns--;
+        }
+        if (playing.chargeTurns === 0) {
+            await this.useAction(playing.chargeAct, true);
+        }
+        else if (playing.chargeTurns > 0) {
+            await this.message.channel.send(format(JsonReader.commands.fight.getTranslation(this.language).actions.intro + JsonReader.commands.fight.getTranslation(this.language).actions.continueCharging, {player: await playing.entity.Player.getPseudo(this.language)}));
+            await this.nextTurn();
+        }
+        else {
+            await this.summarizeFight();
+            await this.sendTurnIndications();
+        }
     }
 
     /**
@@ -353,9 +387,10 @@ class Fight {
     /**
      * Makes the playing fighter use an action
      * @param {FIGHT.ACTION} action
+     * @param {Boolean} charged If used after a charge
      * @return {Promise<void>}
      */
-    async useAction(action) {
+    async useAction(action, charged = false) {
 
         let success = Math.random();
         let attacker = this.getPlayingFighter();
@@ -389,10 +424,10 @@ class Fight {
 
             case FIGHT.ACTION.POWERFUL_ATTACK:
                 powerChanger = 0.0;
-                if ((defender.speed > attacker.speed && success <= 0.05) || (defender.speed < attacker.speed && success < 0.4)) {
-                    powerChanger = 1.25;
-                } else if ((defender.speed > attacker.speed && success <= 0.4) || (defender.speed < attacker.speed && success < 0.7)) {
-                    powerChanger = 2.0;
+                if ((defender.speed > attacker.speed && success <= 0.15) || (defender.speed < attacker.speed && success < 0.4)) {
+                    powerChanger = 1.4;
+                } else if ((defender.speed > attacker.speed && success <= 0.5) || (defender.speed < attacker.speed && success < 0.7)) {
+                    powerChanger = 2.15;
                 }
                 if (powerChanger > 1) {
                     attacker.speed = Math.round(attacker.speed * 0.75);
@@ -400,7 +435,7 @@ class Fight {
                 else {
                     attacker.speed = Math.round(attacker.speed * 0.9);
                 }
-                far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.5));
+                far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 2.5));
                 far.fullSuccess = powerChanger === 2;
                 break;
 
@@ -410,6 +445,23 @@ class Fight {
 
             case FIGHT.ACTION.IMPROVE_SPEED:
                 far.speedImprovement = attacker.improveSpeed();
+                break;
+
+            case FIGHT.ACTION.ULTIMATE_ATTACK:
+                if (!charged) {
+                    await this.message.channel.send(format(JsonReader.commands.fight.getTranslation(this.language).actions.intro + JsonReader.commands.fight.getTranslation(this.language).actions.charging, {player: await attacker.entity.Player.getPseudo(this.language)}));
+                    attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 2);
+                    await this.nextTurn();
+                    return;
+                }
+                if ((defender.speed > attacker.speed && success <= 0.1) || (defender.speed < attacker.speed && success < 0.5)) {
+                    far.damage = Math.round(2.0 * defender.power / 3.0);
+                    far.fullSuccess = true;
+                }
+                else {
+                    far.damage = 0;
+                    far.fullSuccess = false;
+                }
                 break;
 
             default:

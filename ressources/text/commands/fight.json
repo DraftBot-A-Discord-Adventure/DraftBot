@@ -4,7 +4,7 @@
       "wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat ! Pour y participer, cliquez sur la réaction ci-dessous !",
       "wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
       "intro": ":crossed_swords: | **Un combat est lancé entre {player1} et {player2} !**",
-      "turnIndications": ":crossed_swords: | **C'est au tour de {pseudo} de jouer !**\n\n:crossed_swords: - Lancer une attaque simple\n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
+      "turnIndications": ":crossed_swords: | **C'est au tour de {pseudo} de jouer !**\n\n:crossed_swords: - Lancer une attaque simple\n:dagger: - Lancer une attaque rapide\n:axe: - Lancer une attaque puissante\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
       "summarize": {
         "intro": ":crossed_swords: | **Etat actuel du combat**\n\n",
         "attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
@@ -38,6 +38,8 @@
       },
       "actions": {
         "intro": "**{player}** ",
+        "charging": "charge une attaque... :zap:",
+        "continueCharging": "continue de charger une attaque... :zap:",
         "attacks" : {
           "quick": {
             "name": "attaque rapide",
@@ -61,6 +63,14 @@
               "succeed": " `Vitesse réduite de 25 %`",
               "notGood": " `Vitesse réduite de 25 %`",
               "failed": " `Vitesse réduite de 10 %`"
+            }
+          },
+          "ultimate": {
+            "name": "attaque ultime",
+            "end": {
+              "succeed": "",
+              "notGood": "",
+              "failed": ""
             }
           }
         },
@@ -105,7 +115,7 @@
       "wantsToFightAnyone": ":crossed_swords: | {player} wants to fight ! To duel them, click the emote below !",
       "wantsToFightSomeone": ":crossed_swords: | {player} challenges {opponent} ! To accept or not, click the emote below !",
       "intro": ":crossed_swords: | **A fight has begun between {player1} and {player2} !**",
-      "turnIndications": ":crossed_swords: | **It's {pseudo} 's turn to play**\n\n:crossed_swords: - Use a basic attack\n:dagger: - Use a quick attack\n:bomb: - Use an powerful attack\n:shield: - Prepare to shield yourself\n:rocket: - Prepare to dodge",
+      "turnIndications": ":crossed_swords: | **It's {pseudo} 's turn to play**\n\n:crossed_swords: - Use a basic attack\n:dagger: - Use a quick attack\n:axe: - Use a powerful attack\n:bomb: - Use a supreme attack\n:shield: - Prepare to shield yourself\n:rocket: - Prepare to dodge",
       "summarize": {
         "intro": ":crossed_swords: | **Current battle state**\n\n",
         "attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
@@ -139,6 +149,8 @@
       },
       "actions": {
         "intro": "**{player}** ",
+        "charging": "charges an attack... :zap:",
+        "continueCharging": "continues to charge an attack... :zap:",
         "attacks" : {
           "quick": {
             "name": "quick attack",
@@ -162,6 +174,14 @@
               "succeed": " `Speed reduced by 25 %`",
               "notGood": " `Speed reduced by 25 %`",
               "failed": " `Speed reduced by 10 %`"
+            }
+          },
+          "ultimate": {
+            "name": "supreme attack",
+            "end": {
+              "succeed": "",
+              "notGood": "",
+              "failed": ""
             }
           }
         },

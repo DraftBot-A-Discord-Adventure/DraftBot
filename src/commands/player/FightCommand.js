@@ -11,10 +11,6 @@ const FightCommand = async function (language, message, args) {
     let attacker;
     [attacker] = await Entities.getOrRegister(message.author.id);
 
-    let fightTmp = new Fight(attacker, attacker, message, language);
-    fightTmp.startFight();
-    return;
-
     let defender = null;
     if (args.length !== 0) {
         defender = await Entities.getByArgs(args, message);
