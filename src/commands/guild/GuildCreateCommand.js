@@ -141,8 +141,8 @@ const GuildCreateCommand = async (language, message, args) => {
 
 
 module.exports = {
-    "guildCreate": GuildCreateCommand,
-    "gCreate": GuildCreateCommand,
+    "guildcreate": GuildCreateCommand,
+    "gcreate": GuildCreateCommand,
     "gc": GuildCreateCommand
 };
 
