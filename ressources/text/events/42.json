@@ -92,16 +92,16 @@
 				"item": false
             },
             {
-            "translations": {
-                "fr": "** | 😎 Vous entrez dans la grotte à petit pas et commencez à l’explorer. Après une quinzaine de mètres vous vous retrouvez face à un ours imposant qui vous fonce dessus. Vous engagez le combat. Après une lutte acharnée vous arrivez à l’abattre d’un bon coup dans le crâne. Vous le dépecez, faites cuire sa viande et partagez un bon repas avec la demoiselle. Après vous être rempli la panse, vous vous rendez dans le village le plus proche et vendez la peau de l’ours.",
-                "en": "** | 😎 You enter the cave one small step at a time and start to explore it. After a dozen meters, you get sight of an imposing bear which charges you. You start to fight. After a fierce battle you slay the beast with a strong hit to the head. You skin the deceased animal, cook its meat and share a copious meal with the woman. After filling your stomach, you get to the closest bourg to sell the bearskin."
+                 "translations": {
+                     "fr": "** | 😎 Vous entrez dans la grotte à petit pas et commencez à l’explorer. Après une quinzaine de mètres vous vous retrouvez face à un ours imposant qui vous fonce dessus. Vous engagez le combat. Après une lutte acharnée vous arrivez à l’abattre d’un bon coup dans le crâne. Vous le dépecez, faites cuire sa viande et partagez un bon repas avec la demoiselle. Après vous être rempli la panse, vous vous rendez dans le village le plus proche et vendez la peau de l’ours.",
+                     "en": "** | 😎 You enter the cave one small step at a time and start to explore it. After a dozen meters, you get sight of an imposing bear which charges you. You start to fight. After a fierce battle you slay the beast with a strong hit to the head. You skin the deceased animal, cook its meat and share a copious meal with the woman. After filling your stomach, you get to the closest bourg to sell the bearskin."
             },
-            "lostTime": 60,
-            "health": 30,
-            "effect": ":clock2:",
-            "experience": 375,
-            "money": 600,
-            "item": false
+                 "lostTime": 60,
+                 "health": 30,
+                 "effect": ":clock2:",
+                 "experience": 375,
+                 "money": 600,
+                 "item": false
             }
 		],
 		"🥩": [
