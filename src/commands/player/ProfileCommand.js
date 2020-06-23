@@ -98,12 +98,28 @@ const ProfileCommand = async function (language, message, args) {
       .addFields(fields),
   );
 
+  const filterConfirm = (reaction, user) => {
+    return (reaction.me && !reaction.users.cache.last().bot);
+  };
+
+  const collector = msg.createReactionCollector(filterConfirm, {
+    time: 120000,
+    max: JsonReader.commands.profile.badgeMaxReactNumber
+  });
+
+  collector.on('collect', async (reaction) => {
+    message.channel.send(JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]).then(msg => {
+      msg.delete({ "timeout": JsonReader.commands.profile.badgeDescriptionTimeout });
+    }).catch(err => { });
+  });
+
   if (entity.Player.badges !== null) {
     let badges = entity.Player.badges.split('-');
-    for (let i = 0; i < badges.length; i++) {
-      await msg.react(badges[i]);
+    for (let badgeid in badges) {
+      await msg.react(badges[badgeid]);
     }
   }
+
 
 };
 
