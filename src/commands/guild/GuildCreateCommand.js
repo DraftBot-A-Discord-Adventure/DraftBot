@@ -19,37 +19,35 @@ const GuildCreateCommand = async (language, message, args) => {
     }
 
     if (guild !== null) { // already in a guild
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildCreate.getTranslation(language).alreadyInAGuild);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).alreadyInAGuild);
     }
 
     let askedName = args.join(" ");
 
-    if (askedName.length < 1) { // no name provided
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildCreate.getTranslation(language).noNameProvided);
-        return message.channel.send(embed);
+    if (askedName.length < 1) { // no name provided        
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).noNameProvided);
     }
 
     const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
     const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
     if (!(regexAllowed.test(askedName) && !regexSpecialCases.test(askedName) && askedName.length >= GUILD.MIN_GUILDNAME_SIZE && askedName.length <= GUILD.MAX_GUILDNAME_SIZE)) {
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(format(JsonReader.commands.guildCreate.getTranslation(language).invalidName, {
+
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            format(JsonReader.commands.guildCreate.getTranslation(language).invalidName, {
                 min: GUILD.MIN_GUILDNAME_SIZE,
                 max: GUILD.MAX_GUILDNAME_SIZE
             }));
-        return message.channel.send(embed);
     }
 
     try {
@@ -59,12 +57,11 @@ const GuildCreateCommand = async (language, message, args) => {
     }
 
     if (guild !== null) { // the name is already used
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildCreate.getTranslation(language).nameAlreadyUsed);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).nameAlreadyUsed);
     }
 
     embed.setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, {
@@ -125,13 +122,11 @@ const GuildCreateCommand = async (language, message, args) => {
         }
 
         //Cancel the creation
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildCreate.getTranslation(language).creationCancelled);
-        message.channel.send(embed);
-
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).creationCancelled);
     });
 
     await msg.react(MENU_REACTION.ACCEPT);
@@ -145,5 +140,3 @@ module.exports = {
     "gcreate": GuildCreateCommand,
     "gc": GuildCreateCommand
 };
-
-

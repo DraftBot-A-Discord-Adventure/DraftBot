@@ -18,12 +18,11 @@ const GuildKickCommand = async (language, message, args) => {
     }
 
     if (kickedEntity == null) { //no user provided
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildKick.getTranslation(language).cannotGetKickedUser);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).cannotGetKickedUser);
     }
 
     // search for a user's guild
@@ -34,21 +33,19 @@ const GuildKickCommand = async (language, message, args) => {
     }
 
     if (guild == null) { // not in a guild
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildKick.getTranslation(language).notInAguild);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).notInAguild);
     }
 
     if (guild.chief_id != entity.id) {
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildKick.getTranslation(language).notChiefError);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).notChiefError);
     }
 
     // search for a user's guild
@@ -59,21 +56,19 @@ const GuildKickCommand = async (language, message, args) => {
     }
 
     if (kickedGuild == null || kickedGuild.id != guild.id) { // not the same guild
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildKick.getTranslation(language).notInTheGuild);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).notInTheGuild);
     }
 
     if (kickedEntity.id === entity.id) {
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildKick.getTranslation(language).excludeHimself);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).excludeHimself);
     }
 
 
@@ -117,21 +112,18 @@ const GuildKickCommand = async (language, message, args) => {
             }
         }
 
-        //Cancel the creation
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {
+        //Cancel the kick
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {
                 kickedPseudo: message.mentions.users.last().username
             }));
-        message.channel.send(embed);
-
     });
 
     await msg.react(MENU_REACTION.ACCEPT);
     await msg.react(MENU_REACTION.DENY);
-
 };
 
 

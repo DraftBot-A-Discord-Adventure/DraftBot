@@ -1,7 +1,6 @@
 {
     "translations": {
         "fr": {
-            "errorTitle": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
             "notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
             "cannotGetKickedUser": "Veuillez mentionner un joueur existant. Ex : `guildAdd @user#0000`",
             "notInTheGuild": "Le joueur n'appartient pas à votre guilde.",
@@ -14,7 +13,6 @@
             "excludeHimself" : "Vous ne pouvez pas vous exclure vous même"
         },
         "en": {
-            "errorTitle": "{pseudo}, hmmm... That didn't work!",
             "notInAguild": "You have to be in a guild to use this command.",
             "cannotGetKickedUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
             "notInTheGuild": "This player is not in your guild.",
