@@ -119,7 +119,11 @@ class Fight {
      * @returns {Promise<void>}
      */
     constructor(player1, player2, message, language) {
-        this.fighters = [new Fighter(player1), new Fighter(player2)];
+        if (randInt(0, 1) === 0) {
+            this.fighters = [new Fighter(player1), new Fighter(player2)];
+        } else {
+            this.fighters = [new Fighter(player2), new Fighter(player1)];
+        }
         this.turn = 0;
         this.message = message;
         this.language = language;
@@ -247,18 +251,15 @@ class Fight {
                     }
                 });
 
-                if (!message.deleted)
+                try {
                     await message.react("⚔");
-                if (!message.deleted)
                     await message.react("🗡");
-                if (!message.deleted)
                     await message.react("🪓");
-                if (!message.deleted)
                     await message.react("💣");
-                if (!message.deleted)
                     await message.react("🛡");
-                if (!message.deleted)
                     await message.react("🚀");
+                } catch (e) {
+                }
             });
     }
 
@@ -277,7 +278,7 @@ class Fight {
                     JsonReader.commands.fight.getTranslation(this.language).summarize.intro +
                     format(JsonReader.commands.fight.getTranslation(this.language).summarize.attacker, {
                         pseudo: await attacker.entity.Player.getPseudo(this.language),
-                        charging: attacker.chargeTurns !== -1 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
+                        charging: attacker.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
                     }) +
                     format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
                         power: attacker.power,
@@ -287,7 +288,7 @@ class Fight {
                     }) +
                     format(JsonReader.commands.fight.getTranslation(this.language).summarize.defender, {
                         pseudo: await defender.entity.Player.getPseudo(this.language),
-                        charging: defender.chargeTurns !== -1 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
+                        charging: defender.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
                     }) +
                     format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
                         power: defender.power,
