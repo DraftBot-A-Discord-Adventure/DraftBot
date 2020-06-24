@@ -2,7 +2,7 @@
     "translations": {
         "fr": {
             "leaveTitle": "{pseudo}, confirmation :",
-            "notInAGuild": "Vous n'appartenez à aucune guilde.",
+            "notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
             "leaveDesc": "Souhaitez vous vraiment quitter la guilde `{guildName}` ?",
             "leaveChiefDesc": "Souhaitez vous vraiment **détruire définitivement** la guilde `{guildName}` ?",
             "leavingCancelled": "Votre départ a été annulé.",
@@ -11,7 +11,7 @@
         },
         "en": {
             "leaveTitle": "{pseudo}, confirmation:",
-            "notInAGuild": "You are not in a guild.",
+            "notInAguild": "You have to be in a guild to use this command.",
             "leaveDesc": "Do you really want to quit the guild `{guildName}`?",
             "leaveChiefDesc": "Do you really want to **permanently destroy** the guild `{guildName}`?",
             "leavingCancelled": "Your departure has been cancelled.",
