@@ -23,6 +23,23 @@ global.sendMessageAttachments = (message, channel) => {
 };
 
 /**
+ * Send an error in a channel
+ * @param {module:"discord.js".User} user 
+ * @param {module:"discord.js".TextChannel} channel
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {String} reason
+ */
+global.sendErrorMessage = (user, channel, language, reason) => {
+  let embed = new discord.MessageEmbed();
+  embed.setColor(JsonReader.bot.embed.error)
+    .setAuthor(format(JsonReader.error.getTranslation(language).title, {
+      pseudo: user.username
+    }), user.displayAvatarURL())
+    .setDescription(reason);
+  return channel.send(embed);
+};
+
+/**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
  * @returns {Number}
  */
