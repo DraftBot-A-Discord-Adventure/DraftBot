@@ -22,7 +22,7 @@ const GuildKickCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).cannotGetKickedUser);
+            JsonReader.commands.guildKick.getTranslation(language).cannotGetKickedUser);
     }
 
     // search for a user's guild
@@ -37,7 +37,7 @@ const GuildKickCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).notInAguild);
+            JsonReader.commands.guildKick.getTranslation(language).notInAguild);
     }
 
     if (guild.chief_id != entity.id) {
@@ -45,7 +45,7 @@ const GuildKickCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).notChiefError);
+            JsonReader.commands.guildKick.getTranslation(language).notChiefError);
     }
 
     // search for a user's guild
@@ -60,7 +60,7 @@ const GuildKickCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).notInTheGuild);
+            JsonReader.commands.guildKick.getTranslation(language).notInTheGuild);
     }
 
     if (kickedEntity.id === entity.id) {
@@ -68,7 +68,7 @@ const GuildKickCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).excludeHimself);
+            JsonReader.commands.guildKick.getTranslation(language).excludeHimself);
     }
 
 

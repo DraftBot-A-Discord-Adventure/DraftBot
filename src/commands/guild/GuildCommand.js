@@ -38,7 +38,7 @@ const GuildCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).noGuildException);
+            JsonReader.commands.guild.getTranslation(language).noGuildException);
     }
     let members = await Entities.getByGuild(guild.id);
 

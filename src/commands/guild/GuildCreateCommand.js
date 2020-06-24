@@ -23,7 +23,7 @@ const GuildCreateCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).alreadyInAGuild);
+            JsonReader.commands.guildCreate.getTranslation(language).alreadyInAGuild);
     }
 
     let askedName = args.join(" ");
@@ -33,7 +33,7 @@ const GuildCreateCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).noNameProvided);
+            JsonReader.commands.guildCreate.getTranslation(language).noNameProvided);
     }
 
     const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
@@ -61,7 +61,7 @@ const GuildCreateCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).nameAlreadyUsed);
+            JsonReader.commands.guildCreate.getTranslation(language).nameAlreadyUsed);
     }
 
     embed.setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, {
@@ -126,7 +126,7 @@ const GuildCreateCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).creationCancelled);
+            JsonReader.commands.guildCreate.getTranslation(language).creationCancelled);
     });
 
     await msg.react(MENU_REACTION.ACCEPT);

@@ -23,7 +23,7 @@ const GuildLeaveCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).notInAGuild);
+            JsonReader.commands.guildLeave.getTranslation(language).notInAGuild);
     }
 
     //generate confirmation embed
