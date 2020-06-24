@@ -116,7 +116,11 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.getByArgs = async (args, message) => {
     if (isNaN(args[0])) {
-      return Entities.getByDiscordUserId(message.mentions.users.last().id);
+      let lastMention = message.mentions.users.last();
+      if (lastMention === undefined) {
+        return null;
+      }
+      return Entities.getByDiscordUserId(lastMention.id);
     } else {
       let [player] = await Players.getByRank(parseInt(args[0]));
       return Entities.getById(player.entity_id);

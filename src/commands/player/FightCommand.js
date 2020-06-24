@@ -18,10 +18,10 @@ const FightCommand = async function (language, message, args) {
     if (args.length !== 0) {
         defender = await Entities.getByArgs(args, message);
         if (defender == null) {
-            await message.channel.send(JsonReader.commands.fight.getTranslation(language).error.defenderDoesntExist);
+            sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.defenderDoesntExist);
             return;
         } else if (defender.discordUser_id === attacker.discordUser_id) {
-            await message.channel.send(JsonReader.commands.fight.getTranslation(language).error.fightHimself);
+            sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.fightHimself);
             return;
         }
     }
@@ -53,9 +53,9 @@ const FightCommand = async function (language, message, args) {
         });
     }
     await message.channel.send(msg)
-        .then(async function (message) {
-            await message.react("✅");
-            await message.react("❌");
+        .then(async function (messageFightAsk) {
+            await messageFightAsk.react("✅");
+            await messageFightAsk.react("❌");
 
             let filter;
             if (defender == null) {
@@ -68,7 +68,7 @@ const FightCommand = async function (language, message, args) {
                 };
             }
 
-            const collector = message.createReactionCollector(filter, {time: 60000});
+            const collector = messageFightAsk.createReactionCollector(filter, {time: 60000});
 
             collector.on('collect', async (reaction, user) => {
                 switch (reaction.emoji.name) {
@@ -76,10 +76,10 @@ const FightCommand = async function (language, message, args) {
                         if (user.id === attacker.discordUser_id) {
                             spamCount++;
                             if (spamCount < 3) {
-                                message.channel.send(JsonReader.commands.fight.getTranslation(language).error.fightHimself);
+                                sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.fightHimself);
                                 return;
                             }
-                            message.channel.send(JsonReader.commands.fight.getTranslation(language).error.spamCanceled);
+                            sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.spamCanceled);
                             fightInstance = null;
                             break;
                         }
@@ -94,11 +94,11 @@ const FightCommand = async function (language, message, args) {
                         break;
                     case "❌":
                         if (user.id === attacker.discordUser_id) {
-                            message.channel.send(JsonReader.commands.fight.getTranslation(language).error.canceled);
+                            await message.channel.send(JsonReader.commands.fight.getTranslation(language).error.canceled);
                         } else if (defender != null) {
-                            message.channel.send(JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
+                            sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
                         } else {
-                            message.channel.send(format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, {pseudo: "<@" + user.id + ">"}));
+                            sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, {pseudo: "<@" + user.id + ">"}));
                         }
                         fightInstance = null;
                         break;
@@ -112,9 +112,9 @@ const FightCommand = async function (language, message, args) {
                 if (fightInstance === undefined) {
                     global.removeBlockedPlayer(attacker.discordUser_id);
                     if (defender == null) {
-                        await message.channel.send(JsonReader.commands.fight.getTranslation(language).error.noOneAvailable);
+                        sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.noOneAvailable);
                     } else {
-                        await message.channel.send(JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
+                        sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
                     }
                 }
                 if (fightInstance == null) {
@@ -138,17 +138,19 @@ function sendError(message, entity, error, direct, language) {
             let msg = direct ?
                 format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.direct, { pseudo : entity.getMention(), level: FIGHT.REQUIRED_LEVEL })
                 : format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.indirect, {level: FIGHT.REQUIRED_LEVEL});
-            message.channel.send(msg);
+            sendErrorMessage(message.author, message.channel, language, msg);
             break;
         case FIGHT_ERROR.DISALLOWED_EFFECT:
-            message.channel.send(direct ?
+            let msg1 = direct ?
                 format(JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.direct, { pseudo : entity.getMention() })
-                : JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.indirect);
+                : JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.indirect;
+            sendErrorMessage(message.author, message.channel, language, msg1);
             break;
         case FIGHT_ERROR.OCCUPIED:
-            message.channel.send(direct ?
+            let msg2 = direct ?
                 format(JsonReader.commands.fight.getTranslation(language).error.occupied.direct, { pseudo : entity.getMention() })
-                : JsonReader.commands.fight.getTranslation(language).error.occupied.indirect);
+                : JsonReader.commands.fight.getTranslation(language).error.occupied.indirect;
+            sendErrorMessage(message.author, message.channel, language, msg2);
             break;
         default:
             break;

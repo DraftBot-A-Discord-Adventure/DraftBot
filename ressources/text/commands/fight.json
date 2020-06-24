@@ -18,25 +18,25 @@
         "win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n:bar_chart: Elo de la partie : `{elo}`\n:medal: Points gagnés/perdus : `{points}`"
       },
       "error": {
-        "spamCanceled": ":x: | Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
-        "noOneAvailable": ":x: | Malheureusement, personne ne semble disponible pour combattre sur ce serveur. Votre demande de combat a été annulée.",
-        "opponentNotAvailable": ":x: | Malheureusement, cette personne ne semble pas disponible pour le moment. Votre demande de combat a été annulée.",
-        "fightHimself": ":x: | Il est impossible de se combattre soi-même ! Trouvez un autre adversaire.",
+        "spamCanceled": "Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
+        "noOneAvailable": "Malheureusement, personne ne semble disponible pour combattre sur ce serveur. Votre demande de combat a été annulée.",
+        "opponentNotAvailable": "Malheureusement, cette personne ne semble pas disponible pour le moment. Votre demande de combat a été annulée.",
+        "fightHimself": "Il est impossible de se combattre soi-même ! Trouvez un autre adversaire.",
         "canceled": ":x: | Votre demande de combat a bien été annulée.",
-        "onlyInitiator": ":x: | {pseudo}, seul l'initiateur d'un combat peut l'annuler !",
+        "onlyInitiator": " {pseudo}, seul l'initiateur d'un combat peut l'annuler !",
         "levelTooLow": {
-          "direct": ":x: | {pseudo}, vous devez être **LVL {level}** pour accéder aux combats ! Revenez plus tard !",
-          "indirect": ":x: | Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
+          "direct": "{pseudo}, vous devez être **LVL {level}** pour accéder aux combats ! Revenez plus tard !",
+          "indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
         },
         "cantFightStatus": {
-          "direct": ":x: | {pseudo}, vous n'être pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
-          "indirect": ":x: | Cette personne ne semble pas en état de combattre pour le moment !"
+          "direct": "{pseudo}, vous n'être pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
+          "indirect": "Cette personne ne semble pas en état de combattre pour le moment !"
         },
         "occupied": {
-          "direct": ":x: | {pseudo}, vous ne pouvez pas lancer de combat lorsque vous êtes occupé !",
-          "indirect": ":x: | Cette personne est occupée pour le moment !"
+          "direct": "{pseudo}, vous ne pouvez pas lancer de combat lorsque vous êtes occupé !",
+          "indirect": "Cette personne est occupée pour le moment !"
         },
-        "defenderDoesntExist": ":x: | La personne demandée n'existe pas !"
+        "defenderDoesntExist": "La personne demandée n'existe pas !"
       },
       "actions": {
         "intro": "{emote} | **{player}** ",
@@ -137,25 +137,25 @@
         "win": ":newspaper: |** {winner} win the match against {loser}**\n\n:bar_chart: Skill level of the party: `{elo}`\n:medal: Points gained/lost: `{points}`"
       },
       "error": {
-        "spamCanceled": ":x: | Your fight has been cancelled. Thanks for not spamming reactions to ask for a fight.",
-        "noOneAvailable": ":x: | Sadly, no one wants to fight with you on this server. Your request has been cancelled.",
-        "opponentNotAvailable": ":x: | Sadly, this opponent is not available now. Your request has been cancelled.",
-        "fightHimself": ":x: | You can't fight yourself! Find another opponent.",
+        "spamCanceled": "Your fight has been cancelled. Thanks for not spamming reactions to ask for a fight.",
+        "noOneAvailable": "Sadly, no one wants to fight with you on this server. Your request has been cancelled.",
+        "opponentNotAvailable": "Sadly, this opponent is not available now. Your request has been cancelled.",
+        "fightHimself": "You can't fight yourself! Find another opponent.",
         "canceled": ":x: | Your battle request has been canceled.",
-        "onlyInitiator": ":x: | Only the fight initiator can cancel it!",
+        "onlyInitiator": "Only the fight initiator can cancel it!",
         "levelTooLow": {
-          "direct": ":x: | You must be **LVL {level}** to proceed to the fights! Come back later!",
-          "indirect": ":x: | Your opponent must be **LVL {level}** to proceed to the fights!"
+          "direct": "You must be **LVL {level}** to proceed to the fights! Come back later!",
+          "indirect": "Your opponent must be **LVL {level}** to proceed to the fights!"
         },
         "cantFightStatus": {
-          "direct": ":x: | You can fight with your current state! Please wait for then end of your alteration state!",
-          "indirect": ":x: | It seems that this person is currently not able to fight!"
+          "direct": "You can fight with your current state! Please wait for then end of your alteration state!",
+          "indirect": "It seems that this person is currently not able to fight!"
         },
         "occupied": {
-          "direct": ":x: | {pseudo}, you can't start a fight if you're occupied !",
-          "indirect": ":x: | This person is currently occupied !"
+          "direct": "{pseudo}, you can't start a fight if you're occupied !",
+          "indirect": "This person is currently occupied !"
         },
-        "defenderDoesntExist": ":x: | Asked player doesn't exist!"
+        "defenderDoesntExist": "Asked player doesn't exist!"
       },
       "actions": {
         "intro": "{emote} | **{player}** ",
