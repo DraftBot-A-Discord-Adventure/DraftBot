@@ -124,6 +124,7 @@ class Fight {
         this.message = message;
         this.language = language;
         this.lastSummary = undefined;
+        this.actionMessages = undefined;
     }
 
     /********************************************************** EXTERNAL MECHANICS FUNCTIONS **********************************************************/
@@ -144,6 +145,9 @@ class Fight {
             global.addBlockedPlayer(this.fighters[i].entity.discordUser_id, "fight");
         }
         this.introduceFight();
+        this.actionMessages = [
+            await this.message.channel.send("_ _")
+        ];
         await this.nextTurn();
     };
 
@@ -187,18 +191,16 @@ class Fight {
 
         let playingId = this.getPlayingFighter().entity.discordUser_id;
         let fight = this;
-        let currentTurn = this.turn;
 
-        this.message.channel.send(format(JsonReader.commands.fight.getTranslation(this.language).turnIndications, {
-            pseudo: await this.getPlayingFighter().entity.getMention(),
-        }))
+        let embed = new discord.MessageEmbed();
+        /*embed.setThumbnail(await this.message.guild.members.cache.get(playingId).user.avatarURL())
+            .setTitle(format(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsTitle, {pseudo: await this.getPlayingFighter().entity.Player.getPseudo(this.language)}))
+            .setDescription(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsDescription);*/
+        embed.setDescription(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsDescription)
+            .setAuthor(format(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsTitle, {pseudo: await this.getPlayingFighter().entity.Player.getPseudo(this.language)}),
+                await this.message.guild.members.cache.get(playingId).user.avatarURL());
+        this.message.channel.send(embed)
             .then(async function (message) {
-                await message.react("⚔");
-                await message.react("🗡");
-                await message.react("🪓");
-                await message.react("💣");
-                await message.react("🛡");
-                await message.react("🚀");
 
                 const filter = (reaction, user) => {
                     return user.id === playingId;
@@ -209,37 +211,92 @@ class Fight {
                 collector.on('collect', async (reaction) => {
                     switch (reaction.emoji.name) {
                         case "⚔":
+                            await message.delete().catch();
                             await fight.useAction(FIGHT.ACTION.SIMPLE_ATTACK);
                             break;
                         case "🗡":
+                            await message.delete().catch();
                             await fight.useAction(FIGHT.ACTION.QUICK_ATTACK);
                             break;
                         case "🪓":
+                            await message.delete().catch();
                             await fight.useAction(FIGHT.ACTION.POWERFUL_ATTACK);
                             break;
                         case "🛡":
+                            await message.delete().catch();
                             await fight.useAction(FIGHT.ACTION.IMPROVE_DEFENSE);
                             break;
                         case "🚀":
+                            await message.delete().catch();
                             await fight.useAction(FIGHT.ACTION.IMPROVE_SPEED);
                             break;
                         case "💣":
+                            await message.delete().catch();
                             await fight.useAction(FIGHT.ACTION.ULTIMATE_ATTACK);
                             break;
                         default:
                             return;
                     }
-                    message.delete().catch();
                 });
 
                 collector.on('end', () => {
-                    if (currentTurn === fight.getTurn()) {
+                    if (!message.deleted) {
                         message.delete().catch();
                         fight.getPlayingFighter().power = 0;
                         fight.endFight();
                     }
                 });
+
+                if (!message.deleted)
+                    await message.react("⚔");
+                if (!message.deleted)
+                    await message.react("🗡");
+                if (!message.deleted)
+                    await message.react("🪓");
+                if (!message.deleted)
+                    await message.react("💣");
+                if (!message.deleted)
+                    await message.react("🛡");
+                if (!message.deleted)
+                    await message.react("🚀");
             });
+    }
+
+    /**
+     * Get summarize embed message
+     * @param {Fight} fight
+     * @param {Fighter} attacker
+     * @param {Fighter} defender
+     * @return {Promise<{embed: {}}>}
+     */
+    async getSummarizeEmbed(fight, attacker, defender) {
+        return {
+            embed: {
+                title: JsonReader.commands.fight.getTranslation(this.language).summarize.title,
+                description:
+                    JsonReader.commands.fight.getTranslation(this.language).summarize.intro +
+                    format(JsonReader.commands.fight.getTranslation(this.language).summarize.attacker, {
+                        pseudo: await attacker.entity.Player.getPseudo(this.language),
+                        charging: attacker.chargeTurns !== -1 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
+                    }) +
+                    format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
+                        power: attacker.power,
+                        attack: attacker.attack,
+                        defense: attacker.defense,
+                        speed: attacker.speed
+                    }) +
+                    format(JsonReader.commands.fight.getTranslation(this.language).summarize.defender, {
+                        pseudo: await defender.entity.Player.getPseudo(this.language),
+                        charging: defender.chargeTurns !== -1 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
+                    }) +
+                    format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
+                        power: defender.power,
+                        attack: defender.attack,
+                        defense: defender.defense,
+                        speed: defender.speed
+                    }),
+            }
+        };
     }
 
     /**
@@ -249,31 +306,12 @@ class Fight {
     async summarizeFight() {
         let attacker = this.getPlayingFighter();
         let defender = this.getDefendingFighter();
-        let fight = this;
 
-        if (this.lastSummary !== undefined) {
-            this.lastSummary.delete({timeout: 5000}).catch();
+        if (this.lastSummary === undefined) {
+            this.lastSummary = await this.message.channel.send(await this.getSummarizeEmbed(this, attacker, defender));
+        } else {
+            await this.lastSummary.edit(await this.getSummarizeEmbed(this, attacker, defender));
         }
-
-        this.message.channel.send(
-            JsonReader.commands.fight.getTranslation(this.language).summarize.intro +
-            format(JsonReader.commands.fight.getTranslation(this.language).summarize.attacker, {pseudo: await attacker.entity.Player.getPseudo(this.language)}) +
-            format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
-                power: attacker.power,
-                attack: attacker.attack,
-                defense: attacker.defense,
-                speed: attacker.speed
-            }) +
-            format(JsonReader.commands.fight.getTranslation(this.language).summarize.defender, {pseudo: await defender.entity.Player.getPseudo(this.language)}) +
-            format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
-                power: defender.power,
-                attack: defender.attack,
-                defense: defender.defense,
-                speed: defender.speed
-            })
-        ).then(message => {
-            fight.lastSummary = message;
-        });
     }
 
     /**
@@ -283,15 +321,24 @@ class Fight {
      * @return {Promise<void>}
      */
     async sendActionMessage(action, fightActionResult) {
+
         let msg = JsonReader.commands.fight.getTranslation(this.language).actions.intro;
         let player = await this.getPlayingFighter().entity.Player.getPseudo(this.language);
         let section;
         switch (action) {
             case FIGHT.ACTION.IMPROVE_DEFENSE:
-                await this.message.channel.send(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.defense, {defense: fightActionResult.defenseImprovement, player: player}));
+                await this.addActionMessage(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.defense, {
+                    emote: JsonReader.commands.fight.getTranslation(this.language).actions.defenseEmote,
+                    defense: fightActionResult.defenseImprovement,
+                    player: player
+                }));
                 return;
             case FIGHT.ACTION.IMPROVE_SPEED:
-                await this.message.channel.send(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.speed, {speed: fightActionResult.speedImprovement, player: player}));
+                await this.addActionMessage(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.speed, {
+                    emote: JsonReader.commands.fight.getTranslation(this.language).actions.speedEmote,
+                    speed: fightActionResult.speedImprovement,
+                    player: player
+                }));
                 return;
             case FIGHT.ACTION.POWERFUL_ATTACK:
                 section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.powerful;
@@ -311,19 +358,53 @@ class Fight {
         let resMsg;
         if (fightActionResult.damage === 0) {
             resMsg = "failed";
-        }
-        else if (fightActionResult.fullSuccess) {
+        } else if (fightActionResult.fullSuccess) {
             resMsg = "succeed";
-        }
-        else {
+        } else {
             resMsg = "notGood";
         }
         let resultSection = JsonReader.commands.fight.getTranslation(this.language).actions.attacksResults[resMsg];
         msg += resultSection[randInt(0, resultSection.length - 1)];
-        await this.message.channel.send(
-            format(msg, {player: player, attack: section.name})
+        await this.addActionMessage(format(msg, {emote: section.emote, player: player, attack: section.name})
             + section.end[resMsg]
-            + format(JsonReader.commands.fight.getTranslation(this.language).actions.damages, { damages : fightActionResult.damage }));
+            + format(JsonReader.commands.fight.getTranslation(this.language).actions.damages, {damages: fightActionResult.damage}));
+    }
+
+    /**
+     * Add the action to an action message
+     * @param {string} msg
+     * @return {Promise<void>}
+     */
+    async addActionMessage(msg) {
+        let amsg = this.actionMessages[this.actionMessages.length - 1];
+        if (amsg.content.length + msg.length > 1950) {
+            await this.lastSummary.delete();
+            this.lastSummary = undefined;
+            amsg = await this.message.channel.send(msg);
+            this.actionMessages.push(amsg);
+        } else if (amsg.content === "_ _") {
+            await amsg.edit(msg);
+        } else {
+            await amsg.edit(amsg.content + "\n" + msg);
+        }
+    }
+
+    /**
+     * Scroll the messages down if needed
+     * @return {Promise<void>}
+     */
+    async scrollIfNeeded() {
+        let messages = await this.message.channel.messages.fetch({limit: 1});
+        if (this.lastSummary !== undefined && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
+            for (let i = 0; i < this.actionMessages.length; ++i) {
+                let content = this.actionMessages[i].content;
+                await this.actionMessages[i].delete();
+                this.actionMessages[i] = await this.message.channel.send(content);
+            }
+            await this.lastSummary.delete();
+            this.lastSummary = undefined;
+            await this.summarizeFight();
+        }
     }
 
     /********************************************************** INTERNAL MECHANICS FUNCTIONS **********************************************************/
@@ -342,14 +423,12 @@ class Fight {
         if (playing.chargeTurns > -1) {
             playing.chargeTurns--;
         }
+        await this.scrollIfNeeded();
         if (playing.chargeTurns === 0) {
             await this.useAction(playing.chargeAct, true);
-        }
-        else if (playing.chargeTurns > 0) {
-            await this.message.channel.send(format(JsonReader.commands.fight.getTranslation(this.language).actions.intro + JsonReader.commands.fight.getTranslation(this.language).actions.continueCharging, {player: await playing.entity.Player.getPseudo(this.language)}));
+        } else if (playing.chargeTurns > 0) {
             await this.nextTurn();
-        }
-        else {
+        } else {
             await this.summarizeFight();
             await this.sendTurnIndications();
         }
@@ -406,7 +485,7 @@ class Fight {
                 } else if (defender.speed < attacker.speed && success < 0.95) {
                     powerChanger = 0.75;
                 }
-                far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.7));
+                far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.3));
                 far.fullSuccess = far.damage >= attacker.attack - defender.power;
                 break;
 
@@ -417,7 +496,7 @@ class Fight {
                 } else if ((defender.speed > attacker.speed && success <= 0.9)) {
                     powerChanger = 0.5;
                 }
-                attacker.defense *= 1.15;
+                attacker.defense = Math.round(attacker.defense * 1.15);
                 far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.85));
                 far.fullSuccess = far.damage >= 100;
                 break;
@@ -431,8 +510,7 @@ class Fight {
                 }
                 if (powerChanger > 1) {
                     attacker.speed = Math.round(attacker.speed * 0.75);
-                }
-                else {
+                } else {
                     attacker.speed = Math.round(attacker.speed * 0.9);
                 }
                 far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 2.5));
@@ -449,16 +527,18 @@ class Fight {
 
             case FIGHT.ACTION.ULTIMATE_ATTACK:
                 if (!charged) {
-                    await this.message.channel.send(format(JsonReader.commands.fight.getTranslation(this.language).actions.intro + JsonReader.commands.fight.getTranslation(this.language).actions.charging, {player: await attacker.entity.Player.getPseudo(this.language)}));
-                    attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 2);
+                    await this.addActionMessage(format(JsonReader.commands.fight.getTranslation(this.language).actions.intro + JsonReader.commands.fight.getTranslation(this.language).actions.charging, {
+                        emote: JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote,
+                        player: await attacker.entity.Player.getPseudo(this.language)
+                    }));
+                    attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 1);
                     await this.nextTurn();
                     return;
                 }
-                if ((defender.speed > attacker.speed && success <= 0.1) || (defender.speed < attacker.speed && success < 0.5)) {
+                if ((defender.speed < attacker.speed && success <= 0.1) || (defender.speed > attacker.speed && success < 0.5)) {
                     far.damage = Math.round(2.0 * defender.power / 3.0);
                     far.fullSuccess = true;
-                }
-                else {
+                } else {
                     far.damage = 0;
                     far.fullSuccess = false;
                 }
@@ -472,8 +552,7 @@ class Fight {
             if (defender.power < 0) {
                 defender.power = 0;
             }
-        }
-        else {
+        } else {
             far.damage = 0;
         }
         await this.sendActionMessage(action, far);

@@ -4,11 +4,13 @@
       "wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat ! Pour y participer, cliquez sur la réaction ci-dessous !",
       "wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
       "intro": ":crossed_swords: | **Un combat est lancé entre {player1} et {player2} !**",
-      "turnIndications": ":crossed_swords: | **C'est au tour de {pseudo} de jouer !**\n\n:crossed_swords: - Lancer une attaque simple\n:dagger: - Lancer une attaque rapide\n:axe: - Lancer une attaque puissante\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
+      "turnIndicationsTitle": "C'est au tour de {pseudo} de jouer ⚔️",
+      "turnIndicationsDescription": "Choisissez une action",
       "summarize": {
+        "title": "Résumé du combat",
         "intro": ":crossed_swords: | **Etat actuel du combat**\n\n",
-        "attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
-        "defender": ":crossed_swords: |** Défenseur : {pseudo}**\n",
+        "attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
+        "defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
         "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}\n\n"
       },
       "end": {
@@ -37,12 +39,13 @@
         "defenderDoesntExist": ":x: | La personne demandée n'existe pas !"
       },
       "actions": {
-        "intro": "**{player}** ",
-        "charging": "charge une attaque... :zap:",
-        "continueCharging": "continue de charger une attaque... :zap:",
+        "intro": "{emote} | **{player}** ",
+        "charging": "charge une attaque...",
+        "chargingEmote": ":zap:",
         "attacks" : {
           "quick": {
             "name": "attaque rapide",
+            "emote": ":dagger:",
             "end": {
               "succeed": "",
               "notGood": "",
@@ -51,6 +54,7 @@
           },
           "simple": {
             "name": "attaque simple",
+            "emote": ":crossed_swords:",
             "end": {
               "succeed": " `Défense augmentée de 25 %`",
               "notGood": " `Défense augmentée de 25 %`",
@@ -59,6 +63,7 @@
           },
           "powerful": {
             "name": "attaque puissante",
+            "emote": ":axe:",
             "end": {
               "succeed": " `Vitesse réduite de 25 %`",
               "notGood": " `Vitesse réduite de 25 %`",
@@ -67,6 +72,7 @@
           },
           "ultimate": {
             "name": "attaque ultime",
+            "emote": ":bomb:",
             "end": {
               "succeed": "",
               "notGood": "",
@@ -107,7 +113,9 @@
           ]
         },
         "defense": "renforce sa défense ! `Défense + {defense}`",
+        "defenseEmote": ":rocket:",
         "speed": "augmente sa vitesse ! `Vitesse + {speed}`",
+        "speedEmote": ":rocket:",
         "damages": " `Dégâts infligés: {damages}`"
       }
     },
@@ -115,8 +123,10 @@
       "wantsToFightAnyone": ":crossed_swords: | {player} wants to fight ! To duel them, click the emote below !",
       "wantsToFightSomeone": ":crossed_swords: | {player} challenges {opponent} ! To accept or not, click the emote below !",
       "intro": ":crossed_swords: | **A fight has begun between {player1} and {player2} !**",
-      "turnIndications": ":crossed_swords: | **It's {pseudo} 's turn to play**\n\n:crossed_swords: - Use a basic attack\n:dagger: - Use a quick attack\n:axe: - Use a powerful attack\n:bomb: - Use a supreme attack\n:shield: - Prepare to shield yourself\n:rocket: - Prepare to dodge",
+      "turnIndicationsTitle": ":crossed_swords: It's {pseudo} 's turn to play",
+      "turnIndicationsDescription": "Choose an action",
       "summarize": {
+        "title": "Fight summarize",
         "intro": ":crossed_swords: | **Current battle state**\n\n",
         "attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
         "defender": ":crossed_swords: |** Defender : {pseudo}**\n",
@@ -148,12 +158,13 @@
         "defenderDoesntExist": ":x: | Asked player doesn't exist!"
       },
       "actions": {
-        "intro": "**{player}** ",
-        "charging": "charges an attack... :zap:",
-        "continueCharging": "continues to charge an attack... :zap:",
+        "intro": "{emote} | **{player}** ",
+        "charging": "charges an attack...",
+        "chargingEmote": ":zap:",
         "attacks" : {
           "quick": {
             "name": "quick attack",
+            "emote": ":dagger:",
             "end": {
               "succeed": "",
               "notGood": "",
@@ -162,6 +173,7 @@
           },
           "simple": {
             "name": "basic attack",
+            "emote": ":crossed_swords:",
             "end": {
               "succeed": " `Defense increased by 15 %`",
               "notGood": " `Defense increased by 15 %`",
@@ -170,6 +182,7 @@
           },
           "powerful": {
             "name": "powerful attack",
+            "emote": ":axe:",
             "end": {
               "succeed": " `Speed reduced by 25 %`",
               "notGood": " `Speed reduced by 25 %`",
@@ -178,6 +191,7 @@
           },
           "ultimate": {
             "name": "supreme attack",
+            "emote": ":bomb:",
             "end": {
               "succeed": "",
               "notGood": "",
@@ -218,7 +232,9 @@
           ]
         },
         "defense": "buffs their defense ! `Defense + {defense}`",
+        "defenseEmote": ":shield:",
         "speed": "increased their speed! `Speed + {speed}`",
+        "speedEmote": ":rocket:",
         "damages": " `Damage dealt: {damages}`"
       }
     }
