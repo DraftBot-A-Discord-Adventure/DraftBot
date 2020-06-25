@@ -42,6 +42,17 @@ global.PERMISSION = {
   }
 };
 
+global.REWARD_TYPES = {
+  PERSONAL_XP: "personalXP",
+  GUILD_XP: "guildXp",
+  MONEY: "money",
+  RANDOM_ITEM: "randomItem",
+  BADGE: "badge",
+  FULL_HEAL: "fullHeal",
+  PARTIAL_HEAL: "partialHeal",
+  ALTERATION: "alterationHeal"
+};
+
 global.ITEMTYPE = {
   POTION: 'potion',
   WEAPON: 'weapon',
@@ -82,5 +93,5 @@ global.SHOP = {
   HEART: '💗',
   MONEY_MOUTH: '🤑',
   STAR: '⭐'
-}
+};
 
