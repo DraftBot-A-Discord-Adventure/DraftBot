@@ -32,52 +32,63 @@ module.exports = (sequelize, DataTypes) => {
     },
     lastReportAt: {
       type: DataTypes.DATE,
-      defaultValue: JsonReader.models.players.lastReportAt
+      defaultValue: require('moment')(),
     },
     entity_id: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     guild_id: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.players.guild_id
+      defaultValue: JsonReader.models.players.guild_id,
     },
     updatedAt: {
       type: DataTypes.DATE,
-      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss')
+      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
     },
     createdAt: {
       type: DataTypes.DATE,
-      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss')
-    }
+      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+    },
   }, {
     tableName: 'players',
-    freezeTableName: true
+    freezeTableName: true,
   });
 
   /**
-  * @param {("badgeID")} badgeID - The badgeID
-  */
-  Players.prototype.giveBadge = function(badgeID) {
-    if (this.badges != "") {
-      this.badges = this.badges + "-" + badgeID;
-    }else{
-      this.badges = badgeID;
+   * Add a badge to the player badges
+   * @param {String} badge - The badge to be added to player
+   */
+  Players.prototype.addBadge = function (badge) {
+    if (this.badges !== null) {
+      if (!this.hasBadge(badge))
+        this.badges += '-' + badge;
+    } else {
+      this.badges = badge;
     }
   };
 
   /**
-  * @param {("points")} points - A number representating the score
-  */
-  Players.prototype.setPoints = function(points) {
-    this.score = points;
-  }; 
+   * @param {String} badge - The badge to be added to player
+   */
+  Players.prototype.hasBadge = function (badge) {
+    return this.badges === null ? false : this.badges.split('-').includes(badge);
+  }
 
   /**
-  * @param {("pointsWeek")} pointsWeek - A number representating the weekly score
-  */
-  Players.prototype.setPointsWeek = function(points) {
+   * @param {("points")} points - A number representating the score
+   * @deprecated 2.1.0 Directly use score attribute from entity
+   */
+  Players.prototype.setPoints = function (points) {
+    this.score = points;
+  };
+
+  /**
+   * @param {("pointsWeek")} pointsWeek - A number representating the weekly score
+   * @deprecated 2.1.0 Directly use weeklyScore attribute from entity
+   */
+  Players.prototype.setPointsWeek = function (points) {
     this.weeklyScore = points;
-  }; 
+  };
 
   Players.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
@@ -87,16 +98,36 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Number} id
    */
   Players.getById = async (id) => {
-    const query = `SELECT * FROM (SELECT id, RANK() OVER (ORDER BY score desc) rank, RANK() OVER (ORDER BY weeklyScore desc) weeklyRank FROM players) WHERE id = :id`;
-    return await sequelize.query(query, { replacements: { id: id }, type: sequelize.QueryTypes.SELECT });
+    const query = `SELECT *
+                   FROM (SELECT id,
+                                RANK() OVER (ORDER BY score desc) rank,
+                                RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
+                         FROM players)
+                   WHERE id = :id`;
+    return await sequelize.query(query, {
+      replacements: {
+        id: id
+      },
+      type: sequelize.QueryTypes.SELECT
+    });
   };
 
   /**
    * @param {Number} rank
    */
   Players.getByRank = async (rank) => {
-    const query = `SELECT * FROM (SELECT entity_id, RANK() OVER (ORDER BY score desc) rank, RANK() OVER (ORDER BY weeklyScore desc) weeklyRank FROM players) WHERE rank = :rank`;
-    return await sequelize.query(query, { replacements: { rank: rank }, type: sequelize.QueryTypes.SELECT });
+    const query = `SELECT *
+                   FROM (SELECT entity_id,
+                                RANK() OVER (ORDER BY score desc) rank,
+                                RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
+                         FROM players)
+                   WHERE rank = :rank`;
+    return await sequelize.query(query, {
+      replacements: {
+        rank: rank
+      },
+      type: sequelize.QueryTypes.SELECT
+    });
   };
 
   /**
@@ -133,8 +164,8 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   /**
- * @param {Number} money
- */
+   * @param {Number} money
+   */
   Players.prototype.addMoney = function (money) {
     this.money += money;
     this.setMoney(this.money);
@@ -182,8 +213,8 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Number} hours
    */
   Players.prototype.fastForward = async function (hours) {
-    let moment =require('moment');
-    let lastReport = new moment(this.lastReportAt).subtract(hours,'h');
+    let moment = require('moment');
+    let lastReport = new moment(this.lastReportAt).subtract(hours, 'h');
     this.lastReportAt = lastReport;
   };
 
@@ -192,11 +223,95 @@ module.exports = (sequelize, DataTypes) => {
    */
   Players.prototype.setPseudo = async function (language) {
     let entity = await this.getEntity();
-    if (entity.discordUser_id !== undefined && client.users.cache.get(entity.discordUser_id) !== null) {
+    if (entity.discordUser_id !== undefined &&
+      client.users.cache.get(entity.discordUser_id) !== null) {
       this.pseudo = client.users.cache.get(entity.discordUser_id).username;
     } else {
       this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
     }
+  };
+
+
+  /**
+   * @return {Boolean} True if the player has levelUp false otherwise
+   */
+  Players.prototype.needLevelUp = function () {
+    if ((this.experience >= this.getExperienceNeededToLevelUp())) {
+      // TODO 2.0 Do the level up here ?
+      return true;
+    }
+    return false;
+  };
+
+  // TODO 2.0 LevelUp
+  // levelUp(message, language) {
+  //   Text = require('../text/' + language);
+  //   this.setLevel(this.getLevel() + 1);
+  //   let messageLevelUp = Text.playerManager.levelUp.intro + message.author + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
+  //   let bonus = false;
+  //   if (this.getLevel() == DefaultValues.fight.minimalLevel) {
+  //     messageLevelUp += Text.playerManager.levelUp.fightUnlocked;
+  //     bonus = true;
+  //   }
+  //   if (this.getLevel() % 10 == 0) {
+  //     this.restoreHealthCompletely();
+  //     messageLevelUp += Text.playerManager.levelUp.healthRestored;
+  //     bonus = true;
+  //   } else {
+  //     if (this.getLevel() % 5 == 0) {
+  //       this.setMaxHealth(this.getMaxHealth() + 5);
+  //       this.addHealthPoints(5, message, language);
+  //       messageLevelUp += Text.playerManager.levelUp.moreMaxHealth;
+  //       bonus = true;
+  //     }
+  //   }
+  //
+  //   if (this.getLevel() % 9 == 0) {
+  //     this.setSpeed(this.getSpeed() + 5);
+  //     messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
+  //     messageLevelUp += Text.playerManager.levelUp.moreSpeed;
+  //     bonus = true;
+  //   } else {
+  //     if (this.getLevel() % 6 == 0) {
+  //       this.setAttack(this.getAttack() + 5);
+  //       messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
+  //       messageLevelUp += Text.playerManager.levelUp.moreAttack;
+  //       bonus = true;
+  //     } else {
+  //       if (this.getLevel() % 3 == 0) {
+  //         this.setDefense(this.getDefense() + 5);
+  //         messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
+  //         messageLevelUp += Text.playerManager.levelUp.moreDefense;
+  //         bonus = true;
+  //       }
+  //     }
+  //   }
+  //   messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
+  //   messageLevelUp += Text.playerManager.levelUp.noBonus;
+  //   message.channel.send(messageLevelUp);
+  //   this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message, language);
+  // }
+  //
+  // /**
+  //  *
+  //  * @param {*} bonus
+  //  * @param {*} messageLevelUp
+  //  */
+  // ifFirstBonus(bonus, messageLevelUp) {
+  //   if (bonus == false) {
+  //     messageLevelUp += Text.playerManager.levelUp.firstBonus;
+  //   }
+  //   return messageLevelUp;
+  // }
+
+  /**
+   * Update the lastReport matching the last time the player has been see
+   * @param {Number} time
+   * @param {Number} timeMalus
+   * @param {String} effectMalus
+   */
+  Players.prototype.setLastReportWithEffect = function (time, timeMalus, effectMalus) {
+    this.lastReport = time + minutesToMilliseconds(timeMalus) + JsonReader.models.players.effectMalus[effectMalus];
   };
 
   return Players;

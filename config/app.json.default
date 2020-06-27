@@ -5,11 +5,11 @@
   "//BOT_OWNER_ID": "The bot will use this to check if you can use admins commands",
   "BOT_OWNER_ID": "",
   
-  "//BADGE_MANAGER_IDS": "Put ids of the persons that will be able to manage badges separated by a comma",
-  "BADGE_MANAGER_IDS": "",
+  "//BADGE_MANAGER_ROLE": "Put ids of the persons that will be able to manage badges separated by a comma",
+  "BADGE_MANAGER_ROLE": "",
   
-  "//SUPPORT_IDS": "Put ids of the persons that will be able to send dms with the bot separated by a comma",
-  "SUPPORT_IDS": "",
+  "//SUPPORT_ROLE": "Put ids of the persons that will be able to send dms with the bot separated by a comma",
+  "SUPPORT_ROLE": "",
   
   "//BOT_OWNER_PREFIX": "The prefix only the bot owner can use",
   "BOT_OWNER_PREFIX": "",

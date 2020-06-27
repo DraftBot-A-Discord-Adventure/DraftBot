@@ -19,15 +19,15 @@ const Draftbot = require('core/DraftBot');
     });
 
     await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
-        .channels
-        .cache
-        .get(JsonReader.app.CONSOLE_CHANNEL_ID)
-        .send(JsonReader.bot.startStatus + JsonReader.package.version)
-        .catch(console.error);
+      .channels
+      .cache
+      .get(JsonReader.app.CONSOLE_CHANNEL_ID)
+      .send(JsonReader.bot.startStatus + JsonReader.package.version)
+      .catch(console.error);
 
     await client.user
-        .setActivity(JsonReader.bot.activity)
-        .catch(console.error);
+      .setActivity(JsonReader.bot.activity)
+      .catch(console.error);
   };
 
   /**
@@ -65,10 +65,10 @@ const Draftbot = require('core/DraftBot');
    */
   const onDiscordMessage = async message => {
     if (message.author.bot) return;
-    if (message.guild === null) {
+    if (message.channel.type === 'dm')
       await handlePrivateMessage(message);
-    }
-    await handleMessage(message);
+    else
+      await handleMessage(message);
   };
 
   /**

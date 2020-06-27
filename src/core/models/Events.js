@@ -41,5 +41,11 @@ module.exports = (sequelize, DataTypes) => {
     return reactions;
   };
 
+  // TODO 2.0
+  // async getRandom() {
+  //   const id = Math.round(Math.random() * (Object.keys(this.events).length - 1)) + 1;
+  //   return this.events[id];
+  // }
+
   return Events;
 };

@@ -22,13 +22,12 @@ const ChangePrefixCommand = async function (language, message, args) {
         return await message.channel.send(embed);
     }
     let server;
-    //TODO Faire getOrRegister dans Servers.js de core/models
     [server] = await Servers.getOrRegister(message.guild.id);
     server.prefix = newPrefix;
     await server.save();
     embed.setColor(JsonReader.bot.embed.default)
         .setAuthor(format(JsonReader.commands.changePrefix.getTranslation(language).ok, { pseudo: message.author.username }), message.author.displayAvatarURL())
-        .setDescription(format(JsonReader.commands.changePrefix.getTranslation(language).descOk, { serverName: server, newPrefix: newPrefix }));
+        .setDescription(format(JsonReader.commands.changePrefix.getTranslation(language).descOk, {newPrefix: newPrefix }));
     return await message.channel.send(embed);
 };
 

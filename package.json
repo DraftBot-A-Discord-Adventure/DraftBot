@@ -8,15 +8,13 @@
   },
   "scripts": {
     "start": "node index.js",
-    "postinstall": "link-module-alias",
-    "preinstall": "which link-module-alias && link-module-alias clean || true"
+    "postinstall": "link-module-alias"
   },
   "_moduleAliases": {
     "draftbot": ".",
     "config": "./config",
     "core": "./src/core",
     "commands": "./src/commands",
-    "datasources": "./src/core/datasources",
     "entities": "./src/core/entities",
     "repositories": "./src/core/repositories",
     "models": "./src/core/models",

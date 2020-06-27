@@ -1,12 +1,4 @@
 {
-	"shop": {
-		"priceItem": "350",
-		"priceStatus": "500",
-		"priceHeal": "3000",
-		"priceBadge": "25000",
-		"priceGuildXp": "1000",
-		"addedValue": "200"
-	},
 	"item": {
 		"maxPower": "10"
 	},

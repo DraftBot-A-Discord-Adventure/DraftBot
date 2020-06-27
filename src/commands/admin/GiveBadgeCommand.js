@@ -13,7 +13,7 @@ const giveBadgeCommand = async function (language, message, args) {
     let playerId = message.mentions.users.last().id;
     [entity] = await Entities.getOrRegister(playerId);
 
-    await entity.Player.giveBadge(args[0]);
+    await entity.Player.addBadge(args[0]);
     await entity.Player.save();
 
     embed.setColor(JsonReader.bot.embed.default)
