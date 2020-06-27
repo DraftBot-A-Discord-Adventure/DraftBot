@@ -56,28 +56,34 @@ module.exports = (sequelize, DataTypes) => {
 
   /**
   * @param {("badgeID")} badgeID - The badgeID
+  * @returns {error} error - if the command is successfull or not
   */
-  Players.prototype.giveBadge = function(badgeID) {
-    if (this.badges != "") {
+  Players.prototype.giveBadge = function (badgeID) {
+    if (badgeID == global.ARGUMENTS.RESET) {
+      this.badges = "";
+      return false;
+    } else if (this.badges != "" && !this.badges.includes(badgeID)) {
       this.badges = this.badges + "-" + badgeID;
-    }else{
+      return false;
+    } else if (!this.badges.includes(badgeID)){
       this.badges = badgeID;
-    }
+      return false;
+    } else return true;
   };
 
   /**
   * @param {("points")} points - A number representating the score
   */
-  Players.prototype.setPoints = function(points) {
+  Players.prototype.setPoints = function (points) {
     this.score = points;
-  }; 
+  };
 
   /**
   * @param {("pointsWeek")} pointsWeek - A number representating the weekly score
   */
-  Players.prototype.setPointsWeek = function(points) {
+  Players.prototype.setPointsWeek = function (points) {
     this.weeklyScore = points;
-  }; 
+  };
 
   Players.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
@@ -182,8 +188,8 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Number} hours
    */
   Players.prototype.fastForward = async function (hours) {
-    let moment =require('moment');
-    let lastReport = new moment(this.lastReportAt).subtract(hours,'h');
+    let moment = require('moment');
+    let lastReport = new moment(this.lastReportAt).subtract(hours, 'h');
     this.lastReportAt = lastReport;
   };
 

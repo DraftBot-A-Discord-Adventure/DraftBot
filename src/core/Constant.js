@@ -48,3 +48,7 @@ global.ITEMTYPE = {
   ARMOR: 'armor',
   OBJECT: 'object'
 }
+
+global.ARGUMENTS = {
+  RESET: 'reset'
+}

@@ -2,11 +2,23 @@
 	"translations": {
 		"fr": {
             "giveSuccess": "{pseudo}, vous avez donné un badge, j'espère que c'est mérité !",
-            "descGive": "Le badge {badge} a été donné à {player}"
+            "descGive": "Le badge {badge} a été donné à {player}",
+            "giveAlready": "{pseudo}, ce badge ne peut être assigné.",
+            "descGiveAlready": "{player} possède déjà le badge {badge} !",
+            "giveReset": "Les badges ont été reset.",
+            "descGiveReset":"{player} s'est vu retiré tous ses badges...",
+            "giveSyntaxErr":"{pseudo}, la syntaxe n'est pas bonne !",
+            "descGiveSyntaxErr":"Usage : `gb {badge | r} {joueur}`"
         },
 		"en": {
-            "giveSuccess": "{pseudo}, you gave a badge, i hope it is well deserved !",
-            "descGive": "The badge {badge} has been given to {player}"
+            "giveSuccess": "{pseudo}, you gave a badge, I hope it is well deserved !",
+            "descGive": "The badge {badge} has been given to {player}",
+            "giveAlready": "{pseudo}, you can't give this badge.",
+            "descGiveAlready": "{player} already possessed {badge} !",
+            "giveReset": "Badges have been reset",
+            "descGiveReset":"{player} has lost all badges...",
+            "giveSyntaxErr":"{pseudo}, this is not the good syntax !",
+            "descGiveSyntaxErr":"Usage : `gb {badge | r} {player}`"
 		}
 	}
 }
