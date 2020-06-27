@@ -481,12 +481,12 @@ class Fight {
         switch (action) {
             case FIGHT.ACTION.QUICK_ATTACK:
                 powerChanger = 0.1;
-                if (defender.speed > attacker.speed && success < 0.2) {
-                    powerChanger = 0.7;
+                if (defender.speed > attacker.speed && success < 0.1) {
+                    powerChanger = 0.6;
                 } else if (defender.speed < attacker.speed && success < 0.95) {
-                    powerChanger = 0.75;
+                    powerChanger = 0.65;
                 }
-                far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.3));
+                far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.1));
                 far.fullSuccess = far.damage >= attacker.attack - defender.power;
                 break;
 
@@ -497,8 +497,7 @@ class Fight {
                 } else if ((defender.speed > attacker.speed && success <= 0.9)) {
                     powerChanger = 0.5;
                 }
-                attacker.defense = Math.round(attacker.defense * 1.15);
-                far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.85));
+                far.damage = Math.round(attacker.attack * powerChanger - defender.defense);
                 far.fullSuccess = far.damage >= 100;
                 break;
 

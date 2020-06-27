@@ -56,9 +56,9 @@
             "name": "attaque simple",
             "emote": ":crossed_swords:",
             "end": {
-              "succeed": " `Défense augmentée de 25 %`",
-              "notGood": " `Défense augmentée de 25 %`",
-              "failed": " `Défense augmentée de 25 %`"
+              "succeed": "",
+              "notGood": "",
+              "failed": ""
             }
           },
           "powerful": {
@@ -123,7 +123,7 @@
       "wantsToFightAnyone": ":crossed_swords: | {player} wants to fight ! To duel them, click the emote below !",
       "wantsToFightSomeone": ":crossed_swords: | {player} challenges {opponent} ! To accept or not, click the emote below !",
       "intro": ":crossed_swords: | **A fight has begun between {player1} and {player2} !**",
-      "turnIndicationsTitle": ":crossed_swords: It's {pseudo} 's turn to play",
+      "turnIndicationsTitle": "It's {pseudo} 's turn to play ⚔️",
       "turnIndicationsDescription": "Choose an action",
       "summarize": {
         "title": "Fight summarize",
@@ -175,9 +175,9 @@
             "name": "basic attack",
             "emote": ":crossed_swords:",
             "end": {
-              "succeed": " `Defense increased by 15 %`",
-              "notGood": " `Defense increased by 15 %`",
-              "failed": " `Defense increased by 15 %`"
+              "succeed": "",
+              "notGood": "",
+              "failed": ""
             }
           },
           "powerful": {
