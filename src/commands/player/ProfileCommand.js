@@ -4,16 +4,16 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ProfileCommand = async function(language, message, args) {
+const ProfileCommand = async function (language, message, args) {
   let entity;
-  if (args.length === 0) {
-    [entity] = await Entities.getOrRegister(message.author.id);
-  } else {
+  try {
     entity = await Entities.getByArgs(args, message);
+  } catch (error) {
+    [entity] = await Entities.getOrRegister(message.author.id);
   }
 
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-      [EFFECT.BABY], entity)) !== true) {
+    [EFFECT.BABY], entity)) !== true) {
     return;
   }
 
@@ -21,18 +21,46 @@ const ProfileCommand = async function(language, message, args) {
   let fields = [
     {
       name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
-      value: format(JsonReader.commands.profile.getTranslation(language).information.fieldValue, {health: entity.health, maxHealth: entity.maxHealth, experience: entity.Player.experience, experienceNeededToLevelUp: entity.Player.getExperienceNeededToLevelUp(), money: entity.Player.money,}),
+      value: format(JsonReader.commands.profile.getTranslation(language).information.fieldValue, {
+        health: entity.health,
+        maxHealth: entity.maxHealth,
+        experience: entity.Player.experience,
+        experienceNeededToLevelUp: entity.Player.getExperienceNeededToLevelUp(),
+        money: entity.Player.money,
+      }),
     },
     {
       name: JsonReader.commands.profile.getTranslation(language).statistique.fieldName,
-      value: format(JsonReader.commands.profile.getTranslation(language).statistique.fieldValue, {cumulativeAttack: entity.getCumulativeAttack(await entity.Player.Inventory.getWeapon(), await entity.Player.Inventory.getArmor(), await entity.Player.Inventory.getPotion(), await entity.Player.Inventory.getActiveObject()), cumulativeDefense: entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(), await entity.Player.Inventory.getArmor(), await entity.Player.Inventory.getPotion(), await entity.Player.Inventory.getActiveObject()), cumulativeSpeed: entity.getCumulativeSpeed(await entity.Player.Inventory.getWeapon(), await entity.Player.Inventory.getArmor(), await entity.Player.Inventory.getPotion(), await entity.Player.Inventory.getActiveObject()), cumulativeMaxHealth: entity.getCumulativeHealth(entity.Player),}),
+      value: format(JsonReader.commands.profile.getTranslation(language).statistique.fieldValue, {
+        cumulativeAttack: entity.getCumulativeAttack(
+          await entity.Player.Inventory.getWeapon(),
+          await entity.Player.Inventory.getArmor(),
+          await entity.Player.Inventory.getPotion(),
+          await entity.Player.Inventory.getActiveObject()
+        ),
+        cumulativeDefense: entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(),
+          await entity.Player.Inventory.getArmor(),
+          await entity.Player.Inventory.getPotion(),
+          await entity.Player.Inventory.getActiveObject()
+        ),
+        cumulativeSpeed: entity.getCumulativeSpeed(
+          await entity.Player.Inventory.getWeapon(),
+          await entity.Player.Inventory.getArmor(),
+          await entity.Player.Inventory.getPotion(),
+          await entity.Player.Inventory.getActiveObject()
+        ),
+        cumulativeMaxHealth: entity.getCumulativeHealth(entity.Player),
+      }),
     },
     {
       name: JsonReader.commands.profile.getTranslation(language).classement.fieldName,
       value: format(JsonReader.commands.profile.getTranslation(
-          language).classement.fieldValue, {
+        language).classement.fieldValue, {
         rank: (await Players.getById(entity.Player.id))[0].rank,
-        numberOfPlayer: (await Players.count({where: {score: {[(require('sequelize/lib/operators')).gt]: 100,
+        numberOfPlayer: (await Players.count({
+          where: {
+            score: {
+              [(require('sequelize/lib/operators')).gt]: 100,
             },
           },
         })),
@@ -60,22 +88,38 @@ const ProfileCommand = async function(language, message, args) {
   }
 
   let msg = await message.channel.send(
-      new discord.MessageEmbed()
-          .setColor(JsonReader.bot.embed.default)
-          .setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
-                effect: titleEffect,
-                pseudo: (await entity.Player.getPseudo(language)),
-                level: entity.Player.level,
-              }))
-          .addFields(fields),
-      );
+    new discord.MessageEmbed()
+      .setColor(JsonReader.bot.embed.default)
+      .setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
+        effect: titleEffect,
+        pseudo: (await entity.Player.getPseudo(language)),
+        level: entity.Player.level,
+      }))
+      .addFields(fields),
+  );
+
+  const filterConfirm = (reaction, user) => {
+    return (reaction.me && !reaction.users.cache.last().bot);
+  };
+
+  const collector = msg.createReactionCollector(filterConfirm, {
+    time: 120000,
+    max: JsonReader.commands.profile.badgeMaxReactNumber
+  });
+
+  collector.on('collect', async (reaction) => {
+    message.channel.send(JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]).then(msg => {
+      msg.delete({ "timeout": JsonReader.commands.profile.badgeDescriptionTimeout });
+    }).catch(err => { });
+  });
 
   if (entity.Player.badges !== null) {
     let badges = entity.Player.badges.split('-');
-    for (let i = 0; i < badges.length; i++) {
-      await msg.react(badges[i]);
+    for (let badgeid in badges) {
+      await msg.react(badges[badgeid]);
     }
   }
+
 
 };
 

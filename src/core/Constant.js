@@ -34,10 +34,10 @@ global.NATURE = {
 
 global.PERMISSION = {
   ROLE: {
-    BOTOWNER: 'owner',
-    BADGEMANAGER: 'manager',
-    SUPPORT: 'support',
-    ADMINISTRATOR: 'administrator',
+    BOTOWNER: 'owner', //is the owner of the bot
+    BADGEMANAGER: 'manager', //has the badge manager role
+    SUPPORT: 'support', //has the support role
+    ADMINISTRATOR: 'administrator', //has the admin permission in a server where the bot is.
     ALL: 'all'
   }
 };
@@ -51,4 +51,40 @@ global.ITEMTYPE = {
 
 global.ARGUMENTS = {
   RESET: 'reset'
+};
+
+global.GUILD = {
+  MAX_GUILD_MEMBER: 5,
+  MAX_GUILDNAME_SIZE: 15,
+  MIN_GUILDNAME_SIZE: 2
+};
+
+global.MENU_REACTION = {
+  ACCEPT: "✅",
+  DENY: "❌"
+};
+
+global.PROGRESSBARS_SIZE = 20;
+
+global.FIGHT = {
+  MAX_DEFENSE_IMPROVEMENT: 20,
+  MAX_SPEED_IMPROVEMENT: 30,
+  MAX_TURNS: 25,
+  REQUIRED_LEVEL: 8,
+  ACTION: {
+    QUICK_ATTACK: 0,
+    SIMPLE_ATTACK: 1,
+    POWERFUL_ATTACK: 2,
+    IMPROVE_DEFENSE: 3,
+    IMPROVE_SPEED: 4,
+    ULTIMATE_ATTACK: 5
+  }
+};
+
+global.SHOP = {
+  QUESTION: '❓',
+  HOSPITAL: '🏥',
+  HEART: '💗',
+  MONEY_MOUTH: '🤑',
+  STAR: '⭐'
 }

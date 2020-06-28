@@ -45,5 +45,61 @@ module.exports = (sequelize, DataTypes) => {
         instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
     });
 
+
+    /**
+     * @param {Number} id
+     */
+    Guilds.getById = (id) => {
+        return Guilds.findOne({
+            where: {
+                id: id
+            },
+        });
+    };
+
+    /**
+     * @param {String} name
+     y*/
+    Guilds.getByName = (name) => {
+        return Guilds.findOne({
+            where: {
+                name: name
+            },
+        });
+    };
+
+    /**
+     * @return {Number} Return the experience needed to level up.
+     */
+    Guilds.prototype.getExperienceNeededToLevelUp = function () {
+        return JsonReader.models.guilds.xp[this.level + 1];
+    };
+
+    /**
+     * @returns {Number} Return the experience used to level up.
+     */
+    Guilds.prototype.getExperienceUsedToLevelUp = function () {
+        return JsonReader.models.guilds.xp[this.level];
+    };
+
+    /**
+     * @param {Number} experience
+     */
+    Guilds.prototype.addExperience = function (experience) {
+        this.experience += experience;
+        this.setExperience(this.experience);
+    };
+
+    /**
+     * @param {Number} experience
+     */
+    Guilds.prototype.setExperience = function (experience) {
+        if (experience > 0) {
+            this.experience = experience;
+        } else {
+            this.experience = 0;
+        }
+    };
+
     return Guilds;
 };

@@ -19,6 +19,8 @@ const giveBadgeCommand = async function (language, message, args) {
   if (args[1].length > 1) {
     author = JsonReader.commands.giveBadgeCommand.getTranslation(language).giveSyntaxErr;
     description = JsonReader.commands.giveBadgeCommand.getTranslation(language).descGiveSyntaxErr;
+    await entity.Player.addBadge(args[0]);
+    await entity.Player.save();
 
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(author, { pseudo: message.author.username }), message.author.displayAvatarURL())

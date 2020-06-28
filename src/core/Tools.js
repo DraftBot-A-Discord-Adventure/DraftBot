@@ -1,10 +1,56 @@
 /**
+<<<<<<< HEAD
+ * Send an error in a channel
+ * @param {module:"discord.js".User} user
+=======
+ * Convert a discord id into a discord mention
+ * @param {*} id - The role/user id
+ */
+global.idToMention = (id) => {
+  return '<@&' + id + '>';
+};
+
+/**
+ * Send all attachments from a message to a discord channel
+ * @param {module:"discord.js".Message} message - Message from the discord user
+ * @param {module:"discord.js".TextChannel} channel - The channel where all attachments will be sent
+ */
+global.sendMessageAttachments = (message, channel) => {
+  message.attachments.forEach(element => {
+    channel.send({
+      files: [{
+        attachment: element.url,
+        name: element.filename
+      }]
+    });
+  });
+};
+
+/**
+ * Send an error in a channel
+ * @param {module:"discord.js".User} user 
+>>>>>>> origin/refactoring-2.0.0
+ * @param {module:"discord.js".TextChannel} channel
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {String} reason
+ */
+global.sendErrorMessage = (user, channel, language, reason) => {
+  let embed = new discord.MessageEmbed();
+  embed.setColor(JsonReader.bot.embed.error)
+    .setAuthor(format(JsonReader.error.getTranslation(language).title, {
+      pseudo: user.username
+    }), user.displayAvatarURL())
+    .setDescription(reason);
+  return channel.send(embed);
+};
+
+/**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
  * @returns {Number}
  */
 global.generateRandomRarity = () => {
   let randomValue = Math.round(
-      Math.random() * JsonReader.values.raritiesGenerator.maxValue);
+    Math.random() * JsonReader.values.raritiesGenerator.maxValue);
 
   if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
     return 1;
@@ -74,7 +120,7 @@ global.format = (string, replacement) => {
     let result;
 
     if (string[index - 1] === '{' &&
-        string[index + match.length] === '}') {
+      string[index + match.length] === '}') {
       return i;
     } else {
       result = replacement.hasOwnProperty(i) ? replacement[i] : null;
@@ -87,23 +133,37 @@ global.format = (string, replacement) => {
   });
 };
 
+/**
+ * Generates a random int between min and max both included
+ * @param {Number} min
+ * @param {Number} max
+ * @returns {number}
+ */
+global.randInt = (min, max) => {
+  return Math.round(Math.random() * (max - min) + min);
+};
+
 // TODO 2.0 ProgressBar
 /**
  * Create a text progress bar
+ * @param {Number} value
+ * @param {Number} maxValue
  * @returns {String} - The bar
  */
-// createBar({value, maxValue, barSize}) {
-//   let percentage = this.value / this.maxValue; //Calculate the percentage of the bar
-//   let progress = Math.round((this.barSize * percentage)); //Calculate the number of square caracters to fill the progress side.
-//   let emptyProgress = this.barSize - progress; //Calculate the number of dash caracters to fill the empty progress side.
-//
-//   let progressText = '▇'.repeat(progress); //Repeat is creating a string with progress * caracters in it
-//   let emptyProgressText = '—'.repeat(emptyProgress); //Repeat is creating a string with empty progress * caracters in it
-//   let percentageText = Math.round(percentage * 100) + '%'; //Displaying the percentage of the bar
-//
-//   let bar = '[' + progressText + emptyProgressText + '] ' + percentageText; //Creating the bar
-//   return bar;
-// }
+global.progressBar = (value, maxValue) => {
+  let percentage = value / maxValue; //Calculate the percentage of the bar
+  let progress = Math.round((PROGRESSBARS_SIZE * percentage)); //Calculate the number of square caracters to fill the progress side.
+  let emptyProgress = PROGRESSBARS_SIZE - progress; //Calculate the number of dash caracters to fill the empty progress side.
+
+  let progressText = '▇'.repeat(progress); //Repeat is creating a string with progress * caracters in it
+  let emptyProgressText = '—'.repeat(emptyProgress); //Repeat is creating a string with empty progress * caracters in it
+  let percentageText = Math.round(percentage * 100) + '%'; //Displaying the percentage of the bar
+
+  let bar = '[' + progressText + emptyProgressText + '] ' + percentageText; //Creating the bar
+  return bar;
+};
+
+
 // TODO 2.0 Legacy code
 // /**
 //  * convert a number of hours in a number of miliseconds
