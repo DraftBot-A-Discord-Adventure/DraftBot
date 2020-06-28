@@ -22,7 +22,7 @@ const giveBadgeCommand = async function (language, message, args) {
 
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(author, { pseudo: message.author.username }), message.author.displayAvatarURL())
-      .setDescription(format(description, { badge: args[0], player: message.mentions.users.last() }));
+      .setDescription(description);
     return await message.channel.send(embed);
   }
 
