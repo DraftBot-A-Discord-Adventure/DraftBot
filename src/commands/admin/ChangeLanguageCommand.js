@@ -6,16 +6,18 @@
  */
 
 const changeLanguageCommand = async function(language, message, args) {
-  if ((await canPerformCommand(message, language,
-      PERMISSION.ROLE.ADMINISTRATOR)) !== true) {
-    return;
-  }
+  // if ((await canPerformCommand(message, language,
+  //     PERMISSION.ROLE.ADMINISTRATOR)) !== true) {
+  //   return;
+  // }
   let embed = new discord.MessageEmbed();
   let server;
 
   [server] = await Servers.getOrRegister(message.guild.id);
   if (server.language == 'fr') {
     server.language = 'en';
+    await server.save();
+    console.log(server.language);
     embed.setColor(JsonReader.bot.embed.default)
         .setAuthor(format(
             JsonReader.commands.changeLanguage.getTranslation(language).title,
@@ -26,6 +28,7 @@ const changeLanguageCommand = async function(language, message, args) {
     return await message.channel.send(embed);
   } else {
     server.language = 'fr';
+    await server.save();
     embed.setColor(JsonReader.bot.embed.default)
         .setAuthor(format(
             JsonReader.commands.changeLanguage.getTranslation(language).title,
@@ -35,7 +38,7 @@ const changeLanguageCommand = async function(language, message, args) {
             JsonReader.commands.changeLanguage.getTranslation(language).desc));
     return await message.channel.send(embed);
   }
-  await server.save();
+  
 };
 
 module.exports = {
