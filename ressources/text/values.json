@@ -26,16 +26,16 @@
 	"itemGenerator": {
 		"max": "10",
 		"tab": {
-			"1": "weapon",
-			"2": "weapon",
-			"3": "weapon",
-			"4": "armor",
-			"5": "armor",
-			"6": "armor",
-			"7": "object",
-			"8": "object",
-			"9": "potion",
-			"10": "potion"
+			"1": "weapons",
+			"2": "weapons",
+			"3": "weapons",
+			"4": "armors",
+			"5": "armors",
+			"6": "armors",
+			"7": "objects",
+			"8": "objects",
+			"9": "potions",
+			"10": "potions"
 		}
 	},
 	"top": {

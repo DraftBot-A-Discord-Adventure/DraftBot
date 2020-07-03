@@ -41,6 +41,15 @@ const GuildDailyCommand = async (language, message, args) => {
     rewardType = REWARD_TYPES.PERSONNAL_XP
     //################################
 
+    await entity.Player.Inventory.giveRandomItem();
+
+    await Promise.all([
+        entity.save(),
+        entity.Player.save(),
+        entity.Player.Inventory.save()
+    ]);
+
+
     embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
         guildName: guild.name
     }));

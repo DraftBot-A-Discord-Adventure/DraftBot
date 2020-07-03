@@ -50,11 +50,28 @@ module.exports = (sequelize, DataTypes) => {
    * @param {("itemID")} itemID - The itemID
    * @param {("itemType")} itemType - The itemType to know what kind of object is updated
    */
-  Inventories.prototype.giveObject = function(itemID, itemType) {
-    if(ITEMTYPE.POTION == itemType){this.potion_id = itemID;}
-    if(ITEMTYPE.WEAPON == itemType){this.weapon_id = itemID;}
-    if(ITEMTYPE.ARMOR == itemType){this.armor_id = itemID;}
-    if(ITEMTYPE.OBJECT == itemType){this.backup_id = itemID;}
+  Inventories.prototype.giveObject = function (itemID, itemType) {
+    if (ITEMTYPE.POTION == itemType) { this.potion_id = itemID; }
+    if (ITEMTYPE.WEAPON == itemType) { this.weapon_id = itemID; }
+    if (ITEMTYPE.ARMOR == itemType) { this.armor_id = itemID; }
+    if (ITEMTYPE.OBJECT == itemType) { this.backup_id = itemID; }
+  };
+
+  Inventories.prototype.giveRandomItem = async () => {
+    let rarity = generateRandomRarity();
+    let itemType = generateRandomItemType();
+    const query = `SELECT *
+                   FROM :itemType
+                   WHERE rarity = :rarity`;
+    let items = await sequelize.query(query, {
+      replacements: {
+        itemType: itemType,
+        rarity: rarity
+      },
+      type: sequelize.QueryTypes.SELECT
+    });
+    let item = items[Math.floor(Math.random() * items.length)];
+    this.giveObject(item.ID, itemType);
   };
 
   Inventories.beforeSave((instance, options) => {

@@ -62,8 +62,15 @@ global.generateRandomRarity = () => {
   } else if (randomValue <= JsonReader.values.raritiesGenerator['6']) {
     return 7;
   }
-
   return 8;
+};
+
+/**
+ * Generate a random itemType
+ * @returns {Number}
+ */
+global.generateRandomItemType = () => {
+  return JsonReader.values.itemGenerator.tab[Math.round(Math.random() * (JsonReader.values.itemGenerator.max - 1) + 1)];
 };
 
 /**

@@ -54,10 +54,10 @@ global.REWARD_TYPES = {
 };
 
 global.ITEMTYPE = {
-  POTION: 'potion',
-  WEAPON: 'weapon',
-  ARMOR: 'armor',
-  OBJECT: 'object'
+  POTION: 'potions',
+  WEAPON: 'weapons',
+  ARMOR: 'armors',
+  OBJECT: 'objects'
 };
 
 global.GUILD = {
