@@ -3,27 +3,27 @@
         "fr": {
             "notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
             "rewardTitle": "Récompense de la guilde {guildName} :",
-            "personalXP": ":star: | Les membres de la guilde ont reçu `{xp}  points d'xp`.",
-            "guildXP": ":star: | La guilde a reçu `{xp}  points d'xp`.",
+            "personalXP": ":star: | Les membres de la guilde ont reçu de l'experience. `+ {xp} ⭐`.",
+            "guildXP": ":star: | La guilde a reçu de l'experience. `+ {xp} ⭐`",
             "money": ":moneybag: | Les membres de la guilde ont reçu `{money} 💰`.",
             "item": ":gift: | Les membres de la guilde ont reçu un objet au hasard.",
             "badge": ":gem: | Les membres de la guilde ont reçu un badge.",
             "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
-            "partialHeal": "Les membres de la guilde ont été partiellement soignés :",
-            "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées.",
+            "partialHeal": ":heart_decoration: | Les membres de la guilde ont été partiellement soignés. `+ {healthWon} ❤️`",
+            "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
             "tooQuickError": ", la récompense de guilde n'est disponible qu'une fois toute les 22H. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochain récompense: **"
         },
         "en": {
             "notInAguild": "You have to be in a guild to use this command.",
             "rewardTitle": "{guildName} Guild's rewards:",
-            "personalXP": ":star: | Guild's members received `{xp} xp points`.",
-            "guildXP": ":star: | Guild has received `{xp} xp points`.`",
+            "personalXP": ":star: | Guild's members received some xp. `+ {xp} ⭐`.",
+            "guildXP": ":star: | Guild has received some xp. `+ {xp} ⭐`",
             "money": ":moneybag: | Guild's members received `{money} 💰`.",
             "item": ":gift: | Guild's members received a random object.",
             "badge": ":gem: | Guild's members received a badge.",
             "fullHeal": ":heartpulse: | Guild's members were fully healed.",
-            "partialHeal": "Guild's members were partly healed :",
-            "alterationHeal": ":hospital: | Guild's members' statuses were reset.",
+            "partialHeal": ":heart_decoration: | Guild's members were partly healed. `+ {healthWon} ❤️`",
+            "alterationHeal": ":hospital: | Guild's members' statuses were reset. Healthy guild's members were partly healed. `+ {healthWon} ❤️`",
             "tooQuickError": ", the daily guild reward is only available 22 hours after the last time it was asked or a user joined the guild. Time before next reward: **"
         }
     },
@@ -31,6 +31,7 @@
     "maximalXp" : 80,
     "minimalMoney" : 10,
     "maximalMoney" : 300,
+    "levelMultiplayer" : 4,
     "guildChances": {
         "0": {
             "personalXP": 0,

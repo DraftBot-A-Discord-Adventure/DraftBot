@@ -35,6 +35,12 @@ const GuildDailyCommand = async (language, message, args) => {
 
     let members = await Entities.getByGuild(guild.id);
     let rewardType = generateRandomProperty(guild);
+
+
+    //DEBUG REMOVE BEFORE RELEASE
+    rewardType = REWARD_TYPES.PERSONNAL_XP
+    //################################
+
     embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
         guildName: guild.name
     }));
@@ -42,7 +48,7 @@ const GuildDailyCommand = async (language, message, args) => {
     if (rewardType === REWARD_TYPES.PERSONNAL_XP) {
         let xpGuildWon = randInt(
             JsonReader.commands.guildDaily.minimalXp + guild.level,
-            JsonReader.commands.guildDaily.AXnimalXp + guild.level * 2);
+            JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
         //TODO : give xp to players
         embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).personalXP, {
             xp: xpGuildWon
@@ -52,7 +58,7 @@ const GuildDailyCommand = async (language, message, args) => {
     if (rewardType === REWARD_TYPES.GUILD_XP) {
         let xpGuildWon = randInt(
             JsonReader.commands.guildDaily.minimalXp + guild.level,
-            JsonReader.commands.guildDaily.AXnimalXp + guild.level * 2);
+            JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
         //TODO : give guildxp
         embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).guildXP, {
             xp: xpGuildWon
@@ -77,24 +83,61 @@ const GuildDailyCommand = async (language, message, args) => {
     }
 
     if (rewardType === REWARD_TYPES.BADGE) {
-        //TODO
-        embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).badge);
+        let membersThatOwnTheBadge = 0;
+        for (let i in members) {
+            if (members[i].Player.badges.includes("💎")) {
+                membersThatOwnTheBadge++;
+            } else {
+                members[i].Player.addBadge("💎");
+            }
+            await members[i].Player.save();
+        }
+        if (membersThatOwnTheBadge != members.length) {
+            embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).badge);
+        } else {
+            //everybody already have the badge, give something else instead
+            rewardType = REWARD_TYPES.PARTIAL_HEAL;
+        }
     }
 
     if (rewardType === REWARD_TYPES.FULL_HEAL) {
-        //TODO
+        for (let i in members) {
+            if (members[i].effect != EFFECT.DEAD) {
+                members[i].addHealth(members[i].maxHealth);
+            }
+            await members[i].save();
+        }
         embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).fullHeal);
     }
 
     if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
-        //TODO
-        embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).partialHeal);
+        for (let i in members) {
+            if (members[i].effect != EFFECT.DEAD) {
+                members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
+            }
+            await members[i].save();
+        }
+        embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).partialHeal, {
+            healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer)
+        }));
     }
 
     if (rewardType === REWARD_TYPES.ALTERATION) {
-        //TODO
-        embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).alterationHeal);
+        for (let i in members) {
+            if (members[i].effect != EFFECT.SMILEY) {
+                members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
+            }
+            if (members[i].effect != EFFECT.DEAD && members[i].effect != EFFECT.LOCKED) {
+                members[i].effect = EFFECT.SMILEY;
+                //TODO: unblock user 
+            }
+            await members[i].save();
+        }
+        embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).alterationHeal, {
+            healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer)
+        }));
     }
+
     message.channel.send(embed);
     return;
 };
@@ -113,23 +156,6 @@ module.exports = {
  */
 function updateLastInvocation(guild, message) {
     guild.lastInvocation = message.createdTimestamp;
-}
-
-
-
-/**
- * give a badge (:gem:) to all member of a guild
- * @param {*} members - the array of members that will recieve the badge
- */
-async function giveBadgeToGuildMembers(members, message) {
-    for (let i in members) {
-        if (members[i].getBadges().includes("💎")) {
-            await playerManager.giveRandomItem(message, members[i], true);
-        } else {
-            members[i].addBadge("💎");
-        }
-        playerManager.updatePlayer(members[i]);
-    }
 }
 
 /**
