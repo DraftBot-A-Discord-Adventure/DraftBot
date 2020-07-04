@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+            "general": ":trophy: Affichage du top {debut} à {fin} : ",
+			"server": ":trophy: Affichage du top du serveur {debut} à {fin} : ",
+            "generalWeek":":trophy: Affichage du top de la semaine {debut} à {fin} : ",
+            "fieldTitle" : "{badge} {rank} - {pseudo}",
+            "fieldValue": "Score : {score} | Niveau : {level}",
+            "end":" {badge} {pseudo}, vous êtes actuellement classé {rank} sur un total de {totalPlayer} "
+		},
+		"en": {
+            "general": ":trophy: Display of top {debut} àto {fin} : ",
+			"server": ":trophy: Display of server top {debut} to {fin} : ",
+			"generalWeek":":trophy: Display of weekly top {debut} to {fin} : ",
+			"ok": "{score}, {level}"
+		}
+	}
+}

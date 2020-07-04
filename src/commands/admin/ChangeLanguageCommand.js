@@ -17,7 +17,6 @@ const changeLanguageCommand = async function(language, message, args) {
   if (server.language == 'fr') {
     server.language = 'en';
     await server.save();
-    console.log(server.language);
     embed.setColor(JsonReader.bot.embed.default)
         .setAuthor(format(
             JsonReader.commands.changeLanguage.getTranslation(language).title,
