@@ -5,10 +5,8 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ProfileCommand = async function (language, message, args) {
-  let entity;
-  try {
-    entity = await Entities.getByArgs(args, message);
-  } catch (error) {
+  let entity = await Entities.getByArgs(args, message);
+  if (entity === null) {
     [entity] = await Entities.getOrRegister(message.author.id);
   }
 

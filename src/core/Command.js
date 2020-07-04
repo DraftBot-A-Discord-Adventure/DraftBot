@@ -40,7 +40,7 @@ class Command {
    * @param {String} id
    */
   static hasBlockedPlayer(id) {
-    return Command.players.includes(id);
+    return Object.keys(Command.players).includes(id);
   }
 
   /**
@@ -63,9 +63,7 @@ class Command {
    * @param {String} id
    */
   static removeBlockedPlayer(id) {
-    const index = Command.players.indexOf(id);
-    if (index > -1)
-      Command.players.splice(index, 1);
+    delete Command.players[id];
   }
 
   /**
@@ -82,7 +80,7 @@ class Command {
     if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
 
       if (message.author.id !== JsonReader.app.BOT_OWNER_ID && JsonReader.app.MODE_MAINTENANCE)
-        return message.channel.send(JsonReader.bot.getTranslation(server.language).maitenance);
+        return message.channel.send(JsonReader.bot.getTranslation(server.language).maintenance);
 
 
       // TODO 2.0

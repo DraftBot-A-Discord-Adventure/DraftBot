@@ -48,16 +48,12 @@ module.exports = (sequelize, DataTypes) => {
   Objects.prototype.toFieldObject = async function (language, slot) {
     return {
       name: JsonReader.items.getTranslation(language).objects[slot].fieldName,
-      value: (this.id === 0) ? this[language] : format(
-        JsonReader.items.getTranslation(language).objects[slot].fieldValue, {
-        name: this[language],
-        rarity: this.getRarityTranslation(language),
-        nature: this.getNatureTranslation(language),
-      }),
+      value: (this.id === 0) ? this[language] : this.getFullName(language, slot),
     };
   };
 
   /**
+   * Get the full name of the object, with the rarity and nature
    * @param {("fr"|"en")} language - The language the potion has to be displayed in
    * @return {String}
    */
@@ -72,9 +68,32 @@ module.exports = (sequelize, DataTypes) => {
 
   /**
    * @param {("fr"|"en")} language
+   * @param {("active"|"backup")} slot
    * @return {String}
    */
-  Objects.prototype.getRarityTranslation = function (language) {
+  Objects.prototype.getFullName = function (language, slot) {
+    return format(
+        JsonReader.items.getTranslation(language).objects[slot].fieldValue, {
+          name: this[language],
+          rarity: this.getRarityTranslation(language),
+          nature: this.getNatureTranslation(language),
+        });
+  };
+
+  /**
+   * Get the simple name of the item, without rarity or anything else
+   * @param {("fr"|"en")} language
+   * @return {String}
+   */
+  Objects.prototype.getName = function (language) {
+    return this[language];
+  };
+
+  /**
+   * @param {("fr"|"en")} language
+   * @return {String}
+   */
+  Objects.prototype.getRarityTranslation = function(language) {
     return JsonReader.items.getTranslation(language).rarities[this.rarity];
   };
 

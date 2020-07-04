@@ -259,6 +259,29 @@ global.progressBar = (value, maxValue) => {
   return bar;
 };
 
+/**
+ * Return the value of the item
+ * @param {Objects|Armors|Weapons|Potions} item
+ * @returns {Number} - The value of the item
+ */
+global.getItemValue = function(item) {
+  return parseInt(JsonReader.values.raritiesValues[item.rarity]) + parseInt(item.power);
+};
+
+/**
+ * Send an error if the user is blocked by a command
+ * @param {module:"discord.js".User} user
+ * @param {module:"discord.js".TextChannel} channel
+ * @param {"fr"|"en"} language
+ * @returns {boolean}
+ */
+global.sendBlockedError = async function(user, channel, language) {
+  if (hasBlockedPlayer(user.id)) {
+    await sendErrorMessage(user, channel, language, JsonReader.error.getTranslation(language).playerBlocked);
+    return true;
+  }
+  return false;
+};
 
 // TODO 2.0 Legacy code
 // /**

@@ -44,6 +44,7 @@ class Fighter {
     async consumePotionIfNeeded() {
         if ((await this.entity.Player.Inventory.getPotion()).isFightPotion()) {
             this.entity.Player.Inventory.drinkPotion();
+            this.entity.Player.Inventory.save();
             this.entity.Player.save();
         }
     }
