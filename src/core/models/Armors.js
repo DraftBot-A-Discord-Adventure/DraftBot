@@ -57,34 +57,39 @@ module.exports = (sequelize, DataTypes) => {
     instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
-  // TODO 2.0
-  // async getRandomWithRarity() {
-  //   const desiredRarity = generateRandomRarity();
-  //   const possibleArmors = Object.entries(this.armors).filter(key => this.armors[key[0]].rarity === desiredRarity);
-  //   const id = possibleArmors[Math.floor(Math.random() * possibleArmors.length)][0];
-  //   return this.armors[id];
-  // }
-
   /**
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    */
-  Armors.prototype.toFieldObject = async function(language) {
+  Armors.prototype.toFieldObject = async function (language) {
     return {
       name: JsonReader.items.getTranslation(language).armors.fieldName,
       value: (this.id === 0) ? this[language] : format(
-          JsonReader.items.getTranslation(language).armors.fieldValue, {
-            name: this[language],
-            rarity: this.getRarityTranslation(language),
-            values: this.getValues(language),
-          }),
+        JsonReader.items.getTranslation(language).armors.fieldValue, {
+        name: this[language],
+        rarity: this.getRarityTranslation(language),
+        values: this.getValues(language),
+      }),
     };
+  };
+
+  /**
+   * @param {("fr"|"en")} language - The language the weapon has to be displayed in
+   * @return {String}
+   */
+  Armors.prototype.toString = function (language) {
+    return (this.id === 0) ? this[language] : format(
+      JsonReader.items.getTranslation(language).weapons.fieldValue, {
+      name: this[language],
+      rarity: this.getRarityTranslation(language),
+      values: this.getValues(language),
+    });
   };
 
   /**
    * @param {("fr"|"en")} language
    * @return {String}
    */
-  Armors.prototype.getRarityTranslation = function(language) {
+  Armors.prototype.getRarityTranslation = function (language) {
     return JsonReader.items.getTranslation(language).rarities[this.rarity];
   };
 
@@ -92,7 +97,7 @@ module.exports = (sequelize, DataTypes) => {
    * Return the property from rawProperty and property modifier
    * @returns {Number}
    */
-  Armors.prototype.getAttack = function() {
+  Armors.prototype.getAttack = function () {
     return JsonReader.items.power[this.rarity][this.rawAttack] + this.attack;
   };
 
@@ -100,7 +105,7 @@ module.exports = (sequelize, DataTypes) => {
    * Return the property from rawProperty and property modifier
    * @returns {Number}
    */
-  Armors.prototype.getDefense = function() {
+  Armors.prototype.getDefense = function () {
     return JsonReader.items.power[this.rarity][this.rawDefense] + this.defense;
   };
 
@@ -108,7 +113,7 @@ module.exports = (sequelize, DataTypes) => {
    * Return the property from rawProperty and property modifier
    * @returns {Number}
    */
-  Armors.prototype.getSpeed = function() {
+  Armors.prototype.getSpeed = function () {
     return JsonReader.items.power[this.rarity][this.rawSpeed] + this.speed;
   };
 
@@ -116,19 +121,19 @@ module.exports = (sequelize, DataTypes) => {
    * @param {("fr"|"en")} language
    * @return {String}
    */
-  Armors.prototype.getValues = function(language) {
+  Armors.prototype.getValues = function (language) {
     let values = [];
 
     if (this.getAttack() !== 0) {
-      values.push(format(JsonReader.items.getTranslation(language).attack, {attack: this.getAttack()}));
+      values.push(format(JsonReader.items.getTranslation(language).attack, { attack: this.getAttack() }));
     }
 
     if (this.getDefense() !== 0) {
-      values.push(format(JsonReader.items.getTranslation(language).defense, {defense: this.getDefense()}));
+      values.push(format(JsonReader.items.getTranslation(language).defense, { defense: this.getDefense() }));
     }
 
     if (this.getSpeed() !== 0) {
-      values.push(format(JsonReader.items.getTranslation(language).speed, {speed: this.getSpeed()}));
+      values.push(format(JsonReader.items.getTranslation(language).speed, { speed: this.getSpeed() }));
     }
 
     return values.join(' ');

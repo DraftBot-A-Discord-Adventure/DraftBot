@@ -18,12 +18,11 @@ const GuildAddCommand = async (language, message, args) => {
     }
 
     if (invitedEntity == null) { //no user provided
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildAdd.getTranslation(language).cannotGetInvitedUser);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).cannotGetInvitedUser);
     }
 
     // search for a user's guild
@@ -34,21 +33,19 @@ const GuildAddCommand = async (language, message, args) => {
     }
 
     if (guild == null) { // not in a guild
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildAdd.getTranslation(language).notInAguild);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).notInAguild);
     }
 
     if (guild.chief_id != entity.id) {
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildAdd.getTranslation(language).notChiefError);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).notChiefError);
     }
 
     // search for a user's guild
@@ -59,23 +56,21 @@ const GuildAddCommand = async (language, message, args) => {
     }
 
     if (invitedGuild != null) { // already in a guild
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildAdd.getTranslation(language).alreadyInAGuild);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).alreadyInAGuild);
     }
 
     let members = await Entities.getByGuild(guild.id);
 
     if (members.length === GUILD.MAX_GUILD_MEMBER) {
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildAdd.getTranslation(language).guildFull);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).guildFull);
     }
 
 
@@ -120,25 +115,25 @@ const GuildAddCommand = async (language, message, args) => {
         }
 
         //Cancel the creation
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).errorTitle, {
-                pseudo: message.mentions.users.last().username
-            }), message.mentions.users.last().displayAvatarURL())
-            .setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitationCancelled, {
+        return sendErrorMessage(
+            message.mentions.users.last(),
+            message.channel,
+            language,
+            format(JsonReader.commands.guildAdd.getTranslation(language).invitationCancelled, {
                 guildName: guild.name
             }));
-        message.channel.send(embed);
-
     });
 
-    await msg.react(MENU_REACTION.ACCEPT);
-    await msg.react(MENU_REACTION.DENY);
+    await Promise.all([
+    msg.react(MENU_REACTION.ACCEPT),
+    msg.react(MENU_REACTION.DENY)
+  ]);
 
 };
 
 
 module.exports = {
-    "guildAdd": GuildAddCommand,
-    "gAdd": GuildAddCommand,
+    "guildadd": GuildAddCommand,
+    "gadd": GuildAddCommand,
     "ga": GuildAddCommand
 };

@@ -50,11 +50,66 @@ module.exports = (sequelize, DataTypes) => {
    * @param {("itemID")} itemID - The itemID
    * @param {("itemType")} itemType - The itemType to know what kind of object is updated
    */
-  Inventories.prototype.giveObject = function(itemID, itemType) {
-    if(ITEMTYPE.POTION == itemType){this.potion_id = itemID;}
-    if(ITEMTYPE.WEAPON == itemType){this.weapon_id = itemID;}
-    if(ITEMTYPE.ARMOR == itemType){this.armor_id = itemID;}
-    if(ITEMTYPE.OBJECT == itemType){this.backup_id = itemID;}
+  Inventories.prototype.giveObject = function (itemID, itemType) {
+    if (ITEMTYPE.POTION == itemType) { this.potion_id = itemID; }
+    if (ITEMTYPE.WEAPON == itemType) { this.weapon_id = itemID; }
+    if (ITEMTYPE.ARMOR == itemType) { this.armor_id = itemID; }
+    if (ITEMTYPE.OBJECT == itemType) { this.backup_id = itemID; }
+  };
+
+  Inventories.prototype.generateRandomItem = async function () {
+
+    //generate a random item
+    let rarity = generateRandomRarity();
+    let itemType = generateRandomItemType();
+    const query = `SELECT id
+                   FROM :itemType
+                   WHERE rarity = :rarity`;
+    let itemsIds = await sequelize.query(query, {
+      replacements: {
+        itemType: itemType,
+        rarity: rarity
+      },
+      type: sequelize.QueryTypes.SELECT
+    });
+    let item;
+    if (ITEMTYPE.POTION == itemType) {
+      item = await Potions.findOne({
+        where: {
+          id: itemsIds[
+            Math.floor(Math.random() * itemsIds.length)
+          ].id
+        }
+      });
+    }
+    if (ITEMTYPE.WEAPON == itemType) {
+      item = await Weapons.findOne({
+        where: {
+          id: itemsIds[
+            Math.floor(Math.random() * itemsIds.length)
+          ].id
+        }
+      });
+    }
+    if (ITEMTYPE.ARMOR == itemType) {
+      item = await Armors.findOne({
+        where: {
+          id: itemsIds[
+            Math.floor(Math.random() * itemsIds.length)
+          ].id
+        }
+      });
+    }
+    if (ITEMTYPE.OBJECT == itemType) {
+      item = await Objects.findOne({
+        where: {
+          id: itemsIds[
+            Math.floor(Math.random() * itemsIds.length)
+          ].id
+        }
+      });
+    }
+    return item;
   };
 
   Inventories.beforeSave((instance, options) => {

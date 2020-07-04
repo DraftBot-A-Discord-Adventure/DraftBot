@@ -258,7 +258,7 @@ module.exports = (sequelize, DataTypes) => {
    * @returns {String}
    */
   Entities.prototype.getMention = function() {
-    return "<@" + this.discordUser_id + ">";
+    return "<@" + this.discordUser_id + ">"; 
   };
 
   return Entities;

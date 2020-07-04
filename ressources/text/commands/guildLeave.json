@@ -1,24 +1,22 @@
 {
     "translations": {
         "fr": {
-            "errorTitle": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
             "leaveTitle": "{pseudo}, confirmation :",
-            "notInAGuild": "Vous n'appartenez à aucune guilde.",
+            "notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
             "leaveDesc": "Souhaitez vous vraiment quitter la guilde `{guildName}` ?",
             "leaveChiefDesc": "Souhaitez vous vraiment **détruire définitivement** la guilde `{guildName}` ?",
             "leavingCancelled": "Votre départ a été annulé.",
             "successTitle": "{pseudo} a quitté la guilde {guildName} !",
-            "leavingSuccess": "You'r poor lonesome cowboy and a long long way from home"
+            "leavingSuccess": "You'r poor lonesome cowboy and a long long way from home..."
         },
         "en": {
-            "errorTitle": "{pseudo}, hmmm... That didn't work!",
             "leaveTitle": "{pseudo}, confirmation:",
-            "notInAGuild": "You are not in a guild.",
+            "notInAguild": "You have to be in a guild to use this command.",
             "leaveDesc": "Do you really want to quit the guild `{guildName}`?",
             "leaveChiefDesc": "Do you really want to **permanently destroy** the guild `{guildName}`?",
             "leavingCancelled": "Your departure has been cancelled.",
             "successTitle": "{pseudo} left the guild {guildName}!",
-            "leavingSuccess": "You'r poor lonesome cowboy and a long long way from home"
+            "leavingSuccess": "You'r poor lonesome cowboy and a long long way from home..."
         }
     },
     "guildCreationPrice": 5000

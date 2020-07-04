@@ -18,7 +18,7 @@ const SendPrivateMessage = async function (language, message, args) {
             username: message.author.username
         });
 
-    if (userId == undefined || args[1] == undefined)
+    if (userId === undefined || args[1] === undefined)
         return await sendErrorMessage(message, language);
 
     const user = client.users.cache.get(userId);

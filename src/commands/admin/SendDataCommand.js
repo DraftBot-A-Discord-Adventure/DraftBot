@@ -7,15 +7,15 @@
 const SendDataCommand = async (language, message, args) => {
 
   if ((await canPerformCommand(message, language,
-      PERMISSION.ROLE.BOTOWNER)) !== true) {
+    PERMISSION.ROLE.BOTOWNER)) !== true) {
     return;
   }
 
   await message.channel.send({
     files: [{
-        attachment: 'database/database.sqlite',
-        name: 'database.sqlite',
-      }],
+      attachment: 'database/database.sqlite',
+      name: 'database.sqlite',
+    }],
   });
 
 };

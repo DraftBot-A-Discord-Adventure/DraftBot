@@ -19,12 +19,11 @@ const GuildLeaveCommand = async (language, message, args) => {
     }
 
     if (guild == null) { // not in a guild
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildLeave.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guildLeave.getTranslation(language).notInAGuild);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildLeave.getTranslation(language).notInAGuild);
     }
 
     //generate confirmation embed
@@ -67,9 +66,9 @@ const GuildLeaveCommand = async (language, message, args) => {
                     });
                     await Guilds.destroy({
                         where: {
-                          id: guild.id
+                            id: guild.id
                         }
-                      });
+                    });
                 }
 
                 await Promise.all([
@@ -87,24 +86,24 @@ const GuildLeaveCommand = async (language, message, args) => {
         }
 
         //Cancel leaving
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guildLeave.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(format(JsonReader.commands.guildLeave.getTranslation(language).leavingCancelled, {
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            format(JsonReader.commands.guildLeave.getTranslation(language).leavingCancelled, {
                 guildName: guild.name
             }));
-        message.channel.send(embed);
-
     });
 
-    await msg.react(MENU_REACTION.ACCEPT);
-    await msg.react(MENU_REACTION.DENY);
+    await Promise.all([
+    msg.react(MENU_REACTION.ACCEPT),
+    msg.react(MENU_REACTION.DENY)
+  ]);
 
 };
 
 module.exports = {
-    "guildLeave": GuildLeaveCommand,
-    "gLeave": GuildLeaveCommand,
+    "guildleave": GuildLeaveCommand,
+    "gleave": GuildLeaveCommand,
     "gl": GuildLeaveCommand
 };

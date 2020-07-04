@@ -49,15 +49,15 @@ class Shop {
         //Creating shop message
         const message = await this.message.channel.send(
             new discord.MessageEmbed()
-            .setColor(JsonReader.bot.embed.default)
-            .setTitle(shopTranslations.title)
-            .addField(shopTranslations.dailyItem, format(shopTranslations.display, {
-                name: potion.toPotionString(this.language),
-                price: potionPrice
-            }))
-            .addField(shopTranslations.permanentItem, [randomItem, healAlterations, regen, badge, guildXp].join('\n') + format(shopTranslations.moneyQuantity, {
-                money: this.entity.Player.money
-            })));
+                .setColor(JsonReader.bot.embed.default)
+                .setTitle(shopTranslations.title)
+                .addField(shopTranslations.dailyItem, format(shopTranslations.display, {
+                    name: potion.toString(this.language),
+                    price: potionPrice
+                }))
+                .addField(shopTranslations.permanentItem, [randomItem, healAlterations, regen, badge, guildXp].join('\n') + format(shopTranslations.moneyQuantity, {
+                    money: this.entity.Player.money
+                })));
 
         //Creating maps to get shop items everywhere
         this.dailyPotion = new Map().set('price', potionPrice).set('potion', potion);
@@ -137,7 +137,7 @@ class Shop {
         const shopTranslations = JsonReader.commands.shop.getTranslation(this.language);
         if (this.selectedItem.name) { //This is not a potion
             if (this.selectedItem.name === shopTranslations.permanentItems.randomItem.name) {
-                this.giveRandomItem(message);
+                await giveRandomItem(this.message.author, this.message.channel, this.language, this.entity);
             } else if (this.selectedItem.name === shopTranslations.permanentItems.healAlterations.name) {
                 this.healAlterations(message);
             } else if (this.selectedItem.name === shopTranslations.permanentItems.regen.name) {
@@ -173,7 +173,7 @@ class Shop {
         } else if (potion.getEmoji() === reaction.emoji.id || potion.getEmoji() === reaction.emoji.name) {
 
             if (this.canBuy(potionPrice)) {
-                await this.confirmPurchase(potion.toPotionString(this.language), potionPrice, JsonReader.commands.shop.getTranslation(this.language).potion.info);
+                await this.confirmPurchase(potion.toString(this.language), potionPrice, JsonReader.commands.shop.getTranslation(this.language).potion.info);
                 this.selectedItem = potion;
             } else {
                 this.cannotBuy(potionPrice);
@@ -229,11 +229,11 @@ class Shop {
             .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).potion.give, {
                 pseudo: this.customer.username
             }), this.customer.displayAvatarURL())
-            .setDescription("\n\n" + this.dailyPotion.get('potion').toPotionString(this.language)));
+            .setDescription("\n\n" + this.dailyPotion.get('potion').toString(this.language)));
     }
 
     giveRandomItem(message) {
-        //TODO GIVE RANDOM ITEM
+
     }
 
     /**
@@ -325,7 +325,7 @@ class Shop {
      * @param {*} price - The item price
      */
     cannotBuy(price, message) {
-        let embed = new discord.MessageEmbed()
+        let embed = new discord.MessageEmbed();
         embed.setColor(JsonReader.bot.embed.error)
             .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).error.title, {
                 pseudo: this.message.author.username
@@ -341,7 +341,7 @@ class Shop {
      */
     alreadyHasItem(message) {
         message.delete();
-        let embed = new discord.MessageEmbed()
+        let embed = new discord.MessageEmbed();
         embed.setColor(JsonReader.bot.embed.error)
             .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).error.title, {
                 pseudo: this.message.author.username
@@ -355,7 +355,7 @@ class Shop {
      */
     notInAGuild(message) {
         message.delete();
-        let embed = new discord.MessageEmbed()
+        let embed = new discord.MessageEmbed();
         embed.setColor(JsonReader.bot.embed.error)
             .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).error.title, {
                 pseudo: this.message.author.username

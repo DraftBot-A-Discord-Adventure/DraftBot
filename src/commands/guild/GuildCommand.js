@@ -6,7 +6,7 @@
  */
 const GuildCommand = async (language, message, args) => {
 
-    let entity;
+    let entity, guild;
 
     try {
         entity = await Entities.getByArgs(args, message);
@@ -34,12 +34,11 @@ const GuildCommand = async (language, message, args) => {
     let embed = new discord.MessageEmbed();
 
     if (guild === null) {
-        embed.setColor(JsonReader.bot.embed.error)
-            .setAuthor(format(JsonReader.commands.guild.getTranslation(language).errorTitle, {
-                pseudo: message.author.username
-            }), message.author.displayAvatarURL())
-            .setDescription(JsonReader.commands.guild.getTranslation(language).noGuildException);
-        return message.channel.send(embed);
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guild.getTranslation(language).noGuildException);
     }
     let members = await Entities.getByGuild(guild.id);
 
