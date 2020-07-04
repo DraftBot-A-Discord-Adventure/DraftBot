@@ -150,7 +150,7 @@ const TestCommand = async (language, message, args) => {
                 break;
             case "effect":
                 if (args.length === 2) {
-                    author.effect = args[1];
+                    author.effect = ":" + args[1] + ":";
                     author.save();
                 } else {
                     await message.channel.send("Usage correct: test effect <effect>");
@@ -201,6 +201,30 @@ const TestCommand = async (language, message, args) => {
                     await message.channel.send("Usage correct: test backupId <backupId>");
                     return;
                 }
+                break;
+            case "init":
+                author.Player.level = 1;
+                author.Player.score = 2000;
+                author.Player.weeklyScore = 0;
+                author.Player.experience = 0;
+                author.Player.money = 0;
+                author.Player.badges = "";
+                author.Player.lastReportAt = new Date(1980, 0);
+                author.Player.save();
+
+                author.effect = ":smiley:";
+                author.maxHealth = 100;
+                author.health = 100;
+                author.attack = 50;
+                author.defense = 20;
+                author.speed = 10;
+                author.save();
+
+                author.Player.Inventory.weapon_id = 0;
+                author.Player.Inventory.armor_id = 0;
+                author.Player.Inventory.object_id = 0;
+                author.Player.Inventory.backup_id = 0;
+                author.Player.Inventory.save();
                 break;
             default:
                 await message.channel.send("Argument inconnu !");

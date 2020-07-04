@@ -1,4 +1,8 @@
 /**
+<<<<<<< HEAD
+ * Send an error in a channel
+ * @param {module:"discord.js".User} user
+=======
  * Convert a discord id into a discord mention
  * @param {*} id - The role/user id
  */
@@ -25,6 +29,7 @@ global.sendMessageAttachments = (message, channel) => {
 /**
  * Send an error in a channel
  * @param {module:"discord.js".User} user 
+>>>>>>> origin/refactoring-2.0.0
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String} reason
