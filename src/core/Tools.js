@@ -127,9 +127,10 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     }
     channel.send("vente de l'item à coder :)")
   });
-
-  await msg.react(MENU_REACTION.ACCEPT);
-  await msg.react(MENU_REACTION.DENY);
+  await Promise.all([
+    msg.react(MENU_REACTION.ACCEPT),
+    msg.react(MENU_REACTION.DENY)
+  ]);
 };
 
 /**
@@ -264,7 +265,7 @@ global.progressBar = (value, maxValue) => {
  * @param {Objects|Armors|Weapons|Potions} item
  * @returns {Number} - The value of the item
  */
-global.getItemValue = function(item) {
+global.getItemValue = function (item) {
   return parseInt(JsonReader.values.raritiesValues[item.rarity]) + parseInt(item.power);
 };
 
@@ -275,7 +276,7 @@ global.getItemValue = function(item) {
  * @param {"fr"|"en"} language
  * @returns {boolean}
  */
-global.sendBlockedError = async function(user, channel, language) {
+global.sendBlockedError = async function (user, channel, language) {
   if (hasBlockedPlayer(user.id)) {
     await sendErrorMessage(user, channel, language, JsonReader.error.getTranslation(language).playerBlocked);
     return true;

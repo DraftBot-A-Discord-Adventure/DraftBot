@@ -6,7 +6,7 @@
  */
 const GuildCommand = async (language, message, args) => {
 
-    let entity;
+    let entity, guild;
 
     try {
         entity = await Entities.getByArgs(args, message);
