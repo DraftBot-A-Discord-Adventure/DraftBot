@@ -84,5 +84,14 @@ module.exports = (sequelize, DataTypes) => {
     ];
   };
 
+  /**
+   *
+   * @param {("fr"|"en")} language
+   * @return {boolean}
+   */
+  Inventories.prototype.hasItemToSell = function () {
+    return this.backup_id !== JsonReader.models.inventories.backup_id;
+  };
+
   return Inventories;
 };

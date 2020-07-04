@@ -6,7 +6,7 @@
         },
         "en": {
             "noSpeakPermission": ":zipper_mouth: | **Hello! You are receiving this message because you tried using one of my commands in a channel where I have the permissions to see messages but not send them!**\n\nYour request was thus voided. To resolve this problem, please send a message to the owner of the server you tried to use me in. If you can't resolve this problem, I invite you to join the bot's support available here: 'https://discord.gg/USnCxg4/'!",
-            "maitenance": "TODO"
+            "maintenance": "TODO"
         }
     },
     "activity": "❓ - Dm me for Help !",

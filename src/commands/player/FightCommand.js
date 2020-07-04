@@ -138,19 +138,19 @@ function sendError(message, entity, error, direct, language) {
             let msg = direct ?
                 format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.direct, { pseudo : entity.getMention(), level: FIGHT.REQUIRED_LEVEL })
                 : format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.indirect, {level: FIGHT.REQUIRED_LEVEL});
-            sendErrorMessage(message.author, message.channel, language, msg);
+            sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg);
             break;
         case FIGHT_ERROR.DISALLOWED_EFFECT:
             let msg1 = direct ?
                 format(JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.direct, { pseudo : entity.getMention() })
                 : JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.indirect;
-            sendErrorMessage(message.author, message.channel, language, msg1);
+            sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg1);
             break;
         case FIGHT_ERROR.OCCUPIED:
             let msg2 = direct ?
                 format(JsonReader.commands.fight.getTranslation(language).error.occupied.direct, { pseudo : entity.getMention() })
                 : JsonReader.commands.fight.getTranslation(language).error.occupied.indirect;
-            sendErrorMessage(message.author, message.channel, language, msg2);
+            sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg2);
             break;
         default:
             break;
