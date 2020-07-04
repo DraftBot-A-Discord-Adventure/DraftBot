@@ -17,7 +17,7 @@ const GuildKickCommand = async (language, message, args) => {
         kickedEntity = null;
     }
 
-    if (kickedEntity == null) { //no user provided
+    if (kickedEntity === null) { //no user provided
         return sendErrorMessage(
             message.author,
             message.channel,
@@ -32,7 +32,7 @@ const GuildKickCommand = async (language, message, args) => {
         guild = null;
     }
 
-    if (guild == null) { // not in a guild
+    if (guild === null) { // not in a guild
         return sendErrorMessage(
             message.author,
             message.channel,
@@ -55,7 +55,7 @@ const GuildKickCommand = async (language, message, args) => {
         kickedGuild = null;
     }
 
-    if (kickedGuild == null || kickedGuild.id != guild.id) { // not the same guild
+    if (kickedGuild === null || kickedGuild.id != guild.id) { // not the same guild
         return sendErrorMessage(
             message.author,
             message.channel,
@@ -122,8 +122,10 @@ const GuildKickCommand = async (language, message, args) => {
             }));
     });
 
-    await msg.react(MENU_REACTION.ACCEPT);
-    await msg.react(MENU_REACTION.DENY);
+    await Promise.all([
+        msg.react(MENU_REACTION.ACCEPT),
+        msg.react(MENU_REACTION.DENY)
+    ]);
 };
 
 

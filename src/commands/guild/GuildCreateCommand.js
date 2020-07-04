@@ -76,7 +76,7 @@ const GuildCreateCommand = async (language, message, args) => {
     let msg = await message.channel.send(embed);
     embed = new discord.MessageEmbed();
     const filterConfirm = (reaction, user) => {
-        return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === message.author.id);
+        return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id);
     };
 
     const collector = msg.createReactionCollector(filterConfirm, {
@@ -129,8 +129,10 @@ const GuildCreateCommand = async (language, message, args) => {
             JsonReader.commands.guildCreate.getTranslation(language).creationCancelled);
     });
 
-    await msg.react(MENU_REACTION.ACCEPT);
-    await msg.react(MENU_REACTION.DENY);
+    await Promise.all([
+    msg.react(MENU_REACTION.ACCEPT),
+    msg.react(MENU_REACTION.DENY)
+  ]);
 
 };
 

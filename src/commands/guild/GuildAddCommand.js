@@ -124,8 +124,10 @@ const GuildAddCommand = async (language, message, args) => {
             }));
     });
 
-    await msg.react(MENU_REACTION.ACCEPT);
-    await msg.react(MENU_REACTION.DENY);
+    await Promise.all([
+    msg.react(MENU_REACTION.ACCEPT),
+    msg.react(MENU_REACTION.DENY)
+  ]);
 
 };
 

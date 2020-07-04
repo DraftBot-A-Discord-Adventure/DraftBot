@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
   Objects.prototype.toFieldObject = async function (language, slot) {
     return {
       name: JsonReader.items.getTranslation(language).objects[slot].fieldName,
-      value: (this.id === 0) ? this[language] : this.getFullName(language, slot),
+      value: (this.id === 0) ? this[language] : this.toString(language),
     };
   };
 
@@ -59,25 +59,11 @@ module.exports = (sequelize, DataTypes) => {
    */
   Objects.prototype.toString = function (language) {
     return (this.id === 0) ? this[language] : format(
-      JsonReader.items.getTranslation(language).potions.fieldValue, {
+      JsonReader.items.getTranslation(language).objects.active.fieldValue, {
       name: this[language],
       rarity: this.getRarityTranslation(language),
       nature: this.getNatureTranslation(language),
     });
-  };
-
-  /**
-   * @param {("fr"|"en")} language
-   * @param {("active"|"backup")} slot
-   * @return {String}
-   */
-  Objects.prototype.getFullName = function (language, slot) {
-    return format(
-        JsonReader.items.getTranslation(language).objects[slot].fieldValue, {
-          name: this[language],
-          rarity: this.getRarityTranslation(language),
-          nature: this.getNatureTranslation(language),
-        });
   };
 
   /**

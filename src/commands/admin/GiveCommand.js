@@ -12,7 +12,7 @@ const GiveCommand = async function (language, message, args) {
     }
     let embed = new discord.MessageEmbed();
     let entity;
-    let player = getUserFromMention(args[0]);;
+    let player = getUserFromMention(args[0]);
     [entity] = await Entities.getOrRegister(player.id);
     let itemType = args[1];
     let itemId = args[2];

@@ -19,7 +19,7 @@ const GuildDailyCommand = async (language, message, args) => {
         guild = null;
     }
 
-    if (guild == null) { // not in a guild
+    if (guild === null) { // not in a guild
         return sendErrorMessage(
             message.author,
             message.channel,
@@ -35,19 +35,6 @@ const GuildDailyCommand = async (language, message, args) => {
 
     let members = await Entities.getByGuild(guild.id);
     let rewardType = generateRandomProperty(guild);
-
-
-    //DEBUG REMOVE BEFORE RELEASE
-    rewardType = REWARD_TYPES.PERSONNAL_XP;
-    //################################
-    await giveRandomItem(message.author,message.channel,language,entity);
-
-    await Promise.all([
-        entity.save(),
-        entity.Player.save(),
-        entity.Player.Inventory.save()
-    ]);
-
 
     embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
         guildName: guild.name
@@ -84,7 +71,7 @@ const GuildDailyCommand = async (language, message, args) => {
     }
 
     if (rewardType === REWARD_TYPES.RANDOM_ITEM) {
-        //TODO
+        //TODO remove this reward and replace with a fixed 400 gold reward
         embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).randomItem, {
             money: moneyWon
         }));
@@ -137,7 +124,8 @@ const GuildDailyCommand = async (language, message, args) => {
             }
             if (members[i].effect != EFFECT.DEAD && members[i].effect != EFFECT.LOCKED) {
                 members[i].effect = EFFECT.SMILEY;
-                //TODO: unblock user 
+                //TODO: update last seen
+
             }
             await members[i].save();
         }
@@ -165,64 +153,6 @@ module.exports = {
 function updateLastInvocation(guild, message) {
     guild.lastInvocation = message.createdTimestamp;
 }
-
-/**
- * completely heal all guild members
- * @param {*} members - the array of members that will be healed
- */
-function completelyHealGuildMembers(members, message) {
-    for (let i in members) {
-        members[i].restoreHealthCompletely();
-        playerManager.updatePlayer(members[i]);
-    }
-}
-
-/**
- * partially heal all guild members
- * @param {*} members - the array of members that will be healed
- */
-function partiallyHealGuildMembers(members, message) {
-    let healthAdded = new Array(members.length);
-    for (let i = 0; i < members.length; ++i) {
-        var healthToAdd = Tools.generateRandomNumber(1, 15);
-        healthAdded[i] = healthToAdd;
-        members[i].addHealthPoints(healthToAdd, message, language);
-        playerManager.updatePlayer(members[i]);
-    }
-    return healthAdded;
-}
-
-/**
- * clear player alterations
- * @param {*} members - the array of members that will get healed
- */
-function healStateOfGuildMembers(members, message) {
-    var allowedStates = ":dizzy_face::zany_face::nauseated_face::sleeping::head_bandage::cold_face::confounded::clock2:";
-    for (let i in members) {
-        if (allowedStates.includes(members[i].getEffect())) {
-            if (!playerManager.displayTimeLeftProfile(members[i], message, language).includes(":hospital:")) { //the player is not cured
-                members[i].updateLastReport(message.createdTimestamp, 0, ":smiley:");
-                members[i].effect = ":smiley:";
-                playerManager.updatePlayer(members[i]);
-            }
-        }
-    }
-}
-
-
-/**
- * give a random amount of money to all member of a guild
- * @param {*} members - the array of members that will recieve the xp
- * @param {*} message
- */
-async function giveRandomItemGuildMembers(members, message) {
-    for (let i in members) {
-        members[i] = await playerManager.giveRandomItem(message, members[i], true);
-        playerManager.updatePlayer(members[i]);
-    }
-}
-
-
 
 function generateRandomProperty(guild) {
     let resultNumber = randInt(0, 1000);

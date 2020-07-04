@@ -125,7 +125,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
         return channel.send(embed);
       }
     }
-    channel.send("vente de l'item à coder :)")
+    //TODO : Sell the item (je le fait demain)
   });
   await Promise.all([
     msg.react(MENU_REACTION.ACCEPT),

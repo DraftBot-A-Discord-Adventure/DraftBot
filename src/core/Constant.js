@@ -21,6 +21,11 @@ global.EFFECT = {
   CONFOUNDED: ":confounded:"
 };
 
+global.LANGUAGE = {
+  FRENCH : 'fr',
+  ENGLISH : 'en',
+};
+
 // Object nature
 global.NATURE = {
   NONE: 0,
