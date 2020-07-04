@@ -60,23 +60,36 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    */
-  Weapons.prototype.toFieldObject = async function(language) {
+  Weapons.prototype.toFieldObject = async function (language) {
     return {
       name: JsonReader.items.getTranslation(language).weapons.fieldName,
       value: (this.id === 0) ? this[language] : format(
-          JsonReader.items.getTranslation(language).weapons.fieldValue, {
-            name: this[language],
-            rarity: this.getRarityTranslation(language),
-            values: this.getValues(language),
-          }),
+        JsonReader.items.getTranslation(language).weapons.fieldValue, {
+        name: this[language],
+        rarity: this.getRarityTranslation(language),
+        values: this.getValues(language),
+      }),
     };
+  };
+
+  /**
+   * @param {("fr"|"en")} language - The language the weapon has to be displayed in
+   * @return {String}
+   */
+  Weapons.prototype.toString = function (language) {
+    return (this.id === 0) ? this[language] : format(
+      JsonReader.items.getTranslation(language).weapons.fieldValue, {
+      name: this[language],
+      rarity: this.getRarityTranslation(language),
+      values: this.getValues(language),
+    });
   };
 
   /**
    * @param {("fr"|"en")} language
    * @return {String}
    */
-  Weapons.prototype.getRarityTranslation = function(language) {
+  Weapons.prototype.getRarityTranslation = function (language) {
     return JsonReader.items.getTranslation(language).rarities[this.rarity];
   };
 
@@ -84,7 +97,7 @@ module.exports = (sequelize, DataTypes) => {
    * Return the property from rawProperty and property modifier
    * @returns {Number}
    */
-  Weapons.prototype.getAttack = function() {
+  Weapons.prototype.getAttack = function () {
     return JsonReader.items.power[this.rarity][this.rawAttack] + this.attack;
   };
 
@@ -92,7 +105,7 @@ module.exports = (sequelize, DataTypes) => {
    * Return the property from rawProperty and property modifier
    * @returns {Number}
    */
-  Weapons.prototype.getDefense = function() {
+  Weapons.prototype.getDefense = function () {
     return JsonReader.items.power[this.rarity][this.rawDefense] + this.defense;
   };
 
@@ -100,7 +113,7 @@ module.exports = (sequelize, DataTypes) => {
    * Return the property from rawProperty and property modifier
    * @returns {Number}
    */
-  Weapons.prototype.getSpeed = function() {
+  Weapons.prototype.getSpeed = function () {
     return JsonReader.items.power[this.rarity][this.rawSpeed] + this.speed;
   };
 
@@ -108,19 +121,19 @@ module.exports = (sequelize, DataTypes) => {
    * @param {("fr"|"en")} language
    * @return {String}
    */
-  Weapons.prototype.getValues = function(language) {
+  Weapons.prototype.getValues = function (language) {
     let values = [];
 
     if (this.getAttack() !== 0) {
-      values.push(format(JsonReader.items.getTranslation(language).attack, {attack: this.getAttack()}));
+      values.push(format(JsonReader.items.getTranslation(language).attack, { attack: this.getAttack() }));
     }
 
     if (this.getDefense() !== 0) {
-      values.push(format(JsonReader.items.getTranslation(language).defense, {defense: this.getDefense()}));
+      values.push(format(JsonReader.items.getTranslation(language).defense, { defense: this.getDefense() }));
     }
 
     if (this.getSpeed() !== 0) {
-      values.push(format(JsonReader.items.getTranslation(language).speed, {speed: this.getSpeed()}));
+      values.push(format(JsonReader.items.getTranslation(language).speed, { speed: this.getSpeed() }));
     }
 
     return values.join(' ');

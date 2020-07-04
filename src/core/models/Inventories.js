@@ -57,21 +57,59 @@ module.exports = (sequelize, DataTypes) => {
     if (ITEMTYPE.OBJECT == itemType) { this.backup_id = itemID; }
   };
 
-  Inventories.prototype.giveRandomItem = async () => {
+  Inventories.prototype.generateRandomItem = async function () {
+
+    //generate a random item
     let rarity = generateRandomRarity();
     let itemType = generateRandomItemType();
-    const query = `SELECT *
+    const query = `SELECT id
                    FROM :itemType
                    WHERE rarity = :rarity`;
-    let items = await sequelize.query(query, {
+    let itemsIds = await sequelize.query(query, {
       replacements: {
         itemType: itemType,
         rarity: rarity
       },
       type: sequelize.QueryTypes.SELECT
     });
-    let item = items[Math.floor(Math.random() * items.length)];
-    this.giveObject(item.ID, itemType);
+    let item;
+    if (ITEMTYPE.POTION == itemType) {
+      item = await Potions.findOne({
+        where: {
+          id: itemsIds[
+            Math.floor(Math.random() * itemsIds.length)
+          ].id
+        }
+      });
+    }
+    if (ITEMTYPE.WEAPON == itemType) {
+      item = await Weapons.findOne({
+        where: {
+          id: itemsIds[
+            Math.floor(Math.random() * itemsIds.length)
+          ].id
+        }
+      });
+    }
+    if (ITEMTYPE.ARMOR == itemType) {
+      item = await Armors.findOne({
+        where: {
+          id: itemsIds[
+            Math.floor(Math.random() * itemsIds.length)
+          ].id
+        }
+      });
+    }
+    if (ITEMTYPE.OBJECT == itemType) {
+      item = await Objects.findOne({
+        where: {
+          id: itemsIds[
+            Math.floor(Math.random() * itemsIds.length)
+          ].id
+        }
+      });
+    }
+    return item;
   };
 
   Inventories.beforeSave((instance, options) => {

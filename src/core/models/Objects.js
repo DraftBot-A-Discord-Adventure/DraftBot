@@ -45,23 +45,36 @@ module.exports = (sequelize, DataTypes) => {
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    * @param {("active"|"backup")} slot
    */
-  Objects.prototype.toFieldObject = async function(language, slot) {
+  Objects.prototype.toFieldObject = async function (language, slot) {
     return {
       name: JsonReader.items.getTranslation(language).objects[slot].fieldName,
       value: (this.id === 0) ? this[language] : format(
-          JsonReader.items.getTranslation(language).objects[slot].fieldValue, {
-            name: this[language],
-            rarity: this.getRarityTranslation(language),
-            nature: this.getNatureTranslation(language),
-          }),
+        JsonReader.items.getTranslation(language).objects[slot].fieldValue, {
+        name: this[language],
+        rarity: this.getRarityTranslation(language),
+        nature: this.getNatureTranslation(language),
+      }),
     };
+  };
+
+  /**
+   * @param {("fr"|"en")} language - The language the potion has to be displayed in
+   * @return {String}
+   */
+  Objects.prototype.toString = function (language) {
+    return (this.id === 0) ? this[language] : format(
+      JsonReader.items.getTranslation(language).potions.fieldValue, {
+      name: this[language],
+      rarity: this.getRarityTranslation(language),
+      nature: this.getNatureTranslation(language),
+    });
   };
 
   /**
    * @param {("fr"|"en")} language
    * @return {String}
    */
-  Objects.prototype.getRarityTranslation = function(language) {
+  Objects.prototype.getRarityTranslation = function (language) {
     return JsonReader.items.getTranslation(language).rarities[this.rarity];
   };
 
@@ -69,14 +82,14 @@ module.exports = (sequelize, DataTypes) => {
    * @param {("fr"|"en")} language
    * @return {String}
    */
-  Objects.prototype.getNatureTranslation = function(language) {
-    return format(JsonReader.items.getTranslation(language).objects.natures[this.nature], {power: this.power});
+  Objects.prototype.getNatureTranslation = function (language) {
+    return format(JsonReader.items.getTranslation(language).objects.natures[this.nature], { power: this.power });
   };
 
   /**
    * @return {Number}
    */
-  Objects.prototype.getAttack = function() {
+  Objects.prototype.getAttack = function () {
     if (this.nature === 3) {
       return this.power;
     }
@@ -86,7 +99,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @return {Number}
    */
-  Objects.prototype.getDefense = function() {
+  Objects.prototype.getDefense = function () {
     if (this.nature === 4) {
       return this.power;
     }
@@ -96,7 +109,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @return {Number}
    */
-  Objects.prototype.getSpeed = function() {
+  Objects.prototype.getSpeed = function () {
     if (this.nature === 2) {
       return this.power;
     }

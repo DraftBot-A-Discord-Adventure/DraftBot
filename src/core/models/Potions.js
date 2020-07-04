@@ -57,16 +57,17 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   /**
-   * @param {("fr"|"en")} language - The language the inventory has to be displayed in
+   * @param {("fr"|"en")} language - The language the potion has to be displayed in
+   * @return {String}
    */
-  Potions.prototype.toPotionString = function (language) {
+  Potions.prototype.toString = function (language) {
     return (this.id === 0) ? this[language] : format(
       JsonReader.items.getTranslation(language).potions.fieldValue, {
         name: this[language],
         rarity: this.getRarityTranslation(language),
         nature: this.getNatureTranslation(language),
       });
-  }
+  };
 
   /**
    * 
@@ -75,7 +76,7 @@ module.exports = (sequelize, DataTypes) => {
   Potions.prototype.getEmoji = function () {
     let emoji = this.fr.split(' ')[0];
     return emoji.includes('<') ? emoji.split(':')[2].replace('>', '') : emoji;
-  }
+  };
 
   /**
    * @param {("fr"|"en")} language

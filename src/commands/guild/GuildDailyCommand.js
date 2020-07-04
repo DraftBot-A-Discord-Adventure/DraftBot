@@ -38,10 +38,9 @@ const GuildDailyCommand = async (language, message, args) => {
 
 
     //DEBUG REMOVE BEFORE RELEASE
-    rewardType = REWARD_TYPES.PERSONNAL_XP
+    rewardType = REWARD_TYPES.PERSONNAL_XP;
     //################################
-
-    await entity.Player.Inventory.giveRandomItem();
+    await giveRandomItem(message.author,message.channel,language,entity);
 
     await Promise.all([
         entity.save(),

@@ -1,8 +1,4 @@
 /**
-<<<<<<< HEAD
- * Send an error in a channel
- * @param {module:"discord.js".User} user
-=======
  * Convert a discord id into a discord mention
  * @param {*} id - The role/user id
  */
@@ -29,7 +25,6 @@ global.sendMessageAttachments = (message, channel) => {
 /**
  * Send an error in a channel
  * @param {module:"discord.js".User} user 
->>>>>>> origin/refactoring-2.0.0
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String} reason
@@ -42,6 +37,99 @@ global.sendErrorMessage = (user, channel, language, reason) => {
     }), user.displayAvatarURL())
     .setDescription(reason);
   return channel.send(embed);
+};
+
+/**
+ * give a random item
+ * @param {module:"discord.js".User} discordUser 
+ * @param {module:"discord.js".TextChannel} channel
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {Entity} entity
+ */
+global.giveRandomItem = async (discordUser, channel, language, entity) => {
+  let item = await entity.Player.Inventory.generateRandomItem();
+  let embed = new discord.MessageEmbed();
+  embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
+    pseudo: discordUser.username
+  }), discordUser.displayAvatarURL())
+    .setDescription(item.toString(language));
+  if (item instanceof Potions) {
+    let potion = await entity.Player.Inventory.getPotion();
+    embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
+      actualItem: potion.toString(language)
+    }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+      actualItem: potion.toString(language)
+    }));
+  }
+  if (item instanceof Objects) {
+    let object = await entity.Player.Inventory.getBackupObject();
+    embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
+      actualItem: object.toString(language)
+    }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+      actualItem: object.toString(language)
+    }));
+  }
+  if (item instanceof Weapons) {
+    let weapon = await entity.Player.Inventory.getWeapon();
+    embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
+      actualItem: weapon.toString(language)
+    }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+      actualItem: weapon.toString(language)
+    }));
+  }
+  if (item instanceof Armors) {
+    let armor = await entity.Player.Inventory.getArmor();
+    embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
+      actualItem: armor.toString(language)
+    }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+      actualItem: armor.toString(language)
+    }));
+  }
+
+  let msg = await channel.send(embed);
+  const filterConfirm = (reaction, user) => {
+    return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === discordUser.id);
+  };
+
+  const collector = msg.createReactionCollector(filterConfirm, {
+    time: 120000,
+    max: 1
+  });
+
+  collector.on('end', async (reaction) => {
+
+    if (reaction.first()) { // a reaction exist
+      if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
+        embed = new discord.MessageEmbed();
+        embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
+          pseudo: discordUser.username
+        }), discordUser.displayAvatarURL())
+          .setDescription(item.toString(language));
+        if (item instanceof Potions) {
+          entity.Player.Inventory.potion_id = item.id;
+        }
+        if (item instanceof Objects) {
+          entity.Player.Inventory.backup_id = item.id;
+        }
+        if (item instanceof Weapons) {
+          entity.Player.Inventory.weapon_id = item.id;
+        }
+        if (item instanceof Armors) {
+          entity.Player.Inventory.armor_id = item.id;
+        }
+        await Promise.all([
+          entity.save(),
+          entity.Player.save(),
+          entity.Player.Inventory.save()
+        ]);
+        return channel.send(embed);
+      }
+    }
+    channel.send("vente de l'item à coder :)")
+  });
+
+  await msg.react(MENU_REACTION.ACCEPT);
+  await msg.react(MENU_REACTION.DENY);
 };
 
 /**
@@ -69,6 +157,7 @@ global.generateRandomRarity = () => {
   }
   return 8;
 };
+
 
 /**
  * Generate a random itemType

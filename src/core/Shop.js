@@ -52,7 +52,7 @@ class Shop {
             .setColor(JsonReader.bot.embed.default)
             .setTitle(shopTranslations.title)
             .addField(shopTranslations.dailyItem, format(shopTranslations.display, {
-                name: potion.toPotionString(this.language),
+                name: potion.toString(this.language),
                 price: potionPrice
             }))
             .addField(shopTranslations.permanentItem, [randomItem, healAlterations, regen, badge, guildXp].join('\n') + format(shopTranslations.moneyQuantity, {
@@ -173,7 +173,7 @@ class Shop {
         } else if (potion.getEmoji() === reaction.emoji.id || potion.getEmoji() === reaction.emoji.name) {
 
             if (this.canBuy(potionPrice)) {
-                await this.confirmPurchase(potion.toPotionString(this.language), potionPrice, JsonReader.commands.shop.getTranslation(this.language).potion.info);
+                await this.confirmPurchase(potion.toString(this.language), potionPrice, JsonReader.commands.shop.getTranslation(this.language).potion.info);
                 this.selectedItem = potion;
             } else {
                 this.cannotBuy(potionPrice);
@@ -229,7 +229,7 @@ class Shop {
             .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).potion.give, {
                 pseudo: this.customer.username
             }), this.customer.displayAvatarURL())
-            .setDescription("\n\n" + this.dailyPotion.get('potion').toPotionString(this.language)));
+            .setDescription("\n\n" + this.dailyPotion.get('potion').toString(this.language)));
     }
 
     giveRandomItem(message) {
@@ -325,7 +325,7 @@ class Shop {
      * @param {*} price - The item price
      */
     cannotBuy(price, message) {
-        let embed = new discord.MessageEmbed()
+        let embed = new discord.MessageEmbed();
         embed.setColor(JsonReader.bot.embed.error)
             .setAuthor(format(JsonReader.commands.shop.getTranslation(this.language).error.title, {
                 pseudo: this.message.author.username
