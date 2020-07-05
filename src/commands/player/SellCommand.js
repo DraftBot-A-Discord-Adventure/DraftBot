@@ -21,63 +21,57 @@ const SellCommand = async (language, message, args) => {
 
   let backupItem = await entity.Player.Inventory.getBackupObject();
   const embed = new discord.MessageEmbed()
-      .setColor(JsonReader.bot.embed.default)
-      .setTitle(JsonReader.commands.sell.getTranslation(language).sellTitle)
-      .setDescription(format(JsonReader.commands.sell.getTranslation(language).confirmSell, {
-        mention: entity.getMention(),
-        item: backupItem.getName(language),
-        money: getItemValue(backupItem),
-      }));
+    .setColor(JsonReader.bot.embed.default)
+    .setTitle(JsonReader.commands.sell.getTranslation(language).sellTitle)
+    .setDescription(format(JsonReader.commands.sell.getTranslation(language).confirmSell, {
+      mention: entity.getMention(),
+      item: backupItem.getName(language),
+      money: getItemValue(backupItem),
+    }));
   const sellMessage = await message.channel.send(embed);
-  let sold = false;
   addBlockedPlayer(entity.discordUser_id, 'sell');
 
   const filter = (reaction, user) => {
-    return user.id === message.author.id;
+    return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id);
   };
 
-  const collector = sellMessage.createReactionCollector(filter, {time: 30000});
+  const collector = sellMessage.createReactionCollector(filter, {
+    time: 30000,
+    max: 1,
+  });
 
-  collector.on('collect', async (reaction) => {
-    switch (reaction.emoji.name) {
-      case '✅':
-        sold = true;
+  collector.on('end', async (reaction) => {
+    removeBlockedPlayer(entity.discordUser_id);
+    if (reaction.first()) { // a reaction exist
+      if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
         backupItem = await entity.Player.Inventory.getBackupObject();
         if (entity.Player.Inventory.hasItemToSell()) { // Preventive
           const money = getItemValue(backupItem);
           entity.Player.Inventory.backup_id = JsonReader.models.inventories.backup_id;
-          entity.Player.Inventory.save();
           entity.Player.money += money;
-          entity.Player.save();
-          await message.channel.send(
-              format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-                  {
-                    item: backupItem.getName(language),
-                    money: money,
-                    totalMoney: entity.Player.money,
-                  },
-              ));
+          await Promise.all([
+            entity.Player.save(),
+            entity.Player.Inventory.save()
+          ]);
+          return await message.channel.send(
+            format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+              {
+                item: backupItem.getName(language),
+                money: money,
+                totalMoney: entity.Player.money,
+              },
+            ));
         }
-        collector.stop();
-        break;
-      case '❌':
-        collector.stop();
-        break;
-      default:
-        return;
+      }
     }
-  });
-
-  collector.on('end', async () => {
-    removeBlockedPlayer(entity.discordUser_id);
-    if (!sold) {
-      await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).sellCanceled);
-    }
+    await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).sellCanceled);
   });
 
   try {
-    await sellMessage.react('✅');
-    await sellMessage.react('❌');
+    await Promise.all([
+      sellMessage.react(MENU_REACTION.ACCEPT),
+      sellMessage.react(MENU_REACTION.DENY),
+    ]);
   } catch (e) {
   }
 };
