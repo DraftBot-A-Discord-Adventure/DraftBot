@@ -5,8 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SwitchCommand = async (language, message, args) => {
-
-  let [entity] = await Entities.getOrRegister(message.author.id);
+  const [entity] = await Entities.getOrRegister(message.author.id);
 
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
     return;

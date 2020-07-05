@@ -4,8 +4,7 @@ require('core/MessageError');
 require('core/Tools');
 const Draftbot = require('core/DraftBot');
 
-(async Drafbot => {
-
+(async (Drafbot) => {
   await Drafbot.init();
 
   /**
@@ -19,21 +18,21 @@ const Draftbot = require('core/DraftBot');
     });
 
     await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
-      .channels
-      .cache
-      .get(JsonReader.app.CONSOLE_CHANNEL_ID)
-      .send(JsonReader.bot.startStatus + JsonReader.package.version)
-      .catch(console.error);
+        .channels
+        .cache
+        .get(JsonReader.app.CONSOLE_CHANNEL_ID)
+        .send(JsonReader.bot.startStatus + JsonReader.package.version)
+        .catch(console.error);
 
     await client.user
-      .setActivity(JsonReader.bot.activity)
-      .catch(console.error);
+        .setActivity(JsonReader.bot.activity)
+        .catch(console.error);
   };
 
   /**
    * Will be executed each time the bot join a new server
    */
-  const onDiscordGuildCreate = async guilde => {
+  const onDiscordGuildCreate = async (guilde) => {
     // let string = "";
     // let serverManager = new ServerManager();
     // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
@@ -49,7 +48,7 @@ const Draftbot = require('core/DraftBot');
   /**
    * Will be executed each time the bot leave a server
    */
-  const onDiscordGuildDelete = async guilde => {
+  const onDiscordGuildDelete = async (guilde) => {
     // let string = "";
     // let serverManager = new ServerManager();
     // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
@@ -63,12 +62,13 @@ const Draftbot = require('core/DraftBot');
    * @param {module:"discord.js".Message} message
    * @return {Promise<void>}
    */
-  const onDiscordMessage = async message => {
+  const onDiscordMessage = async (message) => {
     if (message.author.bot) return;
-    if (message.channel.type === 'dm')
+    if (message.channel.type === 'dm') {
       await handlePrivateMessage(message);
-    else
+    } else {
       await handleMessage(message);
+    }
   };
 
   /**
@@ -76,8 +76,8 @@ const Draftbot = require('core/DraftBot');
    * @param {module:"discord.js".MessageReaction} reaction
    * @return {Promise<void>}
    */
-  const onDiscordMessageReactionAdd = async reaction => {
-    //check if the user is a bot before doing anything
+  const onDiscordMessageReactionAdd = async (reaction) => {
+    // check if the user is a bot before doing anything
     // if (reaction.users.last().bot) return;
     //
     // let Text = await chargeText(reaction);
@@ -97,7 +97,6 @@ const Draftbot = require('core/DraftBot');
   client.on('messageReactionAdd', onDiscordMessageReactionAdd);
 
   await client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);
-
 })(Draftbot);
 
 // /**

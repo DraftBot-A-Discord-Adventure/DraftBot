@@ -4,11 +4,13 @@
       "wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat ! Pour y participer, cliquez sur la réaction ci-dessous !",
       "wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
       "intro": ":crossed_swords: | **Un combat est lancé entre {player1} et {player2} !**",
-      "turnIndications": ":crossed_swords: | **C'est au tour de {pseudo} de jouer !**\n\n:crossed_swords: - Lancer une attaque simple\n:dagger: - Lancer une attaque rapide\n:bomb: - Lancer une attaque ultime\n:shield: - Se préparer à défendre\n:rocket: - Se préparer à esquiver",
+      "turnIndicationsTitle": "C'est au tour de {pseudo} de jouer ⚔️",
+      "turnIndicationsDescription": "Choisissez une action",
       "summarize": {
+        "title": "Résumé du combat",
         "intro": ":crossed_swords: | **Etat actuel du combat**\n\n",
-        "attacker": ":crossed_swords: |** Attaquant : {pseudo}**\n",
-        "defender": ":crossed_swords: |** Défenseur : {pseudo}**\n",
+        "attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
+        "defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
         "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}\n\n"
       },
       "end": {
@@ -16,126 +18,104 @@
         "win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n:bar_chart: Elo de la partie : `{elo}`\n:medal: Points gagnés/perdus : `{points}`"
       },
       "error": {
-        "spamCanceled": ":x: | Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
-        "noOneAvailable": ":x: | Malheureusement, personne ne semble disponible pour combattre sur ce serveur. Votre demande de combat a été annulée.",
-        "opponentNotAvailable": ":x: | Malheureusement, cette personne ne semble pas disponible pour le moment. Votre demande de combat a été annulée.",
-        "fightHimself": ":x: | Il est impossible de se combattre soi-même ! Trouvez un autre adversaire.",
+        "spamCanceled": "Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
+        "noOneAvailable": "Malheureusement, personne ne semble disponible pour combattre sur ce serveur. Votre demande de combat a été annulée.",
+        "opponentNotAvailable": "Malheureusement, cette personne ne semble pas disponible pour le moment. Votre demande de combat a été annulée.",
+        "fightHimself": "Il est impossible de se combattre soi-même ! Trouvez un autre adversaire.",
         "canceled": ":x: | Votre demande de combat a bien été annulée.",
-        "onlyInitiator": ":x: | {pseudo}, seul l'initiateur d'un combat peut l'annuler !",
+        "onlyInitiator": " {pseudo}, seul l'initiateur d'un combat peut l'annuler !",
         "levelTooLow": {
-          "direct": ":x: | {pseudo}, vous devez être **LVL {level}** pour accéder aux combats ! Revenez plus tard !",
-          "indirect": ":x: | Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
+          "direct": "{pseudo}, vous devez être **LVL {level}** pour accéder aux combats ! Revenez plus tard !",
+          "indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
         },
         "cantFightStatus": {
-          "direct": ":x: | {pseudo}, vous n'être pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
-          "indirect": ":x: | Cette personne ne semble pas en état de combattre pour le moment !"
+          "direct": "{pseudo}, vous n'être pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
+          "indirect": "Cette personne ne semble pas en état de combattre pour le moment !"
         },
         "occupied": {
-          "direct": ":x: | {pseudo}, vous ne pouvez pas lancer de combat lorsque vous êtes occupé !",
-          "indirect": ":x: | Cette personne est occupée pour le moment !"
+          "direct": "{pseudo}, vous ne pouvez pas lancer de combat lorsque vous êtes occupé !",
+          "indirect": "Cette personne est occupée pour le moment !"
         },
-        "defenderDoesntExist": ":x: | La personne demandée n'existe pas !"
+        "defenderDoesntExist": "La personne demandée n'existe pas !"
       },
       "actions": {
-        "intro": "**{player}** ",
-        "quick": {
-          "succeed": [
-            "effectue une attaque rapide ! Parfaitement réalisée !",
-            "effectue une attaque rapide ! Elle est magnifique !",
-            "effectue une superbe attaque rapide ! Parfaitement réalisée !",
-            "effectue une attaque rapide ! Incroyablement réussie !",
-            "effectue une attaque rapide ! C'était risqué mais ça passe !",
-            "lance une bonne attaque rapide !",
-            "utilise une attaque rapide ! Magistral !",
-            "choisit une attaque rapide !  Très bonne initiative"
-          ],
-          "notGood": [
-            "effectue une attaque rapide ! Ça fonctionne mais c'était pas incroyable.",
-            "effectue une attaque rapide ! Mouais...",
-            "effectue une attaque rapide vraiment moyenne ! Pas ouf !",
-            "effectue une attaque rapide ! Ça n'est pas très efficace...",
-            "effectue une attaque rapide ! C'est pas très réussi.",
-            "lance une attaque rapide ! Médiocre",
-            "utilise une attaque rapide ! Faiblarde !",
-            "choisit une attaque rapide !  Le résultat est assez pitoyable."
-          ],
-          "failed": [
-            "effectue une attaque rapide ! C'est raté !",
-            "effectue une attaque rapide ! L'attaque échoue lamentablement !",
-            "effectue une mauvaise attaque rapide ! Un manque cruel de technique pour le joueur français !",
-            "effectue une attaque rapide ! Quelle erreur !",
-            "effectue une attaque rapide ! C'était risqué et ça n'est pas passé !",
-            "lance une mauvaise attaque rapide !",
-            "utilise une attaque rapide ! Un choix peu judicieux !",
-            "choisit une attaque rapide !  Mauvaise initiative"
-          ]
+        "intro": "{emote} | **{player}** ",
+        "charging": "charge une attaque...",
+        "chargingEmote": ":zap:",
+        "attacks" : {
+          "quick": {
+            "name": "attaque rapide",
+            "emote": ":dagger:",
+            "end": {
+              "succeed": "",
+              "notGood": "",
+              "failed": ""
+            }
+          },
+          "simple": {
+            "name": "attaque simple",
+            "emote": ":crossed_swords:",
+            "end": {
+              "succeed": "",
+              "notGood": "",
+              "failed": ""
+            }
+          },
+          "powerful": {
+            "name": "attaque puissante",
+            "emote": ":axe:",
+            "end": {
+              "succeed": " `Vitesse réduite de 25 %`",
+              "notGood": " `Vitesse réduite de 25 %`",
+              "failed": " `Vitesse réduite de 10 %`"
+            }
+          },
+          "ultimate": {
+            "name": "attaque ultime",
+            "emote": ":bomb:",
+            "end": {
+              "succeed": "",
+              "notGood": "",
+              "failed": ""
+            }
+          }
         },
-        "simple": {
+        "attacksResults": {
           "succeed": [
-            "effectue une attaque simple ! Parfaitement réalisée !",
-            "effectue une attaque simple ! Elle est magnifique !",
-            "effectue une superbe attaque simple ! Parfaitement réalisée !",
-            "effectue une attaque simple ! Incroyablement réussie !",
-            "effectue une attaque simple ! C'était risqué mais ça passe !",
-            "lance une bonne attaque simple !",
-            "utilise une attaque simple ! Magistrale !",
-            "choisit une attaque simple !  Très bonne initiative"
+            "effectue une {attack} ! Parfaitement réalisée !",
+            "effectue une {attack} ! Elle est magnifique !",
+            "effectue une superbe {attack} ! Parfaitement réalisée !",
+            "effectue une {attack} ! Incroyablement réussie !",
+            "effectue une {attack} ! C'était risqué mais ça passe !",
+            "lance une bonne {attack} !",
+            "utilise une {attack} ! Magistrale !",
+            "choisit une {attack} !  Très bonne initiative"
           ],
           "notGood": [
-            "effectue une attaque simple ! Ça fonctionne mais c'était pas incroyable.",
-            "effectue une attaque simple ! Mouais...",
-            "effectue une attaque simple vraiment moyenne ! Pas ouf !",
-            "effectue une attaque simple ! Ça n'est pas très efficace...",
-            "effectue une attaque simple ! C'est pas très réussi.",
-            "lance une attaque simple ! Médiocre",
-            "utilise une attaque simple ! Faiblarde !",
-            "choisit une attaque simple !  Le résultat est assez pitoyable."
+            "effectue une {attack} ! Ça fonctionne mais c'était pas incroyable.",
+            "effectue une {attack} ! Mouais...",
+            "effectue une {attack} vraiment moyenne ! Pas ouf !",
+            "effectue une {attack} ! Ça n'est pas très efficace...",
+            "effectue une {attack} ! C'est pas très réussi.",
+            "lance une {attack} ! Médiocre",
+            "utilise une {attack} ! Faiblarde !",
+            "choisit une {attack} !  Le résultat est assez pitoyable."
           ],
           "failed": [
-            "effectue une attaque simple ! C'est raté !",
-            "effectue une attaque simple ! L'attaque échoue lamentablement !",
-            "effectue une mauvaise attaque simple ! Un manque cruel de technique pour le joueur français !",
-            "effectue une attaque simple ! Quelle erreur !",
-            "effectue une attaque simple ! C'était risqué et ça n'est pas passé !",
-            "lance une mauvaise attaque simple !",
-            "utilise une attaque simple ! Un choix peu judicieux !",
-            "choisit une attaque simple !  Mauvaise initiative."
-          ]
-        },
-        "powerful": {
-          "succeed": [
-            "effectue une attaque puissante ! Parfaitement réalisée ! `Vitesse réduite de 25 %`",
-            "effectue une attaque puissante ! Elle est magnifique ! `Vitesse réduite de 25 %`",
-            "effectue une superbe attaque puissante ! Parfaitement réalisée ! `Vitesse réduite de 25 %`",
-            "effectue une attaque puissante ! Incroyablement réussie ! `Vitesse réduite de 25 %`",
-            "effectue une attaque puissante ! C'était risqué mais ça passe ! `Vitesse réduite de 25 %`",
-            "lance une bonne attaque puissante ! `Vitesse réduite de 25 %`",
-            "utilise une attaque puissante ! Magistrale ! `Vitesse réduite de 25 %`",
-            "choisit une attaque puissante !  Très bonne initiative. `Vitesse réduite de 25 %`"
-          ],
-          "notGood": [
-            "effectue une attaque puissante ! Ça fonctionne mais c'était pas incroyable.  `Vitesse réduite de 25 %`",
-            "effectue une attaque puissante ! Mouais...  `Vitesse réduite de 25 %`",
-            "effectue une attaque puissante vraiment moyenne ! Pas ouf !  `Vitesse réduite de 25 %`",
-            "effectue une attaque puissante ! Ça n'est pas très efficace...  `Vitesse réduite de 25 %`",
-            "effectue une attaque puissante ! C'est pas très réussi.  `Vitesse réduite de 25 %`",
-            "lance une attaque puissante ! Médiocre  `Vitesse réduite de 25 %`",
-            "utilise une attaque puissante ! Faiblarde !  `Vitesse réduite de 25 %`",
-            "choisit une attaque puissante !  Le résultat est assez pitoyable.  `Vitesse réduite de 25 %`"
-          ],
-          "failed": [
-            "effectue une attaque puissante ! C'est raté ! `Vitesse réduite de 10 %`",
-            "effectue une attaque puissante ! L'attaque échoue lamentablement ! `Vitesse réduite de 10 %`",
-            "effectue une mauvaise attaque puissante ! Un manque cruel de technique pour le joueur français ! `Vitesse réduite de 10 %`",
-            "effectue une attaque puissante ! Quelle erreur ! `Vitesse réduite de 10 %`",
-            "effectue une attaque puissante ! C'était risqué et ça n'est pas passé ! `Vitesse réduite de 10 %`",
-            "lance une mauvaise attaque puissante ! `Vitesse réduite de 10 %`",
-            "utilise une attaque puissante ! Un choix peu judicieux ! `Vitesse réduite de 10 %`",
-            "choisit une attaque puissante !  Mauvaise initiative. `Vitesse réduite de 10 %`"
+            "effectue une {attack} ! C'est raté !",
+            "effectue une {attack} ! L'attaque échoue lamentablement !",
+            "effectue une mauvaise {attack} ! Un manque cruel de technique pour le joueur français !",
+            "effectue une {attack} ! Quelle erreur !",
+            "effectue une {attack} ! C'était risqué et ça n'est pas passé !",
+            "lance une mauvaise {attack} !",
+            "utilise une {attack} ! Un choix peu judicieux !",
+            "choisit une {attack} !  Mauvaise initiative"
           ]
         },
         "defense": "renforce sa défense ! `Défense + {defense}`",
+        "defenseEmote": ":rocket:",
         "speed": "augmente sa vitesse ! `Vitesse + {speed}`",
+        "speedEmote": ":rocket:",
         "damages": " `Dégâts infligés: {damages}`"
       }
     },
@@ -143,8 +123,10 @@
       "wantsToFightAnyone": ":crossed_swords: | {player} wants to fight ! To duel them, click the emote below !",
       "wantsToFightSomeone": ":crossed_swords: | {player} challenges {opponent} ! To accept or not, click the emote below !",
       "intro": ":crossed_swords: | **A fight has begun between {player1} and {player2} !**",
-      "turnIndications": ":crossed_swords: | **It's {pseudo} 's turn to play**\n\n:crossed_swords: - Use a basic attack\n:dagger: - Use a quick attack\n:bomb: - Use an powerful attack\n:shield: - Prepare to shield yourself\n:rocket: - Prepare to dodge",
+      "turnIndicationsTitle": "It's {pseudo} 's turn to play ⚔️",
+      "turnIndicationsDescription": "Choose an action",
       "summarize": {
+        "title": "Fight summarize",
         "intro": ":crossed_swords: | **Current battle state**\n\n",
         "attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
         "defender": ":crossed_swords: |** Defender : {pseudo}**\n",
@@ -155,126 +137,104 @@
         "win": ":newspaper: |** {winner} win the match against {loser}**\n\n:bar_chart: Skill level of the party: `{elo}`\n:medal: Points gained/lost: `{points}`"
       },
       "error": {
-        "spamCanceled": ":x: | Your fight has been cancelled. Thanks for not spamming reactions to ask for a fight.",
-        "noOneAvailable": ":x: | Sadly, no one wants to fight with you on this server. Your request has been cancelled.",
-        "opponentNotAvailable": ":x: | Sadly, this opponent is not available now. Your request has been cancelled.",
-        "fightHimself": ":x: | You can't fight yourself! Find another opponent.",
+        "spamCanceled": "Your fight has been cancelled. Thanks for not spamming reactions to ask for a fight.",
+        "noOneAvailable": "Sadly, no one wants to fight with you on this server. Your request has been cancelled.",
+        "opponentNotAvailable": "Sadly, this opponent is not available now. Your request has been cancelled.",
+        "fightHimself": "You can't fight yourself! Find another opponent.",
         "canceled": ":x: | Your battle request has been canceled.",
-        "onlyInitiator": ":x: | Only the fight initiator can cancel it!",
+        "onlyInitiator": "Only the fight initiator can cancel it!",
         "levelTooLow": {
-          "direct": ":x: | You must be **LVL {level}** to proceed to the fights! Come back later!",
-          "indirect": ":x: | Your opponent must be **LVL {level}** to proceed to the fights!"
+          "direct": "You must be **LVL {level}** to proceed to the fights! Come back later!",
+          "indirect": "Your opponent must be **LVL {level}** to proceed to the fights!"
         },
         "cantFightStatus": {
-          "direct": ":x: | You can fight with your current state! Please wait for then end of your alteration state!",
-          "indirect": ":x: | It seems that this person is currently not able to fight!"
+          "direct": "You can fight with your current state! Please wait for then end of your alteration state!",
+          "indirect": "It seems that this person is currently not able to fight!"
         },
         "occupied": {
-          "direct": ":x: | {pseudo}, you can't start a fight if you're occupied !",
-          "indirect": ":x: | This person is currently occupied !"
+          "direct": "{pseudo}, you can't start a fight if you're occupied !",
+          "indirect": "This person is currently occupied !"
         },
-        "defenderDoesntExist": ":x: | Asked player doesn't exist!"
+        "defenderDoesntExist": "Asked player doesn't exist!"
       },
       "actions": {
-        "intro": "**{player}** ",
-        "quick": {
-          "succeed": [
-            "makes a fast attack! Perfectly executed!",
-            "performs a fast attack! It's Awesome!",
-            "makes a beautiful fast attack! Perfectly executed!",
-            "makes a fast attack! Incredibly done!",
-            "performs a fast attack! It was risky but it worked!",
-            "launches a nice quick attack!",
-            "uses a masterful quick attack!",
-            "chose a fast attack! Really good initiative"
-          ],
-          "notGood": [
-            "performed a fast attack! It worked but it wasn't incredible.",
-            "uses a quick attack! Meh...",
-            "makes an unremarkable quick attack! Pretty bad!",
-            "uses a quick attack! It doesn't really have any effect...",
-            "performs a fast attack! It wasn't well done.",
-            "launches a quick attack! Pathetic",
-            "uses a quick attack! Weak!",
-            "opts for a quick attack! The results are pretty pitiful."
-          ],
-          "failed": [
-            "uses a quick attack! It fails!",
-            "uses a quick attack! It fails miserably!",
-            "makes a bad quick attack! A cruel lack of technique from that oaf of a player!",
-            "uses a quick attack! What a lack of judgement!",
-            "uses a quick attack! It was risky and didn't work!",
-            "launches a badly executed quick attack!",
-            "uses a quick attack! A pretty bad choice!",
-            "opts for a quick attack! Bad initiative"
-          ]
+        "intro": "{emote} | **{player}** ",
+        "charging": "charges an attack...",
+        "chargingEmote": ":zap:",
+        "attacks" : {
+          "quick": {
+            "name": "quick attack",
+            "emote": ":dagger:",
+            "end": {
+              "succeed": "",
+              "notGood": "",
+              "failed": ""
+            }
+          },
+          "simple": {
+            "name": "basic attack",
+            "emote": ":crossed_swords:",
+            "end": {
+              "succeed": "",
+              "notGood": "",
+              "failed": ""
+            }
+          },
+          "powerful": {
+            "name": "powerful attack",
+            "emote": ":axe:",
+            "end": {
+              "succeed": " `Speed reduced by 25 %`",
+              "notGood": " `Speed reduced by 25 %`",
+              "failed": " `Speed reduced by 10 %`"
+            }
+          },
+          "ultimate": {
+            "name": "supreme attack",
+            "emote": ":bomb:",
+            "end": {
+              "succeed": "",
+              "notGood": "",
+              "failed": ""
+            }
+          }
         },
-        "simple": {
+        "attacksResults": {
           "succeed": [
-            "uses a basic quick attack! Perfectly executed!",
-            "uses a basic attack! Magnificent!",
-            "uses a beautiful quick attack! Perfectly executed!",
-            "uses a basic attack! Incredibly well done!",
-            "performs a simple attack! It was risky but it worked!",
-            "launches a good simple attack!",
-            "uses a basic attack! Amazing!",
-            "chose a simple attack! Good initative"
+            "makes a {attack}! Perfectly executed!",
+            "performs a {attack}! It's Awesome!",
+            "makes a beautiful {attack}! Perfectly executed!",
+            "makes a {attack}! Incredibly done!",
+            "performs a {attack}! It was risky but it worked!",
+            "launches a nice {attack}!",
+            "uses a masterful {attack}!",
+            "chose a {attack}! Really good initiative"
           ],
           "notGood": [
-            "performs a simple attack! It works, but it could've been better.",
-            "performs a simple attack! Meh...",
-            "performs an unremarkable basic attack! Not very good!",
-            "performs a simple attack! It wasn't very effective...",
-            "performs a basic attack! Not well done.",
-            "launches a basic attack! Pitiful",
-            "lanches a quick attack! Weak!",
-            "opts for a basic attack! The results are rather pitiful."
+            "performed a {attack}! It worked but it wasn't incredible.",
+            "uses a {attack}! Meh...",
+            "makes an unremarkable {attack}! Pretty bad!",
+            "uses a {attack}! It doesn't really have any effect...",
+            "performs a {attack}! It wasn't well done.",
+            "launches a {attack}! Pathetic",
+            "uses a {attack}! Weak!",
+            "opts for a {attack}! The results are pretty pitiful."
           ],
           "failed": [
-            "uses a quick attack! It misses the mark!",
-            "uses a basic attack! It fails miserably!",
-            "performs a bad basic attack! A cruel lack of technique from the fighter!",
-            "uses a basic attack! What a mistake!",
-            "uses a basic attack! It was risky, and didn't pay off!",
-            "launches a bad basic attack!",
-            "uses a basic attack! A pretty bad choice!",
-            "chose a simple attack! Bad move."
-          ]
-        },
-        "powerful": {
-          "succeed": [
-            "performs an powerful attack! Perfectly executed! `Speed reduced by 25%`",
-            "performs an powerful attack! Magnificent! `Speed reduced by 25%",
-            "performs a great powerful attack! Perfectly executed! `Speed reduced by 25%`",
-            "performs an powerful attack! Incredibly well done! `Speed reduced by 25%`",
-            "performs an powerful attack! It was risky but worth it! `Speed reduced by 25%`",
-            "launches a great powerful attack! `Speed reduced  by 25%`",
-            "uses an powerful attack! How grand! `Speed reduced by 25%`",
-            "opts for an powerful attack! Really good initiative. `Speed reduced by 25%`"
-          ],
-          "notGood": [
-            "executes an powerful attack! It works, but wasn't great. `Speed reduced by 25%`",
-            "uses an powerful attack! Meh... `Speed reduced by 25%`",
-            "executes a really average powerful attack! Not that good! `Speed reduced by 25%`",
-            "executes an powerful attack! It doesn't really work... `Speed reduced by 25%`",
-            "executes an powerful attack! It wasn't that well done. `Speed reduced by 25%`",
-            "launches an powerful attack! Pitiful `Speed reduced by 25%`",
-            "is using an powerful attack! Weak! `Speed reduced by 25%`",
-            "chose an powerful attack!  The result is quite pathetic. `Speed reduced by 25%`"
-          ],
-          "failed": [
-            "makes an powerful attack! It's a failure! `Speed reduced by 10%`",
-            "makes an powerful attack! The attack failed miserably! `Speed reduced by 10%`",
-            "makes a bad powerful attack! A cruel lack of technique from our foolish fiend! `Speed reduced by 10%`",
-            "performs an powerful attack! What a mistake! `Speed reduced by 10%`",
-            "performs an powerful attack! It was risky and didn't succeed! `Speed reduced by 10%`",
-            "launches a bad powerful attack! `Speed reduced by 10%`",
-            "uses an powerful attack! Not that good of a choice! `Speed reduced by 10%`",
-            "opts for an powerful attack! Bad initiative. `Speed reduced by 10%`"
+            "uses a {attack}! It fails!",
+            "uses a {attack}! It fails miserably!",
+            "makes a bad {attack}! A cruel lack of technique from that oaf of a player!",
+            "uses a {attack}! What a lack of judgement!",
+            "uses a {attack}! It was risky and didn't work!",
+            "launches a badly executed {attack}!",
+            "uses a {attack}! A pretty bad choice!",
+            "opts for a {attack}! Bad initiative"
           ]
         },
         "defense": "buffs their defense ! `Defense + {defense}`",
+        "defenseEmote": ":shield:",
         "speed": "increased their speed! `Speed + {speed}`",
+        "speedEmote": ":rocket:",
         "damages": " `Damage dealt: {damages}`"
       }
     }

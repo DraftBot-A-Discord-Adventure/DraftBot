@@ -1,6 +1,13 @@
-module.exports = (sequelize, DataTypes) => {
-
-  const Entities = sequelize.define('entities', {
+/**
+ * @typedef {import('sequelize').Sequelize} Sequelize
+ * @typedef {import('sequelize/types')} DataTypes
+ *
+ * @param {Sequelize} Sequelize
+ * @param {DataTypes} DataTypes
+ * @returns
+ */
+module.exports = (Sequelize, DataTypes) => {
+  const Entities = Sequelize.define('entities', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -59,15 +66,17 @@ module.exports = (sequelize, DataTypes) => {
       where: {
         discordUser_id: discordUser_id,
       },
-      defaults: { Player: { Inventory: {} } },
-      include: [{
-        model: Players,
-        as: 'Player',
-        include: [{
-          model: Inventories,
-          as: 'Inventory'
-        }]
-      }],
+      defaults: {Player: {Inventory: {}}},
+      include: [
+        {
+          model: Players,
+          as: 'Player',
+          include: [
+            {
+              model: Inventories,
+              as: 'Inventory',
+            }],
+        }],
     });
   };
 
@@ -76,21 +85,22 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.getByGuild = (guildId) => {
     return Entities.findAll({
-      defaults: { Player: { Inventory: {} } },
-      include: [{
-        model: Players,
-        as: 'Player',
-        where: {
-          guild_id: guildId
-        },
-        include: [{
-          model: Inventories,
-          as: 'Inventory'
-        }]
-      }],
+      defaults: {Player: {Inventory: {}}},
+      include: [
+        {
+          model: Players,
+          as: 'Player',
+          where: {
+            guild_id: guildId,
+          },
+          include: [
+            {
+              model: Inventories,
+              as: 'Inventory',
+            }],
+        }],
     });
   };
-
 
   /**
    * @param {String} discordUser_id
@@ -142,9 +152,13 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.getByArgs = async (args, message) => {
     if (isNaN(args[0])) {
-      return Entities.getByDiscordUserId(message.mentions.users.last().id);
+      const lastMention = message.mentions.users.last();
+      if (lastMention === undefined) {
+        return null;
+      }
+      return Entities.getByDiscordUserId(lastMention.id);
     } else {
-      let [player] = await Players.getByRank(parseInt(args[0]));
+      const [player] = await Players.getByRank(parseInt(args[0]));
       return Entities.getById(player.entity_id);
     }
   };
@@ -159,7 +173,7 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.prototype.getCumulativeAttack = function(
       weapon, armor, potion, object) {
-    let attack = this.attack + weapon.getAttack() + armor.getAttack() +
+    const attack = this.attack + weapon.getAttack() + armor.getAttack() +
         potion.getAttack() + object.getAttack();
     return (attack > 0) ? attack : 0;
   };
@@ -174,7 +188,7 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.prototype.getCumulativeDefense = function(
       weapon, armor, potion, object) {
-    let defense = this.defense + weapon.getDefense() + armor.getDefense() +
+    const defense = this.defense + weapon.getDefense() + armor.getDefense() +
         potion.getDefense() + object.getDefense();
     return (defense > 0) ? defense : 0;
   };
@@ -189,7 +203,7 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.prototype.getCumulativeSpeed = function(
       weapon, armor, potion, object) {
-    let speed = this.speed + weapon.getSpeed() + armor.getSpeed() +
+    const speed = this.speed + weapon.getSpeed() + armor.getSpeed() +
         potion.getSpeed() + object.getSpeed();
     return (speed > 0) ? speed : 0;
   };
@@ -199,7 +213,7 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getCumulativeHealth = function (player) {
+  Entities.prototype.getCumulativeHealth = function(player) {
     return this.health + (player.level * 10);
   };
 
@@ -207,7 +221,7 @@ module.exports = (sequelize, DataTypes) => {
    * @param {module:"discord.js".Message} message
    * @return {Boolean|String}
    */
-  Entities.prototype.checkEffect = function () {
+  Entities.prototype.checkEffect = function() {
     if ([EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1) {
       return true;
     }
@@ -249,12 +263,12 @@ module.exports = (sequelize, DataTypes) => {
     // message.channel.send(Text.entity.killPublicIntro + message.author.username + Text.entity.killPublicMessage)
     // message.author.send(Text.entity.killMessage)
   };
-  
+
   /**
-   * @returns {String}
+   * @return {String}
    */
   Entities.prototype.getMention = function() {
-    return "<@" + this.discordUser_id + ">";
+    return '<@' + this.discordUser_id + '>';
   };
 
   return Entities;

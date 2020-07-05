@@ -1,7 +1,9 @@
 const fs = require('fs');
 
+/**
+ * @class
+ */
 class Command {
-
   /**
    * @return {Promise<void>}
    */
@@ -9,19 +11,22 @@ class Command {
     Command.commands = new Map();
     Command.players = JsonReader.app.BLACKLIST_IDS.split('-');
 
-    const folders = ['src/commands/admin', 'src/commands/guild', 'src/commands/player'];
+    const folders = [
+      'src/commands/admin',
+      'src/commands/guild',
+      'src/commands/player'];
     for (let folder of folders) {
-      let commandsFiles = await fs.promises.readdir(folder);
+      const commandsFiles = await fs.promises.readdir(folder);
       for (const commandFile of commandsFiles) {
         if (!commandFile.endsWith('.js')) continue;
         folder = folder.replace('src/', '');
-        let commandName = commandFile.split('.')[0];
-        let commandKeys = Object.keys(require(`${folder}/${commandName}`));
+        const commandName = commandFile.split('.')[0];
+        const commandKeys = Object.keys(require(`${folder}/${commandName}`));
 
         for (const commandKey of commandKeys) {
           await Command.commands.set(
-            commandKey,
-            require(`${folder}/${commandName}`)[commandKey],
+              commandKey,
+              require(`${folder}/${commandName}`)[commandKey],
           );
         }
       }
@@ -40,7 +45,7 @@ class Command {
    * @param {String} id
    */
   static hasBlockedPlayer(id) {
-    return Command.players.includes(id);
+    return Object.keys(Command.players).includes(id);
   }
 
   /**
@@ -63,9 +68,7 @@ class Command {
    * @param {String} id
    */
   static removeBlockedPlayer(id) {
-    const index = Command.players.indexOf(id);
-    if (index > -1)
-      Command.players.splice(index, 1);
+    delete Command.players[id];
   }
 
   /**
@@ -73,17 +76,18 @@ class Command {
    * @param {module:"discord.js".Message} message - Message from the discord server
    */
   static async handleMessage(message) {
-    let [server] = await Servers.findOrCreate({
+    const [server] = await Servers.findOrCreate({
       where: {
-        discordGuild_id: message.guild.id
-      }
+        discordGuild_id: message.guild.id,
+      },
     });
 
     if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
-
-      if (message.author.id !== JsonReader.app.BOT_OWNER_ID && JsonReader.app.MODE_MAINTENANCE)
-        return message.channel.send(JsonReader.bot.getTranslation(server.language).maitenance);
-
+      if (message.author.id !== JsonReader.app.BOT_OWNER_ID &&
+          JsonReader.app.MODE_MAINTENANCE) {
+        return message.channel.send(
+            JsonReader.bot.getTranslation(server.language).maintenance);
+      }
 
       // TODO 2.0
       // const diffMinutes = getMinutesBeforeReset();
@@ -94,8 +98,12 @@ class Command {
 
       await Command.launchCommand(server.language, server.prefix, message);
     } else {
-      if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) === JsonReader.app.BOT_OWNER_PREFIX && message.author.id === JsonReader.app.BOT_OWNER_ID)
-        await Command.launchCommand(server.language, JsonReader.app.BOT_OWNER_PREFIX, message);
+      if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) ===
+          JsonReader.app.BOT_OWNER_PREFIX && message.author.id ===
+          JsonReader.app.BOT_OWNER_ID) {
+        await Command.launchCommand(server.language,
+            JsonReader.app.BOT_OWNER_PREFIX, message);
+      }
     }
   }
 
@@ -104,7 +112,8 @@ class Command {
    * @param {module:"discord.js".Message} message - Message from the discord user
    */
   static async handlePrivateMessage(message) {
-    await Command.sendSupportMessage(message, Command.hasBlockedPlayer(message.author.id));
+    await Command.sendSupportMessage(message,
+        Command.hasBlockedPlayer(message.author.id));
   }
 
   /**
@@ -115,21 +124,29 @@ class Command {
   static async sendSupportMessage(message, isBlacklisted = false) {
     if (message.content === '') return;
     const mainServer = client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
-    const supportChannel = mainServer.channels.cache.get(JsonReader.app.SUPPORT_CHANNEL_ID);
-    const trashChannel = mainServer.channels.cache.get(JsonReader.app.TRASH_DM_CHANNEL_ID);
+    const supportChannel = mainServer.channels.cache.get(
+        JsonReader.app.SUPPORT_CHANNEL_ID);
+    const trashChannel = mainServer.channels.cache.get(
+        JsonReader.app.TRASH_DM_CHANNEL_ID);
     const channel = isBlacklisted ? trashChannel : supportChannel;
     const language = message.author.locale === 'fr' ? 'fr' : 'en';
 
     const sentence = format(JsonReader.bot.dm.supportAlert, {
-      roleMention: isBlacklisted ? '' : idToMention(JsonReader.app.SUPPORT_ROLE),
+      roleMention: isBlacklisted ? '' : idToMention(
+          JsonReader.app.SUPPORT_ROLE),
       username: message.author.username,
       id: message.author.id,
-      isBlacklisted: isBlacklisted ? JsonReader.bot.dm.blacklisted : ''
+      isBlacklisted: isBlacklisted ? JsonReader.bot.dm.blacklisted : '',
     });
-    
-    channel.send(message.author.id).catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
-    channel.send(sentence + message.content).catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
-    if (message.attachments.size > 0) await sendMessageAttachments(message, channel);
+
+    channel.send(message.author.id)
+        .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
+    channel.send(sentence + message.content)
+        .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
+    if (message.attachments.size > 0) {
+      await sendMessageAttachments(message,
+          channel);
+    }
   }
 
   /**
@@ -149,27 +166,25 @@ class Command {
    * @param {('fr'|'en')} language - The language for the current server
    */
   static async launchCommand(language, prefix, message) {
-    let args = message.content.slice(prefix.length).trim().split(/ +/g);
-    let command = args.shift().toLowerCase();
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
 
     if (Command.commands.has(command)) {
       if (!message.channel.permissionsFor(client.user)
-        .serialize().SEND_MESSAGES ||
-        !message.channel.permissionsFor(client.user)
-        .serialize().EMBED_LINKS ||
-        !message.channel.permissionsFor(client.user)
-        .serialize().ADD_REACTIONS ||
-        !message.channel.permissionsFor(client.user)
-        .serialize().USE_EXTERNAL_EMOJIS) {
-
-        await message.author.send(JsonReader.bot.getTranslation(language).noSpeakPermission);
-
+          .serialize().SEND_MESSAGES ||
+          !message.channel.permissionsFor(client.user)
+              .serialize().EMBED_LINKS ||
+          !message.channel.permissionsFor(client.user)
+              .serialize().ADD_REACTIONS ||
+          !message.channel.permissionsFor(client.user)
+              .serialize().USE_EXTERNAL_EMOJIS) {
+        await message.author.send(
+            JsonReader.bot.getTranslation(language).noSpeakPermission);
       } else {
         await Command.commands.get(command)(language, message, args);
       }
     }
   }
-
 }
 
 // /**
@@ -208,6 +223,9 @@ class Command {
 //     return diffMinutes;
 // }
 
+/**
+ * @type {{init: Command.init}}
+ */
 module.exports = {
   init: Command.init,
 };

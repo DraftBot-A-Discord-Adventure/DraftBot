@@ -5,7 +5,6 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SendDataCommand = async (language, message, args) => {
-
   if ((await canPerformCommand(message, language,
       PERMISSION.ROLE.BOTOWNER)) !== true) {
     return;
@@ -13,11 +12,10 @@ const SendDataCommand = async (language, message, args) => {
 
   await message.channel.send({
     files: [{
-        attachment: 'database/database.sqlite',
-        name: 'database.sqlite',
-      }],
+      attachment: 'database/database.sqlite',
+      name: 'database.sqlite',
+    }],
   });
-
 };
 
 module.exports = {

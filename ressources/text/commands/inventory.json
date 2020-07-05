@@ -1,10 +1,17 @@
 {
 	"translations": {
 		"fr": {
-			"title": ":briefcase: **Inventaire de {pseudo}**"
+			"title": ":briefcase: **Inventaire de {pseudo}**",
+			"randomItemTitle" : "{pseudo}, vous avez trouvé quelque chose !",
+			"randomItemFooter" : "Souhaitez vous remplacer le contenu de votre inventaire ?",
+			"randomItemDesc" : "{actualItem}",
+			"acceptedTitle" : "{pseudo}, vous avez reçu un objet !"
 		},
 		"en": {
-			"title": ":briefcase: **{pseudo}'s inventory**"
+			"title": ":briefcase: **{pseudo}'s inventory**",
+			"randomItemTitle" : "{pseudo}, you just found something!",
+			"randomItemFooter" : "Do you want it to replace the item in your inventory?",
+			"randomItemDesc" : "{actualItem}"
 		}
 	}
 }

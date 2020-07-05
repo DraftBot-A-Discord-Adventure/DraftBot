@@ -1,5 +1,10 @@
+/**
+ * @class
+ */
 class DraftBot {
-
+  /**
+   * @return {Promise<DraftBot>}
+   */
   static async init() {
     await (require('core/JsonReader')).init({
       folders: ['ressources/text/commands', 'ressources/text/models'],
@@ -48,12 +53,19 @@ class DraftBot {
   //         'Ignore this message if you don\'t have the key to decrypt the file.');
   //   }
   // }
-
 }
 
+/**
+ * @type {{init: (function(): DraftBot)}}
+ */
 module.exports = {
-  init: DraftBot.init
+  init: DraftBot.init,
 };
-
+/**
+ * @type {module:"discord.js"}
+ */
 global.discord = (require('discord.js'));
+/**
+ * @type {module:"discord.js".Client}
+ */
 global.client = new (require('discord.js')).Client();
