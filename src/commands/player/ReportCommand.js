@@ -4,9 +4,8 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ReportCommand = async function (language, message, args) {
-
-  let [entity] = await Entities.getOrRegister(message.author.id);
+const ReportCommand = async function(language, message, args) {
+  const [entity] = await Entities.getOrRegister(message.author.id);
 
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
     return;
@@ -19,7 +18,7 @@ const ReportCommand = async function (language, message, args) {
 
   if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
     // TODO add player to blocked
-    let event = await Events.findOne({ where: { id: 0 } });
+    const event = await Events.findOne({where: {id: 0}});
     return await doEvent(message, language, event, entity, time);
   }
 
@@ -35,7 +34,7 @@ const ReportCommand = async function (language, message, args) {
   //   return;
   // }
 
-  let event = await Events.findOne({ order: (require('sequelize')).literal('RANDOM()') });
+  const event = await Events.findOne({order: (require('sequelize')).literal('RANDOM()')});
   return await doEvent(message, language, event, entity, time);
 };
 
@@ -48,21 +47,21 @@ const ReportCommand = async function (language, message, args) {
  * @return {Promise<void>}
  */
 const doEvent = async (message, language, event, entity, time) => {
-  const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, { pseudo: message.author.username, event: event[language] }));
+  const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {pseudo: message.author.username, event: event[language]}));
   const reactions = await event.getReactions();
   const collector = eventDisplayed.createReactionCollector(async (reaction, user) => {
     return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);
-  }, { time: 120000 });
+  }, {time: 120000});
 
   collector.on('collect', async (reaction) => {
     collector.stop();
-    let possibility = await Possibilities.findAll({ where: { event_id: event.id, possibilityKey: reaction.emoji.name } });
+    const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: reaction.emoji.name}});
     await doPossibility(message, language, possibility, entity, time);
   });
 
   collector.on('end', async (collected) => {
     if (!collected.first()) {
-      let possibility = await Possibilities.findAll({ where: { event_id: event.id, possibilityKey: 'end' } });
+      const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: 'end'}});
       await doPossibility(message, language, possibility, entity, time);
     }
   });
@@ -80,29 +79,29 @@ const doEvent = async (message, language, event, entity, time) => {
  * @return {Promise<Message>}
  */
 const doPossibility = async (message, language, possibility, entity, time) => {
-  let player = entity.Player;
-  let scoreChange = time + Math.round(Math.random() * (time / 10 + player.level));
+  const player = entity.Player;
+  const scoreChange = time + Math.round(Math.random() * (time / 10 + player.level));
   let moneyChange = possibility.money + Math.round(time / 10 + Math.round(Math.random() * (time / 10 + player.level / 5)));
   if (possibility.money < 0 && moneyChange > 0) {
     moneyChange = Math.round(possibility.money / 2);
   }
 
   let result = '';
-  result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, { money: moneyChange }) : result += format(JsonReader.commands.report.getTranslation(language).moneyLoose, { money: moneyChange });
+  result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : result += format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: moneyChange});
   if (possibility.experience > 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).experience, { experience: possibility.experience });
+    result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: possibility.experience});
   }
   if (possibility.health < 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).health, { health: possibility.health });
+    result += format(JsonReader.commands.report.getTranslation(language).health, {health: possibility.health});
   }
   if (possibility.health > 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).healthLoose, { health: possibility.health });
+    result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: possibility.health});
   }
   // TODO Mettre le temps + le temps de l'effet
   if (possibility.lostTime > 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).timeLost, { timeLost: possibility.lostTime });
+    result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: possibility.lostTime});
   }
-  result = format(JsonReader.commands.report.getTranslation(language).doPossibility, { pseudo: message.author, result: result, event: possibility[language] });
+  result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {pseudo: message.author, result: result, event: possibility[language]});
 
   entity.effect = possibility.effect;
   entity.addHealth(possibility.health);

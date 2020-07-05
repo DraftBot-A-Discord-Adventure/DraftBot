@@ -5,8 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const RespawnCommand = async (language, message, args) => {
-
-  let [entity] = await Entities.getOrRegister(message.author.id);
+  const [entity] = await Entities.getOrRegister(message.author.id);
 
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
     return;
@@ -24,8 +23,8 @@ const RespawnCommand = async (language, message, args) => {
     entity.Player.addWeeklyScore(-lostScore);
 
     await Promise.all([
-       entity.save(),
-       entity.Player.save()
+      entity.save(),
+      entity.Player.save(),
     ]);
 
     await message.channel.send(format(JsonReader.commands.respawn.getTranslation(language).respawn, {pseudo: message.author.username, lostScore: lostScore}));

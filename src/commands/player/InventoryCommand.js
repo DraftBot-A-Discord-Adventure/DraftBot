@@ -16,13 +16,13 @@ const InventoryCommand = async (language, message, args) => {
     return;
   }
 
-  let inventoryEmbed = await entity.Player.Inventory.toEmbedObject(language);
+  const inventoryEmbed = await entity.Player.Inventory.toEmbedObject(language);
   return await message.channel.send(
       new discord.MessageEmbed()
           .setColor(JsonReader.bot.embed.default)
           .setTitle(format(JsonReader.commands.inventory.getTranslation(language).title, {pseudo: await entity.Player.getPseudo(language)}))
-          .addFields(inventoryEmbed)
-    );
+          .addFields(inventoryEmbed),
+  );
 };
 
 module.exports = {

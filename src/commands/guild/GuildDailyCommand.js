@@ -5,143 +5,140 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const GuildDailyCommand = async (language, message, args) => {
+  let entity; let guild;
+  const embed = new discord.MessageEmbed();
 
+  [entity] = await Entities.getOrRegister(message.author.id);
 
-    let entity, guild;
-    let embed = new discord.MessageEmbed();
+  // search for a user's guild
+  try {
+    guild = await Guilds.getById(entity.Player.guild_id);
+  } catch (error) {
+    guild = null;
+  }
 
-    [entity] = await Entities.getOrRegister(message.author.id);
+  if (guild === null) { // not in a guild
+    return sendErrorMessage(
+        message.author,
+        message.channel,
+        language,
+        JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
+  }
 
-    // search for a user's guild
-    try {
-        guild = await Guilds.getById(entity.Player.guild_id);
-    } catch (error) {
-        guild = null;
-    }
+  // if (message.createdTimestamp - guild.lastInvocation < 79200000) {
+  //     message.channel.send(generateTooQuickException(message.author, 79200000 - message.createdTimestamp + guild.lastInvocation));
+  //     return;
+  // }
+  // updateLastInvocation(guild, message);
 
-    if (guild === null) { // not in a guild
-        return sendErrorMessage(
-            message.author,
-            message.channel,
-            language,
-            JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
-    }
+  const members = await Entities.getByGuild(guild.id);
+  let rewardType = generateRandomProperty(guild);
 
-    // if (message.createdTimestamp - guild.lastInvocation < 79200000) {
-    //     message.channel.send(generateTooQuickException(message.author, 79200000 - message.createdTimestamp + guild.lastInvocation));
-    //     return;
-    // }
-    // updateLastInvocation(guild, message);
+  embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
+    guildName: guild.name,
+  }));
 
-    let members = await Entities.getByGuild(guild.id);
-    let rewardType = generateRandomProperty(guild);
-
-    embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
-        guildName: guild.name
+  if (rewardType === REWARD_TYPES.PERSONNAL_XP) {
+    const xpGuildWon = randInt(
+        JsonReader.commands.guildDaily.minimalXp + guild.level,
+        JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
+    // TODO : give xp to players
+    embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).personalXP, {
+      xp: xpGuildWon,
     }));
+  }
 
-    if (rewardType === REWARD_TYPES.PERSONNAL_XP) {
-        let xpGuildWon = randInt(
-            JsonReader.commands.guildDaily.minimalXp + guild.level,
-            JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
-        //TODO : give xp to players
-        embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).personalXP, {
-            xp: xpGuildWon
-        }));
+  if (rewardType === REWARD_TYPES.GUILD_XP) {
+    const xpGuildWon = randInt(
+        JsonReader.commands.guildDaily.minimalXp + guild.level,
+        JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
+    // TODO : give guildxp
+    embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).guildXP, {
+      xp: xpGuildWon,
+    }));
+  }
+
+  if (rewardType === REWARD_TYPES.MONEY) {
+    const moneyWon = randInt(
+        JsonReader.commands.guildDaily.minimalMoney + guild.level,
+        JsonReader.commands.guildDaily.maximalMoney + guild.level * 4);
+    // TODO : give money
+    embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).money, {
+      money: moneyWon,
+    }));
+  }
+
+  if (rewardType === REWARD_TYPES.RANDOM_ITEM) {
+    // TODO remove this reward and replace with a fixed 400 gold reward
+    embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).randomItem, {
+      money: moneyWon,
+    }));
+  }
+
+  if (rewardType === REWARD_TYPES.BADGE) {
+    let membersThatOwnTheBadge = 0;
+    for (const i in members) {
+      if (members[i].Player.badges.includes('💎')) {
+        membersThatOwnTheBadge++;
+      } else {
+        members[i].Player.addBadge('💎');
+      }
+      await members[i].Player.save();
     }
-
-    if (rewardType === REWARD_TYPES.GUILD_XP) {
-        let xpGuildWon = randInt(
-            JsonReader.commands.guildDaily.minimalXp + guild.level,
-            JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
-        //TODO : give guildxp
-        embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).guildXP, {
-            xp: xpGuildWon
-        }));
+    if (membersThatOwnTheBadge != members.length) {
+      embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).badge);
+    } else {
+      // everybody already have the badge, give something else instead
+      rewardType = REWARD_TYPES.PARTIAL_HEAL;
     }
+  }
 
-    if (rewardType === REWARD_TYPES.MONEY) {
-        let moneyWon = randInt(
-            JsonReader.commands.guildDaily.minimalMoney + guild.level,
-            JsonReader.commands.guildDaily.maximalMoney + guild.level * 4);
-        //TODO : give money
-        embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).money, {
-            money: moneyWon
-        }));
+  if (rewardType === REWARD_TYPES.FULL_HEAL) {
+    for (const i in members) {
+      if (members[i].effect != EFFECT.DEAD) {
+        members[i].addHealth(members[i].maxHealth);
+      }
+      await members[i].save();
     }
+    embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).fullHeal);
+  }
 
-    if (rewardType === REWARD_TYPES.RANDOM_ITEM) {
-        //TODO remove this reward and replace with a fixed 400 gold reward
-        embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).randomItem, {
-            money: moneyWon
-        }));
+  if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
+    for (const i in members) {
+      if (members[i].effect != EFFECT.DEAD) {
+        members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
+      }
+      await members[i].save();
     }
+    embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).partialHeal, {
+      healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer),
+    }));
+  }
 
-    if (rewardType === REWARD_TYPES.BADGE) {
-        let membersThatOwnTheBadge = 0;
-        for (let i in members) {
-            if (members[i].Player.badges.includes("💎")) {
-                membersThatOwnTheBadge++;
-            } else {
-                members[i].Player.addBadge("💎");
-            }
-            await members[i].Player.save();
-        }
-        if (membersThatOwnTheBadge != members.length) {
-            embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).badge);
-        } else {
-            //everybody already have the badge, give something else instead
-            rewardType = REWARD_TYPES.PARTIAL_HEAL;
-        }
+  if (rewardType === REWARD_TYPES.ALTERATION) {
+    for (const i in members) {
+      if (members[i].effect != EFFECT.SMILEY) {
+        members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
+      }
+      if (members[i].effect != EFFECT.DEAD && members[i].effect != EFFECT.LOCKED) {
+        members[i].effect = EFFECT.SMILEY;
+        // TODO: update last seen
+      }
+      await members[i].save();
     }
+    embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).alterationHeal, {
+      healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer),
+    }));
+  }
 
-    if (rewardType === REWARD_TYPES.FULL_HEAL) {
-        for (let i in members) {
-            if (members[i].effect != EFFECT.DEAD) {
-                members[i].addHealth(members[i].maxHealth);
-            }
-            await members[i].save();
-        }
-        embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).fullHeal);
-    }
-
-    if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
-        for (let i in members) {
-            if (members[i].effect != EFFECT.DEAD) {
-                members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
-            }
-            await members[i].save();
-        }
-        embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).partialHeal, {
-            healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer)
-        }));
-    }
-
-    if (rewardType === REWARD_TYPES.ALTERATION) {
-        for (let i in members) {
-            if (members[i].effect != EFFECT.SMILEY) {
-                members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
-            }
-            if (members[i].effect != EFFECT.DEAD && members[i].effect != EFFECT.LOCKED) {
-                members[i].effect = EFFECT.SMILEY;
-                //TODO: update last seen
-
-            }
-            await members[i].save();
-        }
-        embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).alterationHeal, {
-            healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer)
-        }));
-    }
-
-    message.channel.send(embed);
-    return;
+  message.channel.send(embed);
+  return;
 };
 
 module.exports = {
-    "guilddaily": GuildDailyCommand,
-    "gdaily": GuildDailyCommand,
-    "gd": GuildDailyCommand
+  'guilddaily': GuildDailyCommand,
+  'gdaily': GuildDailyCommand,
+  'gd': GuildDailyCommand,
 };
 
 
@@ -151,20 +148,19 @@ module.exports = {
  * @param {*} message
  */
 function updateLastInvocation(guild, message) {
-    guild.lastInvocation = message.createdTimestamp;
+  guild.lastInvocation = message.createdTimestamp;
 }
 
 function generateRandomProperty(guild) {
-    let resultNumber = randInt(0, 1000);
-    let rewardLevel = Math.floor(guild.level / 10);
-    let recompenses = JsonReader.commands.guildDaily.guildChances[rewardLevel];
-    for (const property in recompenses) {
-        if (recompenses[property] < resultNumber) {
-            resultNumber -= recompenses[property];
-        }
-        else {
-            return property;
-        }
+  let resultNumber = randInt(0, 1000);
+  const rewardLevel = Math.floor(guild.level / 10);
+  const recompenses = JsonReader.commands.guildDaily.guildChances[rewardLevel];
+  for (const property in recompenses) {
+    if (recompenses[property] < resultNumber) {
+      resultNumber -= recompenses[property];
+    } else {
+      return property;
     }
+  }
 }
 

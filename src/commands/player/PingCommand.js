@@ -6,7 +6,7 @@
  */
 const PingCommand = async function(language, message, args) {
   message.channel.send(JsonReader.commands.ping.getTranslation(language).create)
-      .then(msg => {
+      .then((msg) => {
         msg.edit(format(JsonReader.commands.ping.getTranslation(language).edit,
             {timeElasped: (msg.createdTimestamp - message.createdTimestamp)}));
       });
