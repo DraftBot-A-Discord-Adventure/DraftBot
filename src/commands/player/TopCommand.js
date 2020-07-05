@@ -1,3 +1,4 @@
+const moment = require('moment');
 /**
  * Allow to display the rankings of the players
  * @param {("fr"|"en")} language - Language to use in the response
@@ -5,13 +6,10 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
+ //TODO
+ // handle when score is equal
 const topCommand = async function (language, message, args) {
-      let entity;
-      try {
-        entity = await Entities.getByArgs(args, message);
-      } catch (error) {
-        [entity] = await Entities.getOrRegister(message.author.id);
-      }
+      const [entity] = await Entities.getOrRegister(message.author.id);
       // if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
       //     [EFFECT.BABY], entity)) !== true) {
       //   return;
@@ -19,20 +17,22 @@ const topCommand = async function (language, message, args) {
       let badge;
       let badgeState;
       let pseudo;
-
+      let rankCurrentPlayer;
       //embed message
       let embedError = new discord.MessageEmbed();
       let embed = new discord.MessageEmbed();
       
       //Command sender username
-      let actualPlayer = message.author.username;
+      const actualPlayer = message.author.username;
 
 
       //top of the serv
       if (args[0] == "serv") {
-        //rank of the user
-        let rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].rank;
-
+        if(entity.Player.score<100){
+          embedError.setColor(JsonReader.bot.embed.default)
+          .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).lowScore, {pseudo: actualPlayer}));
+          return await message.channel.send(embedError);
+        }
         //get all discordID on the server and get the entities order DESC on score
         let listId = Array.from((await message.guild.members.fetch()).keys())
         let allEntities = await Entities.findAll({
@@ -53,14 +53,17 @@ const topCommand = async function (language, message, args) {
                 },
               },
           }],
-          
           order: [
             [{ model: Players, as: 'Player' }, 'score', 'DESC']
           ],
         });
-        
+        for(let i=0; i<allEntities.length;i++){
+          if(message.author.id==allEntities[i].discordUser_id){
+            rankCurrentPlayer=i+1;
+          }
+        }
         //Get the number of player and define the number of page
-        let numberOfPlayer = (await message.guild.members.fetch()).size;
+        let numberOfPlayer = allEntities.length;
         let pageMax = Math.ceil(allEntities.length / 15);
         if(pageMax<1)
           pageMax=1;
@@ -69,7 +72,8 @@ const topCommand = async function (language, message, args) {
           page = 1;
         if(page > pageMax || page < 1){
           embedError.setColor(JsonReader.bot.embed.default)
-          .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPage, {pseudo: actualPlayer, pageMax:pageMax}));
+          .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {pseudo: actualPlayer, pageMax:pageMax}))
+          .setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPageDesc, {pageMax:pageMax}));
           return await message.channel.send(embedError);
         }
         let fin = page * 15;
@@ -79,48 +83,69 @@ const topCommand = async function (language, message, args) {
         embed.setColor(JsonReader.bot.embed.default)
         .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).server, {debut: debut, fin:fin}));
         //Build a string with 15 players informations
-        for(let k=allEntities.length; k>=debut; k--){
-          //pseudo of the current player being add to the string
-          pseudo = (await client.users.fetch(allEntities[k-1].discordUser_id)).username;
+        for(let k=debut; k<=fin; k++){
+          if(k-1<allEntities.length){
+            //pseudo of the current player being add to the string
+            pseudo = (await client.users.fetch(allEntities[k-1].discordUser_id)).username;
 
-          //badge depending on the rank
-          if(k==allEntities.length){badge = ":first_place:";}
-          else if(k==allEntities.length-1){badge = ":second_place:";}
-          else if(k==allEntities.length-2){badge = ":third_place:";}
-          else if(k < allEntities.length-2 && k>= allEntities.length-4){badge = ":military_medal:";}
-          if (message.author.id == allEntities[k-1].discordUser_id) {badge = ":white_circle:";}
-          if (k<allEntities.length-4){badge = ":black_circle:";}
-
-          //badgeState depending on last report
-          if(((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))<3600000) || allEntities[k-1].Player.lastReportAt==null){badgeState=allEntities[k-1].effect}
-          if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>3600000){
-            if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>1296000000){
-              badgeState=":ghost:"
+            //badge depending on the rank
+            if(k==1){badge = JsonReader.commands.topCommand.first;}
+            else if(k==2){badge = JsonReader.commands.topCommand.second;}
+            else if(k==3){badge = JsonReader.commands.topCommand.third;}
+            else if(k > 3 && k<= 5){badge = JsonReader.commands.topCommand.military;}
+            else if (k>5){
+              if(message.guild.members.cache.find(val => val.id === allEntities[k-1].discordUser_id) != null) {badge = JsonReader.commands.topCommand.blue;}
+              else {badge = JsonReader.commands.topCommand.black;}
             }
-            else{badgeState=":newspaper2:"}
+            if (message.author.id == allEntities[k-1].discordUser_id) {badge = JsonReader.commands.topCommand.white;}
+            
+            //badgeState depending on last report
+            // const nowMoment = new moment(new Date());
+            // const lastReport = new moment(allEntities[k-1].Player.lastReportAt);
+            // const diffMinutes = lastReport.diff(nowMoment, 'millisecondes');
+            if(((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))<JsonReader.commands.topCommand.oneHour) || allEntities[k-1].Player.lastReportAt==null){badgeState=allEntities[k-1].effect}
+            if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>JsonReader.commands.topCommand.oneHour){
+              if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>JsonReader.commands.topCommand.fifth10days){
+                badgeState=":ghost:"
+              }
+              else{badgeState=":newspaper2:"}
+            }
+            messages +=badge+" "+k+" **"+pseudo+"** | "+badgeState+" | `"+allEntities[k-1].Player.score+"` | `Niveau "+allEntities[k-1].Player.level+"`\n";
+            embed.setDescription(messages);
           }
-          messages +=badge+" "+(allEntities.length-k+1)+" **"+pseudo+"** | "+badgeState+" | `"+allEntities[k-1].Player.score+"` | `"+allEntities[k-1].Player.level+"`\n";
-          embed.setDescription(messages);
         };
-
         //Define badge for the user
         if(rankCurrentPlayer==1){badge = ":first_place:";}
         else if(rankCurrentPlayer==2){badge = ":second_place:";}
         else if(rankCurrentPlayer==3){badge = ":third_place:";}
         else if(rankCurrentPlayer > 3 && rankCurrentPlayer<= 5){badge = ":military_medal:";}
-        else {badge = ":black_circle:";}
+        else if (message.author.id == message.author.id) {badge = ":black_circle:";}
 
         //test if user is in the current page displayed to indicate(or not) the page where he can find himself
-        if(rankCurrentPlayer > fin || rankCurrentPlayer < debut){
-          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end1, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : allEntities.length, page:Math.ceil(rankCurrentPlayer/15)}));
+        if((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer!=1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end1, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer, page:Math.ceil(rankCurrentPlayer/15), pageMax : pageMax}));
         }
-        embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end2, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : allEntities.length}));
+        else if((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer==1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end1Top, {pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer, page:Math.ceil(rankCurrentPlayer/15), pageMax : pageMax}));
+        }
+        else if((rankCurrentPlayer <= fin || rankCurrentPlayer >= debut) && rankCurrentPlayer!=1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end2, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer}));
+        }
+        else if((rankCurrentPlayer <= fin || rankCurrentPlayer >= debut) && rankCurrentPlayer==1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end2Top, {pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer}));
+        }
+        
         return await message.channel.send(embed);
       }
 
 
       //top general of the week
       else if (args[0] == "week") {
+        if(entity.Player.weeklyScore<100){
+          embedError.setColor(JsonReader.bot.embed.default)
+          .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).lowScore, {pseudo: actualPlayer}));
+          return await message.channel.send(embedError);
+        }
         //rank of the user
         let rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].weeklyRank;
         let numberOfPlayer = await Players.count({
@@ -144,7 +169,10 @@ const topCommand = async function (language, message, args) {
                   [(require('sequelize/lib/operators')).gt]: 100,
                 },
               },
-          }]
+          }],
+          order: [
+            [{ model: Players, as: 'Player' }, 'weeklyScore', 'DESC']
+          ],
         });
         let pageMax = Math.ceil(numberOfPlayer / 15);
         if(pageMax<1)
@@ -154,7 +182,8 @@ const topCommand = async function (language, message, args) {
           page = 1;
         if(page > pageMax || page < 1){
           embedError.setColor(JsonReader.bot.embed.default)
-          .setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPage, {pseudo: actualPlayer, pageMax : pageMax}));
+          .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {pseudo: actualPlayer, pageMax:pageMax}))
+          .setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPageDesc, {pageMax:pageMax}));
           return await message.channel.send(embedError);
         }
         let fin = page * 15;
@@ -162,45 +191,58 @@ const topCommand = async function (language, message, args) {
         let messages=""
         embed.setColor(JsonReader.bot.embed.default)
         .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).generalWeek, {    debut: debut, fin:  fin }));
-        for(let k=numberOfPlayer; k>=debut; k--){
-          //pseudo of the current player being add to the string
-          pseudo = (await client.users.fetch(allEntities[k-1].discordUser_id)).username;
+        for(let k=debut; k<=fin; k++){
+          if(k-1<allEntities.length){
+            //pseudo of the current player being add to the string
+            pseudo = (await client.users.fetch(allEntities[k-1].discordUser_id)).username;
 
-          //badge depending on the rank
-          if(k==numberOfPlayer){badge = ":first_place:";}
-          else if(k==numberOfPlayer-1){badge = ":second_place:";}
-          else if(k==numberOfPlayer-2){badge = ":third_place:";}
-          else if(k < numberOfPlayer-2 && k>= numberOfPlayer-4){badge = ":military_medal:";}
-          if (message.author.id == allEntities[k-1].discordUser_id) {badge = ":white_circle:";}
-          if (k<numberOfPlayer-4){
-            if(message.guild.members.find(val => val.id === allEntities[k].discordUser_id) != null) {badge = ":blue_circle:";}
-            else {badge = ":black_circle:";}
-          }
-
-          //badgeState depending on last report
-          if(((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))<3600000) || allEntities[k-1].Player.lastReportAt==null){badgeState=allEntities[k-1].effect}
-          if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>3600000){
-            if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>1296000000){
-              badgeState=":ghost:"
+            //badge depending on the rank
+            if(k==1){badge = JsonReader.commands.topCommand.first;}
+            else if(k==2){badge = JsonReader.commands.topCommand.second;}
+            else if(k==3){badge = JsonReader.commands.topCommand.third;}
+            else if(k > 3 && k<= 5){badge = JsonReader.commands.topCommand.military;}
+            else if (k>5){
+              if(message.guild.members.cache.find(val => val.id === allEntities[k-1].discordUser_id) != null) {badge = JsonReader.commands.topCommand.blue;}
+              else {badge = JsonReader.commands.topCommand.black;}
             }
-            else{badgeState=":newspaper2:"}
+            if (message.author.id == allEntities[k-1].discordUser_id) {badge = JsonReader.commands.topCommand.white;}
+            
+            //badgeState depending on last report
+            // const nowMoment = new moment(new Date());
+            // const lastReport = new moment(allEntities[k-1].Player.lastReportAt);
+            // const diffMinutes = lastReport.diff(nowMoment, 'millisecondes');
+            if(((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))<JsonReader.commands.topCommand.oneHour) || allEntities[k-1].Player.lastReportAt==null){badgeState=allEntities[k-1].effect}
+            if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>JsonReader.commands.topCommand.oneHour){
+              if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>JsonReader.commands.topCommand.fifth10days){
+                badgeState=":ghost:"
+              }
+              else{badgeState=":newspaper2:"}
+            }
+            messages +=badge+" "+k+" **"+pseudo+"** | "+badgeState+" | `"+allEntities[k-1].Player.weeklyScore+"` | `Niveau "+allEntities[k-1].Player.level+"`\n";
+            embed.setDescription(messages);
           }
-          messages +=badge+" "+(numberOfPlayer-k+1)+" **"+pseudo+"** | "+badgeState+" | `"+allEntities[k-1].Player.weeklyScore+"` | `"+allEntities[k-1].Player.level+"`\n";
-          embed.setDescription(messages);
-          
-          
         };
         //Define badge for the user
         if(rankCurrentPlayer==1){badge = ":first_place:";}
         else if(rankCurrentPlayer==2){badge = ":second_place:";}
         else if(rankCurrentPlayer==3){badge = ":third_place:";}
         else if(rankCurrentPlayer > 3 && rankCurrentPlayer<= 5){badge = ":military_medal:";}
-        else if (message.author.id == message.author.id) {badge = ":white_circle:";}
+        else if (message.author.id == message.author.id) {badge = ":black_circle:";}
 
         //test if user is in the current page displayed to indicate(or not) the page where he can find himself
-        if(rankCurrentPlayer > fin || rankCurrentPlayer < debut)
-          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end1, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer, page:Math.ceil(rankCurrentPlayer/15)}));
-        embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end2, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer}));
+        if((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer!=1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end1, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer, page:Math.ceil(rankCurrentPlayer/15), pageMax : pageMax}));
+        }
+        else if((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer==1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end1Top, {pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer, page:Math.ceil(rankCurrentPlayer/15), pageMax : pageMax}));
+        }
+        else if((rankCurrentPlayer <= fin || rankCurrentPlayer >= debut) && rankCurrentPlayer!=1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end2, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer}));
+        }
+        else if((rankCurrentPlayer <= fin || rankCurrentPlayer >= debut) && rankCurrentPlayer==1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end2Top, {pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer}));
+        }
+        
         return await message.channel.send(embed);
       } 
 
@@ -209,6 +251,11 @@ const topCommand = async function (language, message, args) {
       //top general by a page number
       else { 
         //rank of the user
+        if(entity.Player.score<100){
+          embedError.setColor(JsonReader.bot.embed.default)
+          .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).lowScore, {pseudo: actualPlayer}));
+          return await message.channel.send(embedError);
+        }
         let rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].rank;
         let page = parseInt(args[0], 10);
         if (isNaN(page))
@@ -237,57 +284,74 @@ const topCommand = async function (language, message, args) {
                 },
               },
           }],
+          order: [
+            [{ model: Players, as: 'Player' }, 'score', 'DESC']
+          ],
         });
         let pageMax = Math.ceil(numberOfPlayer / 15);
         if(pageMax<1)
             pageMax=1;
         if(page > pageMax || page < 1){
           embedError.setColor(JsonReader.bot.embed.default)
-          .setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPage, {pseudo: actualPlayer, pageMax : pageMax}));
+          .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {pseudo: actualPlayer, pageMax:pageMax}))
+          .setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPageDesc, {pageMax:pageMax}));
           return await message.channel.send(embedError);
         }
         let messages=""
         embed.setColor(JsonReader.bot.embed.default)
-        .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).general, {    debut: debut, fin:  fin }));
-        for(let k=numberOfPlayer; k>=debut; k--){
-          //pseudo of the current player being add to the string
-          pseudo = (await client.users.fetch(allEntities[k-1].discordUser_id)).username;
+        .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).general, {debut: debut, fin:  fin}));
+        for(let k=debut; k<=fin; k++){
+          if(k-1<allEntities.length){
+            //pseudo of the current player being add to the string
+            pseudo = (await client.users.fetch(allEntities[k-1].discordUser_id)).username;
 
-          //badge depending on the rank
-          if(k==numberOfPlayer){badge = ":first_place:";}
-          else if(k==numberOfPlayer-1){badge = ":second_place:";}
-          else if(k==numberOfPlayer-2){badge = ":third_place:";}
-          else if(k < numberOfPlayer-2 && k>= numberOfPlayer-4){badge = ":military_medal:";}
-          if (message.author.id == allEntities[k-1].discordUser_id) {badge = ":white_circle:";}
-          if (k<numberOfPlayer-4){
-            if(message.guild.members.find(val => val.id === allEntities[k].discordUser_id) != null) {badge = ":blue_circle:";}
-            else {badge = ":black_circle:";}
-          }
-
-          //badgeState depending on last report
-          if(((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))<3600000) || allEntities[k-1].Player.lastReportAt==null){badgeState=allEntities[k-1].effect}
-          if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>3600000){
-            if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>1296000000){
-              badgeState=":ghost:"
+            //badge depending on the rank
+            if(k==1){badge = JsonReader.commands.topCommand.first;}
+            else if(k==2){badge = JsonReader.commands.topCommand.second;}
+            else if(k==3){badge = JsonReader.commands.topCommand.third;}
+            else if(k > 3 && k<= 5){badge = JsonReader.commands.topCommand.military;}
+            else if (k>5){
+              if(message.guild.members.cache.find(val => val.id === allEntities[k-1].discordUser_id) != null) {badge = JsonReader.commands.topCommand.blue;}
+              else {badge = JsonReader.commands.topCommand.black;}
             }
-            else{badgeState=":newspaper2:"}
+            if (message.author.id == allEntities[k-1].discordUser_id) {badge = JsonReader.commands.topCommand.white;}
+            
+            //badgeState depending on last report
+            // const nowMoment = new moment(new Date());
+            // const lastReport = new moment(allEntities[k-1].Player.lastReportAt);
+            // const diffMinutes = lastReport.diff(nowMoment, 'millisecondes');
+            if(((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))<JsonReader.commands.topCommand.oneHour) || allEntities[k-1].Player.lastReportAt==null){badgeState=allEntities[k-1].effect}
+            if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>JsonReader.commands.topCommand.oneHour){
+              if((Date.now()-Date.parse(allEntities[k-1].Player.lastReportAt))>JsonReader.commands.topCommand.fifth10days){
+                badgeState=":ghost:"
+              }
+              else{badgeState=":newspaper2:"}
+            }
+            messages +=badge+" "+k+" **"+pseudo+"** | "+badgeState+" | `"+allEntities[k-1].Player.score+"` | `Niveau "+allEntities[k-1].Player.level+"`\n";
+            embed.setDescription(messages);
           }
-          messages +=badge+" "+(numberOfPlayer-k+1)+" **"+pseudo+"** | "+badgeState+" | `"+allEntities[k-1].Player.score+"` | `"+allEntities[k-1].Player.level+"`\n";
-          embed.setDescription(messages);
-          
-          
         };
         //Define badge for the user
         if(rankCurrentPlayer==1){badge = ":first_place:";}
         else if(rankCurrentPlayer==2){badge = ":second_place:";}
         else if(rankCurrentPlayer==3){badge = ":third_place:";}
         else if(rankCurrentPlayer > 3 && rankCurrentPlayer<= 5){badge = ":military_medal:";}
-        else if (message.author.id == message.author.id) {badge = ":white_circle:";}
+        else if (message.author.id == message.author.id) {badge = ":black_circle:";}
 
         //test if user is in the current page displayed to indicate(or not) the page where he can find himself
-        if(rankCurrentPlayer > fin || rankCurrentPlayer < debut)
-          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end1, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer, page:Math.ceil(rankCurrentPlayer/15)}));
-        embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end2, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer}));
+        if((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer!=1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end1, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer, page:Math.ceil(rankCurrentPlayer/15), pageMax : pageMax}));
+        }
+        else if((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer==1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end1Top, {pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer, page:Math.ceil(rankCurrentPlayer/15), pageMax : pageMax}));
+        }
+        else if((rankCurrentPlayer <= fin || rankCurrentPlayer >= debut) && rankCurrentPlayer!=1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end2, { badge : badge, pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer}));
+        }
+        else if((rankCurrentPlayer <= fin || rankCurrentPlayer >= debut) && rankCurrentPlayer==1){
+          embed.addField("Votre classement", format(JsonReader.commands.topCommand.getTranslation(language).end2Top, {pseudo : actualPlayer, rank: rankCurrentPlayer, totalPlayer : numberOfPlayer}));
+        }
+        
         return await message.channel.send(embed);
       }
 }
