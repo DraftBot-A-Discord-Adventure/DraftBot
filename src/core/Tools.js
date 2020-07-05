@@ -12,99 +12,98 @@ global.idToMention = (id) => {
  * @param {module:"discord.js".TextChannel} channel - The channel where all attachments will be sent
  */
 global.sendMessageAttachments = (message, channel) => {
-  message.attachments.forEach(element => {
+  message.attachments.forEach((element) => {
     channel.send({
       files: [{
         attachment: element.url,
-        name: element.filename
-      }]
+        name: element.filename,
+      }],
     });
   });
 };
 
 /**
  * Send an error in a channel
- * @param {module:"discord.js".User} user 
+ * @param {module:"discord.js".User} user
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String} reason
  */
 global.sendErrorMessage = (user, channel, language, reason) => {
-  let embed = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
   embed.setColor(JsonReader.bot.embed.error)
-    .setAuthor(format(JsonReader.error.getTranslation(language).title, {
-      pseudo: user.username
-    }), user.displayAvatarURL())
-    .setDescription(reason);
+      .setAuthor(format(JsonReader.error.getTranslation(language).title, {
+        pseudo: user.username,
+      }), user.displayAvatarURL())
+      .setDescription(reason);
   return channel.send(embed);
 };
 
 /**
  * give a random item
- * @param {module:"discord.js".User} discordUser 
+ * @param {module:"discord.js".User} discordUser
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entity} entity
  */
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
-  let item = await entity.Player.Inventory.generateRandomItem();
+  const item = await entity.Player.Inventory.generateRandomItem();
   let embed = new discord.MessageEmbed();
   embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
-    pseudo: discordUser.username
+    pseudo: discordUser.username,
   }), discordUser.displayAvatarURL())
-    .setDescription(item.toString(language));
+      .setDescription(item.toString(language));
   if (item instanceof Potions) {
-    let potion = await entity.Player.Inventory.getPotion();
+    const potion = await entity.Player.Inventory.getPotion();
     embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-      actualItem: potion.toString(language)
+      actualItem: potion.toString(language),
     }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-      actualItem: potion.toString(language)
+      actualItem: potion.toString(language),
     }));
   }
   if (item instanceof Objects) {
-    let object = await entity.Player.Inventory.getBackupObject();
+    const object = await entity.Player.Inventory.getBackupObject();
     embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-      actualItem: object.toString(language)
+      actualItem: object.toString(language),
     }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-      actualItem: object.toString(language)
+      actualItem: object.toString(language),
     }));
   }
   if (item instanceof Weapons) {
-    let weapon = await entity.Player.Inventory.getWeapon();
+    const weapon = await entity.Player.Inventory.getWeapon();
     embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-      actualItem: weapon.toString(language)
+      actualItem: weapon.toString(language),
     }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-      actualItem: weapon.toString(language)
+      actualItem: weapon.toString(language),
     }));
   }
   if (item instanceof Armors) {
-    let armor = await entity.Player.Inventory.getArmor();
+    const armor = await entity.Player.Inventory.getArmor();
     embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-      actualItem: armor.toString(language)
+      actualItem: armor.toString(language),
     }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-      actualItem: armor.toString(language)
+      actualItem: armor.toString(language),
     }));
   }
 
-  let msg = await channel.send(embed);
+  const msg = await channel.send(embed);
   const filterConfirm = (reaction, user) => {
     return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === discordUser.id);
   };
 
   const collector = msg.createReactionCollector(filterConfirm, {
     time: 120000,
-    max: 1
+    max: 1,
   });
 
   collector.on('end', async (reaction) => {
-
     if (reaction.first()) { // a reaction exist
       if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
         embed = new discord.MessageEmbed();
         embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
-          pseudo: discordUser.username
+          pseudo: discordUser.username,
         }), discordUser.displayAvatarURL())
-          .setDescription(item.toString(language));
+            .setDescription(item.toString(language));
         if (item instanceof Potions) {
           entity.Player.Inventory.potion_id = item.id;
         }
@@ -120,26 +119,26 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
         await Promise.all([
           entity.save(),
           entity.Player.save(),
-          entity.Player.Inventory.save()
+          entity.Player.Inventory.save(),
         ]);
         return channel.send(embed);
       }
     }
-    //TODO : Sell the item (je le fait demain)
+    // TODO : Sell the item (je le fait demain)
   });
   await Promise.all([
     msg.react(MENU_REACTION.ACCEPT),
-    msg.react(MENU_REACTION.DENY)
+    msg.react(MENU_REACTION.DENY),
   ]);
 };
 
 /**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
- * @returns {Number}
+ * @return {Number}
  */
 global.generateRandomRarity = () => {
-  let randomValue = Math.round(
-    Math.random() * JsonReader.values.raritiesGenerator.maxValue);
+  const randomValue = Math.round(
+      Math.random() * JsonReader.values.raritiesGenerator.maxValue);
 
   if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
     return 1;
@@ -162,7 +161,7 @@ global.generateRandomRarity = () => {
 
 /**
  * Generate a random itemType
- * @returns {Number}
+ * @return {Number}
  */
 global.generateRandomItemType = () => {
   return JsonReader.values.itemGenerator.tab[Math.round(Math.random() * (JsonReader.values.itemGenerator.max - 1) + 1)];
@@ -192,7 +191,7 @@ global.minutesToMilliseconds = (minutes) => {
  * @return {String}
  */
 global.minutesToString = (minutes) => {
-  let hours = Math.floor(minutes / 60);
+  const hours = Math.floor(minutes / 60);
   minutes = minutes - (hours * 60);
 
   let display = (hours > 0) ? hours + ' H ' : '';
@@ -234,7 +233,7 @@ global.format = (string, replacement) => {
  * Generates a random int between min and max both included
  * @param {Number} min
  * @param {Number} max
- * @returns {number}
+ * @return {number}
  */
 global.randInt = (min, max) => {
   return Math.round(Math.random() * (max - min) + min);
@@ -245,27 +244,27 @@ global.randInt = (min, max) => {
  * Create a text progress bar
  * @param {Number} value
  * @param {Number} maxValue
- * @returns {String} - The bar
+ * @return {String} - The bar
  */
 global.progressBar = (value, maxValue) => {
-  let percentage = value / maxValue; //Calculate the percentage of the bar
-  let progress = Math.round((PROGRESSBARS_SIZE * percentage)); //Calculate the number of square caracters to fill the progress side.
-  let emptyProgress = PROGRESSBARS_SIZE - progress; //Calculate the number of dash caracters to fill the empty progress side.
+  const percentage = value / maxValue; // Calculate the percentage of the bar
+  const progress = Math.round((PROGRESSBARS_SIZE * percentage)); // Calculate the number of square caracters to fill the progress side.
+  const emptyProgress = PROGRESSBARS_SIZE - progress; // Calculate the number of dash caracters to fill the empty progress side.
 
-  let progressText = '▇'.repeat(progress); //Repeat is creating a string with progress * caracters in it
-  let emptyProgressText = '—'.repeat(emptyProgress); //Repeat is creating a string with empty progress * caracters in it
-  let percentageText = Math.round(percentage * 100) + '%'; //Displaying the percentage of the bar
+  const progressText = '▇'.repeat(progress); // Repeat is creating a string with progress * caracters in it
+  const emptyProgressText = '—'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
+  const percentageText = Math.round(percentage * 100) + '%'; // Displaying the percentage of the bar
 
-  let bar = '[' + progressText + emptyProgressText + '] ' + percentageText; //Creating the bar
+  const bar = '[' + progressText + emptyProgressText + '] ' + percentageText; // Creating the bar
   return bar;
 };
 
 /**
  * Return the value of the item
  * @param {Objects|Armors|Weapons|Potions} item
- * @returns {Number} - The value of the item
+ * @return {Number} - The value of the item
  */
-global.getItemValue = function (item) {
+global.getItemValue = function(item) {
   return parseInt(JsonReader.values.raritiesValues[item.rarity]) + parseInt(item.power);
 };
 
@@ -276,7 +275,7 @@ global.getItemValue = function (item) {
  * @param {"fr"|"en"} language
  * @returns {boolean}
  */
-global.sendBlockedError = async function (user, channel, language) {
+global.sendBlockedError = async function(user, channel, language) {
   if (hasBlockedPlayer(user.id)) {
     await sendErrorMessage(user, channel, language, JsonReader.error.getTranslation(language).playerBlocked);
     return true;

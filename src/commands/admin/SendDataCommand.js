@@ -5,9 +5,8 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SendDataCommand = async (language, message, args) => {
-
   if ((await canPerformCommand(message, language,
-    PERMISSION.ROLE.BOTOWNER)) !== true) {
+      PERMISSION.ROLE.BOTOWNER)) !== true) {
     return;
   }
 
@@ -17,7 +16,6 @@ const SendDataCommand = async (language, message, args) => {
       name: 'database.sqlite',
     }],
   });
-
 };
 
 module.exports = {

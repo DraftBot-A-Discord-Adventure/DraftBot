@@ -5,12 +5,12 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const changeLanguageCommand = async function (language, message, args) {
+const changeLanguageCommand = async function(language, message, args) {
   if ((await canPerformCommand(message, language,
-    PERMISSION.ROLE.ADMINISTRATOR)) !== true) {
+      PERMISSION.ROLE.ADMINISTRATOR)) !== true) {
     return;
   }
-  let embed = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
   let server;
 
   [server] = await Servers.getOrRegister(message.guild.id);
@@ -20,12 +20,12 @@ const changeLanguageCommand = async function (language, message, args) {
     server.language = LANGUAGE.FRENCH;
   }
   embed.setColor(JsonReader.bot.embed.default)
-    .setAuthor(format(
-      JsonReader.commands.changeLanguage.getTranslation(language).title,
-      { pseudo: message.author.username }),
+      .setAuthor(format(
+          JsonReader.commands.changeLanguage.getTranslation(language).title,
+          {pseudo: message.author.username}),
       message.author.displayAvatarURL())
-    .setDescription(format(
-      JsonReader.commands.changeLanguage.getTranslation(language).desc));
+      .setDescription(format(
+          JsonReader.commands.changeLanguage.getTranslation(language).desc));
   message.channel.send(embed);
   await server.save();
 };
@@ -33,6 +33,5 @@ const changeLanguageCommand = async function (language, message, args) {
 module.exports = {
   'language': changeLanguageCommand,
 };
-
 
 

@@ -1,40 +1,48 @@
-module.exports = (sequelize, DataTypes) => {
-
-  const Events = sequelize.define('Events', {
+/**
+ * @typedef {import('sequelize').Sequelize} Sequelize
+ * @typedef {import('sequelize/types')} DataTypes
+ *
+ * @param {Sequelize} Sequelize
+ * @param {DataTypes} DataTypes
+ * @returns
+ */
+module.exports = (Sequelize, DataTypes) => {
+  const Events = Sequelize.define('Events', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     fr: {
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
     },
     en: {
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
     },
     updatedAt: {
       type: DataTypes.DATE,
-      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss')
+      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
     },
     createdAt: {
       type: DataTypes.DATE,
-      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss')
-    }
+      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+    },
   }, {
     tableName: 'events',
-    freezeTableName: true
+    freezeTableName: true,
   });
 
   Events.beforeSave((instance, options) => {
-    instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+    instance.setDataValue('updatedAt',
+        require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
   /**
    * @return {Promise<String[]>}
    */
   Events.prototype.getReactions = async function() {
-    let possibilities = await this.getPossibilities();
-    let reactions = [];
+    const possibilities = await this.getPossibilities();
+    const reactions = [];
     for (const possibility of possibilities) {
       reactions.push(possibility.possibilityKey);
     }
