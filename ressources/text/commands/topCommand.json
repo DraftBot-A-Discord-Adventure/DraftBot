@@ -4,9 +4,9 @@
             "general": ":trophy: Affichage du top {debut} à {fin} : ",
 			"server": ":trophy: Affichage du top du serveur {debut} à {fin} : ",
             "generalWeek":":trophy: Affichage du top de la semaine {debut} à {fin} : ",
-            "fieldTitle" : "{badge} {rank} - {pseudo}",
-            "fieldValue": "Score : {score} | Niveau : {level}",
-            "end":" {badge} {pseudo}, vous êtes actuellement classé {rank} sur un total de {totalPlayer} "
+			"end1":" {badge} **{pseudo}**, vous êtes actuellement classé {rank} sur un total de {totalPlayer}. Vous vous trouverez à la page {page}",
+			"end2":" {badge} **{pseudo}**, vous êtes actuellement classé {rank} sur un total de {totalPlayer} ",
+			"maxPage": ":x: | **{pseudo}** Vous avez saisi un numéro de page invalide ! La page minimale est 1 et la maximale est : {pageMax}"
 		},
 		"en": {
             "general": ":trophy: Display of top {debut} àto {fin} : ",
