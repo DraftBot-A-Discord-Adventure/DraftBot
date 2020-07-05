@@ -114,11 +114,11 @@ module.exports = (Sequelize, DataTypes) => {
                                 RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
                          FROM players)
                    WHERE id = :id`;
-    return await sequelize.query(query, {
+    return await Sequelize.query(query, {
       replacements: {
         id: id,
       },
-      type: sequelize.QueryTypes.SELECT,
+      type: Sequelize.QueryTypes.SELECT,
     });
   };
 
@@ -132,11 +132,11 @@ module.exports = (Sequelize, DataTypes) => {
                                 RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
                          FROM players)
                    WHERE rank = :rank`;
-    return await sequelize.query(query, {
+    return await Sequelize.query(query, {
       replacements: {
         rank: rank,
       },
-      type: sequelize.QueryTypes.SELECT,
+      type: Sequelize.QueryTypes.SELECT,
     });
   };
 

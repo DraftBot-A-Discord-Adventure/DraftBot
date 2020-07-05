@@ -10,7 +10,7 @@ class Database {
    * @return {Promise<void>}
    */
   static async init() {
-    Database.sequelize = new Sequelize({
+    Database.Sequelize = new Sequelize({
       dialect: 'sqlite',
       storage: 'database/database.sqlite',
       logging: false,
@@ -21,7 +21,7 @@ class Database {
     const modelsFiles = await fs.promises.readdir('src/core/models');
     for (const modelFile of modelsFiles) {
       const modelName = modelFile.split('.')[0];
-      global[modelName] = Database.sequelize['import'](`models/${modelName}`);
+      global[modelName] = Database.Sequelize['import'](`models/${modelName}`);
     }
 
     await Database.setAssociations();
@@ -76,13 +76,13 @@ class Database {
             resolve();
           });
         })));
-    await Database.sequelize.query(`CREATE TABLE IF NOT EXISTS "${table}" (
+    await Database.Sequelize.query(`CREATE TABLE IF NOT EXISTS "${table}" (
       id   INTEGER PRIMARY KEY,
       name TEXT    NOT NULL,
       up   TEXT    NOT NULL,
       down TEXT    NOT NULL
     )`);
-    const dbMigrations = await Database.sequelize.query(
+    const dbMigrations = await Database.Sequelize.query(
         `SELECT id, name, up, down FROM "${table}" ORDER BY id ASC`);
 
     const lastMigrationId = dbMigrations[0].length ?
@@ -90,19 +90,19 @@ class Database {
         0;
     for (const migration of migrations) {
       if (migration.id > lastMigrationId) {
-        await Database.sequelize.query('BEGIN');
+        await Database.Sequelize.query('BEGIN');
         try {
           const queries = migration.up.split((require('os')).EOL);
           for (const entry of queries) {
             if (entry !== '') {
-              Database.sequelize.query(entry);
+              Database.Sequelize.query(entry);
             }
           }
-          await Database.sequelize.query(
+          await Database.Sequelize.query(
               `INSERT INTO "${table}" (id, name, up, down) VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`);
-          await Database.sequelize.query('COMMIT');
+          await Database.Sequelize.query('COMMIT');
         } catch (err) {
-          await Database.sequelize.query('ROLLBACK');
+          await Database.Sequelize.query('ROLLBACK');
           throw err;
         }
       }
