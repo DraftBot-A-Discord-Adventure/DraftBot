@@ -79,12 +79,12 @@ module.exports = (Sequelize, DataTypes) => {
     const query = `SELECT id
                    FROM :itemType
                    WHERE rarity = :rarity`;
-    const itemsIds = await sequelize.query(query, {
+    const itemsIds = await Sequelize.query(query, {
       replacements: {
         itemType: itemType,
         rarity: rarity,
       },
-      type: sequelize.QueryTypes.SELECT,
+      type: Sequelize.QueryTypes.SELECT,
     });
     let item;
     if (ITEMTYPE.POTION == itemType) {
