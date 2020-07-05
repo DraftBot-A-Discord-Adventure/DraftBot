@@ -4,7 +4,7 @@
 		"en": " : ** :horse_racing: You hear the rhythm of a gallop from far away. You turn back and see a black armoured knight with a coat of arms that you do not recognise.\n\n:man_walking: Keep going normally.\n:herb: Hide in a bush at the roadside.\n:wave: Motion to him to stop.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
-		"🚶‍♂️": [
+		"🚶‍": [
 			{
 				"translations": {
 					"fr": "** | 🚶‍♂️ Le chevalier vous rentre dedans à pleine vitesse. Vous volez sur 5 mètres avant de vous écraser au sol. Le chevalier n'est déjà plus là il ne reste qu'un nuage de poussière...",
@@ -77,7 +77,7 @@
 				"effect": ":smiley:",
 				"experience": 450,
 				"money": 0,
-				"item": false
+				"item": true
 			}
 		],
 		"👋": [

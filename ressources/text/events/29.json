@@ -27,7 +27,7 @@
 				"effect": ":clock2:",
 				"experience": 525,
 				"money": 0,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
