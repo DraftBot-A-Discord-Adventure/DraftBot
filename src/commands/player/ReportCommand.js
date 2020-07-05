@@ -29,12 +29,14 @@ const ReportCommand = async function(language, message, args) {
   }
 
   if (time <= JsonReader.commands.report.timeMaximal && Math.round(Math.random() * JsonReader.commands.report.timeMaximal) > time) {
+    entity.Player.setLastReportWithEffect(message.createdTimestamp, 0, ":smiley:");
+    entity.Player.save();
     return await message.channel.send(
         format(
             JsonReader.commands.report.getTranslation(language).doEvent,
             {
               pseudo: message.author.username,
-              event: JsonReader.commands.report.getTranslation(language).nothingToSay[randInt(0, JsonReader.commands.report.getTranslation(language).length - 1)]
+              event: JsonReader.commands.report.getTranslation(language).nothingToSay[randInt(0, JsonReader.commands.report.getTranslation(language).nothingToSay.length - 1)]
             }
         )
     );
@@ -43,7 +45,7 @@ const ReportCommand = async function(language, message, args) {
   addBlockedPlayer(entity.discordUser_id, "report");
 
   const event = await Events.findOne({order: (require('sequelize')).literal('RANDOM()')});
-  //const event = await Events.findOne({where: {id: 14}}); //Event particulier
+  //const event = await Events.findOne({where: {id: 7}}); //Event particulier
   return await doEvent(message, language, event, entity, time);
 };
 
@@ -111,8 +113,7 @@ const doPossibility = async (message, language, possibility, entity, time) => {
   if (pDataValues.health > 0) {
     result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
   }
-  // TODO Mettre le temps + le temps de l'effet
-  if (pDataValues.lostTime > 0) {
+  if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
     result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime) });
   }
   result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {pseudo: message.author, result: result, event: possibility[language]});
@@ -148,8 +149,6 @@ const doPossibility = async (message, language, possibility, entity, time) => {
 
   entity.save();
   player.save();
-
-  // return await XXX;
 };
 
 module.exports = {
