@@ -321,8 +321,8 @@ module.exports = (Sequelize, DataTypes) => {
    */
   Players.prototype.setLastReportWithEffect = function(
       time, timeMalus, effectMalus) {
-    this.lastReport = time + minutesToMilliseconds(timeMalus) +
-        JsonReader.models.players.effectMalus[effectMalus];
+    this.lastReportAt = new Date(time + minutesToMilliseconds(timeMalus) +
+        JsonReader.models.players.effectMalus[effectMalus]);
   };
 
   return Players;

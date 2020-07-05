@@ -43,6 +43,7 @@ const ReportCommand = async function(language, message, args) {
   addBlockedPlayer(entity.discordUser_id, "report");
 
   const event = await Events.findOne({order: (require('sequelize')).literal('RANDOM()')});
+  //const event = await Events.findOne({where: {id: 14}}); //Event particulier
   return await doEvent(message, language, event, entity, time);
 };
 
@@ -90,7 +91,7 @@ const doEvent = async (message, language, event, entity, time) => {
  */
 const doPossibility = async (message, language, possibility, entity, time) => {
   const player = entity.Player;
-  possibility = possibility[randInt(0, possibility.length)];
+  possibility = possibility[randInt(0, possibility.length - 1)];
   const pDataValues = possibility.dataValues;
   const scoreChange = time + Math.round(Math.random() * (time / 10 + player.level));
   let moneyChange = pDataValues.money + Math.round(time / 10 + Math.round(Math.random() * (time / 10 + player.level / 5)));
@@ -105,17 +106,14 @@ const doPossibility = async (message, language, possibility, entity, time) => {
     result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
   }
   if (pDataValues.health < 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
+    result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: -pDataValues.health});
   }
   if (pDataValues.health > 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: pDataValues.health});
+    result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
   }
   // TODO Mettre le temps + le temps de l'effet
   if (pDataValues.lostTime > 0) {
-    let hours = Math.floor(pDataValues.lostTime / 60);
-    let minutes = Math.round(pDataValues.lostTime % 60);
-    const timeMsg = hours === 0 ? (minutes + " min") : (hours + " H " + minutes + " Min");
-    result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: timeMsg});
+    result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime) });
   }
   result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {pseudo: message.author, result: result, event: possibility[language]});
 
@@ -127,7 +125,7 @@ const doPossibility = async (message, language, possibility, entity, time) => {
   player.experience += possibility.experience;
   player.setLastReportWithEffect(message.createdTimestamp, pDataValues.lostTime, pDataValues.effect);
 
-  if (possibility.item === true) {
+  if (pDataValues.item === true) {
     await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
   }
 
@@ -148,6 +146,7 @@ const doPossibility = async (message, language, possibility, entity, time) => {
     // DO lvlUp
   }
 
+  entity.save();
   player.save();
 
   // return await XXX;

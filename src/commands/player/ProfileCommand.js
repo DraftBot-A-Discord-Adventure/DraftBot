@@ -111,7 +111,7 @@ const ProfileCommand = async function(language, message, args) {
     }).catch((err) => { });
   });
 
-  if (entity.Player.badges !== null) {
+  if (entity.Player.badges !== null && entity.Player.badges !== '') {
     const badges = entity.Player.badges.split('-');
     for (const badgeid in badges) {
       await msg.react(badges[badgeid]);

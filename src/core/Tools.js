@@ -192,13 +192,19 @@ global.minutesToMilliseconds = (minutes) => {
  */
 global.minutesToString = (minutes) => {
   const hours = Math.floor(minutes / 60);
-  minutes = minutes - (hours * 60);
+  minutes = minutes % 60;
 
-  let display = (hours > 0) ? hours + ' H ' : '';
-  display += minutes + ' Min';
-  if (hours >= 0 && minutes === 0) {
+  let display;
+  if (hours > 0) {
+    display = hours + ' H ' + minutes + " Min";
+  }
+  else if (minutes !== 0) {
+    display = minutes + ' Min';
+  }
+  else {
     display = '< 1 Min';
   }
+
   return display;
 };
 
@@ -230,7 +236,7 @@ global.format = (string, replacement) => {
 };
 
 /**
- * Generates a random int between min and max, max excluded
+ * Generates a random int between min and max, both included
  * @param {Number} min
  * @param {Number} max
  * @return {number}
