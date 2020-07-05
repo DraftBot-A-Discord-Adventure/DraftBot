@@ -7,8 +7,8 @@
 		"🚶‍": [
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Le chevalier vous rentre dedans à pleine vitesse. Vous volez sur 5 mètres avant de vous écraser au sol. Le chevalier n'est déjà plus là il ne reste qu'un nuage de poussière...",
-					"en": "** | 🚶‍♂️ The knight hits you at full speed. You fly over 5 metres before crashing to the ground. The knight is already gone, only a cloud of dust remains..."
+					"fr": "** | 🚶‍ Le chevalier vous rentre dedans à pleine vitesse. Vous volez sur 5 mètres avant de vous écraser au sol. Le chevalier n'est déjà plus là il ne reste qu'un nuage de poussière...",
+					"en": "** | 🚶‍ The knight hits you at full speed. You fly over 5 metres before crashing to the ground. The knight is already gone, only a cloud of dust remains..."
 				},
 				"lostTime": 0,
 				"health": -45,
@@ -19,8 +19,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Arrivé à votre hauteur, le chevalier voit votre difficulté à avancer sous ce soleil de plomb. Il vous offre un peu d'eau de sa gourde et poursuit sa route.",
-					"en": "** | 🚶‍♂️ As the knight approaches you, he sees your difficulty walking under the blazing sun. He offers you a little water from his gourd and continues on his way."
+					"fr": "** | 🚶‍ Arrivé à votre hauteur, le chevalier voit votre difficulté à avancer sous ce soleil de plomb. Il vous offre un peu d'eau de sa gourde et poursuit sa route.",
+					"en": "** | 🚶‍ As the knight approaches you, he sees your difficulty walking under the blazing sun. He offers you a little water from his gourd and continues on his way."
 				},
 				"lostTime": 0,
 				"health": 10,
@@ -31,8 +31,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Le chevalier vous rattrape et vous demande son chemin. Vous lui indiquez une route et continuez votre périple.",
-					"en": "** | 🚶‍♂️ The knight catches up to you and asks you for directions. You show him a route and continue on your way."
+					"fr": "** | 🚶‍ Le chevalier vous rattrape et vous demande son chemin. Vous lui indiquez une route et continuez votre périple.",
+					"en": "** | 🚶 The knight catches up to you and asks you for directions. You show him a route and continue on your way."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -121,8 +121,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Le chevalier passe sans prêter attention à vous. Vous continuez votre route paisiblement.",
-					"en": "** | 🚶‍♂️ The knight passes by without paying attention to you. You continue on your way peacefully."
+					"fr": "** | 🚶‍ Le chevalier passe sans prêter attention à vous. Vous continuez votre route paisiblement.",
+					"en": "** | 🚶 The knight passes by without paying attention to you. You continue on your way peacefully."
 				},
 				"lostTime": 0,
 				"health": 0,

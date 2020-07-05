@@ -36,7 +36,7 @@ const ReportCommand = async function(language, message, args) {
 
   const Sequelize = require('sequelize');
   const event = await Events.findOne({where: { id: { [Sequelize.Op.notIn]: [0, 9999] }}, order: Sequelize.literal('RANDOM()')});
-  //const event = await Events.findOne({where: {id: 7}}); //Event particulier
+  //const event = await Events.findOne({where: {id: 31}}); //Event particulier
   return await doEvent(message, language, event, entity, time);
 };
 
@@ -70,7 +70,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
   });
   for (const reaction of reactions) {
     if (reaction !== 'end') {
-      eventDisplayed.react(reaction);
+      await eventDisplayed.react(reaction).catch();
     }
   }
 };
@@ -144,9 +144,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
   removeBlockedPlayer(entity.discordUser_id);
   // TODO CHECK STATUS (LVL UP / DEAD)
-  if (player.needLevelUp()) {
-    // DO lvlUp
-  }
+  await player.levelUpIfNeeded(message.channel, language);
 
   entity.save();
   player.save();

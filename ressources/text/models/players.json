@@ -1,10 +1,30 @@
 {
 	"translations": {
 		"fr": {
-			"pseudo": "Pseudo 404"
+			"pseudo": "Pseudo 404",
+			"levelUp": {
+				"mainMessage": ":star: | {mention} vient d'atteindre le niveau **{level}**\n\n",
+				"healthRestored": ":heart: | Vie restaurée à son maximum",
+				"moreMaxHealth": ":heartpulse: | Vie maximale augmentée de 5 points",
+				"fightUnlocked": ":dagger: | Combats débloqués avec la commande `fight` ! Pour plus d'informations sur les combats, executez la commande `help fight`",
+				"moreSpeed": ":rocket: | Vitesse augmentée de 5 points",
+				"moreAttack": ":crossed_swords: | Attaque augmentée de 5 points",
+				"moreDefense": ":shield: | Défense augmentée de 5 points",
+				"moreFightPower": ":blue_heart: | Points de combats augmentés"
+			}
 		},
 		"en": {
-			"pseudo": "Player 404"
+			"pseudo": "Player 404",
+			"levelUp": {
+				"mainMessage": ":star: | {mention} just reached level **{level}**\n\n",
+				"healthRestored": ":heart: | All HP recovered",
+				"moreMaxHealth": ":heartpulse: | Maximum health increased by 5",
+				"fightUnlocked": ":dagger: | Battles unlocked with the command `fight` ! For more information about fights, please use `help fight`",
+				"moreSpeed": ":rocket: | Speed increased by 5",
+				"moreAttack": ":crossed_swords: | Attack increased by 5",
+				"moreDefense": ":shield: | Defense increased by 5",
+				"moreFightPower": ":blue_heart: | Fight points increased"
+			}
 		}
 	},
 	"score": 0,
