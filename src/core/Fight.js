@@ -360,7 +360,7 @@ class Fight {
       resMsg = 'notGood';
     }
     const resultSection = JsonReader.commands.fight.getTranslation(this.language).actions.attacksResults[resMsg];
-    msg += resultSection[randInt(0, resultSection.length - 1)];
+    msg += resultSection[randInt(0, resultSection.length)];
     await this.addActionMessage(format(msg, {emote: section.emote, player: player, attack: section.name}) +
             section.end[resMsg] +
             format(JsonReader.commands.fight.getTranslation(this.language).actions.damages, {damages: fightActionResult.damage}));

@@ -230,7 +230,7 @@ global.format = (string, replacement) => {
 };
 
 /**
- * Generates a random int between min and max both included
+ * Generates a random int between min and max, max excluded
  * @param {Number} min
  * @param {Number} max
  * @return {number}

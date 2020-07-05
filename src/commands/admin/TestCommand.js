@@ -224,6 +224,12 @@ const TestCommand = async (language, message, args) => {
         author.Player.Inventory.backup_id = 0;
         author.Player.Inventory.save();
         break;
+      case 'atime':
+        if (args.length === 2) {
+          author.Player.lastReportAt -= parseInt(args[1]) * 60000;
+          author.Player.save();
+        }
+        break;
       default:
         await message.channel.send('Argument inconnu !');
         return;

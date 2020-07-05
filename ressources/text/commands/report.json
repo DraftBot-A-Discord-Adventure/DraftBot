@@ -10,7 +10,19 @@
 			"healthLoose": "** | :broken_heart: Vie perdue : ** {health}",
 			"health": "** | :heart: Vie gagnée : ** {health}",
 			"timeLost": "** | :clock10: Temps perdu : ** {timeLost}",
-			"noReport": ":newspaper: ** Journal de {pseudo} : ** :x: Aucun nouveau rapport n'a été transmis ! Revenez dans quelques heures !"
+			"noReport": ":newspaper: ** Journal de {pseudo} : ** :x: Aucun nouveau rapport n'a été transmis ! Revenez dans quelques heures !",
+			"nothingToSay": [
+				"** | :smiley: Aucun incident ni évènement notable à signaler.",
+				"** | :smiley: Il ne s'est rien passé de particulier depuis le précédent rapport.",
+				"** | :smiley: Vous n'avez rencontré aucune difficulté à progresser durant les dernières heures, vous continuez d'avancer tranquillement.",
+				"** | :smiley: Rien à signaler, vous continuez d'avancer.",
+				"** | :smiley: Pas d'obstacle en vue, rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
+				"** | :smiley: La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer",
+				"** | :smiley: Rien d'important ne s'est passé depuis le rapport précédent.",
+				"** | :smiley: Pas d'évènement notable depuis la dernière fois.",
+				"** | :smiley: Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route",
+				"** | :smiley: La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
+			]
 		},
 		"en": {
 			"doEvent": ":newspaper: ** Journal of {pseudo} {event}",
@@ -22,7 +34,19 @@
 			"healthLoose": "** | :broken_heart: Life lost: ** {health}",
 			"health": "** | :heart: Life gained: ** {health}",
 			"timeLost": "** | :clock10: Time spent: ** {timeLost}",
-			"noReport": ":newspaper: ** Journal of {pseudo} : ** :x: You don’t have any new reports! Come back in a few hours!"
+			"noReport": ":newspaper: ** Journal of {pseudo} : ** :x: You don’t have any new reports! Come back in a few hours!",
+			"nothingToSay": [
+				"** | :smiley: No incidents or significant events to report.",
+				"** | :smiley: Nothing special happened since the previous report.",
+				"** | :smiley: You haven't encountered any difficulty in your progress during the last few hours, and you continue to progress quietly.",
+				"** | :smiley: Nothing to report, you keep moving forward.",
+				"** | :smiley: No obstacles in sight, nothing seems to be against you right now. You keep moving forward.",
+				"** | :smiley: The way is clear, no reason to stop, you keep moving forward",
+				"** | :smiley: Nothing significant has happened since the previous report.",
+				"** | :smiley: No significant events since last time.",
+				"** | :smiley: The dogs bark and the caravan passes by. You continue quietly on your way",
+				"** | :smiley: The princess got closer to you! At least that's the impression you got... You carry on."
+			]
 		}
 	},
 	"timeMinimal": 60,

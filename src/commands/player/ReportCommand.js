@@ -10,29 +10,37 @@ const ReportCommand = async function(language, message, args) {
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
     return;
   }
-
+  if (await sendBlockedError(message.author, message.channel, language)) {
+    return;
+  }
   let time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.valueOf());
   if (time > JsonReader.commands.report.timeLimit) {
     time = JsonReader.commands.report.timeLimit;
   }
 
   if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
-    // TODO add player to blocked
+    addBlockedPlayer(entity.discordUser_id, "report");
     const event = await Events.findOne({where: {id: 0}});
     return await doEvent(message, language, event, entity, time);
   }
 
-  // if (time < JsonReader.commands.report.timeMinimal) {
-  //   await getRepository('player').update(player);
-  //   return await message.channel.send(format(JsonReader.commands.report.noReport, {pseudo: message.author.username}));
-  // }
-  //
-  // // TODO add player to blocked
-  //
-  // if (time <= JsonReader.commands.report.timeMaximal && Math.round(Math.random() * JsonReader.commands.report.timeMaximal) > time) {
-  //   // TODO Exec special event nothingToSay
-  //   return;
-  // }
+  if (time < JsonReader.commands.report.timeMinimal) {
+    return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).noReport, {pseudo: message.author.username}));
+  }
+
+  if (time <= JsonReader.commands.report.timeMaximal && Math.round(Math.random() * JsonReader.commands.report.timeMaximal) > time) {
+    return await message.channel.send(
+        format(
+            JsonReader.commands.report.getTranslation(language).doEvent,
+            {
+              pseudo: message.author.username,
+              event: JsonReader.commands.report.getTranslation(language).nothingToSay[randInt(0, JsonReader.commands.report.getTranslation(language).length - 1)]
+            }
+        )
+    );
+  }
+
+  addBlockedPlayer(entity.discordUser_id, "report");
 
   const event = await Events.findOne({order: (require('sequelize')).literal('RANDOM()')});
   return await doEvent(message, language, event, entity, time);
@@ -49,7 +57,7 @@ const ReportCommand = async function(language, message, args) {
 const doEvent = async (message, language, event, entity, time) => {
   const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {pseudo: message.author.username, event: event[language]}));
   const reactions = await event.getReactions();
-  const collector = eventDisplayed.createReactionCollector(async (reaction, user) => {
+  const collector = eventDisplayed.createReactionCollector((reaction, user) => {
     return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);
   }, {time: 120000});
 
@@ -66,7 +74,9 @@ const doEvent = async (message, language, event, entity, time) => {
     }
   });
   for (const reaction of reactions) {
-    await eventDisplayed.react(reaction);
+    if (reaction !== 'end') {
+      eventDisplayed.react(reaction);
+    }
   }
 };
 
@@ -80,59 +90,65 @@ const doEvent = async (message, language, event, entity, time) => {
  */
 const doPossibility = async (message, language, possibility, entity, time) => {
   const player = entity.Player;
+  possibility = possibility[randInt(0, possibility.length)];
+  const pDataValues = possibility.dataValues;
   const scoreChange = time + Math.round(Math.random() * (time / 10 + player.level));
-  let moneyChange = possibility.money + Math.round(time / 10 + Math.round(Math.random() * (time / 10 + player.level / 5)));
-  if (possibility.money < 0 && moneyChange > 0) {
-    moneyChange = Math.round(possibility.money / 2);
+  let moneyChange = pDataValues.money + Math.round(time / 10 + Math.round(Math.random() * (time / 10 + player.level / 5)));
+  if (pDataValues.money < 0 && moneyChange > 0) {
+    moneyChange = Math.round(pDataValues.money / 2);
   }
 
   let result = '';
-  result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : result += format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: moneyChange});
-  if (possibility.experience > 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: possibility.experience});
+  result += format(JsonReader.commands.report.getTranslation(language).points, { score: scoreChange });
+  result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
+  if (pDataValues.experience > 0) {
+    result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
   }
-  if (possibility.health < 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).health, {health: possibility.health});
+  if (pDataValues.health < 0) {
+    result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
   }
-  if (possibility.health > 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: possibility.health});
+  if (pDataValues.health > 0) {
+    result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: pDataValues.health});
   }
   // TODO Mettre le temps + le temps de l'effet
-  if (possibility.lostTime > 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: possibility.lostTime});
+  if (pDataValues.lostTime > 0) {
+    let hours = Math.floor(pDataValues.lostTime / 60);
+    let minutes = Math.round(pDataValues.lostTime % 60);
+    const timeMsg = hours === 0 ? (minutes + " min") : (hours + " H " + minutes + " Min");
+    result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: timeMsg});
   }
   result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {pseudo: message.author, result: result, event: possibility[language]});
 
-  entity.effect = possibility.effect;
-  entity.addHealth(possibility.health);
+  entity.effect = pDataValues.effect;
+  entity.addHealth(pDataValues.health);
 
   player.addScore(scoreChange);
   player.addMoney(moneyChange);
   player.experience += possibility.experience;
-  player.setLastReportWithEffect(message.createdTimestamp, possibility.lostTime, possibility.effect);
+  player.setLastReportWithEffect(message.createdTimestamp, pDataValues.lostTime, pDataValues.effect);
 
   if (possibility.item === true) {
-    // TODO
-    // player = await player.giveRandomItem(message, player, false);
+    await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
   }
 
-  if (possibility.eventId === 0) {
+  if (pDataValues.eventId === 0) {
     player.money = 0;
     player.score = 0;
-    if (possibility.emoji !== 'end') {
+    if (pDataValues.emoji !== 'end') {
       player.money = 10;
       player.score = 100;
     }
   }
 
-  await getRepository('player').update(player);
   await message.channel.send(result);
 
-  // TODO remove player of blocked
+  removeBlockedPlayer(entity.discordUser_id);
   // TODO CHECK STATUS (LVL UP / DEAD)
   if (player.needLevelUp()) {
     // DO lvlUp
   }
+
+  player.save();
 
   // return await XXX;
 };
