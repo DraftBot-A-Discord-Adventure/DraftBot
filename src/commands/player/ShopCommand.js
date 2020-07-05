@@ -217,9 +217,9 @@ async function confirmPurchase(message, language, name, price, info, entity, cus
         .setColor(JsonReader.bot.embed.default)
         .setAuthor(
             format(JsonReader.commands.shop.getTranslation(language).confirm, {
-                pseudo: message.author.username,
+                pseudo: customer.username,
             }),
-            message.author.displayAvatarURL()
+            customer.displayAvatarURL()
         )
         .setDescription(
             "\n\u200b\n" +
