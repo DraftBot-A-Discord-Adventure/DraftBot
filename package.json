@@ -15,11 +15,8 @@
     "config": "./config",
     "core": "./src/core",
     "commands": "./src/commands",
-    "entities": "./src/core/entities",
-    "repositories": "./src/core/repositories",
     "models": "./src/core/models",
-    "ressources": "./ressources",
-    "data": "./data"
+    "ressources": "./ressources"
   },
   "dependencies": {
     "chai": "^4.2.0",
@@ -31,5 +28,9 @@
     "sequelize": "^5.21.7",
     "sqlite": "^4.0.7",
     "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-google": "^0.14.0"
   }
 }

@@ -1,5 +1,5 @@
 const init = function() {
-    //Does nothing
+  // Does nothing
 };
 
 module.exports.init = init;

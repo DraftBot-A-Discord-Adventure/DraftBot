@@ -7,3 +7,4 @@ src/utils/eastereggs/key
 src/utils/eastereggs/iv
 config/app.json
 *.iml
+.jshintrc

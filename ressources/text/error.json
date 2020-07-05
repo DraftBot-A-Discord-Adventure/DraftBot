@@ -31,7 +31,8 @@
 			"playerIsSleeping": "{askedPseudo} est actuellement endormi !",
 			"playerIsFrozen": "{askedPseudo} est actuellement gelé !",
 			"playerIsDrunk": "{askedPseudo} est actuellement ivre !",
-			"playerIsConfounded": "{askedPseudo} est actuellement confus !"
+			"playerIsConfounded": "{askedPseudo} est actuellement confus !",
+			"playerBlocked": "Vous ne pouvez pas effectuer cela car vous avez une action en attente !"
 		},
 		"en": {
 			"titlePermissionError": "{pseudo}, you do not have the rights to perform this command!",
@@ -64,7 +65,8 @@
 			"playerIsSleeping": "{askedPseudo} is currently sleeping!",
 			"playerIsFrozen": "{askedPseudo} is currently frozen!",
 			"playerIsDrunk": "{askedPseudo} is currently drunk!",
-			"playerIsConfounded": "{askedPseudo} is currently confused!"
+			"playerIsConfounded": "{askedPseudo} is currently confused!",
+			"playerBlocked": "You can't do this because you currently have a pending action!"
 		}
 	}
 }

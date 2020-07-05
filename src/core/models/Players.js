@@ -1,6 +1,13 @@
-module.exports = (sequelize, DataTypes) => {
-
-  const Players = sequelize.define('players', {
+/**
+ * @typedef {import('sequelize').Sequelize} Sequelize
+ * @typedef {import('sequelize/types')} DataTypes
+ *
+ * @param {Sequelize} Sequelize
+ * @param {DataTypes} DataTypes
+ * @returns
+ */
+module.exports = (Sequelize, DataTypes) => {
+  const Players = Sequelize.define('players', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -58,10 +65,11 @@ module.exports = (sequelize, DataTypes) => {
    * Add a badge to the player badges
    * @param {String} badge - The badge to be added to player
    */
-  Players.prototype.addBadge = function (badge) {
+  Players.prototype.addBadge = function(badge) {
     if (this.badges !== null) {
-      if (!this.hasBadge(badge))
+      if (!this.hasBadge(badge)) {
         this.badges += '-' + badge;
+      }
     } else {
       this.badges = badge;
     }
@@ -70,15 +78,16 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {String} badge - The badge to be added to player
    */
-  Players.prototype.hasBadge = function (badge) {
-    return this.badges === null ? false : this.badges.split('-').includes(badge);
-  }
+  Players.prototype.hasBadge = function(badge) {
+    return this.badges === null ? false : this.badges.split('-')
+        .includes(badge);
+  };
 
   /**
    * @param {("points")} points - A number representating the score
    * @deprecated 2.1.0 Directly use score attribute from entity
    */
-  Players.prototype.setPoints = function (points) {
+  Players.prototype.setPoints = function(points) {
     this.score = points;
   };
 
@@ -86,12 +95,13 @@ module.exports = (sequelize, DataTypes) => {
    * @param {("pointsWeek")} pointsWeek - A number representating the weekly score
    * @deprecated 2.1.0 Directly use weeklyScore attribute from entity
    */
-  Players.prototype.setPointsWeek = function (points) {
+  Players.prototype.setPointsWeek = function(points) {
     this.weeklyScore = points;
   };
 
   Players.beforeSave((instance, options) => {
-    instance.setDataValue('updatedAt', require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+    instance.setDataValue('updatedAt',
+        require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
   /**
@@ -100,15 +110,15 @@ module.exports = (sequelize, DataTypes) => {
   Players.getById = async (id) => {
     const query = `SELECT *
                    FROM (SELECT id,
-                                RANK() OVER (ORDER BY score desc) rank,
+                                RANK() OVER (ORDER BY score desc)       rank,
                                 RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
                          FROM players)
                    WHERE id = :id`;
-    return await sequelize.query(query, {
+    return await Sequelize.query(query, {
       replacements: {
-        id: id
+        id: id,
       },
-      type: sequelize.QueryTypes.SELECT
+      type: Sequelize.QueryTypes.SELECT,
     });
   };
 
@@ -118,36 +128,36 @@ module.exports = (sequelize, DataTypes) => {
   Players.getByRank = async (rank) => {
     const query = `SELECT *
                    FROM (SELECT entity_id,
-                                RANK() OVER (ORDER BY score desc) rank,
+                                RANK() OVER (ORDER BY score desc)       rank,
                                 RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
                          FROM players)
                    WHERE rank = :rank`;
-    return await sequelize.query(query, {
+    return await Sequelize.query(query, {
       replacements: {
-        rank: rank
+        rank: rank,
       },
-      type: sequelize.QueryTypes.SELECT
+      type: Sequelize.QueryTypes.SELECT,
     });
   };
 
   /**
    * @return {Number} Return the experience needed to level up.
    */
-  Players.prototype.getExperienceNeededToLevelUp = function () {
+  Players.prototype.getExperienceNeededToLevelUp = function() {
     return JsonReader.models.players.xp[this.level + 1];
   };
 
   /**
-   * @returns {Number} Return the experience used to level up.
+   * @return {Number} Return the experience used to level up.
    */
-  Players.prototype.getExperienceUsedToLevelUp = function () {
+  Players.prototype.getExperienceUsedToLevelUp = function() {
     return JsonReader.models.players.xp[this.level];
   };
 
   /**
    * @param {Number} score
    */
-  Players.prototype.addScore = function (score) {
+  Players.prototype.addScore = function(score) {
     this.score += score;
     this.setScore(this.score);
   };
@@ -155,7 +165,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} score
    */
-  Players.prototype.setScore = function (score) {
+  Players.prototype.setScore = function(score) {
     if (score > 0) {
       this.score = score;
     } else {
@@ -166,7 +176,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} money
    */
-  Players.prototype.addMoney = function (money) {
+  Players.prototype.addMoney = function(money) {
     this.money += money;
     this.setMoney(this.money);
   };
@@ -174,7 +184,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} money
    */
-  Players.prototype.setMoney = function (money) {
+  Players.prototype.setMoney = function(money) {
     if (money > 0) {
       this.money = money;
     } else {
@@ -185,7 +195,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} weeklyScore
    */
-  Players.prototype.addWeeklyScore = function (weeklyScore) {
+  Players.prototype.addWeeklyScore = function(weeklyScore) {
     this.weeklyScore += weeklyScore;
     this.setWeeklyScore(this.weeklyScore);
   };
@@ -193,7 +203,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} weeklyScore
    */
-  Players.prototype.setWeeklyScore = function (weeklyScore) {
+  Players.prototype.setWeeklyScore = function(weeklyScore) {
     if (weeklyScore > 0) {
       this.weeklyScore = weeklyScore;
     } else {
@@ -204,7 +214,7 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {"fr"|"en"} language
    */
-  Players.prototype.getPseudo = async function (language) {
+  Players.prototype.getPseudo = async function(language) {
     await this.setPseudo(language);
     return this.pseudo;
   };
@@ -212,30 +222,29 @@ module.exports = (sequelize, DataTypes) => {
   /**
    * @param {Number} hours
    */
-  Players.prototype.fastForward = async function (hours) {
-    let moment = require('moment');
-    let lastReport = new moment(this.lastReportAt).subtract(hours, 'h');
+  Players.prototype.fastForward = async function(hours) {
+    const moment = require('moment');
+    const lastReport = new moment(this.lastReportAt).subtract(hours, 'h');
     this.lastReportAt = lastReport;
   };
 
   /**
    * @param {"fr"|"en"} language
    */
-  Players.prototype.setPseudo = async function (language) {
-    let entity = await this.getEntity();
+  Players.prototype.setPseudo = async function(language) {
+    const entity = await this.getEntity();
     if (entity.discordUser_id !== undefined &&
-      client.users.cache.get(entity.discordUser_id) !== null) {
+        client.users.cache.get(entity.discordUser_id) !== null) {
       this.pseudo = client.users.cache.get(entity.discordUser_id).username;
     } else {
       this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
     }
   };
 
-
   /**
    * @return {Boolean} True if the player has levelUp false otherwise
    */
-  Players.prototype.needLevelUp = function () {
+  Players.prototype.needLevelUp = function() {
     if ((this.experience >= this.getExperienceNeededToLevelUp())) {
       // TODO 2.0 Do the level up here ?
       return true;
@@ -310,8 +319,10 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Number} timeMalus
    * @param {String} effectMalus
    */
-  Players.prototype.setLastReportWithEffect = function (time, timeMalus, effectMalus) {
-    this.lastReport = time + minutesToMilliseconds(timeMalus) + JsonReader.models.players.effectMalus[effectMalus];
+  Players.prototype.setLastReportWithEffect = function(
+      time, timeMalus, effectMalus) {
+    this.lastReport = time + minutesToMilliseconds(timeMalus) +
+        JsonReader.models.players.effectMalus[effectMalus];
   };
 
   return Players;
