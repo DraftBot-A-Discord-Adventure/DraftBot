@@ -239,6 +239,23 @@ const TestCommand = async (language, message, args) => {
           author.Player.save();
         }
         break;
+      case 'destroy':
+        Inventories.destroy({
+          where: {
+            player_id: author.Player.id
+          }
+        });
+        Players.destroy({
+          where: {
+            entity_id: author.id
+          }
+        });
+        Entities.destroy({
+          where: {
+            id: author.id
+          }
+        });
+        break;
       default:
         await message.channel.send('Argument inconnu !');
         return;

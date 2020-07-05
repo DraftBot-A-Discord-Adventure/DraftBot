@@ -21,7 +21,7 @@ const ReportCommand = async function(language, message, args) {
   if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
     addBlockedPlayer(entity.discordUser_id, "report");
     const event = await Events.findOne({where: {id: 0}});
-    return await doEvent(message, language, event, entity, time);
+    return await doEvent(message, language, event, entity, time, 100);
   }
 
   if (time < JsonReader.commands.report.timeMinimal) {
@@ -29,22 +29,13 @@ const ReportCommand = async function(language, message, args) {
   }
 
   if (time <= JsonReader.commands.report.timeMaximal && Math.round(Math.random() * JsonReader.commands.report.timeMaximal) > time) {
-    entity.Player.setLastReportWithEffect(message.createdTimestamp, 0, ":smiley:");
-    entity.Player.save();
-    return await message.channel.send(
-        format(
-            JsonReader.commands.report.getTranslation(language).doEvent,
-            {
-              pseudo: message.author.username,
-              event: JsonReader.commands.report.getTranslation(language).nothingToSay[randInt(0, JsonReader.commands.report.getTranslation(language).nothingToSay.length - 1)]
-            }
-        )
-    );
+    return await doPossibility(message, language, await Possibilities.findAll({where : { event_id: 9999 }}), entity, time);
   }
 
   addBlockedPlayer(entity.discordUser_id, "report");
 
-  const event = await Events.findOne({order: (require('sequelize')).literal('RANDOM()')});
+  const Sequelize = require('sequelize');
+  const event = await Events.findOne({where: { id: { [Sequelize.Op.notIn]: [0, 9999] }}, order: Sequelize.literal('RANDOM()')});
   //const event = await Events.findOne({where: {id: 7}}); //Event particulier
   return await doEvent(message, language, event, entity, time);
 };
@@ -55,9 +46,10 @@ const ReportCommand = async function(language, message, args) {
  * @param {Event} event
  * @param {Entities} entity
  * @param {Number} time
+ * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<void>}
  */
-const doEvent = async (message, language, event, entity, time) => {
+const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
   const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {pseudo: message.author.username, event: event[language]}));
   const reactions = await event.getReactions();
   const collector = eventDisplayed.createReactionCollector((reaction, user) => {
@@ -67,13 +59,13 @@ const doEvent = async (message, language, event, entity, time) => {
   collector.on('collect', async (reaction) => {
     collector.stop();
     const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: reaction.emoji.name}});
-    await doPossibility(message, language, possibility, entity, time);
+    await doPossibility(message, language, possibility, entity, time, forcePoints);
   });
 
   collector.on('end', async (collected) => {
     if (!collected.first()) {
       const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: 'end'}});
-      await doPossibility(message, language, possibility, entity, time);
+      await doPossibility(message, language, possibility, entity, time, forcePoints);
     }
   });
   for (const reaction of reactions) {
@@ -89,13 +81,20 @@ const doEvent = async (message, language, event, entity, time) => {
  * @param {Possibility} possibility
  * @param {Entity} entity
  * @param {Number} time
+ * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<Message>}
  */
-const doPossibility = async (message, language, possibility, entity, time) => {
+const doPossibility = async (message, language, possibility, entity, time, forcePoints = 0) => {
   const player = entity.Player;
   possibility = possibility[randInt(0, possibility.length - 1)];
   const pDataValues = possibility.dataValues;
-  const scoreChange = time + Math.round(Math.random() * (time / 10 + player.level));
+  let scoreChange;
+  if (forcePoints !== 0) {
+    scoreChange = forcePoints;
+  }
+  else {
+    scoreChange = time + Math.round(Math.random() * (time / 10 + player.level));
+  }
   let moneyChange = pDataValues.money + Math.round(time / 10 + Math.round(Math.random() * (time / 10 + player.level / 5)));
   if (pDataValues.money < 0 && moneyChange > 0) {
     moneyChange = Math.round(pDataValues.money / 2);
@@ -103,7 +102,9 @@ const doPossibility = async (message, language, possibility, entity, time) => {
 
   let result = '';
   result += format(JsonReader.commands.report.getTranslation(language).points, { score: scoreChange });
-  result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
+  if (moneyChange !== 0) {
+    result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
+  }
   if (pDataValues.experience > 0) {
     result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
   }
@@ -139,7 +140,7 @@ const doPossibility = async (message, language, possibility, entity, time) => {
     }
   }
 
-  await message.channel.send(result);
+  let resultMsg = await message.channel.send(result);
 
   removeBlockedPlayer(entity.discordUser_id);
   // TODO CHECK STATUS (LVL UP / DEAD)
@@ -149,6 +150,8 @@ const doPossibility = async (message, language, possibility, entity, time) => {
 
   entity.save();
   player.save();
+
+  return resultMsg;
 };
 
 module.exports = {
