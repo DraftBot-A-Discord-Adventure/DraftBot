@@ -86,6 +86,14 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
  */
 const doPossibility = async (message, language, possibility, entity, time, forcePoints = 0) => {
   const player = entity.Player;
+
+  if (possibility.length === 1) { //Don't do anything if the player ends the first report
+    if (possibility[0].dataValues.event_id === 0 && possibility[0].dataValues.possibilityKey === "end") {
+      removeBlockedPlayer(entity.discordUser_id);
+      return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doPossibility, {pseudo: message.author, result: "", event: possibility[0].dataValues[language]}));
+    }
+  }
+
   possibility = possibility[randInt(0, possibility.length - 1)];
   const pDataValues = possibility.dataValues;
   let scoreChange;
