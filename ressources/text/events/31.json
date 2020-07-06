@@ -1,14 +1,14 @@
 {
 	"translations": {
-		"fr": " : ** :horse_racing: Vous entendez un bruit de galop au loin. Vous vous retournez et voyez un chevalier à l'armure noire et au blason inconnu.\n\n:man_walking: Continuer votre route normalement.\n:herb: Se cacher dans un buisson au bord de la route.\n:wave: Lui faire signe pour qu'il s'arrête.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :horse_racing: You hear the rhythm of a gallop from far away. You turn back and see a black armoured knight with a coat of arms that you do not recognise.\n\n:man_walking: Keep going normally.\n:herb: Hide in a bush at the roadside.\n:wave: Motion to him to stop.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** :horse_racing: Vous entendez un bruit de galop au loin. Vous vous retournez et voyez un chevalier à l'armure noire et au blason inconnu.\n\n:person_walking: Continuer votre route normalement.\n:herb: Se cacher dans un buisson au bord de la route.\n:wave: Lui faire signe pour qu'il s'arrête.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :horse_racing: You hear the rhythm of a gallop from far away. You turn back and see a black armoured knight with a coat of arms that you do not recognise.\n\n:person_walking: Keep going normally.\n:herb: Hide in a bush at the roadside.\n:wave: Motion to him to stop.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
-		"🚶‍": [
+		"🚶": [
 			{
 				"translations": {
-					"fr": "** | 🚶‍ Le chevalier vous rentre dedans à pleine vitesse. Vous volez sur 5 mètres avant de vous écraser au sol. Le chevalier n'est déjà plus là il ne reste qu'un nuage de poussière...",
-					"en": "** | 🚶‍ The knight hits you at full speed. You fly over 5 metres before crashing to the ground. The knight is already gone, only a cloud of dust remains..."
+					"fr": "** | 🚶 Le chevalier vous rentre dedans à pleine vitesse. Vous volez sur 5 mètres avant de vous écraser au sol. Le chevalier n'est déjà plus là il ne reste qu'un nuage de poussière...",
+					"en": "** | 🚶 The knight hits you at full speed. You fly over 5 metres before crashing to the ground. The knight is already gone, only a cloud of dust remains..."
 				},
 				"lostTime": 0,
 				"health": -45,
@@ -19,8 +19,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶‍ Arrivé à votre hauteur, le chevalier voit votre difficulté à avancer sous ce soleil de plomb. Il vous offre un peu d'eau de sa gourde et poursuit sa route.",
-					"en": "** | 🚶‍ As the knight approaches you, he sees your difficulty walking under the blazing sun. He offers you a little water from his gourd and continues on his way."
+					"fr": "** | 🚶 Arrivé à votre hauteur, le chevalier voit votre difficulté à avancer sous ce soleil de plomb. Il vous offre un peu d'eau de sa gourde et poursuit sa route.",
+					"en": "** | 🚶 As the knight approaches you, he sees your difficulty walking under the blazing sun. He offers you a little water from his gourd and continues on his way."
 				},
 				"lostTime": 0,
 				"health": 10,
@@ -31,7 +31,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶‍ Le chevalier vous rattrape et vous demande son chemin. Vous lui indiquez une route et continuez votre périple.",
+					"fr": "** | 🚶 Le chevalier vous rattrape et vous demande son chemin. Vous lui indiquez une route et continuez votre périple.",
 					"en": "** | 🚶 The knight catches up to you and asks you for directions. You show him a route and continue on your way."
 				},
 				"lostTime": 0,
@@ -121,7 +121,7 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | 🚶‍ Le chevalier passe sans prêter attention à vous. Vous continuez votre route paisiblement.",
+					"fr": "** | 🚶 Le chevalier passe sans prêter attention à vous. Vous continuez votre route paisiblement.",
 					"en": "** | 🚶 The knight passes by without paying attention to you. You continue on your way peacefully."
 				},
 				"lostTime": 0,

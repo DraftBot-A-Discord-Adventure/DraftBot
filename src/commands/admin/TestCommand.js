@@ -256,11 +256,19 @@ const TestCommand = async (language, message, args) => {
           }
         });
         break;
+      case 'forcer':
+        if (args.length === 2) {
+          await getCommand("r")(language, message, args, parseInt(args[1]));
+        } else {
+          await message.channel.send('Usage correct: test forcer <eventId>');
+        }
+        return;
       default:
         await message.channel.send('Argument inconnu !');
         return;
     }
   } catch (error) {
+    console.log(error);
     await message.channel.send(':x: | Une erreur est survenue pendant la commande !');
     return;
   }

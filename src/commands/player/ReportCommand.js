@@ -3,8 +3,9 @@
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
+ * @param {Number} forceSpecificEvent - For testing purpose
  */
-const ReportCommand = async function(language, message, args) {
+const ReportCommand = async function(language, message, args, forceSpecificEvent = -1) {
   const [entity] = await Entities.getOrRegister(message.author.id);
 
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
@@ -13,7 +14,14 @@ const ReportCommand = async function(language, message, args) {
   if (await sendBlockedError(message.author, message.channel, language)) {
     return;
   }
-  let time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.valueOf());
+
+  let time;
+  if (forceSpecificEvent === -1) {
+    time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.valueOf());
+  }
+  else {
+    time = JsonReader.commands.report.timeMaximal + 1;
+  }
   if (time > JsonReader.commands.report.timeLimit) {
     time = JsonReader.commands.report.timeLimit;
   }
@@ -35,8 +43,13 @@ const ReportCommand = async function(language, message, args) {
   addBlockedPlayer(entity.discordUser_id, "report");
 
   const Sequelize = require('sequelize');
-  const event = await Events.findOne({where: { id: { [Sequelize.Op.notIn]: [0, 9999] }}, order: Sequelize.literal('RANDOM()')});
-  //const event = await Events.findOne({where: {id: 31}}); //Event particulier
+  let event;
+  if (forceSpecificEvent === -1) {
+    event = await Events.findOne({where: { id: { [Sequelize.Op.notIn]: [0, 9999] }}, order: Sequelize.literal('RANDOM()')});
+  }
+  else {
+    event = await Events.findOne({where: {id: forceSpecificEvent}});
+  }
   return await doEvent(message, language, event, entity, time);
 };
 

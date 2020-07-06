@@ -1,7 +1,7 @@
 {
   "translations": {
-    "fr": "Si vous voyez ce message, ce n'est pas normal... Merci de rapporter ce bug ! Voici une banane pour vous réconforter !",
-    "en": "If you see this message, there is a bug... Thanks to report the bug ! Here's a banana to comfort you !"
+    "fr": "** | Si vous voyez ce message, ce n'est pas normal... Merci de rapporter ce bug ! Voici une banane pour vous réconforter !",
+    "en": "** | If you see this message, there is a bug... Thanks to report the bug ! Here's a banana to comfort you !"
   },
   "possibilities": {
     "🍌": [
