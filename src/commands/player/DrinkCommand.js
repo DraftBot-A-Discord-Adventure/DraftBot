@@ -5,7 +5,7 @@
  */
 const DrinkCommand = async function(language, message) {
   const [entity] = await Entities.getOrRegister(message.author.id);
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
     return;
   }
   const potion = await entity.Player.Inventory.getPotion();

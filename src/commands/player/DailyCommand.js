@@ -6,7 +6,7 @@
 const DailyCommand = async function(language, message) {
   const [entity] = await Entities.getOrRegister(message.author.id);
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-      [EFFECT.BABY], entity)) !== true) {
+      [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
     return;
   }
 

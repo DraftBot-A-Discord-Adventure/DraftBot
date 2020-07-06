@@ -245,24 +245,22 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Boolean} True if the player has levelUp false otherwise
    */
   Players.prototype.needLevelUp = function() {
-    if ((this.experience >= this.getExperienceNeededToLevelUp())) {
-      return true;
-    }
-    return false;
+    return (this.experience >= this.getExperienceNeededToLevelUp());
   };
 
   /**
-   * Checks if the player need to level up and levels up him. Only saves entity, player must be saved outside of this function
+   * Checks if the player need to level up and levels up him.
+   * @param {Entity} entity
    * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
    * @param {"fr"|"en"} language
    */
-  Players.prototype.levelUpIfNeeded = async function (channel, language) {
+  Players.prototype.levelUpIfNeeded = async function (entity, channel, language) {
     if (!this.needLevelUp()) {
       return;
     }
 
     let bonuses = [];
-    let entity = await Entities.findOne({where: {id: this.entity_id}});
+    const xpNeeded = this.getExperienceNeededToLevelUp();
 
     this.level++;
     if (this.level === FIGHT.REQUIRED_LEVEL) {
@@ -290,10 +288,9 @@ module.exports = (Sequelize, DataTypes) => {
       bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreDefense);
     }
 
-    entity.save();
     bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreFightPower);
 
-    this.experience -= this.getExperienceNeededToLevelUp();
+    this.experience -= xpNeeded;
     let msg = format(JsonReader.models.players.getTranslation(language).levelUp.mainMessage, {mention: entity.getMention(), level: this.level});
     for (let i = 0; i < bonuses.length - 1; ++i) {
       msg += bonuses[i] + "\n";
@@ -316,6 +313,25 @@ module.exports = (Sequelize, DataTypes) => {
     else {
       this.lastReportAt = new Date(time + JsonReader.models.players.effectMalus[effectMalus]);
     }
+  };
+
+  /**
+   * Apply dead effect, send message in channel and in PM only if the health is 0 or less.
+   * @param {Entity} entity
+   * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
+   * @param {"fr"|"en"} language
+   * @return {Promise<void>}
+   */
+  Players.prototype.killIfNeeded = async function(entity, channel, language) {
+
+    if (entity.health > 0) {
+      return;
+    }
+
+    entity.effect = EFFECT.DEAD;
+    this.lastReportAt = new Date(9999, 1);
+    await channel.send(format(JsonReader.models.players.getTranslation(language).ko, { pseudo: await this.getPseudo(language) }));
+    channel.guild.members.fetch(entity.discordUser_id).then(user => user.send(JsonReader.models.players.getTranslation(language).koPM));
   };
 
   return Players;

@@ -143,8 +143,8 @@ const doPossibility = async (message, language, possibility, entity, time, force
   let resultMsg = await message.channel.send(result);
 
   removeBlockedPlayer(entity.discordUser_id);
-  // TODO CHECK STATUS (LVL UP / DEAD)
-  await player.levelUpIfNeeded(message.channel, language);
+  await player.levelUpIfNeeded(entity, message.channel, language);
+  await player.killIfNeeded(entity, message.channel, language);
 
   entity.save();
   player.save();
