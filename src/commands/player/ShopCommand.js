@@ -8,10 +8,10 @@ async function ShopCommand(language, message, args) {
     let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
     //TODO Block user if effect alteration
-    //TODO Faire plus de tests
 
     const shopTranslations = JsonReader.commands.shop.getTranslation(language);
     const numberOfPotions = await Potions.count();
+
     //Formatting intems data into a string
     const randomItem = format(shopTranslations.display, {
         name: shopTranslations.permanentItems.randomItem.name,
@@ -58,15 +58,13 @@ async function ShopCommand(language, message, args) {
                 format(shopTranslations.display, {
                     name: potion.toString(language),
                     price: potionPrice,
-                })
-            )
+                }))
             .addField(
                 shopTranslations.permanentItem,
                 [randomItem, healAlterations, regen, badge, guildXp].join("\n") +
                 format(shopTranslations.moneyQuantity, {
                     money: entity.Player.money,
-                })
-            )
+                }))
     );
 
     //Creating maps to get shop items everywhere
@@ -78,8 +76,54 @@ async function ShopCommand(language, message, args) {
         .set(SHOP.MONEY_MOUTH, shopTranslations.permanentItems.badge)
         .set(SHOP.STAR, shopTranslations.permanentItems.guildXp);
 
-    //Asking for the user interaction
-    createItemSelector(shopMessage, language, entity, dailyPotion, shopItems);
+    const filterConfirm = (reaction, user) => {
+        return (user.id === entity.discordUser_id);
+    };
+
+    const collector = shopMessage.createReactionCollector(filterConfirm, {
+        time: 120000,
+        max: 1,
+    });
+
+    //get a choice from the user
+    collector.on("end", async (reaction) => {
+        if (!reaction.first()) return; //the user is afk
+        
+        const potion = dailyPotion.get("potion");
+        const potionPrice = dailyPotion.get("price");
+        if (shopItems.has(reaction.first().emoji.name)) {
+            const item = shopItems.get(reaction.first().emoji.name);
+            if (canBuy(item.price, entity.Player)) {
+                await confirmPurchase(shopMessage, language, item.name, item.price, item.info, entity, message.author, item);
+            } else {
+                sendErrorMessage(message.author, message.channel, language, format(
+                    JsonReader.commands.shop.getTranslation(language).error.cannotBuy, {
+                    missingMoney: item.price - entity.Player.money,
+                }
+                ));
+            }
+        } else if (
+            potion.getEmoji() === reaction.first().emoji.id ||
+            potion.getEmoji() === reaction.first().emoji.name
+        ) {
+            if (canBuy(potionPrice, entity.Player)) {
+                await confirmPurchase(shopMessage, language,
+                    potion.toString(language),
+                    potionPrice,
+                    JsonReader.commands.shop.getTranslation(language).potion.info,
+                    entity,
+                    message.author,
+                    dailyPotion
+                );
+            } else {
+                sendErrorMessage(message.author, message.channel, language, format(
+                    JsonReader.commands.shop.getTranslation(language).error.cannotBuy, {
+                    missingMoney: potionPrice - entity.Player.money,
+                }
+                ));
+            }
+        }
+    });
 
     //Adding reactions
     await Promise.all([
@@ -92,48 +136,6 @@ async function ShopCommand(language, message, args) {
     ]);
 }
 
-/**
- * Collect reactions on a message. Used to get the item the customer wants
- * @param {*} message - The message where the collector will listen
- */
-async function createItemSelector(message, language, entity, dailyPotion, shopItems) {
-    const collector = message.createReactionCollector(
-        (reaction, user) => {
-            return user.id == entity.discordUser_id;
-        }, {
-        time: 120000,
-    }
-    );
-    collector.on("collect", async (reaction, user) => {
-        collector.stop();
-        await checkForMoney(message, language, reaction, entity, user, dailyPotion, shopItems);
-    });
-}
-
-/**
- * Collect reactions on a message. Used to confirm purchase
- * @param {*} message - The message where the collector will listen
- */
-async function createConfirmSelector(message, language, entity, customer, selectedItem) {
-    const filterConfirm = (reaction, user) => {
-        return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUser_id);
-    };
-
-    const collector = message.createReactionCollector(filterConfirm, {
-        time: 120000,
-        max: 1,
-    });
-
-    collector.on("end", async (reaction) => {
-        message.delete();
-        if (!reaction.first()) {
-            if (reaction.emoji.name === MENU_REACTION.ACCEPT) {
-                return sellItem(message, reaction, language, entity, customer, selectedItem);
-            }
-        }
-        sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.canceledPurchase);
-    });
-}
 
 /**
  * @param {*} message - The message where the react event trigerred
@@ -177,49 +179,6 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
 }
 
 /**
- * Check if user has enough money to buy
- * @param {*} message - The message where the react event trigerred
- * @param {*} reaction - The reaction
- */
-async function checkForMoney(message, language, reaction, entity, customer, dailyPotion, shopItems) {
-    const potion = dailyPotion.get("potion");
-    const potionPrice = dailyPotion.get("price");
-
-    if (shopItems.has(reaction.emoji.name)) {
-        const item = shopItems.get(reaction.emoji.name);
-        if (canBuy(item.price, entity.Player)) {
-            await confirmPurchase(message, language, item.name, item.price, item.info, entity, customer, item);
-        } else {
-            sendErrorMessage(message.author, message.channel, language, format(
-                JsonReader.commands.shop.getTranslation(language).error.cannotBuy, {
-                missingMoney: item.price - entity.Player.money,
-            }
-            ));
-        }
-    } else if (
-        potion.getEmoji() === reaction.emoji.id ||
-        potion.getEmoji() === reaction.emoji.name
-    ) {
-        if (canBuy(potionPrice, entity.Player)) {
-            await confirmPurchase(message, language,
-                potion.toString(language),
-                potionPrice,
-                JsonReader.commands.shop.getTranslation(language).potion.info,
-                entity,
-                customer,
-                dailyPotion
-            );
-        } else {
-            sendErrorMessage(message.author, message.channel, language, format(
-                JsonReader.commands.shop.getTranslation(language).error.cannotBuy, {
-                missingMoney: potionPrice - entity.Player.money,
-            }
-            ));
-        }
-    }
-}
-
-/**
  * @param {*} name - The item name
  * @param {*} price - The item price
  * @param {*} info - The info to display while trying to buy the item
@@ -243,7 +202,24 @@ async function confirmPurchase(message, language, name, price, info, entity, cus
         );
 
     const confirmMessage = await message.channel.send(confirmEmbed);
-    createConfirmSelector(confirmMessage, language, entity, customer, selectedItem);
+    const filterConfirm = (reaction, user) => {
+        return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUser_id);
+    };
+
+    const collector = confirmMessage.createReactionCollector(filterConfirm, {
+        time: 120000,
+        max: 1,
+    });
+
+    collector.on("end", async (reaction) => {
+        confirmMessage.delete();
+        if (reaction.first()) {
+            if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+                return sellItem(message, reaction, language, entity, customer, selectedItem);
+            }
+        }
+        sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.canceledPurchase);
+    });
 
     await Promise.all([
         confirmMessage.react(MENU_REACTION.ACCEPT),
