@@ -144,6 +144,7 @@ async function ShopCommand(language, message, args) {
 async function sellItem(message, reaction, language, entity, customer, selectedItem) {
     const shopTranslations = JsonReader.commands.shop.getTranslation(language);
     if (selectedItem.name) {
+        entity.Player.addMoney(-selectedItem.price); //Remove money
         //This is not a potion
         if (
             selectedItem.name === shopTranslations.permanentItems.randomItem.name
@@ -170,7 +171,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
     } else {
         giveDailyPotion(message, language, entity, customer, selectedItem);
     }
-    entity.Player.addMoney(-selectedItem.price); //Remove money
+    
     await Promise.all([
         entity.save(),
         entity.Player.save(),
@@ -247,7 +248,6 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
     entity.Player.addMoney(-dailyPotion.get("price")); //Remove money
     entity.Player.Inventory.save(); //Save
     entity.Player.save(); //Save
-    message.delete();
     message.channel.send(
         new discord.MessageEmbed()
             .setColor(JsonReader.bot.embed.default)
@@ -268,7 +268,6 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
  */
 function healAlterations(message, language, entity, customer, selectedItem) {
     entity.effect = EFFECT.SMILEY; //Clear alterations
-    message.delete();
     message.channel.send(
         new discord.MessageEmbed()
             .setColor(JsonReader.bot.embed.default)
@@ -287,7 +286,6 @@ function healAlterations(message, language, entity, customer, selectedItem) {
  */
 function regenPlayer(message, language, entity, customer, selectedItem) {
     entity.setHealth(entity.maxHealth); //Heal Player
-    message.delete();
     message.channel.send(
         new discord.MessageEmbed()
             .setColor(JsonReader.bot.embed.default)
@@ -307,10 +305,8 @@ function regenPlayer(message, language, entity, customer, selectedItem) {
 function giveMoneyMouthBadge(message, language, entity, customer, selectedItem) {
     if (entity.Player.hasBadge("🤑")) {
         sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.alreadyHasItem);
-        message.delete();
     } else {
         entity.Player.addBadge("🤑"); //Give badge
-        message.delete();
         message.channel.send(
             new discord.MessageEmbed()
                 .setColor(JsonReader.bot.embed.default)
@@ -335,7 +331,6 @@ async function giveGuildXp(message, language, entity, customer, selectedItem) {
         const toAdd = randInt(50, 450);
         guild.addExperience(toAdd); //Add xp
         await guild.save();
-        message.delete();
         message.channel.send(
             new discord.MessageEmbed()
                 .setColor(JsonReader.bot.embed.default)
@@ -353,7 +348,6 @@ async function giveGuildXp(message, language, entity, customer, selectedItem) {
                 )
         );
     } catch (err) {
-        message.delete();
         sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guild.getTranslation(language).noGuildException);
     }
 }
