@@ -46,21 +46,21 @@ module.exports = (Sequelize, DataTypes) => {
 
   Potions.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt',
-        require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+      require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
   /**
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    */
-  Potions.prototype.toFieldObject = async function(language) {
+  Potions.prototype.toFieldObject = async function (language) {
     return {
       name: JsonReader.items.getTranslation(language).potions.fieldName,
       value: (this.id === 0) ? this[language] : format(
-          JsonReader.items.getTranslation(language).potions.fieldValue, {
-            name: this[language],
-            rarity: this.getRarityTranslation(language),
-            nature: this.getNatureTranslation(language),
-          }),
+        JsonReader.items.getTranslation(language).potions.fieldValue, {
+        name: this[language],
+        rarity: this.getRarityTranslation(language),
+        nature: this.getNatureTranslation(language),
+      }),
     };
   };
 
@@ -68,20 +68,20 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {("fr"|"en")} language - The language the potion has to be displayed in
    * @return {String}
    */
-  Potions.prototype.toString = function(language) {
+  Potions.prototype.toString = function (language) {
     return (this.id === 0) ? this[language] : format(
-        JsonReader.items.getTranslation(language).potions.fieldValue, {
-          name: this[language],
-          rarity: this.getRarityTranslation(language),
-          nature: this.getNatureTranslation(language),
-        });
+      JsonReader.items.getTranslation(language).potions.fieldValue, {
+      name: this[language],
+      rarity: this.getRarityTranslation(language),
+      nature: this.getNatureTranslation(language),
+    });
   };
 
   /**
    *
    * @return {String}
    */
-  Potions.prototype.getEmoji = function() {
+  Potions.prototype.getEmoji = function () {
     const emoji = this.fr.split(' ')[0];
     return emoji.includes('<') ? emoji.split(':')[2].replace('>', '') : emoji;
   };
@@ -90,7 +90,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {("fr"|"en")} language
    * @return {String}
    */
-  Potions.prototype.getRarityTranslation = function(language) {
+  Potions.prototype.getRarityTranslation = function (language) {
     return JsonReader.items.getTranslation(language).rarities[this.rarity];
   };
 
@@ -98,18 +98,26 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {("fr"|"en")} language
    * @return {String}
    */
-  Potions.prototype.getNatureTranslation = function(language) {
+  Potions.prototype.getNatureTranslation = function (language) {
     return format(
-        JsonReader.items.getTranslation(language).potions.natures[this.nature],
-        {
-          power: this.power,
-        });
+      JsonReader.items.getTranslation(language).potions.natures[this.nature],
+      {
+        power: this.power,
+      });
+  };
+  /**
+   * Get the simple name of the item, without rarity or anything else
+   * @param {("fr"|"en")} language
+   * @return {String}
+   */
+  Potions.prototype.getName = function (language) {
+    return this[language];
   };
 
   /**
    * @return {Number}
    */
-  Potions.prototype.getAttack = function() {
+  Potions.prototype.getAttack = function () {
     if (this.nature === 3) {
       return this.power;
     }
@@ -119,7 +127,7 @@ module.exports = (Sequelize, DataTypes) => {
   /**
    * @return {Number}
    */
-  Potions.prototype.getDefense = function() {
+  Potions.prototype.getDefense = function () {
     if (this.nature === 4) {
       return this.power;
     }
@@ -129,7 +137,7 @@ module.exports = (Sequelize, DataTypes) => {
   /**
    * @return {Number}
    */
-  Potions.prototype.getSpeed = function() {
+  Potions.prototype.getSpeed = function () {
     if (this.nature === 2) {
       return this.power;
     }
@@ -139,9 +147,9 @@ module.exports = (Sequelize, DataTypes) => {
   /**
    * @return {Boolean}
    */
-  Potions.prototype.isFightPotion = function() {
+  Potions.prototype.isFightPotion = function () {
     return this.getSpeed() !== 0 || this.getAttack() !== 0 ||
-        this.getDefense() !== 0;
+      this.getDefense() !== 0;
   };
 
   return Potions;

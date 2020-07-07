@@ -144,13 +144,11 @@ async function ShopCommand(language, message, args) {
 async function sellItem(message, reaction, language, entity, customer, selectedItem) {
     const shopTranslations = JsonReader.commands.shop.getTranslation(language);
     if (selectedItem.name) {
-        entity.Player.addMoney(-selectedItem.price); //Remove money
         //This is not a potion
         if (
             selectedItem.name === shopTranslations.permanentItems.randomItem.name
         ) {
             await giveRandomItem(customer, message.channel, language, entity);
-
         } else if (
             selectedItem.name === shopTranslations.permanentItems.healAlterations.name
         ) {
@@ -168,6 +166,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
         ) {
             await giveGuildXp(message, language, entity, customer, selectedItem);
         }
+        entity.Player.addMoney(-selectedItem.price); //Remove money
     } else {
         giveDailyPotion(message, language, entity, customer, selectedItem);
     }
@@ -213,7 +212,7 @@ async function confirmPurchase(message, language, name, price, info, entity, cus
     });
 
     collector.on("end", async (reaction) => {
-        confirmMessage.delete();
+        //confirmMessage.delete(); for now we'll keep the messages
         if (reaction.first()) {
             if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
                 return sellItem(message, reaction, language, entity, customer, selectedItem);
