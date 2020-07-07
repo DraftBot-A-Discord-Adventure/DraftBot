@@ -98,6 +98,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 
   collector.on('end', async (reaction) => {
     if (reaction.first()) { // a reaction exist
+      msg.delete();
       if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
         embed = new discord.MessageEmbed();
         embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {

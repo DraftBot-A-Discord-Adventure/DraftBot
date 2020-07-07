@@ -19,12 +19,13 @@ const SellCommand = async (language, message, args) => {
     return;
   }
 
-  let backupItem = await entity.Player.Inventory.getBackupObject();
+  let backupItem = await entity.Player.Inventory.getBackupObject(); 
   const embed = new discord.MessageEmbed()
     .setColor(JsonReader.bot.embed.default)
-    .setTitle(JsonReader.commands.sell.getTranslation(language).sellTitle)
+    .setAuthor(format(JsonReader.commands.sell.getTranslation(language).sellTitle, {
+      pseudo: message.author.username,
+    }), message.author.displayAvatarURL())
     .setDescription(format(JsonReader.commands.sell.getTranslation(language).confirmSell, {
-      mention: entity.getMention(),
       item: backupItem.getName(language),
       money: getItemValue(backupItem),
     }));
