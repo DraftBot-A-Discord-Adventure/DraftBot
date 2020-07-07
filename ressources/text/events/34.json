@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": " : ** Au détour d'une rue, des passants vous ont reconnu et vous abordent. Ils se rappellent parfaitement de l'aide que vous leur aviez apportée, et insistent pour vous remercier en vous offrant un cadeau. Ils vous demandent ce qui vous ferait le plus plaisir.\n\n:four_leaf_clover: Cadeau en nature\n:moneybag: Cadeau en monnaie\n:innocent: Cadeau en santé\n:salad: Cadeau alimentaire\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n:four_leaf_clover: - Gift in kind\n:moneybag: - Money Gift\n:innocent: - Gift of Health\n:salad: - Gift of Food\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"en": " : ** At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n:four_leaf_clover: Gift in kind\n:moneybag: Money Gift\n:innocent: Gift of Health\n:salad: Gift of Food\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🍀": [
