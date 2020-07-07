@@ -2,16 +2,16 @@
   "translations": {
     "fr": {
       "noItemToSell": "Vous n'avez malheureusement aucun objet dans votre réserve !",
-      "confirmSell": "{mention}, êtes-vous sûr de vouloir vous séparer de {item} pour **{money}** :moneybag: ?",
+      "confirmSell": "Êtes-vous sûr de vouloir vous séparer de {item} pour **{money}** :moneybag: ?",
       "sellCanceled": "La vente a bien été annulée !",
-      "sellTitle": "Vente d'objet",
+      "sellTitle": "{pseudo}, confirmation :",
       "soldMessage": "Vous avez vendu {item} pour **{money}** d'argent. Vous avez maintenant **{totalMoney}** :moneybag: !"
     },
     "en": {
       "noItemToSell": "Unfortunately, you don't have any active item in your inventory!",
-      "confirmSell": "{mention}, do you really want to leave {item} for **{money}** :moneybag:?",
+      "confirmSell": "Do you really want to leave {item} for **{money}** :moneybag:?",
       "sellCanceled": "The transaction was canceled!",
-      "sellTitle": "Item selling",
+      "sellTitle": "{pseudo}, confirmation:",
       "soldMessage": "You sold {item} for **{money}** :moneybag:. You now have **{totalMoney}** :moneybag:!"
     }
   }
