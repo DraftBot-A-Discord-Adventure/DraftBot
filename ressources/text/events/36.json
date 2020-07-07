@@ -15,7 +15,7 @@
 				"effect": ":smiley:",
 				"experience": 325,
 				"money": 0,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
@@ -97,8 +97,8 @@
 		"🚶": [
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Vous continuez votre route. En sortant du village, vous croisez un prêtre qui vous offre un morceau de pain pour votre périple.",
-					"en": "** | 🚶‍♂️ You continue your journey. As you leave the village, you meet a priest whom offers you a piece of bread for your journey"
+					"fr": "** | 🚶 Vous continuez votre route. En sortant du village, vous croisez un prêtre qui vous offre un morceau de pain pour votre périple.",
+					"en": "** | 🚶‍ You continue your journey. As you leave the village, you meet a priest whom offers you a piece of bread for your journey"
 				},
 				"lostTime": 0,
 				"health": 5,
@@ -111,8 +111,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Vous attendez un long moment sur cette place et tout d'un coup des marchands commencent à s'installer. C'est votre jour de chance ! Il s'agit d'un marché, et les pommes sont très peu chères. Vous en achetez quelques-unes et pour reprenez votre chemin.",
-					"en": "** | 🚶‍♂️ You wait a long time in this square and then merchants start to settle down. It’s your lucky day! It’s a market, and apples are cheap. You buy some and go on your way."
+					"fr": "** | 🚶‍ Vous attendez un long moment sur cette place et tout d'un coup des marchands commencent à s'installer. C'est votre jour de chance ! Il s'agit d'un marché, et les pommes sont très peu chères. Vous en achetez quelques-unes et pour reprenez votre chemin.",
+					"en": "** | 🚶 You wait a long time in this square and then merchants start to settle down. It’s your lucky day! It’s a market, and apples are cheap. You buy some and go on your way."
 				},
 				"lostTime": 60,
 				"health": 20,
@@ -123,8 +123,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Vous attendez un petit moment sur cette place, puis vous rendez compte qu'il n'y a rien de bien intéressant à faire, et reprenez route.",
-					"en": "** | 🚶‍♂️ You wait a little while in this square, then you realize that there is nothing very interesting to do, and go back on your journey."
+					"fr": "** | 🚶 Vous attendez un petit moment sur cette place, puis vous rendez compte qu'il n'y a rien de bien intéressant à faire, et reprenez route.",
+					"en": "** | 🚶‍ You wait a little while in this square, then you realize that there is nothing very interesting to do, and go back on your journey."
 				},
 				"lostTime": 15,
 				"health": 0,
