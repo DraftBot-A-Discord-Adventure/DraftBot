@@ -84,7 +84,7 @@ const TestCommand = async (language, message, args) => {
         break;
       case 'clearbadges':
         if (args.length === 1) {
-          author.Player.badges = '';
+          author.Player.badges = null;
           author.Player.save();
         } else {
           await message.channel.send('Usage correct: test clearbadges');
@@ -148,8 +148,17 @@ const TestCommand = async (language, message, args) => {
         break;
       case 'effect':
         if (args.length === 2) {
-          author.effect = ':' + args[1] + ':';
-          author.save();
+          let effectMalus = ':' + args[1] + ':';
+          if (JsonReader.models.players.effectMalus[effectMalus] !== null && JsonReader.models.players.effectMalus[effectMalus] !== undefined) {
+            author.effect = effectMalus;
+            author.save();
+            author.Player.lastReportAt = new Date(message.createdTimestamp + JsonReader.models.players.effectMalus[effectMalus]);
+            author.Player.save();
+          }
+          else {
+            await message.channel.send('Effet inconnu ! Il ne faut pas mettre les ::');
+            return;
+          }
         } else {
           await message.channel.send('Usage correct: test effect <effect>');
           return;
@@ -206,7 +215,7 @@ const TestCommand = async (language, message, args) => {
         author.Player.weeklyScore = 0;
         author.Player.experience = 0;
         author.Player.money = 0;
-        author.Player.badges = '';
+        author.Player.badges = null;
         author.Player.lastReportAt = new Date(1980, 0);
         author.Player.save();
 
@@ -224,12 +233,44 @@ const TestCommand = async (language, message, args) => {
         author.Player.Inventory.backup_id = 0;
         author.Player.Inventory.save();
         break;
+      case 'atime':
+        if (args.length === 2) {
+          author.Player.lastReportAt -= parseInt(args[1]) * 60000;
+          author.Player.save();
+        }
+        break;
+      case 'destroy':
+        Inventories.destroy({
+          where: {
+            player_id: author.Player.id
+          }
+        });
+        Players.destroy({
+          where: {
+            entity_id: author.id
+          }
+        });
+        Entities.destroy({
+          where: {
+            id: author.id
+          }
+        });
+        break;
+      case 'forcer':
+        if (args.length === 2) {
+          await getCommand("r")(language, message, args, parseInt(args[1]));
+        } else {
+          await message.channel.send('Usage correct: test forcer <eventId>');
+        }
+        return;
       default:
         await message.channel.send('Argument inconnu !');
         return;
     }
   } catch (error) {
+    console.log(error);
     await message.channel.send(':x: | Une erreur est survenue pendant la commande !');
+    return;
   }
   await message.channel.send(':man_mage: | Commande test reconnue et appliquée !');
 };

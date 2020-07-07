@@ -51,7 +51,7 @@
 				"effect": ":smiley:",
 				"experience": 0,
 				"money": 300,
-				"item": false
+				"item": true
 			}
 		],
 		"🔪": [
@@ -89,7 +89,7 @@
 				"effect": ":smiley:",
 				"experience": 550,
 				"money": 1000,
-				"item": false
+				"item": true
 			}
 		],
 		"🗣️": [
@@ -145,8 +145,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ En continuant votre route, vous décidez de vous arrêter près d'un arbre et trouvez quelques pièces d'or.",
-					"en": "** | 🚶‍♂️ You continue on your way without paying attention to the man. You decide to stop by a tree and find some gold coins on the way."
+					"fr": "** | 🚶‍ En continuant votre route, vous décidez de vous arrêter près d'un arbre et trouvez quelques pièces d'or.",
+					"en": "** | 🚶 You continue on your way without paying attention to the man. You decide to stop by a tree and find some gold coins on the way."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -157,8 +157,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Alors que vous partez hâtivement, des gens vous voient et décident de vous poursuivre. Vous courez pendant de longues minutes avant de les semer.",
-					"en": "** | 🚶‍♂️ You leave as fast as you can, people see you and decide to chase you. You run for a while and only stop after making sure they lost sight of you."
+					"fr": "** | 🚶‍ Alors que vous partez hâtivement, des gens vous voient et décident de vous poursuivre. Vous courez pendant de longues minutes avant de les semer.",
+					"en": "** | 🚶 You leave as fast as you can, people see you and decide to chase you. You run for a while and only stop after making sure they lost sight of you."
 				},
 				"lostTime": 10,
 				"health": 0,
@@ -169,8 +169,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Vous continuez votre route comme si de rien n'était.",
-					"en": "** | 🚶‍♂️ You continue on as if nothing happened."
+					"fr": "** | 🚶 Vous continuez votre route comme si de rien n'était.",
+					"en": "** | 🚶‍ You continue on as if nothing happened."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -181,8 +181,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ En vous éloignant vous croisez des braconniers qui vous dépouillent.",
-					"en": "** | 🚶‍♂️ As you are getting away, you encounter a group of poachers who decide to rob you."
+					"fr": "** | 🚶 En vous éloignant vous croisez des braconniers qui vous dépouillent.",
+					"en": "** | 🚶‍ As you are getting away, you encounter a group of poachers who decide to rob you."
 				},
 				"lostTime": 0,
 				"health": 0,

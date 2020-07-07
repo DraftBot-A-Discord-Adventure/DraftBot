@@ -7,7 +7,7 @@
 const SellCommand = async (language, message, args) => {
   const [entity] = await Entities.getOrRegister(message.author.id);
 
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
     return;
   }
   if (await sendBlockedError(message.author, message.channel, language)) {

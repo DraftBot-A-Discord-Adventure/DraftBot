@@ -10,6 +10,10 @@ const FightCommand = async function(language, message, args) {
   let attacker;
   [attacker] = await Entities.getOrRegister(message.author.id);
 
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], attacker)) !== true) {
+    return;
+  }
+
   /* let ftmp = new Fight(attacker, attacker, message, language); //Fight for testing
     return ftmp.startFight();*/
 
@@ -23,10 +27,6 @@ const FightCommand = async function(language, message, args) {
       sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.fightHimself);
       return;
     }
-  }
-
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], attacker)) !== true) {
-    return;
   }
 
   let canF;

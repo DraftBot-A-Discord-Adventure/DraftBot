@@ -65,7 +65,7 @@
 				"effect": ":smiley:",
 				"experience": 450,
 				"money": -200,
-				"item": false
+				"item": true
 			}
 		],
 		"🍢": [
