@@ -43,7 +43,8 @@
             "error": {
                 "cannotBuy": "💰 Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
                 "canceledPurchase": "Transaction annulée!",
-                "alreadyHasItem": ":money_mouth: Vous possédez déjà cet objet."
+                "alreadyHasItem": ":money_mouth: Vous possédez déjà cet objet.",
+                "leaveShop": "Vous avez quitté le magasin."
             },
             "potion": {
                 "info": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
@@ -93,7 +94,8 @@
             "error": {
                 "cannotBuy": "💰 You don't have enough money to buy this! You need `{missingMoney}💰` more.",
                 "canceledPurchase": "Transaction canceled!",
-                "alreadyHasItem": ":money_mouth: You already have the \"MoneyMouth\" badge. You can only buy it once."
+                "alreadyHasItem": ":money_mouth: You already have the \"MoneyMouth\" badge. You can only buy it once.",
+                "leaveShop": "You left the shop."
             },
             "potion": {
                 "info": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
