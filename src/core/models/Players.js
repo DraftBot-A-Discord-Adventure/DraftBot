@@ -234,7 +234,7 @@ module.exports = (Sequelize, DataTypes) => {
   Players.prototype.setPseudo = async function(language) {
     const entity = await this.getEntity();
     if (entity.discordUser_id !== undefined &&
-        client.users.cache.get(entity.discordUser_id) !== null) {
+        client.users.cache.get(entity.discordUser_id) !== undefined) {
       this.pseudo = client.users.cache.get(entity.discordUser_id).username;
     } else {
       this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
