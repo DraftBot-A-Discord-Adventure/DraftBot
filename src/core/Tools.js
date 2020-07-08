@@ -32,10 +32,10 @@ global.sendMessageAttachments = (message, channel) => {
 global.sendErrorMessage = (user, channel, language, reason) => {
   const embed = new discord.MessageEmbed();
   embed.setColor(JsonReader.bot.embed.error)
-      .setAuthor(format(JsonReader.error.getTranslation(language).title, {
-        pseudo: user.username,
-      }), user.displayAvatarURL())
-      .setDescription(reason);
+    .setAuthor(format(JsonReader.error.getTranslation(language).title, {
+      pseudo: user.username,
+    }), user.displayAvatarURL())
+    .setDescription(reason);
   return channel.send(embed);
 };
 
@@ -52,7 +52,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
   embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
     pseudo: discordUser.username,
   }), discordUser.displayAvatarURL())
-      .setDescription(item.toString(language));
+    .setDescription(item.toString(language));
   if (item instanceof Potions) {
     const potion = await entity.Player.Inventory.getPotion();
     embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
@@ -98,13 +98,13 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 
   collector.on('end', async (reaction) => {
     if (reaction.first()) { // a reaction exist
-      msg.delete();
+      // msg.delete(); for now we are goig to keep the message
       if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
         embed = new discord.MessageEmbed();
         embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
           pseudo: discordUser.username,
         }), discordUser.displayAvatarURL())
-            .setDescription(item.toString(language));
+          .setDescription(item.toString(language));
         if (item instanceof Potions) {
           entity.Player.Inventory.potion_id = item.id;
         }
@@ -125,7 +125,16 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
         return channel.send(embed);
       }
     }
-    // TODO : Sell the item (je le fait demain)
+    const money = getItemValue(item);
+    entity.Player.addMoney(money);
+    await entity.Player.save();
+    return await channel.send(
+      format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+        {
+          item: item.getName(language),
+          money: money
+        },
+      ));
   });
   await Promise.all([
     msg.react(MENU_REACTION.ACCEPT),
@@ -139,7 +148,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
  */
 global.generateRandomRarity = () => {
   const randomValue = Math.round(
-      Math.random() * JsonReader.values.raritiesGenerator.maxValue);
+    Math.random() * JsonReader.values.raritiesGenerator.maxValue);
 
   if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
     return 1;
@@ -271,8 +280,18 @@ global.progressBar = (value, maxValue) => {
  * @param {Objects|Armors|Weapons|Potions} item
  * @return {Number} - The value of the item
  */
-global.getItemValue = function(item) {
-  return parseInt(JsonReader.values.raritiesValues[item.rarity]) + parseInt(item.power);
+global.getItemValue = function (item) {
+  let addedvalue;
+  if (item instanceof Potions || item instanceof Objects) {
+    addedvalue = parseInt(item.power);
+  }
+  if (item instanceof Weapons) {
+    addedvalue = parseInt(item.rawAttack);
+  }
+  if (item instanceof Armors) {
+    addedvalue = parseInt(item.rawDefense);
+  }
+  return parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedvalue;
 };
 
 /**
@@ -282,7 +301,7 @@ global.getItemValue = function(item) {
  * @param {"fr"|"en"} language
  * @returns {boolean}
  */
-global.sendBlockedError = async function(user, channel, language) {
+global.sendBlockedError = async function (user, channel, language) {
   if (hasBlockedPlayer(user.id)) {
     await sendErrorMessage(user, channel, language, JsonReader.error.getTranslation(language).playerBlocked);
     return true;

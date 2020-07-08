@@ -58,8 +58,7 @@ const SellCommand = async (language, message, args) => {
             format(JsonReader.commands.sell.getTranslation(language).soldMessage,
               {
                 item: backupItem.getName(language),
-                money: money,
-                totalMoney: entity.Player.money,
+                money: money
               },
             ));
         }
