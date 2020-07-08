@@ -7,7 +7,14 @@
 async function ShopCommand(language, message, args) {
     let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
-    //TODO Block user if effect alteration
+    if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+        return;
+    }
+    if (await sendBlockedError(message.author, message.channel, language)) {
+        return;
+    }
+
+    addBlockedPlayer(entity.discordUser_id, 'shop');
 
     const shopTranslations = JsonReader.commands.shop.getTranslation(language);
     const numberOfPotions = await Potions.count();
@@ -87,7 +94,16 @@ async function ShopCommand(language, message, args) {
 
     //get a choice from the user
     collector.on("end", async (reaction) => {
-        if (!reaction.first()) return; //the user is afk
+        if (!reaction.first()) { //the user is afk
+            removeBlockedPlayer(entity.discordUser_id);
+            return;
+        }
+
+        if (reaction.first().emoji.name === '❌') {
+            removeBlockedPlayer(entity.discordUser_id);
+            sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.leaveShop);
+            return;
+        }
         
         const potion = dailyPotion.get("potion");
         const potionPrice = dailyPotion.get("price");
@@ -101,6 +117,7 @@ async function ShopCommand(language, message, args) {
                     missingMoney: item.price - entity.Player.money,
                 }
                 ));
+                removeBlockedPlayer(entity.discordUser_id);
             }
         } else if (
             potion.getEmoji() === reaction.first().emoji.id ||
@@ -121,6 +138,7 @@ async function ShopCommand(language, message, args) {
                     missingMoney: potionPrice - entity.Player.money,
                 }
                 ));
+                removeBlockedPlayer(entity.discordUser_id);
             }
         }
     });
@@ -133,6 +151,7 @@ async function ShopCommand(language, message, args) {
         shopMessage.react(SHOP.HEART),
         shopMessage.react(SHOP.MONEY_MOUTH),
         shopMessage.react(SHOP.STAR),
+        shopMessage.react('❌')
     ]);
 }
 
@@ -213,6 +232,7 @@ async function confirmPurchase(message, language, name, price, info, entity, cus
     });
 
     collector.on("end", async (reaction) => {
+        removeBlockedPlayer(entity.discordUser_id);
         confirmMessage.delete();
         if (reaction.first()) {
             if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
