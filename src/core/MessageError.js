@@ -32,6 +32,18 @@ class MessageError {
       }
     }
 
+    if (permission === PERMISSION.ROLE.TOURNAMENT) {
+      let allowed = false;
+      for (let i = 0; i < JsonReader.app.TOURNAMENT_IDS.length; ++i) {
+        if (JsonReader.app.TOURNAMENT_IDS[i] === message.author.id) {
+          allowed = true;
+        }
+      }
+      if (!allowed) {
+        return await MessageError.permissionErrorMe(message, language, permission);
+      }
+    }
+
     // Check disallowEffects on entity
     if (disallowEffects == null) {
       return true;
@@ -80,6 +92,12 @@ class MessageError {
       embed
           .setAuthor(format(JsonReader.error.getTranslation(language).titlePermissionError, {pseudo: message.author.username}), message.author.displayAvatarURL())
           .setDescription(JsonReader.error.getTranslation(language).botOwnerPermissionMissing);
+    }
+
+    if (permission === PERMISSION.ROLE.TOURNAMENT) {
+      embed
+          .setAuthor(format(JsonReader.error.getTranslation(language).titlePermissionError, {pseudo: message.author.username}), message.author.displayAvatarURL())
+          .setDescription(JsonReader.error.getTranslation(language).botTournamentPermissionMissing);
     }
 
     return await message.channel.send(embed);
