@@ -3,17 +3,17 @@
         "fr": {
             "noGuildException": "Aucune guilde n'a été trouvée.",
             "title": "Guilde {guildName}",
-            "chief": "Chef de Guilde : {pseudo} :military_medal:",
+            "chief": "Chef de Guilde : **{pseudo}** :military_medal:",
             "members" : ":person_pouting: {memberCount}/{maxGuildMembers} membres",
-            "memberinfos" : " - {pseudo} ({ranking} :trophy: | {score} :medal:)\n",
+            "memberinfos" : " - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
             "experience" :":star: {xp} / {xpToLevelUp} | Niveau {level}"
         },
         "en": {
             "noGuildException": "No guild was found.",
             "title": "Guild {guildName}",
-            "chief": "Guild leader : {pseudo} :military_medal:",
+            "chief": "Guild leader : **{pseudo}** :military_medal:",
             "members" : ":person_pouting: {memberCount}/{maxGuildMembers} members",
-            "memberinfos" : " - {pseudo} ({ranking} :trophy: | {score} :medal:)\n",
+            "memberinfos" : " - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
             "experience" :":star: {xp} / {xpToLevelUp} | Level {level}"
         }
     },

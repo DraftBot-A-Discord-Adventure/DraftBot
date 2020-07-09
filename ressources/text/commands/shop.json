@@ -41,9 +41,10 @@
             "confirm": "{pseudo}, Vous avez sélectionné le produit suivant :",
             "moneyQuantity": "\n\nVous avez `{money}💰`.",
             "error": {
-                "cannotBuy": "💰 Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
+                "nothingToHeal" : "Vous n'êtes victime d'aucune altération d'état.",
+                "cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
                 "canceledPurchase": "Transaction annulée!",
-                "alreadyHasItem": ":money_mouth: Vous possédez déjà cet objet.",
+                "alreadyHasItem": "Vous possédez déjà cet objet.",
                 "leaveShop": "Vous avez quitté le magasin."
             },
             "potion": {
@@ -92,9 +93,10 @@
             "confirm": "{pseudo}, You have selected this product:",
             "moneyQuantity": "\n\nYou have `{money}💰`.",
             "error": {
-                "cannotBuy": "💰 You don't have enough money to buy this! You need `{missingMoney}💰` more.",
+                "nothingToHeal" : "Vous n'êtes victime d'aucune altération d'état.",
+                "cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",
                 "canceledPurchase": "Transaction canceled!",
-                "alreadyHasItem": ":money_mouth: You already have the \"MoneyMouth\" badge. You can only buy it once.",
+                "alreadyHasItem": "You already have the \"MoneyMouth\" badge. You can only buy it once.",
                 "leaveShop": "You left the shop."
             },
             "potion": {

@@ -104,7 +104,7 @@ async function ShopCommand(language, message, args) {
             sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.leaveShop);
             return;
         }
-        
+
         const potion = dailyPotion.get("potion");
         const potionPrice = dailyPotion.get("price");
         if (shopItems.has(reaction.first().emoji.name)) {
@@ -112,11 +112,13 @@ async function ShopCommand(language, message, args) {
             if (canBuy(item.price, entity.Player)) {
                 await confirmPurchase(shopMessage, language, item.name, item.price, item.info, entity, message.author, item);
             } else {
-                sendErrorMessage(message.author, message.channel, language, format(
-                    JsonReader.commands.shop.getTranslation(language).error.cannotBuy, {
-                    missingMoney: item.price - entity.Player.money,
-                }
-                ));
+                sendErrorMessage(message.author, message.channel, language, format
+                    (JsonReader.commands.shop.getTranslation(language).error.cannotBuy,
+                        {
+                            missingMoney: item.price - entity.Player.money,
+                        }
+                    )
+                );
                 removeBlockedPlayer(entity.discordUser_id);
             }
         } else if (
@@ -171,6 +173,9 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
         } else if (
             selectedItem.name === shopTranslations.permanentItems.healAlterations.name
         ) {
+            if (entity.effect != EFFECT.SMILEY) { // TODO : test with duration of the effects
+                return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.nothingToHeal);
+            }
             healAlterations(message, language, entity, customer, selectedItem);
         } else if (
             selectedItem.name === shopTranslations.permanentItems.regen.name
@@ -189,7 +194,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
     } else {
         giveDailyPotion(message, language, entity, customer, selectedItem);
     }
-    
+
     await Promise.all([
         entity.save(),
         entity.Player.save(),
@@ -286,7 +291,10 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
  * Clear all player alterations
  */
 function healAlterations(message, language, entity, customer, selectedItem) {
-    entity.effect = EFFECT.SMILEY; //Clear alterations
+    if (entity.effect != EFFECT.DEAD && entity.effect != EFFECT.LOCKED) {
+        entity.effect = EFFECT.SMILEY;
+        entity.Player.lastReportAt = new Date(message.createdTimestamp);
+    }
     message.channel.send(
         new discord.MessageEmbed()
             .setColor(JsonReader.bot.embed.default)
@@ -344,11 +352,11 @@ function giveMoneyMouthBadge(message, language, entity, customer, selectedItem) 
  * Give guild xp
  */
 async function giveGuildXp(message, language, entity, customer, selectedItem) {
-    //TODO test this
     try {
         const guild = await Guilds.getById(entity.Player.guild_id);
         const toAdd = randInt(50, 450);
         guild.addExperience(toAdd); //Add xp
+        await guild.levelUpIfNeeded(message.channel, language);
         await guild.save();
         message.channel.send(
             new discord.MessageEmbed()

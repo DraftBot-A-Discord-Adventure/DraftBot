@@ -51,7 +51,7 @@ global.REWARD_TYPES = {
   PERSONAL_XP: 'personalXP',
   GUILD_XP: 'guildXp',
   MONEY: 'money',
-  RANDOM_ITEM: 'randomItem',
+  FIXED_MONEY: 'fixedMoney',
   BADGE: 'badge',
   FULL_HEAL: 'fullHeal',
   PARTIAL_HEAL: 'partialHeal',

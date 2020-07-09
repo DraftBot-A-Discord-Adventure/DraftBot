@@ -10,7 +10,7 @@ const DailyCommand = async function(language, message) {
     return;
   }
 
-  const currentDay = (new (require('moment'))).add(
+  const currentDay = (new (require('moment'))()).add(
       JsonReader.commands.daily.numberOfDayToReload, 'd');
   const activeObject = await entity.Player.Inventory.getActiveObject();
 

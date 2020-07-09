@@ -187,6 +187,15 @@ global.millisecondsToMinutes = (milliseconds) => {
 };
 
 /**
+ * Convert a number of milliseconds in a number of hours
+ * @param {Number} milliseconds - The number of milliseconds
+ * @return {Number}
+ */
+global.millisecondsToHours = (milliseconds) => {
+  return Math.round(milliseconds / 3600000);
+};
+
+/**
  * Convert a number of minutes in a number of milliseconds
  * @param {Number} minutes - The number of minutes
  * @return {Number}
@@ -255,7 +264,6 @@ global.randInt = (min, max) => {
   return Math.round(Math.random() * (max - min) + min);
 };
 
-// TODO 2.0 ProgressBar
 /**
  * Create a text progress bar
  * @param {Number} value
@@ -271,7 +279,7 @@ global.progressBar = (value, maxValue) => {
   const emptyProgressText = '—'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
   const percentageText = Math.round(percentage * 100) + '%'; // Displaying the percentage of the bar
 
-  const bar = '[' + progressText + emptyProgressText + '] ' + percentageText; // Creating the bar
+  const bar = '```[' + progressText + emptyProgressText + ']' + percentageText + '```'; // Creating the bar
   return bar;
 };
 

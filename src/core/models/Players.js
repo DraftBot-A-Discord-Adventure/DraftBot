@@ -148,13 +148,6 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-   * @return {Number} Return the experience used to level up.
-   */
-  Players.prototype.getExperienceUsedToLevelUp = function() {
-    return JsonReader.models.players.xp[this.level];
-  };
-
-  /**
    * @param {Number} score
    */
   Players.prototype.addScore = function(score) {
@@ -234,7 +227,7 @@ module.exports = (Sequelize, DataTypes) => {
   Players.prototype.setPseudo = async function(language) {
     const entity = await this.getEntity();
     if (entity.discordUser_id !== undefined &&
-        client.users.cache.get(entity.discordUser_id) !== null) {
+        client.users.cache.get(entity.discordUser_id) !== undefined) {
       this.pseudo = client.users.cache.get(entity.discordUser_id).username;
     } else {
       this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
