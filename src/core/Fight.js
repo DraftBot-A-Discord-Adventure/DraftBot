@@ -431,22 +431,27 @@ class Fight {
   }
 
   /**
-     * End the fight. Change fighters' score if there is a loser and unblock players
-     */
-  endFight() {
+   * End the fight. Change fighters' score if there is a loser and unblock players
+   */
+  async endFight() {
     if (!this.hasStarted()) {
       throw new Error('The fight has not started yet !');
     } else if (this.hasEnded()) {
       throw new Error('The fight already ended !');
+    }
+    for (let i = 0; i < this.fighters.length; ++i) {
+      [this.fighters[i].entity] = await Entities.getOrRegister(this.fighters[i].entity.discordUser_id);
     }
     const loser = this.getLoser();
     if (loser != null) {
       this.calculateElo();
       this.calculatePoints();
       loser.entity.Player.addScore(-this.points);
+      loser.entity.Player.addWeeklyScore(-this.points);
       loser.entity.Player.save();
       const winner = this.getWinner();
       winner.entity.Player.addScore(this.points);
+      winner.entity.Player.addWeeklyScore(this.points);
       winner.entity.Player.save();
     }
     for (let i = 0; i < this.fighters.length; i++) {

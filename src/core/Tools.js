@@ -290,6 +290,42 @@ global.sendBlockedError = async function(user, channel, language) {
   return false;
 };
 
+/**
+ * Returns the next sunday 23h59 59s
+ * @return {Date}
+ */
+global.getNextSundayMidnight = function() {
+  let now = new Date();
+  let dateOfReset = new Date();
+  dateOfReset.setDate(now.getDate() + ((7 - now.getDay())) % 7);
+  dateOfReset.setHours(23, 59, 59);
+  while (dateOfReset < now) {
+    dateOfReset += 1000*60*60*24*7;
+  }
+  return new Date(dateOfReset);
+};
+
+global.parseTimeDifference = function(date1, date2, language) {
+  if (date1 > date2) {
+    date1 = [date2, date2 = date1][0];
+  }
+  let seconds = Math.floor((date2 - date1) / 1000);
+  let parsed = "";
+  let days = Math.floor(seconds / (24*60*60));
+  if (days > 0) {
+    parsed += days + (language === "fr" ? " J " : " D ");
+    seconds -= days * 24*60*60;
+  }
+  let hours = Math.floor(seconds / (60*60));
+  parsed += hours + " H ";
+  seconds -= hours * 60*60;
+  let minutes = Math.floor(seconds / 60);
+  parsed += minutes + " Min ";
+  seconds -= minutes * 60;
+  parsed += seconds + " s";
+  return parsed;
+};
+
 // TODO 2.0 Legacy code
 // /**
 //  * convert a number of hours in a number of miliseconds

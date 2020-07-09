@@ -12,7 +12,8 @@
 			"maxPageDesc": "**Page minimale :** 1 \n **Page maximale :** {pageMax}",
 			"lowScore": ":x: | Votre score est de moins de 100, vous n'apparaissez pas dans le top !",
 			"yourRanking": "Votre classement",
-			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Niveau {level}`\n"
+			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Niveau {level}`\n",
+			"nextReset": "Classement réinitialisé dans {time}"
 		},
 		"en": {
             "general": ":trophy: Display of top {debut} to {fin} : ",
@@ -26,7 +27,8 @@
 			"maxPageDesc": "**Minimal page :** 1 \n **Maximal page :** {pageMax}",
 			"lowScore": ":x: | Your score must be at least 100, you are not in the top !",
 			"yourRanking": "Your rank",
-			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Level {level}`\n"
+			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Level {level}`\n",
+			"nextReset": "Next reset: {time}"
 		}
 	},
 	"first": ":first_place:",
