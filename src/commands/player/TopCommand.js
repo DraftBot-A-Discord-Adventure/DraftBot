@@ -6,8 +6,6 @@ const moment = require('moment');
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-    //TODO
-    // handle when score is equal
 const topCommand = async function (language, message, args) {
 
       const [entity] = await Entities.getOrRegister(message.author.id);
@@ -43,8 +41,9 @@ const topCommand = async function (language, message, args) {
             },
           }],
           order: [
-            [{model: Players, as: 'Player'}, 'score', 'DESC']
-          ],
+            [{model: Players, as: 'Player'}, 'score', 'DESC'],
+            [{model: Players, as: 'Player'}, 'level', 'DESC']
+          ]
         });
 
         for (let i = 0; i < allEntities.length; i++) {
@@ -88,8 +87,9 @@ const topCommand = async function (language, message, args) {
             },
           }],
           order: [
-            [{model: Players, as: 'Player'}, 'weeklyScore', 'DESC']
-          ],
+            [{model: Players, as: 'Player'}, 'weeklyScore', 'DESC'],
+            [{model: Players, as: 'Player'}, 'level', 'DESC']
+          ]
         });
 
         await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).generalWeek, parseInt(args[1]));
@@ -125,8 +125,9 @@ const topCommand = async function (language, message, args) {
             },
           }],
           order: [
-            [{model: Players, as: 'Player'}, 'score', 'DESC']
-          ],
+            [{model: Players, as: 'Player'}, 'score', 'DESC'],
+            [{model: Players, as: 'Player'}, 'level', 'DESC']
+          ]
         });
 
         await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).general, parseInt(args[0]));
@@ -214,7 +215,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
         rank: k,
         pseudo: pseudo,
         badgeState: badgeState !== ":smiley:" ? badgeState + " | " : "",
-        score: allEntities[k - 1].Player.score,
+        score: topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek ? allEntities[k - 1].Player.weeklyScore : allEntities[k - 1].Player.score,
         level: allEntities[k - 1].Player.level
       });
       embed.setDescription(messages);
