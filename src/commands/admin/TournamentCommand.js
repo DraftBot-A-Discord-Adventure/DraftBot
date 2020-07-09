@@ -34,5 +34,5 @@ module.exports = {
     'tournament': TournamentCommand
 };
 
-global.tournamentChannel = "440879632837902346";
-global.tournamentPower = 50;
+global.tournamentChannel = "656586677841821728";
+global.tournamentPower = 500;

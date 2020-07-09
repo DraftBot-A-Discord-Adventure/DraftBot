@@ -27,19 +27,13 @@ class MessageError {
     }
 
     if (permission === PERMISSION.ROLE.BOTOWNER) {
-      if (message.author.id != JsonReader.app.BOT_OWNER_ID) {
+      if (message.author.id !== JsonReader.app.BOT_OWNER_ID) {
         return await MessageError.permissionErrorMe(message, language, permission);
       }
     }
 
     if (permission === PERMISSION.ROLE.TOURNAMENT) {
-      let allowed = false;
-      for (let i = 0; i < JsonReader.app.TOURNAMENT_IDS.length; ++i) {
-        if (JsonReader.app.TOURNAMENT_IDS[i] === message.author.id) {
-          allowed = true;
-        }
-      }
-      if (!allowed) {
+      if (!message.member.roles.cache.has(JsonReader.app.TOURNAMENT_ROLE)) {
         return await MessageError.permissionErrorMe(message, language, permission);
       }
     }
