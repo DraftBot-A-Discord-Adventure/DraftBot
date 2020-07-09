@@ -3,30 +3,40 @@
 		"fr": {
             "general": ":trophy: Affichage du top {debut} à {fin} : \n",
 			"server": ":trophy: Affichage du top du serveur {debut} à {fin} : ",
-			"generalWeek":":trophy: Affichage du top de la semaine {debut} à {fin} : ",
-			"end1Top":" :trophy: Félicitations **{pseudo}** ! Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueurs ! \n(Vous vous trouverez à la page {page} / {pageMax})",
-			"end2Top":" :trophy: Félicitations **{pseudo} !** Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueurs !",
-			"end1":" {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueurs ! \n(Vous vous trouverez à la page {page} / {pageMax})",
-			"end2":" {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueurs !",
+			"generalWeek": ":trophy: Affichage du top de la semaine {debut} à {fin} : ",
+			"end1Top": " :trophy: Félicitations **{pseudo}** ! Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueurs ! \n(Vous vous trouverez à la page {page} / {pageMax})",
+			"end2Top": " :trophy: Félicitations **{pseudo} !** Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueurs !",
+			"end1": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueurs ! \n(Vous vous trouverez à la page {page} / {pageMax})",
+			"end2": " {badge} **{pseudo}**, vous êtes actuellement classé **{rank}ème** sur un total de {totalPlayer} joueurs !",
 			"maxPageTitle": ":x: | **{pseudo}** Vous avez saisi un numéro de page invalide !",
 			"maxPageDesc": "**Page minimale :** 1 \n **Page maximale :** {pageMax}",
-			"lowScore":":x: | **{pseudo}** Votre score est de moins de 100, vous n'apparaissez pas dans le top !"
+			"lowScore": ":x: | Votre score est de moins de 100, vous n'apparaissez pas dans le top !",
+			"yourRanking": "Votre classement",
+			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Niveau {level}`\n"
 		},
 		"en": {
-            "general": ":trophy: Display of top {debut} àto {fin} : ",
+            "general": ":trophy: Display of top {debut} to {fin} : ",
 			"server": ":trophy: Display of server top {debut} to {fin} : ",
-			"generalWeek":":trophy: Display of weekly top {debut} to {fin} : ",
-			"ok": "{score}, {level}"
+			"generalWeek": ":trophy: Display of weekly top {debut} to {fin} : ",
+			"end1Top": " :trophy: Congratulations **{pseudo}** ! You are actually the best** out of a total of {totalPlayer} players ! \n(You are page {page} / {pageMax})",
+			"end2Top": " :trophy: Congratulations **{pseudo} !** You are actually the best** out of a total of {totalPlayer} players !",
+			"end1": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} players ! \n(You are page {page} / {pageMax})",
+			"end2": " {badge} **{pseudo}**, you are ranked **{rank}** out of a total of {totalPlayer} players !",
+			"maxPageTitle": ":x: | **{pseudo}** You enter an invalid page number !",
+			"maxPageDesc": "**Minimal page :** 1 \n **Maximal page :** {pageMax}",
+			"lowScore": ":x: | Your score must be at least 100, you are not in the top !",
+			"yourRanking": "Your rank",
+			"playerRankLine": "{badge} {rank} **{pseudo}** | {badgeState}`{score}` | `Level {level}`\n"
 		}
 	},
 	"first": ":first_place:",
-	"second":":second_place:",
-	"third":":third_place:",
-	"military":":military_medal:",
-	"blue":":blue_circle:",
-	"black":":black_circle:",
-    "white":":white_circle:",
-	"oneHour":3600000,
-	"fifth10days":1296000000
+	"second": ":second_place:",
+	"third": ":third_place:",
+	"military": ":military_medal:",
+	"blue": ":blue_circle:",
+	"black": ":black_circle:",
+    "white": ":white_circle:",
+	"oneHour": 3600000,
+	"fifth10days": 1296000000
 }
 
