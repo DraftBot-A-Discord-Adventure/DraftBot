@@ -16,12 +16,24 @@ const GuildKickCommand = async (language, message, args) => {
     kickedEntity = null;
   }
 
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+    return;
+  }
+
+  if (await sendBlockedError(message.author, message.channel, language)) {
+    return;
+  }
+
   if (kickedEntity === null) { // no user provided
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        JsonReader.commands.guildKick.getTranslation(language).cannotGetKickedUser);
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guildKick.getTranslation(language).cannotGetKickedUser);
+  }
+
+  if (await sendBlockedError(message.mentions.users.last(), message.channel, language)) {
+    return;
   }
 
   // search for a user's guild
@@ -33,18 +45,18 @@ const GuildKickCommand = async (language, message, args) => {
 
   if (guild === null) { // not in a guild
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        JsonReader.commands.guildKick.getTranslation(language).notInAguild);
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guildKick.getTranslation(language).notInAguild);
   }
 
   if (guild.chief_id != entity.id) {
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        JsonReader.commands.guildKick.getTranslation(language).notChiefError);
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guildKick.getTranslation(language).notChiefError);
   }
 
   // search for a user's guild
@@ -56,21 +68,21 @@ const GuildKickCommand = async (language, message, args) => {
 
   if (kickedGuild === null || kickedGuild.id != guild.id) { // not the same guild
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        JsonReader.commands.guildKick.getTranslation(language).notInTheGuild);
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guildKick.getTranslation(language).notInTheGuild);
   }
 
   if (kickedEntity.id === entity.id) {
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        JsonReader.commands.guildKick.getTranslation(language).excludeHimself);
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guildKick.getTranslation(language).excludeHimself);
   }
 
-
+  addBlockedPlayer(entity.discordUser_id, 'guildKick');
   embed.setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).kickTitle, {
     pseudo: message.author.username,
   }), message.author.displayAvatarURL());
@@ -92,6 +104,7 @@ const GuildKickCommand = async (language, message, args) => {
   });
 
   collector.on('end', async (reaction) => {
+    removeBlockedPlayer(entity.discordUser_id);
     if (reaction.first()) { // a reaction exist
       if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
         kickedEntity.Player.guild_id = null;
@@ -112,12 +125,12 @@ const GuildKickCommand = async (language, message, args) => {
 
     // Cancel the kick
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {
-          kickedPseudo: message.mentions.users.last().username,
-        }));
+      message.author,
+      message.channel,
+      language,
+      format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {
+        kickedPseudo: message.mentions.users.last().username,
+      }));
   });
 
   await Promise.all([

@@ -12,6 +12,10 @@ const GuildCommand = async (language, message, args) => {
     [entity] = await Entities.getOrRegister(message.author.id);
   }
 
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+    return;
+  }
+
   if (args.length > 0 && message.mentions.users.last() === undefined) {
     // args is the name of a guild
     try {
@@ -32,24 +36,24 @@ const GuildCommand = async (language, message, args) => {
 
   if (guild === null) {
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        JsonReader.commands.guild.getTranslation(language).noGuildException);
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guild.getTranslation(language).noGuildException);
   }
   const members = await Entities.getByGuild(guild.id);
 
   let membersInfos = '';
   for (const member of members) {
     membersInfos += format(JsonReader.commands.guild.getTranslation(language).memberinfos,
-        {
-          pseudo: await member.Player.getPseudo(language),
-          ranking: (await Players.getById(member.Player.id))[0].rank,
-          score: member.Player.score,
-        });
+      {
+        pseudo: await member.Player.getPseudo(language),
+        ranking: (await Players.getById(member.Player.id))[0].rank,
+        score: member.Player.score,
+      });
   }
 
-  const chief = await Players.findOne({where: { id: guild.chief_id }});
+  const chief = await Players.findOne({ where: { id: guild.chief_id } });
 
   embed.setThumbnail(JsonReader.commands.guild.icon);
 
