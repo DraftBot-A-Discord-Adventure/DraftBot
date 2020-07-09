@@ -10,6 +10,10 @@ const GuildDailyCommand = async (language, message, args) => {
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+    return;
+  }
+
   // search for a user's guild
   try {
     guild = await Guilds.getById(entity.Player.guild_id);
@@ -25,11 +29,16 @@ const GuildDailyCommand = async (language, message, args) => {
       JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
   }
 
-  // TODO : lock user
-
   // TODO : Last invocation of the guild
 
   const members = await Entities.getByGuild(guild.id);
+
+  for (const i in members) {
+    if (await sendBlockedError(await client.users.fetch(members[i].discordUser_id), message.channel, language)) {
+      return;
+    }
+  }
+
   let rewardType = generateRandomProperty(guild);
   embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
     guildName: guild.name,
