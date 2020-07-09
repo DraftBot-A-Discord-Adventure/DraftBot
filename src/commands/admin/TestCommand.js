@@ -75,7 +75,7 @@ const TestCommand = async (language, message, args) => {
         break;
       case 'givebadge':
         if (args.length === 2) {
-          author.Player.giveBadge(args[1]);
+          author.Player.addBadge(args[1]);
           author.Player.save();
         } else {
           await message.channel.send('Usage correct: test givebadge <badge>');
