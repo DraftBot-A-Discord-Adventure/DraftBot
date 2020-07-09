@@ -2,11 +2,15 @@
 	"translations": {
 		"fr": {
             "giveSuccess": "{pseudo}, vous avez donné un badge, j'espère que c'est mérité !",
-            "descGive": "Le badge {badge} a été donné à {player}"
+            "descGive": "Le badge {badge} a été donné à {player}",
+            "giveError": "{pseudo}, vous avez fait une erreur !",
+            "descError": "Vous devez entrer un badge sous la forme :nom_badge: puis tag le pseudo de la personne à qui est donné le badge !"
         },
 		"en": {
             "giveSuccess": "{pseudo}, you gave a badge, i hope it is well deserved !",
-            "descGive": "The badge {badge} has been given to {player}"
+            "descGive": "The badge {badge} has been given to {player}",
+            "giveError": "{pseudo}, you made an error !",
+            "descError": "You must give a badge like :badge_name: and tag the nickname of the receiver !"
 		}
 	}
 }

@@ -111,7 +111,7 @@ module.exports = (Sequelize, DataTypes) => {
     const query = `SELECT *
                    FROM (SELECT id,
                                 RANK() OVER (ORDER BY score desc)       rank,
-                                RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
+                                RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
                          FROM players)
                    WHERE id = :id`;
     return await Sequelize.query(query, {
@@ -129,7 +129,7 @@ module.exports = (Sequelize, DataTypes) => {
     const query = `SELECT *
                    FROM (SELECT entity_id,
                                 RANK() OVER (ORDER BY score desc)       rank,
-                                RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
+                                RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
                          FROM players)
                    WHERE rank = :rank`;
     return await Sequelize.query(query, {
