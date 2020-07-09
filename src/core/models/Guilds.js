@@ -53,6 +53,11 @@ module.exports = (Sequelize, DataTypes) => {
       require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
+  Guilds.prototype.updateLastDailyAt = function() {
+    const moment = require('moment');
+    this.lastDailyAt = new moment();
+  };
+
   /**
    * @param {Number} id
    */

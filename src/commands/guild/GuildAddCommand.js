@@ -109,9 +109,10 @@ const GuildAddCommand = async (language, message, args) => {
     if (reaction.first()) { // a reaction exist
       if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
         invitedEntity.Player.guild_id = guild.id;
-        // TODO : update lastDaily
+        guild.updateLastDailyAt();
 
         await Promise.all([
+          guild.save(),
           invitedEntity.save(),
           invitedEntity.Player.save(),
         ]);

@@ -107,5 +107,7 @@ const DailyCommand = async function(language, message) {
 /**
  * @type {{daily: DailyCommand, da: DailyCommand}}
  */
-export const daily = DailyCommand;
-export const da = DailyCommand;
+module.exports = {
+  daily: DailyCommand,
+  da: DailyCommand,
+};

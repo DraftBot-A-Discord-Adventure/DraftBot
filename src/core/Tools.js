@@ -187,6 +187,15 @@ global.millisecondsToMinutes = (milliseconds) => {
 };
 
 /**
+ * Convert a number of milliseconds in a number of hours
+ * @param {Number} milliseconds - The number of milliseconds
+ * @return {Number}
+ */
+global.millisecondsToHours = (milliseconds) => {
+  return Math.round(milliseconds / 3600000);
+};
+
+/**
  * Convert a number of minutes in a number of milliseconds
  * @param {Number} minutes - The number of minutes
  * @return {Number}

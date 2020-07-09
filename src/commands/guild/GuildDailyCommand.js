@@ -29,7 +29,20 @@ const GuildDailyCommand = async (language, message, args) => {
       JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
   }
 
-  // TODO : Last invocation of the guild
+  let time = millisecondsToHours(message.createdAt.getTime() - guild.lastDailyAt.valueOf());
+  if (time < JsonReader.commands.guildDaily.timeBetweenDailys) {
+    return sendErrorMessage(
+      message.author,
+      message.channel,
+      language,
+      format(JsonReader.commands.guildDaily.getTranslation(language).coolDown, {
+        coolDownTime : JsonReader.commands.guildDaily.timeBetweenDailys,
+        time: JsonReader.commands.guildDaily.timeBetweenDailys-time,
+      }));
+  }
+
+  guild.lastDailyAt = new Date(message.createdTimestamp);
+  await guild.save();
 
   const members = await Entities.getByGuild(guild.id);
 
@@ -136,12 +149,11 @@ const GuildDailyCommand = async (language, message, args) => {
 
   if (rewardType === REWARD_TYPES.ALTERATION) {
     for (const i in members) {
-      if (members[i].effect != EFFECT.SMILEY) {
+      if (members[i].effect != EFFECT.SMILEY) { // TODO : test with duration of the effects
         members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
-      }
-      if (members[i].effect != EFFECT.DEAD && members[i].effect != EFFECT.LOCKED) {
+      } else if (members[i].effect != EFFECT.DEAD && members[i].effect != EFFECT.LOCKED) {
         members[i].effect = EFFECT.SMILEY;
-        // TODO: update last seen
+        members[i].Player.lastReportAt = new Date(message.createdTimestamp);
       }
       await members[i].save();
     }
