@@ -245,73 +245,59 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Boolean} True if the player has levelUp false otherwise
    */
   Players.prototype.needLevelUp = function() {
-    if ((this.experience >= this.getExperienceNeededToLevelUp())) {
-      // TODO 2.0 Do the level up here ?
-      return true;
-    }
-    return false;
+    return (this.experience >= this.getExperienceNeededToLevelUp());
   };
 
-  // TODO 2.0 LevelUp
-  // levelUp(message, language) {
-  //   Text = require('../text/' + language);
-  //   this.setLevel(this.getLevel() + 1);
-  //   let messageLevelUp = Text.playerManager.levelUp.intro + message.author + Text.playerManager.levelUp.main + this.getLevel() + Text.playerManager.levelUp.end;
-  //   let bonus = false;
-  //   if (this.getLevel() == DefaultValues.fight.minimalLevel) {
-  //     messageLevelUp += Text.playerManager.levelUp.fightUnlocked;
-  //     bonus = true;
-  //   }
-  //   if (this.getLevel() % 10 == 0) {
-  //     this.restoreHealthCompletely();
-  //     messageLevelUp += Text.playerManager.levelUp.healthRestored;
-  //     bonus = true;
-  //   } else {
-  //     if (this.getLevel() % 5 == 0) {
-  //       this.setMaxHealth(this.getMaxHealth() + 5);
-  //       this.addHealthPoints(5, message, language);
-  //       messageLevelUp += Text.playerManager.levelUp.moreMaxHealth;
-  //       bonus = true;
-  //     }
-  //   }
-  //
-  //   if (this.getLevel() % 9 == 0) {
-  //     this.setSpeed(this.getSpeed() + 5);
-  //     messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
-  //     messageLevelUp += Text.playerManager.levelUp.moreSpeed;
-  //     bonus = true;
-  //   } else {
-  //     if (this.getLevel() % 6 == 0) {
-  //       this.setAttack(this.getAttack() + 5);
-  //       messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
-  //       messageLevelUp += Text.playerManager.levelUp.moreAttack;
-  //       bonus = true;
-  //     } else {
-  //       if (this.getLevel() % 3 == 0) {
-  //         this.setDefense(this.getDefense() + 5);
-  //         messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
-  //         messageLevelUp += Text.playerManager.levelUp.moreDefense;
-  //         bonus = true;
-  //       }
-  //     }
-  //   }
-  //   messageLevelUp = this.ifFirstBonus(bonus, messageLevelUp);
-  //   messageLevelUp += Text.playerManager.levelUp.noBonus;
-  //   message.channel.send(messageLevelUp);
-  //   this.setExperience(this.getExperience() - this.getExperienceUsedToLevelUp(), message, language);
-  // }
-  //
-  // /**
-  //  *
-  //  * @param {*} bonus
-  //  * @param {*} messageLevelUp
-  //  */
-  // ifFirstBonus(bonus, messageLevelUp) {
-  //   if (bonus == false) {
-  //     messageLevelUp += Text.playerManager.levelUp.firstBonus;
-  //   }
-  //   return messageLevelUp;
-  // }
+  /**
+   * Checks if the player need to level up and levels up him.
+   * @param {Entity} entity
+   * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
+   * @param {"fr"|"en"} language
+   */
+  Players.prototype.levelUpIfNeeded = async function (entity, channel, language) {
+    if (!this.needLevelUp()) {
+      return;
+    }
+
+    let bonuses = [];
+    const xpNeeded = this.getExperienceNeededToLevelUp();
+
+    this.level++;
+    if (this.level === FIGHT.REQUIRED_LEVEL) {
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.fightUnlocked);
+    }
+    if (this.level % 10 === 0) {
+      entity.health = entity.maxHealth;
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.healthRestored);
+    } else if (this.level % 5 === 0) {
+      entity.maxHealth += 5;
+      entity.health += 5;
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreMaxHealth);
+    }
+
+    if (this.level % 9 === 0) {
+      entity.speed += 5;
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreSpeed);
+    }
+    else if (this.level % 6 === 0) {
+      entity.attack += 5;
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreAttack);
+    }
+    else if (this.level % 3 === 0) {
+      entity.defense += 5;
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreDefense);
+    }
+
+    bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreFightPower);
+
+    this.experience -= xpNeeded;
+    let msg = format(JsonReader.models.players.getTranslation(language).levelUp.mainMessage, {mention: entity.getMention(), level: this.level});
+    for (let i = 0; i < bonuses.length - 1; ++i) {
+      msg += bonuses[i] + "\n";
+    }
+    msg += bonuses[bonuses.length - 1];
+    await channel.send(msg);
+  };
 
   /**
    * Update the lastReport matching the last time the player has been see
@@ -321,8 +307,31 @@ module.exports = (Sequelize, DataTypes) => {
    */
   Players.prototype.setLastReportWithEffect = function(
       time, timeMalus, effectMalus) {
-    this.lastReport = time + minutesToMilliseconds(timeMalus) +
-        JsonReader.models.players.effectMalus[effectMalus];
+    if (timeMalus > 0 && effectMalus === ":clock2:") {
+      this.lastReportAt = new Date(time + minutesToMilliseconds(timeMalus));
+    }
+    else {
+      this.lastReportAt = new Date(time + JsonReader.models.players.effectMalus[effectMalus]);
+    }
+  };
+
+  /**
+   * Apply dead effect, send message in channel and in PM only if the health is 0 or less.
+   * @param {Entity} entity
+   * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
+   * @param {"fr"|"en"} language
+   * @return {Promise<void>}
+   */
+  Players.prototype.killIfNeeded = async function(entity, channel, language) {
+
+    if (entity.health > 0) {
+      return;
+    }
+
+    entity.effect = EFFECT.DEAD;
+    this.lastReportAt = new Date(9999, 1);
+    await channel.send(format(JsonReader.models.players.getTranslation(language).ko, { pseudo: await this.getPseudo(language) }));
+    channel.guild.members.fetch(entity.discordUser_id).then(user => user.send(JsonReader.models.players.getTranslation(language).koPM));
   };
 
   return Players;

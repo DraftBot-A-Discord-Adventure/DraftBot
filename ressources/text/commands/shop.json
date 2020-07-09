@@ -41,9 +41,8 @@
             "confirm": "{pseudo}, Vous avez sélectionné le produit suivant :",
             "moneyQuantity": "\n\nVous avez `{money}💰`.",
             "error": {
-                "title": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
                 "cannotBuy": "💰 Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
-                "canceledPurchase": ":x: | {mention}, transaction annulée!",
+                "canceledPurchase": "Transaction annulée!",
                 "alreadyHasItem": ":money_mouth: Vous possédez déjà cet objet."
             },
             "potion": {
@@ -92,9 +91,8 @@
             "confirm": "{pseudo}, You have selected this product:",
             "moneyQuantity": "\n\nYou have `{money}💰`.",
             "error": {
-                "title": "{pseudo}, hmmm... That didn't work!",
                 "cannotBuy": "💰 You don't have enough money to buy this! You need `{missingMoney}💰` more.",
-                "canceledPurchase": ":x: | {mention}, transaction canceled!",
+                "canceledPurchase": "Transaction canceled!",
                 "alreadyHasItem": ":money_mouth: You already have the \"MoneyMouth\" badge. You can only buy it once."
             },
             "potion": {

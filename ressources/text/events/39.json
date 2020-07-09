@@ -27,7 +27,7 @@
 				"effect": ":smiley:",
 				"experience": 550,
 				"money": 150,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
