@@ -21,7 +21,7 @@ DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLas
 
 * install git : https://git-scm.com/download/win
 * download the bot : `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
-* install NodeJS http://nodejs.org/fr/ 
+* install NodeJS http://nodejs.org/fr/ (nodejs 12 minimum is required)
 * install Yarn https://classic.yarnpkg.com/fr/docs/install/#windows-stable
 * install the bot : `yarn install`
 * create the config file by copying the file app.json.default in a new file app.json
@@ -32,8 +32,8 @@ DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLas
 
 * install git : `apt-get install git`
 * download the bot : `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
-* install NodeJS `apt-get install nodejs`
-* install yarn `npm install -g yarn` (you may have to install npm)
+* install NodeJS `apt-get install nodejs` (nodejs 12 minimum is required)
+* install yarn `npm install -g yarn` (you may have to install npm and use sudo)
 * install the bot : `yarn install`
 * create the config file : `cp config/app.json.default config/app.json`
 * Edit the file app.json with the correct data

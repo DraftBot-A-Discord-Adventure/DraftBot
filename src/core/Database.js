@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+const sequelizeLogger = require('sequelize/lib/utils/logger');
 
 /**
  * @class
@@ -10,6 +11,8 @@ class Database {
    * @return {Promise<void>}
    */
   static async init() {
+    Database.replaceWarningLogger();
+
     Database.Sequelize = new Sequelize({
       dialect: 'sqlite',
       storage: 'database/database.sqlite',
@@ -262,6 +265,15 @@ class Database {
         effect: EFFECT.AWAITINGANSWER,
       },
     });
+  }
+
+  static replaceWarningLogger() {
+    sequelizeLogger.logger.warn = function (message) {
+      if (message === 'Unknown attributes (Player) passed to defaults option of findOrCreate') {
+        return;
+      }
+      console.warn(`(sequelize) Warning: ${message}`);
+    }
   }
 }
 

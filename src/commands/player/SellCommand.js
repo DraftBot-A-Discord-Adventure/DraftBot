@@ -7,7 +7,7 @@
 const SellCommand = async (language, message, args) => {
   const [entity] = await Entities.getOrRegister(message.author.id);
 
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
     return;
   }
   if (await sendBlockedError(message.author, message.channel, language)) {
@@ -19,12 +19,13 @@ const SellCommand = async (language, message, args) => {
     return;
   }
 
-  let backupItem = await entity.Player.Inventory.getBackupObject();
+  let backupItem = await entity.Player.Inventory.getBackupObject(); 
   const embed = new discord.MessageEmbed()
     .setColor(JsonReader.bot.embed.default)
-    .setTitle(JsonReader.commands.sell.getTranslation(language).sellTitle)
+    .setAuthor(format(JsonReader.commands.sell.getTranslation(language).sellTitle, {
+      pseudo: message.author.username,
+    }), message.author.displayAvatarURL())
     .setDescription(format(JsonReader.commands.sell.getTranslation(language).confirmSell, {
-      mention: entity.getMention(),
       item: backupItem.getName(language),
       money: getItemValue(backupItem),
     }));
@@ -57,8 +58,7 @@ const SellCommand = async (language, message, args) => {
             format(JsonReader.commands.sell.getTranslation(language).soldMessage,
               {
                 item: backupItem.getName(language),
-                money: money,
-                totalMoney: entity.Player.money,
+                money: money
               },
             ));
         }

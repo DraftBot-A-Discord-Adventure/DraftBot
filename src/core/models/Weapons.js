@@ -62,21 +62,21 @@ module.exports = (Sequelize, DataTypes) => {
 
   Weapons.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt',
-        require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+      require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
   /**
    * @param {("fr"|"en")} language - The language the inventory has to be displayed in
    */
-  Weapons.prototype.toFieldObject = async function(language) {
+  Weapons.prototype.toFieldObject = async function (language) {
     return {
       name: JsonReader.items.getTranslation(language).weapons.fieldName,
       value: (this.id === 0) ? this[language] : format(
-          JsonReader.items.getTranslation(language).weapons.fieldValue, {
-            name: this[language],
-            rarity: this.getRarityTranslation(language),
-            values: this.getValues(language),
-          }),
+        JsonReader.items.getTranslation(language).weapons.fieldValue, {
+        name: this[language],
+        rarity: this.getRarityTranslation(language),
+        values: this.getValues(language),
+      }),
     };
   };
 
@@ -84,28 +84,39 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {("fr"|"en")} language - The language the weapon has to be displayed in
    * @return {String}
    */
-  Weapons.prototype.toString = function(language) {
+  Weapons.prototype.toString = function (language) {
     return (this.id === 0) ? this[language] : format(
-        JsonReader.items.getTranslation(language).weapons.fieldValue, {
-          name: this[language],
-          rarity: this.getRarityTranslation(language),
-          values: this.getValues(language),
-        });
+      JsonReader.items.getTranslation(language).weapons.fieldValue, {
+      name: this[language],
+      rarity: this.getRarityTranslation(language),
+      values: this.getValues(language),
+    });
   };
 
   /**
    * @param {("fr"|"en")} language
    * @return {String}
    */
-  Weapons.prototype.getRarityTranslation = function(language) {
+  Weapons.prototype.getRarityTranslation = function (language) {
     return JsonReader.items.getTranslation(language).rarities[this.rarity];
   };
+
+
+  /**
+   * Get the simple name of the item, without rarity or anything else
+   * @param {("fr"|"en")} language
+   * @return {String}
+   */
+  Weapons.prototype.getName = function (language) {
+    return this[language];
+  };
+
 
   /**
    * Return the property from rawProperty and property modifier
    * @return {Number}
    */
-  Weapons.prototype.getAttack = function() {
+  Weapons.prototype.getAttack = function () {
     return JsonReader.items.power[this.rarity][this.rawAttack] + this.attack;
   };
 
@@ -113,7 +124,7 @@ module.exports = (Sequelize, DataTypes) => {
    * Return the property from rawProperty and property modifier
    * @return {Number}
    */
-  Weapons.prototype.getDefense = function() {
+  Weapons.prototype.getDefense = function () {
     return JsonReader.items.power[this.rarity][this.rawDefense] + this.defense;
   };
 
@@ -121,7 +132,7 @@ module.exports = (Sequelize, DataTypes) => {
    * Return the property from rawProperty and property modifier
    * @return {Number}
    */
-  Weapons.prototype.getSpeed = function() {
+  Weapons.prototype.getSpeed = function () {
     return JsonReader.items.power[this.rarity][this.rawSpeed] + this.speed;
   };
 
@@ -129,22 +140,22 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {("fr"|"en")} language
    * @return {String}
    */
-  Weapons.prototype.getValues = function(language) {
+  Weapons.prototype.getValues = function (language) {
     const values = [];
 
     if (this.getAttack() !== 0) {
       values.push(format(JsonReader.items.getTranslation(language).attack,
-          {attack: this.getAttack()}));
+        { attack: this.getAttack() }));
     }
 
     if (this.getDefense() !== 0) {
       values.push(format(JsonReader.items.getTranslation(language).defense,
-          {defense: this.getDefense()}));
+        { defense: this.getDefense() }));
     }
 
     if (this.getSpeed() !== 0) {
       values.push(format(JsonReader.items.getTranslation(language).speed,
-          {speed: this.getSpeed()}));
+        { speed: this.getSpeed() }));
     }
 
     return values.join(' ');

@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS database;
 CREATE TABLE IF NOT EXISTS databases (id INTEGER PRIMARY KEY, lastResetAt DATETIME, updatedAt DATETIME, createdAt DATETIME);
 
 CREATE TEMPORARY TABLE server_backup (id TEXT, prefix TEXT, language TEXT);
-INSERT INTO server_backup SELECT id, prefix, language FROM server;
+INSERT INTO server_backup SELECT DISTINCT id, prefix, language FROM server;
 DROP TABLE server;
 CREATE TABLE servers (id INTEGER PRIMARY KEY, prefix CHARACTER(10) NOT NULL, language CHARACTER(2) NOT NULL, discordGuild_id VARCHAR(64) NOT NULL, updatedAt DATETIME, createdAt DATETIME);
 INSERT INTO servers (prefix, language, discordGuild_id, updatedAt, createdAt) SELECT prefix, language, id, DATETIME('now'), DATETIME('now') FROM server_backup;
@@ -12,7 +12,7 @@ DROP TABLE server_backup;
 CREATE UNIQUE INDEX IF NOT EXISTS ius ON servers (discordGuild_id);
 
 CREATE TEMPORARY TABLE entity_backup (id TEXT, maxHealth INTEGER, health INTEGER, attack INTEGER, defense INTEGER, speed INTEGER, effect TEXT);
-INSERT INTO entity_backup SELECT id, maxHealth, health, attack, defense, speed, effect FROM entity;
+INSERT INTO entity_backup SELECT DISTINCT id, maxHealth, health, attack, defense, speed, effect FROM entity;
 DROP TABLE entity;
 CREATE TABLE entities (id INTEGER PRIMARY KEY, maxHealth INTEGER NOT NULL, health INTEGER NOT NULL, attack INTEGER NOT NULL, defense INTEGER NOT NULL, speed INTEGER NOT NULL, effect VARCHAR(32) NOT NULL, discordUser_id VARCHAR(64) NOT NULL, updatedAt DATETIME, createdAt DATETIME);
 INSERT INTO entities (maxHealth, health, attack, defense, speed, effect, discordUser_id, updatedAt, createdAt) SELECT maxHealth, health, attack, defense, speed, effect, id, DATETIME('now'), DATETIME('now') FROM entity_backup;
@@ -20,13 +20,14 @@ DROP TABLE entity_backup;
 CREATE UNIQUE INDEX IF NOT EXISTS iue ON entities (discordUser_id);
 
 CREATE TEMPORARY TABLE player_backup (discordId TEXT, score INTEGER, weeklyScore INTEGER, level INTEGER, experience INTEGER, money INTEGER, lastReport INTEGER, badges TEXT, guildId TEXT);
-INSERT INTO player_backup SELECT discordId, score, weeklyScore, level, experience, money, lastReport, badges, guildId FROM player;
+INSERT INTO player_backup SELECT DISTINCT discordId, score, weeklyScore, level, experience, money, lastReport, badges, guildId FROM player;
 DROP TABLE player;
 CREATE TABLE players (id INTEGER PRIMARY KEY, score INTEGER NOT NULL, weeklyScore INTEGER NOT NULL, level INTEGER NOT NULL, experience INTEGER NOT NULL, money INTEGER NOT NULL, badges TEXT, lastReportAt DATETIME, entity_id INTEGER NOT NULL, guild_id VARCHAR(64), updatedAt DATETIME, createdAt DATETIME, oldDiscordId VARCHAR(64), oldGuildId VARCHAR(64));
 INSERT INTO players (score, weeklyscore, level, experience, money, badges, entity_id, updatedAt, createdAt, oldDiscordId, oldGuildId) SELECT pb.score, pb.weeklyScore, pb.level, pb.experience, pb.money, pb.badges, e.id, DATETIME('now'), DATETIME('now'), pb.discordId, pb.guildId FROM player_backup as pb JOIN entities as e ON pb.discordId = e.discordUser_id;
 
 CREATE TEMPORARY TABLE inventory_backup (playerId TEXT, weaponId TEXT, armorId TEXT, potionId TEXT, objectId TEXT, backupItemId TEXT, lastDaily INTEGER);
-INSERT INTO inventory_backup SELECT playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily FROM inventory;
+INSERT INTO inventory_backup SELECT DISTINCT playerId, weaponId, armorId, potionId, objectId, backupItemId, lastDaily FROM inventory;
+
 DROP TABLE inventory;
 CREATE TABLE inventories (id INTEGER PRIMARY KEY, lastDailyAt DATETIME, player_id INTEGER NOT NULL, weapon_id INTEGER NOT NULL, armor_id INTEGER NOT NULL, potion_id INTEGER NOT NULL, object_id INTEGER NOT NULL, backup_id INTEGER NOT NULL, updatedAt DATETIME, createdAt DATETIME);
 INSERT INTO inventories (player_id, weapon_id, armor_id, potion_id, object_id, backup_id, updatedAt, createdAt) SELECT p.id, ib.weaponId, ib.armorId, ib.potionId, ib.objectId, ib.backupItemId, DATETIME('now'), DATETIME('now') FROM inventory_backup as ib JOIN players as p ON p.oldDiscordId = ib.playerId;
