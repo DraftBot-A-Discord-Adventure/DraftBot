@@ -218,14 +218,10 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-   * @param {module:"discord.js".Message} message
-   * @return {Boolean|String}
+   * @return {Boolean}
    */
   Entities.prototype.checkEffect = function() {
-    if ([EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1) {
-      return true;
-    }
-    return false;
+    return [EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1;
   };
 
   /**
@@ -241,7 +237,6 @@ module.exports = (Sequelize, DataTypes) => {
    */
   Entities.prototype.setHealth = function(health) {
     if (health < 0) {
-      // TODO: Kill the player (send death message and set skull status)
       this.health = 0;
     } else {
       if (health > this.maxHealth) {
@@ -253,22 +248,24 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-   * TODO 2.0
-   * @param message
-   * @param language
-   */
-  Entities.prototype.kill = function(message, language) {
-    // this.setEffect(":skull:");
-    // this.setHealth(0);
-    // message.channel.send(Text.entity.killPublicIntro + message.author.username + Text.entity.killPublicMessage)
-    // message.author.send(Text.entity.killMessage)
-  };
-
-  /**
    * @return {String}
    */
   Entities.prototype.getMention = function() {
     return '<@' + this.discordUser_id + '>';
+  };
+
+  /**
+   * Returns if the effect of the player is finished or not
+   * @return {boolean}
+   */
+  Entities.prototype.currentEffectFinished = function () {
+    if (this.effect === EFFECT.DEAD || this.effect === EFFECT.BABY) {
+      return false;
+    }
+    if (this.effect === EFFECT.SMILEY) {
+      return true;
+    }
+    return this.Player.lastReportAt < new Date();
   };
 
   return Entities;
