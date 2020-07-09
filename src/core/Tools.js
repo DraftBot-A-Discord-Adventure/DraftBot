@@ -255,7 +255,6 @@ global.randInt = (min, max) => {
   return Math.round(Math.random() * (max - min) + min);
 };
 
-// TODO 2.0 ProgressBar
 /**
  * Create a text progress bar
  * @param {Number} value
