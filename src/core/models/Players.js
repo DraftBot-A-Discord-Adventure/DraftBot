@@ -148,13 +148,6 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-   * @return {Number} Return the experience used to level up.
-   */
-  Players.prototype.getExperienceUsedToLevelUp = function() {
-    return JsonReader.models.players.xp[this.level];
-  };
-
-  /**
    * @param {Number} score
    */
   Players.prototype.addScore = function(score) {
