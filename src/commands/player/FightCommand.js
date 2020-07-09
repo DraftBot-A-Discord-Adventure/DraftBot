@@ -88,7 +88,8 @@ const FightCommand = async function(language, message, args) {
                 defender = null;
                 return;
               }
-              fightInstance = new Fight(attacker, defender, message, language);
+              let isTournament = tournamentChannel === message.channel.id;
+              fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1);
               fightInstance.startFight();
               break;
             case '❌':
