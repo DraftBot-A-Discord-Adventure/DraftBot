@@ -19,40 +19,43 @@ const GuildDailyCommand = async (language, message, args) => {
 
   if (guild === null) { // not in a guild
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
   }
 
-  // if (message.createdTimestamp - guild.lastInvocation < 79200000) {
-  //     message.channel.send(generateTooQuickException(message.author, 79200000 - message.createdTimestamp + guild.lastInvocation));
-  //     return;
-  // }
-  // updateLastInvocation(guild, message);
+  // TODO : lock user
+
+  // TODO : Last invocation of the guild
 
   const members = await Entities.getByGuild(guild.id);
   let rewardType = generateRandomProperty(guild);
-
   embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
     guildName: guild.name,
   }));
 
   if (rewardType === REWARD_TYPES.PERSONNAL_XP) {
-    const xpGuildWon = randInt(
-        JsonReader.commands.guildDaily.minimalXp + guild.level,
-        JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
-    // TODO : give xp to players
+    const xpWon = randInt(
+      JsonReader.commands.guildDaily.minimalXp + guild.level,
+      JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
+    for (const i in members) {
+      members[i].Player.experience += xpWon;
+      await members[i].Player.levelUpIfNeeded(members[i], message.channel, language);
+      await members[i].Player.save();
+    }
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).personalXP, {
-      xp: xpGuildWon,
+      xp: xpWon,
     }));
   }
 
   if (rewardType === REWARD_TYPES.GUILD_XP) {
     const xpGuildWon = randInt(
-        JsonReader.commands.guildDaily.minimalXp + guild.level,
-        JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
-    // TODO : give guildxp
+      JsonReader.commands.guildDaily.minimalXp + guild.level,
+      JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
+    guild.experience += xpGuildWon;
+    await guild.levelUpIfNeeded(message.channel, language);
+    await guild.save();
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).guildXP, {
       xp: xpGuildWon,
     }));
@@ -60,17 +63,24 @@ const GuildDailyCommand = async (language, message, args) => {
 
   if (rewardType === REWARD_TYPES.MONEY) {
     const moneyWon = randInt(
-        JsonReader.commands.guildDaily.minimalMoney + guild.level,
-        JsonReader.commands.guildDaily.maximalMoney + guild.level * 4);
-    // TODO : give money
+      JsonReader.commands.guildDaily.minimalMoney + guild.level,
+      JsonReader.commands.guildDaily.maximalMoney + guild.level * 4);
+    for (const i in members) {
+      members[i].Player.addMoney(moneyWon);
+      await members[i].Player.save();
+    }
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).money, {
       money: moneyWon,
     }));
   }
 
-  if (rewardType === REWARD_TYPES.RANDOM_ITEM) {
-    // TODO remove this reward and replace with a fixed 400 gold reward
-    embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).randomItem, {
+  if (rewardType === REWARD_TYPES.FIXED_MONEY) {
+    const moneyWon = JsonReader.commands.guildDaily.fixedMoney;
+    for (const i in members) {
+      members[i].Player.addMoney(moneyWon);
+      await members[i].Player.save();
+    }
+    embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).money, {
       money: moneyWon,
     }));
   }

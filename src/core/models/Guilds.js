@@ -50,7 +50,7 @@ module.exports = (Sequelize, DataTypes) => {
 
   Guilds.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt',
-        require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+      require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
   /**
@@ -78,21 +78,14 @@ module.exports = (Sequelize, DataTypes) => {
   /**
    * @return {Number} Return the experience needed to level up.
    */
-  Guilds.prototype.getExperienceNeededToLevelUp = function() {
+  Guilds.prototype.getExperienceNeededToLevelUp = function () {
     return JsonReader.models.guilds.xp[this.level + 1];
-  };
-
-  /**
-   * @return {Number} Return the experience used to level up.
-   */
-  Guilds.prototype.getExperienceUsedToLevelUp = function() {
-    return JsonReader.models.guilds.xp[this.level];
   };
 
   /**
    * @param {Number} experience
    */
-  Guilds.prototype.addExperience = function(experience) {
+  Guilds.prototype.addExperience = function (experience) {
     this.experience += experience;
     this.setExperience(this.experience);
   };
@@ -100,12 +93,41 @@ module.exports = (Sequelize, DataTypes) => {
   /**
    * @param {Number} experience
    */
-  Guilds.prototype.setExperience = function(experience) {
+  Guilds.prototype.setExperience = function (experience) {
     if (experience > 0) {
       this.experience = experience;
     } else {
       this.experience = 0;
     }
+  };
+
+  /**
+  * @return {Boolean} True if the guild has levelUp false otherwise
+  */
+  Guilds.prototype.needLevelUp = function () {
+    return (this.experience >= this.getExperienceNeededToLevelUp());
+  };
+
+  /**
+   * Checks if the player need to level up and levels up him.
+   * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
+   * @param {"fr"|"en"} language
+   */
+  Guilds.prototype.levelUpIfNeeded = async function (channel, language) {
+    if (!this.needLevelUp()) {
+      return;
+    }
+
+    this.experience -= this.getExperienceNeededToLevelUp();
+    this.level++;
+    const embed = new discord.MessageEmbed()
+      .setTitle(format(JsonReader.models.guilds.getTranslation(language).levelUp.title, {
+        guildName: this.name
+      }))
+      .setDescription(format(JsonReader.models.guilds.getTranslation(language).levelUp.desc, {
+        level: this.level
+      }));
+    return channel.send(embed);
   };
 
   return Guilds;
