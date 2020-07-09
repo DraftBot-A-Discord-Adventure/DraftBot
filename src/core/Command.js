@@ -187,42 +187,6 @@ class Command {
   }
 }
 
-// /**
-//  * Generate the embed that the bot has to send if the top week is curently beeing reset
-//  * @param {*} message - the message used to get this embed
-//  */
-// async function generateResetTopWeekEmbed(message) {
-//     const embed = new Discord.RichEmbed();
-//     let Text = await Tools.chargeText(message);
-//     embed.setColor(DefaultValues.embed.color);
-//     embed.setTitle(Text.commandReader.resetIsNowTitle);
-//     embed.setDescription(Text.commandReader.resetIsNowFooter);
-//     return embed;
-// }
-//
-// /**
-//  * True if the reset is now (every sunday at midnight)
-//  * @param {*} diffMinutes - The amount of minutes before the next reset
-//  */
-// function resetIsNow(diffMinutes) {
-//     return diffMinutes < 3 && diffMinutes > -1;
-// }
-//
-// /**
-//  * Get the amount of minutes before the next reset
-//  */
-// function getMinutesBeforeReset() {
-//     var now = new Date(); //The current date
-//     var dateOfReset = new Date(); // The next Sunday
-//     dateOfReset.setDate(now.getDate() + (0 + (7 - now.getDay())) % 7); // Calculating next Sunday
-//     dateOfReset.setHours(22, 59, 59); // Defining hours, min, sec to 23, 59, 59
-//     //Parsing dates to moment
-//     var nowMoment = new moment(now);
-//     var momentOfReset = new moment(dateOfReset);
-//     const diffMinutes = momentOfReset.diff(nowMoment, 'minutes');
-//     return diffMinutes;
-// }
-
 /**
  * @type {{init: Command.init}}
  */
