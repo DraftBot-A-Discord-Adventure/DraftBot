@@ -86,7 +86,7 @@ const GuildCreateCommand = async (language, message, args) => {
     if (reaction.first()) { // a reaction exist
       if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
         if (entity.Player.money < JsonReader.commands.guildCreate.guildCreationPrice) {
-          sendErrorMessage(
+          return sendErrorMessage(
             message.author,
             message.channel,
             language,
