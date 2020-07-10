@@ -9,7 +9,7 @@
 			"botTournamentPermissionMissing": "Cette commande est réservée aux gérants du tournoi !",
 			"title": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
 			"titleMeIsBaby": "{pseudo}, vous n'avez pas commencé l'aventure !",
-			"meIsBaby": "Utilisez la commande `report` pour commencer votre aventure !",
+			"meIsBaby": " Utilisez la commande `report` pour commencer votre aventure !",
 			"titleMeIsDead": "{pseudo}, vous êtes actuellement K.O !",
 			"meIsDead": "Vous devez respawn en utilisant la commande `respawn` pour pouvoir continuer à jouer.",
 			"titleMeIsInjured": "{pseudo}, vous êtes actuellement gravement blessé !",
