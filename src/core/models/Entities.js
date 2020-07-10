@@ -154,13 +154,13 @@ module.exports = (Sequelize, DataTypes) => {
     if (isNaN(args[0])) {
       const lastMention = message.mentions.users.last();
       if (lastMention === undefined) {
-        return null;
+        return [null];
       }
       return Entities.getOrRegister(lastMention.id);
     } else {
       const [player] = await Players.getByRank(parseInt(args[0]));
       if (player === undefined) {
-        return null;
+        return [null];
       }
       return Entities.getById(player.entity_id);
     }

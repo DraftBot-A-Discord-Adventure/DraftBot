@@ -6,7 +6,7 @@
 			"title": ":white_check_mark: | DM envoyé à **{username}** :",
 			"ok":">>> ",
 			"signature": "\n\n- {username}",
-			"errorCannotSend": "Une erreur est survenue lors de l'envoie du message. Cette personne a probablement désactivé les messages privés !",
+			"errorCannotSend": "Une erreur est survenue lors de l'envoi du message. Cette personne a probablement désactivé les messages privés !",
 			"personNotExists": "Personne n'a été trouvé avec cet id !"
 		},
 		"en": {

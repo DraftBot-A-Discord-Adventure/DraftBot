@@ -19,7 +19,7 @@ const FightCommand = async function(language, message, args) {
 
   let defender = null;
   if (args.length !== 0) {
-    defender = await Entities.getByArgs(args, message);
+    [defender] = await Entities.getByArgs(args, message);
     if (defender == null) {
       sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.defenderDoesntExist);
       return;

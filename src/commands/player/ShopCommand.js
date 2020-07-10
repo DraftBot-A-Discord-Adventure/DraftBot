@@ -179,8 +179,8 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
         } else if (
             selectedItem.name === shopTranslations.permanentItems.healAlterations.name
         ) {
-            if (entity.effect != EFFECT.SMILEY) { // TODO : test with duration of the effects
-                return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.nothingToHeal);
+            if (entity.currentEffectFinished()) {
+                return sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.nothingToHeal);
             }
             healAlterations(message, language, entity, customer, selectedItem);
         } else if (
@@ -297,7 +297,7 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
  * Clear all player alterations
  */
 function healAlterations(message, language, entity, customer, selectedItem) {
-    if (entity.effect != EFFECT.DEAD && entity.effect != EFFECT.LOCKED) {
+    if (entity.effect !== EFFECT.DEAD && entity.effect !== EFFECT.LOCKED) {
         entity.effect = EFFECT.SMILEY;
         entity.Player.lastReportAt = new Date(message.createdTimestamp);
     }
