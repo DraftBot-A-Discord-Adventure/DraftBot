@@ -1,0 +1,8 @@
+{
+	"translations": {
+		"fr": ":hammer:  **Marteau de combat**",
+		"en": ":hammer:  **Battle hammer**"
+	},
+	"rarity": 5,
+	"rawAttack": 5
+}

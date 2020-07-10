@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": {
+			"main": ":repeat: | ** {pseudo} **, l'item actif et l'item en réserve ont été inversés !"
+		},
+		"en": {
+			"main": ":repeat: | ** {pseudo} **, The active and reserve items were swapped!"
+		}
+	}
+}

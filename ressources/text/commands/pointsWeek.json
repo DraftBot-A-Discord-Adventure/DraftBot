@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+            "title": "{pseudo}, vous avez changé le score hebdomadaire d'un joueur !",
+            "desc": "{player} a maintenant {points} points"
+        },
+		"en": {
+            "title": "{pseudo}, you have updated the weekly score of a player !",
+            "desc": "{player} has {points} points"
+		}
+	}
+}

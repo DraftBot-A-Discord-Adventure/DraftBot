@@ -1,0 +1,8 @@
+{
+	"translations": {
+		"fr": ":syringe:  **Seringue contaminée**",
+		"en": "💉  **Infected syringe**"
+	},
+	"rarity": 6,
+	"rawAttack": 2
+}

@@ -1,0 +1,24 @@
+{
+    "translations": {
+        "fr": {
+            "objectDoNothingError": "Vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
+            "objectIsActiveDuringFights": "Ce breuvage ne peut pas être bue maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",
+            "noDrinkError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
+            "noActiveObjectdescription": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
+            "drinkSuccess": "{pseudo}, vous buvez le breuvage que vous transportiez !",
+            "healthBonus": "❤️ Vie gagnée : {value} !",
+            "moneyBonus": "💰 Argent gagné : {value} !",
+            "hospitalBonus": "🕥 Vous avez avancé de {value} heure(s) !"
+        },
+        "en": {
+            "objectDoNothingError": "You consumed the beverage you carried... But it has no effect !",
+            "objectIsActiveDuringFights": "This potion cannot be drunk now. It’ll be used during your next fight!",
+            "noDrinkError": "{pseudo}, hmmm... It didn't work!",
+            "noActiveObjectdescription": "Unfortunately, you don’t have anything to drink in your inventory!",
+            "drinkSuccess": "{pseudo}, you have received your drink reward!",
+            "healthBonus": "❤️ HP recovered : {value}!",
+            "moneyBonus": "💰 Money Earned: {value}!",
+            "hospitalBonus": "🕥 You leapt forward {value} hour(s)."
+        }
+    }
+}

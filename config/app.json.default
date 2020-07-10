@@ -1,0 +1,49 @@
+{
+  "//DISCORD_CLIENT_TOKEN": "Put your token here",
+  "DISCORD_CLIENT_TOKEN": "",
+  
+  "//BOT_OWNER_ID": "The bot will use this to check if you can use admins commands",
+  "BOT_OWNER_ID": "",
+  
+  "//BADGE_MANAGER_ROLE": "Put ids of the persons that will be able to manage badges separated by a comma",
+  "BADGE_MANAGER_ROLE": "",
+  
+  "//SUPPORT_ROLE": "Put ids of the persons that will be able to send dms with the bot separated by a comma",
+  "SUPPORT_ROLE": "",
+
+  "//TOURNAMENT_ROLE": "Put ids of the persons that will be able to use the tournament command",
+  "TOURNAMENT_ROLE": "",
+  
+  "//BOT_OWNER_PREFIX": "The prefix only the bot owner can use",
+  "BOT_OWNER_PREFIX": "",
+  
+  "//MAIN_SERVER_ID": "Put id of the discord server where the support will be done",
+  "MAIN_SERVER_ID": "",
+  
+  "//CONSOLE_CHANNEL_ID": "Put id of the channel where the main status messages from the bot will be sent",
+  "CONSOLE_CHANNEL_ID": "",
+  
+  "//FRENCH_ANNOUNCEMENT_CHANNEL_ID": "Put id of the channel where important public announcement will be sent in french",
+  "FRENCH_ANNOUNCEMENT_CHANNEL_ID": "",
+  
+  "//ENGLISH_ANNOUNCEMENT_CHANNEL_ID": "Put id of the channel where important public announcement will be sent in english",
+  "ENGLISH_ANNOUNCEMENT_CHANNEL_ID": "",
+  
+  "//SUPPORT_CHANNEL_ID": "Put id of the channel where important public announcement will be sent in english",
+  "SUPPORT_CHANNEL_ID": "",
+  
+  "//BLACKLIST_IDS": "Put ids of the persons that will not be able to send dms to the bot separated by a comma",
+  "BLACKLIST_IDS": "",
+  
+  "//TRASH_DM_CHANNEL_ID": "Put id of the channel where the messages from blacklisted persons whill be sent",
+  "TRASH_DM_CHANNEL_ID": "",
+  
+  "//ENGLISH_CHANNEL_ID": "Put id of a channel where the bot will always speak in english put 0 here to disable the feature",
+  "ENGLISH_CHANNEL_ID": "",
+  
+  "//MODE_MAINTENANCE": "Boolean to tell if the bot is under maintenance or not",
+  "MODE_MAINTENANCE": false
+  
+   "//TEST_MODE": "Boolean to tell if the bot is under test mode",
+  "TEST_MODE": true
+}

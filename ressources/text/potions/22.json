@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": "<:LovePotion:548221051063107594>  **Potion de soin**",
+		"en": "<:LovePotion:548221051063107594>  **Healing potion**"
+	},
+	"rarity": 6,
+	"power": 100,
+	"nature": 1
+}

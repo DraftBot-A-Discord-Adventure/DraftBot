@@ -1,0 +1,86 @@
+{
+	"translations": {
+		"fr": " : ** :walking: Vous vous baladez en forêt, quand soudain vous apercevez un chariot qui semble cassé. Autour le groupe de personnes semble mal en point.\n\n:hammer: Aider ces gens à réparer leur chariot\n:person_walking: Ne pas se préoccuper de ces individus vous semblant suspects.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :walking: You walk through the forest, when suddenly you see a cart that looks broken. Around, a group of people seems to be in bad shape.\n\n:hammer: Help these people repair their cart.\n:runner: Don't worry about these individuals, they seem suspicious!\n\n*-Use reaction to make an action :warning: Not responding is consided a separate choice!*"
+	},
+	"possibilities": {
+		"🔨": [
+			{
+				"translations": {
+					"fr": "** | 🔨 Vous décidez de vous approcher et d'aller les aider. Après avoir passé 45 minutes à les aider, ces individus vous remercient et vous donnent de l'argent",
+					"en": "** | 🔨 You decide to come closer and help them. After spending 45 minutes helping them, these individuals thank you and give you money"
+				},
+				"lostTime": 45,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 75,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🔨 Vous passez près d'une heure à réparer leur chariot. Une fois celui réparé, le groupe de personnes se jette sur vous et vous vole une partie de vos biens.",
+					"en": "** | 🔨 You spend almost an hour repairing their cart. Once it's repaired, the group of people ambushes you, and steals part of your belongings."
+				},
+				"lostTime": 55,
+				"health": -20,
+				"effect": ":clock2:",
+				"experience": 0,
+				"money": -50,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🔨 Vous réparez rapidement leur chariot. Heureux, ils vous remercient et vous offre un cadeau qui vous servira sûrement pour la suite de votre périple.",
+					"en": "** | 🔨 You repair their cart quickly. Happy, they thank you and offer you a gift that will surely serve you for the rest of your journey."
+				},
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
+				"item": true
+			}
+		],
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous ne voulez pas perdre de temps, et continuez votre route.",
+					"en": "** | 🚶 You have no intention of wasting any time, and continue on your journey."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 En partant, vous trébuchez dans un trou et vous blessez. :head_bandage:",
+					"en": "** | 🚶 When you leave, you stumble into a hole and hurt yourself. :head_bandage:"
+				},
+				"lostTime": 0,
+				"health": -35,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | 👀 Vous passez 15 minutes à les regarder et vous décidez de continuer votre route sans y prêter plus d'attention.",
+					"en": "** | 👀 You spend 15 minutes watching them and decide to continue your journey without paying any more attention."
+				},
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
+}
