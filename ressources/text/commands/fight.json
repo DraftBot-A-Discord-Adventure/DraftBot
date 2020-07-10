@@ -148,7 +148,7 @@
           "indirect": "Your opponent must be **LVL {level}** to proceed to the fights!"
         },
         "cantFightStatus": {
-          "direct": "You can fight with your current state! Please wait for then end of your alteration state!",
+          "direct": "You can't fight with your current state! Please wait for then end of your alteration state!",
           "indirect": "It seems that this person is currently not able to fight!"
         },
         "occupied": {

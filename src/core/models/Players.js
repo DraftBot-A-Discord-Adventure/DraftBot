@@ -111,7 +111,7 @@ module.exports = (Sequelize, DataTypes) => {
     const query = `SELECT *
                    FROM (SELECT id,
                                 RANK() OVER (ORDER BY score desc)       rank,
-                                RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
+                                RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
                          FROM players)
                    WHERE id = :id`;
     return await Sequelize.query(query, {
@@ -129,7 +129,7 @@ module.exports = (Sequelize, DataTypes) => {
     const query = `SELECT *
                    FROM (SELECT entity_id,
                                 RANK() OVER (ORDER BY score desc)       rank,
-                                RANK() OVER (ORDER BY weeklyScore desc) weeklyRank
+                                RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
                          FROM players)
                    WHERE rank = :rank`;
     return await Sequelize.query(query, {
@@ -145,13 +145,6 @@ module.exports = (Sequelize, DataTypes) => {
    */
   Players.prototype.getExperienceNeededToLevelUp = function() {
     return JsonReader.models.players.xp[this.level + 1];
-  };
-
-  /**
-   * @return {Number} Return the experience used to level up.
-   */
-  Players.prototype.getExperienceUsedToLevelUp = function() {
-    return JsonReader.models.players.xp[this.level];
   };
 
   /**
@@ -234,7 +227,7 @@ module.exports = (Sequelize, DataTypes) => {
   Players.prototype.setPseudo = async function(language) {
     const entity = await this.getEntity();
     if (entity.discordUser_id !== undefined &&
-        client.users.cache.get(entity.discordUser_id) !== null) {
+        client.users.cache.get(entity.discordUser_id) !== undefined) {
       this.pseudo = client.users.cache.get(entity.discordUser_id).username;
     } else {
       this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;

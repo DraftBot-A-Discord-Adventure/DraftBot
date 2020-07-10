@@ -23,14 +23,59 @@ class DraftBot {
     // TODO 2.1
     // draftbot.checkEasterEggsFile();
 
+    DraftBot.programTopWeekTimeout();
+
     return this;
   }
 
-  // TODO 2.0
-  // //trigger of change week : Update weeklyScore value to 0 for each player and reset weekly top.
-  // setInterval(async function () { // Set interval for checking
-  //   await checkTopWeek();
-  // }, 50000);
+  /**
+   * Programs a timeout for the next sunday midnight
+   */
+  static programTopWeekTimeout() {
+    let millisTill = getNextSundayMidnight() - new Date();
+    if (millisTill === 0) { //Case at 0:00:00
+      setTimeout(DraftBot.programTopWeekTimeout, 1);
+      return;
+    }
+    setTimeout(DraftBot.topWeekEnd, millisTill);
+  }
+
+  /**
+   * Handle the top week reward and reset
+   * @return {Promise<void>}
+   */
+  static async topWeekEnd() {
+    let winner = await Entities.findOne({
+      defaults: {
+        Player: {
+          Inventory: {}
+        }
+      },
+      include: [{
+        model: Players,
+        as: 'Player',
+        where: {
+          weeklyScore: {
+            [(require('sequelize/lib/operators')).gt]: 100,
+          },
+        },
+      }],
+      order: [
+        [{model: Players, as: 'Player'}, 'weeklyScore', 'DESC'],
+        [{model: Players, as: 'Player'}, 'level', 'DESC']
+      ],
+      limit: 1
+    });
+    if (winner !== null) {
+      (await client.channels.fetch(JsonReader.app.FRENCH_ANNOUNCEMENT_CHANNEL_ID)).send(format(JsonReader.bot.getTranslation("fr").topWeekAnnouncement, {mention: winner.getMention()}));
+      (await client.channels.fetch(JsonReader.app.ENGLISH_ANNOUNCEMENT_CHANNEL_ID)).send(format(JsonReader.bot.getTranslation("en").topWeekAnnouncement, {mention: winner.getMention()}));
+      winner.Player.addBadge("🎗️");
+      winner.Player.save();
+    }
+    Players.update({ weeklyScore: 0}, { where: {}});
+    console.log("# WARNING # Weekly leaderboard has been reset !");
+    DraftBot.programTopWeekTimeout();
+  }
 
   /**
    * TODO 2.1

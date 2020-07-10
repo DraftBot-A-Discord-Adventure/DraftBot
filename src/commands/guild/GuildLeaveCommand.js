@@ -10,6 +10,13 @@ const GuildLeaveCommand = async (language, message, args) => {
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+    return;
+  }
+  if (await sendBlockedError(message.author, message.channel, language)) {
+    return;
+  }
+
   // search for a user's guild
   try {
     guild = await Guilds.getById(entity.Player.guild_id);
@@ -24,7 +31,7 @@ const GuildLeaveCommand = async (language, message, args) => {
         language,
         JsonReader.commands.guildLeave.getTranslation(language).notInAGuild);
   }
-
+  addBlockedPlayer(entity.discordUser_id, 'guildLeave');
   // generate confirmation embed
   embed.setAuthor(format(JsonReader.commands.guildLeave.getTranslation(language).leaveTitle, {
     pseudo: message.author.username,
@@ -52,6 +59,7 @@ const GuildLeaveCommand = async (language, message, args) => {
   });
 
   collector.on('end', async (reaction) => {
+    removeBlockedPlayer(entity.discordUser_id);
     if (reaction.first()) { // a reaction exist
       if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
         entity.Player.guild_id = null;

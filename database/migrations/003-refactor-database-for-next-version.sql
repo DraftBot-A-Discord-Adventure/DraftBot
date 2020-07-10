@@ -31,7 +31,7 @@ INSERT INTO inventory_backup SELECT DISTINCT playerId, weaponId, armorId, potion
 DROP TABLE inventory;
 CREATE TABLE inventories (id INTEGER PRIMARY KEY, lastDailyAt DATETIME, player_id INTEGER NOT NULL, weapon_id INTEGER NOT NULL, armor_id INTEGER NOT NULL, potion_id INTEGER NOT NULL, object_id INTEGER NOT NULL, backup_id INTEGER NOT NULL, updatedAt DATETIME, createdAt DATETIME);
 INSERT INTO inventories (player_id, weapon_id, armor_id, potion_id, object_id, backup_id, updatedAt, createdAt) SELECT p.id, ib.weaponId, ib.armorId, ib.potionId, ib.objectId, ib.backupItemId, DATETIME('now'), DATETIME('now') FROM inventory_backup as ib JOIN players as p ON p.oldDiscordId = ib.playerId;
-UPDATE inventories SET lastDailyAt = NULL;
+UPDATE inventories SET lastDailyAt = DATETIME(0, 'unixepoch');
 UPDATE inventories SET weapon_id = 0 WHERE weapon_id = 'default';
 UPDATE inventories SET armor_id = 0 WHERE armor_id = 'default';
 UPDATE inventories SET potion_id = 0 WHERE potion_id = 'default';
@@ -55,7 +55,7 @@ DROP TABLE players;
 CREATE TABLE players (id INTEGER PRIMARY KEY, score INTEGER NOT NULL, weeklyScore INTEGER NOT NULL, level INTEGER NOT NULL, experience INTEGER NOT NULL, money INTEGER NOT NULL, badges TEXT, lastReportAt DATETIME, entity_id INTEGER NOT NULL, guild_id INTEGER, updatedAt DATETIME, createdAt DATETIME);
 INSERT INTO players (id, score, weeklyscore, level, experience, money, badges, entity_id, guild_id, updatedAt, createdAt) SELECT pb.id, pb.score, pb.weeklyScore, pb.level, pb.experience, pb.money, pb.badges, pb.entity_id, g.id, pb.updatedAt, pb.createdAt FROM player_backup as pb LEFT JOIN guilds as g ON pb.oldGuildId = g.oldGuildId;
 UPDATE players SET badges = NULLIF(badges, '');
-UPDATE players SET lastReportAt = NULL;
+UPDATE players SET lastReportAt = DATETIME(0, 'unixepoch');
 CREATE UNIQUE INDEX IF NOT EXISTS iup ON players (entity_id);
 CREATE INDEX IF NOT EXISTS ip ON players (score);
 CREATE INDEX IF NOT EXISTS ip1 ON players (weeklyscore);

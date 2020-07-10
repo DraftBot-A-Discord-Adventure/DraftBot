@@ -7,10 +7,13 @@
 const GuildCommand = async (language, message, args) => {
   let entity; let guild;
 
-  try {
-    entity = await Entities.getByArgs(args, message);
-  } catch (error) {
+  entity = await Entities.getByArgs(args, message);
+  if (entity === null) {
     [entity] = await Entities.getOrRegister(message.author.id);
+  }
+
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+    return;
   }
 
   if (args.length > 0 && message.mentions.users.last() === undefined) {
@@ -33,24 +36,24 @@ const GuildCommand = async (language, message, args) => {
 
   if (guild === null) {
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        JsonReader.commands.guild.getTranslation(language).noGuildException);
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guild.getTranslation(language).noGuildException);
   }
   const members = await Entities.getByGuild(guild.id);
 
   let membersInfos = '';
   for (const member of members) {
     membersInfos += format(JsonReader.commands.guild.getTranslation(language).memberinfos,
-        {
-          pseudo: client.users.cache.get(member.discordUser_id).toString(),
-          ranking: (await Players.getById(member.Player.id))[0].rank,
-          score: member.Player.score,
-        });
+      {
+        pseudo: await member.Player.getPseudo(language),
+        ranking: (await Players.getById(member.Player.id))[0].rank,
+        score: member.Player.score,
+      });
   }
 
-  const chief = await Entities.getById(guild.chief_id);
+  const chief = await Players.findOne({ where: { id: guild.chief_id } });
 
   embed.setThumbnail(JsonReader.commands.guild.icon);
 
@@ -58,7 +61,7 @@ const GuildCommand = async (language, message, args) => {
     guildName: guild.name,
   }));
   embed.setDescription(format(JsonReader.commands.guild.getTranslation(language).chief, {
-    pseudo: client.users.cache.get(chief.discordUser_id).toString(),
+    pseudo: await chief.getPseudo(language),
   }));
   embed.addField(format(JsonReader.commands.guild.getTranslation(language).members, {
     memberCount: members.length,

@@ -106,6 +106,8 @@ class FightActionResult {
  * @param {module:"discord.js".Message} lastSummary
  * @param {Number} elo
  * @param {Number} points
+ * @param {boolean} tournamentMode
+ * @param {Number} maxPower
  */
 class Fight {
   /**
@@ -114,9 +116,11 @@ class Fight {
      * @param player2
      * @param {module:"discord.js".Message} message
      * @param {("fr"|"en")} language - Language to use in the response
+     * @param {boolean} tournamentMode
+     * @param {Number} maxPower
      * @returns {Promise<void>}
      */
-  constructor(player1, player2, message, language) {
+  constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1) {
     if (randInt(0, 1) === 0) {
       this.fighters = [new Fighter(player1), new Fighter(player2)];
     } else {
@@ -125,6 +129,8 @@ class Fight {
     this.turn = 0;
     this.message = message;
     this.language = language;
+    this.tournamentMode = tournamentMode;
+    this.maxPower = maxPower;
     this.lastSummary = undefined;
     this.actionMessages = undefined;
   }
@@ -143,6 +149,9 @@ class Fight {
     }
     for (let i = 0; i < this.fighters.length; i++) {
       await this.fighters[i].calculateStats();
+      if (this.maxPower !== -1 && this.fighters[i].power > this.maxPower) {
+        this.fighters[i].power = this.maxPower;
+      }
       await this.fighters[i].consumePotionIfNeeded();
       global.addBlockedPlayer(this.fighters[i].entity.discordUser_id, 'fight');
     }
@@ -431,22 +440,27 @@ class Fight {
   }
 
   /**
-     * End the fight. Change fighters' score if there is a loser and unblock players
-     */
-  endFight() {
+   * End the fight. Change fighters' score if there is a loser and unblock players
+   */
+  async endFight() {
     if (!this.hasStarted()) {
       throw new Error('The fight has not started yet !');
     } else if (this.hasEnded()) {
       throw new Error('The fight already ended !');
+    }
+    for (let i = 0; i < this.fighters.length; ++i) {
+      [this.fighters[i].entity] = await Entities.getOrRegister(this.fighters[i].entity.discordUser_id);
     }
     const loser = this.getLoser();
     if (loser != null) {
       this.calculateElo();
       this.calculatePoints();
       loser.entity.Player.addScore(-this.points);
+      loser.entity.Player.addWeeklyScore(-this.points);
       loser.entity.Player.save();
       const winner = this.getWinner();
       winner.entity.Player.addScore(this.points);
+      winner.entity.Player.addWeeklyScore(this.points);
       winner.entity.Player.save();
     }
     for (let i = 0; i < this.fighters.length; i++) {
@@ -560,7 +574,7 @@ class Fight {
   calculateElo() {
     const loser = this.getLoser();
     const winner = this.getWinner();
-    if (loser !== null && winner !== null && winner.entity.Player.score !== 0) {
+    if (loser !== null && winner !== null && winner.entity.Player.score !== 0 && !this.tournamentMode) {
       this.elo = Math.round((loser.entity.Player.score / winner.entity.Player.score) * 100) / 100;
     } else {
       this.elo = 0;
@@ -572,7 +586,7 @@ class Fight {
      */
   calculatePoints() {
     const loser = this.getLoser();
-    if (loser !== null) {
+    if (loser !== null && !this.tournamentMode) {
       this.points = Math.round(100 + 10 * loser.entity.Player.level * this.elo);
       if (this.points > 2000) {
         this.points = Math.round(2000 - randInt(5, 1000));

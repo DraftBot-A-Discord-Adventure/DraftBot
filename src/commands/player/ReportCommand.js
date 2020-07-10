@@ -98,6 +98,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
  * @return {Promise<Message>}
  */
 const doPossibility = async (message, language, possibility, entity, time, forcePoints = 0) => {
+  [entity] = await Entities.getOrRegister(entity.discordUser_id);
   const player = entity.Player;
 
   if (possibility.length === 1) { //Don't do anything if the player ends the first report
@@ -144,6 +145,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
   entity.addHealth(pDataValues.health);
 
   player.addScore(scoreChange);
+  player.addWeeklyScore(scoreChange);
   player.addMoney(moneyChange);
   player.experience += possibility.experience;
   player.setLastReportWithEffect(message.createdTimestamp, pDataValues.lostTime, pDataValues.effect);

@@ -187,6 +187,15 @@ global.millisecondsToMinutes = (milliseconds) => {
 };
 
 /**
+ * Convert a number of milliseconds in a number of hours
+ * @param {Number} milliseconds - The number of milliseconds
+ * @return {Number}
+ */
+global.millisecondsToHours = (milliseconds) => {
+  return Math.round(milliseconds / 3600000);
+};
+
+/**
  * Convert a number of minutes in a number of milliseconds
  * @param {Number} minutes - The number of minutes
  * @return {Number}
@@ -255,7 +264,6 @@ global.randInt = (min, max) => {
   return Math.round(Math.random() * (max - min) + min);
 };
 
-// TODO 2.0 ProgressBar
 /**
  * Create a text progress bar
  * @param {Number} value
@@ -271,7 +279,7 @@ global.progressBar = (value, maxValue) => {
   const emptyProgressText = '—'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
   const percentageText = Math.round(percentage * 100) + '%'; // Displaying the percentage of the bar
 
-  const bar = '[' + progressText + emptyProgressText + '] ' + percentageText; // Creating the bar
+  const bar = '```[' + progressText + emptyProgressText + ']' + percentageText + '```'; // Creating the bar
   return bar;
 };
 
@@ -308,3 +316,68 @@ global.sendBlockedError = async function (user, channel, language) {
   }
   return false;
 };
+
+/**
+ * Returns the next sunday 23h59 59s
+ * @return {Date}
+ */
+global.getNextSundayMidnight = function() {
+  let now = new Date();
+  let dateOfReset = new Date();
+  dateOfReset.setDate(now.getDate() + ((7 - now.getDay())) % 7);
+  dateOfReset.setHours(23, 59, 59);
+  while (dateOfReset < now) {
+    dateOfReset += 1000*60*60*24*7;
+  }
+  return new Date(dateOfReset);
+};
+
+global.parseTimeDifference = function(date1, date2, language) {
+  if (date1 > date2) {
+    date1 = [date2, date2 = date1][0];
+  }
+  let seconds = Math.floor((date2 - date1) / 1000);
+  let parsed = "";
+  let days = Math.floor(seconds / (24*60*60));
+  if (days > 0) {
+    parsed += days + (language === "fr" ? " J " : " D ");
+    seconds -= days * 24*60*60;
+  }
+  let hours = Math.floor(seconds / (60*60));
+  parsed += hours + " H ";
+  seconds -= hours * 60*60;
+  let minutes = Math.floor(seconds / 60);
+  parsed += minutes + " Min ";
+  seconds -= minutes * 60;
+  parsed += seconds + " s";
+  return parsed;
+};
+
+/**
+ * Block commands if it is 5 minutes before top week reset
+ * @return {boolean}
+ */
+global.resetIsNow = function() {
+  return getNextSundayMidnight() - new Date() <= 1000*5*60;
+};
+
+// TODO 2.0 Legacy code
+// /**
+//  * convert a number of hours in a number of miliseconds
+//  * @param hours - The number of hours
+//  * @returns {Number} - The number of miliseconds
+//  */
+// const convertHoursInMiliseconds = function (hours) {
+//   return this.convertMinutesInMiliseconds(hours * 60);
+// };
+//
+// /**
+//  * Return the id list of all the users of a server
+//  * @param {*} message the message used to retrieve the server
+//  */
+// const getIdListServMember = function (message) {
+//   let idlist = ""
+//   message.guild.members.forEach(member => idlist += member.id + ",");
+//   return idlist.substring(0, idlist.length - 1);
+//
+// }

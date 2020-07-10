@@ -43,6 +43,7 @@ global.PERMISSION = {
     BADGEMANAGER: 'manager', // has the badge manager role
     SUPPORT: 'support', // has the support role
     ADMINISTRATOR: 'administrator', // has the admin permission in a server where the bot is.
+    TOURNAMENT: 'tournament', // has the permission to use the tournament command
     ALL: 'all',
   },
 };
@@ -51,7 +52,7 @@ global.REWARD_TYPES = {
   PERSONAL_XP: 'personalXP',
   GUILD_XP: 'guildXp',
   MONEY: 'money',
-  RANDOM_ITEM: 'randomItem',
+  FIXED_MONEY: 'fixedMoney',
   BADGE: 'badge',
   FULL_HEAL: 'fullHeal',
   PARTIAL_HEAL: 'partialHeal',
