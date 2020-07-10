@@ -1,7 +1,7 @@
 {
     "translations": {
         "fr": {
-            "notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
+            "notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
             "rewardTitle": "Récompense de la guilde {guildName} :",
             "personalXP": ":star: | Les membres de la guilde ont reçu de l'experience. `+ {xp} ⭐`.",
             "guildXP": ":star: | La guilde a reçu de l'experience. `+ {xp} ⭐`",
@@ -14,7 +14,7 @@
             "coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. La prochaine récompense sera disponible dans environ {time} heures."
         },
         "en": {
-            "notInAguild": "You have to be in a guild to use this command.",
+            "notInAGuild": "You have to be in a guild to use this command.",
             "rewardTitle": "{guildName} Guild's rewards:",
             "personalXP": ":star: | Guild's members received some xp. `+ {xp} ⭐`.",
             "guildXP": ":star: | Guild has received some xp. `+ {xp} ⭐`",
