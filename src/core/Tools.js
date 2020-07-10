@@ -360,24 +360,3 @@ global.parseTimeDifference = function(date1, date2, language) {
 global.resetIsNow = function() {
   return getNextSundayMidnight() - new Date() <= 1000*5*60;
 };
-
-// TODO 2.0 Legacy code
-// /**
-//  * convert a number of hours in a number of miliseconds
-//  * @param hours - The number of hours
-//  * @returns {Number} - The number of miliseconds
-//  */
-// const convertHoursInMiliseconds = function (hours) {
-//   return this.convertMinutesInMiliseconds(hours * 60);
-// };
-//
-// /**
-//  * Return the id list of all the users of a server
-//  * @param {*} message the message used to retrieve the server
-//  */
-// const getIdListServMember = function (message) {
-//   let idlist = ""
-//   message.guild.members.forEach(member => idlist += member.id + ",");
-//   return idlist.substring(0, idlist.length - 1);
-//
-// }

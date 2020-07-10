@@ -147,7 +147,7 @@ const GuildDailyCommand = async (language, message, args) => {
 
   if (rewardType === REWARD_TYPES.ALTERATION) {
     for (const i in members) {
-      if (members[i].currentEffectFinished()) { // TODO : test with duration of the effects
+      if (members[i].currentEffectFinished()) { 
         members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
       } else if (members[i].effect !== EFFECT.DEAD && members[i].effect !== EFFECT.LOCKED) {
         members[i].effect = EFFECT.SMILEY;
