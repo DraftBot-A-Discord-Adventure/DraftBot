@@ -4,6 +4,44 @@
 		"en": " : ** :homes: After spending several weeks walking without any human encounter, you finally enter a small town that seems rather lively.\n\n:house: Go to the inn.\n:hammer: Go to the forge.\n:circus_tent: Go to the marketplace.\n:walking: Leave.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*"
 	},
 	"possibilities": {
+		"🏠": [
+			{
+				"translations": {
+					"fr": "** | 🏠 Après avoir discuté pendant 2 heures avec l'aubergiste, vous finissez par apprendre qu'il n'y a aucune chambre disponible pour la nuit ! Vous reprenez la route, frustré de ne pas avoir pu profité d'une bonne nuit de repos.",
+					"en": "** | 🏠 After talking with the innkeeper for 2 hours, you finally learn there are no rooms available tonight! You continue on your way, frustrated you couldn't enjoy a good night's rest."
+				},
+				"lostTime": 120,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🏠 Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure :sleeping: ",
+					"en": "** | 🏠 You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure :sleeping: "
+				},
+				"lostTime": 0,
+				"health": 15,
+				"effect": ":sleeping:",
+				"experience": 220,
+				"money": -20,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🏠 L'auberge semble abandonnée depuis plusieurs années... Vous continuez votre route sans vous poser plus de questions.",
+					"en": "** | 🏠 The inn looks like it's been abandoned for many years... You continue on your way without asking yourself any more questions."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			}
+		],
 		"🔨": [
 			{
 				"translations": {
@@ -66,70 +104,6 @@
 				"item": false
 			}
 		],
-		"🏠": [
-			{
-				"translations": {
-					"fr": "** | 🏠 Après avoir discuté pendant 2 heures avec l'aubergiste, vous finissez par apprendre qu'il n'y a aucune chambre disponible pour la nuit ! Vous reprenez la route, frustré de ne pas avoir pu profité d'une bonne nuit de repos.",
-					"en": "** | 🏠 After talking with the innkeeper for 2 hours, you finally learn there are no rooms available tonight! You continue on your way, frustrated you couldn't enjoy a good night's rest."
-				},
-				"lostTime": 120,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🏠 Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure :sleeping: ",
-					"en": "** | 🏠 You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure :sleeping: "
-				},
-				"lostTime": 0,
-				"health": 15,
-				"effect": ":sleeping:",
-				"experience": 220,
-				"money": -20,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🏠 L'auberge semble abandonnée depuis plusieurs années... Vous continuez votre route sans vous poser plus de questions.",
-					"en": "** | 🏠 The inn looks like it's been abandoned for many years... You continue on your way without asking yourself any more questions."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🚶": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous traversez le petit bourg en une petite demie-heure et continuez votre route.",
-					"en": "** | 🚶You cross the little village in just half an hour and continue on your way."
-				},
-				"lostTime": 25,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous perdez une bonne heure à contourner la ville mais reprenez votre route tranquillement.",
-					"en": "** | 🚶 You lose a good hour going around the town but calmly continue on your way."
-				},
-				"lostTime": 70,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			}
-		],
 		"🎪": [
 			{
 				"translations": {
@@ -164,6 +138,32 @@
 				"health": -60,
 				"effect": ":dizzy_face:",
 				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous traversez le petit bourg en une petite demie-heure et continuez votre route.",
+					"en": "** | 🚶You cross the little village in just half an hour and continue on your way."
+				},
+				"lostTime": 25,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous perdez une bonne heure à contourner la ville mais reprenez votre route tranquillement.",
+					"en": "** | 🚶 You lose a good hour going around the town but calmly continue on your way."
+				},
+				"lostTime": 70,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
 				"money": 0,
 				"item": false
 			}

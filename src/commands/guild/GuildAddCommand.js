@@ -19,7 +19,7 @@ const GuildAddCommand = async (language, message, args) => {
   }
 
   try {
-    invitedEntity = await Entities.getByArgs(args, message);
+    [invitedEntity] = await Entities.getByArgs(args, message);
   } catch (error) {
     invitedEntity = null;
   }
@@ -107,7 +107,7 @@ const GuildAddCommand = async (language, message, args) => {
   collector.on('end', async (reaction) => {
     removeBlockedPlayer(invitedEntity.discordUser_id);
     if (reaction.first()) { // a reaction exist
-      if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
+      if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
         invitedEntity.Player.guild_id = guild.id;
         guild.updateLastDailyAt();
 

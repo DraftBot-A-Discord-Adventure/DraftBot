@@ -57,7 +57,7 @@ const GuildDailyCommand = async (language, message, args) => {
     guildName: guild.name,
   }));
 
-  if (rewardType === REWARD_TYPES.PERSONNAL_XP) {
+  if (rewardType === REWARD_TYPES.PERSONAL_XP) {
     const xpWon = randInt(
       JsonReader.commands.guildDaily.minimalXp + guild.level,
       JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
@@ -110,14 +110,12 @@ const GuildDailyCommand = async (language, message, args) => {
   if (rewardType === REWARD_TYPES.BADGE) {
     let membersThatOwnTheBadge = 0;
     for (const i in members) {
-      if (members[i].Player.badges.includes('💎')) {
+      if (!members[i].Player.addBadge('💎')) {
         membersThatOwnTheBadge++;
-      } else {
-        members[i].Player.addBadge('💎');
       }
       await members[i].Player.save();
     }
-    if (membersThatOwnTheBadge != members.length) {
+    if (membersThatOwnTheBadge !== members.length) {
       embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).badge);
     } else {
       // everybody already have the badge, give something else instead
@@ -149,12 +147,13 @@ const GuildDailyCommand = async (language, message, args) => {
 
   if (rewardType === REWARD_TYPES.ALTERATION) {
     for (const i in members) {
-      if (members[i].effect != EFFECT.SMILEY) { // TODO : test with duration of the effects
+      if (members[i].currentEffectFinished()) { // TODO : test with duration of the effects
         members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
-      } else if (members[i].effect != EFFECT.DEAD && members[i].effect != EFFECT.LOCKED) {
+      } else if (members[i].effect !== EFFECT.DEAD && members[i].effect !== EFFECT.LOCKED) {
         members[i].effect = EFFECT.SMILEY;
         members[i].Player.lastReportAt = new Date(message.createdTimestamp);
       }
+      await members[i].Player.save();
       await members[i].save();
     }
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).alterationHeal, {
@@ -163,7 +162,6 @@ const GuildDailyCommand = async (language, message, args) => {
   }
 
   message.channel.send(embed);
-  return;
 };
 
 module.exports = {

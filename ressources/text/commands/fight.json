@@ -126,7 +126,7 @@
       "turnIndicationsTitle": "It's {pseudo} 's turn to play ⚔️",
       "turnIndicationsDescription": "Choose an action",
       "summarize": {
-        "title": "Fight summarize",
+        "title": "Fight summary",
         "intro": ":crossed_swords: | **Current battle state**\n\n",
         "attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
         "defender": ":crossed_swords: |** Defender : {pseudo}**\n",

@@ -7,7 +7,7 @@
 const GuildCommand = async (language, message, args) => {
   let entity; let guild;
 
-  entity = await Entities.getByArgs(args, message);
+  [entity] = await Entities.getByArgs(args, message);
   if (entity === null) {
     [entity] = await Entities.getOrRegister(message.author.id);
   }
@@ -24,6 +24,9 @@ const GuildCommand = async (language, message, args) => {
       guild = null;
     }
   } else {
+    if (message.mentions.users.last() !== undefined) {
+      [entity] = await Entities.getOrRegister(message.mentions.users.last().id);
+    }
     // search for a user's guild
     try {
       guild = await Guilds.getById(entity.Player.guild_id);
@@ -67,11 +70,15 @@ const GuildCommand = async (language, message, args) => {
     memberCount: members.length,
     maxGuildMembers: GUILD.MAX_GUILD_MEMBER,
   }), membersInfos);
-  embed.addField(format(JsonReader.commands.guild.getTranslation(language).experience, {
-    xp: guild.experience,
-    xpToLevelUp: guild.getExperienceNeededToLevelUp(),
-    level: guild.level,
-  }), progressBar(guild.experience, guild.getExperienceNeededToLevelUp()));
+  if (guild.level < 100) {
+    embed.addField(format(JsonReader.commands.guild.getTranslation(language).experience, {
+      xp: guild.experience,
+      xpToLevelUp: guild.getExperienceNeededToLevelUp(),
+      level: guild.level,
+    }), progressBar(guild.experience, guild.getExperienceNeededToLevelUp()));
+  }else{
+    embed.addField(JsonReader.commands.guild.getTranslation(language).lvlMax, progressBar(1, 1));
+  }
 
   // embed.addField(Text.commands.guild.star + experience + Text.commands.guild.expSeparator + experienceToLevelUp
   //    + Text.commands.guild.guildLevel + level, Text.commands.guild.style + progressBar.createBar() + Text.commands.guild.style);

@@ -5,11 +5,9 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const InventoryCommand = async (language, message, args) => {
-  let entity;
-  if (args.length === 0) {
+  let [entity] = await Entities.getByArgs(args, message);
+  if (entity === null) {
     [entity] = await Entities.getOrRegister(message.author.id);
-  } else {
-    entity = await Entities.getByArgs(args, message);
   }
 
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {

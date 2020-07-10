@@ -8,7 +8,7 @@
       "soldMessage": "Vous avez vendu {item} pour **{money}** :moneybag: !"
     },
     "en": {
-      "noItemToSell": "Unfortunately, you don't have any active item in your inventory!",
+      "noItemToSell": "Unfortunately, you don't have any backup item in your inventory!",
       "confirmSell": "Do you really want to leave {item} for **{money}** :moneybag:?",
       "sellCanceled": "The transaction was canceled!",
       "sellTitle": "{pseudo}, confirmation:",

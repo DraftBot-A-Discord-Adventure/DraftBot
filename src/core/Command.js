@@ -53,7 +53,7 @@ class Command {
    * @return {String}
    */
   static getBlockedPlayer(id) {
-    return Command.players.get(id);
+    return Command.players[id];
   }
 
   /**
@@ -82,19 +82,24 @@ class Command {
       },
     });
 
+    let language = server.language;
+    if (message.channel.id === JsonReader.app.ENGLISH_CHANNEL_ID) {
+      language = "en";
+    }
+
     if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
       if (message.author.id !== JsonReader.app.BOT_OWNER_ID &&
           JsonReader.app.MODE_MAINTENANCE) {
         return message.channel.send(
-            JsonReader.bot.getTranslation(server.language).maintenance);
+            JsonReader.bot.getTranslation(language).maintenance);
       }
 
-      await Command.launchCommand(server.language, server.prefix, message);
+      await Command.launchCommand(language, server.prefix, message);
     } else {
       if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) ===
           JsonReader.app.BOT_OWNER_PREFIX && message.author.id ===
           JsonReader.app.BOT_OWNER_ID) {
-        await Command.launchCommand(server.language,
+        await Command.launchCommand(language,
             JsonReader.app.BOT_OWNER_PREFIX, message);
       }
     }
@@ -134,7 +139,7 @@ class Command {
 
     channel.send(message.author.id)
         .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
-    channel.send(sentence + message.content)
+    channel.send(sentence + message.content.substr(0, 1800) + (message.content.length > 1800 ? "..." : ""))
         .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
     if (message.attachments.size > 0) {
       await sendMessageAttachments(message,
@@ -184,42 +189,6 @@ class Command {
     }
   }
 }
-
-// /**
-//  * Generate the embed that the bot has to send if the top week is curently beeing reset
-//  * @param {*} message - the message used to get this embed
-//  */
-// async function generateResetTopWeekEmbed(message) {
-//     const embed = new Discord.RichEmbed();
-//     let Text = await Tools.chargeText(message);
-//     embed.setColor(DefaultValues.embed.color);
-//     embed.setTitle(Text.commandReader.resetIsNowTitle);
-//     embed.setDescription(Text.commandReader.resetIsNowFooter);
-//     return embed;
-// }
-//
-// /**
-//  * True if the reset is now (every sunday at midnight)
-//  * @param {*} diffMinutes - The amount of minutes before the next reset
-//  */
-// function resetIsNow(diffMinutes) {
-//     return diffMinutes < 3 && diffMinutes > -1;
-// }
-//
-// /**
-//  * Get the amount of minutes before the next reset
-//  */
-// function getMinutesBeforeReset() {
-//     var now = new Date(); //The current date
-//     var dateOfReset = new Date(); // The next Sunday
-//     dateOfReset.setDate(now.getDate() + (0 + (7 - now.getDay())) % 7); // Calculating next Sunday
-//     dateOfReset.setHours(22, 59, 59); // Defining hours, min, sec to 23, 59, 59
-//     //Parsing dates to moment
-//     var nowMoment = new moment(now);
-//     var momentOfReset = new moment(dateOfReset);
-//     const diffMinutes = momentOfReset.diff(nowMoment, 'minutes');
-//     return diffMinutes;
-// }
 
 /**
  * @type {{init: Command.init}}

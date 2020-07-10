@@ -10,14 +10,15 @@ const DailyCommand = async function(language, message) {
     return;
   }
 
-  const currentDay = (new (require('moment'))()).add(
-      JsonReader.commands.daily.numberOfDayToReload, 'd');
+  const now = new Date();
   const activeObject = await entity.Player.Inventory.getActiveObject();
 
-  const lastDailyDay = await entity.Player.Inventory.lastDailyAt;
+  const lastDailyDay = new Date(await entity.Player.Inventory.lastDailyAt);
 
   const embed = new discord.MessageEmbed();
-  if (lastDailyDay < currentDay) {
+  if (lastDailyDay.getDate() === now.getDate() &&
+      lastDailyDay.getMonth() === now.getMonth() &&
+      lastDailyDay.getFullYear() === now.getFullYear()) {
     embed.setColor(JsonReader.bot.embed.error)
         .setAuthor(format(
             JsonReader.commands.daily.getTranslation(language).noDailyError,

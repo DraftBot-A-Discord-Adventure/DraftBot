@@ -19,7 +19,7 @@ const FightCommand = async function(language, message, args) {
 
   let defender = null;
   if (args.length !== 0) {
-    defender = await Entities.getByArgs(args, message);
+    [defender] = await Entities.getByArgs(args, message);
     if (defender == null) {
       sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.defenderDoesntExist);
       return;
@@ -42,6 +42,7 @@ const FightCommand = async function(language, message, args) {
   let msg;
   let fightInstance = undefined;
   let spamCount = 0;
+  let spammers = [];
   global.addBlockedPlayer(attacker.discordUser_id, 'fight');
   if (defender == null) {
     msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightAnyone, {player: attacker.getMention()});
@@ -67,7 +68,7 @@ const FightCommand = async function(language, message, args) {
           };
         }
 
-        const collector = messageFightAsk.createReactionCollector(filter, {time: 60000});
+        const collector = messageFightAsk.createReactionCollector(filter, {time: 120000});
 
         collector.on('collect', async (reaction, user) => {
           switch (reaction.emoji.name) {
@@ -98,7 +99,12 @@ const FightCommand = async function(language, message, args) {
               } else if (defender != null) {
                 sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
               } else {
+                if (spammers.includes(user.id)) {
+                  return;
+                }
+                spammers.push(user.id);
                 sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, {pseudo: '<@' + user.id + '>'}));
+                return;
               }
               fightInstance = null;
               break;
@@ -168,7 +174,7 @@ function canFight(entity) {
   if (entity.Player.level < FIGHT.REQUIRED_LEVEL) {
     return FIGHT_ERROR.WRONG_LEVEL;
   }
-  if (entity.effect !== EFFECT.SMILEY) {
+  if (!entity.currentEffectFinished()) {
     return FIGHT_ERROR.DISALLOWED_EFFECT;
   }
   if (global.hasBlockedPlayer(entity.discordUser_id)) {

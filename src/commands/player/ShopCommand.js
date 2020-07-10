@@ -99,7 +99,7 @@ async function ShopCommand(language, message, args) {
             return;
         }
 
-        if (reaction.first().emoji.name === '❌') {
+        if (reaction.first().emoji.name === SHOP.CANCEL) {
             removeBlockedPlayer(entity.discordUser_id);
             sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.leaveShop);
             return;
@@ -123,7 +123,9 @@ async function ShopCommand(language, message, args) {
             }
         } else if (
             potion.getEmoji() === reaction.first().emoji.id ||
-            potion.getEmoji() === reaction.first().emoji.name
+            potion.getEmoji() === reaction.first().emoji.name ||
+            SHOP.POTION_REPLACEMENT === reaction.first().emoji.name ||
+            SHOP.POTION_REPLACEMENT === reaction.first().id
         ) {
             if (canBuy(potionPrice, entity.Player)) {
                 await confirmPurchase(shopMessage, language,
@@ -146,14 +148,18 @@ async function ShopCommand(language, message, args) {
     });
 
     //Adding reactions
+    try {
+        await shopMessage.react(potion.getEmoji());
+    } catch {
+        await shopMessage.react(SHOP.POTION_REPLACEMENT);
+    }
     await Promise.all([
-        shopMessage.react(potion.getEmoji()),
         shopMessage.react(SHOP.QUESTION),
         shopMessage.react(SHOP.HOSPITAL),
         shopMessage.react(SHOP.HEART),
         shopMessage.react(SHOP.MONEY_MOUTH),
         shopMessage.react(SHOP.STAR),
-        shopMessage.react('❌')
+        shopMessage.react(SHOP.CANCEL)
     ]);
 }
 
@@ -173,8 +179,8 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
         } else if (
             selectedItem.name === shopTranslations.permanentItems.healAlterations.name
         ) {
-            if (entity.effect != EFFECT.SMILEY) { // TODO : test with duration of the effects
-                return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.nothingToHeal);
+            if (entity.currentEffectFinished()) {
+                return sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.nothingToHeal);
             }
             healAlterations(message, language, entity, customer, selectedItem);
         } else if (
@@ -184,7 +190,10 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
         } else if (
             selectedItem.name === shopTranslations.permanentItems.badge.name
         ) {
-            giveMoneyMouthBadge(message, language, entity, customer, selectedItem);
+            let success = giveMoneyMouthBadge(message, language, entity, customer, selectedItem);
+            if (!success) {
+                return;
+            }
         } else if (
             selectedItem.name === shopTranslations.permanentItems.guildXp.name
         ) {
@@ -291,7 +300,7 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
  * Clear all player alterations
  */
 function healAlterations(message, language, entity, customer, selectedItem) {
-    if (entity.effect != EFFECT.DEAD && entity.effect != EFFECT.LOCKED) {
+    if (entity.effect !== EFFECT.DEAD && entity.effect !== EFFECT.LOCKED) {
         entity.effect = EFFECT.SMILEY;
         entity.Player.lastReportAt = new Date(message.createdTimestamp);
     }
@@ -331,7 +340,8 @@ function regenPlayer(message, language, entity, customer, selectedItem) {
  */
 function giveMoneyMouthBadge(message, language, entity, customer, selectedItem) {
     if (entity.Player.hasBadge("🤑")) {
-        sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.alreadyHasItem);
+        sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.alreadyHasItem);
+        return false;
     } else {
         entity.Player.addBadge("🤑"); //Give badge
         message.channel.send(
@@ -345,6 +355,7 @@ function giveMoneyMouthBadge(message, language, entity, customer, selectedItem) 
                 )
                 .setDescription("\n\n" + selectedItem.name)
         );
+        return true;
     }
 }
 

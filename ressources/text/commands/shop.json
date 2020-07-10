@@ -5,7 +5,7 @@
             "dailyItem": "Potion du jour :\n",
             "permanentItem": "\n\nVentes permanentes :\n",
             "display": "{name} | `{price}💰`",
-            "success": "{pseudo}, Transation réussie !",
+            "success": "{pseudo}, Transaction réussie !",
             "permanentItems": {
                 "randomItem": {
                     "name": ":question: **Un item random**",
@@ -57,7 +57,7 @@
             "dailyItem": "Today's potion:\n",
             "permanentItem": "\n\nPermanent sales:\n",
             "display": "{name} | `{price}💰`",
-            "success": "{pseudo}, Transation success!",
+            "success": "{pseudo}, Transaction success!",
             "permanentItems": {
                 "randomItem": {
                     "name": ":question: **A random item**",

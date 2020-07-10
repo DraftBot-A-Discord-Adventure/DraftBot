@@ -11,7 +11,7 @@ const GuildKickCommand = async (language, message, args) => {
   [entity] = await Entities.getOrRegister(message.author.id);
 
   try {
-    kickedEntity = await Entities.getByArgs(args, message);
+    [kickedEntity] = await Entities.getByArgs(args, message);
   } catch (error) {
     kickedEntity = null;
   }
