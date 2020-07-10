@@ -99,6 +99,10 @@ module.exports = (Sequelize, DataTypes) => {
               as: 'Inventory',
             }],
         }],
+      order: [
+        [{model: Players, as: 'Player'}, 'score', 'DESC'],
+        [{model: Players, as: 'Player'}, 'level', 'DESC']
+      ]
     });
   };
 

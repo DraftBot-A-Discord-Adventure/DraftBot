@@ -190,7 +190,10 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
         } else if (
             selectedItem.name === shopTranslations.permanentItems.badge.name
         ) {
-            giveMoneyMouthBadge(message, language, entity, customer, selectedItem);
+            let success = giveMoneyMouthBadge(message, language, entity, customer, selectedItem);
+            if (!success) {
+                return;
+            }
         } else if (
             selectedItem.name === shopTranslations.permanentItems.guildXp.name
         ) {
@@ -337,7 +340,8 @@ function regenPlayer(message, language, entity, customer, selectedItem) {
  */
 function giveMoneyMouthBadge(message, language, entity, customer, selectedItem) {
     if (entity.Player.hasBadge("🤑")) {
-        sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.alreadyHasItem);
+        sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.alreadyHasItem);
+        return false;
     } else {
         entity.Player.addBadge("🤑"); //Give badge
         message.channel.send(
@@ -351,6 +355,7 @@ function giveMoneyMouthBadge(message, language, entity, customer, selectedItem) 
                 )
                 .setDescription("\n\n" + selectedItem.name)
         );
+        return true;
     }
 }
 

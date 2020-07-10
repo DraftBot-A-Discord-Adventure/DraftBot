@@ -52,8 +52,7 @@ const GuildDailyCommand = async (language, message, args) => {
     }
   }
 
-  //let rewardType = generateRandomProperty(guild);
-  let rewardType = REWARD_TYPES.ALTERATION;
+  let rewardType = generateRandomProperty(guild);
   embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
     guildName: guild.name,
   }));
