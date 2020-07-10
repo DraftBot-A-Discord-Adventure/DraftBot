@@ -42,6 +42,7 @@ const FightCommand = async function(language, message, args) {
   let msg;
   let fightInstance = undefined;
   let spamCount = 0;
+  let spammers = [];
   global.addBlockedPlayer(attacker.discordUser_id, 'fight');
   if (defender == null) {
     msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightAnyone, {player: attacker.getMention()});
@@ -98,6 +99,10 @@ const FightCommand = async function(language, message, args) {
               } else if (defender != null) {
                 sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
               } else {
+                if (spammers.includes(user.id)) {
+                  return;
+                }
+                spammers.push(user.id);
                 sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, {pseudo: '<@' + user.id + '>'}));
                 return;
               }

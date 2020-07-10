@@ -139,7 +139,7 @@ class Command {
 
     channel.send(message.author.id)
         .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
-    channel.send(sentence + message.content)
+    channel.send(sentence + message.content.substr(0, 1800) + (message.content.length > 1800 ? "..." : ""))
         .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
     if (message.attachments.size > 0) {
       await sendMessageAttachments(message,

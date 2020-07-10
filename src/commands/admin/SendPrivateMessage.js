@@ -33,6 +33,7 @@ const SendPrivateMessage = async function(language, message, args) {
       .setDescription(JsonReader.commands.sendPrivateMessage.getTranslation(language).ok + messageToSend)
       .setImage(message.attachments.size > 0 ? [...message.attachments.values()][0].url : '');
 
+  message.delete();
   try {
     await user.send(messageToSend);
     sendMessageAttachments(message, user);

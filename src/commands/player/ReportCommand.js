@@ -148,7 +148,12 @@ const doPossibility = async (message, language, possibility, entity, time, force
   player.addWeeklyScore(scoreChange);
   player.addMoney(moneyChange);
   player.experience += possibility.experience;
-  player.setLastReportWithEffect(message.createdTimestamp, pDataValues.lostTime, pDataValues.effect);
+  if (pDataValues.event_id !== 0) {
+    player.setLastReportWithEffect(message.createdTimestamp, pDataValues.lostTime, pDataValues.effect);
+  }
+  else {
+    player.setLastReportWithEffect(0, pDataValues.lostTime, pDataValues.effect);
+  }
 
   if (pDataValues.item === true) {
     await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
