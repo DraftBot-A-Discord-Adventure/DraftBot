@@ -6,7 +6,8 @@
             "chief": "Chef de Guilde : **{pseudo}** :military_medal:",
             "members" : ":person_pouting: {memberCount}/{maxGuildMembers} membres",
             "memberinfos" : " - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
-            "experience" :":star: {xp} / {xpToLevelUp} | Niveau {level}"
+            "experience" :":star: {xp} / {xpToLevelUp} | Niveau {level}",
+            "lvlMax" : ":star: Niveau maximum atteint !"
         },
         "en": {
             "noGuildException": "No guild was found.",
@@ -14,7 +15,8 @@
             "chief": "Guild leader : **{pseudo}** :military_medal:",
             "members" : ":person_pouting: {memberCount}/{maxGuildMembers} members",
             "memberinfos" : " - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
-            "experience" :":star: {xp} / {xpToLevelUp} | Level {level}"
+            "experience" :":star: {xp} / {xpToLevelUp} | Level {level}",
+            "lvlMax" : ":star: Maximum level reached!"
         }
     },
     "icon": "https://i.imgur.com/sQHBly4.png"
