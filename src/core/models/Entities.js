@@ -156,9 +156,12 @@ module.exports = (Sequelize, DataTypes) => {
       if (lastMention === undefined) {
         return null;
       }
-      return Entities.getByDiscordUserId(lastMention.id);
+      return Entities.getOrRegister(lastMention.id);
     } else {
       const [player] = await Players.getByRank(parseInt(args[0]));
+      if (player === undefined) {
+        return null;
+      }
       return Entities.getById(player.entity_id);
     }
   };

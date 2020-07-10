@@ -67,7 +67,7 @@ INSERT INTO guild_backup SELECT id, name, score, level, experience, lastDailyAt,
 DROP TABLE guilds;
 CREATE TABLE guilds (id INTEGER PRIMARY KEY, name VARCHAR(32) NOT NULL, score INTEGER NOT NULL, level INTEGER NOT NULL, experience INTEGER NOT NULL, lastDailyAt DATETIME, chief_id INTEGER NOT NULL, updatedAt DATETIME, createdAt DATETIME);
 INSERT INTO guilds (id, name, score, level, experience, chief_id, updatedAt, createdAt) SELECT id, name, score, level, experience, chief_id, updatedAt, createdAt FROM guild_backup;
-UPDATE guilds SET lastDailyAt = NULL;
+UPDATE guilds SET lastDailyAt = DATETIME(0, 'unixepoch');
 CREATE UNIQUE INDEX IF NOT EXISTS iug2 ON guilds (chief_id);
 CREATE INDEX IF NOT EXISTS ig ON guilds (score);
 DROP TABLE guild_backup;

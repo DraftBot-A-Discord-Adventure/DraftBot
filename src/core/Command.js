@@ -53,7 +53,7 @@ class Command {
    * @return {String}
    */
   static getBlockedPlayer(id) {
-    return Command.players.get(id);
+    return Command.players[id];
   }
 
   /**
@@ -82,19 +82,24 @@ class Command {
       },
     });
 
+    let language = server.language;
+    if (message.channel.id === JsonReader.app.ENGLISH_CHANNEL_ID) {
+      language = "en";
+    }
+
     if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
       if (message.author.id !== JsonReader.app.BOT_OWNER_ID &&
           JsonReader.app.MODE_MAINTENANCE) {
         return message.channel.send(
-            JsonReader.bot.getTranslation(server.language).maintenance);
+            JsonReader.bot.getTranslation(language).maintenance);
       }
 
-      await Command.launchCommand(server.language, server.prefix, message);
+      await Command.launchCommand(language, server.prefix, message);
     } else {
       if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) ===
           JsonReader.app.BOT_OWNER_PREFIX && message.author.id ===
           JsonReader.app.BOT_OWNER_ID) {
-        await Command.launchCommand(server.language,
+        await Command.launchCommand(language,
             JsonReader.app.BOT_OWNER_PREFIX, message);
       }
     }

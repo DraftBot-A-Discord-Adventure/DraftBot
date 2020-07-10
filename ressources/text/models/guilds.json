@@ -3,7 +3,7 @@
 		"fr": {
 			"levelUp": {
 				"title": ":star: La guilde {guildName} monte de niveau !",
-				"desc": "La guild est désormais niveau **{level}**."
+				"desc": "La guilde est désormais niveau **{level}**."
 			}
 		},
 		"en": {

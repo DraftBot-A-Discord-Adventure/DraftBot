@@ -100,5 +100,7 @@ global.SHOP = {
   HEART: '💗',
   MONEY_MOUTH: '🤑',
   STAR: '⭐',
+  POTION_REPLACEMENT: '🍷',
+  CANCEL: '❌'
 };
 

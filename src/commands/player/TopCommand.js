@@ -1,10 +1,21 @@
 const moment = require('moment');
+
 /**
  * Allow to display the rankings of the players
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+
+const topWeekCommand = async function (language, message, args) {
+  args.unshift("w");
+  await topCommand(language, message, args);
+};
+
+const topServerCommand = async function (language, message, args) {
+  args.unshift("s");
+  await topCommand(language, message, args);
+};
 
 const topCommand = async function (language, message, args) {
 
@@ -184,7 +195,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
   for (let k = debut; k <= fin; k++) {
     if (k - 1 < allEntities.length) {
       //pseudo of the current player being add to the string
-      let pseudo = (await client.users.fetch(allEntities[k - 1].discordUser_id)).username;
+      let pseudo = await allEntities[k - 1].Player.getPseudo(language);
       let badgeState;
 
       //badge depending on the rank
@@ -270,4 +281,11 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 
 module.exports = {
   'top': topCommand,
+  'topw': topWeekCommand,
+  'tops': topServerCommand,
+  'tw': topWeekCommand,
+  'ts': topServerCommand,
+  'topweek': topWeekCommand,
+  'topserver': topServerCommand,
+  'topserv': topServerCommand
 };

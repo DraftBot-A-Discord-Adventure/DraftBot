@@ -67,7 +67,7 @@ const FightCommand = async function(language, message, args) {
           };
         }
 
-        const collector = messageFightAsk.createReactionCollector(filter, {time: 60000});
+        const collector = messageFightAsk.createReactionCollector(filter, {time: 120000});
 
         collector.on('collect', async (reaction, user) => {
           switch (reaction.emoji.name) {
@@ -99,6 +99,7 @@ const FightCommand = async function(language, message, args) {
                 sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
               } else {
                 sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, {pseudo: '<@' + user.id + '>'}));
+                return;
               }
               fightInstance = null;
               break;
@@ -168,7 +169,7 @@ function canFight(entity) {
   if (entity.Player.level < FIGHT.REQUIRED_LEVEL) {
     return FIGHT_ERROR.WRONG_LEVEL;
   }
-  if (entity.effect !== EFFECT.SMILEY) {
+  if (!entity.currentEffectFinished()) {
     return FIGHT_ERROR.DISALLOWED_EFFECT;
   }
   if (global.hasBlockedPlayer(entity.discordUser_id)) {

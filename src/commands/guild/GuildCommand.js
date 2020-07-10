@@ -24,6 +24,9 @@ const GuildCommand = async (language, message, args) => {
       guild = null;
     }
   } else {
+    if (message.mentions.users.last() !== undefined) {
+      [entity] = await Entities.getOrRegister(message.mentions.users.last().id);
+    }
     // search for a user's guild
     try {
       guild = await Guilds.getById(entity.Player.guild_id);

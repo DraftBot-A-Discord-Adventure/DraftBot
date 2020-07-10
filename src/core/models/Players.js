@@ -64,15 +64,20 @@ module.exports = (Sequelize, DataTypes) => {
   /**
    * Add a badge to the player badges
    * @param {String} badge - The badge to be added to player
+   * @returns {boolean} if the badge has been applied
    */
   Players.prototype.addBadge = function(badge) {
     if (this.badges !== null) {
       if (!this.hasBadge(badge)) {
         this.badges += '-' + badge;
       }
+      else {
+        return false;
+      }
     } else {
       this.badges = badge;
     }
+    return true;
   };
 
   /**

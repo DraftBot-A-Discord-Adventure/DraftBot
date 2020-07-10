@@ -263,6 +263,20 @@ const TestCommand = async (language, message, args) => {
           await message.channel.send('Usage correct: test forcer <eventId>');
         }
         return;
+      case 'agd':
+        if (args.length === 2) {
+          let guild = await Guilds.findOne({ where: {id: author.Player.guild_id }});
+          guild.lastDailyAt -= parseInt(args[1]) * 60000;
+          guild.save();
+        }
+        break;
+      case 'glvl':
+        if (args.length === 2 && !isNaN(args[1])) {
+          let guild = await Guilds.findOne({ where: {id: author.Player.guild_id }});
+          guild.level = parseInt(args[1]);
+          guild.save();
+        }
+        break;
       default:
         await message.channel.send('Argument inconnu !');
         return;

@@ -99,7 +99,7 @@ async function ShopCommand(language, message, args) {
             return;
         }
 
-        if (reaction.first().emoji.name === '❌') {
+        if (reaction.first().emoji.name === SHOP.CANCEL) {
             removeBlockedPlayer(entity.discordUser_id);
             sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.leaveShop);
             return;
@@ -123,7 +123,9 @@ async function ShopCommand(language, message, args) {
             }
         } else if (
             potion.getEmoji() === reaction.first().emoji.id ||
-            potion.getEmoji() === reaction.first().emoji.name
+            potion.getEmoji() === reaction.first().emoji.name ||
+            SHOP.POTION_REPLACEMENT === reaction.first().emoji.name ||
+            SHOP.POTION_REPLACEMENT === reaction.first().id
         ) {
             if (canBuy(potionPrice, entity.Player)) {
                 await confirmPurchase(shopMessage, language,
@@ -146,14 +148,18 @@ async function ShopCommand(language, message, args) {
     });
 
     //Adding reactions
+    try {
+        await shopMessage.react(potion.getEmoji());
+    } catch {
+        await shopMessage.react(SHOP.POTION_REPLACEMENT);
+    }
     await Promise.all([
-        shopMessage.react(potion.getEmoji()),
         shopMessage.react(SHOP.QUESTION),
         shopMessage.react(SHOP.HOSPITAL),
         shopMessage.react(SHOP.HEART),
         shopMessage.react(SHOP.MONEY_MOUTH),
         shopMessage.react(SHOP.STAR),
-        shopMessage.react('❌')
+        shopMessage.react(SHOP.CANCEL)
     ]);
 }
 

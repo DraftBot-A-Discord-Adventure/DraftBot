@@ -18,10 +18,13 @@ const SendPrivateMessage = async function(language, message, args) {
         });
 
   if (userId === undefined || args[1] === undefined) {
-    return await sendErrorMessage(message, language);
+    return await sendErrorMessageDM(message, language);
   }
 
   const user = client.users.cache.get(userId);
+  if (user === undefined) {
+    return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).personNotExists);
+  }
   const embed = new discord.MessageEmbed();
   embed.setColor(JsonReader.bot.embed.default)
       .setTitle(format(JsonReader.commands.sendPrivateMessage.getTranslation(language).title, {
@@ -30,16 +33,20 @@ const SendPrivateMessage = async function(language, message, args) {
       .setDescription(JsonReader.commands.sendPrivateMessage.getTranslation(language).ok + messageToSend)
       .setImage(message.attachments.size > 0 ? [...message.attachments.values()][0].url : '');
 
-  user.send(messageToSend);
-  sendMessageAttachments(message, user);
-  return await message.channel.send(embed);
+  try {
+    await user.send(messageToSend);
+    sendMessageAttachments(message, user);
+    return await message.channel.send(embed);
+  } catch {
+    return sendErrorMessage(user, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).errorCannotSend);
+  }
 };
 
 /**
  * Send the error message for this command
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
-async function sendErrorMessage(message, language) {
+async function sendErrorMessageDM(message, language) {
   return await message.channel.send(new discord.MessageEmbed().setColor(JsonReader.bot.embed.error)
       .setAuthor(format(JsonReader.commands.sendPrivateMessage.getTranslation(language).error, {
         pseudo: message.author.username,
