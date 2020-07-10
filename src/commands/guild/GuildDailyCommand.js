@@ -52,7 +52,8 @@ const GuildDailyCommand = async (language, message, args) => {
     }
   }
 
-  let rewardType = generateRandomProperty(guild);
+  //let rewardType = generateRandomProperty(guild);
+  let rewardType = REWARD_TYPES.ALTERATION;
   embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
     guildName: guild.name,
   }));
@@ -147,12 +148,13 @@ const GuildDailyCommand = async (language, message, args) => {
 
   if (rewardType === REWARD_TYPES.ALTERATION) {
     for (const i in members) {
-      if (members[i].effect != EFFECT.SMILEY) { // TODO : test with duration of the effects
+      if (members[i].currentEffectFinished()) { // TODO : test with duration of the effects
         members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
-      } else if (members[i].effect != EFFECT.DEAD && members[i].effect != EFFECT.LOCKED) {
+      } else if (members[i].effect !== EFFECT.DEAD && members[i].effect !== EFFECT.LOCKED) {
         members[i].effect = EFFECT.SMILEY;
         members[i].Player.lastReportAt = new Date(message.createdTimestamp);
       }
+      await members[i].Player.save();
       await members[i].save();
     }
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).alterationHeal, {
