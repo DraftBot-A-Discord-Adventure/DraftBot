@@ -113,7 +113,7 @@
           ]
         },
         "defense": "renforce sa défense ! `Défense + {defense}`",
-        "defenseEmote": ":rocket:",
+        "defenseEmote": ":shield:",
         "speed": "augmente sa vitesse ! `Vitesse + {speed}`",
         "speedEmote": ":rocket:",
         "damages": " `Dégâts infligés: {damages}`"
