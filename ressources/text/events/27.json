@@ -1,0 +1,148 @@
+{
+	"translations": {
+		"fr": " : ** :walking: En vous promenant dans le petit village que vous avez trouvé, vous remarquez un puits avec un petit objet brillant au fond.\n\n:point_down: Tenter de descendre pour récupérer l'objet.\n:handshake: Tenter d'attraper l'objet avec le seau du puits\n:walking: Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :walking: Walking through the small village you found, you notice a well with a small shiny object at the bottom.\n\n:point_down: Try to descend and retrieve the object.\n:handshake: Try to grab the object with the well's bucket\n:walking: Continue on your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"possibilities": {
+		"👇": [
+			{
+				"translations": {
+					"fr": "** | 👇 Vous vous blessez grièvement lors de la descente et restez bloqué au fond plusieurs heures avant que quelqu'un ne vous retrouve.",
+					"en": "** | 👇 You get seriously injured during the descent and get stuck at the bottom for several hours before someone finds you."
+				},
+				"lostTime": 150,
+				"health": -30,
+				"effect": ":clock2:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 👇 Vous arrivez en bas sans soucis, récupérez l'objet, et continuez votre route.",
+					"en": "** | 👇 You arrive at the bottom without any problems, get the object, and continue your journey."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | 👇 Vous sautez dans le puits mais n'y trouvez rien, vous remontez donc sans perdre davantage de temps.",
+					"en": "** | 👇 You jump into the well but find nothing, so you go back up without wasting any more time."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 👇 Une fois en bas, vous découvrez une grande quantité de pièces d'or que vous récupérez avant de continuer votre périple.",
+					"en": "** | 👇 Once you get to the bottom, you discover a large quantity of gold coins that you collect before continuing your journey."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 250,
+				"money": 150,
+				"item": false
+			}
+		],
+		"🤝": [
+			{
+				"translations": {
+					"fr": "** | 🤝 Après une heure de tentatives, vous obtenez enfin cet objet, qui se révèle être en réalité un simple bout de ferraille.",
+					"en": "** | 🤝 After an hour of trying, you finally get this object, which turns out to be a simple piece of metal."
+				},
+				"lostTime": 60,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🤝 Concentré sur votre objectif, vous ne vous rendez pas compte qu'un jeune du village vous attrape, et vous fait tomber dans le puits. Sonné, vous ne vous réveillez que plusieurs heures après. :confounded:",
+					"en": "** | 🤝 Focused on your goal, you don't realize that a young villager catches you, and pushes you into the well. Stunned, you wake up several hours later. :confounded:"
+				},
+				"lostTime": 0,
+				"health": -40,
+				"effect": ":confounded:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🤝 Rapidement, vous récupérez l'argent qui se trouvait au fond, et continuez votre route.",
+					"en": "🤝 | Quickly, you get the money from the bottom of the well, and continue your journey."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 250,
+				"money": 150,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Pas de temps à perdre ! Vous continuez votre route sans prêter la moindre attention à ceci.",
+					"en": "** | 🚶 No time to lose! You continue your journey without paying any attention to this."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous continuez votre route, mais après une petite heure de marche, tombez nez à nez avec un groupe de personnes habillées de noir. Après vous être débattu avec acharnement, vous réussissez à partir, mais vous vous êtes fait dépouiller.",
+					"en": "** | 🚶 You continue on your way, but after a short while walking, you encounter a group of people dressed in black. After struggling hard, you manage to leave, but you have been robbed."
+				},
+				"lostTime": 60,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": -75,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | 👀 Vous observez bêtement l'objet pendant 20 minutes puis repartez.",
+					"en": "** | 👀 You blankly stare at the object for 20 minutes, then leave."
+				},
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez, heureusement vous arrivez à rapidement remonter nous sans vous être sévèrement blessé. :head_bandage:",
+					"en": "** | 🚶 Leaning over the well, you observe the object. It is then that you fall over. Fortunately, you manage to quickly climb back up, but you emerge from this adventure seriously injured. :head_bandage:"
+				},
+				"lostTime": 0,
+				"health": -45,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
+}

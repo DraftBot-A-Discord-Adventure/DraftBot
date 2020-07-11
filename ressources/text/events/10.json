@@ -1,0 +1,88 @@
+{
+	"translations": {
+		"fr": " : ** :fish: Alors que vous passiez près d'un plan d'eau, vous remarquez un homme qui semble en difficulté sur sa partie de pêche !\n\n:fishing_pole_and_fish: Proposer son aide.\n:runner: Continuer votre route, pas de temps à perdre !\n:hand_splayed: Pousser le pêcheur dans l'eau !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :fish: As you pass a lake, you notice a man who seems to be having difficulties on his fishing trip!\n\n:fishing_pole_and_fish: Offer your help.\n:runner: Keep going, no time to waste! \n:hand_splayed: Push the fisherman into the water!\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*"
+	},
+	"possibilities": {
+		"🎣": [
+			{
+				"translations": {
+					"fr": "** | :walking: L'homme refuse gentiment votre aide, vous poursuivez votre route.",
+					"en": "** | :walking: The man politely refuses your help, and you continue on your journey."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | :tropical_fish: Grâce à vous, l'homme attrape un superbe poisson de 3 kg ! Pour vous remercier, il vous offre quelque chose qui pourrait vous être utile...",
+					"en": "** | :tropical_fish: Thanks to you, the man catches a superb fish weighing in at 3 kg! To thank you, he offers you something that could be useful to you ..."
+				},
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** |  :sweat_drops: Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:",
+					"en": "** |  :sweat_drops: The fish at the end of the line must be huge! You find yourself quickly pulled down to the bottom of the water! You are saved just in time by the fisherman. Stunned by this adventure, you will have to heal before continuing! :confounded:"
+				},
+				"lostTime": 0,
+				"health": -10,
+				"effect": ":confounded:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🏃": [
+			{
+				"translations": {
+					"fr": "** | :runner: Vous n'avez pas une minute à perdre pour aider un simple pêcheur ! Vous passez votre chemin.",
+					"en": "** | :runner: You don't have even a minute to lose to help a fisherman! You go your way."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🖐": [
+			{
+				"translations": {
+					"fr": "** | :hand_splayed: Mais pourquoi avoir fait cela ? :thinking: Pris de remords, vous secourez le pauvre homme et lui offrez quelques pièces pour vous faire pardonner.",
+					"en": "** | :hand_splayed: But why did you do that? :thinking: Feeling remorse, you rescue the poor man and offer him some coins as compensation."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": -500,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | :walking: Vous finissez par passer votre chemin sans prêter plus d'attention à cette situation somme toute assez banale !",
+					"en": "** | :walking: You end up continuing on without paying any more attention to this rather boring situation!"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
+}

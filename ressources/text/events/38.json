@@ -1,0 +1,162 @@
+{
+	"translations": {
+		"fr": " : ** :person_walking: Faisant route, vous croisez un marchand itinérant, qui vous interpelle. Il dit avoir des objets qui pourraient vous intéresser, et ce à des prix tout à fait abordables.\n\n:money_with_wings: Accepter de lui acheter un objet peu cher\n:moneybag: Lui acheter un de ses plus chers objets\n:x: Refuser\n:detective: Voler sa marchandise\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :person_walking: On your way, you meet a traveling merchant. He says that he possesses some nice items that might interest you, for cheap.\n\n:money_with_wings: Buy a cheap item.\n:moneybag: Try your luck by buying one of his most expensive ones.\n:x: Decline his offer.\n:detective: Attempt to rob him.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"possibilities": {
+		"💸": [
+			{
+				"translations": {
+					"fr": "** | 💸 Vous achetez un objet peu cher en échange de quelques pièces d'or. Vous êtes satisfait de l'item qu'il vous a vendu et vous le rangez dans votre sac.",
+					"en": "** | 💸 You buy a cheap item in exchange of some gold coins. As you feel satisfied by it, you store the item in your bag."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": -100,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | 💸 Vous achetez l'un de ses objets à faible valeur, mais au moment où vous recevez votre item et commencez à l'inspecter, vous vous rendez compte qu'il vous a vendu un item en piteux état. L'arnaqueur à profité de votre naïveté et du moment où vous observiez l'objet pour prendre ses jambes à son cou. Vous jurez de ne plus vous faire berner par ce type.",
+					"en": "** | 💸 You decide to buy a cheap item. However, as you inspect its quality, you realize that it is in very poor condition. You were taken advantage of, and that guy already fled the scene while you were busy with the item. You swear not to be fooled this way again."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": -100,
+				"item": false
+			}
+		],
+		"💰": [
+			{
+				"translations": {
+					"fr": "** | 💰 Vous décidez d'acheter un de ses objets les plus chers afin d'être le mieux équipé en échange d'une certaine quantité d'or. Il vous donne un superbe objet et vous le rangez dans votre sac. Vous saluez chaleureusement le vendeur avant qu'il s'en aille.",
+					"en": "** | 💰 You decide to buy one of his most expensive items so as to be well prepared. He gives you a beautiful one and you pocket it. You send him off warmly as he leaves."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": -350,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | 💰 Vous achetez un objet assez cher, il est d'une très bonne qualité, alors vous repartez satisfait.",
+					"en": "** | 💰 You buy a rather expensive item of very good quality. Satisfied, you then resume your adventure."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": -350,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | 💰 Vous achetez l'un de ses objets les plus chers, mais lorsque vous il'inspectez vous vous rendez compte qu'il vous a vendu une épée rouillée couverte de peinture. Malheureusement c'est trop tard et l'arnaqueur est parti en profitant du moment où vous inspectiez votre épée... Vous êtes en colère et jurez de le décapiter la prochaine fois que vous le rencontrerez.",
+					"en": "** | 💰 As you decide to buy one his most expensive items, you find it to be an old rusty sword covered in paint. Unfortunately it is now too late as the man already left when you were inspecting your sword... Frustrated, you swear ruthlessly to behead him the next time you see him."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": -350,
+				"item": false
+			}
+		],
+		"❌": [
+			{
+				"translations": {
+					"fr": "** | ❌ Vous refusez poliment sa proposition et continuez votre chemin.",
+					"en": "** | ❌ You politely refuse his proposal and continue on your way."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🕵️": [
+			{
+				"translations": {
+					"fr": "** | 🕵️ Vous volez discrètement un de ses objets, et prenez prestement vos jambes à votre cou.",
+					"en": "** | 🕵️ You discreetly steal one of his items and flee."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | 🕵️ Le marchand remarque ce que vous essayez de faire, alors il vous demande de lui rendre sa marchandise. Il décide par clémence de vous laisser partir, ce que vous faites sans demander votre reste.",
+					"en": "** | 🕵️ He catches you red-handed and asks you to return his goods. He lets you go out of kindness of heart and you do so gladly."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🕵️ Vous commencez à voler le marchand, qui le remarque. Il vous assène un violent coup de poing, puis repart. :head_bandage:",
+					"en": "** | 🕵️ The merchant notices you as you start robbing him. He knocks your teeth out with a punch then leaves. :head_bandage:"
+				},
+				"lostTime": 0,
+				"health": -20,
+				"effect": ":head_bandage:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | :person_walking: Vous ignorez complètement le marchand et reprenez votre route.",
+					"en": "** | :person_walking: You completely ignore the merchant and go your way."
+				},
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | :busts_in_silhouette: Vous finissez par aller voir le marchand, vous discutez un long moment avec lui, et vous vous liez d'amitié. Avant de partir il vous offre un petit objet qui pourrait peut être vous servir durant votre voyage.",
+					"en": "** | :busts_in_silhouette: You end up walking up to him. You finally befriend him after talking for a long time and he offers you a small item that he thinks could be helpful for your adventure."
+				},
+				"lostTime": 180,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 325,
+				"money": 0,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | :busts_in_silhouette: Vous discutez un moment avec le marchand, sympathisez avec lui, et lorsque le soleil commence à se coucher, il vous annonce qu'il est temps pour lui de partir. Vous vous saluez, et repartez chacun de votre côté.",
+					"en": "** | :busts_in_silhouette: You chat with him for a long time. However as the sun starts to set, it's time for you to part. You send him off and then end up leaving."
+				},
+				"lostTime": 180,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
+}

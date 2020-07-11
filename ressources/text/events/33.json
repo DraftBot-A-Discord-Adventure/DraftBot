@@ -1,0 +1,210 @@
+{
+	"translations": {
+		"fr": " : ** Vous arrivez dans une ferme où se déroule un grand festin. Les gens paraissent accueillants. \n\n:lips: S'asseoir tranquillement pour bavarder \n:poultry_leg: En profiter pour s'empiffrer de nourriture \n:detective: Profiter de l'animation générale pour voler les gens \n:man_walking: Continuer sans s'arrêter\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** You arrive in farm in which festivities are conducted. The people seem to receive you with hospitality.\n\n:lips: Sit down to chat.\n:poultry_leg: Have a go at the food.\n:detective: Take advantage of the commotion to rob some of them.\n:person_walking: Continue without stopping.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"possibilities": {
+		"👄": [
+			{
+				"translations": {
+					"fr": "** | 👄 Vous ne voyez pas le temps passer et discutez pendant 2h avec un fermier au sujet de la campagne.",
+					"en": "** | 👄 Time goes by quickly as you chat during 2 hour with a farmer about the countryside."
+				},
+				"lostTime": 120,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 👄 Vous vous liez d'amitié avec votre voisin de table qui vous donne un objet en guise de cadeau.",
+					"en": "** | 👄 You bond with the guy sitting next to you whom gifts you a present for the sake of it. "
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | 👄 Avec l'alcool, les esprits s'échauffent et vous assistez à une bagarre avant de vous en aller.",
+					"en": "** | 👄 As the alcohol kicks in, some people starts getting aggressive and you watch a fight happen before going away."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 👄 Un jeune homme généreux tient à vous offrir une bourse et à boire.",
+					"en": "** | 👄 A generous young man insists on giving you a bag of money and some drinks."
+				},
+				"lostTime": 0,
+				"health": 20,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 400,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 👄 Vous acceptez poliment et restez quelques minutes, avant de repartir, feignant d'être pressé.",
+					"en": "** | 👄 You accept politely and stay for a bit, before faking being in a rush and going."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🍗": [
+			{
+				"translations": {
+					"fr": "** | 🍗 Cette bonne nourriture vous donne un regain d'énergie !",
+					"en": "** | 🍗 This good food makes you full of energy."
+				},
+				"lostTime": 0,
+				"health": 10,
+				"effect": ":smiley:",
+				"experience": 350,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🍗 Pas de chance ! Vous tombez sur un morceau avarié et tombez malade. :sick:",
+					"en": "** | 🍗 Not your lucky day, you end up eating a part which turned bad. :sick:"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":sick:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🍗 Vous vous empiffrez de nourriture, vous aurez besoin d'une bonne digestion pour reprendre la route.",
+					"en": "** | 🍗 You stuff yourself full. You'll need a good time to digest and be ready to resume your adventure."
+				},
+				"lostTime": 75,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🍗 Vous avec bien mangé, vous bavardez avec votre voisin qui ne cesse de vous servir à boire. Vous finissez par vous effondrer, ivre. :zany_face:",
+					"en": "** | 🍗 You ate very well, you chat with a random person who keeps giving you drinks. You end up passing out. :zany_face:"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":zany_face:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🕵️": [
+			{
+				"translations": {
+					"fr": "** | 🕵️ Vous en profitez pour amasser quelques pièces d'or récupérés çà et là. ",
+					"en": "** | 🕵️ You take advantage of the situation to gather some gold here and there."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 250,
+				"money": 1000,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🕵️ Vous vous faites repérer par des gens, mais réussissez à vous enfuir.",
+					"en": "** | 🕵️ You get caught but succeed in running away."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 250,
+				"money": 250,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Les habitants vous ayant vu prennent cela pour une marque d'impolitesse et vous volent votre bourse.",
+					"en": "** | 🚶 The locals caught sight of you and interpreted your action as disrespect and as such, take all your belongings. "
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": -200,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous continuez sans y prêter attention et trouvez quelques pièces sur le chemin.",
+					"en": "** | 🚶 You continue, not caring and find some gold on the way."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 250,
+				"money": 100,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous courez de peur qu'ils viennent à votre rencontre. Épuisé, vous vous reposez.",
+					"en": "** | 🚶 You run as you are afraid of social interaction. After a while, you rest as you are exhausted."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smile:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | Vous ne voyez pas la chèvre foncer sur vous et vous tombez à terre, étourdi. :confounded:",
+					"en": "** | You don't notice the goat coming right at you, you fall down stunned by the shock. :confounded:"
+				},
+				"lostTime": 0,
+				"health": -20,
+				"effect": ":confounded:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | Les individus viennent vous voir pour vous amener à table. Vous êtes forcé de manger avec eux, ce qui vous redonne de l'énergie !",
+					"en": "** | The people comes to get you to the table. They force you to eat with them, which gives you energy!"
+				},
+				"lostTime": 180,
+				"health": 40,
+				"effect": ":smiley:",
+				"experience": 225,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
+}

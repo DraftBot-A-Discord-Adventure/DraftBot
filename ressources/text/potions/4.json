@@ -1,0 +1,9 @@
+{
+	"translations": {
+		"fr": "<:Potion:548219908736155658>  **Grande Potion**",
+		"en": "<:Potion:548219908736155658>  **Large potion**"
+	},
+	"rarity": 7,
+	"power": 255,
+	"nature": 2
+}
