@@ -44,6 +44,7 @@ const FightCommand = async function(language, message, args) {
   let spamCount = 0;
   let spammers = [];
   global.addBlockedPlayer(attacker.discordUser_id, 'fight');
+
   if (defender == null) {
     msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightAnyone, {player: attacker.getMention()});
   } else {
@@ -52,6 +53,11 @@ const FightCommand = async function(language, message, args) {
       opponent: defender.getMention(),
     });
   }
+  msg += "\n\n" + await getStatsDisplay(attacker, language);
+  if (defender !== null) {
+    msg += "\n" + await getStatsDisplay(defender, language);
+  }
+
   await message.channel.send(msg)
       .then(async function(messageFightAsk) {
         await messageFightAsk.react('✅');
@@ -181,6 +187,27 @@ function canFight(entity) {
     return FIGHT_ERROR.OCCUPIED;
   }
   return 0;
+}
+
+/**
+ * Returns the message which displays the stats of a player under the fight ask
+ * @param {Entities} entity
+ * @return {Promise<String>}
+ */
+async function getStatsDisplay(entity, language) {
+  let msg = format(JsonReader.commands.fight.getTranslation(language).statsOfPlayer, {pseudo: await entity.Player.getPseudo(language)});
+  let inv = entity.Player.Inventory;
+  let w = await inv.getWeapon();
+  let a = await inv.getArmor();
+  let p = await inv.getPotion();
+  let o = await inv.getActiveObject();
+  msg += format(JsonReader.commands.fight.getTranslation(language).summarize.stats, {
+    power: entity.getCumulativeHealth(entity.Player),
+    attack: entity.getCumulativeAttack(w, a, p, o),
+    defense: entity.getCumulativeDefense(w, a, p, o),
+    speed: entity.getCumulativeSpeed(w, a, p, o)
+  });
+  return msg;
 }
 
 const FIGHT_ERROR = {
