@@ -1,0 +1,186 @@
+{
+	"translations": {
+		"fr": " : ** 🌕 Faisant route vers l'Est en pleine nuit, vous marchez. Il fait sombre mais la lune est claire. Vous apercevez devant vous un être éclairé par la lumière de la lune. Il est grand, vêtu de noir; vous voyez un liquide dégouliner d'une de ses mains, la nuit illumine la peau pâle de l'individu qui ne vous a pas encore repéré. Que faire ?\n\n⬆️ Continuer votre route sans faire attention à lui\n⬇️ Faire demi tour\n⚔️ Affronter la créature\n⛪ S'abriter dans une église Kyutiste\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🌕 You are heading eastwards in the middle of the night. It is dark but the moon is clear. You see before you a being bathed in moonlight. A tall man, dressed in black; you see a red liquid dripping from one of his hands, the dim white light puncturing the skies illuminates the pale skin of the individual, who has not yet noticed you. What to do?\n\n⬆️ Continue down the road, ignoring the mysterious figure.\n⬇️ Turn back around\n⚔️ Oppose the mysterious man\n⛪ Take shelter in a Kyutist church\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"possibilities": {
+		"⬆️": [
+			{
+				"translations": {
+					"fr": "** | ⬆️ Vous continuez votre chemin et vous vous rendez compte que ce n'est en réalité qu'un chasseur nordique. Vous vous saluez, et vous le regardez en train de lever ses pièges. Vous comprenez alors que c'est de là que vient le liquide coulant de sa main.",
+					"en": "** | ⬆️ You continue down the road. As you pass the mysterious figure, you realize that he is a Nordic hunter. You greet each other, and you watch him set his traps. You realize that this is probably where the red liquid dripping down from his hand comes from."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | ⬆️ Curieux, vous approchez la personne. C'est un chasseur nordique qui relève ses pièges. Vous vous saluez et vous lui proposez votre aide, qu'il accepte volontiers. Après l'avoir aidé à relever tous ses pièges, il vous demande si vous voulez passer la soirée chez lui. Le chasseur cuisine le gibier qu'il a capturé, vous vous requinquez en mangeant un bon gigot devant le feu de sa cheminée, puis il vous laisse vous reposer sur son lit. Vous repartez dès l'aube. Vous le remerciez en lui donnant quelques pièces.",
+					"en": "** | ⬆️ Curious, you approach the person, which turns out to be a Nordic hunter setting up some of his traps. You greet each other and offer him your help, which he gladly accepts. After helping him set up all his traps, he asks if you would like to spend the evening at his place. The hunter cooks some venison he had captured, you enjoy a good lamb leg in front of the fireplace. He then lets you rest some time on his bed. You leave at dawn, thanking him by giving him a few coins."
+				},
+				"lostTime": 210,
+				"health": 30,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": -200,
+				"item": false
+			}
+		],
+		"⬇️": [
+			{
+				"translations": {
+					"fr": "** | ⬇️ Vous préférez faire demi-tour discrètement. Une fois que vous vous êtes assez éloigné, vous courez à toute vitesse, et allez vous réfugier dans le village le plus proche.",
+					"en": "** | ⬇️ You prefer to turn back around quietly. Once you've gone far enough away, you run at full speed and take refuge in the nearest village."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | ⬇️ Vous prenez fuite en reculant tout doucement, mais vous marchez sur une brindille qui craque. Apeuré, vous commencez à courir comme un dératé, mais vous tombez par terre et vous écorchez les genoux. Sous l'adrénaline, cependant, vous reprenez immédiatement votre folle course.",
+					"en": "** | ⬇️ You slowly back away, but you misstep on a twig by accident, breaking it apart with a loud snapping sound. Frightened, you start running like a madman. During your panicked get away you trip and fall to the ground, seriously grazing your knee in the process. But because of all the adrenaline in your blood, you don’t realize the severity of the wound and keep on running like a lunatic."
+				},
+				"lostTime": 0,
+				"health": -5,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"⚔️": [
+			{
+				"translations": {
+					"fr": "** | ⚔️ Vous commencez à foncer en hurlant, l'homme se retourne et vous arrête. Après que vous lui ayez expliqué ce que vous pensiez, il vous dit que vous avez fait fausse route : il est un chasseur vérifiant ses pièges, pas une quelconque créature démoniaque ! Vous vous excusez vite, et repartez.",
+					"en": "** | ⚔️ You start running and screaming, the man turns around and charges at you to spot your act. After you explain to him what you were thinking him to be, he tells you that you've gotten it the wrong way: he is a hunter checking his traps, not some demonic creature! You quickly apologize, and leave."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+            },
+            {
+				"translations": {
+					"fr": "** | ⚔️ Vous foncez en hurlant sur l'étrange personnage. Cependant, après vous être rapproché, vous réalisez qu'il s'agit d'un chasseur relevant ses pièges. Confus, vous décidez de l'aider, afin de le dédommager pour la frayer que vous lui avez causé.",
+					"en": "** | ⚔️ You run screaming at the strange character. However, after getting closer, you realize that it's a hunter collecting some of his traps. Confused and embarrassed, you decide to help him, in order to compensate for the scene, you just caused."
+				},
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | ⚔️ Vous dégainez votre épée, l'homme se retourne et vous voit avancer vers lui. Il menace de décocher une flèche si vous faites un pas de plus. Vous vous excusez en lui expliquant que vous l'avez pris de loin pour un démon, puis vous reprenez votre route, penaud.",
+					"en": "** | ⚔️ You draw your sword, the man turns around and sees you coming towards him. He threatens to you with an arrow if you even take a single step closer. You apologize and explain to him that you thought he was a demon and then continue on your way, full of shame."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			}
+        ],
+        "⛪": [
+			{
+				"translations": {
+					"fr": "** | ⛪ Vous vous rappelez être passé devant un église quelques minutes auparavant, alors vous n'hésitez pas longtemps avant de vous décider à vous y rendre, afin d'être protégé de l'être démoniaque. Vous courez sur tout le trajet, et arrivez en moins d'une dizaine de minutes devant ladite église. Vous toquez, un peu fébrile par peur d'avoir été suivi pas la bête. Un kyutiste vous ouvre, et après que vous lui ayez expliqué, il vous laisse entrer. D'une grande bonté, les personnes à l'intérieur de l'église vous donnent de quoi manger, et vous disent qu'ils peuvent sans problème vous garder pour la nuit. Reconnaissant, vous les rejoignez lors des Louanges à Askeriel, pendant lesquels tout le monde présent murmure en choeur la façon dont Askeriel, le Grand Dieu, créa l'existence, la matière, la terre, puis les humains et les animaux. Après avoir fini, vous partez tous vous coucher. :sleeping: ",
+					"en": "** | ⛪ You remember having passed by a church few minutes ago, without any hesitation you decide to go there, in order to be protected from the unholy being. You run all the way there and arrive in less than ten minutes in front of said church. You knock, a little feverish for fear of having been followed by the beast. A kyutist answers the door, and after you have explained everything to him, he lets you in. Very kindly, the people inside the church give you something to eat and tell you that they can keep you for the night without any problem. Grateful, you join them in the praises to Askeriel, during which everyone present whispers in chorus how Askeriel, the Great God, created existence, matter, the earth, and then humans and animals. When you have finished, you all go to bed. :sleeping:"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":sleeping:",
+				"experience": 20,
+				"money": 0,
+				"item": false
+            },
+            {
+				"translations": {
+					"fr": "** | ⛪ Vous vous souvenez avoir passé une église peu avant. Vous vous y dirigez donc, comptant y chercher de l'aide. Une fois arrivé, vous toquez. Après quelques secondes sans réaction, vous décidez d'entrer, craignant avoir été suivi par la bête. C'est à cet instant que vous réalisez que l'église est totalement vide, abandonnée. Vous en fermez la porte, et vous installez à même le sol avant de vous endormir. :sleeping: ",
+					"en": "** | ⛪ You remember going past a church not long ago. So you head there, hoping to get some help. Once there, you knock on the large door. After a few seconds of no reaction, you decide to enter, fearing you have been followed by the beast. It is at this moment that you realize that the church is completely empty, abandoned. You close the door and settle down on the floor before falling asleep. :sleeping: "
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":sleeping:",
+				"experience": 20,
+				"money": 0,
+				"item": false
+            },
+            {
+				"translations": {
+					"fr": "** | ⛪ Vous pensez immédiatement à chercher refuge dans une église : quoi de mieux, après tout, face à une chose semblant démoniaque ? Cependant vous déchantez vite, puisque vous réalisez que vous n'avez absolument aucune idée d'où est la plus proche église. Vous choisissez alors de fuir aussi loin que possible de la créature, ce que vous faites.",
+					"en": "** | ⛪ You immediately think of seeking refuge in a church: what could be better, after all, in front of something seemingly demonic? However, you quickly give up since you realize that you have absolutely no idea where the nearest church is. You then choose to flee as far away from the creature as possible, which you do."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | ⛪ Vous pensez qu'aller dans une église est une bonne option. Vous vous hâtez alors, et arrivez en quelques minutes à l'église que vous aviez dépassé plus tôt. Vous toquez, et êtes accueilli par un prêtre jovial, qui vous fait immédiatement entrer. Vous ne tardez pas à lui parlez de ce que vous avez vu, et il vous répond qu'il pourrait très bien s'agir d'une terrible créature démoniaque aux ordres de Y'ahnor. Impressionné, vous le rejoignez lors de l'Ode aux Trois, la cérémonie où sont célébrés Orthgard, Fenrir, et Iatneh, les dieux protecteurs qui guident l'humanité et lui inspirent les plus grandes inventions et découvertes.",
+					"en": "** | ⛪ You think going to a church is a good option. You hurry and arrive in a few minutes at the church you passed earlier. You knock and are greeted by a jovial priest, who immediately takes you in. You soon tell him about what you saw, and he replies that it could very well be a terrible demonic creature under Y'ahnor's orders. Impressed, you join him in the Ode to the Three, the ceremony where Orthgard, Fenrir, and Iatneh, the protective gods who guide mankind and inspire the greatest inventions and discoveries, are celebrated."
+				},
+				"lostTime": 90,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous ignorez la personne qui est devant vous, et un peu plus loin sur votre route vous trouvez un objet brillant que vous rangez dans votre sac.",
+					"en": "** | 🚶 You ignore the person in front of you and continue along the road. A little further down you find a shiny object that you put in your bag."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
+				"item": true
+            },
+            {
+				"translations": {
+					"fr": "** | 🚶 Par peur vous rebroussez chemin et faites un détour afin d'éviter de croiser la créature.",
+					"en": "** | 🚶 Out of fear you turn back around and make a detour in order to avoid crossing the creature."
+				},
+				"lostTime": 20,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous courez sans regarder ce que c'était, mais vous trébuchez dans l'obscurité sur une pierre. Vous tombez sur vos bras, tout écorché.",
+					"en": "** | 🚶 You run without looking any closer what it actually was. You trip over a rock in the dark which sends you falling onto your arms, now full of scratches."
+				},
+				"lostTime": -10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
+}
