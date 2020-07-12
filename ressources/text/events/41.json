@@ -24,7 +24,7 @@
 				},
 				"lostTime": 180,
 				"health": 0,
-				"effect": ":cloak2:",
+				"effect": ":clock2:",
 				"experience": 25,
 				"money": 75,
 				"item": false
@@ -60,7 +60,7 @@
 					"fr": "** | 🕑 Vous attendez. Au fur et à mesure que le temps passe les minutes vous paraissent des heures. Mais la personne qui vous surveille ne semble pas prête à vous libérer de si tôt. :lock:",
 					"en": "** | 🕑 You wait. As time passes on minutes start to feel like hours. Only, your jailer does not seem ready to free you quite yet. :lock:"
 				},
-				"lostTime": 300,
+				"lostTime": 0,
 				"health": 0,
 				"effect": ":lock:",
 				"experience": 15,
@@ -150,7 +150,7 @@
 				},
 				"lostTime": 45,
 				"health": 20,
-				"effect": ":cloak2:",
+				"effect": ":clock2:",
 				"experience": 225,
 				"money": -250,
 				"item": false
@@ -174,7 +174,7 @@
 				},
 				"lostTime": 120,
 				"health": 0,
-				"effect": ":cloak2:",
+				"effect": ":clock2:",
 				"experience": 25,
 				"money": 0,
 				"item": false
@@ -212,7 +212,7 @@
 				},
 				"lostTime": 240,
 				"health": 0,
-				"effect": ":cloak2:",
+				"effect": ":clock2:",
 				"experience": 25,
 				"money": 0,
 				"item": false
