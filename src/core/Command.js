@@ -89,13 +89,6 @@ class Command {
             JsonReader.bot.getTranslation(server.language).maintenance);
       }
 
-      // TODO 2.0
-      // const diffMinutes = getMinutesBeforeReset();
-      // if (resetIsNow(diffMinutes)) {
-      //     const embed = await generateResetTopWeekEmbed(message);
-      //     return message.channel.send(embed)
-      // }
-
       await Command.launchCommand(server.language, server.prefix, message);
     } else {
       if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) ===
@@ -166,6 +159,11 @@ class Command {
    * @param {('fr'|'en')} language - The language for the current server
    */
   static async launchCommand(language, prefix, message) {
+
+    if (resetIsNow()) {
+      return await sendErrorMessage(message.author, message.channel, language, JsonReader.bot.getTranslation(language).resetIsNow);
+    }
+
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 

@@ -326,6 +326,14 @@ global.parseTimeDifference = function(date1, date2, language) {
   return parsed;
 };
 
+/**
+ * Block commands if it is 5 minutes before top week reset
+ * @return {boolean}
+ */
+global.resetIsNow = function() {
+  return getNextSundayMidnight() - new Date() <= 1000*5*60;
+};
+
 // TODO 2.0 Legacy code
 // /**
 //  * convert a number of hours in a number of miliseconds
