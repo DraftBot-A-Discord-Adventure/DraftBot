@@ -277,6 +277,14 @@ const TestCommand = async (language, message, args) => {
           guild.save();
         }
         break;
+      case 'topggvote':
+        author.Player.topggVoteAt = new Date();
+        author.Player.save();
+        break;
+      case 'topggatime':
+        author.Player.topggVoteAt -= parseInt(args[1]) * 60000;
+        author.Player.save();
+        break;
       default:
         await message.channel.send('Argument inconnu !');
         return;

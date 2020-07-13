@@ -56,6 +56,10 @@ module.exports = (Sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
     },
+    topggVoteAt: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(0)
+    }
   }, {
     tableName: 'players',
     freezeTableName: true,

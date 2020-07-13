@@ -104,3 +104,8 @@ global.SHOP = {
   CANCEL: '❌'
 };
 
+global.TOPGG = {
+  BADGE: '🗳️',
+  BADGE_DURATION: 12*60*60*1000
+};
+
