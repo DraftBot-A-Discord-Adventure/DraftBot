@@ -29,12 +29,13 @@ const FightCommand = async function(language, message, args) {
     }
   }
 
+  let isTournament = tournamentChannel === message.channel.id;
   let canF;
-  if ((canF = canFight(attacker)) !== FIGHT_ERROR.NONE) {
+  if ((canF = canFight(attacker, isTournament)) !== FIGHT_ERROR.NONE) {
     sendError(message, attacker, canF, true, language);
     return;
   }
-  if (defender != null && (canF = canFight(defender)) !== FIGHT_ERROR.NONE) {
+  if (defender != null && (canF = canFight(defender, isTournament)) !== FIGHT_ERROR.NONE) {
     sendError(message, defender, canF, false, language);
     return;
   }
@@ -53,9 +54,9 @@ const FightCommand = async function(language, message, args) {
       opponent: defender.getMention(),
     });
   }
-  msg += "\n\n" + await getStatsDisplay(attacker, language);
+  msg += "\n\n" + await getStatsDisplay(attacker, language, isTournament ? tournamentPower : -1);
   if (defender !== null) {
-    msg += "\n" + await getStatsDisplay(defender, language);
+    msg += "\n" + await getStatsDisplay(defender, language, isTournament ? tournamentPower : -1);
   }
 
   await message.channel.send(msg)
@@ -90,12 +91,11 @@ const FightCommand = async function(language, message, args) {
                 break;
               }
               [defender] = await Entities.getOrRegister(user.id);
-              if ((canF = canFight(defender)) !== FIGHT_ERROR.NONE) {
+              if ((canF = canFight(defender, isTournament)) !== FIGHT_ERROR.NONE) {
                 sendError(message, defender, canF, true, language);
                 defender = null;
                 return;
               }
-              let isTournament = tournamentChannel === message.channel.id;
               fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1);
               fightInstance.startFight();
               break;
@@ -171,16 +171,17 @@ function sendError(message, entity, error, direct, language) {
 
 /**
  * @param entity
+ * @param {boolean} bypassAlteration
  * @return {Number} error
  */
-function canFight(entity) {
+function canFight(entity, bypassAlteration) {
   if (entity == null) {
     return null;
   }
   if (entity.Player.level < FIGHT.REQUIRED_LEVEL) {
     return FIGHT_ERROR.WRONG_LEVEL;
   }
-  if (!entity.currentEffectFinished()) {
+  if (!entity.currentEffectFinished() && !bypassAlteration) {
     return FIGHT_ERROR.DISALLOWED_EFFECT;
   }
   if (global.hasBlockedPlayer(entity.discordUser_id)) {
@@ -192,9 +193,11 @@ function canFight(entity) {
 /**
  * Returns the message which displays the stats of a player under the fight ask
  * @param {Entities} entity
+ * @param {"fr"|"en"} language
+ * @param {Number} maxPower
  * @return {Promise<String>}
  */
-async function getStatsDisplay(entity, language) {
+async function getStatsDisplay(entity, language, maxPower = -1) {
   let msg = format(JsonReader.commands.fight.getTranslation(language).statsOfPlayer, {pseudo: await entity.Player.getPseudo(language)});
   let inv = entity.Player.Inventory;
   let w = await inv.getWeapon();
@@ -202,7 +205,7 @@ async function getStatsDisplay(entity, language) {
   let p = await inv.getPotion();
   let o = await inv.getActiveObject();
   msg += format(JsonReader.commands.fight.getTranslation(language).summarize.stats, {
-    power: entity.getCumulativeHealth(entity.Player),
+    power: maxPower === -1 ? entity.getCumulativeHealth(entity.Player) : maxPower,
     attack: entity.getCumulativeAttack(w, a, p, o),
     defense: entity.getCumulativeDefense(w, a, p, o),
     speed: entity.getCumulativeSpeed(w, a, p, o)
