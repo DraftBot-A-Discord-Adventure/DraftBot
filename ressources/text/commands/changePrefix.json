@@ -1,14 +1,12 @@
 {
 	"translations": {
 		"fr": {
-			"error": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
-			"descError": "Entrez un préfixe après la commande svp",
+			"descError": "Veuillez indiquer le prefix à utiliser : `{oldPrefix}prefix <New prefix>`",
 			"descOk": "Le serveur a désormais pour préfix : `{newPrefix}`",
 			"ok": "{pseudo}, préfix changé !"
 		},
 		"en": {
-			"error": "{pseudo}, hmmm... It didn't work!",
-			"descError": "Indicate a prefix after the command please",
+			"descError": "Please indicate the new prefix: `{oldPrefix}prefix <New prefix>`",
 			"descOk": "Server now has the prefix: `{newPrefix}`",
 			"ok": "{pseudo}, prefix changed!"
 		}
