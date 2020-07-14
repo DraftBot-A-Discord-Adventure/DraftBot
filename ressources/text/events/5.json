@@ -30,32 +30,6 @@
 				"item": false
 			}
 		],
-		"🏃": [
-			{
-				"translations": {
-					"fr": "TODO",
-					"en": "TODO"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "TODO",
-					"en": "TODO"
-				},
-				"lostTime": 0,
-				"health": -20,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
 		"🚶": [
 			{
 				"translations": {

@@ -4,20 +4,6 @@
 		"en": " : ** :park: You see a river in front of you. On the other shore, you catch a glimpse of a village.\n\n:swimmer: Swim across the river.\n:rowboat: Try to make a raft.\n:bridge_at_night: Look for a bridge further away.\n:walking: Go another way.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*"
 	},
 	"possibilities": {
-		"🚶": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous décidez de partir dans un autre sens, mais vous mettez une bonne heure avant de trouver une direction qui vous convienne !",
-					"en": "** | 🚶 You decide to go in another direction, but it takes you an entire hour to find a direction that suits you!"
-				},
-				"lostTime": 55,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			}
-		],
 		"🏊": [
 			{
 				"translations": {
@@ -79,7 +65,7 @@
 				"effect": ":clock2:",
 				"experience": 325,
 				"money": 0,
-				"item": false
+				"item": true
 			}
 		],
 		"🌉": [
@@ -128,6 +114,20 @@
 				"health": -25,
 				"effect": ":confounded:",
 				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous décidez de partir dans un autre sens, mais vous mettez une bonne heure avant de trouver une direction qui vous convienne !",
+					"en": "** | 🚶 You decide to go in another direction, but it takes you an entire hour to find a direction that suits you!"
+				},
+				"lostTime": 55,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
 				"money": 0,
 				"item": false
 			}

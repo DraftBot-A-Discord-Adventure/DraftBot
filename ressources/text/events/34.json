@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": " : ** Au détour d'une rue, des passants vous ont reconnu et vous abordent. Ils se rappellent parfaitement de l'aide que vous leur aviez apportée, et insistent pour vous remercier en vous offrant un cadeau. Ils vous demandent ce qui vous ferait le plus plaisir.\n\n:four_leaf_clover: Cadeau en nature\n:moneybag: Cadeau en monnaie\n:innocent: Cadeau en santé\n:salad: Cadeau alimentaire\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n:four_leaf_clover: - Gift in kind\n:moneybag: - Money Gift\n:innocent: - Gift of Health\n:salad: - Gift of Food\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"en": " : ** At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n:four_leaf_clover: Gift in kind\n:moneybag: Money Gift\n:innocent: Gift of Health\n:salad: Gift of Food\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🍀": [
@@ -39,7 +39,7 @@
 				"effect": ":smiley:",
 				"experience": 450,
 				"money": 0,
-				"item": false
+				"item": true
 			}
 		],
 		"💰": [
@@ -53,7 +53,7 @@
 				"effect": ":smiley:",
 				"experience": 450,
 				"money": 0,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
@@ -141,7 +141,7 @@
 				"effect": ":smiley:",
 				"experience": 650,
 				"money": 0,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
@@ -159,20 +159,20 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Face à l'absence de réponse de votre part, le groupe d'amis décide malgré tout de partir vous chercher un cadeau. Alors que vous les attendez poliment, vous angoissez de plus en plus à l'idée de perdre du temps. Le risque de ne pas arriver à sauver la princesse vous obsède, vous rend malade même... et vous finissez par tomber dans les pommes. Vous découvrant inanimé en revenant, les honnêtes individus vous adossent à un arbre pour vous permettre de vous reposer, et vous laissent ce cadeau, avant de reprendre la route. ",
-					"en": "** | 🚶‍♂️ Faced with your lack of response, the group of friends decides to go and get you a gift. As you wait for them politely, you become more and more anxious at the idea of wasting time. The eventuality of not being able to save the princess scares you and even makes you sick... so much that you end up fainting. On their way back, the honest people discovered you and leaned you against a tree to let you rest, while still unconscious, they leftyou with a gift before you set out on your journey."
+					"fr": "** | 🚶 Face à l'absence de réponse de votre part, le groupe d'amis décide malgré tout de partir vous chercher un cadeau. Alors que vous les attendez poliment, vous angoissez de plus en plus à l'idée de perdre du temps. Le risque de ne pas arriver à sauver la princesse vous obsède, vous rend malade même... et vous finissez par tomber dans les pommes. Vous découvrant inanimé en revenant, les honnêtes individus vous adossent à un arbre pour vous permettre de vous reposer, et vous laissent ce cadeau, avant de reprendre la route. ",
+					"en": "** | 🚶 Faced with your lack of response, the group of friends decides to go and get you a gift. As you wait for them politely, you become more and more anxious at the idea of wasting time. The eventuality of not being able to save the princess scares you and even makes you sick... so much that you end up fainting. On their way back, the honest people discovered you and leaned you against a tree to let you rest, while still unconscious, they leftyou with a gift before you set out on your journey."
 				},
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":smiley:",
 				"experience": 550,
 				"money": 250,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Face à votre absence de réaction, les quidams n'insistent pas. Vous continuez votre route sans y prêter attention. ",
-					"en": "** | 🚶‍♂️ The quidams, seeing you inactive, decide to not insist further. You continue on your way without caring."
+					"fr": "** | 🚶‍ Face à votre absence de réaction, les quidams n'insistent pas. Vous continuez votre route sans y prêter attention. ",
+					"en": "** | 🚶‍ The quidams, seeing you inactive, decide to not insist further. You continue on your way without caring."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -183,8 +183,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶‍♂️ Vous voyant hésiter trop longtemps, les jeunes hommes décident finalement de vous offrir un peu d'argent pour vous permettre l'achat de quelques babioles. Vous les remerciez avant de reprendre votre route.",
-					"en": "** | 🚶‍♂️ Seeing you hesitating for so long, the young men finally decide to offer you some money to allow you to buy some random toys. You thank them before going back on your way."
+					"fr": "** | 🚶‍ Vous voyant hésiter trop longtemps, les jeunes hommes décident finalement de vous offrir un peu d'argent pour vous permettre l'achat de quelques babioles. Vous les remerciez avant de reprendre votre route.",
+					"en": "** | 🚶‍ Seeing you hesitating for so long, the young men finally decide to offer you some money to allow you to buy some random toys. You thank them before going back on your way."
 				},
 				"lostTime": 0,
 				"health": 0,

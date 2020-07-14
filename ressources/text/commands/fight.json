@@ -6,12 +6,13 @@
       "intro": ":crossed_swords: | **Un combat est lancé entre {player1} et {player2} !**",
       "turnIndicationsTitle": "C'est au tour de {pseudo} de jouer ⚔️",
       "turnIndicationsDescription": "Choisissez une action",
+      "statsOfPlayer": "Statistiques de **{pseudo}**: ",
       "summarize": {
         "title": "Résumé du combat",
         "intro": ":crossed_swords: | **Etat actuel du combat**\n\n",
         "attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
         "defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
-        "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}\n\n"
+        "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
       },
       "end": {
         "draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**",
@@ -113,7 +114,7 @@
           ]
         },
         "defense": "renforce sa défense ! `Défense + {defense}`",
-        "defenseEmote": ":rocket:",
+        "defenseEmote": ":shield:",
         "speed": "augmente sa vitesse ! `Vitesse + {speed}`",
         "speedEmote": ":rocket:",
         "damages": " `Dégâts infligés: {damages}`"
@@ -125,12 +126,13 @@
       "intro": ":crossed_swords: | **A fight has begun between {player1} and {player2} !**",
       "turnIndicationsTitle": "It's {pseudo} 's turn to play ⚔️",
       "turnIndicationsDescription": "Choose an action",
+      "statsOfPlayer": "Stats of **{pseudo}**: ",
       "summarize": {
-        "title": "Fight summarize",
+        "title": "Fight summary",
         "intro": ":crossed_swords: | **Current battle state**\n\n",
         "attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
         "defender": ":crossed_swords: |** Defender : {pseudo}**\n",
-        "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}\n\n"
+        "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
       },
       "end": {
         "draw": ":newspaper: |** {player1} finished their match against {player2} on a draw!**",
@@ -148,7 +150,7 @@
           "indirect": "Your opponent must be **LVL {level}** to proceed to the fights!"
         },
         "cantFightStatus": {
-          "direct": "You can fight with your current state! Please wait for then end of your alteration state!",
+          "direct": "You can't fight with your current state! Please wait for then end of your alteration state!",
           "indirect": "It seems that this person is currently not able to fight!"
         },
         "occupied": {

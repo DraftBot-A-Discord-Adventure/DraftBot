@@ -10,9 +10,9 @@ const ChangePointsCommand = async function(language, message, args) {
     return;
   }
 
-  let embed = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
   let entity;
-  let playerId = message.mentions.users.last().id;
+  const playerId = message.mentions.users.last().id;
   [entity] = await Entities.getOrRegister(playerId);
   await entity.Player.setPoints(args[1]);
   await entity.Player.save();

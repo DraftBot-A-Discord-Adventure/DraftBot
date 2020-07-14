@@ -5,14 +5,20 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const HelpCommand = async (language, message, args) => {
-  let helpMessage = JsonReader.commands.help.getTranslation(language).commands[args[0]];
+  let helpMessage = JsonReader.commands.help.getTranslation(
+      language).commands[args[0]];
 
   if (helpMessage === undefined) {
-    helpMessage = format(JsonReader.commands.help.getTranslation(language).main, {pseudo: message.author.username});
+    helpMessage = format(JsonReader.commands.help.getTranslation(language).main,
+        {pseudo: message.author.username});
   }
 
-  if (client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID).members.cache.find(val => val.id === message.author.id) === undefined) {
-    await message.author.send(JsonReader.commands.help.getTranslation(language).mp);
+  if (client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
+      .members
+      .cache
+      .find((val) => val.id === message.author.id) === undefined) {
+    await message.author.send(
+        JsonReader.commands.help.getTranslation(language).mp);
   }
 
   await message.channel.send(helpMessage);

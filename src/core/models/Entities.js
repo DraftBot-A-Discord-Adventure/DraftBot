@@ -1,6 +1,13 @@
-module.exports = (sequelize, DataTypes) => {
-
-  const Entities = sequelize.define('entities', {
+/**
+ * @typedef {import('sequelize').Sequelize} Sequelize
+ * @typedef {import('sequelize/types')} DataTypes
+ *
+ * @param {Sequelize} Sequelize
+ * @param {DataTypes} DataTypes
+ * @returns
+ */
+module.exports = (Sequelize, DataTypes) => {
+  const Entities = Sequelize.define('entities', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -59,15 +66,17 @@ module.exports = (sequelize, DataTypes) => {
       where: {
         discordUser_id: discordUser_id,
       },
-      defaults: { Player: { Inventory: {} } },
-      include: [{
-        model: Players,
-        as: 'Player',
-        include: [{
-          model: Inventories,
-          as: 'Inventory'
-        }]
-      }],
+      defaults: {Player: {Inventory: {}}},
+      include: [
+        {
+          model: Players,
+          as: 'Player',
+          include: [
+            {
+              model: Inventories,
+              as: 'Inventory',
+            }],
+        }],
     });
   };
 
@@ -76,21 +85,26 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.getByGuild = (guildId) => {
     return Entities.findAll({
-      defaults: { Player: { Inventory: {} } },
-      include: [{
-        model: Players,
-        as: 'Player',
-        where: {
-          guild_id: guildId
-        },
-        include: [{
-          model: Inventories,
-          as: 'Inventory'
-        }]
-      }],
+      defaults: {Player: {Inventory: {}}},
+      include: [
+        {
+          model: Players,
+          as: 'Player',
+          where: {
+            guild_id: guildId,
+          },
+          include: [
+            {
+              model: Inventories,
+              as: 'Inventory',
+            }],
+        }],
+      order: [
+        [{model: Players, as: 'Player'}, 'score', 'DESC'],
+        [{model: Players, as: 'Player'}, 'level', 'DESC']
+      ]
     });
   };
-
 
   /**
    * @param {String} discordUser_id
@@ -142,13 +156,16 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.getByArgs = async (args, message) => {
     if (isNaN(args[0])) {
-      let lastMention = message.mentions.users.last();
+      const lastMention = message.mentions.users.last();
       if (lastMention === undefined) {
-        return null;
+        return [null];
       }
-      return Entities.getByDiscordUserId(lastMention.id);
+      return Entities.getOrRegister(lastMention.id);
     } else {
-      let [player] = await Players.getByRank(parseInt(args[0]));
+      const [player] = await Players.getByRank(parseInt(args[0]));
+      if (player === undefined) {
+        return [null];
+      }
       return Entities.getById(player.entity_id);
     }
   };
@@ -163,7 +180,7 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.prototype.getCumulativeAttack = function(
       weapon, armor, potion, object) {
-    let attack = this.attack + weapon.getAttack() + armor.getAttack() +
+    const attack = this.attack + weapon.getAttack() + armor.getAttack() +
         potion.getAttack() + object.getAttack();
     return (attack > 0) ? attack : 0;
   };
@@ -178,7 +195,7 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.prototype.getCumulativeDefense = function(
       weapon, armor, potion, object) {
-    let defense = this.defense + weapon.getDefense() + armor.getDefense() +
+    const defense = this.defense + weapon.getDefense() + armor.getDefense() +
         potion.getDefense() + object.getDefense();
     return (defense > 0) ? defense : 0;
   };
@@ -193,7 +210,7 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.prototype.getCumulativeSpeed = function(
       weapon, armor, potion, object) {
-    let speed = this.speed + weapon.getSpeed() + armor.getSpeed() +
+    const speed = this.speed + weapon.getSpeed() + armor.getSpeed() +
         potion.getSpeed() + object.getSpeed();
     return (speed > 0) ? speed : 0;
   };
@@ -203,19 +220,15 @@ module.exports = (sequelize, DataTypes) => {
    * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getCumulativeHealth = function (player) {
-    return this.health + (player.level * 10);
+  Entities.prototype.getCumulativeHealth = function(player) {
+    return this.maxHealth + (player.level * 10);
   };
 
   /**
-   * @param {module:"discord.js".Message} message
-   * @return {Boolean|String}
+   * @return {Boolean}
    */
-  Entities.prototype.checkEffect = function () {
-    if ([EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1) {
-      return true;
-    }
-    return false;
+  Entities.prototype.checkEffect = function() {
+    return [EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1;
   };
 
   /**
@@ -231,7 +244,6 @@ module.exports = (sequelize, DataTypes) => {
    */
   Entities.prototype.setHealth = function(health) {
     if (health < 0) {
-      // TODO: Kill the player (send death message and set skull status)
       this.health = 0;
     } else {
       if (health > this.maxHealth) {
@@ -243,22 +255,24 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   /**
-   * TODO 2.0
-   * @param message
-   * @param language
-   */
-  Entities.prototype.kill = function(message, language) {
-    // this.setEffect(":skull:");
-    // this.setHealth(0);
-    // message.channel.send(Text.entity.killPublicIntro + message.author.username + Text.entity.killPublicMessage)
-    // message.author.send(Text.entity.killMessage)
-  };
-  
-  /**
-   * @returns {String}
+   * @return {String}
    */
   Entities.prototype.getMention = function() {
-    return "<@" + this.discordUser_id + ">";
+    return '<@' + this.discordUser_id + '>';
+  };
+
+  /**
+   * Returns if the effect of the player is finished or not
+   * @return {boolean}
+   */
+  Entities.prototype.currentEffectFinished = function () {
+    if (this.effect === EFFECT.DEAD || this.effect === EFFECT.BABY) {
+      return false;
+    }
+    if (this.effect === EFFECT.SMILEY) {
+      return true;
+    }
+    return this.Player.lastReportAt < new Date();
   };
 
   return Entities;

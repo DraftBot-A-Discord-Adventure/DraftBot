@@ -15,7 +15,7 @@
 				"effect": ":smiley:",
 				"experience": 450,
 				"money": -100,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
@@ -41,7 +41,7 @@
 				"effect": ":smiley:",
 				"experience": 450,
 				"money": -350,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
@@ -53,7 +53,7 @@
 				"effect": ":smiley:",
 				"experience": 450,
 				"money": -350,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
@@ -93,7 +93,7 @@
 				"effect": ":smiley:",
 				"experience": 450,
 				"money": 0,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
@@ -143,7 +143,7 @@
 				"effect": ":clock2:",
 				"experience": 325,
 				"money": 0,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {

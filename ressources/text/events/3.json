@@ -4,44 +4,6 @@
 		"en": " : ** :lock: You found a box! But it's closed...\n\n:key: Look around for the key.\n:pick: Attack the padlock with a pickaxe.\n:arrow_forward: Abandon the box where you found it.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*"
 	},
 	"possibilities": {
-		"⛏": [
-			{
-				"translations": {
-					"fr": "** | :pick: Après avoir perdu 30 minutes à casser la serrure, vous découvrez que le coffre est vide !",
-					"en": "** | :pick: After wasting 30 minutes breaking the lock, you discover that the chest is empty!"
-				},
-				"lostTime": 30,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | :pick: Après avoir perdu 30 minutes à exploser la serrure, vous découvrez que le coffre est vide !",
-					"en": "** | :pick: After wasting 30 minutes breaking the lock, you discover that the chest is empty!"
-				},
-				"lostTime": 30,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | :pick: Après avoir perdu 15 minutes à exploser la serrure, vous découvrez 6 pièces d'or !",
-					"en": "** | :pick: After wasting 15 minutes breaking the lock, you find 6 gold coins!"
-				},
-				"lostTime": 15,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 125,
-				"money": 6,
-				"item": false
-			}
-		],
 		"🔑": [
 			{
 				"translations": {
@@ -101,6 +63,44 @@
 				"effect": ":clock2:",
 				"experience": 25,
 				"money": 0,
+				"item": false
+			}
+		],
+		"⛏": [
+			{
+				"translations": {
+					"fr": "** | :pick: Après avoir perdu 30 minutes à casser la serrure, vous découvrez que le coffre est vide !",
+					"en": "** | :pick: After wasting 30 minutes breaking the lock, you discover that the chest is empty!"
+				},
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | :pick: Après avoir perdu 30 minutes à exploser la serrure, vous découvrez que le coffre est vide !",
+					"en": "** | :pick: After wasting 30 minutes breaking the lock, you discover that the chest is empty!"
+				},
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | :pick: Après avoir perdu 15 minutes à exploser la serrure, vous découvrez 6 pièces d'or !",
+					"en": "** | :pick: After wasting 15 minutes breaking the lock, you find 6 gold coins!"
+				},
+				"lostTime": 15,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 6,
 				"item": false
 			}
 		],

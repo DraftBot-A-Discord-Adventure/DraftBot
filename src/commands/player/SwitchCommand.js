@@ -5,10 +5,9 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SwitchCommand = async (language, message, args) => {
+  const [entity] = await Entities.getOrRegister(message.author.id);
 
-  let [entity] = await Entities.getOrRegister(message.author.id);
-
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
     return;
   }
 
@@ -23,4 +22,5 @@ const SwitchCommand = async (language, message, args) => {
 
 module.exports = {
   'switch': SwitchCommand,
+  'sw': SwitchCommand
 };

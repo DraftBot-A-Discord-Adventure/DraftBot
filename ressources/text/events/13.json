@@ -4,68 +4,6 @@
 		"en": " : ** :homes: After spending several weeks walking without any human encounter, you finally enter a small town that seems rather lively.\n\n:house: Go to the inn.\n:hammer: Go to the forge.\n:circus_tent: Go to the marketplace.\n:walking: Leave.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*"
 	},
 	"possibilities": {
-		"🔨": [
-			{
-				"translations": {
-					"fr": "** | 🔨 Il n’y a rien d’intéressant dans cette forge... Vous quittez rapidement les lieux et reprenez votre route.",
-					"en": "** | 🔨 There's nothing interesting in this forge... You quickly leave the place and continue on your way."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🔨 En essayant une épée, vous brisez la fenêtre de la forge, le forgeron demande remboursement !",
-					"en": "** | 🔨 While trying a sword, you broke the smithy's window! The blacksmith asks for recompensation!"
-				},
-				"lostTime": 40,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": -300,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🔨 Personne n'est présent dans la forge qui semble abandonnée depuis des années. Avant de partir vous remarquez cependant un objet qui pourrait vous servir pour la suite de votre aventure...",
-					"en": "** | 🔨No one is present at the forge, which seems to have been abandoned for years. Before leaving, however, you notice an object that could be useful to you for the rest of your adventure..."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 450,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🔨 La forge semble abandonnée depuis des années. Vous reprenez donc votre route.",
-					"en": "** | 🔨 The forge looks like it's been abandoned for many years, so you continue on your way."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🔨 Vous entrez et saluez le forgeron. Après une rapide inspection de son travail vous comprenez que vous ne trouverez rien d'intéressant ici. Vous reprenez votre route.",
-					"en": "** | 🔨You enter and greet the blacksmith. After a quick inspection of his work, you understand you won't find anything interesting here. You go back on your way."
-				},
-				"lostTime": 20,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			}
-		],
 		"🏠": [
 			{
 				"translations": {
@@ -104,25 +42,61 @@
 				"item": false
 			}
 		],
-		"🚶": [
+		"🔨": [
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous traversez le petit bourg en une petite demie-heure et continuez votre route.",
-					"en": "** | 🚶You cross the little village in just half an hour and continue on your way."
+					"fr": "** | 🔨 Il n’y a rien d’intéressant dans cette forge... Vous quittez rapidement les lieux et reprenez votre route.",
+					"en": "** | 🔨 There's nothing interesting in this forge... You quickly leave the place and continue on your way."
 				},
-				"lostTime": 25,
+				"lostTime": 0,
 				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
+				"effect": ":smiley:",
+				"experience": 150,
 				"money": 0,
 				"item": false
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous perdez une bonne heure à contourner la ville mais reprenez votre route tranquillement.",
-					"en": "** | 🚶 You lose a good hour going around the town but calmly continue on your way."
+					"fr": "** | 🔨 En essayant une épée, vous brisez la fenêtre de la forge, le forgeron demande remboursement !",
+					"en": "** | 🔨 While trying a sword, you broke the smithy's window! The blacksmith asks for recompensation!"
 				},
-				"lostTime": 70,
+				"lostTime": 40,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": -300,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🔨 Personne n'est présent dans la forge qui semble abandonnée depuis des années. Avant de partir vous remarquez cependant un objet qui pourrait vous servir pour la suite de votre aventure...",
+					"en": "** | 🔨No one is present at the forge, which seems to have been abandoned for years. Before leaving, however, you notice an object that could be useful to you for the rest of your adventure..."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | 🔨 La forge semble abandonnée depuis des années. Vous reprenez donc votre route.",
+					"en": "** | 🔨 The forge looks like it's been abandoned for many years, so you continue on your way."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🔨 Vous entrez et saluez le forgeron. Après une rapide inspection de son travail vous comprenez que vous ne trouverez rien d'intéressant ici. Vous reprenez votre route.",
+					"en": "** | 🔨You enter and greet the blacksmith. After a quick inspection of his work, you understand you won't find anything interesting here. You go back on your way."
+				},
+				"lostTime": 20,
 				"health": 0,
 				"effect": ":clock2:",
 				"experience": 25,
@@ -141,7 +115,7 @@
 				"effect": ":clock2:",
 				"experience": 325,
 				"money": 0,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
@@ -164,6 +138,32 @@
 				"health": -60,
 				"effect": ":dizzy_face:",
 				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous traversez le petit bourg en une petite demie-heure et continuez votre route.",
+					"en": "** | 🚶You cross the little village in just half an hour and continue on your way."
+				},
+				"lostTime": 25,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🚶 Vous perdez une bonne heure à contourner la ville mais reprenez votre route tranquillement.",
+					"en": "** | 🚶 You lose a good hour going around the town but calmly continue on your way."
+				},
+				"lostTime": 70,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
 				"money": 0,
 				"item": false
 			}

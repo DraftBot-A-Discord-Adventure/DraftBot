@@ -1,0 +1,149 @@
+{
+    "translations": {
+        "fr": {
+            "notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
+            "rewardTitle": "Récompense de la guilde {guildName} :",
+            "personalXP": ":star: | Les membres de la guilde ont reçu de l'experience. `+ {xp} ⭐`.",
+            "guildXP": ":star: | La guilde a reçu de l'experience. `+ {xp} ⭐`",
+            "money": ":moneybag: | Les membres de la guilde ont reçu `{money} 💰`.",
+            "item": ":gift: | Les membres de la guilde ont reçu un objet au hasard.",
+            "badge": ":gem: | Les membres de la guilde ont reçu un badge.",
+            "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
+            "partialHeal": ":heart_decoration: | Les membres de la guilde ont été partiellement soignés. `+ {healthWon} ❤️`",
+            "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
+            "coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. La prochaine récompense sera disponible dans environ {time} heures."
+        },
+        "en": {
+            "notInAGuild": "You have to be in a guild to use this command.",
+            "rewardTitle": "{guildName} Guild's rewards:",
+            "personalXP": ":star: | Guild's members received some xp. `+ {xp} ⭐`.",
+            "guildXP": ":star: | Guild has received some xp. `+ {xp} ⭐`",
+            "money": ":moneybag: | Guild's members received `{money} 💰`.",
+            "item": ":gift: | Guild's members received a random object.",
+            "badge": ":gem: | Guild's members received a badge.",
+            "fullHeal": ":heartpulse: | Guild's members were fully healed.",
+            "partialHeal": ":heart_decoration: | Guild's members were partly healed. `+ {healthWon} ❤️`",
+            "alterationHeal": ":hospital: | Guild's members' statuses were reset. Healthy guild's members were partly healed. `+ {healthWon} ❤️`",
+            "coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. The next one will be available in arround {time} hours."
+        }
+    },
+    "minimalXp" : 20,
+    "maximalXp" : 80,
+    "minimalMoney" : 10,
+    "maximalMoney" : 300,
+    "fixedMoney" : 350,
+    "levelMultiplayer" : 4,
+    "timeBetweenDailys" : 22,
+    "guildChances": {
+        "0": {
+            "personalXP": 0,
+            "guildXp": 0,
+            "money": 500,
+            "fixedMoney": 0,
+            "badge": 0,
+            "fullHeal": 0,
+            "partialHeal": 0,
+            "alterationHeal": 500
+        },
+        "1": {
+            "personalXP": 50,
+            "guildXp": 150,
+            "money": 598,
+            "fixedMoney": 50,
+            "badge": 0,
+            "fullHeal": 2,
+            "partialHeal": 50,
+            "alterationHeal": 100
+        },
+        "2": {
+            "personalXP": 50,
+            "guildXp": 200,
+            "money": 557,
+            "fixedMoney": 80,
+            "badge": 0,
+            "fullHeal": 3,
+            "partialHeal": 60,
+            "alterationHeal": 50
+        },
+        "3": {
+            "personalXP": 50,
+            "guildXp": 225,
+            "money": 526,
+            "fixedMoney": 110,
+            "badge": 0,
+            "fullHeal": 4,
+            "partialHeal": 60,
+            "alterationHeal": 25
+        },
+        "4": {
+            "personalXP": 100,
+            "guildXp": 175,
+            "money": 495,
+            "fixedMoney": 140,
+            "badge": 0,
+            "fullHeal": 5,
+            "partialHeal": 60,
+            "alterationHeal": 25
+        },
+        "5": {
+            "personalXP": 100,
+            "guildXp": 175,
+            "money": 454,
+            "fixedMoney": 170,
+            "badge": 10,
+            "fullHeal": 6,
+            "partialHeal": 60,
+            "alterationHeal": 25
+        },
+        "6": {
+            "personalXP": 100,
+            "guildXp": 175,
+            "money": 413,
+            "fixedMoney": 200,
+            "badge": 20,
+            "fullHeal": 7,
+            "partialHeal": 60,
+            "alterationHeal": 25
+        },
+        "7": {
+            "personalXP": 100,
+            "guildXp": 175,
+            "money": 372,
+            "fixedMoney": 230,
+            "badge": 30,
+            "fullHeal": 8,
+            "partialHeal": 60,
+            "alterationHeal": 25
+        },
+        "8": {
+            "personalXP": 50,
+            "guildXp": 225,
+            "money": 331,
+            "fixedMoney": 260,
+            "badge": 40,
+            "fullHeal": 9,
+            "partialHeal": 60,
+            "alterationHeal": 25
+        },
+        "9": {
+            "personalXP": 50,
+            "guildXp": 315,
+            "money": 200,
+            "fixedMoney": 290,
+            "badge": 50,
+            "fullHeal": 10,
+            "partialHeal": 60,
+            "alterationHeal": 25
+        },
+        "10": {
+            "personalXP": 200,
+            "guildXp": 0,
+            "money": 205,
+            "fixedMoney": 320,
+            "badge": 100,
+            "fullHeal": 15,
+            "partialHeal": 60,
+            "alterationHeal": 25
+        }
+    }
+}

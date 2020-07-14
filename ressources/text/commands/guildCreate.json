@@ -1,7 +1,6 @@
 {
     "translations": {
         "fr": {
-            "errorTitle": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
             "buyTitle": "{pseudo}, confirmation :",
             "alreadyInAGuild": "Vous appartenez déjà à une guilde.",
             "noNameProvided": "Indiquez un nom pour votre guilde : `guildCreate VotreNomDeGuilde`.",
@@ -15,7 +14,6 @@
             "createSuccess" : "La guilde **{guildName}** a été créée !"
         },
         "en": {
-            "errorTitle": "{pseudo}, hmmm... That didn't work!",
             "buyTitle": "{pseudo}, confirmation:",
             "alreadyInAGuild": "You are already in a guild.",
             "noNameProvided": "Please provide a name for your guild : `guildCreate YourGuildName`.",

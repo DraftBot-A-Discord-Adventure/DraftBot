@@ -5,7 +5,7 @@
             "dailyItem": "Potion du jour :\n",
             "permanentItem": "\n\nVentes permanentes :\n",
             "display": "{name} | `{price}💰`",
-            "success": "{pseudo}, Transation réussie !",
+            "success": "{pseudo}, Transaction réussie !",
             "permanentItems": {
                 "randomItem": {
                     "name": ":question: **Un item random**",
@@ -41,10 +41,11 @@
             "confirm": "{pseudo}, Vous avez sélectionné le produit suivant :",
             "moneyQuantity": "\n\nVous avez `{money}💰`.",
             "error": {
-                "title": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
-                "cannotBuy": "💰 Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
-                "canceledPurchase": ":x: | {mention}, transaction annulée!",
-                "alreadyHasItem": ":money_mouth: Vous possédez déjà cet objet."
+                "nothingToHeal" : "Vous n'êtes victime d'aucune altération d'état.",
+                "cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
+                "canceledPurchase": "Transaction annulée!",
+                "alreadyHasItem": "Vous possédez déjà cet objet.",
+                "leaveShop": "Vous avez quitté le magasin."
             },
             "potion": {
                 "info": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
@@ -56,7 +57,7 @@
             "dailyItem": "Today's potion:\n",
             "permanentItem": "\n\nPermanent sales:\n",
             "display": "{name} | `{price}💰`",
-            "success": "{pseudo}, Transation success!",
+            "success": "{pseudo}, Transaction success!",
             "permanentItems": {
                 "randomItem": {
                     "name": ":question: **A random item**",
@@ -92,10 +93,11 @@
             "confirm": "{pseudo}, You have selected this product:",
             "moneyQuantity": "\n\nYou have `{money}💰`.",
             "error": {
-                "title": "{pseudo}, hmmm... That didn't work!",
-                "cannotBuy": "💰 You don't have enough money to buy this! You need `{missingMoney}💰` more.",
-                "canceledPurchase": ":x: | {mention}, transaction canceled!",
-                "alreadyHasItem": ":money_mouth: You already have the \"MoneyMouth\" badge. You can only buy it once."
+                "nothingToHeal" : "Vous n'êtes victime d'aucune altération d'état.",
+                "cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",
+                "canceledPurchase": "Transaction canceled!",
+                "alreadyHasItem": "You already have the \"MoneyMouth\" badge. You can only buy it once.",
+                "leaveShop": "You left the shop."
             },
             "potion": {
                 "info": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",

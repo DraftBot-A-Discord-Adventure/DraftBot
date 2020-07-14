@@ -27,7 +27,7 @@
 				"effect": ":clock2:",
 				"experience": 525,
 				"money": 0,
-				"item": false
+				"item": true
 			},
 			{
 				"translations": {
@@ -71,8 +71,8 @@
 		"😴": [
 			{
 				"translations": {
-					"fr": "TODO",
-					"en": "TODO"
+					"fr": "** | 💤 Vous vous reposez, cependant, le sol est très inconfortable",
+					"en": "** | 💤 You rest, however, the floor is very uncomfortable"
 				},
 				"lostTime": 180,
 				"health": 0,
@@ -83,8 +83,8 @@
 			},
 			{
 				"translations": {
-					"fr": "TODO",
-					"en": "TODO"
+					"fr": "** | 💤 Vous vous reposez, après votre bonne sieste, vous repartez plus motivé que jamais",
+					"en": "** | 💤 After your rest, you leave feeling more motivated than ever"
 				},
 				"lostTime": 90,
 				"health": 1,

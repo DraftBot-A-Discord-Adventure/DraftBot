@@ -5,24 +5,22 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const InventoryCommand = async (language, message, args) => {
-  let entity;
-  if (args.length === 0) {
+  let [entity] = await Entities.getByArgs(args, message);
+  if (entity === null) {
     [entity] = await Entities.getOrRegister(message.author.id);
-  } else {
-    entity = await Entities.getByArgs(args, message);
   }
 
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
     return;
   }
 
-  let inventoryEmbed = await entity.Player.Inventory.toEmbedObject(language);
+  const inventoryEmbed = await entity.Player.Inventory.toEmbedObject(language);
   return await message.channel.send(
       new discord.MessageEmbed()
           .setColor(JsonReader.bot.embed.default)
           .setTitle(format(JsonReader.commands.inventory.getTranslation(language).title, {pseudo: await entity.Player.getPseudo(language)}))
-          .addFields(inventoryEmbed)
-    );
+          .addFields(inventoryEmbed),
+  );
 };
 
 module.exports = {

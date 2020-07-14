@@ -4,7 +4,7 @@
 		"en": ":shield:  **Spike shield**"
 	},
 	"rarity": 8,
-	"rawDefense": 10,
-	"attack": 10,
+	"rawDefense": 7,
+	"attack": 2,
 	"speed": -20
 }
