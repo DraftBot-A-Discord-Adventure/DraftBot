@@ -113,4 +113,4 @@ global.discord = (require('discord.js'));
 /**
  * @type {module:"discord.js".Client}
  */
-global.client = new (require('discord.js')).Client();
+global.client = new (require('discord.js')).Client({restTimeOffset: 100});
