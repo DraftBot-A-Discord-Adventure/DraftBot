@@ -83,7 +83,7 @@
 		"🎁": [
 			{
 				"translations": {
-					"fr": "** | 🎁 Vous avez envie d'offrir un cadeau au Duc Benatis, mais vous ne trouvez rien qui pourrait faire l'affaire. Vous décidez de simplement lui donner de l'argent amassé pendant vos péripéties. Le Duc accepte votre cadeau ",
+					"fr": "** | 🎁 Vous avez envie d'offrir un cadeau au Duc Benatis, mais vous ne trouvez rien qui pourrait faire l'affaire. Vous décidez de simplement lui donner de l'argent amassé pendant vos péripéties. Le Duc accepte votre cadeau.",
 					"en": "** | 🎁 You feel like giving a gift to Duke Benatis, but you can't find anything that would do the trick. You decide to simply give him some of the money you've collected during your adventures. The Duke accepts your gift"
 				},
 				"lostTime": 0,
@@ -95,7 +95,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🎁 Vous vous approchez du Duc pour lui donner un cadeau. En vous voyant arriver, le Duc comprend votre intention et vous dit aimablement que c'est n'est pas la peine, alors vous discutez juste avec lui puis partez de la fête",
+					"fr": "** | 🎁 Vous vous approchez du Duc pour lui donner un cadeau. En vous voyant arriver, le Duc comprend votre intention et vous dit aimablement que c'est n'est pas la peine, alors vous discutez juste avec lui puis partez de la fête.",
 					"en": "** | 🎁 You approach the Duke to give him a gift. Seeing you arrive, the Duke understands your intention and tells you kindly that it's not necessary, so you just chat with him and then leave the party."
 				},
 				"lostTime": 35,
@@ -107,7 +107,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🎁 Alors que vous allez pour donner un cadeau au Duc, celui-ci se lève et déclare qu'il a décidé de distribuer des cadeaux à tout le monde présent. Vous comprenez qu'il ne servirait alors à rien de lui en offrir un, et acceptez celui qui vous est tendu par les servants",
+					"fr": "** | 🎁 Alors que vous allez pour donner un cadeau au Duc, celui-ci se lève et déclare qu'il a décidé de distribuer des cadeaux à tout le monde présent. Vous comprenez qu'il ne servirait alors à rien de lui en offrir un, et acceptez celui qui vous est tendu par les servants.",
 					"en": "** | 🎁 As you go to give a gift to the Duke, the Duke stands up and declares that he has decided to distribute gifts to everyone present. You understand that it would then be useless to give him one, and accept the one handed to you by the servants."
 				},
 				"lostTime": 0,
@@ -122,7 +122,7 @@
 			{
 				"translations": {
 					"fr": "** | 🍌 Alors que vous vous apprêtiez à sortir de l'exploitation avec votre butin, un esclave vous interpelle et vous dénonce. Vous finissez enfermé. :lock:",
-					"en": "** | 🍌 As you're about to leave the farm with your loot, a slave alerts the others and shames you. You end up locked in a cell..."
+					"en": "** | 🍌 As you're about to leave the farm with your loot, a slave alerts the others and shames you. You end up locked in a cell. :lock:"
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -146,7 +146,7 @@
 			{
 				"translations": {
 					"fr": "** | 🍌 À votre grand malheur, vous n'aviez pas remarqué l'écrit \"Impropres à la vente\" devant vos bananes fraichement acquises et celles-ci ont vite fait de vous rendre malade ! :sick: ",
-					"en": "** | 🍌 To your great misfortune, you didn't notice the writing \"Unfit for sale\" in front of your freshly acquired bananas and they quickly make you sick! :sick:"
+					"en": "** | 🍌 To your great misfortune, you didn't notice the writing \"Unfit for sale\" in front of your freshly acquired bananas and they quickly make you sick ! :sick:"
 				},
 				"lostTime": 0,
 				"health": 0,
