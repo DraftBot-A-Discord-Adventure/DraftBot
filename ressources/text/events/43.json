@@ -45,7 +45,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | ⬇️ Vous prenez fuite en reculant tout doucement, mais vous marchez sur une brindille qui craque. Apeuré, vous commencez à courir comme un dératé, mais vous tombez par terre et vous écorchez les genoux. Sous l'adrénaline, cependant, vous reprenez immédiatement votre folle course.",
+					"fr": "** | ⬇️ Vous prenez fuite en reculant tout doucement, mais vous marchez sur une brindille qui craque. Apeuré, vous commencez à courir à toutes jambes, mais vous tombez par terre et vous écorchez les genoux. Cependant sous l'adrénaline, vous reprenez immédiatement votre folle course.",
 					"en": "** | ⬇️ You slowly back away, but you misstep on a twig by accident, breaking it apart with a loud snapping sound. Frightened, you start running like a madman. During your panicked get away you trip and fall to the ground, seriously grazing your knee in the process. But because of all the adrenaline in your blood, you don’t realize the severity of the wound and keep on running like a lunatic."
 				},
 				"lostTime": 0,
@@ -109,7 +109,7 @@
             },
             {
 				"translations": {
-					"fr": "** | ⛪ Vous vous souvenez avoir passé une église peu avant. Vous vous y dirigez donc, comptant y chercher de l'aide. Une fois arrivé, vous toquez. Après quelques secondes sans réaction, vous décidez d'entrer, craignant avoir été suivi par la bête. C'est à cet instant que vous réalisez que l'église est totalement vide, abandonnée. Vous en fermez la porte, et vous installez à même le sol avant de vous endormir. :sleeping: ",
+					"fr": "** | ⛪ Vous vous souvenez avoir passé une église peu avant. Vous vous y dirigez donc, comptant y chercher de l'aide. Une fois arrivé, vous toquez. Après quelques secondes sans réaction, vous décidez d'entrer craignant avoir été suivi par la bête. C'est à cet instant que vous réalisez que l'église est totalement vide, abandonnée. Vous en fermez la porte, et vous installez à même le sol avant de vous endormir. :sleeping: ",
 					"en": "** | ⛪ You remember going past a church not long ago. So you head there, hoping to get some help. Once there, you knock on the large door. After a few seconds of no reaction, you decide to enter, fearing you have been followed by the beast. It is at this moment that you realize that the church is completely empty, abandoned. You close the door and settle down on the floor before falling asleep. :sleeping: "
 				},
 				"lostTime": 0,
