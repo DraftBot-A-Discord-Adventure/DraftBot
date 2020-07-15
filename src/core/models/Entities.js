@@ -166,7 +166,7 @@ module.exports = (Sequelize, DataTypes) => {
       if (player === undefined) {
         return [null];
       }
-      return Entities.getById(player.entity_id);
+      return [await Entities.getById(player.entity_id)];
     }
   };
 
