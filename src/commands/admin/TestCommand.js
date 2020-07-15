@@ -255,7 +255,9 @@ const TestCommand = async(language, message, args) => {
                     }
                 });
                 break;
-            case 'force':
+            case 'forcereport':
+            case 'fr':
+            case 'forcer':
                 if (args.length === 2) {
                     await getCommand("r")(language, message, args, parseInt(args[1]));
                 } else {
