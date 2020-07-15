@@ -39,7 +39,7 @@ const SendPrivateMessage = async function(language, message, args) {
     sendMessageAttachments(message, user);
     return await message.channel.send(embed);
   } catch {
-    return sendErrorMessage(user, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).errorCannotSend);
+    return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).errorCannotSend);
   }
 };
 
