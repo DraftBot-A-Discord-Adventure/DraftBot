@@ -18,7 +18,7 @@ const SendPrivateMessage = async function(language, message, args) {
         });
 
   if (userId === undefined || args[1] === undefined) {
-    return await sendErrorMessageDM(message, language);
+    return sendErrorMessage(user, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).descError);
   }
 
   const user = client.users.cache.get(userId);
@@ -42,18 +42,6 @@ const SendPrivateMessage = async function(language, message, args) {
     return sendErrorMessage(user, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).errorCannotSend);
   }
 };
-
-/**
- * Send the error message for this command
- * @param {module:"discord.js".Message} message - Message from the discord server
- */
-async function sendErrorMessageDM(message, language) {
-  return await message.channel.send(new discord.MessageEmbed().setColor(JsonReader.bot.embed.error)
-      .setAuthor(format(JsonReader.commands.sendPrivateMessage.getTranslation(language).error, {
-        pseudo: message.author.username,
-      }), message.author.displayAvatarURL())
-      .setDescription(JsonReader.commands.sendPrivateMessage.getTranslation(language).descError));
-}
 
 module.exports = {
   'dm': SendPrivateMessage,
