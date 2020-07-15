@@ -69,7 +69,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | ⛓ Vous montez sur l'échelle, mais arrivé a mi-chemin, un barreau casse et vous tombez au sol! étourdi par la chute, vous reprenez lentement vos esprits. :confounded:",
+					"fr": "** | ⛓ Vous montez sur l'échelle, mais arrivé a mi-chemin, un barreau casse et vous tombez au sol ! Etourdi par la chute, vous reprenez lentement vos esprits. :confounded:",
 					"en": "** | ⛓ You climb the ladder, but when you reach the halfway point, a bar breaks, and you fall to the ground! Shaken from the fall, you slowly come to your senses. :confounded:"
 				},
 				"lostTime": 20,
