@@ -43,7 +43,7 @@
         "intro": "{emote} | **{player}** ",
         "charging": "charge une attaque...",
         "chargingEmote": ":zap:",
-        "attacks" : {
+        "attacks": {
           "quick": {
             "name": "attaque rapide",
             "emote": ":dagger:",
@@ -163,7 +163,7 @@
         "intro": "{emote} | **{player}** ",
         "charging": "charges an attack...",
         "chargingEmote": ":zap:",
-        "attacks" : {
+        "attacks": {
           "quick": {
             "name": "quick attack",
             "emote": ":dagger:",

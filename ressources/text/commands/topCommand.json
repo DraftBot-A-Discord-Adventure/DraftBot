@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-            "general": ":trophy: Affichage du top {debut} à {fin} : \n",
+			"general": ":trophy: Affichage du top {debut} à {fin} : \n",
 			"server": ":trophy: Affichage du top du serveur {debut} à {fin} : ",
 			"generalWeek": ":trophy: Affichage du top de la semaine {debut} à {fin} : ",
 			"end1Top": " :trophy: Félicitations **{pseudo}** ! Vous êtes actuellement le meilleur sur un total de {totalPlayer} joueurs ! \n(Vous vous trouverez à la page {page} / {pageMax})",
@@ -16,7 +16,7 @@
 			"nextReset": "Classement réinitialisé dans {time}"
 		},
 		"en": {
-            "general": ":trophy: Display of top {debut} to {fin} : ",
+			"general": ":trophy: Display of top {debut} to {fin} : ",
 			"server": ":trophy: Display of server top {debut} to {fin} : ",
 			"generalWeek": ":trophy: Display of weekly top {debut} to {fin} : ",
 			"end1Top": " :trophy: Congratulations **{pseudo}** ! You are actually the best out of a total of {totalPlayer} players ! \n(You are page {page} / {pageMax})",
@@ -37,8 +37,7 @@
 	"military": ":military_medal:",
 	"blue": ":blue_circle:",
 	"black": ":black_circle:",
-    "white": ":white_circle:",
+	"white": ":white_circle:",
 	"oneHour": 3600000,
 	"fifth10days": 1296000000
 }
-
