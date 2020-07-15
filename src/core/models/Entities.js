@@ -166,7 +166,7 @@ module.exports = (Sequelize, DataTypes) => {
       if (player === undefined) {
         return [null];
       }
-      return Entities.getById(player.entity_id);
+      return [await Entities.getById(player.entity_id)];
     }
   };
 
@@ -221,7 +221,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Number}
    */
   Entities.prototype.getCumulativeHealth = function(player) {
-    return this.health + (player.level * 10);
+    return this.maxHealth + (player.level * 10);
   };
 
   /**

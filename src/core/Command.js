@@ -25,8 +25,8 @@ class Command {
 
         for (const commandKey of commandKeys) {
           await Command.commands.set(
-              commandKey,
-              require(`${folder}/${commandName}`)[commandKey],
+            commandKey,
+            require(`${folder}/${commandName}`)[commandKey],
           );
         }
       }
@@ -89,18 +89,18 @@ class Command {
 
     if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
       if (message.author.id !== JsonReader.app.BOT_OWNER_ID &&
-          JsonReader.app.MODE_MAINTENANCE) {
+        JsonReader.app.MODE_MAINTENANCE) {
         return message.channel.send(
-            JsonReader.bot.getTranslation(language).maintenance);
+          JsonReader.bot.getTranslation(language).maintenance);
       }
 
       await Command.launchCommand(language, server.prefix, message);
     } else {
       if (Command.getUsedPrefix(message, JsonReader.app.BOT_OWNER_PREFIX) ===
-          JsonReader.app.BOT_OWNER_PREFIX && message.author.id ===
-          JsonReader.app.BOT_OWNER_ID) {
+        JsonReader.app.BOT_OWNER_PREFIX && message.author.id ===
+        JsonReader.app.BOT_OWNER_ID) {
         await Command.launchCommand(language,
-            JsonReader.app.BOT_OWNER_PREFIX, message);
+          JsonReader.app.BOT_OWNER_PREFIX, message);
       }
     }
   }
@@ -111,7 +111,7 @@ class Command {
    */
   static async handlePrivateMessage(message) {
     await Command.sendSupportMessage(message,
-        Command.hasBlockedPlayer(message.author.id));
+      Command.hasBlockedPlayer(message.author.id));
   }
 
   /**
@@ -123,27 +123,27 @@ class Command {
     if (message.content === '') return;
     const mainServer = client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
     const supportChannel = mainServer.channels.cache.get(
-        JsonReader.app.SUPPORT_CHANNEL_ID);
+      JsonReader.app.SUPPORT_CHANNEL_ID);
     const trashChannel = mainServer.channels.cache.get(
-        JsonReader.app.TRASH_DM_CHANNEL_ID);
+      JsonReader.app.TRASH_DM_CHANNEL_ID);
     const channel = isBlacklisted ? trashChannel : supportChannel;
     const language = message.author.locale === 'fr' ? 'fr' : 'en';
 
     const sentence = format(JsonReader.bot.dm.supportAlert, {
       roleMention: isBlacklisted ? '' : idToMention(
-          JsonReader.app.SUPPORT_ROLE),
+        JsonReader.app.SUPPORT_ROLE),
       username: message.author.username,
       id: message.author.id,
       isBlacklisted: isBlacklisted ? JsonReader.bot.dm.blacklisted : '',
     });
 
     channel.send(message.author.id)
-        .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
+      .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
     channel.send(sentence + message.content.substr(0, 1800) + (message.content.length > 1800 ? "..." : ""))
-        .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
+      .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
     if (message.attachments.size > 0) {
       await sendMessageAttachments(message,
-          channel);
+        channel);
     }
   }
 
@@ -174,15 +174,15 @@ class Command {
 
     if (Command.commands.has(command)) {
       if (!message.channel.permissionsFor(client.user)
-          .serialize().SEND_MESSAGES ||
-          !message.channel.permissionsFor(client.user)
-              .serialize().EMBED_LINKS ||
-          !message.channel.permissionsFor(client.user)
-              .serialize().ADD_REACTIONS ||
-          !message.channel.permissionsFor(client.user)
-              .serialize().USE_EXTERNAL_EMOJIS) {
+        .serialize().SEND_MESSAGES ||
+        !message.channel.permissionsFor(client.user)
+          .serialize().EMBED_LINKS ||
+        !message.channel.permissionsFor(client.user)
+          .serialize().ADD_REACTIONS ||
+        !message.channel.permissionsFor(client.user)
+          .serialize().USE_EXTERNAL_EMOJIS) {
         await message.author.send(
-            JsonReader.bot.getTranslation(language).noSpeakPermission);
+          JsonReader.bot.getTranslation(language).noSpeakPermission);
       } else {
         await Command.commands.get(command)(language, message, args);
       }

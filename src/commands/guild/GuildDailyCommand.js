@@ -41,9 +41,6 @@ const GuildDailyCommand = async (language, message, args) => {
       }));
   }
 
-  guild.lastDailyAt = new Date(message.createdTimestamp);
-  await guild.save();
-
   const members = await Entities.getByGuild(guild.id);
 
   for (const i in members) {
@@ -51,6 +48,9 @@ const GuildDailyCommand = async (language, message, args) => {
       return;
     }
   }
+
+  guild.lastDailyAt = new Date(message.createdTimestamp);
+  await guild.save();
 
   let rewardType = generateRandomProperty(guild);
   embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {

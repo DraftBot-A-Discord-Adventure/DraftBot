@@ -2,7 +2,7 @@
     "translations": {
         "fr": {
             "objectDoNothingError": "Vous consommez le breuvage que vous transportiez... Ça ne semble pas très efficace !",
-            "objectIsActiveDuringFights": "Ce breuvage ne peut pas être bue maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",
+            "objectIsActiveDuringFights": "Ce breuvage ne peut pas être bu maintenant. Il sera utilisé automatiquement lors de votre prochain combat !",
             "noDrinkError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
             "noActiveObjectdescription": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
             "drinkSuccess": "{pseudo}, vous buvez le breuvage que vous transportiez !",
