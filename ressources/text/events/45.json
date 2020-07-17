@@ -110,9 +110,9 @@
 					"fr": "** | 🔊 Vous passez près de 30 minutes à prendre des informations sur ce sanctuaire, informations qui ne s'avèreront pas utiles.",
 					"en": "** | 🔊 You spend 30 minutes trying to get some information on the shrine, but unfortunately none of the information turns out to be of any use."
 				},
-				"lostTime": -30,
+				"lostTime": 30,
 				"health": 0,
-				"effect": ":lock2:",
+				"effect": ":clock2:",
 				"experience": 25,
 				"money": 0,
 				"item": false
@@ -174,7 +174,7 @@
 					"fr": "** | 🚶 Après 15 minutes sans aucune réaction, vous repartez sur votre route.",
 					"en": "** | 🚶 After 15 minutes without any reaction, you go back on your way."
 				},
-				"lostTime": -15,
+				"lostTime": 15,
 				"health": 0,
 				"effect": ":clock2:",
 				"experience": 25,
