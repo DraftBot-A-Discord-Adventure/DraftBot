@@ -43,7 +43,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 💉 Vous foncez dans la ville la plus proche afin de chercher des outils pour soigner l'homme. Une fois revenu près de lui, vous le soignez : il survit et décide de vous donner une compensation pour votre courage. En repartant que vous vous rendez compte que vous vous êtes blessé en le soignant.",
+					"fr": "** | 💉 Vous foncez dans la ville la plus proche afin de chercher des outils pour soigner l'homme. Une fois revenu près de lui, vous le soignez : il survit et décide de vous donner une compensation pour votre courage. En repartant vous vous rendez compte que vous vous êtes blessé en le soignant.",
 					"en": "** | 💉 You rush to the nearest city in order to search for tools to heal the man. Once you get back to him, you heal him, he survives and decides to give you compensation for your help. When you leave, you realize that you hurt yourself when treating him."
 				},
 				"lostTime": 0,
@@ -96,7 +96,7 @@
 			{
 				"translations": {
 					"fr": "** | 🗣️ Vous criez encore et encore et finalement, quelqu'un arrive et vous aide. Pour vous remercier la personne vous donne un petit quelque chose avant que vous repartiez.",
-					"en": "** | 🗣️ You scream frantically and finally someone comes and helps you. To thank you, To thank you, the wounded man gives you a little something before you leave."
+					"en": "** | 🗣️ You scream frantically and finally someone comes and helps you. To thank you, the wounded man gives you a little something before you leave."
 				},
 				"lostTime": 0,
 				"health": 0,
