@@ -33,7 +33,17 @@
 			"playerIsFrozen": "{askedPseudo} est actuellement gelé !",
 			"playerIsDrunk": "{askedPseudo} est actuellement ivre !",
 			"playerIsConfounded": "{askedPseudo} est actuellement confus !",
-			"playerBlocked": "Vous ne pouvez pas effectuer cela car vous avez une action en attente !"
+			"playerBlocked": "Vous ne pouvez pas effectuer cela car vous avez une action en attente ({context}) !",
+			"blockedContext": {
+				"shop": "Magasin",
+				"report": "Rapport",
+				"fight": "Combat",
+				"guildAdd": "Ajout dans une guilde",
+				"guildCreate": "Création d'une guilde",
+				"guildKick": "Expulsion d'une guilde",
+				"guildLeave": "Départ d'une guilde",
+				"sell": "Vente d'un objet"
+			}
 		},
 		"en": {
 			"titlePermissionError": "{pseudo}, you do not have the rights to perform this command!",
@@ -68,7 +78,17 @@
 			"playerIsFrozen": "{askedPseudo} is currently frozen!",
 			"playerIsDrunk": "{askedPseudo} is currently drunk!",
 			"playerIsConfounded": "{askedPseudo} is currently confused!",
-			"playerBlocked": "You can't do this because you currently have a pending action!"
+			"playerBlocked": "You can't do this because you currently have a pending action ({context})!",
+			"blockedContext": {
+				"shop": "Shop",
+				"report": "Report",
+				"fight": "Fight",
+				"guildAdd": "Guild add",
+				"guildCreate": "Guild create",
+				"guildKick": "Guild kick",
+				"guildLeave": "Guild leave",
+				"sell": "Sell"
+			}
 		}
 	}
 }

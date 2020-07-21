@@ -1,7 +1,6 @@
 {
 	"translations": {
 		"fr": {
-            "error": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
 			"descError": "Entrez l'id du joueur ainsi qu'un message après la commande svp",
 			"title": ":white_check_mark: | DM envoyé à **{username}** :",
 			"ok":">>> ",
@@ -10,7 +9,6 @@
 			"personNotExists": "Personne n'a été trouvé avec cet id !"
 		},
 		"en": {
-            "error": "{pseudo}, hmmm... It didn't work!",
 			"descError": "Indiacte the user id and a message after the command please",
 			"title": ":white_check_mark: | DM sent to **{username}**:",
 			"ok":">>> ",

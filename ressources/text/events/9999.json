@@ -67,8 +67,8 @@
       },
       {
         "translations": {
-          "fr": "** | :smiley: La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer",
-          "en": "** | :smiley: The way is clear, no reason to stop, you keep moving forward"
+          "fr": "** | :smiley: La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer.",
+          "en": "** | :smiley: The way is clear, no reason to stop, you keep moving forward."
         },
         "lostTime": 0,
         "health": 0,
@@ -103,8 +103,8 @@
       },
       {
         "translations": {
-          "fr": "** | :smiley: Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route",
-          "en": "** | :smiley: The dogs bark and the caravan passes by. You continue quietly on your way"
+          "fr": "** | :smiley: Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route.",
+          "en": "** | :smiley: The dogs bark and the caravan passes by. You continue quietly on your way."
         },
         "lostTime": 0,
         "health": 0,
