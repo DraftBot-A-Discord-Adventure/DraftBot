@@ -32,29 +32,71 @@ const Draftbot = require('core/DraftBot');
   /**
    * Will be executed each time the bot join a new server
    */
-  const onDiscordGuildCreate = async (guilde) => {
-    // let string = "";
-    // let serverManager = new ServerManager();
-    // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
-    // string += Console.guildJoin.begin + guilde + Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot + Console.guildJoin.ratio + ratio + Console.guildJoin.validation + validation;
-    // displayConsoleChannel(string);
+  const onDiscordGuildCreate = async (guild) => {
+    let [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
+    let msg = getJoinLeaveMessage(guild, true, serv.language);
+    (await client.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID)).send(msg);
     // if (validation == ":x:") {
     //   sendLeavingMessage(guilde);
     //   //guilde.leave() //temporairement désactivé pour top.gg
     // }
-    // console.log(string);
+    console.log(msg);
   };
 
   /**
    * Will be executed each time the bot leave a server
    */
-  const onDiscordGuildDelete = async (guilde) => {
-    // let string = "";
-    // let serverManager = new ServerManager();
-    // let { validation, nbMembres, nbBot, ratio } = serverManager.getValidationInfos(guilde);
-    // string += Console.guildJoin.beginquit + guilde + Console.guildJoin.persons + nbMembres + Console.guildJoin.bots + nbBot + Console.guildJoin.ratio + ratio + Console.guildJoin.validation + validation;
-    // displayConsoleChannel(string);
-    // console.log(string);
+  const onDiscordGuildDelete = async (guild) => {
+    let [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
+    let msg = getJoinLeaveMessage(guild, false, serv.language);
+    (await client.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID)).send(msg);
+    console.log(msg);
+  };
+
+  /**
+   * Get the message when the bot joins or leaves a guild
+   * @param {module:"discord.js".Guild} guild
+   * @param {boolean} join
+   * @param {"fr"|"en"} language
+   * @return {string}
+   */
+  const getJoinLeaveMessage = (guild, join, language) => {
+    let humans = guild.members.cache.filter(member => !member.user.bot).size;
+    let robots = guild.members.cache.filter(member => member.user.bot).size;
+    let ratio = Math.round((robots / humans) * 100);
+    return format(join ? JsonReader.bot.getTranslation(language).joinGuild : JsonReader.bot.getTranslation(language).leaveGuild, {
+      guild: guild,
+      humans: humans,
+      robots: robots,
+      ratio: ratio,
+      validation: getGuildValidation(guild, humans, robots, ratio)
+    });
+  };
+
+  /**
+   * Get validation emoji of a guild
+   * @param {module:"discord.js".Guild} guild
+   * @param {Number} humans - will be calculated if not provided
+   * @param {Number} robots - will be calculated if not provided
+   * @param {Number} ratio - will be calculated if not provided
+   * @return {string}
+   */
+  const getGuildValidation = (guild, humans = -1, robots = -1, ratio = -1) => {
+    if (humans === -1) {
+      humans = guild.members.cache.filter(member => !member.user.bot).size;
+      robots = guild.members.cache.filter(member => member.user.bot).size;
+      ratio = Math.round((robots / humans) * 100);
+    }
+    let validation = ":white_check_mark:";
+    if (ratio > 30 || humans < 30 || (humans < 100 && ratio > 20)) {
+      validation = ":x:";
+    }
+    else {
+      if (ratio > 20 || robots > 15 || humans < 100) {
+        validation = ":warning:";
+      }
+    }
+    return validation;
   };
 
   /**
@@ -72,8 +114,8 @@ const Draftbot = require('core/DraftBot');
   };
 
   client.on('ready', onDiscordReady);
-  client.on('ready', onDiscordGuildCreate);
-  client.on('ready', onDiscordGuildDelete);
+  client.on('guildCreate', onDiscordGuildCreate);
+  client.on('guildDelete', onDiscordGuildDelete);
   client.on('message', onDiscordMessage);
 
   await client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);

@@ -290,7 +290,7 @@ class Fight {
             attack: attacker.attack,
             defense: attacker.defense,
             speed: attacker.speed,
-          }) +
+          }) + "\n\n" +
           format(JsonReader.commands.fight.getTranslation(this.language).summarize.defender, {
             pseudo: await defender.entity.Player.getPseudo(this.language),
             charging: defender.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : '',

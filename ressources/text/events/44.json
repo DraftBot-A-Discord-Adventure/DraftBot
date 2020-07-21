@@ -10,7 +10,7 @@
 					"fr": "** | 🦸 Alors que vous essayez de le secourir, il prend peur et vous assomme avec sa pierre. Vous mettez un certain temps à reprendre vos esprits et repartez.",
 					"en": "** | 🦸 As you try to help him, he gets scared and knocks you out with the rock. You stay uncounscious for a while, but eventually wake up and get on your way."
 				},
-				"lostTime": -60,
+				"lostTime": 60,
 				"health": -10,
 				"effect": ":clock2:",
 				"experience": 0,
@@ -22,7 +22,7 @@
 					"fr": "** | 🦸 Vous vous jetez sur la pierre et la rattrapez. Vous coupez rapidement la corde et allez chercher le malheureux qui est trempé. Vous passez plusieurs heures avec lui à tenter de le dissuader de recommencer. Reconnaissant il vous offre le couvert et l’abris pour la nuit.",
 					"en": "** | 🦸 You throw yourself on the rock and catch it. You swiftly cut the rope and come help the poor soacked man. You spend several hours talking trying to deter him of doing it again. Grateful, he offers room and board for the night."
 				},
-				"lostTime": -180,
+				"lostTime": 180,
 				"health": 15,
 				"effect": ":clock2:",
 				"experience": 225,

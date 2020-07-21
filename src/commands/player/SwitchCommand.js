@@ -22,4 +22,5 @@ const SwitchCommand = async (language, message, args) => {
 
 module.exports = {
   'switch': SwitchCommand,
+  'sw': SwitchCommand
 };

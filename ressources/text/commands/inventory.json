@@ -11,7 +11,8 @@
 			"title": ":briefcase: **{pseudo}'s inventory**",
 			"randomItemTitle" : "{pseudo}, you just found something!",
 			"randomItemFooter" : "Do you want it to replace the item in your inventory?",
-			"randomItemDesc" : "{actualItem}"
+			"randomItemDesc" : "{actualItem}",
+			"acceptedTitle" : "{pseudo}, you received an item !"
 		}
 	}
 }

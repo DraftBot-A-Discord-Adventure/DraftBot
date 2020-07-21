@@ -42,7 +42,7 @@
   "ENGLISH_CHANNEL_ID": "",
   
   "//MODE_MAINTENANCE": "Boolean to tell if the bot is under maintenance or not",
-  "MODE_MAINTENANCE": false
+  "MODE_MAINTENANCE": false,
   
    "//TEST_MODE": "Boolean to tell if the bot is under test mode",
   "TEST_MODE": true

@@ -9,31 +9,31 @@ class MessageError {
    */
   static async canPerformCommand(message, language, permission, disallowEffects = null, entity = null) {
     if (permission === PERMISSION.ROLE.BADGEMANAGER) {
-      if (!message.member.roles.cache.has(JsonReader.app.BADGE_MANAGER_ROLE)) {
+      if (!message.member.roles.cache.has(JsonReader.app.BADGE_MANAGER_ROLE) && !MessageError.isBotOwner(message.author.id)) {
         return await MessageError.permissionErrorMe(message, language, permission);
       }
     }
 
     if (permission === PERMISSION.ROLE.SUPPORT) {
-      if (!message.member.roles.cache.has(JsonReader.app.SUPPORT_ROLE)) {
+      if (!message.member.roles.cache.has(JsonReader.app.SUPPORT_ROLE) && !MessageError.isBotOwner(message.author.id)) {
         return await MessageError.permissionErrorMe(message, language, permission);
       }
     }
 
     if (permission === PERMISSION.ROLE.ADMINISTRATOR) {
-      if (!message.member.hasPermission('ADMINISTRATOR')) {
+      if (!message.member.hasPermission('ADMINISTRATOR') && !MessageError.isBotOwner(message.author.id)) {
         return await MessageError.permissionErrorMe(message, language, permission);
       }
     }
 
     if (permission === PERMISSION.ROLE.BOTOWNER) {
-      if (message.author.id !== JsonReader.app.BOT_OWNER_ID) {
+      if (!MessageError.isBotOwner(message.author.id)) {
         return await MessageError.permissionErrorMe(message, language, permission);
       }
     }
 
     if (permission === PERMISSION.ROLE.TOURNAMENT) {
-      if (!message.member.roles.cache.has(JsonReader.app.TOURNAMENT_ROLE)) {
+      if (!message.member.roles.cache.has(JsonReader.app.TOURNAMENT_ROLE) && !MessageError.isBotOwner(message.author.id)) {
         return await MessageError.permissionErrorMe(message, language, permission);
       }
     }
@@ -54,6 +54,14 @@ class MessageError {
     }
 
     return true;
+  }
+
+  /**
+   * @param {string} id
+   * @return {boolean}
+   */
+  static isBotOwner(id) {
+    return id === JsonReader.app.BOT_OWNER_ID;
   }
 
   /**

@@ -28,7 +28,7 @@
 				"👑": ":crown:  `Propriétaire du bot`",
 				"⚙️": ":gear:  `Equipe technique`",
 				"🥚": ":egg:  `Personne ayant trouvé tous les secrets du bot`",
-				"❤": ":heart:  `Personne ayant le grade Involved sur le serveur du bot`",
+				"❤️": ":heart:  `Personne ayant le grade Involved sur le serveur du bot`",
 				"🍀": ":four_leaf_clover:  `Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter`",
 				"💸": ":money_with_wings:  `Donateur`",
 				"🐞": ":beetle:  `Personne ayant signalé des bugs majeurs`",
@@ -42,7 +42,8 @@
 				"🎗️": ":reminder_ribbon:  `Personne ayant dominé un classement de la semaine`",
 				"🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`",
 				"😂": ":joy:  `Badge offert à une personne drôle`",
-				"💎": ":gem:  `Membre d'une guilde puissante`"
+				"💎": ":gem:  `Membre d'une guilde puissante`",
+				"🗳️": ":ballot_box:  `Personne ayant voté dans les 12 dernières heures`"
 			}
 		},
 		"en": {
@@ -73,7 +74,7 @@
 				"👑": ":crown:  `Bot owner`",
 				"⚙️": ":gear:  `Technical team`",
 				"🥚": ":egg:  `People who found all of the bot's easter eggs`",
-				"❤": ":heart:  `User who has the Support role on the bot server`",
+				"❤️": ":heart:  `User who has the Support role on the bot server`",
 				"🍀": ":four_leaf_clover:  `Badge that can be won from time to time in contests on the bot official server or on Twitter`",
 				"💸": ":money_with_wings:  `Donator`",
 				"🖊": ":pen_ballpoint:  `Person who helped fix a lot of spelling mistakes`",
@@ -88,7 +89,8 @@
 				"🎗️": ":reminder_ribbon:  `People who lead the topweek`",
 				"🎄": ":christmas_tree:  `This badge can be win on giveaway every christmas`",
 				"😂": ":joy:  `Badge given to funny people`",
-				"💎": ":gem:  `Member of a powerful team`"
+				"💎": ":gem:  `Member of a powerful team`",
+				"🗳️": ":ballot_box:  `Person who voted in the last 12 hours`"
 			}
 		}
 	},

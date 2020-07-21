@@ -67,7 +67,7 @@ global.ITEMTYPE = {
 };
 
 global.GUILD = {
-  MAX_GUILD_MEMBER: 5,
+  MAX_GUILD_MEMBER: 6,
   MAX_GUILDNAME_SIZE: 15,
   MIN_GUILDNAME_SIZE: 2,
 };
@@ -102,5 +102,10 @@ global.SHOP = {
   STAR: '⭐',
   POTION_REPLACEMENT: '🍷',
   CANCEL: '❌'
+};
+
+global.TOPGG = {
+  BADGE: '🗳️',
+  BADGE_DURATION: 12*60*60*1000
 };
 
