@@ -174,7 +174,7 @@
 					"fr": "** | 🚶 Vous courez sans regarder ce que c'était, mais vous trébuchez dans l'obscurité sur une pierre. Vous tombez sur vos bras, tout écorché.",
 					"en": "** | 🚶 You run without looking any closer what it actually was. You trip over a rock in the dark which sends you falling onto your arms, now full of scratches."
 				},
-				"lostTime": -10,
+				"lostTime": 10,
 				"health": 0,
 				"effect": ":clock2:",
 				"experience": 25,
