@@ -171,7 +171,11 @@ const doPossibility = async (message, language, possibility, entity, time, force
   let resultMsg = await message.channel.send(result);
 
   removeBlockedPlayer(entity.discordUser_id);
-  await player.levelUpIfNeeded(entity, message.channel, language);
+
+  while(player.needLevelUp()) {
+    await player.levelUpIfNeeded(entity, message.channel, language);
+  }
+
   await player.killIfNeeded(entity, message.channel, language);
 
   entity.save();

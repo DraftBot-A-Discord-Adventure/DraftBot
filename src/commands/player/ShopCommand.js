@@ -356,8 +356,11 @@ async function giveGuildXp(message, language, entity, customer, selectedItem) {
         const guild = await Guilds.getById(entity.Player.guild_id);
         const toAdd = randInt(50, 450);
         guild.addExperience(toAdd); //Add xp
-        await guild.levelUpIfNeeded(message.channel, language);
+        while(guild.needLevelUp()) {
+            await guild.levelUpIfNeeded(message.channel, language);
+        }
         await guild.save();
+
         message.channel.send(
             new discord.MessageEmbed()
             .setColor(JsonReader.bot.embed.default)

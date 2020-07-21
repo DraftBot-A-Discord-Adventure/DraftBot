@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": ":left_fist: **Griffe**",
+		"en": ":left_fist: **Hand claw**"
+	},
+	"rarity": 1,
+	"rawAttack": 6,
+	"speed": 10,
+	"defense": -60
+}

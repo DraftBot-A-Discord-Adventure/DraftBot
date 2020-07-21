@@ -63,7 +63,9 @@ const GuildDailyCommand = async (language, message, args) => {
       JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
     for (const i in members) {
       members[i].Player.experience += xpWon;
-      await members[i].Player.levelUpIfNeeded(members[i], message.channel, language);
+      while(members[i].Player.needLevelUp()) {
+        await members[i].Player.levelUpIfNeeded(members[i], message.channel, language);
+      }
       await members[i].Player.save();
     }
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).personalXP, {
@@ -76,7 +78,9 @@ const GuildDailyCommand = async (language, message, args) => {
       JsonReader.commands.guildDaily.minimalXp + guild.level,
       JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
     guild.experience += xpGuildWon;
-    await guild.levelUpIfNeeded(message.channel, language);
+    while(guild.needLevelUp()) {
+      await guild.levelUpIfNeeded(message.channel, language);
+    }
     await guild.save();
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).guildXP, {
       xp: xpGuildWon,
@@ -147,7 +151,7 @@ const GuildDailyCommand = async (language, message, args) => {
 
   if (rewardType === REWARD_TYPES.ALTERATION) {
     for (const i in members) {
-      if (members[i].currentEffectFinished()) { 
+      if (members[i].currentEffectFinished()) {
         members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
       } else if (members[i].effect !== EFFECT.DEAD && members[i].effect !== EFFECT.LOCKED) {
         members[i].effect = EFFECT.SMILEY;
