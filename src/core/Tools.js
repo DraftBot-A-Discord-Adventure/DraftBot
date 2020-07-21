@@ -372,8 +372,7 @@ global.progressBar = (value, maxValue) => {
   const emptyProgressText = '—'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
   const percentageText = Math.floor(percentage * 100) + '%'; // Displaying the percentage of the bar
 
-  const bar = '```[' + progressText + emptyProgressText + ']' + percentageText + '```'; // Creating the bar
-  return bar;
+  return '```[' + progressText + emptyProgressText + ']' + percentageText + '```'; // Creating the bar
 };
 
 /**

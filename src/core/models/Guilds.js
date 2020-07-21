@@ -93,7 +93,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Number} Return the experience needed to level up.
    */
   Guilds.prototype.getExperienceNeededToLevelUp = function () {
-    return JsonReader.models.guilds.xp[this.level + 1];
+    return Math.round(300 * Math.pow(1.065, (this.level + 1))) - 170;
   };
 
   /**

@@ -139,8 +139,8 @@ module.exports = (Sequelize, DataTypes) => {
   /**
    * @return {Number} Return the experience needed to level up.
    */
-  Players.prototype.getExperienceNeededToLevelUp = function () {
-    return JsonReader.models.players.xp[this.level + 1];
+  Players.prototype.getExperienceNeededToLevelUp = function() {
+    return Math.round(325 * Math.pow(1.04, (this.level + 1))) - 188;
   };
 
   /**
@@ -211,10 +211,8 @@ module.exports = (Sequelize, DataTypes) => {
   /**
    * @param {Number} hours
    */
-  Players.prototype.fastForward = async function (hours) {
-    const moment = require('moment');
-    const lastReport = new moment(this.lastReportAt).subtract(hours, 'h');
-    this.lastReportAt = lastReport;
+  Players.prototype.fastForward = async function(hours) {
+    this.lastReportAt = new (require('moment'))(this.lastReportAt).subtract(hours, 'h');
   };
 
   /**

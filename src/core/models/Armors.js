@@ -101,12 +101,20 @@ module.exports = (Sequelize, DataTypes) => {
     return JsonReader.items.getTranslation(language).rarities[this.rarity];
   };
 
+  Armors.prototype.multiplicateur = function() {
+    return JsonReader.items.mapper[this.rarity];
+  };
+
   /**
    * Return the property from rawProperty and property modifier
    * @return {Number}
    */
   Armors.prototype.getAttack = function () {
-    return JsonReader.items.power[this.rarity][this.rawAttack] + this.attack;
+    let before = 0;
+    if (this.rawAttack > 0) {
+      before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawAttack);
+    }
+    return Math.round(before * 0.75) + this.attack;
   };
 
 
@@ -125,15 +133,17 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Number}
    */
   Armors.prototype.getDefense = function () {
-    return JsonReader.items.power[this.rarity][this.rawDefense] + this.defense;
+    return Math.round(1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawDefense)) + this.defense;
   };
 
   /**
-   * Return the property from rawProperty and property modifier
-   * @return {Number}
    */
   Armors.prototype.getSpeed = function () {
-    return JsonReader.items.power[this.rarity][this.rawSpeed] + this.speed;
+    let before = 0;
+    if (this.rawSpeed > 0) {
+      before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawSpeed);
+    }
+    return Math.round(before * 0.5) + this.speed;
   };
 
   /**
