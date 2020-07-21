@@ -125,6 +125,20 @@
         "money": 0,
         "item": false
       }
+    ],
+    "end": [
+      {
+        "translations": {
+          "fr": "",
+          "en": ""
+        },
+        "lostTime": 0,
+        "health": 0,
+        "effect": ":smiley:",
+        "experience": 25,
+        "money": 0,
+        "item": false
+      }
     ]
   }
 }
