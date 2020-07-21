@@ -122,9 +122,10 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
           entity.Player.save(),
           entity.Player.Inventory.save(),
         ]);
-        return channel.send(embed);
+        await channel.send(embed);
       }
     }
+
     const money = getItemValue(item);
     entity.Player.addMoney(money);
     await entity.Player.save();
