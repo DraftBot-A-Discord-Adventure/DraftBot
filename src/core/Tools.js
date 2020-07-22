@@ -47,7 +47,7 @@ global.sendErrorMessage = (user, channel, language, reason) => {
  * @param {Entity} entity
  */
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
-  const item = await entity.Player.Inventory.generateRandomItem();
+  let item = await entity.Player.Inventory.generateRandomItem();
   let embed = new discord.MessageEmbed();
   embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
     pseudo: discordUser.username,
@@ -105,16 +105,22 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
           pseudo: discordUser.username,
         }), discordUser.displayAvatarURL())
           .setDescription(item.toString(language));
+
+        let oldItem;
         if (item instanceof Potions) {
+          oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
           entity.Player.Inventory.potion_id = item.id;
         }
         if (item instanceof Objects) {
+          oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});
           entity.Player.Inventory.backup_id = item.id;
         }
         if (item instanceof Weapons) {
+          oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weapon_id}});
           entity.Player.Inventory.weapon_id = item.id;
         }
         if (item instanceof Armors) {
+          oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armor_id}});
           entity.Player.Inventory.armor_id = item.id;
         }
         await Promise.all([
@@ -123,6 +129,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
           entity.Player.Inventory.save(),
         ]);
         await channel.send(embed);
+        item = oldItem;
       }
     }
 
