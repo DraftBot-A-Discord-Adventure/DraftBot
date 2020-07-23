@@ -280,12 +280,20 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 }
 
 module.exports = {
-  'top': topCommand,
-  'topw': topWeekCommand,
-  'tops': topServerCommand,
-  'tw': topWeekCommand,
-  'ts': topServerCommand,
-  'topweek': topWeekCommand,
-  'topserver': topServerCommand,
-  'topserv': topServerCommand
+  commands: [
+    {
+      name: 'top',
+      func: topCommand
+    },
+    {
+      name: 'topweek',
+      func: topWeekCommand,
+      aliases: ['topw', 'tw']
+    },
+    {
+      name: 'topserver',
+      func: topServerCommand,
+      aliases: ['topserv', 'tops', 'ts']
+    }
+  ]
 };

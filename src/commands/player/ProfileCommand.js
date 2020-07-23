@@ -123,6 +123,11 @@ const ProfileCommand = async function(language, message, args) {
 };
 
 module.exports = {
-  'profile': ProfileCommand,
-  'p': ProfileCommand,
+  commands: [
+    {
+      name: 'profile',
+      func: ProfileCommand,
+      aliases: ['p']
+    }
+  ]
 };

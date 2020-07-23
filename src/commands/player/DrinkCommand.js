@@ -65,6 +65,11 @@ const DrinkCommand = async function (language, message) {
 };
 
 module.exports = {
-  drink: DrinkCommand,
-  dr: DrinkCommand,
+  commands: [
+    {
+      name: 'drink',
+      func: DrinkCommand,
+      aliases: ['dr']
+    }
+  ]
 };

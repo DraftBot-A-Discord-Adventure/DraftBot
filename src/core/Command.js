@@ -9,6 +9,7 @@ class Command {
    */
   static async init() {
     Command.commands = new Map();
+    Command.aliases = new Map();
     Command.players = JsonReader.app.BLACKLIST_IDS.split('-');
 
     const folders = [
@@ -21,16 +22,57 @@ class Command {
         if (!commandFile.endsWith('.js')) continue;
         folder = folder.replace('src/', '');
         const commandName = commandFile.split('.')[0];
-        const commandKeys = Object.keys(require(`${folder}/${commandName}`));
 
-        for (const commandKey of commandKeys) {
-          await Command.commands.set(
-            commandKey,
-            require(`${folder}/${commandName}`)[commandKey],
-          );
+        const commands = require(`${folder}/${commandName}`).commands;
+        if (commands !== undefined) {
+          for (let i = 0; i < commands.length; ++i) {
+            const cmd = commands[i];
+            Command.commands.set(
+                cmd.name,
+                cmd.func,
+            );
+            Command.aliases.set(
+                cmd.name,
+                cmd.name,
+            );
+            if (cmd.aliases !== undefined) {
+              for (let j = 0; j < cmd.aliases.length; ++j) {
+                Command.commands.set(
+                    cmd.aliases[j],
+                    cmd.func,
+                );
+                Command.aliases.set(
+                    cmd.aliases[j],
+                    cmd.name,
+                );
+              }
+            }
+          }
         }
       }
     }
+  }
+
+  /**
+   * @param {String} alias - The alias
+   * @returns {String} The command
+   */
+  static getMainCommandFromAlias(alias) {
+    return Command.aliases.get(alias);
+  }
+
+  /**
+   * @param {String} cmd - The command
+   * @returns {String[]} The aliases
+   */
+  static getAliasesFromCommand(cmd) {
+    let aliases = [];
+    for (const alias of Command.aliases.entries()) {
+      if (alias[1] === cmd && alias[0] !== cmd) {
+        aliases.push(alias[0]);
+      }
+    }
+    return aliases;
   }
 
   /**
@@ -204,3 +246,5 @@ global.addBlockedPlayer = Command.addBlockedPlayer;
 global.removeBlockedPlayer = Command.removeBlockedPlayer;
 global.handleMessage = Command.handleMessage;
 global.handlePrivateMessage = Command.handlePrivateMessage;
+global.getMainCommandFromAlias = Command.getMainCommandFromAlias;
+global.getAliasesFromCommand = Command.getAliasesFromCommand;

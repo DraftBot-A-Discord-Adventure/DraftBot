@@ -298,5 +298,10 @@ const TestCommand = async(language, message, args) => {
 };
 
 module.exports = {
-    'test': TestCommand,
+    commands: [
+        {
+            name: 'test',
+            func: TestCommand
+        }
+    ]
 };

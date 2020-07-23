@@ -99,10 +99,12 @@ const DailyCommand = async function (language, message) {
   return await message.channel.send(embed);
 };
 
-/**
- * @type {{daily: DailyCommand, da: DailyCommand}}
- */
 module.exports = {
-  daily: DailyCommand,
-  da: DailyCommand,
+  commands: [
+    {
+      name: 'daily',
+      func: DailyCommand,
+      aliases: ['da']
+    }
+  ]
 };

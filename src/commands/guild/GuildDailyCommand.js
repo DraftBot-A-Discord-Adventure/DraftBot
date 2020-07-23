@@ -165,9 +165,13 @@ const GuildDailyCommand = async (language, message, args) => {
 };
 
 module.exports = {
-  'guilddaily': GuildDailyCommand,
-  'gdaily': GuildDailyCommand,
-  'gd': GuildDailyCommand,
+  commands: [
+    {
+      name: 'guilddaily',
+      func: GuildDailyCommand,
+      aliases: ['gdaily', 'gd']
+    }
+  ]
 };
 
 

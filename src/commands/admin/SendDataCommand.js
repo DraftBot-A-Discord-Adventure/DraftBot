@@ -19,5 +19,10 @@ const SendDataCommand = async (language, message, args) => {
 };
 
 module.exports = {
-  'senddata': SendDataCommand,
+  commands: [
+    {
+      name: 'senddata',
+      func: SendDataCommand
+    }
+  ]
 };

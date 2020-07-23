@@ -186,6 +186,11 @@ const doPossibility = async (message, language, possibility, entity, time, force
 };
 
 module.exports = {
-  'report': ReportCommand,
-  'r': ReportCommand,
+  commands: [
+    {
+      name: 'report',
+      func: ReportCommand,
+      aliases: ['r']
+    }
+  ]
 };

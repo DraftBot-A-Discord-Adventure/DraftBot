@@ -29,5 +29,10 @@ const ChangePointsWeekCommand = async function(language, message, args) {
 };
 
 module.exports = {
-  'pointsw': ChangePointsWeekCommand,
+  commands: [
+    {
+      name: 'pointsw',
+      func: ChangePointsWeekCommand
+    }
+  ]
 };

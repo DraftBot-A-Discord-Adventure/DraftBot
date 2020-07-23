@@ -380,6 +380,11 @@ async function giveGuildXp(message, language, entity, customer, selectedItem) {
 }
 
 module.exports = {
-    shop: ShopCommand,
-    s: ShopCommand,
+    commands: [
+        {
+            name: 'shop',
+            func: ShopCommand,
+            aliases: ['s']
+        }
+    ]
 };

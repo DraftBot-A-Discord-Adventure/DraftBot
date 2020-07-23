@@ -77,5 +77,10 @@ const SellCommand = async (language, message, args) => {
 };
 
 module.exports = {
-  'sell': SellCommand,
+  commands: [
+    {
+      name: 'sell',
+      func: SellCommand
+    }
+  ]
 };

@@ -221,6 +221,11 @@ const FIGHT_ERROR = {
 };
 
 module.exports = {
-  'fight': FightCommand,
-  'f': FightCommand,
+  commands: [
+    {
+      name: 'fight',
+      func: FightCommand,
+      aliases: ['f']
+    }
+  ]
 };

@@ -150,5 +150,10 @@ const listItemsCommand = async function(language, message, args) {
 };
 
 module.exports = {
-  'list': listItemsCommand,
+  commands: [
+    {
+      name: 'list',
+      func: listItemsCommand
+    }
+  ]
 };

@@ -13,5 +13,10 @@ const PingCommand = async function(language, message, args) {
 };
 
 module.exports = {
-  'ping': PingCommand,
+  commands: [
+    {
+      name: 'ping',
+      func: PingCommand
+    }
+  ]
 };

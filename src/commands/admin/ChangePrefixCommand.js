@@ -32,7 +32,13 @@ const ChangePrefixCommand = async function (language, message, args) {
 };
 
 module.exports = {
-  'prefix': ChangePrefixCommand,
+  commands: [
+    {
+      name: 'prefix',
+      func: ChangePrefixCommand,
+      aliases: ['prefix']
+    }
+  ]
 };
 
 

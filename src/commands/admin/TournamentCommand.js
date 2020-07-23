@@ -31,7 +31,12 @@ const TournamentCommand = async function(language, message, args) {
 };
 
 module.exports = {
-    'tournament': TournamentCommand
+    commands: [
+        {
+            name: 'tournament',
+            func: TournamentCommand
+        }
+    ]
 };
 
 global.tournamentChannel = "656586677841821728";

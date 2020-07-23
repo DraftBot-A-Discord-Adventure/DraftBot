@@ -29,6 +29,11 @@ const ChangePointsCommand = async function(language, message, args) {
 };
 
 module.exports = {
-  'points': ChangePointsCommand,
+  commands: [
+    {
+      name: 'points',
+      func: ChangePointsCommand
+    }
+  ]
 };
 

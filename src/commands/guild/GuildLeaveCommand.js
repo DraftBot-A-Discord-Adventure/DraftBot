@@ -109,7 +109,11 @@ const GuildLeaveCommand = async (language, message, args) => {
 };
 
 module.exports = {
-  'guildleave': GuildLeaveCommand,
-  'gleave': GuildLeaveCommand,
-  'gl': GuildLeaveCommand,
+  commands: [
+    {
+      name: 'guildleave',
+      func: GuildLeaveCommand,
+      aliases: ['gleave', 'gl']
+    }
+  ]
 };
