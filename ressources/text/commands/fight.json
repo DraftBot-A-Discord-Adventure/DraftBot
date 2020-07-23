@@ -12,7 +12,7 @@
         "intro": ":crossed_swords: | **Etat actuel du combat**\n\n",
         "attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
         "defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
-        "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+        "stats": ":blue_heart: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
       },
       "end": {
         "draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**",
@@ -132,7 +132,7 @@
         "intro": ":crossed_swords: | **Current battle state**\n\n",
         "attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
         "defender": ":crossed_swords: |** Defender : {pseudo}**\n",
-        "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+        "stats": ":blue_heart: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
       },
       "end": {
         "draw": ":newspaper: |** {player1} finished their match against {player2} on a draw!**",
