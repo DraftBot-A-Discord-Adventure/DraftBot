@@ -8,6 +8,9 @@ const DrinkCommand = async function (language, message) {
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
     return;
   }
+  if (await sendBlockedError(message.author, message.channel, language)) {
+    return;
+  }
   const potion = await entity.Player.Inventory.getPotion();
   const embed = new discord.MessageEmbed();
 
