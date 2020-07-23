@@ -10,7 +10,7 @@ global.EFFECT = {
   SMILEY: ':smiley:',
   AWAITINGANSWER: ':clock10:', // may be deleted : is used to avoir interaction when the bot is awaiting an answer
   DEAD: ':skull:',
-  SLEEPING: ':sleeping: ',
+  SLEEPING: ':sleeping:',
   DRUNK: ':zany_face:',
   FROZEN: ':cold_face:',
   HURT: ':head_bandage:',
