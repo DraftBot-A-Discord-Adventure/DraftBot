@@ -108,19 +108,19 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 
         let oldItem;
         if (item instanceof Potions) {
-          oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
+          oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
           entity.Player.Inventory.potion_id = item.id;
         }
         if (item instanceof Objects) {
-          oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});
+          oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
           entity.Player.Inventory.backup_id = item.id;
         }
         if (item instanceof Weapons) {
-          oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weapon_id}});
+          oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
           entity.Player.Inventory.weapon_id = item.id;
         }
         if (item instanceof Armors) {
-          oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armor_id}});
+          oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
           entity.Player.Inventory.armor_id = item.id;
         }
         await Promise.all([
@@ -132,18 +132,20 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
         item = oldItem;
       }
     }
-
-    const money = getItemValue(item);
-    entity.Player.addMoney(money);
-    await entity.Player.save();
-    return await channel.send(
-      format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-        {
-          item: item.getName(language),
-          money: money
-        },
-      ));
+    if (item.rarity != 0) {
+      const money = getItemValue(item);
+      entity.Player.addMoney(money);
+      await entity.Player.save();
+      return await channel.send(
+        format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+          {
+            item: item.getName(language),
+            money: money
+          },
+        ));
+    }
   });
+
   await Promise.all([
     msg.react(MENU_REACTION.ACCEPT),
     msg.react(MENU_REACTION.DENY),
@@ -331,31 +333,31 @@ global.sendBlockedError = async function (user, channel, language) {
  * Returns the next sunday 23h59 59s
  * @return {Date}
  */
-global.getNextSundayMidnight = function() {
+global.getNextSundayMidnight = function () {
   let now = new Date();
   let dateOfReset = new Date();
   dateOfReset.setDate(now.getDate() + ((7 - now.getDay())) % 7);
   dateOfReset.setHours(23, 59, 59);
   while (dateOfReset < now) {
-    dateOfReset += 1000*60*60*24*7;
+    dateOfReset += 1000 * 60 * 60 * 24 * 7;
   }
   return new Date(dateOfReset);
 };
 
-global.parseTimeDifference = function(date1, date2, language) {
+global.parseTimeDifference = function (date1, date2, language) {
   if (date1 > date2) {
     date1 = [date2, date2 = date1][0];
   }
   let seconds = Math.floor((date2 - date1) / 1000);
   let parsed = "";
-  let days = Math.floor(seconds / (24*60*60));
+  let days = Math.floor(seconds / (24 * 60 * 60));
   if (days > 0) {
     parsed += days + (language === "fr" ? " J " : " D ");
-    seconds -= days * 24*60*60;
+    seconds -= days * 24 * 60 * 60;
   }
-  let hours = Math.floor(seconds / (60*60));
+  let hours = Math.floor(seconds / (60 * 60));
   parsed += hours + " H ";
-  seconds -= hours * 60*60;
+  seconds -= hours * 60 * 60;
   let minutes = Math.floor(seconds / 60);
   parsed += minutes + " Min ";
   seconds -= minutes * 60;
@@ -367,6 +369,6 @@ global.parseTimeDifference = function(date1, date2, language) {
  * Block commands if it is 5 minutes before top week reset
  * @return {boolean}
  */
-global.resetIsNow = function() {
-  return getNextSundayMidnight() - new Date() <= 1000*5*60;
+global.resetIsNow = function () {
+  return getNextSundayMidnight() - new Date() <= 1000 * 5 * 60;
 };
