@@ -129,6 +129,14 @@ class Command {
       language = "en";
     }
 
+    if (message.content.startsWith("<@!" + client.user.id + ">")) {
+      await message.channel.send(format(
+          JsonReader.bot.getTranslation(language).mentionHelp,
+          { prefix: server.prefix }
+      ));
+      return;
+    }
+
     if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
       if (message.author.id !== JsonReader.app.BOT_OWNER_ID &&
         JsonReader.app.MODE_MAINTENANCE) {
