@@ -24,7 +24,7 @@
 				},
 				"lostTime": 90,
 				"health": 0,
-				"effect": ":clock2",
+				"effect": ":clock2:",
 				"experience": 150,
 				"money": -300,
 				"item": false
