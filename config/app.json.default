@@ -40,6 +40,15 @@
   
   "//ENGLISH_CHANNEL_ID": "Put id of a channel where the bot will always speak in english put 0 here to disable the feature",
   "ENGLISH_CHANNEL_ID": "",
+
+  "//DBL_WEBHOOK_PORT": "Put the port of the DBL Webhook",
+  "DBL_WEBHOOK_PORT": 0,
+
+  "//DBL_WEBHOOK_URL": "Put the url of the DBL Webhook",
+  "DBL_WEBHOOK_URL": "/secret_url",
+
+  "//DBL_VERIFICATION_TOKEN": "Put the verification token of the DBL Webhook",
+  "DBL_VERIFICATION_TOKEN": "",
   
   "//MODE_MAINTENANCE": "Boolean to tell if the bot is under maintenance or not",
   "MODE_MAINTENANCE": false,

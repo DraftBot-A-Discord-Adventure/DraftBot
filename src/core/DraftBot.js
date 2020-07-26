@@ -1,3 +1,5 @@
+const DiscordBotListAPI = require('dbl-api');
+
 /**
  * @class
  */
@@ -24,6 +26,8 @@ class DraftBot {
         // draftbot.checkEasterEggsFile();
 
         DraftBot.programTopWeekTimeout();
+
+        DraftBot.startDBLWebhook();
 
         return this;
     }
@@ -75,6 +79,16 @@ class DraftBot {
         Players.update({ weeklyScore: 0 }, { where: {} });
         console.log("# WARNING # Weekly leaderboard has been reset !");
         DraftBot.programTopWeekTimeout();
+    }
+
+    static startDBLWebhook() {
+        const api = new DiscordBotListAPI({ port: JsonReader.app.DBL_WEBHOOK_PORT, path: JsonReader.app.DBL_WEBHOOK_URL });
+        api.on('upvote', (user, bot) => {
+            //TODO when a test bot will be available
+            console.log(`Upvote by ${user} for bot ${bot}`);
+            console.log(user);
+            console.log(bot);
+        });
     }
 
     /**
