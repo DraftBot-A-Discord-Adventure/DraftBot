@@ -103,7 +103,7 @@ const FightCommand = async function(language, message, args) {
               if (user.id === attacker.discordUser_id) {
                 await message.channel.send(JsonReader.commands.fight.getTranslation(language).error.canceled);
               } else if (defender != null) {
-                sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
+                sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
               } else {
                 if (spammers.includes(user.id)) {
                   return;

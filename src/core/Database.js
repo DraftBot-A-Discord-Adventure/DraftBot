@@ -301,6 +301,10 @@ class Database {
             Database.sendEventLoadError(event, "Lost time must be positive in possibility " + possibilityKey);
             return false;
           }
+          if (possibility.lostTime > 0 && possibility.effect !== EFFECT.OCCUPIED) {
+            Database.sendEventLoadError(event, "Time lost and no clock2 effect in possibility " + possibilityKey);
+            return false;
+          }
           if (effects[possibility.effect] === null || effects[possibility.effect] === undefined) {
             Database.sendEventLoadError(event, "Unknown effect \"" + possibility.effect + "\" in possibility " + possibilityKey);
             return false;
