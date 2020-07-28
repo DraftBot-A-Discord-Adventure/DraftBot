@@ -45,6 +45,7 @@ const SellCommand = async (language, message, args) => {
     removeBlockedPlayer(entity.discordUser_id);
     if (reaction.first()) { // a reaction exist
       if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+        [entity] = Entities.getOrRegister(entity.discordUser_id);
         backupItem = await entity.Player.Inventory.getBackupObject();
         if (entity.Player.Inventory.hasItemToSell()) { // Preventive
           const money = getItemValue(backupItem);

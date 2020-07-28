@@ -27,6 +27,8 @@ const Draftbot = require('core/DraftBot');
     await client.user
         .setActivity(JsonReader.bot.activity)
         .catch(console.error);
+
+    await require('core/DBL').verifyDBLRoles();
   };
 
   /**

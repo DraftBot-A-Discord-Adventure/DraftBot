@@ -117,7 +117,7 @@ const ProfileCommand = async function(language, message, args) {
       await msg.react(badges[badgeid]);
     }
   }
-  if (new Date() - entity.Player.topggVoteAt < TOPGG.BADGE_DURATION) {
+  if (new Date() - entity.Player.topggVoteAt < TOPGG.BADGE_DURATION*60*60*1000) {
     await msg.react(TOPGG.BADGE);
   }
 };

@@ -106,6 +106,7 @@ global.SHOP = {
 
 global.TOPGG = {
   BADGE: '🗳️',
-  BADGE_DURATION: 12*60*60*1000
+  BADGE_DURATION: 12,
+  ROLE_DURATION: 24
 };
 

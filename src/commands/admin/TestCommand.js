@@ -278,9 +278,8 @@ const TestCommand = async(language, message, args) => {
                     guild.save();
                 }
                 break;
-            case 'topggvote':
-                author.Player.topggVoteAt = new Date();
-                author.Player.save();
+            case 'fakevote':
+                await require('../../core/DBL').userDBLVote(message.author.id);
                 break;
             case 'topggatime':
                 author.Player.topggVoteAt -= parseInt(args[1]) * 60000;
