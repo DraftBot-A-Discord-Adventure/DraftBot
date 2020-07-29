@@ -6,8 +6,7 @@
  */
 const HelpCommand = async (language, message, args) => {
   const command = getMainCommandFromAlias(args[0]);
-  let helpMessage = JsonReader.commands.help.getTranslation(
-      language).commands[command];
+  let helpMessage = JsonReader.commands.help.getTranslation(language).commands[command];
 
   if (helpMessage === undefined) {
     let commandsMsg = "";
@@ -19,15 +18,22 @@ const HelpCommand = async (language, message, args) => {
         {pseudo: message.author.username, commands: commandsMsg });
   }
   else {
+    let helpMsgTmp = helpMessage;
+    helpMessage = new discord.MessageEmbed()
+        .setColor(JsonReader.bot.embed.default)
+        .setDescription(helpMsgTmp.description)
+        .setTitle(format(JsonReader.commands.help.getTranslation(language).commandEmbedTitle, { emote: helpMsgTmp.emote, cmd: command }));
+    helpMessage.addField(JsonReader.commands.help.getTranslation(language).usageFieldTitle, "`" + helpMsgTmp.usage + "`", true);
     const aliases = getAliasesFromCommand(command);
     if (aliases.length !== 0) {
-      helpMessage += "\n\n" + JsonReader.commands.help.getTranslation(language).aliases;
+      let aliasField = "";
       for (let i = 0; i < aliases.length; ++i) {
-        helpMessage += "`" + aliases[i] + "`";
+        aliasField += "`" + aliases[i] + "`";
         if (i !== aliases.length - 1) {
-          helpMessage += ", ";
+          aliasField += ", ";
         }
       }
+      helpMessage.addField(aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle, aliasField, true);
     }
   }
 

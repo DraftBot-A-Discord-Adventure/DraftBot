@@ -58,7 +58,9 @@ class Command {
    * @returns {String} The command
    */
   static getMainCommandFromAlias(alias) {
-    return Command.aliases.get(alias);
+    if (Command.aliases.has(alias))
+      return Command.aliases.get(alias);
+    return alias;
   }
 
   /**
