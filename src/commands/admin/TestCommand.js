@@ -271,6 +271,12 @@ const TestCommand = async(language, message, args) => {
                     guild.save();
                 }
                 break;
+            case 'adaily':
+                if (args.length === 2) {
+                    author.Player.Inventory.lastDailyAt -= parseInt(args[1]) * 60000;
+                    author.Player.Inventory.save();
+                }
+                break;
             case 'glvl':
                 if (args.length === 2 && !isNaN(args[1])) {
                     let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
@@ -287,6 +293,7 @@ const TestCommand = async(language, message, args) => {
                 break;
             default:
                 await message.channel.send('Argument inconnu !');
+                return;
         }
     } catch (error) {
         console.log(error);
