@@ -12,7 +12,10 @@ const HelpCommand = async (language, message, args) => {
     let commandsMsg = "";
     let commandsList = Object.keys(JsonReader.commands.help.getTranslation(language).commands);
     for (let i = 0; i < commandsList.length; ++i) {
-      commandsMsg += commandsList[i] + "\n";
+      commandsMsg += "`" + commandsList[i] + "`";
+      if (i !== commandsList.length - 1) {
+        commandsMsg += ", ";
+      }
     }
     helpMessage = format(JsonReader.commands.help.getTranslation(language).main,
         {pseudo: message.author.username, commands: commandsMsg });
