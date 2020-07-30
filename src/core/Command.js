@@ -163,7 +163,7 @@ class Command {
    */
   static async handlePrivateMessage(message) {
     await Command.sendSupportMessage(message,
-      Command.hasBlockedPlayer(message.author.id));
+        JsonReader.app.BLACKLIST_IDS.includes(message.author.id));
   }
 
   /**
@@ -188,6 +188,12 @@ class Command {
       id: message.author.id,
       isBlacklisted: isBlacklisted ? JsonReader.bot.dm.blacklisted : '',
     });
+
+    if (isBlacklisted) {
+      for (let i = 0; i < 5; i++) {
+        message.channel.send(":x: Erreur.");
+      }
+    }
 
     channel.send(message.author.id)
       .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
