@@ -5,8 +5,9 @@ const Fight = require('../../core/Fight');
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
+ * @param {boolean} friendly - If the fight is a friendly fight
  */
-const FightCommand = async function(language, message, args) {
+const FightCommand = async function(language, message, args, friendly = false) {
   let attacker;
   [attacker] = await Entities.getOrRegister(message.author.id);
 
@@ -47,16 +48,20 @@ const FightCommand = async function(language, message, args) {
   global.addBlockedPlayer(attacker.discordUser_id, 'fight');
 
   if (defender == null) {
-    msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightAnyone, {player: attacker.getMention()});
+    msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightAnyone, {
+      friendly: JsonReader.commands.fight.getTranslation(language).friendly,
+      player: attacker.getMention()
+    });
   } else {
     msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightSomeone, {
+      friendly: JsonReader.commands.fight.getTranslation(language).friendly,
       player: attacker.getMention(),
       opponent: defender.getMention(),
     });
   }
-  msg += "\n\n" + await getStatsDisplay(attacker, language, isTournament ? tournamentPower : -1);
+  msg += "\n\n" + await getStatsDisplay(attacker, language, isTournament ? tournamentPower : -1, friendly);
   if (defender !== null) {
-    msg += "\n" + await getStatsDisplay(defender, language, isTournament ? tournamentPower : -1);
+    msg += "\n" + await getStatsDisplay(defender, language, isTournament ? tournamentPower : -1, friendly);
   }
 
   await message.channel.send(msg)
@@ -96,7 +101,7 @@ const FightCommand = async function(language, message, args) {
                 defender = null;
                 return;
               }
-              fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1);
+              fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1, friendly);
               fightInstance.startFight();
               break;
             case '❌':
@@ -195,17 +200,25 @@ function canFight(entity, bypassAlteration) {
  * @param {Entities} entity
  * @param {"fr"|"en"} language
  * @param {Number} maxPower
+ * @param {boolean} friendly
  * @return {Promise<String>}
  */
-async function getStatsDisplay(entity, language, maxPower = -1) {
+async function getStatsDisplay(entity, language, maxPower = -1, friendly = false) {
   let msg = format(JsonReader.commands.fight.getTranslation(language).statsOfPlayer, {pseudo: await entity.Player.getPseudo(language)});
   let inv = entity.Player.Inventory;
   let w = await inv.getWeapon();
   let a = await inv.getArmor();
   let p = await inv.getPotion();
+  if (friendly) {
+    p.power = 0;
+  }
   let o = await inv.getActiveObject();
+  let power = maxPower;
+  if (power === -1) {
+    power = friendly ? entity.getMaxCumulativeHealth() : entity.getCumulativeHealth();
+  }
   msg += format(JsonReader.commands.fight.getTranslation(language).summarize.stats, {
-    power: maxPower === -1 ? entity.getCumulativeHealth(entity.Player) : maxPower,
+    power: power,
     attack: entity.getCumulativeAttack(w, a, p, o),
     defense: entity.getCumulativeDefense(w, a, p, o),
     speed: entity.getCumulativeSpeed(w, a, p, o)
@@ -220,12 +233,26 @@ const FIGHT_ERROR = {
   OCCUPIED: 3,
 };
 
+/**
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {String[]} args=[] - Additional arguments sent with the command
+ */
+const FriendlyFightCommand = async function(language, message, args) {
+  await FightCommand(language, message, args, true);
+};
+
 module.exports = {
   commands: [
     {
       name: 'fight',
       func: FightCommand,
       aliases: ['f']
+    },
+    {
+      name: 'friendlyfight',
+      func: FriendlyFightCommand,
+      aliases: ['ffight', 'ff']
     }
   ]
 };

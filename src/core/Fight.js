@@ -1,5 +1,6 @@
 /**
  * @param entity
+ * @param {boolean} friendly
  * @param {Number} attack
  * @param {Number} defense
  * @param {Number} speed
@@ -11,9 +12,11 @@
  */
 class Fighter {
   /**
-     * @param entity
-     */
-  constructor(entity) {
+   * @param entity
+   * @param {boolean} friendly
+   */
+  constructor(entity, friendly) {
+    this.friendly = friendly;
     this.entity = entity;
   }
 
@@ -26,11 +29,14 @@ class Fighter {
     const w = await inv.getWeapon();
     const a = await inv.getArmor();
     const p = await inv.getPotion();
+    if (this.friendly) {
+      p.power = 0;
+    }
     const o = await inv.getActiveObject();
     this.attack = this.entity.getCumulativeAttack(w, a, p, o);
     this.defense = this.entity.getCumulativeDefense(w, a, p, o);
     this.speed = this.entity.getCumulativeSpeed(w, a, p, o);
-    this.power = this.entity.getCumulativeHealth(this.entity.Player);
+    this.power = this.friendly ? this.entity.getMaxCumulativeHealth() : this.entity.getCumulativeHealth();
     this.maxDefenseImprovement = FIGHT.MAX_DEFENSE_IMPROVEMENT;
     this.maxSpeedImprovement = FIGHT.MAX_SPEED_IMPROVEMENT;
     this.chargeTurns = -1;
@@ -41,10 +47,12 @@ class Fighter {
      * Drink the potion if it is a fight potion
      */
   async consumePotionIfNeeded() {
-    if ((await this.entity.Player.Inventory.getPotion()).isFightPotion()) {
-      this.entity.Player.Inventory.drinkPotion();
-      this.entity.Player.Inventory.save();
-      this.entity.Player.save();
+    if (!this.friendly) {
+      if ((await this.entity.Player.Inventory.getPotion()).isFightPotion()) {
+        this.entity.Player.Inventory.drinkPotion();
+        this.entity.Player.Inventory.save();
+        this.entity.Player.save();
+      }
     }
   }
 
@@ -108,6 +116,7 @@ class FightActionResult {
  * @param {Number} points
  * @param {boolean} tournamentMode
  * @param {Number} maxPower
+ * @param {boolean} friendly
  */
 class Fight {
   /**
@@ -118,19 +127,21 @@ class Fight {
      * @param {("fr"|"en")} language - Language to use in the response
      * @param {boolean} tournamentMode
      * @param {Number} maxPower
+     * @param {boolean} friendly
      * @returns {Promise<void>}
      */
-  constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1) {
+  constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1, friendly = false) {
     if (randInt(0, 1) === 0) {
-      this.fighters = [new Fighter(player1), new Fighter(player2)];
+      this.fighters = [new Fighter(player1, friendly), new Fighter(player2, friendly)];
     } else {
-      this.fighters = [new Fighter(player2), new Fighter(player1)];
+      this.fighters = [new Fighter(player2, friendly), new Fighter(player1, friendly)];
     }
     this.turn = 0;
     this.message = message;
     this.language = language;
     this.tournamentMode = tournamentMode;
     this.maxPower = maxPower;
+    this.friendly = friendly;
     this.lastSummary = undefined;
     this.actionMessages = undefined;
   }
@@ -574,7 +585,7 @@ class Fight {
   calculateElo() {
     const loser = this.getLoser();
     const winner = this.getWinner();
-    if (loser !== null && winner !== null && winner.entity.Player.score !== 0 && !this.tournamentMode) {
+    if (loser !== null && winner !== null && winner.entity.Player.score !== 0 && !this.tournamentMode && !this.friendly) {
       this.elo = Math.round((loser.entity.Player.score / winner.entity.Player.score) * 100) / 100;
     } else {
       this.elo = 0;
@@ -586,7 +597,7 @@ class Fight {
      */
   calculatePoints() {
     const loser = this.getLoser();
-    if (loser !== null && !this.tournamentMode) {
+    if (loser !== null && !this.tournamentMode && !this.friendly) {
       this.points = Math.round(100 + 10 * loser.entity.Player.level * this.elo);
       if (this.points > 2000) {
         this.points = Math.round(2000 - randInt(5, 1000));

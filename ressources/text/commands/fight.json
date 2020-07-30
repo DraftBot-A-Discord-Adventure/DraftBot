@@ -1,8 +1,9 @@
 {
   "translations": {
     "fr": {
-      "wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat ! Pour y participer, cliquez sur la réaction ci-dessous !",
-      "wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
+      "wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat{friendly} ! Pour y participer, cliquez sur la réaction ci-dessous !",
+      "wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel{friendly} ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
+      "friendly": " **amical**",
       "intro": ":crossed_swords: | **Un combat est lancé entre {player1} et {player2} !**",
       "turnIndicationsTitle": "C'est au tour de {pseudo} de jouer ⚔️",
       "turnIndicationsDescription": "Choisissez une action",
@@ -121,8 +122,9 @@
       }
     },
     "en": {
-      "wantsToFightAnyone": ":crossed_swords: | {player} wants to fight ! To duel them, click the emote below !",
-      "wantsToFightSomeone": ":crossed_swords: | {player} challenges {opponent} ! To accept or not, click the emote below !",
+      "wantsToFightAnyone": ":crossed_swords: | {player} wants to {friendly}fight ! To duel them, click the emote below !",
+      "wantsToFightSomeone": ":crossed_swords: | {player} {friendly}challenges {opponent} ! To accept or not, click the emote below !",
+      "friendly": "**friendly** ",
       "intro": ":crossed_swords: | **A fight has begun between {player1} and {player2} !**",
       "turnIndicationsTitle": "It's {pseudo} 's turn to play ⚔️",
       "turnIndicationsDescription": "Choose an action",

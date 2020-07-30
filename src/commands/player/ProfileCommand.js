@@ -47,7 +47,7 @@ const ProfileCommand = async function(language, message, args) {
             await entity.Player.Inventory.getPotion(),
             await entity.Player.Inventory.getActiveObject(),
         ),
-        cumulativeMaxHealth: entity.getCumulativeHealth(entity.Player),
+        cumulativeMaxHealth: entity.getCumulativeHealth(),
       }),
     },
     {

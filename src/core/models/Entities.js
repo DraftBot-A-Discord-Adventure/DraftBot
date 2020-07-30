@@ -216,12 +216,21 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-   * Returns this player instance's current cumulative health
+   * Returns this player instance's current cumulative health. Returns the regenerative health
    * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getCumulativeHealth = function(player) {
-    return this.maxHealth + (player.level * 10);
+  Entities.prototype.getCumulativeHealth = function() {
+    return this.maxHealth + (this.Player.level * 10);
+  };
+
+  /**
+   * Returns this player instance's max cumulative health
+   * @param {Players} player
+   * @return {Number}
+   */
+  Entities.prototype.getMaxCumulativeHealth = function() {
+    return this.maxHealth + (this.Player.level * 10);
   };
 
   /**
