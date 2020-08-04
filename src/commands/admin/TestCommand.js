@@ -291,6 +291,13 @@ const TestCommand = async(language, message, args) => {
                 author.Player.topggVoteAt -= parseInt(args[1]) * 60000;
                 author.Player.save();
                 break;
+            case 'fightpointslost':
+            case 'fpl':
+                if (args.length === 2) {
+                    author.fightPointsLost = parseInt(args[1]);
+                    author.save();
+                }
+                break;
             default:
                 await message.channel.send('Argument inconnu !');
                 return;

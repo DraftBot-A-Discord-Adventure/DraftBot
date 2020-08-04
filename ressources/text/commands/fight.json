@@ -38,6 +38,10 @@
           "direct": "{pseudo}, vous ne pouvez pas lancer de combat lorsque vous êtes occupé !",
           "indirect": "Cette personne est occupée pour le moment !"
         },
+        "noFightPoints": {
+          "direct": "{pseudo}, vous n'avez plus de points de combat !",
+          "indirect": "Cette personne n'a plus de points de combat !"
+        },
         "defenderDoesntExist": "La personne demandée n'existe pas !"
       },
       "actions": {
@@ -158,6 +162,10 @@
         "occupied": {
           "direct": "{pseudo}, you can't start a fight if you're occupied !",
           "indirect": "This person is currently occupied !"
+        },
+        "noFightPoints": {
+          "direct": "{pseudo}, you don't have any fight points !",
+          "indirect": "This person doesn't have any fight points !"
         },
         "defenderDoesntExist": "Asked player doesn't exist!"
       },

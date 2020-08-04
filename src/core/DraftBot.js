@@ -24,6 +24,7 @@ class DraftBot {
         // draftbot.checkEasterEggsFile();
 
         DraftBot.programTopWeekTimeout();
+        setTimeout(DraftBot.fightPowerRegenerationLoop, FIGHT.POINTS_REGEN_MINUTES*60*1000);
 
         require('core/DBL').startDBLWebhook();
 
@@ -77,6 +78,12 @@ class DraftBot {
         Players.update({ weeklyScore: 0 }, { where: {} });
         console.log("# WARNING # Weekly leaderboard has been reset !");
         DraftBot.programTopWeekTimeout();
+    }
+
+    static async fightPowerRegenerationLoop() {
+        const sequelize = require('sequelize');
+        await Entities.update({ fightPointsLost: sequelize.literal(`CASE WHEN fightPointsLost - ${FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FIGHT.POINTS_REGEN_AMOUNT} END`)}, {where: { fightPointsLost: {[sequelize.Op.not]: 0}}});
+        setTimeout(DraftBot.fightPowerRegenerationLoop, FIGHT.POINTS_REGEN_MINUTES*60*1000);
     }
 
     /**

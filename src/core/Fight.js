@@ -474,6 +474,12 @@ class Fight {
       winner.entity.Player.addWeeklyScore(this.points);
       winner.entity.Player.save();
     }
+    if (!this.friendly && !this.tournamentMode) {
+      for (let i = 0; i < this.fighters.length; i++) {
+        this.fighters[i].entity.fightPointsLost = this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
+        this.fighters[i].entity.save();
+      }
+    }
     for (let i = 0; i < this.fighters.length; i++) {
       global.removeBlockedPlayer(this.fighters[i].entity.discordUser_id);
     }

@@ -32,11 +32,11 @@ const FightCommand = async function(language, message, args, friendly = false) {
 
   let isTournament = tournamentChannel === message.channel.id;
   let canF;
-  if ((canF = canFight(attacker, isTournament)) !== FIGHT_ERROR.NONE) {
+  if ((canF = canFight(attacker, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
     sendError(message, attacker, canF, true, language);
     return;
   }
-  if (defender != null && (canF = canFight(defender, isTournament)) !== FIGHT_ERROR.NONE) {
+  if (defender != null && (canF = canFight(defender, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
     sendError(message, defender, canF, false, language);
     return;
   }
@@ -96,7 +96,7 @@ const FightCommand = async function(language, message, args, friendly = false) {
                 break;
               }
               [defender] = await Entities.getOrRegister(user.id);
-              if ((canF = canFight(defender, isTournament)) !== FIGHT_ERROR.NONE) {
+              if ((canF = canFight(defender, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
                 sendError(message, defender, canF, true, language);
                 defender = null;
                 return;
@@ -169,6 +169,12 @@ function sendError(message, entity, error, direct, language) {
                 JsonReader.commands.fight.getTranslation(language).error.occupied.indirect;
       sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg2);
       break;
+    case FIGHT_ERROR.NO_FIGHT_POINTS:
+      const msg3 = direct ?
+          format(JsonReader.commands.fight.getTranslation(language).error.noFightPoints.direct, {pseudo: entity.getMention()}) :
+          JsonReader.commands.fight.getTranslation(language).error.noFightPoints.indirect;
+      sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg3);
+      break;
     default:
       break;
   }
@@ -177,9 +183,10 @@ function sendError(message, entity, error, direct, language) {
 /**
  * @param entity
  * @param {boolean} bypassAlteration
+ * @param {boolean} bypassHealth
  * @return {Number} error
  */
-function canFight(entity, bypassAlteration) {
+function canFight(entity, bypassAlteration, bypassHealth) {
   if (entity == null) {
     return null;
   }
@@ -191,6 +198,9 @@ function canFight(entity, bypassAlteration) {
   }
   if (global.hasBlockedPlayer(entity.discordUser_id)) {
     return FIGHT_ERROR.OCCUPIED;
+  }
+  if (entity.getCumulativeHealth() === 0 && !bypassHealth) {
+    return FIGHT_ERROR.NO_FIGHT_POINTS;
   }
   return 0;
 }
@@ -231,6 +241,7 @@ const FIGHT_ERROR = {
   WRONG_LEVEL: 1,
   DISALLOWED_EFFECT: 2,
   OCCUPIED: 3,
+  NO_FIGHT_POINTS: 4
 };
 
 /**
