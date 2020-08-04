@@ -225,8 +225,10 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Number}
    */
   Entities.prototype.getCumulativeHealth = function() {
-    let fp = this.getMaxCumulativeHealth() - this.fightPointsLost;
+    let maxHealth = this.getMaxCumulativeHealth();
+    let fp = maxHealth - this.fightPointsLost;
     if (fp < 0) fp = 0;
+    else if (fp > maxHealth) fp = maxHealth;
     return fp;
   };
 
