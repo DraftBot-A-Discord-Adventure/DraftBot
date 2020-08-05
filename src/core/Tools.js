@@ -271,7 +271,13 @@ global.randInt = (min, max) => {
  * @return {String} - The bar
  */
 global.progressBar = (value, maxValue) => {
-  const percentage = value / maxValue; // Calculate the percentage of the bar
+  let percentage = value / maxValue; // Calculate the percentage of the bar
+  if (percentage < 0 || isNaN(percentage) || percentage === Infinity) {
+    percentage = 0;
+  }
+  if (percentage > 1) {
+    percentage = 1;
+  }
   const progress = Math.round((PROGRESSBARS_SIZE * percentage)); // Calculate the number of square caracters to fill the progress side.
   const emptyProgress = PROGRESSBARS_SIZE - progress; // Calculate the number of dash caracters to fill the empty progress side.
 
