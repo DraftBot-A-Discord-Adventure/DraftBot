@@ -378,3 +378,23 @@ global.parseTimeDifference = function (date1, date2, language) {
 global.resetIsNow = function () {
   return getNextSundayMidnight() - new Date() <= 1000 * 5 * 60;
 };
+
+/**
+ * Allow to get the validation information of a guild
+ * @param {module:"discord.js".Guild} guild - The guild that has to be checked
+ */
+global.getValidationInfos = function(guild) {
+  let humans = guild.members.cache.filter(member => !member.user.bot).size;
+  let bots = guild.members.cache.filter(member => member.user.bot).size;
+  let ratio = Math.round((bots / humans) * 100);
+  let validation = ":white_check_mark:";
+  if (ratio > 30 || humans < 30 || (humans < 100 && ratio > 20)) {
+    validation = ":x:";
+  }
+  else {
+    if (ratio > 20 || bots > 15 || humans < 100) {
+      validation = ":warning:";
+    }
+  }
+  return { validation: validation, humans: humans, bots: bots, ratio: ratio };
+};

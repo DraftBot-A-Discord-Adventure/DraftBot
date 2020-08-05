@@ -63,42 +63,14 @@ const Draftbot = require('core/DraftBot');
    * @return {string}
    */
   const getJoinLeaveMessage = (guild, join, language) => {
-    let humans = guild.members.cache.filter(member => !member.user.bot).size;
-    let robots = guild.members.cache.filter(member => member.user.bot).size;
-    let ratio = Math.round((robots / humans) * 100);
+    let { validation, humans, bots, ratio } = getValidationInfos(guild);
     return format(join ? JsonReader.bot.getTranslation(language).joinGuild : JsonReader.bot.getTranslation(language).leaveGuild, {
       guild: guild,
       humans: humans,
-      robots: robots,
+      robots: bots,
       ratio: ratio,
-      validation: getGuildValidation(guild, humans, robots, ratio)
+      validation: validation
     });
-  };
-
-  /**
-   * Get validation emoji of a guild
-   * @param {module:"discord.js".Guild} guild
-   * @param {Number} humans - will be calculated if not provided
-   * @param {Number} robots - will be calculated if not provided
-   * @param {Number} ratio - will be calculated if not provided
-   * @return {string}
-   */
-  const getGuildValidation = (guild, humans = -1, robots = -1, ratio = -1) => {
-    if (humans === -1) {
-      humans = guild.members.cache.filter(member => !member.user.bot).size;
-      robots = guild.members.cache.filter(member => member.user.bot).size;
-      ratio = Math.round((robots / humans) * 100);
-    }
-    let validation = ":white_check_mark:";
-    if (ratio > 30 || humans < 30 || (humans < 100 && ratio > 20)) {
-      validation = ":x:";
-    }
-    else {
-      if (ratio > 20 || robots > 15 || humans < 100) {
-        validation = ":warning:";
-      }
-    }
-    return validation;
   };
 
   /**
