@@ -30,7 +30,7 @@ const FightCommand = async function(language, message, args, friendly = false) {
     }
   }
 
-  let isTournament = tournamentChannel === message.channel.id;
+  let isTournament = tournamentChannel === message.channel.id && !friendly;
   let canF;
   if ((canF = canFight(attacker, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
     sendError(message, attacker, canF, true, language);
@@ -49,12 +49,12 @@ const FightCommand = async function(language, message, args, friendly = false) {
 
   if (defender == null) {
     msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightAnyone, {
-      friendly: JsonReader.commands.fight.getTranslation(language).friendly,
+      friendly: friendly ? JsonReader.commands.fight.getTranslation(language).friendly : "",
       player: attacker.getMention()
     });
   } else {
     msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightSomeone, {
-      friendly: JsonReader.commands.fight.getTranslation(language).friendly,
+      friendly: friendly ? JsonReader.commands.fight.getTranslation(language).friendly : "",
       player: attacker.getMention(),
       opponent: defender.getMention(),
     });
