@@ -284,6 +284,13 @@ const TestCommand = async(language, message, args) => {
                     guild.save();
                 }
                 break;
+            case 'gxp':
+                if (args.length === 2 && !isNaN(args[1])) {
+                    let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
+                    guild.experience = parseInt(args[1]);
+                    guild.save();
+                }
+                break;
             case 'fakevote':
                 await require('../../core/DBL').userDBLVote(message.author.id);
                 break;

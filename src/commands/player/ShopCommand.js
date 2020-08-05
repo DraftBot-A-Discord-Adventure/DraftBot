@@ -44,7 +44,7 @@ async function ShopCommand(language, message, args) {
     //Fetching potion infos
     const potion = await Potions.findOne({
         where: {
-            id: Math.round(((Date.now() / (1000 * 60 * 60 * 24)) % (numberOfPotions - 1)) + 1),
+            id: ((Math.round(Date.now() / (1000 * 60 * 60 * 24))) % (numberOfPotions - 1)) + 1,
         },
     });
     const potionPrice = Math.round(
