@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "<:LovePotion:548221051063107594>  **Potion de soin ultime**",
-		"en": "<:LovePotion:548221051063107594>  **Ultimate healing potion**"
+		"fr": "<:LovePotion:548221051063107594> **Potion de soin ultime**",
+		"en": "<:LovePotion:548221051063107594> **Ultimate healing potion**"
 	},
 	"rarity": 7,
 	"power": 215,

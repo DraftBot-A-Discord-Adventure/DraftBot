@@ -85,7 +85,7 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | :walking:  Vous avez passé de longues minutes à discuter avec l'inconnue vous finissez par repartir ! En suivant ses indications vous arrivez rapidement à bon port.",
+					"fr": "** | :walking: Vous avez passé de longues minutes à discuter avec l'inconnue vous finissez par repartir ! En suivant ses indications vous arrivez rapidement à bon port.",
 					"en": "** | :walking: After spending several minutes chatting with the mysterious woman you end up leaving. Following her directions, you arrive safely at the other end of the forest."
 				},
 				"lostTime": 45,

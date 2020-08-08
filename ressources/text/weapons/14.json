@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":guitar:  **Guitare lourde**",
-		"en": ":guitar:  **Heavy Guitar**"
+		"fr": ":guitar: **Guitare lourde**",
+		"en": ":guitar: **Heavy Guitar**"
 	},
 	"rarity": 2,
 	"rawAttack": 1

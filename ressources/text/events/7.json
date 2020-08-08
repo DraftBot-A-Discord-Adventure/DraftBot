@@ -83,7 +83,7 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | :walking:  Vous avez passé près de quinze minutes sans bouger, il est temps de repartir ! ",
+					"fr": "** | :walking: Vous avez passé près de quinze minutes sans bouger, il est temps de repartir ! ",
 					"en": "** | :walking: You spent almost fifteen minutes without moving, it's time to go back! "
 				},
 				"lostTime": 15,
