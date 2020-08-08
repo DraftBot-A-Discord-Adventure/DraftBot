@@ -62,7 +62,7 @@ module.exports = {
     {
       name: 'drink',
       func: DrinkCommand,
-      aliases: ['dr']
+      aliases: ['dr', 'glouglou']
     }
   ]
 };
