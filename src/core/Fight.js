@@ -507,9 +507,9 @@ class Fight {
       case FIGHT.ACTION.QUICK_ATTACK:
         powerChanger = 0.1;
         if (defender.speed > attacker.speed && success < 0.1) {
-          powerChanger = 0.6;
+          powerChanger = 0.5;
         } else if (defender.speed < attacker.speed && success < 0.95) {
-          powerChanger = 0.65;
+          powerChanger = 0.5;
         }
         far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.1));
         far.fullSuccess = far.damage >= attacker.attack - defender.power;
