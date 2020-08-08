@@ -92,22 +92,6 @@ module.exports = (Sequelize, DataTypes) => {
         .includes(badge);
   };
 
-  /**
-   * @param {("points")} points - A number representating the score
-   * @deprecated 2.1.0 Directly use score attribute from entity
-   */
-  Players.prototype.setPoints = function(points) {
-    this.score = points;
-  };
-
-  /**
-   * @param {("pointsWeek")} pointsWeek - A number representating the weekly score
-   * @deprecated 2.1.0 Directly use weeklyScore attribute from entity
-   */
-  Players.prototype.setPointsWeek = function(points) {
-    this.weeklyScore = points;
-  };
-
   Players.beforeSave((instance, options) => {
     instance.setDataValue('updatedAt',
         require('moment')().format('YYYY-MM-DD HH:mm:ss'));
