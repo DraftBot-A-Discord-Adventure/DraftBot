@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://draftbot.fandom.com/fr/wiki/Commandes",
-			"main": "** :notebook_with_decorative_cover: {pseudo} voici la liste des commandes disponibles :**\n{commands}\n\n:arrow_forward: Si tu veux plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! <https://draftbot.fandom.com/fr/wiki/Commandes>",
+			"main": "** :notebook_with_decorative_cover: {pseudo} voici la liste des commandes disponibles :**\n{commands}\n\n:arrow_forward: Si vous voulez plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:\n\n:arrow_forward: Il est aussi possible de demander de l'aide sur les badges en écrivant `help badges`\n\n:arrow_forward: Pour plus d'aide, vous pouvez vous rendre sur le wiki du bot ! <https://draftbot.fandom.com/fr/wiki/Commandes>",
 			"commandEmbedTitle": "{emote} Commande {cmd}",
 			"usageFieldTitle": "Utilisation",
 			"aliasFieldTitle": "Alias",

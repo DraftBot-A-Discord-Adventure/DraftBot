@@ -157,7 +157,7 @@ async function ShopCommand(language, message, args) {
  * @param {*} reaction - The reaction
  */
 async function sellItem(message, reaction, language, entity, customer, selectedItem) {
-    [entity] = Entities.getOrRegister(entity.discordUser_id);
+    [entity] = await Entities.getOrRegister(entity.discordUser_id);
     const shopTranslations = JsonReader.commands.shop.getTranslation(language);
     if (selectedItem.name) {
         //This is not a potion

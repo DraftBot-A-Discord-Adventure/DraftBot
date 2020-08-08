@@ -5,7 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SellCommand = async (language, message, args) => {
-  const [entity] = await Entities.getOrRegister(message.author.id);
+  let [entity] = await Entities.getOrRegister(message.author.id);
 
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
     return;
@@ -45,7 +45,7 @@ const SellCommand = async (language, message, args) => {
     removeBlockedPlayer(entity.discordUser_id);
     if (reaction.first()) { // a reaction exist
       if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-        [entity] = Entities.getOrRegister(entity.discordUser_id);
+        [entity] = await Entities.getOrRegister(entity.discordUser_id);
         backupItem = await entity.Player.Inventory.getBackupObject();
         if (entity.Player.Inventory.hasItemToSell()) { // Preventive
           const money = getItemValue(backupItem);
