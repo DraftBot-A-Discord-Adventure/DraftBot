@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":bow_and_arrow:  **Arc de soldat**",
-		"en": "🏹  **Soldier bow**"
+		"fr": "🏹 **Arc de soldat**",
+		"en": "🏹 **Soldier bow**"
 	},
 	"rarity": 4,
 	"rawAttack": 7

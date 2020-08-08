@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "<:DarkPotion:548221047187439710>  **Potion périmée**",
-		"en": "<:DarkPotion:548221047187439710>  **Expired potion**"
+		"fr": "<:DarkPotion:548221047187439710> **Potion périmée**",
+		"en": "<:DarkPotion:548221047187439710> **Expired potion**"
 	},
 	"rarity": 1,
 	"power": 1,

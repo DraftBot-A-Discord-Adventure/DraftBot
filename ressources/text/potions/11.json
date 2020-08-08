@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "<:BubblePurplePotion:548221045266579465>  **Potion acide**",
-		"en": "<:BubblePurplePotion:548221045266579465>  **Acidic potion**"
+		"fr": "<:BubblePurplePotion:548221045266579465> **Potion acide**",
+		"en": "<:BubblePurplePotion:548221045266579465> **Acidic potion**"
 	},
 	"rarity": 6,
 	"power": 84,

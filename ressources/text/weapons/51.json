@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":bow_and_arrow:  **Arc du héros**",
-		"en": "🏹  **Heroe bow**"
+		"fr": "🏹 **Arc du héros**",
+		"en": "🏹 **Heroe bow**"
 	},
 	"rarity": 7,
 	"rawAttack": 8

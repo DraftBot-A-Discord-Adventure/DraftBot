@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "<:GreenPotion:548221043618086921>  **Potion ultime**",
-		"en": "<:GreenPotion:548221043618086921>  **Ultimate potion**"
+		"fr": "<:GreenPotion:548221043618086921> **Potion ultime**",
+		"en": "<:GreenPotion:548221043618086921> **Ultimate potion**"
 	},
 	"rarity": 7,
 	"power": 20,

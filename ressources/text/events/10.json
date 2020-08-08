@@ -31,8 +31,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** |  :sweat_drops: Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:",
-					"en": "** |  :sweat_drops: The fish at the end of the line must be huge! You find yourself quickly pulled down to the bottom of the water! You are saved just in time by the fisherman. Stunned by this adventure, you will have to heal before continuing! :confounded:"
+					"fr": "** | :sweat_drops: Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:",
+					"en": "** | :sweat_drops: The fish at the end of the line must be huge! You find yourself quickly pulled down to the bottom of the water ! You are saved just in time by the fisherman. Stunned by this adventure, you will have to heal before continuing ! :confounded:"
 				},
 				"lostTime": 0,
 				"health": -10,
