@@ -229,12 +229,12 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
         score: topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek ? allEntities[k - 1].Player.weeklyScore : allEntities[k - 1].Player.score,
         level: allEntities[k - 1].Player.level
       });
-      if (topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek) {
-        embed.setFooter(format(JsonReader.commands.topCommand.getTranslation(language).nextReset, { time: parseTimeDifference(new Date(), getNextSundayMidnight(), language) }),'https://i.imgur.com/OpL9WpR.png');
-      }
-      embed.setDescription(messages);
     }
   }
+  if (topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek) {
+    embed.setFooter(format(JsonReader.commands.topCommand.getTranslation(language).nextReset, { time: parseTimeDifference(new Date(), getNextSundayMidnight(), language) }),'https://i.imgur.com/OpL9WpR.png');
+  }
+  embed.setDescription(messages);
 
   //Define badge for the user
   if (rankCurrentPlayer === 1) badge = ":first_place:";

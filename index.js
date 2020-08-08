@@ -5,6 +5,43 @@ require('core/Tools');
 const Draftbot = require('core/DraftBot');
 
 (async (Drafbot) => {
+
+  /* Console override */
+  global.consoleLogs = "";
+  const originalConsoleLog = console.log;
+  const addConsoleLog = function(message) {
+    global.consoleLogs += message.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '') + "\n"; // Remove terminal colors
+  };
+  console.log = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleLog(message, optionalParams === undefined ? "" : optionalParams);
+  };
+  const originalConsoleWarn = console.warn;
+  console.warn = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleWarn(message, optionalParams === undefined ? "" : optionalParams);
+  };
+  const originalConsoleInfo = console.info;
+  console.info = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleInfo(message, optionalParams === undefined ? "" : optionalParams);
+  };
+  const originalConsoleDebug = console.debug;
+  console.debug = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleDebug(message, optionalParams === undefined ? "" : optionalParams);
+  };
+  const originalConsoleError = console.error;
+  console.error = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleError(message, optionalParams === undefined ? "" : optionalParams);
+  };
+  const originalConsoleTrace = console.trace;
+  console.trace = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleTrace(message, optionalParams === undefined ? "" : optionalParams);
+  };
+
   await Drafbot.init();
 
   /**

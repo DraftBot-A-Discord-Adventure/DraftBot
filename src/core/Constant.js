@@ -44,6 +44,7 @@ global.PERMISSION = {
     SUPPORT: 'support', // has the support role
     ADMINISTRATOR: 'administrator', // has the admin permission in a server where the bot is.
     TOURNAMENT: 'tournament', // has the permission to use the tournament command
+    CONTRIBUTORS: 'contributors',
     ALL: 'all',
   },
 };

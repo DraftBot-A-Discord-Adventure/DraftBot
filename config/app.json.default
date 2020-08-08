@@ -13,6 +13,12 @@
 
   "//TOURNAMENT_ROLE": "Put ids of the persons that will be able to use the tournament command",
   "TOURNAMENT_ROLE": "",
+
+  "//CONTRIBUTOR_ROLE": "Put id of the contributors role",
+  "CONTRIBUTOR_ROLE": "",
+
+  "//CONTRIBUTORS_CHANNEL": "Put id of the contributors channel",
+  "CONTRIBUTORS_CHANNEL": "",
   
   "//BOT_OWNER_PREFIX": "The prefix only the bot owner can use",
   "BOT_OWNER_PREFIX": "",
