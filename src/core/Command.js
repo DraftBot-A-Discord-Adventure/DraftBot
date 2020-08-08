@@ -131,7 +131,7 @@ class Command {
       language = "en";
     }
 
-    if (message.content.startsWith("<@!" + client.user.id + ">")) {
+    if (message.mentions.members.size !== 0 && message.mentions.members.last().id === client.user.id) {
       await message.channel.send(format(
           JsonReader.bot.getTranslation(language).mentionHelp,
           { prefix: server.prefix }

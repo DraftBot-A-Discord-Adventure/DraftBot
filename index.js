@@ -10,7 +10,11 @@ const Draftbot = require('core/DraftBot');
   global.consoleLogs = "";
   const originalConsoleLog = console.log;
   const addConsoleLog = function(message) {
-    global.consoleLogs += message.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '') + "\n"; // Remove terminal colors
+    try {
+      global.consoleLogs += message.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '') + "\n"; // Remove terminal colors
+    } catch (e) {
+      global.consoleLogs += message + "\n";
+    }
   };
   console.log = function(message, optionalParams) {
     addConsoleLog(message);
