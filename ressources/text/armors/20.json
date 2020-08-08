@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":family_mmgb:  **Bouclier humain**",
-		"en": ":family_mmgb:  **Human shield**"
+		"fr": ":family_mmgb: **Bouclier humain**",
+		"en": ":family_mmgb: **Human shield**"
 	},
 	"rarity": 7,
 	"rawDefense": 9

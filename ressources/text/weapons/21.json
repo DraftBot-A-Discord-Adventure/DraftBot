@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":pick:  **Pioche abimée**",
-		"en": ":pick:  **Damaged pickaxe**"
+		"fr": ":pick: **Pioche abimée**",
+		"en": ":pick: **Damaged pickaxe**"
 	},
 	"rarity": 1,
 	"rawAttack": 4

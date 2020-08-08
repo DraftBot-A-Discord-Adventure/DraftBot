@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "<:BubbleGreenPotion:548221041940365353>  **Potion verte**",
-		"en": "<:BubbleGreenPotion:548221041940365353>  **Green potion**"
+		"fr": "<:BubbleGreenPotion:548221041940365353> **Potion verte**",
+		"en": "<:BubbleGreenPotion:548221041940365353> **Green potion**"
 	},
 	"rarity": 3,
 	"power": 45,

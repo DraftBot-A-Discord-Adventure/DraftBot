@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "<:PurplePotion:548221048768954418>  **Potion de force**",
-		"en": "<:PurplePotion:548221048768954418>  **Strength potion**"
+		"fr": "<:PurplePotion:548221048768954418> **Potion de force**",
+		"en": "<:PurplePotion:548221048768954418> **Strength potion**"
 	},
 	"rarity": 3,
 	"power": 45,

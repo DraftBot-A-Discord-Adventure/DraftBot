@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":shield:  **Bouclier de la solitude**",
-		"en": ":shield:  **Shield of solitude**"
+		"fr": ":shield: **Bouclier de la solitude**",
+		"en": ":shield: **Shield of solitude**"
 	},
 	"rarity": 3,
 	"rawDefense": 7

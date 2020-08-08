@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":syringe:  **Seringue sale**",
-		"en": "💉  **Dirty syringe**"
+		"fr": "💉 **Seringue sale**",
+		"en": "💉 **Dirty syringe**"
 	},
 	"rarity": 5,
 	"rawAttack": 2
