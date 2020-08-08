@@ -1,8 +1,9 @@
 {
   "translations": {
     "fr": {
-      "wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat ! Pour y participer, cliquez sur la réaction ci-dessous !",
-      "wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
+      "wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat{friendly} ! Pour y participer, cliquez sur la réaction ci-dessous !",
+      "wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel{friendly} ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
+      "friendly": " **amical**",
       "intro": ":crossed_swords: | **Un combat est lancé entre {player1} et {player2} !**",
       "turnIndicationsTitle": "C'est au tour de {pseudo} de jouer ⚔️",
       "turnIndicationsDescription": "Choisissez une action",
@@ -12,7 +13,7 @@
         "intro": ":crossed_swords: | **Etat actuel du combat**\n\n",
         "attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
         "defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
-        "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+        "stats": ":blue_heart: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
       },
       "end": {
         "draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**",
@@ -36,6 +37,10 @@
         "occupied": {
           "direct": "{pseudo}, vous ne pouvez pas lancer de combat lorsque vous êtes occupé !",
           "indirect": "Cette personne est occupée pour le moment !"
+        },
+        "noFightPoints": {
+          "direct": "{pseudo}, vous n'avez plus de points de combat !",
+          "indirect": "Cette personne n'a plus de points de combat !"
         },
         "defenderDoesntExist": "La personne demandée n'existe pas !"
       },
@@ -121,8 +126,9 @@
       }
     },
     "en": {
-      "wantsToFightAnyone": ":crossed_swords: | {player} wants to fight ! To duel them, click the emote below !",
-      "wantsToFightSomeone": ":crossed_swords: | {player} challenges {opponent} ! To accept or not, click the emote below !",
+      "wantsToFightAnyone": ":crossed_swords: | {player} wants to {friendly}fight ! To duel them, click the emote below !",
+      "wantsToFightSomeone": ":crossed_swords: | {player} {friendly}challenges {opponent} ! To accept or not, click the emote below !",
+      "friendly": "**friendly** ",
       "intro": ":crossed_swords: | **A fight has begun between {player1} and {player2} !**",
       "turnIndicationsTitle": "It's {pseudo} 's turn to play ⚔️",
       "turnIndicationsDescription": "Choose an action",
@@ -132,7 +138,7 @@
         "intro": ":crossed_swords: | **Current battle state**\n\n",
         "attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
         "defender": ":crossed_swords: |** Defender : {pseudo}**\n",
-        "stats": ":blue_heart: {power} :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+        "stats": ":blue_heart: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
       },
       "end": {
         "draw": ":newspaper: |** {player1} finished their match against {player2} on a draw!**",
@@ -156,6 +162,10 @@
         "occupied": {
           "direct": "{pseudo}, you can't start a fight if you're occupied !",
           "indirect": "This person is currently occupied !"
+        },
+        "noFightPoints": {
+          "direct": "{pseudo}, you don't have any fight points !",
+          "indirect": "This person doesn't have any fight points !"
         },
         "defenderDoesntExist": "Asked player doesn't exist!"
       },

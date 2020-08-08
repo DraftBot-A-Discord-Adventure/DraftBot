@@ -128,7 +128,7 @@
 				},
 				"lostTime": 10,
 				"health": 0,
-				"effect": ":smiley:",
+				"effect": ":clock2:",
 				"experience": 150,
 				"money": 0,
 				"item": false

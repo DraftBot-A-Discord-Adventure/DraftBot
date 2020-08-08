@@ -266,16 +266,43 @@ const TestCommand = async(language, message, args) => {
                 return;
             case 'agd':
                 if (args.length === 2) {
-                    let guild = await Guilds.findOne({ where: { id: author.Player.guild_id } });
+                    let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
                     guild.lastDailyAt -= parseInt(args[1]) * 60000;
                     guild.save();
                 }
                 break;
+            case 'adaily':
+                if (args.length === 2) {
+                    author.Player.Inventory.lastDailyAt -= parseInt(args[1]) * 60000;
+                    author.Player.Inventory.save();
+                }
+                break;
             case 'glvl':
                 if (args.length === 2 && !isNaN(args[1])) {
-                    let guild = await Guilds.findOne({ where: { id: author.Player.guild_id } });
+                    let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
                     guild.level = parseInt(args[1]);
                     guild.save();
+                }
+                break;
+            case 'gxp':
+                if (args.length === 2 && !isNaN(args[1])) {
+                    let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
+                    guild.experience = parseInt(args[1]);
+                    guild.save();
+                }
+                break;
+            case 'fakevote':
+                await require('../../core/DBL').userDBLVote(message.author.id);
+                break;
+            case 'topggatime':
+                author.Player.topggVoteAt -= parseInt(args[1]) * 60000;
+                author.Player.save();
+                break;
+            case 'fightpointslost':
+            case 'fpl':
+                if (args.length === 2) {
+                    author.fightPointsLost = parseInt(args[1]);
+                    author.save();
                 }
                 break;
             default:
@@ -291,5 +318,10 @@ const TestCommand = async(language, message, args) => {
 };
 
 module.exports = {
-    'test': TestCommand,
+    commands: [
+        {
+            name: 'test',
+            func: TestCommand
+        }
+    ]
 };

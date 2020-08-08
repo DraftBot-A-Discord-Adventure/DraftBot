@@ -50,7 +50,7 @@
 				},
 				"lostTime": 45,
 				"health": 0,
-				"effect": ":smiley:",
+				"effect": ":clock2:",
 				"experience": 25,
 				"money": 0,
 				"item": false
@@ -62,7 +62,7 @@
 				},
 				"lostTime": 15,
 				"health": 0,
-				"effect": ":smiley:",
+				"effect": ":clock2:",
 				"experience": 425,
 				"money": 30,
 				"item": true
@@ -72,7 +72,7 @@
 					"fr": "** | ⛓ Vous montez sur l'échelle, mais arrivé a mi-chemin, un barreau casse et vous tombez au sol ! Etourdi par la chute, vous reprenez lentement vos esprits. :confounded:",
 					"en": "** | ⛓ You climb the ladder, but when you reach the halfway point, a bar breaks, and you fall to the ground! Shaken from the fall, you slowly come to your senses. :confounded:"
 				},
-				"lostTime": 20,
+				"lostTime": 0,
 				"health": -30,
 				"effect": ":confounded:",
 				"experience": 0,
@@ -98,7 +98,7 @@
 					"fr": "** | 🚶 Vous observez le chantier de loin, sans voir la pioche posée au sol. Vous vous entaillez le pied en repartant. :confounded:",
 					"en": "** | 🚶 You observe the site from a distance, without seeing the pickaxe on the ground. You cut your foot on it leaving. :confounded:"
 				},
-				"lostTime": 15,
+				"lostTime": 0,
 				"health": -15,
 				"effect": ":confounded:",
 				"experience": 0,
@@ -114,7 +114,7 @@
 				},
 				"lostTime": 10,
 				"health": 0,
-				"effect": ":smiley:",
+				"effect": ":clock2:",
 				"experience": 25,
 				"money": 0,
 				"item": false

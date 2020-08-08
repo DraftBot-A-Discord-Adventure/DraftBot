@@ -3,6 +3,8 @@
 
 # **DraftBot - A Discord Adventure**
 DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLast) based on an adventure game on text.
+The story takes place in a medieval world, and the player embodies an adventurer who wants to win a competition launched by the king, to win the princess' hand. To achieve this, he must travel, and earn points by going through a lot of dangers, including thieves, wilderness, and scary children. Every few hours, the player may get a random event by using the "report" command: they interact with a multiple-choices based system, using reactions below the report. Each choice has multiple issues,which could hurt the character, heal him, or even give him some stuff. During the journey, he earns money, stuff, and points, and can use them to buy potions, stuff or effects in the shop, fight other players, and ascend the leaderboard.
+
 <br>
 
 [![](https://img.shields.io/discord/429765017332613120.svg)](https://discord.gg/AP3Wmzb)
@@ -39,17 +41,10 @@ DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLas
 * Edit the file app.json with the correct data
 * Launch the bot : `yarn start`
 
-# Common errors:
-
-//TODO
-
 # Screenshots
 ![](https://cdn.discordapp.com/attachments/456120666874183680/575235223776788480/tuto.PNG)
 
 # Links
 * [Discord server *(in french)*](https://discord.gg/AP3Wmzb)
-* [Trello board *(in french)*](https://trello.com/b/mJidA4EI/draftbot)
+* [Trello board *(in french)*](https://trello.com/b/ybaKdWsr/suggestions)
 * [Twitter account *(in french)*](https://twitter.com/DraftBot_?s=09)
-
-# Credits
-Thx to [@Formula-9](https://github.com/Formula-9) for the basic structure of the bot.

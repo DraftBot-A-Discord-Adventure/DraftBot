@@ -14,6 +14,12 @@ class MessageError {
       }
     }
 
+    if (permission === PERMISSION.ROLE.CONTRIBUTORS) {
+      if (!message.member.roles.cache.has(JsonReader.app.CONTRIBUTOR_ROLE) && !MessageError.isBotOwner(message.author.id)) {
+        return await MessageError.permissionErrorMe(message, language, permission);
+      }
+    }
+
     if (permission === PERMISSION.ROLE.SUPPORT) {
       if (!message.member.roles.cache.has(JsonReader.app.SUPPORT_ROLE) && !MessageError.isBotOwner(message.author.id)) {
         return await MessageError.permissionErrorMe(message, language, permission);
@@ -78,6 +84,12 @@ class MessageError {
       embed
           .setAuthor(format(JsonReader.error.getTranslation(language).titlePermissionError, {pseudo: message.author.username}), message.author.displayAvatarURL())
           .setDescription(JsonReader.error.getTranslation(language).badgeManagerPermissionMissing);
+    }
+
+    if (permission === PERMISSION.ROLE.CONTRIBUTORS) {
+      embed
+          .setAuthor(format(JsonReader.error.getTranslation(language).titlePermissionError, {pseudo: message.author.username}), message.author.displayAvatarURL())
+          .setDescription(JsonReader.error.getTranslation(language).contributorPermissionMissing);
     }
 
     if (permission === PERMISSION.ROLE.SUPPORT) {

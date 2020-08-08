@@ -31,7 +31,12 @@ const changeLanguageCommand = async function(language, message, args) {
 };
 
 module.exports = {
-  'language': changeLanguageCommand,
+  commands: [
+    {
+      name: 'language',
+      func: changeLanguageCommand
+    }
+  ]
 };
 
 

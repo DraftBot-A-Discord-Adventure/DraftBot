@@ -5,6 +5,43 @@ require('core/Tools');
 const Draftbot = require('core/DraftBot');
 
 (async (Drafbot) => {
+
+  /* Console override */
+  global.consoleLogs = "";
+  const originalConsoleLog = console.log;
+  const addConsoleLog = function(message) {
+    global.consoleLogs += message.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '') + "\n"; // Remove terminal colors
+  };
+  console.log = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleLog(message, optionalParams === undefined ? "" : optionalParams);
+  };
+  const originalConsoleWarn = console.warn;
+  console.warn = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleWarn(message, optionalParams === undefined ? "" : optionalParams);
+  };
+  const originalConsoleInfo = console.info;
+  console.info = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleInfo(message, optionalParams === undefined ? "" : optionalParams);
+  };
+  const originalConsoleDebug = console.debug;
+  console.debug = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleDebug(message, optionalParams === undefined ? "" : optionalParams);
+  };
+  const originalConsoleError = console.error;
+  console.error = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleError(message, optionalParams === undefined ? "" : optionalParams);
+  };
+  const originalConsoleTrace = console.trace;
+  console.trace = function(message, optionalParams) {
+    addConsoleLog(message);
+    originalConsoleTrace(message, optionalParams === undefined ? "" : optionalParams);
+  };
+
   await Drafbot.init();
 
   /**
@@ -27,6 +64,8 @@ const Draftbot = require('core/DraftBot');
     await client.user
         .setActivity(JsonReader.bot.activity)
         .catch(console.error);
+
+    await require('core/DBL').verifyDBLRoles();
   };
 
   /**
@@ -61,42 +100,14 @@ const Draftbot = require('core/DraftBot');
    * @return {string}
    */
   const getJoinLeaveMessage = (guild, join, language) => {
-    let humans = guild.members.cache.filter(member => !member.user.bot).size;
-    let robots = guild.members.cache.filter(member => member.user.bot).size;
-    let ratio = Math.round((robots / humans) * 100);
+    let { validation, humans, bots, ratio } = getValidationInfos(guild);
     return format(join ? JsonReader.bot.getTranslation(language).joinGuild : JsonReader.bot.getTranslation(language).leaveGuild, {
       guild: guild,
       humans: humans,
-      robots: robots,
+      robots: bots,
       ratio: ratio,
-      validation: getGuildValidation(guild, humans, robots, ratio)
+      validation: validation
     });
-  };
-
-  /**
-   * Get validation emoji of a guild
-   * @param {module:"discord.js".Guild} guild
-   * @param {Number} humans - will be calculated if not provided
-   * @param {Number} robots - will be calculated if not provided
-   * @param {Number} ratio - will be calculated if not provided
-   * @return {string}
-   */
-  const getGuildValidation = (guild, humans = -1, robots = -1, ratio = -1) => {
-    if (humans === -1) {
-      humans = guild.members.cache.filter(member => !member.user.bot).size;
-      robots = guild.members.cache.filter(member => member.user.bot).size;
-      ratio = Math.round((robots / humans) * 100);
-    }
-    let validation = ":white_check_mark:";
-    if (ratio > 30 || humans < 30 || (humans < 100 && ratio > 20)) {
-      validation = ":x:";
-    }
-    else {
-      if (ratio > 20 || robots > 15 || humans < 100) {
-        validation = ":warning:";
-      }
-    }
-    return validation;
   };
 
   /**

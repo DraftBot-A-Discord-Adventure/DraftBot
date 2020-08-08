@@ -44,6 +44,9 @@ const GuildDailyCommand = async (language, message, args) => {
   const members = await Entities.getByGuild(guild.id);
 
   for (const i in members) {
+    if (hasBlockedPlayer(members[i].discordUser_id) && getBlockedPlayer(members[i].discordUser_id) === "fight") {
+      continue;
+    }
     if (await sendBlockedError(await client.users.fetch(members[i].discordUser_id), message.channel, language)) {
       return;
     }
@@ -165,9 +168,13 @@ const GuildDailyCommand = async (language, message, args) => {
 };
 
 module.exports = {
-  'guilddaily': GuildDailyCommand,
-  'gdaily': GuildDailyCommand,
-  'gd': GuildDailyCommand,
+  commands: [
+    {
+      name: 'guilddaily',
+      func: GuildDailyCommand,
+      aliases: ['gdaily', 'gd']
+    }
+  ]
 };
 
 

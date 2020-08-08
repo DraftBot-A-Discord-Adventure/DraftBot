@@ -44,5 +44,10 @@ const SendPrivateMessage = async function(language, message, args) {
 };
 
 module.exports = {
-  'dm': SendPrivateMessage,
+  commands: [
+    {
+      name: 'dm',
+      func: SendPrivateMessage
+    }
+  ]
 };

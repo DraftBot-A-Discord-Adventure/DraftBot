@@ -19,32 +19,20 @@ const DailyCommand = async function (language, message) {
   if (lastDailyDay.getDate() === now.getDate() &&
     lastDailyDay.getMonth() === now.getMonth() &&
     lastDailyDay.getFullYear() === now.getFullYear()) {
-    return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(
-      language).alreadyClaimedError);
+    return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).alreadyClaimedError);
   }
 
-  if (activeObject.nature == NATURE.NONE) {
-    if (activeObject.id != JsonReader.models.inventories.object_id) {
+  if (activeObject.nature === NATURE.NONE) {
+    if (activeObject.id !== JsonReader.models.inventories.object_id) {
       // there is a object that do nothing in the inventory
-      embed.setColor(JsonReader.bot.embed.error)
-        .setAuthor(format(
-          JsonReader.commands.daily.getTranslation(language).noDailyError,
-          { pseudo: message.author.username }),
-          message.author.displayAvatarURL())
-        .setDescription(JsonReader.commands.daily.getTranslation(
-          language).objectDoNothingError);
+      sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).objectDoNothingError);
     } else {
       // there is no object in the inventory
-      embed.setColor(JsonReader.bot.embed.error)
-        .setAuthor(format(
-          JsonReader.commands.daily.getTranslation(language).noDailyError,
-          { pseudo: message.author.username }),
-          message.author.displayAvatarURL())
-        .setDescription(JsonReader.commands.daily.getTranslation(
-          language).noActiveObjectdescription);
+      sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).noActiveObjectdescription);
     }
+    return;
   }
-  if (activeObject.nature == NATURE.HEALTH) {
+  if (activeObject.nature === NATURE.HEALTH) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(
         JsonReader.commands.daily.getTranslation(language).dailySuccess,
@@ -56,17 +44,10 @@ const DailyCommand = async function (language, message) {
     entity.addHealth(activeObject.power);
     entity.Player.Inventory.updateLastDailyAt();
   }
-  if (activeObject.nature == NATURE.SPEED || activeObject.nature ==
-    NATURE.DEFENSE || activeObject.nature == NATURE.ATTACK) { // Those objects are active only during fights
-    embed.setColor(JsonReader.bot.embed.error)
-      .setAuthor(format(
-        JsonReader.commands.daily.getTranslation(language).noDailyError,
-        { pseudo: message.author.username }),
-        message.author.displayAvatarURL())
-      .setDescription(JsonReader.commands.daily.getTranslation(
-        language).objectIsActiveDuringFights);
+  if (activeObject.nature === NATURE.SPEED || activeObject.nature === NATURE.DEFENSE || activeObject.nature === NATURE.ATTACK) { // Those objects are active only during fights
+    return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).objectIsActiveDuringFights);
   }
-  if (activeObject.nature == NATURE.HOSPITAL) {
+  if (activeObject.nature === NATURE.HOSPITAL) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(
         JsonReader.commands.daily.getTranslation(language).dailySuccess,
@@ -75,10 +56,10 @@ const DailyCommand = async function (language, message) {
       .setDescription(format(
         JsonReader.commands.daily.getTranslation(language).hospitalBonus,
         { value: activeObject.power }));
-    entity.Player.fastForward(activeObject.power);
+    await entity.Player.fastForward(activeObject.power);
     entity.Player.Inventory.updateLastDailyAt();
   }
-  if (activeObject.nature == NATURE.MONEY) {
+  if (activeObject.nature === NATURE.MONEY) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(
         JsonReader.commands.daily.getTranslation(language).dailySuccess,
@@ -99,10 +80,12 @@ const DailyCommand = async function (language, message) {
   return await message.channel.send(embed);
 };
 
-/**
- * @type {{daily: DailyCommand, da: DailyCommand}}
- */
 module.exports = {
-  daily: DailyCommand,
-  da: DailyCommand,
+  commands: [
+    {
+      name: 'daily',
+      func: DailyCommand,
+      aliases: ['da']
+    }
+  ]
 };
