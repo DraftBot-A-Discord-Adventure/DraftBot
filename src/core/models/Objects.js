@@ -96,9 +96,15 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {String}
    */
   Objects.prototype.getNatureTranslation = function(language) {
-    return format(
-        JsonReader.items.getTranslation(language).objects.natures[this.nature],
-        {power: this.power});
+    if (this.nature === 5) {
+      return format(
+          JsonReader.items.getTranslation(language).objects.natures[this.nature],
+          {power: minutesToString(this.power * 60)});
+    } else {
+      return format(
+          JsonReader.items.getTranslation(language).objects.natures[this.nature],
+          {power: this.power});
+    }
   };
 
   /**
