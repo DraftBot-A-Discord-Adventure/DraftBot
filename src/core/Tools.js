@@ -48,6 +48,8 @@ global.sendErrorMessage = (user, channel, language, reason) => {
  */
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
   let item = await entity.Player.Inventory.generateRandomItem();
+  let autoSell = false;
+
   let embed = new discord.MessageEmbed();
   embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
     pseudo: discordUser.username,
@@ -55,6 +57,9 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     .setDescription(item.toString(language));
   if (item instanceof Potions) {
     const potion = await entity.Player.Inventory.getPotion();
+    if (potion.id === item.id) {
+      autoSell = true;
+    }
     embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
       actualItem: potion.toString(language),
     }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
@@ -62,15 +67,23 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     }));
   }
   if (item instanceof Objects) {
-    const object = await entity.Player.Inventory.getBackupObject();
+    const inventory = await entity.Player.Inventory;
+    const backupObject = await inventory.getBackupObject();
+    const activeObject = await inventory.getActiveObject();
+    if (backupObject.id === item.id || activeObject.id === item.id) {
+      autoSell = true;
+    }
     embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-      actualItem: object.toString(language),
+      actualItem: backupObject.toString(language),
     }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-      actualItem: object.toString(language),
+      actualItem: backupObject.toString(language),
     }));
   }
   if (item instanceof Weapons) {
     const weapon = await entity.Player.Inventory.getWeapon();
+    if (weapon.id === item.id) {
+      autoSell = true;
+    }
     embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
       actualItem: weapon.toString(language),
     }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
@@ -79,6 +92,9 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
   }
   if (item instanceof Armors) {
     const armor = await entity.Player.Inventory.getArmor();
+    if (armor.id === item.id) {
+      autoSell = true;
+    }
     embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
       actualItem: armor.toString(language),
     }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
@@ -86,70 +102,83 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     }));
   }
 
-  const msg = await channel.send(embed);
-  const filterConfirm = (reaction, user) => {
-    return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === discordUser.id);
-  };
-
-  const collector = msg.createReactionCollector(filterConfirm, {
-    time: 120000,
-    max: 1,
-  });
-
-  collector.on('end', async (reaction) => {
-    if (reaction.first()) { // a reaction exist
-      // msg.delete(); for now we are goig to keep the message
-      if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
-        embed = new discord.MessageEmbed();
-        embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
-          pseudo: discordUser.username,
-        }), discordUser.displayAvatarURL())
-          .setDescription(item.toString(language));
-
-        let oldItem;
-        if (item instanceof Potions) {
-          oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
-          entity.Player.Inventory.potion_id = item.id;
-        }
-        if (item instanceof Objects) {
-          oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
-          entity.Player.Inventory.backup_id = item.id;
-        }
-        if (item instanceof Weapons) {
-          oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
-          entity.Player.Inventory.weapon_id = item.id;
-        }
-        if (item instanceof Armors) {
-          oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
-          entity.Player.Inventory.armor_id = item.id;
-        }
-        await Promise.all([
-          entity.save(),
-          entity.Player.save(),
-          entity.Player.Inventory.save(),
-        ]);
-        await channel.send(embed);
-        item = oldItem;
-      }
-    }
-    if (item.rarity != 0) {
-      const money = getItemValue(item);
-      entity.Player.addMoney(money);
-      await entity.Player.save();
-      return await channel.send(
-        format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-          {
-            item: item.getName(language),
-            money: money
-          },
+  if (autoSell) {
+    const money = getItemValue(item);
+    entity.Player.addMoney(money);
+    await entity.Player.save();
+    return await channel.send(
+        format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwn,
+            {
+              item: item.getName(language),
+              money: money
+            },
         ));
-    }
-  });
+  } else {
+    const msg = await channel.send(embed);
+    const filterConfirm = (reaction, user) => {
+      return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === discordUser.id);
+    };
 
-  await Promise.all([
-    msg.react(MENU_REACTION.ACCEPT),
-    msg.react(MENU_REACTION.DENY),
-  ]);
+    const collector = msg.createReactionCollector(filterConfirm, {
+      time: 120000,
+      max: 1,
+    });
+
+    collector.on('end', async (reaction) => {
+      if (reaction.first()) { // a reaction exist
+        // msg.delete(); for now we are goig to keep the message
+        if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
+          embed = new discord.MessageEmbed();
+          embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
+                pseudo: discordUser.username,
+              }), discordUser.displayAvatarURL())
+              .setDescription(item.toString(language));
+
+          let oldItem;
+          if (item instanceof Potions) {
+            oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
+            entity.Player.Inventory.potion_id = item.id;
+          }
+          if (item instanceof Objects) {
+            oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
+            entity.Player.Inventory.backup_id = item.id;
+          }
+          if (item instanceof Weapons) {
+            oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
+            entity.Player.Inventory.weapon_id = item.id;
+          }
+          if (item instanceof Armors) {
+            oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
+            entity.Player.Inventory.armor_id = item.id;
+          }
+          await Promise.all([
+            entity.save(),
+            entity.Player.save(),
+            entity.Player.Inventory.save(),
+          ]);
+          await channel.send(embed);
+          item = oldItem;
+        }
+      }
+      if (item.rarity != 0) {
+        const money = getItemValue(item);
+        entity.Player.addMoney(money);
+        await entity.Player.save();
+        return await channel.send(
+            format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+                {
+                  item: item.getName(language),
+                  money: money
+                },
+            ));
+      }
+    });
+
+    await Promise.all([
+      msg.react(MENU_REACTION.ACCEPT),
+      msg.react(MENU_REACTION.DENY),
+    ]);
+  }
 };
 
 /**

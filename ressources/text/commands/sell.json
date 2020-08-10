@@ -5,14 +5,16 @@
       "confirmSell": "Êtes-vous sûr de vouloir vous séparer de {item} pour **{money}** :moneybag: ?",
       "sellCanceled": "La vente a bien été annulée !",
       "sellTitle": "{pseudo}, confirmation :",
-      "soldMessage": "Vous avez vendu {item} pour **{money}** :moneybag: !"
+      "soldMessage": "Vous avez vendu {item} pour **{money}** :moneybag: !",
+      "soldMessageAlreadyOwn": "Vous avez vendu {item} pour **{money}** :moneybag:, car vous le possédez déjà !"
     },
     "en": {
       "noItemToSell": "Unfortunately, you don't have any backup item in your inventory!",
       "confirmSell": "Do you really want to leave {item} for **{money}** :moneybag:?",
       "sellCanceled": "The transaction was canceled!",
       "sellTitle": "{pseudo}, confirmation:",
-      "soldMessage": "You sold {item} for **{money}** :moneybag:!"
+      "soldMessage": "You sold {item} for **{money}** :moneybag:, because you already own it!",
+      "soldMessageAlreadyOwn": ""
     }
   }
 }
