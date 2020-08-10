@@ -144,7 +144,11 @@ const GuildAddCommand = async (language, message, args) => {
 
 
 module.exports = {
-  'guildadd': GuildAddCommand,
-  'gadd': GuildAddCommand,
-  'ga': GuildAddCommand,
+  commands: [
+    {
+      name: 'guildadd',
+      func: GuildAddCommand,
+      aliases: ['gadd', 'ga']
+    }
+  ]
 };

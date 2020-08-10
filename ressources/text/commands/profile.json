@@ -8,7 +8,7 @@
 			},
 			"statistique": {
 				"fieldName": "Statistiques :",
-				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :blue_heart: {cumulativeMaxHealth}"
+				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :blue_heart: {cumulativeHealth} / {cumulativeMaxHealth}"
 			},
 			"classement": {
 				"fieldName": "Classement et Score :",
@@ -42,7 +42,8 @@
 				"🎗️": ":reminder_ribbon:  `Personne ayant dominé un classement de la semaine`",
 				"🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`",
 				"😂": ":joy:  `Badge offert à une personne drôle`",
-				"💎": ":gem:  `Membre d'une guilde puissante`"
+				"💎": ":gem:  `Membre d'une guilde puissante`",
+				"🗳️": ":ballot_box:  `Personne ayant voté dans les 12 dernières heures`"
 			}
 		},
 		"en": {
@@ -53,7 +54,7 @@
 			},
 			"statistique": {
 				"fieldName": "Stats :",
-				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :blue_heart: {cumulativeMaxHealth}"
+				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :blue_heart: {cumulativeHealth} / {cumulativeMaxHealth}"
 			},
 			"classement": {
 				"fieldName": "Ranking and score :",
@@ -88,7 +89,8 @@
 				"🎗️": ":reminder_ribbon:  `People who lead the topweek`",
 				"🎄": ":christmas_tree:  `This badge can be win on giveaway every christmas`",
 				"😂": ":joy:  `Badge given to funny people`",
-				"💎": ":gem:  `Member of a powerful team`"
+				"💎": ":gem:  `Member of a powerful team`",
+				"🗳️": ":ballot_box:  `Person who voted in the last 12 hours`"
 			}
 		}
 	},

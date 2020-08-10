@@ -21,6 +21,11 @@ const SwitchCommand = async (language, message, args) => {
 };
 
 module.exports = {
-  'switch': SwitchCommand,
-  'sw': SwitchCommand
+  commands: [
+    {
+      name: 'switch',
+      func: SwitchCommand,
+      aliases: ['sw']
+    }
+  ]
 };

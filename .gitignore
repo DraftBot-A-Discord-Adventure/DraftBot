@@ -8,3 +8,4 @@ src/utils/eastereggs/iv
 config/app.json
 *.iml
 .jshintrc
+logs.txt

@@ -12,7 +12,7 @@
 				},
 				"lostTime": 50,
 				"health": 0,
-				"effect": ":smiley:",
+				"effect": ":clock2:",
 				"experience": 325,
 				"money": 0,
 				"item": true
@@ -50,7 +50,7 @@
 				},
 				"lostTime": 180,
 				"health": 0,
-				"effect": ":smiley:",
+				"effect": ":clock2:",
 				"experience": 25,
 				"money": 0,
 				"item": false
@@ -128,7 +128,7 @@
 				},
 				"lostTime": 15,
 				"health": 0,
-				"effect": ":smiley:",
+				"effect": ":clock2:",
 				"experience": 25,
 				"money": 0,
 				"item": false

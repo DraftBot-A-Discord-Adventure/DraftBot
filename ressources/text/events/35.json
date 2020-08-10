@@ -1,112 +1,124 @@
 {
-	"translations": {
-		"fr": " : ** :beers: Vous entrez dans un bar, et le barman vous interpelle, vous disant qu'il aimerait \"tester de nouvelles boissons\" sur vous.\n\n:beer: Accepter de servir de cobaye\n:x: Refuser sa proposition\n:moneybag: Refuser, et tenter de voler des gens\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :beers: You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you.\n\n:beer: Accept the proposal\n:x: Refuse the proposal\n:moneybag:Refuse, and try to rob other customers\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
-	},
-	"possibilities": {
-		"🍺": [
-			{
-				"translations": {
-					"fr": "** | 🍺 Vous acceptez sa proposition, et buvez le liquide épais qu'il vous tend. C'est délicieux et cela répand en vous une douce chaleur. ",
-					"en": "** | 🍺 You accept his proposal and drink the thick liquid he gives you. It is delicious and spreads a sweet warmth within you."
-				},
-				"lostTime": 0,
-				"health": 30,
-				"effect": ":smiley:",
-				"experience": 350,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🍺 Vous prenez sans plus de cérémonie la chope qu'il vous tend, remplie d'un liquide épais et verdâtre. Vous buvez celui-ci d'un trait. Quelques secondes après, vous réalisez l'horrible goût que ça a, et vomissez le tout par terre. Le barman s'excuse et vous donne une poignée de pièces en dédommagement, mais vous vous sentez malade. :sick:",
-					"en": "** | 🍺 You, without further ado, take the mug filled with a thick, greenish liquid he holds out to you. You drink it in one gulp. A few seconds later, you realize how horrible it tastes and you throw up on the floor. The bartender apologizes and gives you a handful of coins as compensation, but you don't feel well. :sick:"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":sick:",
-				"experience": 0,
-				"money": 250,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🍺 Vous acceptez sa requête, et il vous donne une chope. Vous la buvez, et sentez un petit arrière goût pas piqué des hannetons. Vous donnez au barman vos impressions, il vous remercie, puis vous reprenez votre route. ",
-					"en": "** | 🍺 You accept his request and he gives you a mug. You drink it and feel a little pleasant aftertaste. You give the bartender your impressions, he thanks you, then you go on your way."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		],
-		"❌": [
-			{
-				"translations": {
-					"fr": "** | ❌ Vous ne pensez pas que ce soit une bonne idée de boire des choses inconnues pour tester, alors vous déclinez poliment la proposition du barman. Cependant, vous lui commandez une bonne pinte de bière, que vous videz tranquillement en discutant avec des habitués.",
-					"en": "** | ❌ You think that drinking unknown things is a bad idea, so you politely decline the bartender’s proposal. However, you order him a good pint of beer, which you empty quietly while chatting with regulars."
-				},
-				"lostTime": 30,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": -50,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | ❌ Vous agressez littéralement le barman lui demandant s'il vous prend pour un gougnafier à essayer de vous faire boire n'importe quelle cochonnerie. Il vous exclue de son bar, alors vous vous vengez en y allumant un feu, puis reprenez votre chemin.",
-					"en": "** | ❌ You literally assault the bartender asking him if he thinks you’re a dyke trying to get you to drink any filth. He kicks you out of his bar, so you take revenge by lighting it on fire, and then you go on your way."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | ❌ Vous expliquez au barman que vous n'avez pas trop envie de boire quelque chose d'inconnu, et encore moins de servir de cobaye. Il vous rassure en vous disant qu'il a juste mixé deux alcools et quelques extraits de plantes sans danger. Vous buvez donc, et lui dites vos impressions.",
-					"en": "** | ❌ You explain to the bartender that you don’t want to drink something of which the origins are unknown, let alone be a guinea pig. He reassures you by telling you that he just mixed two alcohols and some plant extracts. So you drink and tell him your impressions."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		],
-		"💰": [
-			{
-				"translations": {
-					"fr": "** | 💰 Vous lui expliquez que vous n'avez pas trop envie de lui servir de cobaye, alors le barman, semblant déçu, vous laisse. Vous vous attelez donc à la tâche qui vous faisait envie depuis votre entrée dans le bar : dépouiller discrètement les clients. Vous faites les poches à trois personnes sans soucis, mais la quatrième vous remarque et crie au voleur. Vous prenez la fuite.",
-					"en": "** | 💰 You explain to him that you don’t really want to be a guinea pig, so the bartender, seemingly disappointed. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pocket three people without worries, but the fourth notices you and shouts at the thief. You run away."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 250,
-				"money": 1000,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 🚶‍♂️ Vous l'ignorez, et repartez juste de son auberge.",
-					"en": "** | 🚶‍♂️ You ignore him and just leave the inn."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		]
-	}
+    "translations": {
+        "fr": " : ** :beers: Vous entrez dans un bar, et le barman vous interpelle, vous disant qu'il aimerait \"tester de nouvelles boissons\" sur vous.\n\n:beer: Accepter de servir de cobaye\n:x: Refuser sa proposition\n:moneybag: Refuser, et tenter de voler des gens\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "en": " : ** :beers: You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you.\n\n:beer: Accept the proposal\n:x: Refuse the proposal\n:moneybag:Refuse, and try to rob other customers\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+    },
+    "possibilities": {
+        "🍺": [
+            {
+                "translations": {
+                    "fr": "** | 🍺 Vous acceptez sa proposition, et buvez le liquide épais qu'il vous tend. C'est délicieux et cela répand en vous une douce chaleur. ",
+                    "en": "** | 🍺 You accept his proposal and drink the thick liquid he gives you. It is delicious and spreads a sweet warmth within you."
+                },
+                "lostTime": 0,
+                "health": 30,
+                "effect": ":smiley:",
+                "experience": 350,
+                "money": 0,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | 🍺 Vous prenez sans plus de cérémonie la chope qu'il vous tend, remplie d'un liquide épais et verdâtre. Vous buvez celui-ci d'un trait. Quelques secondes après, vous réalisez l'horrible goût que ça a, et vomissez le tout par terre. Le barman s'excuse et vous donne une poignée de pièces en dédommagement, mais vous vous sentez malade. :sick:",
+                    "en": "** | 🍺 You, without further ado, take the mug filled with a thick, greenish liquid he holds out to you. You drink it in one gulp. A few seconds later, you realize how horrible it tastes and you throw up on the floor. The bartender apologizes and gives you a handful of coins as compensation, but you don't feel well. :sick:"
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":sick:",
+                "experience": 0,
+                "money": 250,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | 🍺 Vous acceptez sa requête, et il vous donne une chope. Vous la buvez, et sentez un petit arrière goût pas piqué des hannetons. Vous donnez au barman vos impressions, il vous remercie, puis vous reprenez votre route. ",
+                    "en": "** | 🍺 You accept his request and he gives you a mug. You drink it and feel a little pleasant aftertaste. You give the bartender your impressions, he thanks you, then you go on your way."
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":smiley:",
+                "experience": 150,
+                "money": 0,
+                "item": false
+            }
+        ],
+        "❌": [
+            {
+                "translations": {
+                    "fr": "** | ❌ Vous ne pensez pas que ce soit une bonne idée de boire des choses inconnues pour tester, alors vous déclinez poliment la proposition du barman. Cependant, vous lui commandez une bonne pinte de bière, que vous videz tranquillement en discutant avec des habitués.",
+                    "en": "** | ❌ You think that drinking unknown things is a bad idea, so you politely decline the bartender’s proposal. However, you order him a good pint of beer, which you empty quietly while chatting with regulars."
+                },
+                "lostTime": 30,
+                "health": 0,
+                "effect": ":clock2:",
+                "experience": 25,
+                "money": -50,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | ❌ Vous agressez littéralement le barman lui demandant s'il vous prend pour un gougnafier à essayer de vous faire boire n'importe quelle cochonnerie. Il vous exclue de son bar, alors vous vous vengez en y allumant un feu, puis reprenez votre chemin.",
+                    "en": "** | ❌ You literally assault the bartender asking him if he thinks you’re a dyke trying to get you to drink any filth. He kicks you out of his bar, so you take revenge by lighting it on fire, and then you go on your way."
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":smiley:",
+                "experience": 150,
+                "money": 0,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | ❌ Vous expliquez au barman que vous n'avez pas trop envie de boire quelque chose d'inconnu, et encore moins de servir de cobaye. Il vous rassure en vous disant qu'il a juste mixé deux alcools et quelques extraits de plantes sans danger. Vous buvez donc, et lui dites vos impressions.",
+                    "en": "** | ❌ You explain to the bartender that you don’t want to drink something of which the origins are unknown, let alone be a guinea pig. He reassures you by telling you that he just mixed two alcohols and some plant extracts. So you drink and tell him your impressions."
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":smiley:",
+                "experience": 150,
+                "money": 0,
+                "item": false
+            }
+        ],
+        "💰": [
+            {
+                "translations": {
+                    "fr": "** | 💰 Vous lui expliquez que vous n'avez pas trop envie de lui servir de cobaye, alors le barman, semblant déçu, vous laisse. Vous vous attelez donc à la tâche qui vous faisait envie depuis votre entrée dans le bar : dépouiller discrètement les clients. Vous faites les poches à trois personnes sans soucis, mais la quatrième vous remarque et crie au voleur. Vous prenez la fuite.",
+                    "en": "** | 💰 You explain to him that you don’t really want to be a guinea pig, so the bartender, seemingly disappointed. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pocket three people without worries, but the fourth notices you and shouts at the thief. You run away."
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":smiley:",
+                "experience": 250,
+                "money": 1000,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | 💰 Vous lui expliquez que vous n'avez pas trop envie de lui servir de cobaye, alors le barman, semblant déçu, vous laisse. Vous vous attelez donc à la tâche qui vous faisait envie depuis votre entrée dans le bar : dépouiller discrètement les clients. Vous faites les poches à trois personnes sans soucis, mais la quatrième vous remarque et crie au voleur. Vous finissez la nuit en prison.",
+                    "en": "** | 💰 You explain to him that you don’t really want to be a guinea pig, so the bartender, seemingly disappointed. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pocket three people without worries, but the fourth notices you and shouts at the thief. You finish the night in prison."
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":lock:",
+                "experience": 0,
+                "money": -200,
+                "item": false
+            }
+        ],
+        "end": [
+            {
+                "translations": {
+                    "fr": "** | 🚶‍♂️ Vous l'ignorez, et repartez juste de son auberge.",
+                    "en": "** | 🚶‍♂️ You ignore him and just leave the inn."
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":smiley:",
+                "experience": 150,
+                "money": 0,
+                "item": false
+            }
+        ]
+    }
 }

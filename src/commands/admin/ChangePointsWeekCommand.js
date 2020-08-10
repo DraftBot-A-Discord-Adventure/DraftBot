@@ -14,7 +14,7 @@ const ChangePointsWeekCommand = async function(language, message, args) {
   let entity;
   const playerId = message.mentions.users.last().id;
   [entity] = await Entities.getOrRegister(playerId);
-  await entity.Player.setPointsWeek(args[1]);
+  entity.Player.weeklyScore = parseInt(args[1]);
   await entity.Player.save();
 
   embed.setColor(JsonReader.bot.embed.default)
@@ -29,5 +29,10 @@ const ChangePointsWeekCommand = async function(language, message, args) {
 };
 
 module.exports = {
-  'pointsw': ChangePointsWeekCommand,
+  commands: [
+    {
+      name: 'pointsw',
+      func: ChangePointsWeekCommand
+    }
+  ]
 };

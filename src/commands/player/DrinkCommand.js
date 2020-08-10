@@ -8,44 +8,40 @@ const DrinkCommand = async function (language, message) {
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
     return;
   }
+  if (await sendBlockedError(message.author, message.channel, language)) {
+    return;
+  }
   const potion = await entity.Player.Inventory.getPotion();
   const embed = new discord.MessageEmbed();
 
 
-  if (potion.nature == NATURE.NONE) {
-    if (potion.id != JsonReader.models.inventories.potion_id) {
-      // there is a potion that do nothing in the inventory
-      embed.setColor(JsonReader.bot.embed.error)
-        .setAuthor(format(JsonReader.commands.drink.getTranslation(language).noDrinkError, { pseudo: message.author.username }), message.author.displayAvatarURL())
-        .setDescription(JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
+  if (potion.nature === NATURE.NONE) {
+    if (potion.id !== JsonReader.models.inventories.potion_id) {
+      sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
       entity.Player.Inventory.drinkPotion();
     } else {
-      // there is no potion in the inventory
-      embed.setColor(JsonReader.bot.embed.error)
-        .setAuthor(format(JsonReader.commands.drink.getTranslation(language).noDrinkError, { pseudo: message.author.username }), message.author.displayAvatarURL())
-        .setDescription(JsonReader.commands.drink.getTranslation(language).noActiveObjectdescription);
+      sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).noActiveObjectdescription);
     }
+    return;
   }
-  if (potion.nature == NATURE.HEALTH) {
+  if (potion.nature === NATURE.HEALTH) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
       .setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, { value: potion.power }));
     entity.addHealth(potion.power);
     entity.Player.Inventory.drinkPotion();
   }
-  if (potion.nature == NATURE.SPEED || potion.nature == NATURE.DEFENSE || potion.nature == NATURE.ATTACK) { // Those objects are active only during fights
-    embed.setColor(JsonReader.bot.embed.error)
-      .setAuthor(format(JsonReader.commands.drink.getTranslation(language).noDrinkError, { pseudo: message.author.username }), message.author.displayAvatarURL())
-      .setDescription(JsonReader.commands.drink.getTranslation(language).objectIsActiveDuringFights);
+  if (potion.nature === NATURE.SPEED || potion.nature === NATURE.DEFENSE || potion.nature === NATURE.ATTACK) { // Those objects are active only during fights
+    return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectIsActiveDuringFights);
   }
-  if (potion.nature == NATURE.HOSPITAL) {
+  if (potion.nature === NATURE.HOSPITAL) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
       .setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, { value: potion.power }));
-    entity.Player.fastForward(potion.power);
+    await entity.Player.fastForward(potion.power);
     entity.Player.Inventory.drinkPotion();
   }
-  if (potion.nature == NATURE.MONEY) {
+  if (potion.nature === NATURE.MONEY) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
       .setDescription(format(JsonReader.commands.drink.getTranslation(language).moneyBonus, { value: potion.power }));
@@ -62,6 +58,11 @@ const DrinkCommand = async function (language, message) {
 };
 
 module.exports = {
-  drink: DrinkCommand,
-  dr: DrinkCommand,
+  commands: [
+    {
+      name: 'drink',
+      func: DrinkCommand,
+      aliases: ['dr', 'glouglou']
+    }
+  ]
 };

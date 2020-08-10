@@ -10,7 +10,7 @@ global.EFFECT = {
   SMILEY: ':smiley:',
   AWAITINGANSWER: ':clock10:', // may be deleted : is used to avoir interaction when the bot is awaiting an answer
   DEAD: ':skull:',
-  SLEEPING: ':sleeping: ',
+  SLEEPING: ':sleeping:',
   DRUNK: ':zany_face:',
   FROZEN: ':cold_face:',
   HURT: ':head_bandage:',
@@ -44,6 +44,7 @@ global.PERMISSION = {
     SUPPORT: 'support', // has the support role
     ADMINISTRATOR: 'administrator', // has the admin permission in a server where the bot is.
     TOURNAMENT: 'tournament', // has the permission to use the tournament command
+    CONTRIBUTORS: 'contributors',
     ALL: 'all',
   },
 };
@@ -84,6 +85,8 @@ global.FIGHT = {
   MAX_SPEED_IMPROVEMENT: 30,
   MAX_TURNS: 25,
   REQUIRED_LEVEL: 8,
+  POINTS_REGEN_MINUTES: 15,
+  POINTS_REGEN_AMOUNT: 50,
   ACTION: {
     QUICK_ATTACK: 0,
     SIMPLE_ATTACK: 1,
@@ -102,5 +105,11 @@ global.SHOP = {
   STAR: '⭐',
   POTION_REPLACEMENT: '🍷',
   CANCEL: '❌'
+};
+
+global.TOPGG = {
+  BADGE: '🗳️',
+  BADGE_DURATION: 12,
+  ROLE_DURATION: 24
 };
 

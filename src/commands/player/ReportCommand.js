@@ -33,7 +33,12 @@ const ReportCommand = async function(language, message, args, forceSpecificEvent
   }
 
   if (time < JsonReader.commands.report.timeMinimal) {
-    return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).noReport, {pseudo: message.author.username}));
+    if (entity.currentEffectFinished()) {
+      return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).noReport, {pseudo: message.author.username}));
+    }
+    else {
+      return await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [entity.effect], entity);
+    }
   }
 
   if (time <= JsonReader.commands.report.timeMaximal && Math.round(Math.random() * JsonReader.commands.report.timeMaximal) > time) {
@@ -181,6 +186,11 @@ const doPossibility = async (message, language, possibility, entity, time, force
 };
 
 module.exports = {
-  'report': ReportCommand,
-  'r': ReportCommand,
+  commands: [
+    {
+      name: 'report',
+      func: ReportCommand,
+      aliases: ['r']
+    }
+  ]
 };

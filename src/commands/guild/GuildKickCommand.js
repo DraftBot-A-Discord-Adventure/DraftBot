@@ -141,7 +141,11 @@ const GuildKickCommand = async (language, message, args) => {
 
 
 module.exports = {
-  'guildkick': GuildKickCommand,
-  'gkick': GuildKickCommand,
-  'gk': GuildKickCommand,
+  commands: [
+    {
+      name: 'guildkick',
+      func: GuildKickCommand,
+      aliases: ['gkick', 'gk']
+    }
+  ]
 };

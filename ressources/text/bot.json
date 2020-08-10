@@ -6,7 +6,10 @@
             "topWeekAnnouncement": ":trophy: **Le classement de la semaine est terminé ! Le gagnant est :** {mention}",
             "resetIsNow": ":trophy: Le classement de la semaine est en cours de réinitialisation ! Le gagnant sera annoncé sous peu sur le serveur du bot ! Le jeu reprendra dans moins de 5 minutes !",
             "joinGuild": "**:inbox_tray: Serveur discord rejoint :** `{guild}` | :bust_in_silhouette: : `{humans}` | :robot: : `{robots}` | Ratio bot/Humain : `{ratio}` % | Validation : {validation}",
-            "leaveGuild": "**:outbox_tray: Serveur discord quitté :** `{guild}` | :bust_in_silhouette: : `{humans}` | :robot: : `{robots}` | Ratio bot/Humain : `{ratio}` % | Validation : {validation}"
+            "leaveGuild": "**:outbox_tray: Serveur discord quitté :** `{guild}` | :bust_in_silhouette: : `{humans}` | :robot: : `{robots}` | Ratio bot/Humain : `{ratio}` % | Validation : {validation}",
+            "serverList": "**:outbox_tray: Serveur {count} :** `{guild}` | :bust_in_silhouette: : `{humans}` | :robot: : `{robots}` | Ratio bot/Humain : `{ratio}` % | Validation : {validation}",
+            "totalUsersCount": "**Nombre total d'utilisateurs : `{count}`**",
+            "mentionHelp": ":wave: Bonjour !\n\n:arrow_right: Les commandes commencent par `{prefix}`. Exemple: `{prefix}help`\n\n:arrow_right: Vous n'aimez pas `{prefix}` ? Changez le avec `{prefix}prefix <nouveau prefix>`\n\n:flag_gb: You speak english? Change the language with `{prefix}language`\n\nSi vous avez besoin d'aide, n'hésitez pas à rejoindre le serveur support: https://discord.gg/USnCxg4"
         },
         "en": {
             "noSpeakPermission": ":zipper_mouth: | **Hello! You are receiving this message because you tried using one of my commands in a channel where I have the permissions to see messages but not send them!**\n\nYour request was thus voided. To resolve this problem, please send a message to the owner of the server you tried to use me in. If you can't resolve this problem, I invite you to join the bot's support available here: 'https://discord.gg/USnCxg4'!",
@@ -14,7 +17,10 @@
             "topWeekAnnouncement": ":trophy: **The weekly ranking has ended! The winner is:** {mention}",
             "resetIsNow": ":trophy: The weekly ranking is currently being reinitialized. The winner will soon be announced on the bot's server! The game will resume in less than 5 minutes!",
             "joinGuild": "**:inbox_tray: Discord server joined :** `{guild}` | :bust_in_silhouette: : `{humans}` | :robot: : `{robots}` | Bot/human ratio : `{ratio}` % | Validation : {validation}",
-            "leaveGuild": "**:outbox_tray: Discord server leaved :** `{guild}` | :bust_in_silhouette: : `{humans}` | :robot: : `{robots}` | Bot/human ratio : `{ratio}` % | Validation : {validation}"
+            "leaveGuild": "**:outbox_tray: Discord server leaved :** `{guild}` | :bust_in_silhouette: : `{humans}` | :robot: : `{robots}` | Bot/human ratio : `{ratio}` % | Validation : {validation}",
+            "serverList": "**:outbox_tray: Server {count} :** `{guild}` | :bust_in_silhouette: : `{humans}` | :robot: : `{robots}` | Bot/human ratio : `{ratio}` % | Validation : {validation}",
+            "totalUsersCount": "**Total users count : `{count}`**",
+            "mentionHelp": ":wave: Hello !\n\n:arrow_right: Commands start with `{prefix}`. Example: `{prefix}help`\n\n:arrow_right: You don't like `{prefix}`? Change it with `{prefix}prefix <new prefix>`\n\n:flag_fr: Vous parlez français ? Changez la langue avec `{prefix}language`\n\nIf you need help, don't hesitate to join the support server: https://discord.gg/USnCxg4"
         }
     },
     "activity": "❓ - Dm me for Help !",

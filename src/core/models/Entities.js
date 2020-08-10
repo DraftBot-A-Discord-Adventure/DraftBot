@@ -48,6 +48,10 @@ module.exports = (Sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
     },
+    fightPointsLost: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
   }, {
     tableName: 'entities',
     freezeTableName: true,
@@ -216,12 +220,25 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-   * Returns this player instance's current cumulative health
+   * Returns this player instance's current cumulative health. Returns the regenerative health
    * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getCumulativeHealth = function(player) {
-    return this.maxHealth + (player.level * 10);
+  Entities.prototype.getCumulativeHealth = function() {
+    let maxHealth = this.getMaxCumulativeHealth();
+    let fp = maxHealth - this.fightPointsLost;
+    if (fp < 0) fp = 0;
+    else if (fp > maxHealth) fp = maxHealth;
+    return fp;
+  };
+
+  /**
+   * Returns this player instance's max cumulative health
+   * @param {Players} player
+   * @return {Number}
+   */
+  Entities.prototype.getMaxCumulativeHealth = function() {
+    return this.maxHealth + (this.Player.level * 10);
   };
 
   /**

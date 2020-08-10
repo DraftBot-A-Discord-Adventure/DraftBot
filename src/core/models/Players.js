@@ -56,6 +56,10 @@ module.exports = (Sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
     },
+    topggVoteAt: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(0)
+    }
   }, {
     tableName: 'players',
     freezeTableName: true,
@@ -86,22 +90,6 @@ module.exports = (Sequelize, DataTypes) => {
   Players.prototype.hasBadge = function(badge) {
     return this.badges === null ? false : this.badges.split('-')
         .includes(badge);
-  };
-
-  /**
-   * @param {("points")} points - A number representating the score
-   * @deprecated 2.1.0 Directly use score attribute from entity
-   */
-  Players.prototype.setPoints = function(points) {
-    this.score = points;
-  };
-
-  /**
-   * @param {("pointsWeek")} pointsWeek - A number representating the weekly score
-   * @deprecated 2.1.0 Directly use weeklyScore attribute from entity
-   */
-  Players.prototype.setPointsWeek = function(points) {
-    this.weeklyScore = points;
   };
 
   Players.beforeSave((instance, options) => {
