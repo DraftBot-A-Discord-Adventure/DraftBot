@@ -139,7 +139,7 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":smiley:",
-				"experience": 25,
+				"experience": 550,
 				"money": 500,
 				"item": true
 			},
