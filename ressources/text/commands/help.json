@@ -91,7 +91,7 @@
 				"invite": {
 					"emote": ":inbox_tray:",
 					"usage": "invite",
-					"description": "Cette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !"
+					"description": "Cette commande vous permet d'obtenir un lien permettant de rejoindre le serveur d'aide !"
 				},
 				"badge": {
 					"emote": ":military_medal:",
