@@ -10,10 +10,12 @@ const Draftbot = require('core/DraftBot');
   global.consoleLogs = "";
   const originalConsoleLog = console.log;
   const addConsoleLog = function(message) {
+    let now = new Date();
+    let dateStr = "[" + now.getFullYear() + "/" + ("0" + (now.getMonth()+1)).slice(-2) + "/" + ("0" + (now.getDate()+1)).slice(-2) + " " + ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2) + ":" + ("0" + now.getSeconds()).slice(-2) + "]\n";
     try {
-      global.consoleLogs += message.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '') + "\n"; // Remove terminal colors
+      global.consoleLogs += dateStr + message.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '') + "\n"; // Remove terminal colors
     } catch (e) {
-      global.consoleLogs += message + "\n";
+      global.consoleLogs += dateStr + message + "\n";
     }
   };
   console.log = function(message, optionalParams) {
