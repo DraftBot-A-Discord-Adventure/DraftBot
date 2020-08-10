@@ -92,7 +92,7 @@ module.exports = (Sequelize, DataTypes) => {
         .includes(badge);
   };
 
-  Players.beforeSave((instance, options) => {
+  Players.beforeSave((instance) => {
     instance.setDataValue('updatedAt',
         require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });

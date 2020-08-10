@@ -60,7 +60,7 @@ module.exports = (Sequelize, DataTypes) => {
     freezeTableName: true,
   });
 
-  Weapons.beforeSave((instance, options) => {
+  Weapons.beforeSave((instance) => {
     instance.setDataValue('updatedAt',
       require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
