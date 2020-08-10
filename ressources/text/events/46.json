@@ -16,7 +16,7 @@
 				"experience": 0,
 				"money": 0,
 				"item": false,
-				"nextEvent": 47
+				"nextEvent": 10000
             }
 		],
 		"end": [

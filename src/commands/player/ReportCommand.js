@@ -51,12 +51,17 @@ const ReportCommand = async function(language, message, args, forceSpecificEvent
   let event;
 
   // nextEvent is defined ?
-  if (entity.Player.nextEvent !== undefined) {
+  if (entity.Player.nextEvent !== undefined && entity.Player.nextEvent !== null) {
     forceSpecificEvent = entity.Player.nextEvent;
   }
 
   if (forceSpecificEvent === -1) {
-    event = await Events.findOne({where: { id: { [Sequelize.Op.notIn]: [0, 9999] }}, order: Sequelize.literal('RANDOM()')});
+    event = await Events.findOne({where: {
+        [Op.and]: [
+          {id: {[Op.gt]: 0}},
+          {id: {[Op.lt]: 9999}},
+        ]
+      }, order: Sequelize.literal('RANDOM()')});
   }
   else {
     event = await Events.findOne({where: {id: forceSpecificEvent}});

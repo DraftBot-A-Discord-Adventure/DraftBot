@@ -15,8 +15,7 @@
 				"effect": ":smiley:",
 				"experience": 0,
 				"money": 0,
-				"item": false,
-				"nextEvent": null
+				"item": false
             }
 		],
 		"end": [
