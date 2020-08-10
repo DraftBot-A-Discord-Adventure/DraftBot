@@ -248,6 +248,7 @@ class Database {
             fr: possibility.translations.fr,
             en: possibility.translations.en,
             event_id: fileName,
+            nextEvent: (possibility.nextEvent !== undefined) ? possibility.nextEvent : null
           };
           possibilitiesContent.push(possibilityContent);
         }

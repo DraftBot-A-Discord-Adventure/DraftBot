@@ -59,6 +59,9 @@ module.exports = (Sequelize, DataTypes) => {
     topggVoteAt: {
       type: DataTypes.DATE,
       defaultValue: new Date(0)
+    },
+    nextEvent: {
+      type: DataTypes.INTEGER,
     }
   }, {
     tableName: 'players',
