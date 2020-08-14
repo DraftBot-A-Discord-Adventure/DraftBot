@@ -49,8 +49,19 @@ const ReportCommand = async function(language, message, args, forceSpecificEvent
 
   const Sequelize = require('sequelize');
   let event;
+
+  // nextEvent is defined ?
+  if (entity.Player.nextEvent !== undefined && entity.Player.nextEvent !== null) {
+    forceSpecificEvent = entity.Player.nextEvent;
+  }
+
   if (forceSpecificEvent === -1) {
-    event = await Events.findOne({where: { id: { [Sequelize.Op.notIn]: [0, 9999] }}, order: Sequelize.literal('RANDOM()')});
+    event = await Events.findOne({where: {
+        [Op.and]: [
+          {id: {[Op.gt]: 0}},
+          {id: {[Op.lt]: 9999}},
+        ]
+      }, order: Sequelize.literal('RANDOM()')});
   }
   else {
     event = await Events.findOne({where: {id: forceSpecificEvent}});
@@ -153,6 +164,11 @@ const doPossibility = async (message, language, possibility, entity, time, force
   player.addWeeklyScore(scoreChange);
   player.addMoney(moneyChange);
   player.experience += possibility.experience;
+
+  if (pDataValues.nextEvent !== undefined) {
+    player.nextEvent = pDataValues.nextEvent;
+  }
+
   if (pDataValues.event_id !== 0) {
     player.setLastReportWithEffect(message.createdTimestamp, pDataValues.lostTime, pDataValues.effect);
   }

@@ -43,6 +43,9 @@ module.exports = (Sequelize, DataTypes) => {
     event_id: {
       type: DataTypes.INTEGER,
     },
+    nextEvent: {
+      type: DataTypes.INTEGER,
+    },
     updatedAt: {
       type: DataTypes.DATE,
       defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
