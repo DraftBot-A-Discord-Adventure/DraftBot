@@ -55,7 +55,7 @@ const DailyCommand = async function (language, message) {
         message.author.displayAvatarURL())
       .setDescription(format(
         JsonReader.commands.daily.getTranslation(language).hospitalBonus,
-        { value: activeObject.power }));
+        { value: minutesToString(activeObject.power * 60) }));
     await entity.Player.fastForward(activeObject.power);
     entity.Player.Inventory.updateLastDailyAt();
   }

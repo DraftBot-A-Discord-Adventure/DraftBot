@@ -96,7 +96,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {String}
    */
   Objects.prototype.getNatureTranslation = function(language) {
-    if (this.nature === 5) {
+    if (this.nature === NATURE.HOSPITAL) {
       return format(
           JsonReader.items.getTranslation(language).objects.natures[this.nature],
           {power: minutesToString(this.power * 60)});
@@ -111,7 +111,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Number}
    */
   Objects.prototype.getAttack = function() {
-    if (this.nature === 3) {
+    if (this.nature === NATURE.ATTACK) {
       return this.power;
     }
     return 0;
@@ -121,7 +121,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Number}
    */
   Objects.prototype.getDefense = function() {
-    if (this.nature === 4) {
+    if (this.nature === NATURE.DEFENSE) {
       return this.power;
     }
     return 0;
@@ -131,7 +131,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Number}
    */
   Objects.prototype.getSpeed = function() {
-    if (this.nature === 2) {
+    if (this.nature === NATURE.SPEED) {
       return this.power;
     }
     return 0;

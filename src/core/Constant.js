@@ -31,8 +31,8 @@ global.NATURE = {
   NONE: 0,
   HEALTH: 1,
   SPEED: 2,
-  DEFENSE: 3,
-  ATTACK: 4,
+  ATTACK: 3,
+  DEFENSE: 4,
   HOSPITAL: 5,
   MONEY: 6,
 };

@@ -9,7 +9,7 @@
             "dailySuccess": "{pseudo}, vous avez reçu votre récompense journalière !",
             "healthDaily": "❤️ Vie gagnée : {value} !",
             "moneyBonus": "💰 Argent gagné : {value} !",
-            "hospitalBonus": "🕥 Vous avez avancé de {value} heure(s) !"
+            "hospitalBonus": "🕥 Vous avez avancé de {value}"
         },
         "en": {
             "objectDoNothingError": "You attempt to use the power of the object you're carrying... But it has no effect !",
@@ -20,7 +20,7 @@
             "dailySuccess": "{pseudo}, you have received your daily reward!",
             "healthDaily": "❤️ HP recovered : {value}!",
             "moneyBonus": "💰 Money Earned: {value} !",
-            "hospitalBonus": "🕥 You have moved up {value} hour(s)."
+            "hospitalBonus": "🕥 You have moved up {value}"
         }
     },
     "numberOfDayToReload": 1

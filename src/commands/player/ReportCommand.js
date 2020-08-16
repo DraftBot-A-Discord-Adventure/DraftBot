@@ -1,3 +1,5 @@
+const Op = require('sequelize/lib/operators');
+
 /**
  * Allow the user to learn more about what is going on with his character
  * @param {("fr"|"en")} language - Language to use in the response
