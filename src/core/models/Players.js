@@ -106,7 +106,7 @@ module.exports = (Sequelize, DataTypes) => {
   Players.getById = async (id) => {
     const query = `SELECT *
                    FROM (SELECT id,
-                                RANK() OVER (ORDER BY score desc)       rank,
+                                RANK() OVER (ORDER BY score desc, level desc)       rank,
                                 RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
                          FROM players)
                    WHERE id = :id`;
@@ -124,7 +124,7 @@ module.exports = (Sequelize, DataTypes) => {
   Players.getByRank = async (rank) => {
     const query = `SELECT *
                    FROM (SELECT entity_id,
-                                RANK() OVER (ORDER BY score desc)       rank,
+                                RANK() OVER (ORDER BY score desc, level desc)       rank,
                                 RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
                          FROM players)
                    WHERE rank = :rank`;
