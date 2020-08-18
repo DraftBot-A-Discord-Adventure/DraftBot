@@ -68,10 +68,10 @@
 				"experience": 150,
 				"money": 0,
 				"item": false
-            },
-            {
+			},
+			{
 				"translations": {
-					"fr": "** | ⚔️ Vous foncez en hurlant sur l'étrange personnage. Cependant, après vous être rapproché, vous réalisez qu'il s'agit d'un chasseur relevant ses pièges. Confus, vous décidez de l'aider, afin de le dédommager pour la frayer que vous lui avez causé.",
+					"fr": "** | ⚔️ Vous foncez en hurlant sur l'étrange personnage. Cependant, après vous être rapproché, vous réalisez qu'il s'agit d'un chasseur relevant ses pièges. Confus, vous décidez de l'aider, afin de le dédommager pour la frayeur que vous lui avez causé.",
 					"en": "** | ⚔️ You run screaming at the strange character. However, after getting closer, you realize that it's a hunter collecting some of his traps. Confused and embarrassed, you decide to help him, in order to compensate for the scene, you just caused."
 				},
 				"lostTime": 30,
@@ -93,8 +93,8 @@
 				"money": 0,
 				"item": false
 			}
-        ],
-        "⛪": [
+		],
+		"⛪": [
 			{
 				"translations": {
 					"fr": "** | ⛪ Vous vous rappelez être passé devant un église quelques minutes auparavant, alors vous n'hésitez pas longtemps avant de vous décider à vous y rendre, afin d'être protégé de l'être démoniaque. Vous courez sur tout le trajet, et arrivez en moins d'une dizaine de minutes devant ladite église. Vous toquez, un peu fébrile par peur d'avoir été suivi pas la bête. Un kyutiste vous ouvre, et après que vous lui ayez expliqué, il vous laisse entrer. D'une grande bonté, les personnes à l'intérieur de l'église vous donnent de quoi manger, et vous disent qu'ils peuvent sans problème vous garder pour la nuit. Reconnaissant, vous les rejoignez lors des Louanges à Askeriel, pendant lesquels tout le monde présent murmure en choeur la façon dont Askeriel, le Grand Dieu, créa l'existence, la matière, la terre, puis les humains et les animaux. Après avoir fini, vous partez tous vous coucher. :sleeping: ",
@@ -106,8 +106,8 @@
 				"experience": 20,
 				"money": 0,
 				"item": false
-            },
-            {
+			},
+			{
 				"translations": {
 					"fr": "** | ⛪ Vous vous souvenez avoir passé une église peu avant. Vous vous y dirigez donc, comptant y chercher de l'aide. Une fois arrivé, vous toquez. Après quelques secondes sans réaction, vous décidez d'entrer craignant avoir été suivi par la bête. C'est à cet instant que vous réalisez que l'église est totalement vide, abandonnée. Vous en fermez la porte, et vous installez à même le sol avant de vous endormir. :sleeping: ",
 					"en": "** | ⛪ You remember going past a church not long ago. So you head there, hoping to get some help. Once there, you knock on the large door. After a few seconds of no reaction, you decide to enter, fearing you have been followed by the beast. It is at this moment that you realize that the church is completely empty, abandoned. You close the door and settle down on the floor before falling asleep. :sleeping: "
@@ -118,8 +118,8 @@
 				"experience": 20,
 				"money": 0,
 				"item": false
-            },
-            {
+			},
+			{
 				"translations": {
 					"fr": "** | ⛪ Vous pensez immédiatement à chercher refuge dans une église : quoi de mieux, après tout, face à une chose semblant démoniaque ? Cependant vous déchantez vite, puisque vous réalisez que vous n'avez absolument aucune idée d'où est la plus proche église. Vous choisissez alors de fuir aussi loin que possible de la créature, ce que vous faites.",
 					"en": "** | ⛪ You immediately think of seeking refuge in a church: what could be better, after all, in front of something seemingly demonic? However, you quickly give up since you realize that you have absolutely no idea where the nearest church is. You then choose to flee as far away from the creature as possible, which you do."
@@ -156,8 +156,8 @@
 				"experience": 450,
 				"money": 0,
 				"item": true
-            },
-            {
+			},
+			{
 				"translations": {
 					"fr": "** | 🚶 Par peur vous rebroussez chemin et faites un détour afin d'éviter de croiser la créature.",
 					"en": "** | 🚶 Out of fear you turn back around and make a detour in order to avoid crossing the creature."
