@@ -20,11 +20,11 @@ class DraftBot {
         await (require('core/Database')).init();
         await (require('core/Command')).init();
 
-        // TODO 2.1
+        // TODO 2.1.1
         // draftbot.checkEasterEggsFile();
 
         DraftBot.programTopWeekTimeout();
-        setTimeout(DraftBot.fightPowerRegenerationLoop, FIGHT.POINTS_REGEN_MINUTES*60*1000);
+        setTimeout(DraftBot.fightPowerRegenerationLoop, FIGHT.POINTS_REGEN_MINUTES * 60 * 1000);
 
         require('core/DBL').startDBLWebhook();
 
@@ -70,8 +70,10 @@ class DraftBot {
             limit: 1
         });
         if (winner !== null) {
-            (await client.channels.fetch(JsonReader.app.FRENCH_ANNOUNCEMENT_CHANNEL_ID)).send(format(JsonReader.bot.getTranslation("fr").topWeekAnnouncement, { mention: winner.getMention() }));
-            (await client.channels.fetch(JsonReader.app.ENGLISH_ANNOUNCEMENT_CHANNEL_ID)).send(format(JsonReader.bot.getTranslation("en").topWeekAnnouncement, { mention: winner.getMention() }));
+            let message = await (await client.channels.fetch(JsonReader.app.FRENCH_ANNOUNCEMENT_CHANNEL_ID)).send(format(JsonReader.bot.getTranslation("fr").topWeekAnnouncement, { mention: winner.getMention() }));
+            message.react("🏆");
+            message = await (await client.channels.fetch(JsonReader.app.ENGLISH_ANNOUNCEMENT_CHANNEL_ID)).send(format(JsonReader.bot.getTranslation("en").topWeekAnnouncement, { mention: winner.getMention() }));
+            message.react("🏆");
             winner.Player.addBadge("🎗️");
             winner.Player.save();
         }
@@ -82,8 +84,8 @@ class DraftBot {
 
     static async fightPowerRegenerationLoop() {
         const sequelize = require('sequelize');
-        await Entities.update({ fightPointsLost: sequelize.literal(`CASE WHEN fightPointsLost - ${FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FIGHT.POINTS_REGEN_AMOUNT} END`)}, {where: { fightPointsLost: {[sequelize.Op.not]: 0}}});
-        setTimeout(DraftBot.fightPowerRegenerationLoop, FIGHT.POINTS_REGEN_MINUTES*60*1000);
+        await Entities.update({ fightPointsLost: sequelize.literal(`CASE WHEN fightPointsLost - ${FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FIGHT.POINTS_REGEN_AMOUNT} END`) }, { where: { fightPointsLost: { [sequelize.Op.not]: 0 } } });
+        setTimeout(DraftBot.fightPowerRegenerationLoop, FIGHT.POINTS_REGEN_MINUTES * 60 * 1000);
     }
 
     /**
@@ -122,4 +124,4 @@ global.discord = (require('discord.js'));
 /**
  * @type {module:"discord.js".Client}
  */
-global.client = new(require('discord.js')).Client({ restTimeOffset: 0 });
+global.client = new (require('discord.js')).Client({ restTimeOffset: 0 });
