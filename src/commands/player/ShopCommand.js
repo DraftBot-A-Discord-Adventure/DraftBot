@@ -47,7 +47,9 @@ async function ShopCommand(language, message, args) {
             id: ((Math.round(Date.now() / (1000 * 60 * 60 * 24))) % (numberOfPotions - 1)) + 1,
         },
     });
-    const potionPrice = getItemValue(potion) + JsonReader.commands.shop.prices.addedValue;
+    const potionPrice = Math.round(
+        (parseInt(JsonReader.values.raritiesValues[potion.rarity]) + parseInt(potion.power)) * 0.7
+    );
 
     //Creating shop message
     const shopMessage = await message.channel.send(
