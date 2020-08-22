@@ -10,6 +10,9 @@ const SwitchCommand = async (language, message, args) => {
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
     return;
   }
+  if (await sendBlockedError(message.author, message.channel, language)) {
+    return;
+  }
 
   const temp = entity.Player.Inventory.object_id;
   entity.Player.Inventory.object_id = entity.Player.Inventory.backup_id;

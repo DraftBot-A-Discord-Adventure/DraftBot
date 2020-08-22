@@ -86,6 +86,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     }));
   }
 
+  addBlockedPlayer(discordUser.id, "acceptItem");
   const msg = await channel.send(embed);
   const filterConfirm = (reaction, user) => {
     return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === discordUser.id);
@@ -97,6 +98,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
   });
 
   collector.on('end', async (reaction) => {
+    removeBlockedPlayer(discordUser.id);
     if (reaction.first()) { // a reaction exist
       // msg.delete(); for now we are goig to keep the message
       if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
