@@ -37,7 +37,7 @@ const GuildDailyCommand = async (language, message, args) => {
       language,
       format(JsonReader.commands.guildDaily.getTranslation(language).coolDown, {
         coolDownTime : JsonReader.commands.guildDaily.timeBetweenDailys,
-        time: JsonReader.commands.guildDaily.timeBetweenDailys-time,
+        time: minutesToString(millisecondsToMinutes(JsonReader.commands.guildDaily.timeBetweenDailys * 3600000 - message.createdAt.getTime() + guild.lastDailyAt.valueOf())),
       }));
   }
 

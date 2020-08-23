@@ -231,7 +231,7 @@ global.millisecondsToMinutes = (milliseconds) => {
  * @return {Number}
  */
 global.millisecondsToHours = (milliseconds) => {
-  return Math.round(milliseconds / 3600000);
+  return milliseconds / 3600000;
 };
 
 /**
