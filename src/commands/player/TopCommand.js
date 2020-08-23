@@ -40,28 +40,7 @@ const topCommand = async function (language, message, args) {
     //get all discordID on the server
     let listId = Array.from((await message.guild.members.fetch()).keys());
 
-    /*await Entities.findOne({
-      defaults: {
-        Player: {
-          Inventory: {}
-        }
-      },
-      where: {
-        discordUser_id: listId
-      },
-      include: [{
-        model: Players,
-        as: 'Player',
-        where: {
-          score: {
-            [(require('sequelize/lib/operators')).gt]: 100,
-          },
-        },
-      }],
-      attributes: [
-        [require('sequelize').literal('(RANK() OVER (ORDER BY score DESC))'), 'rank']
-      ]
-    });*/
+    rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
 
     let numberOfPlayer = await Entities.count({
       defaults: {
@@ -108,12 +87,6 @@ const topCommand = async function (language, message, args) {
       limit: 15,
       offset: (page - 1) * 15
     });
-
-    for (let i = 0; i < allEntities.length; i++) {
-      if (message.author.id === allEntities[i].discordUser_id) {
-        rankCurrentPlayer = i + 1;
-      }
-    }
 
     await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).server, page);
   }

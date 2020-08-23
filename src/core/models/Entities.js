@@ -154,6 +154,17 @@ module.exports = (Sequelize, DataTypes) => {
     });
   };
 
+  Entities.getServerRank = async (discord_id, ids) => {
+    const query = `SELECT rank FROM (SELECT entities.discordUser_id AS discordUser_id, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entity_id AND players.score > 100 WHERE entities.discordUser_id IN (:ids)) WHERE discordUser_id = :id;`;
+    return Sequelize.query(query, {
+      replacements: {
+        ids: ids,
+        id: discord_id,
+      },
+      type: Sequelize.QueryTypes.SELECT,
+    });
+  };
+
   /**
    * @param {String[]} args=[]
    * @param {module:"discord.js".Message} message
