@@ -131,6 +131,9 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
           entity.Player.Inventory.save(),
         ]);
         await channel.send(embed);
+        if (item instanceof Potions) {
+          return; // potion are not sold (because of exploits and because of logic)
+        }
         item = oldItem;
       }
     }
@@ -385,7 +388,7 @@ global.resetIsNow = function () {
  * Allow to get the validation information of a guild
  * @param {module:"discord.js".Guild} guild - The guild that has to be checked
  */
-global.getValidationInfos = function(guild) {
+global.getValidationInfos = function (guild) {
   let humans = guild.members.cache.filter(member => !member.user.bot).size;
   let bots = guild.members.cache.filter(member => member.user.bot).size;
   let ratio = Math.round((bots / humans) * 100);
