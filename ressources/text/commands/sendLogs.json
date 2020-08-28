@@ -1,0 +1,10 @@
+{
+  "translations": {
+    "fr": {
+      "noLogFile": "Aucun fichier log n'existe avec ce nom ! Vous pouvez faire `sendlogs list` pour avoir la liste."
+    },
+    "en": {
+      "noLogFile": "No log file exists with this name ! You can execute `sendlogs list` to get the list."
+    }
+  }
+}
