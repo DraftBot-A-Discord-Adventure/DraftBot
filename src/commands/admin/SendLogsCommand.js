@@ -44,6 +44,9 @@ const SendLogsCommand = async function(language, message, args) {
     });
   }
   else {
+    if (args[0].includes('/') || args[0].includes('..')) {
+      return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendLogs.getTranslation(language).localFileInclusion);
+    }
     if (!args[0].endsWith('.txt')) {
       args[0] += '.txt';
     }
