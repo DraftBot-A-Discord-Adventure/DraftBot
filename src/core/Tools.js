@@ -49,20 +49,28 @@ global.sendErrorMessage = (user, channel, language, reason) => {
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
   let item = await entity.Player.Inventory.generateRandomItem();
   let autoSell = false;
-
-  let embed = new discord.MessageEmbed();
-  embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
+  let autoReplace = false;
+  const receivedEmbed = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
+  receivedEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
     pseudo: discordUser.username,
   }), discordUser.displayAvatarURL())
     .setDescription(item.toString(language));
+
+
+  embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
+    pseudo: discordUser.username,
+  }), discordUser.displayAvatarURL());
+
   if (item instanceof Potions) {
     const potion = await entity.Player.Inventory.getPotion();
     if (potion.id === item.id) {
       autoSell = true;
     }
-    embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-      actualItem: potion.toString(language),
-    }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+    if (potion.rarity === 0) {
+      autoReplace = true;
+    }
+    embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
       actualItem: potion.toString(language),
     }));
   }
@@ -73,9 +81,10 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     if (backupObject.id === item.id || activeObject.id === item.id) {
       autoSell = true;
     }
-    embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-      actualItem: backupObject.toString(language),
-    }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+    if (backupObject.rarity === 0) {
+      autoReplace = true;
+    }
+    embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
       actualItem: backupObject.toString(language),
     }));
   }
@@ -84,9 +93,10 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     if (weapon.id === item.id) {
       autoSell = true;
     }
-    embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-      actualItem: weapon.toString(language),
-    }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+    if (weapon.rarity === 0) {
+      autoReplace = true;
+    }
+    embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
       actualItem: weapon.toString(language),
     }));
   }
@@ -95,9 +105,10 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     if (armor.id === item.id) {
       autoSell = true;
     }
-    embed.addField(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-      actualItem: armor.toString(language),
-    }), format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+    if (armor.rarity === 0) {
+      autoReplace = true;
+    }
+    embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
       actualItem: armor.toString(language),
     }));
   }
@@ -107,13 +118,17 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     entity.Player.addMoney(money);
     await entity.Player.save();
     return await channel.send(
-        format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwn,
-            {
-              item: item.getName(language),
-              money: money
-            },
-        ));
+      format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwn,
+        {
+          item: item.getName(language),
+          money: money
+        },
+      ));
   } else {
+    await channel.send(receivedEmbed);
+    if (autoReplace) {
+      return await saveItem(item, entity);
+    }
     addBlockedPlayer(discordUser.id, "acceptItem");
     const msg = await channel.send(embed);
     const filterConfirm = (reaction, user) => {
@@ -130,50 +145,27 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
       if (reaction.first()) { // a reaction exist
         // msg.delete(); for now we are goig to keep the message
         if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
-          embed = new discord.MessageEmbed();
-          embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
-                pseudo: discordUser.username,
-              }), discordUser.displayAvatarURL())
-              .setDescription(item.toString(language));
+          const menuEmbed = new discord.MessageEmbed();
+          menuEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
+            pseudo: discordUser.username,
+          }), discordUser.displayAvatarURL())
+            .setDescription(item.toString(language));
 
-          let oldItem;
-          if (item instanceof Potions) {
-            oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
-            entity.Player.Inventory.potion_id = item.id;
-          }
-          if (item instanceof Objects) {
-            oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
-            entity.Player.Inventory.backup_id = item.id;
-          }
-          if (item instanceof Weapons) {
-            oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
-            entity.Player.Inventory.weapon_id = item.id;
-          }
-          if (item instanceof Armors) {
-            oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
-            entity.Player.Inventory.armor_id = item.id;
-          }
-          await Promise.all([
-            entity.save(),
-            entity.Player.save(),
-            entity.Player.Inventory.save(),
-          ]);
-          await channel.send(embed);
+          let oldItem = await saveItem(item, entity);
+          await channel.send(menuEmbed);
           item = oldItem;
         }
       }
-      if (item.rarity != 0) {
-        const money = getItemValue(item);
-        entity.Player.addMoney(money);
-        await entity.Player.save();
-        return await channel.send(
-            format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-                {
-                  item: item.getName(language),
-                  money: money
-                },
-            ));
-      }
+      const money = getItemValue(item);
+      entity.Player.addMoney(money);
+      await entity.Player.save();
+      return await channel.send(
+        format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+          {
+            item: item.getName(language),
+            money: money
+          },
+        ));
     });
 
     await Promise.all([
@@ -414,7 +406,7 @@ global.resetIsNow = function () {
  * Allow to get the validation information of a guild
  * @param {module:"discord.js".Guild} guild - The guild that has to be checked
  */
-global.getValidationInfos = function(guild) {
+global.getValidationInfos = function (guild) {
   let humans = guild.members.cache.filter(member => !member.user.bot).size;
   let bots = guild.members.cache.filter(member => member.user.bot).size;
   let ratio = Math.round((bots / humans) * 100);
@@ -429,3 +421,29 @@ global.getValidationInfos = function(guild) {
   }
   return { validation: validation, humans: humans, bots: bots, ratio: ratio };
 };
+async function saveItem(item, entity) {
+  let oldItem;
+  if (item instanceof Potions) {
+    oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
+    entity.Player.Inventory.potion_id = item.id;
+  }
+  if (item instanceof Objects) {
+    oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
+    entity.Player.Inventory.backup_id = item.id;
+  }
+  if (item instanceof Weapons) {
+    oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
+    entity.Player.Inventory.weapon_id = item.id;
+  }
+  if (item instanceof Armors) {
+    oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
+    entity.Player.Inventory.armor_id = item.id;
+  }
+  await Promise.all([
+    entity.save(),
+    entity.Player.save(),
+    entity.Player.Inventory.save(),
+  ]);
+  return oldItem;
+}
+
