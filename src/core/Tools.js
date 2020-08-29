@@ -119,13 +119,13 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     await entity.Player.save();
     return await channel.send(
       new discord.MessageEmbed().setAuthor(
-        format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
+        format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle,
           {
             pseudo: discordUser.username,
           },
         ), discordUser.displayAvatarURL()
       ).setDescription(
-        format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwn,
+        format(JsonReader.commands.sell.getTranslation(language).soldMessage,
           {
             item: item.getName(language),
             money: money
