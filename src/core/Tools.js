@@ -164,6 +164,9 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
           await channel.send(menuEmbed);
           item = oldItem;
         }
+        if (item instanceof Potions) {
+          return; // potion are not sold (because of exploits and because of logic)
+        }
       }
       const money = getItemValue(item);
       entity.Player.addMoney(money);
