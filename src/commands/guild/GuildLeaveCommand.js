@@ -6,7 +6,7 @@
  */
 const GuildLeaveCommand = async (language, message, args) => {
   let entity; let guild;
-  let embed = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -26,10 +26,10 @@ const GuildLeaveCommand = async (language, message, args) => {
 
   if (guild == null) { // not in a guild
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        JsonReader.commands.guildLeave.getTranslation(language).notInAGuild);
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guildLeave.getTranslation(language).notInAGuild);
   }
   addBlockedPlayer(entity.discordUser_id, 'guildLeave');
   // generate confirmation embed
@@ -66,7 +66,7 @@ const GuildLeaveCommand = async (language, message, args) => {
 
         if (guild.chief_id == entity.id) {
           // the chief is leaving : destroy the guild
-          await Players.update({guild_id: null}, {
+          await Players.update({ guild_id: null }, {
             where: {
               guild_id: guild.id,
             },
@@ -94,12 +94,12 @@ const GuildLeaveCommand = async (language, message, args) => {
 
     // Cancel leaving
     return sendErrorMessage(
-        message.author,
-        message.channel,
-        language,
-        format(JsonReader.commands.guildLeave.getTranslation(language).leavingCancelled, {
-          guildName: guild.name,
-        }));
+      message.author,
+      message.channel,
+      language,
+      format(JsonReader.commands.guildLeave.getTranslation(language).leavingCancelled, {
+        guildName: guild.name,
+      }));
   });
 
   await Promise.all([

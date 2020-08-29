@@ -6,7 +6,7 @@ class DBL {
       console.info("DBL Webhook not configured, skipped.");
       return;
     }
-    const api = new DiscordBotListAPI({port: JsonReader.app.DBL_WEBHOOK_PORT, path: JsonReader.app.DBL_WEBHOOK_URL});
+    const api = new DiscordBotListAPI({ port: JsonReader.app.DBL_WEBHOOK_PORT, path: JsonReader.app.DBL_WEBHOOK_URL });
     api.on('upvote', async (user) => {
       await DBL.userDBLVote(user);
     });
@@ -35,7 +35,7 @@ class DBL {
     if (dUser === undefined || dUser === null) {
       return;
     }
-    let embed = new discord.MessageEmbed();
+    const embed = new discord.MessageEmbed();
     embed.setAuthor("Thank you for voting for " + client.user.username, dUser.avatarURL(), "https://top.gg/bot/" + client.user.id);
     let desc = "User: `" + dUser.tag + " (id:" + dUser.id + ")` just voted!\n" + dUser.username + " got the role `" + (await guild.roles.fetch(JsonReader.app.DBL_VOTE_ROLE)).name + "` for `";
     if (TOPGG.ROLE_DURATION === 24) {
@@ -44,7 +44,7 @@ class DBL {
       desc += TOPGG.ROLE_DURATION + " hours";
     }
     embed.setDescription(desc + "` and the badge " + TOPGG.BADGE + " for `" + TOPGG.BADGE_DURATION + " hours` :tada:"
-        + "\n\nYou can vote [here](https://top.gg/bot/" + client.user.id + ") every 12 hours!"
+      + "\n\nYou can vote [here](https://top.gg/bot/" + client.user.id + ") every 12 hours!"
     );
     embed.setFooter("Thank you for your support!");
     (await guild.channels.cache.get(JsonReader.app.DBL_LOGS_CHANNEL)).send(embed);
@@ -69,7 +69,7 @@ class DBL {
 
   static async removeDBLRole(userId) {
     let [entity] = await Entities.getOrRegister(userId);
-    if (new Date().getTime() - entity.Player.topggVoteAt.getTime() < TOPGG.ROLE_DURATION*60*60*1000 - 10000) {
+    if (new Date().getTime() - entity.Player.topggVoteAt.getTime() < TOPGG.ROLE_DURATION * 60 * 60 * 1000 - 10000) {
       return;
     }
     let member = await (await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)).members.fetch(userId);

@@ -6,7 +6,7 @@
  */
 const GuildCreateCommand = async (language, message, args) => {
   let entity; let guild;
-  let embed = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
 

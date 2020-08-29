@@ -6,7 +6,7 @@
  */
 const GuildKickCommand = async (language, message, args) => {
   let entity; let kickedEntity; let guild; let kickedGuild;
-  let embed = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
 

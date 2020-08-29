@@ -81,8 +81,8 @@ const topCommand = async function (language, message, args) {
         },
       }],
       order: [
-        [{model: Players, as: 'Player'}, 'score', 'DESC'],
-        [{model: Players, as: 'Player'}, 'level', 'DESC']
+        [{ model: Players, as: 'Player' }, 'score', 'DESC'],
+        [{ model: Players, as: 'Player' }, 'level', 'DESC']
       ],
       limit: 15,
       offset: (page - 1) * 15
@@ -123,8 +123,8 @@ const topCommand = async function (language, message, args) {
         },
       }],
       order: [
-        [{model: Players, as: 'Player'}, 'weeklyScore', 'DESC'],
-        [{model: Players, as: 'Player'}, 'level', 'DESC']
+        [{ model: Players, as: 'Player' }, 'weeklyScore', 'DESC'],
+        [{ model: Players, as: 'Player' }, 'level', 'DESC']
       ],
       limit: 15,
       offset: (page - 1) * 15
@@ -165,8 +165,8 @@ const topCommand = async function (language, message, args) {
         },
       }],
       order: [
-        [{model: Players, as: 'Player'}, 'score', 'DESC'],
-        [{model: Players, as: 'Player'}, 'level', 'DESC']
+        [{ model: Players, as: 'Player' }, 'score', 'DESC'],
+        [{ model: Players, as: 'Player' }, 'level', 'DESC']
       ],
       limit: 15,
       offset: (page - 1) * 15
@@ -199,8 +199,8 @@ async function errorScoreTooLow(message, language) {
  * @return {Promise<Message>}
  */
 async function displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, topTitle, page) {
-  let embedError = new discord.MessageEmbed();
-  let embed = new discord.MessageEmbed();
+  const embedError = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
   let pageMax = Math.ceil(numberOfPlayer / 15);
   if (pageMax < 1)
     pageMax = 1;
@@ -208,11 +208,11 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
     page = 1;
   if (page > pageMax || page < 1) {
     embedError.setColor(JsonReader.bot.embed.default)
-        .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {
-          pseudo: actualPlayer,
-          pageMax: pageMax
-        }))
-        .setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPageDesc, {pageMax: pageMax}));
+      .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {
+        pseudo: actualPlayer,
+        pageMax: pageMax
+      }))
+      .setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPageDesc, { pageMax: pageMax }));
     return await message.channel.send(embedError);
   }
   let fin = page * 15;
@@ -221,7 +221,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
   let badge;
   //Indicate which top we are going to display
   embed.setColor(JsonReader.bot.embed.default)
-      .setTitle(format(topTitle, {debut: debut, fin: fin}));
+    .setTitle(format(topTitle, { debut: debut, fin: fin }));
   //Build a string with 15 players informations
   for (let k = 0; k < allEntities.length; k++) {
 
@@ -264,7 +264,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
     });
   }
   if (topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek) {
-    embed.setFooter(format(JsonReader.commands.topCommand.getTranslation(language).nextReset, {time: parseTimeDifference(new Date(), getNextSundayMidnight(), language)}), 'https://i.imgur.com/OpL9WpR.png');
+    embed.setFooter(format(JsonReader.commands.topCommand.getTranslation(language).nextReset, { time: parseTimeDifference(new Date(), getNextSundayMidnight(), language) }), 'https://i.imgur.com/OpL9WpR.png');
   }
   embed.setDescription(messages);
 
