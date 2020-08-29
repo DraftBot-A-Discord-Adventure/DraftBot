@@ -70,6 +70,9 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     if (potion.rarity === 0) {
       autoReplace = true;
     }
+    embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooterPotion, {
+      pseudo: discordUser.username,
+    }), discordUser.displayAvatarURL());
     embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
       actualItem: potion.toString(language),
     }));
@@ -165,7 +168,21 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
           item = oldItem;
         }
         if (item instanceof Potions) {
-          return; // potion are not sold (because of exploits and because of logic)
+          return await channel.send(
+            new discord.MessageEmbed().setAuthor(
+              format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
+                {
+                  pseudo: discordUser.username,
+                },
+              ), discordUser.displayAvatarURL()
+            ).setDescription(
+              format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
+                {
+                  item: item.getName(language)
+                }
+              )
+            )
+          ); // potion are not sold (because of exploits and because of logic)
         }
       }
       const money = getItemValue(item);
