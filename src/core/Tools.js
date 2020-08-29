@@ -118,12 +118,21 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     entity.Player.addMoney(money);
     await entity.Player.save();
     return await channel.send(
-      format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwn,
-        {
-          item: item.getName(language),
-          money: money
-        },
-      ));
+      new discord.MessageEmbed().setAuthor(
+        format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
+          {
+            pseudo: discordUser.username,
+          },
+        ), discordUser.displayAvatarURL()
+      ).setDescription(
+        format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwn,
+          {
+            item: item.getName(language),
+            money: money
+          }
+        )
+      )
+    );
   } else {
     await channel.send(receivedEmbed);
     if (autoReplace) {
@@ -160,12 +169,21 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
       entity.Player.addMoney(money);
       await entity.Player.save();
       return await channel.send(
-        format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-          {
-            item: item.getName(language),
-            money: money
-          },
-        ));
+        new discord.MessageEmbed().setAuthor(
+          format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
+            {
+              pseudo: discordUser.username,
+            },
+          ), discordUser.displayAvatarURL()
+        ).setDescription(
+          format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+            {
+              item: item.getName(language),
+              money: money
+            }
+          )
+        )
+      );
     });
 
     await Promise.all([
