@@ -1,117 +1,116 @@
 {
-    "translations": {
-        "fr": {
-            "title": ":shopping_cart:  **Affichage du Magasin :**",
-            "dailyItem": "Potion du jour :\n",
-            "permanentItem": "\n\nVentes permanentes :\n",
-            "display": "{name} | `{price}💰`",
-            "success": "{pseudo}, Transaction réussie !",
-            "permanentItems": {
-                "randomItem": {
-                    "name": ":question: **Un item random**",
-                    "price": 350,
-                    "info": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
-                    "give": "{pseudo}, Vous avez reçu un(e) nouvel(le) {type}:"
-                },
-                "healAlterations": {
-                    "name": ":hospital: **Soin des altérations d'état**",
-                    "price": 500,
-                    "info": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
-                    "give": ":hospital: Vos altérations d'état ont été supprimés."
-                },
-                "regen": {
-                    "name": ":heartpulse: **Regen complète de la vie**",
-                    "price": 3000,
-                    "info": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
-                    "give": ":heartpulse: Vous avez été complétement soigné."
-                },
-                "badge": {
-                    "name": ":money_mouth: **Badge \"MoneyMouth\"**",
-                    "price": 25000,
-                    "info": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `help badges`.",
-                    "give": "{pseudo}, Vous avez reçu un nouveau badge :"
-                },
-                "guildXp": {
-                    "name": ":star: **Un peu d'xp pour votre guilde**",
-                    "price": 1000,
-                    "info": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450.",
-                    "give": "Votre guilde a reçu `{experience}⭐`."
-                }
-            },
-            "confirm": "{pseudo}, Vous avez sélectionné le produit suivant :",
-            "moneyQuantity": "\n\nVous avez `{money}💰`.",
-            "error": {
-                "nothingToHeal" : "Vous n'êtes victime d'aucune altération d'état.",
-                "cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
-                "canceledPurchase": "Transaction annulée!",
-                "alreadyHasItem": "Vous possédez déjà cet objet.",
-                "leaveShop": "Vous avez quitté le magasin."
-            },
-            "potion": {
-                "info": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
-                "give": "{pseudo}, Vous avez reçu une nouvelle potion :"
-            }
-        },
-        "en": {
-            "title": ":shopping_cart:  **Shop Overlay:**",
-            "dailyItem": "Today's potion:\n",
-            "permanentItem": "\n\nPermanent sales:\n",
-            "display": "{name} | `{price}💰`",
-            "success": "{pseudo}, Transaction success!",
-            "permanentItems": {
-                "randomItem": {
-                    "name": ":question: **A random item**",
-                    "price": 350,
-                    "info": "\n\n:warning: You will recieve a random item (Weapon / Armor / Misc or Potion) among all those existing in the game. If you already have an item of higher value than the one created, you will recieve a small monetary compensation.",
-                    "give": "{pseudo}, You received a new {type}:"
-                },
-                "healAlterations": {
-                    "name": ":hospital: **Heal alterations**",
-                    "price": 500,
-                    "info": "\n\n:warning: Your status will be reset and the next report will be available in an hour.",
-                    "give": ":hospital: Your status has been reset."
-                },
-                "regen": {
-                    "name": ":heartpulse: **Complete health regeneration**",
-                    "price": 3000,
-                    "info": "\n\n:warning: You will be fully healed but your status will stay unchanged.",
-                    "give": ":heartpulse: You have been completely healed."
-                },
-                "badge": {
-                    "name": ":money_mouth: **\"MoneyMouth\" Badge**",
-                    "price": 25000,
-                    "info": "\n\n:warning: You will receive the badge in the hours following your payment. For more information on badges, use the command `help badges`",
-                    "give": "{pseudo}, You received a new badge:"
-                },
-                "guildXp": {
-                    "name": ":star: **Some xp for your guild**",
-                    "price": 1000,
-                    "info": "\n\n:warning: You will receive a random amount (between 50 and 450) of guild xp.",
-                    "give": "Your guild has received `{experience}⭐`."
-                }
-            },
-            "confirm": "{pseudo}, You have selected this product:",
-            "moneyQuantity": "\n\nYou have `{money}💰`.",
-            "error": {
-                "nothingToHeal" : "Vous n'êtes victime d'aucune altération d'état.",
-                "cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",
-                "canceledPurchase": "Transaction canceled!",
-                "alreadyHasItem": "You already have the \"MoneyMouth\" badge. You can only buy it once.",
-                "leaveShop": "You left the shop."
-            },
-            "potion": {
-                "info": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
-                "give": "{pseudo}, You received a new potion:"
-            }
-        }
-    },
-    "prices": {
-        "priceItem": 350,
-        "priceStatus": 500,
-        "priceHeal": 3000,
-        "priceBadge": 25000,
-        "priceGuildXp": 1000,
-        "addedValue": 200
-    }
-
+	"translations": {
+		"fr": {
+			"title": ":shopping_cart:  **Affichage du Magasin :**",
+			"dailyItem": "Potion du jour :\n",
+			"permanentItem": "\n\nVentes permanentes :\n",
+			"display": "{name} | `{price}💰`",
+			"success": "{pseudo}, Transaction réussie !",
+			"permanentItems": {
+				"randomItem": {
+					"name": ":question: **Un item random**",
+					"price": 350,
+					"info": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
+					"give": "{pseudo}, Vous avez reçu un(e) nouvel(le) {type}:"
+				},
+				"healAlterations": {
+					"name": ":hospital: **Soin des altérations d'état**",
+					"price": 500,
+					"info": "\n\n:warning: Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
+					"give": ":hospital: Vos altérations d'état ont été supprimées."
+				},
+				"regen": {
+					"name": ":heartpulse: **Regen complète de la vie**",
+					"price": 3000,
+					"info": "\n\n:warning: Vous serez immédiatement soigné complétement mais vous conserverez toutes vos altérations d'état.",
+					"give": ":heartpulse: Vous avez été complétement soigné."
+				},
+				"badge": {
+					"name": ":money_mouth: **Badge \"MoneyMouth\"**",
+					"price": 25000,
+					"info": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `help badges`.",
+					"give": "{pseudo}, Vous avez reçu un nouveau badge :"
+				},
+				"guildXp": {
+					"name": ":star: **Un peu d'xp pour votre guilde**",
+					"price": 1000,
+					"info": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450.",
+					"give": "Votre guilde a reçu `{experience}⭐`."
+				}
+			},
+			"confirm": "{pseudo}, Vous avez sélectionné le produit suivant :",
+			"moneyQuantity": "\n\nVous avez `{money}💰`.",
+			"error": {
+				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
+				"cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
+				"canceledPurchase": "Transaction annulée!",
+				"alreadyHasItem": "Vous possédez déjà cet objet.",
+				"leaveShop": "Vous avez quitté le magasin."
+			},
+			"potion": {
+				"info": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
+				"give": "{pseudo}, Vous avez reçu une nouvelle potion :"
+			}
+		},
+		"en": {
+			"title": ":shopping_cart:  **Shop Overlay:**",
+			"dailyItem": "Today's potion:\n",
+			"permanentItem": "\n\nPermanent sales:\n",
+			"display": "{name} | `{price}💰`",
+			"success": "{pseudo}, Transaction success!",
+			"permanentItems": {
+				"randomItem": {
+					"name": ":question: **A random item**",
+					"price": 350,
+					"info": "\n\n:warning: You will recieve a random item (Weapon / Armor / Misc or Potion) among all those existing in the game. If you already have an item of higher value than the one created, you will recieve a small monetary compensation.",
+					"give": "{pseudo}, You received a new {type}:"
+				},
+				"healAlterations": {
+					"name": ":hospital: **Heal alterations**",
+					"price": 500,
+					"info": "\n\n:warning: Your status will be reset and the next report will be available in an hour.",
+					"give": ":hospital: Your status has been reset."
+				},
+				"regen": {
+					"name": ":heartpulse: **Complete health regeneration**",
+					"price": 3000,
+					"info": "\n\n:warning: You will be fully healed but your status will stay unchanged.",
+					"give": ":heartpulse: You have been completely healed."
+				},
+				"badge": {
+					"name": ":money_mouth: **\"MoneyMouth\" Badge**",
+					"price": 25000,
+					"info": "\n\n:warning: You will receive the badge in the hours following your payment. For more information on badges, use the command `help badges`",
+					"give": "{pseudo}, You received a new badge:"
+				},
+				"guildXp": {
+					"name": ":star: **Some xp for your guild**",
+					"price": 1000,
+					"info": "\n\n:warning: You will receive a random amount (between 50 and 450) of guild xp.",
+					"give": "Your guild has received `{experience}⭐`."
+				}
+			},
+			"confirm": "{pseudo}, You have selected this product:",
+			"moneyQuantity": "\n\nYou have `{money}💰`.",
+			"error": {
+				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
+				"cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",
+				"canceledPurchase": "Transaction canceled!",
+				"alreadyHasItem": "You already have the \"MoneyMouth\" badge. You can only buy it once.",
+				"leaveShop": "You left the shop."
+			},
+			"potion": {
+				"info": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
+				"give": "{pseudo}, You received a new potion:"
+			}
+		}
+	},
+	"prices": {
+		"priceItem": 350,
+		"priceStatus": 500,
+		"priceHeal": 3000,
+		"priceBadge": 25000,
+		"priceGuildXp": 1000,
+		"addedValue": 200
+	}
 }
