@@ -6,7 +6,7 @@
 			"sellCanceled": "La vente a bien été annulée !",
 			"sellTitle": "{pseudo}, confirmation :",
 			"soldMessage": "Vous avez vendu {item} pour **{money}** :moneybag: !",
-			"soldMessageTitle": "{pseudo}, vous avez remplacé un équipement.",
+			"soldMessageTitle": "{pseudo}, vous avez vendu un équipement.",
 			"soldMessageAlreadyOwnTitle": "{pseudo}, vous avez reçu un équipement que vous possédiez déjà."
 		},
 		"en": {
@@ -14,7 +14,7 @@
 			"confirmSell": "Do you really want to leave {item} for **{money}** :moneybag:?",
 			"sellCanceled": "The transaction was canceled!",
 			"sellTitle": "{pseudo}, confirmation:",
-			"soldMessageTitle": "{pseudo}, you replaced an item.",
+			"soldMessageTitle": "{pseudo}, you sold an item.",
 			"soldMessage": "You sold {item} for **{money}** :moneybag:.",
 			"soldMessageAlreadyOwnTitle": "{pseudo}, you received an item that you already own."
 		}
