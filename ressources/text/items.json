@@ -40,7 +40,7 @@
           ":rocket: Vitesse + {power} pendant les combats",
           ":crossed_swords: Attaque + {power} pendant les combats",
           ":shield: Défense + {power} pendant les combats",
-          ":clock1030: Avance le temps plus rapidement pendant {power} heure(s)",
+          ":clock1030: Avance le temps plus rapidement pendant {power}",
           ":moneybag: Argent + {power} par jour"
         ]
       },
@@ -77,7 +77,7 @@
           ":rocket: Speed + {power} during the next fight",
           ":crossed_swords: Attack + {power} during the next fight",
           ":shield: Defense + {power} during the next fight",
-          ":clock1030: Speeds up time for {power} hour(s)",
+          ":clock1030: Speeds up time for {power}",
           ":moneybag: Money + {power}"
         ]
       },

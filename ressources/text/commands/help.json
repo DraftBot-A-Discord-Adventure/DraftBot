@@ -91,16 +91,11 @@
 				"invite": {
 					"emote": ":inbox_tray:",
 					"usage": "invite",
-					"description": "Cette commande vous permet d'obtenir un lien permettant de faire venir le bot sur votre serveur ou de rejoindre le serveur d'aide !"
+					"description": "Cette commande vous permet d'obtenir un lien permettant de rejoindre le serveur d'aide !"
 				},
 				"badge": {
 					"emote": ":military_medal:",
-					"usage": "help badge",
-					"description": "Les badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)"
-				},
-				"badges": {
-					"emote": ":military_medal:",
-					"usage": "help badges",
+					"usage": "badge",
 					"description": "Les badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)"
 				},
 				"drink": {
@@ -240,13 +235,8 @@
 				},
 				"badge": {
 					"emote": ":military_medal:",
-					"usage": "help badge",
+					"usage": "badge",
 					"description": "Badges are rewards very hard to get created to honor people who helped the bot development. The list of available badges is diplayed on the bot's discord server. (you can have the link of the server using the `invite` command)"
-				},
-				"badges": {
-					"emote": ":military_medal:",
-					"usage": "help badges",
-					"description": "Badges are very difficult distinctions to obtain and have been created to reward people who have most supported the development of the bot. The list of available badges is diplayed on the bot's discord server. (you can have the link of the server using the `invite` command)"
 				},
 				"drink": {
 					"emote": ":tropical_drink:",

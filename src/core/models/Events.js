@@ -32,7 +32,7 @@ module.exports = (Sequelize, DataTypes) => {
     freezeTableName: true,
   });
 
-  Events.beforeSave((instance, options) => {
+  Events.beforeSave((instance) => {
     instance.setDataValue('updatedAt',
         require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });

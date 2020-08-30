@@ -11,7 +11,7 @@
             "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
             "partialHeal": ":heart_decoration: | Les membres de la guilde ont été partiellement soignés. `+ {healthWon} ❤️`",
             "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
-            "coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. La prochaine récompense sera disponible dans environ {time} heures."
+            "coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochaine récompense : {time}."
         },
         "en": {
             "notInAGuild": "You have to be in a guild to use this command.",
@@ -24,7 +24,7 @@
             "fullHeal": ":heartpulse: | Guild's members were fully healed.",
             "partialHeal": ":heart_decoration: | Guild's members were partly healed. `+ {healthWon} ❤️`",
             "alterationHeal": ":hospital: | Guild's members' statuses were reset. Healthy guild's members were partly healed. `+ {healthWon} ❤️`",
-            "coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. The next one will be available in arround {time} hours."
+            "coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. Time before next reward : {time}."
         }
     },
     "minimalXp" : 20,

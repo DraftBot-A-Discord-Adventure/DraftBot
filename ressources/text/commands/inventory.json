@@ -2,17 +2,19 @@
 	"translations": {
 		"fr": {
 			"title": ":briefcase: **Inventaire de {pseudo}**",
-			"randomItemTitle" : "{pseudo}, vous avez trouvé quelque chose !",
-			"randomItemFooter" : "Souhaitez vous remplacer le contenu de votre inventaire ?",
-			"randomItemDesc" : "{actualItem}",
-			"acceptedTitle" : "{pseudo}, vous avez reçu un objet !"
+			"randomItemTitle": "{pseudo}, vous avez trouvé quelque chose !",
+			"randomItemFooter": "{pseudo}, souhaitez vous vendre votre équipement actuel ?",
+			"randomItemFooterPotion": "{pseudo}, souhaitez vous détruire votre potion actuelle ?",
+			"randomItemDesc": "{actualItem}",
+			"acceptedTitle": "{pseudo}, vous avez reçu un équipement !"
 		},
 		"en": {
 			"title": ":briefcase: **{pseudo}'s inventory**",
-			"randomItemTitle" : "{pseudo}, you just found something!",
-			"randomItemFooter" : "Do you want it to replace the item in your inventory?",
-			"randomItemDesc" : "{actualItem}",
-			"acceptedTitle" : "{pseudo}, you received an item !"
+			"randomItemTitle": "{pseudo}, you just found something!",
+			"randomItemFooter": "{pseudo}, do you want to sell your current item?",
+			"randomItemFooterPotion": "{pseudo}, do you want to destroy your current potion?",
+			"randomItemDesc": "{actualItem}",
+			"acceptedTitle": "{pseudo}, you received an item!"
 		}
 	}
 }

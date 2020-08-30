@@ -74,6 +74,8 @@ class Database {
             }
             /* eslint-disable no-param-reassign */
             migration.up = up.replace(/^-- .*?$/gm, '').trim(); // Remove comments
+            migration.up = migration.up.replace(/\r\n/g, '\n'); // Replace CRLF with LF (in the case both are present)
+            migration.up = migration.up.replace(/\n/g, '\r\n'); // Replace LF with CRLF
             migration.down = down.trim(); // and trim whitespaces
             /* eslint-enable no-param-reassign */
             resolve();
@@ -248,6 +250,7 @@ class Database {
             fr: possibility.translations.fr,
             en: possibility.translations.en,
             event_id: fileName,
+            nextEvent: (possibility.nextEvent !== undefined) ? possibility.nextEvent : null
           };
           possibilitiesContent.push(possibilityContent);
         }

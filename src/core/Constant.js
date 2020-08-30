@@ -31,8 +31,8 @@ global.NATURE = {
   NONE: 0,
   HEALTH: 1,
   SPEED: 2,
-  DEFENSE: 3,
-  ATTACK: 4,
+  ATTACK: 3,
+  DEFENSE: 4,
   HOSPITAL: 5,
   MONEY: 6,
 };
@@ -68,6 +68,7 @@ global.ITEMTYPE = {
 };
 
 global.GUILD = {
+  REQUIRED_LEVEL: 10,
   MAX_GUILD_MEMBER: 6,
   MAX_GUILDNAME_SIZE: 15,
   MIN_GUILDNAME_SIZE: 2,

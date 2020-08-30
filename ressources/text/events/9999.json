@@ -112,25 +112,13 @@
         "experience": 25,
         "money": 0,
         "item": false
-      },
-      {
-        "translations": {
-          "fr": "** | :smiley: La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route.",
-          "en": "** | :smiley: The princess got closer to you! At least that's the impression you got... You carry on."
-        },
-        "lostTime": 0,
-        "health": 0,
-        "effect": ":smiley:",
-        "experience": 25,
-        "money": 0,
-        "item": false
       }
     ],
     "end": [
       {
         "translations": {
-          "fr": "",
-          "en": ""
+          "fr": "** | :smiley: La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route.",
+          "en": "** | :smiley: The princess got closer to you! At least that's the impression you got... You carry on."
         },
         "lostTime": 0,
         "health": 0,

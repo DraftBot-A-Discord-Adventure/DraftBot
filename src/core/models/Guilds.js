@@ -48,7 +48,7 @@ module.exports = (Sequelize, DataTypes) => {
     freezeTableName: true,
   });
 
-  Guilds.beforeSave((instance, options) => {
+  Guilds.beforeSave((instance) => {
     instance.setDataValue('updatedAt',
       require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });

@@ -6,7 +6,7 @@
  */
 const GuildAddCommand = async (language, message, args) => {
   let entity; let invitedEntity; let guild; let invitedGuild;
-  let embed = new discord.MessageEmbed();
+  const invitationEmbed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -30,6 +30,15 @@ const GuildAddCommand = async (language, message, args) => {
       message.channel,
       language,
       JsonReader.commands.guildAdd.getTranslation(language).cannotGetInvitedUser);
+  }
+
+  if (invitedEntity.Player.level < GUILD.REQUIRED_LEVEL) { // invited user is low level
+    return await sendErrorMessage(
+      message.author,
+      message.channel,
+      language,
+      format(JsonReader.error.getTranslation(language).levelTooLow, { pseudo: entity.getMention(), level: GUILD.REQUIRED_LEVEL })
+    );;
   }
 
   if (await sendBlockedError(message.mentions.users.last(), message.channel, language)) {
@@ -85,16 +94,16 @@ const GuildAddCommand = async (language, message, args) => {
   }
 
   addBlockedPlayer(invitedEntity.discordUser_id, 'guildAdd');
-  embed.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).invitationTitle, {
+  invitationEmbed.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).invitationTitle, {
     pseudo: message.mentions.users.last().username,
   }), message.mentions.users.last().displayAvatarURL());
-  embed.setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
+  invitationEmbed.setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
     guildName: guild.name,
   }));
 
-  const msg = await message.channel.send(embed);
+  const msg = await message.channel.send(invitationEmbed);
 
-  embed = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
   const filterConfirm = (reaction, user) => {
     return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === message.mentions.users.last().id);
   };
