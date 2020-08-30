@@ -6,7 +6,7 @@
  */
 const GuildCreateCommand = async (language, message, args) => {
   let entity; let guild;
-  const embed = new discord.MessageEmbed();
+  const choiceEmbed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -71,16 +71,16 @@ const GuildCreateCommand = async (language, message, args) => {
   }
 
   addBlockedPlayer(entity.discordUser_id, 'guildCreate');
-  embed.setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, {
+  choiceEmbed.setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, {
     pseudo: message.author.username,
   }), message.author.displayAvatarURL());
-  embed.setDescription(format(JsonReader.commands.guildCreate.getTranslation(language).buyConfirm, {
+  choiceEmbed.setDescription(format(JsonReader.commands.guildCreate.getTranslation(language).buyConfirm, {
     guildName: askedName,
     price: JsonReader.commands.guildCreate.guildCreationPrice,
   }));
-  embed.setFooter(JsonReader.commands.guildCreate.getTranslation(language).buyFooter, null);
+  choiceEmbed.setFooter(JsonReader.commands.guildCreate.getTranslation(language).buyFooter, null);
 
-  const msg = await message.channel.send(embed);
+  const msg = await message.channel.send(choiceEmbed);
   embed = new discord.MessageEmbed();
   const filterConfirm = (reaction, user) => {
     return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id);

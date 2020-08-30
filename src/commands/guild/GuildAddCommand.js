@@ -6,7 +6,7 @@
  */
 const GuildAddCommand = async (language, message, args) => {
   let entity; let invitedEntity; let guild; let invitedGuild;
-  const embed = new discord.MessageEmbed();
+  const invitationEmbed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -94,16 +94,16 @@ const GuildAddCommand = async (language, message, args) => {
   }
 
   addBlockedPlayer(invitedEntity.discordUser_id, 'guildAdd');
-  embed.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).invitationTitle, {
+  invitationEmbed.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).invitationTitle, {
     pseudo: message.mentions.users.last().username,
   }), message.mentions.users.last().displayAvatarURL());
-  embed.setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
+  invitationEmbed.setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
     guildName: guild.name,
   }));
 
-  const msg = await message.channel.send(embed);
+  const msg = await message.channel.send(invitationEmbed);
 
-  embed = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
   const filterConfirm = (reaction, user) => {
     return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === message.mentions.users.last().id);
   };

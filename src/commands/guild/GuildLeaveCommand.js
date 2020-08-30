@@ -6,7 +6,7 @@
  */
 const GuildLeaveCommand = async (language, message, args) => {
   let entity; let guild;
-  const embed = new discord.MessageEmbed();
+  const confirmationEmbed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -33,22 +33,22 @@ const GuildLeaveCommand = async (language, message, args) => {
   }
   addBlockedPlayer(entity.discordUser_id, 'guildLeave');
   // generate confirmation embed
-  embed.setAuthor(format(JsonReader.commands.guildLeave.getTranslation(language).leaveTitle, {
+  confirmationEmbed.setAuthor(format(JsonReader.commands.guildLeave.getTranslation(language).leaveTitle, {
     pseudo: message.author.username,
   }), message.author.displayAvatarURL());
   if (guild.chief_id != entity.id) {
-    embed.setDescription(format(JsonReader.commands.guildLeave.getTranslation(language).leaveDesc, {
+    confirmationEmbed.setDescription(format(JsonReader.commands.guildLeave.getTranslation(language).leaveDesc, {
       guildName: guild.name,
     }));
   } else {
-    embed.setDescription(format(JsonReader.commands.guildLeave.getTranslation(language).leaveChiefDesc, {
+    confirmationEmbed.setDescription(format(JsonReader.commands.guildLeave.getTranslation(language).leaveChiefDesc, {
       guildName: guild.name,
     }));
   }
 
-  const msg = await message.channel.send(embed);
+  const msg = await message.channel.send(confirmationEmbed);
 
-  embed = new discord.MessageEmbed();
+  const embed = new discord.MessageEmbed();
   const filterConfirm = (reaction, user) => {
     return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === message.author.id);
   };

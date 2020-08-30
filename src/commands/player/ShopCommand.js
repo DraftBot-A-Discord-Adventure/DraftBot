@@ -206,7 +206,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
  * @param {*} info - The info to display while trying to buy the item
  */
 async function confirmPurchase(message, language, name, price, info, entity, customer, selectedItem) {
-    let confirmEmbed = new discord.MessageEmbed()
+    const confirmEmbed = new discord.MessageEmbed()
         .setColor(JsonReader.bot.embed.default)
         .setAuthor(
             format(JsonReader.commands.shop.getTranslation(language).confirm, {
