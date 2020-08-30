@@ -32,6 +32,15 @@ const GuildAddCommand = async (language, message, args) => {
       JsonReader.commands.guildAdd.getTranslation(language).cannotGetInvitedUser);
   }
 
+  if (invitedEntity.Player.level < GUILD.REQUIRED_LEVEL) { // invited user is low level
+    return await sendErrorMessage(
+      message.author,
+      message.channel,
+      language,
+      format(JsonReader.error.getTranslation(language).levelTooLow, { pseudo: entity.getMention(), level: GUILD.REQUIRED_LEVEL })
+    );;
+  }
+
   if (await sendBlockedError(message.mentions.users.last(), message.channel, language)) {
     return;
   }

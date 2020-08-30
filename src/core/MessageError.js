@@ -61,8 +61,12 @@ class MessageError {
 
     if (minimalLevel != null) {
       if (entity.Player.level < minimalLevel) {
-        const msg = format(JsonReader.error.getTranslation(language).levelTooLow, { pseudo: entity.getMention(), level: minimalLevel })
-        return await sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg);
+        return await sendErrorMessage(
+          message.author,
+          message.channel,
+          language,
+          format(JsonReader.error.getTranslation(language).levelTooLow, { pseudo: entity.getMention(), level: minimalLevel })
+        );
       }
     }
 

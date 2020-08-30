@@ -76,7 +76,7 @@ const GuildCommand = async (language, message, args) => {
       xpToLevelUp: guild.getExperienceNeededToLevelUp(),
       level: guild.level,
     }), progressBar(guild.experience, guild.getExperienceNeededToLevelUp()));
-  }else{
+  } else {
     embed.addField(JsonReader.commands.guild.getTranslation(language).lvlMax, progressBar(1, 1));
   }
 
