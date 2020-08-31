@@ -289,6 +289,12 @@ module.exports = (Sequelize, DataTypes) => {
     }
     msg += bonuses[bonuses.length - 1];
     await channel.send(msg);
+
+    if (this.needLevelUp()) {
+      return this.levelUpIfNeeded(entity, channel, language);
+    } else {
+      return;
+    }
   };
 
   /**

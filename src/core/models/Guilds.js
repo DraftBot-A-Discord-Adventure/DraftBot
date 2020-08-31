@@ -53,7 +53,7 @@ module.exports = (Sequelize, DataTypes) => {
       require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
-  Guilds.prototype.updateLastDailyAt = function() {
+  Guilds.prototype.updateLastDailyAt = function () {
     const moment = require('moment');
     this.lastDailyAt = new moment();
   };
@@ -122,7 +122,6 @@ module.exports = (Sequelize, DataTypes) => {
     if (!this.needLevelUp()) {
       return;
     }
-
     this.experience -= this.getExperienceNeededToLevelUp();
     this.level++;
     const embed = new discord.MessageEmbed()
@@ -132,7 +131,13 @@ module.exports = (Sequelize, DataTypes) => {
       .setDescription(format(JsonReader.models.guilds.getTranslation(language).levelUp.desc, {
         level: this.level
       }));
-    return channel.send(embed);
+    channel.send(embed);
+
+    if (this.needLevelUp()) {
+      return this.levelUpIfNeeded(channel, language);
+    } else {
+      return;
+    }
   };
 
   return Guilds;
