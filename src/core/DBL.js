@@ -36,17 +36,18 @@ class DBL {
       return;
     }
     const embed = new discord.MessageEmbed();
-    embed.setAuthor("Thank you for voting for " + client.user.username, dUser.avatarURL(), "https://top.gg/bot/" + client.user.id);
-    let desc = "User: `" + dUser.tag + " (id:" + dUser.id + ")` just voted!\n" + dUser.username + " got the role `" + (await guild.roles.fetch(JsonReader.app.DBL_VOTE_ROLE)).name + "` for `";
+    embed.setTitle("SOMEONE HAS VOTED FOR " + client.user.username.toUpperCase(), undefined, "https://top.gg/bot/" + client.user.id);
+    embed.setThumbnail(dUser.avatarURL());
+    let desc = "**" + dUser.tag + "** is now a " + (await guild.roles.fetch(JsonReader.app.DBL_VOTE_ROLE)).toString() + " for `";
     if (TOPGG.ROLE_DURATION === 24) {
       desc += "1 day";
     } else {
       desc += TOPGG.ROLE_DURATION + " hours";
     }
-    embed.setDescription(desc + "` and the badge " + TOPGG.BADGE + " for `" + TOPGG.BADGE_DURATION + " hours` :tada:"
-      + "\n\nYou can vote [here](https://top.gg/bot/" + client.user.id + ") every 12 hours!"
+    embed.setDescription(desc + "` and got the badge " + TOPGG.BADGE + " for `" + TOPGG.BADGE_DURATION + " hours` :tada:"
+      + "\n\nYou can vote [here](https://top.gg/bot/" + client.user.id + ") every 12 hours!\n||User ID: " + dUser.id + "||"
     );
-    embed.setFooter("Thank you for your support!");
+    embed.setImage("https://i.imgur.com/3PrpILu.png");
     (await guild.channels.cache.get(JsonReader.app.DBL_LOGS_CHANNEL)).send(embed);
   }
 
