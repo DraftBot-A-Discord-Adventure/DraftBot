@@ -181,6 +181,13 @@ class MessageError {
           .setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsConfounded, {pseudo: message.author.username}), message.author.displayAvatarURL())
           .setDescription(entity.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal);
     }
+      
+      if (effect === EFFECT.FROZEN) {
+      embed
+        .setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsFrozen, { pseudo: message.author.username }), message.author.displayAvatarURL())
+        .setDescription(entity.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal);
+    }
+    
 
     return await message.channel.send(embed);
   }
