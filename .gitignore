@@ -1,11 +1,3 @@
 .idea/
 .vscode/
 node_modules/
-/database/*.sqlite
-src/utils/eastereggs/EasterEggs.js
-src/utils/eastereggs/key
-src/utils/eastereggs/iv
-config/app.json
-*.iml
-.jshintrc
-logs/*

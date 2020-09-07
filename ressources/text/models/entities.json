@@ -1,8 +1,0 @@
-{
-	"maxHealth": 100,
-	"health": 100,
-	"attack": 50,
-	"defense": 20,
-	"speed": 10,
-	"effect": ":baby:"
-}
