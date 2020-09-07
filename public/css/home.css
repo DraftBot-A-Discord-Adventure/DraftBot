@@ -228,7 +228,7 @@ textarea {
 }
 
 .logo img {
-    max-width: 125px;
+    max-width: 200px;
 }
 
 .nav__links {
@@ -361,7 +361,7 @@ textarea {
     min-height: 800px;
     background: url(../ressources/backgrounds/background.jpg);
     background-color: #7289DA;
-    background-size: 1750px;
+    background-size: 2000px;
     background-position: center;
     position: relative;
 }
