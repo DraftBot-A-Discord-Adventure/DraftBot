@@ -565,7 +565,8 @@ textarea {
 	}
 
 	.hero-bg {
-		background: url(../ressources/backgrounds/background.jpg);
+		background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)),
+			url(../ressources/backgrounds/background.jpg);
 		background-size: 2500px;
 		background-position: center;
 	}
