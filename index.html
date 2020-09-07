@@ -1,17 +1,19 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <title>Draftbot - A Discord Adventure</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description"
     content="A Discord bot based on a text adventure game. Begin your journey in a medieval world to win the kingdom's princess's hand.">
-  <meta property='og:image' content='https://bastlast.github.io/DraftBot-A-Discord-Adventure/public/ressources/logo.png'/>
-  <meta property="og:site_name" content="draftbot.draft"/>
+  <meta property='og:image'
+    content='https://bastlast.github.io/DraftBot-A-Discord-Adventure/public/ressources/logo.png' />
+  <meta property="og:site_name" content="draftbot.draft" />
 
   <!-- Favicon -->
-  <link href="public/ressources/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-  <link href="public/ressources/favicon.ico" rel="icon" type="image/x-icon"/>
+  <link href="public/ressources/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="public/ressources/favicon.ico" rel="icon" type="image/x-icon" />
 
   <link rel="stylesheet" href="public/css/home.css">
 
@@ -37,49 +39,50 @@
 
 <body>
   <div class="hero-bg">
-    <header>
-      <a class="logo" href="/"><img src="public/ressources/banner.png" alt="logo"></a>
-      <nav>
-        <ul class="nav__links">
+    <div class="test">
+      <header>
+        <a class="logo" href="/"><img src="public/ressources/banner.png" alt="logo"></a>
+        <nav>
+          <ul class="nav__links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a target="__blank" href="https://utip.io/mw3y">Support Us</a></li>
+            <li><a target="__blank" href="https://github.com/Mw3y/Suivix">Github</a></li>
+            <li><a href="/support">Technical Support</a></li>
+          </ul>
+        </nav>
+        <div class="dropdown">
+          <a class="button buttonWhite buttonSmall bold buttonLanguage" id="pc-menu"><i
+              class="fas fa-globe-americas buttonSmallIcon"></i> EN</a>
+          <div class="dropdown-content">
+            <a href="/fr"><i class="fas fa-angle-right buttonSmallIcon"></i> FR</a>
+          </div>
+        </div>
+        <div class="menu">
+          <p class="button buttonWhite buttonSmall bold">Menu</p>
+        </div>
+      </header>
+
+      <div class="overlay">
+        <a class="close">&times;</a>
+        <div class="overlay__content">
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a target="__blank" href="https://utip.io/mw3y">Support Us</a></li>
           <li><a target="__blank" href="https://github.com/Mw3y/Suivix">Github</a></li>
           <li><a href="/support">Technical Support</a></li>
-        </ul>
-      </nav>
-      <div class="dropdown">
-        <a class="button buttonWhite buttonSmall bold buttonLanguage" id="pc-menu"><i
-            class="fas fa-globe-americas buttonSmallIcon"></i> EN</a>
-        <div class="dropdown-content">
-          <a href="/fr"><i class="fas fa-angle-right buttonSmallIcon"></i> FR</a>
+          <li><a href="/fr">Passer en Français</a></li>
         </div>
       </div>
-      <div class="menu">
-        <p class="button buttonWhite buttonSmall bold">Menu</p>
-      </div>
-    </header>
 
-    <div class="overlay">
-      <a class="close">&times;</a>
-      <div class="overlay__content">
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a target="__blank" href="https://utip.io/mw3y">Support Us</a></li>
-        <li><a target="__blank" href="https://github.com/Mw3y/Suivix">Github</a></li>
-        <li><a href="/support">Technical Support</a></li>
-        <li><a href="/fr">Passer en Français</a></li>
+      <div class="hero-infos">
+        <div class="title">Draftbot - A Discord Adventure</div>
+        <a href="/invite" class="button buttonWhite buttonLarge" style="margin-top: 24px"><i
+            class="fab fa-discord buttonIcon"></i>
+          Add to Discord</a>
+        <a href="/servers" class="button buttonGrey buttonLarge buttonUse"><i
+            class="fas fa-chevron-right buttonIcon"></i>More infos</a>
       </div>
-    </div>
-
-    <div class="hero-infos">
-      <div class="title">A Discord Adventure</div>
-      <div class="description">The story takes place in a medieval world where the player embodies an adventurer who wants<br>to win a competition launched by the king, to win the princess's hand.</div>
-      <a href="/invite" class="button buttonWhite buttonLarge" style="margin-top: 24px"><i
-          class="fab fa-discord buttonIcon"></i>
-        Add to Discord</a>
-      <a href="/servers" class="button buttonGrey buttonLarge buttonUse"><i
-          class="fas fa-chevron-right buttonIcon"></i>More infos</a>
     </div>
     <div class="waves">
       <svg width="100%" height="175px" fill="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -151,7 +154,8 @@
             <br><br>
             For more information use <code>!suivix help</code>.
             <br><br>
-            Your attendance result contains the date & the absent and present students names. You can find an example <a href="https://suivix.xyz/ressources/example2.png" target="__blank">here</a>.
+            Your attendance result contains the date & the absent and present students names. You can find an example <a
+              href="https://suivix.xyz/ressources/example2.png" target="__blank">here</a>.
           </div>
         </div>
       </div>
@@ -187,7 +191,8 @@
             Match most of the situations
           </h1>
           <div class="text">
-            To take attendance, you can choose up to 4 voice channels and 6 different roles. For example, you can split your class into groups.
+            To take attendance, you can choose up to 4 voice channels and 6 different roles. For example, you can split
+            your class into groups.
           </div>
         </div>
       </div>
@@ -278,8 +283,8 @@
       <p class="copyright center">
         Copyright ©
         <var id="year">2020</var> All rights reserved | Made with <i class="fas fa-heart"></i> by <a
-          href="https://behance.net/mw3y" target="_blank">MΛX</a> (Maxence ESPAGNET), icons from <a href="https://icons8.com"
-          target="_blank">icons8.com</a> & background by <a
+          href="https://behance.net/mw3y" target="_blank">MΛX</a> (Maxence ESPAGNET), icons from <a
+          href="https://icons8.com" target="_blank">icons8.com</a> & background by <a
           href='https://fr.freepik.com/vecteurs-libre/camp-ete-tente-feu-camp-lac_7588841.htm'>upklyak -
           fr.freepik.com</a>
         <br>Special thanks to <strong>"Un_phoque"</strong> (French Developer), <strong>"Michaël Morival"</strong> &
