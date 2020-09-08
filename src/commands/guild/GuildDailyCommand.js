@@ -10,7 +10,7 @@ const GuildDailyCommand = async (language, message, args) => {
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity, GUILD.REQUIRED_LEVEL)) !== true) {
     return;
   }
 
@@ -36,14 +36,17 @@ const GuildDailyCommand = async (language, message, args) => {
       message.channel,
       language,
       format(JsonReader.commands.guildDaily.getTranslation(language).coolDown, {
-        coolDownTime : JsonReader.commands.guildDaily.timeBetweenDailys,
-        time: JsonReader.commands.guildDaily.timeBetweenDailys-time,
+        coolDownTime: JsonReader.commands.guildDaily.timeBetweenDailys,
+        time: minutesToString(millisecondsToMinutes(JsonReader.commands.guildDaily.timeBetweenDailys * 3600000 - message.createdAt.getTime() + guild.lastDailyAt.valueOf())),
       }));
   }
 
   const members = await Entities.getByGuild(guild.id);
 
   for (const i in members) {
+    if (hasBlockedPlayer(members[i].discordUser_id) && getBlockedPlayer(members[i].discordUser_id) === "fight") {
+      continue;
+    }
     if (await sendBlockedError(await client.users.fetch(members[i].discordUser_id), message.channel, language)) {
       return;
     }
@@ -147,7 +150,7 @@ const GuildDailyCommand = async (language, message, args) => {
 
   if (rewardType === REWARD_TYPES.ALTERATION) {
     for (const i in members) {
-      if (members[i].currentEffectFinished()) { 
+      if (members[i].currentEffectFinished()) {
         members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
       } else if (members[i].effect !== EFFECT.DEAD && members[i].effect !== EFFECT.LOCKED) {
         members[i].effect = EFFECT.SMILEY;
@@ -165,9 +168,13 @@ const GuildDailyCommand = async (language, message, args) => {
 };
 
 module.exports = {
-  'guilddaily': GuildDailyCommand,
-  'gdaily': GuildDailyCommand,
-  'gd': GuildDailyCommand,
+  commands: [
+    {
+      name: 'guilddaily',
+      func: GuildDailyCommand,
+      aliases: ['gdaily', 'gd']
+    }
+  ]
 };
 
 

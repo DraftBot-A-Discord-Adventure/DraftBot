@@ -44,7 +44,7 @@ module.exports = (Sequelize, DataTypes) => {
     freezeTableName: true,
   });
 
-  Potions.beforeSave((instance, options) => {
+  Potions.beforeSave((instance) => {
     instance.setDataValue('updatedAt',
       require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });

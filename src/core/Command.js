@@ -9,6 +9,7 @@ class Command {
    */
   static async init() {
     Command.commands = new Map();
+    Command.aliases = new Map();
     Command.players = JsonReader.app.BLACKLIST_IDS.split('-');
 
     const folders = [
@@ -21,16 +22,59 @@ class Command {
         if (!commandFile.endsWith('.js')) continue;
         folder = folder.replace('src/', '');
         const commandName = commandFile.split('.')[0];
-        const commandKeys = Object.keys(require(`${folder}/${commandName}`));
 
-        for (const commandKey of commandKeys) {
-          await Command.commands.set(
-            commandKey,
-            require(`${folder}/${commandName}`)[commandKey],
-          );
+        const commands = require(`${folder}/${commandName}`).commands;
+        if (commands !== undefined) {
+          for (let i = 0; i < commands.length; ++i) {
+            const cmd = commands[i];
+            Command.commands.set(
+                cmd.name,
+                cmd.func,
+            );
+            Command.aliases.set(
+                cmd.name,
+                cmd.name,
+            );
+            if (cmd.aliases !== undefined) {
+              for (let j = 0; j < cmd.aliases.length; ++j) {
+                Command.commands.set(
+                    cmd.aliases[j],
+                    cmd.func,
+                );
+                Command.aliases.set(
+                    cmd.aliases[j],
+                    cmd.name,
+                );
+              }
+            }
+          }
         }
       }
     }
+  }
+
+  /**
+   * @param {String} alias - The alias
+   * @returns {String} The command
+   */
+  static getMainCommandFromAlias(alias) {
+    if (Command.aliases.has(alias))
+      return Command.aliases.get(alias);
+    return alias;
+  }
+
+  /**
+   * @param {String} cmd - The command
+   * @returns {String[]} The aliases
+   */
+  static getAliasesFromCommand(cmd) {
+    let aliases = [];
+    for (const alias of Command.aliases.entries()) {
+      if (alias[1] === cmd && alias[0] !== cmd) {
+        aliases.push(alias[0]);
+      }
+    }
+    return aliases;
   }
 
   /**
@@ -87,6 +131,14 @@ class Command {
       language = "en";
     }
 
+    if (message.mentions.members.size !== 0 && message.mentions.members.last().id === client.user.id) {
+      await message.channel.send(format(
+          JsonReader.bot.getTranslation(language).mentionHelp,
+          { prefix: server.prefix }
+      ));
+      return;
+    }
+
     if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
       if (message.author.id !== JsonReader.app.BOT_OWNER_ID &&
         JsonReader.app.MODE_MAINTENANCE) {
@@ -111,7 +163,7 @@ class Command {
    */
   static async handlePrivateMessage(message) {
     await Command.sendSupportMessage(message,
-      Command.hasBlockedPlayer(message.author.id));
+        JsonReader.app.BLACKLIST_IDS.includes(message.author.id));
   }
 
   /**
@@ -136,6 +188,12 @@ class Command {
       id: message.author.id,
       isBlacklisted: isBlacklisted ? JsonReader.bot.dm.blacklisted : '',
     });
+
+    if (isBlacklisted) {
+      for (let i = 0; i < 5; i++) {
+        message.channel.send(":x: Erreur.");
+      }
+    }
 
     channel.send(message.author.id)
       .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
@@ -204,3 +262,5 @@ global.addBlockedPlayer = Command.addBlockedPlayer;
 global.removeBlockedPlayer = Command.removeBlockedPlayer;
 global.handleMessage = Command.handleMessage;
 global.handlePrivateMessage = Command.handlePrivateMessage;
+global.getMainCommandFromAlias = Command.getMainCommandFromAlias;
+global.getAliasesFromCommand = Command.getAliasesFromCommand;

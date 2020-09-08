@@ -24,6 +24,11 @@ const giveBadgeCommand = async function (language, message, args) {
 };
 
 module.exports = {
-  'gb': giveBadgeCommand,
+  commands: [
+    {
+      name: 'gb',
+      func: giveBadgeCommand
+    }
+  ]
 };
 

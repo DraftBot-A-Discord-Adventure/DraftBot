@@ -74,6 +74,8 @@ class Database {
             }
             /* eslint-disable no-param-reassign */
             migration.up = up.replace(/^-- .*?$/gm, '').trim(); // Remove comments
+            migration.up = migration.up.replace(/\r\n/g, '\n'); // Replace CRLF with LF (in the case both are present)
+            migration.up = migration.up.replace(/\n/g, '\r\n'); // Replace LF with CRLF
             migration.down = down.trim(); // and trim whitespaces
             /* eslint-enable no-param-reassign */
             resolve();
@@ -227,8 +229,12 @@ class Database {
       const fileContent = (require(`ressources/text/events/${file}`));
 
       fileContent.id = fileName;
+
+      if (!Database.isEventValid(fileContent)) continue;
+
       fileContent.fr = fileContent.translations.fr;
       fileContent.en = fileContent.translations.en;
+
       eventsContent.push(fileContent);
 
       for (const possibilityKey of Object.keys(fileContent.possibilities)) {
@@ -244,6 +250,7 @@ class Database {
             fr: possibility.translations.fr,
             en: possibility.translations.en,
             event_id: fileName,
+            nextEvent: (possibility.nextEvent !== undefined) ? possibility.nextEvent : null
           };
           possibilitiesContent.push(possibilityContent);
         }
@@ -252,6 +259,67 @@ class Database {
 
     await Events.bulkCreate(eventsContent);
     await Possibilities.bulkCreate(possibilitiesContent);
+  }
+
+  static sendEventLoadError(event, message) {
+    console.warn("Error while loading event " + event.id + ": " + message);
+  }
+
+  static isEventValid(event) {
+    const eventFields = ["translations", "possibilities"];
+    for (let i = 0; i < eventFields.length; ++i) {
+      if (!Object.keys(event).includes(eventFields[i])) {
+        Database.sendEventLoadError(event, "Key missing: " + field);
+        return false;
+      }
+    }
+    if (event.translations.fr === undefined) {
+      Database.sendEventLoadError(event, "French translation missing");
+      return false;
+    }
+    if (event.translations.en === undefined) {
+      Database.sendEventLoadError(event, "English translation missing");
+      return false;
+    }
+    let endPresent = false;
+    const effects = JsonReader.models.players.effectMalus;
+    const possibilityFields = ["lostTime", "health", "effect", "experience", "money", "item", "translations"];
+    for (const possibilityKey of Object.keys(event.possibilities)) {
+      if (possibilityKey === "end") endPresent = true;
+      for (const possibility of event.possibilities[possibilityKey]) {
+        for (let i = 0; i < possibilityFields.length; ++i) {
+          if (!Object.keys(possibility).includes(possibilityFields[i])) {
+            Database.sendEventLoadError(event, "Key missing in possibility " + possibilityKey + ": " + field);
+            return false;
+          }
+          if (possibility.translations.fr === undefined) {
+            Database.sendEventLoadError(event, "French translation missing in possibility " + possibilityKey);
+            return false;
+          }
+          if (possibility.translations.en === undefined) {
+            Database.sendEventLoadError(event, "English translation missing in possibility " + possibilityKey);
+            return false;
+          }
+          if (possibility.lostTime < 0) {
+            Database.sendEventLoadError(event, "Lost time must be positive in possibility " + possibilityKey);
+            return false;
+          }
+          if (possibility.lostTime > 0 && possibility.effect !== EFFECT.OCCUPIED) {
+            Database.sendEventLoadError(event, "Time lost and no clock2 effect in possibility " + possibilityKey);
+            return false;
+          }
+          if (effects[possibility.effect] === null || effects[possibility.effect] === undefined) {
+            Database.sendEventLoadError(event, "Unknown effect \"" + possibility.effect + "\" in possibility " + possibilityKey);
+            return false;
+          }
+        }
+      }
+    }
+    if (!endPresent) {
+      Database.sendEventLoadError(event, "End possibility is not present");
+      return false;
+    }
+    return true;
   }
 
   /**

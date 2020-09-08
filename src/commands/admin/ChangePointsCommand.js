@@ -14,7 +14,7 @@ const ChangePointsCommand = async function(language, message, args) {
   let entity;
   const playerId = message.mentions.users.last().id;
   [entity] = await Entities.getOrRegister(playerId);
-  await entity.Player.setPoints(args[1]);
+  entity.Player.score = parseInt(args[1]);
   await entity.Player.save();
 
   embed.setColor(JsonReader.bot.embed.default)
@@ -29,6 +29,11 @@ const ChangePointsCommand = async function(language, message, args) {
 };
 
 module.exports = {
-  'points': ChangePointsCommand,
+  commands: [
+    {
+      name: 'points',
+      func: ChangePointsCommand
+    }
+  ]
 };
 

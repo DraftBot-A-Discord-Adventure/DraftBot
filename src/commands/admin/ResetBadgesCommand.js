@@ -23,6 +23,11 @@ const resetBadgesCommand = async function (language, message, args) {
 };
 
 module.exports = {
-  'rb': resetBadgesCommand,
+  commands: [
+    {
+      name: 'rb',
+      func: resetBadgesCommand
+    }
+  ]
 };
 
