@@ -186,7 +186,8 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
         } else if (
             selectedItem.name === shopTranslations.permanentItems.guildXp.name
         ) {
-            await giveGuildXp(message, language, entity, customer, selectedItem);
+            if (!await giveGuildXp(message, language, entity, customer, selectedItem))
+                return;//if no guild, no need to proceed
         }
         entity.Player.addMoney(-selectedItem.price); //Remove money
     } else {
@@ -375,8 +376,10 @@ async function giveGuildXp(message, language, entity, customer, selectedItem) {
                     })
                 )
         );
+        return true
     } catch (err) {
-        sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guild.getTranslation(language).noGuildException);
+        sendErrorMessage(customer, message.channel, language, JsonReader.commands.guild.getTranslation(language).noGuildException);
+        return false;
     }
 }
 
