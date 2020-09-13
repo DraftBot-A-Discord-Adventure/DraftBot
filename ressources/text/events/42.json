@@ -1,6 +1,6 @@
 {
     "translations": {
-        "fr": " : ** 🛣️ Vous suivez une route quand, au détour d’un chemin, une jeune femme apparaît : vous ne comprenez pas très bien ce qu’elle dit mais il semble qu’elle a besoin d’aide pour l’exploration d’une grotte.\n:bow_and_arrow: Vous empresser de l'aider\n:sunglasses: Faire mine de vous éloigner pour revenir seul fouiller la grotte\n:cut_of_meat: Lui demander l'auberge la plus proche\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "fr": " : ** 🛣️ Vous suivez une route quand, au détour d’un chemin, une jeune femme apparaît : vous ne comprenez pas très bien ce qu’elle dit mais il semble qu’elle a besoin d’aide pour l’exploration d’une grotte.\n\n:bow_and_arrow: Vous empresser de l'aider\n:sunglasses: Faire mine de vous éloigner pour revenir seul fouiller la grotte\n:cut_of_meat: Lui demander l'auberge la plus proche\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
         "en": " : ** 🛣️ At the bend of a road on which you have been walking, a young woman appears. You do not quite understand what she is saying, but it seems she needs help to explore a cave.\n\n:bow_and_arrow: Rush to help her\n:sunglasses: Feign to go on your way with the plan to come back explore alone.\n:cut_of_meat:  Ask her for the nearest hostel\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
     },
     "possibilities": {
@@ -155,58 +155,6 @@
                 "money": 0,
                 "item": false
             }
-		],
-		"🥩": [
-			{
-				"translations": {
-					"fr": "** | 🥩 Elle vous répond gentiment qu’elle en tient elle-même une et vous invite à y passer. Vous acceptez et c’est après un périple de quelques minutes que vous arrivez devant l’auberge en question. Quelle n’est pas votre surprise quand vous vous rendez compte que celle-ci est aménagée à l’aplomb d’une grotte. Vous vous avancez d’un pas confiant en direction du fond de celle-ci où mijote une soupe qui exhale un parfum enivrant. C’est alors qu’un bruit sourd se fait entendre. Vous vous retournez et voyez s’abaisser une herse. Une quinzaine de personnes apparaissent alors de l’autre coté. C’était un piège et vous êtes tombé dedans. Trop faible pour parlementer vous décider de goûter à la soupe en premier lieu. Votre tête devient lourde, vous entendez vos gardes s’esclaffer, et sombrez dans un profond sommeil. Vous vous réveillez au bord d’une rivière, les poches plus légères qu’à votre souvenir.",
-					"en": "** | 🥩 She tells you that she happens to own one and invites you to follow her. You accept and after walking for several minutes you arrive at the destination. You are very much surprised to find out the hostel is built on the side of a cliff, into a cave. You progress confidently towards the bottom from where arise the heavenly scent of a probably delicious stew. Suddenly, you hear a muffle sound. You turn around and see a portcullis being lowered. More than a dozen thugs appear on the other side. It was a trap and you fell for it. Too weak to negotiate with an empty stomach you decide to take a sip of the stew first. Your head gets heavy as you hear a roar of laughter from the thugs. You fall unconscious. You wake up next to a river, your pockets much lighter than you remember."
-				},
-				"lostTime": 240,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": -300,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🥩 Elle vous indique une taverne à quelques kilomètres, et vous vous y rendez, remplissez l’estomac et reposez. Après avoir réglé l’addition vous reprenez votre marche. ",
-					"en": "** | 🥩 She provides the direction for a tavern a few kilometres from here. You go there, eat well and rest well. After paying your bill, you get back on the road."
-				},
-				"lostTime": 60,
-				"health": 15,
-				"effect": ":clock2:",
-				"experience": 250,
-				"money": -100,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous l'ignorez totalement, et reprenez route. Vous finissez par arriver dans une petite bourgade du très joli nom de Tardans. En y entrant, vous tombez sur une sacoche remplie d'un bon tas de pièces et d'un objet, ce qui pourrait s'avérer utile pour la suite de votre aventure !",
-					"en": "** | 🚶 You ignore her entirely and go on your way. You arrive in a delightful little town whose lovely name is Tardans. Wandering the small streets, you come across a small money bag filled with money and an object, which could be useful for the future of your journey."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 550,
-				"money": 500,
-				"item": true
-			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles. :sick: ",
-					"en": "** | 🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. :sick:"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":sick:",
-				"experience": 20,
-				"money": 0,
-				"item": false
-			}
 		]
 	}
 }
