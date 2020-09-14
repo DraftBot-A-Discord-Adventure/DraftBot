@@ -1,11 +1,11 @@
 {
       "translations": {
             "fr": {
-                  "title": "{pseudo}, vous avez demandé la liste de tous les items !",
+                  "title": "{pseudo}, vous avez demandé la liste de tous les objets !",
                   "desc": "{name} - **Rareté**: {rarity} - **Défense brute**: {rawD}"
             },
             "en": {
-                  "title": "{pseudo}, yyou asked for the list of every items !",
+                  "title": "{pseudo}, yyou asked for the list of every objets !",
                   "desc": "{name} - **Rarity**: {rarity} - **Raw defense**: {rawD}"
             }
       }

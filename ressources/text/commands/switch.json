@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"main": ":repeat: | ** {pseudo} **, l'item actif et l'item en réserve ont été inversés !"
+			"main": ":repeat: | ** {pseudo} **, l'objet actif et l'objet en réserve ont été inversés !"
 		},
 		"en": {
 			"main": ":repeat: | ** {pseudo} **, The active and reserve items were swapped!"
