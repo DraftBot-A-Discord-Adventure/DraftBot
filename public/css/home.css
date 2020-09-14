@@ -521,7 +521,7 @@ textarea {
 }
 
 @media only screen and (max-width: 800px) {
-	#pc-content {
+	.pc-content {
 		display: none;
 	}
 
