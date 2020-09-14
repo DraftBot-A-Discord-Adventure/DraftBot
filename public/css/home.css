@@ -85,8 +85,16 @@ footer {
 .smallMargin {
 	margin-top: 50px;
 }
+
+.smallMargin-pc {
+	margin-top: 50px;
+}
 .smallMarginBottom {
 	margin-bottom: 50px;
+}
+
+.mediumMargin {
+	margin-top: 70px;
 }
 
 .largeMargin {
@@ -183,6 +191,12 @@ textarea {
 .question {
 	min-width: 150px;
 	max-width: 250px;
+	margin-right: 50px;
+}
+
+.Bigquestion {
+	min-width: 150px;
+	max-width: 400px;
 	margin-right: 50px;
 }
 
@@ -523,6 +537,10 @@ textarea {
 @media only screen and (max-width: 800px) {
 	.pc-content {
 		display: none;
+	}
+
+	.smallMargin-pc {
+		margin-top: 0px;
 	}
 
 	.buttonUse {
