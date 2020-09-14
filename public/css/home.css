@@ -79,8 +79,14 @@ footer {
 	color: #f54542;
 }
 
+.verySmallMargin {
+	margin-top: 25px;
+}
 .smallMargin {
 	margin-top: 50px;
+}
+.smallMarginBottom {
+	margin-bottom: 50px;
 }
 
 .largeMargin {
@@ -176,7 +182,7 @@ textarea {
 
 .question {
 	min-width: 150px;
-	max-width: 450px;
+	max-width: 250px;
 	margin-right: 50px;
 }
 
