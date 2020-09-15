@@ -381,6 +381,15 @@ textarea {
 	width: 18px;
 }
 
+.shadowed {
+	-o-box-shadow: 12px 12px 29px #555;
+	-icab-box-shadow: 12px 12px 29px #555;
+	-khtml-box-shadow: 12px 12px 29px #555;
+	-moz-box-shadow: 12px 12px 29px #555;
+	-webkit-box-shadow: 12px 12px 29px #555;
+	box-shadow: 12px 12px 29px #555;
+}
+
 .hero-bg {
 	min-height: 800px;
 	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)),
