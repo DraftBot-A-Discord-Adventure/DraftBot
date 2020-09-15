@@ -68,14 +68,16 @@
       <div class="overlay">
         <a class="close">&times;</a>
         <div class="overlay__content">
-          <li><a target="_blank" href="https://guide.draftbot.com">About</a></li>
-          <li><a href="#add">Add the bot to your server</a></li>
-          <li><a target="_blank" href="https://github.com/sponsors/BastLast">Donate</a></li>
-          <li><a target="_blank" href="https://github.com/BastLast/DraftBot-A-Discord-Adventure">Github</a></li>
-          <li><a target="_blank" href="https://discord.com/invite/5JqrMtZ">Technical Support</a></li>
-          <!-- TODO: 
+          <ul>
+            <li><a target="_blank" href="https://guide.draftbot.com">About</a></li>
+            <li><a href="#add">Add the bot to your server</a></li>
+            <li><a target="_blank" href="https://github.com/sponsors/BastLast">Donate</a></li>
+            <li><a target="_blank" href="https://github.com/BastLast/DraftBot-A-Discord-Adventure">Github</a></li>
+            <li><a target="_blank" href="https://discord.com/invite/5JqrMtZ">Technical Support</a></li>
+            <!-- TODO: 
             <li><a href="/fr">Passer en Français</a></li>
           -->
+          </ul>
         </div>
       </div>
 
@@ -93,7 +95,7 @@
         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#fff" />
         </linearGradient>
-        <path fill="url(#grad1)" d="
+        <path fill="none" d="
                     M0 67
                     C 273,183
                     822,-40
@@ -102,7 +104,7 @@
                     H 0
                     V 67
                     Z">
-          <animate repeatCount="indefinite" fill="url(#grad1)" attributeName="d" dur="35s" attributeType="XML" values="
+          <animate repeatCount="indefinite" fill="none" attributeName="d" dur="35s" attributeType="XML" values="
                     M0 77
                     C 473,283
                     822,-40
@@ -143,7 +145,7 @@
   </div>
   <section class="verySmallMargin" id="imgExample">
     <div class="container" data-aos="fade-up" data-aos-duration="700">
-      <img src="public/ressources/example-white-min.png" class="screen pc-content">
+      <img alt="Gameplay example" src="public/ressources/example-white-min.png" class="screen pc-content">
     </div>
     <div class="container smallMargin-pc smallMarginBottom" data-aos="fade-up" data-aos-duration="700">
       <div class="div-1">
@@ -188,7 +190,7 @@
         </div>
       </div>
       <div class="div-2">
-        <img src="public/ressources/github-min.png" class="question invert pc-content">
+        <img alt="Github logo" src="public/ressources/github-min.png" class="question invert pc-content">
       </div>
     </div>
   </section>
@@ -196,7 +198,8 @@
   <section class="mediumMargin" id="add">
     <div class="container" data-aos="fade-up" data-aos-duration="700">
       <div class="div-1">
-        <img src="public/ressources/permissionsHundreds-min.png" class="screen longScreen pc-content">
+        <img alt="permission list" src="public/ressources/permissionsHundreds-min.png"
+          class="screen longScreen pc-content">
       </div>
       <div class="div-2">
         <div class="description">
@@ -299,32 +302,32 @@
     </div>
   </footer>
 
+  <script>
+    AOS.init();
+
+    const doc = document;
+    const menuOpen = doc.querySelector(".menu");
+    const menuClose = doc.querySelector(".close");
+    const overlay = doc.querySelector(".overlay");
+
+    menuOpen.addEventListener("click", () => {
+      overlay.classList.add("overlay--active");
+    });
+
+    menuClose.addEventListener("click", () => {
+      overlay.classList.remove("overlay--active");
+    });
+
+    var $root = $('html, body');
+    $('a[href^="#"]').click(function () {
+      $root.animate({
+        scrollTop: $($.attr(this, 'href')).offset().top
+      }, 500);
+
+      return false;
+    });
+  </script>
+
 </body>
-
-<script>
-  AOS.init();
-
-  const doc = document;
-  const menuOpen = doc.querySelector(".menu");
-  const menuClose = doc.querySelector(".close");
-  const overlay = doc.querySelector(".overlay");
-
-  menuOpen.addEventListener("click", () => {
-    overlay.classList.add("overlay--active");
-  });
-
-  menuClose.addEventListener("click", () => {
-    overlay.classList.remove("overlay--active");
-  });
-
-  var $root = $('html, body');
-  $('a[href^="#"]').click(function () {
-    $root.animate({
-      scrollTop: $($.attr(this, 'href')).offset().top
-    }, 500);
-
-    return false;
-  });
-</script>
 
 </html>
