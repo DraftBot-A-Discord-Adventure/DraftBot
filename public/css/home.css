@@ -63,6 +63,8 @@ section a {
 }
 
 footer {
+	background-color: #23272a;
+	color: white;
 	min-height: 150px;
 }
 
@@ -82,8 +84,13 @@ footer {
 .verySmallMargin {
 	margin-top: 25px;
 }
+
 .smallMargin {
 	margin-top: 50px;
+}
+
+.smallPadding {
+	padding-top: 50px;
 }
 
 .smallMargin-pc {
@@ -102,7 +109,7 @@ footer {
 }
 
 code {
-	background: #edf0f1;
+	background: #fff;
 	padding: 5px;
 	border-radius: 4px;
 	font-family: "Fira Mono", sans-serif;
@@ -117,12 +124,8 @@ textarea {
 }
 
 .background {
-	background: #edf0f1;
+	background: #23272a;
 	padding: 70px 0;
-}
-
-.form {
-	max-width: 50%;
 }
 
 .container {
@@ -144,7 +147,6 @@ textarea {
 	justify-content: start;
 }
 
-.form-title,
 .container .title {
 	font-weight: 700;
 	line-height: 120%;
@@ -161,12 +163,16 @@ textarea {
 	margin-top: 24px;
 }
 
-.form-description {
-	color: #23272a;
-	font-size: 24px;
-	max-width: 750px;
-	margin-top: 24px;
-	margin-bottom: 24px;
+.background .text {
+	color: white;
+}
+
+.background .title {
+	color: white;
+}
+
+.invert {
+	filter: invert(100%);
 }
 
 .container .description {
@@ -209,6 +215,12 @@ textarea {
 	margin-right: 50px;
 }
 
+.border {
+	border: solid;
+	border-color: #262c32;
+	border-radius: 10px;
+}
+
 .longScreen {
 	max-width: 400px;
 	margin: 30px 50px 30px 0px;
@@ -229,34 +241,12 @@ textarea {
 	text-align: center;
 }
 
-.form-control::placeholder {
-	color: #edf0f1;
-}
-
-.form-control {
-	border: none;
-	border-radius: 4px;
-	padding: 10px 12px;
-	background: #23272a;
-	color: #fff;
-	margin-bottom: 12px;
-	font-size: 16px;
-}
-
-.large-form {
-	min-width: 100%;
-}
-
-.min-form {
-	min-width: 49%;
-}
-
 .logo {
 	margin-right: auto;
 }
 
 .plain {
-	background: #edf0f1;
+	background: #fff;
 	padding: 5px;
 	border-radius: 4px;
 }
@@ -273,7 +263,7 @@ textarea {
 .nav__links a,
 .overlay__content a {
 	font-weight: 500;
-	color: #edf0f1;
+	color: #fff;
 	text-decoration: none;
 }
 
@@ -336,7 +326,7 @@ textarea {
 	top: 20px;
 	right: 45px;
 	font-size: 60px;
-	color: #edf0f1;
+	color: #fff;
 	cursor: pointer;
 }
 
@@ -563,25 +553,8 @@ textarea {
 		padding: 0 10px;
 	}
 
-	.form {
-		max-width: 100%;
-	}
-
-	.min-form {
-		width: 25%;
-	}
-
-	.form-title,
-	.form-description {
-		padding: 0 10%;
-	}
-
 	.center {
 		text-align: left;
-	}
-
-	#send-form {
-		float: left;
 	}
 
 	.copyright {
