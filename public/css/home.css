@@ -384,7 +384,7 @@ textarea {
 .hero-bg {
 	min-height: 800px;
 	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)),
-		url(../ressources/backgrounds/background.jpg);
+		url(../ressources/backgrounds/background-min.webp);
 	background-color: #7289da;
 	background-size: 2000px;
 	background-position: center;
@@ -577,7 +577,7 @@ textarea {
 
 	.hero-bg {
 		background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)),
-			url(../ressources/backgrounds/background.jpg);
+			url(../ressources/backgrounds/background-min.jpg);
 		background-size: 2500px;
 		background-position: center;
 	}
