@@ -461,6 +461,14 @@ textarea {
 	color: #23272a;
 }
 
+.buttonJoin {
+	margin-top: 24px;
+}
+
+.paddingWave {
+	padding-bottom: 150px;
+}
+
 .buttonWhite:hover {
 	color: #2b67a6;
 }
