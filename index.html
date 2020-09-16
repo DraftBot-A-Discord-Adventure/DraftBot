@@ -25,25 +25,19 @@
   <link href="public/ressources/favicon.ico" rel="shortcut icon" type="image/x-icon" />
   <link href="public/ressources/favicon.ico" rel="icon" type="image/x-icon" />
 
+  <link rel="preload" href="public/css/home.css" as="style">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+    crossorigin="anonymous" as="style">
   <link rel="stylesheet" href="public/css/home.css">
 
-  <script>
-    (function () {
-      var css = document.createElement('link');
-      css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css';
-      css.rel = 'stylesheet';
-      css.type = 'text/css';
-      document.getElementsByTagName('head')[0].appendChild(css);
-    })();
-  </script>
-
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
     integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
     integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
     crossorigin="anonymous" />
+
 </head>
 
 <body>
@@ -336,6 +330,18 @@
       return false;
     });
   </script>
+
+  <script>
+    (function () {
+      var css = document.createElement('link');
+      css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css';
+      css.rel = 'stylesheet';
+      css.type = 'text/css';
+      document.getElementsByTagName('head')[0].appendChild(css);
+    })();
+  </script>
+
+
 
 </body>
 
