@@ -1,4 +1,3 @@
 User-Agent: * 
-Allow: /*.css?*
-Allow: /*.js?*
+Disallow: /fr/
 Sitemap: https://draftbot.com/sitemap.xml 
