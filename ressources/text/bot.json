@@ -23,7 +23,7 @@
 			"mentionHelp": ":wave: Hello !\n\n:arrow_right: Commands start with `{prefix}`. Example: `{prefix}help`\n\n:arrow_right: You don't like `{prefix}`? Change it with `{prefix}prefix <new prefix>`\n\n:flag_fr: Vous parlez français ? Changez la langue avec `{prefix}language`\n\nIf you need help, don't hesitate to join the support server: https://discord.gg/USnCxg4"
 		}
 	},
-	"activity": "❓ - Dm me for Help !",
+	"activity": "🌍 - Draftbot.com !",
 	"startStatus": ":robot: **DraftBot** - v",
 	"embed": {
 		"error": "#D92D43",
