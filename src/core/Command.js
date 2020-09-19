@@ -10,7 +10,6 @@ class Command {
   static async init() {
     Command.commands = new Map();
     Command.aliases = new Map();
-    Command.players = JsonReader.app.BLACKLIST_IDS.split('-');
 
     const folders = [
       'src/commands/admin',
