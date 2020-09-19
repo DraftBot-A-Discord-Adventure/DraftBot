@@ -28,22 +28,22 @@ class Command {
           for (let i = 0; i < commands.length; ++i) {
             const cmd = commands[i];
             Command.commands.set(
-                cmd.name,
-                cmd.func,
+              cmd.name,
+              cmd.func,
             );
             Command.aliases.set(
-                cmd.name,
-                cmd.name,
+              cmd.name,
+              cmd.name,
             );
             if (cmd.aliases !== undefined) {
               for (let j = 0; j < cmd.aliases.length; ++j) {
                 Command.commands.set(
-                    cmd.aliases[j],
-                    cmd.func,
+                  cmd.aliases[j],
+                  cmd.func,
                 );
                 Command.aliases.set(
-                    cmd.aliases[j],
-                    cmd.name,
+                  cmd.aliases[j],
+                  cmd.name,
                 );
               }
             }
@@ -128,13 +128,13 @@ class Command {
 
     let language = server.language;
     if (message.channel.id === JsonReader.app.ENGLISH_CHANNEL_ID) {
-      language = "en";
+      language = LANGUAGE.ENGLISH;
     }
 
     if (message.mentions.members.size !== 0 && message.mentions.members.last().id === client.user.id) {
       await message.channel.send(format(
-          JsonReader.bot.getTranslation(language).mentionHelp,
-          { prefix: server.prefix }
+        JsonReader.bot.getTranslation(language).mentionHelp,
+        { prefix: server.prefix }
       ));
       return;
     }
@@ -162,48 +162,22 @@ class Command {
    * @param {module:"discord.js".Message} message - Message from the discord user
    */
   static async handlePrivateMessage(message) {
-    await Command.sendSupportMessage(message,
-        JsonReader.app.BLACKLIST_IDS.includes(message.author.id));
-  }
-
-  /**
-   * Send a message to the support channel of the main server
-   * @param {module:"discord.js".Message} message - Message from the discord user
-   * @param {Boolean} isBlacklisted - Define if the user is blacklisted from the bot private messages
-   */
-  static async sendSupportMessage(message, isBlacklisted = false) {
-    if (message.content === '') return;
     const mainServer = client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
-    const supportChannel = mainServer.channels.cache.get(
+    const dmChannel = mainServer.channels.cache.get(
       JsonReader.app.SUPPORT_CHANNEL_ID);
-    const trashChannel = mainServer.channels.cache.get(
-      JsonReader.app.TRASH_DM_CHANNEL_ID);
-    const channel = isBlacklisted ? trashChannel : supportChannel;
-    const language = message.author.locale === 'fr' ? 'fr' : 'en';
-
-    const sentence = format(JsonReader.bot.dm.supportAlert, {
-      roleMention: isBlacklisted ? '' : idToMention(
-        JsonReader.app.SUPPORT_ROLE),
-      username: message.author.username,
-      id: message.author.id,
-      isBlacklisted: isBlacklisted ? JsonReader.bot.dm.blacklisted : '',
-    });
-
-    if (isBlacklisted) {
-      for (let i = 0; i < 5; i++) {
-        message.channel.send(":x: Erreur.");
-      }
-    }
-
-    channel.send(message.author.id)
-      .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
-    channel.send(sentence + message.content.substr(0, 1800) + (message.content.length > 1800 ? "..." : ""))
-      .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
     if (message.attachments.size > 0) {
       await sendMessageAttachments(message,
-        channel);
+        dmChannel);
     }
+    dmChannel.send(format(JsonReader.bot.dm.supportAlert, {
+      username: message.author.username,
+      id: message.author.id,
+    }) + message.content)
+    let msg = await sendSimpleMessage(message.author, message.channel, JsonReader.bot.dm.titleSupport, JsonReader.bot.dm.messageSupport);
+    msg.react("🇬🇧");
+    msg.react("🇫🇷");
   }
+
 
   /**
    * Get the prefix that the user just used to make the command
