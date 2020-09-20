@@ -5,7 +5,7 @@
                   "desc": "{name} - **Rareté**: {rarity} - **Défense brute**: {rawD}"
             },
             "en": {
-                  "title": "{pseudo}, you asked for the list of all the equipements!",
+                  "title": "{pseudo}, you asked for the list of all the items!",
                   "desc": "{name} - **Rarity**: {rarity} - **Raw defense**: {rawD}"
             }
       }
