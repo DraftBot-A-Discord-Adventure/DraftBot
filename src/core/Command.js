@@ -173,8 +173,27 @@ class Command {
       id: message.author.id,
     }) + message.content)
     let msg = await sendSimpleMessage(message.author, message.channel, JsonReader.bot.dm.titleSupport, JsonReader.bot.dm.messageSupport);
-    msg.react("🇬🇧");
-    msg.react("🇫🇷");
+    msg.react(MENU_REACTION.ENGLISH_FLAG);
+    msg.react(MENU_REACTION.FRENCH_FLAG);
+
+    const filterConfirm = (reaction) => {
+      return (reaction.me && !reaction.users.cache.last().bot);
+    };
+
+    const collector = msg.createReactionCollector(filterConfirm, {
+      time: 120000,
+      max: 1,
+    });
+
+    collector.on('collect', async (reaction) => {
+      const language = reaction.emoji.name == MENU_REACTION.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH
+      sendSimpleMessage(
+        message.author,
+        message.channel,
+        format(JsonReader.bot.getTranslation(language).dmHelpMessageTitle, { pseudo: message.author.username }),
+        JsonReader.bot.getTranslation(language).dmHelpMessage
+      );
+    });
   }
 
 

@@ -77,6 +77,8 @@ global.GUILD = {
 global.MENU_REACTION = {
   ACCEPT: '✅',
   DENY: '❌',
+  FRENCH_FLAG: "🇫🇷",
+  ENGLISH_FLAG: '🇬🇧'
 };
 
 global.PROGRESSBARS_SIZE = 20;
