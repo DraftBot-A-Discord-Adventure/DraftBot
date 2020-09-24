@@ -15,8 +15,8 @@ const FightCommand = async function(language, message, args, friendly = false) {
     return;
   }
 
-  /* let ftmp = new Fight(attacker, attacker, message, language); //Fight for testing
-    return ftmp.startFight();*/
+  /*let ftmp = new Fight(attacker, attacker, message, language); //Fight for testing
+  return ftmp.startFight();*/
 
   let defender = null;
   if (args.length !== 0) {

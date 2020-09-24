@@ -10,6 +10,7 @@ class Command {
   static async init() {
     Command.commands = new Map();
     Command.aliases = new Map();
+    Command.players = new Map();
 
     const folders = [
       'src/commands/admin',
