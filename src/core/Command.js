@@ -131,11 +131,15 @@ class Command {
       language = LANGUAGE.ENGLISH;
     }
 
-    if (message.mentions.members.size !== 0 && message.mentions.members.last().id === client.user.id) {
+    const split = message.content.split(" ", 1);
+    if (split.length > 0 && split[0].match(discord.MessageMentions.USERS_PATTERN) && split[0].includes(client.user.id)) {
       await message.channel.send(format(
         JsonReader.bot.getTranslation(language).mentionHelp,
         { prefix: server.prefix }
       ));
+      return;
+    }
+    if (message.mentions.has(client.user)) {
       return;
     }
 
