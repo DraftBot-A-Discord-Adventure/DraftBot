@@ -8,9 +8,9 @@
 			"success": "{pseudo}, Transaction réussie !",
 			"permanentItems": {
 				"randomItem": {
-					"name": ":question: **Un item random**",
+					"name": ":question: **Un équipement random**",
 					"price": 350,
-					"info": "\n\n:warning: Vous recevrez un item aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu. Si vous possédez déjà un item de plus grande valeur que celui généré, vous obtiendrez une petite compensation monétaire correspondante à la valeur de l'item.",
+					"info": "\n\n:warning: Vous recevrez un équipements aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu.",
 					"give": "{pseudo}, Vous avez reçu un(e) nouvel(le) {type}:"
 				},
 				"healAlterations": {
@@ -62,7 +62,7 @@
 				"randomItem": {
 					"name": ":question: **A random item**",
 					"price": 350,
-					"info": "\n\n:warning: You will recieve a random item (Weapon / Armor / Misc or Potion) among all those existing in the game. If you already have an item of higher value than the one created, you will recieve a small monetary compensation.",
+					"info": "\n\n:warning: You will recieve a random item (Weapon / Armor / Misc or Potion) among all those existing in the game.",
 					"give": "{pseudo}, You received a new {type}:"
 				},
 				"healAlterations": {

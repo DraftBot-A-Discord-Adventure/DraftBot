@@ -230,13 +230,13 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
     let badgeState;
 
     //badge depending on the rank
-    if (debut === 0) {
+    if (page === 1) {
       if (k === 0) badge = JsonReader.commands.topCommand.first;
       else if (k === 1) badge = JsonReader.commands.topCommand.second;
       else if (k === 2) badge = JsonReader.commands.topCommand.third;
       else if (k > 2 && k <= 4) badge = JsonReader.commands.topCommand.military;
     }
-    if (!(debut === 0 && k <= 4)) {
+    if (page !== 1 || k > 4) {
       if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUser_id) != null) badge = JsonReader.commands.topCommand.blue;
       else badge = JsonReader.commands.topCommand.black;
     }

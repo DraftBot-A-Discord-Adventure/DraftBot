@@ -31,7 +31,7 @@
           "fieldValue": "{name} | {rarity} | {nature}"
         },
         "backup": {
-          "fieldName": "Réserve d'item :",
+          "fieldName": "Réserve d'objet :",
           "fieldValue": "{name} | {rarity} | {nature}"
         },
         "natures": [

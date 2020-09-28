@@ -40,6 +40,22 @@ global.sendErrorMessage = (user, channel, language, reason) => {
 };
 
 /**
+ * Send a simple message in a channel
+ * @param {module:"discord.js".User} user
+ * @param {module:"discord.js".TextChannel} channel
+ * @param {("fr"|"en")} language - Language to use in the message
+ * @param {String} message
+ */
+global.sendSimpleMessage = (user, channel, title, message) => {
+  const embed = new discord.MessageEmbed();
+  embed.setAuthor(format(title, {
+    pseudo: user.username,
+  }), user.displayAvatarURL())
+    .setDescription(message);
+  return channel.send(embed);
+};
+
+/**
  * give a random item
  * @param {module:"discord.js".User} discordUser
  * @param {module:"discord.js".TextChannel} channel
@@ -354,7 +370,7 @@ global.progressBar = (value, maxValue) => {
 
   const progressText = '▇'.repeat(progress); // Repeat is creating a string with progress * caracters in it
   const emptyProgressText = '—'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
-  const percentageText = Math.round(percentage * 100) + '%'; // Displaying the percentage of the bar
+  const percentageText = Math.floor(percentage * 100) + '%'; // Displaying the percentage of the bar
 
   const bar = '```[' + progressText + emptyProgressText + ']' + percentageText + '```'; // Creating the bar
   return bar;
