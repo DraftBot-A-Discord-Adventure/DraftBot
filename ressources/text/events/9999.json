@@ -112,7 +112,9 @@
         "experience": 25,
         "money": 0,
         "item": false
-      },
+      }
+    ],
+    "end": [
       {
         "translations": {
           "fr": "** | :smiley: La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route.",

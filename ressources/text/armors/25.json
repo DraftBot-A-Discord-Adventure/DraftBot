@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":shield:  **Bouclier de guerrier**",
-		"en": ":shield:  **Warrior's shield**"
+		"fr": ":shield: **Bouclier de guerrier**",
+		"en": ":shield: **Warrior's shield**"
 	},
 	"rarity": 3,
 	"rawDefense": 5

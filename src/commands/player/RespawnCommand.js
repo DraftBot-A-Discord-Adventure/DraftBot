@@ -32,5 +32,10 @@ const RespawnCommand = async (language, message, args) => {
 };
 
 module.exports = {
-  'respawn': RespawnCommand,
+  commands: [
+    {
+      name: 'respawn',
+      func: RespawnCommand
+    }
+  ]
 };

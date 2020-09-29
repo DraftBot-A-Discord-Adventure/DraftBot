@@ -7,6 +7,7 @@
 				"healthRestored": ":heart: | Vie restaurée à son maximum",
 				"moreMaxHealth": ":heartpulse: | Vie maximale augmentée de 5 points",
 				"fightUnlocked": ":dagger: | Combats débloqués avec la commande `fight` ! Pour plus d'informations sur les combats, executez la commande `help fight`",
+				"guildUnlocked": ":stadium: | Guildes débloquées avec les commandes `guild`, `guildCreate`, `guildAdd`, `guildLeave`, `guildDaily`, `guildKick` ! Pour plus d'informations sur les guildes, utilisez la commande `help`.",
 				"moreSpeed": ":rocket: | Vitesse augmentée de 5 points",
 				"moreAttack": ":crossed_swords: | Attaque augmentée de 5 points",
 				"moreDefense": ":shield: | Défense augmentée de 5 points",
@@ -22,6 +23,7 @@
 				"healthRestored": ":heart: | All HP recovered",
 				"moreMaxHealth": ":heartpulse: | Maximum health increased by 5",
 				"fightUnlocked": ":dagger: | Battles unlocked with the command `fight` ! For more information about fights, please use `help fight`",
+				"guildUnlocked": ":stadium: | Guilds unlocked with the commands `guild`, `guildcreate`, `guildadd`, `guildleave`, `guilddaily`, `guildkick`! For more information about guilds, please use the `help` command.",
 				"moreSpeed": ":rocket: | Speed increased by 5",
 				"moreAttack": ":crossed_swords: | Attack increased by 5",
 				"moreDefense": ":shield: | Defense increased by 5",
@@ -49,6 +51,7 @@
 		":cold_face:": 3600000,
 		":confounded:": 2400000,
 		":zany_face:": 14400000,
-		":clock2:": 0
+		":clock2:": 0,
+		":baby:": 0
 	}
 }

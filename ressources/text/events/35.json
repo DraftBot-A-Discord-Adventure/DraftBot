@@ -92,6 +92,18 @@
 				"experience": 250,
 				"money": 1000,
 				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 💰 Vous lui expliquez que vous n'avez pas trop envie de lui servir de cobaye, alors le barman, semblant déçu, vous laisse. Vous vous attelez donc à la tâche qui vous faisait envie depuis votre entrée dans le bar : dépouiller discrètement les clients. Vous faites les poches à trois personnes sans soucis, mais la quatrième vous remarque et crie au voleur. Vous finissez la nuit en prison. :lock:",
+					"en": "** | 💰 You explain to him that you don’t really want to be a guinea pig, so the bartender, seemingly disappointed. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pocket three people without worries, but the fourth notices you and shouts at the thief. You finish the night in prison. :lock:"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":lock:",
+				"experience": 0,
+				"money": -200,
+				"item": false
 			}
 		],
 		"end": [

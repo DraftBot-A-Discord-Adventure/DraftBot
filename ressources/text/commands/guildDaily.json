@@ -11,7 +11,7 @@
             "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
             "partialHeal": ":heart_decoration: | Les membres de la guilde ont été partiellement soignés. `+ {healthWon} ❤️`",
             "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
-            "coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. La prochaine récompense sera disponible dans environ {time} heures."
+            "coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochaine récompense : {time}."
         },
         "en": {
             "notInAGuild": "You have to be in a guild to use this command.",
@@ -24,7 +24,7 @@
             "fullHeal": ":heartpulse: | Guild's members were fully healed.",
             "partialHeal": ":heart_decoration: | Guild's members were partly healed. `+ {healthWon} ❤️`",
             "alterationHeal": ":hospital: | Guild's members' statuses were reset. Healthy guild's members were partly healed. `+ {healthWon} ❤️`",
-            "coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. The next one will be available in arround {time} hours."
+            "coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. Time before next reward : {time}."
         }
     },
     "minimalXp" : 20,
@@ -38,112 +38,112 @@
         "0": {
             "personalXP": 0,
             "guildXp": 0,
-            "money": 500,
+            "money": 1000,
             "fixedMoney": 0,
             "badge": 0,
             "fullHeal": 0,
             "partialHeal": 0,
-            "alterationHeal": 500
+            "alterationHeal": 0
         },
         "1": {
             "personalXP": 50,
-            "guildXp": 150,
+            "guildXp": 250,
             "money": 598,
-            "fixedMoney": 50,
+            "fixedMoney": 25,
             "badge": 0,
             "fullHeal": 2,
             "partialHeal": 50,
-            "alterationHeal": 100
+            "alterationHeal": 25
         },
         "2": {
             "personalXP": 50,
-            "guildXp": 200,
-            "money": 557,
-            "fixedMoney": 80,
+            "guildXp": 250,
+            "money": 570,
+            "fixedMoney": 50,
             "badge": 0,
             "fullHeal": 3,
-            "partialHeal": 60,
-            "alterationHeal": 50
+            "partialHeal": 52,
+            "alterationHeal": 25
         },
         "3": {
             "personalXP": 50,
-            "guildXp": 225,
-            "money": 526,
-            "fixedMoney": 110,
+            "guildXp": 250,
+            "money": 542,
+            "fixedMoney": 75,
             "badge": 0,
             "fullHeal": 4,
-            "partialHeal": 60,
+            "partialHeal": 54,
             "alterationHeal": 25
         },
         "4": {
             "personalXP": 100,
-            "guildXp": 175,
-            "money": 495,
-            "fixedMoney": 140,
+            "guildXp": 250,
+            "money": 464,
+            "fixedMoney": 100,
             "badge": 0,
             "fullHeal": 5,
-            "partialHeal": 60,
+            "partialHeal": 56,
             "alterationHeal": 25
         },
         "5": {
             "personalXP": 100,
-            "guildXp": 175,
-            "money": 454,
-            "fixedMoney": 170,
+            "guildXp": 250,
+            "money": 416,
+            "fixedMoney": 125,
             "badge": 10,
             "fullHeal": 6,
-            "partialHeal": 60,
-            "alterationHeal": 25
+            "partialHeal": 58,
+            "alterationHeal": 35
         },
         "6": {
             "personalXP": 100,
-            "guildXp": 175,
-            "money": 413,
-            "fixedMoney": 200,
+            "guildXp": 250,
+            "money": 378,
+            "fixedMoney": 150,
             "badge": 20,
             "fullHeal": 7,
             "partialHeal": 60,
-            "alterationHeal": 25
+            "alterationHeal": 35
         },
         "7": {
             "personalXP": 100,
-            "guildXp": 175,
-            "money": 372,
-            "fixedMoney": 230,
+            "guildXp": 250,
+            "money": 335,
+            "fixedMoney": 175,
             "badge": 30,
             "fullHeal": 8,
-            "partialHeal": 60,
-            "alterationHeal": 25
+            "partialHeal": 62,
+            "alterationHeal": 40
         },
         "8": {
-            "personalXP": 50,
-            "guildXp": 225,
-            "money": 331,
-            "fixedMoney": 260,
+            "personalXP": 150,
+            "guildXp": 250,
+            "money": 242,
+            "fixedMoney": 200,
             "badge": 40,
             "fullHeal": 9,
-            "partialHeal": 60,
-            "alterationHeal": 25
+            "partialHeal": 64,
+            "alterationHeal": 45
         },
         "9": {
-            "personalXP": 50,
-            "guildXp": 315,
-            "money": 200,
-            "fixedMoney": 290,
+            "personalXP": 150,
+            "guildXp": 250,
+            "money": 199,
+            "fixedMoney": 225,
             "badge": 50,
             "fullHeal": 10,
-            "partialHeal": 60,
-            "alterationHeal": 25
+            "partialHeal": 66,
+            "alterationHeal": 50
         },
         "10": {
             "personalXP": 200,
             "guildXp": 0,
-            "money": 205,
-            "fixedMoney": 320,
+            "money": 297,
+            "fixedMoney": 250,
             "badge": 100,
             "fullHeal": 15,
-            "partialHeal": 60,
-            "alterationHeal": 25
+            "partialHeal": 68,
+            "alterationHeal": 70
         }
     }
 }

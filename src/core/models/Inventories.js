@@ -126,7 +126,7 @@ module.exports = (Sequelize, DataTypes) => {
     return item;
   };
 
-  Inventories.beforeSave((instance, options) => {
+  Inventories.beforeSave((instance) => {
     instance.setDataValue('updatedAt',
         require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });

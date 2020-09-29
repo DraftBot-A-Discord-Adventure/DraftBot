@@ -9,7 +9,8 @@ class Command {
    */
   static async init() {
     Command.commands = new Map();
-    Command.players = JsonReader.app.BLACKLIST_IDS.split('-');
+    Command.aliases = new Map();
+    Command.players = new Map();
 
     const folders = [
       'src/commands/admin',
@@ -21,16 +22,59 @@ class Command {
         if (!commandFile.endsWith('.js')) continue;
         folder = folder.replace('src/', '');
         const commandName = commandFile.split('.')[0];
-        const commandKeys = Object.keys(require(`${folder}/${commandName}`));
 
-        for (const commandKey of commandKeys) {
-          await Command.commands.set(
-            commandKey,
-            require(`${folder}/${commandName}`)[commandKey],
-          );
+        const commands = require(`${folder}/${commandName}`).commands;
+        if (commands !== undefined) {
+          for (let i = 0; i < commands.length; ++i) {
+            const cmd = commands[i];
+            Command.commands.set(
+              cmd.name,
+              cmd.func,
+            );
+            Command.aliases.set(
+              cmd.name,
+              cmd.name,
+            );
+            if (cmd.aliases !== undefined) {
+              for (let j = 0; j < cmd.aliases.length; ++j) {
+                Command.commands.set(
+                  cmd.aliases[j],
+                  cmd.func,
+                );
+                Command.aliases.set(
+                  cmd.aliases[j],
+                  cmd.name,
+                );
+              }
+            }
+          }
         }
       }
     }
+  }
+
+  /**
+   * @param {String} alias - The alias
+   * @returns {String} The command
+   */
+  static getMainCommandFromAlias(alias) {
+    if (Command.aliases.has(alias))
+      return Command.aliases.get(alias);
+    return alias;
+  }
+
+  /**
+   * @param {String} cmd - The command
+   * @returns {String[]} The aliases
+   */
+  static getAliasesFromCommand(cmd) {
+    let aliases = [];
+    for (const alias of Command.aliases.entries()) {
+      if (alias[1] === cmd && alias[0] !== cmd) {
+        aliases.push(alias[0]);
+      }
+    }
+    return aliases;
   }
 
   /**
@@ -84,7 +128,19 @@ class Command {
 
     let language = server.language;
     if (message.channel.id === JsonReader.app.ENGLISH_CHANNEL_ID) {
-      language = "en";
+      language = LANGUAGE.ENGLISH;
+    }
+
+    const split = message.content.split(" ", 1);
+    if (split.length > 0 && split[0].match(discord.MessageMentions.USERS_PATTERN) && split[0].includes(client.user.id)) {
+      await message.channel.send(format(
+        JsonReader.bot.getTranslation(language).mentionHelp,
+        { prefix: server.prefix }
+      ));
+      return;
+    }
+    if (message.mentions.has(client.user)) {
+      return;
     }
 
     if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
@@ -110,42 +166,41 @@ class Command {
    * @param {module:"discord.js".Message} message - Message from the discord user
    */
   static async handlePrivateMessage(message) {
-    await Command.sendSupportMessage(message,
-      Command.hasBlockedPlayer(message.author.id));
-  }
-
-  /**
-   * Send a message to the support channel of the main server
-   * @param {module:"discord.js".Message} message - Message from the discord user
-   * @param {Boolean} isBlacklisted - Define if the user is blacklisted from the bot private messages
-   */
-  static async sendSupportMessage(message, isBlacklisted = false) {
-    if (message.content === '') return;
     const mainServer = client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
-    const supportChannel = mainServer.channels.cache.get(
+    const dmChannel = mainServer.channels.cache.get(
       JsonReader.app.SUPPORT_CHANNEL_ID);
-    const trashChannel = mainServer.channels.cache.get(
-      JsonReader.app.TRASH_DM_CHANNEL_ID);
-    const channel = isBlacklisted ? trashChannel : supportChannel;
-    const language = message.author.locale === 'fr' ? 'fr' : 'en';
-
-    const sentence = format(JsonReader.bot.dm.supportAlert, {
-      roleMention: isBlacklisted ? '' : idToMention(
-        JsonReader.app.SUPPORT_ROLE),
-      username: message.author.username,
-      id: message.author.id,
-      isBlacklisted: isBlacklisted ? JsonReader.bot.dm.blacklisted : '',
-    });
-
-    channel.send(message.author.id)
-      .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
-    channel.send(sentence + message.content.substr(0, 1800) + (message.content.length > 1800 ? "..." : ""))
-      .catch(JsonReader.bot.getTranslation(language).noSpeakPermission);
     if (message.attachments.size > 0) {
       await sendMessageAttachments(message,
-        channel);
+        dmChannel);
     }
+    dmChannel.send(format(JsonReader.bot.dm.supportAlert, {
+      username: message.author.username,
+      id: message.author.id,
+    }) + message.content)
+    let msg = await sendSimpleMessage(message.author, message.channel, JsonReader.bot.dm.titleSupport, JsonReader.bot.dm.messageSupport);
+    msg.react(MENU_REACTION.ENGLISH_FLAG);
+    msg.react(MENU_REACTION.FRENCH_FLAG);
+
+    const filterConfirm = (reaction) => {
+      return (reaction.me && !reaction.users.cache.last().bot);
+    };
+
+    const collector = msg.createReactionCollector(filterConfirm, {
+      time: 120000,
+      max: 1,
+    });
+
+    collector.on('collect', async (reaction) => {
+      const language = reaction.emoji.name == MENU_REACTION.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH
+      sendSimpleMessage(
+        message.author,
+        message.channel,
+        format(JsonReader.bot.getTranslation(language).dmHelpMessageTitle, { pseudo: message.author.username }),
+        JsonReader.bot.getTranslation(language).dmHelpMessage
+      );
+    });
   }
+
 
   /**
    * Get the prefix that the user just used to make the command
@@ -204,3 +259,5 @@ global.addBlockedPlayer = Command.addBlockedPlayer;
 global.removeBlockedPlayer = Command.removeBlockedPlayer;
 global.handleMessage = Command.handleMessage;
 global.handlePrivateMessage = Command.handlePrivateMessage;
+global.getMainCommandFromAlias = Command.getMainCommandFromAlias;
+global.getAliasesFromCommand = Command.getAliasesFromCommand;

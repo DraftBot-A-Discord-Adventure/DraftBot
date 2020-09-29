@@ -1,0 +1,37 @@
+{
+	"translations": {
+		"fr": " : ** Suite de l'aventure de test - Part 02",
+		"en": ""
+	},
+	"possibilities": {
+		"🚶": [
+			{
+				"translations": {
+					"fr": "** Pause de l'aventure de test - Part 02",
+					"en": ""
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
+				"item": false,
+				"nextEvent": 10001
+            }
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** Sortie de l'aventure de test - Part 02",
+					"en": ""
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+            }
+		]
+	}
+}

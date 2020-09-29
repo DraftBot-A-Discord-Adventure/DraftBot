@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "<:Potion:548219908736155658>  **Potion rouge**",
-		"en": "<:Potion:548219908736155658>  **Red potion**"
+		"fr": "<:Potion:548219908736155658> **Potion rouge**",
+		"en": "<:Potion:548219908736155658> **Red potion**"
 	},
 	"rarity": 5,
 	"power": 53,

@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":shield:  **Bouclier de lynel**",
-		"en": ":shield:  **Lynel's shield**"
+		"fr": ":shield: **Bouclier de lynel**",
+		"en": ":shield: **Lynel's shield**"
 	},
 	"rarity": 4,
 	"rawDefense": 9

@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":snowflake:  **Boule de neige**",
-		"en": "❄️  **Snowball**"
+		"fr": "❄️ **Boule de neige**",
+		"en": "❄️ **Snowball**"
 	},
 	"rarity": 1,
 	"rawAttack": 9

@@ -6,7 +6,7 @@
  */
 const GuildKickCommand = async (language, message, args) => {
   let entity; let kickedEntity; let guild; let kickedGuild;
-  let embed = new discord.MessageEmbed();
+  const choiceEmbed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -83,15 +83,15 @@ const GuildKickCommand = async (language, message, args) => {
   }
 
   addBlockedPlayer(entity.discordUser_id, 'guildKick');
-  embed.setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).kickTitle, {
+  choiceEmbed.setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).kickTitle, {
     pseudo: message.author.username,
   }), message.author.displayAvatarURL());
-  embed.setDescription(format(JsonReader.commands.guildKick.getTranslation(language).kick, {
+  choiceEmbed.setDescription(format(JsonReader.commands.guildKick.getTranslation(language).kick, {
     guildName: guild.name,
     kickedPseudo: message.mentions.users.last().username,
   }));
 
-  const msg = await message.channel.send(embed);
+  const msg = await message.channel.send(choiceEmbed);
 
   embed = new discord.MessageEmbed();
   const filterConfirm = (reaction, user) => {
@@ -141,7 +141,11 @@ const GuildKickCommand = async (language, message, args) => {
 
 
 module.exports = {
-  'guildkick': GuildKickCommand,
-  'gkick': GuildKickCommand,
-  'gk': GuildKickCommand,
+  commands: [
+    {
+      name: 'guildkick',
+      func: GuildKickCommand,
+      aliases: ['gkick', 'gk']
+    }
+  ]
 };

@@ -39,7 +39,12 @@ function getUserFromMention(mention) {
 }
 
 module.exports = {
-  'give': GiveCommand,
+  commands: [
+    {
+      name: 'give',
+      func: GiveCommand
+    }
+  ]
 };
 
 

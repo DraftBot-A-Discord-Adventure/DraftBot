@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "<:Potion:548219908736155658>  **Potion simple**",
-		"en": "<:Potion:548219908736155658>  **Simple potion**"
+		"fr": "<:Potion:548219908736155658> **Potion simple**",
+		"en": "<:Potion:548219908736155658> **Simple potion**"
 	},
 	"rarity": 3,
 	"power": 17,

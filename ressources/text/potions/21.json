@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "<:PurplePotion:548221048768954418>  **Potion de vitesse**",
-		"en": "<:PurplePotion:548221048768954418>  **Speed potion**"
+		"fr": "<:PurplePotion:548221048768954418> **Potion de vitesse**",
+		"en": "<:PurplePotion:548221048768954418> **Speed potion**"
 	},
 	"rarity": 5,
 	"power": 200,

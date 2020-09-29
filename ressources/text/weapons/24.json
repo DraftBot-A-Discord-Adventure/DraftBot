@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":scissors:  **Ciseaux**",
-		"en": ":scissors:  **Scissors**"
+		"fr": ":scissors: **Ciseaux**",
+		"en": ":scissors: **Scissors**"
 	},
 	"rarity": 3,
 	"rawAttack": 2
