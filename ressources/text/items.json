@@ -1,138 +1,128 @@
 {
-  "translations": {
-    "fr": {
-      "attack": ":dagger: {attack}",
-      "defense": ":shield: {defense}",
-      "speed": ":rocket: {speed}",
-      "weapons": {
-        "fieldName": "Arme :",
-        "fieldValue": "{name} | {rarity} | {values}"
-      },
-      "armors": {
-        "fieldName": "Armure/Bouclier :",
-        "fieldValue": "{name} | {rarity} | {values}"
-      },
-      "potions": {
-        "fieldName": "Potion :",
-        "fieldValue": "{name} | {rarity} | {nature}",
-        "natures": [
-          ":x: Aucun effet",
-          ":heart: Vie + {power}",
-          ":rocket: Vitesse + {power} pendant le prochain combat",
-          ":crossed_swords: Attaque + {power} pendant le prochain combat",
-          ":shield: Défense + {power} pendant le prochain combat",
-          ":clock1030: Avance le temps plus rapidement pendant {power} heure(s)",
-          ":moneybag: Argent + {power}"
-        ]
-      },
-      "objects": {
-        "active": {
-          "fieldName": "Objet actif :",
-          "fieldValue": "{name} | {rarity} | {nature}"
-        },
-        "backup": {
-          "fieldName": "Réserve d'item :",
-          "fieldValue": "{name} | {rarity} | {nature}"
-        },
-        "natures": [
-          ":x: Aucun effet",
-          ":heart: Vie + {power} par jour",
-          ":rocket: Vitesse + {power} pendant les combats",
-          ":crossed_swords: Attaque + {power} pendant les combats",
-          ":shield: Défense + {power} pendant les combats",
-          ":clock1030: Avance le temps plus rapidement pendant {power} heure(s)",
-          ":moneybag: Argent + {power} par jour"
-        ]
-      },
-      "rarities": [
-        ":small_orange_diamond: Basique",
-        ":large_orange_diamond: Commun",
-        ":fire: Peu commun",
-        ":trident: Exotique",
-        ":comet: Rare",
-        ":dizzy: Spécial",
-        ":star: Epique",
-        ":star2: Legendaire",
-        ":gem: Mythique"
-      ]
-    },
-    "en": {
-      "attack": ":dagger: {attack}",
-      "defense": ":shield: {defense}",
-      "speed": ":rocket: {speed}",
-      "weapons": {
-        "fieldName": "Weapon :",
-        "fieldValue": "{name} | {rarity} | {values}"
-      },
-      "armors": {
-        "fieldName": "Armor/Shield :",
-        "fieldValue": "{name} | {rarity} | {values}"
-      },
-      "potions": {
-        "fieldName": "Potion :",
-        "fieldValue": "{name} | {rarity} | {nature}",
-        "natures": [
-          ":x: No effect",
-          ":heart: Health + {power}",
-          ":rocket: Speed + {power} during the next fight",
-          ":crossed_swords: Attack + {power} during the next fight",
-          ":shield: Defense + {power} during the next fight",
-          ":clock1030: Speeds up time for {power} hour(s)",
-          ":moneybag: Money + {power}"
-        ]
-      },
-      "objects": {
-        "active": {
-          "fieldName": "Active item :",
-          "fieldValue": "{name} | {rarity} | {nature}"
-        },
-        "backup": {
-          "fieldName": "Reserve item :",
-          "fieldValue": "{name} | {rarity} | {nature}"
-        },
-        "natures": [
-          ":x: No effect",
-          ":heart: Health + {power} per day",
-          ":rocket: Speed + {power} during fights",
-          ":crossed_swords: Attack + {power} during fights",
-          ":shield: Defense + {power} during fights",
-          ":clock1030: Speeds up time for {power} hour(s)",
-          ":moneybag: Money + {power} per day"
-        ]
-      },
-      "rarities": [
-        ":small_orange_diamond: Basic",
-        ":large_orange_diamond: Common",
-        ":fire: Uncommon",
-        ":trident: Exotic",
-        ":comet: Rare",
-        ":dizzy: Special",
-        ":star: Epic",
-        ":star2: Legendary",
-        ":gem: Unique"
-      ]
-    }
-  },
-  "mapper": [
-    1,
-    1.5,
-    2.1,
-    2.8,
-    3.6,
-    4.5,
-    5.5,
-    6.6,
-    7.8
-  ],
-  "power": [
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,1,2,3,4,5,6,7,8,9,10],
-    [0,8,9,10,11,12,13,14,15,17,20],
-    [0,15,17,20,26,28,30,32,35,37,40],
-    [0,35,37,40,42,44,45,46,50,58,60],
-    [0,50,58,60,65,50,60,70,80,85,90],
-    [0,80,85,90,100,115,120,130,140,145,150],
-    [0,140,145,150,160,170,180,185,190,195,200],
-    [0,140,145,150,160,170,180,185,190,195,200]
-  ]
+	"translations": {
+		"fr": {
+			"attack": ":dagger: {attack}",
+			"defense": ":shield: {defense}",
+			"speed": ":rocket: {speed}",
+			"weapons": {
+				"fieldName": "Arme :",
+				"fieldValue": "{name} | {rarity} | {values}"
+			},
+			"armors": {
+				"fieldName": "Armure/Bouclier :",
+				"fieldValue": "{name} | {rarity} | {values}"
+			},
+			"potions": {
+				"fieldName": "Potion :",
+				"fieldValue": "{name} | {rarity} | {nature}",
+				"natures": [
+					":x: Aucun effet",
+					":heart: Vie + {power}",
+					":rocket: Vitesse + {power} pendant le prochain combat",
+					":crossed_swords: Attaque + {power} pendant le prochain combat",
+					":shield: Défense + {power} pendant le prochain combat",
+					":clock1030: Avance le temps plus rapidement pendant {power} heure(s)",
+					":moneybag: Argent + {power}"
+				]
+			},
+			"objects": {
+				"active": {
+					"fieldName": "Objet actif :",
+					"fieldValue": "{name} | {rarity} | {nature}"
+				},
+				"backup": {
+					"fieldName": "Réserve d'item :",
+					"fieldValue": "{name} | {rarity} | {nature}"
+				},
+				"natures": [
+					":x: Aucun effet",
+					":heart: Vie + {power} par jour",
+					":rocket: Vitesse + {power} pendant les combats",
+					":crossed_swords: Attaque + {power} pendant les combats",
+					":shield: Défense + {power} pendant les combats",
+					":clock1030: Avance le temps plus rapidement pendant {power} heure(s)",
+					":moneybag: Argent + {power} par jour"
+				]
+			},
+			"rarities": [
+				":small_orange_diamond: Basique",
+				":large_orange_diamond: Commun",
+				":fire: Peu commun",
+				":trident: Exotique",
+				":comet: Rare",
+				":dizzy: Spécial",
+				":star: Epique",
+				":star2: Legendaire",
+				":gem: Mythique"
+			]
+		},
+		"en": {
+			"attack": ":dagger: {attack}",
+			"defense": ":shield: {defense}",
+			"speed": ":rocket: {speed}",
+			"weapons": {
+				"fieldName": "Weapon :",
+				"fieldValue": "{name} | {rarity} | {values}"
+			},
+			"armors": {
+				"fieldName": "Armor/Shield :",
+				"fieldValue": "{name} | {rarity} | {values}"
+			},
+			"potions": {
+				"fieldName": "Potion :",
+				"fieldValue": "{name} | {rarity} | {nature}",
+				"natures": [
+					":x: No effect",
+					":heart: Health + {power}",
+					":rocket: Speed + {power} during the next fight",
+					":crossed_swords: Attack + {power} during the next fight",
+					":shield: Defense + {power} during the next fight",
+					":clock1030: Speeds up time for {power} hour(s)",
+					":moneybag: Money + {power}"
+				]
+			},
+			"objects": {
+				"active": {
+					"fieldName": "Active item :",
+					"fieldValue": "{name} | {rarity} | {nature}"
+				},
+				"backup": {
+					"fieldName": "Reserve item :",
+					"fieldValue": "{name} | {rarity} | {nature}"
+				},
+				"natures": [
+					":x: No effect",
+					":heart: Health + {power} per day",
+					":rocket: Speed + {power} during fights",
+					":crossed_swords: Attack + {power} during fights",
+					":shield: Defense + {power} during fights",
+					":clock1030: Speeds up time for {power} hour(s)",
+					":moneybag: Money + {power} per day"
+				]
+			},
+			"rarities": [
+				":small_orange_diamond: Basic",
+				":large_orange_diamond: Common",
+				":fire: Uncommon",
+				":trident: Exotic",
+				":comet: Rare",
+				":dizzy: Special",
+				":star: Epic",
+				":star2: Legendary",
+				":gem: Unique"
+			]
+		}
+	},
+	"mapper": [1, 1.5, 2.1, 2.8, 3.6, 4.5, 5.5, 6.6, 7.0],
+	"power": [
+		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+		[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+		[0, 8, 9, 10, 11, 12, 13, 14, 15, 17, 20],
+		[0, 15, 17, 20, 26, 28, 30, 32, 35, 37, 40],
+		[0, 35, 37, 40, 42, 44, 45, 46, 50, 58, 60],
+		[0, 50, 58, 60, 65, 50, 60, 70, 80, 85, 90],
+		[0, 80, 85, 90, 100, 115, 120, 130, 140, 145, 150],
+		[0, 140, 145, 150, 160, 170, 180, 185, 190, 195, 200],
+		[0, 140, 145, 150, 160, 170, 180, 185, 190, 195, 200]
+	]
 }
