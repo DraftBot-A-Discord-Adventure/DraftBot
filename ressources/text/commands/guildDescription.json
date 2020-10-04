@@ -15,7 +15,16 @@
     },
     "en": {
       "invalidDescription": "The rules for the guild's name are the followings:\n- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
-      "descriptionChanged": "The description has been changed."
+      "noDescriptionFound": "There are no description found for your guild. Use `guilddesc` for add description.",
+      "descriptionChanged": "The description has been changed.",
+      "changeDescriptionTitle": "{pseudo}, confirmation :",
+      "changeDescriptionConfirm": "New description : {description}",
+      "changeDescriptionFooter": "Warning, the bot's staff keeps control on guild's description and may change it.",
+      "editSuccessTitle": "The description of guild has been edit !",
+      "editSuccess": "The cooldown before the next guild daily reward has been reset.",
+      "editCancelled": "You does not change the description of guild !",
+      "notInAguild": "You have to be in a guild to use this command.",
+      "notChiefError": "You have to be in a guild to use this command."
     }
   }
 }
