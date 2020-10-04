@@ -1,14 +1,15 @@
 <center>
 <img src="https://cdn.discordapp.com/attachments/456120666874183680/575235193384861716/couronne.png" style="border-radius: 50%; width: 300px">
 
-# **DraftBot - A Discord Adventure**
-
-DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLast) based on an adventure game on text.
-The story takes place in a medieval world, and the player embodies an adventurer who wants to win a competition launched by the king, to win the princess' hand. To achieve this, he must travel, and earn points by going through a lot of dangers, including thieves, wilderness, and scary children. Every few hours, the player may get a random event by using the "report" command: they interact with a multiple-choices based system, using reactions below the report. Each choice has multiple issues,which could hurt the character, heal him, or even give him some stuff. During the journey, he earns money, stuff, and points, and can use them to buy potions, stuff or effects in the shop, fight other players, and ascend the leaderboard.
+DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLast) based on a text adventure game.
+The story takes place in a medieval world, and the player embodis an adventurer who wants to win a competition launched by the king, to win the princess' hand. To achieve this, he must travel, and earn points by going through a lot of danger, including thieves, wilderness, and scary children. Every few hours, the player can get a random event by using the "report" command: they interact with a multiple choice system, using reactions below the report. Each choice has multiple issues,which could hurt the character, heal them, or even give them some stuff. During the journey, they earn money, stuff, and points, and can use them to buy potions, stuff or effects in the shop, fight other players, and ascend the leaderboard.
 
 <br>
 
 [![](https://img.shields.io/discord/429765017332613120.svg)](https://discord.gg/5JqrMtZ)
+[![Discord Bots](https://top.gg/api/widget/status/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
+[![Discord Bots](https://top.gg/api/widget/upvotes/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
+[![Discord Bots](https://top.gg/api/widget/owner/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
 [![](https://img.shields.io/github/stars/BastLast/DraftBot-A-Discord-Adventure.svg?label=Stars&style=social)](https://github.com/BastLast/DraftBot-A-Discord-Adventure)
 
 </center>
