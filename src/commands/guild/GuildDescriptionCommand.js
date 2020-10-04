@@ -1,0 +1,168 @@
+/**
+ * Change guild description
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {String[]} args=[] - Additional arguments sent with the command
+ */
+const GuildDescriptionCommand = async (language, message, args) => {
+  let guild;
+  let entity;
+  const confirmationEmbed = new discord.MessageEmbed();
+
+  [entity] = await Entities.getByArgs(args, message);
+  if (entity === null) {
+    [entity] = await Entities.getOrRegister(message.author.id);
+  }
+
+  guild = await Guilds.getById(entity.Player.guild_id);
+
+  if (guild == null) {
+    // not in a guild
+    return sendErrorMessage(
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guildDescription.getTranslation(language).notInAguild
+    );
+  }
+
+  if (args.length > 0) {
+    if (guild.chief_id != entity.id) {
+      return sendErrorMessage(
+        message.author,
+        message.channel,
+        language,
+        JsonReader.commands.guildDescription.getTranslation(language)
+          .notChiefError
+      );
+    }
+    const description = args.join(" ");
+    const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
+    const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
+    if (
+      !(
+        regexAllowed.test(description) &&
+        !regexSpecialCases.test(description) &&
+        description.length >= GUILD.MIN_DESCRIPTION_LENGTH &&
+        description.length <= GUILD.MAX_DESCRIPTION_LENGTH
+      )
+    ) {
+      return sendErrorMessage(
+        message.author,
+        message.channel,
+        language,
+        format(
+          JsonReader.commands.guildDescription.getTranslation(language)
+            .invalidDescription,
+          {
+            min: GUILD.MIN_DESCRIPTION_LENGTH,
+            max: GUILD.MAX_DESCRIPTION_LENGTH,
+          }
+        )
+      );
+    }
+
+    addBlockedPlayer(entity.discordUser_id, "descriptionEdit");
+    confirmationEmbed.setAuthor(
+      format(
+        JsonReader.commands.guildDescription.getTranslation(language)
+          .changeDescriptionTitle,
+        {
+          pseudo: message.author.username,
+        }
+      ),
+      message.author.displayAvatarURL()
+    );
+    confirmationEmbed.setDescription(
+      format(
+        JsonReader.commands.guildDescription.getTranslation(language)
+          .changeDescriptionConfirm,
+        {
+          description: description,
+        }
+      )
+    );
+    confirmationEmbed.setFooter(
+      JsonReader.commands.guildDescription.getTranslation(language)
+        .changeDescriptionFooter,
+      null
+    );
+
+    const msg = await message.channel.send(confirmationEmbed);
+
+    const embed = new discord.MessageEmbed();
+    const filterConfirm = (reaction, user) => {
+      return (
+        (reaction.emoji.name == MENU_REACTION.ACCEPT ||
+          reaction.emoji.name == MENU_REACTION.DENY) &&
+        user.id === message.author.id
+      );
+    };
+
+    const collector = msg.createReactionCollector(filterConfirm, {
+      time: 120000,
+      max: 1,
+    });
+
+    collector.on("end", async (reaction) => {
+      removeBlockedPlayer(entity.discordUser_id);
+      if (reaction.first()) {
+        // a reaction exist
+        if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+          guild.guildDescription = args.join(" ");
+          guild.updateLastDailyAt();
+
+          await Promise.all([guild.save()]);
+
+          embed.setAuthor(
+            format(
+              JsonReader.commands.guildDescription.getTranslation(language)
+                .editSuccessTitle,
+              {
+                pseudo: message.author.username,
+              }
+            ),
+            message.author.displayAvatarURL()
+          );
+          embed.setDescription(
+            JsonReader.commands.guildDescription.getTranslation(language)
+              .editSuccess
+          );
+          return message.channel.send(embed);
+        }
+      }
+
+      // Cancel the creation
+      return sendErrorMessage(
+        message.author,
+        message.channel,
+        language,
+        format(
+          JsonReader.commands.guildDescription.getTranslation(language)
+            .editCancelled
+        )
+      );
+    });
+
+    await Promise.all([
+      msg.react(MENU_REACTION.ACCEPT),
+      msg.react(MENU_REACTION.DENY),
+    ]);
+  } else {
+    if (guild.guildDescription) {
+      return message.channel.send(guild.description);
+    } else {
+      return;
+    }
+  }
+};
+
+module.exports = {
+  commands: [
+    {
+      name: "guilddesc",
+      func: GuildDescriptionCommand,
+      aliases: ["gdesc"],
+    },
+  ],
+};
