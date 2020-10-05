@@ -158,7 +158,7 @@ module.exports = {
     {
       name: "guilddesc",
       func: GuildDescriptionCommand,
-      aliases: ["gdesc", "guilddesc", "guilddescription"],
+      aliases: ["gdesc", "guilddescription"],
     },
   ],
 };
