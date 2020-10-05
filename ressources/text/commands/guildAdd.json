@@ -1,28 +1,28 @@
 {
-  "translations": {
-    "fr": {
-      "notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
-      "cannotGetInvitedUser": "Veuillez mentionner un joueur existant. Ex : `guildAdd @user#0000`",
-      "alreadyInAGuild": "Le joueur invité a déjà rejoint une guilde.",
-      "notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
-      "invitationTitle": "{pseudo}, vous êtes invité à rejoindre une guilde !",
-      "invitation": "La guilde `{guildName}` souhaiterai que vous la rejoigniez !",
-      "successTitle": "{pseudo} a rejoint la guilde {guildName} !",
-      "invitationSuccess": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
-      "invitationCancelled": "Vous n'avez pas rejoint la guilde `{guildName}` !",
-      "guildFull": "Votre guilde est pleine et ne peut pas acceuillir plus de membres."
-    },
-    "en": {
-      "notInAguild": "You have to be in a guild to use this command.",
-      "cannotGetInvitedUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
-      "alreadyInAGuild": "The player you are inviting is already in a guild.",
-      "notChiefError": "You have to be a guil leader to use this commabd.",
-      "invitationTitle": "{pseudo}, you are invited to join a guild!",
-      "invitation": "The guild `{guildName}` is inviting you!",
-      "successTitle": "{pseudo} joined the guild {guildName}!",
-      "invitationSuccess": "The cooldown before the next guild daily reward has been reset.",
-      "invitationCancelled": "You did not join the guild `{guildName}`!",
-      "guildFull": "Your guild is full."
-    }
-  }
+	"translations": {
+		"fr": {
+			"notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
+			"cannotGetInvitedUser": "Veuillez mentionner un joueur existant. Ex : `guildAdd @user#0000`",
+			"alreadyInAGuild": "Le joueur invité a déjà rejoint une guilde.",
+			"notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
+			"invitationTitle": "{pseudo}, vous êtes invité à rejoindre une guilde !",
+			"invitation": "La guilde `{guildName}` souhaiterai que vous la rejoigniez !",
+			"successTitle": "{pseudo} a rejoint la guilde {guildName} !",
+			"invitationSuccess": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
+			"invitationCancelled": "Vous n'avez pas rejoint la guilde `{guildName}` !",
+			"guildFull": "Votre guilde est pleine et ne peut pas acceuillir plus de membres."
+		},
+		"en": {
+			"notInAguild": "You have to be in a guild to use this command.",
+			"cannotGetInvitedUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
+			"alreadyInAGuild": "The player you are inviting is already in a guild.",
+			"notChiefError": "You have to be a guil leader to use this command.",
+			"invitationTitle": "{pseudo}, you are invited to join a guild!",
+			"invitation": "The guild `{guildName}` is inviting you!",
+			"successTitle": "{pseudo} joined the guild {guildName}!",
+			"invitationSuccess": "The cooldown before the next guild daily reward has been reset.",
+			"invitationCancelled": "You did not join the guild `{guildName}`!",
+			"guildFull": "Your guild is full."
+		}
+	}
 }
