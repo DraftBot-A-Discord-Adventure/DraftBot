@@ -5,21 +5,30 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const GuildCommand = async (language, message, args) => {
-  let entity; let guild;
+  let entity;
+  let guild;
 
   [entity] = await Entities.getByArgs(args, message);
   if (entity === null) {
     [entity] = await Entities.getOrRegister(message.author.id);
   }
 
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+  if (
+    (await canPerformCommand(
+      message,
+      language,
+      PERMISSION.ROLE.ALL,
+      [EFFECT.BABY, EFFECT.DEAD],
+      entity
+    )) !== true
+  ) {
     return;
   }
 
   if (args.length > 0 && message.mentions.users.last() === undefined) {
     // args is the name of a guild
     try {
-      guild = await Guilds.getByName(args.join(' '));
+      guild = await Guilds.getByName(args.join(" "));
     } catch (error) {
       guild = null;
     }
@@ -42,42 +51,77 @@ const GuildCommand = async (language, message, args) => {
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guild.getTranslation(language).noGuildException);
+      JsonReader.commands.guild.getTranslation(language).noGuildException
+    );
   }
   const members = await Entities.getByGuild(guild.id);
 
-  let membersInfos = '';
-  for (const member of members) {
-    membersInfos += format(JsonReader.commands.guild.getTranslation(language).memberinfos,
-      {
-        pseudo: await member.Player.getPseudo(language),
-        ranking: (await Players.getById(member.Player.id))[0].rank,
-        score: member.Player.score,
-      });
-  }
-
   const chief = await Players.findOne({ where: { id: guild.chief_id } });
+
+  let membersInfos = "";
+
+  for (const member of members) {
+    // if member is the owner of guild
+    if (
+      (await member.Player.getPseudo(language)) ===
+      (await chief.getPseudo(language))
+    ) {
+      membersInfos += format(
+        JsonReader.commands.guild.getTranslation(language).chiefinfos,
+        {
+          pseudo: await chief.getPseudo(language),
+          ranking: (await Players.getById(chief.id))[0].rank,
+          score: (await Entities.getById(chief.id)).Player.score,
+        }
+      );
+    } else {
+      membersInfos += format(
+        JsonReader.commands.guild.getTranslation(language).memberinfos,
+        {
+          pseudo: await member.Player.getPseudo(language),
+          ranking: (await Players.getById(member.Player.id))[0].rank,
+          score: member.Player.score,
+        }
+      );
+    }
+  }
 
   embed.setThumbnail(JsonReader.commands.guild.icon);
 
-  embed.setTitle(format(JsonReader.commands.guild.getTranslation(language).title, {
-    guildName: guild.name,
-  }));
-  embed.setDescription(format(JsonReader.commands.guild.getTranslation(language).chief, {
-    pseudo: await chief.getPseudo(language),
-  }));
-  embed.addField(format(JsonReader.commands.guild.getTranslation(language).members, {
-    memberCount: members.length,
-    maxGuildMembers: GUILD.MAX_GUILD_MEMBER,
-  }), membersInfos);
+  embed.setTitle(
+    format(JsonReader.commands.guild.getTranslation(language).title, {
+      guildName: guild.name,
+      pseudo: await chief.getPseudo(language),
+    })
+  );
+
+  if (guild.guildDescription) {
+    embed.setDescription(
+      format(JsonReader.commands.guild.getTranslation(language).description, {
+        description: guild.guildDescription,
+      }));
+  }
+  embed.addField(
+    format(JsonReader.commands.guild.getTranslation(language).members, {
+      memberCount: members.length,
+      maxGuildMembers: GUILD.MAX_GUILD_MEMBER,
+    }),
+    membersInfos
+  );
   if (guild.level < 100) {
-    embed.addField(format(JsonReader.commands.guild.getTranslation(language).experience, {
-      xp: guild.experience,
-      xpToLevelUp: guild.getExperienceNeededToLevelUp(),
-      level: guild.level,
-    }), progressBar(guild.experience, guild.getExperienceNeededToLevelUp()));
+    embed.addField(
+      format(JsonReader.commands.guild.getTranslation(language).experience, {
+        xp: guild.experience,
+        xpToLevelUp: guild.getExperienceNeededToLevelUp(),
+        level: guild.level,
+      }),
+      progressBar(guild.experience, guild.getExperienceNeededToLevelUp())
+    );
   } else {
-    embed.addField(JsonReader.commands.guild.getTranslation(language).lvlMax, progressBar(1, 1));
+    embed.addField(
+      JsonReader.commands.guild.getTranslation(language).lvlMax,
+      progressBar(1, 1)
+    );
   }
 
   // embed.addField(Text.commands.guild.star + experience + Text.commands.guild.expSeparator + experienceToLevelUp
@@ -89,9 +133,9 @@ const GuildCommand = async (language, message, args) => {
 module.exports = {
   commands: [
     {
-      name: 'guild',
+      name: "guild",
       func: GuildCommand,
-      aliases: ['g']
-    }
-  ]
+      aliases: ["g"],
+    },
+  ],
 };

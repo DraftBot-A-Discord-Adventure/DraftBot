@@ -7,6 +7,9 @@ The story takes place in a medieval world, and the player embodis an adventurer 
 <br>
 
 [![](https://img.shields.io/discord/429765017332613120.svg)](https://discord.gg/5JqrMtZ)
+[![Discord Bots](https://top.gg/api/widget/status/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
+[![Discord Bots](https://top.gg/api/widget/upvotes/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
+[![Discord Bots](https://top.gg/api/widget/owner/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
 [![](https://img.shields.io/github/stars/BastLast/DraftBot-A-Discord-Adventure.svg?label=Stars&style=social)](https://github.com/BastLast/DraftBot-A-Discord-Adventure)
 
 </center>

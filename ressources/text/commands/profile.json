@@ -22,6 +22,14 @@
 				"fieldName": "Temps restant :",
 				"fieldValue": ":hospital: Reprise du jeu possible"
 			},
+			"guild": {
+				"fieldName": "Guilde :",
+				"fieldValue": ":stadium: {guild}"
+			},
+			"playerClass": {
+				"fieldName": "Classe :",
+				"fieldValue": ":interrobang: TODO"
+			},
 			"badges": {
 				"🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
 				"🏅": ":medal:  `Joueur dans le top 10 au reset de la 1.0`",
@@ -67,6 +75,14 @@
 			"noTimeLeft": {
 				"fieldName": "Temps restant :",
 				"fieldValue": ":hospital: You can continue playing now"
+			},
+			"guild": {
+				"fieldName": "Guild :",
+				"fieldValue": ":stadium: {guild}"
+			},
+			"playerClass": {
+				"fieldName": "Class :",
+				"fieldValue": ":interrobang: TODO"
 			},
 			"badges": {
 				"🏆": ":trophy:  `Best player by rank when resetting to 1.0.`",
