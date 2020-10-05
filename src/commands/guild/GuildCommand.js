@@ -95,8 +95,12 @@ const GuildCommand = async (language, message, args) => {
     })
   );
 
-  if (guild.guildDescription) embed.setDescription(guild.guildDescription);
-
+  if (guild.guildDescription) {
+    embed.setDescription(
+      format(JsonReader.commands.guild.getTranslation(language).description, {
+        description: guild.guildDescription,
+      }));
+  }
   embed.addField(
     format(JsonReader.commands.guild.getTranslation(language).members, {
       memberCount: members.length,

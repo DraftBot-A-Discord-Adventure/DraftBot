@@ -1,23 +1,25 @@
 {
-  "translations": {
-    "fr": {
-      "noGuildException": "Aucune guilde n'a été trouvée.",
-      "title": "Guilde {guildName}",
-      "chiefinfos": ":military_medal: **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
-      "members": ":person_pouting: {memberCount}/{maxGuildMembers} membres",
-      "memberinfos": "- **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
-      "experience": ":star: {xp} / {xpToLevelUp} | Niveau {level}",
-      "lvlMax": ":star: Niveau maximum atteint !"
-    },
-    "en": {
-      "noGuildException": "No guild was found.",
-      "title": "Guild {guildName}",
-      "chiefinfos": ":military_medal: **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
-      "members": ":person_pouting: {memberCount}/{maxGuildMembers} members",
-      "memberinfos": "- **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
-      "experience": ":star: {xp} / {xpToLevelUp} | Level {level}",
-      "lvlMax": ":star: Maximum level reached!"
-    }
-  },
-  "icon": "https://i.imgur.com/sQHBly4.png"
+	"translations": {
+		"fr": {
+			"noGuildException": "Aucune guilde n'a été trouvée.",
+			"title": "Guilde {guildName}",
+			"description": ":scroll: `{description}`",
+			"chiefinfos": ":military_medal: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
+			"members": ":person_pouting: {memberCount}/{maxGuildMembers} membres",
+			"memberinfos": ":black_circle: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
+			"experience": ":star: {xp} / {xpToLevelUp} | Niveau {level}",
+			"lvlMax": ":star: Niveau maximum atteint !"
+		},
+		"en": {
+			"noGuildException": "No guild was found.",
+			"title": "Guild {guildName}",
+			"description": ":scroll: `{description}`",
+			"chiefinfos": ":military_medal: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
+			"members": ":person_pouting: {memberCount}/{maxGuildMembers} members",
+			"memberinfos": ":black_circle: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
+			"experience": ":star: {xp} / {xpToLevelUp} | Level {level}",
+			"lvlMax": ":star: Maximum level reached!"
+		}
+	},
+	"icon": "https://i.imgur.com/sQHBly4.png"
 }
