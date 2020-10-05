@@ -1,0 +1,30 @@
+{
+  "translations": {
+    "fr": {
+      "invalidDescription": "Les règles pour la description sont les suivantes:\n- Utiliser au moins une lettre\n- Ne pas mettre plus de 2 espaces consécutifs\n- Les caractères spéciaux ne sont pas autorisés\n- Entre {min} et {max} caractères",
+      "noDescriptionFound": "Il n'y a pas de description pour votre guilde. Utiliser la commande `guilddescription` pour ajouter une description.",
+      "descriptionChanged": "La description à bien été changée.",
+      "changeDescriptionTitle": "{pseudo}, confirmation :",
+      "changeDescriptionConfirm": "Nouvelle description : {description}",
+      "changeDescriptionFooter": "Attention, le staff se réserve le droit de changer la description de votre guilde.",
+      "editSuccessTitle": "La description de la guilde à bien été éditée !",
+      "editSuccess": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
+      "editCancelled": "Vous n'avez pas éditer la description de la guilde !",
+      "notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
+      "notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande."
+    },
+    "en": {
+      "invalidDescription": "The rules for the guild's name are the followings:\n- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
+      "noDescriptionFound": "There are no description found for your guild. Use `guilddesc` for add description.",
+      "descriptionChanged": "The description has been changed.",
+      "changeDescriptionTitle": "{pseudo}, confirmation :",
+      "changeDescriptionConfirm": "New description : {description}",
+      "changeDescriptionFooter": "Warning, the bot's staff keeps control on guild's description and may change it.",
+      "editSuccessTitle": "The description of guild has been edit !",
+      "editSuccess": "The cooldown before the next guild daily reward has been reset.",
+      "editCancelled": "You does not change the description of guild !",
+      "notInAguild": "You have to be in a guild to use this command.",
+      "notChiefError": "You have to be in a guild to use this command."
+    }
+  }
+}

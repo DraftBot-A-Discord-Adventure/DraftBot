@@ -7,54 +7,63 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-  const Guilds = Sequelize.define('Guilds', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
+  const Guilds = Sequelize.define(
+    "Guilds",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      name: {
+        type: DataTypes.STRING(32),
+      },
+      guildDescription: {
+        type: DataTypes.STRING(300),
+      },
+      score: {
+        type: DataTypes.INTEGER,
+        defaultValue: JsonReader.models.guilds.score,
+      },
+      level: {
+        type: DataTypes.INTEGER,
+        defaultValue: JsonReader.models.guilds.level,
+      },
+      experience: {
+        type: DataTypes.INTEGER,
+        defaultValue: JsonReader.models.guilds.experience,
+      },
+      lastDailyAt: {
+        type: DataTypes.DATE,
+        defaultValue: JsonReader.models.guilds.lastDailyAt,
+      },
+      chief_id: {
+        type: DataTypes.INTEGER,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+      },
     },
-    name: {
-      type: DataTypes.STRING(32),
-    },
-    score: {
-      type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.guilds.score,
-    },
-    level: {
-      type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.guilds.level,
-    },
-    experience: {
-      type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.guilds.experience,
-    },
-    lastDailyAt: {
-      type: DataTypes.DATE,
-      defaultValue: JsonReader.models.guilds.lastDailyAt,
-    },
-    chief_id: {
-      type: DataTypes.INTEGER,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
-      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
-    },
-  }, {
-    tableName: 'guilds',
-    freezeTableName: true,
-  });
+    {
+      tableName: "guilds",
+      freezeTableName: true,
+    }
+  );
 
   Guilds.beforeSave((instance) => {
-    instance.setDataValue('updatedAt',
-      require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+    instance.setDataValue(
+      "updatedAt",
+      require("moment")().format("YYYY-MM-DD HH:mm:ss")
+    );
   });
 
   Guilds.prototype.updateLastDailyAt = function () {
-    const moment = require('moment');
+    const moment = require("moment");
     this.lastDailyAt = new moment();
   };
 
@@ -107,10 +116,10 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-  * @return {Boolean} True if the guild has levelUp false otherwise
-  */
+   * @return {Boolean} True if the guild has levelUp false otherwise
+   */
   Guilds.prototype.needLevelUp = function () {
-    return (this.experience >= this.getExperienceNeededToLevelUp());
+    return this.experience >= this.getExperienceNeededToLevelUp();
   };
 
   /**
@@ -125,12 +134,19 @@ module.exports = (Sequelize, DataTypes) => {
     this.experience -= this.getExperienceNeededToLevelUp();
     this.level++;
     const embed = new discord.MessageEmbed()
-      .setTitle(format(JsonReader.models.guilds.getTranslation(language).levelUp.title, {
-        guildName: this.name
-      }))
-      .setDescription(format(JsonReader.models.guilds.getTranslation(language).levelUp.desc, {
-        level: this.level
-      }));
+      .setTitle(
+        format(
+          JsonReader.models.guilds.getTranslation(language).levelUp.title,
+          {
+            guildName: this.name,
+          }
+        )
+      )
+      .setDescription(
+        format(JsonReader.models.guilds.getTranslation(language).levelUp.desc, {
+          level: this.level,
+        })
+      );
     channel.send(embed);
 
     if (this.needLevelUp()) {
