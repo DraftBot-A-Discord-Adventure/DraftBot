@@ -47,6 +47,7 @@
 				"guildCreate": "Création d'une guilde",
 				"guildKick": "Expulsion d'une guilde",
 				"guildLeave": "Départ d'une guilde",
+				"descriptionEdit": "Edition de la description de guilde",
 				"sell": "Vente d'un objet",
 				"acceptItem": "Choix de garder un objet ou non"
 			}
@@ -98,7 +99,8 @@
 				"guildCreate": "Guild create",
 				"guildKick": "Guild kick",
 				"guildLeave": "Guild leave",
-				"sell": "Sell",
+				"descriptionEdit": "Guild description edit",
+				"sell": "Selling item",
 				"acceptItem": "Choice to keep an item or not"
 			}
 		}
