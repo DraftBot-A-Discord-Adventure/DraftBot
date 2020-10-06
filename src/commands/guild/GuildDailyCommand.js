@@ -68,6 +68,7 @@ const GuildDailyCommand = async (language, message, args) => {
       members[i].Player.experience += xpWon;
       await members[i].Player.levelUpIfNeeded(members[i], message.channel, language);
       await members[i].Player.save();
+      await members[i].save();
     }
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).personalXP, {
       xp: xpWon,
