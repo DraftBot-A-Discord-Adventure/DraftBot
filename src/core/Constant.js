@@ -76,6 +76,10 @@ global.GUILD = {
   MAX_DESCRIPTION_LENGTH: 140,
 };
 
+global.CLASS = {
+  REQUIRED_LEVEL: 4,
+};
+
 global.MENU_REACTION = {
   ACCEPT: '✅',
   DENY: '❌',
