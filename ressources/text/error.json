@@ -43,6 +43,7 @@
 				"shop": "Magasin",
 				"report": "Rapport",
 				"fight": "Combat",
+				"class": "Changement de classe",
 				"guildAdd": "Ajout dans une guilde",
 				"guildCreate": "Création d'une guilde",
 				"guildKick": "Expulsion d'une guilde",
@@ -93,6 +94,7 @@
 			"playerBlocked": "You can't do this because you currently have a pending action ({context})!",
 			"blockedContext": {
 				"shop": "Shop",
+				"class": "Changing class",
 				"report": "Report",
 				"fight": "Fight",
 				"guildAdd": "Guild add",
