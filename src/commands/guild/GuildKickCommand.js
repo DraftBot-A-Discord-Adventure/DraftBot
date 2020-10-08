@@ -32,7 +32,7 @@ const GuildKickCommand = async (language, message, args) => {
       JsonReader.commands.guildKick.getTranslation(language).cannotGetKickedUser);
   }
 
-  if (await sendBlockedError(message.mentions.users.last(), message.channel, language)) {
+  if (await sendBlockedError(kickedEntity, message.channel, language)) {
     return;
   }
 
@@ -88,7 +88,7 @@ const GuildKickCommand = async (language, message, args) => {
   }), message.author.displayAvatarURL());
   choiceEmbed.setDescription(format(JsonReader.commands.guildKick.getTranslation(language).kick, {
     guildName: guild.name,
-    kickedPseudo: message.mentions.users.last().username,
+    kickedPseudo: await kickedEntity.Player.getPseudo(language),
   }));
 
   const msg = await message.channel.send(choiceEmbed);
@@ -115,9 +115,9 @@ const GuildKickCommand = async (language, message, args) => {
         ]);
 
         embed.setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).successTitle, {
-          kickedPseudo: message.mentions.users.last().username,
+          kickedPseudo: await kickedEntity.Player.getPseudo(language),
           guildName: guild.name,
-        }), message.mentions.users.last().displayAvatarURL());
+        }));
         embed.setDescription(JsonReader.commands.guildKick.getTranslation(language).kickSuccess);
         return message.channel.send(embed);
       }
@@ -129,7 +129,7 @@ const GuildKickCommand = async (language, message, args) => {
       message.channel,
       language,
       format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {
-        kickedPseudo: message.mentions.users.last().username,
+        kickedPseudo: await kickedEntity.Player.getPseudo(language),
       }));
   });
 
