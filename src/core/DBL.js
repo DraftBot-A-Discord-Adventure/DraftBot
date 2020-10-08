@@ -1,14 +1,28 @@
-const DiscordBotListAPI = require('dbl-api');
+const DiscordBotList = require('dblapi.js');
 
 class DBL {
+  static dbl;
+
   static startDBLWebhook() {
-    if (JsonReader.app.DBL_WEBHOOK_URL === "" || JsonReader.app.DBL_WEBHOOK_PORT === 0) {
+    if (JsonReader.app.DBL_WEBHOOK_URL === "" || JsonReader.app.DBL_WEBHOOK_PORT === 0 || !JsonReader.app.DBL_WEBHOOK_PASSWORD || JsonReader.app.DBL_WEBHOOK_PASSWORD === "" || !JsonReader.app.DBL_TOKEN || JsonReader.app.DBL_TOKEN === "") {
       console.info("DBL Webhook not configured, skipped.");
       return;
     }
-    const api = new DiscordBotListAPI({ port: JsonReader.app.DBL_WEBHOOK_PORT, path: JsonReader.app.DBL_WEBHOOK_URL });
-    api.on('upvote', async (user) => {
-      await DBL.userDBLVote(user);
+    this.dbl = new DiscordBotList(JsonReader.app.DBL_TOKEN, { webhookPort: JsonReader.app.DBL_WEBHOOK_PORT, webhookPath: JsonReader.app.DBL_WEBHOOK_URL, webhookAuth: JsonReader.app.DBL_WEBHOOK_PASSWORD });
+    this.dbl.webhook.on('vote', async (vote) => {
+      await DBL.userDBLVote(vote.user);
+    });
+    this.dbl.on('ready', () => {
+      console.log(`Webhook running at http://${this.dbl.webhook.hostname}:${this.dbl.webhook.port}${this.dbl.webhook.path}`);
+      setInterval(() => {
+        //this.dbl.postStats(discord.guilds.size);
+      }, TOPGG.DBL_SERVER_COUNT_UPDATE_TIME);
+    });
+    this.dbl.on('error', e => {
+      console.log(`DBL Error: ${e}`);
+    });
+    this.dbl.on('posted', () => {
+      console.log('Successfully posted ' + discord.guilds.size + ' servers to DBL');
     });
   }
 
