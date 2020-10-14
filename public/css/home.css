@@ -211,7 +211,8 @@ textarea {
 .Bigquestion {
 	min-width: 150px;
 	max-width: 400px;
-	max-height: 515px;
+	min-width: 150px;
+	max-height: 400px;
 	margin-right: 50px;
 }
 
@@ -232,6 +233,7 @@ textarea {
 
 .longScreen {
 	max-width: 400px;
+	max-height: 515px;
 	margin: 30px 50px 30px 0px;
 }
 
