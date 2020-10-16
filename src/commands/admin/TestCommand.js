@@ -271,6 +271,12 @@ const TestCommand = async(language, message, args) => {
                     guild.save();
                 }
                 break;
+            case 'adaily':
+                if (args.length === 2) {
+                    author.Player.Inventory.lastDailyAt -= parseInt(args[1]) * 60000;
+                    author.Player.Inventory.save();
+                }
+                break;
             case 'glvl':
                 if (args.length === 2 && !isNaN(args[1])) {
                     let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
@@ -278,16 +284,64 @@ const TestCommand = async(language, message, args) => {
                     guild.save();
                 }
                 break;
-            case 'topggvote':
-                author.Player.topggVoteAt = new Date();
-                author.Player.save();
+            case 'gxp':
+                if (args.length === 2 && !isNaN(args[1])) {
+                    let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
+                    guild.experience = parseInt(args[1]);
+                    guild.save();
+                }
+                break;
+            case 'fakevote':
+                await require('../../core/DBL').userDBLVote(message.author.id);
                 break;
             case 'topggatime':
                 author.Player.topggVoteAt -= parseInt(args[1]) * 60000;
                 author.Player.save();
                 break;
+            case 'fightpointslost':
+            case 'fpl':
+                if (args.length === 2) {
+                    author.fightPointsLost = parseInt(args[1]);
+                    author.save();
+                }
+                break;
+            case 'forcejoinguild':
+            case 'fjg':
+                if (args.length >= 2) {
+                    let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
+                    if (guild && guild.chief_id === author.Player.id) {
+                        // the chief is leaving : destroy the guild
+                        await Guilds.destroy({
+                            where: {
+                                id: guild.id,
+                            },
+                        });
+                    }
+                    guild = await Guilds.getByName(args.slice(1, args.length).join(" "));
+                    if (guild === null) {
+                        await message.channel.send('Guild not found');
+                        return;
+                    }
+                    author.Player.guild_id = guild.id;
+
+                    await Promise.all([
+                        guild.save(),
+                        author.save(),
+                        author.Player.save(),
+                    ]);
+                    await message.channel.send('Guild joined');
+                    return;
+                }
+                break;
+            case 'forceguildowner':
+            case 'fgo':
+                let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
+                guild.chief_id = author.Player.id;
+                await guild.save();
+                break;
             default:
                 await message.channel.send('Argument inconnu !');
+                return;
         }
     } catch (error) {
         console.log(error);
@@ -298,5 +352,10 @@ const TestCommand = async(language, message, args) => {
 };
 
 module.exports = {
-    'test': TestCommand,
+    commands: [
+        {
+            name: 'test',
+            func: TestCommand
+        }
+    ]
 };

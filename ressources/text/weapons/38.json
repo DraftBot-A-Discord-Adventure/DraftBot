@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":crossed_swords:  **Epee de maître**",
-		"en": ":crossed_swords:  **Master sword**"
+		"fr": ":crossed_swords: **Epee de maître**",
+		"en": ":crossed_swords: **Master sword**"
 	},
 	"rarity": 7,
 	"rawAttack": 9

@@ -47,7 +47,8 @@ const ProfileCommand = async function(language, message, args) {
             await entity.Player.Inventory.getPotion(),
             await entity.Player.Inventory.getActiveObject(),
         ),
-        cumulativeMaxHealth: entity.getCumulativeHealth(entity.Player),
+        cumulativeHealth: entity.getCumulativeHealth(),
+        cumulativeMaxHealth: entity.getMaxCumulativeHealth(),
       }),
     },
     {
@@ -85,6 +86,27 @@ const ProfileCommand = async function(language, message, args) {
     }
   }
 
+  fields.push({
+    name: JsonReader.commands.profile.getTranslation(language).playerClass.fieldName,
+    value: format(JsonReader.commands.profile.getTranslation(language).playerClass.fieldValue, {
+
+    }),
+    inline: true
+  });
+
+  try {
+    const guild = await Guilds.getById(entity.Player.guild_id);
+    if (guild) {
+      fields.push({
+        name: JsonReader.commands.profile.getTranslation(language).guild.fieldName,
+        value: format(JsonReader.commands.profile.getTranslation(language).guild.fieldValue, {
+          guild: guild.name
+        }),
+        inline: true
+      });
+    }
+  } catch (error) {}
+
   const msg = await message.channel.send(
       new discord.MessageEmbed()
           .setColor(JsonReader.bot.embed.default)
@@ -117,12 +139,17 @@ const ProfileCommand = async function(language, message, args) {
       await msg.react(badges[badgeid]);
     }
   }
-  if (new Date() - entity.Player.topggVoteAt < TOPGG.BADGE_DURATION) {
+  if (new Date() - entity.Player.topggVoteAt < TOPGG.BADGE_DURATION*60*60*1000) {
     await msg.react(TOPGG.BADGE);
   }
 };
 
 module.exports = {
-  'profile': ProfileCommand,
-  'p': ProfileCommand,
+  commands: [
+    {
+      name: 'profile',
+      func: ProfileCommand,
+      aliases: ['p']
+    }
+  ]
 };

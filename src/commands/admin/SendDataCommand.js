@@ -6,8 +6,12 @@
  */
 const SendDataCommand = async (language, message, args) => {
   if ((await canPerformCommand(message, language,
-      PERMISSION.ROLE.BOTOWNER)) !== true) {
+      PERMISSION.ROLE.CONTRIBUTORS)) !== true) {
     return;
+  }
+
+  if (message.channel.id !== JsonReader.app.CONTRIBUTORS_CHANNEL && message.author.id !== JsonReader.app.BOT_OWNER_ID) {
+    return sendErrorMessage(message.author, message.channel, language, JsonReader.error.getTranslation(language).notContributorsChannel);
   }
 
   await message.channel.send({
@@ -19,5 +23,10 @@ const SendDataCommand = async (language, message, args) => {
 };
 
 module.exports = {
-  'senddata': SendDataCommand,
+  commands: [
+    {
+      name: 'senddata',
+      func: SendDataCommand
+    }
+  ]
 };

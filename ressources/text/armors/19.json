@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":safety_vest:  **Veste de sécurité**",
-		"en": ":safety_vest:  **Security jacket**"
+		"fr": ":safety_vest: **Veste de sécurité**",
+		"en": ":safety_vest: **Security jacket**"
 	},
 	"rarity": 2,
 	"rawDefense": 5

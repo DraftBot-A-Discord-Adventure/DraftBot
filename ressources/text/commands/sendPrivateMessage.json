@@ -3,7 +3,6 @@
 		"fr": {
 			"descError": "Entrez l'id du joueur ainsi qu'un message après la commande svp",
 			"title": ":white_check_mark: | DM envoyé à **{username}** :",
-			"ok":">>> ",
 			"signature": "\n\n- {username}",
 			"errorCannotSend": "Une erreur est survenue lors de l'envoi du message. Cette personne a probablement désactivé les messages privés !",
 			"personNotExists": "Personne n'a été trouvé avec cet id !"
@@ -11,7 +10,6 @@
 		"en": {
 			"descError": "Indiacte the user id and a message after the command please",
 			"title": ":white_check_mark: | DM sent to **{username}**:",
-			"ok":">>> ",
 			"signature": "\n\n- {username}",
 			"errorCannotSend": "An error happened while sending the private message. This person probably disabled DMs!",
 			"personNotExists": "No one was found with this id !"

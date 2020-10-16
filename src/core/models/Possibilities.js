@@ -43,6 +43,9 @@ module.exports = (Sequelize, DataTypes) => {
     event_id: {
       type: DataTypes.INTEGER,
     },
+    nextEvent: {
+      type: DataTypes.INTEGER,
+    },
     updatedAt: {
       type: DataTypes.DATE,
       defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
@@ -56,7 +59,7 @@ module.exports = (Sequelize, DataTypes) => {
     freezeTableName: true,
   });
 
-  Possibilities.beforeSave((instance, options) => {
+  Possibilities.beforeSave((instance) => {
     instance.setDataValue('updatedAt',
         require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });

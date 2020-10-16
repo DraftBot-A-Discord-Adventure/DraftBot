@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":bomb:  **Bombe**",
-		"en": ":bomb:  **Bomb**"
+		"fr": ":bomb: **Bombe**",
+		"en": ":bomb: **Bomb**"
 	},
 	"rarity": 5,
 	"rawAttack": 9

@@ -5,7 +5,7 @@
                   "descReset": "Les badges de {player} ont été réinitialisés."
             },
             "en": {
-                  "giveSuccess": "{pseudo}, finished!",
+                  "resetSuccess": "{pseudo}, finished!",
                   "descReset": "{player}'s badges are now gone."
             }
       }

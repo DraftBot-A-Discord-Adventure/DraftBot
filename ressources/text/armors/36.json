@@ -1,10 +1,10 @@
 {
 	"translations": {
-		"fr": ":shield:  **Bouclier à pointes**",
-		"en": ":shield:  **Spike shield**"
+		"fr": ":shield: **Bouclier à pointes**",
+		"en": ":shield: **Spike shield**"
 	},
 	"rarity": 8,
 	"rawDefense": 7,
-	"attack": 2,
+	"attack": 15,
 	"speed": -20
 }

@@ -48,12 +48,16 @@ module.exports = (Sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
     },
+    fightPointsLost: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
   }, {
     tableName: 'entities',
     freezeTableName: true,
   });
 
-  Entities.beforeSave((instance, options) => {
+  Entities.beforeSave((instance) => {
     instance.setDataValue('updatedAt',
         require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
@@ -150,6 +154,17 @@ module.exports = (Sequelize, DataTypes) => {
     });
   };
 
+  Entities.getServerRank = async (discord_id, ids) => {
+    const query = `SELECT rank FROM (SELECT entities.discordUser_id AS discordUser_id, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entity_id AND players.score > 100 WHERE entities.discordUser_id IN (:ids)) WHERE discordUser_id = :id;`;
+    return Sequelize.query(query, {
+      replacements: {
+        ids: ids,
+        id: discord_id,
+      },
+      type: Sequelize.QueryTypes.SELECT,
+    });
+  };
+
   /**
    * @param {String[]} args=[]
    * @param {module:"discord.js".Message} message
@@ -216,12 +231,25 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-   * Returns this player instance's current cumulative health
+   * Returns this player instance's current cumulative health. Returns the regenerative health
    * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getCumulativeHealth = function(player) {
-    return this.maxHealth + (player.level * 10);
+  Entities.prototype.getCumulativeHealth = function() {
+    let maxHealth = this.getMaxCumulativeHealth();
+    let fp = maxHealth - this.fightPointsLost;
+    if (fp < 0) fp = 0;
+    else if (fp > maxHealth) fp = maxHealth;
+    return fp;
+  };
+
+  /**
+   * Returns this player instance's max cumulative health
+   * @param {Players} player
+   * @return {Number}
+   */
+  Entities.prototype.getMaxCumulativeHealth = function() {
+    return this.maxHealth + (this.Player.level * 10);
   };
 
   /**

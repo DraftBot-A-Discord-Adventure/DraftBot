@@ -9,5 +9,10 @@ const InviteCommand = async function(language, message, args) {
 };
 
 module.exports = {
-  'invite': InviteCommand,
+  commands: [
+    {
+      name: 'invite',
+      func: InviteCommand
+    }
+  ]
 };

@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":shield:  **Bouclier puissant**",
-		"en": ":shield:  **Powerful shield**"
+		"fr": ":shield: **Bouclier puissant**",
+		"en": ":shield: **Powerful shield**"
 	},
 	"rarity": 6,
 	"rawDefense": 8

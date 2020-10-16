@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":knife:  **Couteau simple**",
-		"en": ":knife:  **Basic knife**"
+		"fr": ":knife: **Couteau simple**",
+		"en": ":knife: **Basic knife**"
 	},
 	"rarity": 2,
 	"rawAttack": 7

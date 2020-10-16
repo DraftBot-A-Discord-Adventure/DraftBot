@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "<:Potion:548219908736155658>  **Super Potion**",
-		"en": "<:Potion:548219908736155658>  **Super potion**"
+		"fr": "<:Potion:548219908736155658> **Super Potion**",
+		"en": "<:Potion:548219908736155658> **Super potion**"
 	},
 	"rarity": 6,
 	"power": 190,

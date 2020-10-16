@@ -1,9 +1,9 @@
 {
-	"translations": {
-		"fr": ":angel: **Bague de l'ange sans vie**",
-		"en": ":angel: **Lifeless angel's ring**"
-	},
-	"rarity": 6,
-	"power": 11,
-	"nature": 1
+  "translations": {
+    "fr": ":angel: **Bague de l'ange sans vie**",
+    "en": ":angel: **Lifeless angel's ring**"
+  },
+  "rarity": 6,
+  "power": 8,
+  "nature": 1
 }
