@@ -33,6 +33,10 @@ module.exports = (Sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: JsonReader.models.players.money,
     },
+    class: {
+      type: DataTypes.INTEGER,
+      defaultValue: JsonReader.models.players.class,
+    },
     badges: {
       type: DataTypes.TEXT,
       defaultValue: JsonReader.models.players.badges,
