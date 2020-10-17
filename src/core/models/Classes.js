@@ -15,23 +15,23 @@ module.exports = (Sequelize, DataTypes) => {
     },
     attack: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.class.attack,
+      defaultValue: JsonReader.models.classes.attack,
     },
     defense: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.class.defense,
+      defaultValue: JsonReader.models.classes.defense,
     },
     speed: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.class.speed,
+      defaultValue: JsonReader.models.classes.speed,
     },
     health: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.class.health,
+      defaultValue: JsonReader.models.classes.health,
     },
     fightPoint: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.class.fightPoint,
+      defaultValue: JsonReader.models.classes.fightPoint,
     },
     fr: {
       type: DataTypes.TEXT,
@@ -48,7 +48,7 @@ module.exports = (Sequelize, DataTypes) => {
       defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
     },
   }, {
-    tableName: 'class',
+    tableName: 'classes',
     freezeTableName: true,
   });
 
@@ -63,7 +63,7 @@ module.exports = (Sequelize, DataTypes) => {
    */
   Class.prototype.toString = function (language) {
     return (this.id === 0) ? this[language] : format(
-      JsonReader.class.getTranslation(language).weapons.fieldValue, {
+      JsonReader.classes.getTranslation(language).weapons.fieldValue, {
       name: this[language],
       rarity: this.getRarityTranslation(language),
       values: this.getValues(language),
