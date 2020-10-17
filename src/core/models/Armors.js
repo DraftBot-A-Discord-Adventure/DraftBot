@@ -66,7 +66,7 @@ module.exports = (Sequelize, DataTypes) => {
   });
 
   /**
-   * @param {("fr"|"en")} language - The language the inventory has to be displayed in
+   * @param {("fr"|"en")} language - The language the armor has to be displayed in
    */
   Armors.prototype.toFieldObject = async function (language) {
     return {
@@ -81,7 +81,7 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-   * @param {("fr"|"en")} language - The language the weapon has to be displayed in
+   * @param {("fr"|"en")} language - The language the armor has to be displayed in
    * @return {String}
    */
   Armors.prototype.toString = function (language) {
@@ -101,7 +101,7 @@ module.exports = (Sequelize, DataTypes) => {
     return JsonReader.items.getTranslation(language).rarities[this.rarity];
   };
 
-  Armors.prototype.multiplicateur = function() {
+  Armors.prototype.multiplicateur = function () {
     return JsonReader.items.mapper[this.rarity];
   };
 
