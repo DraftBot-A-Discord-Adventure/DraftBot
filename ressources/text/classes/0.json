@@ -3,6 +3,7 @@
 		"fr": ":crossed_swords: **Soldat**",
 		"en": ":crossed_swords: **Soldier**"
 	},
+	"emoji": "⚔️",
 	"attack": 30,
 	"defense": 30,
 	"speed": 30,

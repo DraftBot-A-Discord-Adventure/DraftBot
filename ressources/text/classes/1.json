@@ -3,6 +3,7 @@
 		"fr": ":bow_and_arrow: **Archer**",
 		"en": ":bow_and_arrow: **Archer**"
 	},
+	"emoji": "🏹",
 	"attack": 50,
 	"defense": 10,
 	"speed": 40,

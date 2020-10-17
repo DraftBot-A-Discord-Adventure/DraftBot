@@ -28,6 +28,9 @@ module.exports = (Sequelize, DataTypes) => {
     fightPoint: {
       type: DataTypes.INTEGER,
     },
+    emoji: {
+      type: DataTypes.TEXT,
+    },
     fr: {
       type: DataTypes.TEXT,
     },
