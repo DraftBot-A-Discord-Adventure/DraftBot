@@ -102,7 +102,7 @@ global.FIGHT = {
     POWERFUL_ATTACK: 2,
     IMPROVE_DEFENSE: 3,
     IMPROVE_SPEED: 4,
-    ULTIMATE_ATTACK: 5,
+    ULTIMATE_ATTACK: 5
   },
 };
 
@@ -112,8 +112,7 @@ global.SHOP = {
   HEART: "💗",
   MONEY_MOUTH: "🤑",
   STAR: "⭐",
-  POTION_REPLACEMENT: "🍷",
-  CANCEL: "❌",
+  POTION_REPLACEMENT: "🍷"
 };
 
 global.TOPGG = {
