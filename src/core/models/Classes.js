@@ -71,5 +71,16 @@ module.exports = (Sequelize, DataTypes) => {
     });
   };
 
+  /**
+   * @param {Number} id
+   */
+  Classes.getById = (id) => {
+    return Classes.findOne({
+      where: {
+        id: id,
+      },
+    });
+  };
+
   return Classes;
 };
