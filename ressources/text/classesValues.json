@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": {
+			"fieldsValue": "{name} : :dagger: {attack}% | :shield: {defense}% | :rocket: {speed}% | :blue_heart: {fightPoint}% | :heart: {health}%"
+		},
+		"en": {
+			"fieldsValue": "{name} : :dagger: {attack}% | :shield: {defense}% | :rocket: {speed}% | :blue_heart: {fightPoint}% | :heart: {health}%"
+		}
+	}
+}

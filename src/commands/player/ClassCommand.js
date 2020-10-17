@@ -18,7 +18,11 @@ async function ClassCommand(language, message, args) {
 
     const classTranslations = JsonReader.commands.class.getTranslation(language);
 
-    let classesLineDisplay = ["test", "banane"]
+    let classesLineDisplay = new Array();
+    let allClasses = await Classes.findAll();
+    for (let k = 0; k < allClasses.length; k++) {
+        classesLineDisplay.push(allClasses[k].toString(language))
+    }
 
     //Creating class message
     const classMessage = await message.channel.send(

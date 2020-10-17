@@ -1,13 +1,13 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Soldat**",
-		"en": ":crossed_swords: **Soldier**"
+		"fr": ":bow_and_arrow: **Archer**",
+		"en": ":bow_and_arrow: **Archer**"
 	},
-	"attack": 30,
-	"defense": 30,
-	"speed": 30,
-	"health": 100,
-	"fightPoint": 100,
+	"attack": 50,
+	"defense": 10,
+	"speed": 40,
+	"health": 80,
+	"fightPoint": 80,
 	"description": {
 		"translations": {
 			"fr": "ceci est un test de ddescrpitorzejifpoejgoz",

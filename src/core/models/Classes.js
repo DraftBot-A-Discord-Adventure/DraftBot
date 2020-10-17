@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-  const Class = Sequelize.define('Class', {
+  const Classes = Sequelize.define('Classes', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -15,23 +15,18 @@ module.exports = (Sequelize, DataTypes) => {
     },
     attack: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.classes.attack,
     },
     defense: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.classes.defense,
     },
     speed: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.classes.speed,
     },
     health: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.classes.health,
     },
     fightPoint: {
       type: DataTypes.INTEGER,
-      defaultValue: JsonReader.models.classes.fightPoint,
     },
     fr: {
       type: DataTypes.TEXT,
@@ -52,7 +47,7 @@ module.exports = (Sequelize, DataTypes) => {
     freezeTableName: true,
   });
 
-  Class.beforeSave((instance) => {
+  Classes.beforeSave((instance) => {
     instance.setDataValue('updatedAt',
       require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
@@ -61,14 +56,17 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {("fr"|"en")} language - The language the class has to be displayed in
    * @return {String}
    */
-  Class.prototype.toString = function (language) {
-    return (this.id === 0) ? this[language] : format(
-      JsonReader.classes.getTranslation(language).weapons.fieldValue, {
+  Classes.prototype.toString = function (language) {
+    return format(
+      JsonReader.classesValues.getTranslation(language).fieldsValue, {
       name: this[language],
-      rarity: this.getRarityTranslation(language),
-      values: this.getValues(language),
+      attack: this.attack,
+      defense: this.defense,
+      speed: this.speed,
+      health: this.health,
+      fightPoint: this.fightPoint
     });
   };
 
-  return Class;
+  return Classes;
 };
