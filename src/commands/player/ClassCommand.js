@@ -18,37 +18,7 @@ async function ClassCommand(language, message, args) {
 
     const classTranslations = JsonReader.commands.class.getTranslation(language);
 
-    //Formatting intems data into a string
-    const randomItem = format(classTranslations.display, {
-        name: classTranslations.permanentItems.randomItem.name,
-        price: classTranslations.permanentItems.randomItem.price,
-    });
-    const healAlterations = format(classTranslations.display, {
-        name: classTranslations.permanentItems.healAlterations.name,
-        price: classTranslations.permanentItems.healAlterations.price,
-    });
-    const regen = format(classTranslations.display, {
-        name: classTranslations.permanentItems.regen.name,
-        price: classTranslations.permanentItems.regen.price,
-    });
-    const badge = format(classTranslations.display, {
-        name: classTranslations.permanentItems.badge.name,
-        price: classTranslations.permanentItems.badge.price,
-    });
-    const guildXp = format(classTranslations.display, {
-        name: classTranslations.permanentItems.guildXp.name,
-        price: classTranslations.permanentItems.guildXp.price,
-    });
-
-    //Fetching potion infos
-    const potion = await Potions.findOne({
-        where: {
-            id: ((Math.round(Date.now() / (1000 * 60 * 60 * 24))) % (numberOfPotions - 1)) + 1,
-        },
-    });
-    const potionPrice = Math.round(
-        (parseInt(JsonReader.values.raritiesValues[potion.rarity]) + parseInt(potion.power)) * 0.7
-    );
+    let classesLineDisplay = ["test", "banane"]
 
     //Creating class message
     const classMessage = await message.channel.send(
@@ -56,26 +26,11 @@ async function ClassCommand(language, message, args) {
             .setColor(JsonReader.bot.embed.default)
             .setTitle(classTranslations.title)
             .addField(
-                classTranslations.dailyItem,
-                format(classTranslations.display, {
-                    name: potion.toString(language),
-                    price: potionPrice,
-                }))
-            .addField(
-                classTranslations.permanentItem, [randomItem, healAlterations, regen, badge, guildXp].join("\n") +
+                classTranslations.desc, classesLineDisplay.join("\n") +
             format(classTranslations.moneyQuantity, {
                 money: entity.Player.money,
             }))
     );
-
-    //Creating maps to get class items everywhere
-    const dailyPotion = new Map().set("price", potionPrice).set("potion", potion);
-    const classItems = new Map()
-        .set(SHOP.QUESTION, classTranslations.permanentItems.randomItem)
-        .set(SHOP.HOSPITAL, classTranslations.permanentItems.healAlterations)
-        .set(SHOP.HEART, classTranslations.permanentItems.regen)
-        .set(SHOP.MONEY_MOUTH, classTranslations.permanentItems.badge)
-        .set(SHOP.STAR, classTranslations.permanentItems.guildXp);
 
     const filterConfirm = (reaction, user) => {
         return (user.id === entity.discordUser_id && reaction.me);
