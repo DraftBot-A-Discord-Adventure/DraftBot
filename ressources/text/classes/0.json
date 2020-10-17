@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": ":crossed_swords: **Soldat**",
+		"en": ":crossed_swords: **Soldier**"
+	},
+	"attack": 30,
+	"defense": 30,
+	"speed": 30,
+	"health": 100,
+	"fightPoint": 100
+}
