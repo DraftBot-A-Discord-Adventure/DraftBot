@@ -77,7 +77,7 @@ global.GUILD = {
 };
 
 global.CLASS = {
-  REQUIRED_LEVEL: 4,
+  REQUIRED_LEVEL: 16,
 };
 
 global.MENU_REACTION = {
