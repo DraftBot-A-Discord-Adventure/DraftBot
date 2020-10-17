@@ -48,7 +48,7 @@ async function ClassCommand(language, message, args) {
             removeBlockedPlayer(entity.discordUser_id);
             return;
         }
-        if (reaction.first().emoji.name === SHOP.CANCEL) {
+        if (reaction.first().emoji.name === MENU_REACTION.DENY) {
             removeBlockedPlayer(entity.discordUser_id);
             sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass);
             return;
@@ -94,19 +94,10 @@ async function ClassCommand(language, message, args) {
     });
 
     //Adding reactions
-    try {
-        await classMessage.react(potion.getEmoji());
-    } catch {
-        await classMessage.react(SHOP.POTION_REPLACEMENT);
+    for (let k = 0; k < allClasses.length; k++) {
+        await classMessage.react(allClasses[k].emoji);
     }
-    await Promise.all([
-        classMessage.react(SHOP.QUESTION),
-        classMessage.react(SHOP.HOSPITAL),
-        classMessage.react(SHOP.HEART),
-        classMessage.react(SHOP.MONEY_MOUTH),
-        classMessage.react(SHOP.STAR),
-        classMessage.react(SHOP.CANCEL)
-    ]);
+    classMessage.react(MENU_REACTION.DENY)
 }
 
 
