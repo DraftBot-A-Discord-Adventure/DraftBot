@@ -73,6 +73,14 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
+   * @param {("fr"|"en")} language - The language the class has to be displayed in
+   * @return {String}
+   */
+  Classes.prototype.getDescription = function (language) {
+    return JsonReader.commands.class.getTranslation(language).description[this.id];
+  };
+
+  /**
    * return the attack value of the player
    * @param {Number} level - the level of the player
    */

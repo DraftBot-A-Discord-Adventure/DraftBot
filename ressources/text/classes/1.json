@@ -8,11 +8,5 @@
 	"defense": 10,
 	"speed": 60,
 	"health": 40,
-	"fightPoint": 10,
-	"description": {
-		"translations": {
-			"fr": "ceci est un test de ddescrpitorzejifpoejgoz",
-			"en": ":crossed_swords: **Soldier**"
-		}
-	}
+	"fightPoint": 10
 }

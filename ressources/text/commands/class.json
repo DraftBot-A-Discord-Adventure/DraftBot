@@ -1,11 +1,15 @@
 {
 	"translations": {
 		"fr": {
+			"description": {
+				"0": "Une classe globalement équilibrée. Léger boost de la défense aux dépends de la vitesse.",
+				"1": "Une classe orientée vitesse. Boost vitesse important en échange d'une pénalité en défense, points de combat et points de vie."
+			},
 			"title": ":bookmark:  **Changer de classe :**",
 			"desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
-			"display": "{name} | `",
+			"display": "{name}\n\n:scroll: `{description}`\n\nSouhaitez vous dépenser `{price}💰` pour prendre cette classe ?",
 			"success": "{pseudo}, votre classe a été modifiée !",
-			"newClass": "Vous êtes désormais un {class}.",
+			"newClass": "Vous êtes désormais un ",
 			"confirm": "{pseudo}, Vous avez sélectionné la classe suivante :",
 			"moneyQuantity": "\n\nVous avez `{money}💰`.",
 			"error": {
@@ -15,11 +19,15 @@
 			}
 		},
 		"en": {
+			"description": {
+				"0": "A generally balanced class. Slight defense buff and speed debuff.",
+				"1": "A speed-oriented class. Greatly boosts speed while losing in defense, fight points and health points."
+			},
 			"title": ":bookmark:  **Change your class :**",
 			"desc": "Choose a class in the list below for more information",
-			"display": "{name} | `",
+			"display": "**{name}** | ",
 			"success": "{pseudo}, your class has been changed !",
-			"newClass": "You are now a {class}.",
+			"newClass": "You are now a ",
 			"confirm": "{pseudo}, you have chosen the following class:",
 			"moneyQuantity": "\n\nYou have `{money}💰`.",
 			"error": {

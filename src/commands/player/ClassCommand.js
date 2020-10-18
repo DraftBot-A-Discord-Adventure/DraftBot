@@ -42,6 +42,14 @@ async function ClassCommand(language, message, args) {
 
     const collector = classMessage.createReactionCollector(filterConfirm, { time: 120000, max: 1 });
 
+    //Adding reactions
+    let classEmojis = new Map();
+    for (let k = 0; k < allClasses.length; k++) {
+        await classMessage.react(allClasses[k].emoji);
+        classEmojis.set(allClasses[k].emoji, k);
+    }
+    classMessage.react(MENU_REACTION.DENY)
+
     //Fetch the choice from the user
     collector.on("end", async (reaction) => {
         removeBlockedPlayer(entity.discordUser_id);
@@ -54,7 +62,8 @@ async function ClassCommand(language, message, args) {
         }
 
         if (canBuy(CLASS.PRICE, entity.Player)) {
-
+            let classid = classEmojis.get(reaction.first().emoji.name);
+            confirmPurchase(message, language, classid, entity);
         } else {
             sendErrorMessage(message.author, message.channel, language, format(
                 JsonReader.commands.class.getTranslation(language).error.cannotBuy,
@@ -64,62 +73,6 @@ async function ClassCommand(language, message, args) {
             ));
         }
     });
-
-    //Adding reactions
-    for (let k = 0; k < allClasses.length; k++) {
-        await classMessage.react(allClasses[k].emoji);
-    }
-    classMessage.react(MENU_REACTION.DENY)
-}
-
-
-/**
- * @param {*} message - The message where the react event trigerred
- * @param {*} reaction - The reaction
- */
-async function sellItem(message, reaction, language, entity, customer, selectedItem) {
-    [entity] = await Entities.getOrRegister(entity.discordUser_id);
-    const classTranslations = JsonReader.commands.class.getTranslation(language);
-    if (selectedItem.name) {
-        //This is not a potion
-        if (
-            selectedItem.name === classTranslations.permanentItems.randomItem.name
-        ) {
-            await giveRandomItem(customer, message.channel, language, entity);
-        } else if (
-            selectedItem.name === classTranslations.permanentItems.healAlterations.name
-        ) {
-            if (entity.currentEffectFinished()) {
-                return sendErrorMessage(customer, message.channel, language, JsonReader.commands.class.getTranslation(language).error.nothingToHeal);
-            }
-            healAlterations(message, language, entity, customer, selectedItem);
-        } else if (
-            selectedItem.name === classTranslations.permanentItems.regen.name
-        ) {
-            await regenPlayer(message, language, entity, customer, selectedItem);
-        } else if (
-            selectedItem.name === classTranslations.permanentItems.badge.name
-        ) {
-            let success = giveMoneyMouthBadge(message, language, entity, customer, selectedItem);
-            if (!success) {
-                return;
-            }
-        } else if (
-            selectedItem.name === classTranslations.permanentItems.guildXp.name
-        ) {
-            if (!await giveGuildXp(message, language, entity, customer, selectedItem))
-                return;//if no guild, no need to proceed
-        }
-        entity.Player.addMoney(-selectedItem.price); //Remove money
-    } else {
-        giveDailyPotion(message, language, entity, customer, selectedItem);
-    }
-
-    await Promise.all([
-        entity.save(),
-        entity.Player.save(),
-        entity.Player.Inventory.save(),
-    ]);
 }
 
 /**
@@ -127,22 +80,24 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
  * @param {*} price - The item price
  * @param {*} info - The info to display while trying to buy the item
  */
-async function confirmPurchase(message, language, name, price, info, entity, customer, selectedItem) {
+async function confirmPurchase(message, language, classId, entity) {
+
+    const selectedClass = await Classes.getById(classId);
     const confirmEmbed = new discord.MessageEmbed()
         .setColor(JsonReader.bot.embed.default)
         .setAuthor(
             format(JsonReader.commands.class.getTranslation(language).confirm, {
-                pseudo: customer.username,
+                pseudo: message.author.username,
             }),
-            customer.displayAvatarURL()
+            message.author.displayAvatarURL()
         )
         .setDescription(
             "\n\u200b\n" +
             format(JsonReader.commands.class.getTranslation(language).display, {
-                name: name,
-                price: price,
-            }) +
-            info
+                name: selectedClass.toString(language, entity.Player.level),
+                price: CLASS.PRICE,
+                description: selectedClass.getDescription(language)
+            })
         );
 
     const confirmMessage = await message.channel.send(confirmEmbed);
@@ -157,14 +112,29 @@ async function confirmPurchase(message, language, name, price, info, entity, cus
 
     collector.on("end", async (reaction) => {
         removeBlockedPlayer(entity.discordUser_id);
-        //confirmMessage.delete(); for now we'll keep the messages
         if (reaction.first()) {
             if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
                 reaction.first().message.delete();
-                return sellItem(message, reaction, language, entity, customer, selectedItem);
+                entity.Player.class = classId;
+                entity.Player.addMoney(-CLASS.PRICE);
+                await Promise.all([
+                    entity.save(),
+                    entity.Player.save()
+                ]);
+                return message.channel.send(
+                    new discord.MessageEmbed()
+                        .setColor(JsonReader.bot.embed.default)
+                        .setAuthor(
+                            format(JsonReader.commands.class.getTranslation(language).success, {
+                                pseudo: message.author.username,
+                            }),
+                            message.author.displayAvatarURL()
+                        )
+                        .setDescription(JsonReader.commands.class.getTranslation(language).newClass + selectedClass.fr)
+                );
             }
         }
-        sendErrorMessage(customer, message.channel, language, JsonReader.commands.class.getTranslation(language).error.canceledPurchase);
+        sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.canceledPurchase);
     });
 
     await Promise.all([
