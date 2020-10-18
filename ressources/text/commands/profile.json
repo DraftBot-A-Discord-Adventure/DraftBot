@@ -28,7 +28,7 @@
 			},
 			"playerClass": {
 				"fieldName": "Classe :",
-				"fieldValue": ":interrobang: TODO"
+				"fieldValue": "{class}"
 			},
 			"badges": {
 				"🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
@@ -111,5 +111,5 @@
 		}
 	},
 	"badgeDescriptionTimeout": 20000,
-	"badgeMaxReactNumber" : 15
+	"badgeMaxReactNumber": 15
 }

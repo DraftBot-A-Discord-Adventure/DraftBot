@@ -90,7 +90,7 @@ async function ShopCommand(language, message, args) {
             removeBlockedPlayer(entity.discordUser_id);
             return;
         }
-        if (reaction.first().emoji.name === SHOP.CANCEL) {
+        if (reaction.first().emoji.name === MENU_REACTION.DENY) {
             removeBlockedPlayer(entity.discordUser_id);
             sendErrorMessage(message.author, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.leaveShop);
             return;
@@ -147,7 +147,7 @@ async function ShopCommand(language, message, args) {
         shopMessage.react(SHOP.HEART),
         shopMessage.react(SHOP.MONEY_MOUTH),
         shopMessage.react(SHOP.STAR),
-        shopMessage.react(SHOP.CANCEL)
+        shopMessage.react(MENU_REACTION.DENY)
     ]);
 }
 
@@ -175,7 +175,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
         } else if (
             selectedItem.name === shopTranslations.permanentItems.regen.name
         ) {
-            regenPlayer(message, language, entity, customer, selectedItem);
+            await regenPlayer(message, language, entity, customer, selectedItem);
         } else if (
             selectedItem.name === shopTranslations.permanentItems.badge.name
         ) {
@@ -311,8 +311,8 @@ function healAlterations(message, language, entity, customer, selectedItem) {
 /**
  * Completely restore player life
  */
-function regenPlayer(message, language, entity, customer, selectedItem) {
-    entity.setHealth(entity.maxHealth); //Heal Player
+async function regenPlayer(message, language, entity, customer, selectedItem) {
+    await entity.setHealth(await entity.getMaxHealth()); //Heal Player
     message.channel.send(
         new discord.MessageEmbed()
             .setColor(JsonReader.bot.embed.default)
@@ -358,7 +358,7 @@ async function giveGuildXp(message, language, entity, customer, selectedItem) {
         const guild = await Guilds.getById(entity.Player.guild_id);
         const toAdd = randInt(50, 450);
         guild.addExperience(toAdd); //Add xp
-        while(guild.needLevelUp()) {
+        while (guild.needLevelUp()) {
             await guild.levelUpIfNeeded(message.channel, language);
         }
         await guild.save();

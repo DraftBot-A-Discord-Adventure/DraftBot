@@ -76,6 +76,11 @@ global.GUILD = {
   MAX_DESCRIPTION_LENGTH: 140,
 };
 
+global.CLASS = {
+  REQUIRED_LEVEL: 16,
+  PRICE: 5000
+};
+
 global.MENU_REACTION = {
   ACCEPT: '✅',
   DENY: '❌',
@@ -98,7 +103,7 @@ global.FIGHT = {
     POWERFUL_ATTACK: 2,
     IMPROVE_DEFENSE: 3,
     IMPROVE_SPEED: 4,
-    ULTIMATE_ATTACK: 5,
+    ULTIMATE_ATTACK: 5
   },
 };
 
@@ -108,8 +113,7 @@ global.SHOP = {
   HEART: "💗",
   MONEY_MOUTH: "🤑",
   STAR: "⭐",
-  POTION_REPLACEMENT: "🍷",
-  CANCEL: "❌",
+  POTION_REPLACEMENT: "🍷"
 };
 
 global.TOPGG = {

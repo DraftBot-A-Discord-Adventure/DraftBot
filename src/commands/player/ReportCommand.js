@@ -7,7 +7,7 @@ const Op = require('sequelize/lib/operators');
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {Number} forceSpecificEvent - For testing purpose
  */
-const ReportCommand = async function(language, message, args, forceSpecificEvent = -1) {
+const ReportCommand = async function (language, message, args, forceSpecificEvent = -1) {
   const [entity] = await Entities.getOrRegister(message.author.id);
 
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
@@ -30,13 +30,13 @@ const ReportCommand = async function(language, message, args, forceSpecificEvent
 
   if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
     addBlockedPlayer(entity.discordUser_id, "report");
-    const event = await Events.findOne({where: {id: 0}});
+    const event = await Events.findOne({ where: { id: 0 } });
     return await doEvent(message, language, event, entity, time, 100);
   }
 
   if (time < JsonReader.commands.report.timeMinimal) {
     if (entity.currentEffectFinished()) {
-      return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).noReport, {pseudo: message.author.username}));
+      return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).noReport, { pseudo: message.author.username }));
     }
     else {
       return await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [entity.effect], entity);
@@ -44,7 +44,7 @@ const ReportCommand = async function(language, message, args, forceSpecificEvent
   }
 
   if (time <= JsonReader.commands.report.timeMaximal && Math.round(Math.random() * JsonReader.commands.report.timeMaximal) > time) {
-    return await doPossibility(message, language, await Possibilities.findAll({where : { event_id: 9999 }}), entity, time);
+    return await doPossibility(message, language, await Possibilities.findAll({ where: { event_id: 9999 } }), entity, time);
   }
 
   addBlockedPlayer(entity.discordUser_id, "report");
@@ -58,15 +58,17 @@ const ReportCommand = async function(language, message, args, forceSpecificEvent
   }
 
   if (forceSpecificEvent === -1) {
-    event = await Events.findOne({where: {
+    event = await Events.findOne({
+      where: {
         [Op.and]: [
-          {id: {[Op.gt]: 0}},
-          {id: {[Op.lt]: 9999}},
+          { id: { [Op.gt]: 0 } },
+          { id: { [Op.lt]: 9999 } },
         ]
-      }, order: Sequelize.literal('RANDOM()')});
+      }, order: Sequelize.literal('RANDOM()')
+    });
   }
   else {
-    event = await Events.findOne({where: {id: forceSpecificEvent}});
+    event = await Events.findOne({ where: { id: forceSpecificEvent } });
   }
   return await doEvent(message, language, event, entity, time);
 };
@@ -81,21 +83,21 @@ const ReportCommand = async function(language, message, args, forceSpecificEvent
  * @return {Promise<void>}
  */
 const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
-  const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {pseudo: message.author.username, event: event[language]}));
+  const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, { pseudo: message.author.username, event: event[language] }));
   const reactions = await event.getReactions();
   const collector = eventDisplayed.createReactionCollector((reaction, user) => {
     return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);
-  }, {time: 120000});
+  }, { time: 120000 });
 
   collector.on('collect', async (reaction) => {
     collector.stop();
-    const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: reaction.emoji.name}});
+    const possibility = await Possibilities.findAll({ where: { event_id: event.id, possibilityKey: reaction.emoji.name } });
     await doPossibility(message, language, possibility, entity, time, forcePoints);
   });
 
   collector.on('end', async (collected) => {
     if (!collected.first()) {
-      const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: 'end'}});
+      const possibility = await Possibilities.findAll({ where: { event_id: event.id, possibilityKey: 'end' } });
       await doPossibility(message, language, possibility, entity, time, forcePoints);
     }
   });
@@ -122,7 +124,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
   if (possibility.length === 1) { //Don't do anything if the player ends the first report
     if (possibility[0].dataValues.event_id === 0 && possibility[0].dataValues.possibilityKey === "end") {
       removeBlockedPlayer(entity.discordUser_id);
-      return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doPossibility, {pseudo: message.author, result: "", event: possibility[0].dataValues[language]}));
+      return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doPossibility, { pseudo: message.author, result: "", event: possibility[0].dataValues[language] }));
     }
   }
 
@@ -143,24 +145,24 @@ const doPossibility = async (message, language, possibility, entity, time, force
   let result = '';
   result += format(JsonReader.commands.report.getTranslation(language).points, { score: scoreChange });
   if (moneyChange !== 0) {
-    result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
+    result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, { money: moneyChange }) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, { money: -moneyChange });
   }
   if (pDataValues.experience > 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
+    result += format(JsonReader.commands.report.getTranslation(language).experience, { experience: pDataValues.experience });
   }
   if (pDataValues.health < 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: -pDataValues.health});
+    result += format(JsonReader.commands.report.getTranslation(language).healthLoose, { health: -pDataValues.health });
   }
   if (pDataValues.health > 0) {
-    result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
+    result += format(JsonReader.commands.report.getTranslation(language).health, { health: pDataValues.health });
   }
   if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
-    result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime) });
+    result += format(JsonReader.commands.report.getTranslation(language).timeLost, { timeLost: minutesToString(pDataValues.lostTime) });
   }
-  result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {pseudo: message.author, result: result, event: possibility[language]});
+  result = format(JsonReader.commands.report.getTranslation(language).doPossibility, { pseudo: message.author, result: result, event: possibility[language] });
 
   entity.effect = pDataValues.effect;
-  entity.addHealth(pDataValues.health);
+  await entity.addHealth(pDataValues.health);
 
   player.addScore(scoreChange);
   player.addWeeklyScore(scoreChange);
@@ -195,7 +197,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
   removeBlockedPlayer(entity.discordUser_id);
 
-  while(player.needLevelUp()) {
+  while (player.needLevelUp()) {
     await player.levelUpIfNeeded(entity, message.channel, language);
   }
 

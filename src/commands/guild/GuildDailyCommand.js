@@ -66,7 +66,7 @@ const GuildDailyCommand = async (language, message, args) => {
       JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
     for (const i in members) {
       members[i].Player.experience += xpWon;
-      while(members[i].Player.needLevelUp()) {
+      while (members[i].Player.needLevelUp()) {
         await members[i].Player.levelUpIfNeeded(members[i], message.channel, language);
       }
       await members[i].Player.save();
@@ -82,7 +82,7 @@ const GuildDailyCommand = async (language, message, args) => {
       JsonReader.commands.guildDaily.minimalXp + guild.level,
       JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
     guild.experience += xpGuildWon;
-    while(guild.needLevelUp()) {
+    while (guild.needLevelUp()) {
       await guild.levelUpIfNeeded(message.channel, language);
     }
     await guild.save();
@@ -134,7 +134,7 @@ const GuildDailyCommand = async (language, message, args) => {
   if (rewardType === REWARD_TYPES.FULL_HEAL) {
     for (const i in members) {
       if (members[i].effect != EFFECT.DEAD) {
-        members[i].addHealth(members[i].maxHealth);
+        await members[i].addHealth(members[i].maxHealth);
       }
       await members[i].save();
     }
@@ -144,7 +144,7 @@ const GuildDailyCommand = async (language, message, args) => {
   if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
     for (const i in members) {
       if (members[i].effect != EFFECT.DEAD) {
-        members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
+        await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
       }
       await members[i].save();
     }
@@ -156,7 +156,7 @@ const GuildDailyCommand = async (language, message, args) => {
   if (rewardType === REWARD_TYPES.ALTERATION) {
     for (const i in members) {
       if (members[i].currentEffectFinished()) {
-        members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
+        await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
       } else if (members[i].effect !== EFFECT.DEAD && members[i].effect !== EFFECT.LOCKED) {
         members[i].effect = EFFECT.SMILEY;
         members[i].Player.lastReportAt = new Date(message.createdTimestamp);

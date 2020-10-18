@@ -33,6 +33,10 @@ module.exports = (Sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: JsonReader.models.players.money,
     },
+    class: {
+      type: DataTypes.INTEGER,
+      defaultValue: JsonReader.models.players.class,
+    },
     badges: {
       type: DataTypes.TEXT,
       defaultValue: JsonReader.models.players.badges,
@@ -256,29 +260,12 @@ module.exports = (Sequelize, DataTypes) => {
     if (this.level === GUILD.REQUIRED_LEVEL) {
       bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.guildUnlocked);
     }
-    if (this.level % 10 === 0) {
-      entity.health = entity.maxHealth;
-      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.healthRestored);
-    } else if (this.level % 5 === 0) {
-      entity.maxHealth += 5;
-      entity.health += 5;
-      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreMaxHealth);
+
+    if (this.level === CLASS.REQUIRED_LEVEL) {
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classUnlocked);
     }
 
-    if (this.level % 9 === 0) {
-      entity.speed += 5;
-      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreSpeed);
-    }
-    else if (this.level % 6 === 0) {
-      entity.attack += 5;
-      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreAttack);
-    }
-    else if (this.level % 3 === 0) {
-      entity.defense += 5;
-      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreDefense);
-    }
-
-    bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreFightPower);
+    bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.noBonuses);
 
     this.experience -= xpNeeded;
     let msg = format(JsonReader.models.players.getTranslation(language).levelUp.mainMessage, { mention: entity.getMention(), level: this.level });

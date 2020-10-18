@@ -15,6 +15,7 @@ class DraftBot {
                 'draftbot/package.json',
                 'ressources/text/error.json',
                 'ressources/text/bot.json',
+                'ressources/text/classesValues.json',
                 'ressources/text/values.json',
                 'ressources/text/items.json',
             ],
