@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":bow_and_arrow: **Archer**",
-		"en": ":bow_and_arrow: **Archer**"
+		"fr": ":bow_and_arrow: Archer",
+		"en": ":bow_and_arrow: Archer"
 	},
 	"emoji": "🏹",
 	"attack": 50,
