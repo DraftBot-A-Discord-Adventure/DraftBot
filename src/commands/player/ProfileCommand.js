@@ -30,18 +30,18 @@ const ProfileCommand = async function (language, message, args) {
     {
       name: JsonReader.commands.profile.getTranslation(language).statistique.fieldName,
       value: format(JsonReader.commands.profile.getTranslation(language).statistique.fieldValue, {
-        cumulativeAttack: entity.getCumulativeAttack(
+        cumulativeAttack: await entity.getCumulativeAttack(
           await entity.Player.Inventory.getWeapon(),
           await entity.Player.Inventory.getArmor(),
           await entity.Player.Inventory.getPotion(),
           await entity.Player.Inventory.getActiveObject(),
         ),
-        cumulativeDefense: entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(),
+        cumulativeDefense: await entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(),
           await entity.Player.Inventory.getArmor(),
           await entity.Player.Inventory.getPotion(),
           await entity.Player.Inventory.getActiveObject(),
         ),
-        cumulativeSpeed: entity.getCumulativeSpeed(
+        cumulativeSpeed: await entity.getCumulativeSpeed(
           await entity.Player.Inventory.getWeapon(),
           await entity.Player.Inventory.getArmor(),
           await entity.Player.Inventory.getPotion(),

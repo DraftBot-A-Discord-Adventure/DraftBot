@@ -57,6 +57,7 @@ module.exports = (Sequelize, DataTypes) => {
 
   /**
    * @param {("fr"|"en")} language - The language the class has to be displayed in
+   * @param {Number} level - the level of the player
    * @return {String}
    */
   Classes.prototype.toString = function (language, level) {
@@ -70,6 +71,31 @@ module.exports = (Sequelize, DataTypes) => {
       fightPoint: this.fightPoint + level * 10
     });
   };
+
+  /**
+   * return the attack value of the player
+   * @param {Number} level - the level of the player
+   */
+  Classes.prototype.getAttackValue = function (level) {
+    return this.attack + Math.round(this.attack / 100 * level);
+  };
+
+  /**
+   * return the defense value of the player
+   * @param {Number} level - the level of the player
+   */
+  Classes.prototype.getDefenseValue = function (level) {
+    return this.defense + Math.round(this.defense / 100 * level);
+  };
+
+  /**
+   * return the speed value of the player
+   * @param {Number} level - the level of the player
+   */
+  Classes.prototype.getSpeedValue = function (level) {
+    return this.speed + Math.round(this.speed / 100 * level);
+  };
+
 
   /**
    * @param {Number} id

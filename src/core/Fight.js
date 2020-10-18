@@ -36,9 +36,9 @@ class Fighter {
       p.power = 0;
     }
     const o = await inv.getActiveObject();
-    this.attack = this.entity.getCumulativeAttack(w, a, p, o);
-    this.defense = this.entity.getCumulativeDefense(w, a, p, o);
-    this.speed = this.entity.getCumulativeSpeed(w, a, p, o);
+    this.attack = await this.entity.getCumulativeAttack(w, a, p, o);
+    this.defense = await this.entity.getCumulativeDefense(w, a, p, o);
+    this.speed = await this.entity.getCumulativeSpeed(w, a, p, o);
     this.power = this.friendly ? this.entity.getMaxCumulativeHealth() : this.entity.getCumulativeHealth();
     this.initialPower = this.power;
     this.maxDefenseImprovement = FIGHT.MAX_DEFENSE_IMPROVEMENT;
