@@ -111,9 +111,13 @@ async function confirmPurchase(message, language, classId, entity) {
     });
 
     collector.on("end", async (reaction) => {
+        const playerClass = await Classes.getById(entity.Player.class);
         removeBlockedPlayer(entity.discordUser_id);
         if (reaction.first()) {
             if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+                if (selectedClass.id === playerClass.id) {
+                    return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.sameClass);
+                }
                 reaction.first().message.delete();
                 entity.Player.class = classId;
                 entity.Player.addMoney(-CLASS.PRICE);

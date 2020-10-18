@@ -15,6 +15,7 @@
 			"error": {
 				"cannotBuy": "Vous n'avez pas assez d'argent pour changer de classe ! Il vous manque `{missingMoney}💰`.",
 				"canceledPurchase": "Changement de classe annulé.",
+				"sameClass": "Vous appartenez déjà à cette classe.",
 				"leaveClass": "Vous n'avez pas changé de classe."
 			}
 		},
@@ -33,6 +34,7 @@
 			"error": {
 				"cannotBuy": "You don't have enough money to change your class ! You are missing `{missingMoney}💰`.",
 				"canceledPurchase": "Change canceled.",
+				"sameClass": "You already joined this class.",
 				"leaveClass": "You didn't change your class."
 			}
 		}
