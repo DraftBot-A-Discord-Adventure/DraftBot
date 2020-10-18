@@ -16,7 +16,7 @@
 			"notInAguild": "You have to be in a guild to use this command.",
 			"cannotGetInvitedUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
 			"alreadyInAGuild": "The player you are inviting is already in a guild.",
-			"notChiefError": "You have to be a guil leader to use this command.",
+			"notChiefError": "You have to be a guild leader to use this command.",
 			"invitationTitle": "{pseudo}, you are invited to join a guild!",
 			"invitation": ":question: Do you want to join the guild `{guildName}`?",
 			"successTitle": "{pseudo} joined the guild {guildName}!",
