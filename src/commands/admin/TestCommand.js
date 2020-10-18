@@ -305,6 +305,40 @@ const TestCommand = async(language, message, args) => {
                     author.save();
                 }
                 break;
+            case 'forcejoinguild':
+            case 'fjg':
+                if (args.length >= 2) {
+                    let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
+                    if (guild && guild.chief_id === author.Player.id) {
+                        // the chief is leaving : destroy the guild
+                        await Guilds.destroy({
+                            where: {
+                                id: guild.id,
+                            },
+                        });
+                    }
+                    guild = await Guilds.getByName(args.slice(1, args.length).join(" "));
+                    if (guild === null) {
+                        await message.channel.send('Guild not found');
+                        return;
+                    }
+                    author.Player.guild_id = guild.id;
+
+                    await Promise.all([
+                        guild.save(),
+                        author.save(),
+                        author.Player.save(),
+                    ]);
+                    await message.channel.send('Guild joined');
+                    return;
+                }
+                break;
+            case 'forceguildowner':
+            case 'fgo':
+                let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
+                guild.chief_id = author.Player.id;
+                await guild.save();
+                break;
             default:
                 await message.channel.send('Argument inconnu !');
                 return;

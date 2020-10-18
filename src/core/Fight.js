@@ -5,10 +5,12 @@
  * @param {Number} defense
  * @param {Number} speed
  * @param {Number} power
+ * @param {Number} initialPower
  * @param {Number} maxDefenseImprovement
  * @param {Number} maxSpeedImprovement
  * @param {Number} chargeTurns
  * @param {FIGHT.ACTION} chargeAct
+ * @param {{}} attacksList
  */
 class Fighter {
   /**
@@ -18,6 +20,7 @@ class Fighter {
   constructor(entity, friendly) {
     this.friendly = friendly;
     this.entity = entity;
+    this.attacksList = {};
   }
 
   /**
@@ -33,10 +36,11 @@ class Fighter {
       p.power = 0;
     }
     const o = await inv.getActiveObject();
-    this.attack = this.entity.getCumulativeAttack(w, a, p, o);
-    this.defense = this.entity.getCumulativeDefense(w, a, p, o);
-    this.speed = this.entity.getCumulativeSpeed(w, a, p, o);
-    this.power = this.friendly ? this.entity.getMaxCumulativeHealth() : this.entity.getCumulativeHealth();
+    this.attack = await this.entity.getCumulativeAttack(w, a, p, o);
+    this.defense = await this.entity.getCumulativeDefense(w, a, p, o);
+    this.speed = await this.entity.getCumulativeSpeed(w, a, p, o);
+    this.power = this.friendly ? await this.entity.getMaxCumulativeHealth() : await this.entity.getCumulativeHealth();
+    this.initialPower = this.power;
     this.maxDefenseImprovement = FIGHT.MAX_DEFENSE_IMPROVEMENT;
     this.maxSpeedImprovement = FIGHT.MAX_SPEED_IMPROVEMENT;
     this.chargeTurns = -1;
@@ -186,23 +190,58 @@ class Fight {
   }
 
   /**
-     * Send the fight outro message
-     */
-  outroFight() {
+   * Send the fight outro message
+   */
+  async outroFight() {
     const loser = this.getLoser();
+    let msg;
     if (loser != null) {
-      this.message.channel.send(format(JsonReader.commands.fight.getTranslation(this.language).end.win, {
+      msg = format(JsonReader.commands.fight.getTranslation(this.language).end.win, {
         winner: this.getWinner().entity.getMention(),
-        loser: loser.entity.getMention(),
-        elo: this.elo,
-        points: this.points,
-      }));
+        loser: loser.entity.getMention()
+      });
     } else {
-      this.message.channel.send(format(JsonReader.commands.fight.getTranslation(this.language).end.draw, {
+      msg = format(JsonReader.commands.fight.getTranslation(this.language).end.draw, {
         player1: this.fighters[0].entity.getMention(),
         player2: this.fighters[1].entity.getMention(),
-      }));
+      });
     }
+    msg += format(JsonReader.commands.fight.getTranslation(this.language).end.gameStats, {
+      turn: this.turn,
+      maxTurn: FIGHT.MAX_TURNS,
+      time: minutesToString(millisecondsToMinutes(new Date().getTime() - this.message.createdTimestamp))
+    });
+    if (this.elo !== 0) {
+      msg += format(JsonReader.commands.fight.getTranslation(this.language).end.elo, {
+        elo: this.elo,
+        points: this.points
+      });
+    }
+    for (let i = 0; i < this.fighters.length; ++i) {
+      let f = this.fighters[i];
+      msg += format(JsonReader.commands.fight.getTranslation(this.language).end.fighterStats, {
+        pseudo: await f.entity.Player.getPseudo(this.language),
+        health: f.power,
+        maxHealth: f.initialPower
+      });
+      if (Object.keys(f.attacksList).length > 0) {
+        msg += JsonReader.commands.fight.getTranslation(this.language).end.attacksField;
+        const attacks = JsonReader.commands.fight.getTranslation(this.language).actions.attacks;
+        const attacksKeys = Object.keys(attacks);
+        for (let j = 0; j < attacksKeys.length; ++j) {
+          const att = f.attacksList[attacksKeys[j]];
+          if (att) {
+            msg += format(JsonReader.commands.fight.getTranslation(this.language).end.attackStats, {
+              emote: attacks[attacksKeys[j]].emote,
+              success: att ? att.success : 0,
+              total: att ? att.total : 0,
+              damage: att && att.success !== 0 ? Math.round((att.damage / att.success) * 10) / 10 : 0,
+            });
+          }
+        }
+      }
+    }
+    this.message.channel.send(new discord.MessageEmbed().setColor(JsonReader.bot.embed.default).setDescription(msg));
   }
 
   /**
@@ -463,9 +502,9 @@ class Fight {
       [this.fighters[i].entity] = await Entities.getOrRegister(this.fighters[i].entity.discordUser_id);
     }
     const loser = this.getLoser();
+    this.calculateElo();
+    this.calculatePoints();
     if (loser != null) {
-      this.calculateElo();
-      this.calculatePoints();
       loser.entity.Player.addScore(-this.points);
       loser.entity.Player.addWeeklyScore(-this.points);
       loser.entity.Player.save();
@@ -476,7 +515,7 @@ class Fight {
     }
     if (!this.friendly && !this.tournamentMode) {
       for (let i = 0; i < this.fighters.length; i++) {
-        this.fighters[i].entity.fightPointsLost = this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
+        this.fighters[i].entity.fightPointsLost = await this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
         this.fighters[i].entity.save();
       }
     }
@@ -572,7 +611,19 @@ class Fight {
       default:
         return;
     }
+    let actionName = Fight.actionToName(action);
+    if (!attacker.attacksList[actionName]) {
+      attacker.attacksList[actionName] = {
+        success: 0,
+        total: 0,
+        damage: 0
+      }
+    }
+    let stats = attacker.attacksList[actionName];
+    stats.total++;
     if (far.damage > 0) {
+      stats.success++;
+      stats.damage += far.damage;
       defender.power -= far.damage;
       if (defender.power < 0) {
         defender.power = 0;
@@ -682,6 +733,23 @@ class Fight {
      */
   getTurn() {
     return this.turn;
+  }
+
+  /**
+   * @param {FIGHT.ACTION} action
+   */
+  static actionToName(action) {
+    switch (action) {
+      case FIGHT.ACTION.SIMPLE_ATTACK:
+        return "simple";
+      case FIGHT.ACTION.QUICK_ATTACK:
+        return "quick";
+      case FIGHT.ACTION.ULTIMATE_ATTACK:
+        return "ultimate";
+      case FIGHT.ACTION.POWERFUL_ATTACK:
+        return "powerful";
+    }
+    return "unknown"
   }
 }
 

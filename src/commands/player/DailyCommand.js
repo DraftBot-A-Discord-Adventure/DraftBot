@@ -41,7 +41,7 @@ const DailyCommand = async function (language, message) {
       .setDescription(format(
         JsonReader.commands.daily.getTranslation(language).healthDaily,
         { value: activeObject.power }));
-    entity.addHealth(activeObject.power);
+    await entity.addHealth(activeObject.power);
     entity.Player.Inventory.updateLastDailyAt();
   }
   if (activeObject.nature === NATURE.SPEED || activeObject.nature === NATURE.DEFENSE || activeObject.nature === NATURE.ATTACK) { // Those objects are active only during fights

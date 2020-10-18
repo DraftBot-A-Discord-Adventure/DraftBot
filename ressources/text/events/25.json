@@ -63,10 +63,10 @@
 					"en": "** | 🚶 You don't look at the massacre that took place, instead going a little further to rest."
 				},
 				"lostTime": 30,
-				"health": 10,
+				"health": 0,
 				"effect": ":clock2:",
-				"experience": 225,
-				"money": -20,
+				"experience": 25,
+				"money": 0,
 				"item": false
 			},
 			{

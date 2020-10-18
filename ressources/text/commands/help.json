@@ -137,6 +137,21 @@
 					"emote": ":incoming_envelope:",
 					"usage": "guildadd [mention]",
 					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef de guilde."
+				},
+				"guilddesc": {
+					"emote": ":writing_hand:",
+					"usage": "guilddesc [description]",
+					"description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
+				},
+				"update": {
+					"emote": ":scroll:",
+					"usage": "update",
+					"description": "Permet de visionner le changelog."
+				},
+				"class": {
+					"emote": ":bookmark:",
+					"usage": "class",
+					"description": "Permet de changer de classe."
 				}
 			}
 		},
@@ -277,6 +292,21 @@
 					"emote": ":incoming_envelope:",
 					"usage": "guildadd [mention]",
 					"description": "Invites someone to join your guild. Requires to be the guild's leader."
+				},
+				"guilddesc": {
+					"emote": ":writing_hand:",
+					"usage": "guilddesc [description]",
+					"description": "Edit the description of your guild. Requires to be the guild's leader."
+				},
+				"update": {
+					"emote": ":scroll:",
+					"usage": "update",
+					"description": "Read the changelog."
+				},
+				"class": {
+					"emote": ":bookmark:",
+					"usage": "class",
+					"description": "Change your class."
 				}
 			}
 		}

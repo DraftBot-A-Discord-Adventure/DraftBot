@@ -7,7 +7,7 @@
 			"sellTitle": "{pseudo}, confirmation :",
 			"soldMessage": "Vous avez vendu {item} pour **{money}** :moneybag: !",
 			"soldMessageTitle": "{pseudo}, vous avez vendu un équipement.",
-			"potionDestroyedTitle": "{pseudo}, vous avez détruit une potion.",
+			"potionDestroyedTitle": "Vous avez détruit une potion.",
 			"potionDestroyedMessage": "{item} a été versé(e) dans un évier.",
 			"soldMessageAlreadyOwnTitle": "{pseudo}, vous avez reçu un équipement que vous possédiez déjà."
 		},
@@ -18,7 +18,7 @@
 			"sellTitle": "{pseudo}, confirmation:",
 			"soldMessageTitle": "{pseudo}, you sold an item.",
 			"soldMessage": "You sold {item} for **{money}** :moneybag:.",
-			"potionDestroyedTitle": "{pseudo}, you destroyed a potion.",
+			"potionDestroyedTitle": "You destroyed a potion.",
 			"potionDestroyedMessage": "{item} is now gone forever.",
 			"soldMessageAlreadyOwnTitle": "{pseudo}, you received an item that you already own."
 		}

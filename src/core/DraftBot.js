@@ -15,6 +15,7 @@ class DraftBot {
                 'draftbot/package.json',
                 'ressources/text/error.json',
                 'ressources/text/bot.json',
+                'ressources/text/classesValues.json',
                 'ressources/text/values.json',
                 'ressources/text/items.json',
             ],
@@ -22,7 +23,7 @@ class DraftBot {
         await (require('core/Database')).init();
         await (require('core/Command')).init();
 
-        // TODO 2.1.1
+        // TODO
         // draftbot.checkEasterEggsFile();
 
         DraftBot.programTopWeekTimeout();
@@ -107,7 +108,7 @@ class DraftBot {
                 files.forEach(function (file) {
                     const parts = file.split('-');
                     if (parts.length === 5) {
-                        if (now - new Date(parseInt(parts[1]), parseInt(parts[2]) - 1, parseInt(parts[3])) > 7*24*60*60*1000) { // 7 days
+                        if (now - new Date(parseInt(parts[1]), parseInt(parts[2]) - 1, parseInt(parts[3])) > 7 * 24 * 60 * 60 * 1000) { // 7 days
                             fs.unlink('logs/' + file, function (err) {
                                 if (err !== undefined && err !== null) {
                                     originalConsoleError("Error while deleting logs/" + file + ": " + err);
@@ -127,50 +128,54 @@ class DraftBot {
         } while (fs.existsSync(global.currLogsFile));
 
         /* Add log to file */
-        const addConsoleLog = function(message) {
+        const addConsoleLog = function (message) {
             let now = new Date();
-            let dateStr = "[" + now.getFullYear() + "/" + ("0" + (now.getMonth()+1)).slice(-2) + "/" + ("0" + now.getDate()).slice(-2) + " " + ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2) + ":" + ("0" + now.getSeconds()).slice(-2) + "]\n";
-            fs.appendFileSync(global.currLogsFile, dateStr + message.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '') + "\n", new function (err) {
-                if (err !== undefined) {
-                    originalConsoleError("Error while writing in log file: " + err);
-                }
-            });
+            let dateStr = "[" + now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + ("0" + now.getDate()).slice(-2) + " " + ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2) + ":" + ("0" + now.getSeconds()).slice(-2) + "]\n";
+            try {
+                fs.appendFileSync(global.currLogsFile, dateStr + message.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '') + "\n", new function (err) {
+                    if (err !== undefined) {
+                        originalConsoleError("Error while writing in log file: " + err);
+                    }
+                });
+            } catch {
+                originalConsoleLog(message);
+            }
         };
 
         /* Console override */
-        console.log = function(message, optionalParams) {
+        console.log = function (message, optionalParams) {
             addConsoleLog(message);
             originalConsoleLog(message, optionalParams === undefined ? "" : optionalParams);
         };
         const originalConsoleWarn = console.warn;
-        console.warn = function(message, optionalParams) {
+        console.warn = function (message, optionalParams) {
             addConsoleLog(message);
             originalConsoleWarn(message, optionalParams === undefined ? "" : optionalParams);
         };
         const originalConsoleInfo = console.info;
-        console.info = function(message, optionalParams) {
+        console.info = function (message, optionalParams) {
             addConsoleLog(message);
             originalConsoleInfo(message, optionalParams === undefined ? "" : optionalParams);
         };
         const originalConsoleDebug = console.debug;
-        console.debug = function(message, optionalParams) {
+        console.debug = function (message, optionalParams) {
             addConsoleLog(message);
             originalConsoleDebug(message, optionalParams === undefined ? "" : optionalParams);
         };
         const originalConsoleError = console.error;
-        console.error = function(message, optionalParams) {
+        console.error = function (message, optionalParams) {
             addConsoleLog(message);
             originalConsoleError(message, optionalParams === undefined ? "" : optionalParams);
         };
         const originalConsoleTrace = console.trace;
-        console.trace = function(message, optionalParams) {
+        console.trace = function (message, optionalParams) {
             addConsoleLog(message);
             originalConsoleTrace(message, optionalParams === undefined ? "" : optionalParams);
         };
     }
 
     /**
-     * TODO 2.1
+     * TODO
      * Checks if the easter eggs file exists and copy the default one if not
      */
     // checkEasterEggsFile() {
