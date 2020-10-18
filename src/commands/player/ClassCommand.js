@@ -21,7 +21,7 @@ async function ClassCommand(language, message, args) {
     let classesLineDisplay = new Array();
     let allClasses = await Classes.findAll();
     for (let k = 0; k < allClasses.length; k++) {
-        classesLineDisplay.push(allClasses[k].toString(language))
+        classesLineDisplay.push(allClasses[k].toString(language, entity.Player.level))
     }
 
     //Creating class message

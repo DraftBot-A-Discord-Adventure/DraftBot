@@ -59,15 +59,15 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {("fr"|"en")} language - The language the class has to be displayed in
    * @return {String}
    */
-  Classes.prototype.toString = function (language) {
+  Classes.prototype.toString = function (language, level) {
     return format(
       JsonReader.classesValues.getTranslation(language).fieldsValue, {
       name: this[language],
-      attack: this.attack,
-      defense: this.defense,
-      speed: this.speed,
-      health: this.health,
-      fightPoint: this.fightPoint
+      attack: this.attack + Math.round(this.attack / 100 * level),
+      defense: this.defense + Math.round(this.defense / 100 * level),
+      speed: this.speed + Math.round(this.speed / 100 * level),
+      health: this.health + level,
+      fightPoint: this.fightPoint + level * 10
     });
   };
 
