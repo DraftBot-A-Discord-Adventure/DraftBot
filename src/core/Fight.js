@@ -235,7 +235,7 @@ class Fight {
               emote: attacks[attacksKeys[j]].emote,
               success: att ? att.success : 0,
               total: att ? att.total : 0,
-              damage: att && att.success !== 0 ? att.damage / att.success : 0,
+              damage: att && att.success !== 0 ? Math.round((att.damage / att.success) * 10) / 10 : 0,
             });
           }
         }
@@ -502,9 +502,9 @@ class Fight {
       [this.fighters[i].entity] = await Entities.getOrRegister(this.fighters[i].entity.discordUser_id);
     }
     const loser = this.getLoser();
+    this.calculateElo();
+    this.calculatePoints();
     if (loser != null) {
-      this.calculateElo();
-      this.calculatePoints();
       loser.entity.Player.addScore(-this.points);
       loser.entity.Player.addWeeklyScore(-this.points);
       loser.entity.Player.save();
