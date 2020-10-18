@@ -7,8 +7,8 @@
 	"attack": 60,
 	"defense": 40,
 	"speed": 20,
-	"health": 80,
-	"fightPoint": 125,
+	"health": 85,
+	"fightPoint": 145,
 	"description": {
 		"translations": {
 			"fr": "ceci est un test de ddescrpitorzejifpoejgoz",
