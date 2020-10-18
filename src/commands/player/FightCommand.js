@@ -32,11 +32,11 @@ const FightCommand = async function (language, message, args, friendly = false) 
 
   let isTournament = tournamentChannel === message.channel.id && !friendly;
   let canF;
-  if ((canF = canFight(attacker, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+  if ((canF = await canFight(attacker, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
     sendError(message, attacker, canF, true, language);
     return;
   }
-  if (defender != null && (canF = canFight(defender, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+  if (defender != null && (canF = await canFight(defender, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
     sendError(message, defender, canF, false, language);
     return;
   }
@@ -96,7 +96,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
               break;
             }
             [defender] = await Entities.getOrRegister(user.id);
-            if ((canF = canFight(defender, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+            if ((canF = await canFight(defender, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
               sendError(message, defender, canF, true, language);
               defender = null;
               return;
@@ -186,7 +186,7 @@ function sendError(message, entity, error, direct, language) {
  * @param {boolean} bypassHealth
  * @return {Number} error
  */
-function canFight(entity, bypassAlteration, bypassHealth) {
+async function canFight(entity, bypassAlteration, bypassHealth) {
   if (entity == null) {
     return null;
   }
@@ -199,7 +199,7 @@ function canFight(entity, bypassAlteration, bypassHealth) {
   if (global.hasBlockedPlayer(entity.discordUser_id)) {
     return FIGHT_ERROR.OCCUPIED;
   }
-  if (entity.getCumulativeHealth() === 0 && !bypassHealth) {
+  if (await entity.getCumulativeHealth() === 0 && !bypassHealth) {
     return FIGHT_ERROR.NO_FIGHT_POINTS;
   }
   return 0;
@@ -225,7 +225,7 @@ async function getStatsDisplay(entity, language, maxPower = -1, friendly = false
   let o = await inv.getActiveObject();
   let power = maxPower;
   if (power === -1) {
-    power = friendly ? entity.getMaxCumulativeHealth() : entity.getCumulativeHealth();
+    power = friendly ? await entity.getMaxCumulativeHealth() : await entity.getCumulativeHealth();
   }
   msg += format(JsonReader.commands.fight.getTranslation(language).summarize.stats, {
     power: power,

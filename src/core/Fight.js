@@ -39,7 +39,7 @@ class Fighter {
     this.attack = await this.entity.getCumulativeAttack(w, a, p, o);
     this.defense = await this.entity.getCumulativeDefense(w, a, p, o);
     this.speed = await this.entity.getCumulativeSpeed(w, a, p, o);
-    this.power = this.friendly ? this.entity.getMaxCumulativeHealth() : this.entity.getCumulativeHealth();
+    this.power = this.friendly ? await this.entity.getMaxCumulativeHealth() : await this.entity.getCumulativeHealth();
     this.initialPower = this.power;
     this.maxDefenseImprovement = FIGHT.MAX_DEFENSE_IMPROVEMENT;
     this.maxSpeedImprovement = FIGHT.MAX_SPEED_IMPROVEMENT;
@@ -515,7 +515,7 @@ class Fight {
     }
     if (!this.friendly && !this.tournamentMode) {
       for (let i = 0; i < this.fighters.length; i++) {
-        this.fighters[i].entity.fightPointsLost = this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
+        this.fighters[i].entity.fightPointsLost = await this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
         this.fighters[i].entity.save();
       }
     }

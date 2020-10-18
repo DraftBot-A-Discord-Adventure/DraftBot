@@ -235,8 +235,8 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getCumulativeHealth = function () {
-    let maxHealth = this.getMaxCumulativeHealth();
+  Entities.prototype.getCumulativeHealth = async function () {
+    let maxHealth = await this.getMaxCumulativeHealth();
     let fp = maxHealth - this.fightPointsLost;
     if (fp < 0) fp = 0;
     else if (fp > maxHealth) fp = maxHealth;
@@ -248,8 +248,9 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getMaxCumulativeHealth = function () {
-    return this.maxHealth + (this.Player.level * 10);
+  Entities.prototype.getMaxCumulativeHealth = async function () {
+    const playerClass = await Classes.getById(this.Player.class);
+    return playerClass.getMaxCumulativeHealthValue(this.Player.level);
   };
 
   /**
