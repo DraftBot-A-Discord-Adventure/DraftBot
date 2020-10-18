@@ -97,13 +97,20 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-  * return the maxCumulativeHealth value of the player
-  * @param {Number} level - the level of the player
-  */
+   * return the maxCumulativeHealth value of the player
+   * @param {Number} level - the level of the player
+   */
   Classes.prototype.getMaxCumulativeHealthValue = function (level) {
     return this.fightPoint + 10 * level;
   };
 
+  /**
+   * return the maxHealth value of the player
+   * @param {Number} level - the level of the player
+   */
+  Classes.prototype.getMaxHealthValue = function (level) {
+    return this.health + level;
+  };
 
   /**
    * @param {Number} id

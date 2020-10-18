@@ -232,7 +232,6 @@ module.exports = (Sequelize, DataTypes) => {
 
   /**
    * Returns this player instance's current cumulative health. Returns the regenerative health
-   * @param {Players} player
    * @return {Number}
    */
   Entities.prototype.getCumulativeHealth = async function () {
@@ -244,8 +243,17 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
+ * Returns this player instance's max cumulative health
+ * @return {Number}
+ */
+  Entities.prototype.getMaxHealth = async function () {
+    const playerClass = await Classes.getById(this.Player.class);
+    return playerClass.getMaxHealthValue(this.Player.level);
+  };
+
+
+  /**
    * Returns this player instance's max cumulative health
-   * @param {Players} player
    * @return {Number}
    */
   Entities.prototype.getMaxCumulativeHealth = async function () {
@@ -263,20 +271,20 @@ module.exports = (Sequelize, DataTypes) => {
   /**
    * @param {Number} health
    */
-  Entities.prototype.addHealth = function (health) {
+  Entities.prototype.addHealth = async function (health) {
     this.health += health;
-    this.setHealth(this.health);
+    await this.setHealth(this.health);
   };
 
   /**
    * @param {Number} health
    */
-  Entities.prototype.setHealth = function (health) {
+  Entities.prototype.setHealth = async function (health) {
     if (health < 0) {
       this.health = 0;
     } else {
-      if (health > this.maxHealth) {
-        this.health = this.maxHealth;
+      if (health > await this.getMaxHealth()) {
+        this.health = await this.getMaxHealth();
       } else {
         this.health = health;
       }

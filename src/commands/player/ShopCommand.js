@@ -175,7 +175,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
         } else if (
             selectedItem.name === shopTranslations.permanentItems.regen.name
         ) {
-            regenPlayer(message, language, entity, customer, selectedItem);
+            await regenPlayer(message, language, entity, customer, selectedItem);
         } else if (
             selectedItem.name === shopTranslations.permanentItems.badge.name
         ) {
@@ -311,8 +311,8 @@ function healAlterations(message, language, entity, customer, selectedItem) {
 /**
  * Completely restore player life
  */
-function regenPlayer(message, language, entity, customer, selectedItem) {
-    entity.setHealth(entity.maxHealth); //Heal Player
+async function regenPlayer(message, language, entity, customer, selectedItem) {
+    await entity.setHealth(await entity.getMaxHealth()); //Heal Player
     message.channel.send(
         new discord.MessageEmbed()
             .setColor(JsonReader.bot.embed.default)

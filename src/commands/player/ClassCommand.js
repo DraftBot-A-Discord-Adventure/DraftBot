@@ -124,7 +124,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
         } else if (
             selectedItem.name === classTranslations.permanentItems.regen.name
         ) {
-            regenPlayer(message, language, entity, customer, selectedItem);
+            await regenPlayer(message, language, entity, customer, selectedItem);
         } else if (
             selectedItem.name === classTranslations.permanentItems.badge.name
         ) {
@@ -257,23 +257,6 @@ function healAlterations(message, language, entity, customer, selectedItem) {
     );
 }
 
-/**
- * Completely restore player life
- */
-function regenPlayer(message, language, entity, customer, selectedItem) {
-    entity.setHealth(entity.maxHealth); //Heal Player
-    message.channel.send(
-        new discord.MessageEmbed()
-            .setColor(JsonReader.bot.embed.default)
-            .setAuthor(
-                format(JsonReader.commands.class.getTranslation(language).success, {
-                    pseudo: customer.username,
-                }),
-                customer.displayAvatarURL()
-            )
-            .setDescription("\n\n" + selectedItem.give)
-    );
-}
 
 /**
  * Give "MoneyMouth" badge to the player

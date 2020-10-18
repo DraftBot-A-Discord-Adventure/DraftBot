@@ -21,7 +21,7 @@ const ProfileCommand = async function (language, message, args) {
       name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
       value: format(JsonReader.commands.profile.getTranslation(language).information.fieldValue, {
         health: entity.health,
-        maxHealth: entity.maxHealth,
+        maxHealth: await entity.getMaxHealth(),
         experience: entity.Player.experience,
         experienceNeededToLevelUp: entity.Player.getExperienceNeededToLevelUp(),
         money: entity.Player.money,
