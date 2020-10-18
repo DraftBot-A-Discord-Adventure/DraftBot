@@ -78,6 +78,7 @@ global.GUILD = {
 
 global.CLASS = {
   REQUIRED_LEVEL: 16,
+  PRICE: 5000
 };
 
 global.MENU_REACTION = {
