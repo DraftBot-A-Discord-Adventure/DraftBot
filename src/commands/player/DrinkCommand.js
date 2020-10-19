@@ -17,8 +17,9 @@ const DrinkCommand = async function (language, message) {
 
   if (potion.nature === NATURE.NONE) {
     if (potion.id !== JsonReader.models.inventories.potion_id) {
+      await entity.Player.Inventory.drinkPotion();
+      entity.Player.Inventory.save()
       sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
-      entity.Player.Inventory.drinkPotion();
     } else {
       sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).noActiveObjectdescription);
     }
@@ -28,7 +29,7 @@ const DrinkCommand = async function (language, message) {
     embed.setColor(JsonReader.bot.embed.default)
       .setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
       .setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, { value: potion.power }));
-    entity.addHealth(potion.power);
+    await entity.addHealth(potion.power);
     entity.Player.Inventory.drinkPotion();
   }
   if (potion.nature === NATURE.SPEED || potion.nature === NATURE.DEFENSE || potion.nature === NATURE.ATTACK) { // Those objects are active only during fights

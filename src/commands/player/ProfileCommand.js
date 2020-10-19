@@ -4,14 +4,14 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ProfileCommand = async function(language, message, args) {
+const ProfileCommand = async function (language, message, args) {
   let [entity] = await Entities.getByArgs(args, message);
   if (entity === null) {
     [entity] = await Entities.getOrRegister(message.author.id);
   }
 
   if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-      [EFFECT.BABY], entity)) !== true) {
+    [EFFECT.BABY], entity)) !== true) {
     return;
   }
 
@@ -21,7 +21,7 @@ const ProfileCommand = async function(language, message, args) {
       name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
       value: format(JsonReader.commands.profile.getTranslation(language).information.fieldValue, {
         health: entity.health,
-        maxHealth: entity.maxHealth,
+        maxHealth: await entity.getMaxHealth(),
         experience: entity.Player.experience,
         experienceNeededToLevelUp: entity.Player.getExperienceNeededToLevelUp(),
         money: entity.Player.money,
@@ -30,31 +30,31 @@ const ProfileCommand = async function(language, message, args) {
     {
       name: JsonReader.commands.profile.getTranslation(language).statistique.fieldName,
       value: format(JsonReader.commands.profile.getTranslation(language).statistique.fieldValue, {
-        cumulativeAttack: entity.getCumulativeAttack(
-            await entity.Player.Inventory.getWeapon(),
-            await entity.Player.Inventory.getArmor(),
-            await entity.Player.Inventory.getPotion(),
-            await entity.Player.Inventory.getActiveObject(),
+        cumulativeAttack: await entity.getCumulativeAttack(
+          await entity.Player.Inventory.getWeapon(),
+          await entity.Player.Inventory.getArmor(),
+          await entity.Player.Inventory.getPotion(),
+          await entity.Player.Inventory.getActiveObject(),
         ),
-        cumulativeDefense: entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(),
-            await entity.Player.Inventory.getArmor(),
-            await entity.Player.Inventory.getPotion(),
-            await entity.Player.Inventory.getActiveObject(),
+        cumulativeDefense: await entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(),
+          await entity.Player.Inventory.getArmor(),
+          await entity.Player.Inventory.getPotion(),
+          await entity.Player.Inventory.getActiveObject(),
         ),
-        cumulativeSpeed: entity.getCumulativeSpeed(
-            await entity.Player.Inventory.getWeapon(),
-            await entity.Player.Inventory.getArmor(),
-            await entity.Player.Inventory.getPotion(),
-            await entity.Player.Inventory.getActiveObject(),
+        cumulativeSpeed: await entity.getCumulativeSpeed(
+          await entity.Player.Inventory.getWeapon(),
+          await entity.Player.Inventory.getArmor(),
+          await entity.Player.Inventory.getPotion(),
+          await entity.Player.Inventory.getActiveObject(),
         ),
-        cumulativeHealth: entity.getCumulativeHealth(),
-        cumulativeMaxHealth: entity.getMaxCumulativeHealth(),
+        cumulativeHealth: await entity.getCumulativeHealth(),
+        cumulativeMaxHealth: await entity.getMaxCumulativeHealth(),
       }),
     },
     {
       name: JsonReader.commands.profile.getTranslation(language).classement.fieldName,
       value: format(JsonReader.commands.profile.getTranslation(
-          language).classement.fieldValue, {
+        language).classement.fieldValue, {
         rank: (await Players.getById(entity.Player.id))[0].rank,
         numberOfPlayer: (await Players.count({
           where: {
@@ -86,15 +86,41 @@ const ProfileCommand = async function(language, message, args) {
     }
   }
 
+  try {
+    const playerClass = await Classes.getById(entity.Player.class);
+    if (playerClass) {
+      fields.push({
+        name: JsonReader.commands.profile.getTranslation(language).playerClass.fieldName,
+        value: format(JsonReader.commands.profile.getTranslation(language).playerClass.fieldValue, {
+          class: playerClass[language]
+        }),
+        inline: true
+      });
+    }
+  } catch (error) { }
+
+  try {
+    const guild = await Guilds.getById(entity.Player.guild_id);
+    if (guild) {
+      fields.push({
+        name: JsonReader.commands.profile.getTranslation(language).guild.fieldName,
+        value: format(JsonReader.commands.profile.getTranslation(language).guild.fieldValue, {
+          guild: guild.name
+        }),
+        inline: true
+      });
+    }
+  } catch (error) { }
+
   const msg = await message.channel.send(
-      new discord.MessageEmbed()
-          .setColor(JsonReader.bot.embed.default)
-          .setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
-            effect: titleEffect,
-            pseudo: (await entity.Player.getPseudo(language)),
-            level: entity.Player.level,
-          }))
-          .addFields(fields),
+    new discord.MessageEmbed()
+      .setColor(JsonReader.bot.embed.default)
+      .setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
+        effect: titleEffect,
+        pseudo: (await entity.Player.getPseudo(language)),
+        level: entity.Player.level,
+      }))
+      .addFields(fields),
   );
 
   const filterConfirm = (reaction, user) => {
@@ -108,7 +134,7 @@ const ProfileCommand = async function(language, message, args) {
 
   collector.on('collect', async (reaction) => {
     message.channel.send(JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]).then((msg) => {
-      msg.delete({'timeout': JsonReader.commands.profile.badgeDescriptionTimeout});
+      msg.delete({ 'timeout': JsonReader.commands.profile.badgeDescriptionTimeout });
     }).catch((err) => { });
   });
 
@@ -118,7 +144,7 @@ const ProfileCommand = async function(language, message, args) {
       await msg.react(badges[badgeid]);
     }
   }
-  if (new Date() - entity.Player.topggVoteAt < TOPGG.BADGE_DURATION*60*60*1000) {
+  if (new Date() - entity.Player.topggVoteAt < TOPGG.BADGE_DURATION * 60 * 60 * 1000) {
     await msg.react(TOPGG.BADGE);
   }
 };

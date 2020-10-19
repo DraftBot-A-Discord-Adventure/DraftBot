@@ -12,12 +12,12 @@ const RespawnCommand = async (language, message, args) => {
   }
 
   if (entity.effect !== EFFECT.DEAD) {
-    await message.channel.send(format(JsonReader.commands.respawn.getTranslation(language).alive, {pseudo: message.author.username}));
+    await message.channel.send(format(JsonReader.commands.respawn.getTranslation(language).alive, { pseudo: message.author.username }));
   } else {
     const lostScore = Math.round(entity.Player.score * JsonReader.commands.respawn.score_remove_during_respawn);
 
     entity.effect = EFFECT.SMILEY;
-    entity.health = entity.maxHealth;
+    entity.health = await entity.getMaxHealth();
     entity.Player.lastReportAt = require('moment')(message.createdAt).format('YYYY-MM-DD HH:mm:ss');
     entity.Player.addScore(-lostScore);
     entity.Player.addWeeklyScore(-lostScore);
@@ -27,7 +27,7 @@ const RespawnCommand = async (language, message, args) => {
       entity.Player.save(),
     ]);
 
-    await message.channel.send(format(JsonReader.commands.respawn.getTranslation(language).respawn, {pseudo: message.author.username, lostScore: lostScore}));
+    await message.channel.send(format(JsonReader.commands.respawn.getTranslation(language).respawn, { pseudo: message.author.username, lostScore: lostScore }));
   }
 };
 

@@ -17,7 +17,12 @@
       },
       "end": {
         "draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**",
-        "win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n:bar_chart: Elo de la partie : `{elo}`\n:medal: Points gagnés/perdus : `{points}`"
+        "win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n",
+        "gameStats": ":bar_chart: | Statistiques du combat\n- **Tours**: {turn}/{maxTurn}\n- **Temps de combat**: {time}",
+        "elo": "\n- **Elo de la partie**: `{elo}`\n- **Points gagnés/perdus**: `{points}`",
+        "fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {pseudo}\n- **Vie finale**: {health}/{maxHealth} :blue_heart:",
+        "attacksField": "\n- **Attaques**:",
+        "attackStats": "\n      - {emote} {success}/{total} réussie(s), {damage} de dégâts en moyenne"
       },
       "error": {
         "spamCanceled": "Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
@@ -142,7 +147,12 @@
       },
       "end": {
         "draw": ":newspaper: |** {player1} finished their match against {player2} on a draw!**",
-        "win": ":newspaper: |** {winner} win the match against {loser}**\n\n:bar_chart: Skill level of the party: `{elo}`\n:medal: Points gained/lost: `{points}`"
+        "win": ":newspaper: |** {winner} wins the match against {loser}**\n\n",
+        "gameStats": ":bar_chart: | Fight stats\n- **Turns**: {turn}/{maxTurn}\n- **Fight time**: {time}",
+        "elo": "\n- **Elo**: `{elo}`\n- **Points won/lost**: `{points}`",
+        "fighterStats": "\n\n:bust_in_silhouette: | Stats of {pseudo}\n- **Final health**: {health}/{maxHealth} :blue_heart:",
+        "attacksField": "\n- **Attacks**:",
+        "attackStats": "\n      - {emote} {success}/{total} successful, average of {damage} damage"
       },
       "error": {
         "spamCanceled": "Your fight has been cancelled. Thanks for not spamming reactions to ask for a fight.",
