@@ -52,7 +52,6 @@ async function ClassCommand(language, message, args) {
 
     //Fetch the choice from the user
     collector.on("end", async (reaction) => {
-        removeBlockedPlayer(entity.discordUser_id);
         if (!reaction.first()) { //the user is afk
             return;
         }
