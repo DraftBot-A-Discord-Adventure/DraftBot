@@ -28,14 +28,14 @@
 			},
 			"title": ":bookmark:  **Change your class :**",
 			"desc": "Choose a class in the list below for more information",
-			"display": "**{name}** | ",
+			"display": "{name}\n\n:scroll: `{description}`\n\nWould you like to spend `{price}💰` to choose this class?",
 			"success": "{pseudo}, your class has been changed !",
 			"newClass": "You are now a ",
 			"confirm": "{pseudo}, you have chosen the following class:",
 			"moneyQuantity": "\n\nYou have `{money}💰`.",
 			"error": {
 				"cannotBuy": "You don't have enough money to change your class ! You are missing `{missingMoney}💰`.",
-				"canceledPurchase": "Change canceled.",
+				"canceledPurchase": "Class change canceled.",
 				"sameClass": "You already joined this class.",
 				"leaveClass": "You didn't change your class."
 			}
