@@ -53,9 +53,11 @@ async function ClassCommand(language, message, args) {
     //Fetch the choice from the user
     collector.on("end", async (reaction) => {
         if (!reaction.first()) { //the user is afk
+            removeBlockedPlayer(entity.discordUser_id);
             return;
         }
         if (reaction.first().emoji.name === MENU_REACTION.DENY) {
+            removeBlockedPlayer(entity.discordUser_id);
             sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass);
             return;
         }
