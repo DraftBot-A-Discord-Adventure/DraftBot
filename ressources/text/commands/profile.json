@@ -82,7 +82,7 @@
 			},
 			"playerClass": {
 				"fieldName": "Class :",
-				"fieldValue": ":interrobang: TODO"
+				"fieldValue": "{class}"
 			},
 			"badges": {
 				"🏆": ":trophy:  `Best player by rank when resetting to 1.0.`",
