@@ -72,6 +72,7 @@ async function ClassCommand(language, message, args) {
                     missingMoney: CLASS.PRICE - entity.Player.money,
                 }
             ));
+            removeBlockedPlayer(entity.discordUser_id);
         }
     });
 }
@@ -121,6 +122,10 @@ async function confirmPurchase(message, language, classId, entity) {
                 }
                 reaction.first().message.delete();
                 entity.Player.class = classId;
+                const newClass = await Classes.getById(entity.Player.class);
+                await entity.setHealth(Math.round(
+                    (entity.health / await playerClass.getMaxHealthValue(entity.Player.level))
+                    * await newClass.getMaxHealthValue(entity.Player.level)))
                 entity.Player.addMoney(-CLASS.PRICE);
                 await Promise.all([
                     entity.save(),
