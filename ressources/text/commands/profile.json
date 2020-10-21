@@ -51,6 +51,7 @@
 				"🎄": ":christmas_tree:  `Badge pouvant être gagné chaque noël lors d'un concours`",
 				"😂": ":joy:  `Badge offert à une personne drôle`",
 				"💎": ":gem:  `Membre d'une guilde puissante`",
+				"⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
 				"🗳️": ":ballot_box:  `Personne ayant voté dans les 12 dernières heures`"
 			}
 		},
@@ -106,6 +107,7 @@
 				"🎄": ":christmas_tree:  `This badge can be win on giveaway every christmas`",
 				"😂": ":joy:  `Badge given to funny people`",
 				"💎": ":gem:  `Member of a powerful team`",
+				"⚔️": ":crossed_swords: `Tournament winner`",
 				"🗳️": ":ballot_box:  `Person who voted in the last 12 hours`"
 			}
 		}
