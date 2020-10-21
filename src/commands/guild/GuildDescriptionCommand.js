@@ -16,6 +16,14 @@ const GuildDescriptionCommand = async (language, message, args) => {
 
   guild = await Guilds.getById(entity.Player.guild_id);
 
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+    return;
+  }
+
+  if (await sendBlockedError(message.author, message.channel, language)) {
+    return;
+  }
+  
   if (guild == null) {
     // not in a guild
     return sendErrorMessage(
