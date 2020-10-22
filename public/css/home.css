@@ -411,6 +411,131 @@ textarea {
 	position: relative;
 }
 
+.header {
+	min-height: 200px;
+	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)),
+		url(../ressources/backgrounds/background-min.webp);
+	background-color: #7289da;
+	background-size: 2000px;
+	background-position: center;
+	position: relative;
+}
+
+.note {
+	margin-top: 30px;
+	color: #fff;
+	font-size: 1rem;
+	font-family: "Merriweather", sans-serif;
+	line-height: 1.5;
+	text-align: center;
+}
+
+article.card {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	left: 50%;
+	width: 350px;
+	height: 350px;
+	-webkit-transform: translate(-50%, -50%) translateZ(0);
+	transform: translate(-50%, -50%) translateZ(0);
+	border-radius: 3px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	overflow: hidden;
+}
+article.card .thumb {
+	width: auto;
+	height: 260px;
+	background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/397014/new-york-city.png")
+		no-repeat center;
+	background-size: cover;
+	border-radius: 3px;
+}
+article.card .infos {
+	width: auto;
+	height: 350px;
+	position: relative;
+	padding: 14px 24px;
+	background: #fff;
+	-webkit-transition: 0.4s 0.15s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+	transition: 0.4s 0.15s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+}
+article.card .infos .title {
+	position: relative;
+	margin: 10px 0;
+	letter-spacing: 3px;
+	color: #152536;
+	font-family: "Grotesque Black", sans-serif;
+	font-size: 1rem;
+	text-transform: uppercase;
+	text-shadow: 0 0 0px #32577f;
+}
+article.card .infos .flag {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	width: 35px;
+	height: 23px;
+	background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/397014/flag.png")
+		no-repeat top right;
+	background-size: 100% auto;
+	display: inline-block;
+}
+article.card .infos .date,
+article.card .infos .seats {
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	font-size: 0.85rem;
+	color: rgba(21, 37, 54, 0.7);
+	font-family: "Grotesque", sans-serif;
+}
+article.card .infos .seats {
+	display: inline-block;
+	margin-bottom: 24px;
+	padding-bottom: 24px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	opacity: 0;
+	-webkit-transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+	transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+}
+article.card .infos .txt {
+	font-family: "Merriweather", sans-serif;
+	line-height: 2;
+	font-size: 0.95rem;
+	color: rgba(21, 37, 54, 0.7);
+	opacity: 0;
+	-webkit-transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+	transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+}
+article.card .infos .details {
+	position: absolute;
+	left: 0;
+	left: 0;
+	bottom: 0;
+	margin: 10px 0;
+	padding: 20px 24px;
+	letter-spacing: 1px;
+	color: #4e958b;
+	font-family: "Grotesque Black", sans-serif;
+	font-size: 0.9rem;
+	text-transform: uppercase;
+	cursor: pointer;
+	opacity: 0;
+	-webkit-transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+	transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
+}
+article.card:hover .infos {
+	-webkit-transform: translateY(-260px);
+	transform: translateY(-260px);
+}
+article.card:hover .infos .seats,
+article.card:hover .infos .txt,
+article.card:hover .infos .details {
+	opacity: 1;
+}
+
 .hero-infos {
 	text-align: center;
 	display: table;
@@ -420,9 +545,9 @@ textarea {
 	margin-top: 175px;
 }
 
-.waves {
+.smallWaves {
 	position: absolute;
-	bottom: -5px;
+	top: 25px;
 	right: 0;
 	width: 100%;
 	overflow: hidden;

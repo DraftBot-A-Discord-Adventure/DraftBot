@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link rel="canonical" href="https://draftbot.com/donate">
+    <link rel="apple-touch-icon" sizes="128x128"
+        href="https://bastlast.github.io/DraftBot-A-Discord-Adventure/public/ressources/logo-min.png" />
+    <title>DraftBot - A multiplayer role-play game for Discord</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+        content="DraftBot is an open-source Discord bot based on a multiplayer text adventure game. Begin your journey in a medieval world and battle to win the kingdom's princess's hand.">
+    <meta property='og:image'
+        content='https://bastlast.github.io/DraftBot-A-Discord-Adventure/public/ressources/logo-min.png' />
+    <meta property="og:site_name" content="draftbot.com" />
+
+    <!-- Favicon -->
+    <link href="../ressources/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="../ressources/favicon.ico" rel="icon" type="image/x-icon" />
+
+    <link rel="preload" href="../css/home.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+        integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+        crossorigin="anonymous" as="style">
+    <link rel="stylesheet" href="../css/home.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+        integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+        integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w=="
+        crossorigin="anonymous" />
+
+</head>
+
+<body>
+
+    <div class="header">
+        <header>
+            <a class="logo" href="/"><img src="../ressources/banner-min.png" alt="logo"></a>
+            <nav>
+                <ul class="nav__links">
+                    <li><a rel="noopener" target="_blank" href="https://guide.draftbot.com">About</a></li>
+                    <li><a href="#add">Add the bot to your server</a></li>
+                    <li><a rel="noopener" target="_blank" href="https://github.com/sponsors/BastLast">Donate</a>
+                    </li>
+                    <li><a rel="noopener" target="_blank"
+                            href="https://github.com/DraftBot-A-Discord-Adventure">Github</a></li>
+                    <li><a rel="noopener" target="_blank" href="https://history.draftbot.com">History</a>
+                    </li>
+                    <li><a rel="noopener" target="_blank" href="https://discord.com/invite/5JqrMtZ">I need help</a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- TODO: 
+        <div class="dropdown">
+          <a class="button buttonWhite buttonSmall bold buttonLanguage" id="pc-menu"><i
+              class="fas fa-globe-americas buttonSmallIcon"></i> EN</a>
+          <div class="dropdown-content">
+            <a href="/fr"><i class="fas fa-angle-right buttonSmallIcon"></i> FR</a>
+          </div>
+        </div>
+      -->
+            <div class="menu">
+                <p class="button buttonWhite buttonSmall bold">Menu</p>
+            </div>
+        </header>
+
+
+        <div class="overlay">
+
+            <a class="close">&times;</a>
+            <div class="overlay__content">
+                <ul>
+                    <li><a rel="noopener" target="_blank" href="https://guide.draftbot.com">About</a></li>
+                    <li><a href="#add">Add the bot to your server</a></li>
+                    <li><a rel="noopener" target="_blank" href="https://github.com/sponsors/BastLast">Donate</a>
+                    </li>
+                    <li><a rel="noopener" target="_blank"
+                            href="https://github.com/DraftBot-A-Discord-Adventure">Github</a></li>
+                    <li><a rel="noopener" target="_blank" href="https://history.draftbot.com">History</a>
+                    </li>
+                    <li><a rel="noopener" target="_blank" href="https://discord.com/invite/5JqrMtZ">I need help</a>
+                    </li>
+                    <!-- TODO: 
+            <li><a href="/fr">Passer en Français</a></li>
+          -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="smallWaves">
+        <svg width="100%" height="175px" fill="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#fff" />
+            </linearGradient>
+            <path fill="url(#grad1)" d="
+                    M0 67
+                    C 273,183
+                    822,-40
+                    1920.00,106
+                    V 359
+                    H 0
+                    V 67
+                    Z">
+                <animate repeatCount="indefinite" fill="url(#grad1)" attributeName="d" dur="35s" attributeType="XML"
+                    values="
+                    M0 77
+                    C 473,283
+                    822,-40
+                    1920,116
+                    V 359
+                    H 0
+                    V 67
+                    Z;
+                    M0 77
+                    C 473,-40
+                    1222,283
+                    1920,136
+                    V 359
+                    H 0
+                    V 67
+                    Z;
+                    M0 77
+                    C 973,260
+                    1722,-53
+                    1920,120
+                    V 359
+                    H 0
+                    V 67
+                    Z;
+                    M0 77
+                    C 473,283
+                    822,-40
+                    1920,116
+                    V 359
+                    H 0
+                    V 67
+                    Z
+                    ">
+                </animate>
+            </path>
+        </svg>
+    </div>
+    </div>
+
+
+    <section class="mediumMargin paddingWave">
+        <div class="container" data-aos="fade-up" data-aos-duration="700">
+            <article class="card">
+                <div class="thumb"></div>
+                <div class="infos">
+                    <h2 class="title">new york city<span class="flag"></span></h2>
+                    <h3 class="date">november 2 - 4</h3>
+                    <h3 class="seats">seats remaining: 2</h3>
+                    <p class="txt">
+                        Join us for our Live Infinity Session in
+                        beautiful New York City. This is a 3 day
+                        intensive workshop where you'll learn
+                        how to become a better version of...
+                    </p>
+                    <h3 class="details">event details</h3>
+                </div>
+            </article>
+        </div>
+        <div class="waves">
+            <svg width="100%" height="175px" fill="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#23272a" d="
+                        M0 67
+                        C 273,183
+                        822,-40
+                        1920.00,106
+                        V 359
+                        H 0
+                        V 67
+                        Z">
+                    <animate repeatCount="indefinite" fill="#23272a" attributeName="d" dur="35s" attributeType="XML"
+                        values="
+                        M0 77
+                        C 473,283
+                        822,-40
+                        1920,116
+                        V 359
+                        H 0
+                        V 67
+                        Z;
+                        M0 77
+                        C 473,-40
+                        1222,283
+                        1920,136
+                        V 359
+                        H 0
+                        V 67
+                        Z;
+                        M0 77
+                        C 973,260
+                        1722,-53
+                        1920,120
+                        V 359
+                        H 0
+                        V 67
+                        Z;
+                        M0 77
+                        C 473,283
+                        822,-40
+                        1920,116
+                        V 359
+                        H 0
+                        V 67
+                        Z
+                        ">
+                    </animate>
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <footer id="footer" class="smallPadding">
+        <div class="container">
+
+            <p class="copyright center">
+                MIT License -
+                <var id="year">2020</var> | Check Draftbot on <a rel="noopener" href="https://twitter.com/Draftbot_"
+                    target="_blank">Twitter</a> ! |Made with <i class="fas fa-heart"></i> by
+                <a href="https://behance.net/mw3y" rel="noopener" target="_blank">MΛX</a> and <a
+                    href="https://twitter.com/Bastlast_" target="_blank">BastLast</a>, icons from
+                <a href="https://icons8.com" rel="noopener" target="_blank">icons8.com</a> &
+                background by <a
+                    href='https://www.freepik.com/free-vector/medieval-castle-interior-flat-cartoon-composition-with-king-throne-armed-knight-coat-arms-guard_6845842.htm'>macrovector
+                    -
+                    fr.freepik.com</a>
+            </p>
+
+        </div>
+    </footer>
+
+    <script>
+        AOS.init();
+
+        const doc = document;
+        const menuOpen = doc.querySelector(".menu");
+        const menuClose = doc.querySelector(".close");
+        const overlay = doc.querySelector(".overlay");
+
+        menuOpen.addEventListener("click", () => {
+            overlay.classList.add("overlay--active");
+        });
+
+        menuClose.addEventListener("click", () => {
+            overlay.classList.remove("overlay--active");
+        });
+
+        var $root = $('html, body');
+        $('a[href^="#"]').click(function () {
+            $root.animate({
+                scrollTop: $($.attr(this, 'href')).offset().top
+            }, 500);
+
+            return false;
+        });
+    </script>
+
+    <script>
+        (function () {
+            var css = document.createElement('link');
+            css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css';
+            css.rel = 'stylesheet';
+            css.type = 'text/css';
+            document.getElementsByTagName('head')[0].appendChild(css);
+        })();
+    </script>
+
+
+
+</body>
+
+</html>
