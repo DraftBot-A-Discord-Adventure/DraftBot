@@ -6,27 +6,83 @@
  */
 const HelpCommand = async (language, message, args) => {
   const command = getMainCommandFromAlias(args[0]);
-  let helpMessage = JsonReader.commands.help.getTranslation(language).commands[command];
+  let helpMessage = JsonReader.commands.help.getTranslation(language).commands[
+    command
+  ];
 
   if (helpMessage === undefined) {
-    let commandsMsg = "";
-    let commandsList = Object.keys(JsonReader.commands.help.getTranslation(language).commands);
-    for (let i = 0; i < commandsList.length; ++i) {
-      commandsMsg += "`" + commandsList[i] + "`";
-      if (i !== commandsList.length - 1) {
-        commandsMsg += ", ";
-      }
-    }
-    helpMessage = format(JsonReader.commands.help.getTranslation(language).main,
-        {pseudo: message.author.username, commands: commandsMsg });
-  }
-  else {
+    helpMessage = new discord.MessageEmbed();
+    let commandsList = Object.entries(
+      JsonReader.commands.help.getTranslation(language).commands
+    );
+    const serverCommands = Object.keys(
+      Object.fromEntries(
+        commandsList.filter(
+          (command) => command[1].category === CATEGORY.SERVER
+        )
+      )
+    );
+    const utilCommands = Object.keys(
+      Object.fromEntries(
+        commandsList.filter((command) => command[1].category === CATEGORY.UTIL)
+      )
+    );
+    const playerCommands = Object.keys(
+      Object.fromEntries(
+        commandsList.filter(
+          (command) => command[1].category === CATEGORY.PLAYER
+        )
+      )
+    ).sort();
+    const guildCommands = Object.keys(
+      Object.fromEntries(
+        commandsList.filter((command) => command[1].category === CATEGORY.GUILD)
+      )
+    );
+
+    helpMessage.setAuthor(
+      format(JsonReader.commands.help.getTranslation(language).helpEmbedTitle, {
+        pseudo: message.author.username,
+      }),
+      message.author.displayAvatarURL()
+    );
+    helpMessage.setDescription(
+      JsonReader.commands.help.getTranslation(language).helpEmbedDescription
+    );
+    helpMessage.addFields([
+      {
+        name: JsonReader.commands.help.getTranslation(language).serverCommands,
+        value: `${serverCommands.sort().join(" • ")}\n`,
+      },
+      {
+        name: JsonReader.commands.help.getTranslation(language).utilCommands,
+        value: `${utilCommands.sort().join(" • ")}\n`,
+      },
+      {
+        name: JsonReader.commands.help.getTranslation(language).playerCommands,
+        value: `${playerCommands.join(" • ")}\n`,
+      },
+      {
+        name: JsonReader.commands.help.getTranslation(language).guildCommands,
+        value: `${guildCommands.sort().join(" • ")}\n`,
+      },
+    ]);
+  } else {
     let helpMsgTmp = helpMessage;
     helpMessage = new discord.MessageEmbed()
-        .setColor(JsonReader.bot.embed.default)
-        .setDescription(helpMsgTmp.description)
-        .setTitle(format(JsonReader.commands.help.getTranslation(language).commandEmbedTitle, { emote: helpMsgTmp.emote, cmd: command }));
-    helpMessage.addField(JsonReader.commands.help.getTranslation(language).usageFieldTitle, "`" + helpMsgTmp.usage + "`", true);
+      .setColor(JsonReader.bot.embed.default)
+      .setDescription(helpMsgTmp.description)
+      .setTitle(
+        format(
+          JsonReader.commands.help.getTranslation(language).commandEmbedTitle,
+          { emote: helpMsgTmp.emote, cmd: command }
+        )
+      );
+    helpMessage.addField(
+      JsonReader.commands.help.getTranslation(language).usageFieldTitle,
+      "`" + helpMsgTmp.usage + "`",
+      true
+    );
     const aliases = getAliasesFromCommand(command);
     if (aliases.length !== 0) {
       let aliasField = "";
@@ -36,16 +92,24 @@ const HelpCommand = async (language, message, args) => {
           aliasField += ", ";
         }
       }
-      helpMessage.addField(aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle, aliasField, true);
+      helpMessage.addField(
+        aliases.length > 1
+          ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle
+          : JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
+        aliasField,
+        true
+      );
     }
   }
 
-  if (client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
-      .members
-      .cache
-      .find((val) => val.id === message.author.id) === undefined) {
+  if (
+    client.guilds.cache
+      .get(JsonReader.app.MAIN_SERVER_ID)
+      .members.cache.find((val) => val.id === message.author.id) === undefined
+  ) {
     await message.author.send(
-        JsonReader.commands.help.getTranslation(language).mp);
+      JsonReader.commands.help.getTranslation(language).mp
+    );
   }
 
   await message.channel.send(helpMessage);
@@ -54,8 +118,8 @@ const HelpCommand = async (language, message, args) => {
 module.exports = {
   commands: [
     {
-      name: 'help',
-      func: HelpCommand
-    }
-  ]
+      name: "help",
+      func: HelpCommand,
+    },
+  ],
 };
