@@ -52,19 +52,28 @@ const HelpCommand = async (language, message, args) => {
     helpMessage.addFields([
       {
         name: JsonReader.commands.help.getTranslation(language).serverCommands,
-        value: `${serverCommands.sort().join(" • ")}\n`,
+        value: `${serverCommands.sort().join(" • ")}`,
       },
       {
         name: JsonReader.commands.help.getTranslation(language).utilCommands,
-        value: `${utilCommands.sort().join(" • ")}\n`,
+        value: `${utilCommands.sort().join(" • ")}`,
       },
       {
         name: JsonReader.commands.help.getTranslation(language).playerCommands,
-        value: `${playerCommands.join(" • ")}\n`,
+        value: `${playerCommands.join(" • ")}`,
       },
       {
         name: JsonReader.commands.help.getTranslation(language).guildCommands,
-        value: `${guildCommands.sort().join(" • ")}\n`,
+        value: `${guildCommands.sort().join(" • ")}`,
+      },
+      {
+        name: "\u200b",
+        value: "\u200b",
+      },
+      {
+        name: JsonReader.commands.help.getTranslation(language).forMoreHelp,
+        value: JsonReader.commands.help.getTranslation(language)
+          .forMoreHelpValue,
       },
     ]);
   } else {
