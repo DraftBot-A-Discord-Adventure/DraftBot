@@ -47,7 +47,7 @@ const HelpCommand = async (language, message, args) => {
       message.author.displayAvatarURL()
     );
     helpMessage.setDescription(
-      JsonReader.commands.help.getTranslation(language).helpEmbedDescription
+      JsonReader.commands.help.getTranslation(language).helpEmbedDescription + "\n\u200b"
     );
     helpMessage.addFields([
       {
@@ -64,11 +64,7 @@ const HelpCommand = async (language, message, args) => {
       },
       {
         name: JsonReader.commands.help.getTranslation(language).guildCommands,
-        value: `${guildCommands.sort().join(" • ")}`,
-      },
-      {
-        name: "\u200b",
-        value: "\u200b",
+        value: `${guildCommands.sort().join(" • ")} \n\u200b`,
       },
       {
         name: JsonReader.commands.help.getTranslation(language).forMoreHelp,
