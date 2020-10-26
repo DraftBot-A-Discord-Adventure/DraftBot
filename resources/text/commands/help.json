@@ -3,7 +3,7 @@
 		"fr": {
 			"mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://draftbot.fandom.com/fr/wiki/Commandes",
 			"helpEmbedTitle": "{pseudo}, voici la liste des commandes disponibles :",
-			"helpEmbedDescription" : ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:",
+			"helpEmbedDescription" : ":arrow_forward: Le prefixe actuel est : `{prefix}`\n\n:arrow_forward: Si vous voulez plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:",
 			"serverCommands" : ":gear: Serveur :",
 			"utilCommands" : ":question: Utiles :",
 			"playerCommands" : ":bust_in_silhouette: Joueur :",
@@ -195,7 +195,7 @@
 			"mp": ":crossed_swords: Hey! This message was sent because you asked for help.\n\nIf you need help, you can join the bot server!\n\nYou will be able to be a part of the bot's development and you will get details about it!\n\nhttps://discord.gg/USnCxg4\n\nIf you don't want to join us (:sob:) you can also read the bot's wiki!\nhttps://draftbot.fandom.com/fr/wiki/Commandes",
 			"main": "** :notebook_with_decorative_cover: {pseudo} here is the list of the available commands:**\n{commands}\n\n:arrow_forward: If you want more information about a specific command write: `help [name of the command]` :wink:\n\n:arrow_forward: You can ask for help about badges by writing `help badges`\n\n:arrow_forward: For more help you can visit the bot's wiki! <https://draftbot.fandom.com/wiki/Commands>",
 			"helpEmbedTitle": "{pseudo}, here is the list of the available commands :",
-			"helpEmbedDescription" : ":arrow_forward: If you want more information about a specific command write: `help [name of the command]` :wink:",
+			"helpEmbedDescription" : ":arrow_forward: Actual prefixe is : `{prefix}`\n\n:arrow_forward: If you want more information about a specific command write: `help [name of the command]` :wink:",
 			"serverCommands" : ":gear: Server :",
 			"utilCommands" : ":question: Utility :",
 			"playerCommands" : ":bust_in_silhouette: Player :",

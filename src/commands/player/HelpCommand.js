@@ -6,6 +6,7 @@
  */
 const HelpCommand = async (language, message, args) => {
   const command = getMainCommandFromAlias(args[0]);
+  [server] = await Servers.getOrRegister(message.guild.id);
   let helpMessage = JsonReader.commands.help.getTranslation(language).commands[
     command
   ];
@@ -47,7 +48,10 @@ const HelpCommand = async (language, message, args) => {
       message.author.displayAvatarURL()
     );
     helpMessage.setDescription(
-      JsonReader.commands.help.getTranslation(language).helpEmbedDescription + "\n\u200b"
+      format(
+        JsonReader.commands.help.getTranslation(language).helpEmbedDescription,
+        { prefix: server.prefix }
+      ) + "\n\u200b"
     );
     helpMessage.addFields([
       {
