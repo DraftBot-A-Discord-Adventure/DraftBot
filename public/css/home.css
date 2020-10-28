@@ -451,11 +451,22 @@ article.card {
 article.card .thumb {
 	width: auto;
 	height: 260px;
-	background: url(../ressources/backgrounds/background-min.webp) no-repeat
-		center;
 	background-size: cover;
 	border-radius: 3px;
 }
+
+article.card .one {
+	background: url(../ressources/Sticker_FemmeRobe.png) no-repeat center;
+}
+
+article.card .two {
+	background: url(../ressources/Sticker_HommePenche.png) no-repeat center;
+}
+
+article.card .three {
+	background: url(../ressources/Sticker_RoiLecture.png) no-repeat center;
+}
+
 article.card .infos {
 	width: auto;
 	height: 350px;
@@ -475,14 +486,7 @@ article.card .infos .title {
 	text-transform: uppercase;
 	text-shadow: 0 0 0px #32577f;
 }
-article.card .infos .flag {
-	width: 35px;
-	height: 23px;
-	background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/397014/flag.png")
-		no-repeat top right;
-	background-size: 100% auto;
-	display: inline-block;
-}
+
 article.card .infos .date,
 article.card .infos .seats {
 	margin-bottom: 10px;
