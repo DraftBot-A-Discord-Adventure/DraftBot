@@ -553,6 +553,14 @@ article.card:hover .infos .details {
 	overflow: hidden;
 }
 
+.waves {
+	position: absolute;
+	bottom: -5px;
+	right: 0;
+	width: 100%;
+	overflow: hidden;
+}
+
 .hero-infos .title {
 	font-weight: 700;
 	font-size: 56px;
