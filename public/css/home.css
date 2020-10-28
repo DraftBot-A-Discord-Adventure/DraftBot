@@ -419,7 +419,7 @@ textarea {
 }
 
 .header {
-	min-height: 200px;
+	min-height: 250px;
 	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)),
 		url(../ressources/backgrounds/background-min.webp);
 	background-color: #7289da;
