@@ -216,6 +216,13 @@ textarea {
 	margin-right: 50px;
 }
 
+.cardContainer {
+	display: inline-block;
+	min-width: 350px;
+	min-height: 350px;
+	padding: 1%;
+}
+
 .screen {
 	text-align: center;
 	border: solid;
@@ -430,15 +437,13 @@ textarea {
 	text-align: center;
 }
 
+.cardLine {
+	text-align: center;
+}
+
 article.card {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	left: 50%;
 	width: 350px;
 	height: 350px;
-	-webkit-transform: translate(-50%, -50%) translateZ(0);
-	transform: translate(-50%, -50%) translateZ(0);
 	border-radius: 3px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 	overflow: hidden;
@@ -446,8 +451,8 @@ article.card {
 article.card .thumb {
 	width: auto;
 	height: 260px;
-	background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/397014/new-york-city.png")
-		no-repeat center;
+	background: url(../ressources/backgrounds/background-min.webp) no-repeat
+		center;
 	background-size: cover;
 	border-radius: 3px;
 }
@@ -471,11 +476,6 @@ article.card .infos .title {
 	text-shadow: 0 0 0px #32577f;
 }
 article.card .infos .flag {
-	position: absolute;
-	top: 50%;
-	right: 0;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
 	width: 35px;
 	height: 23px;
 	background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/397014/flag.png")
@@ -510,10 +510,6 @@ article.card .infos .txt {
 	transition: 0.5s 0.25s cubic-bezier(0.17, 0.67, 0.5, 1.03);
 }
 article.card .infos .details {
-	position: absolute;
-	left: 0;
-	left: 0;
-	bottom: 0;
 	margin: 10px 0;
 	padding: 20px 24px;
 	letter-spacing: 1px;
