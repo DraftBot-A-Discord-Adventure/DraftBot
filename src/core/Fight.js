@@ -164,7 +164,7 @@ class Fight {
     }
     for (let i = 0; i < this.fighters.length; i++) {
       await this.fighters[i].calculateStats();
-      if (this.maxPower !== -1 && this.fighters[i].power > this.maxPower) {
+      if ((this.maxPower !== -1 && this.fighters[i].power > this.maxPower) || this.tournamentMode) {
         this.fighters[i].power = this.maxPower;
       }
       await this.fighters[i].consumePotionIfNeeded();
