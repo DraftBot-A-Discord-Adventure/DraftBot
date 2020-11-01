@@ -16,7 +16,7 @@
 		"core": "./src/core",
 		"commands": "./src/commands",
 		"models": "./src/core/models",
-		"ressources": "./ressources"
+		"resources": "./resources"
 	},
 	"dependencies": {
 		"chai": "^4.2.0",
