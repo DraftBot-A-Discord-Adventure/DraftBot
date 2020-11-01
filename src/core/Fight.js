@@ -1,6 +1,7 @@
 /**
  * @param entity
  * @param {boolean} friendly
+ * @param {boolean} tournament
  * @param {Number} attack
  * @param {Number} defense
  * @param {Number} speed
@@ -17,8 +18,9 @@ class Fighter {
    * @param entity
    * @param {boolean} friendly
    */
-  constructor(entity, friendly) {
+  constructor(entity, friendly, tournament) {
     this.friendly = friendly;
+    this.tournament = tournament;
     this.entity = entity;
     this.attacksList = {};
   }
@@ -39,7 +41,7 @@ class Fighter {
     this.attack = await this.entity.getCumulativeAttack(w, a, p, o);
     this.defense = await this.entity.getCumulativeDefense(w, a, p, o);
     this.speed = await this.entity.getCumulativeSpeed(w, a, p, o);
-    this.power = this.friendly ? await this.entity.getMaxCumulativeHealth() : await this.entity.getCumulativeHealth();
+    this.power = (this.friendly || this.tournament) ? await this.entity.getMaxCumulativeHealth() : await this.entity.getCumulativeHealth();
     this.initialPower = this.power;
     this.maxDefenseImprovement = FIGHT.MAX_DEFENSE_IMPROVEMENT;
     this.maxSpeedImprovement = FIGHT.MAX_SPEED_IMPROVEMENT;
@@ -136,9 +138,9 @@ class Fight {
      */
   constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1, friendly = false) {
     if (randInt(0, 1) === 0) {
-      this.fighters = [new Fighter(player1, friendly), new Fighter(player2, friendly)];
+      this.fighters = [new Fighter(player1, friendly, tournamentMode), new Fighter(player2, friendly, tournamentMode)];
     } else {
-      this.fighters = [new Fighter(player2, friendly), new Fighter(player1, friendly)];
+      this.fighters = [new Fighter(player2, friendly, tournamentMode), new Fighter(player1, friendly, tournamentMode)];
     }
     this.turn = 0;
     this.message = message;
@@ -164,7 +166,7 @@ class Fight {
     }
     for (let i = 0; i < this.fighters.length; i++) {
       await this.fighters[i].calculateStats();
-      if ((this.maxPower !== -1 && this.fighters[i].power > this.maxPower) || this.tournamentMode) {
+      if (this.maxPower !== -1 && this.fighters[i].power > this.maxPower) {
         this.fighters[i].power = this.maxPower;
       }
       await this.fighters[i].consumePotionIfNeeded();
