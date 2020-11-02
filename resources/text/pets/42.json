@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Ours polaire",
+      "femaleName": "Ourse polaire"
+    },
+    "en": {
+      "maleName": "Polar bear",
+      "femaleName": "Polar bear"
+    }
+  },
+  "emote": {
+	"male": "🐻‍❄️",
+	"female": "🐻‍❄️"
+  },
+  "rarity": 3
+}

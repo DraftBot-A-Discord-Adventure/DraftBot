@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Pérroquet",
+      "femaleName": "Pérroquet"
+    },
+    "en": {
+      "maleName": "Parrot",
+      "femaleName": "Parrot"
+    }
+  },
+  "emote": {
+	"male": "🦜",
+	"female": "🦜"
+  },
+  "rarity": 3
+}

@@ -1,0 +1,16 @@
+{
+  "slots": 2,
+  "maleEmote": "♂️",
+  "femaleEmote": "♀️",
+  "rarityEmote": "⭐",
+  "translations": {
+    "fr": {
+      "female": "Femelle",
+      "male": "Mâle"
+    },
+    "en": {
+      "female": "Female",
+      "male": "Male"
+    }
+  }
+}

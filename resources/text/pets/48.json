@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Rhinocéros",
+      "femaleName": "Rhinocéros"
+    },
+    "en": {
+      "maleName": "Rhinoceros",
+      "femaleName": "Rhinoceros"
+    }
+  },
+  "emote": {
+	"male": "🦏",
+	"female": "🦏"
+  },
+  "rarity": 3
+}

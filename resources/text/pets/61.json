@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Mammouth",
+      "femaleName": "Mammouth"
+    },
+    "en": {
+      "maleName": "Mammoth",
+      "femaleName": "Mammoth"
+    }
+  },
+  "emote": {
+	"male": "🦣",
+	"female": "🦣"
+  },
+  "rarity": 4
+}

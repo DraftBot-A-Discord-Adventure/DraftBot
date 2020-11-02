@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Scorpion",
+      "femaleName": "Scorpion"
+    },
+    "en": {
+      "maleName": "Scorpion",
+      "femaleName": "Scorpion"
+    }
+  },
+  "emote": {
+	"male": "🦂",
+	"female": "🦂"
+  },
+  "rarity": 3
+}

@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Crocodile",
+      "femaleName": "Crocodile"
+    },
+    "en": {
+      "maleName": "Crocodile",
+      "femaleName": "Crocodile"
+    }
+  },
+  "emote": {
+	"male": "🐊",
+	"female": "🐊"
+  },
+  "rarity": 3
+}

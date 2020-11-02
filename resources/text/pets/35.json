@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Raton laveur",
+      "femaleName": "Raton laveur"
+    },
+    "en": {
+      "maleName": "Raccoon",
+      "femaleName": "Raccoon"
+    }
+  },
+  "emote": {
+	"male": "🦝",
+	"female": "🦝"
+  },
+  "rarity": 2
+}

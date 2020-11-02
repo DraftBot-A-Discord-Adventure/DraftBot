@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Aucun animal",
+      "femaleName": "Aucun animal"
+    },
+    "en": {
+      "maleName": "No pet",
+      "femaleName": "No pet"
+    }
+  },
+  "emote": {
+	"male": "❌",
+	"female": "❌"
+  },
+  "rarity": 0
+}

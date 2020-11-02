@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Hérisson",
+      "femaleName": "Hérisson"
+    },
+    "en": {
+      "maleName": "Hedgehog",
+      "femaleName": "Hedgehog"
+    }
+  },
+  "emote": {
+	"male": "🦔",
+	"female": "🦔️"
+  },
+  "rarity": 2
+}

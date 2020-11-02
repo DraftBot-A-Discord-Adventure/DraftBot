@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Dindon",
+      "femaleName": "Dinde"
+    },
+    "en": {
+      "maleName": "Turkey",
+      "femaleName": "Turkey"
+    }
+  },
+  "emote": {
+	"male": "🦃",
+	"female": "🦃"
+  },
+  "rarity": 1
+}

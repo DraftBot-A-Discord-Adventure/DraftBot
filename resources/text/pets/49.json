@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Dromadaire",
+      "femaleName": "Dromadaire"
+    },
+    "en": {
+      "maleName": "Dromedary",
+      "femaleName": "Dromedary"
+    }
+  },
+  "emote": {
+	"male": "🐪",
+	"female": "🐪"
+  },
+  "rarity": 3
+}
