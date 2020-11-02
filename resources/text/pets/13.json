@@ -1,11 +1,11 @@
 {
   "translations": {
     "fr": {
-      "maleName": "Cheval",
+      "maleName": "Étalon",
       "femaleName": "Jument"
     },
     "en": {
-      "maleName": "Horse",
+      "maleName": "Stallion",
       "femaleName": "Mare"
     }
   },
