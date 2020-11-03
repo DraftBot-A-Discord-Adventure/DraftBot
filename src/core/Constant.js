@@ -76,11 +76,22 @@ global.GUILD = {
   MAX_DESCRIPTION_LENGTH: 140,
 };
 
+global.CLASS = {
+  REQUIRED_LEVEL: 16,
+  PRICE: 5000,
+};
+
+global.CATEGORY = {
+  SERVER: "server",
+  UTIL: "util",
+  PLAYER: "player",
+  GUILD: "guild",
+};
 global.MENU_REACTION = {
-  ACCEPT: '✅',
-  DENY: '❌',
+  ACCEPT: "✅",
+  DENY: "❌",
   FRENCH_FLAG: "🇫🇷",
-  ENGLISH_FLAG: '🇬🇧'
+  ENGLISH_FLAG: "🇬🇧",
 };
 
 global.PROGRESSBARS_SIZE = 20;
@@ -109,7 +120,6 @@ global.SHOP = {
   MONEY_MOUTH: "🤑",
   STAR: "⭐",
   POTION_REPLACEMENT: "🍷",
-  CANCEL: "❌",
 };
 
 global.TOPGG = {

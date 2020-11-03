@@ -1,0 +1,54 @@
+{
+	"translations": {
+		"fr": {
+			"pseudo": "Pseudo 404",
+			"levelUp": {
+				"mainMessage": ":star: | {mention} vient d'atteindre le niveau **{level}**\n\n",
+				"healthRestored": ":heart: | Vie restaurée à son maximum",
+				"moreMaxHealth": ":heartpulse: | Vie maximale augmentée de 5 points",
+				"fightUnlocked": ":dagger: | Combats débloqués avec la commande `fight` ! Pour plus d'informations sur les combats, executez la commande `help fight`",
+				"guildUnlocked": ":stadium: | Guildes débloquées avec les commandes `guild`, `guildCreate`, `guildAdd`, `guildLeave`, `guildDaily`, `guildKick` ! Pour plus d'informations sur les guildes, utilisez la commande `help`.",
+				"classUnlocked": ":bookmark: | Classes débloquées avec la commande `class` ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
+				"noBonuses": ":arrow_up: | Statistiques améliorées."
+			},
+			"ko": ":skull: | **{pseudo}** a été mis K.O !",
+			"koPM": ":crossed_swords:  Bonjour Combattant !\n\nIl semblerait que vous ayez été mis K.O... :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`"
+		},
+		"en": {
+			"pseudo": "Player 404",
+			"levelUp": {
+				"mainMessage": ":star: | {mention} just reached level **{level}**\n\n",
+				"healthRestored": ":heart: | All HP recovered",
+				"moreMaxHealth": ":heartpulse: | Maximum health increased by 5",
+				"fightUnlocked": ":dagger: | Battles unlocked with the command `fight` ! For more information about fights, please use `help fight`",
+				"guildUnlocked": ":stadium: | Guilds unlocked with the commands `guild`, `guildcreate`, `guildadd`, `guildleave`, `guilddaily`, `guildkick`! For more information about guilds, please use the `help` command.",
+				"classUnlocked": ":bookmark: | Class unlocked with the commands `guild`, `guildcreate`, `guildadd`, `guildleave`, `guilddaily`, `guildkick`! For more information about guilds, please use the `help` command.",
+				"noBonuses": ":arrow_up: | Stats upgraded."
+			},
+			"ko": ":skull: | **{pseudo}** has been KO'd!",
+			"koPM": ":crossed_swords:  Hey fighter!\n\nLooks like you have been KO'd... :skull:\nBut thanks to our advanced tech, we were able to modify past events so you avoided that painful death! :tada:\nSadly, it was very pricy, and your total score was impacted by it...\n\nTo play again, use `respawn`"
+		}
+	},
+	"score": 0,
+	"weeklyScore": 0,
+	"level": 0,
+	"class": 0,
+	"experience": 0,
+	"money": 0,
+	"badges": null,
+	"guild_id": null,
+	"effectMalus": {
+		":smiley:": 0,
+		":sick:": 21600000,
+		":head_bandage:": 21600000,
+		":dizzy_face:": 43200000,
+		":skull:": 0,
+		":lock:": 86400000,
+		":sleeping:": 10800000,
+		":cold_face:": 3600000,
+		":confounded:": 2400000,
+		":zany_face:": 14400000,
+		":clock2:": 0,
+		":baby:": 0
+	}
+}

@@ -29,7 +29,7 @@ class Database {
 
     await Database.setAssociations();
     await Database.populateJsonFilesTables([
-      'Armors', 'Weapons', 'Objects', 'Potions',
+      'Armors', 'Weapons', 'Objects', 'Potions', 'Classes'
     ]);
     await Database.setEverybodyAsUnOccupied();
   }
@@ -43,7 +43,7 @@ class Database {
       table: 'migrations',
       migrationsPath: 'database/migrations',
     };
-    const {force, table, migrationsPath} = config;
+    const { force, table, migrationsPath } = config;
     const location = path.resolve(migrationsPath);
     const migrations = await new Promise((resolve, reject) => {
       fs.readdir(location, (err, files) => {
@@ -51,36 +51,36 @@ class Database {
           return reject(err);
         }
         resolve(files
-            .map((x) => x.match(/^(\d+).(.*?)\.sql$/))
-            .filter((x) => x !== null)
-            .map((x) => ({id: Number(x[1]), name: x[2], filename: x[0]}))
-            .sort((a, b) => Math.sign(a.id - b.id)));
+          .map((x) => x.match(/^(\d+).(.*?)\.sql$/))
+          .filter((x) => x !== null)
+          .map((x) => ({ id: Number(x[1]), name: x[2], filename: x[0] }))
+          .sort((a, b) => Math.sign(a.id - b.id)));
       });
     });
     if (!migrations.length) {
       throw new Error(`No migration files found in '${location}'.`);
     }
     await Promise.all(
-        migrations.map((migration) => new Promise((resolve, reject) => {
-          const filename = path.join(location, migration.filename);
-          fs.readFile(filename, 'utf-8', (err, data) => {
-            if (err) {
-              return reject(err);
-            }
-            const [up, down] = data.split(/^--\s+?down\b/im);
-            if (!down) {
-              const message = `The ${migration.filename} file does not contain '-- Down' separator.`;
-              return reject(new Error(message));
-            }
-            /* eslint-disable no-param-reassign */
-            migration.up = up.replace(/^-- .*?$/gm, '').trim(); // Remove comments
-            migration.up = migration.up.replace(/\r\n/g, '\n'); // Replace CRLF with LF (in the case both are present)
-            migration.up = migration.up.replace(/\n/g, '\r\n'); // Replace LF with CRLF
-            migration.down = down.trim(); // and trim whitespaces
-            /* eslint-enable no-param-reassign */
-            resolve();
-          });
-        })));
+      migrations.map((migration) => new Promise((resolve, reject) => {
+        const filename = path.join(location, migration.filename);
+        fs.readFile(filename, 'utf-8', (err, data) => {
+          if (err) {
+            return reject(err);
+          }
+          const [up, down] = data.split(/^--\s+?down\b/im);
+          if (!down) {
+            const message = `The ${migration.filename} file does not contain '-- Down' separator.`;
+            return reject(new Error(message));
+          }
+          /* eslint-disable no-param-reassign */
+          migration.up = up.replace(/^-- .*?$/gm, '').trim(); // Remove comments
+          migration.up = migration.up.replace(/\r\n/g, '\n'); // Replace CRLF with LF (in the case both are present)
+          migration.up = migration.up.replace(/\n/g, '\r\n'); // Replace LF with CRLF
+          migration.down = down.trim(); // and trim whitespaces
+          /* eslint-enable no-param-reassign */
+          resolve();
+        });
+      })));
     await Database.Sequelize.query(`CREATE TABLE IF NOT EXISTS "${table}" (
       id   INTEGER PRIMARY KEY,
       name TEXT    NOT NULL,
@@ -88,11 +88,11 @@ class Database {
       down TEXT    NOT NULL
     )`);
     const dbMigrations = await Database.Sequelize.query(
-        `SELECT id, name, up, down FROM "${table}" ORDER BY id ASC`);
+      `SELECT id, name, up, down FROM "${table}" ORDER BY id ASC`);
 
     const lastMigrationId = dbMigrations[0].length ?
-        dbMigrations[0][dbMigrations[0].length - 1].id :
-        0;
+      dbMigrations[0][dbMigrations[0].length - 1].id :
+      0;
     for (const migration of migrations) {
       if (migration.id > lastMigrationId) {
         await Database.Sequelize.query('BEGIN');
@@ -104,7 +104,7 @@ class Database {
             }
           }
           await Database.Sequelize.query(
-              `INSERT INTO "${table}" (id, name, up, down) VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`);
+            `INSERT INTO "${table}" (id, name, up, down) VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`);
           await Database.Sequelize.query('COMMIT');
         } catch (err) {
           await Database.Sequelize.query('ROLLBACK');
@@ -198,16 +198,16 @@ class Database {
    */
   static async populateJsonFilesTables(folders) {
     for (const folder of folders) {
-      await global[folder].destroy({truncate: true});
+      await global[folder].destroy({ truncate: true });
 
       const files = await fs.promises.readdir(
-          `ressources/text/${folder.toLowerCase()}`);
+        `resources/text/${folder.toLowerCase()}`);
 
       const filesContent = [];
       for (const file of files) {
         const fileName = file.split('.')[0];
         const fileContent = (require(
-            `ressources/text/${folder.toLowerCase()}/${file}`));
+          `resources/text/${folder.toLowerCase()}/${file}`));
         fileContent.id = fileName;
         fileContent.fr = fileContent.translations.fr;
         fileContent.en = fileContent.translations.en;
@@ -218,15 +218,15 @@ class Database {
     }
 
     // Handle special case Events & Possibilities
-    await Events.destroy({truncate: true});
-    await Possibilities.destroy({truncate: true});
+    await Events.destroy({ truncate: true });
+    await Possibilities.destroy({ truncate: true });
 
-    const files = await fs.promises.readdir(`ressources/text/events`);
+    const files = await fs.promises.readdir(`resources/text/events`);
     const eventsContent = [];
     const possibilitiesContent = [];
     for (const file of files) {
       const fileName = file.split('.')[0];
-      const fileContent = (require(`ressources/text/events/${file}`));
+      const fileContent = (require(`resources/text/events/${file}`));
 
       fileContent.id = fileName;
 

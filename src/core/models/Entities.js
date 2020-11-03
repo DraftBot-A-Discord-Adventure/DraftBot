@@ -59,7 +59,7 @@ module.exports = (Sequelize, DataTypes) => {
 
   Entities.beforeSave((instance) => {
     instance.setDataValue('updatedAt',
-        require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+      require('moment')().format('YYYY-MM-DD HH:mm:ss'));
   });
 
   /**
@@ -70,7 +70,7 @@ module.exports = (Sequelize, DataTypes) => {
       where: {
         discordUser_id: discordUser_id,
       },
-      defaults: {Player: {Inventory: {}}},
+      defaults: { Player: { Inventory: {} } },
       include: [
         {
           model: Players,
@@ -89,7 +89,7 @@ module.exports = (Sequelize, DataTypes) => {
    */
   Entities.getByGuild = (guildId) => {
     return Entities.findAll({
-      defaults: {Player: {Inventory: {}}},
+      defaults: { Player: { Inventory: {} } },
       include: [
         {
           model: Players,
@@ -104,8 +104,8 @@ module.exports = (Sequelize, DataTypes) => {
             }],
         }],
       order: [
-        [{model: Players, as: 'Player'}, 'score', 'DESC'],
-        [{model: Players, as: 'Player'}, 'level', 'DESC']
+        [{ model: Players, as: 'Player' }, 'score', 'DESC'],
+        [{ model: Players, as: 'Player' }, 'level', 'DESC']
       ]
     });
   };
@@ -118,7 +118,7 @@ module.exports = (Sequelize, DataTypes) => {
       where: {
         discordUser_id: discordUser_id,
       },
-      defaults: {Player: {Inventory: {}}},
+      defaults: { Player: { Inventory: {} } },
       include: [
         {
           model: Players,
@@ -140,7 +140,7 @@ module.exports = (Sequelize, DataTypes) => {
       where: {
         id: id,
       },
-      defaults: {Player: {Inventory: {}}},
+      defaults: { Player: { Inventory: {} } },
       include: [
         {
           model: Players,
@@ -193,10 +193,10 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {Objects} object
    * @return {Number}
    */
-  Entities.prototype.getCumulativeAttack = function(
-      weapon, armor, potion, object) {
-    const attack = this.attack + weapon.getAttack() + armor.getAttack() +
-        potion.getAttack() + object.getAttack();
+  Entities.prototype.getCumulativeAttack = async function (weapon, armor, potion, object) {
+    const playerClass = await Classes.getById(this.Player.class);
+    const attack = playerClass.getAttackValue(this.Player.level) + weapon.getAttack() + armor.getAttack() +
+      potion.getAttack() + object.getAttack();
     return (attack > 0) ? attack : 0;
   };
 
@@ -208,10 +208,10 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {Objects} object
    * @return {Number}
    */
-  Entities.prototype.getCumulativeDefense = function(
-      weapon, armor, potion, object) {
-    const defense = this.defense + weapon.getDefense() + armor.getDefense() +
-        potion.getDefense() + object.getDefense();
+  Entities.prototype.getCumulativeDefense = async function (weapon, armor, potion, object) {
+    const playerClass = await Classes.getById(this.Player.class);
+    const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + armor.getDefense() +
+      potion.getDefense() + object.getDefense();
     return (defense > 0) ? defense : 0;
   };
 
@@ -223,20 +223,19 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {Objects} object
    * @return {Number}
    */
-  Entities.prototype.getCumulativeSpeed = function(
-      weapon, armor, potion, object) {
-    const speed = this.speed + weapon.getSpeed() + armor.getSpeed() +
-        potion.getSpeed() + object.getSpeed();
+  Entities.prototype.getCumulativeSpeed = async function (weapon, armor, potion, object) {
+    const playerClass = await Classes.getById(this.Player.class);
+    const speed = playerClass.getSpeedValue(this.Player.level) + weapon.getSpeed() + armor.getSpeed() +
+      potion.getSpeed() + object.getSpeed();
     return (speed > 0) ? speed : 0;
   };
 
   /**
    * Returns this player instance's current cumulative health. Returns the regenerative health
-   * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getCumulativeHealth = function() {
-    let maxHealth = this.getMaxCumulativeHealth();
+  Entities.prototype.getCumulativeHealth = async function () {
+    let maxHealth = await this.getMaxCumulativeHealth();
     let fp = maxHealth - this.fightPointsLost;
     if (fp < 0) fp = 0;
     else if (fp > maxHealth) fp = maxHealth;
@@ -244,38 +243,48 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
+ * Returns this player instance's max cumulative health
+ * @return {Number}
+ */
+  Entities.prototype.getMaxHealth = async function () {
+    const playerClass = await Classes.getById(this.Player.class);
+    return playerClass.getMaxHealthValue(this.Player.level);
+  };
+
+
+  /**
    * Returns this player instance's max cumulative health
-   * @param {Players} player
    * @return {Number}
    */
-  Entities.prototype.getMaxCumulativeHealth = function() {
-    return this.maxHealth + (this.Player.level * 10);
+  Entities.prototype.getMaxCumulativeHealth = async function () {
+    const playerClass = await Classes.getById(this.Player.class);
+    return playerClass.getMaxCumulativeHealthValue(this.Player.level);
   };
 
   /**
    * @return {Boolean}
    */
-  Entities.prototype.checkEffect = function() {
+  Entities.prototype.checkEffect = function () {
     return [EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1;
   };
 
   /**
    * @param {Number} health
    */
-  Entities.prototype.addHealth = function(health) {
+  Entities.prototype.addHealth = async function (health) {
     this.health += health;
-    this.setHealth(this.health);
+    await this.setHealth(this.health);
   };
 
   /**
    * @param {Number} health
    */
-  Entities.prototype.setHealth = function(health) {
+  Entities.prototype.setHealth = async function (health) {
     if (health < 0) {
       this.health = 0;
     } else {
-      if (health > this.maxHealth) {
-        this.health = this.maxHealth;
+      if (health > await this.getMaxHealth()) {
+        this.health = await this.getMaxHealth();
       } else {
         this.health = health;
       }
@@ -285,7 +294,7 @@ module.exports = (Sequelize, DataTypes) => {
   /**
    * @return {String}
    */
-  Entities.prototype.getMention = function() {
+  Entities.prototype.getMention = function () {
     return '<@' + this.discordUser_id + '>';
   };
 

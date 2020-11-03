@@ -229,21 +229,29 @@ class Command {
 
     if (Command.commands.has(command)) {
       if (!message.channel.permissionsFor(client.user)
-        .serialize().SEND_MESSAGES ||
-        !message.channel.permissionsFor(client.user)
-          .serialize().EMBED_LINKS ||
-        !message.channel.permissionsFor(client.user)
-          .serialize().ADD_REACTIONS ||
-        !message.channel.permissionsFor(client.user)
-          .serialize().USE_EXTERNAL_EMOJIS) {
-        await message.author.send(
+        .serialize().SEND_MESSAGES) {
+        return await message.author.send(
           JsonReader.bot.getTranslation(language).noSpeakPermission);
-      } else {
-        await Command.commands.get(command)(language, message, args);
+        }
+      if (!message.channel.permissionsFor(client.user)
+        .serialize().ADD_REACTIONS) {
+        return await message.author.send(
+          JsonReader.bot.getTranslation(language).noReacPermission);
+        }
+      if (!message.channel.permissionsFor(client.user)
+        .serialize().EMBED_LINKS) {
+        return await message.author.send(
+          JsonReader.bot.getTranslation(language).noEmbedPermission);
+        }
+      if (!message.channel.permissionsFor(client.user)
+        .serialize().ATTACH_FILES) {
+        return await message.author.send(
+          JsonReader.bot.getTranslation(language).noFilePermission);
+        } 
+      Command.commands.get(command)(language, message, args);
       }
     }
   }
-}
 
 /**
  * @type {{init: Command.init}}

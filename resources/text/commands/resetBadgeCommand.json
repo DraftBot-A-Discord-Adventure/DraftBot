@@ -1,0 +1,12 @@
+{
+      "translations": {
+            "fr": {
+                  "resetSuccess": "{pseudo}, action effectuée !",
+                  "descReset": "Les badges de {player} ont été réinitialisés."
+            },
+            "en": {
+                  "resetSuccess": "{pseudo}, finished!",
+                  "descReset": "{player}'s badges are now gone."
+            }
+      }
+}

@@ -1,0 +1,23 @@
+{
+	"translations": {
+		"fr": {
+			"leaveTitle": "{pseudo}, confirmation :",
+			"notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
+			"leaveDesc": ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ?",
+			"leaveChiefDesc": ":question: Souhaitez vous vraiment **détruire définitivement** la guilde `{guildName}` ?",
+			"leavingCancelled": "Votre départ a été annulé.",
+			"successTitle": "{pseudo} a quitté la guilde {guildName} !",
+			"leavingSuccess": "You'r poor lonesome cowboy and a long long way from home..."
+		},
+		"en": {
+			"leaveTitle": "{pseudo}, confirmation:",
+			"notInAguild": "You have to be in a guild to use this command.",
+			"leaveDesc": ":question: Do you really want to quit the guild `{guildName}`?",
+			"leaveChiefDesc": ":question: Do you really want to **permanently destroy** the guild `{guildName}`?",
+			"leavingCancelled": "Your departure has been cancelled.",
+			"successTitle": "{pseudo} left the guild {guildName}!",
+			"leavingSuccess": "You'r poor lonesome cowboy and a long long way from home..."
+		}
+	},
+	"guildCreationPrice": 5000
+}

@@ -1,6 +1,7 @@
 /**
  * @param entity
  * @param {boolean} friendly
+ * @param {boolean} tournament
  * @param {Number} attack
  * @param {Number} defense
  * @param {Number} speed
@@ -17,8 +18,9 @@ class Fighter {
    * @param entity
    * @param {boolean} friendly
    */
-  constructor(entity, friendly) {
+  constructor(entity, friendly, tournament) {
     this.friendly = friendly;
+    this.tournament = tournament;
     this.entity = entity;
     this.attacksList = {};
   }
@@ -36,10 +38,10 @@ class Fighter {
       p.power = 0;
     }
     const o = await inv.getActiveObject();
-    this.attack = this.entity.getCumulativeAttack(w, a, p, o);
-    this.defense = this.entity.getCumulativeDefense(w, a, p, o);
-    this.speed = this.entity.getCumulativeSpeed(w, a, p, o);
-    this.power = this.friendly ? this.entity.getMaxCumulativeHealth() : this.entity.getCumulativeHealth();
+    this.attack = await this.entity.getCumulativeAttack(w, a, p, o);
+    this.defense = await this.entity.getCumulativeDefense(w, a, p, o);
+    this.speed = await this.entity.getCumulativeSpeed(w, a, p, o);
+    this.power = (this.friendly || this.tournament) ? await this.entity.getMaxCumulativeHealth() : await this.entity.getCumulativeHealth();
     this.initialPower = this.power;
     this.maxDefenseImprovement = FIGHT.MAX_DEFENSE_IMPROVEMENT;
     this.maxSpeedImprovement = FIGHT.MAX_SPEED_IMPROVEMENT;
@@ -136,9 +138,9 @@ class Fight {
      */
   constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1, friendly = false) {
     if (randInt(0, 1) === 0) {
-      this.fighters = [new Fighter(player1, friendly), new Fighter(player2, friendly)];
+      this.fighters = [new Fighter(player1, friendly, tournamentMode), new Fighter(player2, friendly, tournamentMode)];
     } else {
-      this.fighters = [new Fighter(player2, friendly), new Fighter(player1, friendly)];
+      this.fighters = [new Fighter(player2, friendly, tournamentMode), new Fighter(player1, friendly, tournamentMode)];
     }
     this.turn = 0;
     this.message = message;
@@ -235,7 +237,7 @@ class Fight {
               emote: attacks[attacksKeys[j]].emote,
               success: att ? att.success : 0,
               total: att ? att.total : 0,
-              damage: att && att.success !== 0 ? att.damage / att.success : 0,
+              damage: att && att.success !== 0 ? Math.round((att.damage / att.success) * 10) / 10 : 0,
             });
           }
         }
@@ -502,9 +504,9 @@ class Fight {
       [this.fighters[i].entity] = await Entities.getOrRegister(this.fighters[i].entity.discordUser_id);
     }
     const loser = this.getLoser();
+    this.calculateElo();
+    this.calculatePoints();
     if (loser != null) {
-      this.calculateElo();
-      this.calculatePoints();
       loser.entity.Player.addScore(-this.points);
       loser.entity.Player.addWeeklyScore(-this.points);
       loser.entity.Player.save();
@@ -515,7 +517,7 @@ class Fight {
     }
     if (!this.friendly && !this.tournamentMode) {
       for (let i = 0; i < this.fighters.length; i++) {
-        this.fighters[i].entity.fightPointsLost = this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
+        this.fighters[i].entity.fightPointsLost = await this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
         this.fighters[i].entity.save();
       }
     }

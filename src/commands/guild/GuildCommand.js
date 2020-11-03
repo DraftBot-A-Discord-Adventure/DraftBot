@@ -62,16 +62,13 @@ const GuildCommand = async (language, message, args) => {
 
   for (const member of members) {
     // if member is the owner of guild
-    if (
-      (await member.Player.getPseudo(language)) ===
-      (await chief.getPseudo(language))
-    ) {
+    if (member.Player.id === guild.chief_id) {
       membersInfos += format(
         JsonReader.commands.guild.getTranslation(language).chiefinfos,
         {
-          pseudo: await chief.getPseudo(language),
-          ranking: (await Players.getById(chief.id))[0].rank,
-          score: (await Entities.getById(chief.id)).Player.score,
+          pseudo: await member.Player.getPseudo(language),
+          ranking: (await Players.getById(member.Player.id))[0].rank,
+          score: member.Player.score,
         }
       );
     } else {
@@ -95,8 +92,12 @@ const GuildCommand = async (language, message, args) => {
     })
   );
 
-  if (guild.guildDescription) embed.setDescription(guild.guildDescription);
-
+  if (guild.guildDescription) {
+    embed.setDescription(
+      format(JsonReader.commands.guild.getTranslation(language).description, {
+        description: guild.guildDescription,
+      }));
+  }
   embed.addField(
     format(JsonReader.commands.guild.getTranslation(language).members, {
       memberCount: members.length,

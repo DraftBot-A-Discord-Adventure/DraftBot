@@ -1,0 +1,44 @@
+{
+	"translations": {
+		"fr": {
+			"description": {
+				"0": "Une classe globalement équilibrée. Léger boost de la défense aux dépends de la vitesse.",
+				"1": "Une classe orientée vitesse. Boost vitesse important en échange d'une pénalité en défense, points de combat et points de vie.",
+				"2": "Une classe orientée défense. Bonus points de vie et points de combat ainsi qu'une défense correcte. Classe trés lente et faisant peu de dégats."
+			},
+			"title": ":bookmark:  **Changer de classe :**",
+			"desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
+			"display": "{name}\n\n:scroll: `{description}`\n\nSouhaitez vous dépenser `{price}💰` pour prendre cette classe ?",
+			"success": "{pseudo}, votre classe a été modifiée !",
+			"newClass": "Vous êtes désormais un ",
+			"confirm": "{pseudo}, Vous avez sélectionné la classe suivante :",
+			"moneyQuantity": "\n\nVous avez `{money}💰`.",
+			"error": {
+				"cannotBuy": "Vous n'avez pas assez d'argent pour changer de classe ! Il vous manque `{missingMoney}💰`.",
+				"canceledPurchase": "Changement de classe annulé.",
+				"sameClass": "Vous appartenez déjà à cette classe.",
+				"leaveClass": "Vous n'avez pas changé de classe."
+			}
+		},
+		"en": {
+			"description": {
+				"0": "A generally balanced class. Slight defense buff and speed debuff.",
+				"1": "A speed-oriented class. Greatly boosts speed while losing in defense, fight points and health points.",
+				"2": "A defense-oriented class. Health points and fight points boost and correct defense. This class is very slow and does not deal a lot of damage."
+			},
+			"title": ":bookmark:  **Change your class :**",
+			"desc": "Choose a class in the list below for more information",
+			"display": "{name}\n\n:scroll: `{description}`\n\nWould you like to spend `{price}💰` to choose this class?",
+			"success": "{pseudo}, your class has been changed !",
+			"newClass": "You are now a ",
+			"confirm": "{pseudo}, you have chosen the following class:",
+			"moneyQuantity": "\n\nYou have `{money}💰`.",
+			"error": {
+				"cannotBuy": "You don't have enough money to change your class ! You are missing `{missingMoney}💰`.",
+				"canceledPurchase": "Class change canceled.",
+				"sameClass": "You already joined this class.",
+				"leaveClass": "You didn't change your class."
+			}
+		}
+	}
+}

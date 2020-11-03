@@ -1,0 +1,21 @@
+{
+	"translations": {
+		"fr": {
+			"levelUp": {
+				"title": ":star: La guilde {guildName} monte de niveau !",
+				"desc": "La guilde est désormais niveau **{level}**."
+			}
+		},
+		"en": {
+			"levelUp": {
+				"title": ":star: The guild {guildName} just leveled up!",
+				"desc": "The guild is now level **{level}**."
+
+			}
+		}
+	},
+	"score": 0,
+	"level": 0,
+	"experience": 0,
+	"lastDailyAt": null
+}

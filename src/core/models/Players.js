@@ -33,6 +33,10 @@ module.exports = (Sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: JsonReader.models.players.money,
     },
+    class: {
+      type: DataTypes.INTEGER,
+      defaultValue: JsonReader.models.players.class,
+    },
     badges: {
       type: DataTypes.TEXT,
       defaultValue: JsonReader.models.players.badges,
@@ -140,7 +144,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Number} Return the experience needed to level up.
    */
   Players.prototype.getExperienceNeededToLevelUp = function () {
-    return JsonReader.models.players.xp[this.level + 1];
+    return Math.round(JsonReader.values.xp.player.baseValue * Math.pow(JsonReader.values.xp.player.coeff, (this.level + 1))) - JsonReader.values.xp.player.minus;
   };
 
   /**
@@ -212,9 +216,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {Number} hours
    */
   Players.prototype.fastForward = async function (hours) {
-    const moment = require('moment');
-    const lastReport = new moment(this.lastReportAt).subtract(hours, 'h');
-    this.lastReportAt = lastReport;
+    this.lastReportAt = new (require('moment'))(this.lastReportAt).subtract(hours, 'h');
   };
 
   /**
@@ -258,29 +260,12 @@ module.exports = (Sequelize, DataTypes) => {
     if (this.level === GUILD.REQUIRED_LEVEL) {
       bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.guildUnlocked);
     }
-    if (this.level % 10 === 0) {
-      entity.health = entity.maxHealth;
-      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.healthRestored);
-    } else if (this.level % 5 === 0) {
-      entity.maxHealth += 5;
-      entity.health += 5;
-      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreMaxHealth);
+
+    if (this.level === CLASS.REQUIRED_LEVEL) {
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classUnlocked);
     }
 
-    if (this.level % 9 === 0) {
-      entity.speed += 5;
-      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreSpeed);
-    }
-    else if (this.level % 6 === 0) {
-      entity.attack += 5;
-      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreAttack);
-    }
-    else if (this.level % 3 === 0) {
-      entity.defense += 5;
-      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreDefense);
-    }
-
-    bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.moreFightPower);
+    bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.noBonuses);
 
     this.experience -= xpNeeded;
     let msg = format(JsonReader.models.players.getTranslation(language).levelUp.mainMessage, { mention: entity.getMention(), level: this.level });
