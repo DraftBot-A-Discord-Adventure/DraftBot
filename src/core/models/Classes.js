@@ -31,6 +31,12 @@ module.exports = (Sequelize, DataTypes) => {
     emoji: {
       type: DataTypes.TEXT,
     },
+    classgroup: {
+      type: DataTypes.TEXT,
+    },
+    price: {
+      type: DataTypes.TEXT,
+    },
     fr: {
       type: DataTypes.TEXT,
     },
@@ -68,6 +74,8 @@ module.exports = (Sequelize, DataTypes) => {
       defense: this.getDefenseValue(level),
       speed: this.getSpeedValue(level),
       health: this.health + level,
+      price: this.price,
+      classgroup: this.classgroup,
       fightPoint: this.getMaxCumulativeHealthValue(level)
     });
   };
