@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":crossed_swords: Chevalier",
+		"en": ":crossed_swords: Knight"
+	},
+	"emoji": "⚔️",
+	"attack": 60,
+	"defense": 40,
+	"speed": 20,
+	"health": 85,
+	"fightPoint": 145,
+	"price": 3500,
+	"classgroup": 2
+}
