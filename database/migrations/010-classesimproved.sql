@@ -1,8 +1,7 @@
 -- Up
 
-
-ALTER TABLE classe ADD price INTEGER;
-ALTER TABLE classe ADD classgroup INTEGER;
+ALTER TABLE classes ADD price INTEGER;
+ALTER TABLE classes ADD classgroup INTEGER;
 
 -- Down
 
