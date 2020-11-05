@@ -548,20 +548,20 @@ class Fight {
       case FIGHT.ACTION.QUICK_ATTACK:
         powerChanger = 0.1;
         if (defender.speed > attacker.speed && success < 0.1) {
-          powerChanger = 0.5;
+          powerChanger = 0.6;
         } else if (defender.speed < attacker.speed && success < 0.95) {
-          powerChanger = 0.5;
+          powerChanger = 0.6;
         }
         far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.1));
         far.fullSuccess = far.damage >= attacker.attack - defender.power;
         break;
 
       case FIGHT.ACTION.SIMPLE_ATTACK:
-        powerChanger = 0.1;
-        if ((defender.speed > attacker.speed && success <= 0.6) || (defender.speed < attacker.speed && success < 0.8)) {
+        powerChanger = 0.5;
+        if ((defender.speed > attacker.speed && success <= 0.6) || (defender.speed < attacker.speed && success < 0.9)) {
           powerChanger = 1.0;
         } else if ((defender.speed > attacker.speed && success <= 0.9)) {
-          powerChanger = 0.5;
+          powerChanger = 0.7;
         }
         far.damage = Math.round(attacker.attack * powerChanger - defender.defense);
         far.fullSuccess = far.damage >= 100;
@@ -569,9 +569,9 @@ class Fight {
 
       case FIGHT.ACTION.POWERFUL_ATTACK:
         powerChanger = 0.0;
-        if ((defender.speed > attacker.speed && success <= 0.15) || (defender.speed < attacker.speed && success < 0.4)) {
+        if ((defender.speed > attacker.speed && success <= 0.4) || (defender.speed < attacker.speed && success < 0.7)) {
           powerChanger = 2.15;
-        } else if ((defender.speed > attacker.speed && success <= 0.5) || (defender.speed < attacker.speed && success < 0.7)) {
+        } else if ((defender.speed > attacker.speed && success <= 0.7) || (defender.speed < attacker.speed && success < 0.9)) {
           powerChanger = 1.4;
         }
         if (powerChanger > 1) {
