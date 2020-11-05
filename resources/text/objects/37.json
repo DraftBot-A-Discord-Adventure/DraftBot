@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":skier: Skis glissants",
-		"en": ":skier: Slippery skis"
+		"fr": ":skier: **Skis glissants**",
+		"en": ":skier: **Slippery skis**"
 	},
 	"rarity": 5,
 	"power": 63,
