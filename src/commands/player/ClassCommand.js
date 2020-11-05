@@ -121,7 +121,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
                     return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.sameClass);
                 }
                 reaction.first().message.delete();
-                entity.Player.class = classId;
+                entity.Player.class = selectedClass.id;
                 const newClass = await Classes.getById(entity.Player.class);
                 await entity.setHealth(Math.round(
                     (entity.health / await playerClass.getMaxHealthValue(entity.Player.level))
