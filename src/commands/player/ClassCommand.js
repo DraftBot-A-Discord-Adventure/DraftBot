@@ -19,7 +19,7 @@ async function ClassCommand(language, message, args) {
     const classTranslations = JsonReader.commands.class.getTranslation(language);
 
     let classesLineDisplay = new Array();
-    let allClasses = await Classes.findAll();
+    let allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
     for (let k = 0; k < allClasses.length; k++) {
         classesLineDisplay.push(allClasses[k].toString(language, entity.Player.level))
     }

@@ -77,8 +77,11 @@ global.GUILD = {
 };
 
 global.CLASS = {
-  REQUIRED_LEVEL: 16,
+  REQUIRED_LEVEL: 4,
   PRICE: 5000,
+  GROUP1LEVEL: 16,
+  GROUP2LEVEL: 32,
+  GROUP3LEVEL: 48
 };
 
 global.CATEGORY = {

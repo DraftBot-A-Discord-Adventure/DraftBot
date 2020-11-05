@@ -240,6 +240,16 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
+   * @return {Number} get the id of the classgroup
+   */
+  Players.prototype.getClassGroup = function () {
+    return (this.level < CLASS.GROUP1LEVEL) ? 0 :
+      (this.level < CLASS.GROUP2LEVEL) ? 1 :
+        (this.level < CLASS.GROUP3LEVEL) ? 2 :
+          3;
+  };
+
+  /**
    * Checks if the player need to level up and levels up him.
    * @param {Entity} entity
    * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent

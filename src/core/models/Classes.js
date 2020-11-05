@@ -32,10 +32,10 @@ module.exports = (Sequelize, DataTypes) => {
       type: DataTypes.TEXT,
     },
     classgroup: {
-      type: DataTypes.TEXT,
+      type: DataTypes.INTEGER,
     },
     price: {
-      type: DataTypes.TEXT,
+      type: DataTypes.INTEGER,
     },
     fr: {
       type: DataTypes.TEXT,
@@ -135,6 +135,18 @@ module.exports = (Sequelize, DataTypes) => {
     return Classes.findOne({
       where: {
         id: id,
+      },
+    });
+  };
+
+
+  /**
+   * @param {Number} groupId
+   */
+  Classes.getByGroupId = (groupId) => {
+    return Classes.findAll({
+      where: {
+        classgroup: groupId,
       },
     });
   };
