@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":bow_and_arrow: Archer",
+		"en": ":bow_and_arrow: Archer"
+	},
+	"emoji": "🏹",
+	"attack": 75,
+	"defense": 15,
+	"speed": 75,
+	"health": 55,
+	"fightPoint": 30,
+	"price": 4800,
+	"classgroup": 2
+}

@@ -63,8 +63,8 @@ async function ClassCommand(language, message, args) {
         }
 
         if (canBuy(CLASS.PRICE, entity.Player)) {
-            let classid = classEmojis.get(reaction.first().emoji.name);
-            confirmPurchase(message, language, classid, entity);
+            const selectedClass = await Classes.getByEmojy(reaction.first().emoji.name);
+            confirmPurchase(message, language, selectedClass, entity);
         } else {
             sendErrorMessage(message.author, message.channel, language, format(
                 JsonReader.commands.class.getTranslation(language).error.cannotBuy,
@@ -78,13 +78,13 @@ async function ClassCommand(language, message, args) {
 }
 
 /**
- * @param {*} name - The item name
- * @param {*} price - The item price
- * @param {*} info - The info to display while trying to buy the item
+ * @param {*} message - message where the command is from
+ * @param {*} language - the language that has to be used
+ * @param {*} selectedClass - The selected class
+ * @param {*} entity - The entity that is playing
  */
-async function confirmPurchase(message, language, classId, entity) {
+async function confirmPurchase(message, language, selectedClass, entity) {
 
-    const selectedClass = await Classes.getById(classId);
     const confirmEmbed = new discord.MessageEmbed()
         .setColor(JsonReader.bot.embed.default)
         .setAuthor(

@@ -151,5 +151,16 @@ module.exports = (Sequelize, DataTypes) => {
     });
   };
 
+  /**
+   * @param {Text} emoji
+   */
+  Classes.getByEmojy = (emoji) => {
+    return Classes.findOne({
+      where: {
+        emoji: emoji,
+      },
+    });
+  };
+
   return Classes;
 };

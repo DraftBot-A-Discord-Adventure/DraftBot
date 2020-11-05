@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":military_helmet: Casqué",
+		"en": ":military_helmet: Helmeted"
+	},
+	"emoji": "🪖",
+	"attack": 25,
+	"defense": 50,
+	"speed": 0,
+	"health": 200,
+	"fightPoint": 300,
+	"price": 1900,
+	"classgroup": 1
+}

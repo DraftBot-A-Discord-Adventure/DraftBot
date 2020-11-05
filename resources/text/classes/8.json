@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":rock: Lanceur de pierre",
+		"en": ":rock: Rock thrower"
+	},
+	"emoji": "🪨",
+	"attack": 30,
+	"defense": 5,
+	"speed": 30,
+	"health": 30,
+	"fightPoint": 5,
+	"price": 200,
+	"classgroup": 0
+}

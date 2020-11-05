@@ -1,14 +1,14 @@
 {
 	"translations": {
-		"fr": ":dagger: Soldat",
-		"en": ":dagger: Soldier"
+		"fr": ":herb: Recrue",
+		"en": ":herb: Recruit"
 	},
-	"emoji": "🗡️",
-	"attack": 30,
+	"emoji": "🌿",
+	"attack": 25,
 	"defense": 20,
 	"speed": 10,
 	"health": 65,
 	"fightPoint": 45,
 	"price": 150,
-	"classgroup": 1
+	"classgroup": 0
 }

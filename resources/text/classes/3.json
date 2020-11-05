@@ -1,14 +1,14 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: Chevalier",
-		"en": ":crossed_swords: Knight"
+		"fr": ":crossed_swords: Fantassin",
+		"en": ":crossed_swords: Infantryman"
 	},
 	"emoji": "⚔️",
-	"attack": 60,
-	"defense": 40,
-	"speed": 20,
-	"health": 85,
-	"fightPoint": 145,
-	"price": 3500,
-	"classgroup": 2
+	"attack": 75,
+	"defense": 55,
+	"speed": 40,
+	"health": 110,
+	"fightPoint": 245,
+	"price": 12300,
+	"classgroup": 3
 }
