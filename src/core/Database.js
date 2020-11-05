@@ -29,7 +29,7 @@ class Database {
 
     await Database.setAssociations();
     await Database.populateJsonFilesTables([
-      'Armors', 'Weapons', 'Objects', 'Potions', 'Classes'
+      'Armors', 'Weapons', 'Objects', 'Potions', 'Classes', 'Pets'
     ]);
     await Database.setEverybodyAsUnOccupied();
   }
@@ -209,8 +209,20 @@ class Database {
         const fileContent = (require(
           `resources/text/${folder.toLowerCase()}/${file}`));
         fileContent.id = fileName;
-        fileContent.fr = fileContent.translations.fr;
-        fileContent.en = fileContent.translations.en;
+        if (fileContent.translations) {
+          if (fileContent.translations.en && typeof fileContent.translations.fr == 'string') {
+            fileContent.fr = fileContent.translations.fr;
+            fileContent.en = fileContent.translations.en;
+          }
+          else {
+            const keys = Object.keys(fileContent.translations.en);
+            for (let i = 0; i < keys.length; ++i) {
+              const key = keys[i];
+              fileContent[key + "_en"] = fileContent.translations.en[key];
+              fileContent[key + "_fr"] = fileContent.translations.fr[key];
+            }
+          }
+        }
         filesContent.push(fileContent);
       }
 

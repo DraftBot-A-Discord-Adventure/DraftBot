@@ -9,9 +9,7 @@
       "femaleName": "Seal"
     }
   },
-  "emote": {
-	"male": "🦭",
-	"female": "🦭"
-  },
+  "emoteMale": "🦭",
+  "emoteFemale": "🦭",
   "rarity": 2
 }

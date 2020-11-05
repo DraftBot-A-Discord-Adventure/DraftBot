@@ -9,9 +9,7 @@
       "femaleName": "Ewe"
     }
   },
-  "emote": {
-	"male": "🐏",
-	"female": "🐑"
-  },
+  "emoteMale": "🐏",
+  "emoteFemale": "🐑",
   "rarity": 1
 }

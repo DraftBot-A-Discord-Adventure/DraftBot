@@ -9,9 +9,7 @@
       "femaleName": "Black cat"
     }
   },
-  "emote": {
-	"male": "🐈‍⬛",
-	"female": "🐈‍⬛"
-  },
+  "emoteMale": "🐈‍⬛",
+  "emoteFemale": "🐈‍⬛",
   "rarity": 1
 }

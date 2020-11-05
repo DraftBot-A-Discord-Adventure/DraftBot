@@ -9,9 +9,7 @@
       "femaleName": "Wild boar"
     }
   },
-  "emote": {
-	"male": "🐗",
-	"female": "🐗"
-  },
+  "emoteMale": "🐗",
+  "emoteFemale": "🐗",
   "rarity": 2
 }

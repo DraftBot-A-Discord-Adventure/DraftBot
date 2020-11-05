@@ -9,9 +9,7 @@
       "femaleName": "Eagle"
     }
   },
-  "emote": {
-	"male": "🦅",
-	"female": "🦅"
-  },
+  "emoteMale": "🦅",
+  "emoteFemale": "🦅",
   "rarity": 4
 }

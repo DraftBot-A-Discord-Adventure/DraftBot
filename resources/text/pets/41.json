@@ -9,9 +9,7 @@
       "femaleName": "Hedgehog"
     }
   },
-  "emote": {
-	"male": "🦔",
-	"female": "🦔️"
-  },
+  "emoteMale": "🦔",
+  "emoteFemale": "🦔️",
   "rarity": 2
 }

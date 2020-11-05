@@ -9,9 +9,7 @@
       "femaleName": "Panda"
     }
   },
-  "emote": {
-	"male": "🐼",
-	"female": "🐼"
-  },
+  "emoteMale": "🐼",
+  "emoteFemale": "🐼",
   "rarity": 3
 }

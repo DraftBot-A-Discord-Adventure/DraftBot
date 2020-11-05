@@ -9,9 +9,7 @@
       "femaleName": "Crocodile"
     }
   },
-  "emote": {
-	"male": "🐊",
-	"female": "🐊"
-  },
+  "emoteMale": "🐊",
+  "emoteFemale": "🐊",
   "rarity": 3
 }

@@ -9,9 +9,7 @@
       "femaleName": "Dragon"
     }
   },
-  "emote": {
-	"male": "🐉️",
-	"female": "🐉️"
-  },
+  "emoteMale": "🐉️",
+  "emoteFemale": "🐉️",
   "rarity": 5
 }

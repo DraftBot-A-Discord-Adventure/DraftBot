@@ -9,9 +9,7 @@
       "femaleName": "Lizard"
     }
   },
-  "emote": {
-	"male": "🦎",
-	"female": "🦎"
-  },
+  "emoteMale": "🦎",
+  "emoteFemale": "🦎",
   "rarity": 1
 }

@@ -9,9 +9,7 @@
       "femaleName": "T-Rex"
     }
   },
-  "emote": {
-	"male": "🦖️",
-	"female": "🦖️"
-  },
+  "emoteMale": "🦖️",
+  "emoteFemale": "🦖️",
   "rarity": 5
 }

@@ -9,9 +9,7 @@
       "femaleName": "Tigress"
     }
   },
-  "emote": {
-	"male": "🐅",
-	"female": "🐅"
-  },
+  "emoteMale": "🐅",
+  "emoteFemale": "🐅",
   "rarity": 4
 }

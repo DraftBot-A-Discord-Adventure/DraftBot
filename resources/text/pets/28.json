@@ -9,9 +9,7 @@
       "femaleName": "Wolf"
     }
   },
-  "emote": {
-	"male": "🐺",
-	"female": "🐺"
-  },
+  "emoteMale": "🐺",
+  "emoteFemale": "🐺",
   "rarity": 2
 }

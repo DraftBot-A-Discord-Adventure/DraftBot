@@ -9,9 +9,7 @@
       "femaleName": "Turkey"
     }
   },
-  "emote": {
-	"male": "🦃",
-	"female": "🦃"
-  },
+  "emoteMale": "🦃",
+  "emoteFemale": "🦃",
   "rarity": 1
 }

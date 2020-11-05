@@ -9,9 +9,7 @@
       "femaleName": "Bear"
     }
   },
-  "emote": {
-	"male": "🐻",
-	"female": "🐻"
-  },
+  "emoteMale": "🐻",
+  "emoteFemale": "🐻",
   "rarity": 2
 }
