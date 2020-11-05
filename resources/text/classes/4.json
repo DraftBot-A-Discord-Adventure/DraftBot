@@ -7,7 +7,7 @@
 	"attack": 15,
 	"defense": 25,
 	"speed": 1,
-	"health": 100,
+	"health": 80,
 	"fightPoint": 150,
 	"price": 300,
 	"classgroup": 0

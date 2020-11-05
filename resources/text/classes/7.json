@@ -6,8 +6,8 @@
 	"emoji": "🛡️",
 	"attack": 40,
 	"defense": 70,
-	"speed": 0,
-	"health": 300,
+	"speed": 10,
+	"health": 200,
 	"fightPoint": 500,
 	"price": 14100,
 	"classgroup": 3
