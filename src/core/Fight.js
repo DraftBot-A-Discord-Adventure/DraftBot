@@ -601,7 +601,7 @@ class Fight {
           await this.nextTurn();
           return;
         }
-        if ((defender.speed < attacker.speed * 0.8 && success <= 0.1) || (defender.speed > attacker.speed * 0.8 && success < 0.5)) {
+        if (success <= 0.1 || (attacker.power < attacker.maxPower * 0.5 && success <= 0.6) || (attacker.power < attacker.maxPower * 0.3)) {
           far.damage = Math.round(2.0 * defender.power / 3.0);
           far.fullSuccess = true;
         } else {
