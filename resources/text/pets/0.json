@@ -9,9 +9,7 @@
       "femaleName": "No pet"
     }
   },
-  "emote": {
-	"male": "❌",
-	"female": "❌"
-  },
+  "emoteMale": "❌",
+  "emoteFemale": "❌",
   "rarity": 0
 }

@@ -1,4 +1,5 @@
 {
+  "defaultPetId": 0,
   "slots": 2,
   "maleEmote": "♂️",
   "femaleEmote": "♀️",

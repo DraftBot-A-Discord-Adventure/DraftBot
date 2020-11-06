@@ -190,6 +190,17 @@ class Database {
       foreignKey: 'event_id',
       as: 'Event',
     });
+
+    PlayerPets.hasOne(Players, {
+      sourceKey: 'player_id',
+      foreignKey: 'id',
+      as: 'PetPlayer',
+    });
+    PlayerPets.hasOne(Pets, {
+      sourceKey: 'pet_id',
+      foreignKey: 'id',
+      as: 'Pet',
+    });
   }
 
   /**
