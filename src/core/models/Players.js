@@ -66,6 +66,9 @@ module.exports = (Sequelize, DataTypes) => {
     },
     nextEvent: {
       type: DataTypes.INTEGER,
+    },
+    pet_id: {
+      type: DataTypes.INTEGER
     }
   }, {
     tableName: 'players',

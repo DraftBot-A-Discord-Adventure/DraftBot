@@ -113,22 +113,19 @@ const ProfileCommand = async function (language, message, args) {
   } catch (error) { }
 
   try {
-    const playerPets = await PlayerPets.getPlayerPets(entity.Player.id);
-    for (const pet of playerPets) {
-      if (pet.slot === 0) {
-        fields.push({
-          name: JsonReader.commands.profile.getTranslation(language).pet.fieldName,
-          value: format(JsonReader.commands.profile.getTranslation(language).pet.fieldValue, {
-            rarity: JsonReader.models.pets.rarityEmote.repeat(pet.Pet.rarity),
-            emote: pet.Pet["emote" + (pet.sex === 'm' ? 'Male' : 'Female')],
-            nickname: pet.nickname ? pet.nickname : pet.Pet[(pet.sex === 'm' ? 'male' : 'female') + "Name_" + language]
-          }),
-          inline: false
-        });
-        break;
-      }
+    const pet = entity.Player.Pet;
+    if (pet) {
+      fields.push({
+        name: JsonReader.commands.profile.getTranslation(language).pet.fieldName,
+        value: format(JsonReader.commands.profile.getTranslation(language).pet.fieldValue, {
+          rarity: JsonReader.models.pets.rarityEmote.repeat(pet.Pet.rarity),
+          emote: pet.Pet["emote" + (pet.sex === 'm' ? 'Male' : 'Female')],
+          nickname: pet.nickname ? pet.nickname : pet.Pet[(pet.sex === 'm' ? 'male' : 'female') + "Name_" + language]
+        }),
+        inline: false
+      });
     }
-  } catch (error) { }
+  } catch (error) { console.log(error); }
 
   const msg = await message.channel.send(
     new discord.MessageEmbed()

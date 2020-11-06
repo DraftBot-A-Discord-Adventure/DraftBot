@@ -140,6 +140,11 @@ class Database {
       foreignKey: 'player_id',
       as: 'Inventory',
     });
+    Players.hasOne(PetEntities, {
+      foreignKey: 'id',
+      sourceKey: 'pet_id',
+      as: 'Pet',
+    });
 
     Guilds.hasMany(Players, {
       foreignKey: 'guild_id',
@@ -191,16 +196,11 @@ class Database {
       as: 'Event',
     });
 
-    PlayerPets.hasOne(Players, {
-      sourceKey: 'player_id',
+    PetEntities.hasOne(Pets, {
       foreignKey: 'id',
-      as: 'PetPlayer',
-    });
-    PlayerPets.hasOne(Pets, {
       sourceKey: 'pet_id',
-      foreignKey: 'id',
       as: 'Pet',
-    });
+    })
   }
 
   /**

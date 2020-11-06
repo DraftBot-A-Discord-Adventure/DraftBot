@@ -339,6 +339,19 @@ const TestCommand = async(language, message, args) => {
                 guild.chief_id = author.Player.id;
                 await guild.save();
                 break;
+            case 'pet':
+                if (args.length === 3) {
+                    const pet = PetEntities.createPet(parseInt(args[1]), args[2], null);
+                    if (author.Player.Pet) {
+                        await author.Player.Pet.destroy();
+                    }
+                    await pet.save();
+                    author.Player.pet_id = pet.id;
+                    await author.Player.save();
+                    break;
+                }
+                await message.channel.send('Correct usage: test pet <id> <sex = m/f>');
+                return;
             default:
                 await message.channel.send('Argument inconnu !');
                 return;

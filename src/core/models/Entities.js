@@ -79,6 +79,16 @@ module.exports = (Sequelize, DataTypes) => {
             {
               model: Inventories,
               as: 'Inventory',
+            },
+            {
+              model: PetEntities,
+              as: 'Pet',
+              include: [
+                {
+                  model: Pets,
+                  as: 'Pet'
+                }
+              ]
             }],
         }],
     });
@@ -101,6 +111,16 @@ module.exports = (Sequelize, DataTypes) => {
             {
               model: Inventories,
               as: 'Inventory',
+            },
+            {
+              model: PetEntities,
+              as: 'Pet',
+              include: [
+                {
+                  model: Pets,
+                  as: 'Pet'
+                }
+              ]
             }],
         }],
       order: [
@@ -127,6 +147,16 @@ module.exports = (Sequelize, DataTypes) => {
             {
               model: Inventories,
               as: 'Inventory',
+            },
+            {
+              model: PetEntities,
+              as: 'Pet',
+              include: [
+                {
+                  model: Pets,
+                  as: 'Pet'
+                }
+              ]
             }],
         }],
     });
@@ -149,6 +179,16 @@ module.exports = (Sequelize, DataTypes) => {
             {
               model: Inventories,
               as: 'Inventory',
+            },
+            {
+              model: PetEntities,
+              as: 'Pet',
+              include: [
+                {
+                  model: Pets,
+                  as: 'Pet'
+                }
+              ]
             }],
         }],
     });

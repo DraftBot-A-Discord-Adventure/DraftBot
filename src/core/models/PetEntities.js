@@ -7,17 +7,11 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-    const PlayerPets = Sequelize.define('PlayerPets', {
+    const PetEntities = Sequelize.define('PetEntities', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
-        },
-        slot: {
-            type: DataTypes.INTEGER,
-        },
-        player_id: {
-            type: DataTypes.INTEGER,
         },
         pet_id: {
             type: DataTypes.INTEGER,
@@ -37,11 +31,11 @@ module.exports = (Sequelize, DataTypes) => {
             defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
         },
     }, {
-        tableName: 'player_pets',
+        tableName: 'pet_entities',
         freezeTableName: true,
     });
 
-    PlayerPets.beforeSave((instance) => {
+    PetEntities.beforeSave((instance) => {
         instance.setDataValue('updatedAt',
             require('moment')().format('YYYY-MM-DD HH:mm:ss'));
     });
@@ -49,8 +43,8 @@ module.exports = (Sequelize, DataTypes) => {
     /**
      * @param {Number} id
      */
-    PlayerPets.getById = (id) => {
-        return PlayerPets.findOne({
+    PetEntities.getById = (id) => {
+        return PetEntities.findOne({
             where: {
                 id: id,
             },
@@ -58,25 +52,18 @@ module.exports = (Sequelize, DataTypes) => {
     };
 
     /**
-     * @param {Number} player_id
+     * @param {Number} pet_id
+     * @param {'m'|'f'} sex
+     * @param {String|string} nickname
+     * @returns {Promise<PetEntities>}
      */
-    PlayerPets.getPlayerPets = (player_id) => {
-        return PlayerPets.findAll({
-            where: {
-                player_id: player_id,
-            },
-            include: [
-                {
-                    model: Players,
-                    as: 'PetPlayer'
-                },
-                {
-                    model: Pets,
-                    as: 'Pet'
-                }
-            ]
+    PetEntities.createPet = (pet_id, sex, nickname) => {
+        return PetEntities.build({
+           pet_id: pet_id,
+           sex: sex,
+           nickname: nickname
         });
-    };
+    }
 
-    return PlayerPets;
+    return PetEntities;
 };
