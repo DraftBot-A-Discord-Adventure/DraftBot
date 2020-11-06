@@ -4,7 +4,7 @@
 		"en": ":boxing_glove: Gloved"
 	},
 	"emoji": "🥊",
-	"attack": 15,
+	"attack": 10,
 	"defense": 25,
 	"speed": 1,
 	"health": 80,

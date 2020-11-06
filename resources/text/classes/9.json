@@ -4,7 +4,7 @@
 		"en": ":mechanical_arm: Slinger"
 	},
 	"emoji": "🦾",
-	"attack": 60,
+	"attack": 65,
 	"defense": 10,
 	"speed": 60,
 	"health": 40,

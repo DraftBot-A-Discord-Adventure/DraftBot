@@ -4,10 +4,10 @@
 		"en": ":shield: Tank"
 	},
 	"emoji": "🛡️",
-	"attack": 40,
+	"attack": 30,
 	"defense": 70,
 	"speed": 10,
-	"health": 200,
+	"health": 160,
 	"fightPoint": 500,
 	"price": 14100,
 	"classgroup": 3

@@ -4,7 +4,7 @@
 		"en": ":bow_and_arrow: Archer"
 	},
 	"emoji": "🏹",
-	"attack": 75,
+	"attack": 80,
 	"defense": 15,
 	"speed": 75,
 	"health": 55,
