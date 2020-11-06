@@ -227,9 +227,9 @@ module.exports = (Sequelize, DataTypes) => {
    */
   Entities.prototype.getCumulativeSpeed = async function (weapon, armor, potion, object) {
     const playerClass = await Classes.getById(this.Player.class);
-    const defenseItemValue = object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level) ? playerClass.getSpeedValue(this.Player.level) + object.getSpeed() / 2 : object.getSpeed();
+    const speedItemValue = object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level) ? playerClass.getSpeedValue(this.Player.level) + object.getSpeed() / 2 : object.getSpeed();
     const speed = playerClass.getSpeedValue(this.Player.level) + weapon.getSpeed() + armor.getSpeed() +
-      potion.getSpeed() + ;
+      potion.getSpeed() + speedItemValue;
     return (speed > 0) ? speed : 0;
   };
 
