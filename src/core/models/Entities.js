@@ -195,8 +195,9 @@ module.exports = (Sequelize, DataTypes) => {
    */
   Entities.prototype.getCumulativeAttack = async function (weapon, armor, potion, object) {
     const playerClass = await Classes.getById(this.Player.class);
-    const attack = playerClass.getAttackValue(this.Player.level) + weapon.getAttack() + armor.getAttack() +
-      potion.getAttack() + object.getAttack();
+    const attackItemValue = weapon.getAttack() + object.getAttack() / 2 > playerClass.getAttackValue(this.Player.level) ? playerClass.getAttackValue(this.Player.level) + object.getAttack() / 2 : weapon.getAttack() + object.getAttack();
+    const attack = playerClass.getAttackValue(this.Player.level) + attackItemValue + armor.getAttack() +
+      potion.getAttack();
     return (attack > 0) ? attack : 0;
   };
 
@@ -210,8 +211,9 @@ module.exports = (Sequelize, DataTypes) => {
    */
   Entities.prototype.getCumulativeDefense = async function (weapon, armor, potion, object) {
     const playerClass = await Classes.getById(this.Player.class);
-    const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + armor.getDefense() +
-      potion.getDefense() + object.getDefense();
+    const defenseItemValue = armor.getDefense() + object.getDefense() / 2 > playerClass.getDefenseValue(this.Player.level) ? playerClass.getDefenseValue(this.Player.level) + object.getDefense() / 2 : armor.getDefense() + object.getDefense();
+    const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + defenseItemValue +
+      potion.getDefense();
     return (defense > 0) ? defense : 0;
   };
 
@@ -225,8 +227,9 @@ module.exports = (Sequelize, DataTypes) => {
    */
   Entities.prototype.getCumulativeSpeed = async function (weapon, armor, potion, object) {
     const playerClass = await Classes.getById(this.Player.class);
+    const defenseItemValue = object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level) ? playerClass.getSpeedValue(this.Player.level) + object.getSpeed() / 2 : object.getSpeed();
     const speed = playerClass.getSpeedValue(this.Player.level) + weapon.getSpeed() + armor.getSpeed() +
-      potion.getSpeed() + object.getSpeed();
+      potion.getSpeed() + ;
     return (speed > 0) ? speed : 0;
   };
 
