@@ -23,6 +23,7 @@ class Fighter {
     this.tournament = tournament;
     this.entity = entity;
     this.attacksList = {};
+    this.quickAttack = 0;
   }
 
   /**
@@ -549,8 +550,14 @@ class Fight {
         powerChanger = 0.1;
         if (defender.speed > attacker.speed && success < 0.3) {
           powerChanger = 0.7;
+          if (quickAttack > 2)
+            powerChanger -= attacker.quickAttack / 20;
+          attacker.quickAttack++;
         } else if (defender.speed < attacker.speed && success < 0.95) {
           powerChanger = 0.7;
+          if (quickAttack > 2)
+            powerChanger -= attacker.quickAttack / 20;
+          attacker.quickAttack++;
         }
         far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.1));
         far.fullSuccess = far.damage >= attacker.attack - defender.power;
