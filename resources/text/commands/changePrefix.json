@@ -1,9 +1,9 @@
 {
 	"translations": {
 		"fr": {
-			"descError": "Veuillez indiquer le prefix à utiliser : `{oldPrefix}prefix <New prefix>`",
-			"descOk": "Le serveur a désormais pour préfix : `{newPrefix}`",
-			"ok": "{pseudo}, préfix changé !"
+			"descError": "Veuillez indiquer le prefixe à utiliser : `{oldPrefix}prefix <Nouveau préfixe>`",
+			"descOk": "Le serveur a désormais pour préfixe : `{newPrefix}`",
+			"ok": "{pseudo}, préfixe changé !"
 		},
 		"en": {
 			"descError": "Please indicate the new prefix: `{oldPrefix}prefix <New prefix>`",
