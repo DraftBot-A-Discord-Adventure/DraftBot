@@ -6,7 +6,7 @@
 	"emoji": "🔫",
 	"attack": 90,
 	"defense": 20,
-	"speed": 80,
+	"speed": 100,
 	"health": 70,
 	"fightPoint": 50,
 	"price": 13100,

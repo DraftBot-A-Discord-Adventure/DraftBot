@@ -4,7 +4,7 @@
 		"en": ":shield: Tank"
 	},
 	"emoji": "🛡️",
-	"attack": 30,
+	"attack": 45,
 	"defense": 85,
 	"speed": 10,
 	"health": 160,
