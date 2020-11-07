@@ -1,17 +1,19 @@
 {
   "defaultPetId": 0,
-  "slots": 2,
+  "slots": 6,
   "maleEmote": "♂️",
   "femaleEmote": "♀️",
   "rarityEmote": "⭐",
   "translations": {
     "fr": {
       "female": "Femelle",
-      "male": "Mâle"
+      "male": "Mâle",
+      "noNickname": "Aucun surnom"
     },
     "en": {
       "female": "Female",
-      "male": "Male"
+      "male": "Male",
+      "noNickname": "No nickname"
     }
   }
 }

@@ -86,7 +86,7 @@ module.exports = (Sequelize, DataTypes) => {
               include: [
                 {
                   model: Pets,
-                  as: 'Pet'
+                  as: 'PetModel'
                 }
               ]
             }],
@@ -118,7 +118,7 @@ module.exports = (Sequelize, DataTypes) => {
               include: [
                 {
                   model: Pets,
-                  as: 'Pet'
+                  as: 'PetModel'
                 }
               ]
             }],
@@ -154,7 +154,7 @@ module.exports = (Sequelize, DataTypes) => {
               include: [
                 {
                   model: Pets,
-                  as: 'Pet'
+                  as: 'PetModel'
                 }
               ]
             }],
@@ -186,7 +186,7 @@ module.exports = (Sequelize, DataTypes) => {
               include: [
                 {
                   model: Pets,
-                  as: 'Pet'
+                  as: 'PetModel'
                 }
               ]
             }],

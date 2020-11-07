@@ -1,0 +1,12 @@
+{
+  "translations": {
+    "fr": {
+      "embedTitle": "Votre animal",
+      "noPet": "Vous n'avez aucun animal !"
+    },
+    "en": {
+      "embedTitle": "Your pet",
+      "noPet": "You don't have a pet !"
+    }
+  }
+}

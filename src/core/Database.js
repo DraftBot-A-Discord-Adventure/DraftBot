@@ -155,6 +155,15 @@ class Database {
       sourceKey: 'chief_id',
       as: 'Chief',
     });
+    Guilds.hasMany(GuildPets, {
+      foreignKey: 'guild_id',
+      as: 'GuildPets',
+    });
+    GuildPets.hasOne(PetEntities, {
+      foreignKey: 'id',
+      sourceKey: 'pet_entity_id',
+      as: 'PetEntity',
+    });
 
     Inventories.belongsTo(Players, {
       foreignKey: 'player_id',
@@ -199,7 +208,7 @@ class Database {
     PetEntities.hasOne(Pets, {
       foreignKey: 'id',
       sourceKey: 'pet_id',
-      as: 'Pet',
+      as: 'PetModel',
     })
   }
 

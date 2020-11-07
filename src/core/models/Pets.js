@@ -63,5 +63,12 @@ module.exports = (Sequelize, DataTypes) => {
         });
     };
 
+    /**
+     * @returns {String|string}
+     */
+    Pets.getRarityDisplay = (pet) => {
+        return JsonReader.models.pets.rarityEmote.repeat(pet.rarity);
+    }
+
     return Pets;
 };
