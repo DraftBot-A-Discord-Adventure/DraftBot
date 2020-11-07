@@ -201,7 +201,7 @@
 			"playerCommands": ":bust_in_silhouette: Player :",
 			"guildCommands": ":stadium: Guild :",
 			"forMoreHelp": ":arrow_forward: For more help : ",
-			"forMoreHelpValue": "you can visit the bot's [wiki](https://guide.draftbot.com/v/en/) !\n\n:arrow_forward: Current prefix is : `{prefix}`",
+			"forMoreHelpValue": "You can visit the bot's [wiki](https://guide.draftbot.com/v/en/) !\n\n:arrow_forward: Current prefix is : `{prefix}`",
 			"commandEmbedTitle": "{emote} Command {cmd}",
 			"usageFieldTitle": "Usage",
 			"aliasFieldTitle": "Alias",
