@@ -52,7 +52,8 @@
 				"😂": ":joy:  `Badge offert à une personne drôle`",
 				"💎": ":gem:  `Membre d'une guilde puissante`",
 				"⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
-				"🗳️": ":ballot_box:  `Personne ayant voté dans les 12 dernières heures`"
+				"🗳️": ":ballot_box:  `Personne ayant voté dans les 12 dernières heures`",
+				"🔖": ":bookmark:  `Adopteur de classes de la première heure`"
 			}
 		},
 		"en": {
@@ -108,7 +109,8 @@
 				"😂": ":joy:  `Badge given to funny people`",
 				"💎": ":gem:  `Member of a powerful team`",
 				"⚔️": ":crossed_swords: `Tournament winner`",
-				"🗳️": ":ballot_box:  `Person who voted in the last 12 hours`"
+				"🗳️": ":ballot_box:  `Person who voted in the last 12 hours`",
+				"🔖": ":bookmark:  `Class early adopter`"
 			}
 		}
 	},
