@@ -556,7 +556,7 @@ class Fight {
         } else if (defender.speed < attacker.speed && success < 0.95) {
           powerChanger = 0.7;
           if (attacker.quickAttack > 1)
-            powerChanger -= attacker.quickAttack / 15;
+            powerChanger -= attacker.quickAttack / 11;
           attacker.quickAttack++;
         }
         far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.1));
@@ -579,9 +579,9 @@ class Fight {
 
       case FIGHT.ACTION.POWERFUL_ATTACK:
         powerChanger = 0.0;
-        if ((defender.speed > attacker.speed && success <= 0.4) || (defender.speed < attacker.speed && success < 0.7)) {
+        if ((defender.speed > attacker.speed && success <= 0.2) || (defender.speed < attacker.speed && success < 0.7)) {
           powerChanger = 2.15;
-        } else if ((defender.speed > attacker.speed && success <= 0.7) || (defender.speed < attacker.speed && success < 0.9)) {
+        } else if ((defender.speed > attacker.speed && success <= 0.5) || (defender.speed < attacker.speed && success < 0.9)) {
           powerChanger = 1.4;
         }
         if (powerChanger > 1) {
@@ -589,7 +589,7 @@ class Fight {
         } else {
           attacker.speed = Math.round(attacker.speed * 0.9);
         }
-        far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.2));
+        far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.5));
         if (far.damage < 0)
           far.damage = 0;
         if (powerChanger > 1)
@@ -612,13 +612,12 @@ class Fight {
             player: await attacker.entity.Player.getPseudo(this.language),
           }));
           attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 1);
-          attacker.defense = Math.round(attacker.defense * 0.75);
+          attacker.defense = Math.round(attacker.defense * 0.80);
           await this.nextTurn();
           return;
         }
         if ((success <= 0.1) || (attacker.power < attacker.initialPower * 0.5 && success <= 0.8) || (attacker.power < attacker.initialPower * 0.25)) {
           far.damage = Math.round(defender.initialPower * 0.6);
-          attacker.speed = 0;
           far.fullSuccess = true;
         } else {
           far.damage = 0;
