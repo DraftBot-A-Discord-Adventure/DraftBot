@@ -275,6 +275,16 @@ module.exports = (Sequelize, DataTypes) => {
       bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classUnlocked);
     }
 
+    if (this.level === CLASS.GROUP1LEVEL) {
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classTiertwo);
+    }
+    if (this.level === CLASS.GROUP2LEVEL) {
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classTierthree);
+    }
+    if (this.level === CLASS.GROUP3LEVEL) {
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classTierfour);
+    }
+
     bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.noBonuses);
 
     this.experience -= xpNeeded;
