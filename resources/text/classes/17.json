@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":trident: Vétéran",
+		"en": ":trident: Veteran"
+	},
+	"emoji": "🔱",
+	"attack": 80,
+	"defense": 85,
+	"speed": 75,
+	"health": 10,
+	"fightPoint": 0,
+	"price": 17900,
+	"classgroup": 3
+}
