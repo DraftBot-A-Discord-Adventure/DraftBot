@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":boxing_glove: Ganté",
+		"en": ":boxing_glove: Gloved"
+	},
+	"emoji": "🥊",
+	"attack": 15,
+	"defense": 35,
+	"speed": 1,
+	"health": 80,
+	"fightPoint": 150,
+	"price": 300,
+	"classgroup": 0
+}

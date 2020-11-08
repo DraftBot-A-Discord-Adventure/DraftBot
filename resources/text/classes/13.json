@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":horse_racing: Cavalier",
+		"en": ":horse_racing: Horse rider"
+	},
+	"emoji": "🏇",
+	"attack": 50,
+	"defense": 50,
+	"speed": 40,
+	"health": 65,
+	"fightPoint": 60,
+	"price": 3600,
+	"classgroup": 1
+}

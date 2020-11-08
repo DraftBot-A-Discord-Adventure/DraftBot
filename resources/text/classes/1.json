@@ -1,14 +1,14 @@
 {
 	"translations": {
-		"fr": ":bow_and_arrow: Archer",
-		"en": ":bow_and_arrow: Archer"
+		"fr": ":axe: Combattant",
+		"en": ":axe: Fighter"
 	},
-	"emoji": "🏹",
-	"attack": 60,
-	"defense": 10,
-	"speed": 60,
-	"health": 40,
-	"fightPoint": 10,
-	"price": 3500,
-	"classgroup": 2
+	"emoji": "🪓",
+	"attack": 50,
+	"defense": 40,
+	"speed": 20,
+	"health": 75,
+	"fightPoint": 70,
+	"price": 1600,
+	"classgroup": 1
 }

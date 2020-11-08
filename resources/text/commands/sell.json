@@ -17,7 +17,7 @@
 			"sellCanceled": "The transaction was canceled!",
 			"sellTitle": "{pseudo}, confirmation:",
 			"soldMessageTitle": "{pseudo}, you sold an item.",
-			"soldMessage": "You sold {item} for **{money}** :moneybag:.",
+			"soldMessage": "You sold {item} for **{money}** :moneybag:",
 			"potionDestroyedTitle": "You destroyed a potion.",
 			"potionDestroyedMessage": "{item} is now gone forever.",
 			"soldMessageAlreadyOwnTitle": "{pseudo}, you received an item that you already own."

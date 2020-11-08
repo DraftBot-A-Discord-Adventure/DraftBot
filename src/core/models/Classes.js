@@ -32,10 +32,10 @@ module.exports = (Sequelize, DataTypes) => {
       type: DataTypes.TEXT,
     },
     classgroup: {
-      type: DataTypes.TEXT,
+      type: DataTypes.INTEGER,
     },
     price: {
-      type: DataTypes.TEXT,
+      type: DataTypes.INTEGER,
     },
     fr: {
       type: DataTypes.TEXT,
@@ -81,7 +81,16 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-   * @param {("fr"|"en")} language - The language the class has to be displayed in
+   * @param {("fr"|"en")} language - The language the class name has to be displayed in
+   * @return {String}
+   */
+  Classes.prototype.getName = function (language) {
+    return this[language];
+  };
+
+
+  /**
+   * @param {("fr"|"en")} language - The language the class description has to be displayed in
    * @return {String}
    */
   Classes.prototype.getDescription = function (language) {
@@ -135,6 +144,29 @@ module.exports = (Sequelize, DataTypes) => {
     return Classes.findOne({
       where: {
         id: id,
+      },
+    });
+  };
+
+
+  /**
+   * @param {Number} groupId
+   */
+  Classes.getByGroupId = (groupId) => {
+    return Classes.findAll({
+      where: {
+        classgroup: groupId,
+      },
+    });
+  };
+
+  /**
+   * @param {Text} emoji
+   */
+  Classes.getByEmojy = (emoji) => {
+    return Classes.findOne({
+      where: {
+        emoji: emoji,
       },
     });
   };
