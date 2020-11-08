@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":axe: Combattant",
+		"en": ":axe: Fighter"
+	},
+	"emoji": "🪓",
+	"attack": 50,
+	"defense": 40,
+	"speed": 20,
+	"health": 75,
+	"fightPoint": 70,
+	"price": 1600,
+	"classgroup": 1
+}

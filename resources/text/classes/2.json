@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":dagger: Soldat",
+		"en": ":dagger: Soldier"
+	},
+	"emoji": "🗡️",
+	"attack": 65,
+	"defense": 50,
+	"speed": 30,
+	"health": 90,
+	"fightPoint": 145,
+	"price": 4500,
+	"classgroup": 2
+}

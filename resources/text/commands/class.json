@@ -1,0 +1,78 @@
+{
+	"translations": {
+		"fr": {
+			"description": {
+				"0": "Une classe simple et économique. Plutot équilibrée.",
+				"1": "Une classe simple et économique. Plutot équilibrée.",
+				"2": "Une classe simple et économique. Plutot équilibrée.",
+				"3": "Une classe simple et économique. Plutot équilibrée.",
+				"4": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
+				"5": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
+				"6": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
+				"7": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
+				"8": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+				"9": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+				"10": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+				"11": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+				"12": "Une classe puissante mais équilibrée. Plutôt cher à l'achat, mais très polyvalente.",
+				"13": "Une classe puissante mais équilibrée. Plutôt cher à l'achat, mais très polyvalente.",
+				"14": "Une classe puissante mais équilibrée. Plutôt cher à l'achat, mais très polyvalente.",
+				"15": "Une classe puissante mais équilibrée. Plutôt cher à l'achat, mais très polyvalente.",
+				"16": "Une classe unique au tier 4. Axée sur la défense sans bonus de points de vie mais avec une attaque plus importante que celle d'un tank.",
+				"17": "Une classe unique au tier 4. Disposant de très bonnes stats mais avec un malus important sur les points de vie."
+			},
+			"title": ":bookmark:  **Changer de classe :**",
+			"desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
+			"display": "{name}\n\n:scroll: `{description}`\n\nSouhaitez vous dépenser `{price} 💰` pour prendre cette classe ?",
+			"success": "{pseudo}, votre classe a été modifiée !",
+			"newClass": "Votre nouvelle classe est : ",
+			"confirm": "{pseudo}, Vous avez sélectionné la classe suivante :",
+			"moneyQuantity": "{money} 💰",
+			"moneyQuantityTitle": "Votre argent :",
+			"classMainDisplay": "{description}\nPrix : `{price} 💰`.",
+			"error": {
+				"cannotBuy": "Vous n'avez pas assez d'argent pour changer de classe ! Il vous manque `{missingMoney} 💰`.",
+				"canceledPurchase": "Changement de classe annulé.",
+				"sameClass": "Vous appartenez déjà à cette classe.",
+				"leaveClass": "Vous n'avez pas changé de classe."
+			}
+		},
+		"en": {
+			"description": {
+				"0": "A simple and economical class. Mostly balanced.",
+				"1": "A simple and economical class. Mostly balanced.",
+				"2": "A simple and economical class. Mostly balanced.",
+				"3": "A simple and economical class. Mostly balanced.",
+				"4": "A class focused on defense. Low fight performances, but extra health points for the adventure.",
+				"5": "A class focused on defense. Low fight performances, but extra health points for the adventure.",
+				"6": "A class focused on defense. Low fight performances, but bextra health points for the adventure.",
+				"7": "A class focused on defense. Low fight performances, but extra health points for the adventure.",
+				"8": "A class focused on speed. Less health points and energy, but an increased speed and attack.",
+				"9": "A class focused on speed. Less health points and energy, but an increased speed and attack.",
+				"10": "A class focused on speed. Less health points and energy, but an increased speed and attack.",
+				"11": "A class focused on speed. Less health points and energy, but an increased speed and attack.",
+				"12": "A powerful and balanced class. Expensive, but pretty versatile.",
+				"13": "A powerful and balanced class. Expensive, but pretty versatile.",
+				"14": "A powerful and balanced class. Expensive, but pretty versatile.",
+				"15": "A powerful and balanced class. Expensive, but pretty versatile.",
+				"16": "A 4th tier unique class. Focused on defense, without any huge health point bonus, but with an attack more important than the one of a tank.",
+				"17": "A 4th tier unique class. It has really good stats, but a huge malus of health points."
+			},
+			"title": ":bookmark:  **Change your class :**",
+			"desc": "Choose a class in the list below for more information",
+			"display": "{name}\n\n:scroll: `{description}`\n\nWould you like to spend `{price} 💰` to choose this class?",
+			"success": "{pseudo}, your class has been changed !",
+			"newClass": "Your new class is : ",
+			"confirm": "{pseudo}, you have chosen the following class:",
+			"moneyQuantity": "{money} 💰",
+			"moneyQuantityTitle": "Your money:",
+			"classMainDisplay": "{description}\nPrice: `{price} 💰`.",
+			"error": {
+				"cannotBuy": "You don't have enough money to change your class ! You are missing `{missingMoney} 💰`.",
+				"canceledPurchase": "Class change canceled.",
+				"sameClass": "You already joined this class.",
+				"leaveClass": "You didn't change your class."
+			}
+		}
+	}
+}

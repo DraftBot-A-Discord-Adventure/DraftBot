@@ -77,15 +77,24 @@ global.GUILD = {
 };
 
 global.CLASS = {
-  REQUIRED_LEVEL: 16,
-  PRICE: 5000
+  REQUIRED_LEVEL: 4,
+  PRICE: 5000,
+  GROUP1LEVEL: 16,
+  GROUP2LEVEL: 32,
+  GROUP3LEVEL: 48
 };
 
+global.CATEGORY = {
+  SERVER: "server",
+  UTIL: "util",
+  PLAYER: "player",
+  GUILD: "guild",
+};
 global.MENU_REACTION = {
-  ACCEPT: '✅',
-  DENY: '❌',
+  ACCEPT: "✅",
+  DENY: "❌",
   FRENCH_FLAG: "🇫🇷",
-  ENGLISH_FLAG: '🇬🇧'
+  ENGLISH_FLAG: "🇬🇧",
 };
 
 global.PROGRESSBARS_SIZE = 20;
@@ -103,7 +112,7 @@ global.FIGHT = {
     POWERFUL_ATTACK: 2,
     IMPROVE_DEFENSE: 3,
     IMPROVE_SPEED: 4,
-    ULTIMATE_ATTACK: 5
+    ULTIMATE_ATTACK: 5,
   },
 };
 
@@ -113,11 +122,12 @@ global.SHOP = {
   HEART: "💗",
   MONEY_MOUTH: "🤑",
   STAR: "⭐",
-  POTION_REPLACEMENT: "🍷"
+  POTION_REPLACEMENT: "🍷",
 };
 
 global.TOPGG = {
   BADGE: "🗳️",
   BADGE_DURATION: 12,
   ROLE_DURATION: 24,
+  DBL_SERVER_COUNT_UPDATE_TIME: 1800000,
 };

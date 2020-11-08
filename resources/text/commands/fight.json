@@ -1,0 +1,264 @@
+{
+	"translations": {
+		"fr": {
+			"wantsToFightAnyone": ":crossed_swords: | {player} souhaite lancer un combat{friendly} ! Pour y participer, cliquez sur la réaction ci-dessous !",
+			"wantsToFightSomeone": ":crossed_swords: | {player} défie {opponent} en duel{friendly} ! Pour accepter ou non, cliquez sur la réaction ci-dessous !",
+			"friendly": " **amical**",
+			"intro": ":crossed_swords: | **Un combat est lancé entre {player1} et {player2} !**",
+			"turnIndicationsTitle": "C'est au tour de {pseudo} de jouer ⚔️",
+			"turnIndicationsDescription": "Choisissez une action",
+			"statsOfPlayer": "Statistiques de **{pseudo}**: ",
+			"summarize": {
+				"title": "Résumé du combat",
+				"intro": ":crossed_swords: | **Etat actuel du combat**\n\n",
+				"attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
+				"defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
+				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+			},
+			"end": {
+				"draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**\n\n",
+				"win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n",
+				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours**: {turn}/{maxTurn}\n- **Temps de combat**: {time}",
+				"elo": "\n- **Elo de la partie**: `{elo}`\n- **Points gagnés/perdus**: `{points}`",
+				"fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {pseudo}\n- **Vie finale**: {health}/{maxHealth} :zap:",
+				"attacksField": "\n- **Attaques**:",
+				"attackStats": "\n      - {emote} {success}/{total} réussie(s), {damage} de dégâts en moyenne"
+			},
+			"error": {
+				"spamCanceled": "Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",
+				"noOneAvailable": "Malheureusement, personne ne semble disponible pour combattre sur ce serveur. Votre demande de combat a été annulée.",
+				"opponentNotAvailable": "Malheureusement, cette personne ne semble pas disponible pour le moment. Votre demande de combat a été annulée.",
+				"fightHimself": "Il est impossible de se combattre soi-même ! Trouvez un autre adversaire.",
+				"canceled": ":x: | Votre demande de combat a bien été annulée.",
+				"onlyInitiator": " {pseudo}, seul l'initiateur d'un combat peut l'annuler !",
+				"levelTooLow": {
+					"direct": "{pseudo}, vous devez être **LVL {level}** pour accéder aux combats ! Revenez plus tard !",
+					"indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
+				},
+				"cantFightStatus": {
+					"direct": "{pseudo}, vous n'être pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
+					"indirect": "Cette personne ne semble pas en état de combattre pour le moment !"
+				},
+				"occupied": {
+					"direct": "{pseudo}, vous ne pouvez pas lancer de combat lorsque vous êtes occupé !",
+					"indirect": "Cette personne est occupée pour le moment !"
+				},
+				"noFightPoints": {
+					"direct": "{pseudo}, vous n'avez plus d'énergie !",
+					"indirect": "Cette personne n'a plus d'énergie !"
+				},
+				"defenderDoesntExist": "La personne demandée n'existe pas !"
+			},
+			"actions": {
+				"intro": "{emote} | **{player}** ",
+				"charging": "charge une attaque... `Défense réduite de -20 %`",
+				"chargingEmote": ":zap:",
+				"attacks": {
+					"quick": {
+						"name": "attaque rapide",
+						"emote": ":dagger:",
+						"end": {
+							"succeed": "",
+							"notGood": "",
+							"failed": ""
+						}
+					},
+					"simple": {
+						"name": "attaque simple",
+						"emote": ":crossed_swords:",
+						"end": {
+							"succeed": "",
+							"notGood": "",
+							"failed": ""
+						}
+					},
+					"powerful": {
+						"name": "attaque puissante",
+						"emote": ":axe:",
+						"end": {
+							"succeed": " `Vitesse réduite de 25 %`",
+							"notGood": " `Vitesse réduite de 25 %`",
+							"failed": " `Vitesse réduite de 10 %`"
+						}
+					},
+					"ultimate": {
+						"name": "attaque ultime",
+						"emote": ":bomb:",
+						"end": {
+							"succeed": "",
+							"notGood": "",
+							"failed": ""
+						}
+					}
+				},
+				"attacksResults": {
+					"succeed": [
+						"effectue une {attack} ! Parfaitement réalisée !",
+						"effectue une {attack} ! Elle est magnifique !",
+						"effectue une superbe {attack} ! Parfaitement réalisée !",
+						"effectue une {attack} ! Incroyablement réussie !",
+						"effectue une {attack} ! C'était risqué mais ça passe !",
+						"lance une bonne {attack} !",
+						"utilise une {attack} ! Magistrale !",
+						"choisit une {attack} !  Très bonne initiative"
+					],
+					"notGood": [
+						"effectue une {attack} ! Ça fonctionne mais c'était pas incroyable.",
+						"effectue une {attack} ! Mouais...",
+						"effectue une {attack} vraiment moyenne ! Pas ouf !",
+						"effectue une {attack} ! Ça n'est pas très efficace...",
+						"effectue une {attack} ! C'est pas très réussi.",
+						"lance une {attack} ! Médiocre",
+						"utilise une {attack} ! Faiblarde !",
+						"choisit une {attack} !  Le résultat est assez pitoyable."
+					],
+					"failed": [
+						"effectue une {attack} ! C'est raté !",
+						"effectue une {attack} ! L'attaque échoue lamentablement !",
+						"effectue une mauvaise {attack} ! Un manque cruel de technique pour le joueur français !",
+						"effectue une {attack} ! Quelle erreur !",
+						"effectue une {attack} ! C'était risqué et ça n'est pas passé !",
+						"lance une mauvaise {attack} !",
+						"utilise une {attack} ! Un choix peu judicieux !",
+						"choisit une {attack} !  Mauvaise initiative"
+					]
+				},
+				"defense": "renforce sa défense ! `Défense + {defense}`",
+				"defenseEmote": ":shield:",
+				"speed": "augmente sa vitesse ! `Vitesse + {speed}`",
+				"speedEmote": ":rocket:",
+				"damages": " `Dégâts infligés: {damages}`"
+			}
+		},
+		"en": {
+			"wantsToFightAnyone": ":crossed_swords: | {player} wants to {friendly}fight! To duel them, click the emote below!",
+			"wantsToFightSomeone": ":crossed_swords: | {player} {friendly}challenges {opponent}! To accept or not, click the emote below!",
+			"friendly": "**friendly** ",
+			"intro": ":crossed_swords: | **A fight has begun between {player1} and {player2}!**",
+			"turnIndicationsTitle": "It's {pseudo} 's turn to play ⚔️",
+			"turnIndicationsDescription": "Choose an action",
+			"statsOfPlayer": "Stats of **{pseudo}**: ",
+			"summarize": {
+				"title": "Fight summary",
+				"intro": ":crossed_swords: | **Current battle state**\n\n",
+				"attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
+				"defender": ":crossed_swords: |** Defender : {pseudo}**\n",
+				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+			},
+			"end": {
+				"draw": ":newspaper: |** {player1} finished their match against {player2} on a draw!**\n\n",
+				"win": ":newspaper: |** {winner} wins the match against {loser}**\n\n",
+				"gameStats": ":bar_chart: | Fight stats\n- **Turns**: {turn}/{maxTurn}\n- **Fight time**: {time}",
+				"elo": "\n- **Elo**: `{elo}`\n- **Points won/lost**: `{points}`",
+				"fighterStats": "\n\n:bust_in_silhouette: | Stats of {pseudo}\n- **Final health**: {health}/{maxHealth} :zap:",
+				"attacksField": "\n- **Attacks**:",
+				"attackStats": "\n      - {emote} {success}/{total} successful, average of {damage} damage"
+			},
+			"error": {
+				"spamCanceled": "Your fight has been cancelled. Thanks for not spamming reactions to ask for a fight.",
+				"noOneAvailable": "Sadly, no one wants to fight with you on this server. Your request has been cancelled.",
+				"opponentNotAvailable": "Sadly, this opponent is not available now. Your request has been cancelled.",
+				"fightHimself": "You can't fight yourself! Find another opponent.",
+				"canceled": ":x: | Your battle request has been canceled.",
+				"onlyInitiator": "Only the fight initiator can cancel it!",
+				"levelTooLow": {
+					"direct": "You must be **LVL {level}** to proceed to the fights! Come back later!",
+					"indirect": "Your opponent must be **LVL {level}** to proceed to the fights!"
+				},
+				"cantFightStatus": {
+					"direct": "You can't fight with your current state! Please wait for then end of your alteration state!",
+					"indirect": "It seems that this person is currently not able to fight!"
+				},
+				"occupied": {
+					"direct": "{pseudo}, you can't start a fight if you're occupied !",
+					"indirect": "This person is currently occupied !"
+				},
+				"noFightPoints": {
+					"direct": "{pseudo}, you don't have any energy !",
+					"indirect": "This person doesn't have any energy !"
+				},
+				"defenderDoesntExist": "Asked player doesn't exist!"
+			},
+			"actions": {
+				"intro": "{emote} | **{player}** ",
+				"charging": "charges an attack... `Defense reduced by 25 %`",
+				"chargingEmote": ":zap:",
+				"attacks": {
+					"quick": {
+						"name": "quick attack",
+						"emote": ":dagger:",
+						"end": {
+							"succeed": "",
+							"notGood": "",
+							"failed": ""
+						}
+					},
+					"simple": {
+						"name": "basic attack",
+						"emote": ":crossed_swords:",
+						"end": {
+							"succeed": "",
+							"notGood": "",
+							"failed": ""
+						}
+					},
+					"powerful": {
+						"name": "powerful attack",
+						"emote": ":axe:",
+						"end": {
+							"succeed": " `Speed reduced by 25 %`",
+							"notGood": " `Speed reduced by 25 %`",
+							"failed": " `Speed reduced by 10 %`"
+						}
+					},
+					"ultimate": {
+						"name": "supreme attack",
+						"emote": ":bomb:",
+						"end": {
+							"succeed": "",
+							"notGood": "",
+							"failed": ""
+						}
+					}
+				},
+				"attacksResults": {
+					"succeed": [
+						"makes a {attack}! Perfectly executed!",
+						"performs a {attack}! It's Awesome!",
+						"makes a beautiful {attack}! Perfectly executed!",
+						"makes a {attack}! Incredibly done!",
+						"performs a {attack}! It was risky but it worked!",
+						"launches a nice {attack}!",
+						"uses a masterful {attack}!",
+						"chose a {attack}! Really good initiative"
+					],
+					"notGood": [
+						"performed a {attack}! It worked but it wasn't incredible.",
+						"uses a {attack}! Meh...",
+						"makes an unremarkable {attack}! Pretty bad!",
+						"uses a {attack}! It doesn't really have any effect...",
+						"performs a {attack}! It wasn't well done.",
+						"launches a {attack}! Pathetic",
+						"uses a {attack}! Weak!",
+						"opts for a {attack}! The results are pretty pitiful."
+					],
+					"failed": [
+						"uses a {attack}! It fails!",
+						"uses a {attack}! It fails miserably!",
+						"makes a bad {attack}! A cruel lack of technique from that oaf of a player!",
+						"uses a {attack}! What a lack of judgement!",
+						"uses a {attack}! It was risky and didn't work!",
+						"launches a badly executed {attack}!",
+						"uses a {attack}! A pretty bad choice!",
+						"opts for a {attack}! Bad initiative"
+					]
+				},
+				"defense": "buffs their defense ! `Defense + {defense}`",
+				"defenseEmote": ":shield:",
+				"speed": "increased their speed! `Speed + {speed}`",
+				"speedEmote": ":rocket:",
+				"damages": " `Damage dealt: {damages}`"
+			}
+		}
+	}
+}

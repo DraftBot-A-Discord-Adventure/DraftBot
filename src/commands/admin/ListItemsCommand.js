@@ -38,11 +38,11 @@ const listItemsCommand = async function(language, message, args) {
   } catch (err) { }
 
   // List armors
-  files = fs.readdirSync('ressources/text/armors');
+  files = fs.readdirSync('resources/text/armors');
   fs.appendFileSync('allItems.txt', 'ALL ARMORS :\n');
   files.forEach(function(file) {
     if (file != '0.json') {
-      const data = fs.readFileSync('ressources/text/armors/' + file);
+      const data = fs.readFileSync('resources/text/armors/' + file);
       const armor = JSON.parse(data);
       let string;
       if (language === LANGUAGE.FRENCH) {
@@ -64,11 +64,11 @@ const listItemsCommand = async function(language, message, args) {
   });
 
   // List weapons
-  files = fs.readdirSync('ressources/text/weapons');
+  files = fs.readdirSync('resources/text/weapons');
   fs.appendFileSync('allItems.txt', 'ALL WEAPONS :\n');
   files.forEach(function(file) {
     if (file != '0.json') {
-      const data = fs.readFileSync('ressources/text/weapons/' + file);
+      const data = fs.readFileSync('resources/text/weapons/' + file);
       const weapons = JSON.parse(data);
       let string;
       if (language == LANGUAGE.FRENCH) {
@@ -90,11 +90,11 @@ const listItemsCommand = async function(language, message, args) {
   });
 
   // List potions
-  files = fs.readdirSync('ressources/text/potions');
+  files = fs.readdirSync('resources/text/potions');
   fs.appendFileSync('allItems.txt', 'ALL POTIONS :\n');
   files.forEach(function(file) {
     if (file != '0.json') {
-      const data = fs.readFileSync('ressources/text/potions/' + file);
+      const data = fs.readFileSync('resources/text/potions/' + file);
       const Potions = JSON.parse(data);
       let string;
       if (language == LANGUAGE.FRENCH) {
@@ -116,11 +116,11 @@ const listItemsCommand = async function(language, message, args) {
   });
 
   // List Objects
-  files = fs.readdirSync('ressources/text/objects');
+  files = fs.readdirSync('resources/text/objects');
   fs.appendFileSync('allItems.txt', 'ALL OBJECTS :\n');
   files.forEach(function(file) {
     if (file != '0.json') {
-      const data = fs.readFileSync('ressources/text/objects/' + file);
+      const data = fs.readFileSync('resources/text/objects/' + file);
       const Objects = JSON.parse(data);
       let string;
       if (language == LANGUAGE.FRENCH) {

@@ -201,13 +201,13 @@ class Database {
       await global[folder].destroy({ truncate: true });
 
       const files = await fs.promises.readdir(
-        `ressources/text/${folder.toLowerCase()}`);
+        `resources/text/${folder.toLowerCase()}`);
 
       const filesContent = [];
       for (const file of files) {
         const fileName = file.split('.')[0];
         const fileContent = (require(
-          `ressources/text/${folder.toLowerCase()}/${file}`));
+          `resources/text/${folder.toLowerCase()}/${file}`));
         fileContent.id = fileName;
         fileContent.fr = fileContent.translations.fr;
         fileContent.en = fileContent.translations.en;
@@ -221,12 +221,12 @@ class Database {
     await Events.destroy({ truncate: true });
     await Possibilities.destroy({ truncate: true });
 
-    const files = await fs.promises.readdir(`ressources/text/events`);
+    const files = await fs.promises.readdir(`resources/text/events`);
     const eventsContent = [];
     const possibilitiesContent = [];
     for (const file of files) {
       const fileName = file.split('.')[0];
-      const fileContent = (require(`ressources/text/events/${file}`));
+      const fileContent = (require(`resources/text/events/${file}`));
 
       fileContent.id = fileName;
 

@@ -16,6 +16,14 @@ const GuildDescriptionCommand = async (language, message, args) => {
 
   guild = await Guilds.getById(entity.Player.guild_id);
 
+  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+    return;
+  }
+
+  if (await sendBlockedError(message.author, message.channel, language)) {
+    return;
+  }
+  
   if (guild == null) {
     // not in a guild
     return sendErrorMessage(
@@ -51,7 +59,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
   }
 
   const description = args.join(" ");
-  const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
+  const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû"',.;:?!]+$/);
   const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
   if (!(regexAllowed.test(description) && !regexSpecialCases.test(description) && description.length >= GUILD.MIN_DESCRIPTION_LENGTH && description.length <= GUILD.MAX_DESCRIPTION_LENGTH)) {
     //name does not follow the rules
