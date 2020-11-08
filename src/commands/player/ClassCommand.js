@@ -148,7 +148,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
                             }),
                             message.author.displayAvatarURL()
                         )
-                        .setDescription(JsonReader.commands.class.getTranslation(language).newClass + selectedClass.fr)
+                        .setDescription(JsonReader.commands.class.getTranslation(language).newClass + selectedClass.getName(language))
                 );
             }
         }
