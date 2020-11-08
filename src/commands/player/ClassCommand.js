@@ -34,7 +34,7 @@ async function ClassCommand(language, message, args) {
                     description: allClasses[k].getDescription(language),
                     price: allClasses[k].price
                 }
-            )
+            ), false
         )
     }
 
