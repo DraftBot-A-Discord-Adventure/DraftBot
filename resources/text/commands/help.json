@@ -9,7 +9,7 @@
 			"playerCommands": ":bust_in_silhouette: Joueur :",
 			"guildCommands": ":stadium: Guilde :",
 			"forMoreHelp": ":arrow_forward: Pour plus d'aide : ",
-			"forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !",
+			"forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !\n\n:arrow_forward: Le préfixe actuel est : `{prefix}`",
 			"commandEmbedTitle": "{emote} Commande {cmd}",
 			"usageFieldTitle": "Utilisation",
 			"aliasFieldTitle": "Alias",
@@ -17,9 +17,9 @@
 			"commands": {
 				"prefix": {
 					"emote": ":interrobang:",
-					"usage": "prefix [Nouveau préfix]",
+					"usage": "prefix [Nouveau préfixe]",
 					"category": "server",
-					"description": "Permet, si vous êtes administrateur sur un serveur, de changer le préfix utilisé par le bot."
+					"description": "Permet, si vous êtes administrateur sur un serveur, de changer le préfixe utilisé par le bot."
 				},
 				"ping": {
 					"emote": ":ping_pong:",
@@ -139,7 +139,7 @@
 					"emote": ":pencil:",
 					"usage": "guildcreate [Nom de guilde]",
 					"category": "guild",
-					"description": "Permet de créer une guilde. Créer une guilde coûte 5000 :moneybag:"
+					"description": "Permet de créer une guilde. Créer une guilde coûte 5000 :moneybag:."
 				},
 				"guildleave": {
 					"emote": ":outbox_tray:",
@@ -207,7 +207,7 @@
 			"playerCommands": ":bust_in_silhouette: Player :",
 			"guildCommands": ":stadium: Guild :",
 			"forMoreHelp": ":arrow_forward: For more help : ",
-			"forMoreHelpValue": "you can visit the bot's [wiki](https://guide.draftbot.com/v/en/) !",
+			"forMoreHelpValue": "You can visit the bot's [wiki](https://guide.draftbot.com/v/en/) !\n\n:arrow_forward: Current prefix is : `{prefix}`",
 			"commandEmbedTitle": "{emote} Command {cmd}",
 			"usageFieldTitle": "Usage",
 			"aliasFieldTitle": "Alias",

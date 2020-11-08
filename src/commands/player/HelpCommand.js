@@ -6,6 +6,7 @@
  */
 const HelpCommand = async (language, message, args) => {
   const command = getMainCommandFromAlias(args[0]);
+  [server] = await Servers.getOrRegister(message.guild.id);
   let helpMessage = JsonReader.commands.help.getTranslation(language).commands[
     command
   ];
@@ -47,7 +48,8 @@ const HelpCommand = async (language, message, args) => {
       message.author.displayAvatarURL()
     );
     helpMessage.setDescription(
-      JsonReader.commands.help.getTranslation(language).helpEmbedDescription + "\n\u200b"
+      JsonReader.commands.help.getTranslation(language).helpEmbedDescription,
+      "\n\u200b"
     );
     helpMessage.addFields([
       {
@@ -68,8 +70,9 @@ const HelpCommand = async (language, message, args) => {
       },
       {
         name: JsonReader.commands.help.getTranslation(language).forMoreHelp,
-        value: JsonReader.commands.help.getTranslation(language)
-          .forMoreHelpValue,
+        value: format(JsonReader.commands.help.getTranslation(language)
+          .forMoreHelpValue, { prefix: server.prefix }
+        ),
       },
     ]);
   } else {
