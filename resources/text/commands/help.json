@@ -139,7 +139,7 @@
 					"emote": ":pencil:",
 					"usage": "guildcreate [Nom de guilde]",
 					"category": "guild",
-					"description": "Permet de créer une guilde. Créer une guilde coûte 5000 :moneybag:."
+					"description": "Permet de créer une guilde. Créer une guilde coûte 5000 :moneybag:"
 				},
 				"guildleave": {
 					"emote": ":outbox_tray:",
