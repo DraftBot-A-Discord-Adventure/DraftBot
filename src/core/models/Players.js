@@ -271,6 +271,11 @@ module.exports = (Sequelize, DataTypes) => {
       bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.guildUnlocked);
     }
 
+    if (this.level % 10 == 0) {
+      entity.health = await entity.getMaxHealth();
+      bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.healthRestored);
+    }
+
     if (this.level === CLASS.REQUIRED_LEVEL) {
       bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classUnlocked);
     }
