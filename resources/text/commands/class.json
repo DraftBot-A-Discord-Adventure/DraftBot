@@ -2,9 +2,23 @@
 	"translations": {
 		"fr": {
 			"description": {
-				"0": "Une classe globalement équilibrée. Léger boost de la défense aux dépends de la vitesse.",
-				"1": "Une classe orientée vitesse. Boost vitesse important en échange d'une pénalité en défense, points de combat et points de vie.",
-				"2": "Une classe orientée défense. Bonus points de vie et points de combat ainsi qu'une défense correcte. Classe trés lente et faisant peu de dégats."
+				"0": "Une classe simple et économique. Plutot équilibrée.",
+				"1": "Une classe simple et économique. Plutot équilibrée.",
+				"2": "Une classe simple et économique. Plutot équilibrée.",
+				"3": "Une classe simple et économique. Plutot équilibrée.",
+				"4": "Une classe axée sur la défense. Faible performances en combat mais vie supplémentaire pour l'aventure.",
+				"5": "Une classe axée sur la défense. Faible performances en combat mais vie supplémentaire pour l'aventure.",
+				"6": "Une classe axée sur la défense. Faible performances en combat mais vie supplémentaire pour l'aventure.",
+				"7": "Une classe axée sur la défense. Faible performances en combat mais vie supplémentaire pour l'aventure.",
+				"8": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+				"9": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+				"10": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+				"11": "Une classe axée sur la vitesse. Peu de points de vie et d'énergie mais vitesse et attaque élevées.",
+				"12": "Une classe puissante mais équilibrée. Plutôt cher à l'achat, mais trés polyvalente.",
+				"13": "Une classe puissante mais équilibrée. Plutôt cher à l'achat, mais trés polyvalente.",
+				"14": "Une classe puissante mais équilibrée. Plutôt cher à l'achat, mais trés polyvalente.",
+				"15": "Une classe puissante mais équilibrée. Plutôt cher à l'achat, mais trés polyvalente.",
+				"16": "Une classe unique au tier 4. Axée sur la défense sans bonus de points de vie mais avec une attaque plus importante que celle d'un tank."
 			},
 			"title": ":bookmark:  **Changer de classe :**",
 			"desc": "Choisissez une classe dans la liste ci-dessous pour plus d'informations.",
@@ -12,7 +26,9 @@
 			"success": "{pseudo}, votre classe a été modifiée !",
 			"newClass": "Vous êtes désormais un ",
 			"confirm": "{pseudo}, Vous avez sélectionné la classe suivante :",
-			"moneyQuantity": "\n\nVous avez `{money}💰`.",
+			"moneyQuantity": "{money} 💰.",
+			"moneyQuantityTitle": "Votre argent :",
+			"classMainDisplay": "{description}\n:moneybag: Prix : `{price}`.",
 			"error": {
 				"cannotBuy": "Vous n'avez pas assez d'argent pour changer de classe ! Il vous manque `{missingMoney}💰`.",
 				"canceledPurchase": "Changement de classe annulé.",
@@ -32,7 +48,9 @@
 			"success": "{pseudo}, your class has been changed !",
 			"newClass": "You are now a ",
 			"confirm": "{pseudo}, you have chosen the following class:",
-			"moneyQuantity": "\n\nYou have `{money}💰`.",
+			"moneyQuantity": "{money} 💰.",
+			"moneyQuantityTitle": "Your monney:",
+			"classMainDisplay": "{description}\n:moneybag: Price: `{price}`.",
 			"error": {
 				"cannotBuy": "You don't have enough money to change your class ! You are missing `{missingMoney}💰`.",
 				"canceledPurchase": "Class change canceled.",

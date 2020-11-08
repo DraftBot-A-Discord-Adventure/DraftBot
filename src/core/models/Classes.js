@@ -81,7 +81,16 @@ module.exports = (Sequelize, DataTypes) => {
   };
 
   /**
-   * @param {("fr"|"en")} language - The language the class has to be displayed in
+   * @param {("fr"|"en")} language - The language the class name has to be displayed in
+   * @return {String}
+   */
+  Classes.prototype.getName = function (language) {
+    return this[language];
+  };
+
+
+  /**
+   * @param {("fr"|"en")} language - The language the class description has to be displayed in
    * @return {String}
    */
   Classes.prototype.getDescription = function (language) {

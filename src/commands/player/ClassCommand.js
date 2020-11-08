@@ -18,23 +18,33 @@ async function ClassCommand(language, message, args) {
 
     const classTranslations = JsonReader.commands.class.getTranslation(language);
 
-    let classesLineDisplay = new Array();
     let allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
+
+    const embedClassMessage = new discord.MessageEmbed()
+        .setColor(JsonReader.bot.embed.default)
+        .setTitle(classTranslations.title)
+        .setDescription(
+            classTranslations.desc)
+
     for (let k = 0; k < allClasses.length; k++) {
-        classesLineDisplay.push(allClasses[k].toString(language, entity.Player.level))
+        embedClassMessage.addField(allClasses[k].getName(language),
+            format(
+                classTranslations.classMainDisplay,
+                {
+                    description: allClasses[k].getDescription(language),
+                    price: allClasses[k].price
+                }
+            )
+        )
     }
 
+    embedClassMessage.addField(
+        classTranslations.moneyQuantityTitle,
+        format(classTranslations.moneyQuantity, {
+            money: entity.Player.money,
+        }));
     //Creating class message
-    const classMessage = await message.channel.send(
-        new discord.MessageEmbed()
-            .setColor(JsonReader.bot.embed.default)
-            .setTitle(classTranslations.title)
-            .addField(
-                classTranslations.desc, classesLineDisplay.join("\n") +
-            format(classTranslations.moneyQuantity, {
-                money: entity.Player.money,
-            }))
-    );
+    const classMessage = await message.channel.send(embedClassMessage);
 
     const filterConfirm = (reaction, user) => {
         return (user.id === entity.discordUser_id && reaction.me);
