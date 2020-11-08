@@ -4,9 +4,9 @@
 		"en": ":gun: Gunner"
 	},
 	"emoji": "🔫",
-	"attack": 90,
+	"attack": 100,
 	"defense": 20,
-	"speed": 100,
+	"speed": 110,
 	"health": 70,
 	"fightPoint": 50,
 	"price": 13100,
