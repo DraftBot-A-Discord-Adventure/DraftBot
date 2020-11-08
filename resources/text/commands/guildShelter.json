@@ -8,7 +8,7 @@
     },
     "en": {
       "embedTitle": "Pet shelter of the guild {guild}: {count} / {max}",
-      "noPetMessage": "Oh ! It seems that there is no pet in the shelter.",
+      "noPetMessage": "Oh! It seems that there is no pet in the shelter.",
       "petFieldName": "Pet with id {id}",
       "petField": "Type: {type} {emote}\nRarity: {rarity}\nSex: {sexDisplay}\nNickname: {nickname}"
     }

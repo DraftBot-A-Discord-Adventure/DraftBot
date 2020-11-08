@@ -2,11 +2,15 @@
   "translations": {
     "fr": {
       "embedTitle": "Votre animal",
-      "noPet": "Vous n'avez aucun animal !"
+      "noPet": "Vous n'avez aucun animal !",
+      "unknownCommand": "Commande inconnue ! Faites `{prefix}help pets` pour voir les commandes disponibles !",
+      "errorArguments": "Nombre d'arguments incorrect. Commande attendue: {prefix}{cmd} {args}"
     },
     "en": {
       "embedTitle": "Your pet",
-      "noPet": "You don't have a pet !"
+      "noPet": "You don't have a pet!",
+      "unknownCommand": "Unknown command! Please execute `{prefix}help pets` to see available commands!",
+      "errorArguments": "Argument count error. Expected command: {prefix}{cmd} {args}"
     }
   }
 }

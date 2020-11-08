@@ -71,7 +71,7 @@ module.exports = (Sequelize, DataTypes) => {
      * @returns {String|string}
      */
     PetEntities.getPetTypeName = (pet_entity, language) => {
-        return pet_entity.PetModel[(this.sex === 'm' ? 'male' : 'female') + "Name_" + language];
+        return pet_entity.PetModel[(pet_entity.sex === 'm' ? 'male' : 'female') + "Name_" + language];
     }
 
     /**
@@ -108,7 +108,7 @@ module.exports = (Sequelize, DataTypes) => {
 
     PetEntities.getPetDisplay = async (pet_entity, language) => {
         if (!pet_entity) {
-            return await Pets.getById(JsonReader.models.defaultPetId.get)["maleName_" + language];
+            return await Pets.getById(JsonReader.models.pets.defaultPetId)["maleName_" + language];
         }
         return format(JsonReader.commands.guildShelter.getTranslation(language).petField, {
                 emote: PetEntities.getPetEmote(pet_entity),
