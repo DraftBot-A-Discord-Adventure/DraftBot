@@ -8,7 +8,7 @@
 	"defense": 80,
 	"speed": 80,
 	"health": 0,
-	"fightPoint": -100,
+	"fightPoint": 0,
 	"price": 17900,
 	"classgroup": 3
 }
