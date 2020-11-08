@@ -13,14 +13,14 @@
 				"intro": ":crossed_swords: | **Etat actuel du combat**\n\n",
 				"attacker": ":crossed_swords: |** Attaquant : {pseudo}** {charging}\n",
 				"defender": ":crossed_swords: |** Défenseur : {pseudo}** {charging}\n",
-				"stats": ":blue_heart: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
 			},
 			"end": {
 				"draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**\n\n",
 				"win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n",
 				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours**: {turn}/{maxTurn}\n- **Temps de combat**: {time}",
 				"elo": "\n- **Elo de la partie**: `{elo}`\n- **Points gagnés/perdus**: `{points}`",
-				"fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {pseudo}\n- **Vie finale**: {health}/{maxHealth} :blue_heart:",
+				"fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {pseudo}\n- **Vie finale**: {health}/{maxHealth} :zap:",
 				"attacksField": "\n- **Attaques**:",
 				"attackStats": "\n      - {emote} {success}/{total} réussie(s), {damage} de dégâts en moyenne"
 			},
@@ -44,8 +44,8 @@
 					"indirect": "Cette personne est occupée pour le moment !"
 				},
 				"noFightPoints": {
-					"direct": "{pseudo}, vous n'avez plus de points de combat !",
-					"indirect": "Cette personne n'a plus de points de combat !"
+					"direct": "{pseudo}, vous n'avez plus d'énergie !",
+					"indirect": "Cette personne n'a plus d'énergie !"
 				},
 				"defenderDoesntExist": "La personne demandée n'existe pas !"
 			},
@@ -143,14 +143,14 @@
 				"intro": ":crossed_swords: | **Current battle state**\n\n",
 				"attacker": ":crossed_swords: |** Attacker : {pseudo}**\n",
 				"defender": ":crossed_swords: |** Defender : {pseudo}**\n",
-				"stats": ":blue_heart: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
+				"stats": ":zap: {power} | :dagger: {attack} | :shield: {defense} | :rocket: {speed}"
 			},
 			"end": {
 				"draw": ":newspaper: |** {player1} finished their match against {player2} on a draw!**\n\n",
 				"win": ":newspaper: |** {winner} wins the match against {loser}**\n\n",
 				"gameStats": ":bar_chart: | Fight stats\n- **Turns**: {turn}/{maxTurn}\n- **Fight time**: {time}",
 				"elo": "\n- **Elo**: `{elo}`\n- **Points won/lost**: `{points}`",
-				"fighterStats": "\n\n:bust_in_silhouette: | Stats of {pseudo}\n- **Final health**: {health}/{maxHealth} :blue_heart:",
+				"fighterStats": "\n\n:bust_in_silhouette: | Stats of {pseudo}\n- **Final health**: {health}/{maxHealth} :zap:",
 				"attacksField": "\n- **Attacks**:",
 				"attackStats": "\n      - {emote} {success}/{total} successful, average of {damage} damage"
 			},
@@ -174,8 +174,8 @@
 					"indirect": "This person is currently occupied !"
 				},
 				"noFightPoints": {
-					"direct": "{pseudo}, you don't have any fight points !",
-					"indirect": "This person doesn't have any fight points !"
+					"direct": "{pseudo}, you don't have any energy !",
+					"indirect": "This person doesn't have any energy !"
 				},
 				"defenderDoesntExist": "Asked player doesn't exist!"
 			},
