@@ -550,13 +550,13 @@ class Fight {
         powerChanger = 0.1;
         if (defender.speed > attacker.speed && success < 0.3) {
           powerChanger = 0.7;
-          if (quickAttack > 2)
-            powerChanger -= attacker.quickAttack / 20;
+          if (attacker.quickAttack > 1)
+            powerChanger -= attacker.quickAttack / 15;
           attacker.quickAttack++;
         } else if (defender.speed < attacker.speed && success < 0.95) {
           powerChanger = 0.7;
-          if (quickAttack > 2)
-            powerChanger -= attacker.quickAttack / 20;
+          if (attacker.quickAttack > 1)
+            powerChanger -= attacker.quickAttack / 15;
           attacker.quickAttack++;
         }
         far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.1));
@@ -564,14 +564,17 @@ class Fight {
         break;
 
       case FIGHT.ACTION.SIMPLE_ATTACK:
-        powerChanger = 0.7;
-        if ((defender.speed > attacker.speed && success <= 0.7) || (defender.speed < attacker.speed && success < 0.9)) {
-          powerChanger = 1.2;
+        powerChanger = 0.4;
+        if ((defender.speed > attacker.speed && success <= 0.4) || (defender.speed < attacker.speed && success < 0.9)) {
+          powerChanger = 1;
         } else if ((defender.speed > attacker.speed && success <= 0.9)) {
-          powerChanger = 0.9;
+          powerChanger = 0.7;
         }
         far.damage = Math.round(attacker.attack * powerChanger - defender.defense);
-        far.fullSuccess = far.damage >= 100;
+        if (far.damage < 0)
+          far.damage = 0;
+        far.damage += randInt(1, Math.round(attacker.attack / 8));
+        far.fullSuccess = far.damage >= Math.round(attacker.attack / 8);
         break;
 
       case FIGHT.ACTION.POWERFUL_ATTACK:
@@ -586,7 +589,11 @@ class Fight {
         } else {
           attacker.speed = Math.round(attacker.speed * 0.9);
         }
-        far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.5));
+        far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.2));
+        if (far.damage < 0)
+          far.damage = 0;
+        if (powerChanger > 1)
+          far.damage += randInt(0, Math.round(attacker.attack / 2));
         far.fullSuccess = powerChanger > 1.4;
         break;
 
