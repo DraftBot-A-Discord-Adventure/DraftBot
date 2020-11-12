@@ -71,6 +71,10 @@ const GuildLeaveCommand = async (language, message, args) => {
               guild_id: guild.id,
             },
           });
+          for (let pet of guild.GuildPets) {
+            pet.PetEntity.destroy();
+            pet.destroy();
+          }
           await Guilds.destroy({
             where: {
               id: guild.id,

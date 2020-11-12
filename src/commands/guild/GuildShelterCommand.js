@@ -13,6 +13,7 @@ const GuildShelterCommand = async (language, message, args) => {
     }
 
     // search for a user's guild
+    let guild;
     try {
         guild = await Guilds.getById(entity.Player.guild_id);
     } catch (error) {
@@ -28,6 +29,7 @@ const GuildShelterCommand = async (language, message, args) => {
     }
 
     const tr = JsonReader.commands.guildShelter.getTranslation(language);
+    const [server] = (await Servers.getOrRegister(message.guild.id));
     let shelterEmbed = new discord.MessageEmbed();
 
     shelterEmbed.setTitle(format(tr.embedTitle, {
@@ -44,6 +46,7 @@ const GuildShelterCommand = async (language, message, args) => {
             shelterEmbed.addField(PetEntities.getPetTitle(pet.PetEntity, language), await PetEntities.getPetDisplay(pet.PetEntity, language), true);
         }
     }
+    addPetCommandFooter(shelterEmbed, server.prefix, language);
 
     await message.channel.send(shelterEmbed);
 };
