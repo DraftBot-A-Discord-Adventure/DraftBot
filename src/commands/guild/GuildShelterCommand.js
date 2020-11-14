@@ -29,7 +29,6 @@ const GuildShelterCommand = async (language, message, args) => {
     }
 
     const tr = JsonReader.commands.guildShelter.getTranslation(language);
-    const [server] = (await Servers.getOrRegister(message.guild.id));
     let shelterEmbed = new discord.MessageEmbed();
 
     shelterEmbed.setTitle(format(tr.embedTitle, {
@@ -46,7 +45,6 @@ const GuildShelterCommand = async (language, message, args) => {
             shelterEmbed.addField(PetEntities.getPetTitle(pet.PetEntity, language), await PetEntities.getPetDisplay(pet.PetEntity, language), true);
         }
     }
-    addPetCommandFooter(shelterEmbed, server.prefix, language);
 
     await message.channel.send(shelterEmbed);
 };

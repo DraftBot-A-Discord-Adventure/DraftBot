@@ -1,0 +1,17 @@
+{
+  "translations": {
+    "fr": {
+      "invalidName": "Les règles pour le nom d'un animal sont les suivantes:",
+      "successTitle": "Changement du nom de l'animal",
+      "success": "{player}, nom de l'animal changé en **{name}** !",
+      "successNoName": "{player}, votre animal n'a désormais plus de nom !"
+    },
+    "en": {
+      "invalidName": "The rules for the pet's name are the followings:",
+      "successTitle": "Change of the pet's name",
+      "success": "{player}, pet's name changed to **{name}**!",
+      "successNoName": "{player}, your pet doesn't have a name anymore !"
+    }
+  }
+}
+

@@ -2,43 +2,11 @@
   "translations": {
     "fr": {
       "embedTitle": "Votre animal",
-      "noPet": "Vous n'avez aucun animal !",
-      "dontPossess": "Vous ne possédez pas l'animal avec cet l'id {id} !",
-      "unknownCommand": "Commande inconnue ! Faites `{prefix}help pets` pour voir les commandes disponibles !",
-      "errorArguments": "Nombre d'arguments incorrect. Commande attendue: `{prefix}{cmd} {args}`",
-      "invalidName": "Les règles pour le nom d'un animal sont les suivantes:",
-      "idArgument": "<id>",
-      "commandList": "Liste des commandes",
-      "cmdArguments": {
-        "nickname": "<surnom>"
-      },
-      "cmdIndications": {
-        "nickname": "Changer le surnom d'un animal"
-      },
-      "cmdSuccess": "Commande effectuée avec succès",
-      "commandSuccess": {
-        "nickname": ":pencil: Nom de l'animal changé en **{0}** !"
-      }
+      "noPet": "Vous n'avez aucun animal !"
     },
     "en": {
       "embedTitle": "Your pet",
-      "noPet": "You don't have a pet!",
-      "dontPossess": "You don't possess the pet with the id {id}!",
-      "unknownCommand": "Unknown command! Please execute `{prefix}help pets` to see available commands!",
-      "errorArguments": "Argument count error. Expected command: `{prefix}{cmd} {args}`",
-      "invalidName": "The rules for the pet's name are the followings:",
-      "idArgument": "<id>",
-      "commandList": "Command list",
-      "cmdArguments": {
-        "nickname": "<nickname>"
-      },
-      "cmdIndications": {
-        "nickname": "Change the nickname of a pet"
-      },
-      "cmdSuccess": "Command succeed",
-      "commandSuccess": {
-        "nickname": ":pencil: Nickname of the pet changed to **{0}**!"
-      }
+      "noPet": "You don't have a pet!"
     }
   }
 }

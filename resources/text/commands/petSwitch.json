@@ -1,0 +1,20 @@
+{
+  "translations": {
+    "fr": {
+      "correctUsage": "Usage correct: `{prefix}{cmd} <numéro de l'animal>`\nPour avoir le numéro de l'animal, faites la commande `{prefix}{cmdShelter}`",
+      "wrongPetNumberBetween": "Le numéro de l'animal doit être compris entre 1 et {max}",
+      "wrongPetNumberSingle": "Vous n'avez qu'un seul animal dans le refuge ! Son numéro est 1",
+      "confirmSwitchTitle": "Échange d'animaux",
+      "confirmSwitch": "{player}, **{pet1}** reste désormais dans le refuge et **{pet2}** vous suit !",
+      "confirmFollows": "{player}, **{pet}** vous suit désormais !"
+    },
+    "en": {
+      "correctUsage": "Correct usage: `{prefix}{cmd} <pet number>`\nTo get the pet number, execute `{prefix}{cmdShelter}`",
+      "wrongPetNumberBetween": "The pet number must be between 1 and {max}",
+      "wrongPetNumberSingle": "You only have one pet in the shelter! Their number is 1",
+      "confirmSwitchTitle": "Pet switch",
+      "confirmSwitch": "{player}, **{pet1}** now stays in the shelter and **{pet2}** follows you!",
+      "confirmFollows": "{player}, **{pet}** now follows you !"
+    }
+  }
+}
