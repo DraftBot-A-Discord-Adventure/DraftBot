@@ -1,0 +1,27 @@
+{
+    "translations": 
+    {
+        "fr": {
+            "cannotGetElderUser": "Veuillez mentionner un joueur existant. Ex : `guildelder @user#0000`",
+            "notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
+            "notInTheGuild": "Le joueur n'appartient pas à votre guilde.",
+            "notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
+            "elderRemoveTitle": "{pseudo}, voulez-vous retirer l'ainé de votre guilde ?",
+            "elderRemove" : ":question: Si vous acceptez, le poste d'ainé sera vacquant.",
+            "successElderRemoveTitle": "Il n'y a plus d'ainé dans votre guilde !",
+            "successElderRemove": "Pour choisir un ainé, utilisez la commande `guildelder`",
+            "elderRemoveCancelled": "Vous avez été trop lent ! Soyez plus rapide la prochaine fois :)"
+        },
+        "en" : {
+             "cannotGetElderUser": "please mention an xisting user. Example : `@user#0000`",
+            "notInAguild": "you must be in a guild to use this command",
+            "notInTheGuild": "This player is not in your guild.",
+            "notChiefError": "you must be the chief of the guild to use this command",
+            "elderRemoveTitle": "{pseudo}, do you wish to remove the elder of your guid ?",
+            "elderRemove" : "❓ If you accept, the elder's position will be free",
+            "successElderRemoveTitle": "There is no elder anymor in the guild !",
+            "successElderRemove": "To select an elder, use the `guildelder` command.",
+            "elderRemoveCancelled": "You have been to slow ! Be faster next time :)"
+        }
+    }
+}
