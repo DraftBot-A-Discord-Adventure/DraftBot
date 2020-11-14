@@ -10,7 +10,7 @@
             "elderRemove" : ":question: Si vous acceptez, le poste d'ainé sera vacquant.",
             "successElderRemoveTitle": "Il n'y a plus d'ainé dans votre guilde !",
             "successElderRemove": "Pour choisir un ainé, utilisez la commande `guildelder`",
-            "elderRemoveCancelled": "Vous avez été trop lent ! Soyez plus rapide la prochaine fois :)"
+            "elderRemoveCancelled": "L'ainé ne sera supprimé."
         },
         "en" : {
              "cannotGetElderUser": "please mention an xisting user. Example : `@user#0000`",
@@ -21,7 +21,7 @@
             "elderRemove" : "❓ If you accept, the elder's position will be free",
             "successElderRemoveTitle": "There is no elder anymor in the guild !",
             "successElderRemove": "To select an elder, use the `guildelder` command.",
-            "elderRemoveCancelled": "You have been to slow ! Be faster next time :)"
+            "elderRemoveCancelled": "The eder will not be removed."
         }
     }
 }
