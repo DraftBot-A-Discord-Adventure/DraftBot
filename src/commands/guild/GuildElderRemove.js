@@ -86,7 +86,7 @@ const GuildElderRemoveCommand = async (language, message, args) => {
   };
 
   const collector = msg.createReactionCollector(filterConfirm, {
-    time: 12000,
+    time: 120000,
     max: 1,
   });
 
