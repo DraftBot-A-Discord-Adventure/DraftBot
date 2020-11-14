@@ -8,7 +8,7 @@
 			"kickTitle": "{pseudo}, confirmation :",
 			"kick": ":question: Souhaitez vous vraiment exclure {kickedPseudo} de la guilde `{guildName}` ?",
 			"successTitle": "{kickedPseudo} a quitté la guilde {guildName} !",
-			"kickSuccess": "You'r poor lonesome cowboy and a long long way from home...",
+			"kickSuccess": "You're poor lonesome cowboy and a long long way from home...",
 			"kickCancelled": "L'exclusion de {kickedPseudo} a été annulée !",
 			"excludeHimself": "Vous ne pouvez pas vous exclure vous même"
 		},
@@ -20,7 +20,7 @@
 			"kickTitle": "{pseudo}, confirmation:",
 			"kick": ":question:  Are you sure you want to kick {kickedPseudo} from the guild `{guildName}`?",
 			"successTitle": "{kickedPseudo} left the guild {guildName}!",
-			"kickSuccess": "You'r poor lonesome cowboy and a long long way from home...",
+			"kickSuccess": "You're poor lonesome cowboy and a long long way from home...",
 			"kickCancelled": "{kickedPseudo} was not kicked from the guild!",
 			"excludeHimself": "You cannot exclude yourself."
 		}
