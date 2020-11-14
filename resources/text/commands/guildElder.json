@@ -9,7 +9,7 @@
             "chiefError": "En tant que chef de la guilde, vous ne pouvez pas être l'ainé.",
             "elderAddTitle": "{pseudo}, vous êtes invité à devenir l'ainé de la guilde !",
             "elderAdd" : ":question: Souhaitez vous devenir l'ainé de la guilde `{guildName}` ?",
-            "successElderAddTitle": "{pseudo} est le nouvel ainé de la guilde `{guildName}` !",
+            "successElderAddTitle": "{pseudo} est le nouvel ainé de la guilde {guildName} !",
             "successElderAdd": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
             "elderAddCancelled": "Vous ne serez pas l'ainé de la guilde `{guildName}` !"
         },
@@ -21,7 +21,7 @@
              "chiefError" : "Being the chief of the guild, you can't be the elder.",
              "elderAddTitle": "{pseudo}, you are invited to become the guild's elder!",
              "elderAdd": ":question: Do you wish to become the elder of `{guildName}`?",
-             "successElderAddTitle" : "{pseudo} is the new elder of `{guildName}`!",
+             "successElderAddTitle" : "{pseudo} is the new elder of {guildName} !",
              "successElderAdd": "The cooldown before the next guild daily reward has been reset.",
              "elderAddCancelled": "You will not become the elder of `{guildName}`!"
         }
