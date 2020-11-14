@@ -142,7 +142,6 @@ const GuildDescriptionCommand = async (language, message, args) => {
       // a reaction exist
       if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
         guild.guildDescription = args.join(" ");
-        guild.updateLastDailyAt();
 
         await Promise.all([guild.save()]);
 
