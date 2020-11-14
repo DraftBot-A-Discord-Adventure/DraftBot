@@ -16,7 +16,7 @@
 			"notInAguild": "You have to be in a guild to use this command.",
 			"cannotGetKickedUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
 			"notInTheGuild": "This player is not in your guild.",
-			"notChiefError": "You have to be a guil leader to use this command.",
+			"notChiefError": "You have to be a guild leader to use this command.",
 			"kickTitle": "{pseudo}, confirmation:",
 			"kick": ":question:  Are you sure you want to kick {kickedPseudo} from the guild `{guildName}`?",
 			"successTitle": "{kickedPseudo} left the guild {guildName}!",
