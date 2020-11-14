@@ -174,6 +174,7 @@
 				"guildelder": {
 					"emote": ":second_place:",
 					"usage": "guildelder [mention]",
+					"category" : "guild",
 					"description": "Permet d'ajouter un ainé à la guilde, nécessite d'être chef de guilde."
 				},
 				"guilddesc": {
@@ -383,6 +384,7 @@
 				"guildelder": {
 					"emote": ":second_place:",
 					"usage": "guildelder [mention]",
+					"category" : "guild",
 					"description": "Allows one to designate a guild elder, requires to be guildmaster."
 				},
 				"update": {
