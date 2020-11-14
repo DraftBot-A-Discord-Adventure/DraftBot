@@ -51,7 +51,7 @@
 				"descriptionEdit": "Edition de la description de guilde",
 				"sell": "Vente d'un objet",
 				"acceptItem": "Choix de garder un objet ou non",
-				"guildElder": "Choisir un ainé"
+				"guildElder": "Devenir l'ainé"
 			}
 		},
 		"en": {
@@ -105,7 +105,7 @@
 				"descriptionEdit": "Guild description edit",
 				"sell": "Selling item",
 				"acceptItem": "Choice to keep an item or not",
-				"guildElder": "designate an elder"
+				"guildElder": "Become the elder"
 			}
 		}
 	}
