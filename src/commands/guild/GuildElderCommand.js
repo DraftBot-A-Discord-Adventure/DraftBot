@@ -89,15 +89,6 @@ const GuildElderCommand = async (language, message, args) => {
     elderGuild = null;
   }
 
-  if (elderGuild == null || elderGuild.id != guild.id) {
-    // elder is not in guild
-    return sendErrorMessage(
-      message.author,
-      message.channel,
-      language,
-      JsonReader.commands.guildElder.getTranslation(language).notInTheGuild
-    );
-  }
   if (guild.chief_id == elderEntity.id) {
     // chief cannot be the elder
     return sendErrorMessage(
@@ -108,19 +99,20 @@ const GuildElderCommand = async (language, message, args) => {
     );
   }
 
-  addBlockedPlayer(elderEntity.discordUser_id, "guildElder");
+  addBlockedPlayer(entity.discordUser_id, "guildElder");
 
   elderAddEmbed.setAuthor(
     format(
       JsonReader.commands.guildElder.getTranslation(language).elderAddTitle,
       {
-        pseudo: message.mentions.users.last().username,
+        pseudo: message.author.username,
       }
     ),
-    message.mentions.users.last().displayAvatarURL()
+    message.author.displayAvatarURL()
   );
   elderAddEmbed.setDescription(
     format(JsonReader.commands.guildElder.getTranslation(language).elderAdd, {
+      elder: message.mentions.users.last(),
       guildName: guild.name,
     })
   );
@@ -132,7 +124,7 @@ const GuildElderCommand = async (language, message, args) => {
     return (
       (reaction.emoji.name == MENU_REACTION.ACCEPT ||
         reaction.emoji.name == MENU_REACTION.DENY) &&
-      user.id === message.mentions.users.last().id
+      user.id === message.author.id
     );
   };
 
@@ -142,14 +134,33 @@ const GuildElderCommand = async (language, message, args) => {
   });
 
   collector.on("end", async (reaction) => {
-    removeBlockedPlayer(elderEntity.discordUser_id);
+    removeBlockedPlayer(entity.discordUser_id);
     if (reaction.first()) {
       // a reaction exist
       if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+        try {
+          [elderEntity] = await Entities.getByArgs(args, message);
+        } catch (error) {
+          elderEntity = null;
+        }
+        try {
+          elderGuild = await Guilds.getById(elderEntity.Player.guild_id);
+        } catch (error) {
+          elderGuild = null;
+        }
+        if (elderGuild == null || elderGuild.id != guild.id) {
+          // elder is not in guild
+          return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildElder.getTranslation(language)
+              .notInTheGuild
+          );
+        }
         guild.elder_id = elderEntity.id;
         guild.updateLastDailyAt();
         await Promise.all([guild.save()]);
-
         confirmEmbed.setAuthor(
           format(
             JsonReader.commands.guildElder.getTranslation(language)
