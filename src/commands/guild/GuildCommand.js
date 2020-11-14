@@ -71,6 +71,15 @@ const GuildCommand = async (language, message, args) => {
           score: member.Player.score,
         }
       );
+    } else if (member.Player.id === guild.elder_id) {
+      membersInfos += format(
+        JsonReader.commands.guild.getTranslation(language).elderinfos,
+        {
+          pseudo: await member.Player.getPseudo(language),
+          ranking: (await Players.getById(member.Player.id))[0].rank,
+          score: member.Player.score,
+        }
+      );
     } else {
       membersInfos += format(
         JsonReader.commands.guild.getTranslation(language).memberinfos,
@@ -96,7 +105,8 @@ const GuildCommand = async (language, message, args) => {
     embed.setDescription(
       format(JsonReader.commands.guild.getTranslation(language).description, {
         description: guild.guildDescription,
-      }));
+      })
+    );
   }
   embed.addField(
     format(JsonReader.commands.guild.getTranslation(language).members, {

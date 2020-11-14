@@ -50,7 +50,8 @@
 				"guildLeave": "Départ d'une guilde",
 				"descriptionEdit": "Edition de la description de guilde",
 				"sell": "Vente d'un objet",
-				"acceptItem": "Choix de garder un objet ou non"
+				"acceptItem": "Choix de garder un objet ou non",
+				"guildElder": "Choisir un ainé"
 			}
 		},
 		"en": {
@@ -103,7 +104,8 @@
 				"guildLeave": "Guild leave",
 				"descriptionEdit": "Guild description edit",
 				"sell": "Selling item",
-				"acceptItem": "Choice to keep an item or not"
+				"acceptItem": "Choice to keep an item or not",
+				"guildElder": "designate an elder"
 			}
 		}
 	}

@@ -16,14 +16,22 @@ const GuildDescriptionCommand = async (language, message, args) => {
 
   guild = await Guilds.getById(entity.Player.guild_id);
 
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+  if (
+    (await canPerformCommand(
+      message,
+      language,
+      PERMISSION.ROLE.ALL,
+      [EFFECT.BABY, EFFECT.DEAD],
+      entity
+    )) !== true
+  ) {
     return;
   }
 
   if (await sendBlockedError(message.author, message.channel, language)) {
     return;
   }
-  
+
   if (guild == null) {
     // not in a guild
     return sendErrorMessage(
@@ -47,21 +55,30 @@ const GuildDescriptionCommand = async (language, message, args) => {
     );
   }
 
-  if (guild.chief_id != entity.id) {
+  if (!(entity.id == guild.chief_id) && !(entity.id == guild.elder.id)) {
     //not the chief
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
       JsonReader.commands.guildDescription.getTranslation(language)
-        .notChiefError
+        .notAuthorizedError
     );
   }
 
   const description = args.join(" ");
-  const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû"',.;:?!]+$/);
+  const regexAllowed = RegExp(
+    /^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû"',.;:?!]+$/
+  );
   const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
-  if (!(regexAllowed.test(description) && !regexSpecialCases.test(description) && description.length >= GUILD.MIN_DESCRIPTION_LENGTH && description.length <= GUILD.MAX_DESCRIPTION_LENGTH)) {
+  if (
+    !(
+      regexAllowed.test(description) &&
+      !regexSpecialCases.test(description) &&
+      description.length >= GUILD.MIN_DESCRIPTION_LENGTH &&
+      description.length <= GUILD.MAX_DESCRIPTION_LENGTH
+    )
+  ) {
     //name does not follow the rules
     return sendErrorMessage(
       message.author,
@@ -82,8 +99,9 @@ const GuildDescriptionCommand = async (language, message, args) => {
 
   confirmationEmbed.setAuthor(
     format(
-      JsonReader.commands.guildDescription.getTranslation(language).changeDescriptionTitle,
-      { pseudo: message.author.username, }
+      JsonReader.commands.guildDescription.getTranslation(language)
+        .changeDescriptionTitle,
+      { pseudo: message.author.username }
     ),
     message.author.displayAvatarURL()
   );
@@ -97,7 +115,8 @@ const GuildDescriptionCommand = async (language, message, args) => {
     )
   );
   confirmationEmbed.setFooter(
-    JsonReader.commands.guildDescription.getTranslation(language).changeDescriptionFooter,
+    JsonReader.commands.guildDescription.getTranslation(language)
+      .changeDescriptionFooter,
     null
   );
 
@@ -158,7 +177,6 @@ const GuildDescriptionCommand = async (language, message, args) => {
     msg.react(MENU_REACTION.ACCEPT),
     msg.react(MENU_REACTION.DENY),
   ]);
-
 };
 
 module.exports = {

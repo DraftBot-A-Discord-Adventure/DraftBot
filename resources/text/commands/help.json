@@ -171,6 +171,11 @@
 					"category": "guild",
 					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef de guilde."
 				},
+				"guildelder": {
+					"emote": ":second_place:",
+					"usage": "guildelder [mention]",
+					"description": "Permet d'ajouter un ainé à la guilde, nécessite d'être chef de guilde."
+				},
 				"guilddesc": {
 					"emote": ":writing_hand:",
 					"usage": "guilddesc [description]",
@@ -374,6 +379,11 @@
 					"usage": "guilddesc [description]",
 					"category": "guild",
 					"description": "Edit the description of your guild. Requires to be the guild's leader."
+				},
+				"guildelder": {
+					"emote": ":second_place:",
+					"usage": "guildelder [mention]",
+					"description": "Allows one to designate a guild elder, requires to be guildmaster."
 				},
 				"update": {
 					"emote": ":scroll:",

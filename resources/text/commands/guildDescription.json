@@ -12,7 +12,7 @@
 			"editSuccess": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
 			"editCancelled": "Vous n'avez pas édité la description de la guilde !",
 			"notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
-			"notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande."
+			"notAuthorizedError": "Vous devez être chef ou ainé de la guilde pour effectuer cette commande."
 		},
 		"en": {
 			"invalidDescription": "The rules for the guild's name are the followings:\n- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
@@ -26,7 +26,7 @@
 			"editSuccess": "The cooldown before the next guild daily reward has been reset.",
 			"editCancelled": "You does not change the description of guild !",
 			"notInAguild": "You have to be in a guild to use this command.",
-			"notChiefError": "You have to be a guil leader to use this command."
+			"notAuthorizedError": "You have to be a guild leader or elder to use this command."
 		}
 	}
 }

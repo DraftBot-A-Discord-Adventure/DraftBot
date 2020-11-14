@@ -1,0 +1,27 @@
+{
+    "translations": 
+    {
+        "fr": {
+            "cannotGetElderUser": "Veuillez mentionner un joueur existant. Ex : `guildelder @user#0000`",
+            "notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
+            "notInTheGuild": "Le joueur n'appartient pas à votre guilde.",
+            "notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
+            "elderAddTitle": "{pseudo}, vous êtes invité à devenir l'ainé de la guilde !",
+            "elderAdd" : ":question: Souhaitez vous devenir l'ainé de la guilde `{guildName}` ?",
+            "successElderAddTitle": "{pseudo} est le nouvel ainé de la guilde `{guildName}` !",
+            "successElderAdd": "Le délai avant la prochaine récompense journalière de guilde a été réinitialisé.",
+            "elderAddCancelled": "Vous ne serez pas l'ainé de la guilde `{guildName}` !"
+        },
+        "en" : {
+             "cannotGetElderUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
+             "notInAguild": "You have to be in a guild to use this command.",
+             "notInTheGuild": "This player is not in your guild.",
+             "notChiefError": "You have to be a guil leader to use this command.",
+             "elderAddTitle": "{pseudo}, you are invited to become the guild's elder!",
+             "elderAdd": ":question: Do you wish to become the elder of `{guildName}`?",
+             "successElderAddTitle" : "{pseudo} is the new elder of `{guildName}`!",
+             "successElderAdd": "The cooldown before the next guild daily reward has been reset.",
+             "elderAddCancelled": "You will not become the elder of `{guildName}`!"
+        }
+    }
+}

@@ -5,12 +5,23 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const GuildAddCommand = async (language, message, args) => {
-  let entity; let invitedEntity; let guild; let invitedGuild;
+  let entity;
+  let invitedEntity;
+  let guild;
+  let invitedGuild;
   const invitationEmbed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+  if (
+    (await canPerformCommand(
+      message,
+      language,
+      PERMISSION.ROLE.ALL,
+      [EFFECT.BABY, EFFECT.DEAD],
+      entity
+    )) !== true
+  ) {
     return;
   }
 
@@ -24,24 +35,36 @@ const GuildAddCommand = async (language, message, args) => {
     invitedEntity = null;
   }
 
-  if (invitedEntity == null) { // no user provided
+  if (invitedEntity == null) {
+    // no user provided
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildAdd.getTranslation(language).cannotGetInvitedUser);
+      JsonReader.commands.guildAdd.getTranslation(language).cannotGetInvitedUser
+    );
   }
 
-  if (invitedEntity.Player.level < GUILD.REQUIRED_LEVEL) { // invited user is low level
+  if (invitedEntity.Player.level < GUILD.REQUIRED_LEVEL) {
+    // invited user is low level
     return await sendErrorMessage(
       message.author,
       message.channel,
       language,
-      format(JsonReader.error.getTranslation(language).levelTooLow, { pseudo: entity.getMention(), level: GUILD.REQUIRED_LEVEL })
-    );;
+      format(JsonReader.error.getTranslation(language).levelTooLow, {
+        pseudo: entity.getMention(),
+        level: GUILD.REQUIRED_LEVEL,
+      })
+    );
   }
 
-  if (await sendBlockedError(message.mentions.users.last(), message.channel, language)) {
+  if (
+    await sendBlockedError(
+      message.mentions.users.last(),
+      message.channel,
+      language
+    )
+  ) {
     return;
   }
 
@@ -52,20 +75,23 @@ const GuildAddCommand = async (language, message, args) => {
     guild = null;
   }
 
-  if (guild == null) { // not in a guild
+  if (guild == null) {
+    // not in a guild
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildAdd.getTranslation(language).notInAguild);
+      JsonReader.commands.guildAdd.getTranslation(language).notInAguild
+    );
   }
 
-  if (guild.chief_id != entity.id) {
+  if (!(entity.id == guild.chief_id) && !(entity.id == guild.elder.id)) {
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildAdd.getTranslation(language).notChiefError);
+      JsonReader.commands.guildAdd.getTranslation(language).notAuthorizedError
+    );
   }
 
   // search for a user's guild
@@ -75,12 +101,14 @@ const GuildAddCommand = async (language, message, args) => {
     invitedGuild = null;
   }
 
-  if (invitedGuild != null) { // already in a guild
+  if (invitedGuild != null) {
+    // already in a guild
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildAdd.getTranslation(language).alreadyInAGuild);
+      JsonReader.commands.guildAdd.getTranslation(language).alreadyInAGuild
+    );
   }
 
   const members = await Entities.getByGuild(guild.id);
@@ -90,22 +118,35 @@ const GuildAddCommand = async (language, message, args) => {
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildAdd.getTranslation(language).guildFull);
+      JsonReader.commands.guildAdd.getTranslation(language).guildFull
+    );
   }
 
-  addBlockedPlayer(invitedEntity.discordUser_id, 'guildAdd');
-  invitationEmbed.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).invitationTitle, {
-    pseudo: message.mentions.users.last().username,
-  }), message.mentions.users.last().displayAvatarURL());
-  invitationEmbed.setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
-    guildName: guild.name,
-  }));
+  addBlockedPlayer(invitedEntity.discordUser_id, "guildAdd");
+  invitationEmbed.setAuthor(
+    format(
+      JsonReader.commands.guildAdd.getTranslation(language).invitationTitle,
+      {
+        pseudo: message.mentions.users.last().username,
+      }
+    ),
+    message.mentions.users.last().displayAvatarURL()
+  );
+  invitationEmbed.setDescription(
+    format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
+      guildName: guild.name,
+    })
+  );
 
   const msg = await message.channel.send(invitationEmbed);
 
   const embed = new discord.MessageEmbed();
   const filterConfirm = (reaction, user) => {
-    return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === message.mentions.users.last().id);
+    return (
+      (reaction.emoji.name == MENU_REACTION.ACCEPT ||
+        reaction.emoji.name == MENU_REACTION.DENY) &&
+      user.id === message.mentions.users.last().id
+    );
   };
 
   const collector = msg.createReactionCollector(filterConfirm, {
@@ -113,9 +154,10 @@ const GuildAddCommand = async (language, message, args) => {
     max: 1,
   });
 
-  collector.on('end', async (reaction) => {
+  collector.on("end", async (reaction) => {
     removeBlockedPlayer(invitedEntity.discordUser_id);
-    if (reaction.first()) { // a reaction exist
+    if (reaction.first()) {
+      // a reaction exist
       if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
         invitedEntity.Player.guild_id = guild.id;
         guild.updateLastDailyAt();
@@ -126,11 +168,20 @@ const GuildAddCommand = async (language, message, args) => {
           invitedEntity.Player.save(),
         ]);
 
-        embed.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
-          pseudo: message.mentions.users.last().username,
-          guildName: guild.name,
-        }), message.mentions.users.last().displayAvatarURL());
-        embed.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess);
+        embed.setAuthor(
+          format(
+            JsonReader.commands.guildAdd.getTranslation(language).successTitle,
+            {
+              pseudo: message.mentions.users.last().username,
+              guildName: guild.name,
+            }
+          ),
+          message.mentions.users.last().displayAvatarURL()
+        );
+        embed.setDescription(
+          JsonReader.commands.guildAdd.getTranslation(language)
+            .invitationSuccess
+        );
         return message.channel.send(embed);
       }
     }
@@ -140,9 +191,14 @@ const GuildAddCommand = async (language, message, args) => {
       message.mentions.users.last(),
       message.channel,
       language,
-      format(JsonReader.commands.guildAdd.getTranslation(language).invitationCancelled, {
-        guildName: guild.name,
-      }));
+      format(
+        JsonReader.commands.guildAdd.getTranslation(language)
+          .invitationCancelled,
+        {
+          guildName: guild.name,
+        }
+      )
+    );
   });
 
   await Promise.all([
@@ -151,13 +207,12 @@ const GuildAddCommand = async (language, message, args) => {
   ]);
 };
 
-
 module.exports = {
   commands: [
     {
-      name: 'guildadd',
+      name: "guildadd",
       func: GuildAddCommand,
-      aliases: ['gadd', 'ga']
-    }
-  ]
+      aliases: ["gadd", "ga"],
+    },
+  ],
 };

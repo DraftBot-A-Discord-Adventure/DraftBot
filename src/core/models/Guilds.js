@@ -40,6 +40,9 @@ module.exports = (Sequelize, DataTypes) => {
       chief_id: {
         type: DataTypes.INTEGER,
       },
+      elder_id: {
+        type: DataTypes.INTEGER,
+      },
       updatedAt: {
         type: DataTypes.DATE,
         defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
@@ -93,7 +96,12 @@ module.exports = (Sequelize, DataTypes) => {
    * @return {Number} Return the experience needed to level up.
    */
   Guilds.prototype.getExperienceNeededToLevelUp = function () {
-    return Math.round(JsonReader.values.xp.player.baseValue * Math.pow(JsonReader.values.xp.player.coeff, (this.level + 1))) - JsonReader.values.xp.player.minus;
+    return (
+      Math.round(
+        JsonReader.values.xp.player.baseValue *
+          Math.pow(JsonReader.values.xp.player.coeff, this.level + 1)
+      ) - JsonReader.values.xp.player.minus
+    );
   };
 
   /**
