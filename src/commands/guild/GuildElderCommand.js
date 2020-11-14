@@ -98,6 +98,15 @@ const GuildElderCommand = async (language, message, args) => {
       JsonReader.commands.guildElder.getTranslation(language).notInTheGuild
     );
   }
+  if (guild.chief_id == elderEntity.id) {
+    // chief cannot be the elder
+    return sendErrorMessage(
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guildElder.getTranslation(language).chiefError
+    );
+  }
 
   addBlockedPlayer(elderEntity.discordUser_id, "guildElder");
 
