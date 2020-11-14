@@ -55,7 +55,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
     );
   }
 
-  if (!(entity.id == guild.chief_id) && !(entity.id == guild.elder.id)) {
+  if (!(entity.id == guild.chief_id) && !(entity.id == guild.elder_id)) {
     //not the chief
     return sendErrorMessage(
       message.author,

@@ -85,7 +85,7 @@ const GuildAddCommand = async (language, message, args) => {
     );
   }
 
-  if (!(entity.id == guild.chief_id) && !(entity.id == guild.elder.id)) {
+  if (!(entity.id == guild.chief_id) && !(entity.id == guild.elder_id)) {
     return sendErrorMessage(
       message.author,
       message.channel,
