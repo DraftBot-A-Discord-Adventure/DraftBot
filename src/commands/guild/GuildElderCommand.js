@@ -72,6 +72,25 @@ const GuildElderCommand = async (language, message, args) => {
     return;
   }
 
+  try {
+    [elderEntity] = await Entities.getByArgs(args, message);
+  } catch (error) {
+    elderEntity = null;
+  }
+  try {
+    elderGuild = await Guilds.getById(elderEntity.Player.guild_id);
+  } catch (error) {
+    elderGuild = null;
+  }
+  if (elderGuild == null || elderGuild.id != guild.id) {
+    // elder is not in guild
+    return sendErrorMessage(
+      message.author,
+      message.channel,
+      language,
+      JsonReader.commands.guildElder.getTranslation(language).notInTheGuild
+    );
+  }
   if (guild.chief_id != entity.id) {
     return sendErrorMessage(
       message.author,
@@ -159,7 +178,6 @@ const GuildElderCommand = async (language, message, args) => {
           );
         }
         guild.elder_id = elderEntity.id;
-        guild.updateLastDailyAt();
         await Promise.all([guild.save()]);
         confirmEmbed.setAuthor(
           format(
