@@ -3,13 +3,13 @@
     "fr": {
       "embedTitle": "Refuge d'animaux de la guilde {guild}: {count} / {max}",
       "noPetMessage": "Oh ! Il semblerait qu'il n'y ait aucun animal dans le refuge.",
-      "petFieldName": "Animal avec l'id: {id}",
+      "petFieldName": "Animal n°{number}",
       "petField": "Type: {emote} {type}\nRareté: {rarity}\nSexe: {sex}\nSurnom: {nickname}"
     },
     "en": {
       "embedTitle": "Pet shelter of the guild {guild}: {count} / {max}",
       "noPetMessage": "Oh! It seems that there is no pet in the shelter.",
-      "petFieldName": "Pet with id {id}",
+      "petFieldName": "Pet number {number}",
       "petField": "Type: {type} {emote}\nRarity: {rarity}\nSex: {sexDisplay}\nNickname: {nickname}"
     }
   }

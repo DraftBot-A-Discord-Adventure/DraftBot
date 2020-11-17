@@ -19,7 +19,7 @@ const MyPetCommand = async function (language, message, args) {
     if (authorPet) {
         let shelterEmbed = new discord.MessageEmbed();
         shelterEmbed.setTitle(tr.embedTitle);
-        shelterEmbed.addField(PetEntities.getPetTitle(authorPet, language), await PetEntities.getPetDisplay(authorPet, language));
+        shelterEmbed.setDescription(await PetEntities.getPetDisplay(authorPet, language));
         return await message.channel.send(shelterEmbed);
     }
 

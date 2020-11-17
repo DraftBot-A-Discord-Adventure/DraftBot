@@ -102,8 +102,8 @@ module.exports = (Sequelize, DataTypes) => {
         return pet_entity.nickname ? pet_entity.nickname : JsonReader.models.pets.getTranslation(language).noNickname;
     }
 
-    PetEntities.getPetTitle = (pet_entity, language) => {
-        return format(JsonReader.commands.guildShelter.getTranslation(language).petFieldName, { id: pet_entity.id });
+    PetEntities.getPetTitle = (pet_entity, language, number) => {
+        return format(JsonReader.commands.guildShelter.getTranslation(language).petFieldName, { number: number });
     }
 
     PetEntities.getPetDisplay = async (pet_entity, language) => {

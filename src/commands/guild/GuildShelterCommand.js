@@ -41,8 +41,9 @@ const GuildShelterCommand = async (language, message, args) => {
         shelterEmbed.setDescription(JsonReader.commands.guildShelter.getTranslation(language).noPetMessage);
     }
     else {
-        for (let pet of guild.GuildPets) {
-            shelterEmbed.addField(PetEntities.getPetTitle(pet.PetEntity, language), await PetEntities.getPetDisplay(pet.PetEntity, language), true);
+        for (let i = 0; i < guild.GuildPets.length; ++i) {
+            const pet = guild.GuildPets[i];
+            shelterEmbed.addField(PetEntities.getPetTitle(pet.PetEntity, language, i + 1), await PetEntities.getPetDisplay(pet.PetEntity, language), true);
         }
     }
 
