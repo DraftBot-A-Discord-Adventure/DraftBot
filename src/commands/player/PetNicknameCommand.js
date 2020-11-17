@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetSwitchCommand = async function (language, message, args) {
+const PetNicknameCommand = async function (language, message, args) {
     const [entity] = await Entities.getOrRegister(message.author.id);
 
     if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
@@ -52,7 +52,7 @@ module.exports = {
     commands: [
         {
             name: 'petnickname',
-            func: PetSwitchCommand,
+            func: PetNicknameCommand,
             aliases: ['petnick', 'pnickname', 'pnick', 'petname', 'pname']
         }
     ]
