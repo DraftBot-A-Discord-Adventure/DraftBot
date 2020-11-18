@@ -212,6 +212,12 @@
 					"usage": "rarity",
 					"category": "player",
 					"description": "Permet de voir la probabilité d'avoir un item selon sa rareté."
+				},
+				"idea": {
+					"emote": ":bulb:",
+					"usage": "idea",
+					"category": "util",
+					"description": "Permet d'obtenir un lien afin de suggérer une idée ou alors de voter pour celles déjà existantes."
 				}
 			}
 		},
@@ -428,6 +434,12 @@
 					"usage": "rarity",
 					"category": "player",
 					"description": "Allows to see the probability to get an item according to its rarity."
+				},
+				"idea": {
+					"emote": ":bulb:",
+					"usage": "idea",
+					"category": "util",
+					"description": "Give a link to submit suggestions and vote for those already submitted."
 				}
 			}
 		}
