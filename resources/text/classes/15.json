@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":person_fencing: Chevalier",
+		"en": ":person_fencing: Knight"
+	},
+	"emoji": "🤺",
+	"attack": 70,
+	"defense": 65,
+	"speed": 60,
+	"health": 100,
+	"fightPoint": 230,
+	"price": 22300,
+	"classgroup": 3
+}

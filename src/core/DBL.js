@@ -1,15 +1,31 @@
-const DiscordBotListAPI = require('dbl-api');
+const DiscordBotList = require('dblapi.js');
 
 class DBL {
+  static dbl;
+
   static startDBLWebhook() {
-    if (JsonReader.app.DBL_WEBHOOK_URL === "" || JsonReader.app.DBL_WEBHOOK_PORT === 0) {
+    if (JsonReader.app.DBL_WEBHOOK_URL === "" || JsonReader.app.DBL_WEBHOOK_PORT === 0 || !JsonReader.app.DBL_TOKEN || JsonReader.app.DBL_TOKEN === "") {
       console.info("DBL Webhook not configured, skipped.");
       return;
     }
-    const api = new DiscordBotListAPI({ port: JsonReader.app.DBL_WEBHOOK_PORT, path: JsonReader.app.DBL_WEBHOOK_URL });
-    api.on('upvote', async (user) => {
-      await DBL.userDBLVote(user);
+    this.dbl = new DiscordBotList(JsonReader.app.DBL_TOKEN, {
+          webhookPort: JsonReader.app.DBL_WEBHOOK_PORT,
+          webhookPath: JsonReader.app.DBL_WEBHOOK_URL,
+          statsInterval: TOPGG.DBL_SERVER_COUNT_UPDATE_TIME
+        }, client);
+    this.dbl.webhook.on('vote', async (vote) => {
+      await DBL.userDBLVote(vote.user);
     });
+    this.dbl.webhook.on('ready', hook => {
+      console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+    });
+    this.dbl.on('error', e => {
+      console.log(`DBL Error: ${e}`);
+    });
+    this.dbl.on('posted', () => {
+      console.log('Successfully posted ' + client.guilds.cache.size + ' servers to DBL');
+    });
+
   }
 
   /**
@@ -36,17 +52,18 @@ class DBL {
       return;
     }
     const embed = new discord.MessageEmbed();
-    embed.setAuthor("Thank you for voting for " + client.user.username, dUser.avatarURL(), "https://top.gg/bot/" + client.user.id);
-    let desc = "User: `" + dUser.tag + " (id:" + dUser.id + ")` just voted!\n" + dUser.username + " got the role `" + (await guild.roles.fetch(JsonReader.app.DBL_VOTE_ROLE)).name + "` for `";
+    embed.setTitle("SOMEONE HAS VOTED FOR " + client.user.username.toUpperCase(), undefined, "https://top.gg/bot/" + client.user.id);
+    embed.setThumbnail(dUser.avatarURL());
+    let desc = "**" + dUser.tag + "** is now a " + (await guild.roles.fetch(JsonReader.app.DBL_VOTE_ROLE)).toString() + " for `";
     if (TOPGG.ROLE_DURATION === 24) {
       desc += "1 day";
     } else {
       desc += TOPGG.ROLE_DURATION + " hours";
     }
-    embed.setDescription(desc + "` and the badge " + TOPGG.BADGE + " for `" + TOPGG.BADGE_DURATION + " hours` :tada:"
-      + "\n\nYou can vote [here](https://top.gg/bot/" + client.user.id + ") every 12 hours!"
+    embed.setDescription(desc + "` and got the badge " + TOPGG.BADGE + " for `" + TOPGG.BADGE_DURATION + " hours` :tada:"
+      + "\n\nYou can vote [here](https://top.gg/bot/" + client.user.id + ") every 12 hours!\n||User ID: " + dUser.id + "||"
     );
-    embed.setFooter("Thank you for your support!");
+    embed.setImage("https://i.imgur.com/3PrpILu.png");
     (await guild.channels.cache.get(JsonReader.app.DBL_LOGS_CHANNEL)).send(embed);
   }
 

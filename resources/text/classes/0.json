@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":herb: Recrue",
+		"en": ":herb: Recruit"
+	},
+	"emoji": "🌿",
+	"attack": 25,
+	"defense": 20,
+	"speed": 10,
+	"health": 65,
+	"fightPoint": 45,
+	"price": 150,
+	"classgroup": 0
+}

@@ -18,29 +18,55 @@ async function ClassCommand(language, message, args) {
 
     const classTranslations = JsonReader.commands.class.getTranslation(language);
 
-    let classesLineDisplay = new Array();
-    let allClasses = await Classes.findAll();
+    let allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
+
+    const embedClassMessage = new discord.MessageEmbed()
+        .setColor(JsonReader.bot.embed.default)
+        .setTitle(classTranslations.title)
+        .setDescription(
+            classTranslations.desc)
+
     for (let k = 0; k < allClasses.length; k++) {
-        classesLineDisplay.push(allClasses[k].toString(language, entity.Player.level))
+        embedClassMessage.addField(allClasses[k].getName(language),
+            format(
+                classTranslations.classMainDisplay,
+                {
+                    description: allClasses[k].getDescription(language),
+                    price: allClasses[k].price
+                }
+            ), false
+        )
     }
 
+    embedClassMessage.addField(
+        classTranslations.moneyQuantityTitle,
+        format(classTranslations.moneyQuantity, {
+            money: entity.Player.money,
+        }));
     //Creating class message
-    const classMessage = await message.channel.send(
-        new discord.MessageEmbed()
-            .setColor(JsonReader.bot.embed.default)
-            .setTitle(classTranslations.title)
-            .addField(
-                classTranslations.desc, classesLineDisplay.join("\n") +
-            format(classTranslations.moneyQuantity, {
-                money: entity.Player.money,
-            }))
-    );
+    const classMessage = await message.channel.send(embedClassMessage);
 
     const filterConfirm = (reaction, user) => {
         return (user.id === entity.discordUser_id && reaction.me);
     };
 
     const collector = classMessage.createReactionCollector(filterConfirm, { time: 120000, max: 1 });
+
+    //Fetch the choice from the user
+    collector.on("end", async (reaction) => {
+        if (!reaction.first()) { //the user is afk
+            removeBlockedPlayer(entity.discordUser_id);
+            return;
+        }
+        if (reaction.first().emoji.name === MENU_REACTION.DENY) {
+            removeBlockedPlayer(entity.discordUser_id);
+            sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass);
+            return;
+        }
+
+        const selectedClass = await Classes.getByEmojy(reaction.first().emoji.name);
+        confirmPurchase(message, language, selectedClass, entity);
+    });
 
     //Adding reactions
     let classEmojis = new Map();
@@ -49,40 +75,16 @@ async function ClassCommand(language, message, args) {
         classEmojis.set(allClasses[k].emoji, k);
     }
     classMessage.react(MENU_REACTION.DENY)
-
-    //Fetch the choice from the user
-    collector.on("end", async (reaction) => {
-        removeBlockedPlayer(entity.discordUser_id);
-        if (!reaction.first()) { //the user is afk
-            return;
-        }
-        if (reaction.first().emoji.name === MENU_REACTION.DENY) {
-            sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass);
-            return;
-        }
-
-        if (canBuy(CLASS.PRICE, entity.Player)) {
-            let classid = classEmojis.get(reaction.first().emoji.name);
-            confirmPurchase(message, language, classid, entity);
-        } else {
-            sendErrorMessage(message.author, message.channel, language, format(
-                JsonReader.commands.class.getTranslation(language).error.cannotBuy,
-                {
-                    missingMoney: CLASS.PRICE - entity.Player.money,
-                }
-            ));
-        }
-    });
 }
 
 /**
- * @param {*} name - The item name
- * @param {*} price - The item price
- * @param {*} info - The info to display while trying to buy the item
+ * @param {*} message - message where the command is from
+ * @param {*} language - the language that has to be used
+ * @param {*} selectedClass - The selected class
+ * @param {*} entity - The entity that is playing
  */
-async function confirmPurchase(message, language, classId, entity) {
+async function confirmPurchase(message, language, selectedClass, entity) {
 
-    const selectedClass = await Classes.getById(classId);
     const confirmEmbed = new discord.MessageEmbed()
         .setColor(JsonReader.bot.embed.default)
         .setAuthor(
@@ -95,7 +97,7 @@ async function confirmPurchase(message, language, classId, entity) {
             "\n\u200b\n" +
             format(JsonReader.commands.class.getTranslation(language).display, {
                 name: selectedClass.toString(language, entity.Player.level),
-                price: CLASS.PRICE,
+                price: selectedClass.price,
                 description: selectedClass.getDescription(language)
             })
         );
@@ -115,12 +117,24 @@ async function confirmPurchase(message, language, classId, entity) {
         removeBlockedPlayer(entity.discordUser_id);
         if (reaction.first()) {
             if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+                if (!canBuy(selectedClass.price, entity.Player)) {
+                    return sendErrorMessage(message.author, message.channel, language, format(
+                        JsonReader.commands.class.getTranslation(language).error.cannotBuy,
+                        {
+                            missingMoney: selectedClass.price - entity.Player.money,
+                        }
+                    ));
+                }
                 if (selectedClass.id === playerClass.id) {
                     return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.sameClass);
                 }
                 reaction.first().message.delete();
-                entity.Player.class = classId;
-                entity.Player.addMoney(-CLASS.PRICE);
+                entity.Player.class = selectedClass.id;
+                const newClass = await Classes.getById(entity.Player.class);
+                await entity.setHealth(Math.round(
+                    (entity.health / await playerClass.getMaxHealthValue(entity.Player.level))
+                    * await newClass.getMaxHealthValue(entity.Player.level)))
+                entity.Player.addMoney(-selectedClass.price);
                 await Promise.all([
                     entity.save(),
                     entity.Player.save()
@@ -134,7 +148,7 @@ async function confirmPurchase(message, language, classId, entity) {
                             }),
                             message.author.displayAvatarURL()
                         )
-                        .setDescription(JsonReader.commands.class.getTranslation(language).newClass + selectedClass.fr)
+                        .setDescription(JsonReader.commands.class.getTranslation(language).newClass + selectedClass.getName(language))
                 );
             }
         }

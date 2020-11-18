@@ -59,9 +59,9 @@ const FightCommand = async function (language, message, args, friendly = false) 
       opponent: defender.getMention(),
     });
   }
-  msg += "\n\n" + await getStatsDisplay(attacker, language, isTournament ? tournamentPower : -1, friendly);
+  msg += "\n\n" + await getStatsDisplay(attacker, language, isTournament ? tournamentPower : -1, friendly || isTournament);
   if (defender !== null) {
-    msg += "\n" + await getStatsDisplay(defender, language, isTournament ? tournamentPower : -1, friendly);
+    msg += "\n" + await getStatsDisplay(defender, language, isTournament ? tournamentPower : -1, friendly || isTournament);
   }
 
   await message.channel.send(msg)
@@ -224,8 +224,9 @@ async function getStatsDisplay(entity, language, maxPower = -1, friendly = false
   }
   let o = await inv.getActiveObject();
   let power = maxPower;
-  if (power === -1) {
-    power = friendly ? await entity.getMaxCumulativeHealth() : await entity.getCumulativeHealth();
+  const pMaxPower = await entity.getMaxCumulativeHealth();
+  if (power === -1 || pMaxPower < maxPower) {
+    power = friendly ? pMaxPower : await entity.getCumulativeHealth();
   }
   msg += format(JsonReader.commands.fight.getTranslation(language).summarize.stats, {
     power: power,

@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":crossed_swords: Fantassin",
+		"en": ":crossed_swords: Infantryman"
+	},
+	"emoji": "⚔️",
+	"attack": 75,
+	"defense": 55,
+	"speed": 40,
+	"health": 110,
+	"fightPoint": 245,
+	"price": 10300,
+	"classgroup": 3
+}

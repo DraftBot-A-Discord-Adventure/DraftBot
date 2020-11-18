@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":shield: Tank",
+		"en": ":shield: Tank"
+	},
+	"emoji": "🛡️",
+	"attack": 45,
+	"defense": 85,
+	"speed": 10,
+	"health": 160,
+	"fightPoint": 500,
+	"price": 14250,
+	"classgroup": 3
+}

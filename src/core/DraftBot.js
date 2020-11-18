@@ -9,15 +9,15 @@ class DraftBot {
         DraftBot.handleLogs();
 
         await (require('core/JsonReader')).init({
-            folders: ['ressources/text/commands', 'ressources/text/models'],
+            folders: ['resources/text/commands', 'resources/text/models'],
             files: [
                 'config/app.json',
                 'draftbot/package.json',
-                'ressources/text/error.json',
-                'ressources/text/bot.json',
-                'ressources/text/classesValues.json',
-                'ressources/text/values.json',
-                'ressources/text/items.json',
+                'resources/text/error.json',
+                'resources/text/bot.json',
+                'resources/text/classesValues.json',
+                'resources/text/values.json',
+                'resources/text/items.json',
             ],
         });
         await (require('core/Database')).init();

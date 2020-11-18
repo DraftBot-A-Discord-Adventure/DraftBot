@@ -31,6 +31,12 @@ module.exports = (Sequelize, DataTypes) => {
     emoji: {
       type: DataTypes.TEXT,
     },
+    classgroup: {
+      type: DataTypes.INTEGER,
+    },
+    price: {
+      type: DataTypes.INTEGER,
+    },
     fr: {
       type: DataTypes.TEXT,
     },
@@ -64,16 +70,27 @@ module.exports = (Sequelize, DataTypes) => {
     return format(
       JsonReader.classesValues.getTranslation(language).fieldsValue, {
       name: this[language],
-      attack: this.attack + Math.round(this.attack / 100 * level),
-      defense: this.defense + Math.round(this.defense / 100 * level),
-      speed: this.speed + Math.round(this.speed / 100 * level),
+      attack: this.getAttackValue(level),
+      defense: this.getDefenseValue(level),
+      speed: this.getSpeedValue(level),
       health: this.health + level,
-      fightPoint: this.fightPoint + level * 10
+      price: this.price,
+      classgroup: this.classgroup,
+      fightPoint: this.getMaxCumulativeHealthValue(level)
     });
   };
 
   /**
-   * @param {("fr"|"en")} language - The language the class has to be displayed in
+   * @param {("fr"|"en")} language - The language the class name has to be displayed in
+   * @return {String}
+   */
+  Classes.prototype.getName = function (language) {
+    return this[language];
+  };
+
+
+  /**
+   * @param {("fr"|"en")} language - The language the class description has to be displayed in
    * @return {String}
    */
   Classes.prototype.getDescription = function (language) {
@@ -85,7 +102,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {Number} level - the level of the player
    */
   Classes.prototype.getAttackValue = function (level) {
-    return this.attack + Math.round(this.attack / 100 * level);
+    return Math.round(this.attack + this.attack / 100 * level / 4 * level / 10);
   };
 
   /**
@@ -93,7 +110,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {Number} level - the level of the player
    */
   Classes.prototype.getDefenseValue = function (level) {
-    return this.defense + Math.round(this.defense / 100 * level);
+    return Math.round(this.defense + this.defense / 100 * level / 4 * level / 10);
   };
 
   /**
@@ -101,7 +118,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {Number} level - the level of the player
    */
   Classes.prototype.getSpeedValue = function (level) {
-    return this.speed + Math.round(this.speed / 100 * level);
+    return Math.round(this.speed + this.speed / 100 * level / 4 * level / 10);
   };
 
   /**
@@ -109,7 +126,7 @@ module.exports = (Sequelize, DataTypes) => {
    * @param {Number} level - the level of the player
    */
   Classes.prototype.getMaxCumulativeHealthValue = function (level) {
-    return this.fightPoint + 10 * level;
+    return Math.round(this.fightPoint + 10 * level + level / 4 * level / 8);
   };
 
   /**
@@ -127,6 +144,29 @@ module.exports = (Sequelize, DataTypes) => {
     return Classes.findOne({
       where: {
         id: id,
+      },
+    });
+  };
+
+
+  /**
+   * @param {Number} groupId
+   */
+  Classes.getByGroupId = (groupId) => {
+    return Classes.findAll({
+      where: {
+        classgroup: groupId,
+      },
+    });
+  };
+
+  /**
+   * @param {Text} emoji
+   */
+  Classes.getByEmojy = (emoji) => {
+    return Classes.findOne({
+      where: {
+        emoji: emoji,
       },
     });
   };
