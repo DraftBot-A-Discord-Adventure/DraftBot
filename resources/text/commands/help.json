@@ -171,6 +171,18 @@
 					"category": "guild",
 					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef de guilde."
 				},
+				"guildelder": {
+					"emote": ":military_medal:",
+					"usage": "guildelder [mention]",
+					"category" : "guild",
+					"description": "Permet d'ajouter un ainé à la guilde, nécessite d'être chef de guilde."
+				},
+				"guildelderremove": {
+					"emote": ":outbox_tray:",
+					"usage": "guildelderremove",
+					"category" : "guild",
+					"description": "Permet de supprimer l'ainé de la guilde, nécessite d'être chef de guilde."
+				},
 				"guilddesc": {
 					"emote": ":writing_hand:",
 					"usage": "guilddesc [description]",
@@ -380,6 +392,18 @@
 					"usage": "guilddesc [description]",
 					"category": "guild",
 					"description": "Edit the description of your guild. Requires to be the guild's leader."
+				},
+				"guildelder": {
+					"emote": ":military_medal:",
+					"usage": "guildelder [mention]",
+					"category" : "guild",
+					"description": "Allows one to designate a guild elder, requires to be guild's leader."
+				},
+				"guildelderremove": {
+					"emote": ":outbox_tray:",
+					"usage": "guildelderremove",
+					"category" : "guild",
+					"description": "Allow to remove the current guild's elder, requires to be guild's leader."
 				},
 				"update": {
 					"emote": ":scroll:",
