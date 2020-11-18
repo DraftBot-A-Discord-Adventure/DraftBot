@@ -53,9 +53,9 @@ const GuildShelterCommand = async (language, message, args) => {
 module.exports = {
     commands: [
         {
-            name: 'guildshelter',
+            name: 'shelter',
             func: GuildShelterCommand,
-            aliases: ['shelter', 'pets', 'animals', 'gshelter', 'gpets', 'ganimals', 'guildpets', 'guildanimals']
+            aliases: ['guildshelter', 'pets', 'animals', 'gshelter', 'gpets', 'ganimals', 'guildpets', 'guildanimals']
         }
     ]
 };

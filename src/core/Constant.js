@@ -86,6 +86,7 @@ global.CATEGORY = {
   UTIL: "util",
   PLAYER: "player",
   GUILD: "guild",
+  PET: "pet"
 };
 global.MENU_REACTION = {
   ACCEPT: "✅",

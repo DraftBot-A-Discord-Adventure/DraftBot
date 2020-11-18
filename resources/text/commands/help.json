@@ -8,6 +8,7 @@
 			"utilCommands" : ":question: Utiles :",
 			"playerCommands" : ":bust_in_silhouette: Joueur :",
 			"guildCommands" : ":stadium: Guilde :",
+			"petCommands": ":dog: Animaux :",
 			"forMoreHelp" : ":arrow_forward: Pour plus d'aide : ",
 			"forMoreHelpValue" : "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !",
 			"commandEmbedTitle": "{emote} Commande {cmd}",
@@ -188,6 +189,36 @@
 					"usage": "class",
 					"category" :"player",
 					"description": "Permet de changer de classe."
+				},
+				"mypet": {
+					"emote": ":dog:",
+					"usage": "mypet",
+					"category": "pet",
+					"description": "Affiche les informations relatives à votre animal."
+				},
+				"pettransfer": {
+					"emote": ":arrow_right:",
+					"usage": "pettransfer [numéro]",
+					"category": "pet",
+					"description": "Permet de transférer un animal depuis ou vers la guilde. Si aucun numéro n'est fournit, l'animal de votre inventaire sera déplacé vers le refuge de la guilde. Si un numéro est fournit, il sera échangé avec celui de la guilde correspondant au numéro."
+				},
+				"petnickname": {
+					"emote": ":abcd:",
+					"usage": "petnickname [nom]",
+					"category": "pet",
+					"description": "Change le surnom de votre animal. Si aucun nom n'est fournit, le nom actuel sera effacé."
+				},
+				"petfree": {
+					"emote": ":wave:",
+					"usage": "petfree",
+					"category": "pet",
+					"description": "Libère votre animal. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
+				},
+				"shelter": {
+					"emote": ":park:",
+					"usage": "shelter",
+					"category": "pet",
+					"description": "Affiche le refuge d'animaux de la guilde."
 				}
 			}
 		},
@@ -200,6 +231,7 @@
 			"utilCommands" : ":question: Utility :",
 			"playerCommands" : ":bust_in_silhouette: Player :",
 			"guildCommands" : ":stadium: Guild :",
+			"petCommands": ":dog: Pets :",
 			"forMoreHelp" : ":arrow_forward: For more help : ",
 			"forMoreHelpValue" : "you can visit the bot's [wiki](https://guide.draftbot.com/v/en/) !",
 			"commandEmbedTitle": "{emote} Command {cmd}",
@@ -380,6 +412,36 @@
 					"usage": "class",
 					"category" : "player",
 					"description": "Change your class."
+				},
+				"mypet": {
+					"emote": ":dog:",
+					"usage": "mypet",
+					"category": "pet",
+					"description": "Show information about your pet."
+				},
+				"pettransfer": {
+					"emote": ":arrow_right:",
+					"usage": "pettransfer [number]",
+					"category": "pet",
+					"description": "Transfer a pet from or to a guild. If no number is given, your current pet will be transferred to the guild's shelter. Else your pet will be switched with the pet with the corresponding number."
+				},
+				"petnickname": {
+					"emote": ":abcd:",
+					"usage": "petnickname [name]",
+					"category": "pet",
+					"description": "Change the nickname of your pet. If no name is given, the nickname will be cleared."
+				},
+				"petfree": {
+					"emote": ":wave:",
+					"usage": "petfree",
+					"category": "pet",
+					"description": "Free your pet. Warning, once freed the pet will be deleted forever. This command can only be used once per hour."
+				},
+				"shelter": {
+					"emote": ":park:",
+					"usage": "shelter",
+					"category": "pet",
+					"description": "Show the guild's shelter."
 				}
 			}
 		}
