@@ -315,7 +315,8 @@ module.exports = {
   commands: [
     {
       name: 'top',
-      func: topCommand
+      func: topCommand,
+      aliases: ['t', 'rank']
     },
     {
       name: 'topweek',

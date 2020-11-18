@@ -28,7 +28,7 @@ module.exports = {
     {
       name: 'inventory',
       func: InventoryCommand,
-      aliases: ['inv']
+      aliases: ['inv', 'i']
     }
   ]
 };
