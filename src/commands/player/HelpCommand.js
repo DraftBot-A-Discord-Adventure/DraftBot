@@ -128,6 +128,7 @@ module.exports = {
     {
       name: "help",
       func: HelpCommand,
+      aliases: ['h']
     },
   ],
 };

@@ -20,7 +20,7 @@ module.exports = {
         {
             name: 'update',
             func: updateCommand,
-            aliases: []
+            aliases: ['changelog']
         }
     ]
 };
