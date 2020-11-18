@@ -374,6 +374,12 @@ const TestCommand = async(language, message, args) => {
                 }
                 await message.channel.send('Correct usage: test guildpet <id> <sex = m/f>');
                 return;
+            case 'apfree':
+                if (args.length === 2) {
+                    author.Player.last_pet_free -= parseInt(args[1]) * 60000;
+                    author.Player.save();
+                }
+                break;
             default:
                 await message.channel.send('Argument inconnu !');
                 return;

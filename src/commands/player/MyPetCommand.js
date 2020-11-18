@@ -6,7 +6,6 @@
  */
 const MyPetCommand = async function (language, message, args) {
     const [entity] = await Entities.getOrRegister(message.author.id);
-    const [server] = (await Servers.getOrRegister(message.guild.id));
 
     if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
         [EFFECT.BABY], entity)) !== true) {

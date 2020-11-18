@@ -69,6 +69,10 @@ module.exports = (Sequelize, DataTypes) => {
     },
     pet_id: {
       type: DataTypes.INTEGER
+    },
+    last_pet_free: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(0)
     }
   }, {
     tableName: 'players',
