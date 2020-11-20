@@ -11,6 +11,7 @@
             "fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
             "partialHeal": ":heart_decoration: | Les membres de la guilde ont été partiellement soignés. `+ {healthWon} ❤️`",
             "alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
+            "pet": "{emote} | Un animal rejoint le refuge de la guilde: **{pet}**",
             "coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochaine récompense : {time}."
         },
         "en": {
@@ -24,6 +25,7 @@
             "fullHeal": ":heartpulse: | Guild's members were fully healed.",
             "partialHeal": ":heart_decoration: | Guild's members were partly healed. `+ {healthWon} ❤️`",
             "alterationHeal": ":hospital: | Guild's members' statuses were reset. Healthy guild's members were partly healed. `+ {healthWon} ❤️`",
+            "pet": "{emote} | A pet joins the guild's shelter: **{pet}**",
             "coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. Time before next reward : {time}."
         }
     },
@@ -38,112 +40,123 @@
         "0": {
             "personalXP": 0,
             "guildXp": 0,
-            "money": 1000,
+            "money": 900,
             "fixedMoney": 0,
             "badge": 0,
             "fullHeal": 0,
             "partialHeal": 0,
-            "alterationHeal": 0
+            "alterationHeal": 0,
+            "pet": 100
         },
         "1": {
             "personalXP": 50,
             "guildXp": 250,
-            "money": 598,
+            "money": 498,
             "fixedMoney": 25,
             "badge": 0,
             "fullHeal": 2,
             "partialHeal": 50,
-            "alterationHeal": 25
+            "alterationHeal": 25,
+            "pet": 100
         },
         "2": {
             "personalXP": 50,
             "guildXp": 250,
-            "money": 570,
+            "money": 470,
             "fixedMoney": 50,
             "badge": 0,
             "fullHeal": 3,
             "partialHeal": 52,
-            "alterationHeal": 25
+            "alterationHeal": 25,
+            "pet": 100
         },
         "3": {
             "personalXP": 50,
             "guildXp": 250,
-            "money": 542,
+            "money": 442,
             "fixedMoney": 75,
             "badge": 0,
             "fullHeal": 4,
             "partialHeal": 54,
-            "alterationHeal": 25
+            "alterationHeal": 25,
+            "pet": 100
         },
         "4": {
             "personalXP": 100,
             "guildXp": 250,
-            "money": 464,
+            "money": 364,
             "fixedMoney": 100,
             "badge": 0,
             "fullHeal": 5,
             "partialHeal": 56,
-            "alterationHeal": 25
+            "alterationHeal": 25,
+            "pet": 100
         },
         "5": {
             "personalXP": 100,
             "guildXp": 250,
-            "money": 416,
+            "money": 316,
             "fixedMoney": 125,
             "badge": 10,
             "fullHeal": 6,
             "partialHeal": 58,
-            "alterationHeal": 35
+            "alterationHeal": 35,
+            "pet": 100
         },
         "6": {
             "personalXP": 100,
             "guildXp": 250,
-            "money": 378,
+            "money": 278,
             "fixedMoney": 150,
             "badge": 20,
             "fullHeal": 7,
             "partialHeal": 60,
-            "alterationHeal": 35
+            "alterationHeal": 35,
+            "pet": 100
         },
         "7": {
             "personalXP": 100,
             "guildXp": 250,
-            "money": 335,
+            "money": 235,
             "fixedMoney": 175,
             "badge": 30,
             "fullHeal": 8,
             "partialHeal": 62,
-            "alterationHeal": 40
+            "alterationHeal": 40,
+            "pet": 100
         },
         "8": {
             "personalXP": 150,
             "guildXp": 250,
-            "money": 242,
+            "money": 142,
             "fixedMoney": 200,
             "badge": 40,
             "fullHeal": 9,
             "partialHeal": 64,
-            "alterationHeal": 45
+            "alterationHeal": 45,
+            "pet": 100
         },
         "9": {
             "personalXP": 150,
             "guildXp": 250,
-            "money": 199,
+            "money": 99,
             "fixedMoney": 225,
             "badge": 50,
             "fullHeal": 10,
             "partialHeal": 66,
-            "alterationHeal": 50
+            "alterationHeal": 50,
+            "pet": 100
         },
         "10": {
             "personalXP": 200,
             "guildXp": 0,
-            "money": 297,
+            "money": 197,
             "fixedMoney": 250,
             "badge": 100,
             "fullHeal": 15,
             "partialHeal": 68,
-            "alterationHeal": 70
+            "alterationHeal": 70,
+            "pet": 100
         }
     }
 }

@@ -380,6 +380,9 @@ const TestCommand = async(language, message, args) => {
                     author.Player.save();
                 }
                 break;
+            case 'greward':
+                await getCommand("gd")(language, message, [], args[1]);
+                break;
             default:
                 await message.channel.send('Argument inconnu !');
                 return;

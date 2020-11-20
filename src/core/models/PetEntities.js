@@ -95,17 +95,28 @@ module.exports = (Sequelize, DataTypes) => {
 
     /**
      * @param {PetEntities} pet_entity
-     * @param language
+     * @param {String|string} language
      * @returns {String|string}
      */
     PetEntities.getNickname = (pet_entity, language) => {
         return pet_entity.nickname ? pet_entity.nickname : JsonReader.models.pets.getTranslation(language).noNickname;
     }
 
+    /**
+     * @param {PetEntities} pet_entity
+     * @param {String|string} language
+     * @param {number} number
+     * @returns {String}
+     */
     PetEntities.getPetTitle = (pet_entity, language, number) => {
         return format(JsonReader.commands.guildShelter.getTranslation(language).petFieldName, { number: number });
     }
 
+    /**
+     * @param {PetEntities} pet_entity
+     * @param {String|string} language
+     * @returns {Promise<String>}
+     */
     PetEntities.getPetDisplay = async (pet_entity, language) => {
         if (!pet_entity) {
             return await Pets.getById(JsonReader.models.pets.defaultPetId)["maleName_" + language];
@@ -119,6 +130,43 @@ module.exports = (Sequelize, DataTypes) => {
             }
         );
     };
+
+    /**
+     * @param {number} level
+     * @returns {Promise<void>}
+     */
+    PetEntities.generateRandomPetEntity = async (level) => {
+        const sex = draftbotRandom.bool() ? 'm' : 'f';
+        const levelTier = "" + Math.floor(level / 10);
+        const probabilities = JsonReader.models.pets.probabilities[levelTier];
+        let p = draftbotRandom.realZeroToOneInclusive();
+        let rarity;
+        for (rarity = 1; rarity < 6; ++rarity) {
+            p -= probabilities["" + rarity];
+            if (p <= 0) {
+                break;
+            }
+        }
+        if (rarity === 6) { // Case that should never be reached if the probabilities are 1
+            rarity = 1;
+            console.log("Warning ! Pet probabilities are not equal to 1 for level tier " + levelTier);
+        }
+        const pet = await Pets.findOne({
+            where: {
+                rarity: rarity,
+            },
+            order: [
+                Sequelize.fn('RANDOM'),
+            ]
+        });
+        let r = PetEntities.build({
+            pet_id: pet.id,
+            sex: sex,
+            nickname: null
+        })
+        r.PetModel = pet;
+        return r;
+    }
 
     return PetEntities;
 };
