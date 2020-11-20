@@ -47,6 +47,10 @@ const GuildShelterCommand = async (language, message, args) => {
         }
     }
 
+    if (Guilds.isPetShelterFull(guild)) {
+        shelterEmbed.setDescription(JsonReader.commands.guildShelter.getTranslation(language).warningFull);
+    }
+
     await message.channel.send(shelterEmbed);
 };
 

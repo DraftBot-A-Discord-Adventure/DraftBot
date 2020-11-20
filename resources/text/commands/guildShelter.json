@@ -4,13 +4,15 @@
       "embedTitle": "Refuge d'animaux de la guilde {guild}: {count} / {max}",
       "noPetMessage": "Oh ! Il semblerait qu'il n'y ait aucun animal dans le refuge.",
       "petFieldName": "Animal n°{number}",
-      "petField": "Type: {emote} {type}\nRareté: {rarity}\nSexe: {sex}\nSurnom: {nickname}"
+      "petField": "Type: {emote} {type}\nRareté: {rarity}\nSexe: {sex}\nSurnom: {nickname}",
+      "warningFull": ":warning: Le refuge est plein, aucun nouvel animal ne pourra être obtenu !"
     },
     "en": {
       "embedTitle": "Pet shelter of the guild {guild}: {count} / {max}",
       "noPetMessage": "Oh! It seems that there is no pet in the shelter.",
       "petFieldName": "Pet number {number}",
-      "petField": "Type: {type} {emote}\nRarity: {rarity}\nSex: {sexDisplay}\nNickname: {nickname}"
+      "petField": "Type: {type} {emote}\nRarity: {rarity}\nSex: {sexDisplay}\nNickname: {nickname}",
+      "warningFull": ":warning: The shelter is full, no more pet can be obtained!"
     }
   }
 }
