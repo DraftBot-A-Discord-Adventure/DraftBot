@@ -40,123 +40,112 @@
         "0": {
             "personalXP": 0,
             "guildXp": 0,
-            "money": 900,
+            "money": 1000,
             "fixedMoney": 0,
             "badge": 0,
             "fullHeal": 0,
             "partialHeal": 0,
-            "alterationHeal": 0,
-            "pet": 100
+            "alterationHeal": 0
         },
         "1": {
             "personalXP": 50,
             "guildXp": 250,
-            "money": 498,
+            "money": 598,
             "fixedMoney": 25,
             "badge": 0,
             "fullHeal": 2,
             "partialHeal": 50,
-            "alterationHeal": 25,
-            "pet": 100
+            "alterationHeal": 25
         },
         "2": {
             "personalXP": 50,
             "guildXp": 250,
-            "money": 470,
+            "money": 570,
             "fixedMoney": 50,
             "badge": 0,
             "fullHeal": 3,
             "partialHeal": 52,
-            "alterationHeal": 25,
-            "pet": 100
+            "alterationHeal": 25
         },
         "3": {
             "personalXP": 50,
             "guildXp": 250,
-            "money": 442,
+            "money": 542,
             "fixedMoney": 75,
             "badge": 0,
             "fullHeal": 4,
             "partialHeal": 54,
-            "alterationHeal": 25,
-            "pet": 100
+            "alterationHeal": 25
         },
         "4": {
             "personalXP": 100,
             "guildXp": 250,
-            "money": 364,
+            "money": 464,
             "fixedMoney": 100,
             "badge": 0,
             "fullHeal": 5,
             "partialHeal": 56,
-            "alterationHeal": 25,
-            "pet": 100
+            "alterationHeal": 25
         },
         "5": {
             "personalXP": 100,
             "guildXp": 250,
-            "money": 316,
+            "money": 416,
             "fixedMoney": 125,
             "badge": 10,
             "fullHeal": 6,
             "partialHeal": 58,
-            "alterationHeal": 35,
-            "pet": 100
+            "alterationHeal": 35
         },
         "6": {
             "personalXP": 100,
             "guildXp": 250,
-            "money": 278,
+            "money": 378,
             "fixedMoney": 150,
             "badge": 20,
             "fullHeal": 7,
             "partialHeal": 60,
-            "alterationHeal": 35,
-            "pet": 100
+            "alterationHeal": 35
         },
         "7": {
             "personalXP": 100,
             "guildXp": 250,
-            "money": 235,
+            "money": 335,
             "fixedMoney": 175,
             "badge": 30,
             "fullHeal": 8,
             "partialHeal": 62,
-            "alterationHeal": 40,
-            "pet": 100
+            "alterationHeal": 40
         },
         "8": {
             "personalXP": 150,
             "guildXp": 250,
-            "money": 142,
+            "money": 242,
             "fixedMoney": 200,
             "badge": 40,
             "fullHeal": 9,
             "partialHeal": 64,
-            "alterationHeal": 45,
-            "pet": 100
+            "alterationHeal": 45
         },
         "9": {
             "personalXP": 150,
             "guildXp": 250,
-            "money": 99,
+            "money": 199,
             "fixedMoney": 225,
             "badge": 50,
             "fullHeal": 10,
             "partialHeal": 66,
-            "alterationHeal": 50,
-            "pet": 100
+            "alterationHeal": 50
         },
         "10": {
             "personalXP": 200,
             "guildXp": 0,
-            "money": 197,
+            "money": 297,
             "fixedMoney": 250,
             "badge": 100,
             "fullHeal": 15,
             "partialHeal": 68,
-            "alterationHeal": 70,
-            "pet": 100
+            "alterationHeal": 70
         }
     }
 }

@@ -57,8 +57,7 @@ global.REWARD_TYPES = {
   BADGE: "badge",
   FULL_HEAL: "fullHeal",
   PARTIAL_HEAL: "partialHeal",
-  ALTERATION: "alterationHeal",
-  PET: "pet"
+  ALTERATION: "alterationHeal"
 };
 
 global.ITEMTYPE = {

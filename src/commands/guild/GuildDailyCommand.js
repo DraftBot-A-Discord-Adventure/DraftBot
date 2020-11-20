@@ -64,21 +64,6 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
     guildName: guild.name,
   }));
 
-  if (rewardType === REWARD_TYPES.PET) {
-    if (!Guilds.isPetShelterFull(guild)) {
-      let pet = await PetEntities.generateRandomPetEntity(guild.level);
-      await pet.save();
-      await (await GuildPets.addPet(guild.id, pet.id)).save();
-      embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).pet, {
-        emote: PetEntities.getPetEmote(pet),
-        pet: PetEntities.getPetTypeName(pet, language)
-      }));
-    }
-    else {
-      rewardType = REWARD_TYPES.MONEY;
-    }
-  }
-
   if (rewardType === REWARD_TYPES.PERSONAL_XP) {
     const xpWon = randInt(
       JsonReader.commands.guildDaily.minimalXp + guild.level,
@@ -188,7 +173,17 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
     }));
   }
 
-  message.channel.send(embed);
+  if (!Guilds.isPetShelterFull(guild) && draftbotRandom.realZeroToOneInclusive() <= 0.1) {
+    let pet = await PetEntities.generateRandomPetEntity(guild.level);
+    await pet.save();
+    await (await GuildPets.addPet(guild.id, pet.id)).save();
+    embed.setDescription(embed.description + "\n\n" + format(JsonReader.commands.guildDaily.getTranslation(language).pet, {
+      emote: PetEntities.getPetEmote(pet),
+      pet: PetEntities.getPetTypeName(pet, language)
+    }));
+  }
+
+  await message.channel.send(embed);
 };
 
 module.exports = {
