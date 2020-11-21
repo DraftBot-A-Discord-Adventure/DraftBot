@@ -5,7 +5,10 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const MyPetCommand = async function (language, message, args) {
-    const [entity] = await Entities.getOrRegister(message.author.id);
+    let [entity] = await Entities.getByArgs(args, message);
+    if (entity === null) {
+        [entity] = await Entities.getOrRegister(message.author.id);
+    }
 
     if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
         [EFFECT.BABY], entity)) !== true) {
@@ -22,7 +25,12 @@ const MyPetCommand = async function (language, message, args) {
         return await message.channel.send(shelterEmbed);
     }
 
-    await sendErrorMessage(message.author, message.channel, language, tr.noPet);
+    if (entity.discordUser_id === message.author.id) {
+        await sendErrorMessage(message.author, message.channel, language, tr.noPet);
+    }
+    else {
+        await sendErrorMessage(message.author, message.channel, language, tr.noPetOther);
+    }
 
 };
 

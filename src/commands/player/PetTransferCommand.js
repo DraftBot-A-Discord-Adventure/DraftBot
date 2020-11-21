@@ -27,10 +27,15 @@ const PetTransferCommand = async function (language, message, args) {
     const confirmEmbed = new discord.MessageEmbed();
     confirmEmbed.setTitle(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitchTitle);
     const pPet = entity.Player.Pet;
+    const [server] = (await Servers.getOrRegister(message.guild.id));
 
     if (args.length === 0) {
         if (!pPet) {
-            return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPet);
+            return sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petTransfer.getTranslation(language).noPetToTransfer, {
+                prefix: server.prefix,
+                cmd: "pettransfer",
+                cmdShelter: "shelter"
+            }));
         }
         if (guildPetCount >= JsonReader.models.pets.slots) {
             return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).noSlotAvailable);
@@ -50,7 +55,6 @@ const PetTransferCommand = async function (language, message, args) {
     }
 
     if (args.length !== 1 || !RegExp(/^[0-9]*$/).test(args[0])) {
-        const [server] = (await Servers.getOrRegister(message.guild.id));
         return sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petTransfer.getTranslation(language).correctUsage, {
             prefix: server.prefix,
             cmd: "pettransfer",

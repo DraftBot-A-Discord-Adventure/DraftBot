@@ -2,11 +2,13 @@
   "translations": {
     "fr": {
       "embedTitle": "Votre animal",
-      "noPet": "Vous n'avez aucun animal !"
+      "noPet": "Vous n'avez aucun animal !",
+      "noPetOther": "Cette personne n'a aucun animal !"
     },
     "en": {
       "embedTitle": "Your pet",
-      "noPet": "You don't have a pet!"
+      "noPet": "You don't have a pet!",
+      "noPetOther": "This person doesn't have a pet!"
     }
   }
 }
