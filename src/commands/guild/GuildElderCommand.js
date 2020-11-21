@@ -177,6 +177,26 @@ const GuildElderCommand = async (language, message, args) => {
               .notInTheGuild
           );
         }
+        try {
+          guild = await Guilds.getById(entity.Player.guild_id);
+        } catch (error) {
+          guild = null;
+        }
+        if (guild == null) {
+          // guild is destroy
+          return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            format(
+              JsonReader.commands.guildElder.getTranslation(language)
+                .guildDestroy,
+              {
+                guildName: guild.name,
+              }
+            )
+          );
+        }
         guild.elder_id = elderEntity.id;
         await Promise.all([guild.save()]);
         confirmEmbed.setAuthor(
