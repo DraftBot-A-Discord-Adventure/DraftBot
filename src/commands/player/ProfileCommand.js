@@ -112,6 +112,21 @@ const ProfileCommand = async function (language, message, args) {
     }
   } catch (error) { }
 
+  try {
+    const pet = entity.Player.Pet;
+    if (pet) {
+      fields.push({
+        name: JsonReader.commands.profile.getTranslation(language).pet.fieldName,
+        value: format(JsonReader.commands.profile.getTranslation(language).pet.fieldValue, {
+          rarity: Pets.getRarityDisplay(pet.PetModel),
+          emote: PetEntities.getPetEmote(pet),
+          nickname: pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)
+        }),
+        inline: false
+      });
+    }
+  } catch (error) { console.log(error); }
+
   const msg = await message.channel.send(
     new discord.MessageEmbed()
       .setColor(JsonReader.bot.embed.default)

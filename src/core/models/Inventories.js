@@ -91,7 +91,7 @@ module.exports = (Sequelize, DataTypes) => {
       item = await Potions.findOne({
         where: {
           id: itemsIds[
-              Math.floor(Math.random() * itemsIds.length)
+              draftbotRandom.integer(0, itemsIds.length - 1)
           ].id,
         },
       });
@@ -100,7 +100,7 @@ module.exports = (Sequelize, DataTypes) => {
       item = await Weapons.findOne({
         where: {
           id: itemsIds[
-              Math.floor(Math.random() * itemsIds.length)
+              draftbotRandom.integer(0, itemsIds.length - 1)
           ].id,
         },
       });
@@ -109,7 +109,7 @@ module.exports = (Sequelize, DataTypes) => {
       item = await Armors.findOne({
         where: {
           id: itemsIds[
-              Math.floor(Math.random() * itemsIds.length)
+              draftbotRandom.integer(0, itemsIds.length - 1)
           ].id,
         },
       });
@@ -118,7 +118,7 @@ module.exports = (Sequelize, DataTypes) => {
       item = await Objects.findOne({
         where: {
           id: itemsIds[
-              Math.floor(Math.random() * itemsIds.length)
+              draftbotRandom.integer(0, itemsIds.length - 1)
           ].id,
         },
       });

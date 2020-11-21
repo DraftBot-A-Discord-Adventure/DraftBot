@@ -1,0 +1,15 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Colombe",
+      "femaleName": "Colombe"
+    },
+    "en": {
+      "maleName": "Dove",
+      "femaleName": "Dove"
+    }
+  },
+  "emoteMale": "🕊️",
+  "emoteFemale": "🕊️",
+  "rarity": 4
+}

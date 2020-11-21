@@ -1,3 +1,5 @@
+global.draftbotRandom = new (require("random-js")).Random();
+
 /**
  * Convert a discord id into a discord mention
  * @param {*} id - The role/user id
@@ -234,8 +236,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
  * @return {Number}
  */
 global.generateRandomRarity = () => {
-  const randomValue = Math.round(
-    Math.random() * JsonReader.values.raritiesGenerator.maxValue);
+  const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue);
 
   if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
     return 1;
@@ -261,7 +262,7 @@ global.generateRandomRarity = () => {
  * @return {Number}
  */
 global.generateRandomItemType = () => {
-  return JsonReader.values.itemGenerator.tab[Math.round(Math.random() * (JsonReader.values.itemGenerator.max - 1) + 1)];
+  return JsonReader.values.itemGenerator.tab[draftbotRandom.integer(1, JsonReader.values.itemGenerator.max - 1)];
 };
 
 /**
@@ -348,7 +349,7 @@ global.format = (string, replacement) => {
  * @return {number}
  */
 global.randInt = (min, max) => {
-  return Math.round(Math.random() * (max - min) + min);
+  return draftbotRandom.integer(min, max - 1);
 };
 
 /**
@@ -500,3 +501,8 @@ async function saveItem(item, entity) {
   return oldItem;
 }
 
+global.checkNameString = (name, minLength, maxLength) => {
+  const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
+  const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
+  return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
+}

@@ -78,6 +78,20 @@ module.exports = (Sequelize, DataTypes) => {
       where: {
         id: id,
       },
+      include: [{
+        model: GuildPets,
+        as: 'GuildPets',
+        include: [{
+          model: PetEntities,
+          as: 'PetEntity',
+          include: [
+            {
+              model: Pets,
+              as: 'PetModel'
+            }
+          ]
+        }]
+      }],
     });
   };
 
@@ -89,6 +103,20 @@ module.exports = (Sequelize, DataTypes) => {
       where: {
         name: name,
       },
+      include: [{
+        model: GuildPets,
+        as: 'GuildPets',
+        include: [{
+          model: PetEntities,
+          as: 'PetEntity',
+          include: [
+            {
+              model: Pets,
+              as: 'PetModel'
+            }
+          ]
+        }]
+      }],
     });
   };
 
@@ -162,6 +190,14 @@ module.exports = (Sequelize, DataTypes) => {
     } else {
       return;
     }
+  };
+
+  /**
+   * @returns {boolean}
+   */
+  Guilds.isPetShelterFull = (guild) => {
+    if (!guild.GuildPets) return true;
+    return guild.GuildPets.length >= JsonReader.models.pets.slots;
   };
 
   return Guilds;

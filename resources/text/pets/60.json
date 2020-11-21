@@ -1,0 +1,15 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Léopard",
+      "femaleName": "Léopard"
+    },
+    "en": {
+      "maleName": "Leopard",
+      "femaleName": "Leopard"
+    }
+  },
+  "emoteMale": "🐆",
+  "emoteFemale": "🐆",
+  "rarity": 4
+}

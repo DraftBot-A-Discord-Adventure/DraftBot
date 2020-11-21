@@ -1,0 +1,15 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Chat noir",
+      "femaleName": "Chatte noire"
+    },
+    "en": {
+      "maleName": "Black cat",
+      "femaleName": "Black cat"
+    }
+  },
+  "emoteMale": "🐈‍⬛",
+  "emoteFemale": "🐈‍⬛",
+  "rarity": 1
+}

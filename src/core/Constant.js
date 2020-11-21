@@ -57,7 +57,7 @@ global.REWARD_TYPES = {
   BADGE: "badge",
   FULL_HEAL: "fullHeal",
   PARTIAL_HEAL: "partialHeal",
-  ALTERATION: "alterationHeal",
+  ALTERATION: "alterationHeal"
 };
 
 global.ITEMTYPE = {
@@ -89,6 +89,7 @@ global.CATEGORY = {
   UTIL: "util",
   PLAYER: "player",
   GUILD: "guild",
+  PET: "pet"
 };
 global.MENU_REACTION = {
   ACCEPT: "✅",
@@ -131,3 +132,7 @@ global.TOPGG = {
   ROLE_DURATION: 24,
   DBL_SERVER_COUNT_UPDATE_TIME: 1800000,
 };
+
+global.PETS = {
+  FREE_COOLDOWN: 60 * 60 * 1000
+}

@@ -8,6 +8,7 @@
 			"utilCommands": ":question: Utiles :",
 			"playerCommands": ":bust_in_silhouette: Joueur :",
 			"guildCommands": ":stadium: Guilde :",
+			"petCommands": ":dog: Animaux :",
 			"forMoreHelp": ":arrow_forward: Pour plus d'aide : ",
 			"forMoreHelpValue": "Vous pouvez vous rendre sur le [wiki](https://guide.draftbot.com/) du bot !\n\n:arrow_forward: Le préfixe actuel est : `{prefix}`",
 			"commandEmbedTitle": "{emote} Commande {cmd}",
@@ -198,8 +199,38 @@
 				"class": {
 					"emote": ":bookmark:",
 					"usage": "class",
-					"category": "player",
+					"category" :"player",
 					"description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.draftbot.com"
+				},
+				"mypet": {
+					"emote": ":dog:",
+					"usage": "mypet",
+					"category": "pet",
+					"description": "Affiche les informations relatives à votre animal."
+				},
+				"pettransfer": {
+					"emote": ":arrow_right:",
+					"usage": "pettransfer [numéro]",
+					"category": "pet",
+					"description": "Permet de transférer un animal depuis ou vers la guilde. Si aucun numéro n'est fournit, l'animal de votre inventaire sera déplacé vers le refuge de la guilde. Si un numéro est fournit, il sera échangé avec celui de la guilde correspondant au numéro."
+				},
+				"petnickname": {
+					"emote": ":abcd:",
+					"usage": "petnickname [nom]",
+					"category": "pet",
+					"description": "Change le surnom de votre animal. Si aucun nom n'est fournit, le nom actuel sera effacé."
+				},
+				"petfree": {
+					"emote": ":wave:",
+					"usage": "petfree",
+					"category": "pet",
+					"description": "Libère votre animal. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
+				},
+				"shelter": {
+					"emote": ":park:",
+					"usage": "shelter",
+					"category": "pet",
+					"description": "Affiche le refuge d'animaux de la guilde."
 				},
 				"classstats": {
 					"emote": ":bookmark:",
@@ -230,6 +261,7 @@
 			"utilCommands": ":question: Utility :",
 			"playerCommands": ":bust_in_silhouette: Player :",
 			"guildCommands": ":stadium: Guild :",
+			"petCommands": ":dog: Pets :",
 			"forMoreHelp": ":arrow_forward: For more help : ",
 			"forMoreHelpValue": "You can visit the bot's [wiki](https://guide.draftbot.com/v/en/) !\n\n:arrow_forward: Current prefix is : `{prefix}`",
 			"commandEmbedTitle": "{emote} Command {cmd}",
@@ -420,20 +452,50 @@
 				"class": {
 					"emote": ":bookmark:",
 					"usage": "class",
-					"category": "player",
+					"category" : "player",
 					"description": "Change your class. More information about class is available through the player guide : https://guide.draftbot.com/v/en"
+				},
+				"mypet": {
+					"emote": ":dog:",
+					"usage": "mypet",
+					"category": "pet",
+					"description": "Show information about your pet."
+				},
+				"pettransfer": {
+					"emote": ":arrow_right:",
+					"usage": "pettransfer [number]",
+					"category": "pet",
+					"description": "Transfer a pet to or from a guild. If no number is given, your current pet will be transferred to the guild's shelter. Otherwise, your pet will be switched for the pet with the corresponding number."
+				},
+				"petnickname": {
+					"emote": ":abcd:",
+					"usage": "petnickname [name]",
+					"category": "pet",
+					"description": "Change your pet's nickname. If no name is given, the nickname will be cleared."
+				},
+				"petfree": {
+					"emote": ":wave:",
+					"usage": "petfree",
+					"category": "pet",
+					"description": "Free your pet. Warning: once freed, the pet will be deleted forever. This command can only be used once per hour."
+				},
+				"shelter": {
+					"emote": ":park:",
+					"usage": "shelter",
+					"category": "pet",
+					"description": "Show the guild's shelter."
 				},
 				"classstats": {
 					"emote": ":bookmark:",
 					"usage": "classstats",
 					"category": "player",
-					"description": "Read a quick comparaison of the statistics between all the classes you can have."
+					"description": "Read a quick comparison of the statistics between all the classes you can have."
 				},
 				"rarity": {
 					"emote": ":slot_machine:",
 					"usage": "rarity",
 					"category": "player",
-					"description": "Allows to see the probability to get an item according to its rarity."
+					"description": "Allows you to see the probability of getting an item by its rarity."
 				},
 				"idea": {
 					"emote": ":bulb:",

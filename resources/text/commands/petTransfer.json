@@ -1,0 +1,26 @@
+{
+  "translations": {
+    "fr": {
+      "correctUsage": "Usage correct: `{prefix}{cmd} <numéro de l'animal>`\nPour avoir le numéro de l'animal, faites la commande `{prefix}{cmdShelter}`",
+      "wrongPetNumberBetween": "Le numéro de l'animal doit être compris entre 1 et {max}",
+      "wrongPetNumberSingle": "Vous n'avez qu'un seul animal dans le refuge ! Son numéro est 1",
+      "confirmSwitchTitle": "Transfert d'animaux",
+      "confirmSwitch": "{player}, **{pet1}** reste désormais dans le refuge et **{pet2}** vous suit !",
+      "confirmFollows": "{player}, **{pet}** vous suit désormais !",
+      "noSlotAvailable": "Aucun emplacement libre dans le refuge de la guilde !",
+      "confirmDeposit": "{player}, **{pet}** restera désormais dans le refuge de la guilde !",
+      "noPetToTransfer": "Vous n'avez aucun animal à placer dans le refuge de la guilde ! Pour en récupérer un, faites `{prefix}{cmd} <numéro de l'animal>`\nPour avoir le numéro de l'animal, faites la commande `{prefix}{cmdShelter}`"
+    },
+    "en": {
+      "correctUsage": "Correct usage: `{prefix}{cmd} <pet number>`\nTo get the pet number, execute `{prefix}{cmdShelter}`",
+      "wrongPetNumberBetween": "The pet number must be between 1 and {max}",
+      "wrongPetNumberSingle": "You only have one pet in the shelter! Their number is 1",
+      "confirmSwitchTitle": "Pet transfer",
+      "confirmSwitch": "{player}, **{pet1}** now stays in the shelter and **{pet2}** follows you!",
+      "confirmFollows": "{player}, **{pet}** now follows you!",
+      "noSlotAvailable": "No free slot available in the guild shelter!",
+      "confirmDeposit": "{player}, **{pet}** will now stay in the guild shelter!",
+      "noPetToTransfer": "You don't have a pet to transfer to the guild's shelter! To retrieve one, please execute `{prefix}{cmd} <pet number>`\nTo get the pet number, execute `{prefix}{cmdShelter}`"
+    }
+  }
+}

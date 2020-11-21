@@ -30,6 +30,10 @@
 				"fieldName": "Classe :",
 				"fieldValue": "{class}"
 			},
+			"pet": {
+				"fieldName": "Animal de compagnie :",
+				"fieldValue": "Rareté: {rarity}\n{emote} {nickname}"
+			},
 			"badges": {
 				"🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
 				"🏅": ":medal:  `Joueur dans le top 10 au reset de la 1.0`",
@@ -85,6 +89,10 @@
 			"playerClass": {
 				"fieldName": "Class :",
 				"fieldValue": "{class}"
+			},
+			"pet": {
+				"fieldName": "Pet :",
+				"fieldValue": "Rarity: {rarity}\n{emote} {nickname}"
 			},
 			"badges": {
 				"🏆": ":trophy:  `Best player by rank when resetting to 1.0.`",

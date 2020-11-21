@@ -138,7 +138,7 @@ class Fight {
      * @returns {Promise<void>}
      */
   constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1, friendly = false) {
-    if (randInt(0, 1) === 0) {
+    if (draftbotRandom.bool()) {
       this.fighters = [new Fighter(player1, friendly, tournamentMode), new Fighter(player2, friendly, tournamentMode)];
     } else {
       this.fighters = [new Fighter(player2, friendly, tournamentMode), new Fighter(player1, friendly, tournamentMode)];
@@ -539,7 +539,7 @@ class Fight {
      * @return {Promise<void>}
      */
   async useAction(action, charged = false) {
-    const success = Math.random();
+    const success = draftbotRandom.realZeroToOneInclusive();
     const attacker = this.getPlayingFighter();
     const defender = this.getDefendingFighter();
     const far = new FightActionResult();

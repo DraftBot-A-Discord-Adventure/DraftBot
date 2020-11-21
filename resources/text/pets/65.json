@@ -1,0 +1,15 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "T-Rex",
+      "femaleName": "T-Rex"
+    },
+    "en": {
+      "maleName": "T-Rex",
+      "femaleName": "T-Rex"
+    }
+  },
+  "emoteMale": "🦖️",
+  "emoteFemale": "🦖️",
+  "rarity": 5
+}

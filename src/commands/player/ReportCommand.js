@@ -43,7 +43,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
     }
   }
 
-  if (time <= JsonReader.commands.report.timeMaximal && Math.round(Math.random() * JsonReader.commands.report.timeMaximal) > time) {
+  if (time <= JsonReader.commands.report.timeMaximal && draftbotRandom.integer(0, JsonReader.commands.report.timeMaximal - 1) > time) {
     return await doPossibility(message, language, await Possibilities.findAll({ where: { event_id: 9999 } }), entity, time);
   }
 
@@ -128,16 +128,16 @@ const doPossibility = async (message, language, possibility, entity, time, force
     }
   }
 
-  possibility = possibility[randInt(0, possibility.length - 1)];
+  possibility = possibility[randInt(0, possibility.length)];
   const pDataValues = possibility.dataValues;
   let scoreChange;
   if (forcePoints !== 0) {
     scoreChange = forcePoints;
   }
   else {
-    scoreChange = time + Math.round(Math.random() * (time / 10 + player.level));
+    scoreChange = time + draftbotRandom.integer(0, time / 10 + player.level - 1);
   }
-  let moneyChange = pDataValues.money + Math.round(time / 10 + Math.round(Math.random() * (time / 10 + player.level / 5)));
+  let moneyChange = pDataValues.money + Math.round(time / 10 + draftbotRandom.integer(0, time / 10 + player.level / 5 - 1));
   if (pDataValues.money < 0 && moneyChange > 0) {
     moneyChange = Math.round(pDataValues.money / 2);
   }

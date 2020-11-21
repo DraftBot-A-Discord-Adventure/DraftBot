@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildDailyCommand = async (language, message, args) => {
+const GuildDailyCommand = async (language, message, args, forcedReward) => {
   let entity; let guild;
   const embed = new discord.MessageEmbed();
 
@@ -30,7 +30,7 @@ const GuildDailyCommand = async (language, message, args) => {
   }
 
   let time = millisecondsToHours(message.createdAt.getTime() - guild.lastDailyAt.valueOf());
-  if (time < JsonReader.commands.guildDaily.timeBetweenDailys) {
+  if (time < JsonReader.commands.guildDaily.timeBetweenDailys && !forcedReward) {
     return sendErrorMessage(
       message.author,
       message.channel,
@@ -56,6 +56,10 @@ const GuildDailyCommand = async (language, message, args) => {
   await guild.save();
 
   let rewardType = generateRandomProperty(guild);
+  if (forcedReward) {
+    rewardType = forcedReward;
+  }
+
   embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
     guildName: guild.name,
   }));
@@ -169,7 +173,17 @@ const GuildDailyCommand = async (language, message, args) => {
     }));
   }
 
-  message.channel.send(embed);
+  if (!Guilds.isPetShelterFull(guild) && draftbotRandom.realZeroToOneInclusive() <= 0.1) {
+    let pet = await PetEntities.generateRandomPetEntity(guild.level);
+    await pet.save();
+    await (await GuildPets.addPet(guild.id, pet.id)).save();
+    embed.setDescription(embed.description + "\n\n" + format(JsonReader.commands.guildDaily.getTranslation(language).pet, {
+      emote: PetEntities.getPetEmote(pet),
+      pet: PetEntities.getPetTypeName(pet, language)
+    }));
+  }
+
+  await message.channel.send(embed);
 };
 
 module.exports = {
