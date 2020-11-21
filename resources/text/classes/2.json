@@ -1,12 +1,14 @@
 {
 	"translations": {
-		"fr": ":shield: Tank",
-		"en": ":shield: Tank"
+		"fr": ":dagger: Soldat",
+		"en": ":dagger: Soldier"
 	},
-	"emoji": "🛡️",
-	"attack": 25,
+	"emoji": "🗡️",
+	"attack": 65,
 	"defense": 50,
-	"speed": 0,
-	"health": 200,
-	"fightPoint": 300
+	"speed": 30,
+	"health": 90,
+	"fightPoint": 145,
+	"price": 4500,
+	"classgroup": 2
 }

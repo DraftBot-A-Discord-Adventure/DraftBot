@@ -23,6 +23,7 @@ class Fighter {
     this.tournament = tournament;
     this.entity = entity;
     this.attacksList = {};
+    this.quickAttack = 0;
   }
 
   /**
@@ -547,31 +548,40 @@ class Fight {
     switch (action) {
       case FIGHT.ACTION.QUICK_ATTACK:
         powerChanger = 0.1;
-        if (defender.speed > attacker.speed && success < 0.1) {
-          powerChanger = 0.5;
+        if (defender.speed > attacker.speed && success < 0.3) {
+          powerChanger = 0.7;
+          if (attacker.quickAttack > 1)
+            powerChanger -= attacker.quickAttack / 15;
+          attacker.quickAttack++;
         } else if (defender.speed < attacker.speed && success < 0.95) {
-          powerChanger = 0.5;
+          powerChanger = 0.7;
+          if (attacker.quickAttack > 1)
+            powerChanger -= attacker.quickAttack / 11;
+          attacker.quickAttack++;
         }
         far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.1));
         far.fullSuccess = far.damage >= attacker.attack - defender.power;
         break;
 
       case FIGHT.ACTION.SIMPLE_ATTACK:
-        powerChanger = 0.1;
-        if ((defender.speed > attacker.speed && success <= 0.6) || (defender.speed < attacker.speed && success < 0.8)) {
-          powerChanger = 1.0;
+        powerChanger = 0.4;
+        if ((defender.speed > attacker.speed && success <= 0.4) || (defender.speed < attacker.speed && success < 0.9)) {
+          powerChanger = 1;
         } else if ((defender.speed > attacker.speed && success <= 0.9)) {
-          powerChanger = 0.5;
+          powerChanger = 0.7;
         }
         far.damage = Math.round(attacker.attack * powerChanger - defender.defense);
-        far.fullSuccess = far.damage >= 100;
+        if (far.damage < 0)
+          far.damage = 0;
+        far.damage += randInt(1, Math.round(attacker.attack / 8));
+        far.fullSuccess = far.damage >= Math.round(attacker.attack / 8);
         break;
 
       case FIGHT.ACTION.POWERFUL_ATTACK:
         powerChanger = 0.0;
-        if ((defender.speed > attacker.speed && success <= 0.15) || (defender.speed < attacker.speed && success < 0.4)) {
+        if ((defender.speed > attacker.speed && success <= 0.2) || (defender.speed < attacker.speed && success < 0.7)) {
           powerChanger = 2.15;
-        } else if ((defender.speed > attacker.speed && success <= 0.5) || (defender.speed < attacker.speed && success < 0.7)) {
+        } else if ((defender.speed > attacker.speed && success <= 0.5) || (defender.speed < attacker.speed && success < 0.9)) {
           powerChanger = 1.4;
         }
         if (powerChanger > 1) {
@@ -579,7 +589,11 @@ class Fight {
         } else {
           attacker.speed = Math.round(attacker.speed * 0.9);
         }
-        far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense));
+        far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.5));
+        if (far.damage < 0)
+          far.damage = 0;
+        if (powerChanger > 1)
+          far.damage += randInt(0, Math.round(attacker.attack / 2));
         far.fullSuccess = powerChanger > 1.4;
         break;
 
@@ -598,11 +612,12 @@ class Fight {
             player: await attacker.entity.Player.getPseudo(this.language),
           }));
           attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 1);
+          attacker.defense = Math.round(attacker.defense * 0.80);
           await this.nextTurn();
           return;
         }
-        if ((defender.speed < attacker.speed * 0.8 && success <= 0.1) || (defender.speed > attacker.speed * 0.8 && success < 0.5)) {
-          far.damage = Math.round(2.0 * defender.power / 3.0);
+        if ((success <= 0.1) || (attacker.power < attacker.initialPower * 0.5 && success <= 0.8) || (attacker.power < attacker.initialPower * 0.25)) {
+          far.damage = Math.round(defender.initialPower * 0.6);
           far.fullSuccess = true;
         } else {
           far.damage = 0;

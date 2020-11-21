@@ -1,12 +1,14 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: Soldat",
-		"en": ":crossed_swords: Soldier"
+		"fr": ":herb: Recrue",
+		"en": ":herb: Recruit"
 	},
-	"emoji": "⚔️",
-	"attack": 60,
-	"defense": 40,
-	"speed": 20,
-	"health": 85,
-	"fightPoint": 145
+	"emoji": "🌿",
+	"attack": 25,
+	"defense": 20,
+	"speed": 10,
+	"health": 65,
+	"fightPoint": 45,
+	"price": 150,
+	"classgroup": 0
 }

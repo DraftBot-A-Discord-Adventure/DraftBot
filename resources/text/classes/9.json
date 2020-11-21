@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": ":mechanical_arm: Frondeur",
+		"en": ":mechanical_arm: Slinger"
+	},
+	"emoji": "🦾",
+	"attack": 65,
+	"defense": 10,
+	"speed": 70,
+	"health": 40,
+	"fightPoint": 10,
+	"price": 1750,
+	"classgroup": 1
+}

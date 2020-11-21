@@ -169,7 +169,7 @@ module.exports = {
     {
       name: 'profile',
       func: ProfileCommand,
-      aliases: ['p']
+      aliases: ['p','profil']
     }
   ]
 };

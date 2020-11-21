@@ -53,7 +53,9 @@
 				"descriptionEdit": "Edition de la description de guilde",
 				"sell": "Vente d'un objet",
 				"acceptItem": "Choix de garder un objet ou non",
-				"freepet": "Libération d'un animal"
+				"freepet": "Libération d'un animal",
+				"guildElder": "Choisir l'ainé",
+				"guildElderRemove" : "Supprimer l'ainé"
 			}
 		},
 		"en": {
@@ -109,7 +111,9 @@
 				"descriptionEdit": "Guild description edit",
 				"sell": "Selling item",
 				"acceptItem": "Choice to keep an item or not",
-				"freepet": "Free pet"
+				"freepet": "Free pet",
+				"guildElder": "Choice the elder",
+				"guildElderRemove" : "Delete the elder"
 			}
 		}
 	}
