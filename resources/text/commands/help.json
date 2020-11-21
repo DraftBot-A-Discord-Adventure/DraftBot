@@ -465,19 +465,19 @@
 					"emote": ":arrow_right:",
 					"usage": "pettransfer [number]",
 					"category": "pet",
-					"description": "Transfer a pet from or to a guild. If no number is given, your current pet will be transferred to the guild's shelter. Else your pet will be switched with the pet with the corresponding number."
+					"description": "Transfer a pet to or from a guild. If no number is given, your current pet will be transferred to the guild's shelter. Otherwise, your pet will be switched for the pet with the corresponding number."
 				},
 				"petnickname": {
 					"emote": ":abcd:",
 					"usage": "petnickname [name]",
 					"category": "pet",
-					"description": "Change the nickname of your pet. If no name is given, the nickname will be cleared."
+					"description": "Change your pet's nickname. If no name is given, the nickname will be cleared."
 				},
 				"petfree": {
 					"emote": ":wave:",
 					"usage": "petfree",
 					"category": "pet",
-					"description": "Free your pet. Warning, once freed the pet will be deleted forever. This command can only be used once per hour."
+					"description": "Free your pet. Warning: once freed, the pet will be deleted forever. This command can only be used once per hour."
 				},
 				"shelter": {
 					"emote": ":park:",
@@ -489,13 +489,13 @@
 					"emote": ":bookmark:",
 					"usage": "classstats",
 					"category": "player",
-					"description": "Read a quick comparaison of the statistics between all the classes you can have."
+					"description": "Read a quick comparison of the statistics between all the classes you can have."
 				},
 				"rarity": {
 					"emote": ":slot_machine:",
 					"usage": "rarity",
 					"category": "player",
-					"description": "Allows to see the probability to get an item according to its rarity."
+					"description": "Allows you to see the probability of getting an item by its rarity."
 				},
 				"idea": {
 					"emote": ":bulb:",
