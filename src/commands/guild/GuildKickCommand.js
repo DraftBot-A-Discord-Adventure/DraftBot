@@ -5,7 +5,10 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const GuildKickCommand = async (language, message, args) => {
-  let entity; let kickedEntity; let guild; let kickedGuild;
+  let entity;
+  let kickedEntity;
+  let guild;
+  let kickedGuild;
   const choiceEmbed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
@@ -16,7 +19,15 @@ const GuildKickCommand = async (language, message, args) => {
     kickedEntity = null;
   }
 
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+  if (
+    (await canPerformCommand(
+      message,
+      language,
+      PERMISSION.ROLE.ALL,
+      [EFFECT.BABY, EFFECT.DEAD],
+      entity
+    )) !== true
+  ) {
     return;
   }
 
@@ -24,12 +35,14 @@ const GuildKickCommand = async (language, message, args) => {
     return;
   }
 
-  if (kickedEntity === null) { // no user provided
+  if (kickedEntity === null) {
+    // no user provided
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildKick.getTranslation(language).cannotGetKickedUser);
+      JsonReader.commands.guildKick.getTranslation(language).cannotGetKickedUser
+    );
   }
 
   if (await sendBlockedError(kickedEntity, message.channel, language)) {
@@ -43,12 +56,14 @@ const GuildKickCommand = async (language, message, args) => {
     guild = null;
   }
 
-  if (guild === null) { // not in a guild
+  if (guild === null) {
+    // not in a guild
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildKick.getTranslation(language).notInAguild);
+      JsonReader.commands.guildKick.getTranslation(language).notInAguild
+    );
   }
 
   if (guild.chief_id != entity.id) {
@@ -56,7 +71,8 @@ const GuildKickCommand = async (language, message, args) => {
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildKick.getTranslation(language).notChiefError);
+      JsonReader.commands.guildKick.getTranslation(language).notChiefError
+    );
   }
 
   // search for a user's guild
@@ -66,12 +82,14 @@ const GuildKickCommand = async (language, message, args) => {
     kickedGuild = null;
   }
 
-  if (kickedGuild === null || kickedGuild.id != guild.id) { // not the same guild
+  if (kickedGuild === null || kickedGuild.id != guild.id) {
+    // not the same guild
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildKick.getTranslation(language).notInTheGuild);
+      JsonReader.commands.guildKick.getTranslation(language).notInTheGuild
+    );
   }
 
   if (kickedEntity.id === entity.id) {
@@ -79,23 +97,33 @@ const GuildKickCommand = async (language, message, args) => {
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildKick.getTranslation(language).excludeHimself);
+      JsonReader.commands.guildKick.getTranslation(language).excludeHimself
+    );
   }
 
-  addBlockedPlayer(entity.discordUser_id, 'guildKick');
-  choiceEmbed.setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).kickTitle, {
-    pseudo: message.author.username,
-  }), message.author.displayAvatarURL());
-  choiceEmbed.setDescription(format(JsonReader.commands.guildKick.getTranslation(language).kick, {
-    guildName: guild.name,
-    kickedPseudo: await kickedEntity.Player.getPseudo(language),
-  }));
+  addBlockedPlayer(entity.discordUser_id, "guildKick");
+  choiceEmbed.setAuthor(
+    format(JsonReader.commands.guildKick.getTranslation(language).kickTitle, {
+      pseudo: message.author.username,
+    }),
+    message.author.displayAvatarURL()
+  );
+  choiceEmbed.setDescription(
+    format(JsonReader.commands.guildKick.getTranslation(language).kick, {
+      guildName: guild.name,
+      kickedPseudo: await kickedEntity.Player.getPseudo(language),
+    })
+  );
 
   const msg = await message.channel.send(choiceEmbed);
 
   embed = new discord.MessageEmbed();
   const filterConfirm = (reaction, user) => {
-    return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === message.author.id);
+    return (
+      (reaction.emoji.name == MENU_REACTION.ACCEPT ||
+        reaction.emoji.name == MENU_REACTION.DENY) &&
+      user.id === message.author.id
+    );
   };
 
   const collector = msg.createReactionCollector(filterConfirm, {
@@ -103,22 +131,48 @@ const GuildKickCommand = async (language, message, args) => {
     max: 1,
   });
 
-  collector.on('end', async (reaction) => {
+  collector.on("end", async (reaction) => {
     removeBlockedPlayer(entity.discordUser_id);
-    if (reaction.first()) { // a reaction exist
+    if (reaction.first()) {
+      // a reaction exist
       if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
+        try {
+          [kickedEntity] = await Entities.getByArgs(args, message);
+        } catch (error) {
+          kickedEntity = null;
+        }
+        // search for a user's guild
+        try {
+          kickedGuild = await Guilds.getById(kickedEntity.Player.guild_id);
+        } catch (error) {
+          kickedGuild = null;
+        }
+
+        if (kickedGuild === null) {
+          // not the same guild
+          return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildKick.getTranslation(language).notInTheGuild
+          );
+        }
         kickedEntity.Player.guild_id = null;
 
-        await Promise.all([
-          kickedEntity.save(),
-          kickedEntity.Player.save(),
-        ]);
+        await Promise.all([kickedEntity.save(), kickedEntity.Player.save()]);
 
-        embed.setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).successTitle, {
-          kickedPseudo: await kickedEntity.Player.getPseudo(language),
-          guildName: guild.name,
-        }));
-        embed.setDescription(JsonReader.commands.guildKick.getTranslation(language).kickSuccess);
+        embed.setAuthor(
+          format(
+            JsonReader.commands.guildKick.getTranslation(language).successTitle,
+            {
+              kickedPseudo: await kickedEntity.Player.getPseudo(language),
+              guildName: guild.name,
+            }
+          )
+        );
+        embed.setDescription(
+          JsonReader.commands.guildKick.getTranslation(language).kickSuccess
+        );
         return message.channel.send(embed);
       }
     }
@@ -128,9 +182,13 @@ const GuildKickCommand = async (language, message, args) => {
       message.author,
       message.channel,
       language,
-      format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {
-        kickedPseudo: await kickedEntity.Player.getPseudo(language),
-      }));
+      format(
+        JsonReader.commands.guildKick.getTranslation(language).kickCancelled,
+        {
+          kickedPseudo: await kickedEntity.Player.getPseudo(language),
+        }
+      )
+    );
   });
 
   await Promise.all([
@@ -139,13 +197,12 @@ const GuildKickCommand = async (language, message, args) => {
   ]);
 };
 
-
 module.exports = {
   commands: [
     {
-      name: 'guildkick',
+      name: "guildkick",
       func: GuildKickCommand,
-      aliases: ['gkick', 'gk']
-    }
-  ]
+      aliases: ["gkick", "gk"],
+    },
+  ],
 };
