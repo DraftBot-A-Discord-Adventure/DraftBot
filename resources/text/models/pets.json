@@ -11,12 +11,26 @@
 		"fr": {
 			"female": "Femelle",
 			"male": "Mâle",
-			"noNickname": "Aucun surnom"
+			"noNickname": "Aucun surnom",
+			"lovelevels": {
+				"1": ":smirk_cat: Fielleux",
+				"2": ":pouting_cat: Sauvage",
+				"3": ":scream_cat: Craintif",
+				"4": ":smiley_cat: Apprivoisé",
+				"5": ":heart_eyes_cat: Dressé"
+			}
 		},
 		"en": {
 			"female": "Female",
 			"male": "Male",
-			"noNickname": "No nickname"
+			"noNickname": "No nickname",
+			"lovelevels": {
+				"1": ":smirk_cat: Feisty",
+				"2": ":pouting_cat: Wild",
+				"3": ":scream_cat: Fearful",
+				"4": ":smiley_cat: Tamed",
+				"5": ":heart_eyes_cat: Trained"
+			}
 		}
 	},
 	"probabilities": {

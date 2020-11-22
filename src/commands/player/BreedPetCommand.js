@@ -5,10 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const BreedPetCommand = async function (language, message, args) {
-    let [entity] = await Entities.getByArgs(args, message);
-    if (entity === null) {
-        [entity] = await Entities.getOrRegister(message.author.id);
-    }
+    [entity] = await Entities.getOrRegister(message.author.id);
 
     if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
         [EFFECT.BABY], entity)) !== true) {
@@ -18,26 +15,30 @@ const BreedPetCommand = async function (language, message, args) {
     let authorPet = entity.Player.Pet;
     const tr = JsonReader.commands.breedPet.getTranslation(language);
 
-    if (authorPet) {
-        let breedEmbed = new discord.MessageEmbed();
-        authorPet.lovePoints += JsonReader.commands.breedPet.defaultsPoints - authorPet.PetModel.rarity;
-        authorPet.hungrySince = Date()
-        authorPet.save();
-        breedEmbed.setAuthor(format(tr.embedTitle, { pseudo: message.author.username }), message.author.displayAvatarURL())
-        breedEmbed.setDescription(format(tr.description, {
-            petnick: await PetEntities.displayName(authorPet, language),
-            points: JsonReader.commands.breedPet.defaultsPoints
+    if (!authorPet) {
+        return await sendErrorMessage(message.author, message.channel, language, tr.noPet);
+    }
+
+    const cooldownTime = PETS.BREED_COOLDOWN * authorPet.PetModel.rarity - (new Date().getTime() - authorPet.hungrySince);
+    if (cooldownTime > 0) {
+        return sendErrorMessage(message.author, message.channel, language, format(tr.notHungry, {
+            petnick: await PetEntities.displayName(authorPet, language)
         }));
-
-        return await message.channel.send(breedEmbed);
     }
 
-    if (entity.discordUser_id === message.author.id) {
-        await sendErrorMessage(message.author, message.channel, language, tr.noPet);
-    }
-    else {
-        await sendErrorMessage(message.author, message.channel, language, tr.noPetOther);
-    }
+    let breedEmbed = new discord.MessageEmbed();
+    authorPet.lovePoints += JsonReader.commands.breedPet.defaultsPoints - authorPet.PetModel.rarity;
+    if (authorPet.lovePoints > PETS.MAX_LOVE_POINTS)
+        authorPet.lovePoints = PETS.MAX_LOVE_POINTS;
+    authorPet.hungrySince = Date();
+    authorPet.save();
+    breedEmbed.setAuthor(format(tr.embedTitle, { pseudo: message.author.username }), message.author.displayAvatarURL())
+    breedEmbed.setDescription(format(tr.description, {
+        petnick: await PetEntities.displayName(authorPet, language),
+        points: JsonReader.commands.breedPet.defaultsPoints
+    }));
+
+    return await message.channel.send(breedEmbed);
 
 };
 
