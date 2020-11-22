@@ -57,14 +57,11 @@ const GuildCreateCommand = async (language, message, args) => {
     );
   }
 
-  const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
-  const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
   if (
-    !(
-      regexAllowed.test(askedName) &&
-      !regexSpecialCases.test(askedName) &&
-      askedName.length >= GUILD.MIN_GUILDNAME_SIZE &&
-      askedName.length <= GUILD.MAX_GUILDNAME_SIZE
+    !checkNameString(
+      askedName,
+      GUILD.MIN_GUILDNAME_SIZE,
+      GUILD.MAX_GUILDNAME_SIZE
     )
   ) {
     return sendErrorMessage(
@@ -72,7 +69,9 @@ const GuildCreateCommand = async (language, message, args) => {
       message.channel,
       language,
       format(
-        JsonReader.commands.guildCreate.getTranslation(language).invalidName,
+        JsonReader.commands.guildCreate.getTranslation(language).invalidName +
+          "\n" +
+          JsonReader.error.getTranslation(language).nameRules,
         {
           min: GUILD.MIN_GUILDNAME_SIZE,
           max: GUILD.MAX_GUILDNAME_SIZE,
