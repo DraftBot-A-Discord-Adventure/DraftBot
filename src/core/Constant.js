@@ -134,5 +134,6 @@ global.TOPGG = {
 };
 
 global.PETS = {
-  FREE_COOLDOWN: 60 * 60 * 1000
+  FREE_COOLDOWN: 60 * 60 * 1000,
+  MAX_LOVE_POINTS: 100
 }
