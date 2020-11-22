@@ -383,6 +383,16 @@ const TestCommand = async(language, message, args) => {
             case 'greward':
                 await getCommand("gd")(language, message, [], args[1]);
                 break;
+            case 'block':
+                let sec = parseInt(args[1]);
+                const msg = await message.channel.send(":clock2: You're now blocked for " + sec + " seconds!");
+                let collector = msg.createReactionCollector(() => { return true; }, {
+                    time: sec * 1000
+                });
+                collector.on('collect', () => {});
+                collector.on('end', () => {});
+                addBlockedPlayer(author.discordUser_id, "test", collector);
+                break;
             default:
                 await message.channel.send('Argument inconnu !');
                 return;

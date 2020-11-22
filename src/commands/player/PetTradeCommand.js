@@ -53,9 +53,6 @@ const PetTradeCommand = async function (language, message, args) {
 
     const confirmMessage = await message.channel.send(confirmEmbed);
 
-    addBlockedPlayer(trader1.discordUser_id, "petTrade");
-    addBlockedPlayer(trader2.discordUser_id, "petTrade");
-
     let trader1Accepted = null;
     let trader2Accepted = null;
 
@@ -67,6 +64,9 @@ const PetTradeCommand = async function (language, message, args) {
         time: 120000,
         dispose: true
     });
+
+    addBlockedPlayer(trader1.discordUser_id, "petTrade", collector);
+    addBlockedPlayer(trader2.discordUser_id, "petTrade", collector);
 
     collector.on('remove', (reaction, user) => {
         if (reaction.emoji.name === MENU_REACTION.ACCEPT) {

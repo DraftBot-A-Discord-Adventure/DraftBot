@@ -122,7 +122,6 @@ const GuildAddCommand = async (language, message, args) => {
     );
   }
 
-  addBlockedPlayer(invitedEntity.discordUser_id, "guildAdd");
   invitationEmbed.setAuthor(
     format(
       JsonReader.commands.guildAdd.getTranslation(language).invitationTitle,
@@ -153,6 +152,8 @@ const GuildAddCommand = async (language, message, args) => {
     time: 120000,
     max: 1,
   });
+
+  addBlockedPlayer(invitedEntity.discordUser_id, "guildAdd", collector);
 
   collector.on("end", async (reaction) => {
     removeBlockedPlayer(invitedEntity.discordUser_id);

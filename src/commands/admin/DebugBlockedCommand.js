@@ -17,7 +17,7 @@ const DebugBlockedCommand = async function(language, message, args) {
       await message.channel.send("Not blocked");
       return;
     }
-    await message.channel.send(getBlockedPlayer(args[0]));
+    await message.channel.send(getBlockedPlayer(args[0]).context);
   }
 };
 

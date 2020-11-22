@@ -68,7 +68,6 @@ const GuildCreateCommand = async (language, message, args) => {
       JsonReader.commands.guildCreate.getTranslation(language).nameAlreadyUsed);
   }
 
-  addBlockedPlayer(entity.discordUser_id, 'guildCreate');
   choiceEmbed.setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, {
     pseudo: message.author.username,
   }), message.author.displayAvatarURL());
@@ -88,6 +87,8 @@ const GuildCreateCommand = async (language, message, args) => {
     time: 120000,
     max: 1,
   });
+
+  addBlockedPlayer(entity.discordUser_id, "guildCreate", collector);
 
   collector.on('end', async (reaction) => {
     removeBlockedPlayer(entity.discordUser_id);

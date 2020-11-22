@@ -82,7 +82,6 @@ const GuildKickCommand = async (language, message, args) => {
       JsonReader.commands.guildKick.getTranslation(language).excludeHimself);
   }
 
-  addBlockedPlayer(entity.discordUser_id, 'guildKick');
   choiceEmbed.setAuthor(format(JsonReader.commands.guildKick.getTranslation(language).kickTitle, {
     pseudo: message.author.username,
   }), message.author.displayAvatarURL());
@@ -102,6 +101,8 @@ const GuildKickCommand = async (language, message, args) => {
     time: 120000,
     max: 1,
   });
+
+  addBlockedPlayer(entity.discordUser_id, "guildKick", collector);
 
   collector.on('end', async (reaction) => {
     removeBlockedPlayer(entity.discordUser_id);
