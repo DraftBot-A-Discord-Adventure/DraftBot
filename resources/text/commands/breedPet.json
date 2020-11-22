@@ -4,7 +4,7 @@
 			"embedTitle": "{pseudo}, vous offrez une friandise à votre animal.",
 			"noPet": "Vous n'avez aucun animal !",
 			"description": "**{petnick}** saute de joie !",
-			"notHungry": "Il semblerait que **{petnick}** n'ai pas faim..."
+			"notHungry": "Il semblerait que **{petnick}** n'a pas faim..."
 		},
 		"en": {
 			"embedTitle": "{pseudo}, you offer some food to your pet.",
