@@ -232,6 +232,12 @@
 					"category": "pet",
 					"description": "Affiche le refuge d'animaux de la guilde."
 				},
+				"pettrade": {
+					"emote": ":scales:",
+					"usage": "pettrade [mention]",
+					"category": "pet",
+					"description": "Propose un échange de vos animaux avec la personne mentionnée."
+				},
 				"classstats": {
 					"emote": ":bookmark:",
 					"usage": "classstats",
@@ -484,6 +490,12 @@
 					"usage": "shelter",
 					"category": "pet",
 					"description": "Show the guild's shelter."
+				},
+				"pettrade": {
+					"emote": ":scales:",
+					"usage": "pettrade [mention]",
+					"category": "pet",
+					"description": "Propose a trade of pets with the mentioned player."
 				},
 				"classstats": {
 					"emote": ":bookmark:",
