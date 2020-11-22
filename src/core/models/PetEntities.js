@@ -69,7 +69,7 @@ module.exports = (Sequelize, DataTypes) => {
             pet_id: pet_id,
             sex: sex,
             nickname: nickname,
-            lovePoints: 0
+            lovePoints: PETS.BASE_LOVE
         });
     }
 
@@ -109,6 +109,19 @@ module.exports = (Sequelize, DataTypes) => {
     PetEntities.getNickname = (pet_entity, language) => {
         return pet_entity.nickname ? pet_entity.nickname : JsonReader.models.pets.getTranslation(language).noNickname;
     }
+    /**
+     * @param {PetEntities} pet_entity
+     * @param {String|string} language
+     * @returns {String|string}
+     */
+    PetEntities.getLoveLevel = (pet_entity, language) => {
+        return pet_entity.lovePoints == PETS.MAX_LOVE_POINTS ? JsonReader.models.pets.getTranslation(language).lovelevels[5] :
+            pet_entity.lovePoints > PETS.LOVE_LEVELS[2] ? JsonReader.models.pets.getTranslation(language).lovelevels[4] :
+                pet_entity.lovePoints > PETS.LOVE_LEVELS[1] ? JsonReader.models.pets.getTranslation(language).lovelevels[3] :
+                    pet_entity.lovePoints > PETS.LOVE_LEVELS[0] ? JsonReader.models.pets.getTranslation(language).lovelevels[2] :
+                        JsonReader.models.pets.getTranslation(language).lovelevels[1];
+    }
+
 
     /**
      * @param {PetEntities} pet_entity
@@ -134,7 +147,8 @@ module.exports = (Sequelize, DataTypes) => {
             type: PetEntities.getPetTypeName(pet_entity, language),
             rarity: Pets.getRarityDisplay(pet_entity.PetModel),
             sex: PetEntities.getSexDisplay(pet_entity, language),
-            nickname: PetEntities.getNickname(pet_entity, language)
+            nickname: PetEntities.getNickname(pet_entity, language),
+            loveLevel: PetEntities.getLoveLevel(pet_entity, language)
         }
         );
     };
@@ -181,7 +195,7 @@ module.exports = (Sequelize, DataTypes) => {
             pet_id: pet.id,
             sex: sex,
             nickname: null,
-            lovePoints: 0
+            lovePoints: PETS.BASE_LOVE
         })
         r.PetModel = pet;
         return r;
