@@ -10,5 +10,6 @@
 			"noPet": "You don't have a pet!",
 			"description": "**{petnick}** seems happy!"
 		}
-	}
+	},
+	"defaultsPoints": 6
 }

@@ -20,11 +20,15 @@ const BreedPetCommand = async function (language, message, args) {
 
     if (authorPet) {
         let breedEmbed = new discord.MessageEmbed();
+        authorPet.lovePoints += JsonReader.commands.breedPet.defaultsPoints - authorPet.PetModel.rarity;
+        authorPet.hungrySince = Date()
+        authorPet.save();
         breedEmbed.setAuthor(format(tr.embedTitle, { pseudo: message.author.username }), message.author.displayAvatarURL())
         breedEmbed.setDescription(format(tr.description, {
             petnick: await PetEntities.displayName(authorPet, language),
             points: JsonReader.commands.breedPet.defaultsPoints
         }));
+
         return await message.channel.send(breedEmbed);
     }
 
