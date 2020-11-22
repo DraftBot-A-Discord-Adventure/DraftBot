@@ -21,13 +21,13 @@ const PetNicknameCommand = async function (language, message, args) {
     }
 
     const successEmbed = new discord.MessageEmbed();
-    successEmbed.setTitle(JsonReader.commands.petNickname.getTranslation(language).successTitle);
+    successEmbed.setAuthor(format(JsonReader.commands.petNickname.getTranslation(language).successTitle, {
+        pseudo: message.author.username
+    }), message.author.displayAvatarURL())
     if (args.length === 0) {
         pet.nickname = null;
         await pet.save();
-        successEmbed.setDescription(format(JsonReader.commands.petNickname.getTranslation(language).successNoName, {
-            player: message.author
-        }));
+        successEmbed.setDescription(JsonReader.commands.petNickname.getTranslation(language).successNoName);
         return await message.channel.send(successEmbed);
     }
 
@@ -42,7 +42,6 @@ const PetNicknameCommand = async function (language, message, args) {
     pet.nickname = petNickname;
     await pet.save();
     successEmbed.setDescription(format(JsonReader.commands.petNickname.getTranslation(language).success, {
-        player: message.author,
         name: petNickname
     }));
     await message.channel.send(successEmbed);

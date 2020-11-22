@@ -1,14 +1,14 @@
 {
-    "translations": {
-        "fr": {
-            "embedTitle": "{pseudo}, vous offrez une friandise à votre animal.",
-            "noPet": "Vous n'avez aucun animal !",
-            "description": "**{petnick}** saute de joie !"
-        },
-        "en": {
-            "embedTitle": "{pseudo}, you offer some food to your pet.",
-            "noPet": "You don't have a pet!",
-            "description": "**{petnick}** seems happy!"
-        }
-    }
+	"translations": {
+		"fr": {
+			"embedTitle": "{pseudo}, vous offrez une friandise à votre animal.",
+			"noPet": "Vous n'avez aucun animal !",
+			"description": "**{petnick}** saute de joie !"
+		},
+		"en": {
+			"embedTitle": "{pseudo}, you offer some food to your pet.",
+			"noPet": "You don't have a pet!",
+			"description": "**{petnick}** seems happy!"
+		}
+	}
 }
