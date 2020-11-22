@@ -141,6 +141,22 @@ const GuildDescriptionCommand = async (language, message, args) => {
     if (reaction.first()) {
       // a reaction exist
       if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+        [entity] = await Entities.getOrRegister(message.author.id);
+        try {
+          guild = await Guilds.getById(entity.Player.guild_id);
+        } catch (error) {
+          guild = null;
+        }
+        if (guild == null) {
+          // guild is destroy
+          return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildDescription.getTranslation(language)
+              .guildDestroy
+          );
+        }
         guild.guildDescription = args.join(" ");
 
         await Promise.all([guild.save()]);
@@ -151,10 +167,6 @@ const GuildDescriptionCommand = async (language, message, args) => {
               .editSuccessTitle
           ),
           message.author.displayAvatarURL()
-        );
-        embed.setDescription(
-          JsonReader.commands.guildDescription.getTranslation(language)
-            .editSuccess
         );
         return message.channel.send(embed);
       }

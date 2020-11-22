@@ -51,10 +51,18 @@ const GuildAddCommand = async (language, message, args) => {
       message.author,
       message.channel,
       language,
-      format(JsonReader.error.getTranslation(language).levelTooLow, {
-        pseudo: entity.getMention(),
-        level: GUILD.REQUIRED_LEVEL,
-      })
+      format(
+        JsonReader.commands.guildAdd.getTranslation(language).levelTooLow,
+        {
+          pseudo: message.mentions.users.last(),
+          level: GUILD.REQUIRED_LEVEL,
+          playerLevel: invitedEntity.Player.level,
+          comeIn:
+            GUILD.REQUIRED_LEVEL - invitedEntity.Player.level > 1
+              ? `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux`
+              : `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`,
+        }
+      )
     );
   }
 
@@ -159,6 +167,20 @@ const GuildAddCommand = async (language, message, args) => {
     if (reaction.first()) {
       // a reaction exist
       if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+        try {
+          guild = await Guilds.getById(entity.Player.guild_id);
+        } catch (error) {
+          guild = null;
+        }
+        if (guild == null) {
+          // guild is destroy
+          return sendErrorMessage(
+            message.mentions.users.last(),
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).guildDestroy
+          );
+        }
         invitedEntity.Player.guild_id = guild.id;
         guild.updateLastDailyAt();
 
