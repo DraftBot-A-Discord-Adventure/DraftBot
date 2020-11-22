@@ -135,5 +135,7 @@ global.TOPGG = {
 
 global.PETS = {
   FREE_COOLDOWN: 60 * 60 * 1000,
-  MAX_LOVE_POINTS: 100
+  MAX_LOVE_POINTS: 100,
+  BASE_LOVE: 10,
+  LOVE_LEVELS: [5, 20, 50]
 }
