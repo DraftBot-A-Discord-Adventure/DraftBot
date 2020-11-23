@@ -114,6 +114,10 @@ const PetTradeCommand = async function (language, message, args) {
             trader1.Player.save();
             trader2.Player.pet_id = pet1.id;
             trader2.Player.save();
+            pet1.lovePoints = PETS.BASE_LOVE;
+            pet2.lovePoints = PETS.BASE_LOVE;
+            pet1.save();
+            pet2.save();
             const successEmbed = new discord.MessageEmbed();
             successEmbed.setTitle(JsonReader.commands.petTrade.getTranslation(language).tradeTitle);
             successEmbed.setDescription(JsonReader.commands.petTrade.getTranslation(language).tradeSuccess);
