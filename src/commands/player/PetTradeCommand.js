@@ -39,11 +39,12 @@ const PetTradeCommand = async function (language, message, args) {
     }
 
     const confirmEmbed = new discord.MessageEmbed();
-    confirmEmbed.setTitle(JsonReader.commands.petTrade.getTranslation(language).tradeTitle);
+    confirmEmbed.setAuthor(JsonReader.commands.petTrade.getTranslation(language).tradeTitle, message.author.displayAvatarURL());
     confirmEmbed.setDescription(format(JsonReader.commands.petTrade.getTranslation(language).tradeDescription, {
         trader1: message.author,
         trader2: message.mentions.users.first()
     }));
+    confirmEmbed.setFooter(JsonReader.commands.petTrade.getTranslation(language).warningTradeReset);
     confirmEmbed.addField(format(JsonReader.commands.petTrade.getTranslation(language).petOfTrader, {
         trader: await trader1.Player.getPseudo(language)
     }), await PetEntities.getPetDisplay(pet1, language), true);
@@ -119,7 +120,7 @@ const PetTradeCommand = async function (language, message, args) {
             pet1.save();
             pet2.save();
             const successEmbed = new discord.MessageEmbed();
-            successEmbed.setTitle(JsonReader.commands.petTrade.getTranslation(language).tradeTitle);
+            successEmbed.setAuthor(JsonReader.commands.petTrade.getTranslation(language).tradeTitle, message.author.displayAvatarURL());
             successEmbed.setDescription(JsonReader.commands.petTrade.getTranslation(language).tradeSuccess);
             await message.channel.send(successEmbed);
         }
