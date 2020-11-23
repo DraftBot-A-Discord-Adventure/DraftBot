@@ -25,7 +25,9 @@ const PetTransferCommand = async function (language, message, args) {
     }
     const guildPetCount = guild.GuildPets.length;
     const confirmEmbed = new discord.MessageEmbed();
-    confirmEmbed.setTitle(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitchTitle);
+    confirmEmbed.setAuthor(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitchTitle, {
+        pseudo: message.author.username
+    }), message.author.displayAvatarURL());
     const pPet = entity.Player.Pet;
     const [server] = (await Servers.getOrRegister(message.guild.id));
 
@@ -44,7 +46,6 @@ const PetTransferCommand = async function (language, message, args) {
         entity.Player.save();
         await (await GuildPets.addPet(guild.id, pPet.id)).save();
         confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmDeposit, {
-            player: message.author,
             pet: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language))
         }));
         return message.channel.send(confirmEmbed);
@@ -86,14 +87,12 @@ const PetTransferCommand = async function (language, message, args) {
 
     if (pPet) {
         confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitch, {
-            player: message.author,
             pet1: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language)),
             pet2: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
         }));
     }
     else {
         confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmFollows, {
-            player: message.author,
             pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
         }));
     }

@@ -22,6 +22,13 @@ module.exports = (Sequelize, DataTypes) => {
         nickname: {
             type: DataTypes.TEXT,
         },
+        lovePoints: {
+            type: DataTypes.INTEGER,
+        },
+        hungrySince: {
+            type: DataTypes.DATE,
+            defaultValue: JsonReader.models.pets.hungrySince,
+        },
         updatedAt: {
             type: DataTypes.DATE,
             defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
@@ -59,9 +66,10 @@ module.exports = (Sequelize, DataTypes) => {
      */
     PetEntities.createPet = (pet_id, sex, nickname) => {
         return PetEntities.build({
-           pet_id: pet_id,
-           sex: sex,
-           nickname: nickname
+            pet_id: pet_id,
+            sex: sex,
+            nickname: nickname,
+            lovePoints: PETS.BASE_LOVE
         });
     }
 
@@ -101,6 +109,19 @@ module.exports = (Sequelize, DataTypes) => {
     PetEntities.getNickname = (pet_entity, language) => {
         return pet_entity.nickname ? pet_entity.nickname : JsonReader.models.pets.getTranslation(language).noNickname;
     }
+    /**
+     * @param {PetEntities} pet_entity
+     * @param {String|string} language
+     * @returns {String|string}
+     */
+    PetEntities.getLoveLevel = (pet_entity, language) => {
+        return pet_entity.lovePoints == PETS.MAX_LOVE_POINTS ? JsonReader.models.pets.getTranslation(language).lovelevels[5] :
+            pet_entity.lovePoints > PETS.LOVE_LEVELS[2] ? JsonReader.models.pets.getTranslation(language).lovelevels[4] :
+                pet_entity.lovePoints > PETS.LOVE_LEVELS[1] ? JsonReader.models.pets.getTranslation(language).lovelevels[3] :
+                    pet_entity.lovePoints > PETS.LOVE_LEVELS[0] ? JsonReader.models.pets.getTranslation(language).lovelevels[2] :
+                        JsonReader.models.pets.getTranslation(language).lovelevels[1];
+    }
+
 
     /**
      * @param {PetEntities} pet_entity
@@ -122,13 +143,24 @@ module.exports = (Sequelize, DataTypes) => {
             return await Pets.getById(JsonReader.models.pets.defaultPetId)["maleName_" + language];
         }
         return format(JsonReader.commands.guildShelter.getTranslation(language).petField, {
-                emote: PetEntities.getPetEmote(pet_entity),
-                type: PetEntities.getPetTypeName(pet_entity, language),
-                rarity: Pets.getRarityDisplay(pet_entity.PetModel),
-                sex: PetEntities.getSexDisplay(pet_entity, language),
-                nickname: PetEntities.getNickname(pet_entity, language)
-            }
+            emote: PetEntities.getPetEmote(pet_entity),
+            type: PetEntities.getPetTypeName(pet_entity, language),
+            rarity: Pets.getRarityDisplay(pet_entity.PetModel),
+            sex: PetEntities.getSexDisplay(pet_entity, language),
+            nickname: PetEntities.getNickname(pet_entity, language),
+            loveLevel: PetEntities.getLoveLevel(pet_entity, language)
+        }
         );
+    };
+
+    /**
+     * @param {PetEntities} pet_entity
+     * @param {String|string} language
+     * @returns {Promise<String>}
+     */
+    PetEntities.displayName = async (pet_entity, language) => {
+        let displayedName = pet_entity.nickname ? pet_entity.nickname : PetEntities.getPetTypeName(pet_entity, language)
+        return PetEntities.getPetEmote(pet_entity) + ' ' + displayedName;
     };
 
     /**
@@ -162,7 +194,8 @@ module.exports = (Sequelize, DataTypes) => {
         let r = PetEntities.build({
             pet_id: pet.id,
             sex: sex,
-            nickname: null
+            nickname: null,
+            lovePoints: PETS.BASE_LOVE
         })
         r.PetModel = pet;
         return r;

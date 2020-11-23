@@ -29,7 +29,9 @@ const PetFreeCommand = async function (language, message, args) {
 
     const confirmEmbed = new discord.MessageEmbed();
     const petField = PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language));
-    confirmEmbed.setTitle(JsonReader.commands.petFree.getTranslation(language).successTitle);
+    confirmEmbed.setAuthor(format(JsonReader.commands.petFree.getTranslation(language).successTitle, {
+        pseudo: message.author.username
+    }), message.author.displayAvatarURL());
     confirmEmbed.setDescription(format(JsonReader.commands.petFree.getTranslation(language).confirmDesc, {
         pet: petField
     }));
@@ -54,7 +56,9 @@ const PetFreeCommand = async function (language, message, args) {
                 entity.Player.last_pet_free = Date()
                 entity.Player.save();
                 const freedEmbed = new discord.MessageEmbed();
-                freedEmbed.setTitle(JsonReader.commands.petFree.getTranslation(language).successTitle);
+                freedEmbed.setAuthor(format(JsonReader.commands.petFree.getTranslation(language).successTitle, {
+                    pseudo: message.author.username
+                }), message.author.displayAvatarURL());
                 freedEmbed.setDescription(format(JsonReader.commands.petFree.getTranslation(language).petFreed, {
                     pet: petField
                 }));

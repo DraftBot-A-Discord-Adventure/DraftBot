@@ -199,7 +199,7 @@
 				"class": {
 					"emote": ":bookmark:",
 					"usage": "class",
-					"category" :"player",
+					"category": "player",
 					"description": "Permet de changer de classe. Plus d'informations sur les classes sont disponibles sur le guide du joueur : https://guide.draftbot.com"
 				},
 				"mypet": {
@@ -231,6 +231,18 @@
 					"usage": "shelter",
 					"category": "pet",
 					"description": "Affiche le refuge d'animaux de la guilde."
+				},
+				"pettrade": {
+					"emote": ":scales:",
+					"usage": "pettrade [mention]",
+					"category": "pet",
+					"description": "Propose un échange de vos animaux avec la personne mentionnée."
+				},
+				"breedpet": {
+					"emote": ":candy:",
+					"usage": "breedpet",
+					"category": "pet",
+					"description": "Donner de la nourriture à votre animal."
 				},
 				"classstats": {
 					"emote": ":bookmark:",
@@ -452,7 +464,7 @@
 				"class": {
 					"emote": ":bookmark:",
 					"usage": "class",
-					"category" : "player",
+					"category": "player",
 					"description": "Change your class. More information about class is available through the player guide : https://guide.draftbot.com/v/en"
 				},
 				"mypet": {
@@ -484,6 +496,18 @@
 					"usage": "shelter",
 					"category": "pet",
 					"description": "Show the guild's shelter."
+				},
+				"pettrade": {
+					"emote": ":scales:",
+					"usage": "pettrade [mention]",
+					"category": "pet",
+					"description": "Propose a trade of pets with the mentioned player."
+				},
+				"breedpet": {
+					"emote": ":candy:",
+					"usage": "breedpet",
+					"category": "pet",
+					"description": "Give some food to your pet."
 				},
 				"classstats": {
 					"emote": ":bookmark:",
