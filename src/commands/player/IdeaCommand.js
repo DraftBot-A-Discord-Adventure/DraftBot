@@ -17,7 +17,7 @@ module.exports = {
         {
             name: 'idea',
             func: ideaCommand,
-            aliases: []
+            aliases: ['ideas', 'suggestions', 'suggest', 'suggestion']
         }
     ]
 };

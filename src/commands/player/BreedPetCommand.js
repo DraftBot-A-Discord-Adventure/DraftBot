@@ -47,7 +47,7 @@ module.exports = {
         {
             name: 'breedpet',
             func: BreedPetCommand,
-            aliases: ['breed', 'bp']
+            aliases: ['breed', 'bp', 'feedpet', 'feedp', "breedp", 'petbreed', 'pb',]
         }
     ]
 };

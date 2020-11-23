@@ -41,7 +41,7 @@ module.exports = {
         {
             name: 'mypet',
             func: MyPetCommand,
-            aliases: ['pet']
+            aliases: ['pet', 'pp']
         }
     ]
 };
