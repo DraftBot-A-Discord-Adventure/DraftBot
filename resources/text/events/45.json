@@ -16,8 +16,8 @@
 				"experience": 0,
 				"money": 0,
 				"item": false
-            },
-            {
+			},
+			{
 				"translations": {
 					"fr": "** | 🚶 Vous décidez d'aller au sanctuaire tout seul. Arrivé au site, vous entendez un bruit étrange, pris de panique, vous courez et trébuchez. Vous vous faites une vilaine égratinure à la jambe, celle-ci ne tarde pas à s'infecter. :sick: ",
 					"en": "** | 🚶 You decide to go to the shrine on your own. Arriving at the site, you are startled by an eerie noise. In a panic, you attempt to leave, but stumble over a sharp rusty object in your path. You suffer a deep wound to your leg, which gets infected immediately. :sick: "
@@ -28,8 +28,8 @@
 				"experience": 0,
 				"money": 0,
 				"item": false
-            },
-            {
+			},
+			{
 				"translations": {
 					"fr": "** | 🚶 Vous décidez d'aller au sanctuaire tout seul. Sur votre route, vous trouvez un objet qui pourrait vous être utile. Arrivé sur les lieux, ils se révèlent être une grotte. Vous décidez de ne pas aller plus loin.",
 					"en": "** | 🚶 You decide to go to the shrine on your own. On your way, you find an object which may be useful. When you reach the shrine, it appears to be a dark cave. With no light source, you decide not to go any further."
@@ -40,8 +40,8 @@
 				"experience": 325,
 				"money": 0,
 				"item": true
-            },
-            {
+			},
+			{
 				"translations": {
 					"fr": "** | 🚶 Vous décidez d'aller au sanctuaire tout seul. Arrivé là-bas, vous découvrez un magnifique sanctuaire, dont vous contemplez pendant 30 minutes la beauté.",
 					"en": "** | 🚶 You decide to go to the shrine on your own. When you arrive, you discover an awe inspiring shrine, and you spend the next 30 minutes to contemplate it's beauty."
@@ -78,8 +78,8 @@
 				"experience": 25,
 				"money": 0,
 				"item": false
-            },
-            {
+			},
+			{
 				"translations": {
 					"fr": "** | ⤴️ Le groupe vous refuse tout simplement. Vous continuez alors votre route.",
 					"en": "** | ⤴️ The group simply refuses you, so you continue on your way alone."
@@ -116,7 +116,7 @@
 				"experience": 25,
 				"money": 0,
 				"item": false
-            },
+			},
 			{
 				"translations": {
 					"fr": "** | 🔊 Le groupe ne veut tout simplement pas discuter, et il vous le fait bien savoir.",
@@ -129,8 +129,8 @@
 				"money": 0,
 				"item": false
 			}
-        ],
-        "▶️": [
+		],
+		"▶️": [
 			{
 				"translations": {
 					"fr": "** | ▶️ Vous continuez votre route, préférant aller au prochain village.",
@@ -142,7 +142,7 @@
 				"experience": 150,
 				"money": 0,
 				"item": false
-            },
+			},
 			{
 				"translations": {
 					"fr": "** | ▶️ Vous continuez votre route, quelques minutes plus tard, vous vous sentez plus léger.",
@@ -168,7 +168,7 @@
 				"experience": 0,
 				"money": 0,
 				"item": true
-            },
+			},
 			{
 				"translations": {
 					"fr": "** | 🚶 Après 15 minutes sans aucune réaction, vous repartez sur votre route.",

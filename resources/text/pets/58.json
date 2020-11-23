@@ -1,15 +1,15 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Aigle",
-      "femaleName": "Aigle"
-    },
-    "en": {
-      "maleName": "Eagle",
-      "femaleName": "Eagle"
-    }
-  },
-  "emoteMale": "🦅",
-  "emoteFemale": "🦅",
-  "rarity": 4
+	"translations": {
+		"fr": {
+			"maleName": "Aigle",
+			"femaleName": "Aigle"
+		},
+		"en": {
+			"maleName": "Eagle",
+			"femaleName": "Eagle"
+		}
+	},
+	"emoteMale": "🦅",
+	"emoteFemale": "🦅",
+	"rarity": 4
 }

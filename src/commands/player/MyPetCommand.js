@@ -5,43 +5,42 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const MyPetCommand = async function (language, message, args) {
-    let [entity] = await Entities.getByArgs(args, message);
-    if (entity === null) {
-        [entity] = await Entities.getOrRegister(message.author.id);
-    }
+	let [entity] = await Entities.getByArgs(args, message);
+	if (entity === null) {
+		[entity] = await Entities.getOrRegister(message.author.id);
+	}
 
-    if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-        [EFFECT.BABY], entity)) !== true) {
-        return;
-    }
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY], entity)) !== true) {
+		return;
+	}
 
-    let authorPet = entity.Player.Pet;
-    const tr = JsonReader.commands.myPet.getTranslation(language);
+	let authorPet = entity.Player.Pet;
+	const tr = JsonReader.commands.myPet.getTranslation(language);
 
-    if (authorPet) {
-        let mypetEmbed = new discord.MessageEmbed();
-        mypetEmbed.setAuthor(format(tr.embedTitle, {
-            pseudo: message.author.username
-        }), message.author.displayAvatarURL());
-        mypetEmbed.setDescription(await PetEntities.getPetDisplay(authorPet, language));
-        return await message.channel.send(mypetEmbed);
-    }
+	if (authorPet) {
+		let mypetEmbed = new discord.MessageEmbed();
+		mypetEmbed.setAuthor(format(tr.embedTitle, {
+			pseudo: message.author.username
+		}), message.author.displayAvatarURL());
+		mypetEmbed.setDescription(await PetEntities.getPetDisplay(authorPet, language));
+		return await message.channel.send(mypetEmbed);
+	}
 
-    if (entity.discordUser_id === message.author.id) {
-        await sendErrorMessage(message.author, message.channel, language, tr.noPet);
-    }
-    else {
-        await sendErrorMessage(message.author, message.channel, language, tr.noPetOther);
-    }
+	if (entity.discordUser_id === message.author.id) {
+		await sendErrorMessage(message.author, message.channel, language, tr.noPet);
+	} else {
+		await sendErrorMessage(message.author, message.channel, language, tr.noPetOther);
+	}
 
 };
 
 module.exports = {
-    commands: [
-        {
-            name: 'mypet',
-            func: MyPetCommand,
-            aliases: ['pet', 'pp']
-        }
-    ]
+	commands: [
+		{
+			name: 'mypet',
+			func: MyPetCommand,
+			aliases: ['pet', 'pp']
+		}
+	]
 };

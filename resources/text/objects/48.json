@@ -1,9 +1,9 @@
 {
-    "translations": {
-      "fr": ":movie_camera: **Accélérateur de particule**",
-      "en": ":movie_camera: **Particle accelerator**"
-    },
-    "rarity": 7,
-    "power": 1,
-    "nature": 5
-  }
+	"translations": {
+		"fr": ":movie_camera: **Accélérateur de particule**",
+		"en": ":movie_camera: **Particle accelerator**"
+	},
+	"rarity": 7,
+	"power": 1,
+	"nature": 5
+}

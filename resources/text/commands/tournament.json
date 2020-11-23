@@ -1,16 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "usage": "Usages corrects:\n- tournament channel <channel id>\n- tournament maxpower <power>",
-      "channelSet": "Nouveau channel des tournois: <#{channel}>",
-      "maxPowerSet": "Nouvelle limite de vie définie à {maxPower}",
-      "errorNaN": "{arg} n'est pas un nombre valide (n'est pas un nombre ou est négatif ou nul)"
-    },
-    "en": {
-      "usage": "Correct usages:\n- tournament channel <channel id>\n- tournament maxpower <power>",
-      "channelSet": "New tournaments channel: <#{channel}>",
-      "maxPowerSet": "New life limit defined to {maxPower}",
-      "errorNaN": "{arg} is not a valid number (not a number or null or negative)"
-    }
-  }
+	"translations": {
+		"fr": {
+			"usage": "Usages corrects:\n- tournament channel <channel id>\n- tournament maxpower <power>",
+			"channelSet": "Nouveau channel des tournois: <#{channel}>",
+			"maxPowerSet": "Nouvelle limite de vie définie à {maxPower}",
+			"errorNaN": "{arg} n'est pas un nombre valide (n'est pas un nombre ou est négatif ou nul)"
+		},
+		"en": {
+			"usage": "Correct usages:\n- tournament channel <channel id>\n- tournament maxpower <power>",
+			"channelSet": "New tournaments channel: <#{channel}>",
+			"maxPowerSet": "New life limit defined to {maxPower}",
+			"errorNaN": "{arg} is not a valid number (not a number or null or negative)"
+		}
+	}
 }

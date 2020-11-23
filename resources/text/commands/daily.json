@@ -1,27 +1,27 @@
 {
-    "translations": {
-        "fr": {
-            "objectDoNothingError": "Vous tentez d'utiliser le pouvoir de l'objet que vous transportez... Mais cela n'a aucun effet !",
-            "alreadyClaimedError": "Il semblerait que vous ayez déjà utilisé le pouvoir d'un objet aujourd'hui... Revenez demain !",
-            "objectIsActiveDuringFights": "Le pouvoir de l'objet que vous transportez est actif automatiquement durant les combats !",
-            "noDailyError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
-            "noActiveObjectdescription": "Vous n'avez malheureusement aucun objet actif dans votre inventaire !",
-            "dailySuccess": "{pseudo}, vous avez reçu votre récompense journalière !",
-            "healthDaily": "❤️ Vie gagnée : {value} !",
-            "moneyBonus": "💰 Argent gagné : {value} !",
-            "hospitalBonus": "🕥 Vous avez avancé de {value}"
-        },
-        "en": {
-            "objectDoNothingError": "You attempt to use the power of the object you're carrying... But it has no effect !",
-            "alreadyClaimedError": "It seems that you have already used the power of an object today ... Come back tomorrow!",
-            "objectIsActiveDuringFights": "The power of the object you are carrying is automatically activated during battle!",
-            "noDailyError": "{pseudo}, hmmm... It didn't work!",
-            "noActiveObjectdescription": "You unfortunately have no active items in your inventory!",
-            "dailySuccess": "{pseudo}, you have received your daily reward!",
-            "healthDaily": "❤️ HP recovered : {value}!",
-            "moneyBonus": "💰 Money Earned: {value} !",
-            "hospitalBonus": "🕥 You have moved up {value}"
-        }
-    },
-    "numberOfDayToReload": 1
+	"translations": {
+		"fr": {
+			"objectDoNothingError": "Vous tentez d'utiliser le pouvoir de l'objet que vous transportez... Mais cela n'a aucun effet !",
+			"alreadyClaimedError": "Il semblerait que vous ayez déjà utilisé le pouvoir d'un objet aujourd'hui... Revenez demain !",
+			"objectIsActiveDuringFights": "Le pouvoir de l'objet que vous transportez est actif automatiquement durant les combats !",
+			"noDailyError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
+			"noActiveObjectdescription": "Vous n'avez malheureusement aucun objet actif dans votre inventaire !",
+			"dailySuccess": "{pseudo}, vous avez reçu votre récompense journalière !",
+			"healthDaily": "❤️ Vie gagnée : {value} !",
+			"moneyBonus": "💰 Argent gagné : {value} !",
+			"hospitalBonus": "🕥 Vous avez avancé de {value}"
+		},
+		"en": {
+			"objectDoNothingError": "You attempt to use the power of the object you're carrying... But it has no effect !",
+			"alreadyClaimedError": "It seems that you have already used the power of an object today ... Come back tomorrow!",
+			"objectIsActiveDuringFights": "The power of the object you are carrying is automatically activated during battle!",
+			"noDailyError": "{pseudo}, hmmm... It didn't work!",
+			"noActiveObjectdescription": "You unfortunately have no active items in your inventory!",
+			"dailySuccess": "{pseudo}, you have received your daily reward!",
+			"healthDaily": "❤️ HP recovered : {value}!",
+			"moneyBonus": "💰 Money Earned: {value} !",
+			"hospitalBonus": "🕥 You have moved up {value}"
+		}
+	},
+	"numberOfDayToReload": 1
 }

@@ -10,7 +10,6 @@
 			"levelUp": {
 				"title": ":star: The guild {guildName} just leveled up!",
 				"desc": "The guild is now level **{level}**."
-
 			}
 		}
 	},

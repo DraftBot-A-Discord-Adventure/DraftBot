@@ -1,9 +1,9 @@
 {
-  "translations": {
-    "fr": "⛽ **Kyurburant**",
-    "en": "⛽ **Kyufuel**"
-  },
-  "rarity": 5,
-  "power": 2,
-  "nature": 5
+	"translations": {
+		"fr": "⛽ **Kyurburant**",
+		"en": "⛽ **Kyufuel**"
+	},
+	"rarity": 5,
+	"power": 2,
+	"nature": 5
 }

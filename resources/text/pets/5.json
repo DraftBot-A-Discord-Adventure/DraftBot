@@ -1,15 +1,15 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Souris",
-      "femaleName": "Souris"
-    },
-    "en": {
-      "maleName": "Mouse",
-      "femaleName": "Mouse"
-    }
-  },
-  "emoteMale": "🐁",
-  "emoteFemale": "🐁",
-  "rarity": 1
+	"translations": {
+		"fr": {
+			"maleName": "Souris",
+			"femaleName": "Souris"
+		},
+		"en": {
+			"maleName": "Mouse",
+			"femaleName": "Mouse"
+		}
+	},
+	"emoteMale": "🐁",
+	"emoteFemale": "🐁",
+	"rarity": 1
 }

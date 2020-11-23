@@ -55,7 +55,7 @@
 				"acceptItem": "Choix de garder un objet ou non",
 				"freepet": "Libération d'un animal",
 				"guildElder": "Choisir l'ainé",
-				"guildElderRemove" : "Supprimer l'ainé",
+				"guildElderRemove": "Supprimer l'ainé",
 				"petTrade": "Échange d'animaux",
 				"test": "Test"
 			}
@@ -115,7 +115,7 @@
 				"acceptItem": "Choice to keep an item or not",
 				"freepet": "Free pet",
 				"guildElder": "Choice the elder",
-				"guildElderRemove" : "Delete the elder",
+				"guildElderRemove": "Delete the elder",
 				"petTrade": "Pet trade",
 				"test": "Test"
 			}

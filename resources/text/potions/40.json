@@ -1,9 +1,9 @@
 {
-  "translations": {
-    "fr": "🍾 **Champagne sabré**",
-    "en": "🍾 **Sabered champagne**"
-  },
-  "rarity": 6,
-  "power": 6,
-  "nature": 5
+	"translations": {
+		"fr": "🍾 **Champagne sabré**",
+		"en": "🍾 **Sabered champagne**"
+	},
+	"rarity": 6,
+	"power": 6,
+	"nature": 5
 }

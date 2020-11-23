@@ -11,7 +11,7 @@
 			"kickSuccess": "You're poor lonesome cowboy and a long long way from home...",
 			"kickCancelled": "L'exclusion de {kickedPseudo} a été annulée !",
 			"excludeHimself": "Vous ne pouvez pas vous exclure vous même",
-			"guildDestroy" : "Vous ne pouvez pas rejoindre la guilde car celle-ci à été suprimée, ou vous avez été exclue de celle-ci."
+			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde car celle-ci à été suprimée, ou vous avez été exclue de celle-ci."
 		},
 		"en": {
 			"notInAguild": "You have to be in a guild to use this command.",
@@ -24,7 +24,7 @@
 			"kickSuccess": "You're poor lonesome cowboy and a long long way from home...",
 			"kickCancelled": "{kickedPseudo} was not kicked from the guild!",
 			"excludeHimself": "You cannot exclude yourself.",
-			"guildDestroy" : "You can't join the guild because it has been deleted, or you have been kicked of it."
+			"guildDestroy": "You can't join the guild because it has been deleted, or you have been kicked of it."
 		}
 	}
 }
