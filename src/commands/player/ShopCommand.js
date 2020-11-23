@@ -14,8 +14,6 @@ async function ShopCommand(language, message, args) {
         return;
     }
 
-    addBlockedPlayer(entity.discordUser_id, 'shop');
-
     const shopTranslations = JsonReader.commands.shop.getTranslation(language);
     const numberOfPotions = await Potions.count();
 
@@ -83,6 +81,8 @@ async function ShopCommand(language, message, args) {
     };
 
     const collector = shopMessage.createReactionCollector(filterConfirm, { time: 120000, max: 1 });
+
+    addBlockedPlayer(entity.discordUser_id, "shop", collector);
 
     //Fetch the choice from the user
     collector.on("end", async (reaction) => {

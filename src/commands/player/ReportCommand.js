@@ -29,7 +29,6 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
   }
 
   if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
-    addBlockedPlayer(entity.discordUser_id, "report");
     const event = await Events.findOne({ where: { id: 0 } });
     return await doEvent(message, language, event, entity, time, 100);
   }
@@ -46,8 +45,6 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
   if (time <= JsonReader.commands.report.timeMaximal && draftbotRandom.integer(0, JsonReader.commands.report.timeMaximal - 1) > time) {
     return await doPossibility(message, language, await Possibilities.findAll({ where: { event_id: 9999 } }), entity, time);
   }
-
-  addBlockedPlayer(entity.discordUser_id, "report");
 
   const Sequelize = require('sequelize');
   let event;
@@ -88,6 +85,8 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
   const collector = eventDisplayed.createReactionCollector((reaction, user) => {
     return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);
   }, { time: 120000 });
+
+  addBlockedPlayer(entity.discordUser_id, "report", collector);
 
   collector.on('collect', async (reaction) => {
     collector.stop();

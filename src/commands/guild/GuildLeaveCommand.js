@@ -31,7 +31,7 @@ const GuildLeaveCommand = async (language, message, args) => {
       language,
       JsonReader.commands.guildLeave.getTranslation(language).notInAGuild);
   }
-  addBlockedPlayer(entity.discordUser_id, 'guildLeave');
+
   // generate confirmation embed
   confirmationEmbed.setAuthor(format(JsonReader.commands.guildLeave.getTranslation(language).leaveTitle, {
     pseudo: message.author.username,
@@ -57,6 +57,8 @@ const GuildLeaveCommand = async (language, message, args) => {
     time: 120000,
     max: 1,
   });
+
+  addBlockedPlayer(entity.discordUser_id, "guildLeave", collector);
 
   collector.on('end', async (reaction) => {
     removeBlockedPlayer(entity.discordUser_id);

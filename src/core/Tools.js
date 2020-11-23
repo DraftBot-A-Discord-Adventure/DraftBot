@@ -159,7 +159,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     if (autoReplace) {
       return await saveItem(item, entity);
     }
-    addBlockedPlayer(discordUser.id, "acceptItem");
+
     const msg = await channel.send(embed);
     const filterConfirm = (reaction, user) => {
       return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === discordUser.id);
@@ -169,6 +169,8 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
       time: 120000,
       max: 1,
     });
+
+    addBlockedPlayer(discordUser.id, "acceptItem", collector);
 
     collector.on('end', async (reaction) => {
       removeBlockedPlayer(discordUser.id);
@@ -405,7 +407,7 @@ global.getItemValue = function (item) {
 global.sendBlockedError = async function (user, channel, language) {
   if (hasBlockedPlayer(user.id)) {
     await sendErrorMessage(user, channel, language, format(JsonReader.error.getTranslation(language).playerBlocked, {
-      context: JsonReader.error.getTranslation(language).blockedContext[getBlockedPlayer(user.id)]
+      context: JsonReader.error.getTranslation(language).blockedContext[getBlockedPlayer(user.id).context]
     }));
     return true;
   }

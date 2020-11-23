@@ -89,12 +89,15 @@ class Command {
    * @param {String} id
    */
   static hasBlockedPlayer(id) {
-    return Object.keys(Command.players).includes(id);
+    if (Object.keys(Command.players).includes(id)) {
+      return !(Command.players[id].collector && Command.players[id].collector.ended);
+    }
+    return false;
   }
 
   /**
    * @param {String} id
-   * @return {String}
+   * @return {{context: string, time: number}}
    */
   static getBlockedPlayer(id) {
     return Command.players[id];
@@ -103,9 +106,10 @@ class Command {
   /**
    * @param {String} id
    * @param {String} context
+   * @param {module:"discord.js".ReactionCollector} collector
    */
-  static addBlockedPlayer(id, context) {
-    Command.players[id] = context;
+  static addBlockedPlayer(id, context, collector = null) {
+    Command.players[id] = { context: context, collector: collector };
   }
 
   /**

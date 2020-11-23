@@ -53,8 +53,6 @@ const GuildElderRemoveCommand = async (language, message, args) => {
     );
   }
 
-  addBlockedPlayer(entity.discordUser_id, "guildElderRemove");
-
   elderRemoveEmbed.setAuthor(
     format(
       JsonReader.commands.guildElderRemove.getTranslation(language)
@@ -89,6 +87,8 @@ const GuildElderRemoveCommand = async (language, message, args) => {
     time: 120000,
     max: 1,
   });
+
+  addBlockedPlayer(entity.discordUser_id, "guildElderRemove", collector);
 
   collector.on("end", async (reaction) => {
     removeBlockedPlayer(entity.discordUser_id);

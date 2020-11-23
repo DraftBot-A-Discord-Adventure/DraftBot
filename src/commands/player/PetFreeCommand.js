@@ -35,7 +35,7 @@ const PetFreeCommand = async function (language, message, args) {
     confirmEmbed.setDescription(format(JsonReader.commands.petFree.getTranslation(language).confirmDesc, {
         pet: petField
     }));
-    addBlockedPlayer(entity.discordUser_id, 'freepet');
+
     const confirmMessage = await message.channel.send(confirmEmbed);
 
     const filter = (reaction, user) => {
@@ -46,6 +46,8 @@ const PetFreeCommand = async function (language, message, args) {
         time: 30000,
         max: 1,
     });
+
+    addBlockedPlayer(entity.discordUser_id, "freepet", collector);
 
     collector.on('end', async (reaction) => {
         removeBlockedPlayer(entity.discordUser_id);

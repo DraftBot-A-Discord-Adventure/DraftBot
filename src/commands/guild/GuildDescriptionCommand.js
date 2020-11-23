@@ -95,8 +95,6 @@ const GuildDescriptionCommand = async (language, message, args) => {
     );
   }
 
-  addBlockedPlayer(entity.discordUser_id, "descriptionEdit");
-
   confirmationEmbed.setAuthor(
     format(
       JsonReader.commands.guildDescription.getTranslation(language)
@@ -135,6 +133,8 @@ const GuildDescriptionCommand = async (language, message, args) => {
     time: 120000,
     max: 1,
   });
+
+  addBlockedPlayer(entity.discordUser_id, "descriptionEdit", collector);
 
   collector.on("end", async (reaction) => {
     removeBlockedPlayer(entity.discordUser_id);

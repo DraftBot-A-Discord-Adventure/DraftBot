@@ -56,7 +56,8 @@
 				"freepet": "Libération d'un animal",
 				"guildElder": "Choisir l'ainé",
 				"guildElderRemove" : "Supprimer l'ainé",
-				"petTrade": "Échange d'animaux"
+				"petTrade": "Échange d'animaux",
+				"test": "Test"
 			}
 		},
 		"en": {
@@ -115,7 +116,8 @@
 				"freepet": "Free pet",
 				"guildElder": "Choice the elder",
 				"guildElderRemove" : "Delete the elder",
-				"petTrade": "Pet trade"
+				"petTrade": "Pet trade",
+				"test": "Test"
 			}
 		}
 	}

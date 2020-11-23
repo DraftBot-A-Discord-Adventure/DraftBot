@@ -120,7 +120,9 @@ const GuildCreateCommand = async (language, message, args) => {
     max: 1,
   });
 
-  collector.on("end", async (reaction) => {
+  addBlockedPlayer(entity.discordUser_id, "guildCreate", collector);
+
+  collector.on('end', async (reaction) => {
     removeBlockedPlayer(entity.discordUser_id);
     if (reaction.first()) {
       // a reaction exist

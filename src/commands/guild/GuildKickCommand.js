@@ -101,7 +101,6 @@ const GuildKickCommand = async (language, message, args) => {
     );
   }
 
-  addBlockedPlayer(entity.discordUser_id, "guildKick");
   choiceEmbed.setAuthor(
     format(JsonReader.commands.guildKick.getTranslation(language).kickTitle, {
       pseudo: message.author.username,
@@ -131,7 +130,9 @@ const GuildKickCommand = async (language, message, args) => {
     max: 1,
   });
 
-  collector.on("end", async (reaction) => {
+  addBlockedPlayer(entity.discordUser_id, "guildKick", collector);
+
+  collector.on('end', async (reaction) => {
     removeBlockedPlayer(entity.discordUser_id);
     if (reaction.first()) {
       // a reaction exist
