@@ -14,8 +14,6 @@ async function ClassCommand(language, message, args) {
         return;
     }
 
-    addBlockedPlayer(entity.discordUser_id, 'class');
-
     const classTranslations = JsonReader.commands.class.getTranslation(language);
 
     let allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
@@ -51,6 +49,8 @@ async function ClassCommand(language, message, args) {
     };
 
     const collector = classMessage.createReactionCollector(filterConfirm, { time: 120000, max: 1 });
+
+    addBlockedPlayer(entity.discordUser_id, "class", collector);
 
     //Fetch the choice from the user
     collector.on("end", async (reaction) => {

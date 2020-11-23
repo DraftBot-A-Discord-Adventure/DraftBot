@@ -31,7 +31,7 @@ const GuildLeaveCommand = async (language, message, args) => {
       language,
       JsonReader.commands.guildLeave.getTranslation(language).notInAGuild);
   }
-  addBlockedPlayer(entity.discordUser_id, 'guildLeave');
+
   // generate confirmation embed
   confirmationEmbed.setAuthor(format(JsonReader.commands.guildLeave.getTranslation(language).leaveTitle, {
     pseudo: message.author.username,
@@ -58,6 +58,8 @@ const GuildLeaveCommand = async (language, message, args) => {
     max: 1,
   });
 
+  addBlockedPlayer(entity.discordUser_id, "guildLeave", collector);
+
   collector.on('end', async (reaction) => {
     removeBlockedPlayer(entity.discordUser_id);
     if (reaction.first()) { // a reaction exist
@@ -71,6 +73,10 @@ const GuildLeaveCommand = async (language, message, args) => {
               guild_id: guild.id,
             },
           });
+          for (let pet of guild.GuildPets) {
+            pet.PetEntity.destroy();
+            pet.destroy();
+          }
           await Guilds.destroy({
             where: {
               id: guild.id,

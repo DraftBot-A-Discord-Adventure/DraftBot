@@ -339,6 +339,63 @@ const TestCommand = async(language, message, args) => {
                 guild.chief_id = author.Player.id;
                 await guild.save();
                 break;
+            case 'pet':
+                if (args.length === 3) {
+                    if (author.Player.Pet) {
+                        await author.Player.Pet.destroy();
+                    }
+                    if (args[1] === '0') {
+                        break;
+                    }
+                    const pet = PetEntities.createPet(parseInt(args[1]), args[2], null);
+                    await pet.save();
+                    author.Player.pet_id = pet.id;
+                    await author.Player.save();
+                    break;
+                }
+                await message.channel.send('Correct usage: test pet <id> <sex = m/f>');
+                return;
+            case 'gp':
+            case 'guildpet':
+                if (args.length === 3) {
+                    const guild = await Guilds.getById(author.Player.guild_id);
+                    if (!guild) {
+                        await message.channel.send('Not in a guild!');
+                        return;
+                    }
+                    if (Guilds.isPetShelterFull(guild)) {
+                        await message.channel.send('Guild\'s pet shelter full!');
+                        return;
+                    }
+                    const pet = PetEntities.createPet(parseInt(args[1]), args[2], null);
+                    await pet.save();
+                    await (await GuildPets.addPet(guild.id, pet.id)).save();
+                    break;
+                }
+                await message.channel.send('Correct usage: test guildpet <id> <sex = m/f>');
+                return;
+            case 'apfree':
+                if (args.length === 2) {
+                    author.Player.last_pet_free -= parseInt(args[1]) * 60000;
+                    author.Player.save();
+                }
+                break;
+            case 'greward':
+                await getCommand("gd")(language, message, [], args[1]);
+                break;
+            case 'block':
+                let sec = parseInt(args[1]);
+                const msg = await message.channel.send(":clock2: You're now blocked for " + sec + " seconds!");
+                let collector = msg.createReactionCollector(() => { return true; }, {
+                    time: sec * 1000
+                });
+                collector.on('collect', () => {});
+                collector.on('end', () => {});
+                addBlockedPlayer(author.discordUser_id, "test", collector);
+                break;
+            case 'dailytimeout':
+                require("../../core/DraftBot").dailyTimeout();
+                break;
             default:
                 await message.channel.send('Argument inconnu !');
                 return;

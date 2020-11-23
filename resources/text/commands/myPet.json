@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"embedTitle": "{pseudo}, votre animal :",
+			"noPet": "Vous n'avez aucun animal !",
+			"noPetOther": "Cette personne n'a aucun animal !"
+		},
+		"en": {
+			"embedTitle": "{pseudo}, your pet:",
+			"noPet": "You don't have a pet!",
+			"noPetOther": "This person doesn't have a pet!"
+		}
+	}
+}
