@@ -427,6 +427,20 @@ global.getNextSundayMidnight = function () {
   return new Date(dateOfReset);
 };
 
+/**
+ * Returns the next day 01h59 59s
+ * @return {Date}
+ */
+global.getNextDay2AM = function () {
+  let now = new Date();
+  let dateOfReset = new Date();
+  dateOfReset.setHours(1, 59, 59);
+  if (dateOfReset < now) {
+    dateOfReset.setDate(dateOfReset.getDate() + 1);
+  }
+  return new Date(dateOfReset);
+};
+
 global.parseTimeDifference = function (date1, date2, language) {
   if (date1 > date2) {
     date1 = [date2, date2 = date1][0];

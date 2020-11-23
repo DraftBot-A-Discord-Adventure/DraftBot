@@ -383,6 +383,9 @@ const TestCommand = async(language, message, args) => {
             case 'greward':
                 await getCommand("gd")(language, message, [], args[1]);
                 break;
+            case 'dailytimeout':
+                require("../../core/DraftBot").dailyTimeout();
+                break;
             default:
                 await message.channel.send('Argument inconnu !');
                 return;

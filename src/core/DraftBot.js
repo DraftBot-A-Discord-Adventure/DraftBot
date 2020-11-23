@@ -27,6 +27,7 @@ class DraftBot {
         // draftbot.checkEasterEggsFile();
 
         DraftBot.programTopWeekTimeout();
+        DraftBot.programDailyTimeout();
         setTimeout(DraftBot.fightPowerRegenerationLoop, FIGHT.POINTS_REGEN_MINUTES * 60 * 1000);
 
         require('core/DBL').startDBLWebhook();
@@ -44,6 +45,31 @@ class DraftBot {
             return;
         }
         setTimeout(DraftBot.topWeekEnd, millisTill);
+    }
+
+    /**
+     * Programs a timeout for the next day
+     */
+    static programDailyTimeout() {
+        let millisTill = getNextDay2AM() - new Date();
+        if (millisTill === 0) { //Case at 2:00:00
+            setTimeout(DraftBot.programDailyTimeout, 1);
+            return;
+        }
+        setTimeout(DraftBot.dailyTimeout, millisTill);
+    }
+
+    /**
+     * Daily timeout actions
+     */
+    static async dailyTimeout() {
+        console.log("INFO: Daily timeout")
+        const sequelize = require('sequelize');
+        if (draftbotRandom.bool()) {
+            console.log("INFO: All pets lost 1 love point");
+            await PetEntities.update({ lovePoints: sequelize.literal(`CASE WHEN lovePoints - 1 < 0 THEN 0 ELSE lovePoints - 1 END`) }, { where: { lovePoints: { [sequelize.Op.not]: PETS.MAX_LOVE_POINTS } } });
+        }
+        DraftBot.programDailyTimeout();
     }
 
     /**
@@ -202,6 +228,7 @@ class DraftBot {
  */
 module.exports = {
     init: DraftBot.init,
+    dailyTimeout: DraftBot.dailyTimeout
 };
 /**
  * @type {module:"discord.js"}
