@@ -1,12 +1,12 @@
 {
 	"translations": {
 		"fr": {
-			"embedTitle": "{pseudo}, votre animal :",
+			"embedTitle": "Animal de {pseudo} :",
 			"noPet": "Vous n'avez aucun animal !",
 			"noPetOther": "Cette personne n'a aucun animal !"
 		},
 		"en": {
-			"embedTitle": "{pseudo}, your pet:",
+			"embedTitle": "{pseudo}'s pet:",
 			"noPet": "You don't have a pet!",
 			"noPetOther": "This person doesn't have a pet!"
 		}
