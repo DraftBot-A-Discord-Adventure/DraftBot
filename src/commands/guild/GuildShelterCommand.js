@@ -62,7 +62,7 @@ module.exports = {
         {
             name: 'shelter',
             func: GuildShelterCommand,
-            aliases: ['guildshelter', 'pets', 'animals', 'gshelter', 'gpets', 'ganimals', 'guildpets', 'guildanimals']
+            aliases: ['guildshelter', 'pets', 'animals', 'gshelter', 'gpets', 'ganimals', 'guildpets', 'guildanimals', 'sh']
         }
     ]
 };
