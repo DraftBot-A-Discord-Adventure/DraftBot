@@ -73,11 +73,12 @@
 					"en": "** | 👊 After trying to violently intervene, the executioner grabs you by force. You're struggling, but nothing can change that. You, in turn, are sentenced to death. :skull:"
 				},
 				"lostTime": 0,
-				"health": -150,
+				"health": 0,
 				"effect": ":smiley:",
 				"experience": 0,
 				"money": 0,
-				"item": false
+				"item": false,
+				"oneshot": true
 			}
 		],
 		"🚶": [
