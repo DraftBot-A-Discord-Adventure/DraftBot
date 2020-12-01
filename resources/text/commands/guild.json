@@ -9,9 +9,7 @@
 			"members": ":person_pouting: {memberCount}/{maxGuildMembers} membres",
 			"memberinfos": ":black_circle: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
 			"experience": ":star: {xp} / {xpToLevelUp} | Niveau {level}",
-			"lvlMax": ":star: Niveau maximum atteint !",
-			"foodTitle" : "Nourriture :",
-			"foodField" : "{food}/{maxFood} :cookie:"
+			"lvlMax": ":star: Niveau maximum atteint !"
 		},
 		"en": {
 			"noGuildException": "No guild was found.",
@@ -22,9 +20,7 @@
 			"members": ":person_pouting: {memberCount}/{maxGuildMembers} members",
 			"memberinfos": ":black_circle: - **{pseudo}** ({ranking} :trophy: | {score} :medal:)\n",
 			"experience": ":star: {xp} / {xpToLevelUp} | Level {level}",
-			"lvlMax": ":star: Maximum level reached!",
-			"foodTitle" : "Food :",
-			"foodField" : "{food}/{maxFood} :cookie:"
+			"lvlMax": ":star: Maximum level reached!"
 		}
 	},
 	"icon": "https://i.imgur.com/sQHBly4.png"

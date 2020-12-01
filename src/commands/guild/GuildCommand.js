@@ -138,13 +138,6 @@ const GuildCommand = async (language, message, args) => {
             progressBar(1, 1)
         );
     }
-    embed.addField(
-        JsonReader.commands.guild.getTranslation(language).foodTitle,
-        format(JsonReader.commands.guild.getTranslation(language).foodField, {
-            food: guild.petFood,
-            maxFood: GUILD.MAX_PETFOOD,
-        })
-    );
 
     // embed.addField(Text.commands.guild.star + experience + Text.commands.guild.expSeparator + experienceToLevelUp
     //    + Text.commands.guild.guildLevel + level, Text.commands.guild.style + progressBar.createBar() + Text.commands.guild.style);
