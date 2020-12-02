@@ -33,9 +33,17 @@ module.exports = (Sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 defaultValue: JsonReader.models.guilds.experience,
             },
-            petFood: {
+            commonPetFood: {
                 type: DataTypes.INTEGER,
-                defaultValue: JsonReader.models.guilds.petFood,
+                defaultValue: JsonReader.models.guilds.commonPetFood,
+            },
+            rarePetFood: {
+                type: DataTypes.INTEGER,
+                defaultValue: JsonReader.models.guilds.rarePetFood,
+            },
+            uniquePetFood: {
+                type: DataTypes.INTEGER,
+                defaultValue: JsonReader.models.guilds.uniquePetFood,
             },
             lastDailyAt: {
                 type: DataTypes.DATE,
