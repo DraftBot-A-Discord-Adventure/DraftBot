@@ -1,6 +1,7 @@
 -- Up
 
-ALTER TABLE guilds ADD petFood INTEGER
-UPDATE guilds SET petFood = 0
+ALTER TABLE guilds ADD commonPetFood INTEGER
+ALTER TABLE guilds ADD rarePetFood INTEGER
+ALTER TABLE guilds ADD uniquePetFood INTEGER
 
 -- Down 
