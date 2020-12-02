@@ -74,9 +74,36 @@ global.GUILD = {
     MIN_GUILDNAME_SIZE: 2,
     MIN_DESCRIPTION_LENGTH: 2,
     MAX_DESCRIPTION_LENGTH: 140,
-    MAX_PETFOOD: 20,
+    MAX_COMMON_PETFOOD: 20,
+    MAX_RARE_PETFOOD: 10,
+    MAX_UNIQUE_PETFOOD: 5,
 };
-
+global.FOOD = {
+    COMMON_FOOD: {
+        TRANSLATIONS: {
+            fr: "Friandises",
+            en: "Sweets",
+        },
+        EMOTE: ":candy:",
+        EFFECT: 1,
+    },
+    RARE_FOOD: {
+        TRANSLATIONS: {
+            fr: "Pain",
+            en: "Bread",
+        },
+        EMOTE: ":bread:",
+        EFFECT: 3,
+    },
+    UNIQUE_FOOD: {
+        TRANSLATIONS: {
+            fr: "Viande",
+            en: "Meat",
+        },
+        EMOTE: ":meat_on_bone:",
+        EFFECT: 5,
+    },
+};
 global.CLASS = {
     REQUIRED_LEVEL: 4,
     PRICE: 5000,
