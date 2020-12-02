@@ -1,0 +1,14 @@
+{
+	"translations": {
+		"fr": {
+			"embedTitle": "Inventaire la guilde {guild}",
+			"foodTitle" : "{foodType}",
+			"foodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : + {addLovePoints} :heartpulse: "
+		},
+		"en": {
+			"embedTitle": "Inventory of the {guild} guild",
+			"foodTitle" : "{foodType}",
+			"foodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : + {addLovePoints} :heartpulse: "
+		}
+	}
+}
