@@ -1,0 +1,10 @@
+{
+	"type": "city",
+	"x_coordinates": 500,
+	"y_coordinates": 100,
+	"name_fr": "Ville test",
+	"name_en": "Test city",
+	"connected_places": [
+
+	]
+}

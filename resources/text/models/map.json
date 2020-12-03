@@ -1,0 +1,22 @@
+{
+	"types": [
+		"city",
+		"road",
+		"plain",
+		"forest",
+		"moutain",
+		"beach",
+		"village",
+		"desert",
+		"river",
+		"lake"
+	],
+	"coordinates": {
+		"x-min": 0,
+		"x-max": 1000,
+		"y-min": 0,
+		"y-max": 1000,
+		"base-x": 0,
+		"base-y": 0
+	}
+}
