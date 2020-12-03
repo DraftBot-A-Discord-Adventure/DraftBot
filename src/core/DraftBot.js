@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 /**
  * @class
  */
@@ -117,8 +119,16 @@ class DraftBot {
         setTimeout(DraftBot.fightPowerRegenerationLoop, FIGHT.POINTS_REGEN_MINUTES * 60 * 1000);
     }
 
+    static updateGlobalLogsFile(now) {
+        /* Find first available log file */
+        let i = 1;
+        do {
+            global.currLogsFile = 'logs/logs-' + now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2) + "-" + ("0" + i).slice(-2) + ".txt";
+            i++;
+        } while (fs.existsSync(global.currLogsFile));
+    }
+
     static handleLogs() {
-        const fs = require('fs');
         const now = new Date();
         const originalConsoleLog = console.log;
 
@@ -146,25 +156,25 @@ class DraftBot {
             });
         }
 
-        /* Find first available log file */
-        let i = 1;
-        do {
-            global.currLogsFile = 'logs/logs-' + now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2) + "-" + ("0" + i).slice(-2) + ".txt";
-            i++;
-        } while (fs.existsSync(global.currLogsFile));
+        DraftBot.updateGlobalLogsFile(now);
+        global.currLogsCount = 0;
 
         /* Add log to file */
         const addConsoleLog = function (message) {
             let now = new Date();
-            let dateStr = "[" + now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + ("0" + now.getDate()).slice(-2) + " " + ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2) + ":" + ("0" + now.getSeconds()).slice(-2) + "]\n";
+            let dateStr = "[" + now.getFullYear() + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + ("0" + now.getDate()).slice(-2) + " " + ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2) + ":" + ("0" + now.getSeconds()).slice(-2) + "] ";
             try {
                 fs.appendFileSync(global.currLogsFile, dateStr + message.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '') + "\n", new function (err) {
                     if (err !== undefined) {
                         originalConsoleError("Error while writing in log file: " + err);
                     }
                 });
+                global.currLogsCount++;
+                if (global.currLogsCount > LOGS.LOG_COUNT_LINE_LIMIT) {
+                    DraftBot.updateGlobalLogsFile(now);
+                    global.currLogsCount = 0;
+                }
             } catch {
-                originalConsoleLog(message);
             }
         };
 
@@ -198,6 +208,8 @@ class DraftBot {
             addConsoleLog(message);
             originalConsoleTrace(message, optionalParams === undefined ? "" : optionalParams);
         };
+
+        global.log = addConsoleLog;
     }
 
     /**

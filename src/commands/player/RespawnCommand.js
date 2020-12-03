@@ -28,6 +28,8 @@ const RespawnCommand = async (language, message, args) => {
     ]);
 
     await message.channel.send(format(JsonReader.commands.respawn.getTranslation(language).respawn, { pseudo: message.author.username, lostScore: lostScore }));
+
+    log(message.author.id + " respawned (" + lostScore + " points lost)");
   }
 };
 

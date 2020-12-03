@@ -141,3 +141,7 @@ global.PETS = {
     BASE_LOVE: 10,
     LOVE_LEVELS: [5, 20, 50],
 };
+
+global.LOGS = {
+    LOG_COUNT_LINE_LIMIT: 50000
+}
