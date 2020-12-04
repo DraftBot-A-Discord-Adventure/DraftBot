@@ -4,19 +4,41 @@
 		"road",
 		"plain",
 		"forest",
-		"moutain",
+		"mountain",
 		"beach",
 		"village",
 		"desert",
 		"river",
 		"lake"
 	],
-	"coordinates": {
-		"x-min": 0,
-		"x-max": 1000,
-		"y-min": 0,
-		"y-max": 1000,
-		"base-x": 0,
-		"base-y": 0
+	"translations": {
+		"fr": {
+			"types": {
+				"city": "Ville",
+				"road": "Route",
+				"plain": "Plaine",
+				"forest": "Forêt",
+				"mountain": "Montagne",
+				"beach": "Plage",
+				"village": "Village",
+				"desert": "Désert",
+				"river": "Rivière",
+				"lake": "Lac"
+			}
+		},
+		"en": {
+			"types": {
+				"city": "City",
+				"road": "Road",
+				"plain": "Plain",
+				"forest": "Forest",
+				"mountain": "Mountain",
+				"beach": "Beach",
+				"village": "Village",
+				"desert": "Desert",
+				"river": "River",
+				"lake": "Lake"
+			}
+		}
 	}
 }

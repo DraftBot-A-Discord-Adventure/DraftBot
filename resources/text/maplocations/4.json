@@ -1,0 +1,9 @@
+{
+	"type": "village",
+	"name_fr": "Village test",
+	"name_en": "Test village",
+	"north_map": 3,
+	"east_map": null,
+	"south_map": 5,
+	"west_map": null
+}

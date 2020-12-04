@@ -1,0 +1,9 @@
+{
+	"type": "beach",
+	"name_fr": "Plage test",
+	"name_en": "Test beach",
+	"north_map": 7,
+	"east_map": 12,
+	"south_map": null,
+	"west_map": null
+}

@@ -9,16 +9,22 @@
 module.exports = (Sequelize, DataTypes) => {
 	const MapLocations = Sequelize.define('MapLocations', {
 		id: {
-			type: DataTypes.TEXT,
+			type: DataTypes.INTEGER,
 			primaryKey: true
 		},
 		type: {
 			type: DataTypes.TEXT
 		},
-		x_coordinates: {
+		north_map: {
 			type: DataTypes.INTEGER
 		},
-		y_coordinates: {
+		east_map: {
+			type: DataTypes.INTEGER
+		},
+		south_map: {
+			type: DataTypes.INTEGER
+		},
+		west_map: {
 			type: DataTypes.INTEGER
 		},
 		name_fr: {

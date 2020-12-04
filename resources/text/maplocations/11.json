@@ -1,0 +1,9 @@
+{
+	"type": "lake",
+	"name_fr": "Lac test",
+	"name_en": "Test lake",
+	"north_map": 10,
+	"east_map": null,
+	"south_map": 12,
+	"west_map": null
+}

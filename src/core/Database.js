@@ -29,8 +29,9 @@ class Database {
 
 		await Database.setAssociations();
 		await Database.populateJsonFilesTables([
-			'Armors', 'Weapons', 'Objects', 'Potions', 'Classes', 'Pets'
+			'Armors', 'Weapons', 'Objects', 'Potions', 'Classes', 'Pets', 'MapLocations'
 		]);
+		await Database.verifyMaps();
 		await Database.setEverybodyAsUnOccupied();
 	}
 
@@ -351,6 +352,32 @@ class Database {
 			return false;
 		}
 		return true;
+	}
+
+	static async verifyMaps() {
+		let dict = {};
+		for (const map of await MapLocations.findAll()) {
+			dict[map.id] = map;
+		}
+		const keys = Object.keys(dict);
+		for (const key of keys) {
+			const map = dict[key];
+			if (!JsonReader.models.map.types.includes(map.type)) {
+				console.error("Type of map " + map.id + " doesn't exist");
+			}
+			if (map.north_map && dict[map.north_map].south_map !== map.id) {
+				console.error("Maps " + map.id + " and " + map.north_map + " are not connected (direction: north)");
+			}
+			if (map.south_map && dict[map.south_map].north_map !== map.id) {
+				console.error("Maps " + map.id + " and " + map.south_map + " are not connected (direction: south)");
+			}
+			if (map.west_map && dict[map.west_map].east_map !== map.id) {
+				console.error("Maps " + map.id + " and " + map.west_map + " are not connected (direction: west)");
+			}
+			if (map.east_map && dict[map.east_map].west_map !== map.id) {
+				console.error("Maps " + map.id + " and " + map.east_map + " are not connected (direction: east)");
+			}
+		}
 	}
 
 	/**

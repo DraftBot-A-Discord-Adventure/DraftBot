@@ -1,0 +1,9 @@
+{
+	"type": "mountain",
+	"name_fr": "Montagne test",
+	"name_en": "Test mountain",
+	"north_map": 4,
+	"east_map": null,
+	"south_map": null,
+	"west_map": 6
+}

@@ -1,0 +1,9 @@
+{
+	"type": "desert",
+	"name_fr": "Désert test",
+	"name_en": "Test desert",
+	"north_map": 8,
+	"east_map": 6,
+	"south_map": 9,
+	"west_map": null
+}

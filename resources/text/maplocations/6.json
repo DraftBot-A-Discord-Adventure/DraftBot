@@ -1,0 +1,9 @@
+{
+	"type": "river",
+	"name_fr": "Rivière test 2",
+	"name_en": "Test river 2",
+	"north_map": null,
+	"east_map": 5,
+	"south_map": null,
+	"west_map": 7
+}

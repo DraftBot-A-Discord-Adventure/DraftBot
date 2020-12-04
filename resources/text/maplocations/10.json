@@ -1,0 +1,9 @@
+{
+	"type": "plain",
+	"name_fr": "Plaine test",
+	"name_en": "Test plain",
+	"north_map": null,
+	"east_map": null,
+	"south_map": 11,
+	"west_map": 1
+}

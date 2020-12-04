@@ -1,0 +1,9 @@
+{
+	"type": "city",
+	"name_fr": "Ville test",
+	"name_en": "Test city",
+	"north_map": null,
+	"east_map": 10,
+	"south_map": 8,
+	"west_map": 2
+}
