@@ -11,7 +11,7 @@
 					"en": "** | 🏊 The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing! :cold_face:"
 				},
 				"lostTime": 0,
-				"health": -5,
+				"health": -30,
 				"effect": ":cold_face:",
 				"experience": 0,
 				"money": 0,
@@ -33,7 +33,7 @@
 		"🚣": [
 			{
 				"translations": {
-					"fr": "** | 🚣 En tentant de fabriquer votre embarcation vous vous blessez ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
+					"fr": "** | 🚣 En tentant de fabriquer votre embarcation vous vous blessez légèrement ! Vous décidez donc d'abandonner la construction après avoir passé plusieurs heures dessus et vous repartez dans une autre direction.",
 					"en": "** | 🚣 When trying to build the raft you hurt yourself! You decide to forget building it after spending several hours on it and leave in another direction."
 				},
 				"lostTime": 30,
@@ -49,7 +49,7 @@
 					"en": "** | 🚣 After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue! :cold_face:"
 				},
 				"lostTime": 0,
-				"health": -5,
+				"health": -30,
 				"effect": ":cold_face:",
 				"experience": 0,
 				"money": 0,

@@ -26,7 +26,7 @@
 				"health": 0,
 				"effect": ":smiley:",
 				"experience": 250,
-				"money": 37,
+				"money": 176,
 				"item": false
 			}
 		],
@@ -40,6 +40,18 @@
 				"health": 0,
 				"effect": ":clock2:",
 				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | :runner: Vous continuez sans vous soucier du chien. Celui-ci n'insiste pas.",
+					"en": "** | :runner: You continue on your way. The dog does not seem to follow you."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
 				"money": 0,
 				"item": false
 			},
@@ -59,8 +71,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | :dog: Vous avez pris la décision de ne pas bouger, cela n'a pas du plaire au chien puisque celui-ci vous a mordu avant de s'enfuir !",
-					"en": "** :dog: You made the decision to not move, the dog must've not liked it because it bit you before running away!"
+					"fr": "** | :dog: Vous avez pris la décision de ne pas bouger, cela ne semble pas plaire au chien puisque celui-ci mord sauvagement avant de s'enfuir !",
+					"en": "** | :dog: You decided not to move, the dog mustn't have liked it as it bit you and ran away!"
 				},
 				"lostTime": 0,
 				"health": -10,
