@@ -17,8 +17,9 @@
 	"score": 0,
 	"level": 0,
 	"experience": 0,
-	"commonPetFood" : 0,
-	"rarePetFood" : 0,
-	"uniquePetFood" : 0,
+	"commonFood" : 0,
+	"rareFood" : 0,
+	"uniqueFood" : 0,
+	"growFood" : 0,
 	"lastDailyAt": null
 }
