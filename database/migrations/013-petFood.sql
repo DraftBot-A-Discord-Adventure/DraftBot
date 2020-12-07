@@ -1,7 +1,8 @@
 -- Up
 
-ALTER TABLE guilds ADD commonPetFood INTEGER
-ALTER TABLE guilds ADD rarePetFood INTEGER
-ALTER TABLE guilds ADD uniquePetFood INTEGER
+ALTER TABLE guilds ADD commonFood INTEGER
+ALTER TABLE guilds ADD rareFood INTEGER
+ALTER TABLE guilds ADD uniqueFood INTEGER
+ALTER TABLE guilds ADD growFood INTEGER
 
 -- Down 
