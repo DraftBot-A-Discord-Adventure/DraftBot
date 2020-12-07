@@ -198,51 +198,74 @@ async function ShopCommand(language, message, args) {
  * @param {*} message - The message where the react event trigerred
  * @param {*} reaction - The reaction
  */
-async function sellItem(message, reaction, language, entity, customer, selectedItem) {
-    [entity] = await Entities.getOrRegister(entity.discordUser_id);
-    const shopTranslations = JsonReader.commands.shop.getTranslation(language);
-    log(entity.discordUser_id + " bought the shop item " + selectedItem.name + " for " + selectedItem.price);
-    if (selectedItem.name) {
-        //This is not a potion
-        if (
-            selectedItem.name === shopTranslations.permanentItems.randomItem.name
-        ) {
-            await giveRandomItem(customer, message.channel, language, entity);
-        } else if (
-            selectedItem.name === shopTranslations.permanentItems.healAlterations.name
-        ) {
-            if (entity.currentEffectFinished()) {
-                return sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.nothingToHeal);
-            }
-            healAlterations(message, language, entity, customer, selectedItem);
-        } else if (
-            selectedItem.name === shopTranslations.permanentItems.regen.name
-        ) {
-            await regenPlayer(message, language, entity, customer, selectedItem);
-        } else if (
-            selectedItem.name === shopTranslations.permanentItems.badge.name
-        ) {
-            let success = giveMoneyMouthBadge(message, language, entity, customer, selectedItem);
-            if (!success) {
-                return;
-            }
-        } else if (
-            selectedItem.name === shopTranslations.permanentItems.guildXp.name
-        ) {
-            if (!await giveGuildXp(message, language, entity, customer, selectedItem))
-                return;//if no guild, no need to proceed
-        }
-        entity.Player.addMoney(-selectedItem.price); //Remove money
-    } else {
-      giveDailyPotion(message, language, entity, customer, selectedItem);
+async function sellItem(
+  message,
+  reaction,
+  language,
+  entity,
+  customer,
+  selectedItem
+) {
+  [entity] = await Entities.getOrRegister(entity.discordUser_id);
+  const shopTranslations = JsonReader.commands.shop.getTranslation(language);
+  log(
+    entity.discordUser_id +
+      " bought the shop item " +
+      selectedItem.name +
+      " for " +
+      selectedItem.price
+  );
+  if (selectedItem.name) {
+    //This is not a potion
+    if (selectedItem.name === shopTranslations.permanentItems.randomItem.name) {
+      await giveRandomItem(customer, message.channel, language, entity);
+    } else if (
+      selectedItem.name === shopTranslations.permanentItems.healAlterations.name
+    ) {
+      if (entity.currentEffectFinished()) {
+        return sendErrorMessage(
+          customer,
+          message.channel,
+          language,
+          JsonReader.commands.shop.getTranslation(language).error.nothingToHeal
+        );
+      }
+      healAlterations(message, language, entity, customer, selectedItem);
+    } else if (
+      selectedItem.name === shopTranslations.permanentItems.regen.name
+    ) {
+      await regenPlayer(message, language, entity, customer, selectedItem);
+    } else if (
+      selectedItem.name === shopTranslations.permanentItems.badge.name
+    ) {
+      let success = giveMoneyMouthBadge(
+        message,
+        language,
+        entity,
+        customer,
+        selectedItem
+      );
+      if (!success) {
+        return;
+      }
+    } else if (
+      selectedItem.name === shopTranslations.permanentItems.guildXp.name
+    ) {
+      if (
+        !(await giveGuildXp(message, language, entity, customer, selectedItem))
+      )
+        return; //if no guild, no need to proceed
     }
-
-    await Promise.all([
-      entity.save(),
-      entity.Player.save(),
-      entity.Player.Inventory.save(),
-    ]);
+    entity.Player.addMoney(-selectedItem.price); //Remove money
+  } else {
+    giveDailyPotion(message, language, entity, customer, selectedItem);
   }
+
+  await Promise.all([
+    entity.save(),
+    entity.Player.save(),
+    entity.Player.Inventory.save(),
+  ]);
 }
 
 /**
