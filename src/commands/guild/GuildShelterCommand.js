@@ -1,5 +1,5 @@
 /**
- * Allow to add a member to a guild
+ * Display the shelter of guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
@@ -74,16 +74,6 @@ const GuildShelterCommand = async (language, message, args) => {
         shelterEmbed.setThumbnail(JsonReader.commands.guild.icon);
     }
 
-    shelterEmbed.addField(
-        JsonReader.commands.guildShelter.getTranslation(language).foodTitle,
-        format(
-            JsonReader.commands.guildShelter.getTranslation(language).foodField,
-            {
-                food: guild.petFood,
-                maxFood: GUILD.MAX_PETFOOD,
-            }
-        )
-    );
     await message.channel.send(shelterEmbed);
 };
 
