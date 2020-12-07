@@ -1,14 +1,16 @@
 {
 	"translations": {
 		"fr": {
-			"embedTitle": "Inventaire la guilde {guild}",
+			"embedTitle": "Inventaire de la guilde {guild}",
 			"foodTitle" : "{foodType}",
-			"foodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : + {addLovePoints} :heartpulse: "
+			"foodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : + {addLovePoints} :heartpulse: ",
+			"growFoodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : + {addGrowPoints} :chart_with_upwards_trend:  "
 		},
 		"en": {
-			"embedTitle": "Inventory of the {guild} guild",
+			"embedTitle": "{guild}'s guild inventory",
 			"foodTitle" : "{foodType}",
-			"foodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : + {addLovePoints} :heartpulse: "
+			"foodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effect** : + {addLovePoints} :heartpulse: ",
+			"growFoodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effect** : + {addGrowPoints} :chart_with_upwards_trend:  "
 		}
 	}
 }

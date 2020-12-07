@@ -57,6 +57,8 @@
 				"guildElder": "Choisir l'ainé",
 				"guildElderRemove" : "Supprimer l'ainé",
 				"petTrade": "Échange d'animaux",
+				"guildShop": "Magasin de guilde",
+				"selectQuantity" : "Sélection d'une quantité",
 				"test": "Test"
 			}
 		},
@@ -103,9 +105,9 @@
 			"notANumber": "{text} is not a number!",
 			"blockedContext": {
 				"shop": "Shop",
-				"class": "Changing class",
 				"report": "Report",
 				"fight": "Fight",
+				"class": "Changing class",
 				"guildAdd": "Guild add",
 				"guildCreate": "Guild create",
 				"guildKick": "Guild kick",
@@ -117,6 +119,8 @@
 				"guildElder": "Choice the elder",
 				"guildElderRemove" : "Delete the elder",
 				"petTrade": "Pet trade",
+				"guildShop": "Guild's shop",
+				"selectQuantity" : "Quantity selection",
 				"test": "Test"
 			}
 		}

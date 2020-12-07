@@ -172,6 +172,12 @@
 					"category": "guild",
 					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef de guilde."
 				},
+				"guilddesc": {
+					"emote": ":writing_hand:",
+					"usage": "guilddesc [description]",
+					"category": "guild",
+					"description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
+				},
 				"guildelder": {
 					"emote": ":military_medal:",
 					"usage": "guildelder [mention]",
@@ -184,11 +190,17 @@
 					"category": "guild",
 					"description": "Permet de supprimer l'ainé de la guilde, nécessite d'être chef de guilde."
 				},
-				"guilddesc": {
-					"emote": ":writing_hand:",
-					"usage": "guilddesc [description]",
+				"guildinventory": {
+					"emote": ":pencil:",
+					"usage": "guildinventory",
 					"category": "guild",
-					"description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
+					"description": "Affiche l'inventaire de la guilde."
+				},
+				"guildshop": {
+					"emote": ":shopping_cart:",
+					"usage": "guildinventory",
+					"category": "guild",
+					"description": "Affiche le magasin de votre guilde."
 				},
 				"update": {
 					"emote": ":scroll:",
@@ -453,6 +465,18 @@
 					"usage": "guildelderremove",
 					"category": "guild",
 					"description": "Allow to remove the current guild's elder, requires to be guild's leader."
+				},
+				"guildinventory": {
+					"emote": ":pencil:",
+					"usage": "guildinventory",
+					"category": "guild",
+					"description": "Show the guild's inventory."
+				},
+				"guildshop": {
+					"emote": ":shopping_cart:",
+					"usage": "guildinventory",
+					"category": "guild",
+					"description": "Show the guild's shop."
 				},
 				"update": {
 					"emote": ":scroll:",
