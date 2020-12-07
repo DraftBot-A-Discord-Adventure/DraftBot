@@ -35,7 +35,7 @@
 					"en": "** | :mag_right: Looking for the pitchfork, you step on it and get a nasty cut. :head_bandage:"
 				},
 				"lostTime": 0,
-				"health": 0,
+				"health": -15,
 				"effect": ":head_bandage:",
 				"experience": 0,
 				"money": 0,
@@ -73,7 +73,7 @@
 					"en": "** | :arrow_right: Continuing through the field, you fall on the pitchfork, severely cutting your foot. :head_bandage:"
 				},
 				"lostTime": 0,
-				"health": -10,
+				"health": -15,
 				"effect": ":head_bandage:",
 				"experience": 0,
 				"money": 0,

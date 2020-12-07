@@ -139,6 +139,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
                     entity.save(),
                     entity.Player.save()
                 ]);
+                log(entity.discordUser_id + " bought the class " + newClass.en);
                 return message.channel.send(
                     new discord.MessageEmbed()
                         .setColor(JsonReader.bot.embed.default)

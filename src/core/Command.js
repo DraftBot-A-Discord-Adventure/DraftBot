@@ -289,6 +289,7 @@ class Command {
                     JsonReader.bot.getTranslation(language).noFilePermission
                 );
             }
+            log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
             Command.commands.get(command)(language, message, args);
         }
     }

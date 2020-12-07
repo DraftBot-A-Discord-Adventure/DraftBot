@@ -122,6 +122,7 @@ const doEvent = async (
     time,
     forcePoints = 0
 ) => {
+    log(entity.discordUser_id + " got report with id " + event.id);
     const eventDisplayed = await message.channel.send(
         format(JsonReader.commands.report.getTranslation(language).doEvent, {
             pseudo: message.author.username,
@@ -347,6 +348,8 @@ const doPossibility = async (
 
     entity.save();
     player.save();
+
+    log(entity.discordUser_id + " finished a report; score: " + scoreChange + "; money: " + moneyChange + "; health: " + pDataValues.health + "; experience: " + pDataValues.experience + "; lost time: " + pDataValues.lostTime + "; effect: " + pDataValues.effect);
 
     return resultMsg;
 };
