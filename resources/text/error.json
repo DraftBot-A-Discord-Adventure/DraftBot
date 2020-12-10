@@ -43,6 +43,7 @@
 			"notANumber": "{text} n'est pas un nombre !",
 			"blockedContext": {
 				"shop": "Magasin",
+				"confirmBuy": "confirmation achat",
 				"report": "Rapport",
 				"fight": "Combat",
 				"class": "Changement de classe",
@@ -102,6 +103,7 @@
 			"nameRules": "- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
 			"notANumber": "{text} is not a number!",
 			"blockedContext": {
+				"confirmBuy": "purchase confirmation",
 				"shop": "Shop",
 				"class": "Changing class",
 				"report": "Report",
