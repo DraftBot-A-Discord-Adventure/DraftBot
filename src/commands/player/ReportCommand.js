@@ -53,7 +53,7 @@ const ReportCommand = async function (
                 format(
                     JsonReader.commands.report.getTranslation(language)
                         .noReport,
-                    { pseudo: message.author.username }
+                    { pseudo: message.author }
                 )
             );
         } else {
@@ -125,7 +125,7 @@ const doEvent = async (
     log(entity.discordUser_id + " got report with id " + event.id);
     const eventDisplayed = await message.channel.send(
         format(JsonReader.commands.report.getTranslation(language).doEvent, {
-            pseudo: message.author.username,
+            pseudo: message.author,
             event: event[language],
         })
     );
