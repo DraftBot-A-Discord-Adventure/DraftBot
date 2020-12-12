@@ -4,43 +4,18 @@
             "title": ":shopping_cart:  **Magasin de guilde :**",
             "xpItem": "\n\n Expérience de guilde :\n",
             "foodItem": "\n\nNourriture :\n",
-            "display": "{name} | `{price}💰`",
+            "display": "{emote} {name} | `{price}💰`",
+            "confirmEmbedField": " {emote} {quantity} {name} | `{price}💰`",
             "success": "{pseudo}, Transaction réussie !",
-            "singleSuccessAddFoodTitle" : "{quantity} unité de nourriture a été rajoutée à l'inventaire de votre guilde.",
-            "multipleSuccessAddFoodTitle" : "{quantity} unités de nourriture ont été rajoutées à l'inventaire de votre guilde.",
+            "singleSuccessAddFoodTitle": "{quantity} unité de nourriture a été rajoutée à l'inventaire de votre guilde.",
+            "multipleSuccessAddFoodTitle": "{quantity} unités de nourriture ont été rajoutées à l'inventaire de votre guilde.",
             "fullStock": "L'inventaire de la guilde est déjà plein pour cette ressource.",
             "quantityTitle": "Combien de nourriture voulez-vous acheter ?",
-            "foodItems": {
-                "commonFood": {
-                    "name": ":candy: **Friandises**",
-                    "price": 10,
-                    "info": "Permet de donner 1 point d'amour à votre familier.",
-                    "type" : "commonFood"
-                },
-                "rareFood": {
-                    "name": ":bread: **Pain**",
-                    "price": 50,
-                    "info": "Permet de donner 3 points d'amour à votre familier.",
-                    "type" : "rareFood"
-                },
-                "uniqueFood": {
-                    "name": ":meat_on_bone: **Viande**",
-                    "price": 100,
-                    "info": "Permet de donner 5 points d'amour à votre familier.",
-                    "type" : "uniqueFood"
-                },
-                "growFood": {
-                    "name": ":baby_bottle: **Lait**",
-                    "price": 250,
-                    "info": "Permet de réduire le temps de reproduction.",
-                    "type" : "growFood"
-                }
-            },
             "guildXp": {
                 "name": ":star: **Un peu d'xp pour votre guilde**",
                 "price": 1000,
                 "info": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450.",
-                "type" : "guildXp",
+                "type": "guildXp",
                 "give": "Votre guilde a reçu `{experience}⭐`."
             },
             "confirm": "{pseudo}, Vous avez sélectionné le produit suivant :",
@@ -62,42 +37,17 @@
             "xpItem": "\n\n Guild's experience:\n",
             "foodItem": "\n\n Food:\n",
             "display": "{name} | `{price}💰`",
+            "confirmEmbedField": " {emote} {quantity} {name} | `{price}💰`",
             "success": "{pseudo}, Transaction success !",
-            "singleSuccessAddFoodTitle" : "{quantity} food unit has been added to your guild's inventory.",
-            "multipleSuccessAddFoodTitle" : "{quantity} food units have been added to your guild's inventory.",
+            "singleSuccessAddFoodTitle": "{quantity} food unit has been added to your guild's inventory.",
+            "multipleSuccessAddFoodTitle": "{quantity} food units have been added to your guild's inventory.",
             "fullStock": "Guild's inventory is already full for this ressource.",
             "quantityTitle": "How many food would you like to buy ?",
-            "foodItems": {
-                "commonFood": {
-                    "name": ":candy: **Candy**",
-                    "price": 10,
-                    "info": "Gives 1 love point to your pet.",
-                    "type" : "commonFood"
-                },
-                "rareFood": {
-                    "name": ":bread: **Bread**",
-                    "price": 50,
-                    "info": "Gives 3 love points to your pet.",
-                    "type" : "rareFood"
-                },
-                "uniqueFood": {
-                    "name": ":meat_on_bone: **Meat**",
-                    "price": 100,
-                    "info": "Gives 5 love points to your pet",
-                    "type" : "uniqueFood"
-                },
-                "growFood": {
-                    "name": ":baby_bottle: **Milk**",
-                    "price": 250,
-                    "info": "Reduce reproduction time.",
-                    "type" : "growFood"
-                }
-            },
             "guildXp": {
                 "name": ":star: **Some xp for your guild**",
                 "price": 1000,
                 "info": "\n\n:warning: You will receive a random amount (between 50 and 450) of guild xp.",
-                "type" : "guildXp",
+                "type": "guildXp",
                 "give": "Your guild has received `{experience}⭐`."
             },
             "confirm": "{pseudo}, You have selected this product:",
@@ -109,11 +59,10 @@
             }
         }
     },
-    "max" : {
-        "commonFood" : 25,
-        "rareFood" : 15,
-        "uniqueFood" : 10,
-        "growFood" : 45
-
+    "max": {
+        "commonFood": 25,
+        "rareFood": 15,
+        "uniqueFood": 10,
+        "growFood": 45
     }
 }
