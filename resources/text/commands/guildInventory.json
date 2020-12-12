@@ -14,7 +14,7 @@
             "foodField": "**Stock** : {guildFood}/{maxFood} {emote} \n **Effect** : :heartpulse:",
             "growFoodField": "**Stock** : {guildFood}/{maxFood} {emote} \n **Effect** : :chart_with_upwards_trend:",
             "fieldDescKey": "**Food** : ",
-            "fieldDescValue": "La nourriture est utile pour nourrir tous vos familiers. Si vous en avez plus, achetez en avec la commande `guildshop`"
+            "fieldDescValue": "Food is useful to feed all of your pets. If you don't have any left, you can buy some using `guildshop`"
         }
     }
 }
