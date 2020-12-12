@@ -122,6 +122,7 @@ async function feedPet(message, language, entity, pet, item) {
         if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
             pet.lovePoints = PETS.MAX_LOVE_POINTS;
         guild[item.type] = guild[item.type] - 1;
+        pet.hungrySince = Date();
         await Promise.all([pet.save(), guild.save()]);
         const successEmbed = new discord.MessageEmbed();
         successEmbed.setAuthor(
