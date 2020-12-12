@@ -1,16 +1,20 @@
 {
-	"translations": {
-		"fr": {
-			"embedTitle": "Inventaire de la guilde {guild}",
-			"foodTitle" : "{foodType}",
-			"foodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : + {addLovePoints} :heartpulse: ",
-			"growFoodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : + {addGrowPoints} :chart_with_upwards_trend:  "
-		},
-		"en": {
-			"embedTitle": "{guild}'s guild inventory",
-			"foodTitle" : "{foodType}",
-			"foodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effect** : + {addLovePoints} :heartpulse: ",
-			"growFoodField" : "**Stock** : {guildFood}/{maxFood} {emote} \n **Effect** : + {addGrowPoints} :chart_with_upwards_trend:  "
-		}
-	}
+    "translations": {
+        "fr": {
+            "embedTitle": "Inventaire de la guilde {guild}",
+            "foodTitle": "{foodType}",
+            "foodField": "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : :heartpulse: ",
+            "growFoodField": "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : :chart_with_upwards_trend:",
+            "fieldDescKey": "**Nourriture** : ",
+            "fieldDescValue": "La nourriture est utile pour nourrir tous vos familiers."
+        },
+        "en": {
+            "embedTitle": "{guild}'s guild inventory",
+            "foodTitle": "{foodType}",
+            "foodField": "**Stock** : {guildFood}/{maxFood} {emote} \n **Effect** : :heartpulse:",
+            "growFoodField": "**Stock** : {guildFood}/{maxFood} {emote} \n **Effect** : :chart_with_upwards_trend:",
+            "fieldDescKey": "**Food** : ",
+            "fieldDescValue": "La nourriture est utile pour nourrir tous vos familiers. Si vous en avez plus, achetez en avec la commande `guildshop`"
+        }
+    }
 }
