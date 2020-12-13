@@ -45,36 +45,27 @@ async function GuildShopCommand(language, message, args) {
 
     //Formatting items data into a string
     const commonFood = format(shopTranslations.display, {
-        emote: JsonReader.food.getTranslation(language).foodItems.commonFood
-            .emote,
         name: JsonReader.food.getTranslation(language).foodItems.commonFood
             .name,
         price: JsonReader.food.getTranslation(language).foodItems.commonFood
             .price,
     });
     const rareFood = format(shopTranslations.display, {
-        emote: JsonReader.food.getTranslation(language).foodItems.rareFood
-            .emote,
         name: JsonReader.food.getTranslation(language).foodItems.rareFood.name,
         price: JsonReader.food.getTranslation(language).foodItems.rareFood
             .price,
     });
     const uniqueFood = format(shopTranslations.display, {
-        emote: JsonReader.food.getTranslation(language).foodItems.uniqueFood
-            .emote,
         name: JsonReader.food.getTranslation(language).foodItems.uniqueFood
             .name,
         price: JsonReader.food.getTranslation(language).foodItems.uniqueFood
             .price,
     });
     const growFood = format(shopTranslations.display, {
-        emote: JsonReader.food.getTranslation(language).foodItems.growFood
-            .emote,
         name: JsonReader.food.getTranslation(language).foodItems.growFood.name,
         price: JsonReader.food.getTranslation(language).foodItems.growFood
             .price,
     });
-
     const guildXp = format(shopTranslations.display, {
         name: shopTranslations.guildXp.name,
         price: shopTranslations.guildXp.price,
@@ -133,18 +124,11 @@ async function GuildShopCommand(language, message, args) {
 
     //Fetch the choice from the user
     collector.on("end", async (reaction) => {
-        if (!reaction.first()) {
-            removeBlockedPlayer(entity.discordUser_id);
-            return sendErrorMessage(
-                message.author,
-                message.channel,
-                language,
-                JsonReader.commands.shop.getTranslation(language).error
-                    .leaveShop
-            );
-        }
-        if (reaction.first().emoji.name === MENU_REACTION.DENY) {
-            removeBlockedPlayer(entity.discordUser_id);
+        removeBlockedPlayer(entity.discordUser_id);
+        if (
+            !reaction.first() ||
+            reaction.first().emoji.name === MENU_REACTION.DENY
+        ) {
             return sendErrorMessage(
                 message.author,
                 message.channel,
@@ -157,19 +141,7 @@ async function GuildShopCommand(language, message, args) {
         if (shopItems.has(reaction.first().emoji.name)) {
             const item = shopItems.get(reaction.first().emoji.name);
             if (item.type === "guildXp") {
-                if (canBuy(item.price, entity.Player)) {
-                    await confirmPurchase(
-                        shopMessage,
-                        language,
-                        item.name,
-                        item.price,
-                        item.info,
-                        entity,
-                        message.author,
-                        item
-                    );
-                } else {
-                    removeBlockedPlayer(entity.discordUser_id);
+                if (!canBuy(item.price, entity.Player)) {
                     return sendErrorMessage(
                         message.author,
                         message.channel,
@@ -183,8 +155,7 @@ async function GuildShopCommand(language, message, args) {
                         )
                     );
                 }
-            } else {
-                /* await confirmPurchase(
+                await purchaseXp(
                     shopMessage,
                     language,
                     item.name,
@@ -194,8 +165,8 @@ async function GuildShopCommand(language, message, args) {
                     message.author,
                     item
                 );
-                */
-                selectQuantity(
+            } else {
+                purchaseFood(
                     shopMessage,
                     language,
                     entity,
@@ -230,7 +201,100 @@ async function GuildShopCommand(language, message, args) {
  * @param selectedItem - selectionned item
  */
 
-async function confirmPurchase(
+async function purchaseFood(message, language, entity, author, selectedItem) {
+    const quantityPosibilities = new Map()
+        .set(QUANTITY.ONE, 1)
+        .set(QUANTITY.FIVE, 5)
+        .set(QUANTITY.TEN, 10);
+
+    const confirmEmbed = new discord.MessageEmbed()
+        .setColor(JsonReader.bot.embed.default)
+        .setAuthor(
+            format(JsonReader.commands.shop.getTranslation(language).confirm, {
+                pseudo: author.username,
+            }),
+            author.displayAvatarURL()
+        )
+        .setDescription(
+            "\n\u200b\n" +
+                format(
+                    JsonReader.commands.guildShop.getTranslation(language)
+                        .confirmEmbedField,
+                    {
+                        emote: selectedItem.emote,
+                        name: selectedItem.name,
+                        price1: selectedItem.price,
+                        price5: selectedItem.price * 5,
+                        price10: selectedItem.price * 10,
+                    }
+                ) +
+                JsonReader.commands.guildShop.getTranslation(language)
+                    .selectQuantityWarning
+        );
+
+    const confirmMessage = await message.channel.send(confirmEmbed);
+
+    const filterConfirm = (reaction, user) => {
+        return user.id === entity.discordUser_id && reaction.me;
+    };
+
+    const collector = confirmMessage.createReactionCollector(filterConfirm, {
+        time: 120000,
+        max: 1,
+    });
+
+    addBlockedPlayer(entity.discordUser_id, "selectQuantity");
+
+    collector.on("end", async (reaction) => {
+        removeBlockedPlayer(entity.discordUser_id);
+        if (
+            !reaction.first() ||
+            reaction.first().emoji.name === MENU_REACTION.DENY
+        ) {
+            return sendErrorMessage(
+                author,
+                message.channel,
+                language,
+                JsonReader.commands.shop.getTranslation(language).error
+                    .canceledPurchase
+            );
+        }
+
+        const quantity = quantityPosibilities.get(reaction.first().emoji.name);
+        if (selectedItem.price * quantity > entity.Player.money) {
+            return sendErrorMessage(
+                message.author,
+                message.channel,
+                language,
+                format(
+                    JsonReader.commands.shop.getTranslation(language).error
+                        .cannotBuy,
+                    {
+                        missingMoney:
+                            selectedItem.price * quantity - entity.Player.money,
+                    }
+                )
+            );
+        }
+        await giveFood(
+            message,
+            language,
+            entity,
+            author,
+            selectedItem,
+            quantity
+        );
+    });
+
+    await Promise.all([
+        confirmMessage.react(QUANTITY.ONE),
+        confirmMessage.react(QUANTITY.FIVE),
+        confirmMessage.react(QUANTITY.TEN),
+        confirmMessage.react(MENU_REACTION.DENY),
+    ]);
+}
+
+async function purchaseXp(
     message,
     language,
     entity,
@@ -255,7 +319,9 @@ async function confirmPurchase(
                         emote: selectedItem.emote,
                         quantity: quantity,
                         name: selectedItem.name,
-                        price: selectedItem.price * quantity,
+                        price1: selectedItem.price,
+                        price5: selectedItem.price * 5,
+                        price10: selectedItem.price * 10,
                     }
                 )
         );
@@ -279,14 +345,8 @@ async function confirmPurchase(
         if (reaction.first()) {
             if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
                 reaction.first().message.delete();
-                return sellItem(
-                    message,
-                    language,
-                    entity,
-                    author,
-                    selectedItem,
-                    quantity
-                );
+                giveGuildXp(message, language, entity, author, selectedItem);
+                entity.Player.addMoney(-selectedItem.price); //Remove money
             }
         }
         sendErrorMessage(
@@ -306,41 +366,6 @@ async function confirmPurchase(
 /**
  * @param {*} message - The message where the react event trigerred
  */
-async function sellItem(
-    message,
-    language,
-    entity,
-    author,
-    selectedItem,
-    quantity
-) {
-    [entity] = await Entities.getOrRegister(entity.discordUser_id);
-    const shopTranslations = JsonReader.commands.guildShop.getTranslation(
-        language
-    );
-    if (selectedItem.name) {
-        if (selectedItem.name === shopTranslations.guildXp.name) {
-            giveGuildXp(message, language, entity, author, selectedItem);
-            entity.Player.addMoney(-selectedItem.price); //Remove money
-        } else {
-            // selectQuantity(message, language, entity, author, selectedItem);
-            await giveFood(
-                message,
-                language,
-                entity,
-                author,
-                selectedItem,
-                quantity
-            );
-        }
-    }
-
-    await Promise.all([
-        entity.save(),
-        entity.Player.save(),
-        entity.Player.Inventory.save(),
-    ]);
-}
 
 /**
  * @param {*} name - The item name
@@ -384,101 +409,6 @@ async function giveGuildXp(message, language, entity, author, selectedItem) {
     );
 }
 
-async function selectQuantity(message, language, entity, author, selectedItem) {
-    const quantityPosibilities = new Map()
-        .set(QUANTITY.ONE, 1)
-        .set(QUANTITY.FIVE, 5)
-        .set(QUANTITY.TEN, 10);
-
-    const selectQuantityEmbed = new discord.MessageEmbed()
-        .setColor(JsonReader.bot.embed.default)
-        .setTitle(
-            JsonReader.commands.guildShop.getTranslation(language).quantityTitle
-        );
-
-    const selectQuantityMsg = await message.channel.send(selectQuantityEmbed);
-
-    const filterConfirm = (reaction, user) => {
-        return user.id === entity.discordUser_id && reaction.me;
-    };
-
-    const collector = selectQuantityMsg.createReactionCollector(filterConfirm, {
-        time: 120000,
-        max: 1,
-    });
-
-    addBlockedPlayer(entity.discordUser_id, "selectQuantity");
-
-    collector.on("end", async (reaction) => {
-        removeBlockedPlayer(entity.discordUser_id);
-        if (!reaction.first()) {
-            return sendErrorMessage(
-                author,
-                message.channel,
-                language,
-                JsonReader.commands.shop.getTranslation(language).error
-                    .canceledPurchase
-            );
-        }
-        if (reaction.first()) {
-            if (reaction.first().emoji.name === MENU_REACTION.DENY) {
-                return sendErrorMessage(
-                    author,
-                    message.channel,
-                    language,
-                    JsonReader.commands.shop.getTranslation(language).error
-                        .canceledPurchase
-                );
-            }
-            const quantity = quantityPosibilities.get(
-                reaction.first().emoji.name
-            );
-            if (selectedItem.price * quantity > entity.Player.money) {
-                return sendErrorMessage(
-                    message.author,
-                    message.channel,
-                    language,
-                    format(
-                        JsonReader.commands.shop.getTranslation(language).error
-                            .cannotBuy,
-                        {
-                            missingMoney:
-                                selectedItem.price * quantity -
-                                entity.Player.money,
-                        }
-                    )
-                );
-            } else {
-                /*await giveFood(
-                    message,
-                    language,
-                    entity,
-                    author,
-                    selectedItem,
-                    quantity
-                );
-                */
-                await confirmPurchase(
-                    message,
-                    language,
-                    entity,
-                    message.author,
-                    selectedItem,
-                    quantity
-                );
-                reaction.first().message.delete();
-            }
-        }
-    });
-
-    await Promise.all([
-        selectQuantityMsg.react(QUANTITY.ONE),
-        selectQuantityMsg.react(QUANTITY.FIVE),
-        selectQuantityMsg.react(QUANTITY.TEN),
-        selectQuantityMsg.react(MENU_REACTION.DENY),
-    ]);
-}
-
 const giveFood = async (
     message,
     language,
@@ -497,37 +427,36 @@ const giveFood = async (
             author.displayAvatarURL()
         );
         return message.channel.send(fullStockEmbed);
-    } else {
-        guild[selectedItem.type] = guild[selectedItem.type] + quantity;
-        await entity.Player.addMoney(-selectedItem.price); //Remove money
-        Promise.all([guild.save(), entity.Player.save()]);
-        const successEmbed = new discord.MessageEmbed();
-        quantity == 1
-            ? successEmbed.setAuthor(
-                  format(
-                      JsonReader.commands.guildShop.getTranslation(language)
-                          .singleSuccessAddFoodTitle,
-                      {
-                          quantity: quantity,
-                      }
-                  ),
-
-                  author.displayAvatarURL()
-              )
-            : successEmbed.setAuthor(
-                  format(
-                      JsonReader.commands.guildShop.getTranslation(language)
-                          .multipleSuccessAddFoodTitle,
-                      {
-                          quantity: quantity,
-                      }
-                  ),
-
-                  author.displayAvatarURL()
-              );
-
-        return message.channel.send(successEmbed);
     }
+    guild[selectedItem.type] = guild[selectedItem.type] + quantity;
+    await entity.Player.addMoney(-selectedItem.price); //Remove money
+    Promise.all([guild.save(), entity.Player.save()]);
+    const successEmbed = new discord.MessageEmbed();
+    quantity == 1
+        ? successEmbed.setAuthor(
+              format(
+                  JsonReader.commands.guildShop.getTranslation(language)
+                      .singleSuccessAddFoodTitle,
+                  {
+                      quantity: quantity,
+                  }
+              ),
+
+              author.displayAvatarURL()
+          )
+        : successEmbed.setAuthor(
+              format(
+                  JsonReader.commands.guildShop.getTranslation(language)
+                      .multipleSuccessAddFoodTitle,
+                  {
+                      quantity: quantity,
+                  }
+              ),
+
+              author.displayAvatarURL()
+          );
+
+    return message.channel.send(successEmbed);
 };
 
 module.exports = {
