@@ -1,136 +1,136 @@
 {
-	"translations": {
-		"fr": " : ** :evergreen_tree: Vous vous enfoncez dans une forêt sombre, et apercevez la silhouette d'un homme au loin. Vous décidez de vous approcher et comprenez que c'est un ermite, sorti pour la cueillette. Vous vous approchez de sa maison, sur laquelle vous lisez l'inscription \"Xetrix\", ce qui est probablement son nom. Vous réfléchissez encore à quoi faire...\n\n:mag_right: S'introduire dans la maison\n:speaking_head: Demander des conseils à l'ermite\n:person_walking: Repartir par là d'où vous venez\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :evergreen_tree: As you go deep into a dark forest, you see the silhouette of a man in the distance. While going closer, you realize he's a hermit, out for the picking. You approach his house, on which you read the inscription \"Xetrix\", which is probably his name. You're thinking about what to do...\n\n:mag_right: Break into his house\n:speaking_head: Ask the hermit for advices\n:person_walking: Go back the way you came from\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
-	},
-	"possibilities": {
-		"🔎": [
-			{
-				"translations": {
-					"fr": "** | 🔎 Vous réfléchissez, puis vous vous dites que s'introduire dans la maison est possible. Vous y volerz donc quelques pièces avant de repartir le plus vite possible.",
-					"en": "** | 🔎 You think about it, and then realize that breaking into the house is possible. You thus decide to do so and steal a few coins before leaving as fast as possible."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 250,
-				"money": 350,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🔎 Vous décidez de rentrer dans la maison de ce Xetrix, vous commencez à le voler alors qu'il arrive.. Il vous voit et vous fonce dessus mais vous réussissez à fuir après vous être débattu, car vous êtes plus agile que lui. Cependant vous êtes blessé et avez perdu tout votre butin dans l'altercation. :head_bandage:",
-					"en": "** | 🔎 You decide to get into this Xetrix's house, and are stealing him as he comes in... He sees and rushes to you but you manage to escape after some struggle, : you're more agile than him. However, you are injured and have lost all of your loot in the altercation. :head_bandage:"
-				},
-				"lostTime": 0,
-				"health": -30,
-				"effect": ":head_bandage:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🔎 Vous rentrez dans la maison afin d'attendre l'homme. Une fois venu, vous discutez et il décide de vous inviter à diner. Après un délicieux plat vous repartez, le ventre plein et en pleine forme.",
-					"en": "** | 🔎 You enter the house to wait for the man. Once he's there, you talk and he invites you to dinner. After a delicious meal, you leave with a full stomach and in great shape."
-				},
-				"lostTime": 40,
-				"health": 40,
-				"effect": ":clock2:",
-				"experience": 225,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🗣️": [
-			{
-				"translations": {
-					"fr": "** | 🗣️ Vous entrez chez Xetrix et l'attendez. après qu'il soit rentré, vous échangez quelques conseils et apprenez ainsi où se trouve la ville la plus proche. Après de longues heures de marche, vous comprenez vite que l'ermite s'est joué de vous et n'ayant pas autre chose à faire, vous continuez votre route.",
-					"en": "** | 🗣️ You go in to Xetrix and wait for him. He comes home shortly afterwards, and you ask him for some advice, especially about the location of the nearest town. He shows you one path and you thank him before following it. After many hours of walking, you realize that the hermit has played you for a fool and, having nothing else to do, you continue on your way."
-				},
-				"lostTime": 300,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🗣️ Vous entrez dans la maison de l'homme, l'attendez, et lui demandez quelques conseils pour concocter un repas avec les éléments de la forêt. Il vous donne une recette que vous suivez méticuleusement. Vous finissez par manger un assez bon repas et repartez repu.",
-					"en": "** | 🗣️ You enter the man's house, wait for him, and ask him for some advice on how to cook a meal using the forest's ingredients. He gives you a recipe that you follow meticulously. You end up eating a fairly good meal and leave sated."
-				},
-				"lostTime": 30,
-				"health": 25,
-				"effect": ":clock2:",
-				"experience": 225,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🗣️ Vous le voyez rentrer, alors vous entrez à sa suite, et lui demandez des conseils. Finalement vous sympathisez et il vous invite pour diner. Pendant le repas vous buvez un peu trop et finissez ivre. :zany_face: ",
-					"en": "** | 🗣️ You see him come in, so you go after him to ask for advices. Eventually you hit it off and he invites you over for dinner. During the meal you drink a little too much and end up drunk. :zany_face:"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":zany_face:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🚶": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous décidez de repartir par là d'où vous venez, sur le chemin vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
-					"en": "** | 🚶 You decide to go back the way you came from and find a few coins on the road, next to a holed bag."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 250,
-				"money": 150,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous repartez, lorsque vous trouvez un homme blessé. En essayant de l'aider vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent, avant de repartir.",
-					"en": "** | 🚶 You leave, and soon after that you find an injured man. While trying to help him, you find out it's an ambush! Men appear and dispossess you, then leave."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": -250,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous restez planté là, et réfléchissez : il vous est impossible de faire votre choix, alors vous décidez de partir après quelques minutes.",
-					"en": "** | 🚶 You stand there and think... you can't make up your mind, you thus decide to leave after a few minutes."
-				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles. :sick: ",
-					"en": "** | 🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. :sick:"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":sick:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		]
-	}
+    "translations": {
+        "fr": " : ** :evergreen_tree: Vous vous enfoncez dans une forêt sombre, et apercevez la silhouette d'un homme au loin. Vous décidez de vous approcher et comprenez que c'est un ermite, sorti pour la cueillette. Vous vous approchez de sa maison, sur laquelle vous lisez l'inscription \"Xetrix\", ce qui est probablement son nom. Vous réfléchissez encore à quoi faire...\n\n:mag_right: S'introduire dans la maison\n:speaking_head: Demander des conseils à l'ermite\n:person_walking: Repartir par là d'où vous venez\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+        "en": " : ** :evergreen_tree: As you go deep into a dark forest, you see the silhouette of a man in the distance. While going closer, you realize he's a hermit, out for the picking. You approach his house, on which you read the inscription \"Xetrix\", which is probably his name. You're thinking about what to do...\n\n:mag_right: Break into his house\n:speaking_head: Ask the hermit for advices\n:person_walking: Go back the way you came from\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+    },
+    "possibilities": {
+        "🔎": [
+            {
+                "translations": {
+                    "fr": "** | 🔎 Vous réfléchissez, puis vous vous dites que s'introduire dans la maison est possible. Vous y voler donc quelques pièces avant de repartir le plus vite possible.",
+                    "en": "** | 🔎 You think about it, and then realize that breaking into the house is possible. You thus decide to do so and steal a few coins before leaving as fast as possible."
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":smiley:",
+                "experience": 250,
+                "money": 350,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | 🔎 Vous décidez de rentrer dans la maison de ce Xetrix, vous commencez à le voler alors qu'il arrive.. Il vous voit et vous fonce dessus mais vous réussissez à fuir après vous être débattu, car vous êtes plus agile que lui. Cependant vous êtes blessé et avez perdu tout votre butin dans l'altercation. :head_bandage:",
+                    "en": "** | 🔎 You decide to get into this Xetrix's house, and are stealing him as he comes in... He sees and rushes to you but you manage to escape after some struggle, : you're more agile than him. However, you are injured and have lost all of your loot in the altercation. :head_bandage:"
+                },
+                "lostTime": 0,
+                "health": -30,
+                "effect": ":head_bandage:",
+                "experience": 0,
+                "money": 0,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | 🔎 Vous rentrez dans la maison afin d'attendre l'homme. Une fois venu, vous discutez et il décide de vous inviter à diner. Après un délicieux plat vous repartez, le ventre plein et en pleine forme.",
+                    "en": "** | 🔎 You enter the house to wait for the man. Once he's there, you talk and he invites you to dinner. After a delicious meal, you leave with a full stomach and in great shape."
+                },
+                "lostTime": 40,
+                "health": 40,
+                "effect": ":clock2:",
+                "experience": 225,
+                "money": 0,
+                "item": false
+            }
+        ],
+        "🗣️": [
+            {
+                "translations": {
+                    "fr": "** | 🗣️ Vous entrez chez Xetrix et l'attendez. après qu'il soit rentré, vous échangez quelques conseils et apprenez ainsi où se trouve la ville la plus proche. Après de longues heures de marche, vous comprenez vite que l'ermite s'est joué de vous et n'ayant pas autre chose à faire, vous continuez votre route.",
+                    "en": "** | 🗣️ You go in to Xetrix and wait for him. He comes home shortly afterwards, and you ask him for some advice, especially about the location of the nearest town. He shows you one path and you thank him before following it. After many hours of walking, you realize that the hermit has played you for a fool and, having nothing else to do, you continue on your way."
+                },
+                "lostTime": 300,
+                "health": 0,
+                "effect": ":clock2:",
+                "experience": 25,
+                "money": 0,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | 🗣️ Vous entrez dans la maison de l'homme, l'attendez, et lui demandez quelques conseils pour concocter un repas avec les éléments de la forêt. Il vous donne une recette que vous suivez méticuleusement. Vous finissez par manger un assez bon repas et repartez repu.",
+                    "en": "** | 🗣️ You enter the man's house, wait for him, and ask him for some advice on how to cook a meal using the forest's ingredients. He gives you a recipe that you follow meticulously. You end up eating a fairly good meal and leave sated."
+                },
+                "lostTime": 30,
+                "health": 25,
+                "effect": ":clock2:",
+                "experience": 225,
+                "money": 0,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | 🗣️ Vous le voyez rentrer, alors vous entrez à sa suite, et lui demandez des conseils. Finalement vous sympathisez et il vous invite pour diner. Pendant le repas vous buvez un peu trop et finissez ivre. :zany_face: ",
+                    "en": "** | 🗣️ You see him come in, so you go after him to ask for advices. Eventually you hit it off and he invites you over for dinner. During the meal you drink a little too much and end up drunk. :zany_face:"
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":zany_face:",
+                "experience": 150,
+                "money": 0,
+                "item": false
+            }
+        ],
+        "🚶": [
+            {
+                "translations": {
+                    "fr": "** | 🚶 Vous décidez de repartir par là d'où vous venez, sur le chemin vous trouvez quelques pièces par terre, à côté d'une bourse trouée.",
+                    "en": "** | 🚶 You decide to go back the way you came from and find a few coins on the road, next to a holed bag."
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":smiley:",
+                "experience": 250,
+                "money": 150,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | 🚶 Vous repartez, lorsque vous trouvez un homme blessé. En essayant de l'aider vous découvrez qu'il s'agit d'une embuscade ! Des hommes surgissent et vous dépouillent, avant de repartir.",
+                    "en": "** | 🚶 You leave, and soon after that you find an injured man. While trying to help him, you find out it's an ambush! Men appear and dispossess you, then leave."
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":smiley:",
+                "experience": 150,
+                "money": -250,
+                "item": false
+            }
+        ],
+        "end": [
+            {
+                "translations": {
+                    "fr": "** | 🚶 Vous restez planté là, et réfléchissez : il vous est impossible de faire votre choix, alors vous décidez de partir après quelques minutes.",
+                    "en": "** | 🚶 You stand there and think... you can't make up your mind, you thus decide to leave after a few minutes."
+                },
+                "lostTime": 10,
+                "health": 0,
+                "effect": ":clock2:",
+                "experience": 25,
+                "money": 0,
+                "item": false
+            },
+            {
+                "translations": {
+                    "fr": "** | 🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles. :sick: ",
+                    "en": "** | 🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. :sick:"
+                },
+                "lostTime": 0,
+                "health": 0,
+                "effect": ":sick:",
+                "experience": 0,
+                "money": 0,
+                "item": false
+            }
+        ]
+    }
 }
