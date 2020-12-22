@@ -1,9 +1,9 @@
 {
-	"translations": {
-		"fr": ":game_die: **Dé magique**",
-		"en": ":game_die: **Magic die**"
-	},
-	"rarity": 3,
-	"power": 20,
-	"nature": 6
+    "translations": {
+        "fr": ":game_die: **Dé magique**",
+        "en": ":game_die: **Magic die**"
+    },
+    "rarity": 3,
+    "power": 160,
+    "nature": 6
 }

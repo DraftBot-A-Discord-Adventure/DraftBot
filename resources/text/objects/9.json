@@ -1,9 +1,9 @@
 {
-	"translations": {
-		"fr": ":key2: **Clé rouillée**",
-		"en": ":key2: **Rusty key**"
-	},
-	"rarity": 1,
-	"power": 3,
-	"nature": 6
+    "translations": {
+        "fr": ":key2: **Clé rouillée**",
+        "en": ":key2: **Rusty key**"
+    },
+    "rarity": 1,
+    "power": 24,
+    "nature": 6
 }

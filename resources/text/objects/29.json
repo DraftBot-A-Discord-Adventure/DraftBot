@@ -1,9 +1,9 @@
 {
-	"translations": {
-		"fr": "💳 **Carte bancaire**",
-		"en": "💳 **Credit card**"
-	},
-	"rarity": 6,
-	"power": 78,
-	"nature": 6
+    "translations": {
+        "fr": "💳 **Carte bancaire**",
+        "en": "💳 **Credit card**"
+    },
+    "rarity": 6,
+    "power": 624,
+    "nature": 6
 }
