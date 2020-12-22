@@ -46,5 +46,26 @@ module.exports = (Sequelize, DataTypes) => {
 		freezeTableName: true,
 	});
 
+	MapLocations.beforeSave((instance) => {
+		instance.setDataValue('updatedAt',
+			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+	});
+
+	/**
+	 * @param {"fr"|"en"} language
+	 * @returns {string}
+	 */
+	MapLocations.prototype.getDisplayName = function(language) {
+		return JsonReader.models.maps.getTranslation(language).types[this.type].emote + " " + (language === "fr" ? this.name_fr : this.name_en)
+	}
+
+	/**
+	 * @param {Number} id
+	 * @returns {Promise<null | MapLocations>}
+	 */
+	MapLocations.getById = (id) => {
+		return MapLocations.findOne({ where: { id: id }})
+	}
+
 	return MapLocations;
 };

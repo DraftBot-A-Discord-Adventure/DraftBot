@@ -1,0 +1,132 @@
+{
+	"types": [
+		"city",
+		"road",
+		"plain",
+		"forest",
+		"mountain",
+		"beach",
+		"village",
+		"desert",
+		"river",
+		"lake"
+	],
+	"translations": {
+		"fr": {
+			"types": {
+				"city": {
+					"name": "Ville",
+					"emote": "\uD83C\uDFD8️"
+				},
+				"road": {
+					"name": "Route",
+					"emote": "\uD83D\uDEE3️"
+				},
+				"plain": {
+					"name": "Plaine",
+					"emote": "\uD83C\uDF3A"
+				},
+				"forest": {
+					"name": "Forêt",
+					"emote": "\uD83C\uDF33"
+				},
+				"mountain": {
+					"name": "Montagne",
+					"emote": "⛰️"
+				},
+				"beach": {
+					"name": "Plage",
+					"emote": "\uD83C\uDFD6️"
+				},
+				"village": {
+					"name": "Village",
+					"emote": "\uD83D\uDED6"
+				},
+				"desert": {
+					"name": "Désert",
+					"emote": "\uD83C\uDFDC️"
+				},
+				"river": {
+					"name": "Rivière",
+					"emote": "\uD83C\uDFDE️"
+				},
+				"lake": {
+					"name": "Lac",
+					"emote": "\uD83D\uDEA3\u200D♂️"
+				}
+			},
+			"directions": {
+				"names": {
+					"north": "Nord",
+					"south": "Sud",
+					"east": "Est",
+					"west": "Ouest"
+				},
+				"prefix": {
+					"north": "le",
+					"south": "le",
+					"east": "l'",
+					"west": "l'"
+				}
+			}
+		},
+		"en": {
+			"types": {
+				"city": {
+					"name": "City",
+					"emote": "\uD83C\uDFD8️"
+				},
+				"road": {
+					"name": "Road",
+					"emote": "\uD83D\uDEE3️"
+				},
+				"plain": {
+					"name": "Plain",
+					"emote": "\uD83C\uDF3A"
+				},
+				"forest": {
+					"name": "Forest",
+					"emote": "\uD83C\uDF33"
+				},
+				"mountain": {
+					"name": "Mountain",
+					"emote": "⛰️"
+				},
+				"beach": {
+					"name": "Beach",
+					"emote": "\uD83C\uDFD6️"
+				},
+				"village": {
+					"name": "Village",
+					"emote": "\uD83D\uDED6"
+				},
+				"desert": {
+					"name": "Desert",
+					"emote": "\uD83C\uDFDC️"
+				},
+				"river": {
+					"name": "River",
+					"emote": "\uD83C\uDFDE️"
+				},
+				"lake": {
+					"name": "Lake",
+					"emote": "\uD83D\uDEA3\u200D♂️"
+				}
+			},
+			"directions": {
+				"names": {
+					"north": "North",
+					"south": "South",
+					"east": "East",
+					"west": "West"
+				},
+				"prefix": {
+					"north": "the",
+					"south": "the",
+					"east": "the",
+					"west": "the"
+				}
+			}
+		}
+	}
+}

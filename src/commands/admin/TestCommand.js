@@ -1,3 +1,5 @@
+const Maps = require("../../core/Maps");
+
 /**
  * Cheat command for testers
  * @param {("fr"|"en")} language - Language to use in the response
@@ -400,6 +402,60 @@ const TestCommand = async (language, message, args) => {
 			case 'dailytimeout':
 				require("../../core/DraftBot").dailyTimeout();
 				break;
+			case 'mapinfo':
+				const mapEmbed = new discord.MessageEmbed();
+				const currMap = await MapLocations.getById(author.Player.map_id);
+				const prevMap = await MapLocations.getById(author.Player.previous_map_id);
+				const travelling = Maps.isTravelling(author.Player);
+				mapEmbed.setTitle(":map: Map debugging");
+				mapEmbed.addField( travelling ? "Next map" : "Current map", currMap.getDisplayName(language) + " (id: " + currMap.id + ")", true);
+				mapEmbed.addField("Previous map", prevMap ? prevMap.getDisplayName(language) + " (id: " + prevMap.id + ")" : "None", true);
+				mapEmbed.addField("Travelling", Maps.isTravelling(author.Player) ? ":clock1: For " + minutesToString(millisecondsToMinutes(Maps.getTravellingTime(author.Player))) : ":x: No", true);
+				if (!travelling) {
+					const availableMaps = await Maps.getNextPlayerAvailableMaps(author.Player);
+					let field = "";
+					for (let i = 0; i < availableMaps.length; ++i) {
+						const map = await MapLocations.getById(availableMaps[i]);
+						field += map.getDisplayName(language) + " (id: " + map.id + ")" + "\n";
+					}
+					mapEmbed.addField("Next available maps", field, true);
+				}
+				return await message.channel.send(mapEmbed);
+			case 'travel':
+				if (args.length === 2) {
+					const availableMaps = await Maps.getNextPlayerAvailableMaps(author.Player);
+					const nextId = parseInt(args[1]);
+					if (!availableMaps.includes(nextId)) {
+						await message.channel.send("You cannot go to this map from there. Available ids: " + availableMaps);
+						return;
+					}
+					await Maps.startTravel(author.Player, nextId);
+				}
+				else {
+					await message.channel.send("Correct usage: travel <map id>");
+					return;
+				}
+				break;
+			case 'stoptravel':
+			case 'stravel':
+				await Maps.stopTravel(author.Player);
+				break;
+			case 'tp':
+				if (args.length === 2) {
+					const id = parseInt(args[1]);
+					const map = await MapLocations.getById(id);
+					if (!map) {
+						await message.channel.send("This map doesn't exist");
+						return;
+					}
+					author.Player.map_id = id;
+					await author.Player.save();
+					break;
+				}
+				else {
+					await message.channel.send("Correct usage: tp <map id>");
+					return;
+				}
 			default:
 				await message.channel.send('Argument inconnu !');
 				return;

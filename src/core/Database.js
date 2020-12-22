@@ -362,7 +362,7 @@ class Database {
 		const keys = Object.keys(dict);
 		for (const key of keys) {
 			const map = dict[key];
-			if (!JsonReader.models.map.types.includes(map.type)) {
+			if (!JsonReader.models.maps.types.includes(map.type)) {
 				console.error("Type of map " + map.id + " doesn't exist");
 			}
 			if (map.north_map && dict[map.north_map].south_map !== map.id) {
