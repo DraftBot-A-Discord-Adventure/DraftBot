@@ -1,9 +1,9 @@
 {
-    "translations": {
-        "fr": ":orange_square: **Amulette de Midas**",
-        "en": ":orange_square: **Midas Amulett**"
-    },
-    "rarity": 7,
-    "power": 960,
-    "nature": 6
+	"translations": {
+		"fr": ":orange_square: **Amulette de Midas**",
+		"en": ":orange_square: **Midas Amulett**"
+	},
+	"rarity": 7,
+	"power": 478,
+	"nature": 6
 }
