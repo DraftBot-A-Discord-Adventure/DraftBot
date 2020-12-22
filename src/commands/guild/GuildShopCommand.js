@@ -61,11 +61,6 @@ async function GuildShopCommand(language, message, args) {
         price: JsonReader.food.getTranslation(language).foodItems.uniqueFood
             .price,
     });
-    const growFood = format(shopTranslations.display, {
-        name: JsonReader.food.getTranslation(language).foodItems.growFood.name,
-        price: JsonReader.food.getTranslation(language).foodItems.growFood
-            .price,
-    });
     const guildXp = format(shopTranslations.display, {
         name: shopTranslations.guildXp.name,
         price: shopTranslations.guildXp.price,
@@ -79,7 +74,7 @@ async function GuildShopCommand(language, message, args) {
             .addField(shopTranslations.xpItem, [guildXp])
             .addField(
                 shopTranslations.foodItem,
-                [commonFood, rareFood, uniqueFood, growFood].join("\n") +
+                [commonFood, rareFood, uniqueFood].join("\n") +
                     format(shopTranslations.moneyQuantity, {
                         money: entity.Player.money,
                     })
@@ -105,10 +100,6 @@ async function GuildShopCommand(language, message, args) {
         .set(
             GUILDSHOP.UNIQUE_FOOD,
             JsonReader.food.getTranslation(language).foodItems.uniqueFood
-        )
-        .set(
-            GUILDSHOP.GROW_FOOD,
-            JsonReader.food.getTranslation(language).foodItems.growFood
         );
 
     const filterConfirm = (reaction, user) => {
@@ -184,7 +175,6 @@ async function GuildShopCommand(language, message, args) {
         shopMessage.react(GUILDSHOP.COMMON_FOOD),
         shopMessage.react(GUILDSHOP.RARE_FOOD),
         shopMessage.react(GUILDSHOP.UNIQUE_FOOD),
-        shopMessage.react(GUILDSHOP.GROW_FOOD),
         shopMessage.react(MENU_REACTION.DENY),
     ]);
 }

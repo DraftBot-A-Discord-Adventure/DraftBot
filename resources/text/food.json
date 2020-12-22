@@ -22,13 +22,6 @@
                     "info": "Permet de donner 5 points d'amour à votre familier.",
                     "type": "uniqueFood",
                     "effect": 5
-                },
-                "growFood": {
-                    "name": ":baby_bottle: **Lait**",
-                    "price": 250,
-                    "info": "Permet de réduire le temps de reproduction.",
-                    "type": "growFood",
-                    "effect": 1
                 }
             }
         },
@@ -54,13 +47,6 @@
                     "info": "Gives 5 love points to your pet",
                     "type": "uniqueFood",
                     "effect": 5
-                },
-                "growFood": {
-                    "name": ":baby_bottle: **Milk**",
-                    "price": 250,
-                    "info": "Reduce reproduction time.",
-                    "type": "growFood",
-                    "effect": 1
                 }
             }
         }
