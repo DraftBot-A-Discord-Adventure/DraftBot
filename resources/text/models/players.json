@@ -46,6 +46,7 @@
 		":sick:": 21600000,
 		":head_bandage:": 21600000,
 		":dizzy_face:": 43200000,
+		":drooling_face:": 4800000,
 		":skull:": 0,
 		":lock:": 86400000,
 		":sleeping:": 10800000,
