@@ -205,13 +205,13 @@ class MessageError {
         .setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsConfounded, { pseudo: message.author.username }), message.author.displayAvatarURL())
         .setDescription(format(entity.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, { time: timeEffect }));
     }
-      
-      if (effect === EFFECT.FROZEN) {
+
+    if (effect === EFFECT.FROZEN) {
       embed
         .setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsFrozen, { pseudo: message.author.username }), message.author.displayAvatarURL())
         .setDescription(format(entity.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, { time: timeEffect }));
     }
-    
+
 
     return await message.channel.send(embed);
   }
@@ -289,6 +289,20 @@ class MessageError {
     if (player.effect === EFFECT.CONFOUNDED) {
       embed
         .setDescription(JsonReader.error.getTranslation(language).playerIsCondounded, {
+          askedPseudo: player.getPseudo(language),
+        });
+    }
+
+    if (player.effect === EFFECT.STARVING) {
+      embed
+        .setDescription(JsonReader.error.getTranslation(language).playerIsStarving, {
+          askedPseudo: player.getPseudo(language),
+        });
+    }
+
+    if (player.effect === EFFECT.FROZEN) {
+      embed
+        .setDescription(JsonReader.error.getTranslation(language).playerIsFrozen, {
           askedPseudo: player.getPseudo(language),
         });
     }
