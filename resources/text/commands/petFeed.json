@@ -1,31 +1,31 @@
 {
-    "translations": {
-        "fr": {
-            "embedTitle": "{pseudo}, vous offrez une friandise à votre animal.",
-            "breedEmbedTitle": "Avec quel type de nourriture voulez-vous nourrir votre familier ?",
-            "cancelBreed": "Vous n'avez pas nourri votre familier...",
-            "notEnoughFood": "Vous n'avez pas assez de nourriture de ce type pour nourrir votre pet.",
-            "noPet": "Vous n'avez aucun animal !",
-            "description": {
-                "1": "**{petnick}** est heureux !",
-                "2": "**{petnick}** est très heureux !",
-                "3": "**{petnick}** saute de joie !"
-            },
-            "notHungry": "Il semblerait que **{petnick}** n'a pas faim..."
-        },
-        "en": {
-            "embedTitle": "{pseudo}, you offer some food to your pet.",
-            ":breedEmbedTitle": "Which food type do you want to feed your pet?",
-            "cancelBreed": "You didn't feed your pet...",
-            "notEnoughFood": "You don't have enough of that food type to feed your pet.",
-            "noPet": "You don't have a pet!",
-            "description": {
-                "1": "**{petnick}** is happy !",
-                "2": "**{petnick}** is very happy !",
-                "3": "**{petnick}** is overjoyed !"
-            },
-            "notHungry": "It seems that **{petnick}** is not hungry..."
-        }
-    },
-    "defaultsPoints": 6
+	"translations": {
+		"fr": {
+			"embedTitle": "{pseudo}, vous offrez une friandise à votre animal.",
+			"breedEmbedTitle": "Avec quel type de nourriture voulez-vous nourrir votre familier ?",
+			"cancelBreed": "Vous n'avez pas nourri votre familier...",
+			"notEnoughFood": "Vous n'avez pas assez de nourriture de ce type pour nourrir votre pet.",
+			"noPet": "Vous n'avez aucun animal !",
+			"description": {
+				"1": "**{petnick}** est heureux !",
+				"2": "**{petnick}** est très heureux !",
+				"3": "**{petnick}** saute de joie !"
+			},
+			"notHungry": "Il semblerait que **{petnick}** n'ait pas faim..."
+		},
+		"en": {
+			"embedTitle": "{pseudo}, you offer some food to your pet.",
+			":breedEmbedTitle": "Which food type do you want to feed your pet?",
+			"cancelBreed": "You didn't feed your pet...",
+			"notEnoughFood": "You don't have enough of that food type to feed your pet.",
+			"noPet": "You don't have a pet!",
+			"description": {
+				"1": "**{petnick}** is happy !",
+				"2": "**{petnick}** is very happy !",
+				"3": "**{petnick}** is overjoyed !"
+			},
+			"notHungry": "It seems that **{petnick}** is not hungry..."
+		}
+	},
+	"defaultsPoints": 6
 }
