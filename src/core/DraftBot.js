@@ -71,8 +71,34 @@ class DraftBot {
      * Daily timeout actions
      */
     static async dailyTimeout() {
-        console.log("INFO: Daily timeout");
         const sequelize = require("sequelize");
+        console.log("INFO: Daily timeout");
+        const shopPotion = await Shop.findOne({
+            attributes: ["shop_potion_id"],
+        });
+        const numberOfPotions = await Potions.count();
+        let potion;
+        do {
+            potion = await Potions.findOne({
+                where: {
+                    id: draftbotRandom.integer(0, numberOfPotions - 1) + 1,
+                },
+            });
+        } while (potion.id == shopPotion.shop_potion_id);
+
+        await Shop.update(
+            {
+                shop_potion_id: potion.id,
+            },
+            {
+                where: {
+                    shop_potion_id: {
+                        [sequelize.Op.col]: "shop.shop_potion_id",
+                    },
+                },
+            }
+        );
+        console.info(`INFO : new potion in shop : ${potion.id}`);
         if (draftbotRandom.bool()) {
             console.log("INFO: All pets lost 1 love point");
             await PetEntities.update(
