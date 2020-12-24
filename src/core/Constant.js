@@ -18,6 +18,7 @@ global.EFFECT = {
     LOCKED: ":lock:",
     INJURED: ":dizzy_face:",
     OCCUPIED: ":clock2:",
+    STARVING: ":drooling_face:",
     CONFOUNDED: ":confounded:",
 };
 
