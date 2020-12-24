@@ -23,7 +23,10 @@ async function ShopCommand(language, message, args) {
     }
 
     const shopTranslations = JsonReader.commands.shop.getTranslation(language);
-    const numberOfPotions = await Potions.count();
+
+    const shopPotion = await Shop.findOne({
+        attributes: ["shop_potion_id"],
+    });
 
     //Formatting intems data into a string
     const randomItem = format(shopTranslations.display, {
@@ -46,12 +49,10 @@ async function ShopCommand(language, message, args) {
     //Fetching potion infos
     const potion = await Potions.findOne({
         where: {
-            id:
-                (Math.round(Date.now() / (1000 * 60 * 60 * 24)) %
-                    draftbotRandom.integer(0, numberOfPotions - 1)) +
-                1,
+            id: shopPotion.shop_potion_id,
         },
     });
+
     const potionPrice = Math.round(
         (parseInt(JsonReader.values.raritiesValues[potion.rarity]) +
             parseInt(potion.power)) *
