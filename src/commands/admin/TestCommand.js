@@ -500,9 +500,9 @@ const TestCommand = async (language, message, args) => {
                 const targetGuild = await Guilds.getById(
                     author.Player.guild_id
                 );
-                targetGuild.petFood = parseInt(args[1]);
-                targetGuild.save();
-                break;
+                targetGuild[args[1]] = parseInt(args[2]);
+                await targetGuild.save();
+                return message.channel.send("Done");
             case "apfree":
                 if (args.length === 2) {
                     author.Player.last_pet_free -= parseInt(args[1]) * 60000;
