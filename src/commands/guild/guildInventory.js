@@ -19,6 +19,10 @@ const GuildInventoryCommand = async (language, message, args) => {
         return;
     }
 
+    const foodInfos = JsonReader.food.getTranslation(language);
+    const translations = JsonReader.commands.guildInventory.getTranslation(
+        language
+    );
     // search for a user's guild
     let guild;
     try {
@@ -33,118 +37,58 @@ const GuildInventoryCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildAdd.getTranslation(language).notInAguild
+            translations.notInAguild
         );
     }
 
     let inventoryEmbed = new discord.MessageEmbed();
 
     inventoryEmbed.setTitle(
-        format(
-            JsonReader.commands.guildInventory.getTranslation(language)
-                .embedTitle,
-            {
-                guild: guild.name,
-            }
-        )
+        format(translations.embedTitle, {
+            guild: guild.name,
+        })
     );
 
     inventoryEmbed.setThumbnail(JsonReader.commands.guild.icon);
 
     inventoryEmbed.addField(
-        JsonReader.commands.guildInventory.getTranslation(language)
-            .fieldDescKey,
-        JsonReader.commands.guildInventory.getTranslation(language)
-            .fieldDescValue
+        translations.fieldDescKey,
+        translations.fieldDescValue
     );
     inventoryEmbed.addField(
-        format(
-            JsonReader.commands.guildInventory.getTranslation(language)
-                .foodTitle,
-            {
-                foodType:
-                    language === "fr"
-                        ? FOOD.COMMON_FOOD.TRANSLATIONS.fr
-                        : FOOD.COMMON_FOOD.TRANSLATIONS.en,
-            }
-        ),
-        format(
-            JsonReader.commands.guildInventory.getTranslation(language)
-                .foodField,
-            {
-                guildFood: guild.commonFood,
-                maxFood: GUILD.MAX_COMMON_PETFOOD,
-                emote: FOOD.COMMON_FOOD.EMOTE,
-            }
-        ),
+        format(translations.foodTitle, {
+            foodType: foodInfos.commonFood.name,
+        }),
+        format(translations.foodField, {
+            guildFood: guild.commonFood,
+            maxFood: GUILD.MAX_COMMON_PETFOOD,
+            emote: foodInfos.commonFood.emote,
+        }),
         true
     );
     inventoryEmbed.addField(
-        format(
-            JsonReader.commands.guildInventory.getTranslation(language)
-                .foodTitle,
-            {
-                foodType:
-                    language === "fr"
-                        ? FOOD.RARE_FOOD.TRANSLATIONS.fr
-                        : FOOD.RARE_FOOD.TRANSLATIONS.en,
-            }
-        ),
-        format(
-            JsonReader.commands.guildInventory.getTranslation(language)
-                .foodField,
-            {
-                guildFood: guild.rareFood,
-                maxFood: GUILD.MAX_RARE_PETFOOD,
-                emote: FOOD.RARE_FOOD.EMOTE,
-            }
-        ),
+        format(translations.foodTitle, {
+            foodType: foodInfos.rareFood.name,
+        }),
+        format(translations.foodField, {
+            guildFood: guild.rareFood,
+            maxFood: GUILD.MAX_RARE_PETFOOD,
+            emote: foodInfos.rareFood.emote,
+        }),
         true
     );
     inventoryEmbed.addField(
-        format(
-            JsonReader.commands.guildInventory.getTranslation(language)
-                .foodTitle,
-            {
-                foodType:
-                    language === "fr"
-                        ? FOOD.UNIQUE_FOOD.TRANSLATIONS.fr
-                        : FOOD.UNIQUE_FOOD.TRANSLATIONS.en,
-            }
-        ),
-        format(
-            JsonReader.commands.guildInventory.getTranslation(language)
-                .foodField,
-            {
-                guildFood: guild.uniqueFood,
-                maxFood: GUILD.MAX_UNIQUE_PETFOOD,
-                emote: FOOD.UNIQUE_FOOD.EMOTE,
-            }
-        ),
+        format(translations.foodTitle, {
+            foodType: foodInfos.uniqueFood.name,
+        }),
+        format(translations.foodField, {
+            guildFood: guild.uniqueFood,
+            maxFood: GUILD.MAX_UNIQUE_PETFOOD,
+            emote: foodInfos.uniqueFood.emote,
+        }),
         true
     );
-    inventoryEmbed.addField(
-        format(
-            JsonReader.commands.guildInventory.getTranslation(language)
-                .foodTitle,
-            {
-                foodType:
-                    language === "fr"
-                        ? FOOD.GROW_FOOD.TRANSLATIONS.fr
-                        : FOOD.GROW_FOOD.TRANSLATIONS.en,
-            }
-        ),
-        format(
-            JsonReader.commands.guildInventory.getTranslation(language)
-                .growFoodField,
-            {
-                guildFood: guild.growFood,
-                maxFood: GUILD.MAX_GROW_PETFOOD,
-                emote: FOOD.GROW_FOOD.EMOTE,
-            }
-        ),
-        true
-    );
+
     await message.channel.send(inventoryEmbed);
 };
 
