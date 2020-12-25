@@ -4,17 +4,15 @@
             "embedTitle": "Inventaire de la guilde {guild}",
             "foodTitle": "{foodType}",
             "foodField": "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : :heartpulse: ",
-            "growFoodField": "**Stock** : {guildFood}/{maxFood} {emote} \n **Effet** : :chart_with_upwards_trend:",
             "fieldDescKey": "**Nourriture** : ",
-            "fieldDescValue": "La nourriture est utile pour nourrir tous vos familiers :heartpulse: ou pour faire grandir plus rapidement vos bébés :chart_with_upwards_trend:. Si vous en avez plus, vous pouvez en acheter dans le `guildshop`."
+            "fieldDescValue": "La nourriture est utile pour nourrir tous vos familiers :heartpulse:. Si vous en avez plus, vous pouvez en acheter dans le `guildshop`."
         },
         "en": {
             "embedTitle": "{guild}'s guild inventory",
             "foodTitle": "{foodType}",
             "foodField": "**Stock** : {guildFood}/{maxFood} {emote} \n **Effect** : :heartpulse:",
-            "growFoodField": "**Stock** : {guildFood}/{maxFood} {emote} \n **Effect** : :chart_with_upwards_trend: ",
             "fieldDescKey": "**Food** : ",
-            "fieldDescValue": "Food is useful to feed all of your pets :heartpulse: or to make your babies grow faster :chart_with_upwards_trend:. If you don't have any left, you can buy some using `guildshop`."
+            "fieldDescValue": "Food is useful to feed all of your pets :heartpulse:. If you don't have any left, you can buy some using `guildshop`."
         }
     }
 }
