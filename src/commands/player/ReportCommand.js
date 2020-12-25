@@ -16,6 +16,10 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
   if (await sendBlockedError(message.author, message.channel, language)) {
     return;
   }
+  // nextEvent is defined ?
+  if (entity.Player.nextEvent !== undefined && entity.Player.nextEvent !== null) {
+    forceSpecificEvent = entity.Player.nextEvent;
+  }
 
   let time;
   if (forceSpecificEvent === -1) {
@@ -48,11 +52,6 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 
   const Sequelize = require('sequelize');
   let event;
-
-  // nextEvent is defined ?
-  if (entity.Player.nextEvent !== undefined && entity.Player.nextEvent !== null) {
-    forceSpecificEvent = entity.Player.nextEvent;
-  }
 
   if (forceSpecificEvent === -1) {
     event = await Events.findOne({
