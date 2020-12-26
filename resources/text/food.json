@@ -4,7 +4,7 @@
             "commonFood": {
                 "name": "**Friandises**",
                 "emote": ":candy:",
-                "price": 10,
+                "price": 20,
                 "info": "Permet de donner 1 point d'amour à votre familier.",
                 "type": "commonFood",
                 "effect": 1
@@ -12,7 +12,7 @@
             "rareFood": {
                 "name": "**Pain**",
                 "emote": ":bread:",
-                "price": 50,
+                "price": 250,
                 "info": "Permet de donner 3 points d'amour à votre familier.",
                 "type": "rareFood",
                 "effect": 3
@@ -20,7 +20,7 @@
             "uniqueFood": {
                 "name": "**Viande**",
                 "emote": ":meat_on_bone:",
-                "price": 100,
+                "price": 600,
                 "info": "Permet de donner 5 points d'amour à votre familier.",
                 "type": "uniqueFood",
                 "effect": 5
