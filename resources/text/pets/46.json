@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Éléphant",
-      "femaleName": "Éléphante"
+    "translations": {
+        "fr": {
+            "maleName": "Éléphant",
+            "femaleName": "Éléphante"
+        },
+        "en": {
+            "maleName": "Elephant",
+            "femaleName": "Elephant"
+        }
     },
-    "en": {
-      "maleName": "Elephant",
-      "femaleName": "Elephant"
-    }
-  },
-  "emoteMale": "🐘",
-  "emoteFemale": "🐘",
-  "rarity": 3
+    "emoteMale": "🐘",
+    "emoteFemale": "🐘",
+    "rarity": 3,
+    "diet": "herbivorous"
 }

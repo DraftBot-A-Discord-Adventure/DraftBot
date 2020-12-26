@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Chat",
-      "femaleName": "Chatte"
+    "translations": {
+        "fr": {
+            "maleName": "Chat",
+            "femaleName": "Chatte"
+        },
+        "en": {
+            "maleName": "Cat",
+            "femaleName": "Cat"
+        }
     },
-    "en": {
-      "maleName": "Cat",
-      "femaleName": "Cat"
-    }
-  },
-  "emoteMale": "🐈",
-  "emoteFemale": "🐈",
-  "rarity": 1
+    "emoteMale": "🐈",
+    "emoteFemale": "🐈",
+    "rarity": 1,
+    "diet": "carnivorous"
 }

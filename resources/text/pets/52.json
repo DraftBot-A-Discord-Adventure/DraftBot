@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Kangourou",
-      "femaleName": "Kangourou"
+    "translations": {
+        "fr": {
+            "maleName": "Kangourou",
+            "femaleName": "Kangourou"
+        },
+        "en": {
+            "maleName": "Kangaroo",
+            "femaleName": "Kangaroo"
+        }
     },
-    "en": {
-      "maleName": "Kangaroo",
-      "femaleName": "Kangaroo"
-    }
-  },
-  "emoteMale": "🦘",
-  "emoteFemale": "🦘",
-  "rarity": 3
+    "emoteMale": "🦘",
+    "emoteFemale": "🦘",
+    "rarity": 3,
+    "diet": "herbivorous"
 }

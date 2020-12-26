@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Girafe",
-      "femaleName": "Girafe"
+    "translations": {
+        "fr": {
+            "maleName": "Girafe",
+            "femaleName": "Girafe"
+        },
+        "en": {
+            "maleName": "Giraffe",
+            "femaleName": "Giraffe"
+        }
     },
-    "en": {
-      "maleName": "Giraffe",
-      "femaleName": "Giraffe"
-    }
-  },
-  "emoteMale": "🦒",
-  "emoteFemale": "🦒",
-  "rarity": 3
+    "emoteMale": "🦒",
+    "emoteFemale": "🦒",
+    "rarity": 3,
+    "diet": "herbivorous"
 }

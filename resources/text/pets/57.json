@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Lion",
-      "femaleName": "Lionne"
+    "translations": {
+        "fr": {
+            "maleName": "Lion",
+            "femaleName": "Lionne"
+        },
+        "en": {
+            "maleName": "Lion",
+            "femaleName": "Lioness"
+        }
     },
-    "en": {
-      "maleName": "Lion",
-      "femaleName": "Lioness"
-    }
-  },
-  "emoteMale": "🦁",
-  "emoteFemale": "🦁",
-  "rarity": 4
+    "emoteMale": "🦁",
+    "emoteFemale": "🦁",
+    "rarity": 4,
+    "diet": "carnivorous"
 }

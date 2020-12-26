@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "T-Rex",
-      "femaleName": "T-Rex"
+    "translations": {
+        "fr": {
+            "maleName": "T-Rex",
+            "femaleName": "T-Rex"
+        },
+        "en": {
+            "maleName": "T-Rex",
+            "femaleName": "T-Rex"
+        }
     },
-    "en": {
-      "maleName": "T-Rex",
-      "femaleName": "T-Rex"
-    }
-  },
-  "emoteMale": "🦖️",
-  "emoteFemale": "🦖️",
-  "rarity": 5
+    "emoteMale": "🦖️",
+    "emoteFemale": "🦖️",
+    "rarity": 5,
+    "diet": "carnivorous"
 }

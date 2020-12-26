@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Hibou",
-      "femaleName": "Chouette"
+    "translations": {
+        "fr": {
+            "maleName": "Hibou",
+            "femaleName": "Chouette"
+        },
+        "en": {
+            "maleName": "Owl",
+            "femaleName": "Owl"
+        }
     },
-    "en": {
-      "maleName": "Owl",
-      "femaleName": "Owl"
-    }
-  },
-  "emoteMale": "🦉",
-  "emoteFemale": "🦉",
-  "rarity": 2
+    "emoteMale": "🦉",
+    "emoteFemale": "🦉",
+    "rarity": 2,
+    "diet": "carnivorous"
 }

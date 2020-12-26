@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Panda",
-      "femaleName": "Panda"
+    "translations": {
+        "fr": {
+            "maleName": "Panda",
+            "femaleName": "Panda"
+        },
+        "en": {
+            "maleName": "Panda",
+            "femaleName": "Panda"
+        }
     },
-    "en": {
-      "maleName": "Panda",
-      "femaleName": "Panda"
-    }
-  },
-  "emoteMale": "🐼",
-  "emoteFemale": "🐼",
-  "rarity": 3
+    "emoteMale": "🐼",
+    "emoteFemale": "🐼",
+    "rarity": 3,
+    "diet": "herbivorous"
 }

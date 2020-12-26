@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Dragon",
-      "femaleName": "Dragon"
+    "translations": {
+        "fr": {
+            "maleName": "Dragon",
+            "femaleName": "Dragon"
+        },
+        "en": {
+            "maleName": "Dragon",
+            "femaleName": "Dragon"
+        }
     },
-    "en": {
-      "maleName": "Dragon",
-      "femaleName": "Dragon"
-    }
-  },
-  "emoteMale": "🐉️",
-  "emoteFemale": "🐉️",
-  "rarity": 5
+    "emoteMale": "🐉️",
+    "emoteFemale": "🐉️",
+    "rarity": 5,
+    "diet": "carnivorous"
 }

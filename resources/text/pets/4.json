@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Chat noir",
-      "femaleName": "Chatte noire"
+    "translations": {
+        "fr": {
+            "maleName": "Chat noir",
+            "femaleName": "Chatte noire"
+        },
+        "en": {
+            "maleName": "Black cat",
+            "femaleName": "Black cat"
+        }
     },
-    "en": {
-      "maleName": "Black cat",
-      "femaleName": "Black cat"
-    }
-  },
-  "emoteMale": "🐈‍⬛",
-  "emoteFemale": "🐈‍⬛",
-  "rarity": 1
+    "emoteMale": "🐈‍⬛",
+    "emoteFemale": "🐈‍⬛",
+    "rarity": 1,
+    "diet": "carnivorous"
 }

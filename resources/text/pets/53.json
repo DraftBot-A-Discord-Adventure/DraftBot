@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Paon",
-      "femaleName": "Paonne"
+    "translations": {
+        "fr": {
+            "maleName": "Paon",
+            "femaleName": "Paonne"
+        },
+        "en": {
+            "maleName": "Peacock",
+            "femaleName": "Peahen"
+        }
     },
-    "en": {
-      "maleName": "Peacock",
-      "femaleName": "Peahen"
-    }
-  },
-  "emoteMale": "🦚",
-  "emoteFemale": "🦚",
-  "rarity": 3
+    "emoteMale": "🦚",
+    "emoteFemale": "🦚",
+    "rarity": 3,
+    "diet": "herbivorous"
 }

@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Otarie",
-      "femaleName": "Otarie"
+    "translations": {
+        "fr": {
+            "maleName": "Otarie",
+            "femaleName": "Otarie"
+        },
+        "en": {
+            "maleName": "Seal",
+            "femaleName": "Seal"
+        }
     },
-    "en": {
-      "maleName": "Seal",
-      "femaleName": "Seal"
-    }
-  },
-  "emoteMale": "🦭",
-  "emoteFemale": "🦭",
-  "rarity": 2
+    "emoteMale": "🦭",
+    "emoteFemale": "🦭",
+    "rarity": 2,
+    "diet": "carnivorous"
 }

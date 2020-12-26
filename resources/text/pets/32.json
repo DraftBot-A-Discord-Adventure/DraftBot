@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Lama",
-      "femaleName": "Lama"
+    "translations": {
+        "fr": {
+            "maleName": "Lama",
+            "femaleName": "Lama"
+        },
+        "en": {
+            "maleName": "Llama",
+            "femaleName": "Llama"
+        }
     },
-    "en": {
-      "maleName": "Llama",
-      "femaleName": "Llama"
-    }
-  },
-  "emoteMale": "🦙",
-  "emoteFemale": "🦙",
-  "rarity": 2
+    "emoteMale": "🦙",
+    "emoteFemale": "🦙",
+    "rarity": 2,
+    "diet": "herbivorous"
 }

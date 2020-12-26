@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Flamant rose",
-      "femaleName": "Flamant rose"
+    "translations": {
+        "fr": {
+            "maleName": "Flamant rose",
+            "femaleName": "Flamant rose"
+        },
+        "en": {
+            "maleName": "Flamingo",
+            "femaleName": "Flamingo"
+        }
     },
-    "en": {
-      "maleName": "Flamingo",
-      "femaleName": "Flamingo"
-    }
-  },
-  "emoteMale": "🦩",
-  "emoteFemale": "🦩",
-  "rarity": 2
+    "emoteMale": "🦩",
+    "emoteFemale": "🦩",
+    "rarity": 2,
+    "diet": "carnivorous"
 }

@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Castor",
-      "femaleName": "Castor"
+    "translations": {
+        "fr": {
+            "maleName": "Castor",
+            "femaleName": "Castor"
+        },
+        "en": {
+            "maleName": "Beaver",
+            "femaleName": "Beaver"
+        }
     },
-    "en": {
-      "maleName": "Beaver",
-      "femaleName": "Beaver"
-    }
-  },
-  "emoteMale": "🦫",
-  "emoteFemale": "🦫",
-  "rarity": 2
+    "emoteMale": "🦫",
+    "emoteFemale": "🦫",
+    "rarity": 2,
+    "diet": "herbivorous"
 }

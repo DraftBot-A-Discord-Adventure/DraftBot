@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Renard",
-      "femaleName": "Renarde"
+    "translations": {
+        "fr": {
+            "maleName": "Renard",
+            "femaleName": "Renarde"
+        },
+        "en": {
+            "maleName": "Fox",
+            "femaleName": "Vixen"
+        }
     },
-    "en": {
-      "maleName": "Fox",
-      "femaleName": "Vixen"
-    }
-  },
-  "emoteMale": "🦊",
-  "emoteFemale": "🦊",
-  "rarity": 2
+    "emoteMale": "🦊",
+    "emoteFemale": "🦊",
+    "rarity": 2,
+    "diet": "carnivorous"
 }

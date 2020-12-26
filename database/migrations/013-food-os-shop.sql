@@ -13,4 +13,6 @@ INSERT INTO shop(shop_potion_id, updatedAt, createdAt) VALUES(5, DATETIME('now')
 
 UPDATE players SET nextEvent = 0;
 
+ALTER TABLE pets ADD diet TEXT;
+
 -- Down 
