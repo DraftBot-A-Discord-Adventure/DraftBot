@@ -43,13 +43,14 @@ async function GuildShopCommand(language, message, args) {
         language
     );
 
+    //Formatting items data into a string
+
     const commonFood = format(shopTranslations.display, {
         emote: JsonReader.food.commonFood.emote,
         name: JsonReader.food.commonFood.translations[language].name,
         price: JsonReader.food.commonFood.price,
     });
 
-    //Formatting items data into a string
     const herbivorousFood = format(shopTranslations.display, {
         emote: JsonReader.food.herbivorousFood.emote,
         name: JsonReader.food.herbivorousFood.translations[language].name,
@@ -80,10 +81,15 @@ async function GuildShopCommand(language, message, args) {
             .addField(shopTranslations.xpItem, [guildXp])
             .addField(
                 shopTranslations.foodItem,
-                [commonFood, carnivorousFood, herbivorousFood, ultimateFood].join("\n") +
-                format(shopTranslations.moneyQuantity, {
-                    money: entity.Player.money,
-                })
+                [
+                    commonFood,
+                    carnivorousFood,
+                    herbivorousFood,
+                    ultimateFood,
+                ].join("\n") +
+                    format(shopTranslations.moneyQuantity, {
+                        money: entity.Player.money,
+                    })
             )
     );
 
@@ -91,22 +97,10 @@ async function GuildShopCommand(language, message, args) {
 
     const shopItems = new Map()
         .set(GUILDSHOP.STAR, shopTranslations.guildXp)
-        .set(
-            GUILDSHOP.COMMON_FOOD,
-            JsonReader.food.carnivorousFood
-        )
-        .set(
-            GUILDSHOP.HERBIVOROUS_FOOD,
-            JsonReader.food.herbivorousFood
-        )
-        .set(
-            GUILDSHOP.CARNIVOROUS_FOOD,
-            JsonReader.food.carnivorousFood
-        ).set(
-            GUILDSHOP.ULTIMATE_FOOD,
-            JsonReader.food.carnivorousFood
-        );
-
+        .set(GUILDSHOP.COMMON_FOOD, JsonReader.food.commonFood)
+        .set(GUILDSHOP.HERBIVOROUS_FOOD, JsonReader.food.herbivorousFood)
+        .set(GUILDSHOP.CARNIVOROUS_FOOD, JsonReader.food.carnivorousFood)
+        .set(GUILDSHOP.ULTIMATE_FOOD, JsonReader.food.ultimateFood);
 
     const filterConfirm = (reaction, user) => {
         return user.id === entity.discordUser_id && reaction.me;
@@ -199,7 +193,6 @@ async function GuildShopCommand(language, message, args) {
  */
 
 async function purchaseFood(message, language, entity, author, selectedItem) {
-    console.log(author);
     const quantityPosibilities = new Map()
         .set(QUANTITY.ONE, 1)
         .set(QUANTITY.FIVE, 5)
@@ -215,19 +208,19 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
         )
         .setDescription(
             "\n\u200b\n" +
-            format(
+                format(
+                    JsonReader.commands.guildShop.getTranslation(language)
+                        .confirmEmbedField,
+                    {
+                        emote: selectedItem.emote,
+                        name: selectedItem.name,
+                        price1: selectedItem.price,
+                        price5: selectedItem.price * 5,
+                        price10: selectedItem.price * 10,
+                    }
+                ) +
                 JsonReader.commands.guildShop.getTranslation(language)
-                    .confirmEmbedField,
-                {
-                    emote: selectedItem.emote,
-                    name: selectedItem.name,
-                    price1: selectedItem.price,
-                    price5: selectedItem.price * 5,
-                    price10: selectedItem.price * 10,
-                }
-            ) +
-            JsonReader.commands.guildShop.getTranslation(language)
-                .selectQuantityWarning
+                    .selectQuantityWarning
         );
 
     const confirmMessage = await message.channel.send(confirmEmbed);
@@ -301,10 +294,10 @@ async function purchaseXp(message, language, entity, customer, selectedItem) {
     const shopTranslations = JsonReader.commands.shop.getTranslation(language);
     log(
         entity.discordUser_id +
-        " bought guild xp " +
-        selectedItem.name +
-        " for " +
-        selectedItem.price
+            " bought guild xp " +
+            selectedItem.name +
+            " for " +
+            selectedItem.price
     );
 
     if (selectedItem.name === shopTranslations.permanentItems.guildXp.name) {
@@ -353,17 +346,18 @@ async function confirmXpPurchase(
         )
         .setDescription(
             "\n\u200b\n" +
-            format(
-                JsonReader.commands.shop.getTranslation(language).display,
-                {
-                    name: name,
-                    price: price,
-                }
-            ) +
-            info
+                format(
+                    JsonReader.commands.shop.getTranslation(language).display,
+                    {
+                        name: name,
+                        price: price,
+                    }
+                ) +
+                info
         );
 
     const confirmMessage = await message.channel.send(confirmEmbed);
+
     const filterConfirm = (reaction, user) => {
         return (
             (reaction.emoji.name === MENU_REACTION.ACCEPT ||
@@ -377,6 +371,8 @@ async function confirmXpPurchase(
         max: 1,
     });
 
+    addBlockedPlayer(entity.discordUser_id, "guildShop", collector);
+
     collector.on("end", async (reaction) => {
         removeBlockedPlayer(entity.discordUser_id);
         //confirmMessage.delete(); for now we'll keep the messages
@@ -385,7 +381,6 @@ async function confirmXpPurchase(
                 reaction.first().message.delete();
                 return purchaseXp(
                     message,
-                    reaction,
                     language,
                     entity,
                     customer,
@@ -443,9 +438,9 @@ async function giveGuildXp(message, language, entity, author, selectedItem) {
             )
             .setDescription(
                 "\n\n" +
-                format(selectedItem.give, {
-                    experience: toAdd,
-                })
+                    format(selectedItem.give, {
+                        experience: toAdd,
+                    })
             )
     );
 }
@@ -475,27 +470,27 @@ const giveFood = async (
     const successEmbed = new discord.MessageEmbed();
     quantity == 1
         ? successEmbed.setAuthor(
-            format(
-                JsonReader.commands.guildShop.getTranslation(language)
-                    .singleSuccessAddFoodTitle,
-                {
-                    quantity: quantity,
-                }
-            ),
+              format(
+                  JsonReader.commands.guildShop.getTranslation(language)
+                      .singleSuccessAddFoodTitle,
+                  {
+                      quantity: quantity,
+                  }
+              ),
 
-            author.displayAvatarURL()
-        )
+              author.displayAvatarURL()
+          )
         : successEmbed.setAuthor(
-            format(
-                JsonReader.commands.guildShop.getTranslation(language)
-                    .multipleSuccessAddFoodTitle,
-                {
-                    quantity: quantity,
-                }
-            ),
+              format(
+                  JsonReader.commands.guildShop.getTranslation(language)
+                      .multipleSuccessAddFoodTitle,
+                  {
+                      quantity: quantity,
+                  }
+              ),
 
-            author.displayAvatarURL()
-        );
+              author.displayAvatarURL()
+          );
 
     return message.channel.send(successEmbed);
 };
