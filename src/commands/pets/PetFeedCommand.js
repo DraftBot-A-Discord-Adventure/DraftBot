@@ -21,6 +21,10 @@ const PetFeedCommand = async function (language, message, args) {
         return;
     }
 
+    if (await sendBlockedError(message.author, message.channel, language)) {
+        return;
+    }
+
     let authorPet = entity.Player.Pet;
 
     if (!authorPet) {
@@ -49,16 +53,21 @@ const PetFeedCommand = async function (language, message, args) {
     const foodItems = new Map()
         .set(
             GUILDSHOP.COMMON_FOOD,
-            JsonReader.food.getTranslation(language).foodItems.commonFood
+            JsonReader.food.commonFood
         )
         .set(
-            GUILDSHOP.RARE_FOOD,
-            JsonReader.food.getTranslation(language).foodItems.rareFood
+            GUILDSHOP.HERBIVOROUS_FOOD,
+            JsonReader.food.herbivorousFood
         )
         .set(
-            GUILDSHOP.UNIQUE_FOOD,
-            JsonReader.food.getTranslation(language).foodItems.uniqueFood
+            GUILDSHOP.CARNIVOROUS_FOOD,
+            JsonReader.food.carnivorousFood
+        )
+        .set(
+            GUILDSHOP.ULTIMATE_FOOD,
+            JsonReader.food.ultimateFood
         );
+
     let breedEmbed = new discord.MessageEmbed();
     breedEmbed.setAuthor(
         tr.getTranslation(language).breedEmbedTitle,
@@ -102,12 +111,21 @@ const PetFeedCommand = async function (language, message, args) {
 
     await Promise.all([
         breedMsg.react(GUILDSHOP.COMMON_FOOD),
-        breedMsg.react(GUILDSHOP.RARE_FOOD),
-        breedMsg.react(GUILDSHOP.UNIQUE_FOOD),
+        breedMsg.react(GUILDSHOP.HERBIVOROUS_FOOD),
+        breedMsg.react(GUILDSHOP.CARNIVOROUS_FOOD),
+        breedMsg.react(GUILDSHOP.ULTIMATE_FOOD),
         breedMsg.react(MENU_REACTION.DENY),
     ]);
 };
 
+/**
+ * Permet de nourrir un pet
+ * @param {*} message - le message qui a lancé la commande
+ * @param {fr/en} language la langue dans laquelle le message résultant est affiché
+ * @param {*} entity - l'entité qui a lancé la commande
+ * @param {*} pet - le pet à nourrir
+ * @param {*} item - la nourriture à utiliser
+ */
 async function feedPet(message, language, entity, pet, item) {
     const guild = await Guilds.getById(entity.Player.guild_id);
     if (guild[item.type] <= 0) {
@@ -156,20 +174,14 @@ async function feedPet(message, language, entity, pet, item) {
     }
     return message.channel.send(successEmbed);
 }
+
+
 module.exports = {
-    commands: [
-        {
-            name: "petfeed",
-            func: PetFeedCommand,
-            aliases: [
-                "feed",
-                "pf",
-                "petfeed",
-                "pfeed",
-                "feedp",
-                "feedpet",
-                "fp",
-            ],
-        },
-    ],
+    commands: [{
+        name: "petfeed",
+        func: PetFeedCommand,
+        aliases: [
+            "feed", "pf", "petfeed", "pfeed", "feedp", "feedpet", "fp",
+        ],
+    },],
 };
