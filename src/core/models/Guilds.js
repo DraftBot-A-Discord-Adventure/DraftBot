@@ -37,17 +37,17 @@ module.exports = (Sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 defaultValue: JsonReader.models.guilds.commonFood,
             },
-            rareFood: {
+            carnivorousFood: {
                 type: DataTypes.INTEGER,
-                defaultValue: JsonReader.models.guilds.rareFood,
+                defaultValue: JsonReader.models.guilds.carnivorousFood,
             },
-            uniqueFood: {
+            herbivorousFood: {
                 type: DataTypes.INTEGER,
-                defaultValue: JsonReader.models.guilds.uniqueFood,
+                defaultValue: JsonReader.models.guilds.herbivorousFood,
             },
-            growFood: {
+            ultimateFood: {
                 type: DataTypes.INTEGER,
-                defaultValue: JsonReader.models.guilds.growFood,
+                defaultValue: JsonReader.models.guilds.ultimateFood,
             },
             lastDailyAt: {
                 type: DataTypes.DATE,
@@ -151,7 +151,7 @@ module.exports = (Sequelize, DataTypes) => {
         return (
             Math.round(
                 JsonReader.values.xp.player.baseValue *
-                    Math.pow(JsonReader.values.xp.player.coeff, this.level + 1)
+                Math.pow(JsonReader.values.xp.player.coeff, this.level + 1)
             ) - JsonReader.values.xp.player.minus
         );
     };

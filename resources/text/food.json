@@ -1,56 +1,62 @@
 {
-    "translations": {
-        "fr": {
-            "commonFood": {
-                "name": "**Friandises**",
-                "emote": ":candy:",
-                "price": 20,
-                "info": "Permet de donner 1 point d'amour à votre familier.",
-                "type": "commonFood",
-                "effect": 1
-            },
-            "rareFood": {
-                "name": "**Pain**",
-                "emote": ":bread:",
-                "price": 250,
-                "info": "Permet de donner 3 points d'amour à votre familier.",
-                "type": "rareFood",
-                "effect": 3
-            },
-            "uniqueFood": {
-                "name": "**Viande**",
-                "emote": ":meat_on_bone:",
-                "price": 600,
-                "info": "Permet de donner 5 points d'amour à votre familier.",
-                "type": "uniqueFood",
-                "effect": 5
-            }
-        },
-        "en": {
-            "commonFood": {
-                "name": "**Candy**",
-                "emote": ":candy:",
-                "price": 10,
-                "info": "Gives 1 love point to your pet.",
-                "type": "commonFood",
-                "effect": 1
-            },
-            "rareFood": {
-                "name": "**Bread**",
-                "emote": ":bread:",
-                "price": 50,
-                "info": "Gives 3 love points to your pet.",
-                "type": "rareFood",
-                "effect": 3
-            },
-            "uniqueFood": {
-                "name": "**Meat**",
-                "emote": ":meat_on_bone:",
-                "price": 100,
-                "info": "Gives 5 love points to your pet",
-                "type": "uniqueFood",
-                "effect": 5
-            }
-        }
-    }
+	"commonFood": {
+		"translations": {
+			"fr": {
+				"name": "**Friandise**",
+				"info": "Permet de nourrir un familier."
+			},
+			"en": {
+				"name": "**Salad**",
+				"info": "Gives 1 love point to your pet."
+			}
+		},
+		"emote": "🍬",
+		"price": 20,
+		"effect": 1
+	},
+	"herbivorousFood": {
+		"translations": {
+			"fr": {
+				"name": "**Salade**",
+				"info": "Permet de nourrir un familier herbivore."
+			},
+			"en": {
+				"name": "**Salad**",
+				"info": "Gives 1 love point to your pet."
+			}
+		},
+		"emote": "🥬",
+		"price": 250,
+		"effect": 3
+	},
+	"carnivorousFood": {
+		"translations": {
+			"fr": {
+				"name": "**Viande**",
+				"info": "Permet de nourrir un familier carnivore."
+			},
+			"en": {
+				"name": "**Salad**",
+				"info": "Gives 1 love point to your pet."
+			}
+		},
+		"emote": "🥩",
+		"price": 250,
+		"effect": 3
+	},
+	"ultimateFood": {
+		"translations": {
+			"fr": {
+				"name": "**Soupe ultime**",
+				"info": "Permet de nourrir un familier."
+			},
+			"en": {
+				"name": "**Salad**",
+				"info": "Gives 1 love point to your pet."
+			}
+		},
+		"emote": "🍲",
+		"price": 600,
+		"effect": 5
+	}
 }
