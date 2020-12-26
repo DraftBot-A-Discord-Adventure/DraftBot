@@ -1,9 +1,11 @@
 -- Up
 
+ALTER TABLE guilds ADD commonFood INTEGER;
 ALTER TABLE guilds ADD herbivorousFood INTEGER;
 ALTER TABLE guilds ADD carnivorousFood INTEGER;
+ALTER TABLE guilds ADD ultimateFood INTEGER;
 
-ALTER TABLE possibilities ADD oneshot Boolean;
+ALTER TABLE possibilities ADD oneshot BOOLEAN;
 UPDATE possibilities SET oneshot = false;
 
 CREATE TABLE IF NOT EXISTS shop(shop_potion_id INTEGER, updatedAt DATETIME, createdAt DATETIME);

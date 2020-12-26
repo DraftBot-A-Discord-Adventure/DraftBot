@@ -19,7 +19,7 @@ const GuildInventoryCommand = async (language, message, args) => {
         return;
     }
 
-    const foodInfos = JsonReader.food.getTranslation(language);
+    const foodInfos = JsonReader.food;
     const translations = JsonReader.commands.guildInventory.getTranslation(
         language
     );
@@ -57,7 +57,7 @@ const GuildInventoryCommand = async (language, message, args) => {
     );
     inventoryEmbed.addField(
         format(translations.foodTitle, {
-            foodType: foodInfos.herbivorousFood.name,
+            foodType: foodInfos.herbivorousFood.translations[language].name,
         }),
         format(translations.foodField, {
             guildFood: guild.herbivorousFood,
@@ -68,15 +68,38 @@ const GuildInventoryCommand = async (language, message, args) => {
     );
     inventoryEmbed.addField(
         format(translations.foodTitle, {
-            foodType: foodInfos.carnivorousFood.name,
+            foodType: foodInfos.herbivorousFood.translations[language].name,
+        }),
+        format(translations.foodField, {
+            guildFood: guild.herbivorousFood,
+            maxFood: GUILD.MAX_HERBIVOROUS_PETFOOD,
+            emote: foodInfos.herbivorousFood.emote,
+        }),
+        true
+    );
+    inventoryEmbed.addField(
+        format(translations.foodTitle, {
+            foodType: foodInfos.carnivorousFood.translations[language].name,
         }),
         format(translations.foodField, {
             guildFood: guild.carnivorousFood,
-            maxFood: GUILD.MAX_COMMON_PETFOOD,
+            maxFood: GUILD.MAX_CARNIVOROUS_PETFOOD,
             emote: foodInfos.carnivorousFood.emote,
         }),
         true
     );
+    inventoryEmbed.addField(
+        format(translations.foodTitle, {
+            foodType: foodInfos.ultimateFood.translations[language].name,
+        }),
+        format(translations.foodField, {
+            guildFood: guild.ultimateFood,
+            maxFood: GUILD.MAX_ULTIMATE_PETFOOD,
+            emote: foodInfos.ultimateFood.emote,
+        }),
+        true
+    );
+
 
     await message.channel.send(inventoryEmbed);
 };

@@ -1,40 +1,62 @@
 {
-    "translations": {
-        "fr": {
-            "herbivorousFood": {
-                "name": "**salade**",
-                "emote": ":leafy_green:",
-                "price": 10,
-                "info": "Permet de donner 1 point d'amour à votre familier.",
-                "type": "herbivorousFood",
-                "effect": 1
-            },
-            "carnivorousFood": {
-                "name": "**viande**",
-                "emote": ":cut_of_meat:",
-                "price": 10,
-                "info": "Permet de donner 1 points d'amour à votre familier.",
-                "type": "carnivorousFood",
-                "effect": 1
-            }
-        },
-        "en": {
-            "herbivorousFood": {
-                "name": "**Salad**",
-                "emote": ":leafy_green:",
-                "price": 10,
-                "info": "Gives 1 love point to your pet.",
-                "type": "herbivorousFood",
-                "effect": 1
-            },
-            "carnivorousFood": {
-                "name": "**Meat**",
-                "emote": ":cut_of_meat:",
-                "price": 10,
-                "info": "Gives 1 love points to your pet.",
-                "type": "carnivorousFood",
-                "effect": 1
-            }
-        }
-    }
+	"commonFood": {
+		"translations": {
+			"fr": {
+				"name": "**Friandise**",
+				"info": "Permet de nourrir un familier."
+			},
+			"en": {
+				"name": "**Salad**",
+				"info": "Gives 1 love point to your pet."
+			}
+		},
+		"emote": "🍬",
+		"price": 20,
+		"effect": 1
+	},
+	"herbivorousFood": {
+		"translations": {
+			"fr": {
+				"name": "**Salade**",
+				"info": "Permet de nourrir un familier herbivore."
+			},
+			"en": {
+				"name": "**Salad**",
+				"info": "Gives 1 love point to your pet."
+			}
+		},
+		"emote": "🥬",
+		"price": 250,
+		"effect": 3
+	},
+	"carnivorousFood": {
+		"translations": {
+			"fr": {
+				"name": "**Viande**",
+				"info": "Permet de nourrir un familier carnivore."
+			},
+			"en": {
+				"name": "**Salad**",
+				"info": "Gives 1 love point to your pet."
+			}
+		},
+		"emote": "🥩",
+		"price": 250,
+		"effect": 3
+	},
+	"ultimateFood": {
+		"translations": {
+			"fr": {
+				"name": "**Soupe ultime**",
+				"info": "Permet de nourrir un familier."
+			},
+			"en": {
+				"name": "**Salad**",
+				"info": "Gives 1 love point to your pet."
+			}
+		},
+		"emote": "🍲",
+		"price": 600,
+		"effect": 5
+	}
 }

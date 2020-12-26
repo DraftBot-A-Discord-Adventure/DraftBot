@@ -76,8 +76,9 @@ global.GUILD = {
     MIN_DESCRIPTION_LENGTH: 2,
     MAX_DESCRIPTION_LENGTH: 140,
     MAX_COMMON_PETFOOD: 25,
-    MAX_RARE_PETFOOD: 15,
-    MAX_UNIQUE_PETFOOD: 10,
+    MAX_HERBIVOROUS_PETFOOD: 15,
+    MAX_CARNIVOROUS_PETFOOD: 15,
+    MAX_ULTIMATE_PETFOOD: 10,
 };
 
 global.CLASS = {
@@ -131,8 +132,10 @@ global.SHOP = {
 
 global.GUILDSHOP = {
     STAR: "⭐",
+    COMMON_FOOD: "🍬",
     HERBIVOROUS_FOOD: "🥬",
     CARNIVOROUS_FOOD: "🥩",
+    ULTIMATE_FOOD: "🍲",
 };
 
 global.QUANTITY = {
