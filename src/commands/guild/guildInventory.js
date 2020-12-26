@@ -57,34 +57,23 @@ const GuildInventoryCommand = async (language, message, args) => {
     );
     inventoryEmbed.addField(
         format(translations.foodTitle, {
-            foodType: foodInfos.commonFood.name,
+            foodType: foodInfos.herbivorousFood.name,
         }),
         format(translations.foodField, {
-            guildFood: guild.commonFood,
+            guildFood: guild.herbivorousFood,
             maxFood: GUILD.MAX_COMMON_PETFOOD,
-            emote: foodInfos.commonFood.emote,
+            emote: foodInfos.herbivorousFood.emote,
         }),
         true
     );
     inventoryEmbed.addField(
         format(translations.foodTitle, {
-            foodType: foodInfos.rareFood.name,
+            foodType: foodInfos.carnivorousFood.name,
         }),
         format(translations.foodField, {
-            guildFood: guild.rareFood,
-            maxFood: GUILD.MAX_RARE_PETFOOD,
-            emote: foodInfos.rareFood.emote,
-        }),
-        true
-    );
-    inventoryEmbed.addField(
-        format(translations.foodTitle, {
-            foodType: foodInfos.uniqueFood.name,
-        }),
-        format(translations.foodField, {
-            guildFood: guild.uniqueFood,
-            maxFood: GUILD.MAX_UNIQUE_PETFOOD,
-            emote: foodInfos.uniqueFood.emote,
+            guildFood: guild.carnivorousFood,
+            maxFood: GUILD.MAX_COMMON_PETFOOD,
+            emote: foodInfos.carnivorousFood.emote,
         }),
         true
     );

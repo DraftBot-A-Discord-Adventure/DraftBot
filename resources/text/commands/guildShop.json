@@ -4,7 +4,7 @@
             "title": ":shopping_cart:  **Magasin de guilde :**",
             "xpItem": "\n\n Expérience de guilde :\n",
             "foodItem": "\n\nNourriture :\n",
-            "display": "{name} | `{price}💰`",
+            "display": "{emote} {name} | `{price}💰`",
             "selectQuantityWarning": "\n\n:warning: Choissisez la quantité à acheter. En cliquant sur une des réactions, vous confirmerez la transaction !",
             "confirmEmbedField": " {emote} {quantity} {name} | `{price1}💰` | `{price5}💰` | `{price10}💰`",
             "success": "{pseudo}, Transaction réussie !",

@@ -131,9 +131,8 @@ global.SHOP = {
 
 global.GUILDSHOP = {
     STAR: "⭐",
-    COMMON_FOOD: "🍬",
-    RARE_FOOD: "🍞",
-    UNIQUE_FOOD: "🍖",
+    HERBIVOROUS_FOOD: "🥬",
+    CARNIVOROUS_FOOD: "🥩",
 };
 
 global.QUANTITY = {
