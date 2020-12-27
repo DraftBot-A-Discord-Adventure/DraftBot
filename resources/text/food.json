@@ -10,6 +10,7 @@
                 "info": "Allows to feed a pet."
             }
         },
+        "type": "commonFood",
         "emote": ":candy:",
         "price": 20,
         "effect": 1
@@ -25,6 +26,7 @@
                 "info": "Allows to feed a herbivorous pet."
             }
         },
+        "type": "herbivorousFood",
         "emote": ":leafy_green:",
         "price": 250,
         "effect": 3
@@ -40,6 +42,7 @@
                 "info": "Allows to feed a carnivorous pet."
             }
         },
+        "type": "carnivorousFood",
         "emote": ":cut_of_meat:",
         "price": 250,
         "effect": 3
@@ -55,6 +58,7 @@
                 "info": "Allows to feed a carnivorous pet."
             }
         },
+        "type": "ultimateFood",
         "emote": ":stew:",
         "price": 600,
         "effect": 5
