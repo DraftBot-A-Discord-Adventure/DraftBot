@@ -57,49 +57,48 @@ const GuildInventoryCommand = async (language, message, args) => {
     );
     inventoryEmbed.addField(
         format(translations.foodTitle, {
-            foodType: foodInfos.herbivorousFood.translations[language].name,
+            foodType: foodInfos.commonFood.translations[language].name,
+            emote: foodInfos.commonFood.emote,
         }),
         format(translations.foodField, {
-            guildFood: guild.herbivorousFood,
+            guildFood: guild.commonFood,
             maxFood: GUILD.MAX_COMMON_PETFOOD,
-            emote: foodInfos.herbivorousFood.emote,
         }),
         true
     );
     inventoryEmbed.addField(
         format(translations.foodTitle, {
             foodType: foodInfos.herbivorousFood.translations[language].name,
+            emote: foodInfos.herbivorousFood.emote,
         }),
         format(translations.foodField, {
             guildFood: guild.herbivorousFood,
             maxFood: GUILD.MAX_HERBIVOROUS_PETFOOD,
-            emote: foodInfos.herbivorousFood.emote,
         }),
         true
     );
     inventoryEmbed.addField(
         format(translations.foodTitle, {
             foodType: foodInfos.carnivorousFood.translations[language].name,
+            emote: foodInfos.carnivorousFood.emote,
         }),
         format(translations.foodField, {
             guildFood: guild.carnivorousFood,
             maxFood: GUILD.MAX_CARNIVOROUS_PETFOOD,
-            emote: foodInfos.carnivorousFood.emote,
         }),
         true
     );
     inventoryEmbed.addField(
         format(translations.foodTitle, {
             foodType: foodInfos.ultimateFood.translations[language].name,
+            emote: foodInfos.ultimateFood.emote,
         }),
         format(translations.foodField, {
             guildFood: guild.ultimateFood,
             maxFood: GUILD.MAX_ULTIMATE_PETFOOD,
-            emote: foodInfos.ultimateFood.emote,
         }),
         true
     );
-
 
     await message.channel.send(inventoryEmbed);
 };
