@@ -475,35 +475,54 @@ const giveFood = async (
     await entity.Player.addMoney(-selectedItem.price); //Remove money
     Promise.all([guild.save(), entity.Player.save()]);
     const successEmbed = new discord.MessageEmbed();
-    quantity == 1
-        ? successEmbed.setAuthor(
-              format(
-                  JsonReader.commands.guildShop.getTranslation(language)
-                      .singleSuccessAddFoodTitle,
-                  {
-                      quantity: quantity,
-                      name: selectedItem.translations[language].name
-                          .slice(2, -2)
-                          .toLowerCase(),
-                  }
-              ),
-
-              author.displayAvatarURL()
-          )
-        : successEmbed.setAuthor(
-              format(
-                  JsonReader.commands.guildShop.getTranslation(language)
-                      .multipleSuccessAddFoodTitle,
-                  {
-                      quantity: quantity,
-                      name: selectedItem.translations[language].name
-                          .slice(2, -2)
-                          .toLowerCase(),
-                  }
-              ),
-
-              author.displayAvatarURL()
-          );
+    successEmbed.setAuthor(
+        format(JsonReader.commands.guildShop.getTranslation(language).success, {
+            author: author.username,
+        }),
+        author.displayAvatarURL()
+    );
+    if (quantity == 1)
+        successEmbed.setDescription(
+            format(
+                JsonReader.commands.guildShop.getTranslation(language)
+                    .singleSuccessAddFoodDesc,
+                {
+                    quantity: quantity,
+                    name: selectedItem.translations[language].name
+                        .slice(2, -2)
+                        .toLowerCase(),
+                }
+            )
+        );
+    else
+        successEmbed.setDescription(
+            format(
+                JsonReader.commands.guildShop.getTranslation(language)
+                    .multipleSuccessAddFoodDesc,
+                {
+                    quantity: quantity,
+                    name:
+                        selectedItem.type === "ultimateFood" && language == "fr"
+                            ? selectedItem.translations[language].name
+                                  .slice(2, -2)
+                                  .toLowerCase()
+                                  .replace(
+                                      selectedItem.translations[language].name
+                                          .slice(2, -2)
+                                          .toLowerCase()
+                                          .split(" ")[0],
+                                      selectedItem.translations[language].name
+                                          .slice(2, -2)
+                                          .toLowerCase()
+                                          .split(" ")[0]
+                                          .concat("s")
+                                  )
+                            : selectedItem.translations[language].name
+                                  .slice(2, -2)
+                                  .toLowerCase(),
+                }
+            )
+        );
 
     return message.channel.send(successEmbed);
 };
