@@ -9,8 +9,8 @@
             "selectQuantityWarning": "\n\n:warning: Choissisez la quantité à acheter. En cliquant sur une des réactions, vous confirmerez la transaction !",
             "confirmEmbedField": " {emote} {quantity} {name} | `{price1}💰` | `{price5}💰` | `{price10}💰`",
             "success": "{pseudo}, Transaction réussie !",
-            "singleSuccessAddFoodTitle": "📦 {quantity} unité de {name} a été rajoutée à l'inventaire de votre guilde.",
-            "multipleSuccessAddFoodTitle": "📦 {quantity} unités de {name} ont été rajoutées à l'inventaire de votre guilde.",
+            "singleSuccessAddFoodTitle": "📦 {quantity} {name} a été rajoutée à l'inventaire de votre guilde.",
+            "multipleSuccessAddFoodTitle": "📦 {quantity} {name}s ont été rajoutées à l'inventaire de votre guilde.",
             "fullStock": "L'inventaire de la guilde est déjà plein pour cette ressource.",
             "quantityTitle": "Combien de nourriture voulez-vous acheter ?",
             "guildXp": {
@@ -43,8 +43,8 @@
             "confirmEmbedField": " {emote} {name} | `{price1}💰` | `{price5}💰` | `{price10}💰`",
             "selectQuantityWarning": "Choissisez la quantité à acheter. \n\n :warning: cliquant sur une des réactions, vous confirmerez la transaction !",
             "success": "{pseudo}, Transaction success !",
-            "singleSuccessAddFoodTitle": "{quantity} {name} unit has been added to your guild's inventory.",
-            "multipleSuccessAddFoodTitle": "{quantity} {name} units have been added to your guild's inventory.",
+            "singleSuccessAddFoodTitle": "{quantity} {name} has been added to your guild's inventory.",
+            "multipleSuccessAddFoodTitle": "{quantity} {name}s have been added to your guild's inventory.",
             "fullStock": "Guild's inventory is already full for this ressource.",
             "quantityTitle": "How many food would you like to buy ?",
             "guildXp": {
