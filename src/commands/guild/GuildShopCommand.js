@@ -213,10 +213,17 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
                         .confirmEmbedField,
                     {
                         emote: selectedItem.emote,
-                        name: selectedItem.name,
+                        name: selectedItem.translations[language].name,
                         price1: selectedItem.price,
                         price5: selectedItem.price * 5,
                         price10: selectedItem.price * 10,
+                    }
+                ) +
+                format(
+                    JsonReader.commands.guildShop.getTranslation(language)
+                        .description,
+                    {
+                        info: selectedItem.translations[language].info,
                     }
                 ) +
                 JsonReader.commands.guildShop.getTranslation(language)
@@ -475,6 +482,9 @@ const giveFood = async (
                       .singleSuccessAddFoodTitle,
                   {
                       quantity: quantity,
+                      name: selectedItem.translations[language].name
+                          .slice(2, -2)
+                          .toLowerCase(),
                   }
               ),
 
@@ -486,6 +496,9 @@ const giveFood = async (
                       .multipleSuccessAddFoodTitle,
                   {
                       quantity: quantity,
+                      name: selectedItem.translations[language].name
+                          .slice(2, -2)
+                          .toLowerCase(),
                   }
               ),
 
