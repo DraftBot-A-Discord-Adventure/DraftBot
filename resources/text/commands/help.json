@@ -190,11 +190,11 @@
                     "category": "guild",
                     "description": "Permet de supprimer l'ainé de la guilde, nécessite d'être chef de guilde."
                 },
-                "guildinventory": {
+                "guildstorage": {
                     "emote": ":pencil:",
-                    "usage": "guildinventory",
+                    "usage": "guildstorage",
                     "category": "guild",
-                    "description": "Affiche l'inventaire de la guilde."
+                    "description": "Affiche le stockage de la guilde."
                 },
                 "guildshop": {
                     "emote": ":shopping_cart:",
@@ -466,11 +466,11 @@
                     "category": "guild",
                     "description": "Allow to remove the current guild's elder, requires to be guild's leader."
                 },
-                "guildinventory": {
+                "guildstorage": {
                     "emote": ":pencil:",
-                    "usage": "guildinventory",
+                    "usage": "guildstorage",
                     "category": "guild",
-                    "description": "Show the guild's inventory."
+                    "description": "Show the guild's storage."
                 },
                 "guildshop": {
                     "emote": ":shopping_cart:",
