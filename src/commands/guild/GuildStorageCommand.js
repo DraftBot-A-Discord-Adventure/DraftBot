@@ -1,10 +1,10 @@
 /**
- * Display the inventory of the guild
+ * Display the storage of the guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildInventoryCommand = async (language, message, args) => {
+const GuildStorageCommand = async (language, message, args) => {
     [entity] = await Entities.getOrRegister(message.author.id);
 
     if (
@@ -41,21 +41,21 @@ const GuildInventoryCommand = async (language, message, args) => {
         );
     }
 
-    let inventoryEmbed = new discord.MessageEmbed();
+    let storageEmbed = new discord.MessageEmbed();
 
-    inventoryEmbed.setTitle(
+    storageEmbed.setTitle(
         format(translations.embedTitle, {
             guild: guild.name,
         })
     );
 
-    inventoryEmbed.setThumbnail(JsonReader.commands.guild.icon);
+    storageEmbed.setThumbnail(JsonReader.commands.guild.icon);
 
-    inventoryEmbed.addField(
+    storageEmbed.addField(
         translations.fieldDescKey,
         translations.fieldDescValue
     );
-    inventoryEmbed.addField(
+    storageEmbed.addField(
         format(translations.foodTitle, {
             foodType: foodInfos.commonFood.translations[language].name,
             emote: foodInfos.commonFood.emote,
@@ -66,7 +66,7 @@ const GuildInventoryCommand = async (language, message, args) => {
         }),
         true
     );
-    inventoryEmbed.addField(
+    storageEmbed.addField(
         format(translations.foodTitle, {
             foodType: foodInfos.herbivorousFood.translations[language].name,
             emote: foodInfos.herbivorousFood.emote,
@@ -77,7 +77,7 @@ const GuildInventoryCommand = async (language, message, args) => {
         }),
         true
     );
-    inventoryEmbed.addField(
+    storageEmbed.addField(
         format(translations.foodTitle, {
             foodType: foodInfos.carnivorousFood.translations[language].name,
             emote: foodInfos.carnivorousFood.emote,
@@ -88,7 +88,7 @@ const GuildInventoryCommand = async (language, message, args) => {
         }),
         true
     );
-    inventoryEmbed.addField(
+    storageEmbed.addField(
         format(translations.foodTitle, {
             foodType: foodInfos.ultimateFood.translations[language].name,
             emote: foodInfos.ultimateFood.emote,
@@ -100,15 +100,15 @@ const GuildInventoryCommand = async (language, message, args) => {
         true
     );
 
-    await message.channel.send(inventoryEmbed);
+    await message.channel.send(storageEmbed);
 };
 
 module.exports = {
     commands: [
         {
-            name: "guildinventory",
-            func: GuildInventoryCommand,
-            aliases: ["guildinventory", "ginv"],
+            name: "guildstorage",
+            func: GuildStorageCommand,
+            aliases: ["guildstorage", "gstorage"],
         },
     ],
 };
