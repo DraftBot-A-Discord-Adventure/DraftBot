@@ -195,8 +195,9 @@ async function GuildShopCommand(language, message, args) {
 async function purchaseFood(message, language, entity, author, selectedItem) {
     const quantityPosibilities = new Map()
         .set(QUANTITY.ONE, 1)
-        .set(QUANTITY.FIVE, 5)
-        .set(QUANTITY.TEN, 10);
+        .set(QUANTITY.FIVE, 5);
+    if (selectedItem.type === "ultimateFood")
+        quantityPosibilities.set(QUANTITY.TEN, 10);
 
     const confirmEmbed = new discord.MessageEmbed()
         .setColor(JsonReader.bot.embed.default)
@@ -205,8 +206,32 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
                 pseudo: author.username,
             }),
             author.displayAvatarURL()
-        )
-        .setDescription(
+        );
+    if (selectedItem.type === "ultimateFood")
+        confirmEmbed.setDescription(
+            "\n\u200b\n" +
+                format(
+                    JsonReader.commands.guildShop.getTranslation(language)
+                        .confirmEmbedFieldForUltimateFood,
+                    {
+                        emote: selectedItem.emote,
+                        name: selectedItem.translations[language].name,
+                        price1: selectedItem.price,
+                        price5: selectedItem.price * 5,
+                    }
+                ) +
+                format(
+                    JsonReader.commands.guildShop.getTranslation(language)
+                        .description,
+                    {
+                        info: selectedItem.translations[language].info,
+                    }
+                ) +
+                JsonReader.commands.guildShop.getTranslation(language)
+                    .selectQuantityWarning
+        );
+    else
+        confirmEmbed.setDescription(
             "\n\u200b\n" +
                 format(
                     JsonReader.commands.guildShop.getTranslation(language)
@@ -283,13 +308,19 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
             quantity
         );
     });
-
-    await Promise.all([
-        confirmMessage.react(QUANTITY.ONE),
-        confirmMessage.react(QUANTITY.FIVE),
-        confirmMessage.react(QUANTITY.TEN),
-        confirmMessage.react(MENU_REACTION.DENY),
-    ]);
+    if (selectedItem.type === "ultimateFood")
+        await Promise.all([
+            confirmMessage.react(QUANTITY.ONE),
+            confirmMessage.react(QUANTITY.FIVE),
+            confirmMessage.react(MENU_REACTION.DENY),
+        ]);
+    else
+        await Promise.all([
+            confirmMessage.react(QUANTITY.ONE),
+            confirmMessage.react(QUANTITY.FIVE),
+            confirmMessage.react(QUANTITY.TEN),
+            confirmMessage.react(MENU_REACTION.DENY),
+        ]);
 }
 
 /**
