@@ -7,7 +7,13 @@ const tr = JsonReader.commands.petFeed;
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const PetFeedCommand = async function (language, message, args) {
-    [entity] = await Entities.getOrRegister(message.author.id);
+    let [entity] = await Entities.getOrRegister(message.author.id);
+    let guild;
+    try {
+        guild = await Guilds.getById(entity.Player.guild_id);
+    } catch (error) {
+        guild = null;
+    }
 
     if (
         (await canPerformCommand(
@@ -49,61 +55,130 @@ const PetFeedCommand = async function (language, message, args) {
             })
         );
     }
+    if (guild) {
+        const foodItems = new Map()
+            .set(GUILDSHOP.COMMON_FOOD, JsonReader.food.commonFood)
+            .set(GUILDSHOP.HERBIVOROUS_FOOD, JsonReader.food.herbivorousFood)
+            .set(GUILDSHOP.CARNIVOROUS_FOOD, JsonReader.food.carnivorousFood)
+            .set(GUILDSHOP.ULTIMATE_FOOD, JsonReader.food.ultimateFood);
 
-    const foodItems = new Map()
-        .set(GUILDSHOP.COMMON_FOOD, JsonReader.food.commonFood)
-        .set(GUILDSHOP.HERBIVOROUS_FOOD, JsonReader.food.herbivorousFood)
-        .set(GUILDSHOP.CARNIVOROUS_FOOD, JsonReader.food.carnivorousFood)
-        .set(GUILDSHOP.ULTIMATE_FOOD, JsonReader.food.ultimateFood);
+        let breedEmbed = new discord.MessageEmbed();
+        breedEmbed.setAuthor(
+            format(tr.getTranslation(language).breedEmbedTitle, {
+                author: message.author.username,
+            }),
+            message.author.displayAvatarURL()
+        );
 
-    let breedEmbed = new discord.MessageEmbed();
-    breedEmbed.setAuthor(
-        tr.getTranslation(language).breedEmbedTitle,
-        message.author.displayAvatarURL()
-    );
+        const breedMsg = await message.channel.send(breedEmbed);
 
-    const breedMsg = await message.channel.send(breedEmbed);
+        const filterConfirm = (reaction, user) => {
+            return user.id === entity.discordUser_id && reaction.me;
+        };
 
-    const filterConfirm = (reaction, user) => {
-        return user.id === entity.discordUser_id && reaction.me;
-    };
+        const collector = breedMsg.createReactionCollector(filterConfirm, {
+            time: 120000,
+            max: 1,
+        });
 
-    const collector = breedMsg.createReactionCollector(filterConfirm, {
-        time: 120000,
-        max: 1,
-    });
+        addBlockedPlayer(entity.discordUser_id, "petFeed");
 
-    addBlockedPlayer(entity.discordUser_id, "petFeed");
+        //Fetch the choice from the user
+        collector.on("end", async (reaction) => {
+            if (
+                !reaction.first() ||
+                reaction.first().emoji.name === MENU_REACTION.DENY
+            ) {
+                removeBlockedPlayer(entity.discordUser_id);
+                return sendErrorMessage(
+                    message.author,
+                    message.channel,
+                    language,
+                    tr.getTranslation(language).cancelBreed
+                );
+            }
 
-    //Fetch the choice from the user
-    collector.on("end", async (reaction) => {
-        if (
-            !reaction.first() ||
-            reaction.first().emoji.name === MENU_REACTION.DENY
-        ) {
+            if (foodItems.has(reaction.first().emoji.name)) {
+                const item = foodItems.get(reaction.first().emoji.name);
+                removeBlockedPlayer(entity.discordUser_id);
+                feedPet(message, language, entity, authorPet, item);
+            }
+        });
+
+        await Promise.all([
+            breedMsg.react(GUILDSHOP.COMMON_FOOD),
+            breedMsg.react(GUILDSHOP.HERBIVOROUS_FOOD),
+            breedMsg.react(GUILDSHOP.CARNIVOROUS_FOOD),
+            breedMsg.react(GUILDSHOP.ULTIMATE_FOOD),
+            breedMsg.react(MENU_REACTION.DENY),
+        ]);
+    } else {
+        let breedEmbed = new discord.MessageEmbed();
+        breedEmbed.setAuthor(
+            format(tr.getTranslation(language).breedEmbedTitle2, {
+                author: message.author.username,
+            }),
+            message.author.displayAvatarURL()
+        );
+        breedEmbed.setDescription(
+            format(tr.getTranslation(language).breedEmbedDescription, {
+                petnick: await PetEntities.displayName(authorPet, language),
+            })
+        );
+        breedEmbed.setFooter(tr.getTranslation(language).breedEmbedFooter);
+
+        const breedMsg = await message.channel.send(breedEmbed);
+
+        const filterConfirm = (reaction, user) => {
+            return user.id === entity.discordUser_id && reaction.me;
+        };
+
+        const collector = breedMsg.createReactionCollector(filterConfirm, {
+            time: 120000,
+            max: 1,
+        });
+
+        addBlockedPlayer(entity.discordUser_id, "petFeed");
+
+        //Fetch the choice from the user
+        collector.on("end", async (reaction) => {
             removeBlockedPlayer(entity.discordUser_id);
-            return sendErrorMessage(
-                message.author,
-                message.channel,
-                language,
-                tr.getTranslation(language).cancelBreed
+            if (
+                !reaction.first() ||
+                reaction.first().emoji.name === MENU_REACTION.DENY
+            ) {
+                return sendErrorMessage(
+                    message.author,
+                    message.channel,
+                    language,
+                    tr.getTranslation(language).cancelBreed
+                );
+            }
+
+            if (entity.Player.money - 20 < 0)
+                return message.channel.send(
+                    "Vous n'avez pas assez d'argent pour faire ca."
+                );
+            authorPet.lovePoints += 1;
+            entity.Player.money = entity.Player.money - 20;
+            Promise.all[(authorPet.save(), entity.Player.save())];
+            return message.channel.send(
+                new discord.MessageEmbed().setDescription(
+                    format(tr.getTranslation(language).description["1"], {
+                        petnick: await PetEntities.displayName(
+                            authorPet,
+                            language
+                        ),
+                    })
+                )
             );
-        }
+        });
 
-        if (foodItems.has(reaction.first().emoji.name)) {
-            const item = foodItems.get(reaction.first().emoji.name);
-            removeBlockedPlayer(entity.discordUser_id);
-            feedPet(message, language, entity, authorPet, item);
-        }
-    });
-
-    await Promise.all([
-        breedMsg.react(GUILDSHOP.COMMON_FOOD),
-        breedMsg.react(GUILDSHOP.HERBIVOROUS_FOOD),
-        breedMsg.react(GUILDSHOP.CARNIVOROUS_FOOD),
-        breedMsg.react(GUILDSHOP.ULTIMATE_FOOD),
-        breedMsg.react(MENU_REACTION.DENY),
-    ]);
+        await Promise.all([
+            breedMsg.react(MENU_REACTION.ACCEPT),
+            breedMsg.react(MENU_REACTION.DENY),
+        ]);
+    }
 };
 
 /**
