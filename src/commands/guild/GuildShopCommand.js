@@ -196,7 +196,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
     const quantityPosibilities = new Map()
         .set(QUANTITY.ONE, 1)
         .set(QUANTITY.FIVE, 5);
-    if (selectedItem.type === "ultimateFood")
+    if (!(selectedItem.type === "ultimateFood"))
         quantityPosibilities.set(QUANTITY.TEN, 10);
 
     const confirmEmbed = new discord.MessageEmbed()
@@ -518,6 +518,7 @@ const giveFood = async (
                 JsonReader.commands.guildShop.getTranslation(language)
                     .singleSuccessAddFoodDesc,
                 {
+                    emote: selectedItem.emote,
                     quantity: quantity,
                     name: selectedItem.translations[language].name
                         .slice(2, -2)
@@ -531,6 +532,7 @@ const giveFood = async (
                 JsonReader.commands.guildShop.getTranslation(language)
                     .multipleSuccessAddFoodDesc,
                 {
+                    emote: selectedItem.emote,
                     quantity: quantity,
                     name:
                         selectedItem.type === "ultimateFood" && language == "fr"
