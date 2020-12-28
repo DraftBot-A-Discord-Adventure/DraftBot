@@ -14,7 +14,7 @@ const PetFeedCommand = async function (language, message, args) {
             message,
             language,
             PERMISSION.ROLE.ALL,
-            [EFFECT.BABY],
+            [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
             entity
         )) !== true
     ) {
@@ -51,22 +51,10 @@ const PetFeedCommand = async function (language, message, args) {
     }
 
     const foodItems = new Map()
-        .set(
-            GUILDSHOP.COMMON_FOOD,
-            JsonReader.food.commonFood
-        )
-        .set(
-            GUILDSHOP.HERBIVOROUS_FOOD,
-            JsonReader.food.herbivorousFood
-        )
-        .set(
-            GUILDSHOP.CARNIVOROUS_FOOD,
-            JsonReader.food.carnivorousFood
-        )
-        .set(
-            GUILDSHOP.ULTIMATE_FOOD,
-            JsonReader.food.ultimateFood
-        );
+        .set(GUILDSHOP.COMMON_FOOD, JsonReader.food.commonFood)
+        .set(GUILDSHOP.HERBIVOROUS_FOOD, JsonReader.food.herbivorousFood)
+        .set(GUILDSHOP.CARNIVOROUS_FOOD, JsonReader.food.carnivorousFood)
+        .set(GUILDSHOP.ULTIMATE_FOOD, JsonReader.food.ultimateFood);
 
     let breedEmbed = new discord.MessageEmbed();
     breedEmbed.setAuthor(
@@ -175,13 +163,20 @@ async function feedPet(message, language, entity, pet, item) {
     return message.channel.send(successEmbed);
 }
 
-
 module.exports = {
-    commands: [{
-        name: "petfeed",
-        func: PetFeedCommand,
-        aliases: [
-            "feed", "pf", "petfeed", "pfeed", "feedp", "feedpet", "fp",
-        ],
-    },],
+    commands: [
+        {
+            name: "petfeed",
+            func: PetFeedCommand,
+            aliases: [
+                "feed",
+                "pf",
+                "petfeed",
+                "pfeed",
+                "feedp",
+                "feedpet",
+                "fp",
+            ],
+        },
+    ],
 };
