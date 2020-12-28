@@ -20,9 +20,10 @@ const GuildStorageCommand = async (language, message, args) => {
     }
 
     const foodInfos = JsonReader.food;
-    const translations = JsonReader.commands.guildInventory.getTranslation(
+    const translations = JsonReader.commands.guildStorage.getTranslation(
         language
     );
+
     // search for a user's guild
     let guild;
     try {
@@ -37,7 +38,7 @@ const GuildStorageCommand = async (language, message, args) => {
             message.author,
             message.channel,
             language,
-            translations.notInAguild
+            translations.notInAGuild
         );
     }
 
