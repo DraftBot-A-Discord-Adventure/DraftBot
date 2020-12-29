@@ -456,6 +456,16 @@ const TestCommand = async (language, message, args) => {
 					await message.channel.send("Correct usage: tp <map id>");
 					return;
 				}
+			case 'atravel':
+				if (args.length === 2) {
+					author.Player.start_travel_date -= parseInt(args[1]) * 60000;
+					author.Player.save();
+					break;
+				}
+				else {
+					await message.channel.send("Correct usage: atravel <time in minutes>");
+					return;
+				}
 			default:
 				await message.channel.send('Argument inconnu !');
 				return;

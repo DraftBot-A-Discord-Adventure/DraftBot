@@ -16,42 +16,52 @@
 			"types": {
 				"city": {
 					"name": "Ville",
+					"prefix": "de la",
 					"emote": "\uD83C\uDFD8️"
 				},
 				"road": {
 					"name": "Route",
+					"prefix": "de la",
 					"emote": "\uD83D\uDEE3️"
 				},
 				"plain": {
 					"name": "Plaine",
+					"prefix": "de la",
 					"emote": "\uD83C\uDF3A"
 				},
 				"forest": {
 					"name": "Forêt",
+					"prefix": "de la",
 					"emote": "\uD83C\uDF33"
 				},
 				"mountain": {
 					"name": "Montagne",
+					"prefix": "de la",
 					"emote": "⛰️"
 				},
 				"beach": {
 					"name": "Plage",
+					"prefix": "de la",
 					"emote": "\uD83C\uDFD6️"
 				},
 				"village": {
 					"name": "Village",
+					"prefix": "du",
 					"emote": "\uD83D\uDED6"
 				},
 				"desert": {
 					"name": "Désert",
+					"prefix": "du",
 					"emote": "\uD83C\uDFDC️"
 				},
 				"river": {
 					"name": "Rivière",
+					"prefix": "de la",
 					"emote": "\uD83C\uDFDE️"
 				},
 				"lake": {
 					"name": "Lac",
+					"prefix": "du",
 					"emote": "\uD83D\uDEA3\u200D♂️"
 				}
 			},
@@ -74,42 +84,52 @@
 			"types": {
 				"city": {
 					"name": "City",
+					"prefix": "of the",
 					"emote": "\uD83C\uDFD8️"
 				},
 				"road": {
 					"name": "Road",
+					"prefix": "of the",
 					"emote": "\uD83D\uDEE3️"
 				},
 				"plain": {
 					"name": "Plain",
+					"prefix": "of the",
 					"emote": "\uD83C\uDF3A"
 				},
 				"forest": {
 					"name": "Forest",
+					"prefix": "of the",
 					"emote": "\uD83C\uDF33"
 				},
 				"mountain": {
 					"name": "Mountain",
+					"prefix": "of the",
 					"emote": "⛰️"
 				},
 				"beach": {
 					"name": "Beach",
+					"prefix": "of the",
 					"emote": "\uD83C\uDFD6️"
 				},
 				"village": {
 					"name": "Village",
+					"prefix": "of the",
 					"emote": "\uD83D\uDED6"
 				},
 				"desert": {
 					"name": "Desert",
+					"prefix": "of the",
 					"emote": "\uD83C\uDFDC️"
 				},
 				"river": {
 					"name": "River",
+					"prefix": "of the",
 					"emote": "\uD83C\uDFDE️"
 				},
 				"lake": {
 					"name": "Lake",
+					"prefix": "of the",
 					"emote": "\uD83D\uDEA3\u200D♂️"
 				}
 			},

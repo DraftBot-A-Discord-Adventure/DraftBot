@@ -55,8 +55,16 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {"fr"|"en"} language
 	 * @returns {string}
 	 */
+	MapLocations.prototype.getEmote = function(language) {
+		return JsonReader.models.maps.getTranslation(language).types[this.type].emote
+	}
+
+	/**
+	 * @param {"fr"|"en"} language
+	 * @returns {string}
+	 */
 	MapLocations.prototype.getDisplayName = function(language) {
-		return JsonReader.models.maps.getTranslation(language).types[this.type].emote + " " + (language === "fr" ? this.name_fr : this.name_en)
+		return this.getEmote(language) + " " + (language === "fr" ? this.name_fr : this.name_en)
 	}
 
 	/**

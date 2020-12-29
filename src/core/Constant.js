@@ -140,3 +140,8 @@ global.PETS = {
 	BASE_LOVE: 10,
 	LOVE_LEVELS: [5, 20, 50]
 }
+
+global.REPORT = {
+	TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000,
+	SMALL_EVENTS_COUNT: 3
+}

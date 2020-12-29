@@ -1,4 +1,5 @@
 const Op = require('sequelize/lib/operators');
+const Maps = require('../../core/Maps')
 
 /**
  * Allow the user to learn more about what is going on with his character
@@ -8,6 +9,90 @@ const Op = require('sequelize/lib/operators');
  * @param {Number} forceSpecificEvent - For testing purpose
  */
 const ReportCommand = async function (language, message, args, forceSpecificEvent = -1) {
+	const [entity] = await Entities.getOrRegister(message.author.id);
+
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
+		return;
+	}
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
+	if (!Maps.isTravelling(entity.Player)) {
+		return await chooseDestination(entity, message, language);
+	}
+
+	return await message.channel.send(new discord.MessageEmbed().setTitle("TEST").setDescription(await Maps.generateTravelPathString(entity.Player, language)));
+}
+
+const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
+
+const chooseDestination = async function(entity, message, language) {
+	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
+	// TODO mettre le temps ici comme ça ça bloque pas si le bot crash
+	if (destinationMaps.length === 1) {
+		await Maps.startTravel(entity.Player, destinationMaps[0]);
+		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
+	}
+
+	const tr = JsonReader.commands.report.getTranslation(language);
+	let chooseDestinationEmbed = new discord.MessageEmbed();
+	chooseDestinationEmbed.setAuthor(format(tr.destinationTitle, { pseudo: message.author.username }), message.author.displayAvatarURL());
+	let desc = tr.chooseDestinationIndications + "\n";
+	for (let i = 0; i < destinationMaps.length; ++i) {
+		const map = await MapLocations.getById(destinationMaps[i]);
+		desc += destinationChoiceEmotes[i] + " - " + map.getDisplayName(language) + "\n";
+	}
+	chooseDestinationEmbed.setDescription(desc);
+
+	const sentMessage = await message.channel.send(chooseDestinationEmbed);
+
+	const collector = sentMessage.createReactionCollector((reaction, user) => {
+		return destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
+	}, { time: 120000 });
+
+	collector.on('collect', async () => {
+		collector.stop();
+	});
+
+	collector.on('end', async (collected) => {
+		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[randInt(0, destinationMaps.length - 1)];
+		await Maps.startTravel(entity.Player, mapId);
+		await destinationChoseMessage(entity, mapId, message, language);
+	});
+
+	for (let i = 0; i < destinationMaps.length; ++i) {
+		try {
+			await sentMessage.react(destinationChoiceEmotes[i]);
+		} catch (e) {
+			console.error(e);
+		}
+	}
+}
+
+/**
+ * Function called to display the direction chose by a player
+ * @param entity
+ * @param map
+ * @param message
+ * @param language
+ * @returns {Promise<void>}
+ */
+const destinationChoseMessage = async function(entity, map, message, language) {
+	const tr = JsonReader.commands.report.getTranslation(language);
+	const typeTr = JsonReader.models.maps.getTranslation(language);
+	const mapInstance = await MapLocations.getById(map);
+	let destinationEmbed = new discord.MessageEmbed();
+	destinationEmbed.setAuthor(format(tr.destinationTitle, { pseudo: message.author.username }), message.author.displayAvatarURL());
+	destinationEmbed.setDescription(format(tr.choseMap, {
+		mapPrefix: typeTr.types[mapInstance.type].prefix,
+		mapName: mapInstance.getDisplayName(language),
+		mapType: typeTr.types[mapInstance.type].name.toLowerCase()
+	}));
+	await message.channel.send(destinationEmbed);
+}
+
+/*const ReportCommand = async function (language, message, args, forceSpecificEvent = -1) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
@@ -65,7 +150,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 		event = await Events.findOne({where: {id: forceSpecificEvent}});
 	}
 	return await doEvent(message, language, event, entity, time);
-};
+};*/
 
 /**
  * @param {module:"discord.js".Message} message - Message from the discord server
@@ -76,7 +161,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<void>}
  */
-const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
+/*const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
 	const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {
 		pseudo: message.author.username,
 		event: event[language]
@@ -110,7 +195,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 			await eventDisplayed.react(reaction).catch();
 		}
 	}
-};
+};*/
 
 /**
  * @param {module:"discord.js".Message} message - Message from the discord server
@@ -121,6 +206,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<Message>}
  */
+/*
 const doPossibility = async (message, language, possibility, entity, time, forcePoints = 0) => {
 	[entity] = await Entities.getOrRegister(entity.discordUser_id);
 	const player = entity.Player;
@@ -217,7 +303,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	player.save();
 
 	return resultMsg;
-};
+};*/
 
 module.exports = {
 	commands: [

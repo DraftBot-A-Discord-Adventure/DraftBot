@@ -114,6 +114,51 @@ class Maps {
 		player.start_travel_date = 0;
 		await player.save();
 	}
+
+	/**
+	 * The number of squares between small events in the travel path string
+	 * @type {number}
+	 */
+	static PATH_SQUARE_COUNT = 5;
+
+	/**
+	 * Generates a string representing the player walking form a map to another
+	 * @param {Players} player
+	 * @param {"fr"|"en"} language
+	 * @returns {Promise<string>}
+	 */
+	static async generateTravelPathString(player, language) {
+		const prevMapInstance = await MapLocations.getById(player.previous_map_id);
+		const nextMapInstance = await MapLocations.getById(player.map_id);
+		let percentage = this.getTravellingTime(player) / REPORT.TIME_BETWEEN_BIG_EVENTS;
+		if (percentage > 1) {
+			percentage = 1;
+		}
+		let index = 0;
+		const percentageSpan = 1 / (REPORT.SMALL_EVENTS_COUNT + 1);
+		for (let i = 0; i < REPORT.SMALL_EVENTS_COUNT + 1; ++i) {
+			if (percentage <= (i + 1) * percentageSpan) {
+				index = i * (this.PATH_SQUARE_COUNT + 1) + this.PATH_SQUARE_COUNT * (percentage - i * percentageSpan) / percentageSpan;
+				break;
+			}
+		}
+		index = Math.floor(index);
+		let str = prevMapInstance.getEmote(language) + " ";
+		for (let i = 0; i < REPORT.SMALL_EVENTS_COUNT + 1; ++i) {
+			for (let j = 0; j < this.PATH_SQUARE_COUNT; ++j) {
+				if (i * (this.PATH_SQUARE_COUNT + 1) + j === index) {
+					str += "🧍";
+				}
+				else {
+					str += "🔲";
+				}
+			}
+			if (i < REPORT.SMALL_EVENTS_COUNT) {
+				str += "❓";
+			}
+		}
+		return str + " " + nextMapInstance.getEmote(language);
+	}
 }
 
 module.exports = Maps;
