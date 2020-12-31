@@ -265,7 +265,7 @@ async function feedPet(message, language, entity, pet, item) {
                 break;
         }
     }
-    // pet.hungrySince = Date();
+    pet.hungrySince = Date();
     await Promise.all([pet.save(), guild.save()]);
     return message.channel.send(successEmbed);
 }
