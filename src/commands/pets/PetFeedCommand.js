@@ -64,10 +64,13 @@ const PetFeedCommand = async function (language, message, args) {
 
         let breedEmbed = new discord.MessageEmbed();
         breedEmbed.setAuthor(
-            format(tr.getTranslation(language).breedEmbedTitle, {
+            format(tr.getTranslation(language).breedEmbedAuthor, {
                 author: message.author.username,
             }),
             message.author.displayAvatarURL()
+        );
+        breedEmbed.setDescription(
+            tr.getTranslation(language).breedEmbedDescription
         );
 
         const breedMsg = await message.channel.send(breedEmbed);
@@ -121,7 +124,7 @@ const PetFeedCommand = async function (language, message, args) {
             message.author.displayAvatarURL()
         );
         breedEmbed.setDescription(
-            format(tr.getTranslation(language).breedEmbedDescription, {
+            format(tr.getTranslation(language).breedEmbedDescription2, {
                 petnick: await PetEntities.displayName(authorPet, language),
             })
         );
@@ -156,10 +159,12 @@ const PetFeedCommand = async function (language, message, args) {
             }
 
             if (entity.Player.money - 20 < 0)
-                return message.channel.send(
-                    "Vous n'avez pas assez d'argent pour faire ca."
+                return sendErrorMessage(
+                    message.author,
+                    message.channel,
+                    language,
+                    tr.getTranslation(language).noMoney
                 );
-            authorPet.lovePoints += 1;
             entity.Player.money = entity.Player.money - 20;
             Promise.all[(authorPet.save(), entity.Player.save())];
             return message.channel.send(
@@ -199,42 +204,69 @@ async function feedPet(message, language, entity, pet, item) {
             tr.getTranslation(language).notEnoughFood
         );
     }
-    pet.lovePoints += item.effect;
-    if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
-        pet.lovePoints = PETS.MAX_LOVE_POINTS;
-    guild[item.type] = guild[item.type] - 1;
-    // pet.hungrySince = Date();
-    await Promise.all([pet.save(), guild.save()]);
+
     const successEmbed = new discord.MessageEmbed();
+
     successEmbed.setAuthor(
         format(tr.getTranslation(language).embedTitle, {
             pseudo: message.author.username,
         }),
         message.author.displayAvatarURL()
     );
-    switch (item.type) {
-        case "commonFood":
-            successEmbed.setDescription(
-                format(tr.getTranslation(language).description["1"], {
-                    petnick: await PetEntities.displayName(pet, language),
-                })
-            );
-            break;
-        case "rareFood":
+    if (
+        (pet.PetModel.diet && item.type === "herbivorousFood") ||
+        item.type === "carnivorousFood"
+    ) {
+        if (item.type.includes(pet.PetModel.diet)) {
+            pet.lovePoints += item.effect;
+            if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
+                pet.lovePoints = PETS.MAX_LOVE_POINTS;
+            guild[item.type] = guild[item.type] - 1;
             successEmbed.setDescription(
                 format(tr.getTranslation(language).description["2"], {
                     petnick: await PetEntities.displayName(pet, language),
                 })
             );
-            break;
-        case "uniqueFood":
+        } else {
+            guild[item.type] = guild[item.type] - 1;
             successEmbed.setDescription(
-                format(tr.getTranslation(language).description["3"], {
+                format(tr.getTranslation(language).description["0"], {
                     petnick: await PetEntities.displayName(pet, language),
                 })
             );
-            break;
+        }
+    } else {
+        pet.lovePoints += item.effect;
+        if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
+            pet.lovePoints = PETS.MAX_LOVE_POINTS;
+        guild[item.type] = guild[item.type] - 1;
+        switch (item.type) {
+            case "commonFood":
+                successEmbed.setDescription(
+                    format(tr.getTranslation(language).description["1"], {
+                        petnick: await PetEntities.displayName(pet, language),
+                    })
+                );
+                break;
+            case "carnivorousFood":
+            case "herbivorousFood":
+                successEmbed.setDescription(
+                    format(tr.getTranslation(language).description["2"], {
+                        petnick: await PetEntities.displayName(pet, language),
+                    })
+                );
+                break;
+            case "ultimateFood":
+                successEmbed.setDescription(
+                    format(tr.getTranslation(language).description["3"], {
+                        petnick: await PetEntities.displayName(pet, language),
+                    })
+                );
+                break;
+        }
     }
+    // pet.hungrySince = Date();
+    await Promise.all([pet.save(), guild.save()]);
     return message.channel.send(successEmbed);
 }
 

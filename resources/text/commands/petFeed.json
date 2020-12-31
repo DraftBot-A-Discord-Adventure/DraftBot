@@ -1,33 +1,42 @@
 {
     "translations": {
         "fr": {
-            "embedTitle": "{pseudo}, vous offrez une friandise à votre animal.",
-            "breedEmbedTitle": "{author}, Avec quel type de nourriture voulez-vous nourrir votre familier ?",
-            "breedEmbedTitle2": "{author}, Confirmation :",
-            "breedEmbedDescription": "Souhaitez vous acheter une 🍬 friandise pour {petnick} ? \n\n 🍬 Friandise x 1 | 20 💰",
-            "breedEmbedFooter": "⚠️ Pour profiter de meilleurs sources de nourriture, rejoignez une guilde !",
+            "embedTitle": "{pseudo}, vous offrez de la nourriture à votre animal.",
+            "breedEmbedAuthor": "{author}, choix :",
+            "breedEmbedDescription": "Avec quel type de nourriture voulez-vous nourrir votre familier ?",
+            "breedEmbedTitle2": "{author}, confirmation :",
+            "breedEmbedDescription2": "Souhaitez vous acheter une friandise pour {petnick} ? \n\n 🍬 Friandise | `20💰`",
+            "breedEmbedFooter": "Pour profiter de meilleurs sources de nourriture, rejoignez une guilde !",
             "cancelBreed": "Vous n'avez pas nourri votre familier...",
-            "notEnoughFood": "Vous n'avez pas assez de nourriture de ce type pour nourrir votre pet.",
+            "notEnoughFood": "L'inventaire de la guilde ne contient pas assez de nourriture de ce type pour nourrir votre pet.",
             "noPet": "Vous n'avez aucun animal !",
             "description": {
+                "0": "**{petnick}** n'as pas aimé !",
                 "1": "**{petnick}** est heureux !",
                 "2": "**{petnick}** est très heureux !",
                 "3": "**{petnick}** saute de joie !"
             },
-            "notHungry": "Il semblerait que **{petnick}** n'ait pas faim..."
+            "notHungry": "Il semblerait que **{petnick}** n'ait pas faim...",
+            "noMoney": "Vous n'avez pas assez d'argent pour effectuer cet achat..."
         },
         "en": {
             "embedTitle": "{pseudo}, you offer some food to your pet.",
-            ":breedEmbedTitle": "Which food type do you want to feed your pet?",
+            "breedEmbedAuthor": "{author}, choice :",
+            "breedEmbedDescription": "What type of food do your want to give to your pet?",
+            "breedEmbedTitle2": "{author}, confirmation:",
+            "breedEmbedDescription2": "Do you want to buy a Treat for {petnick}? \n\n :candy: Treat | `20 💰`",
+            "breedEmbedFooter": "To gain better food sources, join a guild!",
             "cancelBreed": "You didn't feed your pet...",
-            "notEnoughFood": "You don't have enough of that food type to feed your pet.",
-            "noPet": "You don't have a pet!",
+            "notEnoughFood": "The guild inventory doesn't have enough of that food type to feed your pet.",
+            "noPet": "You don't have any pet!",
             "description": {
-                "1": "**{petnick}** is happy !",
-                "2": "**{petnick}** is very happy !",
-                "3": "**{petnick}** is overjoyed !"
+                "0": "**{petnick}** didn't like it!",
+                "1": "**{petnick}** is happy!",
+                "2": "**{petnick}** is very happy!",
+                "3": "**{petnick}** is joyful!"
             },
-            "notHungry": "It seems that **{petnick}** is not hungry..."
+            "notHungry": "It seems **{petnick}** isn't hungry...",
+            "noMoney": "You don't have enough money to buy that..."
         }
     },
     "defaultsPoints": 6
