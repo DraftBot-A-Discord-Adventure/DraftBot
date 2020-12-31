@@ -12,7 +12,7 @@
             "success": "{author}, Transaction réussie !",
             "singleSuccessAddFoodDesc": "{emote} {quantity} {name} a été rajoutée à l'inventaire de votre guilde.",
             "multipleSuccessAddFoodDesc": "{emote} {quantity} {name}s ont été rajoutées à l'inventaire de votre guilde.",
-            "fullStock": "L'inventaire de la guilde est déjà plein pour cette ressource.",
+            "fullStock": "L'inventaire de la guilde ne contient pas assez de place pour cette ressource.",
             "quantityTitle": "Combien de nourriture voulez-vous acheter ?",
             "guildXp": {
                 "name": ":star: **Un peu d'xp pour votre guilde**",
@@ -47,7 +47,7 @@
             "success": "{author}, Transaction success !",
             "singleSuccessAddFoodDesc": "{emote} {quantity} {name} has been added to your guild's inventory.",
             "multipleSuccessAddFoodDesc": "{emote} {quantity} {name}s have been added to your guild's inventory.",
-            "fullStock": "Guild's inventory is already full for this ressource.",
+            "fullStock": "The guild inventory doesn't have enough spacee for that resource.",
             "quantityTitle": "How many food would you like to buy ?",
             "guildXp": {
                 "name": ":star: **Some xp for your guild**",

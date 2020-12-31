@@ -83,8 +83,8 @@ async function GuildShopCommand(language, message, args) {
                 shopTranslations.foodItem,
                 [
                     commonFood,
-                    carnivorousFood,
                     herbivorousFood,
+                    carnivorousFood,
                     ultimateFood,
                 ].join("\n") +
                     format(shopTranslations.moneyQuantity, {
@@ -496,11 +496,12 @@ const giveFood = async (
         guild[selectedItem.type] + quantity >
         JsonReader.commands.guildShop.max[selectedItem.type]
     ) {
-        const fullStockEmbed = new discord.MessageEmbed().setAuthor(
-            JsonReader.commands.guildShop.getTranslation(language).fullStock,
-            author.displayAvatarURL()
+        return sendErrorMessage(
+            author,
+            message.channel,
+            language,
+            JsonReader.commands.guildShop.getTranslation(language).fullStock
         );
-        return message.channel.send(fullStockEmbed);
     }
     guild[selectedItem.type] = guild[selectedItem.type] + quantity;
     await entity.Player.addMoney(-selectedItem.price); //Remove money
