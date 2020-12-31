@@ -1,5 +1,3 @@
-const { Guild } = require("discord.js");
-
 /**
  * Allow to sell pet
  * @param {("fr"|"en")} language - Language to use in the response
@@ -8,6 +6,12 @@ const { Guild } = require("discord.js");
  */
 const PetSellCommand = async function (language, message, args) {
     let [entity] = await Entities.getOrRegister(message.author.id);
+    let fields = [];
+    let guild;
+    let petCost;
+    let pet;
+    let sellInstance = undefined;
+    const translations = JsonReader.commands.petSell.getTranslation(language);
 
     if (
         (await canPerformCommand(
@@ -24,27 +28,41 @@ const PetSellCommand = async function (language, message, args) {
         return;
     }
 
-    const petCost = parseInt(args[1]);
+    try {
+        guild = await Guilds.getById(entity.Player.guild_id);
+    } catch (error) {
+        guild = null;
+    }
+
+    if (guild == null) {
+        // not in a guild
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildAdd.getTranslation(language).notInAguild
+        );
+    }
+    if (!args[0])
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            translations.needArgs
+        );
+
+    petCost = parseInt(args[0], 10);
 
     if (isNaN(petCost))
         return sendErrorMessage(
             message.author,
             message.channel,
             language,
-            JsonReader.commands.petSell.getTranslation(language).needNumber
+            translations.needNumber
         );
 
-    /* if (message.mentions.users.first().id === message.author.id) {
-        return sendErrorMessage(
-            message.author,
-            message.channel,
-            language,
-            JsonReader.commands.petSell.getTranslation(language).cantTradeSelf
-        ); 
-    } */
-
-    let pet1 = entity.Player.Pet;
-    if (!pet1) {
+    pet = entity.Player.Pet;
+    if (!pet) {
         return sendErrorMessage(
             message.author,
             message.channel,
@@ -53,140 +71,143 @@ const PetSellCommand = async function (language, message, args) {
         );
     }
 
-    const confirmEmbed = new discord.MessageEmbed();
-    confirmEmbed.setAuthor(
-        JsonReader.commands.petSell.getTranslation(language).tradeTitle,
-        message.author.displayAvatarURL()
-    );
-    confirmEmbed.setDescription(
-        format(
-            JsonReader.commands.petSell.getTranslation(language)
-                .tradeDescription,
+    if (petCost < 100 || petCost > 10000) {
+        return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            translations.badPrice
+        );
+    }
+
+    fields.push({
+        name: translations.petFieldName,
+        value: format(
+            JsonReader.commands.profile.getTranslation(language).pet.fieldValue,
             {
-                trader1: message.author,
-                trader2: message.mentions.users.first(),
-            }
-        )
-    );
-    confirmEmbed.setFooter(
-        JsonReader.commands.petSell.getTranslation(language).warningTradeReset
-    );
-    confirmEmbed.addField(
-        format(
-            JsonReader.commands.petSell.getTranslation(language).petOfTrader,
-            {
-                trader: await entity.Player.getPseudo(language),
+                rarity: Pets.getRarityDisplay(pet.PetModel),
+                emote: PetEntities.getPetEmote(pet),
+                nickname: pet.nickname
+                    ? pet.nickname
+                    : PetEntities.getPetTypeName(pet, language),
             }
         ),
-        await PetEntities.getPetDisplay(pet1, language),
-        true
+        inline: false,
+    });
+
+    const sellMessage = await message.channel.send(
+        new discord.MessageEmbed()
+            .setTitle(translations.sellMessage.title)
+            .setDescription(
+                format(translations.sellMessage.description, {
+                    author: message.author.username,
+                    price: petCost,
+                })
+            )
+            .addFields(fields)
+            .setFooter(translations.sellMessage.footer)
     );
 
-    const confirmMessage = await message.channel.send(confirmEmbed);
-
-    let trader1Accepted = null;
-    let trader2Accepted = null;
-
     const filter = (reaction, user) => {
-        return (
-            (reaction.emoji.name === MENU_REACTION.ACCEPT ||
-                reaction.emoji.name === MENU_REACTION.DENY) &&
-            (user.id === message.author.id ||
-                user.id === message.mentions.users.first().id)
-        );
+        return !user.bot;
     };
 
-    const collector = confirmMessage.createReactionCollector(filter, {
+    const collector = sellMessage.createReactionCollector(filter, {
         time: 120000,
-        dispose: true,
     });
 
-    addBlockedPlayer(trader1.discordUser_id, "petSell", collector);
-    addBlockedPlayer(trader2.discordUser_id, "petSell", collector);
+    addBlockedPlayer(entity.discordUser_id, "petSell", collector);
 
-    collector.on("remove", (reaction, user) => {
-        if (reaction.emoji.name === MENU_REACTION.ACCEPT) {
-            if (user.id === message.author.id) {
-                trader1Accepted = null;
-            } else {
-                trader2Accepted = null;
-            }
-        }
-    });
-
-    collector.on("collect", (reaction, user) => {
-        if (reaction.emoji.name === MENU_REACTION.ACCEPT) {
-            if (user.id === message.author.id) {
-                trader1Accepted = true;
-            } else {
-                trader2Accepted = true;
-            }
-            if (trader1Accepted === true && trader2Accepted === true) {
-                collector.stop();
-            }
-        } else if (reaction.emoji.name === MENU_REACTION.DENY) {
-            if (user.id === message.author.id) {
-                trader1Accepted = false;
-            } else {
-                trader2Accepted = false;
-            }
-            collector.stop();
-        }
-    });
-
-    collector.on("end", async (reaction) => {
-        [trader1] = await Entities.getOrRegister(message.author.id);
-        [trader2] = await Entities.getOrRegister(
-            message.mentions.users.first().id
-        );
-        pet1 = trader1.Player.Pet;
-        removeBlockedPlayer(trader1.discordUser_id);
-        removeBlockedPlayer(trader2.discordUser_id);
-        if (trader1Accepted === true && trader2Accepted === true) {
-            trader2.Player.pet_id = pet1.id;
-            trader2.Player.save();
-            pet1.lovePoints = PETS.BASE_LOVE;
-            pet1.save();
-            const successEmbed = new discord.MessageEmbed();
-            successEmbed.setAuthor(
-                JsonReader.commands.petSell.getTranslation(language).tradeTitle,
-                message.author.displayAvatarURL()
-            );
-            successEmbed.setDescription(
-                JsonReader.commands.petSell.getTranslation(language)
-                    .tradeSuccess
-            );
-            await message.channel.send(successEmbed);
-        } else if (trader1Accepted === false || trader2Accepted === false) {
-            await sendErrorMessage(
-                message.author,
-                message.channel,
-                language,
-                format(
-                    JsonReader.commands.petSell.getTranslation(language)
-                        .tradeCanceled,
-                    {
-                        trader:
-                            trader1Accepted === false
-                                ? message.author
-                                : message.mentions.users.first(),
+    let spamCount = 0;
+    let spammers = [];
+    let buyer = null;
+    collector.on("collect", async (reaction, user) => {
+        switch (reaction.emoji.name) {
+            case "✅":
+                if (user.id === entity.discordUser_id) {
+                    spamCount++;
+                    if (spamCount < 3) {
+                        sendErrorMessage(
+                            user,
+                            message.channel,
+                            language,
+                            translations.errors.canSellYourself
+                        );
+                        return;
                     }
-                )
-            );
-        } else {
-            await sendErrorMessage(
-                message.author,
-                message.channel,
-                language,
-                JsonReader.commands.petSell.getTranslation(language)
-                    .tradeCanceledTime
-            );
+                    sendErrorMessage(
+                        user,
+                        message.channel,
+                        language,
+                        translations.errors.spam
+                    );
+                    sellInstance = null;
+                    break;
+                }
+                [buyer] = await Entities.getOrRegister(user.id);
+                if (
+                    (await canPerformCommand(
+                        message,
+                        language,
+                        PERMISSION.ROLE.ALL,
+                        [EFFECT.BABY],
+                        buyer
+                    )) !== true
+                ) {
+                    buyer = null;
+                    return;
+                }
+                petSell(message, language, entity, user, pet, petCost);
+                break;
+            case "❌":
+                if (user.id === entity.discordUser_id) {
+                    await sendErrorMessage(
+                        user,
+                        message.channel,
+                        language,
+                        translations.sellCancelled
+                    );
+                } else {
+                    if (spammers.includes(user.id)) {
+                        return;
+                    }
+                    spammers.push(user.id);
+                    sendErrorMessage(
+                        user,
+                        message.channel,
+                        language,
+                        translations.errors.onlyInitiator
+                    );
+                    return;
+                }
+                sellInstance = null;
+                break;
+            default:
+                return;
+        }
+        collector.stop();
+    });
+
+    collector.on("end", async function () {
+        if (sellInstance === undefined) {
+            global.removeBlockedPlayer(entity.discordUser_id);
+            if (buyer == null) {
+                sendErrorMessage(
+                    message.author,
+                    message.channel,
+                    language,
+                    translations.errors.noOneAvailable
+                );
+            }
+        }
+        if (sellInstance == null) {
+            global.removeBlockedPlayer(entity.discordUser_id);
         }
     });
 
     await Promise.all([
-        confirmMessage.react(MENU_REACTION.ACCEPT),
-        confirmMessage.react(MENU_REACTION.DENY),
+        sellMessage.react(MENU_REACTION.ACCEPT),
+        sellMessage.react(MENU_REACTION.DENY),
     ]);
 };
 
@@ -199,3 +220,144 @@ module.exports = {
         },
     ],
 };
+
+async function petSell(message, language, entity, user, pet, petCost) {
+    const translations = JsonReader.commands.petSell.getTranslation(language);
+    [buyer] = await Entities.getOrRegister(user.id);
+    const guild = await Guilds.getById(entity.Player.guild_id);
+    const confirmEmbed = new discord.MessageEmbed()
+        .setAuthor(
+            format(translations.confirmEmbed.author, {
+                username: user.username,
+            }),
+            user.displayAvatarURL()
+        )
+        .setDescription(
+            format(translations.confirmEmbed.description, {
+                emote: await PetEntities.getPetEmote(pet),
+                pet: (await pet.nickname)
+                    ? pet.nickname
+                    : PetEntities.getPetTypeName(pet, language),
+                price: petCost,
+            })
+        );
+
+    const confirmMessage = await message.channel.send(confirmEmbed);
+
+    const confirmFilter = (reaction, user) => {
+        return user.id === buyer.discordUser_id && reaction.me;
+    };
+
+    const confirmCollector = confirmMessage.createReactionCollector(
+        confirmFilter,
+        {
+            time: 120000,
+            max: 1,
+        }
+    );
+
+    addBlockedPlayer(buyer.discordUser_id, "petSellConfirm", confirmCollector);
+
+    confirmCollector.on("end", async (reaction) => {
+        if (
+            !reaction.first() ||
+            reaction.first().emoji.name === MENU_REACTION.DENY
+        ) {
+            removeBlockedPlayer(buyer.discordUser_id);
+            return sendErrorMessage(
+                user,
+                message.channel,
+                language,
+                translations.sellCancelled
+            );
+        }
+        if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+            removeBlockedPlayer(buyer.discordUser_id);
+            let buyerGuild;
+            try {
+                buyerGuild = await Guilds.getById(buyer.Player.guild_id);
+            } catch (error) {
+                buyerGuild = null;
+            }
+            if (buyerGuild && buyerGuild.id === guild.id) {
+                return sendErrorMessage(
+                    user,
+                    message.channel,
+                    language,
+                    translations.sameGuild
+                );
+            }
+            let buyerPet = buyer.Player.Pet;
+            if (buyerPet) {
+                return sendErrorMessage(
+                    user,
+                    message.channel,
+                    language,
+                    translations.havePet
+                );
+            }
+            if (petCost > buyer.Player.money)
+                return sendErrorMessage(
+                    user,
+                    message.channel,
+                    language,
+                    translations.noMoney
+                );
+            const MIN_XP = Math.floor(petCost / (1000 / 50));
+            const MAX_XP = Math.floor(petCost / (1000 / 450));
+            const toAdd = Math.floor(randInt(MIN_XP, MAX_XP));
+            guild.addExperience(toAdd); //Add xp
+            while (guild.needLevelUp()) {
+                await guild.levelUpIfNeeded(message.channel, language);
+            }
+            await guild.save();
+            buyer.Player.pet_id = pet.id;
+            buyer.Player.money = buyer.Player.money - petCost;
+            await buyer.Player.save();
+            entity.Player.pet_id = null;
+            await entity.Player.save();
+            pet.lovePoints = PETS.BASE_LOVE;
+            await pet.save();
+            const guildXpEmbed = new discord.MessageEmbed();
+            guildXpEmbed.setTitle(
+                format(
+                    JsonReader.commands.guildDaily.getTranslation(language)
+                        .rewardTitle,
+                    {
+                        guildName: guild.name,
+                    }
+                )
+            );
+            guildXpEmbed.setDescription(
+                format(
+                    JsonReader.commands.guildDaily.getTranslation(language)
+                        .guildXP,
+                    {
+                        xp: toAdd,
+                    }
+                )
+            );
+            const addPetEmbed = new discord.MessageEmbed();
+            addPetEmbed.setAuthor(
+                format(translations.addPetEmbed.author, {
+                    username: user.username,
+                }),
+                user.displayAvatarURL()
+            );
+            addPetEmbed.setDescription(
+                format(translations.addPetEmbed.description, {
+                    emote: await PetEntities.getPetEmote(pet),
+                    pet: pet.nickname
+                        ? pet.nickname
+                        : PetEntities.getPetTypeName(pet, language),
+                })
+            );
+            await message.channel.send(guildXpEmbed);
+            return message.channel.send(addPetEmbed);
+        }
+    });
+    await Promise.all([
+        confirmMessage.react(MENU_REACTION.ACCEPT),
+        confirmMessage.react(MENU_REACTION.DENY),
+    ]);
+}
