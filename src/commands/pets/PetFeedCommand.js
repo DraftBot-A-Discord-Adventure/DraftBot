@@ -214,8 +214,8 @@ async function feedPet(message, language, entity, pet, item) {
         message.author.displayAvatarURL()
     );
     if (
-        (pet.PetModel.diet && item.type === "herbivorousFood") ||
-        item.type === "carnivorousFood"
+        pet.PetModel.diet &&
+        (item.type === "herbivorousFood" || item.type === "carnivorousFood")
     ) {
         if (item.type.includes(pet.PetModel.diet)) {
             pet.lovePoints += item.effect;
