@@ -3,7 +3,7 @@
 		"fr": {
 			"buyTitle": "{pseudo}, confirmation :",
 			"alreadyInAGuild": "Vous appartenez déjà à une guilde.",
-			"noNameProvided": "Indiquez un nom pour votre guilde : `guildCreate VotreNomDeGuilde`.",
+			"noNameProvided": "Indiquez un nom pour votre guilde : `guildCreate [VotreNomDeGuilde]`.",
 			"invalidName": "Les règles pour le nom de la guilde sont les suivantes:",
 			"nameAlreadyUsed": "Le nom de guilde que vous avez choisi est déjà utilisé.",
 			"creationCancelled": "La création de votre guilde a été annulée.",
