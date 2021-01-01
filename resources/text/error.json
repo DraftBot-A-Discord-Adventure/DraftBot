@@ -64,7 +64,8 @@
                 "selectQuantity": "Sélection d'une quantité",
                 "test": "Test",
                 "petSell": "Vente de pet.",
-                "petSellConfirm": "Confirmation de l'achat d'un pet."
+                "petSellConfirm": "Confirmation de l'achat d'un pet.",
+                "chiefGuildLeave": "Passation de pouvoir."
             }
         },
         "en": {
@@ -131,7 +132,8 @@
                 "selectQuantity": "Quantity selection",
                 "test": "Test",
                 "sellPet": "Pet sale.",
-                "sellPetConfirm": "Confirmation of a pet purchase."
+                "sellPetConfirm": "Confirmation of a pet purchase.",
+                "chiefGuildLeave": "Authority will be transferred."
             }
         }
     }

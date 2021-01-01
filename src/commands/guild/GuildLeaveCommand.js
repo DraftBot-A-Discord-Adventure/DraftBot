@@ -7,7 +7,9 @@
 const GuildLeaveCommand = async (language, message, args) => {
     let entity;
     let guild;
+    let elder;
     const confirmationEmbed = new discord.MessageEmbed();
+
     [entity] = await Entities.getOrRegister(message.author.id);
 
     if (
@@ -42,6 +44,23 @@ const GuildLeaveCommand = async (language, message, args) => {
         );
     }
 
+    if (guild.elder_id) {
+        elder = await Entities.getById(guild.elder_id);
+        if (
+            (await canPerformCommand(
+                message,
+                language,
+                PERMISSION.ROLE.ALL,
+                [EFFECT.BABY, EFFECT.DEAD],
+                elder
+            )) !== true
+        ) {
+            return;
+        }
+    } else {
+        elder = null;
+    }
+
     // generate confirmation embed
     confirmationEmbed.setAuthor(
         format(
@@ -63,16 +82,14 @@ const GuildLeaveCommand = async (language, message, args) => {
             )
         );
     } else {
-        if (guild.elder_id != null) {
-            const member = await Entities.getById(guild.elder_id);
-            const memberPseudo = await member.Player.getPseudo(language);
+        if (elder) {
             confirmationEmbed.setDescription(
                 format(
                     JsonReader.commands.guildLeave.getTranslation(language)
                         .leaveChiefDescWithElder,
                     {
                         guildName: guild.name,
-                        elderName: await member.Player.getPseudo(language),
+                        elderName: await elder.Player.getPseudo(language),
                     }
                 )
             );
@@ -106,14 +123,16 @@ const GuildLeaveCommand = async (language, message, args) => {
     });
 
     addBlockedPlayer(entity.discordUser_id, "guildLeave", collector);
-
+    if (elder)
+        addBlockedPlayer(elder.discordUser_id, "chiefGuildLeave", collector);
     collector.on("end", async (reaction) => {
         removeBlockedPlayer(entity.discordUser_id);
+        if (elder) removeBlockedPlayer(elder.discordUser_id);
         if (reaction.first()) {
             // a reaction exist
             if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
                 entity.Player.guild_id = null;
-                if (guild.elder_id != null) {
+                if (elder) {
                     guild.chief_id = guild.elder_id;
                     guild.elder_id = null;
                     await Promise.all([guild.save()]);
@@ -127,27 +146,25 @@ const GuildLeaveCommand = async (language, message, args) => {
                             }
                         )
                     );
-                } else {
-                    if (guild.chief_id == entity.id) {
-                        // the chief is leaving : destroy the guild
-                        await Players.update(
-                            { guild_id: null },
-                            {
-                                where: {
-                                    guild_id: guild.id,
-                                },
-                            }
-                        );
-                        for (let pet of guild.GuildPets) {
-                            pet.PetEntity.destroy();
-                            pet.destroy();
-                        }
-                        await Guilds.destroy({
+                } else if (guild.chief_id == entity.id) {
+                    // the chief is leaving : destroy the guild
+                    await Players.update(
+                        { guild_id: null },
+                        {
                             where: {
-                                id: guild.id,
+                                guild_id: guild.id,
                             },
-                        });
+                        }
+                    );
+                    for (let pet of guild.GuildPets) {
+                        pet.PetEntity.destroy();
+                        pet.destroy();
                     }
+                    await Guilds.destroy({
+                        where: {
+                            id: guild.id,
+                        },
+                    });
                 }
 
                 await Promise.all([entity.save(), entity.Player.save()]);
