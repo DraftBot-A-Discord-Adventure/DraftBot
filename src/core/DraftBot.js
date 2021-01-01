@@ -48,7 +48,7 @@ class DraftBot {
         let millisTill = getNextSundayMidnight() - new Date();
         if (millisTill === 0) {
             //Case at 0:00:00
-            setTimeout(DraftBot.programTopWeekTimeout, 1);
+            setTimeout(DraftBot.programTopWeekTimeout, 10000);
             return;
         }
         setTimeout(DraftBot.topWeekEnd, millisTill);
@@ -61,7 +61,7 @@ class DraftBot {
         let millisTill = getNextDay2AM() - new Date();
         if (millisTill === 0) {
             //Case at 2:00:00
-            setTimeout(DraftBot.programDailyTimeout, 1);
+            setTimeout(DraftBot.programDailyTimeout, 10000);
             return;
         }
         setTimeout(DraftBot.dailyTimeout, millisTill);
@@ -100,11 +100,11 @@ class DraftBot {
         );
         console.info(`INFO : new potion in shop : ${potion.id}`);
         if (draftbotRandom.bool()) {
-            console.log("INFO: All pets lost 1 love point");
+            console.log("INFO: All pets lost 4 loves point");
             await PetEntities.update(
                 {
                     lovePoints: sequelize.literal(
-                        `CASE WHEN lovePoints - 1 < 0 THEN 0 ELSE lovePoints - 1 END`
+                        `CASE WHEN lovePoints - 1 < 0 THEN 0 ELSE lovePoints - 4 END`
                     ),
                 },
                 {
@@ -231,11 +231,11 @@ class DraftBot {
                     if (parts.length === 5) {
                         if (
                             now -
-                                new Date(
-                                    parseInt(parts[1]),
-                                    parseInt(parts[2]) - 1,
-                                    parseInt(parts[3])
-                                ) >
+                            new Date(
+                                parseInt(parts[1]),
+                                parseInt(parts[2]) - 1,
+                                parseInt(parts[3])
+                            ) >
                             7 * 24 * 60 * 60 * 1000
                         ) {
                             // 7 days
@@ -243,9 +243,9 @@ class DraftBot {
                                 if (err !== undefined && err !== null) {
                                     originalConsoleError(
                                         "Error while deleting logs/" +
-                                            file +
-                                            ": " +
-                                            err
+                                        file +
+                                        ": " +
+                                        err
                                     );
                                 }
                             });
@@ -279,11 +279,11 @@ class DraftBot {
                 fs.appendFileSync(
                     global.currLogsFile,
                     dateStr +
-                        message.replace(
-                            /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
-                            ""
-                        ) +
-                        "\n",
+                    message.replace(
+                        /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
+                        ""
+                    ) +
+                    "\n",
                     new (function (err) {
                         if (err !== undefined) {
                             originalConsoleError(
@@ -297,7 +297,7 @@ class DraftBot {
                     DraftBot.updateGlobalLogsFile(now);
                     global.currLogsCount = 0;
                 }
-            } catch {}
+            } catch { }
         };
 
         /* Console override */
