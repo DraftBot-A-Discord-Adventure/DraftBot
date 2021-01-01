@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Crocodile",
-      "femaleName": "Crocodile"
+    "translations": {
+        "fr": {
+            "maleName": "Crocodile",
+            "femaleName": "Crocodile"
+        },
+        "en": {
+            "maleName": "Crocodile",
+            "femaleName": "Crocodile"
+        }
     },
-    "en": {
-      "maleName": "Crocodile",
-      "femaleName": "Crocodile"
-    }
-  },
-  "emoteMale": "🐊",
-  "emoteFemale": "🐊",
-  "rarity": 3
+    "emoteMale": "🐊",
+    "emoteFemale": "🐊",
+    "rarity": 3,
+    "diet": "carnivorous"
 }

@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Dodo",
-      "femaleName": "Dodo"
+    "translations": {
+        "fr": {
+            "maleName": "Dodo",
+            "femaleName": "Dodo"
+        },
+        "en": {
+            "maleName": "Dodo",
+            "femaleName": "Dodo"
+        }
     },
-    "en": {
-      "maleName": "Dodo",
-      "femaleName": "Dodo"
-    }
-  },
-  "emoteMale": "🦤",
-  "emoteFemale": "🦤",
-  "rarity": 4
+    "emoteMale": "🦤",
+    "emoteFemale": "🦤",
+    "rarity": 4,
+    "diet": "herbivorous"
 }

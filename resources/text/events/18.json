@@ -57,14 +57,14 @@
 			},
 			{
 				"translations": {
-					"fr": "** | ⛓ En grimpant sur la structure instable, vous découvrez une vue imprenable sur la région !",
-					"en": "** | ⛓ Climbing the unstable structure, you discover a breathtaking view of the region!"
+					"fr": "** | ⛓ En grimpant sur la structure instable, vous découvrez une vue imprenable sur la région ! Vous profitez du point de vue pour repérer un objet en contrebas.",
+					"en": "** | ⛓ Climbing the unstable structure, you discover a breathtaking view of the region! You take advantage of the viewpoint to spot an object down below."
 				},
 				"lostTime": 15,
 				"health": 0,
 				"effect": ":clock2:",
-				"experience": 425,
-				"money": 30,
+				"experience": 325,
+				"money": 0,
 				"item": true
 			},
 			{

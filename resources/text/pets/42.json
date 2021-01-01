@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Ours polaire",
-      "femaleName": "Ourse polaire"
+    "translations": {
+        "fr": {
+            "maleName": "Ours polaire",
+            "femaleName": "Ourse polaire"
+        },
+        "en": {
+            "maleName": "Polar bear",
+            "femaleName": "Polar bear"
+        }
     },
-    "en": {
-      "maleName": "Polar bear",
-      "femaleName": "Polar bear"
-    }
-  },
-  "emoteMale": "🐻‍❄️",
-  "emoteFemale": "🐻‍❄️",
-  "rarity": 3
+    "emoteMale": "🐻‍❄️",
+    "emoteFemale": "🐻‍❄️",
+    "rarity": 3,
+    "diet": "carnivorous"
 }

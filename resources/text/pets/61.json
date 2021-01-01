@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Mammouth",
-      "femaleName": "Mammouth"
+    "translations": {
+        "fr": {
+            "maleName": "Mammouth",
+            "femaleName": "Mammouth"
+        },
+        "en": {
+            "maleName": "Mammoth",
+            "femaleName": "Mammoth"
+        }
     },
-    "en": {
-      "maleName": "Mammoth",
-      "femaleName": "Mammoth"
-    }
-  },
-  "emoteMale": "🦣",
-  "emoteFemale": "🦣",
-  "rarity": 4
+    "emoteMale": "🦣",
+    "emoteFemale": "🦣",
+    "rarity": 4,
+    "diet": "herbivorous"
 }

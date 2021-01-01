@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Grenouille",
-      "femaleName": "Grenouille"
+    "translations": {
+        "fr": {
+            "maleName": "Grenouille",
+            "femaleName": "Grenouille"
+        },
+        "en": {
+            "maleName": "Frog",
+            "femaleName": "Frog"
+        }
     },
-    "en": {
-      "maleName": "Frog",
-      "femaleName": "Frog"
-    }
-  },
-  "emoteMale": "🐸",
-  "emoteFemale": "🐸",
-  "rarity": 2
+    "emoteMale": "🐸",
+    "emoteFemale": "🐸",
+    "rarity": 2,
+    "diet": "herbivorous"
 }

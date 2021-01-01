@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Serpent",
-      "femaleName": "Serpent"
+    "translations": {
+        "fr": {
+            "maleName": "Serpent",
+            "femaleName": "Serpent"
+        },
+        "en": {
+            "maleName": "Snake",
+            "femaleName": "Snake"
+        }
     },
-    "en": {
-      "maleName": "Snake",
-      "femaleName": "Snake"
-    }
-  },
-  "emoteMale": "🐍",
-  "emoteFemale": "🐍",
-  "rarity": 1
+    "emoteMale": "🐍",
+    "emoteFemale": "🐍",
+    "rarity": 1,
+    "diet": "carnivorous"
 }

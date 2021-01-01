@@ -66,6 +66,7 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  */
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
   let item = await entity.Player.Inventory.generateRandomItem();
+  log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
   let autoSell = false;
   let autoReplace = false;
   const receivedEmbed = new discord.MessageEmbed();

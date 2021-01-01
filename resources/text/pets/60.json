@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Léopard",
-      "femaleName": "Léopard"
+    "translations": {
+        "fr": {
+            "maleName": "Léopard",
+            "femaleName": "Léopard"
+        },
+        "en": {
+            "maleName": "Leopard",
+            "femaleName": "Leopard"
+        }
     },
-    "en": {
-      "maleName": "Leopard",
-      "femaleName": "Leopard"
-    }
-  },
-  "emoteMale": "🐆",
-  "emoteFemale": "🐆",
-  "rarity": 4
+    "emoteMale": "🐆",
+    "emoteFemale": "🐆",
+    "rarity": 4,
+    "diet": "carnivorous"
 }

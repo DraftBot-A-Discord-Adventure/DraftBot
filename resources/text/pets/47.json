@@ -1,15 +1,16 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Zèbre",
-      "femaleName": "Zèbre"
+    "translations": {
+        "fr": {
+            "maleName": "Zèbre",
+            "femaleName": "Zèbre"
+        },
+        "en": {
+            "maleName": "Zebra",
+            "femaleName": "Zebra"
+        }
     },
-    "en": {
-      "maleName": "Zebra",
-      "femaleName": "Zebra"
-    }
-  },
-  "emoteMale": "🦓",
-  "emoteFemale": "🦓",
-  "rarity": 3
+    "emoteMale": "🦓",
+    "emoteFemale": "🦓",
+    "rarity": 3,
+    "diet": "herbivorous"
 }

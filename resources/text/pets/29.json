@@ -1,15 +1,15 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Sanglier",
-      "femaleName": "Laie"
+    "translations": {
+        "fr": {
+            "maleName": "Sanglier",
+            "femaleName": "Laie"
+        },
+        "en": {
+            "maleName": "Wild boar",
+            "femaleName": "Wild boar"
+        }
     },
-    "en": {
-      "maleName": "Wild boar",
-      "femaleName": "Wild boar"
-    }
-  },
-  "emoteMale": "🐗",
-  "emoteFemale": "🐗",
-  "rarity": 2
+    "emoteMale": "🐗",
+    "emoteFemale": "🐗",
+    "rarity": 2
 }

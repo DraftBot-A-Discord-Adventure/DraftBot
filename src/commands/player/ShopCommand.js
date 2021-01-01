@@ -23,7 +23,10 @@ async function ShopCommand(language, message, args) {
     }
 
     const shopTranslations = JsonReader.commands.shop.getTranslation(language);
-    const numberOfPotions = await Potions.count();
+
+    const shopPotion = await Shop.findOne({
+        attributes: ["shop_potion_id"],
+    });
 
     //Formatting intems data into a string
     const randomItem = format(shopTranslations.display, {
@@ -42,20 +45,14 @@ async function ShopCommand(language, message, args) {
         name: shopTranslations.permanentItems.badge.name,
         price: shopTranslations.permanentItems.badge.price,
     });
-    const guildXp = format(shopTranslations.display, {
-        name: shopTranslations.permanentItems.guildXp.name,
-        price: shopTranslations.permanentItems.guildXp.price,
-    });
 
     //Fetching potion infos
     const potion = await Potions.findOne({
         where: {
-            id:
-                (Math.round(Date.now() / (1000 * 60 * 60 * 24)) %
-                    (numberOfPotions - 1)) +
-                1,
+            id: shopPotion.shop_potion_id,
         },
     });
+
     const potionPrice = Math.round(
         (parseInt(JsonReader.values.raritiesValues[potion.rarity]) +
             parseInt(potion.power)) *
@@ -76,9 +73,7 @@ async function ShopCommand(language, message, args) {
             )
             .addField(
                 shopTranslations.permanentItem,
-                [randomItem, healAlterations, regen, badge, guildXp].join(
-                    "\n"
-                ) +
+                [randomItem, healAlterations, regen, badge].join("\n") +
                     format(shopTranslations.moneyQuantity, {
                         money: entity.Player.money,
                     })
@@ -93,8 +88,7 @@ async function ShopCommand(language, message, args) {
         .set(SHOP.QUESTION, shopTranslations.permanentItems.randomItem)
         .set(SHOP.HOSPITAL, shopTranslations.permanentItems.healAlterations)
         .set(SHOP.HEART, shopTranslations.permanentItems.regen)
-        .set(SHOP.MONEY_MOUTH, shopTranslations.permanentItems.badge)
-        .set(SHOP.STAR, shopTranslations.permanentItems.guildXp);
+        .set(SHOP.MONEY_MOUTH, shopTranslations.permanentItems.badge);
 
     const filterConfirm = (reaction, user) => {
         return user.id === entity.discordUser_id && reaction.me;
@@ -203,7 +197,6 @@ async function ShopCommand(language, message, args) {
         shopMessage.react(SHOP.HOSPITAL),
         shopMessage.react(SHOP.HEART),
         shopMessage.react(SHOP.MONEY_MOUTH),
-        shopMessage.react(SHOP.STAR),
         shopMessage.react(MENU_REACTION.DENY),
     ]);
 }
@@ -222,6 +215,13 @@ async function sellItem(
 ) {
     [entity] = await Entities.getOrRegister(entity.discordUser_id);
     const shopTranslations = JsonReader.commands.shop.getTranslation(language);
+    log(
+        entity.discordUser_id +
+            " bought the shop item " +
+            selectedItem.name +
+            " for " +
+            selectedItem.price
+    );
     if (selectedItem.name) {
         //This is not a potion
         if (
@@ -307,7 +307,6 @@ async function confirmPurchase(
     customer,
     selectedItem
 ) {
-    addBlockedPlayer(entity.discordUser_id, "confirmBuy");
     const confirmEmbed = new discord.MessageEmbed()
         .setColor(JsonReader.bot.embed.default)
         .setAuthor(
@@ -490,51 +489,6 @@ function giveMoneyMouthBadge(
                 .setDescription("\n\n" + selectedItem.name)
         );
         return true;
-    }
-}
-
-/**
- * Give guild xp
- */
-async function giveGuildXp(message, language, entity, customer, selectedItem) {
-    try {
-        const guild = await Guilds.getById(entity.Player.guild_id);
-        const toAdd = randInt(50, 450);
-        guild.addExperience(toAdd); //Add xp
-        while (guild.needLevelUp()) {
-            await guild.levelUpIfNeeded(message.channel, language);
-        }
-        await guild.save();
-
-        message.channel.send(
-            new discord.MessageEmbed()
-                .setColor(JsonReader.bot.embed.default)
-                .setAuthor(
-                    format(
-                        JsonReader.commands.shop.getTranslation(language)
-                            .success,
-                        {
-                            pseudo: customer.username,
-                        }
-                    ),
-                    customer.displayAvatarURL()
-                )
-                .setDescription(
-                    "\n\n" +
-                        format(selectedItem.give, {
-                            experience: toAdd,
-                        })
-                )
-        );
-        return true;
-    } catch (err) {
-        sendErrorMessage(
-            customer,
-            message.channel,
-            language,
-            JsonReader.commands.guild.getTranslation(language).noGuildException
-        );
-        return false;
     }
 }
 

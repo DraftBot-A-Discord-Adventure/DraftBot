@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://draftbot.fandom.com/fr/wiki/Commandes",
+			"mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://guide.draftbot.com/",
 			"helpEmbedTitle": "{pseudo}, voici la liste des commandes disponibles :",
 			"helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:",
 			"serverCommands": ":gear: Serveur :",
@@ -172,6 +172,12 @@
 					"category": "guild",
 					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef de guilde."
 				},
+				"guilddesc": {
+					"emote": ":writing_hand:",
+					"usage": "guilddesc [description]",
+					"category": "guild",
+					"description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
+				},
 				"guildelder": {
 					"emote": ":military_medal:",
 					"usage": "guildelder [mention]",
@@ -184,11 +190,17 @@
 					"category": "guild",
 					"description": "Permet de supprimer l'ainé de la guilde, nécessite d'être chef de guilde."
 				},
-				"guilddesc": {
-					"emote": ":writing_hand:",
-					"usage": "guilddesc [description]",
+				"guildstorage": {
+					"emote": ":pencil:",
+					"usage": "guildstorage",
 					"category": "guild",
-					"description": "Permet de modifier la description de la guilde, nécessite d'être chef de guilde."
+					"description": "Affiche le contenu de l'entrepôt de la guilde."
+				},
+				"guildshop": {
+					"emote": ":shopping_cart:",
+					"usage": "guildshop",
+					"category": "guild",
+					"description": "Affiche le magasin de votre guilde."
 				},
 				"update": {
 					"emote": ":scroll:",
@@ -238,11 +250,17 @@
 					"category": "pet",
 					"description": "Propose un échange de vos animaux avec la personne mentionnée."
 				},
-				"breedpet": {
+				"petfeed": {
 					"emote": ":candy:",
-					"usage": "breedpet",
+					"usage": "petfeed",
 					"category": "pet",
 					"description": "Donner de la nourriture à votre animal."
+				},
+				"petsell": {
+					"emote": ":dollar:",
+					"usage": "petsell <price>",
+					"category": "pet",
+					"description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix du vente doit être être supérieur à `100💰` et inférieur à `10000💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
 				},
 				"classstats": {
 					"emote": ":bookmark:",
@@ -265,8 +283,7 @@
 			}
 		},
 		"en": {
-			"mp": ":crossed_swords: Hey! This message was sent because you asked for help.\n\nIf you need help, you can join the bot server!\n\nYou will be able to be a part of the bot's development and you will get details about it!\n\nhttps://discord.gg/USnCxg4\n\nIf you don't want to join us (:sob:) you can also read the bot's wiki!\nhttps://draftbot.fandom.com/fr/wiki/Commandes",
-			"main": "** :notebook_with_decorative_cover: {pseudo} here is the list of the available commands:**\n{commands}\n\n:arrow_forward: If you want more information about a specific command write: `help [name of the command]` :wink:\n\n:arrow_forward: You can ask for help about badges by writing `help badges`\n\n:arrow_forward: For more help you can visit the bot's wiki! <https://draftbot.fandom.com/wiki/Commands>",
+			"mp": ":crossed_swords: Hey! This message was sent because you asked for help.\n\nIf you need help, you can join the bot server!\n\nYou will be able to be a part of the bot's development and you will get details about it!\n\nhttps://discord.gg/USnCxg4\n\nIf you don't want to join us (:sob:) you can also read the bot's wiki!\n https://guide.draftbot.com/v/en/",
 			"helpEmbedTitle": "{pseudo}, here is the list of the available commands :",
 			"helpEmbedDescription": ":arrow_forward: If you want more information about a specific command write: `help [name of the command]` :wink:",
 			"serverCommands": ":gear: Server :",
@@ -455,6 +472,18 @@
 					"category": "guild",
 					"description": "Allow to remove the current guild's elder, requires to be guild's leader."
 				},
+				"guildstorage": {
+					"emote": ":pencil:",
+					"usage": "guildstorage",
+					"category": "guild",
+					"description": "Show the guild's storage."
+				},
+				"guildshop": {
+					"emote": ":shopping_cart:",
+					"usage": "guildshop",
+					"category": "guild",
+					"description": "Show the guild's shop."
+				},
 				"update": {
 					"emote": ":scroll:",
 					"usage": "update",
@@ -491,6 +520,12 @@
 					"category": "pet",
 					"description": "Free your pet. Warning: once freed, the pet will be deleted forever. This command can only be used once per hour."
 				},
+				"petsell": {
+					"emote": ":dollar:",
+					"usage": "petsell <price>",
+					"category": "pet",
+					"description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `100💰` and lower than `10000💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
+				},
 				"shelter": {
 					"emote": ":park:",
 					"usage": "shelter",
@@ -503,9 +538,9 @@
 					"category": "pet",
 					"description": "Propose a trade of pets with the mentioned player."
 				},
-				"breedpet": {
+				"petfeed": {
 					"emote": ":candy:",
-					"usage": "breedpet",
+					"usage": "petfeed",
 					"category": "pet",
 					"description": "Give some food to your pet."
 				},
