@@ -109,7 +109,7 @@ module.exports = {
         {
             name: "guildstorage",
             func: GuildStorageCommand,
-            aliases: ["guildstorage", "gstorage"],
+            aliases: ["guildstorage", "gstorage", "gst"],
         },
     ],
 };
