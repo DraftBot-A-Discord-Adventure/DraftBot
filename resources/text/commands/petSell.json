@@ -1,62 +1,62 @@
 {
-	"translations": {
-		"fr": {
-			"needArgs": "Veuillez préciser un prix pour finaliser la vente : `petsell [prix]`",
-			"sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
-			"needNumber": "Le prix entré semble incorrect. Veuillez indiquer un nombre : `petsell [prix]`",
-			"badPrice": "Le prix doit être supérieur à `100💰` et inférieur à `10000💰`",
-			"petFieldName": "Animal vendu :",
-			"sellMessage": {
-				"title": "Vente en cours !",
-				"description": "{author} souhaite vendre un pet pour `${price}💰` !",
-				"footer": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell."
-			},
-			"confirmEmbed": {
-				"author": "{username}, confirmation !",
-				"description": "Vous allez acheter {emote} **{pet}** pour `${price}💰`"
-			},
-			"addPetEmbed": {
-				"author": "{username}, transaction effectuée !",
-				"description": "{emote} **{pet}** vous suit désormais. Ocuppez vous en bien !"
-			},
-			"noMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction.",
-			"sellCancelled": "La vente à été annulée !",
-			"havePet": "Vous avez déja un pet dans votre inventaire.",
-			"errors": {
-				"canSellYourself": "Il est impossible de se vendre un pet à soi-même !",
-				"spam": "Votre vente a été annulée. Merci de ne pas spam la réaction de votre vente.",
-				"onlyInitiator": "Seul l'initiateur d'une vente peut l'annuler !",
-				"noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée."
-			}
-		},
-		"en": {
-			"needArgs": "You have to set a price to conclude the sale: `petsell [price]`",
-			"sameGuild": "You can't buy this pet, because the seller is part of your guild.",
-			"needNumber": "You have to define a number to conclude the sale: `petsell [price]`",
-			"badPrice": "The price must be higher than `100💰` and lower than `10000💰`",
-			"petFieldName": "Pet sold:",
-			"sellMessage": {
-				"title": "Ongoing sale!",
-				"description": "{author} wants to sell a pet for `${price}💰`!",
-				"footer": "For more details about pet sales, use help petsell."
-			},
-			"confirmEmbed": {
-				"author": "${username}, confirmation!",
-				"description": "You will buy {emote} **{pet}** for `${price}💰`"
-			},
-			"addPetEmbed": {
-				"author": "{username}, transaction done!",
-				"description": "{emote} **{pet}** now follows you. Take care of them!"
-			},
-			"noMoney": "You don't have enough money to buy that.",
-			"sellCancelled": "The sale has been cancelled!",
-			"havePet": "You already have a pet in your inventory.",
-			"errors": {
-				"canSellYourself": "It is impossible to sell a pet to yourself!",
-				"spam": "Your sale has been cancelled. Thank you for not spamming the reaction on your sale.",
-				"onlyInitiator": "Only the initiator of the sale can cancel it!",
-				"noOneAvailable": "Sadly, no one seems to be available to buy your pet. Your sale has been cancelled."
-			}
-		}
-	}
+    "translations": {
+        "fr": {
+            "needArgs": "Veuillez préciser un prix pour finaliser la vente : `petsell [prix]`",
+            "sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
+            "needNumber": "Le prix entré semble incorrect. Veuillez indiquer un nombre : `petsell [prix]`",
+            "badPrice": "Le prix doit être supérieur à `{minPrice}💰` et inférieur à `{maxPrice}💰`.",
+            "petFieldName": "Animal vendu :",
+            "sellMessage": {
+                "title": "Vente en cours !",
+                "description": "{author} souhaite vendre un pet pour `${price}💰` !",
+                "footer": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell."
+            },
+            "confirmEmbed": {
+                "author": "{username}, confirmation !",
+                "description": "Vous allez acheter {emote} **{pet}** pour `${price}💰`"
+            },
+            "addPetEmbed": {
+                "author": "{username}, transaction effectuée !",
+                "description": "{emote} **{pet}** vous suit désormais. Ocuppez vous en bien !"
+            },
+            "noMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction.",
+            "sellCancelled": "La vente à été annulée !",
+            "havePet": "Vous avez déja un pet dans votre inventaire.",
+            "errors": {
+                "canSellYourself": "Il est impossible de se vendre un pet à soi-même !",
+                "spam": "Votre vente a été annulée. Merci de ne pas spam la réaction de votre vente.",
+                "onlyInitiator": "Seul l'initiateur d'une vente peut l'annuler !",
+                "noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée."
+            }
+        },
+        "en": {
+            "needArgs": "You have to set a price to conclude the sale: `petsell [price]`",
+            "sameGuild": "You can't buy this pet, because the seller is part of your guild.",
+            "needNumber": "You have to define a number to conclude the sale: `petsell [price]`",
+            "badPrice": "The price must be higher than `100💰` and lower than `10000💰`",
+            "petFieldName": "Pet sold:",
+            "sellMessage": {
+                "title": "Ongoing sale!",
+                "description": "{author} wants to sell a pet for `${price}💰`!",
+                "footer": "For more details about pet sales, use help petsell."
+            },
+            "confirmEmbed": {
+                "author": "${username}, confirmation!",
+                "description": "You will buy {emote} **{pet}** for `${price}💰`"
+            },
+            "addPetEmbed": {
+                "author": "{username}, transaction done!",
+                "description": "{emote} **{pet}** now follows you. Take care of them!"
+            },
+            "noMoney": "You don't have enough money to buy that.",
+            "sellCancelled": "The sale has been cancelled!",
+            "havePet": "You already have a pet in your inventory.",
+            "errors": {
+                "canSellYourself": "It is impossible to sell a pet to yourself!",
+                "spam": "Your sale has been cancelled. Thank you for not spamming the reaction on your sale.",
+                "onlyInitiator": "Only the initiator of the sale can cancel it!",
+                "noOneAvailable": "Sadly, no one seems to be available to buy your pet. Your sale has been cancelled."
+            }
+        }
+    }
 }

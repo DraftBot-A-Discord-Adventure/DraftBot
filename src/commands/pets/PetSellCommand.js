@@ -71,12 +71,15 @@ const PetSellCommand = async function (language, message, args) {
         );
     }
 
-    if (petCost < 100 || petCost > 10000) {
+    if (petCost < PETS.SELL.MIN || petCost > PETS.SELL.MAX) {
         return sendErrorMessage(
             message.author,
             message.channel,
             language,
-            translations.badPrice
+            format(translations.badPrice, {
+                minPrice: PETS.SELL.MIN,
+                maxPrice: PETS.SELL.MAX,
+            })
         );
     }
 

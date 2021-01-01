@@ -157,6 +157,10 @@ global.PETS = {
     MAX_LOVE_POINTS: 100,
     BASE_LOVE: 10,
     LOVE_LEVELS: [5, 20, 50],
+    SELL: {
+        MIN: 100,
+        MAX: 50000,
+    },
 };
 
 global.LOGS = {
