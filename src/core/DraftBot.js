@@ -81,7 +81,7 @@ class DraftBot {
         do {
             potion = await Potions.findOne({
                 where: {
-                    id: draftbotRandom.integer(0, numberOfPotions - 1) + 1,
+                    id: draftbotRandom.integer(0, numberOfPotions - 2) + 1,
                 },
             });
         } while (potion.id == shopPotion.shop_potion_id);
