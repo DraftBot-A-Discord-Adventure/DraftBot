@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Caniche",
+            "femaleName": "Caniche"
+        },
+        "en": {
+            "maleName": "Poodle",
+            "femaleName": "Poodle"
+        }
+    },
+    "emoteMale": "🐩",
+    "emoteFemale": "🐩",
+    "rarity": 1,
+    "diet": "carnivorous"
+}

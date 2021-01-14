@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"invalidName": "Les règles pour le nom d'un animal sont les suivantes:",
+			"successTitle": "{pseudo}, changement du nom de l'animal",
+			"success": "Nom de l'animal changé en **{name}** !",
+			"successNoName": "Votre animal n'a désormais plus de nom !"
+		},
+		"en": {
+			"invalidName": "The rules for the pet's name are the following:",
+			"successTitle": "{pseudo}, Pet name change",
+			"success": "Your pet's name changed to **{name}**!",
+			"successNoName": "Your pet doesn't have a name anymore!"
+		}
+	}
+}

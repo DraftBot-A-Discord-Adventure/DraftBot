@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Lézard",
+            "femaleName": "Lézard"
+        },
+        "en": {
+            "maleName": "Lizard",
+            "femaleName": "Lizard"
+        }
+    },
+    "emoteMale": "🦎",
+    "emoteFemale": "🦎",
+    "rarity": 1,
+    "diet": "carnivorous"
+}

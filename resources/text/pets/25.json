@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Pingouin",
+            "femaleName": "Pingouin"
+        },
+        "en": {
+            "maleName": "Penguin",
+            "femaleName": "Penguin"
+        }
+    },
+    "emoteMale": "🐧",
+    "emoteFemale": "🐧",
+    "rarity": 2,
+    "diet": "carnivorous"
+}

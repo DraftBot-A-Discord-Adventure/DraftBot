@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Chauve-souris",
+            "femaleName": "Chauve-souris"
+        },
+        "en": {
+            "maleName": "Bat",
+            "femaleName": "Bat"
+        }
+    },
+    "emoteMale": "🦇",
+    "emoteFemale": "🦇",
+    "rarity": 2,
+    "diet": "carnivorous"
+}

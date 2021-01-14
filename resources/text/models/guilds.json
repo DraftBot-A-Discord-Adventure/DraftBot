@@ -10,12 +10,15 @@
 			"levelUp": {
 				"title": ":star: The guild {guildName} just leveled up!",
 				"desc": "The guild is now level **{level}**."
-
 			}
 		}
 	},
 	"score": 0,
 	"level": 0,
 	"experience": 0,
+	"commonFood": 0,
+	"herbivorousFood": 0,
+	"carnivorousFood": 0,
+	"ultimateFood": 0,
 	"lastDailyAt": null
 }

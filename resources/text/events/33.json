@@ -195,8 +195,8 @@
         "end": [
             {
                 "translations": {
-                    "fr": "** | Vous ne voyez pas la chèvre foncer sur vous et vous tombez à terre, étourdi. :confounded:",
-                    "en": "** | You don't notice the goat coming right at you, you fall down stunned by the shock. :confounded:"
+                    "fr": "** | 🐐 Vous ne voyez pas la chèvre foncer sur vous et vous tombez à terre, étourdi. :confounded:",
+                    "en": "** | 🐐 You don't notice the goat coming right at you, you fall down stunned by the shock. :confounded:"
                 },
                 "lostTime": 0,
                 "health": -20,
@@ -207,8 +207,8 @@
             },
             {
                 "translations": {
-                    "fr": "** | Les individus viennent vous voir pour vous amener à table. Vous êtes forcé de manger avec eux, ce qui vous redonne de l'énergie !",
-                    "en": "** | The people comes to get you to the table. They force you to eat with them, which gives you energy!"
+                    "fr": "** | 🫕 Les individus viennent vous voir pour vous amener à table. Vous êtes forcé de manger avec eux, ce qui vous redonne de l'énergie !",
+                    "en": "** | 🫕 The people comes to get you to the table. They force you to eat with them, which gives you energy!"
                 },
                 "lostTime": 180,
                 "health": 40,

@@ -1,0 +1,15 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Flamant rose",
+            "femaleName": "Flamant rose"
+        },
+        "en": {
+            "maleName": "Flamingo",
+            "femaleName": "Flamingo"
+        }
+    },
+    "emoteMale": "🦩",
+    "emoteFemale": "🦩",
+    "rarity": 2
+}

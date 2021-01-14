@@ -1,3 +1,5 @@
+global.draftbotRandom = new (require("random-js")).Random();
+
 /**
  * Convert a discord id into a discord mention
  * @param {*} id - The role/user id
@@ -64,6 +66,7 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  */
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
   let item = await entity.Player.Inventory.generateRandomItem();
+  log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
   let autoSell = false;
   let autoReplace = false;
   const receivedEmbed = new discord.MessageEmbed();
@@ -157,7 +160,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
     if (autoReplace) {
       return await saveItem(item, entity);
     }
-    addBlockedPlayer(discordUser.id, "acceptItem");
+
     const msg = await channel.send(embed);
     const filterConfirm = (reaction, user) => {
       return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === discordUser.id);
@@ -167,6 +170,8 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
       time: 120000,
       max: 1,
     });
+
+    addBlockedPlayer(discordUser.id, "acceptItem", collector);
 
     collector.on('end', async (reaction) => {
       removeBlockedPlayer(discordUser.id);
@@ -234,8 +239,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
  * @return {Number}
  */
 global.generateRandomRarity = () => {
-  const randomValue = Math.round(
-    Math.random() * JsonReader.values.raritiesGenerator.maxValue);
+  const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue);
 
   if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
     return 1;
@@ -261,7 +265,7 @@ global.generateRandomRarity = () => {
  * @return {Number}
  */
 global.generateRandomItemType = () => {
-  return JsonReader.values.itemGenerator.tab[Math.round(Math.random() * (JsonReader.values.itemGenerator.max - 1) + 1)];
+  return JsonReader.values.itemGenerator.tab[draftbotRandom.integer(1, JsonReader.values.itemGenerator.max - 1)];
 };
 
 /**
@@ -348,7 +352,7 @@ global.format = (string, replacement) => {
  * @return {number}
  */
 global.randInt = (min, max) => {
-  return Math.round(Math.random() * (max - min) + min);
+  return draftbotRandom.integer(min, max - 1);
 };
 
 /**
@@ -404,7 +408,7 @@ global.getItemValue = function (item) {
 global.sendBlockedError = async function (user, channel, language) {
   if (hasBlockedPlayer(user.id)) {
     await sendErrorMessage(user, channel, language, format(JsonReader.error.getTranslation(language).playerBlocked, {
-      context: JsonReader.error.getTranslation(language).blockedContext[getBlockedPlayer(user.id)]
+      context: JsonReader.error.getTranslation(language).blockedContext[getBlockedPlayer(user.id).context]
     }));
     return true;
   }
@@ -422,6 +426,20 @@ global.getNextSundayMidnight = function () {
   dateOfReset.setHours(23, 59, 59);
   while (dateOfReset < now) {
     dateOfReset += 1000 * 60 * 60 * 24 * 7;
+  }
+  return new Date(dateOfReset);
+};
+
+/**
+ * Returns the next day 01h59 59s
+ * @return {Date}
+ */
+global.getNextDay2AM = function () {
+  let now = new Date();
+  let dateOfReset = new Date();
+  dateOfReset.setHours(1, 59, 59);
+  if (dateOfReset < now) {
+    dateOfReset.setDate(dateOfReset.getDate() + 1);
   }
   return new Date(dateOfReset);
 };
@@ -500,3 +518,8 @@ async function saveItem(item, entity) {
   return oldItem;
 }
 
+global.checkNameString = (name, minLength, maxLength) => {
+  const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
+  const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
+  return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
+}

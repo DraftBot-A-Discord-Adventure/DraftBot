@@ -14,7 +14,7 @@
 				"health": 0,
 				"effect": ":clock2:",
 				"experience": 125,
-				"money": 40,
+				"money": 140,
 				"item": false
 			},
 			{
@@ -67,6 +67,18 @@
 			}
 		],
 		"🏃": [
+			{
+				"translations": {
+					"fr": "** | :runner: Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
+					"en": "** | :runner: You continue on your way without paying attention to the shooting star, you didn't waste any time!"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
 			{
 				"translations": {
 					"fr": "** | :runner: Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",

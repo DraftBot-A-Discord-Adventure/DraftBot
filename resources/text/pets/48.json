@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Rhinocéros",
+            "femaleName": "Rhinocéros"
+        },
+        "en": {
+            "maleName": "Rhinoceros",
+            "femaleName": "Rhinoceros"
+        }
+    },
+    "emoteMale": "🦏",
+    "emoteFemale": "🦏",
+    "rarity": 3,
+    "diet": "herbivorous"
+}

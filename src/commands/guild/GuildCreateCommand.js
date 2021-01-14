@@ -5,12 +5,22 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const GuildCreateCommand = async (language, message, args) => {
-  let entity; let guild;
+  let entity;
+  let guild;
   const choiceEmbed = new discord.MessageEmbed();
 
   [entity] = await Entities.getOrRegister(message.author.id);
 
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity, GUILD.REQUIRED_LEVEL)) !== true) {
+  if (
+    (await canPerformCommand(
+      message,
+      language,
+      PERMISSION.ROLE.ALL,
+      [EFFECT.BABY, EFFECT.DEAD],
+      entity,
+      GUILD.REQUIRED_LEVEL
+    )) !== true
+  ) {
     return;
   }
 
@@ -25,65 +35,84 @@ const GuildCreateCommand = async (language, message, args) => {
     guild = null;
   }
 
-  if (guild !== null) { // already in a guild
+  if (guild !== null) {
+    // already in a guild
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildCreate.getTranslation(language).alreadyInAGuild);
+      JsonReader.commands.guildCreate.getTranslation(language).alreadyInAGuild
+    );
   }
 
-  const askedName = args.join(' ');
+  const askedName = args.join(" ");
 
-  if (askedName.length < 1) { // no name provided
+  if (askedName.length < 1) {
+    // no name provided
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildCreate.getTranslation(language).noNameProvided);
+      JsonReader.commands.guildCreate.getTranslation(language).noNameProvided
+    );
   }
 
-  const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
-  const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
-  if (!(regexAllowed.test(askedName) && !regexSpecialCases.test(askedName) && askedName.length >= GUILD.MIN_GUILDNAME_SIZE && askedName.length <= GUILD.MAX_GUILDNAME_SIZE)) {
+  if (!checkNameString(askedName, GUILD.MIN_GUILDNAME_SIZE, GUILD.MAX_GUILDNAME_SIZE)) {
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      format(JsonReader.commands.guildCreate.getTranslation(language).invalidName, {
+      format(JsonReader.commands.guildCreate.getTranslation(language).invalidName + "\n" + JsonReader.error.getTranslation(language).nameRules, {
         min: GUILD.MIN_GUILDNAME_SIZE,
         max: GUILD.MAX_GUILDNAME_SIZE,
       }));
   }
 
   try {
-    guild = await Guilds.getByName(args.join(' '));
+    guild = await Guilds.getByName(args.join(" "));
   } catch (error) {
     guild = null;
   }
 
-  if (guild !== null) { // the name is already used
+  if (guild !== null) {
+    // the name is already used
     return sendErrorMessage(
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildCreate.getTranslation(language).nameAlreadyUsed);
+      JsonReader.commands.guildCreate.getTranslation(language).nameAlreadyUsed
+    );
   }
 
-  addBlockedPlayer(entity.discordUser_id, 'guildCreate');
-  choiceEmbed.setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, {
-    pseudo: message.author.username,
-  }), message.author.displayAvatarURL());
-  choiceEmbed.setDescription(format(JsonReader.commands.guildCreate.getTranslation(language).buyConfirm, {
-    guildName: askedName,
-    price: JsonReader.commands.guildCreate.guildCreationPrice,
-  }));
-  choiceEmbed.setFooter(JsonReader.commands.guildCreate.getTranslation(language).buyFooter, null);
+  addBlockedPlayer(entity.discordUser_id, "guildCreate");
+  choiceEmbed.setAuthor(
+    format(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, {
+      pseudo: message.author.username,
+    }),
+    message.author.displayAvatarURL()
+  );
+  choiceEmbed.setDescription(
+    format(
+      JsonReader.commands.guildCreate.getTranslation(language).buyConfirm,
+      {
+        guildName: askedName,
+        price: JsonReader.commands.guildCreate.guildCreationPrice,
+      }
+    )
+  );
+  choiceEmbed.setFooter(
+    JsonReader.commands.guildCreate.getTranslation(language).buyFooter,
+    null
+  );
 
   const msg = await message.channel.send(choiceEmbed);
   embed = new discord.MessageEmbed();
   const filterConfirm = (reaction, user) => {
-    return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id);
+    return (
+      (reaction.emoji.name === MENU_REACTION.ACCEPT ||
+        reaction.emoji.name === MENU_REACTION.DENY) &&
+      user.id === message.author.id
+    );
   };
 
   const collector = msg.createReactionCollector(filterConfirm, {
@@ -91,16 +120,39 @@ const GuildCreateCommand = async (language, message, args) => {
     max: 1,
   });
 
+  addBlockedPlayer(entity.discordUser_id, "guildCreate", collector);
+
   collector.on('end', async (reaction) => {
     removeBlockedPlayer(entity.discordUser_id);
-    if (reaction.first()) { // a reaction exist
+    if (reaction.first()) {
+      // a reaction exist
       if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
-        if (entity.Player.money < JsonReader.commands.guildCreate.guildCreationPrice) {
+        try {
+          guild = await Guilds.getByName(args.join(" "));
+        } catch (error) {
+          guild = null;
+        }
+        if (guild !== null) {
+          // the name is already used
           return sendErrorMessage(
             message.author,
             message.channel,
             language,
-            JsonReader.commands.guildCreate.getTranslation(language).notEnoughMoney);
+            JsonReader.commands.guildCreate.getTranslation(language)
+              .nameAlreadyUsed
+          );
+        }
+        if (
+          entity.Player.money <
+          JsonReader.commands.guildCreate.guildCreationPrice
+        ) {
+          return sendErrorMessage(
+            message.author,
+            message.channel,
+            language,
+            JsonReader.commands.guildCreate.getTranslation(language)
+              .notEnoughMoney
+          );
         }
 
         const newGuild = await Guilds.create({
@@ -109,7 +161,9 @@ const GuildCreateCommand = async (language, message, args) => {
         });
 
         entity.Player.guild_id = newGuild.id;
-        entity.Player.addMoney(-JsonReader.commands.guildCreate.guildCreationPrice);
+        entity.Player.addMoney(
+          -JsonReader.commands.guildCreate.guildCreationPrice
+        );
         newGuild.updateLastDailyAt();
         await Promise.all([
           newGuild.save(),
@@ -117,12 +171,25 @@ const GuildCreateCommand = async (language, message, args) => {
           entity.Player.save(),
         ]);
 
-        embed.setAuthor(format(JsonReader.commands.guildCreate.getTranslation(language).createTitle, {
-          pseudo: message.author.username,
-        }), message.author.displayAvatarURL());
-        embed.setDescription(format(JsonReader.commands.guildCreate.getTranslation(language).createSuccess, {
-          guildName: askedName,
-        }));
+        embed.setAuthor(
+          format(
+            JsonReader.commands.guildCreate.getTranslation(language)
+              .createTitle,
+            {
+              pseudo: message.author.username,
+            }
+          ),
+          message.author.displayAvatarURL()
+        );
+        embed.setDescription(
+          format(
+            JsonReader.commands.guildCreate.getTranslation(language)
+              .createSuccess,
+            {
+              guildName: askedName,
+            }
+          )
+        );
         return message.channel.send(embed);
       }
     }
@@ -132,7 +199,8 @@ const GuildCreateCommand = async (language, message, args) => {
       message.author,
       message.channel,
       language,
-      JsonReader.commands.guildCreate.getTranslation(language).creationCancelled);
+      JsonReader.commands.guildCreate.getTranslation(language).creationCancelled
+    );
   });
 
   await Promise.all([
@@ -141,13 +209,12 @@ const GuildCreateCommand = async (language, message, args) => {
   ]);
 };
 
-
 module.exports = {
   commands: [
     {
-      name: 'guildcreate',
+      name: "guildcreate",
       func: GuildCreateCommand,
-      aliases: ['gcreate', 'gc']
-    }
-  ]
+      aliases: ["gcreate", "gc"],
+    },
+  ],
 };

@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Étalon",
+            "femaleName": "Jument"
+        },
+        "en": {
+            "maleName": "Stallion",
+            "femaleName": "Mare"
+        }
+    },
+    "emoteMale": "🐎",
+    "emoteFemale": "🐎",
+    "rarity": 1,
+    "diet": "herbivorous"
+}

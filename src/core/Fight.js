@@ -124,6 +124,7 @@ class FightActionResult {
  * @param {boolean} tournamentMode
  * @param {Number} maxPower
  * @param {boolean} friendly
+ * @param {boolean} endedByTime
  */
 class Fight {
   /**
@@ -138,7 +139,7 @@ class Fight {
      * @returns {Promise<void>}
      */
   constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1, friendly = false) {
-    if (randInt(0, 1) === 0) {
+    if (draftbotRandom.bool()) {
       this.fighters = [new Fighter(player1, friendly, tournamentMode), new Fighter(player2, friendly, tournamentMode)];
     } else {
       this.fighters = [new Fighter(player2, friendly, tournamentMode), new Fighter(player1, friendly, tournamentMode)];
@@ -151,6 +152,7 @@ class Fight {
     this.friendly = friendly;
     this.lastSummary = undefined;
     this.actionMessages = undefined;
+    this.endedByTime = false;
   }
 
   /** ******************************************************** EXTERNAL MECHANICS FUNCTIONS **********************************************************/
@@ -305,6 +307,7 @@ class Fight {
           if (!message.deleted) {
             message.delete().catch();
             fight.getPlayingFighter().power = 0;
+            fight.endedByTime = true;
             fight.endFight();
           }
         });
@@ -505,13 +508,13 @@ class Fight {
       [this.fighters[i].entity] = await Entities.getOrRegister(this.fighters[i].entity.discordUser_id);
     }
     const loser = this.getLoser();
+    const winner = this.getWinner();
     this.calculateElo();
     this.calculatePoints();
     if (loser != null) {
       loser.entity.Player.addScore(-this.points);
       loser.entity.Player.addWeeklyScore(-this.points);
       loser.entity.Player.save();
-      const winner = this.getWinner();
       winner.entity.Player.addScore(this.points);
       winner.entity.Player.addWeeklyScore(this.points);
       winner.entity.Player.save();
@@ -528,6 +531,7 @@ class Fight {
     if (this.lastSummary !== undefined) {
       this.lastSummary.delete({ timeout: 5000 }).catch();
     }
+    log("Fight ended; winner: " + winner.entity.discordUser_id + " (" + winner.power + "/" + winner.initialPower + "); loser: " + loser.entity.discordUser_id + " (" + loser.power + "/" + loser.initialPower + "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
     this.outroFight();
     this.turn = -1;
   }
@@ -539,7 +543,7 @@ class Fight {
      * @return {Promise<void>}
      */
   async useAction(action, charged = false) {
-    const success = Math.random();
+    const success = draftbotRandom.realZeroToOneInclusive();
     const attacker = this.getPlayingFighter();
     const defender = this.getDefendingFighter();
     const far = new FightActionResult();

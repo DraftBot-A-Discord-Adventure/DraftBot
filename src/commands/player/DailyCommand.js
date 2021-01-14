@@ -77,6 +77,7 @@ const DailyCommand = async function (language, message) {
     entity.Player.save(),
     entity.Player.Inventory.save(),
   ]);
+  log(entity.discordUser_id + " used his daily item " + activeObject.en);
   return await message.channel.send(embed);
 };
 

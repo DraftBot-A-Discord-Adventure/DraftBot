@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Bouc",
+            "femaleName": "Chèvre"
+        },
+        "en": {
+            "maleName": "Goat",
+            "femaleName": "Goat"
+        }
+    },
+    "emoteMale": "🐐",
+    "emoteFemale": "🐐",
+    "rarity": 1,
+    "diet": "herbivorous"
+}

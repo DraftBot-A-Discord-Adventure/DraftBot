@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Tamia",
+            "femaleName": "Tamia"
+        },
+        "en": {
+            "maleName": "Chipmunk",
+            "femaleName": "Chipmunk"
+        }
+    },
+    "emoteMale": "🐿️",
+    "emoteFemale": "🐿️",
+    "rarity": 2,
+    "diet": "herbivorous"
+}

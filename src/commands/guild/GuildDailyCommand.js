@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildDailyCommand = async (language, message, args) => {
+const GuildDailyCommand = async (language, message, args, forcedReward) => {
   let entity; let guild;
   const embed = new discord.MessageEmbed();
 
@@ -30,7 +30,7 @@ const GuildDailyCommand = async (language, message, args) => {
   }
 
   let time = millisecondsToHours(message.createdAt.getTime() - guild.lastDailyAt.valueOf());
-  if (time < JsonReader.commands.guildDaily.timeBetweenDailys) {
+  if (time < JsonReader.commands.guildDaily.timeBetweenDailys && !forcedReward) {
     return sendErrorMessage(
       message.author,
       message.channel,
@@ -44,7 +44,7 @@ const GuildDailyCommand = async (language, message, args) => {
   const members = await Entities.getByGuild(guild.id);
 
   for (const i in members) {
-    if (hasBlockedPlayer(members[i].discordUser_id) && getBlockedPlayer(members[i].discordUser_id) === "fight") {
+    if (hasBlockedPlayer(members[i].discordUser_id) && getBlockedPlayer(members[i].discordUser_id).context === "fight") {
       continue;
     }
     if (await sendBlockedError(await client.users.fetch(members[i].discordUser_id), message.channel, language)) {
@@ -56,6 +56,10 @@ const GuildDailyCommand = async (language, message, args) => {
   await guild.save();
 
   let rewardType = generateRandomProperty(guild);
+  if (forcedReward) {
+    rewardType = forcedReward;
+  }
+
   embed.setTitle(format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
     guildName: guild.name,
   }));
@@ -75,6 +79,7 @@ const GuildDailyCommand = async (language, message, args) => {
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).personalXP, {
       xp: xpWon,
     }));
+    log("GuildDaily of guild " + guild.name + ": got " + xpWon + " personal xp");
   }
 
   if (rewardType === REWARD_TYPES.GUILD_XP) {
@@ -89,6 +94,7 @@ const GuildDailyCommand = async (language, message, args) => {
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).guildXP, {
       xp: xpGuildWon,
     }));
+    log("GuildDaily of guild " + guild.name + ": got " + xpGuildWon + " guild xp");
   }
 
   if (rewardType === REWARD_TYPES.MONEY) {
@@ -102,6 +108,7 @@ const GuildDailyCommand = async (language, message, args) => {
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).money, {
       money: moneyWon,
     }));
+    log("GuildDaily of guild " + guild.name + ": got " + moneyWon + " money");
   }
 
   if (rewardType === REWARD_TYPES.FIXED_MONEY) {
@@ -113,6 +120,7 @@ const GuildDailyCommand = async (language, message, args) => {
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).money, {
       money: moneyWon,
     }));
+    log("GuildDaily of guild " + guild.name + ": got " + moneyWon + " fixed money");
   }
 
   if (rewardType === REWARD_TYPES.BADGE) {
@@ -129,6 +137,7 @@ const GuildDailyCommand = async (language, message, args) => {
       // everybody already have the badge, give something else instead
       rewardType = REWARD_TYPES.PARTIAL_HEAL;
     }
+    log("GuildDaily of guild " + guild.name + ": got the badge");
   }
 
   if (rewardType === REWARD_TYPES.FULL_HEAL) {
@@ -139,6 +148,7 @@ const GuildDailyCommand = async (language, message, args) => {
       await members[i].save();
     }
     embed.setDescription(JsonReader.commands.guildDaily.getTranslation(language).fullHeal);
+    log("GuildDaily of guild " + guild.name + ": got full heal");
   }
 
   if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
@@ -151,6 +161,7 @@ const GuildDailyCommand = async (language, message, args) => {
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).partialHeal, {
       healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer),
     }));
+    log("GuildDaily of guild " + guild.name + ": got partial heal");
   }
 
   if (rewardType === REWARD_TYPES.ALTERATION) {
@@ -167,9 +178,21 @@ const GuildDailyCommand = async (language, message, args) => {
     embed.setDescription(format(JsonReader.commands.guildDaily.getTranslation(language).alterationHeal, {
       healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer),
     }));
+    log("GuildDaily of guild " + guild.name + ": got alteration heal");
   }
 
-  message.channel.send(embed);
+  if (!Guilds.isPetShelterFull(guild) && draftbotRandom.realZeroToOneInclusive() <= 0.1) {
+    let pet = await PetEntities.generateRandomPetEntity(guild.level);
+    await pet.save();
+    await (await GuildPets.addPet(guild.id, pet.id)).save();
+    embed.setDescription(embed.description + "\n\n" + format(JsonReader.commands.guildDaily.getTranslation(language).pet, {
+      emote: PetEntities.getPetEmote(pet),
+      pet: PetEntities.getPetTypeName(pet, language)
+    }));
+    log("GuildDaily of guild " + guild.name + ": got pet: " + PetEntities.getPetEmote(pet) + " " + PetEntities.getPetTypeName(pet, "en"));
+  }
+
+  await message.channel.send(embed);
 };
 
 module.exports = {

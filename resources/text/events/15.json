@@ -69,11 +69,35 @@
 			},
 			{
 				"translations": {
+					"fr": "** | 🏃 Vous continuez votre route sans perdre plus de temps !",
+					"en": "** | 🏃 You continue on your way without losing more time!"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🏃 Vous continuez votre route sans vous arrêter.",
+					"en": "** | 🏃 You continue without stopping."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
 					"fr": "** | 🏃 Vous continuez sans vous arrêter en sillonant les petites rues. Au coin de l'une d'entre elles, vous vous faites sauvagement bousculer par un homme qui prend rapidement la fuite. :confounded:",
 					"en": "** | 🏃 You continue without stopping, walking through the small streets. At the corner of one of them, you are savagely pushed by a man who quickly flees. :confounded:"
 				},
 				"lostTime": 0,
-				"health": -20,
+				"health": -5,
 				"effect": ":confounded:",
 				"experience": 0,
 				"money": 0,
@@ -124,7 +148,7 @@
 					"fr": "** | 🚶 Vous passez de longues minutes à bêtement les regarder installer leur bivouac, avant de reprendre vos esprits et continuer votre route.",
 					"en": "** | 🚶 You spend a long time watching them set up their camp, before coming to your senses and continuing on your journey."
 				},
-				"lostTime": 15,
+				"lostTime": 35,
 				"health": 0,
 				"effect": ":clock2:",
 				"experience": 25,

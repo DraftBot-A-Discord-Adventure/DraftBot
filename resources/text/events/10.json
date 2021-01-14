@@ -31,6 +31,18 @@
 			},
 			{
 				"translations": {
+					"fr": "** | :tropical_fish: Vous aidez l'homme à attraper une superbe prise de plus d'un kilo ! Le pêcheur vous offre quelques pièces pour vous remercier.",
+					"en": "** | :tropical_fish: Thanks to you, the man catches a fish! He offer you some money to help you in your adventure."
+				},
+				"lostTime": 30,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 125,
+				"money": 234,
+				"item": false
+			},
+			{
+				"translations": {
 					"fr": "** | :sweat_drops: Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:",
 					"en": "** | :sweat_drops: The fish at the end of the line must be huge! You find yourself quickly pulled down to the bottom of the water ! You are saved just in time by the fisherman. Stunned by this adventure, you will have to heal before continuing ! :confounded:"
 				},

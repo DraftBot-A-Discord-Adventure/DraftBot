@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Oiseau",
+            "femaleName": "Oiseau"
+        },
+        "en": {
+            "maleName": "Bird",
+            "femaleName": "Bird"
+        }
+    },
+    "emoteMale": "🐦",
+    "emoteFemale": "🐦",
+    "rarity": 1,
+    "diet": "herbivorous"
+}

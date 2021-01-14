@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Paresseux",
+            "femaleName": "Paresseux"
+        },
+        "en": {
+            "maleName": "Sloth",
+            "femaleName": "Sloth"
+        }
+    },
+    "emoteMale": "🦥",
+    "emoteFemale": "🦥",
+    "rarity": 2,
+    "diet": "herbivorous"
+}

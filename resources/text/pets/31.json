@@ -1,0 +1,16 @@
+{
+    "translations": {
+        "fr": {
+            "maleName": "Hippopotame",
+            "femaleName": "Hippopotame"
+        },
+        "en": {
+            "maleName": "Hippopotamus",
+            "femaleName": "Hippopotamus"
+        }
+    },
+    "emoteMale": "🦛",
+    "emoteFemale": "🦛",
+    "rarity": 2,
+    "diet": "herbivorous"
+}
