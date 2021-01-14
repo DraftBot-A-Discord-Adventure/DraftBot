@@ -150,10 +150,12 @@ class Command {
                 JsonReader.app.MODE_MAINTENANCE
             ) {
                 return message.channel.send(
-                    JsonReader.bot.getTranslation(language).maintenance
-                );
-            }
-
+                    new discord.MessageEmbed()
+                    .setDescription(JsonReader.bot.getTranslation(language).maintenance)
+                    .setTitle(":x: **Maintenance**")
+                    .setColor(JsonReader.bot.embed.error)),
+            )
+        }
             await Command.launchCommand(language, server.prefix, message);
         } else {
             if (
