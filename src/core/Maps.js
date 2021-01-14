@@ -119,7 +119,7 @@ class Maps {
 	 * The number of squares between small events in the travel path string
 	 * @type {number}
 	 */
-	static PATH_SQUARE_COUNT = 5;
+	static PATH_SQUARE_COUNT = 4;
 
 	/**
 	 * Generates a string representing the player walking form a map to another
@@ -150,7 +150,7 @@ class Maps {
 					str += "🧍";
 				}
 				else {
-					str += "🔲";
+					str += "■";
 				}
 			}
 			if (i < REPORT.SMALL_EVENTS_COUNT) {

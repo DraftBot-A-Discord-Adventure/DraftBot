@@ -22,7 +22,18 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 		return await chooseDestination(entity, message, language);
 	}
 
-	return await message.channel.send(new discord.MessageEmbed().setTitle("TEST").setDescription(await Maps.generateTravelPathString(entity.Player, language)));
+	return await sendTravelPath(entity, message, language);
+}
+
+const sendTravelPath = async function(entity, message, language) {
+	let travelEmbed = new discord.MessageEmbed();
+	const tr = JsonReader.commands.report.getTranslation(language);
+	travelEmbed.setAuthor(tr.travelPathTitle, message.author.displayAvatarURL());
+	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language));
+	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previous_map_id)).getDisplayName(language), true);
+	travelEmbed.addField(tr.progression, (Math.floor(10000 * Maps.getTravellingTime(entity.Player) / REPORT.TIME_BETWEEN_BIG_EVENTS) / 100.0) + "%", true);
+	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.map_id)).getDisplayName(language), true);
+	return await message.channel.send(travelEmbed);
 }
 
 const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];

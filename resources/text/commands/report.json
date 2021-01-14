@@ -14,7 +14,11 @@
 
 			"choseMap": "Vous avez décidé de partir en direction {mapPrefix} {mapType} **{mapName}**",
 			"destinationTitle": "{pseudo}, destination du voyage",
-			"chooseDestinationIndications": "Choisissez une destination pour votre voyage:"
+			"chooseDestinationIndications": "Choisissez une destination pour votre voyage:",
+			"travelPathTitle": "Voyage actuel",
+			"startPoint": "Point de départ",
+			"endPoint": "Point d'arrivée",
+			"progression": "Progression"
 		},
 		"en": {
 			"doEvent": ":newspaper: ** Journal of {pseudo} {event}",
@@ -30,7 +34,11 @@
 
 			"choseMap": "You chose to go in the direction {mapPrefix} **{mapName}** {mapType}",
 			"destinationTitle": "{pseudo}, travel destination",
-			"chooseDestinationIndications": "Choose the destination of your travel:"
+			"chooseDestinationIndications": "Choose the destination of your travel:",
+			"travelPathTitle": "Current travel",
+			"startPoint": "Start point",
+			"endPoint": "End point",
+			"progression": "Progression"
 		}
 	},
 	"timeMinimal": 60,
