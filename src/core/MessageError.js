@@ -212,6 +212,12 @@ class MessageError {
         .setDescription(format(entity.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, { time: timeEffect }));
     }
 
+    if (effect === EFFECT.STARVING) {
+      embed
+        .setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsStarving, { pseudo: message.author.username }), message.author.displayAvatarURL())
+        .setDescription(format(entity.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, { time: timeEffect }));
+    }
+
 
     return await message.channel.send(embed);
   }
