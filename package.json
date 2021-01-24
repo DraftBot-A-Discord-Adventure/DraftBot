@@ -33,6 +33,7 @@
 	},
 	"devDependencies": {
 		"eslint": "^7.4.0",
-		"eslint-config-google": "^0.14.0"
+		"eslint-config-google": "^0.14.0",
+		"jshint": "^2.12.0"
 	}
 }

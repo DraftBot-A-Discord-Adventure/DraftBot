@@ -23,7 +23,7 @@ const PetNicknameCommand = async function (language, message, args) {
 	const successEmbed = new discord.MessageEmbed();
 	successEmbed.setAuthor(format(JsonReader.commands.petNickname.getTranslation(language).successTitle, {
 		pseudo: message.author.username
-	}), message.author.displayAvatarURL())
+	}), message.author.displayAvatarURL());
 	if (args.length === 0) {
 		pet.nickname = null;
 		await pet.save();
@@ -45,7 +45,7 @@ const PetNicknameCommand = async function (language, message, args) {
 		name: petNickname
 	}));
 	await message.channel.send(successEmbed);
-}
+};
 
 module.exports = {
 	commands: [

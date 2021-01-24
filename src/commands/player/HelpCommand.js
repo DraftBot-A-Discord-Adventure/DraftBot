@@ -110,9 +110,7 @@ const HelpCommand = async (language, message, args) => {
 				}
 			}
 			helpMessage.addField(
-				aliases.length > 1
-					? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle
-					: JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
+				aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
 				aliasField,
 				true
 			);

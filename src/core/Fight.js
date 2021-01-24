@@ -17,6 +17,7 @@ class Fighter {
 	/**
 	 * @param entity
 	 * @param {boolean} friendly
+	 * @param tournament
 	 */
 	constructor(entity, friendly, tournament) {
 		this.friendly = friendly;
@@ -171,7 +172,7 @@ class Fight {
 			case FIGHT.ACTION.POWERFUL_ATTACK:
 				return "powerful";
 		}
-		return "unknown"
+		return "unknown";
 	}
 
 	/** ******************************************************** MESSAGE RELATED FUNCTIONS **********************************************************/
@@ -199,7 +200,7 @@ class Fight {
 			await this.message.channel.send('_ _'),
 		];
 		await this.nextTurn();
-	};
+	}
 
 	/**
 	 * Send the fight intro message
@@ -655,7 +656,7 @@ class Fight {
 				success: 0,
 				total: 0,
 				damage: 0
-			}
+			};
 		}
 		let stats = attacker.attacksList[actionName];
 		stats.total++;

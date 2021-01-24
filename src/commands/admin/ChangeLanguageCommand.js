@@ -24,8 +24,7 @@ const changeLanguageCommand = async function (language, message, args) {
 			JsonReader.commands.changeLanguage.getTranslation(language).title,
 			{pseudo: message.author.username}),
 			message.author.displayAvatarURL())
-		.setDescription(format(
-			JsonReader.commands.changeLanguage.getTranslation(language).desc));
+		.setDescription(JsonReader.commands.changeLanguage.getTranslation(language).desc);
 	message.channel.send(embed);
 	await server.save();
 };

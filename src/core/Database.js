@@ -111,9 +111,7 @@ class Database {
 			`SELECT id, name, up, down FROM "${table}" ORDER BY id ASC`
 		);
 
-		const lastMigrationId = dbMigrations[0].length
-			? dbMigrations[0][dbMigrations[0].length - 1].id
-			: 0;
+		const lastMigrationId = dbMigrations[0].length ? dbMigrations[0][dbMigrations[0].length - 1].id : 0;
 		for (const migration of migrations) {
 			if (migration.id > lastMigrationId) {
 				await Database.Sequelize.query("BEGIN");
@@ -314,9 +312,7 @@ class Database {
 						en: possibility.translations.en,
 						event_id: fileName,
 						nextEvent:
-							possibility.nextEvent !== undefined
-								? possibility.nextEvent
-								: null,
+							possibility.nextEvent !== undefined ? possibility.nextEvent : null,
 					};
 					possibilitiesContent.push(possibilityContent);
 				}

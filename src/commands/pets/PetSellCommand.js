@@ -10,7 +10,6 @@ const PetSellCommand = async function (language, message, args) {
 	let guild;
 	let petCost;
 	let pet;
-	let sellInstance = undefined;
 	const translations = JsonReader.commands.petSell.getTranslation(language);
 
 	if (

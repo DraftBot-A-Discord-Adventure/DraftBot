@@ -26,9 +26,7 @@ const MyPetCommand = async function (language, message, args) {
 	const tr = JsonReader.commands.myPet.getTranslation(language);
 
 	if (authorPet) {
-		const user = message.mentions.users.last()
-			? message.mentions.users.last()
-			: message.author;
+		const user = message.mentions.users.last() ? message.mentions.users.last() : message.author;
 		let mypetEmbed = new discord.MessageEmbed();
 		mypetEmbed.setAuthor(
 			format(tr.embedTitle, {

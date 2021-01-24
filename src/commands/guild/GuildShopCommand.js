@@ -23,6 +23,7 @@ async function GuildShopCommand(language, message, args) {
 	}
 
 	// search for a user's guild
+	let guild;
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
 	} catch (error) {
@@ -196,7 +197,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 	const quantityPosibilities = new Map()
 		.set(QUANTITY.ONE, 1)
 		.set(QUANTITY.FIVE, 5);
-	if (!(selectedItem.type === "ultimateFood"))
+	if ((selectedItem.type !== "ultimateFood"))
 		quantityPosibilities.set(QUANTITY.TEN, 10);
 
 	const confirmEmbed = new discord.MessageEmbed()
@@ -536,8 +537,7 @@ const giveFood = async (
 					emote: selectedItem.emote,
 					quantity: quantity,
 					name:
-						selectedItem.type === "ultimateFood" && language == "fr"
-							? selectedItem.translations[language].name
+						selectedItem.type === "ultimateFood" && language == "fr" ? selectedItem.translations[language].name
 								.slice(2, -2)
 								.toLowerCase()
 								.replace(

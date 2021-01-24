@@ -42,7 +42,6 @@ const FightCommand = async function (language, message, args, friendly = false) 
 	}
 
 	let msg;
-	let fightInstance = undefined;
 	let spamCount = 0;
 	let spammers = [];
 	global.addBlockedPlayer(attacker.discordUser_id, 'fight');

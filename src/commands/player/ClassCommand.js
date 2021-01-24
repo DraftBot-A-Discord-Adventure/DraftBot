@@ -22,7 +22,7 @@ async function ClassCommand(language, message, args) {
 		.setColor(JsonReader.bot.embed.default)
 		.setTitle(classTranslations.title)
 		.setDescription(
-			classTranslations.desc)
+			classTranslations.desc);
 
 	for (let k = 0; k < allClasses.length; k++) {
 		embedClassMessage.addField(allClasses[k].getName(language),
@@ -33,7 +33,7 @@ async function ClassCommand(language, message, args) {
 					price: allClasses[k].price
 				}
 			), false
-		)
+		);
 	}
 
 	embedClassMessage.addField(
@@ -74,7 +74,7 @@ async function ClassCommand(language, message, args) {
 		await classMessage.react(allClasses[k].emoji);
 		classEmojis.set(allClasses[k].emoji, k);
 	}
-	classMessage.react(MENU_REACTION.DENY)
+	classMessage.react(MENU_REACTION.DENY);
 }
 
 /**
@@ -132,8 +132,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 				entity.Player.class = selectedClass.id;
 				const newClass = await Classes.getById(entity.Player.class);
 				await entity.setHealth(Math.round(
-					(entity.health / await playerClass.getMaxHealthValue(entity.Player.level))
-					* await newClass.getMaxHealthValue(entity.Player.level)))
+					(entity.health / await playerClass.getMaxHealthValue(entity.Player.level))	* await newClass.getMaxHealthValue(entity.Player.level)));
 				entity.Player.addMoney(-selectedClass.price);
 				await Promise.all([
 					entity.save(),

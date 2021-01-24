@@ -55,7 +55,7 @@ const PetFreeCommand = async function (language, message, args) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				pPet.destroy();
 				entity.Player.pet_id = null;
-				entity.Player.last_pet_free = Date()
+				entity.Player.last_pet_free = Date();
 				entity.Player.save();
 				const freedEmbed = new discord.MessageEmbed();
 				freedEmbed.setAuthor(format(JsonReader.commands.petFree.getTranslation(language).successTitle, {
@@ -77,7 +77,7 @@ const PetFreeCommand = async function (language, message, args) {
 		]);
 	} catch (e) {
 	}
-}
+};
 
 module.exports = {
 	commands: [

@@ -154,7 +154,7 @@ class Command {
 						.setDescription(JsonReader.bot.getTranslation(language).maintenance)
 						.setTitle(":x: **Maintenance**")
 						.setColor(JsonReader.bot.embed.error),
-				)
+				);
 			}
 			await Command.launchCommand(language, server.prefix, message);
 		} else {
@@ -214,9 +214,7 @@ class Command {
 
 		collector.on("collect", async (reaction) => {
 			const language =
-				reaction.emoji.name == MENU_REACTION.ENGLISH_FLAG
-					? LANGUAGE.ENGLISH
-					: LANGUAGE.FRENCH;
+				reaction.emoji.name == MENU_REACTION.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH;
 			sendSimpleMessage(
 				message.author,
 				message.channel,

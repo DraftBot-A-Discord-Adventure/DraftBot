@@ -520,4 +520,4 @@ global.checkNameString = (name, minLength, maxLength) => {
 	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
 	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
-}
+};
