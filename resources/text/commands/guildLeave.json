@@ -5,11 +5,11 @@
 			"notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"leaveDesc": ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ?",
 			"leaveChiefDesc": ":question: Souhaitez vous vraiment **détruire définitivement** la guilde `{guildName}` ?",
-			"leaveChiefDescWithElder" : ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ? {elderName} en deviendra le chef.",
+			"leaveChiefDescWithElder": ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ? {elderName} en deviendra le chef.",
 			"leavingCancelled": "Votre départ a été annulé.",
 			"successTitle": "{pseudo} a quitté la guilde {guildName} !",
 			"leavingSuccess": "You're poor lonesome cowboy and a long long way from home...",
-			"newChiefTitle" : ":crown: | la guilde **{guild}** à un nouveau chef !"
+			"newChiefTitle": ":crown: | la guilde **{guild}** à un nouveau chef !"
 		},
 		"en": {
 			"leaveTitle": "{pseudo}, confirmation:",

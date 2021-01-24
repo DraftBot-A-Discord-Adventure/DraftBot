@@ -1,236 +1,236 @@
 {
-    "translations": {
-        "fr": " : ** 🏘️ En passant dans un petit village, vous tombez sur le plus célèbre ménestrel connu dans la région et au-delà des frontières, nommé Pérotin. Celui-ci est tellement bon dans son métier qu'il peut vous faire vivre la chanson, littéralement, grâce à ses drogues puissantes. Ayant eu le dégun d'aller lui parler, celui-ci aimerait que vous lui proposiez le prochain thème de sa chanson. Que lui suggérez-vous ?\n\n:zany_face: Chanter un amour fou \n:smiling_face_with_3_hearts: Chanter un amour terne et redondant\n:crown: Chanter sur la royauté et sur le pouvoir en place\n:banjo: Chanter sur le métier de ménestrel\n:crossed_swords: Chanter sur notre vie, notre histoire héroïque\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-        "en": " : ** 🏘️ While crossing a small village, you found the most famous menestrel of the region, called Perotin. His is so good in his work, that he wanted to let you live a song, because of his powerful drugs. Having the degun of going talk to him, he would like you to choose the following theme. What do you suggest ?\n\n:zany_face: Sing a crazy love \n:smiling_face_with_3_hearts: Sing a dull and redondant\n:crown: Sing about the royality, and the power in place\n:banjo: Sing about the menestrel work\n:crossed_swords: Sing about life, and heroic history\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
-    },
-    "possibilities": {
-        "🤪": [
-            {
-                "translations": {
-                    "fr": "** | 🤪 Aussitôt demandée, aussitôt réalisée. Vous vous retrouvez dans un lit, déshabillé, à côté de ce qui s'apparente à votre amoureuse. En vous regardant de plus près, vous vous rendez compte que vous êtes attaché à la taille, et... il vous manque l'entièreté de vos membres, que ce soient les bras ou les jambes. Vous n'avez la possibilité de bouger qu'avec le torse. Voyant votre détresse, Pérotin finit sa chanson par \"tout ceci n'était qu'un rêve\" et vous redevenez comme avant, entier et détaché. Il vous faudra cependant vous reposer pour vous remettre de votre traumatisme.",
-                    "en": "** | 🤪 Immediately asked, immediately done. You find yourself in a bed, undressed, and the person next to you looks like your lover. Watching at yourself, you see that you are attached on the bed and... you're missing your legs and arms. You can only move with your torso. Seeing your distress, Perotin ends his song with \"all this was just a dream\", and you are back as before. You will however need to take a rest."
-                },
-                "lostTime": 180,
-                "health": 0,
-                "effect": ":clock2:",
-                "experience": 25,
-                "money": 0,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "** | 🤪 Aussitôt demandée, aussitôt réalisée. Vous vous retrouvez en mer, loin de tout, accompagné d'un seul et unique matelot, votre amour. Arrivant sur une île déserte, vous voyez une croix au sol. Il s'agit bel et bien d'un trésor, rempli d'un beau butin et d'un objet qui vous sera utile. Cupidité et avarice auront eu raison de vous, et vous décidez de repartir de l'île, seul. En retournant au pays, vous retombez sur Pérotin, qui chante pour faire donner l'argent gagné là-bas, comme pour un don à cette mélodie sans pareille. À la suite de ces péripéties vous reprenez votre route, accompagné de votre objet trouvé sur l'île.",
-                    "en": "** | 🤪 Immediately asked, immediately done. You find yourself in the sea, far from everything, with your only crew member, your lover. Arriving at a desert island, you find a cross on the floor. It is a treasure, full of a nice loot, and containing a very useful item. Greed and stinginess were right, you choose to leave the island alone. While coming back, you found Perotin, singing to get the money found there, as a gift. After those adventures, you start walking again, in with your item."
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":smiley:",
-                "experience": 450,
-                "money": 0,
-                "item": true
-            },
-            {
-                "translations": {
-                    "fr": "** | 🤪 Connaissant votre quête héroïque pour le sauvetage de la princesse, le ménestrel décide de raconter une des possibles suites de vos aventures après ce sauvetage. Mais ne connaissant pas grand-chose sur vos liens avec la princesse, il préféra raconter l'histoire de \"La vieille et le faux monstre\", vous incarnant le faux monstre, bien évidemment. Connaissant déjà le synopsis, Pérotin ne réussit pas à vous faire changer, surement dû au sous-dosage de ses drogues. N'étant pas rentré dans son conte, vous décidez de le remercier pour cette magnifique histoire et vous continuez votre route, conscient de cette perte de temps inutile.",
-                    "en": "** | 🤪 Knowing you heroic quest to save the princess, the menestrel decided to sing a song about one of the possible following of you adventure after saving her. But not knowing much about you relationship with the princess, if prefered to tell the story of \"The old and the fake monster\", in which you are the monster of course. Already knowing the synopsis, Perotin succeeded to not change you, probably because of the under dosage of his drugs. Having not entered in the story, you thank him for this beautiful story, and continue you trip, aware of this useless waste of time."
-                },
-                "lostTime": 20,
-                "health": 0,
-                "effect": ":clock2:",
-                "experience": 25,
-                "money": 0,
-                "item": false
-            }
-        ],
-        "🥰": [
-            {
-                "translations": {
-                    "fr": "** | 🥰 Reprenant vos dires, vous vous retrouvés dans un vieux monastère, à la campagne, à retourner les terres. Votre amour et vous restez dans cet endroit miteux, et chaque mois, vous réussissez à faire juste assez de récoltes pour y vivre. Vous vous épanouissez tellement dans cette histoire dû au surdosage de ses drogues que vous ne voyez pas le temps passer. Pérotin vient vous réveiller et vous raconte que les drogues ingérées font ressentir à l'utilisateur 1 à 2 minutes de ses histoires comme étant un mois entier de sa vie. Heureusement que c'est le cas, sinon vous seriez mort de vieillesse. Méditatif, vous continuez votre périple.",
-                    "en": "** | 🥰 Taking your words back, you find yourself in an old monastery, in the countryside. Your lover and yourself are staying in this dingy place, harvesting just enough food to survive. You fulfill yourself in this story, due to the overdose of the drugs, that you don't see time going forward. Waking you up, after a few minutes, Perotin tells you that the drugs makes the use feel a few minutes, but those are monthes. Fortunately, or you would be dead of old age. Meditative, you continue your trip."
-                },
-                "lostTime": 360,
-                "health": 0,
-                "effect": ":clock2:",
-                "experience": 25,
-                "money": 0,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "** | 🥰 Ne comprenant pas votre envie soudaine pour un amour sans couleur, Pérotin vous croit dépressif, il décide donc de vous chanter une chanson réconfortante afin de vous guérir de cette soudaine dépression. Cette chanson vous fut un bien fou.",
-                    "en": "** | 🥰 Not understanding your wish, for an uncolored love, Perotin thinks that you are depressive, he then chooses to sing a comforting song, to get you rid of this suddent depression. This song made you feel very well."
-                },
-                "lostTime": 0,
-                "health": 20,
-                "effect": ":smiley:",
-                "experience": 350,
-                "money": 0,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "** | 🥰 Voyant votre connaissance en amours sans passion, le ménestrel s'attache à vous, et vous fait une chanson où votre amour, c'est vous. Pris par une violente dispute de couple entre vous et vous, le ménestrel arrête la chanson, et vous demande une charge pour le combat effrèné que vous avez eu avec vous même devant ses admirateurs. Encore dans l'histoire, vous pensez que vous vous quittiez, ce qui vous rend triste, très triste. Vous partez donc en laissant un peu d'argent à Pérotin pour vous faire pardonner pour le dérangement.",
-                    "en": "** | 🥰 Seeing you knowing the unpasionned love, the menestrel makes you a song in which your lover is yourself. Having a big disagreement with yourself, the menestrel stops the song, and ask you a compensation for the figth that you have in front of his fans. Still in the story, you thought you were leaving yourself, which makes you be sad. You then go away, leaving some money to Perotin."
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":smiley:",
-                "experience": 0,
-                "money": -100,
-                "item": false
-            }
-        ],
-        "👑": [
-            {
-                "translations": {
-                    "fr": "** | 👑 Le ménestrel, adorant sa patrie de toujours, accède à votre requête et chante les louanges des ducs et des contes. Le duc de la région voisine passe par ici et entend cette douce mélodie, qui lui berce le cœur. A la fin de la chanson, celui-ci vous récompense vous et votre ami avec une grosse bourse d'or.",
-                    "en": "** | 👑 The menestrel loving his homeland of ever, fills your request and singed the dukes. The duke of the next region came this way, and heard this soft melody, cradleling his heart. At the end of the song, he rewards you with a big gold bag."
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":smiley:",
-                "experience": 250,
-                "money": 600,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "** | 👑 Notre ménestrel, détestant le pouvoir en place, décide par sa chanson de faire une révolution afin d'accéder au trône. Il vous emmène, vous drogue, et vous fait croire que toi et le reste du peuple mênent chemin dans la salle du roi. Malheureusement, une des cordes de la mandoline casse et la musique s'arrête brusquement. Vous êtes pourtant bel et bien dans la salle du trône, seul, avec une fourche. Vous vous faîtes de ce pas emprisonner pour folie. :lock:",
-                    "en": "** | 👑 The menestrel, hating the actual power, by his song decides to make a revolution. He take you with him, drugs you, and makes you think that the rest of the people are on their way to the king's room. Unfortunately, one of the string of the mandoline bearks, and the music stops. You however are in the king's room, alone, with a fork. You immediately get arrested for madness. :lock:"
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":lock:",
-                "experience": 0,
-                "money": 0,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "** | 👑 Pérotin, connaissant un petit peu votre aventure afin de secourir la princesse, décide de vous faire vivre le point de vue de sa mère pendant une journée afin que vous en appreniez plus sur cette damoiselle en détresse. Mais la vie de reine n'est pas très passionnante selon vous, mis à part les quelques ragots et pensées de madame sur sa fille, vous n'en tirez rien d'utile, du fait qu'ils sont créés par les drogues magiques de Pérotin. A la fin de la journée, vous reprenez votre corps et continuez votre route.",
-                    "en": "** | 👑 Perotin, knowing a bit your story to save the princess, decides to make you live the view of her mother for a day, so that you learn a bit more about this distressed woman. But the queen's life is boring for you, and appart from some gossips and thoughts of woman on her child, you don't get any usefull informations because of thet fact that those are caused by magic drugs of Perotin. At the end of the day, you take your body back, and continue your trip."
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":smiley:",
-                "experience": 150,
-                "money": 0,
-                "item": false
-            }
-        ],
-        "🪕": [
-            {
-                "translations": {
-                    "fr": "** | :banjo: Pérotin, attristé par cette demande, décide de vous faire vivre le rôle de ménestrel dans sa chanson et... Vous vous voyez arriver vers vous afin de vous demander cette chanson mais vous vous forcez à dire cette même chanson, et ça se répète en boucle très longtemps. Au bout d'un moment, notre ménestrel favori stoppe la boucle en vous donnant l'antidote de ce poison hallucinatoire. Apeuré par ce qui vient de se passer et par la durée de cette boucle, vous partez en courant vers la personne la plus proche afin de savoir quel jour on est. Et... vous vous êtes rendus au soir. ",
-                    "en": "** | :banjo: Perotin, sad of this request, decides to make you live the role of menestrel in the song and... You see yourself arriving, to ask your choice, but you force yourself to sing it, and it loops for a long time. At a moment, our favorite menestrel stops the song, and give you the antidote, to this hallucinatory poison. Affraid of what just happened, and of the duration of this loop, you run away to know what time is it. And... it's the evening now."
-                },
-                "lostTime": 480,
-                "health": 0,
-                "effect": ":clock2:",
-                "experience": 25,
-                "money": 0,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "** | :banjo: Pérotin, nostalgique, décide de raconter ses débuts dans le métier via sa chanson. Il racontait comment son ancien maître lui faisait ses cours mélodieux via ses drogues assouplissantes. Vous ressentez cette douceur dans les mots du professeur qui vous inhibe de tout votre être. À la fin de sa dernière leçon, Périssien, le maître de Pérotin, décide de vous offrir un cadeau de départ, comme il l'avait reçu de ses prédécesseurs, mais pour éviter que ce soit cet instrument magique, cette mandoline, qui ne la quitte pas depuis ses débuts, Pérotin change la fin afin de vous donner un objet qui pourrait vous être utile pour la suite de votre aventure.",
-                    "en": "** | :banjo: Perotin, nostalgic, decides to tell his beginnings in the profession in his song. He tells how his master gave him his melodious lessons , and his softening drugs. You feel this sweetness in the teacher's words that inhibits you with all your being. At the end of his last lesson, Perissien, Perotin's master, decides to give you a present, as he had received from his predecessors, but to prevent this magical instrument, this mandolin, from leaving you since its beginnings, Perotin changes the end of the song in order to give you an object that could be useful to you for the rest of your adventure."
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":smiley:",
-                "experience": 450,
-                "money": 0,
-                "item": true
-            },
-            {
-                "translations": {
-                    "fr": "** | :banjo: L'excellent ménestrel Pérotin décide de raconter un rêve qu'il aimerait voir s'exaucer, qu'il soit réel ou halluciné : au départ vous êtes seul, dans la ruelle du village, accompagné de votre guitare. Vous chantez pour vous même les joies du métier et la tristesse de la vie, quand un monarque passe dans l'avenue principale. Celui-ci, entendant la belle mélodie, vient vers vous et demande si vous pourriez lui créer une chanson sur le thème de son amour. À la fin de votre douce ballade tout juste imaginée, il vous remercie et vous fait grâce d'une jolie pile d'or, compte tenu du fait que ce passant était réel. Content de cette musique, vous décidez de partager cette somme avec Pérotin en guise de don.",
-                    "en": "** | :banjo: The excellent menestrel Perotin decides to tell a dream he would like to live, whether real or hallucinated: at the beginning you are alone, in the village alley, with your guitar. You sing for yourself the joys of the work and the sadness of life, when a monarch passes in the main avenue. This one, hearing the beautiful melody, comes towards you and asks if you could create a song for him on the theme of his love. At the end of your sweet ballad just made up, he thanks you and gives you a big bag of gold, considering that this man was real. Happy with this music, you decide to share it with Perotin as a donation."
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":smiley:",
-                "experience": 250,
-                "money": 300,
-                "item": false
-            }
-        ],
-                "⚔️": [
-            {
-                "translations": {
-                    "fr": "** | ⚔️ Ce fameux barde, ne connaissant pas grand-chose au métier d'aventurier, décide de conter un voyage banal en forêt comme vous les connaissez bien. Déçu de cette chanson et de Pérotin, vous continuez votre aventure.",
-                    "en": "** | ⚔️ This famoud bard, not knowing much about the adventurer work, decides to tell a simple trip in a forest, like you know well. Disappointed about this song, and about Perotin, you choose to continue your adventure."
-                },
-                "lostTime": 5,
-                "health": 0,
-                "effect": ":clock2:",
-                "experience": 25,
-                "money": 0,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "** | ⚔️ Pérotin décide de vous faire retourner deux minutes juste avant de lui parler. Petit problème, son histoire et ses drogues sont tellement fidèles à l'originale que vous répondez la même réaction à ce rapport, sans que la décision du ménestrel face à cette réaction change. Il se passe donc une boucle hallucino-temporelle, à cause des talents de Pérotin et de votre stupidité. Pérotin, seul conscient de la scène que vous vivez avec lui, eu pitié de vous à la fin de la journée, et vous libéra de cette mauvaise drogue.",
-                    "en": "** | ⚔️ Perotin decides to make you live the moment at which you asked him to sing the song. The problem, is that the drugs are so real that you answer the same thing you did, and the menestrel always does the same. It then created an hallucinating-temporarely loop, because of the talents of Perotin, and your stupidity. Perotin, the only concient of the scene that you live with him had mercy for you at the end of the day and released you from this bad drug."
-                },
-                "lostTime": 480,
-                "health": 0,
-                "effect": ":clock2:",
-                "experience": 25,
-                "money": 0,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "** | ⚔️ Pérotin décide de vous faire voir l'avenir, qu'il soit véritable ou pure fiction de votre esprit, et par la même occasion de vous aider à gagner un peu d'argent : vous vous rendez sur les alentours d'un vieux chateau abandonné. En cherchant un peu vous tombez sur un passage secret truffé de pièges. Vous réussissez à tous les éviter et tombez sur une salle aux trésors immense. Mais notre ménestrel favori, juste avant la fin de votre pillage et de votre récolte des trésors hors de la zone des pièges, file avec votre butin, ne vous laissant qu'avec le coffre principal de la pièce, contenant beaucoup d'argent et un objet suprenamment utile pour sauver la princesse. Amusé, vous continuez cette drôle d'aventure, encore un peu sous l'emprise de cette drogue nommé dans le milieu acide γ-hydroxybutyrique. :sick:",
-                    "en": "** | ⚔️ Perotin decides to make you see the future, whether it's real or only fiction of your mind, and by the occasion let you earn some money : you get yourself around an old abandonned castle. Looking around you, you find a passage full of traps. You finally avoid all of them, and find a big treasure room. But our favorite menestrel, before the end of your looting, run away with all your booty, leaving you with the main chest, which contains much money, and a surprising item useful to save the princess. Amused, you continue this funny adventure, still a bit under the influence of this drug, called in the acid domain γ-hydroxybutyric. :sick:"
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":sick:",
-                "experience": 420,
-                "money": 200,
-                "item": true
-            }
-        ],
-        "end": [
-            {
-                "translations": {
-                    "fr": "** | 🚶 Le ménestrel, ne vous voyant pas répondre, vous ignore et recommence à chanter des chansons basiques sans âmes. Vous continuez donc votre route.",
-                    "en": "** | 🚶 The menestrel, seeing you not answering, ignores you and restart singing basic songs. You then continue your way."
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":smiley:",
-                "experience": 150,
-                "money": 0,
-                "item": false
-            },
-            {
-                "translations": {
-                    "fr": "** | 🔪 Ne vous voyant pas réagir, le ménestrel, décidé à gagner de l'argent à ses risques et périls, et voyant devant lui un parfait cobaye, décide de vous droguer et de vous emmener dans la ruelle sombre d'à côté. De là, il commence à chanter une chanson sur une torture de laboratoire, dans laquelle vous êtes le bourreau. Ayant la force de faire cette atroce expérimentation, se déroulant à merveille sur ce magnifique cochon, le ménestrel, ou dans votre hallucination, votre patron, décide de vous offrir deux objets en guise de récompense. Pour donner suite à cela, Pérotin attend votre retour à la normale, prend l'objet ayant le plus de valeur et vous laisse avec l'autre objet, qui pourra vous être utile pour la suite. :confounded:",
-                    "en": "** | 🔪 Seeing you not reacting, the menestrel, decided to earn money, at his risks, and seeing in you the perfect cobaye, decides to drug you and to bring you in the dark nearby alley. There, he starts to sing you a song about laboratory torture, in which you are hangman. Having the force of doing this experimentation, taking place in a perfect way on this beautiful pig, the menestrel, or in your hallucination your boss, decides to give you two objects in award. To continue this, waiting for you to come back as normal, Perotin taked the most valorous item, and leave you with the other item, which will be useful for your adventure. :confounded:"
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":confounded:",
-                "experience": 20,
-                "money": 0,
-                "item": true
-            },
-            {
-                "translations": {
-                    "fr": "** | 💊 Ne vous voyant pas réagir, Pérotin décide de vous droguer afin que vous révéliez vos pensées par la parole pour voir si quelque chose s'y passe. Il n'y voit rien non plus, même au plus profond de celles-ci. Paniqué, le ménestrel appelle les gardes pour vous faire interner, pour la raison \"folie\". :lock:",
-                    "en": "** | 💊 Seeing you not reaction, Perotin decides to drug you, so you reveal what you think about by talking, to see if something happends. He doesn't see anything there, even in the most deep of them. Panicked, he calls guards, to arrest you, for madness."
-                },
-                "lostTime": 0,
-                "health": 0,
-                "effect": ":lock:",
-                "experience": 0,
-                "money": 0,
-                "item": false
-            }
-        ]
-    }
+	"translations": {
+		"fr": " : ** 🏘️ En passant dans un petit village, vous tombez sur le plus célèbre ménestrel connu dans la région et au-delà des frontières, nommé Pérotin. Celui-ci est tellement bon dans son métier qu'il peut vous faire vivre la chanson, littéralement, grâce à ses drogues puissantes. Ayant eu le dégun d'aller lui parler, celui-ci aimerait que vous lui proposiez le prochain thème de sa chanson. Que lui suggérez-vous ?\n\n:zany_face: Chanter un amour fou \n:smiling_face_with_3_hearts: Chanter un amour terne et redondant\n:crown: Chanter sur la royauté et sur le pouvoir en place\n:banjo: Chanter sur le métier de ménestrel\n:crossed_swords: Chanter sur notre vie, notre histoire héroïque\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🏘️ While crossing a small village, you found the most famous menestrel of the region, called Perotin. His is so good in his work, that he wanted to let you live a song, because of his powerful drugs. Having the degun of going talk to him, he would like you to choose the following theme. What do you suggest ?\n\n:zany_face: Sing a crazy love \n:smiling_face_with_3_hearts: Sing a dull and redondant\n:crown: Sing about the royality, and the power in place\n:banjo: Sing about the menestrel work\n:crossed_swords: Sing about life, and heroic history\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+	},
+	"possibilities": {
+		"🤪": [
+			{
+				"translations": {
+					"fr": "** | 🤪 Aussitôt demandée, aussitôt réalisée. Vous vous retrouvez dans un lit, déshabillé, à côté de ce qui s'apparente à votre amoureuse. En vous regardant de plus près, vous vous rendez compte que vous êtes attaché à la taille, et... il vous manque l'entièreté de vos membres, que ce soient les bras ou les jambes. Vous n'avez la possibilité de bouger qu'avec le torse. Voyant votre détresse, Pérotin finit sa chanson par \"tout ceci n'était qu'un rêve\" et vous redevenez comme avant, entier et détaché. Il vous faudra cependant vous reposer pour vous remettre de votre traumatisme.",
+					"en": "** | 🤪 Immediately asked, immediately done. You find yourself in a bed, undressed, and the person next to you looks like your lover. Watching at yourself, you see that you are attached on the bed and... you're missing your legs and arms. You can only move with your torso. Seeing your distress, Perotin ends his song with \"all this was just a dream\", and you are back as before. You will however need to take a rest."
+				},
+				"lostTime": 180,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🤪 Aussitôt demandée, aussitôt réalisée. Vous vous retrouvez en mer, loin de tout, accompagné d'un seul et unique matelot, votre amour. Arrivant sur une île déserte, vous voyez une croix au sol. Il s'agit bel et bien d'un trésor, rempli d'un beau butin et d'un objet qui vous sera utile. Cupidité et avarice auront eu raison de vous, et vous décidez de repartir de l'île, seul. En retournant au pays, vous retombez sur Pérotin, qui chante pour faire donner l'argent gagné là-bas, comme pour un don à cette mélodie sans pareille. À la suite de ces péripéties vous reprenez votre route, accompagné de votre objet trouvé sur l'île.",
+					"en": "** | 🤪 Immediately asked, immediately done. You find yourself in the sea, far from everything, with your only crew member, your lover. Arriving at a desert island, you find a cross on the floor. It is a treasure, full of a nice loot, and containing a very useful item. Greed and stinginess were right, you choose to leave the island alone. While coming back, you found Perotin, singing to get the money found there, as a gift. After those adventures, you start walking again, in with your item."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | 🤪 Connaissant votre quête héroïque pour le sauvetage de la princesse, le ménestrel décide de raconter une des possibles suites de vos aventures après ce sauvetage. Mais ne connaissant pas grand-chose sur vos liens avec la princesse, il préféra raconter l'histoire de \"La vieille et le faux monstre\", vous incarnant le faux monstre, bien évidemment. Connaissant déjà le synopsis, Pérotin ne réussit pas à vous faire changer, surement dû au sous-dosage de ses drogues. N'étant pas rentré dans son conte, vous décidez de le remercier pour cette magnifique histoire et vous continuez votre route, conscient de cette perte de temps inutile.",
+					"en": "** | 🤪 Knowing you heroic quest to save the princess, the menestrel decided to sing a song about one of the possible following of you adventure after saving her. But not knowing much about you relationship with the princess, if prefered to tell the story of \"The old and the fake monster\", in which you are the monster of course. Already knowing the synopsis, Perotin succeeded to not change you, probably because of the under dosage of his drugs. Having not entered in the story, you thank him for this beautiful story, and continue you trip, aware of this useless waste of time."
+				},
+				"lostTime": 20,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🥰": [
+			{
+				"translations": {
+					"fr": "** | 🥰 Reprenant vos dires, vous vous retrouvés dans un vieux monastère, à la campagne, à retourner les terres. Votre amour et vous restez dans cet endroit miteux, et chaque mois, vous réussissez à faire juste assez de récoltes pour y vivre. Vous vous épanouissez tellement dans cette histoire dû au surdosage de ses drogues que vous ne voyez pas le temps passer. Pérotin vient vous réveiller et vous raconte que les drogues ingérées font ressentir à l'utilisateur 1 à 2 minutes de ses histoires comme étant un mois entier de sa vie. Heureusement que c'est le cas, sinon vous seriez mort de vieillesse. Méditatif, vous continuez votre périple.",
+					"en": "** | 🥰 Taking your words back, you find yourself in an old monastery, in the countryside. Your lover and yourself are staying in this dingy place, harvesting just enough food to survive. You fulfill yourself in this story, due to the overdose of the drugs, that you don't see time going forward. Waking you up, after a few minutes, Perotin tells you that the drugs makes the use feel a few minutes, but those are monthes. Fortunately, or you would be dead of old age. Meditative, you continue your trip."
+				},
+				"lostTime": 360,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🥰 Ne comprenant pas votre envie soudaine pour un amour sans couleur, Pérotin vous croit dépressif, il décide donc de vous chanter une chanson réconfortante afin de vous guérir de cette soudaine dépression. Cette chanson vous fut un bien fou.",
+					"en": "** | 🥰 Not understanding your wish, for an uncolored love, Perotin thinks that you are depressive, he then chooses to sing a comforting song, to get you rid of this suddent depression. This song made you feel very well."
+				},
+				"lostTime": 0,
+				"health": 20,
+				"effect": ":smiley:",
+				"experience": 350,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🥰 Voyant votre connaissance en amours sans passion, le ménestrel s'attache à vous, et vous fait une chanson où votre amour, c'est vous. Pris par une violente dispute de couple entre vous et vous, le ménestrel arrête la chanson, et vous demande une charge pour le combat effrèné que vous avez eu avec vous même devant ses admirateurs. Encore dans l'histoire, vous pensez que vous vous quittiez, ce qui vous rend triste, très triste. Vous partez donc en laissant un peu d'argent à Pérotin pour vous faire pardonner pour le dérangement.",
+					"en": "** | 🥰 Seeing you knowing the unpasionned love, the menestrel makes you a song in which your lover is yourself. Having a big disagreement with yourself, the menestrel stops the song, and ask you a compensation for the figth that you have in front of his fans. Still in the story, you thought you were leaving yourself, which makes you be sad. You then go away, leaving some money to Perotin."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 0,
+				"money": -100,
+				"item": false
+			}
+		],
+		"👑": [
+			{
+				"translations": {
+					"fr": "** | 👑 Le ménestrel, adorant sa patrie de toujours, accède à votre requête et chante les louanges des ducs et des contes. Le duc de la région voisine passe par ici et entend cette douce mélodie, qui lui berce le cœur. A la fin de la chanson, celui-ci vous récompense vous et votre ami avec une grosse bourse d'or.",
+					"en": "** | 👑 The menestrel loving his homeland of ever, fills your request and singed the dukes. The duke of the next region came this way, and heard this soft melody, cradleling his heart. At the end of the song, he rewards you with a big gold bag."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 250,
+				"money": 600,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 👑 Notre ménestrel, détestant le pouvoir en place, décide par sa chanson de faire une révolution afin d'accéder au trône. Il vous emmène, vous drogue, et vous fait croire que toi et le reste du peuple mênent chemin dans la salle du roi. Malheureusement, une des cordes de la mandoline casse et la musique s'arrête brusquement. Vous êtes pourtant bel et bien dans la salle du trône, seul, avec une fourche. Vous vous faîtes de ce pas emprisonner pour folie. :lock:",
+					"en": "** | 👑 The menestrel, hating the actual power, by his song decides to make a revolution. He take you with him, drugs you, and makes you think that the rest of the people are on their way to the king's room. Unfortunately, one of the string of the mandoline bearks, and the music stops. You however are in the king's room, alone, with a fork. You immediately get arrested for madness. :lock:"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":lock:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 👑 Pérotin, connaissant un petit peu votre aventure afin de secourir la princesse, décide de vous faire vivre le point de vue de sa mère pendant une journée afin que vous en appreniez plus sur cette damoiselle en détresse. Mais la vie de reine n'est pas très passionnante selon vous, mis à part les quelques ragots et pensées de madame sur sa fille, vous n'en tirez rien d'utile, du fait qu'ils sont créés par les drogues magiques de Pérotin. A la fin de la journée, vous reprenez votre corps et continuez votre route.",
+					"en": "** | 👑 Perotin, knowing a bit your story to save the princess, decides to make you live the view of her mother for a day, so that you learn a bit more about this distressed woman. But the queen's life is boring for you, and appart from some gossips and thoughts of woman on her child, you don't get any usefull informations because of thet fact that those are caused by magic drugs of Perotin. At the end of the day, you take your body back, and continue your trip."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			}
+		],
+		"🪕": [
+			{
+				"translations": {
+					"fr": "** | :banjo: Pérotin, attristé par cette demande, décide de vous faire vivre le rôle de ménestrel dans sa chanson et... Vous vous voyez arriver vers vous afin de vous demander cette chanson mais vous vous forcez à dire cette même chanson, et ça se répète en boucle très longtemps. Au bout d'un moment, notre ménestrel favori stoppe la boucle en vous donnant l'antidote de ce poison hallucinatoire. Apeuré par ce qui vient de se passer et par la durée de cette boucle, vous partez en courant vers la personne la plus proche afin de savoir quel jour on est. Et... vous vous êtes rendus au soir. ",
+					"en": "** | :banjo: Perotin, sad of this request, decides to make you live the role of menestrel in the song and... You see yourself arriving, to ask your choice, but you force yourself to sing it, and it loops for a long time. At a moment, our favorite menestrel stops the song, and give you the antidote, to this hallucinatory poison. Affraid of what just happened, and of the duration of this loop, you run away to know what time is it. And... it's the evening now."
+				},
+				"lostTime": 480,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | :banjo: Pérotin, nostalgique, décide de raconter ses débuts dans le métier via sa chanson. Il racontait comment son ancien maître lui faisait ses cours mélodieux via ses drogues assouplissantes. Vous ressentez cette douceur dans les mots du professeur qui vous inhibe de tout votre être. À la fin de sa dernière leçon, Périssien, le maître de Pérotin, décide de vous offrir un cadeau de départ, comme il l'avait reçu de ses prédécesseurs, mais pour éviter que ce soit cet instrument magique, cette mandoline, qui ne la quitte pas depuis ses débuts, Pérotin change la fin afin de vous donner un objet qui pourrait vous être utile pour la suite de votre aventure.",
+					"en": "** | :banjo: Perotin, nostalgic, decides to tell his beginnings in the profession in his song. He tells how his master gave him his melodious lessons , and his softening drugs. You feel this sweetness in the teacher's words that inhibits you with all your being. At the end of his last lesson, Perissien, Perotin's master, decides to give you a present, as he had received from his predecessors, but to prevent this magical instrument, this mandolin, from leaving you since its beginnings, Perotin changes the end of the song in order to give you an object that could be useful to you for the rest of your adventure."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 450,
+				"money": 0,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | :banjo: L'excellent ménestrel Pérotin décide de raconter un rêve qu'il aimerait voir s'exaucer, qu'il soit réel ou halluciné : au départ vous êtes seul, dans la ruelle du village, accompagné de votre guitare. Vous chantez pour vous même les joies du métier et la tristesse de la vie, quand un monarque passe dans l'avenue principale. Celui-ci, entendant la belle mélodie, vient vers vous et demande si vous pourriez lui créer une chanson sur le thème de son amour. À la fin de votre douce ballade tout juste imaginée, il vous remercie et vous fait grâce d'une jolie pile d'or, compte tenu du fait que ce passant était réel. Content de cette musique, vous décidez de partager cette somme avec Pérotin en guise de don.",
+					"en": "** | :banjo: The excellent menestrel Perotin decides to tell a dream he would like to live, whether real or hallucinated: at the beginning you are alone, in the village alley, with your guitar. You sing for yourself the joys of the work and the sadness of life, when a monarch passes in the main avenue. This one, hearing the beautiful melody, comes towards you and asks if you could create a song for him on the theme of his love. At the end of your sweet ballad just made up, he thanks you and gives you a big bag of gold, considering that this man was real. Happy with this music, you decide to share it with Perotin as a donation."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 250,
+				"money": 300,
+				"item": false
+			}
+		],
+		"⚔️": [
+			{
+				"translations": {
+					"fr": "** | ⚔️ Ce fameux barde, ne connaissant pas grand-chose au métier d'aventurier, décide de conter un voyage banal en forêt comme vous les connaissez bien. Déçu de cette chanson et de Pérotin, vous continuez votre aventure.",
+					"en": "** | ⚔️ This famoud bard, not knowing much about the adventurer work, decides to tell a simple trip in a forest, like you know well. Disappointed about this song, and about Perotin, you choose to continue your adventure."
+				},
+				"lostTime": 5,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | ⚔️ Pérotin décide de vous faire retourner deux minutes juste avant de lui parler. Petit problème, son histoire et ses drogues sont tellement fidèles à l'originale que vous répondez la même réaction à ce rapport, sans que la décision du ménestrel face à cette réaction change. Il se passe donc une boucle hallucino-temporelle, à cause des talents de Pérotin et de votre stupidité. Pérotin, seul conscient de la scène que vous vivez avec lui, eu pitié de vous à la fin de la journée, et vous libéra de cette mauvaise drogue.",
+					"en": "** | ⚔️ Perotin decides to make you live the moment at which you asked him to sing the song. The problem, is that the drugs are so real that you answer the same thing you did, and the menestrel always does the same. It then created an hallucinating-temporarely loop, because of the talents of Perotin, and your stupidity. Perotin, the only concient of the scene that you live with him had mercy for you at the end of the day and released you from this bad drug."
+				},
+				"lostTime": 480,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | ⚔️ Pérotin décide de vous faire voir l'avenir, qu'il soit véritable ou pure fiction de votre esprit, et par la même occasion de vous aider à gagner un peu d'argent : vous vous rendez sur les alentours d'un vieux chateau abandonné. En cherchant un peu vous tombez sur un passage secret truffé de pièges. Vous réussissez à tous les éviter et tombez sur une salle aux trésors immense. Mais notre ménestrel favori, juste avant la fin de votre pillage et de votre récolte des trésors hors de la zone des pièges, file avec votre butin, ne vous laissant qu'avec le coffre principal de la pièce, contenant beaucoup d'argent et un objet suprenamment utile pour sauver la princesse. Amusé, vous continuez cette drôle d'aventure, encore un peu sous l'emprise de cette drogue nommé dans le milieu acide γ-hydroxybutyrique. :sick:",
+					"en": "** | ⚔️ Perotin decides to make you see the future, whether it's real or only fiction of your mind, and by the occasion let you earn some money : you get yourself around an old abandonned castle. Looking around you, you find a passage full of traps. You finally avoid all of them, and find a big treasure room. But our favorite menestrel, before the end of your looting, run away with all your booty, leaving you with the main chest, which contains much money, and a surprising item useful to save the princess. Amused, you continue this funny adventure, still a bit under the influence of this drug, called in the acid domain γ-hydroxybutyric. :sick:"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":sick:",
+				"experience": 420,
+				"money": 200,
+				"item": true
+			}
+		],
+		"end": [
+			{
+				"translations": {
+					"fr": "** | 🚶 Le ménestrel, ne vous voyant pas répondre, vous ignore et recommence à chanter des chansons basiques sans âmes. Vous continuez donc votre route.",
+					"en": "** | 🚶 The menestrel, seeing you not answering, ignores you and restart singing basic songs. You then continue your way."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🔪 Ne vous voyant pas réagir, le ménestrel, décidé à gagner de l'argent à ses risques et périls, et voyant devant lui un parfait cobaye, décide de vous droguer et de vous emmener dans la ruelle sombre d'à côté. De là, il commence à chanter une chanson sur une torture de laboratoire, dans laquelle vous êtes le bourreau. Ayant la force de faire cette atroce expérimentation, se déroulant à merveille sur ce magnifique cochon, le ménestrel, ou dans votre hallucination, votre patron, décide de vous offrir deux objets en guise de récompense. Pour donner suite à cela, Pérotin attend votre retour à la normale, prend l'objet ayant le plus de valeur et vous laisse avec l'autre objet, qui pourra vous être utile pour la suite. :confounded:",
+					"en": "** | 🔪 Seeing you not reacting, the menestrel, decided to earn money, at his risks, and seeing in you the perfect cobaye, decides to drug you and to bring you in the dark nearby alley. There, he starts to sing you a song about laboratory torture, in which you are hangman. Having the force of doing this experimentation, taking place in a perfect way on this beautiful pig, the menestrel, or in your hallucination your boss, decides to give you two objects in award. To continue this, waiting for you to come back as normal, Perotin taked the most valorous item, and leave you with the other item, which will be useful for your adventure. :confounded:"
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":confounded:",
+				"experience": 20,
+				"money": 0,
+				"item": true
+			},
+			{
+				"translations": {
+					"fr": "** | 💊 Ne vous voyant pas réagir, Pérotin décide de vous droguer afin que vous révéliez vos pensées par la parole pour voir si quelque chose s'y passe. Il n'y voit rien non plus, même au plus profond de celles-ci. Paniqué, le ménestrel appelle les gardes pour vous faire interner, pour la raison \"folie\". :lock:",
+					"en": "** | 💊 Seeing you not reaction, Perotin decides to drug you, so you reveal what you think about by talking, to see if something happends. He doesn't see anything there, even in the most deep of them. Panicked, he calls guards, to arrest you, for madness."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":lock:",
+				"experience": 0,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
 }

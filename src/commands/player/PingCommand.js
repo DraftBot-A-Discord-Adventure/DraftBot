@@ -5,19 +5,19 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const PingCommand = async function (language, message, args) {
-  message.channel.send(JsonReader.commands.ping.getTranslation(language).create)
-    .then((msg) => {
-      msg.edit(format(JsonReader.commands.ping.getTranslation(language).edit,
-        { timeElasped: (msg.createdTimestamp - message.createdTimestamp) }));
-    });
+	message.channel.send(JsonReader.commands.ping.getTranslation(language).create)
+		.then((msg) => {
+			msg.edit(format(JsonReader.commands.ping.getTranslation(language).edit,
+				{timeElasped: (msg.createdTimestamp - message.createdTimestamp)}));
+		});
 };
 
 module.exports = {
-  commands: [
-    {
-      name: 'ping',
-      func: PingCommand,
-      aliases: ['mention']
-    }
-  ]
+	commands: [
+		{
+			name: 'ping',
+			func: PingCommand,
+			aliases: ['mention']
+		}
+	]
 };

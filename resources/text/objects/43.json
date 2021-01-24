@@ -1,9 +1,9 @@
 {
-  "translations": {
-    "fr": ":banana: **Banan'ase split**",
-    "en": ":banana: **Banan'ase split**"
-  },
-  "rarity": 6,
-  "power": 7,
-  "nature": 1
+	"translations": {
+		"fr": ":banana: **Banan'ase split**",
+		"en": ":banana: **Banan'ase split**"
+	},
+	"rarity": 6,
+	"power": 7,
+	"nature": 1
 }

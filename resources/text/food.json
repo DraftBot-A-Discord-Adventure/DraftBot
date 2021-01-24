@@ -1,66 +1,66 @@
 {
-    "commonFood": {
-        "translations": {
-            "fr": {
-                "name": "**Friandise**",
-                "info": "Permet de nourrir un familier."
-            },
-            "en": {
-                "name": "**Treat**",
-                "info": "Allows to feed a pet."
-            }
-        },
-        "type": "commonFood",
-        "emote": ":candy:",
-        "price": 20,
-        "effect": 1
-    },
-    "herbivorousFood": {
-        "translations": {
-            "fr": {
-                "name": "**Salade**",
-                "info": "Permet de nourrir un familier herbivore."
-            },
-            "en": {
-                "name": "**Salad**",
-                "info": "Allows to feed a herbivorous pet."
-            }
-        },
-        "type": "herbivorousFood",
-        "emote": ":leafy_green:",
-        "price": 250,
-        "effect": 3
-    },
-    "carnivorousFood": {
-        "translations": {
-            "fr": {
-                "name": "**Viande**",
-                "info": "Permet de nourrir un familier carnivore."
-            },
-            "en": {
-                "name": "**Meat**",
-                "info": "Allows to feed a carnivorous pet."
-            }
-        },
-        "type": "carnivorousFood",
-        "emote": ":cut_of_meat:",
-        "price": 250,
-        "effect": 3
-    },
-    "ultimateFood": {
-        "translations": {
-            "fr": {
-                "name": "**Soupe ultime**",
-                "info": "Permet de nourrir un familier."
-            },
-            "en": {
-                "name": "**Ultimate Soup**",
-                "info": "Allows to feed a carnivorous pet."
-            }
-        },
-        "type": "ultimateFood",
-        "emote": ":stew:",
-        "price": 600,
-        "effect": 5
-    }
+	"commonFood": {
+		"translations": {
+			"fr": {
+				"name": "**Friandise**",
+				"info": "Permet de nourrir un familier."
+			},
+			"en": {
+				"name": "**Treat**",
+				"info": "Allows to feed a pet."
+			}
+		},
+		"type": "commonFood",
+		"emote": ":candy:",
+		"price": 20,
+		"effect": 1
+	},
+	"herbivorousFood": {
+		"translations": {
+			"fr": {
+				"name": "**Salade**",
+				"info": "Permet de nourrir un familier herbivore."
+			},
+			"en": {
+				"name": "**Salad**",
+				"info": "Allows to feed a herbivorous pet."
+			}
+		},
+		"type": "herbivorousFood",
+		"emote": ":leafy_green:",
+		"price": 250,
+		"effect": 3
+	},
+	"carnivorousFood": {
+		"translations": {
+			"fr": {
+				"name": "**Viande**",
+				"info": "Permet de nourrir un familier carnivore."
+			},
+			"en": {
+				"name": "**Meat**",
+				"info": "Allows to feed a carnivorous pet."
+			}
+		},
+		"type": "carnivorousFood",
+		"emote": ":cut_of_meat:",
+		"price": 250,
+		"effect": 3
+	},
+	"ultimateFood": {
+		"translations": {
+			"fr": {
+				"name": "**Soupe ultime**",
+				"info": "Permet de nourrir un familier."
+			},
+			"en": {
+				"name": "**Ultimate Soup**",
+				"info": "Allows to feed a carnivorous pet."
+			}
+		},
+		"type": "ultimateFood",
+		"emote": ":stew:",
+		"price": 600,
+		"effect": 5
+	}
 }

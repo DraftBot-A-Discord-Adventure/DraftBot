@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Loup",
-            "femaleName": "Louve"
-        },
-        "en": {
-            "maleName": "Wolf",
-            "femaleName": "Wolf"
-        }
-    },
-    "emoteMale": "🐺",
-    "emoteFemale": "🐺",
-    "rarity": 2,
-    "diet": "carnivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Loup",
+			"femaleName": "Louve"
+		},
+		"en": {
+			"maleName": "Wolf",
+			"femaleName": "Wolf"
+		}
+	},
+	"emoteMale": "🐺",
+	"emoteFemale": "🐺",
+	"rarity": 2,
+	"diet": "carnivorous"
 }

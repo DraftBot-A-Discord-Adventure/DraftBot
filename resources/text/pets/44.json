@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Scorpion",
-            "femaleName": "Scorpion"
-        },
-        "en": {
-            "maleName": "Scorpion",
-            "femaleName": "Scorpion"
-        }
-    },
-    "emoteMale": "🦂",
-    "emoteFemale": "🦂",
-    "rarity": 3,
-    "diet": "carnivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Scorpion",
+			"femaleName": "Scorpion"
+		},
+		"en": {
+			"maleName": "Scorpion",
+			"femaleName": "Scorpion"
+		}
+	},
+	"emoteMale": "🦂",
+	"emoteFemale": "🦂",
+	"rarity": 3,
+	"diet": "carnivorous"
 }

@@ -5,49 +5,49 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const SendPrivateMessage = async function(language, message, args) {
-  if ((await canPerformCommand(message, language,
-      PERMISSION.ROLE.SUPPORT)) !== true) {
-    return;
-  }
+const SendPrivateMessage = async function (language, message, args) {
+	if ((await canPerformCommand(message, language,
+		PERMISSION.ROLE.SUPPORT)) !== true) {
+		return;
+	}
 
-  const userId = args[0];
-  const messageToSend = args.join(' ').replace(userId, '') +
-        format(JsonReader.commands.sendPrivateMessage.getTranslation(language).signature, {
-          username: message.author.username,
-        });
+	const userId = args[0];
+	const messageToSend = args.join(' ').replace(userId, '') +
+		format(JsonReader.commands.sendPrivateMessage.getTranslation(language).signature, {
+			username: message.author.username,
+		});
 
-  if (userId === undefined || args[1] === undefined) {
-    return sendErrorMessage(user, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).descError);
-  }
+	if (userId === undefined || args[1] === undefined) {
+		return sendErrorMessage(user, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).descError);
+	}
 
-  const user = client.users.cache.get(userId);
-  if (user === undefined) {
-    return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).personNotExists);
-  }
-  const embed = new discord.MessageEmbed();
-  embed.setColor(JsonReader.bot.embed.default)
-      .setTitle(format(JsonReader.commands.sendPrivateMessage.getTranslation(language).title, {
-        username: user.username,
-      }))
-      .setDescription(messageToSend)
-      .setImage(message.attachments.size > 0 ? [...message.attachments.values()][0].url : '');
+	const user = client.users.cache.get(userId);
+	if (user === undefined) {
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).personNotExists);
+	}
+	const embed = new discord.MessageEmbed();
+	embed.setColor(JsonReader.bot.embed.default)
+		.setTitle(format(JsonReader.commands.sendPrivateMessage.getTranslation(language).title, {
+			username: user.username,
+		}))
+		.setDescription(messageToSend)
+		.setImage(message.attachments.size > 0 ? [...message.attachments.values()][0].url : '');
 
-  message.delete();
-  try {
-    await user.send(messageToSend);
-    sendMessageAttachments(message, user);
-    return await message.channel.send(embed);
-  } catch {
-    return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).errorCannotSend);
-  }
+	message.delete();
+	try {
+		await user.send(messageToSend);
+		sendMessageAttachments(message, user);
+		return await message.channel.send(embed);
+	} catch {
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).errorCannotSend);
+	}
 };
 
 module.exports = {
-  commands: [
-    {
-      name: 'dm',
-      func: SendPrivateMessage
-    }
-  ]
+	commands: [
+		{
+			name: 'dm',
+			func: SendPrivateMessage
+		}
+	]
 };

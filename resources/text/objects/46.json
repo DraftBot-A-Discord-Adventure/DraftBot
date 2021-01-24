@@ -1,9 +1,9 @@
 {
-    "translations": {
-      "fr": ":stars: **Etoile filante**",
-      "en": ":stars: **Shooting star**"
-    },
-    "rarity": 7,
-    "power": 1.25,
-    "nature": 5
-  }
+	"translations": {
+		"fr": ":stars: **Etoile filante**",
+		"en": ":stars: **Shooting star**"
+	},
+	"rarity": 7,
+	"power": 1.25,
+	"nature": 5
+}

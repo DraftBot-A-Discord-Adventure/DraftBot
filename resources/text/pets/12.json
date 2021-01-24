@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Canard",
-            "femaleName": "Cane"
-        },
-        "en": {
-            "maleName": "Drake",
-            "femaleName": "Duck"
-        }
-    },
-    "emoteMale": "🦆",
-    "emoteFemale": "🦆",
-    "rarity": 1,
-    "diet": "herbivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Canard",
+			"femaleName": "Cane"
+		},
+		"en": {
+			"maleName": "Drake",
+			"femaleName": "Duck"
+		}
+	},
+	"emoteMale": "🦆",
+	"emoteFemale": "🦆",
+	"rarity": 1,
+	"diet": "herbivorous"
 }

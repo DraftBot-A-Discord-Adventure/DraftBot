@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Koala",
-            "femaleName": "Koala"
-        },
-        "en": {
-            "maleName": "Koala",
-            "femaleName": "Koala"
-        }
-    },
-    "emoteMale": "🐨",
-    "emoteFemale": "🐨",
-    "rarity": 2,
-    "diet": "herbivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Koala",
+			"femaleName": "Koala"
+		},
+		"en": {
+			"maleName": "Koala",
+			"femaleName": "Koala"
+		}
+	},
+	"emoteMale": "🐨",
+	"emoteFemale": "🐨",
+	"rarity": 2,
+	"diet": "herbivorous"
 }

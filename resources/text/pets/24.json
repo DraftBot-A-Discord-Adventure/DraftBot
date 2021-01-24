@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Singe",
-            "femaleName": "Singe"
-        },
-        "en": {
-            "maleName": "Monkey",
-            "femaleName": "Monkey"
-        }
-    },
-    "emoteMale": "🐒",
-    "emoteFemale": "🐒",
-    "rarity": 2,
-    "diet": "herbivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Singe",
+			"femaleName": "Singe"
+		},
+		"en": {
+			"maleName": "Monkey",
+			"femaleName": "Monkey"
+		}
+	},
+	"emoteMale": "🐒",
+	"emoteFemale": "🐒",
+	"rarity": 2,
+	"diet": "herbivorous"
 }

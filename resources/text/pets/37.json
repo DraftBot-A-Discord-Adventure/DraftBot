@@ -1,15 +1,15 @@
 {
-  "translations": {
-    "fr": {
-      "maleName": "Blaireau",
-      "femaleName": "Blaireau"
-    },
-    "en": {
-      "maleName": "Badger",
-      "femaleName": "Badger"
-    }
-  },
-  "emoteMale": "🦡",
-  "emoteFemale": "🦡",
-  "rarity": 2
+	"translations": {
+		"fr": {
+			"maleName": "Blaireau",
+			"femaleName": "Blaireau"
+		},
+		"en": {
+			"maleName": "Badger",
+			"femaleName": "Badger"
+		}
+	},
+	"emoteMale": "🦡",
+	"emoteFemale": "🦡",
+	"rarity": 2
 }

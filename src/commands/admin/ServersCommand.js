@@ -5,43 +5,43 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ServersCommand = async (language, message, args) => {
-  if ((await canPerformCommand(message, language,
-      PERMISSION.ROLE.BOTOWNER)) !== true) {
-    return;
-  }
+	if ((await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOTOWNER)) !== true) {
+		return;
+	}
 
-  let count = 0;
-  let total = 0;
-  let result = "";
+	let count = 0;
+	let total = 0;
+	let result = "";
 
-  function logMapElements(guild) {
-    count++;
-    let { validation, humans, bots, ratio } = getValidationInfos(guild);
-    total += humans;
-    result += format(JsonReader.bot.getTranslation(language).serverList, {
-      count: count,
-      guild: guild,
-      humans: humans,
-      robots: bots,
-      ratio: ratio,
-      validation: validation
-    }) + "\n";
-    if (result.length > 1800) {
-      message.channel.send(result);
-      result = "";
-    }
-  }
+	function logMapElements(guild) {
+		count++;
+		let {validation, humans, bots, ratio} = getValidationInfos(guild);
+		total += humans;
+		result += format(JsonReader.bot.getTranslation(language).serverList, {
+			count: count,
+			guild: guild,
+			humans: humans,
+			robots: bots,
+			ratio: ratio,
+			validation: validation
+		}) + "\n";
+		if (result.length > 1800) {
+			message.channel.send(result);
+			result = "";
+		}
+	}
 
-  client.guilds.cache.forEach(logMapElements);
-  result += '\n' + format(JsonReader.bot.getTranslation(language).totalUsersCount, { count: total });
-  message.channel.send(result);
+	client.guilds.cache.forEach(logMapElements);
+	result += '\n' + format(JsonReader.bot.getTranslation(language).totalUsersCount, {count: total});
+	message.channel.send(result);
 };
 
 module.exports = {
-  commands: [
-    {
-      name: 'servs',
-      func: ServersCommand
-    }
-  ]
+	commands: [
+		{
+			name: 'servs',
+			func: ServersCommand
+		}
+	]
 };

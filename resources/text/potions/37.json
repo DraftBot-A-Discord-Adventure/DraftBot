@@ -1,9 +1,9 @@
 {
-  "translations": {
-    "fr": "🥤 **Glaçons fondus**",
-    "en": "🥤  **Melted ice cubes**"
-  },
-  "rarity": 5,
-  "power": 3,
-  "nature": 5
+	"translations": {
+		"fr": "🥤 **Glaçons fondus**",
+		"en": "🥤  **Melted ice cubes**"
+	},
+	"rarity": 5,
+	"power": 3,
+	"nature": 5
 }

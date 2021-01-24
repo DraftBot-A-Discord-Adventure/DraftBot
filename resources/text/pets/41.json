@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Hérisson",
-            "femaleName": "Hérisson"
-        },
-        "en": {
-            "maleName": "Hedgehog",
-            "femaleName": "Hedgehog"
-        }
-    },
-    "emoteMale": "🦔",
-    "emoteFemale": "🦔️",
-    "rarity": 2,
-    "diet": "carnivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Hérisson",
+			"femaleName": "Hérisson"
+		},
+		"en": {
+			"maleName": "Hedgehog",
+			"femaleName": "Hedgehog"
+		}
+	},
+	"emoteMale": "🦔",
+	"emoteFemale": "🦔️",
+	"rarity": 2,
+	"diet": "carnivorous"
 }

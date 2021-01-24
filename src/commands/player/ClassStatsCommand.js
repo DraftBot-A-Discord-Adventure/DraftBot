@@ -5,34 +5,34 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 async function ClassStatsCommand(language, message, args) {
-    let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
+	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
-    const classTranslations = JsonReader.commands.classStats.getTranslation(language);
+	const classTranslations = JsonReader.commands.classStats.getTranslation(language);
 
-    let classesLineDisplay = new Array();
-    let allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
-    for (let k = 0; k < allClasses.length; k++) {
-        classesLineDisplay.push(allClasses[k].toString(language, entity.Player.level))
-    }
+	let classesLineDisplay = new Array();
+	let allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
+	for (let k = 0; k < allClasses.length; k++) {
+		classesLineDisplay.push(allClasses[k].toString(language, entity.Player.level))
+	}
 
-    //Creating classstats message
-    message.channel.send(
-        new discord.MessageEmbed()
-            .setColor(JsonReader.bot.embed.default)
-            .setTitle(classTranslations.title)
-            .setDescription(classTranslations.desc)
-            .addField(
-                "\u200b", classesLineDisplay.join("\n")
-            )
-    );
+	//Creating classstats message
+	message.channel.send(
+		new discord.MessageEmbed()
+			.setColor(JsonReader.bot.embed.default)
+			.setTitle(classTranslations.title)
+			.setDescription(classTranslations.desc)
+			.addField(
+				"\u200b", classesLineDisplay.join("\n")
+			)
+	);
 }
 
 module.exports = {
-    commands: [
-        {
-            name: 'classstats',
-            func: ClassStatsCommand,
-            aliases: ['cs', 'classesstats', 'classcompare', 'classestats']
-        }
-    ]
+	commands: [
+		{
+			name: 'classstats',
+			func: ClassStatsCommand,
+			aliases: ['cs', 'classesstats', 'classcompare', 'classestats']
+		}
+	]
 };

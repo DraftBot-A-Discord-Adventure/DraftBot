@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Cygne",
-            "femaleName": "Cygne"
-        },
-        "en": {
-            "maleName": "Swan",
-            "femaleName": "Swan"
-        }
-    },
-    "emoteMale": "🦢",
-    "emoteFemale": "🦢",
-    "rarity": 2,
-    "diet": "herbivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Cygne",
+			"femaleName": "Cygne"
+		},
+		"en": {
+			"maleName": "Swan",
+			"femaleName": "Swan"
+		}
+	},
+	"emoteMale": "🦢",
+	"emoteFemale": "🦢",
+	"rarity": 2,
+	"diet": "herbivorous"
 }
