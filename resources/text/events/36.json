@@ -60,7 +60,7 @@
 			{
 				"translations": {
 					"fr": "** | 🏡 Vous arrivez à l'auberge et vous reprenez un peu d'énergie grâce à un bon repas et une sieste bien méritée.",
-					"en": "** | 🏡 You arrive at the inn and regain some strenght after a good meal and a well deserved nap."
+					"en": "** | 🏡 You arrive at the inn and regain some strength after a good meal and a well deserved nap."
 				},
 				"lostTime": 60,
 				"health": 20,

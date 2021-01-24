@@ -30,7 +30,7 @@ leaderboard.
 _Before creating your own instance, please note that you can add the bot to your server through the link available on
 the bot's discord_
 **If you decide to work on the creation of your own instance of the bot, you are supposed to have a minimum of computer
-skills. Bot support team will prioritizes players of the main instance and will only provide limited assistance.**
+skills. Bot support team will prioritize players of the main instance and will only provide limited assistance.**
 
 ## Here is a short start guide. (windows)
 
@@ -43,7 +43,7 @@ skills. Bot support team will prioritizes players of the main instance and will 
 - Edit the file app.json with the correct data
 - Launch the bot : `yarn start`
 
-## Here is the same guide for linux (or if you have a git terminal on windows)
+## Here is the same guide for linux (or if you have a git terminal on Windows)
 
 - install git : `apt-get install git`
 - download the bot : `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
