@@ -95,7 +95,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * @param {String} discordUser_id
+	 * @param {String} guildId
 	 */
 	Entities.getByGuild = (guildId) => {
 		return Entities.findAll({
