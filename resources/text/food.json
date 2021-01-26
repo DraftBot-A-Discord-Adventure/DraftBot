@@ -55,7 +55,7 @@
 			},
 			"en": {
 				"name": "**Ultimate Soup**",
-				"info": "Allows to feed a carnivorous pet."
+				"info": "Allows to feed a pet."
 			}
 		},
 		"type": "ultimateFood",
