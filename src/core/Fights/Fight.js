@@ -1,135 +1,20 @@
-/**
- * @param entity
- * @param {boolean} friendly
- * @param {boolean} tournament
- * @param {Number} attack
- * @param {Number} defense
- * @param {Number} speed
- * @param {Number} power
- * @param {Number} initialPower
- * @param {Number} maxDefenseImprovement
- * @param {Number} maxSpeedImprovement
- * @param {Number} chargeTurns
- * @param {FIGHT.ACTION} chargeAct
- * @param {{}} attacksList
- */
-class Fighter {
-	/**
-	 * @param entity
-	 * @param {boolean} friendly
-	 * @param tournament
-	 */
-	constructor(entity, friendly, tournament) {
-		this.friendly = friendly;
-		this.tournament = tournament;
-		this.entity = entity;
-		this.attacksList = {};
-		this.quickAttack = 0;
-	}
-
-	/**
-	 * Calculate all the stats of a fighter. Must be done outside of the constructor because of asynchronicity
-	 * @return {Promise<void>}
-	 */
-	async calculateStats() {
-		const inv = this.entity.Player.Inventory;
-		const w = await inv.getWeapon();
-		const a = await inv.getArmor();
-		const p = await inv.getPotion();
-		if (this.friendly) {
-			p.power = 0;
-		}
-		const o = await inv.getActiveObject();
-		this.attack = await this.entity.getCumulativeAttack(w, a, p, o);
-		this.defense = await this.entity.getCumulativeDefense(w, a, p, o);
-		this.speed = await this.entity.getCumulativeSpeed(w, a, p, o);
-		this.power = (this.friendly || this.tournament) ? await this.entity.getMaxCumulativeHealth() : await this.entity.getCumulativeHealth();
-		this.initialPower = this.power;
-		this.maxDefenseImprovement = FIGHT.MAX_DEFENSE_IMPROVEMENT;
-		this.maxSpeedImprovement = FIGHT.MAX_SPEED_IMPROVEMENT;
-		this.chargeTurns = -1;
-		this.chargeAct = null;
-	}
-
-	/**
-	 * Drink the potion if it is a fight potion
-	 */
-	async consumePotionIfNeeded() {
-		if (!this.friendly) {
-			if ((await this.entity.Player.Inventory.getPotion()).isFightPotion()) {
-				this.entity.Player.Inventory.drinkPotion();
-				this.entity.Player.Inventory.save();
-				this.entity.Player.save();
-			}
-		}
-	}
-
-	/**
-	 * Improve defense of the fighter and update max improvement
-	 * @return {number} Added defense
-	 */
-	improveDefense() {
-		this.maxDefenseImprovement += randInt(0, Math.round(this.maxDefenseImprovement / 2));
-		this.defense += this.maxDefenseImprovement;
-		const r = this.maxDefenseImprovement;
-		this.maxDefenseImprovement = Math.floor(this.maxDefenseImprovement * 0.5);
-		return r;
-	}
-
-	/**
-	 * Improve speed of the fighter and update max improvement
-	 * @return {number} Added speed
-	 */
-	improveSpeed() {
-		this.maxSpeedImprovement += randInt(0, Math.round(this.maxSpeedImprovement / 2));
-		this.speed += this.maxSpeedImprovement;
-		const r = this.maxSpeedImprovement;
-		this.maxSpeedImprovement = Math.floor(this.maxSpeedImprovement * 0.5);
-		return r;
-	}
-
-	/**
-	 * Make a player charge an action for a certain number of turns
-	 * @param {FIGHT.ACTION} action
-	 * @param {number} turns
-	 */
-	chargeAction(action, turns) {
-		this.chargeTurns = turns;
-		this.chargeAct = action;
-	}
-}
+const Fighter = require('./Fighter.js');
+const FightActionResult = require('./FightActionResult.js');
 
 /**
- * @param {Number} damage
- * @param {Number} defenseImprovement
- * @param {Number} speedImprovement
- * @param {Boolean} fullSuccess
- */
-class FightActionResult {
-	constructor() {
-		this.damage = 0;
-		this.defenseImprovement = 0;
-		this.speedImprovement = 0;
-		this.fullSuccess = false;
-	}
-}
-
-/**
- * @param {Fighter[]} fighters
- * @param {Number} turn
+ * @param player1
+ * @param player2
  * @param {module:"discord.js".Message} message
- * @param {("fr"|"en")} language
- * @param {module:"discord.js".Message} lastSummary
- * @param {Number} elo
- * @param {Number} points
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {boolean} tournamentMode
  * @param {Number} maxPower
  * @param {boolean} friendly
- * @param {boolean} endedByTime
+ * @returns {Promise<void>}
  */
 class Fight {
+
+
 	/**
-	 *
 	 * @param player1
 	 * @param player2
 	 * @param {module:"discord.js".Message} message
