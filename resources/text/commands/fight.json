@@ -36,7 +36,7 @@
 					"indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
 				},
 				"cantFightStatus": {
-					"direct": "{pseudo}, vous n'être pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
+					"direct": "{pseudo}, vous n'êtes pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
 					"indirect": "Cette personne ne semble pas en état de combattre pour le moment !"
 				},
 				"occupied": {
@@ -51,7 +51,7 @@
 			},
 			"actions": {
 				"intro": "{emote} | **{player}** ",
-				"charging": "charge une attaque... `Défense réduite de -20 %`",
+				"charging": "charge une attaque... `Défense réduite de 20 %`",
 				"chargingEmote": ":zap:",
 				"attacks": {
 					"quick": {
@@ -181,7 +181,7 @@
 			},
 			"actions": {
 				"intro": "{emote} | **{player}** ",
-				"charging": "charges an attack... `Defense reduced by 25 %`",
+				"charging": "Charges an attack... `Defense reduced by 20 %`",
 				"chargingEmote": ":zap:",
 				"attacks": {
 					"quick": {

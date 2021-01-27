@@ -133,13 +133,13 @@
         "end": [
             {
                 "translations": {
-                    "fr": "** | 🚶 Vous l'ignorez totalement, et reprenez route. Vous finissez par arriver dans une petite bourgade du très joli nom de Tardans. En y entrant, vous tombez sur une sacoche emplie d'un bon tas de pièces et d'un objet, ce qui pourrait s'avérer utile pour la suite de votre aventure !",
+                    "fr": "** | 🚶 Vous l'ignorez totalement, et reprenez votre route. Vous finissez par arriver dans une petite bourgade du très joli nom de Tardans. En y entrant, vous tombez sur une sacoche emplie d'un bon tas de pièces et d'un objet, ce qui pourrait s'avérer utile pour la suite de votre aventure !",
                     "en": "** | 🚶 You ignore her entirely and go on your way. You arrive in a delightful little town whose lovely name is Tardans. Wandering the small streets, you come across a small money bag filled with money and an object, which could be useful for the future of your journey."
                 },
                 "lostTime": 0,
                 "health": 0,
                 "effect": ":smiley:",
-                "experience": 25,
+                "experience": 425,
                 "money": 500,
                 "item": true
             },

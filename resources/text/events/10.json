@@ -7,8 +7,8 @@
 		"🎣": [
 			{
 				"translations": {
-					"fr": "** | :walking: L'homme refuse gentiment votre aide, vous poursuivez votre route.",
-					"en": "** | :walking: The man politely refuses your help, and you continue on your journey."
+					"fr": "** | 🎣 L'homme refuse gentiment votre aide, vous poursuivez votre route.",
+					"en": "** | 🎣 The man politely refuses your help, and you continue on your journey."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -19,8 +19,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :tropical_fish: Grâce à vous, l'homme attrape un superbe poisson de 3 kg ! Pour vous remercier, il vous offre quelque chose qui pourrait vous être utile...",
-					"en": "** | :tropical_fish: Thanks to you, the man catches a superb fish weighing in at 3 kg! To thank you, he offers you something that could be useful to you ..."
+					"fr": "** | 🎣 Grâce à vous, l'homme attrape un superbe poisson de 3 kg ! Pour vous remercier, il vous offre quelque chose qui pourrait vous être utile...",
+					"en": "** | 🎣 Thanks to you, the man catches a superb fish weighing in at 3 kg! To thank you, he offers you something that could be useful to you ..."
 				},
 				"lostTime": 30,
 				"health": 0,
@@ -31,8 +31,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :tropical_fish: Vous aidez l'homme à attraper une superbe prise de plus d'un kilo ! Le pêcheur vous offre quelques pièces pour vous remercier.",
-					"en": "** | :tropical_fish: Thanks to you, the man catches a fish! He offer you some money to help you in your adventure."
+					"fr": "** | 🎣 Vous aidez l'homme à attraper une superbe prise de plus d'un kilo ! Le pêcheur vous offre quelques pièces pour vous remercier.",
+					"en": "** | 🎣 Thanks to you, the man catches a fish! He offer you some money to help you in your adventure."
 				},
 				"lostTime": 30,
 				"health": 0,
@@ -43,8 +43,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :sweat_drops: Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:",
-					"en": "** | :sweat_drops: The fish at the end of the line must be huge! You find yourself quickly pulled down to the bottom of the water ! You are saved just in time by the fisherman. Stunned by this adventure, you will have to heal before continuing ! :confounded:"
+					"fr": "** | 🎣 Le poisson au bout de la ligne devait vraiment être énorme ! Vous vous retrouvez rapidement emporté au fond de l'eau ! Vous êtes sauvé juste à temps par le pêcheur. Tout étourdi après cette aventure, il faudra vous soigner ! :confounded:",
+					"en": "** | 🎣 The fish at the end of the line must be huge! You find yourself quickly pulled down to the bottom of the water ! You are saved just in time by the fisherman. Stunned by this adventure, you will have to heal before continuing ! :confounded:"
 				},
 				"lostTime": 0,
 				"health": -10,
@@ -57,8 +57,8 @@
 		"🏃": [
 			{
 				"translations": {
-					"fr": "** | :runner: Vous n'avez pas une minute à perdre pour aider un simple pêcheur ! Vous passez votre chemin.",
-					"en": "** | :runner: You don't have even a minute to lose to help a fisherman! You go your way."
+					"fr": "** | 🏃 Vous n'avez pas une minute à perdre pour aider un simple pêcheur ! Vous passez votre chemin.",
+					"en": "** | 🏃 You don't have even a minute to lose to help a fisherman! You go your way."
 				},
 				"lostTime": 0,
 				"health": 0,
