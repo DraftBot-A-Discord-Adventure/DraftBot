@@ -271,8 +271,14 @@
 				"rarity": {
 					"emote": ":slot_machine:",
 					"usage": "rarity",
-					"category": "player",
+					"category": "util",
 					"description": "Permet de voir la probabilité d'avoir un item selon sa rareté."
+				},
+				"vote": {
+					"emote": ":ballot_box:",
+					"usage": "vote",
+					"category": "util",
+					"description": "Permet d'obtenir le lien pour voter pour le bot."
 				},
 				"idea": {
 					"emote": ":bulb:",
@@ -553,8 +559,14 @@
 				"rarity": {
 					"emote": ":slot_machine:",
 					"usage": "rarity",
-					"category": "player",
+					"category": "util",
 					"description": "Allows you to see the probability of getting an item by its rarity."
+				},
+				"vote": {
+					"emote": ":ballot_box:",
+					"usage": "vote",
+					"category": "util",
+					"description": "Allows you to get the link to vote for the bot."
 				},
 				"idea": {
 					"emote": ":bulb:",
