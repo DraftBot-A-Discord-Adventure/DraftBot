@@ -1,14 +1,14 @@
 {
 	"translations": {
-		"fr": " : ** :bust_in_silhouette: Au milieu d'un champ, vous rencontrez un paysan. Ce dernier a perdu sa fourche...\n\n:mag_right: Aider le paysan à chercher sa fourche.\n:arrow_forward: Passer son chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :bust_in_silhouette: In the middle of a field, you meet a farmer. He lost his pitchfork...\n\n:mag_right: Help the farmer to find his pitchfork.\n:arrow_forward: Carry on.\n\n*- Use reactions to make an action :warning: Not responding is considered a separate choice!*"
+		"fr": " : ** :bust_in_silhouette: Au milieu d'un champ, vous rencontrez un paysan. Ce dernier a perdu sa fourche...\n\n🔎 Aider le paysan à chercher sa fourche.\n▶ Passer son chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** :bust_in_silhouette: In the middle of a field, you meet a farmer. He lost his pitchfork...\n\n🔎 Help the farmer to find his pitchfork.\n▶ Carry on.\n\n*- Use reactions to make an action :warning: Not responding is considered a separate choice!*"
 	},
 	"possibilities": {
 		"🔎": [
 			{
 				"translations": {
-					"fr": "** | :mag_right: Après un quart d'heure à chercher, vous retrouvez la fourche à côté d'un tas de foin. Pour vous remercier, le paysan vous offre quelques pièces.",
-					"en": "** | :mag_right: After a quarter hour looking, you find the pitchfork next to a pile of hay. To thank you, the farmer offers you some coins."
+					"fr": "** | 🔎 Après un quart d'heure à chercher, vous retrouvez la fourche à côté d'un tas de foin. Pour vous remercier, le paysan vous offre quelques pièces.",
+					"en": "** | 🔎 After a quarter hour looking, you find the pitchfork next to a pile of hay. To thank you, the farmer offers you some coins."
 				},
 				"lostTime": 15,
 				"health": 0,
@@ -19,8 +19,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :mag_right: Après une demi-heure de recherches, vous ne trouvez pas la fourche. Vous découvrez cependant un objet qui pourra peut être vous être utile !",
-					"en": "** | :mag_right: After half an hour of searching, you can not find the pitchfork. You discover, however, an object that may be useful to you!"
+					"fr": "** | 🔎 Après une demi-heure de recherches, vous ne trouvez pas la fourche. Vous découvrez cependant un objet qui pourra peut être vous être utile !",
+					"en": "** | 🔎 After half an hour of searching, you can not find the pitchfork. You discover, however, an object that may be useful to you!"
 				},
 				"lostTime": 30,
 				"health": 0,
@@ -31,8 +31,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :mag_right: En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille. :head_bandage:",
-					"en": "** | :mag_right: Looking for the pitchfork, you step on it and get a nasty cut. :head_bandage:"
+					"fr": "** | 🔎 En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille. :head_bandage:",
+					"en": "** | 🔎 Looking for the pitchfork, you step on it and get a nasty cut. :head_bandage:"
 				},
 				"lostTime": 0,
 				"health": -15,
@@ -43,8 +43,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :mag_right: Vous cherchez la fourche pendant presque une heure mais vous ne parvenez pas à la retrouver. Vous quittez poliment le paysan et continuez votre route",
-					"en": "** | :mag_right: You look for the pitchfork for almost an hour, but you can't find it. You leave the peasant politely and continue your journey"
+					"fr": "** | 🔎 Vous cherchez la fourche pendant presque une heure mais vous ne parvenez pas à la retrouver. Vous quittez poliment le paysan et continuez votre route",
+					"en": "** | 🔎 You look for the pitchfork for almost an hour, but you can't find it. You leave the peasant politely and continue your journey"
 				},
 				"lostTime": 50,
 				"health": 0,
@@ -57,8 +57,8 @@
 		"▶": [
 			{
 				"translations": {
-					"fr": "** | :walking: Vous continuez votre chemin sans prêter attention au paysan.",
-					"en": "** | :walking: You continue your way without paying attention to the peasant."
+					"fr": "** | 🚶 Vous continuez votre chemin sans prêter attention au paysan.",
+					"en": "** | 🚶 You continue your way without paying attention to the peasant."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -69,8 +69,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :arrow_right: En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied. :head_bandage:",
-					"en": "** | :arrow_right: Continuing through the field, you fall on the pitchfork, severely cutting your foot. :head_bandage:"
+					"fr": "** | ▶ En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied. :head_bandage:",
+					"en": "** | ▶ Continuing through the field, you fall on the pitchfork, severely cutting your foot. :head_bandage:"
 				},
 				"lostTime": 0,
 				"health": -15,
@@ -83,8 +83,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | :walking: Vous regardez bêtement pendant 15 minutes le paysan chercher sa fourche avant de repartir.",
-					"en": "** | :walking: You stare blankly for 15 minutes as the farmer looks for his pitchfork before leaving."
+					"fr": "** | 🚶 Vous regardez bêtement pendant 15 minutes le paysan chercher sa fourche avant de repartir.",
+					"en": "** | 🚶 You stare blankly for 15 minutes as the farmer looks for his pitchfork before leaving."
 				},
 				"lostTime": 15,
 				"health": 0,
