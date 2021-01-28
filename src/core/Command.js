@@ -4,7 +4,9 @@ const fs = require("fs");
  * @class
  */
 class Command {
+
 	/**
+	 * load all the commands from source files
 	 * @return {Promise<void>}
 	 */
 	static async init() {
@@ -44,6 +46,7 @@ class Command {
 	}
 
 	/**
+	 * search for a command uppon an alias
 	 * @param {String} alias - The alias
 	 * @returns {String} The command
 	 */
@@ -53,6 +56,7 @@ class Command {
 	}
 
 	/**
+	 * get all the aliases linked to a command
 	 * @param {String} cmd - The command
 	 * @returns {String[]} The aliases
 	 */
@@ -67,6 +71,7 @@ class Command {
 	}
 
 	/**
+	 * Get a command
 	 * @param {String} command - The command to get
 	 * @return An instance of the command asked
 	 */
@@ -75,6 +80,7 @@ class Command {
 	}
 
 	/**
+	 * check if a player is blocked
 	 * @param {String} id
 	 */
 	static hasBlockedPlayer(id) {
@@ -88,6 +94,7 @@ class Command {
 	}
 
 	/**
+	 * get the reason why a player is blocked and the time he is blocked for
 	 * @param {String} id
 	 * @return {{context: string, time: number}}
 	 */
@@ -96,6 +103,7 @@ class Command {
 	}
 
 	/**
+	 * block a player
 	 * @param {String} id
 	 * @param {String} context
 	 * @param {module:"discord.js".ReactionCollector} collector
@@ -105,6 +113,7 @@ class Command {
 	}
 
 	/**
+	 * unblock a player
 	 * @param {String} id
 	 */
 	static removeBlockedPlayer(id) {
@@ -116,18 +125,24 @@ class Command {
 	 * @param {module:"discord.js".Message} message - Message from the discord server
 	 */
 	static async handleMessage(message) {
+
+		//server check :
 		const [server] = await Servers.findOrCreate({
 			where: {
 				discordGuild_id: message.guild.id,
 			},
 		});
 
+		//language check
 		let language = server.language;
 		if (message.channel.id === JsonReader.app.ENGLISH_CHANNEL_ID) {
 			language = LANGUAGE.ENGLISH;
 		}
 
+		//args loading
 		const split = message.content.split(" ", 1);
+
+		//if the bot is mentionned, send help message
 		if (
 			split.length > 0 &&
 			split[0].match(discord.MessageMentions.USERS_PATTERN) &&
@@ -144,7 +159,11 @@ class Command {
 			return;
 		}
 
+		//otherwise continue
+
 		if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
+
+			//check maintenance mode
 			if (
 				message.author.id !== JsonReader.app.BOT_OWNER_ID &&
 				JsonReader.app.MODE_MAINTENANCE
@@ -158,6 +177,8 @@ class Command {
 			}
 			await Command.launchCommand(language, server.prefix, message);
 		} else {
+
+			//launch command
 			if (
 				Command.getUsedPrefix(
 					message,
@@ -214,7 +235,7 @@ class Command {
 
 		collector.on("collect", async (reaction) => {
 			const language =
-				reaction.emoji.name == MENU_REACTION.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH;
+				reaction.emoji.name === MENU_REACTION.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH;
 			sendSimpleMessage(
 				message.author,
 				message.channel,
