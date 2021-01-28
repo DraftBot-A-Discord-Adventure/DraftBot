@@ -454,6 +454,7 @@ class Fight {
 
 		switch (action) {
 			case FIGHT.ACTION.QUICK_ATTACK:
+
 				powerChanger = 0.1;
 				if (defender.speed > attacker.speed && success < 0.3) {
 					powerChanger = 0.7;

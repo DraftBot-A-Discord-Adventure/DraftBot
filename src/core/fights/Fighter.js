@@ -2,16 +2,6 @@
  * @param entity
  * @param {boolean} friendly
  * @param {boolean} tournament
- * @param {Number} attack
- * @param {Number} defense
- * @param {Number} speed
- * @param {Number} power
- * @param {Number} initialPower
- * @param {Number} maxDefenseImprovement
- * @param {Number} maxSpeedImprovement
- * @param {Number} chargeTurns
- * @param {FIGHT.ACTION} chargeAct
- * @param {{}} attacksList
  */
 class Fighter {
 

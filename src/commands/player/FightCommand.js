@@ -1,4 +1,4 @@
-const Fight = require('../../core/Fights/Fight');
+const Fight = require('../../core/fights/Fight');
 
 /**
  * Displays information about the profile of the player who sent the command

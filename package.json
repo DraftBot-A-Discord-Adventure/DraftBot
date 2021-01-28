@@ -16,6 +16,7 @@
 		"core": "./src/core",
 		"commands": "./src/commands",
 		"models": "./src/core/models",
+		"attacks": "./src/core/fights/attacks",
 		"resources": "./resources"
 	},
 	"dependencies": {
