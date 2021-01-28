@@ -25,6 +25,7 @@ class DraftBot {
 		});
 		await require("core/Database").init();
 		await require("core/Command").init();
+		await require("core/fights/Attack").init();
 
 		// TODO
 		// draftbot.checkEasterEggsFile();

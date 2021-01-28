@@ -14,21 +14,21 @@ class Attack {
 		for (const attackFile of attacksFiles) {
 			if (!attackFile.endsWith(".js")) continue;
 			const attackName = attackFile.split(".")[0];
-			const attacks = require(`${folder}/${attackName}`).attacks;
+			const attacks = require(`attacks/${attackName}`).attacks;
 			if (attacks !== undefined) {
 				for (let i = 0; i < attacks.length; ++i) {
-					attack.attacks.set(attacks[i].name, attacks[i].func);
+					Attack.attacks.set(attacks[i].actionNumber, attacks[i].func);
 				}
 			}
 		}
 	}
 
 	/**
-	 * @param {String} attack - The attack to get
 	 * @return An instance of the attack asked
+	 * @param {Number} attackNumber
 	 */
-	static getAttack(attack) {
-		return attack.attacks.get(attack);
+	static getAttack(attackNumber) {
+		return Attack.attacks.get(attackNumber);
 	}
 
 }

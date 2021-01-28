@@ -1,4 +1,5 @@
 const Fighter = require('./Fighter.js');
+const Attack = require('./Attack.js');
 const FightActionResult = require('./FightActionResult.js');
 
 /**
@@ -454,6 +455,8 @@ class Fight {
 
 		switch (action) {
 			case FIGHT.ACTION.QUICK_ATTACK:
+				let test  = await getAttack(FIGHT.ACTION.QUICK_ATTACK);
+				test(success,attacker,defender);
 
 				powerChanger = 0.1;
 				if (defender.speed > attacker.speed && success < 0.3) {
