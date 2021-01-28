@@ -19,7 +19,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🔨 Vous passez près d'une heure à réparer leur chariot. Une fois celui réparé, le groupe de personnes se jette sur vous et vous vole une partie de vos biens.",
+					"fr": "** | 🔨 Vous passez près d'une heure à réparer leur chariot. Une fois celui-ci réparé, le groupe de personnes se jette sur vous et vous vole une partie de vos biens.",
 					"en": "** | 🔨 You spend almost an hour repairing their cart. Once it's repaired, the group of people ambushes you, and steals part of your belongings."
 				},
 				"lostTime": 55,

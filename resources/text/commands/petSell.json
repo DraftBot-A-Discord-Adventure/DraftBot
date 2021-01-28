@@ -17,7 +17,7 @@
 			},
 			"addPetEmbed": {
 				"author": "{username}, transaction effectuée !",
-				"description": "{emote} **{pet}** vous suit désormais. Ocuppez vous en bien !"
+				"description": "{emote} **{pet}** vous suit désormais. Occupez vous en bien !"
 			},
 			"noMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction.",
 			"sellCancelled": "La vente à été annulée !",
