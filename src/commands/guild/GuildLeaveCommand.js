@@ -12,15 +12,7 @@ const GuildLeaveCommand = async (language, message, args) => {
 
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
-			entity
-		)) !== true
-	) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -46,73 +38,36 @@ const GuildLeaveCommand = async (language, message, args) => {
 
 	if (guild.elder_id) {
 		elder = await Entities.getById(guild.elder_id);
-		if (
-			(await canPerformCommand(
-				message,
-				language,
-				PERMISSION.ROLE.ALL,
-				[EFFECT.BABY, EFFECT.DEAD],
-				elder
-			)) !== true
-		) {
-			return;
-		}
-	} else {
-		elder = null;
 	}
 
-	// generate confirmation embed
-	confirmationEmbed.setAuthor(
-		format(
-			JsonReader.commands.guildLeave.getTranslation(language).leaveTitle,
-			{
-				pseudo: message.author.username,
-			}
-		),
-		message.author.displayAvatarURL()
-	);
-	if (guild.chief_id != entity.id) {
-		confirmationEmbed.setDescription(
-			format(
-				JsonReader.commands.guildLeave.getTranslation(language)
-					.leaveDesc,
-				{
-					guildName: guild.name,
-				}
-			)
-		);
-	} else {
+	if (entity.id === guild.chief_id) {
 		if (elder) {
 			confirmationEmbed.setDescription(
-				format(
-					JsonReader.commands.guildLeave.getTranslation(language)
-						.leaveChiefDescWithElder,
-					{
-						guildName: guild.name,
-						elderName: await elder.Player.getPseudo(language),
-					}
-				)
+				format(JsonReader.commands.guildLeave.getTranslation(language).leaveChiefDescWithElder, {
+					guildName: guild.name,
+					elderName: await elder.Player.getPseudo(language),
+				})
 			);
 		} else {
 			confirmationEmbed.setDescription(
-				format(
-					JsonReader.commands.guildLeave.getTranslation(language)
-						.leaveChiefDesc,
-					{
-						guildName: guild.name,
-					}
-				)
+				format(JsonReader.commands.guildLeave.getTranslation(language).leaveChiefDesc, {
+					guildName: guild.name,
+				})
 			);
 		}
+	} else {
+		confirmationEmbed.setDescription(
+			format(JsonReader.commands.guildLeave.getTranslation(language).leaveDesc, {
+				guildName: guild.name,
+			})
+		);
 	}
-
 	const msg = await message.channel.send(confirmationEmbed);
 
 	const embed = new discord.MessageEmbed();
 	const filterConfirm = (reaction, user) => {
 		return (
-			(reaction.emoji.name == MENU_REACTION.ACCEPT ||
-				reaction.emoji.name == MENU_REACTION.DENY) &&
+			(reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) &&
 			user.id === message.author.id
 		);
 	};
@@ -123,8 +78,8 @@ const GuildLeaveCommand = async (language, message, args) => {
 	});
 
 	addBlockedPlayer(entity.discordUser_id, "guildLeave", collector);
-	if (elder)
-		addBlockedPlayer(elder.discordUser_id, "chiefGuildLeave", collector);
+	if (elder) addBlockedPlayer(elder.discordUser_id, "chiefGuildLeave", collector);
+
 	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (elder) removeBlockedPlayer(elder.discordUser_id);
@@ -132,58 +87,48 @@ const GuildLeaveCommand = async (language, message, args) => {
 			// a reaction exist
 			if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
 				entity.Player.guild_id = null;
-				if (elder) {
-					guild.chief_id = guild.elder_id;
-					guild.elder_id = null;
-					await Promise.all([guild.save()]);
-					message.channel.send(
-						format(
-							JsonReader.commands.guildLeave.getTranslation(
-								language
-							).newChiefTitle,
-							{
+				 if (entity.id === guild.chief_id) {
+					if (elder) {
+						guild.chief_id = elder.id;
+						guild.elder_id = null;
+						await Promise.all([guild.save()]);
+						message.channel.send(
+							format(JsonReader.commands.guildLeave.getTranslation(language).newChiefTitle, {
 								guild: guild.name,
+							})
+						);
+					} else {
+						// the chief is leaving : destroy the guild
+						await Players.update(
+							{ guild_id: null },
+							{
+								where: {
+									guild_id: guild.id,
+								},
 							}
-						)
-					);
-				} else if (guild.chief_id == entity.id) {
-					// the chief is leaving : destroy the guild
-					await Players.update(
-						{guild_id: null},
-						{
-							where: {
-								guild_id: guild.id,
-							},
+						);
+						for (let pet of guild.GuildPets) {
+							pet.PetEntity.destroy();
+							pet.destroy();
 						}
-					);
-					for (let pet of guild.GuildPets) {
-						pet.PetEntity.destroy();
-						pet.destroy();
+						await Guilds.destroy({
+							where: {
+								id: guild.id,
+							},
+						});
 					}
-					await Guilds.destroy({
-						where: {
-							id: guild.id,
-						},
-					});
 				}
 
 				await Promise.all([entity.save(), entity.Player.save()]);
 
 				embed.setAuthor(
-					format(
-						JsonReader.commands.guildLeave.getTranslation(language)
-							.successTitle,
-						{
-							pseudo: message.author.username,
-							guildName: guild.name,
-						}
-					),
+					format(JsonReader.commands.guildLeave.getTranslation(language).successTitle, {
+						pseudo: message.author.username,
+						guildName: guild.name,
+					}),
 					message.author.displayAvatarURL()
 				);
-				embed.setDescription(
-					JsonReader.commands.guildLeave.getTranslation(language)
-						.leavingSuccess
-				);
+				embed.setDescription(JsonReader.commands.guildLeave.getTranslation(language).leavingSuccess);
 				return message.channel.send(embed);
 			}
 		}
@@ -193,20 +138,13 @@ const GuildLeaveCommand = async (language, message, args) => {
 			message.author,
 			message.channel,
 			language,
-			format(
-				JsonReader.commands.guildLeave.getTranslation(language)
-					.leavingCancelled,
-				{
-					guildName: guild.name,
-				}
-			)
+			format(JsonReader.commands.guildLeave.getTranslation(language).leavingCancelled, {
+				guildName: guild.name,
+			})
 		);
 	});
 
-	await Promise.all([
-		msg.react(MENU_REACTION.ACCEPT),
-		msg.react(MENU_REACTION.DENY),
-	]);
+	await Promise.all([msg.react(MENU_REACTION.ACCEPT), msg.react(MENU_REACTION.DENY)]);
 };
 
 module.exports = {
