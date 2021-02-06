@@ -71,21 +71,22 @@ class DraftBot {
 	/**
 	 * Daily timeout actions
 	 */
-	static async dailyTimeout() {
-		const sequelize = require("sequelize");
-		console.log("INFO: Daily timeout");
-		const shopPotion = await Shop.findOne({
-			attributes: ["shop_potion_id"],
-		});
-		const numberOfPotions = await Potions.count();
-		let potion;
-		do {
-			potion = await Potions.findOne({
-				where: {
-					id: draftbotRandom.integer(0, numberOfPotions - 2) + 1,
-				},
-			});
-		} while (potion.id == shopPotion.shop_potion_id);
+		static async dailyTimeout() {
+ 				const sequelize = require("sequelize");
+				console.log("INFO: Daily timeout");
+				const shopPotion = await Shop.findOne({
+            attributes: ["shop_potion_id"],
+        });
+        const numberOfPotions = await Potions.count();
+        let potion;
+
+        potion = await Potions.findAll({
+            order: sequelize.literal('random()'),
+        });
+        let i = 0
+        while (potion[i].id == shopPotion.shop_potion_id || potion[i].nature == 0) {
+        i++
+        } potion = potion[i]
 
 		await Shop.update(
 			{
