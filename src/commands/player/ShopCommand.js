@@ -307,6 +307,7 @@ async function confirmPurchase(
 	customer,
 	selectedItem
 ) {
+	addBlockedPlayer(entity.discordUser_id, "confirmBuy");
 	const confirmEmbed = new discord.MessageEmbed()
 		.setColor(JsonReader.bot.embed.default)
 		.setAuthor(
