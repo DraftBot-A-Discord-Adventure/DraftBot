@@ -26,11 +26,7 @@ class Fight {
 	 * @returns {Promise<void>}
 	 */
 	constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1, friendly = false) {
-		if (draftbotRandom.bool()) {
-			this.fighters = [new Fighter(player1, friendly, tournamentMode), new Fighter(player2, friendly, tournamentMode)];
-		} else {
-			this.fighters = [new Fighter(player2, friendly, tournamentMode), new Fighter(player1, friendly, tournamentMode)];
-		}
+		this.fighters = [new Fighter(player2, friendly, tournamentMode), new Fighter(player1, friendly, tournamentMode)];
 		this.turn = 0;
 		this.message = message;
 		this.language = language;
@@ -68,11 +64,14 @@ class Fight {
 	 * @return {Promise<void>}
 	 */
 	async startFight() {
+
 		if (this.hasStarted()) {
 			throw new Error('The fight already started !');
 		} else if (this.hasEnded()) {
 			throw new Error('The fight cannot be started twice !');
 		}
+
+		//load player stats
 		for (let i = 0; i < this.fighters.length; i++) {
 			await this.fighters[i].calculateStats();
 			if (this.maxPower !== -1 && this.fighters[i].power > this.maxPower) {
@@ -81,6 +80,14 @@ class Fight {
 			await this.fighters[i].consumePotionIfNeeded();
 			global.addBlockedPlayer(this.fighters[i].entity.discordUser_id, 'fight');
 		}
+
+		//the player with the highest speed start the fight
+		if (this.fighters[1].speed > this.fighters[0].speed) {
+			let temp = this.fighters[0];
+			this.fighters[0] = this.fighters[1];
+			this.fighters[1] = temp;
+		}
+
 		this.introduceFight();
 		this.actionMessages = [
 			await this.message.channel.send('_ _'),
@@ -455,8 +462,8 @@ class Fight {
 
 		switch (action) {
 			case FIGHT.ACTION.QUICK_ATTACK:
-				let test  = await getAttack(FIGHT.ACTION.QUICK_ATTACK);
-				test(success,attacker,defender);
+				let test = await getAttack(FIGHT.ACTION.QUICK_ATTACK);
+				test(success, attacker, defender);
 
 				powerChanger = 0.1;
 				if (defender.speed > attacker.speed && success < 0.3) {
