@@ -4,7 +4,8 @@
 async function quickAttack (success, attacker, defender) {
 	//const far = new FightActionResult();
 	//let powerChanger;
-	console.log("test");
+
+	//TODO: Déplacer les attaques dans des fichiers comme celui là
 }
 
 module.exports = {

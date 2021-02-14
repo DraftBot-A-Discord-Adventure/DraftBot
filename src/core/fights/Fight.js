@@ -1,5 +1,5 @@
 const Fighter = require('./Fighter.js');
-const Attack = require('./Attack.js');
+//const Attack = require('./Attack.js');
 const FightActionResult = require('./FightActionResult.js');
 
 /**
