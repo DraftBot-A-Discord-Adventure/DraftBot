@@ -523,8 +523,10 @@ class Fight {
 
 			case FIGHT.ACTION.BULK_ATTACK:
 				if (success < 0.9) {
-					far.damage = Math.round(attacker.attack * 3 - Math.round(defender.defense * 1.2));
-					far.ownDamage = Math.round(attacker.attack * 3 - Math.round(attacker.defense * 1.2));
+					far.damage = Math.round(attacker.attack * 3 - Math.round(defender.defense));
+					far.ownDamage = Math.round(attacker.attack * 3 - Math.round(attacker.defense));
+					if (far.ownDamage < 10)
+						far.ownDamage = 10;
 					attacker.power -= far.ownDamage; //this attack is for everybody
 				} else {
 					far.damage = 0;
