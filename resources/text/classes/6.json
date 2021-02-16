@@ -4,11 +4,11 @@
 		"en": ":chains: Enmeshed"
 	},
 	"emoji": "⛓️",
-	"attack": 30,
+	"attack": 25,
 	"defense": 70,
 	"speed": 5,
 	"health": 140,
 	"fightPoint": 400,
-	"price": 5100,
+	"price": 3400,
 	"classgroup": 2
 }
