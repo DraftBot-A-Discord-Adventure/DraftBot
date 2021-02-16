@@ -53,6 +53,8 @@ class Fight {
 				return "ultimate";
 			case FIGHT.ACTION.POWERFUL_ATTACK:
 				return "powerful";
+			case FIGHT.ACTION.BULK_ATTACK:
+				return "bulk";
 		}
 		return "unknown";
 	}
@@ -474,12 +476,12 @@ class Fight {
 
 				powerChanger = 0.1;
 				if (defender.speed > attacker.speed && success < 0.3) {
-					powerChanger = 0.8;
+					powerChanger = 0.85;
 					if (attacker.quickAttack > 1)
 						powerChanger -= attacker.quickAttack / 15;
 					attacker.quickAttack++;
-				} else if (defender.speed < attacker.speed && success < 0.95) {
-					powerChanger = 0.8;
+				} else if (defender.speed < attacker.speed && success < 0.98) {
+					powerChanger = 0.85;
 					if (attacker.quickAttack > 1)
 						powerChanger -= attacker.quickAttack / 11;
 					attacker.quickAttack++;
