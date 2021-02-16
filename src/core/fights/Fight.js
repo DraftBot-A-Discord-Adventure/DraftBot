@@ -199,7 +199,7 @@ class Fight {
 							break;
 						case '🛡':
 							await message.delete().catch();
-							await fight.useAction(FIGHT.ACTION.IMPROVE_DEFENSE);
+							await fight.useAction(FIGHT.ACTION.BULK_ATTACK);
 							break;
 						case '🚀':
 							await message.delete().catch();
@@ -298,7 +298,7 @@ class Fight {
 		const player = await this.getPlayingFighter().entity.Player.getPseudo(this.language);
 		let section;
 		switch (action) {
-			case FIGHT.ACTION.IMPROVE_DEFENSE:
+			case FIGHT.ACTION.BULK_ATTACK:
 				await this.addActionMessage(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.defense, {
 					emote: JsonReader.commands.fight.getTranslation(this.language).actions.defenseEmote,
 					defense: fightActionResult.defenseImprovement,
@@ -467,12 +467,12 @@ class Fight {
 
 				powerChanger = 0.1;
 				if (defender.speed > attacker.speed && success < 0.3) {
-					powerChanger = 0.7;
+					powerChanger = 0.8;
 					if (attacker.quickAttack > 1)
 						powerChanger -= attacker.quickAttack / 15;
 					attacker.quickAttack++;
 				} else if (defender.speed < attacker.speed && success < 0.95) {
-					powerChanger = 0.7;
+					powerChanger = 0.8;
 					if (attacker.quickAttack > 1)
 						powerChanger -= attacker.quickAttack / 11;
 					attacker.quickAttack++;
@@ -484,15 +484,15 @@ class Fight {
 			case FIGHT.ACTION.SIMPLE_ATTACK:
 				powerChanger = 0.4;
 				if ((defender.speed > attacker.speed && success <= 0.4) || (defender.speed < attacker.speed && success < 0.9)) {
-					powerChanger = 1;
+					powerChanger = 1.2;
 				} else if ((defender.speed > attacker.speed && success <= 0.9)) {
-					powerChanger = 0.7;
+					powerChanger = 0.9;
 				}
 				far.damage = Math.round(attacker.attack * powerChanger - defender.defense);
 				if (far.damage < 0)
 					far.damage = 0;
-				far.damage += randInt(1, Math.round(attacker.attack / 8));
-				far.fullSuccess = far.damage >= Math.round(attacker.attack / 8);
+				far.damage += randInt(1, Math.round(attacker.attack / 4));
+				far.fullSuccess = far.damage >= Math.round(attacker.attack / 4);
 				break;
 
 			case FIGHT.ACTION.POWERFUL_ATTACK:
@@ -507,7 +507,7 @@ class Fight {
 				} else {
 					attacker.speed = Math.round(attacker.speed * 0.9);
 				}
-				far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.5));
+				far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.7));
 				if (far.damage < 0)
 					far.damage = 0;
 				if (powerChanger > 1)
@@ -515,8 +515,8 @@ class Fight {
 				far.fullSuccess = powerChanger > 1.4;
 				break;
 
-			case FIGHT.ACTION.IMPROVE_DEFENSE:
-				far.defenseImprovement = attacker.improveDefense();
+			case FIGHT.ACTION.BULK_ATTACK:
+				far.defenseImprovement = attacker.bulkAttack();
 				break;
 
 			case FIGHT.ACTION.IMPROVE_SPEED:
@@ -530,12 +530,12 @@ class Fight {
 						player: await attacker.entity.Player.getPseudo(this.language),
 					}));
 					attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 1);
-					attacker.defense = Math.round(attacker.defense * 0.80);
+					attacker.defense = Math.round(attacker.defense * 0.60);
 					await this.nextTurn();
 					return;
 				}
 				if ((success <= 0.1) || (attacker.power < attacker.initialPower * 0.5 && success <= 0.8) || (attacker.power < attacker.initialPower * 0.25)) {
-					far.damage = Math.round(defender.initialPower * 0.6);
+					far.damage = Math.round(attacker.attack * 4.5 - Math.round(defender.defense * 5));
 					far.fullSuccess = true;
 				} else {
 					far.damage = 0;
