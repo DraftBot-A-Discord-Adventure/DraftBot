@@ -36,7 +36,6 @@ class Fighter {
 		this.speed = await this.entity.getCumulativeSpeed(w, a, p, o);
 		this.power = (this.friendly || this.tournament) ? await this.entity.getMaxCumulativeHealth() : await this.entity.getCumulativeHealth();
 		this.initialPower = this.power;
-		this.maxDefenseImprovement = FIGHT.MAX_DEFENSE_IMPROVEMENT;
 		this.maxSpeedImprovement = FIGHT.MAX_SPEED_IMPROVEMENT;
 		this.chargeTurns = -1;
 		this.chargeAct = null;
