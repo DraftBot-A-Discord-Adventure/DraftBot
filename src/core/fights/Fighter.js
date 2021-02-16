@@ -56,18 +56,6 @@ class Fighter {
 	}
 
 	/**
-	 * Improve defense of the fighter and update max improvement
-	 * @return {number} Added defense
-	 */
-	bulkAttack() {
-		this.maxDefenseImprovement += randInt(0, Math.round(this.maxDefenseImprovement / 2));
-		this.defense += this.maxDefenseImprovement;
-		const r = this.maxDefenseImprovement;
-		this.maxDefenseImprovement = Math.floor(this.maxDefenseImprovement * 0.5);
-		return r;
-	}
-
-	/**
 	 * Improve speed of the fighter and update max improvement
 	 * @return {number} Added speed
 	 */

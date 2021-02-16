@@ -7,7 +7,7 @@
 class FightActionResult {
 	constructor() {
 		this.damage = 0;
-		this.defenseImprovement = 0;
+		this.ownDamage = 0;
 		this.speedImprovement = 0;
 		this.fullSuccess = false;
 	}

@@ -197,7 +197,7 @@ class Fight {
 							await message.delete().catch();
 							await fight.useAction(FIGHT.ACTION.POWERFUL_ATTACK);
 							break;
-						case '🛡':
+						case '🧨':
 							await message.delete().catch();
 							await fight.useAction(FIGHT.ACTION.BULK_ATTACK);
 							break;
@@ -228,7 +228,7 @@ class Fight {
 					await message.react('🗡');
 					await message.react('🪓');
 					await message.react('💣');
-					await message.react('🛡');
+					await message.react('🧨');
 					await message.react('🚀');
 				} catch (e) {
 				}
@@ -299,12 +299,8 @@ class Fight {
 		let section;
 		switch (action) {
 			case FIGHT.ACTION.BULK_ATTACK:
-				await this.addActionMessage(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.defense, {
-					emote: JsonReader.commands.fight.getTranslation(this.language).actions.defenseEmote,
-					defense: fightActionResult.defenseImprovement,
-					player: player,
-				}));
-				return;
+				section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.bulk;
+				break;
 			case FIGHT.ACTION.IMPROVE_SPEED:
 				await this.addActionMessage(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.speed, {
 					emote: JsonReader.commands.fight.getTranslation(this.language).actions.speedEmote,
@@ -335,10 +331,16 @@ class Fight {
 		} else {
 			resMsg = 'notGood';
 		}
+
 		const resultSection = JsonReader.commands.fight.getTranslation(this.language).actions.attacksResults[resMsg];
+
 		msg += resultSection[randInt(0, resultSection.length - 1)];
-		await this.addActionMessage(format(msg, {emote: section.emote, player: player, attack: section.name}) +
-			section.end[resMsg] +
+		await this.addActionMessage(format(msg, {
+				emote: section.emote,
+				player: player,
+				attack: section.name,
+			}) +
+			format(section.end[resMsg], {ownDamages: fightActionResult.ownDamage}) +
 			format(JsonReader.commands.fight.getTranslation(this.language).actions.damages, {damages: fightActionResult.damage}));
 	}
 
@@ -442,9 +444,9 @@ class Fight {
 		if (this.lastSummary !== undefined) {
 			this.lastSummary.delete({timeout: 5000}).catch();
 		}
-		if(winner != null) {
+		if (winner != null) {
 			log("Fight ended; winner: " + winner.entity.discordUser_id + " (" + winner.power + "/" + winner.initialPower + "); loser: " + loser.entity.discordUser_id + " (" + loser.power + "/" + loser.initialPower + "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
-		}else{
+		} else {
 			log("Fight ended; egality: " + this.fighters[0].entity.discordUser_id + " (" + this.fighters[0].power + "/" + this.fighters[0].initialPower + "); loser: " + this.fighters[1].entity.discordUser_id + " (" + this.fighters[1].power + "/" + this.fighters[1].initialPower + "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
 		}
 		this.outroFight();
@@ -520,7 +522,14 @@ class Fight {
 				break;
 
 			case FIGHT.ACTION.BULK_ATTACK:
-				far.defenseImprovement = attacker.bulkAttack();
+				if (success < 0.9) {
+					far.damage = Math.round(attacker.attack * 3 - Math.round(defender.defense * 1.2));
+					far.ownDamage = Math.round(attacker.attack * 3 - Math.round(attacker.defense * 1.2));
+					attacker.power -= far.ownDamage; //this attack is for everybody
+				} else {
+					far.damage = 0;
+				}
+				far.fullSuccess = far.damage > 0;
 				break;
 
 			case FIGHT.ACTION.IMPROVE_SPEED:

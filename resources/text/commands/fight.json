@@ -89,6 +89,15 @@
 							"notGood": "",
 							"failed": ""
 						}
+					},
+					"bulk": {
+						"name": "attaque bélier",
+						"emote": ":firecracker:",
+						"end": {
+							"succeed": " `Dégâts subis: {ownDamages}`",
+							"notGood": "",
+							"failed": ""
+						}
 					}
 				},
 				"attacksResults": {
@@ -123,8 +132,6 @@
 						"choisit une {attack} !  Mauvaise initiative"
 					]
 				},
-				"defense": "renforce sa défense ! `Défense + {defense}`",
-				"defenseEmote": ":shield:",
 				"speed": "augmente sa vitesse ! `Vitesse + {speed}`",
 				"speedEmote": ":rocket:",
 				"damages": " `Dégâts infligés: {damages}`"
@@ -219,6 +226,15 @@
 							"notGood": "",
 							"failed": ""
 						}
+					},
+					"bulk": {
+						"name": "attaque bélier",
+						"emote": ":firecracker:",
+						"end": {
+							"succeed": " `Dégâts subis: {ownDamages}`",
+							"notGood": "",
+							"failed": ""
+						}
 					}
 				},
 				"attacksResults": {
@@ -253,8 +269,6 @@
 						"opts for a {attack}! Bad initiative"
 					]
 				},
-				"defense": "buffs their defense ! `Defense + {defense}`",
-				"defenseEmote": ":shield:",
 				"speed": "increased their speed! `Speed + {speed}`",
 				"speedEmote": ":rocket:",
 				"damages": " `Damage dealt: {damages}`"
