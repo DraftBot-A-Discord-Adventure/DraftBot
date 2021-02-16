@@ -468,8 +468,9 @@ class Fight {
 
 		switch (action) {
 			case FIGHT.ACTION.QUICK_ATTACK:
-				let test = await getAttack(FIGHT.ACTION.QUICK_ATTACK);
-				test(success, attacker, defender);
+				// maybe used for future refactor
+				//let test = await getAttack(FIGHT.ACTION.QUICK_ATTACK);
+				//test(success, attacker, defender);
 
 				powerChanger = 0.1;
 				if (defender.speed > attacker.speed && success < 0.3) {
