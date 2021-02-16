@@ -59,7 +59,7 @@ class Fighter {
 	 * Improve defense of the fighter and update max improvement
 	 * @return {number} Added defense
 	 */
-	improveDefense() {
+	bulkAttack() {
 		this.maxDefenseImprovement += randInt(0, Math.round(this.maxDefenseImprovement / 2));
 		this.defense += this.maxDefenseImprovement;
 		const r = this.maxDefenseImprovement;
