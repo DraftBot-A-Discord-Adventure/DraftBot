@@ -112,8 +112,9 @@ class Fight {
 	 */
 	async outroFight() {
 		const loser = this.getLoser();
+		const winner = this.getWinner();
 		let msg;
-		if (loser != null) {
+		if (loser != null && loser.power !== winner.power) {
 			msg = format(JsonReader.commands.fight.getTranslation(this.language).end.win, {
 				winner: this.getWinner().entity.getMention(),
 				loser: loser.entity.getMention()
@@ -426,7 +427,9 @@ class Fight {
 		const winner = this.getWinner();
 		this.calculateElo();
 		this.calculatePoints();
-		if (loser != null) {
+
+		// give and remove points if the fight is not a draw
+		if (loser != null && loser.power !== winner.power) {
 			loser.entity.Player.addScore(-this.points);
 			loser.entity.Player.addWeeklyScore(-this.points);
 			loser.entity.Player.save();
@@ -434,6 +437,7 @@ class Fight {
 			winner.entity.Player.addWeeklyScore(this.points);
 			winner.entity.Player.save();
 		}
+
 		if (!this.friendly && !this.tournamentMode) {
 			for (let i = 0; i < this.fighters.length; i++) {
 				this.fighters[i].entity.fightPointsLost = await this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
@@ -531,6 +535,8 @@ class Fight {
 					if (far.ownDamage < 10)
 						far.ownDamage = 10;
 					attacker.power -= far.ownDamage; //this attack is for everybody
+					if (attacker.power < 0)
+						attacker.power = 0;
 				} else {
 					far.damage = 0;
 				}
