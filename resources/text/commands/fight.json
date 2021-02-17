@@ -115,7 +115,7 @@
 						"réalise une {attack} ! L'assaut est absolument dingue !",
 						"assène son adversaire d'une {attack} ! Sans pitié !",
 						"réalise une {attack} ! OH MON DIEU C'EST INCROYAAAAAAAAABLEEEE !",
-						"choisit une {attack} !  Très bonne initiative !"
+						"choisit une {attack} ! Très bonne initiative !"
 					],
 					"notGood": [
 						"effectue une {attack} ! Ça fonctionne mais c'était pas incroyable.",
@@ -129,7 +129,7 @@
 						"effectue une {attack} ! C'est pas très réussi.",
 						"lance une {attack} ! Médiocre",
 						"utilise une {attack} ! Faiblarde !",
-						"choisit une {attack} !  Le résultat est assez pitoyable."
+						"choisit une {attack} ! Le résultat est assez pitoyable."
 					],
 					"failed": [
 						"effectue une {attack} ! C'est raté !",
@@ -139,7 +139,7 @@
 						"effectue une {attack} ! C'était risqué et ça n'est pas passé !",
 						"lance une mauvaise {attack} !",
 						"utilise une {attack} ! Un choix peu judicieux !",
-						"choisit une {attack} !  Mauvaise initiative"
+						"choisit une {attack} ! Mauvaise initiative"
 					]
 				},
 				"speed": "augmente sa vitesse ! `Vitesse + {speed}`",
