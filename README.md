@@ -37,7 +37,7 @@ skills. Bot support team will prioritize players of the main instance and will o
 - install git : https://git-scm.com/download/win
 - download the bot : `git clone https://github.com/BastLast/DraftBot-A-Discord-Adventure`
 - install NodeJS http://nodejs.org/fr/ (nodejs 12 minimum is required)
-- install Yarn https://classic.yarnpkg.com/fr/docs/install/#windows-stable
+- install Yarn `npm install --global yarn`
 - install the bot : `yarn install`
 - create the config file by copying the file app.json.default in a new file app.json
 - Edit the file app.json with the correct data
