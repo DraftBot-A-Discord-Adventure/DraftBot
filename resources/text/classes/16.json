@@ -4,7 +4,7 @@
 		"en": ":fleur_de_lis: Paladin"
 	},
 	"emoji": "⚜️",
-	"attack": 65,
+	"attack": 55,
 	"defense": 95,
 	"speed": 10,
 	"health": 100,
