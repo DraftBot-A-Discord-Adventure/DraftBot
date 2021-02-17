@@ -520,7 +520,7 @@ class Fight {
 				} else {
 					attacker.speed = Math.round(attacker.speed * 0.9);
 				}
-				far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.7));
+				far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.5));
 				if (far.damage < 0)
 					far.damage = 0;
 				if (powerChanger > 1)
@@ -530,8 +530,8 @@ class Fight {
 
 			case FIGHT.ACTION.BULK_ATTACK:
 				if (success < 0.9) {
-					far.damage = Math.round(attacker.attack * 3 - Math.round(defender.defense));
-					far.ownDamage = Math.round(attacker.attack * 3 - Math.round(attacker.defense));
+					far.damage = Math.round(attacker.attack * 2.5 - Math.round(defender.defense));
+					far.ownDamage = Math.round(attacker.attack * 2.5 - Math.round(attacker.defense));
 					if (far.ownDamage < 10)
 						far.ownDamage = 10;
 					attacker.power -= far.ownDamage; //this attack is for everybody
@@ -559,7 +559,10 @@ class Fight {
 					return;
 				}
 				if ((success <= 0.1) || (attacker.power < attacker.initialPower * 0.5 && success <= 0.8) || (attacker.power < attacker.initialPower * 0.25)) {
-					far.damage = Math.round(attacker.attack * 4.5 - Math.round(defender.defense * 5));
+					far.damage = Math.round(attacker.attack * 3.5 - Math.round(defender.defense));
+					if(far.damage > defender.initialPower * 0.6)
+						far.damage = Math.round(defender.initialPower * 0.6);
+
 					far.fullSuccess = true;
 				} else {
 					far.damage = 0;
