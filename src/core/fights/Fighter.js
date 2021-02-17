@@ -15,7 +15,7 @@ class Fighter {
 		this.tournament = tournament;
 		this.entity = entity;
 		this.attacksList = {};
-		this.quickAttack = 0;
+		this.quickAttack = -1;
 	}
 
 	/**
