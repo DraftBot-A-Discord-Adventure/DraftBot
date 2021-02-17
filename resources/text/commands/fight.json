@@ -96,7 +96,7 @@
 						"end": {
 							"succeed": " `Dégâts subis: {ownDamages}`",
 							"notGood": "",
-							"failed": ""
+							"failed": " `Dégâts subis: {ownDamages}`"
 						}
 					}
 				},
@@ -241,9 +241,9 @@
 						"name": "attaque bélier",
 						"emote": ":firecracker:",
 						"end": {
-							"succeed": " `Dégâts subis: {ownDamages}`",
+							"succeed": " `Damage received: {ownDamages}`",
 							"notGood": "",
-							"failed": ""
+							"failed": " `Damage received: {ownDamages}`"
 						}
 					}
 				},
