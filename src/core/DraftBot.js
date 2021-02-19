@@ -72,7 +72,13 @@ class DraftBot {
 	 * Daily timeout actions
 	 */
 		static async dailyTimeout() {
- 				const sequelize = require("sequelize");
+            DraftBot.randomPotion();
+            DraftBot.randomLovePointsLoose();
+            DraftBot.programDailyTimeout();
+	}
+
+    static async randomPotion() {
+        const sequelize = require("sequelize");
 				console.log("INFO: Daily timeout");
 				const shopPotion = await Shop.findOne({
             attributes: ["shop_potion_id"],
@@ -101,7 +107,11 @@ class DraftBot {
 			}
 		);
 		console.info(`INFO : new potion in shop : ${potion.id}`);
-		if (draftbotRandom.bool()) {
+    }
+
+    static async randomLovePointsLoose() {
+        const sequelize = require("sequelize");
+        if (draftbotRandom.bool()) {
 			console.log("INFO: All pets lost 4 loves point");
 			await PetEntities.update(
 				{
@@ -118,9 +128,7 @@ class DraftBot {
 				}
 			);
 		}
-		DraftBot.programDailyTimeout();
-	}
-
+    }
 	/**
 	 * Handle the top week reward and reset
 	 * @return {Promise<void>}
