@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"objectDoNothingError": "Vous tentez d'utiliser le pouvoir de l'objet que vous transportez... Mais cela n'a aucun effet !",
-			"alreadyClaimedError": "Il semblerait que vous ayez déjà utilisé le pouvoir d'un objet aujourd'hui... Revenez demain !",
+			"alreadyClaimedError": "Il semblerait que vous ayez déjà utilisé le pouvoir d'un objet aujourd'hui ou que vous avez utilisé la commande `switch` ... Revenez demain !",
 			"objectIsActiveDuringFights": "Le pouvoir de l'objet que vous transportez est actif automatiquement durant les combats !",
 			"noDailyError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
 			"noActiveObjectdescription": "Vous n'avez malheureusement aucun objet actif dans votre inventaire !",

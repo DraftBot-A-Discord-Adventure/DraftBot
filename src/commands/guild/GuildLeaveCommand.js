@@ -89,6 +89,11 @@ const GuildLeaveCommand = async (language, message, args) => {
 				entity.Player.guild_id = null;
 				 if (entity.id === guild.chief_id) {
 					if (elder) {
+						log(
+							elder.discordUser_id +
+							" becomes the chief of  " +
+							guild.name 
+						);
 						guild.chief_id = elder.id;
 						guild.elder_id = null;
 						await Promise.all([guild.save()]);
@@ -98,6 +103,10 @@ const GuildLeaveCommand = async (language, message, args) => {
 							})
 						);
 					} else {
+						log(
+							guild.name + 
+							" has been destroyed"
+						);
 						// the chief is leaving : destroy the guild
 						await Players.update(
 							{ guild_id: null },
