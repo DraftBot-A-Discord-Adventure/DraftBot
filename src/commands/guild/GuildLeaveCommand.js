@@ -77,7 +77,7 @@ const GuildLeaveCommand = async (language, message, args) => {
 		max: 1,
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "guildLeave", collector);
+	await addBlockedPlayer(entity.discordUser_id, "guildLeave", collector);
 	if (elder) addBlockedPlayer(elder.discordUser_id, "chiefGuildLeave", collector);
 
 	collector.on("end", async (reaction) => {

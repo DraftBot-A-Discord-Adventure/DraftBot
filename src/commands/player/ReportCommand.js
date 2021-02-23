@@ -29,7 +29,12 @@ const ReportCommand = async function (
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
-
+	await addBlockedPlayer(entity.discordUser_id, "cooldown");
+	setTimeout(() => {
+		if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
+			removeBlockedPlayer(entity.discordUser_id);
+		}
+	}, 500);
 	let time;
 	if (forceSpecificEvent === -1) {
 		time = millisecondsToMinutes(
@@ -140,7 +145,7 @@ const doEvent = async (
 		{time: 120000}
 	);
 
-	addBlockedPlayer(entity.discordUser_id, "report", collector);
+	await addBlockedPlayer(entity.discordUser_id, "report", collector);
 
 	collector.on("collect", async (reaction) => {
 		collector.stop();
@@ -246,8 +251,7 @@ const doPossibility = async (
 	);
 	if (moneyChange !== 0) {
 		result +=
-			moneyChange >= 0
-				? format(
+			moneyChange >= 0 ? format(
 				JsonReader.commands.report.getTranslation(language).money,
 				{money: moneyChange}
 				)
