@@ -4,8 +4,8 @@
 		"en": ":rock: Rock thrower"
 	},
 	"emoji": "🪨",
-	"attack": 35,
-	"defense": 5,
+	"attack": 30,
+	"defense": 0,
 	"speed": 40,
 	"health": 10,
 	"fightPoint": -25,

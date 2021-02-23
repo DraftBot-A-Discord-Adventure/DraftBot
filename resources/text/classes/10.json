@@ -4,11 +4,11 @@
 		"en": ":bow_and_arrow: Archer"
 	},
 	"emoji": "🏹",
-	"attack": 80,
-	"defense": 15,
+	"attack": 70,
+	"defense": 10,
 	"speed": 90,
 	"health": 30,
-	"fightPoint": -10,
+	"fightPoint": -15,
 	"price": 2950,
 	"classgroup": 2
 }
