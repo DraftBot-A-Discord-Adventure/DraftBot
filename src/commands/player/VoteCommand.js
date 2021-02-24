@@ -17,7 +17,7 @@ module.exports = {
         {
             name: 'vote',
             func: VoteCommand,
-            aliases: ['votes']
+            aliases: ['votes','ilovedraftbot']
         }
     ]
 };
