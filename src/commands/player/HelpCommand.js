@@ -34,7 +34,7 @@ const HelpCommand = async (language, message, args) => {
 					(command) => command[1].category === CATEGORY.PLAYER
 				)
 			)
-		).sort();
+		);
 		const guildCommands = Object.keys(
 			Object.fromEntries(
 				commandsList.filter((command) => command[1].category === CATEGORY.GUILD)
