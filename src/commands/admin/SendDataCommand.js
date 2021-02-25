@@ -5,28 +5,28 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SendDataCommand = async (language, message, args) => {
-  if ((await canPerformCommand(message, language,
-      PERMISSION.ROLE.CONTRIBUTORS)) !== true) {
-    return;
-  }
+	if ((await canPerformCommand(message, language,
+		PERMISSION.ROLE.CONTRIBUTORS)) !== true) {
+		return;
+	}
 
-  if (message.channel.id !== JsonReader.app.CONTRIBUTORS_CHANNEL && message.author.id !== JsonReader.app.BOT_OWNER_ID) {
-    return sendErrorMessage(message.author, message.channel, language, JsonReader.error.getTranslation(language).notContributorsChannel);
-  }
+	if (message.channel.id !== JsonReader.app.CONTRIBUTORS_CHANNEL && message.author.id !== JsonReader.app.BOT_OWNER_ID) {
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.error.getTranslation(language).notContributorsChannel);
+	}
 
-  await message.channel.send({
-    files: [{
-      attachment: 'database/database.sqlite',
-      name: 'database.sqlite',
-    }],
-  });
+	await message.channel.send({
+		files: [{
+			attachment: 'database/database.sqlite',
+			name: 'database.sqlite',
+		}],
+	});
 };
 
 module.exports = {
-  commands: [
-    {
-      name: 'senddata',
-      func: SendDataCommand
-    }
-  ]
+	commands: [
+		{
+			name: 'senddata',
+			func: SendDataCommand
+		}
+	]
 };

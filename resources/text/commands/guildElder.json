@@ -1,31 +1,30 @@
 {
-    "translations": 
-    {
-        "fr": {
-            "cannotGetElderUser": "Veuillez mentionner un joueur existant. Ex : `guildelder @user#0000`",
-            "notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
-            "notInTheGuild": "Ce joueur n'appartient pas à votre guilde.",
-            "notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
-            "chiefError": "En tant que chef de la guilde, vous ne pouvez pas être l'ainé.",
-            "elderAddTitle": "{pseudo}, confirmez-vous votre choix ?",
-            "elderAdd" : ":question: {elder} deviendra l'ainé de la guilde `{guildName}`.",
-            "successElderAddTitle": "{pseudo} est le nouvel ainé de la guilde {guildName} !",
-            "successElderAdd": "L'ainé sert à aider le chef dans la gestion de la guilde. Il faut donc le choisir avec prudence ! Mais rassurez-vous, si vous n'êtes pas satisfait de votre ainé, vous pouvez le remplacer avec la commande `guildelder`, ou si vous avez une âme de dictateur, vous pouvez définitivement le supprimer avec `guildelderremove`.",
-            "elderAddCancelled": "Vous ne serez pas l'ainé de la guilde `{guildName}` !",
-            "guildDestroy" : "Vous ne pouvez pas rejoindre la guilde {guildName} car celle-ci à été suprimée, ou vous avez été exclue de celle-ci."
-        },
-        "en" : {
-             "cannotGetElderUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
-             "notInAguild": "You have to be in a guild to use this command.",
-             "notInTheGuild": "This player is not in your guild.",
-             "notChiefError": "You have to be a guil leader to use this command.",
-             "chiefError" : "Being the chief of the guild, you can't be the elder.",
-            "elderAddTitle": "{pseudo}, do you confirm your choice ?",
-            "elderAdd" : ":question: {elder} will become the elder of the guild {guildName}.",
-            "successElderAddTitle": "{pseudo} is the new guild elder of {guildName} !",
-            "successElderAdd": "Elder's job is to help the leader manage the guild. Therefore you must select him with caution ! But rest assured if you aren't satisfied of your elder you can replace him with command guildelder, or if you have a dictator soul, you can definitely remove him with guildelderremove.",
-            "elderAddCancelled": "You will not be the guild elder {guildName} !",
-            "guildDestroy" : "You can't join the guild {guildName} because it has been deleted, or you have been kicked of it."
-        }
-    }
+	"translations": {
+		"fr": {
+			"cannotGetElderUser": "Veuillez mentionner un joueur existant. Ex : `guildelder @user#0000`",
+			"notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
+			"notInTheGuild": "Ce joueur n'appartient pas à votre guilde.",
+			"notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
+			"chiefError": "En tant que chef de la guilde, vous ne pouvez pas être l'ainé.",
+			"elderAddTitle": "{pseudo}, confirmez-vous votre choix ?",
+			"elderAdd": ":question: {elder} deviendra l'ainé de la guilde `{guildName}`.",
+			"successElderAddTitle": "{pseudo} est le nouvel ainé de la guilde {guildName} !",
+			"successElderAdd": "L'ainé sert à aider le chef dans la gestion de la guilde. Il faut donc le choisir avec prudence ! Mais rassurez-vous, si vous n'êtes pas satisfait de votre ainé, vous pouvez le remplacer avec la commande `guildelder`, ou si vous avez une âme de dictateur, vous pouvez définitivement le supprimer avec `guildelderremove`.",
+			"elderAddCancelled": "Vous ne serez pas l'ainé de la guilde `{guildName}` !",
+			"guildDestroy": "Vous ne pouvez pas rejoindre la guilde {guildName} car celle-ci à été suprimée, ou vous avez été exclue de celle-ci."
+		},
+		"en": {
+			"cannotGetElderUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
+			"notInAguild": "You have to be in a guild to use this command.",
+			"notInTheGuild": "This player is not in your guild.",
+			"notChiefError": "You have to be a guil leader to use this command.",
+			"chiefError": "Being the chief of the guild, you can't be the elder.",
+			"elderAddTitle": "{pseudo}, do you confirm your choice ?",
+			"elderAdd": ":question: {elder} will become the elder of the guild {guildName}.",
+			"successElderAddTitle": "{pseudo} is the new guild elder of {guildName} !",
+			"successElderAdd": "Elder's job is to help the leader manage the guild. Therefore you must select him with caution ! But rest assured if you aren't satisfied of your elder you can replace him with command guildelder, or if you have a dictator soul, you can definitely remove him with guildelderremove.",
+			"elderAddCancelled": "You will not be the guild elder {guildName} !",
+			"guildDestroy": "You can't join the guild {guildName} because it has been deleted, or you have been kicked of it."
+		}
+	}
 }

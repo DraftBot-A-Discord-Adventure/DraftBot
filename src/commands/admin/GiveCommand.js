@@ -5,46 +5,50 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const GiveCommand = async function(language, message, args) {
-  if ((await canPerformCommand(message, language,
-      PERMISSION.ROLE.BOTOWNER)) !== true) {
-    return;
-  }
-  const embed = new discord.MessageEmbed();
-  let entity;
-  const player = getUserFromMention(args[0]);
-  [entity] = await Entities.getOrRegister(player.id);
-  const itemType = args[1];
-  const itemId = args[2];
-  await entity.Player.Inventory.giveObject(itemId, itemType);
-  await entity.Player.Inventory.save();
-  embed.setColor(JsonReader.bot.embed.default)
-      .setAuthor(format(JsonReader.commands.giveCommand.getTranslation(language).giveSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
-      .setDescription(format(JsonReader.commands.giveCommand.getTranslation(language).descGive, {type: itemType, id: itemId, player: player}));
-  return await message.channel.send(embed);
+const GiveCommand = async function (language, message, args) {
+	if ((await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOTOWNER)) !== true) {
+		return;
+	}
+	const embed = new discord.MessageEmbed();
+	let entity;
+	const player = getUserFromMention(args[0]);
+	[entity] = await Entities.getOrRegister(player.id);
+	const itemType = args[1];
+	const itemId = args[2];
+	await entity.Player.Inventory.giveObject(itemId, itemType);
+	await entity.Player.Inventory.save();
+	embed.setColor(JsonReader.bot.embed.default)
+		.setAuthor(format(JsonReader.commands.giveCommand.getTranslation(language).giveSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
+		.setDescription(format(JsonReader.commands.giveCommand.getTranslation(language).descGive, {
+			type: itemType,
+			id: itemId,
+			player: player
+		}));
+	return await message.channel.send(embed);
 };
 
 function getUserFromMention(mention) {
-  if (!mention) return;
+	if (!mention) return;
 
-  if (mention.startsWith('<@') && mention.endsWith('>')) {
-    mention = mention.slice(2, -1);
+	if (mention.startsWith('<@') && mention.endsWith('>')) {
+		mention = mention.slice(2, -1);
 
-    if (mention.startsWith('!')) {
-      mention = mention.slice(1);
-    }
+		if (mention.startsWith('!')) {
+			mention = mention.slice(1);
+		}
 
-    return client.users.cache.get(mention);
-  }
+		return client.users.cache.get(mention);
+	}
 }
 
 module.exports = {
-  commands: [
-    {
-      name: 'give',
-      func: GiveCommand
-    }
-  ]
+	commands: [
+		{
+			name: 'give',
+			func: GiveCommand
+		}
+	]
 };
 
 

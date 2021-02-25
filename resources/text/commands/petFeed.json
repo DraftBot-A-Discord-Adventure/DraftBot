@@ -22,7 +22,7 @@
 		"en": {
 			"embedTitle": "{pseudo}, you offer some food to your pet.",
 			"breedEmbedAuthor": "{author}, choice :",
-			"breedEmbedDescription": "What type of food do your want to give to your pet?",
+			"breedEmbedDescription": "What type of food do you want to give to your pet?",
 			"breedEmbedTitle2": "{author}, confirmation:",
 			"breedEmbedDescription2": "Do you want to buy a Treat for {petnick}? \n\n :candy: Treat | `20 💰`",
 			"breedEmbedFooter": "To gain better food sources, join a guild!",

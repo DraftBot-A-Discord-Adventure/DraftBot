@@ -8,181 +8,181 @@ const moment = require('moment');
  */
 
 const topWeekCommand = async function (language, message, args) {
-  args.unshift("w");
-  await topCommand(language, message, args);
+	args.unshift("w");
+	await topCommand(language, message, args);
 };
 
 const topServerCommand = async function (language, message, args) {
 
-  //TODO : Voir avec discord pourquoi le ts marche plus !
-  //Morceau de code à retirer
-  if (language == "fr")
-    return message.channel.send(":x: Cette commande est désactivée pour le moment suite à un changement de la part de discord dans leur API. Elle sera de retour bientôt !")
-  else
-    return message.channel.send(":x: This command is broken due to changes in the discord API, We hope to get it back online soon!")
-  //fin du morceau de code à retirer
+	//TODO : Voir avec discord pourquoi le ts marche plus !
+	//Morceau de code à retirer
+	if (language == "fr")
+		return message.channel.send(":x: Cette commande est désactivée pour le moment suite à un changement de la part de discord dans leur API. Elle sera de retour bientôt !");
+	else
+		return message.channel.send(":x: This command is broken due to changes in the discord API, We hope to get it back online soon!");
+	//fin du morceau de code à retirer
 
-  args.unshift("s");
-  await topCommand(language, message, args);
+	args.unshift("s");
+	await topCommand(language, message, args);
 };
 
 const topCommand = async function (language, message, args) {
 
-  const [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(message.author.id);
 
-  const actualPlayer = message.author.username;
-  let rankCurrentPlayer = 0;
+	const actualPlayer = message.author.username;
+	let rankCurrentPlayer = 0;
 
-  let page = parseInt(args[args.length - 1]);
-  if (page < 1)
-    page = 1;
-  if (isNaN(page))
-    page = 1;
+	let page = parseInt(args[args.length - 1]);
+	if (page < 1)
+		page = 1;
+	if (isNaN(page))
+		page = 1;
 
-  //top of the serv
-  if (args[0] === "serv" || args[0] === "s") {
+	//top of the serv
+	if (args[0] === "serv" || args[0] === "s") {
 
-    if (entity.Player.score <= 100) {
-      return await errorScoreTooLow(message, language);
-    }
+		if (entity.Player.score <= 100) {
+			return await errorScoreTooLow(message, language);
+		}
 
-    //get all discordID on the server
-    let listId = Array.from((await message.guild.members.fetch()).keys());
+		//get all discordID on the server
+		let listId = Array.from((await message.guild.members.fetch()).keys());
 
-    rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
+		rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
 
-    let numberOfPlayer = await Entities.count({
-      defaults: {
-        Player: {
-          Inventory: {}
-        }
-      },
-      where: {
-        discordUser_id: listId
-      },
-      include: [{
-        model: Players,
-        as: 'Player',
-        where: {
-          score: {
-            [(require('sequelize/lib/operators')).gt]: 100,
-          },
-        },
-      }]
-    });
+		let numberOfPlayer = await Entities.count({
+			defaults: {
+				Player: {
+					Inventory: {}
+				}
+			},
+			where: {
+				discordUser_id: listId
+			},
+			include: [{
+				model: Players,
+				as: 'Player',
+				where: {
+					score: {
+						[(require('sequelize/lib/operators')).gt]: 100,
+					},
+				},
+			}]
+		});
 
-    let allEntities = await Entities.findAll({
-      defaults: {
-        Player: {
-          Inventory: {}
-        }
-      },
-      where: {
-        discordUser_id: listId
-      },
-      include: [{
-        model: Players,
-        as: 'Player',
-        where: {
-          score: {
-            [(require('sequelize/lib/operators')).gt]: 100,
-          },
-        },
-      }],
-      order: [
-        [{ model: Players, as: 'Player' }, 'score', 'DESC'],
-        [{ model: Players, as: 'Player' }, 'level', 'DESC']
-      ],
-      limit: 15,
-      offset: (page - 1) * 15
-    });
+		let allEntities = await Entities.findAll({
+			defaults: {
+				Player: {
+					Inventory: {}
+				}
+			},
+			where: {
+				discordUser_id: listId
+			},
+			include: [{
+				model: Players,
+				as: 'Player',
+				where: {
+					score: {
+						[(require('sequelize/lib/operators')).gt]: 100,
+					},
+				},
+			}],
+			order: [
+				[{model: Players, as: 'Player'}, 'score', 'DESC'],
+				[{model: Players, as: 'Player'}, 'level', 'DESC']
+			],
+			limit: 15,
+			offset: (page - 1) * 15
+		});
 
-    await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).server, page);
-  }
+		await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).server, page);
+	}
 
-  //top general of the week
-  else if (args[0] === "week" || args[0] === "w") {
+	//top general of the week
+	else if (args[0] === "week" || args[0] === "w") {
 
-    if (entity.Player.weeklyScore <= 100) {
-      return await errorScoreTooLow(message, language);
-    }
+		if (entity.Player.weeklyScore <= 100) {
+			return await errorScoreTooLow(message, language);
+		}
 
-    //rank of the user
-    let rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].weeklyRank;
-    let numberOfPlayer = await Players.count({
-      where: {
-        weeklyScore: {
-          [(require('sequelize/lib/operators')).gt]: 100,
-        },
-      },
-    });
-    let allEntities = await Entities.findAll({
-      defaults: {
-        Player: {
-          Inventory: {}
-        }
-      },
-      include: [{
-        model: Players,
-        as: 'Player',
-        where: {
-          weeklyScore: {
-            [(require('sequelize/lib/operators')).gt]: 100,
-          },
-        },
-      }],
-      order: [
-        [{ model: Players, as: 'Player' }, 'weeklyScore', 'DESC'],
-        [{ model: Players, as: 'Player' }, 'level', 'DESC']
-      ],
-      limit: 15,
-      offset: (page - 1) * 15
-    });
+		//rank of the user
+		let rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].weeklyRank;
+		let numberOfPlayer = await Players.count({
+			where: {
+				weeklyScore: {
+					[(require('sequelize/lib/operators')).gt]: 100,
+				},
+			},
+		});
+		let allEntities = await Entities.findAll({
+			defaults: {
+				Player: {
+					Inventory: {}
+				}
+			},
+			include: [{
+				model: Players,
+				as: 'Player',
+				where: {
+					weeklyScore: {
+						[(require('sequelize/lib/operators')).gt]: 100,
+					},
+				},
+			}],
+			order: [
+				[{model: Players, as: 'Player'}, 'weeklyScore', 'DESC'],
+				[{model: Players, as: 'Player'}, 'level', 'DESC']
+			],
+			limit: 15,
+			offset: (page - 1) * 15
+		});
 
-    await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).generalWeek, page);
-  }
+		await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).generalWeek, page);
+	}
 
-  //top general by a page number
-  else {
-    //rank of the user
-    if (entity.Player.score <= 100) {
-      return await errorScoreTooLow(message, language);
-    }
-    let rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].rank;
+	//top general by a page number
+	else {
+		//rank of the user
+		if (entity.Player.score <= 100) {
+			return await errorScoreTooLow(message, language);
+		}
+		let rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].rank;
 
-    let numberOfPlayer = await Players.count({
-      where: {
-        score: {
-          [(require('sequelize/lib/operators')).gt]: 100,
-        },
-      },
-    });
+		let numberOfPlayer = await Players.count({
+			where: {
+				score: {
+					[(require('sequelize/lib/operators')).gt]: 100,
+				},
+			},
+		});
 
-    let allEntities = await Entities.findAll({
-      defaults: {
-        Player: {
-          Inventory: {}
-        }
-      },
-      include: [{
-        model: Players,
-        as: 'Player',
-        where: {
-          score: {
-            [(require('sequelize/lib/operators')).gt]: 100,
-          },
-        },
-      }],
-      order: [
-        [{ model: Players, as: 'Player' }, 'score', 'DESC'],
-        [{ model: Players, as: 'Player' }, 'level', 'DESC']
-      ],
-      limit: 15,
-      offset: (page - 1) * 15
-    });
+		let allEntities = await Entities.findAll({
+			defaults: {
+				Player: {
+					Inventory: {}
+				}
+			},
+			include: [{
+				model: Players,
+				as: 'Player',
+				where: {
+					score: {
+						[(require('sequelize/lib/operators')).gt]: 100,
+					},
+				},
+			}],
+			order: [
+				[{model: Players, as: 'Player'}, 'score', 'DESC'],
+				[{model: Players, as: 'Player'}, 'level', 'DESC']
+			],
+			limit: 15,
+			offset: (page - 1) * 15
+		});
 
-    await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).general, page);
-  }
+		await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).general, page);
+	}
 };
 
 /**
@@ -192,7 +192,7 @@ const topCommand = async function (language, message, args) {
  * @return {Promise<Message>}
  */
 async function errorScoreTooLow(message, language) {
-  return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.topCommand.getTranslation(language).lowScore);
+	return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.topCommand.getTranslation(language).lowScore);
 }
 
 /**
@@ -208,134 +208,134 @@ async function errorScoreTooLow(message, language) {
  * @return {Promise<Message>}
  */
 async function displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, topTitle, page) {
-  const embedError = new discord.MessageEmbed();
-  const embed = new discord.MessageEmbed();
-  let pageMax = Math.ceil(numberOfPlayer / 15);
-  if (pageMax < 1)
-    pageMax = 1;
-  if (isNaN(page))
-    page = 1;
-  if (page > pageMax || page < 1) {
-    embedError.setColor(JsonReader.bot.embed.default)
-      .setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {
-        pseudo: actualPlayer,
-        pageMax: pageMax
-      }))
-      .setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPageDesc, { pageMax: pageMax }));
-    return await message.channel.send(embedError);
-  }
-  let fin = page * 15;
-  let debut = fin - 14;
-  let messages = "";
-  let badge;
-  //Indicate which top we are going to display
-  embed.setColor(JsonReader.bot.embed.default)
-    .setTitle(format(topTitle, { debut: debut, fin: fin }));
-  //Build a string with 15 players informations
-  for (let k = 0; k < allEntities.length; k++) {
+	const embedError = new discord.MessageEmbed();
+	const embed = new discord.MessageEmbed();
+	let pageMax = Math.ceil(numberOfPlayer / 15);
+	if (pageMax < 1)
+		pageMax = 1;
+	if (isNaN(page))
+		page = 1;
+	if (page > pageMax || page < 1) {
+		embedError.setColor(JsonReader.bot.embed.default)
+			.setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {
+				pseudo: actualPlayer,
+				pageMax: pageMax
+			}))
+			.setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPageDesc, {pageMax: pageMax}));
+		return await message.channel.send(embedError);
+	}
+	let fin = page * 15;
+	let debut = fin - 14;
+	let messages = "";
+	let badge;
+	//Indicate which top we are going to display
+	embed.setColor(JsonReader.bot.embed.default)
+		.setTitle(format(topTitle, {debut: debut, fin: fin}));
+	//Build a string with 15 players informations
+	for (let k = 0; k < allEntities.length; k++) {
 
-    //pseudo of the current player being add to the string
-    let pseudo = await allEntities[k].Player.getPseudo(language);
-    let badgeState;
+		//pseudo of the current player being add to the string
+		let pseudo = await allEntities[k].Player.getPseudo(language);
+		let badgeState;
 
-    //badge depending on the rank
-    if (page === 1) {
-      if (k === 0) badge = JsonReader.commands.topCommand.first;
-      else if (k === 1) badge = JsonReader.commands.topCommand.second;
-      else if (k === 2) badge = JsonReader.commands.topCommand.third;
-      else if (k > 2 && k <= 4) badge = JsonReader.commands.topCommand.military;
-    }
-    if (page !== 1 || k > 4) {
-      if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUser_id) != null) badge = JsonReader.commands.topCommand.blue;
-      else badge = JsonReader.commands.topCommand.black;
-    }
-    if (message.author.id === allEntities[k].discordUser_id) badge = JsonReader.commands.topCommand.white;
+		//badge depending on the rank
+		if (page === 1) {
+			if (k === 0) badge = JsonReader.commands.topCommand.first;
+			else if (k === 1) badge = JsonReader.commands.topCommand.second;
+			else if (k === 2) badge = JsonReader.commands.topCommand.third;
+			else if (k > 2 && k <= 4) badge = JsonReader.commands.topCommand.military;
+		}
+		if (page !== 1 || k > 4) {
+			if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUser_id) != null) badge = JsonReader.commands.topCommand.blue;
+			else badge = JsonReader.commands.topCommand.black;
+		}
+		if (message.author.id === allEntities[k].discordUser_id) badge = JsonReader.commands.topCommand.white;
 
-    //badgeState depending on last report
-    // const nowMoment = new moment(new Date());
-    // const lastReport = new moment(allEntities[k-1].Player.lastReportAt);
-    // const diffMinutes = lastReport.diff(nowMoment, 'millisecondes');
-    if (((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) < JsonReader.commands.topCommand.oneHour) || allEntities[k].Player.lastReportAt == null) badgeState = allEntities[k].effect;
-    if ((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) > JsonReader.commands.topCommand.oneHour) {
-      if ((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) > JsonReader.commands.topCommand.fifth10days) {
-        badgeState = ":ghost:"
-      } else {
-        badgeState = ":newspaper2:"
-      }
-    }
-    messages += format(JsonReader.commands.topCommand.getTranslation(language).playerRankLine, {
-      badge: badge,
-      rank: debut + k,
-      pseudo: pseudo,
-      badgeState: badgeState !== ":smiley:" ? badgeState + " | " : "",
-      score: topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek ? allEntities[k].Player.weeklyScore : allEntities[k].Player.score,
-      level: allEntities[k].Player.level
-    });
-  }
-  if (topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek) {
-    embed.setFooter(format(JsonReader.commands.topCommand.getTranslation(language).nextReset, { time: parseTimeDifference(new Date(), getNextSundayMidnight(), language) }), 'https://i.imgur.com/OpL9WpR.png');
-  }
-  embed.setDescription(messages);
+		//badgeState depending on last report
+		// const nowMoment = new moment(new Date());
+		// const lastReport = new moment(allEntities[k-1].Player.lastReportAt);
+		// const diffMinutes = lastReport.diff(nowMoment, 'millisecondes');
+		if (((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) < JsonReader.commands.topCommand.oneHour) || allEntities[k].Player.lastReportAt == null) badgeState = allEntities[k].effect;
+		if ((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) > JsonReader.commands.topCommand.oneHour) {
+			if ((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) > JsonReader.commands.topCommand.fifth10days) {
+				badgeState = ":ghost:";
+			} else {
+				badgeState = ":newspaper2:";
+			}
+		}
+		messages += format(JsonReader.commands.topCommand.getTranslation(language).playerRankLine, {
+			badge: badge,
+			rank: debut + k,
+			pseudo: pseudo,
+			badgeState: badgeState !== ":smiley:" ? badgeState + " | " : "",
+			score: topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek ? allEntities[k].Player.weeklyScore : allEntities[k].Player.score,
+			level: allEntities[k].Player.level
+		});
+	}
+	if (topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek) {
+		embed.setFooter(format(JsonReader.commands.topCommand.getTranslation(language).nextReset, {time: parseTimeDifference(new Date(), getNextSundayMidnight(), language)}), 'https://i.imgur.com/OpL9WpR.png');
+	}
+	embed.setDescription(messages);
 
-  //Define badge for the user
-  if (rankCurrentPlayer === 1) badge = ":first_place:";
-  else if (rankCurrentPlayer === 2) badge = ":second_place:";
-  else if (rankCurrentPlayer === 3) badge = ":third_place:";
-  else if (rankCurrentPlayer > 3 && rankCurrentPlayer <= 5) badge = ":military_medal:";
-  else if (message.author.id === message.author.id) badge = ":black_circle:";
+	//Define badge for the user
+	if (rankCurrentPlayer === 1) badge = ":first_place:";
+	else if (rankCurrentPlayer === 2) badge = ":second_place:";
+	else if (rankCurrentPlayer === 3) badge = ":third_place:";
+	else if (rankCurrentPlayer > 3 && rankCurrentPlayer <= 5) badge = ":military_medal:";
+	else if (message.author.id === message.author.id) badge = ":black_circle:";
 
-  //test if user is in the current page displayed to indicate(or not) the page where he can find himself
-  if ((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer !== 1) {
-    embed.addField(JsonReader.commands.topCommand.getTranslation(language).yourRanking, format(JsonReader.commands.topCommand.getTranslation(language).end1, {
-      badge: badge,
-      pseudo: actualPlayer,
-      rank: rankCurrentPlayer,
-      totalPlayer: numberOfPlayer,
-      page: Math.ceil(rankCurrentPlayer / 15),
-      pageMax: pageMax
-    }));
-  } else if ((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer === 1) {
-    embed.addField(JsonReader.commands.topCommand.getTranslation(language).yourRanking, format(JsonReader.commands.topCommand.getTranslation(language).end1Top, {
-      pseudo: actualPlayer,
-      rank: rankCurrentPlayer,
-      totalPlayer: numberOfPlayer,
-      page: Math.ceil(rankCurrentPlayer / 15),
-      pageMax: pageMax
-    }));
-  } else if ((rankCurrentPlayer <= fin || rankCurrentPlayer >= debut) && rankCurrentPlayer !== 1) {
-    embed.addField(JsonReader.commands.topCommand.getTranslation(language).yourRanking, format(JsonReader.commands.topCommand.getTranslation(language).end2, {
-      badge: badge,
-      pseudo: actualPlayer,
-      rank: rankCurrentPlayer,
-      totalPlayer: numberOfPlayer
-    }));
-  } else if ((rankCurrentPlayer <= fin || rankCurrentPlayer >= debut) && rankCurrentPlayer === 1) {
-    embed.addField(JsonReader.commands.topCommand.getTranslation(language).yourRanking, format(JsonReader.commands.topCommand.getTranslation(language).end2Top, {
-      pseudo: actualPlayer,
-      rank: rankCurrentPlayer,
-      totalPlayer: numberOfPlayer
-    }));
-  }
+	//test if user is in the current page displayed to indicate(or not) the page where he can find himself
+	if ((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer !== 1) {
+		embed.addField(JsonReader.commands.topCommand.getTranslation(language).yourRanking, format(JsonReader.commands.topCommand.getTranslation(language).end1, {
+			badge: badge,
+			pseudo: actualPlayer,
+			rank: rankCurrentPlayer,
+			totalPlayer: numberOfPlayer,
+			page: Math.ceil(rankCurrentPlayer / 15),
+			pageMax: pageMax
+		}));
+	} else if ((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer === 1) {
+		embed.addField(JsonReader.commands.topCommand.getTranslation(language).yourRanking, format(JsonReader.commands.topCommand.getTranslation(language).end1Top, {
+			pseudo: actualPlayer,
+			rank: rankCurrentPlayer,
+			totalPlayer: numberOfPlayer,
+			page: Math.ceil(rankCurrentPlayer / 15),
+			pageMax: pageMax
+		}));
+	} else if ((rankCurrentPlayer <= fin || rankCurrentPlayer >= debut) && rankCurrentPlayer !== 1) {
+		embed.addField(JsonReader.commands.topCommand.getTranslation(language).yourRanking, format(JsonReader.commands.topCommand.getTranslation(language).end2, {
+			badge: badge,
+			pseudo: actualPlayer,
+			rank: rankCurrentPlayer,
+			totalPlayer: numberOfPlayer
+		}));
+	} else if ((rankCurrentPlayer <= fin || rankCurrentPlayer >= debut) && rankCurrentPlayer === 1) {
+		embed.addField(JsonReader.commands.topCommand.getTranslation(language).yourRanking, format(JsonReader.commands.topCommand.getTranslation(language).end2Top, {
+			pseudo: actualPlayer,
+			rank: rankCurrentPlayer,
+			totalPlayer: numberOfPlayer
+		}));
+	}
 
-  return await message.channel.send(embed);
+	return await message.channel.send(embed);
 }
 
 module.exports = {
-  commands: [
-    {
-      name: 'top',
-      func: topCommand,
-      aliases: ['t', 'rank']
-    },
-    {
-      name: 'topweek',
-      func: topWeekCommand,
-      aliases: ['topw', 'tw']
-    },
-    {
-      name: 'topserver',
-      func: topServerCommand,
-      aliases: ['topserv', 'tops', 'ts']
-    }
-  ]
+	commands: [
+		{
+			name: 'top',
+			func: topCommand,
+			aliases: ['t', 'rank']
+		},
+		{
+			name: 'topweek',
+			func: topWeekCommand,
+			aliases: ['topw', 'tw']
+		},
+		{
+			name: 'topserver',
+			func: topServerCommand,
+			aliases: ['topserv', 'tops', 'ts']
+		}
+	]
 };

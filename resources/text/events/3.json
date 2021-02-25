@@ -8,7 +8,7 @@
 			{
 				"translations": {
 					"fr": "** | :key: Après 50 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle vous permet de découvrir de nombreuses pièces d'or !",
-					"en": "** | :key: After about fifty minutes of searching, you finally find the key! Burried next to the chest, you now can open the chest and find a lot of gold Coins!"
+					"en": "** | :key: After about fifty minutes of searching, you finally find the key! Buried next to the chest, you now can open the chest and find a lot of gold Coins!"
 				},
 				"lostTime": 50,
 				"health": 0,
@@ -20,7 +20,7 @@
 			{
 				"translations": {
 					"fr": "** | :key: Après une heure de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle vous permet de découvrir quelques pièces d'or !",
-					"en": "** | :key: After about one hour of searching, you finally find the key! Burried next to the chest, you now can open the chest and find some gold Coins!"
+					"en": "** | :key: After about one hour of searching, you finally find the key! Buried next to the chest, you now can open the chest and find some gold Coins!"
 				},
 				"lostTime": 60,
 				"health": 0,
@@ -32,7 +32,7 @@
 			{
 				"translations": {
 					"fr": "** | :key: Après 40 minutes de recherches, vous trouvez la clef ! Enterrée juste à côté du coffre elle est tellement endommagée qu'il vous est impossible d'ouvrir le coffre ! Vous finissez par abandonner et laissez le coffret derrière vous.",
-					"en": "** | :key: After about fourty minutes of searching, you finally find the key! Buried next to the chest, it's so damaged you can't even use it! You end giving up and carry on."
+					"en": "** | :key: After about forty minutes of searching, you finally find the key! Buried next to the chest, it's so damaged you can't even use it! You end giving up and carry on."
 				},
 				"lostTime": 40,
 				"health": 0,

@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Putois",
-            "femaleName": "Putois"
-        },
-        "en": {
-            "maleName": "Skunk",
-            "femaleName": "Skunk"
-        }
-    },
-    "emoteMale": "🦨",
-    "emoteFemale": "🦨",
-    "rarity": 2,
-    "diet": "carnivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Putois",
+			"femaleName": "Putois"
+		},
+		"en": {
+			"maleName": "Skunk",
+			"femaleName": "Skunk"
+		}
+	},
+	"emoteMale": "🦨",
+	"emoteFemale": "🦨",
+	"rarity": 2,
+	"diet": "carnivorous"
 }

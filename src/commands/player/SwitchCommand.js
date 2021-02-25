@@ -5,30 +5,32 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SwitchCommand = async (language, message, args) => {
-  const [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(message.author.id);
 
-  if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
-    return;
-  }
-  if (await sendBlockedError(message.author, message.channel, language)) {
-    return;
-  }
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+		return;
+	}
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 
-  const temp = entity.Player.Inventory.object_id;
-  entity.Player.Inventory.object_id = entity.Player.Inventory.backup_id;
-  entity.Player.Inventory.backup_id = temp;
+	const temp = entity.Player.Inventory.object_id;
+	entity.Player.Inventory.object_id = entity.Player.Inventory.backup_id;
+	entity.Player.Inventory.backup_id = temp;
 
-  await entity.Player.Inventory.save();
+	entity.Player.Inventory.updateLastDailyAt();
+	
+	await entity.Player.Inventory.save();
 
-  await message.channel.send(format(JsonReader.commands.switch.getTranslation(language).main, {pseudo: message.author.username}));
+	await message.channel.send(format(JsonReader.commands.switch.getTranslation(language).main, {pseudo: message.author.username}));
 };
 
 module.exports = {
-  commands: [
-    {
-      name: 'switch',
-      func: SwitchCommand,
-      aliases: ['sw']
-    }
-  ]
+	commands: [
+		{
+			name: 'switch',
+			func: SwitchCommand,
+			aliases: ['sw']
+		}
+	]
 };

@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Tortue",
-            "femaleName": "Tortue"
-        },
-        "en": {
-            "maleName": "Turtle",
-            "femaleName": "Turtle"
-        }
-    },
-    "emoteMale": "🐢",
-    "emoteFemale": "🐢",
-    "rarity": 1,
-    "diet": "herbivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Tortue",
+			"femaleName": "Tortue"
+		},
+		"en": {
+			"maleName": "Turtle",
+			"femaleName": "Turtle"
+		}
+	},
+	"emoteMale": "🐢",
+	"emoteFemale": "🐢",
+	"rarity": 1,
+	"diet": "herbivorous"
 }

@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Bœuf",
-            "femaleName": "Vache"
-        },
-        "en": {
-            "maleName": "Bull",
-            "femaleName": "Cow"
-        }
-    },
-    "emoteMale": "🐂",
-    "emoteFemale": "🐄",
-    "rarity": 1,
-    "diet": "herbivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Bœuf",
+			"femaleName": "Vache"
+		},
+		"en": {
+			"maleName": "Bull",
+			"femaleName": "Cow"
+		}
+	},
+	"emoteMale": "🐂",
+	"emoteFemale": "🐄",
+	"rarity": 1,
+	"diet": "herbivorous"
 }

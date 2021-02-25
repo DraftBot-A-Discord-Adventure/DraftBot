@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Dindon",
-            "femaleName": "Dinde"
-        },
-        "en": {
-            "maleName": "Turkey",
-            "femaleName": "Turkey"
-        }
-    },
-    "emoteMale": "🦃",
-    "emoteFemale": "🦃",
-    "rarity": 1,
-    "diet": "herbivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Dindon",
+			"femaleName": "Dinde"
+		},
+		"en": {
+			"maleName": "Turkey",
+			"femaleName": "Turkey"
+		}
+	},
+	"emoteMale": "🦃",
+	"emoteFemale": "🦃",
+	"rarity": 1,
+	"diet": "herbivorous"
 }

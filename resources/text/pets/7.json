@@ -1,16 +1,16 @@
 {
-    "translations": {
-        "fr": {
-            "maleName": "Lapin",
-            "femaleName": "Lapine"
-        },
-        "en": {
-            "maleName": "Buck rabbit",
-            "femaleName": "Doe rabbit"
-        }
-    },
-    "emoteMale": "🐇",
-    "emoteFemale": "🐇",
-    "rarity": 1,
-    "diet": "herbivorous"
+	"translations": {
+		"fr": {
+			"maleName": "Lapin",
+			"femaleName": "Lapine"
+		},
+		"en": {
+			"maleName": "Buck rabbit",
+			"femaleName": "Doe rabbit"
+		}
+	},
+	"emoteMale": "🐇",
+	"emoteFemale": "🐇",
+	"rarity": 1,
+	"diet": "herbivorous"
 }

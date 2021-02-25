@@ -20,7 +20,7 @@
 			{
 				"translations": {
 					"fr": "** | 👊 Au dernier moment, le garde se retourne et vous attaque. Après un féroce combat durant lequel la femme s'est enfuie, vous échouez à dévier une de ses attaques. Victorieux, le garde vous laisse néanmoins en vie et prend également la fuite.",
-					"en": "** | 👊 At the last moment, the guard turns around and attacks you. However, he leaves you alive."
+					"en": "** | 👊 The guard dodges and the woman manages to run away. After all of that, you find her back out of danger. To greet you, she offers you some gold coins."
 				},
 				"lostTime": 0,
 				"health": -55,
@@ -83,8 +83,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🤙 Malheureusement, les gardes que vous tentez d'alerter n'ont que faire des agissements malfaisant de leur collègue. Devant votre insistance, ils engagent le combat contre vous. Vous remportez la bataille malgré quelques blessures mais il est trop tard. La femme gît sur le sol ainsi que deux gardes.",
-					"en": "** | 🤙 The guards, also being criminals, strike you on your hip, but leave you alive."
+					"fr": "** | 🤙 Malheureusement, les gardes que vous tentez d'alerter n'ont que faire des agissements malfaisant de leur collègue. Devant votre insistance, ils engagent le combat contre vous. Vous remportez la bataille malgré quelques blessures mais il est trop tard. La femme gît sur le sol ainsi que deux gardes. :head_bandage:",
+					"en": "** | 🤙 The guards, also being criminals, strike you on your hip, but leave you alive. :head_bandage:"
 				},
 				"lostTime": 0,
 				"health": -35,

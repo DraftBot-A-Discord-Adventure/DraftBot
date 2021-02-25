@@ -4,15 +4,15 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
 const BadgeCommand = async function (language, message) {
-  getCommand('help')(language, message, ['badge']);
+	getCommand('help')(language, message, ['badge']);
 };
 
 module.exports = {
-  commands: [
-    {
-      name: 'badge',
-      func: BadgeCommand,
-      aliases: ['badges']
-    }
-  ]
+	commands: [
+		{
+			name: 'badge',
+			func: BadgeCommand,
+			aliases: ['badges']
+		}
+	]
 };

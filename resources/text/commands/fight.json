@@ -36,7 +36,7 @@
 					"indirect": "Cet adversaire n'a pas encore atteint le **LVL {level}** et ne peut donc pas combattre !"
 				},
 				"cantFightStatus": {
-					"direct": "{pseudo}, vous n'être pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
+					"direct": "{pseudo}, vous n'êtes pas en état de combattre pour le moment ! Veuillez attendre la fin d'altération de votre état !",
 					"indirect": "Cette personne ne semble pas en état de combattre pour le moment !"
 				},
 				"occupied": {
@@ -51,7 +51,7 @@
 			},
 			"actions": {
 				"intro": "{emote} | **{player}** ",
-				"charging": "charge une attaque... `Défense réduite de -20 %`",
+				"charging": "charge une attaque... `Défense réduite de 40 %`",
 				"chargingEmote": ":zap:",
 				"attacks": {
 					"quick": {
@@ -89,6 +89,15 @@
 							"notGood": "",
 							"failed": ""
 						}
+					},
+					"bulk": {
+						"name": "attaque bélier",
+						"emote": ":firecracker:",
+						"end": {
+							"succeed": " `Dégâts subis: {ownDamages}`",
+							"notGood": "",
+							"failed": " `Dégâts subis: {ownDamages}`"
+						}
 					}
 				},
 				"attacksResults": {
@@ -97,20 +106,30 @@
 						"effectue une {attack} ! Elle est magnifique !",
 						"effectue une superbe {attack} ! Parfaitement réalisée !",
 						"effectue une {attack} ! Incroyablement réussie !",
+						"réalise une {attack} ! Totalement brutale !",
 						"effectue une {attack} ! C'était risqué mais ça passe !",
 						"lance une bonne {attack} !",
+						"utilise une {attack} ! Elle est PARFAITE !",
 						"utilise une {attack} ! Magistrale !",
-						"choisit une {attack} !  Très bonne initiative"
+						"réalise une sublime {attack} !",
+						"réalise une {attack} ! L'assaut est absolument dingue !",
+						"assène son adversaire d'une {attack} ! Sans pitié !",
+						"réalise une {attack} ! OH MON DIEU C'EST INCROYAAAAAAAAABLEEEE !",
+						"choisit une {attack} ! Très bonne initiative !"
 					],
 					"notGood": [
 						"effectue une {attack} ! Ça fonctionne mais c'était pas incroyable.",
+						"réalise une {attack} ! Ça n'était pas le meilleur choix...",
 						"effectue une {attack} ! Mouais...",
+						"réalise une {attack} ! On a vu mieux...",
+						"réalise une {attack} ! C'est pas génial.",
+						"réalise une {attack} absolument pas réussie. (bon c'est pas raté non plus mais c'est vraiment pas ouf)",
 						"effectue une {attack} vraiment moyenne ! Pas ouf !",
 						"effectue une {attack} ! Ça n'est pas très efficace...",
 						"effectue une {attack} ! C'est pas très réussi.",
 						"lance une {attack} ! Médiocre",
 						"utilise une {attack} ! Faiblarde !",
-						"choisit une {attack} !  Le résultat est assez pitoyable."
+						"choisit une {attack} ! Le résultat est assez pitoyable."
 					],
 					"failed": [
 						"effectue une {attack} ! C'est raté !",
@@ -120,11 +139,9 @@
 						"effectue une {attack} ! C'était risqué et ça n'est pas passé !",
 						"lance une mauvaise {attack} !",
 						"utilise une {attack} ! Un choix peu judicieux !",
-						"choisit une {attack} !  Mauvaise initiative"
+						"choisit une {attack} ! Mauvaise initiative"
 					]
 				},
-				"defense": "renforce sa défense ! `Défense + {defense}`",
-				"defenseEmote": ":shield:",
 				"speed": "augmente sa vitesse ! `Vitesse + {speed}`",
 				"speedEmote": ":rocket:",
 				"damages": " `Dégâts infligés: {damages}`"
@@ -181,7 +198,7 @@
 			},
 			"actions": {
 				"intro": "{emote} | **{player}** ",
-				"charging": "charges an attack... `Defense reduced by 25 %`",
+				"charging": "charges an attack... `Defense reduced by 40 %`",
 				"chargingEmote": ":zap:",
 				"attacks": {
 					"quick": {
@@ -219,6 +236,15 @@
 							"notGood": "",
 							"failed": ""
 						}
+					},
+					"bulk": {
+						"name": "attaque bélier",
+						"emote": ":firecracker:",
+						"end": {
+							"succeed": " `Damage received: {ownDamages}`",
+							"notGood": "",
+							"failed": " `Damage received: {ownDamages}`"
+						}
 					}
 				},
 				"attacksResults": {
@@ -253,8 +279,6 @@
 						"opts for a {attack}! Bad initiative"
 					]
 				},
-				"defense": "buffs their defense ! `Defense + {defense}`",
-				"defenseEmote": ":shield:",
 				"speed": "increased their speed! `Speed + {speed}`",
 				"speedEmote": ":rocket:",
 				"damages": " `Damage dealt: {damages}`"

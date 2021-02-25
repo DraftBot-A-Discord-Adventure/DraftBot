@@ -1,11 +1,12 @@
 global.draftbotRandom = new (require("random-js")).Random();
 
 /**
+ * @typedef {import('sequelize/types')} DataTypes
  * Convert a discord id into a discord mention
- * @param {*} id - The role/user id
+ * @param {Number} id - The role/user id
  */
 global.idToMention = (id) => {
-  return '<@&' + id + '>';
+	return '<@&' + id + '>';
 };
 
 /**
@@ -14,14 +15,14 @@ global.idToMention = (id) => {
  * @param {module:"discord.js".TextChannel} channel - The channel where all attachments will be sent
  */
 global.sendMessageAttachments = (message, channel) => {
-  message.attachments.forEach((element) => {
-    channel.send({
-      files: [{
-        attachment: element.url,
-        name: element.filename,
-      }],
-    });
-  });
+	message.attachments.forEach((element) => {
+		channel.send({
+			files: [{
+				attachment: element.url,
+				name: element.filename,
+			}],
+		});
+	});
 };
 
 /**
@@ -32,29 +33,29 @@ global.sendMessageAttachments = (message, channel) => {
  * @param {String} reason
  */
 global.sendErrorMessage = (user, channel, language, reason) => {
-  const embed = new discord.MessageEmbed();
-  embed.setColor(JsonReader.bot.embed.error)
-    .setAuthor(format(JsonReader.error.getTranslation(language).title, {
-      pseudo: user.username,
-    }), user.displayAvatarURL())
-    .setDescription(reason);
-  return channel.send(embed);
+	const embed = new discord.MessageEmbed();
+	embed.setColor(JsonReader.bot.embed.error)
+		.setAuthor(format(JsonReader.error.getTranslation(language).title, {
+			pseudo: user.username,
+		}), user.displayAvatarURL())
+		.setDescription(reason);
+	return channel.send(embed);
 };
 
 /**
  * Send a simple message in a channel
  * @param {module:"discord.js".User} user
  * @param {module:"discord.js".TextChannel} channel
- * @param {("fr"|"en")} language - Language to use in the message
- * @param {String} message
+ * @param {String} title - the title of the message
+ * @param {String} message - the message
  */
 global.sendSimpleMessage = (user, channel, title, message) => {
-  const embed = new discord.MessageEmbed();
-  embed.setAuthor(format(title, {
-    pseudo: user.username,
-  }), user.displayAvatarURL())
-    .setDescription(message);
-  return channel.send(embed);
+	const embed = new discord.MessageEmbed();
+	embed.setAuthor(format(title, {
+		pseudo: user.username,
+	}), user.displayAvatarURL())
+		.setDescription(message);
+	return channel.send(embed);
 };
 
 /**
@@ -65,173 +66,173 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  * @param {Entity} entity
  */
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
-  let item = await entity.Player.Inventory.generateRandomItem();
-  log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
-  let autoSell = false;
-  let autoReplace = false;
-  const receivedEmbed = new discord.MessageEmbed();
-  const embed = new discord.MessageEmbed();
-  receivedEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
-    pseudo: discordUser.username,
-  }), discordUser.displayAvatarURL())
-    .setDescription(item.toString(language));
+	let item = await entity.Player.Inventory.generateRandomItem();
+	log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
+	let autoSell = false;
+	let autoReplace = false;
+	const receivedEmbed = new discord.MessageEmbed();
+	const embed = new discord.MessageEmbed();
+	receivedEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
+		pseudo: discordUser.username,
+	}), discordUser.displayAvatarURL())
+		.setDescription(item.toString(language));
 
 
-  embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-    pseudo: discordUser.username,
-  }), discordUser.displayAvatarURL());
+	embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
+		pseudo: discordUser.username,
+	}), discordUser.displayAvatarURL());
 
-  if (item instanceof Potions) {
-    const potion = await entity.Player.Inventory.getPotion();
-    if (potion.id === item.id) {
-      autoSell = true;
-    }
-    if (potion.rarity === 0) {
-      autoReplace = true;
-    }
-    embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooterPotion, {
-      pseudo: discordUser.username,
-    }), discordUser.displayAvatarURL());
-    embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-      actualItem: potion.toString(language),
-    }));
-  }
-  if (item instanceof Objects) {
-    const inventory = await entity.Player.Inventory;
-    const backupObject = await inventory.getBackupObject();
-    const activeObject = await inventory.getActiveObject();
-    if (backupObject.id === item.id || activeObject.id === item.id) {
-      autoSell = true;
-    }
-    if (backupObject.rarity === 0) {
-      autoReplace = true;
-    }
-    embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-      actualItem: backupObject.toString(language),
-    }));
-  }
-  if (item instanceof Weapons) {
-    const weapon = await entity.Player.Inventory.getWeapon();
-    if (weapon.id === item.id) {
-      autoSell = true;
-    }
-    if (weapon.rarity === 0) {
-      autoReplace = true;
-    }
-    embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-      actualItem: weapon.toString(language),
-    }));
-  }
-  if (item instanceof Armors) {
-    const armor = await entity.Player.Inventory.getArmor();
-    if (armor.id === item.id) {
-      autoSell = true;
-    }
-    if (armor.rarity === 0) {
-      autoReplace = true;
-    }
-    embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-      actualItem: armor.toString(language),
-    }));
-  }
+	if (item instanceof Potions) {
+		const potion = await entity.Player.Inventory.getPotion();
+		if (potion.id === item.id) {
+			autoSell = true;
+		}
+		if (potion.rarity === 0) {
+			autoReplace = true;
+		}
+		embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooterPotion, {
+			pseudo: discordUser.username,
+		}), discordUser.displayAvatarURL());
+		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+			actualItem: potion.toString(language),
+		}));
+	}
+	if (item instanceof Objects) {
+		const inventory = await entity.Player.Inventory;
+		const backupObject = await inventory.getBackupObject();
+		const activeObject = await inventory.getActiveObject();
+		if (backupObject.id === item.id || activeObject.id === item.id) {
+			autoSell = true;
+		}
+		if (backupObject.rarity === 0) {
+			autoReplace = true;
+		}
+		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+			actualItem: backupObject.toString(language),
+		}));
+	}
+	if (item instanceof Weapons) {
+		const weapon = await entity.Player.Inventory.getWeapon();
+		if (weapon.id === item.id) {
+			autoSell = true;
+		}
+		if (weapon.rarity === 0) {
+			autoReplace = true;
+		}
+		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+			actualItem: weapon.toString(language),
+		}));
+	}
+	if (item instanceof Armors) {
+		const armor = await entity.Player.Inventory.getArmor();
+		if (armor.id === item.id) {
+			autoSell = true;
+		}
+		if (armor.rarity === 0) {
+			autoReplace = true;
+		}
+		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
+			actualItem: armor.toString(language),
+		}));
+	}
 
-  if (autoSell) {
-    const money = getItemValue(item);
-    entity.Player.addMoney(money);
-    await entity.Player.save();
-    return await channel.send(
-      new discord.MessageEmbed().setAuthor(
-        format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle,
-          {
-            pseudo: discordUser.username,
-          },
-        ), discordUser.displayAvatarURL()
-      ).setDescription(
-        format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-          {
-            item: item.getName(language),
-            money: money
-          }
-        )
-      )
-    );
-  } else {
-    await channel.send(receivedEmbed);
-    if (autoReplace) {
-      return await saveItem(item, entity);
-    }
+	if (autoSell) {
+		const money = getItemValue(item);
+		entity.Player.addMoney(money);
+		await entity.Player.save();
+		return await channel.send(
+			new discord.MessageEmbed().setAuthor(
+				format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle,
+					{
+						pseudo: discordUser.username,
+					},
+				), discordUser.displayAvatarURL()
+			).setDescription(
+				format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+					{
+						item: item.getName(language),
+						money: money
+					}
+				)
+			)
+		);
+	} else {
+		await channel.send(receivedEmbed);
+		if (autoReplace) {
+			return await saveItem(item, entity);
+		}
 
-    const msg = await channel.send(embed);
-    const filterConfirm = (reaction, user) => {
-      return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === discordUser.id);
-    };
+		const msg = await channel.send(embed);
+		const filterConfirm = (reaction, user) => {
+			return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === discordUser.id);
+		};
 
-    const collector = msg.createReactionCollector(filterConfirm, {
-      time: 120000,
-      max: 1,
-    });
+		const collector = msg.createReactionCollector(filterConfirm, {
+			time: 120000,
+			max: 1,
+		});
 
-    addBlockedPlayer(discordUser.id, "acceptItem", collector);
+		addBlockedPlayer(discordUser.id, "acceptItem", collector);
 
-    collector.on('end', async (reaction) => {
-      removeBlockedPlayer(discordUser.id);
-      if (reaction.first()) { // a reaction exist
-        // msg.delete(); for now we are goig to keep the message
-        if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
-          const menuEmbed = new discord.MessageEmbed();
-          menuEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
-            pseudo: discordUser.username,
-          }), discordUser.displayAvatarURL())
-            .setDescription(item.toString(language));
+		collector.on('end', async (reaction) => {
+			removeBlockedPlayer(discordUser.id);
+			if (reaction.first()) { // a reaction exist
+				// msg.delete(); for now we are going to keep the message
+				if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+					const menuEmbed = new discord.MessageEmbed();
+					menuEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
+						pseudo: discordUser.username,
+					}), discordUser.displayAvatarURL())
+						.setDescription(item.toString(language));
 
-          let oldItem = await saveItem(item, entity);
-          await channel.send(menuEmbed);
-          item = oldItem;
-        }
-        if (item instanceof Potions) {
-          return await channel.send(
-            new discord.MessageEmbed().setAuthor(
-              format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
-                {
-                  pseudo: discordUser.username,
-                },
-              ), discordUser.displayAvatarURL()
-            ).setDescription(
-              format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
-                {
-                  item: item.getName(language)
-                }
-              )
-            )
-          ); // potion are not sold (because of exploits and because of logic)
-        }
-      }
-      const money = getItemValue(item);
-      entity.Player.addMoney(money);
-      await entity.Player.save();
-      return await channel.send(
-        new discord.MessageEmbed().setAuthor(
-          format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
-            {
-              pseudo: discordUser.username,
-            },
-          ), discordUser.displayAvatarURL()
-        ).setDescription(
-          format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-            {
-              item: item.getName(language),
-              money: money
-            }
-          )
-        )
-      );
-    });
+					let oldItem = await saveItem(item, entity);
+					await channel.send(menuEmbed);
+					item = oldItem;
+				}
+				if (item instanceof Potions) {
+					return await channel.send(
+						new discord.MessageEmbed().setAuthor(
+							format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
+								{
+									pseudo: discordUser.username,
+								},
+							), discordUser.displayAvatarURL()
+						).setDescription(
+							format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
+								{
+									item: item.getName(language)
+								}
+							)
+						)
+					); // potion are not sold (because of exploits and because of logic)
+				}
+			}
+			const money = getItemValue(item);
+			entity.Player.addMoney(money);
+			await entity.Player.save();
+			return await channel.send(
+				new discord.MessageEmbed().setAuthor(
+					format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
+						{
+							pseudo: discordUser.username,
+						},
+					), discordUser.displayAvatarURL()
+				).setDescription(
+					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+						{
+							item: item.getName(language),
+							money: money
+						}
+					)
+				)
+			);
+		});
 
-    await Promise.all([
-      msg.react(MENU_REACTION.ACCEPT),
-      msg.react(MENU_REACTION.DENY),
-    ]);
-  }
+		await Promise.all([
+			msg.react(MENU_REACTION.ACCEPT),
+			msg.react(MENU_REACTION.DENY),
+		]);
+	}
 };
 
 /**
@@ -239,24 +240,24 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
  * @return {Number}
  */
 global.generateRandomRarity = () => {
-  const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue);
+	const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue);
 
-  if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
-    return 1;
-  } else if (randomValue <= JsonReader.values.raritiesGenerator['1']) {
-    return 2;
-  } else if (randomValue <= JsonReader.values.raritiesGenerator['2']) {
-    return 3;
-  } else if (randomValue <= JsonReader.values.raritiesGenerator['3']) {
-    return 4;
-  } else if (randomValue <= JsonReader.values.raritiesGenerator['4']) {
-    return 5;
-  } else if (randomValue <= JsonReader.values.raritiesGenerator['5']) {
-    return 6;
-  } else if (randomValue <= JsonReader.values.raritiesGenerator['6']) {
-    return 7;
-  }
-  return 8;
+	if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
+		return 1;
+	} else if (randomValue <= JsonReader.values.raritiesGenerator['1']) {
+		return 2;
+	} else if (randomValue <= JsonReader.values.raritiesGenerator['2']) {
+		return 3;
+	} else if (randomValue <= JsonReader.values.raritiesGenerator['3']) {
+		return 4;
+	} else if (randomValue <= JsonReader.values.raritiesGenerator['4']) {
+		return 5;
+	} else if (randomValue <= JsonReader.values.raritiesGenerator['5']) {
+		return 6;
+	} else if (randomValue <= JsonReader.values.raritiesGenerator['6']) {
+		return 7;
+	}
+	return 8;
 };
 
 
@@ -265,7 +266,7 @@ global.generateRandomRarity = () => {
  * @return {Number}
  */
 global.generateRandomItemType = () => {
-  return JsonReader.values.itemGenerator.tab[draftbotRandom.integer(1, JsonReader.values.itemGenerator.max - 1)];
+	return JsonReader.values.itemGenerator.tab[draftbotRandom.integer(1, JsonReader.values.itemGenerator.max - 1)];
 };
 
 /**
@@ -274,7 +275,7 @@ global.generateRandomItemType = () => {
  * @return {Number}
  */
 global.millisecondsToMinutes = (milliseconds) => {
-  return Math.round(milliseconds / 60000);
+	return Math.round(milliseconds / 60000);
 };
 
 /**
@@ -283,7 +284,7 @@ global.millisecondsToMinutes = (milliseconds) => {
  * @return {Number}
  */
 global.millisecondsToHours = (milliseconds) => {
-  return milliseconds / 3600000;
+	return milliseconds / 3600000;
 };
 
 /**
@@ -292,7 +293,7 @@ global.millisecondsToHours = (milliseconds) => {
  * @return {Number}
  */
 global.minutesToMilliseconds = (minutes) => {
-  return minutes * 60000;
+	return minutes * 60000;
 };
 
 /**
@@ -301,21 +302,19 @@ global.minutesToMilliseconds = (minutes) => {
  * @return {String}
  */
 global.minutesToString = (minutes) => {
-  const hours = Math.floor(minutes / 60);
-  minutes = minutes % 60;
+	const hours = Math.floor(minutes / 60);
+	minutes = minutes % 60;
 
-  let display;
-  if (hours > 0) {
-    display = hours + ' H ' + minutes + " Min";
-  }
-  else if (minutes !== 0) {
-    display = minutes + ' Min';
-  }
-  else {
-    display = '< 1 Min';
-  }
+	let display;
+	if (hours > 0) {
+		display = hours + ' H ' + minutes + " Min";
+	} else if (minutes !== 0) {
+		display = minutes + ' Min';
+	} else {
+		display = '< 1 Min';
+	}
 
-  return display;
+	return display;
 };
 
 /**
@@ -324,25 +323,25 @@ global.minutesToString = (minutes) => {
  * @return {String}
  */
 global.format = (string, replacement) => {
-  if (!replacement || !replacement.hasOwnProperty) {
-    replacement = {};
-  }
+	if (!replacement || !replacement.hasOwnProperty) {
+		replacement = {};
+	}
 
-  return string.replace(/\{([0-9a-zA-Z_]+)\}/g, (match, i, index) => {
-    let result;
+	return string.replace(/{([0-9a-zA-Z_]+)}/g, (match, i, index) => {
+		let result;
 
-    if (string[index - 1] === '{' &&
-      string[index + match.length] === '}') {
-      return i;
-    } else {
-      result = replacement.hasOwnProperty(i) ? replacement[i] : null;
-      if (result === null || result === undefined) {
-        return '';
-      }
+		if (string[index - 1] === '{' &&
+			string[index + match.length] === '}') {
+			return i;
+		} else {
+			result = replacement.hasOwnProperty(i) ? replacement[i] : null;
+			if (result === null || result === undefined) {
+				return '';
+			}
 
-      return result;
-    }
-  });
+			return result;
+		}
+	});
 };
 
 /**
@@ -352,7 +351,7 @@ global.format = (string, replacement) => {
  * @return {number}
  */
 global.randInt = (min, max) => {
-  return draftbotRandom.integer(min, max - 1);
+	return draftbotRandom.integer(min, max - 1);
 };
 
 /**
@@ -362,21 +361,21 @@ global.randInt = (min, max) => {
  * @return {String} - The bar
  */
 global.progressBar = (value, maxValue) => {
-  let percentage = value / maxValue; // Calculate the percentage of the bar
-  if (percentage < 0 || isNaN(percentage) || percentage === Infinity) {
-    percentage = 0;
-  }
-  if (percentage > 1) {
-    percentage = 1;
-  }
-  const progress = Math.round((PROGRESSBARS_SIZE * percentage)); // Calculate the number of square caracters to fill the progress side.
-  const emptyProgress = PROGRESSBARS_SIZE - progress; // Calculate the number of dash caracters to fill the empty progress side.
+	let percentage = value / maxValue; // Calculate the percentage of the bar
+	if (percentage < 0 || isNaN(percentage) || percentage === Infinity) {
+		percentage = 0;
+	}
+	if (percentage > 1) {
+		percentage = 1;
+	}
+	const progress = Math.round((PROGRESSBARS_SIZE * percentage)); // Calculate the number of square caracters to fill the progress side.
+	const emptyProgress = PROGRESSBARS_SIZE - progress; // Calculate the number of dash caracters to fill the empty progress side.
 
-  const progressText = '▇'.repeat(progress); // Repeat is creating a string with progress * caracters in it
-  const emptyProgressText = '—'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
-  const percentageText = Math.floor(percentage * 100) + '%'; // Displaying the percentage of the bar
+	const progressText = '▇'.repeat(progress); // Repeat is creating a string with progress * caracters in it
+	const emptyProgressText = '—'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
+	const percentageText = Math.floor(percentage * 100) + '%'; // Displaying the percentage of the bar
 
-  return '```[' + progressText + emptyProgressText + ']' + percentageText + '```'; // Creating the bar
+	return '```[' + progressText + emptyProgressText + ']' + percentageText + '```'; // Creating the bar
 };
 
 /**
@@ -385,17 +384,17 @@ global.progressBar = (value, maxValue) => {
  * @return {Number} - The value of the item
  */
 global.getItemValue = function (item) {
-  let addedvalue;
-  if (item instanceof Potions || item instanceof Objects) {
-    addedvalue = parseInt(item.power);
-  }
-  if (item instanceof Weapons) {
-    addedvalue = parseInt(item.rawAttack);
-  }
-  if (item instanceof Armors) {
-    addedvalue = parseInt(item.rawDefense);
-  }
-  return parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedvalue;
+	let addedvalue;
+	if (item instanceof Potions || item instanceof Objects) {
+		addedvalue = parseInt(item.power);
+	}
+	if (item instanceof Weapons) {
+		addedvalue = parseInt(item.rawAttack);
+	}
+	if (item instanceof Armors) {
+		addedvalue = parseInt(item.rawDefense);
+	}
+	return parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedvalue;
 };
 
 /**
@@ -406,13 +405,13 @@ global.getItemValue = function (item) {
  * @returns {boolean}
  */
 global.sendBlockedError = async function (user, channel, language) {
-  if (hasBlockedPlayer(user.id)) {
-    await sendErrorMessage(user, channel, language, format(JsonReader.error.getTranslation(language).playerBlocked, {
-      context: JsonReader.error.getTranslation(language).blockedContext[getBlockedPlayer(user.id).context]
-    }));
-    return true;
-  }
-  return false;
+	if (hasBlockedPlayer(user.id)) {
+		await sendErrorMessage(user, channel, language, format(JsonReader.error.getTranslation(language).playerBlocked, {
+			context: JsonReader.error.getTranslation(language).blockedContext[getBlockedPlayer(user.id).context]
+		}));
+		return true;
+	}
+	return false;
 };
 
 /**
@@ -420,14 +419,14 @@ global.sendBlockedError = async function (user, channel, language) {
  * @return {Date}
  */
 global.getNextSundayMidnight = function () {
-  let now = new Date();
-  let dateOfReset = new Date();
-  dateOfReset.setDate(now.getDate() + ((7 - now.getDay())) % 7);
-  dateOfReset.setHours(23, 59, 59);
-  while (dateOfReset < now) {
-    dateOfReset += 1000 * 60 * 60 * 24 * 7;
-  }
-  return new Date(dateOfReset);
+	let now = new Date();
+	let dateOfReset = new Date();
+	dateOfReset.setDate(now.getDate() + ((7 - now.getDay())) % 7);
+	dateOfReset.setHours(23, 59, 59);
+	while (dateOfReset < now) {
+		dateOfReset += 1000 * 60 * 60 * 24 * 7;
+	}
+	return new Date(dateOfReset);
 };
 
 /**
@@ -435,34 +434,34 @@ global.getNextSundayMidnight = function () {
  * @return {Date}
  */
 global.getNextDay2AM = function () {
-  let now = new Date();
-  let dateOfReset = new Date();
-  dateOfReset.setHours(1, 59, 59);
-  if (dateOfReset < now) {
-    dateOfReset.setDate(dateOfReset.getDate() + 1);
-  }
-  return new Date(dateOfReset);
+	let now = new Date();
+	let dateOfReset = new Date();
+	dateOfReset.setHours(1, 59, 59);
+	if (dateOfReset < now) {
+		dateOfReset.setDate(dateOfReset.getDate() + 1);
+	}
+	return new Date(dateOfReset);
 };
 
 global.parseTimeDifference = function (date1, date2, language) {
-  if (date1 > date2) {
-    date1 = [date2, date2 = date1][0];
-  }
-  let seconds = Math.floor((date2 - date1) / 1000);
-  let parsed = "";
-  let days = Math.floor(seconds / (24 * 60 * 60));
-  if (days > 0) {
-    parsed += days + (language === "fr" ? " J " : " D ");
-    seconds -= days * 24 * 60 * 60;
-  }
-  let hours = Math.floor(seconds / (60 * 60));
-  parsed += hours + " H ";
-  seconds -= hours * 60 * 60;
-  let minutes = Math.floor(seconds / 60);
-  parsed += minutes + " Min ";
-  seconds -= minutes * 60;
-  parsed += seconds + " s";
-  return parsed;
+	if (date1 > date2) {
+		date1 = [date2, date2 = date1][0];
+	}
+	let seconds = Math.floor((date2 - date1) / 1000);
+	let parsed = "";
+	let days = Math.floor(seconds / (24 * 60 * 60));
+	if (days > 0) {
+		parsed += days + (language === "fr" ? " J " : " D ");
+		seconds -= days * 24 * 60 * 60;
+	}
+	let hours = Math.floor(seconds / (60 * 60));
+	parsed += hours + " H ";
+	seconds -= hours * 60 * 60;
+	let minutes = Math.floor(seconds / 60);
+	parsed += minutes + " Min ";
+	seconds -= minutes * 60;
+	parsed += seconds + " s";
+	return parsed;
 };
 
 /**
@@ -470,7 +469,7 @@ global.parseTimeDifference = function (date1, date2, language) {
  * @return {boolean}
  */
 global.resetIsNow = function () {
-  return getNextSundayMidnight() - new Date() <= 1000 * 5 * 60;
+	return getNextSundayMidnight() - new Date() <= 1000 * 5 * 60;
 };
 
 /**
@@ -478,48 +477,48 @@ global.resetIsNow = function () {
  * @param {module:"discord.js".Guild} guild - The guild that has to be checked
  */
 global.getValidationInfos = function (guild) {
-  let humans = guild.members.cache.filter(member => !member.user.bot).size;
-  let bots = guild.members.cache.filter(member => member.user.bot).size;
-  let ratio = Math.round((bots / humans) * 100);
-  let validation = ":white_check_mark:";
-  if (ratio > 30 || humans < 30 || (humans < 100 && ratio > 20)) {
-    validation = ":x:";
-  }
-  else {
-    if (ratio > 20 || bots > 15 || humans < 100) {
-      validation = ":warning:";
-    }
-  }
-  return { validation: validation, humans: humans, bots: bots, ratio: ratio };
+	let humans = guild.members.cache.filter(member => !member.user.bot).size;
+	let bots = guild.members.cache.filter(member => member.user.bot).size;
+	let ratio = Math.round((bots / humans) * 100);
+	let validation = ":white_check_mark:";
+	if (ratio > 30 || humans < 30 || (humans < 100 && ratio > 20)) {
+		validation = ":x:";
+	} else {
+		if (ratio > 20 || bots > 15 || humans < 100) {
+			validation = ":warning:";
+		}
+	}
+	return {validation: validation, humans: humans, bots: bots, ratio: ratio};
 };
+
 async function saveItem(item, entity) {
-  let oldItem;
-  if (item instanceof Potions) {
-    oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
-    entity.Player.Inventory.potion_id = item.id;
-  }
-  if (item instanceof Objects) {
-    oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
-    entity.Player.Inventory.backup_id = item.id;
-  }
-  if (item instanceof Weapons) {
-    oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
-    entity.Player.Inventory.weapon_id = item.id;
-  }
-  if (item instanceof Armors) {
-    oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
-    entity.Player.Inventory.armor_id = item.id;
-  }
-  await Promise.all([
-    entity.save(),
-    entity.Player.save(),
-    entity.Player.Inventory.save(),
-  ]);
-  return oldItem;
+	let oldItem;
+	if (item instanceof Potions) {
+		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
+		entity.Player.Inventory.potion_id = item.id;
+	}
+	if (item instanceof Objects) {
+		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});
+		entity.Player.Inventory.backup_id = item.id;
+	}
+	if (item instanceof Weapons) {
+		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weapon_id}});
+		entity.Player.Inventory.weapon_id = item.id;
+	}
+	if (item instanceof Armors) {
+		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armor_id}});
+		entity.Player.Inventory.armor_id = item.id;
+	}
+	await Promise.all([
+		entity.save(),
+		entity.Player.save(),
+		entity.Player.Inventory.save(),
+	]);
+	return oldItem;
 }
 
 global.checkNameString = (name, minLength, maxLength) => {
-  const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
-  const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
-  return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
-}
+	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
+	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
+	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
+};

@@ -1,12 +1,12 @@
 {
 	"translations": {
 		"fr": {
-            "title": "{pseudo}, vous avez changé le score d'un joueur !",
-            "desc": "{player} a maintenant {points} points"
-        },
+			"title": "{pseudo}, vous avez changé le score d'un joueur !",
+			"desc": "{player} a maintenant {points} points"
+		},
 		"en": {
-            "title": "{pseudo}, you have updated the score of a player !",
-            "desc": "{player} has {points} points"
+			"title": "{pseudo}, you have updated the score of a player !",
+			"desc": "{player} has {points} points"
 		}
 	}
 }
