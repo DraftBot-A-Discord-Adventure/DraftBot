@@ -9,3 +9,4 @@ config/app.json
 *.iml
 logs/*
 package-lock.json
+/database/archive/
