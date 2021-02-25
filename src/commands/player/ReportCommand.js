@@ -31,8 +31,10 @@ const ReportCommand = async function (
 	}
 	await addBlockedPlayer(entity.discordUser_id, "cooldown");
 	setTimeout(() => {
-		if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
-			removeBlockedPlayer(entity.discordUser_id);
+		if (hasBlockedPlayer(entity.discordUser_id)) {
+			if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
+				removeBlockedPlayer(entity.discordUser_id);
+			}
 		}
 	}, 500);
 	let time;
