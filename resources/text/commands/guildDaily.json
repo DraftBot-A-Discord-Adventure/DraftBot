@@ -13,8 +13,7 @@
 			"alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
 			"petFood": ":candy: {quantity} friandises ont été rajoutées à l'inventaire de votre guilde.",
 			"pet": "{emote} | Un animal rejoint le refuge de la guilde: **{pet}**",
-			"coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochaine récompense : {time}.",
-			"fullStock": "L'inventaire de la guilde ne contient pas assez de place pour cette ressource."
+			"coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochaine récompense : {time}."
 		},
 		"en": {
 			"notInAGuild": "You have to be in a guild to use this command.",
@@ -29,8 +28,7 @@
 			"alterationHeal": ":hospital: | Guild's members' statuses were reset. Healthy guild's members were partly healed. `+ {healthWon} ❤️`",
 			"petFood": ":candy: {quantity} treats have been added to your guild's inventory.",
 			"pet": "{emote} | A pet joins the guild's shelter: **{pet}**",
-			"coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. Time before next reward : {time}.",
-			"fullStock": "The guild storage doesn't have enough spacee for that resource."
+			"coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. Time before next reward : {time}."
 		}
 	},
 	"minimalXp": 20,

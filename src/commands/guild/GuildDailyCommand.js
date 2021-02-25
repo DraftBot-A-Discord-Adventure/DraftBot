@@ -113,6 +113,19 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 		log("GuildDaily of guild " + guild.name + ": got " + moneyWon + " money");
 	}
 
+	if (rewardType === REWARD_TYPES.PET_FOOD) {
+		if (guild["commonFood"] + JsonReader.commands.guildDaily.fixedPetFood > GUILD.MAX_COMMON_PETFOOD) {
+			rewardType = REWARD_TYPES.FIXED_MONEY;
+		} else {
+			guild["commonFood"] = guild["commonFood"] + JsonReader.commands.guildDaily.fixedPetFood;
+			Promise.all([guild.save()]);
+			embed.setDescription(format(translations.petFood, {
+				quantity : JsonReader.commands.guildDaily.fixedPetFood
+			}));
+		}
+
+	}
+
 	if (rewardType === REWARD_TYPES.FIXED_MONEY) {
 		const moneyWon = JsonReader.commands.guildDaily.fixedMoney;
 		for (const i in members) {
@@ -181,19 +194,6 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 			healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer),
 		}));
 		log("GuildDaily of guild " + guild.name + ": got alteration heal");
-	}
-
-	if (rewardType === REWARD_TYPES.PET_FOOD) {
-		if (guild["commonFood"] + JsonReader.commands.guildDaily.fixedPetFood > GUILD.MAX_COMMON_PETFOOD) {
-			embed.setDescription(translations.fullStock)
-		} else {
-			guild["commonFood"] = guild["commonFood"] + JsonReader.commands.guildDaily.fixedPetFood;
-			Promise.all([guild.save()]);
-			embed.setDescription(format(translations.petFood, {
-				quantity : JsonReader.commands.guildDaily.fixedPetFood
-			}))
-		}
-
 	}
 
 	if (!Guilds.isPetShelterFull(guild) && draftbotRandom.realZeroToOneInclusive() <= 0.1) {
