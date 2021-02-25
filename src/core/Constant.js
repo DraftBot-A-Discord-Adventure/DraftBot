@@ -59,6 +59,7 @@ global.REWARD_TYPES = {
 	FULL_HEAL: "fullHeal",
 	PARTIAL_HEAL: "partialHeal",
 	ALTERATION: "alterationHeal",
+	PET_FOOD: "petFood",
 };
 
 global.ITEMTYPE = {
