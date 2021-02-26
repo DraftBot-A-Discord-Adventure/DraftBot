@@ -112,6 +112,15 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
+	await addBlockedPlayer(entity.discordUser_id, "cooldown");
+	setTimeout(() => {
+		if (hasBlockedPlayer(entity.discordUser_id)) {
+			removeBlockedPlayer(entity.discordUser_id);
+			if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
+				removeBlockedPlayer(entity.discordUser_id);
+			}
+		}
+	}, 500);
 
 	let time;
 	if (forceSpecificEvent === -1) {
@@ -130,7 +139,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 
 	if (time < JsonReader.commands.report.timeMinimal) {
 		if (entity.currentEffectFinished()) {
-			return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).noReport, {pseudo: message.author.username}));
+			return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).noReport, {pseudo: message.author }));
 		} else {
 			return await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [entity.effect], entity);
 		}
@@ -174,7 +183,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
  */
 /*const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
 	const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {
-		pseudo: message.author.username,
+		pseudo: message.author,
 		event: event[language]
 	}));
 	const reactions = await event.getReactions();
@@ -182,7 +191,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 		return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);
 	}, {time: 120000});
 
-	addBlockedPlayer(entity.discordUser_id, "report", collector);
+	await addBlockedPlayer(entity.discordUser_id, "report", collector);
 
 	collector.on('collect', async (reaction) => {
 		collector.stop();

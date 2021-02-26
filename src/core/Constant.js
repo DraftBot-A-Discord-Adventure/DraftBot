@@ -18,6 +18,7 @@ global.EFFECT = {
 	LOCKED: ":lock:",
 	INJURED: ":dizzy_face:",
 	OCCUPIED: ":clock2:",
+	STARVING: ":drooling_face:",
 	CONFOUNDED: ":confounded:",
 };
 
@@ -57,7 +58,8 @@ global.REWARD_TYPES = {
 	BADGE: "badge",
 	FULL_HEAL: "fullHeal",
 	PARTIAL_HEAL: "partialHeal",
-	ALTERATION: "alterationHeal"
+	ALTERATION: "alterationHeal",
+	PET_FOOD: "petFood",
 };
 
 global.ITEMTYPE = {
@@ -74,6 +76,10 @@ global.GUILD = {
 	MIN_GUILDNAME_SIZE: 2,
 	MIN_DESCRIPTION_LENGTH: 2,
 	MAX_DESCRIPTION_LENGTH: 140,
+	MAX_COMMON_PETFOOD: 25,
+	MAX_HERBIVOROUS_PETFOOD: 15,
+	MAX_CARNIVOROUS_PETFOOD: 15,
+	MAX_ULTIMATE_PETFOOD: 5,
 };
 
 global.CLASS = {
@@ -81,7 +87,7 @@ global.CLASS = {
 	PRICE: 5000,
 	GROUP1LEVEL: 16,
 	GROUP2LEVEL: 32,
-	GROUP3LEVEL: 48
+	GROUP3LEVEL: 48,
 };
 
 global.CATEGORY = {
@@ -89,7 +95,7 @@ global.CATEGORY = {
 	UTIL: "util",
 	PLAYER: "player",
 	GUILD: "guild",
-	PET: "pet"
+	PET: "pet",
 };
 global.MENU_REACTION = {
 	ACCEPT: "✅",
@@ -101,7 +107,6 @@ global.MENU_REACTION = {
 global.PROGRESSBARS_SIZE = 20;
 
 global.FIGHT = {
-	MAX_DEFENSE_IMPROVEMENT: 20,
 	MAX_SPEED_IMPROVEMENT: 30,
 	MAX_TURNS: 25,
 	REQUIRED_LEVEL: 8,
@@ -111,7 +116,7 @@ global.FIGHT = {
 		QUICK_ATTACK: 0,
 		SIMPLE_ATTACK: 1,
 		POWERFUL_ATTACK: 2,
-		IMPROVE_DEFENSE: 3,
+		BULK_ATTACK: 3,
 		IMPROVE_SPEED: 4,
 		ULTIMATE_ATTACK: 5,
 	},
@@ -122,8 +127,21 @@ global.SHOP = {
 	HOSPITAL: "🏥",
 	HEART: "💗",
 	MONEY_MOUTH: "🤑",
-	STAR: "⭐",
 	POTION_REPLACEMENT: "🍷",
+};
+
+global.GUILDSHOP = {
+	STAR: "⭐",
+	COMMON_FOOD: "🍬",
+	HERBIVOROUS_FOOD: "🥬",
+	CARNIVOROUS_FOOD: "🥩",
+	ULTIMATE_FOOD: "🍲",
+};
+
+global.QUANTITY = {
+	ONE: "1️⃣",
+	FIVE: "5️⃣",
+	TEN: "🔟",
 };
 
 global.TOPGG = {
@@ -138,8 +156,16 @@ global.PETS = {
 	BREED_COOLDOWN: 60 * 60 * 1000, // 1 hour
 	MAX_LOVE_POINTS: 100,
 	BASE_LOVE: 10,
-	LOVE_LEVELS: [5, 20, 50]
-}
+	LOVE_LEVELS: [5, 20, 50],
+	SELL: {
+		MIN: 100,
+		MAX: 50000,
+	},
+};
+
+global.LOGS = {
+	LOG_COUNT_LINE_LIMIT: 50000,
+};
 
 global.REPORT = {
 	TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000,

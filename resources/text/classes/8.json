@@ -4,11 +4,11 @@
 		"en": ":rock: Rock thrower"
 	},
 	"emoji": "🪨",
-	"attack": 35,
-	"defense": 5,
+	"attack": 30,
+	"defense": 0,
 	"speed": 40,
-	"health": 30,
-	"fightPoint": 5,
+	"health": 10,
+	"fightPoint": -25,
 	"price": 200,
 	"classgroup": 0
 }

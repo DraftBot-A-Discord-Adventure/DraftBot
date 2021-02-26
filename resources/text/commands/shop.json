@@ -5,7 +5,7 @@
 			"dailyItem": "Potion du jour :\n",
 			"permanentItem": "\n\nVentes permanentes :\n",
 			"display": "{name} | `{price}💰`",
-			"success": "{pseudo}, Transaction réussie !",
+			"success": "{pseudo}, transaction réussie !",
 			"permanentItems": {
 				"randomItem": {
 					"name": ":question: **Un équipement random**",
@@ -43,7 +43,7 @@
 			"error": {
 				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
 				"cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
-				"canceledPurchase": "Transaction annulée!",
+				"canceledPurchase": "transaction annulée!",
 				"alreadyHasItem": "Vous possédez déjà cet objet.",
 				"leaveShop": "Vous avez quitté le magasin."
 			},
@@ -57,7 +57,7 @@
 			"dailyItem": "Today's potion:\n",
 			"permanentItem": "\n\nPermanent sales:\n",
 			"display": "{name} | `{price}💰`",
-			"success": "{pseudo}, Transaction success!",
+			"success": "{pseudo}, transaction success!",
 			"permanentItems": {
 				"randomItem": {
 					"name": ":question: **A random item**",
@@ -93,9 +93,9 @@
 			"confirm": "{pseudo}, You have selected this product:",
 			"moneyQuantity": "\n\nYou have `{money}💰`.",
 			"error": {
-				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
+				"nothingToHeal": "You're not under status alterations.",
 				"cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",
-				"canceledPurchase": "Transaction canceled!",
+				"canceledPurchase": "transaction canceled!",
 				"alreadyHasItem": "You already have the \"MoneyMouth\" badge. You can only buy it once.",
 				"leaveShop": "You left the shop."
 			},

@@ -6,7 +6,7 @@
  */
 async function rarityCommand(language, message, args) {
 	const maxValue = JsonReader.values.raritiesGenerator.maxValue;
-	const raritiesGenerator = JsonReader.values.raritiesGenerator
+	const raritiesGenerator = JsonReader.values.raritiesGenerator;
 	const rarityEmbed = new discord.MessageEmbed()
 		.setDescription(format(JsonReader.commands.rarity.getTranslation(language).rarities,
 			{

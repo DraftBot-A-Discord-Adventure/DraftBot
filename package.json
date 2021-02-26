@@ -1,6 +1,6 @@
 {
 	"name": "fr.bast.draftbot",
-	"version": "2.1.2",
+	"version": "2.1.5",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
@@ -16,6 +16,7 @@
 		"core": "./src/core",
 		"commands": "./src/commands",
 		"models": "./src/core/models",
+		"attacks": "./src/core/fights/attacks",
 		"resources": "./resources"
 	},
 	"dependencies": {
@@ -33,6 +34,7 @@
 	},
 	"devDependencies": {
 		"eslint": "^7.4.0",
-		"eslint-config-google": "^0.14.0"
+		"eslint-config-google": "^0.14.0",
+		"jshint": "^2.12.0"
 	}
 }

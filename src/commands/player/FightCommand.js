@@ -1,4 +1,4 @@
-const Fight = require('../../core/Fight');
+const Fight = require('../../core/fights/Fight');
 
 /**
  * Displays information about the profile of the player who sent the command
@@ -42,7 +42,6 @@ const FightCommand = async function (language, message, args, friendly = false) 
 	}
 
 	let msg;
-	let fightInstance = undefined;
 	let spamCount = 0;
 	let spammers = [];
 	global.addBlockedPlayer(attacker.discordUser_id, 'fight');
@@ -103,6 +102,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 						}
 						fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1, friendly);
 						fightInstance.startFight();
+						log("Fight (tournament: " + isTournament + "; friendly: " + friendly + ") started in server " + message.guild.id + " between " + attacker.discordUser_id + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and " + defender.discordUser_id + " (" + await defender.getCumulativeHealth() + "/" + await defender.getMaxCumulativeHealth() + ")");
 						break;
 					case '❌':
 						if (user.id === attacker.discordUser_id) {

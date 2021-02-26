@@ -11,6 +11,7 @@
 			"fullHeal": ":heartpulse: | Les membres de la guilde ont été soignés complètement.",
 			"partialHeal": ":heart_decoration: | Les membres de la guilde ont été partiellement soignés. `+ {healthWon} ❤️`",
 			"alterationHeal": ":hospital: | Les altérations d'état des membres de la guilde ont été supprimées. Les membres en bonne santé ont été partiellement soignés. `+ {healthWon} ❤️`",
+			"petFood": ":candy: {quantity} friandises ont été rajoutées à l'inventaire de votre guilde.",
 			"pet": "{emote} | Un animal rejoint le refuge de la guilde: **{pet}**",
 			"coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochaine récompense : {time}."
 		},
@@ -25,6 +26,7 @@
 			"fullHeal": ":heartpulse: | Guild's members were fully healed.",
 			"partialHeal": ":heart_decoration: | Guild's members were partly healed. `+ {healthWon} ❤️`",
 			"alterationHeal": ":hospital: | Guild's members' statuses were reset. Healthy guild's members were partly healed. `+ {healthWon} ❤️`",
+			"petFood": ":candy: {quantity} treats have been added to your guild's inventory.",
 			"pet": "{emote} | A pet joins the guild's shelter: **{pet}**",
 			"coolDown": "The daily guild reward is only available {coolDownTime} hours after the last time it was asked or a user joined the guild. Time before next reward : {time}."
 		}
@@ -34,18 +36,20 @@
 	"minimalMoney": 10,
 	"maximalMoney": 300,
 	"fixedMoney": 350,
+	"fixedPetFood": 5,
 	"levelMultiplayer": 4,
 	"timeBetweenDailys": 22,
 	"guildChances": {
 		"0": {
 			"personalXP": 0,
 			"guildXp": 0,
-			"money": 1000,
+			"money": 970,
 			"fixedMoney": 0,
 			"badge": 0,
 			"fullHeal": 0,
 			"partialHeal": 0,
-			"alterationHeal": 0
+			"alterationHeal": 0,
+			"petFood" : 30
 		},
 		"1": {
 			"personalXP": 50,
@@ -55,7 +59,8 @@
 			"badge": 0,
 			"fullHeal": 2,
 			"partialHeal": 50,
-			"alterationHeal": 25
+			"alterationHeal": 20,
+			"petFood": 5
 		},
 		"2": {
 			"personalXP": 50,
@@ -65,7 +70,8 @@
 			"badge": 0,
 			"fullHeal": 3,
 			"partialHeal": 52,
-			"alterationHeal": 25
+			"alterationHeal": 20,
+			"petFood": 5
 		},
 		"3": {
 			"personalXP": 50,
@@ -75,7 +81,8 @@
 			"badge": 0,
 			"fullHeal": 4,
 			"partialHeal": 54,
-			"alterationHeal": 25
+			"alterationHeal": 20,
+			"petFood": 5
 		},
 		"4": {
 			"personalXP": 100,
@@ -85,7 +92,8 @@
 			"badge": 0,
 			"fullHeal": 5,
 			"partialHeal": 56,
-			"alterationHeal": 25
+			"alterationHeal": 20,
+			"petFood": 5
 		},
 		"5": {
 			"personalXP": 100,
@@ -95,7 +103,8 @@
 			"badge": 10,
 			"fullHeal": 6,
 			"partialHeal": 58,
-			"alterationHeal": 35
+			"alterationHeal": 25,
+			"petFood": 10
 		},
 		"6": {
 			"personalXP": 100,
@@ -105,7 +114,8 @@
 			"badge": 20,
 			"fullHeal": 7,
 			"partialHeal": 60,
-			"alterationHeal": 35
+			"alterationHeal": 25,
+			"petFood": 10
 		},
 		"7": {
 			"personalXP": 100,
@@ -115,7 +125,8 @@
 			"badge": 30,
 			"fullHeal": 8,
 			"partialHeal": 62,
-			"alterationHeal": 40
+			"alterationHeal": 30,
+			"petFood": 10
 		},
 		"8": {
 			"personalXP": 150,
@@ -125,7 +136,8 @@
 			"badge": 40,
 			"fullHeal": 9,
 			"partialHeal": 64,
-			"alterationHeal": 45
+			"alterationHeal": 35,
+			"petFood": 10
 		},
 		"9": {
 			"personalXP": 150,
@@ -135,7 +147,8 @@
 			"badge": 50,
 			"fullHeal": 10,
 			"partialHeal": 66,
-			"alterationHeal": 50
+			"alterationHeal": 40,
+			"petFood": 10
 		},
 		"10": {
 			"personalXP": 200,
@@ -145,7 +158,8 @@
 			"badge": 100,
 			"fullHeal": 15,
 			"partialHeal": 68,
-			"alterationHeal": 70
+			"alterationHeal": 60,
+			"petFood": 10
 		}
 	}
 }

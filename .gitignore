@@ -7,6 +7,6 @@ src/utils/eastereggs/key
 src/utils/eastereggs/iv
 config/app.json
 *.iml
-.jshintrc
 logs/*
 package-lock.json
+/database/archive/

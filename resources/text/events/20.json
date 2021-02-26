@@ -1,6 +1,6 @@
 {
 	"translations": {
-		"fr": " : ** :bust_in_silhouette: En vous baladant tranquillement dans un village, vous remarquez du coin de l'œil un garde volant une pauvre femme.\n\n:punch: Attaquer le garde par surprise dans l'optique d'aider la femme\n:walking: Passer votre chemin.\n:call_me: Contacter des gardes un peu plus loin et les prévenir des actes du corrompu.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
+		"fr": " : ** :bust_in_silhouette: En vous baladant tranquillement dans un village, vous remarquez du coin de l'œil un garde volant une pauvre femme.\n\n:punch: Attaquer le garde par surprise dans l'optique d'aider la femme\n:walking: Passer votre chemin.\n:call_me: Alerter d'autres gardes sur les agissements de leur collègue.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
 		"en": " : ** :bust_in_silhouette: while walking peacefully in a village, you see a guard stealing from a poor woman.\n\n:punch: Attack the guard to help the lady.\n:walking: Keep walking.\n:call_me: Contact another guard and warn them of the corrupt guard.\n\n*- Use the reactions for make an action :warning: Not answering is also considered an action!*"
 	},
 	"possibilities": {
@@ -19,19 +19,19 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 👊 Au dernier moment, le garde se retourne et vous attaque. Il vous laisse néanmoins en vie.",
-					"en": "** | 👊 At the last moment, the guard turns around and attacks you. However, he leaves you alive."
+					"fr": "** | 👊 Au dernier moment, le garde se retourne et vous attaque. Après un féroce combat durant lequel la femme s'est enfuie, vous échouez à dévier une de ses attaques. Victorieux, le garde vous laisse néanmoins en vie et prend également la fuite.",
+					"en": "** | 👊 The guard dodges and the woman manages to run away. After all of that, you find her back out of danger. To greet you, she offers you some gold coins."
 				},
 				"lostTime": 0,
-				"health": -10,
-				"effect": ":smiley:",
+				"health": -55,
+				"effect": ":head_bandage:",
 				"experience": 0,
 				"money": 0,
 				"item": false
 			},
 			{
 				"translations": {
-					"fr": "** | 👊 Le garde esquive et la femme parvient à s'enfuir. Elle vous retrouve plus loin, hors de danger, pour vous remercier avec quelques pièces d'or.",
+					"fr": "** | 👊 Le garde esquive et la femme parvient à s'enfuir. Après avoir fait fuir le garde, vous la retrouvez hors de danger. Pour vous remercier elle vous offre quelques pièces d'or.",
 					"en": "** | 👊 The guard dodges, and the woman manages to escape. She finds you further away, out of danger, thanking you with some gold coins."
 				},
 				"lostTime": 30,
@@ -45,7 +45,7 @@
 		"🚶": [
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous ne prêtez donc pas attention au garde.",
+					"fr": "** | 🚶 Vous ne prêtez donc pas attention à la situation et poursuivez votre route..",
 					"en": "** | 🚶 You ignore the guard."
 				},
 				"lostTime": 0,
@@ -71,24 +71,24 @@
 		"🤙": [
 			{
 				"translations": {
-					"fr": "** | 🤙 Les gardes vous suivent et arrêtent le corrompu, la femme vous donne un objet en gage de remerciements.",
+					"fr": "** | 🤙 Les gardes vous suivent et apréhendent le garde véreux, la femme vous offre un objet en gage de remerciements.",
 					"en": "** | 🤙 The guards follow you and arrest the corrupt guard. The woman gives you an object as a token of her appreciation."
 				},
-				"lostTime": 10,
+				"lostTime": 0,
 				"health": 0,
-				"effect": ":clock2:",
-				"experience": 325,
+				"effect": ":smiley:",
+				"experience": 450,
 				"money": 0,
 				"item": true
 			},
 			{
 				"translations": {
-					"fr": "** | 🤙 Les gardes, étant aussi des criminels, vous attaquent à la hanche. Vous restez malgré tout en vie.",
-					"en": "** | 🤙 The guards, also being criminals, strike you on your hip, but leave you alive."
+					"fr": "** | 🤙 Malheureusement, les gardes que vous tentez d'alerter n'ont que faire des agissements malfaisant de leur collègue. Devant votre insistance, ils engagent le combat contre vous. Vous remportez la bataille malgré quelques blessures mais il est trop tard. La femme gît sur le sol ainsi que deux gardes. :head_bandage:",
+					"en": "** | 🤙 The guards, also being criminals, strike you on your hip, but leave you alive. :head_bandage:"
 				},
 				"lostTime": 0,
-				"health": -10,
-				"effect": ":smiley:",
+				"health": -35,
+				"effect": ":head_bandage:",
 				"experience": 0,
 				"money": 0,
 				"item": false

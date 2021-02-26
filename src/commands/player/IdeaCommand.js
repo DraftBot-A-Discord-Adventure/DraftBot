@@ -8,7 +8,7 @@ async function ideaCommand(language, message, args) {
 	const ideaEmbed = new discord.MessageEmbed()
 		.setDescription(JsonReader.commands.idea.getTranslation(language).text)
 		.setTitle(JsonReader.commands.idea.getTranslation(language).title)
-		.setColor(JsonReader.bot.embed.default)
+		.setColor(JsonReader.bot.embed.default);
 	message.channel.send(ideaEmbed);
 }
 

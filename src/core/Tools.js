@@ -1,8 +1,9 @@
 global.draftbotRandom = new (require("random-js")).Random();
 
 /**
+ * @typedef {import('sequelize/types')} DataTypes
  * Convert a discord id into a discord mention
- * @param {*} id - The role/user id
+ * @param {Number} id - The role/user id
  */
 global.idToMention = (id) => {
 	return '<@&' + id + '>';
@@ -45,8 +46,8 @@ global.sendErrorMessage = (user, channel, language, reason) => {
  * Send a simple message in a channel
  * @param {module:"discord.js".User} user
  * @param {module:"discord.js".TextChannel} channel
- * @param {("fr"|"en")} language - Language to use in the message
- * @param {String} message
+ * @param {String} title - the title of the message
+ * @param {String} message - the message
  */
 global.sendSimpleMessage = (user, channel, title, message) => {
 	const embed = new discord.MessageEmbed();
@@ -66,6 +67,7 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  */
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
 	let item = await entity.Player.Inventory.generateRandomItem();
+	log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
 	let autoSell = false;
 	let autoReplace = false;
 	const receivedEmbed = new discord.MessageEmbed();
@@ -162,7 +164,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 
 		const msg = await channel.send(embed);
 		const filterConfirm = (reaction, user) => {
-			return ((reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) && user.id === discordUser.id);
+			return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === discordUser.id);
 		};
 
 		const collector = msg.createReactionCollector(filterConfirm, {
@@ -175,8 +177,8 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 		collector.on('end', async (reaction) => {
 			removeBlockedPlayer(discordUser.id);
 			if (reaction.first()) { // a reaction exist
-				// msg.delete(); for now we are goig to keep the message
-				if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
+				// msg.delete(); for now we are going to keep the message
+				if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 					const menuEmbed = new discord.MessageEmbed();
 					menuEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
 						pseudo: discordUser.username,
@@ -325,7 +327,7 @@ global.format = (string, replacement) => {
 		replacement = {};
 	}
 
-	return string.replace(/\{([0-9a-zA-Z_]+)\}/g, (match, i, index) => {
+	return string.replace(/{([0-9a-zA-Z_]+)}/g, (match, i, index) => {
 		let result;
 
 		if (string[index - 1] === '{' &&
@@ -519,4 +521,4 @@ global.checkNameString = (name, minLength, maxLength) => {
 	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
 	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
-}
+};

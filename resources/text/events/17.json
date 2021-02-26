@@ -19,7 +19,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍎 Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'éffondre sous votre poid ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprennez votre route. :confounded:",
+					"fr": "** | 🍎 Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'éffondre sous votre poid ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprenez votre route. :confounded:",
 					"en": "** | 🍎 As you were about to pick fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way. :confounded:"
 				},
 				"lostTime": 0,
@@ -95,13 +95,13 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🥗 Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprennez donc votre route sans rien manger.",
-					"en": "** | 🥗 After some research, you don't really find any plants satisfying your hunger, so head back on your way without eating anything."
+					"fr": "** | 🥗 Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprenez donc votre route sans rien manger. :drooling_face:",
+					"en": "** | 🥗 After some research, you don't really find any plants satisfying your hunger, so head back on your way without eating anything. :drooling_face: "
 				},
-				"lostTime": 100,
+				"lostTime": 0,
 				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
+				"effect": ":drooling_face:",
+				"experience": 10,
 				"money": 0,
 				"item": false
 			},

@@ -11,5 +11,6 @@
 	},
 	"emoteMale": "🐊",
 	"emoteFemale": "🐊",
-	"rarity": 3
+	"rarity": 3,
+	"diet": "carnivorous"
 }

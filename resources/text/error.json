@@ -19,6 +19,7 @@
 			"titleMeIsSick": "{pseudo}, vous êtes actuellement malade !",
 			"titleMeIsLocked": "{pseudo}, vous êtes actuellement enfermé !",
 			"titleMeIsFrozen": "{pseudo}, vous êtes actuellement gelé !",
+			"titleMeIsStarving": "{pseudo}, vous êtes actuellement affamé !",
 			"titleMeIsDrunk": "{pseudo}, vous êtes actuellement ivre !",
 			"titleMeIsHurt": "{pseudo}, vous êtes actuellement blessé !",
 			"titleMeIsConfounded": "{pseudo}, vous êtes actuellement confus !",
@@ -36,6 +37,7 @@
 			"playerIsSleeping": "{askedPseudo} est actuellement endormi !",
 			"playerIsOccupied": "{askedPseudo} est actuellement occupé !",
 			"playerIsFrozen": "{askedPseudo} est actuellement gelé !",
+			"playerIsStarving": "{askedPseudo} est actuellement affamé !",
 			"playerIsDrunk": "{askedPseudo} est actuellement ivre !",
 			"playerIsConfounded": "{askedPseudo} est actuellement confus !",
 			"playerBlocked": "Vous ne pouvez pas effectuer cela car vous avez une action en attente ({context}) !",
@@ -43,7 +45,9 @@
 			"notANumber": "{text} n'est pas un nombre !",
 			"blockedContext": {
 				"shop": "Magasin",
+				"confirmBuy": "confirmation achat",
 				"report": "Rapport",
+				"cooldown": "Vous envoyez des commandes trop vite !",
 				"fight": "Combat",
 				"class": "Changement de classe",
 				"guildAdd": "Ajout dans une guilde",
@@ -53,11 +57,17 @@
 				"descriptionEdit": "Edition de la description de guilde",
 				"sell": "Vente d'un objet",
 				"acceptItem": "Choix de garder un objet ou non",
+				"petFeed": "nourrir un familier",
 				"freepet": "Libération d'un animal",
 				"guildElder": "Choisir l'ainé",
 				"guildElderRemove": "Supprimer l'ainé",
 				"petTrade": "Échange d'animaux",
-				"test": "Test"
+				"guildShop": "Magasin de guilde",
+				"selectQuantity": "Sélection d'une quantité",
+				"test": "Test",
+				"petSell": "Vente de pet.",
+				"petSellConfirm": "Confirmation de l'achat d'un pet.",
+				"chiefGuildLeave": "Passation de pouvoir."
 			}
 		},
 		"en": {
@@ -78,6 +88,7 @@
 			"titleMeIsSick": "{pseudo}, you are currently ill!",
 			"titleMeIsLocked": "{pseudo}, you are currently confined!",
 			"titleMeIsFrozen": "{pseudo}, you are currently frozen!",
+			"titleMeIsStarving": "{pseudo}, you are currently starving!",
 			"titleMeIsDrunk": "{pseudo}, you are currently drunk!",
 			"titleMeIsHurt": "{pseudo}, you are currently injured!",
 			"titleMeIsConfounded": "{pseudo}, you are currently confused!",
@@ -97,15 +108,18 @@
 			"playerIsOccupied": "{askedPseudo} is currently occupied!",
 			"playerIsFrozen": "{askedPseudo} is currently frozen!",
 			"playerIsDrunk": "{askedPseudo} is currently drunk!",
+			"playerIsStarving": "{askedPseudo} is currently starving!",
 			"playerIsConfounded": "{askedPseudo} is currently confused!",
 			"playerBlocked": "You can't do this because you currently have a pending action ({context})!",
 			"nameRules": "- Use at least one letter\n- Two spaces or more aren't allowed\n- Special characters aren't allowed\n- Between {min} and {max} characters",
 			"notANumber": "{text} is not a number!",
 			"blockedContext": {
+				"confirmBuy": "purchase confirmation",
 				"shop": "Shop",
-				"class": "Changing class",
 				"report": "Report",
 				"fight": "Fight",
+				"cooldown": "You are typing commands too fast !",
+				"class": "Changing class",
 				"guildAdd": "Guild add",
 				"guildCreate": "Guild create",
 				"guildKick": "Guild kick",
@@ -114,10 +128,16 @@
 				"sell": "Selling item",
 				"acceptItem": "Choice to keep an item or not",
 				"freepet": "Free pet",
+				"petFeed": "feed pet",
 				"guildElder": "Choice the elder",
 				"guildElderRemove": "Delete the elder",
 				"petTrade": "Pet trade",
-				"test": "Test"
+				"guildShop": "Guild's shop",
+				"selectQuantity": "Quantity selection",
+				"test": "Test",
+				"sellPet": "Pet sale.",
+				"sellPetConfirm": "Confirmation of a pet purchase.",
+				"chiefGuildLeave": "Authority will be transferred."
 			}
 		}
 	}

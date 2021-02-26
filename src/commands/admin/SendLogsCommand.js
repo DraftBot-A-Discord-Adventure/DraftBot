@@ -31,7 +31,7 @@ const SendLogsCommand = async function (language, message, args) {
 
 			let msg = '```';
 			files.forEach(function (file) {
-				msg += file + " (" + (fs.statSync('logs/' + file)["size"] / 1000.0) + " ko)" + "\n";
+				msg += file + " (" + (fs.statSync('logs/' + file).size / 1000.0) + " ko)" + "\n";
 				if (msg > 1800) {
 					message.author.send(msg + '```');
 					msg = '```';

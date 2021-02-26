@@ -71,27 +71,27 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | 🌳 Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder, lorsque vous remarquez à quelques pas de vous une bourse rebondie de pièces et un objet posé à côté. Vous les récupérez, ressortez de l'espèce de bosquet, et repartez en direction du village.",
-					"en": "** | 🌳 You don’t know what to do, but you notice a small forest on your right. You are a bit thirsty, fortunately you hear the run-off of a stream of water. You head towards it and drink from it. What a thirst-quenching water! You feel way better. As you were busy doing all this, the rain stopped, it lasted for only about ten minutes. As you are about to resume your journey, you notice a bag full of coins and an object lying next to it. You take it all, get out of the forest and leave in the direction of the village ."
+					"fr": "** | 🌳 Vous remarquez une petite forêt sur votre droite. Ayant très soif, vous suivez le son du ruissellement d'un courant d'eau fraîche. Parvenu au ruisseau, vous vous désalterez âprement et repartez en direction du village.",
+					"en": "** | 🌳 You notice a small forest on your right. Being really thirsty, you follow the sound of fresh, flowing water. After reaching the little stream, you drink to your thirst and continue your journey to the village."
 				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 325,
-				"money": 0,
-				"item": true
-			},
-			{
-				"translations": {
-					"fr": "** | 🌳 Vous ne savez pas trop quoi faire, mais vous remarquez une petite forêt sur votre droite. Vous avez très soif, heureusement vous entendez le ruissellement d'un courant d'eau fraîche. Vous vous dirigez en direction de ce courant, et y buvez. Quelle eau désaltérante ! Vous vous sentez requinqué. La pluie s'est arrêtée, elle n'a finalement duré qu'une dizaine de minutes, alors vous vous apprêtez à reprendre votre route sans plus tarder et repartez en direction du village.",
-					"en": "** | 🌳 You don’t know what to do, but you notice a small forest on your right. You are a bit thirsty, fortunately you hear the run-off of a stream of water. You head towards it and drink from it. What a thirst-quenching water! You feel way better. As you were busy doing all this, the rain stopped, it lasted for only about ten minutes. As you are about to resume your journey and leave in the direction of the village ."
-				},
-				"lostTime": 10,
-				"health": 10,
+				"lostTime": 15,
+				"health": 5,
 				"effect": ":clock2:",
 				"experience": 225,
 				"money": 0,
 				"item": false
+			},
+			{
+				"translations": {
+					"fr": "** | 🌳 Vous remarquez une petite forêt sur votre droite. Lors de votre traversée, vous récoltez un objet probablement abandonné par un passant et continuez en direction du village.",
+					"en": "** | 🌳 You notice a small forest on your right. While crossing it, you pick up an item probably left here by a traveler and continue your journey to the village."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 325,
+				"money": 0,
+				"item": true
 			}
 		]
 	}

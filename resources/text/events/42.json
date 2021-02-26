@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": " : ** Au détour d’un chemin, une jeune femme apparaît. Vous ne saisissez d'abord pas très bien ce qu’elle dit mais finissez par comprendre qu’elle a besoin d’aide pour l’exploration d’une grotte.\n\n:bow_and_arrow: Vous empresser de l'aider\n:sunglasses: Faire mine de vous éloigner pour revenir seul fouiller la grotte\n:cut_of_meat: Lui demander l'auberge la plus proche\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** At the bend of a road on which you have been walking, a young woman appears. You do not quite understand what she is saying, but it seems she needs help to explore a cave.\n\n:person_walking: Pay him to accompany you to your next destination\n :bow_and_arrow:  Rush to help her\n:sunglasses: Feign to go on your way with the plan to come back explore alone.\n:cut_of_meat:  Ask her for the nearest hostel\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"en": " : ** At the bend of a road on which you have been walking, a young woman appears. You do not quite understand what she is saying, but it seems she needs help to explore a cave.\n\n :bow_and_arrow:  Rush to help her\n:sunglasses: Feign to go on your way with the plan to come back explore alone.\n:cut_of_meat:  Ask her for the nearest hostel\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🏹": [
@@ -133,13 +133,13 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous l'ignorez totalement, et reprenez route. Vous finissez par arriver dans une petite bourgade du très joli nom de Tardans. En y entrant, vous tombez sur une sacoche emplie d'un bon tas de pièces et d'un objet, ce qui pourrait s'avérer utile pour la suite de votre aventure !",
+					"fr": "** | 🚶 Vous l'ignorez totalement, et reprenez votre route. Vous finissez par arriver dans une petite bourgade du très joli nom de Tardans. En y entrant, vous tombez sur une sacoche emplie d'un bon tas de pièces et d'un objet, ce qui pourrait s'avérer utile pour la suite de votre aventure !",
 					"en": "** | 🚶 You ignore her entirely and go on your way. You arrive in a delightful little town whose lovely name is Tardans. Wandering the small streets, you come across a small money bag filled with money and an object, which could be useful for the future of your journey."
 				},
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":smiley:",
-				"experience": 25,
+				"experience": 425,
 				"money": 500,
 				"item": true
 			},

@@ -16,12 +16,11 @@ const SendPrivateMessage = async function (language, message, args) {
 		format(JsonReader.commands.sendPrivateMessage.getTranslation(language).signature, {
 			username: message.author.username,
 		});
+	const user = client.users.cache.get(userId);
 
 	if (userId === undefined || args[1] === undefined) {
 		return sendErrorMessage(user, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).descError);
 	}
-
-	const user = client.users.cache.get(userId);
 	if (user === undefined) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).personNotExists);
 	}

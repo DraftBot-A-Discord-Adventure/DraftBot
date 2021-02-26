@@ -19,6 +19,18 @@
 			},
 			{
 				"translations": {
+					"fr": "** | :sweat_drops: Cela fait du bien de se reposer parfois. Vous restez une petite heure au pied de la fontaine avant de vous remettre en route !",
+					"en": "** | :sweat_drops: It feels good to rest sometimes. You rest for an hour and continue on your way."
+				},
+				"lostTime": 60,
+				"health": 15,
+				"effect": ":clock2:",
+				"experience": 225,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
 					"fr": "** | :sweat_drops: Cela fait du bien de se reposer parfois... mais il ne faut pas oublier d'avancer ! Après avoir perdu 3 heures à vous reposer, vous reprenez la route.",
 					"en": "** | :sweat_drops: It feels good to rest sometimes... but don't forget to move on! After wasting 3 hours resting, you are back on the road."
 				},
@@ -81,7 +93,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :sleeping: Il faut savoir se reposer lorsqu'on est fatigué. Extenué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. Il faudra dormir avant de continuer !",
+					"fr": "** | :sleeping: Il faut savoir se reposer lorsqu'on est fatigué. Exténué, vous tombez de fatigue quelques minutes après être passé auprès de la fontaine. Il faudra dormir avant de continuer !",
 					"en": "** | :sleeping: You have to know to rest when you are tired. Exhausted, you collapse a few minutes after passing the fountain. You have to sleep before you can continue!"
 				},
 				"lostTime": 0,

@@ -24,7 +24,7 @@
 			"doEvent": ":newspaper: ** Journal of {pseudo} {event}",
 			"doPossibility": ":newspaper: ** Journal of {pseudo} {result} {event}",
 			"points": " :** :medal: Points earned: ** {score}",
-			"money": "**| :moneybag: Money earned: ** {money}",
+			"money": "** | :moneybag: Money earned: ** {money}",
 			"experience": "** | :star: XP earned: ** {experience}",
 			"moneyLoose": "** | :money_with_wings: Money lost: ** {money}",
 			"healthLoose": "** | :broken_heart: Life lost: ** {health}",

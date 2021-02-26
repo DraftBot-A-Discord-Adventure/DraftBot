@@ -97,7 +97,7 @@ const PetTradeCommand = async function (language, message, args) {
 			}
 			collector.stop();
 		}
-	})
+	});
 
 	collector.on('end', async (reaction) => {
 		[trader1] = await Entities.getOrRegister(message.author.id);
@@ -132,7 +132,7 @@ const PetTradeCommand = async function (language, message, args) {
 		confirmMessage.react(MENU_REACTION.ACCEPT),
 		confirmMessage.react(MENU_REACTION.DENY)
 	]);
-}
+};
 
 module.exports = {
 	commands: [

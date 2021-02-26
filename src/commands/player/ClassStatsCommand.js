@@ -9,10 +9,10 @@ async function ClassStatsCommand(language, message, args) {
 
 	const classTranslations = JsonReader.commands.classStats.getTranslation(language);
 
-	let classesLineDisplay = new Array();
+	let classesLineDisplay = [];
 	let allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
 	for (let k = 0; k < allClasses.length; k++) {
-		classesLineDisplay.push(allClasses[k].toString(language, entity.Player.level))
+		classesLineDisplay.push(allClasses[k].toString(language, entity.Player.level));
 	}
 
 	//Creating classstats message

@@ -5,18 +5,22 @@
 			"notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"leaveDesc": ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ?",
 			"leaveChiefDesc": ":question: Souhaitez vous vraiment **détruire définitivement** la guilde `{guildName}` ?",
+			"leaveChiefDescWithElder": ":question: Souhaitez vous vraiment quitter la guilde `{guildName}` ? {elderName} en deviendra le chef.",
 			"leavingCancelled": "Votre départ a été annulé.",
 			"successTitle": "{pseudo} a quitté la guilde {guildName} !",
-			"leavingSuccess": "You're poor lonesome cowboy and a long long way from home..."
+			"leavingSuccess": "You're poor lonesome cowboy and a long long way from home...",
+			"newChiefTitle": ":crown: | la guilde **{guild}** à un nouveau chef !"
 		},
 		"en": {
 			"leaveTitle": "{pseudo}, confirmation:",
 			"notInAGuild": "You have to be in a guild to use this command.",
 			"leaveDesc": ":question: Do you really want to quit the guild `{guildName}`?",
 			"leaveChiefDesc": ":question: Do you really want to **permanently destroy** the guild `{guildName}`?",
+			"leaveChiefDescWithElder": "Do you really want to leave the guild {guild}? {elderName} will become the new chief.",
 			"leavingCancelled": "Your departure has been cancelled.",
 			"successTitle": "{pseudo} left the guild {guildName}!",
-			"leavingSuccess": "You're poor lonesome cowboy and a long long way from home..."
+			"leavingSuccess": "You're poor lonesome cowboy and a long long way from home...",
+			"newChiefTitle": ":crown: | The guild **{guild}** has a new chief!"
 		}
 	},
 	"guildCreationPrice": 5000

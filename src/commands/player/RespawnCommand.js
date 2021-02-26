@@ -31,6 +31,8 @@ const RespawnCommand = async (language, message, args) => {
 			pseudo: message.author.username,
 			lostScore: lostScore
 		}));
+
+		log(message.author.id + " respawned (" + lostScore + " points lost)");
 	}
 };
 

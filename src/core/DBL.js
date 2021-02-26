@@ -60,8 +60,7 @@ class DBL {
 		} else {
 			desc += TOPGG.ROLE_DURATION + " hours";
 		}
-		embed.setDescription(desc + "` and got the badge " + TOPGG.BADGE + " for `" + TOPGG.BADGE_DURATION + " hours` :tada:"
-			+ "\n\nYou can vote [here](https://top.gg/bot/" + client.user.id + ") every 12 hours!\n||User ID: " + dUser.id + "||"
+		embed.setDescription(desc + "` and got the badge " + TOPGG.BADGE + " for `" + TOPGG.BADGE_DURATION + " hours` :tada:" + "\n\nYou can vote [here](https://top.gg/bot/" + client.user.id + ") every 12 hours!\n||User ID: " + dUser.id + "||"
 		);
 		embed.setImage("https://i.imgur.com/3PrpILu.png");
 		(await guild.channels.cache.get(JsonReader.app.DBL_LOGS_CHANNEL)).send(embed);

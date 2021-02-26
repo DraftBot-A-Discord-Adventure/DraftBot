@@ -95,7 +95,11 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+<<<<<<< HEAD
 	 * @param {String} discordUser_id
+=======
+	 * @param {String} guildId
+>>>>>>> master
 	 */
 	Entities.getByGuild = (guildId) => {
 		return Entities.findAll({

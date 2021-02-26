@@ -58,9 +58,7 @@ const GuildAddCommand = async (language, message, args) => {
 					level: GUILD.REQUIRED_LEVEL,
 					playerLevel: invitedEntity.Player.level,
 					comeIn:
-						GUILD.REQUIRED_LEVEL - invitedEntity.Player.level > 1
-							? `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux`
-							: `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`,
+						GUILD.REQUIRED_LEVEL - invitedEntity.Player.level > 1 ? `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux` : `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`,
 				}
 			)
 		);
@@ -93,7 +91,7 @@ const GuildAddCommand = async (language, message, args) => {
 		);
 	}
 
-	if (!(entity.id == guild.chief_id) && !(entity.id == guild.elder_id)) {
+	if ((entity.id !== guild.chief_id) && (entity.id !== guild.elder_id)) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,

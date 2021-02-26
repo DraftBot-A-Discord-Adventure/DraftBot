@@ -34,7 +34,9 @@ const GuildCommand = async (language, message, args) => {
 		}
 	} else {
 		if (message.mentions.users.last() !== undefined) {
-			[entity] = await Entities.getOrRegister(message.mentions.users.last().id);
+			[entity] = await Entities.getOrRegister(
+				message.mentions.users.last().id
+			);
 		}
 		// search for a user's guild
 		try {
@@ -103,9 +105,12 @@ const GuildCommand = async (language, message, args) => {
 
 	if (guild.guildDescription) {
 		embed.setDescription(
-			format(JsonReader.commands.guild.getTranslation(language).description, {
-				description: guild.guildDescription,
-			})
+			format(
+				JsonReader.commands.guild.getTranslation(language).description,
+				{
+					description: guild.guildDescription,
+				}
+			)
 		);
 	}
 	embed.addField(
@@ -117,11 +122,14 @@ const GuildCommand = async (language, message, args) => {
 	);
 	if (guild.level < 100) {
 		embed.addField(
-			format(JsonReader.commands.guild.getTranslation(language).experience, {
-				xp: guild.experience,
-				xpToLevelUp: guild.getExperienceNeededToLevelUp(),
-				level: guild.level,
-			}),
+			format(
+				JsonReader.commands.guild.getTranslation(language).experience,
+				{
+					xp: guild.experience,
+					xpToLevelUp: guild.getExperienceNeededToLevelUp(),
+					level: guild.level,
+				}
+			),
 			progressBar(guild.experience, guild.getExperienceNeededToLevelUp())
 		);
 	} else {

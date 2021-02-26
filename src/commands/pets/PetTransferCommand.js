@@ -95,7 +95,7 @@ const PetTransferCommand = async function (language, message, args) {
 		}));
 	}
 	return message.channel.send(confirmEmbed);
-}
+};
 
 module.exports = {
 	commands: [

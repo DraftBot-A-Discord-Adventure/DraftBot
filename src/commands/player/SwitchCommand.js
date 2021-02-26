@@ -18,6 +18,8 @@ const SwitchCommand = async (language, message, args) => {
 	entity.Player.Inventory.object_id = entity.Player.Inventory.backup_id;
 	entity.Player.Inventory.backup_id = temp;
 
+	entity.Player.Inventory.updateLastDailyAt();
+
 	await entity.Player.Inventory.save();
 
 	await message.channel.send(format(JsonReader.commands.switch.getTranslation(language).main, {pseudo: message.author.username}));

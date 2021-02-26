@@ -7,7 +7,7 @@
 		"🔎": [
 			{
 				"translations": {
-					"fr": "** | 🔎 Vous réfléchissez, puis vous vous dites que s'introduire dans la maison est possible. Vous y volerz donc quelques pièces avant de repartir le plus vite possible.",
+					"fr": "** | 🔎 Vous réfléchissez, puis vous vous dites que s'introduire dans la maison est possible. Vous y volez donc quelques pièces avant de repartir le plus vite possible.",
 					"en": "** | 🔎 You think about it, and then realize that breaking into the house is possible. You thus decide to do so and steal a few coins before leaving as fast as possible."
 				},
 				"lostTime": 0,
@@ -45,7 +45,7 @@
 		"🗣️": [
 			{
 				"translations": {
-					"fr": "** | 🗣️ Vous entrez chez Xetrix et l'attendez. après qu'il soit rentré, vous échangez quelques conseils et apprenez ainsi où se trouve la ville la plus proche. Après de longues heures de marche, vous comprenez vite que l'ermite s'est joué de vous et n'ayant pas autre chose à faire, vous continuez votre route.",
+					"fr": "** | 🗣️ Vous entrez chez Xetrix et l'attendez. Après qu'il soit rentré, vous échangez quelques conseils et apprenez ainsi où se trouve la ville la plus proche. Après de longues heures de marche, vous comprenez vite que l'ermite s'est joué de vous et n'ayant pas autre chose à faire, vous continuez votre route.",
 					"en": "** | 🗣️ You go in to Xetrix and wait for him. He comes home shortly afterwards, and you ask him for some advice, especially about the location of the nearest town. He shows you one path and you thank him before following it. After many hours of walking, you realize that the hermit has played you for a fool and, having nothing else to do, you continue on your way."
 				},
 				"lostTime": 300,

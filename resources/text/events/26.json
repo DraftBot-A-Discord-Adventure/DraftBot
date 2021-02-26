@@ -19,7 +19,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 💸 Vous volez un habitant quand soudain il se retourne, et vous attrape fermement avant de vous rouer de coups. Après vous êtes débattu, vous fuyez.",
+					"fr": "** | 💸 Vous tentez de dépouiller un habitant quand ce dernier se retourne soudainement et vous attrape fermement avant de vous rouer de coups. Après vous être débattu, vous fuyez.",
 					"en": "** | 💸 You're about to steal from a resident when, suddenly, he turns around and grabs you with a strong grip before kicking you. After a fight, you run away."
 				},
 				"lostTime": 25,
@@ -73,11 +73,12 @@
 					"en": "** | 👊 After trying to violently intervene, the executioner grabs you by force. You're struggling, but nothing can change that. You, in turn, are sentenced to death. :skull:"
 				},
 				"lostTime": 0,
-				"health": -150,
+				"health": 0,
 				"effect": ":smiley:",
 				"experience": 0,
 				"money": 0,
-				"item": false
+				"item": false,
+				"oneshot": true
 			}
 		],
 		"🚶": [

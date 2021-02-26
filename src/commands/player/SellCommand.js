@@ -56,6 +56,7 @@ const SellCommand = async (language, message, args) => {
 						entity.Player.save(),
 						entity.Player.Inventory.save()
 					]);
+					log(entity.discordUser_id + " sold his item " + backupItem.en + " (money: " + money + ")");
 					return await message.channel.send(
 						format(JsonReader.commands.sell.getTranslation(language).soldMessage,
 							{

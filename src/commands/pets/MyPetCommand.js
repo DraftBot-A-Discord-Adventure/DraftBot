@@ -10,8 +10,15 @@ const MyPetCommand = async function (language, message, args) {
 		[entity] = await Entities.getOrRegister(message.author.id);
 	}
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY], entity)) !== true) {
+	if (
+		(await canPerformCommand(
+			message,
+			language,
+			PERMISSION.ROLE.ALL,
+			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+			entity
+		)) !== true
+	) {
 		return;
 	}
 
@@ -19,28 +26,43 @@ const MyPetCommand = async function (language, message, args) {
 	const tr = JsonReader.commands.myPet.getTranslation(language);
 
 	if (authorPet) {
+		const user = message.mentions.users.last() ? message.mentions.users.last() : message.author;
 		let mypetEmbed = new discord.MessageEmbed();
-		mypetEmbed.setAuthor(format(tr.embedTitle, {
-			pseudo: message.author.username
-		}), message.author.displayAvatarURL());
-		mypetEmbed.setDescription(await PetEntities.getPetDisplay(authorPet, language));
+		mypetEmbed.setAuthor(
+			format(tr.embedTitle, {
+				pseudo: await entity.Player.getPseudo(language),
+			}),
+			user.displayAvatarURL()
+		);
+		mypetEmbed.setDescription(
+			await PetEntities.getPetDisplay(authorPet, language)
+		);
 		return await message.channel.send(mypetEmbed);
 	}
 
 	if (entity.discordUser_id === message.author.id) {
-		await sendErrorMessage(message.author, message.channel, language, tr.noPet);
+		await sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			tr.noPet
+		);
 	} else {
-		await sendErrorMessage(message.author, message.channel, language, tr.noPetOther);
+		await sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			tr.noPetOther
+		);
 	}
-
 };
 
 module.exports = {
 	commands: [
 		{
-			name: 'mypet',
+			name: "mypet",
 			func: MyPetCommand,
-			aliases: ['pet', 'pp']
-		}
-	]
+			aliases: ["pet", "pp"],
+		},
+	],
 };

@@ -33,6 +33,22 @@ module.exports = (Sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				defaultValue: JsonReader.models.guilds.experience,
 			},
+			commonFood: {
+				type: DataTypes.INTEGER,
+				defaultValue: JsonReader.models.guilds.commonFood,
+			},
+			carnivorousFood: {
+				type: DataTypes.INTEGER,
+				defaultValue: JsonReader.models.guilds.carnivorousFood,
+			},
+			herbivorousFood: {
+				type: DataTypes.INTEGER,
+				defaultValue: JsonReader.models.guilds.herbivorousFood,
+			},
+			ultimateFood: {
+				type: DataTypes.INTEGER,
+				defaultValue: JsonReader.models.guilds.ultimateFood,
+			},
 			lastDailyAt: {
 				type: DataTypes.DATE,
 				defaultValue: JsonReader.models.guilds.lastDailyAt,
@@ -78,45 +94,53 @@ module.exports = (Sequelize, DataTypes) => {
 			where: {
 				id: id,
 			},
-			include: [{
-				model: GuildPets,
-				as: 'GuildPets',
-				include: [{
-					model: PetEntities,
-					as: 'PetEntity',
+			include: [
+				{
+					model: GuildPets,
+					as: "GuildPets",
 					include: [
 						{
-							model: Pets,
-							as: 'PetModel'
-						}
-					]
-				}]
-			}],
+							model: PetEntities,
+							as: "PetEntity",
+							include: [
+								{
+									model: Pets,
+									as: "PetModel",
+								},
+							],
+						},
+					],
+				},
+			],
 		});
 	};
 
 	/**
 	 * @param {String} name
-   y*/
+	 */
 	Guilds.getByName = (name) => {
 		return Guilds.findOne({
 			where: {
 				name: name,
 			},
-			include: [{
-				model: GuildPets,
-				as: 'GuildPets',
-				include: [{
-					model: PetEntities,
-					as: 'PetEntity',
+			include: [
+				{
+					model: GuildPets,
+					as: "GuildPets",
 					include: [
 						{
-							model: Pets,
-							as: 'PetModel'
-						}
-					]
-				}]
-			}],
+							model: PetEntities,
+							as: "PetEntity",
+							include: [
+								{
+									model: Pets,
+									as: "PetModel",
+								},
+							],
+						},
+					],
+				},
+			],
 		});
 	};
 
@@ -179,9 +203,13 @@ module.exports = (Sequelize, DataTypes) => {
 				)
 			)
 			.setDescription(
-				format(JsonReader.models.guilds.getTranslation(language).levelUp.desc, {
-					level: this.level,
-				})
+				format(
+					JsonReader.models.guilds.getTranslation(language).levelUp
+						.desc,
+					{
+						level: this.level,
+					}
+				)
 			);
 		channel.send(embed);
 
