@@ -345,18 +345,19 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Entity} entity
 	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
-	 * @return {Promise<void>}
+	 * @return {Promise<boolean>}
 	 */
 	Players.prototype.killIfNeeded = async function (entity, channel, language) {
 
 		if (entity.health > 0) {
-			return;
+			return false;
 		}
 
 		entity.effect = EFFECT.DEAD;
 		this.lastReportAt = new Date(9999, 1);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
 		channel.guild.members.fetch(entity.discordUser_id).then(user => user.send(JsonReader.models.players.getTranslation(language).koPM));
+		return true;
 	};
 
 	return Players;

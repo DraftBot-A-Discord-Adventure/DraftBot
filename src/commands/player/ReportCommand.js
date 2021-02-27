@@ -17,14 +17,91 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
+	await addBlockedPlayer(entity.discordUser_id, "cooldown");
+	setTimeout(() => {
+		if (hasBlockedPlayer(entity.discordUser_id)) {
+			removeBlockedPlayer(entity.discordUser_id);
+			if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
+				removeBlockedPlayer(entity.discordUser_id);
+			}
+		}
+	}, 500);
+
+	if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
+		const event = await Events.findOne({where: {id: 0}});
+		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS, 100);
+	}
 
 	if (!Maps.isTravelling(entity.Player)) {
 		return await chooseDestination(entity, message, language);
 	}
 
+	if (needBigEvent(entity)) {
+		return await doRandomBigEvent(message, language, entity, forceSpecificEvent);
+	}
+
 	return await sendTravelPath(entity, message, language);
 }
 
+/**
+ * Picks a random event (or the forced one) and executes it
+ * @param {module:"discord.js".Message} message
+ * @param {"fr"|"en"} language
+ * @param {Entities} entity
+ * @param {Number} forceSpecificEvent
+ * @returns {Promise<void>}
+ */
+const doRandomBigEvent = async function(message, language, entity, forceSpecificEvent) {
+	let time;
+	if (forceSpecificEvent === -1) {
+		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.valueOf());
+	} else {
+		time = JsonReader.commands.report.timeMaximal + 1;
+	}
+	if (time > JsonReader.commands.report.timeLimit) {
+		time = JsonReader.commands.report.timeLimit;
+	}
+
+	const Sequelize = require('sequelize');
+	let event;
+
+	// nextEvent is defined ?
+	if (entity.Player.nextEvent !== undefined && entity.Player.nextEvent !== null) {
+		forceSpecificEvent = entity.Player.nextEvent;
+	}
+
+	if (forceSpecificEvent === -1) {
+		event = await Events.findOne({
+			where: {
+				[Op.and]: [
+					{id: {[Op.gt]: 0}},
+					{id: {[Op.lt]: 9999}},
+				]
+			}, order: Sequelize.literal('RANDOM()')
+		});
+	} else {
+		event = await Events.findOne({where: {id: forceSpecificEvent}});
+	}
+	await Maps.stopTravel(entity.Player);
+	return await doEvent(message, language, event, entity, time);
+}
+
+/**
+ * If the entity reached his destination (= big event)
+ * @param {Entities} entity
+ * @returns {boolean}
+ */
+const needBigEvent = function(entity) {
+	return Maps.getTravellingTime(entity.Player) >= REPORT.TIME_BETWEEN_BIG_EVENTS;
+}
+
+/**
+ * Sends an embed with the travel path and an advice
+ * @param {Entities} entity
+ * @param {module:"discord.js".Message} message
+ * @param {"fr"|"en"} language
+ * @returns {Promise<Message>}
+ */
 const sendTravelPath = async function(entity, message, language) {
 	let travelEmbed = new discord.MessageEmbed();
 	const tr = JsonReader.commands.report.getTranslation(language);
@@ -33,11 +110,19 @@ const sendTravelPath = async function(entity, message, language) {
 	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previous_map_id)).getDisplayName(language), true);
 	travelEmbed.addField(tr.progression, (Math.floor(10000 * Maps.getTravellingTime(entity.Player) / REPORT.TIME_BETWEEN_BIG_EVENTS) / 100.0) + "%", true);
 	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.map_id)).getDisplayName(language), true);
+	travelEmbed.addField(tr.adviceTitle, tr.advices[randInt(0, tr.advices.length - 1)], false);
 	return await message.channel.send(travelEmbed);
 }
 
 const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
 
+/**
+ * Executes the choice of the next destination
+ * @param {Entities} entity
+ * @param {module:"discord.js".Message} message
+ * @param {"fr"|"en"} language
+ * @returns {Promise<void>}
+ */
 const chooseDestination = async function(entity, message, language) {
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
 	// TODO mettre le temps ici comme ça ça bloque pas si le bot crash
@@ -181,7 +266,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<void>}
  */
-/*const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
+const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
 	const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {
 		pseudo: message.author,
 		event: event[language]
@@ -215,7 +300,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 			await eventDisplayed.react(reaction).catch();
 		}
 	}
-};*/
+};
 
 /**
  * @param {module:"discord.js".Message} message - Message from the discord server
@@ -226,7 +311,6 @@ const destinationChoseMessage = async function(entity, map, message, language) {
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<Message>}
  */
-/*
 const doPossibility = async (message, language, possibility, entity, time, forcePoints = 0) => {
 	[entity] = await Entities.getOrRegister(entity.discordUser_id);
 	const player = entity.Player;
@@ -317,13 +401,15 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		await player.levelUpIfNeeded(entity, message.channel, language);
 	}
 
-	await player.killIfNeeded(entity, message.channel, language);
+	if (!await player.killIfNeeded(entity, message.channel, language)) {
+		await chooseDestination(entity, message, language);
+	}
 
 	entity.save();
 	player.save();
 
 	return resultMsg;
-};*/
+};
 
 module.exports = {
 	commands: [

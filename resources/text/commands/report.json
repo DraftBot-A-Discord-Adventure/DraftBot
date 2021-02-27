@@ -18,7 +18,15 @@
 			"travelPathTitle": "Voyage actuel",
 			"startPoint": "Point de départ",
 			"endPoint": "Point d'arrivée",
-			"progression": "Progression"
+			"progression": "Progression",
+			"adviceTitle": "Conseil",
+			"advices": [
+				"Advice example 1",
+				"Advice example 2",
+				"Advice example 3",
+				"Advice example 4",
+				"Advice example 5"
+			]
 		},
 		"en": {
 			"doEvent": ":newspaper: ** Journal of {pseudo} {event}",
@@ -38,7 +46,15 @@
 			"travelPathTitle": "Current travel",
 			"startPoint": "Start point",
 			"endPoint": "End point",
-			"progression": "Progression"
+			"progression": "Progression",
+			"adviceTitle": "Advice",
+			"advices": [
+				"Advice example 1",
+				"Advice example 2",
+				"Advice example 3",
+				"Advice example 4",
+				"Advice example 5"
+			]
 		}
 	},
 	"timeMinimal": 60,
