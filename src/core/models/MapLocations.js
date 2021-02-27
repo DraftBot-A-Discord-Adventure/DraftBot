@@ -75,5 +75,17 @@ module.exports = (Sequelize, DataTypes) => {
 		return MapLocations.findOne({ where: { id: id }})
 	}
 
+	/**
+	 * Returns a random map
+	 * @returns {Promise<null|MapLocations>}
+	 */
+	MapLocations.getRandomMap = async () => {
+		const query = `SELECT id FROM map_locations;`;
+		const mapIds = await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT,
+		});
+		return await MapLocations.getById(mapIds[randInt(0, mapIds.length - 1)].id);
+	}
+
 	return MapLocations;
 };

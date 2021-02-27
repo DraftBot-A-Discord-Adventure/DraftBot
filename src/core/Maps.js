@@ -13,7 +13,15 @@ class Maps {
 	 * @returns {Number[]}
 	 */
 	static async getNextPlayerAvailableMaps(player) {
-		const map = await MapLocations.getById(player.map_id);
+		let map;
+		if (!player.map_id) {
+			map = await MapLocations.getRandomMap();
+			player.previous_map_id = map.id;
+			player.map_id = map.id;
+		}
+		else {
+			map = await MapLocations.getById(player.map_id);
+		}
 		let next_maps = [];
 		if (map.north_map && map.north_map !== player.previous_map_id) {
 			next_maps.push(map.north_map);

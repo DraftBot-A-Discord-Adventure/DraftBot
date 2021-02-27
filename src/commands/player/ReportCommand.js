@@ -21,7 +21,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	setTimeout(() => {
 		if (hasBlockedPlayer(entity.discordUser_id)) {
 			removeBlockedPlayer(entity.discordUser_id);
-			if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
+			if (getBlockedPlayer(entity.discordUser_id) && getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
 				removeBlockedPlayer(entity.discordUser_id);
 			}
 		}
@@ -29,7 +29,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 
 	if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});
-		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS, 100);
+		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
 	}
 
 	if (!Maps.isTravelling(entity.Player)) {
