@@ -40,6 +40,11 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 		return await doRandomBigEvent(message, language, entity, forceSpecificEvent);
 	}
 
+	const smallEventNumber = triggersSmallEvent(entity);
+	if (smallEventNumber !== -1) {
+		return await executeSmallEvent(message, language, entity, smallEventNumber);
+	}
+
 	return await sendTravelPath(entity, message, language);
 }
 
@@ -410,6 +415,39 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
 	return resultMsg;
 };
+
+/* ---------------------------------------------------------------
+											SMALL EVENTS FUNCTIONS
+--------------------------------------------------------------- */
+
+/**
+ * Returns the number of the small event to trigger or -1 if none has to be executed
+ * @param {Entities} entity
+ * @returns {number}
+ */
+const triggersSmallEvent = (entity) => {
+	const now = new Date();
+	const timeBetweenSmallEvents = REPORT.TIME_BETWEEN_BIG_EVENTS / (REPORT.SMALL_EVENTS_COUNT + 1);
+	for (let i = 1; i <= REPORT.SMALL_EVENTS_COUNT; ++i) {
+		const seBefore = entity.Player.start_travel_date.getTime() + (i * timeBetweenSmallEvents);
+		const seAfter = entity.Player.start_travel_date.getTime() + ((i + 1) * timeBetweenSmallEvents);
+		if (seBefore < now.getTime() && seAfter > now.getTime()) {
+			for (let se of entity.Player.PlayerSmallEvents) {
+				if (se.number === i) {
+					return -1;
+				}
+			}
+			return i;
+		}
+	}
+	return -1;
+}
+
+const executeSmallEvent = async (message, language, entity, number) => {
+
+}
+
+/* ------------------------------------------------------------ */
 
 module.exports = {
 	commands: [

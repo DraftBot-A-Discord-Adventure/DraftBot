@@ -167,6 +167,10 @@ class Database {
 			sourceKey: "pet_id",
 			as: "Pet",
 		});
+		Players.hasMany(PlayerSmallEvents, {
+			foreignKey: "player_id",
+			as: "PlayerSmallEvents",
+		});
 
 		Guilds.hasMany(Players, {
 			foreignKey: "guild_id",

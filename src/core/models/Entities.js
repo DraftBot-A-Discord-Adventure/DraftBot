@@ -89,6 +89,10 @@ module.exports = (Sequelize, DataTypes) => {
 									as: 'PetModel'
 								}
 							]
+						},
+						{
+							model: PlayerSmallEvents,
+							as: 'PlayerSmallEvents'
 						}],
 				}],
 		});
@@ -125,6 +129,10 @@ module.exports = (Sequelize, DataTypes) => {
 									as: 'PetModel'
 								}
 							]
+						},
+						{
+							model: PlayerSmallEvents,
+							as: 'PlayerSmallEvents'
 						}],
 				}],
 			order: [
@@ -161,6 +169,10 @@ module.exports = (Sequelize, DataTypes) => {
 									as: 'PetModel'
 								}
 							]
+						},
+						{
+							model: PlayerSmallEvents,
+							as: 'PlayerSmallEvents'
 						}],
 				}],
 		});
@@ -193,6 +205,10 @@ module.exports = (Sequelize, DataTypes) => {
 									as: 'PetModel'
 								}
 							]
+						},
+						{
+							model: PlayerSmallEvents,
+							as: 'PlayerSmallEvents'
 						}],
 				}],
 		});
