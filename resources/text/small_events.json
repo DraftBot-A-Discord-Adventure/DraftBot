@@ -1,11 +1,11 @@
 {
 	"small_events": {
 		"shop": {
-			"rarity": 2,
+			"rarity": 4,
 			"emote": "\uD83D\uDED2"
 		},
 		"pet_interaction": {
-			"rarity": 3,
+			"rarity": 5,
 			"emote": "\uD83D\uDC15\u200D\uD83E\uDDBA"
 		},
 		"find_pet": {
@@ -17,35 +17,27 @@
 			"emote": "\uD83C\uDF81"
 		},
 		"nothing": {
-			"rarity": 5,
+			"rarity": 8,
 			"emote": "❌"
 		},
 		"small_bad_event": {
-			"rarity": 3,
+			"rarity": 4,
 			"emote": "\uD83D\uDCA2"
 		},
 		"big_bad_event": {
 			"rarity": 1,
 			"emote": "\uD83D\uDC7F"
 		},
-		"random_chest": {
-			"rarity": 3,
-			"emote": "\uD83D\uDDDD️"
-		},
 		"interact_other_players": {
-			"rarity": 2,
+			"rarity": 8,
 			"emote": "\uD83D\uDCAC"
 		},
 		"win_health": {
-			"rarity": 2,
+			"rarity": 3,
 			"emote": "❤️"
 		},
-		"lose_health": {
-			"rarity": 2,
-			"emote": "\uD83D\uDC94"
-		},
 		"bot_vote": {
-			"rarity": 2,
+			"rarity": 4,
 			"emote": "\uD83D\uDDF3️"
 		},
 		"staff_member_meet": {
@@ -61,7 +53,7 @@
 			"emote": "\uD83C\uDF1F"
 		},
 		"class_event": {
-			"rarity": 4,
+			"rarity": 2,
 			"emote": "\uD83C\uDFF9"
 		}
 	}

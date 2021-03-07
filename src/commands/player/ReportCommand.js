@@ -482,10 +482,8 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 		case "nothing":
 		case "small_bad_event":
 		case "big_bad_event":
-		case "random_chest":
 		case "interact_other_players": // Ce serait cool avec un petit message en fonction du niveau, du classement etc...
 		case "win_health":
-		case "lose_health":
 		case "bot_vote":
 		case "staff_member_meet":
 		case "personal_xp":
