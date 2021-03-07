@@ -224,6 +224,13 @@ async function sellItem(
 	);
 	if (selectedItem.name) {
 		//This is not a potion
+		log(
+			entity.discordUser_id +
+			" bought the shop item " +
+			selectedItem.name +
+			" for " +
+			selectedItem.price
+		);
 		if (
 			selectedItem.name ===
 			shopTranslations.permanentItems.randomItem.name
@@ -386,6 +393,13 @@ const canBuy = function (price, player) {
  * Give the daily potion to player
  */
 function giveDailyPotion(message, language, entity, customer, dailyPotion) {
+	log(
+		entity.discordUser_id +
+		" bought the daily shop potion " +
+		dailyPotion.get("potion")[language] +
+		" for " +
+		dailyPotion.get("price")
+	);
 	entity.Player.Inventory.giveObject(
 		dailyPotion.get("potion").id,
 		ITEMTYPE.POTION

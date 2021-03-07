@@ -44,7 +44,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 	let msg;
 	let spamCount = 0;
 	let spammers = [];
-	global.addBlockedPlayer(attacker.discordUser_id, 'fight');
+	await global.addBlockedPlayer(attacker.discordUser_id, 'fight');
 
 	if (defender == null) {
 		msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightAnyone, {
@@ -68,7 +68,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 			await messageFightAsk.react('✅');
 			await messageFightAsk.react('❌');
 
-			let filter;
+			let filter, fightInstance;
 			if (defender == null) {
 				filter = (reaction, user) => {
 					return !user.bot;
@@ -79,7 +79,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 				};
 			}
 
-			const collector = messageFightAsk.createReactionCollector(filter, {time: 120000});
+			const collector = messageFightAsk.createReactionCollector(filter, {time: 60000});
 
 			collector.on('collect', async (reaction, user) => {
 				switch (reaction.emoji.name) {
@@ -87,10 +87,10 @@ const FightCommand = async function (language, message, args, friendly = false) 
 						if (user.id === attacker.discordUser_id) {
 							spamCount++;
 							if (spamCount < 3) {
-								sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.fightHimself);
+								await sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.fightHimself);
 								return;
 							}
-							sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.spamCanceled);
+							await sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.spamCanceled);
 							fightInstance = null;
 							break;
 						}
@@ -101,20 +101,20 @@ const FightCommand = async function (language, message, args, friendly = false) 
 							return;
 						}
 						fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1, friendly);
-						fightInstance.startFight();
+						await fightInstance.startFight();
 						log("Fight (tournament: " + isTournament + "; friendly: " + friendly + ") started in server " + message.guild.id + " between " + attacker.discordUser_id + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and " + defender.discordUser_id + " (" + await defender.getCumulativeHealth() + "/" + await defender.getMaxCumulativeHealth() + ")");
 						break;
 					case '❌':
 						if (user.id === attacker.discordUser_id) {
 							await message.channel.send(JsonReader.commands.fight.getTranslation(language).error.canceled);
 						} else if (defender != null) {
-							sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
+							await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
 						} else {
 							if (spammers.includes(user.id)) {
 								return;
 							}
 							spammers.push(user.id);
-							sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, {pseudo: '<@' + user.id + '>'}));
+							await sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, {pseudo: '<@' + user.id + '>'}));
 							return;
 						}
 						fightInstance = null;
@@ -129,9 +129,9 @@ const FightCommand = async function (language, message, args, friendly = false) 
 				if (fightInstance === undefined) {
 					global.removeBlockedPlayer(attacker.discordUser_id);
 					if (defender == null) {
-						sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.noOneAvailable);
+						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.noOneAvailable);
 					} else {
-						sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
+						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
 					}
 				}
 				if (fightInstance == null) {
