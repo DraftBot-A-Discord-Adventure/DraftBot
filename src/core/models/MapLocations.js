@@ -87,5 +87,19 @@ module.exports = (Sequelize, DataTypes) => {
 		return await MapLocations.getById(mapIds[randInt(0, mapIds.length - 1)].id);
 	}
 
+	/**
+	 * Get the number of players on this map
+	 * @returns {Promise<Number>}
+	 */
+	MapLocations.prototype.playersCount = async function() {
+		const query = `SELECT COUNT(*) FROM players WHERE map_id = :id;`;
+		return (await Sequelize.query(query, {
+			replacements: {
+				id: this.id
+			},
+			type: Sequelize.QueryTypes.SELECT
+		}))[0]['COUNT(*)'];
+	}
+
 	return MapLocations;
 };

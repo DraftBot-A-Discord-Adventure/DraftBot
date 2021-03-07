@@ -115,6 +115,23 @@ const ProfileCommand = async function (language, message, args) {
 	}
 
 	try {
+		const map_id = entity.Player.map_id;
+		if (map_id !== null) {
+			const map = await MapLocations.getById(map_id);
+			fields.push({
+				name: JsonReader.commands.profile.getTranslation(language).map.fieldName,
+				value: format(JsonReader.commands.profile.getTranslation(language).map.fieldValue, {
+					mapEmote: map.getEmote(language),
+					mapName: map["name_" + language]
+				}),
+				inline: true
+			});
+		}
+	} catch (error) {
+		console.log(error);
+	}
+
+	try {
 		const pet = entity.Player.Pet;
 		if (pet) {
 			fields.push({

@@ -420,6 +420,9 @@ const TestCommand = async (language, message, args) => {
 					}
 					mapEmbed.addField("Next available maps", field, true);
 				}
+				else {
+					mapEmbed.addField("Players", ":speech_balloon: " + await currMap.playersCount() + " player(s) on this map", true);
+				}
 				return await message.channel.send(mapEmbed);
 			case 'travel':
 				if (args.length === 2) {
@@ -464,6 +467,19 @@ const TestCommand = async (language, message, args) => {
 				}
 				else {
 					await message.channel.send("Correct usage: atravel <time in minutes>");
+					return;
+				}
+			case 'small_event':
+				if (args.length === 2) {
+					if (JsonReader.small_events.small_events[args[1]] === undefined) {
+						await message.channel.send("Unknown small event type");
+						return;
+					}
+					await getCommand("r")(language, message, args, -1, args[1]);
+					return;
+				}
+				else {
+					await message.channel.send("Correct usage: small_event <type>");
 					return;
 				}
 			default:

@@ -8,7 +8,7 @@ const Maps = require('../../core/Maps')
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {Number} forceSpecificEvent - For testing purpose
  */
-const ReportCommand = async function (language, message, args, forceSpecificEvent = -1) {
+const ReportCommand = async function (language, message, args, forceSpecificEvent = -1, forceSmallEvent = null) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
@@ -41,8 +41,8 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	}
 
 	const smallEventNumber = triggersSmallEvent(entity);
-	if (smallEventNumber !== -1) {
-		return await executeSmallEvent(message, language, entity, smallEventNumber);
+	if (forceSmallEvent != null || smallEventNumber !== -1) {
+		return await executeSmallEvent(message, language, entity, smallEventNumber, forceSmallEvent);
 	}
 
 	return await sendTravelPath(entity, message, language);
@@ -446,26 +446,31 @@ const triggersSmallEvent = (entity) => {
 
 let totalSmallEventsRarity = null;
 
-const executeSmallEvent = async (message, language, entity, number) => {
+const executeSmallEvent = async (message, language, entity, number, forced) => {
 
 	// Pick random event
-	const small_events = JsonReader.small_events.small_events;
-	const keys = Object.keys(small_events);
-	if (totalSmallEventsRarity === null) {
-		totalSmallEventsRarity = 0;
+	let event;
+	if (forced === null) {
+		const small_events = JsonReader.small_events.small_events;
+		const keys = Object.keys(small_events);
+		if (totalSmallEventsRarity === null) {
+			totalSmallEventsRarity = 0;
+			for (let i = 0; i < keys.length; ++i) {
+				totalSmallEventsRarity += small_events[keys[i]].rarity;
+			}
+		}
+		let random_nb = randInt(1, totalSmallEventsRarity);
+		let cumul = 0;
 		for (let i = 0; i < keys.length; ++i) {
-			totalSmallEventsRarity += small_events[keys[i]].rarity;
+			cumul += small_events[keys[i]].rarity;
+			if (cumul >= random_nb) {
+				event = keys[i];
+				break;
+			}
 		}
 	}
-	let random_nb = randInt(1, totalSmallEventsRarity);
-	let cumul = 0;
-	let event;
-	for (let i = 0; i < keys.length; ++i) {
-		cumul += small_events[keys[i]].rarity;
-		if (cumul >= random_nb) {
-			event = keys[i];
-			break;
-		}
+	else {
+		event = forced;
 	}
 
 	// Execute the event
