@@ -129,6 +129,7 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @returns {Promise<void>}
  */
 const chooseDestination = async function(entity, message, language) {
+	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
 	// TODO mettre le temps ici comme ça ça bloque pas si le bot crash
 	if (destinationMaps.length === 1) {
@@ -443,8 +444,54 @@ const triggersSmallEvent = (entity) => {
 	return -1;
 }
 
+let totalSmallEventsRarity = null;
+
 const executeSmallEvent = async (message, language, entity, number) => {
 
+	// Pick random event
+	const small_events = JsonReader.small_events.small_events;
+	const keys = Object.keys(small_events);
+	if (totalSmallEventsRarity === null) {
+		totalSmallEventsRarity = 0;
+		for (let i = 0; i < keys.length; ++i) {
+			totalSmallEventsRarity += small_events[keys[i]].rarity;
+		}
+	}
+	let random_nb = randInt(1, totalSmallEventsRarity);
+	let cumul = 0;
+	let event;
+	for (let i = 0; i < keys.length; ++i) {
+		cumul += small_events[keys[i]].rarity;
+		if (cumul >= random_nb) {
+			event = keys[i];
+			break;
+		}
+	}
+
+	// Execute the event
+	switch (event) {
+		case "shop":
+		case "pet_interaction":
+		case "find_pet":
+		case "find_item":
+		case "nothing":
+		case "small_bad_event":
+		case "big_bad_event":
+		case "random_chest":
+		case "interact_other_players": // Ce serait cool avec un petit message en fonction du niveau, du classement etc...
+		case "win_health":
+		case "lose_health":
+		case "bot_vote":
+		case "staff_member_meet":
+		case "personal_xp":
+		case "guild_xp":
+		case "class_event":
+			await message.channel.send("TODO: " + event);
+			break;
+	}
+
+	// Save
+	PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, number).save();
 }
 
 /* ------------------------------------------------------------ */

@@ -21,6 +21,7 @@ class DraftBot {
 				"resources/text/values.json",
 				"resources/text/items.json",
 				"resources/text/food.json",
+				"resources/text/small_events.json"
 			],
 		});
 		await require("core/Database").init();

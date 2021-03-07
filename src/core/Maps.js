@@ -162,7 +162,17 @@ class Maps {
 				}
 			}
 			if (i < REPORT.SMALL_EVENTS_COUNT) {
-				str += "❓";
+				let added = false;
+				for (let j = 0; j < player.PlayerSmallEvents.length; ++j) {
+					if (player.PlayerSmallEvents[j].number === i + 1) {
+						str += " " + JsonReader.small_events.small_events[player.PlayerSmallEvents[j].event_type].emote + " ";
+						added = true;
+						break;
+					}
+				}
+				if (!added) {
+					str += " ❓ ";
+				}
 			}
 		}
 		return str + " " + nextMapInstance.getEmote(language);

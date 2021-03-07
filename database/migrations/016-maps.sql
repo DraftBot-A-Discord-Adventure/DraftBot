@@ -6,6 +6,6 @@ ALTER TABLE players ADD map_id INTEGER;
 ALTER TABLE players ADD start_travel_date DATETIME;
 UPDATE players SET start_travel_date = DATETIME(0, 'unixepoch');
 UPDATE players SET map_id = 1;
-CREATE TABLE IF NOT EXISTS player_small_events (id INTEGER PRIMARY KEY, player_id INTEGER NOT NULL, event_type INTEGER NOT NULL, number INTEGER NOT NULL, updatedAt DATETIME, createdAt DATETIME);
+CREATE TABLE IF NOT EXISTS player_small_events (id INTEGER PRIMARY KEY, player_id INTEGER NOT NULL, event_type TEXT NOT NULL, number INTEGER NOT NULL, updatedAt DATETIME, createdAt DATETIME);
 
 -- Down
