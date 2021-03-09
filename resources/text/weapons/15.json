@@ -4,5 +4,7 @@
 		"en": ":crossed_swords: **Double daggers**"
 	},
 	"rarity": 4,
-	"rawAttack": 10
+	"rawAttack": 10,
+	"french_masculine": 0,
+	"french_plural": 0
 }

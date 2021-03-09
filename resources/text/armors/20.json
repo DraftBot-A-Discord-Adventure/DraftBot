@@ -4,5 +4,7 @@
 		"en": ":family_mmgb: **Human shield**"
 	},
 	"rarity": 7,
-	"rawDefense": 9
+	"rawDefense": 9,
+	"french_masculine": 1,
+	"french_plural": 0
 }

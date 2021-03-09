@@ -4,5 +4,7 @@
 		"en": ":crossed_swords: **Ines'word**"
 	},
 	"rarity": 6,
-	"rawAttack": 5
+	"rawAttack": 5,
+	"french_masculine": 0,
+	"french_plural": 0
 }

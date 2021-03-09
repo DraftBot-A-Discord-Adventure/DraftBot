@@ -4,5 +4,7 @@
 		"en": ":fishing_pole_and_fish: **Fishing rod**"
 	},
 	"rarity": 4,
-	"rawAttack": 5
+	"rawAttack": 5,
+	"french_masculine": 0,
+	"french_plural": 0
 }

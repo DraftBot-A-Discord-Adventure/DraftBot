@@ -7,5 +7,13 @@ ALTER TABLE players ADD start_travel_date DATETIME;
 UPDATE players SET start_travel_date = DATETIME(0, 'unixepoch');
 UPDATE players SET map_id = 1;
 CREATE TABLE IF NOT EXISTS player_small_events (id INTEGER PRIMARY KEY, player_id INTEGER NOT NULL, event_type TEXT NOT NULL, number INTEGER NOT NULL, updatedAt DATETIME, createdAt DATETIME);
+ALTER TABLE armors ADD french_masculine INTEGER;
+ALTER TABLE armors ADD french_plural INTEGER;
+ALTER TABLE weapons ADD french_masculine INTEGER;
+ALTER TABLE weapons ADD french_plural INTEGER;
+ALTER TABLE potions ADD french_masculine INTEGER;
+ALTER TABLE potions ADD french_plural INTEGER;
+ALTER TABLE objects ADD french_masculine INTEGER;
+ALTER TABLE objects ADD french_plural INTEGER;
 
 -- Down

@@ -4,5 +4,7 @@
 		"en": ":tools: **Used tools**"
 	},
 	"rarity": 1,
-	"rawAttack": 3
+	"rawAttack": 3,
+	"french_masculine": 1,
+	"french_plural": 1
 }

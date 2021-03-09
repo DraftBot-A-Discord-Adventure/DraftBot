@@ -4,5 +4,7 @@
 		"en": ":safety_vest: **Security jacket**"
 	},
 	"rarity": 2,
-	"rawDefense": 5
+	"rawDefense": 5,
+	"french_masculine": 0,
+	"french_plural": 0
 }

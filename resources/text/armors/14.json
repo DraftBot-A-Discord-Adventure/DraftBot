@@ -4,5 +4,7 @@
 		"en": ":shield: **Powerful shield**"
 	},
 	"rarity": 6,
-	"rawDefense": 8
+	"rawDefense": 8,
+	"french_masculine": 1,
+	"french_plural": 0
 }

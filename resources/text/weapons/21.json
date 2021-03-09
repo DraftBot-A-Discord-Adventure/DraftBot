@@ -4,5 +4,7 @@
 		"en": ":pick: **Damaged pickaxe**"
 	},
 	"rarity": 1,
-	"rawAttack": 4
+	"rawAttack": 4,
+	"french_masculine": 0,
+	"french_plural": 0
 }

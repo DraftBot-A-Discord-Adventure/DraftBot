@@ -4,5 +4,7 @@
 		"en": ":shield: **Vibranium shield**"
 	},
 	"rarity": 8,
-	"rawDefense": 10
+	"rawDefense": 10,
+	"french_masculine": 1,
+	"french_plural": 0
 }

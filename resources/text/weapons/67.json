@@ -4,5 +4,7 @@
 		"en": ":wolf: **Wolf spirit**"
 	},
 	"rarity": 6,
-	"rawAttack": 9
+	"rawAttack": 9,
+	"french_masculine": 1,
+	"french_plural": 0
 }

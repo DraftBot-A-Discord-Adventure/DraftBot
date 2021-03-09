@@ -4,5 +4,7 @@
 		"en": "❄️ **Snowball**"
 	},
 	"rarity": 1,
-	"rawAttack": 9
+	"rawAttack": 9,
+	"french_masculine": 0,
+	"french_plural": 0
 }

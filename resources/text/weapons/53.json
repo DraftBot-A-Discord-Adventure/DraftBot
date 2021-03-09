@@ -4,5 +4,7 @@
 		"en": "🪑 **Chair**"
 	},
 	"rarity": 2,
-	"rawAttack": 2
+	"rawAttack": 2,
+	"french_masculine": 0,
+	"french_plural": 0
 }

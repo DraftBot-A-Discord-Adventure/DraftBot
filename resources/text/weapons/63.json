@@ -4,5 +4,7 @@
 		"en": "💣 **Atomic bomb**"
 	},
 	"rarity": 8,
-	"rawAttack": 10
+	"rawAttack": 10,
+	"french_masculine": 0,
+	"french_plural": 0
 }

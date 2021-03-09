@@ -4,5 +4,7 @@
 		"en": ":rugby_football: **Brennus shield**"
 	},
 	"rarity": 2,
-	"rawDefense": 7
+	"rawDefense": 7,
+	"french_masculine": 1,
+	"french_plural": 0
 }

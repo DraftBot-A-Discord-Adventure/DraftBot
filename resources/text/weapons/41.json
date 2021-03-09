@@ -4,5 +4,7 @@
 		"en": ":crossed_swords: **Sharpness 4 sword**"
 	},
 	"rarity": 5,
-	"rawAttack": 9
+	"rawAttack": 9,
+	"french_masculine": 0,
+	"french_plural": 0
 }

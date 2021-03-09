@@ -4,5 +4,7 @@
 		"en": ":shield: **Hardened shield**"
 	},
 	"rarity": 1,
-	"rawDefense": 8
+	"rawDefense": 8,
+	"french_masculine": 1,
+	"french_plural": 0
 }

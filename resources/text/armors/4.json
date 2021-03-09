@@ -4,5 +4,7 @@
 		"en": ":shield: **Wooden shield**"
 	},
 	"rarity": 2,
-	"rawDefense": 3
+	"rawDefense": 3,
+	"french_masculine": 1,
+	"french_plural": 0
 }

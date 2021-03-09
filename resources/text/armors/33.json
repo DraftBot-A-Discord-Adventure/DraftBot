@@ -4,5 +4,7 @@
 		"en": ":shield: **Scutum**"
 	},
 	"rarity": 2,
-	"rawDefense": 6
+	"rawDefense": 6,
+	"french_masculine": 1,
+	"french_plural": 0
 }

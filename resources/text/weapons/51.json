@@ -4,5 +4,7 @@
 		"en": "🏹 **Heroe bow**"
 	},
 	"rarity": 7,
-	"rawAttack": 8
+	"rawAttack": 8,
+	"french_masculine": 1,
+	"french_plural": 0
 }

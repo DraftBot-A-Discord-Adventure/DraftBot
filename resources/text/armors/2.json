@@ -4,5 +4,7 @@
 		"en": ":helmet_with_cross: **Security helmet**"
 	},
 	"rarity": 1,
-	"rawDefense": 6
+	"rawDefense": 6,
+	"french_masculine": 1,
+	"french_plural": 0
 }

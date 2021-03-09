@@ -4,5 +4,7 @@
 		"en": ":gun: **Unloaded gun**"
 	},
 	"rarity": 4,
-	"rawAttack": 1
+	"rawAttack": 1,
+	"french_masculine": 1,
+	"french_plural": 0
 }

@@ -4,5 +4,7 @@
 		"en": ":guitar: **Heavy Guitar**"
 	},
 	"rarity": 2,
-	"rawAttack": 1
+	"rawAttack": 1,
+	"french_masculine": 0,
+	"french_plural": 0
 }

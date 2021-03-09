@@ -4,5 +4,7 @@
 		"en": ":scissors: **Scissors**"
 	},
 	"rarity": 3,
-	"rawAttack": 2
+	"rawAttack": 2,
+	"french_masculine": 1,
+	"french_plural": 1
 }

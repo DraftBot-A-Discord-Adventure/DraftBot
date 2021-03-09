@@ -4,5 +4,7 @@
 		"en": ":shield: **Ultimate shield**"
 	},
 	"rarity": 7,
-	"rawDefense": 10
+	"rawDefense": 10,
+	"french_masculine": 1,
+	"french_plural": 0
 }

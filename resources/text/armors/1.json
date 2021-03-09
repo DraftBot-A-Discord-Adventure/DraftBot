@@ -4,5 +4,7 @@
 		"en": ":eye_in_speech_bubble: **Engi's Deflector shield**"
 	},
 	"rarity": 7,
-	"rawDefense": 8
+	"rawDefense": 8,
+	"french_masculine": 1,
+	"french_plural": 0
 }
