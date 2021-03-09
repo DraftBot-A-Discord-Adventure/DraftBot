@@ -535,11 +535,11 @@ class Fight {
 				attacker.power -= far.ownDamage; //this attack is for everybody
 				if (success < 0.85) {
 					far.damage = Math.round(attacker.attack * 2.5 - Math.round(defender.defense));
-					if (attacker.power < 0)
-						attacker.power = 0;
 				} else {
 					far.damage = 0;
 				}
+				if (attacker.power < 0)
+					attacker.power = 0;
 				far.fullSuccess = far.damage > 0;
 				break;
 
