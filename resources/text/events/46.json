@@ -221,8 +221,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 💊 Ne vous voyant pas réagir, Pérotin décide de vous droguer afin que vous révéliez vos pensées par la parole pour voir si quelque chose s'y passe. Il n'y voit rien non plus, même au plus profond de celles-ci. Paniqué, le ménestrel appelle les gardes pour vous faire interner, pour la raison \"folie\". :lock:",
-					"en": "** | 💊 Seeing you not reaction, Perotin decides to drug you, so you reveal what you think about by talking, to see if something happends. He doesn't see anything there, even in the most deep of them. Panicked, he calls guards, to arrest you, for madness."
+					"fr": "** | 💊 Ne vous voyant pas réagir, Pérotin décide de vous droguer afin que vous révéliez vos pensées par la parole pour voir si quelque chose s'y passe. Il n'y voit rien, même au plus profond de celles-ci. Paniqué, le ménestrel appelle les gardes qui vous internent pour folie. 🔒",
+					"en": "** | 💊 Seeing you not reaction, Perotin decides to drug you, so you reveal what you think about by talking, to see if something happends. He doesn't see anything there, even in the most deep of them. Panicked, he calls guards, to arrest you, for madness. 🔒"
 				},
 				"lostTime": 0,
 				"health": 0,
