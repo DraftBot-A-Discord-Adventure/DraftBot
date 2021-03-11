@@ -28,7 +28,7 @@
 			"rarity": 1,
 			"emote": "\uD83D\uDC7F"
 		},
-		"interact_other_players": {
+		"InteractOtherPlayers": {
 			"rarity": 8,
 			"emote": "\uD83D\uDCAC"
 		},

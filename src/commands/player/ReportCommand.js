@@ -444,8 +444,20 @@ const triggersSmallEvent = (entity) => {
 	return -1;
 }
 
+/**
+ * @type {Number} a cache variable for small events total rarity (for the random max)
+ */
 let totalSmallEventsRarity = null;
 
+/**
+ * Executes a small event
+ * @param {module:"discord.js".Message} message
+ * @param {"fr"|"en"} language
+ * @param {Entities} entity
+ * @param {Number} number
+ * @param {Boolean} forced
+ * @returns {Promise<void>}
+ */
 const executeSmallEvent = async (message, language, entity, number, forced) => {
 
 	// Pick random event
@@ -474,23 +486,22 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 	}
 
 	// Execute the event
-	switch (event) {
-		case "shop":
-		case "pet_interaction":
-		case "find_pet":
-		case "find_item":
-		case "nothing":
-		case "small_bad_event":
-		case "big_bad_event":
-		case "interact_other_players": // Ce serait cool avec un petit message en fonction du niveau, du classement etc...
-		case "win_health":
-		case "bot_vote":
-		case "staff_member_meet":
-		case "personal_xp":
-		case "guild_xp":
-		case "class_event":
-			await message.channel.send("TODO: " + event);
-			break;
+	const filename = event + 'SmallEvent.js';
+	try {
+		const smallEventModule = require.resolve('../../core/small_events/' + filename);
+		try {
+			const smallEventFile = require(smallEventModule);
+			if (!smallEventFile.executeSmallEvent) {
+				await message.channel.send(filename + " doesn't contain an executeSmallEvent function");
+			} else {
+				await smallEventFile.executeSmallEvent(message, language, entity);
+			}
+		} catch (e) {
+			console.error(e);
+		}
+	}
+	catch (e) {
+		await message.channel.send(filename + " doesn't exist");
 	}
 
 	// Save
