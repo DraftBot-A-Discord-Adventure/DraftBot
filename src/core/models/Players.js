@@ -360,5 +360,9 @@ module.exports = (Sequelize, DataTypes) => {
 		return true;
 	};
 
+	Players.prototype.isInactive = function () {
+		return (Date.now() - Date.parse(this.lastReportAt)) > JsonReader.commands.topCommand.fifth10days;
+	}
+
 	return Players;
 };

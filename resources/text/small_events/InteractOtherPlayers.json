@@ -1,0 +1,126 @@
+{
+	"translations": {
+		"fr": {
+			"no_one": [
+				"Vous continuez votre chemin dans le plus grand calme, il n'y a pas un chat sur votre route.",
+				"Les rayons de soleils traversant les nuages vous réchauffe alors que vous continuez votre voyage sur cette route déserte."
+			],
+			"top1": [
+				"Vous passez près de **{pseudo}** sur votre route, le top 1 actuel !"
+			],
+			"top10": [
+				"Sur votre chemin, vous rencontrez quelqu'un d'important. En effet, **{pseudo}** est dans le top 10 !"
+			],
+			"top50": [
+				"Vous rencontrez une personne dont le nom vous dit quelque chose... En effet, **{pseudo}** s'est fait une place dans le top 50 !"
+			],
+			"top100": [
+				"La persévérance mène à la réussite, c'est ce que vous dit **{pseudo}** qui fait partie du top 100 !"
+			],
+			"powerfulGuild": [
+				"**{pseudo}**, que vous rencontrez par hasard sur votre chemin, fait partie d'une guilde puissante ! C'est ce que vous concluez en voyant son badge étincelant."
+			],
+			"beginner": [
+				"Il y a un début à tout ! Vous faites la connaissance de **{pseudo}** qui débute dans son aventure dédiée à la princesse."
+			],
+			"advanced": [
+				"Les cheveux gris de **{pseudo}** témoignent de l'expérience qu'il a accumulée. Il est en effet niveau **{level}** !"
+			],
+			"inactive": [
+				"Vous manquez de peu de trébucher sur le corps inerte de **{pseudo}**... Vous continuez votre route dégoûté."
+			],
+			"sameClass": [
+				"Vous ne manquez pas de reconnaître l'accoutrement de **{pseudo}**. Il est **{class}** tout comme vous !"
+			],
+			"sameGuild": [
+				"Vous croisez sur votre chemin une tête très familière... En effet, **{pseudo}** fait partie de votre guilde !"
+			],
+			"staffMember": [
+				"**{pseudo}**, qui fait partie du staff de DraftBot, vous donne un conseil pour la suite de votre aventure :\\n**{advice}**"
+			],
+			"topWeek": [
+				"Vous voyez sur votre route **{pseudo}**, essouflé. Il ne se repose pas, en effet, il est dans le top 5 de la semaine !"
+			],
+			"lowHP": [
+				"Vous croisez **{pseudo}**, qui boîte... Il n'a pas l'air en forme... Il tombe sur le bas côté, vous décidez de l'aider à se relever."
+			],
+			"fullHP": [
+				"Vous avez rarement vu quelqu'un d'aussi énergique que **{pseudo}**... Il a toute sa vie !"
+			],
+			"lowerRankThanHim": [
+				"Vous croisez **{pseudo}**, un joueur ayant plus réputation que vous... Mais n'abandonnez pas ! Vous pourrez peut-être le rattraper un jour."
+			],
+			"betterRankThanHim": [
+				"Vous croisez **{pseudo}**, celui-ci a un moins bon classement... Mais attention il peut très bien vous rattraper un jour !"
+			],
+			"rich": [
+				"Vous vous cachez les yeux pour arrêter d'être ébloui par le soleil qui reflète sur l'or que porte **{pseudo}** !"
+			],
+			"poor": [
+				"À la vue des vêtements que porte **{pseudo}**, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donnez une pièce.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce"
+			],
+			"poorGiveMoney": [
+				"Vous vous sentez bien après avoir fait ce geste humanitaire."
+			],
+			"poorDontGiveMoney": [
+				"Il n'y a pas de petites économies... Vous décidez de garder votre argent."
+			],
+			"duplicatePotion": [
+				"Vous discutez sur votre trajet avec **{pseudo}**. Après avoir fait connaissance, il verse un peu de sa potion dans l'une de vos fioles vides. Vous continuez votre aventure avec **1x {potion}** !"
+			],
+			"pet": [
+				"**{pseudo}** passe près de vous avec son animal **{pet_name}**. Vous caressez cette brave bête et continuez votre chemin de bonne humeur !"
+			],
+			"guildChief": [
+				"Ne paniquez pas ! Vous passez à côté de **{pseudo}**, chef de la guilde **{guild_name}**."
+			],
+			"guildElder": [
+				"**{pseudo}** discute de sa guilde **{guild_name}** avec vous. Vous apprenez qu'il en est l'aîné !"
+			],
+			"class": [
+				"Vous frôlez **{pseudo}** qui possède la classe **{class}**. Vous parlez un peu avec lui et reprenez votre route paisiblement."
+			],
+			":sick:": [
+				"Vous entendez un bruit au loin... C'est **{pseudo}** qui vomit dans un buisson..."
+			],
+			":head_bandage:": [
+				"Vous apercevez une momie au loin ! Ah non, ce n'est que **{pseudo}** recouvert de bandages..."
+			],
+			":dizzy_face:": [
+				"Vous trébuchez sur **{pseudo}** qui est inconscient sur le sol. Vous lui donnez de petites tapes pour le réveiller, sans succès."
+			],
+			":drooling_face:": [
+				"Un grondement sourd atteint vos oreilles. Vous découvrez que c'est le ventre de **{pseudo}**. Malheureusement, vous avez terminé récemment vos restes de nourriture."
+			],
+			":sleeping:": [
+				"Vous croisez **{pseudo}** endormi sur le côté de la route. Vous décidez de le laisser dormir, il a sûrement besoin de sommeil."
+			],
+			":cold_face:": [
+				"Vous ressentez un grand froid en marchant, c'est **{pseudo}** qui est proche de l'hypothermie !"
+			],
+			":confounded:": [
+				"Vous tentez de discuter avec **{pseudo}**. Tentez. Ses propos sont assez incohérents, vous continuez donc votre chemin quelque peu perturbé."
+			],
+			":zany_face:": [
+				"**{pseudo}** zigzague sur votre route, il semblerait qu'il ait un peu (trop) bu."
+			],
+			"weapon": [
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_weapon} magnifique{plural_weapon} **{weapon}**."
+			],
+			"armor": [
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_armor} magnifique{plural_armor} **{armor}**."
+			],
+			"potion": [
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_potion} magnifique{plural_potion} **{potion}**."
+			],
+			"object": [
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_object} magnifique{plural_object} **{object}**."
+			]
+		},
+		"en": {
+
+		}
+	},
+	"rarity": 8,
+	"emote": "\uD83D\uDCAC"
+}

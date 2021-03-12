@@ -463,7 +463,7 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 	// Pick random event
 	let event;
 	if (forced === null) {
-		const small_events = JsonReader.small_events.small_events;
+		const small_events = JsonReader.small_events;
 		const keys = Object.keys(small_events);
 		if (totalSmallEventsRarity === null) {
 			totalSmallEventsRarity = 0;

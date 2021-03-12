@@ -165,7 +165,7 @@ class Maps {
 				let added = false;
 				for (let j = 0; j < player.PlayerSmallEvents.length; ++j) {
 					if (player.PlayerSmallEvents[j].number === i + 1) {
-						str += " " + JsonReader.small_events.small_events[player.PlayerSmallEvents[j].event_type].emote + " ";
+						str += " " + JsonReader.small_events[player.PlayerSmallEvents[j].event_type].emote + " ";
 						added = true;
 						break;
 					}

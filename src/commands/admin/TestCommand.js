@@ -471,7 +471,7 @@ const TestCommand = async (language, message, args) => {
 				}
 			case 'small_event':
 				if (args.length === 2) {
-					if (JsonReader.small_events.small_events[args[1]] === undefined) {
+					if (JsonReader.small_events[args[1]] === undefined) {
 						await message.channel.send("Unknown small event type");
 						return;
 					}

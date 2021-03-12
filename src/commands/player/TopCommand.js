@@ -257,7 +257,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 		// const diffMinutes = lastReport.diff(nowMoment, 'millisecondes');
 		if (((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) < JsonReader.commands.topCommand.oneHour) || allEntities[k].Player.lastReportAt == null) badgeState = allEntities[k].effect;
 		if ((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) > JsonReader.commands.topCommand.oneHour) {
-			if ((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) > JsonReader.commands.topCommand.fifth10days) {
+			if (allEntities[k].Player.isInactive()) {
 				badgeState = ":ghost:";
 			} else {
 				badgeState = ":newspaper2:";

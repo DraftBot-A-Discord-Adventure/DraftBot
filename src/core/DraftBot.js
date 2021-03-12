@@ -11,7 +11,7 @@ class DraftBot {
 		DraftBot.handleLogs();
 
 		await require("core/JsonReader").init({
-			folders: ["resources/text/commands", "resources/text/models"],
+			folders: ["resources/text/commands", "resources/text/models", "resources/text/small_events"],
 			files: [
 				"config/app.json",
 				"draftbot/package.json",
@@ -20,8 +20,7 @@ class DraftBot {
 				"resources/text/classesValues.json",
 				"resources/text/values.json",
 				"resources/text/items.json",
-				"resources/text/food.json",
-				"resources/text/small_events.json"
+				"resources/text/food.json"
 			],
 		});
 		await require("core/Database").init();
