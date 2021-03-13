@@ -345,7 +345,7 @@ global.format = (string, replacement) => {
 };
 
 /**
- * Generates a random int between min and max, both included
+ * Generates a random int between min (included) and max (excluded)
  * @param {Number} min
  * @param {Number} max
  * @return {number}

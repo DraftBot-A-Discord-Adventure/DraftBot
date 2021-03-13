@@ -3,7 +3,7 @@
 		"fr": {
 			"no_one": [
 				"Vous continuez votre chemin dans le plus grand calme, il n'y a pas un chat sur votre route.",
-				"Les rayons de soleils traversant les nuages vous réchauffe alors que vous continuez votre voyage sur cette route déserte."
+				"Les rayons du soleil traversant les nuages vous réchauffent alors que vous continuez votre voyage sur cette route déserte."
 			],
 			"top1": [
 				"Vous passez près de **{pseudo}** sur votre route, le top 1 actuel !"
@@ -24,7 +24,7 @@
 				"Il y a un début à tout ! Vous faites la connaissance de **{pseudo}** qui débute dans son aventure dédiée à la princesse."
 			],
 			"advanced": [
-				"Les cheveux gris de **{pseudo}** témoignent de l'expérience qu'il a accumulée. Il est en effet niveau **{level}** !"
+				"Les cheveux gris de **{pseudo}** témoignent de l'expérience qu'il a accumulé. Il est en effet niveau **{level}** !"
 			],
 			"inactive": [
 				"Vous manquez de peu de trébucher sur le corps inerte de **{pseudo}**... Vous continuez votre route dégoûté."
@@ -36,7 +36,7 @@
 				"Vous croisez sur votre chemin une tête très familière... En effet, **{pseudo}** fait partie de votre guilde !"
 			],
 			"staffMember": [
-				"**{pseudo}**, qui fait partie du staff de DraftBot, vous donne un conseil pour la suite de votre aventure :\\n**{advice}**"
+				"**{pseudo}**, qui fait partie du staff de DraftBot, vous donne un conseil pour la suite de votre aventure :\n\n{advice}"
 			],
 			"topWeek": [
 				"Vous voyez sur votre route **{pseudo}**, essouflé. Il ne se repose pas, en effet, il est dans le top 5 de la semaine !"
@@ -66,7 +66,7 @@
 				"Il n'y a pas de petites économies... Vous décidez de garder votre argent."
 			],
 			"duplicatePotion": [
-				"Vous discutez sur votre trajet avec **{pseudo}**. Après avoir fait connaissance, il verse un peu de sa potion dans l'une de vos fioles vides. Vous continuez votre aventure avec **1x {potion}** !"
+				"Vous discutez sur votre trajet avec **{pseudo}**. Après avoir fait connaissance, il verse un peu de sa potion dans l'une de vos fioles vides. Vous continuez votre aventure avec **1x** {item} !"
 			],
 			"pet": [
 				"**{pseudo}** passe près de vous avec son animal **{pet_name}**. Vous caressez cette brave bête et continuez votre chemin de bonne humeur !"
@@ -105,16 +105,16 @@
 				"**{pseudo}** zigzague sur votre route, il semblerait qu'il ait un peu (trop) bu."
 			],
 			"weapon": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_weapon} magnifique{plural_weapon} **{weapon}**."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}."
 			],
 			"armor": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_armor} magnifique{plural_armor} **{armor}**."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}."
 			],
 			"potion": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_potion} magnifique{plural_potion} **{potion}**."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}."
 			],
 			"object": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_object} magnifique{plural_object} **{object}**."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}."
 			]
 		},
 		"en": {

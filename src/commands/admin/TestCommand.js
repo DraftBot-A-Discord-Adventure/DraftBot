@@ -443,6 +443,11 @@ const TestCommand = async (language, message, args) => {
 			case 'stravel':
 				await Maps.stopTravel(author.Player);
 				break;
+			case 'travelreport':
+			case 'tr':
+				author.Player.start_travel_date = 1;
+				await author.Player.save();
+				break;
 			case 'tp':
 				if (args.length === 2) {
 					const id = parseInt(args[1]);
