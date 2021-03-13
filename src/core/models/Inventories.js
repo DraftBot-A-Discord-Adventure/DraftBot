@@ -58,23 +58,28 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("itemType")} itemType - The itemType to know what kind of object is updated
 	 */
 	Inventories.prototype.giveObject = function (itemID, itemType) {
-		if (ITEMTYPE.POTION == itemType) {
+		if (ITEMTYPE.POTION === itemType) {
 			this.potion_id = itemID;
 		}
-		if (ITEMTYPE.WEAPON == itemType) {
+		if (ITEMTYPE.WEAPON === itemType) {
 			this.weapon_id = itemID;
 		}
-		if (ITEMTYPE.ARMOR == itemType) {
+		if (ITEMTYPE.ARMOR === itemType) {
 			this.armor_id = itemID;
 		}
-		if (ITEMTYPE.OBJECT == itemType) {
+		if (ITEMTYPE.OBJECT === itemType) {
 			this.backup_id = itemID;
 		}
 	};
 
-	Inventories.prototype.generateRandomItem = async function () {
+	/**
+	 * Generate a random item
+	 * @param {number} rarityMax
+	 * @returns {Item} generated item
+	 */
+	Inventories.prototype.generateRandomItem = async function (rarityMax = 8) {
 		// generate a random item
-		const rarity = generateRandomRarity();
+		const rarity = generateRandomRarity(rarityMax);
 		const itemType = generateRandomItemType();
 		const query = `SELECT id
                    FROM :itemType
@@ -87,7 +92,7 @@ module.exports = (Sequelize, DataTypes) => {
 			type: Sequelize.QueryTypes.SELECT,
 		});
 		let item;
-		if (ITEMTYPE.POTION == itemType) {
+		if (ITEMTYPE.POTION === itemType) {
 			item = await Potions.findOne({
 				where: {
 					id: itemsIds[
@@ -96,7 +101,7 @@ module.exports = (Sequelize, DataTypes) => {
 				},
 			});
 		}
-		if (ITEMTYPE.WEAPON == itemType) {
+		if (ITEMTYPE.WEAPON === itemType) {
 			item = await Weapons.findOne({
 				where: {
 					id: itemsIds[
@@ -105,7 +110,7 @@ module.exports = (Sequelize, DataTypes) => {
 				},
 			});
 		}
-		if (ITEMTYPE.ARMOR == itemType) {
+		if (ITEMTYPE.ARMOR === itemType) {
 			item = await Armors.findOne({
 				where: {
 					id: itemsIds[
@@ -114,7 +119,7 @@ module.exports = (Sequelize, DataTypes) => {
 				},
 			});
 		}
-		if (ITEMTYPE.OBJECT == itemType) {
+		if (ITEMTYPE.OBJECT === itemType) {
 			item = await Objects.findOne({
 				where: {
 					id: itemsIds[
@@ -154,8 +159,6 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 *
-	 * @param {("fr"|"en")} language
 	 * @return {boolean}
 	 */
 	Inventories.prototype.hasItemToSell = function () {
