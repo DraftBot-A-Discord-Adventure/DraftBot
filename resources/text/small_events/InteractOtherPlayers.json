@@ -39,13 +39,13 @@
 				"**{pseudo}**, qui fait partie du staff de DraftBot, vous donne un conseil pour la suite de votre aventure :\n\n{advice}"
 			],
 			"topWeek": [
-				"Vous voyez sur votre route **{pseudo}**, essouflé. Il ne se repose pas, en effet, il est dans le top 5 de la semaine !"
+				"Vous voyez sur votre route **{pseudo}**, essoufflé. Il ne se repose pas, en effet, il est dans le top 5 de la semaine !"
 			],
 			"lowHP": [
 				"Vous croisez **{pseudo}**, qui boîte... Il n'a pas l'air en forme... Il tombe sur le bas côté, vous décidez de l'aider à se relever."
 			],
 			"fullHP": [
-				"Vous avez rarement vu quelqu'un d'aussi énergique que **{pseudo}**... Il a toute sa vie !"
+				"Vous avez rarement vu quelqu'un d'aussi énergique que **{pseudo}**... Il semble en pleine forme !"
 			],
 			"lowerRankThanHim": [
 				"Vous croisez **{pseudo}**, un joueur ayant plus réputation que vous... Mais n'abandonnez pas ! Vous pourrez peut-être le rattraper un jour."
