@@ -11,8 +11,7 @@ const executeSmallEvent = async function (message, language, entity) {
 	const tr = JsonReader.small_events.InteractOtherPlayers.getTranslation(language);
 	if (!otherEntity) {
 		return await message.channel.send(tr.no_one[randInt(0, tr.no_one.length)]);
-	}
-	else {
+	} else {
 		const cList = [];
 
 		const player = (await Players.getById(entity.Player.id))[0];
@@ -22,14 +21,11 @@ const executeSmallEvent = async function (message, language, entity) {
 		console.log(otherPlayer.rank);
 		if (otherPlayer.rank === 1) {
 			cList.push("top1");
-		}
-		else if (otherPlayer.rank <= 10) {
+		} else if (otherPlayer.rank <= 10) {
 			cList.push("top10");
-		}
-		else if (otherPlayer.rank <= 50) {
+		} else if (otherPlayer.rank <= 50) {
 			cList.push("top50");
-		}
-		else if (otherPlayer.rank <= 100) {
+		} else if (otherPlayer.rank <= 100) {
 			cList.push("top100");
 		}
 		if (otherEntity.Player.badges) {
@@ -37,13 +33,12 @@ const executeSmallEvent = async function (message, language, entity) {
 				cList.push("powerfulGuild");
 			}
 			if (otherEntity.Player.badges.includes("⚙️")) {
-				cList.push("staffMember")
+				cList.push("staffMember");
 			}
 		}
 		if (otherEntity.Player.level < 10) {
 			cList.push("beginner");
-		}
-		else if (otherEntity.Player.level >= 50) {
+		} else if (otherEntity.Player.level >= 50) {
 			cList.push("advanced");
 		}
 		if (otherEntity.Player.isInactive()) {
@@ -61,20 +56,17 @@ const executeSmallEvent = async function (message, language, entity) {
 		const healthPercentage = otherEntity.health / await otherEntity.getMaxHealth();
 		if (healthPercentage < 0.2) {
 			cList.push("lowHP");
-		}
-		else if (healthPercentage === 1.0) {
+		} else if (healthPercentage === 1.0) {
 			cList.push("fullHP");
 		}
 		if (otherPlayer.rank < player.rank) {
 			cList.push("lowerRankThanHim");
-		}
-		else if (otherPlayer.rank > player.rank) {
+		} else if (otherPlayer.rank > player.rank) {
 			cList.push("betterRankThanHim");
 		}
 		if (otherEntity.Player.money > 20000) {
 			cList.push("rich");
-		}
-		else if (otherEntity.Player.money < 200) {
+		} else if (otherEntity.Player.money < 200) {
 			cList.push("poor");
 		}
 		if (otherEntity.Player.Inventory.potion_id !== JsonReader.models.inventories.potion_id && entity.Player.Inventory.potion_id === JsonReader.models.inventories.potion_id) {
@@ -87,8 +79,7 @@ const executeSmallEvent = async function (message, language, entity) {
 			guild = await Guilds.getById(otherEntity.Player.guild_id);
 			if (guild.chief_id === otherEntity.Player.id) {
 				cList.push("guildChief");
-			}
-			else if (guild.elder_id === otherEntity.Player.id) {
+			} else if (guild.elder_id === otherEntity.Player.id) {
 				cList.push("guildElder");
 			}
 		}
@@ -131,12 +122,10 @@ const executeSmallEvent = async function (message, language, entity) {
 		if (item) {
 			if (item.french_plural === 1) {
 				prefix_item = "ses";
-			}
-			else {
+			} else {
 				if (item.french_masculine === 1) {
 					prefix_item = "son";
-				}
-				else {
+				} else {
 					prefix_item = "sa";
 				}
 			}
@@ -156,7 +145,7 @@ const executeSmallEvent = async function (message, language, entity) {
 		// TODO duplicate potion
 		// TODO virer pseudos 404
 	}
-}
+};
 
 module.exports = {
 	executeSmallEvent: executeSmallEvent
