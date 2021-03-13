@@ -7,8 +7,8 @@
 		"🍌": [
 			{
 				"translations": {
-					"fr": "** | :smiley: Aucun incident ni évènement notable à signaler.",
-					"en": "** | :smiley: No incidents or significant events to report."
+					"fr": "** | 😃 Aucun incident ni évènement notable à signaler.",
+					"en": "** | 😃 No incidents or significant events to report."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -19,8 +19,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :smiley: Il ne s'est rien passé de particulier depuis le précédent rapport.",
-					"en": "** | :smiley: Nothing special happened since the previous report."
+					"fr": "** | 😃 Il ne s'est rien passé de particulier depuis le précédent rapport.",
+					"en": "** | 😃 Nothing special happened since the previous report."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -31,8 +31,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :smiley: Vous n'avez rencontré aucune difficulté à progresser durant les dernières heures, vous continuez d'avancer tranquillement.",
-					"en": "** | :smiley: You haven't encountered any difficulty in your progress during the last few hours, and you continue to progress quietly."
+					"fr": "** | 😃 Vous n'avez rencontré aucune difficulté à progresser durant les dernières heures, vous continuez d'avancer tranquillement.",
+					"en": "** | 😃 You haven't encountered any difficulty in your progress during the last few hours, and you continue to progress quietly."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -43,8 +43,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :smiley: Rien à signaler, vous continuez d'avancer.",
-					"en": "** | :smiley: Nothing to report, you keep moving forward."
+					"fr": "** | 😃 Rien à signaler, vous continuez d'avancer.",
+					"en": "** | 😃 Nothing to report, you keep moving forward."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -55,8 +55,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :smiley: Pas d'obstacle en vue, rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
-					"en": "** | :smiley: No obstacles in sight, nothing seems to be against you right now. You keep moving forward."
+					"fr": "** | 😃 Pas d'obstacle en vue, rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
+					"en": "** | 😃 No obstacles in sight, nothing seems to be against you right now. You keep moving forward."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -67,8 +67,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :smiley: La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer.",
-					"en": "** | :smiley: The way is clear, no reason to stop, you keep moving forward."
+					"fr": "** | 😃 La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer.",
+					"en": "** | 😃 The way is clear, no reason to stop, you keep moving forward."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -79,8 +79,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :smiley: Rien d'important ne s'est passé depuis le rapport précédent.",
-					"en": "** | :smiley: Nothing significant has happened since the previous report."
+					"fr": "** | 😃 Rien d'important ne s'est passé depuis le rapport précédent.",
+					"en": "** | 😃 Nothing significant has happened since the previous report."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -91,8 +91,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :smiley: Pas d'évènement notable depuis la dernière fois.",
-					"en": "** | :smiley: No significant events since last time."
+					"fr": "** | 😃 Pas d'évènement notable depuis la dernière fois.",
+					"en": "** | 😃 No significant events since last time."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -103,8 +103,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :smiley: Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route.",
-					"en": "** | :smiley: The dogs bark and the caravan passes by. You continue quietly on your way."
+					"fr": "** | 😃 Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route.",
+					"en": "** | 😃 The dogs bark and the caravan passes by. You continue quietly on your way."
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -117,8 +117,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | :smiley: La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route.",
-					"en": "** | :smiley: The princess got closer to you! At least that's the impression you got... You carry on."
+					"fr": "** | 😃 La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route.",
+					"en": "** | 😃 The princess got closer to you! At least that's the impression you got... You carry on."
 				},
 				"lostTime": 0,
 				"health": 0,

@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** Vous arrivez dans une ferme où se déroule un grand festin. Les gens paraissent accueillants. \n\n:lips: S'asseoir tranquillement pour bavarder \n:poultry_leg: En profiter pour s'empiffrer de nourriture \n:detective: Profiter de l'animation générale pour voler les gens \n:man_walking: Continuer sans s'arrêter\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** You arrive in farm in which festivities are conducted. The people seem to receive you with hospitality.\n\n:lips: Sit down to chat.\n:poultry_leg: Have a go at the food.\n:detective: Take advantage of the commotion to rob some of them.\n:person_walking: Continue without stopping.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** Vous arrivez dans une ferme où se déroule un grand festin. Les gens paraissent accueillants. \n\n👄 S'asseoir tranquillement pour bavarder \n🍗 En profiter pour s'empiffrer de nourriture \n🕵️ Profiter de l'animation générale pour voler les gens \n:man_walking: Continuer sans s'arrêter\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** You arrive in farm in which festivities are conducted. The people seem to receive you with hospitality.\n\n👄 Sit down to chat.\n🍗 Have a go at the food.\n🕵️ Take advantage of the commotion to rob some of them.\n🚶 Continue without stopping.\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"👄": [
@@ -81,8 +81,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍗 Pas de chance ! Vous tombez sur un morceau avarié et tombez malade. :sick:",
-					"en": "** | 🍗 Not your lucky day, you end up eating a part which turned bad. :sick:"
+					"fr": "** | 🍗 Pas de chance ! Vous tombez sur un morceau avarié et tombez malade. 🤢",
+					"en": "** | 🍗 Not your lucky day, you end up eating a part which turned bad. 🤢"
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -105,8 +105,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍗 Vous avez bien mangé, vous bavardez avec votre voisin qui ne cesse de vous servir à boire. Vous finissez par vous effondrer, ivre. :zany_face:",
-					"en": "** | 🍗 You ate very well, you chat with a random person who keeps giving you drinks. You end up passing out. :zany_face:"
+					"fr": "** | 🍗 Vous avez bien mangé, vous bavardez avec votre voisin qui ne cesse de vous servir à boire. Vous finissez par vous effondrer, ivre. 🤪",
+					"en": "** | 🍗 You ate very well, you chat with a random person who keeps giving you drinks. You end up passing out. 🤪"
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -195,8 +195,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | 🐐 Vous ne voyez pas la chèvre foncer sur vous et vous tombez à terre, étourdi. :confounded:",
-					"en": "** | 🐐 You don't notice the goat coming right at you, you fall down stunned by the shock. :confounded:"
+					"fr": "** | 🐐 Vous ne voyez pas la chèvre foncer sur vous et vous tombez à terre, étourdi. 😖",
+					"en": "** | 🐐 You don't notice the goat coming right at you, you fall down stunned by the shock. 😖"
 				},
 				"lostTime": 0,
 				"health": -20,

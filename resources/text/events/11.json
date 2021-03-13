@@ -1,14 +1,14 @@
 {
 	"translations": {
-		"fr": " : ** :interrobang: Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.\n\n:deciduous_tree: Traverser quand même la forêt.\n:point_left: Suivre les conseils de l'inconnue.\n:point_right: Eviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :interrobang: As you get ready to enter a forest, a mysterious woman explains there is a shorter path through the west.\n\n:deciduous_tree: Keep going the same way.\n:point_left: Follow the advice of the mysterious woman.\n:point_right: Avoid the forest by going the opposite way you were told.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*"
+		"fr": " : ** ⁉️ Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.\n\n🌳 Traverser quand même la forêt.\n👈 Suivre les conseils de l'inconnue.\n👉 Eviter la forêt en partant du côté opposé à celui qu'on vous a indiqué.\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** ⁉️ As you get ready to enter a forest, a mysterious woman explains there is a shorter path through the west.\n\n🌳 Keep going the same way.\n👈 Follow the advice of the mysterious woman.\n👉 Avoid the forest by going the opposite way you were told.\n\n*-Use reaction to make an action ⚠️ Not responding is considered a separate choice!*"
 	},
 	"possibilities": {
 		"🌳": [
 			{
 				"translations": {
-					"fr": "** | :deciduous_tree: Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégats.",
-					"en": "** | :deciduous_tree: You get lost for several hours in the forest but find your way out without damage."
+					"fr": "** | 🌳 Vous vous perdez pendant plusieurs heures dans la forêt mais finissez par en sortir sans dégats.",
+					"en": "** | 🌳 You get lost for several hours in the forest but find your way out without damage."
 				},
 				"lostTime": 200,
 				"health": 0,
@@ -19,8 +19,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :deciduous_tree: Vous perdez beaucoup de temps à avancer dans la forêt mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
-					"en": "** | :deciduous_tree: You waste a lot of time moving through the forest, but you finally succeed in crossing it! When you come out, you pick up an object that may be useful to you!"
+					"fr": "** | 🌳 Vous perdez beaucoup de temps à avancer dans la forêt mais vous finissez par parvenir à la traverser ! En sortant vous ramassez un objet qui pourra peut être vous être utile !",
+					"en": "** | 🌳 You waste a lot of time moving through the forest, but you finally succeed in crossing it! When you come out, you pick up an object that may be useful to you!"
 				},
 				"lostTime": 130,
 				"health": 0,
@@ -31,8 +31,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :deciduous_tree: En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! :head_bandage:",
-					"en": "** | :deciduous_tree: While crossing the forest, you take a big fall into a ditch. The injury is serious, you absolutely have to heal yourself! :head_bandage:"
+					"fr": "** | 🌳 En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! 🤕",
+					"en": "** | 🌳 While crossing the forest, you take a big fall into a ditch. The injury is serious, you absolutely have to heal yourself! 🤕"
 				},
 				"lostTime": 0,
 				"health": -20,
@@ -45,8 +45,8 @@
 		"👈": [
 			{
 				"translations": {
-					"fr": "** | :walking: C'était en effet un raccourci !",
-					"en": "** | :walking: Indeed, it was a shortcut!"
+					"fr": "** | 🚶 C'était en effet un raccourci !",
+					"en": "** | 🚶 Indeed, it was a shortcut!"
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -57,8 +57,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :deciduous_tree: Vous tombez dans une embuscade ! Après vous avoir volé tous vos bien, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui. :head_bandage:",
-					"en": "** | :deciduous_tree: You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious. :head_bandage:"
+					"fr": "** | 🌳 Vous tombez dans une embuscade ! Après vous avoir volé tous vos bien, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui. 🤕",
+					"en": "** | 🌳 You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious. 🤕"
 				},
 				"lostTime": 0,
 				"health": -40,
@@ -71,8 +71,8 @@
 		"👉": [
 			{
 				"translations": {
-					"fr": "** | :walking: Vous ne savez pas trop pourquoi vous avez pris un chemin 10 fois plus long que celui que vous aviez prévu au départ mais vous avez fini par arriver à bon port.",
-					"en": "** | :walking: You're not sure why you took a route 10 times longer than you originally planned, but you finally arrived at the right place."
+					"fr": "** | 🚶 Vous ne savez pas trop pourquoi vous avez pris un chemin 10 fois plus long que celui que vous aviez prévu au départ mais vous avez fini par arriver à bon port.",
+					"en": "** | 🚶 You're not sure why you took a route 10 times longer than you originally planned, but you finally arrived at the right place."
 				},
 				"lostTime": 140,
 				"health": 0,
@@ -85,8 +85,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | :walking: Vous avez passé de longues minutes à discuter avec l'inconnue vous finissez par repartir ! En suivant ses indications vous arrivez rapidement à bon port.",
-					"en": "** | :walking: After spending several minutes chatting with the mysterious woman you end up leaving. Following her directions, you arrive safely at the other end of the forest."
+					"fr": "** | 🚶 Vous avez passé de longues minutes à discuter avec l'inconnue vous finissez par repartir ! En suivant ses indications vous arrivez rapidement à bon port.",
+					"en": "** | 🚶 After spending several minutes chatting with the mysterious woman you end up leaving. Following her directions, you arrive safely at the other end of the forest."
 				},
 				"lostTime": 45,
 				"health": 0,

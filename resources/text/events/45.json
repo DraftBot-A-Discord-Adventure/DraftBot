@@ -1,14 +1,14 @@
 {
 	"translations": {
-		"fr": " : ** :house_abandoned: Alors que vous traversiez un village animé, vous entendez un groupe de personnes parler d'un sanctuaire qui serait hanté. Curieux que vous êtes, vous continuez à écouter. Le sanctuaire serait à 1 heure de route au Sud, et le départ a lieu dans 30 minutes.\n\n🚶 Aller au sanctuaire en solitaire\n⤴️ Demander au groupe de les rejoindre\n🔊 Discuter avec le groupe\n▶️ Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :house_abandoned: As you walk through a lively village, you hear a group of people talking about a haunted shrine. Feeling curious, you keep listening, and discover that the shrine would be a 1 hour journey to the South, and the departure is in 30 minutes.\n\n🚶 Go to the shrine alone\n⤴️ Ask the group to join them\n🔊 Discuss with the group\n▶️ Continue on your journey\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🏚️ Alors que vous traversiez un village animé, vous entendez un groupe de personnes parler d'un sanctuaire qui serait hanté. Curieux que vous êtes, vous continuez à écouter. Le sanctuaire serait à 1 heure de route au Sud, et le départ a lieu dans 30 minutes.\n\n🚶 Aller au sanctuaire en solitaire\n⤴️ Demander au groupe de les rejoindre\n🔊 Discuter avec le groupe\n▶️ Continuer votre route\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🏚️ As you walk through a lively village, you hear a group of people talking about a haunted shrine. Feeling curious, you keep listening, and discover that the shrine would be a 1 hour journey to the South, and the departure is in 30 minutes.\n\n🚶 Go to the shrine alone\n⤴️ Ask the group to join them\n🔊 Discuss with the group\n▶️ Continue on your journey\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🚶": [
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous décidez d'aller au sanctuaire tout seul. Après 30 minutes de route, le sol s'effondre tout à coup sous vos pieds et vous chutez violemment. :head_bandage: ",
-					"en": "** | 🚶 You decide to go to the shrine on your own. After 30 minutes of walking, the road shatters under your feet and you fall violently. :head_bandage: "
+					"fr": "** | 🚶 Vous décidez d'aller au sanctuaire tout seul. Après 30 minutes de route, le sol s'effondre tout à coup sous vos pieds et vous chutez violemment. 🤕 ",
+					"en": "** | 🚶 You decide to go to the shrine on your own. After 30 minutes of walking, the road shatters under your feet and you fall violently. 🤕 "
 				},
 				"lostTime": 0,
 				"health": -40,
@@ -19,8 +19,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous décidez d'aller au sanctuaire tout seul. Arrivé au site, vous entendez un bruit étrange, pris de panique, vous courez et trébuchez. Vous vous faites une vilaine égratinure à la jambe, celle-ci ne tarde pas à s'infecter. :sick: ",
-					"en": "** | 🚶 You decide to go to the shrine on your own. Arriving at the site, you are startled by an eerie noise. In a panic, you attempt to leave, but stumble over a sharp rusty object in your path. You suffer a deep wound to your leg, which gets infected immediately. :sick: "
+					"fr": "** | 🚶 Vous décidez d'aller au sanctuaire tout seul. Arrivé au site, vous entendez un bruit étrange, pris de panique, vous courez et trébuchez. Vous vous faites une vilaine égratinure à la jambe, celle-ci ne tarde pas à s'infecter. 🤢 ",
+					"en": "** | 🚶 You decide to go to the shrine on your own. Arriving at the site, you are startled by an eerie noise. In a panic, you attempt to leave, but stumble over a sharp rusty object in your path. You suffer a deep wound to your leg, which gets infected immediately. 🤢 "
 				},
 				"lostTime": 0,
 				"health": -10,
@@ -159,8 +159,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | 🕵️ Le groupe pensant être espionné vous frappe violemment. :confounded: ",
-					"en": "** | 🕵️ The group believes that they are being spied on and attacks you violently. :confounded: "
+					"fr": "** | 🕵️ Le groupe pensant être espionné vous frappe violemment. 😖 ",
+					"en": "** | 🕵️ The group believes that they are being spied on and attacks you violently. 😖 "
 				},
 				"lostTime": 0,
 				"health": -25,
