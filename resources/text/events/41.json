@@ -25,7 +25,7 @@
 				"lostTime": 180,
 				"health": 0,
 				"effect": ":clock2:",
-				"experience": 25,
+				"experience": 125,
 				"money": 75,
 				"item": false
 			},
@@ -37,7 +37,7 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":smiley:",
-				"experience": 0,
+				"experience": 150,
 				"money": 0,
 				"item": false
 			},
@@ -63,7 +63,7 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":lock:",
-				"experience": 15,
+				"experience": 0,
 				"money": 0,
 				"item": false
 			},
@@ -111,9 +111,9 @@
 					"en": "** | 🔓 You decide to notify your cellmate of your plan, you make a diversion and he steals the keys from the jailer’s pockets. He opens the cell when the jailer realizes the trickery. A fight ensue but your cellmate decides to help free you. You then go away very far, where you will take a delicious hot meal."
 				},
 				"lostTime": 0,
-				"health": 0,
+				"health": 5,
 				"effect": ":smiley:",
-				"experience": 0,
+				"experience": 350,
 				"money": 0,
 				"item": false
 			},

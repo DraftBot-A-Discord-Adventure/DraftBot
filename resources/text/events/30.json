@@ -13,7 +13,7 @@
 				"lostTime": 50,
 				"health": 10,
 				"effect": ":clock2:",
-				"experience": 75,
+				"experience": 225,
 				"money": 0,
 				"item": false
 			},
@@ -37,7 +37,7 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":lock:",
-				"experience": 25,
+				"experience": 0,
 				"money": 0,
 				"item": false
 			}
@@ -127,7 +127,7 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":lock:",
-				"experience": 25,
+				"experience": 0,
 				"money": 0,
 				"item": false
 			},

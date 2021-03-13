@@ -75,7 +75,7 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":smiley:",
-				"experience": 0,
+				"experience": 150,
 				"money": -100,
 				"item": false
 			}
@@ -189,7 +189,7 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":sick:",
-				"experience": 420,
+				"experience": 0,
 				"money": 200,
 				"item": true
 			}
@@ -215,7 +215,7 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":confounded:",
-				"experience": 20,
+				"experience": 10,
 				"money": 0,
 				"item": true
 			},
