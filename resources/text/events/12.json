@@ -1,14 +1,14 @@
 {
 	"translations": {
-		"fr": " : ** :park: Vous voyez une rivière devant vous, de l'autre côté du rivage, vous apercevez un village.\n\n:swimmer: Traverser la rivière en nageant \n:rowboat: Tenter de bricoler un petit bateau \n:bridge_at_night: Chercher un pont plus loin\n:walking: Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :park: You see a river in front of you. On the other shore, you catch a glimpse of a village.\n\n:swimmer: Swim across the river.\n:rowboat: Try to make a raft.\n:bridge_at_night: Look for a bridge further away.\n:walking: Go another way.\n\n*-Use reaction to make an action :warning: Not responding is considered a separate choice!*"
+		"fr": " : ** 🏞️ Vous voyez une rivière devant vous, de l'autre côté du rivage, vous apercevez un village.\n\n:swimmer: Traverser la rivière en nageant \n:rowboat: Tenter de bricoler un petit bateau \n🌉 Chercher un pont plus loin\n🚶 Partir dans une autre direction\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🏞️ You see a river in front of you. On the other shore, you catch a glimpse of a village.\n\n:swimmer: Swim across the river.\n:rowboat: Try to make a raft.\n🌉 Look for a bridge further away.\n🚶 Go another way.\n\n*-Use reaction to make an action ⚠️ Not responding is considered a separate choice!*"
 	},
 	"possibilities": {
 		"🏊": [
 			{
 				"translations": {
-					"fr": "** | 🏊 L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté, vous vous rendez compte de votre erreur. Vous êtes gelé et affaibli. Il faudra vous soigner avant de continuer ! :cold_face:",
-					"en": "** | 🏊 The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing! :cold_face:"
+					"fr": "** | 🏊 L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté, vous vous rendez compte de votre erreur. Vous êtes gelé et affaibli. Il faudra vous soigner avant de continuer ! 🥶",
+					"en": "** | 🏊 The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing! 🥶"
 				},
 				"lostTime": 0,
 				"health": -30,
@@ -45,8 +45,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer ! :cold_face:",
-					"en": "** | 🚣 After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue! :cold_face:"
+					"fr": "** | 🚣 Aprés avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer ! 🥶",
+					"en": "** | 🚣 After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue! 🥶"
 				},
 				"lostTime": 0,
 				"health": -30,
@@ -107,8 +107,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🌉 Au bout de quelques minutes vous trouvez un petit pont en bois. Malheureusement il est délabré car personne ne l'a emprunté depuis des années et après quelques pas, il s'effondre sous votre poids ! Vous parvenez à vous accrocher à la rive de la rivière sans être mouillé et vous vous relevez, sonné, il faudra aller vous soigner ! :confounded:",
-					"en": "** | 🌉 After a while you finally discover a wooden bridge. Sadly, it is in very bad condition because it has not been used for a long time. After you cross half the bridge, it collapses. You manage to cross the river but you are completely soaked. Confounded by this mishap, you will need to rest before continuing! :confounded:"
+					"fr": "** | 🌉 Au bout de quelques minutes vous trouvez un petit pont en bois. Malheureusement il est délabré car personne ne l'a emprunté depuis des années et après quelques pas, il s'effondre sous votre poids ! Vous parvenez à vous accrocher à la rive de la rivière sans être mouillé et vous vous relevez, sonné, il faudra aller vous soigner ! 😖",
+					"en": "** | 🌉 After a while you finally discover a wooden bridge. Sadly, it is in very bad condition because it has not been used for a long time. After you cross half the bridge, it collapses. You manage to cross the river but you are completely soaked. Confounded by this mishap, you will need to rest before continuing! 😖"
 				},
 				"lostTime": 0,
 				"health": -25,
@@ -135,8 +135,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | :clock1030: Au bout de quelques heures au bord de la rivière, vous finissez par repartir dans une direction aléatoire.",
-					"en": "** | :clock1030: After a few hours on the riverside, you finally walk away in a random direction."
+					"fr": "** | 🕑 Au bout de quelques heures au bord de la rivière, vous finissez par repartir dans une direction aléatoire.",
+					"en": "** | 🕑 After a few hours on the riverside, you finally walk away in a random direction."
 				},
 				"lostTime": 165,
 				"health": 0,

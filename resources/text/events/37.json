@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** :person_walking: Vous marchez tranquillement, le temps est clair et la route bonne. Vous pensez à la douce nuit que vous passerez dans une auberge du prochain village que vous traverserez, et cela vous donne à nouveau le courage d'avancer. La route est pour le moment si calme que, tout en marchant, vous vous plongez dans vos pensées. Vous vous rendez compte que, bien qu'ayant commencé votre aventure dans le but de prouver votre valeur et d'épouser la princesse, vous prenez de plus en plus goût à votre voyage. Alors que vous n'êtes plus très loin du village qui est votre objectif du jour, il commence à pleuvoir.\n\n:person_walking: Continuer à marcher\n:person_running: Accélérer afin de ne pas trop se mouiller\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :person_walking: You are walking quietly, the weather is clear, just like the road. You think about the sweet night you will spend in an inn at the next village you will cross, and this allows you to keep the courage to move forward. The road is so calm that, while walking, you immerse yourself in your thoughts. You realize that, although you have begun your adventure in order to prove your worth and to marry the princess, you start to love your journey more and more. While you are no longer very far from the village which is your objective of the day, it starts raining.\n\n:person_walking: Continue to walk\n:person_running: Speed up so you don’t get too wet\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🚶 Vous marchez tranquillement, le temps est clair et la route bonne. Vous pensez à la douce nuit que vous passerez dans une auberge du prochain village que vous traverserez, et cela vous donne à nouveau le courage d'avancer. La route est pour le moment si calme que, tout en marchant, vous vous plongez dans vos pensées. Vous vous rendez compte que, bien qu'ayant commencé votre aventure dans le but de prouver votre valeur et d'épouser la princesse, vous prenez de plus en plus goût à votre voyage. Alors que vous n'êtes plus très loin du village qui est votre objectif du jour, il commence à pleuvoir.\n\n🚶 Continuer à marcher\n🏃 Accélérer afin de ne pas trop se mouiller\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🚶 You are walking quietly, the weather is clear, just like the road. You think about the sweet night you will spend in an inn at the next village you will cross, and this allows you to keep the courage to move forward. The road is so calm that, while walking, you immerse yourself in your thoughts. You realize that, although you have begun your adventure in order to prove your worth and to marry the princess, you start to love your journey more and more. While you are no longer very far from the village which is your objective of the day, it starts raining.\n\n🚶 Continue to walk\n🏃 Speed up so you don’t get too wet\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🚶": [
@@ -89,7 +89,7 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":smiley:",
-				"experience": 325,
+				"experience": 450,
 				"money": 0,
 				"item": true
 			}

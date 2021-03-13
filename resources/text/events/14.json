@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** :house: Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n:hammer: Discuter avec l'ouvrier\n🛏 Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n:walking: Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :house: You arrive at a plain where a single small house stands. As you get closer, you see a man working on an incandescent piece of metal.\n\n:hammer: Chat with the worker\n🛏 Ask to stay the night to rest and recover\n:walking: You don't have time to lose! Continue walking!\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🏠 Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n🔨 Discuter avec l'ouvrier\n🛏️ Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n🚶 Pas de temps à perdre ! Il faut continuer votre route !\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🏠 You arrive at a plain where a single small house stands. As you get closer, you see a man working on an incandescent piece of metal.\n\n🔨 Chat with the worker\n🛏️ Ask to stay the night to rest and recover\n🚶 You don't have time to lose! Continue walking!\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🔨": [
@@ -31,8 +31,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🔨 L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l’idée d’obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l’idée de créer votre propre arme. :dizzy_face: !",
-					"en": "** | 🔨 The worker sees you and suggests that you make a sword with him. Enthusiastic about getting a new weapon, you accept. You don't take long to clumsily drop your heavy creation onto your foot. Seriously wounded, you give up the idea of creating your own weapon. :dizzy_face: !"
+					"fr": "** | 🔨 L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l’idée d’obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l’idée de créer votre propre arme. 😵 !",
+					"en": "** | 🔨 The worker sees you and suggests that you make a sword with him. Enthusiastic about getting a new weapon, you accept. You don't take long to clumsily drop your heavy creation onto your foot. Seriously wounded, you give up the idea of creating your own weapon. 😵 !"
 				},
 				"lostTime": 0,
 				"health": -70,
@@ -42,11 +42,11 @@
 				"item": false
 			}
 		],
-		"🛏": [
+		"🛏️": [
 			{
 				"translations": {
-					"fr": "** | 🛏 Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Epuisé, vous vous écroulez de fatigue sur le lit :sleeping:",
-					"en": "** | 🛏 After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed :sleeping:"
+					"fr": "** | 🛏️ Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Epuisé, vous vous écroulez de fatigue sur le lit 😴",
+					"en": "** | 🛏️ After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed 😴"
 				},
 				"lostTime": 0,
 				"health": 10,
@@ -57,8 +57,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🛏 L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refusez poliment et reprenez votre route.",
-					"en": "** | 🛏 The man quickly admits he can't accommodate you for the night, but offers to share his meal with you. You politely refuse and go back on your way."
+					"fr": "** | 🛏️ L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refusez poliment et reprenez votre route.",
+					"en": "** | 🛏️ The man quickly admits he can't accommodate you for the night, but offers to share his meal with you. You politely refuse and go back on your way."
 				},
 				"lostTime": 5,
 				"health": 0,
@@ -69,8 +69,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🛏 Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers",
-					"en": "** | 🛏 You only get a simple growl in response. The residents of the region seem to dislike foreigners"
+					"fr": "** | 🛏️ Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers",
+					"en": "** | 🛏️ You only get a simple growl in response. The residents of the region seem to dislike foreigners"
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -81,8 +81,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🛏 L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son souper. Affamé et épuisé, vous acceptez son offre.",
-					"en": "** | 🛏 The man quickly refuses to share his bed with you but offers to share his dinner with you. Hungry and exhausted, you accept his offer."
+					"fr": "** | 🛏️ L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son souper. Affamé et épuisé, vous acceptez son offre.",
+					"en": "** | 🛏️ The man quickly refuses to share his bed with you but offers to share his dinner with you. Hungry and exhausted, you accept his offer."
 				},
 				"lostTime": 100,
 				"health": 5,
@@ -119,8 +119,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous décidez de continuer à marcher malgré la fatigue. Après quelques kilomètres, vous vous écroulez au bord du chemin. :sick:",
-					"en": "** | 🚶 You decide to continue walking despite the fatigue. After a few miles, you collapse at the side of the road. :sick:"
+					"fr": "** | 🚶 Vous décidez de continuer à marcher malgré la fatigue. Après quelques kilomètres, vous vous écroulez au bord du chemin. 🤢",
+					"en": "** | 🚶 You decide to continue walking despite the fatigue. After a few miles, you collapse at the side of the road. 🤢"
 				},
 				"lostTime": 0,
 				"health": -40,
