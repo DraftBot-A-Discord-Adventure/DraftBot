@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** :evergreen_tree: Vous vous enfoncez dans une forêt sombre, et apercevez la silhouette d'un homme au loin. Vous décidez de vous approcher et comprenez que c'est un ermite, sorti pour la cueillette. Vous vous approchez de sa maison, sur laquelle vous lisez l'inscription \"Xetrix\", ce qui est probablement son nom. Vous réfléchissez encore à quoi faire...\n\n:mag_right: S'introduire dans la maison\n:speaking_head: Demander des conseils à l'ermite\n:person_walking: Repartir par là d'où vous venez\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :evergreen_tree: As you go deep into a dark forest, you see the silhouette of a man in the distance. While going closer, you realize he's a hermit, out for the picking. You approach his house, on which you read the inscription \"Xetrix\", which is probably his name. You're thinking about what to do...\n\n:mag_right: Break into his house\n:speaking_head: Ask the hermit for advices\n:person_walking: Go back the way you came from\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🌲 Vous vous enfoncez dans une forêt sombre, et apercevez la silhouette d'un homme au loin. Vous décidez de vous approcher et comprenez que c'est un ermite, sorti pour la cueillette. Vous vous approchez de sa maison, sur laquelle vous lisez l'inscription \"Xetrix\", ce qui est probablement son nom. Vous réfléchissez encore à quoi faire...\n\n🔎 S'introduire dans la maison\n🗣️ Demander des conseils à l'ermite\n🚶 Repartir par là d'où vous venez\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🌲 As you go deep into a dark forest, you see the silhouette of a man in the distance. While going closer, you realize he's a hermit, out for the picking. You approach his house, on which you read the inscription \"Xetrix\", which is probably his name. You're thinking about what to do...\n\n🔎 Break into his house\n🗣️ Ask the hermit for advices\n🚶 Go back the way you came from\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🔎": [
@@ -19,8 +19,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🔎 Vous décidez de rentrer dans la maison de ce Xetrix, vous commencez à le voler alors qu'il arrive.. Il vous voit et vous fonce dessus mais vous réussissez à fuir après vous être débattu, car vous êtes plus agile que lui. Cependant vous êtes blessé et avez perdu tout votre butin dans l'altercation. :head_bandage:",
-					"en": "** | 🔎 You decide to get into this Xetrix's house, and are stealing him as he comes in... He sees and rushes to you but you manage to escape after some struggle, : you're more agile than him. However, you are injured and have lost all of your loot in the altercation. :head_bandage:"
+					"fr": "** | 🔎 Vous décidez de rentrer dans la maison de ce Xetrix, vous commencez à le voler alors qu'il arrive.. Il vous voit et vous fonce dessus mais vous réussissez à fuir après vous être débattu, car vous êtes plus agile que lui. Cependant vous êtes blessé et avez perdu tout votre butin dans l'altercation. 🤕",
+					"en": "** | 🔎 You decide to get into this Xetrix's house, and are stealing him as he comes in... He sees and rushes to you but you manage to escape after some struggle, you're more agile than him. However, you are injured and have lost all of your loot in the altercation. 🤕"
 				},
 				"lostTime": 0,
 				"health": -30,
@@ -69,13 +69,13 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🗣️ Vous le voyez rentrer, alors vous entrez à sa suite, et lui demandez des conseils. Finalement vous sympathisez et il vous invite pour diner. Pendant le repas vous buvez un peu trop et finissez ivre. :zany_face: ",
-					"en": "** | 🗣️ You see him come in, so you go after him to ask for advices. Eventually you hit it off and he invites you over for dinner. During the meal you drink a little too much and end up drunk. :zany_face:"
+					"fr": "** | 🗣️ Vous le voyez rentrer, alors vous entrez à sa suite, et lui demandez des conseils. Finalement vous sympathisez et il vous invite pour diner. Pendant le repas vous buvez un peu trop et finissez ivre. 🤪 ",
+					"en": "** | 🗣️ You see him come in, so you go after him to ask for advices. Eventually you hit it off and he invites you over for dinner. During the meal you drink a little too much and end up drunk. 🤪"
 				},
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":zany_face:",
-				"experience": 150,
+				"experience": 0,
 				"money": 0,
 				"item": false
 			}
@@ -121,8 +121,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles. :sick: ",
-					"en": "** | 🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. :sick:"
+					"fr": "** | 🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles. 🤢 ",
+					"en": "** | 🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. 🤢"
 				},
 				"lostTime": 0,
 				"health": 0,

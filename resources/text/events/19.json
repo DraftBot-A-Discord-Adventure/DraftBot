@@ -1,14 +1,14 @@
 {
 	"translations": {
-		"fr": " : ** :fox: Après de longs jours sans avoir pu vous sustenter, vous voyez sur le bord du chemin un cadavre de renard, semblant tout frais.\n\n:fork_knife_plate: Tenter de cuisiner le renard\n:walking: Ignorer simplement cela et vous dépêcher de rejoindre l'auberge la plus proche\n:knife: Dépecer le renard pour revendre sa peau.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :fox: After many days without sustenance, you see a dead fox on the side of the road, looking fresh. \n\n:fork_knife_plate: Try to cook the fox\n:walking: Simply ignore it and hurry to the nearest inn\n:knife: Butcher the fox and resell its skin.\n\n*-Use reaction to make an action :warning: Not responding is consided a separate choice!*"
+		"fr": " : ** 🦊 Après de longs jours sans avoir pu vous sustenter, vous voyez sur le bord du chemin un cadavre de renard, semblant tout frais.\n\n🍽️ Tenter de cuisiner le renard\n🚶 Ignorer simplement cela et vous dépêcher de rejoindre l'auberge la plus proche\n🔪 Dépecer le renard pour revendre sa peau.\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🦊 After many days without sustenance, you see a dead fox on the side of the road, looking fresh. \n\n🍽️ Try to cook the fox\n🚶 Simply ignore it and hurry to the nearest inn\n🔪 Butcher the fox and resell its skin.\n\n*-Use reaction to make an action ⚠️ Not responding is consided a separate choice!*"
 	},
 	"possibilities": {
-		"🍽": [
+		"🍽️": [
 			{
 				"translations": {
-					"fr": "** | 🍽 Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, vous tombez malade peu de temps après avoir goûté votre préparation. :sick: ",
-					"en": "** | 🍽 Considering your poor cooking skills, you should've expected it, but you get sick soon after tasting your meal. :sick:"
+					"fr": "** | 🍽️ Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, vous tombez malade peu de temps après avoir goûté votre préparation. 🤢 ",
+					"en": "** | 🍽️ Considering your poor cooking skills, you should've expected it, but you get sick soon after tasting your meal. 🤢"
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -19,8 +19,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍽 Malgré vos compétences réduites en cuisine, votre renard à la broche a le mérite de vous avoir nourri.",
-					"en": "** | 🍽 Despite your reduced cooking skills, your fox on the spit satiates you well."
+					"fr": "** | 🍽️ Malgré vos compétences réduites en cuisine, votre renard à la broche a le mérite de vous avoir nourri.",
+					"en": "** | 🍽️ Despite your reduced cooking skills, your fox on the spit satiates you well."
 				},
 				"lostTime": 40,
 				"health": 0,
@@ -31,8 +31,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍽 Vous vous approchez du renard afin de le ramasser, quand tout à coup il se lève et vous mord ! Vous fuyez, blessé et l'estomac dans les talons.",
-					"en": "** | 🍽 You approach the fox to pick him up, when all of a sudden, he jumps up and bites you! You run away, injured in your stomach and your heels."
+					"fr": "** | 🍽️ Vous vous approchez du renard afin de le ramasser, quand tout à coup il se lève et vous mord ! Vous fuyez, blessé et l'estomac dans les talons.",
+					"en": "** | 🍽️ You approach the fox to pick him up, when all of a sudden, he jumps up and bites you! You run away, injured in your stomach and your heels."
 				},
 				"lostTime": 0,
 				"health": -20,
@@ -43,8 +43,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍽 Vous avez étonnamment bien cuisiné ce renard, après l'avoir mangé vous vous sentez requinqué.",
-					"en": "** | 🍽 You cooked this fox surprisingly well. After eating it, you feel refreshed."
+					"fr": "** | 🍽️ Vous avez étonnamment bien cuisiné ce renard, après l'avoir mangé vous vous sentez requinqué.",
+					"en": "** | 🍽️ You cooked this fox surprisingly well. After eating it, you feel refreshed."
 				},
 				"lostTime": 40,
 				"health": 20,
@@ -107,8 +107,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, un peu tard puisque vous vous sentez rapidement mal en point ! :sick:",
-					"en": "** | 🔪 You butcher the fox and look for a place to sell his fur. Unfortunately, it rots very quickly, and flies begin to swarm you. You end up leaving him by the side of the road, but it seems you still fell ill! :sick:"
+					"fr": "** | 🔪 Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, un peu tard puisque vous vous sentez rapidement mal en point ! 🤢",
+					"en": "** | 🔪 You butcher the fox and look for a place to sell his fur. Unfortunately, it rots very quickly, and flies begin to swarm you. You end up leaving him by the side of the road, but it seems you still fell ill! 🤢"
 				},
 				"lostTime": 0,
 				"health": 0,

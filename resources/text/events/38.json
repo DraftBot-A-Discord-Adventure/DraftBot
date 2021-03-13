@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** :person_walking: Faisant route, vous croisez un marchand itinérant, qui vous interpelle. Il dit avoir des objets qui pourraient vous intéresser, et ce à des prix tout à fait abordables.\n\n:money_with_wings: Accepter de lui acheter un objet peu cher\n:moneybag: Lui acheter un de ses plus chers objets\n:x: Refuser\n:detective: Voler sa marchandise\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :person_walking: On your way, you meet a traveling merchant. He says that he possesses some nice items that might interest you, for cheap.\n\n:money_with_wings: Buy a cheap item.\n:moneybag: Try your luck by buying one of his most expensive ones.\n:x: Decline his offer.\n:detective: Attempt to rob him.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🚶 Faisant route, vous croisez un marchand itinérant, qui vous interpelle. Il dit avoir des objets qui pourraient vous intéresser, et ce à des prix tout à fait abordables.\n\n💸 Accepter de lui acheter un objet peu cher\n💰 Lui acheter un de ses plus chers objets\n❌ Refuser\n🕵️ Voler sa marchandise\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🚶 On your way, you meet a traveling merchant. He says that he possesses some nice items that might interest you, for cheap.\n\n💸 Buy a cheap item.\n💰 Try your luck by buying one of his most expensive ones.\n❌ Decline his offer.\n🕵️ Attempt to rob him.\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"💸": [
@@ -109,8 +109,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🕵️ Vous commencez à voler le marchand, qui le remarque. Il vous assène un violent coup de poing, puis repart. :head_bandage:",
-					"en": "** | 🕵️ The merchant notices you as you start robbing him. He knocks your teeth out with a punch then leaves. :head_bandage:"
+					"fr": "** | 🕵️ Vous commencez à voler le marchand, qui le remarque. Il vous assène un violent coup de poing, puis repart. 🤕",
+					"en": "** | 🕵️ The merchant notices you as you start robbing him. He knocks your teeth out with a punch then leaves. 🤕"
 				},
 				"lostTime": 0,
 				"health": -20,
@@ -123,20 +123,20 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | :person_walking: Vous ignorez complètement le marchand et reprenez votre route.",
-					"en": "** | :person_walking: You completely ignore the merchant and go your way."
+					"fr": "** | 🚶 Vous ignorez complètement le marchand et reprenez votre route.",
+					"en": "** | 🚶 You completely ignore the merchant and go your way."
 				},
 				"lostTime": 10,
 				"health": 0,
 				"effect": ":clock2:",
-				"experience": 150,
+				"experience": 25,
 				"money": 0,
 				"item": false
 			},
 			{
 				"translations": {
-					"fr": "** | :busts_in_silhouette: Vous finissez par aller voir le marchand, vous discutez un long moment avec lui, et vous vous liez d'amitié. Avant de partir il vous offre un petit objet qui pourrait peut être vous servir durant votre voyage.",
-					"en": "** | :busts_in_silhouette: You end up walking up to him. You finally befriend him after talking for a long time and he offers you a small item that he thinks could be helpful for your adventure."
+					"fr": "** | 👥 Vous finissez par aller voir le marchand, vous discutez un long moment avec lui, et vous vous liez d'amitié. Avant de partir il vous offre un petit objet qui pourrait peut être vous servir durant votre voyage.",
+					"en": "** | 👥 You end up walking up to him. You finally befriend him after talking for a long time and he offers you a small item that he thinks could be helpful for your adventure."
 				},
 				"lostTime": 180,
 				"health": 0,
@@ -147,8 +147,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :busts_in_silhouette: Vous discutez un moment avec le marchand, sympathisez avec lui, et lorsque le soleil commence à se coucher, il vous annonce qu'il est temps pour lui de partir. Vous vous saluez, et repartez chacun de votre côté.",
-					"en": "** | :busts_in_silhouette: You chat with him for a long time. However as the sun starts to set, it's time for you to part. You send him off and then end up leaving."
+					"fr": "** | 👥 Vous discutez un moment avec le marchand, sympathisez avec lui, et lorsque le soleil commence à se coucher, il vous annonce qu'il est temps pour lui de partir. Vous vous saluez, et repartez chacun de votre côté.",
+					"en": "** | 👥 You chat with him for a long time. However as the sun starts to set, it's time for you to part. You send him off and then end up leaving."
 				},
 				"lostTime": 180,
 				"health": 0,

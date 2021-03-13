@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** :fireworks: Vous montez sur une colline. Alors que vous regardez autour de vous, vous voyez des lumières au loin. Au fur et à mesure que vous vous approchez, vous entendez également de la musique. C'est un festival ! Excité de faire la fête, vous courez vers la ville.\n\n:dart: Aller à un stand de jeu\n:circus_tent: Aller à un stand de vente d'objets\n:oden: Aller à un stand de nourriture \n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :fireworks: You're going up a hill. As you look around, you see lights in the distance. As you get closer, you also hear music. It's a festival! Excited to party, you run to the city.\n\n:dart: Go to a game stand\n:circus_tent: Go to an item stand\n:oden: Go to a food stand \n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🎆 Vous montez sur une colline. Alors que vous regardez autour de vous, vous voyez des lumières au loin. Au fur et à mesure que vous vous approchez, vous entendez également de la musique. C'est un festival ! Excité de faire la fête, vous courez vers la ville.\n\n🎯 Aller à un stand de jeu\n🎪 Aller à un stand de vente d'objets\n🍢 Aller à un stand de nourriture \n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🎆 You're going up a hill. As you look around, you see lights in the distance. As you get closer, you also hear music. It's a festival! Excited to party, you run to the city.\n\n🎯 Go to a game stand\n🎪 Go to an item stand\n🍢 Go to a food stand \n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🎯": [
@@ -83,8 +83,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍢 Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé. :sick:",
-					"en": "** | 🍢 This food is strange. As soon as you eat it, you get a headache, begin hallucinating, and feel nausea. You were poisoned! From the smile of your cook, there is no doubt about it. You throw the poison back up onto the table, but you're not sure if you threw it all up. :sick:"
+					"fr": "** | 🍢 Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé. 🤢",
+					"en": "** | 🍢 This food is strange. As soon as you eat it, you get a headache, begin hallucinating, and feel nausea. You were poisoned! From the smile of your cook, there is no doubt about it. You throw the poison back up onto the table, but you're not sure if you threw it all up. 🤢"
 				},
 				"lostTime": 0,
 				"health": -100,

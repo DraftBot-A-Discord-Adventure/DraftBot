@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** :mag_right: Après plusieurs jours de voyage sans encombre vous finissez par arriver sur les lieux d'une petite escarmouche entre deux groupes armés. Les esprits semblent cependant s'être calmés et vous remarquez plusieurs soldats affairés à rechercher des éventuels survivants.\n\n:handshake: Proposer son aide\n:spy: Piller les corps\n:walking: Ne pas les aider\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :mag_right: As you wander around, you come across a battlefield, in the surrounding area, you notice several soldiers looking for possible survivors of a massacre.\n\n:handshake: Offer to help\n:spy: Steal of bodies\n:walking: Don't help them\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🔎 Après plusieurs jours de voyage sans encombre vous finissez par arriver sur les lieux d'une petite escarmouche entre deux groupes armés. Les esprits semblent cependant s'être calmés et vous remarquez plusieurs soldats affairés à rechercher des éventuels survivants.\n\n🤝 Proposer son aide\n🕵️ Piller les corps\n🚶 Ne pas les aider\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🔎 As you wander around, you come across a battlefield, in the surrounding area, you notice several soldiers looking for possible survivors of a massacre.\n\n🤝 Offer to help\n🕵️ Steal of bodies\n🚶 Don't help them\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🤝": [
@@ -30,11 +30,11 @@
 				"item": false
 			}
 		],
-		"🕵": [
+		"🕵️": [
 			{
 				"translations": {
-					"fr": "** | 🕵 Vous décidez de contourner les soldats, et allez piller les corps des pauvres défunts pour tenter de vous enrichir un petit peu.",
-					"en": "** | 🕵 You decide to go around the soldiers, and go loot the bodies of the deceased to make yourself that tiny bit richer."
+					"fr": "** | 🕵️ Vous décidez de contourner les soldats, et allez piller les corps des pauvres défunts pour tenter de vous enrichir un petit peu.",
+					"en": "** | 🕵️ You decide to go around the soldiers, and go loot the bodies of the deceased to make yourself that tiny bit richer."
 				},
 				"lostTime": 15,
 				"health": 0,
@@ -45,8 +45,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🕵 En pillant les corps, vous vous faites attraper brusquement par un soldat. Vous rendez donc immédiatement ce que vous avez récupéré avant de continuer votre route rapidement.",
-					"en": "** | 🕵 By looting the bodies, you get caught brutally by a soldier. You immediately return what you collected before quickly continuing on your journey."
+					"fr": "** | 🕵️ En pillant les corps, vous vous faites attraper brusquement par un soldat. Vous rendez donc immédiatement ce que vous avez récupéré avant de continuer votre route rapidement.",
+					"en": "** | 🕵️ By looting the bodies, you get caught brutally by a soldier. You immediately return what you collected before quickly continuing on your journey."
 				},
 				"lostTime": 25,
 				"health": 0,
@@ -83,8 +83,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶 Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. :head_bandage:",
-					"en": "** | 🚶 In a hurry to continue your journey, you trip on a lifeless body, and get hurt. :head_bandage:"
+					"fr": "** | 🚶 Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. 🤕",
+					"en": "** | 🚶 In a hurry to continue your journey, you trip on a lifeless body, and get hurt. 🤕"
 				},
 				"lostTime": 0,
 				"health": -15,
@@ -109,8 +109,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 👀 Fatigué, vous tombez raide et vous endormez au sol. :sleeping:",
-					"en": "** | 👀 Tired, you fall sound asleep on the ground. :sleeping:"
+					"fr": "** | 👀 Fatigué, vous tombez raide et vous endormez au sol. 😴",
+					"en": "** | 👀 Tired, you fall sound asleep on the ground. 😴"
 				},
 				"lostTime": 0,
 				"health": -25,
