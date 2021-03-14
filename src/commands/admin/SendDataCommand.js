@@ -6,7 +6,7 @@
  */
 const SendDataCommand = async (language, message, args) => {
 	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.CONTRIBUTORS)) !== true) {
+		PERMISSION.ROLE.BOTOWNER)) !== true) {
 		return;
 	}
 
