@@ -7,7 +7,7 @@
 		"🍎": [
 			{
 				"translations": {
-					"fr": "** | 🍎 Vous grimpez le plus haut possible et décrochez un fruit. Vous comblez rapidement votre faim et sentez vos forces se revigorer de cet aport de sucre.",
+					"fr": "** | 🍎 Vous grimpez le plus haut possible et décrochez un fruit. Vous comblez rapidement votre faim et sentez vos forces se revigorer de cet apport de sucre.",
 					"en": "** | 🍎 You climb as high as you can and pick fruit. You quickly satisfy your hunger and feel your strength revitalised by this sugary boost."
 				},
 				"lostTime": 0,
@@ -19,7 +19,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍎 Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'éffondre sous votre poid ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprenez votre route. 😖",
+					"fr": "** | 🍎 Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'effondre sous votre poids ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprenez votre route. 😖",
 					"en": "** | 🍎 As you were about to pick fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way. 😖"
 				},
 				"lostTime": 0,

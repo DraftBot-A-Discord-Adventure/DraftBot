@@ -8,7 +8,7 @@
 			{
 				"translations": {
 					"fr": "** | 🦸 Alors que vous essayez de le secourir, il prend peur et vous assomme avec sa pierre. Vous mettez un certain temps à reprendre vos esprits et repartez.",
-					"en": "** | 🦸 As you try to help him, he gets scared and knocks you out with the rock. You stay uncounscious for a while, but eventually wake up and get on your way."
+					"en": "** | 🦸 As you try to help him, he gets scared and knocks you out with the rock. You stay unconscious for a while, but eventually wake up and get on your way."
 				},
 				"lostTime": 60,
 				"health": -10,
@@ -20,7 +20,7 @@
 			{
 				"translations": {
 					"fr": "** | 🦸 Vous vous jetez sur la pierre et la rattrapez. Vous coupez rapidement la corde et allez chercher le malheureux qui est trempé. Vous passez plusieurs heures avec lui à tenter de le dissuader de recommencer. Reconnaissant il vous offre le couvert et l’abris pour la nuit.",
-					"en": "** | 🦸 You throw yourself on the rock and catch it. You swiftly cut the rope and come help the poor soacked man. You spend several hours talking trying to deter him of doing it again. Grateful, he offers room and board for the night."
+					"en": "** | 🦸 You throw yourself on the rock and catch it. You swiftly cut the rope and come help the poor soaked man. You spend several hours talking trying to deter him of doing it again. Grateful, he offers room and board for the night."
 				},
 				"lostTime": 180,
 				"health": 15,
@@ -69,7 +69,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 😐 Alors que vous vous installez confortablement, vous le voyez changer d’avis et jeter sa pierre au sol. Se retournant, il vous remarque et vous invite chez lui pour le souper. Sans vous poser de question quant à ce revirement de situation, vous acceptez et le suivez jusqu’à sa chaumière. Alors que vous commencez le dîner, votre tête devient lourde, votre vue se brouille et vous tombez dans un profond sommeil. Vous vous réveillez bien plus tard sur le bord d’un chemin désert et inconnu.",
+					"fr": "** | 😐 Alors que vous vous installez confortablement, vous le voyez changer d’avis et jeter sa pierre au sol. Se retournant, il vous remarque et vous invite chez lui pour le souper. Sans vous poser de question quant à ce revirement de situation, vous acceptez et le suivez jusque sa chaumière. Alors que vous commencez le dîner, votre tête devient lourde, votre vue se brouille et vous tombez dans un profond sommeil. Vous vous réveillez bien plus tard sur le bord d’un chemin désert et inconnu.",
 					"en": "** | 😐 As you lean back comfortably, you see him change his mind and throw his rock aside. While turning around, he notices you and invites you for dinner. Without asking questions about the previous turn of events, you accept and follow him to his cottage. As you start dining your head feels heavy, your vision gets blurred and you fall into a deep slumber. You wake up many hours later on the side of an empty and unknown road."
 				},
 				"lostTime": 360,
@@ -84,7 +84,7 @@
 			{
 				"translations": {
 					"fr": "** | 😈 Vous vous approchez sans un bruit derrière lui et le poussez violemment dans la rivière. Il sombre et disparaît de votre champ de vision. Vous guettez quelques instants en espérant ne pas avoir été repéré et repartez tranquillement.",
-					"en": "** | 😈 You approach quietly behind him and violently push him in the swirling waters. He sinks and diseappears from sight. You watch around briefly, hoping to not have been seen."
+					"en": "** | 😈 You approach quietly behind him and violently push him in the swirling waters. He sinks and disappears from sight. You watch around briefly, hoping to not have been seen."
 				},
 				"lostTime": 0,
 				"health": 0,
