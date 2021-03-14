@@ -19,14 +19,7 @@
 			"startPoint": "Point de départ",
 			"endPoint": "Point d'arrivée",
 			"progression": "Progression",
-			"adviceTitle": "Conseil",
-			"advices": [
-				"Advice example 1",
-				"Advice example 2",
-				"Advice example 3",
-				"Advice example 4",
-				"Advice example 5"
-			]
+			"adviceTitle": "Conseil"
 		},
 		"en": {
 			"doEvent": ":newspaper: ** Journal of {pseudo} {event}",
@@ -47,14 +40,7 @@
 			"startPoint": "Start point",
 			"endPoint": "End point",
 			"progression": "Progression",
-			"adviceTitle": "Advice",
-			"advices": [
-				"Advice example 1",
-				"Advice example 2",
-				"Advice example 3",
-				"Advice example 4",
-				"Advice example 5"
-			]
+			"adviceTitle": "Advice"
 		}
 	},
 	"timeMinimal": 60,

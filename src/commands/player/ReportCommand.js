@@ -115,7 +115,7 @@ const sendTravelPath = async function (entity, message, language) {
 	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previous_map_id)).getDisplayName(language), true);
 	travelEmbed.addField(tr.progression, (Math.floor(10000 * Maps.getTravellingTime(entity.Player) / REPORT.TIME_BETWEEN_BIG_EVENTS) / 100.0) + "%", true);
 	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.map_id)).getDisplayName(language), true);
-	travelEmbed.addField(tr.adviceTitle, tr.advices[randInt(0, tr.advices.length - 1)], false);
+	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 	return await message.channel.send(travelEmbed);
 };
 
