@@ -109,7 +109,7 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | 🚶 Aucun des stands ne vous intéresse et vous sortez rapidement de la ville après quelques coups d'oeil.",
+					"fr": "** | 🚶 Aucun des stands ne vous intéresse et vous sortez rapidement de la ville après quelques coups d'œil.",
 					"en": "** | 🚶 None of the stands interest you and you quickly leave the city after a few looks."
 				},
 				"lostTime": 0,
@@ -121,7 +121,7 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous décidez de ne rien acheter mais vous flanez tout de même un long moment entre les stands.",
+					"fr": "** | 🚶 Vous décidez de ne rien acheter mais vous flânez tout de même un long moment entre les stands.",
 					"en": "** | 🚶 You decide to not buy anything, but you still spend a long time between the stands."
 				},
 				"lostTime": 40,

@@ -58,7 +58,7 @@
 			{
 				"translations": {
 					"fr": "** | 🔨 En essayant une épée, vous brisez la fenêtre de la forge, le forgeron demande remboursement !",
-					"en": "** | 🔨 While trying a sword, you broke the smithy's window! The blacksmith asks for recompensation!"
+					"en": "** | 🔨 While trying a sword, you broke the smithy's window! The blacksmith asks for compensation!"
 				},
 				"lostTime": 40,
 				"health": 0,
