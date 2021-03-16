@@ -6,115 +6,152 @@
 				"Les rayons du soleil traversant les nuages vous réchauffent alors que vous continuez votre voyage sur cette route déserte."
 			],
 			"top1": [
-				"Vous passez près de **{pseudo}** sur votre route, le top 1 actuel !"
+				"Vous passez près de **{pseudo}** sur votre route, le top 1 actuel !",
+				"Oh mon dieu ! C'est incroyable ! C'est le légendaire **{pseudo}**, le plus grand combattant de la ligue du moment ! Vous passez à côté de celui-ci et discutez un moment, il vous donne quelques conseils pour votre aventure !"
 			],
 			"top10": [
-				"Sur votre chemin, vous rencontrez quelqu'un d'important. En effet, **{pseudo}** est dans le top 10 !"
+				"Sur votre chemin, vous rencontrez quelqu'un d'important. En effet, **{pseudo}** est dans le top 10 !",
+				"Incroyable ! En marchant sur un chemin vous rencontrez un des héros du moment ! Vous le connaissez sûrement c'est **{pseudo}** vous l'avez vu dans le top 10, cet événement égaie votre journée !"
 			],
 			"top50": [
-				"Vous rencontrez une personne dont le nom vous dit quelque chose... En effet, **{pseudo}** s'est fait une place dans le top 50 !"
+				"Vous rencontrez une personne dont le nom vous dit quelque chose... En effet, **{pseudo}** s'est fait une place dans le top 50 !",
+				"En frappant dans un caillou, vous vous rendez compte que celui-ci heurte la chaussure d'un passant, mais ce n'est pas n'importe qui, c'est **{pseudo}**, vous l'aviez vu sur les listes des tournois clandestins, vous discutez un peu avec lui puis continuez votre chemin."
 			],
 			"top100": [
-				"La persévérance mène à la réussite, c'est ce que vous dit **{pseudo}** qui fait partie du top 100 !"
+				"La persévérance mène à la réussite, c'est ce que vous dit **{pseudo}** qui fait partie du top 100 !",
+				"Woah, vous reconnaissez un des débutants des tournois, vous l'aviez déjà croisé dans un village au nord, mais si...  C'est **{pseudo}** !"
 			],
 			"powerfulGuild": [
-				"**{pseudo}**, que vous rencontrez par hasard sur votre chemin, fait partie d'une guilde puissante ! C'est ce que vous concluez en voyant son badge étincelant."
+				"**{pseudo}**, que vous rencontrez par hasard sur votre chemin, fait partie d'une guilde puissante ! C'est ce que vous concluez en voyant son badge étincelant.",
+				"Vous voyez un attroupement au loin, vous vous dépêchez donc d'aller voir et vous entendez : \"faites place à **{pseudo}**\", en effet celui-ci est dans une guilde plutôt puissante !"
 			],
 			"beginner": [
-				"Il y a un début à tout ! Vous faites la connaissance de **{pseudo}** qui débute dans son aventure dédiée à la princesse."
+				"Il y a un début à tout ! Vous faites la connaissance de **{pseudo}** qui débute dans son aventure dédiée à la princesse.",
+				"Un passant passe à côté de vous, vous le reconnaissez rapidement c'est **{pseudo}** un petit nouveau, mais agréable et sympathique !"
 			],
 			"advanced": [
-				"Les cheveux gris de **{pseudo}** témoignent de l'expérience qu'il a accumulé. Il est en effet niveau **{level}** !"
+				"Les cheveux gris de **{pseudo}** témoignent de l'expérience qu'il a accumulé. Il est en effet niveau **{level}** !",
+				"En vous baladant, vous croisez **{pseudo}** c'est un héros puissant, il est en effet niveau **{level}** !"
 			],
 			"inactive": [
-				"Vous manquez de peu de trébucher sur le corps inerte de **{pseudo}**... Vous continuez votre route dégoûté."
+				"Vous manquez de peu de trébucher sur le corps inerte de **{pseudo}**... Vous continuez votre route dégoûté.",
+				"En marchant, vous apercevez la dépouille inerte de **{pseudo}**, il semble être ici depuis longtemps..."
 			],
 			"sameClass": [
-				"Vous ne manquez pas de reconnaître l'accoutrement de **{pseudo}**. Il est **{class}** tout comme vous !"
+				"Vous ne manquez pas de reconnaître l'accoutrement de **{pseudo}**. Il est **{class}** tout comme vous !",
+				"Vous remarquez **{pseudo}**, et observez rapidement son accoutrement et ses manières qui vous sont famillières, en effet il est **{class}**, tout comme vous !"
 			],
 			"sameGuild": [
-				"Vous croisez sur votre chemin une tête très familière... En effet, **{pseudo}** fait partie de votre guilde !"
+				"Vous croisez sur votre chemin une tête très familière... En effet, **{pseudo}** fait partie de votre guilde !",
+				"Vous vous approchez de quelqu'un, sa tête familière vous rappelle quelqu'un... Mais oui ! C'est **{pseudo}** un des membres de votre guilde !"
 			],
 			"staffMember": [
-				"**{pseudo}**, qui fait partie du staff de DraftBot, vous donne un conseil pour la suite de votre aventure :\n\n{advice}"
+				"**{pseudo}**, qui fait partie du staff de DraftBot, vous donne un conseil pour la suite de votre aventure :\n\n{advice}",
+				"\"{advice}\", c'est ce que vous a dit **{pseudo}**, un des célèbres staff du bot !"
 			],
 			"topWeek": [
-				"Vous voyez sur votre route **{pseudo}**, essouflé. Il ne se repose pas, en effet, il est dans le top 5 de la semaine !"
+				"Vous voyez sur votre route **{pseudo}**, essouflé. Il ne se repose pas, en effet, il est dans le top 5 de la semaine !",
+				"Un des héros de la semaine vient vous voir, c'est **{pseudo}** il est dans le top de la semaine !"
 			],
 			"lowHP": [
-				"Vous croisez **{pseudo}**, qui boîte... Il n'a pas l'air en forme... Il tombe sur le bas côté, vous décidez de l'aider à se relever."
+				"Vous croisez **{pseudo}**, qui boîte... Il n'a pas l'air en forme... Il tombe sur le bas côté, vous décidez de l'aider à se relever.",
+				"Vous croisez **{pseudo}**, il semble mal en point...."
 			],
 			"fullHP": [
-				"Vous avez rarement vu quelqu'un d'aussi énergique que **{pseudo}**... Il a toute sa vie !"
+				"Vous avez rarement vu quelqu'un d'aussi énergique que **{pseudo}**... Il a toute sa vie !",
+				"**{player}** semble en forme, il a toute sa vie !"
 			],
 			"lowerRankThanHim": [
-				"Vous croisez **{pseudo}**, un joueur ayant plus réputation que vous... Mais n'abandonnez pas ! Vous pourrez peut-être le rattraper un jour."
+				"Vous croisez **{pseudo}**, un joueur ayant plus réputation que vous... Mais n'abandonnez pas ! Vous pourrez peut-être le rattraper un jour.",
+				"En marchant vous trébuchez et tombez, **{pseudo}** se moque de vous, en effet il est mieux classé que vous !"
 			],
 			"betterRankThanHim": [
-				"Vous croisez **{pseudo}**, celui-ci a un moins bon classement... Mais attention il peut très bien vous rattraper un jour !"
+				"Vous croisez **{pseudo}**, celui-ci a un moins bon classement... Mais attention il peut très bien vous rattraper un jour !",
+				"Un joueur vient vous voir, c'est **{player}** il vous demande quelques conseils pour progresser et passe son chemin !"
 			],
 			"rich": [
-				"Vous vous cachez les yeux pour arrêter d'être ébloui par le soleil qui reflète sur l'or que porte **{pseudo}** !"
+				"Vous vous cachez les yeux pour arrêter d'être ébloui par le soleil qui reflète sur l'or que porte **{pseudo}** !",
+				"Es-ce Picsou ? Mais non ! C'est **{player}** ! Il possède tellement d'or que vous en êtes éblouis !"
 			],
 			"poor": [
-				"À la vue des vêtements que porte **{pseudo}**, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donnez une pièce.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce"
+				"À la vue des vêtements que porte **{pseudo}**, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donnez une pièce.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce",
+				"En marchant, vous rencontrez ce pauvre vagabon de **{pseudo}**, celui-ci vous demande quelques pièces:\n:coin: Donner une pièce, car vous en avez déjà assez\n:x: Ne pas lui donner une pièce"
 			],
 			"poorGiveMoney": [
-				"Vous vous sentez bien après avoir fait ce geste humanitaire."
+				"Vous vous sentez bien après avoir fait ce geste humanitaire.",
+				"C'est en faisant le bien que celui-ci se répand à dit un jour ce prêtre ! Vous lui donnez quelques pièces, et il vous fait un sourire avant de continuer son chemin !"
 			],
 			"poorDontGiveMoney": [
-				"Il n'y a pas de petites économies... Vous décidez de garder votre argent."
+				"Il n'y a pas de petites économies... Vous décidez de garder votre argent.",
+				"**{player}**, est triste et part en pleurant !"
 			],
 			"duplicatePotion": [
-				"Vous discutez sur votre trajet avec **{pseudo}**. Après avoir fait connaissance, il verse un peu de sa potion dans l'une de vos fioles vides. Vous continuez votre aventure avec **1x** {item} !"
+				"Vous discutez sur votre trajet avec **{pseudo}**. Après avoir fait connaissance, il verse un peu de sa potion dans l'une de vos fioles vides. Vous continuez votre aventure avec **1x** {item} !",
+				"Un inconnu arrive, et verse un peu de sa potion dans la vôtre, vous gagnez donc **1x** {potion} !"
 			],
 			"pet": [
-				"**{pseudo}** passe près de vous avec son animal **{pet_name}**. Vous caressez cette brave bête et continuez votre chemin de bonne humeur !"
+				"**{pseudo}** passe près de vous avec son animal **{pet_name}**. Vous caressez cette brave bête et continuez votre chemin de bonne humeur !",
+				"**{pseudo}** passe près de vous et vous montre son animal **{pet_name}**. vous le caressez et repartez, bonne route !"
 			],
 			"guildChief": [
-				"Ne paniquez pas ! Vous passez à côté de **{pseudo}**, chef de la guilde **{guild_name}**."
+				"Ne paniquez pas ! Vous passez à côté de **{pseudo}**, chef de la guilde **{guild_name}**.",
+				"Vous passez près de **{pseudo}**, il est le chef de la guilde **{guild_name}** !"
 			],
 			"guildElder": [
-				"**{pseudo}** discute de sa guilde **{guild_name}** avec vous. Vous apprenez qu'il en est l'aîné !"
+				"**{pseudo}** discute de sa guilde **{guild_name}** avec vous. Vous apprenez qu'il en est l'aîné !",
+				"Vous passez près de **{pseudo}**, il est aîné de la guilde **{guild_name}** !"
 			],
 			"class": [
-				"Vous frôlez **{pseudo}** qui possède la classe **{class}**. Vous parlez un peu avec lui et reprenez votre route paisiblement."
+				"Vous frôlez **{pseudo}** qui possède la classe **{class}**. Vous parlez un peu avec lui et reprenez votre route paisiblement.",
+				"**{pseudo}** passe près de vous, il possède le grade **{class}** !"
 			],
 			":sick:": [
-				"Vous entendez un bruit au loin... C'est **{pseudo}** qui vomit dans un buisson..."
+				"Vous entendez un bruit au loin... C'est **{pseudo}** qui vomit dans un buisson...",
+				"**{pseudo}** vomit dans un buisson, c’est donc ça ce bruit que vous entendez depuis tout à l'heure."
 			],
 			":head_bandage:": [
-				"Vous apercevez une momie au loin ! Ah non, ce n'est que **{pseudo}** recouvert de bandages..."
+				"Vous apercevez une momie au loin ! Ah non, ce n'est que **{pseudo}** recouvert de bandages...",
+				"**{pseudo}** est recouvert de bandages, que lui est-t-il arrivé ?"
 			],
 			":dizzy_face:": [
-				"Vous trébuchez sur **{pseudo}** qui est inconscient sur le sol. Vous lui donnez de petites tapes pour le réveiller, sans succès."
+				"Vous trébuchez sur **{pseudo}** qui est inconscient sur le sol. Vous lui donnez de petites tapes pour le réveiller, sans succès.",
+				"Ce n'était pas un rat mort par terre, c'était juste **{pseudo}** Vous lui demandez s'il va bien, il ne répond pas, vous continuez votre route."
 			],
 			":drooling_face:": [
-				"Un grondement sourd atteint vos oreilles. Vous découvrez que c'est le ventre de **{pseudo}**. Malheureusement, vous avez terminé récemment vos restes de nourriture."
+				"Un grondement sourd atteint vos oreilles. Vous découvrez que c'est le ventre de **{pseudo}**. Malheureusement, vous avez terminé récemment vos restes de nourriture.",
+				"Apparement, **{pseudo}**, n'as pas assez mangé. Son ventre gargouille !"
 			],
 			":sleeping:": [
-				"Vous croisez **{pseudo}** endormi sur le côté de la route. Vous décidez de le laisser dormir, il a sûrement besoin de sommeil."
+				"Vous croisez **{pseudo}** endormi sur le côté de la route. Vous décidez de le laisser dormir, il a sûrement besoin de sommeil.",
+				"Visiblement **{pseudo}** n’a pas assez dormi la nuit dernière, il est allongé sur le bord de la route."
 			],
 			":cold_face:": [
-				"Vous ressentez un grand froid en marchant, c'est **{pseudo}** qui est proche de l'hypothermie !"
+				"Vous ressentez un grand froid en marchant, c'est **{pseudo}** qui est proche de l'hypothermie !",
+				"**{pseudo}**, semble avoir froid, vous le réchauffez un peu puis repartez !"
 			],
 			":confounded:": [
-				"Vous tentez de discuter avec **{pseudo}**. Tentez. Ses propos sont assez incohérents, vous continuez donc votre chemin quelque peu perturbé."
+				"Vous tentez de discuter avec **{pseudo}**. Tentez. Ses propos sont assez incohérents, vous continuez donc votre chemin quelque peu perturbé.",
+				"**{pseudo}**, tient de nombreux propos incohérents, cela semble bizarre, vous repartez donc rapidement perturbé !"
 			],
 			":zany_face:": [
-				"**{pseudo}** zigzague sur votre route, il semblerait qu'il ait un peu (trop) bu."
+				"**{pseudo}** zigzague sur votre route, il semblerait qu'il ait un peu (trop) bu.",
+				"**{pseudo}**, n'a pas l'air d'avoir compris que l'alcool se consomme avec modération."
 			],
 			"weapon": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
+				"Un passant vient frimer à côté de vous, c'est **{pseudo}** et il vous montre {prefix_item} {item} !"
 			],
 			"armor": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
+				"Un garde vous aborde, c'est **{pseudo}**, il vient vous montrer {prefix_item} {item} !"
 			],
 			"potion": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
+				"{pseudo} vient vous parler, il vient vous montrer {prefix_item} {item} !"
 			],
 			"object": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
+				"En parlant avec **{pseudo}**, il vous montre {prefix_item} {item} !"
 			]
 		},
 		"en": {
