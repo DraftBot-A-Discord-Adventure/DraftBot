@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** :bust_in_silhouette: Durant votre périple vous arrivez dans une ville en bord de mer. Vous faites là-bas la rencontre d'un homme, disant s'appeler Price et être mercenaire. \n\n:person_walking: Le payer pour vous escorter jusqu'à votre prochaine destination\n:meat_on_bone: Faire connaissance autour d'un bon repas\n:money_mouth: Tenter de lui voler de l'argent\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :bust_in_silhouette: During your journey you arrive in a seaside town. There you meet a man, who says that his name is Price and that he is a mercenary.\n\n:person_walking: Pay him to accompany you to your next destination\n:meat_on_bone: Get to know each other over a good meal\n:money_mouth: Try to steal money from him\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 👤 Durant votre périple vous arrivez dans une ville en bord de mer. Vous faites là-bas la rencontre d'un homme, disant s'appeler Price et être mercenaire. \n\n🚶 Le payer pour vous escorter jusqu'à votre prochaine destination\n🍖 Faire connaissance autour d'un bon repas\n🤑 Tenter de lui voler de l'argent\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 👤 During your journey you arrive in a seaside town. There you meet a man, who says that his name is Price and that he is a mercenary.\n\n🚶 Pay him to accompany you to your next destination\n🍖 Get to know each other over a good meal\n🤑 Try to steal money from him\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🚶": [
@@ -43,8 +43,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous lui donnez quelques pièces afin qu'il vous accompagne jusqu'à la prochaine ville. Vous partez vite, et lorsque le soleil se couche, vous bivouaquez puis vous couchez. Vous êtes brusquement réveillé par un bruit de métal s'entrechoquant, et mettez quelques secondes à réaliser que Price rassemble votre argent. Sans y réfléchir à deux fois, vous foncez sur lui, déterminé à le stopper. Il vous assène un violent coup de poing à la tempe, et c'est sonné que vous le voyez s'enfuir avec vos possessions. :head_bandage:",
-					"en": "** | 🚶 You give him a few coins to accompany you until the next town. You leave quickly, and when the sun goes down, you bivouac and then you set. You are suddenly woken up by the sound of metal clattering together, and it takes a few seconds to realize that Price is taking your money away. Without thinking twice about it, determined to stop him, you run to him. He violently punches you into the temple, and runs away with your possessions while you are dizzy. :head_bandage:"
+					"fr": "** | 🚶 Vous lui donnez quelques pièces afin qu'il vous accompagne jusqu'à la prochaine ville. Vous partez vite, et lorsque le soleil se couche, vous bivouaquez puis vous couchez. Vous êtes brusquement réveillé par un bruit de métal s'entrechoquant, et mettez quelques secondes à réaliser que Price rassemble votre argent. Sans y réfléchir à deux fois, vous foncez sur lui, déterminé à le stopper. Il vous assène un violent coup de poing à la tempe, et c'est sonné que vous le voyez s'enfuir avec vos possessions. 🤕",
+					"en": "** | 🚶 You give him a few coins to accompany you until the next town. You leave quickly, and when the sun goes down, you bivouac and then you set. You are suddenly woken up by the sound of metal clattering together, and it takes a few seconds to realize that Price is taking your money away. Without thinking twice about it, determined to stop him, you run to him. He violently punches you into the temple, and runs away with your possessions while you are dizzy. 🤕"
 				},
 				"lostTime": 0,
 				"health": -20,
@@ -83,8 +83,8 @@
 		"🤑": [
 			{
 				"translations": {
-					"fr": "** | 🤑 Vous essayez de le voler, mais il vous remarque, et vous assomme proprement. :head_bandage:",
-					"en": "** | 🤑 You try to steal from him, but he notices your undoing and knocks you out cold. :head_bandage:"
+					"fr": "** | 🤑 Vous essayez de le voler, mais il vous remarque, et vous assomme proprement. 🤕",
+					"en": "** | 🤑 You try to steal from him, but he notices your undoing and knocks you out cold. 🤕"
 				},
 				"lostTime": 0,
 				"health": -20,
@@ -109,8 +109,8 @@
 		"end": [
 			{
 				"translations": {
-					"fr": "** | :speaking_head: Vous restez à discuter quelques minutes avec Price, puis reprenez votre route.",
-					"en": "** | :speaking_head: You stay and chat with Price for a few minutes, then hit the road."
+					"fr": "** | 🗣️ Vous restez à discuter quelques minutes avec Price, puis reprenez votre route.",
+					"en": "** | 🗣️ You stay and chat with Price for a few minutes, then hit the road."
 				},
 				"lostTime": 10,
 				"health": 0,
@@ -121,8 +121,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | :speaking_head: Après avoir un peu discuté, vous vous séparez. Quelques rues plus loin, vous êtes agressé par un groupe de personne à l'air peu amène, qui allègent votre bourse sous la menace de leurs coups.",
-					"en": "** | :speaking_head: After you've had a little chat, you split up. A few blocks away, you're attacked by a group of rude-looking people, who lighten your purse under the threat of their blows."
+					"fr": "** | 🗣️ Après avoir un peu discuté, vous vous séparez. Quelques rues plus loin, vous êtes agressé par un groupe de personne à l'air peu amène, qui allègent votre bourse sous la menace de leurs coups.",
+					"en": "** | 🗣️ After you've had a little chat, you split up. A few blocks away, you're attacked by a group of rude-looking people, who lighten your purse under the threat of their blows."
 				},
 				"lostTime": 0,
 				"health": 0,

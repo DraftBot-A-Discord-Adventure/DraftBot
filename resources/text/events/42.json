@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** Au détour d’un chemin, une jeune femme apparaît. Vous ne saisissez d'abord pas très bien ce qu’elle dit mais finissez par comprendre qu’elle a besoin d’aide pour l’exploration d’une grotte.\n\n:bow_and_arrow: Vous empresser de l'aider\n:sunglasses: Faire mine de vous éloigner pour revenir seul fouiller la grotte\n:cut_of_meat: Lui demander l'auberge la plus proche\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** At the bend of a road on which you have been walking, a young woman appears. You do not quite understand what she is saying, but it seems she needs help to explore a cave.\n\n :bow_and_arrow:  Rush to help her\n:sunglasses: Feign to go on your way with the plan to come back explore alone.\n:cut_of_meat:  Ask her for the nearest hostel\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🧝‍♀️ Au détour d’un chemin, une jeune femme apparaît. Vous ne saisissez d'abord pas très bien ce qu’elle dit mais finissez par comprendre qu’elle a besoin d’aide pour l’exploration d’une grotte.\n\n🏹 Vous empresser de l'aider\n😎 Faire mine de vous éloigner pour revenir seul fouiller la grotte\n🥩 Lui demander l'auberge la plus proche\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🧝‍♀️ At the bend of a road on which you have been walking, a young woman appears. You do not quite understand what she is saying, but it seems she needs help to explore a cave.\n\n 🏹  Rush to help her\n😎 Feign to go on your way with the plan to come back explore alone.\n🥩  Ask her for the nearest hostel\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🏹": [
@@ -20,12 +20,12 @@
 			{
 				"translations": {
 					"fr": "** | 🏹 Après quelques minutes vous arrivez devant la grotte en question. Vous vous avancez d’un pas confiant en direction du fond de celle-ci. C’est alors qu’un bruit sourd se fait entendre. Vous vous retournez et voyez s’abaisser une herse. Une quinzaine de personnes apparaissent alors de l’autre coté. C’était un piège et vous êtes tombé dedans. Après plusieurs heures à parlementer avec vos tortionnaires, ils décident de vous libérer contre un bon paquet de pièces. Vous repartez alors, penaud et jurant à qui veut bien l’entendre qu’on ne vous y reprendra plus.",
-					"en": "** | 🏹 After a few minutes, you arrive next to the entrance of the cave. You progress confidently towards the bottom. Suddenly, you hear a muffle sound. You turn around and see a portcullis being lowered. More than a dozen thugs appear on the other side. It was a trap and you fell for it. After a few hoursnegotiating with your tormentors, they decide to let you go in exchange for a good amount of your money. You leave sheepishly, swearing endlessly that you will never be caught again."
+					"en": "** | 🏹 After a few minutes, you arrive next to the entrance of the cave. You progress confidently towards the bottom. Suddenly, you hear a muffle sound. You turn around and see a portcullis being lowered. More than a dozen thugs appear on the other side. It was a trap and you fell for it. After a few hours negotiating with your tormentors, they decide to let you go in exchange for a good amount of your money. You leave sheepishly, swearing endlessly that you will never be caught again."
 				},
 				"lostTime": 90,
 				"health": 0,
 				"effect": ":clock2:",
-				"experience": 150,
+				"experience": 25,
 				"money": -300,
 				"item": false
 			},
@@ -37,7 +37,7 @@
 				"lostTime": 60,
 				"health": 0,
 				"effect": ":clock2:",
-				"experience": 575,
+				"experience": 425,
 				"money": 3000,
 				"item": true
 			},
@@ -99,7 +99,7 @@
 				"lostTime": 60,
 				"health": 30,
 				"effect": ":clock2:",
-				"experience": 375,
+				"experience": 325,
 				"money": 600,
 				"item": false
 			}
@@ -125,7 +125,7 @@
 				"lostTime": 60,
 				"health": 15,
 				"effect": ":clock2:",
-				"experience": 250,
+				"experience": 225,
 				"money": -100,
 				"item": false
 			}
@@ -139,19 +139,19 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":smiley:",
-				"experience": 425,
+				"experience": 550,
 				"money": 500,
 				"item": true
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles. :sick: ",
-					"en": "** | 🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. :sick:"
+					"fr": "** | 🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles. 🤢 ",
+					"en": "** | 🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. 🤢"
 				},
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":sick:",
-				"experience": 20,
+				"experience": 0,
 				"money": 0,
 				"item": false
 			}

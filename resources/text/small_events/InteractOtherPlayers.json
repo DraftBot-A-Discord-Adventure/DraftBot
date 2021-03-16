@@ -50,7 +50,7 @@
 				"\"{advice}\", c'est ce que vous a dit **{pseudo}**, un des célèbres staff du bot !"
 			],
 			"topWeek": [
-				"Vous voyez sur votre route **{pseudo}**, essouflé. Il ne se repose pas, en effet, il est dans le top 5 de la semaine !",
+				"Vous voyez sur votre route **{pseudo}**, essoufflé. Il ne se repose pas, en effet, il est dans le top 5 de la semaine !",
 				"Un des héros de la semaine vient vous voir, c'est **{pseudo}** il est dans le top de la semaine !"
 			],
 			"lowHP": [
@@ -58,7 +58,7 @@
 				"Vous croisez **{pseudo}**, il semble mal en point...."
 			],
 			"fullHP": [
-				"Vous avez rarement vu quelqu'un d'aussi énergique que **{pseudo}**... Il a toute sa vie !",
+				"Vous avez rarement vu quelqu'un d'aussi énergique que **{pseudo}**... Il semble en pleine forme !",
 				"**{player}** semble en forme, il a toute sa vie !"
 			],
 			"lowerRankThanHim": [

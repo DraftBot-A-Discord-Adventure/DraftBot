@@ -237,10 +237,16 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 
 /**
  * Generate a random rarity. Legendary is very rare and common is not rare at all
- * @return {Number}
+ * @param {number} maxRarity
+ * @return {Number} generated rarity
  */
-global.generateRandomRarity = () => {
-	const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue);
+global.generateRandomRarity = (maxRarity= 8) => {
+
+
+	let valueToRemove = JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity];
+	if (maxRarity === 8)
+		valueToRemove = 0;
+	const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue - valueToRemove);
 
 	if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
 		return 1;

@@ -1,5 +1,5 @@
 const Op = require('sequelize/lib/operators');
-const Maps = require('../../core/Maps')
+const Maps = require('../../core/Maps');
 
 /**
  * Allow the user to learn more about what is going on with his character
@@ -46,7 +46,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	}
 
 	return await sendTravelPath(entity, message, language);
-}
+};
 
 /**
  * Picks a random event (or the forced one) and executes it
@@ -56,7 +56,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
  * @param {Number} forceSpecificEvent
  * @returns {Promise<void>}
  */
-const doRandomBigEvent = async function(message, language, entity, forceSpecificEvent) {
+const doRandomBigEvent = async function (message, language, entity, forceSpecificEvent) {
 	let time;
 	if (forceSpecificEvent === -1) {
 		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.valueOf());
@@ -89,16 +89,16 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 	}
 	await Maps.stopTravel(entity.Player);
 	return await doEvent(message, language, event, entity, time);
-}
+};
 
 /**
  * If the entity reached his destination (= big event)
  * @param {Entities} entity
  * @returns {boolean}
  */
-const needBigEvent = function(entity) {
+const needBigEvent = function (entity) {
 	return Maps.getTravellingTime(entity.Player) >= REPORT.TIME_BETWEEN_BIG_EVENTS;
-}
+};
 
 /**
  * Sends an embed with the travel path and an advice
@@ -107,7 +107,7 @@ const needBigEvent = function(entity) {
  * @param {"fr"|"en"} language
  * @returns {Promise<Message>}
  */
-const sendTravelPath = async function(entity, message, language) {
+const sendTravelPath = async function (entity, message, language) {
 	let travelEmbed = new discord.MessageEmbed();
 	const tr = JsonReader.commands.report.getTranslation(language);
 	travelEmbed.setAuthor(tr.travelPathTitle, message.author.displayAvatarURL());
@@ -115,9 +115,9 @@ const sendTravelPath = async function(entity, message, language) {
 	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previous_map_id)).getDisplayName(language), true);
 	travelEmbed.addField(tr.progression, (Math.floor(10000 * Maps.getTravellingTime(entity.Player) / REPORT.TIME_BETWEEN_BIG_EVENTS) / 100.0) + "%", true);
 	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.map_id)).getDisplayName(language), true);
-	travelEmbed.addField(tr.adviceTitle, tr.advices[randInt(0, tr.advices.length - 1)], false);
+	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 	return await message.channel.send(travelEmbed);
-}
+};
 
 const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
 
@@ -128,7 +128,7 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @param {"fr"|"en"} language
  * @returns {Promise<void>}
  */
-const chooseDestination = async function(entity, message, language) {
+const chooseDestination = async function (entity, message, language) {
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
 	// TODO mettre le temps ici comme ça ça bloque pas si le bot crash
@@ -139,7 +139,7 @@ const chooseDestination = async function(entity, message, language) {
 
 	const tr = JsonReader.commands.report.getTranslation(language);
 	let chooseDestinationEmbed = new discord.MessageEmbed();
-	chooseDestinationEmbed.setAuthor(format(tr.destinationTitle, { pseudo: message.author.username }), message.author.displayAvatarURL());
+	chooseDestinationEmbed.setAuthor(format(tr.destinationTitle, {pseudo: message.author.username}), message.author.displayAvatarURL());
 	let desc = tr.chooseDestinationIndications + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
@@ -151,7 +151,7 @@ const chooseDestination = async function(entity, message, language) {
 
 	const collector = sentMessage.createReactionCollector((reaction, user) => {
 		return destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
-	}, { time: 120000 });
+	}, {time: 120000});
 
 	collector.on('collect', async () => {
 		collector.stop();
@@ -170,7 +170,7 @@ const chooseDestination = async function(entity, message, language) {
 			console.error(e);
 		}
 	}
-}
+};
 
 /**
  * Function called to display the direction chose by a player
@@ -180,19 +180,19 @@ const chooseDestination = async function(entity, message, language) {
  * @param language
  * @returns {Promise<void>}
  */
-const destinationChoseMessage = async function(entity, map, message, language) {
+const destinationChoseMessage = async function (entity, map, message, language) {
 	const tr = JsonReader.commands.report.getTranslation(language);
 	const typeTr = JsonReader.models.maps.getTranslation(language);
 	const mapInstance = await MapLocations.getById(map);
 	let destinationEmbed = new discord.MessageEmbed();
-	destinationEmbed.setAuthor(format(tr.destinationTitle, { pseudo: message.author.username }), message.author.displayAvatarURL());
+	destinationEmbed.setAuthor(format(tr.destinationTitle, {pseudo: message.author.username}), message.author.displayAvatarURL());
 	destinationEmbed.setDescription(format(tr.choseMap, {
 		mapPrefix: typeTr.types[mapInstance.type].prefix,
 		mapName: mapInstance.getDisplayName(language),
 		mapType: typeTr.types[mapInstance.type].name.toLowerCase()
 	}));
 	await message.channel.send(destinationEmbed);
-}
+};
 
 /*const ReportCommand = async function (language, message, args, forceSpecificEvent = -1) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
@@ -442,7 +442,7 @@ const triggersSmallEvent = (entity) => {
 		}
 	}
 	return -1;
-}
+};
 
 /**
  * @type {Number} a cache variable for small events total rarity (for the random max)
@@ -480,8 +480,7 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 				break;
 			}
 		}
-	}
-	else {
+	} else {
 		event = forced;
 	}
 
@@ -499,14 +498,13 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 		} catch (e) {
 			console.error(e);
 		}
-	}
-	catch (e) {
+	} catch (e) {
 		await message.channel.send(filename + " doesn't exist");
 	}
 
 	// Save
 	PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, number).save();
-}
+};
 
 /* ------------------------------------------------------------ */
 
