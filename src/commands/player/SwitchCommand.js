@@ -19,7 +19,7 @@ const SwitchCommand = async (language, message, args) => {
 	const nextDailyDate = new moment(entity.Player.Inventory.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h");
 
 	if (millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime()) < JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd) {
-		entity.Player.Inventory.editCooldown(JsonReader.commands.switch.timeToAdd);
+		entity.Player.Inventory.editDailyCooldown(JsonReader.commands.switch.timeToAdd);
 	} else {
 		entity.Player.Inventory.updateLastDailyAt();
 	}

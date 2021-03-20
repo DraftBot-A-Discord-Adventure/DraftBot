@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -17,7 +19,7 @@ module.exports = (Sequelize, DataTypes) => {
 			},
 			lastDailyAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss"),
 			},
 			player_id: {
 				type: DataTypes.INTEGER,
@@ -44,11 +46,11 @@ module.exports = (Sequelize, DataTypes) => {
 			},
 			updatedAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss"),
 			},
 			createdAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss"),
 			},
 		},
 		{
@@ -123,11 +125,10 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Inventories.beforeSave((instance) => {
-		instance.setDataValue("updatedAt", require("moment")().format("YYYY-MM-DD HH:mm:ss"));
+		instance.setDataValue("updatedAt", moment().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	Inventories.prototype.updateLastDailyAt = function () {
-		const moment = require("moment");
 		this.lastDailyAt = new moment();
 	};
 
@@ -149,7 +150,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 *
+	 * check if inventory contains item to sell
 	 * @param {("fr"|"en")} language
 	 * @return {boolean}
 	 */
@@ -157,8 +158,11 @@ module.exports = (Sequelize, DataTypes) => {
 		return this.backup_id !== JsonReader.models.inventories.backup_id;
 	};
 
-	Inventories.prototype.editCooldown = function (hours) {
-		const moment = require("moment");
+	/**
+	 * edit daily cooldown
+	 * @param {number} hours 
+	 */
+	Inventories.prototype.editDailyCooldown = function (hours) {
 		this.lastDailyAt = new moment(this.lastDailyAt).add(hours, "h");
 	};
 
