@@ -92,7 +92,7 @@ const PetSellCommand = async function (language, message, args) {
 	};
 
 	const collector = sellMessage.createReactionCollector(filter, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 	});
 
 	addBlockedPlayer(entity.discordUser_id, "petSell", collector);
@@ -180,7 +180,7 @@ async function petSell(message, language, entity, user, pet, petCost) {
 	};
 
 	const confirmCollector = confirmMessage.createReactionCollector(confirmFilter, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 

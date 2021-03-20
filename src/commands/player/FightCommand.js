@@ -65,25 +65,25 @@ const FightCommand = async function (language, message, args, friendly = false) 
 
 	await message.channel.send(msg)
 		.then(async function (messageFightAsk) {
-			await messageFightAsk.react('✅');
-			await messageFightAsk.react('❌');
+			await messageFightAsk.react(MENU_REACTION.ACCEPT);
+			await messageFightAsk.react(MENU_REACTION.DENY);
 
 			let filter, fightInstance;
 			if (defender == null) {
-				filter = (reaction, user) => {
+				filter = (_, user) => {
 					return !user.bot;
 				};
 			} else {
-				filter = (reaction, user) => {
+				filter = (_, user) => {
 					return user.id === attacker.discordUser_id || user.id === defender.discordUser_id;
 				};
 			}
 
-			const collector = messageFightAsk.createReactionCollector(filter, {time: 60000});
+			const collector = messageFightAsk.createReactionCollector(filter, { time: 60000 });
 
 			collector.on('collect', async (reaction, user) => {
 				switch (reaction.emoji.name) {
-					case '✅':
+					case MENU_REACTION.ACCEPT:
 						if (user.id === attacker.discordUser_id) {
 							spamCount++;
 							if (spamCount < 3) {
@@ -104,7 +104,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 						await fightInstance.startFight();
 						log("Fight (tournament: " + isTournament + "; friendly: " + friendly + ") started in server " + message.guild.id + " between " + attacker.discordUser_id + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and " + defender.discordUser_id + " (" + await defender.getCumulativeHealth() + "/" + await defender.getMaxCumulativeHealth() + ")");
 						break;
-					case '❌':
+					case MENU:
 						if (user.id === attacker.discordUser_id) {
 							await message.channel.send(JsonReader.commands.fight.getTranslation(language).error.canceled);
 						} else if (defender != null) {
@@ -114,7 +114,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 								return;
 							}
 							spammers.push(user.id);
-							await sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, {pseudo: '<@' + user.id + '>'}));
+							await sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, { pseudo: '<@' + user.id + '>' }));
 							return;
 						}
 						fightInstance = null;
@@ -157,24 +157,24 @@ function sendError(message, entity, error, direct, language) {
 					pseudo: entity.getMention(),
 					level: FIGHT.REQUIRED_LEVEL
 				}) :
-				format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.indirect, {level: FIGHT.REQUIRED_LEVEL});
+				format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.indirect, { level: FIGHT.REQUIRED_LEVEL });
 			sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg);
 			break;
 		case FIGHT_ERROR.DISALLOWED_EFFECT:
 			const msg1 = direct ?
-				format(JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.direct, {pseudo: entity.getMention()}) :
+				format(JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.direct, { pseudo: entity.getMention() }) :
 				JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.indirect;
 			sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg1);
 			break;
 		case FIGHT_ERROR.OCCUPIED:
 			const msg2 = direct ?
-				format(JsonReader.commands.fight.getTranslation(language).error.occupied.direct, {pseudo: entity.getMention()}) :
+				format(JsonReader.commands.fight.getTranslation(language).error.occupied.direct, { pseudo: entity.getMention() }) :
 				JsonReader.commands.fight.getTranslation(language).error.occupied.indirect;
 			sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg2);
 			break;
 		case FIGHT_ERROR.NO_FIGHT_POINTS:
 			const msg3 = direct ?
-				format(JsonReader.commands.fight.getTranslation(language).error.noFightPoints.direct, {pseudo: entity.getMention()}) :
+				format(JsonReader.commands.fight.getTranslation(language).error.noFightPoints.direct, { pseudo: entity.getMention() }) :
 				JsonReader.commands.fight.getTranslation(language).error.noFightPoints.indirect;
 			sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg3);
 			break;
@@ -217,7 +217,7 @@ async function canFight(entity, bypassAlteration, bypassHealth) {
  * @return {Promise<String>}
  */
 async function getStatsDisplay(entity, language, maxPower = -1, friendly = false) {
-	let msg = format(JsonReader.commands.fight.getTranslation(language).statsOfPlayer, {pseudo: await entity.Player.getPseudo(language)});
+	let msg = format(JsonReader.commands.fight.getTranslation(language).statsOfPlayer, { pseudo: await entity.Player.getPseudo(language) });
 	let inv = entity.Player.Inventory;
 	let w = await inv.getWeapon();
 	let a = await inv.getArmor();

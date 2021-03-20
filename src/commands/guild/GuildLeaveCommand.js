@@ -73,7 +73,7 @@ const GuildLeaveCommand = async (language, message, args) => {
 	};
 
 	const collector = msg.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -87,12 +87,12 @@ const GuildLeaveCommand = async (language, message, args) => {
 			// a reaction exist
 			if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
 				entity.Player.guild_id = null;
-				 if (entity.id === guild.chief_id) {
+				if (entity.id === guild.chief_id) {
 					if (elder) {
 						log(
 							elder.discordUser_id +
 							" becomes the chief of  " +
-							guild.name 
+							guild.name
 						);
 						guild.chief_id = elder.id;
 						guild.elder_id = null;
@@ -104,7 +104,7 @@ const GuildLeaveCommand = async (language, message, args) => {
 						);
 					} else {
 						log(
-							guild.name + 
+							guild.name +
 							" has been destroyed"
 						);
 						// the chief is leaving : destroy the guild

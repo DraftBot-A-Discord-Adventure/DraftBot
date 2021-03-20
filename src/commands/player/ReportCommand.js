@@ -28,7 +28,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	}, 500);
 
 	if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
-		const event = await Events.findOne({where: {id: 0}});
+		const event = await Events.findOne({ where: { id: 0 } });
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
 	}
 
@@ -56,7 +56,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
  * @param {Number} forceSpecificEvent
  * @returns {Promise<void>}
  */
-const doRandomBigEvent = async function(message, language, entity, forceSpecificEvent) {
+const doRandomBigEvent = async function (message, language, entity, forceSpecificEvent) {
 	let time;
 	if (forceSpecificEvent === -1) {
 		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.valueOf());
@@ -79,13 +79,13 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 		event = await Events.findOne({
 			where: {
 				[Op.and]: [
-					{id: {[Op.gt]: 0}},
-					{id: {[Op.lt]: 9999}},
+					{ id: { [Op.gt]: 0 } },
+					{ id: { [Op.lt]: 9999 } },
 				]
 			}, order: Sequelize.literal('RANDOM()')
 		});
 	} else {
-		event = await Events.findOne({where: {id: forceSpecificEvent}});
+		event = await Events.findOne({ where: { id: forceSpecificEvent } });
 	}
 	await Maps.stopTravel(entity.Player);
 	return await doEvent(message, language, event, entity, time);
@@ -96,7 +96,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
  * @param {Entities} entity
  * @returns {boolean}
  */
-const needBigEvent = function(entity) {
+const needBigEvent = function (entity) {
 	return Maps.getTravellingTime(entity.Player) >= REPORT.TIME_BETWEEN_BIG_EVENTS;
 }
 
@@ -107,7 +107,7 @@ const needBigEvent = function(entity) {
  * @param {"fr"|"en"} language
  * @returns {Promise<Message>}
  */
-const sendTravelPath = async function(entity, message, language) {
+const sendTravelPath = async function (entity, message, language) {
 	let travelEmbed = new discord.MessageEmbed();
 	const tr = JsonReader.commands.report.getTranslation(language);
 	travelEmbed.setAuthor(tr.travelPathTitle, message.author.displayAvatarURL());
@@ -128,7 +128,7 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @param {"fr"|"en"} language
  * @returns {Promise<void>}
  */
-const chooseDestination = async function(entity, message, language) {
+const chooseDestination = async function (entity, message, language) {
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
 	// TODO mettre le temps ici comme ça ça bloque pas si le bot crash
 	if (destinationMaps.length === 1) {
@@ -150,7 +150,7 @@ const chooseDestination = async function(entity, message, language) {
 
 	const collector = sentMessage.createReactionCollector((reaction, user) => {
 		return destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
-	}, { time: 120000 });
+	}, { time: COLLECTOR_TIME });
 
 	collector.on('collect', async () => {
 		collector.stop();
@@ -179,7 +179,7 @@ const chooseDestination = async function(entity, message, language) {
  * @param language
  * @returns {Promise<void>}
  */
-const destinationChoseMessage = async function(entity, map, message, language) {
+const destinationChoseMessage = async function (entity, map, message, language) {
 	const tr = JsonReader.commands.report.getTranslation(language);
 	const typeTr = JsonReader.models.maps.getTranslation(language);
 	const mapInstance = await MapLocations.getById(map);
@@ -279,7 +279,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector((reaction, user) => {
 		return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);
-	}, {time: 120000});
+	}, { time: COLLECTOR_TIME });
 
 	await addBlockedPlayer(entity.discordUser_id, "report", collector);
 
@@ -296,7 +296,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 
 	collector.on('end', async (collected) => {
 		if (!collected.first()) {
-			const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: 'end'}});
+			const possibility = await Possibilities.findAll({ where: { event_id: event.id, possibilityKey: 'end' } });
 			await doPossibility(message, language, possibility, entity, time, forcePoints);
 		}
 	});
@@ -345,21 +345,21 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 
 	let result = '';
-	result += format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
+	result += format(JsonReader.commands.report.getTranslation(language).points, { score: scoreChange });
 	if (moneyChange !== 0) {
-		result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
+		result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, { money: moneyChange }) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, { money: -moneyChange });
 	}
 	if (pDataValues.experience > 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
+		result += format(JsonReader.commands.report.getTranslation(language).experience, { experience: pDataValues.experience });
 	}
 	if (pDataValues.health < 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: -pDataValues.health});
+		result += format(JsonReader.commands.report.getTranslation(language).healthLoose, { health: -pDataValues.health });
 	}
 	if (pDataValues.health > 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
+		result += format(JsonReader.commands.report.getTranslation(language).health, { health: pDataValues.health });
 	}
 	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
-		result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime)});
+		result += format(JsonReader.commands.report.getTranslation(language).timeLost, { timeLost: minutesToString(pDataValues.lostTime) });
 	}
 	result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 		pseudo: message.author,

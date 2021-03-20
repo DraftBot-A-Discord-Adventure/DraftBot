@@ -80,7 +80,7 @@ const PetFeedCommand = async function (language, message, args) {
 		};
 
 		const collector = breedMsg.createReactionCollector(filterConfirm, {
-			time: 120000,
+			time: COLLECTOR_TIME,
 			max: 1,
 		});
 
@@ -137,7 +137,7 @@ const PetFeedCommand = async function (language, message, args) {
 		};
 
 		const collector = breedMsg.createReactionCollector(filterConfirm, {
-			time: 120000,
+			time: COLLECTOR_TIME,
 			max: 1,
 		});
 
