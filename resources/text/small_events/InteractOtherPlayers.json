@@ -3,11 +3,13 @@
 		"fr": {
 			"no_one": [
 				"Vous continuez votre chemin dans le plus grand calme, il n'y a pas un chat sur votre route.",
+				"Vous êtes seul, vous continuez donc votre route.",
 				"Les rayons du soleil traversant les nuages vous réchauffent alors que vous continuez votre voyage sur cette route déserte."
 			],
 			"top1": [
-				"Vous passez près de **{pseudo}** sur votre route, le top 1 actuel !",
-				"Oh mon dieu ! C'est incroyable ! C'est le légendaire **{pseudo}**, le plus grand combattant de la ligue du moment ! Vous passez à côté de celui-ci et discutez un moment, il vous donne quelques conseils pour votre aventure !"
+				"Vous passez près de **{pseudo}** sur votre route, le meilleur joueur actuellement !",
+				"Alors que vous marchiez, vous rencontrez **{pseudo}**. Il est actuellement à la tête du classement. Les yeux emplis d'admiration, vous décidez de ne pas gêner sa progression et vous continuez votre route.",
+				"Oh mon dieu ! C'est incroyable ! C'est le légendaire **{pseudo}**, le plus grand combattant actuellement ! Vous passez à côté de celui-ci et discutez un moment, il vous donne quelques conseils pour votre aventure !"
 			],
 			"top10": [
 				"Sur votre chemin, vous rencontrez quelqu'un d'important. En effet, **{pseudo}** est dans le top 10 !",
@@ -59,7 +61,7 @@
 			],
 			"fullHP": [
 				"Vous avez rarement vu quelqu'un d'aussi énergique que **{pseudo}**... Il semble en pleine forme !",
-				"**{player}** semble en forme, il a toute sa vie !"
+				"**{pseudo}** semble en forme, il a toute sa vie !"
 			],
 			"lowerRankThanHim": [
 				"Vous croisez **{pseudo}**, un joueur ayant plus réputation que vous... Mais n'abandonnez pas ! Vous pourrez peut-être le rattraper un jour.",
@@ -67,11 +69,11 @@
 			],
 			"betterRankThanHim": [
 				"Vous croisez **{pseudo}**, celui-ci a un moins bon classement... Mais attention il peut très bien vous rattraper un jour !",
-				"Un joueur vient vous voir, c'est **{player}** il vous demande quelques conseils pour progresser et passe son chemin !"
+				"Un joueur vient vous voir, c'est **{pseudo}** il vous demande quelques conseils pour progresser et passe son chemin !"
 			],
 			"rich": [
 				"Vous vous cachez les yeux pour arrêter d'être ébloui par le soleil qui reflète sur l'or que porte **{pseudo}** !",
-				"Es-ce Picsou ? Mais non ! C'est **{player}** ! Il possède tellement d'or que vous en êtes éblouis !"
+				"Es-ce Picsou ? Mais non ! C'est **{pseudo}** ! Il possède tellement d'or que vous en êtes éblouis !"
 			],
 			"poor": [
 				"À la vue des vêtements que porte **{pseudo}**, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donnez une pièce.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce",
@@ -83,7 +85,7 @@
 			],
 			"poorDontGiveMoney": [
 				"Il n'y a pas de petites économies... Vous décidez de garder votre argent.",
-				"**{player}**, est triste et part en pleurant !"
+				"**{pseudo}**, est triste et part en pleurant !"
 			],
 			"duplicatePotion": [
 				"Vous discutez sur votre trajet avec **{pseudo}**. Après avoir fait connaissance, il verse un peu de sa potion dans l'une de vos fioles vides. Vous continuez votre aventure avec **1x** {item} !",
