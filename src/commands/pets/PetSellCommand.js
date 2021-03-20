@@ -92,7 +92,7 @@ const PetSellCommand = async function (language, message, args) {
 	};
 
 	const collector = sellMessage.createReactionCollector(filter, {
-		time: 1200,
+		time: 120000,
 	});
 
 	addBlockedPlayer(entity.discordUser_id, "petSell", collector);
