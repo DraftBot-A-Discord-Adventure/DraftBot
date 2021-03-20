@@ -10,7 +10,7 @@ const PetSellCommand = async function (language, message, args) {
 	let guild;
 	let petCost;
 	let pet;
-	let sellInstance = undefined;
+	let sellInstance;
 
 	const translations = JsonReader.commands.petSell.getTranslation(language);
 
@@ -92,7 +92,7 @@ const PetSellCommand = async function (language, message, args) {
 	};
 
 	const collector = sellMessage.createReactionCollector(filter, {
-		time: 120000,
+		time: 1200,
 	});
 
 	addBlockedPlayer(entity.discordUser_id, "petSell", collector);
