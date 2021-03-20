@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 /**
  * Allow to exchange the object that is in the player backup slot within the one that is active
  * @param {("fr"|"en")} language - Language to use in the response
@@ -14,23 +16,31 @@ const SwitchCommand = async (language, message, args) => {
 		return;
 	}
 
+	const nextDailyDate = new moment(entity.Player.Inventory.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h");
+
+	if (millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime()) < JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd) {
+		entity.Player.Inventory.editCooldown(JsonReader.commands.switch.timeToAdd);
+	} else {
+		entity.Player.Inventory.updateLastDailyAt();
+	}
+
 	const temp = entity.Player.Inventory.object_id;
 	entity.Player.Inventory.object_id = entity.Player.Inventory.backup_id;
 	entity.Player.Inventory.backup_id = temp;
 
-	entity.Player.Inventory.updateLastDailyAt();
-
 	await entity.Player.Inventory.save();
 
-	await message.channel.send(format(JsonReader.commands.switch.getTranslation(language).main, {pseudo: message.author.username}));
+	await message.channel.send(
+		format(JsonReader.commands.switch.getTranslation(language).main, { pseudo: message.author.username })
+	);
 };
 
 module.exports = {
 	commands: [
 		{
-			name: 'switch',
+			name: "switch",
 			func: SwitchCommand,
-			aliases: ['sw']
-		}
-	]
+			aliases: ["sw"],
+		},
+	],
 };
