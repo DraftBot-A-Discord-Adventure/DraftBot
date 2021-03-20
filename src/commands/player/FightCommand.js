@@ -15,9 +15,6 @@ const FightCommand = async function (language, message, args, friendly = false) 
 		return;
 	}
 
-	/*let ftmp = new Fight(attacker, attacker, message, language); //Fight for testing
-	return ftmp.startFight();*/
-
 	let defender = null;
 	if (args.length !== 0) {
 		[defender] = await Entities.getByArgs(args, message);
@@ -32,11 +29,11 @@ const FightCommand = async function (language, message, args, friendly = false) 
 
 	let isTournament = tournamentChannel === message.channel.id && !friendly;
 	let canF;
-	if ((canF = await canFight(attacker, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+	if ((canF = await canFight(attacker, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
 		sendError(message, attacker, canF, true, language);
 		return;
 	}
-	if (defender != null && (canF = await canFight(defender, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+	if (defender != null && (canF = await canFight(defender, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
 		sendError(message, defender, canF, false, language);
 		return;
 	}
@@ -95,7 +92,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 							break;
 						}
 						[defender] = await Entities.getOrRegister(user.id);
-						if ((canF = await canFight(defender, isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+						if ((canF = await canFight(defender, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
 							sendError(message, defender, canF, true, language);
 							defender = null;
 							return;
