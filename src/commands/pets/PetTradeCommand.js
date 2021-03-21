@@ -62,7 +62,7 @@ const PetTradeCommand = async function (language, message, args) {
 	};
 
 	const collector = confirmMessage.createReactionCollector(filter, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		dispose: true
 	});
 

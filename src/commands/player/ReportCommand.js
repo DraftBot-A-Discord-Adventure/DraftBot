@@ -20,8 +20,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	await addBlockedPlayer(entity.discordUser_id, "cooldown");
 	setTimeout(() => {
 		if (hasBlockedPlayer(entity.discordUser_id)) {
-			removeBlockedPlayer(entity.discordUser_id);
-			if (getBlockedPlayer(entity.discordUser_id) && getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
+			if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
 				removeBlockedPlayer(entity.discordUser_id);
 			}
 		}
@@ -151,7 +150,7 @@ const chooseDestination = async function (entity, message, language) {
 
 	const collector = sentMessage.createReactionCollector((reaction, user) => {
 		return destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
-	}, {time: 120000});
+	}, {time: COLLECTOR_TIME});
 
 	collector.on('collect', async () => {
 		collector.stop();
@@ -280,7 +279,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector((reaction, user) => {
 		return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);
-	}, {time: 120000});
+	}, {time: COLLECTOR_TIME});
 
 	await addBlockedPlayer(entity.discordUser_id, "report", collector);
 
@@ -388,6 +387,8 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
 	if (pDataValues.item === true) {
 		await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
+	} else {
+		removeBlockedPlayer(entity.discordUser_id);
 	}
 
 	if (pDataValues.eventId === 0) {
@@ -400,8 +401,6 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 
 	let resultMsg = await message.channel.send(result);
-
-	removeBlockedPlayer(entity.discordUser_id);
 
 	while (player.needLevelUp()) {
 		await player.levelUpIfNeeded(entity, message.channel, language);

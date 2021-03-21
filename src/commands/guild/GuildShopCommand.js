@@ -108,7 +108,7 @@ async function GuildShopCommand(language, message, args) {
 	};
 
 	const collector = shopMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -263,7 +263,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 	};
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -406,7 +406,7 @@ async function confirmXpPurchase(
 	};
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -538,19 +538,19 @@ const giveFood = async (
 					quantity: quantity,
 					name:
 						selectedItem.type === "ultimateFood" && language == "fr" ? selectedItem.translations[language].name
-								.slice(2, -2)
-								.toLowerCase()
-								.replace(
-									selectedItem.translations[language].name
-										.slice(2, -2)
-										.toLowerCase()
-										.split(" ")[0],
-									selectedItem.translations[language].name
-										.slice(2, -2)
-										.toLowerCase()
-										.split(" ")[0]
-										.concat("s")
-								)
+							.slice(2, -2)
+							.toLowerCase()
+							.replace(
+								selectedItem.translations[language].name
+									.slice(2, -2)
+									.toLowerCase()
+									.split(" ")[0],
+								selectedItem.translations[language].name
+									.slice(2, -2)
+									.toLowerCase()
+									.split(" ")[0]
+									.concat("s")
+							)
 							: selectedItem.translations[language].name
 								.slice(2, -2)
 								.toLowerCase(),
