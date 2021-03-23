@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** :bust_in_silhouette: En vous baladant tranquillement dans un village, vous remarquez du coin de l'œil un garde volant une pauvre femme.\n\n:punch: Attaquer le garde par surprise dans l'optique d'aider la femme\n:walking: Passer votre chemin.\n:call_me: Alerter d'autres gardes sur les agissements de leur collègue.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :bust_in_silhouette: while walking peacefully in a village, you see a guard stealing from a poor woman.\n\n:punch: Attack the guard to help the lady.\n:walking: Keep walking.\n:call_me: Contact another guard and warn them of the corrupt guard.\n\n*- Use the reactions for make an action :warning: Not answering is also considered an action!*"
+		"fr": " : ** 👤 En vous baladant tranquillement dans un village, vous remarquez du coin de l'œil un garde volant une pauvre femme.\n\n👊 Attaquer le garde par surprise dans l'optique d'aider la femme\n🚶 Passer votre chemin.\n🤙 Alerter d'autres gardes sur les agissements de leur collègue.\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 👤 while walking peacefully in a village, you see a guard stealing from a poor woman.\n\n👊 Attack the guard to help the lady.\n🚶 Keep walking.\n🤙 Contact another guard and warn them of the corrupt guard.\n\n*- Use the reactions for make an action ⚠️ Not answering is also considered an action!*"
 	},
 	"possibilities": {
 		"👊": [
@@ -71,7 +71,7 @@
 		"🤙": [
 			{
 				"translations": {
-					"fr": "** | 🤙 Les gardes vous suivent et apréhendent le garde véreux, la femme vous offre un objet en gage de remerciements.",
+					"fr": "** | 🤙 Les gardes vous suivent et appréhendent le garde véreux, la femme vous offre un objet en gage de remerciements.",
 					"en": "** | 🤙 The guards follow you and arrest the corrupt guard. The woman gives you an object as a token of her appreciation."
 				},
 				"lostTime": 0,
@@ -83,8 +83,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🤙 Malheureusement, les gardes que vous tentez d'alerter n'ont que faire des agissements malfaisant de leur collègue. Devant votre insistance, ils engagent le combat contre vous. Vous remportez la bataille malgré quelques blessures mais il est trop tard. La femme gît sur le sol ainsi que deux gardes. :head_bandage:",
-					"en": "** | 🤙 The guards, also being criminals, strike you on your hip, but leave you alive. :head_bandage:"
+					"fr": "** | 🤙 Malheureusement, les gardes que vous tentez d'alerter n'ont que faire des agissements malfaisant de leur collègue. Devant votre insistance, ils engagent le combat contre vous. Vous remportez la bataille malgré quelques blessures mais il est trop tard. La femme gît sur le sol ainsi que deux gardes. 🤕",
+					"en": "** | 🤙 The guards, also being criminals, strike you on your hip, but leave you alive. 🤕"
 				},
 				"lostTime": 0,
 				"health": -35,

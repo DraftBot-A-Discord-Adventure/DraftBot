@@ -1,13 +1,13 @@
 {
 	"translations": {
-		"fr": " : ** :stew: Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.\n\n:apple: Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits\n:mushroom: Cueillir les champignons.\n:salad: Concocter une salade avec les plantes que vous trouvez\n:deer: Tenter de chasser un animal sauvage\n:walking: Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !* ",
-		"en": " : ** :stew: Hungry after your day of travel, you decide to stop and look for something to eat around you.\n\n:apple: Climb the huge tree facing you and get fruit from it.\n:mushroom: Gather mushrooms.\n:salad: Make a salad with the plants you find.\n:deer: Attempt to hunt a wild animal\n:walking: Forget eating here. Leave in hopes of finding a better place to eat.\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🍲 Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.\n\n🍎 Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits\n🍄 Cueillir les champignons.\n🥗 Concocter une salade avec les plantes que vous trouvez\n🦌 Tenter de chasser un animal sauvage\n🚶 Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !* ",
+		"en": " : ** 🍲 Hungry after your day of travel, you decide to stop and look for something to eat around you.\n\n🍎 Climb the huge tree facing you and get fruit from it.\n🍄 Gather mushrooms.\n🥗 Make a salad with the plants you find.\n🦌 Attempt to hunt a wild animal\n🚶 Forget eating here. Leave in hopes of finding a better place to eat.\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🍎": [
 			{
 				"translations": {
-					"fr": "** | 🍎 Vous grimpez le plus haut possible et décrochez un fruit. Vous comblez rapidement votre faim et sentez vos forces se revigorer de cet aport de sucre.",
+					"fr": "** | 🍎 Vous grimpez le plus haut possible et décrochez un fruit. Vous comblez rapidement votre faim et sentez vos forces se revigorer de cet apport de sucre.",
 					"en": "** | 🍎 You climb as high as you can and pick fruit. You quickly satisfy your hunger and feel your strength revitalised by this sugary boost."
 				},
 				"lostTime": 0,
@@ -19,8 +19,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍎 Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'éffondre sous votre poid ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprenez votre route. :confounded:",
-					"en": "** | 🍎 As you were about to pick fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way. :confounded:"
+					"fr": "** | 🍎 Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'effondre sous votre poids ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprenez votre route. 😖",
+					"en": "** | 🍎 As you were about to pick fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way. 😖"
 				},
 				"lostTime": 0,
 				"health": -10,
@@ -31,8 +31,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍎 Vous cueillez rapidement un fruit et croquez vigoureusement dedans... Ce n'est que quelques heures plus tard que vous prendrez mesure de votre erreur. :sick:",
-					"en": "** | 🍎 You quickly pick fruit and eagerly take a large bite... It's only a few hours later you realize your mistake. :sick:"
+					"fr": "** | 🍎 Vous cueillez rapidement un fruit et croquez vigoureusement dedans... Ce n'est que quelques heures plus tard que vous prendrez mesure de votre erreur. 🤢",
+					"en": "** | 🍎 You quickly pick fruit and eagerly take a large bite... It's only a few hours later you realize your mistake. 🤢"
 				},
 				"lostTime": 0,
 				"health": -15,
@@ -69,8 +69,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🍄 Vous croquez à pleine dents dans un champignon rouge avec des petits points blancs... et regrettez rapidement cette action ! :dizzy_face:",
-					"en": "** | 🍄 You bite into a red mushroom with small white dots... and quickly regret this action! :dizzy_face:"
+					"fr": "** | 🍄 Vous croquez à pleine dents dans un champignon rouge avec des petits points blancs... et regrettez rapidement cette action ! 😵",
+					"en": "** | 🍄 You bite into a red mushroom with small white dots... and quickly regret this action! 😵"
 				},
 				"lostTime": 0,
 				"health": -40,
@@ -95,13 +95,13 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🥗 Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprenez donc votre route sans rien manger. :drooling_face:",
-					"en": "** | 🥗 After some research, you don't really find any plants satisfying your hunger, so head back on your way without eating anything. :drooling_face: "
+					"fr": "** | 🥗 Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprenez donc votre route sans rien manger. 🤤",
+					"en": "** | 🥗 After some research, you don't really find any plants satisfying your hunger, so head back on your way without eating anything. 🤤 "
 				},
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":drooling_face:",
-				"experience": 10,
+				"experience": 20,
 				"money": 0,
 				"item": false
 			},
@@ -133,8 +133,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🦌 Après une course poursuite effrénée avec un animal sauvage, celui-ci cesse de vous fuir et vous charge furieusement. Abasourdi par la violence de l'attaque, vous ne parvenez pas à l'éviter et subissez la totale colère de la bête. Gravement blessé, il vous faudra du temps avant de reprendre votre aventure :dizzy_face:",
-					"en": "** | 🦌 After a long frantic chase with a wild animal, it stops fleeing and charges you furiously. Stunned by the force of the attack, you are unable to dodge and suffer the beast's wrath. Seriously injured, it will take time before you can resume your adventure :dizzy_face:"
+					"fr": "** | 🦌 Après une course poursuite effrénée avec un animal sauvage, celui-ci cesse de vous fuir et vous charge furieusement. Abasourdi par la violence de l'attaque, vous ne parvenez pas à l'éviter et subissez la totale colère de la bête. Gravement blessé, il vous faudra du temps avant de reprendre votre aventure 😵",
+					"en": "** | 🦌 After a long frantic chase with a wild animal, it stops fleeing and charges you furiously. Stunned by the force of the attack, you are unable to dodge and suffer the beast's wrath. Seriously injured, it will take time before you can resume your adventure 😵"
 				},
 				"lostTime": 0,
 				"health": -60,
@@ -171,8 +171,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 🚶 Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route. :sleeping:",
-					"en": "** | 🚶 You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road. :sleeping:"
+					"fr": "** | 🚶 Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route. 😴",
+					"en": "** | 🚶 You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road. 😴"
 				},
 				"lostTime": 0,
 				"health": 0,

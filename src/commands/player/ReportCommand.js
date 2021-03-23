@@ -20,8 +20,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	await addBlockedPlayer(entity.discordUser_id, "cooldown");
 	setTimeout(() => {
 		if (hasBlockedPlayer(entity.discordUser_id)) {
-			removeBlockedPlayer(entity.discordUser_id);
-			if (getBlockedPlayer(entity.discordUser_id) && getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
+			if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
 				removeBlockedPlayer(entity.discordUser_id);
 			}
 		}
@@ -56,7 +55,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
  * @param {Number} forceSpecificEvent
  * @returns {Promise<void>}
  */
-const doRandomBigEvent = async function(message, language, entity, forceSpecificEvent) {
+const doRandomBigEvent = async function (message, language, entity, forceSpecificEvent) {
 	let time;
 	if (forceSpecificEvent === -1) {
 		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.valueOf());
@@ -96,7 +95,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
  * @param {Entities} entity
  * @returns {boolean}
  */
-const needBigEvent = function(entity) {
+const needBigEvent = function (entity) {
 	return Maps.getTravellingTime(entity.Player) >= REPORT.TIME_BETWEEN_BIG_EVENTS;
 }
 
@@ -107,7 +106,7 @@ const needBigEvent = function(entity) {
  * @param {"fr"|"en"} language
  * @returns {Promise<Message>}
  */
-const sendTravelPath = async function(entity, message, language) {
+const sendTravelPath = async function (entity, message, language) {
 	let travelEmbed = new discord.MessageEmbed();
 	const tr = JsonReader.commands.report.getTranslation(language);
 	travelEmbed.setAuthor(tr.travelPathTitle, message.author.displayAvatarURL());
@@ -128,7 +127,7 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @param {"fr"|"en"} language
  * @returns {Promise<void>}
  */
-const chooseDestination = async function(entity, message, language) {
+const chooseDestination = async function (entity, message, language) {
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
 	// TODO mettre le temps ici comme ça ça bloque pas si le bot crash
 	if (destinationMaps.length === 1) {
@@ -138,7 +137,7 @@ const chooseDestination = async function(entity, message, language) {
 
 	const tr = JsonReader.commands.report.getTranslation(language);
 	let chooseDestinationEmbed = new discord.MessageEmbed();
-	chooseDestinationEmbed.setAuthor(format(tr.destinationTitle, { pseudo: message.author.username }), message.author.displayAvatarURL());
+	chooseDestinationEmbed.setAuthor(format(tr.destinationTitle, {pseudo: message.author.username}), message.author.displayAvatarURL());
 	let desc = tr.chooseDestinationIndications + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
@@ -150,7 +149,7 @@ const chooseDestination = async function(entity, message, language) {
 
 	const collector = sentMessage.createReactionCollector((reaction, user) => {
 		return destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
-	}, { time: 120000 });
+	}, {time: COLLECTOR_TIME});
 
 	collector.on('collect', async () => {
 		collector.stop();
@@ -179,12 +178,12 @@ const chooseDestination = async function(entity, message, language) {
  * @param language
  * @returns {Promise<void>}
  */
-const destinationChoseMessage = async function(entity, map, message, language) {
+const destinationChoseMessage = async function (entity, map, message, language) {
 	const tr = JsonReader.commands.report.getTranslation(language);
 	const typeTr = JsonReader.models.maps.getTranslation(language);
 	const mapInstance = await MapLocations.getById(map);
 	let destinationEmbed = new discord.MessageEmbed();
-	destinationEmbed.setAuthor(format(tr.destinationTitle, { pseudo: message.author.username }), message.author.displayAvatarURL());
+	destinationEmbed.setAuthor(format(tr.destinationTitle, {pseudo: message.author.username}), message.author.displayAvatarURL());
 	destinationEmbed.setDescription(format(tr.choseMap, {
 		mapPrefix: typeTr.types[mapInstance.type].prefix,
 		mapName: mapInstance.getDisplayName(language),
@@ -279,7 +278,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector((reaction, user) => {
 		return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);
-	}, {time: 120000});
+	}, {time: COLLECTOR_TIME});
 
 	await addBlockedPlayer(entity.discordUser_id, "report", collector);
 
@@ -387,6 +386,8 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
 	if (pDataValues.item === true) {
 		await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
+	} else {
+		removeBlockedPlayer(entity.discordUser_id);
 	}
 
 	if (pDataValues.eventId === 0) {
@@ -399,8 +400,6 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 
 	let resultMsg = await message.channel.send(result);
-
-	removeBlockedPlayer(entity.discordUser_id);
 
 	while (player.needLevelUp()) {
 		await player.levelUpIfNeeded(entity, message.channel, language);

@@ -95,7 +95,7 @@ async function ShopCommand(language, message, args) {
 	};
 
 	const collector = shopMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -345,7 +345,7 @@ async function confirmPurchase(
 	};
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 

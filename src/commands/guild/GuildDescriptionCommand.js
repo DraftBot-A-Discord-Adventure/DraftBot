@@ -99,7 +99,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 		format(
 			JsonReader.commands.guildDescription.getTranslation(language)
 				.changeDescriptionTitle,
-			{pseudo: message.author.username}
+			{ pseudo: message.author.username }
 		),
 		message.author.displayAvatarURL()
 	);
@@ -130,7 +130,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 	};
 
 	const collector = msg.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 

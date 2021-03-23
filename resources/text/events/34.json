@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** Au détour d'une rue, des passants vous ont reconnu et vous abordent. Ils se rappellent parfaitement de l'aide que vous leur aviez apportée, et insistent pour vous remercier en vous offrant un cadeau. Ils vous demandent ce qui vous ferait le plus plaisir.\n\n:four_leaf_clover: Cadeau en nature\n:moneybag: Cadeau en monnaie\n:innocent: Cadeau en santé\n:salad: Cadeau alimentaire\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n:four_leaf_clover: Gift in kind\n:moneybag: Money Gift\n:innocent: Gift of Health\n:salad: Gift of Food\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🤩 Au détour d'une rue, des passants vous ont reconnu et vous abordent. Ils se rappellent parfaitement de l'aide que vous leur aviez apportée, et insistent pour vous remercier en vous offrant un cadeau. Ils vous demandent ce qui vous ferait le plus plaisir.\n\n🍀 Cadeau en nature\n💰 Cadeau en monnaie\n😇 Cadeau en santé\n🥗 Cadeau alimentaire\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🤩 At the turning point of the road, some passers-by recognize and approach you. They remember the help you once gave them, and insist on thanking you again by offering you a gift. They ask what would make you happy.\n\n🍀 Gift in kind\n💰 Money Gift\n😇 Gift of Health\n🥗 Gift of Food\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"🍀": [
@@ -121,8 +121,8 @@
 		"🥗": [
 			{
 				"translations": {
-					"fr": "** | 🥗 L'un d'entre eux vous tend une soupe plutôt appétissante. Vous la buvez sans vous méfier. Ces malandrins vous ont tendu un piège ! Attendant depuis longtemps de vous mettre à mal pour vous piller, le breuvage contenait juste assez d'amanite tue-mouches pour rendre malade. Vous vous sentez partir tout en voyant vos poches se faire dépouiller, impuissant. :sick:",
-					"en": "** | 🥗 One of them hands you a rather appetizing soup. You drink it carelessly. Those scoundrels set up a trap for you! They had waited for a long time to plunder you, the drink contained just enough fly agaric to make you sick. You feel increasingly ill while seeing your pockets being stripped leaving you helpless. :sick:"
+					"fr": "** | 🥗 L'un d'entre eux vous tend une soupe plutôt appétissante. Vous la buvez sans vous méfier. Ces malandrins vous ont tendu un piège ! Attendant depuis longtemps de vous mettre à mal pour vous piller, le breuvage contenait juste assez d'amanite tue-mouches pour rendre malade. Vous vous sentez partir tout en voyant vos poches se faire dépouiller, impuissant. 🤢",
+					"en": "** | 🥗 One of them hands you a rather appetizing soup. You drink it carelessly. Those scoundrels set up a trap for you! They had waited for a long time to plunder you, the drink contained just enough fly agaric to make you sick. You feel increasingly ill while seeing your pockets being stripped leaving you helpless. 🤢"
 				},
 				"lostTime": 0,
 				"health": 0,
@@ -151,7 +151,7 @@
 				"lostTime": 0,
 				"health": 0,
 				"effect": ":smiley:",
-				"experience": 0,
+				"experience": 150,
 				"money": 0,
 				"item": false
 			}
@@ -160,7 +160,7 @@
 			{
 				"translations": {
 					"fr": "** | 🚶 Face à l'absence de réponse de votre part, le groupe d'amis décide malgré tout de partir vous chercher un cadeau. Alors que vous les attendez poliment, vous angoissez de plus en plus à l'idée de perdre du temps. Le risque de ne pas arriver à sauver la princesse vous obsède, vous rend malade même... et vous finissez par tomber dans les pommes. Vous découvrant inanimé en revenant, les honnêtes individus vous adossent à un arbre pour vous permettre de vous reposer, et vous laissent ce cadeau, avant de reprendre la route. ",
-					"en": "** | 🚶 Faced with your lack of response, the group of friends decides to go and get you a gift. As you wait for them politely, you become more and more anxious at the idea of wasting time. The eventuality of not being able to save the princess scares you and even makes you sick... so much that you end up fainting. On their way back, the honest people discovered you and leaned you against a tree to let you rest, while still unconscious, they leftyou with a gift before you set out on your journey."
+					"en": "** | 🚶 Faced with your lack of response, the group of friends decides to go and get you a gift. As you wait for them politely, you become more and more anxious at the idea of wasting time. The eventuality of not being able to save the princess scares you and even makes you sick... so much that you end up fainting. On their way back, the honest people discovered you and leaned you against a tree to let you rest, while still unconscious, they leave ou with a gift before you set out on your journey."
 				},
 				"lostTime": 0,
 				"health": 0,

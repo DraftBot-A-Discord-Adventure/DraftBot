@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** :walking: En vous promenant dans un village, vous remarquez un regroupement de personnes. Vous constatez très vite en vous approchant qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n:money_with_wings: Voler des passants assistant au massacre.\n:punch: S'interposer et empêcher cet homme de mourir.\n:walking: Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :walking: While walking through a village, you notice a group of people. Up close, you quickly notice a hanging in progress. After some discussion, you learn this person is sentenced to death for \"words contrary to the values of the church\"\n\n:money_with_wings: Steal from the audience.\n:punch: Stand in the way to prevent the man from dying.\n:walking: Continue on your journey peacefully\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": " : ** 🚶 En vous promenant dans un village, vous remarquez un regroupement de personnes. Vous constatez très vite en vous approchant qu'une pendaison est en cours. Après quelques renseignements, vous savez que cette personne est condamnée à mort pour \"propos contraires aux valeurs de l'église\"\n\n💸 Voler des passants assistant au massacre.\n👊 S'interposer et empêcher cet homme de mourir.\n🚶 Continuer votre route paisiblement\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
+		"en": " : ** 🚶 While walking through a village, you notice a group of people. Up close, you quickly notice a hanging in progress. After some discussion, you learn this person is sentenced to death for \"words contrary to the values of the church\"\n\n💸 Steal from the audience.\n👊 Stand in the way to prevent the man from dying.\n🚶 Continue on your journey peacefully\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
 	},
 	"possibilities": {
 		"💸": [
@@ -69,8 +69,8 @@
 			},
 			{
 				"translations": {
-					"fr": "** | 👊 Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamné à la peine capitale. :skull:",
-					"en": "** | 👊 After trying to violently intervene, the executioner grabs you by force. You're struggling, but nothing can change that. You, in turn, are sentenced to death. :skull:"
+					"fr": "** | 👊 Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamné à la peine capitale. 💀",
+					"en": "** | 👊 After trying to violently intervene, the executioner grabs you by force. You're struggling, but nothing can change that. You, in turn, are sentenced to death. 💀"
 				},
 				"lostTime": 0,
 				"health": 0,
