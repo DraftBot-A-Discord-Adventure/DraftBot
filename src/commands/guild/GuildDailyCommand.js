@@ -166,6 +166,18 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 		log("GuildDaily of guild " + guild.name + ": got full heal");
 	}
 
+	if (rewardType === REWARD_TYPES.HOSPITAL) {
+		for (const i in members) {
+				await members[i].Player.fastForward(Math.round(guild.level / 20))
+		
+			await members[i].Player.save();
+	}
+	embed.setDescription(format(translations.hospital, {
+		timeMoved: Math.round(guild.level / 20),
+	}));
+	log("GuildDaily of guild " + guild.name + ": got moved up");
+}
+
 	if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
 		for (const i in members) {
 			if (members[i].effect != EFFECT.DEAD) {

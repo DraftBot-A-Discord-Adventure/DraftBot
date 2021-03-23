@@ -53,6 +53,7 @@ global.PERMISSION = {
 global.REWARD_TYPES = {
 	PERSONAL_XP: "personalXP",
 	GUILD_XP: "guildXp",
+	HOSPITAL: "hospital",
 	MONEY: "money",
 	FIXED_MONEY: "fixedMoney",
 	BADGE: "badge",
