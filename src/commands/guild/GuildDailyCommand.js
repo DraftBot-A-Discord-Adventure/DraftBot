@@ -208,7 +208,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 		log("GuildDaily of guild " + guild.name + ": got alteration heal");
 	}
 
-	if (!Guilds.isPetShelterFull(guild) && draftbotRandom.realZeroToOneInclusive() <= 0.1) {
+	if (!Guilds.isPetShelterFull(guild) && draftbotRandom.realZeroToOneInclusive() <= 0.01) {
 		let pet = await PetEntities.generateRandomPetEntity(guild.level);
 		await pet.save();
 		await (await GuildPets.addPet(guild.id, pet.id)).save();
