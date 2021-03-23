@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":wolf: **Familier loup**",
-		"en": ":wolf: **Wolf spirit**"
+		"fr": ":wolf: **Loup d'attaque**",
+		"en": ":wolf: **Attack wolf**"
 	},
 	"rarity": 6,
 	"rawAttack": 9
