@@ -11,7 +11,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let randomItem = await entity.Player.Inventory.generateRandomItem(5);
 	let price = getItemValue(randomItem);
 	if (randInt(1, 10) === 10) {
-		price *= 4;
+		price *= 5;
 	} else {
 		price *= 0.6;
 	}
@@ -45,7 +45,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				reaction.first().message.delete();
-				giveItem(entity, randomItem, language, message.author, message.channel);
+				await giveItem(entity, randomItem, language, message.author, message.channel,0.1);
 				log(entity.discordUser_id + " bought an item in a mini shop for " + price);
 				entity.Player.addMoney(-price);
 				await Promise.all([

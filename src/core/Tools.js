@@ -65,9 +65,10 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entity} entity
+ * @param {Number} resaleMultiplier - used to lower the resale value of an object
  * @returns {Promise<*>}
  */
-global.giveItem = async (entity, item, language, discordUser, channel) => {
+global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplier = 1) => {
 	log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
 	let autoSell = false;
 	let autoReplace = false;
@@ -208,7 +209,7 @@ global.giveItem = async (entity, item, language, discordUser, channel) => {
 					); // potion are not sold (because of exploits and because of logic)
 				}
 			}
-			const money = getItemValue(item);
+			const money = Math.round(getItemValue(item) * resaleMultiplier);
 			entity.Player.addMoney(money);
 			await entity.Player.save();
 			return await channel.send(
