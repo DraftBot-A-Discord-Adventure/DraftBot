@@ -203,32 +203,12 @@ async function ShopCommand(language, message, args) {
  * @param {*} message - The message where the react event trigerred
  * @param {*} reaction - The reaction
  */
-async function sellItem(
-	message,
-	reaction,
-	language,
-	entity,
-	customer,
-	selectedItem
-) {
+async function sellItem(message, reaction, language, entity, customer, selectedItem) {
 	[entity] = await Entities.getOrRegister(entity.discordUser_id);
 	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
-	log(
-		entity.discordUser_id +
-		" bought the shop item " +
-		selectedItem.name +
-		" for " +
-		selectedItem.price
-	);
+	log(entity.discordUser_id + " bought the shop item " + selectedItem.name + " for " + selectedItem.price);
 	if (selectedItem.name) {
 		//This is not a potion
-		log(
-			entity.discordUser_id +
-			" bought the shop item " +
-			selectedItem.name +
-			" for " +
-			selectedItem.price
-		);
 		if (
 			selectedItem.name ===
 			shopTranslations.permanentItems.randomItem.name
@@ -352,23 +332,10 @@ async function confirmPurchase(
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				reaction.first().message.delete();
-				return sellItem(
-					message,
-					reaction,
-					language,
-					entity,
-					customer,
-					selectedItem
-				);
+				return sellItem(message, reaction, language, entity, customer, selectedItem);
 			}
 		}
-		sendErrorMessage(
-			customer,
-			message.channel,
-			language,
-			JsonReader.commands.shop.getTranslation(language).error
-				.canceledPurchase
-		);
+		sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.canceledPurchase);
 	});
 
 	await Promise.all([

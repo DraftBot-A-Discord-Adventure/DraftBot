@@ -22,7 +22,47 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		item: randomItem.toString(language),
 		price: price
 	}));
-	const msg = message.channel.send(seEmbed);
+	const msg = await message.channel.send(seEmbed);
+	await Promise.all([
+		msg.react(MENU_REACTION.ACCEPT),
+		msg.react(MENU_REACTION.DENY)
+	]);
+	const filterConfirm = (reaction, user) => {
+		return (
+			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+				reaction.emoji.name === MENU_REACTION.DENY) &&
+			user.id === entity.discordUser_id
+		);
+	};
+
+	const collector = msg.createReactionCollector(filterConfirm, {
+		time: COLLECTOR_TIME,
+		max: 1,
+	});
+
+	collector.on("end", async (reaction) => {
+		removeBlockedPlayer(entity.discordUser_id);
+		if (reaction.first()) {
+			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+				reaction.first().message.delete();
+				giveItem(entity, randomItem, language, message.author, message.channel);
+				log(entity.discordUser_id + " bought an item in a mini shop for " + price);
+				entity.Player.addMoney(-price);
+				await Promise.all([
+					entity.Player.save(),
+					entity.Player.Inventory.save(),
+				]);
+				return;
+			}
+		}
+		await sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			JsonReader.commands.shop.getTranslation(language).error
+				.canceledPurchase
+		);
+	});
 };
 
 module.exports = {

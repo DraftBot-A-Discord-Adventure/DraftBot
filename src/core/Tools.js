@@ -59,14 +59,15 @@ global.sendSimpleMessage = (user, channel, title, message) => {
 };
 
 /**
- * give a random item
+ * Give an item to a user
  * @param {module:"discord.js".User} discordUser
+ * @param {Item} item - The item that has to be given
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entity} entity
+ * @returns {Promise<*>}
  */
-global.giveRandomItem = async (discordUser, channel, language, entity) => {
-	let item = await entity.Player.Inventory.generateRandomItem();
+global.giveItem = async (entity, item, language, discordUser, channel) => {
 	log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
 	let autoSell = false;
 	let autoReplace = false;
@@ -233,6 +234,18 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 			msg.react(MENU_REACTION.DENY),
 		]);
 	}
+}
+
+/**
+ * give a random item
+ * @param {module:"discord.js".User} discordUser
+ * @param {module:"discord.js".TextChannel} channel
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {Entity} entity
+ */
+global.giveRandomItem = async (discordUser, channel, language, entity) => {
+	let item = await entity.Player.Inventory.generateRandomItem();
+	return await giveItem(entity, item, language, discordUser, channel);
 };
 
 /**
@@ -240,7 +253,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
  * @param {number} maxRarity
  * @return {Number} generated rarity
  */
-global.generateRandomRarity = (maxRarity= 8) => {
+global.generateRandomRarity = (maxRarity = 8) => {
 
 
 	let valueToRemove = JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity];
@@ -494,25 +507,25 @@ global.getValidationInfos = function (guild) {
 			validation = ":warning:";
 		}
 	}
-	return { validation: validation, humans: humans, bots: bots, ratio: ratio };
+	return {validation: validation, humans: humans, bots: bots, ratio: ratio};
 };
 
 async function saveItem(item, entity) {
 	let oldItem;
 	if (item instanceof Potions) {
-		oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
+		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
 		entity.Player.Inventory.potion_id = item.id;
 	}
 	if (item instanceof Objects) {
-		oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
+		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});
 		entity.Player.Inventory.backup_id = item.id;
 	}
 	if (item instanceof Weapons) {
-		oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
+		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weapon_id}});
 		entity.Player.Inventory.weapon_id = item.id;
 	}
 	if (item instanceof Armors) {
-		oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
+		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armor_id}});
 		entity.Player.Inventory.armor_id = item.id;
 	}
 	await Promise.all([
