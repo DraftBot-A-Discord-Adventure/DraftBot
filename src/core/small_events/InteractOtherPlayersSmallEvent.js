@@ -3,14 +3,16 @@
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
+ * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity) {
+const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let randomPlayerOnMap = await MapLocations.getRandomPlayerOnMap(entity.Player.map_id, entity.Player.previous_map_id, entity.Player.id);
 	let [otherEntity] = randomPlayerOnMap.length > 0 ? await Entities.getOrRegister(randomPlayerOnMap[0].discordUser_id) : [null];
 	const tr = JsonReader.small_events.InteractOtherPlayers.getTranslation(language);
 	if (!otherEntity) {
-		return await message.channel.send(tr.no_one[randInt(0, tr.no_one.length)]);
+		seEmbed.setDescription(seEmbed.description + tr.no_one[randInt(0, tr.no_one.length)]);
+		return await message.channel.send(seEmbed);
 	} else {
 		const cList = [];
 
@@ -130,17 +132,19 @@ const executeSmallEvent = async function (message, language, entity) {
 				}
 			}
 		}
-		const msg = await message.channel.send(format(tr[characteristic][randInt(0, tr[characteristic].length)], {
+
+		seEmbed.setDescription(seEmbed.description + format(tr[characteristic][randInt(0, tr[characteristic].length)], {
 			pseudo: await otherEntity.Player.getPseudo(language),
 			level: otherEntity.Player.level,
 			class: (await Classes.getById(otherEntity.Player.class))[language],
-			advice: JsonReader.commands.report.getTranslation(language).advices[randInt(0, JsonReader.commands.report.getTranslation(language).advices.length)],
+			advice: JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length)],
 			pet_name: otherEntity.Player.Pet ? (PetEntities.getPetEmote(otherEntity.Player.Pet) + " " + (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : PetEntities.getPetTypeName(otherEntity.Player.Pet, language))) : "",
 			guild_name: guild ? guild.name : "",
 			item: item ? item[language] : "",
 			plural_item: item ? (item.french_plural === 1 ? "s" : "") : "",
 			prefix_item: prefix_item,
 		}));
+		const msg = message.channel.send(seEmbed);
 		// TODO add reaction poor
 		// TODO duplicate potion
 		// TODO virer pseudos 404

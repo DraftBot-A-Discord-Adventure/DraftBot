@@ -492,7 +492,14 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 			if (!smallEventFile.executeSmallEvent) {
 				await message.channel.send(filename + " doesn't contain an executeSmallEvent function");
 			} else {
-				await smallEventFile.executeSmallEvent(message, language, entity);
+				// Create a template embed
+				const seEmbed = new discord.MessageEmbed();
+				seEmbed.setAuthor(format(JsonReader.commands.report.getTranslation(language).journal, {
+					pseudo: message.author.username
+				}), message.author.displayAvatarURL());
+				seEmbed.setDescription(JsonReader.small_events[event].emote + " ");
+
+				await smallEventFile.executeSmallEvent(message, language, entity, seEmbed);
 			}
 		} catch (e) {
 			console.error(e);

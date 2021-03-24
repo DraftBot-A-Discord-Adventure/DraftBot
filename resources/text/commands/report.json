@@ -19,7 +19,8 @@
 			"startPoint": "Point de départ",
 			"endPoint": "Point d'arrivée",
 			"progression": "Progression",
-			"adviceTitle": "Conseil"
+			"adviceTitle": "Conseil",
+			"journal": "Journal de {pseudo}"
 		},
 		"en": {
 			"doEvent": ":newspaper: ** Journal of {pseudo} {event}",
@@ -40,7 +41,8 @@
 			"startPoint": "Start point",
 			"endPoint": "End point",
 			"progression": "Progression",
-			"adviceTitle": "Advice"
+			"adviceTitle": "Advice",
+			"journal": "Journal of {pseudo}"
 		}
 	},
 	"timeMinimal": 60,

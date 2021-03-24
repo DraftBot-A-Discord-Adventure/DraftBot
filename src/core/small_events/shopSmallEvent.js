@@ -3,9 +3,10 @@
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
+ * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity) {
+const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
 	let RandomItem = await entity.Player.Inventory.generateRandomItem(5);
 	let price = getItemValue(RandomItem);
