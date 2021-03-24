@@ -43,7 +43,7 @@
 			"error": {
 				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
 				"cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
-				"canceledPurchase": "transaction annulée!",
+				"canceledPurchase": "Transaction annulée!",
 				"alreadyHasItem": "Vous possédez déjà cet objet.",
 				"leaveShop": "Vous avez quitté le magasin."
 			},
