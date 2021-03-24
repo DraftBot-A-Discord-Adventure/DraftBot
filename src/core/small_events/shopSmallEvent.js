@@ -8,15 +8,21 @@
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
-	let RandomItem = await entity.Player.Inventory.generateRandomItem(5);
-	let price = getItemValue(RandomItem);
+	let randomItem = await entity.Player.Inventory.generateRandomItem(5);
+	let price = getItemValue(randomItem);
 	if (randInt(1, 10) === 10) {
 		price *= 4;
 	} else {
 		price *= 0.6;
 	}
 	price = Math.round(price);
-	message.channel.send();
+	let gender = randInt(0, 1);
+	seEmbed.setDescription(seEmbed.description + format(JsonReader.small_events.shop.getTranslation(language).intro[gender][randInt(0, JsonReader.small_events.shop.getTranslation(language).intro[gender].length)] + JsonReader.small_events.shop.getTranslation(language).end, {
+		name: JsonReader.small_events.shop.getTranslation(language).names[gender][randInt(0, JsonReader.small_events.shop.getTranslation(language).names[gender].length)],
+		item: randomItem.toString(language),
+		price: price
+	}));
+	const msg = message.channel.send(seEmbed);
 };
 
 module.exports = {
