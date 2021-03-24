@@ -349,7 +349,6 @@ async function confirmPurchase(
 
 	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
-		//confirmMessage.delete(); for now we'll keep the messages
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				reaction.first().message.delete();
