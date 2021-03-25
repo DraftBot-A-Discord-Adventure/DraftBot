@@ -5,14 +5,17 @@
 			"confirmDesc": ":warning: Êtes vous sur de vouloir libérer **{pet}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
 			"canceled": "L'animal n'a pas été libéré.",
 			"petFreed": "Adieu **{pet}**...",
-			"cooldown": "Vous ne pouvez libérer un animal que toutes les heures. Vous pourrez en libérer un autre dans {time}."
+			"cooldown": "Vous ne pouvez libérer un animal que toutes les heures. Vous pourrez en libérer un autre dans {time}.",
+			"giveMeat": "Une 🥩 **viande** a été rajouté a votre stockage de guilde."
+
 		},
 		"en": {
 			"successTitle": "{pseudo}, free pet",
 			"confirmDesc": ":warning: Are you sure you want to free **{pet}**? It's not possible to undo after the action is done.",
 			"canceled": "The pet has not been freed.",
 			"petFreed": "Bye **{pet}**...",
-			"cooldown": "You can only free one pet per hour. You'll be able to free another pet in {time}."
+			"cooldown": "You can only free one pet per hour. You'll be able to free another pet in {time}.",
+			"giveMeat": "A piece of 🥩 **meat** has been added to your guild storage."
 		}
 	}
 }
