@@ -368,6 +368,7 @@ module.exports = (Sequelize, DataTypes) => {
 				.setDescription(JsonReader.models.players.getTranslation(language).koPM.description)
 				.setTitle(JsonReader.models.players.getTranslation(language).koPM.title)
 				.setColor(JsonReader.bot.embed.default)
+				.setFooter(JsonReader.models.players.getTranslation(language).dmDisabledFooter)
 			)
 		);
 		return true;
