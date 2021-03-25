@@ -1,6 +1,10 @@
 {
 	"translations": {
 		"fr": {
+			"dmNotification": {
+				"title" : "🏟️ Notification de guilde :",
+				"description" : "Sur le serveur {serveur}, {pseudo} a effectué un gd."
+			},
 			"notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"rewardTitle": "Récompense de la guilde {guildName} :",
 			"personalXP": ":star: | Les membres de la guilde ont reçu de l'experience. `+ {xp} ⭐`.",
