@@ -72,8 +72,8 @@ const PetFreeCommand = async function (language, message, args) {
 					pet: petField
 				}));
 
-				if (guild != null && guild["carnivorousFood"] + 1 <= JsonReader.commands.guildShop.max["carnivorousFood"] && draftbotRandom.realZeroToOneInclusive() <= 0.1) {
-					guild["carnivorousFood"] = guild["carnivorousFood"] + 1;
+				if (guild != null && guild["carnivorousFood"] + 1 <= JsonReader.commands.guildShop.max["carnivorousFood"] && draftbotRandom.realZeroToOneInclusive() <= PETFREE.GIVE_MEAT_PROBABILITY) {
+					guild["carnivorousFood"] = guild["carnivorousFood"] + PETFREE.MEAT_GIVEN;
 					guild.save()
 					freedEmbed.setDescription(freedEmbed.description + "\n\n" + format(JsonReader.commands.petFree.getTranslation(language).giveMeat, {
 					}));
