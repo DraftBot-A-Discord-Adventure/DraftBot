@@ -7,6 +7,13 @@
 const PetFreeCommand = async function (language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
+	// search for a user's guild
+	try {
+		guild = await Guilds.getById(entity.Player.guild_id);
+	} catch (error) {
+		guild = null;
+	}
+
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
 		[EFFECT.BABY], entity)) !== true) {
 		return;
@@ -64,6 +71,14 @@ const PetFreeCommand = async function (language, message, args) {
 				freedEmbed.setDescription(format(JsonReader.commands.petFree.getTranslation(language).petFreed, {
 					pet: petField
 				}));
+
+				if (guild != null && guild["carnivorousFood"] + 1 <= JsonReader.commands.guildShop.max["carnivorousFood"] && draftbotRandom.realZeroToOneInclusive() <= 0.1) {
+					guild["carnivorousFood"] = guild["carnivorousFood"] + 1;
+					guild.save()
+					freedEmbed.setDescription(freedEmbed.description + "\n\n" + format(JsonReader.commands.petFree.getTranslation(language).giveMeat, {
+					}));
+				}
+
 				return await message.channel.send(freedEmbed);
 			}
 		}
