@@ -39,7 +39,7 @@ async function DmnotificationCommand(language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'dmnotifications',
+			name: 'dmnotification',
 			func: DmnotificationCommand,
 			aliases: ['dmn','dm','dms']
 		}
