@@ -82,6 +82,10 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		start_travel_date: {
 			type: DataTypes.DATE
+		},
+		dmnotification: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true
 		}
 	}, {
 		tableName: 'players',
@@ -357,7 +361,7 @@ module.exports = (Sequelize, DataTypes) => {
 		this.lastReportAt = new Date(9999, 1);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
 		channel.guild.members.fetch(entity.discordUser_id).then(user => 
-			user.dmnotifications 
+			user.dmnotification 
 			? sendDirectMessage(
 				user, 
 				JsonReader.models.players.getTranslation(language).koPM.title, 

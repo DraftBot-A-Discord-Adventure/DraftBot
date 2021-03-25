@@ -9,16 +9,16 @@ async function DmnotificationCommand(language, message, args) {
 	let [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 	const translations = JsonReader.commands.guildDaily.getTranslation(language);
 	
-	// update value user dmnotifications
-	entity.Player.dmnotifications = !entity.Player.dmnotifications;
-	let isDmNotificationsOn = entity.Player.dmnotifications;
+	// update value user dmnotification
+	entity.Player.dmnotification = !entity.Player.dmnotification;
+	let isDmNotificationOn = entity.Player.dmnotification;
 
 	// send message updated value
 	const dmNotifEmbed = new discord.MessageEmbed()
 		.setDescription(
 			format(translations.normal, {
 				pseudo : message.author.username,
-				notifOnVerif : isDmNotificationsOn ? translations.open : translations.closed
+				notifOnVerif : isDmNotificationOn ? translations.open : translations.closed
 			})
 		)
 		.setTitle(translations.title)
@@ -26,7 +26,7 @@ async function DmnotificationCommand(language, message, args) {
 
 	message.author.send(dmNotifEmbed)
 		.catch(() => 
-			entity.Player.dmnotifications = false,
+			entity.Player.dmnotification = false,
 			sendErrorMessage(
 						message.author,
 						message.channel,

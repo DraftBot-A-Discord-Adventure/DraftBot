@@ -116,16 +116,16 @@ const HelpCommand = async (language, message, args) => {
 			);
 		}
 	}
-
+	const userDb = await Players.getById(user.id);
 	if (
 		client.guilds.cache
 			.get(JsonReader.app.MAIN_SERVER_ID)
 			.members.cache.find((val) => val.id === message.author.id) === undefined
-		&& message.author.dmnotifications
+		&& userDb.dmnotification
 	) {
 		await message.author.send(
 			JsonReader.commands.help.getTranslation(language).mp
-		).catch(()=>message.author.dmnotifications = !message.author.dmnotifications);
+		).catch(()=>userDb.dmnotification = !userDb.dmnotification);
 	}
 
 	await message.channel.send(helpMessage);

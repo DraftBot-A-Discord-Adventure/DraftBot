@@ -50,14 +50,15 @@ global.sendErrorMessage = (user, channel, language, reason) => {
  * @param {TODOROMAIN} color - Color of the DM
  */
 global.sendDirectMessage = (user, title, description, color) => {
-	if (user.isDmNotificationsOn) {
+	const userDb = await Players.getById(user.id);
+	if (user.isdmnotificationOn) {
 		const embed = new discord.MessageEmbed();
 		embed.setColor(color)
 			.setAuthor(format(title, {
 					pseudo: user.username,
 				}), user.displayAvatarURL())
 			.setDescription(description)
-		return user.send(embed).catch(() => user.dmnotifications = !user.dmnotifications);
+		return user.send(embed).catch(() => userDb.dmnotification = !userDb.dmnotification);
 	}
 };
 

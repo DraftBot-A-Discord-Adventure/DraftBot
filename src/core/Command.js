@@ -209,12 +209,22 @@ class Command {
 		if (message.attachments.size > 0) {
 			await sendMessageAttachments(message, dmChannel);
 		}
-		dmChannel.send(
-			format(JsonReader.bot.dm.supportAlert, {
-				username: message.author.username,
-				id: message.author.id,
-			}) + message.content
-		);
+		if (await Players.getById(message.author.id).dmnotification) {
+			dmChannel.send(
+				format(JsonReader.bot.dm.supportAlert, {
+					username: message.author.username,
+					id: message.author.id,
+				}) + message.content
+			);
+		} else {
+			dmChannel.send(
+				format(JsonReader.bot.dm.supportAlertNoNotif, {
+					username: message.author.username,
+					id: message.author.id,
+				}) + message.content
+			);
+		}
+		
 		let msg = await sendSimpleMessage(
 			message.author,
 			message.channel,
