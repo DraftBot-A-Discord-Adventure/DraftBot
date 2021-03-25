@@ -356,7 +356,20 @@ module.exports = (Sequelize, DataTypes) => {
 		entity.effect = EFFECT.DEAD;
 		this.lastReportAt = new Date(9999, 1);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
-		channel.guild.members.fetch(entity.discordUser_id).then(user => user.send(JsonReader.models.players.getTranslation(language).koPM));
+		channel.guild.members.fetch(entity.discordUser_id).then(user => 
+			user.dmnotifications 
+			? sendDirectMessage(
+				user, 
+				JsonReader.models.players.getTranslation(language).koPM.title, 
+				JsonReader.models.players.getTranslation(language).koPM.description,
+				JsonReader.bot.embed.default 
+			) 
+			: channel.send(new discord.MessageEmbed()
+				.setDescription(JsonReader.models.players.getTranslation(language).koPM.description)
+				.setTitle(JsonReader.models.players.getTranslation(language).koPM.title)
+				.setColor(JsonReader.bot.embed.default)
+			)
+		);
 		return true;
 	};
 
