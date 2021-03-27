@@ -51,7 +51,8 @@ global.sendErrorMessage = (user, channel, language, reason) => {
  * @param {("fr"|"en")} language - Language to use in the response
  */
 global.sendDirectMessage = async (user, title, description, color, language) => {
-	const embed = new discord.MessageEmbed()
+	try {
+		const embed = new discord.MessageEmbed()
 		embed.setColor(color)
 			.setAuthor(format(title, {
 				pseudo: user.username,
@@ -59,6 +60,9 @@ global.sendDirectMessage = async (user, title, description, color, language) => 
 			.setDescription(description)
 			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
 		user.send(embed);
+	} catch (err) {
+		log("user" + user.id + "has closed dms !");
+	}
 };
 
 
@@ -508,25 +512,25 @@ global.getValidationInfos = function (guild) {
 			validation = ":warning:";
 		}
 	}
-	return { validation: validation, humans: humans, bots: bots, ratio: ratio };
+	return {validation: validation, humans: humans, bots: bots, ratio: ratio};
 };
 
 async function saveItem(item, entity) {
 	let oldItem;
 	if (item instanceof Potions) {
-		oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
+		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
 		entity.Player.Inventory.potion_id = item.id;
 	}
 	if (item instanceof Objects) {
-		oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
+		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});
 		entity.Player.Inventory.backup_id = item.id;
 	}
 	if (item instanceof Weapons) {
-		oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
+		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weapon_id}});
 		entity.Player.Inventory.weapon_id = item.id;
 	}
 	if (item instanceof Armors) {
-		oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
+		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armor_id}});
 		entity.Player.Inventory.armor_id = item.id;
 	}
 	await Promise.all([
