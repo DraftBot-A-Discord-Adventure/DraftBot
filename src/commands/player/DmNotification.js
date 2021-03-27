@@ -47,7 +47,7 @@ module.exports = {
 		{
 			name: 'dmnotification',
 			func: DmnotificationCommand,
-			aliases: ['dmn', 'dm', 'dms']
+			aliases: ['dmn', 'notifs', 'dms', 'notif', 'dmnotifications']
 		}
 	]
 };
