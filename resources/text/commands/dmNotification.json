@@ -2,17 +2,17 @@
 	"translations": {
 		"fr": {
 			"title": "⚙️ Notifications DMs",
-			"normal": ":ok_hand: | ** {pseudo} **, vous avez mis les notifications sur {notifOnVerif}.",
-			"error": ":thinking: | ** {pseudo} **, vous avez les DMs fermés !",
-			"open" : "ouvert",
-			"closed" : "fermé"
+			"normal": "Vous avez {notifOnVerif} les notifications par dm.",
+			"error": "Vous avez les DMs fermés !",
+			"open" : "activé",
+			"closed" : "désactivé"
 		},
 		"en": {
 			"title": "⚙️ DMs notifications",
-			"normal": ":ok_hand: | ** {pseudo} **, you've switched notifications on {notifOnVerif}.",
-			"error": ":thinking: | ** {pseudo} **, you have closed your DMs !",
+			"normal": "You've switched notifications to {notifOnVerif}.",
+			"error": "You have closed your DMs !",
 			"open" : "open",
 			"closed" : "closed"
 		}
-	},
+	}
 }

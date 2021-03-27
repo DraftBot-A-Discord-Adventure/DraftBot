@@ -473,6 +473,11 @@ const TestCommand = async (language, message, args) => {
 					await message.channel.send("Correct usage: atravel <time in minutes>");
 					return;
 				}
+			case 'kill':
+				author.health = 0;
+				await author.Player.killIfNeeded(author, message.channel, language);
+				await Promise.all([author.save(),author.Player.save()])
+				break;
 			default:
 				await message.channel.send('Argument inconnu !');
 				return;

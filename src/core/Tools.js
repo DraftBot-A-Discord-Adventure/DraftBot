@@ -47,19 +47,18 @@ global.sendErrorMessage = (user, channel, language, reason) => {
  * @param {module:"discord.js".User} user
  * @param {String} title - Title of the DM, title must be of format "*{pseudo}*"
  * @param {String} description - Description of the DM
- * @param {TODOROMAIN} color - Color of the DM
+ * @param {module:"discord.js".color} color - Color of the DM
+ * @param {("fr"|"en")} language - Language to use in the response
  */
-global.sendDirectMessage = (user, title, description, color) => {
-	const userDb = await Players.getById(user.id);
-	if (user.isdmnotificationOn) {
-		const embed = new discord.MessageEmbed();
+global.sendDirectMessage = async (user, title, description, color, language) => {
+	const embed = new discord.MessageEmbed()
 		embed.setColor(color)
 			.setAuthor(format(title, {
-					pseudo: user.username,
-				}), user.displayAvatarURL())
+				pseudo: user.username,
+			}), user.displayAvatarURL())
 			.setDescription(description)
-		return user.send(embed).catch(() => userDb.dmnotification = !userDb.dmnotification);
-	}
+			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
+		user.send(embed);
 };
 
 
