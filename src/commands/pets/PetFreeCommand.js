@@ -34,6 +34,14 @@ const PetFreeCommand = async function (language, message, args) {
 		}));
 	}
 
+	if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+		if (entity.Player.money < PETFREE.FREE_FEISTY_COST) {
+			return sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petFree.getTranslation(language).noMoney, {
+				money: PETFREE.FREE_FEISTY_COST - entity.Player.money
+			}))
+		}
+	}
+
 	const confirmEmbed = new discord.MessageEmbed();
 	const petField = PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language));
 	confirmEmbed.setAuthor(format(JsonReader.commands.petFree.getTranslation(language).successTitle, {
@@ -42,6 +50,10 @@ const PetFreeCommand = async function (language, message, args) {
 	confirmEmbed.setDescription(format(JsonReader.commands.petFree.getTranslation(language).confirmDesc, {
 		pet: petField
 	}));
+
+	if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+		confirmEmbed.setFooter(JsonReader.commands.petFree.getTranslation(language).isFeisty)
+	}
 
 	const confirmMessage = await message.channel.send(confirmEmbed);
 
@@ -60,6 +72,9 @@ const PetFreeCommand = async function (language, message, args) {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+				if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+						entity.Player.money = entity.Player.money - PETFREE.FREE_FEISTY_COST
+					}
 				pPet.destroy();
 				entity.Player.pet_id = null;
 				entity.Player.last_pet_free = Date();

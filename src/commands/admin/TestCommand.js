@@ -286,6 +286,13 @@ const TestCommand = async (language, message, args) => {
 					guild.save();
 				}
 				break;
+				case 'petlp':
+				if (args.length === 2 && !isNaN(args[1])) {
+					let pet = await author.Player.Pet;
+					pet.lovePoints = parseInt(args[1]);
+					pet.save();
+				}
+				break;
 			case 'gxp':
 				if (args.length === 2 && !isNaN(args[1])) {
 					let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
