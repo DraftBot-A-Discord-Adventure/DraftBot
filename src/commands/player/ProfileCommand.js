@@ -147,13 +147,13 @@ const ProfileCommand = async function (language, message, args) {
 	};
 
 	const collector = msg.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: JsonReader.commands.profile.badgeMaxReactNumber,
 	});
 
 	collector.on('collect', async (reaction) => {
 		message.channel.send(JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]).then((msg) => {
-			msg.delete({'timeout': JsonReader.commands.profile.badgeDescriptionTimeout});
+			msg.delete({ 'timeout': JsonReader.commands.profile.badgeDescriptionTimeout });
 		}).catch((err) => {
 		});
 	});

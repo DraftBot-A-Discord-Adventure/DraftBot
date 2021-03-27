@@ -9,7 +9,7 @@
 			"tradeCanceledTime": "L'échange a été annulé car un des participants n'a pas répondu !",
 			"tradeCanceled": "{trader} a annulé l'échange !",
 			"tradeSuccess": "L'échange a été effectué avec succès !",
-			"warningTradeReset": "⚠️ Un animal échangé verra sa mentalité réduite à 0 !"
+			"warningTradeReset": "⚠️ Un animal échangé redeviendra sauvage !"
 		},
 		"en": {
 			"needMention": "Please mention the player you want to trade with.",
@@ -20,7 +20,7 @@
 			"tradeCanceledTime": "The trade has been canceled because one of the participants didn't answered!",
 			"tradeCanceled": "{trader} canceled the trade!",
 			"tradeSuccess": "Trade done successfully!",
-			"warningTradeReset": "⚠️ The spirit of the pet will be reset!"
+			"warningTradeReset": "⚠️ A traded pet will become savage!"
 		}
 	}
 }

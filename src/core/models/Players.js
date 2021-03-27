@@ -356,10 +356,22 @@ module.exports = (Sequelize, DataTypes) => {
 		if (entity.health > 0) {
 			return false;
 		}
-
+		log("This user is dead : " + entity.discordUser_id);
 		entity.effect = EFFECT.DEAD;
 		this.lastReportAt = new Date(9999, 1);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
+
+   // TODO : VOIR SI IL FAUT GARDER CA
+    
+    /*
+		let user = await channel.guild.members.fetch(entity.discordUser_id);
+		try {
+			await user.send(JsonReader.models.players.getTranslation(language).koPM);
+		} catch {
+			log("Cannot send death message to this user : " + entity.discordUser_id);
+		}
+    */
+
 		channel.guild.members.fetch(entity.discordUser_id).then(user => 
 			user.dmnotification 
 			? sendDirectMessage(
@@ -375,6 +387,7 @@ module.exports = (Sequelize, DataTypes) => {
 				.setFooter(JsonReader.models.players.getTranslation(language).dmDisabledFooter)
 			)
 		);
+
 		return true;
 	};
 

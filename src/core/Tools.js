@@ -189,7 +189,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 		};
 
 		const collector = msg.createReactionCollector(filterConfirm, {
-			time: 120000,
+			time: COLLECTOR_TIME,
 			max: 1,
 		});
 
@@ -509,25 +509,25 @@ global.getValidationInfos = function (guild) {
 			validation = ":warning:";
 		}
 	}
-	return {validation: validation, humans: humans, bots: bots, ratio: ratio};
+	return { validation: validation, humans: humans, bots: bots, ratio: ratio };
 };
 
 async function saveItem(item, entity) {
 	let oldItem;
 	if (item instanceof Potions) {
-		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
+		oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
 		entity.Player.Inventory.potion_id = item.id;
 	}
 	if (item instanceof Objects) {
-		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});
+		oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
 		entity.Player.Inventory.backup_id = item.id;
 	}
 	if (item instanceof Weapons) {
-		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weapon_id}});
+		oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
 		entity.Player.Inventory.weapon_id = item.id;
 	}
 	if (item instanceof Armors) {
-		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armor_id}});
+		oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
 		entity.Player.Inventory.armor_id = item.id;
 	}
 	await Promise.all([

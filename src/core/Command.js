@@ -109,7 +109,7 @@ class Command {
 	 * @param {module:"discord.js".ReactionCollector} collector
 	 */
 	static addBlockedPlayer(id, context, collector = null) {
-		Command.players[id] = {context: context, collector: collector};
+		Command.players[id] = { context: context, collector: collector };
 	}
 
 	/**
@@ -239,7 +239,7 @@ class Command {
 		};
 
 		const collector = msg.createReactionCollector(filterConfirm, {
-			time: 120000,
+			time: COLLECTOR_TIME,
 			max: 1,
 		});
 
@@ -251,7 +251,7 @@ class Command {
 				message.channel,
 				format(
 					JsonReader.bot.getTranslation(language).dmHelpMessageTitle,
-					{pseudo: message.author.username}
+					{ pseudo: message.author.username }
 				),
 				JsonReader.bot.getTranslation(language).dmHelpMessage
 			);

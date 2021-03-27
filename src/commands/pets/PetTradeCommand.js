@@ -37,6 +37,9 @@ const PetTradeCommand = async function (language, message, args) {
 	if (!pet2) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPetOther);
 	}
+	if (pet1.lovePoints < PETS.LOVE_LEVELS[0] || pet2.lovePoints < PETS.LOVE_LEVELS[0]) {
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).isFeisty);
+	}
 
 	const confirmEmbed = new discord.MessageEmbed();
 	confirmEmbed.setAuthor(JsonReader.commands.petTrade.getTranslation(language).tradeTitle, message.author.displayAvatarURL());
@@ -62,7 +65,7 @@ const PetTradeCommand = async function (language, message, args) {
 	};
 
 	const collector = confirmMessage.createReactionCollector(filter, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		dispose: true
 	});
 

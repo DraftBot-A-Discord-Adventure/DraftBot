@@ -53,6 +53,7 @@ global.PERMISSION = {
 global.REWARD_TYPES = {
 	PERSONAL_XP: "personalXP",
 	GUILD_XP: "guildXp",
+	HOSPITAL: "hospital",
 	MONEY: "money",
 	FIXED_MONEY: "fixedMoney",
 	BADGE: "badge",
@@ -144,6 +145,12 @@ global.QUANTITY = {
 	TEN: "🔟",
 };
 
+global.PETFREE = {
+	MEAT_GIVEN: 1,
+	GIVE_MEAT_PROBABILITY: 0.1,
+	FREE_FEISTY_COST: 1000
+}
+
 global.TOPGG = {
 	BADGE: "🗳️",
 	BADGE_DURATION: 12,
@@ -171,3 +178,5 @@ global.REPORT = {
 	TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000,
 	SMALL_EVENTS_COUNT: 3
 }
+
+global.COLLECTOR_TIME = 120000;
