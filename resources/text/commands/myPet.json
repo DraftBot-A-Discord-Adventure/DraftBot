@@ -3,12 +3,14 @@
 		"fr": {
 			"embedTitle": "Animal de {pseudo} :",
 			"noPet": "Vous n'avez aucun animal !",
-			"noPetOther": "Cette personne n'a aucun animal !"
+			"noPetOther": "Cette personne n'a aucun animal !",
+			"isFeisty": "Vous ne pouvez pas échanger de familier fielleux."
 		},
 		"en": {
 			"embedTitle": "{pseudo}'s pet:",
 			"noPet": "You don't have a pet!",
-			"noPetOther": "This person doesn't have a pet!"
+			"noPetOther": "This person doesn't have a pet!",
+			"isFeisty": "You can't trade a feisty pet."
 		}
 	}
 }

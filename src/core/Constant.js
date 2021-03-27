@@ -145,6 +145,12 @@ global.QUANTITY = {
 	TEN: "🔟",
 };
 
+global.PETFREE = {
+	MEAT_GIVEN: 1,
+	GIVE_MEAT_PROBABILITY: 0.1,
+	FREE_FEISTY_COST: 1000
+}
+
 global.TOPGG = {
 	BADGE: "🗳️",
 	BADGE_DURATION: 12,
