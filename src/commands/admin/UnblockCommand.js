@@ -17,15 +17,19 @@ const UnblockCommand = async function (language, message, args) {
 		}
 		removeBlockedPlayer(args[0]);
 		await message.channel.send("Unblocked with success");
-		let user = await Players.getById(args[0]);
-		if (user.dmnotification) {
+		let user = await client.users.fetch(args[0]);
+		const [entity] = await Entities.getOrRegister(args[0]);
+		if (entity.Player.dmnotification) {
 			sendDirectMessage(
 				user,
 				JsonReader.commands.unblock.getTranslation(language).title,
 				JsonReader.commands.unblock.getTranslation(language).description,
-				JsonReader.bot.embed.default
+				JsonReader.bot.embed.default,
+				language
 			)
 		}
+
+
 	} else {
 		await message.channel.send("Usage: !unblock <discord id>");
 	}
