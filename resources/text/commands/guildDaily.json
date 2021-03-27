@@ -3,7 +3,7 @@
 		"fr": {
 			"dmNotification": {
 				"title" : "🏟️ Notification de guilde :",
-				"description" : "Sur le serveur {serveur}, {pseudo} a effectué un guilddaily."
+				"description" : "Sur le serveur {serveur}, {pseudo} a effectué un guilddaily.\n\n"
 			},
 			"notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"rewardTitle": "Récompense de la guilde {guildName} :",
