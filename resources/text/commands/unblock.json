@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"title": "⚙️ Unblock",
+			"description": ":ok_hand: | ** {pseudo} **, vous avez été débloqué, excusez nous de la gène occasionnée."
+		},
+		"en": {
+			"title": "⚙️ Unblock",
+			"description": ":ok_hand: | ** {pseudo} **, you have been unblocked, sorry for the inconvenience."
+		}
+	},
+}

@@ -285,6 +285,12 @@
 					"usage": "idea",
 					"category": "util",
 					"description": "Permet d'obtenir un lien afin de suggérer une idée ou alors de voter pour celles déjà existantes."
+				},
+				"dmnotification": {
+					"emote": ":no_bell:",
+					"usage": "dmnotification",
+					"category": "util",
+					"description": "Permet d'activer ou de désactiver les notifications du bot."
 				}
 			}
 		},
@@ -573,6 +579,12 @@
 					"usage": "idea",
 					"category": "util",
 					"description": "Give a link to submit suggestions and vote for those already submitted."
+				},
+				"dmnotification": {
+					"emote": ":no_bell:",
+					"usage": "dmnotification",
+					"category": "util",
+					"description": "Allows to enable or disable private messages from the bot."
 				}
 			}
 		}

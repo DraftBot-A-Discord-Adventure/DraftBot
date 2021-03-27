@@ -220,6 +220,25 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	}
 
 	await message.channel.send(embed);
+	let server = await Servers.getOrRegister(message.guild.id);
+	for (const member of members) {
+		if (member.dmnotification) {
+			sendDirectMessage(
+				member,
+				JsonReader.commands.guildDaily.getTranslation(language).dmNotification.title,
+				format(
+					JsonReader.commands.guildDaily.getTranslation(language).dmNotification.description,
+					{
+						serveur : server.name,
+						pseudo : member.username
+					}
+				),
+				JsonReader.bot.embed.yellow
+				// TODOROMAIN à vérif si ça marche
+			);
+			member.send(embed);
+		}
+	}
 };
 
 module.exports = {

@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"title": "⚙️ Notifications DMs",
+			"normal": ":ok_hand: | ** {pseudo} **, vous avez mis les notifications sur {notifOnVerif}.",
+			"error": ":thinking: | ** {pseudo} **, vous avez les DMs fermés !",
+			"open" : "ouvert",
+			"closed" : "fermé"
+		},
+		"en": {
+			"title": "⚙️ DMs notifications",
+			"normal": ":ok_hand: | ** {pseudo} **, you've switched notifications on {notifOnVerif}.",
+			"error": ":thinking: | ** {pseudo} **, you have closed your DMs !",
+			"open" : "open",
+			"closed" : "closed"
+		}
+	},
+}
