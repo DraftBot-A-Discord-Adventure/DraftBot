@@ -18,7 +18,7 @@
 			"petFreed": "Bye **{pet}**...",
 			"cooldown": "You can only free one pet per hour. You'll be able to free another pet in {time}.",
 			"giveMeat": "A piece of 🥩 **meat** has been added to your guild storage.",
-			"noMoney": "You need {money]:moneybag: more for free a fiesty pet.",
+			"noMoney": "You need {money}:moneybag: more for free a fiesty pet.",
 			"isFeisty": "⚠ Warning, free a fiesty pet will cost you 1000💰."
 		}
 	}
