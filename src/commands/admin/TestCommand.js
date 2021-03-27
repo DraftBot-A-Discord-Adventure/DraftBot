@@ -426,12 +426,12 @@ const TestCommand = async (language, message, args) => {
 				return await message.channel.send(mapEmbed);
 			case 'travel':
 				if (args.length === 2) {
-					const availableMaps = await Maps.getNextPlayerAvailableMaps(author.Player);
+					//const availableMaps = await Maps.getNextPlayerAvailableMaps(author.Player);
 					const nextId = parseInt(args[1]);
-					if (!availableMaps.includes(nextId)) {
+					/*if (!availableMaps.includes(nextId)) {
 						await message.channel.send("You cannot go to this map from there. Available ids: " + availableMaps);
 						return;
-					}
+					}*/
 					await Maps.startTravel(author.Player, nextId);
 				}
 				else {

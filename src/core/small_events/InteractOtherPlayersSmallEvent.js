@@ -68,7 +68,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		}
 		if (otherEntity.Player.money > 20000) {
 			cList.push("rich");
-		} else if (otherEntity.Player.money < 200) {
+		} else if (entity.Player.money > 0 && otherEntity.Player.money < 200) {
 			cList.push("poor");
 		}
 		if (otherEntity.Player.Inventory.potion_id !== JsonReader.models.inventories.potion_id && entity.Player.Inventory.potion_id === JsonReader.models.inventories.potion_id) {
@@ -144,9 +144,47 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			plural_item: item ? (item.french_plural === 1 ? "s" : "") : "",
 			prefix_item: prefix_item,
 		}));
-		const msg = message.channel.send(seEmbed);
-		// TODO add reaction poor
-		// TODO duplicate potion
+		const msg = await message.channel.send(seEmbed);
+
+		switch (characteristic) {
+			case "poor":
+				const COIN_EMOTE = "🪙";
+				const collector = msg.createReactionCollector((reaction, user) => {
+					return [COIN_EMOTE, MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
+				}, {time: COLLECTOR_TIME});
+				addBlockedPlayer(entity.discordUser_id, "report", collector);
+				collector.on('collect', async () => {
+					collector.stop();
+				});
+				collector.on('end', async (reaction) => {
+					const poorEmbed = new discord.MessageEmbed();
+					poorEmbed.setAuthor(format(JsonReader.commands.report.getTranslation(language).journal, {
+						pseudo: message.author.username
+					}), message.author.displayAvatarURL());
+					if (reaction.first() && reaction.first().emoji.name === COIN_EMOTE) {
+						otherEntity.Player.money += 1;
+						await otherEntity.Player.save();
+						entity.Player.money -= 1;
+						await entity.Player.save();
+						poorEmbed.setDescription(format(tr.poorGiveMoney[randInt(0, tr.poorGiveMoney.length)], {
+							pseudo: await otherEntity.Player.getPseudo(language)
+						}));
+					}
+					else {
+						poorEmbed.setDescription(format(tr.poorDontGiveMoney[randInt(0, tr.poorDontGiveMoney.length)], {
+							pseudo: await otherEntity.Player.getPseudo(language)
+						}));
+					}
+					await message.channel.send(poorEmbed);
+				});
+				await msg.react(COIN_EMOTE);
+				await msg.react(MENU_REACTION.DENY);
+				break;
+			case "duplicatePotion":
+				entity.Player.Inventory.potion_id = otherEntity.Player.Inventory.potion_id;
+				await entity.Player.Inventory.save();
+				break;
+		}
 		// TODO virer pseudos 404
 	}
 };

@@ -105,12 +105,12 @@
 			],
 			"poorDontGiveMoney": [
 				"Il n'y a pas de petites économies... Vous décidez de garder votre argent.",
-				"**{pseudo}**, est triste et part en pleurant !",
+				"**{pseudo}** est triste et part en pleurant !",
 				"Vous l'ignorez, du moins vous vous forcez à le faire. Vous partez et espérez que votre consience ne viendra pas vous embêter."
 			],
 			"duplicatePotion": [
 				"Vous discutez sur votre trajet avec **{pseudo}**. Après avoir fait connaissance, il verse un peu de sa potion dans l'une de vos fioles vides. Vous continuez votre aventure avec **1x** {item} !",
-				"Un inconnu arrive, et verse un peu de sa potion dans la vôtre, vous gagnez donc **1x** {potion} !",
+				"Un inconnu du nom de **{pseudo}** arrive, et verse un peu de sa potion dans la vôtre, vous gagnez donc **1x** {item} !",
 				"Le partage est le secret d'une bonne amitié ! **{pseudo}** verse une partie de {prefix_item} {item} dans une de vos fioles vides. Vous repartez donc avec un exemplaire de cette potion !"
 			],
 			"pet": [
