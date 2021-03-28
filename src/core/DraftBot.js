@@ -392,6 +392,7 @@ class DraftBot {
 module.exports = {
 	init: DraftBot.init,
 	dailyTimeout: DraftBot.dailyTimeout,
+	twe: DraftBot.topWeekEnd,
 };
 /**
  * @type {module:"discord.js"}

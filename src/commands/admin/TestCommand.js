@@ -1,5 +1,4 @@
 const Maps = require("../../core/Maps");
-
 /**
  * Cheat command for testers
  * @param {("fr"|"en")} language - Language to use in the response
@@ -286,7 +285,7 @@ const TestCommand = async (language, message, args) => {
 					guild.save();
 				}
 				break;
-				case 'petlp':
+			case 'petlp':
 				if (args.length === 2 && !isNaN(args[1])) {
 					let pet = await author.Player.Pet;
 					pet.lovePoints = parseInt(args[1]);
@@ -415,7 +414,7 @@ const TestCommand = async (language, message, args) => {
 				const prevMap = await MapLocations.getById(author.Player.previous_map_id);
 				const travelling = Maps.isTravelling(author.Player);
 				mapEmbed.setTitle(":map: Map debugging");
-				mapEmbed.addField( travelling ? "Next map" : "Current map", currMap.getDisplayName(language) + " (id: " + currMap.id + ")", true);
+				mapEmbed.addField(travelling ? "Next map" : "Current map", currMap.getDisplayName(language) + " (id: " + currMap.id + ")", true);
 				mapEmbed.addField("Previous map", prevMap ? prevMap.getDisplayName(language) + " (id: " + prevMap.id + ")" : "None", true);
 				mapEmbed.addField("Travelling", Maps.isTravelling(author.Player) ? ":clock1: For " + minutesToString(millisecondsToMinutes(Maps.getTravellingTime(author.Player))) : ":x: No", true);
 				if (!travelling) {
@@ -437,8 +436,7 @@ const TestCommand = async (language, message, args) => {
 						return;
 					}
 					await Maps.startTravel(author.Player, nextId);
-				}
-				else {
+				} else {
 					await message.channel.send("Correct usage: travel <map id>");
 					return;
 				}
@@ -458,8 +456,7 @@ const TestCommand = async (language, message, args) => {
 					author.Player.map_id = id;
 					await author.Player.save();
 					break;
-				}
-				else {
+				} else {
 					await message.channel.send("Correct usage: tp <map id>");
 					return;
 				}
@@ -468,15 +465,17 @@ const TestCommand = async (language, message, args) => {
 					author.Player.start_travel_date -= parseInt(args[1]) * 60000;
 					author.Player.save();
 					break;
-				}
-				else {
+				} else {
 					await message.channel.send("Correct usage: atravel <time in minutes>");
 					return;
 				}
-			case 'kill':
+			case 'suicide':
 				author.health = 0;
 				await author.Player.killIfNeeded(author, message.channel, language);
-				await Promise.all([author.save(),author.Player.save()])
+				await Promise.all([author.save(), author.Player.save()])
+				break;
+			case 'forcetwe':
+				await require("../../core/DraftBot").twe();
 				break;
 			default:
 				await message.channel.send('Argument inconnu !');
