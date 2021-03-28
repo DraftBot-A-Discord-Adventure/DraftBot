@@ -60,6 +60,7 @@ global.sendDirectMessage = async (user, title, description, color, language) => 
 			.setDescription(description)
 			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
 		user.send(embed);
+		log("Dm sent to "+user.id+", title : "+title+", description : "+description);
 	} catch (err) {
 		log("user" + user.id + "has closed dms !");
 	}

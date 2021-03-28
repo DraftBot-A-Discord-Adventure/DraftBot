@@ -28,6 +28,7 @@ async function DmnotificationCommand(language, message, args) {
 	if (isDmNotificationOn) {
 		try {
 			await message.author.send(dmNotifEmbed)
+			await message.channel.send(dmNotifEmbed);
 		} catch (err) {
 			entity.Player.dmnotification = false;
 			await sendErrorMessage(
@@ -38,9 +39,10 @@ async function DmnotificationCommand(language, message, args) {
 			);
 		}
 
+	} else {
+		await message.channel.send(dmNotifEmbed);
 	}
-	await message.channel.send(dmNotifEmbed);
-
+	log("Player "+message.author+" switched dms to "+entity.Player.dmnotification);
 	await entity.Player.save();
 }
 
