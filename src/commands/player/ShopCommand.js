@@ -224,13 +224,6 @@ async function sellItem(
 	);
 	if (selectedItem.name) {
 		//This is not a potion
-		log(
-			entity.discordUser_id +
-			" bought the shop item " +
-			selectedItem.name +
-			" for " +
-			selectedItem.price
-		);
 		if (
 			selectedItem.name ===
 			shopTranslations.permanentItems.randomItem.name
