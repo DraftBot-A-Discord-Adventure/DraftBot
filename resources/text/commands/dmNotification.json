@@ -1,18 +1,18 @@
 {
 	"translations": {
 		"fr": {
-			"title": "⚙️ Notifications DMs",
+			"title": "Notifications par messages privés",
 			"normal": "Vous avez {notifOnVerif} les notifications par dm.",
 			"error": "Vous avez les DMs fermés !",
-			"open" : "activé",
-			"closed" : "désactivé"
+			"open": "activé",
+			"closed": "désactivé"
 		},
 		"en": {
-			"title": "⚙️ DMs notifications",
+			"title": "Private message notifications",
 			"normal": "You've switched notifications to {notifOnVerif}.",
 			"error": "You have closed your DMs !",
-			"open" : "open",
-			"closed" : "closed"
+			"open": "open",
+			"closed": "closed"
 		}
 	}
 }

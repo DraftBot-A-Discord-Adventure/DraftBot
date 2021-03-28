@@ -21,24 +21,26 @@ async function DmnotificationCommand(language, message, args) {
 				notifOnVerif: isDmNotificationOn ? translations.open : translations.closed
 			})
 		)
-		.setTitle(translations.title)
-		.setColor(JsonReader.bot.embed.default);
+		.setColor(JsonReader.bot.embed.default)
+		.setAuthor(format(translations.title, {
+			pseudo: message.author.username,
+		}), message.author.displayAvatarURL());
 	if (isDmNotificationOn) {
 		try {
 			await message.author.send(dmNotifEmbed)
 		} catch (err) {
 			entity.Player.dmnotification = false;
-			await sendErrorMessage (
-					message.author,
-					message.channel,
-					language,
-					translations.error
+			await sendErrorMessage(
+				message.author,
+				message.channel,
+				language,
+				translations.error
 			);
 		}
 
-	} else {
-		await message.channel.send(dmNotifEmbed);
 	}
+	await message.channel.send(dmNotifEmbed);
+
 	await entity.Player.save();
 }
 
