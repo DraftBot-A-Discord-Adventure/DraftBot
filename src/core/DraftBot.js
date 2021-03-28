@@ -158,28 +158,37 @@ class DraftBot {
 			limit: 1,
 		});
 		if (winner !== null) {
-			let message = await (
-				await client.channels.fetch(
-					JsonReader.app.FRENCH_ANNOUNCEMENT_CHANNEL_ID
-				)
-			).send(
-				format(
-					JsonReader.bot.getTranslation("fr").topWeekAnnouncement,
-					{mention: winner.getMention()}
-				)
-			);
-			message.react("🏆");
-			message = await (
-				await client.channels.fetch(
-					JsonReader.app.ENGLISH_ANNOUNCEMENT_CHANNEL_ID
-				)
-			).send(
-				format(
-					JsonReader.bot.getTranslation("en").topWeekAnnouncement,
-					{mention: winner.getMention()}
-				)
-			);
-			message.react("🏆");
+			let message;
+			try {
+				message = await (
+					await client.channels.fetch(
+						JsonReader.app.FRENCH_ANNOUNCEMENT_CHANNEL_ID
+					)
+				).send(
+					format(
+						JsonReader.bot.getTranslation("fr").topWeekAnnouncement,
+						{mention: winner.getMention()}
+					)
+				);
+				await message.react("🏆");
+			} catch (e) {
+				log("No channel for french announcement !");
+			}
+			try {
+				message = await (
+					await client.channels.fetch(
+						JsonReader.app.ENGLISH_ANNOUNCEMENT_CHANNEL_ID
+					)
+				).send(
+					format(
+						JsonReader.bot.getTranslation("en").topWeekAnnouncement,
+						{mention: winner.getMention()}
+					)
+				);
+				await message.react("🏆");
+			} catch (e) {
+				log("No channel for english announcement !");
+			}
 			winner.Player.addBadge("🎗️");
 			winner.Player.save();
 		}
