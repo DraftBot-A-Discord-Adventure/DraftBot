@@ -7,13 +7,21 @@
  * @returns {Promise<>}
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
-	let randomPlayerOnMap = await MapLocations.getRandomPlayerOnMap(entity.Player.map_id, entity.Player.previous_map_id, entity.Player.id);
-	let [otherEntity] = randomPlayerOnMap.length > 0 ? await Entities.getOrRegister(randomPlayerOnMap[0].discordUser_id) : [null];
+	let selectedPlayer = null;
+	let playersOnMap = await MapLocations.getPlayersOnMap(entity.Player.map_id, entity.Player.previous_map_id, entity.Player.id);
+	for (let i = 0; i < playersOnMap.length; ++i) {
+		if (client.users.cache.has(playersOnMap[i].discordUser_id)) {
+			selectedPlayer = playersOnMap[i];
+			break;
+		}
+	}
+
 	const tr = JsonReader.small_events.InteractOtherPlayers.getTranslation(language);
-	if (!otherEntity) {
+	if (!selectedPlayer) {
 		seEmbed.setDescription(seEmbed.description + tr.no_one[randInt(0, tr.no_one.length)]);
 		return await message.channel.send(seEmbed);
 	} else {
+		let [otherEntity] = await Entities.getOrRegister(selectedPlayer.discordUser_id);
 		const cList = [];
 
 		const player = (await Players.getById(entity.Player.id))[0];
@@ -43,9 +51,9 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		} else if (otherEntity.Player.level >= 50) {
 			cList.push("advanced");
 		}
-		if (otherEntity.Player.isInactive()) {
+		/*if (otherEntity.Player.isInactive()) {
 			cList.push("inactive");
-		}
+		}*/
 		if (otherEntity.Player.class && otherEntity.Player.class === entity.Player.class) {
 			cList.push("sameClass");
 		}
@@ -185,7 +193,6 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 				await entity.Player.Inventory.save();
 				break;
 		}
-		// TODO virer pseudos 404
 	}
 };
 

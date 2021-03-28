@@ -101,8 +101,8 @@ module.exports = (Sequelize, DataTypes) => {
 		}))[0]['COUNT(*)'];
 	}
 
-	MapLocations.getRandomPlayerOnMap = async function(map_id, previous_map_id, player_id) {
-		const query = `SELECT discordUser_id FROM players JOIN entities ON players.entity_id = entities.id WHERE players.id != :player_id AND ((players.map_id = :map_id AND players.previous_map_id = :p_map_id) OR (players.map_id = :p_map_id AND players.previous_map_id = :map_id)) ORDER BY RANDOM() LIMIT 1;`;
+	MapLocations.getPlayersOnMap = async function(map_id, previous_map_id, player_id) {
+		const query = `SELECT discordUser_id FROM players JOIN entities ON players.entity_id = entities.id WHERE players.id != :player_id AND ((players.map_id = :map_id AND players.previous_map_id = :p_map_id) OR (players.map_id = :p_map_id AND players.previous_map_id = :map_id)) ORDER BY RANDOM();`;
 		return (await Sequelize.query(query, {
 			replacements: {
 				map_id: map_id,
