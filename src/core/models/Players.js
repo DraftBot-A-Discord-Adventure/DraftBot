@@ -82,6 +82,10 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		start_travel_date: {
 			type: DataTypes.DATE
+		},
+		dmnotification: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true
 		}
 	}, {
 		tableName: 'players',
@@ -356,12 +360,17 @@ module.exports = (Sequelize, DataTypes) => {
 		entity.effect = EFFECT.DEAD;
 		this.lastReportAt = new Date(9999, 1);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
-		let user = await channel.guild.members.fetch(entity.discordUser_id);
-		try {
-			await user.send(JsonReader.models.players.getTranslation(language).koPM);
-		} catch {
-			log("Cannot send death message to this user : " + entity.discordUser_id);
-		}
+
+		let guildMember = await channel.guild.members.fetch(entity.discordUser_id);
+		let user = guildMember.user;
+		this.dmnotification
+			? sendDirectMessage(user, JsonReader.models.players.getTranslation(language).koPM.title, JsonReader.models.players.getTranslation(language).koPM.description, JsonReader.bot.embed.default,language)
+			: channel.send(new discord.MessageEmbed()
+				.setDescription(JsonReader.models.players.getTranslation(language).koPM.description)
+				.setTitle(JsonReader.models.players.getTranslation(language).koPM.title)
+				.setColor(JsonReader.bot.embed.default)
+				.setFooter(JsonReader.models.players.getTranslation(language).dmDisabledFooter));
+
 		return true;
 	};
 

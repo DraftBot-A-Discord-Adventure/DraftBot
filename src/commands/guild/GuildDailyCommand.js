@@ -120,7 +120,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 			guild["commonFood"] = guild["commonFood"] + JsonReader.commands.guildDaily.fixedPetFood;
 			Promise.all([guild.save()]);
 			embed.setDescription(format(translations.petFood, {
-				quantity : JsonReader.commands.guildDaily.fixedPetFood
+				quantity: JsonReader.commands.guildDaily.fixedPetFood
 			}));
 		}
 
@@ -166,6 +166,18 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 		log("GuildDaily of guild " + guild.name + ": got full heal");
 	}
 
+	if (rewardType === REWARD_TYPES.HOSPITAL) {
+		for (const i in members) {
+			await members[i].Player.fastForward(Math.round(guild.level / 20))
+
+			await members[i].Player.save();
+		}
+		embed.setDescription(format(translations.hospital, {
+			timeMoved: Math.round(guild.level / 20),
+		}));
+		log("GuildDaily of guild " + guild.name + ": got moved up");
+	}
+
 	if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
 		for (const i in members) {
 			if (members[i].effect != EFFECT.DEAD) {
@@ -196,7 +208,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 		log("GuildDaily of guild " + guild.name + ": got alteration heal");
 	}
 
-	if (!Guilds.isPetShelterFull(guild) && draftbotRandom.realZeroToOneInclusive() <= 0.1) {
+	if (!Guilds.isPetShelterFull(guild) && draftbotRandom.realZeroToOneInclusive() <= 0.01) {
 		let pet = await PetEntities.generateRandomPetEntity(guild.level);
 		await pet.save();
 		await (await GuildPets.addPet(guild.id, pet.id)).save();
@@ -208,6 +220,25 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	}
 
 	await message.channel.send(embed);
+
+	for (const member of members) {
+		let user = await client.users.fetch(member.discordUser_id);
+		if (member.Player.dmnotification && member.discordUser_id != message.author.id) {
+			sendDirectMessage(
+				user,
+				JsonReader.commands.guildDaily.getTranslation(language).dmNotification.title,
+				format(
+					JsonReader.commands.guildDaily.getTranslation(language).dmNotification.description,
+					{
+						serveur: message.guild.name,
+						pseudo: message.author.username
+					}
+				) + embed.description,
+				JsonReader.bot.embed.default,
+				language
+			);
+		}
+	}
 };
 
 module.exports = {

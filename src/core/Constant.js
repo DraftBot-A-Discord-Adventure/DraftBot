@@ -53,6 +53,7 @@ global.PERMISSION = {
 global.REWARD_TYPES = {
 	PERSONAL_XP: "personalXP",
 	GUILD_XP: "guildXp",
+	HOSPITAL: "hospital",
 	MONEY: "money",
 	FIXED_MONEY: "fixedMoney",
 	BADGE: "badge",
@@ -143,6 +144,12 @@ global.QUANTITY = {
 	FIVE: "5️⃣",
 	TEN: "🔟",
 };
+
+global.PETFREE = {
+	MEAT_GIVEN: 1,
+	GIVE_MEAT_PROBABILITY: 0.1,
+	FREE_FEISTY_COST: 1000
+}
 
 global.TOPGG = {
 	BADGE: "🗳️",

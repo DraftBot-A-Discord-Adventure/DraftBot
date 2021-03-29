@@ -109,7 +109,7 @@ class Command {
 	 * @param {module:"discord.js".ReactionCollector} collector
 	 */
 	static addBlockedPlayer(id, context, collector = null) {
-		Command.players[id] = { context: context, collector: collector };
+		Command.players[id] = {context: context, collector: collector};
 	}
 
 	/**
@@ -209,12 +209,19 @@ class Command {
 		if (message.attachments.size > 0) {
 			await sendMessageAttachments(message, dmChannel);
 		}
+		let icon = "";
+		const [entity] = await Entities.getOrRegister(message.author.id);
+		if (!entity.Player.dmnotification) {
+			icon = JsonReader.bot.dm.alertIcon;
+		}
 		dmChannel.send(
 			format(JsonReader.bot.dm.supportAlert, {
 				username: message.author.username,
-				id: message.author.id,
+				alertIcon: icon,
+				id: message.author.id
 			}) + message.content
 		);
+
 		let msg = await sendSimpleMessage(
 			message.author,
 			message.channel,
@@ -241,7 +248,7 @@ class Command {
 				message.channel,
 				format(
 					JsonReader.bot.getTranslation(language).dmHelpMessageTitle,
-					{ pseudo: message.author.username }
+					{pseudo: message.author.username}
 				),
 				JsonReader.bot.getTranslation(language).dmHelpMessage
 			);

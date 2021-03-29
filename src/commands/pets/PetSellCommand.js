@@ -52,6 +52,15 @@ const PetSellCommand = async function (language, message, args) {
 		);
 	}
 
+	if (pet.lovePoints < PETS.LOVE_LEVELS[0]) {
+		return sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			format(translations.isFeisty)
+		)
+	}
+
 	if (petCost < PETS.SELL.MIN || petCost > PETS.SELL.MAX) {
 		return sendErrorMessage(
 			message.author,

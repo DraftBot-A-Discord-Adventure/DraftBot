@@ -43,6 +43,31 @@ global.sendErrorMessage = (user, channel, language, reason) => {
 };
 
 /**
+ * Send a dm to a user
+ * @param {module:"discord.js".User} user
+ * @param {String} title - Title of the DM, title must be of format "*{pseudo}*"
+ * @param {String} description - Description of the DM
+ * @param {module:"discord.js".color} color - Color of the DM
+ * @param {("fr"|"en")} language - Language to use in the response
+ */
+global.sendDirectMessage = async (user, title, description, color, language) => {
+	try {
+		const embed = new discord.MessageEmbed()
+		embed.setColor(color)
+			.setAuthor(format(title, {
+				pseudo: user.username,
+			}), user.displayAvatarURL())
+			.setDescription(description)
+			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
+		user.send(embed);
+		log("Dm sent to "+user.id+", title : "+title+", description : "+description);
+	} catch (err) {
+		log("user" + user.id + "has closed dms !");
+	}
+};
+
+
+/**
  * Send a simple message in a channel
  * @param {module:"discord.js".User} user
  * @param {module:"discord.js".TextChannel} channel
