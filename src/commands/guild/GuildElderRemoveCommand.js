@@ -16,7 +16,7 @@ const GuildElderRemoveCommand = async (language, message, args) => {
 			message,
 			language,
 			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
+			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 			entity
 		)) !== true
 	) {

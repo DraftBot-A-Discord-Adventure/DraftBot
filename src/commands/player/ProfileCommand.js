@@ -6,6 +6,21 @@
  */
 const ProfileCommand = async function (language, message, args) {
 	let [entity] = await Entities.getByArgs(args, message);
+	if (
+		(await canPerformCommand(
+			message,
+			language,
+			PERMISSION.ROLE.ALL,
+			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+			entity
+		)) !== true
+	) {
+		return;
+	}
+
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
 	}

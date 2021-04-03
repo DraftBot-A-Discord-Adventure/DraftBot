@@ -6,7 +6,21 @@
  */
 const PetFreeCommand = async function (language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
+	if (
+		(await canPerformCommand(
+			message,
+			language,
+			PERMISSION.ROLE.ALL,
+			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+			entity
+		)) !== true
+	) {
+		return;
+	}
 
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
 		[EFFECT.BABY], entity)) !== true) {
 		return;
