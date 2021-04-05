@@ -14,7 +14,12 @@
 				"noBonuses": ":arrow_up: | Statistiques améliorées."
 			},
 			"ko": ":skull: | **{pseudo}** a été mis K.O !",
-			"koPM": ":crossed_swords:  Bonjour Combattant !\n\nIl semblerait que vous ayez été mis K.O... :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`"
+			"koPM": {
+				"title" : "Bonjour Combattant !",
+				"description" : "Il semblerait que vous ayez été mis K.O... :skull:\nGrâce à nos technologies avancées il nous a été possible de modifier les évènements de manière à vous éviter une mort atroce  ! :tada:\nMalheureusement l'opération est coûteuse et votre score a donc été impacté par cette mort... \n\nPour recommencer à jouer, utilisez la commande `respawn`"
+			},
+			"dmDisabledFooter" : "Vous avez bloqué vos messages privés, ou vous avez désactivé les notifications. Si vous voulez activer les notifications, faites dmnotification et activez les messages privés dans vos paramètres utilisateurs.",
+			"dmEnabledFooter" : "Ce message vous est envoyé via le système de notification par messages privés. Si vous souhaitez que le bot ne vous envoie plus de messages privés, utilisez la commande dmnotification (les commandes ne fonctionnent pas en message privé)."
 		},
 		"en": {
 			"pseudo": "Player 404",
@@ -30,7 +35,12 @@
 				"noBonuses": ":arrow_up: | Stats upgraded."
 			},
 			"ko": ":skull: | **{pseudo}** has been KO'd!",
-			"koPM": ":crossed_swords:  Hey fighter!\n\nLooks like you have been KO'd... :skull:\nBut thanks to our advanced tech, we were able to modify past events so you avoided that painful death! :tada:\nSadly, it was very pricy, and your total score was impacted by it...\n\nTo play again, use `respawn`"
+			"koPM": {
+				"title" : "Hey fighter!",
+				"description" : "Looks like you have been KO'd... :skull:\nBut thanks to our advanced tech, we were able to modify past events so you avoided that painful death! :tada:\nSadly, it was very pricy, and your total score was impacted by it...\n\nTo play again, use `respawn`"
+			},
+			"dmDisabledFooter" : "Your private messages are locked, or you have disabled bot's private messages with dmnotification. If you wish to enable them use the dmnotification command, and unlock dm messages in your user settings",
+			"dmEnabledFooter" : "This message is sent to you via the notification system by private messages. If you no longer wish to receive private messages from this bot, please use the command dmnotification (commands do not work in private messages)"
 		}
 	},
 	"score": 0,

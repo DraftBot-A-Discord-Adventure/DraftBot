@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"title": "Vous avez été débloqué",
+			"description": "Excusez nous de la gène occasionnée."
+		},
+		"en": {
+			"title": "You have been unblocked",
+			"description": "Sorry for the inconvenience."
+		}
+	}
+}

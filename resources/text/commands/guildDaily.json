@@ -1,6 +1,10 @@
 {
 	"translations": {
 		"fr": {
+			"dmNotification": {
+				"title" : "🏟️ Notification de guilde :",
+				"description" : "Sur le serveur {serveur}, {pseudo} a effectué un guilddaily.\n\n"
+			},
 			"notInAGuild": "Vous devez appartenir à une guilde pour effectuer cette commande",
 			"rewardTitle": "Récompense de la guilde {guildName} :",
 			"personalXP": ":star: | Les membres de la guilde ont reçu de l'experience. `+ {xp} ⭐`.",
@@ -17,6 +21,10 @@
 			"coolDown": "La récompense de guilde n'est disponible qu'une fois toute les {coolDownTime} heures. L'ajout d'un nouveau membre à la guilde réinitialise également le compteur. Temps avant la prochaine récompense : {time}."
 		},
 		"en": {
+			"dmNotification": {
+				"title" : "🏟️ Guild notification :",
+				"description" : "On the server {serveur}, {pseudo} made a guilddaily."
+			},
 			"notInAGuild": "You have to be in a guild to use this command.",
 			"rewardTitle": "{guildName} Guild's rewards:",
 			"personalXP": ":star: | Guild's members received some xp. `+ {xp} ⭐`.",

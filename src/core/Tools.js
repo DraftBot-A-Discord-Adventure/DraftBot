@@ -43,6 +43,31 @@ global.sendErrorMessage = (user, channel, language, reason) => {
 };
 
 /**
+ * Send a dm to a user
+ * @param {module:"discord.js".User} user
+ * @param {String} title - Title of the DM, title must be of format "*{pseudo}*"
+ * @param {String} description - Description of the DM
+ * @param {module:"discord.js".color} color - Color of the DM
+ * @param {("fr"|"en")} language - Language to use in the response
+ */
+global.sendDirectMessage = async (user, title, description, color, language) => {
+	try {
+		const embed = new discord.MessageEmbed()
+		embed.setColor(color)
+			.setAuthor(format(title, {
+				pseudo: user.username,
+			}), user.displayAvatarURL())
+			.setDescription(description)
+			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
+		user.send(embed);
+		log("Dm sent to "+user.id+", title : "+title+", description : "+description);
+	} catch (err) {
+		log("user" + user.id + "has closed dms !");
+	}
+};
+
+
+/**
  * Send a simple message in a channel
  * @param {module:"discord.js".User} user
  * @param {module:"discord.js".TextChannel} channel
@@ -488,25 +513,25 @@ global.getValidationInfos = function (guild) {
 			validation = ":warning:";
 		}
 	}
-	return { validation: validation, humans: humans, bots: bots, ratio: ratio };
+	return {validation: validation, humans: humans, bots: bots, ratio: ratio};
 };
 
 async function saveItem(item, entity) {
 	let oldItem;
 	if (item instanceof Potions) {
-		oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
+		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
 		entity.Player.Inventory.potion_id = item.id;
 	}
 	if (item instanceof Objects) {
-		oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
+		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});
 		entity.Player.Inventory.backup_id = item.id;
 	}
 	if (item instanceof Weapons) {
-		oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
+		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weapon_id}});
 		entity.Player.Inventory.weapon_id = item.id;
 	}
 	if (item instanceof Armors) {
-		oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
+		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armor_id}});
 		entity.Player.Inventory.armor_id = item.id;
 	}
 	await Promise.all([
