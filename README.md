@@ -30,7 +30,9 @@ leaderboard.
 _Before creating your own instance, please note that you can add the bot to your server through the link available on
 the bot's discord_
 **If you decide to work on the creation of your own instance of the bot, you are supposed to have a minimum of computer
-skills. Bot support team will prioritize players of the main instance and will only provide limited assistance.**
+skills. Bot support team will prioritize players of the main instance and will only provide very limited assistance. We will fix bugs you report but we will not teach you how to code a discord bot.**
+
+Only the code available in the "realease" tab is considered "stable".
 
 ## Here is a short start guide. (windows)
 
@@ -54,6 +56,11 @@ skills. Bot support team will prioritize players of the main instance and will o
 - Edit the file app.json with the correct data
 - Launch the bot : `yarn start`
 
+# Updating the bot
+
+- Be sure to use `yarn install` and `yarn start` each time you update the bot.
+- Migrations will run automatically but be sure to check them as they are created for our database, they may cause issues in yours.
+
 # Screenshots
 
 ![](https://cdn.discordapp.com/attachments/456120666874183680/575235223776788480/tuto.PNG)
@@ -61,5 +68,6 @@ skills. Bot support team will prioritize players of the main instance and will o
 # Links
 
 - [Discord server _(in french)_](https://discord.gg/5JqrMtZ)
-- [Trello board _(in french)_](https://trello.com/b/ybaKdWsr/suggestions)
+- [Suggestion board _(in french)_](https://feedback.draftbot.com/)
+- [Player guide](https://guide.draftbot.com)
 - [Twitter account _(in french)_](https://twitter.com/DraftBot_?s=09)
