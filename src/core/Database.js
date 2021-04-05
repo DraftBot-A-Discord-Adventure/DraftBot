@@ -473,7 +473,7 @@ class Database {
 			},
 			{
 				where: {
-					effect: EFFECT.AWAITINGANSWER,
+					effect: EFFECT.AWAITING_ANSWER,
 				},
 			}
 		);

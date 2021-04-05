@@ -8,7 +8,7 @@ global.DATASOURCE = {
 global.EFFECT = {
 	BABY: ":baby:",
 	SMILEY: ":smiley:",
-	AWAITINGANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
+	AWAITING_ANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
 	DEAD: ":skull:",
 	SLEEPING: ":sleeping:",
 	DRUNK: ":zany_face:",
@@ -38,10 +38,23 @@ global.NATURE = {
 	MONEY: 6,
 };
 
+// Object rarity
+global.RARITY = {
+	BASIC: 0,
+	COMMON: 1,
+	UNCOMMON: 2,
+	EXOTIC: 3,
+	RARE: 4,
+	SPECIAL: 5,
+	EPIC: 6,
+	LEGENDARY: 7,
+	MYTHICAL: 8
+};
+
 global.PERMISSION = {
 	ROLE: {
-		BOTOWNER: "owner", // is the owner of the bot
-		BADGEMANAGER: "manager", // has the badge manager role
+		BOT_OWNER: "owner", // is the owner of the bot
+		BADGE_MANAGER: "manager", // has the badge manager role
 		SUPPORT: "support", // has the support role
 		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
 		TOURNAMENT: "tournament", // has the permission to use the tournament command
@@ -73,14 +86,14 @@ global.ITEMTYPE = {
 global.GUILD = {
 	REQUIRED_LEVEL: 10,
 	MAX_GUILD_MEMBER: 6,
-	MAX_GUILDNAME_SIZE: 15,
-	MIN_GUILDNAME_SIZE: 2,
+	MAX_GUILD_NAME_SIZE: 15,
+	MIN_GUILD_NAME_SIZE: 2,
 	MIN_DESCRIPTION_LENGTH: 2,
 	MAX_DESCRIPTION_LENGTH: 140,
-	MAX_COMMON_PETFOOD: 25,
-	MAX_HERBIVOROUS_PETFOOD: 15,
-	MAX_CARNIVOROUS_PETFOOD: 15,
-	MAX_ULTIMATE_PETFOOD: 5,
+	MAX_COMMON_PET_FOOD: 25,
+	MAX_HERBIVOROUS_PET_FOOD: 15,
+	MAX_CARNIVOROUS_PET_FOOD: 15,
+	MAX_ULTIMATE_PET_FOOD: 5,
 };
 
 global.CLASS = {
@@ -149,7 +162,7 @@ global.PETFREE = {
 	MEAT_GIVEN: 1,
 	GIVE_MEAT_PROBABILITY: 0.1,
 	FREE_FEISTY_COST: 1000
-}
+};
 
 global.TOPGG = {
 	BADGE: "🗳️",
@@ -177,6 +190,6 @@ global.LOGS = {
 global.REPORT = {
 	TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000,
 	SMALL_EVENTS_COUNT: 3
-}
+};
 
 global.COLLECTOR_TIME = 120000;

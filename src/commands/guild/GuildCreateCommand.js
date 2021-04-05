@@ -57,14 +57,14 @@ const GuildCreateCommand = async (language, message, args) => {
 		);
 	}
 
-	if (!checkNameString(askedName, GUILD.MIN_GUILDNAME_SIZE, GUILD.MAX_GUILDNAME_SIZE)) {
+	if (!checkNameString(askedName, GUILD.MIN_GUILD_NAME_SIZE, GUILD.MAX_GUILD_NAME_SIZE)) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
 			language,
 			format(JsonReader.commands.guildCreate.getTranslation(language).invalidName + "\n" + JsonReader.error.getTranslation(language).nameRules, {
-				min: GUILD.MIN_GUILDNAME_SIZE,
-				max: GUILD.MAX_GUILDNAME_SIZE,
+				min: GUILD.MIN_GUILD_NAME_SIZE,
+				max: GUILD.MAX_GUILD_NAME_SIZE,
 			}));
 	}
 

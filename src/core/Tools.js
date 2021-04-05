@@ -60,7 +60,7 @@ global.sendDirectMessage = async (user, title, description, color, language) => 
 			.setDescription(description)
 			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
 		user.send(embed);
-		log("Dm sent to "+user.id+", title : "+title+", description : "+description);
+		log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
 	} catch (err) {
 		log("user" + user.id + "has closed dms !");
 	}
@@ -279,30 +279,26 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
  * @param {number} maxRarity
  * @return {Number} generated rarity
  */
-global.generateRandomRarity = (maxRarity = 8) => {
-
-
-	let valueToRemove = JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity];
-	if (maxRarity === 8)
-		valueToRemove = 0;
-	const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue - valueToRemove);
+global.generateRandomRarity = (maxRarity = RARITY.MYTHICAL) => {
+	const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue -
+		(maxRarity === RARITY.MYTHICAL ? 0 : JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity - 1]));
 
 	if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
-		return 1;
+		return RARITY.COMMON;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['1']) {
-		return 2;
+		return RARITY.UNCOMMON;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['2']) {
-		return 3;
+		return RARITY.EXOTIC;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['3']) {
-		return 4;
+		return RARITY.RARE;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['4']) {
-		return 5;
+		return RARITY.SPECIAL;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['5']) {
-		return 6;
+		return RARITY.EPIC;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['6']) {
-		return 7;
+		return RARITY.LEGENDARY;
 	}
-	return 8;
+	return RARITY.MYTHICAL;
 };
 
 

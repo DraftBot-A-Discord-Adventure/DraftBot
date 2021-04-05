@@ -8,7 +8,7 @@
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
-	let randomItem = await entity.Player.Inventory.generateRandomItem(5);
+	let randomItem = await entity.Player.Inventory.generateRandomItem(RARITY.SPECIAL);
 	let price = getItemValue(randomItem);
 	if (randInt(1, 10) === 10) {
 		price *= 5;
@@ -44,7 +44,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				await giveItem(entity, randomItem, language, message.author, message.channel,0.1);
+				await giveItem(entity, randomItem, language, message.author, message.channel, 0.1);
 				log(entity.discordUser_id + " bought an item in a mini shop for " + price);
 				entity.Player.addMoney(-price);
 				await Promise.all([

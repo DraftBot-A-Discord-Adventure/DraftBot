@@ -6,7 +6,7 @@
 
 const UnblockCommand = async function (language, message, args) {
 	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOTOWNER)) !== true) {
+		PERMISSION.ROLE.BOT_OWNER)) !== true) {
 		return;
 	}
 

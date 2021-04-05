@@ -8,7 +8,7 @@ class MessageError {
 	 * @return {Promise<any>}
 	 */
 	static async canPerformCommand(message, language, permission, disallowEffects = null, entity = null, minimalLevel = null) {
-		if (permission === PERMISSION.ROLE.BADGEMANAGER) {
+		if (permission === PERMISSION.ROLE.BADGE_MANAGER) {
 			if (!message.member.roles.cache.has(JsonReader.app.BADGE_MANAGER_ROLE) && !MessageError.isBotOwner(message.author.id)) {
 				return await MessageError.permissionErrorMe(message, language, permission);
 			}
@@ -32,7 +32,7 @@ class MessageError {
 			}
 		}
 
-		if (permission === PERMISSION.ROLE.BOTOWNER) {
+		if (permission === PERMISSION.ROLE.BOT_OWNER) {
 			if (!MessageError.isBotOwner(message.author.id)) {
 				return await MessageError.permissionErrorMe(message, language, permission);
 			}
@@ -94,7 +94,7 @@ class MessageError {
 		const embed = new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.error);
 
-		if (permission === PERMISSION.ROLE.BADGEMANAGER) {
+		if (permission === PERMISSION.ROLE.BADGE_MANAGER) {
 			embed
 				.setAuthor(format(JsonReader.error.getTranslation(language).titlePermissionError, {pseudo: message.author.username}), message.author.displayAvatarURL())
 				.setDescription(JsonReader.error.getTranslation(language).badgeManagerPermissionMissing);
@@ -118,7 +118,7 @@ class MessageError {
 				.setDescription(JsonReader.error.getTranslation(language).administratorPermissionMissing);
 		}
 
-		if (permission === PERMISSION.ROLE.BOTOWNER) {
+		if (permission === PERMISSION.ROLE.BOT_OWNER) {
 			embed
 				.setAuthor(format(JsonReader.error.getTranslation(language).titlePermissionError, {pseudo: message.author.username}), message.author.displayAvatarURL())
 				.setDescription(JsonReader.error.getTranslation(language).botOwnerPermissionMissing);
