@@ -10,7 +10,7 @@ const InventoryCommand = async (language, message, args) => {
 		[entity] = await Entities.getOrRegister(message.author.id);
 	}
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 
