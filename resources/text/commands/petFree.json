@@ -8,7 +8,8 @@
 			"cooldown": "Vous ne pouvez libérer un animal que toutes les heures. Vous pourrez en libérer un autre dans {time}.",
 			"giveMeat": "Une 🥩 **viande** a été rajouté a votre stockage de guilde.",
 			"noMoney": "Il vous manque {money}:moneybag: pour libérer un familier fielleux.",
-			"isFeisty": "⚠ Attention, la libération d'un familier fielleux vous coutera 1000💰."
+			"isFeisty": "⚠ Attention, la libération d'un familier fielleux vous coutera 1000💰.",
+			"wasFeisty": "Vous avez payé 1000:moneybag: pour avoir libéré un familier fielleux."
 
 		},
 		"en": {
@@ -18,8 +19,9 @@
 			"petFreed": "Bye **{pet}**...",
 			"cooldown": "You can only free one pet per hour. You'll be able to free another pet in {time}.",
 			"giveMeat": "A piece of 🥩 **meat** has been added to your guild storage.",
-			"noMoney": "You need {money}:moneybag: more for free a fiesty pet.",
-			"isFeisty": "⚠ Warning, free a fiesty pet will cost you 1000💰."
+			"noMoney": "You need {money]:moneybag: more for free a fiesty pet.",
+			"isFeisty": "⚠ Warning, free a fiesty pet will cost you 1000💰.",
+			"wasFeisty": "You paied 1000:moneybag: for having freed a feisty pet."
 		}
 	}
 }
