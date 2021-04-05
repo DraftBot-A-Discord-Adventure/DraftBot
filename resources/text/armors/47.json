@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "\uD83C\uDFEF **Forteresse japonaise**",
+		"en": "\uD83C\uDFEF **Japanese fortress**"
+	},
+	"rarity": 6,
+	"rawDefense": 0,
+	"attack" : 50,
+	"french_masculine": 0,
+	"french_plural": 0
+}

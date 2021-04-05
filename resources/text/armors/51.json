@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": ":tent: **Tente de protection**",
+		"en": ":tent: **Protecting tent**"
+	},
+	"rarity": 3,
+	"rawDefense": 5,
+	"speed": -25,
+	"french_masculine": 1,
+	"french_plural": 0
+}
