@@ -131,7 +131,17 @@
 				"Vous pouvez suivre les rares pannes du bot depuis ce site : http://status.draftbot.com/",
 				"Ceci est juste une blague qui a moins de 1% de chance d'apparaître.",
 				"L'altération d'état \"Mort\" bloque la totalité des commandes du bot excepté la commande !respawn.",
-				"Quand vous mourrez, vous ne perdez pas le contenu de votre inventaire. Vous perdez cependant 10% de vos points."
+				"Quand vous mourrez, vous ne perdez pas le contenu de votre inventaire. Vous perdez cependant 10% de vos points.",
+				"Il est impossible de vendre un familier fielleux.",
+				"N'oubliez pas de nourrir vos familiers.",
+				"Il n'est pas possible de placer un familier fielleux dans votre abri de guilde.",
+				"Libérer un familier fielleux vous coûtera de l'argent.",
+				"Il n'est pas possible d'échanger un familier fielleux.",
+				"Il est possible de désactiver les messages privés du bot via la commande `dmnotification`",
+				"Les récompenses de guildes peuvent contenir un badge si votre guilde est de niveau 50 ou plus.",
+				"Remporter la première place au classement de la semaine vous permet de décrocher un badge.",
+				"Utiliser la commande `switch` ajoute 30 minutes à la durée de rechargement de votre objet journalier.",
+				"Vous pouvez décider du contenu des prochaines mises à jour en utilisant ce site : https://feedback.draftbot.com",
 			]
 		},
 		"en": {
