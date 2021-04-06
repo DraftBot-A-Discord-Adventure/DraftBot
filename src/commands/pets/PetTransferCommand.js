@@ -79,9 +79,6 @@ const PetTransferCommand = async function (language, message, args) {
 	const swPet = guild.GuildPets[petId - 1];
 	const swPetEntity = swPet.PetEntity;
 
-	if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty)
-	}
 	if (pPet) {
 		swPet.pet_entity_id = pPet.id;
 		await swPet.save();
@@ -96,6 +93,9 @@ const PetTransferCommand = async function (language, message, args) {
 			pet1: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language)),
 			pet2: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));
+	} else if (pPet) {
+		if (pPet.lovePoints < PETS.LOVE_LEVELS[0])
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty)
 	} else {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmFollows, {
 			pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
