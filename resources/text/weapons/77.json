@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": "\uD83E\uDD3F **Sabotage de l'oxygène**",
+		"en": "\uD83E\uDD3F **Oxygen sabotage**"
+	},
+	"rarity": 8,
+	"rawAttack": 9,
+	"french_masculine": 1,
+	"french_plural": 0
+}

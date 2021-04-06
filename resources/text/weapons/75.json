@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "\uD83E\uDE83 **Boomerang**",
+		"en": "\uD83E\uDE83 **Boomerang**"
+	},
+	"rarity": 3,
+	"rawAttack": 8,
+	"speed": 20,
+	"french_masculine": 1,
+	"french_plural": 0
+}

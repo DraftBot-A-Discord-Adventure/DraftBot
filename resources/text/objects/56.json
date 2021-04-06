@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "\uD83C\uDFB0 **Machine à sous**",
+		"en": "\uD83C\uDFB0 **Slot machine**"
+	},
+	"rarity": 4,
+	"power": 142,
+	"nature": 6,
+	"french_masculine": 0,
+	"french_plural": 0
+}

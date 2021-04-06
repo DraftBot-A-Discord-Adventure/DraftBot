@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": ":shield: **Égide puissante**",
+		"en": ":shield: **Powerful aegis**"
+	},
+	"rarity": 5,
+	"rawAttack": 5,
+	"attack": 60,
+	"french_masculine": 0,
+	"french_plural": 0
+}

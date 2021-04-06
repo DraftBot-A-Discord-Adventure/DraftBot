@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "\uD83E\uDE99 **Jurisprudence**",
+		"en": "\uD83E\uDE99 **Jurisprudence**"
+	},
+	"rarity": 6,
+	"rawDefense": 4,
+	"attack": 45,
+	"speed": -40,
+	"french_masculine": 1,
+	"french_plural": 0
+}

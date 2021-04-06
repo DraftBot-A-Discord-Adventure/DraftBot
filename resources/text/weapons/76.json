@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "⚡ **Volto-hache**",
+		"en": "⚡ **Charge blade**"
+	},
+	"rarity": 6,
+	"rawAttack": 7,
+	"speed": -20,
+	"french_masculine": 0,
+	"french_plural": 0
+}

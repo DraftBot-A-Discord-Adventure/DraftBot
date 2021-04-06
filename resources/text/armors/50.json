@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": ":lab_coat: **Blouse de protection**",
+		"en": ":lab_coat: **Lab coat**"
+	},
+	"rarity": 1,
+	"rawDefense": 1,
+	"speed": 15,
+	"french_masculine": 1,
+	"french_plural": 0
+}

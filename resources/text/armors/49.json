@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "\uD83E\uDDE5 **Doudoune de combat**",
+		"en": "\uD83E\uDDE5 **Fighting coat**"
+	},
+	"rarity": 2,
+	"rawDefense": 9,
+	"speed": 10,
+	"french_masculine": 1,
+	"french_plural": 0
+}
