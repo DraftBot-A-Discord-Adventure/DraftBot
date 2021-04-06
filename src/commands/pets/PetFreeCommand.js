@@ -15,7 +15,7 @@ const PetFreeCommand = async function (language, message, args) {
 	}
 
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.LOCKED, EFFECT.LOCKED], entity)) !== true) {
+		[EFFECT.BABY, EFFECT.LOCKED, EFFECT.DEAD], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
