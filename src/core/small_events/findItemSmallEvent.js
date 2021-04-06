@@ -16,7 +16,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	);
 
 	const msg = await message.channel.send(seEmbed);
-	log(entity.discordUser_id + " got an item from a mini event " + randomItem);
+	log(entity.discordUser_id + " got an item from a mini event ");
 	await giveItem(entity, randomItem, language, message.author, message.channel);
 };
 
