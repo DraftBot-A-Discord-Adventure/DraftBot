@@ -79,9 +79,6 @@ const PetTransferCommand = async function (language, message, args) {
 	const swPet = guild.GuildPets[petId - 1];
 	const swPetEntity = swPet.PetEntity;
 
-	if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty)
-	}
 	if (pPet) {
 		swPet.pet_entity_id = pPet.id;
 		await swPet.save();
