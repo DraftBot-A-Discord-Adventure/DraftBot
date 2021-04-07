@@ -3,7 +3,7 @@
 		"fr": {
 			"cannotGetlockedUser": "Veuillez mentionner un joueur existant. Ex : `unlock @user#0000`",
 			"userNotLocked": "Ce joueur n'est pas en prison.",
-			"unlockHimself": "Vous ne pouvez pas vous libérer vous même, demandez a un ami de le faire.",
+			"unlockHimself": "Vous ne pouvez pas vous libérer vous même, demandez à un ami de le faire.",
 			"unlockTitle": "{pseudo}, confirmation :",
 			"confirmUnlock": "Êtes-vous sûr de vouloir libérer **{pseudo}** pour **{price}**:moneybag: ?",
 			"unlockedTitle": "Libération de {pseudo}",
