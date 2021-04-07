@@ -1,11 +1,22 @@
 /**
- * Allow to exchange the object that is in the player backup slot within the one that is active
+ * Allow to free someone from the lock effect
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const UnlockCommand = async (language, message, args) => {
   let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
+
+	if (message.mentions.users.first()) {
+		if (message.mentions.users.first().id === message.author.id) {
+			return sendErrorMessage(
+				message.author,
+				message.channel,
+				language,
+				JsonReader.commands.unlock.getTranslation(language).unlockHimself
+			);
+		}
+	}
 
   if (
 		(await canPerformCommand(
@@ -96,17 +107,17 @@ const UnlockCommand = async (language, message, args) => {
 				log(entity.discordUser_id + " has been released by" + message.author.id);
 				const successEmbed = new discord.MessageEmbed();
 			successEmbed.setAuthor(format(JsonReader.commands.unlock.getTranslation(language).unlockedTitle, {
-				pseudo: message.author.username
+				pseudo: await entity.Player.getPseudo(language),
 			}),
 			message.author.displayAvatarURL());
 			successEmbed.setDescription(format(JsonReader.commands.unlock.getTranslation(language).unlockSuccess, {
 				pseudo: await entity.Player.getPseudo(language),
 			}));
-			await message.channel.send(successEmbed);
+			return await message.channel.send(successEmbed);
 			};
-	}
-	await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).unlockCanceled);
-})
+		}
+		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).unlockCanceled);
+});
 		
 		try {
 			await Promise.all([
