@@ -113,7 +113,7 @@ async function ShopCommand(language, message, args) {
 				message.channel,
 				language,
 				JsonReader.commands.shop.getTranslation(language).error
-					.leaveShop
+					.leaveShop, true
 			);
 			return;
 		}
@@ -335,7 +335,7 @@ async function confirmPurchase(
 				return sellItem(message, reaction, language, entity, customer, selectedItem);
 			}
 		}
-		sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.canceledPurchase);
+		sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.canceledPurchase,true);
 	});
 
 	await Promise.all([

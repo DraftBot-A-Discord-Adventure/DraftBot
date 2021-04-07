@@ -125,9 +125,9 @@ const PetTradeCommand = async function (language, message, args) {
 		} else if (trader1Accepted === false || trader2Accepted === false) {
 			await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petTrade.getTranslation(language).tradeCanceled, {
 				trader: trader1Accepted === false ? message.author : message.mentions.users.first()
-			}));
+			}),true);
 		} else {
-			await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).tradeCanceledTime);
+			await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).tradeCanceledTime, true);
 		}
 	});
 

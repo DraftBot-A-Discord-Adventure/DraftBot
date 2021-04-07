@@ -97,7 +97,8 @@ const PetFeedCommand = async function (language, message, args) {
 					message.author,
 					message.channel,
 					language,
-					tr.getTranslation(language).cancelBreed
+					tr.getTranslation(language).cancelBreed,
+					true
 				);
 			}
 

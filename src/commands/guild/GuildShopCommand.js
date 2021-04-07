@@ -126,7 +126,7 @@ async function GuildShopCommand(language, message, args) {
 				message.channel,
 				language,
 				JsonReader.commands.shop.getTranslation(language).error
-					.leaveShop
+					.leaveShop,true
 			);
 		}
 
@@ -280,7 +280,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 				message.channel,
 				language,
 				JsonReader.commands.shop.getTranslation(language).error
-					.canceledPurchase
+					.canceledPurchase, true
 			);
 		}
 
@@ -432,7 +432,8 @@ async function confirmXpPurchase(
 			message.channel,
 			language,
 			JsonReader.commands.shop.getTranslation(language).error
-				.canceledPurchase
+				.canceledPurchase,
+			true
 		);
 	});
 
@@ -538,19 +539,19 @@ const giveFood = async (
 					quantity: quantity,
 					name:
 						selectedItem.type === "ultimateFood" && language == "fr" ? selectedItem.translations[language].name
-							.slice(2, -2)
-							.toLowerCase()
-							.replace(
-								selectedItem.translations[language].name
-									.slice(2, -2)
-									.toLowerCase()
-									.split(" ")[0],
-								selectedItem.translations[language].name
-									.slice(2, -2)
-									.toLowerCase()
-									.split(" ")[0]
-									.concat("s")
-							)
+								.slice(2, -2)
+								.toLowerCase()
+								.replace(
+									selectedItem.translations[language].name
+										.slice(2, -2)
+										.toLowerCase()
+										.split(" ")[0],
+									selectedItem.translations[language].name
+										.slice(2, -2)
+										.toLowerCase()
+										.split(" ")[0]
+										.concat("s")
+								)
 							: selectedItem.translations[language].name
 								.slice(2, -2)
 								.toLowerCase(),

@@ -67,7 +67,7 @@ const SellCommand = async (language, message, args) => {
 				}
 			}
 		}
-		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).sellCanceled);
+		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).sellCanceled, true);
 	});
 
 	try {

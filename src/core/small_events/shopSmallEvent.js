@@ -74,7 +74,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			message.channel,
 			language,
 			JsonReader.commands.shop.getTranslation(language).error
-				.canceledPurchase
+				.canceledPurchase, true
 		);
 	});
 };
