@@ -67,7 +67,8 @@
 				"test": "Test",
 				"petSell": "Vente de pet.",
 				"petSellConfirm": "Confirmation de l'achat d'un pet.",
-				"chiefGuildLeave": "Passation de pouvoir."
+				"chiefGuildLeave": "Passation de pouvoir.",
+				"unlock": "Libération de quelqu'un"
 			}
 		},
 		"en": {
@@ -137,7 +138,8 @@
 				"test": "Test",
 				"sellPet": "Pet sale.",
 				"sellPetConfirm": "Confirmation of a pet purchase.",
-				"chiefGuildLeave": "Authority will be transferred."
+				"chiefGuildLeave": "Authority will be transferred.",
+				"unlock": "Releasing someone"
 			}
 		}
 	}
