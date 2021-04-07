@@ -101,7 +101,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 						await fightInstance.startFight();
 						log("Fight (tournament: " + isTournament + "; friendly: " + friendly + ") started in server " + message.guild.id + " between " + attacker.discordUser_id + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and " + defender.discordUser_id + " (" + await defender.getCumulativeHealth() + "/" + await defender.getMaxCumulativeHealth() + ")");
 						break;
-					case MENU:
+					case MENU_REACTION.DENY:
 						if (user.id === attacker.discordUser_id) {
 							await message.channel.send(JsonReader.commands.fight.getTranslation(language).error.canceled);
 						} else if (defender != null) {
