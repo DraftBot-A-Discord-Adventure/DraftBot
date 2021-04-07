@@ -294,6 +294,12 @@
 					"usage": "dmnotification",
 					"category": "util",
 					"description": "Permet d'activer ou de désactiver les notifications du bot."
+				},
+				"unlock": {
+					"emote":":unlock:",
+					"usage": "unlock [mention]",
+					"category": "player",
+					"description": "Permet de payer une caution pour libérer quelqu'un de prison."
 				}
 			}
 		},
@@ -591,6 +597,12 @@
 					"usage": "dmnotification",
 					"category": "util",
 					"description": "Allows to enable or disable private messages from the bot."
+				},
+				"unlock": {
+					"emote":":unlock:",
+					"usage": "unlock [mention]",
+					"category": "player",
+					"description": "Allows you to pay a bail for set someone free."
 				}
 			}
 		}

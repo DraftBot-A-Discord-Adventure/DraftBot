@@ -1,0 +1,26 @@
+{
+	"translations": {
+		"fr": {
+			"cannotGetlockedUser": "Veuillez mentionner un joueur existant. Ex : `unlock @user#0000`",
+			"userNotLocked": "Ce joueur n'est pas en prison.",
+			"unlockHimself": "Vous ne pouvez pas vous libérer vous même, demandez à un ami de le faire.",
+			"unlockTitle": "{pseudo}, confirmation :",
+			"confirmUnlock": "Êtes-vous sûr de vouloir libérer **{pseudo}** pour **{price}**:moneybag: ?",
+			"unlockedTitle": "Libération de {pseudo}",
+			"unlockSuccess": "**{pseudo}** a été libéré.",
+			"noMoney": "Vous n'avez pas assez d'argent pour libérer **{pseudo}**, il vous manque **{money}**:moneybag:.",
+			"unlockCanceled": "La libération a été annulée."
+		},
+		"en": {
+			"cannotGetlockedUser": "Please mention an existing player. Ex : `unlock @user#0000`",
+			"userNotLocked": "This player isn't in jail.",
+			"unlockHimself": "You can't free yourself, ask a friend.",
+			"unlockTitle": "{pseudo}, confirmation:",
+			"confirmUnlock": "Do you really want to unlock **{pseudo}** for **{price}**:moneybag:?",
+			"unlockedTitle": "Releasing {pseudo}",
+			"unlockSuccess": "**{pseudo}** has been released.",
+			"noMoney": "You don't have enough money to release **{pseudo}**, you need **{money}**:moneybag: more.",
+			"unlockCanceled": "Release has been cancel."
+		}
+	}
+}
