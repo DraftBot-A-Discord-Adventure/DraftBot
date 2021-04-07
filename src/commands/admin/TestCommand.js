@@ -164,6 +164,19 @@ const TestCommand = async (language, message, args) => {
 					return;
 				}
 				break;
+				case 'jail':
+					[entity] = await Entities.getOrRegister(message.mentions.users.first().id);
+					if (entity) {
+						entity.effect = EFFECT.LOCKED
+						await Promise.all([
+						entity.save(),
+						entity.Player.save(),
+						]);
+					} else {
+						await message.channel.send('Usage correct: test jail <mention>');
+					return;
+					}
+				break;
 			case 'weaponid':
 				if (args.length === 2) {
 					author.Player.Inventory.weapon_id = parseInt(args[1]);
