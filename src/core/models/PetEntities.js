@@ -123,13 +123,30 @@ module.exports = (Sequelize, DataTypes) => {
 			? pet_entity.nickname
 			: JsonReader.models.pets.getTranslation(language).noNickname;
 	};
+
+	/**
+	 * @param {PetEntities} pet_entity
+	 * @returns {Number}
+	 */
+	PetEntities.getLoveLevelNumber = (pet_entity) => {
+		return pet_entity.lovePoints === PETS.MAX_LOVE_POINTS
+			? 5
+			: pet_entity.lovePoints > PETS.LOVE_LEVELS[2]
+				? 4
+				: pet_entity.lovePoints > PETS.LOVE_LEVELS[1]
+					? 3
+					: pet_entity.lovePoints > PETS.LOVE_LEVELS[0]
+						? 2
+						: 1;
+	}
+
 	/**
 	 * @param {PetEntities} pet_entity
 	 * @param {String|string} language
 	 * @returns {String|string}
 	 */
 	PetEntities.getLoveLevel = (pet_entity, language) => {
-		if (language == "fr" && pet_entity.sex === "f") {
+		if (language === "fr" && pet_entity.sex === "f") {
 			if (pet_entity.lovePoints <= PETS.LOVE_LEVELS[0])
 				return JsonReader.models.pets
 					.getTranslation(language)
@@ -150,20 +167,12 @@ module.exports = (Sequelize, DataTypes) => {
 				return JsonReader.models.pets
 					.getTranslation(language)
 					.lovelevels[4].concat("e");
-			else if (pet_entity.lovePoints == PETS.MAX_LOVE_POINTS)
+			else if (pet_entity.lovePoints === PETS.MAX_LOVE_POINTS)
 				return JsonReader.models.pets
 					.getTranslation(language)
 					.lovelevels[5].concat("e");
 		}
-		return pet_entity.lovePoints == PETS.MAX_LOVE_POINTS
-			? JsonReader.models.pets.getTranslation(language).lovelevels[5]
-			: pet_entity.lovePoints > PETS.LOVE_LEVELS[2]
-				? JsonReader.models.pets.getTranslation(language).lovelevels[4]
-				: pet_entity.lovePoints > PETS.LOVE_LEVELS[1]
-					? JsonReader.models.pets.getTranslation(language).lovelevels[3]
-					: pet_entity.lovePoints > PETS.LOVE_LEVELS[0]
-						? JsonReader.models.pets.getTranslation(language).lovelevels[2]
-						: JsonReader.models.pets.getTranslation(language).lovelevels[1];
+		return JsonReader.models.pets.getTranslation(language).lovelevels[PetEntities.getLoveLevelNumber(pet_entity)];
 	};
 
 	/**

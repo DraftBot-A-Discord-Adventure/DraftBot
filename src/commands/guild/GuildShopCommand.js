@@ -569,4 +569,5 @@ module.exports = {
 			aliases: ["guildshop", "gs"],
 		},
 	],
+	giveFood: giveFood
 };

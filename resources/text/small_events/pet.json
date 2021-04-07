@@ -1,0 +1,122 @@
+{
+	"translations": {
+		"fr": {
+			"money": [
+				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort **{amount}** :moneybag:, que vous gardez pour la suite de votre aventure."
+			],
+			"item": [
+				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort un **objet**, que vous pouvez éventuellement garder pour la suite de votre aventure."
+			],
+			"gainLife": [
+				"Avoir **{pet}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{amount}** :heart:."
+			],
+			"gainLove": [
+				"**{pet}** est heureux de vous avoir en sa compagnie. {nominativeShift} gagne en amour et vous devient plus fidèle."
+			],
+			"food": [
+				"Le flair de **{pet}** {accusative} a permis de trouver une {food}. Vous rangez cette nourriture et continuez votre route."
+			],
+			"gainTime": [
+				"**{pet}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{amount}** min :clock2:."
+			],
+			"points": [
+				"Les personnes qui vous croisent avec **{pet}** ne manquent pas de vous remarquez. Cela améliore votre réputation et vous gagnez donc **{amount}** :medal:."
+			],
+			"badge": [
+				"Réussir à dresser **{pet}** a été un véritable défi qui prouve votre talent avec les animaux. Vous obtenez le badge {badge} !"
+			],
+			"loseLife": [
+				"Alors que vous tentez de carresser **{pet}**, {nominative} ne se laisse pas faire et vous mord la main. Vous perdez **{amount}** :broken_heart:"
+			],
+			"loseMoney": [
+				"Vous sentez que **{pet}** vole quelques pièces dans votre bourse et part les cacher plus loin. Vous n'arrivez pas à les retrouver malheureusement. Vous perdez donc {amount} :money_with_wings:."
+			],
+			"loseTime": [
+				"A force de rappeler **{pet}** afin qu'{nominative} reste près de vous, vous perdez au total **{amount}** min :clock2: de votre trajet."
+			],
+			"petFlee": [
+				"**{pet}** ne vous respecte pas et part donc en courant au loin. Vous n'arrivez pas à {determinant} retrouver et {determinant} perdez à tout jamais..."
+			],
+			"loseLove": [
+				"Il semblerait bien que **{pet}** ne vous apprécie pas trop... Voyager avec {accusative} déteriore d'autant plus cette relation. {nominative} perd un peu en amour."
+			],
+			"nothing": [
+				"Vous continuez votre route aux côtés de **{pet}**. Rien de spécial ne se passe."
+			],
+			"nominative": {
+				"m": "il",
+				"f": "elle"
+			},
+			"accusative": {
+				"m": "lui",
+				"f": "elle"
+			},
+			"determinant": {
+				"m": "le",
+				"f": "la"
+			}
+		},
+		"en": {
+
+		}
+	},
+	"rarities": {
+		"normal": {
+			"money": {
+				"minLevel": 3,
+				"probabilityWeight": 9
+			},
+			"item": {
+				"minLevel": 5,
+				"probabilityWeight": 3
+			},
+			"gainLife": {
+				"minLevel": 4,
+				"probabilityWeight": 5
+			},
+			"nothing": {
+				"minLevel": 1,
+				"probabilityWeight": 15
+			},
+			"gainLove": {
+				"minLevel": 2,
+				"probabilityWeight": 6
+			},
+			"food": {
+				"minLevel": 1,
+				"probabilityWeight": 5
+			},
+			"gainTime": {
+				"minLevel": 3,
+				"probabilityWeight": 4
+			},
+			"points": {
+				"minLevel": 1,
+				"probabilityWeight": 5
+			},
+			"badge": {
+				"minLevel": 6,
+				"probabilityWeight": 1
+			}
+		},
+		"feisty": {
+			"loseLife": {
+				"probabilityWeight": 5
+			},
+			"loseMoney": {
+				"probabilityWeight": 5
+			},
+			"loseTime": {
+				"probabilityWeight": 5
+			},
+			"petFlee": {
+				"probabilityWeight": 1
+			},
+			"loseLove": {
+				"probabilityWeight": 5
+			}
+		}
+	},
+	"rarity": 5,
+	"emote": "\uD83D\uDC15\u200D\uD83E\uDDBA"
+}
