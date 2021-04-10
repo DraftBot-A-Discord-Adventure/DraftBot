@@ -103,7 +103,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 						break;
 					case MENU_REACTION.DENY:
 						if (user.id === attacker.discordUser_id) {
-							await message.channel.send(JsonReader.commands.fight.getTranslation(language).error.canceled);
+							await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.canceled,true);
 						} else if (defender != null) {
 							await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
 						} else {

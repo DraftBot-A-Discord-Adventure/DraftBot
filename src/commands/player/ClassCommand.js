@@ -60,7 +60,7 @@ async function ClassCommand(language, message, args) {
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.DENY) {
 			removeBlockedPlayer(entity.discordUser_id);
-			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass);
+			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass, true);
 			return;
 		}
 

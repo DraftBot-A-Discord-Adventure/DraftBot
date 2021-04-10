@@ -131,7 +131,7 @@ const PetSellCommand = async function (language, message, args) {
 				break;
 			case MENU_REACTION.DENY:
 				if (user.id === entity.discordUser_id) {
-					await sendErrorMessage(user, message.channel, language, translations.sellCancelled);
+					await sendErrorMessage(user, message.channel, language, translations.sellCancelled, true);
 				} else {
 					if (spammers.includes(user.id)) {
 						return;
@@ -198,7 +198,7 @@ async function petSell(message, language, entity, user, pet, petCost) {
 	confirmCollector.on("end", async (reaction) => {
 		if (!reaction.first() || reaction.first().emoji.name === MENU_REACTION.DENY) {
 			removeBlockedPlayer(buyer.discordUser_id);
-			return sendErrorMessage(user, message.channel, language, translations.sellCancelled);
+			return sendErrorMessage(user, message.channel, language, translations.sellCancelled,true);
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 			removeBlockedPlayer(buyer.discordUser_id);

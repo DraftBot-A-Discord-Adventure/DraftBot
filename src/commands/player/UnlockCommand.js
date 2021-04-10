@@ -116,7 +116,7 @@ const UnlockCommand = async (language, message, args) => {
 			return await message.channel.send(successEmbed);
 			};
 		}
-		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).unlockCanceled);
+		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).unlockCanceled, true);
 });
 		
 		try {

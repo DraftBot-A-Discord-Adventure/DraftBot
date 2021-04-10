@@ -13,17 +13,8 @@ const GuildElderCommand = async (language, message, args) => {
 
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
-			entity
-		)) !== true
-	) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity))
 		return;
-	}
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
@@ -82,7 +73,7 @@ const GuildElderCommand = async (language, message, args) => {
 	} catch (error) {
 		elderGuild = null;
 	}
-	if (elderGuild == null || elderGuild.id != guild.id) {
+	if (elderGuild == null || elderGuild.id !== guild.id) {
 		// elder is not in guild
 		return sendErrorMessage(
 			message.author,
@@ -91,7 +82,7 @@ const GuildElderCommand = async (language, message, args) => {
 			JsonReader.commands.guildElder.getTranslation(language).notInTheGuild
 		);
 	}
-	if (guild.chief_id != entity.id) {
+	if (guild.chief_id !== entity.id) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -108,7 +99,7 @@ const GuildElderCommand = async (language, message, args) => {
 		elderGuild = null;
 	}
 
-	if (guild.chief_id == elderEntity.id) {
+	if (guild.chief_id === elderEntity.id) {
 		// chief cannot be the elder
 		return sendErrorMessage(
 			message.author,
@@ -139,8 +130,8 @@ const GuildElderCommand = async (language, message, args) => {
 	const confirmEmbed = new discord.MessageEmbed();
 	const filterConfirm = (reaction, user) => {
 		return (
-			(reaction.emoji.name == MENU_REACTION.ACCEPT ||
-				reaction.emoji.name == MENU_REACTION.DENY) &&
+			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.author.id
 		);
 	};
@@ -167,7 +158,7 @@ const GuildElderCommand = async (language, message, args) => {
 				} catch (error) {
 					elderGuild = null;
 				}
-				if (elderGuild == null || elderGuild.id != guild.id) {
+				if (elderGuild == null || elderGuild.id !== guild.id) {
 					// elder is not in guild
 					return sendErrorMessage(
 						message.author,
@@ -219,18 +210,7 @@ const GuildElderCommand = async (language, message, args) => {
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(
-			message.mentions.users.last(),
-			message.channel,
-			language,
-			format(
-				JsonReader.commands.guildElder.getTranslation(language)
-					.elderAddCancelled,
-				{
-					guildName: guild.name,
-				}
-			)
-		);
+		return sendErrorMessage(message.mentions.users.last(), message.channel, language, format(JsonReader.commands.guildElder.getTranslation(language).elderAddCancelled, {guildName: guild.name,}),true);
 	});
 
 	await Promise.all([
