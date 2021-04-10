@@ -195,7 +195,198 @@
 			]
 		},
 		"en": {
-
+			"no_one": [
+				"You continue your way in the greatest calm, there is nobody on your road.",
+				"You are alone, so you continue your way in the greatest calm.",
+				"The sun's rays breaking through the clouds warm you up as you continue your journey on this deserted road."
+			],
+			"top1": [
+				"You pass near **{pseudo}** on your way, the best player currently!",
+				"As you were walking, you met **{pseudo}**. He is currently at the top of the ranking. Your eyes filled with admiration, you decide not to disturb his progress and you continue your way.",
+				"Oh my god! It's amazing! This is the legendary **{pseudo}**, currently the greatest fighter ! You pass by him and chat for a while, he gives you some advice for your adventure!",
+				"Make way for **{pseudo}**, the world's first of Draftbot ranking! You actually pass this person and keep walking to reach your destination."
+			],
+			"top10": [
+				"On your way, you meet someone important. Indeed, **{pseudo}** is in the top 10!",
+				"Incredible! While walking on a path you meet one of the current heroes! You surely know him, it's **{pseudo}**, you saw him in the top 10, this event cheers up your day!",
+				"You are talking to a well-known face among the adventurers competing for the princess's hand. This is **{pseudo}**, who is in the top 10!"
+			],
+			"top50": [
+				"You meet someone whose name sounds familiar... Indeed, **{pseudo}** has made his place into the top 50!",
+				"While kicking a stone, you realize that it hits a passerby's shoe, but it's not just anyone, it's **{pseudo}**, you saw him on the lists of underground tournaments, you chat a little with him and then continue on your way.",
+				"\"With great power comes great responsibility,\" says **{pseudo}**, a top 50 adventurer that you meet on your journey."
+			],
+			"top100": [
+				"Perseverance leads to success, that's what **{pseudo}** who is part of the top 100 tells you! You then continue on your way to your destination.",
+				"Wow, you recognize one of the beginners of the tournaments, you already met them in a village in the north, yes...  It's **{pseudo}** !",
+				"As you progress towards your goal, you meet **{pseudo}**, a rising star on Draftbot. Indeed, he is in the top 100!"
+			],
+			"powerfulGuild": [
+				"**{pseudo}**, who you meet by chance on your way, is a member of a powerful guild! This is what you conclude when you see his sparkling badge.",
+				"You see a group of people in the distance, so you hurry to look and you hear: \"make way for **{pseudo}**\", indeed he is in a rather powerful guild!",
+				"Rumor says that a member of a powerful guild is making his way along the same path as yours. Indeed, you see **{pseudo}** passing far away!"
+			],
+			"beginner": [
+				"Everything begins someday! You meet **{pseudo}** who starts their adventure dedicated to the princess.",
+				"A person passes by you, you quickly recognize him, it's **{pseudo}**, he is a newcomer, but nice and friendly!",
+				"You take a 5 minute break to get your mind off the game. For this, you train **{pseudo}**, who has just started the game."
+			],
+			"advanced": [
+				"The grey hair of **{pseudo}** shows the experience he has accumulated. He is indeed **{level}** ! You then continue your way.",
+				"While walking around, you come across **{pseudo}** he is a powerful hero, he is indeed level **{level}** !",
+				"**{pseudo}** keeps leveling up and getting closer to level 100! He is currently level **{level}**. You go on your way after this encounter."
+			],
+			"inactive": [
+				"You almost fall on the inert body of **{pseudo}**... You continue your way, disgusted.",
+				"While walking, you see the inert corpse of **{pseudo}**, it seems to be here for a long time...",
+				"An unpleasant smell comes to tickle your nostrils... It is the smell of the decomposed body of **{pseudo}**! You run to get away from this sight which does not leave you unmoved."
+			],
+			"sameClass": [
+				"On your way, you don't fail to recognize **{pseudo}**'s outfit. He is **{class}** just like you !",
+				"You notice **{pseudo}**, and quickly observe his familiar outfit and manners, he is indeed **{class}**, just like you! You then get back on your road.",
+				"You greet one of your colleague **{class}*, **{pseudo}**, passing by. No time to stop, you continue your road."
+			],
+			"sameGuild": [
+				"You cross on your way a very familiar face... Indeed, **{pseudo}** is part of your guild !",
+				"You approach someone, his familiar face reminds you of someone... Of course! It's **{pseudo}** one of your guild members!",
+				"You meet **{pseudo}**, member of your guild! You perform the guild's secret handshake and go your separate ways."
+			],
+			"staffMember": [
+				"**{pseudo}**, who is part of the DraftBot staff, gives you a tip for the rest of your adventure:\n\n{advice}\n\nYou then go on your way",
+				"\"{advice}\", that's what **{pseudo}**, one of the famous bot's staff, told you when you cross a path !",
+				"You talk with **{pseudo}** who is part of the Draftbot team, who has some good advice for the rest of your adventure:\n\n{advice}"
+			],
+			"topWeek": [
+				"You see **{pseudo}** on your way, breathless. He's not resting, as a matter of facts, he's in this week's top 5!",
+				"One of the heroes of the week comes to you, it's **{pseudo}** he is in the top of the week!",
+				"You talk about your points with **{pseudo}**. This one has progressed well this week, he is in the top 5 of the week!"
+			],
+			"lowHP": [
+				"You meet **{pseudo}**, who is limping... He doesn't look good... He falls on the side of the road, you decide to help him up.",
+				"You cross **{pseudo}**, he looks bad....",
+				"An arrow, even in the knee is able to finish **{pseudo}** who is moving slowly on his way. A healing potion would help him a lot!"
+			],
+			"fullHP": [
+				"You have rarely seen someone as energetic as **{pseudo}**... He seems to be in great shape!",
+				"On your way, you meet **{pseudo}** who seems in good shape. Indeed, he has all his life!",
+				"You almost end up on the ground because **{pseudo}** ran by you! He is very energetic because his life is at its maximum."
+			],
+			"lowerRankThanHim": [
+				"You come across **{pseudo}**, a player with more reputation than you... But don't give up! You might be able to reach him some day.",
+				"While walking you stumble and fall, **{pseudo}** laughs at you, indeed he is better ranked than you!",
+				"You chat with **{pseudo}** about your ranking. He is ahead of you because he is better ranked!",
+				"Even though he might brag about his higher ranking than yours, **{pseudo}** stay humble during your conversation."
+			],
+			"betterRankThanHim": [
+				"You cross **{pseudo}**, this one has a less good ranking... But be careful, he can very well reach you one day !",
+				"A player comes to see you, it's **{pseudo}** he asks you some tips to progress and goes on his way !",
+				"You chat with **{pseudo}** about your ranking. You are one step ahead of him because you are ranked higher!"
+			],
+			"rich": [
+				"You cover your eyes to stop being dazzled by the sun reflecting on the gold that **{pseudo}** is wearing! You continue your road while having pain in the eyes.",
+				"Is it Scrooge? No, it's not! It's **{pseudo}**! He has so much gold that you are dazzled! You go on your way rubbing your eyes.",
+				"Coins fall out of **{pseudo}**'s pockets because of how full they are. He doesn't even seem to mind. An animal comes and takes them before you can get your hands on them. You continue on your way a little disappointed."
+			],
+			"poor": [
+				"Looking at **{pseudo}**'s clothes, he seems to have money problems... You think he would be happy if you give him a coin.\n\n:coin: Give him a coin\n:x: Don't give him a coin",
+				"While walking, you meet this poor vagabond **{pseudo}**, this one asks you for some coins:\n\n:coin: Give a coin, because you have enough already\n:x: Don't give him a coin",
+				"Misery touches everyone one day, and today it is **{pseudo}** who can barely pay for a meal.\n\n:coin: Give him a coin\n:x: Don't give him a coin"
+			],
+			"poorGiveMoney": [
+				"You feel good after making this humanitarian act.",
+				"It's by doing good that good spreads, said this priest one day! You give him a few coins, and he gives you a smile before continuing his way!",
+				"This is a good act on your part! He leaves with an extra piece and the possibility to live a little longer..."
+			],
+			"poorDontGiveMoney": [
+				"There are no small economies... You decide to keep your money.",
+				"**{pseudo}** is sad and leaves crying!",
+				"You ignore it, at least you force yourself to do so. You leave and hope that your conscience will not come to bother you."
+			],
+			"duplicatePotion": [
+				"You chat about your journey with **{pseudo}**. After getting to know him, he pours some of his potion into one of your empty vials. You continue your adventure with **1x** {item}!",
+				"A stranger named **{pseudo}** arrives, and puts some of his potion in yours, so you win **1x** {item} !",
+				"Sharing is the secret of good friendship! **{pseudo}** drops some {prefix_item} {item} into one of your empty vials. You leave with some of the potion!"
+			],
+			"pet": [
+				"**{pseudo}** passes near of you with his **{pet_name}** pet. You caress this brave animal and continue your way in a good mood!",
+				"**{pseudo}** passes near of you and shows you his pet **{pet_name}**. You caress him and leave, good road!",
+				"**{pseudo}** passes on your way with **{pet_name}** at the end of his lead. You look at him amazed and think to yourself that you would love to have this animal too!"
+			],
+			"guildChief": [
+				"Don't panic! You are passing by **{pseudo}**, leader of the **{guild_name}** guild.",
+				"You pass near of **{pseudo}**, he is the leader of the **{guild_name}** guild!",
+				"You recognize the person who passes on your way... It's **{pseudo}**, the leader of the **{guild_name}** guild!"
+			],
+			"guildElder": [
+				"**{pseudo}** discusses of his guild **{guild_name}** with you. You learn that he is it's elder!",
+				"You pass near **{pseudo}**, he is the elder of the **{guild_name}** guild!",
+				"The **{guild_name}**'s guild right-hand man, **{pseudo}**, greets you and continues on his way."
+			],
+			"class": [
+				"You come close to **{pseudo}** who is **{class}**. You talk a little with him and go back on your way peacefully.",
+				"**{pseudo}** passes near you, he has the **{class}** rank !",
+				"You accidentally bump into the arm of **{pseudo}**, a proud **{class}**. You both apologize and go on your way."
+			],
+			":sick:": [
+				"You hear a noise in the distance... It's **{pseudo}** vomiting in a bush... You resume your road upset.",
+				"**{pseudo}** vomits in a bush, so that's the noise you've been hearing for a while. You go on your way hoping not to vomit after seeing that.",
+				"**{pseudo}** can't hold back and vomits at your feet. You narrowly dodge the attack and increase your pace to get away from the massacre."
+			],
+			":head_bandage:": [
+				"You see a mummy in the distance! Oh no, it's only **{pseudo}** covered with bandages...",
+				"On your way, you cross **{pseudo}**. He is covered with bandages, what happened to him ?",
+				"As you rush to your destination, **{pseudo}** asks you to tighten the bandages on his head. You do it and are surprised that someone could be so injured."
+			],
+			":dizzy_face:": [
+				"You stumble on **{pseudo}** who is unconscious on the floor. You give him small taps to wake him up, without success.",
+				"It wasn't a dead rat on the ground, it was just **{pseudo}** You ask him if he's okay, he doesn't answer, you go on your way.",
+				"A person is unconscious in the middle of the road. It's **{pseudo}**; you do what you can to bring him back to consciousness, without success. So you put him on the side of the road to avoid more injuries."
+			],
+			":drooling_face:": [
+				"A dull roar reaches your ears. You discover that it is the stomach of **{pseudo}**. Unfortunately, you have recently finished your leftover food.",
+				"Apparently, **{pseudo}**, didn't eat enough. His stomach is rumbling! Having nothing to offer him, you continue your way to other horizons.",
+				"You see **{pseudo}** who is in a madness to find food. He is running around looking for food. Having nothing on you to offer him, you continue your way."
+			],
+			":sleeping:": [
+				"You pass **{pseudo}** asleep on the side of the road. You decide to let him sleep, he surely needs some sleep.",
+				"Obviously **{pseudo}** didn't get enough sleep last night, he is lying on the side of the road.",
+				"The side of the road seems to be a good place to rest, that's what you tell yourself after seeing **{pseudo}** sleeping on the side of it."
+			],
+			":cold_face:": [
+				"You feel a great cold while walking, it's **{pseudo}** close to hypothermia!",
+				"**{pseudo}**, seems to be cold, you warm him up a bit, then you leave!",
+				"A redundant clicking sound annoys you. You discover that it is the teeth of **{pseudo}**... This one is frozen ! You then resume your journey."
+			],
+			":confounded:": [
+				"You try to talk to **{pseudo}**. You try. His words are quite incoherent, so you continue your way somewhat disturbed.",
+				"**{pseudo}**, makes a lot of incoherent remarks, it seems strange, so you leave quickly, disturbed!",
+				"You see **{pseudo}** who looks completely out of it. After trying to bring him back to reality in vain, you continue your way faster in order to catch up the lost time."
+			],
+			":zany_face:": [
+				"**{pseudo}** zigzags on your road, it seems that he has a little (too much) drunk. You then continue on your way.",
+				"**{pseudo}** doesn't seem to have understood that alcohol should be consumed with moderation. You take your way back after this unexpected meeting.",
+				"You see **{pseudo}** quite tipsy, to say the least. This one seems to be having a good time... all by himself. You do what you can to ignore him and continue on your way."
+			],
+			"weapon": [
+				"You meet **{pseudo}** who shows you {prefix_item} beautiful{plural_item} {item}.",
+				"A person comes to show off next to you, it's **{pseudo}** and he shows you {prefix_item} {item} !",
+				"Wow! **{pseudo}** brandishes {prefix_item} beautiful {plural_item} {item} in front of you. You go on your way surprised."
+			],
+			"armor": [
+				"You meet **{pseudo}** who shows you {prefix_item} beautiful{plural_item} {item}.",
+				"A guard approaches you, it's **{pseudo}**, he comes to show you {prefix_item} {item} !",
+				"**{pseudo}** challenges you to test {prefix_item} {item}, which serves as his protection. After testing its effectiveness, you go on your way."
+			],
+			"potion": [
+				"You meet **{pseudo}** who shows you {prefix_item} beautiful{plural_item} {item}.",
+				"**{pseudo}** comes to talk to you, he comes to show you {prefix_item} {item} !",
+				"**{pseudo}**, which you meet on your way, tells you that he in his hands a great potion. So he shows you {prefix_item} {item}."
+			],
+			"object": [
+				"You meet **{pseudo}** who shows you {prefix_item} beautiful{plural_item} {item}.",
+				"While talking with **{pseudo}**, he shows you {prefix_item} {item}!",
+				"**{pseudo}**, a player walking along the same road as you pulls out an item from his collection. He proudly shows you {prefix_item} {item}."
+			]
 		}
 	},
 	"rarity": 8,
