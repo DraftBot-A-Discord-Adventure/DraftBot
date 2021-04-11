@@ -5,11 +5,11 @@
 			"tradeTitle": "Échange d'animaux",
 			"tradeDescription": "{trader1} propose à {trader2} d'échanger leurs animaux. Chaque participant doit cliquer sur :white_check_mark: pour accepter ou sur :x: pour annuler.",
 			"cantTradeSelf": "Vous ne pouvez pas échanger avec vous-même !",
-			"petOfTrader": "Animal de {trader}",
+			"petOfTrader": "Familier de {trader}",
 			"tradeCanceledTime": "L'échange a été annulé car un des participants n'a pas répondu !",
 			"tradeCanceled": "{trader} a annulé l'échange !",
 			"tradeSuccess": "L'échange a été effectué avec succès !",
-			"warningTradeReset": "⚠️ Un animal échangé redeviendra sauvage !"
+			"warningTradeReset": "⚠️ Un familier échangé redeviendra sauvage !"
 		},
 		"en": {
 			"needMention": "Please mention the player you want to trade with.",

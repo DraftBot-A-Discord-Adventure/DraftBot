@@ -6,7 +6,7 @@
 			"needNumber": "Le prix entré semble incorrect. Veuillez indiquer un nombre : `petsell [prix]`",
 			"badPrice": "Le prix doit être supérieur à `{minPrice}💰` et inférieur à `{maxPrice}💰`.",
 			"isFeisty": "Vous ne pouvez pas vendre un familier fielleux.",
-			"petFieldName": "Animal vendu :",
+			"petFieldName": "Familier vendu :",
 			"sellMessage": {
 				"title": "Vente en cours !",
 				"description": "{author} souhaite vendre un pet pour `${price}💰` !",
@@ -22,9 +22,9 @@
 			},
 			"noMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction.",
 			"sellCancelled": "La vente à été annulée !",
-			"havePet": "Vous avez déja un pet dans votre inventaire.",
+			"havePet": "Vous avez déja un familier dans votre inventaire.",
 			"errors": {
-				"canSellYourself": "Il est impossible de se vendre un pet à soi-même !",
+				"canSellYourself": "Il est impossible de se vendre un familier à soi-même !",
 				"spam": "Votre vente a été annulée. Merci de ne pas spam la réaction de votre vente.",
 				"onlyInitiator": "Seul l'initiateur d'une vente peut l'annuler !",
 				"noOneAvailable": "Malheureusement, personne ne semble disponible pour acheter votre familier. Votre vente a été annulée."
