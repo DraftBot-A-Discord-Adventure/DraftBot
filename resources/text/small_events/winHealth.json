@@ -1,0 +1,18 @@
+{
+	"translations": {
+		"fr": {
+			"intrigue": [
+				"vous découvrez un arbre dont les fruits semblent appétissants. Curieux, vous en mangez quelques uns et reprenez votre route. Vous gagnez **{health} ❤️**.",
+				"vous trouvez une fiole presque vide. Comme son contenu ne semble pas dangereux, vous finissez de le boire avant de continuer votre chemin. Vous gagnez **{health} ❤️**.",
+				"vous découvrez un bâtiment abandonné. Vous décidez de l'explorer et trouvez rapidement un peu de nourriture. Vous gagnez **{health} ❤️**.",
+				"vous rencontrez une femme qui se vante de pouvoir soigner tous vos maux. Vous décidez de lui faire confiance et lui laissez réciter des incantations pendant quelques minutes. Vous gagnez **{health} ❤️**."
+			]
+		},
+		"en": {
+		}
+	},
+	"rarity": 3,
+	"emote": "❤️"
+}
+
+
