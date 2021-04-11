@@ -52,7 +52,57 @@
 				]
 			]
 		},
-		"en": {
+		"en":  {
+			"intro": [
+				[
+					"While traveling, you meet {name}, he is an itinerant trader and seems to give to you his most special offer.",
+					"As you walk along your path, you come face to face with {name} who quickly makes you an attractive offer.",
+					"As you are about to start walking again after a short break, a man introducing himself as \"{name} - itinerant merchant\" proposes you an exchange.",
+					"As you turn a rock, you come face to face with an itinerant merchant named {name} who seems to sell very interesting things",
+					"As you are walking along, a cart with the sign \"{name} - super item itinerant merchant\" comes in front of you. A transaction starts immediately.",
+					"During your adventure, a merchant suddenly calls out to you! He says his name is {name} and that he has some items that can help you during your adventure.",
+					"After many hours of walking, a man approaches you, you learn that he is called {name} - a first-class merchant. He quickly shows you one of his many items.",
+					"During a short break against a tree, a man comes up to you and introduces himself as an itinerant merchant. The man, who calls himself {name}, seems to be offering a very attractive deal."
+				],
+				[
+					"As you walk along your path, you come face to face with {name} who quickly makes you an attractive offer.",
+					"You are used to stumble across itinerant merchant during your travel. The one you meet today, named {name} offer to you her best deal.",
+					"During your adventure, a merchant suddenly calls out to you! She says her name is {name} and that she has some items that can help you during your adventure.",
+					"As you make your way along the road, you come across a cart with a merchant named {name} in it. She proposes you to buy one of her items, saying that they might be useful in your adventure."
+				]
+			],
+			"end": "\n\n{item} | `{price}\uD83D\uDCB0`",
+			"names": [
+				[
+					"Terry",
+					"Marco",
+					"Didier",
+					"Bernard",
+					"Georges",
+					"Louis",
+					"Kilton",
+					"Kikolou",
+					"Araj",
+					"Lavio",
+					"Bugri",
+					"Faras",
+					"Finn",
+					"Russel",
+					"Ullure",
+					"Vivian",
+					"Belethor"
+				],
+				[
+					"Karine",
+					"Cremia",
+					"Fouyaya",
+					"Ember",
+					"Embry",
+					"Emirel",
+					"Fressah",
+					"Ullure"
+				]
+			]
 		}
 	},
 	"rarity": 4,
