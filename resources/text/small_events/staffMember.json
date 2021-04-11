@@ -1,0 +1,39 @@
+{
+	"translations": {
+		"fr": {
+			"context": [
+				"En contournant un ravin, vous rencontrez un barde. Pendant que vous marchez, il vous raconte l'histoire de **{pseudo}**, {sentence}.",
+				"Alors que vous cheminez tranquillement remarquez une grande affiche. Elle semble louer les exploits de **{pseudo}**... \"{sentence}\".",
+				"Durant l'une de vos aventures, vous entendez une histoire, \"{sentence}\", mais n'en connaissez pas le héros. Après quelques recherches, vous vous rendez compte qu'elle parle de **{pseudo}** ! Son nom vous semble familier...",
+				"En entrant dans un bâtiment le long de votre chemin, vous discutez quelques temps avec le gérant de l'établissement. Vous lui demandez de vous conter les légendes locales, il vous décrit alors **{pseudo}**, {sentence}.",
+				"Sur votre chemin, vous faites la rencontre d'un vielle homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{pseudo}** : {sentence}.",
+				"En marchant le long de la route, vous apercevez un livre en mauvais état par terre. Intitulé **{pseudo}**, vous l'ouvrez et lisez les premières phrases... {sentence}.",
+				"Vous marchez longuement dans le calme, jusqu'à ce que vous croisiez une personne fredonnant un chant dédié à **{pseudo}**... :musical_note: {sentence} :musical_note:.",
+				"Sur votre voyage, un nuage de poussière apparaît au loin. Quelques minutes plus tard, un cavalier s'arrête devant vous, il dit chercher **{pseudo}**. À votre regard inquisiteur, il ajoute :  \"{sentence}\"."
+			],
+			"members": {
+				"Nysvaa": "un prétendant à la main de la princesse qui ne compte pas la gagner par le combat mais en prouvant sa réflexion lors de ses péripéties (et par sa chance un peu... beaucoup)",
+				"Thero1st": "un des premiers compétiteurs pour la main de la princesse et grand chef cuisinier spécialisé dans les brochettes au poulpe, ce combattant prend pourtant le concours à la légère, préférant passer du temps dans ses stands avec ses animaux",
+				"Oscar": "un piètre guerrier qui, à son apogée, d'un ancien temps révolu, dominait le classement de par ses points et ses connaissances",
+				"QuenQuentin": "un fidèle chevalier terrassant de nombreux ennemis grâce au cadeau du ciel et qui a contribué à ce que ce monde devienne meilleur",
+				"Ines": "une combattante des débuts de ce monde, qui malheureusement se bat de moins en moins pour lui par manque de temps, mais qui reste fidèle dans la course à la princesse (enfin au prince plutôt). Fidèle partisane du Kyutisme",
+				"romain22222": "un grand intellect, cherchant autant à résoudre les situations de façon optimale, qu'à les créer. Celui-ci discute trop, bien trop, avec les ménestrels et ses adorateurs, et évite les tentes dans les forêts",
+				"Asemerald": "un aventurier se laissant porter par sa chance, connu pour sa puissance de feu dépassant l’imaginable",
+				"Izuku": "un riche inventeur qui créa une potion d'amour pour la belle princesse mais qui se la fit voler par un marchand",
+				"Draft": "un ancien dieu créateur du monde dans lequel tous évolue. Épaté par les capacités de son peuple, il erre parmi eux tandis qu'il travaille à perfectionner leur expérience",
+				"Royal": "un entrepreneur aguerri qui privilégie l'argent à la morale. Friand de tournoi, il n'hésitera pas à se battre pour la princesse",
+				"Max": "un inventeur fou, amoureux du voyage. Il est le seul à avoir, un jour, parcouru la terre des dragons. La légende raconte que ses projets ont presque tous menés l’humanité au bord de l’extinction",
+				"Eagles": "éleveur de dragon, qui a mené les premiers coups d'état du royaume",
+				"DeadAngelV6": "seul homme banni des terres du Duc Benatis. Il espère vous croisez dans votre aventure avec son mystérieux baluchon pour vous conter son histoire",
+				"Kyusaki": "premier Grand prêtre du Kyutisme, il mène une route de méditation incognito parmi les aventuriers du monde, donnant souvent conseil à ceux qui en font la demande",
+				"Greninja_san": "batracien à l'intellect hors normes, il usa de ses connaissances multiples pour s'intégrer à la vie humaine, et apprendre les préceptes de leur magie",
+				"nwcubeok": "un célèbre magicien qui parcourt la contrée afin de promouvoir ses talents en magie. Il espère que la princesse saura les apprécier",
+				"SuperBananeNinja": "un mage discret sillonnant les terres, généralement solitaire, souvent salutaire, avec ses manières hétéroclites et ses tours déconcertants, mais toujours droit dans ses bottes"
+			}
+		},
+		"en": {
+		}
+	},
+	"rarity": 1,
+	"emote": "\uD83D\uDCD6"
+}

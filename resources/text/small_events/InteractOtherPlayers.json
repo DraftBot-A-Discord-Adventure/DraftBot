@@ -218,7 +218,7 @@
 			],
 			"top100": [
 				"Perseverance leads to success, that's what **{pseudo}** who is part of the top 100 tells you! You then continue on your way to your destination.",
-				"Wow, you recognize one of the beginners of the tournaments, you already met them in a village in the north, yes...  It's **{pseudo}** !",
+				"Wow, you recognize one of the beginners of the tournaments, you already met them in a village in the north, yes...  It's **{pseudo}**!",
 				"As you progress towards your goal, you meet **{pseudo}**, a rising star on Draftbot. Indeed, he is in the top 100!"
 			],
 			"powerfulGuild": [
@@ -232,8 +232,8 @@
 				"You take a 5 minute break to get your mind off the game. For this, you train **{pseudo}**, who has just started the game."
 			],
 			"advanced": [
-				"The grey hair of **{pseudo}** shows the experience he has accumulated. He is indeed **{level}** ! You then continue your way.",
-				"While walking around, you come across **{pseudo}** he is a powerful hero, he is indeed level **{level}** !",
+				"The grey hair of **{pseudo}** shows the experience he has accumulated. He is indeed **{level}**! You then continue your way.",
+				"While walking around, you come across **{pseudo}** he is a powerful hero, he is indeed level **{level}**!",
 				"**{pseudo}** keeps leveling up and getting closer to level 100! He is currently level **{level}**. You go on your way after this encounter."
 			],
 			"inactive": [
@@ -305,7 +305,7 @@
 			"duplicatePotion": [
 				"You chat about your journey with **{pseudo}**. After getting to know him, he pours some of his potion into one of your empty vials. You continue your adventure with **1x** {item}!",
 				"A stranger named **{pseudo}** arrives, and puts some of his potion in yours, so you win **1x** {item} !",
-				"Sharing is the secret of good friendship! **{pseudo}** drops some {prefix_item} {item} into one of your empty vials. You leave with some of the potion!"
+				"Sharing is the secret of good friendship! **{pseudo}** drops some {item} into one of your empty vials. You leave with some of the potion!"
 			],
 			"pet": [
 				"**{pseudo}** passes near of you with his **{pet_name}** pet. You caress this brave animal and continue your way in a good mood!",
@@ -324,7 +324,7 @@
 			],
 			"class": [
 				"You come close to **{pseudo}** who is **{class}**. You talk a little with him and go back on your way peacefully.",
-				"**{pseudo}** passes near you, he has the **{class}** rank !",
+				"**{pseudo}** passes near you, he has the **{class}** rank!",
 				"You accidentally bump into the arm of **{pseudo}**, a proud **{class}**. You both apologize and go on your way."
 			],
 			":sick:": [
@@ -334,7 +334,7 @@
 			],
 			":head_bandage:": [
 				"You see a mummy in the distance! Oh no, it's only **{pseudo}** covered with bandages...",
-				"On your way, you cross **{pseudo}**. He is covered with bandages, what happened to him ?",
+				"On your way, you cross **{pseudo}**. He is covered with bandages, what happened to him?",
 				"As you rush to your destination, **{pseudo}** asks you to tighten the bandages on his head. You do it and are surprised that someone could be so injured."
 			],
 			":dizzy_face:": [
@@ -368,24 +368,24 @@
 				"You see **{pseudo}** quite tipsy, to say the least. This one seems to be having a good time... all by himself. You do what you can to ignore him and continue on your way."
 			],
 			"weapon": [
-				"You meet **{pseudo}** who shows you {prefix_item} beautiful{plural_item} {item}.",
-				"A person comes to show off next to you, it's **{pseudo}** and he shows you {prefix_item} {item} !",
-				"Wow! **{pseudo}** brandishes {prefix_item} beautiful {plural_item} {item} in front of you. You go on your way surprised."
+				"You meet **{pseudo}** who shows you {item}.",
+				"A person comes to show off next to you, it's **{pseudo}** and he shows you {item} !",
+				"Wow! **{pseudo}** brandishes {item} in front of you. You go on your way surprised."
 			],
 			"armor": [
-				"You meet **{pseudo}** who shows you {prefix_item} beautiful{plural_item} {item}.",
-				"A guard approaches you, it's **{pseudo}**, he comes to show you {prefix_item} {item} !",
-				"**{pseudo}** challenges you to test {prefix_item} {item}, which serves as his protection. After testing its effectiveness, you go on your way."
+				"You meet **{pseudo}** who shows you {item}.",
+				"A guard approaches you, it's **{pseudo}**, he comes to show you {item} !",
+				"**{pseudo}** challenges you to test {item}, which serves as his protection. After testing its effectiveness, you go on your way."
 			],
 			"potion": [
-				"You meet **{pseudo}** who shows you {prefix_item} beautiful{plural_item} {item}.",
-				"**{pseudo}** comes to talk to you, he comes to show you {prefix_item} {item} !",
-				"**{pseudo}**, which you meet on your way, tells you that he in his hands a great potion. So he shows you {prefix_item} {item}."
+				"You meet **{pseudo}** who shows you {item}.",
+				"**{pseudo}** comes to talk to you, he comes to show you {item} !",
+				"**{pseudo}**, which you meet on your way, tells you that he in his hands a great potion. So he shows you {item}."
 			],
 			"object": [
-				"You meet **{pseudo}** who shows you {prefix_item} beautiful{plural_item} {item}.",
-				"While talking with **{pseudo}**, he shows you {prefix_item} {item}!",
-				"**{pseudo}**, a player walking along the same road as you pulls out an item from his collection. He proudly shows you {prefix_item} {item}."
+				"You meet **{pseudo}** who shows you {item}.",
+				"While talking with **{pseudo}**, he shows you {item}!",
+				"**{pseudo}**, a player walking along the same road as you pulls out an item from his collection. He proudly shows you {item}."
 			]
 		}
 	},
