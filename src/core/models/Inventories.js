@@ -81,12 +81,14 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * Generate a random item
 	 * @param {number} rarityMax
+	 * @param {number} itemType
 	 * @returns {Item} generated item
 	 */
-	Inventories.prototype.generateRandomItem = async function (rarityMax = 8) {
+	Inventories.prototype.generateRandomItem = async function (rarityMax = 8, itemType = null) {
 		// generate a random item
 		const rarity = generateRandomRarity(rarityMax);
-		const itemType = generateRandomItemType();
+		if (!itemType)
+			itemType = generateRandomItemType();
 		const query = `SELECT id
                    FROM :itemType
                    WHERE rarity = :rarity`;
@@ -165,7 +167,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * edit daily cooldown
-	 * @param {number} hours 
+	 * @param {number} hours
 	 */
 	Inventories.prototype.editDailyCooldown = function (hours) {
 		this.lastDailyAt = new moment(this.lastDailyAt).add(hours, "h");
