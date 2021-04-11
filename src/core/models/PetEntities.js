@@ -227,7 +227,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * @param {number} level
-	 * @returns {Promise<void>}
+	 * @returns {Promise<PetEntities>}
 	 */
 	PetEntities.generateRandomPetEntity = async (level) => {
 		const sex = draftbotRandom.bool() ? "m" : "f";
@@ -253,6 +253,24 @@ module.exports = (Sequelize, DataTypes) => {
 			where: {
 				rarity: rarity,
 			},
+			order: [Sequelize.fn("RANDOM")],
+		});
+		let r = PetEntities.build({
+			pet_id: pet.id,
+			sex: sex,
+			nickname: null,
+			lovePoints: PETS.BASE_LOVE,
+		});
+		r.PetModel = pet;
+		return r;
+	};
+
+	/**
+	 * @returns {Promise<PetEntities>}
+	 */
+	PetEntities.generateRandomPetEntity = async () => {
+		const sex = draftbotRandom.bool() ? "m" : "f";
+		const pet = await Pets.findOne({
 			order: [Sequelize.fn("RANDOM")],
 		});
 		let r = PetEntities.build({

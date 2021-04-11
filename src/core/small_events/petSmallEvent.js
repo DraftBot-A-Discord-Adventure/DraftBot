@@ -99,7 +99,9 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			break;
 	}
 	const tr = JsonReader.small_events.pet.getTranslation(language);
-	seEmbed.setDescription(format(tr[interaction][randInt(0, tr[interaction].length)], {
+	const sentence = tr[interaction][randInt(0, tr[interaction].length)];
+	const random_animal = sentence.includes("{random_animal}") ? await PetEntities.generateRandomPetEntity() : null;
+	seEmbed.setDescription(format(sentence, {
 		pet: PetEntities.getPetEmote(pet) + " " + (pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)),
 		nominative: tr.nominative[pet.sex],
 		nominativeShift: tr.nominative[pet.sex].charAt(0).toUpperCase() + tr.nominative[pet.sex].slice(1),
@@ -109,7 +111,10 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		determinantShift: tr.determinant[pet.sex].charAt(0).toUpperCase() + tr.determinant[pet.sex].slice(1),
 		amount: amount,
 		food: food ? food.translations[language].name.toLowerCase() + " " + food.emote + " " : "",
-		badge: BADGE
+		badge: BADGE,
+		feminine: pet.sex === "f" ? "e" : "",
+		random_animal: random_animal ? (PetEntities.getPetEmote(random_animal) + " " + PetEntities.getPetTypeName(random_animal, language)) : "",
+		random_animal_feminine: random_animal ? (random_animal.sex === "f" ? "e" : "") : ""
 	}));
 	await message.channel.send(seEmbed);
 };
