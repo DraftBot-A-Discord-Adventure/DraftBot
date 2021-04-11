@@ -11,7 +11,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let randomItem = await entity.Player.Inventory.generateRandomItem(RARITY.EPIC);
 	seEmbed.setDescription(
 		seEmbed.description +
-		JsonReader.small_events.findItem.getTranslation(language).intro[randInt(0, JsonReader.small_events.findItem.getTranslation(language).intro.length)] +
+		JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] +
 		JsonReader.small_events.findItem.getTranslation(language).intrigue[randInt(0, JsonReader.small_events.findItem.getTranslation(language).intrigue.length)]
 	);
 
