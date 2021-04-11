@@ -1,0 +1,25 @@
+/**
+ * Main function of small event
+ * @param {module:"discord.js".Message} message
+ * @param {"fr"|"en"} language
+ * @param {Entities} entity
+ * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
+ * @returns {Promise<>}
+ */
+const executeSmallEvent = async function (message, language, entity, seEmbed) {
+
+	let randomItem = await entity.Player.Inventory.generateRandomItem(undefined,ITEMTYPE.POTION);
+	seEmbed.setDescription(
+		seEmbed.description +
+		JsonReader.small_events.findPotions.getTranslation(language).intro[randInt(0, JsonReader.small_events.findPotions.getTranslation(language).intro.length)] +
+		JsonReader.small_events.findPotions.getTranslation(language).intrigue[randInt(0, JsonReader.small_events.findPotions.getTranslation(language).intrigue.length)]
+	);
+
+	const msg = await message.channel.send(seEmbed);
+	log(entity.discordUser_id + " got a potion from a mini event ");
+	await giveItem(entity, randomItem, language, message.author, message.channel);
+};
+
+module.exports = {
+	executeSmallEvent: executeSmallEvent
+};
