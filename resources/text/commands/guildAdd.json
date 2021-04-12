@@ -26,7 +26,7 @@
 			"invitationSuccess": "The cooldown before the next guild daily reward has been reset.",
 			"invitationCancelled": "You did not join the guild `{guildName}`!",
 			"guildFull": "Your guild is full.",
-			"levelTooLow": "{pseudo}, You must be **LVL {level}** to join a guild. Come back later!"
+			"levelTooLow": "{pseudo}, you must be **LVL {level}** to join a guild. Come back later!"
 		}
 	}
 }

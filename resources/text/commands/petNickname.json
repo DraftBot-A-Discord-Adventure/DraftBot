@@ -8,7 +8,7 @@
 		},
 		"en": {
 			"invalidName": "The rules for the pet's name are the following:",
-			"successTitle": "{pseudo}, Pet name change",
+			"successTitle": "{pseudo}, pet name change",
 			"success": "Your pet's name changed to **{name}**!",
 			"successNoName": "Your pet doesn't have a name anymore!"
 		}

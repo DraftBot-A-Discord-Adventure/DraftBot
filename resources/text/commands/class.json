@@ -26,7 +26,7 @@
 			"display": "{name}\n\n:scroll: `{description}`\n\nSouhaitez vous dépenser `{price} 💰` pour prendre cette classe ?",
 			"success": "{pseudo}, votre classe a été modifiée !",
 			"newClass": "Votre nouvelle classe est : ",
-			"confirm": "{pseudo}, Vous avez sélectionné la classe suivante :",
+			"confirm": "{pseudo}, vous avez sélectionné la classe suivante :",
 			"moneyQuantity": "{money} 💰",
 			"moneyQuantityTitle": "Votre argent :",
 			"classMainDisplay": "{description}\nPrix : `{price} 💰`.",
