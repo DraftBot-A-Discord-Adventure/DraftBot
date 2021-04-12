@@ -221,25 +221,25 @@
 					"emote": ":dog:",
 					"usage": "mypet",
 					"category": "pet",
-					"description": "Affiche les informations relatives à votre animal."
+					"description": "Affiche les informations relatives à votre familier."
 				},
 				"pettransfer": {
 					"emote": ":arrow_right:",
 					"usage": "pettransfer [numéro]",
 					"category": "pet",
-					"description": "Permet de transférer un animal depuis ou vers la guilde. Si aucun numéro n'est fournit, l'animal de votre inventaire sera déplacé vers le refuge de la guilde. Si un numéro est fournit, il sera échangé avec celui de la guilde correspondant au numéro."
+					"description": "Permet de transférer un familier depuis ou vers la guilde. Si aucun numéro n'est fournit, le familier de votre inventaire sera déplacé vers le refuge de la guilde. Si un numéro est fournit, il sera échangé avec celui de la guilde correspondant au numéro."
 				},
 				"petnickname": {
 					"emote": ":abcd:",
 					"usage": "petnickname [nom]",
 					"category": "pet",
-					"description": "Change le surnom de votre animal. Si aucun nom n'est fournit, le nom actuel sera effacé."
+					"description": "Change le surnom de votre familier. Si aucun nom n'est fournit, le nom actuel sera effacé."
 				},
 				"petfree": {
 					"emote": ":wave:",
 					"usage": "petfree",
 					"category": "pet",
-					"description": "Libère votre animal. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
+					"description": "Libère votre familier. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
 				},
 				"shelter": {
 					"emote": ":park:",
@@ -257,7 +257,7 @@
 					"emote": ":candy:",
 					"usage": "petfeed",
 					"category": "pet",
-					"description": "Donner de la nourriture à votre animal."
+					"description": "Donner de la nourriture à votre familier."
 				},
 				"petsell": {
 					"emote": ":dollar:",

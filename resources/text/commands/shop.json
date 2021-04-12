@@ -43,7 +43,7 @@
 			"error": {
 				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
 				"cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
-				"canceledPurchase": "transaction annulée!",
+				"canceledPurchase": "Transaction annulée!",
 				"alreadyHasItem": "Vous possédez déjà cet objet.",
 				"leaveShop": "Vous avez quitté le magasin."
 			},
@@ -95,7 +95,7 @@
 			"error": {
 				"nothingToHeal": "You're not under status alterations.",
 				"cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",
-				"canceledPurchase": "transaction canceled!",
+				"canceledPurchase": "Transaction canceled!",
 				"alreadyHasItem": "You already have the \"MoneyMouth\" badge. You can only buy it once.",
 				"leaveShop": "You left the shop."
 			},
