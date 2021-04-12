@@ -5,7 +5,19 @@
 				"vous découvrez un arbre dont les fruits semblent appétissants. Curieux, vous en mangez quelques uns et reprenez votre route. Vous gagnez **{health} ❤️**.",
 				"vous trouvez une fiole presque vide. Comme son contenu ne semble pas dangereux, vous finissez de le boire avant de continuer votre chemin. Vous gagnez **{health} ❤️**.",
 				"vous découvrez un bâtiment abandonné. Vous décidez de l'explorer et trouvez rapidement un peu de nourriture. Vous gagnez **{health} ❤️**.",
-				"vous rencontrez une femme qui se vante de pouvoir soigner tous vos maux. Vous décidez de lui faire confiance et lui laissez réciter des incantations pendant quelques minutes. Vous gagnez **{health} ❤️**."
+				"vous rencontrez une femme qui se vante de pouvoir soigner tous vos maux. Vous décidez de lui faire confiance et lui laissez réciter des incantations pendant quelques minutes. Vous gagnez **{health} ❤️**.",
+				"vous faites la rencontre d'un groupe d'enfants qui partagent les fruits de leur récoltes. Ils vous offrent quelques poires avant que vous ne repreniez votre route. Vous gagnez **{health} ❤️**.",
+				"votre regard est attiré par ce qui semble être un étroit passage entre les buissons. Vous le suivez et trouvez quelques champignons sur le sol. Ces derniers n'ont pas l'air dangereux et vous prenez le risque de les goûter. Vous gagnez **{health} ❤️**.",
+				"vous entendez le bruissement d'une tout petit cours d'eau. Vous décidez de vous y rendre et buvez un peu de son eau qui s'avère être très fraîche. Vous gagnez **{health} ❤️**.",
+				"vous découvrez des paniers entiers de nourriture près d'un feu de camp. Vous hésitez quelques secondes avant de vous empresser d'en manger autant que vous le pouvez. Repus, vous vous sentez bien mieux à présent. Vous gagnez **{health} ❤️**.",
+				"vous apercevez une hutte abandonnée. Vous décidez d'entrer dans celle-ci quand un flacon brillant vous attire. Intrépide, vous buvez son contenu. Vous gagnez **{health} ❤️**.",
+				"vous trouvez une petit ferme avec un feu de cheminée récemment éteint, vous vous dépêchez de volez quelques légumes avant qu'ils ne reviennent et les mangez. Vous gagnez **{health} ❤️**.",
+				"vous rencontrez un moine avec qui vous discutez, celui-ci impressionné par votre quête de la princesse décide de vous dédier une prière. Vous gagnez **{health} ❤️**.",
+				"vous trouvez quelques fraises des bois ! Après vous être régalé, vous poursuivez votre route. Vous gagnez **{health} ❤️**.",
+				"vous apercevez un paquet abandonné au sol, vous l’ouvrez et y découvrez des vivres que vous mangez avant de reprendre votre route. Vous gagnez **{health} ❤️**.",
+				"vous trouvez une cascade et décidez de vous y désaltérer. Vous gagnez **{health} ❤️**.",
+				"vous croisez un vieillard qui dit posséder un élixir qu’il serait prêt à vous céder gratuitement. Curieux, vous l’acceptez et le buvez. Vous gagnez **{health} ❤️**.",
+				"vous trouvez une gourde d'eau dans une charrette abandonné. Vous buvez l'eau et vous vous sentez mieux. Vous gagner {health} :heart:"
 			]
 		},
 		"en": {
