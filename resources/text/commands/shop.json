@@ -11,7 +11,7 @@
 					"name": ":question: **Un équipement random**",
 					"price": 350,
 					"info": "\n\n:warning: Vous recevrez un équipements aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu.",
-					"give": "{pseudo}, Vous avez reçu un(e) nouvel(le) {type}:"
+					"give": "{pseudo}, vous avez reçu un(e) nouvel(le) {type}:"
 				},
 				"healAlterations": {
 					"name": ":hospital: **Soin des altérations d'état**",
@@ -29,7 +29,7 @@
 					"name": ":money_mouth: **Badge \"MoneyMouth\"**",
 					"price": 25000,
 					"info": "\n\n:warning: Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `help badges`.",
-					"give": "{pseudo}, Vous avez reçu un nouveau badge :"
+					"give": "{pseudo}, vous avez reçu un nouveau badge :"
 				},
 				"guildXp": {
 					"name": ":star: **Un peu d'xp pour votre guilde**",
@@ -38,7 +38,7 @@
 					"give": "Votre guilde a reçu `{experience}⭐`."
 				}
 			},
-			"confirm": "{pseudo}, Vous avez sélectionné le produit suivant :",
+			"confirm": "{pseudo}, vous avez sélectionné le produit suivant :",
 			"moneyQuantity": "\n\nVous avez `{money}💰`.",
 			"error": {
 				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
@@ -49,7 +49,7 @@
 			},
 			"potion": {
 				"info": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
-				"give": "{pseudo}, Vous avez reçu une nouvelle potion :"
+				"give": "{pseudo}, vous avez reçu une nouvelle potion :"
 			}
 		},
 		"en": {
@@ -63,7 +63,7 @@
 					"name": ":question: **A random item**",
 					"price": 350,
 					"info": "\n\n:warning: You will recieve a random item (Weapon / Armor / Misc or Potion) among all those existing in the game.",
-					"give": "{pseudo}, You received a new {type}:"
+					"give": "{pseudo}, you received a new {type}:"
 				},
 				"healAlterations": {
 					"name": ":hospital: **Heal alterations**",
@@ -81,7 +81,7 @@
 					"name": ":money_mouth: **\"MoneyMouth\" Badge**",
 					"price": 25000,
 					"info": "\n\n:warning: You will receive the badge in the hours following your payment. For more information on badges, use the command `help badges`",
-					"give": "{pseudo}, You received a new badge:"
+					"give": "{pseudo}, you received a new badge:"
 				},
 				"guildXp": {
 					"name": ":star: **Some xp for your guild**",
@@ -90,18 +90,18 @@
 					"give": "Your guild has received `{experience}⭐`."
 				}
 			},
-			"confirm": "{pseudo}, You have selected this product:",
+			"confirm": "{pseudo}, you have selected this product:",
 			"moneyQuantity": "\n\nYou have `{money}💰`.",
 			"error": {
 				"nothingToHeal": "You're not under status alterations.",
 				"cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",
-				"canceledPurchase": "transaction canceled!",
+				"canceledPurchase": "Transaction canceled!",
 				"alreadyHasItem": "You already have the \"MoneyMouth\" badge. You can only buy it once.",
 				"leaveShop": "You left the shop."
 			},
 			"potion": {
 				"info": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
-				"give": "{pseudo}, You received a new potion:"
+				"give": "{pseudo}, you received a new potion:"
 			}
 		}
 	},

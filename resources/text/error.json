@@ -61,15 +61,15 @@
 				"sell": "Vente d'un objet",
 				"acceptItem": "Choix de garder un objet ou non",
 				"petFeed": "nourrir un familier",
-				"freepet": "Libération d'un animal",
+				"freepet": "Libération d'un familier",
 				"guildElder": "Choisir l'ainé",
 				"guildElderRemove": "Supprimer l'ainé",
 				"petTrade": "Échange d'animaux",
 				"guildShop": "Magasin de guilde",
 				"selectQuantity": "Sélection d'une quantité",
 				"test": "Test",
-				"petSell": "Vente de pet.",
-				"petSellConfirm": "Confirmation de l'achat d'un pet.",
+				"petSell": "Vente de familier.",
+				"petSellConfirm": "Confirmation de l'achat d'un familier.",
 				"chiefGuildLeave": "Passation de pouvoir.",
 				"unlock": "Libération de quelqu'un"
 			}

@@ -1,15 +1,15 @@
 {
 	"translations": {
 		"fr": {
-			"embedTitle": "{pseudo}, vous offrez de la nourriture à votre animal.",
+			"embedTitle": "{pseudo}, vous offrez de la nourriture à votre familier.",
 			"breedEmbedAuthor": "{author}, choix :",
 			"breedEmbedDescription": "Avec quel type de nourriture voulez-vous nourrir votre familier ?",
 			"breedEmbedTitle2": "{author}, confirmation :",
 			"breedEmbedDescription2": "Souhaitez vous acheter une friandise pour {petnick} ? \n\n 🍬 Friandise | `20💰`",
 			"breedEmbedFooter": "Pour profiter de meilleurs sources de nourriture, rejoignez une guilde !",
 			"cancelBreed": "Vous n'avez pas nourri votre familier...",
-			"notEnoughFood": "L'entrepôt de la guilde ne contient pas assez de nourriture de ce type pour nourrir votre pet.",
-			"noPet": "Vous n'avez aucun animal !",
+			"notEnoughFood": "L'entrepôt de la guilde ne contient pas assez de nourriture de ce type pour nourrir votre familier.",
+			"noPet": "Vous n'avez aucun familier !",
 			"description": {
 				"0": "**{petnick}** ne semble pas avoir aimé...",
 				"1": "**{petnick}** est heureux !",

@@ -21,7 +21,7 @@
 				"type": "guildXp",
 				"give": "Votre guilde a reçu `{experience}⭐`."
 			},
-			"confirm": "{pseudo}, Vous avez sélectionné le produit suivant :",
+			"confirm": "{pseudo}, vous avez sélectionné le produit suivant :",
 			"moneyQuantity": "\n\nVous avez `{money}💰`.",
 			"error": {
 				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
@@ -32,7 +32,7 @@
 			},
 			"potion": {
 				"info": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
-				"give": "{pseudo}, Vous avez reçu une nouvelle potion :"
+				"give": "{pseudo}, vous avez reçu une nouvelle potion :"
 			}
 		},
 		"en": {
@@ -56,7 +56,7 @@
 				"type": "guildXp",
 				"give": "Your guild has received `{experience}⭐`."
 			},
-			"confirm": "{pseudo}, You have selected this product:",
+			"confirm": "{pseudo}, you have selected this product:",
 			"moneyQuantity": "\n\nYou have `{money}💰`.",
 			"error": {
 				"cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",

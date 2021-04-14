@@ -31,7 +31,7 @@
 				"fieldValue": "{class}"
 			},
 			"pet": {
-				"fieldName": "Animal de compagnie :",
+				"fieldName": "Familier :",
 				"fieldValue": "Rareté: {rarity}\n{emote} {nickname}"
 			},
 			"map": {
