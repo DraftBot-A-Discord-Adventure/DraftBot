@@ -8,14 +8,15 @@
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
-	let healthwon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_WON, SMALL_EVENT.MAXIMUM_HEALTH_WON);
+	let healthWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_WON, SMALL_EVENT.MAXIMUM_HEALTH_WON);
 	seEmbed.setDescription(
 		JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] +
 		format(JsonReader.small_events.winHealth.getTranslation(language).intrigue[randInt(0, JsonReader.small_events.winHealth.getTranslation(language).intrigue.length)], {
-			health: healthwon
+			health: healthWon
 		})
 	);
-
+	await entity.addHealth(healthWon);
+	await entity.save();
 	const msg = await message.channel.send(seEmbed);
 	log(entity.discordUser_id + " gained some health points in a mini event");
 };
