@@ -9,7 +9,7 @@ const moment = require("moment");
 const SwitchCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -31,7 +31,7 @@ const SwitchCommand = async (language, message, args) => {
 	await entity.Player.Inventory.save();
 
 	await message.channel.send(
-		format(JsonReader.commands.switch.getTranslation(language).main, { pseudo: message.author.username })
+		format(JsonReader.commands.switch.getTranslation(language).main, {pseudo: message.author.username})
 	);
 };
 

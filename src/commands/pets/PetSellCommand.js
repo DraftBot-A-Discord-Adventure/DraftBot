@@ -14,7 +14,7 @@ const PetSellCommand = async function (language, message, args) {
 
 	const translations = JsonReader.commands.petSell.getTranslation(language);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -198,7 +198,7 @@ async function petSell(message, language, entity, user, pet, petCost) {
 	confirmCollector.on("end", async (reaction) => {
 		if (!reaction.first() || reaction.first().emoji.name === MENU_REACTION.DENY) {
 			removeBlockedPlayer(buyer.discordUser_id);
-			return sendErrorMessage(user, message.channel, language, translations.sellCancelled,true);
+			return sendErrorMessage(user, message.channel, language, translations.sellCancelled, true);
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 			removeBlockedPlayer(buyer.discordUser_id);

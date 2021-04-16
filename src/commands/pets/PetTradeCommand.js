@@ -22,7 +22,7 @@ const PetTradeCommand = async function (language, message, args) {
 	}
 	let [trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY], trader2)) !== true) {
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader2)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.mentions.users.first(), message.channel, language)) {

@@ -15,7 +15,7 @@ const PetFreeCommand = async function (language, message, args) {
 	}
 
 	if (!(await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY], entity))) {
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity))) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -100,7 +100,7 @@ const PetFreeCommand = async function (language, message, args) {
 				return await message.channel.send(freedEmbed);
 			}
 		}
-		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petFree.getTranslation(language).canceled,true);
+		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petFree.getTranslation(language).canceled, true);
 	});
 
 	try {

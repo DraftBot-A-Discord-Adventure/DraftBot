@@ -13,7 +13,7 @@ const GuildElderCommand = async (language, message, args) => {
 
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity))
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity))
 		return;
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -210,7 +210,7 @@ const GuildElderCommand = async (language, message, args) => {
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(message.mentions.users.last(), message.channel, language, format(JsonReader.commands.guildElder.getTranslation(language).elderAddCancelled, {guildName: guild.name,}),true);
+		return sendErrorMessage(message.mentions.users.last(), message.channel, language, format(JsonReader.commands.guildElder.getTranslation(language).elderAddCancelled, {guildName: guild.name,}), true);
 	});
 
 	await Promise.all([
