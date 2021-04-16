@@ -33,11 +33,11 @@ global.sendMessageAttachments = (message, channel) => {
  * @param {boolean} isCancelling - true if the error message is meant to cancel something
  * @param {String} reason
  */
-global.sendErrorMessage = (user, channel, language, reason,isCancelling=false) => {
+global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => {
 	const embed = new discord.MessageEmbed();
-	let test = isCancelling? 1:0 ;
+	let test = isCancelling ? 1 : 0;
 	embed.setColor(JsonReader.bot.embed.error)
-		.setAuthor(format(JsonReader.error.getTranslation(language).title[isCancelling?1:0], {
+		.setAuthor(format(JsonReader.error.getTranslation(language).title[isCancelling ? 1 : 0], {
 			pseudo: user.username,
 		}), user.displayAvatarURL())
 		.setDescription(reason);
