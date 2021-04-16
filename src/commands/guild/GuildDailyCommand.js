@@ -157,7 +157,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.FULL_HEAL) {
 		for (const i in members) {
-			if (members[i].effect != EFFECT.DEAD) {
+			if (members[i].effect !== EFFECT.DEAD) {
 				await members[i].addHealth(members[i].maxHealth);
 			}
 			await members[i].save();
@@ -180,7 +180,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
 		for (const i in members) {
-			if (members[i].effect != EFFECT.DEAD) {
+			if (members[i].effect !== EFFECT.DEAD) {
 				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
 			}
 			await members[i].save();
@@ -223,7 +223,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	for (const member of members) {
 		let user = await client.users.fetch(member.discordUser_id);
-		if (member.Player.dmnotification && member.discordUser_id != message.author.id) {
+		if (member.Player.dmnotification && member.discordUser_id !== message.author.id) {
 			sendDirectMessage(
 				user,
 				JsonReader.commands.guildDaily.getTranslation(language).dmNotification.title,
