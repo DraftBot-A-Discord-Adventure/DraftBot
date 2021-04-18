@@ -41,24 +41,12 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.TEXT,
 			defaultValue: JsonReader.models.players.badges,
 		},
-		lastReportAt: {
-			type: DataTypes.DATE,
-			defaultValue: require('moment')(),
-		},
 		entity_id: {
 			type: DataTypes.INTEGER,
 		},
 		guild_id: {
 			type: DataTypes.INTEGER,
 			defaultValue: JsonReader.models.players.guild_id,
-		},
-		updatedAt: {
-			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
-		},
-		createdAt: {
-			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
 		},
 		topggVoteAt: {
 			type: DataTypes.DATE,
@@ -74,6 +62,14 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.DATE,
 			defaultValue: new Date(0)
 		},
+		effect: {
+			type: DataTypes.STRING(32),
+			defaultValue: JsonReader.models.entities.effect,
+		},
+		effect_start_date: {
+			type: DataTypes.DATE,
+			defaultValue: new Date(0)
+		},
 		previous_map_id: {
 			type: DataTypes.INTEGER
 		},
@@ -82,6 +78,14 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		start_travel_date: {
 			type: DataTypes.DATE
+		},
+		updatedAt: {
+			type: DataTypes.DATE,
+			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+		},
+		createdAt: {
+			type: DataTypes.DATE,
+			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
 		},
 		dmnotification: {
 			type: DataTypes.BOOLEAN,
@@ -232,13 +236,6 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * @param {Number} hours
-	 */
-	Players.prototype.fastForward = async function (hours) {
-		this.lastReportAt = new (require('moment'))(this.lastReportAt).subtract(hours, 'h');
-	};
-
-	/**
 	 * @param {"fr"|"en"} language
 	 */
 	Players.prototype.setPseudo = async function (language) {
@@ -376,6 +373,31 @@ module.exports = (Sequelize, DataTypes) => {
 
 	Players.prototype.isInactive = function () {
 		return (Date.now() - Date.parse(this.lastReportAt)) > JsonReader.commands.topCommand.fifth10days;
+	}
+
+	/**
+	 * Returns if the effect of the player is finished or not
+	 * @return {boolean}
+	 */
+	Players.prototype.currentEffectFinished = function () {
+		if (this.effect === EFFECT.DEAD || this.effect === EFFECT.BABY) {
+			return false;
+		}
+		if (this.effect === EFFECT.SMILEY) {
+			return true;
+		}
+		return this.effect_start_date.getTime() + JsonReader.models.players.effectMalus[this.effect] < Date.now();
+	};
+
+	Players.prototype.effectRemainingTime = function () {
+		let remainingTime = 0;
+		if (JsonReader.models.players.effectMalus[this.effect]) {
+			remainingTime = this.effect_start_date.getTime() + JsonReader.models.players.effectMalus[this.effect] - Date.now();
+			if (remainingTime < 0) {
+				remainingTime = 0;
+			}
+		}
+		return remainingTime;
 	}
 
 	return Players;

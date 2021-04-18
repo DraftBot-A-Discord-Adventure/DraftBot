@@ -82,12 +82,12 @@ class Maps {
 	}
 
 	/**
-	 * Get is the player is currently travelling between 2 maps
+	 * Get if the player is currently travelling between 2 maps
 	 * @param {Players} player
 	 * @returns {boolean}
 	 */
 	static isTravelling(player) {
-		return player.start_travel_date.getMilliseconds() !== 0;
+		return player.start_travel_date.getUTCMilliseconds() !== 0;
 	}
 
 	/**
@@ -97,7 +97,30 @@ class Maps {
 	 */
 	static getTravellingTime(player) {
 		if (!this.isTravelling(player)) return 0;
-		return new Date() - player.start_travel_date;
+		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effect_start_date.getTime() - JsonReader.models.players.effectMalus[player.effect];
+		return Date.now() - player.start_travel_date - malus;
+	}
+
+	static applyEffect(player, effect) {
+		this.removeEffect(player);
+		player.effect = effect;
+		player.effect_start_date = new Date();
+		player.start_travel_date = new Date(player.start_travel_date.getTime() + JsonReader.models.players.effectMalus[effect]);
+	}
+
+	static removeEffect(player) {
+		const remainingTime = player.effectRemainingTime();
+		player.effect = EFFECT.SMILEY;
+		if (remainingTime > 0) {
+			player.start_travel_date = new Date(player.start_travel_date.getTime() - remainingTime);
+		}
+	}
+
+	static advanceTime(player, time) {
+		if (player.effectRemainingTime() !== 0) {
+			player.effect_start_date = new Date(player.effect_start_date.getTime() - time);
+		}
+		player.start_travel_date = new Date(player.start_travel_date.getTime() - time);
 	}
 
 	/**
@@ -138,7 +161,7 @@ class Maps {
 	static async generateTravelPathString(player, language) {
 		const prevMapInstance = await MapLocations.getById(player.previous_map_id);
 		const nextMapInstance = await MapLocations.getById(player.map_id);
-		let percentage = this.getTravellingTime(player) / REPORT.TIME_BETWEEN_BIG_EVENTS;
+		let percentage = this.getTravellingTime(player) / (2*60*60*1000);
 		if (percentage > 1) {
 			percentage = 1;
 		}

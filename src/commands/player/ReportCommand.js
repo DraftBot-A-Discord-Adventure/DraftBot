@@ -58,7 +58,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 const doRandomBigEvent = async function (message, language, entity, forceSpecificEvent) {
 	let time;
 	if (forceSpecificEvent === -1) {
-		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.valueOf());
+		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.start_travel_date);
 	} else {
 		time = JsonReader.commands.report.timeMaximal + 1;
 	}
@@ -96,7 +96,7 @@ const doRandomBigEvent = async function (message, language, entity, forceSpecifi
  * @returns {boolean}
  */
 const needBigEvent = function (entity) {
-	return Maps.getTravellingTime(entity.Player) >= REPORT.TIME_BETWEEN_BIG_EVENTS;
+	return Maps.getTravellingTime(entity.Player) >= 2*60*60*1000;
 };
 
 /**
@@ -112,7 +112,7 @@ const sendTravelPath = async function (entity, message, language) {
 	travelEmbed.setAuthor(tr.travelPathTitle, message.author.displayAvatarURL());
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language));
 	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previous_map_id)).getDisplayName(language), true);
-	travelEmbed.addField(tr.progression, (Math.floor(10000 * Maps.getTravellingTime(entity.Player) / REPORT.TIME_BETWEEN_BIG_EVENTS) / 100.0) + "%", true);
+	travelEmbed.addField(tr.progression, (Math.floor(10000 * Maps.getTravellingTime(entity.Player) / (2*60*60*1000)) / 100.0) + "%", true);
 	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.map_id)).getDisplayName(language), true);
 	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 	return await message.channel.send(travelEmbed);
@@ -192,75 +192,6 @@ const destinationChoseMessage = async function (entity, map, message, language) 
 	}));
 	await message.channel.send(destinationEmbed);
 };
-
-/*const ReportCommand = async function (language, message, args, forceSpecificEvent = -1) {
-	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-	await addBlockedPlayer(entity.discordUser_id, "cooldown");
-	setTimeout(() => {
-		if (hasBlockedPlayer(entity.discordUser_id)) {
-			removeBlockedPlayer(entity.discordUser_id);
-			if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
-				removeBlockedPlayer(entity.discordUser_id);
-			}
-		}
-	}, 500);
-
-	let time;
-	if (forceSpecificEvent === -1) {
-		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.lastReportAt.valueOf());
-	} else {
-		time = JsonReader.commands.report.timeMaximal + 1;
-	}
-	if (time > JsonReader.commands.report.timeLimit) {
-		time = JsonReader.commands.report.timeLimit;
-	}
-
-	if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
-		const event = await Events.findOne({where: {id: 0}});
-		return await doEvent(message, language, event, entity, time, 100);
-	}
-
-	if (time < JsonReader.commands.report.timeMinimal) {
-		if (entity.currentEffectFinished()) {
-			return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).noReport, {pseudo: message.author }));
-		} else {
-			return await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [entity.effect], entity);
-		}
-	}
-
-	if (time <= JsonReader.commands.report.timeMaximal && draftbotRandom.integer(0, JsonReader.commands.report.timeMaximal - 1) > time) {
-		return await doPossibility(message, language, await Possibilities.findAll({where: {event_id: 9999}}), entity, time);
-	}
-
-	const Sequelize = require('sequelize');
-	let event;
-
-	// nextEvent is defined ?
-	if (entity.Player.nextEvent !== undefined && entity.Player.nextEvent !== null) {
-		forceSpecificEvent = entity.Player.nextEvent;
-	}
-
-	if (forceSpecificEvent === -1) {
-		event = await Events.findOne({
-			where: {
-				[Op.and]: [
-					{id: {[Op.gt]: 0}},
-					{id: {[Op.lt]: 9999}},
-				]
-			}, order: Sequelize.literal('RANDOM()')
-		});
-	} else {
-		event = await Events.findOne({where: {id: forceSpecificEvent}});
-	}
-	return await doEvent(message, language, event, entity, time);
-};*/
 
 /**
  * @param {module:"discord.js".Message} message - Message from the discord server

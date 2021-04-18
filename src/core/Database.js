@@ -41,6 +41,7 @@ class Database {
 		]);
 		await Database.verifyMaps();
 		await Database.setEverybodyAsUnOccupied();
+		await Database.updatePlayersRandomMap();
 	}
 
 	/**
@@ -489,6 +490,13 @@ class Database {
 			}
 			console.warn(`(sequelize) Warning: ${message}`);
 		};
+	}
+
+	static async updatePlayersRandomMap() {
+		const query = `UPDATE players SET map_id = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE map_id = -1;`
+		await Database.Sequelize.query(query, {
+			type: Sequelize.QueryTypes.UPDATE,
+		});
 	}
 }
 

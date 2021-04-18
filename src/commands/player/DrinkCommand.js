@@ -39,7 +39,8 @@ const DrinkCommand = async function (language, message) {
 		embed.setColor(JsonReader.bot.embed.default)
 			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
 			.setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, {value: potion.power}));
-		await entity.Player.fastForward(potion.power);
+		require("../../core/Maps.js").advanceTime(entity.Player, potion.power * 60 * 60 * 1000);
+		entity.Player.save();
 		entity.Player.Inventory.drinkPotion();
 	}
 	if (potion.nature === NATURE.MONEY) {

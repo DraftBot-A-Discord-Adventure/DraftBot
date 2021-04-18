@@ -92,16 +92,6 @@ const TestCommand = async (language, message, args) => {
 					return;
 				}
 				break;
-			case 'resetreport':
-			case 'rr':
-				if (args.length === 1) {
-					author.Player.lastReportAt = new Date(1980, 0);
-					author.Player.save();
-				} else {
-					await message.channel.send('Usage correct: test resetreport');
-					return;
-				}
-				break;
 			case 'maxhealth':
 				if (args.length === 2) {
 					author.maxHealth = parseInt(args[1]);
@@ -150,11 +140,9 @@ const TestCommand = async (language, message, args) => {
 			case 'effect':
 				if (args.length === 2) {
 					let effectMalus = ':' + args[1] + ':';
-					if (JsonReader.models.players.effectMalus[effectMalus] !== null && JsonReader.models.players.effectMalus[effectMalus] !== undefined) {
-						author.effect = effectMalus;
-						author.save();
-						author.Player.lastReportAt = new Date(message.createdTimestamp + JsonReader.models.players.effectMalus[effectMalus]);
-						author.Player.save();
+					if (JsonReader.models.players.effectMalus[effectMalus]) {
+						Maps.applyEffect(author.Player, ':' + args[1] + ':');
+						await author.Player.save();
 					} else {
 						await message.channel.send('Effet inconnu ! Il ne faut pas mettre les ::');
 						return;
@@ -510,6 +498,13 @@ const TestCommand = async (language, message, args) => {
 				break;
 			case 'forcetwe':
 				await require("../../core/DraftBot").twe();
+				break;
+			case 'myids':
+				await message.channel.send("Entity id: " + author.id + ", player id: " + author.Player.id);
+				return;
+			case 'rmeffect':
+				Maps.removeEffect(author.Player);
+				await author.Player.save();
 				break;
 			default:
 				await message.channel.send('Argument inconnu !');

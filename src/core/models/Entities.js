@@ -368,7 +368,7 @@ module.exports = (Sequelize, DataTypes) => {
 		if (this.effect === EFFECT.SMILEY) {
 			return true;
 		}
-		return this.Player.lastReportAt < new Date();
+		return this.Player.effect_start_date + JsonReader.models.players.effectMalus[this.effect] < new Date();
 	};
 
 	return Entities;
