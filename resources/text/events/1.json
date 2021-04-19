@@ -1,11 +1,10 @@
 {
 	"translations": {
-		"fr": " : ** 🌳 Un arbre est tombé sur le chemin et bloque le passage !",
-		"en": " : ** 🌳 A tree fell on the path and blocked it !"
+		"fr": "🌳 Un arbre est tombé sur le chemin et bloque le passage !",
+		"en": "🌳 A tree fell on the path and blocked it!"
 	},
 	"possibilities": {
 		"🪓": {
-			"emoji": "🪓",
 			"translations": {
 				"fr": "Couper l'arbre et continuer",
 				"en": "Cut the tree up and continue."
@@ -26,7 +25,6 @@
 			]
 		},
 		"🚶": {
-			"emoji": "🚶",
 			"translations": {
 				"fr": "Passer par un autre chemin.",
 				"en": "Go another way."
@@ -60,8 +58,8 @@
 		},
 		"end": {
 			"translations": {
-				"fr": "** | 🪓 L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !",
-				"en": "** | 🪓 The tree has been cut down and the road is clear. Unfortunately, looters have stolen everything you collected since the last report!"
+				"fr": "🪓 L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !",
+				"en": "🪓 The tree has been cut down and the road is clear. Unfortunately, looters have stolen everything you collected since the last report!"
 			},
 			"lostTime": 100,
 			"health": 0,
