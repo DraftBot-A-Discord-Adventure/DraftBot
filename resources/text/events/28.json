@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": " : ** 👼 Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause. \n\n✅ Accepter de la rejoindre\n❌ Refuser gentiment la proposition.\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** 👼 On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause. \n\n✅ Agree to join them\n❌ Gently reject the proposal.\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
+		"fr": " : ** 👼 Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause. \n\n✅ Accepter de la rejoindre\n❌ Refuser gentiment la proposition.\n",
+		"en": " : ** 👼 On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause. \n\n✅ Agree to join them\n❌ Gently reject the proposal.\n"
 	},
 	"possibilities": {
 		"✅": [
