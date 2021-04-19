@@ -1,122 +1,132 @@
 {
 	"translations": {
-		"fr": " : ** 🌠 Vous avez décidé de profiter d'une nuit calme pour continuer votre progression. Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!\n\n🗣️ Faire un vœu.\n🏃 Ignorer cet évènement.\n",
-		"en": " : ** 🌠 You have decided to enjoy a quiet night to continue your progress. The sky is magnificent and after a few minutes scrutinizing the sky, you observe a shooting star!\n\n🗣️ Make a wish.\n🏃 Ignore this event.\n"
+		"fr": "🌠 Vous avez décidé de profiter d'une nuit calme pour continuer votre progression. Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!",
+		"en": "🌠 You have decided to enjoy a quiet night to continue your progress. The sky is magnificent and after a few minutes scrutinizing the sky, you observe a shooting star!"
 	},
 	"possibilities": {
-		"🗣️": [
-			{
-				"translations": {
-					"fr": "** | 🗣️ Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez un sac rempli d'argent devant vous ! Perdre ces 10 minutes valait le coup !",
-					"en": "** | 🗣️ You make a wish and close your eyes... When you open them back up, you discover a bag filled with money in front of you! Spending those 10 minutes was worth it!"
-				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 125,
-				"money": 140,
-				"item": false
+		"🗣️": {
+			"translations": {
+				"fr": "Faire un vœu.",
+				"en": "Make a wish."
 			},
-			{
-				"translations": {
-					"fr": "** | 🗣️ Vous faites un vœu et fermez vos yeux... En les rouvrant vous ne découvrez absolument rien ! Après avoir attendu 10 minutes pour rien vous repartez.",
-					"en": "** | 🗣️ You make a wish and close your eyes... When you open them back up you don't discover anything! After wasting 10 minutes on nothing you walk away."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez un sac rempli d'argent devant vous ! Perdre ces 10 minutes valait le coup !",
+						"en": "You make a wish and close your eyes... When you open them back up, you discover a bag filled with money in front of you! Spending those 10 minutes was worth it!"
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 125,
+					"money": 140,
+					"item": false
 				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Vous faites un vœu et fermez vos yeux... En les rouvrant vous ne découvrez absolument rien ! Après avoir attendu 10 minutes pour rien vous repartez.",
+						"en": "You make a wish and close your eyes... When you open them back up you don't discover anything! After wasting 10 minutes on nothing you walk away."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez qu'il ne s'est rien passé ! Après avoir attendu 10 minutes pour rien vous repartez.",
+						"en": "You make a wish and close your eyes... When you reopen them, you discover that nothing happened! After waiting 10 minutes for nothing, you leave."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez ... Rien du tout ! Après avoir attendu 10 minutes pour rien vous repartez.",
+						"en": "You make a wish and close your eyes... Reopening them, you discover... nothing at all! After waiting 10 minutes for nothing, you leave."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous faites un vœu et fermez vos yeux... Il est en général préférable de ne pas continuer de marcher les yeux fermés, vous vous blessez en trébuchant sur un caillou et perdez 10 minutes avant de pouvoir vous remettre en route.",
+						"en": "You make a wish and close your eyes... It's usually better not to keep walking with your eyes closed. You hurt yourself stumbling on a rock and lose 10 minutes before being able to continue."
+					},
+					"lostTime": 10,
+					"health": -5,
+					"effect": ":clock2:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🏃": {
+			"translations": {
+				"fr": "Ignorer cet évènement.",
+				"en": "Ignore this event."
 			},
-			{
-				"translations": {
-					"fr": "** | 🗣️ Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez qu'il ne s'est rien passé ! Après avoir attendu 10 minutes pour rien vous repartez.",
-					"en": "** | 🗣️ You make a wish and close your eyes... When you reopen them, you discover that nothing happened! After waiting 10 minutes for nothing, you leave."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
+						"en": "You continue on your way without paying attention to the shooting star, you didn't waste any time!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
+						"en": "You continue on your way without paying attention to the shooting star, you didn't waste any time!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous continuez sans prêter plus d'attention au phénomène mais continuez de regarder le ciel avec admiration... Distrait, vous ne remarquez pas immédiatement l'immense crevasse devant vous ! Vous finissez écrasé au fond du trou, secoué et choqué, vous vous rassurez en vous disant qu'au moins vous n'êtes pas blessé trop gravement !",
+						"en": "You continue on without paying any more attention to the phenomenon, but you keep watching the sky with admiration... Distracted, you don't immediately notice the huge crevasse in front of you! You end up crushed at the bottom of the hole, shaken and shocked, but you reassure yourself by realizing you aren't too critically injured!"
+					},
+					"lostTime": 0,
+					"health": -20,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"translations": {
+				"fr": "🏃 Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
+				"en": "🏃 You continue on your way without paying attention to the shooting star, you didn't waste any time!"
 			},
-			{
-				"translations": {
-					"fr": "** | 🗣️ Vous faites un vœu et fermez vos yeux... En les rouvrant vous découvrez ... Rien du tout ! Après avoir attendu 10 minutes pour rien vous repartez.",
-					"en": "** | 🗣️ You make a wish and close your eyes... Reopening them, you discover... nothing at all! After waiting 10 minutes for nothing, you leave."
-				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🗣️ Vous faites un vœu et fermez vos yeux... Il est en général préférable de ne pas continuer de marcher les yeux fermés, vous vous blessez en trébuchant sur un caillou et perdez 10 minutes avant de pouvoir vous remettre en route.",
-					"en": "** | 🗣️ You make a wish and close your eyes... It's usually better not to keep walking with your eyes closed. You hurt yourself stumbling on a rock and lose 10 minutes before being able to continue."
-				},
-				"lostTime": 10,
-				"health": -5,
-				"effect": ":clock2:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🏃": [
-			{
-				"translations": {
-					"fr": "** | 🏃 Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
-					"en": "** | 🏃 You continue on your way without paying attention to the shooting star, you didn't waste any time!"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🏃 Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
-					"en": "** | 🏃 You continue on your way without paying attention to the shooting star, you didn't waste any time!"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🏃 Vous continuez sans prêter plus d'attention au phénomène mais continuez de regarder le ciel avec admiration... Distrait, vous ne remarquez pas immédiatement l'immense crevasse devant vous ! Vous finissez écrasé au fond du trou, secoué et choqué, vous vous rassurez en vous disant qu'au moins vous n'êtes pas blessé trop gravement !",
-					"en": "** | 🏃 You continue on without paying any more attention to the phenomenon, but you keep watching the sky with admiration... Distracted, you don't immediately notice the huge crevasse in front of you! You end up crushed at the bottom of the hole, shaken and shocked, but you reassure yourself by realizing you aren't too critically injured!"
-				},
-				"lostTime": 0,
-				"health": -20,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 🏃 Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
-					"en": "** | 🏃 You continue on your way without paying attention to the shooting star, you didn't waste any time!"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		]
+			"lostTime": 0,
+			"health": 0,
+			"effect": ":smiley:",
+			"experience": 150,
+			"money": 0,
+			"item": false
+		}
 	}
 }
