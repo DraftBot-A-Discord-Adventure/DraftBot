@@ -1,98 +1,112 @@
 {
 	"translations": {
-		"fr": " : ** 👼 Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause. \n\n✅ Accepter de la rejoindre\n❌ Refuser gentiment la proposition.\n",
-		"en": " : ** 👼 On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause. \n\n✅ Agree to join them\n❌ Gently reject the proposal.\n"
+		"fr": "👼 Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause.",
+		"en": "👼 On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause."
 	},
 	"possibilities": {
-		"✅": [
-			{
-				"translations": {
-					"fr": "** | ✅ Vous les rejoignez... Et vous perdez 3 heures à assister à une cérémonie religieuse.",
-					"en": "** | ✅ You join them... and lose 3 hours attending a religious ceremony."
-				},
-				"lostTime": 180,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
+		"✅": {
+			"translations": {
+				"fr": "Accepter de la rejoindre",
+				"en": "Agree to join them"
 			},
-			{
-				"translations": {
-					"fr": "** | ✅ Vous les rejoignez... Mais vous décidez de repartir au bout de 30 minutes vous rendant compte qu'il vous reste une princesse à sauver et que vous n'avez pas plus de temps à consacrer à votre foi",
-					"en": "** | ✅ You join them.... but decide to leave after 30 minutes, realizing you still have a princess to save, and that you don't have more time to devote to faith"
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous les rejoignez... Et vous perdez 3 heures à assister à une cérémonie religieuse.",
+						"en": "You join them... and lose 3 hours attending a religious ceremony."
+					},
+					"lostTime": 180,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 30,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Vous les rejoignez... Mais vous décidez de repartir au bout de 30 minutes vous rendant compte qu'il vous reste une princesse à sauver et que vous n'avez pas plus de temps à consacrer à votre foi",
+						"en": "You join them.... but decide to leave after 30 minutes, realizing you still have a princess to save, and that you don't have more time to devote to faith"
+					},
+					"lostTime": 30,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Remarquant votre manque de sensibilité face à leurs discours, le groupe commence à se montrer agressif ! Vous mettrez plusieurs minutes à vous en échapper, non sans avoir reçu quelques coups. ",
+						"en": "Noticing your lack of sensitivity to their speech, the group gets aggressive! It takes you several minutes to escape from them, but not without being hit a few times. "
+					},
+					"lostTime": 15,
+					"health": -25,
+					"effect": ":clock2:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous les rejoignez puis repartez aussi vite en volant un objet qui pourra vous être utile.",
+						"en": "You join them, then leave just as quickly, stealing an object that may be useful to you."
+					},
+					"lostTime": 20,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 325,
+					"money": 0,
+					"item": true
+				}
+			]
+		},
+		"❌": {
+			"translations": {
+				"fr": "Refuser gentiment la proposition.",
+				"en": "Gently reject the proposal."
 			},
-			{
-				"translations": {
-					"fr": "** | ✅ Remarquant votre manque de sensibilité face à leurs discours, le groupe commence à se montrer agressif ! Vous mettrez plusieurs minutes à vous en échapper, non sans avoir reçu quelques coups. ",
-					"en": "** | ✅ Noticing your lack of sensitivity to their speech, the group gets aggressive! It takes you several minutes to escape from them, but not without being hit a few times. "
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous coupez court à tout dialogue et continuez votre route.",
+						"en": "You cut the conversation short and continue your journey."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 15,
-				"health": -25,
-				"effect": ":clock2:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | ✅ Vous les rejoignez puis repartez aussi vite en volant un objet qui pourra vous être utile.",
-					"en": "** | ✅ You join them, then leave just as quickly, stealing an object that may be useful to you."
-				},
-				"lostTime": 20,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 325,
-				"money": 0,
-				"item": true
-			}
-		],
-		"❌": [
-			{
-				"translations": {
-					"fr": "** | ❌ Vous coupez court à tout dialogue et continuez votre route.",
-					"en": "** | ❌ You cut the conversation short and continue your journey."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | ❌ Le groupe se montre rapidement agressif face à votre refus. Finalement, vous vous retrouvez contraint de les écouter palabrer pendant de longues minutes afin d'éviter de prendre plus de coups.",
-					"en": "** | ❌ The group quickly becomes aggressive in the face of your refusal. Finally, you find yourself forced to listen to them talk for a long while to avoid taking any more blows."
-				},
-				"lostTime": 120,
-				"health": -10,
-				"effect": ":clock2:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Face à votre béatitude, le groupe se lasse rapidement et part à la rencontre d'un autre passant.",
-					"en": "** | 🚶 Faced with your bliss, the group quickly tires, and goes to meet another passerby."
-				},
-				"lostTime": 15,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "Le groupe se montre rapidement agressif face à votre refus. Finalement, vous vous retrouvez contraint de les écouter palabrer pendant de longues minutes afin d'éviter de prendre plus de coups.",
+						"en": "The group quickly becomes aggressive in the face of your refusal. Finally, you find yourself forced to listen to them talk for a long while to avoid taking any more blows."
+					},
+					"lostTime": 120,
+					"health": -10,
+					"effect": ":clock2:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Face à votre béatitude, le groupe se lasse rapidement et part à la rencontre d'un autre passant.",
+						"en": "🚶 Faced with your bliss, the group quickly tires, and goes to meet another passerby."
+					},
+					"lostTime": 15,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }
