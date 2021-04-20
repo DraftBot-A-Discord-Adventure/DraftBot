@@ -1,148 +1,164 @@
 {
 	"translations": {
-		"fr": " : ** 🏠 Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.\n\n🔨 Discuter avec l'ouvrier\n🛏️ Demander à rester là durant la nuit pour vous reposer et reprendre des forces\n🚶 Pas de temps à perdre ! Il faut continuer votre route !\n",
-		"en": " : ** 🏠 You arrive at a plain where a single small house stands. As you get closer, you see a man working on an incandescent piece of metal.\n\n🔨 Chat with the worker\n🛏️ Ask to stay the night to rest and recover\n🚶 You don't have time to lose! Continue walking!\n"
+		"fr": "🏠 Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.",
+		"en": "🏠 You arrive at a plain where a single small house stands. As you get closer, you see a man working on an incandescent piece of metal."
 	},
 	"possibilities": {
-		"🔨": [
-			{
-				"translations": {
-					"fr": "** | 🔨 L'homme vous aperçoit et vous propose de vous fabriquer un objet avec lui. Après près d'une heure, votre création est terminée. L'homme vous l'offre en récompense !",
-					"en": "** | 🔨 The man sees you and suggests that you make an object with him. After almost an hour, your creation is finished. The man offers it to you as a reward!"
-				},
-				"lostTime": 60,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 325,
-				"money": 0,
-				"item": true
+		"🔨": {
+			"translations": {
+				"fr": "Discuter avec l'ouvrier",
+				"en": "Chat with the worker"
 			},
-			{
-				"translations": {
-					"fr": "** | 🔨 Vous regardez l'ouvrier fabriquer une hache pendant une dizaine de minutes avant de vous décider à reprendre la route.",
-					"en": "** | 🔨 You watch the worker make an axe for about ten minutes before you decide to hit the road again."
+			"issues": [
+				{
+					"translations": {
+						"fr": "L'homme vous aperçoit et vous propose de vous fabriquer un objet avec lui. Après près d'une heure, votre création est terminée. L'homme vous l'offre en récompense !",
+						"en": "The man sees you and suggests that you make an object with him. After almost an hour, your creation is finished. The man offers it to you as a reward!"
+					},
+					"lostTime": 60,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 325,
+					"money": 0,
+					"item": true
 				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Vous regardez l'ouvrier fabriquer une hache pendant une dizaine de minutes avant de vous décider à reprendre la route.",
+						"en": "You watch the worker make an axe for about ten minutes before you decide to hit the road again."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l’idée d’obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l’idée de créer votre propre arme. 😵 !",
+						"en": "The worker sees you and suggests that you make a sword with him. Enthusiastic about getting a new weapon, you accept. You don't take long to clumsily drop your heavy creation onto your foot. Seriously wounded, you give up the idea of creating your own weapon. 😵 !"
+					},
+					"lostTime": 0,
+					"health": -70,
+					"effect": ":dizzy_face:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🛏️": {
+			"translations": {
+				"fr": "Demander à rester là durant la nuit pour vous reposer et reprendre des forces",
+				"en": "Ask to stay the night to rest and recover"
 			},
-			{
-				"translations": {
-					"fr": "** | 🔨 L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l’idée d’obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l’idée de créer votre propre arme. 😵 !",
-					"en": "** | 🔨 The worker sees you and suggests that you make a sword with him. Enthusiastic about getting a new weapon, you accept. You don't take long to clumsily drop your heavy creation onto your foot. Seriously wounded, you give up the idea of creating your own weapon. 😵 !"
+			"issues": [
+				{
+					"translations": {
+						"fr": "Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Épuisé, vous vous écroulez de fatigue sur le lit 😴",
+						"en": "After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed 😴"
+					},
+					"lostTime": 0,
+					"health": 10,
+					"effect": ":sleeping:",
+					"experience": 220,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": -70,
-				"effect": ":dizzy_face:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🛏️": [
-			{
-				"translations": {
-					"fr": "** | 🛏️ Après avoir discuté rapidement avec l'homme, ce dernier accepte de vous héberger pour la nuit. Épuisé, vous vous écroulez de fatigue sur le lit 😴",
-					"en": "** | 🛏️ After a quick chat with the man, he agrees to take you in for the night. Exhausted, you collapse from fatigue on the bed 😴"
+				{
+					"translations": {
+						"fr": "L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refusez poliment et reprenez votre route.",
+						"en": "The man quickly admits he can't accommodate you for the night, but offers to share his meal with you. You politely refuse and go back on your way."
+					},
+					"lostTime": 5,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 10,
-				"effect": ":sleeping:",
-				"experience": 220,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers",
+						"en": "You only get a simple growl in response. The residents of the region seem to dislike foreigners"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son souper. Affamé et épuisé, vous acceptez son offre.",
+						"en": "The man quickly refuses to share his bed with you but offers to share his dinner with you. Hungry and exhausted, you accept his offer."
+					},
+					"lostTime": 100,
+					"health": 5,
+					"effect": ":clock2:",
+					"experience": 225,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🚶": {
+			"translations": {
+				"fr": "Pas de temps à perdre ! Il faut continuer votre route !",
+				"en": "You don't have time to lose! Continue walking!"
 			},
-			{
-				"translations": {
-					"fr": "** | 🛏️ L'homme vous avoue rapidement ne pas pouvoir vous héberger pour la nuit mais vous propose de partager son repas. Vous refusez poliment et reprenez votre route.",
-					"en": "** | 🛏️ The man quickly admits he can't accommodate you for the night, but offers to share his meal with you. You politely refuse and go back on your way."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous partez sans perdre de temps.",
+						"en": "You leave without wasting any time."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 5,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Vous continuez votre route en contournant la prairie.",
+						"en": "You continue on your way around the meadow."
+					},
+					"lostTime": 20,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous décidez de continuer à marcher malgré la fatigue. Après quelques kilomètres, vous vous écroulez au bord du chemin. 🤢",
+						"en": "You decide to continue walking despite the fatigue. After a few miles, you collapse at the side of the road. 🤢"
+					},
+					"lostTime": 0,
+					"health": -40,
+					"effect": ":sick:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"translations": {
+				"fr": "🚶 Vous contournez la maison et continuez votre route.",
+				"en": "🚶 You go around the house and continue your journey."
 			},
-			{
-				"translations": {
-					"fr": "** | 🛏️ Vous n'obtenez en réponse qu'un simple grognement. Les habitants de la région semblent ne pas apprécier les étrangers",
-					"en": "** | 🛏️ You only get a simple growl in response. The residents of the region seem to dislike foreigners"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🛏️ L'homme vous refuse rapidement le partage de sa couche mais vous propose de partager son souper. Affamé et épuisé, vous acceptez son offre.",
-					"en": "** | 🛏️ The man quickly refuses to share his bed with you but offers to share his dinner with you. Hungry and exhausted, you accept his offer."
-				},
-				"lostTime": 100,
-				"health": 5,
-				"effect": ":clock2:",
-				"experience": 225,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🚶": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous partez sans perdre de temps.",
-					"en": "** | 🚶 You leave without wasting any time."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous continuez votre route en contournant la prairie.",
-					"en": "** | 🚶 You continue on your way around the meadow."
-				},
-				"lostTime": 20,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous décidez de continuer à marcher malgré la fatigue. Après quelques kilomètres, vous vous écroulez au bord du chemin. 🤢",
-					"en": "** | 🚶 You decide to continue walking despite the fatigue. After a few miles, you collapse at the side of the road. 🤢"
-				},
-				"lostTime": 0,
-				"health": -40,
-				"effect": ":sick:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous contournez la maison et continuez votre route.",
-					"en": "** | 🚶 You go around the house and continue your journey."
-				},
-				"lostTime": 30,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			}
-		]
+			"lostTime": 30,
+			"health": 0,
+			"effect": ":clock2:",
+			"experience": 25,
+			"money": 0,
+			"item": false
+		}
 	}
 }
