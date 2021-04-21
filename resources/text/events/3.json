@@ -149,16 +149,20 @@
 			]
 		},
 		"end": {
-			"translations": {
-				"fr": "▶️ C'est sûrement un piège ! En tout cas il est hors de question que vous vous approchiez plus près du coffret ! Vous continuez calmement votre route.",
-				"en": "▶️ It's surely a trap! In any case, there's no way you're getting any closer to that chest! You calmly continue on your way."
-			},
-			"lostTime": 0,
-			"health": 0,
-			"effect": ":smiley:",
-			"experience": 150,
-			"money": 0,
-			"item": false
+			"issues": [
+				{
+					"translations": {
+						"fr": "▶️ C'est sûrement un piège ! En tout cas il est hors de question que vous vous approchiez plus près du coffret ! Vous continuez calmement votre route.",
+						"en": "▶️ It's surely a trap! In any case, there's no way you're getting any closer to that chest! You calmly continue on your way."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
 		}
 	}
 }

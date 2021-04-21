@@ -81,16 +81,20 @@
 			]
 		},
 		"end": {
-			"translations": {
-				"fr": "🚶 Vous vous reposez pendant quelques minutes avant de repartir doucement vers les cols. Vous finissez par arriver épuisé de l'autre coté, il faudra vous reposer avant de repartir ! 😴",
-				"en": "🚶 You rest for a few minutes before slowly leaving for the passes. You end up getting exhausted on the other side, you will have to rest before leaving! 😴"
-			},
-			"lostTime": 0,
-			"health": 0,
-			"effect": ":sleeping:",
-			"experience": 20,
-			"money": 0,
-			"item": false
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Vous vous reposez pendant quelques minutes avant de repartir doucement vers les cols. Vous finissez par arriver épuisé de l'autre coté, il faudra vous reposer avant de repartir ! 😴",
+						"en": "🚶 You rest for a few minutes before slowly leaving for the passes. You end up getting exhausted on the other side, you will have to rest before leaving! 😴"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":sleeping:",
+					"experience": 20,
+					"money": 0,
+					"item": false
+				}
+			]
 		}
 	}
 }

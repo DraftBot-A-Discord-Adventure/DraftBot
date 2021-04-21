@@ -157,16 +157,20 @@
 			]
 		},
 		"end": {
-			"translations": {
-				"fr": "🕑 Au bout de quelques heures au bord de la rivière, vous finissez par repartir dans une direction aléatoire.",
-				"en": "🕑 After a few hours on the riverside, you finally walk away in a random direction."
-			},
-			"lostTime": 165,
-			"health": 0,
-			"effect": ":clock2:",
-			"experience": 25,
-			"money": 0,
-			"item": false
+			"issues": [
+				{
+					"translations": {
+						"fr": "🕑 Au bout de quelques heures au bord de la rivière, vous finissez par repartir dans une direction aléatoire.",
+						"en": "🕑 After a few hours on the riverside, you finally walk away in a random direction."
+					},
+					"lostTime": 165,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
 		}
 	}
 }

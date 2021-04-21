@@ -100,19 +100,21 @@
 				}
 			]
 		},
-		"end": [
-			{
-				"translations": {
-					"fr": "🚶 Vous finissez par passer votre chemin sans prêter plus d'attention à cette situation somme toute assez banale !",
-					"en": "🚶 You end up continuing on without paying any more attention to this rather boring situation!"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		]
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Vous finissez par passer votre chemin sans prêter plus d'attention à cette situation somme toute assez banale !",
+						"en": "🚶 You end up continuing on without paying any more attention to this rather boring situation!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

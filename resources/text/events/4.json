@@ -117,16 +117,20 @@
 			]
 		},
 		"end": {
-			"translations": {
-				"fr": "🏃 Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
-				"en": "🏃 You continue on your way without paying attention to the shooting star, you didn't waste any time!"
-			},
-			"lostTime": 0,
-			"health": 0,
-			"effect": ":smiley:",
-			"experience": 150,
-			"money": 0,
-			"item": false
+			"issues": [
+				{
+					"translations": {
+						"fr": "🏃 Vous continuez votre route sans faire attention à l'étoile filante, vous n'avez pas perdu de temps !",
+						"en": "🏃 You continue on your way without paying attention to the shooting star, you didn't waste any time!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
 		}
 	}
 }

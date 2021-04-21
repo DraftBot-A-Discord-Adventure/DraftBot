@@ -125,16 +125,20 @@
 			]
 		},
 		"end": {
-			"translations": {
-				"fr": "🕑 hum... Il semblerait que vous soyez resté là sans rien faire plus longtemps que prévu !",
-				"en": "🕑 um... It seems you've been sitting there doing nothing longer than expected!"
-			},
-			"lostTime": 270,
-			"health": 0,
-			"effect": ":clock2:",
-			"experience": 25,
-			"money": 0,
-			"item": false
+			"issues": [
+				{
+					"translations": {
+						"fr": "🕑 hum... Il semblerait que vous soyez resté là sans rien faire plus longtemps que prévu !",
+						"en": "🕑 um... It seems you've been sitting there doing nothing longer than expected!"
+					},
+					"lostTime": 270,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
 		}
 	}
 }

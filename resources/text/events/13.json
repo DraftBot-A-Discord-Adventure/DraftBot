@@ -193,16 +193,20 @@
 			]
 		},
 		"end": {
-			"translations": {
-				"fr": "🚶 Vous visitez la ville pendant plusieurs heures avant de continuer votre route.",
-				"en": "🚶 You visit the city for many hours before continuing your journey."
-			},
-			"lostTime": 200,
-			"health": 0,
-			"effect": ":clock2:",
-			"experience": 25,
-			"money": 0,
-			"item": false
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Vous visitez la ville pendant plusieurs heures avant de continuer votre route.",
+						"en": "🚶 You visit the city for many hours before continuing your journey."
+					},
+					"lostTime": 200,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
 		}
 	}
 }

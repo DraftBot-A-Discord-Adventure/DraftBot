@@ -80,19 +80,21 @@
 				}
 			]
 		},
-		"end": [
-			{
-				"translations": {
-					"fr": "🐶 Vous avez pris la décision de ne pas bouger, cela ne semble pas plaire au chien puisque celui-ci mord sauvagement avant de s'enfuir !",
-					"en": "🐶 You decided not to move, the dog mustn't have liked it as it bit you and ran away!"
-				},
-				"lostTime": 0,
-				"health": -10,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		]
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🐶 Vous avez pris la décision de ne pas bouger, cela ne semble pas plaire au chien puisque celui-ci mord sauvagement avant de s'enfuir !",
+						"en": "🐶 You decided not to move, the dog mustn't have liked it as it bit you and ran away!"
+					},
+					"lostTime": 0,
+					"health": -10,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

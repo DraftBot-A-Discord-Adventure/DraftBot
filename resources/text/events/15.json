@@ -161,16 +161,20 @@
 			]
 		},
 		"end": {
-			"translations": {
-				"fr": "🚶 Vous passez de longues minutes à bêtement les regarder installer leur bivouac, avant de reprendre vos esprits et continuer votre route.",
-				"en": "🚶 You spend a long time watching them set up their camp, before coming to your senses and continuing on your journey."
-			},
-			"lostTime": 35,
-			"health": 0,
-			"effect": ":clock2:",
-			"experience": 25,
-			"money": 0,
-			"item": false
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Vous passez de longues minutes à bêtement les regarder installer leur bivouac, avant de reprendre vos esprits et continuer votre route.",
+						"en": "🚶 You spend a long time watching them set up their camp, before coming to your senses and continuing on your journey."
+					},
+					"lostTime": 35,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
 		}
 	}
 }

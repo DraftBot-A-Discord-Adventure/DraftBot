@@ -149,16 +149,20 @@
 			]
 		},
 		"end": {
-			"translations": {
-				"fr": "🚶 Vous contournez la maison et continuez votre route.",
-				"en": "🚶 You go around the house and continue your journey."
-			},
-			"lostTime": 30,
-			"health": 0,
-			"effect": ":clock2:",
-			"experience": 25,
-			"money": 0,
-			"item": false
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Vous contournez la maison et continuez votre route.",
+						"en": "🚶 You go around the house and continue your journey."
+					},
+					"lostTime": 30,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
 		}
 	}
 }

@@ -9,48 +9,56 @@
 				"fr": "Allons-y !",
 				"en": "Let's go!"
 			},
-			"issues": {
-				"translations": {
-					"fr": "😏 J'aime cette détermination ! Voici 100 points 🏅 pour débuter votre aventure ! Utilisez la commande `profile` pour voir vos points 😉 Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !",
-					"en": "😏 I like this determination! Here's 100 points 🏅 to start your adventure! Use the command `profile` to see your points 😉 I'll let you discover the other commands! Don't hesitate to check your reports regularly!"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
+			"issues": [
+				{
+					"translations": {
+						"fr": "😏 J'aime cette détermination ! Voici 100 points 🏅 pour débuter votre aventure ! Utilisez la commande `profile` pour voir vos points 😉 Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !",
+						"en": "😏 I like this determination! Here's 100 points 🏅 to start your adventure! Use the command `profile` to see your points 😉 I'll let you discover the other commands! Don't hesitate to check your reports regularly!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
 		},
 		"🤔": {
 			"translations": {
 				"fr": "🤔 Je ne sais pas trop...",
 				"en": "🤔 I don't really know..."
 			},
-			"issues": {
-				"translations": {
-					"fr": "😂 Ne vous faites pas de soucis, tout va bien se passer ! Voici 100 points 🏅 pour débuter votre aventure ! Utilisez la commande `profile` pour voir vos points 😉 Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !",
-					"en": "😂 Don't worry, everything will be fine! Here are 100 points 🏅 to start your adventure! Use the `profile` command to see your points 😉 I'll let you discover the different commands! Feel free to request regular reports!"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
+			"issues": [
+				{
+					"translations": {
+						"fr": "😂 Ne vous faites pas de soucis, tout va bien se passer ! Voici 100 points 🏅 pour débuter votre aventure ! Utilisez la commande `profile` pour voir vos points 😉 Je vous laisse découvrir les différentes commandes ! N'hésitez pas à demander des rapports régulièrement !",
+						"en": "😂 Don't worry, everything will be fine! Here are 100 points 🏅 to start your adventure! Use the `profile` command to see your points 😉 I'll let you discover the different commands! Feel free to request regular reports!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
 		},
 		"end": {
-			"translations": {
-				"fr": "** | ❌ Le tutoriel n'a pas été terminé ! Vous pouvez le recommencer à tout moment en utilisant la commande `report` !",
-				"en": "** | ❌ The tutorial hasn't been finished! You can restart it when you want using the `report` command!"
-			},
-			"lostTime": 0,
-			"health": 0,
-			"effect": ":baby:",
-			"experience": 0,
-			"money": 0,
-			"item": false
+			"issues": [
+				{
+					"translations": {
+						"fr": "** | ❌ Le tutoriel n'a pas été terminé ! Vous pouvez le recommencer à tout moment en utilisant la commande `report` !",
+						"en": "** | ❌ The tutorial hasn't been finished! You can restart it when you want using the `report` command!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":baby:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
 		}
 	}
 }

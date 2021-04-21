@@ -92,19 +92,21 @@
 				}
 			]
 		},
-		"end": [
-			{
-				"translations": {
-					"fr": "🚶 Vous avez passé près de quinze minutes sans bouger, il est temps de repartir ! ",
-					"en": "🚶 You spent almost fifteen minutes without moving, it's time to go back! "
-				},
-				"lostTime": 15,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			}
-		]
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Vous avez passé près de quinze minutes sans bouger, il est temps de repartir ! ",
+						"en": "🚶 You spent almost fifteen minutes without moving, it's time to go back! "
+					},
+					"lostTime": 15,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

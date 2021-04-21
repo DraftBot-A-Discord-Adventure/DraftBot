@@ -93,16 +93,20 @@
 			]
 		},
 		"end": {
-			"translations": {
-				"fr": "🚶 Vous regardez bêtement pendant 15 minutes le paysan chercher sa fourche avant de repartir.",
-				"en": "🚶 You stare blankly for 15 minutes as the farmer looks for his pitchfork before leaving."
-			},
-			"lostTime": 15,
-			"health": 0,
-			"effect": ":clock2:",
-			"experience": 25,
-			"money": 0,
-			"item": false
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Vous regardez bêtement pendant 15 minutes le paysan chercher sa fourche avant de repartir.",
+						"en": "🚶 You stare blankly for 15 minutes as the farmer looks for his pitchfork before leaving."
+					},
+					"lostTime": 15,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
 		}
 	}
 }
