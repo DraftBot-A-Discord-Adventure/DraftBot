@@ -36,8 +36,8 @@
 				},
 				{
 					"translations": {
-						"fr": "La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdi ! Il faudra vous soigner ! 😖 ",
-						"en": "The cave quickly turns out to be a dead end, but when you come out, you hit your head on the ceiling and get dizzy! You'll have to be treated! 😖 "
+						"fr": "La grotte se révèle rapidement être un cul de sac mais en ressortant vous vous cognez la tête au plafond et tombez étourdi ! Il faudra vous soigner !",
+						"en": "The cave quickly turns out to be a dead end, but when you come out, you hit your head on the ceiling and get dizzy! You'll have to be treated!"
 					},
 					"lostTime": 0,
 					"health": -1,
@@ -112,8 +112,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Alors que vous cherchiez des objets à ramasser, une énorme branche se détache de l'arbre à côté de vous et vous tombe sur la jambe ! Vous parvenez à vous relever, sonné, mais il faudra aller vous soigner ! 😖 ",
-						"en": "As you were looking for things to pick up, a huge branch fell off the tree next to you and fell onto your leg! You can get up sound, but you'll have to go to the hospital! 😖 "
+						"fr": "Alors que vous cherchiez des objets à ramasser, une énorme branche se détache de l'arbre à côté de vous et vous tombe sur la jambe ! Vous parvenez à vous relever, sonné, mais il faudra aller vous soigner !",
+						"en": "As you were looking for things to pick up, a huge branch fell off the tree next to you and fell onto your leg! You can get up sound, but you'll have to go to the hospital!"
 					},
 					"lostTime": 0,
 					"health": -25,

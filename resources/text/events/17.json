@@ -24,8 +24,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'effondre sous votre poids ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprenez votre route. 😖",
-						"en": "As you were about to pick fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way. 😖"
+						"fr": "Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'effondre sous votre poids ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprenez votre route.",
+						"en": "As you were about to pick fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way."
 					},
 					"lostTime": 0,
 					"health": -10,
@@ -36,8 +36,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous cueillez rapidement un fruit et croquez vigoureusement dedans... Ce n'est que quelques heures plus tard que vous prendrez mesure de votre erreur. 🤢",
-						"en": "You quickly pick fruit and eagerly take a large bite... It's only a few hours later you realize your mistake. 🤢"
+						"fr": "Vous cueillez rapidement un fruit et croquez vigoureusement dedans... Ce n'est que quelques heures plus tard que vous prendrez mesure de votre erreur.",
+						"en": "You quickly pick fruit and eagerly take a large bite... It's only a few hours later you realize your mistake."
 					},
 					"lostTime": 0,
 					"health": -15,
@@ -80,8 +80,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous croquez à pleine dents dans un champignon rouge avec des petits points blancs... et regrettez rapidement cette action ! 😵",
-						"en": "You bite into a red mushroom with small white dots... and quickly regret this action! 😵"
+						"fr": "Vous croquez à pleine dents dans un champignon rouge avec des petits points blancs... et regrettez rapidement cette action !",
+						"en": "You bite into a red mushroom with small white dots... and quickly regret this action!"
 					},
 					"lostTime": 0,
 					"health": -40,
@@ -112,8 +112,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprenez donc votre route sans rien manger. 🤤",
-						"en": "After some research, you don't really find any plants satisfying your hunger, so head back on your way without eating anything. 🤤 "
+						"fr": "Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprenez donc votre route sans rien manger.",
+						"en": "After some research, you don't really find any plants satisfying your hunger, so head back on your way without eating anything."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -156,8 +156,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Après une course poursuite effrénée avec un animal sauvage, celui-ci cesse de vous fuir et vous charge furieusement. Abasourdi par la violence de l'attaque, vous ne parvenez pas à l'éviter et subissez la totale colère de la bête. Gravement blessé, il vous faudra du temps avant de reprendre votre aventure 😵",
-						"en": "After a long frantic chase with a wild animal, it stops fleeing and charges you furiously. Stunned by the force of the attack, you are unable to dodge and suffer the beast's wrath. Seriously injured, it will take time before you can resume your adventure 😵"
+						"fr": "Après une course poursuite effrénée avec un animal sauvage, celui-ci cesse de vous fuir et vous charge furieusement. Abasourdi par la violence de l'attaque, vous ne parvenez pas à l'éviter et subissez la totale colère de la bête. Gravement blessé, il vous faudra du temps avant de reprendre votre aventure",
+						"en": "After a long frantic chase with a wild animal, it stops fleeing and charges you furiously. Stunned by the force of the attack, you are unable to dodge and suffer the beast's wrath. Seriously injured, it will take time before you can resume your adventure"
 					},
 					"lostTime": 0,
 					"health": -60,
@@ -200,8 +200,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route. 😴",
-						"en": "You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road. 😴"
+						"fr": "Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route.",
+						"en": "You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road."
 					},
 					"lostTime": 0,
 					"health": 0,

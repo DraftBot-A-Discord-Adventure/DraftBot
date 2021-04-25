@@ -12,8 +12,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous vous approchez du fermier et lui demandez des fruits, celui-ci vous en donne en échange de quelques pièces. Une quinzaine de minutes plus tard, vous remarquez qu'ils étaient empoisonnés et tombez à même le sol. 🤢",
-						"en": "You approach the farmer and ask him for fruit. He gives you some in exchange for a few coins. About fifteen minutes later, you notice they were poisoned and fall to the ground. 🤢"
+						"fr": "Vous vous approchez du fermier et lui demandez des fruits, celui-ci vous en donne en échange de quelques pièces. Une quinzaine de minutes plus tard, vous remarquez qu'ils étaient empoisonnés et tombez à même le sol.",
+						"en": "You approach the farmer and ask him for fruit. He gives you some in exchange for a few coins. About fifteen minutes later, you notice they were poisoned and fall to the ground."
 					},
 					"lostTime": 0,
 					"health": -30,

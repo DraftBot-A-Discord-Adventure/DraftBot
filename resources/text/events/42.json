@@ -164,8 +164,8 @@
 				},
 				{
 					"translations": {
-						"fr": "🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles. 🤢 ",
-						"en": "🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. 🤢"
+						"fr": "🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles.",
+						"en": "🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill."
 					},
 					"lostTime": 0,
 					"health": 0,

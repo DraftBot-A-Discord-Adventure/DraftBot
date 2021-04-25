@@ -136,8 +136,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "** | 🚶‍ Vous attendez un long moment sur cette place et tout d'un coup des marchands commencent à s'installer. C'est votre jour de chance ! Il s'agit d'un marché, et les pommes sont très peu chères. Vous en achetez quelques-unes et pour reprenez votre chemin.",
-						"en": "** | 🚶 You wait a long time in this square and then merchants start to settle down. It’s your lucky day! It’s a market, and apples are cheap. You buy some and go on your way."
+						"fr": "🚶‍ Vous attendez un long moment sur cette place et tout d'un coup des marchands commencent à s'installer. C'est votre jour de chance ! Il s'agit d'un marché, et les pommes sont très peu chères. Vous en achetez quelques-unes et pour reprenez votre chemin.",
+						"en": "🚶 You wait a long time in this square and then merchants start to settle down. It’s your lucky day! It’s a market, and apples are cheap. You buy some and go on your way."
 					},
 					"lostTime": 60,
 					"health": 20,
@@ -148,8 +148,8 @@
 				},
 				{
 					"translations": {
-						"fr": "** | 🚶 Vous attendez un petit moment sur cette place, puis vous rendez compte qu'il n'y a rien de bien intéressant à faire, et reprenez route.",
-						"en": "** | 🚶‍ You wait a little while in this square, then you realize that there is nothing very interesting to do, and go back on your journey."
+						"fr": "🚶 Vous attendez un petit moment sur cette place, puis vous rendez compte qu'il n'y a rien de bien intéressant à faire, et reprenez route.",
+						"en": "🚶‍ You wait a little while in this square, then you realize that there is nothing very interesting to do, and go back on your journey."
 					},
 					"lostTime": 15,
 					"health": 0,

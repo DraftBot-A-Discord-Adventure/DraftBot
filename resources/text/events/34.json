@@ -144,8 +144,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "L'un d'entre eux vous tend une soupe plutôt appétissante. Vous la buvez sans vous méfier. Ces malandrins vous ont tendu un piège ! Attendant depuis longtemps de vous mettre à mal pour vous piller, le breuvage contenait juste assez d'amanite tue-mouches pour rendre malade. Vous vous sentez partir tout en voyant vos poches se faire dépouiller, impuissant. 🤢",
-						"en": "One of them hands you a rather appetizing soup. You drink it carelessly. Those scoundrels set up a trap for you! They had waited for a long time to plunder you, the drink contained just enough fly agaric to make you sick. You feel increasingly ill while seeing your pockets being stripped leaving you helpless. 🤢"
+						"fr": "L'un d'entre eux vous tend une soupe plutôt appétissante. Vous la buvez sans vous méfier. Ces malandrins vous ont tendu un piège ! Attendant depuis longtemps de vous mettre à mal pour vous piller, le breuvage contenait juste assez d'amanite tue-mouches pour rendre malade. Vous vous sentez partir tout en voyant vos poches se faire dépouiller, impuissant.",
+						"en": "One of them hands you a rather appetizing soup. You drink it carelessly. Those scoundrels set up a trap for you! They had waited for a long time to plunder you, the drink contained just enough fly agaric to make you sick. You feel increasingly ill while seeing your pockets being stripped leaving you helpless."
 					},
 					"lostTime": 0,
 					"health": 0,

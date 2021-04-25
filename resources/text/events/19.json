@@ -12,8 +12,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, vous tombez malade peu de temps après avoir goûté votre préparation. 🤢 ",
-						"en": "Considering your poor cooking skills, you should've expected it, but you get sick soon after tasting your meal. 🤢"
+						"fr": "Vu vos piètres compétences en cuisine, vous auriez pu vous y attendre, vous tombez malade peu de temps après avoir goûté votre préparation.",
+						"en": "Considering your poor cooking skills, you should've expected it, but you get sick soon after tasting your meal."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -124,8 +124,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, un peu tard puisque vous vous sentez rapidement mal en point ! 🤢",
-						"en": "You butcher the fox and look for a place to sell his fur. Unfortunately, it rots very quickly, and flies begin to swarm you. You end up leaving him by the side of the road, but it seems you still fell ill! 🤢"
+						"fr": "Vous dépecez le renard et cherchez un endroit où revendre sa fourrure. Malheureusement elle pourrit bien vite, et des mouches s'accumulent autour de vous. Vous finissez par l'abandonner sur le bord du chemin, un peu tard puisque vous vous sentez rapidement mal en point !",
+						"en": "You butcher the fox and look for a place to sell his fur. Unfortunately, it rots very quickly, and flies begin to swarm you. You end up leaving him by the side of the road, but it seems you still fell ill!"
 					},
 					"lostTime": 0,
 					"health": 0,

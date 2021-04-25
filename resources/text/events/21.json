@@ -36,8 +36,8 @@
 				},
 				{
 					"translations": {
-						"fr": "En marchant sur le pont, vous entendez de petits craquements, quand soudain, une planche tombe, et vous tombez avec. 🤕",
-						"en": "While crossing the bridge, you hear some small cracks, and suddenly, a plank snaps and falls, and you with it. 🤕"
+						"fr": "En marchant sur le pont, vous entendez de petits craquements, quand soudain, une planche tombe, et vous tombez avec.",
+						"en": "While crossing the bridge, you hear some small cracks, and suddenly, a plank snaps and falls, and you with it."
 					},
 					"lostTime": 0,
 					"health": -60,
@@ -92,8 +92,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous apercevez un pont et vous précipitez pour le rejoindre au plus vite, cependant vous trébuchez sur un tronc d'arbre et vous blessez. 😖",
-						"en": "You notice a bridge and rush to cross it as quickly as possible. However, you stumble on a trunk and injure yourself. 😖"
+						"fr": "Vous apercevez un pont et vous précipitez pour le rejoindre au plus vite, cependant vous trébuchez sur un tronc d'arbre et vous blessez.",
+						"en": "You notice a bridge and rush to cross it as quickly as possible. However, you stumble on a trunk and injure yourself."
 					},
 					"lostTime": 0,
 					"health": 0,

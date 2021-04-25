@@ -104,8 +104,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous continuez sans vous arrêter en sillonnant les petites rues. Au coin de l'une d'entre elles, vous vous faites sauvagement bousculer par un homme qui prend rapidement la fuite. 😖",
-						"en": "You continue without stopping, walking through the small streets. At the corner of one of them, you are savagely pushed by a man who quickly flees. 😖"
+						"fr": "Vous continuez sans vous arrêter en sillonnant les petites rues. Au coin de l'une d'entre elles, vous vous faites sauvagement bousculer par un homme qui prend rapidement la fuite.",
+						"en": "You continue without stopping, walking through the small streets. At the corner of one of them, you are savagely pushed by a man who quickly flees."
 					},
 					"lostTime": 0,
 					"health": -5,
@@ -148,8 +148,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Pris la main dans le sac ! Face aux 5 hommes à la carrure imposante qui vous entourent, vous regrettez amèrement votre geste malheureux. Vous repartez groggy après avoir versé un dédommagement. 😖",
-						"en": "Caught red-handed! Faced with five men of imposing stature, you bitterly regret your unfortunate act. You leave, feeling groggy after paying compensation. 😖"
+						"fr": "Pris la main dans le sac ! Face aux 5 hommes à la carrure imposante qui vous entourent, vous regrettez amèrement votre geste malheureux. Vous repartez groggy après avoir versé un dédommagement.",
+						"en": "Caught red-handed! Faced with five men of imposing stature, you bitterly regret your unfortunate act. You leave, feeling groggy after paying compensation."
 					},
 					"lostTime": 0,
 					"health": -20,

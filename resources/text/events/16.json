@@ -12,8 +12,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, alors que vous entrez dans une grande salle délabrée, un immense morceau du plafond se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment, blessé. 🤕",
-						"en": "Shortly after entering the castle, you realize how unsanitary the place is. Abandoned for years, the building is totally damaged. After a few minutes of exploration, you enter a large, ruined room, as a huge piece of the ceiling falls onto you! With great difficulty, you manage to get out of the building, hurt. 🤕"
+						"fr": "Peu après être rentré dans le château, vous vous rendez compte de l'insalubrité des lieux. Abandonnée depuis des années, la bâtisse est totalement délabrée. Après quelques minutes d'exploration, alors que vous entrez dans une grande salle délabrée, un immense morceau du plafond se décroche sur vous ! Avec beaucoup de difficultés, vous parvenez à ressortir du bâtiment, blessé.",
+						"en": "Shortly after entering the castle, you realize how unsanitary the place is. Abandoned for years, the building is totally damaged. After a few minutes of exploration, you enter a large, ruined room, as a huge piece of the ceiling falls onto you! With great difficulty, you manage to get out of the building, hurt."
 					},
 					"lostTime": 0,
 					"health": -35,
@@ -96,8 +96,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Alors que vous commenciez à faire le tour du château, vous tombez par accident dans un trou. Blessé à la jambe, il faudra vous soigner avant de continuer ! 🤕",
-						"en": "As you began to walk around the castle, you accidentally fell into a hole. Injuring your leg, this sweep will cost you a lot of time! 🤕"
+						"fr": "Alors que vous commenciez à faire le tour du château, vous tombez par accident dans un trou. Blessé à la jambe, il faudra vous soigner avant de continuer !",
+						"en": "As you began to walk around the castle, you accidentally fell into a hole. Injuring your leg, this sweep will cost you a lot of time!"
 					},
 					"lostTime": 0,
 					"health": -20,

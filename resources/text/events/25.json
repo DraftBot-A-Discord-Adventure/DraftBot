@@ -100,8 +100,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. 🤕",
-						"en": "In a hurry to continue your journey, you trip on a lifeless body, and get hurt. 🤕"
+						"fr": "Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez.",
+						"en": "In a hurry to continue your journey, you trip on a lifeless body, and get hurt."
 					},
 					"lostTime": 0,
 					"health": -15,
@@ -128,8 +128,8 @@
 				},
 				{
 					"translations": {
-						"fr": "👀 Fatigué, vous tombez raide et vous endormez au sol. 😴",
-						"en": "👀 Tired, you fall sound asleep on the ground. 😴"
+						"fr": "👀 Fatigué, vous tombez raide et vous endormez au sol.",
+						"en": "👀 Tired, you fall sound asleep on the ground."
 					},
 					"lostTime": 0,
 					"health": -25,

@@ -68,8 +68,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous attendez. Au fur et à mesure que le temps passe les minutes vous paraissent des heures. Mais la personne qui vous surveille ne semble pas prête à vous libérer de si tôt. 🔓",
-						"en": "You wait. As time passes on minutes start to feel like hours. Only, your jailer does not seem ready to free you quite yet. 🔓"
+						"fr": "Vous attendez. Au fur et à mesure que le temps passe les minutes vous paraissent des heures. Mais la personne qui vous surveille ne semble pas prête à vous libérer de si tôt.",
+						"en": "You wait. As time passes on minutes start to feel like hours. Only, your jailer does not seem ready to free you quite yet."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -204,8 +204,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Le garde refuse catégoriquement votre argent. À force d'attendre vous finissez par vous endormir. 😴",
-						"en": "The jailer refuses your money without equivocation. You keep on waiting and eventually fall asleep. 😴"
+						"fr": "Le garde refuse catégoriquement votre argent. À force d'attendre vous finissez par vous endormir.",
+						"en": "The jailer refuses your money without equivocation. You keep on waiting and eventually fall asleep."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -288,8 +288,8 @@
 				},
 				{
 					"translations": {
-						"fr": "🚶 Vous marchez autant que vous pouvez dans la cellule. Au bout d'un moment vous vous endormez, et à votre réveil vous vous trouvez dans des bois. 😴 ",
-						"en": "🚶 You ponder around your cell for some time. After a while, you fall asleep, and then wake up in some woods. 😴 "
+						"fr": "🚶 Vous marchez autant que vous pouvez dans la cellule. Au bout d'un moment vous vous endormez, et à votre réveil vous vous trouvez dans des bois.",
+						"en": "🚶 You ponder around your cell for some time. After a while, you fall asleep, and then wake up in some woods."
 					},
 					"lostTime": 0,
 					"health": 0,

@@ -24,8 +24,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure 😴 ",
-						"en": "You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure 😴 "
+						"fr": "Vous payez une chambre pour la nuit et tombez effondré sur le lit. Il faudra dormir avant de reprendre l'aventure",
+						"en": "You pay for a room for the night and fall down on the bed. You will need to sleep before resuming the adventure"
 					},
 					"lostTime": 0,
 					"health": 15,
@@ -148,8 +148,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Alors que votre vigilance était au plus bas sur le marché, vous recevez un coup violent derrière la tête et vous vous effondrez à terre... Après ce moment, plus aucun souvenir. Il faudra vous soigner avant de pouvoir continuer à avancer ! 😵 ",
-						"en": "Your vigilance was at its lowest at the market. You were hit hard on the back of the head and fell to the ground... you remember nothing after that. You'll have to get better before you can keep moving forward! 😵 "
+						"fr": "Alors que votre vigilance était au plus bas sur le marché, vous recevez un coup violent derrière la tête et vous vous effondrez à terre... Après ce moment, plus aucun souvenir. Il faudra vous soigner avant de pouvoir continuer à avancer !",
+						"en": "Your vigilance was at its lowest at the market. You were hit hard on the back of the head and fell to the ground... you remember nothing after that. You'll have to get better before you can keep moving forward!"
 					},
 					"lostTime": 0,
 					"health": -60,

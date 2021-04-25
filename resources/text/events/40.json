@@ -24,8 +24,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous décidez de rentrer dans la maison de ce Xetrix, vous commencez à le voler alors qu'il arrive.. Il vous voit et vous fonce dessus mais vous réussissez à fuir après vous être débattu, car vous êtes plus agile que lui. Cependant vous êtes blessé et avez perdu tout votre butin dans l'altercation. 🤕",
-						"en": "You decide to get into this Xetrix's house, and are stealing him as he comes in... He sees and rushes to you but you manage to escape after some struggle, you're more agile than him. However, you are injured and have lost all of your loot in the altercation. 🤕"
+						"fr": "Vous décidez de rentrer dans la maison de ce Xetrix, vous commencez à le voler alors qu'il arrive.. Il vous voit et vous fonce dessus mais vous réussissez à fuir après vous être débattu, car vous êtes plus agile que lui. Cependant vous êtes blessé et avez perdu tout votre butin dans l'altercation.",
+						"en": "You decide to get into this Xetrix's house, and are stealing him as he comes in... He sees and rushes to you but you manage to escape after some struggle, you're more agile than him. However, you are injured and have lost all of your loot in the altercation."
 					},
 					"lostTime": 0,
 					"health": -30,
@@ -80,8 +80,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous le voyez rentrer, alors vous entrez à sa suite, et lui demandez des conseils. Finalement vous sympathisez et il vous invite pour diner. Pendant le repas vous buvez un peu trop et finissez ivre. 🤪 ",
-						"en": "You see him come in, so you go after him to ask for advices. Eventually you hit it off and he invites you over for dinner. During the meal you drink a little too much and end up drunk. 🤪"
+						"fr": "Vous le voyez rentrer, alors vous entrez à sa suite, et lui demandez des conseils. Finalement vous sympathisez et il vous invite pour diner. Pendant le repas vous buvez un peu trop et finissez ivre.",
+						"en": "You see him come in, so you go after him to ask for advices. Eventually you hit it off and he invites you over for dinner. During the meal you drink a little too much and end up drunk."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -140,8 +140,8 @@
 				},
 				{
 					"translations": {
-						"fr": "🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles. 🤢 ",
-						"en": "🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill. 🤢"
+						"fr": "🚶 Vous décidez de partir. Sur la route vous trouvez quelques champignons et les cueillez, puis les avalez. Cependant vous tombez malade car ils n'étaient pas comestibles.",
+						"en": "🚶 You decide to leave. On the road you find some mushrooms, pick them up and eat them. However, they were inedible and so you get ill."
 					},
 					"lostTime": 0,
 					"health": 0,

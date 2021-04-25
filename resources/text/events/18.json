@@ -36,8 +36,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Alors que vous cherchiez dans une boîte a outils, vous vous entaillez la main sur une pince rouillée. La blessure est vraiment profonde ! 🤕",
-						"en": "While searching a toolbox, you cut yourself on some rusty pliers. It's very deep! 🤕"
+						"fr": "Alors que vous cherchiez dans une boîte a outils, vous vous entaillez la main sur une pince rouillée. La blessure est vraiment profonde !",
+						"en": "While searching a toolbox, you cut yourself on some rusty pliers. It's very deep!"
 					},
 					"lostTime": 0,
 					"health": -20,
@@ -80,8 +80,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous montez sur l'échelle, mais arrivé a mi-chemin, un barreau casse et vous tombez au sol ! Étourdie par la chute, vous reprenez lentement vos esprits. 😖",
-						"en": "You climb the ladder, but when you reach the halfway point, a bar breaks, and you fall to the ground! Shaken from the fall, you slowly come to your senses. 😖"
+						"fr": "Vous montez sur l'échelle, mais arrivé a mi-chemin, un barreau casse et vous tombez au sol ! Étourdie par la chute, vous reprenez lentement vos esprits.",
+						"en": "You climb the ladder, but when you reach the halfway point, a bar breaks, and you fall to the ground! Shaken from the fall, you slowly come to your senses."
 					},
 					"lostTime": 0,
 					"health": -30,
@@ -112,8 +112,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous observez le chantier de loin, sans voir la pioche posée au sol. Vous vous entaillez le pied en repartant. 😖",
-						"en": "You observe the site from a distance, without seeing the pickaxe on the ground. You cut your foot on it leaving. 😖"
+						"fr": "Vous observez le chantier de loin, sans voir la pioche posée au sol. Vous vous entaillez le pied en repartant.",
+						"en": "You observe the site from a distance, without seeing the pickaxe on the ground. You cut your foot on it leaving."
 					},
 					"lostTime": 0,
 					"health": -15,

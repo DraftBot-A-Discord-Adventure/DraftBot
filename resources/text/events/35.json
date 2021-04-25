@@ -24,8 +24,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous prenez sans plus de cérémonie la chope qu'il vous tend, remplie d'un liquide épais et verdâtre. Vous buvez celui-ci d'un trait. Quelques secondes après, vous réalisez l'horrible goût que ça a, et vomissez le tout par terre. Le barman s'excuse et vous donne une poignée de pièces en dédommagement, mais vous vous sentez malade. 🤢",
-						"en": "You, without further ado, take the mug filled with a thick, greenish liquid he holds out to you. You drink it in one gulp. A few seconds later, you realize how horrible it tastes and you throw up on the floor. The bartender apologizes and gives you a handful of coins as compensation, but you don't feel well. 🤢"
+						"fr": "Vous prenez sans plus de cérémonie la chope qu'il vous tend, remplie d'un liquide épais et verdâtre. Vous buvez celui-ci d'un trait. Quelques secondes après, vous réalisez l'horrible goût que ça a, et vomissez le tout par terre. Le barman s'excuse et vous donne une poignée de pièces en dédommagement, mais vous vous sentez malade.",
+						"en": "You, without further ado, take the mug filled with a thick, greenish liquid he holds out to you. You drink it in one gulp. A few seconds later, you realize how horrible it tastes and you throw up on the floor. The bartender apologizes and gives you a handful of coins as compensation, but you don't feel well."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -112,8 +112,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous lui expliquez que vous n'avez pas trop envie de lui servir de cobaye, alors le barman, semblant déçu, vous laisse. Vous vous attelez donc à la tâche qui vous faisait envie depuis votre entrée dans le bar : dépouiller discrètement les clients. Vous faites les poches à trois personnes sans soucis, mais la quatrième vous remarque et crie au voleur. Vous finissez la nuit en prison. 🔒",
-						"en": "You explain to him that you don’t really want to be a guinea pig, so the bartender, seemingly disappointed. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pocket three people without worries, but the fourth notices you and shouts at the thief. You finish the night in prison. 🔒"
+						"fr": "Vous lui expliquez que vous n'avez pas trop envie de lui servir de cobaye, alors le barman, semblant déçu, vous laisse. Vous vous attelez donc à la tâche qui vous faisait envie depuis votre entrée dans le bar : dépouiller discrètement les clients. Vous faites les poches à trois personnes sans soucis, mais la quatrième vous remarque et crie au voleur. Vous finissez la nuit en prison.",
+						"en": "You explain to him that you don’t really want to be a guinea pig, so the bartender, seemingly disappointed. So you do the thing you've been craving of since you entered the bar: discreetly robbing customers. You pocket three people without worries, but the fourth notices you and shouts at the thief. You finish the night in prison."
 					},
 					"lostTime": 0,
 					"health": 0,

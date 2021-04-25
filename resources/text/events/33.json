@@ -92,8 +92,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Pas de chance ! Vous tombez sur un morceau avarié et tombez malade. 🤢",
-						"en": "Not your lucky day, you end up eating a part which turned bad. 🤢"
+						"fr": "Pas de chance ! Vous tombez sur un morceau avarié et tombez malade.",
+						"en": "Not your lucky day, you end up eating a part which turned bad."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -116,8 +116,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous avez bien mangé, vous bavardez avec votre voisin qui ne cesse de vous servir à boire. Vous finissez par vous effondrer, ivre. 🤪",
-						"en": "You ate very well, you chat with a random person who keeps giving you drinks. You end up passing out. 🤪"
+						"fr": "Vous avez bien mangé, vous bavardez avec votre voisin qui ne cesse de vous servir à boire. Vous finissez par vous effondrer, ivre.",
+						"en": "You ate very well, you chat with a random person who keeps giving you drinks. You end up passing out."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -220,8 +220,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "🐐 Vous ne voyez pas la chèvre foncer sur vous et vous tombez à terre, étourdi. 😖",
-						"en": "🐐 You don't notice the goat coming right at you, you fall down stunned by the shock. 😖"
+						"fr": "🐐 Vous ne voyez pas la chèvre foncer sur vous et vous tombez à terre, étourdi.",
+						"en": "🐐 You don't notice the goat coming right at you, you fall down stunned by the shock."
 					},
 					"lostTime": 0,
 					"health": -20,

@@ -12,8 +12,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "En forçant la porte vous vous blessez profondément, il faut absolument vous soigner ! 🤕",
-						"en": "By forcing the door open, you seriously hurt yourself, you must absolutely be healed! 🤕"
+						"fr": "En forçant la porte vous vous blessez profondément, il faut absolument vous soigner !",
+						"en": "By forcing the door open, you seriously hurt yourself, you must absolutely be healed!"
 					},
 					"lostTime": 0,
 					"health": -25,
@@ -36,8 +36,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure. 😴 ",
-						"en": "You enter the house and put down your things to rest. Taken by a deep sleep, you will need to rest before continuing your adventure. 😴 "
+						"fr": "Vous entrez dans la maison et posez vos affaires pour vous reposer. Pris d'un profond sommeil, il faudra vous reposer avant de continuer l'aventure.",
+						"en": "You enter the house and put down your things to rest. Taken by a deep sleep, you will need to rest before continuing your adventure."
 					},
 					"lostTime": 0,
 					"health": 0,

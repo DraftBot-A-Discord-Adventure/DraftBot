@@ -12,8 +12,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous décidez d'aller au sanctuaire tout seul. Après 30 minutes de route, le sol s'effondre tout à coup sous vos pieds et vous chutez violemment. 🤕 ",
-						"en": "You decide to go to the shrine on your own. After 30 minutes of walking, the road shatters under your feet and you fall violently. 🤕 "
+						"fr": "Vous décidez d'aller au sanctuaire tout seul. Après 30 minutes de route, le sol s'effondre tout à coup sous vos pieds et vous chutez violemment.",
+						"en": "You decide to go to the shrine on your own. After 30 minutes of walking, the road shatters under your feet and you fall violently."
 					},
 					"lostTime": 0,
 					"health": -40,
@@ -24,8 +24,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous décidez d'aller au sanctuaire tout seul. Arrivé au site, vous entendez un bruit étrange, pris de panique, vous courez et trébuchez. Vous vous faites une vilaine égratignure à la jambe, celle-ci ne tarde pas à s'infecter. 🤢 ",
-						"en": "You decide to go to the shrine on your own. Arriving at the site, you are startled by an eerie noise. In a panic, you attempt to leave, but stumble over a sharp rusty object in your path. You suffer a deep wound to your leg, which gets infected immediately. 🤢 "
+						"fr": "Vous décidez d'aller au sanctuaire tout seul. Arrivé au site, vous entendez un bruit étrange, pris de panique, vous courez et trébuchez. Vous vous faites une vilaine égratignure à la jambe, celle-ci ne tarde pas à s'infecter.",
+						"en": "You decide to go to the shrine on your own. Arriving at the site, you are startled by an eerie noise. In a panic, you attempt to leave, but stumble over a sharp rusty object in your path. You suffer a deep wound to your leg, which gets infected immediately."
 					},
 					"lostTime": 0,
 					"health": -10,
@@ -184,8 +184,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "🕵️ Le groupe pensant être espionné vous frappe violemment. 😖 ",
-						"en": "🕵️ The group believes that they are being spied on and attacks you violently. 😖 "
+						"fr": "🕵️ Le groupe pensant être espionné vous frappe violemment.",
+						"en": "🕵️ The group believes that they are being spied on and attacks you violently."
 					},
 					"lostTime": 0,
 					"health": -25,

@@ -68,8 +68,8 @@
 				},
 				{
 					"translations": {
-						"fr": "En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer ! 🤕",
-						"en": "When you try fleeing, you suddenly fall into a ditch. The injury is serious... You'll have to get better before you continue! 🤕"
+						"fr": "En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer !",
+						"en": "When you try fleeing, you suddenly fall into a ditch. The injury is serious... You'll have to get better before you continue!"
 					},
 					"lostTime": 0,
 					"health": -15,

@@ -132,8 +132,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous commencez à voler le marchand, qui le remarque. Il vous assène un violent coup de poing, puis repart. 🤕",
-						"en": "The merchant notices you as you start robbing him. He knocks your teeth out with a punch then leaves. 🤕"
+						"fr": "Vous commencez à voler le marchand, qui le remarque. Il vous assène un violent coup de poing, puis repart.",
+						"en": "The merchant notices you as you start robbing him. He knocks your teeth out with a punch then leaves."
 					},
 					"lostTime": 0,
 					"health": -20,

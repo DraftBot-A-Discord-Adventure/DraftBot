@@ -100,8 +100,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé. 🤢",
-						"en": "This food is strange. As soon as you eat it, you get a headache, begin hallucinating, and feel nausea. You were poisoned! From the smile of your cook, there is no doubt about it. You throw the poison back up onto the table, but you're not sure if you threw it all up. 🤢"
+						"fr": "Cette nourriture est étrange. Dès que vous l'avalez, vous avez des maux de tête, des hallucinations et des nausées. On vous a empoisonné ! À voir le sourire de votre cuisinier, il n'y a pas de doute possible. Vous vomissez ce poison sur la table mais vous n'êtes pas sûr d'avoir tout éliminé.",
+						"en": "This food is strange. As soon as you eat it, you get a headache, begin hallucinating, and feel nausea. You were poisoned! From the smile of your cook, there is no doubt about it. You throw the poison back up onto the table, but you're not sure if you threw it all up."
 					},
 					"lostTime": 0,
 					"health": -100,

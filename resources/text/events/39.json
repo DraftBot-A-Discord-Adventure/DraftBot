@@ -48,8 +48,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous lui donnez quelques pièces afin qu'il vous accompagne jusqu'à la prochaine ville. Vous partez vite, et lorsque le soleil se couche, vous bivouaquez puis vous couchez. Vous êtes brusquement réveillé par un bruit de métal s'entrechoquant, et mettez quelques secondes à réaliser que Price rassemble votre argent. Sans y réfléchir à deux fois, vous foncez sur lui, déterminé à le stopper. Il vous assène un violent coup de poing à la tempe, et c'est sonné que vous le voyez s'enfuir avec vos possessions. 🤕",
-						"en": "You give him a few coins to accompany you until the next town. You leave quickly, and when the sun goes down, you bivouac and then you set. You are suddenly woken up by the sound of metal clattering together, and it takes a few seconds to realize that Price is taking your money away. Without thinking twice about it, determined to stop him, you run to him. He violently punches you into the temple, and runs away with your possessions while you are dizzy. 🤕"
+						"fr": "Vous lui donnez quelques pièces afin qu'il vous accompagne jusqu'à la prochaine ville. Vous partez vite, et lorsque le soleil se couche, vous bivouaquez puis vous couchez. Vous êtes brusquement réveillé par un bruit de métal s'entrechoquant, et mettez quelques secondes à réaliser que Price rassemble votre argent. Sans y réfléchir à deux fois, vous foncez sur lui, déterminé à le stopper. Il vous assène un violent coup de poing à la tempe, et c'est sonné que vous le voyez s'enfuir avec vos possessions.",
+						"en": "You give him a few coins to accompany you until the next town. You leave quickly, and when the sun goes down, you bivouac and then you set. You are suddenly woken up by the sound of metal clattering together, and it takes a few seconds to realize that Price is taking your money away. Without thinking twice about it, determined to stop him, you run to him. He violently punches you into the temple, and runs away with your possessions while you are dizzy."
 					},
 					"lostTime": 0,
 					"health": -20,
@@ -100,8 +100,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous essayez de le voler, mais il vous remarque, et vous assomme proprement. 🤕",
-						"en": "You try to steal from him, but he notices your undoing and knocks you out cold. 🤕"
+						"fr": "Vous essayez de le voler, mais il vous remarque, et vous assomme proprement.",
+						"en": "You try to steal from him, but he notices your undoing and knocks you out cold."
 					},
 					"lostTime": 0,
 					"health": -20,

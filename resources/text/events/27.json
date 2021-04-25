@@ -80,8 +80,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Concentré sur votre objectif, vous ne vous rendez pas compte qu'un jeune du village vous attrape, et vous fait tomber dans le puits. Sonné, vous ne vous réveillez que plusieurs heures après. 😖",
-						"en": "Focused on your goal, you don't realize that a young villager catches you, and pushes you into the well. Stunned, you wake up several hours later. 😖"
+						"fr": "Concentré sur votre objectif, vous ne vous rendez pas compte qu'un jeune du village vous attrape, et vous fait tomber dans le puits. Sonné, vous ne vous réveillez que plusieurs heures après.",
+						"en": "Focused on your goal, you don't realize that a young villager catches you, and pushes you into the well. Stunned, you wake up several hours later."
 					},
 					"lostTime": 0,
 					"health": -40,
@@ -152,8 +152,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez, heureusement vous arrivez à rapidement remonter nous sans vous être sévèrement blessé. 🤕",
-						"en": "Leaning over the well, you observe the object. It is then that you fall over. Fortunately, you manage to quickly climb back up, but you emerge from this adventure seriously injured. 🤕"
+						"fr": "Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez, heureusement vous arrivez à rapidement remonter nous sans vous être sévèrement blessé.",
+						"en": "Leaning over the well, you observe the object. It is then that you fall over. Fortunately, you manage to quickly climb back up, but you emerge from this adventure seriously injured."
 					},
 					"lostTime": 0,
 					"health": -45,

@@ -80,8 +80,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamné à la peine capitale. 💀",
-						"en": "After trying to violently intervene, the executioner grabs you by force. You're struggling, but nothing can change that. You, in turn, are sentenced to death. 💀"
+						"fr": "Après avoir violemment tenté de vous interposer, le bourreau vous attrape de force. Vous vous débattez, mais rien n'y fait. Vous êtes à votre tour condamné à la peine capitale.",
+						"en": "After trying to violently intervene, the executioner grabs you by force. You're struggling, but nothing can change that. You, in turn, are sentenced to death."
 					},
 					"lostTime": 0,
 					"health": 0,

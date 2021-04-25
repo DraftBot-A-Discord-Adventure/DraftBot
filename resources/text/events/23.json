@@ -68,8 +68,8 @@
 				},
 				{
 					"translations": {
-						"fr": "En partant, vous trébuchez dans un trou et vous blessez. 🤕",
-						"en": "When you leave, you stumble into a hole and hurt yourself. 🤕"
+						"fr": "En partant, vous trébuchez dans un trou et vous blessez.",
+						"en": "When you leave, you stumble into a hole and hurt yourself."
 					},
 					"lostTime": 0,
 					"health": -35,

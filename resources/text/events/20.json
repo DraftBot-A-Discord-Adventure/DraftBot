@@ -100,8 +100,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Malheureusement, les gardes que vous tentez d'alerter n'ont que faire des agissements malfaisant de leur collègue. Devant votre insistance, ils engagent le combat contre vous. Vous remportez la bataille malgré quelques blessures mais il est trop tard. La femme gît sur le sol ainsi que deux gardes. 🤕",
-						"en": "The guards, also being criminals, strike you on your hip, but leave you alive. 🤕"
+						"fr": "Malheureusement, les gardes que vous tentez d'alerter n'ont que faire des agissements malfaisant de leur collègue. Devant votre insistance, ils engagent le combat contre vous. Vous remportez la bataille malgré quelques blessures mais il est trop tard. La femme gît sur le sol ainsi que deux gardes.",
+						"en": "The guards, also being criminals, strike you on your hip, but leave you alive."
 					},
 					"lostTime": 0,
 					"health": -35,

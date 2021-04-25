@@ -36,8 +36,8 @@
 				},
 				{
 					"translations": {
-						"fr": "En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner ! 🤕",
-						"en": "While crossing the forest, you take a big fall into a ditch. The injury is serious, you absolutely have to heal yourself! 🤕"
+						"fr": "En traversant la forêt vous faites une grosse chute dans un fossé, la blessure est profonde, il faut absolument vous soigner !",
+						"en": "While crossing the forest, you take a big fall into a ditch. The injury is serious, you absolutely have to heal yourself!"
 					},
 					"lostTime": 0,
 					"health": -20,
@@ -68,8 +68,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous tombez dans une embuscade ! Après vous avoir volé tous vos bien, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui. 🤕",
-						"en": "You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious. 🤕"
+						"fr": "Vous tombez dans une embuscade ! Après vous avoir volé tous vos bien, les brigands s'enfuient lâchement, gravement blessé vous tombez, évanoui.",
+						"en": "You fall into a trap! After stealing all you possess, the thieves fly away, like cowards. Deeply hurt, you fall unconscious."
 					},
 					"lostTime": 0,
 					"health": -40,

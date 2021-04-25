@@ -36,8 +36,8 @@
 				},
 				{
 					"translations": {
-						"fr": "En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille. 🤕",
-						"en": "Looking for the pitchfork, you step on it and get a nasty cut. 🤕"
+						"fr": "En cherchant la fourche, vous marchez dessus et vous faites une vilaine entaille.",
+						"en": "Looking for the pitchfork, you step on it and get a nasty cut."
 					},
 					"lostTime": 0,
 					"health": -15,
@@ -80,8 +80,8 @@
 				},
 				{
 					"translations": {
-						"fr": "En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied. 🤕",
-						"en": "Continuing through the field, you fall on the pitchfork, severely cutting your foot. 🤕"
+						"fr": "En continuant à travers le champ, vous tombez sur la fourche et vous entaillez sévèrement le pied.",
+						"en": "Continuing through the field, you fall on the pitchfork, severely cutting your foot."
 					},
 					"lostTime": 0,
 					"health": -15,

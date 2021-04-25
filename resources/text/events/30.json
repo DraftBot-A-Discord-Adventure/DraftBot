@@ -36,8 +36,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous allez voir le duc et vous essayez de le complimenter, cependant la rhétorique n'est pas votre fort et le duc se sentant offensé vous fait enfermer. 🔒",
-						"en": "You go to the Duke and try to compliment him, but rhetoric is not your forte and as the Duke gets offended, he locks you up. 🔒"
+						"fr": "Vous allez voir le duc et vous essayez de le complimenter, cependant la rhétorique n'est pas votre fort et le duc se sentant offensé vous fait enfermer.",
+						"en": "You go to the Duke and try to compliment him, but rhetoric is not your forte and as the Duke gets offended, he locks you up."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -144,8 +144,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Alors que vous vous apprêtiez à sortir de l'exploitation avec votre butin, un esclave vous interpelle et vous dénonce. Vous finissez enfermé. 🔒",
-						"en": "As you're about to leave the farm with your loot, a slave alerts the others and shames you. You end up locked in a cell. 🔒"
+						"fr": "Alors que vous vous apprêtiez à sortir de l'exploitation avec votre butin, un esclave vous interpelle et vous dénonce. Vous finissez enfermé.",
+						"en": "As you're about to leave the farm with your loot, a slave alerts the others and shames you. You end up locked in a cell."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -168,8 +168,8 @@
 				},
 				{
 					"translations": {
-						"fr": "À votre grand malheur, vous n'aviez pas remarqué l'écrit \"Impropres à la vente\" devant vos bananes fraichement acquises et celles-ci ont vite fait de vous rendre malade ! 🤢 ",
-						"en": "To your great misfortune, you didn't notice the writing \"Unfit for sale\" in front of your freshly acquired bananas and they quickly make you sick ! 🤢"
+						"fr": "À votre grand malheur, vous n'aviez pas remarqué l'écrit \"Impropres à la vente\" devant vos bananes fraichement acquises et celles-ci ont vite fait de vous rendre malade !",
+						"en": "To your great misfortune, you didn't notice the writing \"Unfit for sale\" in front of your freshly acquired bananas and they quickly make you sick !"
 					},
 					"lostTime": 0,
 					"health": 0,

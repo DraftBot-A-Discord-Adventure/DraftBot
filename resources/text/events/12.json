@@ -12,8 +12,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté, vous vous rendez compte de votre erreur. Vous êtes gelé et affaibli. Il faudra vous soigner avant de continuer ! 🥶",
-						"en": "The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing! 🥶"
+						"fr": "L'eau est gelée ! Vous prenez votre courage à deux mains et plongez. Une fois de l'autre coté, vous vous rendez compte de votre erreur. Vous êtes gelé et affaibli. Il faudra vous soigner avant de continuer !",
+						"en": "The water is frozen over! You motivate yourself and dive. Once on the other side, you realize your mistake. You are freezing and weakened. You will need to heal before continuing!"
 					},
 					"lostTime": 0,
 					"health": -30,
@@ -56,8 +56,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Après avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer ! 🥶",
-						"en": "After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue! 🥶"
+						"fr": "Après avoir passé plusieurs heures à fabriquer votre bateau, vous vous élancez sur la rivière... puis vous coulez lamentablement au milieu. L'eau est gelée, mais vous parvenez tant bien que mal à atteindre l'autre rive, gelé et affaibli. Il faudra vous soigner avant de continuer !",
+						"en": "After spending several hours building your raft, you start to cross the river... and sink miserably in the middle. The water is freezing, but you barely reach the other side, freezing and weakened. You will need to be treated before you can continue!"
 					},
 					"lostTime": 0,
 					"health": -30,
@@ -124,8 +124,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Au bout de quelques minutes vous trouvez un petit pont en bois. Malheureusement il est délabré car personne ne l'a emprunté depuis des années et après quelques pas, il s'effondre sous votre poids ! Vous parvenez à vous accrocher à la rive de la rivière sans être mouillé et vous vous relevez, sonné, il faudra aller vous soigner ! 😖",
-						"en": "After a while you finally discover a wooden bridge. Sadly, it is in very bad condition because it has not been used for a long time. After you cross half the bridge, it collapses. You manage to cross the river but you are completely soaked. Confounded by this mishap, you will need to rest before continuing! 😖"
+						"fr": "Au bout de quelques minutes vous trouvez un petit pont en bois. Malheureusement il est délabré car personne ne l'a emprunté depuis des années et après quelques pas, il s'effondre sous votre poids ! Vous parvenez à vous accrocher à la rive de la rivière sans être mouillé et vous vous relevez, sonné, il faudra aller vous soigner !",
+						"en": "After a while you finally discover a wooden bridge. Sadly, it is in very bad condition because it has not been used for a long time. After you cross half the bridge, it collapses. You manage to cross the river but you are completely soaked. Confounded by this mishap, you will need to rest before continuing!"
 					},
 					"lostTime": 0,
 					"health": -25,
