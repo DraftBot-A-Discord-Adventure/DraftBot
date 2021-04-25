@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": "🏘️ Au cours de votre très long périple vous arrivez dans un petit village fort charmant. Vous atteignez le centre du village, mais il s'avère qu'il est très petit et qu'il n'y a que deux commerces : la bijouterie et une auberge . Vous découvrez grâce à un passant que la bijouterie est gérée par un vieillard et qu'il fait de magnifiques bijoux et colliers. L'auberge est, quant à elle, dirigée par un couple, et il paraît qu'elle a un grand succès.",
-		"en": "🏘️ At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewellery such as necklaces and rings. As for the inn run by a couple, it seems pretty successful"
+		"en": "🏘️ At some point in your journey, you arrive in a charming little village. You reach the center of the village, however it turns out that there are only two shops: a jewelry store and an inn. You learn from a bystander that the jewelry is held by an old man. It is a well known fact that he makes beautiful jewellery such as necklaces and rings. As for the inn run by a couple, it seems pretty successful."
 	},
 	"possibilities": {
 		"🗣️": {
@@ -12,8 +12,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous discutez avec le bijoutier et vous vous liez d'amitié avec lui. Il vous offre alors un objet en gage de cette nouvelle amitié. ",
-						"en": "You talk with the jeweller and you bond with him. He then offers you an object as a token of this new friendship. "
+						"fr": "Vous discutez avec le bijoutier et vous vous liez d'amitié avec lui. Il vous offre alors un objet en gage de cette nouvelle amitié.",
+						"en": "You talk with the jeweller and you bond with him. He then offers you an object as a token of this new friendship."
 					},
 					"lostTime": 50,
 					"health": 0,
@@ -121,7 +121,7 @@
 				{
 					"translations": {
 						"fr": "Vous continuez votre route. En sortant du village, vous croisez un prêtre qui vous offre un morceau de pain pour votre périple.",
-						"en": "You continue your journey. As you leave the village, you meet a priest whom offers you a piece of bread for your journey"
+						"en": "You continue your journey. As you leave the village, you meet a priest whom offers you a piece of bread for your journey."
 					},
 					"lostTime": 0,
 					"health": 5,

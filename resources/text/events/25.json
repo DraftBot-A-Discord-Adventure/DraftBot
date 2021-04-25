@@ -88,8 +88,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Pas de temps à perdre ! Vous continuez votre route. ",
-						"en": "No time to lose ! You continue your journey. "
+						"fr": "Pas de temps à perdre ! Vous continuez votre route.",
+						"en": "No time to lose ! You continue your journey."
 					},
 					"lostTime": 0,
 					"health": 0,

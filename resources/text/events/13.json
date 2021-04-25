@@ -6,7 +6,7 @@
 	"possibilities": {
 		"🏠": {
 			"translations": {
-				"fr": "Aller à l’auberge",
+				"fr": "Aller à l’auberge.",
 				"en": "Go to the inn."
 			},
 			"issues": [
@@ -50,7 +50,7 @@
 		},
 		"🔨": {
 			"translations": {
-				"fr": "Aller à la forge",
+				"fr": "Aller à la forge.",
 				"en": "Go to the forge."
 			},
 			"issues": [

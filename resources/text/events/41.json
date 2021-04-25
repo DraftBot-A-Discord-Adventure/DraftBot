@@ -265,7 +265,7 @@
 				{
 					"translations": {
 						"fr": "🗣️ Pour faire passer le temps vous décidez de discuter avec autre prisonnier. Quelques heures plus tard vous êtes libre.",
-						"en": "🗣️ To pass the time, you talk with your cellmate. A few hours later, you are free to leave. "
+						"en": "🗣️ To pass the time, you talk with your cellmate. A few hours later, you are free to leave."
 					},
 					"lostTime": 120,
 					"health": 0,

@@ -12,7 +12,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous acceptez sa proposition, et buvez le liquide épais qu'il vous tend. C'est délicieux et cela répand en vous une douce chaleur. ",
+						"fr": "Vous acceptez sa proposition, et buvez le liquide épais qu'il vous tend. C'est délicieux et cela répand en vous une douce chaleur.",
 						"en": "You accept his proposal and drink the thick liquid he gives you. It is delicious and spreads a sweet warmth within you."
 					},
 					"lostTime": 0,
@@ -36,7 +36,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous acceptez sa requête, et il vous donne une chope. Vous la buvez, et sentez un petit arrière goût pas piqué des hannetons. Vous donnez au barman vos impressions, il vous remercie, puis vous reprenez votre route. ",
+						"fr": "Vous acceptez sa requête, et il vous donne une chope. Vous la buvez, et sentez un petit arrière goût pas piqué des hannetons. Vous donnez au barman vos impressions, il vous remercie, puis vous reprenez votre route.",
 						"en": "You accept his request and he gives you a mug. You drink it and feel a little pleasant aftertaste. You give the bartender your impressions, he thanks you, then you go on your way."
 					},
 					"lostTime": 0,

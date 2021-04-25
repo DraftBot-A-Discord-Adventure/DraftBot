@@ -6,7 +6,7 @@
 	"possibilities": {
 		"💸": {
 			"translations": {
-				"fr": "Accepter de lui acheter un objet peu cher",
+				"fr": "Accepter de lui acheter un objet peu cher.",
 				"en": "Buy a cheap item."
 			},
 			"issues": [
@@ -38,7 +38,7 @@
 		},
 		"💰": {
 			"translations": {
-				"fr": "Lui acheter un de ses plus chers objets",
+				"fr": "Lui acheter un de ses plus chers objets.",
 				"en": "Try your luck by buying one of his most expensive ones."
 			},
 			"issues": [
@@ -82,7 +82,7 @@
 		},
 		"❌": {
 			"translations": {
-				"fr": "Refuser",
+				"fr": "Refuser.",
 				"en": "Decline his offer."
 			},
 			"issues": [
@@ -102,7 +102,7 @@
 		},
 		"🕵️": {
 			"translations": {
-				"fr": "Voler sa marchandise",
+				"fr": "Voler sa marchandise.",
 				"en": "Attempt to rob him."
 			},
 			"issues": [

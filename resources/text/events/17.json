@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "🍲 Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.\n\n🍎 Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits\n🍄 Cueillir les champignons.\n🥗 Concocter une salade avec les plantes que vous trouvez\n🦌 Tenter de chasser un animal sauvage\n🚶 Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître\n",
-		"en": "🍲 Hungry after your day of travel, you decide to stop and look for something to eat around you.\n\n🍎 Climb the huge tree facing you and get fruit from it.\n🍄 Gather mushrooms.\n🥗 Make a salad with the plants you find.\n🦌 Attempt to hunt a wild animal\n🚶 Forget eating here. Leave in hopes of finding a better place to eat.\n"
+		"fr": "🍲 Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.",
+		"en": "🍲 Hungry after your day of travel, you decide to stop and look for something to eat around you."
 	},
 	"possibilities": {
 		"🍎": {
@@ -68,8 +68,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous ramassez quelques champignons avant de remarquer que vous n'avez rien pour les cuisiner. Abandonnant votre cueillette, vous reprenez la route. ",
-						"en": "You pick a few mushrooms before you notice that you have nothing to cook them with. Abandoning the hunt, you go back to the road. "
+						"fr": "Vous ramassez quelques champignons avant de remarquer que vous n'avez rien pour les cuisiner. Abandonnant votre cueillette, vous reprenez la route.",
+						"en": "You pick a few mushrooms before you notice that you have nothing to cook them with. Abandoning the hunt, you go back to the road."
 					},
 					"lostTime": 55,
 					"health": 0,
@@ -94,7 +94,7 @@
 		},
 		"🥗": {
 			"translations": {
-				"fr": "Concocter une salade avec les plantes que vous trouvez",
+				"fr": "Concocter une salade avec les plantes que vous trouvez.",
 				"en": "Make a salad with the plants you find."
 			},
 			"issues": [
@@ -138,8 +138,8 @@
 		},
 		"🦌": {
 			"translations": {
-				"fr": "Tenter de chasser un animal sauvage",
-				"en": "Attempt to hunt a wild animal"
+				"fr": "Tenter de chasser un animal sauvage.",
+				"en": "Attempt to hunt a wild animal."
 			},
 			"issues": [
 				{
@@ -182,7 +182,7 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître",
+				"fr": "Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître.",
 				"en": "Forget eating here. Leave in hopes of finding a better place to eat."
 			},
 			"issues": [

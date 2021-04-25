@@ -6,7 +6,7 @@
 	"possibilities": {
 		"🏊": {
 			"translations": {
-				"fr": "Traverser la rivière en nageant",
+				"fr": "Traverser la rivière en nageant.",
 				"en": "Swim across the river."
 			},
 			"issues": [
@@ -38,7 +38,7 @@
 		},
 		"🚣": {
 			"translations": {
-				"fr": "Tenter de bricoler un petit bateau",
+				"fr": "Tenter de bricoler un petit bateau.",
 				"en": "Try to make a raft."
 			},
 			"issues": [
@@ -82,7 +82,7 @@
 		},
 		"🌉": {
 			"translations": {
-				"fr": "Chercher un pont plus loin",
+				"fr": "Chercher un pont plus loin.",
 				"en": "Look for a bridge further away."
 			},
 			"issues": [
@@ -138,7 +138,7 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Partir dans une autre direction",
+				"fr": "Partir dans une autre direction.",
 				"en": "Go another way."
 			},
 			"issues": [

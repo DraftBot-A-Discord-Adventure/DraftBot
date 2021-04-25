@@ -12,7 +12,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir un peu de repos chez lui",
+						"fr": "Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir un peu de repos chez lui.",
 						"en": "You go to the Duke and compliment him. The Duke thanks you and decides to offer you some rest at his castle."
 					},
 					"lostTime": 50,
@@ -24,7 +24,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir quelques pièces en vous disant d'en faire bon usage, vous repartez ensuite sur votre chemin",
+						"fr": "Vous allez voir le duc et vous le complimentez. Ce dernier vous remercie et décide de vous offrir quelques pièces en vous disant d'en faire bon usage, vous repartez ensuite sur votre chemin.",
 						"en": "You go see the Duke and compliment him. The Duke thanks you and decides to offer you a few coins, telling you to make good use of them, then you go back on your way."
 					},
 					"lostTime": 30,
@@ -57,7 +57,7 @@
 				{
 					"translations": {
 						"fr": "Vous rentrez et profitez de la fête qui va durer jusque très tard dans la nuit.",
-						"en": "You go home and enjoy a party that is going to last for a while"
+						"en": "You go home and enjoy a party that is going to last for a while."
 					},
 					"lostTime": 155,
 					"health": 0,
@@ -101,7 +101,7 @@
 				{
 					"translations": {
 						"fr": "Vous avez envie d'offrir un cadeau au Duc Benatis, mais vous ne trouvez rien qui pourrait faire l'affaire. Vous décidez de simplement lui donner de l'argent amassé pendant vos péripéties. Le Duc accepte votre cadeau.",
-						"en": "You feel like giving a gift to Duke Benatis, but you can't find anything that would do the trick. You decide to simply give him some of the money you've collected during your adventures. The Duke accepts your gift"
+						"en": "You feel like giving a gift to Duke Benatis, but you can't find anything that would do the trick. You decide to simply give him some of the money you've collected during your adventures. The Duke accepts your gift."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -156,7 +156,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous ressortez discrètement avec votre délicieux butin que vous finissez rapidement de manger",
+						"fr": "Vous ressortez discrètement avec votre délicieux butin que vous finissez rapidement de manger.",
 						"en": "You discreetly come out with your delicious loot that joins your stomach swiftly."
 					},
 					"lostTime": 0,

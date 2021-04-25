@@ -36,8 +36,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Remarquant votre manque de sensibilité face à leurs discours, le groupe commence à se montrer agressif ! Vous mettrez plusieurs minutes à vous en échapper, non sans avoir reçu quelques coups. ",
-						"en": "Noticing your lack of sensitivity to their speech, the group gets aggressive! It takes you several minutes to escape from them, but not without being hit a few times. "
+						"fr": "Remarquant votre manque de sensibilité face à leurs discours, le groupe commence à se montrer agressif ! Vous mettrez plusieurs minutes à vous en échapper, non sans avoir reçu quelques coups.",
+						"en": "Noticing your lack of sensitivity to their speech, the group gets aggressive! It takes you several minutes to escape from them, but not without being hit a few times."
 					},
 					"lostTime": 15,
 					"health": -25,

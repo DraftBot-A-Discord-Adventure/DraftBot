@@ -112,8 +112,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Cette nourriture est assez classique. Vous ne ressentez rien en la mangeant ni après avoir fini puis en oubliez vite le goût ",
-						"en": "This food is rather standard. You don't feel anything while eating it or after you finish it. You quickly forget the taste "
+						"fr": "Cette nourriture est assez classique. Vous ne ressentez rien en la mangeant ni après avoir fini puis en oubliez vite le goût",
+						"en": "This food is rather standard. You don't feel anything while eating it or after you finish it. You quickly forget the taste"
 					},
 					"lostTime": 0,
 					"health": 0,

@@ -6,7 +6,7 @@
 	"possibilities": {
 		"👄": {
 			"translations": {
-				"fr": "S'asseoir tranquillement pour bavarder",
+				"fr": "S'asseoir tranquillement pour bavarder.",
 				"en": "Sit down to chat."
 			},
 			"issues": [
@@ -25,7 +25,7 @@
 				{
 					"translations": {
 						"fr": "Vous vous liez d'amitié avec votre voisin de table qui vous donne un objet en guise de cadeau.",
-						"en": "You bond with the guy sitting next to you whom gifts you a present for the sake of it. "
+						"en": "You bond with the guy sitting next to you whom gifts you a present for the sake of it."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -74,7 +74,7 @@
 		},
 		"🍗": {
 			"translations": {
-				"fr": "En profiter pour s'empiffrer de nourriture",
+				"fr": "En profiter pour s'empiffrer de nourriture.",
 				"en": "Have a go at the food."
 			},
 			"issues": [
@@ -130,14 +130,14 @@
 		},
 		"🕵️": {
 			"translations": {
-				"fr": "Profiter de l'animation générale pour voler les gens",
+				"fr": "Profiter de l'animation générale pour voler les gens.",
 				"en": "Take advantage of the commotion to rob some of them."
 			},
 			"issues": [
 				{
 					"translations": {
-						"fr": "*Vous en profitez pour amasser quelques pièces d'or récupérés çà et là. ",
-						"en": "*You take advantage of the situation to gather some gold here and there."
+						"fr": "Vous en profitez pour amasser quelques pièces d'or récupérés çà et là.",
+						"en": "You take advantage of the situation to gather some gold here and there."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -148,8 +148,8 @@
 				},
 				{
 					"translations": {
-						"fr": "*Vous vous faites repérer par des gens, mais réussissez à vous enfuir.",
-						"en": "*You get caught but succeed in running away."
+						"fr": "Vous vous faites repérer par des gens, mais réussissez à vous enfuir.",
+						"en": "You get caught but succeed in running away."
 					},
 					"lostTime": 0,
 					"health": 0,
@@ -160,8 +160,8 @@
 				},
 				{
 					"translations": {
-						"fr": "*Vous vous faites repérer par des gens. Énervés, ces derniers vous roustent promptement.",
-						"en": "*You get caught. The victims decide to hurt you badly."
+						"fr": "Vous vous faites repérer par des gens. Énervés, ces derniers vous roustent promptement.",
+						"en": "You get caught. The victims decide to hurt you badly."
 					},
 					"lostTime": 0,
 					"health": -20,
@@ -174,14 +174,14 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Continuer sans s'arrêter",
+				"fr": "Continuer sans s'arrêter.",
 				"en": "Continue without stopping."
 			},
 			"issues": [
 				{
 					"translations": {
 						"fr": "Les habitants vous ayant vu prennent cela pour une marque d'impolitesse et vous volent votre bourse.",
-						"en": "The locals caught sight of you and interpreted your action as disrespect and as such, take all your belongings. "
+						"en": "The locals caught sight of you and interpreted your action as disrespect and as such, take all your belongings."
 					},
 					"lostTime": 0,
 					"health": 0,

@@ -7,7 +7,7 @@
 		"🌉": {
 			"translations": {
 				"fr": "Prendre le risque d'emprunter ce pont.",
-				"en": "Take a risk crossing the bridge"
+				"en": "Take a risk crossing the bridge."
 			},
 			"issues": [
 				{
@@ -62,7 +62,7 @@
 		},
 		"🚶": {
 			"translations": {
-				"fr": "Chercher un autre chemin un peu plus loin",
+				"fr": "Chercher un autre chemin un peu plus loin.",
 				"en": "Find another way forward."
 			},
 			"issues": [

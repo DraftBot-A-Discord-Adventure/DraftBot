@@ -36,8 +36,8 @@
 				},
 				{
 					"translations": {
-						"fr": "L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l’idée d’obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l’idée de créer votre propre arme. !",
-						"en": "The worker sees you and suggests that you make a sword with him. Enthusiastic about getting a new weapon, you accept. You don't take long to clumsily drop your heavy creation onto your foot. Seriously wounded, you give up the idea of creating your own weapon.!"
+						"fr": "L'ouvrier vous aperçoit et vous propose de vous fabriquer une épée avec lui. Enthousiasmé à l’idée d’obtenir une nouvelle arme, vous acceptez. Maladroit, vous ne mettez pas longtemps à échapper votre lourde création sur le pied. Gravement blessé, vous abandonnez l’idée de créer votre propre arme.",
+						"en": "The worker sees you and suggests that you make a sword with him. Enthusiastic about getting a new weapon, you accept. You don't take long to clumsily drop your heavy creation onto your foot. Seriously wounded, you give up the idea of creating your own weapon."
 					},
 					"lostTime": 0,
 					"health": -70,

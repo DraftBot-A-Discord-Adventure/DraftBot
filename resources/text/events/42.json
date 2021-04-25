@@ -63,12 +63,12 @@
 		"😎": {
 			"translations": {
 				"fr": "Faire mine de vous éloigner pour revenir seul fouiller la grotte",
-				"en": "Feign to go on your way with the plan to come back explore alone."
+				"en": "Feign to go on your way with the plan to come back explore alone"
 			},
 			"issues": [
 				{
 					"translations": {
-						"fr": "Après avoir cherché la grotte durant une heure vous abandonnez les recherches et repartez bredouille. ",
+						"fr": "Après avoir cherché la grotte durant une heure vous abandonnez les recherches et repartez bredouille.",
 						"en": "After exploring the cave for an hour you abandon the search and leave empty-handed."
 					},
 					"lostTime": 60,
@@ -136,7 +136,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Elle vous indique une taverne à quelques kilomètres, et vous vous y rendez, remplissez l’estomac et reposez. Après avoir réglé l’addition vous reprenez votre marche. ",
+						"fr": "Elle vous indique une taverne à quelques kilomètres, et vous vous y rendez, remplissez l’estomac et reposez. Après avoir réglé l’addition vous reprenez votre marche.",
 						"en": "She provides the direction for a tavern a few kilometres from here. You go there, eat well and rest well. After paying your bill, you get back on the road."
 					},
 					"lostTime": 60,

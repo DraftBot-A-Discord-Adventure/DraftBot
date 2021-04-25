@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "🏰 Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.\n\n:🔎: Entrer pour fouiller le château.\n➡️ Continuer votre route\n🔁 Faire le tour du château par l'extérieur\n",
-		"en": "🏰 After following a small river for hours, you discover what seems to be a abandoned castle by the riverside.\n\n:🔎: Enter and explore the castle.\n➡️ Continue walking\n🔁 Walk around the castle's exterior\n"
+		"fr": "🏰 Après avoir suivi pendant de longues heures une rivière, vous découvrez un vieux château qui semble abandonné au bord de l'eau.",
+		"en": "🏰 After following a small river for hours, you discover what seems to be a abandoned castle by the riverside."
 	},
 	"possibilities": {
 		"🔎": {
@@ -50,8 +50,8 @@
 		},
 		"➡️": {
 			"translations": {
-				"fr": "Continuer votre route",
-				"en": "Continue walking"
+				"fr": "Continuer votre route.",
+				"en": "Continue walking."
 			},
 			"issues": [
 				{
@@ -69,6 +69,10 @@
 			]
 		},
 		"🔁": {
+			"translations": {
+				"fr": "Faire le tour du château par l'extérieur.",
+				"en": "Walk around the castle's exterior."
+			},
 			"issues": [
 				{
 					"translations": {

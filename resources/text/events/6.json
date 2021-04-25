@@ -24,8 +24,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous passez quelques minutes à explorer la grotte de fond en comble et trouvez un objet qui pourra peut être vous servir... !",
-						"en": "You spend a few minutes exploring the cave from top to bottom and find an object which may be useful... !"
+						"fr": "Vous passez quelques minutes à explorer la grotte de fond en comble et trouvez un objet qui pourra peut être vous servir...",
+						"en": "You spend a few minutes exploring the cave from top to bottom and find an object which may be useful..."
 					},
 					"lostTime": 20,
 					"health": 0,

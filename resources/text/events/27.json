@@ -140,8 +140,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous observez bêtement l'objet pendant 20 minutes puis repartez.",
-						"en": "You blankly stare at the object for 20 minutes, then leave."
+						"fr": "👀 Vous observez bêtement l'objet pendant 20 minutes puis repartez.",
+						"en": "👀 You blankly stare at the object for 20 minutes, then leave."
 					},
 					"lostTime": 20,
 					"health": 0,
@@ -152,8 +152,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez, heureusement vous arrivez à rapidement remonter nous sans vous être sévèrement blessé.",
-						"en": "Leaning over the well, you observe the object. It is then that you fall over. Fortunately, you manage to quickly climb back up, but you emerge from this adventure seriously injured."
+						"fr": "👀 Vous observez, penché au dessus du puits, l'objet. C'est alors que vous basculez, heureusement vous arrivez à rapidement remonter nous sans vous être sévèrement blessé.",
+						"en": "👀 Leaning over the well, you observe the object. It is then that you fall over. Fortunately, you manage to quickly climb back up, but you emerge from this adventure seriously injured."
 					},
 					"lostTime": 0,
 					"health": -45,
