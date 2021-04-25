@@ -1,8 +1,9 @@
 {
 	"translations": {
 		"fr": {
-			"doEvent": ":newspaper: ** Journal de {pseudo} {event}",
-			"doPossibility": ":newspaper: ** Journal de {pseudo} {result} {event}",
+			"doEvent": ":newspaper: ** Journal de {pseudo} : ** {event}\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part.*",
+			"doChoice": "{emoji} {choiceText}\n",
+			"doPossibility": ":newspaper: ** Journal de {pseudo} {result} ** | {emoji}{event}",
 			"points": " :** :medal: Points gagnés : ** {score}",
 			"money": "** | :moneybag: Argent gagné : ** {money}",
 			"experience": "** | :star: XP gagné : ** {experience}",
@@ -23,8 +24,9 @@
 			"journal": "Journal de {pseudo}"
 		},
 		"en": {
-			"doEvent": ":newspaper: ** Journal of {pseudo} {event}",
-			"doPossibility": ":newspaper: ** Journal of {pseudo} {result} {event}",
+			"doEvent": ":newspaper: ** Journal of {pseudo} : ** {event}\n*-Use reactions to make an action ⚠️ Not responding is considered a separate choice!*",
+			"doChoice": "{emoji} {choiceText}\n",
+			"doPossibility": ":newspaper: ** Journal of {pseudo} {result} ** | {emoji}{event}",
 			"points": " :** :medal: Points earned: ** {score}",
 			"money": "** | :moneybag: Money earned: ** {money}",
 			"experience": "** | :star: XP earned: ** {experience}",

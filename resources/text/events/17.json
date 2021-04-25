@@ -1,212 +1,244 @@
 {
 	"translations": {
-		"fr": " : ** 🍲 Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.\n\n🍎 Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits\n🍄 Cueillir les champignons.\n🥗 Concocter une salade avec les plantes que vous trouvez\n🦌 Tenter de chasser un animal sauvage\n🚶 Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part !* ",
-		"en": " : ** 🍲 Hungry after your day of travel, you decide to stop and look for something to eat around you.\n\n🍎 Climb the huge tree facing you and get fruit from it.\n🍄 Gather mushrooms.\n🥗 Make a salad with the plants you find.\n🦌 Attempt to hunt a wild animal\n🚶 Forget eating here. Leave in hopes of finding a better place to eat.\n\n*-Use the reactions to take an action. ⚠️ Not reacting is also considered a choice!*"
+		"fr": "🍲 Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.",
+		"en": "🍲 Hungry after your day of travel, you decide to stop and look for something to eat around you."
 	},
 	"possibilities": {
-		"🍎": [
-			{
-				"translations": {
-					"fr": "** | 🍎 Vous grimpez le plus haut possible et décrochez un fruit. Vous comblez rapidement votre faim et sentez vos forces se revigorer de cet apport de sucre.",
-					"en": "** | 🍎 You climb as high as you can and pick fruit. You quickly satisfy your hunger and feel your strength revitalised by this sugary boost."
-				},
-				"lostTime": 0,
-				"health": 15,
-				"effect": ":smiley:",
-				"experience": 350,
-				"money": 0,
-				"item": false
+		"🍎": {
+			"translations": {
+				"fr": "Escalader l'immense arbre qui vous fait face afin d'en récupérer les fruits",
+				"en": "Climb the huge tree facing you and get fruit from it."
 			},
-			{
-				"translations": {
-					"fr": "** | 🍎 Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'effondre sous votre poids ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprenez votre route. 😖",
-					"en": "** | 🍎 As you were about to pick fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way. 😖"
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous grimpez le plus haut possible et décrochez un fruit. Vous comblez rapidement votre faim et sentez vos forces se revigorer de cet apport de sucre.",
+						"en": "You climb as high as you can and pick fruit. You quickly satisfy your hunger and feel your strength revitalised by this sugary boost."
+					},
+					"lostTime": 0,
+					"health": 15,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": -10,
-				"effect": ":confounded:",
-				"experience": 0,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Alors que vous vous apprêtiez à cueillir un fruit au sommet de l'arbre, la branche qui vous soutenait s'effondre sous votre poids ! Sonné par votre chute, vous décidez d'abandonner votre repas et reprenez votre route.",
+						"en": "As you were about to pick fruit from the top of the tree, the branch supporting you snaps under your weight! Stunned by your fall, you decide to give up on your meal and go back on your way."
+					},
+					"lostTime": 0,
+					"health": -10,
+					"effect": ":confounded:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous cueillez rapidement un fruit et croquez vigoureusement dedans... Ce n'est que quelques heures plus tard que vous prendrez mesure de votre erreur.",
+						"en": "You quickly pick fruit and eagerly take a large bite... It's only a few hours later you realize your mistake."
+					},
+					"lostTime": 0,
+					"health": -15,
+					"effect": ":sick:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🍄": {
+			"translations": {
+				"fr": "Cueillir les champignons.",
+				"en": "Gather mushrooms."
 			},
-			{
-				"translations": {
-					"fr": "** | 🍎 Vous cueillez rapidement un fruit et croquez vigoureusement dedans... Ce n'est que quelques heures plus tard que vous prendrez mesure de votre erreur. 🤢",
-					"en": "** | 🍎 You quickly pick fruit and eagerly take a large bite... It's only a few hours later you realize your mistake. 🤢"
+			"issues": [
+				{
+					"translations": {
+						"fr": "Alors que vous vous penchez pour ramasser les champignons, vous apercevez un étrange objet briller sur le sol...",
+						"en": "As you bend down to pick up the mushrooms, you see a strange object shining on the ground..."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 450,
+					"money": 0,
+					"item": true
 				},
-				"lostTime": 0,
-				"health": -15,
-				"effect": ":sick:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🍄": [
-			{
-				"translations": {
-					"fr": "** | 🍄 Alors que vous vous penchez pour ramasser les champignons, vous apercevez un étrange objet briller sur le sol...",
-					"en": "** | 🍄 As you bend down to pick up the mushrooms, you see a strange object shining on the ground..."
+				{
+					"translations": {
+						"fr": "Vous ramassez quelques champignons avant de remarquer que vous n'avez rien pour les cuisiner. Abandonnant votre cueillette, vous reprenez la route.",
+						"en": "You pick a few mushrooms before you notice that you have nothing to cook them with. Abandoning the hunt, you go back to the road."
+					},
+					"lostTime": 55,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 450,
-				"money": 0,
-				"item": true
+				{
+					"translations": {
+						"fr": "Vous croquez à pleine dents dans un champignon rouge avec des petits points blancs... et regrettez rapidement cette action !",
+						"en": "You bite into a red mushroom with small white dots... and quickly regret this action!"
+					},
+					"lostTime": 0,
+					"health": -40,
+					"effect": ":dizzy_face:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🥗": {
+			"translations": {
+				"fr": "Concocter une salade avec les plantes que vous trouvez.",
+				"en": "Make a salad with the plants you find."
 			},
-			{
-				"translations": {
-					"fr": "** | 🍄 Vous ramassez quelques champignons avant de remarquer que vous n'avez rien pour les cuisiner. Abandonnant votre cueillette, vous reprenez la route. ",
-					"en": "** | 🍄 You pick a few mushrooms before you notice that you have nothing to cook them with. Abandoning the hunt, you go back to the road. "
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous effectuez une petite cueillette et avalez votre préparation. Fort de l'énergie apportée par ce repas, vous reprenez votre route.",
+						"en": "You pick a small amount and eat your meal. With the energy provided by it, you head back on your way."
+					},
+					"lostTime": 0,
+					"health": 5,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 55,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprenez donc votre route sans rien manger.",
+						"en": "After some research, you don't really find any plants satisfying your hunger, so head back on your way without eating anything."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":drooling_face:",
+					"experience": 20,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous changez rapidement d'avis en regardant autour de vous et en découvrant l'épaisse végétation qui vous empêcherait de cueillir quoi que ce soit. Sans perdre plus de temps, vous reprenez votre route.",
+						"en": "You quickly change your mind. While looking around, you discover thick vegetation preventing you from gathering anything. Without wasting any more time, you continue on your journey."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🦌": {
+			"translations": {
+				"fr": "Tenter de chasser un animal sauvage.",
+				"en": "Attempt to hunt a wild animal."
 			},
-			{
-				"translations": {
-					"fr": "** | 🍄 Vous croquez à pleine dents dans un champignon rouge avec des petits points blancs... et regrettez rapidement cette action ! 😵",
-					"en": "** | 🍄 You bite into a red mushroom with small white dots... and quickly regret this action! 😵"
+			"issues": [
+				{
+					"translations": {
+						"fr": "Aucun animal en vue, vous reprenez donc votre route sans plus attendre",
+						"en": "With no animals in sight, you continue your journey without further delay"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": -40,
-				"effect": ":dizzy_face:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🥗": [
-			{
-				"translations": {
-					"fr": "** | 🥗 Vous effectuez une petite cueillette et avalez votre préparation. Fort de l'énergie apportée par ce repas, vous reprenez votre route.",
-					"en": "** | 🥗 You pick a small amount and eat your meal. With the energy provided by it, you head back on your way."
+				{
+					"translations": {
+						"fr": "Après une course poursuite effrénée avec un animal sauvage, celui-ci cesse de vous fuir et vous charge furieusement. Abasourdi par la violence de l'attaque, vous ne parvenez pas à l'éviter et subissez la totale colère de la bête. Gravement blessé, il vous faudra du temps avant de reprendre votre aventure",
+						"en": "After a long frantic chase with a wild animal, it stops fleeing and charges you furiously. Stunned by the force of the attack, you are unable to dodge and suffer the beast's wrath. Seriously injured, it will take time before you can resume your adventure"
+					},
+					"lostTime": 0,
+					"health": -60,
+					"effect": ":dizzy_face:",
+					"experience": 0,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 5,
-				"effect": ":smiley:",
-				"experience": 350,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Vous transpercez rapidement quelques petits animaux de votre lame et dévorez vos proies avec grand appétit avant de reprendre la route, repu.",
+						"en": "You quickly stab some critters with your blade and eat your prey with great hunger before continuing on your journey, full."
+					},
+					"lostTime": 0,
+					"health": 20,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🚶": {
+			"translations": {
+				"fr": "Abandonner l'idée de manger ici et repartir dans l'espoir de trouver un meilleur lieu pour vous repaître.",
+				"en": "Forget eating here. Leave in hopes of finding a better place to eat."
 			},
-			{
-				"translations": {
-					"fr": "** | 🥗 Après quelques recherches, vous ne trouvez pas vraiment de plantes satisfaisant votre faim et reprenez donc votre route sans rien manger. 🤤",
-					"en": "** | 🥗 After some research, you don't really find any plants satisfying your hunger, so head back on your way without eating anything. 🤤 "
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous continuez votre route sans perdre plus de temps.",
+						"en": "You continue your journey without wasting any more time."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":drooling_face:",
-				"experience": 20,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🥗 Vous changez rapidement d'avis en regardant autour de vous et en découvrant l'épaisse végétation qui vous empêcherait de cueillir quoi que ce soit. Sans perdre plus de temps, vous reprenez votre route.",
-					"en": "** | 🥗 You quickly change your mind. While looking around, you discover thick vegetation preventing you from gathering anything. Without wasting any more time, you continue on your journey."
+				{
+					"translations": {
+						"fr": "Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route.",
+						"en": "You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":sleeping:",
+					"experience": 20,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Après quelques instants de reflexion vous décidez de reprendre la route promptement.",
+						"en": "🚶 After a few moments of reflection you decide to quickly continue on your journey."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🦌": [
-			{
-				"translations": {
-					"fr": "** | 🦌 Aucun animal en vue, vous reprenez donc votre route sans plus attendre",
-					"en": "** | 🦌 With no animals in sight, you continue your journey without further delay"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🦌 Après une course poursuite effrénée avec un animal sauvage, celui-ci cesse de vous fuir et vous charge furieusement. Abasourdi par la violence de l'attaque, vous ne parvenez pas à l'éviter et subissez la totale colère de la bête. Gravement blessé, il vous faudra du temps avant de reprendre votre aventure 😵",
-					"en": "** | 🦌 After a long frantic chase with a wild animal, it stops fleeing and charges you furiously. Stunned by the force of the attack, you are unable to dodge and suffer the beast's wrath. Seriously injured, it will take time before you can resume your adventure 😵"
-				},
-				"lostTime": 0,
-				"health": -60,
-				"effect": ":dizzy_face:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🦌 Vous transpercez rapidement quelques petits animaux de votre lame et dévorez vos proies avec grand appétit avant de reprendre la route, repu.",
-					"en": "** | 🦌 You quickly stab some critters with your blade and eat your prey with great hunger before continuing on your journey, full."
-				},
-				"lostTime": 0,
-				"health": 20,
-				"effect": ":smiley:",
-				"experience": 350,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🚶": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous continuez votre route sans perdre plus de temps.",
-					"en": "** | 🚶 You continue your journey without wasting any more time."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous décidez de ne pas vous repaître. Mais finissez par regretter cette décision quelques heures plus tard. Affamé, vous décidez de prendre un peu de repos avant de reprendre la route. 😴",
-					"en": "** | 🚶 You decide to not eat, but eventually regret this decision a few hours later. Hungry, you decide to take a little nap before getting back on the road. 😴"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":sleeping:",
-				"experience": 20,
-				"money": 0,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Après quelques instants de reflexion vous décidez de reprendre la route promptement.",
-					"en": "** | 🚶 After a few moments of reflection you decide to quickly continue on your journey."
-				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous cherchez une autre source de nourriture pendant quelques instants mais vous vous rendez compte au bout de longues recherches que ces dernières sont vaines. Pas convaincu par les options qui s'offrent à vous, vous reprenez votre route.",
-					"en": "** | 🚶 You look for another food source, but after a long search you realize that there aren't any food sources. Not convinced by the options available to you, you go back on your way."
-				},
-				"lostTime": 260,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "🚶 Vous cherchez une autre source de nourriture pendant quelques instants mais vous vous rendez compte au bout de longues recherches que ces dernières sont vaines. Pas convaincu par les options qui s'offrent à vous, vous reprenez votre route.",
+						"en": "🚶 You look for another food source, but after a long search you realize that there aren't any food sources. Not convinced by the options available to you, you go back on your way."
+					},
+					"lostTime": 260,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

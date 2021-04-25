@@ -295,9 +295,20 @@ class Database {
 
 			if (!Database.isEventValid(fileContent)) continue;
 
-			fileContent.fr = fileContent.translations.fr;
-			fileContent.en = fileContent.translations.en;
-
+			fileContent.fr = fileContent.translations.fr + "\n\n";
+			fileContent.en = fileContent.translations.en + "\n\n";
+			for (const possibilityKey of Object.keys(fileContent.possibilities)) {
+				if(possibilityKey !== "end") {
+					fileContent.fr = fileContent.fr + format(JsonReader.commands.report.getTranslation("fr").doChoice, {
+						emoji: possibilityKey,
+						choiceText: fileContent.possibilities[possibilityKey].translations.fr
+					});
+					fileContent.en = fileContent.en + format(JsonReader.commands.report.getTranslation("en").doChoice, {
+						emoji: possibilityKey,
+						choiceText: fileContent.possibilities[possibilityKey].translations.en
+					});
+				}
+			}
 			eventsContent.push(fileContent);
 
 			for (const possibilityKey of Object.keys(
@@ -305,7 +316,7 @@ class Database {
 			)) {
 				for (const possibility of fileContent.possibilities[
 					possibilityKey
-					]) {
+					].issues) {
 					const possibilityContent = {
 						possibilityKey: possibilityKey,
 						lostTime: possibility.lostTime,
@@ -352,7 +363,7 @@ class Database {
 		}
 		let endPresent = false;
 		const effects = JsonReader.models.players.effectMalus;
-		const possibilityFields = [
+		const issuesFields = [
 			"lostTime",
 			"health",
 			"effect",
@@ -361,70 +372,102 @@ class Database {
 			"item",
 			"translations",
 		];
+		const possibilityFields = [
+			"translations",
+			"issues"
+		];
 		for (const possibilityKey of Object.keys(event.possibilities)) {
-			if (possibilityKey === "end") endPresent = true;
-			for (const possibility of event.possibilities[possibilityKey]) {
+			if (possibilityKey === "end") {
+				endPresent = true;
+				if (Object.keys(event.possibilities[possibilityKey]).includes(possibilityFields[0])) {
+					Database.sendEventLoadError(event,
+						"Key present in possibility " +
+						possibilityKey +
+						": " +
+						possibilityFields[i]);
+					return false;
+				}
+				if (!Object.keys(event.possibilities[possibilityKey]).includes(possibilityFields[1])) {
+					Database.sendEventLoadError(event,
+						"Key missing in possibility " +
+						possibilityKey +
+						": " +
+						possibilityFields[i]);
+					return false;
+				}
+			}
+			else {
 				for (let i = 0; i < possibilityFields.length; ++i) {
-					if (
-						!Object.keys(possibility).includes(possibilityFields[i])
-					) {
-						Database.sendEventLoadError(
-							event,
+					if (!Object.keys(event.possibilities[possibilityKey]).includes(possibilityFields[i])) {
+						Database.sendEventLoadError(event,
 							"Key missing in possibility " +
 							possibilityKey +
 							": " +
-							field
-						);
+							possibilityFields[i]);
 						return false;
 					}
-					if (possibility.translations.fr === undefined) {
+				}
+				if (event.possibilities[possibilityKey].translations.fr === undefined) {
+					Database.sendEventLoadError(
+						event,
+						"French translation missing in possibility " +
+						possibilityKey
+					);
+					return false;
+				}
+				if (event.possibilities[possibilityKey].translations.en === undefined) {
+					Database.sendEventLoadError(
+						event,
+						"English translation missing in possibility " +
+						possibilityKey
+					);
+					return false;
+				}
+			}
+			for (const issue of event.possibilities[possibilityKey].issues) {
+				for (let i = 0; i < issuesFields.length; ++i) {
+					if (!Object.keys(issue).includes(issuesFields[i])) {
 						Database.sendEventLoadError(
 							event,
-							"French translation missing in possibility " +
-							possibilityKey
+							"Key missing in possibility " +
+							possibilityKey + " " + str(i) +
+							": " +
+							issuesFields[i]
 						);
 						return false;
 					}
-					if (possibility.translations.en === undefined) {
-						Database.sendEventLoadError(
-							event,
-							"English translation missing in possibility " +
-							possibilityKey
-						);
-						return false;
-					}
-					if (possibility.lostTime < 0) {
-						Database.sendEventLoadError(
-							event,
-							"Lost time must be positive in possibility " +
-							possibilityKey
-						);
-						return false;
-					}
-					if (
-						possibility.lostTime > 0 &&
-						possibility.effect !== EFFECT.OCCUPIED
-					) {
-						Database.sendEventLoadError(
-							event,
-							"Time lost and no clock2 effect in possibility " +
-							possibilityKey
-						);
-						return false;
-					}
-					if (
-						effects[possibility.effect] === null ||
-						effects[possibility.effect] === undefined
-					) {
-						Database.sendEventLoadError(
-							event,
-							'Unknown effect "' +
-							possibility.effect +
-							'" in possibility ' +
-							possibilityKey
-						);
-						return false;
-					}
+				}
+				if (issue.lostTime < 0) {
+					Database.sendEventLoadError(
+						event,
+						"Lost time must be positive in issue " +
+						possibilityKey + " " + str(i)
+					);
+					return false;
+				}
+				if (
+					issue.lostTime > 0 &&
+					issue.effect !== EFFECT.OCCUPIED
+				) {
+					Database.sendEventLoadError(
+						event,
+						"Time lost and no clock2 effect in issue " +
+						possibilityKey + " " + str(i)
+					);
+					return false;
+				}
+				if (
+					effects[issue.effect] === null ||
+					effects[issue.effect] === undefined
+				) {
+					Database.sendEventLoadError(
+						event,
+						'Unknown effect "' +
+						issue.effect +
+						'" in issue ' +
+						possibilityKey + " " + str(i)
+					);
+					return false;
 				}
 			}
 		}

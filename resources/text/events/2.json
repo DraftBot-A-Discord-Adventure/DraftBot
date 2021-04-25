@@ -1,86 +1,100 @@
 {
 	"translations": {
-		"fr": " : ** 🐶 Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !\n\n🐕 Suivre le chien.\n🏃 Continuer sans se préoccuper du chien.\n\n*- Utilisez les réactions pour effectuer une action ⚠️ Ne pas répondre est considéré comme un choix à part.*",
-		"en": " : ** 🐶 In front of you, a dog arrives, and circles you. He seems to want you to follow him!\n\n🐕 Follow the dog.\n🏃 Continue without worrying about the dog.\n\n*-Use reactions to make an action ⚠️ Not responding is considered a separate choice!*"
+		"fr": "🐶 Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !",
+		"en": "🐶 In front of you, a dog arrives, and circles you. He seems to want you to follow him!"
 	},
 	"possibilities": {
-		"🐕": [
-			{
-				"translations": {
-					"fr": "** | 🐕 Vous perdez la trace du chien au bout de quelques minutes, il allait trop vite !",
-					"en": "** | 🐕 You lose track of the dog after a few minutes, he was going too fast!"
-				},
-				"lostTime": 20,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
+		"🐕": {
+			"translations": {
+				"fr": "Suivre le chien.",
+				"en": "Follow the dog."
 			},
-			{
-				"translations": {
-					"fr": "** | 🐕 Vous perdez la trace du chien au bout de quelques minutes à côté d'un arbre. En regardant autour de vous vous découvrez plein de petites pièces disséminées un peu partout !",
-					"en": "** | 🐕 You lose track of the dog after a few minutes next to a tree. Looking around you, you discover a lot of small coins scattered all over the place!"
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous perdez la trace du chien au bout de quelques minutes, il allait trop vite !",
+						"en": "You lose track of the dog after a few minutes, he was going too fast!"
+					},
+					"lostTime": 20,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 250,
-				"money": 176,
-				"item": false
-			}
-		],
-		"🏃": [
-			{
-				"translations": {
-					"fr": "** | 🏃 Après 15 minutes de poursuite vous parvenez à semer le chien, il ne semblait pas très amical !",
-					"en": "** | 🏃 After 15 minutes of chasing you manage to lose the dog, he didn't seem very friendly!"
-				},
-				"lostTime": 15,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Vous perdez la trace du chien au bout de quelques minutes à côté d'un arbre. En regardant autour de vous vous découvrez plein de petites pièces disséminées un peu partout !",
+						"en": "You lose track of the dog after a few minutes next to a tree. Looking around you, you discover a lot of small coins scattered all over the place!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 250,
+					"money": 176,
+					"item": false
+				}
+			]
+		},
+		"🏃": {
+			"translations": {
+				"fr": "Continuer sans se préoccuper du chien.",
+				"en": "Continue without worrying about the dog."
 			},
-			{
-				"translations": {
-					"fr": "** | 🏃 Vous continuez sans vous soucier du chien. Celui-ci n'insiste pas.",
-					"en": "** | 🏃 You continue on your way. The dog does not seem to follow you."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Après 15 minutes de poursuite vous parvenez à semer le chien, il ne semblait pas très amical !",
+						"en": "After 15 minutes of chasing you manage to lose the dog, he didn't seem very friendly!"
+					},
+					"lostTime": 15,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🏃 En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer ! 🤕",
-					"en": "** | 🏃 When you try fleeing, you suddenly fall into a ditch. The injury is serious... You'll have to get better before you continue! 🤕"
+				{
+					"translations": {
+						"fr": "Vous continuez sans vous soucier du chien. Celui-ci n'insiste pas.",
+						"en": "You continue on your way. The dog does not seem to follow you."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": -15,
-				"effect": ":head_bandage:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 🐶 Vous avez pris la décision de ne pas bouger, cela ne semble pas plaire au chien puisque celui-ci mord sauvagement avant de s'enfuir !",
-					"en": "** | 🐶 You decided not to move, the dog mustn't have liked it as it bit you and ran away!"
-				},
-				"lostTime": 0,
-				"health": -10,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "En voulant fuir, vous tombez brutalement dans un fossé, la blessure est profonde... Il faudra vous soigner avant de continuer !",
+						"en": "When you try fleeing, you suddenly fall into a ditch. The injury is serious... You'll have to get better before you continue!"
+					},
+					"lostTime": 0,
+					"health": -15,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🐶 Vous avez pris la décision de ne pas bouger, cela ne semble pas plaire au chien puisque celui-ci mord sauvagement avant de s'enfuir !",
+						"en": "🐶 You decided not to move, the dog mustn't have liked it as it bit you and ran away!"
+					},
+					"lostTime": 0,
+					"health": -10,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }
