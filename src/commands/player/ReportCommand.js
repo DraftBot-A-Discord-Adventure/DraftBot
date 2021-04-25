@@ -326,7 +326,8 @@ const doPossibility = async (message, language, possibility, entity, time, force
 			return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 				pseudo: message.author,
 				result: "",
-				event: possibility[0].dataValues[language]
+				event: possibility[0].dataValues[language],
+				emoji: ""
 			}));
 		}
 	}
@@ -361,11 +362,21 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
 		result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime)});
 	}
-	result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
-		pseudo: message.author,
-		result: result,
-		event: possibility[language]
-	});
+	if (possibility.dataValues.possibilityKey === "end") {
+		result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
+			pseudo: message.author,
+			result: result,
+			event: possibility[language],
+			emoji: ""
+		});
+	} else {
+		result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
+			pseudo: message.author,
+			result: result,
+			event: possibility[language],
+			emoji: possibility.dataValues.possibilityKey + " "
+		});
+	}
 
 	entity.effect = pDataValues.effect;
 	await entity.addHealth(pDataValues.health);
