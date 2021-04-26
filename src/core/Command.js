@@ -294,17 +294,7 @@ class Command {
 						JsonReader.bot.getTranslation(language).noSpeakPermission
 					)
 				} catch (err) {
-					/*try {
-						await message.react('🇳');
-						await message.react('🆔');
-						await message.react('🇵');
-						await message.react('🇪');
-						await message.react('🇷');
-						await message.react('🇲');
-						await message.react('🇸');
-					} catch (err) {*/
 						log('No perms to show i can\'t react in server / channel : ' + message.guild + "/" + message.channel);
-					//}
 				}
 				return;
 			}
