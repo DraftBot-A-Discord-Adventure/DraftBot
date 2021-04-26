@@ -129,41 +129,34 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {String|string}
 	 */
 	PetEntities.getLoveLevel = (pet_entity, language) => {
-		if (language == "fr" && pet_entity.sex === "f") {
-			if (pet_entity.lovePoints <= PETS.LOVE_LEVELS[0])
-				return JsonReader.models.pets
-					.getTranslation(language)
-					.lovelevels[1].slice(0, -1)
-					.concat("se");
-			else if (
-				pet_entity.lovePoints >= PETS.LOVE_LEVELS[1] &&
-				pet_entity.lovePoints <= PETS.LOVE_LEVELS[2]
-			)
-				return JsonReader.models.pets
-					.getTranslation(language)
-					.lovelevels[3].slice(0, -1)
-					.concat("ve");
-			else if (
-				pet_entity.lovePoints >= PETS.LOVE_LEVELS[2] &&
-				pet_entity.lovePoints < PETS.MAX_LOVE_POINTS
-			)
-				return JsonReader.models.pets
-					.getTranslation(language)
-					.lovelevels[4].concat("e");
-			else if (pet_entity.lovePoints == PETS.MAX_LOVE_POINTS)
-				return JsonReader.models.pets
-					.getTranslation(language)
-					.lovelevels[5].concat("e");
+		let translations = JsonReader.models.pets.getTranslation(language);
+		let loveLevel;
+		if (pet_entity.lovePoints <= PETS.LOVE_LEVELS[0]) {
+			loveLevel = language == LANGUAGE.FRENCH ? format(translations.loveLevels[0], {
+				typeSuffix: pet_entity.sex === PETS.FEMALE ? "se" : "x"
+			}) : translations.loveLevels[0];
+		} else if (pet_entity.lovePoints > PETS.LOVE_LEVELS[0] && pet_entity.lovePoints <= PETS.LOVE_LEVELS[1]) {
+			loveLevel = translations.loveLevels[1];
+		} else if (
+			pet_entity.lovePoints > PETS.LOVE_LEVELS[1] &&
+			pet_entity.lovePoints <= PETS.LOVE_LEVELS[2]
+		) {
+			loveLevel = language == LANGUAGE.FRENCH ? format(translations.loveLevels[2], {
+				typeSuffix: pet_entity.sex === PETS.FEMALE ? "ve" : "f"
+			}) : translations.loveLevels[2];
+		} else if (
+			pet_entity.lovePoints > PETS.LOVE_LEVELS[2] &&
+			pet_entity.lovePoints < PETS.MAX_LOVE_POINTS
+		) {
+			loveLevel = language == LANGUAGE.FRENCH ? format(translations.loveLevels[3], {
+				typeSuffix: pet_entity.sex === PETS.FEMALE ? "ée" : "é"
+			}) : translations.loveLevels[3];
+		} else if (pet_entity.lovePoints == PETS.MAX_LOVE_POINTS) {
+			loveLevel = language == LANGUAGE.FRENCH ? format(translations.loveLevels[4], {
+				typeSuffix: pet_entity.sex === PETS.FEMALE ? "ée" : "é"
+			}) : translations.loveLevels[4];
 		}
-		return pet_entity.lovePoints == PETS.MAX_LOVE_POINTS
-			? JsonReader.models.pets.getTranslation(language).lovelevels[5]
-			: pet_entity.lovePoints > PETS.LOVE_LEVELS[2]
-				? JsonReader.models.pets.getTranslation(language).lovelevels[4]
-				: pet_entity.lovePoints > PETS.LOVE_LEVELS[1]
-					? JsonReader.models.pets.getTranslation(language).lovelevels[3]
-					: pet_entity.lovePoints > PETS.LOVE_LEVELS[0]
-						? JsonReader.models.pets.getTranslation(language).lovelevels[2]
-						: JsonReader.models.pets.getTranslation(language).lovelevels[1];
+		return loveLevel;
 	};
 
 	/**

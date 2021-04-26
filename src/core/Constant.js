@@ -159,6 +159,8 @@ global.TOPGG = {
 };
 
 global.PETS = {
+	MALE : "m",
+	FEMALE : "f",
 	FREE_COOLDOWN: 60 * 60 * 1000, // 1 hour
 	BREED_COOLDOWN: 60 * 60 * 1000, // 1 hour
 	MAX_LOVE_POINTS: 100,
