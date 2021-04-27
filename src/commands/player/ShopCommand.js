@@ -394,8 +394,8 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
  * Clear all player alterations
  */
 function healAlterations(message, language, entity, customer, selectedItem) {
-	if (entity.effect !== EFFECT.DEAD && entity.effect !== EFFECT.LOCKED) {
-		entity.effect = EFFECT.SMILEY;
+	if (entity.Player.effect !== EFFECT.DEAD && entity.Player.effect !== EFFECT.LOCKED) {
+		entity.Player.effect = EFFECT.SMILEY;
 		entity.Player.lastReportAt = new Date(message.createdTimestamp);
 	}
 	message.channel.send(

@@ -15,7 +15,7 @@ const ProfileCommand = async function (language, message, args) {
 		return;
 	}
 
-	let titleEffect = entity.effect;
+	let titleEffect = entity.Player.effect;
 	const fields = [
 		{
 			name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
@@ -79,7 +79,7 @@ const ProfileCommand = async function (language, message, args) {
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).timeLeft.fieldName,
 				value: format(JsonReader.commands.profile.getTranslation(language).timeLeft.fieldValue, {
-					effect: entity.effect,
+					effect: entity.Player.effect,
 					timeLeft: minutesToString(millisecondsToMinutes(entity.Player.lastReportAt.getTime() - message.createdAt.getTime())),
 				}),
 			});

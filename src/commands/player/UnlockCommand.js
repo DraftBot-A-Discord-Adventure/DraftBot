@@ -48,7 +48,7 @@ const UnlockCommand = async (language, message, args) => {
 			JsonReader.commands.unlock.getTranslation(language).cannotGetlockedUser
 		);
 	}
-	if (lockedEntity.effect !== EFFECT.LOCKED) {
+	if (lockedentity.Player.effect !== EFFECT.LOCKED) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -96,7 +96,7 @@ const UnlockCommand = async (language, message, args) => {
 			[entity] = await Entities.getOrRegister(message.mentions.users.first().id); //released entity
 			[player] = await Entities.getOrRegister(message.author.id); // message author
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				entity.effect = EFFECT.SMILEY //Set free
+				entity.Player.effect = EFFECT.SMILEY //Set free
 				player.Player.addMoney(-UNLOCK.PRICE_FOR_UNLOCK); //Remove money
 				await Promise.all([
 					entity.save(),

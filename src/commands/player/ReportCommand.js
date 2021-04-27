@@ -26,7 +26,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 		}
 	}, 500);
 
-	if (entity.Player.score === 0 && entity.effect === EFFECT.BABY) {
+	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
 	}
@@ -309,7 +309,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		});
 	}
 
-	entity.effect = pDataValues.effect;
+	entity.Player.effect = pDataValues.effect;
 	await entity.addHealth(pDataValues.health);
 
 	player.addScore(scoreChange);

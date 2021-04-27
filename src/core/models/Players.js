@@ -354,7 +354,7 @@ module.exports = (Sequelize, DataTypes) => {
 			return false;
 		}
 		log("This user is dead : " + entity.discordUser_id);
-		entity.effect = EFFECT.DEAD;
+		entity.Player.effect = EFFECT.DEAD;
 		this.lastReportAt = new Date(9999, 1);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
 

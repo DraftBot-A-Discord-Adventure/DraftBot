@@ -155,7 +155,7 @@ const TestCommand = async (language, message, args) => {
 				case 'jail':
 					[entity] = await Entities.getOrRegister(message.mentions.users.first().id);
 					if (entity) {
-						entity.effect = EFFECT.LOCKED
+						entity.Player.effect = EFFECT.LOCKED
 						await Promise.all([
 						entity.save(),
 						entity.Player.save(),

@@ -11,12 +11,12 @@ const RespawnCommand = async (language, message, args) => {
 		return;
 	}
 
-	if (entity.effect !== EFFECT.DEAD) {
+	if (entity.Player.effect !== EFFECT.DEAD) {
 		await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.respawn.getTranslation(language).alive, {pseudo: message.author.username}));
 	} else {
 		const lostScore = Math.round(entity.Player.score * JsonReader.commands.respawn.score_remove_during_respawn);
 
-		entity.effect = EFFECT.SMILEY;
+		entity.Player.effect = EFFECT.SMILEY;
 		entity.health = await entity.getMaxHealth();
 		entity.Player.lastReportAt = require('moment')(message.createdAt).format('YYYY-MM-DD HH:mm:ss');
 		entity.Player.addScore(-lostScore);

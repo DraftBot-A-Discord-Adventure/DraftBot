@@ -18,4 +18,11 @@ ALTER TABLE potions ADD french_plural INTEGER;
 ALTER TABLE objects ADD french_masculine INTEGER;
 ALTER TABLE objects ADD french_plural INTEGER;
 
+CREATE TEMPORARY TABLE entity_backup(id TEXT, maxHealth INTEGER, health INTEGER, attack INTEGER, defense INTEGER, speed INTEGER);
+INSERT INTO entity_backup SELECT id, maxHealth, health, attack, defense, speed FROM players;
+DROP TABLE entity;
+CREATE TABLE entity(id TEXT, maxHealth INTEGER, health INTEGER, attack INTEGER, defense INTEGER, speed INTEGER);
+INSERT INTO entity SELECT * FROM entity_backup;
+DROP TABLE entity_backup;
+
 -- Down
