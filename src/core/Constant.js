@@ -191,6 +191,7 @@ global.LOGS = {
 };
 
 global.REPORT = {
+	TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000,
 	SMALL_EVENTS_COUNT: 3
 };
 
