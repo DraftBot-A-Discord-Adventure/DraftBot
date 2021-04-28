@@ -51,7 +51,7 @@ class MessageError {
 		const disallowEffect = disallowEffects.indexOf(entity.Player.effect);
 		if (disallowEffect !== -1) {
 			if (message.author.id === entity.discordUser_id) {
-				if (!entity.currentEffectFinished()) {
+				if (!entity.Player.currentEffectFinished()) {
 					return await MessageError.effectsErrorMe(message, language, entity, disallowEffects[disallowEffect]);
 				}
 			} else {
