@@ -217,10 +217,10 @@ const TestCommand = async (language, message, args) => {
 				author.Player.experience = 0;
 				author.Player.money = 0;
 				author.Player.badges = null;
-				author.Player.lastReportAt = new Date(1980, 0);
+				author.Player.effect_end_date = new Date(0);
+				author.Player.effect = ':smiley:';
 				author.Player.save();
 
-				author.effect = ':smiley:';
 				author.maxHealth = 100;
 				author.health = 100;
 				author.attack = 50;
@@ -236,7 +236,7 @@ const TestCommand = async (language, message, args) => {
 				break;
 			case 'atime':
 				if (args.length === 2) {
-					author.Player.lastReportAt -= parseInt(args[1]) * 60000;
+					author.Player.effect_end_date -= parseInt(args[1]) * 60000;
 					author.Player.save();
 				}
 				break;

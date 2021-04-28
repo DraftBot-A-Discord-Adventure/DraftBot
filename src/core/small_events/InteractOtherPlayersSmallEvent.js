@@ -94,8 +94,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			}
 		}
 		cList.push("class");
-		if (!otherEntity.checkEffect() && tr[otherentity.Player.effect]) {
-			cList.push(otherentity.Player.effect);
+		if (!otherEntity.Player.checkEffect() && tr[otherEntity.Player.effect]) {
+			cList.push(otherEntity.Player.effect);
 		}
 		if (otherEntity.Player.Inventory.weapon_id !== JsonReader.models.inventories.weapon_id) {
 			cList.push("weapon");

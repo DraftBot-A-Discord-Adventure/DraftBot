@@ -144,13 +144,13 @@ class MessageError {
 		const embed = new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.error);
 
-		if (entity.Player.effect === EFFECT.SMILEY) {
+		if (effect === EFFECT.SMILEY) {
 			embed
 				.setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsFine, {pseudo: message.author.username}), message.author.displayAvatarURL())
 				.setDescription(entity.Player.effect + JsonReader.error.getTranslation(language).notPossibleWithoutStatus);
 		}
 
-		if (entity.Player.effect === EFFECT.BABY) {
+		if (effect === EFFECT.BABY) {
 			embed
 				.setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsBaby, {pseudo: message.author.username}), message.author.displayAvatarURL())
 				.setDescription(entity.Player.effect + JsonReader.error.getTranslation(language).meIsBaby);
@@ -162,7 +162,7 @@ class MessageError {
 				.setDescription(entity.Player.effect + JsonReader.error.getTranslation(language).meIsDead);
 		}
 
-		const timeEffect = minutesToString(millisecondsToMinutes(entity.Player.lastReportAt - new Date()));
+		const timeEffect = minutesToString(millisecondsToMinutes(entity.Player.effect_end_date - new Date()));
 		if (effect === EFFECT.SLEEPING) {
 			embed
 				.setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsSleeping, {pseudo: message.author.username}), message.author.displayAvatarURL())

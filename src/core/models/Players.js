@@ -68,7 +68,11 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		effect_start_date: {
 			type: DataTypes.DATE,
-			defaultValue: new Date(0)
+			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+		},
+		effect_end_date: {
+			type: DataTypes.DATE,
+			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
 		},
 		previous_map_id: {
 			type: DataTypes.INTEGER
@@ -335,9 +339,9 @@ module.exports = (Sequelize, DataTypes) => {
 	Players.prototype.setLastReportWithEffect = function (
 		time, timeMalus, effectMalus) {
 		if (timeMalus > 0 && effectMalus === ":clock2:") {
-			this.lastReportAt = new Date(time + minutesToMilliseconds(timeMalus));
+			this.effect_end_date = new Date(time + minutesToMilliseconds(timeMalus));
 		} else {
-			this.lastReportAt = new Date(time + JsonReader.models.players.effectMalus[effectMalus]);
+			this.effect_end_date = new Date(time + JsonReader.models.players.effectMalus[effectMalus]);
 		}
 	};
 
@@ -355,7 +359,7 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 		log("This user is dead : " + entity.discordUser_id);
 		entity.Player.effect = EFFECT.DEAD;
-		this.lastReportAt = new Date(9999, 1);
+		this.effect_end_date = new Date(9999, 1);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
 
 		let guildMember = await channel.guild.members.fetch(entity.discordUser_id);
@@ -372,7 +376,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Players.prototype.isInactive = function () {
-		return (Date.now() - Date.parse(this.lastReportAt)) > JsonReader.commands.topCommand.fifth10days;
+		return (Date.now() - Date.parse(this.effect_end_date)) > JsonReader.commands.topCommand.fifth10days;
 	}
 
 	/**
@@ -392,13 +396,20 @@ module.exports = (Sequelize, DataTypes) => {
 	Players.prototype.effectRemainingTime = function () {
 		let remainingTime = 0;
 		if (JsonReader.models.players.effectMalus[this.effect]) {
-			remainingTime = this.effect_start_date.getTime() + JsonReader.models.players.effectMalus[this.effect] - Date.now();
+			remainingTime = this.effect_start_date.getTime() - Date.now();
 			if (remainingTime < 0) {
 				remainingTime = 0;
 			}
 		}
 		return remainingTime;
 	}
+
+	/**
+	 * @return {Boolean}
+	 */
+	Players.prototype.checkEffect = function () {
+		return [EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1;
+	};
 
 	return Players;
 };

@@ -218,7 +218,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
 			selectedItem.name ===
 			shopTranslations.permanentItems.healAlterations.name
 		) {
-			if (entity.currentEffectFinished()) {
+			if (entity.Player.currentEffectFinished()) {
 				return sendErrorMessage(
 					customer,
 					message.channel,
@@ -396,7 +396,7 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
 function healAlterations(message, language, entity, customer, selectedItem) {
 	if (entity.Player.effect !== EFFECT.DEAD && entity.Player.effect !== EFFECT.LOCKED) {
 		entity.Player.effect = EFFECT.SMILEY;
-		entity.Player.lastReportAt = new Date(message.createdTimestamp);
+		entity.Player.effect_end_date = new Date(message.createdTimestamp);
 	}
 	message.channel.send(
 		new discord.MessageEmbed()

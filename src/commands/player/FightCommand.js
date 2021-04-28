@@ -193,7 +193,7 @@ async function canFight(entity, bypassAlteration, bypassHealth) {
 	if (entity.Player.level < FIGHT.REQUIRED_LEVEL) {
 		return FIGHT_ERROR.WRONG_LEVEL;
 	}
-	if (!entity.currentEffectFinished() && !bypassAlteration) {
+	if (!entity.Player.currentEffectFinished() && !bypassAlteration) {
 		return FIGHT_ERROR.DISALLOWED_EFFECT;
 	}
 	if (global.hasBlockedPlayer(entity.discordUser_id)) {

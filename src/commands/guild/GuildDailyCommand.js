@@ -157,7 +157,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.FULL_HEAL) {
 		for (const i in members) {
-			if (members[i].effect !== EFFECT.DEAD) {
+			if (members[i].Player.effect !== EFFECT.DEAD) {
 				await members[i].addHealth(members[i].maxHealth);
 			}
 			await members[i].save();
@@ -180,7 +180,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
 		for (const i in members) {
-			if (members[i].effect !== EFFECT.DEAD) {
+			if (members[i].Player.effect !== EFFECT.DEAD) {
 				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
 			}
 			await members[i].save();
@@ -193,11 +193,11 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.ALTERATION) {
 		for (const i in members) {
-			if (members[i].currentEffectFinished()) {
+			if (members[i].Player.currentEffectFinished()) {
 				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
-			} else if (members[i].effect !== EFFECT.DEAD && members[i].effect !== EFFECT.LOCKED) {
-				members[i].effect = EFFECT.SMILEY;
-				members[i].Player.lastReportAt = new Date(message.createdTimestamp);
+			} else if (members[i].Player.effect !== EFFECT.DEAD && members[i].Player.effect !== EFFECT.LOCKED) {
+				members[i].Player.effect = EFFECT.SMILEY;
+				members[i].Player.effect_end_date = new Date(message.createdTimestamp);
 			}
 			await members[i].Player.save();
 			await members[i].save();
