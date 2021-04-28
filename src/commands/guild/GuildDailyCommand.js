@@ -197,7 +197,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
 			} else if (members[i].Player.effect !== EFFECT.DEAD && members[i].Player.effect !== EFFECT.LOCKED) {
 				members[i].Player.effect = EFFECT.SMILEY;
-				members[i].Player.effect_end_date = new Date(message.createdTimestamp);
+				members[i].Player.effect_end_date = 0;
 			}
 			await members[i].Player.save();
 			await members[i].save();

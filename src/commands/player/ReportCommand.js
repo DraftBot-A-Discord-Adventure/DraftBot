@@ -10,7 +10,6 @@ const Maps = require('../../core/Maps');
  */
 const ReportCommand = async function (language, message, args, forceSpecificEvent = -1, forceSmallEvent = null) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
 		return;
 	}
@@ -132,7 +131,7 @@ const chooseDestination = async function (entity, message, language) {
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
 	// TODO mettre le temps ici comme ça ça bloque pas si le bot crash
 	if (destinationMaps.length === 1) {
-		await Maps.startTravel(entity.Player, destinationMaps[0]);
+		await Maps.startTravel(entity.Player, destinationMaps[0],message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
 
@@ -158,7 +157,7 @@ const chooseDestination = async function (entity, message, language) {
 
 	collector.on('end', async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[randInt(0, destinationMaps.length - 1)];
-		await Maps.startTravel(entity.Player, mapId);
+		await Maps.startTravel(entity.Player, mapId, message.createdAt.getTime());
 		await destinationChoseMessage(entity, mapId, message, language);
 	});
 
@@ -258,7 +257,8 @@ const doPossibility = async (message, language, possibility, entity, time, force
 				pseudo: message.author,
 				result: "",
 				event: possibility[0].dataValues[language],
-				emoji: ""
+				emoji: "",
+				alte : ''
 			}));
 		}
 	}
@@ -275,7 +275,6 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	if (pDataValues.money < 0 && moneyChange > 0) {
 		moneyChange = Math.round(pDataValues.money / 2);
 	}
-
 	let result = '';
 	result += format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
 	if (moneyChange !== 0) {
@@ -293,23 +292,27 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
 		result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime)});
 	}
+	let emojiEnd = pDataValues.effect !== EFFECT.SMILEY && pDataValues.effect !== EFFECT.OCCUPIED ? ' ' + pDataValues.effect : '';
+
 	if (possibility.dataValues.possibilityKey === "end") {
 		result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 			pseudo: message.author,
 			result: result,
 			event: possibility[language],
-			emoji: ""
+			emoji: "",
+			alte : emojiEnd
 		});
 	} else {
 		result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 			pseudo: message.author,
 			result: result,
 			event: possibility[language],
-			emoji: possibility.dataValues.possibilityKey + " "
+			emoji: possibility.dataValues.possibilityKey + " ",
+			alte : emojiEnd
 		});
 	}
 
-	entity.Player.effect = pDataValues.effect;
+	player.effect = pDataValues.effect;
 	await entity.addHealth(pDataValues.health);
 
 	player.addScore(scoreChange);

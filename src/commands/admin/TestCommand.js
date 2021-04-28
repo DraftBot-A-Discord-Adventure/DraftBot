@@ -152,18 +152,18 @@ const TestCommand = async (language, message, args) => {
 					return;
 				}
 				break;
-				case 'jail':
-					[entity] = await Entities.getOrRegister(message.mentions.users.first().id);
-					if (entity) {
-						entity.Player.effect = EFFECT.LOCKED
-						await Promise.all([
+			case 'jail':
+				[entity] = await Entities.getOrRegister(message.mentions.users.first().id);
+				if (entity) {
+					entity.Player.effect = EFFECT.LOCKED
+					await Promise.all([
 						entity.save(),
 						entity.Player.save(),
-						]);
-					} else {
-						await message.channel.send('Usage correct: test jail <mention>');
+					]);
+				} else {
+					await message.channel.send('Usage correct: test jail <mention>');
 					return;
-					}
+				}
 				break;
 			case 'weaponid':
 				if (args.length === 2) {
@@ -217,8 +217,9 @@ const TestCommand = async (language, message, args) => {
 				author.Player.experience = 0;
 				author.Player.money = 0;
 				author.Player.badges = null;
-				author.Player.effect_end_date = new Date(0);
+				author.Player.effect_end_date = 0;
 				author.Player.effect = ':smiley:';
+				author.Player.start_travel_date=new Date();
 				author.Player.save();
 
 				author.maxHealth = 100;
@@ -233,12 +234,6 @@ const TestCommand = async (language, message, args) => {
 				author.Player.Inventory.object_id = 0;
 				author.Player.Inventory.backup_id = 0;
 				author.Player.Inventory.save();
-				break;
-			case 'atime':
-				if (args.length === 2) {
-					author.Player.effect_end_date -= parseInt(args[1]) * 60000;
-					author.Player.save();
-				}
 				break;
 			case 'destroy':
 				Inventories.destroy({
@@ -426,8 +421,7 @@ const TestCommand = async (language, message, args) => {
 						field += map.getDisplayName(language) + " (id: " + map.id + ")" + "\n";
 					}
 					mapEmbed.addField("Next available maps", field, true);
-				}
-				else {
+				} else {
 					mapEmbed.addField("Players", ":speech_balloon: " + await currMap.playersCount() + " player(s) on this map", true);
 				}
 				return await message.channel.send(mapEmbed);
@@ -439,7 +433,7 @@ const TestCommand = async (language, message, args) => {
 						await message.channel.send("You cannot go to this map from there. Available ids: " + availableMaps);
 						return;
 					}*/
-					await Maps.startTravel(author.Player, nextId);
+					await Maps.startTravel(author.Player, nextId, message.createdAt.getTime());
 				} else {
 					await message.channel.send("Correct usage: travel <map id>");
 					return;
@@ -486,8 +480,7 @@ const TestCommand = async (language, message, args) => {
 					}
 					await getCommand("r")(language, message, args, -1, args[1]);
 					return;
-				}
-				else {
+				} else {
 					await message.channel.send("Correct usage: small_event <type>");
 					return;
 				}

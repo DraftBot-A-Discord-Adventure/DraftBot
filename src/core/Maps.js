@@ -98,7 +98,7 @@ class Maps {
 	static getTravellingTime(player) {
 		if (!this.isTravelling(player)) return 0;
 		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effect_start_date.getTime() - JsonReader.models.players.effectMalus[player.effect];
-		return Date.now() - player.start_travel_date - malus;
+		return Date.now() - player.start_travel_date - malus > 0 ? Date.now() - player.start_travel_date - malus : 0;
 	}
 
 	static applyEffect(player, effect) {
@@ -112,6 +112,7 @@ class Maps {
 		const remainingTime = player.effectRemainingTime();
 		player.effect = EFFECT.SMILEY;
 		if (remainingTime > 0) {
+			player.effect_start_date = new Date(player.start_travel_date.getTime() - minutesToMilliseconds(player.effect_end_date))
 			player.start_travel_date = new Date(player.start_travel_date.getTime() - remainingTime);
 		}
 	}
@@ -129,10 +130,10 @@ class Maps {
 	 * @param {number} map_id
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player, map_id) {
+	static async startTravel(player, map_id,time) {
 		player.previous_map_id = player.map_id;
 		player.map_id = map_id;
-		player.start_travel_date = new Date();
+		player.start_travel_date = new Date(time + minutesToMilliseconds(player.effect_end_date));
 		await player.save();
 	}
 

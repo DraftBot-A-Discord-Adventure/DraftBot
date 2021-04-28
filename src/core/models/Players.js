@@ -71,8 +71,8 @@ module.exports = (Sequelize, DataTypes) => {
 			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
 		},
 		effect_end_date: {
-			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			type: DataTypes.INTEGER,
+			defaultValue: 0,
 		},
 		previous_map_id: {
 			type: DataTypes.INTEGER
@@ -339,9 +339,9 @@ module.exports = (Sequelize, DataTypes) => {
 	Players.prototype.setLastReportWithEffect = function (
 		time, timeMalus, effectMalus) {
 		if (timeMalus > 0 && effectMalus === ":clock2:") {
-			this.effect_end_date = new Date(time + minutesToMilliseconds(timeMalus));
+			this.effect_end_date = timeMalus
 		} else {
-			this.effect_end_date = new Date(time + JsonReader.models.players.effectMalus[effectMalus]);
+			this.effect_end_date = millisecondsToMinutes(JsonReader.models.players.effectMalus[effectMalus]);
 		}
 	};
 
@@ -359,7 +359,7 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 		log("This user is dead : " + entity.discordUser_id);
 		entity.Player.effect = EFFECT.DEAD;
-		this.effect_end_date = new Date(9999, 1);
+		this.effect_end_date = 99999999999999;
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
 
 		let guildMember = await channel.guild.members.fetch(entity.discordUser_id);
@@ -376,7 +376,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Players.prototype.isInactive = function () {
-		return (Date.now() - Date.parse(this.effect_end_date)) > JsonReader.commands.topCommand.fifth10days;
+		return (this.start_travel_date.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days) < Date.now();
 	}
 
 	/**
@@ -390,16 +390,16 @@ module.exports = (Sequelize, DataTypes) => {
 		if (this.effect === EFFECT.SMILEY) {
 			return true;
 		}
-		return this.effect_start_date.getTime() + JsonReader.models.players.effectMalus[this.effect] < Date.now();
+		return this.start_travel_date.getTime() < Date.now();
 	};
 
 	Players.prototype.effectRemainingTime = function () {
 		let remainingTime = 0;
-		if (JsonReader.models.players.effectMalus[this.effect]) {
-			remainingTime = this.effect_start_date.getTime() - Date.now();
-			if (remainingTime < 0) {
-				remainingTime = 0;
-			}
+		if (JsonReader.models.players.effectMalus[this.effect] || this.effect === EFFECT.OCCUPIED) {
+			remainingTime = this.effect_end_date - millisecondsToMinutes(Date.now() - this.effect_start_date.getTime());
+		}
+		if (remainingTime < 0) {
+			remainingTime = 0;
 		}
 		return remainingTime;
 	}
