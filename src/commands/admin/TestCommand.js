@@ -141,7 +141,7 @@ const TestCommand = async (language, message, args) => {
 				if (args.length === 2) {
 					let effectMalus = ':' + args[1] + ':';
 					if (JsonReader.models.players.effectMalus[effectMalus]) {
-						Maps.applyEffect(author.Player, ':' + args[1] + ':');
+						await Maps.applyEffect(author.Player, ':' + args[1] + ':');
 						await author.Player.save();
 					} else {
 						await message.channel.send('Effet inconnu ! Il ne faut pas mettre les ::');
@@ -155,11 +155,8 @@ const TestCommand = async (language, message, args) => {
 			case 'jail':
 				[entity] = await Entities.getOrRegister(message.mentions.users.first().id);
 				if (entity) {
-					entity.Player.effect = EFFECT.LOCKED
-					await Promise.all([
-						entity.save(),
-						entity.Player.save(),
-					]);
+					await Maps.applyEffect(entity.Player, ':lock:');
+					await entity.Player.save();
 				} else {
 					await message.channel.send('Usage correct: test jail <mention>');
 					return;
@@ -217,7 +214,8 @@ const TestCommand = async (language, message, args) => {
 				author.Player.experience = 0;
 				author.Player.money = 0;
 				author.Player.badges = null;
-				author.Player.effect_end_date = 0;
+				author.Player.effect_end_date = Date.now();
+				author.Player.effect_duration = 0;
 				author.Player.effect = ':smiley:';
 				author.Player.start_travel_date=new Date();
 				author.Player.save();
@@ -445,7 +443,8 @@ const TestCommand = async (language, message, args) => {
 				break;
 			case 'travelreport':
 			case 'tr':
-				author.Player.start_travel_date = 1;
+				author.Player.start_travel_date = new Date(0);
+				author.Player.effect_end_date = new Date(0);
 				await author.Player.save();
 				break;
 			case 'tp':
@@ -465,7 +464,7 @@ const TestCommand = async (language, message, args) => {
 				}
 			case 'atravel':
 				if (args.length === 2) {
-					author.Player.start_travel_date -= parseInt(args[1]) * 60000;
+					Maps.advanceTime(author.Player,parseInt(args[1]))
 					author.Player.save();
 					break;
 				} else {
@@ -496,7 +495,7 @@ const TestCommand = async (language, message, args) => {
 				await message.channel.send("Entity id: " + author.id + ", player id: " + author.Player.id);
 				return;
 			case 'rmeffect':
-				Maps.removeEffect(author.Player);
+				await Maps.removeEffect(author.Player);
 				await author.Player.save();
 				break;
 			default:

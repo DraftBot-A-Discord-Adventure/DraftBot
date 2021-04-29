@@ -66,11 +66,11 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.STRING(32),
 			defaultValue: JsonReader.models.entities.effect,
 		},
-		effect_start_date: {
+		effect_end_date: {
 			type: DataTypes.DATE,
 			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
 		},
-		effect_end_date: {
+		effect_duration: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0,
 		},
@@ -336,13 +336,10 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Number} timeMalus
 	 * @param {String} effectMalus
 	 */
-	Players.prototype.setLastReportWithEffect = function (
-		time, timeMalus, effectMalus) {
-		if (timeMalus > 0 && effectMalus === ":clock2:") {
-			this.effect_end_date = timeMalus
-		} else {
-			this.effect_end_date = millisecondsToMinutes(JsonReader.models.players.effectMalus[effectMalus]);
-		}
+	Players.prototype.setLastReportWithEffect = async function (time, timeMalus, effectMalus) {
+		this.start_travel_date = new Date(time);
+		await this.save();
+		await require("../../core/Maps").applyEffect(this, effectMalus, timeMalus);
 	};
 
 	/**
@@ -359,7 +356,8 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 		log("This user is dead : " + entity.discordUser_id);
 		entity.Player.effect = EFFECT.DEAD;
-		this.effect_end_date = 99999999999999;
+		this.effect_end_date = new Date(9999, 1);
+		this.effect_duration = Infinity;
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
 
 		let guildMember = await channel.guild.members.fetch(entity.discordUser_id);
@@ -390,13 +388,13 @@ module.exports = (Sequelize, DataTypes) => {
 		if (this.effect === EFFECT.SMILEY) {
 			return true;
 		}
-		return this.start_travel_date.getTime() < Date.now();
+		return this.effect_end_date.getTime() < Date.now();
 	};
 
 	Players.prototype.effectRemainingTime = function () {
 		let remainingTime = 0;
 		if (JsonReader.models.players.effectMalus[this.effect] || this.effect === EFFECT.OCCUPIED) {
-			remainingTime = this.effect_end_date - millisecondsToMinutes(Date.now() - this.effect_start_date.getTime());
+			remainingTime = this.effect_end_date - Date.now();
 		}
 		if (remainingTime < 0) {
 			remainingTime = 0;

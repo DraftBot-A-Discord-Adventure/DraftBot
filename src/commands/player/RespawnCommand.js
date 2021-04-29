@@ -18,7 +18,8 @@ const RespawnCommand = async (language, message, args) => {
 
 		entity.Player.effect = EFFECT.SMILEY;
 		entity.health = await entity.getMaxHealth();
-		entity.Player.effect_end_date = 0
+		entity.Player.effect_duration = 0;
+		entity.Player.effect_end_date = Date.now();
 		entity.Player.addScore(-lostScore);
 		entity.Player.addWeeklyScore(-lostScore);
 

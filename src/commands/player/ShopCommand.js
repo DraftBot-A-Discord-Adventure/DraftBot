@@ -227,7 +227,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
 						.nothingToHeal
 				);
 			}
-			healAlterations(message, language, entity, customer, selectedItem);
+			await healAlterations(message, language, entity, customer, selectedItem);
 		} else if (
 			selectedItem.name === shopTranslations.permanentItems.regen.name
 		) {
@@ -393,12 +393,11 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
 /**
  * Clear all player alterations
  */
-function healAlterations(message, language, entity, customer, selectedItem) {
+async function healAlterations(message, language, entity, customer, selectedItem) {
 	if (entity.Player.effect !== EFFECT.DEAD && entity.Player.effect !== EFFECT.LOCKED) {
-		entity.Player.effect = EFFECT.SMILEY;
-		entity.Player.effect_end_date = 0;
+		await require("../../core/Maps").removeEffect(entity.Player);
 	}
-	message.channel.send(
+	await message.channel.send(
 		new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
 			.setAuthor(
@@ -419,7 +418,7 @@ function healAlterations(message, language, entity, customer, selectedItem) {
  */
 async function regenPlayer(message, language, entity, customer, selectedItem) {
 	await entity.setHealth(await entity.getMaxHealth()); //Heal Player
-	message.channel.send(
+	await message.channel.send(
 		new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
 			.setAuthor(

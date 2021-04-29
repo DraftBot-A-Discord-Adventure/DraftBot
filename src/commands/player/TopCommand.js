@@ -255,8 +255,8 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 		// const nowMoment = new moment(new Date());
 		// const lastReport = new moment(allEntities[k-1].Player.lastReportAt);
 		// const diffMinutes = lastReport.diff(nowMoment, 'millisecondes');
-		if (Date.now() < Date.parse(allEntities[k].Player.start_travel_date)) badgeState = allEntities[k].Player.effect;
-		if (Date.now() > Date.parse(allEntities[k].Player.start_travel_date) + 2 * JsonReader.commands.topCommand.oneHour) {
+		if (Date.now() < Date.parse(allEntities[k].Player.effect_end_date)) badgeState = allEntities[k].Player.effect;
+		if (Date.now() > Date.parse(allEntities[k].Player.effect_end_date) + 2 * JsonReader.commands.topCommand.oneHour) {
 			if (allEntities[k].Player.isInactive()) {
 				badgeState = ":ghost:";
 			} else {

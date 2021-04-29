@@ -195,12 +195,11 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 		for (const i in members) {
 			if (members[i].Player.currentEffectFinished()) {
 				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
+				await members[i].save();
 			} else if (members[i].Player.effect !== EFFECT.DEAD && members[i].Player.effect !== EFFECT.LOCKED) {
-				members[i].Player.effect = EFFECT.SMILEY;
-				members[i].Player.effect_end_date = 0;
+				await require("../../core/Maps").removeEffect(members[i].Player);
+				await members[i].Player.save();
 			}
-			await members[i].Player.save();
-			await members[i].save();
 		}
 		embed.setDescription(format(translations.alterationHeal, {
 			healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer),

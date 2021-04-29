@@ -97,31 +97,47 @@ class Maps {
 	 */
 	static getTravellingTime(player) {
 		if (!this.isTravelling(player)) return 0;
-		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effect_start_date.getTime() - JsonReader.models.players.effectMalus[player.effect];
-		return Date.now() - player.start_travel_date - malus > 0 ? Date.now() - player.start_travel_date - malus : 0;
+		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effect_end_date.getTime();
+		return Date.now() - player.start_travel_date - malus;
 	}
 
-	static applyEffect(player, effect) {
-		this.removeEffect(player);
+
+	static async applyEffect(player, effect, time = 0) {
+		await this.removeEffect(player);
 		player.effect = effect;
-		player.effect_start_date = new Date();
-		player.start_travel_date = new Date(player.start_travel_date.getTime() + JsonReader.models.players.effectMalus[effect]);
+		if (effect === EFFECT.OCCUPIED) {
+			player.effect_duration = time;
+		} else {
+			player.effect_duration = millisecondsToMinutes(JsonReader.models.players.effectMalus[effect]);
+		}
+		player.effect_end_date = new Date(Date.now() + minutesToMilliseconds(player.effect_duration));
+		player.start_travel_date = new Date(player.start_travel_date.getTime() + minutesToMilliseconds(player.effect_duration));
+		await player.save();
 	}
 
-	static removeEffect(player) {
+	static async removeEffect(player) {
 		const remainingTime = player.effectRemainingTime();
 		player.effect = EFFECT.SMILEY;
+		player.effect_duration = 0;
+		player.effect_end_date = new Date();
 		if (remainingTime > 0) {
-			player.effect_start_date = new Date(player.start_travel_date.getTime() - minutesToMilliseconds(player.effect_end_date))
 			player.start_travel_date = new Date(player.start_travel_date.getTime() - remainingTime);
 		}
+		await player.save();
 	}
 
 	static advanceTime(player, time) {
+		let t = minutesToMilliseconds(time);
 		if (player.effectRemainingTime() !== 0) {
-			player.effect_start_date = new Date(player.effect_start_date.getTime() - time);
+			if (t>=player.effect_end_date.getTime()-Date.now()) {
+				t = t - (player.effect_end_date.getTime()-Date.now());
+				player.effect_end_date = Date.now();
+			} else {
+				player.effect_end_date = new Date(player.effect_end_date.getTime() - t);
+				t = 0;
+			}
 		}
-		player.start_travel_date = new Date(player.start_travel_date.getTime() - time);
+		player.start_travel_date = new Date(player.start_travel_date.getTime() - t);
 	}
 
 	/**
@@ -133,8 +149,11 @@ class Maps {
 	static async startTravel(player, map_id,time) {
 		player.previous_map_id = player.map_id;
 		player.map_id = map_id;
-		player.start_travel_date = new Date(time + minutesToMilliseconds(player.effect_end_date));
+		player.start_travel_date = new Date(time);
 		await player.save();
+		if (player.effect !== EFFECT.SMILEY) {
+			await Maps.applyEffect(player, player.effect, player.effect_duration);
+		}
 	}
 
 	/**
@@ -143,7 +162,7 @@ class Maps {
 	 * @returns {Promise<void>}
 	 */
 	static async stopTravel(player) {
-		player.start_travel_date = 0;
+		player.start_travel_date = new Date(0);
 		await player.save();
 	}
 

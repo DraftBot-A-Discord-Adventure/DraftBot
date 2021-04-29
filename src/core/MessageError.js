@@ -141,6 +141,7 @@ class MessageError {
 	 * @return {Promise<Message>}
 	 */
 	static async effectsErrorMe(message, language, entity, effect) {
+
 		const embed = new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.error);
 
@@ -162,7 +163,7 @@ class MessageError {
 				.setDescription(entity.Player.effect + JsonReader.error.getTranslation(language).meIsDead);
 		}
 
-		const timeEffect = minutesToString(millisecondsToMinutes(entity.Player.effect_end_date - new Date()));
+		const timeEffect =  minutesToString(millisecondsToMinutes(entity.Player.effectRemainingTime()));
 		if (effect === EFFECT.SLEEPING) {
 			embed
 				.setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsSleeping, {pseudo: message.author.username}), message.author.displayAvatarURL())
@@ -219,7 +220,6 @@ class MessageError {
         .setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsStarving, { pseudo: message.author.username }), message.author.displayAvatarURL())
         .setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, { time: timeEffect }));
     }
-
 
 		return await message.channel.send(embed);
 	}
@@ -322,3 +322,4 @@ class MessageError {
 global.canPerformCommand = MessageError.canPerformCommand;
 global.errorMe = MessageError.errorMe;
 global.errorPlayer = MessageError.errorPlayer;
+global.effectsErrorMe = MessageError.effectsErrorMe;

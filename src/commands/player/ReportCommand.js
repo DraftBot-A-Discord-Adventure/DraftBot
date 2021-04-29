@@ -16,6 +16,14 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
+	if (!entity.Player.currentEffectFinished()) {
+		return await effectsErrorMe(
+			message,
+			language,
+			entity,
+			entity.Player.effect
+		);
+	}
 	await addBlockedPlayer(entity.discordUser_id, "cooldown");
 	setTimeout(() => {
 		if (hasBlockedPlayer(entity.discordUser_id)) {
@@ -325,9 +333,9 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 
 	if (pDataValues.event_id !== 0) {
-		player.setLastReportWithEffect(message.createdTimestamp, pDataValues.lostTime, pDataValues.effect);
+		await player.setLastReportWithEffect(message.createdTimestamp, pDataValues.lostTime, pDataValues.effect);
 	} else {
-		player.setLastReportWithEffect(0, pDataValues.lostTime, pDataValues.effect);
+		await player.setLastReportWithEffect(0, pDataValues.lostTime, pDataValues.effect);
 	}
 
 	if (pDataValues.item === true) {

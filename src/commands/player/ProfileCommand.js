@@ -69,7 +69,7 @@ const ProfileCommand = async function (language, message, args) {
 	];
 
 	if (!entity.Player.checkEffect()) {
-		if (message.createdAt.getTime() >= entity.Player.start_travel_date) {
+		if (message.createdAt.getTime() >= entity.Player.effect_end_date) {
 			titleEffect = ':hospital:';
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).timeLeft.fieldName,
@@ -80,7 +80,7 @@ const ProfileCommand = async function (language, message, args) {
 				name: JsonReader.commands.profile.getTranslation(language).timeLeft.fieldName,
 				value: format(JsonReader.commands.profile.getTranslation(language).timeLeft.fieldValue, {
 					effect: entity.Player.effect,
-					timeLeft: minutesToString(millisecondsToMinutes(entity.Player.start_travel_date - message.createdAt.getTime())),
+					timeLeft: minutesToString(millisecondsToMinutes(entity.Player.effect_end_date - message.createdAt.getTime())),
 				}),
 			});
 		}
