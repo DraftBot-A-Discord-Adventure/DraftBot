@@ -16,14 +16,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
-	if (!entity.Player.currentEffectFinished()) {
-		return await effectsErrorMe(
-			message,
-			language,
-			entity,
-			entity.Player.effect
-		);
-	}
+
 	await addBlockedPlayer(entity.discordUser_id, "cooldown");
 	setTimeout(() => {
 		if (hasBlockedPlayer(entity.discordUser_id)) {
@@ -36,6 +29,15 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
+	}
+
+	if (!entity.Player.currentEffectFinished()) {
+		return await effectsErrorMe(
+			message,
+			language,
+			entity,
+			entity.Player.effect
+		);
 	}
 
 	if (!Maps.isTravelling(entity.Player)) {
