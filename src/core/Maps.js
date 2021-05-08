@@ -221,7 +221,6 @@ class Maps {
 				}
 			}
 		}
-		console.log(nextMapInstance);
 		return str + " " + nextMapInstance.getEmote(language);
 	}
 }
