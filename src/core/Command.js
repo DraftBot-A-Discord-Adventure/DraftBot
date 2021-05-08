@@ -109,7 +109,7 @@ class Command {
 	 * @param {module:"discord.js".ReactionCollector} collector
 	 */
 	static addBlockedPlayer(id, context, collector = null) {
-		Command.players[id] = {context: context, collector: collector};
+		Command.players[id] = { context: context, collector: collector };
 	}
 
 	/**
@@ -248,7 +248,7 @@ class Command {
 				message.channel,
 				format(
 					JsonReader.bot.getTranslation(language).dmHelpMessageTitle,
-					{pseudo: message.author.username}
+					{ pseudo: message.author.username }
 				),
 				JsonReader.bot.getTranslation(language).dmHelpMessage
 			);
@@ -289,9 +289,14 @@ class Command {
 				!message.channel.permissionsFor(client.user).serialize()
 					.SEND_MESSAGES
 			) {
-				return await message.author.send(
-					JsonReader.bot.getTranslation(language).noSpeakPermission
-				);
+				try {
+					await message.author.send(
+						JsonReader.bot.getTranslation(language).noSpeakPermission
+					)
+				} catch (err) {
+					log('No perms to show i can\'t react in server / channel : ' + message.guild + "/" + message.channel);
+				}
+				return;
 			}
 			if (
 				!message.channel.permissionsFor(client.user).serialize()
@@ -317,6 +322,30 @@ class Command {
 					JsonReader.bot.getTranslation(language).noFilePermission
 				);
 			}
+
+			if (!Command.players.has(command.name)) {
+				Command.players.set(command.name, new Map());
+			}
+
+			const now = Date.now();
+			const timestamps = Command.players.get(command.name);
+			const cooldownAmount = 1000;
+
+			if (timestamps.has(message.author.id)) {
+				const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+				if (now < expirationTime) {
+					return sendErrorMessage(
+						message.author,
+						message.channel,
+						language,
+						JsonReader.error.getTranslation(language).blockedContext["cooldown"]);
+				}
+			}
+
+			timestamps.set(message.author.id, now);
+			setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
 			log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
 			Command.commands.get(command)(language, message, args);
 		}
