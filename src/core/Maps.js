@@ -104,16 +104,13 @@ class Maps {
 
 	static async applyEffect(player, effect, time = 0) {
 		await this.removeEffect(player);
-		// console.log(player.effect, effect);
 		player.effect = effect;
-		// console.log(player.effect, effect);
 		if (effect === EFFECT.OCCUPIED) {
 			player.effect_duration = time;
 		} else {
 			player.effect_duration = millisecondsToMinutes(JsonReader.models.players.effectMalus[effect]);
 		}
 		player.effect_end_date = new Date(Date.now() + minutesToMilliseconds(player.effect_duration));
-		console.log(player.start_travel_date.getTime());
 		player.start_travel_date = new Date(player.start_travel_date.getTime() + minutesToMilliseconds(player.effect_duration));
 		await player.save();
 	}
