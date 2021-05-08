@@ -27,10 +27,9 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	}, 500);
 
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
-		const event = await Events.findOne({where: {id: 0}});
+		const event = await Events.findOne({ where: { id: 0 } });
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
 	}
-
 	if (!entity.Player.currentEffectFinished()) {
 		return await effectsErrorMe(
 			message,
@@ -87,13 +86,13 @@ const doRandomBigEvent = async function (message, language, entity, forceSpecifi
 		event = await Events.findOne({
 			where: {
 				[Op.and]: [
-					{id: {[Op.gt]: 0}},
-					{id: {[Op.lt]: 9999}},
+					{ id: { [Op.gt]: 0 } },
+					{ id: { [Op.lt]: 9999 } },
 				]
 			}, order: Sequelize.literal('RANDOM()')
 		});
 	} else {
-		event = await Events.findOne({where: {id: forceSpecificEvent}});
+		event = await Events.findOne({ where: { id: forceSpecificEvent } });
 	}
 	await Maps.stopTravel(entity.Player);
 	return await doEvent(message, language, event, entity, time);
@@ -105,7 +104,7 @@ const doRandomBigEvent = async function (message, language, entity, forceSpecifi
  * @returns {boolean}
  */
 const needBigEvent = function (entity) {
-	return Maps.getTravellingTime(entity.Player) >= 2*60*60*1000;
+	return Maps.getTravellingTime(entity.Player) >= 2 * 60 * 60 * 1000;
 };
 
 /**
@@ -121,7 +120,7 @@ const sendTravelPath = async function (entity, message, language) {
 	travelEmbed.setAuthor(tr.travelPathTitle, message.author.displayAvatarURL());
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language));
 	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previous_map_id)).getDisplayName(language), true);
-	travelEmbed.addField(tr.progression, (Math.floor(10000 * Maps.getTravellingTime(entity.Player) / (2*60*60*1000)) / 100.0) + "%", true);
+	travelEmbed.addField(tr.progression, (Math.floor(10000 * Maps.getTravellingTime(entity.Player) / (2 * 60 * 60 * 1000)) / 100.0) + "%", true);
 	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.map_id)).getDisplayName(language), true);
 	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 	return await message.channel.send(travelEmbed);
@@ -141,13 +140,13 @@ const chooseDestination = async function (entity, message, language) {
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
 	// TODO mettre le temps ici comme ça ça bloque pas si le bot crash
 	if (destinationMaps.length === 1) {
-		await Maps.startTravel(entity.Player, destinationMaps[0],message.createdAt.getTime());
+		await Maps.startTravel(entity.Player, destinationMaps[0], message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
 
 	const tr = JsonReader.commands.report.getTranslation(language);
 	let chooseDestinationEmbed = new discord.MessageEmbed();
-	chooseDestinationEmbed.setAuthor(format(tr.destinationTitle, {pseudo: message.author.username}), message.author.displayAvatarURL());
+	chooseDestinationEmbed.setAuthor(format(tr.destinationTitle, { pseudo: message.author.username }), message.author.displayAvatarURL());
 	let desc = tr.chooseDestinationIndications + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
@@ -159,7 +158,7 @@ const chooseDestination = async function (entity, message, language) {
 
 	const collector = sentMessage.createReactionCollector((reaction, user) => {
 		return destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
-	}, {time: COLLECTOR_TIME});
+	}, { time: COLLECTOR_TIME });
 
 	collector.on('collect', async () => {
 		collector.stop();
@@ -195,7 +194,7 @@ const destinationChoseMessage = async function (entity, map, message, language) 
 	const typeTr = JsonReader.models.maps.getTranslation(language);
 	const mapInstance = await MapLocations.getById(map);
 	let destinationEmbed = new discord.MessageEmbed();
-	destinationEmbed.setAuthor(format(tr.destinationTitle, {pseudo: message.author.username}), message.author.displayAvatarURL());
+	destinationEmbed.setAuthor(format(tr.destinationTitle, { pseudo: message.author.username }), message.author.displayAvatarURL());
 	destinationEmbed.setDescription(format(tr.choseMap, {
 		mapPrefix: typeTr.types[mapInstance.type].prefix,
 		mapName: mapInstance.getDisplayName(language),
@@ -221,7 +220,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector((reaction, user) => {
 		return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);
-	}, {time: COLLECTOR_TIME});
+	}, { time: COLLECTOR_TIME });
 
 	await addBlockedPlayer(entity.discordUser_id, "report", collector);
 
@@ -238,7 +237,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 
 	collector.on('end', async (collected) => {
 		if (!collected.first()) {
-			const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: 'end'}});
+			const possibility = await Possibilities.findAll({ where: { event_id: event.id, possibilityKey: 'end' } });
 			await doPossibility(message, language, possibility, entity, time, forcePoints);
 		}
 	});
@@ -270,7 +269,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 				result: "",
 				event: possibility[0].dataValues[language],
 				emoji: "",
-				alte : ''
+				alte: ''
 			}));
 		}
 	}
@@ -288,21 +287,21 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		moneyChange = Math.round(pDataValues.money / 2);
 	}
 	let result = '';
-	result += format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
+	result += format(JsonReader.commands.report.getTranslation(language).points, { score: scoreChange });
 	if (moneyChange !== 0) {
-		result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
+		result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, { money: moneyChange }) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, { money: -moneyChange });
 	}
 	if (pDataValues.experience > 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
+		result += format(JsonReader.commands.report.getTranslation(language).experience, { experience: pDataValues.experience });
 	}
 	if (pDataValues.health < 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: -pDataValues.health});
+		result += format(JsonReader.commands.report.getTranslation(language).healthLoose, { health: -pDataValues.health });
 	}
 	if (pDataValues.health > 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
+		result += format(JsonReader.commands.report.getTranslation(language).health, { health: pDataValues.health });
 	}
 	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
-		result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime)});
+		result += format(JsonReader.commands.report.getTranslation(language).timeLost, { timeLost: minutesToString(pDataValues.lostTime) });
 	}
 	let emojiEnd = pDataValues.effect !== EFFECT.SMILEY && pDataValues.effect !== EFFECT.OCCUPIED ? ' ' + pDataValues.effect : '';
 
@@ -312,7 +311,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 			result: result,
 			event: possibility[language],
 			emoji: "",
-			alte : emojiEnd
+			alte: emojiEnd
 		});
 	} else {
 		result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
@@ -320,11 +319,11 @@ const doPossibility = async (message, language, possibility, entity, time, force
 			result: result,
 			event: possibility[language],
 			emoji: possibility.dataValues.possibilityKey + " ",
-			alte : emojiEnd
+			alte: emojiEnd
 		});
 	}
 
-	player.effect = pDataValues.effect;
+	Maps.applyEffect(entity.Player, pDataValues.effect, pDataValues.lostTime);
 	await entity.addHealth(pDataValues.health);
 
 	player.addScore(scoreChange);

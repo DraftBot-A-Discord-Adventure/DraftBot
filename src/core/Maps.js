@@ -104,13 +104,16 @@ class Maps {
 
 	static async applyEffect(player, effect, time = 0) {
 		await this.removeEffect(player);
+		// console.log(player.effect, effect);
 		player.effect = effect;
+		// console.log(player.effect, effect);
 		if (effect === EFFECT.OCCUPIED) {
 			player.effect_duration = time;
 		} else {
 			player.effect_duration = millisecondsToMinutes(JsonReader.models.players.effectMalus[effect]);
 		}
 		player.effect_end_date = new Date(Date.now() + minutesToMilliseconds(player.effect_duration));
+		console.log(player.start_travel_date.getTime());
 		player.start_travel_date = new Date(player.start_travel_date.getTime() + minutesToMilliseconds(player.effect_duration));
 		await player.save();
 	}
@@ -129,8 +132,8 @@ class Maps {
 	static advanceTime(player, time) {
 		let t = minutesToMilliseconds(time);
 		if (player.effectRemainingTime() !== 0) {
-			if (t>=player.effect_end_date.getTime()-Date.now()) {
-				t = t - (player.effect_end_date.getTime()-Date.now());
+			if (t >= player.effect_end_date.getTime() - Date.now()) {
+				t = t - (player.effect_end_date.getTime() - Date.now());
 				player.effect_end_date = Date.now();
 			} else {
 				player.effect_end_date = new Date(player.effect_end_date.getTime() - t);
@@ -146,7 +149,7 @@ class Maps {
 	 * @param {number} map_id
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player, map_id,time) {
+	static async startTravel(player, map_id, time) {
 		player.previous_map_id = player.map_id;
 		player.map_id = map_id;
 		player.start_travel_date = new Date(time);
@@ -181,7 +184,7 @@ class Maps {
 	static async generateTravelPathString(player, language) {
 		const prevMapInstance = await MapLocations.getById(player.previous_map_id);
 		const nextMapInstance = await MapLocations.getById(player.map_id);
-		let percentage = this.getTravellingTime(player) / (2*60*60*1000);
+		let percentage = this.getTravellingTime(player) / (2 * 60 * 60 * 1000);
 		if (percentage > 1) {
 			percentage = 1;
 		}
@@ -218,6 +221,7 @@ class Maps {
 				}
 			}
 		}
+		console.log(nextMapInstance);
 		return str + " " + nextMapInstance.getEmote(language);
 	}
 }

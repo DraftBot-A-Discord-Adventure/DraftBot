@@ -168,7 +168,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.HOSPITAL) {
 		for (const i in members) {
-			await members[i].Player.fastForward(Math.round(guild.level / 20))
+			require("../../core/Maps.js").advanceTime(members[i].Player, Math.round(guild.level / 20) * 60);
 
 			await members[i].Player.save();
 		}

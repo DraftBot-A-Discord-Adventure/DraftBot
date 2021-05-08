@@ -27,8 +27,8 @@ const DrinkCommand = async function (language, message) {
 	}
 	if (potion.nature === NATURE.HEALTH) {
 		embed.setColor(JsonReader.bot.embed.default)
-			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
-			.setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, {value: potion.power}));
+			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
+			.setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, { value: potion.power }));
 		await entity.addHealth(potion.power);
 		entity.Player.Inventory.drinkPotion();
 	}
@@ -37,16 +37,16 @@ const DrinkCommand = async function (language, message) {
 	}
 	if (potion.nature === NATURE.HOSPITAL) {
 		embed.setColor(JsonReader.bot.embed.default)
-			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
-			.setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, {value: potion.power}));
-		require("../../core/Maps.js").advanceTime(entity.Player, potion.power * 60 * 60 * 1000);
+			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
+			.setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, { value: potion.power }));
+		require("../../core/Maps.js").advanceTime(entity.Player, potion.power * 60);
 		entity.Player.save();
 		entity.Player.Inventory.drinkPotion();
 	}
 	if (potion.nature === NATURE.MONEY) {
 		embed.setColor(JsonReader.bot.embed.default)
-			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
-			.setDescription(format(JsonReader.commands.drink.getTranslation(language).moneyBonus, {value: potion.power}));
+			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, { pseudo: message.author.username }), message.author.displayAvatarURL())
+			.setDescription(format(JsonReader.commands.drink.getTranslation(language).moneyBonus, { value: potion.power }));
 		entity.Player.addMoney(potion.power);
 		entity.Player.Inventory.drinkPotion();
 	}
