@@ -171,6 +171,8 @@ const chooseDestination = async function (entity, message, language) {
 		await destinationChoseMessage(entity, mapId, message, language);
 	});
 
+	await addBlockedPlayer(entity.discordUser_id, "chooseDestination", collector);
+
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		try {
 			await sentMessage.react(destinationChoiceEmotes[i]);
