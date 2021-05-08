@@ -12,24 +12,24 @@
 			"female": "Femelle",
 			"male": "Mâle",
 			"noNickname": "Aucun surnom",
-			"lovelevels": {
-				"1": ":smirk_cat: Fielleux",
-				"2": ":pouting_cat: Sauvage",
-				"3": ":scream_cat: Craintif",
-				"4": ":smiley_cat: Apprivoisé",
-				"5": ":heart_eyes_cat: Dressé"
+			"loveLevels": {
+				"0": ":smirk_cat: Fielleu{typeSuffix}",
+				"1": ":pouting_cat: Sauvage",
+				"2": ":scream_cat: Crainti{typeSuffix}",
+				"3": ":smiley_cat: Apprivois{typeSuffix}",
+				"4": ":heart_eyes_cat: Dress{typeSuffix}"
 			}
 		},
 		"en": {
 			"female": "Female",
 			"male": "Male",
 			"noNickname": "No nickname",
-			"lovelevels": {
-				"1": ":smirk_cat: Feisty",
-				"2": ":pouting_cat: Wild",
-				"3": ":scream_cat: Fearful",
-				"4": ":smiley_cat: Tamed",
-				"5": ":heart_eyes_cat: Trained"
+			"loveLevels": {
+				"0": ":smirk_cat: Feisty",
+				"1": ":pouting_cat: Wild",
+				"2": ":scream_cat: Fearful",
+				"3": ":smiley_cat: Tamed",
+				"4": ":heart_eyes_cat: Trained"
 			}
 		}
 	},

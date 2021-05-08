@@ -12,8 +12,8 @@
 			"noPet": "Vous n'avez aucun familier !",
 			"description": {
 				"0": "**{petnick}** ne semble pas avoir aimé...",
-				"1": "**{petnick}** est heureux !",
-				"2": "**{petnick}** est très heureux !",
+				"1": "**{petnick}** est heureu{typeSuffix} !",
+				"2": "**{petnick}** est très heureu{typeSuffix} !",
 				"3": "**{petnick}** saute de joie !"
 			},
 			"notHungry": "Il semblerait que **{petnick}** n'ait pas faim...",
