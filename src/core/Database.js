@@ -361,6 +361,15 @@ class Database {
 			Database.sendEventLoadError(event, "English translation missing");
 			return false;
 		}
+		if (event.restricted_maps !== undefined) {
+			const types = event.restricted_maps.split(",");
+			for (let i = 0; i < types.length; ++i) {
+				if (!JsonReader.models.maps.types.includes(types[i])) {
+					Database.sendEventLoadError(event, "Event map type doesn't exist");
+					return false;
+				}
+			}
+		}
 		let endPresent = false;
 		const effects = JsonReader.models.players.effectMalus;
 		const issuesFields = [
@@ -468,6 +477,15 @@ class Database {
 						possibilityKey + " " + str(i)
 					);
 					return false;
+				}
+				if (issue.restricted_map !== undefined) {
+					const types = issue.restricted_maps.split(",");
+					for (let i = 0; i < types.length; ++i) {
+						if (!JsonReader.models.maps.types.includes(types[i])) {
+							Database.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + str(i) + " doesn't exist");
+							return false;
+						}
+					}
 				}
 			}
 		}

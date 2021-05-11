@@ -1,4 +1,5 @@
 {
+	"restricted_maps": "ro,pl,vi,de",
 	"translations": {
 		"fr": "🔎 Après plusieurs jours de voyage sans encombre vous finissez par arriver sur les lieux d'une petite escarmouche entre deux groupes armés. Les esprits semblent cependant s'être calmés et vous remarquez plusieurs soldats affairés à rechercher des éventuels survivants.",
 		"en": "🔎 As you wander around, you come across a battlefield, in the surrounding area, you notice several soldiers looking for possible survivors of a massacre."
