@@ -52,5 +52,21 @@ module.exports = (Sequelize, DataTypes) => {
 		return reactions;
 	};
 
+	/**
+	 * Pick a random event compatible with the given map type
+	 * @param {string} map_type
+	 * @returns {Promise<Events>}
+	 */
+	Events.pickEventOnMapType = async function (map_type) {
+		const query = `SELECT * FROM events WHERE id > 0 AND id < 9999 AND (restricted_maps = '' OR restricted_maps LIKE :map_type) ORDER BY RANDOM() LIMIT 1;`;
+		return await Sequelize.query(query, {
+			model: Events,
+			replacements: {
+				map_type: '%' + map_type + '%',
+			},
+			type: Sequelize.QueryTypes.SELECT,
+		});
+	}
+
 	return Events;
 };
