@@ -1,7 +1,3 @@
-export async function getTimeBeforeDBLRoleRemove(discordUser_id) {
-	await getTimeBeforeDBLRoleRemove(discordUser_id)
-}
-
 const DiscordBotList = require('dblapi.js');
 
 class DBL {
@@ -114,5 +110,6 @@ class DBL {
 module.exports = {
 	startDBLWebhook: DBL.startDBLWebhook,
 	verifyDBLRoles: DBL.verifyDBLRoles,
-	userDBLVote: DBL.userDBLVote
+	userDBLVote: DBL.userDBLVote,
+	getTimeBeforeDBLRoleRemove: DBL.getTimeBeforeDBLRoleRemove
 };

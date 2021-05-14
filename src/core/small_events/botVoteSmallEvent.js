@@ -12,19 +12,19 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUser_id) < 0) {
 		await doNothing.executeSmallEvent(message, language, entity, seEmbed);
 	}
-	if (randInt(0, 1)) {
+	if (draftbotRandom.bool()) {
 		//object win
 		seEmbed.setDescription(JsonReader.small_events.botVote.getTranslation(language).stories.itemWin[randInt(0, JsonReader.small_events.botVote.getTranslation(language).stories.itemWin.length)]);
 		const msg = await message.channel.send(seEmbed);
-		log(entity.discordUser_id + " won an object because he voted.");
 		await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
 	} else {
 		//money win
 		let moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_VOTE, SMALL_EVENT.MAXIMUM_MONEY_WON_VOTE);
+		entity.Player.addMoney(moneyWon);
 		seEmbed.setDescription(JsonReader.small_events.botVote.getTranslation(language).stories.moneyWin[randInt(0, JsonReader.small_events.botVote.getTranslation(language).stories.moneyWin.length)]);
 		const msg = await message.channel.send(seEmbed);
-		log(entity.discordUser_id + " won " + moneyWon + " money because he voted.");
 	}
+	log(entity.discordUser_id + " got botVote small event.");
 };
 
 module.exports = {
