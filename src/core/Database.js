@@ -226,6 +226,14 @@ class Database {
 			foreignKey: "event_id",
 			as: "Possibilities",
 		});
+		Events.hasMany(EventMapLocationIds, {
+			foreignKey: "event_id",
+			as: "MapLocationIds",
+		});
+		MapLocations.hasMany(EventMapLocationIds, {
+			foreignKey: "map_location_id",
+			as: "EventIds",
+		});
 
 		Possibilities.belongsTo(Events, {
 			foreignKey: "event_id",
@@ -282,10 +290,12 @@ class Database {
 
 		// Handle special case Events & Possibilities
 		await Events.destroy({truncate: true});
+		await EventMapLocationIds.destroy({truncate: true});
 		await Possibilities.destroy({truncate: true});
 
 		const files = await fs.promises.readdir(`resources/text/events`);
 		const eventsContent = [];
+		const eventsMapLocationsContent = [];
 		const possibilitiesContent = [];
 		for (const file of files) {
 			const fileName = file.split(".")[0];
@@ -295,6 +305,14 @@ class Database {
 
 			if (!Database.isEventValid(fileContent)) continue;
 
+			if (fileContent.map_location_ids) {
+				for (const mapLocationsId of fileContent.map_location_ids) {
+					eventsMapLocationsContent.push({
+						event_id: fileContent.id,
+						map_location_id: mapLocationsId
+					});
+				}
+			}
 			fileContent.fr = fileContent.translations.fr + "\n\n";
 			fileContent.en = fileContent.translations.en + "\n\n";
 			for (const possibilityKey of Object.keys(fileContent.possibilities)) {
@@ -338,6 +356,7 @@ class Database {
 		}
 
 		await Events.bulkCreate(eventsContent);
+		await EventMapLocationIds.bulkCreate(eventsMapLocationsContent);
 		await Possibilities.bulkCreate(possibilitiesContent);
 	}
 

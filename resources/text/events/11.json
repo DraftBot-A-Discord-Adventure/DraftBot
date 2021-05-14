@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "fo",
+	"map_location_ids": [
+		1, 2
+	],
 	"translations": {
 		"fr": "⁉️ Alors que vous vous apprêtez à rentrer dans une forêt, une inconnue vous explique qu'il existe un chemin plus court en passant par l'ouest.",
 		"en": "⁉️ As you get ready to enter a forest, a mysterious woman explains there is a shorter path through the west."
@@ -21,8 +23,7 @@
 					"effect": ":clock2:",
 					"experience": 25,
 					"money": 0,
-					"item": false,
-					"restricted_maps": "fo"
+					"item": false
 				},
 				{
 					"translations": {
@@ -34,8 +35,7 @@
 					"effect": ":clock2:",
 					"experience": 325,
 					"money": 0,
-					"item": true,
-					"restricted_maps": "fo"
+					"item": true
 				},
 				{
 					"translations": {
@@ -47,8 +47,7 @@
 					"effect": ":head_bandage:",
 					"experience": 0,
 					"money": 0,
-					"item": false,
-					"restricted_maps": "fo"
+					"item": false
 				}
 			]
 		},
@@ -68,8 +67,7 @@
 					"effect": ":smiley:",
 					"experience": 150,
 					"money": 0,
-					"item": false,
-					"restricted_maps": "pl"
+					"item": false
 				},
 				{
 					"translations": {
@@ -81,8 +79,7 @@
 					"effect": ":head_bandage:",
 					"experience": 0,
 					"money": 0,
-					"item": false,
-					"restricted_maps": "pl"
+					"item": false
 				}
 			]
 		},
@@ -102,8 +99,7 @@
 					"effect": ":clock2:",
 					"experience": 25,
 					"money": 0,
-					"item": false,
-					"restricted_maps": "pl"
+					"item": false
 				}
 			]
 		},
@@ -119,8 +115,7 @@
 					"effect": ":clock2:",
 					"experience": 25,
 					"money": 0,
-					"item": false,
-					"restricted_maps": "pl"
+					"item": false
 				}
 			]
 		}
