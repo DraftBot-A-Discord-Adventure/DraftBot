@@ -1,65 +1,65 @@
 {
 	"types": [
-		"city",
-		"road",
-		"plain",
-		"forest",
-		"mountain",
-		"beach",
-		"village",
-		"desert",
-		"river",
-		"lake"
+		"ci",
+		"ro",
+		"pl",
+		"fo",
+		"mo",
+		"be",
+		"vi",
+		"de",
+		"ri",
+		"la"
 	],
 	"translations": {
 		"fr": {
 			"types": {
-				"city": {
+				"ci": {
 					"name": "Ville",
 					"prefix": "de la",
 					"emote": "\uD83C\uDFD8️"
 				},
-				"road": {
+				"ro": {
 					"name": "Route",
 					"prefix": "de la",
 					"emote": "\uD83D\uDEE3️"
 				},
-				"plain": {
+				"pl": {
 					"name": "Plaine",
 					"prefix": "de la",
 					"emote": "\uD83C\uDF3A"
 				},
-				"forest": {
+				"fo": {
 					"name": "Forêt",
 					"prefix": "de la",
 					"emote": "\uD83C\uDF33"
 				},
-				"mountain": {
+				"mo": {
 					"name": "Montagne",
 					"prefix": "de la",
 					"emote": "⛰️"
 				},
-				"beach": {
+				"be": {
 					"name": "Plage",
 					"prefix": "de la",
 					"emote": "\uD83C\uDFD6️"
 				},
-				"village": {
+				"vi": {
 					"name": "Village",
 					"prefix": "du",
 					"emote": "\uD83D\uDED6"
 				},
-				"desert": {
+				"de": {
 					"name": "Désert",
 					"prefix": "du",
 					"emote": "\uD83C\uDFDC️"
 				},
-				"river": {
+				"ri": {
 					"name": "Rivière",
 					"prefix": "de la",
 					"emote": "\uD83C\uDFDE️"
 				},
-				"lake": {
+				"la": {
 					"name": "Lac",
 					"prefix": "du",
 					"emote": "\uD83D\uDEA3\u200D♂️"
@@ -82,52 +82,52 @@
 		},
 		"en": {
 			"types": {
-				"city": {
+				"ci": {
 					"name": "City",
 					"prefix": "of the",
 					"emote": "\uD83C\uDFD8️"
 				},
-				"road": {
+				"ro": {
 					"name": "Road",
 					"prefix": "of the",
 					"emote": "\uD83D\uDEE3️"
 				},
-				"plain": {
+				"pl": {
 					"name": "Plain",
 					"prefix": "of the",
 					"emote": "\uD83C\uDF3A"
 				},
-				"forest": {
+				"fo": {
 					"name": "Forest",
 					"prefix": "of the",
 					"emote": "\uD83C\uDF33"
 				},
-				"mountain": {
+				"mo": {
 					"name": "Mountain",
 					"prefix": "of the",
 					"emote": "⛰️"
 				},
-				"beach": {
+				"be": {
 					"name": "Beach",
 					"prefix": "of the",
 					"emote": "\uD83C\uDFD6️"
 				},
-				"village": {
+				"vi": {
 					"name": "Village",
 					"prefix": "of the",
 					"emote": "\uD83D\uDED6"
 				},
-				"desert": {
+				"de": {
 					"name": "Desert",
 					"prefix": "of the",
 					"emote": "\uD83C\uDFDC️"
 				},
-				"river": {
+				"ri": {
 					"name": "River",
 					"prefix": "of the",
 					"emote": "\uD83C\uDFDE️"
 				},
-				"lake": {
+				"la": {
 					"name": "Lake",
 					"prefix": "of the",
 					"emote": "\uD83D\uDEA3\u200D♂️"

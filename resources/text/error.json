@@ -71,7 +71,8 @@
 				"petSell": "Vente de familier.",
 				"petSellConfirm": "Confirmation de l'achat d'un familier.",
 				"chiefGuildLeave": "Passation de pouvoir.",
-				"unlock": "Libération de quelqu'un"
+				"unlock": "Libération de quelqu'un",
+				"chooseDestination": "Choix de la destination"
 			}
 		},
 		"en": {
@@ -145,7 +146,8 @@
 				"sellPet": "Pet sale.",
 				"sellPetConfirm": "Confirmation of a pet purchase.",
 				"chiefGuildLeave": "Authority will be transferred.",
-				"unlock": "Releasing someone"
+				"unlock": "Releasing someone",
+				"chooseDestination": "Choose the destination"
 			}
 		}
 	}
