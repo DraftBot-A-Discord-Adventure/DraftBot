@@ -1,0 +1,36 @@
+{
+	"translations": {
+		"fr": {
+			"lifeLoss": {
+				"stories": [
+				]
+			},
+			"alteration": {
+				"stories": [
+				]
+			},
+			"moneyLoss": {
+				"stories": [
+				]
+			}
+		},
+		"en": {
+			"lifeLoss": {
+				"stories": [
+				]
+			},
+			"alteration": {
+				"stories": [
+				]
+			},
+			"moneyLoss": {
+				"stories": [
+				]
+			}
+		}
+	},
+	"rarity": 8,
+	"emote": "\uD83D\uDE31️"
+}
+
+
