@@ -119,7 +119,6 @@ const sendTravelPath = async function (entity, message, language) {
 	travelEmbed.setAuthor(tr.travelPathTitle, message.author.displayAvatarURL());
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language));
 	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previous_map_id)).getDisplayName(language), true);
-	travelEmbed.addField(tr.progression, (Math.floor(10000 * Maps.getTravellingTime(entity.Player) / (2*60*60*1000)) / 100.0) + "%", true);
 	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.map_id)).getDisplayName(language), true);
 	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 	return await message.channel.send(travelEmbed);

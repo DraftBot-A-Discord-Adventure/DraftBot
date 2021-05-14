@@ -19,7 +19,6 @@
 			"travelPathTitle": "Voyage actuel",
 			"startPoint": "Point de départ",
 			"endPoint": "Point d'arrivée",
-			"progression": "Progression",
 			"adviceTitle": "Conseil",
 			"journal": "Journal de {pseudo}"
 		},
@@ -42,7 +41,6 @@
 			"travelPathTitle": "Current travel",
 			"startPoint": "Start point",
 			"endPoint": "End point",
-			"progression": "Progression",
 			"adviceTitle": "Advice",
 			"journal": "Journal of {pseudo}"
 		}
