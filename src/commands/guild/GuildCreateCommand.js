@@ -11,7 +11,7 @@ const GuildCreateCommand = async (language, message, args) => {
 
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message,language,PERMISSION.ROLE.ALL,[EFFECT.BABY, EFFECT.DEAD],entity,GUILD.REQUIRED_LEVEL))
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, GUILD.REQUIRED_LEVEL))
 	) {
 		return;
 	}
