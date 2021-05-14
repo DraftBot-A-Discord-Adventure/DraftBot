@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "mo",
+	"map_location_ids": [
+		1
+	],
 	"translations": {
 		"fr": "🏔️ Vous avez décidé de profiter de l'été pour passer par les montagnes tant que les cols ne sont pas trop enneigés, cependant l'ascension s'avère plus difficile que prévu...",
 		"en": "🏔️ You decided to take advantage of the summer passing through the mountains as long as the passes aren't too snowy, however, the climb is more difficult than expected..."

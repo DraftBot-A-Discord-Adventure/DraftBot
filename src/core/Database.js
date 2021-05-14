@@ -282,10 +282,12 @@ class Database {
 
 		// Handle special case Events & Possibilities
 		await Events.destroy({truncate: true});
+		await EventMapLocationIds.destroy({truncate: true});
 		await Possibilities.destroy({truncate: true});
 
 		const files = await fs.promises.readdir(`resources/text/events`);
 		const eventsContent = [];
+		const eventsMapLocationsContent = [];
 		const possibilitiesContent = [];
 		for (const file of files) {
 			const fileName = file.split(".")[0];
@@ -295,6 +297,14 @@ class Database {
 
 			if (!Database.isEventValid(fileContent)) continue;
 
+			if (fileContent.map_location_ids) {
+				for (const mapLocationsId of fileContent.map_location_ids) {
+					eventsMapLocationsContent.push({
+						event_id: fileContent.id,
+						map_location_id: mapLocationsId
+					});
+				}
+			}
 			fileContent.fr = fileContent.translations.fr + "\n\n";
 			fileContent.en = fileContent.translations.en + "\n\n";
 			for (const possibilityKey of Object.keys(fileContent.possibilities)) {
@@ -338,6 +348,7 @@ class Database {
 		}
 
 		await Events.bulkCreate(eventsContent);
+		await EventMapLocationIds.bulkCreate(eventsMapLocationsContent);
 		await Possibilities.bulkCreate(possibilitiesContent);
 	}
 
@@ -510,17 +521,23 @@ class Database {
 			if (!JsonReader.models.maps.types.includes(map.type)) {
 				console.error("Type of map " + map.id + " doesn't exist");
 			}
-			if (map.north_map && dict[map.north_map].south_map !== map.id) {
-				console.error("Maps " + map.id + " and " + map.north_map + " are not connected (direction: north)");
-			}
-			if (map.south_map && dict[map.south_map].north_map !== map.id) {
-				console.error("Maps " + map.id + " and " + map.south_map + " are not connected (direction: south)");
-			}
-			if (map.west_map && dict[map.west_map].east_map !== map.id) {
-				console.error("Maps " + map.id + " and " + map.west_map + " are not connected (direction: west)");
-			}
-			if (map.east_map && dict[map.east_map].west_map !== map.id) {
-				console.error("Maps " + map.id + " and " + map.east_map + " are not connected (direction: east)");
+			for (const dir1 of ["north_map", "south_map", "west_map", "east_map"]) {
+				if (map[dir1]) {
+					const other_map = dict[map[dir1]];
+					if (other_map.id === map.id) {
+						console.error("Map " + map.id + " is connected to itself")
+					}
+					let valid = false;
+					for (const dir2 of ["north_map", "south_map", "west_map", "east_map"]) {
+						if (other_map[dir2] === map.id) {
+							valid = true;
+							break;
+						}
+					}
+					if (!valid) {
+						console.error("Map " + map.id + " is connected to " + other_map.id + " but the latter is not");
+					}
+				}
 			}
 		}
 	}

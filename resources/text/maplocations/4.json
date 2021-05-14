@@ -1,9 +1,9 @@
 {
-	"type": "vi",
-	"name_fr": "Village test",
-	"name_en": "Test village",
+	"type": "fo",
+	"name_fr": "Foret 4",
+	"name_en": "Forest 4",
 	"north_map": 3,
-	"east_map": null,
+	"east_map": 8,
 	"south_map": 5,
 	"west_map": null
 }

@@ -1,9 +1,9 @@
 {
-	"type": "ri",
-	"name_fr": "Rivière test 2",
-	"name_en": "Test river 2",
-	"north_map": null,
-	"east_map": 5,
-	"south_map": null,
-	"west_map": 7
+	"type": "vi",
+	"name_fr": "Village 6",
+	"name_en": "Village 6",
+	"north_map": 5,
+	"east_map": null,
+	"south_map": 7,
+	"west_map": null
 }

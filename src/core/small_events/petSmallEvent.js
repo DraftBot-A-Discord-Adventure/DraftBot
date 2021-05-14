@@ -50,7 +50,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			break;
 		case "gainTime":
 			amount = randInt(5, 20);
-			//TODO A FAAAAAAAAAAAAAAAAAIRE
+			require("../Maps").advanceTime(amount);
 			await message.channel.send("gainTime possibility to do. If you see this message, Nysvaa probably forgot to implement it, please report this.");
 			break;
 		case "points":
@@ -80,7 +80,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			break;
 		case "loseTime":
 			amount = randInt(5, 20);
-			//TODO A FAAAAAAAAAAAAAAAAAIRE
+			require("../Maps").advanceTime(-amount);
 			await message.channel.send("loseTime possibility to do. If you see this message, Nysvaa probably forgot to implement it, please report this.");
 			break;
 		case "petFlee":

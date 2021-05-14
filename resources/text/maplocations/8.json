@@ -1,9 +1,9 @@
 {
 	"type": "ro",
-	"name_fr": "Route test",
-	"name_en": "Test road",
-	"north_map": 1,
-	"east_map": null,
+	"name_fr": "Route 8",
+	"name_en": "Road 8",
+	"north_map": 10,
+	"east_map": 15,
 	"south_map": 7,
-	"west_map": null
+	"west_map": 4
 }

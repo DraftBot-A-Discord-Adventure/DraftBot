@@ -1,0 +1,9 @@
+{
+	"type": "ro",
+	"name_fr": "Route 24",
+	"name_en": "Road 24",
+	"north_map": 25,
+	"east_map": null,
+	"south_map": 23,
+	"west_map": 22
+}

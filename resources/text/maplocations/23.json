@@ -1,0 +1,9 @@
+{
+	"type": "ci",
+	"name_fr": "Ville 23",
+	"name_en": "City 23",
+	"north_map": 24,
+	"east_map": null,
+	"south_map": 21,
+	"west_map": 22
+}
