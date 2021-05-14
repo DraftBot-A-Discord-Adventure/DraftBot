@@ -24,6 +24,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		seEmbed.setDescription(JsonReader.small_events.botVote.getTranslation(language).stories.moneyWin[randInt(0, JsonReader.small_events.botVote.getTranslation(language).stories.moneyWin.length)]);
 		const msg = await message.channel.send(seEmbed);
 	}
+	await entity.Player.save();
 	log(entity.discordUser_id + " got botVote small event.");
 };
 
