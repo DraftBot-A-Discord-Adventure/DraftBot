@@ -1,0 +1,28 @@
+{
+	"translations": {
+		"fr": {
+			"itemWin": {
+				"stories": [
+				]
+			},
+			"moneyWin": {
+				"stories": [
+				]
+			}
+		},
+		"en": {
+			"itemWin": {
+				"stories": [
+				]
+			},
+			"moneyWin": {
+				"stories": [
+				]
+			}
+		}
+	},
+	"rarity": 4,
+	"emote": "\uD83D\uDDF3️"
+}
+
+
