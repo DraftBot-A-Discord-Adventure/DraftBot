@@ -1,0 +1,36 @@
+{
+	"translations": {
+		"fr": {
+			"noRoom": {
+				"stories": [
+				]
+			},
+			"roomInGuild": {
+				"stories": [
+				]
+			},
+			"roomInPlayer": {
+				"stories": [
+				]
+			}
+		},
+		"en": {
+			"noRoom": {
+				"stories": [
+				]
+			},
+			"roomInGuild": {
+				"stories": [
+				]
+			},
+			"roomInPlayer": {
+				"stories": [
+				]
+			}
+		}
+	},
+	"rarity": 2,
+	"emote": "\uD83D\uDC15️"
+}
+
+
