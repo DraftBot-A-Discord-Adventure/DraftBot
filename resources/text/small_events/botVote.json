@@ -8,6 +8,10 @@
 			"moneyWin": {
 				"stories": [
 				]
+			},
+			"pleaseVote": {
+				"stories": [
+				]
 			}
 		},
 		"en": {
@@ -16,6 +20,10 @@
 				]
 			},
 			"moneyWin": {
+				"stories": [
+				]
+			},
+			"pleaseVote": {
 				"stories": [
 				]
 			}

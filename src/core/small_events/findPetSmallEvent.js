@@ -8,7 +8,7 @@
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let pet = await PetEntities.generateRandomPetEntity();
-
+	// TODO TODO TODO Accorder les pets dans les textes
 	if (Guilds.isPetShelterFull(guild) && entity.Player.pet_id != null) {
 		// Plus de place
 		seEmbed.setDescription(format(JsonReader.small_events.findPet.getTranslation(language).noRoom.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).noRoom.stories.length)],{petFormat: PetEntities.displayName(pet)}));
@@ -18,7 +18,6 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		await pet.save();
 		await (await GuildPets.addPet(entity.Player.guild_id, pet.id)).save();
 		seEmbed.setDescription(format(JsonReader.small_events.findPet.getTranslation(language).roomInGuild.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).roomInGuild.stories.length)],{petFormat: PetEntities.displayName(pet)}));
-
 	} else {
 		// Place le pet avec le joueur
 		await pet.save();
