@@ -59,7 +59,10 @@ module.exports = (Sequelize, DataTypes) => {
 			createdAt: {
 				type: DataTypes.DATE,
 				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
-			}
+			},
+			restricted_maps: {
+				type: DataTypes.TEXT
+			},
 		},
 		{
 			tableName: "possibilities",

@@ -1,0 +1,9 @@
+{
+	"type": "pl",
+	"name_fr": "Plaine 20",
+	"name_en": "Plain 20",
+	"north_map": 19,
+	"east_map": 21,
+	"south_map": null,
+	"west_map": null
+}

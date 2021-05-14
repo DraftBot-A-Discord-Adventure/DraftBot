@@ -1,9 +1,9 @@
 {
-	"type": "ro",
-	"name_fr": "Route test 2",
-	"name_en": "Test road 2",
+	"type": "pl",
+	"name_fr": "Plaine 12",
+	"name_en": "Plain 12",
 	"north_map": 11,
-	"east_map": null,
-	"south_map": null,
-	"west_map": 9
+	"east_map": 15,
+	"south_map": 14,
+	"west_map": 13
 }

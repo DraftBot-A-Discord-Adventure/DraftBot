@@ -19,6 +19,7 @@ ALTER TABLE potions ADD french_plural INTEGER;
 ALTER TABLE objects ADD french_masculine INTEGER;
 ALTER TABLE objects ADD french_plural INTEGER;
 ALTER TABLE events ADD restricted_maps INTEGER;
+ALTER TABLE possibilities ADD restricted_maps INTEGER;
 
 CREATE TEMPORARY TABLE entity_backup (id INTEGER PRIMARY KEY, maxHealth INTEGER NOT NULL, health INTEGER NOT NULL, attack INTEGER NOT NULL, defense INTEGER NOT NULL, speed INTEGER NOT NULL, fightPointsLost INTEGER, discordUser_id VARCHAR(64) NOT NULL, updatedAt DATETIME, createdAt DATETIME);
 INSERT INTO entity_backup SELECT id, maxHealth, health, attack, defense, speed, fightPointsLost, discordUser_id, updatedAt, createdAt FROM entities;

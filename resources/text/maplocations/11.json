@@ -1,9 +1,9 @@
 {
-	"type": "la",
-	"name_fr": "Lac test",
-	"name_en": "Test lake",
-	"north_map": 10,
-	"east_map": null,
-	"south_map": 12,
-	"west_map": null
+	"type": "ro",
+	"name_fr": "Route 11",
+	"name_en": "Road 11",
+	"north_map": null,
+	"east_map": 12,
+	"south_map": null,
+	"west_map": 10
 }

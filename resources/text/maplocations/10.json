@@ -1,9 +1,9 @@
 {
-	"type": "pl",
-	"name_fr": "Plaine test",
-	"name_en": "Test plain",
-	"north_map": null,
+	"type": "vi",
+	"name_fr": "Village 10",
+	"name_en": "Village 10",
+	"north_map": 11,
 	"east_map": null,
-	"south_map": 11,
-	"west_map": 1
+	"south_map": 8,
+	"west_map": 9
 }

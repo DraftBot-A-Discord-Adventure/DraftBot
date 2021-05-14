@@ -1,9 +1,9 @@
 {
-	"type": "te",
-	"name_fr": "Ville test",
-	"name_en": "Test city",
+	"type": "be",
+	"name_fr": "Plage 1",
+	"name_en": "Beach 1",
 	"north_map": null,
-	"east_map": 10,
-	"south_map": 8,
-	"west_map": 2
+	"east_map": 26,
+	"south_map": null,
+	"west_map": null
 }

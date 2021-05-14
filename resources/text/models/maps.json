@@ -9,8 +9,7 @@
 		"vi",
 		"de",
 		"ri",
-		"la",
-		"te"
+		"la"
 	],
 	"translations": {
 		"fr": {
@@ -62,11 +61,6 @@
 				},
 				"la": {
 					"name": "Lac",
-					"prefix": "du",
-					"emote": "\uD83D\uDEA3\u200D♂️"
-				},
-				"te": {
-					"name": "Test",
 					"prefix": "du",
 					"emote": "\uD83D\uDEA3\u200D♂️"
 				}
@@ -135,11 +129,6 @@
 				},
 				"la": {
 					"name": "Lake",
-					"prefix": "of the",
-					"emote": "\uD83D\uDEA3\u200D♂️"
-				},
-				"te": {
-					"name": "Test",
 					"prefix": "of the",
 					"emote": "\uD83D\uDEA3\u200D♂️"
 				}

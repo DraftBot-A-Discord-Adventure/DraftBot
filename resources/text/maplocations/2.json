@@ -1,9 +1,9 @@
 {
-	"type": "fo",
-	"name_fr": "Forêt test",
-	"name_en": "Test forest",
+	"type": "ro",
+	"name_fr": "Route 2",
+	"name_en": "Road 2",
 	"north_map": null,
-	"east_map": 1,
-	"south_map": 3,
+	"east_map": 3,
+	"south_map": 26,
 	"west_map": null
 }
