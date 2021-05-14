@@ -85,7 +85,7 @@ const doRandomBigEvent = async function (message, language, entity, forceSpecifi
 
 	if (forceSpecificEvent === -1) {
 		const map = await MapLocations.getById(entity.Player.map_id);
-		[event] = await Events.pickEventOnMapType(map.type);
+		[event] = await Events.pickEventOnMapType(map);
 		if (!event) {
 			await message.channel.send("It seems that there is no event here... It's a bug, please report it to the Draftbot staff.");
 			return;

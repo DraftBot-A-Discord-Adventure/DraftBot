@@ -226,14 +226,6 @@ class Database {
 			foreignKey: "event_id",
 			as: "Possibilities",
 		});
-		Events.hasMany(EventMapLocationIds, {
-			foreignKey: "event_id",
-			as: "MapLocationIds",
-		});
-		MapLocations.hasMany(EventMapLocationIds, {
-			foreignKey: "map_location_id",
-			as: "EventIds",
-		});
 
 		Possibilities.belongsTo(Events, {
 			foreignKey: "event_id",
