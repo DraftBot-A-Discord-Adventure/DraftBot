@@ -1,3 +1,7 @@
+export async function getTimeBeforeDBLRoleRemove(discordUser_id) {
+	await getTimeBeforeDBLRoleRemove(discordUser_id)
+}
+
 const DiscordBotList = require('dblapi.js');
 
 class DBL {

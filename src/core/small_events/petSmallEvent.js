@@ -1,5 +1,5 @@
 const BADGE = "💞";
-
+const doNothing = require('doNothingSmallEvent');
 /**
  * Main function of small event
  * @param {module:"discord.js".Message} message
@@ -11,8 +11,7 @@ const BADGE = "💞";
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
 	if (!entity.Player.Pet) {
-		//TODO TODO TODO TOOZFJOZJZOZHPOZHO
-		return await message.channel.send("TODO: no pet -> redirect to nothing");
+		await doNothing.executeSmallEvent(message, language, entity, seEmbed);
 	}
 	const pet = entity.Player.Pet;
 	let interaction = pickRandomInteraction(entity.Player.Pet);
