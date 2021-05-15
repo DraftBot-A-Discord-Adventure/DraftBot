@@ -17,15 +17,6 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 		return;
 	}
 
-	await addBlockedPlayer(entity.discordUser_id, "cooldown");
-	setTimeout(() => {
-		if (hasBlockedPlayer(entity.discordUser_id)) {
-			if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
-				removeBlockedPlayer(entity.discordUser_id);
-			}
-		}
-	}, 500);
-
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
@@ -131,13 +122,18 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @param {Entities} entity
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
+ * @param {string|String} restricted_map_type
  * @returns {Promise<void>}
  */
-const chooseDestination = async function (entity, message, language) {
+const chooseDestination = async function (entity, message, language, restricted_map_type) {
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
-	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
-	// TODO mettre le temps ici comme ça ça bloque pas si le bot crash
-	if (destinationMaps.length === 1) {
+	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restricted_map_type);
+
+	if (destinationMaps.length === 0) {
+		return log(message.author + " hasn't any destination map (current map: " + entity.Player.map_id + ", restricted_map_type: " + restricted_map_type + ")");
+	}
+
+	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
 		await Maps.startTravel(entity.Player, destinationMaps[0],message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
@@ -361,7 +357,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 
 	if (!await player.killIfNeeded(entity, message.channel, language)) {
-		await chooseDestination(entity, message, language);
+		await chooseDestination(entity, message, language, pDataValues.restricted_maps);
 	}
 
 	entity.save();

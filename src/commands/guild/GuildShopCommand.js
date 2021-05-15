@@ -7,15 +7,7 @@
 async function GuildShopCommand(language, message, args) {
 	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		)) !== true
-	) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -32,12 +24,7 @@ async function GuildShopCommand(language, message, args) {
 
 	if (guild === null) {
 		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildDaily.getTranslation(language).notInAGuild
-		);
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
 	}
 
 	const shopTranslations = JsonReader.commands.guildShop.getTranslation(
@@ -126,7 +113,7 @@ async function GuildShopCommand(language, message, args) {
 				message.channel,
 				language,
 				JsonReader.commands.shop.getTranslation(language).error
-					.leaveShop,true
+					.leaveShop, true
 			);
 		}
 

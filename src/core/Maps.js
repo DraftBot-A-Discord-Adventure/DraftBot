@@ -10,9 +10,10 @@ class Maps {
 	/**
 	 * Returns the map ids a player can go to. It excludes the map the player is coming from if at least one map is available
 	 * @param {Players} player
+	 * @param {string|String} restricted_map_type
 	 * @returns {Number[]}
 	 */
-	static async getNextPlayerAvailableMaps(player) {
+	static async getNextPlayerAvailableMaps(player, restricted_map_type) {
 		let map;
 		if (!player.map_id) {
 			map = await MapLocations.getRandomMap();
@@ -23,20 +24,20 @@ class Maps {
 			map = await MapLocations.getById(player.map_id);
 		}
 		let next_maps = [];
-		if (map.north_map && map.north_map !== player.previous_map_id) {
-			next_maps.push(map.north_map);
+		if (restricted_map_type) {
+			const next_map_ids = await MapLocations.getMapConnectedWithTypeFilter(map.id, restricted_map_type);
+			for (const m of next_map_ids) {
+				next_maps.push(m.id);
+			}
+			return next_maps;
 		}
-		if (map.south_map && map.south_map !== player.previous_map_id) {
-			next_maps.push(map.south_map);
+		for (const map_dir of ["north_map", "south_map", "east_map", "west_map"]) {
+			if (map[map_dir] && map[map_dir] !== player.previous_map_id) {
+				next_maps.push(map[map_dir]);
+			}
 		}
-		if (map.east_map && map.east_map !== player.previous_map_id) {
-			next_maps.push(map.east_map);
-		}
-		if (map.west_map && map.west_map !== player.previous_map_id) {
-			next_maps.push(map.west_map);
-		}
-		if (map.length === 0 && player.previous_map_id) {
-			map.push(player.previous_map_id);
+		if (next_maps.length === 0 && player.previous_map_id) {
+			next_maps.push(player.previous_map_id);
 		}
 		return next_maps;
 	}
