@@ -122,7 +122,7 @@ class Maps {
 		player.effect_duration = 0;
 		player.effect_end_date = new Date();
 		if (remainingTime > 0) {
-			player.start_travel_date = new Date(player.start_travel_date.getTime() - remainingTime);
+			this.advanceTime(player, millisecondsToMinutes(remainingTime));
 		}
 		await player.save();
 	}
