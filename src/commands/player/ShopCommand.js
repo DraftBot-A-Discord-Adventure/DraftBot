@@ -1,3 +1,4 @@
+const Maps = require("../../core/Maps");
 /**
  * Displays the shop
  * @param {("fr"|"en")} language - Language to use in the response
@@ -395,7 +396,7 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
  */
 async function healAlterations(message, language, entity, customer, selectedItem) {
 	if (entity.Player.effect !== EFFECT.DEAD && entity.Player.effect !== EFFECT.LOCKED) {
-		await require("../../core/Maps").removeEffect(entity.Player);
+		await Maps.removeEffect(entity.Player);
 	}
 	await message.channel.send(
 		new discord.MessageEmbed()

@@ -1,3 +1,4 @@
+const Maps = require("../../core/Maps");
 /**
  * Allow to claim a daily guild reward
  * @param {("fr"|"en")} language - Language to use in the response
@@ -168,7 +169,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.HOSPITAL) {
 		for (const i in members) {
-			await members[i].Player.fastForward(Math.round(guild.level / 20))
+			Maps.advanceTime(members[i].Player, Math.round(guild.level / 20) * 60);
 
 			await members[i].Player.save();
 		}

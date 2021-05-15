@@ -1,3 +1,4 @@
+const Maps = require("../../core/Maps");
 /**
  * Allow to use the potion if the player has one in the dedicated slot of his inventory
  * @param {("fr"|"en")} language - Language to use in the response
@@ -39,7 +40,7 @@ const DrinkCommand = async function (language, message) {
 		embed.setColor(JsonReader.bot.embed.default)
 			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
 			.setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, {value: potion.power}));
-		require("../../core/Maps.js").advanceTime(entity.Player, potion.power * 60 * 60 * 1000);
+		Maps.advanceTime(entity.Player, potion.power * 60);
 		entity.Player.save();
 		entity.Player.Inventory.drinkPotion();
 	}

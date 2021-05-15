@@ -321,7 +321,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		});
 	}
 
-	player.effect = pDataValues.effect;
+	Maps.applyEffect(entity.Player, pDataValues.effect, pDataValues.lostTime);
 	await entity.addHealth(pDataValues.health);
 
 	player.addScore(scoreChange);
