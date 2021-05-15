@@ -12,18 +12,18 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	switch (outRand) {
 		case 0:
 			let lifeLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_LOST_BIG, SMALL_EVENT.MAXIMUM_HEALTH_LOST_BIG);
-			seEmbed.setDescription(format(JsonReader.small_events.bigBadEvent.getTranslation(language).lifeLoss.stories[randInt(0, JsonReader.small_events.bigBadEvent.getTranslation(language).lifeLoss.stories.length)], {lifeLoss: lifeLoss}));
+			seEmbed.setDescription(JsonReader.small_events.bigBadEvent.emote + format(JsonReader.small_events.bigBadEvent.getTranslation(language).lifeLoss.stories[randInt(0, JsonReader.small_events.bigBadEvent.getTranslation(language).lifeLoss.stories.length)], {lifeLoss: lifeLoss}));
 			entity.Player.addHealth(-lifeLoss);
 			break;
 		case 1:
 			let effect = draftbotRandom.pick([EFFECT.SLEEPING,EFFECT.DRUNK,EFFECT.FROZEN,EFFECT.HURT,EFFECT.SICK,EFFECT.INJURED,EFFECT.STARVING,EFFECT.CONFOUNDED]);
 			let time = millisecondsToMinutes(JsonReader.models.players.effectMalus[effect]);
-			seEmbed.setDescription(format(JsonReader.small_events.bigBadEvent.getTranslation(language).alteration.stories[randInt(0, JsonReader.small_events.bigBadEvent.getTranslation(language).alteration.stories.length)], {alteTime: minutesToString(time), alteEmoji: effect}));
+			seEmbed.setDescription(JsonReader.small_events.bigBadEvent.emote + format(JsonReader.small_events.bigBadEvent.getTranslation(language).alteration.stories[randInt(0, JsonReader.small_events.bigBadEvent.getTranslation(language).alteration.stories.length)], {alteTime: minutesToString(time), alteEmoji: effect}));
 			await Maps.applyEffect(entity.Player, effect);
 			break;
 		default:
 			let moneyLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_LOST_BIG, SMALL_EVENT.MAXIMUM_MONEY_LOST_BIG);
-			seEmbed.setDescription(format(JsonReader.small_events.smallBadEvent.getTranslation(language).moneyLoss.stories[randInt(0, JsonReader.small_events.smallBadEvent.getTranslation(language).moneyLoss.stories.length)], {moneyLost: moneyLoss}));
+			seEmbed.setDescription(JsonReader.small_events.bigBadEvent.emote + format(JsonReader.small_events.smallBadEvent.getTranslation(language).moneyLoss.stories[randInt(0, JsonReader.small_events.smallBadEvent.getTranslation(language).moneyLoss.stories.length)], {moneyLost: moneyLoss}));
 			entity.Player.addMoney(-moneyLoss);
 			break;
 	}

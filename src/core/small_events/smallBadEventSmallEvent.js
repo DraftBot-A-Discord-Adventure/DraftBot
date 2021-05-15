@@ -12,17 +12,17 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	switch (outRand) {
 		case 0:
 			let lifeLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_LOST_SMALL, SMALL_EVENT.MAXIMUM_HEALTH_LOST_SMALL);
-			seEmbed.setDescription(format(JsonReader.small_events.smallBadEvent.getTranslation(language).lifeLoss.stories[randInt(0, JsonReader.small_events.smallBadEvent.getTranslation(language).lifeLoss.stories.length)], {lifeLoss: lifeLoss}));
+			seEmbed.setDescription(JsonReader.small_events.smallBadEvent.emote + format(JsonReader.small_events.smallBadEvent.getTranslation(language).lifeLoss.stories[randInt(0, JsonReader.small_events.smallBadEvent.getTranslation(language).lifeLoss.stories.length)], {lifeLoss: lifeLoss}));
 			entity.Player.addHealth(-lifeLoss);
 			break;
 		case 1:
 			let time = draftbotRandom.integer(SMALL_EVENT.MINIMUM_TIME_LOST_SMALL, SMALL_EVENT.MAXIMUM_TIME_LOST_SMALL) * 5;
-			seEmbed.setDescription(format(JsonReader.small_events.smallBadEvent.getTranslation(language).alteration.stories[randInt(0, JsonReader.small_events.smallBadEvent.getTranslation(language).alteration.stories.length)], {alteTime: minutesToString(time)}));
+			seEmbed.setDescription(JsonReader.small_events.smallBadEvent.emote + format(JsonReader.small_events.smallBadEvent.getTranslation(language).alteration.stories[randInt(0, JsonReader.small_events.smallBadEvent.getTranslation(language).alteration.stories.length)], {alteTime: minutesToString(time)}));
 			await Maps.applyEffect(entity.Player, EFFECT.OCCUPIED, time);
 			break;
 		default:
 			let moneyLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_LOST_SMALL, SMALL_EVENT.MAXIMUM_MONEY_LOST_SMALL);
-			seEmbed.setDescription(format(JsonReader.small_events.smallBadEvent.getTranslation(language).moneyLoss.stories[randInt(0, JsonReader.small_events.smallBadEvent.getTranslation(language).moneyLoss.stories.length)], {moneyLost: moneyLoss}));
+			seEmbed.setDescription(JsonReader.small_events.smallBadEvent.emote + format(JsonReader.small_events.smallBadEvent.getTranslation(language).moneyLoss.stories[randInt(0, JsonReader.small_events.smallBadEvent.getTranslation(language).moneyLoss.stories.length)], {moneyLost: moneyLoss}));
 			entity.Player.addMoney(-moneyLoss);
 			break;
 	}

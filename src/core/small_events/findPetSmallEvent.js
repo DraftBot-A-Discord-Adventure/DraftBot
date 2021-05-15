@@ -11,21 +11,53 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	// TODO TODO TODO Accorder les pets dans les textes
 	if (Guilds.isPetShelterFull(guild) && entity.Player.pet_id != null) {
 		// Plus de place
-		seEmbed.setDescription(format(JsonReader.small_events.findPet.getTranslation(language).noRoom.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).noRoom.stories.length)],{petFormat: PetEntities.displayName(pet)}));
+		seEmbed.setDescription(
+			JsonReader.small_events.findPet.emote +
+			format(
+				JsonReader.small_events.findPet.getTranslation(language).noRoom.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).noRoom.stories.length)], {
+					pet: PetEntities.displayName(pet),
+					nominative: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex],
+					nominativeShift: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].slice(1),
+					accusative: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex],
+					accusativeShift: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].slice(1),
+					determinant: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex],
+					determinantShift: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].slice(1)
+				}));
 
 	} else if (entity.Player.pet_id != null) {
 		// Place le pet dans la guilde
 		await pet.save();
 		await (await GuildPets.addPet(entity.Player.guild_id, pet.id)).save();
-		seEmbed.setDescription(format(JsonReader.small_events.findPet.getTranslation(language).roomInGuild.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).roomInGuild.stories.length)],{petFormat: PetEntities.displayName(pet)}));
+		seEmbed.setDescription(
+			JsonReader.small_events.findPet.emote +
+			format(
+				JsonReader.small_events.findPet.getTranslation(language).roomInGuild.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).roomInGuild.stories.length)], {
+					petFormat: PetEntities.displayName(pet),
+					nominative: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex],
+					nominativeShift: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].slice(1),
+					accusative: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex],
+					accusativeShift: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].slice(1),
+					determinant: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex],
+					determinantShift: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].slice(1)
+				}));
 	} else {
 		// Place le pet avec le joueur
 		await pet.save();
 		entity.Player.pet_id = pet.id;
 		await entity.Player.save();
-		seEmbed.setDescription(format(JsonReader.small_events.findPet.getTranslation(language).roomInPlayer.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).roomInPlayer.stories.length)],{petFormat: PetEntities.displayName(pet)}));
+		seEmbed.setDescription(
+			JsonReader.small_events.findPet.emote +
+			format(
+				JsonReader.small_events.findPet.getTranslation(language).roomInPlayer.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).roomInPlayer.stories.length)], {
+					petFormat: PetEntities.displayName(pet),
+					nominative: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex],
+					nominativeShift: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].slice(1),
+					accusative: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex],
+					accusativeShift: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].slice(1),
+					determinant: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex],
+					determinantShift: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].slice(1)
+				}));
 	}
-
 	const msg = await message.channel.send(seEmbed);
 	log(entity.discordUser_id + " got find pet event.");
 };

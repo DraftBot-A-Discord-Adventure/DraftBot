@@ -11,16 +11,16 @@ const DBL = require('../DBL');
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUser_id) < 0) {
 		// hasn't voted
-		seEmbed.setDescription(JsonReader.small_events.botVote.getTranslation(language).pleaseVote.stories[randInt(0, JsonReader.small_events.botVote.getTranslation(language).pleaseVote.stories.length)]);
+		seEmbed.setDescription(JsonReader.small_events.botVote.emote + JsonReader.small_events.botVote.getTranslation(language).pleaseVote.stories[randInt(0, JsonReader.small_events.botVote.getTranslation(language).pleaseVote.stories.length)]);
 	} else if (draftbotRandom.bool()) {
 		//object win
-		seEmbed.setDescription(JsonReader.small_events.botVote.getTranslation(language).itemWin.stories[randInt(0, JsonReader.small_events.botVote.getTranslation(language).itemWin.stories.length)]);
+		seEmbed.setDescription(JsonReader.small_events.botVote.emote + JsonReader.small_events.botVote.getTranslation(language).itemWin.stories[randInt(0, JsonReader.small_events.botVote.getTranslation(language).itemWin.stories.length)]);
 		await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
 	} else {
 		//money win
 		let moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_VOTE, SMALL_EVENT.MAXIMUM_MONEY_WON_VOTE);
 		entity.Player.addMoney(moneyWon);
-		seEmbed.setDescription(format(JsonReader.small_events.botVote.getTranslation(language).moneyWin.stories[randInt(0, JsonReader.small_events.botVote.getTranslation(language).moneyWin.stories.length)],{money:moneyWon}));
+		seEmbed.setDescription(JsonReader.small_events.botVote.emote + format(JsonReader.small_events.botVote.getTranslation(language).moneyWin.stories[randInt(0, JsonReader.small_events.botVote.getTranslation(language).moneyWin.stories.length)],{money:moneyWon}));
 	}
 	const msg = await message.channel.send(seEmbed);
 	await entity.Player.save();

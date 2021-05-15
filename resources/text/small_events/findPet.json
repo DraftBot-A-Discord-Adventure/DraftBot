@@ -12,6 +12,18 @@
 			"roomInPlayer": {
 				"stories": [
 				]
+			},
+			"nominative": {
+				"m": "il",
+				"f": "elle"
+			},
+			"accusative": {
+				"m": "lui",
+				"f": "elle"
+			},
+			"determinant": {
+				"m": "le",
+				"f": "la"
 			}
 		},
 		"en": {
