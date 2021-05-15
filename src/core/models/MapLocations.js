@@ -88,6 +88,27 @@ module.exports = (Sequelize, DataTypes) => {
 	}
 
 	/**
+	 * Get map connected to a map with a certain id and with a map type as a filter
+	 * @param map_id
+	 * @param map_types
+	 * @returns {Promise<[MapLocations]>}
+	 */
+	MapLocations.getMapConnectedWithTypeFilter = async (map_id, map_types) => {
+		const query = `SELECT id FROM map_locations WHERE :map_types LIKE '%' || type || '%' AND (
+										id IN (SELECT north_map FROM map_locations WHERE id = :map_id) OR
+										id IN (SELECT south_map FROM map_locations WHERE id = :map_id) OR
+										id IN (SELECT east_map FROM map_locations WHERE id = :map_id) OR
+										id IN (SELECT west_map FROM map_locations WHERE id = :map_id));`;
+		return await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT,
+			replacements: {
+				map_types: map_types,
+				map_id: map_id
+			}
+		});
+	}
+
+	/**
 	 * Get the number of players on this map
 	 * @returns {Promise<Number>}
 	 */

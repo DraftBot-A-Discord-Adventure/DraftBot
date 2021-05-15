@@ -131,13 +131,18 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @param {Entities} entity
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
+ * @param {string|String} restricted_map_type
  * @returns {Promise<void>}
  */
-const chooseDestination = async function (entity, message, language) {
+const chooseDestination = async function (entity, message, language, restricted_map_type) {
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
-	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player);
-	// TODO mettre le temps ici comme ça ça bloque pas si le bot crash
-	if (destinationMaps.length === 1) {
+	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restricted_map_type);
+
+	if (destinationMaps.length === 0) {
+		return log(message.author + " hasn't any destination map (current map: " + entity.Player.map_id + ", restricted_map_type: " + restricted_map_type + ")");
+	}
+
+	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
 		await Maps.startTravel(entity.Player, destinationMaps[0],message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
@@ -361,7 +366,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 
 	if (!await player.killIfNeeded(entity, message.channel, language)) {
-		await chooseDestination(entity, message, language);
+		await chooseDestination(entity, message, language, pDataValues.restricted_maps);
 	}
 
 	entity.save();

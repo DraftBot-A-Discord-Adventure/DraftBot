@@ -339,8 +339,8 @@ class Database {
 						fr: possibility.translations.fr,
 						en: possibility.translations.en,
 						event_id: fileName,
-						nextEvent:
-							possibility.nextEvent !== undefined ? possibility.nextEvent : null,
+						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
+						restricted_maps: possibility.restricted_maps
 					};
 					possibilitiesContent.push(possibilityContent);
 				}
