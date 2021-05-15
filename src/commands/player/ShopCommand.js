@@ -7,15 +7,7 @@
 async function ShopCommand(language, message, args) {
 	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		)) !== true
-	) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -335,7 +327,7 @@ async function confirmPurchase(
 				return sellItem(message, reaction, language, entity, customer, selectedItem);
 			}
 		}
-		sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.canceledPurchase,true);
+		sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.canceledPurchase, true);
 	});
 
 	await Promise.all([
