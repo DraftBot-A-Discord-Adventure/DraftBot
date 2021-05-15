@@ -8,7 +8,6 @@
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let pet = await PetEntities.generateRandomPetEntity();
-	// TODO TODO TODO Accorder les pets dans les textes
 	if (Guilds.isPetShelterFull(guild) && entity.Player.pet_id != null) {
 		// Plus de place
 		seEmbed.setDescription(
