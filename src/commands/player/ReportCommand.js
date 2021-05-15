@@ -17,15 +17,6 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 		return;
 	}
 
-	await addBlockedPlayer(entity.discordUser_id, "cooldown");
-	setTimeout(() => {
-		if (hasBlockedPlayer(entity.discordUser_id)) {
-			if (getBlockedPlayer(entity.discordUser_id).context === "cooldown") {
-				removeBlockedPlayer(entity.discordUser_id);
-			}
-		}
-	}, 500);
-
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
