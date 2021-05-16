@@ -153,14 +153,13 @@ const TestCommand = async (language, message, args) => {
 				}
 				break;
 			case 'jail':
-				[entity] = await Entities.getOrRegister(message.mentions.users.first().id);
-				if (entity) {
-					await Maps.applyEffect(entity.Player, ':lock:');
-					await entity.Player.save();
-				} else {
+				if (message.mentions.users.first() === undefined) {
 					await message.channel.send('Usage correct: test jail <mention>');
 					return;
 				}
+				[entity] = await Entities.getOrRegister(message.mentions.users.first().id);
+				await Maps.applyEffect(entity.Player, ':lock:');
+				await entity.Player.save();
 				break;
 			case 'weaponid':
 				if (args.length === 2) {
@@ -217,7 +216,7 @@ const TestCommand = async (language, message, args) => {
 				author.Player.effect_end_date = Date.now();
 				author.Player.effect_duration = 0;
 				author.Player.effect = ':smiley:';
-				author.Player.start_travel_date=new Date();
+				author.Player.start_travel_date = new Date();
 				author.Player.save();
 
 				author.maxHealth = 100;
@@ -464,7 +463,7 @@ const TestCommand = async (language, message, args) => {
 				}
 			case 'atravel':
 				if (args.length === 2) {
-					Maps.advanceTime(author.Player,parseInt(args[1]))
+					Maps.advanceTime(author.Player, parseInt(args[1]))
 					author.Player.save();
 					break;
 				} else {
