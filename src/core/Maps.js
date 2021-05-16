@@ -107,12 +107,12 @@ class Maps {
 		await this.removeEffect(player);
 		player.effect = effect;
 		if (effect === EFFECT.OCCUPIED) {
-			player.effect_duration = minutesToMilliseconds(time);
+			player.effect_duration = time;
 		} else {
-			player.effect_duration = JsonReader.models.players.effectMalus[effect];
+			player.effect_duration = millisecondsToMinutes(JsonReader.models.players.effectMalus[effect]);
 		}
-		player.effect_end_date = new Date(Date.now() + player.effect_duration);
-		player.start_travel_date = new Date(player.start_travel_date.getTime() + player.effect_duration);
+		player.effect_end_date = new Date(Date.now() + minutesToMilliseconds(player.effect_duration));
+		player.start_travel_date = new Date(player.start_travel_date.getTime() + minutesToMilliseconds(player.effect_duration));
 		await player.save();
 	}
 
@@ -131,9 +131,11 @@ class Maps {
 		let t = minutesToMilliseconds(time);
 		if (player.effectRemainingTime() !== 0) {
 			if (t>=player.effect_end_date.getTime()-Date.now()) {
+				t = t - (player.effect_end_date.getTime()-Date.now());
 				player.effect_end_date = Date.now();
 			} else {
 				player.effect_end_date = new Date(player.effect_end_date.getTime() - t);
+				t = 0;
 			}
 		}
 		player.start_travel_date = new Date(player.start_travel_date.getTime() - t);
