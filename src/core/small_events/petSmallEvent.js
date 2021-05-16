@@ -1,5 +1,5 @@
 const BADGE = "💞";
-const doNothing = require('doNothingSmallEvent');
+const doNothing = require('./doNothingSmallEvent');
 /**
  * Main function of small event
  * @param {module:"discord.js".Message} message
