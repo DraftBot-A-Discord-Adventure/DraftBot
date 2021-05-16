@@ -6,7 +6,7 @@ const Maps = require("../../core/Maps");
  */
 const DrinkCommand = async function (language, message) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
