@@ -7,9 +7,8 @@
 const GuildShelterCommand = async (language, message, args) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if (!await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity))
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true)
 		return;
-
 
 	// search for a user's guild
 	let guild;

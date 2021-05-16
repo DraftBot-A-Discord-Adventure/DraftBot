@@ -356,7 +356,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		await player.levelUpIfNeeded(entity, message.channel, language);
 	}
 
-	if (!await player.killIfNeeded(entity, message.channel, language)) {
+	if (!await player.killIfNeeded(entity, message.channel, language)) { // TODO : check if this work
 		await chooseDestination(entity, message, language, pDataValues.restricted_maps);
 	}
 

@@ -19,7 +19,7 @@ const GuildKickCommand = async (language, message, args) => {
 		kickedEntity = null;
 	}
 
-	if (!await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity))
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true)
 		return;
 
 
