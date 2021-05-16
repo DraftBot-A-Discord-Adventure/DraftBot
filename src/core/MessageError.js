@@ -55,7 +55,7 @@ class MessageError {
 					return await MessageError.effectsErrorMe(message, language, entity, disallowEffects[disallowEffect]);
 				}
 			} else {
-				return await MessageError.errorPlayer(message,language,entity.Player);
+				return await MessageError.errorPlayer(message, language, entity.Player);
 			}
 		}
 
@@ -163,7 +163,7 @@ class MessageError {
 				.setDescription(entity.Player.effect + JsonReader.error.getTranslation(language).meIsDead);
 		}
 
-		const timeEffect =  minutesToString(millisecondsToMinutes(entity.Player.effectRemainingTime()));
+		const timeEffect = minutesToString(millisecondsToMinutes(entity.Player.effectRemainingTime()));
 		if (effect === EFFECT.SLEEPING) {
 			embed
 				.setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsSleeping, {pseudo: message.author.username}), message.author.displayAvatarURL())
@@ -215,11 +215,11 @@ class MessageError {
 				.setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsFrozen, {pseudo: message.author.username}), message.author.displayAvatarURL())
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
-    if (effect === EFFECT.STARVING) {
-      embed
-        .setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsStarving, { pseudo: message.author.username }), message.author.displayAvatarURL())
-        .setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, { time: timeEffect }));
-    }
+		if (effect === EFFECT.STARVING) {
+			embed
+				.setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsStarving, {pseudo: message.author.username}), message.author.displayAvatarURL())
+				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
+		}
 
 		return await message.channel.send(embed);
 	}
@@ -230,89 +230,88 @@ class MessageError {
 	static async errorPlayer(message, language, player) {
 		const embed = new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.error)
-			.setTitle(format(JsonReader.error.getTranslation(language).title, {pseudo: message.author.username}))
-			.setAuthor(message.author.username, message.author.displayAvatarURL());
+			.setAuthor(format(JsonReader.error.getTranslation(language).title[0], {pseudo: message.author.username}), message.author.displayAvatarURL());
 
 		if (player.effect === EFFECT.BABY) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsBaby, {
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsBaby, {
 					askedPseudo: player.getPseudo(language),
-				});
+				}));
 		}
 
 		if (player.effect === EFFECT.DEAD) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsDead, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsDead, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 
 		if (player.effect === EFFECT.SLEEPING) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsSleeping, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsSleeping, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 
 		if (player.effect === EFFECT.DRUNK) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsDrunk, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsDrunk, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 		if (player.effect === EFFECT.HURT) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsHurt, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsHurt, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 
 		if (player.effect === EFFECT.SICK) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsSick, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsSick, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 
 		if (player.effect === EFFECT.LOCKED) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsLocked, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsLocked, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 		if (player.effect === EFFECT.INJURED) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsInjured, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsInjured, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 
 		if (player.effect === EFFECT.OCCUPIED) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsOccupied, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsOccupied, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 
 		if (player.effect === EFFECT.CONFOUNDED) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsCondounded, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsCondounded, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 
 		if (player.effect === EFFECT.STARVING) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsStarving, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsStarving, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 
 		if (player.effect === EFFECT.FROZEN) {
 			embed
-				.setDescription(JsonReader.error.getTranslation(language).playerIsFrozen, {
-					askedPseudo: player.getPseudo(language),
-				});
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsFrozen, {
+					askedPseudo: await player.getPseudo(language),
+				}));
 		}
 
 		return await message.channel.send(embed);
