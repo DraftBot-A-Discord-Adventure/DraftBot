@@ -131,11 +131,9 @@ class Maps {
 		let t = minutesToMilliseconds(time);
 		if (player.effectRemainingTime() !== 0) {
 			if (t>=player.effect_end_date.getTime()-Date.now()) {
-				t = t - (player.effect_end_date.getTime()-Date.now());
 				player.effect_end_date = Date.now();
 			} else {
 				player.effect_end_date = new Date(player.effect_end_date.getTime() - t);
-				t = 0;
 			}
 		}
 		player.start_travel_date = new Date(player.start_travel_date.getTime() - t);
@@ -150,7 +148,7 @@ class Maps {
 	static async startTravel(player, map_id,time) {
 		player.previous_map_id = player.map_id;
 		player.map_id = map_id;
-		player.start_travel_date = new Date(time);
+		player.start_travel_date = new Date(time + minutesToMilliseconds(player.effect_duration));
 		await player.save();
 		if (player.effect !== EFFECT.SMILEY) {
 			await Maps.applyEffect(player, player.effect, player.effect_duration);
