@@ -19,7 +19,7 @@
 				"price": 1000,
 				"info": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450.",
 				"type": "guildXp",
-				"give": "Votre guilde a reçu `{experience}⭐`."
+				"give": "Votre guilde a reçu {experience} ⭐."
 			},
 			"confirm": "{pseudo}, vous avez sélectionné le produit suivant :",
 			"moneyQuantity": "\n\nVous avez `{money}💰`.",
@@ -54,7 +54,7 @@
 				"price": 1000,
 				"info": "\n\n:warning: You will receive a random amount (between 50 and 450) of guild xp.",
 				"type": "guildXp",
-				"give": "Your guild has received `{experience}⭐`."
+				"give": "Your guild has received {experience} ⭐."
 			},
 			"confirm": "{pseudo}, you have selected this product:",
 			"moneyQuantity": "\n\nYou have `{money}💰`.",

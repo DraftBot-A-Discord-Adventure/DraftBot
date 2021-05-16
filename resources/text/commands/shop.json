@@ -35,7 +35,7 @@
 					"name": ":star: **Un peu d'xp pour votre guilde**",
 					"price": 1000,
 					"info": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450.",
-					"give": "Votre guilde a reçu `{experience}⭐`."
+					"give": "Votre guilde a reçu {experience} ⭐."
 				}
 			},
 			"confirm": "{pseudo}, vous avez sélectionné le produit suivant :",
@@ -87,7 +87,7 @@
 					"name": ":star: **Some xp for your guild**",
 					"price": 1000,
 					"info": "\n\n:warning: You will receive a random amount (between 50 and 450) of guild xp.",
-					"give": "Your guild has received `{experience}⭐`."
+					"give": "Your guild has received {experience} ⭐."
 				}
 			},
 			"confirm": "{pseudo}, you have selected this product:",
