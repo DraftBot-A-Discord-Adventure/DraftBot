@@ -112,9 +112,6 @@ class Maps {
 			player.effect_duration = JsonReader.models.players.effectMalus[effect];
 		}
 		player.effect_end_date = new Date(Date.now() + millisecondsToMinutes(player.effect_duration));
-		if (!player.start_travel_date) { // Case where the player is new
-			player.start_travel_date = Date.now();
-		}
 		player.start_travel_date = new Date(player.start_travel_date.getTime() + millisecondsToMinutes(player.effect_duration));
 		await player.save();
 	}
