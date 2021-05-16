@@ -11,7 +11,7 @@
 				"Rien d'important ne s'est passé depuis le rapport précédent.",
 				"Pas d'évènement notable depuis la dernière fois.",
 				"Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route.",
-				"😃 La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
+				"La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
 			]
 		},
 		"en": {
@@ -25,12 +25,12 @@
 				"Nothing significant has happened since the previous report.",
 				"No significant events since last time.",
 				"The dogs bark and the caravan passes by. You continue quietly on your way.",
-				"😃 The princess got closer to you! At least that's the impression you got... You carry on."
+				"The princess got closer to you! At least that's the impression you got... You carry on."
 			]
 		}
 	},
 	"rarity": 12,
-	"emote": ":x:  "
+	"emote": ":walking:  "
 }
 
 
