@@ -1,3 +1,4 @@
+const Maps = require('../../core/Maps');
 /**
  * Allow a player who is dead to respawn
  * @param {("fr"|"en")} language - Language to use in the response
@@ -15,11 +16,7 @@ const RespawnCommand = async (language, message, args) => {
 		await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.respawn.getTranslation(language).alive, {pseudo: message.author.username}));
 	} else {
 		const lostScore = Math.round(entity.Player.score * JsonReader.commands.respawn.score_remove_during_respawn);
-
-		entity.Player.effect = EFFECT.SMILEY;
 		entity.health = await entity.getMaxHealth();
-		entity.Player.effect_duration = 0;
-		entity.Player.effect_end_date = Date.now();
 		entity.Player.addScore(-lostScore);
 		entity.Player.addWeeklyScore(-lostScore);
 
@@ -27,6 +24,9 @@ const RespawnCommand = async (language, message, args) => {
 			entity.save(),
 			entity.Player.save(),
 		]);
+
+		await Maps.removeEffect(entity.Player);
+
 
 		await message.channel.send(format(JsonReader.commands.respawn.getTranslation(language).respawn, {
 			pseudo: message.author.username,

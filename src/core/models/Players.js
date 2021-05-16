@@ -1,3 +1,4 @@
+const Maps = require('../Maps');
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -356,9 +357,7 @@ module.exports = (Sequelize, DataTypes) => {
 			return false;
 		}
 		log("This user is dead : " + entity.discordUser_id);
-		entity.Player.effect = EFFECT.DEAD;
-		this.effect_end_date = new Date(9999, 1);
-		this.effect_duration = Infinity;
+		await Maps.applyEffect(entity.Player,EFFECT.DEAD);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
 
 		let guildMember = await channel.guild.members.fetch(entity.discordUser_id);

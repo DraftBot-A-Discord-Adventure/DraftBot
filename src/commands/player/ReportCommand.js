@@ -299,6 +299,8 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 	let emojiEnd = pDataValues.effect !== EFFECT.SMILEY && pDataValues.effect !== EFFECT.OCCUPIED ? ' ' + pDataValues.effect : '';
 
+	emojiEnd = pDataValues.oneshot === true ? ' ' + EFFECT.DEAD + ' ' : emojiEnd;
+
 	if (possibility.dataValues.possibilityKey === "end") {
 		result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 			pseudo: message.author,
@@ -340,6 +342,8 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		removeBlockedPlayer(entity.discordUser_id);
 	}
 
+	if (pDataValues.oneshot === true) entity.setHealth(0);
+
 	if (pDataValues.eventId === 0) {
 		player.money = 0;
 		player.score = 0;
@@ -355,7 +359,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		await player.levelUpIfNeeded(entity, message.channel, language);
 	}
 
-	if (!await player.killIfNeeded(entity, message.channel, language)) { // TODO : check if this work
+	if (!await player.killIfNeeded(entity, message.channel, language)) {
 		await chooseDestination(entity, message, language, pDataValues.restricted_maps);
 	}
 
