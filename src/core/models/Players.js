@@ -81,7 +81,8 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.INTEGER
 		},
 		start_travel_date: {
-			type: DataTypes.DATE
+			type: DataTypes.DATE,
+			defaultValue: 0
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
