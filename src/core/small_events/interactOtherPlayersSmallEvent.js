@@ -16,7 +16,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		}
 	}
 
-	const tr = JsonReader.small_events.InteractOtherPlayers.getTranslation(language);
+	const tr = JsonReader.small_events.interactOtherPlayers.getTranslation(language);
 	if (!selectedPlayer) {
 		seEmbed.setDescription(seEmbed.description + tr.no_one[randInt(0, tr.no_one.length)]);
 		return await message.channel.send(seEmbed);
@@ -28,7 +28,6 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		const otherPlayer = (await Players.getById(otherEntity.Player.id))[0];
 		let item = null;
 		let guild = null;
-		console.log(otherPlayer.rank);
 		if (otherPlayer.rank === 1) {
 			cList.push("top1");
 		} else if (otherPlayer.rank <= 10) {
@@ -111,8 +110,6 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		}
 
 		const characteristic = cList[randInt(0, cList.length)];
-		console.log(cList);
-		console.log(characteristic);
 		switch (characteristic) {
 			case "weapon":
 				item = await otherEntity.Player.Inventory.getWeapon();
