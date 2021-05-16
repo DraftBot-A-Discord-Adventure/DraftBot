@@ -8,14 +8,22 @@
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
-	let xpWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_GUILD_EXPERIENCE_WON, SMALL_EVENT.MAXIMUM_GUILD_EXPERIENCE_WON);
+	let g = await Guilds.getById(entity.Player.guild_id);
+	let xpWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_GUILD_EXPERIENCE_WON + g.level, SMALL_EVENT.MAXIMUM_GUILD_EXPERIENCE_WON + g.level * 2);
+
 	seEmbed.setDescription(format(JsonReader.small_events.winGuildXP.getTranslation(language).stories[randInt(0, JsonReader.small_events.winGuildXP.getTranslation(language).stories.length)] + JsonReader.small_events.winGuildXP.getTranslation(language).end, {
+			guilde: g.name,
 			xp: xpWon
 		})
 	);
+	g.experience += xpWon;
+	while (g.needLevelUp()) {
+		await g.levelUpIfNeeded(message.channel, language);
+	}
+	await g.save();
 
 	const msg = await message.channel.send(seEmbed);
-	log(entity.discordUser_id + " gained some xp points in a mini event");
+	log(entity.discordUser_id + "'guild gained some xp points in a mini event");
 };
 
 module.exports = {
