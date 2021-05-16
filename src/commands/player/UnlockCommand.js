@@ -5,35 +5,22 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const UnlockCommand = async (language, message, args) => {
-  let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
+	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
 	if (message.mentions.users.first()) {
 		if (message.mentions.users.first().id === message.author.id) {
-			return sendErrorMessage(
-				message.author,
-				message.channel,
-				language,
-				JsonReader.commands.unlock.getTranslation(language).unlockHimself
-			);
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).unlockHimself);
 		}
 	}
 
-  if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		)) !== true
-	) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
 
-  try {
+	try {
 		[lockedEntity] = await Entities.getByArgs(args, message);
 	} catch (error) {
 		lockedEntity = null;
@@ -41,26 +28,13 @@ const UnlockCommand = async (language, message, args) => {
 
 	if (lockedEntity == null) {
 		// no user provided
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.unlock.getTranslation(language).cannotGetlockedUser
-		);
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).cannotGetlockedUser);
 	}
 	if (lockedentity.Player.effect !== EFFECT.LOCKED) {
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.unlock.getTranslation(language).userNotLocked, 
-		);
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).userNotLocked,);
 	}
 	if (entity.Player.money < UNLOCK.PRICE_FOR_UNLOCK) {
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
+		return sendErrorMessage(message.author, message.channel, language,
 			format(JsonReader.commands.unlock.getTranslation(language).noMoney, {
 				money: UNLOCK.PRICE_FOR_UNLOCK - entity.Player.money,
 				pseudo: await lockedEntity.Player.getPseudo(language),
@@ -96,7 +70,7 @@ const UnlockCommand = async (language, message, args) => {
 			[entity] = await Entities.getOrRegister(message.mentions.users.first().id); //released entity
 			[player] = await Entities.getOrRegister(message.author.id); // message author
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				entity.Player.effect = EFFECT.SMILEY //Set free
+				entity.Player.effect = EFFECT.SMILEY;//Set free
 				player.Player.addMoney(-UNLOCK.PRICE_FOR_UNLOCK); //Remove money
 				await Promise.all([
 					entity.save(),
@@ -106,35 +80,35 @@ const UnlockCommand = async (language, message, args) => {
 				]);
 				log(entity.discordUser_id + " has been released by" + message.author.id);
 				const successEmbed = new discord.MessageEmbed();
-			successEmbed.setAuthor(format(JsonReader.commands.unlock.getTranslation(language).unlockedTitle, {
-				pseudo: await entity.Player.getPseudo(language),
-			}),
-			message.author.displayAvatarURL());
-			successEmbed.setDescription(format(JsonReader.commands.unlock.getTranslation(language).unlockSuccess, {
-				pseudo: await entity.Player.getPseudo(language),
-			}));
-			return await message.channel.send(successEmbed);
-			};
+				successEmbed.setAuthor(format(JsonReader.commands.unlock.getTranslation(language).unlockedTitle, {
+						pseudo: await entity.Player.getPseudo(language),
+					}),
+					message.author.displayAvatarURL());
+				successEmbed.setDescription(format(JsonReader.commands.unlock.getTranslation(language).unlockSuccess, {
+					pseudo: await entity.Player.getPseudo(language),
+				}));
+				return await message.channel.send(successEmbed);
+			}
 		}
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).unlockCanceled, true);
-});
-		
-		try {
-			await Promise.all([
-				unlockMessage.react(MENU_REACTION.ACCEPT),
-				unlockMessage.react(MENU_REACTION.DENY),
-			]);
-		} catch (e) {
+	});
+
+	try {
+		await Promise.all([
+			unlockMessage.react(MENU_REACTION.ACCEPT),
+			unlockMessage.react(MENU_REACTION.DENY),
+		]);
+	} catch (e) {
+	}
+};
+
+
+module.exports = {
+	commands: [
+		{
+			name: 'unlock',
+			func: UnlockCommand,
+			aliases: ['bail', 'release']
 		}
-}
-
-
-	module.exports = {
-		commands: [
-			{
-				name: 'unlock',
-				func: UnlockCommand,
-				aliases: ['bail', 'release']
-			}
-		]
-	};
+	]
+};
