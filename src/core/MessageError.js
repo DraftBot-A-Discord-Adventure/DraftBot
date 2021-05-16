@@ -55,7 +55,7 @@ class MessageError {
 					return await MessageError.effectsErrorMe(message, language, entity, disallowEffects[disallowEffect]);
 				}
 			} else {
-				// MessageError.effectsErrorPlayer();
+				return await MessageError.errorPlayer(message,language,entity.Player);
 			}
 		}
 
