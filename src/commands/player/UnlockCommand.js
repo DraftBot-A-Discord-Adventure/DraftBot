@@ -19,18 +19,14 @@ const UnlockCommand = async (language, message, args) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
+	let lockedEntity;
 
-	try {
-		[lockedEntity] = await Entities.getByArgs(args, message);
-	} catch (error) {
-		lockedEntity = null;
-	}
-
-	if (lockedEntity == null) {
-		// no user provided
+	[lockedEntity] = await Entities.getByArgs(args, message);
+	if (lockedEntity === null) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).cannotGetlockedUser);
 	}
-	if (lockedentity.Player.effect !== EFFECT.LOCKED) {
+
+	if (lockedEntity.Player.effect !== EFFECT.LOCKED) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).userNotLocked,);
 	}
 	if (entity.Player.money < UNLOCK.PRICE_FOR_UNLOCK) {
