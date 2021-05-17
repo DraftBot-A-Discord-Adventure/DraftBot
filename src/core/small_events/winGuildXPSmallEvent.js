@@ -1,3 +1,5 @@
+const doNothing = require('./doNothingSmallEvent');
+
 /**
  * Main function of small event
  * @param {module:"discord.js".Message} message
@@ -9,6 +11,11 @@
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
 	let g = await Guilds.getById(entity.Player.guild_id);
+
+	if (g === null) {
+		return await doNothing.executeSmallEvent(message, language, entity, seEmbed);
+	}
+
 	let xpWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_GUILD_EXPERIENCE_WON + g.level, SMALL_EVENT.MAXIMUM_GUILD_EXPERIENCE_WON + g.level * 2);
 
 	seEmbed.setDescription(format(JsonReader.small_events.winGuildXP.getTranslation(language).stories[randInt(0, JsonReader.small_events.winGuildXP.getTranslation(language).stories.length)] + JsonReader.small_events.winGuildXP.getTranslation(language).end, {

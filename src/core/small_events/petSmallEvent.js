@@ -11,7 +11,7 @@ const doNothing = require('./doNothingSmallEvent');
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
 	if (!entity.Player.Pet) {
-		await doNothing.executeSmallEvent(message, language, entity, seEmbed);
+		return await doNothing.executeSmallEvent(message, language, entity, seEmbed);
 	}
 	const pet = entity.Player.Pet;
 	let interaction = pickRandomInteraction(entity.Player.Pet);
