@@ -23,9 +23,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			entity.Player.money += amount;
 			await entity.Player.save();
 			break;
-		case "item":
-			giveRandomItem(message.author, message.channel, language, entity);
-			break;
+
 		case "gainLife":
 			amount = randInt(1, 5);
 			await entity.addHealth(amount);
@@ -42,7 +40,6 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		case "food":
 			if (entity.Player.guild_id) {
 				food = draftbotRandom.pick([JsonReader.food.commonFood, JsonReader.food.herbivorousFood, JsonReader.food.carnivorousFood, JsonReader.food.ultimateFood]);
-				await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, food, 1);
 			}
 			else {
 				interaction = "nothing";
@@ -50,8 +47,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			break;
 		case "gainTime":
 			amount = randInt(5, 20);
-			require("../Maps").advanceTime(amount);
-			await message.channel.send("gainTime possibility to do. If you see this message, Nysvaa probably forgot to implement it, please report this.");
+			require("../Maps").advanceTime(entity.Player, amount);
+			entity.Player.save();
 			break;
 		case "points":
 			amount = randInt(20, 70);
@@ -59,18 +56,22 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			await entity.Player.save();
 			break;
 		case "badge":
-			if (entity.Player.badges.includes(BADGE)) {
-				interaction = "nothing";
-			}
-			else {
+			if(entity.Player.badges !== null) {
+				if (entity.Player.badges.includes(BADGE)) {
+					interaction = "nothing";
+				} else {
+					entity.Player.addBadge(BADGE);
+					entity.Player.save();
+				}
+			} else {
 				entity.Player.addBadge(BADGE);
 				entity.Player.save();
 			}
+
 			break;
 		case "loseLife":
 			amount = randInt(1, 5);
 			await entity.addHealth(-amount);
-			await entity.Player.killIfNeeded(entity, message.channel, language);
 			await entity.save();
 			break;
 		case "loseMoney":
@@ -80,8 +81,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			break;
 		case "loseTime":
 			amount = randInt(5, 20);
-			require("../Maps").advanceTime(-amount);
-			await message.channel.send("loseTime possibility to do. If you see this message, Nysvaa probably forgot to implement it, please report this.");
+			await require("../Maps").applyEffect(entity.Player, EFFECT.OCCUPIED, amount);
+			entity.Player.save();
 			break;
 		case "petFlee":
 			pet.destroy();
@@ -116,6 +117,17 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		random_animal_feminine: random_animal ? (random_animal.sex === "f" ? "e" : "") : ""
 	}));
 	await message.channel.send(seEmbed);
+	switch (interaction) {
+		case "item":
+			await giveRandomItem(message.author, message.channel, language, entity);
+			break;
+		case "food":
+			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, food, 1);
+			break;
+		case "loseLife":
+			await entity.Player.killIfNeeded(entity, message.channel, language);
+			break;
+	}
 };
 
 const pickRandomInteraction = function(pet_entity) {
