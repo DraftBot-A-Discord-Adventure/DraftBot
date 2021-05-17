@@ -215,7 +215,7 @@ const TestCommand = async (language, message, args) => {
 				author.Player.badges = null;
 				author.Player.effect_end_date = Date.now();
 				author.Player.effect_duration = 0;
-				author.Player.effect = ':smiley:';
+				await Maps.removeEffect(entity.Player);
 				author.Player.start_travel_date = new Date();
 				author.Player.save();
 

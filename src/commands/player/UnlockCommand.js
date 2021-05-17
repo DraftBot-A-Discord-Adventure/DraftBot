@@ -1,3 +1,5 @@
+const Maps = require("../../core/Maps");
+
 /**
  * Allow to free someone from the lock effect
  * @param {("fr"|"en")} language - Language to use in the response
@@ -66,7 +68,7 @@ const UnlockCommand = async (language, message, args) => {
 			[entity] = await Entities.getOrRegister(message.mentions.users.first().id); //released entity
 			[player] = await Entities.getOrRegister(message.author.id); // message author
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				entity.Player.effect = EFFECT.SMILEY;//Set free
+				await Maps.removeEffect(entity.Player);
 				player.Player.addMoney(-UNLOCK.PRICE_FOR_UNLOCK); //Remove money
 				await Promise.all([
 					entity.save(),
