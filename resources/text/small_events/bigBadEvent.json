@@ -7,6 +7,13 @@
 			},
 			"alteration": {
 				"stories": [
+					{
+						"sentence": "vous apercevez des baies, votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, la faim vous pousse donc à en goûter quelques unes, très vite vous vous sentez mal {alteTime} {alteEmoji}",
+						"alte": ":sick:"
+					},
+					{
+
+					}
 				]
 			},
 			"moneyLoss": {

@@ -7,6 +7,7 @@
 			},
 			"alteration": {
 				"stories": [
+					"vous marchez sur un piège, l'instant d'après vous êtes suspendu par le pied, vous défaire de ce piège risque de vous faire perdre du temps, vous perdez {alteTime} :clock2:"
 				]
 			},
 			"moneyLoss": {

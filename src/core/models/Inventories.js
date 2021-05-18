@@ -131,6 +131,25 @@ module.exports = (Sequelize, DataTypes) => {
 		return item;
 	};
 
+	/**
+	 * Generate a random potion
+	 * @param {number} rarityMax
+	 * @param {number} potionType
+	 * @returns {Potions} generated potion
+	 */
+	Inventories.prototype.generateRandomPotion = async function (potionType = null, rarityMax = 8) {
+		if (!potionType) return this.generateRandomItem(rarityMax, ITEMTYPE.POTION);
+		// generate a random potion
+		const rarity = generateRandomRarity(rarityMax);
+		return Potions.findOne({
+			where: {
+				nature: potionType,
+				rarity: rarity,
+			},
+			order: Sequelize.random()
+		});
+	};
+
 	Inventories.beforeSave((instance) => {
 		instance.setDataValue("updatedAt", moment().format("YYYY-MM-DD HH:mm:ss"));
 	});

@@ -3,15 +3,21 @@
 		"fr": {
 			"itemWin": {
 				"stories": [
-				]
+					"vous trouvez une statue qui semble être muni d'un écriteau de vote ",
+					"Croisez homme qui nous remercie du soutien"
+				],
+				"footerGlobal": ""
 			},
 			"moneyWin": {
 				"stories": [
-				]
+				],
+				"footerGlobal": ""
 			},
 			"pleaseVote": {
 				"stories": [
-				]
+					"vous trouvez à ce qui ressemble être une sorte de statue et une pancarte où il est écrit: \"Un vote tu feras, Une récompense tu pourras trouver\"."
+				],
+				"footerGlobal": ""
 			}
 		},
 		"en": {

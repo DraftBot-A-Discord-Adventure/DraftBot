@@ -1,0 +1,55 @@
+{
+	"translations": {
+		"fr": {
+			"attack": {
+				"winPotion": [
+
+				],
+				"winObject": [
+
+				],
+				"winWeapon": [
+
+				]
+			},
+			"defense": {
+				"winPotion": [
+
+				],
+				"winObject": [
+
+				],
+				"winArmor": [
+
+				]
+			},
+			"basic": {
+				"winItem": [
+
+				],
+				"winMoney": [
+
+				]
+			},
+			"other": {
+				"winItem": [
+
+				],
+				"winHealth": [
+
+				]
+			}
+		},
+		"en": {
+
+		}
+	},
+	"attackEligible": [8,9,10,11],
+	"defenseEligible": [4,5,6,7,16],
+	"basicEligible": [0,1,2,3,12,13,14,15],
+	"otherEligible": [17],
+	"rarity": 12,
+	"emote": ":bookmark:  "
+}
+
+

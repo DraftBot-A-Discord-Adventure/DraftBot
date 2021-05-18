@@ -9,21 +9,21 @@ let Maps = require('../Maps');
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let outRand = draftbotRandom.integer(0, 2);
+	let base = JsonReader.small_events.bigBadEvent.emote + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
 	switch (outRand) {
 		case 0:
 			let lifeLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_LOST_BIG, SMALL_EVENT.MAXIMUM_HEALTH_LOST_BIG);
-			seEmbed.setDescription(JsonReader.small_events.bigBadEvent.emote + format(JsonReader.small_events.bigBadEvent.getTranslation(language).lifeLoss.stories[randInt(0, JsonReader.small_events.bigBadEvent.getTranslation(language).lifeLoss.stories.length)], {lifeLoss: lifeLoss}));
+			seEmbed.setDescription(base + format(JsonReader.small_events.bigBadEvent.getTranslation(language).lifeLoss.stories[randInt(0, JsonReader.small_events.bigBadEvent.getTranslation(language).lifeLoss.stories.length)], {lifeLoss: lifeLoss}));
 			entity.Player.addHealth(-lifeLoss);
 			break;
 		case 1:
-			let effect = draftbotRandom.pick([EFFECT.SLEEPING,EFFECT.DRUNK,EFFECT.FROZEN,EFFECT.HURT,EFFECT.SICK,EFFECT.INJURED,EFFECT.STARVING,EFFECT.CONFOUNDED]);
-			let time = millisecondsToMinutes(JsonReader.models.players.effectMalus[effect]);
-			seEmbed.setDescription(JsonReader.small_events.bigBadEvent.emote + format(JsonReader.small_events.bigBadEvent.getTranslation(language).alteration.stories[randInt(0, JsonReader.small_events.bigBadEvent.getTranslation(language).alteration.stories.length)], {alteTime: minutesToString(time), alteEmoji: effect}));
-			await Maps.applyEffect(entity.Player, effect);
+			let seFallen = JsonReader.small_events.bigBadEvent.getTranslation(language).alteration.stories[randInt(0, JsonReader.small_events.bigBadEvent.getTranslation(language).alteration.stories.length)]
+			seEmbed.setDescription(base + format(seFallen.sentence, {alteTime: minutesToString(millisecondsToMinutes(JsonReader.models.players.effectMalus[seFallen.alte])), alteEmoji: seFallen.alte}));
+			await Maps.applyEffect(entity.Player, seFallen.alte);
 			break;
 		default:
 			let moneyLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_LOST_BIG, SMALL_EVENT.MAXIMUM_MONEY_LOST_BIG);
-			seEmbed.setDescription(JsonReader.small_events.bigBadEvent.emote + format(JsonReader.small_events.smallBadEvent.getTranslation(language).moneyLoss.stories[randInt(0, JsonReader.small_events.smallBadEvent.getTranslation(language).moneyLoss.stories.length)], {moneyLost: moneyLoss}));
+			seEmbed.setDescription(base + format(JsonReader.small_events.bigBadEvent.getTranslation(language).moneyLoss.stories[randInt(0, JsonReader.small_events.bigBadEvent.getTranslation(language).moneyLoss.stories.length)], {moneyLost: moneyLoss}));
 			entity.Player.addMoney(-moneyLoss);
 			break;
 	}
