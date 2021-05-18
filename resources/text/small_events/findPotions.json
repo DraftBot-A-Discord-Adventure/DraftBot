@@ -16,6 +16,19 @@
 			]
 		},
 		"en": {
+			"intrigue": [
+				"you see a shiny vial from the corner of your eye...",
+				"you slip on the side of the road and fall to the ground. When you get up, you notice what looks like a drink on the ground...",
+				"you notice a damaged bag on the road. You open it quickly...",
+				"you decide to make a small detour to avoid crossing a river. That's when you discover...",
+				"you run into a man with a loaded mule. A few minutes later, you notice that something has fallen from his package. It is now too late to catch up with him.",
+				"your vision is affected by the reflection of a potion on the ground.",
+				"you trip on a root. Furious, you hit it with a big kick... It seems that it is not a root...",
+				"you meet a child who does not seem to speak your language. However, he seems welcoming and hands you a package...",
+				"you come across a man with a loaded mule. You decide to help him carry his load. As a thanks, he offers you a potion...",
+				"you meet a woman who looks like she wants to offer you a drink. Intrigued, you accept her offer...",
+				"you discover a house that you quickly explore. You pick up a bottle and leave hastily..."
+			]
 		}
 	},
 	"rarity": 10,

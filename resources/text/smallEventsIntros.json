@@ -19,6 +19,22 @@
 			]
 		},
 		"en": {
+			"intro": [
+				"While you are traveling peacefully, ",
+				"While you're progressing peacefully on your track, ",
+				"As you plan to get back on track after a short break, ",
+				"Reaching a turn, ",
+				"As you walk quietly, ",
+				"Following a meal break, ",
+				"After long hours walking, ",
+				"During a short break against a tree, ",
+				"As you continue your adventure, ",
+				"Following your path, ",
+				"Contemplating the edge of the road, ",
+				"Moving on after a quick stop, ",
+				"As you walk, tired by your long hours walking, ",
+				"Near a path, "
+			]
 		}
 	}
 }
