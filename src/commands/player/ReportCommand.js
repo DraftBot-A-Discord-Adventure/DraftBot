@@ -274,7 +274,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	if (forcePoints !== 0) {
 		scoreChange = forcePoints;
 	} else {
-		scoreChange = time + draftbotRandom.integer(0, time / 10 + player.level - 1);
+		scoreChange = time + draftbotRandom.integer(0, time / 6);
 	}
 	let moneyChange = pDataValues.money + Math.round(time / 10 + draftbotRandom.integer(0, time / 10 + player.level / 5 - 1));
 	if (pDataValues.money < 0 && moneyChange > 0) {
