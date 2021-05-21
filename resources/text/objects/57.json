@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "\uD83D\uDC60 **Chaussures à talon**",
+		"en": "\uD83D\uDC60 **High heel shoes**"
+	},
+	"rarity": 1,
+	"power": 10,
+	"nature": 3,
+	"french_masculine": 0,
+	"french_plural": 1
+}
