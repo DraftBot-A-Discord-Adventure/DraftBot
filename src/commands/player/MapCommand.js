@@ -24,7 +24,7 @@ module.exports = {
 		{
 			name: 'map',
 			func: MapCommand,
-			aliases: ['m', 'carte', 'monde', 'world']
+			aliases: ['m', 'world']
 		}
 	]
 };
