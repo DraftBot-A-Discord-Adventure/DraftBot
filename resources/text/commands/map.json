@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"text": "Voici la map de DraftBot, {pseudo} !"
+		},
+		"en": {
+			"text": "There is the map, {pseudo} !"
+		}
+	},
+	"URL": "https://cdn.discordapp.com/attachments/771370060848824350/845259713864400966/unknown.png"
+}
