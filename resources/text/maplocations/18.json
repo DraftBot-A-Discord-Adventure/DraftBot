@@ -1,7 +1,11 @@
 {
 	"type": "ri",
 	"name_fr": "Vacarme",
-	"name_en": "River 18",
+	"name_en": "Vacarme",
+	"particle_fr": "vers",
+	"particle_en": "of",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 22,
 	"east_map": null,
 	"south_map": 19,

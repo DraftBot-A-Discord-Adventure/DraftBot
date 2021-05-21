@@ -1,7 +1,11 @@
 {
 	"type": "mo",
 	"name_fr": "Mont Célestrum",
-	"name_en": "Mountain 15",
+	"name_en": "Mount Celestrum",
+	"particle_fr": "vers le",
+	"particle_en": "of the",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 12,
 	"east_map": 16,
 	"south_map": 27,

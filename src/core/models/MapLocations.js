@@ -33,6 +33,18 @@ module.exports = (Sequelize, DataTypes) => {
 		name_en: {
 			type: DataTypes.TEXT
 		},
+		desc_fr: {
+			type: DataTypes.TEXT
+		},
+		desc_en: {
+			type: DataTypes.TEXT
+		},
+		particle_fr: {
+			type: DataTypes.TEXT
+		},
+		particle_en: {
+			type: DataTypes.TEXT
+		},
 		updatedAt: {
 			type: DataTypes.DATE,
 			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
@@ -65,6 +77,22 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	MapLocations.prototype.getDisplayName = function(language) {
 		return this.getEmote(language) + " " + (language === "fr" ? this.name_fr : this.name_en)
+	}
+
+	/**
+	 * @param {"fr"|"en"} language
+	 * @returns {string}
+	 */
+	MapLocations.prototype.getParticleName = function(language) {
+		return (language === "fr" ? this.particle_fr : this.particle_en)
+	}
+
+	/**
+	 * @param {"fr"|"en"} language
+	 * @returns {string}
+	 */
+	MapLocations.prototype.getDescription = function(language) {
+		return (language === "fr" ? this.desc_fr : this.desc_en)
 	}
 
 	/**

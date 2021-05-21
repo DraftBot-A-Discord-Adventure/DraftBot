@@ -1,7 +1,11 @@
 {
 	"type": "ro",
 	"name_fr": "La Route des Merveilles",
-	"name_en": "Road 21",
+	"name_en": "The Road of Wonders",
+	"particle_fr": "vers",
+	"particle_en": "of",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 23,
 	"east_map": null,
 	"south_map": null,

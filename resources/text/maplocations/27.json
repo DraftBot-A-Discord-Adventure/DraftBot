@@ -1,7 +1,11 @@
 {
 	"type": "fo",
 	"name_fr": "La Forêt Célestrum",
-	"name_en": "Forest 27",
+	"name_en": "The Celestrum Forest",
+	"particle_fr": "de",
+	"particle_en": "of",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 15,
 	"east_map": 17,
 	"south_map": null,

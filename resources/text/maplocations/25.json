@@ -1,7 +1,11 @@
 {
 	"type": "ri",
 	"name_fr": "La Rivière aux Crabes",
-	"name_en": "River 25",
+	"name_en": "The Crabs' River",
+	"particle_fr": "de",
+	"particle_en": "of",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 13,
 	"east_map": null,
 	"south_map": 24,

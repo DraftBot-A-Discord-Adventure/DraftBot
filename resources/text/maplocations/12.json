@@ -1,7 +1,11 @@
 {
 	"type": "pl",
 	"name_fr": "L’Étendue",
-	"name_en": "Plain 12",
+	"name_en": "The Extent",
+	"particle_fr": "vers",
+	"particle_en": "of",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 11,
 	"east_map": 15,
 	"south_map": 14,

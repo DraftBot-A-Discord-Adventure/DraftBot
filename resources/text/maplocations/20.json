@@ -1,7 +1,11 @@
 {
 	"type": "pl",
 	"name_fr": "Plaine du Contre Bois",
-	"name_en": "Plain 20",
+	"name_en": "Backwoods Plain",
+	"particle_fr": "vers la",
+	"particle_en": "of the",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 19,
 	"east_map": 21,
 	"south_map": null,

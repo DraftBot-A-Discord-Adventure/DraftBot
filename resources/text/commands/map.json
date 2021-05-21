@@ -1,10 +1,12 @@
 {
 	"translations": {
 		"fr": {
-			"text": "Voici la map de DraftBot, {pseudo} !"
+			"text": "Voici la map de DraftBot, {pseudo} !",
+			"descText": "Actuellement, vous marchez {particle} **{direction}** : {description}"
 		},
 		"en": {
-			"text": "There is the map, {pseudo} !"
+			"text": "There is the map, {pseudo} !",
+			"descText": "Actually, you are going in the direction {particle} **{direction}** : {description}"
 		}
 	},
 	"URL": "https://cdn.discordapp.com/attachments/433547121615044620/842815353494306876/unknown.png"

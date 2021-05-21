@@ -1,7 +1,11 @@
 {
 	"type": "de",
 	"name_fr": "La Vallée des Rois",
-	"name_en": "Desert 7",
+	"name_en": "The Kings' valley",
+	"particle_fr": "vers",
+	"particle_en": "of",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 8,
 	"east_map": 17,
 	"south_map": 19,

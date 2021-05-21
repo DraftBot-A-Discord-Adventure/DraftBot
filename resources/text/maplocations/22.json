@@ -1,7 +1,11 @@
 {
 	"type": "fo",
 	"name_fr": "Bois Hurlant",
-	"name_en": "Foret 22",
+	"name_en": "Howling Woods",
+	"particle_fr": "vers le",
+	"particle_en": "of the",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 24,
 	"east_map": 23,
 	"south_map": 18,

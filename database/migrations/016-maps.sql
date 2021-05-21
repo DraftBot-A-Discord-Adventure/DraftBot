@@ -7,7 +7,7 @@ CREATE TABLE players (id INTEGER PRIMARY KEY, score INTEGER NOT NULL, weeklyScor
 INSERT INTO players SELECT * FROM players_backup;
 DROP TABLE players_backup;
 
-CREATE TABLE IF NOT EXISTS map_locations (id INTEGER PRIMARY KEY, type TEXT NOT NULL, north_map INTEGER, east_map INTEGER, south_map INTEGER, west_map INTEGER, name_fr TEXT NOT NULL, name_en TEXT NOT NULL, updatedAt DATETIME, createdAt DATETIME);
+CREATE TABLE IF NOT EXISTS map_locations (id INTEGER PRIMARY KEY, type TEXT NOT NULL, north_map INTEGER, east_map INTEGER, south_map INTEGER, west_map INTEGER, name_fr TEXT NOT NULL, name_en TEXT NOT NULL, desc_fr TEXT NOT NULL, desc_en TEXT NOT NULL, particle_fr TEXT NOT NULL, particle_en TEXT NOT NULL, updatedAt DATETIME, createdAt DATETIME);
 CREATE TABLE IF NOT EXISTS player_small_events (id INTEGER PRIMARY KEY, player_id INTEGER NOT NULL, event_type TEXT NOT NULL, number INTEGER NOT NULL, updatedAt DATETIME, createdAt DATETIME);
 CREATE TABLE IF NOT EXISTS event_map_location_ids (event_id INTEGER, map_location_id INTEGER, updatedAt DATETIME, createdAt DATETIME, PRIMARY KEY (event_id, map_location_id));
 ALTER TABLE armors ADD french_masculine INTEGER;

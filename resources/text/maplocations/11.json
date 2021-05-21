@@ -1,7 +1,11 @@
 {
 	"type": "ro",
 	"name_fr": "L’Axe",
-	"name_en": "Road 11",
+	"name_en": "The Axe",
+	"particle_fr": "vers",
+	"particle_en": "of",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": null,
 	"east_map": 12,
 	"south_map": null,

@@ -1,7 +1,11 @@
 {
 	"type": "ro",
 	"name_fr": "Route Grimpante",
-	"name_en": "Road 24",
+	"name_en": "Climbing road",
+	"particle_fr": "vers la",
+	"particle_en": "of the",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 25,
 	"east_map": null,
 	"south_map": 23,

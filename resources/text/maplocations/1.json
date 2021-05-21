@@ -1,7 +1,11 @@
 {
 	"type": "be",
 	"name_fr": "Plage Sentinelle",
-	"name_en": "Beach 1",
+	"name_en": "Sentinel Beach",
+	"particle_fr": "vers la",
+	"particle_en": "of the",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": null,
 	"east_map": 26,
 	"south_map": null,

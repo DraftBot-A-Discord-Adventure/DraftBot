@@ -1,7 +1,11 @@
 {
 	"type": "ro",
 	"name_fr": "La Grande Rue",
-	"name_en": "Road 9",
+	"name_en": "The Main Street",
+	"particle_fr": "vers",
+	"particle_en": "of",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": null,
 	"east_map": 10,
 	"south_map": null,

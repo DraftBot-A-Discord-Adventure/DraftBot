@@ -1,7 +1,11 @@
 {
 	"type": "ro",
 	"name_fr": "Voie Champâtre",
-	"name_en": "Road 2",
+	"name_en": "Champatre Path",
+	"particle_fr": "vers la",
+	"particle_en": "of the",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": null,
 	"east_map": 3,
 	"south_map": 26,

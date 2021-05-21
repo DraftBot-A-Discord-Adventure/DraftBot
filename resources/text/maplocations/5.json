@@ -1,7 +1,11 @@
 {
 	"type": "ro",
 	"name_fr": "Le Chemin du Dédale",
-	"name_en": "Road 5",
+	"name_en": "The Daedalus Way",
+	"particle_fr": "vers",
+	"particle_en": "of the",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 4,
 	"east_map": null,
 	"south_map": 6,

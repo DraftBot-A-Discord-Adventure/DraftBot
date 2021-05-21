@@ -1,7 +1,11 @@
 {
 	"type": "vi",
 	"name_fr": "Ville Forte",
-	"name_en": "Village 10",
+	"name_en": "Strong City",
+	"particle_fr": "vers la",
+	"particle_en": "of the",
+	"desc_fr": "",
+	"desc_en": "",
 	"north_map": 11,
 	"east_map": null,
 	"south_map": 8,
