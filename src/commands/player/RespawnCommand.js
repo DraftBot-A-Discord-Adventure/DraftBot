@@ -1,4 +1,5 @@
 const Maps = require('../../core/Maps');
+//const PlayerSmallEvents = require('../../core/models/PlayerSmallEvents');
 /**
  * Allow a player who is dead to respawn
  * @param {("fr"|"en")} language - Language to use in the response
@@ -25,8 +26,13 @@ const RespawnCommand = async (language, message, args) => {
 			entity.Player.save(),
 		]);
 
-		await Maps.removeEffect(entity.Player);
+		let destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, null);
 
+		await Maps.removeEffect(entity.Player);
+		await Maps.stopTravel(entity.Player);
+		await Maps.startTravel(entity.Player, destinationMaps[draftbotRandom.integer(0,destinationMaps.length - 1)], message.createdAt.getTime());
+
+		await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 
 		await message.channel.send(format(JsonReader.commands.respawn.getTranslation(language).respawn, {
 			pseudo: message.author.username,
