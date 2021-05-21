@@ -54,7 +54,7 @@ global.sendErrorMessage = (user, channel, language, reason, isCancelling = false
  */
 global.sendDirectMessage = async (user, title, description, color, language) => {
 	try {
-		const embed = new discord.MessageEmbed()
+		const embed = new discord.MessageEmbed();
 		embed.setColor(color)
 			.setAuthor(format(title, {
 				pseudo: user.username,
@@ -262,7 +262,7 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 			msg.react(MENU_REACTION.DENY),
 		]);
 	}
-}
+};
 
 /**
  * give a random item
