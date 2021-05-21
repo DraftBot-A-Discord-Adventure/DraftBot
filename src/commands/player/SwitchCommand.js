@@ -15,14 +15,18 @@ const SwitchCommand = async (language, message, args) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
-
 	const nextDailyDate = new moment(entity.Player.Inventory.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h");
-
-	if (millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime()) < JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd) {
+	let timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
+	const maxTime = JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd;
+	if (timeToCheck < 0) {
+		entity.Player.Inventory.updateLastDailyAt();
+		entity.Player.Inventory.editDailyCooldown(-maxTime);
+	} else if (timeToCheck < maxTime) {
 		entity.Player.Inventory.editDailyCooldown(JsonReader.commands.switch.timeToAdd);
 	} else {
 		entity.Player.Inventory.updateLastDailyAt();
 	}
+
 
 	const temp = entity.Player.Inventory.object_id;
 	entity.Player.Inventory.object_id = entity.Player.Inventory.backup_id;
