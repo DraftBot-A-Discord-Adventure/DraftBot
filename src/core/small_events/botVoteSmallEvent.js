@@ -1,4 +1,4 @@
-const doNothing = require('doNothingSmallEvent');
+const doNothing = require('./doNothingSmallEvent');
 const DBL = require('../DBL');
 /**
  * Main function of small event
