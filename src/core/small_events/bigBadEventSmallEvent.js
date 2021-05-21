@@ -9,7 +9,7 @@ let Maps = require('../Maps');
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let outRand = draftbotRandom.integer(0, 2);
-	let base = JsonReader.small_events.bigBadEvent.emote + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
+	let base = JsonReader.small_events.bigBadEvent.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
 	switch (outRand) {
 		case 0:
 			let lifeLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_LOST_BIG, SMALL_EVENT.MAXIMUM_HEALTH_LOST_BIG);

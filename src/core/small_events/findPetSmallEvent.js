@@ -8,7 +8,7 @@
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let pet = await PetEntities.generateRandomPetEntity();
-	let base = JsonReader.small_events.findPet.emote + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
+	let base = JsonReader.small_events.findPet.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
 	if (Guilds.isPetShelterFull(guild) && entity.Player.pet_id != null) {
 		// Plus de place
 		seEmbed.setDescription(
