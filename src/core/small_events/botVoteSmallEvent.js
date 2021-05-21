@@ -1,4 +1,3 @@
-const doNothing = require('./doNothingSmallEvent');
 const DBL = require('../DBL');
 /**
  * Main function of small event
@@ -9,20 +8,27 @@ const DBL = require('../DBL');
  * @returns {Promise<>}
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
+	let trans = JsonReader.small_events.botVote.getTranslation(language);
+	let base = JsonReader.small_events.botVote.emote + " " + trans.stories[draftbotRandom.integer(0, trans.stories.length - 1)];
+
 	if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUser_id) < 0) {
 		// hasn't voted
-		seEmbed.setDescription(JsonReader.small_events.botVote.emote + JsonReader.small_events.botVote.getTranslation(language).pleaseVote.stories[randInt(0, JsonReader.small_events.botVote.getTranslation(language).pleaseVote.stories.length)]);
+		seEmbed.setDescription(base + trans.pleaseVote);
+		const msg = await message.channel.send(seEmbed);
+
 	} else if (draftbotRandom.bool()) {
-		//object win
-		seEmbed.setDescription(JsonReader.small_events.botVote.emote + JsonReader.small_events.botVote.getTranslation(language).itemWin.stories[randInt(0, JsonReader.small_events.botVote.getTranslation(language).itemWin.stories.length)]);
+		// item win
+		seEmbed.setDescription(base + trans.itemWin);
+		const msg = await message.channel.send(seEmbed);
 		await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
+
 	} else {
-		//money win
+		// money win
 		let moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_VOTE, SMALL_EVENT.MAXIMUM_MONEY_WON_VOTE);
 		entity.Player.addMoney(moneyWon);
-		seEmbed.setDescription(JsonReader.small_events.botVote.emote + format(JsonReader.small_events.botVote.getTranslation(language).moneyWin.stories[randInt(0, JsonReader.small_events.botVote.getTranslation(language).moneyWin.stories.length)],{money:moneyWon}));
+		seEmbed.setDescription(base + format(trans.moneyWin, {money: moneyWon}));
+		const msg = await message.channel.send(seEmbed);
 	}
-	const msg = await message.channel.send(seEmbed);
 	await entity.Player.save();
 	log(entity.discordUser_id + " got botVote small event.");
 };

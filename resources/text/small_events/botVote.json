@@ -1,38 +1,16 @@
 {
 	"translations": {
 		"fr": {
-			"itemWin": {
-				"stories": [
-					"vous trouvez une statue qui semble être muni d'un écriteau de vote ",
-					"Croisez homme qui nous remercie du soutien"
-				],
-				"footerGlobal": ""
-			},
-			"moneyWin": {
-				"stories": [
-				],
-				"footerGlobal": ""
-			},
-			"pleaseVote": {
-				"stories": [
-					"vous trouvez à ce qui ressemble être une sorte de statue et une pancarte où il est écrit: \"Un vote tu feras, Une récompense tu pourras trouver\"."
-				],
-				"footerGlobal": ""
-			}
+			"stories": [
+				"vous trouvez une statue qui semble être muni d'un écriteau de vote ",
+				"Croisez homme qui nous remercie du soutien",
+				"vous trouvez à ce qui ressemble être une sorte de statue et une pancarte où il est écrit: \"Un vote tu feras, Une récompense tu pourras trouver\"."
+			],
+			"itemWin": "Merci de votre soutien, voici en récompense un objet qui pourrait vous être utile pour la suite :",
+			"moneyWin": "Merci de votre soutien, voici {money} :moneybag: pour vous récompenser !",
+			"pleaseVote": "Vous auriez pu gagner un petit quelquechose ici, mais nous n'avez pas voté pour le bot. Pour obtenir quelquechose la prochaine fois, votez pour le bot ici : https://top.gg/bot/448110812801007618"
 		},
 		"en": {
-			"itemWin": {
-				"stories": [
-				]
-			},
-			"moneyWin": {
-				"stories": [
-				]
-			},
-			"pleaseVote": {
-				"stories": [
-				]
-			}
 		}
 	},
 	"rarity": 4,
