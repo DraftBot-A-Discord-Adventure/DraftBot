@@ -3,40 +3,40 @@
 		"fr": {
 			"attack": {
 				"winPotion": [
-
+					"testAP"
 				],
 				"winObject": [
-
+					"testAO"
 				],
 				"winWeapon": [
-
+					"testAW"
 				]
 			},
 			"defense": {
 				"winPotion": [
-
+					"testDP"
 				],
 				"winObject": [
-
+					"testDO"
 				],
 				"winArmor": [
-
+					"testDA"
 				]
 			},
 			"basic": {
 				"winItem": [
-
+					"testBI"
 				],
 				"winMoney": [
-
+					"testBM {money} :moneybag:"
 				]
 			},
 			"other": {
 				"winItem": [
-
+					"testOI"
 				],
 				"winHealth": [
-
+					"testOH {health} :heart:"
 				]
 			}
 		},
