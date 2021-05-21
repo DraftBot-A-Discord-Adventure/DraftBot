@@ -13,12 +13,12 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
 	if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUser_id) < 0) {
 		// hasn't voted
-		seEmbed.setDescription(base).setFooter(trans.pleaseVote);
+		seEmbed.setDescription(base + "\n\n" + trans.pleaseVote);
 		const msg = await message.channel.send(seEmbed);
 
 	} else if (draftbotRandom.bool()) {
 		// item win
-		seEmbed.setDescription(base + trans.itemWin).setFooter(trans.thanksFooter);
+		seEmbed.setDescription(base + trans.itemWin + "\n\n" + trans.thanksFooter);
 		const msg = await message.channel.send(seEmbed);
 		await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
 
@@ -26,7 +26,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		// money win
 		let moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_VOTE, SMALL_EVENT.MAXIMUM_MONEY_WON_VOTE);
 		entity.Player.addMoney(moneyWon);
-		seEmbed.setDescription(base + format(trans.moneyWin, {money: moneyWon})).setFooter(trans.thanksFooter);
+		seEmbed.setDescription(base + format(trans.moneyWin, {money: moneyWon}) + "\n\n" + trans.thanksFooter);
 		const msg = await message.channel.send(seEmbed);
 	}
 	await entity.Player.save();

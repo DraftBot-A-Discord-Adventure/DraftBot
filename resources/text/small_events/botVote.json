@@ -8,8 +8,8 @@
 			],
 			"itemWin": " Merci de votre soutien, voici en récompense un objet qui pourrait vous être utile pour la suite :",
 			"moneyWin": " Merci de votre soutien, voici {money} :moneybag: pour vous récompenser !",
-			"pleaseVote": "Vous auriez pu gagner un petit quelque chose ici, mais nous n'avez pas voté pour le bot. Pour obtenir quelque chose la prochaine fois, votez pour le bot ici : https://top.gg/bot/448110812801007618",
-			"thanksFooter": "Vous recevez cette récompense car vous avez voté pour le bot via ce lien : https://top.gg/bot/448110812801007618. Merci !"
+			"pleaseVote": "Vous auriez pu gagner un petit quelque chose ici, mais nous n'avez pas voté pour le bot. Pour obtenir quelque chose la prochaine fois, votez pour le bot en cliquant [ici](https://top.gg/bot/448110812801007618).",
+			"thanksFooter": "Vous recevez cette récompense car vous avez voté pour le bot [ici](https://top.gg/bot/448110812801007618). Merci !"
 		},
 		"en": {
 		}
