@@ -60,7 +60,7 @@ global.sendDirectMessage = async (user, title, description, color, language) => 
 			.setDescription(description)
 			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
 		user.send(embed);
-		log("Dm sent to "+user.id+", title : "+title+", description : "+description);
+		log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
 	} catch (err) {
 		log("user" + user.id + "has closed dms !");
 	}
@@ -201,6 +201,23 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 
 		collector.on('end', async (reaction) => {
 			removeBlockedPlayer(discordUser.id);
+			if (item instanceof Potions) {
+				return await channel.send(
+					new discord.MessageEmbed().setAuthor(
+						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
+							{
+								pseudo: discordUser.username,
+							},
+						), discordUser.displayAvatarURL()
+					).setDescription(
+						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
+							{
+								item: item.getName(language)
+							}
+						)
+					)
+				); // potion are not sold (because of exploits and because of logic)
+			}
 			if (reaction.first()) { // a reaction exist
 				// msg.delete(); for now we are going to keep the message
 				if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
@@ -513,25 +530,25 @@ global.getValidationInfos = function (guild) {
 			validation = ":warning:";
 		}
 	}
-	return {validation: validation, humans: humans, bots: bots, ratio: ratio};
+	return { validation: validation, humans: humans, bots: bots, ratio: ratio };
 };
 
 async function saveItem(item, entity) {
 	let oldItem;
 	if (item instanceof Potions) {
-		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
+		oldItem = await Potions.findOne({ where: { id: entity.Player.Inventory.potion_id } });
 		entity.Player.Inventory.potion_id = item.id;
 	}
 	if (item instanceof Objects) {
-		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});
+		oldItem = await Objects.findOne({ where: { id: entity.Player.Inventory.backup_id } });
 		entity.Player.Inventory.backup_id = item.id;
 	}
 	if (item instanceof Weapons) {
-		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weapon_id}});
+		oldItem = await Weapons.findOne({ where: { id: entity.Player.Inventory.weapon_id } });
 		entity.Player.Inventory.weapon_id = item.id;
 	}
 	if (item instanceof Armors) {
-		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armor_id}});
+		oldItem = await Armors.findOne({ where: { id: entity.Player.Inventory.armor_id } });
 		entity.Player.Inventory.armor_id = item.id;
 	}
 	await Promise.all([
