@@ -142,7 +142,24 @@
 				"Remporter la première place au classement de la semaine vous permet de décrocher un badge.",
 				"Utiliser la commande `switch` ajoute 30 minutes à la durée de rechargement de votre objet journalier.",
 				"Vous pouvez décider du contenu des prochaines mises à jour en utilisant ce site : https://feedback.draftbot.com",
-				"Votre familier ne vous accompagne pas en prison, il n'est donc pas possible de le nourrir pendant votre séjour."
+				"Votre familier ne vous accompagne pas en prison, il n'est donc pas possible de le nourrir pendant votre séjour.",
+				"La commande `map` vous permet d'obtenir des informations sur votre destination.",
+				"Un trajet entre deux destination dure 2 heures",
+				"Pendant un trajet, des petits évènements peuvent survenir.",
+				"Les marchands ambulants vendent des items à des prix très attrayants. Attention aux quelques arnaqueurs.",
+				"Si l'un de vos amis est enfermé en prison, vous pouvez le libérer en utilisant la commande `unlock`.",
+				"Il existe plus de 200 items différents.",
+				"Il existe 27 endroits que vous pouvez explorer.",
+				"Avoir un familier qui vous aime avec vous lors des rapports peut vous porter chance.",
+				"Les familiers peuvent être obtenus dans votre aventure ou dans une récompense de guilde.",
+				"Un petit évènement est disponible chaque 30 minutes et un gros toutes les 2 heures.",
+				"Même si vous n'avez pas de guilde, vous pouvez nourrir votre familier avec des friandises.",
+				"Do you want the bot to speak english here? Use `!language`.",
+				"L'équipe de développement a toujours besoin d'aide. Si vous souhaitez nous aider à rédiger l'histoire du bot ou d'autres choses, rejoignez le discord du bot.",
+				"Merci de jouer à DraftBot.",
+				"Vous pouvez exclure une personne d'une guilde sans la mentionner, en utilisant son classement. Si le joueur à exclure est classé 34ème au classement général, utilisez `!guildkick 34`",
+				"Ce texte sera peut être utile dans le futur : fzbyeifea",
+				"La potion de la mort qui tue est une potion très rare."
 			]
 		},
 		"en": {
