@@ -1,10 +1,10 @@
 {
 	"type": "ci",
-	"name_fr": "Le Village des Sables",
-	"name_en": "The Sands' Village",
+	"name_fr": "Mergagnan",
+	"name_en": "Seawynne",
 	"particle_fr": "vers",
 	"particle_en": "of",
-	"desc_fr": "Un paisible village au bord de la Plage Sentinelle.",
+	"desc_fr": "Une paisible ville au bord de la Plage Sentinelle.",
 	"desc_en": "",
 	"north_map": 2,
 	"east_map": 5,
