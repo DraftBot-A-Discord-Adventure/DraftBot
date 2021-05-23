@@ -7,6 +7,14 @@ const Maps = require('../../core/Maps');
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 async function MapCommand(language, message, args) {
+
+	let [entity] = await Entities.getOrRegister(message.author.id);
+
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+		return;
+	}
+
 	const mapEmbed = new discord.MessageEmbed()
 		.setImage(
 			JsonReader.commands.map.URL
@@ -16,7 +24,6 @@ async function MapCommand(language, message, args) {
 		.setAuthor(format(JsonReader.commands.map.getTranslation(language).text, {
 			pseudo: message.author.username,
 		}), message.author.displayAvatarURL());
-	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (Maps.isTravelling(entity.Player)) {
 		let destMap = await MapLocations.getById(entity.Player.map_id);
@@ -25,7 +32,7 @@ async function MapCommand(language, message, args) {
 				direction: await destMap.getDisplayName(language),
 				dirDesc: await destMap.getDescription(language),
 				particle: await destMap.getParticleName(language)
-			}))
+			}));
 	}
 	await message.channel.send(mapEmbed);
 
