@@ -2,15 +2,13 @@
 <img src="https://cdn.discordapp.com/attachments/456120666874183680/575235193384861716/couronne.png" style="border-radius: 50%; width: 300px">
 
 DraftBot is a bot developed in Node.js by [@BastLast](https://github.com/BastLast) based on a text adventure game. The
-story takes place in a medieval world, and the player embodis an adventurer who wants to win a competition launched by
-the king, to win the princess' hand. To achieve this, he must travel, and earn points by going through a lot of danger,
-including thieves, wilderness, and scary children. Every few hours, the player can get a random event by using the "
-report" command: they interact with a multiple choice system, using reactions below the report. Each choice has multiple
-issues,which could hurt the character, heal them, or even give them some stuff. During the journey, they earn money,
-stuff, and points, and can use them to buy potions, stuff or effects in the shop, fight other players, and ascend the
-leaderboard.
-
-<br>
+story takes place in a medieval world, and the player embodies an adventurer who wants to win a competition held by
+the king, to win the princess' hand. To achieve this, he must travel and earn points by going through a lot of danger,
+thieves, wilderness, and scary children. Every few hours, the player can get a random event by using the "report"
+command which allows the user to interact with a multiple choice system using reactions below the report. Each choice has multiple
+issues, which could hurt the character, heal them, or give them useful items. During the journey, they earn money,
+items, and points. These can use them to buy potions, items or effects in the shop, fight other players, and ascend the
+leaderboard.    
 
 [![](https://img.shields.io/discord/429765017332613120.svg)](https://discord.gg/5JqrMtZ)
 [![Discord Bots](https://top.gg/api/widget/status/448110812801007618.svg)](https://top.gg/bot/448110812801007618)
