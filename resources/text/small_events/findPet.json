@@ -11,6 +11,7 @@
 			},
 			"roomInPlayer": {
 				"stories": [
+					"vous apercevez une vieille dame qui cherche à faire descendre son {pet} d'un arbre. Vous arrivez à {determinant} convaincre de descendre, et son propriétaire, voulant s'en débarrasser, vous {determinant} lègue volontiers."
 				]
 			},
 			"nominative": {

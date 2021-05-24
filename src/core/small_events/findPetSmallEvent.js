@@ -9,19 +9,23 @@
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let pet = await PetEntities.generateRandomPetEntity();
 	let base = JsonReader.small_events.findPet.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
-	if (Guilds.isPetShelterFull(guild) && entity.Player.pet_id != null) {
+	let guild = await Guilds.getById(entity.Player.guild_id);
+	let roomInGuild = guild == null ? False : await Guilds.isPetShelterFull(guild);
+	let petLine = await PetEntities.displayName(pet, language);
+	let trad = JsonReader.small_events.findPet.getTranslation(language);
+	if (roomInGuild && entity.Player.pet_id != null) {
 		// Plus de place
 		seEmbed.setDescription(
 			base +
 			format(
-				JsonReader.small_events.findPet.getTranslation(language).noRoom.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).noRoom.stories.length)], {
-					pet: PetEntities.displayName(pet),
-					nominative: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex],
-					nominativeShift: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].slice(1),
-					accusative: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex],
-					accusativeShift: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].slice(1),
-					determinant: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex],
-					determinantShift: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].slice(1),
+				trad.noRoom.stories[randInt(0, trad.noRoom.stories.length)], {
+					pet: petLine,
+					nominative: trad.nominative[pet.sex],
+					nominativeShift: trad.nominative[pet.sex].charAt(0).toUpperCase() + trad.nominative[pet.sex].slice(1),
+					accusative: trad.accusative[pet.sex],
+					accusativeShift: trad.accusative[pet.sex].charAt(0).toUpperCase() + trad.accusative[pet.sex].slice(1),
+					determinant: trad.determinant[pet.sex],
+					determinantShift: trad.determinant[pet.sex].charAt(0).toUpperCase() + trad.determinant[pet.sex].slice(1),
 					feminine: pet.sex === "f" ? "e" : ""
 				}));
 
@@ -32,14 +36,14 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		seEmbed.setDescription(
 			base +
 			format(
-				JsonReader.small_events.findPet.getTranslation(language).roomInGuild.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).roomInGuild.stories.length)], {
-					petFormat: PetEntities.displayName(pet),
-					nominative: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex],
-					nominativeShift: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].slice(1),
-					accusative: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex],
-					accusativeShift: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].slice(1),
-					determinant: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex],
-					determinantShift: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].slice(1),
+				trad.roomInGuild.stories[randInt(0, trad.roomInGuild.stories.length)], {
+					pet: petLine,
+					nominative: trad.nominative[pet.sex],
+					nominativeShift: trad.nominative[pet.sex].charAt(0).toUpperCase() + trad.nominative[pet.sex].slice(1),
+					accusative: trad.accusative[pet.sex],
+					accusativeShift: trad.accusative[pet.sex].charAt(0).toUpperCase() + trad.accusative[pet.sex].slice(1),
+					determinant: trad.determinant[pet.sex],
+					determinantShift: trad.determinant[pet.sex].charAt(0).toUpperCase() + trad.determinant[pet.sex].slice(1),
 					feminine: pet.sex === "f" ? "e" : ""
 				}));
 	} else {
@@ -50,14 +54,14 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		seEmbed.setDescription(
 			base +
 			format(
-				JsonReader.small_events.findPet.getTranslation(language).roomInPlayer.stories[randInt(0, JsonReader.small_events.findPet.getTranslation(language).roomInPlayer.stories.length)], {
-					petFormat: PetEntities.displayName(pet),
-					nominative: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex],
-					nominativeShift: JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).nominative[pet.sex].slice(1),
-					accusative: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex],
-					accusativeShift: JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).accusative[pet.sex].slice(1),
-					determinant: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex],
-					determinantShift: JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].charAt(0).toUpperCase() + JsonReader.small_events.findPet.getTranslation(language).determinant[pet.sex].slice(1),
+				trad.roomInPlayer.stories[randInt(0, trad.roomInPlayer.stories.length)], {
+					pet: petLine,
+					nominative: trad.nominative[pet.sex],
+					nominativeShift: trad.nominative[pet.sex].charAt(0).toUpperCase() + trad.nominative[pet.sex].slice(1),
+					accusative: trad.accusative[pet.sex],
+					accusativeShift: trad.accusative[pet.sex].charAt(0).toUpperCase() + trad.accusative[pet.sex].slice(1),
+					determinant: trad.determinant[pet.sex],
+					determinantShift: trad.determinant[pet.sex].charAt(0).toUpperCase() + trad.determinant[pet.sex].slice(1),
 					feminine: pet.sex === "f" ? "e" : ""
 				}));
 	}

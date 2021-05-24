@@ -3,24 +3,36 @@
 		"fr": {
 			"attack": {
 				"winPotion": [
-					"testAP"
+					"vous apercevez une lumière étrange dans le lointain. En vous rapprochant, curieux, vous vous rendez compte qu'il s'agit la d'une fiole au contenu inconnu, vous vous humectez les lèvres du breuvage et sentez que vos forces pourraient être décuplées si vous l'ingériez...",
+					"vous remarquez une tente installée là. Intrigué, vous y entrez et découvrez bon nombre de potions avec un vieil homme. Celui-ci vous demande de bien vouloir tester ses potions. Vous acceptez, et une fois les expériences finies, il vous donne une potion d'attaque en gage de remerciement.",
+					"vous trouvez une charrette abandonnée. Celle-ci contient des caisses de potions. Vous en volez une à la hâte. Après avoir fui vous voyez que la potion volée semblera vous être utile pour votre prochain combat..."
 				],
 				"winObject": [
-					"testAO"
+					"vous décidez de vous adossez à un arbre. En vous asseyant, vous sentez une douleur vive qui vous transperse le dos. Vous vous relevez à la vitesse d'un éclair et découvrez ce qui vous a égratigné :",
+					"vous entendez soudainement un boucan infernal avancer vers vous, vous avez tout juste le temps de vous jeter sur le côté quant une horde de chevaliers vous dépasse au grand galop, en les regardant s'éloigner vous apercevez une besace tomber de l'un des chevaux. En la ramassant vous y découvrez...",
+					"un animal affamé s'approche de vous. Par précaution, vous décidez de le tuer. En fouillant dans ses entrailles, vous trouvez un objet qui semble servir à attaquer."
 				],
 				"winWeapon": [
-					"testAW"
+					"vous rencontrez un marchand, vous demandant quelle classe vous avez. Lui ayant répondu, celui-ci vous propose gratuitement une arme qu'il n'utilise plus :",
+					"vous voyez dans le bas-côté une arme et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
+					"vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décider de le fouiller. Après une rapide visite des lieux, il semblerait que seule l'armurerie' est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une arme qui semble être encore en bon état."
 				]
 			},
 			"defense": {
 				"winPotion": [
-					"testDP"
+					"vous remarquez une tente installée là. Intrigué, vous y entrez et découvrez bon nombre de potions avec un vieil homme. Celui-ci vous demande de bien vouloir tester ses potions. Vous acceptez, et une fois les expériences finies, il vous donne une potion de défense en gage de remerciement.",
+					"vous trouvez une charrette abandonnée. Celle-ci contient des caisses de potions. Vous en volez une à la hâte. Après avoir fui vous voyez que la potion volée semblera vous être utile pour votre prochain combat...",
+					"la déesse s'approche de vous et vous donne une potion de défense pour vous aider de votre progression..."
 				],
 				"winObject": [
-					"testDO"
+					"un animal affamé s'approche de vous. Par précaution, vous décidez de le tuer. En fouillant dans ses entrailles, vous trouvez un objet qui semble servir à défendre.",
+					"un chevalier s'approche et vous propose un duel. Il vous donnera son objet de défense si vous gagnez.  Grâce à vôtre entrainement, la victoire est votre, et vous remportez le lot promis.",
+					"Vous trouvez un paysan qui as besoin d'aide pour réparer sa charette. Vous remettez la roue en place. Pour vous remercier, il vous donne un objet défensif forgé par les meilleurs ouvriers de Claire De Ville."
 				],
 				"winArmor": [
-					"testDA"
+					"vous rencontrez un marchand, vous demandant quelle classe vous avez. Lui ayant répondu, celui-ci vous propose gratuitement une armure qu'il n'utilise plus :",
+					"vous voyez dans le bas-côté une pièce d'armure et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
+					"vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décider de le fouiller. Après une rapide visite des lieux, il semblerait que seule la salle des armures est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une armure qui semble être encore en bon état."
 				]
 			},
 			"basic": {
