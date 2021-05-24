@@ -7,18 +7,19 @@
  * @returns {Promise<>}
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
-	let pet = await PetEntities.generateRandomPetEntity();
+	let pet = await PetEntities.generateRandomPetEntityNotGuild();
 	let base = JsonReader.small_events.findPet.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
 	let guild = await Guilds.getById(entity.Player.guild_id);
-	let roomInGuild = guild == null ? False : await Guilds.isPetShelterFull(guild);
+	let roomInGuild = guild == null ? false : await Guilds.isPetShelterFull(guild);
 	let petLine = await PetEntities.displayName(pet, language);
 	let trad = JsonReader.small_events.findPet.getTranslation(language);
 	if (roomInGuild && entity.Player.pet_id != null) {
 		// Plus de place
+		let outRand = randInt(0, trad.noRoom.stories.length);
 		seEmbed.setDescription(
 			base +
 			format(
-				trad.noRoom.stories[randInt(0, trad.noRoom.stories.length)], {
+				trad.noRoom.stories[outRand], {
 					pet: petLine,
 					nominative: trad.nominative[pet.sex],
 					nominativeShift: trad.nominative[pet.sex].charAt(0).toUpperCase() + trad.nominative[pet.sex].slice(1),
@@ -28,7 +29,10 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 					determinantShift: trad.determinant[pet.sex].charAt(0).toUpperCase() + trad.determinant[pet.sex].slice(1),
 					feminine: pet.sex === "f" ? "e" : ""
 				}));
-
+		await message.channel.send(seEmbed);
+		if (outRand === 1 || outRand === 2) {
+			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, draftbotRandom.integer(1, 3));
+		}
 	} else if (entity.Player.pet_id != null) {
 		// Place le pet dans la guilde
 		await pet.save();
@@ -46,6 +50,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 					determinantShift: trad.determinant[pet.sex].charAt(0).toUpperCase() + trad.determinant[pet.sex].slice(1),
 					feminine: pet.sex === "f" ? "e" : ""
 				}));
+		await message.channel.send(seEmbed);
 	} else {
 		// Place le pet avec le joueur
 		await pet.save();
@@ -64,8 +69,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 					determinantShift: trad.determinant[pet.sex].charAt(0).toUpperCase() + trad.determinant[pet.sex].slice(1),
 					feminine: pet.sex === "f" ? "e" : ""
 				}));
+		await message.channel.send(seEmbed);
 	}
-	const msg = await message.channel.send(seEmbed);
 	log(entity.discordUser_id + " got find pet event.");
 };
 

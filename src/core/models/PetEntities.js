@@ -269,19 +269,8 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @returns {Promise<PetEntities>}
 	 */
-	PetEntities.generateRandomPetEntity = async () => {
-		const sex = draftbotRandom.bool() ? "m" : "f";
-		const pet = await Pets.findOne({
-			order: [Sequelize.fn("RANDOM")],
-		});
-		let r = PetEntities.build({
-			pet_id: pet.id,
-			sex: sex,
-			nickname: null,
-			lovePoints: PETS.BASE_LOVE,
-		});
-		r.PetModel = pet;
-		return r;
+	PetEntities.generateRandomPetEntityNotGuild = async () => {
+		return PetEntities.generateRandomPetEntity(30);
 	};
 
 	return PetEntities;

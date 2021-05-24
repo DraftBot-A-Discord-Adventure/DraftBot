@@ -100,7 +100,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	}
 	const tr = JsonReader.small_events.pet.getTranslation(language);
 	const sentence = tr[interaction][randInt(0, tr[interaction].length)];
-	const random_animal = sentence.includes("{random_animal}") ? await PetEntities.generateRandomPetEntity() : null;
+	const random_animal = sentence.includes("{random_animal}") ? await PetEntities.generateRandomPetEntityNotGuild() : null;
 	seEmbed.setDescription(format(sentence, {
 		pet: PetEntities.getPetEmote(pet) + " " + (pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)),
 		nominative: tr.nominative[pet.sex],

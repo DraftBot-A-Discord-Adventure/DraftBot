@@ -3,15 +3,26 @@
 		"fr": {
 			"noRoom": {
 				"stories": [
+					"vous apercevez une vieille dame qui cherche à faire descendre son {pet} d'un arbre. Vous arrivez à {determinant} convaincre de descendre. Son propriétaire veut s'en débarrasser, malheureusement, vous n'avez plus de place dans votre refuge, et vous ne pouvez {determinant} prendre.",
+					"vous trouvez un{feminine} {pet} qui semble être blessé{feminine}. Malheureusement, ayant déja un compagnon et plus de place au sein de votre guilde pour l’accueillir, vous décidez de l'achever rapidement afin de récupérer sa carcasse.",
+					"vous trouvez un{feminine} {pet}. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par là. En échange, il vous donne de la viande.",
+					"vous trouvez un{feminine} {pet}. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par là. Il accepte volontiers de s'en occuper.",
+					"vous trouvez un{feminine} {pet}. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par la. Celui-ci refuse et {determinant} laisser partir."
 				]
 			},
 			"roomInGuild": {
 				"stories": [
+					"vous apercevez un{feminine} {pet} perdu{feminine}. Bien que vous ayez déja un compagnon, vous décidez de {determinant} ramener au sein de votre guilde afin que quelqu'un en prenne soin.",
+					"vous apercevez un{feminine} {pet} errant{feminine} qui semble affamé{feminine}. Vous lui donnez donc les restes de votre dernier repas. {nominativeShift} apprécie et semble vouloir vous suivre dans votre périple. Ayant un compagnon, vous {determinant} laissez aux bon soins de votre guilde.",
+					"vous voyez un groupe d'enfants en cercle. Vous vous rapprochez et découvrez qu'ils sont en train de malmener un{feminine} pauvre petit{feminine} {pet}. Vous les faites partir, mais {nominative} est trop mal en point. Vous réussissez à {determinant} remettre d'aplomb et lui laissez un peu de repos dans votre refuge."
 				]
 			},
 			"roomInPlayer": {
 				"stories": [
-					"vous apercevez une vieille dame qui cherche à faire descendre son {pet} d'un arbre. Vous arrivez à {determinant} convaincre de descendre, et son propriétaire, voulant s'en débarrasser, vous {determinant} lègue volontiers."
+					"vous apercevez un{feminine} {pet} perdu{femnine}. Ayant toujours voulu avoir un compagnon, vous tombez sous son charme, et accepter de vous en occuper.",
+					"vous apercevez une vieille dame qui cherche à faire descendre son {pet} d'un arbre. Vous arrivez à {determinant} convaincre de descendre, et son propriétaire, voulant s'en débarrasser, vous {determinant} lègue volontiers.",
+					"vous entendez du bruit provenant d'un buisson, curieux, vous décidez d'aller voir. Vous découvrez un{feminine} {pet} qui vous regarde fixement dans les yeux puis se met à vous suivre, Vous décidez donc de l'adopter.",
+					"vous décidez de faire un petit somme, lorsque quelque chose vous réveilla, un{e} {pet} était en train de fouiller dans votre sacoche ! Mais {nominative} semble ne pas vouloir vous attaquer et semble même vous apprécier, vous décidez donc de {determinant} garder."
 				]
 			},
 			"nominative": {
@@ -43,7 +54,7 @@
 		}
 	},
 	"rarity": 2,
-	"emote": "\uD83D\uDC15️"
+	"emote": ":dog2:️"
 }
 
 
