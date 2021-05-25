@@ -20,14 +20,14 @@
 						false
 					],
 					[
-						"vous trouvez un{feminine} {pet}. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par la. Celui-ci refuse et {determinant} laisser partir."
+						"vous trouvez un{feminine} {pet}. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par la. Celui-ci refuse et {determinant} laisser partir.",
 						false
 					]
 				]
 			},
 			"roomInGuild": {
 				"stories": [
-					"vous apercevez un{feminine} {pet} perdu{feminine}. Bien que vous ayez déja un compagnon, vous décidez de {determinant} ramener au sein de votre guilde afin que quelqu'un en prenne soin.",
+					"vous apercevez un{feminine} {pet} perdu{feminine}. Bien que vous ayez déjà un compagnon, vous décidez de {determinant} ramener au sein de votre guilde afin que quelqu'un en prenne soin.",
 					"vous apercevez un{feminine} {pet} errant{feminine} qui semble affamé{feminine}. Vous lui donnez donc les restes de votre dernier repas. {nominativeShift} apprécie et semble vouloir vous suivre dans votre périple. Ayant un compagnon, vous {determinant} laissez aux bon soins de votre guilde.",
 					"vous voyez un groupe d'enfants en cercle. Vous vous rapprochez et découvrez qu'ils sont en train de malmener un{feminine} pauvre petit{feminine} {pet}. Vous les faites partir, mais {nominative} est trop mal en point. Vous réussissez à {determinant} remettre d'aplomb et lui laissez un peu de repos dans votre refuge."
 				]
@@ -35,7 +35,7 @@
 			"roomInPlayer": {
 				"stories": [
 					"vous apercevez un{feminine} {pet} perdu{femnine}. Ayant toujours voulu avoir un compagnon, vous tombez sous son charme, et accepter de vous en occuper.",
-					"vous apercevez une vieille dame qui cherche à faire descendre son {pet} d'un arbre. Vous arrivez à {determinant} convaincre de descendre, et son propriétaire, voulant s'en débarrasser, vous {determinant} lègue volontiers.",
+					"ous apercevez une vieille dame qui cherche à faire descendre un{feminine} {pet} d'un arbre. Vous acceptez de l'aider et arrivez rapidement à {determinant} convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'{nominative} ne lui appartient pas. Vous décidez donc de {nominative} prendre avec vous.",
 					"vous entendez du bruit provenant d'un buisson, curieux, vous décidez d'aller voir. Vous découvrez un{feminine} {pet} qui vous regarde fixement dans les yeux puis se met à vous suivre, Vous décidez donc de l'adopter.",
 					"vous décidez de faire un petit somme, lorsque quelque chose vous réveilla, un{e} {pet} était en train de fouiller dans votre sacoche ! Mais {nominative} semble ne pas vouloir vous attaquer et semble même vous apprécier, vous décidez donc de {determinant} garder."
 				]
