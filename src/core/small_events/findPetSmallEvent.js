@@ -7,6 +7,7 @@
  * @returns {Promise<>}
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
+	let seEmbedPetObtention = seEmbed;
 	let pet = await PetEntities.generateRandomPetEntityNotGuild();
 	let base = JsonReader.small_events.findPet.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
 	let guild = await Guilds.getById(entity.Player.guild_id);
@@ -31,7 +32,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 				}));
 		await message.channel.send(seEmbed);
 		if (trad.noRoom.stories[outRand][1]) {
-			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, draftbotRandom.integer(1, 3));
+			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, 1);
 		}
 	} else if (entity.Player.pet_id != null) {
 		// Place le pet dans la guilde
@@ -51,6 +52,11 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 					feminine: pet.sex === "f" ? "e" : ""
 				}));
 		await message.channel.send(seEmbed);
+		seEmbedPetObtention.setDescription(format(trad.petObtentionGuild, {
+			emote: PetEntities.getPetEmote(pet),
+			pet: PetEntities.getPetTypeName(pet, language)
+		}));
+		await message.channel.send(seEmbedPetObtention);
 	} else {
 		// Place le pet avec le joueur
 		await pet.save();
@@ -70,6 +76,11 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 					feminine: pet.sex === "f" ? "e" : ""
 				}));
 		await message.channel.send(seEmbed);
+		seEmbedPetObtention.setDescription(format(trad.petObtentionPlayer, {
+			emote: PetEntities.getPetEmote(pet),
+			pet: PetEntities.getPetTypeName(pet, language)
+		}));
+		await message.channel.send(seEmbedPetObtention);
 	}
 	log(entity.discordUser_id + " got find pet event.");
 };
