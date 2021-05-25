@@ -19,7 +19,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		seEmbed.setDescription(
 			base +
 			format(
-				trad.noRoom.stories[outRand], {
+				trad.noRoom.stories[outRand][0], {
 					pet: petLine,
 					nominative: trad.nominative[pet.sex],
 					nominativeShift: trad.nominative[pet.sex].charAt(0).toUpperCase() + trad.nominative[pet.sex].slice(1),
@@ -30,7 +30,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 					feminine: pet.sex === "f" ? "e" : ""
 				}));
 		await message.channel.send(seEmbed);
-		if (outRand === 1 || outRand === 2) {
+		if (trad.noRoom.stories[outRand][1]) {
 			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, draftbotRandom.integer(1, 3));
 		}
 	} else if (entity.Player.pet_id != null) {
