@@ -4,7 +4,7 @@
 			"noRoom": {
 				"stories": [
 					[
-						"vous apercevez une vieille dame qui cherche à faire descendre son {pet} d'un arbre. Vous arrivez à {determinant} convaincre de descendre. Son propriétaire veut s'en débarrasser, malheureusement, vous n'avez plus de place dans votre refuge, et vous ne pouvez {determinant} prendre.",
+						"vous apercevez une vieille dame qui cherche à faire descendre un{feminine} {pet} d'un arbre. Vous acceptez de l'aider et arrivez rapidement à {determinant} convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'{nominative} ne lui appartient pas. N'ayant plus de place dans votre refuge, et vous ne pouvez donc pas {determinant} prendre avec vous.",
 						false
 					],
 					[
