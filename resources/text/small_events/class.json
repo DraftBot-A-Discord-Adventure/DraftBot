@@ -37,18 +37,29 @@
 			},
 			"basic": {
 				"winItem": [
-					"testBI"
+					"des villageois vous abordent et vous tendent un objet en reconnaissance d'un récent fait d'arme, vous les remerciez briévement et continuez votre périple.",
+					"vous croisez un groupe d'enfants jouant à se poursuivre. L'un d'eux vous bouscule et se met à pleurer, ses parents s'approchent et implorent votre pardon, vous leurs accordez et ceux-ci vous font don d'un objet pouvant vous être utile.",
+					"une charrette vous empêche de continuer, intrigué et désireux de poursuivre votre chemin, vous vous approchez du propriétaire, qui, d'abord odieux, vous dit de dégager et prendre une autre route, énervé, vous le mencez de votre arme. Cela a pour effet de le calmer instantanément. Il vous offre un objet et vous demande de patienter le temps de déplacer son chargement.",
+					"vous apercevez une foule de personnes réunies. Voulant voir ce qui se trame, vous écartez une dizaine de personnes d'une main et vous découvrez un objet ensanglanté *sinon pourquoi la foule autour ne l'aurait pas touché*. Vous repartez comme si de rien était avec l’objet en votre possession."
 				],
 				"winMoney": [
-					"testBM {money} :moneybag:"
+					"vous marchez sur une petite bute et remarquez que votre bruit de pas sonne étrangement. Vous fouillez le sol et découvrez un coffre rempli d'or. Vous obtenez **{money} :moneybag:**.",
+					"vous rencontrez une personne ayant l'air un peu déconcertée et peureuse... En vous voyant la personne s'excuse et part en courant. Vous vous dites qu'elle vous a confondu avec quelqu'un d'autre. Dans sa course l'inconnu a fait tomber une bourse : vous l'ouvrez et découvrez **{money} :moneybag:** !",
+					"vous décidez d'établir votre campement en installant une tente et d'autres objets. En creusant les trous pour planter les piquets de votre tente, vous sentez quelque chose de dur dans le sol. En creusant, vous déterrez un petit coffret de bois abîmé par le temps et y trouvez **{money} :moneybag:** !"
 				]
 			},
 			"other": {
 				"winItem": [
-					"testOI"
+					"vous vous prenez les pieds dans quelque chose sortant du sol, après vous être relevé, vous fouillez le sol et en sortez un objet...",
+					"vous apercevez une forme dans un fossé. Intrigué, vous vous en approchez, cette forme se révèle être un objet qui pourrait vous servir pour la suite de votre aventure...",
+					"vous décidez de vous adossez à un arbre. En vous asseyant, vous percevez une douleur vive dans votre dos. Vous vous relevez rapidement pour découvrir... un objet !",
+					"vous marchez distraitement et trébuchez sur quelque chose ! En vous relevant péniblement après votre chute, vous découvrez un objet !"
 				],
 				"winHealth": [
-					"testOH {health} :heart:"
+					"vous croisez des villageois se souvenants de vos prouesses en tant que frêle personne, ils vous tendennt un sac contenant des provisions que vous mangez avant de poursuivre votre périple. Vous gagnez **{health} :heart:**.",
+					"un marchand vient à votre rencontre et vous demande à quel classe vous appartenez, vous lui répondez que vous êtes un frêle aventurier. Se rappelant que les frêles aventuriers sont des personnes avec peu de pv, il décide de vous donner quelques fruits qui n'étaient plus viables à être vendu. Heureux vous les manger et gagnez **{health} :heart:** puis reprenez votre route.",
+					"vous êtes abordé par une vieille femme, celle-ci vous tend une pomme bien rouge en vous précisant qu'il est important de bien manger pour devenir fort vous la mangez avec reconnaissance avant de poursuivre votre route. Vous gagnez **{health} :heart:**.",
+					"vous êtes bousculé par une charrue. Vous êtes interpelé par son propriétaire qui vous présente ses excuses et disant ne pas vous avoir vu à cause de votre apparence chétive et vous offre quelques provisions, vous vous restaurez un peu puis reprenez votre route. Vous gagnez **{health} :heart:**."
 				]
 			}
 		},
