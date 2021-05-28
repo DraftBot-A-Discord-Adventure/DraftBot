@@ -235,7 +235,7 @@ class MessageError {
 		if (player.effect === EFFECT.BABY) {
 			embed
 				.setDescription(format(JsonReader.error.getTranslation(language).playerIsBaby, {
-					askedPseudo: player.getPseudo(language),
+					askedPseudo: await player.getPseudo(language),
 				}));
 		}
 
