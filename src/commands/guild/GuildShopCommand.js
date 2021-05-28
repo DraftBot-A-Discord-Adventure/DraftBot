@@ -502,7 +502,7 @@ const giveFood = async (
 		}),
 		author.displayAvatarURL()
 	);
-	if (quantity == 1)
+	if (quantity === 1)
 		successEmbed.setDescription(
 			format(
 				JsonReader.commands.guildShop.getTranslation(language)

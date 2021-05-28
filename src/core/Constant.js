@@ -172,6 +172,7 @@ global.TOPGG = {
 };
 
 global.PETS = {
+	IS_FOOD : 1,
 	MALE : "m",
 	FEMALE : "f",
 	FREE_COOLDOWN: 60 * 60 * 1000, // 1 hour
