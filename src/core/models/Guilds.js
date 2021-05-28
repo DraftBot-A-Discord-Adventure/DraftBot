@@ -215,8 +215,6 @@ module.exports = (Sequelize, DataTypes) => {
 
 		if (this.needLevelUp()) {
 			return this.levelUpIfNeeded(channel, language);
-		} else {
-
 		}
 	};
 

@@ -327,8 +327,6 @@ module.exports = (Sequelize, DataTypes) => {
 
 		if (this.needLevelUp()) {
 			return this.levelUpIfNeeded(entity, channel, language);
-		} else {
-
 		}
 	};
 
