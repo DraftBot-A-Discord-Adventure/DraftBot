@@ -29,14 +29,14 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		// no room
 		let outRand;
 		do {
-			outRand = guild === null ? forcedOutRand : randInt(0, trad.noRoom.stories.length);
+			outRand = randInt(0, trad.noRoom.stories.length);
 		}
 		while( trad.noRoom.stories[outRand][PETS.IS_FOOD] && guild ===null); //choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
 		generateNoRoomEmbed(seEmbed, base, trad, petLine, pet, outRand);
 		await message.channel.send(seEmbed);
 		if (trad.noRoom.stories[outRand][PETS.IS_FOOD]) {
-			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, 1000);
+			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, 1);
 		}
 	} else if (roomInGuild && entity.Player.pet_id != null) {
 		// Place le pet dans la guilde
