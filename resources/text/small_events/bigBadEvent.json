@@ -3,6 +3,9 @@
 		"fr": {
 			"lifeLoss": {
 				"stories": [
+					"vous entendez un bruit strident venant du ciel, vous levez les yeux mais trop tard : un oiseau aux griffes acérées vous fonce dessus. Au moment où celui-ci vous griffe, il se rend compte que vous n'êtes pas sa proie habituelle et repart aussitôt. Vous contemplez votre blessure, elle a l'air profonde. Vous perdez **{lifeLoss} :broken_hearth:**.",
+					"alors que vous arpentez un sentier escarpé, vous dérapez et vous tordez une cheville. Vous perdez **{lifeLoss} :broken_hearth:**.",
+					"vous voyez une mouche tourner autour de vous. Vous sortez votre arme dans l'espoir de la tuer, mais vous n'arrivez qu'à vous entailler légèrement le poignet, perdant au passage **{lifeLoss} :broken_hearth:**"
 				]
 			},
 			"alteration": {
@@ -10,9 +13,6 @@
 					{
 						"sentence": "vous apercevez des baies, votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, la faim vous pousse donc à en goûter quelques unes, très vite vous vous sentez mal {alteTime} {alteEmoji}",
 						"alte": ":sick:"
-					},
-					{
-
 					}
 				]
 			},
@@ -22,18 +22,6 @@
 			}
 		},
 		"en": {
-			"lifeLoss": {
-				"stories": [
-				]
-			},
-			"alteration": {
-				"stories": [
-				]
-			},
-			"moneyLoss": {
-				"stories": [
-				]
-			}
 		}
 	},
 	"rarity": 1,
