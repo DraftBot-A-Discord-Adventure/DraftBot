@@ -4,7 +4,7 @@
 			"noRoom": {
 				"stories": [
 					[
-						"vous apercevez une vieille dame qui cherche à faire descendre un{feminine} **{pet}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à {determinant} convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'{nominative} ne lui appartient pas. N'ayant plus de place dans votre refuge, et vous ne pouvez donc pas {determinant} prendre avec vous.",
+						"vous apercevez une vieille dame qui cherche à faire descendre un{feminine} **{pet}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à {determinant} convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'{nominative} ne lui appartient pas. N'ayant plus de place dans votre refuge, vous ne pouvez pas {determinant} prendre avec vous.",
 						false
 					],
 					[
@@ -20,7 +20,7 @@
 						false
 					],
 					[
-						"vous trouvez un{feminine} **{pet}**. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par la. Celui-ci refuse et {determinant} laisser partir.",
+						"vous trouvez un{feminine} **{pet}**. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par là. Celui-ci refuse et {determinant} laisse partir.",
 						false
 					]
 				]
@@ -37,7 +37,7 @@
 					"vous apercevez un{feminine} **{pet}** perdu{femnine}. Ayant toujours voulu avoir un compagnon, vous tombez sous son charme, et accepter de vous en occuper.",
 					"vous apercevez une vieille dame qui cherche à faire descendre un{feminine} **{pet}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à {determinant} convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'{nominative} ne lui appartient pas. Vous décidez donc de {determinant} prendre avec vous.",
 					"vous entendez du bruit provenant d'un buisson, curieux, vous décidez d'aller voir. Vous découvrez un{feminine} **{pet}** qui vous regarde fixement dans les yeux puis se met à vous suivre, Vous décidez donc de l'adopter.",
-					"vous décidez de faire un petit somme, lorsque quelque chose vous réveilla, un{feminine} **{pet}** était en train de fouiller dans votre sacoche ! Mais {nominative} semble ne pas vouloir vous attaquer et semble même vous apprécier, vous décidez donc de {determinant} garder."
+					"vous décidez de faire un petit somme, lorsque quelque chose vous réveille, un{feminine} **{pet}** était en train de fouiller dans votre sacoche ! Mais {nominative} semble ne pas vouloir vous attaquer et semble même vous apprécier, vous décidez donc de {determinant} garder."
 				]
 			},
 			"nominative": {
