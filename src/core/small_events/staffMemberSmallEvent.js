@@ -16,6 +16,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		sentence: tr.members[key]
 	}));
 	await message.channel.send(seEmbed);
+	log(entity.discordUser_id + " met a staff member.");
 };
 
 module.exports = {

@@ -143,6 +143,7 @@ class Maps {
 	 * Make a player start travelling. It does not check if the player currently travelling, if the maps are connected etc. It also saves the player
 	 * @param {Players} player
 	 * @param {number} map_id
+	 * @param {number} time - The start time
 	 * @returns {Promise<void>}
 	 */
 	static async startTravel(player, map_id,time) {

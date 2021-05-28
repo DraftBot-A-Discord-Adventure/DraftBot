@@ -172,9 +172,6 @@ async function GuildShopCommand(language, message, args) {
  * food purchase
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param name - name of item
- * @param price - price of item
- * @param info - infos of item
  * @param entity - author of message (for bot)
  * @param author - author of message
  * @param selectedItem - selectionned item
@@ -312,8 +309,11 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 }
 
 /**
- * @param {*} message - The message where the react event trigerred
- * @param {*} reaction - The reaction
+ * @param {module:"discord.js".Message} message - The message where the react event trigerred
+ * @param {"fr"|"en"} language
+ * @param {Entities} entity
+ * @param {Entities} customer
+ * @param {any} selectedItem
  */
 async function purchaseXp(message, language, entity, customer, selectedItem) {
 	[entity] = await Entities.getOrRegister(entity.discordUser_id);
@@ -348,9 +348,15 @@ async function purchaseXp(message, language, entity, customer, selectedItem) {
 }
 
 /**
- * @param {*} name - The item name
- * @param {*} price - The item price
- * @param {*} info - The info to display while trying to buy the item
+ * @param {module:"discord.js".Message} message
+ * @param {"fr"|"en"} language
+ * @param {String|string} name - The item name
+ * @param {number} price - The item price
+ * @param {String|string} info - The info to display while trying to buy the item
+ * @param {Entities} entity
+ * @param {Entities} customer
+ * @param {any} selectedItem
+ *
  */
 async function confirmXpPurchase(
 	message,
@@ -431,9 +437,8 @@ async function confirmXpPurchase(
 }
 
 /**
- * @param {*} name - The item name
- * @param {*} price - The item price
- * @param {*} info - The info to display while trying to buy the item
+ * @param {number} price - The item price
+ * @param {Players} player
  */
 
 const canBuy = function (price, player) {

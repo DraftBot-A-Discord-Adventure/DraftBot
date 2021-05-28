@@ -35,7 +35,7 @@
 			"roomInPlayer": {
 				"stories": [
 					"vous apercevez un{feminine} **{pet}** perdu{femnine}. Ayant toujours voulu avoir un compagnon, vous tombez sous son charme, et accepter de vous en occuper.",
-					"vous apercevez une vieille dame qui cherche à faire descendre un{feminine} **{pet}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à {determinant} convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'{nominative} ne lui appartient pas. Vous décidez donc de {nominative} prendre avec vous.",
+					"vous apercevez une vieille dame qui cherche à faire descendre un{feminine} **{pet}** d'un arbre. Vous acceptez de l'aider et arrivez rapidement à {determinant} convaincre de descendre. Pensant qu'il s'agit de son animal vous lui tendez mais découvrez qu'{nominative} ne lui appartient pas. Vous décidez donc de {determinant} prendre avec vous.",
 					"vous entendez du bruit provenant d'un buisson, curieux, vous décidez d'aller voir. Vous découvrez un{feminine} **{pet}** qui vous regarde fixement dans les yeux puis se met à vous suivre, Vous décidez donc de l'adopter.",
 					"vous décidez de faire un petit somme, lorsque quelque chose vous réveilla, un{feminine} **{pet}** était en train de fouiller dans votre sacoche ! Mais {nominative} semble ne pas vouloir vous attaquer et semble même vous apprécier, vous décidez donc de {determinant} garder."
 				]

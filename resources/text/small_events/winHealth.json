@@ -17,7 +17,7 @@
 				"vous apercevez un paquet abandonné au sol, vous l’ouvrez et y découvrez des vivres que vous mangez avant de reprendre votre route. Vous gagnez **{health} ❤️**.",
 				"vous trouvez une cascade et décidez de vous y désaltérer. Vous gagnez **{health} ❤️**.",
 				"vous croisez un vieillard qui dit posséder un élixir qu’il serait prêt à vous céder gratuitement. Curieux, vous l’acceptez et le buvez. Vous gagnez **{health} ❤️**.",
-				"vous trouvez une gourde d'eau dans une charrette abandonné. Vous buvez l'eau et vous vous sentez mieux. Vous gagner {health} :heart:"
+				"vous trouvez une gourde d'eau dans une charrette abandonné. Vous buvez l'eau et vous vous sentez mieux. Vous gagnez {health} :heart:"
 			]
 		},
 		"en": {

@@ -5,6 +5,7 @@ class MessageError {
 	 * @param {("fr"|"en")} language
 	 * @param {String[]} disallowEffects
 	 * @param {Entities} entity
+	 * @param {number} minimalLevel
 	 * @return {Promise<any>}
 	 */
 	static async canPerformCommand(message, language, permission, disallowEffects = null, entity = null, minimalLevel = null) {

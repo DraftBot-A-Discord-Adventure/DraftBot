@@ -193,8 +193,12 @@ async function ShopCommand(language, message, args) {
 }
 
 /**
- * @param {*} message - The message where the react event trigerred
- * @param {*} reaction - The reaction
+ * @param {module:"discord.js".Message} message - The message where the react event trigerred
+ * @param {Collection<Snowflake, MessageReaction>} reaction - The reaction
+ * @param {"fr"|"en"} language
+ * @param {Entities} entity
+ * @param {Entities} customer
+ * @param {any} selectedItem
  */
 async function sellItem(message, reaction, language, entity, customer, selectedItem) {
 	[entity] = await Entities.getOrRegister(entity.discordUser_id);
@@ -271,9 +275,14 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
 }
 
 /**
- * @param {*} name - The item name
- * @param {*} price - The item price
- * @param {*} info - The info to display while trying to buy the item
+ * @param {module:"discord.js".Message} message - The message where the react event trigerred
+ * @param {"fr"|"en"} language
+ * @param {string} name
+ * @param {number} price
+ * @param {string} info
+ * @param {Entities} entity
+ * @param {Entities} customer
+ * @param {any} selectedItem
  */
 async function confirmPurchase(
 	message,
@@ -338,7 +347,8 @@ async function confirmPurchase(
 }
 
 /**
- * @param {*} price - The item price
+ * @param {number} price - The item price
+ * @param {Players} player
  */
 const canBuy = function (price, player) {
 	return player.money >= price;

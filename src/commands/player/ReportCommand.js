@@ -7,6 +7,7 @@ const Maps = require('../../core/Maps');
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {Number} forceSpecificEvent - For testing purpose
+ * @param {String} forceSmallEvent
  */
 const ReportCommand = async function (language, message, args, forceSpecificEvent = -1, forceSmallEvent = null) {
 	const [entity] = await Entities.getOrRegister(message.author.id);

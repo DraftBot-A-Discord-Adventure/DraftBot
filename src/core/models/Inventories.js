@@ -196,7 +196,6 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * check if inventory contains item to sell
-	 * @param {("fr"|"en")} language
 	 * @return {boolean}
 	 */
 	Inventories.prototype.hasItemToSell = function () {

@@ -162,7 +162,8 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 }
 
 /**
- * @param {*} price - The item price
+ * @param {number} price - The item price
+ * @param {Players} player
  */
 const canBuy = function (price, player) {
 	return player.money >= price;

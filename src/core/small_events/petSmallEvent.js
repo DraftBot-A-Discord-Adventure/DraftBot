@@ -113,6 +113,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			await entity.Player.killIfNeeded(entity, message.channel, language);
 			break;
 	}
+	log(entity.discordUser_id + " got a pet interaction");
 };
 
 /**

@@ -191,6 +191,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 				break;
 		}
 	}
+	log(entity.discordUser_id + " interacted with a player");
 };
 
 module.exports = {
