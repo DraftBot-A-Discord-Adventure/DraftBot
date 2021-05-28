@@ -54,6 +54,7 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	/**
+	 * get a pet from its id
 	 * @param {Number} id
 	 */
 	PetEntities.getById = (id) => {
@@ -65,6 +66,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * create a pet entity in the database
 	 * @param {Number} pet_id
 	 * @param {'m'|'f'} sex
 	 * @param {String|string} nickname
@@ -80,6 +82,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * get the name of the pet
 	 * @param {PetEntities} pet_entity
 	 * @param language
 	 * @returns {String|string}
@@ -91,6 +94,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * get the string of a pet emote
 	 * @param {PetEntities} pet_entity
 	 * @returns {String|string}
 	 */
@@ -101,6 +105,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * get string of pet sex
 	 * @param {PetEntities} pet_entity
 	 * @param language
 	 * @returns {String|string}
@@ -114,33 +119,26 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * get pet nickname
 	 * @param {PetEntities} pet_entity
 	 * @param {String|string} language
 	 * @returns {String|string}
 	 */
 	PetEntities.getNickname = (pet_entity, language) => {
-		return pet_entity.nickname
-			? pet_entity.nickname
-			: JsonReader.models.pets.getTranslation(language).noNickname;
+		return pet_entity.nickname ? pet_entity.nickname : JsonReader.models.pets.getTranslation(language).noNickname;
 	};
 
 	/**
+	 * get the love level of a pet
 	 * @param {PetEntities} pet_entity
 	 * @returns {Number}
 	 */
 	PetEntities.getLoveLevelNumber = (pet_entity) => {
-		return pet_entity.lovePoints === PETS.MAX_LOVE_POINTS
-			? 5
-			: pet_entity.lovePoints > PETS.LOVE_LEVELS[2]
-				? 4
-				: pet_entity.lovePoints > PETS.LOVE_LEVELS[1]
-					? 3
-					: pet_entity.lovePoints > PETS.LOVE_LEVELS[0]
-						? 2
-						: 1;
-	}
+		return pet_entity.lovePoints === PETS.MAX_LOVE_POINTS ? 5 : pet_entity.lovePoints > PETS.LOVE_LEVELS[2] ? 4 : pet_entity.lovePoints > PETS.LOVE_LEVELS[1] ? 3 : pet_entity.lovePoints > PETS.LOVE_LEVELS[0] ? 2 : 1;
+	};
 
 	/**
+	 * get the display of the love level
 	 * @param {PetEntities} pet_entity
 	 * @param {String|string} language
 	 * @returns {String|string}
@@ -149,7 +147,7 @@ module.exports = (Sequelize, DataTypes) => {
 		let translations = JsonReader.models.pets.getTranslation(language);
 		let loveLevel;
 		if (pet_entity.lovePoints <= PETS.LOVE_LEVELS[0]) {
-			loveLevel = language == LANGUAGE.FRENCH ? format(translations.loveLevels[0], {
+			loveLevel = language === LANGUAGE.FRENCH ? format(translations.loveLevels[0], {
 				typeSuffix: pet_entity.sex === PETS.FEMALE ? "se" : "x"
 			}) : translations.loveLevels[0];
 		} else if (pet_entity.lovePoints > PETS.LOVE_LEVELS[0] && pet_entity.lovePoints <= PETS.LOVE_LEVELS[1]) {
@@ -158,18 +156,18 @@ module.exports = (Sequelize, DataTypes) => {
 			pet_entity.lovePoints > PETS.LOVE_LEVELS[1] &&
 			pet_entity.lovePoints <= PETS.LOVE_LEVELS[2]
 		) {
-			loveLevel = language == LANGUAGE.FRENCH ? format(translations.loveLevels[2], {
+			loveLevel = language === LANGUAGE.FRENCH ? format(translations.loveLevels[2], {
 				typeSuffix: pet_entity.sex === PETS.FEMALE ? "ve" : "f"
 			}) : translations.loveLevels[2];
 		} else if (
 			pet_entity.lovePoints > PETS.LOVE_LEVELS[2] &&
 			pet_entity.lovePoints < PETS.MAX_LOVE_POINTS
 		) {
-			loveLevel = language == LANGUAGE.FRENCH ? format(translations.loveLevels[3], {
+			loveLevel = language === LANGUAGE.FRENCH ? format(translations.loveLevels[3], {
 				typeSuffix: pet_entity.sex === PETS.FEMALE ? "ée" : "é"
 			}) : translations.loveLevels[3];
-		} else if (pet_entity.lovePoints == PETS.MAX_LOVE_POINTS) {
-			loveLevel = language == LANGUAGE.FRENCH ? format(translations.loveLevels[4], {
+		} else if (pet_entity.lovePoints === PETS.MAX_LOVE_POINTS) {
+			loveLevel = language === LANGUAGE.FRENCH ? format(translations.loveLevels[4], {
 				typeSuffix: pet_entity.sex === PETS.FEMALE ? "ée" : "é"
 			}) : translations.loveLevels[4];
 		}
@@ -177,6 +175,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * generate a title for the shelter from a pet
 	 * @param {PetEntities} pet_entity
 	 * @param {String|string} language
 	 * @param {number} number
@@ -191,6 +190,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * generate full pet display
 	 * @param {PetEntities} pet_entity
 	 * @param {String|string} language
 	 * @returns {Promise<String>}
@@ -215,18 +215,18 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * generate pet name display
 	 * @param {PetEntities} pet_entity
 	 * @param {String|string} language
 	 * @returns {Promise<String>}
 	 */
 	PetEntities.displayName = async (pet_entity, language) => {
-		let displayedName = pet_entity.nickname
-			? pet_entity.nickname
-			: PetEntities.getPetTypeName(pet_entity, language);
+		let displayedName = pet_entity.nickname ? pet_entity.nickname : PetEntities.getPetTypeName(pet_entity, language);
 		return PetEntities.getPetEmote(pet_entity) + " " + displayedName;
 	};
 
 	/**
+	 * return a random pet
 	 * @param {number} level
 	 * @returns {Promise<PetEntities>}
 	 */
@@ -267,10 +267,11 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * Génère une entité de pet
 	 * @returns {Promise<PetEntities>}
 	 */
 	PetEntities.generateRandomPetEntityNotGuild = async () => {
-		return PetEntities.generateRandomPetEntity(30);
+		return PetEntities.generateRandomPetEntity(PETS.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT);
 	};
 
 	return PetEntities;
