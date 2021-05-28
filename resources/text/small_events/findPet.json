@@ -12,7 +12,7 @@
 						true
 					],
 					[
-						"vous trouvez un{feminine} **{pet}**. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par là. En échange, il vous donne de la viande.",
+						"vous trouvez un{feminine} **{pet}**. N'ayant pas la possibilité de l’accueillir, vous {determinant} donnez à un marchand qui passe par là. En échange, il vous offre un peu de viande.",
 						true
 					],
 					[

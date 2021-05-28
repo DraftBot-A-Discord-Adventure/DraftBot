@@ -1,5 +1,6 @@
 const BADGE = "💞";
 const doNothing = require('./doNothingSmallEvent');
+
 /**
  * Main function of small event
  * @param {module:"discord.js".Message} message
@@ -11,8 +12,10 @@ const doNothing = require('./doNothingSmallEvent');
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
 	if (!entity.Player.Pet) {
+		//the player does not have a pet : do nothing
 		return await doNothing.executeSmallEvent(message, language, entity, seEmbed);
 	}
+
 	const pet = entity.Player.Pet;
 	let interaction = pickRandomInteraction(entity.Player.Pet);
 	let amount = 0;
@@ -23,7 +26,6 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			entity.Player.money += amount;
 			await entity.Player.save();
 			break;
-
 		case "gainLife":
 			amount = randInt(1, 5);
 			await entity.addHealth(amount);
@@ -40,8 +42,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		case "food":
 			if (entity.Player.guild_id) {
 				food = draftbotRandom.pick([JsonReader.food.commonFood, JsonReader.food.herbivorousFood, JsonReader.food.carnivorousFood, JsonReader.food.ultimateFood]);
-			}
-			else {
+			} else {
 				interaction = "nothing";
 			}
 			break;
@@ -56,7 +57,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			await entity.Player.save();
 			break;
 		case "badge":
-			if(entity.Player.badges !== null) {
+			if (entity.Player.badges !== null) {
 				if (entity.Player.badges.includes(BADGE)) {
 					interaction = "nothing";
 				} else {
@@ -98,6 +99,33 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			await pet.save();
 			break;
 	}
+	await generatePetEmbed(language, interaction, seEmbed, pet, amount, food);
+
+	await message.channel.send(seEmbed);
+	switch (interaction) {
+		case "item":
+			await giveRandomItem(message.author, message.channel, language, entity);
+			break;
+		case "food":
+			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, food, 1);
+			break;
+		case "loseLife":
+			await entity.Player.killIfNeeded(entity, message.channel, language);
+			break;
+	}
+};
+
+/**
+ * Allow to generate the embed that will be displayed to the player
+ * @param language
+ * @param interaction
+ * @param seEmbed - base small event embed
+ * @param pet - The pet of the player
+ * @param amount - amount of stuff gained
+ * @param food - food earned
+ * @returns {Promise<void>}
+ */
+const generatePetEmbed = async function(language, interaction, seEmbed, pet, amount, food) {
 	const tr = JsonReader.small_events.pet.getTranslation(language);
 	const sentence = tr[interaction][randInt(0, tr[interaction].length)];
 	const random_animal = sentence.includes("{random_animal}") ? await PetEntities.generateRandomPetEntityNotGuild() : null;
@@ -116,21 +144,14 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		random_animal: random_animal ? (PetEntities.getPetEmote(random_animal) + " " + PetEntities.getPetTypeName(random_animal, language)) : "",
 		random_animal_feminine: random_animal ? (random_animal.sex === "f" ? "e" : "") : ""
 	}));
-	await message.channel.send(seEmbed);
-	switch (interaction) {
-		case "item":
-			await giveRandomItem(message.author, message.channel, language, entity);
-			break;
-		case "food":
-			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, food, 1);
-			break;
-		case "loseLife":
-			await entity.Player.killIfNeeded(entity, message.channel, language);
-			break;
-	}
 };
 
-const pickRandomInteraction = function(pet_entity) {
+/**
+ * Sélectionne une interaction aléatoire avec un pet
+ * @param pet_entity - le pet
+ * @returns {string|null} - une interaction aléatoire
+ */
+const pickRandomInteraction = function (pet_entity) {
 	const section = pet_entity.lovePoints <= PETS.LOVE_LEVELS[0] ? JsonReader.small_events.pet.rarities.feisty : JsonReader.small_events.pet.rarities.normal;
 	const level = pet_entity.PetModel.rarity + (PetEntities.getLoveLevelNumber(pet_entity) === 5 ? 1 : 0);
 
@@ -160,16 +181,14 @@ const pickRandomInteraction = function(pet_entity) {
 					cumulative += section[key].probabilityWeight;
 				}
 			} else if (pickedNumber < cumulative + section[key].probabilityWeight) {
-				return key
-			}
-			else {
+				return key;
+			} else {
 				cumulative += section[key].probabilityWeight;
 			}
 		}
 	}
-
 	return null;
-}
+};
 
 module.exports = {
 	executeSmallEvent: executeSmallEvent
