@@ -56,18 +56,6 @@
 			"petObtentionPlayer": "{emote} | Un familier vous suit désormais : **{pet}**"
 		},
 		"en": {
-			"noRoom": {
-				"stories": [
-				]
-			},
-			"roomInGuild": {
-				"stories": [
-				]
-			},
-			"roomInPlayer": {
-				"stories": [
-				]
-			}
 		}
 	},
 	"rarity": 2,
