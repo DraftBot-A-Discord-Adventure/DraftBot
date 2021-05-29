@@ -63,7 +63,7 @@
 						"alte": ":scream:"
 					},
 					{
-						"sentence": "vous battez la campagne de nuit et en plein orage, vos vêtement sont imbibés d'eau et le vent vient vous geler les os. Vous finissez malgré tout par trouver un abris de cette tempête, pas assez tôt malheureusement pour ne pas tombez malade. Vous perdez **{alteTime} {alteEmoji}**.",
+						"sentence": "vous battez la campagne de nuit et en plein orage, vos vêtement sont imbibés d'eau et le vent vient vous geler les os. Vous finissez malgré tout par trouver un abris de cette tempête, pas assez tôt malheureusement pour ne pas tomber malade. Vous perdez **{alteTime} {alteEmoji}**.",
 						"alte": ":cold_face:"
 					},
 					{
