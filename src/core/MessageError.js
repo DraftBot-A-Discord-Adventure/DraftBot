@@ -198,6 +198,11 @@ class MessageError {
 				.setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsInjured, {pseudo: message.author.username}), message.author.displayAvatarURL())
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
+		if (effect === EFFECT.SCARED) {
+			embed
+				.setAuthor(format(JsonReader.error.getTranslation(language).titleMeIsScared, {pseudo: message.author.username}), message.author.displayAvatarURL())
+				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
+		}
 
 		if (effect === EFFECT.OCCUPIED) {
 			embed
@@ -283,6 +288,13 @@ class MessageError {
 		if (player.effect === EFFECT.INJURED) {
 			embed
 				.setDescription(format(JsonReader.error.getTranslation(language).playerIsInjured, {
+					askedPseudo: await player.getPseudo(language),
+				}));
+		}
+
+		if (player.effect === EFFECT.SCARED) {
+			embed
+				.setDescription(format(JsonReader.error.getTranslation(language).playerIsScared, {
 					askedPseudo: await player.getPseudo(language),
 				}));
 		}

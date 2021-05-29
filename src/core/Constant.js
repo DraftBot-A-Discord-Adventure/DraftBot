@@ -20,6 +20,7 @@ global.EFFECT = {
 	OCCUPIED: ":clock2:",
 	STARVING: ":drooling_face:",
 	CONFOUNDED: ":confounded:",
+	SCARED: ":scream:"
 };
 
 global.LANGUAGE = {
