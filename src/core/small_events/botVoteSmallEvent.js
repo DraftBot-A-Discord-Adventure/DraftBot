@@ -13,7 +13,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
 	if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUser_id) < 0) {
 		// hasn't voted
-		seEmbed.setDescription(base + "\n\n" + trans.pleaseVote);
+		seEmbed.setDescription(base + trans.pleaseVote + "\n\n" + trans.pleaseVoteFooter);
 		const msg = await message.channel.send(seEmbed);
 
 	} else if (draftbotRandom.bool()) {

@@ -2,13 +2,14 @@
 	"translations": {
 		"fr": {
 			"stories": [
-				"",
+				"vous ramassez une statuette. Celle-ci commence à vous parler :",
 				"un vieil homme arrive vers vous et vous dit :",
-				"vous voyez un petit écriteau sur lequel un message est écrit : \"Un vote tu feras, Une récompense tu pourras trouver\"."
+				"vous voyez un petit écriteau sur lequel un message est écrit :"
 			],
-			"itemWin": " Merci de votre soutien, voici en récompense un objet qui pourrait vous être utile pour la suite :",
-			"moneyWin": " Merci de votre soutien, voici **{money} :moneybag:** pour vous récompenser !",
-			"pleaseVote": "Votez pour le bot [ici](https://top.gg/bot/448110812801007618) peut vous faire gagner quelques petites récompenses.",
+			"itemWin": " \"Merci de votre soutien, voici en récompense un objet qui pourrait vous être utile pour la suite !\"",
+			"moneyWin": " \"Merci de votre soutien, voici **{money} :moneybag:** pour vous récompenser !\"",
+			"pleaseVote": " \"Merci de voter afin d'obtenir une récompense la prochaine fois !\"",
+			"pleaseVoteFooter": "Votez pour le bot [ici](https://top.gg/bot/448110812801007618) peut vous faire gagner quelques petites récompenses.",
 			"thanksFooter": "Vous recevez cette récompense car vous avez voté pour le bot [ici](https://top.gg/bot/448110812801007618). Merci !"
 		},
 		"en": {
