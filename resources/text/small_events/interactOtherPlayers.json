@@ -42,11 +42,6 @@
 				"En vous baladant, vous croisez **{pseudo}** c'est un héros puissant, il est en effet niveau **{level}** !",
 				"**{pseudo}** ne s'arrête pas de monter en niveau et de se rapprocher du niveau 100 ! Il est actuellement niveau **{level}**. Vous reprenez votre chemin après cette rencontre."
 			],
-			"inactive": [
-				"Vous manquez de peu de trébucher sur le corps inerte de **{pseudo}**... Vous continuez votre route dégoûté.",
-				"En marchant, vous apercevez la dépouille inerte de **{pseudo}**, il semble être ici depuis longtemps...",
-				"Une odeur désagréable vient chatouiller vos narines... C'est celle du corps décomposé de **{pseudo}** ! Vous courez pour vous éloignez de cette vue qui ne vous laisse pas de marbre."
-			],
 			"sameClass": [
 				"Sur votre chemin, vous ne manquez pas de reconnaître l'accoutrement de **{pseudo}**. Il est **{class}** tout comme vous !",
 				"Vous remarquez **{pseudo}**, et observez rapidement son accoutrement et ses manières qui vous sont famillières, en effet il est **{class}**, tout comme vous ! Vous reprenez ensuite votre route.",
@@ -192,6 +187,11 @@
 				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
 				"En parlant avec **{pseudo}**, il vous montre {prefix_item} {item} !",
 				"**{pseudo}**, un joueur marchant sur la même route que vous, sort un objet de sa collection. Il vous montre fièrement {prefix_item} {item}."
+			],
+			":scream:": [
+				"Vous croisez **{pseudo}** qui semble courir en votre direction. En effet celui-ci est pourchassé par des brigands en voulant après son argent. Vous l'accompagnez sur un bout de chemin afin qu'il regagne son calme. Une fois rassuré, vous le quittez et reprenez votre route.",
+				"Vous apercevez au loin **{pseudo}** courant à toutes jambes pour fuir une meute de loups, vous vous empressez de lui venir en aide et faites battre en retrait les bêtes sauvages.",
+				"Vous rencontrez **{pseudo}**. Celui-ci semble complètement paniqué. Vous lui demandez ce qui le met dans tout ses états. Il vous raconte qu'il vient de se faire poursuivre par un dragon, mais qu'il a réussi à s'en sortir, perdant quelques poils au passage."
 			]
 		},
 		"en": {
@@ -235,11 +235,6 @@
 				"The grey hair of **{pseudo}** shows the experience he has accumulated. He is indeed **{level}**! You then continue your way.",
 				"While walking around, you come across **{pseudo}** he is a powerful hero, he is indeed level **{level}**!",
 				"**{pseudo}** keeps leveling up and getting closer to level 100! He is currently level **{level}**. You go on your way after this encounter."
-			],
-			"inactive": [
-				"You almost fall on the inert body of **{pseudo}**... You continue your way, disgusted.",
-				"While walking, you see the inert corpse of **{pseudo}**, it seems to be here for a long time...",
-				"An unpleasant smell comes to tickle your nostrils... It is the smell of the decomposed body of **{pseudo}**! You run to get away from this sight which does not leave you unmoved."
 			],
 			"sameClass": [
 				"On your way, you don't fail to recognize **{pseudo}**'s outfit. He is **{class}** just like you !",
@@ -386,6 +381,11 @@
 				"You meet **{pseudo}** who shows you {item}.",
 				"While talking with **{pseudo}**, he shows you {item}!",
 				"**{pseudo}**, a player walking along the same road as you pulls out an item from his collection. He proudly shows you {item}."
+			],
+			":scream:": [
+				"You meet **{pseudo}**, which seems running in your direction. Indeed, this one is chased by bandits, wishing of his money. You support him part of the way before he regain his calm. Once reassured, you leave him and continue your way.",
+				"You see far **{pseudo}**, running as fast as possible to escape a pack of wolves, you haste to help him and retreat those wild beasts",
+				"You meet **{pseudo}**. He seems panicked. You ask him what makes him in all its forms. He tells you he was being chased by a dragon, but he managed to escape, losing some hairs by the way"
 			]
 		}
 	},
