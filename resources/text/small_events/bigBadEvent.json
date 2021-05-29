@@ -11,13 +11,16 @@
 			"alteration": {
 				"stories": [
 					{
-						"sentence": "vous apercevez des baies, votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, la faim vous pousse donc à en goûter quelques unes, très vite vous vous sentez mal {alteTime} {alteEmoji}",
+						"sentence": "vous apercevez des baies, votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, la faim vous pousse donc à en goûter quelques unes, très vite vous vous sentez mal **{alteTime} {alteEmoji}**.",
 						"alte": ":sick:"
 					}
 				]
 			},
 			"moneyLoss": {
 				"stories": [
+					"vous vous rendez compte que votre sac est déchiré. Après vérification, vous constatez que votre bourse a disparu, vous avez perdu **{moneylost} :money_with_wings:**.",
+					"vous prenez conscience que votre bourse n’est plus dans votre sac. Vous vous souvenez soudain l’avoir oubliée dans la précédente taverne, vous avez perdu **{moneylost} :money_with_wings:**.",
+					"des voyageurs passent à côté de vous en vous bousculant, puis vous relève en s'excusant grossièrement. Quelques minutes plus tard, vous vous apercevez que votre bourse a disparu, vous avez perdu **{moneylost} :money_with_wings:**."
 				]
 			}
 		},
@@ -25,7 +28,7 @@
 		}
 	},
 	"rarity": 1,
-	"emote": "\uD83D\uDE31️"
+	"emote": ":scream: "
 }
 
 

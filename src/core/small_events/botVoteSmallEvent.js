@@ -9,7 +9,7 @@ const DBL = require('../DBL');
  */
 const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let trans = JsonReader.small_events.botVote.getTranslation(language);
-	let base = JsonReader.small_events.botVote.emote + " " + trans.stories[draftbotRandom.integer(0, trans.stories.length - 1)];
+	let base = JsonReader.small_events.botVote.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] + trans.stories[draftbotRandom.integer(0, trans.stories.length - 1)];
 
 	if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUser_id) < 0) {
 		// hasn't voted

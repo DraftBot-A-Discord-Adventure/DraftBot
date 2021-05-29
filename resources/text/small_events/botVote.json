@@ -2,12 +2,12 @@
 	"translations": {
 		"fr": {
 			"stories": [
-				"vous trouvez une statue qui semble être munie d'un écriteau de vote ",
-				"Croisez homme qui nous remercie du soutien",
-				"Tandis que vous longez une route en marchant doucement vous voyez un petit écriteau sur lequel un message est écrit : \"Un vote tu feras, Une récompense tu pourras trouver\"."
+				"",
+				"un vieil homme arrive vers vous et vous dit :",
+				"vous voyez un petit écriteau sur lequel un message est écrit : \"Un vote tu feras, Une récompense tu pourras trouver\"."
 			],
 			"itemWin": " Merci de votre soutien, voici en récompense un objet qui pourrait vous être utile pour la suite :",
-			"moneyWin": " Merci de votre soutien, voici {money} :moneybag: pour vous récompenser !",
+			"moneyWin": " Merci de votre soutien, voici **{money} :moneybag:** pour vous récompenser !",
 			"pleaseVote": "Votez pour le bot [ici](https://top.gg/bot/448110812801007618) peut vous faire gagner quelques petites récompenses.",
 			"thanksFooter": "Vous recevez cette récompense car vous avez voté pour le bot [ici](https://top.gg/bot/448110812801007618). Merci !"
 		},
@@ -15,7 +15,7 @@
 		}
 	},
 	"rarity": 4,
-	"emote": "\uD83D\uDDF3️"
+	"emote": ":ballot_box: "
 }
 
 
