@@ -13,6 +13,62 @@
 					{
 						"sentence": "vous apercevez des baies, votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, la faim vous pousse donc à en goûter quelques unes, très vite vous vous sentez mal **{alteTime} {alteEmoji}**.",
 						"alte": ":sick:"
+					},
+					{
+						"sentence": "vous sentez la brise du vent vous bercer peu à peu. Vous vous réveillez plusieurs heures plus tard en vous demandant comment diable cela a-t-il pu vous arriver si bêtement. Vous regardez le soleil et comprenez que vous avez dormi **{alteTime} {alteEmoji}**.",
+						"alte": ":sleeping:"
+					},
+					{
+						"sentence": "vous passez non loin d'un marchand, celui-ci vous interpelle. Il vous propose de vous donner une bouteille de liqueur qu'il ne parvient pas à vendre et ne souhaite pas voir s'abîmer. Vous acceptez et la videz en chemin, vous finissez complétement ivre et perdez **{alteTime} {alteEmoji}**.",
+						"alte": ":zany_face:"
+					},
+					{
+						"sentence": "vous marchez lorsque vous apercevez au loin un objet brillant, vous vous empressez de voir ce que c'est et découvrez une bouteille contenant un liquide étrange. Vous ressentez tout-à-coup une grosse soif et sans vous en rendre compte, vous buvez le contenu de la bouteille. Très vite vous vous sentez mal et tombez malade pendant **{alteTime} {alteEmoji}**.",
+						"alte": ":sick:"
+					},
+					{
+						"sentence": "vous prenez conscience que des provisions traînent depuis un moment, vous ne souhaitez cependant pas les jeter et choisissez de tout de même les manger. C'était une mauvaise idée car il semble que les vivres étaient déjà périmés. Vous tombez et perdez **{alteTime} {alteEmoji}**.",
+						"alte": ":confounded:"
+					},
+					{
+						"sentence": "vous êtes surpris par un cavalier qui surgit derrière vous sans crier gare. Il vous renverse et poursuit son chemin sans prêter attention à vous. Sonné, vous perdez **{alteTime} {alteEmoji}**.",
+						"alte": ":dizzy_face:"
+					},
+					{
+						"sentence": "un groupe de bandits vous attaque et vous assomme. Vous vous réveillez plus tard et ne remarquez que rien n'a été volé. Vous avez dormi pendant **{alteTime} {alteEmoji}**.",
+						"alte": ":head_bandage:"
+					},
+					{
+						"sentence": "vous marchez tranquillement lorsque vous voyez un trou au loin. Vous allez le voir et observez qu'il est très profond. Au même moment, quelqu'un vous pousse et vous tombez dans le trou. Vous réussissez à sortir mais remarquez néanmoins une étrange douleur à votre jambe. Vous continuez donc votre chemin mais vous vous effondrez très vite. Vous avez perdu **{alteTime} {alteEmoji}**.",
+						"alte": ":dizzy_face:"
+					},
+					{
+						"sentence": "vous êtes appréhendé par un groupe d'individus vous demandant de leur remettre vos effets personnels. Ne vous laissant pas impressioner si facilement, vous dégainez votre arme et les faites fuir. Cependant, l'un d'eux, plus en retrait, profite de la panique générale pour vous assommer avant de s'enfuir. Vous perdez **{alteTime} {alteEmoji}**.",
+						"alte": ":head_bandage:"
+					},
+					{
+						"sentence": "vous traversez un chemin quand un troupeau de vaches surgit brusquement. Vous n'êtes pas blessé mais avez été victime d'une belle peur. Vous perdez **{alteTime} {alteEmoji}**.",
+						"alte": ":scream:"
+					},
+					{
+						"sentence": "vous ne faites pas attention à là où vous posez les pieds, ils se prennent dans une racine et vous tombez tête la première, blessé, il vous faudra vous soigner. Vous perdez **{alteTime} {alteEmoji}**.",
+						"alte": ":head_bandage:"
+					},
+					{
+						"sentence": "vous apercevez un ourson quelques mètres plus loin. Vous decidez d'aller lui dire bonjour. Sa maman, vous voyant près de son bébé, vous attaque sauvagement. Vous parvenez à fuir mais vous êtes grièvement blessé. Vous perdez **{alteTime} {alteEmoji}**.",
+						"alte": ":dizzy_face:"
+					},
+					{
+						"sentence": "vous traversez un chemin quand un troupeau de vaches surgit brusquement et vous bouscule, vous n'êtes cependant pas blessé, plus de peur que de mal. Vous perdez **{alteTime} {alteEmoji}**.",
+						"alte": ":scream:"
+					},
+					{
+						"sentence": "vous battez la campagne de nuit et en plein orage, vos vêtement sont imbibés d'eau et le vent vient vous geler les os. Vous finissez malgré tout par trouver un abris de cette tempête, pas assez tôt malheureusement pour ne pas tombez malade. Vous perdez **{alteTime} {alteEmoji}**.",
+						"alte": ":cold_face:"
+					},
+					{
+						"sentence": "vous êtes appréhendé par des gardes vous accusant d'être un criminel recherché activement dans le royaume. Vous constatez en effet que l'homme sur l'affiche vous ressemble et tentez de vous expliquer. Les gardes ne vous écoutent pas, vous embarquent et vous jettent en prison. Vous perdez **{alteTime} {alteEmoji}**.",
+						"alte": ":lock:"
 					}
 				]
 			},
