@@ -16,9 +16,9 @@
 						"fr": "Aussitôt demandée, aussitôt réalisée. Vous vous retrouvez dans un lit, déshabillé, à côté de ce qui s'apparente à votre amoureuse. En vous regardant de plus près, vous vous rendez compte que vous êtes attaché à la taille, et... il vous manque l'entièreté de vos membres, que ce soient les bras ou les jambes. Vous n'avez la possibilité de bouger qu'avec le torse. Voyant votre détresse, Pérotin finit sa chanson par \"tout ceci n'était qu'un rêve\" et vous redevenez comme avant, entier et détaché. Il vous faudra cependant vous reposer pour vous remettre de votre traumatisme.",
 						"en": "Immediately asked, immediately done. You find yourself in a bed, undressed, and the person next to you looks like your lover. Watching at yourself, you see that you are attached on the bed and... you're missing your legs and arms. You can only move with your torso. Seeing your distress, Perotin ends his song with \"all this was just a dream\", and you are back as before. You will however need to take a rest."
 					},
-					"lostTime": 180,
+					"lostTime": 0,
 					"health": 0,
-					"effect": ":clock2:",
+					"effect": ":scream:",
 					"experience": 25,
 					"money": 0,
 					"item": false
