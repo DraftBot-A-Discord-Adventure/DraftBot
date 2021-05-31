@@ -11,19 +11,19 @@
 			"alteration": {
 				"stories": [
 					{
-						"sentence": "vous apercevez des baies, votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, la faim vous pousse à les goûter. Très vite vous vous sentez mal. **{alteEmoji}**",
+						"sentence": "vous apercevez des baies, votre estomac vous rappelant que cela fait plusieurs heures que vous n'avez pas mangé, la faim vous pousse à les goûter. Très vite vous vous sentez mal. {alteEmoji}",
 						"alte": ":sick:"
 					},
 					{
-						"sentence": "vous sentez la brise du vent vous bercer peu à peu. Fatigué par votre route, vous n'êtes pas long à vous endormir. {alteEmoji}**.",
+						"sentence": "vous sentez la brise du vent vous bercer peu à peu. Fatigué par votre route, vous n'êtes pas long à vous endormir. {alteEmoji}",
 						"alte": ":sleeping:"
 					},
 					{
-						"sentence": "vous passez non loin d'un marchand, celui-ci vous interpelle. Il vous propose de vous donner une bouteille mystérieuse qu'il ne parvient pas à vendre et ne souhaite pas voir s'abîmer. Vous acceptez et buvez goulument son contenu. {alteEmoji}**.",
+						"sentence": "vous passez non loin d'un marchand, celui-ci vous interpelle. Il vous propose de vous donner une bouteille mystérieuse qu'il ne parvient pas à vendre et ne souhaite pas voir s'abîmer. Vous acceptez et buvez goulument son contenu. {alteEmoji}",
 						"alte": ":zany_face:"
 					},
 					{
-						"sentence": "vous apercevez au loin un objet brillant. En vous approchant vous découvrez une bouteille contenant un liquide étrange. Intrigué, vous décidez de goûter le mélange douteux qu'elle contient. Vous regrettez cela immédiatement. {alteEmoji}**.",
+						"sentence": "vous apercevez au loin un objet brillant. En vous approchant vous découvrez une bouteille contenant un liquide étrange. Intrigué, vous décidez de goûter le mélange douteux qu'elle contient. Vous regrettez cela immédiatement. {alteEmoji}",
 						"alte": ":sick:"
 					},
 					{
