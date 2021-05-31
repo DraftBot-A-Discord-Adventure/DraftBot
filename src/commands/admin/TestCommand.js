@@ -383,8 +383,7 @@ const TestCommand = async (language, message, args) => {
 				break;
 			case 'pf':
 			case 'petfree':
-				await author.Player.Pet.destroy();
-				await author.Player.save();
+				author.Player.pet_id = null;
 				break;
 			case 'greward':
 				await getCommand("gd")(language, message, [], args[1]);
