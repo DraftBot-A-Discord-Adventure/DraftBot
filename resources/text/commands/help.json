@@ -300,6 +300,12 @@
 					"usage": "unlock [mention]",
 					"category": "player",
 					"description": "Permet de payer une caution pour libérer quelqu'un de prison."
+				},
+				"map": {
+					"emote":":map:",
+					"usage": "map",
+					"category": "player",
+					"description": "Affiche des informations sur votre destination, ainsi que la carte."
 				}
 			}
 		},
@@ -603,6 +609,12 @@
 					"usage": "unlock [mention]",
 					"category": "player",
 					"description": "Allows you to pay a bail for set someone free."
+				},
+				"map": {
+					"emote":":map:",
+					"usage": "map",
+					"category": "player",
+					"description": "Display information about your destination, and also the map."
 				}
 			}
 		}
