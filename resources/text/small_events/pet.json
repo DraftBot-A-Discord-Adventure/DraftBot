@@ -56,7 +56,7 @@
 				"**{pet}** semble vouloir jouer et se jette en haut d'un arbre, malheureusement son poids a brisé la branche et {nominative} tombe sur vous. Vous perdez **{amount}** :broken_heart:."
 			],
 			"loseMoney": [
-				"Vous sentez que **{pet}** vole quelques pièces dans votre bourse et part les cacher plus loin. Vous n'arrivez pas à les retrouver malheureusement. Vous perdez donc {amount} :money_with_wings:.",
+				"Vous sentez que **{pet}** vole quelques pièces dans votre bourse et part les cacher plus loin. Vous n'arrivez malheureusement pas à les retrouver. Vous perdez donc {amount} :money_with_wings:.",
 				"Vous remarquez un large trou dans votre bourse, **{pet}** a dû jouer avec durant la nuit ! Après avoir compté ce qu'il vous restait, vous remarquez qu'il vous manque en tout **{amount}** :money_with_wings:.",
 				"Alors que vous jouez avec **{pet}**, celui-ci vous bouscule et fait tomber votre bourse dans une crevasse. Impossible de récuperer ces **{amount}** :money_with_wings: !",
 				"**{pet}** semble être irrité, {nominative} ira même jusqu'à blesser un passant. Après s'être excusé, vous décidez de le dédommager et repartez la tête basse. Vous perdez **{amount}** :money_with_wings:.",
