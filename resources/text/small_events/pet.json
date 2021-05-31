@@ -6,7 +6,7 @@
 				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir **{amount}** :moneybag: !",
 				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec **{amount}** :moneybag: vous rempli de joie !",
 				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec une bourse de {amount} :moneybag: !",
-				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une bourse. Il semblerait bien qu'{nominative} l'ai volé à un marchand. Vous décidez de partir avec vos **{amount}** :moneybag: avant qu'il ne s'en aperçoivre."
+				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une bourse. Il semblerait bien qu'{nominative} l'ai volée à un marchand. Vous décidez de partir avec vos **{amount}** :moneybag: avant qu'il ne s'en aperçoivre."
 			],
 			"item": [
 				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort un **objet**, que vous pouvez éventuellement garder pour la suite de votre aventure.",
@@ -24,15 +24,15 @@
 				"**{pet}** est heureux de vous avoir en sa compagnie. {nominativeShift} gagne en amour et vous devient plus fidèle.",
 				"Après avoir marché longuement, vous décidez de prendre soin de votre **{pet}** en {determinant} caressant. Ce moment passé avec {accusative} a renforcé vos liens.",
 				"Après être parti{feminine} quelques instant, **{pet}** reviens avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominative} vous aime ainsi d'avantage.",
-				"**{pet}** semble avoir déclenché les hostilités avec un{random_animal_feminine} **{random_animal}** sauvage ! Vous décidez de {determinant} défendre vaillamment, celui-ci vous aime d'avantage et vous devient plus fidèle.",
+				"**{pet}** semble avoir déclenché les hostilités avec un{random_animal_feminine} **{random_animal}** sauvage ! Vous décidez de {determinant} défendre vaillamment. {nominativeShift} vous aime d'avantage et vous devient plus fidèle.",
 				"**{pet}** est joueur, vous décidez de jouer avec {accusative}. Cette partie a renforcé vos liens."
 			],
 			"food": [
-				"Le flair de **{pet}** {accusative} a permis de trouver une {food}. Vous rangez cette nourriture et continuez votre route.",
+				"Le flair de **{pet}** vous a permis de trouver une {food}. Vous rangez cette nourriture et continuez votre route.",
 				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir une {food} !",
 				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et vous {determinant} voyez revenir avec une {food} dans la bouche !",
 				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec une {food} !",
-				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec de une {food}. Il semblerait bien qu'{nominative} l'ai volé à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
+				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une {food}. Il semblerait bien qu'{nominative} l'ai volée à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
 			],
 			"gainTime": [
 				"**{pet}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{amount} min** :clock2:.",
@@ -43,7 +43,7 @@
 			],
 			"points": [
 				"Les personnes qui vous croisent avec **{pet}** ne manquent pas de vous remarquez. Cela améliore votre réputation et vous gagnez donc **{amount}** :medal:.",
-				"Racontez les aventures de vous et de votre **{pet}** à un vieil homme semble avoir amélioré votre réputation, vous gagnez donc **{amount}** :medal:."
+				"Raconter les aventures de vous et de votre **{pet}** à un vieil homme semble avoir amélioré votre réputation, vous gagnez donc **{amount}** :medal:."
 			],
 			"badge": [
 				"Réussir à dresser **{pet}** a été un véritable défi qui prouve votre talent avec les animaux. Vous obtenez le badge {badge} !"
@@ -51,7 +51,7 @@
 			"loseLife": [
 				"Alors que vous tentez de carresser **{pet}**, {nominative} ne se laisse pas faire et vous mord la main. Vous perdez **{amount}** :broken_heart:",
 				"Dans un virage **{pet}** se met tout à coup à courir, vous gardez la laisse tant bien que mal dans les mains mais vous ressortez avec quelques égratinures. Vous perdez **{amount}** :broken_heart:.",
-				"Vous voyez **{pet}** partir. {nominative} revient quelques minutes après avec de la nourriture. Vous la mangez et le regrettez amèrement quelques minutes plus tard. Vous avez soudainement mal au ventre... Vous perdez **{amount}** :broken_heart:.",
+				"Vous voyez **{pet}** partir. {nominativeShift} revient quelques minutes après avec de la nourriture. Vous la mangez et le regrettez amèrement quelques minutes plus tard. Vous avez soudainement mal au ventre... Vous perdez **{amount}** :broken_heart:.",
 				"**{pet}** semble avoir déclenché les hostilités avec un{random_animal_feminine} **{random_animal}** sauvage ! Vous décidez de {determinant} défendre mais malheureusement la créature sauvage vous blesse. Vous perdez **{amount}** :broken_heart:.",
 				"**{pet}** semble vouloir jouer et se jette en haut d'un arbre, malheureusement son poids a brisé la branche et {nominative} tombe sur vous. Vous perdez **{amount}** :broken_heart:."
 			],
@@ -64,7 +64,7 @@
 			],
 			"loseTime": [
 				"A force de rappeler **{pet}** afin qu'{nominative} reste près de vous, vous perdez au total **{amount} min** :clock2:.",
-				"Vous sentez que **{pet}** ne semble pas vouloir bouger, vous décidez tout de même de {déterminant} tirer de force. Par sa faute, vous perdez **{amount} min** :clock2:.",
+				"Vous sentez que **{pet}** ne semble pas vouloir bouger, vous décidez tout de même de {determinant} tirer de force. Par sa faute, vous perdez **{amount} min** :clock2:.",
 				"Vous voyez **{pet}** venir vers vous en courant poursuivi{feminine} par un{random_animal_feminine} **{random_animal}** sauvage ! Vous prenez la fuite avec {accusative}. Cette course poursuite vous à fait perdre **{amount} min** :clock2: sur votre trajet.",
 				"En entrant dans un vilage, vous entendez une rumeur portant sur un familier ressemblant à **{pet}** qui attaquerait des villageois. En vous voyant, les habitants prennent peur de vous et de votre familier, et vous êtes alors immédiatement chassé du village. Cette mésaventure vous a fait perdre **{amount} min** :clock2: sur votre trajet.",
 				"**{pet}** regarde avec insistance le sol et décide d'y creuser un trou. {nominative} y ressort un coffre fermé. Après plusieurs tentatives, vous réussisez à l'ouvrir, malheureusement celui-ci est vide. Cette mésaventure vous a bien fait perdre **{amount} min** :clock2:."
@@ -73,13 +73,13 @@
 				"**{pet}** ne vous respecte pas et part donc en courant au loin. Vous n'arrivez pas à {determinant} retrouver et {determinant} perdez à tout jamais...",
 				"Après avoir passé du temps avec vous, **{pet}** semble ne plus vous aimer et décide de s'enfuir en courant. Vous ne {determinant} reverrez probablement plus jamais.",
 				"Il semblerait que **{pet}** ait trouvé l'âme soeur, celui-ci vous abandonne et vous laisse seul. Vous ne {determinant} reverrez plus jamais...",
-				"Le manque d'attention envers **{pet}** l'a amené à s'enfuir. Vous {nominative} perdez de vue très rapidement, il sera impossible de {nominative} retrouver."
+				"Le manque d'attention envers **{pet}** l'a amené à s'enfuir. Vous {nominative} perdez de vue très rapidement, il sera impossible de {determinant} retrouver."
 			],
 			"loseLove": [
-				"Il semblerait bien que **{pet}** ne vous apprécie pas trop... Voyager avec {accusative} déteriore d'autant plus cette relation. {nominative} perd un peu en amour.",
-				"Alors que vous vous entrainiez à combattre, **{pet}** passe par là. Vous lui assénez un coup dans un moment d'inadvertance. {nominative} semble maintenant vous aimer un peu moins.",
+				"Il semblerait bien que **{pet}** ne vous apprécie pas trop... Voyager avec {accusative} déteriore d'autant plus cette relation. {nominativeShift} perd un peu en amour.",
+				"Alors que vous vous entrainiez à combattre, **{pet}** passe par là. Vous lui assénez un coup dans un moment d'inadvertance. {nominativeShift} semble maintenant vous aimer un peu moins.",
 				"**{pet}** est essouflé, il semblerait qu'{nominative} n'arrive pas à vous suivre. Ne pas l'avoir attendu a déterioré votre relation. {nominative} perd donc un peu en amour...",
-				"À l'approche d'un stand, **{pet}** fixe avec insistance la nourriture posé sur une planche. Malgré sa requête, vous décidez de continuer votre route. Celui-ci est rancunier, {nominative} perd un peu foi en vous."
+				"À l'approche d'un stand, **{pet}** fixe avec insistance la nourriture posée sur une planche. Malgré sa requête, vous décidez de continuer votre route. Celui-ci est rancunier, {nominative} perd un peu foi en vous."
 			],
 			"nothing": [
 				"Vous continuez votre route aux côtés de **{pet}**. Rien de spécial ne se passe."
