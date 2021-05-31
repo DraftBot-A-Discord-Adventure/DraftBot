@@ -29,6 +29,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	}
 	const msg = await message.channel.send(seEmbed);
 	log(entity.discordUser_id + " got big bad event.");
+	await entity.Player.killIfNeeded(entity, message.channel, language);
 	await entity.Player.save();
 	await entity.save();
 };
