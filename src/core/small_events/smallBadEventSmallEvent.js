@@ -14,7 +14,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		case 0:
 			let lifeLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_LOST_SMALL, SMALL_EVENT.MAXIMUM_HEALTH_LOST_SMALL);
 			seEmbed.setDescription(base + format(JsonReader.small_events.smallBadEvent.getTranslation(language).lifeLoss.stories[randInt(0, JsonReader.small_events.smallBadEvent.getTranslation(language).lifeLoss.stories.length)], {lifeLoss: lifeLoss}));
-			entity.Player.addHealth(-lifeLoss);
+			entity.addHealth(-lifeLoss);
 			break;
 		case 1:
 			let time = draftbotRandom.integer(SMALL_EVENT.MINIMUM_TIME_LOST_SMALL, SMALL_EVENT.MAXIMUM_TIME_LOST_SMALL) * 5;
@@ -30,6 +30,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	const msg = await message.channel.send(seEmbed);
 	log(entity.discordUser_id + " got small bad event.");
 	await entity.Player.save();
+	await entity.save();
 };
 
 module.exports = {

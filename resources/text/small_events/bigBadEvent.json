@@ -3,9 +3,9 @@
 		"fr": {
 			"lifeLoss": {
 				"stories": [
-					"vous entendez un bruit strident venant du ciel, vous levez les yeux mais trop tard : un oiseau aux griffes acérées vous fonce dessus. Au moment où celui-ci vous griffe, il se rend compte que vous n'êtes pas sa proie habituelle et repart aussitôt. Vous contemplez votre blessure, elle a l'air profonde. Vous perdez **{lifeLoss} :broken_hearth:**.",
-					"alors que vous arpentez un sentier escarpé, vous dérapez et vous tordez une cheville. Vous perdez **{lifeLoss} :broken_hearth:**.",
-					"vous voyez une mouche tourner autour de vous. Vous sortez votre arme dans l'espoir de la tuer, mais vous n'arrivez qu'à vous entailler légèrement le poignet, perdant au passage **{lifeLoss} :broken_hearth:**"
+					"vous entendez un bruit strident venant du ciel, vous levez les yeux mais trop tard : un oiseau aux griffes acérées vous fonce dessus. Au moment où celui-ci vous griffe, il se rend compte que vous n'êtes pas sa proie habituelle et repart aussitôt. Vous contemplez votre blessure, elle a l'air profonde. Vous perdez **{lifeLoss} :broken_heart:**.",
+					"alors que vous arpentez un sentier escarpé, vous dérapez et vous tordez une cheville. Vous perdez **{lifeLoss} :broken_heart:**.",
+					"vous voyez une mouche tourner autour de vous. Vous sortez votre arme dans l'espoir de la tuer, mais vous n'arrivez qu'à vous entailler légèrement le poignet, perdant au passage **{lifeLoss} :broken_heart:**"
 				]
 			},
 			"alteration": {

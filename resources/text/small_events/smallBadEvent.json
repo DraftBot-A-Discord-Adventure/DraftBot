@@ -5,9 +5,9 @@
 				"stories": [
 					"vos pieds se prennent dans une racine. Blessé, vous perdez **{lifeLoss} :broken_heart:**.",
 					"plongé dans vos pensées, vous ne prêtez guère attention au sol sous vos pieds et trébuchez malencontreusement contre un caillou, vous vous êtes blessé au genou. Ce n'est pas très grave, bien que douleureux. Vous perdez **{lifeLoss} :broken_heart:**.",
-					"Vous sifflotez en marchant. Tout à coup, quelque chose entre dans votre champ de vision : il s'agit d'un chien, et il fonce droit sur vous ! Avant que vous n'ayez le temps de comprendre plus en détail ce qu'il se passe, l'animal entre en collision avec vous, mais repart aussitôt. Heureusement, vous n'avez été que légèrement blessé, et perdez seulement **{lifeLoss} :broken_hearth:**.",
-					"vous percutez un cheval arrivant au galop, vous n'êtes blessé que superficiellement. Vous perdez **{lifeLoss} :broken_hearth:**.",
-					"vous êtes violemment percuté par un groupe de sangliers, vous vous relevez non sans peine et reprenez votre route en ayant perdu **{lifeLoss} :broken_hearth:**."
+					"Vous sifflotez en marchant. Tout à coup, quelque chose entre dans votre champ de vision : il s'agit d'un chien, et il fonce droit sur vous ! Avant que vous n'ayez le temps de comprendre plus en détail ce qu'il se passe, l'animal entre en collision avec vous, mais repart aussitôt. Heureusement, vous n'avez été que légèrement blessé, et perdez seulement **{lifeLoss} :broken_heart:**.",
+					"vous percutez un cheval arrivant au galop, vous n'êtes blessé que superficiellement. Vous perdez **{lifeLoss} :broken_heart:**.",
+					"vous êtes violemment percuté par un groupe de sangliers, vous vous relevez non sans peine et reprenez votre route en ayant perdu **{lifeLoss} :broken_heart:**."
 				]
 			},
 			"alteration": {
@@ -21,11 +21,11 @@
 			},
 			"moneyLoss": {
 				"stories": [
-					"traversant une foule, vous sentez une main vous fouiller vivement et alléger vos poches, vous n’avez pas le temps de répliquer que votre détrousseur a disparu. Vous avez perdu **{moneylost} :money_with_wings:**.",
-					"vous croisez un mendiant vous demandant un peu d’argent pour subvenir à ses besoins. Pris d’un élan de pitié, vous satisfaisez sa demande et lui donnez **{moneylost} :money_with_wings:**.",
-					"un homme masqué vous interpelle et vous menace de son arme. Afin qu'il vous laisse la vie sauve, vous lui donnez les **{moneylost} :money_with_wings:** pièces que avez dans votre poche, ainsi que les clés de votre charette.",
-					"vous vous souvenez soudainement avoir oublié votre bourse dans la chambre de la dernière auberge par laquelle vous êtes passé. Vous avez perdu **{moneylost} :money_with_wings:**.",
-					"Vous croisez une charrette dont le chargement dépasse et déchire votre sac. Pendant que vous rassemblez vos affaires un groupe d’enfants passe et vous dérobe de l’argent. Vous perdez **{moneylost} :money_with_wings:**."
+					"traversant une foule, vous sentez une main vous fouiller vivement et alléger vos poches, vous n’avez pas le temps de répliquer que votre détrousseur a disparu. Vous avez perdu **{moneyLost} :money_with_wings:**.",
+					"vous croisez un mendiant vous demandant un peu d’argent pour subvenir à ses besoins. Pris d’un élan de pitié, vous satisfaisez sa demande et lui donnez **{moneyLost} :money_with_wings:**.",
+					"un homme masqué vous interpelle et vous menace de son arme. Afin qu'il vous laisse la vie sauve, vous lui donnez les **{moneyLost} :money_with_wings:** pièces que avez dans votre poche, ainsi que les clés de votre charette.",
+					"vous vous souvenez soudainement avoir oublié votre bourse dans la chambre de la dernière auberge par laquelle vous êtes passé. Vous avez perdu **{moneyLost} :money_with_wings:**.",
+					"Vous croisez une charrette dont le chargement dépasse et déchire votre sac. Pendant que vous rassemblez vos affaires un groupe d’enfants passe et vous dérobe de l’argent. Vous perdez **{moneyLost} :money_with_wings:**."
 				]
 			}
 		},

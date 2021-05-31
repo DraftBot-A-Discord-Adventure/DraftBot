@@ -21,11 +21,11 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let petLine = await PetEntities.displayName(pet, language);
 
 	let base = JsonReader.small_events.findPet.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
-	let roomInGuild = guild === null ? false : await Guilds.isPetShelterFull(guild);
+	let noRoomInGuild = guild === null ? true : await Guilds.isPetShelterFull(guild);
 	let seEmbedPetObtention = seEmbed;
 	let trad = JsonReader.small_events.findPet.getTranslation(language);
 
-	if (!roomInGuild && entity.Player.pet_id != null) {
+	if (noRoomInGuild && entity.Player.pet_id != null) {
 		// no room
 		let outRand;
 		do {
@@ -38,7 +38,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		if (trad.noRoom.stories[outRand][PETS.IS_FOOD]) {
 			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, 1);
 		}
-	} else if (roomInGuild && entity.Player.pet_id != null) {
+	} else if (!noRoomInGuild && entity.Player.pet_id != null) {
 		// Place le pet dans la guilde
 		await pet.save();
 		await (await GuildPets.addPet(entity.Player.guild_id, pet.id)).save();
