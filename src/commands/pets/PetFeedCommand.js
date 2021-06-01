@@ -168,7 +168,7 @@ const PetFeedCommand = async function (language, message, args) {
 				);
 			entity.Player.money = entity.Player.money - 20;
 			authorPet.hungrySince = Date();
-			Promise.all[(authorPet.save(), entity.Player.save())];
+			await Promise.all[(authorPet.save(), entity.Player.save())];
 			const feedSuccessEmbed = new discord.MessageEmbed();
 			if (language === LANGUAGE.FRENCH) {
 				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {

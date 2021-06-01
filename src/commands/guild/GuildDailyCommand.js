@@ -120,7 +120,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 			rewardType = REWARD_TYPES.FIXED_MONEY;
 		} else {
 			guild.commonFood = guild.commonFood + JsonReader.commands.guildDaily.fixedPetFood;
-			Promise.all([guild.save()]);
+			await Promise.all([guild.save()]);
 			embed.setDescription(format(translations.petFood, {
 				quantity: JsonReader.commands.guildDaily.fixedPetFood
 			}));

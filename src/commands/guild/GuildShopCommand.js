@@ -499,7 +499,7 @@ const giveFood = async (
 	}
 	guild[selectedItem.type] = guild[selectedItem.type] + quantity;
 	await entity.Player.addMoney(-selectedItem.price * quantity); //Remove money
-	Promise.all([guild.save(), entity.Player.save()]);
+	await Promise.all([guild.save(), entity.Player.save()]);
 	const successEmbed = new discord.MessageEmbed();
 	successEmbed.setAuthor(
 		format(JsonReader.commands.guildShop.getTranslation(language).success, {

@@ -65,15 +65,13 @@ const GuildElderCommand = async (language, message, args) => {
 
 	try {
 		[elderEntity] = await Entities.getByArgs(args, message);
-	} catch (error) {
-		elderEntity = null;
-	}
-	try {
 		elderGuild = await Guilds.getById(elderEntity.Player.guild_id);
 	} catch (error) {
+		elderEntity = null;
 		elderGuild = null;
 	}
-	if (elderGuild == null || elderGuild.id !== guild.id) {
+
+	if (elderGuild == null || elderEntity == null || elderGuild.id !== guild.id) {
 		// elder is not in guild
 		return sendErrorMessage(
 			message.author,
@@ -89,14 +87,6 @@ const GuildElderCommand = async (language, message, args) => {
 			language,
 			JsonReader.commands.guildElder.getTranslation(language).notChiefError
 		);
-	}
-
-	// search for a elder's guild
-
-	try {
-		elderGuild = await Guilds.getById(elderEntity.Player.guild_id);
-	} catch (error) {
-		elderGuild = null;
 	}
 
 	if (guild.chief_id === elderEntity.id) {
@@ -150,15 +140,13 @@ const GuildElderCommand = async (language, message, args) => {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				try {
 					[elderEntity] = await Entities.getByArgs(args, message);
-				} catch (error) {
-					elderEntity = null;
-				}
-				try {
 					elderGuild = await Guilds.getById(elderEntity.Player.guild_id);
 				} catch (error) {
+					elderEntity = null;
 					elderGuild = null;
 				}
-				if (elderGuild == null || elderGuild.id !== guild.id) {
+
+				if (elderGuild == null || elderEntity == null || elderGuild.id !== guild.id) {
 					// elder is not in guild
 					return sendErrorMessage(
 						message.author,

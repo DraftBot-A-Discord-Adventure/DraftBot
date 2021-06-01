@@ -131,17 +131,13 @@ const GuildKickCommand = async (language, message, args) => {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				try {
 					[kickedEntity] = await Entities.getByArgs(args, message);
-				} catch (error) {
-					kickedEntity = null;
-				}
-				// search for a user's guild
-				try {
 					kickedGuild = await Guilds.getById(kickedEntity.Player.guild_id);
 				} catch (error) {
+					kickedEntity = null;
 					kickedGuild = null;
 				}
 
-				if (kickedGuild === null) {
+				if (kickedGuild === null || kickedEntity === null) {
 					// not the same guild
 					return sendErrorMessage(
 						message.author,
