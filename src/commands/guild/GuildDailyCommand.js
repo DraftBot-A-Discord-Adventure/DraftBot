@@ -183,12 +183,12 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
 		for (const i in members) {
 			if (members[i].Player.effect !== EFFECT.DEAD) {
-				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
+				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier));
 			}
 			await members[i].save();
 		}
 		embed.setDescription(format(translations.partialHeal, {
-			healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer),
+			healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier),
 		}));
 		log("GuildDaily of guild " + guild.name + ": got partial heal");
 	}
@@ -196,7 +196,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	if (rewardType === REWARD_TYPES.ALTERATION) {
 		for (const i in members) {
 			if (members[i].Player.currentEffectFinished()) {
-				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer));
+				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier));
 				await members[i].save();
 			} else if (members[i].Player.effect !== EFFECT.DEAD && members[i].Player.effect !== EFFECT.LOCKED) {
 				await require("../../core/Maps").removeEffect(members[i].Player);
@@ -204,7 +204,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 			}
 		}
 		embed.setDescription(format(translations.alterationHeal, {
-			healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplayer),
+			healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier),
 		}));
 		log("GuildDaily of guild " + guild.name + ": got alteration heal");
 	}
