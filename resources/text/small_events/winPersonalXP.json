@@ -15,6 +15,18 @@
 			"end": " Vous remportez **{xp}** :star:."
 		},
 		"en": {
+			"stories": [
+				"Thanks to a trick worthy of the best knights, you defeat from this strange animal that was attacking you and leave perky.",
+				"On your way, you meet a strange animal. As you pass by him, this one jumps on you. You unfit your sword, and slice it in half. You go back on your way, alerted.",
+				"While you get attacked by bandits, you take advantage of a moment of carelessness to escape them. You speed up your steps for a few hours before feelling safe again.",
+				"Around a bend, a shadow pounces on you ! After a hard battle, you crush your opponent under a rock. Proud of yourself, you get back on your road.",
+				"Around a grove, an entire dressed black man attacks you to steal your money. You pull out your weapon, and get rid of him.",
+				"Suddenly, an enraged beast faces you, after a prodigious leap sticking you on the ground with force, you succeed to get over the beast by strangling it with a stick.",
+				"As you walk along a small stream, a stray dog jumps on you. You manage to get rid of it after a few minutes of struggle.",
+				"On your road, you meet a beast which seems not friendly. You decides to run away, but it follows you and catch you up fast. You flip-flop and gaves it a violent blow. This enough action clears you from your opponent, you continue your way.",
+				"From the corner of your eye, you notice a full gold bag falling from an adventurer's pocket walking in front of you. You immediately alert him and give him back his bag. He thanks you for your goodness."
+			],
+			"end": " You win **{xp}** :star:."
 		}
 	},
 	"rarity": 3,

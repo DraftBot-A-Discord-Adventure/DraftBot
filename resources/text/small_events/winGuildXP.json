@@ -12,6 +12,15 @@
 			"end": " Votre guilde remporte **{xp}** :star:."
 		},
 		"en": {
+			"stories": [
+				"**{guilde}**'s rename seems to precede. By learning you are part of the guild, adventurers who have been following you from few kilometres gives you their profound respect.",
+				"Result of a few battles that you are victorious, you apply the **{guilde}**'s guild mark on your opponents' remains. All those who will pass here will recognize it.",
+				"You good actions in the region have seduced a large part of the population, when they ask you how could they thank you, you just ask them to remember **{guilde}**'s name.",
+				"Congratulations ! Over time, your guild **{guilde}** is known throughout the whole kingdom. You gain a bit of exp.",
+				"**{guilde}** becomes more popular over time and possess an increasing popularity ! We wish you to continue this way and that's why we offer you this bonus exp !",
+				"While you enter the hostel, the bartender recognize your shield's emblem, symbol of the **{guilde}**'s guild. He decides to offer a big turn in your honor, the best effect to other customers."
+			],
+			"end": " Your guild wins **{xp}** :star:."
 		}
 	},
 	"rarity": 5,
