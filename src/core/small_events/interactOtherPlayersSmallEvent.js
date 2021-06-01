@@ -50,9 +50,6 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		} else if (otherEntity.Player.level >= 50) {
 			cList.push("advanced");
 		}
-		/*if (otherEntity.Player.isInactive()) {
-			cList.push("inactive");
-		}*/
 		if (otherEntity.Player.class && otherEntity.Player.class === entity.Player.class) {
 			cList.push("sameClass");
 		}
