@@ -68,40 +68,40 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {string}
 	 */
 	MapLocations.prototype.getEmote = function(language) {
-		return JsonReader.models.maps.getTranslation(language).types[this.type].emote
-	}
+		return JsonReader.models.maps.getTranslation(language).types[this.type].emote;
+	};
 
 	/**
 	 * @param {"fr"|"en"} language
 	 * @returns {string}
 	 */
 	MapLocations.prototype.getDisplayName = function(language) {
-		return this.getEmote(language) + " " + (language === "fr" ? this.name_fr : this.name_en)
-	}
+		return this.getEmote(language) + " " + (language === "fr" ? this.name_fr : this.name_en);
+	};
 
 	/**
 	 * @param {"fr"|"en"} language
 	 * @returns {string}
 	 */
 	MapLocations.prototype.getParticleName = function(language) {
-		return (language === "fr" ? this.particle_fr : this.particle_en)
-	}
+		return (language === "fr" ? this.particle_fr : this.particle_en);
+	};
 
 	/**
 	 * @param {"fr"|"en"} language
 	 * @returns {string}
 	 */
 	MapLocations.prototype.getDescription = function(language) {
-		return (language === "fr" ? this.desc_fr : this.desc_en)
-	}
+		return (language === "fr" ? this.desc_fr : this.desc_en);
+	};
 
 	/**
 	 * @param {Number} id
 	 * @returns {Promise<null | MapLocations>}
 	 */
 	MapLocations.getById = (id) => {
-		return MapLocations.findOne({ where: { id: id }})
-	}
+		return MapLocations.findOne({ where: { id: id }});
+	};
 
 	/**
 	 * Returns a random map
@@ -113,7 +113,7 @@ module.exports = (Sequelize, DataTypes) => {
 			type: Sequelize.QueryTypes.SELECT,
 		});
 		return await MapLocations.getById(mapIds[randInt(0, mapIds.length - 1)].id);
-	}
+	};
 
 	/**
 	 * Get map connected to a map with a certain id and with a map type as a filter
@@ -134,7 +134,7 @@ module.exports = (Sequelize, DataTypes) => {
 				map_id: map_id
 			}
 		});
-	}
+	};
 
 	/**
 	 * Get the number of players on this map
@@ -148,7 +148,7 @@ module.exports = (Sequelize, DataTypes) => {
 			},
 			type: Sequelize.QueryTypes.SELECT
 		}))[0]['COUNT(*)'];
-	}
+	};
 
 	MapLocations.getPlayersOnMap = async function(map_id, previous_map_id, player_id) {
 		const query = `SELECT discordUser_id FROM players JOIN entities ON players.entity_id = entities.id WHERE players.id != :player_id AND ((players.map_id = :map_id AND players.previous_map_id = :p_map_id) OR (players.map_id = :p_map_id AND players.previous_map_id = :map_id)) ORDER BY RANDOM();`;
@@ -160,7 +160,7 @@ module.exports = (Sequelize, DataTypes) => {
 			},
 			type: Sequelize.QueryTypes.SELECT
 		}));
-	}
+	};
 
 	return MapLocations;
 };

@@ -170,13 +170,13 @@ const PetFeedCommand = async function (language, message, args) {
 			authorPet.hungrySince = Date();
 			Promise.all[(authorPet.save(), entity.Player.save())];
 			const feedSuccessEmbed = new discord.MessageEmbed();
-			if (language == LANGUAGE.FRENCH) {
+			if (language === LANGUAGE.FRENCH) {
 				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
 					petnick: await PetEntities.displayName(
 						authorPet,
 						language
 					),
-					typeSuffix: authorPet.sex == PETS.FEMALE ? "se" : "x"
+					typeSuffix: authorPet.sex === PETS.FEMALE ? "se" : "x"
 				});
 			} else {
 				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
@@ -232,11 +232,11 @@ async function feedPet(message, language, entity, pet, item) {
 			if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
 				pet.lovePoints = PETS.MAX_LOVE_POINTS;
 			guild[item.type] = guild[item.type] - 1;
-			if (language == LANGUAGE.FRENCH) {
+			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
 						petnick: await PetEntities.displayName(pet, language),
-						typeSuffix: pet.sex == PETS.FEMALE ? "se" : "x"
+						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
 			} else {
@@ -262,11 +262,11 @@ async function feedPet(message, language, entity, pet, item) {
 		switch (item.type) {
 			case "commonFood":
 				console.log(pet);
-				if (language == LANGUAGE.FRENCH) {
+				if (language === LANGUAGE.FRENCH) {
 					successEmbed.setDescription(
 						format(tr.getTranslation(language).description["1"], {
 							petnick: await PetEntities.displayName(pet, language),
-							typeSuffix: pet.sex == PETS.FEMALE ? "se" : "x"
+							typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 						})
 					);
 				} else {
@@ -279,11 +279,11 @@ async function feedPet(message, language, entity, pet, item) {
 				break;
 			case "carnivorousFood":
 			case "herbivorousFood":
-				if (language == LANGUAGE.FRENCH) {
+				if (language === LANGUAGE.FRENCH) {
 					successEmbed.setDescription(
 						format(tr.getTranslation(language).description["2"], {
 							petnick: await PetEntities.displayName(pet, language),
-							typeSuffix: pet.sex == PETS.FEMALE ? "se" : "x"
+							typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 						})
 					);
 				} else {

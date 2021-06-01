@@ -79,7 +79,7 @@ class Maps {
 		return {
 			direction: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.names[direction],
 			direction_prefix: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.prefix[direction],
-		}
+		};
 	}
 
 	/**

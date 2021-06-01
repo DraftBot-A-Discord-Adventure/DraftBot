@@ -58,7 +58,7 @@ const PetSellCommand = async function (language, message, args) {
 			message.channel,
 			language,
 			format(translations.isFeisty)
-		)
+		);
 	}
 
 	if (petCost < PETS.SELL.MIN || petCost > PETS.SELL.MAX) {

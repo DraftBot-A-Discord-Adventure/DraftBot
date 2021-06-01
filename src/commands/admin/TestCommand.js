@@ -467,7 +467,7 @@ const TestCommand = async (language, message, args) => {
 				}
 			case 'atravel':
 				if (args.length === 2) {
-					Maps.advanceTime(author.Player, parseInt(args[1]))
+					Maps.advanceTime(author.Player, parseInt(args[1]));
 					author.Player.save();
 					break;
 				} else {
@@ -489,7 +489,7 @@ const TestCommand = async (language, message, args) => {
 			case 'suicide':
 				author.health = 0;
 				await author.Player.killIfNeeded(author, message.channel, language);
-				await Promise.all([author.save(), author.Player.save()])
+				await Promise.all([author.save(), author.Player.save()]);
 				break;
 			case 'forcetwe':
 				await require("../../core/DraftBot").twe();

@@ -26,7 +26,7 @@ const UnblockCommand = async function (language, message, args) {
 				JsonReader.commands.unblock.getTranslation(language).description,
 				JsonReader.bot.embed.default,
 				language
-			)
+			);
 		}
 
 

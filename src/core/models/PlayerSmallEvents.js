@@ -57,7 +57,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	PlayerSmallEvents.removeSmallEventsOfPlayer = async (player_id) => {
 		await PlayerSmallEvents.destroy({ where : { player_id: player_id }});
-	}
+	};
 
 	return PlayerSmallEvents;
 };

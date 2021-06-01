@@ -46,7 +46,7 @@ const listItemsCommand = async function (language, message, args) {
 	files = fs.readdirSync('resources/text/armors');
 	fs.appendFileSync('allItems.txt', 'ALL ARMORS :\n');
 	files.forEach(function (file) {
-		if (file != '0.json') {
+		if (file !== '0.json') {
 			const data = fs.readFileSync('resources/text/armors/' + file);
 			const armor = JSON.parse(data);
 			let string;
@@ -72,14 +72,14 @@ const listItemsCommand = async function (language, message, args) {
 	files = fs.readdirSync('resources/text/weapons');
 	fs.appendFileSync('allItems.txt', 'ALL WEAPONS :\n');
 	files.forEach(function (file) {
-		if (file != '0.json') {
+		if (file !== '0.json') {
 			const data = fs.readFileSync('resources/text/weapons/' + file);
 			const weapons = JSON.parse(data);
 			let string;
-			if (language == LANGUAGE.FRENCH) {
+			if (language === LANGUAGE.FRENCH) {
 				string = weapons.translations[language] + ' - Rareté: ' + weapons.rarity + ' - Attaque brute: ' + weapons.rawAttack;
 			}
-			if (language == LANGUAGE.ENGLISH) {
+			if (language === LANGUAGE.ENGLISH) {
 				string = weapons.translations[language] + ' - Rarity: ' + weapons.rarity + ' - Raw attack: ' + weapons.rawAttack;
 			}
 			fs.appendFileSync('allWeapons.txt', string + '\n');
@@ -98,14 +98,14 @@ const listItemsCommand = async function (language, message, args) {
 	files = fs.readdirSync('resources/text/potions');
 	fs.appendFileSync('allItems.txt', 'ALL POTIONS :\n');
 	files.forEach(function (file) {
-		if (file != '0.json') {
+		if (file !== '0.json') {
 			const data = fs.readFileSync('resources/text/potions/' + file);
 			const Potions = JSON.parse(data);
 			let string;
-			if (language == LANGUAGE.FRENCH) {
+			if (language === LANGUAGE.FRENCH) {
 				string = Potions.translations[language] + ' - Rareté: ' + Potions.rarity + ' - Pouvoir: ' + Potions.power + ' - Nature: ' + Potions.nature;
 			}
-			if (language == LANGUAGE.ENGLISH) {
+			if (language === LANGUAGE.ENGLISH) {
 				string = Potions.translations[language] + ' - Rarity: ' + Potions.rarity + ' - Power: ' + Potions.power + ' - Nature: ' + Potions.nature;
 			}
 			fs.appendFileSync('allPotions.txt', string + '\n');
@@ -124,14 +124,14 @@ const listItemsCommand = async function (language, message, args) {
 	files = fs.readdirSync('resources/text/objects');
 	fs.appendFileSync('allItems.txt', 'ALL OBJECTS :\n');
 	files.forEach(function (file) {
-		if (file != '0.json') {
+		if (file !== '0.json') {
 			const data = fs.readFileSync('resources/text/objects/' + file);
 			const Objects = JSON.parse(data);
 			let string;
-			if (language == LANGUAGE.FRENCH) {
+			if (language === LANGUAGE.FRENCH) {
 				string = Objects.translations[language] + ' - Rareté: ' + Objects.rarity + ' - Pouvoir: ' + Objects.power + ' - Nature: ' + Objects.nature;
 			}
-			if (language == LANGUAGE.ENGLISH) {
+			if (language === LANGUAGE.ENGLISH) {
 				string = Objects.translations[language] + ' - Rarity: ' + Objects.rarity + ' - Power: ' + Objects.power + ' - Nature: ' + Objects.nature;
 			}
 			fs.appendFileSync('allObjects.txt', string + '\n');

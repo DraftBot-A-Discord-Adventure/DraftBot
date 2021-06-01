@@ -116,10 +116,10 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	}
 
 	if (rewardType === REWARD_TYPES.PET_FOOD) {
-		if (guild["commonFood"] + JsonReader.commands.guildDaily.fixedPetFood > GUILD.MAX_COMMON_PET_FOOD) {
+		if (guild.commonFood + JsonReader.commands.guildDaily.fixedPetFood > GUILD.MAX_COMMON_PET_FOOD) {
 			rewardType = REWARD_TYPES.FIXED_MONEY;
 		} else {
-			guild["commonFood"] = guild["commonFood"] + JsonReader.commands.guildDaily.fixedPetFood;
+			guild.commonFood = guild.commonFood + JsonReader.commands.guildDaily.fixedPetFood;
 			Promise.all([guild.save()]);
 			embed.setDescription(format(translations.petFood, {
 				quantity: JsonReader.commands.guildDaily.fixedPetFood

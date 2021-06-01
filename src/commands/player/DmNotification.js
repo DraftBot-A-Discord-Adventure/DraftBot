@@ -27,7 +27,7 @@ async function DmnotificationCommand(language, message, args) {
 		}), message.author.displayAvatarURL());
 	if (isDmNotificationOn) {
 		try {
-			await message.author.send(dmNotifEmbed)
+			await message.author.send(dmNotifEmbed);
 			await message.channel.send(dmNotifEmbed);
 		} catch (err) {
 			entity.Player.dmnotification = false;

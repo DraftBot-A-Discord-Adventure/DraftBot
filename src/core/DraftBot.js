@@ -91,10 +91,10 @@ class DraftBot {
         potion = await Potions.findAll({
             order: sequelize.literal('random()'),
         });
-        let i = 0
-        while (potion[i].id == shopPotion.shop_potion_id || potion[i].nature == 0) {
-        i++
-        } potion = potion[i]
+        let i = 0;
+        while (potion[i].id === shopPotion.shop_potion_id || potion[i].nature === 0) {
+        i++;
+        } potion = potion[i];
 
 		await Shop.update(
 			{

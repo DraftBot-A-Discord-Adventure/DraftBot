@@ -293,7 +293,7 @@ module.exports = (Sequelize, DataTypes) => {
 			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.guildUnlocked);
 		}
 
-		if (this.level % 10 == 0) {
+		if (this.level % 10 === 0) {
 			entity.health = await entity.getMaxHealth();
 			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.healthRestored);
 		}
@@ -355,13 +355,12 @@ module.exports = (Sequelize, DataTypes) => {
 			return false;
 		}
 		log("This user is dead : " + entity.discordUser_id);
-		await Maps.applyEffect(entity.Player,EFFECT.DEAD);
+		await Maps.applyEffect(entity.Player, EFFECT.DEAD);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
 
 		let guildMember = await channel.guild.members.fetch(entity.discordUser_id);
 		let user = guildMember.user;
-		this.dmnotification
-			? sendDirectMessage(user, JsonReader.models.players.getTranslation(language).koPM.title, JsonReader.models.players.getTranslation(language).koPM.description, JsonReader.bot.embed.default,language)
+		this.dmnotification ? sendDirectMessage(user, JsonReader.models.players.getTranslation(language).koPM.title, JsonReader.models.players.getTranslation(language).koPM.description, JsonReader.bot.embed.default, language)
 			: channel.send(new discord.MessageEmbed()
 				.setDescription(JsonReader.models.players.getTranslation(language).koPM.description)
 				.setTitle(JsonReader.models.players.getTranslation(language).koPM.title)
@@ -373,7 +372,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	Players.prototype.isInactive = function () {
 		return (this.start_travel_date.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days) < Date.now();
-	}
+	};
 
 	/**
 	 * Returns if the effect of the player is finished or not
@@ -398,7 +397,7 @@ module.exports = (Sequelize, DataTypes) => {
 			remainingTime = 0;
 		}
 		return remainingTime;
-	}
+	};
 
 	/**
 	 * @return {Boolean}

@@ -530,7 +530,7 @@ const giveFood = async (
 					emote: selectedItem.emote,
 					quantity: quantity,
 					name:
-						selectedItem.type === "ultimateFood" && language == "fr" ? selectedItem.translations[language].name
+						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
 								.slice(2, -2)
 								.toLowerCase()
 								.replace(

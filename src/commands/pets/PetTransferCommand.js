@@ -40,7 +40,7 @@ const PetTransferCommand = async function (language, message, args) {
 			}));
 		}
 		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
-			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty)
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
 		}
 		if (guildPetCount >= JsonReader.models.pets.slots) {
 			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).noSlotAvailable);
@@ -95,7 +95,7 @@ const PetTransferCommand = async function (language, message, args) {
 		}));
 	} else if (pPet) {
 		if (pPet.lovePoints < PETS.LOVE_LEVELS[0])
-			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty)
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
 	} else {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmFollows, {
 			pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))

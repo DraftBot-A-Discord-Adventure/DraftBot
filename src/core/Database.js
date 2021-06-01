@@ -525,7 +525,7 @@ class Database {
 				if (map[dir1]) {
 					const other_map = dict[map[dir1]];
 					if (other_map.id === map.id) {
-						console.error("Map " + map.id + " is connected to itself")
+						console.error("Map " + map.id + " is connected to itself");
 					}
 					let valid = false;
 					for (const dir2 of ["north_map", "south_map", "west_map", "east_map"]) {
@@ -571,7 +571,7 @@ class Database {
 	}
 
 	static async updatePlayersRandomMap() {
-		const query = `UPDATE players SET map_id = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE map_id = -1;`
+		const query = `UPDATE players SET map_id = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE map_id = -1;`;
 		await Database.Sequelize.query(query, {
 			type: Sequelize.QueryTypes.UPDATE,
 		});

@@ -70,7 +70,7 @@ module.exports = (Sequelize, DataTypes) => {
 			},
 			type: Sequelize.QueryTypes.SELECT,
 		});
-	}
+	};
 
 	return Events;
 };
