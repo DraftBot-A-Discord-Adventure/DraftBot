@@ -57,7 +57,7 @@
 				],
 				"winHealth": [
 					"vous croisez des villageois se souvenants de vos prouesses en tant que frêle personne, ils vous tendennt un sac contenant des provisions que vous mangez avant de poursuivre votre périple. Vous gagnez **{health} :heart:**.",
-					"un marchand vient à votre rencontre et vous demande à quel classe vous appartenez, vous lui répondez que vous êtes un frêle aventurier. Se rappelant que les frêles aventuriers sont des personnes avec peu de pv, il décide de vous donner quelques fruits qui n'étaient plus viables à être vendu. Heureux vous les manger et gagnez **{health} :heart:** puis reprenez votre route.",
+					"un marchand vient à votre rencontre et vous demande à quel classe vous appartenez, vous lui répondez que vous êtes un frêle aventurier. Se rappelant que les frêles aventuriers sont des personnes avec peu de pv, il décide de vous donner quelques fruits qui n'étaient plus viables à être vendu. Heureux, vous les mangez et gagnez **{health} :heart:** puis reprenez votre route.",
 					"vous êtes abordé par une vieille femme, celle-ci vous tend une pomme bien rouge en vous précisant qu'il est important de bien manger pour devenir fort vous la mangez avec reconnaissance avant de poursuivre votre route. Vous gagnez **{health} :heart:**.",
 					"vous êtes bousculé par une charrue. Vous êtes interpelé par son propriétaire qui vous présente ses excuses et disant ne pas vous avoir vu à cause de votre apparence chétive et vous offre quelques provisions, vous vous restaurez un peu puis reprenez votre route. Vous gagnez **{health} :heart:**."
 				]
