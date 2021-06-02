@@ -100,7 +100,7 @@
 				"fieldValue": "Rarity: {rarity}\n{emote} {nickname}"
 			},
 			"map": {
-				"fieldName": "Map :",
+				"fieldName": "Destination :",
 				"fieldValue": "{mapEmote} {mapName}"
 			},
 			"badges": {
