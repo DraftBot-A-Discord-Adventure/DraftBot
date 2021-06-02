@@ -10,12 +10,12 @@
 				"Vous passez près de **{pseudo}** sur votre route, le meilleur joueur actuellement !",
 				"Alors que vous marchiez, vous rencontrez **{pseudo}**. Il est actuellement à la tête du classement. Les yeux emplis d'admiration, vous décidez de ne pas gêner sa progression et vous continuez votre route.",
 				"Oh mon dieu ! C'est incroyable ! C'est le légendaire **{pseudo}**, le plus grand combattant actuellement ! Vous passez à côté de celui-ci et discutez un moment, il vous donne quelques conseils pour votre aventure !",
-				"Faites place à **{pseudo}**, le premier mondial de Draftbot ! Vous croisez effectivement cette personne et continuez à marcher pour atteindre votre destination."
+				"Faites place à **{pseudo}**, le premier mondial de DraftBot ! Vous croisez effectivement cette personne et continuez à marcher pour atteindre votre destination."
 			],
 			"top10": [
 				"Sur votre chemin, vous rencontrez quelqu'un d'important. En effet, **{pseudo}** est dans le top 10 !",
 				"Incroyable ! En marchant sur un chemin vous rencontrez un des héros du moment ! Vous le connaissez sûrement c'est **{pseudo}** vous l'avez vu dans le top 10, cet événement égaie votre journée !",
-				"Vous parlez avec une figure connue parmis les aventuriers concurrents à la main de la princesse. C'est **{pseudo}**, qui est dans le top 10 !"
+				"Vous parlez avec une figure connue parmi les aventuriers concurrents à la main de la princesse. C'est **{pseudo}**, qui est dans le top 10 !"
 			],
 			"top50": [
 				"Vous rencontrez une personne dont le nom vous dit quelque chose... En effet, **{pseudo}** s'est fait une place dans le top 50 !",
@@ -25,7 +25,7 @@
 			"top100": [
 				"La persévérance mène à la réussite, c'est ce que vous dit **{pseudo}** qui fait partie du top 100 ! Vous continuez ensuite votre route vers votre destination.",
 				"Woah, vous reconnaissez un des débutants des tournois, vous l'aviez déjà croisé dans un village au nord, mais si...  C'est **{pseudo}** !",
-				"Alors que vous progressez vers votre but, vous faites la recontre de **{pseudo}**, une étoile montant de Draftbot. En effet, il est dans le top 100 !"
+				"Alors que vous progressez vers votre but, vous faites la rencontre de **{pseudo}**, une étoile montant de DraftBot. En effet, il est dans le top 100 !"
 			],
 			"powerfulGuild": [
 				"**{pseudo}**, que vous rencontrez par hasard sur votre chemin, fait partie d'une guilde puissante ! C'est ce que vous concluez en voyant son badge étincelant.",
@@ -44,7 +44,7 @@
 			],
 			"sameClass": [
 				"Sur votre chemin, vous ne manquez pas de reconnaître l'accoutrement de **{pseudo}**. Il est **{class}** tout comme vous !",
-				"Vous remarquez **{pseudo}**, et observez rapidement son accoutrement et ses manières qui vous sont famillières, en effet il est **{class}**, tout comme vous ! Vous reprenez ensuite votre route.",
+				"Vous remarquez **{pseudo}**, et observez rapidement son accoutrement et ses manières qui vous sont familières, en effet il est **{class}**, tout comme vous ! Vous reprenez ensuite votre route.",
 				"Vous saluez l'un de vos confrère **{class}*, **{pseudo}**, qui passe dans le coin. Pas le temps de vous arrêter, vous continuez votre route."
 			],
 			"sameGuild": [
@@ -54,8 +54,8 @@
 			],
 			"staffMember": [
 				"**{pseudo}**, qui fait partie du staff de DraftBot, vous donne un conseil pour la suite de votre aventure :\n\n{advice}\n\nVous reprenez ensuite votre chemin",
-				"\"{advice}\", c'est ce que vous a dit **{pseudo}**, un des célèbres staff du bot, que vous croisez au detour d'un chemni !",
-				"Vous discutez avec **{pseudo}** qui fait partie de l'équipe Draftbot, qui a de bons conseils pour la suite de votre aventure:\n\n{advice}"
+				"\"{advice}\", c'est ce que vous a dit **{pseudo}**, un des célèbres staff du bot, que vous croisez au detour d'un chemin !",
+				"Vous discutez avec **{pseudo}** qui fait partie de l'équipe DraftBot, qui a de bons conseils pour la suite de votre aventure:\n\n{advice}"
 			],
 			"topWeek": [
 				"Vous voyez sur votre route **{pseudo}**, essoufflé. Il ne se repose pas, en effet, il est dans le top 5 de la semaine !",
@@ -90,7 +90,7 @@
 			],
 			"poor": [
 				"À la vue des vêtements que porte **{pseudo}**, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donnez une pièce.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce",
-				"En marchant, vous rencontrez ce pauvre vagabon de **{pseudo}**, celui-ci vous demande quelques pièces:\n\n:coin: Donner une pièce, car vous en avez déjà assez\n:x: Ne pas lui donner une pièce",
+				"En marchant, vous rencontrez ce pauvre vagabond de **{pseudo}**, celui-ci vous demande quelques pièces:\n\n:coin: Donner une pièce, car vous en avez déjà assez\n:x: Ne pas lui donner une pièce",
 				"La misère touche tout le monde un jour, et aujourd'hui c'est **{pseudo}** qui peut à peine se payer un repas.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce"
 			],
 			"poorGiveMoney": [
@@ -101,7 +101,7 @@
 			"poorDontGiveMoney": [
 				"Il n'y a pas de petites économies... Vous décidez de garder votre argent.",
 				"**{pseudo}** est triste et part en pleurant !",
-				"Vous l'ignorez, du moins vous vous forcez à le faire. Vous partez et espérez que votre consience ne viendra pas vous embêter."
+				"Vous l'ignorez, du moins vous vous forcez à le faire. Vous partez et espérez que votre conscience ne viendra pas vous embêter."
 			],
 			"duplicatePotion": [
 				"Vous discutez sur votre trajet avec **{pseudo}**. Après avoir fait connaissance, il verse un peu de sa potion dans l'une de vos fioles vides. Vous continuez votre aventure avec **1x** {item} !",
@@ -145,7 +145,7 @@
 			],
 			":drooling_face:": [
 				"Un grondement sourd atteint vos oreilles. Vous découvrez que c'est le ventre de **{pseudo}**. Malheureusement, vous avez terminé récemment vos restes de nourriture.",
-				"Apparement, **{pseudo}**, n'as pas assez mangé. Son ventre gargouille ! N'ayant rien à lui offrir, vous continuez votre chemin vers d'autres horizons.",
+				"Apparemment, **{pseudo}**, n'as pas assez mangé. Son ventre gargouille ! N'ayant rien à lui offrir, vous continuez votre chemin vers d'autres horizons.",
 				"Vous apercevez **{pseudo}** qui est dans une folie afin de trouver de la nourriture. Il court dans tous les sens pour trouver de quoi manger. N'ayant rien sur vous à lui offrir, vous continuez votre route."
 			],
 			":sleeping:": [
@@ -181,7 +181,7 @@
 			"potion": [
 				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
 				"**{pseudo}** vient vous parler, il vient vous montrer {prefix_item} {item} !",
-				"**{pseudo}**, que vous recontrez sur votre parcours, vous dit qu'il a mis la main sur une sacrée potion. Il vous montre donc {prefix_item} {item}."
+				"**{pseudo}**, que vous rencontrez sur votre parcours, vous dit qu'il a mis la main sur une sacrée potion. Il vous montre donc {prefix_item} {item}."
 			],
 			"object": [
 				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
@@ -204,7 +204,7 @@
 				"You pass near **{pseudo}** on your way, the best player currently!",
 				"As you were walking, you met **{pseudo}**. He is currently at the top of the ranking. Your eyes filled with admiration, you decide not to disturb his progress and you continue your way.",
 				"Oh my god! It's amazing! This is the legendary **{pseudo}**, currently the greatest fighter ! You pass by him and chat for a while, he gives you some advice for your adventure!",
-				"Make way for **{pseudo}**, the world's first of Draftbot ranking! You actually pass this person and keep walking to reach your destination."
+				"Make way for **{pseudo}**, the world's first of DraftBot ranking! You actually pass this person and keep walking to reach your destination."
 			],
 			"top10": [
 				"On your way, you meet someone important. Indeed, **{pseudo}** is in the top 10!",
@@ -219,7 +219,7 @@
 			"top100": [
 				"Perseverance leads to success, that's what **{pseudo}** who is part of the top 100 tells you! You then continue on your way to your destination.",
 				"Wow, you recognize one of the beginners of the tournaments, you already met them in a village in the north, yes...  It's **{pseudo}**!",
-				"As you progress towards your goal, you meet **{pseudo}**, a rising star on Draftbot. Indeed, he is in the top 100!"
+				"As you progress towards your goal, you meet **{pseudo}**, a rising star on DraftBot. Indeed, he is in the top 100!"
 			],
 			"powerfulGuild": [
 				"**{pseudo}**, who you meet by chance on your way, is a member of a powerful guild! This is what you conclude when you see his sparkling badge.",
@@ -249,7 +249,7 @@
 			"staffMember": [
 				"**{pseudo}**, who is part of the DraftBot staff, gives you a tip for the rest of your adventure:\n\n{advice}\n\nYou then go on your way",
 				"\"{advice}\", that's what **{pseudo}**, one of the famous bot's staff, told you when you cross a path !",
-				"You talk with **{pseudo}** who is part of the Draftbot team, who has some good advice for the rest of your adventure:\n\n{advice}"
+				"You talk with **{pseudo}** who is part of the DraftBot team, who has some good advice for the rest of your adventure:\n\n{advice}"
 			],
 			"topWeek": [
 				"You see **{pseudo}** on your way, breathless. He's not resting, as a matter of facts, he's in this week's top 5!",
