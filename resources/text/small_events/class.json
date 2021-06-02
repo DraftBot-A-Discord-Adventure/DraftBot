@@ -106,7 +106,7 @@
 					"you see a crowd of people gathered. Wanting to see what's going on, you push a dozen of people with one hand and discover a bloody object *otherwise why the crowd around wouldn't have touched it*. You leave as if nothing had happened with the object in your possession."
 				],
 				"winMoney": [
-					"you walk on a small bump et notice that the sound of your footsteps sounds strange. You search the ground and find a chest full of Gold. You get **{money}:moneybag:**.",
+					"you walk on a small bump et notice that the sound of your footsteps sounds strange. You search the ground and find a chest full of Gold. You get **{money} :moneybag:**.",
 					"you meet a person who looks a bit confused and afraid... On seeing you the person apologizes and runs off. You say to yourself that they have mistaken you for someone else. In his run the stranger dropped a moneybag: you open it and discover **{money} :moneybag:** !",
 					"you decide to set up camp by putting up a tent and other things. As you dig the holes for your tent pegs, you feel something hard in the ground. While digging, you unearth a small, timeworn wooden case and find **{money} :moneybag:** !"
 				]
@@ -121,7 +121,7 @@
 				"winHealth": [
 					"you encounter some villagers remembering your prowess as a frail person, they give you a bag containing provisions that you eat before continuing your journey. You gain **{health} :heart:**.",
 					"a merchant comes up to you and asks you what class you belong to, you tell him that you are a weak adventurer. Remembering that weak adventurers are people with low hp, he decides to give you some fruit that was no longer viable to be sold. You happily eat them and gain **{health} :heart:** and then continue your journey.",
-					"you are approached by an old woman, she gives you a red apple, telling you it's important to eat well to become strong, you eat it with gratitude before resume your way. You win **{health}:heart:**.",
+					"you are approached by an old woman, she gives you a red apple, telling you it's important to eat well to become strong, you eat it with gratitude before resume your way. You win **{health} :heart:**.",
 					"you are pushed by a plough. You are heckled by its owner, who apologizes and tells he didn't see you because of your puny appearance and offers you some supplies. You restore yourself a bit and resume your journey. You win **{health} :heart:**."
 				]
 			}

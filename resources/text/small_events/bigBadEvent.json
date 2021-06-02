@@ -75,8 +75,8 @@
 		"en": {
 			"lifeLoss": {
 				"stories": [
-					"you hear a shrill sound from the sky, you look up but too late : A dull claw bird drops on you. When he claws you, he realizes that you are not his usual prey, and leaves you immediately. You admire your wound, it looks deep. You lose **{lifeLoss}:broken_hearth:**.",
-					"while walking a steep path, you slip and twist you a ankle. You lose **{lifeLoss} :broken_hearth:**.",
+					"you hear a shrill sound from the sky, you look up but too late : A dull claw bird drops on you. When he claws you, he realizes that you are not his usual prey, and leaves you immediately. You admire your wound, it looks deep. You lose **{lifeLoss} :broken_heart:**.",
+					"while walking a steep path, you slip and twist you a ankle. You lose **{lifeLoss} :broken_heart:**.",
 					"you see a fly flying around you. You pull out your weapon with the hope of killing it, but you finally only cut your wrist, which makes you lose **{lifeLoss} :broken_heart:**"
 				]
 			},
@@ -146,9 +146,9 @@
 			},
 			"moneyLoss": {
 				"stories": [
-					"you realize that your bag is torn off. After checking, you notice that your purse has disappeared, you have lost **{moneylost} :money_with_wings:**.",
-					"you realize that your purse is no longer in your bag. You suddenly remember forgetting it in the previous tavern, you lost **{moneylost} :money_with_wings:**.",
-					"travelers pass next to you, hustling you, then they get up and apologize roughly. A few minutes later, you notice that your wallet has disappeared, you lost **{moneylost} :money_with_wings:**."
+					"you realize that your bag is torn off. After checking, you notice that your purse has disappeared, you have lost **{moneyLost} :money_with_wings:**.",
+					"you realize that your purse is no longer in your bag. You suddenly remember forgetting it in the previous tavern, you lost **{moneyLost} :money_with_wings:**.",
+					"travelers pass next to you, hustling you, then they get up and apologize roughly. A few minutes later, you notice that your wallet has disappeared, you lost **{moneyLost} :money_with_wings:**."
 				]
 			}
 		}

@@ -32,19 +32,19 @@
 		"en": {
 			"lifeLoss": {
 				"stories": [
-					"your feet stumble on a root. Wounded, you loose **{lifeLoss}:broken_heart:**.",
+					"your feet stumble on a root. Wounded, you loose **{lifeLoss} :broken_heart:**.",
 					"deep in your thoughts, you barely pay attention to the ground under your feet and unfortunately stumble on a pebble, you injured your knee. It's not too bad, but it' s painful. You lose **{lifeLoss} :broken_heart:**.",
-					"You whistle while walking. Suddenly, something enters into your field of vision: it's a dog, and it's running straight at you! Before you have time to understand what is happening, the animal collides with you. but immediately leaves. Fortunately, you are only slightly injured. and only lose **{lifeLoss} :broken_hearth:**.",
-					"you get hit a horse arriving at the galop, you are only hurt superficially. You lose **{lifeLoss} :broken_hearth:**.",
-					"you are violently hit by a group of boars, you get up and get back on your way losing **{lifeLoss}:broken_hearth:**."
+					"You whistle while walking. Suddenly, something enters into your field of vision: it's a dog, and it's running straight at you! Before you have time to understand what is happening, the animal collides with you. but immediately leaves. Fortunately, you are only slightly injured. and only lose **{lifeLoss} :broken_heart:**.",
+					"you get hit a horse arriving at the galop, you are only hurt superficially. You lose **{lifeLoss} :broken_heart:**.",
+					"you are violently hit by a group of boars, you get up and get back on your way losing **{lifeLoss} :broken_heart:**."
 				]
 			},
 			"alteration": {
 				"stories": [
 					"you walk on a trap, the moment after you are suspended by the foot, undoing this trap will take some time, you lose **{alteTime} :clock2: **.",
-					"it starts to rain, You ready yourself to start running to avoid being soaked when you see a stunning rainbow just a few steps away. You stop thinking about the rain and get absorbed by the show during **{alteTime}:clock2:**.",
-					"you collapse from fatigue. Your adventure have exhausted your body, you decide to rest for **{alteTime}:clock2:**.",
-					"while walking distracted by your thoughts, you don't notice the branch on the ground. You stumble on it and your stuff scatter on the ground. You lose **{alteTime}:clock2:**.",
+					"it starts to rain, You ready yourself to start running to avoid being soaked when you see a stunning rainbow just a few steps away. You stop thinking about the rain and get absorbed by the show during **{alteTime} :clock2:**.",
+					"you collapse from fatigue. Your adventure have exhausted your body, you decide to rest for **{alteTime} :clock2:**.",
+					"while walking distracted by your thoughts, you don't notice the branch on the ground. You stumble on it and your stuff scatter on the ground. You lose **{alteTime} :clock2:**.",
 					"you hear a loud and earth-shattering noise coming from an undergrowth. Your curiosity clearly stung by: you want to know and go inspect the area.\nAfter **{alteTime} :clock2: ** you abandon without finding anything nor understanding the source of the noise that made you jump."
 				]
 			},
