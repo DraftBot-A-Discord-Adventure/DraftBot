@@ -304,7 +304,24 @@
 				"Winning the first place in the weekly ranking allows you to earn a badge.",
 				"Using the `switch` command adds 30 minutes to the reload time of your daily object.",
 				"You can decide on the content of future updates by using this site: https://feedback.draftbot.com",
-				"Your pet doesn't follow you to prison, so it isn't possible to feed it during your stay."
+				"Your pet doesn't follow you to prison, so it isn't possible to feed it during your stay.",
+				"Use the `map` command to get info about your destination.",
+				"A trip between two places takes 2 hours",
+				"During a ride, small events can happen.",
+				"Traveling merchants sell items at great prices. However, watch out for scammers.",
+				"If your friend ends up in jail, you can free them with the `unblock` command.",
+				"There are more than 200 different items.",
+				"There are 27 different places you can explore.",
+				"Having a pet that likes you in the reports can give you luck.",
+				"You can find pets in your adventures and from guild rewards.",
+				"Small events are available every 30 minutes, and large events every 2 hours.",
+				"If you don't have a guild, you can feed your pet with treats.",
+				"Si vous voulez que le bot parle en franÃ§ais, utilisez `!language`.",
+				"The development team needs your help. Join the bot discord server to help write the bot history and more.",
+				"Thank you for playing DraftBot.",
+				"You can kick a person from a guild without mentioning them, using your leaderboard ranking. If they are 34th on the leaderboard, use '!guildkick 34'",
+				"This text may be useful in the future: fzbyeifea",
+				"The death potion is very rare."
 			]
 		}
 	}
