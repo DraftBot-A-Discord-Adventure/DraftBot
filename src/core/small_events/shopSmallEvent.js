@@ -59,7 +59,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 					);
 				}
 
-				await giveItem(entity, randomItem, language, message.author, message.channel, SMALL_EVENT.SHOP_RESALE_MULTIPLIER);
+				await giveItem(entity, randomItem, language, message.author, message.channel, SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
 				log(entity.discordUser_id + " bought an item in a mini shop for " + price);
 				entity.Player.addMoney(-price);
 				await Promise.all([

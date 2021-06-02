@@ -95,10 +95,11 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  * @param {Number} resaleMultiplier - used to lower the resale value of an object
  * @returns {Promise<*>}
  */
-global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplier = 1) => {
+global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplieActual = 1) => {
 	log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
 	let autoSell = false;
 	let autoReplace = false;
+	let resaleMultiplier = resaleMultiplierNew;
 	const receivedEmbed = new discord.MessageEmbed();
 	const embed = new discord.MessageEmbed();
 	receivedEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
@@ -216,6 +217,7 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 					let oldItem = await saveItem(item, entity);
 					await channel.send(menuEmbed);
 					item = oldItem;
+					resaleMultiplier = resaleMultiplieActual;
 				}
 				if (item instanceof Potions) {
 					return await channel.send(
