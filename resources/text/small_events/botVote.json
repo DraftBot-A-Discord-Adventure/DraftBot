@@ -13,6 +13,16 @@
 			"thanksFooter": "Vous recevez cette récompense car vous avez voté pour le bot [ici](https://top.gg/bot/448110812801007618). Merci !"
 		},
 		"en": {
+			"stories": [
+				"you pick up a statuette. It starts talking to you:",
+				"an old man come to you and say:",
+				"you see a small text message that is written:"
+			],
+			"itemWin": " \"Thank you for your support, here's an item that could be useful for you next!\"",
+			"moneyWin": " \"Thanks for your support, here's **{money} :moneybag:** for your reward!\"",
+			"pleaseVote": " \"Remember to vote to get a reward next time!\"",
+			"pleaseVoteFooter": "Voting [here](https://top.gg/bot/448110812801007618) for the bot can make you get a few small rewards.",
+			"thanksFooter": "You are receiving this reward because you voted for the bot [here](https://top.gg/bot/448110812801007618). Thank you!"
 		}
 	},
 	"rarity": 4,

@@ -64,6 +64,67 @@
 			}
 		},
 		"en": {
+			"attack": {
+				"winPotion": [
+					"you notice a far strange light. As you get closer, curious, you realize it is a unknown content vial, you wet your lips on the drink and feels that your strenghts could be increased if you ingest it...",
+					"you notice a tent set here. Curious, you enter and discover an old man with lots of potions. This one asks you to test them. You agree, and once it's done, he gives you an attack potion as a thanks.",
+					"you find an abandoned cart. It contains potion crates. You steal one hastily. After leaving, you see that the stolen potion could be useful for your next battle..."
+				],
+				"winObject": [
+					"you decide to lean back a tree. By sitting down, you feel a sharp pain that pierce your back. You get up as fast as possible and discover what scratched you:",
+					"you suddenly hear an infernal noise coming to you, you just have the time to throw yourself on the side when a knights' horde passes you at full gallop, by seeing them move away you notice a pouch fall form one of the horses. While picking up, you discover...",
+					"a starving animal approaches. By precaution, you choose to kill it. While searching his guts, you find an Object that seems to be used for attacking."
+				],
+				"winWeapon": [
+					"you meet a Merchant, who asks your Class. After answering him, he offers you a weapon he no longer uses:",
+					"you see in the roadside a weapon and don't believe your eyes ! You wonder how can we throw out such a beautiful thing and decide to deck it out. It will probably be useful!",
+					"you find a ruined old fort. Always looking for stuff, you decide to look at it. After a quick visit, it seems that only armory is still intact. In it, in the middle of rugged and unusable objects, you find a weapon that still seems in good shape."
+				]
+			},
+			"defense": {
+				"winPotion": [
+					"you notice a tent set here. Curious, you enter and discover an old man with lots of potions. This one asks you to test them. You agree, and once it's done, he gives you a defense potion as a thanks.",
+					"you find an abandoned cart. Which contains boxes full of potions. You rapidly steal one. After fleeing you see the stolen potion may be useful for your next fight...",
+					"the Goddess approaches and gives you a defense potion to help you in your adventure..."
+				],
+				"winObject": [
+					"a starving animal approaches. By precaution, you choose to kill it. While searching his guts, you find an Object that seems to be used for defense.",
+					"a Knight approaches you and asks for a duel. If you win he will give you an defense object. Thanks to your training, the victory is yours, and you win the duel and the promised prize.",
+					"You find a peasant who needs help to fix his cart. You get the wheel back in place. To thank you, he gives you an defensive item forged by the best workers of Claire De Ville."
+				],
+				"winArmor": [
+					"you meet a Merchant, who asks your Class. After answering him, he offers you a armor he no longer uses:",
+					"you see in the roadside an armor piece and don't believe your eyes ! You wonder how can we throw out such a beautiful thing and decide to deck it out. It will propably be useful!",
+					"you find a ruined old fort. Always looking for stuff, you decide to look at it. After a quick visit, it seems that only armor room is still intact. In it, in the middle of rugged and unusable objects, you find an armor that still seems in good shape."
+				]
+			},
+			"basic": {
+				"winItem": [
+					"some Villagers approach you and offer you an Object of recognition because of a recent feat of arms, you thank them briefly and continue you adventure.",
+					"you meet a group of children playing chase. One of them pushes you and starts to cry, his parents coming up to you and begging your mercy, you grant it and they give you something that could be useful.",
+					"a cart stops you continue, curious and eager to continue your way, you approach the owner, which, first odious, tells you to get out and find another road, upset, you threat him with your weapon. This calm him instantly. He gives you an object and begs you time to move his load.",
+					"you see a crowd of people gathered. Wanting to see what's going on, you push a dozen of people with one hand and discover a bloody object *otherwise why the crowd around wouldn't have touched it*. You leave as if nothing had happened with the object in your possession."
+				],
+				"winMoney": [
+					"you walk on a small bump et notice that the sound of your footsteps sounds strange. You search the ground and find a chest full of Gold. You get **{money}:moneybag:**.",
+					"you meet a person who looks a bit confused and afraid... On seeing you the person apologizes and runs off. You say to yourself that they have mistaken you for someone else. In his run the stranger dropped a moneybag: you open it and discover **{money} :moneybag:** !",
+					"you decide to set up camp by putting up a tent and other things. As you dig the holes for your tent pegs, you feel something hard in the ground. While digging, you unearth a small, timeworn wooden case and find **{money} :moneybag:** !"
+				]
+			},
+			"other": {
+				"winItem": [
+					"your feet bumps on something coming out of the ground, after getting up, you search the ground and find an item...",
+					"you see a shape in a gap. Intrigued, you get closer, this shape is seems to be an item that will be helpful for your adventure...",
+					"you decide to lean on a tree. While sitting, you feel a pain on your back. You get up quickly to find... an item!",
+					"you walk disprocessing and stumble on something ! While getting up after your fall, you discover an item !"
+				],
+				"winHealth": [
+					"you encounter some villagers remembering your prowess as a frail person, they give you a bag containing provisions that you eat before continuing your journey. You gain **{health} :heart:**.",
+					"a merchant comes up to you and asks you what class you belong to, you tell him that you are a weak adventurer. Remembering that weak adventurers are people with low hp, he decides to give you some fruit that was no longer viable to be sold. You happily eat them and gain **{health} :heart:** and then continue your journey.",
+					"you are approached by an old woman, she gives you a red apple, telling you it's important to eat well to become strong, you eat it with gratitude before resume your way. You win **{health}:heart:**.",
+					"you are pushed by a plough. You are heckled by its owner, who apologizes and tells he didn't see you because of your puny appearance and offers you some supplies. You restore yourself a bit and resume your journey. You win **{health} :heart:**."
+				]
+			}
 		}
 	},
 	"attackEligible": [8,9,10,11],

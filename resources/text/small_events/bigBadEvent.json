@@ -73,6 +73,84 @@
 			}
 		},
 		"en": {
+			"lifeLoss": {
+				"stories": [
+					"you hear a shrill sound from the sky, you look up but too late : A dull claw bird drops on you. When he claws you, he realizes that you are not his usual prey, and leaves you immediately. You admire your wound, it looks deep. You lose **{lifeLoss}:broken_hearth:**.",
+					"while walking a steep path, you slip and twist you a ankle. You lose **{lifeLoss} :broken_hearth:**.",
+					"you see a fly flying around you. You pull out your weapon with the hope of killing it, but you finally only cut your wrist, which makes you lose **{lifeLoss} :broken_heart:**"
+				]
+			},
+			"alteration": {
+				"stories": [
+					{
+						"sentence": "you see some berries and you stomach reminds you that you have not eaten for several hours. The hunger pushes you to eat some of them, quickly you feel ill **{alteTime} {alteEmoji}**.",
+						"alte": ":sick:"
+					},
+					{
+						"sentence": "vou feel the wind breeze cradling you slowly. You wake up several hours later asking you how the hell this could happened to you so stupidly. You look at the sun and realised that you slept\n**{alteTime} {alteEmoji}**.",
+						"alte": ":sleeping:"
+					},
+					{
+						"sentence": "you pass not far from a merchant, who's calling you. He offers to give you a liqueur bottle which he cannot sell and does not wish to see it degrade. You accept and empty it along the way, you finish completely drunk and lose **{alteTime} {alteEmoji}**.",
+						"alte": ":zany_face:"
+					},
+					{
+						"sentence": "you see a bright object while you were walking, you hurry to see what it is and discover a bottle containing a strange fluid. You suddenly feel really thirsty and without noticing it, you drink the whole content of the bottle. You quickly feel ill and get sick for **{alteTime} {alteEmoji}**.",
+						"alte": ":sick:"
+					},
+					{
+						"sentence": "you are aware that some supplies have been there for a while, but you don't want to throw them away and still choose to eat them. It was a bad idea because it looks like the supplies were already out of date. You fall and lose **{alteTime} {alteEmoji}**.",
+						"alte": ":confounded:"
+					},
+					{
+						"sentence": "you are surprised by a rider who appears behind you without seeing you. It knocks you down and continues its path without paying attention to you. Round, you lose **{alteTime} {alteEmoji}**.",
+						"alte": ":dizzy_face:"
+					},
+					{
+						"sentence": "a group of bandits attacks you and knocks you down. You wake up later and notice that nothing was stolen. You slept for **{alteTime} {alteEmoji}**.",
+						"alte": ":head_bandage:"
+					},
+					{
+						"sentence": "you walk calmly when you see a hole in the distance. You go look further and see it's deep. At the same time, someone pushes you and you fall into the hole. You manage to get out but noticed a strange pain in your leg. You then continue your path but you collapse quickly. You lost **{alteTime} {alteEmoji}**.",
+						"alte": ":dizzy_face:"
+					},
+					{
+						"sentence": "you are apprehended by a group asking you to hand over your personal belongings. You don't let yourself be impressed so easily, you take advantage of your weapon and scare them away. However, one of them, who was set back, takes advantage of the massive panic to knock you down before fleeing. You lose **{alteTime} {alteEmoji}**.",
+						"alte": ":head_bandage:"
+					},
+					{
+						"sentence": "you cross a path when a herd of cows suddenly emerges. You weren't injured but you got quite frightened. You lose **{alteTime} {alteEmoji}**.",
+						"alte": ":scream:"
+					},
+					{
+						"sentence": "you do not pay attention to where you're walking at, and you hurt a root and you fall off head first, wounded, you will have to heal yourself. You lose **{alteTime} {alteEmoji}**.",
+						"alte": ":head_bandage:"
+					},
+					{
+						"sentence": "you see a baby bear a few meters away. You decide to go and say hello to him. His mother, seeing you next to his baby, savagely attacks you. You manage to flee, but you're grievously wounded. You lose **{alteTime} {alteEmoji}**.",
+						"alte": ":dizzy_face:"
+					},
+					{
+						"sentence": "you cross a path when a herd of cows suddenly emerges and hustle you, but you were not hurt, more fear than harm. You lose **{alteTime} {alteEmoji}**.",
+						"alte": ":scream:"
+					},
+					{
+						"sentence": "you run in the countryside at night and in the middle of a thunderstorm, your clothes are soaked in water and the wind freezes your bones. You end up finding a shelter from this storm, unfortunately not enough to avoid getting sick. You lose **{alteTime} {alteEmoji}**.",
+						"alte": ":cold_face:"
+					},
+					{
+						"sentence": "you were apprehended by guards accusing you to be an actively searched criminal in the kingdom. You notice that the man on the poster indeed looks like you and try to explain. The guards don't listen to you, board you and throw you into prison. You lose **{alteTime} {alteEmoji}**.",
+						"alte": ":lock:"
+					}
+				]
+			},
+			"moneyLoss": {
+				"stories": [
+					"you realize that your bag is torn off. After checking, you notice that your purse has disappeared, you have lost **{moneylost} :money_with_wings:**.",
+					"you realize that your purse is no longer in your bag. You suddenly remember forgetting it in the previous tavern, you lost **{moneylost} :money_with_wings:**.",
+					"travelers pass next to you, hustling you, then they get up and apologize roughly. A few minutes later, you notice that your wallet has disappeared, you lost **{moneylost} :money_with_wings:**."
+				]
+			}
 		}
 	},
 	"rarity": 1,
