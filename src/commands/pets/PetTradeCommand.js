@@ -8,7 +8,7 @@ const PetTradeCommand = async function (language, message, args) {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY], trader1)) !== true) {
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader1)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -22,7 +22,7 @@ const PetTradeCommand = async function (language, message, args) {
 	}
 	let [trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY], trader2)) !== true) {
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader2)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.mentions.users.first(), message.channel, language)) {
@@ -36,6 +36,9 @@ const PetTradeCommand = async function (language, message, args) {
 	}
 	if (!pet2) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPetOther);
+	}
+	if (pet1.lovePoints < PETS.LOVE_LEVELS[0] || pet2.lovePoints < PETS.LOVE_LEVELS[0]) {
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).isFeisty);
 	}
 
 	const confirmEmbed = new discord.MessageEmbed();
@@ -62,7 +65,7 @@ const PetTradeCommand = async function (language, message, args) {
 	};
 
 	const collector = confirmMessage.createReactionCollector(filter, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		dispose: true
 	});
 
@@ -122,9 +125,9 @@ const PetTradeCommand = async function (language, message, args) {
 		} else if (trader1Accepted === false || trader2Accepted === false) {
 			await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petTrade.getTranslation(language).tradeCanceled, {
 				trader: trader1Accepted === false ? message.author : message.mentions.users.first()
-			}));
+			}),true);
 		} else {
-			await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).tradeCanceledTime);
+			await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).tradeCanceledTime, true);
 		}
 	});
 

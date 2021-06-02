@@ -1,0 +1,13 @@
+{
+	"type": "be",
+	"name_fr": "La Dune",
+	"name_en": "The Dune",
+	"particle_fr": "vers",
+	"particle_en": "of",
+	"desc_fr": "Plage créée par les forts vents de la Vallée des Rois. La Dune protège les Plaines du Contre Bois de la chaleur et amène l’eau de la rivière Vacarme.",
+	"desc_en": "Beach created by the strong winds from the Kings' Valley. The Dune protects the Backwoods Plains from heat and gathers water from the Vacarme river.",
+	"north_map": 7,
+	"east_map": 18,
+	"south_map": 20,
+	"west_map": null
+}

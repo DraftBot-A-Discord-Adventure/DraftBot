@@ -10,3 +10,4 @@ config/app.json
 logs/*
 package-lock.json
 /database/archive/
+.directory

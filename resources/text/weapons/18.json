@@ -4,5 +4,7 @@
 		"en": ":cricket: **Stick**"
 	},
 	"rarity": 1,
-	"rawAttack": 2
+	"rawAttack": 2,
+	"french_masculine": 1,
+	"french_plural": 0
 }

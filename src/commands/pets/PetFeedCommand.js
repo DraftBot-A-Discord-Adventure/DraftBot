@@ -80,7 +80,7 @@ const PetFeedCommand = async function (language, message, args) {
 		};
 
 		const collector = breedMsg.createReactionCollector(filterConfirm, {
-			time: 120000,
+			time: COLLECTOR_TIME,
 			max: 1,
 		});
 
@@ -97,7 +97,8 @@ const PetFeedCommand = async function (language, message, args) {
 					message.author,
 					message.channel,
 					language,
-					tr.getTranslation(language).cancelBreed
+					tr.getTranslation(language).cancelBreed,
+					true
 				);
 			}
 
@@ -137,7 +138,7 @@ const PetFeedCommand = async function (language, message, args) {
 		};
 
 		const collector = breedMsg.createReactionCollector(filterConfirm, {
-			time: 120000,
+			time: COLLECTOR_TIME,
 			max: 1,
 		});
 
@@ -166,17 +167,26 @@ const PetFeedCommand = async function (language, message, args) {
 					tr.getTranslation(language).noMoney
 				);
 			entity.Player.money = entity.Player.money - 20;
-			Promise.all[(authorPet.save(), entity.Player.save())];
-			return message.channel.send(
-				new discord.MessageEmbed().setDescription(
-					format(tr.getTranslation(language).description["1"], {
-						petnick: await PetEntities.displayName(
-							authorPet,
-							language
-						),
-					})
-				)
-			);
+			authorPet.hungrySince = Date();
+			await Promise.all[(authorPet.save(), entity.Player.save())];
+			const feedSuccessEmbed = new discord.MessageEmbed();
+			if (language === LANGUAGE.FRENCH) {
+				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
+					petnick: await PetEntities.displayName(
+						authorPet,
+						language
+					),
+					typeSuffix: authorPet.sex === PETS.FEMALE ? "se" : "x"
+				});
+			} else {
+				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
+					petnick: await PetEntities.displayName(
+						authorPet,
+						language
+					)
+				});
+			}
+			return message.channel.send(feedSuccessEmbed);
 		});
 
 		await Promise.all([
@@ -222,11 +232,20 @@ async function feedPet(message, language, entity, pet, item) {
 			if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
 				pet.lovePoints = PETS.MAX_LOVE_POINTS;
 			guild[item.type] = guild[item.type] - 1;
-			successEmbed.setDescription(
-				format(tr.getTranslation(language).description["2"], {
-					petnick: await PetEntities.displayName(pet, language),
-				})
-			);
+			if (language === LANGUAGE.FRENCH) {
+				successEmbed.setDescription(
+					format(tr.getTranslation(language).description["2"], {
+						petnick: await PetEntities.displayName(pet, language),
+						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
+					})
+				);
+			} else {
+				successEmbed.setDescription(
+					format(tr.getTranslation(language).description["2"], {
+						petnick: await PetEntities.displayName(pet, language)
+					})
+				);
+			}
 		} else {
 			guild[item.type] = guild[item.type] - 1;
 			successEmbed.setDescription(
@@ -242,19 +261,38 @@ async function feedPet(message, language, entity, pet, item) {
 		guild[item.type] = guild[item.type] - 1;
 		switch (item.type) {
 			case "commonFood":
-				successEmbed.setDescription(
-					format(tr.getTranslation(language).description["1"], {
-						petnick: await PetEntities.displayName(pet, language),
-					})
-				);
+				console.log(pet);
+				if (language === LANGUAGE.FRENCH) {
+					successEmbed.setDescription(
+						format(tr.getTranslation(language).description["1"], {
+							petnick: await PetEntities.displayName(pet, language),
+							typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
+						})
+					);
+				} else {
+					successEmbed.setDescription(
+						format(tr.getTranslation(language).description["1"], {
+							petnick: await PetEntities.displayName(pet, language),
+						})
+					);
+				}
 				break;
 			case "carnivorousFood":
 			case "herbivorousFood":
-				successEmbed.setDescription(
-					format(tr.getTranslation(language).description["2"], {
-						petnick: await PetEntities.displayName(pet, language),
-					})
-				);
+				if (language === LANGUAGE.FRENCH) {
+					successEmbed.setDescription(
+						format(tr.getTranslation(language).description["2"], {
+							petnick: await PetEntities.displayName(pet, language),
+							typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
+						})
+					);
+				} else {
+					successEmbed.setDescription(
+						format(tr.getTranslation(language).description["2"], {
+							petnick: await PetEntities.displayName(pet, language)
+						})
+					);
+				}
 				break;
 			case "ultimateFood":
 				successEmbed.setDescription(

@@ -4,5 +4,7 @@
 		"en": ":cricket: **Bludgeon**"
 	},
 	"rarity": 2,
-	"rawAttack": 4
+	"rawAttack": 4,
+	"french_masculine": 1,
+	"french_plural": 0
 }

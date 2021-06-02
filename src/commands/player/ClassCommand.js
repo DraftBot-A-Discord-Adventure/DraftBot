@@ -48,7 +48,7 @@ async function ClassCommand(language, message, args) {
 		return (user.id === entity.discordUser_id && reaction.me);
 	};
 
-	const collector = classMessage.createReactionCollector(filterConfirm, {time: 120000, max: 1});
+	const collector = classMessage.createReactionCollector(filterConfirm, { time: COLLECTOR_TIME, max: 1 });
 
 	addBlockedPlayer(entity.discordUser_id, "class", collector);
 
@@ -60,7 +60,7 @@ async function ClassCommand(language, message, args) {
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.DENY) {
 			removeBlockedPlayer(entity.discordUser_id);
-			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass);
+			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass, true);
 			return;
 		}
 
@@ -108,7 +108,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 	};
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -132,7 +132,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 				entity.Player.class = selectedClass.id;
 				const newClass = await Classes.getById(entity.Player.class);
 				await entity.setHealth(Math.round(
-					(entity.health / await playerClass.getMaxHealthValue(entity.Player.level))	* await newClass.getMaxHealthValue(entity.Player.level)));
+					(entity.health / await playerClass.getMaxHealthValue(entity.Player.level)) * await newClass.getMaxHealthValue(entity.Player.level)));
 				entity.Player.addMoney(-selectedClass.price);
 				await Promise.all([
 					entity.save(),
@@ -162,7 +162,8 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 }
 
 /**
- * @param {*} price - The item price
+ * @param {number} price - The item price
+ * @param {Players} player
  */
 const canBuy = function (price, player) {
 	return player.money >= price;

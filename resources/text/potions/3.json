@@ -4,6 +4,8 @@
 		"en": "<:Potion:548219908736155658> **Potion**"
 	},
 	"rarity": 4,
-	"power": 40,
-	"nature": 3
+	"power": 60,
+	"nature": 3,
+	"french_masculine": 0,
+	"french_plural": 0
 }

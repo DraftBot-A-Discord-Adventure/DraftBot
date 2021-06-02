@@ -1,62 +1,77 @@
 {
+	"restricted_maps": "ro",
 	"translations": {
-		"fr": " : ** :deciduous_tree: Un arbre est tombé sur le chemin et bloque le passage !\n\n:axe: Couper l'arbre et continuer.\n:walking: Passer par un autre chemin.\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part.*",
-		"en": " : ** :deciduous_tree: A tree fell on the path and blocked it!\n\n:axe: Cut the tree up and continue.\n:walking: Go another way.\n\n*-Use reactions to make an action :warning: Not responding is considered a separate choice!*"
+		"fr": "🌳 Un arbre est tombé sur le chemin et bloque le passage !",
+		"en": "🌳 A tree fell on the path and blocked it!"
 	},
 	"possibilities": {
-		"🪓": [
-			{
-				"translations": {
-					"fr": "** | :axe: Couper cet arbre aura pris 30 minutes !",
-					"en": "** | :axe: Felling this tree took half an hour!"
-				},
-				"lostTime": 30,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🚶": [
-			{
-				"translations": {
-					"fr": "** | :walking: Passer par un autre chemin semblait être une bonne solution vous n'avez pas perdu de temps !",
-					"en": "** | :walking: Finding another way seemed to be a good decision, you didn't waste any time!"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
+		"🪓": {
+			"translations": {
+				"fr": "Couper l'arbre et continuer",
+				"en": "Cut the tree up and continue."
 			},
-			{
-				"translations": {
-					"fr": "** | :walking: Passer par un autre chemin semblait être une bonne solution, malheureusement vous vous êtes blessé en marchant.",
-					"en": "** | :walking: Going down another path seemed like a good solution, unfortunately you got hurt while taking it."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Couper cet arbre aura pris 30 minutes !",
+						"en": "Felling this tree took half an hour!"
+					},
+					"lostTime": 30,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🚶": {
+			"translations": {
+				"fr": "Passer par un autre chemin.",
+				"en": "Go another way."
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Passer par un autre chemin semblait être une bonne solution vous n'avez pas perdu de temps !",
+						"en": "Finding another way seemed to be a good decision, you didn't waste any time!"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 30,
-				"health": -5,
-				"effect": ":clock2:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | :axe: L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !",
-					"en": "** | :axe: The tree has been cut down and the road is clear. Unfortunately, looters have stolen everything you collected since the last report!"
-				},
-				"lostTime": 100,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "Passer par un autre chemin semblait être une bonne solution, malheureusement vous vous êtes blessé en marchant.",
+						"en": "Going down another path seemed like a good solution, unfortunately you got hurt while taking it."
+					},
+					"lostTime": 30,
+					"health": -5,
+					"effect": ":clock2:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🪓 L'arbre a bien été coupé et la route est dégagée, malheureusement des pillards ont volé tout ce que vous aviez récolté depuis le dernier rapport !",
+						"en": "🪓 The tree has been cut down and the road is clear. Unfortunately, looters have stolen everything you collected since the last report!"
+					},
+					"lostTime": 100,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

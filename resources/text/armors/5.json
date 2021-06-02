@@ -4,5 +4,7 @@
 		"en": ":shield: **Iron shield**"
 	},
 	"rarity": 4,
-	"rawDefense": 5
+	"rawDefense": 5,
+	"french_masculine": 1,
+	"french_plural": 0
 }

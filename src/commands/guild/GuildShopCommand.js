@@ -7,15 +7,7 @@
 async function GuildShopCommand(language, message, args) {
 	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		)) !== true
-	) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -32,12 +24,7 @@ async function GuildShopCommand(language, message, args) {
 
 	if (guild === null) {
 		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildDaily.getTranslation(language).notInAGuild
-		);
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
 	}
 
 	const shopTranslations = JsonReader.commands.guildShop.getTranslation(
@@ -108,7 +95,7 @@ async function GuildShopCommand(language, message, args) {
 	};
 
 	const collector = shopMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -126,7 +113,7 @@ async function GuildShopCommand(language, message, args) {
 				message.channel,
 				language,
 				JsonReader.commands.shop.getTranslation(language).error
-					.leaveShop
+					.leaveShop, true
 			);
 		}
 
@@ -185,9 +172,6 @@ async function GuildShopCommand(language, message, args) {
  * food purchase
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param name - name of item
- * @param price - price of item
- * @param info - infos of item
  * @param entity - author of message (for bot)
  * @param author - author of message
  * @param selectedItem - selectionned item
@@ -263,7 +247,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 	};
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -280,7 +264,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 				message.channel,
 				language,
 				JsonReader.commands.shop.getTranslation(language).error
-					.canceledPurchase
+					.canceledPurchase, true
 			);
 		}
 
@@ -325,8 +309,11 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 }
 
 /**
- * @param {*} message - The message where the react event trigerred
- * @param {*} reaction - The reaction
+ * @param {module:"discord.js".Message} message - The message where the react event trigerred
+ * @param {"fr"|"en"} language
+ * @param {Entities} entity
+ * @param {Entities} customer
+ * @param {any} selectedItem
  */
 async function purchaseXp(message, language, entity, customer, selectedItem) {
 	[entity] = await Entities.getOrRegister(entity.discordUser_id);
@@ -361,9 +348,15 @@ async function purchaseXp(message, language, entity, customer, selectedItem) {
 }
 
 /**
- * @param {*} name - The item name
- * @param {*} price - The item price
- * @param {*} info - The info to display while trying to buy the item
+ * @param {module:"discord.js".Message} message
+ * @param {"fr"|"en"} language
+ * @param {String|string} name - The item name
+ * @param {number} price - The item price
+ * @param {String|string} info - The info to display while trying to buy the item
+ * @param {Entities} entity
+ * @param {Entities} customer
+ * @param {any} selectedItem
+ *
  */
 async function confirmXpPurchase(
 	message,
@@ -406,7 +399,7 @@ async function confirmXpPurchase(
 	};
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -432,7 +425,8 @@ async function confirmXpPurchase(
 			message.channel,
 			language,
 			JsonReader.commands.shop.getTranslation(language).error
-				.canceledPurchase
+				.canceledPurchase,
+			true
 		);
 	});
 
@@ -443,9 +437,8 @@ async function confirmXpPurchase(
 }
 
 /**
- * @param {*} name - The item name
- * @param {*} price - The item price
- * @param {*} info - The info to display while trying to buy the item
+ * @param {number} price - The item price
+ * @param {Players} player
  */
 
 const canBuy = function (price, player) {
@@ -506,7 +499,7 @@ const giveFood = async (
 	}
 	guild[selectedItem.type] = guild[selectedItem.type] + quantity;
 	await entity.Player.addMoney(-selectedItem.price * quantity); //Remove money
-	Promise.all([guild.save(), entity.Player.save()]);
+	await Promise.all([guild.save(), entity.Player.save()]);
 	const successEmbed = new discord.MessageEmbed();
 	successEmbed.setAuthor(
 		format(JsonReader.commands.guildShop.getTranslation(language).success, {
@@ -514,7 +507,7 @@ const giveFood = async (
 		}),
 		author.displayAvatarURL()
 	);
-	if (quantity == 1)
+	if (quantity === 1)
 		successEmbed.setDescription(
 			format(
 				JsonReader.commands.guildShop.getTranslation(language)
@@ -537,7 +530,7 @@ const giveFood = async (
 					emote: selectedItem.emote,
 					quantity: quantity,
 					name:
-						selectedItem.type === "ultimateFood" && language == "fr" ? selectedItem.translations[language].name
+						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
 								.slice(2, -2)
 								.toLowerCase()
 								.replace(
@@ -569,4 +562,5 @@ module.exports = {
 			aliases: ["guildshop", "gs"],
 		},
 	],
+	giveFood: giveFood
 };

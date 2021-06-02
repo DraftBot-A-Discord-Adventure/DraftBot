@@ -1,124 +1,145 @@
 {
+	"restricted_maps": "ro,pl,vi,de",
 	"translations": {
-		"fr": " : ** :mag_right: Après plusieurs jours de voyage sans encombre vous finissez par arriver sur les lieux d'une petite escarmouche entre deux groupes armés. Les esprits semblent cependant s'être calmés et vous remarquez plusieurs soldats affairés à rechercher des éventuels survivants.\n\n:handshake: Proposer son aide\n:spy: Piller les corps\n:walking: Ne pas les aider\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :mag_right: As you wander around, you come across a battlefield, in the surrounding area, you notice several soldiers looking for possible survivors of a massacre.\n\n:handshake: Offer to help\n:spy: Steal of bodies\n:walking: Don't help them\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": "🔎 Après plusieurs jours de voyage sans encombre vous finissez par arriver sur les lieux d'une petite escarmouche entre deux groupes armés. Les esprits semblent cependant s'être calmés et vous remarquez plusieurs soldats affairés à rechercher des éventuels survivants.",
+		"en": "🔎 As you wander around, you come across a battlefield, in the surrounding area, you notice several soldiers looking for possible survivors of a massacre."
 	},
 	"possibilities": {
-		"🤝": [
-			{
-				"translations": {
-					"fr": "** | 🤝 Vous décidez d'aller voir les soldats, et vous leur proposez votre aide pour chercher des survivants. Après 45 minutes d'aide, un soldat vous offre un peu d'argent pour vous remercier de votre aide si précieuse.",
-					"en": "** | 🤝 You decide to go to the soldiers, and offer them your help looking for survivors. After 45 minutes of help, a soldier offers you some money to thank you for your precious help."
-				},
-				"lostTime": 45,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 125,
-				"money": 100,
-				"item": false
+		"🤝": {
+			"translations": {
+				"fr": "Proposer son aide",
+				"en": "Offer to help"
 			},
-			{
-				"translations": {
-					"fr": "** | 🤝 En allant chercher des survivants, vous vous faites attaquer par une personne étant en train de piller des corps ! Après vous être débattu, vous fuyez et continuez votre route.",
-					"en": "** | 🤝 When you go looking for survivors, you get attacked by looters! After struggling, you run and continue on your way."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous décidez d'aller voir les soldats, et vous leur proposez votre aide pour chercher des survivants. Après 45 minutes d'aide, un soldat vous offre un peu d'argent pour vous remercier de votre aide si précieuse.",
+						"en": "You decide to go to the soldiers, and offer them your help looking for survivors. After 45 minutes of help, a soldier offers you some money to thank you for your precious help."
+					},
+					"lostTime": 45,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 125,
+					"money": 100,
+					"item": false
 				},
-				"lostTime": 15,
-				"health": -10,
-				"effect": ":clock2:",
-				"experience": 0,
-				"money": -30,
-				"item": false
-			}
-		],
-		"🕵": [
-			{
-				"translations": {
-					"fr": "** | 🕵 Vous décidez de contourner les soldats, et allez piller les corps des pauvres défunts pour tenter de vous enrichir un petit peu.",
-					"en": "** | 🕵 You decide to go around the soldiers, and go loot the bodies of the deceased to make yourself that tiny bit richer."
-				},
-				"lostTime": 15,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 125,
-				"money": 50,
-				"item": false
+				{
+					"translations": {
+						"fr": "En allant chercher des survivants, vous vous faites attaquer par une personne étant en train de piller des corps ! Après vous être débattu, vous fuyez et continuez votre route.",
+						"en": "When you go looking for survivors, you get attacked by looters! After struggling, you run and continue on your way."
+					},
+					"lostTime": 15,
+					"health": -10,
+					"effect": ":clock2:",
+					"experience": 0,
+					"money": -30,
+					"item": false
+				}
+			]
+		},
+		"🕵️": {
+			"translations": {
+				"fr": "Piller les corps",
+				"en": "Steal of bodies"
 			},
-			{
-				"translations": {
-					"fr": "** | 🕵 En pillant les corps, vous vous faites attraper brusquement par un soldat. Vous rendez donc immédiatement ce que vous avez récupéré avant de continuer votre route rapidement.",
-					"en": "** | 🕵 By looting the bodies, you get caught brutally by a soldier. You immediately return what you collected before quickly continuing on your journey."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous décidez de contourner les soldats, et allez piller les corps des pauvres défunts pour tenter de vous enrichir un petit peu.",
+						"en": "You decide to go around the soldiers, and go loot the bodies of the deceased to make yourself that tiny bit richer."
+					},
+					"lostTime": 15,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 125,
+					"money": 50,
+					"item": false
 				},
-				"lostTime": 25,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": -100,
-				"item": false
-			}
-		],
-		"🚶": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous ne prêtez pas attention au massacre qui a eu lieu, et allez vous reposer un peu plus loin.",
-					"en": "** | 🚶 You don't look at the massacre that took place, instead going a little further to rest."
-				},
-				"lostTime": 30,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "En pillant les corps, vous vous faites attraper brusquement par un soldat. Vous rendez donc immédiatement ce que vous avez récupéré avant de continuer votre route rapidement.",
+						"en": "By looting the bodies, you get caught brutally by a soldier. You immediately return what you collected before quickly continuing on your journey."
+					},
+					"lostTime": 25,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": -100,
+					"item": false
+				}
+			]
+		},
+		"🚶": {
+			"translations": {
+				"fr": "Ne pas les aider",
+				"en": "Don't help them"
 			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Pas de temps à perdre ! Vous continuez votre route. ",
-					"en": "** | 🚶 No time to lose ! You continue your journey. "
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous ne prêtez pas attention au massacre qui a eu lieu, et allez vous reposer un peu plus loin.",
+						"en": "You don't look at the massacre that took place, instead going a little further to rest."
+					},
+					"lostTime": 30,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez. :head_bandage:",
-					"en": "** | 🚶 In a hurry to continue your journey, you trip on a lifeless body, and get hurt. :head_bandage:"
+				{
+					"translations": {
+						"fr": "Pas de temps à perdre ! Vous continuez votre route.",
+						"en": "No time to lose ! You continue your journey."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": -15,
-				"effect": ":head_bandage:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 👀 Vous restez regarder les soldats pendant une quinzaine de minutes puis continuez votre route.",
-					"en": "** | 👀 You stay and watch the soldiers for about fifteen minutes, then continue on your way."
+				{
+					"translations": {
+						"fr": "Pressé de continuer votre route, vous trébuchez sur un corps sans vie, et vous vous blessez.",
+						"en": "In a hurry to continue your journey, you trip on a lifeless body, and get hurt."
+					},
+					"lostTime": 0,
+					"health": -15,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "👀 Vous restez regarder les soldats pendant une quinzaine de minutes puis continuez votre route.",
+						"en": "👀 You stay and watch the soldiers for about fifteen minutes, then continue on your way."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 👀 Fatigué, vous tombez raide et vous endormez au sol. :sleeping:",
-					"en": "** | 👀 Tired, you fall sound asleep on the ground. :sleeping:"
-				},
-				"lostTime": 0,
-				"health": -25,
-				"effect": ":sleeping:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "👀 Fatigué, vous tombez raide et vous endormez au sol.",
+						"en": "👀 Tired, you fall sound asleep on the ground."
+					},
+					"lostTime": 0,
+					"health": -25,
+					"effect": ":sleeping:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

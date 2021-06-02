@@ -4,5 +4,7 @@
 		"en": "🧱 **Brick**"
 	},
 	"rarity": 3,
-	"rawAttack": 1
+	"rawAttack": 1,
+	"french_masculine": 0,
+	"french_plural": 0
 }

@@ -4,5 +4,7 @@
 		"en": ":boxing_glove: **Boxing glove**"
 	},
 	"rarity": 1,
-	"rawAttack": 8
+	"rawAttack": 8,
+	"french_masculine": 1,
+	"french_plural": 0
 }

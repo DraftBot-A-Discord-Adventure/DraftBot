@@ -16,7 +16,7 @@ async function ClassStatsCommand(language, message, args) {
 	}
 
 	//Creating classstats message
-	message.channel.send(
+	await message.channel.send(
 		new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
 			.setTitle(classTranslations.title)

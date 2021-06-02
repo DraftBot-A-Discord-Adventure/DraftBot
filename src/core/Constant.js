@@ -8,7 +8,7 @@ global.DATASOURCE = {
 global.EFFECT = {
 	BABY: ":baby:",
 	SMILEY: ":smiley:",
-	AWAITINGANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
+	AWAITING_ANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
 	DEAD: ":skull:",
 	SLEEPING: ":sleeping:",
 	DRUNK: ":zany_face:",
@@ -20,6 +20,7 @@ global.EFFECT = {
 	OCCUPIED: ":clock2:",
 	STARVING: ":drooling_face:",
 	CONFOUNDED: ":confounded:",
+	SCARED: ":scream:"
 };
 
 global.LANGUAGE = {
@@ -38,10 +39,23 @@ global.NATURE = {
 	MONEY: 6,
 };
 
+// Object rarity
+global.RARITY = {
+	BASIC: 0,
+	COMMON: 1,
+	UNCOMMON: 2,
+	EXOTIC: 3,
+	RARE: 4,
+	SPECIAL: 5,
+	EPIC: 6,
+	LEGENDARY: 7,
+	MYTHICAL: 8
+};
+
 global.PERMISSION = {
 	ROLE: {
-		BOTOWNER: "owner", // is the owner of the bot
-		BADGEMANAGER: "manager", // has the badge manager role
+		BOT_OWNER: "owner", // is the owner of the bot
+		BADGE_MANAGER: "manager", // has the badge manager role
 		SUPPORT: "support", // has the support role
 		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
 		TOURNAMENT: "tournament", // has the permission to use the tournament command
@@ -53,6 +67,7 @@ global.PERMISSION = {
 global.REWARD_TYPES = {
 	PERSONAL_XP: "personalXP",
 	GUILD_XP: "guildXp",
+	HOSPITAL: "hospital",
 	MONEY: "money",
 	FIXED_MONEY: "fixedMoney",
 	BADGE: "badge",
@@ -72,14 +87,14 @@ global.ITEMTYPE = {
 global.GUILD = {
 	REQUIRED_LEVEL: 10,
 	MAX_GUILD_MEMBER: 6,
-	MAX_GUILDNAME_SIZE: 15,
-	MIN_GUILDNAME_SIZE: 2,
+	MAX_GUILD_NAME_SIZE: 15,
+	MIN_GUILD_NAME_SIZE: 2,
 	MIN_DESCRIPTION_LENGTH: 2,
 	MAX_DESCRIPTION_LENGTH: 140,
-	MAX_COMMON_PETFOOD: 25,
-	MAX_HERBIVOROUS_PETFOOD: 15,
-	MAX_CARNIVOROUS_PETFOOD: 15,
-	MAX_ULTIMATE_PETFOOD: 5,
+	MAX_COMMON_PET_FOOD: 25,
+	MAX_HERBIVOROUS_PET_FOOD: 15,
+	MAX_CARNIVOROUS_PET_FOOD: 15,
+	MAX_ULTIMATE_PET_FOOD: 5,
 };
 
 global.CLASS = {
@@ -144,6 +159,12 @@ global.QUANTITY = {
 	TEN: "🔟",
 };
 
+global.PETFREE = {
+	MEAT_GIVEN: 1,
+	GIVE_MEAT_PROBABILITY: 0.1,
+	FREE_FEISTY_COST: 1000
+};
+
 global.TOPGG = {
 	BADGE: "🗳️",
 	BADGE_DURATION: 12,
@@ -152,17 +173,59 @@ global.TOPGG = {
 };
 
 global.PETS = {
+	IS_FOOD : 1,
+	MALE : "m",
+	FEMALE : "f",
 	FREE_COOLDOWN: 60 * 60 * 1000, // 1 hour
 	BREED_COOLDOWN: 60 * 60 * 1000, // 1 hour
 	MAX_LOVE_POINTS: 100,
 	BASE_LOVE: 10,
+	GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT : 20,
 	LOVE_LEVELS: [5, 20, 50],
 	SELL: {
 		MIN: 100,
 		MAX: 50000,
 	},
 };
+global.UNLOCK = {
+	PRICE_FOR_UNLOCK: 3000,
+};
 
 global.LOGS = {
 	LOG_COUNT_LINE_LIMIT: 50000,
 };
+
+global.REPORT = {
+	TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000,
+	BONUS_POINT_TIME_DIVIDER : 6,
+	SMALL_EVENTS_COUNT: 3,
+	POINTS_BY_SMALL_EVENT : 50,
+};
+
+global.SMALL_EVENT = {
+	MINIMUM_HEALTH_WON: 1,
+	MAXIMUM_HEALTH_WON: 4,
+	SHOP_RESALE_MULTIPLIER: 0.1,
+	MINIMUM_EXPERIENCE_WON: 10,
+	MAXIMUM_EXPERIENCE_WON: 35,
+	MINIMUM_GUILD_EXPERIENCE_WON: 20,
+	MAXIMUM_GUILD_EXPERIENCE_WON: 80,
+	MINIMUM_MONEY_WON_VOTE: 150,
+	MAXIMUM_MONEY_WON_VOTE: 250,
+	MINIMUM_HEALTH_LOST_SMALL: 1,
+	MAXIMUM_HEALTH_LOST_SMALL: 5,
+	MINIMUM_TIME_LOST_SMALL: 1,
+	MAXIMUM_TIME_LOST_SMALL: 24,
+	MINIMUM_MONEY_LOST_SMALL: 10,
+	MAXIMUM_MONEY_LOST_SMALL: 50,
+	MINIMUM_HEALTH_LOST_BIG: 5,
+	MAXIMUM_HEALTH_LOST_BIG: 30,
+	MINIMUM_MONEY_LOST_BIG: 50,
+	MAXIMUM_MONEY_LOST_BIG: 250,
+	MINIMUM_MONEY_WON_CLASS: 50,
+	MAXIMUM_MONEY_WON_CLASS: 150,
+	MINIMUM_HEALTH_WON_CLASS: 1,
+	MAXIMUM_HEALTH_WON_CLASS: 5
+};
+
+global.COLLECTOR_TIME = 120000;

@@ -1,0 +1,13 @@
+{
+	"type": "la",
+	"name_fr": "Lac Mirage",
+	"name_en": "Mirage Lake",
+	"particle_fr": "vers le",
+	"particle_en": "of the",
+	"desc_fr": "Un grand lac où les familles aiment bien se réunir. La rivière Vacarme vient s'y jeter.",
+	"desc_en": "A large lake where families enjoy to round up. The Vacarme river flows to there.",
+	"north_map": 12,
+	"east_map": 25,
+	"south_map": 22,
+	"west_map": 16
+}

@@ -4,5 +4,7 @@
 		"en": ":zap: **Zeus's lightning bolt**"
 	},
 	"rarity": 6,
-	"rawAttack": 8
+	"rawAttack": 8,
+	"french_masculine": 0,
+	"french_plural": 0
 }

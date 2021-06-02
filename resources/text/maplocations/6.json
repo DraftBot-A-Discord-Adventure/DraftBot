@@ -1,0 +1,13 @@
+{
+	"type": "vi",
+	"name_fr": "Boug-Coton",
+	"name_en": "Boug-Coton",
+	"particle_fr": "vers",
+	"particle_en": "of",
+	"desc_fr": "Un village paisible réputé pour son auberge accueillante.",
+	"desc_en": "A peaceful village known for its welcoming inn.",
+	"north_map": 5,
+	"east_map": null,
+	"south_map": 7,
+	"west_map": null
+}

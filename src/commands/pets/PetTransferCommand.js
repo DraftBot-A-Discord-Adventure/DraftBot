@@ -6,9 +6,10 @@
  */
 const PetTransferCommand = async function (language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
+	const pPet = entity.Player.Pet;
 
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY], entity)) !== true) {
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -28,7 +29,6 @@ const PetTransferCommand = async function (language, message, args) {
 	confirmEmbed.setAuthor(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitchTitle, {
 		pseudo: message.author.username
 	}), message.author.displayAvatarURL());
-	const pPet = entity.Player.Pet;
 	const [server] = (await Servers.getOrRegister(message.guild.id));
 
 	if (args.length === 0) {
@@ -38,6 +38,9 @@ const PetTransferCommand = async function (language, message, args) {
 				cmd: "pettransfer",
 				cmdShelter: "shelter"
 			}));
+		}
+		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
 		}
 		if (guildPetCount >= JsonReader.models.pets.slots) {
 			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).noSlotAvailable);
@@ -75,6 +78,7 @@ const PetTransferCommand = async function (language, message, args) {
 
 	const swPet = guild.GuildPets[petId - 1];
 	const swPetEntity = swPet.PetEntity;
+
 	if (pPet) {
 		swPet.pet_entity_id = pPet.id;
 		await swPet.save();
@@ -89,6 +93,9 @@ const PetTransferCommand = async function (language, message, args) {
 			pet1: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language)),
 			pet2: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));
+	} else if (pPet) {
+		if (pPet.lovePoints < PETS.LOVE_LEVELS[0])
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
 	} else {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmFollows, {
 			pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))

@@ -37,8 +37,11 @@ class Database {
 			"Potions",
 			"Classes",
 			"Pets",
+			"MapLocations"
 		]);
+		await Database.verifyMaps();
 		await Database.setEverybodyAsUnOccupied();
+		await Database.updatePlayersRandomMap();
 	}
 
 	/**
@@ -165,6 +168,10 @@ class Database {
 			sourceKey: "pet_id",
 			as: "Pet",
 		});
+		Players.hasMany(PlayerSmallEvents, {
+			foreignKey: "player_id",
+			as: "PlayerSmallEvents",
+		});
 
 		Guilds.hasMany(Players, {
 			foreignKey: "guild_id",
@@ -275,10 +282,12 @@ class Database {
 
 		// Handle special case Events & Possibilities
 		await Events.destroy({truncate: true});
+		await EventMapLocationIds.destroy({truncate: true});
 		await Possibilities.destroy({truncate: true});
 
 		const files = await fs.promises.readdir(`resources/text/events`);
 		const eventsContent = [];
+		const eventsMapLocationsContent = [];
 		const possibilitiesContent = [];
 		for (const file of files) {
 			const fileName = file.split(".")[0];
@@ -288,9 +297,28 @@ class Database {
 
 			if (!Database.isEventValid(fileContent)) continue;
 
-			fileContent.fr = fileContent.translations.fr;
-			fileContent.en = fileContent.translations.en;
-
+			if (fileContent.map_location_ids) {
+				for (const mapLocationsId of fileContent.map_location_ids) {
+					eventsMapLocationsContent.push({
+						event_id: fileContent.id,
+						map_location_id: mapLocationsId
+					});
+				}
+			}
+			fileContent.fr = fileContent.translations.fr + "\n\n";
+			fileContent.en = fileContent.translations.en + "\n\n";
+			for (const possibilityKey of Object.keys(fileContent.possibilities)) {
+				if(possibilityKey !== "end") {
+					fileContent.fr = fileContent.fr + format(JsonReader.commands.report.getTranslation("fr").doChoice, {
+						emoji: possibilityKey,
+						choiceText: fileContent.possibilities[possibilityKey].translations.fr
+					});
+					fileContent.en = fileContent.en + format(JsonReader.commands.report.getTranslation("en").doChoice, {
+						emoji: possibilityKey,
+						choiceText: fileContent.possibilities[possibilityKey].translations.en
+					});
+				}
+			}
 			eventsContent.push(fileContent);
 
 			for (const possibilityKey of Object.keys(
@@ -298,7 +326,7 @@ class Database {
 			)) {
 				for (const possibility of fileContent.possibilities[
 					possibilityKey
-					]) {
+					].issues) {
 					const possibilityContent = {
 						possibilityKey: possibilityKey,
 						lostTime: possibility.lostTime,
@@ -311,8 +339,8 @@ class Database {
 						fr: possibility.translations.fr,
 						en: possibility.translations.en,
 						event_id: fileName,
-						nextEvent:
-							possibility.nextEvent !== undefined ? possibility.nextEvent : null,
+						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
+						restricted_maps: possibility.restricted_maps
 					};
 					possibilitiesContent.push(possibilityContent);
 				}
@@ -320,6 +348,7 @@ class Database {
 		}
 
 		await Events.bulkCreate(eventsContent);
+		await EventMapLocationIds.bulkCreate(eventsMapLocationsContent);
 		await Possibilities.bulkCreate(possibilitiesContent);
 	}
 
@@ -343,9 +372,18 @@ class Database {
 			Database.sendEventLoadError(event, "English translation missing");
 			return false;
 		}
+		if (event.restricted_maps !== undefined) {
+			const types = event.restricted_maps.split(",");
+			for (let i = 0; i < types.length; ++i) {
+				if (!JsonReader.models.maps.types.includes(types[i])) {
+					Database.sendEventLoadError(event, "Event map type doesn't exist");
+					return false;
+				}
+			}
+		}
 		let endPresent = false;
 		const effects = JsonReader.models.players.effectMalus;
-		const possibilityFields = [
+		const issuesFields = [
 			"lostTime",
 			"health",
 			"effect",
@@ -354,69 +392,110 @@ class Database {
 			"item",
 			"translations",
 		];
+		const possibilityFields = [
+			"translations",
+			"issues"
+		];
 		for (const possibilityKey of Object.keys(event.possibilities)) {
-			if (possibilityKey === "end") endPresent = true;
-			for (const possibility of event.possibilities[possibilityKey]) {
+			if (possibilityKey === "end") {
+				endPresent = true;
+				if (Object.keys(event.possibilities[possibilityKey]).includes(possibilityFields[0])) {
+					Database.sendEventLoadError(event,
+						"Key present in possibility " +
+						possibilityKey +
+						": " +
+						possibilityFields[i]);
+					return false;
+				}
+				if (!Object.keys(event.possibilities[possibilityKey]).includes(possibilityFields[1])) {
+					Database.sendEventLoadError(event,
+						"Key missing in possibility " +
+						possibilityKey +
+						": " +
+						possibilityFields[i]);
+					return false;
+				}
+			}
+			else {
 				for (let i = 0; i < possibilityFields.length; ++i) {
-					if (
-						!Object.keys(possibility).includes(possibilityFields[i])
-					) {
-						Database.sendEventLoadError(
-							event,
+					if (!Object.keys(event.possibilities[possibilityKey]).includes(possibilityFields[i])) {
+						Database.sendEventLoadError(event,
 							"Key missing in possibility " +
 							possibilityKey +
 							": " +
-							field
+							possibilityFields[i]);
+						return false;
+					}
+				}
+				if (event.possibilities[possibilityKey].translations.fr === undefined) {
+					Database.sendEventLoadError(
+						event,
+						"French translation missing in possibility " +
+						possibilityKey
+					);
+					return false;
+				}
+				if (event.possibilities[possibilityKey].translations.en === undefined) {
+					Database.sendEventLoadError(
+						event,
+						"English translation missing in possibility " +
+						possibilityKey
+					);
+					return false;
+				}
+			}
+			for (const issue of event.possibilities[possibilityKey].issues) {
+				for (let i = 0; i < issuesFields.length; ++i) {
+					if (!Object.keys(issue).includes(issuesFields[i])) {
+						Database.sendEventLoadError(
+							event,
+							"Key missing in possibility " +
+							possibilityKey + " " + str(i) +
+							": " +
+							issuesFields[i]
 						);
 						return false;
 					}
-					if (possibility.translations.fr === undefined) {
-						Database.sendEventLoadError(
-							event,
-							"French translation missing in possibility " +
-							possibilityKey
-						);
-						return false;
-					}
-					if (possibility.translations.en === undefined) {
-						Database.sendEventLoadError(
-							event,
-							"English translation missing in possibility " +
-							possibilityKey
-						);
-						return false;
-					}
-					if (possibility.lostTime < 0) {
-						Database.sendEventLoadError(
-							event,
-							"Lost time must be positive in possibility " +
-							possibilityKey
-						);
-						return false;
-					}
-					if (
-						possibility.lostTime > 0 &&
-						possibility.effect !== EFFECT.OCCUPIED
-					) {
-						Database.sendEventLoadError(
-							event,
-							"Time lost and no clock2 effect in possibility " +
-							possibilityKey
-						);
-						return false;
-					}
-					if (
-						effects[possibility.effect] === null ||
-						effects[possibility.effect] === undefined
-					) {
-						Database.sendEventLoadError(
-							event,
-							'Unknown effect "' +
-							possibility.effect +
-							'" in possibility ' +
-							possibilityKey
-						);
-						return false;
+				}
+				if (issue.lostTime < 0) {
+					Database.sendEventLoadError(
+						event,
+						"Lost time must be positive in issue " +
+						possibilityKey + " " + str(i)
+					);
+					return false;
+				}
+				if (
+					issue.lostTime > 0 &&
+					issue.effect !== EFFECT.OCCUPIED
+				) {
+					Database.sendEventLoadError(
+						event,
+						"Time lost and no clock2 effect in issue " +
+						possibilityKey + " " + str(i)
+					);
+					return false;
+				}
+				if (
+					effects[issue.effect] === null ||
+					effects[issue.effect] === undefined
+				) {
+					Database.sendEventLoadError(
+						event,
+						'Unknown effect "' +
+						issue.effect +
+						'" in issue ' +
+						possibilityKey + " " + str(i)
+					);
+					return false;
+				}
+				if (issue.restricted_map !== undefined) {
+					const types = issue.restricted_maps.split(",");
+					for (let i = 0; i < types.length; ++i) {
+						if (!JsonReader.models.maps.types.includes(types[i])) {
+							Database.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + str(i) + " doesn't exist");
+							return false;
+						}
 					}
 				}
 			}
@@ -431,6 +510,38 @@ class Database {
 		return true;
 	}
 
+	static async verifyMaps() {
+		let dict = {};
+		for (const map of await MapLocations.findAll()) {
+			dict[map.id] = map;
+		}
+		const keys = Object.keys(dict);
+		for (const key of keys) {
+			const map = dict[key];
+			if (!JsonReader.models.maps.types.includes(map.type)) {
+				console.error("Type of map " + map.id + " doesn't exist");
+			}
+			for (const dir1 of ["north_map", "south_map", "west_map", "east_map"]) {
+				if (map[dir1]) {
+					const other_map = dict[map[dir1]];
+					if (other_map.id === map.id) {
+						console.error("Map " + map.id + " is connected to itself");
+					}
+					let valid = false;
+					for (const dir2 of ["north_map", "south_map", "west_map", "east_map"]) {
+						if (other_map[dir2] === map.id) {
+							valid = true;
+							break;
+						}
+					}
+					if (!valid) {
+						console.error("Map " + map.id + " is connected to " + other_map.id + " but the latter is not");
+					}
+				}
+			}
+		}
+	}
+
 	/**
 	 * @return {Promise<void>}
 	 */
@@ -441,7 +552,7 @@ class Database {
 			},
 			{
 				where: {
-					effect: EFFECT.AWAITINGANSWER,
+					effect: EFFECT.AWAITING_ANSWER,
 				},
 			}
 		);
@@ -457,6 +568,13 @@ class Database {
 			}
 			console.warn(`(sequelize) Warning: ${message}`);
 		};
+	}
+
+	static async updatePlayersRandomMap() {
+		const query = `UPDATE players SET map_id = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE map_id = -1;`;
+		await Database.Sequelize.query(query, {
+			type: Sequelize.QueryTypes.UPDATE,
+		});
 	}
 }
 

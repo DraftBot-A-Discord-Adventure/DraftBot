@@ -7,17 +7,8 @@
 const GuildShelterCommand = async (language, message, args) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
-			entity
-		)) !== true
-	) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true)
 		return;
-	}
 
 	// search for a user's guild
 	let guild;
@@ -30,11 +21,7 @@ const GuildShelterCommand = async (language, message, args) => {
 	if (guild == null) {
 		// not in a guild
 		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildAdd.getTranslation(language).notInAguild
-		);
+			message.author, message.channel, language, JsonReader.commands.guildAdd.getTranslation(language).notInAguild);
 	}
 
 	const tr = JsonReader.commands.guildShelter.getTranslation(language);

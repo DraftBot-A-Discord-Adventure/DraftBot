@@ -4,5 +4,7 @@
 		"en": ":kimono: **Reinforced kimono**"
 	},
 	"rarity": 5,
-	"rawDefense": 2
+	"rawDefense": 2,
+	"french_masculine": 1,
+	"french_plural": 0
 }

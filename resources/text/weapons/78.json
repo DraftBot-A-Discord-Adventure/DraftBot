@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "\uD83E\uDEC2 **Pouvoir de l'amitié**",
+		"en": "\uD83E\uDEC2 **Power of friendship**"
+	},
+	"rarity": 3,
+	"rawAttack": 3,
+	"speed": 15,
+	"defense" : 20,
+	"french_masculine": 1,
+	"french_plural": 0
+}

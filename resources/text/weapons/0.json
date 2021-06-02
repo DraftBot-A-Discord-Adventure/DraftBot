@@ -4,5 +4,7 @@
 		"en": ":punch: **Fist**"
 	},
 	"rarity": 0,
-	"rawAttack": 0
+	"rawAttack": 0,
+	"french_masculine": 1,
+	"french_plural": 0
 }

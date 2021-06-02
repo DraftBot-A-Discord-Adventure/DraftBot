@@ -4,5 +4,9 @@
 		"en": "🏹 **Knight bow**"
 	},
 	"rarity": 5,
-	"rawAttack": 7
+	"rawAttack": 7,
+	"defense": -30,
+	"speed" : 20,
+	"french_masculine": 1,
+	"french_plural": 0
 }

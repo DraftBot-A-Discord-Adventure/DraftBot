@@ -6,5 +6,6 @@
 		"en": {
 			"main": ":repeat: | ** {pseudo} **, The active and reserve items were swapped!"
 		}
-	}
+	},
+	"timeToAdd" : 0.5
 }

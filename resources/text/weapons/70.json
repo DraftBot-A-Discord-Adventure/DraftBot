@@ -4,5 +4,7 @@
 		"en": ":gun: **Gun pan pan QQ**"
 	},
 	"rarity": 7,
-	"rawAttack": 3
+	"rawAttack": 3,
+	"french_masculine": 1,
+	"french_plural": 0
 }

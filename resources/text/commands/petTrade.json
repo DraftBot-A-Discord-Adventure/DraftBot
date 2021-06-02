@@ -5,11 +5,11 @@
 			"tradeTitle": "Échange d'animaux",
 			"tradeDescription": "{trader1} propose à {trader2} d'échanger leurs animaux. Chaque participant doit cliquer sur :white_check_mark: pour accepter ou sur :x: pour annuler.",
 			"cantTradeSelf": "Vous ne pouvez pas échanger avec vous-même !",
-			"petOfTrader": "Animal de {trader}",
+			"petOfTrader": "Familier de {trader}",
 			"tradeCanceledTime": "L'échange a été annulé car un des participants n'a pas répondu !",
 			"tradeCanceled": "{trader} a annulé l'échange !",
 			"tradeSuccess": "L'échange a été effectué avec succès !",
-			"warningTradeReset": "⚠️ Un animal échangé verra sa mentalité réduite à 0 !"
+			"warningTradeReset": "⚠️ Un familier échangé redeviendra sauvage !"
 		},
 		"en": {
 			"needMention": "Please mention the player you want to trade with.",
@@ -20,7 +20,7 @@
 			"tradeCanceledTime": "The trade has been canceled because one of the participants didn't answered!",
 			"tradeCanceled": "{trader} canceled the trade!",
 			"tradeSuccess": "Trade done successfully!",
-			"warningTradeReset": "⚠️ The spirit of the pet will be reset!"
+			"warningTradeReset": "⚠️ A traded pet will become savage!"
 		}
 	}
 }

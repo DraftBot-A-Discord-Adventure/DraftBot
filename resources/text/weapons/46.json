@@ -4,5 +4,7 @@
 		"en": ":bookmark: **Old grimoire**"
 	},
 	"rarity": 6,
-	"rawAttack": 1
+	"rawAttack": 1,
+	"french_masculine": 1,
+	"french_plural": 0
 }

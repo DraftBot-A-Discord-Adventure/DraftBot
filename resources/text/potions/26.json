@@ -4,6 +4,8 @@
 		"en": "🥛 **Glass of milk**"
 	},
 	"rarity": 1,
-	"power": 5,
-	"nature": 4
+	"power": 10,
+	"nature": 4,
+	"french_masculine": 1,
+	"french_plural": 0
 }

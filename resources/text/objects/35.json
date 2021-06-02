@@ -4,6 +4,8 @@
 		"en": ":magnet: **Magnet**"
 	},
 	"rarity": 7,
-	"power": 566,
-	"nature": 6
+	"power": 466,
+	"nature": 6,
+	"french_masculine": 1,
+	"french_plural": 0
 }

@@ -1,0 +1,42 @@
+{
+	"translations": {
+		"fr": {
+			"intro": [
+				"Alors que vous voyagez tranquillement, ",
+				"Tandis que vous avancez tranquillement sur votre route, ",
+				"Alors que vous vous apprêtez à vous remettre en marche après une courte pause, ",
+				"Au détour d'un virage, ",
+				"Alors que vous vous baladez tranquillement, ",
+				"Suite à une courte halte, ",
+				"Après de longues heures de marche, ",
+				"Au cours d'une petite pause contre un arbre, ",
+				"Alors que vous continuez votre aventure, ",
+				"En suivant votre chemin, ",
+				"Contemplant les abords de la route, ",
+				"En reprenant la route après une rapide halte, ",
+				"Tout en marchant, fatigué par vos longues heures de marche, ",
+				"Aux abords d'un chemin, "
+			]
+		},
+		"en": {
+			"intro": [
+				"While you are traveling peacefully, ",
+				"While you're progressing peacefully on your track, ",
+				"As you plan to get back on track after a short break, ",
+				"Reaching a turn, ",
+				"As you walk quietly, ",
+				"Following a meal break, ",
+				"After long hours walking, ",
+				"During a short break against a tree, ",
+				"As you continue your adventure, ",
+				"Following your path, ",
+				"Contemplating the edge of the road, ",
+				"Moving on after a quick stop, ",
+				"As you walk, tired by your long hours walking, ",
+				"Near a path, "
+			]
+		}
+	}
+}
+
+

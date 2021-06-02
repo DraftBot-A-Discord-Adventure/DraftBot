@@ -4,5 +4,10 @@
 		"en": ":crossed_swords: **Double swords**"
 	},
 	"rarity": 5,
-	"rawAttack": 10
+	"rawAttack": 10,
+	"attack" : 10,
+	"defense" : 30,
+	"speed" : -50,
+	"french_masculine": 0,
+	"french_plural": 1
 }

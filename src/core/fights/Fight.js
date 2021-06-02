@@ -137,24 +137,24 @@ class Fight {
 			});
 		}
 		for (let i = 0; i < this.fighters.length; ++i) {
-			let f = this.fighters[i];
+			let fighter = this.fighters[i];
 			msg += format(JsonReader.commands.fight.getTranslation(this.language).end.fighterStats, {
-				pseudo: await f.entity.Player.getPseudo(this.language),
-				health: f.power,
-				maxHealth: f.initialPower
+				pseudo: await fighter.entity.Player.getPseudo(this.language),
+				health: fighter.power,
+				maxHealth: fighter.initialPower
 			});
-			if (Object.keys(f.attacksList).length > 0) {
+			if (Object.keys(fighter.attacksList).length > 0) {
 				msg += JsonReader.commands.fight.getTranslation(this.language).end.attacksField;
 				const attacks = JsonReader.commands.fight.getTranslation(this.language).actions.attacks;
 				const attacksKeys = Object.keys(attacks);
 				for (let j = 0; j < attacksKeys.length; ++j) {
-					const att = f.attacksList[attacksKeys[j]];
-					if (att) {
+					const attacksListElement = fighter.attacksList[attacksKeys[j]];
+					if (attacksListElement) {
 						msg += format(JsonReader.commands.fight.getTranslation(this.language).end.attackStats, {
 							emote: attacks[attacksKeys[j]].emote,
-							success: att ? att.success : 0,
-							total: att ? att.total : 0,
-							damage: att && att.success !== 0 ? Math.round((att.damage / att.success) * 10) / 10 : 0,
+							success: attacksListElement.success,
+							total: attacksListElement.total,
+							damage: attacksListElement.success !== 0 ? Math.round((attacksListElement.damage / attacksListElement.success) * 10) / 10 : 0,
 						});
 					}
 				}
@@ -535,11 +535,11 @@ class Fight {
 				attacker.power -= far.ownDamage; //this attack is for everybody
 				if (success < 0.85) {
 					far.damage = Math.round(attacker.attack * 2.5 - Math.round(defender.defense));
-					if (attacker.power < 0)
-						attacker.power = 0;
 				} else {
 					far.damage = 0;
 				}
+				if (attacker.power < 0)
+					attacker.power = 0;
 				far.fullSuccess = far.damage > 0;
 				break;
 

@@ -4,5 +4,7 @@
 		"en": ":comet: **Devil's Soul**"
 	},
 	"rarity": 7,
-	"rawAttack": 8
+	"rawAttack": 8,
+	"french_masculine": 0,
+	"french_plural": 0
 }

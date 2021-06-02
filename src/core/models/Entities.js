@@ -33,10 +33,6 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.INTEGER,
 			defaultValue: JsonReader.models.entities.speed,
 		},
-		effect: {
-			type: DataTypes.STRING(32),
-			defaultValue: JsonReader.models.entities.effect,
-		},
 		discordUser_id: {
 			type: DataTypes.STRING(64),
 		},
@@ -89,6 +85,10 @@ module.exports = (Sequelize, DataTypes) => {
 									as: 'PetModel'
 								}
 							]
+						},
+						{
+							model: PlayerSmallEvents,
+							as: 'PlayerSmallEvents'
 						}],
 				}],
 		});
@@ -121,6 +121,10 @@ module.exports = (Sequelize, DataTypes) => {
 									as: 'PetModel'
 								}
 							]
+						},
+						{
+							model: PlayerSmallEvents,
+							as: 'PlayerSmallEvents'
 						}],
 				}],
 			order: [
@@ -157,6 +161,10 @@ module.exports = (Sequelize, DataTypes) => {
 									as: 'PetModel'
 								}
 							]
+						},
+						{
+							model: PlayerSmallEvents,
+							as: 'PlayerSmallEvents'
 						}],
 				}],
 		});
@@ -189,6 +197,10 @@ module.exports = (Sequelize, DataTypes) => {
 									as: 'PetModel'
 								}
 							]
+						},
+						{
+							model: PlayerSmallEvents,
+							as: 'PlayerSmallEvents'
 						}],
 				}],
 		});
@@ -305,13 +317,6 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * @return {Boolean}
-	 */
-	Entities.prototype.checkEffect = function () {
-		return [EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1;
-	};
-
-	/**
 	 * @param {Number} health
 	 */
 	Entities.prototype.addHealth = async function (health) {
@@ -339,20 +344,6 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Entities.prototype.getMention = function () {
 		return '<@' + this.discordUser_id + '>';
-	};
-
-	/**
-	 * Returns if the effect of the player is finished or not
-	 * @return {boolean}
-	 */
-	Entities.prototype.currentEffectFinished = function () {
-		if (this.effect === EFFECT.DEAD || this.effect === EFFECT.BABY) {
-			return false;
-		}
-		if (this.effect === EFFECT.SMILEY) {
-			return true;
-		}
-		return this.Player.lastReportAt < new Date();
 	};
 
 	return Entities;

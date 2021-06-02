@@ -1,0 +1,13 @@
+{
+	"type": "ro",
+	"name_fr": "Le Chemin aux Loups",
+	"name_en": "The Wolves Path",
+	"particle_fr": "vers",
+	"particle_en": "of",
+	"desc_fr": "Petit chemin dangereux bordant la rivière Vacarme. Attention à ne pas tomber.",
+	"desc_en": "Small and dangerous path bordering the Vacarme river. Be careful not to fall off.",
+	"north_map": 14,
+	"east_map": null,
+	"south_map": 17,
+	"west_map": 15
+}

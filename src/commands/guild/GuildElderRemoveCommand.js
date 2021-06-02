@@ -11,17 +11,8 @@ const GuildElderRemoveCommand = async (language, message, args) => {
 
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
-			entity
-		)) !== true
-	) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true)
 		return;
-	}
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
@@ -36,21 +27,11 @@ const GuildElderRemoveCommand = async (language, message, args) => {
 
 	if (guild == null) {
 		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildElder.getTranslation(language).notInAguild
-		);
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notInAguild);
 	}
 
-	if (guild.chief_id != entity.id) {
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildElder.getTranslation(language).notChiefError
-		);
+	if (guild.chief_id !== entity.id) {
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notChiefError);
 	}
 
 	elderRemoveEmbed.setAuthor(
@@ -77,14 +58,14 @@ const GuildElderRemoveCommand = async (language, message, args) => {
 	const confirmEmbed = new discord.MessageEmbed();
 	const filterConfirm = (reaction, user) => {
 		return (
-			(reaction.emoji.name == MENU_REACTION.ACCEPT ||
-				reaction.emoji.name == MENU_REACTION.DENY) &&
+			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.author.id
 		);
 	};
 
 	const collector = msg.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -113,14 +94,7 @@ const GuildElderRemoveCommand = async (language, message, args) => {
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-
-			JsonReader.commands.guildElderRemove.getTranslation(language)
-				.elderRemoveCancelled
-		);
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElderRemove.getTranslation(language).elderRemoveCancelled, true);
 	});
 
 	await Promise.all([

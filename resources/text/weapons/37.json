@@ -4,5 +4,7 @@
 		"en": ":crossed_swords: **Beginner's sword**"
 	},
 	"rarity": 4,
-	"rawAttack": 6
+	"rawAttack": 6,
+	"french_masculine": 0,
+	"french_plural": 0
 }

@@ -1,7 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"mp": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre (:sob:) tu peux te contenter de lire le magnifique wiki du bot !\n https://guide.draftbot.com/",
+			"mp": {
+				"title": "Besoin d'aide ?",
+				"description": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre, tu peux te contenter de lire le magnifique wiki du bot !\n https://guide.draftbot.com/"
+			},
 			"helpEmbedTitle": "{pseudo}, voici la liste des commandes disponibles :",
 			"helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:",
 			"serverCommands": ":gear: Serveur :",
@@ -218,25 +221,25 @@
 					"emote": ":dog:",
 					"usage": "mypet",
 					"category": "pet",
-					"description": "Affiche les informations relatives à votre animal."
+					"description": "Affiche les informations relatives à votre familier."
 				},
 				"pettransfer": {
 					"emote": ":arrow_right:",
 					"usage": "pettransfer [numéro]",
 					"category": "pet",
-					"description": "Permet de transférer un animal depuis ou vers la guilde. Si aucun numéro n'est fournit, l'animal de votre inventaire sera déplacé vers le refuge de la guilde. Si un numéro est fournit, il sera échangé avec celui de la guilde correspondant au numéro."
+					"description": "Permet de transférer un familier depuis ou vers la guilde. Si aucun numéro n'est fournit, le familier de votre inventaire sera déplacé vers le refuge de la guilde. Si un numéro est fournit, il sera échangé avec celui de la guilde correspondant au numéro."
 				},
 				"petnickname": {
 					"emote": ":abcd:",
 					"usage": "petnickname [nom]",
 					"category": "pet",
-					"description": "Change le surnom de votre animal. Si aucun nom n'est fournit, le nom actuel sera effacé."
+					"description": "Change le surnom de votre familier. Si aucun nom n'est fournit, le nom actuel sera effacé."
 				},
 				"petfree": {
 					"emote": ":wave:",
 					"usage": "petfree",
 					"category": "pet",
-					"description": "Libère votre animal. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
+					"description": "Libère votre familier. Attention, une fois libéré, il sera effacé à tout jamais et donc impossible de le récupérer. Cette commande ne peut être effectuée qu'une fois par heure."
 				},
 				"shelter": {
 					"emote": ":park:",
@@ -254,7 +257,7 @@
 					"emote": ":candy:",
 					"usage": "petfeed",
 					"category": "pet",
-					"description": "Donner de la nourriture à votre animal."
+					"description": "Donner de la nourriture à votre familier."
 				},
 				"petsell": {
 					"emote": ":dollar:",
@@ -285,11 +288,32 @@
 					"usage": "idea",
 					"category": "util",
 					"description": "Permet d'obtenir un lien afin de suggérer une idée ou alors de voter pour celles déjà existantes."
+				},
+				"dmnotification": {
+					"emote": ":no_bell:",
+					"usage": "dmnotification",
+					"category": "util",
+					"description": "Permet d'activer ou de désactiver les notifications du bot."
+				},
+				"unlock": {
+					"emote":":unlock:",
+					"usage": "unlock [mention]",
+					"category": "player",
+					"description": "Permet de payer une caution pour libérer quelqu'un de prison."
+				},
+				"map": {
+					"emote":":map:",
+					"usage": "map",
+					"category": "player",
+					"description": "Affiche des informations sur votre destination, ainsi que la carte."
 				}
 			}
 		},
 		"en": {
-			"mp": ":crossed_swords: Hey! This message was sent because you asked for help.\n\nIf you need help, you can join the bot server!\n\nYou will be able to be a part of the bot's development and you will get details about it!\n\nhttps://discord.gg/USnCxg4\n\nIf you don't want to join us (:sob:) you can also read the bot's wiki!\n https://guide.draftbot.com/v/en/",
+			"mp": {
+				"title": "Need help?",
+				"description": ":crossed_swords: Hey! This message was sent because you asked for help.\n\nIf you need help, you can join the bot server!\n\nYou will be able to be a part of the bot's development and you will get details about it!\n\nhttps://discord.gg/USnCxg4\n\nIf you don't want to join us (:sob:) you can also read the bot's wiki!\n https://guide.draftbot.com/v/en/"
+			},
 			"helpEmbedTitle": "{pseudo}, here is the list of the available commands :",
 			"helpEmbedDescription": ":arrow_forward: If you want more information about a specific command write: `help [name of the command]` :wink:",
 			"serverCommands": ":gear: Server :",
@@ -573,6 +597,24 @@
 					"usage": "idea",
 					"category": "util",
 					"description": "Give a link to submit suggestions and vote for those already submitted."
+				},
+				"dmnotification": {
+					"emote": ":no_bell:",
+					"usage": "dmnotification",
+					"category": "util",
+					"description": "Allows to enable or disable private messages from the bot."
+				},
+				"unlock": {
+					"emote":":unlock:",
+					"usage": "unlock [mention]",
+					"category": "player",
+					"description": "Allows you to pay a bail for set someone free."
+				},
+				"map": {
+					"emote":":map:",
+					"usage": "map",
+					"category": "player",
+					"description": "Display information about your destination, and also the map."
 				}
 			}
 		}

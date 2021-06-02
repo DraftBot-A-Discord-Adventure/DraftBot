@@ -1,136 +1,157 @@
 {
+	"restricted_maps": "ri",
 	"translations": {
-		"fr": " : ** 👨‍🌾 Lors de votre long périple vous vous retrouvez au bord d'une large rivière. Ne pouvant la traverser vous décidez de la longer jusqu'à trouver un pont. Alors que vous marchez le long de celle-ci vous tombez sur une scène peu commune : un paysan tient au-dessus de sa tête une lourde pierre qui semble liée à sa jambe. Il parait prêt à la jeter d'une seconde à l'autre.\n\n🦸 Se jeter à sa rescousse\n😐 Le regarder jeter la pierre\n😈 \"L'aider\" en le poussant\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** 👨‍🌾 While continuing your long journey, you find yourself along the banks of a large river. With no way across within sight, you decide to follow it in order to find a bridge. On the little detour you become witness of an uncommon scene. A farmer holding a heavy rock above his head, which seems to be attached to his ankle via some rope. He seems about to throw the rock into the river at any moment.\n\n🦸 Come quickly to his rescue\n😐 Watch him throw the rock\n😈 \"Help\" him throwing the rock\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": "👨‍🌾 Lors de votre long périple vous vous retrouvez au bord d'une large rivière. Ne pouvant la traverser vous décidez de la longer jusqu'à trouver un pont. Alors que vous marchez le long de celle-ci vous tombez sur une scène peu commune : un paysan tient au-dessus de sa tête une lourde pierre qui semble liée à sa jambe. Il parait prêt à la jeter d'une seconde à l'autre.",
+		"en": "👨‍🌾 While continuing your long journey, you find yourself along the banks of a large river. With no way across within sight, you decide to follow it in order to find a bridge. On the little detour you become witness of an uncommon scene. A farmer holding a heavy rock above his head, which seems to be attached to his ankle via some rope. He seems about to throw the rock into the river at any moment."
 	},
 	"possibilities": {
-		"🦸": [
-			{
-				"translations": {
-					"fr": "** | 🦸 Alors que vous essayez de le secourir, il prend peur et vous assomme avec sa pierre. Vous mettez un certain temps à reprendre vos esprits et repartez.",
-					"en": "** | 🦸 As you try to help him, he gets scared and knocks you out with the rock. You stay uncounscious for a while, but eventually wake up and get on your way."
-				},
-				"lostTime": 60,
-				"health": -10,
-				"effect": ":clock2:",
-				"experience": 0,
-				"money": 0,
-				"item": false
+		"🦸": {
+			"translations": {
+				"fr": "Se jeter à sa rescousse",
+				"en": "Come quickly to his rescue"
 			},
-			{
-				"translations": {
-					"fr": "** | 🦸 Vous vous jetez sur la pierre et la rattrapez. Vous coupez rapidement la corde et allez chercher le malheureux qui est trempé. Vous passez plusieurs heures avec lui à tenter de le dissuader de recommencer. Reconnaissant il vous offre le couvert et l’abris pour la nuit.",
-					"en": "** | 🦸 You throw yourself on the rock and catch it. You swiftly cut the rope and come help the poor soacked man. You spend several hours talking trying to deter him of doing it again. Grateful, he offers room and board for the night."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Alors que vous essayez de le secourir, il prend peur et vous assomme avec sa pierre. Vous mettez un certain temps à reprendre vos esprits et repartez.",
+						"en": "As you try to help him, he gets scared and knocks you out with the rock. You stay unconscious for a while, but eventually wake up and get on your way."
+					},
+					"lostTime": 60,
+					"health": -10,
+					"effect": ":clock2:",
+					"experience": 0,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 180,
-				"health": 15,
-				"effect": ":clock2:",
-				"experience": 225,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Vous vous jetez sur la pierre et la rattrapez. Vous coupez rapidement la corde et allez chercher le malheureux qui est trempé. Vous passez plusieurs heures avec lui à tenter de le dissuader de recommencer. Reconnaissant il vous offre le couvert et l’abris pour la nuit.",
+						"en": "You throw yourself on the rock and catch it. You swiftly cut the rope and come help the poor soaked man. You spend several hours talking trying to deter him of doing it again. Grateful, he offers room and board for the night."
+					},
+					"lostTime": 180,
+					"health": 15,
+					"effect": ":clock2:",
+					"experience": 225,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous vous jetez sur la pierre mais vous êtes trop lent. Le pauvre homme sombre rapidement dans la rivière, emporté par le courant. Vous cherchez aux alentours s’il n’a pas laissé des affaires derrière lui. Vous tombez sur un étrange objet qui scintille.",
+						"en": "You throw yourself on the rock but you are too slow. The poor soul sinks quickly, carried away by the current. You look around to see if he left any things. You find a strange shiny object."
+					},
+					"lostTime": 15,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 325,
+					"money": 0,
+					"item": true
+				},
+				{
+					"translations": {
+						"fr": "Vous foncez le sauver, seulement il jette sa pierre avant que vous n'arriviez à lui. Vous sautez à sa suite et essayez de le ramener sur la berge, mais il se débat et vous emporte vers le fond avec lui. Commençant à suffoquer, vous le relâchez et êtes forcé de remonter.",
+						"en": "You run to help him. Nevertheless he succeeds in throwing his rock before you get to him. You jump after him to try to bring him to shore but he struggles and bring you underwater with him. As you start to suffocate, you release him and your are forced to resurface."
+					},
+					"lostTime": 0,
+					"health": -50,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"😐": {
+			"translations": {
+				"fr": "Le regarder jeter la pierre",
+				"en": "Watch him throw the rock"
 			},
-			{
-				"translations": {
-					"fr": "** | 🦸 Vous vous jetez sur la pierre mais vous êtes trop lent. Le pauvre homme sombre rapidement dans la rivière, emporté par le courant. Vous cherchez aux alentours s’il n’a pas laissé des affaires derrière lui. Vous tombez sur un étrange objet qui scintille.",
-					"en": "** | 🦸 You throw yourself on the rock but you are too slow. The poor soul sinks quickly, carried away by the current. You look around to see if he left any things. You find a strange shiny object."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous regardez nonchalamment l’homme sombrer dans la rivière à la suite de sa pierre. Vous fouillez les environ pour voir s’il n’a pas laissé des affaires derrière lui et tombez sur une bourse contenant des pièces. Vous repartez content de vous.",
+						"en": "Apathetically, you watch as the man sinks following his rock. You search around to see if he left any things and find a filled moneybag. You leave, satisfied."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 125,
+					"money": 300,
+					"item": false
 				},
-				"lostTime": 15,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 325,
-				"money": 0,
-				"item": true
+				{
+					"translations": {
+						"fr": "Alors que vous vous installez confortablement, vous le voyez changer d’avis et jeter sa pierre au sol. Se retournant, il vous remarque et vous invite chez lui pour le souper. Sans vous poser de question quant à ce revirement de situation, vous acceptez et le suivez jusque sa chaumière. Alors que vous commencez le dîner, votre tête devient lourde, votre vue se brouille et vous tombez dans un profond sommeil. Vous vous réveillez bien plus tard sur le bord d’un chemin désert et inconnu.",
+						"en": "As you lean back comfortably, you see him change his mind and throw his rock aside. While turning around, he notices you and invites you for dinner. Without asking questions about the previous turn of events, you accept and follow him to his cottage. As you start dining your head feels heavy, your vision gets blurred and you fall into a deep slumber. You wake up many hours later on the side of an empty and unknown road."
+					},
+					"lostTime": 360,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": -200,
+					"item": false
+				}
+			]
+		},
+		"😈": {
+			"translations": {
+				"fr": "\"L'aider\" en le poussant",
+				"en": "\"Help\" him throwing the rock"
 			},
-			{
-				"translations": {
-					"fr": "** | 🦸 Vous foncez le sauver, seulement il jette sa pierre avant que vous n'arriviez à lui. Vous sautez à sa suite et essayez de le ramener sur la berge, mais il se débat et vous emporte vers le fond avec lui. Commençant à suffoquer, vous le relâchez et êtes forcé de remonter.",
-					"en": "** | 🦸 You run to help him. Nevertheless he succeeds in throwing his rock before you get to him. You jump after him to try to bring him to shore but he struggles and bring you underwater with him. As you start to suffocate, you release him and your are forced to resurface."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous vous approchez sans un bruit derrière lui et le poussez violemment dans la rivière. Il sombre et disparaît de votre champ de vision. Vous guettez quelques instants en espérant ne pas avoir été repéré et repartez tranquillement.",
+						"en": "You approach quietly behind him and violently push him in the swirling waters. He sinks and disappears from sight. You watch around briefly, hoping to not have been seen."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": -50,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"😐": [
-			{
-				"translations": {
-					"fr": "** | 😐 Vous regardez nonchalamment l’homme sombrer dans la rivière à la suite de sa pierre. Vous fouillez les environ pour voir s’il n’a pas laissé des affaires derrière lui et tombez sur une bourse contenant des pièces. Vous repartez content de vous.",
-					"en": "** | 😐 Apathetically, you watch as the man sinks following his rock. You search around to see if he left any things and find a filled moneybag. You leave, satisfied. "
+				{
+					"translations": {
+						"fr": "Vous vous approchez sans un bruit quand soudain une branche rencontre votre jambe. Vous tombez à la renverse sur le suicidaire et l’entraînez dans votre chute fatale vers les tourbillons glacés de la mort.",
+						"en": "You approach quietly when you suddenly trip over an unseen fallen branch. You fall forward onto the suicidal man and bring him with you in your fall towards the cold deadly waters."
+					},
+					"lostTime": 0,
+					"health": -50,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 125,
-				"money": 300,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 😐 Alors que vous vous installez confortablement, vous le voyez changer d’avis et jeter sa pierre au sol. Se retournant, il vous remarque et vous invite chez lui pour le souper. Sans vous poser de question quant à ce revirement de situation, vous acceptez et le suivez jusqu’à sa chaumière. Alors que vous commencez le dîner, votre tête devient lourde, votre vue se brouille et vous tombez dans un profond sommeil. Vous vous réveillez bien plus tard sur le bord d’un chemin désert et inconnu.",
-					"en": "** | 😐 As you lean back comfortably, you see him change his mind and throw his rock aside. While turning around, he notices you and invites you for dinner. Without asking questions about the previous turn of events, you accept and follow him to his cottage. As you start dining your head feels heavy, your vision gets blurred and you fall into a deep slumber. You wake up many hours later on the side of an empty and unknown road."
-				},
-				"lostTime": 360,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": -200,
-				"item": false
-			}
-		],
-		"😈": [
-			{
-				"translations": {
-					"fr": "** | 😈 Vous vous approchez sans un bruit derrière lui et le poussez violemment dans la rivière. Il sombre et disparaît de votre champ de vision. Vous guettez quelques instants en espérant ne pas avoir été repéré et repartez tranquillement.",
-					"en": "** | 😈 You approach quietly behind him and violently push him in the swirling waters. He sinks and diseappears from sight. You watch around briefly, hoping to not have been seen."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 😈 Vous vous approchez sans un bruit quand soudain une branche rencontre votre jambe. Vous tombez à la renverse sur le suicidaire et l’entraînez dans votre chute fatale vers les tourbillons glacés de la mort.",
-					"en": "** | 😈 You approach quietly when you suddenly trip over an unseen fallen branch. You fall forward onto the suicidal man and bring him with you in your fall towards the cold deadly waters."
-				},
-				"lostTime": 0,
-				"health": -50,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 😈 Vous vous approchez à pas de loup quand votre pied rompt une branche. Pris de peur, le pauvre homme jette la pierre et la suit. Vous vous relevez alors et découvrez une bourse qu’il a laissé derrière lui.",
-					"en": "** | 😈 You creep behind the man when a step loudly breaks a stick. Afraid, the poor man throws the rock and follow behind. You get up and find a filled moneybag he left behind."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 250,
-				"money": 300,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous passez votre chemin, ne voulant pas être impliqué dans la mort de cet homme. Juste à côté, vous tombez sur un objet abandonné qui lui appartenait sûrement.",
-					"en": "** | 🚶 You leave the scene, wanting to have no part in the man’s fate. Nearby, you stumble upon an abandoned object which probably belonged to the bloke."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 450,
-				"money": 0,
-				"item": true
-			}
-		]
+				{
+					"translations": {
+						"fr": "Vous vous approchez à pas de loup quand votre pied rompt une branche. Pris de peur, le pauvre homme jette la pierre et la suit. Vous vous relevez alors et découvrez une bourse qu’il a laissé derrière lui.",
+						"en": "You creep behind the man when a step loudly breaks a stick. Afraid, the poor man throws the rock and follow behind. You get up and find a filled moneybag he left behind."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 250,
+					"money": 300,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Vous passez votre chemin, ne voulant pas être impliqué dans la mort de cet homme. Juste à côté, vous tombez sur un objet abandonné qui lui appartenait sûrement.",
+						"en": "🚶 You leave the scene, wanting to have no part in the man’s fate. Nearby, you stumble upon an abandoned object which probably belonged to the bloke."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 450,
+					"money": 0,
+					"item": true
+				}
+			]
+		}
 	}
 }

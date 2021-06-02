@@ -1,0 +1,36 @@
+{
+	"translations": {
+		"fr": {
+			"stories": [
+				"Aucun incident ni évènement notable à signaler.",
+				"Il ne s'est rien passé de particulier depuis le précédent rapport.",
+				"Vous n'avez rencontré aucune difficulté à progresser durant les dernières heures, vous continuez d'avancer tranquillement.",
+				"Rien à signaler, vous continuez d'avancer.",
+				"Pas d'obstacle en vue, rien ne semble être contre vous en ce moment. Vous continuez d'avancer.",
+				"La voie est libre, aucune raison de s'arrêter, vous continuez d'avancer.",
+				"Rien d'important ne s'est passé depuis le rapport précédent.",
+				"Pas d'évènement notable depuis la dernière fois.",
+				"Les chiens aboient et la caravane passe. Vous continuez tranquillement votre route.",
+				"La princesse se rapproche de vous ! Du moins c'est l'impression que vous avez... Vous continuez votre route."
+			]
+		},
+		"en": {
+			"stories": [
+				"No incidents or significant events to report.",
+				"Nothing special happened since the previous report.",
+				"You haven't encountered any difficulty in your progress during the last few hours, and you continue to progress quietly.",
+				"Nothing to report, you keep moving forward.",
+				"No obstacles in sight, nothing seems to be against you right now. You keep moving forward.",
+				"The way is clear, no reason to stop, you keep moving forward.",
+				"Nothing significant has happened since the previous report.",
+				"No significant events since last time.",
+				"The dogs bark and the caravan passes by. You continue quietly on your way.",
+				"The princess got closer to you! At least that's the impression you got... You carry on."
+			]
+		}
+	},
+	"rarity": 12,
+	"emote": ":walking:  "
+}
+
+

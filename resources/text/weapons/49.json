@@ -4,5 +4,9 @@
 		"en": "🏹 **Soldier bow**"
 	},
 	"rarity": 4,
-	"rawAttack": 7
+	"rawAttack": 7,
+	"defense": -20,
+	"speed" : 10,
+	"french_masculine": 1,
+	"french_plural": 0
 }

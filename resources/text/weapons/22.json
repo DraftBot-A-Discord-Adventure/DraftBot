@@ -4,5 +4,9 @@
 		"en": ":bow_and_arrow: **Bow**"
 	},
 	"rarity": 5,
-	"rawAttack": 8
+	"rawAttack": 9,
+	"defense": -30,
+	"speed" : 20,
+	"french_masculine": 1,
+	"french_plural": 0
 }

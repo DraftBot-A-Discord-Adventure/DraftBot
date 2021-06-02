@@ -4,7 +4,7 @@ class DBL {
 	static dbl;
 
 	static startDBLWebhook() {
-		if (JsonReader.app.DBL_WEBHOOK_URL === "" || JsonReader.app.DBL_WEBHOOK_PORT === 0 || !JsonReader.app.DBL_TOKEN || JsonReader.app.DBL_TOKEN === "") {
+		if (JsonReader.app.DBL_WEBHOOK_URL === "" || JsonReader.app.DBL_WEBHOOK_PORT === 0 || !JsonReader.app.DBL_TOKEN) {
 			console.info("DBL Webhook not configured, skipped.");
 			return;
 		}
@@ -110,5 +110,6 @@ class DBL {
 module.exports = {
 	startDBLWebhook: DBL.startDBLWebhook,
 	verifyDBLRoles: DBL.verifyDBLRoles,
-	userDBLVote: DBL.userDBLVote
+	userDBLVote: DBL.userDBLVote,
+	getTimeBeforeDBLRoleRemove: DBL.getTimeBeforeDBLRoleRemove
 };

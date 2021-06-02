@@ -117,7 +117,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * @param {String} name
-     y*/
+	 */
 	Guilds.getByName = (name) => {
 		return Guilds.findOne({
 			where: {
@@ -196,8 +196,7 @@ module.exports = (Sequelize, DataTypes) => {
 		const embed = new discord.MessageEmbed()
 			.setTitle(
 				format(
-					JsonReader.models.guilds.getTranslation(language).levelUp
-						.title,
+					JsonReader.models.guilds.getTranslation(language).levelUp.title,
 					{
 						guildName: this.name,
 					}
@@ -216,8 +215,6 @@ module.exports = (Sequelize, DataTypes) => {
 
 		if (this.needLevelUp()) {
 			return this.levelUpIfNeeded(channel, language);
-		} else {
-			return;
 		}
 	};
 

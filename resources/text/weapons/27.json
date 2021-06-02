@@ -4,5 +4,7 @@
 		"en": ":dagger: **Saber**"
 	},
 	"rarity": 7,
-	"rawAttack": 10
+	"rawAttack": 10,
+	"french_masculine": 1,
+	"french_plural": 0
 }

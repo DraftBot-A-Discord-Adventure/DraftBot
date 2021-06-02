@@ -1,0 +1,13 @@
+{
+	"translations": {
+		"fr": {
+			"text": "Voici la map de DraftBot, {pseudo} !",
+			"descText": "Actuellement, vous marchez {particle} **{direction}** : {dirDesc}"
+		},
+		"en": {
+			"text": "There is the map, {pseudo} !",
+			"descText": "Currently, you are going in the direction {particle} **{direction}** : {dirDesc}"
+		}
+	},
+	"URL": "https://raw.githubusercontent.com/DraftBot-A-Discord-Adventure/DraftBot/website/public/ressources/map.jpg"
+}

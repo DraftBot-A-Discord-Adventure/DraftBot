@@ -4,5 +4,7 @@
 		"en": ":shield: **Lynel's shield**"
 	},
 	"rarity": 4,
-	"rawDefense": 9
+	"rawDefense": 9,
+	"french_masculine": 1,
+	"french_plural": 0
 }

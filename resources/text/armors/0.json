@@ -4,5 +4,7 @@
 		"en": ":black_large_square: **No shield or armor**"
 	},
 	"rarity": 0,
-	"rawDefense": 0
+	"rawDefense": 0,
+	"french_masculine": 0,
+	"french_plural": 0
 }

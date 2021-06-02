@@ -1,0 +1,13 @@
+{
+	"type": "vi",
+	"name_fr": "Ville Forte",
+	"name_en": "Ville Forte",
+	"particle_fr": "vers la",
+	"particle_en": "of",
+	"desc_fr": "Ancienne grande ville fortifiée, Ville Forte n’est plus que l’ombre d’elle-même. Ravagée par l’ancienne guerre il ne reste qu’une dizaine de maisons et paysans. Le reste de l’ancienne fortification n’est que ruine.",
+	"desc_en": "An anciently fortified city, Ville Forte is not what it used to be. Ravaged by the old war, only a dozen houses and peasants remain. The rest of the old fortification isn't more than ruins.",
+	"north_map": 11,
+	"east_map": null,
+	"south_map": 8,
+	"west_map": 9
+}

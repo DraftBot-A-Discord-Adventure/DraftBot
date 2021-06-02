@@ -11,16 +11,18 @@ class DraftBot {
 		DraftBot.handleLogs();
 
 		await require("core/JsonReader").init({
-			folders: ["resources/text/commands", "resources/text/models"],
+			folders: ["resources/text/commands", "resources/text/models", "resources/text/small_events"],
 			files: [
 				"config/app.json",
 				"draftbot/package.json",
 				"resources/text/error.json",
 				"resources/text/bot.json",
 				"resources/text/classesValues.json",
+				"resources/text/advices.json",
+				"resources/text/smallEventsIntros.json",
 				"resources/text/values.json",
 				"resources/text/items.json",
-				"resources/text/food.json",
+				"resources/text/food.json"
 			],
 		});
 		await require("core/Database").init();
@@ -89,10 +91,10 @@ class DraftBot {
         potion = await Potions.findAll({
             order: sequelize.literal('random()'),
         });
-        let i = 0
-        while (potion[i].id == shopPotion.shop_potion_id || potion[i].nature == 0) {
-        i++
-        } potion = potion[i]
+        let i = 0;
+        while (potion[i].id === shopPotion.shop_potion_id || potion[i].nature === 0) {
+        i++;
+        } potion = potion[i];
 
 		await Shop.update(
 			{
@@ -158,28 +160,37 @@ class DraftBot {
 			limit: 1,
 		});
 		if (winner !== null) {
-			let message = await (
-				await client.channels.fetch(
-					JsonReader.app.FRENCH_ANNOUNCEMENT_CHANNEL_ID
-				)
-			).send(
-				format(
-					JsonReader.bot.getTranslation("fr").topWeekAnnouncement,
-					{mention: winner.getMention()}
-				)
-			);
-			message.react("🏆");
-			message = await (
-				await client.channels.fetch(
-					JsonReader.app.ENGLISH_ANNOUNCEMENT_CHANNEL_ID
-				)
-			).send(
-				format(
-					JsonReader.bot.getTranslation("en").topWeekAnnouncement,
-					{mention: winner.getMention()}
-				)
-			);
-			message.react("🏆");
+			let message;
+			try {
+				message = await (
+					await client.channels.fetch(
+						JsonReader.app.FRENCH_ANNOUNCEMENT_CHANNEL_ID
+					)
+				).send(
+					format(
+						JsonReader.bot.getTranslation("fr").topWeekAnnouncement,
+						{mention: winner.getMention()}
+					)
+				);
+				await message.react("🏆");
+			} catch (e) {
+				log("No channel for french announcement !");
+			}
+			try {
+				message = await (
+					await client.channels.fetch(
+						JsonReader.app.ENGLISH_ANNOUNCEMENT_CHANNEL_ID
+					)
+				).send(
+					format(
+						JsonReader.bot.getTranslation("en").topWeekAnnouncement,
+						{mention: winner.getMention()}
+					)
+				);
+				await message.react("🏆");
+			} catch (e) {
+				log("No channel for english announcement !");
+			}
 			winner.Player.addBadge("🎗️");
 			winner.Player.save();
 		}
@@ -392,6 +403,7 @@ class DraftBot {
 module.exports = {
 	init: DraftBot.init,
 	dailyTimeout: DraftBot.dailyTimeout,
+	twe: DraftBot.topWeekEnd,
 };
 /**
  * @type {module:"discord.js"}

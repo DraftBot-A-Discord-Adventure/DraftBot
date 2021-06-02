@@ -19,17 +19,9 @@ const GuildKickCommand = async (language, message, args) => {
 		kickedEntity = null;
 	}
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
-			entity
-		)) !== true
-	) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true)
 		return;
-	}
+
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
@@ -66,7 +58,7 @@ const GuildKickCommand = async (language, message, args) => {
 		);
 	}
 
-	if (guild.chief_id != entity.id) {
+	if (guild.chief_id !== entity.id) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -82,7 +74,7 @@ const GuildKickCommand = async (language, message, args) => {
 		kickedGuild = null;
 	}
 
-	if (kickedGuild === null || kickedGuild.id != guild.id) {
+	if (kickedGuild === null || kickedGuild.id !== guild.id) {
 		// not the same guild
 		return sendErrorMessage(
 			message.author,
@@ -119,14 +111,14 @@ const GuildKickCommand = async (language, message, args) => {
 	embed = new discord.MessageEmbed();
 	const filterConfirm = (reaction, user) => {
 		return (
-			(reaction.emoji.name == MENU_REACTION.ACCEPT ||
-				reaction.emoji.name == MENU_REACTION.DENY) &&
+			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.author.id
 		);
 	};
 
 	const collector = msg.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -136,20 +128,16 @@ const GuildKickCommand = async (language, message, args) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			// a reaction exist
-			if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
+			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				try {
 					[kickedEntity] = await Entities.getByArgs(args, message);
-				} catch (error) {
-					kickedEntity = null;
-				}
-				// search for a user's guild
-				try {
 					kickedGuild = await Guilds.getById(kickedEntity.Player.guild_id);
 				} catch (error) {
+					kickedEntity = null;
 					kickedGuild = null;
 				}
 
-				if (kickedGuild === null) {
+				if (kickedGuild === null || kickedEntity === null) {
 					// not the same guild
 					return sendErrorMessage(
 						message.author,
@@ -179,17 +167,7 @@ const GuildKickCommand = async (language, message, args) => {
 		}
 
 		// Cancel the kick
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			format(
-				JsonReader.commands.guildKick.getTranslation(language).kickCancelled,
-				{
-					kickedPseudo: await kickedEntity.Player.getPseudo(language),
-				}
-			)
-		);
+		return sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {kickedPseudo: await kickedEntity.Player.getPseudo(language),}),true);
 	});
 
 	await Promise.all([

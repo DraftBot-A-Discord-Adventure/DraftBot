@@ -12,7 +12,7 @@ const GuildStorageCommand = async (language, message, args) => {
 			message,
 			language,
 			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
+			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 			entity
 		)) !== true
 	) {
@@ -63,7 +63,7 @@ const GuildStorageCommand = async (language, message, args) => {
 		}),
 		format(translations.foodField, {
 			guildFood: guild.commonFood,
-			maxFood: GUILD.MAX_COMMON_PETFOOD,
+			maxFood: GUILD.MAX_COMMON_PET_FOOD,
 		}),
 		true
 	);
@@ -74,7 +74,7 @@ const GuildStorageCommand = async (language, message, args) => {
 		}),
 		format(translations.foodField, {
 			guildFood: guild.herbivorousFood,
-			maxFood: GUILD.MAX_HERBIVOROUS_PETFOOD,
+			maxFood: GUILD.MAX_HERBIVOROUS_PET_FOOD,
 		}),
 		true
 	);
@@ -85,7 +85,7 @@ const GuildStorageCommand = async (language, message, args) => {
 		}),
 		format(translations.foodField, {
 			guildFood: guild.carnivorousFood,
-			maxFood: GUILD.MAX_CARNIVOROUS_PETFOOD,
+			maxFood: GUILD.MAX_CARNIVOROUS_PET_FOOD,
 		}),
 		true
 	);
@@ -96,7 +96,7 @@ const GuildStorageCommand = async (language, message, args) => {
 		}),
 		format(translations.foodField, {
 			guildFood: guild.ultimateFood,
-			maxFood: GUILD.MAX_ULTIMATE_PETFOOD,
+			maxFood: GUILD.MAX_ULTIMATE_PET_FOOD,
 		}),
 		true
 	);

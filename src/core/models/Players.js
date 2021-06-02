@@ -1,3 +1,4 @@
+const Maps = require('../Maps');
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -41,24 +42,12 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.TEXT,
 			defaultValue: JsonReader.models.players.badges,
 		},
-		lastReportAt: {
-			type: DataTypes.DATE,
-			defaultValue: require('moment')(),
-		},
 		entity_id: {
 			type: DataTypes.INTEGER,
 		},
 		guild_id: {
 			type: DataTypes.INTEGER,
 			defaultValue: JsonReader.models.players.guild_id,
-		},
-		updatedAt: {
-			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
-		},
-		createdAt: {
-			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
 		},
 		topggVoteAt: {
 			type: DataTypes.DATE,
@@ -73,6 +62,40 @@ module.exports = (Sequelize, DataTypes) => {
 		last_pet_free: {
 			type: DataTypes.DATE,
 			defaultValue: new Date(0)
+		},
+		effect: {
+			type: DataTypes.STRING(32),
+			defaultValue: JsonReader.models.entities.effect,
+		},
+		effect_end_date: {
+			type: DataTypes.DATE,
+			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+		},
+		effect_duration: {
+			type: DataTypes.INTEGER,
+			defaultValue: 0,
+		},
+		previous_map_id: {
+			type: DataTypes.INTEGER
+		},
+		map_id: {
+			type: DataTypes.INTEGER
+		},
+		start_travel_date: {
+			type: DataTypes.DATE,
+			defaultValue: 0
+		},
+		updatedAt: {
+			type: DataTypes.DATE,
+			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+		},
+		createdAt: {
+			type: DataTypes.DATE,
+			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+		},
+		dmnotification: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true
 		}
 	}, {
 		tableName: 'players',
@@ -219,13 +242,6 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * @param {Number} hours
-	 */
-	Players.prototype.fastForward = async function (hours) {
-		this.lastReportAt = new (require('moment'))(this.lastReportAt).subtract(hours, 'h');
-	};
-
-	/**
 	 * @param {"fr"|"en"} language
 	 */
 	Players.prototype.setPseudo = async function (language) {
@@ -277,7 +293,7 @@ module.exports = (Sequelize, DataTypes) => {
 			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.guildUnlocked);
 		}
 
-		if (this.level % 10 == 0) {
+		if (this.level % 10 === 0) {
 			entity.health = await entity.getMaxHealth();
 			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.healthRestored);
 		}
@@ -311,8 +327,6 @@ module.exports = (Sequelize, DataTypes) => {
 
 		if (this.needLevelUp()) {
 			return this.levelUpIfNeeded(entity, channel, language);
-		} else {
-			return;
 		}
 	};
 
@@ -322,13 +336,10 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Number} timeMalus
 	 * @param {String} effectMalus
 	 */
-	Players.prototype.setLastReportWithEffect = function (
-		time, timeMalus, effectMalus) {
-		if (timeMalus > 0 && effectMalus === ":clock2:") {
-			this.lastReportAt = new Date(time + minutesToMilliseconds(timeMalus));
-		} else {
-			this.lastReportAt = new Date(time + JsonReader.models.players.effectMalus[effectMalus]);
-		}
+	Players.prototype.setLastReportWithEffect = async function (time, timeMalus, effectMalus) {
+		this.start_travel_date = new Date(time);
+		await this.save();
+		await require("../../core/Maps").applyEffect(this, effectMalus, timeMalus);
 	};
 
 	/**
@@ -336,18 +347,63 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Entity} entity
 	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
-	 * @return {Promise<void>}
+	 * @return {Promise<boolean>}
 	 */
 	Players.prototype.killIfNeeded = async function (entity, channel, language) {
 
 		if (entity.health > 0) {
-			return;
+			return false;
 		}
-
-		entity.effect = EFFECT.DEAD;
-		this.lastReportAt = new Date(9999, 1);
+		log("This user is dead : " + entity.discordUser_id);
+		await Maps.applyEffect(entity.Player, EFFECT.DEAD);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
-		channel.guild.members.fetch(entity.discordUser_id).then(user => user.send(JsonReader.models.players.getTranslation(language).koPM));
+
+		let guildMember = await channel.guild.members.fetch(entity.discordUser_id);
+		let user = guildMember.user;
+		this.dmnotification ? sendDirectMessage(user, JsonReader.models.players.getTranslation(language).koPM.title, JsonReader.models.players.getTranslation(language).koPM.description, JsonReader.bot.embed.default, language)
+			: channel.send(new discord.MessageEmbed()
+				.setDescription(JsonReader.models.players.getTranslation(language).koPM.description)
+				.setTitle(JsonReader.models.players.getTranslation(language).koPM.title)
+				.setColor(JsonReader.bot.embed.default)
+				.setFooter(JsonReader.models.players.getTranslation(language).dmDisabledFooter));
+
+		return true;
+	};
+
+	Players.prototype.isInactive = function () {
+		return (this.start_travel_date.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days) < Date.now();
+	};
+
+	/**
+	 * Returns if the effect of the player is finished or not
+	 * @return {boolean}
+	 */
+	Players.prototype.currentEffectFinished = function () {
+		if (this.effect === EFFECT.DEAD || this.effect === EFFECT.BABY) {
+			return false;
+		}
+		if (this.effect === EFFECT.SMILEY) {
+			return true;
+		}
+		return this.effect_end_date.getTime() < Date.now();
+	};
+
+	Players.prototype.effectRemainingTime = function () {
+		let remainingTime = 0;
+		if (JsonReader.models.players.effectMalus[this.effect] || this.effect === EFFECT.OCCUPIED) {
+			remainingTime = this.effect_end_date - Date.now();
+		}
+		if (remainingTime < 0) {
+			remainingTime = 0;
+		}
+		return remainingTime;
+	};
+
+	/**
+	 * @return {Boolean}
+	 */
+	Players.prototype.checkEffect = function () {
+		return [EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1;
 	};
 
 	return Players;

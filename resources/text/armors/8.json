@@ -4,5 +4,7 @@
 		"en": ":shield: **Basic shield**"
 	},
 	"rarity": 2,
-	"rawDefense": 4
+	"rawDefense": 4,
+	"french_masculine": 1,
+	"french_plural": 0
 }

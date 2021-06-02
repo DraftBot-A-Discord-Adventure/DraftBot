@@ -5,5 +5,7 @@
 	},
 	"rarity": 6,
 	"power": 100,
-	"nature": 1
+	"nature": 1,
+	"french_masculine": 0,
+	"french_plural": 0
 }

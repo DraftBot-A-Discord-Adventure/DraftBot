@@ -4,5 +4,7 @@
 		"en": ":crossed_swords: **Master sword**"
 	},
 	"rarity": 7,
-	"rawAttack": 9
+	"rawAttack": 9,
+	"french_masculine": 0,
+	"french_plural": 0
 }

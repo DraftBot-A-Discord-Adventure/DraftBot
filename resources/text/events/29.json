@@ -1,124 +1,145 @@
 {
+	"restricted_maps": "de,be,pl,ro",
 	"translations": {
-		"fr": " : ** :thermometer: Les températures dépassant les 30°C depuis plusieurs jours vous accablent. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous réfléchissez à une stratégie à suivre...\n\n:mag: Chercher un point d'eau aux alentours\n:deciduous_tree: Se reposer au pied d'un arbre\n:sleeping: Se reposer sur place\n\n*- Utilisez les réactions pour effectuer une action :warning: Ne pas répondre est considéré comme un choix à part !*",
-		"en": " : ** :thermometer: In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape. \n\n:mag: Search the surroundings for a body of water\n:deciduous_tree: Rest at the foot of a tree\n:sleeping: Rest right here\n\n*-Use the reactions to take an action. :warning: Not reacting is also considered a choice!*"
+		"fr": "🌡️ Les températures dépassant les 30°C depuis plusieurs jours vous accablent. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous réfléchissez à une stratégie à suivre...",
+		"en": "🌡️ In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape."
 	},
 	"possibilities": {
-		"🔍": [
-			{
-				"translations": {
-					"fr": "** | 🔍 Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
-					"en": "** | 🔍 You remember passing by a lake, so you go there. When you get there, you enjoy a swim that feels great. You're now refreshed, and in better shape to continue on your journey across the country."
-				},
-				"lostTime": 50,
-				"health": 10,
-				"effect": ":clock2:",
-				"experience": 225,
-				"money": 0,
-				"item": false
+		"🔍": {
+			"translations": {
+				"fr": "Chercher un point d'eau aux alentours",
+				"en": "Search the surroundings for a body of water"
 			},
-			{
-				"translations": {
-					"fr": "** | 🔍 Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Sur le chemin vous trouvez un item qui vous sera sûrement utile. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
-					"en": "** | 🔍 You remember passing by a lake, so you go there... on the way, you find an item that will surely be useful to you. When you arrive, you enjoy a swim that feels great. You are now refreshed, and in better shape to continue your journey across the country."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
+						"en": "You remember passing by a lake, so you go there. When you get there, you enjoy a swim that feels great. You're now refreshed, and in better shape to continue on your journey across the country."
+					},
+					"lostTime": 50,
+					"health": 10,
+					"effect": ":clock2:",
+					"experience": 225,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 30,
-				"health": 10,
-				"effect": ":clock2:",
-				"experience": 525,
-				"money": 0,
-				"item": true
+				{
+					"translations": {
+						"fr": "Vous vous rappelez être passé près d'un lac, vous vous y dirigez donc.. Sur le chemin vous trouvez un item qui vous sera sûrement utile. Arrivé, vous profitez d'une baignade qui vous fait un grand bien, vous êtes désormais rafraichi et en meilleure forme pour continuer votre périple à travers le pays.",
+						"en": "You remember passing by a lake, so you go there... on the way, you find an item that will surely be useful to you. When you arrive, you enjoy a swim that feels great. You are now refreshed, and in better shape to continue your journey across the country."
+					},
+					"lostTime": 30,
+					"health": 10,
+					"effect": ":clock2:",
+					"experience": 525,
+					"money": 0,
+					"item": true
+				},
+				{
+					"translations": {
+						"fr": "Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise",
+						"en": "You look for a body of water in vain.... Because of this fatigue, you fall ill"
+					},
+					"lostTime": 0,
+					"health": -10,
+					"effect": ":sleeping:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🌳": {
+			"translations": {
+				"fr": "Se reposer au pied d'un arbre",
+				"en": "Rest at the foot of a tree"
 			},
-			{
-				"translations": {
-					"fr": "** | 🔍 Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise :sleeping:",
-					"en": "** | 🔍 You look for a body of water in vain.... Because of this fatigue, you fall ill :sleeping:"
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous voyez une zone d'ombre sous les arbres, et décidez d'y aller. Après une petite heure de sommeil, vous repartez et continuez votre route.",
+						"en": "You discover a shadowed area under the trees, and decide to go there. After a short hour of sleep, you leave and continue on your way."
+					},
+					"lostTime": 55,
+					"health": 10,
+					"effect": ":clock2:",
+					"experience": 225,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": -10,
-				"effect": ":sleeping:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		],
-		"🌳": [
-			{
-				"translations": {
-					"fr": "** | 🌳 Vous voyez une zone d'ombre sous les arbres, et décidez d'y aller. Après une petite heure de sommeil, vous repartez et continuez votre route.",
-					"en": "** | 🌳 You discover a shadowed area under the trees, and decide to go there. After a short hour of sleep, you leave and continue on your way."
-				},
-				"lostTime": 55,
-				"health": 10,
-				"effect": ":clock2:",
-				"experience": 225,
-				"money": 0,
-				"item": false
+				{
+					"translations": {
+						"fr": "Vous vous dirigez vers une zone ombragée, où vous vous reposez. Mais, à votre réveil, vous remarquez que vous vous êtes fait dépouiller de vos affaires.",
+						"en": "You go to a shaded area where you can rest. But when you wake up, you notice you've been stripped of your belongings."
+					},
+					"lostTime": 60,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": -100,
+					"item": false
+				}
+			]
+		},
+		"😴": {
+			"translations": {
+				"fr": "Se reposer sur place",
+				"en": "Rest right here"
 			},
-			{
-				"translations": {
-					"fr": "** | 🌳 Vous vous dirigez vers une zone ombragée, où vous vous reposez. Mais, à votre réveil, vous remarquez que vous vous êtes fait dépouiller de vos affaires.",
-					"en": "** | 🌳 You go to a shaded area where you can rest. But when you wake up, you notice you've been stripped of your belongings."
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous vous reposez, cependant, le sol est très inconfortable",
+						"en": "You rest, however, the floor is very uncomfortable"
+					},
+					"lostTime": 180,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 60,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": -100,
-				"item": false
-			}
-		],
-		"😴": [
-			{
-				"translations": {
-					"fr": "** | 💤 Vous vous reposez, cependant, le sol est très inconfortable",
-					"en": "** | 💤 You rest, however, the floor is very uncomfortable"
+				{
+					"translations": {
+						"fr": "Vous vous reposez, après votre bonne sieste, vous repartez plus motivé que jamais",
+						"en": "After your rest, you leave feeling more motivated than ever"
+					},
+					"lostTime": 90,
+					"health": 1,
+					"effect": ":clock2:",
+					"experience": 225,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "👀 Vous restez à votre place, en plein soleil pendant une quinzaine de minutes, puis vous écroulez",
+						"en": "👀 You stay where you belong in full sunlight for about 15 minutes, then collapse"
+					},
+					"lostTime": 0,
+					"health": -20,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 180,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 💤 Vous vous reposez, après votre bonne sieste, vous repartez plus motivé que jamais",
-					"en": "** | 💤 After your rest, you leave feeling more motivated than ever"
-				},
-				"lostTime": 90,
-				"health": 1,
-				"effect": ":clock2:",
-				"experience": 225,
-				"money": 0,
-				"item": false
-			}
-		],
-		"end": [
-			{
-				"translations": {
-					"fr": "** | 👀 Vous restez à votre place, en plein soleil pendant une quinzaine de minutes, puis vous écroulez",
-					"en": "** | 👀 You stay where you belong in full sunlight for about 15 minutes, then collapse"
-				},
-				"lostTime": 0,
-				"health": -20,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "** | 🚶 Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps",
-					"en": "** | 🚶 You decide to use your reserves, and continue your journey to not waste time"
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "🚶 Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps",
+						"en": "🚶 You decide to use your reserves, and continue your journey to not waste time"
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

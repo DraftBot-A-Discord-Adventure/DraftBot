@@ -4,5 +4,7 @@
 		"en": ":right_facing_fist: **Reinforced fist**"
 	},
 	"rarity": 1,
-	"rawAttack": 6
+	"rawAttack": 6,
+	"french_masculine": 1,
+	"french_plural": 0
 }

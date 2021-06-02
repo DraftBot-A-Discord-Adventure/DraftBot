@@ -16,7 +16,7 @@ const topServerCommand = async function (language, message, args) {
 
 	//TODO : Voir avec discord pourquoi le ts marche plus !
 	//Morceau de code à retirer
-	if (language == "fr")
+	if (language === "fr")
 		return message.channel.send(":x: Cette commande est désactivée pour le moment suite à un changement de la part de discord dans leur API. Elle sera de retour bientôt !");
 	else
 		return message.channel.send(":x: This command is broken due to changes in the discord API, We hope to get it back online soon!");
@@ -236,7 +236,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 
 		//pseudo of the current player being add to the string
 		let pseudo = await allEntities[k].Player.getPseudo(language);
-		let badgeState;
+		let badgeState = ':smiley:';
 
 		//badge depending on the rank
 		if (page === 1) {
@@ -255,9 +255,9 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 		// const nowMoment = new moment(new Date());
 		// const lastReport = new moment(allEntities[k-1].Player.lastReportAt);
 		// const diffMinutes = lastReport.diff(nowMoment, 'millisecondes');
-		if (((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) < JsonReader.commands.topCommand.oneHour) || allEntities[k].Player.lastReportAt == null) badgeState = allEntities[k].effect;
-		if ((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) > JsonReader.commands.topCommand.oneHour) {
-			if ((Date.now() - Date.parse(allEntities[k].Player.lastReportAt)) > JsonReader.commands.topCommand.fifth10days) {
+		if (Date.now() < Date.parse(allEntities[k].Player.effect_end_date)) badgeState = allEntities[k].Player.effect;
+		if (Date.now() > Date.parse(allEntities[k].Player.effect_end_date) + 2 * JsonReader.commands.topCommand.oneHour) {
+			if (allEntities[k].Player.isInactive()) {
 				badgeState = ":ghost:";
 			} else {
 				badgeState = ":newspaper2:";

@@ -53,12 +53,13 @@
   "//DBL_LOGS_CHANNEL": "Put the channel id of the vote logs",
   "DBL_LOGS_CHANNEL": "",
 
-  "DBL_TOKEN": "Put the DBL server token",
+  "//DBL_TOKEN": "Put the DBL server token",
   "DBL_TOKEN": "",
   
   "//MODE_MAINTENANCE": "Boolean to tell if the bot is under maintenance or not",
   "MODE_MAINTENANCE": false,
   
    "//TEST_MODE": "Boolean to tell if the bot is under test mode",
-  "TEST_MODE": true
+  "TEST_MODE": false
 }
+ 

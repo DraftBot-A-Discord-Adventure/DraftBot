@@ -6,12 +6,8 @@
  */
 const SendDataCommand = async (language, message, args) => {
 	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.CONTRIBUTORS)) !== true) {
+		PERMISSION.ROLE.BOT_OWNER)) !== true) {
 		return;
-	}
-
-	if (message.channel.id !== JsonReader.app.CONTRIBUTORS_CHANNEL && message.author.id !== JsonReader.app.BOT_OWNER_ID) {
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.error.getTranslation(language).notContributorsChannel);
 	}
 
 	await message.channel.send({

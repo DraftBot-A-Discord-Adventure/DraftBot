@@ -109,7 +109,7 @@ class Command {
 	 * @param {module:"discord.js".ReactionCollector} collector
 	 */
 	static addBlockedPlayer(id, context, collector = null) {
-		Command.players[id] = {context: context, collector: collector};
+		Command.players[id] = { context: context, collector: collector };
 	}
 
 	/**
@@ -209,12 +209,19 @@ class Command {
 		if (message.attachments.size > 0) {
 			await sendMessageAttachments(message, dmChannel);
 		}
+		let icon = "";
+		const [entity] = await Entities.getOrRegister(message.author.id);
+		if (!entity.Player.dmnotification) {
+			icon = JsonReader.bot.dm.alertIcon;
+		}
 		dmChannel.send(
 			format(JsonReader.bot.dm.supportAlert, {
 				username: message.author.username,
-				id: message.author.id,
+				alertIcon: icon,
+				id: message.author.id
 			}) + message.content
 		);
+
 		let msg = await sendSimpleMessage(
 			message.author,
 			message.channel,
@@ -229,7 +236,7 @@ class Command {
 		};
 
 		const collector = msg.createReactionCollector(filterConfirm, {
-			time: 120000,
+			time: COLLECTOR_TIME,
 			max: 1,
 		});
 
@@ -241,7 +248,7 @@ class Command {
 				message.channel,
 				format(
 					JsonReader.bot.getTranslation(language).dmHelpMessageTitle,
-					{pseudo: message.author.username}
+					{ pseudo: message.author.username }
 				),
 				JsonReader.bot.getTranslation(language).dmHelpMessage
 			);
@@ -282,34 +289,84 @@ class Command {
 				!message.channel.permissionsFor(client.user).serialize()
 					.SEND_MESSAGES
 			) {
-				return await message.author.send(
-					JsonReader.bot.getTranslation(language).noSpeakPermission
-				);
+				try {
+					await message.author.send(
+						JsonReader.bot.getTranslation(language).noSpeakPermission
+					)
+				} catch (err) {
+					log('No perms to show i can\'t react in server / channel : ' + message.guild + "/" + message.channel);
+				}
+				return;
 			}
 			if (
 				!message.channel.permissionsFor(client.user).serialize()
 					.ADD_REACTIONS
 			) {
-				return await message.author.send(
-					JsonReader.bot.getTranslation(language).noReacPermission
-				);
+				try {
+					await message.author.send(
+						JsonReader.bot.getTranslation(language).noReacPermission
+					);
+				} catch (err) {
+					await message.channel.send(
+						JsonReader.bot.getTranslation(language).noReacPermission
+					);
+				}
+				return;
 			}
 			if (
 				!message.channel.permissionsFor(client.user).serialize()
 					.EMBED_LINKS
 			) {
-				return await message.author.send(
-					JsonReader.bot.getTranslation(language).noEmbedPermission
-				);
+				try {
+					await message.author.send(
+						JsonReader.bot.getTranslation(language).noEmbedPermission
+					);
+				} catch (err) {
+					await message.channel.send(
+						JsonReader.bot.getTranslation(language).noEmbedPermission
+					);
+				}
+				return;
 			}
 			if (
 				!message.channel.permissionsFor(client.user).serialize()
 					.ATTACH_FILES
 			) {
-				return await message.author.send(
-					JsonReader.bot.getTranslation(language).noFilePermission
-				);
+				try {
+					await message.author.send(
+						JsonReader.bot.getTranslation(language).noFilePermission
+					);
+				} catch (err) {
+					await message.channel.send(
+						JsonReader.bot.getTranslation(language).noFilePermission
+					);
+				}
+				return;
 			}
+
+			if (!Command.players.has(command.name)) {
+				Command.players.set(command.name, new Map());
+			}
+
+			const now = Date.now();
+			const timestamps = Command.players.get(command.name);
+			const cooldownAmount = 1000;
+
+			if (timestamps.has(message.author.id)) {
+				const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+				if (now < expirationTime) {
+					return sendErrorMessage(
+						message.author,
+						message.channel,
+						language,
+						JsonReader.error.getTranslation(language).blockedContext["cooldown"]);
+				}
+			}
+
+			timestamps.set(message.author.id, now);
+			setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
 			log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
 			Command.commands.get(command)(language, message, args);
 		}
@@ -319,16 +376,26 @@ class Command {
 /**
  * @type {{init: Command.init}}
  */
-module.exports = {
+module
+	.exports = {
 	init: Command.init,
 };
 
-global.getCommand = Command.getCommand;
-global.getBlockedPlayer = Command.getBlockedPlayer;
-global.hasBlockedPlayer = Command.hasBlockedPlayer;
-global.addBlockedPlayer = Command.addBlockedPlayer;
-global.removeBlockedPlayer = Command.removeBlockedPlayer;
-global.handleMessage = Command.handleMessage;
-global.handlePrivateMessage = Command.handlePrivateMessage;
-global.getMainCommandFromAlias = Command.getMainCommandFromAlias;
-global.getAliasesFromCommand = Command.getAliasesFromCommand;
+global
+	.getCommand = Command.getCommand;
+global
+	.getBlockedPlayer = Command.getBlockedPlayer;
+global
+	.hasBlockedPlayer = Command.hasBlockedPlayer;
+global
+	.addBlockedPlayer = Command.addBlockedPlayer;
+global
+	.removeBlockedPlayer = Command.removeBlockedPlayer;
+global
+	.handleMessage = Command.handleMessage;
+global
+	.handlePrivateMessage = Command.handlePrivateMessage;
+global
+	.getMainCommandFromAlias = Command.getMainCommandFromAlias;
+global
+	.getAliasesFromCommand = Command.getAliasesFromCommand;

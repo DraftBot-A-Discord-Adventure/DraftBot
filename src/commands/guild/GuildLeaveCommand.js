@@ -67,13 +67,13 @@ const GuildLeaveCommand = async (language, message, args) => {
 	const embed = new discord.MessageEmbed();
 	const filterConfirm = (reaction, user) => {
 		return (
-			(reaction.emoji.name == MENU_REACTION.ACCEPT || reaction.emoji.name == MENU_REACTION.DENY) &&
+			(reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.author.id
 		);
 	};
 
 	const collector = msg.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -85,14 +85,14 @@ const GuildLeaveCommand = async (language, message, args) => {
 		if (elder) removeBlockedPlayer(elder.discordUser_id);
 		if (reaction.first()) {
 			// a reaction exist
-			if (reaction.first().emoji.name == MENU_REACTION.ACCEPT) {
+			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				entity.Player.guild_id = null;
-				 if (entity.id === guild.chief_id) {
+				if (entity.id === guild.chief_id) {
 					if (elder) {
 						log(
 							elder.discordUser_id +
 							" becomes the chief of  " +
-							guild.name 
+							guild.name
 						);
 						guild.chief_id = elder.id;
 						guild.elder_id = null;
@@ -104,12 +104,12 @@ const GuildLeaveCommand = async (language, message, args) => {
 						);
 					} else {
 						log(
-							guild.name + 
+							guild.name +
 							" has been destroyed"
 						);
 						// the chief is leaving : destroy the guild
 						await Players.update(
-							{ guild_id: null },
+							{guild_id: null},
 							{
 								where: {
 									guild_id: guild.id,
@@ -144,12 +144,9 @@ const GuildLeaveCommand = async (language, message, args) => {
 
 		// Cancel leaving
 		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			format(JsonReader.commands.guildLeave.getTranslation(language).leavingCancelled, {
+			message.author, message.channel, language, format(JsonReader.commands.guildLeave.getTranslation(language).leavingCancelled, {
 				guildName: guild.name,
-			})
+			}), true
 		);
 	});
 

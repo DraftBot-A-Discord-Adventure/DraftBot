@@ -4,5 +4,7 @@
 		"en": ":fishing_pole_and_fish: **Beginner's fishing rod**"
 	},
 	"rarity": 2,
-	"rawAttack": 3
+	"rawAttack": 3,
+	"french_masculine": 0,
+	"french_plural": 0
 }

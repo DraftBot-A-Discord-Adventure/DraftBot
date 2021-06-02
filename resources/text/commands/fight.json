@@ -29,7 +29,7 @@
 				"noOneAvailable": "Malheureusement, personne ne semble disponible pour combattre sur ce serveur. Votre demande de combat a été annulée.",
 				"opponentNotAvailable": "Malheureusement, cette personne ne semble pas disponible pour le moment. Votre demande de combat a été annulée.",
 				"fightHimself": "Il est impossible de se combattre soi-même ! Trouvez un autre adversaire.",
-				"canceled": ":x: | Votre demande de combat a bien été annulée.",
+				"canceled": "Votre demande de combat a bien été annulée.",
 				"onlyInitiator": " {pseudo}, seul l'initiateur d'un combat peut l'annuler !",
 				"levelTooLow": {
 					"direct": "{pseudo}, vous devez être **LVL {level}** pour accéder aux combats ! Revenez plus tard !",
@@ -176,7 +176,7 @@
 				"noOneAvailable": "Sadly, no one wants to fight with you on this server. Your request has been cancelled.",
 				"opponentNotAvailable": "Sadly, this opponent is not available now. Your request has been cancelled.",
 				"fightHimself": "You can't fight yourself! Find another opponent.",
-				"canceled": ":x: | Your battle request has been canceled.",
+				"canceled": "Your battle request has been canceled.",
 				"onlyInitiator": "Only the fight initiator can cancel it!",
 				"levelTooLow": {
 					"direct": "You must be **LVL {level}** to proceed to the fights! Come back later!",

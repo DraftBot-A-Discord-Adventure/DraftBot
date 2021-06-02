@@ -1,3 +1,4 @@
+const Maps = require("../../core/Maps");
 /**
  * Allow to use the potion if the player has one in the dedicated slot of his inventory
  * @param {("fr"|"en")} language - Language to use in the response
@@ -5,7 +6,7 @@
  */
 const DrinkCommand = async function (language, message) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -39,7 +40,8 @@ const DrinkCommand = async function (language, message) {
 		embed.setColor(JsonReader.bot.embed.default)
 			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
 			.setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, {value: potion.power}));
-		await entity.Player.fastForward(potion.power);
+		Maps.advanceTime(entity.Player, potion.power * 60);
+		entity.Player.save();
 		entity.Player.Inventory.drinkPotion();
 	}
 	if (potion.nature === NATURE.MONEY) {

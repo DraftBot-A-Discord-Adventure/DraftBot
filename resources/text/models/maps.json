@@ -1,0 +1,152 @@
+{
+	"types": [
+		"ci",
+		"ro",
+		"pl",
+		"fo",
+		"mo",
+		"be",
+		"vi",
+		"de",
+		"ri",
+		"la"
+	],
+	"translations": {
+		"fr": {
+			"types": {
+				"ci": {
+					"name": "Ville",
+					"prefix": "de la",
+					"emote": "\uD83C\uDFD8️"
+				},
+				"ro": {
+					"name": "Route",
+					"prefix": "de la",
+					"emote": "\uD83D\uDEE3️"
+				},
+				"pl": {
+					"name": "Plaine",
+					"prefix": "de la",
+					"emote": "\uD83C\uDF3A"
+				},
+				"fo": {
+					"name": "Forêt",
+					"prefix": "de la",
+					"emote": "\uD83C\uDF33"
+				},
+				"mo": {
+					"name": "Montagne",
+					"prefix": "de la",
+					"emote": "⛰️"
+				},
+				"be": {
+					"name": "Plage",
+					"prefix": "de la",
+					"emote": "\uD83C\uDFD6️"
+				},
+				"vi": {
+					"name": "Village",
+					"prefix": "du",
+					"emote": "\uD83D\uDED6"
+				},
+				"de": {
+					"name": "Désert",
+					"prefix": "du",
+					"emote": "\uD83C\uDFDC️"
+				},
+				"ri": {
+					"name": "Rivière",
+					"prefix": "de la",
+					"emote": "\uD83C\uDFDE️"
+				},
+				"la": {
+					"name": "Lac",
+					"prefix": "du",
+					"emote": "\uD83D\uDEA3\u200D♂️"
+				}
+			},
+			"directions": {
+				"names": {
+					"north": "Nord",
+					"south": "Sud",
+					"east": "Est",
+					"west": "Ouest"
+				},
+				"prefix": {
+					"north": "le",
+					"south": "le",
+					"east": "l'",
+					"west": "l'"
+				}
+			}
+		},
+		"en": {
+			"types": {
+				"ci": {
+					"name": "City",
+					"prefix": "of the",
+					"emote": "\uD83C\uDFD8️"
+				},
+				"ro": {
+					"name": "Road",
+					"prefix": "of the",
+					"emote": "\uD83D\uDEE3️"
+				},
+				"pl": {
+					"name": "Plain",
+					"prefix": "of the",
+					"emote": "\uD83C\uDF3A"
+				},
+				"fo": {
+					"name": "Forest",
+					"prefix": "of the",
+					"emote": "\uD83C\uDF33"
+				},
+				"mo": {
+					"name": "Mountain",
+					"prefix": "of the",
+					"emote": "⛰️"
+				},
+				"be": {
+					"name": "Beach",
+					"prefix": "of the",
+					"emote": "\uD83C\uDFD6️"
+				},
+				"vi": {
+					"name": "Village",
+					"prefix": "of the",
+					"emote": "\uD83D\uDED6"
+				},
+				"de": {
+					"name": "Desert",
+					"prefix": "of the",
+					"emote": "\uD83C\uDFDC️"
+				},
+				"ri": {
+					"name": "River",
+					"prefix": "of the",
+					"emote": "\uD83C\uDFDE️"
+				},
+				"la": {
+					"name": "Lake",
+					"prefix": "of the",
+					"emote": "\uD83D\uDEA3\u200D♂️"
+				}
+			},
+			"directions": {
+				"names": {
+					"north": "North",
+					"south": "South",
+					"east": "East",
+					"west": "West"
+				},
+				"prefix": {
+					"north": "the",
+					"south": "the",
+					"east": "the",
+					"west": "the"
+				}
+			}
+		}
+	}
+}

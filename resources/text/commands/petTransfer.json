@@ -1,15 +1,16 @@
 {
 	"translations": {
 		"fr": {
-			"correctUsage": "Usage correct: `{prefix}{cmd} <numéro de l'animal>`\nPour avoir le numéro de l'animal, faites la commande `{prefix}{cmdShelter}`",
-			"wrongPetNumberBetween": "Le numéro de l'animal doit être compris entre 1 et {max}",
-			"wrongPetNumberSingle": "Vous n'avez qu'un seul animal dans le refuge ! Son numéro est 1",
+			"correctUsage": "Usage correct: `{prefix}{cmd} <numéro du familier>`\nPour avoir le numéro du familier, faites la commande `{prefix}{cmdShelter}`",
+			"wrongPetNumberBetween": "Le numéro du familier doit être compris entre 1 et {max}",
+			"wrongPetNumberSingle": "Vous n'avez qu'un seul familier dans le refuge ! Son numéro est 1",
 			"confirmSwitchTitle": "{pseudo}, le transfert a été effectué.",
 			"confirmSwitch": "**{pet1}** reste désormais dans le refuge et **{pet2}** vous suit !",
 			"confirmFollows": "**{pet}** vous suit désormais !",
 			"noSlotAvailable": "Aucun emplacement libre dans le refuge de la guilde !",
 			"confirmDeposit": "**{pet}** restera désormais dans le refuge de la guilde !",
-			"noPetToTransfer": "Vous n'avez aucun animal à placer dans le refuge de la guilde ! Pour en récupérer un, faites `{prefix}{cmd} <numéro de l'animal>`\nPour avoir le numéro de l'animal, faites la commande `{prefix}{cmdShelter}`"
+			"noPetToTransfer": "Vous n'avez aucun familier à placer dans le refuge de la guilde ! Pour en récupérer un, faites `{prefix}{cmd} <numéro du familier>`\nPour avoir le numéro du familier, faites la commande `{prefix}{cmdShelter}`",
+			"isFeisty": "Vous ne pouvez pas transferer de familier fielleux"
 		},
 		"en": {
 			"correctUsage": "Correct usage: `{prefix}{cmd} <pet number>`\nTo get the pet number, execute `{prefix}{cmdShelter}`",
@@ -20,7 +21,8 @@
 			"confirmFollows": "**{pet}** now follows you!",
 			"noSlotAvailable": "No free slot available in the guild shelter!",
 			"confirmDeposit": "**{pet}** will now stay in the guild shelter!",
-			"noPetToTransfer": "You don't have a pet to transfer to the guild's shelter! To retrieve one, please execute `{prefix}{cmd} <pet number>`\nTo get the pet number, execute `{prefix}{cmdShelter}`"
+			"noPetToTransfer": "You don't have a pet to transfer to the guild's shelter! To retrieve one, please execute `{prefix}{cmd} <pet number>`\nTo get the pet number, execute `{prefix}{cmdShelter}`",
+			"isFeisty": "You can't transfer feisty pet."
 		}
 	}
 }

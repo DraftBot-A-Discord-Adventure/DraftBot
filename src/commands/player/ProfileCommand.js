@@ -15,7 +15,7 @@ const ProfileCommand = async function (language, message, args) {
 		return;
 	}
 
-	let titleEffect = entity.effect;
+	let titleEffect = entity.Player.effect;
 	const fields = [
 		{
 			name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
@@ -68,8 +68,8 @@ const ProfileCommand = async function (language, message, args) {
 		},
 	];
 
-	if (!entity.checkEffect()) {
-		if (message.createdAt.getTime() >= entity.Player.lastReportAt.getTime()) {
+	if (!entity.Player.checkEffect()) {
+		if (message.createdAt.getTime() >= entity.Player.effect_end_date) {
 			titleEffect = ':hospital:';
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).timeLeft.fieldName,
@@ -79,8 +79,8 @@ const ProfileCommand = async function (language, message, args) {
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).timeLeft.fieldName,
 				value: format(JsonReader.commands.profile.getTranslation(language).timeLeft.fieldValue, {
-					effect: entity.effect,
-					timeLeft: minutesToString(millisecondsToMinutes(entity.Player.lastReportAt.getTime() - message.createdAt.getTime())),
+					effect: entity.Player.effect,
+					timeLeft: minutesToString(millisecondsToMinutes(entity.Player.effect_end_date - message.createdAt.getTime())),
 				}),
 			});
 		}
@@ -112,6 +112,23 @@ const ProfileCommand = async function (language, message, args) {
 			});
 		}
 	} catch (error) {
+	}
+
+	try {
+		const map_id = entity.Player.map_id;
+		if (map_id !== null) {
+			const map = await MapLocations.getById(map_id);
+			fields.push({
+				name: JsonReader.commands.profile.getTranslation(language).map.fieldName,
+				value: format(JsonReader.commands.profile.getTranslation(language).map.fieldValue, {
+					mapEmote: map.getEmote(language),
+					mapName: map["name_" + language]
+				}),
+				inline: true
+			});
+		}
+	} catch (error) {
+		console.log(error);
 	}
 
 	try {
@@ -147,13 +164,13 @@ const ProfileCommand = async function (language, message, args) {
 	};
 
 	const collector = msg.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: JsonReader.commands.profile.badgeMaxReactNumber,
 	});
 
 	collector.on('collect', async (reaction) => {
 		message.channel.send(JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]).then((msg) => {
-			msg.delete({'timeout': JsonReader.commands.profile.badgeDescriptionTimeout});
+			msg.delete({ 'timeout': JsonReader.commands.profile.badgeDescriptionTimeout });
 		}).catch((err) => {
 		});
 	});

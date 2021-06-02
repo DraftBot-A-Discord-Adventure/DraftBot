@@ -2,10 +2,10 @@
 	"translations": {
 		"fr": {
 			"description": {
-				"0": "Une classe simple et économique. Plutot équilibrée.",
-				"1": "Une classe simple et économique. Plutot équilibrée.",
-				"2": "Une classe simple et économique. Plutot équilibrée.",
-				"3": "Une classe simple et économique. Plutot équilibrée.",
+				"0": "Une classe simple et économique. Plutôt équilibrée.",
+				"1": "Une classe simple et économique. Plutôt équilibrée.",
+				"2": "Une classe simple et économique. Plutôt équilibrée.",
+				"3": "Une classe simple et économique. Plutôt équilibrée.",
 				"4": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
 				"5": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
 				"6": "Une classe axée sur la défense. Faibles performances en combat mais vie supplémentaire pour l'aventure.",
@@ -26,7 +26,7 @@
 			"display": "{name}\n\n:scroll: `{description}`\n\nSouhaitez vous dépenser `{price} 💰` pour prendre cette classe ?",
 			"success": "{pseudo}, votre classe a été modifiée !",
 			"newClass": "Votre nouvelle classe est : ",
-			"confirm": "{pseudo}, Vous avez sélectionné la classe suivante :",
+			"confirm": "{pseudo}, vous avez sélectionné la classe suivante :",
 			"moneyQuantity": "{money} 💰",
 			"moneyQuantityTitle": "Votre argent :",
 			"classMainDisplay": "{description}\nPrix : `{price} 💰`.",

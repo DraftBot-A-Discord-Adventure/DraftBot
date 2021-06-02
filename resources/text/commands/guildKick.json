@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"notInAguild": "Vous devez appartenir à une guilde pour effectuer cette commande",
-			"cannotGetKickedUser": "Veuillez mentionner un joueur existant. Ex : `guildAdd @user#0000`",
+			"cannotGetKickedUser": "Veuillez mentionner un joueur existant. Ex : `guildKick @user#0000`",
 			"notInTheGuild": "Le joueur n'appartient pas à votre guilde.",
 			"notChiefError": "Vous devez être chef de la guilde pour effectuer cette commande.",
 			"kickTitle": "{pseudo}, confirmation :",
@@ -15,7 +15,7 @@
 		},
 		"en": {
 			"notInAguild": "You have to be in a guild to use this command.",
-			"cannotGetKickedUser": "Please mention an existing player. Ex : `guildAdd @user#0000`",
+			"cannotGetKickedUser": "Please mention an existing player. Ex : `guildKick @user#0000`",
 			"notInTheGuild": "This player is not in your guild.",
 			"notChiefError": "You have to be a guild leader to use this command.",
 			"kickTitle": "{pseudo}, confirmation:",

@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": ":window: **Plexiglas**",
+		"en": ":window: **Plexiglas**"
+	},
+	"rarity": 4,
+	"rawDefense": 3,
+	"attack" : 10,
+	"french_masculine": 1,
+	"french_plural": 0
+}

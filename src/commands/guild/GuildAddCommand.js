@@ -13,17 +13,8 @@ const GuildAddCommand = async (language, message, args) => {
 
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
-			entity
-		)) !== true
-	) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true)
 		return;
-	}
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
@@ -148,14 +139,14 @@ const GuildAddCommand = async (language, message, args) => {
 	const embed = new discord.MessageEmbed();
 	const filterConfirm = (reaction, user) => {
 		return (
-			(reaction.emoji.name == MENU_REACTION.ACCEPT ||
-				reaction.emoji.name == MENU_REACTION.DENY) &&
+			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.mentions.users.last().id
 		);
 	};
 
 	const collector = msg.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -189,37 +180,19 @@ const GuildAddCommand = async (language, message, args) => {
 					invitedEntity.Player.save(),
 				]);
 
-				embed.setAuthor(
-					format(
-						JsonReader.commands.guildAdd.getTranslation(language).successTitle,
-						{
-							pseudo: message.mentions.users.last().username,
-							guildName: guild.name,
-						}
-					),
+				embed.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
+						pseudo: message.mentions.users.last().username,
+						guildName: guild.name,
+					}),
 					message.mentions.users.last().displayAvatarURL()
 				);
-				embed.setDescription(
-					JsonReader.commands.guildAdd.getTranslation(language)
-						.invitationSuccess
-				);
+				embed.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess);
 				return message.channel.send(embed);
 			}
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(
-			message.mentions.users.last(),
-			message.channel,
-			language,
-			format(
-				JsonReader.commands.guildAdd.getTranslation(language)
-					.invitationCancelled,
-				{
-					guildName: guild.name,
-				}
-			)
-		);
+		return sendErrorMessage(message.mentions.users.last(), message.channel, language, format(JsonReader.commands.guildAdd.getTranslation(language).invitationCancelled, {guildName: guild.name}), true);
 	});
 
 	await Promise.all([

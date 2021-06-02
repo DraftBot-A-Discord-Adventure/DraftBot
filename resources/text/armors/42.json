@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "\uD83E\uDE96 **Casque de guerre**",
+		"en": "\uD83E\uDE96  **War helmet**"
+	},
+	"rarity": 1,
+	"rawDefense": 10,
+	"defense" : 9,
+	"speed": -10,
+	"french_masculine": 1,
+	"french_plural": 0
+}

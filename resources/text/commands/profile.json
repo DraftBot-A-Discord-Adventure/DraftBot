@@ -31,8 +31,12 @@
 				"fieldValue": "{class}"
 			},
 			"pet": {
-				"fieldName": "Animal de compagnie :",
+				"fieldName": "Familier :",
 				"fieldValue": "Rareté: {rarity}\n{emote} {nickname}"
+			},
+			"map": {
+				"fieldName": "Destination :",
+				"fieldValue": "{mapEmote} {mapName}"
 			},
 			"badges": {
 				"🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
@@ -57,7 +61,8 @@
 				"💎": ":gem:  `Membre d'une guilde puissante`",
 				"⚔️": ":crossed_swords: `Vainqueur d'un tournoi`",
 				"🗳️": ":ballot_box:  `Personne ayant voté dans les 12 dernières heures`",
-				"🔖": ":bookmark:  `Adopteur de classes de la première heure`"
+				"🔖": ":bookmark:  `Adopteur de classes de la première heure`",
+				"💞": ":revolving_hearts:  `Joueur ayant dressé un familier légendaire`"
 			}
 		},
 		"en": {
@@ -94,6 +99,10 @@
 				"fieldName": "Pet :",
 				"fieldValue": "Rarity: {rarity}\n{emote} {nickname}"
 			},
+			"map": {
+				"fieldName": "Destination :",
+				"fieldValue": "{mapEmote} {mapName}"
+			},
 			"badges": {
 				"🏆": ":trophy:  `Best player by rank when resetting to 1.0.`",
 				"🏅": ":medal:  `Player in the top 10 by rank before the 1.0 reset.`",
@@ -118,7 +127,8 @@
 				"💎": ":gem:  `Member of a powerful team`",
 				"⚔️": ":crossed_swords: `Tournament winner`",
 				"🗳️": ":ballot_box:  `Person who voted in the last 12 hours`",
-				"🔖": ":bookmark:  `Class early adopter`"
+				"🔖": ":bookmark:  `Class early adopter`",
+				"💞": ":revolving_hearts:  `A player that raised a legendary pet`"
 			}
 		}
 	},

@@ -1,3 +1,4 @@
+const Maps = require("../../core/Maps");
 /**
  * Displays the shop
  * @param {("fr"|"en")} language - Language to use in the response
@@ -7,15 +8,7 @@
 async function ShopCommand(language, message, args) {
 	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		)) !== true
-	) {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -54,9 +47,7 @@ async function ShopCommand(language, message, args) {
 	});
 
 	const potionPrice = Math.round(
-		(parseInt(JsonReader.values.raritiesValues[potion.rarity]) +
-			parseInt(potion.power)) *
-		0.7
+		getItemValue(potion) * 0.7
 	);
 
 	//Creating shop message
@@ -95,7 +86,7 @@ async function ShopCommand(language, message, args) {
 	};
 
 	const collector = shopMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
@@ -115,7 +106,7 @@ async function ShopCommand(language, message, args) {
 				message.channel,
 				language,
 				JsonReader.commands.shop.getTranslation(language).error
-					.leaveShop
+					.leaveShop, true
 			);
 			return;
 		}
@@ -202,26 +193,17 @@ async function ShopCommand(language, message, args) {
 }
 
 /**
- * @param {*} message - The message where the react event trigerred
- * @param {*} reaction - The reaction
+ * @param {module:"discord.js".Message} message - The message where the react event trigerred
+ * @param {Collection<Snowflake, MessageReaction>} reaction - The reaction
+ * @param {"fr"|"en"} language
+ * @param {Entities} entity
+ * @param {Entities} customer
+ * @param {any} selectedItem
  */
-async function sellItem(
-	message,
-	reaction,
-	language,
-	entity,
-	customer,
-	selectedItem
-) {
+async function sellItem(message, reaction, language, entity, customer, selectedItem) {
 	[entity] = await Entities.getOrRegister(entity.discordUser_id);
 	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
-	log(
-		entity.discordUser_id +
-		" bought the shop item " +
-		selectedItem.name +
-		" for " +
-		selectedItem.price
-	);
+	log(entity.discordUser_id + " bought the shop item " + selectedItem.name + " for " + selectedItem.price);
 	if (selectedItem.name) {
 		//This is not a potion
 		if (
@@ -233,7 +215,7 @@ async function sellItem(
 			selectedItem.name ===
 			shopTranslations.permanentItems.healAlterations.name
 		) {
-			if (entity.currentEffectFinished()) {
+			if (entity.Player.currentEffectFinished()) {
 				return sendErrorMessage(
 					customer,
 					message.channel,
@@ -242,7 +224,7 @@ async function sellItem(
 						.nothingToHeal
 				);
 			}
-			healAlterations(message, language, entity, customer, selectedItem);
+			await healAlterations(message, language, entity, customer, selectedItem);
 		} else if (
 			selectedItem.name === shopTranslations.permanentItems.regen.name
 		) {
@@ -293,9 +275,14 @@ async function sellItem(
 }
 
 /**
- * @param {*} name - The item name
- * @param {*} price - The item price
- * @param {*} info - The info to display while trying to buy the item
+ * @param {module:"discord.js".Message} message - The message where the react event trigerred
+ * @param {"fr"|"en"} language
+ * @param {string} name
+ * @param {number} price
+ * @param {string} info
+ * @param {Entities} entity
+ * @param {Entities} customer
+ * @param {any} selectedItem
  */
 async function confirmPurchase(
 	message,
@@ -338,33 +325,19 @@ async function confirmPurchase(
 	};
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
 	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
-		//confirmMessage.delete(); for now we'll keep the messages
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				reaction.first().message.delete();
-				return sellItem(
-					message,
-					reaction,
-					language,
-					entity,
-					customer,
-					selectedItem
-				);
+				return sellItem(message, reaction, language, entity, customer, selectedItem);
 			}
 		}
-		sendErrorMessage(
-			customer,
-			message.channel,
-			language,
-			JsonReader.commands.shop.getTranslation(language).error
-				.canceledPurchase
-		);
+		sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.canceledPurchase, true);
 	});
 
 	await Promise.all([
@@ -374,7 +347,8 @@ async function confirmPurchase(
 }
 
 /**
- * @param {*} price - The item price
+ * @param {number} price - The item price
+ * @param {Players} player
  */
 const canBuy = function (price, player) {
 	return player.money >= price;
@@ -386,6 +360,13 @@ const canBuy = function (price, player) {
  * Give the daily potion to player
  */
 function giveDailyPotion(message, language, entity, customer, dailyPotion) {
+	log(
+		entity.discordUser_id +
+		" bought the daily shop potion " +
+		dailyPotion.get("potion")[language] +
+		" for " +
+		dailyPotion.get("price")
+	);
 	entity.Player.Inventory.giveObject(
 		dailyPotion.get("potion").id,
 		ITEMTYPE.POTION
@@ -415,12 +396,11 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
 /**
  * Clear all player alterations
  */
-function healAlterations(message, language, entity, customer, selectedItem) {
-	if (entity.effect !== EFFECT.DEAD && entity.effect !== EFFECT.LOCKED) {
-		entity.effect = EFFECT.SMILEY;
-		entity.Player.lastReportAt = new Date(message.createdTimestamp);
+async function healAlterations(message, language, entity, customer, selectedItem) {
+	if (entity.Player.effect !== EFFECT.DEAD && entity.Player.effect !== EFFECT.LOCKED) {
+		await Maps.removeEffect(entity.Player);
 	}
-	message.channel.send(
+	await message.channel.send(
 		new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
 			.setAuthor(
@@ -441,7 +421,7 @@ function healAlterations(message, language, entity, customer, selectedItem) {
  */
 async function regenPlayer(message, language, entity, customer, selectedItem) {
 	await entity.setHealth(await entity.getMaxHealth()); //Heal Player
-	message.channel.send(
+	await message.channel.send(
 		new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
 			.setAuthor(

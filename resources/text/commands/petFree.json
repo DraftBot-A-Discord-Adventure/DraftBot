@@ -1,18 +1,27 @@
 {
 	"translations": {
 		"fr": {
-			"successTitle": "{pseudo}, libération d'un animal",
+			"successTitle": "{pseudo}, libération d'un familier",
 			"confirmDesc": ":warning: Êtes vous sur de vouloir libérer **{pet}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
-			"canceled": "L'animal n'a pas été libéré.",
+			"canceled": "Le familier n'a pas été libéré.",
 			"petFreed": "Adieu **{pet}**...",
-			"cooldown": "Vous ne pouvez libérer un animal que toutes les heures. Vous pourrez en libérer un autre dans {time}."
+			"cooldown": "Vous ne pouvez libérer un familier que toutes les heures. Vous pourrez en libérer un autre dans {time}.",
+			"giveMeat": "Une 🥩 **viande** a été rajouté a votre stockage de guilde.",
+			"noMoney": "Il vous manque {money} :moneybag: pour libérer un familier fielleux.",
+			"isFeisty": "⚠ Attention, la libération d'un familier fielleux vous coutera 1000💰.",
+			"wasFeisty": "Vous avez payé 1000:moneybag: pour avoir libéré un familier fielleux."
+
 		},
 		"en": {
 			"successTitle": "{pseudo}, free pet",
 			"confirmDesc": ":warning: Are you sure you want to free **{pet}**? It's not possible to undo after the action is done.",
 			"canceled": "The pet has not been freed.",
 			"petFreed": "Bye **{pet}**...",
-			"cooldown": "You can only free one pet per hour. You'll be able to free another pet in {time}."
+			"cooldown": "You can only free one pet per hour. You'll be able to free another pet in {time}.",
+			"giveMeat": "A piece of 🥩 **meat** has been added to your guild storage.",
+			"noMoney": "You need {money]:moneybag: more for free a fiesty pet.",
+			"isFeisty": "⚠ Warning, free a fiesty pet will cost you 1000💰.",
+			"wasFeisty": "You paied 1000:moneybag: for having freed a feisty pet."
 		}
 	}
 }

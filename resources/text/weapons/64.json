@@ -4,5 +4,7 @@
 		"en": "🕯️ **Burner**"
 	},
 	"rarity": 4,
-	"rawAttack": 5
+	"rawAttack": 5,
+	"french_masculine": 1,
+	"french_plural": 0
 }

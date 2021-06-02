@@ -4,5 +4,7 @@
 		"en": ":shield: **Royal shield**"
 	},
 	"rarity": 5,
-	"rawDefense": 9
+	"rawDefense": 9,
+	"french_masculine": 1,
+	"french_plural": 0
 }

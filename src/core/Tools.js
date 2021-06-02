@@ -30,17 +30,44 @@ global.sendMessageAttachments = (message, channel) => {
  * @param {module:"discord.js".User} user
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
+ * @param {boolean} isCancelling - true if the error message is meant to cancel something
  * @param {String} reason
  */
-global.sendErrorMessage = (user, channel, language, reason) => {
+global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => {
 	const embed = new discord.MessageEmbed();
+	let test = isCancelling ? 1 : 0;
 	embed.setColor(JsonReader.bot.embed.error)
-		.setAuthor(format(JsonReader.error.getTranslation(language).title, {
+		.setAuthor(format(JsonReader.error.getTranslation(language).title[isCancelling ? 1 : 0], {
 			pseudo: user.username,
 		}), user.displayAvatarURL())
 		.setDescription(reason);
 	return channel.send(embed);
 };
+
+/**
+ * Send a dm to a user
+ * @param {module:"discord.js".User} user
+ * @param {String} title - Title of the DM, title must be of format "*{pseudo}*"
+ * @param {String} description - Description of the DM
+ * @param {module:"discord.js".color} color - Color of the DM
+ * @param {("fr"|"en")} language - Language to use in the response
+ */
+global.sendDirectMessage = async (user, title, description, color, language) => {
+	try {
+		const embed = new discord.MessageEmbed();
+		embed.setColor(color)
+			.setAuthor(format(title, {
+				pseudo: user.username,
+			}), user.displayAvatarURL())
+			.setDescription(description)
+			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
+		user.send(embed);
+		log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
+	} catch (err) {
+		log("user" + user.id + "has closed dms !");
+	}
+};
+
 
 /**
  * Send a simple message in a channel
@@ -59,17 +86,20 @@ global.sendSimpleMessage = (user, channel, title, message) => {
 };
 
 /**
- * give a random item
+ * Give an item to a user
  * @param {module:"discord.js".User} discordUser
+ * @param {Item} item - The item that has to be given
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entity} entity
+ * @param {Number} resaleMultiplier - used to lower the resale value of an object
+ * @returns {Promise<*>}
  */
-global.giveRandomItem = async (discordUser, channel, language, entity) => {
-	let item = await entity.Player.Inventory.generateRandomItem();
+global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplieActual = 1) => {
 	log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
 	let autoSell = false;
 	let autoReplace = false;
+	let resaleMultiplier = resaleMultiplierNew;
 	const receivedEmbed = new discord.MessageEmbed();
 	const embed = new discord.MessageEmbed();
 	receivedEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
@@ -168,10 +198,9 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 		};
 
 		const collector = msg.createReactionCollector(filterConfirm, {
-			time: 120000,
+			time: COLLECTOR_TIME,
 			max: 1,
 		});
-
 		addBlockedPlayer(discordUser.id, "acceptItem", collector);
 
 		collector.on('end', async (reaction) => {
@@ -188,6 +217,7 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 					let oldItem = await saveItem(item, entity);
 					await channel.send(menuEmbed);
 					item = oldItem;
+					resaleMultiplier = resaleMultiplieActual;
 				}
 				if (item instanceof Potions) {
 					return await channel.send(
@@ -206,8 +236,24 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 						)
 					); // potion are not sold (because of exploits and because of logic)
 				}
+			} else if (item instanceof Potions) {
+				return await channel.send(
+					new discord.MessageEmbed().setAuthor(
+						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
+							{
+								pseudo: discordUser.username,
+							},
+						), discordUser.displayAvatarURL()
+					).setDescription(
+						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
+							{
+								item: item.getName(language)
+							}
+						)
+					)
+				); // potion are not sold (because of exploits and because of logic)
 			}
-			const money = getItemValue(item);
+			const money = Math.round(getItemValue(item) * resaleMultiplier);
 			entity.Player.addMoney(money);
 			await entity.Player.save();
 			return await channel.send(
@@ -227,7 +273,6 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 				)
 			);
 		});
-
 		await Promise.all([
 			msg.react(MENU_REACTION.ACCEPT),
 			msg.react(MENU_REACTION.DENY),
@@ -236,28 +281,42 @@ global.giveRandomItem = async (discordUser, channel, language, entity) => {
 };
 
 /**
- * Generate a random rarity. Legendary is very rare and common is not rare at all
- * @return {Number}
+ * give a random item
+ * @param {module:"discord.js".User} discordUser
+ * @param {module:"discord.js".TextChannel} channel
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {Entity} entity
  */
-global.generateRandomRarity = () => {
-	const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue);
+global.giveRandomItem = async (discordUser, channel, language, entity) => {
+	let item = await entity.Player.Inventory.generateRandomItem();
+	return await giveItem(entity, item, language, discordUser, channel);
+};
+
+/**
+ * Generate a random rarity. Legendary is very rare and common is not rare at all
+ * @param {number} maxRarity
+ * @return {Number} generated rarity
+ */
+global.generateRandomRarity = (maxRarity = RARITY.MYTHICAL) => {
+	const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue -
+		(maxRarity === RARITY.MYTHICAL ? 0 : JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity - 1]));
 
 	if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
-		return 1;
+		return RARITY.COMMON;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['1']) {
-		return 2;
+		return RARITY.UNCOMMON;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['2']) {
-		return 3;
+		return RARITY.EXOTIC;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['3']) {
-		return 4;
+		return RARITY.RARE;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['4']) {
-		return 5;
+		return RARITY.SPECIAL;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['5']) {
-		return 6;
+		return RARITY.EPIC;
 	} else if (randomValue <= JsonReader.values.raritiesGenerator['6']) {
-		return 7;
+		return RARITY.LEGENDARY;
 	}
-	return 8;
+	return RARITY.MYTHICAL;
 };
 
 
@@ -345,7 +404,7 @@ global.format = (string, replacement) => {
 };
 
 /**
- * Generates a random int between min and max, both included
+ * Generates a random int between min (included) and max (excluded)
  * @param {Number} min
  * @param {Number} max
  * @return {number}

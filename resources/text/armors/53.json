@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": ":shield: **Égide contrefaite**",
+		"en": ":shield: **Counterfeit aegis**"
+	},
+	"rarity": 1,
+	"rawDefense": 5,
+	"attack": 6,
+	"french_masculine": 0,
+	"french_plural": 0
+}

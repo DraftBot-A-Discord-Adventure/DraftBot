@@ -21,7 +21,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 			message,
 			language,
 			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
+			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 			entity
 		)) !== true
 	) {
@@ -99,7 +99,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 		format(
 			JsonReader.commands.guildDescription.getTranslation(language)
 				.changeDescriptionTitle,
-			{pseudo: message.author.username}
+			{ pseudo: message.author.username }
 		),
 		message.author.displayAvatarURL()
 	);
@@ -123,14 +123,14 @@ const GuildDescriptionCommand = async (language, message, args) => {
 	const embed = new discord.MessageEmbed();
 	const filterConfirm = (reaction, user) => {
 		return (
-			(reaction.emoji.name == MENU_REACTION.ACCEPT ||
-				reaction.emoji.name == MENU_REACTION.DENY) &&
+			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.author.id
 		);
 	};
 
 	const collector = msg.createReactionCollector(filterConfirm, {
-		time: 120000,
+		time: COLLECTOR_TIME,
 		max: 1,
 	});
 
