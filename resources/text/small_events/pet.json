@@ -153,7 +153,7 @@
 				"**{pet}** seems willing to play and throws himself up a tree, unfortunately his weight broke the branch and {nominative} falls on you. You loose **{amount}** :broken_heart:."
 			],
 			"loseMoney": [
-				"You feel that **{pet}** steals some coins in your purse and goes to hide them somewhere. You unfortunately don't manage to find them. Therefore, you loose {amount} :money_with_wings:.",
+				"You feel that **{pet}** steals some coins in your purse and goes to hide them somewhere. You unfortunately don't manage to find them. Therefore, you loose **{amount}** :money_with_wings:.",
 				"You notice a large hole in your purse, **{pet}** probably played with it during the night ! After counting what was left, you notice that **{amount}** :money_with_wings: is missing.",
 				"As you play with **{pet}**, this one pushes you and makes your purse fall in a crack. It will be impossible to recover those **{amount}** :money_with_wings: !",
 				"**{pet}** seems irritated, {nominative} will even injuring a passerby. After excusing yourself, you decide to compensate him and leave with your head down. You loose **{amount}** :money_with_wings:.",

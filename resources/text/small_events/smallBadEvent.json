@@ -50,11 +50,11 @@
 			},
 			"moneyLoss": {
 				"stories": [
-					"Crossing a crowd, you feel a hand to search you deeply and make your pockets weigh less, you don't have time to give back a shot that your thief has already disappeared. You lost **{moneylost} :money_with_wings:**.",
-					"you come across a beggar asking you for some money to support him. Seized with a surge of pity, you satisfy his request and give him **{moneylost} :money_with_wings:**.",
-					"a masked man calls you out and threatens you with his weapon. In order for him to spare your life, you give him the **{moneylost} :money_with_wings:** coins in your pocket, as well as the keys to your cart.",
-					"you suddenly remember forgetting your purse in the room of the last inn you passed by. You lose **{moneylost} :money_with_wings:**.",
-					"You cross a cart whose load protrudes and tears your bag. While you are gathering your belongings a group of children pass by and steal money from you. You lose **{moneylost} :money_with_wings:**."
+					"Crossing a crowd, you feel a hand to search you deeply and make your pockets weigh less, you don't have time to give back a shot that your thief has already disappeared. You lost **{moneyLost} :money_with_wings:**.",
+					"you come across a beggar asking you for some money to support him. Seized with a surge of pity, you satisfy his request and give him **{moneyLost} :money_with_wings:**.",
+					"a masked man calls you out and threatens you with his weapon. In order for him to spare your life, you give him the **{moneyLost} :money_with_wings:** coins in your pocket, as well as the keys to your cart.",
+					"you suddenly remember forgetting your purse in the room of the last inn you passed by. You lose **{moneyLost} :money_with_wings:**.",
+					"You cross a cart whose load protrudes and tears your bag. While you are gathering your belongings a group of children pass by and steal money from you. You lose **{moneyLost} :money_with_wings:**."
 				]
 			}
 		}
