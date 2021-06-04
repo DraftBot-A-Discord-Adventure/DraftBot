@@ -1,10 +1,14 @@
+module.exports.help = {
+	name : "petfree"
+};
+
 /**
  * Allow to free a pet
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetFreeCommand = async function (language, message, args) {
+module.exports.execute = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	// search for a user's guild
@@ -109,14 +113,4 @@ const PetFreeCommand = async function (language, message, args) {
 		]);
 	} catch (e) {
 	}
-};
-
-module.exports = {
-	commands: [
-		{
-			name: 'petfree',
-			func: PetFreeCommand,
-			aliases: ['petf', 'pfree', 'freepet', 'freep']
-		}
-	]
 };

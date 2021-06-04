@@ -1,11 +1,14 @@
+module.exports.help = {
+	name : "dm"
+};
+
 /**
  * Allow an admin to change the prefix the bot use in a specific server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
-const SendPrivateMessage = async function (language, message, args) {
+module.exports.execute = async (message, language, args) => {
 	if ((await canPerformCommand(message, language,
 		PERMISSION.ROLE.SUPPORT)) !== true) {
 		return;
@@ -40,13 +43,4 @@ const SendPrivateMessage = async function (language, message, args) {
 	} catch {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).errorCannotSend);
 	}
-};
-
-module.exports = {
-	commands: [
-		{
-			name: 'dm',
-			func: SendPrivateMessage
-		}
-	]
 };

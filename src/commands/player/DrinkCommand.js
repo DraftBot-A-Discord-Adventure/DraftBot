@@ -1,4 +1,9 @@
 const Maps = require("../../core/Maps");
+
+module.exports.help = {
+	name : "drink"
+};
+
 /**
  * Allow to use the potion if the player has one in the dedicated slot of his inventory
  * @param {("fr"|"en")} language - Language to use in the response
@@ -61,12 +66,4 @@ const DrinkCommand = async function (language, message) {
 	return await message.channel.send(embed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: 'drink',
-			func: DrinkCommand,
-			aliases: ['dr', 'glouglou']
-		}
-	]
-};
+module.exports.excute = DrinkCommand;

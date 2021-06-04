@@ -14,35 +14,16 @@ class Command {
 		Command.aliases = new Map();
 		Command.players = new Map();
 
-		const folders = [
-			"src/commands/admin",
-			"src/commands/guild",
-			"src/commands/player",
-			"src/commands/pets",
-		];
-		for (let folder of folders) {
-			const commandsFiles = await fs.promises.readdir(folder);
-			for (const commandFile of commandsFiles) {
-				if (!commandFile.endsWith(".js")) continue;
-				folder = folder.replace("src/", "");
-				const commandName = commandFile.split(".")[0];
-
-				const commands = require(`${folder}/${commandName}`).commands;
-				if (commands !== undefined) {
-					for (let i = 0; i < commands.length; ++i) {
-						const cmd = commands[i];
-						Command.commands.set(cmd.name, cmd.func);
-						Command.aliases.set(cmd.name, cmd.name);
-						if (cmd.aliases !== undefined) {
-							for (let j = 0; j < cmd.aliases.length; ++j) {
-								Command.commands.set(cmd.aliases[j], cmd.func);
-								Command.aliases.set(cmd.aliases[j], cmd.name);
-							}
-						}
-					}
+		fs.readdir("src/commands", (err, folders) => {
+			folders.forEach(folder => {
+				const commandsFiles = fs.readdirSync(`src/commands/${folder}`).filter(command => command.endsWith(".js"));
+				for (let commandFile of commandsFiles) {
+					const command = require(`../commands/${folder}/${commandFile}`);
+					Command.commands.set(command.help.name, command);
 				}
-			}
-		}
+			});
+		});
+		console.log(Command.commands);
 	}
 
 	/**
@@ -109,7 +90,7 @@ class Command {
 	 * @param {module:"discord.js".ReactionCollector} collector
 	 */
 	static addBlockedPlayer(id, context, collector = null) {
-		Command.players[id] = { context: context, collector: collector };
+		Command.players[id] = {context: context, collector: collector};
 	}
 
 	/**
@@ -248,7 +229,7 @@ class Command {
 				message.channel,
 				format(
 					JsonReader.bot.getTranslation(language).dmHelpMessageTitle,
-					{ pseudo: message.author.username }
+					{pseudo: message.author.username}
 				),
 				JsonReader.bot.getTranslation(language).dmHelpMessage
 			);
@@ -282,94 +263,14 @@ class Command {
 		}
 
 		const args = message.content.slice(prefix.length).trim().split(/ +/g);
-		const command = args.shift().toLowerCase();
+		const commandName = args.shift().toLowerCase();
 
-		if (Command.commands.has(command)) {
-			if (
-				!message.channel.permissionsFor(client.user).serialize()
-					.SEND_MESSAGES
-			) {
-				try {
-					await message.author.send(
-						JsonReader.bot.getTranslation(language).noSpeakPermission
-					)
-				} catch (err) {
-					log('No perms to show i can\'t react in server / channel : ' + message.guild + "/" + message.channel);
-				}
-				return;
-			}
-			if (
-				!message.channel.permissionsFor(client.user).serialize()
-					.ADD_REACTIONS
-			) {
-				try {
-					await message.author.send(
-						JsonReader.bot.getTranslation(language).noReacPermission
-					);
-				} catch (err) {
-					await message.channel.send(
-						JsonReader.bot.getTranslation(language).noReacPermission
-					);
-				}
-				return;
-			}
-			if (
-				!message.channel.permissionsFor(client.user).serialize()
-					.EMBED_LINKS
-			) {
-				try {
-					await message.author.send(
-						JsonReader.bot.getTranslation(language).noEmbedPermission
-					);
-				} catch (err) {
-					await message.channel.send(
-						JsonReader.bot.getTranslation(language).noEmbedPermission
-					);
-				}
-				return;
-			}
-			if (
-				!message.channel.permissionsFor(client.user).serialize()
-					.ATTACH_FILES
-			) {
-				try {
-					await message.author.send(
-						JsonReader.bot.getTranslation(language).noFilePermission
-					);
-				} catch (err) {
-					await message.channel.send(
-						JsonReader.bot.getTranslation(language).noFilePermission
-					);
-				}
-				return;
-			}
+		const command = Command.commands.get(commandName);
+		console.log(command);
 
-			if (!Command.players.has(command.name)) {
-				Command.players.set(command.name, new Map());
-			}
-
-			const now = Date.now();
-			const timestamps = Command.players.get(command.name);
-			const cooldownAmount = 1000;
-
-			if (timestamps.has(message.author.id)) {
-				const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-				if (now < expirationTime) {
-					return sendErrorMessage(
-						message.author,
-						message.channel,
-						language,
-						JsonReader.error.getTranslation(language).blockedContext["cooldown"]);
-				}
-			}
-
-			timestamps.set(message.author.id, now);
-			setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-
-			log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
-			Command.commands.get(command)(language, message, args);
-		}
+		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
+		console.log(command.execute);
+		await Command.commands.get(commandName).execute(message, language, args);
 	}
 }
 

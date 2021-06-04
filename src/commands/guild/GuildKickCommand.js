@@ -1,10 +1,14 @@
+module.exports.help = {
+	name : "guildkick"
+};
+
 /**
  * Allow to kick a member from a guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildKickCommand = async (language, message, args) => {
+module.exports.execute = async (message, language, args) => {
 	let entity;
 	let kickedEntity;
 	let guild;
@@ -174,14 +178,4 @@ const GuildKickCommand = async (language, message, args) => {
 		msg.react(MENU_REACTION.ACCEPT),
 		msg.react(MENU_REACTION.DENY),
 	]);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "guildkick",
-			func: GuildKickCommand,
-			aliases: ["gkick", "gk"],
-		},
-	],
 };

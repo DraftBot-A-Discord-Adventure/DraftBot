@@ -1,3 +1,7 @@
+module.exports.help = {
+	name : "classtats"
+};
+
 /**
  * Display information about classes
  * @param {("fr"|"en")} language - Language to use in the response
@@ -27,12 +31,4 @@ async function ClassStatsCommand(language, message, args) {
 	);
 }
 
-module.exports = {
-	commands: [
-		{
-			name: 'classstats',
-			func: ClassStatsCommand,
-			aliases: ['cs', 'classesstats', 'classcompare', 'classestats']
-		}
-	]
-};
+module.exports.execute = ClassStatsCommand;

@@ -1,10 +1,14 @@
+module.exports.help = {
+	name: "pointsw"
+};
+
 /**
  * Allow the bot owner to give an item to somebody
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ChangePointsWeekCommand = async function (language, message, args) {
+module.exports.execute = async (message, language, args) => {
 	if ((await canPerformCommand(message, language,
 		PERMISSION.ROLE.BOT_OWNER)) !== true) {
 		return;
@@ -26,13 +30,4 @@ const ChangePointsWeekCommand = async function (language, message, args) {
 			format(JsonReader.commands.pointsWeek.getTranslation(language).desc,
 				{player: args[0], points: args[1]}));
 	return await message.channel.send(embed);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: 'pointsw',
-			func: ChangePointsWeekCommand
-		}
-	]
 };

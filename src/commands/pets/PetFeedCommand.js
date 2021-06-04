@@ -1,12 +1,16 @@
 const tr = JsonReader.commands.petFeed;
 
+module.exports.help = {
+	name : "petfeed",
+};
+
 /**
  * Feed your pet !
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetFeedCommand = async function (language, message, args) {
+module.exports.execute = async (language, message, args) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
 	try {

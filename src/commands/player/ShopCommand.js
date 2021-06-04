@@ -482,3 +482,11 @@ module.exports = {
 		},
 	],
 };
+
+module.exports.execute = (message, language, args) => {
+
+};
+
+module.exports.help = {
+	name : ""
+};

@@ -1,10 +1,14 @@
+module.exports.help = {
+	name : "petsell"
+};
+
 /**
  * Allow to sell pet
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetSellCommand = async function (language, message, args) {
+module.exports.execute = async (language, message, args) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
 	let fields = [];
 	let guild;
@@ -261,13 +265,3 @@ async function petSell(message, language, entity, user, pet, petCost) {
 	});
 	await Promise.all([confirmMessage.react(MENU_REACTION.ACCEPT), confirmMessage.react(MENU_REACTION.DENY)]);
 }
-
-module.exports = {
-	commands: [
-		{
-			name: "petsell",
-			func: PetSellCommand,
-			aliases: ["psell", "ps"],
-		},
-	],
-};

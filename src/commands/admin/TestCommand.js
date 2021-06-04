@@ -1,11 +1,16 @@
 const Maps = require("../../core/Maps");
+
+module.exports.help = {
+	name : "test"
+};
+
 /**
  * Cheat command for testers
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const TestCommand = async (language, message, args) => {
+module.exports.execute = async (message, language, args) => {
 	let authorized = false;
 
 	if (JsonReader.app.TEST_MODE !== true) {
@@ -511,13 +516,4 @@ const TestCommand = async (language, message, args) => {
 		return;
 	}
 	await message.channel.send(':man_mage: | Commande test reconnue et appliquée !');
-};
-
-module.exports = {
-	commands: [
-		{
-			name: 'test',
-			func: TestCommand
-		}
-	]
 };
