@@ -1,10 +1,14 @@
+module.exports.help = {
+	name : "guilddescription"
+};
+
 /**
  * Change guild description
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildDescriptionCommand = async (language, message, args) => {
+module.exports.execute = async (message, language, args) => {
 	let guild;
 	let entity;
 	const confirmationEmbed = new discord.MessageEmbed();
@@ -187,14 +191,4 @@ const GuildDescriptionCommand = async (language, message, args) => {
 		msg.react(MENU_REACTION.ACCEPT),
 		msg.react(MENU_REACTION.DENY)
 	]);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "guilddesc",
-			func: GuildDescriptionCommand,
-			aliases: ["gdesc", "guilddescription"]
-		}
-	]
 };

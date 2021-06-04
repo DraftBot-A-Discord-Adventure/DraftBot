@@ -1,3 +1,7 @@
+module.exports.help = {
+	name : "dmnotification"
+};
+
 /**
  * Activate or desactivate DMs notifications.
  * @param {("fr"|"en")} language - Language to use in the response
@@ -48,12 +52,4 @@ async function DmnotificationCommand(language, message) {
 	await entity.Player.save();
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "dmnotification",
-			func: DmnotificationCommand,
-			aliases: ["dmn", "notifs", "dms", "notif", "dmnotifications"]
-		}
-	]
-};
+module.exports.execute = DmnotificationCommand;

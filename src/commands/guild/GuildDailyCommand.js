@@ -1,4 +1,9 @@
 const Maps = require("../../core/Maps");
+
+module.exports.help = {
+	name : "guilddaily"
+};
+
 /**
  * Allow to claim a daily guild reward
  * @param {("fr"|"en")} language - Language to use in the response
@@ -6,7 +11,7 @@ const Maps = require("../../core/Maps");
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {string|String} forcedReward
  */
-const GuildDailyCommand = async (language, message, args, forcedReward) => {
+module.exports.execute = async (message, language, args, forcedReward) => {
 	const translations = JsonReader.commands.guildDaily.getTranslation(language);
 	let guild;
 	const embed = new discord.MessageEmbed();
@@ -260,15 +265,14 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guilddaily",
-			func: GuildDailyCommand,
-			aliases: ["gdaily", "gd"]
-		}
-	]
-};
+/**
+ * update the moment where the daily guild was used
+ * @param {*} guild
+ * @param {*} message
+ */
+function updateLastInvocation(guild, message) {
+	guild.lastInvocation = message.createdTimestamp;
+}
 
 function generateRandomProperty(guild) {
 	let resultNumber = randInt(0, 1000);
@@ -285,4 +289,3 @@ function generateRandomProperty(guild) {
 		}
 	}
 }
-

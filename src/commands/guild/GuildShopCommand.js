@@ -1,11 +1,15 @@
+module.exports.help = {
+	name : "guildshop"
+};
+
 /**
  * Displays the guild shop
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function GuildShopCommand(language, message) {
-	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
+module.exports.execute = async (message, language, args) => {
+	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
@@ -166,7 +170,7 @@ async function GuildShopCommand(language, message) {
 		shopMessage.react(GUILDSHOP.ULTIMATE_FOOD),
 		shopMessage.react(MENU_REACTION.DENY)
 	]);
-}
+};
 
 /**
  * food purchase
@@ -558,15 +562,4 @@ const giveFood = async (
 	}
 
 	return message.channel.send(successEmbed);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "guildshop",
-			func: GuildShopCommand,
-			aliases: ["guildshop", "gs"]
-		}
-	],
-	giveFood: giveFood
 };

@@ -1,10 +1,15 @@
+module.exports.help = {
+	name: "guildleave"
+};
+
 /**
  * Allow to leave a guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildLeaveCommand = async (language, message) => {
+module.exports.execute = async (message, language, args) => {
+	let entity;
 	let guild;
 	let elder;
 	const confirmationEmbed = new discord.MessageEmbed();
@@ -156,14 +161,4 @@ const GuildLeaveCommand = async (language, message) => {
 	});
 
 	await Promise.all([msg.react(MENU_REACTION.ACCEPT), msg.react(MENU_REACTION.DENY)]);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "guildleave",
-			func: GuildLeaveCommand,
-			aliases: ["gleave", "gl"]
-		}
-	]
 };

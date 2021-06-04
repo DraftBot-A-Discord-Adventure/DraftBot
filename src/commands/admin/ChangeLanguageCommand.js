@@ -1,15 +1,20 @@
+module.exports.help = {
+	name: "language",
+	adminOnly: true
+};
+
 /**
  * Allow an admin to change the prefix the bot use in a specific server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
- */
-
-const changeLanguageCommand = async function(language, message) {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
+*/
+module.exports.execute = async (message, language, args) => {
+	if ((await canPerformCommand(message, language,
+		PERMISSION.ROLE.ADMINISTRATOR)) !== true) {
 		return;
 	}
+
 	const embed = new discord.MessageEmbed();
 
 	const [server] = await Servers.getOrRegister(message.guild.id);
@@ -28,14 +33,3 @@ const changeLanguageCommand = async function(language, message) {
 	message.channel.send(embed);
 	await server.save();
 };
-
-module.exports = {
-	commands: [
-		{
-			name: "language",
-			func: changeLanguageCommand
-		}
-	]
-};
-
-

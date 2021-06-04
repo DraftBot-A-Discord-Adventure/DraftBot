@@ -1,10 +1,14 @@
+module.exports.help = {
+	name : "petnickname"
+};
+
 /**
  * Allow to change the nickname of a pet
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetNicknameCommand = async function(language, message, args) {
+module.exports.execute = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
@@ -45,14 +49,4 @@ const PetNicknameCommand = async function(language, message, args) {
 		name: petNickname
 	}));
 	await message.channel.send(successEmbed);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "petnickname",
-			func: PetNicknameCommand,
-			aliases: ["petnick", "pnickname", "pnick", "petname", "pname"]
-		}
-	]
 };

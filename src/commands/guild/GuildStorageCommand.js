@@ -1,10 +1,14 @@
+module.exports.help = {
+	name : "guildstorage"
+};
+
 /**
  * Display the storage of the guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildStorageCommand = async (language, message) => {
+module.exports.execute = async (message, language, args) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (
@@ -103,14 +107,4 @@ const GuildStorageCommand = async (language, message) => {
 	);
 
 	await message.channel.send(storageEmbed);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "guildstorage",
-			func: GuildStorageCommand,
-			aliases: ["guildstorage", "gstorage", "gst"]
-		}
-	]
 };

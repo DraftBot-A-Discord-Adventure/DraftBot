@@ -1,13 +1,16 @@
+module.exports.help = {
+	name: "give"
+};
+
 /**
  * Allow the bot owner to give an item to somebody
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
-const GiveCommand = async function(language, message, args) {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER) !== true) {
+module.exports.execute = async (message, language, args) => {
+	if ((await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOT_OWNER)) !== true) {
 		return;
 	}
 	const embed = new discord.MessageEmbed();
@@ -41,15 +44,4 @@ function getUserFromMention(mention) {
 
 		return client.users.cache.get(mention);
 	}
-}
-
-module.exports = {
-	commands: [
-		{
-			name: "give",
-			func: GiveCommand
-		}
-	]
 };
-
-

@@ -1,10 +1,16 @@
+module.exports.help = {
+	name: "guildelder"
+};
+
 /**
  * add or change guild elder
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildElderCommand = async (language, message, args) => {
+
+module.exports.execute = async (message, language, args) => {
+	let entity;
 	let elderEntity;
 	let guild;
 	let elderGuild;
@@ -209,14 +215,4 @@ const GuildElderCommand = async (language, message, args) => {
 		msg.react(MENU_REACTION.ACCEPT),
 		msg.react(MENU_REACTION.DENY)
 	]);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "guildelder",
-			func: GuildElderCommand,
-			aliases: ["gelder", "guildelder"]
-		}
-	]
 };

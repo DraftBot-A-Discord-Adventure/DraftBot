@@ -1,10 +1,14 @@
+module.exports.help = {
+	name : "pettransfer"
+};
+
 /**
  * Allow to transfer a pet
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetTransferCommand = async function(language, message, args) {
+module.exports.execute = async function (language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const pPet = entity.Player.Pet;
 
@@ -105,14 +109,4 @@ const PetTransferCommand = async function(language, message, args) {
 		}));
 	}
 	return message.channel.send(confirmEmbed);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "pettransfer",
-			func: PetTransferCommand,
-			aliases: ["pettr", "ptr", "ptransfer"]
-		}
-	]
 };

@@ -1,10 +1,14 @@
+module.exports.help = {
+	name : "guild",
+};
+
 /**
  * Allow to display the info of a guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildCommand = async (language, message, args) => {
+module.exports.execute = async (message, language, args) => {
 	let entity;
 	let guild;
 
@@ -149,14 +153,4 @@ const GuildCommand = async (language, message, args) => {
 	//    + Text.commands.guild.guildLevel + level, Text.commands.guild.style + progressBar.createBar() + Text.commands.guild.style);
 
 	message.channel.send(embed);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "guild",
-			func: GuildCommand,
-			aliases: ["g"]
-		}
-	]
 };

@@ -1,10 +1,14 @@
+module.exports.help = {
+	name : "pettrade"
+};
+
 /**
  * Allow to trade pets
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetTradeCommand = async function(language, message) {
+module.exports.execute = async function (language, message, args) {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
@@ -141,14 +145,4 @@ const PetTradeCommand = async function(language, message) {
 		confirmMessage.react(MENU_REACTION.ACCEPT),
 		confirmMessage.react(MENU_REACTION.DENY)
 	]);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "pettrade",
-			func: PetTradeCommand,
-			aliases: ["ptrade"]
-		}
-	]
 };

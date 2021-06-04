@@ -1,12 +1,15 @@
+module.exports.help = {
+	name: "list"
+};
+
 /**
  * Allow an admin to list all items
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
-const listItemsCommand = async function(language, message) {
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.BOT_OWNER) !== true) {
+module.exports.execute = async (message, language, args) => {
+	if ((await canPerformCommand(message, language, PERMISSION.ROLE.BOT_OWNER)) !== true) {
 		return;
 	}
 	const fs = require("fs");
@@ -162,13 +165,4 @@ const listItemsCommand = async function(language, message) {
 			name: "allItems.txt"
 		}]
 	});
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "list",
-			func: listItemsCommand
-		}
-	]
 };

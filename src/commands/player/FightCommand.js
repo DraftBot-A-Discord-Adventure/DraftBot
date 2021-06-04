@@ -256,17 +256,4 @@ const FriendlyFightCommand = async function(language, message, args) {
 	await fightCommand(language, message, args, true);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "fight",
-			func: fightCommand,
-			aliases: ["f"]
-		},
-		{
-			name: "friendlyfight",
-			func: FriendlyFightCommand,
-			aliases: ["ffight", "ff"]
-		}
-	]
-};
+module.exports.execute = FightCommand;

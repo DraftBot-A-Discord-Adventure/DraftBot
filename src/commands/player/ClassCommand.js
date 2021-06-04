@@ -1,3 +1,7 @@
+module.exports.help = {
+	name : "class"
+};
+
 /**
  * Select a class
  * @param {("fr"|"en")} language - Language to use in the response
@@ -165,13 +169,4 @@ const canBuy = function(price, player) {
 	return player.money >= price;
 };
 
-
-module.exports = {
-	commands: [
-		{
-			name: "class",
-			func: ClassCommand,
-			aliases: ["c", "classes", "classe"]
-		}
-	]
-};
+module.exports.execute = ClassCommand;
