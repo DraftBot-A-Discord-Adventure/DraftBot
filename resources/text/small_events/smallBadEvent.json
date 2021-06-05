@@ -4,7 +4,7 @@
 			"lifeLoss": {
 				"stories": [
 					"vos pieds se prennent dans une racine. Blessé, vous perdez **{lifeLoss} :broken_heart:**.",
-					"plongé dans vos pensées, vous ne prêtez guère attention au sol sous vos pieds et trébuchez malencontreusement contre un caillou, vous vous êtes blessé au genou. Ce n'est pas très grave, bien que douleureux. Vous perdez **{lifeLoss} :broken_heart:**.",
+					"plongé dans vos pensées, vous ne prêtez guère attention au sol sous vos pieds et trébuchez malencontreusement contre un caillou, vous vous êtes blessé au genou. Ce n'est pas très grave, bien que douloureux. Vous perdez **{lifeLoss} :broken_heart:**.",
 					"Vous sifflotez en marchant. Tout à coup, quelque chose entre dans votre champ de vision : il s'agit d'un chien, et il fonce droit sur vous ! Avant que vous n'ayez le temps de comprendre plus en détail ce qu'il se passe, l'animal entre en collision avec vous, mais repart aussitôt. Heureusement, vous n'avez été que légèrement blessé, et perdez seulement **{lifeLoss} :broken_heart:**.",
 					"vous percutez un cheval arrivant au galop, vous n'êtes blessé que superficiellement. Vous perdez **{lifeLoss} :broken_heart:**.",
 					"vous êtes violemment percuté par un groupe de sangliers, vous vous relevez non sans peine et reprenez votre route en ayant perdu **{lifeLoss} :broken_heart:**."

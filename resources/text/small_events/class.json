@@ -43,7 +43,7 @@
 					"vous apercevez une foule de personnes réunies. Voulant voir ce qui se trame, vous écartez une dizaine de personnes d'une main et vous découvrez un objet ensanglanté *sinon pourquoi la foule autour ne l'aurait pas touché*. Vous repartez comme si de rien était avec l’objet en votre possession."
 				],
 				"winMoney": [
-					"vous marchez sur une petite bute et remarquez que votre bruit de pas sonne étrangement. Vous fouillez le sol et découvrez un coffre rempli d'or. Vous obtenez **{money} :moneybag:**.",
+					"vous marchez sur une petite butte et remarquez que votre bruit de pas sonne étrangement. Vous fouillez le sol et découvrez un coffre rempli d'or. Vous obtenez **{money} :moneybag:**.",
 					"vous rencontrez une personne ayant l'air un peu déconcertée et peureuse... En vous voyant la personne s'excuse et part en courant. Vous vous dites qu'elle vous a confondu avec quelqu'un d'autre. Dans sa course l'inconnu a fait tomber une bourse : vous l'ouvrez et découvrez **{money} :moneybag:** !",
 					"vous décidez d'établir votre campement en installant une tente et d'autres objets. En creusant les trous pour planter les piquets de votre tente, vous sentez quelque chose de dur dans le sol. En creusant, vous déterrez un petit coffret de bois abîmé par le temps et y trouvez **{money} :moneybag:** !"
 				]

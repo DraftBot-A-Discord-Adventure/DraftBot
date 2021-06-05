@@ -85,7 +85,7 @@
 			],
 			"rich": [
 				"Vous vous cachez les yeux pour arrêter d'être ébloui par le soleil qui reflète sur l'or que porte **{pseudo}** ! Vous continuez votre route en ayant mal aux yeux.",
-				"Es-ce Picsou ? Mais non ! C'est **{pseudo}** ! Il possède tellement d'or que vous en êtes éblouis ! Vous continuez votre chemin en vous frottant les yeux.",
+				"Est-ce Picsou ? Mais non ! C'est **{pseudo}** ! Il possède tellement d'or que vous en êtes éblouis ! Vous continuez votre chemin en vous frottant les yeux.",
 				"Des pièces tombent des poches de **{pseudo}** tellement elles en sont remplies. Cela ne semble même pas l'inquiéter. Un animal vient les prendre avant que vous puissiez mettre la main dessus. VOus continuez votre route un peu déçu."
 			],
 			"poor": [
@@ -125,7 +125,7 @@
 			],
 			"class": [
 				"Vous frôlez **{pseudo}** qui possède la classe **{class}**. Vous parlez un peu avec lui et reprenez votre route paisiblement.",
-				"**{pseudo}** passe près de vous, il possède le grade **{class}** !",
+				"**{pseudo}** passe près de vous, il possède la classe **{class}** !",
 				"Vous heurtez malencontreusement le bras de **{pseudo}**, fier **{class}**. Vous vous excusez tous les deux et continuez votre route."
 			],
 			":sick:": [
