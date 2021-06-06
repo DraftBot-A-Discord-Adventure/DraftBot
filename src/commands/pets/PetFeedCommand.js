@@ -16,13 +16,13 @@ const PetFeedCommand = async function (language, message) {
 	}
 
 	if (
-		(await canPerformCommand(
+		await canPerformCommand(
 			message,
 			language,
 			PERMISSION.ROLE.ALL,
 			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 			entity
-		)) !== true
+		) !== true
 	) {
 		return;
 	}
@@ -87,7 +87,7 @@ const PetFeedCommand = async function (language, message) {
 		addBlockedPlayer(entity.discordUser_id, "petFeed");
 
 		//Fetch the choice from the user
-		collector.on("end", async (reaction) => {
+		collector.on("end", (reaction) => {
 			if (
 				!reaction.first() ||
 				reaction.first().emoji.name === MENU_REACTION.DENY
@@ -160,15 +160,15 @@ const PetFeedCommand = async function (language, message) {
 			}
 
 			if (entity.Player.money - 20 < 0)
-				return sendErrorMessage(
-					message.author,
-					message.channel,
-					language,
-					tr.getTranslation(language).noMoney
-				);
+			{return sendErrorMessage(
+				message.author,
+				message.channel,
+				language,
+				tr.getTranslation(language).noMoney
+			);}
 			entity.Player.money = entity.Player.money - 20;
 			authorPet.hungrySince = Date();
-			await Promise.all[(authorPet.save(), entity.Player.save())];
+			await Promise.all[authorPet.save(), entity.Player.save()];
 			const feedSuccessEmbed = new discord.MessageEmbed();
 			if (language === LANGUAGE.FRENCH) {
 				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
@@ -230,7 +230,7 @@ async function feedPet(message, language, entity, pet, item) {
 		if (item.type.includes(pet.PetModel.diet)) {
 			pet.lovePoints += item.effect;
 			if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
-				pet.lovePoints = PETS.MAX_LOVE_POINTS;
+			{pet.lovePoints = PETS.MAX_LOVE_POINTS;}
 			guild[item.type] = guild[item.type] - 1;
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
@@ -257,7 +257,7 @@ async function feedPet(message, language, entity, pet, item) {
 	} else {
 		pet.lovePoints += item.effect;
 		if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
-			pet.lovePoints = PETS.MAX_LOVE_POINTS;
+		{pet.lovePoints = PETS.MAX_LOVE_POINTS;}
 		guild[item.type] = guild[item.type] - 1;
 		switch (item.type) {
 		case "commonFood":
@@ -300,6 +300,8 @@ async function feedPet(message, language, entity, pet, item) {
 					petnick: await PetEntities.displayName(pet, language),
 				})
 			);
+			break;
+		default:
 			break;
 		}
 	}

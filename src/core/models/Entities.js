@@ -206,7 +206,7 @@ module.exports = (Sequelize, DataTypes) => {
 		});
 	};
 
-	Entities.getServerRank = async (discord_id, ids) => {
+	Entities.getServerRank = (discord_id, ids) => {
 		const query = "SELECT rank FROM (SELECT entities.discordUser_id AS discordUser_id, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entity_id AND players.score > 100 WHERE entities.discordUser_id IN (:ids)) WHERE discordUser_id = :id;";
 		return Sequelize.query(query, {
 			replacements: {
@@ -228,13 +228,13 @@ module.exports = (Sequelize, DataTypes) => {
 				return [null];
 			}
 			return Entities.getOrRegister(lastMention.id);
-		} else {
-			const [player] = await Players.getByRank(parseInt(args[0]));
-			if (player === undefined) {
-				return [null];
-			}
-			return [await Entities.getById(player.entity_id)];
+		} 
+		const [player] = await Players.getByRank(parseInt(args[0]));
+		if (player === undefined) {
+			return [null];
 		}
+		return [await Entities.getById(player.entity_id)];
+		
 	};
 
 	/**
@@ -250,7 +250,7 @@ module.exports = (Sequelize, DataTypes) => {
 		const attackItemValue = weapon.getAttack() + object.getAttack() / 2 > playerClass.getAttackValue(this.Player.level) ? playerClass.getAttackValue(this.Player.level) + Math.round(object.getAttack() / 2) : weapon.getAttack() + object.getAttack();
 		const attack = playerClass.getAttackValue(this.Player.level) + attackItemValue + armor.getAttack() +
 			potion.getAttack();
-		return (attack > 0) ? attack : 0;
+		return attack > 0 ? attack : 0;
 	};
 
 	/**
@@ -266,7 +266,7 @@ module.exports = (Sequelize, DataTypes) => {
 		const defenseItemValue = armor.getDefense() + object.getDefense() / 2 > playerClass.getDefenseValue(this.Player.level) ? playerClass.getDefenseValue(this.Player.level) + Math.round(object.getDefense() / 2) : armor.getDefense() + object.getDefense();
 		const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + defenseItemValue +
 			potion.getDefense();
-		return (defense > 0) ? defense : 0;
+		return defense > 0 ? defense : 0;
 	};
 
 	/**
@@ -282,7 +282,7 @@ module.exports = (Sequelize, DataTypes) => {
 		const speedItemValue = object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level) ? playerClass.getSpeedValue(this.Player.level) + Math.round(object.getSpeed() / 2) : object.getSpeed();
 		const speed = playerClass.getSpeedValue(this.Player.level) + weapon.getSpeed() + armor.getSpeed() +
 			potion.getSpeed() + speedItemValue;
-		return (speed > 0) ? speed : 0;
+		return speed > 0 ? speed : 0;
 	};
 
 	/**
@@ -292,8 +292,8 @@ module.exports = (Sequelize, DataTypes) => {
 	Entities.prototype.getCumulativeHealth = async function () {
 		let maxHealth = await this.getMaxCumulativeHealth();
 		let fp = maxHealth - this.fightPointsLost;
-		if (fp < 0) fp = 0;
-		else if (fp > maxHealth) fp = maxHealth;
+		if (fp < 0) {fp = 0;}
+		else if (fp > maxHealth) {fp = maxHealth;}
 		return fp;
 	};
 

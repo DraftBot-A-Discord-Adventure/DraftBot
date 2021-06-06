@@ -3,7 +3,7 @@
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
-const BadgeCommand = async function (language, message) {
+const BadgeCommand = function (language, message) {
 	getCommand("help")(language, message, ["badge"]);
 };
 

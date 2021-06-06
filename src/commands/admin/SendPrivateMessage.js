@@ -6,8 +6,8 @@
  */
 
 const SendPrivateMessage = async function (language, message, args) {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.SUPPORT)) !== true) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.SUPPORT) !== true) {
 		return;
 	}
 

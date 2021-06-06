@@ -13,7 +13,7 @@ const Draftbot = require("core/DraftBot");
 	 * @return {Promise<void>}
 	 */
 	const onDiscordReady = async () => {
-		(require("figlet"))(JsonReader.bot.reboot, (err, data) => {
+		require("figlet")(JsonReader.bot.reboot, (err, data) => {
 			console.log(data.red);
 			console.log(JsonReader.bot.br.grey);
 		});
@@ -80,7 +80,7 @@ const Draftbot = require("core/DraftBot");
 	 * @return {Promise<void>}
 	 */
 	const onDiscordMessage = async (message) => {
-		if (message.author.bot) return;
+		if (message.author.bot) {return;}
 		if (message.channel.type === "dm") {
 			await handlePrivateMessage(message);
 		} else {

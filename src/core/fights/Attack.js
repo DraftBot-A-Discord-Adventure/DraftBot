@@ -8,7 +8,7 @@ class Attack {
 	/**
 	 * @return {Promise<void>}
 	 */
-	static async init() {
+	static /*async*/ init() {
 		Attack.attacks = new Map();
 		/*const attacksFiles = await fs.promises.readdir("src/core/fights/attacks");
 		for (const attackFile of attacksFiles) {

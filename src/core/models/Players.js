@@ -173,7 +173,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {Number} Return the experience needed to level up.
 	 */
 	Players.prototype.getExperienceNeededToLevelUp = function () {
-		return Math.round(JsonReader.values.xp.player.baseValue * Math.pow(JsonReader.values.xp.player.coeff, (this.level + 1))) - JsonReader.values.xp.player.minus;
+		return Math.round(JsonReader.values.xp.player.baseValue * Math.pow(JsonReader.values.xp.player.coeff, this.level + 1)) - JsonReader.values.xp.player.minus;
 	};
 
 	/**
@@ -258,16 +258,16 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {Boolean} True if the player has levelUp false otherwise
 	 */
 	Players.prototype.needLevelUp = function () {
-		return (this.experience >= this.getExperienceNeededToLevelUp());
+		return this.experience >= this.getExperienceNeededToLevelUp();
 	};
 
 	/**
 	 * @return {Number} get the id of the classgroup
 	 */
 	Players.prototype.getClassGroup = function () {
-		return (this.level < CLASS.GROUP1LEVEL) ? 0 :
-			(this.level < CLASS.GROUP2LEVEL) ? 1 :
-				(this.level < CLASS.GROUP3LEVEL) ? 2 :
+		return this.level < CLASS.GROUP1LEVEL ? 0 :
+			this.level < CLASS.GROUP2LEVEL ? 1 :
+				this.level < CLASS.GROUP3LEVEL ? 2 :
 					3;
 	};
 
@@ -371,7 +371,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Players.prototype.isInactive = function () {
-		return (this.start_travel_date.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days) < Date.now();
+		return this.start_travel_date.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days < Date.now();
 	};
 
 	/**

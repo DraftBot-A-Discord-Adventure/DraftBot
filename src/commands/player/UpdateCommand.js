@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function updateCommand(language, message) {
+function updateCommand(language, message) {
 	const updateEmbed = new discord.MessageEmbed()
 		.setDescription(format(JsonReader.commands.update.getTranslation(language).text,
 			{

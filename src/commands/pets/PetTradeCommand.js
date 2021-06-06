@@ -7,8 +7,8 @@
 const PetTradeCommand = async function (language, message) {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader1)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader1) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -21,8 +21,8 @@ const PetTradeCommand = async function (language, message) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).cantTradeSelf);
 	}
 	let [trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader2)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader2) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.mentions.users.first(), message.channel, language)) {
@@ -61,7 +61,7 @@ const PetTradeCommand = async function (language, message) {
 	let trader2Accepted = null;
 
 	const filter = (reaction, user) => {
-		return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && (user.id === message.author.id || user.id === message.mentions.users.first().id));
+		return (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && (user.id === message.author.id || user.id === message.mentions.users.first().id);
 	};
 
 	const collector = confirmMessage.createReactionCollector(filter, {

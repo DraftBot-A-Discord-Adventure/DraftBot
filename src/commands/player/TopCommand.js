@@ -10,14 +10,13 @@ const topWeekCommand = async function (language, message, args) {
 	await topCommand(language, message, args);
 };
 
-const topServerCommand = async function (language, message/*, args*/) {
+const topServerCommand = function (language, message/*, args*/) {
 
 	//TODO : Voir avec discord pourquoi le ts marche plus !
 	//Morceau de code à retirer
 	if (language === "fr")
-		return message.channel.send(":x: Cette commande est désactivée pour le moment suite à un changement de la part de discord dans leur API. Elle sera de retour bientôt !");
-	else
-		return message.channel.send(":x: This command is broken due to changes in the discord API, We hope to get it back online soon!");
+	{return message.channel.send(":x: Cette commande est désactivée pour le moment suite à un changement de la part de discord dans leur API. Elle sera de retour bientôt !");}
+	return message.channel.send(":x: This command is broken due to changes in the discord API, We hope to get it back online soon!");
 	//fin du morceau de code à retirer
 
 	//args.unshift("s");
@@ -33,9 +32,9 @@ const topCommand = async function (language, message, args) {
 
 	let page = parseInt(args[args.length - 1]);
 	if (page < 1)
-		page = 1;
+	{page = 1;}
 	if (isNaN(page))
-		page = 1;
+	{page = 1;}
 
 	//top of the serv
 	if (args[0] === "serv" || args[0] === "s") {
@@ -63,7 +62,7 @@ const topCommand = async function (language, message, args) {
 				as: "Player",
 				where: {
 					score: {
-						[(require("sequelize/lib/operators")).gt]: 100,
+						[require("sequelize/lib/operators").gt]: 100,
 					},
 				},
 			}]
@@ -83,7 +82,7 @@ const topCommand = async function (language, message, args) {
 				as: "Player",
 				where: {
 					score: {
-						[(require("sequelize/lib/operators")).gt]: 100,
+						[require("sequelize/lib/operators").gt]: 100,
 					},
 				},
 			}],
@@ -110,7 +109,7 @@ const topCommand = async function (language, message, args) {
 		let numberOfPlayer = await Players.count({
 			where: {
 				weeklyScore: {
-					[(require("sequelize/lib/operators")).gt]: 100,
+					[require("sequelize/lib/operators").gt]: 100,
 				},
 			},
 		});
@@ -125,7 +124,7 @@ const topCommand = async function (language, message, args) {
 				as: "Player",
 				where: {
 					weeklyScore: {
-						[(require("sequelize/lib/operators")).gt]: 100,
+						[require("sequelize/lib/operators").gt]: 100,
 					},
 				},
 			}],
@@ -151,7 +150,7 @@ const topCommand = async function (language, message, args) {
 		let numberOfPlayer = await Players.count({
 			where: {
 				score: {
-					[(require("sequelize/lib/operators")).gt]: 100,
+					[require("sequelize/lib/operators").gt]: 100,
 				},
 			},
 		});
@@ -167,7 +166,7 @@ const topCommand = async function (language, message, args) {
 				as: "Player",
 				where: {
 					score: {
-						[(require("sequelize/lib/operators")).gt]: 100,
+						[require("sequelize/lib/operators").gt]: 100,
 					},
 				},
 			}],
@@ -210,9 +209,9 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 	const embed = new discord.MessageEmbed();
 	let pageMax = Math.ceil(numberOfPlayer / 15);
 	if (pageMax < 1)
-		pageMax = 1;
+	{pageMax = 1;}
 	if (isNaN(page))
-		page = 1;
+	{page = 1;}
 	if (page > pageMax || page < 1) {
 		embedError.setColor(JsonReader.bot.embed.default)
 			.setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {
@@ -238,22 +237,22 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 
 		//badge depending on the rank
 		if (page === 1) {
-			if (k === 0) badge = JsonReader.commands.topCommand.first;
-			else if (k === 1) badge = JsonReader.commands.topCommand.second;
-			else if (k === 2) badge = JsonReader.commands.topCommand.third;
-			else if (k > 2 && k <= 4) badge = JsonReader.commands.topCommand.military;
+			if (k === 0) {badge = JsonReader.commands.topCommand.first;}
+			else if (k === 1) {badge = JsonReader.commands.topCommand.second;}
+			else if (k === 2) {badge = JsonReader.commands.topCommand.third;}
+			else if (k > 2 && k <= 4) {badge = JsonReader.commands.topCommand.military;}
 		}
 		if (page !== 1 || k > 4) {
-			if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUser_id) != null) badge = JsonReader.commands.topCommand.blue;
-			else badge = JsonReader.commands.topCommand.black;
+			if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUser_id) !== null) {badge = JsonReader.commands.topCommand.blue;}
+			else {badge = JsonReader.commands.topCommand.black;}
 		}
-		if (message.author.id === allEntities[k].discordUser_id) badge = JsonReader.commands.topCommand.white;
+		if (message.author.id === allEntities[k].discordUser_id) {badge = JsonReader.commands.topCommand.white;}
 
 		//badgeState depending on last report
 		// const nowMoment = new moment(new Date());
 		// const lastReport = new moment(allEntities[k-1].Player.lastReportAt);
 		// const diffMinutes = lastReport.diff(nowMoment, 'millisecondes');
-		if (Date.now() < Date.parse(allEntities[k].Player.effect_end_date)) badgeState = allEntities[k].Player.effect;
+		if (Date.now() < Date.parse(allEntities[k].Player.effect_end_date)) {badgeState = allEntities[k].Player.effect;}
 		if (Date.now() > Date.parse(allEntities[k].Player.effect_end_date) + 2 * JsonReader.commands.topCommand.oneHour) {
 			if (allEntities[k].Player.isInactive()) {
 				badgeState = ":ghost:";
@@ -276,11 +275,11 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 	embed.setDescription(messages);
 
 	//Define badge for the user
-	if (rankCurrentPlayer === 1) badge = ":first_place:";
-	else if (rankCurrentPlayer === 2) badge = ":second_place:";
-	else if (rankCurrentPlayer === 3) badge = ":third_place:";
-	else if (rankCurrentPlayer > 3 && rankCurrentPlayer <= 5) badge = ":military_medal:";
-	else if (message.author.id === message.author.id) badge = ":black_circle:";
+	if (rankCurrentPlayer === 1) {badge = ":first_place:";}
+	else if (rankCurrentPlayer === 2) {badge = ":second_place:";}
+	else if (rankCurrentPlayer === 3) {badge = ":third_place:";}
+	else if (rankCurrentPlayer > 3 && rankCurrentPlayer <= 5) {badge = ":military_medal:";}
+	else {badge = ":black_circle:";}
 
 	//test if user is in the current page displayed to indicate(or not) the page where he can find himself
 	if ((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer !== 1) {

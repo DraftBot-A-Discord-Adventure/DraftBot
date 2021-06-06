@@ -11,14 +11,14 @@ const FightCommand = async function (language, message, args, friendly = false) 
 	let attacker;
 	[attacker] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], attacker)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], attacker) !== true) {
 		return;
 	}
 
 	let defender = null;
 	if (args.length !== 0) {
 		[defender] = await Entities.getByArgs(args, message);
-		if (defender == null) {
+		if (defender === null) {
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.defenderDoesntExist);
 			return;
 		} else if (defender.discordUser_id === attacker.discordUser_id) {
@@ -33,7 +33,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 		sendError(message, attacker, canF, true, language);
 		return;
 	}
-	if (defender != null && (canF = await canFight(defender, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+	if (defender !== null && (canF = await canFight(defender, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
 		sendError(message, defender, canF, false, language);
 		return;
 	}
@@ -43,7 +43,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 	let spammers = [];
 	await global.addBlockedPlayer(attacker.discordUser_id, "fight");
 
-	if (defender == null) {
+	if (defender === null) {
 		msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightAnyone, {
 			friendly: friendly ? JsonReader.commands.fight.getTranslation(language).friendly : "",
 			player: attacker.getMention()
@@ -66,7 +66,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 			await messageFightAsk.react(MENU_REACTION.DENY);
 
 			let filter, fightInstance;
-			if (defender == null) {
+			if (defender === null) {
 				filter = (_, user) => {
 					return !user.bot;
 				};
@@ -104,7 +104,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 				case MENU_REACTION.DENY:
 					if (user.id === attacker.discordUser_id) {
 						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.canceled,true);
-					} else if (defender != null) {
+					} else if (defender !== null) {
 						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
 					} else {
 						if (spammers.includes(user.id)) {
@@ -125,13 +125,13 @@ const FightCommand = async function (language, message, args, friendly = false) 
 			collector.on("end", async function () {
 				if (fightInstance === undefined) {
 					global.removeBlockedPlayer(attacker.discordUser_id);
-					if (defender == null) {
+					if (defender === null) {
 						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.noOneAvailable);
 					} else {
 						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
 					}
 				}
-				if (fightInstance == null) {
+				if (fightInstance === null) {
 					global.removeBlockedPlayer(attacker.discordUser_id);
 				}
 			});
@@ -186,7 +186,7 @@ function sendError(message, entity, error, direct, language) {
  * @return {Number} error
  */
 async function canFight(entity, bypassAlteration, bypassHealth) {
-	if (entity == null) {
+	if (entity === null) {
 		return null;
 	}
 	if (entity.Player.level < FIGHT.REQUIRED_LEVEL) {

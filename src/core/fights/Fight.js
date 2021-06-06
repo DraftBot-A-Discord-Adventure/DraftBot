@@ -55,8 +55,9 @@ class Fight {
 			return "powerful";
 		case FIGHT.ACTION.BULK_ATTACK:
 			return "bulk";
+		default:
+			return "unknown";
 		}
-		return "unknown";
 	}
 
 	/** ******************************************************** MESSAGE RELATED FUNCTIONS **********************************************************/
@@ -114,7 +115,7 @@ class Fight {
 		const loser = this.getLoser();
 		const winner = this.getWinner();
 		let msg;
-		if (loser != null && loser.power !== winner.power) {
+		if (loser !== null && loser.power !== winner.power) {
 			msg = format(JsonReader.commands.fight.getTranslation(this.language).end.win, {
 				winner: this.getWinner().entity.getMention(),
 				loser: loser.entity.getMention()
@@ -154,7 +155,7 @@ class Fight {
 							emote: attacks[attacksKeys[j]].emote,
 							success: attacksListElement.success,
 							total: attacksListElement.total,
-							damage: attacksListElement.success !== 0 ? Math.round((attacksListElement.damage / attacksListElement.success) * 10) / 10 : 0,
+							damage: attacksListElement.success !== 0 ? Math.round(attacksListElement.damage / attacksListElement.success * 10) / 10 : 0,
 						});
 					}
 				}
@@ -214,7 +215,7 @@ class Fight {
 						await fight.useAction(FIGHT.ACTION.ULTIMATE_ATTACK);
 						break;
 					default:
-						return;
+						break;
 					}
 				});
 
@@ -394,7 +395,7 @@ class Fight {
 	 */
 	async nextTurn() {
 		this.turn++;
-		if (this.getLoser() != null || this.turn >= FIGHT.MAX_TURNS) {
+		if (this.getLoser() !== null || this.turn >= FIGHT.MAX_TURNS) {
 			this.endFight();
 			return;
 		}
@@ -431,7 +432,7 @@ class Fight {
 		this.calculatePoints();
 
 		// give and remove points if the fight is not a draw
-		if (loser != null && loser.power !== winner.power) {
+		if (loser !== null && loser.power !== winner.power) {
 			loser.entity.Player.addScore(-this.points);
 			loser.entity.Player.addWeeklyScore(-this.points);
 			loser.entity.Player.save();
@@ -452,7 +453,7 @@ class Fight {
 		if (this.lastSummary !== undefined) {
 			this.lastSummary.delete({timeout: 5000}).catch();
 		}
-		if (winner != null) {
+		if (winner !== null) {
 			log("Fight ended; winner: " + winner.entity.discordUser_id + " (" + winner.power + "/" + winner.initialPower + "); loser: " + loser.entity.discordUser_id + " (" + loser.power + "/" + loser.initialPower + "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
 		} else {
 			log("Fight ended; egality: " + this.fighters[0].entity.discordUser_id + " (" + this.fighters[0].power + "/" + this.fighters[0].initialPower + "); loser: " + this.fighters[1].entity.discordUser_id + " (" + this.fighters[1].power + "/" + this.fighters[1].initialPower + "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
@@ -484,12 +485,12 @@ class Fight {
 			if (defender.speed > attacker.speed && success < 0.3) {
 				powerChanger = 0.85;
 				if (attacker.quickAttack > 1)
-					powerChanger -= attacker.quickAttack / 15;
+				{powerChanger -= attacker.quickAttack / 15;}
 				attacker.quickAttack++;
 			} else if (defender.speed < attacker.speed && success < 0.98) {
 				powerChanger = 0.85;
 				if (attacker.quickAttack > 1)
-					powerChanger -= attacker.quickAttack / 11;
+				{powerChanger -= attacker.quickAttack / 11;}
 				attacker.quickAttack++;
 			}
 			far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.1));
@@ -498,23 +499,23 @@ class Fight {
 
 		case FIGHT.ACTION.SIMPLE_ATTACK:
 			powerChanger = 0.4;
-			if ((defender.speed > attacker.speed && success <= 0.4) || (defender.speed < attacker.speed && success < 0.9)) {
+			if (defender.speed > attacker.speed && success <= 0.4 || defender.speed < attacker.speed && success < 0.9) {
 				powerChanger = 1.2;
-			} else if ((defender.speed > attacker.speed && success <= 0.9)) {
+			} else if (defender.speed > attacker.speed && success <= 0.9) {
 				powerChanger = 0.9;
 			}
 			far.damage = Math.round(attacker.attack * powerChanger - defender.defense);
 			if (far.damage < 0)
-				far.damage = 0;
+			{far.damage = 0;}
 			far.damage += randInt(1, Math.round(attacker.attack / 4));
 			far.fullSuccess = far.damage >= Math.round(attacker.attack / 4);
 			break;
 
 		case FIGHT.ACTION.POWERFUL_ATTACK:
 			powerChanger = 0.0;
-			if ((defender.speed > attacker.speed && success <= 0.2) || (defender.speed < attacker.speed && success < 0.7)) {
+			if (defender.speed > attacker.speed && success <= 0.2 || defender.speed < attacker.speed && success < 0.7) {
 				powerChanger = 2.15;
-			} else if ((defender.speed > attacker.speed && success <= 0.5) || (defender.speed < attacker.speed && success < 0.9)) {
+			} else if (defender.speed > attacker.speed && success <= 0.5 || defender.speed < attacker.speed && success < 0.9) {
 				powerChanger = 1.4;
 			}
 			if (powerChanger > 1) {
@@ -524,16 +525,16 @@ class Fight {
 			}
 			far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.5));
 			if (far.damage < 0)
-				far.damage = 0;
+			{far.damage = 0;}
 			if (powerChanger > 1)
-				far.damage += randInt(0, Math.round(attacker.attack / 2));
+			{far.damage += randInt(0, Math.round(attacker.attack / 2));}
 			far.fullSuccess = powerChanger > 1.4;
 			break;
 
 		case FIGHT.ACTION.BULK_ATTACK:
 			far.ownDamage = Math.round(attacker.attack * 2.5 - Math.round(attacker.defense));
 			if (far.ownDamage < 10)
-				far.ownDamage = 10;
+			{far.ownDamage = 10;}
 			attacker.power -= far.ownDamage; //this attack is for everybody
 			if (success < 0.85) {
 				far.damage = Math.round(attacker.attack * 2.5 - Math.round(defender.defense));
@@ -541,7 +542,7 @@ class Fight {
 				far.damage = 0;
 			}
 			if (attacker.power < 0)
-				attacker.power = 0;
+			{attacker.power = 0;}
 			far.fullSuccess = far.damage > 0;
 			break;
 
@@ -560,10 +561,10 @@ class Fight {
 				await this.nextTurn();
 				return;
 			}
-			if ((success <= 0.1) || (attacker.power < attacker.initialPower * 0.5 && success <= 0.8) || (attacker.power < attacker.initialPower * 0.25)) {
+			if (success <= 0.1 || attacker.power < attacker.initialPower * 0.5 && success <= 0.8 || attacker.power < attacker.initialPower * 0.25) {
 				far.damage = Math.round(attacker.attack * 3.5 - Math.round(defender.defense));
 				if(far.damage > defender.initialPower * 0.6)
-					far.damage = Math.round(defender.initialPower * 0.6);
+				{far.damage = Math.round(defender.initialPower * 0.6);}
 
 				far.fullSuccess = true;
 			} else {
@@ -606,7 +607,7 @@ class Fight {
 		const loser = this.getLoser();
 		const winner = this.getWinner();
 		if (loser !== null && winner !== null && winner.entity.Player.score !== 0 && !this.tournamentMode && !this.friendly) {
-			this.elo = Math.round((loser.entity.Player.score / winner.entity.Player.score) * 100) / 100;
+			this.elo = Math.round(loser.entity.Player.score / winner.entity.Player.score * 100) / 100;
 		} else {
 			this.elo = 0;
 		}
@@ -685,7 +686,7 @@ class Fight {
 	 */
 	getWinner() {
 		const loser = this.getLoser();
-		if (loser == null) {
+		if (loser === null) {
 			return null;
 		}
 		return loser === this.fighters[0] ? this.fighters[1] : this.fighters[0];

@@ -12,7 +12,7 @@ const GuildElderRemoveCommand = async (language, message) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true)
-		return;
+	{return;}
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
@@ -25,7 +25,7 @@ const GuildElderRemoveCommand = async (language, message) => {
 		guild = null;
 	}
 
-	if (guild == null) {
+	if (guild === null) {
 		// not in a guild
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notInAguild);
 	}

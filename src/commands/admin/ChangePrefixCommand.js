@@ -6,8 +6,8 @@
  */
 
 const ChangePrefixCommand = async function (language, message, args) {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.ADMINISTRATOR)) !== true) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
 		return;
 	}
 

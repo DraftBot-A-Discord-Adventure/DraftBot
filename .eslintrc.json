@@ -33,6 +33,25 @@
             "always"
         ],
 				"no-undef": "off",
-				"@typescript-eslint/no-var-requires": "off"
+				"@typescript-eslint/no-var-requires": "off",
+				"no-extra-parens": "warn",
+				"block-scoped-var": "warn",
+				"curly": "warn",
+				"default-case": "error",
+				"default-case-last": "error",
+				"default-param-last": "error",
+				"dot-location": ["warn", "property"],
+				"eqeqeq": "error",
+				"guard-for-in": "error",
+				"no-else-return": "error",
+				"no-magic-numbers": "off",
+				"no-multi-spaces": "warn",
+				"no-return-assign": "error",
+				"no-self-compare": "error",
+				"no-useless-return": "error",
+				"require-await": "error",
+				"yoda": "warn",
+
+				"block-spacing": "warn"
     }
 }

@@ -74,10 +74,10 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {("fr"|"en")} language - The language the inventory has to be displayed in
 	 */
-	Weapons.prototype.toFieldObject = async function (language) {
+	Weapons.prototype.toFieldObject = function (language) {
 		return {
 			name: JsonReader.items.getTranslation(language).weapons.fieldName,
-			value: (this.id === 0) ? this[language] : format(
+			value: this.id === 0 ? this[language] : format(
 				JsonReader.items.getTranslation(language).weapons.fieldValue, {
 					name: this[language],
 					rarity: this.getRarityTranslation(language),
@@ -91,7 +91,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {String}
 	 */
 	Weapons.prototype.toString = function (language) {
-		return (this.id === 0) ? this[language] : format(
+		return this.id === 0 ? this[language] : format(
 			JsonReader.items.getTranslation(language).weapons.fieldValue, {
 				name: this[language],
 				rarity: this.getRarityTranslation(language),
@@ -126,7 +126,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {Number}
 	 */
 	Weapons.prototype.getAttack = function () {
-		return Math.round(1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawAttack)) + this.attack;
+		return Math.round(1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplicateur(), this.rawAttack)) + this.attack;
 	};
 
 	/**
@@ -136,7 +136,7 @@ module.exports = (Sequelize, DataTypes) => {
 	Weapons.prototype.getDefense = function () {
 		let before = 0;
 		if (this.rawDefense > 0) {
-			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawDefense);
+			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplicateur(), this.rawDefense);
 		}
 		return Math.round(before * 0.75) + this.defense;
 	};
@@ -148,7 +148,7 @@ module.exports = (Sequelize, DataTypes) => {
 	Weapons.prototype.getSpeed = function () {
 		let before = 0;
 		if (this.rawSpeed > 0) {
-			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawSpeed);
+			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplicateur(), this.rawSpeed);
 		}
 		return Math.round(before * 0.5) + this.speed;
 	};

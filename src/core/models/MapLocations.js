@@ -84,7 +84,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {string}
 	 */
 	MapLocations.prototype.getParticleName = function(language) {
-		return (language === "fr" ? this.particle_fr : this.particle_en);
+		return language === "fr" ? this.particle_fr : this.particle_en;
 	};
 
 	/**
@@ -92,7 +92,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {string}
 	 */
 	MapLocations.prototype.getDescription = function(language) {
-		return (language === "fr" ? this.desc_fr : this.desc_en);
+		return language === "fr" ? this.desc_fr : this.desc_en;
 	};
 
 	/**
@@ -152,14 +152,14 @@ module.exports = (Sequelize, DataTypes) => {
 
 	MapLocations.getPlayersOnMap = async function(map_id, previous_map_id, player_id) {
 		const query = "SELECT discordUser_id FROM players JOIN entities ON players.entity_id = entities.id WHERE players.id != :player_id AND ((players.map_id = :map_id AND players.previous_map_id = :p_map_id) OR (players.map_id = :p_map_id AND players.previous_map_id = :map_id)) ORDER BY RANDOM();";
-		return (await Sequelize.query(query, {
+		return await Sequelize.query(query, {
 			replacements: {
 				map_id: map_id,
 				p_map_id: previous_map_id,
 				player_id: player_id
 			},
 			type: Sequelize.QueryTypes.SELECT
-		}));
+		});
 	};
 
 	return MapLocations;

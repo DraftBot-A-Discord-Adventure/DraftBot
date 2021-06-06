@@ -10,8 +10,8 @@ const ProfileCommand = async function (language, message, args) {
 		[entity] = await Entities.getOrRegister(message.author.id);
 	}
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY], entity) !== true) {
 		return;
 	}
 
@@ -56,13 +56,13 @@ const ProfileCommand = async function (language, message, args) {
 			value: format(JsonReader.commands.profile.getTranslation(
 				language).classement.fieldValue, {
 				rank: (await Players.getById(entity.Player.id))[0].rank,
-				numberOfPlayer: (await Players.count({
+				numberOfPlayer: await Players.count({
 					where: {
 						score: {
-							[(require("sequelize/lib/operators")).gt]: 100,
+							[require("sequelize/lib/operators").gt]: 100,
 						},
 					},
-				})),
+				}),
 				score: entity.Player.score,
 			}),
 		},
@@ -155,14 +155,14 @@ const ProfileCommand = async function (language, message, args) {
 			.setColor(JsonReader.bot.embed.default)
 			.setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
 				effect: titleEffect,
-				pseudo: (await entity.Player.getPseudo(language)),
+				pseudo: await entity.Player.getPseudo(language),
 				level: entity.Player.level,
 			}))
 			.addFields(fields),
 	);
 
 	const filterConfirm = (reaction) => {
-		return (reaction.me && !reaction.users.cache.last().bot);
+		return reaction.me && !reaction.users.cache.last().bot;
 	};
 
 	const collector = msg.createReactionCollector(filterConfirm, {
@@ -170,7 +170,7 @@ const ProfileCommand = async function (language, message, args) {
 		max: JsonReader.commands.profile.badgeMaxReactNumber,
 	});
 
-	collector.on("collect", async (reaction) => {
+	collector.on("collect", (reaction) => {
 		message.channel.send(JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]).then((msg) => {
 			msg.delete({ "timeout": JsonReader.commands.profile.badgeDescriptionTimeout });
 		});
@@ -179,7 +179,9 @@ const ProfileCommand = async function (language, message, args) {
 	if (entity.Player.badges !== null && entity.Player.badges !== "") {
 		const badges = entity.Player.badges.split("-");
 		for (const badgeid in badges) {
-			await msg.react(badges[badgeid]);
+			if (Object.prototype.hasOwnProperty.call(badges, badgeid)) {
+				await msg.react(badges[badgeid]);
+			}
 		}
 	}
 	if (new Date() - entity.Player.topggVoteAt < TOPGG.BADGE_DURATION * 60 * 60 * 1000) {

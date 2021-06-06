@@ -97,7 +97,7 @@ class Maps {
 	 * @returns {number}
 	 */
 	static getTravellingTime(player) {
-		if (!this.isTravelling(player)) return 0;
+		if (!this.isTravelling(player)) {return 0;}
 		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effect_end_date.getTime();
 		return Date.now() - player.start_travel_date - malus;
 	}

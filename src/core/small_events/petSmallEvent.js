@@ -98,6 +98,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		}
 		await pet.save();
 		break;
+	default:
+		break;
 	}
 	await generatePetEmbed(language, interaction, seEmbed, pet, amount, food);
 
@@ -111,6 +113,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		break;
 	case "loseLife":
 		await entity.Player.killIfNeeded(entity, message.channel, language);
+		break;
+	default:
 		break;
 	}
 	log(entity.discordUser_id + " got a pet interaction");
@@ -142,8 +146,8 @@ const generatePetEmbed = async function(language, interaction, seEmbed, pet, amo
 		food: food ? food.translations[language].name.toLowerCase() + " " + food.emote + " " : "",
 		badge: BADGE,
 		feminine: pet.sex === "f" ? "e" : "",
-		random_animal: random_animal ? (PetEntities.getPetEmote(random_animal) + " " + PetEntities.getPetTypeName(random_animal, language)) : "",
-		random_animal_feminine: random_animal ? (random_animal.sex === "f" ? "e" : "") : ""
+		random_animal: random_animal ? PetEntities.getPetEmote(random_animal) + " " + PetEntities.getPetTypeName(random_animal, language) : "",
+		random_animal_feminine: random_animal ? random_animal.sex === "f" ? "e" : "" : ""
 	}));
 };
 

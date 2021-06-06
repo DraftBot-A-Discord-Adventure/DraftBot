@@ -6,8 +6,8 @@
  */
 
 const changeLanguageCommand = async function (language, message) {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.ADMINISTRATOR)) !== true) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
 		return;
 	}
 	const embed = new discord.MessageEmbed();

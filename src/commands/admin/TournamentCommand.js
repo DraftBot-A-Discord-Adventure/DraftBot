@@ -7,11 +7,11 @@
 
 const TournamentCommand = async function (language, message, args) {
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.TOURNAMENT)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.TOURNAMENT) !== true) {
 		return;
 	}
 
-	if (args.length <= 1 || (args[0] !== "channel" && args[0] !== "maxpower")) {
+	if (args.length <= 1 || args[0] !== "channel" && args[0] !== "maxpower") {
 		sendErrorMessage(message.author, message.channel, language, JsonReader.commands.tournament.getTranslation(language).usage);
 		return;
 	}

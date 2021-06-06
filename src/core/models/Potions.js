@@ -58,10 +58,10 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {("fr"|"en")} language - The language the inventory has to be displayed in
 	 */
-	Potions.prototype.toFieldObject = async function (language) {
+	Potions.prototype.toFieldObject = function (language) {
 		return {
 			name: JsonReader.items.getTranslation(language).potions.fieldName,
-			value: (this.id === 0) ? this[language] : format(
+			value: this.id === 0 ? this[language] : format(
 				JsonReader.items.getTranslation(language).potions.fieldValue, {
 					name: this[language],
 					rarity: this.getRarityTranslation(language),
@@ -75,7 +75,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {String}
 	 */
 	Potions.prototype.toString = function (language) {
-		return (this.id === 0) ? this[language] : format(
+		return this.id === 0 ? this[language] : format(
 			JsonReader.items.getTranslation(language).potions.fieldValue, {
 				name: this[language],
 				rarity: this.getRarityTranslation(language),

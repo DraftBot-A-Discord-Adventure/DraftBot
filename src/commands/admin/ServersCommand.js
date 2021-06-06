@@ -5,8 +5,8 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ServersCommand = async (language, message) => {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER)) !== true) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 

@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function VoteCommand(language, message) {
+function VoteCommand(language, message) {
 	const voteEmbed = new discord.MessageEmbed()
 		.setDescription(JsonReader.commands.vote.getTranslation(language).text)
 		.setTitle(JsonReader.commands.vote.getTranslation(language).title)

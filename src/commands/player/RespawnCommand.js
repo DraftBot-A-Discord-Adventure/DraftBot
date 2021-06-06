@@ -9,7 +9,7 @@ const Maps = require("../../core/Maps");
 const RespawnCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity) !== true) {
 		return;
 	}
 

@@ -74,10 +74,10 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {("fr"|"en")} language - The language the armor has to be displayed in
 	 */
-	Armors.prototype.toFieldObject = async function (language) {
+	Armors.prototype.toFieldObject = function (language) {
 		return {
 			name: JsonReader.items.getTranslation(language).armors.fieldName,
-			value: (this.id === 0) ? this[language] : format(
+			value: this.id === 0 ? this[language] : format(
 				JsonReader.items.getTranslation(language).armors.fieldValue, {
 					name: this[language],
 					rarity: this.getRarityTranslation(language),
@@ -91,7 +91,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {String}
 	 */
 	Armors.prototype.toString = function (language) {
-		return (this.id === 0) ? this[language] : format(
+		return this.id === 0 ? this[language] : format(
 			JsonReader.items.getTranslation(language).weapons.fieldValue, {
 				name: this[language],
 				rarity: this.getRarityTranslation(language),
@@ -118,7 +118,7 @@ module.exports = (Sequelize, DataTypes) => {
 	Armors.prototype.getAttack = function () {
 		let before = 0;
 		if (this.rawAttack > 0) {
-			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawAttack);
+			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplicateur(), this.rawAttack);
 		}
 		return Math.round(before * 0.75) + this.attack;
 	};
@@ -139,7 +139,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {Number}
 	 */
 	Armors.prototype.getDefense = function () {
-		return Math.round(1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawDefense)) + this.defense;
+		return Math.round(1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplicateur(), this.rawDefense)) + this.defense;
 	};
 
 	/**
@@ -147,7 +147,7 @@ module.exports = (Sequelize, DataTypes) => {
 	Armors.prototype.getSpeed = function () {
 		let before = 0;
 		if (this.rawSpeed > 0) {
-			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawSpeed);
+			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplicateur(), this.rawSpeed);
 		}
 		return Math.round(before * 0.5) + this.speed;
 	};

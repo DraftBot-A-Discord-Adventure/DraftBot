@@ -6,8 +6,8 @@
  */
 
 const GiveCommand = async function (language, message, args) {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER)) !== true) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 	const embed = new discord.MessageEmbed();
@@ -29,7 +29,7 @@ const GiveCommand = async function (language, message, args) {
 };
 
 function getUserFromMention(mention) {
-	if (!mention) return;
+	if (!mention) {return;}
 
 	if (mention.startsWith("<@") && mention.endsWith(">")) {
 		mention = mention.slice(2, -1);

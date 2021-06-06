@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ideaCommand(language, message) {
+function ideaCommand(language, message) {
 	const ideaEmbed = new discord.MessageEmbed()
 		.setDescription(JsonReader.commands.idea.getTranslation(language).text)
 		.setTitle(JsonReader.commands.idea.getTranslation(language).title)

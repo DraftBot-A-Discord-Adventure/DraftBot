@@ -8,8 +8,8 @@ const PetTransferCommand = async function (language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const pPet = entity.Player.Pet;
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -29,7 +29,7 @@ const PetTransferCommand = async function (language, message, args) {
 	confirmEmbed.setAuthor(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitchTitle, {
 		pseudo: message.author.username
 	}), message.author.displayAvatarURL());
-	const [server] = (await Servers.getOrRegister(message.guild.id));
+	const [server] = await Servers.getOrRegister(message.guild.id);
 
 	if (args.length === 0) {
 		if (!pPet) {
