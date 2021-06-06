@@ -86,7 +86,7 @@ class DraftBot {
 			attributes: ["shop_potion_id"]
 		});
 		let potion;
-		
+
 		potion = await Potions.findAll({
 			order: sequelize.literal("random()")
 		});
