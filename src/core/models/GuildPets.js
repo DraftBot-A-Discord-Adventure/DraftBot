@@ -14,22 +14,22 @@ module.exports = (Sequelize, DataTypes) => {
 			autoIncrement: true
 		},
 		guild_id: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		pet_entity_id: {
-			type: DataTypes.CHAR,
+			type: DataTypes.CHAR
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
-		},
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+		}
 	}, {
 		tableName: "guild_pets",
-		freezeTableName: true,
+		freezeTableName: true
 	});
 
 	GuildPets.beforeSave((instance) => {
@@ -42,9 +42,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param pet_entity_id
 	 * @returns {Promise<GuildPets>}
 	 */
-	GuildPets.addPet = (guild_id, pet_entity_id) => {
-		return GuildPets.build({guild_id: guild_id, pet_entity_id: pet_entity_id});
-	};
+	GuildPets.addPet = (guild_id, pet_entity_id) => GuildPets.build({guild_id: guild_id, pet_entity_id: pet_entity_id});
 
 	return GuildPets;
 };

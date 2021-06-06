@@ -6,9 +6,9 @@
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity, seEmbed) {
+const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
-	let xpWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_EXPERIENCE_WON, SMALL_EVENT.MAXIMUM_EXPERIENCE_WON);
+	const xpWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_EXPERIENCE_WON, SMALL_EVENT.MAXIMUM_EXPERIENCE_WON);
 	seEmbed.setDescription(format(JsonReader.small_events.winPersonalXP.getTranslation(language).stories[randInt(0, JsonReader.small_events.winPersonalXP.getTranslation(language).stories.length)] + JsonReader.small_events.winPersonalXP.getTranslation(language).end, {
 		xp: xpWon
 	})

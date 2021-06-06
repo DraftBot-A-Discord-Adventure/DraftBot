@@ -11,28 +11,28 @@ module.exports = (Sequelize, DataTypes) => {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
-			autoIncrement: true,
+			autoIncrement: true
 		},
 		player_id: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		event_type: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT
 		},
 		number: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		tableName: "player_small_events",
-		freezeTableName: true,
+		freezeTableName: true
 	});
 
 	/**
@@ -42,21 +42,19 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Number} number
 	 * @returns {PlayerSmallEvents}
 	 */
-	PlayerSmallEvents.createPlayerSmallEvent = (player_id, event_type, number) => {
-		return PlayerSmallEvents.build({
-			player_id: player_id,
-			event_type: event_type,
-			number: number
-		});
-	};
+	PlayerSmallEvents.createPlayerSmallEvent = (player_id, event_type, number) => PlayerSmallEvents.build({
+		player_id: player_id,
+		event_type: event_type,
+		number: number
+	});
 
 	/**
 	 * Removes all the small events of a player
 	 * @param {Number} player_id
 	 * @returns {Promise<void>}
 	 */
-	PlayerSmallEvents.removeSmallEventsOfPlayer = async (player_id) => {
-		await PlayerSmallEvents.destroy({ where : { player_id: player_id }});
+	PlayerSmallEvents.removeSmallEventsOfPlayer = async(player_id) => {
+		await PlayerSmallEvents.destroy({ where: { player_id: player_id }});
 	};
 
 	return PlayerSmallEvents;

@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildDescriptionCommand = async (language, message, args) => {
+const GuildDescriptionCommand = async(language, message, args) => {
 	let guild;
 	let entity;
 	const confirmationEmbed = new discord.MessageEmbed();
@@ -43,7 +43,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 	}
 
 	if (args.length <= 0) {
-		//no description was given
+		// no description was given
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -56,7 +56,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 	}
 
 	if (entity.id !== guild.chief_id && entity.id !== guild.elder_id) {
-		//not the chief
+		// not the chief
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -79,7 +79,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 			description.length <= GUILD.MAX_DESCRIPTION_LENGTH
 		)
 	) {
-		//name does not follow the rules
+		// name does not follow the rules
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -89,7 +89,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 					.invalidDescription,
 				{
 					min: GUILD.MIN_DESCRIPTION_LENGTH,
-					max: GUILD.MAX_DESCRIPTION_LENGTH,
+					max: GUILD.MAX_DESCRIPTION_LENGTH
 				}
 			)
 		);
@@ -108,7 +108,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 			JsonReader.commands.guildDescription.getTranslation(language)
 				.changeDescriptionConfirm,
 			{
-				description: description,
+				description: description
 			}
 		)
 	);
@@ -121,22 +121,20 @@ const GuildDescriptionCommand = async (language, message, args) => {
 	const msg = await message.channel.send(confirmationEmbed);
 
 	const embed = new discord.MessageEmbed();
-	const filterConfirm = (reaction, user) => {
-		return (
-			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+	const filterConfirm = (reaction, user) =>
+		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.author.id
-		);
-	};
+		;
 
 	const collector = msg.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
-		max: 1,
+		max: 1
 	});
 
 	addBlockedPlayer(entity.discordUser_id, "descriptionEdit", collector);
 
-	collector.on("end", async (reaction) => {
+	collector.on("end", async(reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			// a reaction exist
@@ -144,7 +142,8 @@ const GuildDescriptionCommand = async (language, message, args) => {
 				[entity] = await Entities.getOrRegister(message.author.id);
 				try {
 					guild = await Guilds.getById(entity.Player.guild_id);
-				} catch (error) {
+				}
+				catch (error) {
 					guild = null;
 				}
 				if (guild === null) {
@@ -186,7 +185,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 
 	await Promise.all([
 		msg.react(MENU_REACTION.ACCEPT),
-		msg.react(MENU_REACTION.DENY),
+		msg.react(MENU_REACTION.DENY)
 	]);
 };
 
@@ -195,7 +194,7 @@ module.exports = {
 		{
 			name: "guilddesc",
 			func: GuildDescriptionCommand,
-			aliases: ["gdesc", "guilddescription"],
-		},
-	],
+			aliases: ["gdesc", "guilddescription"]
+		}
+	]
 };

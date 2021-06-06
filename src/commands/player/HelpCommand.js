@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const HelpCommand = async (language, message, args) => {
+const HelpCommand = async(language, message, args) => {
 	const command = getMainCommandFromAlias(args[0]);
 	[server] = await Servers.getOrRegister(message.guild.id);
 	let helpMessage = JsonReader.commands.help.getTranslation(language).commands[
@@ -13,7 +13,7 @@ const HelpCommand = async (language, message, args) => {
 
 	if (helpMessage === undefined) {
 		helpMessage = new discord.MessageEmbed();
-		let commandsList = Object.entries(
+		const commandsList = Object.entries(
 			JsonReader.commands.help.getTranslation(language).commands
 		);
 		const serverCommands = Object.keys(
@@ -48,7 +48,7 @@ const HelpCommand = async (language, message, args) => {
 
 		helpMessage.setAuthor(
 			format(JsonReader.commands.help.getTranslation(language).helpEmbedTitle, {
-				pseudo: message.author.username,
+				pseudo: message.author.username
 			}),
 			message.author.displayAvatarURL()
 		);
@@ -59,33 +59,34 @@ const HelpCommand = async (language, message, args) => {
 		helpMessage.addFields([
 			{
 				name: JsonReader.commands.help.getTranslation(language).serverCommands,
-				value: `${serverCommands.sort().join(" • ")}`,
+				value: `${serverCommands.sort().join(" • ")}`
 			},
 			{
 				name: JsonReader.commands.help.getTranslation(language).utilCommands,
-				value: `${utilCommands.sort().join(" • ")}`,
+				value: `${utilCommands.sort().join(" • ")}`
 			},
 			{
 				name: JsonReader.commands.help.getTranslation(language).playerCommands,
-				value: `${playerCommands.join(" • ")}`,
+				value: `${playerCommands.join(" • ")}`
 			},
 			{
 				name: JsonReader.commands.help.getTranslation(language).guildCommands,
-				value: `${guildCommands.sort().join(" • ")}`,
+				value: `${guildCommands.sort().join(" • ")}`
 			},
 			{
 				name: JsonReader.commands.help.getTranslation(language).petCommands,
-				value: `${petCommands.sort().join(" • ")} \n\u200b`,
+				value: `${petCommands.sort().join(" • ")} \n\u200b`
 			},
 			{
 				name: JsonReader.commands.help.getTranslation(language).forMoreHelp,
 				value: format(JsonReader.commands.help.getTranslation(language)
 					.forMoreHelpValue, {prefix: server.prefix}
-				),
-			},
+				)
+			}
 		]);
-	} else {
-		let helpMsgTmp = helpMessage;
+	}
+	else {
+		const helpMsgTmp = helpMessage;
 		helpMessage = new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
 			.setDescription(helpMsgTmp.description)
@@ -136,6 +137,6 @@ module.exports = {
 			name: "help",
 			func: HelpCommand,
 			aliases: ["h"]
-		},
-	],
+		}
+	]
 };

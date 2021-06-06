@@ -5,7 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const DebugBlockedCommand = async function (language, message, args) {
+const DebugBlockedCommand = async function(language, message, args) {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;

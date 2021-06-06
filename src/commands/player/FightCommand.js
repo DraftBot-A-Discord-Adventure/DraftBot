@@ -7,9 +7,8 @@ const Fight = require("../../core/fights/Fight");
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {boolean} friendly - If the fight is a friendly fight
  */
-const FightCommand = async function (language, message, args, friendly = false) {
-	let attacker;
-	[attacker] = await Entities.getOrRegister(message.author.id);
+const FightCommand = async function(language, message, args, friendly = false) {
+	const [attacker] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], attacker) !== true) {
 		return;
@@ -21,13 +20,14 @@ const FightCommand = async function (language, message, args, friendly = false) 
 		if (defender === null) {
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.defenderDoesntExist);
 			return;
-		} else if (defender.discordUser_id === attacker.discordUser_id) {
+		}
+		else if (defender.discordUser_id === attacker.discordUser_id) {
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.fightHimself);
 			return;
 		}
 	}
 
-	let isTournament = tournamentChannel === message.channel.id && !friendly;
+	const isTournament = tournamentChannel === message.channel.id && !friendly;
 	let canF;
 	if ((canF = await canFight(attacker, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
 		sendError(message, attacker, canF, true, language);
@@ -40,7 +40,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 
 	let msg;
 	let spamCount = 0;
-	let spammers = [];
+	const spammers = [];
 	await global.addBlockedPlayer(attacker.discordUser_id, "fight");
 
 	if (defender === null) {
@@ -48,11 +48,12 @@ const FightCommand = async function (language, message, args, friendly = false) 
 			friendly: friendly ? JsonReader.commands.fight.getTranslation(language).friendly : "",
 			player: attacker.getMention()
 		});
-	} else {
+	}
+	else {
 		msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightSomeone, {
 			friendly: friendly ? JsonReader.commands.fight.getTranslation(language).friendly : "",
 			player: attacker.getMention(),
-			opponent: defender.getMention(),
+			opponent: defender.getMention()
 		});
 	}
 	msg += "\n\n" + await getStatsDisplay(attacker, language, isTournament ? tournamentPower : -1, friendly || isTournament);
@@ -61,24 +62,21 @@ const FightCommand = async function (language, message, args, friendly = false) 
 	}
 
 	await message.channel.send(msg)
-		.then(async function (messageFightAsk) {
+		.then(async function(messageFightAsk) {
 			await messageFightAsk.react(MENU_REACTION.ACCEPT);
 			await messageFightAsk.react(MENU_REACTION.DENY);
 
 			let filter, fightInstance;
 			if (defender === null) {
-				filter = (_, user) => {
-					return !user.bot;
-				};
-			} else {
-				filter = (_, user) => {
-					return user.id === attacker.discordUser_id || user.id === defender.discordUser_id;
-				};
+				filter = (_, user) => !user.bot;
+			}
+			else {
+				filter = (_, user) => user.id === attacker.discordUser_id || user.id === defender.discordUser_id;
 			}
 
 			const collector = messageFightAsk.createReactionCollector(filter, { time: 60000 });
 
-			collector.on("collect", async (reaction, user) => {
+			collector.on("collect", async(reaction, user) => {
 				switch (reaction.emoji.name) {
 				case MENU_REACTION.ACCEPT:
 					if (user.id === attacker.discordUser_id) {
@@ -104,9 +102,11 @@ const FightCommand = async function (language, message, args, friendly = false) 
 				case MENU_REACTION.DENY:
 					if (user.id === attacker.discordUser_id) {
 						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.canceled,true);
-					} else if (defender !== null) {
+					}
+					else if (defender !== null) {
 						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
-					} else {
+					}
+					else {
 						if (spammers.includes(user.id)) {
 							return;
 						}
@@ -122,12 +122,13 @@ const FightCommand = async function (language, message, args, friendly = false) 
 				collector.stop();
 			});
 
-			collector.on("end", async function () {
+			collector.on("end", async function() {
 				if (fightInstance === undefined) {
 					global.removeBlockedPlayer(attacker.discordUser_id);
 					if (defender === null) {
 						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.noOneAvailable);
-					} else {
+					}
+					else {
 						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
 					}
 				}
@@ -214,14 +215,14 @@ async function canFight(entity, bypassAlteration, bypassHealth) {
  */
 async function getStatsDisplay(entity, language, maxPower = -1, friendly = false) {
 	let msg = format(JsonReader.commands.fight.getTranslation(language).statsOfPlayer, { pseudo: await entity.Player.getPseudo(language) });
-	let inv = entity.Player.Inventory;
-	let w = await inv.getWeapon();
-	let a = await inv.getArmor();
-	let p = await inv.getPotion();
+	const inv = entity.Player.Inventory;
+	const w = await inv.getWeapon();
+	const a = await inv.getArmor();
+	const p = await inv.getPotion();
 	if (friendly) {
 		p.power = 0;
 	}
-	let o = await inv.getActiveObject();
+	const o = await inv.getActiveObject();
 	let power = maxPower;
 	const pMaxPower = await entity.getMaxCumulativeHealth();
 	if (power === -1 || pMaxPower < maxPower) {
@@ -249,7 +250,7 @@ const FIGHT_ERROR = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const FriendlyFightCommand = async function (language, message, args) {
+const FriendlyFightCommand = async function(language, message, args) {
 	await FightCommand(language, message, args, true);
 };
 

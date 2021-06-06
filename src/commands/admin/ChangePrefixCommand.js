@@ -5,7 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const ChangePrefixCommand = async function (language, message, args) {
+const ChangePrefixCommand = async function(language, message, args) {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
 		return;
@@ -13,8 +13,7 @@ const ChangePrefixCommand = async function (language, message, args) {
 
 	const embed = new discord.MessageEmbed();
 	const newPrefix = args[0];
-	let server;
-	[server] = await Servers.getOrRegister(message.guild.id);
+	const [server] = await Servers.getOrRegister(message.guild.id);
 	if (newPrefix === undefined) {
 		return sendErrorMessage(message.author, message.channel, language, format(
 			JsonReader.commands.changePrefix.getTranslation(language).descError,

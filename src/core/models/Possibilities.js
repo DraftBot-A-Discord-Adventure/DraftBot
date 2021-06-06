@@ -13,60 +13,60 @@ module.exports = (Sequelize, DataTypes) => {
 			id: {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
-				autoIncrement: true,
+				autoIncrement: true
 			},
 			possibilityKey: {
-				type: DataTypes.STRING(32),
+				type: DataTypes.STRING(32)
 			},
 			lostTime: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.INTEGER
 			},
 			health: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.INTEGER
 			},
 			oneshot: {
 				type: DataTypes.BOOLEAN,
-				defaultValue: false,
+				defaultValue: false
 			},
 			effect: {
-				type: DataTypes.STRING(32),
+				type: DataTypes.STRING(32)
 			},
 			experience: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.INTEGER
 			},
 			money: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.INTEGER
 			},
 			item: {
-				type: DataTypes.BOOLEAN,
+				type: DataTypes.BOOLEAN
 			},
 			fr: {
-				type: DataTypes.TEXT,
+				type: DataTypes.TEXT
 			},
 			en: {
-				type: DataTypes.TEXT,
+				type: DataTypes.TEXT
 			},
 			event_id: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.INTEGER
 			},
 			nextEvent: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.INTEGER
 			},
 			updatedAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 			},
 			createdAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 			},
 			restricted_maps: {
 				type: DataTypes.TEXT
-			},
+			}
 		},
 		{
 			tableName: "possibilities",
-			freezeTableName: true,
+			freezeTableName: true
 		}
 	);
 

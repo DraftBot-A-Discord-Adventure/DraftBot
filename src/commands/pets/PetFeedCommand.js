@@ -6,12 +6,13 @@ const tr = JsonReader.commands.petFeed;
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetFeedCommand = async function (language, message) {
-	let [entity] = await Entities.getOrRegister(message.author.id);
+const PetFeedCommand = async function(language, message) {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 
@@ -31,7 +32,7 @@ const PetFeedCommand = async function (language, message) {
 		return;
 	}
 
-	let authorPet = entity.Player.Pet;
+	const authorPet = entity.Player.Pet;
 
 	if (!authorPet) {
 		return await sendErrorMessage(
@@ -51,7 +52,7 @@ const PetFeedCommand = async function (language, message) {
 			message.channel,
 			language,
 			format(tr.getTranslation(language).notHungry, {
-				petnick: await PetEntities.displayName(authorPet, language),
+				petnick: await PetEntities.displayName(authorPet, language)
 			})
 		);
 	}
@@ -62,10 +63,10 @@ const PetFeedCommand = async function (language, message) {
 			.set(GUILDSHOP.CARNIVOROUS_FOOD, JsonReader.food.carnivorousFood)
 			.set(GUILDSHOP.ULTIMATE_FOOD, JsonReader.food.ultimateFood);
 
-		let breedEmbed = new discord.MessageEmbed();
+		const breedEmbed = new discord.MessageEmbed();
 		breedEmbed.setAuthor(
 			format(tr.getTranslation(language).breedEmbedAuthor, {
-				author: message.author.username,
+				author: message.author.username
 			}),
 			message.author.displayAvatarURL()
 		);
@@ -75,18 +76,16 @@ const PetFeedCommand = async function (language, message) {
 
 		const breedMsg = await message.channel.send(breedEmbed);
 
-		const filterConfirm = (reaction, user) => {
-			return user.id === entity.discordUser_id && reaction.me;
-		};
+		const filterConfirm = (reaction, user) => user.id === entity.discordUser_id && reaction.me;
 
 		const collector = breedMsg.createReactionCollector(filterConfirm, {
 			time: COLLECTOR_TIME,
-			max: 1,
+			max: 1
 		});
 
 		addBlockedPlayer(entity.discordUser_id, "petFeed");
 
-		//Fetch the choice from the user
+		// Fetch the choice from the user
 		collector.on("end", (reaction) => {
 			if (
 				!reaction.first() ||
@@ -114,38 +113,37 @@ const PetFeedCommand = async function (language, message) {
 			breedMsg.react(GUILDSHOP.HERBIVOROUS_FOOD),
 			breedMsg.react(GUILDSHOP.CARNIVOROUS_FOOD),
 			breedMsg.react(GUILDSHOP.ULTIMATE_FOOD),
-			breedMsg.react(MENU_REACTION.DENY),
+			breedMsg.react(MENU_REACTION.DENY)
 		]);
-	} else {
-		let breedEmbed = new discord.MessageEmbed();
+	}
+	else {
+		const breedEmbed = new discord.MessageEmbed();
 		breedEmbed.setAuthor(
 			format(tr.getTranslation(language).breedEmbedTitle2, {
-				author: message.author.username,
+				author: message.author.username
 			}),
 			message.author.displayAvatarURL()
 		);
 		breedEmbed.setDescription(
 			format(tr.getTranslation(language).breedEmbedDescription2, {
-				petnick: await PetEntities.displayName(authorPet, language),
+				petnick: await PetEntities.displayName(authorPet, language)
 			})
 		);
 		breedEmbed.setFooter(tr.getTranslation(language).breedEmbedFooter);
 
 		const breedMsg = await message.channel.send(breedEmbed);
 
-		const filterConfirm = (reaction, user) => {
-			return user.id === entity.discordUser_id && reaction.me;
-		};
+		const filterConfirm = (reaction, user) => user.id === entity.discordUser_id && reaction.me;
 
 		const collector = breedMsg.createReactionCollector(filterConfirm, {
 			time: COLLECTOR_TIME,
-			max: 1,
+			max: 1
 		});
 
 		addBlockedPlayer(entity.discordUser_id, "petFeed");
 
-		//Fetch the choice from the user
-		collector.on("end", async (reaction) => {
+		// Fetch the choice from the user
+		collector.on("end", async(reaction) => {
 			removeBlockedPlayer(entity.discordUser_id);
 			if (
 				!reaction.first() ||
@@ -159,14 +157,15 @@ const PetFeedCommand = async function (language, message) {
 				);
 			}
 
-			if (entity.Player.money - 20 < 0)
-			{return sendErrorMessage(
-				message.author,
-				message.channel,
-				language,
-				tr.getTranslation(language).noMoney
-			);}
-			entity.Player.money = entity.Player.money - 20;
+			if (entity.Player.money - 20 < 0) {
+				return sendErrorMessage(
+					message.author,
+					message.channel,
+					language,
+					tr.getTranslation(language).noMoney
+				);
+			}
+			entity.Player.money -= 20;
 			authorPet.hungrySince = Date();
 			await Promise.all[authorPet.save(), entity.Player.save()];
 			const feedSuccessEmbed = new discord.MessageEmbed();
@@ -178,7 +177,8 @@ const PetFeedCommand = async function (language, message) {
 					),
 					typeSuffix: authorPet.sex === PETS.FEMALE ? "se" : "x"
 				});
-			} else {
+			}
+			else {
 				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
 					petnick: await PetEntities.displayName(
 						authorPet,
@@ -191,7 +191,7 @@ const PetFeedCommand = async function (language, message) {
 
 		await Promise.all([
 			breedMsg.react(MENU_REACTION.ACCEPT),
-			breedMsg.react(MENU_REACTION.DENY),
+			breedMsg.react(MENU_REACTION.DENY)
 		]);
 	}
 };
@@ -219,7 +219,7 @@ async function feedPet(message, language, entity, pet, item) {
 
 	successEmbed.setAuthor(
 		format(tr.getTranslation(language).embedTitle, {
-			pseudo: message.author.username,
+			pseudo: message.author.username
 		}),
 		message.author.displayAvatarURL()
 	);
@@ -229,9 +229,10 @@ async function feedPet(message, language, entity, pet, item) {
 	) {
 		if (item.type.includes(pet.PetModel.diet)) {
 			pet.lovePoints += item.effect;
-			if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
-			{pet.lovePoints = PETS.MAX_LOVE_POINTS;}
-			guild[item.type] = guild[item.type] - 1;
+			if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
+				pet.lovePoints = PETS.MAX_LOVE_POINTS;
+			}
+			guild[item.type]--;
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
@@ -239,26 +240,30 @@ async function feedPet(message, language, entity, pet, item) {
 						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
-			} else {
+			}
+			else {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
 						petnick: await PetEntities.displayName(pet, language)
 					})
 				);
 			}
-		} else {
-			guild[item.type] = guild[item.type] - 1;
+		}
+		else {
+			guild[item.type]--;
 			successEmbed.setDescription(
 				format(tr.getTranslation(language).description["0"], {
-					petnick: await PetEntities.displayName(pet, language),
+					petnick: await PetEntities.displayName(pet, language)
 				})
 			);
 		}
-	} else {
+	}
+	else {
 		pet.lovePoints += item.effect;
-		if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
-		{pet.lovePoints = PETS.MAX_LOVE_POINTS;}
-		guild[item.type] = guild[item.type] - 1;
+		if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
+			pet.lovePoints = PETS.MAX_LOVE_POINTS;
+		}
+		guild[item.type]--;
 		switch (item.type) {
 		case "commonFood":
 			console.log(pet);
@@ -269,10 +274,11 @@ async function feedPet(message, language, entity, pet, item) {
 						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
-			} else {
+			}
+			else {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["1"], {
-						petnick: await PetEntities.displayName(pet, language),
+						petnick: await PetEntities.displayName(pet, language)
 					})
 				);
 			}
@@ -286,7 +292,8 @@ async function feedPet(message, language, entity, pet, item) {
 						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
-			} else {
+			}
+			else {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
 						petnick: await PetEntities.displayName(pet, language)
@@ -297,7 +304,7 @@ async function feedPet(message, language, entity, pet, item) {
 		case "ultimateFood":
 			successEmbed.setDescription(
 				format(tr.getTranslation(language).description["3"], {
-					petnick: await PetEntities.displayName(pet, language),
+					petnick: await PetEntities.displayName(pet, language)
 				})
 			);
 			break;
@@ -322,8 +329,8 @@ module.exports = {
 				"pfeed",
 				"feedp",
 				"feedpet",
-				"fp",
-			],
-		},
-	],
+				"fp"
+			]
+		}
+	]
 };

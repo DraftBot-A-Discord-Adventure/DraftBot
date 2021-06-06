@@ -6,7 +6,7 @@ const Maps = require("../../core/Maps");
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const RespawnCommand = async (language, message) => {
+const RespawnCommand = async(language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity) !== true) {
@@ -15,7 +15,8 @@ const RespawnCommand = async (language, message) => {
 
 	if (entity.Player.effect !== EFFECT.DEAD) {
 		await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.respawn.getTranslation(language).alive, {pseudo: message.author.username}));
-	} else {
+	}
+	else {
 		const lostScore = Math.round(entity.Player.score * JsonReader.commands.respawn.score_remove_during_respawn);
 		entity.health = await entity.getMaxHealth();
 		entity.Player.addScore(-lostScore);
@@ -23,10 +24,10 @@ const RespawnCommand = async (language, message) => {
 
 		await Promise.all([
 			entity.save(),
-			entity.Player.save(),
+			entity.Player.save()
 		]);
 
-		let destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, null);
+		const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, null);
 
 		await Maps.removeEffect(entity.Player);
 		await Maps.stopTravel(entity.Player);

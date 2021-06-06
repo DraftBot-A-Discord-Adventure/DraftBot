@@ -9,10 +9,10 @@ const doNothing = require("./doNothingSmallEvent");
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity, seEmbed) {
+const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
 	if (!entity.Player.Pet) {
-		//the player does not have a pet : do nothing
+		// the player does not have a pet : do nothing
 		return await doNothing.executeSmallEvent(message, language, entity, seEmbed);
 	}
 
@@ -42,7 +42,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	case "food":
 		if (entity.Player.guild_id) {
 			food = draftbotRandom.pick([JsonReader.food.commonFood, JsonReader.food.herbivorousFood, JsonReader.food.carnivorousFood, JsonReader.food.ultimateFood]);
-		} else {
+		}
+		else {
 			interaction = "nothing";
 		}
 		break;
@@ -60,11 +61,13 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		if (entity.Player.badges !== null) {
 			if (entity.Player.badges.includes(BADGE)) {
 				interaction = "nothing";
-			} else {
+			}
+			else {
 				entity.Player.addBadge(BADGE);
 				entity.Player.save();
 			}
-		} else {
+		}
+		else {
 			entity.Player.addBadge(BADGE);
 			entity.Player.save();
 		}
@@ -156,18 +159,19 @@ const generatePetEmbed = async function(language, interaction, seEmbed, pet, amo
  * @param pet_entity - le pet
  * @returns {string|null} - une interaction aléatoire
  */
-const pickRandomInteraction = function (pet_entity) {
+const pickRandomInteraction = function(pet_entity) {
 	const section = pet_entity.lovePoints <= PETS.LOVE_LEVELS[0] ? JsonReader.small_events.pet.rarities.feisty : JsonReader.small_events.pet.rarities.normal;
 	const level = pet_entity.PetModel.rarity + (PetEntities.getLoveLevelNumber(pet_entity) === 5 ? 1 : 0);
 
 	let total = 0;
-	for (let key in section) {
+	for (const key in section) {
 		if (Object.prototype.hasOwnProperty.call(section, key)) {
 			if (section[key].minLevel) {
 				if (section[key].minLevel <= level) {
 					total += section[key].probabilityWeight;
 				}
-			} else {
+			}
+			else {
 				total += section[key].probabilityWeight;
 			}
 		}
@@ -176,7 +180,7 @@ const pickRandomInteraction = function (pet_entity) {
 	const pickedNumber = randInt(0, total);
 	let cumulative = 0;
 
-	for (let key in section) {
+	for (const key in section) {
 		if (Object.prototype.hasOwnProperty.call(section, key)) {
 			if (section[key].minLevel) {
 				if (section[key].minLevel <= level) {
@@ -185,9 +189,11 @@ const pickRandomInteraction = function (pet_entity) {
 					}
 					cumulative += section[key].probabilityWeight;
 				}
-			} else if (pickedNumber < cumulative + section[key].probabilityWeight) {
+			}
+			else if (pickedNumber < cumulative + section[key].probabilityWeight) {
 				return key;
-			} else {
+			}
+			else {
 				cumulative += section[key].probabilityWeight;
 			}
 		}

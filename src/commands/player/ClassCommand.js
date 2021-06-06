@@ -5,7 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 async function ClassCommand(language, message) {
-	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
+	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, CLASS.REQUIRED_LEVEL) !== true) {
 		return;
@@ -16,7 +16,7 @@ async function ClassCommand(language, message) {
 
 	const classTranslations = JsonReader.commands.class.getTranslation(language);
 
-	let allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
+	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
 
 	const embedClassMessage = new discord.MessageEmbed()
 		.setColor(JsonReader.bot.embed.default)
@@ -39,22 +39,20 @@ async function ClassCommand(language, message) {
 	embedClassMessage.addField(
 		classTranslations.moneyQuantityTitle,
 		format(classTranslations.moneyQuantity, {
-			money: entity.Player.money,
+			money: entity.Player.money
 		}));
-	//Creating class message
+	// Creating class message
 	const classMessage = await message.channel.send(embedClassMessage);
 
-	const filterConfirm = (reaction, user) => {
-		return user.id === entity.discordUser_id && reaction.me;
-	};
+	const filterConfirm = (reaction, user) => user.id === entity.discordUser_id && reaction.me;
 
 	const collector = classMessage.createReactionCollector(filterConfirm, { time: COLLECTOR_TIME, max: 1 });
 
 	addBlockedPlayer(entity.discordUser_id, "class", collector);
 
-	//Fetch the choice from the user
-	collector.on("end", async (reaction) => {
-		if (!reaction.first()) { //the user is afk
+	// Fetch the choice from the user
+	collector.on("end", async(reaction) => {
+		if (!reaction.first()) { // the user is afk
 			removeBlockedPlayer(entity.discordUser_id);
 			return;
 		}
@@ -68,8 +66,8 @@ async function ClassCommand(language, message) {
 		confirmPurchase(message, language, selectedClass, entity);
 	});
 
-	//Adding reactions
-	let classEmojis = new Map();
+	// Adding reactions
+	const classEmojis = new Map();
 	for (let k = 0; k < allClasses.length; k++) {
 		await classMessage.react(allClasses[k].emoji);
 		classEmojis.set(allClasses[k].emoji, k);
@@ -89,7 +87,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 		.setColor(JsonReader.bot.embed.default)
 		.setAuthor(
 			format(JsonReader.commands.class.getTranslation(language).confirm, {
-				pseudo: message.author.username,
+				pseudo: message.author.username
 			}),
 			message.author.displayAvatarURL()
 		)
@@ -103,16 +101,14 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 		);
 
 	const confirmMessage = await message.channel.send(confirmEmbed);
-	const filterConfirm = (reaction, user) => {
-		return (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUser_id;
-	};
+	const filterConfirm = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUser_id;
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
-		max: 1,
+		max: 1
 	});
 
-	collector.on("end", async (reaction) => {
+	collector.on("end", async(reaction) => {
 		const playerClass = await Classes.getById(entity.Player.class);
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
@@ -121,7 +117,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 					return sendErrorMessage(message.author, message.channel, language, format(
 						JsonReader.commands.class.getTranslation(language).error.cannotBuy,
 						{
-							missingMoney: selectedClass.price - entity.Player.money,
+							missingMoney: selectedClass.price - entity.Player.money
 						}
 					));
 				}
@@ -144,7 +140,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 						.setColor(JsonReader.bot.embed.default)
 						.setAuthor(
 							format(JsonReader.commands.class.getTranslation(language).success, {
-								pseudo: message.author.username,
+								pseudo: message.author.username
 							}),
 							message.author.displayAvatarURL()
 						)
@@ -157,7 +153,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 
 	await Promise.all([
 		confirmMessage.react(MENU_REACTION.ACCEPT),
-		confirmMessage.react(MENU_REACTION.DENY),
+		confirmMessage.react(MENU_REACTION.DENY)
 	]);
 }
 
@@ -165,7 +161,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
  * @param {number} price - The item price
  * @param {Players} player
  */
-const canBuy = function (price, player) {
+const canBuy = function(price, player) {
 	return player.money >= price;
 };
 

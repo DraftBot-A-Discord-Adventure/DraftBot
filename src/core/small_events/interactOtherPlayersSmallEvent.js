@@ -6,9 +6,9 @@
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity, seEmbed) {
+const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;
-	let playersOnMap = await MapLocations.getPlayersOnMap(entity.Player.map_id, entity.Player.previous_map_id, entity.Player.id);
+	const playersOnMap = await MapLocations.getPlayersOnMap(entity.Player.map_id, entity.Player.previous_map_id, entity.Player.id);
 	for (let i = 0; i < playersOnMap.length; ++i) {
 		if (client.users.cache.has(playersOnMap[i].discordUser_id)) {
 			selectedPlayer = playersOnMap[i];
@@ -20,8 +20,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	if (!selectedPlayer) {
 		seEmbed.setDescription(seEmbed.description + tr.no_one[randInt(0, tr.no_one.length)]);
 		return await message.channel.send(seEmbed);
-	} 
-	let [otherEntity] = await Entities.getOrRegister(selectedPlayer.discordUser_id);
+	}
+	const [otherEntity] = await Entities.getOrRegister(selectedPlayer.discordUser_id);
 	const cList = [];
 
 	const player = (await Players.getById(entity.Player.id))[0];
@@ -30,11 +30,14 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let guild = null;
 	if (otherPlayer.rank === 1) {
 		cList.push("top1");
-	} else if (otherPlayer.rank <= 10) {
+	}
+	else if (otherPlayer.rank <= 10) {
 		cList.push("top10");
-	} else if (otherPlayer.rank <= 50) {
+	}
+	else if (otherPlayer.rank <= 50) {
 		cList.push("top50");
-	} else if (otherPlayer.rank <= 100) {
+	}
+	else if (otherPlayer.rank <= 100) {
 		cList.push("top100");
 	}
 	if (otherEntity.Player.badges) {
@@ -47,7 +50,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	}
 	if (otherEntity.Player.level < 10) {
 		cList.push("beginner");
-	} else if (otherEntity.Player.level >= 50) {
+	}
+	else if (otherEntity.Player.level >= 50) {
 		cList.push("advanced");
 	}
 	if (otherEntity.Player.class && otherEntity.Player.class === entity.Player.class) {
@@ -62,17 +66,20 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	const healthPercentage = otherEntity.health / await otherEntity.getMaxHealth();
 	if (healthPercentage < 0.2) {
 		cList.push("lowHP");
-	} else if (healthPercentage === 1.0) {
+	}
+	else if (healthPercentage === 1.0) {
 		cList.push("fullHP");
 	}
 	if (otherPlayer.rank < player.rank) {
 		cList.push("lowerRankThanHim");
-	} else if (otherPlayer.rank > player.rank) {
+	}
+	else if (otherPlayer.rank > player.rank) {
 		cList.push("betterRankThanHim");
 	}
 	if (otherEntity.Player.money > 20000) {
 		cList.push("rich");
-	} else if (entity.Player.money > 0 && otherEntity.Player.money < 200) {
+	}
+	else if (entity.Player.money > 0 && otherEntity.Player.money < 200) {
 		cList.push("poor");
 	}
 	if (otherEntity.Player.Inventory.potion_id !== JsonReader.models.inventories.potion_id && entity.Player.Inventory.potion_id === JsonReader.models.inventories.potion_id) {
@@ -85,7 +92,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		guild = await Guilds.getById(otherEntity.Player.guild_id);
 		if (guild.chief_id === otherEntity.Player.id) {
 			cList.push("guildChief");
-		} else if (guild.elder_id === otherEntity.Player.id) {
+		}
+		else if (guild.elder_id === otherEntity.Player.id) {
 			cList.push("guildElder");
 		}
 	}
@@ -128,12 +136,12 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	if (item) {
 		if (item.french_plural === 1) {
 			prefix_item = "ses";
-		} else {
-			if (item.french_masculine === 1) {
-				prefix_item = "son";
-			} else {
-				prefix_item = "sa";
-			}
+		}
+		else if (item.french_masculine === 1) {
+			prefix_item = "son";
+		}
+		else {
+			prefix_item = "sa";
 		}
 	}
 
@@ -146,21 +154,19 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		guild_name: guild ? guild.name : "",
 		item: item ? item[language] : "",
 		plural_item: item ? item.french_plural === 1 ? "s" : "" : "",
-		prefix_item: prefix_item,
+		prefix_item: prefix_item
 	}));
 	const msg = await message.channel.send(seEmbed);
 
 	const COIN_EMOTE = "🪙";
-	const collector = msg.createReactionCollector((reaction, user) => {
-		return [COIN_EMOTE, MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
-	}, {time: COLLECTOR_TIME});
+	const collector = msg.createReactionCollector((reaction, user) => [COIN_EMOTE, MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id, {time: COLLECTOR_TIME});
 	switch (characteristic) {
 	case "poor":
 		addBlockedPlayer(entity.discordUser_id, "report", collector);
 		collector.on("collect", () => {
 			collector.stop();
 		});
-		collector.on("end", async (reaction) => {
+		collector.on("end", async(reaction) => {
 			const poorEmbed = new discord.MessageEmbed();
 			poorEmbed.setAuthor(format(JsonReader.commands.report.getTranslation(language).journal, {
 				pseudo: message.author.username
@@ -191,7 +197,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	default:
 		break;
 	}
-	
+
 	log(entity.discordUser_id + " interacted with a player");
 };
 

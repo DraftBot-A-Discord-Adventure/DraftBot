@@ -4,12 +4,11 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildCreateCommand = async (language, message, args) => {
-	let entity;
+const GuildCreateCommand = async(language, message, args) => {
 	let guild;
 	const choiceEmbed = new discord.MessageEmbed();
 
-	[entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, GUILD.REQUIRED_LEVEL) !== true) {
 		return;
 	}
@@ -21,7 +20,8 @@ const GuildCreateCommand = async (language, message, args) => {
 	// search for a user's guild
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 
@@ -46,13 +46,14 @@ const GuildCreateCommand = async (language, message, args) => {
 			language,
 			format(JsonReader.commands.guildCreate.getTranslation(language).invalidName + "\n" + JsonReader.error.getTranslation(language).nameRules, {
 				min: GUILD.MIN_GUILD_NAME_SIZE,
-				max: GUILD.MAX_GUILD_NAME_SIZE,
+				max: GUILD.MAX_GUILD_NAME_SIZE
 			}));
 	}
 
 	try {
 		guild = await Guilds.getByName(args.join(" "));
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 
@@ -69,7 +70,7 @@ const GuildCreateCommand = async (language, message, args) => {
 	addBlockedPlayer(entity.discordUser_id, "guildCreate");
 	choiceEmbed.setAuthor(
 		format(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, {
-			pseudo: message.author.username,
+			pseudo: message.author.username
 		}),
 		message.author.displayAvatarURL()
 	);
@@ -78,7 +79,7 @@ const GuildCreateCommand = async (language, message, args) => {
 			JsonReader.commands.guildCreate.getTranslation(language).buyConfirm,
 			{
 				guildName: askedName,
-				price: JsonReader.commands.guildCreate.guildCreationPrice,
+				price: JsonReader.commands.guildCreate.guildCreationPrice
 			}
 		)
 	);
@@ -89,29 +90,28 @@ const GuildCreateCommand = async (language, message, args) => {
 
 	const msg = await message.channel.send(choiceEmbed);
 	embed = new discord.MessageEmbed();
-	const filterConfirm = (reaction, user) => {
-		return (
-			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+	const filterConfirm = (reaction, user) =>
+		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.author.id
-		);
-	};
+		;
 
 	const collector = msg.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
-		max: 1,
+		max: 1
 	});
 
 	addBlockedPlayer(entity.discordUser_id, "guildCreate", collector);
 
-	collector.on("end", async (reaction) => {
+	collector.on("end", async(reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				try {
 					guild = await Guilds.getByName(args.join(" "));
-				} catch (error) {
+				}
+				catch (error) {
 					guild = null;
 				}
 				if (guild !== null) {
@@ -127,7 +127,7 @@ const GuildCreateCommand = async (language, message, args) => {
 
 				const newGuild = await Guilds.create({
 					name: askedName,
-					chief_id: entity.id,
+					chief_id: entity.id
 				});
 
 				entity.Player.guild_id = newGuild.id;
@@ -138,17 +138,17 @@ const GuildCreateCommand = async (language, message, args) => {
 				await Promise.all([
 					newGuild.save(),
 					entity.save(),
-					entity.Player.save(),
+					entity.Player.save()
 				]);
 
 				embed.setAuthor(
 					format(
-						JsonReader.commands.guildCreate.getTranslation(language).createTitle, {pseudo: message.author.username,}),
+						JsonReader.commands.guildCreate.getTranslation(language).createTitle, {pseudo: message.author.username}),
 					message.author.displayAvatarURL()
 				);
 				embed.setDescription(
 					format(
-						JsonReader.commands.guildCreate.getTranslation(language).createSuccess, {guildName: askedName,})
+						JsonReader.commands.guildCreate.getTranslation(language).createSuccess, {guildName: askedName})
 				);
 				return message.channel.send(embed);
 			}
@@ -160,7 +160,7 @@ const GuildCreateCommand = async (language, message, args) => {
 
 	await Promise.all([
 		msg.react(MENU_REACTION.ACCEPT),
-		msg.react(MENU_REACTION.DENY),
+		msg.react(MENU_REACTION.DENY)
 	]);
 };
 
@@ -169,7 +169,7 @@ module.exports = {
 		{
 			name: "guildcreate",
 			func: GuildCreateCommand,
-			aliases: ["gcreate", "gc"],
-		},
-	],
+			aliases: ["gcreate", "gc"]
+		}
+	]
 };

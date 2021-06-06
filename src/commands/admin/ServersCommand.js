@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ServersCommand = async (language, message) => {
+const ServersCommand = async(language, message) => {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
@@ -16,7 +16,7 @@ const ServersCommand = async (language, message) => {
 
 	function logMapElements(guild) {
 		count++;
-		let {validation, humans, bots, ratio} = getValidationInfos(guild);
+		const {validation, humans, bots, ratio} = getValidationInfos(guild);
 		total += humans;
 		result += format(JsonReader.bot.getTranslation(language).serverList, {
 			count: count,

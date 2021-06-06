@@ -8,7 +8,7 @@ const Maps = require("../../core/Maps");
  */
 async function MapCommand(language, message) {
 
-	let [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
 		[EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
@@ -22,11 +22,11 @@ async function MapCommand(language, message) {
 
 		.setColor(JsonReader.bot.embed.default)
 		.setAuthor(format(JsonReader.commands.map.getTranslation(language).text, {
-			pseudo: message.author.username,
+			pseudo: message.author.username
 		}), message.author.displayAvatarURL());
 
 	if (Maps.isTravelling(entity.Player)) {
-		let destMap = await MapLocations.getById(entity.Player.map_id);
+		const destMap = await MapLocations.getById(entity.Player.map_id);
 		mapEmbed.setDescription(format(
 			JsonReader.commands.map.getTranslation(language).descText, {
 				direction: await destMap.getDisplayName(language),

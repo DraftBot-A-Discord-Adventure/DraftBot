@@ -5,18 +5,18 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const changeLanguageCommand = async function (language, message) {
+const changeLanguageCommand = async function(language, message) {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
 		return;
 	}
 	const embed = new discord.MessageEmbed();
-	let server;
 
-	[server] = await Servers.getOrRegister(message.guild.id);
+	const [server] = await Servers.getOrRegister(message.guild.id);
 	if (server.language === LANGUAGE.FRENCH) {
 		server.language = LANGUAGE.ENGLISH;
-	} else {
+	}
+	else {
 		server.language = LANGUAGE.FRENCH;
 	}
 	embed.setColor(JsonReader.bot.embed.default)

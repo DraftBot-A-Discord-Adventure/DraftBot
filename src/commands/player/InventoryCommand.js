@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const InventoryCommand = async (language, message, args) => {
+const InventoryCommand = async(language, message, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
@@ -19,7 +19,7 @@ const InventoryCommand = async (language, message, args) => {
 		new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
 			.setTitle(format(JsonReader.commands.inventory.getTranslation(language).title, {pseudo: await entity.Player.getPseudo(language)}))
-			.addFields(inventoryEmbed),
+			.addFields(inventoryEmbed)
 	);
 };
 

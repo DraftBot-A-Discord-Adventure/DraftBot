@@ -23,7 +23,7 @@ class DraftBot {
 				"resources/text/values.json",
 				"resources/text/items.json",
 				"resources/text/food.json"
-			],
+			]
 		});
 		await require("core/Database").init();
 		await require("core/Command").init();
@@ -48,9 +48,9 @@ class DraftBot {
 	 * Programs a timeout for the next sunday midnight
 	 */
 	static programTopWeekTimeout() {
-		let millisTill = getNextSundayMidnight() - new Date();
+		const millisTill = getNextSundayMidnight() - new Date();
 		if (millisTill === 0) {
-			//Case at 0:00:00
+			// Case at 0:00:00
 			setTimeout(DraftBot.programTopWeekTimeout, 10000);
 			return;
 		}
@@ -61,9 +61,9 @@ class DraftBot {
 	 * Programs a timeout for the next day
 	 */
 	static programDailyTimeout() {
-		let millisTill = getNextDay2AM() - new Date();
+		const millisTill = getNextDay2AM() - new Date();
 		if (millisTill === 0) {
-			//Case at 2:00:00
+			// Case at 2:00:00
 			setTimeout(DraftBot.programDailyTimeout, 10000);
 			return;
 		}
@@ -83,12 +83,12 @@ class DraftBot {
 		const sequelize = require("sequelize");
 		console.log("INFO: Daily timeout");
 		const shopPotion = await Shop.findOne({
-			attributes: ["shop_potion_id"],
+			attributes: ["shop_potion_id"]
 		});
 		let potion;
 
 		potion = await Potions.findAll({
-			order: sequelize.literal("random()"),
+			order: sequelize.literal("random()")
 		});
 		let i = 0;
 		while (potion[i].id === shopPotion.shop_potion_id || potion[i].nature === 0) {
@@ -97,14 +97,14 @@ class DraftBot {
 
 		await Shop.update(
 			{
-				shop_potion_id: potion.id,
+				shop_potion_id: potion.id
 			},
 			{
 				where: {
 					shop_potion_id: {
-						[sequelize.Op.col]: "shop.shop_potion_id",
-					},
-				},
+						[sequelize.Op.col]: "shop.shop_potion_id"
+					}
+				}
 			}
 		);
 		console.info(`INFO : new potion in shop : ${potion.id}`);
@@ -118,28 +118,29 @@ class DraftBot {
 				{
 					lovePoints: sequelize.literal(
 						"CASE WHEN lovePoints - 1 < 0 THEN 0 ELSE lovePoints - 4 END"
-					),
+					)
 				},
 				{
 					where: {
 						lovePoints: {
-							[sequelize.Op.not]: PETS.MAX_LOVE_POINTS,
-						},
-					},
+							[sequelize.Op.not]: PETS.MAX_LOVE_POINTS
+						}
+					}
 				}
 			);
 		}
 	}
+
 	/**
 	 * Handle the top week reward and reset
 	 * @return {Promise<void>}
 	 */
 	static async topWeekEnd() {
-		let winner = await Entities.findOne({
+		const winner = await Entities.findOne({
 			defaults: {
 				Player: {
-					Inventory: {},
-				},
+					Inventory: {}
+				}
 			},
 			include: [
 				{
@@ -147,16 +148,16 @@ class DraftBot {
 					as: "Player",
 					where: {
 						weeklyScore: {
-							[require("sequelize/lib/operators").gt]: 100,
-						},
-					},
-				},
+							[require("sequelize/lib/operators").gt]: 100
+						}
+					}
+				}
 			],
 			order: [
 				[{model: Players, as: "Player"}, "weeklyScore", "DESC"],
-				[{model: Players, as: "Player"}, "level", "DESC"],
+				[{model: Players, as: "Player"}, "level", "DESC"]
 			],
-			limit: 1,
+			limit: 1
 		});
 		if (winner !== null) {
 			let message;
@@ -172,7 +173,8 @@ class DraftBot {
 					)
 				);
 				await message.react("🏆");
-			} catch (e) {
+			}
+			catch (e) {
 				log("No channel for french announcement !");
 			}
 			try {
@@ -187,7 +189,8 @@ class DraftBot {
 					)
 				);
 				await message.react("🏆");
-			} catch (e) {
+			}
+			catch (e) {
 				log("No channel for english announcement !");
 			}
 			winner.Player.addBadge("🎗️");
@@ -204,7 +207,7 @@ class DraftBot {
 			{
 				fightPointsLost: sequelize.literal(
 					`CASE WHEN fightPointsLost - ${FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FIGHT.POINTS_REGEN_AMOUNT} END`
-				),
+				)
 			},
 			{where: {fightPointsLost: {[sequelize.Op.not]: 0}}}
 		);
@@ -239,14 +242,15 @@ class DraftBot {
 		/* Create log folder and remove old logs (> 7 days) */
 		if (!fs.existsSync("logs")) {
 			fs.mkdirSync("logs");
-		} else {
-			fs.readdir("logs", function (err, files) {
+		}
+		else {
+			fs.readdir("logs", function(err, files) {
 				if (err) {
 					return message.author.send(
 						"```Unable to scan directory: " + err + "```"
 					);
 				}
-				files.forEach(function (file) {
+				files.forEach(function(file) {
 					const parts = file.split("-");
 					if (parts.length === 5) {
 						if (
@@ -259,7 +263,7 @@ class DraftBot {
 							7 * 24 * 60 * 60 * 1000
 						) {
 							// 7 days
-							fs.unlink("logs/" + file, function (err) {
+							fs.unlink("logs/" + file, function(err) {
 								if (err !== undefined && err !== null) {
 									originalConsoleError(
 										"Error while deleting logs/" +
@@ -279,9 +283,9 @@ class DraftBot {
 		global.currLogsCount = 0;
 
 		/* Add log to file */
-		const addConsoleLog = function (message) {
-			let now = new Date();
-			let dateStr =
+		const addConsoleLog = function(message) {
+			const now = new Date();
+			const dateStr =
 				"[" +
 				now.getFullYear() +
 				"/" +
@@ -305,7 +309,7 @@ class DraftBot {
 						""
 					) +
 					"\n",
-					new function (err) {
+					new function(err) {
 						if (err !== undefined) {
 							originalConsoleError(
 								"Error while writing in log file: " + err
@@ -318,13 +322,14 @@ class DraftBot {
 					DraftBot.updateGlobalLogsFile(now);
 					global.currLogsCount = 0;
 				}
-			} catch (e) {
+			}
+			catch (e) {
 				console.error("Cannot write to log file: " + e);
 			}
 		};
 
 		/* Console override */
-		console.log = function (message, optionalParams) {
+		console.log = function(message, optionalParams) {
 			addConsoleLog(message);
 			originalConsoleLog(
 				message,
@@ -332,7 +337,7 @@ class DraftBot {
 			);
 		};
 		const originalConsoleWarn = console.warn;
-		console.warn = function (message, optionalParams) {
+		console.warn = function(message, optionalParams) {
 			addConsoleLog(message);
 			originalConsoleWarn(
 				message,
@@ -340,7 +345,7 @@ class DraftBot {
 			);
 		};
 		const originalConsoleInfo = console.info;
-		console.info = function (message, optionalParams) {
+		console.info = function(message, optionalParams) {
 			addConsoleLog(message);
 			originalConsoleInfo(
 				message,
@@ -348,7 +353,7 @@ class DraftBot {
 			);
 		};
 		const originalConsoleDebug = console.debug;
-		console.debug = function (message, optionalParams) {
+		console.debug = function(message, optionalParams) {
 			addConsoleLog(message);
 			originalConsoleDebug(
 				message,
@@ -356,7 +361,7 @@ class DraftBot {
 			);
 		};
 		const originalConsoleError = console.error;
-		console.error = function (message, optionalParams) {
+		console.error = function(message, optionalParams) {
 			addConsoleLog(message);
 			originalConsoleError(
 				message,
@@ -364,7 +369,7 @@ class DraftBot {
 			);
 		};
 		const originalConsoleTrace = console.trace;
-		console.trace = function (message, optionalParams) {
+		console.trace = function(message, optionalParams) {
 			addConsoleLog(message);
 			originalConsoleTrace(
 				message,
@@ -404,7 +409,7 @@ class DraftBot {
 module.exports = {
 	init: DraftBot.init,
 	dailyTimeout: DraftBot.dailyTimeout,
-	twe: DraftBot.topWeekEnd,
+	twe: DraftBot.topWeekEnd
 };
 /**
  * @type {module:"discord.js"}

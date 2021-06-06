@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildStorageCommand = async (language, message) => {
+const GuildStorageCommand = async(language, message) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (
@@ -28,7 +28,8 @@ const GuildStorageCommand = async (language, message) => {
 	let guild;
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 
@@ -42,11 +43,11 @@ const GuildStorageCommand = async (language, message) => {
 		);
 	}
 
-	let storageEmbed = new discord.MessageEmbed();
+	const storageEmbed = new discord.MessageEmbed();
 
 	storageEmbed.setTitle(
 		format(translations.embedTitle, {
-			guild: guild.name,
+			guild: guild.name
 		})
 	);
 
@@ -59,44 +60,44 @@ const GuildStorageCommand = async (language, message) => {
 	storageEmbed.addField(
 		format(translations.foodTitle, {
 			foodType: foodInfos.commonFood.translations[language].name,
-			emote: foodInfos.commonFood.emote,
+			emote: foodInfos.commonFood.emote
 		}),
 		format(translations.foodField, {
 			guildFood: guild.commonFood,
-			maxFood: GUILD.MAX_COMMON_PET_FOOD,
+			maxFood: GUILD.MAX_COMMON_PET_FOOD
 		}),
 		true
 	);
 	storageEmbed.addField(
 		format(translations.foodTitle, {
 			foodType: foodInfos.herbivorousFood.translations[language].name,
-			emote: foodInfos.herbivorousFood.emote,
+			emote: foodInfos.herbivorousFood.emote
 		}),
 		format(translations.foodField, {
 			guildFood: guild.herbivorousFood,
-			maxFood: GUILD.MAX_HERBIVOROUS_PET_FOOD,
+			maxFood: GUILD.MAX_HERBIVOROUS_PET_FOOD
 		}),
 		true
 	);
 	storageEmbed.addField(
 		format(translations.foodTitle, {
 			foodType: foodInfos.carnivorousFood.translations[language].name,
-			emote: foodInfos.carnivorousFood.emote,
+			emote: foodInfos.carnivorousFood.emote
 		}),
 		format(translations.foodField, {
 			guildFood: guild.carnivorousFood,
-			maxFood: GUILD.MAX_CARNIVOROUS_PET_FOOD,
+			maxFood: GUILD.MAX_CARNIVOROUS_PET_FOOD
 		}),
 		true
 	);
 	storageEmbed.addField(
 		format(translations.foodTitle, {
 			foodType: foodInfos.ultimateFood.translations[language].name,
-			emote: foodInfos.ultimateFood.emote,
+			emote: foodInfos.ultimateFood.emote
 		}),
 		format(translations.foodField, {
 			guildFood: guild.ultimateFood,
-			maxFood: GUILD.MAX_ULTIMATE_PET_FOOD,
+			maxFood: GUILD.MAX_ULTIMATE_PET_FOOD
 		}),
 		true
 	);
@@ -109,7 +110,7 @@ module.exports = {
 		{
 			name: "guildstorage",
 			func: GuildStorageCommand,
-			aliases: ["guildstorage", "gstorage", "gst"],
-		},
-	],
+			aliases: ["guildstorage", "gstorage", "gst"]
+		}
+	]
 };

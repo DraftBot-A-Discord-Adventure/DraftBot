@@ -13,7 +13,7 @@ class DBL {
 			webhookPath: JsonReader.app.DBL_WEBHOOK_URL,
 			statsInterval: TOPGG.DBL_SERVER_COUNT_UPDATE_TIME
 		}, client);
-		this.dbl.webhook.on("vote", async (vote) => {
+		this.dbl.webhook.on("vote", async(vote) => {
 			await DBL.userDBLVote(vote.user);
 		});
 		this.dbl.webhook.on("ready", hook => {
@@ -34,20 +34,21 @@ class DBL {
 	 * @returns {Promise<void>}
 	 */
 	static async userDBLVote(user) {
-		let [voter] = await Entities.getOrRegister(user);
+		const [voter] = await Entities.getOrRegister(user);
 		voter.Player.topggVoteAt = new Date();
 		voter.Player.save();
-		let guild = await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
+		const guild = await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
 		let member;
 		if ((member = await guild.members.fetch(user)) !== undefined) {
 			try {
 				await member.roles.add(JsonReader.app.DBL_VOTE_ROLE);
 				await DBL.programDBLRoleRemoval(user);
-			} catch (e) {
+			}
+			catch (e) {
 				console.log(e);
 			}
 		}
-		let dUser = await client.users.fetch(user);
+		const dUser = await client.users.fetch(user);
 		if (dUser === undefined || dUser === null) {
 			return;
 		}
@@ -57,7 +58,8 @@ class DBL {
 		let desc = "**" + dUser.tag + "** is now a " + (await guild.roles.fetch(JsonReader.app.DBL_VOTE_ROLE)).toString() + " for `";
 		if (TOPGG.ROLE_DURATION === 24) {
 			desc += "1 day";
-		} else {
+		}
+		else {
 			desc += TOPGG.ROLE_DURATION + " hours";
 		}
 		embed.setDescription(desc + "` and got the badge " + TOPGG.BADGE + " for `" + TOPGG.BADGE_DURATION + " hours` :tada:" + "\n\nYou can vote [here](https://top.gg/bot/" + client.user.id + ") every 12 hours!\n||User ID: " + dUser.id + "||"
@@ -71,7 +73,7 @@ class DBL {
 	 * @returns {Promise<number>} - time in ms, can be negative if the time already passed
 	 */
 	static async getTimeBeforeDBLRoleRemove(userId) {
-		let [user] = await Entities.getOrRegister(userId);
+		const [user] = await Entities.getOrRegister(userId);
 		if (user === undefined || user === null) {
 			return -1;
 		}
@@ -79,26 +81,27 @@ class DBL {
 	}
 
 	static async programDBLRoleRemoval(userId) {
-		let time = await DBL.getTimeBeforeDBLRoleRemove(userId);
+		const time = await DBL.getTimeBeforeDBLRoleRemove(userId);
 		setTimeout(DBL.removeDBLRole.bind(null, userId), time < 0 ? 0 : time);
 	}
 
 	static async removeDBLRole(userId) {
-		let [entity] = await Entities.getOrRegister(userId);
+		const [entity] = await Entities.getOrRegister(userId);
 		if (new Date().getTime() - entity.Player.topggVoteAt.getTime() < TOPGG.ROLE_DURATION * 60 * 60 * 1000 - 10000) {
 			return;
 		}
-		let member = await (await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)).members.fetch(userId);
+		const member = await (await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)).members.fetch(userId);
 		try {
 			await member.roles.remove(JsonReader.app.DBL_VOTE_ROLE);
-		} catch (e) {
+		}
+		catch (e) {
 			console.log(e);
 		}
 	}
 
 	static async verifyDBLRoles() {
-		let guild = await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
-		let members = guild.members.cache.entries();
+		const guild = await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
+		const members = guild.members.cache.entries();
 		for (const member of members) {
 			if (member[1].roles.cache.has(JsonReader.app.DBL_VOTE_ROLE)) {
 				await DBL.programDBLRoleRemoval(member[1].id);

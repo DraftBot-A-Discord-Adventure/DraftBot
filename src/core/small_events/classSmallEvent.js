@@ -6,13 +6,13 @@
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity, seEmbed) {
-	let classId = entity.Player.class;
-	let trans = JsonReader.small_events.class.getTranslation(language);
-	let base = JsonReader.small_events.class.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] + " ";
+const executeSmallEvent = async function(message, language, entity, seEmbed) {
+	const classId = entity.Player.class;
+	const trans = JsonReader.small_events.class.getTranslation(language);
+	const base = JsonReader.small_events.class.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] + " ";
 	let item;
 	if (JsonReader.small_events.class.attackEligible.includes(classId)) {
-		let outRand = draftbotRandom.integer(0, 2);
+		const outRand = draftbotRandom.integer(0, 2);
 
 		switch (outRand) {
 		case 0:
@@ -33,8 +33,9 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		}
 		await message.channel.send(seEmbed);
 		await giveItem(entity, item, language, message.author, message.channel);
-	} else if (JsonReader.small_events.class.defenseEligible.includes(classId)) {
-		let outRand = draftbotRandom.integer(0, 2);
+	}
+	else if (JsonReader.small_events.class.defenseEligible.includes(classId)) {
+		const outRand = draftbotRandom.integer(0, 2);
 		switch (outRand) {
 		case 0:
 			// winDefensePotion
@@ -54,33 +55,38 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		}
 		await message.channel.send(seEmbed);
 		await giveItem(entity, item, language, message.author, message.channel);
-	} else if (JsonReader.small_events.class.basicEligible.includes(classId)) {
+	}
+	else if (JsonReader.small_events.class.basicEligible.includes(classId)) {
 		if (draftbotRandom.bool()) {
 			// winItem
 			seEmbed.setDescription(base + trans.basic.winItem[draftbotRandom.integer(0, trans.basic.winItem.length - 1)]);
 			await message.channel.send(seEmbed);
 			await giveRandomItem(message.author, message.channel, language, entity);
-		} else {
+		}
+		else {
 			// winMoney
-			let moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_CLASS, SMALL_EVENT.MAXIMUM_MONEY_WON_CLASS);
+			const moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_CLASS, SMALL_EVENT.MAXIMUM_MONEY_WON_CLASS);
 			seEmbed.setDescription(base + format(trans.basic.winMoney[draftbotRandom.integer(0, trans.basic.winMoney.length - 1)], {money: moneyWon}));
 			await message.channel.send(seEmbed);
 			await entity.Player.addMoney(moneyWon);
 		}
-	} else if (JsonReader.small_events.class.otherEligible.includes(classId)) {
+	}
+	else if (JsonReader.small_events.class.otherEligible.includes(classId)) {
 		if (draftbotRandom.bool()) {
 			// winItem
 			seEmbed.setDescription(base + trans.other.winItem[draftbotRandom.integer(0, trans.other.winItem.length - 1)]);
 			await message.channel.send(seEmbed);
 			await giveRandomItem(message.author, message.channel, language, entity);
-		} else {
+		}
+		else {
 			// winHealth
-			let healthWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_WON_CLASS, SMALL_EVENT.MAXIMUM_HEALTH_WON_CLASS);
+			const healthWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_WON_CLASS, SMALL_EVENT.MAXIMUM_HEALTH_WON_CLASS);
 			seEmbed.setDescription(base + format(trans.other.winHealth[draftbotRandom.integer(0, trans.other.winHealth.length - 1)], {health: healthWon}));
 			await message.channel.send(seEmbed);
 			await entity.addHealth(healthWon);
 		}
-	} else {
+	}
+	else {
 		console.log("This user has an unknown class : " + entity.discordUser_id);
 	}
 

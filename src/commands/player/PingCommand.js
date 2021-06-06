@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PingCommand = function (language, message) {
+const PingCommand = function(language, message) {
 	message.channel.send(JsonReader.commands.ping.getTranslation(language).create)
 		.then((msg) => {
 			msg.edit(format(JsonReader.commands.ping.getTranslation(language).edit,
