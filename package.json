@@ -9,7 +9,8 @@
 	"scripts": {
 		"start": "tsc && node dist/index.js",
 		"postinstall": "link-module-alias",
-		"test": "jest"
+		"test": "jest",
+		"eslint": "eslint src test"
 	},
 	"_moduleAliases": {
 		"draftbot": ".",
@@ -22,7 +23,9 @@
 	},
 	"jest": {
 		"verbose": true,
-		"testPathIgnorePatterns": ["dist"]
+		"testPathIgnorePatterns": [
+			"dist"
+		]
 	},
 	"dependencies": {
 		"@types/bluebird": "^3.5.35",
@@ -41,10 +44,13 @@
 		"sqlite": "^4.0.7",
 		"sqlite3": "^4.1.1",
 		"ts-jest": "^27.0.2",
-		"typescript": "^4.3.2"
+		"typescript": "^4.3.2",
+		"typescript-eslint": "^0.0.1-alpha.0"
 	},
 	"devDependencies": {
-		"eslint": "^7.4.0",
+		"@typescript-eslint/eslint-plugin": "^4.26.0",
+		"@typescript-eslint/parser": "^4.26.0",
+		"eslint": "^7.28.0",
 		"eslint-config-google": "^0.14.0",
 		"jest": "^27.0.4",
 		"jshint": "^2.12.0"
