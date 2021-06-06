@@ -3,15 +3,21 @@
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
- * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
+ * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send.
+ *    The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
-	const healthWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_WON, SMALL_EVENT.MAXIMUM_HEALTH_WON);
+	const healthWon = draftbotRandom.integer(
+		SMALL_EVENT.MINIMUM_HEALTH_WON,
+		SMALL_EVENT.MAXIMUM_HEALTH_WON
+	);
+	const translationWH = JsonReader.small_events.winHealth.getTranslation(language);
+	const translationIntrosSE = JsonReader.smallEventsIntros.getTranslation(language);
 	seEmbed.setDescription(
-		JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] +
-		format(JsonReader.small_events.winHealth.getTranslation(language).intrigue[randInt(0, JsonReader.small_events.winHealth.getTranslation(language).intrigue.length)], {
+		translationIntrosSE.intro[randInt(0, translationIntrosSE.intro.length)] +
+		format(translationWH.intrigue[randInt(0, translationWH.intrigue.length)], {
 			health: healthWon
 		})
 	);

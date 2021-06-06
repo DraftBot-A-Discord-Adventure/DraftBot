@@ -3,7 +3,8 @@
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
- * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
+ * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send.
+ *    The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
@@ -20,8 +21,9 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	}
 
 	const petLine = await PetEntities.displayName(pet, language);
-
-	const base = JsonReader.small_events.findPet.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
+	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
+	const base = JsonReader.small_events.findPet.emote + " "
+		+ translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)];
 	const noRoomInGuild = guild === null ? true : await Guilds.isPetShelterFull(guild);
 	const seEmbedPetObtention = seEmbed;
 	const trad = JsonReader.small_events.findPet.getTranslation(language);
@@ -32,7 +34,10 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		do {
 			outRand = randInt(0, trad.noRoom.stories.length);
 		}
-		while ( trad.noRoom.stories[outRand][PETS.IS_FOOD] && guild === null); // choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
+		while (
+			trad.noRoom.stories[outRand][PETS.IS_FOOD] && guild === null
+		);
+		// choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
 		generateNoRoomEmbed(seEmbed, base, trad, petLine, pet, outRand);
 		await message.channel.send(seEmbed);

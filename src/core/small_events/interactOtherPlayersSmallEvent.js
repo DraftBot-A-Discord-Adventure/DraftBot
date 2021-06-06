@@ -1,3 +1,4 @@
+
 /**
  * Main function of small event
  * @param {module:"discord.js".Message} message

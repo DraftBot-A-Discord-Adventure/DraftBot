@@ -3,16 +3,18 @@
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
- * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
+ * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send.
+ *    The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
-
+	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
+	const translationFP = JsonReader.small_events.findPotions.getTranslation(language);
 	const randomItem = await entity.Player.Inventory.generateRandomItem(undefined,ITEMTYPE.POTION);
 	seEmbed.setDescription(
 		seEmbed.description +
-		JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] +
-		JsonReader.small_events.findPotions.getTranslation(language).intrigue[randInt(0, JsonReader.small_events.findPotions.getTranslation(language).intrigue.length)]
+		translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)] +
+		translationFP.intrigue[randInt(0, translationFP.intrigue.length)]
 	);
 
 	await message.channel.send(seEmbed);
