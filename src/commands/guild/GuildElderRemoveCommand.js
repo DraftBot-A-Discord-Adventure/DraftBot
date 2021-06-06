@@ -4,15 +4,15 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildElderRemoveCommand = async (language, message) => {
-	let entity;
+const GuildElderRemoveCommand = async(language, message) => {
 	let guild;
 	const elderRemoveEmbed = new discord.MessageEmbed();
 
-	[entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true)
-	{return;}
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
+		return;
+	}
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
@@ -21,7 +21,8 @@ const GuildElderRemoveCommand = async (language, message) => {
 	// search for a user's guild
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 
@@ -39,7 +40,7 @@ const GuildElderRemoveCommand = async (language, message) => {
 			JsonReader.commands.guildElderRemove.getTranslation(language)
 				.elderRemoveTitle,
 			{
-				pseudo: message.author.username,
+				pseudo: message.author.username
 			}
 		),
 		message.author.displayAvatarURL()
@@ -48,7 +49,7 @@ const GuildElderRemoveCommand = async (language, message) => {
 		format(
 			JsonReader.commands.guildElderRemove.getTranslation(language).elderRemove,
 			{
-				guildName: guild.name,
+				guildName: guild.name
 			}
 		)
 	);
@@ -56,22 +57,20 @@ const GuildElderRemoveCommand = async (language, message) => {
 	const msg = await message.channel.send(elderRemoveEmbed);
 
 	const confirmEmbed = new discord.MessageEmbed();
-	const filterConfirm = (reaction, user) => {
-		return (
-			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+	const filterConfirm = (reaction, user) =>
+		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.author.id
-		);
-	};
+		;
 
 	const collector = msg.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
-		max: 1,
+		max: 1
 	});
 
 	addBlockedPlayer(entity.discordUser_id, "guildElderRemove", collector);
 
-	collector.on("end", async (reaction) => {
+	collector.on("end", async(reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			// a reaction exist
@@ -99,7 +98,7 @@ const GuildElderRemoveCommand = async (language, message) => {
 
 	await Promise.all([
 		msg.react(MENU_REACTION.ACCEPT),
-		msg.react(MENU_REACTION.DENY),
+		msg.react(MENU_REACTION.DENY)
 	]);
 };
 
@@ -108,7 +107,7 @@ module.exports = {
 		{
 			name: "guildelderremove",
 			func: GuildElderRemoveCommand,
-			aliases: ["gelderremove", "guildelderremove", "ger"],
-		},
-	],
+			aliases: ["gelderremove", "guildelderremove", "ger"]
+		}
+	]
 };

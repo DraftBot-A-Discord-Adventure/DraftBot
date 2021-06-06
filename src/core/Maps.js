@@ -23,7 +23,7 @@ class Maps {
 		else {
 			map = await MapLocations.getById(player.map_id);
 		}
-		let next_maps = [];
+		const next_maps = [];
 		if (restricted_map_type) {
 			const next_map_ids = await MapLocations.getMapConnectedWithTypeFilter(map.id, restricted_map_type);
 			for (const m of next_map_ids) {
@@ -78,7 +78,7 @@ class Maps {
 		const direction = this.getMapDirection(previous_map, player.map_id);
 		return {
 			direction: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.names[direction],
-			direction_prefix: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.prefix[direction],
+			direction_prefix: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.prefix[direction]
 		};
 	}
 
@@ -97,7 +97,9 @@ class Maps {
 	 * @returns {number}
 	 */
 	static getTravellingTime(player) {
-		if (!this.isTravelling(player)) {return 0;}
+		if (!this.isTravelling(player)) {
+			return 0;
+		}
 		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effect_end_date.getTime();
 		return Date.now() - player.start_travel_date - malus;
 	}
@@ -108,7 +110,8 @@ class Maps {
 		player.effect = effect;
 		if (effect === EFFECT.OCCUPIED) {
 			player.effect_duration = time;
-		} else {
+		}
+		else {
 			player.effect_duration = millisecondsToMinutes(JsonReader.models.players.effectMalus[effect]);
 		}
 		player.effect_end_date = new Date(Date.now() + minutesToMilliseconds(player.effect_duration));
@@ -128,11 +131,12 @@ class Maps {
 	}
 
 	static advanceTime(player, time) {
-		let t = minutesToMilliseconds(time);
+		const t = minutesToMilliseconds(time);
 		if (player.effectRemainingTime() !== 0) {
-			if (t>=player.effect_end_date.getTime()-Date.now()) {
+			if (t >= player.effect_end_date.getTime() - Date.now()) {
 				player.effect_end_date = Date.now();
-			} else {
+			}
+			else {
 				player.effect_end_date = new Date(player.effect_end_date.getTime() - t);
 			}
 		}
@@ -181,7 +185,7 @@ class Maps {
 	static async generateTravelPathString(player, language) {
 		const prevMapInstance = await MapLocations.getById(player.previous_map_id);
 		const nextMapInstance = await MapLocations.getById(player.map_id);
-		let percentage = this.getTravellingTime(player) / (2*60*60*1000);
+		let percentage = this.getTravellingTime(player) / (2 * 60 * 60 * 1000);
 		if (percentage > 1) {
 			percentage = 1;
 		}

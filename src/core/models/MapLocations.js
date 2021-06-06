@@ -47,15 +47,15 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
-		},
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+		}
 	}, {
 		tableName: "map_locations",
-		freezeTableName: true,
+		freezeTableName: true
 	});
 
 	MapLocations.beforeSave((instance) => {
@@ -99,18 +99,16 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Number} id
 	 * @returns {Promise<null | MapLocations>}
 	 */
-	MapLocations.getById = (id) => {
-		return MapLocations.findOne({ where: { id: id }});
-	};
+	MapLocations.getById = (id) => MapLocations.findOne({ where: { id: id }});
 
 	/**
 	 * Returns a random map
 	 * @returns {Promise<null|MapLocations>}
 	 */
-	MapLocations.getRandomMap = async () => {
+	MapLocations.getRandomMap = async() => {
 		const query = "SELECT id FROM map_locations;";
 		const mapIds = await Sequelize.query(query, {
-			type: Sequelize.QueryTypes.SELECT,
+			type: Sequelize.QueryTypes.SELECT
 		});
 		return await MapLocations.getById(mapIds[randInt(0, mapIds.length - 1)].id);
 	};
@@ -121,7 +119,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param map_types
 	 * @returns {Promise<[MapLocations]>}
 	 */
-	MapLocations.getMapConnectedWithTypeFilter = async (map_id, map_types) => {
+	MapLocations.getMapConnectedWithTypeFilter = async(map_id, map_types) => {
 		const query = `SELECT id FROM map_locations WHERE :map_types LIKE '%' || type || '%' AND (
 										id IN (SELECT north_map FROM map_locations WHERE id = :map_id) OR
 										id IN (SELECT south_map FROM map_locations WHERE id = :map_id) OR

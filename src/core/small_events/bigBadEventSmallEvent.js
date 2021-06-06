@@ -1,4 +1,4 @@
-let Maps = require("../Maps");
+const Maps = require("../Maps");
 /**
  * Main function of small event
  * @param {module:"discord.js".Message} message
@@ -7,9 +7,9 @@ let Maps = require("../Maps");
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity, seEmbed) {
-	let outRand = draftbotRandom.integer(0, 2);
-	let base = JsonReader.small_events.bigBadEvent.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
+const executeSmallEvent = async function(message, language, entity, seEmbed) {
+	const outRand = draftbotRandom.integer(0, 2);
+	const base = JsonReader.small_events.bigBadEvent.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
 	let lifeLoss, seFallen, moneyLoss;
 	switch (outRand) {
 	case 0:

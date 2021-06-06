@@ -6,7 +6,7 @@ const moment = require("moment");
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const SwitchCommand = async (language, message) => {
+const SwitchCommand = async(language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
@@ -16,14 +16,16 @@ const SwitchCommand = async (language, message) => {
 		return;
 	}
 	const nextDailyDate = new moment(entity.Player.Inventory.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h");
-	let timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
+	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
 	const maxTime = JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd;
 	if (timeToCheck < 0) {
 		entity.Player.Inventory.updateLastDailyAt();
 		entity.Player.Inventory.editDailyCooldown(-maxTime);
-	} else if (timeToCheck < maxTime) {
+	}
+	else if (timeToCheck < maxTime) {
 		entity.Player.Inventory.editDailyCooldown(JsonReader.commands.switch.timeToAdd);
-	} else {
+	}
+	else {
 		entity.Player.Inventory.updateLastDailyAt();
 	}
 
@@ -44,7 +46,7 @@ module.exports = {
 		{
 			name: "switch",
 			func: SwitchCommand,
-			aliases: ["sw"],
-		},
-	],
+			aliases: ["sw"]
+		}
+	]
 };

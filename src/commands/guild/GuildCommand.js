@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildCommand = async (language, message, args) => {
+const GuildCommand = async(language, message, args) => {
 	let entity;
 	let guild;
 
@@ -29,10 +29,12 @@ const GuildCommand = async (language, message, args) => {
 		// args is the name of a guild
 		try {
 			guild = await Guilds.getByName(args.join(" "));
-		} catch (error) {
+		}
+		catch (error) {
 			guild = null;
 		}
-	} else {
+	}
+	else {
 		if (message.mentions.users.last() !== undefined) {
 			[entity] = await Entities.getOrRegister(
 				message.mentions.users.last().id
@@ -41,7 +43,8 @@ const GuildCommand = async (language, message, args) => {
 		// search for a user's guild
 		try {
 			guild = await Guilds.getById(entity.Player.guild_id);
-		} catch (error) {
+		}
+		catch (error) {
 			guild = null;
 		}
 	}
@@ -70,25 +73,27 @@ const GuildCommand = async (language, message, args) => {
 				{
 					pseudo: await member.Player.getPseudo(language),
 					ranking: (await Players.getById(member.Player.id))[0].rank,
-					score: member.Player.score,
+					score: member.Player.score
 				}
 			);
-		} else if (member.Player.id === guild.elder_id) {
+		}
+		else if (member.Player.id === guild.elder_id) {
 			membersInfos += format(
 				JsonReader.commands.guild.getTranslation(language).elderinfos,
 				{
 					pseudo: await member.Player.getPseudo(language),
 					ranking: (await Players.getById(member.Player.id))[0].rank,
-					score: member.Player.score,
+					score: member.Player.score
 				}
 			);
-		} else {
+		}
+		else {
 			membersInfos += format(
 				JsonReader.commands.guild.getTranslation(language).memberinfos,
 				{
 					pseudo: await member.Player.getPseudo(language),
 					ranking: (await Players.getById(member.Player.id))[0].rank,
-					score: member.Player.score,
+					score: member.Player.score
 				}
 			);
 		}
@@ -99,7 +104,7 @@ const GuildCommand = async (language, message, args) => {
 	embed.setTitle(
 		format(JsonReader.commands.guild.getTranslation(language).title, {
 			guildName: guild.name,
-			pseudo: await chief.getPseudo(language),
+			pseudo: await chief.getPseudo(language)
 		})
 	);
 
@@ -108,7 +113,7 @@ const GuildCommand = async (language, message, args) => {
 			format(
 				JsonReader.commands.guild.getTranslation(language).description,
 				{
-					description: guild.guildDescription,
+					description: guild.guildDescription
 				}
 			)
 		);
@@ -116,7 +121,7 @@ const GuildCommand = async (language, message, args) => {
 	embed.addField(
 		format(JsonReader.commands.guild.getTranslation(language).members, {
 			memberCount: members.length,
-			maxGuildMembers: GUILD.MAX_GUILD_MEMBER,
+			maxGuildMembers: GUILD.MAX_GUILD_MEMBER
 		}),
 		membersInfos
 	);
@@ -127,12 +132,13 @@ const GuildCommand = async (language, message, args) => {
 				{
 					xp: guild.experience,
 					xpToLevelUp: guild.getExperienceNeededToLevelUp(),
-					level: guild.level,
+					level: guild.level
 				}
 			),
 			progressBar(guild.experience, guild.getExperienceNeededToLevelUp())
 		);
-	} else {
+	}
+	else {
 		embed.addField(
 			JsonReader.commands.guild.getTranslation(language).lvlMax,
 			progressBar(1, 1)
@@ -150,7 +156,7 @@ module.exports = {
 		{
 			name: "guild",
 			func: GuildCommand,
-			aliases: ["g"],
-		},
-	],
+			aliases: ["g"]
+		}
+	]
 };

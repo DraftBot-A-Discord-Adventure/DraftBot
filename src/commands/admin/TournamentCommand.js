@@ -5,7 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const TournamentCommand = async function (language, message, args) {
+const TournamentCommand = async function(language, message, args) {
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.TOURNAMENT) !== true) {
 		return;
@@ -23,7 +23,8 @@ const TournamentCommand = async function (language, message, args) {
 	if (args[0] === "channel") {
 		global.tournamentChannel = args[1];
 		await message.channel.send(format(JsonReader.commands.tournament.getTranslation(language).channelSet, {channel: args[1]}));
-	} else if (args[0] === "maxpower") {
+	}
+	else if (args[0] === "maxpower") {
 		global.tournamentPower = parseInt(args[1]);
 		await message.channel.send(format(JsonReader.commands.tournament.getTranslation(language).maxPowerSet, {maxPower: args[1]}));
 	}

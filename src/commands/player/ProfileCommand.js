@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ProfileCommand = async function (language, message, args) {
+const ProfileCommand = async function(language, message, args) {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
@@ -24,8 +24,8 @@ const ProfileCommand = async function (language, message, args) {
 				maxHealth: await entity.getMaxHealth(),
 				experience: entity.Player.experience,
 				experienceNeededToLevelUp: entity.Player.getExperienceNeededToLevelUp(),
-				money: entity.Player.money,
-			}),
+				money: entity.Player.money
+			})
 		},
 		{
 			name: JsonReader.commands.profile.getTranslation(language).statistique.fieldName,
@@ -34,22 +34,22 @@ const ProfileCommand = async function (language, message, args) {
 					await entity.Player.Inventory.getWeapon(),
 					await entity.Player.Inventory.getArmor(),
 					await entity.Player.Inventory.getPotion(),
-					await entity.Player.Inventory.getActiveObject(),
+					await entity.Player.Inventory.getActiveObject()
 				),
 				cumulativeDefense: await entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(),
 					await entity.Player.Inventory.getArmor(),
 					await entity.Player.Inventory.getPotion(),
-					await entity.Player.Inventory.getActiveObject(),
+					await entity.Player.Inventory.getActiveObject()
 				),
 				cumulativeSpeed: await entity.getCumulativeSpeed(
 					await entity.Player.Inventory.getWeapon(),
 					await entity.Player.Inventory.getArmor(),
 					await entity.Player.Inventory.getPotion(),
-					await entity.Player.Inventory.getActiveObject(),
+					await entity.Player.Inventory.getActiveObject()
 				),
 				cumulativeHealth: await entity.getCumulativeHealth(),
-				cumulativeMaxHealth: await entity.getMaxCumulativeHealth(),
-			}),
+				cumulativeMaxHealth: await entity.getMaxCumulativeHealth()
+			})
 		},
 		{
 			name: JsonReader.commands.profile.getTranslation(language).classement.fieldName,
@@ -59,13 +59,13 @@ const ProfileCommand = async function (language, message, args) {
 				numberOfPlayer: await Players.count({
 					where: {
 						score: {
-							[require("sequelize/lib/operators").gt]: 100,
-						},
-					},
+							[require("sequelize/lib/operators").gt]: 100
+						}
+					}
 				}),
-				score: entity.Player.score,
-			}),
-		},
+				score: entity.Player.score
+			})
+		}
 	];
 
 	if (!entity.Player.checkEffect()) {
@@ -73,15 +73,16 @@ const ProfileCommand = async function (language, message, args) {
 			titleEffect = ":hospital:";
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).timeLeft.fieldName,
-				value: JsonReader.commands.profile.getTranslation(language).noTimeLeft.fieldValue,
+				value: JsonReader.commands.profile.getTranslation(language).noTimeLeft.fieldValue
 			});
-		} else {
+		}
+		else {
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).timeLeft.fieldName,
 				value: format(JsonReader.commands.profile.getTranslation(language).timeLeft.fieldValue, {
 					effect: entity.Player.effect,
-					timeLeft: minutesToString(millisecondsToMinutes(entity.Player.effect_end_date - message.createdAt.getTime())),
-				}),
+					timeLeft: minutesToString(millisecondsToMinutes(entity.Player.effect_end_date - message.createdAt.getTime()))
+				})
 			});
 		}
 	}
@@ -97,7 +98,8 @@ const ProfileCommand = async function (language, message, args) {
 				inline: true
 			});
 		}
-	} catch (error) {
+	}
+	catch (error) {
 		log("Error while getting class of player for profile: " + error);
 	}
 
@@ -112,7 +114,8 @@ const ProfileCommand = async function (language, message, args) {
 				inline: true
 			});
 		}
-	} catch (error) {
+	}
+	catch (error) {
 		log("Error while getting guild of player for profile: " + error);
 	}
 
@@ -129,7 +132,8 @@ const ProfileCommand = async function (language, message, args) {
 				inline: true
 			});
 		}
-	} catch (error) {
+	}
+	catch (error) {
 		console.log(error);
 	}
 
@@ -146,7 +150,8 @@ const ProfileCommand = async function (language, message, args) {
 				inline: false
 			});
 		}
-	} catch (error) {
+	}
+	catch (error) {
 		console.log(error);
 	}
 
@@ -156,18 +161,16 @@ const ProfileCommand = async function (language, message, args) {
 			.setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
 				effect: titleEffect,
 				pseudo: await entity.Player.getPseudo(language),
-				level: entity.Player.level,
+				level: entity.Player.level
 			}))
-			.addFields(fields),
+			.addFields(fields)
 	);
 
-	const filterConfirm = (reaction) => {
-		return reaction.me && !reaction.users.cache.last().bot;
-	};
+	const filterConfirm = (reaction) => reaction.me && !reaction.users.cache.last().bot;
 
 	const collector = msg.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
-		max: JsonReader.commands.profile.badgeMaxReactNumber,
+		max: JsonReader.commands.profile.badgeMaxReactNumber
 	});
 
 	collector.on("collect", (reaction) => {

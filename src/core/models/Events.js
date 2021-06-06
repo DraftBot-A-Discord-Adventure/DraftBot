@@ -11,28 +11,28 @@ module.exports = (Sequelize, DataTypes) => {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
-			autoIncrement: true,
+			autoIncrement: true
 		},
 		fr: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT
 		},
 		en: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		restricted_maps: {
 			type: DataTypes.TEXT
-		},
+		}
 	}, {
 		tableName: "events",
-		freezeTableName: true,
+		freezeTableName: true
 	});
 
 	Events.beforeSave((instance) => {
@@ -43,7 +43,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @return {Promise<String[]>}
 	 */
-	Events.prototype.getReactions = async function () {
+	Events.prototype.getReactions = async function() {
 		const possibilities = await this.getPossibilities();
 		const reactions = [];
 		for (const possibility of possibilities) {
@@ -57,7 +57,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Maps} map
 	 * @returns {Promise<Events>}
 	 */
-	Events.pickEventOnMapType = async function (map) {
+	Events.pickEventOnMapType = async function(map) {
 		const query = `SELECT * FROM events LEFT JOIN event_map_location_ids eml ON events.id = eml.event_id WHERE events.id > 0 AND events.id < 9999 AND (
 				(events.restricted_maps IS NOT NULL AND events.restricted_maps LIKE :map_type) OR
 				(events.restricted_maps IS NULL AND ((eml.map_location_id IS NOT NULL AND eml.map_location_id = :map_id) OR
@@ -68,7 +68,7 @@ module.exports = (Sequelize, DataTypes) => {
 				map_type: "%" + map.type + "%",
 				map_id: map.id
 			},
-			type: Sequelize.QueryTypes.SELECT,
+			type: Sequelize.QueryTypes.SELECT
 		});
 	};
 

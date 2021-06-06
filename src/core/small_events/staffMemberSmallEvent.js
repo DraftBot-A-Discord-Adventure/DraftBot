@@ -6,7 +6,7 @@
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity, seEmbed) {
+const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
 	const tr = JsonReader.small_events.staffMember.getTranslation(language);
 	const keys = Object.keys(tr.members);

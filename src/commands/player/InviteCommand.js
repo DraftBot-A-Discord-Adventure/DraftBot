@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const InviteCommand = async function (language, message) {
+const InviteCommand = async function(language, message) {
 	await message.channel.send(JsonReader.commands.invite.getTranslation(language).main);
 };
 

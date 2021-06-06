@@ -11,30 +11,30 @@ module.exports = (Sequelize, DataTypes) => {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
-			autoIncrement: true,
+			autoIncrement: true
 		},
 		prefix: {
 			type: DataTypes.STRING(10),
-			defaultValue: JsonReader.models.servers.prefix,
+			defaultValue: JsonReader.models.servers.prefix
 		},
 		language: {
 			type: DataTypes.STRING(2),
-			defaultValue: JsonReader.models.servers.language,
+			defaultValue: JsonReader.models.servers.language
 		},
 		discordGuild_id: {
-			type: DataTypes.STRING(64),
+			type: DataTypes.STRING(64)
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
-		},
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+		}
 	}, {
 		tableName: "servers",
-		freezeTableName: true,
+		freezeTableName: true
 	});
 
 	Servers.beforeSave((instance) => {
@@ -46,13 +46,11 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String} discordGuildId
 	 * @return {Servers}
 	 */
-	Servers.getOrRegister = (discordGuildId) => {
-		return Servers.findOrCreate({
-			where: {
-				discordGuild_id: discordGuildId,
-			},
-		});
-	};
+	Servers.getOrRegister = (discordGuildId) => Servers.findOrCreate({
+		where: {
+			discordGuild_id: discordGuildId
+		}
+	});
 
 	return Servers;
 };

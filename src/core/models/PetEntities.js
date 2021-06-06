@@ -13,36 +13,36 @@ module.exports = (Sequelize, DataTypes) => {
 			id: {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
-				autoIncrement: true,
+				autoIncrement: true
 			},
 			pet_id: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.INTEGER
 			},
 			sex: {
-				type: DataTypes.CHAR,
+				type: DataTypes.CHAR
 			},
 			nickname: {
-				type: DataTypes.TEXT,
+				type: DataTypes.TEXT
 			},
 			lovePoints: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.INTEGER
 			},
 			hungrySince: {
 				type: DataTypes.DATE,
-				defaultValue: JsonReader.models.pets.hungrySince,
+				defaultValue: JsonReader.models.pets.hungrySince
 			},
 			updatedAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 			},
 			createdAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
-			},
+				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			}
 		},
 		{
 			tableName: "pet_entities",
-			freezeTableName: true,
+			freezeTableName: true
 		}
 	);
 
@@ -57,13 +57,11 @@ module.exports = (Sequelize, DataTypes) => {
 	 * get a pet from its id
 	 * @param {Number} id
 	 */
-	PetEntities.getById = (id) => {
-		return PetEntities.findOne({
-			where: {
-				id: id,
-			},
-		});
-	};
+	PetEntities.getById = (id) => PetEntities.findOne({
+		where: {
+			id: id
+		}
+	});
 
 	/**
 	 * create a pet entity in the database
@@ -72,14 +70,12 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String|string} nickname
 	 * @returns {Promise<PetEntities>}
 	 */
-	PetEntities.createPet = (pet_id, sex, nickname) => {
-		return PetEntities.build({
-			pet_id: pet_id,
-			sex: sex,
-			nickname: nickname,
-			lovePoints: PETS.BASE_LOVE,
-		});
-	};
+	PetEntities.createPet = (pet_id, sex, nickname) => PetEntities.build({
+		pet_id: pet_id,
+		sex: sex,
+		nickname: nickname,
+		lovePoints: PETS.BASE_LOVE
+	});
 
 	/**
 	 * get the name of the pet
@@ -87,22 +83,18 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param language
 	 * @returns {String|string}
 	 */
-	PetEntities.getPetTypeName = (pet_entity, language) => {
-		return pet_entity.PetModel[
-			(pet_entity.sex === "m" ? "male" : "female") + "Name_" + language
-		];
-	};
+	PetEntities.getPetTypeName = (pet_entity, language) => pet_entity.PetModel[
+		(pet_entity.sex === "m" ? "male" : "female") + "Name_" + language
+	];
 
 	/**
 	 * get the string of a pet emote
 	 * @param {PetEntities} pet_entity
 	 * @returns {String|string}
 	 */
-	PetEntities.getPetEmote = (pet_entity) => {
-		return pet_entity.PetModel[
-			"emote" + (pet_entity.sex === "m" ? "Male" : "Female")
-		];
-	};
+	PetEntities.getPetEmote = (pet_entity) => pet_entity.PetModel[
+		"emote" + (pet_entity.sex === "m" ? "Male" : "Female")
+	];
 
 	/**
 	 * get string of pet sex
@@ -124,7 +116,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String|string} language
 	 * @returns {String|string}
 	 */
-	PetEntities.getNickname = (pet_entity, language) => {
+	PetEntities.getNickname = function(pet_entity, language) {
 		return pet_entity.nickname ? pet_entity.nickname : JsonReader.models.pets.getTranslation(language).noNickname;
 	};
 
@@ -133,7 +125,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {PetEntities} pet_entity
 	 * @returns {Number}
 	 */
-	PetEntities.getLoveLevelNumber = (pet_entity) => {
+	PetEntities.getLoveLevelNumber = function(pet_entity) {
 		return pet_entity.lovePoints === PETS.MAX_LOVE_POINTS ? 5 : pet_entity.lovePoints > PETS.LOVE_LEVELS[2] ? 4 : pet_entity.lovePoints > PETS.LOVE_LEVELS[1] ? 3 : pet_entity.lovePoints > PETS.LOVE_LEVELS[0] ? 2 : 1;
 	};
 
@@ -144,29 +136,33 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {String|string}
 	 */
 	PetEntities.getLoveLevel = (pet_entity, language) => {
-		let translations = JsonReader.models.pets.getTranslation(language);
+		const translations = JsonReader.models.pets.getTranslation(language);
 		let loveLevel;
 		if (pet_entity.lovePoints <= PETS.LOVE_LEVELS[0]) {
 			loveLevel = language === LANGUAGE.FRENCH ? format(translations.loveLevels[0], {
 				typeSuffix: pet_entity.sex === PETS.FEMALE ? "se" : "x"
 			}) : translations.loveLevels[0];
-		} else if (pet_entity.lovePoints > PETS.LOVE_LEVELS[0] && pet_entity.lovePoints <= PETS.LOVE_LEVELS[1]) {
+		}
+		else if (pet_entity.lovePoints > PETS.LOVE_LEVELS[0] && pet_entity.lovePoints <= PETS.LOVE_LEVELS[1]) {
 			loveLevel = translations.loveLevels[1];
-		} else if (
+		}
+		else if (
 			pet_entity.lovePoints > PETS.LOVE_LEVELS[1] &&
 			pet_entity.lovePoints <= PETS.LOVE_LEVELS[2]
 		) {
 			loveLevel = language === LANGUAGE.FRENCH ? format(translations.loveLevels[2], {
 				typeSuffix: pet_entity.sex === PETS.FEMALE ? "ve" : "f"
 			}) : translations.loveLevels[2];
-		} else if (
+		}
+		else if (
 			pet_entity.lovePoints > PETS.LOVE_LEVELS[2] &&
 			pet_entity.lovePoints < PETS.MAX_LOVE_POINTS
 		) {
 			loveLevel = language === LANGUAGE.FRENCH ? format(translations.loveLevels[3], {
 				typeSuffix: pet_entity.sex === PETS.FEMALE ? "ée" : "é"
 			}) : translations.loveLevels[3];
-		} else if (pet_entity.lovePoints === PETS.MAX_LOVE_POINTS) {
+		}
+		else if (pet_entity.lovePoints === PETS.MAX_LOVE_POINTS) {
 			loveLevel = language === LANGUAGE.FRENCH ? format(translations.loveLevels[4], {
 				typeSuffix: pet_entity.sex === PETS.FEMALE ? "ée" : "é"
 			}) : translations.loveLevels[4];
@@ -181,13 +177,11 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {number} number
 	 * @returns {String}
 	 */
-	PetEntities.getPetTitle = (pet_entity, language, number) => {
-		return format(
-			JsonReader.commands.guildShelter.getTranslation(language)
-				.petFieldName,
-			{number: number}
-		);
-	};
+	PetEntities.getPetTitle = (pet_entity, language, number) => format(
+		JsonReader.commands.guildShelter.getTranslation(language)
+			.petFieldName,
+		{number: number}
+	);
 
 	/**
 	 * generate full pet display
@@ -195,7 +189,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String|string} language
 	 * @returns {Promise<String>}
 	 */
-	PetEntities.getPetDisplay = async (pet_entity, language) => {
+	PetEntities.getPetDisplay = async(pet_entity, language) => {
 		if (!pet_entity) {
 			return await Pets.getById(JsonReader.models.pets.defaultPetId)[
 				"maleName_" + language
@@ -209,7 +203,7 @@ module.exports = (Sequelize, DataTypes) => {
 				rarity: Pets.getRarityDisplay(pet_entity.PetModel),
 				sex: PetEntities.getSexDisplay(pet_entity, language),
 				nickname: PetEntities.getNickname(pet_entity, language),
-				loveLevel: PetEntities.getLoveLevel(pet_entity, language),
+				loveLevel: PetEntities.getLoveLevel(pet_entity, language)
 			}
 		);
 	};
@@ -221,7 +215,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {Promise<String>}
 	 */
 	PetEntities.displayName = (pet_entity, language) => {
-		let displayedName = pet_entity.nickname ? pet_entity.nickname : PetEntities.getPetTypeName(pet_entity, language);
+		const displayedName = pet_entity.nickname ? pet_entity.nickname : PetEntities.getPetTypeName(pet_entity, language);
 		return PetEntities.getPetEmote(pet_entity) + " " + displayedName;
 	};
 
@@ -230,7 +224,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {number} level
 	 * @returns {Promise<PetEntities>}
 	 */
-	PetEntities.generateRandomPetEntity = async (level) => {
+	PetEntities.generateRandomPetEntity = async(level) => {
 		const sex = draftbotRandom.bool() ? "m" : "f";
 		const levelTier = "" + Math.floor(level / 10);
 		const probabilities = JsonReader.models.pets.probabilities[levelTier];
@@ -252,15 +246,15 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 		const pet = await Pets.findOne({
 			where: {
-				rarity: rarity,
+				rarity: rarity
 			},
-			order: [Sequelize.fn("RANDOM")],
+			order: [Sequelize.fn("RANDOM")]
 		});
-		let r = PetEntities.build({
+		const r = PetEntities.build({
 			pet_id: pet.id,
 			sex: sex,
 			nickname: null,
-			lovePoints: PETS.BASE_LOVE,
+			lovePoints: PETS.BASE_LOVE
 		});
 		r.PetModel = pet;
 		return r;
@@ -270,9 +264,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Génère une entité de pet
 	 * @returns {Promise<PetEntities>}
 	 */
-	PetEntities.generateRandomPetEntityNotGuild = () => {
-		return PetEntities.generateRandomPetEntity(PETS.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT);
-	};
+	PetEntities.generateRandomPetEntityNotGuild = () => PetEntities.generateRandomPetEntity(PETS.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT);
 
 	return PetEntities;
 };

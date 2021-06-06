@@ -16,7 +16,7 @@ class Database {
 		Database.Sequelize = new Sequelize({
 			dialect: "sqlite",
 			storage: "database/database.sqlite",
-			logging: false,
+			logging: false
 		});
 
 		await Database.migrate();
@@ -63,7 +63,7 @@ class Database {
 						.map((x) => ({
 							id: Number(x[1]),
 							name: x[2],
-							filename: x[0],
+							filename: x[0]
 						}))
 						.sort((a, b) => Math.sign(a.id - b.id))
 				);
@@ -125,7 +125,8 @@ class Database {
 						`INSERT INTO "${table}" (id, name, up, down) VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`
 					);
 					await Database.Sequelize.query("COMMIT");
-				} catch (err) {
+				}
+				catch (err) {
 					await Database.Sequelize.query("ROLLBACK");
 					throw err;
 				}
@@ -139,99 +140,99 @@ class Database {
 	static setAssociations() {
 		Entities.hasOne(Players, {
 			foreignKey: "entity_id",
-			as: "Player",
+			as: "Player"
 		});
 
 		Players.belongsTo(Entities, {
 			foreignKey: "entity_id",
-			as: "Entity",
+			as: "Entity"
 		});
 		Players.belongsTo(Guilds, {
 			foreignKey: "guild_id",
-			as: "Guild",
+			as: "Guild"
 		});
 		Players.belongsTo(Guilds, {
 			foreignKey: "id",
 			targetKey: "chief_id",
-			as: "Chief",
+			as: "Chief"
 		});
 		Players.hasOne(Inventories, {
 			foreignKey: "player_id",
-			as: "Inventory",
+			as: "Inventory"
 		});
 		Players.hasOne(PetEntities, {
 			foreignKey: "id",
 			sourceKey: "pet_id",
-			as: "Pet",
+			as: "Pet"
 		});
 		Players.hasMany(PlayerSmallEvents, {
 			foreignKey: "player_id",
-			as: "PlayerSmallEvents",
+			as: "PlayerSmallEvents"
 		});
 
 		Guilds.hasMany(Players, {
 			foreignKey: "guild_id",
-			as: "Members",
+			as: "Members"
 		});
 		Guilds.hasOne(Players, {
 			foreignKey: "id",
 			sourceKey: "chief_id",
-			as: "Chief",
+			as: "Chief"
 		});
 		Guilds.hasMany(GuildPets, {
 			foreignKey: "guild_id",
-			as: "GuildPets",
+			as: "GuildPets"
 		});
 		GuildPets.hasOne(PetEntities, {
 			foreignKey: "id",
 			sourceKey: "pet_entity_id",
-			as: "PetEntity",
+			as: "PetEntity"
 		});
 
 		Inventories.belongsTo(Players, {
 			foreignKey: "player_id",
-			as: "Player",
+			as: "Player"
 		});
 		Inventories.hasOne(Weapons, {
 			foreignKey: "id",
 			sourceKey: "weapon_id",
-			as: "Weapon",
+			as: "Weapon"
 		});
 		Inventories.hasOne(Armors, {
 			foreignKey: "id",
 			sourceKey: "armor_id",
-			as: "Armor",
+			as: "Armor"
 		});
 		Inventories.hasOne(Potions, {
 			foreignKey: "id",
 			sourceKey: "potion_id",
-			as: "Potion",
+			as: "Potion"
 		});
 		Inventories.hasOne(Objects, {
 			foreignKey: "id",
 			sourceKey: "object_id",
-			as: "ActiveObject",
+			as: "ActiveObject"
 		});
 		Inventories.hasOne(Objects, {
 			foreignKey: "id",
 			sourceKey: "backup_id",
-			as: "BackupObject",
+			as: "BackupObject"
 		});
 
 		Events.hasMany(Possibilities, {
 			foreignKey: "event_id",
-			as: "Possibilities",
+			as: "Possibilities"
 		});
 
 		Possibilities.belongsTo(Events, {
 			foreignKey: "event_id",
-			as: "Event",
+			as: "Event"
 		});
 
 		PetEntities.hasOne(Pets, {
 			foreignKey: "id",
 			sourceKey: "pet_id",
-			as: "PetModel",
+			as: "PetModel"
 		});
 	}
 
@@ -259,7 +260,8 @@ class Database {
 					) {
 						fileContent.fr = fileContent.translations.fr;
 						fileContent.en = fileContent.translations.en;
-					} else {
+					}
+					else {
 						const keys = Object.keys(fileContent.translations.en);
 						for (let i = 0; i < keys.length; ++i) {
 							const key = keys[i];
@@ -291,7 +293,9 @@ class Database {
 
 			fileContent.id = fileName;
 
-			if (!Database.isEventValid(fileContent)) {continue;}
+			if (!Database.isEventValid(fileContent)) {
+				continue;
+			}
 
 			if (fileContent.map_location_ids) {
 				for (const mapLocationsId of fileContent.map_location_ids) {
@@ -304,12 +308,12 @@ class Database {
 			fileContent.fr = fileContent.translations.fr + "\n\n";
 			fileContent.en = fileContent.translations.en + "\n\n";
 			for (const possibilityKey of Object.keys(fileContent.possibilities)) {
-				if(possibilityKey !== "end") {
-					fileContent.fr = fileContent.fr + format(JsonReader.commands.report.getTranslation("fr").doChoice, {
+				if (possibilityKey !== "end") {
+					fileContent.fr += format(JsonReader.commands.report.getTranslation("fr").doChoice, {
 						emoji: possibilityKey,
 						choiceText: fileContent.possibilities[possibilityKey].translations.fr
 					});
-					fileContent.en = fileContent.en + format(JsonReader.commands.report.getTranslation("en").doChoice, {
+					fileContent.en += format(JsonReader.commands.report.getTranslation("en").doChoice, {
 						emoji: possibilityKey,
 						choiceText: fileContent.possibilities[possibilityKey].translations.en
 					});
@@ -386,7 +390,7 @@ class Database {
 			"experience",
 			"money",
 			"item",
-			"translations",
+			"translations"
 		];
 		const possibilityFields = [
 			"translations",
@@ -507,7 +511,7 @@ class Database {
 	}
 
 	static async verifyMaps() {
-		let dict = {};
+		const dict = {};
 		for (const map of await MapLocations.findAll()) {
 			dict[map.id] = map;
 		}
@@ -544,18 +548,18 @@ class Database {
 	static setEverybodyAsUnOccupied() {
 		Entities.update(
 			{
-				effect: EFFECT.SMILEY,
+				effect: EFFECT.SMILEY
 			},
 			{
 				where: {
-					effect: EFFECT.AWAITING_ANSWER,
-				},
+					effect: EFFECT.AWAITING_ANSWER
+				}
 			}
 		);
 	}
 
 	static replaceWarningLogger() {
-		sequelizeLogger.logger.warn = function (message) {
+		sequelizeLogger.logger.warn = function(message) {
 			if (
 				message ===
 				"Unknown attributes (Player) passed to defaults option of findOrCreate"
@@ -569,11 +573,11 @@ class Database {
 	static async updatePlayersRandomMap() {
 		const query = "UPDATE players SET map_id = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE map_id = -1;";
 		await Database.Sequelize.query(query, {
-			type: Sequelize.QueryTypes.UPDATE,
+			type: Sequelize.QueryTypes.UPDATE
 		});
 	}
 }
 
 module.exports = {
-	init: Database.init,
+	init: Database.init
 };

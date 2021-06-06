@@ -4,16 +4,15 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ChangePointsWeekCommand = async function (language, message, args) {
+const ChangePointsWeekCommand = async function(language, message, args) {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 
 	const embed = new discord.MessageEmbed();
-	let entity;
 	const playerId = message.mentions.users.last().id;
-	[entity] = await Entities.getOrRegister(playerId);
+	const [entity] = await Entities.getOrRegister(playerId);
 	entity.Player.weeklyScore = parseInt(args[1]);
 	await entity.Player.save();
 

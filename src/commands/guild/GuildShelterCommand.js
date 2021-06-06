@@ -4,17 +4,19 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildShelterCommand = async (language, message) => {
+const GuildShelterCommand = async(language, message) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true)
-	{return;}
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
+		return;
+	}
 
 	// search for a user's guild
 	let guild;
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 
@@ -25,13 +27,13 @@ const GuildShelterCommand = async (language, message) => {
 	}
 
 	const tr = JsonReader.commands.guildShelter.getTranslation(language);
-	let shelterEmbed = new discord.MessageEmbed();
+	const shelterEmbed = new discord.MessageEmbed();
 
 	shelterEmbed.setTitle(
 		format(tr.embedTitle, {
 			guild: guild.name,
 			count: guild.GuildPets.length,
-			max: JsonReader.models.pets.slots,
+			max: JsonReader.models.pets.slots
 		})
 	);
 
@@ -41,7 +43,8 @@ const GuildShelterCommand = async (language, message) => {
 				.noPetMessage
 		);
 		shelterEmbed.setThumbnail(JsonReader.commands.guild.icon);
-	} else {
+	}
+	else {
 		for (let i = 0; i < guild.GuildPets.length; ++i) {
 			const pet = guild.GuildPets[i];
 			shelterEmbed.addField(
@@ -78,8 +81,8 @@ module.exports = {
 				"ganimals",
 				"guildpets",
 				"guildanimals",
-				"sh",
-			],
-		},
-	],
+				"sh"
+			]
+		}
+	]
 };

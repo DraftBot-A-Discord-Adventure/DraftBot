@@ -6,12 +6,12 @@
  */
 async function DmnotificationCommand(language, message) {
 
-	let [entity] = await Entities.getOrRegister(message.author.id); // Loading player
+	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 	const translations = JsonReader.commands.dmNotification.getTranslation(language);
 
 	// update value user dmnotification
 	entity.Player.dmnotification = !entity.Player.dmnotification;
-	let isDmNotificationOn = entity.Player.dmnotification;
+	const isDmNotificationOn = entity.Player.dmnotification;
 
 	// send message updated value
 	const dmNotifEmbed = new discord.MessageEmbed()
@@ -23,13 +23,14 @@ async function DmnotificationCommand(language, message) {
 		)
 		.setColor(JsonReader.bot.embed.default)
 		.setAuthor(format(translations.title, {
-			pseudo: message.author.username,
+			pseudo: message.author.username
 		}), message.author.displayAvatarURL());
 	if (isDmNotificationOn) {
 		try {
 			await message.author.send(dmNotifEmbed);
 			await message.channel.send(dmNotifEmbed);
-		} catch (err) {
+		}
+		catch (err) {
 			entity.Player.dmnotification = false;
 			await sendErrorMessage(
 				message.author,
@@ -39,10 +40,11 @@ async function DmnotificationCommand(language, message) {
 			);
 		}
 
-	} else {
+	}
+	else {
 		await message.channel.send(dmNotifEmbed);
 	}
-	log("Player "+message.author+" switched dms to "+entity.Player.dmnotification);
+	log("Player " + message.author + " switched dms to " + entity.Player.dmnotification);
 	await entity.Player.save();
 }
 

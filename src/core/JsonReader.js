@@ -30,7 +30,9 @@ class JsonReader {
 	static async loadFolder(folder) {
 		const files = await fs.promises.readdir(folder);
 		for (const file of files) {
-			if (!file.endsWith(".json")) {continue;}
+			if (!file.endsWith(".json")) {
+				continue;
+			}
 			const folderName = folder.split("/")[folder.split("/").length - 1];
 			const fileName = file.split(".")[0].split("/")[file.split(
 				".")[0].split(
@@ -50,7 +52,9 @@ class JsonReader {
 	 * @return {Promise<void>}
 	 */
 	static loadFile(file) {
-		if (!file.endsWith(".json")) {return;}
+		if (!file.endsWith(".json")) {
+			return;
+		}
 		const fileName = file.split(".")[0].split("/")[file.split(".")[0].split(
 			"/").length - 1];
 		this[fileName] = require(file);
@@ -72,7 +76,7 @@ class JsonReader {
  * @type {{init: JsonReader.init}}
  */
 module.exports = {
-	init: JsonReader.init,
+	init: JsonReader.init
 };
 /**
  * @type {JsonReader}

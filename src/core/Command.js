@@ -18,12 +18,14 @@ class Command {
 			"src/commands/admin",
 			"src/commands/guild",
 			"src/commands/player",
-			"src/commands/pets",
+			"src/commands/pets"
 		];
 		for (let folder of folders) {
 			const commandsFiles = await fs.promises.readdir(folder);
 			for (const commandFile of commandsFiles) {
-				if (!commandFile.endsWith(".js")) {continue;}
+				if (!commandFile.endsWith(".js")) {
+					continue;
+				}
 				folder = folder.replace("src/", "");
 				const commandName = commandFile.split(".")[0];
 
@@ -51,7 +53,9 @@ class Command {
 	 * @returns {String} The command
 	 */
 	static getMainCommandFromAlias(alias) {
-		if (Command.aliases.has(alias)) {return Command.aliases.get(alias);}
+		if (Command.aliases.has(alias)) {
+			return Command.aliases.get(alias);
+		}
 		return alias;
 	}
 
@@ -61,7 +65,7 @@ class Command {
 	 * @returns {String[]} The aliases
 	 */
 	static getAliasesFromCommand(cmd) {
-		let aliases = [];
+		const aliases = [];
 		for (const alias of Command.aliases.entries()) {
 			if (alias[1] === cmd && alias[0] !== cmd) {
 				aliases.push(alias[0]);
@@ -126,23 +130,23 @@ class Command {
 	 */
 	static async handleMessage(message) {
 
-		//server check :
+		// server check :
 		const [server] = await Servers.findOrCreate({
 			where: {
-				discordGuild_id: message.guild.id,
-			},
+				discordGuild_id: message.guild.id
+			}
 		});
 
-		//language check
+		// language check
 		let language = server.language;
 		if (message.channel.id === JsonReader.app.ENGLISH_CHANNEL_ID) {
 			language = LANGUAGE.ENGLISH;
 		}
 
-		//args loading
+		// args loading
 		const split = message.content.split(" ", 1);
 
-		//if the bot is mentionned, send help message
+		// if the bot is mentionned, send help message
 		if (
 			split.length > 0 &&
 			split[0].match(discord.MessageMentions.USERS_PATTERN) &&
@@ -150,7 +154,7 @@ class Command {
 		) {
 			await message.channel.send(
 				format(JsonReader.bot.getTranslation(language).mentionHelp, {
-					prefix: server.prefix,
+					prefix: server.prefix
 				})
 			);
 			return;
@@ -159,11 +163,11 @@ class Command {
 			return;
 		}
 
-		//otherwise continue
+		// otherwise continue
 
 		if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
 
-			//check maintenance mode
+			// check maintenance mode
 			if (
 				message.author.id !== JsonReader.app.BOT_OWNER_ID &&
 				JsonReader.app.MODE_MAINTENANCE
@@ -172,26 +176,23 @@ class Command {
 					new discord.MessageEmbed()
 						.setDescription(JsonReader.bot.getTranslation(language).maintenance)
 						.setTitle(":x: **Maintenance**")
-						.setColor(JsonReader.bot.embed.error),
+						.setColor(JsonReader.bot.embed.error)
 				);
 			}
 			await Command.launchCommand(language, server.prefix, message);
-		} else {
-
-			//launch command
-			if (
-				Command.getUsedPrefix(
-					message,
-					JsonReader.app.BOT_OWNER_PREFIX
-				) === JsonReader.app.BOT_OWNER_PREFIX &&
+		}
+		else if (
+			Command.getUsedPrefix(
+				message,
+				JsonReader.app.BOT_OWNER_PREFIX
+			) === JsonReader.app.BOT_OWNER_PREFIX &&
 				message.author.id === JsonReader.app.BOT_OWNER_ID
-			) {
-				await Command.launchCommand(
-					language,
-					JsonReader.app.BOT_OWNER_PREFIX,
-					message
-				);
-			}
+		) {
+			await Command.launchCommand(
+				language,
+				JsonReader.app.BOT_OWNER_PREFIX,
+				message
+			);
 		}
 	}
 
@@ -222,7 +223,7 @@ class Command {
 			}) + message.content
 		);
 
-		let msg = await sendSimpleMessage(
+		const msg = await sendSimpleMessage(
 			message.author,
 			message.channel,
 			JsonReader.bot.dm.titleSupport,
@@ -231,13 +232,11 @@ class Command {
 		msg.react(MENU_REACTION.ENGLISH_FLAG);
 		msg.react(MENU_REACTION.FRENCH_FLAG);
 
-		const filterConfirm = (reaction) => {
-			return reaction.me && !reaction.users.cache.last().bot;
-		};
+		const filterConfirm = (reaction) => reaction.me && !reaction.users.cache.last().bot;
 
 		const collector = msg.createReactionCollector(filterConfirm, {
 			time: COLLECTOR_TIME,
-			max: 1,
+			max: 1
 		});
 
 		collector.on("collect", (reaction) => {
@@ -281,7 +280,8 @@ class Command {
 			);
 		}
 
-		const args = message.content.slice(prefix.length).trim().split(/ +/g);
+		const args = message.content.slice(prefix.length).trim()
+			.split(/ +/g);
 		const command = args.shift().toLowerCase();
 
 		if (Command.commands.has(command)) {
@@ -293,7 +293,8 @@ class Command {
 					await message.author.send(
 						JsonReader.bot.getTranslation(language).noSpeakPermission
 					);
-				} catch (err) {
+				}
+				catch (err) {
 					log("No perms to show i can't react in server / channel : " + message.guild + "/" + message.channel);
 				}
 				return;
@@ -306,7 +307,8 @@ class Command {
 					await message.author.send(
 						JsonReader.bot.getTranslation(language).noReacPermission
 					);
-				} catch (err) {
+				}
+				catch (err) {
 					await message.channel.send(
 						JsonReader.bot.getTranslation(language).noReacPermission
 					);
@@ -321,7 +323,8 @@ class Command {
 					await message.author.send(
 						JsonReader.bot.getTranslation(language).noEmbedPermission
 					);
-				} catch (err) {
+				}
+				catch (err) {
 					await message.channel.send(
 						JsonReader.bot.getTranslation(language).noEmbedPermission
 					);
@@ -336,7 +339,8 @@ class Command {
 					await message.author.send(
 						JsonReader.bot.getTranslation(language).noFilePermission
 					);
-				} catch (err) {
+				}
+				catch (err) {
 					await message.channel.send(
 						JsonReader.bot.getTranslation(language).noFilePermission
 					);
@@ -378,7 +382,7 @@ class Command {
  */
 module
 	.exports = {
-		init: Command.init,
+		init: Command.init
 	};
 
 global

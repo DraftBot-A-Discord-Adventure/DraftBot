@@ -5,7 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const SendLogsCommand = async function (language, message, args) {
+const SendLogsCommand = async function(language, message, args) {
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.CONTRIBUTORS) !== true) {
 		return;
 	}
@@ -20,17 +20,18 @@ const SendLogsCommand = async function (language, message, args) {
 		await message.author.send({
 			files: [{
 				attachment: global.currLogsFile,
-				name: global.currLogsFile.split("/")[1],
-			}],
+				name: global.currLogsFile.split("/")[1]
+			}]
 		});
-	} else if (args[0] === "list") {
-		fs.readdir("logs", function (err, files) {
+	}
+	else if (args[0] === "list") {
+		fs.readdir("logs", function(err, files) {
 			if (err) {
 				return message.author.send("```Unable to scan directory: " + err + "```");
 			}
 
 			let msg = "```";
-			files.forEach(function (file) {
+			files.forEach(function(file) {
 				msg += file + " (" + fs.statSync("logs/" + file).size / 1000.0 + " ko)" + "\n";
 				if (msg > 1800) {
 					message.author.send(msg + "```");
@@ -41,7 +42,8 @@ const SendLogsCommand = async function (language, message, args) {
 				message.author.send(msg + "```");
 			}
 		});
-	} else {
+	}
+	else {
 		if (args[0].includes("/") || args[0].includes("..")) {
 			return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendLogs.getTranslation(language).localFileInclusion);
 		}
@@ -52,10 +54,11 @@ const SendLogsCommand = async function (language, message, args) {
 			await message.author.send({
 				files: [{
 					attachment: "logs/" + args[0],
-					name: args[0],
-				}],
+					name: args[0]
+				}]
 			});
-		} else {
+		}
+		else {
 			await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendLogs.getTranslation(language).noLogFile);
 		}
 	}

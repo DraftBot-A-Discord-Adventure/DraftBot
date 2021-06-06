@@ -6,24 +6,25 @@
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity, seEmbed) {
+const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
-	let pet = await PetEntities.generateRandomPetEntityNotGuild();
+	const pet = await PetEntities.generateRandomPetEntityNotGuild();
 	let guild;
 
 	// search for a user's guild
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 
-	let petLine = await PetEntities.displayName(pet, language);
+	const petLine = await PetEntities.displayName(pet, language);
 
-	let base = JsonReader.small_events.findPet.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
-	let noRoomInGuild = guild === null ? true : await Guilds.isPetShelterFull(guild);
-	let seEmbedPetObtention = seEmbed;
-	let trad = JsonReader.small_events.findPet.getTranslation(language);
+	const base = JsonReader.small_events.findPet.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)];
+	const noRoomInGuild = guild === null ? true : await Guilds.isPetShelterFull(guild);
+	const seEmbedPetObtention = seEmbed;
+	const trad = JsonReader.small_events.findPet.getTranslation(language);
 
 	if (noRoomInGuild && entity.Player.pet_id !== null) {
 		// no room
@@ -31,14 +32,15 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		do {
 			outRand = randInt(0, trad.noRoom.stories.length);
 		}
-		while( trad.noRoom.stories[outRand][PETS.IS_FOOD] && guild ===null); //choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
+		while ( trad.noRoom.stories[outRand][PETS.IS_FOOD] && guild === null); // choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
 		generateNoRoomEmbed(seEmbed, base, trad, petLine, pet, outRand);
 		await message.channel.send(seEmbed);
 		if (trad.noRoom.stories[outRand][PETS.IS_FOOD]) {
 			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, 1);
 		}
-	} else if (!noRoomInGuild && entity.Player.pet_id !== null) {
+	}
+	else if (!noRoomInGuild && entity.Player.pet_id !== null) {
 		// Place le pet dans la guilde
 		await pet.save();
 		await (await GuildPets.addPet(entity.Player.guild_id, pet.id)).save();
@@ -49,7 +51,8 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 			pet: PetEntities.getPetTypeName(pet, language)
 		}));
 		await message.channel.send(seEmbedPetObtention);
-	} else {
+	}
+	else {
 		// Place le pet avec le joueur
 		await pet.save();
 		entity.Player.pet_id = pet.id;
@@ -74,7 +77,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
  * @param {PetEntity} pet - pet info
  * @param {number} outRand - outro id
  */
-const generateNoRoomEmbed = function (seEmbed, base, trad, petLine, pet, outRand) {
+const generateNoRoomEmbed = function(seEmbed, base, trad, petLine, pet, outRand) {
 	seEmbed.setDescription(
 		base +
 		format(
@@ -99,11 +102,12 @@ const generateNoRoomEmbed = function (seEmbed, base, trad, petLine, pet, outRand
  * @param {PetEntity} pet - pet info
  * @param {Boolean} inguild
  */
-const generateRoomEmbed = function (seEmbed, base, trad, petLine, pet, inguild) {
+const generateRoomEmbed = function(seEmbed, base, trad, petLine, pet, inguild) {
 	let text;
 	if (inguild) {
 		text = trad.roomInGuild.stories[randInt(0, trad.roomInGuild.stories.length)];
-	} else {
+	}
+	else {
 		text = trad.roomInPlayer.stories[randInt(0, trad.roomInPlayer.stories.length)];
 	}
 	seEmbed.setDescription(

@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetTransferCommand = async function (language, message, args) {
+const PetTransferCommand = async function(language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const pPet = entity.Player.Pet;
 
@@ -18,7 +18,8 @@ const PetTransferCommand = async function (language, message, args) {
 	let guild;
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 	if (!guild) {
@@ -82,7 +83,8 @@ const PetTransferCommand = async function (language, message, args) {
 	if (pPet) {
 		swPet.pet_entity_id = pPet.id;
 		await swPet.save();
-	} else {
+	}
+	else {
 		await swPet.destroy();
 	}
 	entity.Player.pet_id = swPetEntity.id;
@@ -96,7 +98,8 @@ const PetTransferCommand = async function (language, message, args) {
 			pet1: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language)),
 			pet2: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));
-	} else {
+	}
+	else {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmFollows, {
 			pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));

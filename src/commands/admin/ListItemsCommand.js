@@ -5,7 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const listItemsCommand = async function (language, message) {
+const listItemsCommand = async function(language, message) {
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
@@ -19,38 +19,43 @@ const listItemsCommand = async function (language, message) {
 	try {
 		fs.statSync("allArmors.txt");
 		fs.unlinkSync("allArmors.txt");
-	} catch (err) {
+	}
+	catch (err) {
 		log("Cannot send allArmors.txt: " + err);
 	}
 	try {
 		fs.statSync("allWeapons.txt");
 		fs.unlinkSync("allWeapons.txt");
-	} catch (err) {
+	}
+	catch (err) {
 		log("Cannot send allWeapons.txt: " + err);
 	}
 	try {
 		fs.statSync("allPotions.txt");
 		fs.unlinkSync("allPotions.txt");
-	} catch (err) {
+	}
+	catch (err) {
 		log("Cannot send allPotions.txt: " + err);
 	}
 	try {
 		fs.statSync("allItems.txt");
 		fs.unlinkSync("allItems.txt");
-	} catch (err) {
+	}
+	catch (err) {
 		log("Cannot send allItems.txt: " + err);
 	}
 	try {
 		fs.statSync("allObjects.txt");
 		fs.unlinkSync("allObjects.txt");
-	} catch (err) {
+	}
+	catch (err) {
 		log("Cannot send allObjects.txt: " + err);
 	}
 
 	// List armors
 	files = fs.readdirSync("resources/text/armors");
 	fs.appendFileSync("allItems.txt", "ALL ARMORS :\n");
-	files.forEach(function (file) {
+	files.forEach(function(file) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync("resources/text/armors/" + file);
 			const armor = JSON.parse(data);
@@ -69,14 +74,14 @@ const listItemsCommand = async function (language, message) {
 	message.channel.send({
 		files: [{
 			attachment: "allArmors.txt",
-			name: "allArmors.txt",
-		}],
+			name: "allArmors.txt"
+		}]
 	});
 
 	// List weapons
 	files = fs.readdirSync("resources/text/weapons");
 	fs.appendFileSync("allItems.txt", "ALL WEAPONS :\n");
-	files.forEach(function (file) {
+	files.forEach(function(file) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync("resources/text/weapons/" + file);
 			const weapons = JSON.parse(data);
@@ -95,14 +100,14 @@ const listItemsCommand = async function (language, message) {
 	message.channel.send({
 		files: [{
 			attachment: "allWeapons.txt",
-			name: "allWeapon.txt",
-		}],
+			name: "allWeapon.txt"
+		}]
 	});
 
 	// List potions
 	files = fs.readdirSync("resources/text/potions");
 	fs.appendFileSync("allItems.txt", "ALL POTIONS :\n");
-	files.forEach(function (file) {
+	files.forEach(function(file) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync("resources/text/potions/" + file);
 			const Potions = JSON.parse(data);
@@ -121,14 +126,14 @@ const listItemsCommand = async function (language, message) {
 	message.channel.send({
 		files: [{
 			attachment: "allPotions.txt",
-			name: "allPotions.txt",
-		}],
+			name: "allPotions.txt"
+		}]
 	});
 
 	// List Objects
 	files = fs.readdirSync("resources/text/objects");
 	fs.appendFileSync("allItems.txt", "ALL OBJECTS :\n");
-	files.forEach(function (file) {
+	files.forEach(function(file) {
 		if (file !== "0.json") {
 			const data = fs.readFileSync("resources/text/objects/" + file);
 			const Objects = JSON.parse(data);
@@ -147,15 +152,15 @@ const listItemsCommand = async function (language, message) {
 	message.channel.send({
 		files: [{
 			attachment: "allObjects.txt",
-			name: "allObjects.txt",
-		}],
+			name: "allObjects.txt"
+		}]
 	});
 
 	message.channel.send({
 		files: [{
 			attachment: "allItems.txt",
-			name: "allItems.txt",
-		}],
+			name: "allItems.txt"
+		}]
 	});
 };
 
