@@ -111,39 +111,39 @@ const PetSellCommand = async function (language, message, args) {
 	let buyer = null;
 	collector.on("collect", async (reaction, user) => {
 		switch (reaction.emoji.name) {
-			case MENU_REACTION.ACCEPT:
-				if (user.id === entity.discordUser_id) {
-					spamCount++;
-					if (spamCount < 3) {
-						sendErrorMessage(user, message.channel, language, translations.errors.canSellYourself);
-						return;
-					}
-					sendErrorMessage(user, message.channel, language, translations.errors.spam);
-					sellInstance = null;
-					break;
-				}
-				[buyer] = await Entities.getOrRegister(user.id);
-				if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], buyer)) !== true) {
-					buyer = null;
+		case MENU_REACTION.ACCEPT:
+			if (user.id === entity.discordUser_id) {
+				spamCount++;
+				if (spamCount < 3) {
+					sendErrorMessage(user, message.channel, language, translations.errors.canSellYourself);
 					return;
 				}
-				petSell(message, language, entity, user, pet, petCost);
-				break;
-			case MENU_REACTION.DENY:
-				if (user.id === entity.discordUser_id) {
-					await sendErrorMessage(user, message.channel, language, translations.sellCancelled, true);
-				} else {
-					if (spammers.includes(user.id)) {
-						return;
-					}
-					spammers.push(user.id);
-					sendErrorMessage(user, message.channel, language, translations.errors.onlyInitiator);
-					return;
-				}
+				sendErrorMessage(user, message.channel, language, translations.errors.spam);
 				sellInstance = null;
 				break;
-			default:
+			}
+			[buyer] = await Entities.getOrRegister(user.id);
+			if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], buyer)) !== true) {
+				buyer = null;
 				return;
+			}
+			petSell(message, language, entity, user, pet, petCost);
+			break;
+		case MENU_REACTION.DENY:
+			if (user.id === entity.discordUser_id) {
+				await sendErrorMessage(user, message.channel, language, translations.sellCancelled, true);
+			} else {
+				if (spammers.includes(user.id)) {
+					return;
+				}
+				spammers.push(user.id);
+				sendErrorMessage(user, message.channel, language, translations.errors.onlyInitiator);
+				return;
+			}
+			sellInstance = null;
+			break;
+		default:
+			return;
 		}
 		collector.stop();
 	});

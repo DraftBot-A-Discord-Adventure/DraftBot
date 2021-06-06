@@ -6,7 +6,7 @@ const tr = JsonReader.commands.petFeed;
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetFeedCommand = async function (language, message, args) {
+const PetFeedCommand = async function (language, message) {
 	let [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
 	try {
@@ -260,47 +260,47 @@ async function feedPet(message, language, entity, pet, item) {
 			pet.lovePoints = PETS.MAX_LOVE_POINTS;
 		guild[item.type] = guild[item.type] - 1;
 		switch (item.type) {
-			case "commonFood":
-				console.log(pet);
-				if (language === LANGUAGE.FRENCH) {
-					successEmbed.setDescription(
-						format(tr.getTranslation(language).description["1"], {
-							petnick: await PetEntities.displayName(pet, language),
-							typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
-						})
-					);
-				} else {
-					successEmbed.setDescription(
-						format(tr.getTranslation(language).description["1"], {
-							petnick: await PetEntities.displayName(pet, language),
-						})
-					);
-				}
-				break;
-			case "carnivorousFood":
-			case "herbivorousFood":
-				if (language === LANGUAGE.FRENCH) {
-					successEmbed.setDescription(
-						format(tr.getTranslation(language).description["2"], {
-							petnick: await PetEntities.displayName(pet, language),
-							typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
-						})
-					);
-				} else {
-					successEmbed.setDescription(
-						format(tr.getTranslation(language).description["2"], {
-							petnick: await PetEntities.displayName(pet, language)
-						})
-					);
-				}
-				break;
-			case "ultimateFood":
+		case "commonFood":
+			console.log(pet);
+			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
-					format(tr.getTranslation(language).description["3"], {
+					format(tr.getTranslation(language).description["1"], {
+						petnick: await PetEntities.displayName(pet, language),
+						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
+					})
+				);
+			} else {
+				successEmbed.setDescription(
+					format(tr.getTranslation(language).description["1"], {
 						petnick: await PetEntities.displayName(pet, language),
 					})
 				);
-				break;
+			}
+			break;
+		case "carnivorousFood":
+		case "herbivorousFood":
+			if (language === LANGUAGE.FRENCH) {
+				successEmbed.setDescription(
+					format(tr.getTranslation(language).description["2"], {
+						petnick: await PetEntities.displayName(pet, language),
+						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
+					})
+				);
+			} else {
+				successEmbed.setDescription(
+					format(tr.getTranslation(language).description["2"], {
+						petnick: await PetEntities.displayName(pet, language)
+					})
+				);
+			}
+			break;
+		case "ultimateFood":
+			successEmbed.setDescription(
+				format(tr.getTranslation(language).description["3"], {
+					petnick: await PetEntities.displayName(pet, language),
+				})
+			);
+			break;
 		}
 	}
 	pet.hungrySince = Date();

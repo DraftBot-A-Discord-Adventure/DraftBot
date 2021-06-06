@@ -1,5 +1,4 @@
-const Op = require('sequelize/lib/operators');
-const Maps = require('../../core/Maps');
+const Maps = require("../../core/Maps");
 
 /**
  * Allow the user to learn more about what is going on with his character
@@ -67,7 +66,6 @@ const doRandomBigEvent = async function (message, language, entity, forceSpecifi
 		time = JsonReader.commands.report.timeLimit;
 	}
 
-	const Sequelize = require('sequelize');
 	let event;
 
 	// nextEvent is defined ?
@@ -155,11 +153,11 @@ const chooseDestination = async function (entity, message, language, restricted_
 		return destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
 	}, {time: COLLECTOR_TIME});
 
-	collector.on('collect', async () => {
+	collector.on("collect", async () => {
 		collector.stop();
 	});
 
-	collector.on('end', async (collected) => {
+	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[randInt(0, destinationMaps.length - 1)];
 		await Maps.startTravel(entity.Player, mapId, message.createdAt.getTime());
 		await destinationChoseMessage(entity, mapId, message, language);
@@ -219,7 +217,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 
 	await addBlockedPlayer(entity.discordUser_id, "report", collector);
 
-	collector.on('collect', async (reaction) => {
+	collector.on("collect", async (reaction) => {
 		collector.stop();
 		const possibility = await Possibilities.findAll({
 			where: {
@@ -230,14 +228,14 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 		await doPossibility(message, language, possibility, entity, time, forcePoints);
 	});
 
-	collector.on('end', async (collected) => {
+	collector.on("end", async (collected) => {
 		if (!collected.first()) {
-			const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: 'end'}});
+			const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: "end"}});
 			await doPossibility(message, language, possibility, entity, time, forcePoints);
 		}
 	});
 	for (const reaction of reactions) {
-		if (reaction !== 'end') {
+		if (reaction !== "end") {
 			await eventDisplayed.react(reaction).catch();
 		}
 	}
@@ -264,7 +262,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 				result: "",
 				event: possibility[0].dataValues[language],
 				emoji: "",
-				alte : ''
+				alte : ""
 			}));
 		}
 	}
@@ -281,7 +279,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	if (pDataValues.money < 0 && moneyChange > 0) {
 		moneyChange = Math.round(pDataValues.money / 2);
 	}
-	let result = '';
+	let result = "";
 	result += format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
 	if (moneyChange !== 0) {
 		result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
@@ -298,9 +296,9 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
 		result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime)});
 	}
-	let emojiEnd = pDataValues.effect !== EFFECT.SMILEY && pDataValues.effect !== EFFECT.OCCUPIED ? ' ' + pDataValues.effect : '';
+	let emojiEnd = pDataValues.effect !== EFFECT.SMILEY && pDataValues.effect !== EFFECT.OCCUPIED ? " " + pDataValues.effect : "";
 
-	emojiEnd = pDataValues.oneshot === true ? ' ' + EFFECT.DEAD + ' ' : emojiEnd;
+	emojiEnd = pDataValues.oneshot === true ? " " + EFFECT.DEAD + " " : emojiEnd;
 
 	if (possibility.dataValues.possibilityKey === "end") {
 		result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
@@ -348,7 +346,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	if (pDataValues.eventId === 0) {
 		player.money = 0;
 		player.score = 0;
-		if (pDataValues.emoji !== 'end') {
+		if (pDataValues.emoji !== "end") {
 			player.money = 10;
 			player.score = 100;
 		}
@@ -438,9 +436,9 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 	}
 
 	// Execute the event
-	const filename = event + 'SmallEvent.js';
+	const filename = event + "SmallEvent.js";
 	try {
-		const smallEventModule = require.resolve('../../core/small_events/' + filename);
+		const smallEventModule = require.resolve("../../core/small_events/" + filename);
 		try {
 			const smallEventFile = require(smallEventModule);
 			if (!smallEventFile.executeSmallEvent) {
@@ -471,9 +469,9 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 module.exports = {
 	commands: [
 		{
-			name: 'report',
+			name: "report",
 			func: ReportCommand,
-			aliases: ['r']
+			aliases: ["r"]
 		}
 	]
 };

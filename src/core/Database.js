@@ -48,12 +48,8 @@ class Database {
 	 * @return {Promise<void>}
 	 */
 	static async migrate() {
-		const config = {
-			force: false,
-			table: "migrations",
-			migrationsPath: "database/migrations",
-		};
-		const {force, table, migrationsPath} = config;
+		const table = "migrations";
+		const migrationsPath = "database/migrations";
 		const location = path.resolve(migrationsPath);
 		const migrations = await new Promise((resolve, reject) => {
 			fs.readdir(location, (err, files) => {
@@ -285,7 +281,7 @@ class Database {
 		await EventMapLocationIds.destroy({truncate: true});
 		await Possibilities.destroy({truncate: true});
 
-		const files = await fs.promises.readdir(`resources/text/events`);
+		const files = await fs.promises.readdir("resources/text/events");
 		const eventsContent = [];
 		const eventsMapLocationsContent = [];
 		const possibilitiesContent = [];
@@ -326,7 +322,7 @@ class Database {
 			)) {
 				for (const possibility of fileContent.possibilities[
 					possibilityKey
-					].issues) {
+				].issues) {
 					const possibilityContent = {
 						possibilityKey: possibilityKey,
 						lostTime: possibility.lostTime,
@@ -482,9 +478,9 @@ class Database {
 				) {
 					Database.sendEventLoadError(
 						event,
-						'Unknown effect "' +
+						"Unknown effect \"" +
 						issue.effect +
-						'" in issue ' +
+						"\" in issue " +
 						possibilityKey + " " + str(i)
 					);
 					return false;
@@ -571,7 +567,7 @@ class Database {
 	}
 
 	static async updatePlayersRandomMap() {
-		const query = `UPDATE players SET map_id = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE map_id = -1;`;
+		const query = "UPDATE players SET map_id = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE map_id = -1;";
 		await Database.Sequelize.query(query, {
 			type: Sequelize.QueryTypes.UPDATE,
 		});

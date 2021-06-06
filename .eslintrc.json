@@ -1,8 +1,8 @@
 {
     "env": {
         "browser": false,
-        "commonjs": true,
-        "es2021": false
+        "commonjs": false,
+        "es2021": true
     },
     "extends": [
         "eslint:recommended",
@@ -22,7 +22,7 @@
         ],
         "linebreak-style": [
             "error",
-            "windows"
+            "unix"
         ],
         "quotes": [
             "error",
@@ -31,6 +31,8 @@
         "semi": [
             "error",
             "always"
-        ]
+        ],
+				"no-undef": "off",
+				"@typescript-eslint/no-var-requires": "off"
     }
 }

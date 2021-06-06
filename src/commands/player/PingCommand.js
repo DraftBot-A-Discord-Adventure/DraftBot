@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PingCommand = async function (language, message, args) {
+const PingCommand = async function (language, message) {
 	message.channel.send(JsonReader.commands.ping.getTranslation(language).create)
 		.then((msg) => {
 			msg.edit(format(JsonReader.commands.ping.getTranslation(language).edit,
@@ -15,9 +15,9 @@ const PingCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'ping',
+			name: "ping",
 			func: PingCommand,
-			aliases: ['mention']
+			aliases: ["mention"]
 		}
 	]
 };

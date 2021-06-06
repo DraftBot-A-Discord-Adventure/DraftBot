@@ -26,9 +26,9 @@ const InventoryCommand = async (language, message, args) => {
 module.exports = {
 	commands: [
 		{
-			name: 'inventory',
+			name: "inventory",
 			func: InventoryCommand,
-			aliases: ['inv', 'i']
+			aliases: ["inv", "i"]
 		}
 	]
 };

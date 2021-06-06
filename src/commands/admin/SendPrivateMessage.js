@@ -12,7 +12,7 @@ const SendPrivateMessage = async function (language, message, args) {
 	}
 
 	const userId = args[0];
-	const messageToSend = args.join(' ').replace(userId, '') +
+	const messageToSend = args.join(" ").replace(userId, "") +
 		format(JsonReader.commands.sendPrivateMessage.getTranslation(language).signature, {
 			username: message.author.username,
 		});
@@ -30,7 +30,7 @@ const SendPrivateMessage = async function (language, message, args) {
 			username: user.username,
 		}))
 		.setDescription(messageToSend)
-		.setImage(message.attachments.size > 0 ? [...message.attachments.values()][0].url : '');
+		.setImage(message.attachments.size > 0 ? [...message.attachments.values()][0].url : "");
 
 	message.delete();
 	try {
@@ -45,7 +45,7 @@ const SendPrivateMessage = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'dm',
+			name: "dm",
 			func: SendPrivateMessage
 		}
 	]

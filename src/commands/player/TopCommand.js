@@ -1,5 +1,3 @@
-const moment = require('moment');
-
 /**
  * Allow to display the rankings of the players
  * @param {("fr"|"en")} language - Language to use in the response
@@ -12,7 +10,7 @@ const topWeekCommand = async function (language, message, args) {
 	await topCommand(language, message, args);
 };
 
-const topServerCommand = async function (language, message, args) {
+const topServerCommand = async function (language, message/*, args*/) {
 
 	//TODO : Voir avec discord pourquoi le ts marche plus !
 	//Morceau de code à retirer
@@ -22,8 +20,8 @@ const topServerCommand = async function (language, message, args) {
 		return message.channel.send(":x: This command is broken due to changes in the discord API, We hope to get it back online soon!");
 	//fin du morceau de code à retirer
 
-	args.unshift("s");
-	await topCommand(language, message, args);
+	//args.unshift("s");
+	//await topCommand(language, message, args);
 };
 
 const topCommand = async function (language, message, args) {
@@ -62,10 +60,10 @@ const topCommand = async function (language, message, args) {
 			},
 			include: [{
 				model: Players,
-				as: 'Player',
+				as: "Player",
 				where: {
 					score: {
-						[(require('sequelize/lib/operators')).gt]: 100,
+						[(require("sequelize/lib/operators")).gt]: 100,
 					},
 				},
 			}]
@@ -82,16 +80,16 @@ const topCommand = async function (language, message, args) {
 			},
 			include: [{
 				model: Players,
-				as: 'Player',
+				as: "Player",
 				where: {
 					score: {
-						[(require('sequelize/lib/operators')).gt]: 100,
+						[(require("sequelize/lib/operators")).gt]: 100,
 					},
 				},
 			}],
 			order: [
-				[{model: Players, as: 'Player'}, 'score', 'DESC'],
-				[{model: Players, as: 'Player'}, 'level', 'DESC']
+				[{model: Players, as: "Player"}, "score", "DESC"],
+				[{model: Players, as: "Player"}, "level", "DESC"]
 			],
 			limit: 15,
 			offset: (page - 1) * 15
@@ -112,7 +110,7 @@ const topCommand = async function (language, message, args) {
 		let numberOfPlayer = await Players.count({
 			where: {
 				weeklyScore: {
-					[(require('sequelize/lib/operators')).gt]: 100,
+					[(require("sequelize/lib/operators")).gt]: 100,
 				},
 			},
 		});
@@ -124,16 +122,16 @@ const topCommand = async function (language, message, args) {
 			},
 			include: [{
 				model: Players,
-				as: 'Player',
+				as: "Player",
 				where: {
 					weeklyScore: {
-						[(require('sequelize/lib/operators')).gt]: 100,
+						[(require("sequelize/lib/operators")).gt]: 100,
 					},
 				},
 			}],
 			order: [
-				[{model: Players, as: 'Player'}, 'weeklyScore', 'DESC'],
-				[{model: Players, as: 'Player'}, 'level', 'DESC']
+				[{model: Players, as: "Player"}, "weeklyScore", "DESC"],
+				[{model: Players, as: "Player"}, "level", "DESC"]
 			],
 			limit: 15,
 			offset: (page - 1) * 15
@@ -153,7 +151,7 @@ const topCommand = async function (language, message, args) {
 		let numberOfPlayer = await Players.count({
 			where: {
 				score: {
-					[(require('sequelize/lib/operators')).gt]: 100,
+					[(require("sequelize/lib/operators")).gt]: 100,
 				},
 			},
 		});
@@ -166,16 +164,16 @@ const topCommand = async function (language, message, args) {
 			},
 			include: [{
 				model: Players,
-				as: 'Player',
+				as: "Player",
 				where: {
 					score: {
-						[(require('sequelize/lib/operators')).gt]: 100,
+						[(require("sequelize/lib/operators")).gt]: 100,
 					},
 				},
 			}],
 			order: [
-				[{model: Players, as: 'Player'}, 'score', 'DESC'],
-				[{model: Players, as: 'Player'}, 'level', 'DESC']
+				[{model: Players, as: "Player"}, "score", "DESC"],
+				[{model: Players, as: "Player"}, "level", "DESC"]
 			],
 			limit: 15,
 			offset: (page - 1) * 15
@@ -236,7 +234,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 
 		//pseudo of the current player being add to the string
 		let pseudo = await allEntities[k].Player.getPseudo(language);
-		let badgeState = ':smiley:';
+		let badgeState = ":smiley:";
 
 		//badge depending on the rank
 		if (page === 1) {
@@ -273,7 +271,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 		});
 	}
 	if (topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek) {
-		embed.setFooter(format(JsonReader.commands.topCommand.getTranslation(language).nextReset, {time: parseTimeDifference(new Date(), getNextSundayMidnight(), language)}), 'https://i.imgur.com/OpL9WpR.png');
+		embed.setFooter(format(JsonReader.commands.topCommand.getTranslation(language).nextReset, {time: parseTimeDifference(new Date(), getNextSundayMidnight(), language)}), "https://i.imgur.com/OpL9WpR.png");
 	}
 	embed.setDescription(messages);
 
@@ -323,19 +321,19 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 module.exports = {
 	commands: [
 		{
-			name: 'top',
+			name: "top",
 			func: topCommand,
-			aliases: ['t', 'rank']
+			aliases: ["t", "rank"]
 		},
 		{
-			name: 'topweek',
+			name: "topweek",
 			func: topWeekCommand,
-			aliases: ['topw', 'tw']
+			aliases: ["topw", "tw"]
 		},
 		{
-			name: 'topserver',
+			name: "topserver",
 			func: topServerCommand,
-			aliases: ['topserv', 'tops', 'ts']
+			aliases: ["topserv", "tops", "ts"]
 		}
 	]
 };

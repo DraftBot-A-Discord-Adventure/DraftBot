@@ -17,7 +17,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	);
 	await entity.addHealth(healthWon);
 	await entity.save();
-	const msg = await message.channel.send(seEmbed);
+	await message.channel.send(seEmbed);
 	log(entity.discordUser_id + " gained some health points in a mini event");
 };
 

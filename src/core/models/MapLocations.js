@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const MapLocations = Sequelize.define('MapLocations', {
+	const MapLocations = Sequelize.define("MapLocations", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true
@@ -47,20 +47,20 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 	}, {
-		tableName: 'map_locations',
+		tableName: "map_locations",
 		freezeTableName: true,
 	});
 
 	MapLocations.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
@@ -108,7 +108,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {Promise<null|MapLocations>}
 	 */
 	MapLocations.getRandomMap = async () => {
-		const query = `SELECT id FROM map_locations;`;
+		const query = "SELECT id FROM map_locations;";
 		const mapIds = await Sequelize.query(query, {
 			type: Sequelize.QueryTypes.SELECT,
 		});
@@ -141,17 +141,17 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {Promise<Number>}
 	 */
 	MapLocations.prototype.playersCount = async function() {
-		const query = `SELECT COUNT(*) FROM players WHERE map_id = :id;`;
+		const query = "SELECT COUNT(*) FROM players WHERE map_id = :id;";
 		return (await Sequelize.query(query, {
 			replacements: {
 				id: this.id
 			},
 			type: Sequelize.QueryTypes.SELECT
-		}))[0]['COUNT(*)'];
+		}))[0]["COUNT(*)"];
 	};
 
 	MapLocations.getPlayersOnMap = async function(map_id, previous_map_id, player_id) {
-		const query = `SELECT discordUser_id FROM players JOIN entities ON players.entity_id = entities.id WHERE players.id != :player_id AND ((players.map_id = :map_id AND players.previous_map_id = :p_map_id) OR (players.map_id = :p_map_id AND players.previous_map_id = :map_id)) ORDER BY RANDOM();`;
+		const query = "SELECT discordUser_id FROM players JOIN entities ON players.entity_id = entities.id WHERE players.id != :player_id AND ((players.map_id = :map_id AND players.previous_map_id = :p_map_id) OR (players.map_id = :p_map_id AND players.previous_map_id = :map_id)) ORDER BY RANDOM();";
 		return (await Sequelize.query(query, {
 			replacements: {
 				map_id: map_id,

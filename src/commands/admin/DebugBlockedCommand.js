@@ -23,7 +23,7 @@ const DebugBlockedCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'debugblocked',
+			name: "debugblocked",
 			func: DebugBlockedCommand
 		}
 	]

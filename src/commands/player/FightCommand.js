@@ -1,4 +1,4 @@
-const Fight = require('../../core/fights/Fight');
+const Fight = require("../../core/fights/Fight");
 
 /**
  * Displays information about the profile of the player who sent the command
@@ -41,7 +41,7 @@ const FightCommand = async function (language, message, args, friendly = false) 
 	let msg;
 	let spamCount = 0;
 	let spammers = [];
-	await global.addBlockedPlayer(attacker.discordUser_id, 'fight');
+	await global.addBlockedPlayer(attacker.discordUser_id, "fight");
 
 	if (defender == null) {
 		msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightAnyone, {
@@ -78,51 +78,51 @@ const FightCommand = async function (language, message, args, friendly = false) 
 
 			const collector = messageFightAsk.createReactionCollector(filter, { time: 60000 });
 
-			collector.on('collect', async (reaction, user) => {
+			collector.on("collect", async (reaction, user) => {
 				switch (reaction.emoji.name) {
-					case MENU_REACTION.ACCEPT:
-						if (user.id === attacker.discordUser_id) {
-							spamCount++;
-							if (spamCount < 3) {
-								await sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.fightHimself);
-								return;
-							}
-							await sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.spamCanceled);
-							fightInstance = null;
-							break;
-						}
-						[defender] = await Entities.getOrRegister(user.id);
-						if ((canF = await canFight(defender, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
-							sendError(message, defender, canF, true, language);
-							defender = null;
+				case MENU_REACTION.ACCEPT:
+					if (user.id === attacker.discordUser_id) {
+						spamCount++;
+						if (spamCount < 3) {
+							await sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.fightHimself);
 							return;
 						}
-						fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1, friendly);
-						await fightInstance.startFight();
-						log("Fight (tournament: " + isTournament + "; friendly: " + friendly + ") started in server " + message.guild.id + " between " + attacker.discordUser_id + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and " + defender.discordUser_id + " (" + await defender.getCumulativeHealth() + "/" + await defender.getMaxCumulativeHealth() + ")");
-						break;
-					case MENU_REACTION.DENY:
-						if (user.id === attacker.discordUser_id) {
-							await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.canceled,true);
-						} else if (defender != null) {
-							await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
-						} else {
-							if (spammers.includes(user.id)) {
-								return;
-							}
-							spammers.push(user.id);
-							await sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, { pseudo: '<@' + user.id + '>' }));
-							return;
-						}
+						await sendErrorMessage(user, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.spamCanceled);
 						fightInstance = null;
 						break;
-					default:
+					}
+					[defender] = await Entities.getOrRegister(user.id);
+					if ((canF = await canFight(defender, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+						sendError(message, defender, canF, true, language);
+						defender = null;
 						return;
+					}
+					fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1, friendly);
+					await fightInstance.startFight();
+					log("Fight (tournament: " + isTournament + "; friendly: " + friendly + ") started in server " + message.guild.id + " between " + attacker.discordUser_id + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and " + defender.discordUser_id + " (" + await defender.getCumulativeHealth() + "/" + await defender.getMaxCumulativeHealth() + ")");
+					break;
+				case MENU_REACTION.DENY:
+					if (user.id === attacker.discordUser_id) {
+						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.canceled,true);
+					} else if (defender != null) {
+						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
+					} else {
+						if (spammers.includes(user.id)) {
+							return;
+						}
+						spammers.push(user.id);
+						await sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, { pseudo: "<@" + user.id + ">" }));
+						return;
+					}
+					fightInstance = null;
+					break;
+				default:
+					return;
 				}
 				collector.stop();
 			});
 
-			collector.on('end', async function () {
+			collector.on("end", async function () {
 				if (fightInstance === undefined) {
 					global.removeBlockedPlayer(attacker.discordUser_id);
 					if (defender == null) {
@@ -147,37 +147,36 @@ const FightCommand = async function (language, message, args, friendly = false) 
  * @param {"fr"|"en"} language
  */
 function sendError(message, entity, error, direct, language) {
+	let msg;
 	switch (error) {
-		case FIGHT_ERROR.WRONG_LEVEL:
-			const msg = direct ?
-				format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.direct, {
-					pseudo: entity.getMention(),
-					level: FIGHT.REQUIRED_LEVEL
-				}) :
-				format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.indirect, { level: FIGHT.REQUIRED_LEVEL });
-			sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg);
-			break;
-		case FIGHT_ERROR.DISALLOWED_EFFECT:
-			const msg1 = direct ?
-				format(JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.direct, { pseudo: entity.getMention() }) :
-				JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.indirect;
-			sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg1);
-			break;
-		case FIGHT_ERROR.OCCUPIED:
-			const msg2 = direct ?
-				format(JsonReader.commands.fight.getTranslation(language).error.occupied.direct, { pseudo: entity.getMention() }) :
-				JsonReader.commands.fight.getTranslation(language).error.occupied.indirect;
-			sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg2);
-			break;
-		case FIGHT_ERROR.NO_FIGHT_POINTS:
-			const msg3 = direct ?
-				format(JsonReader.commands.fight.getTranslation(language).error.noFightPoints.direct, { pseudo: entity.getMention() }) :
-				JsonReader.commands.fight.getTranslation(language).error.noFightPoints.indirect;
-			sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg3);
-			break;
-		default:
-			break;
+	case FIGHT_ERROR.WRONG_LEVEL:
+		msg = direct ?
+			format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.direct, {
+				pseudo: entity.getMention(),
+				level: FIGHT.REQUIRED_LEVEL
+			}) :
+			format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.indirect, { level: FIGHT.REQUIRED_LEVEL });
+		sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg);
+		break;
+	case FIGHT_ERROR.DISALLOWED_EFFECT:
+		msg = direct ?
+			format(JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.direct, { pseudo: entity.getMention() }) :
+			JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.indirect;
+		break;
+	case FIGHT_ERROR.OCCUPIED:
+		msg = direct ?
+			format(JsonReader.commands.fight.getTranslation(language).error.occupied.direct, { pseudo: entity.getMention() }) :
+			JsonReader.commands.fight.getTranslation(language).error.occupied.indirect;
+		break;
+	case FIGHT_ERROR.NO_FIGHT_POINTS:
+		msg = direct ?
+			format(JsonReader.commands.fight.getTranslation(language).error.noFightPoints.direct, { pseudo: entity.getMention() }) :
+			JsonReader.commands.fight.getTranslation(language).error.noFightPoints.indirect;
+		break;
+	default:
+		return;
 	}
+	sendErrorMessage(message.guild.members.cache.get(entity.discordUser_id).user, message.channel, language, msg);
 }
 
 /**
@@ -257,14 +256,14 @@ const FriendlyFightCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'fight',
+			name: "fight",
 			func: FightCommand,
-			aliases: ['f']
+			aliases: ["f"]
 		},
 		{
-			name: 'friendlyfight',
+			name: "friendlyfight",
 			func: FriendlyFightCommand,
-			aliases: ['ffight', 'ff']
+			aliases: ["ffight", "ff"]
 		}
 	]
 };

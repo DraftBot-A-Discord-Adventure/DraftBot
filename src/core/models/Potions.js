@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Potions = Sequelize.define('Potions', {
+	const Potions = Sequelize.define("Potions", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -33,11 +33,11 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		french_masculine: {
 			type: DataTypes.INTEGER
@@ -46,13 +46,13 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.INTEGER
 		}
 	}, {
-		tableName: 'potions',
+		tableName: "potions",
 		freezeTableName: true,
 	});
 
 	Potions.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
@@ -88,8 +88,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {String}
 	 */
 	Potions.prototype.getEmoji = function () {
-		const emoji = this.fr.split(' ')[0];
-		return emoji.includes('<') ? emoji.split(':')[2].replace('>', '') : emoji;
+		const emoji = this.fr.split(" ")[0];
+		return emoji.includes("<") ? emoji.split(":")[2].replace(">", "") : emoji;
 	};
 
 	/**

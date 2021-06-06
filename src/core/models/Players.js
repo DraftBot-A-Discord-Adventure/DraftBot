@@ -1,4 +1,4 @@
-const Maps = require('../Maps');
+const Maps = require("../Maps");
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -8,7 +8,7 @@ const Maps = require('../Maps');
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Players = Sequelize.define('players', {
+	const Players = Sequelize.define("players", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -69,7 +69,7 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		effect_end_date: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		effect_duration: {
 			type: DataTypes.INTEGER,
@@ -87,18 +87,18 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		dmnotification: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
 		}
 	}, {
-		tableName: 'players',
+		tableName: "players",
 		freezeTableName: true,
 	});
 
@@ -110,7 +110,7 @@ module.exports = (Sequelize, DataTypes) => {
 	Players.prototype.addBadge = function (badge) {
 		if (this.badges !== null) {
 			if (!this.hasBadge(badge)) {
-				this.badges += '-' + badge;
+				this.badges += "-" + badge;
 			} else {
 				return false;
 			}
@@ -124,13 +124,13 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String} badge - The badge to be added to player
 	 */
 	Players.prototype.hasBadge = function (badge) {
-		return this.badges === null ? false : this.badges.split('-')
+		return this.badges === null ? false : this.badges.split("-")
 			.includes(badge);
 	};
 
 	Players.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**

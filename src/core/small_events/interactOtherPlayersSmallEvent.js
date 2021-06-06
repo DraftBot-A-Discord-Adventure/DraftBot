@@ -108,19 +108,19 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 
 		const characteristic = cList[randInt(0, cList.length)];
 		switch (characteristic) {
-			case "weapon":
-				item = await otherEntity.Player.Inventory.getWeapon();
-				break;
-			case "armor":
-				item = await otherEntity.Player.Inventory.getArmor();
-				break;
-			case "duplicatePotion":
-			case "potion":
-				item = await otherEntity.Player.Inventory.getPotion();
-				break;
-			case "object":
-				item = await otherEntity.Player.Inventory.getActiveObject();
-				break;
+		case "weapon":
+			item = await otherEntity.Player.Inventory.getWeapon();
+			break;
+		case "armor":
+			item = await otherEntity.Player.Inventory.getArmor();
+			break;
+		case "duplicatePotion":
+		case "potion":
+			item = await otherEntity.Player.Inventory.getPotion();
+			break;
+		case "object":
+			item = await otherEntity.Player.Inventory.getActiveObject();
+			break;
 		}
 		let prefix_item = "";
 		if (item) {
@@ -148,44 +148,44 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		}));
 		const msg = await message.channel.send(seEmbed);
 
+		const COIN_EMOTE = "🪙";
+		const collector = msg.createReactionCollector((reaction, user) => {
+			return [COIN_EMOTE, MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
+		}, {time: COLLECTOR_TIME});
 		switch (characteristic) {
-			case "poor":
-				const COIN_EMOTE = "🪙";
-				const collector = msg.createReactionCollector((reaction, user) => {
-					return [COIN_EMOTE, MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
-				}, {time: COLLECTOR_TIME});
-				addBlockedPlayer(entity.discordUser_id, "report", collector);
-				collector.on('collect', async () => {
-					collector.stop();
-				});
-				collector.on('end', async (reaction) => {
-					const poorEmbed = new discord.MessageEmbed();
-					poorEmbed.setAuthor(format(JsonReader.commands.report.getTranslation(language).journal, {
-						pseudo: message.author.username
-					}), message.author.displayAvatarURL());
-					if (reaction.first() && reaction.first().emoji.name === COIN_EMOTE) {
-						otherEntity.Player.money += 1;
-						await otherEntity.Player.save();
-						entity.Player.money -= 1;
-						await entity.Player.save();
-						poorEmbed.setDescription(format(tr.poorGiveMoney[randInt(0, tr.poorGiveMoney.length)], {
-							pseudo: await otherEntity.Player.getPseudo(language)
-						}));
-					}
-					else {
-						poorEmbed.setDescription(format(tr.poorDontGiveMoney[randInt(0, tr.poorDontGiveMoney.length)], {
-							pseudo: await otherEntity.Player.getPseudo(language)
-						}));
-					}
-					await message.channel.send(poorEmbed);
-				});
-				await msg.react(COIN_EMOTE);
-				await msg.react(MENU_REACTION.DENY);
-				break;
-			case "duplicatePotion":
-				entity.Player.Inventory.potion_id = otherEntity.Player.Inventory.potion_id;
-				await entity.Player.Inventory.save();
-				break;
+		case "poor":
+			addBlockedPlayer(entity.discordUser_id, "report", collector);
+			collector.on("collect", async () => {
+				collector.stop();
+			});
+			collector.on("end", async (reaction) => {
+				const poorEmbed = new discord.MessageEmbed();
+				poorEmbed.setAuthor(format(JsonReader.commands.report.getTranslation(language).journal, {
+					pseudo: message.author.username
+				}), message.author.displayAvatarURL());
+				if (reaction.first() && reaction.first().emoji.name === COIN_EMOTE) {
+					otherEntity.Player.money += 1;
+					await otherEntity.Player.save();
+					entity.Player.money -= 1;
+					await entity.Player.save();
+					poorEmbed.setDescription(format(tr.poorGiveMoney[randInt(0, tr.poorGiveMoney.length)], {
+						pseudo: await otherEntity.Player.getPseudo(language)
+					}));
+				}
+				else {
+					poorEmbed.setDescription(format(tr.poorDontGiveMoney[randInt(0, tr.poorDontGiveMoney.length)], {
+						pseudo: await otherEntity.Player.getPseudo(language)
+					}));
+				}
+				await message.channel.send(poorEmbed);
+			});
+			await msg.react(COIN_EMOTE);
+			await msg.react(MENU_REACTION.DENY);
+			break;
+		case "duplicatePotion":
+			entity.Player.Inventory.potion_id = otherEntity.Player.Inventory.potion_id;
+			await entity.Player.Inventory.save();
+			break;
 		}
 	}
 	log(entity.discordUser_id + " interacted with a player");

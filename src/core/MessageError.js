@@ -28,7 +28,7 @@ class MessageError {
 		}
 
 		if (permission === PERMISSION.ROLE.ADMINISTRATOR) {
-			if (!message.member.hasPermission('ADMINISTRATOR') && !MessageError.isBotOwner(message.author.id)) {
+			if (!message.member.hasPermission("ADMINISTRATOR") && !MessageError.isBotOwner(message.author.id)) {
 				return await MessageError.permissionErrorMe(message, language, permission);
 			}
 		}

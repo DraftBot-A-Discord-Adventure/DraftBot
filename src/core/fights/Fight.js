@@ -1,6 +1,6 @@
-const Fighter = require('./Fighter.js');
+const Fighter = require("./Fighter.js");
 //const Attack = require('./Attack.js');
-const FightActionResult = require('./FightActionResult.js');
+const FightActionResult = require("./FightActionResult.js");
 
 /**
  * @param player1
@@ -45,16 +45,16 @@ class Fight {
 	 */
 	static actionToName(action) {
 		switch (action) {
-			case FIGHT.ACTION.SIMPLE_ATTACK:
-				return "simple";
-			case FIGHT.ACTION.QUICK_ATTACK:
-				return "quick";
-			case FIGHT.ACTION.ULTIMATE_ATTACK:
-				return "ultimate";
-			case FIGHT.ACTION.POWERFUL_ATTACK:
-				return "powerful";
-			case FIGHT.ACTION.BULK_ATTACK:
-				return "bulk";
+		case FIGHT.ACTION.SIMPLE_ATTACK:
+			return "simple";
+		case FIGHT.ACTION.QUICK_ATTACK:
+			return "quick";
+		case FIGHT.ACTION.ULTIMATE_ATTACK:
+			return "ultimate";
+		case FIGHT.ACTION.POWERFUL_ATTACK:
+			return "powerful";
+		case FIGHT.ACTION.BULK_ATTACK:
+			return "bulk";
 		}
 		return "unknown";
 	}
@@ -68,9 +68,9 @@ class Fight {
 	async startFight() {
 
 		if (this.hasStarted()) {
-			throw new Error('The fight already started !');
+			throw new Error("The fight already started !");
 		} else if (this.hasEnded()) {
-			throw new Error('The fight cannot be started twice !');
+			throw new Error("The fight cannot be started twice !");
 		}
 
 		//load player stats
@@ -80,7 +80,7 @@ class Fight {
 				this.fighters[i].power = this.maxPower;
 			}
 			await this.fighters[i].consumePotionIfNeeded();
-			global.addBlockedPlayer(this.fighters[i].entity.discordUser_id, 'fight');
+			global.addBlockedPlayer(this.fighters[i].entity.discordUser_id, "fight");
 		}
 
 		//the player with the highest speed start the fight
@@ -92,7 +92,7 @@ class Fight {
 
 		this.introduceFight();
 		this.actionMessages = [
-			await this.message.channel.send('_ _'),
+			await this.message.channel.send("_ _"),
 		];
 		await this.nextTurn();
 	}
@@ -169,6 +169,7 @@ class Fight {
 	 */
 	async sendTurnIndications() {
 		const playingId = this.getPlayingFighter().entity.discordUser_id;
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const fight = this;
 
 		const embed = new discord.MessageEmbed();
@@ -186,38 +187,38 @@ class Fight {
 
 				const collector = message.createReactionCollector(filter, {time: 30000});
 
-				collector.on('collect', async (reaction) => {
+				collector.on("collect", async (reaction) => {
 					switch (reaction.emoji.name) {
-						case '⚔':
-							await message.delete().catch();
-							await fight.useAction(FIGHT.ACTION.SIMPLE_ATTACK);
-							break;
-						case '🗡':
-							await message.delete().catch();
-							await fight.useAction(FIGHT.ACTION.QUICK_ATTACK);
-							break;
-						case '🪓':
-							await message.delete().catch();
-							await fight.useAction(FIGHT.ACTION.POWERFUL_ATTACK);
-							break;
-						case '🧨':
-							await message.delete().catch();
-							await fight.useAction(FIGHT.ACTION.BULK_ATTACK);
-							break;
-						case '🚀':
-							await message.delete().catch();
-							await fight.useAction(FIGHT.ACTION.IMPROVE_SPEED);
-							break;
-						case '💣':
-							await message.delete().catch();
-							await fight.useAction(FIGHT.ACTION.ULTIMATE_ATTACK);
-							break;
-						default:
-							return;
+					case "⚔":
+						await message.delete().catch();
+						await fight.useAction(FIGHT.ACTION.SIMPLE_ATTACK);
+						break;
+					case "🗡":
+						await message.delete().catch();
+						await fight.useAction(FIGHT.ACTION.QUICK_ATTACK);
+						break;
+					case "🪓":
+						await message.delete().catch();
+						await fight.useAction(FIGHT.ACTION.POWERFUL_ATTACK);
+						break;
+					case "🧨":
+						await message.delete().catch();
+						await fight.useAction(FIGHT.ACTION.BULK_ATTACK);
+						break;
+					case "🚀":
+						await message.delete().catch();
+						await fight.useAction(FIGHT.ACTION.IMPROVE_SPEED);
+						break;
+					case "💣":
+						await message.delete().catch();
+						await fight.useAction(FIGHT.ACTION.ULTIMATE_ATTACK);
+						break;
+					default:
+						return;
 					}
 				});
 
-				collector.on('end', () => {
+				collector.on("end", () => {
 					if (!message.deleted) {
 						message.delete().catch();
 						fight.getPlayingFighter().power = 0;
@@ -227,13 +228,14 @@ class Fight {
 				});
 
 				try {
-					await message.react('⚔');
-					await message.react('🗡');
-					await message.react('🪓');
-					await message.react('💣');
-					await message.react('🧨');
-					await message.react('🚀');
+					await message.react("⚔");
+					await message.react("🗡");
+					await message.react("🪓");
+					await message.react("💣");
+					await message.react("🧨");
+					await message.react("🚀");
 				} catch (e) {
+					log("Error while reacting to fight with attacks: " + e);
 				}
 			});
 	}
@@ -253,7 +255,7 @@ class Fight {
 					JsonReader.commands.fight.getTranslation(this.language).summarize.intro +
 					format(JsonReader.commands.fight.getTranslation(this.language).summarize.attacker, {
 						pseudo: await attacker.entity.Player.getPseudo(this.language),
-						charging: attacker.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : '',
+						charging: attacker.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : "",
 					}) +
 					format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
 						power: attacker.power,
@@ -263,7 +265,7 @@ class Fight {
 					}) + "\n\n" +
 					format(JsonReader.commands.fight.getTranslation(this.language).summarize.defender, {
 						pseudo: await defender.entity.Player.getPseudo(this.language),
-						charging: defender.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : '',
+						charging: defender.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : "",
 					}) +
 					format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
 						power: defender.power,
@@ -301,48 +303,48 @@ class Fight {
 		const player = await this.getPlayingFighter().entity.Player.getPseudo(this.language);
 		let section;
 		switch (action) {
-			case FIGHT.ACTION.BULK_ATTACK:
-				section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.bulk;
-				break;
-			case FIGHT.ACTION.IMPROVE_SPEED:
-				await this.addActionMessage(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.speed, {
-					emote: JsonReader.commands.fight.getTranslation(this.language).actions.speedEmote,
-					speed: fightActionResult.speedImprovement,
-					player: player,
-				}));
-				return;
-			case FIGHT.ACTION.POWERFUL_ATTACK:
-				section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.powerful;
-				break;
-			case FIGHT.ACTION.QUICK_ATTACK:
-				section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.quick;
-				break;
-			case FIGHT.ACTION.SIMPLE_ATTACK:
-				section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.simple;
-				break;
-			case FIGHT.ACTION.ULTIMATE_ATTACK:
-				section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.ultimate;
-				break;
-			default:
-				return;
+		case FIGHT.ACTION.BULK_ATTACK:
+			section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.bulk;
+			break;
+		case FIGHT.ACTION.IMPROVE_SPEED:
+			await this.addActionMessage(format(msg + JsonReader.commands.fight.getTranslation(this.language).actions.speed, {
+				emote: JsonReader.commands.fight.getTranslation(this.language).actions.speedEmote,
+				speed: fightActionResult.speedImprovement,
+				player: player,
+			}));
+			return;
+		case FIGHT.ACTION.POWERFUL_ATTACK:
+			section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.powerful;
+			break;
+		case FIGHT.ACTION.QUICK_ATTACK:
+			section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.quick;
+			break;
+		case FIGHT.ACTION.SIMPLE_ATTACK:
+			section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.simple;
+			break;
+		case FIGHT.ACTION.ULTIMATE_ATTACK:
+			section = JsonReader.commands.fight.getTranslation(this.language).actions.attacks.ultimate;
+			break;
+		default:
+			return;
 		}
 		let resMsg;
 		if (fightActionResult.damage === 0) {
-			resMsg = 'failed';
+			resMsg = "failed";
 		} else if (fightActionResult.fullSuccess) {
-			resMsg = 'succeed';
+			resMsg = "succeed";
 		} else {
-			resMsg = 'notGood';
+			resMsg = "notGood";
 		}
 
 		const resultSection = JsonReader.commands.fight.getTranslation(this.language).actions.attacksResults[resMsg];
 
 		msg += resultSection[randInt(0, resultSection.length - 1)];
 		await this.addActionMessage(format(msg, {
-				emote: section.emote,
-				player: player,
-				attack: section.name,
-			}) +
+			emote: section.emote,
+			player: player,
+			attack: section.name,
+		}) +
 			format(section.end[resMsg], {ownDamages: fightActionResult.ownDamage}) +
 			format(JsonReader.commands.fight.getTranslation(this.language).actions.damages, {damages: fightActionResult.damage}));
 	}
@@ -359,10 +361,10 @@ class Fight {
 			this.lastSummary = undefined;
 			amsg = await this.message.channel.send(msg);
 			this.actionMessages.push(amsg);
-		} else if (amsg.content === '_ _') {
+		} else if (amsg.content === "_ _") {
 			await amsg.edit(msg);
 		} else {
-			await amsg.edit(amsg.content + '\n' + msg);
+			await amsg.edit(amsg.content + "\n" + msg);
 		}
 	}
 
@@ -416,9 +418,9 @@ class Fight {
 	 */
 	async endFight() {
 		if (!this.hasStarted()) {
-			throw new Error('The fight has not started yet !');
+			throw new Error("The fight has not started yet !");
 		} else if (this.hasEnded()) {
-			throw new Error('The fight already ended !');
+			throw new Error("The fight already ended !");
 		}
 		for (let i = 0; i < this.fighters.length; ++i) {
 			[this.fighters[i].entity] = await Entities.getOrRegister(this.fighters[i].entity.discordUser_id);
@@ -473,105 +475,105 @@ class Fight {
 		let powerChanger;
 
 		switch (action) {
-			case FIGHT.ACTION.QUICK_ATTACK:
-				// maybe used for future refactor
-				//let test = await getAttack(FIGHT.ACTION.QUICK_ATTACK);
-				//test(success, attacker, defender);
+		case FIGHT.ACTION.QUICK_ATTACK:
+			// maybe used for future refactor
+			//let test = await getAttack(FIGHT.ACTION.QUICK_ATTACK);
+			//test(success, attacker, defender);
 
-				powerChanger = 0.1;
-				if (defender.speed > attacker.speed && success < 0.3) {
-					powerChanger = 0.85;
-					if (attacker.quickAttack > 1)
-						powerChanger -= attacker.quickAttack / 15;
-					attacker.quickAttack++;
-				} else if (defender.speed < attacker.speed && success < 0.98) {
-					powerChanger = 0.85;
-					if (attacker.quickAttack > 1)
-						powerChanger -= attacker.quickAttack / 11;
-					attacker.quickAttack++;
-				}
-				far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.1));
-				far.fullSuccess = far.damage >= attacker.attack - defender.power;
-				break;
+			powerChanger = 0.1;
+			if (defender.speed > attacker.speed && success < 0.3) {
+				powerChanger = 0.85;
+				if (attacker.quickAttack > 1)
+					powerChanger -= attacker.quickAttack / 15;
+				attacker.quickAttack++;
+			} else if (defender.speed < attacker.speed && success < 0.98) {
+				powerChanger = 0.85;
+				if (attacker.quickAttack > 1)
+					powerChanger -= attacker.quickAttack / 11;
+				attacker.quickAttack++;
+			}
+			far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 0.1));
+			far.fullSuccess = far.damage >= attacker.attack - defender.power;
+			break;
 
-			case FIGHT.ACTION.SIMPLE_ATTACK:
-				powerChanger = 0.4;
-				if ((defender.speed > attacker.speed && success <= 0.4) || (defender.speed < attacker.speed && success < 0.9)) {
-					powerChanger = 1.2;
-				} else if ((defender.speed > attacker.speed && success <= 0.9)) {
-					powerChanger = 0.9;
-				}
-				far.damage = Math.round(attacker.attack * powerChanger - defender.defense);
-				if (far.damage < 0)
-					far.damage = 0;
-				far.damage += randInt(1, Math.round(attacker.attack / 4));
-				far.fullSuccess = far.damage >= Math.round(attacker.attack / 4);
-				break;
+		case FIGHT.ACTION.SIMPLE_ATTACK:
+			powerChanger = 0.4;
+			if ((defender.speed > attacker.speed && success <= 0.4) || (defender.speed < attacker.speed && success < 0.9)) {
+				powerChanger = 1.2;
+			} else if ((defender.speed > attacker.speed && success <= 0.9)) {
+				powerChanger = 0.9;
+			}
+			far.damage = Math.round(attacker.attack * powerChanger - defender.defense);
+			if (far.damage < 0)
+				far.damage = 0;
+			far.damage += randInt(1, Math.round(attacker.attack / 4));
+			far.fullSuccess = far.damage >= Math.round(attacker.attack / 4);
+			break;
 
-			case FIGHT.ACTION.POWERFUL_ATTACK:
-				powerChanger = 0.0;
-				if ((defender.speed > attacker.speed && success <= 0.2) || (defender.speed < attacker.speed && success < 0.7)) {
-					powerChanger = 2.15;
-				} else if ((defender.speed > attacker.speed && success <= 0.5) || (defender.speed < attacker.speed && success < 0.9)) {
-					powerChanger = 1.4;
-				}
-				if (powerChanger > 1) {
-					attacker.speed = Math.round(attacker.speed * 0.75);
-				} else {
-					attacker.speed = Math.round(attacker.speed * 0.9);
-				}
-				far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.5));
-				if (far.damage < 0)
-					far.damage = 0;
-				if (powerChanger > 1)
-					far.damage += randInt(0, Math.round(attacker.attack / 2));
-				far.fullSuccess = powerChanger > 1.4;
-				break;
+		case FIGHT.ACTION.POWERFUL_ATTACK:
+			powerChanger = 0.0;
+			if ((defender.speed > attacker.speed && success <= 0.2) || (defender.speed < attacker.speed && success < 0.7)) {
+				powerChanger = 2.15;
+			} else if ((defender.speed > attacker.speed && success <= 0.5) || (defender.speed < attacker.speed && success < 0.9)) {
+				powerChanger = 1.4;
+			}
+			if (powerChanger > 1) {
+				attacker.speed = Math.round(attacker.speed * 0.75);
+			} else {
+				attacker.speed = Math.round(attacker.speed * 0.9);
+			}
+			far.damage = Math.round(attacker.attack * powerChanger - Math.round(defender.defense * 1.5));
+			if (far.damage < 0)
+				far.damage = 0;
+			if (powerChanger > 1)
+				far.damage += randInt(0, Math.round(attacker.attack / 2));
+			far.fullSuccess = powerChanger > 1.4;
+			break;
 
-			case FIGHT.ACTION.BULK_ATTACK:
-				far.ownDamage = Math.round(attacker.attack * 2.5 - Math.round(attacker.defense));
-				if (far.ownDamage < 10)
-					far.ownDamage = 10;
-				attacker.power -= far.ownDamage; //this attack is for everybody
-				if (success < 0.85) {
-					far.damage = Math.round(attacker.attack * 2.5 - Math.round(defender.defense));
-				} else {
-					far.damage = 0;
-				}
-				if (attacker.power < 0)
-					attacker.power = 0;
-				far.fullSuccess = far.damage > 0;
-				break;
+		case FIGHT.ACTION.BULK_ATTACK:
+			far.ownDamage = Math.round(attacker.attack * 2.5 - Math.round(attacker.defense));
+			if (far.ownDamage < 10)
+				far.ownDamage = 10;
+			attacker.power -= far.ownDamage; //this attack is for everybody
+			if (success < 0.85) {
+				far.damage = Math.round(attacker.attack * 2.5 - Math.round(defender.defense));
+			} else {
+				far.damage = 0;
+			}
+			if (attacker.power < 0)
+				attacker.power = 0;
+			far.fullSuccess = far.damage > 0;
+			break;
 
-			case FIGHT.ACTION.IMPROVE_SPEED:
-				far.speedImprovement = attacker.improveSpeed();
-				break;
+		case FIGHT.ACTION.IMPROVE_SPEED:
+			far.speedImprovement = attacker.improveSpeed();
+			break;
 
-			case FIGHT.ACTION.ULTIMATE_ATTACK:
-				if (!charged) {
-					await this.addActionMessage(format(JsonReader.commands.fight.getTranslation(this.language).actions.intro + JsonReader.commands.fight.getTranslation(this.language).actions.charging, {
-						emote: JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote,
-						player: await attacker.entity.Player.getPseudo(this.language),
-					}));
-					attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 1);
-					attacker.defense = Math.round(attacker.defense * 0.60);
-					await this.nextTurn();
-					return;
-				}
-				if ((success <= 0.1) || (attacker.power < attacker.initialPower * 0.5 && success <= 0.8) || (attacker.power < attacker.initialPower * 0.25)) {
-					far.damage = Math.round(attacker.attack * 3.5 - Math.round(defender.defense));
-					if(far.damage > defender.initialPower * 0.6)
-						far.damage = Math.round(defender.initialPower * 0.6);
-
-					far.fullSuccess = true;
-				} else {
-					far.damage = 0;
-					far.fullSuccess = false;
-				}
-				break;
-
-			default:
+		case FIGHT.ACTION.ULTIMATE_ATTACK:
+			if (!charged) {
+				await this.addActionMessage(format(JsonReader.commands.fight.getTranslation(this.language).actions.intro + JsonReader.commands.fight.getTranslation(this.language).actions.charging, {
+					emote: JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote,
+					player: await attacker.entity.Player.getPseudo(this.language),
+				}));
+				attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 1);
+				attacker.defense = Math.round(attacker.defense * 0.60);
+				await this.nextTurn();
 				return;
+			}
+			if ((success <= 0.1) || (attacker.power < attacker.initialPower * 0.5 && success <= 0.8) || (attacker.power < attacker.initialPower * 0.25)) {
+				far.damage = Math.round(attacker.attack * 3.5 - Math.round(defender.defense));
+				if(far.damage > defender.initialPower * 0.6)
+					far.damage = Math.round(defender.initialPower * 0.6);
+
+				far.fullSuccess = true;
+			} else {
+				far.damage = 0;
+				far.fullSuccess = false;
+			}
+			break;
+
+		default:
+			return;
 		}
 		let actionName = Fight.actionToName(action);
 		if (!attacker.attacksList[actionName]) {

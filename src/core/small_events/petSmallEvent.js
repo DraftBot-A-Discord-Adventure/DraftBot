@@ -1,5 +1,5 @@
 const BADGE = "💞";
-const doNothing = require('./doNothingSmallEvent');
+const doNothing = require("./doNothingSmallEvent");
 
 /**
  * Main function of small event
@@ -21,97 +21,97 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	let amount = 0;
 	let food = null;
 	switch (interaction) {
-		case "money":
-			amount = randInt(20, 70);
-			entity.Player.money += amount;
-			await entity.Player.save();
-			break;
-		case "gainLife":
-			amount = randInt(1, 5);
-			await entity.addHealth(amount);
-			await entity.save();
-			break;
-		case "gainLove":
-			amount = randInt(1, 3);
-			pet.lovePoints += amount;
-			if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
-				pet.lovePoints = PETS.MAX_LOVE_POINTS;
-			}
-			await pet.save();
-			break;
-		case "food":
-			if (entity.Player.guild_id) {
-				food = draftbotRandom.pick([JsonReader.food.commonFood, JsonReader.food.herbivorousFood, JsonReader.food.carnivorousFood, JsonReader.food.ultimateFood]);
-			} else {
+	case "money":
+		amount = randInt(20, 70);
+		entity.Player.money += amount;
+		await entity.Player.save();
+		break;
+	case "gainLife":
+		amount = randInt(1, 5);
+		await entity.addHealth(amount);
+		await entity.save();
+		break;
+	case "gainLove":
+		amount = randInt(1, 3);
+		pet.lovePoints += amount;
+		if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
+			pet.lovePoints = PETS.MAX_LOVE_POINTS;
+		}
+		await pet.save();
+		break;
+	case "food":
+		if (entity.Player.guild_id) {
+			food = draftbotRandom.pick([JsonReader.food.commonFood, JsonReader.food.herbivorousFood, JsonReader.food.carnivorousFood, JsonReader.food.ultimateFood]);
+		} else {
+			interaction = "nothing";
+		}
+		break;
+	case "gainTime":
+		amount = randInt(5, 20);
+		require("../Maps").advanceTime(entity.Player, amount);
+		entity.Player.save();
+		break;
+	case "points":
+		amount = randInt(20, 70);
+		entity.Player.score += amount;
+		await entity.Player.save();
+		break;
+	case "badge":
+		if (entity.Player.badges !== null) {
+			if (entity.Player.badges.includes(BADGE)) {
 				interaction = "nothing";
-			}
-			break;
-		case "gainTime":
-			amount = randInt(5, 20);
-			require("../Maps").advanceTime(entity.Player, amount);
-			entity.Player.save();
-			break;
-		case "points":
-			amount = randInt(20, 70);
-			entity.Player.score += amount;
-			await entity.Player.save();
-			break;
-		case "badge":
-			if (entity.Player.badges !== null) {
-				if (entity.Player.badges.includes(BADGE)) {
-					interaction = "nothing";
-				} else {
-					entity.Player.addBadge(BADGE);
-					entity.Player.save();
-				}
 			} else {
 				entity.Player.addBadge(BADGE);
 				entity.Player.save();
 			}
+		} else {
+			entity.Player.addBadge(BADGE);
+			entity.Player.save();
+		}
 
-			break;
-		case "loseLife":
-			amount = randInt(1, 5);
-			await entity.addHealth(-amount);
-			await entity.save();
-			break;
-		case "loseMoney":
-			amount = randInt(20, 70);
-			entity.Player.money -= amount;
-			entity.Player.save();
-			break;
-		case "loseTime":
-			amount = randInt(5, 20);
-			await require("../Maps").applyEffect(entity.Player, EFFECT.OCCUPIED, amount);
-			entity.Player.save();
-			break;
-		case "petFlee":
-			pet.destroy();
-			entity.Player.pet_id = null;
-			entity.Player.save();
-			break;
-		case "loseLove":
-			amount = randInt(1, 3);
-			pet.lovePoints -= amount;
-			if (pet.lovePoints < 0) {
-				pet.lovePoints = 0;
-			}
-			await pet.save();
-			break;
+		break;
+	case "loseLife":
+		amount = randInt(1, 5);
+		await entity.addHealth(-amount);
+		await entity.save();
+		break;
+	case "loseMoney":
+		amount = randInt(20, 70);
+		entity.Player.money -= amount;
+		entity.Player.save();
+		break;
+	case "loseTime":
+		amount = randInt(5, 20);
+		await require("../Maps").applyEffect(entity.Player, EFFECT.OCCUPIED, amount);
+		entity.Player.save();
+		break;
+	case "petFlee":
+		pet.destroy();
+		entity.Player.pet_id = null;
+		entity.Player.save();
+		break;
+	case "loseLove":
+		amount = randInt(1, 3);
+		pet.lovePoints -= amount;
+		if (pet.lovePoints < 0) {
+			pet.lovePoints = 0;
+		}
+		await pet.save();
+		break;
 	}
 	await generatePetEmbed(language, interaction, seEmbed, pet, amount, food);
 
 	await message.channel.send(seEmbed);
 	switch (interaction) {
-		case "item":
-			await giveRandomItem(message.author, message.channel, language, entity);
-			break;
-		case "food":
-			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, food, 1);
-			break;
-		case "loseLife":
-			await entity.Player.killIfNeeded(entity, message.channel, language);
-			break;
+	case "item":
+		await giveRandomItem(message.author, message.channel, language, entity);
+		break;
+	case "food":
+		await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, food, 1);
+		break;
+	case "loseLife":
+		await entity.Player.killIfNeeded(entity, message.channel, language);
+		break;
 	}
 	log(entity.discordUser_id + " got a pet interaction");
 };
@@ -158,7 +158,7 @@ const pickRandomInteraction = function (pet_entity) {
 
 	let total = 0;
 	for (let key in section) {
-		if (section.hasOwnProperty(key)) {
+		if (Object.prototype.hasOwnProperty.call(section, key)) {
 			if (section[key].minLevel) {
 				if (section[key].minLevel <= level) {
 					total += section[key].probabilityWeight;
@@ -173,7 +173,7 @@ const pickRandomInteraction = function (pet_entity) {
 	let cumulative = 0;
 
 	for (let key in section) {
-		if (section.hasOwnProperty(key)) {
+		if (Object.prototype.hasOwnProperty.call(section, key)) {
 			if (section[key].minLevel) {
 				if (section[key].minLevel <= level) {
 					if (pickedNumber < cumulative + section[key].probabilityWeight) {

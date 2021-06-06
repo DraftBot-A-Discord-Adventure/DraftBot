@@ -15,7 +15,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		JsonReader.small_events.findItem.getTranslation(language).intrigue[randInt(0, JsonReader.small_events.findItem.getTranslation(language).intrigue.length)]
 	);
 
-	const msg = await message.channel.send(seEmbed);
+	await message.channel.send(seEmbed);
 	log(entity.discordUser_id + " got an item from a mini event ");
 	await giveItem(entity, randomItem, language, message.author, message.channel);
 };

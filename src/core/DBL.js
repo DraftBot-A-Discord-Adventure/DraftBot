@@ -1,4 +1,4 @@
-const DiscordBotList = require('dblapi.js');
+const DiscordBotList = require("dblapi.js");
 
 class DBL {
 	static dbl;
@@ -13,17 +13,17 @@ class DBL {
 			webhookPath: JsonReader.app.DBL_WEBHOOK_URL,
 			statsInterval: TOPGG.DBL_SERVER_COUNT_UPDATE_TIME
 		}, client);
-		this.dbl.webhook.on('vote', async (vote) => {
+		this.dbl.webhook.on("vote", async (vote) => {
 			await DBL.userDBLVote(vote.user);
 		});
-		this.dbl.webhook.on('ready', hook => {
+		this.dbl.webhook.on("ready", hook => {
 			console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
 		});
-		this.dbl.on('error', e => {
+		this.dbl.on("error", e => {
 			console.log(`DBL Error: ${e}`);
 		});
-		this.dbl.on('posted', () => {
-			console.log('Successfully posted ' + client.guilds.cache.size + ' servers to DBL');
+		this.dbl.on("posted", () => {
+			console.log("Successfully posted " + client.guilds.cache.size + " servers to DBL");
 		});
 
 	}

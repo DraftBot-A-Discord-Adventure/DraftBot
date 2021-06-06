@@ -1,4 +1,4 @@
-const Maps = require('../../core/Maps');
+const Maps = require("../../core/Maps");
 
 /**
  * Show the map of DraftBot world
@@ -6,7 +6,7 @@ const Maps = require('../../core/Maps');
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function MapCommand(language, message, args) {
+async function MapCommand(language, message) {
 
 	let [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -42,9 +42,9 @@ async function MapCommand(language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'map',
+			name: "map",
 			func: MapCommand,
-			aliases: ['m', 'world']
+			aliases: ["m", "world"]
 		}
 	]
 };

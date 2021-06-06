@@ -89,13 +89,13 @@ const PetTransferCommand = async function (language, message, args) {
 	await entity.Player.save();
 
 	if (pPet) {
+		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
+		}
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitch, {
 			pet1: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language)),
 			pet2: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));
-	} else if (pPet) {
-		if (pPet.lovePoints < PETS.LOVE_LEVELS[0])
-			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
 	} else {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmFollows, {
 			pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
@@ -107,9 +107,9 @@ const PetTransferCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'pettransfer',
+			name: "pettransfer",
 			func: PetTransferCommand,
-			aliases: ['pettr', 'ptr', 'ptransfer']
+			aliases: ["pettr", "ptr", "ptransfer"]
 		}
 	]
 };

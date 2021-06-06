@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetFreeCommand = async function (language, message, args) {
+const PetFreeCommand = async function (language, message) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	// search for a user's guild
@@ -67,7 +67,7 @@ const PetFreeCommand = async function (language, message, args) {
 
 	addBlockedPlayer(entity.discordUser_id, "freepet", collector);
 
-	collector.on('end', async (reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
@@ -108,15 +108,16 @@ const PetFreeCommand = async function (language, message, args) {
 			confirmMessage.react(MENU_REACTION.DENY),
 		]);
 	} catch (e) {
+		log("Cannot react to pet free message: " + e);
 	}
 };
 
 module.exports = {
 	commands: [
 		{
-			name: 'petfree',
+			name: "petfree",
 			func: PetFreeCommand,
-			aliases: ['petf', 'pfree', 'freepet', 'freep']
+			aliases: ["petf", "pfree", "freepet", "freep"]
 		}
 	]
 };

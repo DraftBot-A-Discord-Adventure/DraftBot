@@ -38,7 +38,7 @@ const UnblockCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'unblock',
+			name: "unblock",
 			func: UnblockCommand
 		}
 	]

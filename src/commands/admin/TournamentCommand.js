@@ -32,7 +32,7 @@ const TournamentCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'tournament',
+			name: "tournament",
 			func: TournamentCommand
 		}
 	]

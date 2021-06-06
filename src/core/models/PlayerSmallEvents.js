@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const PlayerSmallEvents = Sequelize.define('player_small_events', {
+	const PlayerSmallEvents = Sequelize.define("player_small_events", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -24,14 +24,14 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		}
 	}, {
-		tableName: 'player_small_events',
+		tableName: "player_small_events",
 		freezeTableName: true,
 	});
 

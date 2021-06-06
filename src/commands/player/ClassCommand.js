@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ClassCommand(language, message, args) {
+async function ClassCommand(language, message) {
 	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, CLASS.REQUIRED_LEVEL)) !== true) {
@@ -173,9 +173,9 @@ const canBuy = function (price, player) {
 module.exports = {
 	commands: [
 		{
-			name: 'class',
+			name: "class",
 			func: ClassCommand,
-			aliases: ['c', 'classes', 'classe']
+			aliases: ["c", "classes", "classe"]
 		}
 	]
 };

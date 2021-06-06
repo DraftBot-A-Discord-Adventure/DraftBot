@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require("fs");
 
 /**
  * @class
@@ -11,12 +11,12 @@ class JsonReader {
 	 */
 	static async init({folders, files}) {
 		if (folders !== undefined && typeof folders[Symbol.iterator] ===
-			'function') {
+			"function") {
 			for (const folder of folders) {
 				await JsonReader.loadFolder(folder);
 			}
 		}
-		if (files !== undefined && typeof files[Symbol.iterator] === 'function') {
+		if (files !== undefined && typeof files[Symbol.iterator] === "function") {
 			for (const file of files) {
 				await JsonReader.loadFile(file);
 			}
@@ -30,16 +30,16 @@ class JsonReader {
 	static async loadFolder(folder) {
 		const files = await fs.promises.readdir(folder);
 		for (const file of files) {
-			if (!file.endsWith('.json')) continue;
-			const folderName = folder.split('/')[folder.split('/').length - 1];
-			const fileName = (file.split('.')[0]).split('/')[(file.split(
-				'.')[0]).split(
-				'/').length - 1];
+			if (!file.endsWith(".json")) continue;
+			const folderName = folder.split("/")[folder.split("/").length - 1];
+			const fileName = (file.split(".")[0]).split("/")[(file.split(
+				".")[0]).split(
+				"/").length - 1];
 			if (this[folderName] === undefined) {
 				this[folderName] = {};
 			}
 			this[folderName][fileName] = (require(`${folder}/${file}`));
-			if (this[folderName][fileName].hasOwnProperty('translations')) {
+			if (Object.prototype.hasOwnProperty.call(this[folderName][fileName], "translations")) {
 				this[folderName][fileName].getTranslation = JsonReader.getTranslation;
 			}
 		}
@@ -50,11 +50,11 @@ class JsonReader {
 	 * @return {Promise<void>}
 	 */
 	static async loadFile(file) {
-		if (!file.endsWith('.json')) return;
-		const fileName = (file.split('.')[0]).split('/')[(file.split('.')[0]).split(
-			'/').length - 1];
+		if (!file.endsWith(".json")) return;
+		const fileName = (file.split(".")[0]).split("/")[(file.split(".")[0]).split(
+			"/").length - 1];
 		this[fileName] = (require(file));
-		if (this[fileName].hasOwnProperty('translations')) {
+		if (Object.prototype.hasOwnProperty.call(this[fileName], "translations")) {
 			this[fileName].getTranslation = JsonReader.getTranslation;
 		}
 	}

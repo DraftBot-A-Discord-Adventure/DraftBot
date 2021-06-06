@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildLeaveCommand = async (language, message, args) => {
+const GuildLeaveCommand = async (language, message) => {
 	let entity;
 	let guild;
 	let elder;

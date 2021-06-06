@@ -124,7 +124,7 @@ const GuildKickCommand = async (language, message, args) => {
 
 	addBlockedPlayer(entity.discordUser_id, "guildKick", collector);
 
-	collector.on('end', async (reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			// a reaction exist

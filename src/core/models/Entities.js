@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Entities = Sequelize.define('entities', {
+	const Entities = Sequelize.define("entities", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -38,24 +38,24 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		fightPointsLost: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0
 		}
 	}, {
-		tableName: 'entities',
+		tableName: "entities",
 		freezeTableName: true,
 	});
 
 	Entities.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
@@ -70,25 +70,25 @@ module.exports = (Sequelize, DataTypes) => {
 			include: [
 				{
 					model: Players,
-					as: 'Player',
+					as: "Player",
 					include: [
 						{
 							model: Inventories,
-							as: 'Inventory',
+							as: "Inventory",
 						},
 						{
 							model: PetEntities,
-							as: 'Pet',
+							as: "Pet",
 							include: [
 								{
 									model: Pets,
-									as: 'PetModel'
+									as: "PetModel"
 								}
 							]
 						},
 						{
 							model: PlayerSmallEvents,
-							as: 'PlayerSmallEvents'
+							as: "PlayerSmallEvents"
 						}],
 				}],
 		});
@@ -103,33 +103,33 @@ module.exports = (Sequelize, DataTypes) => {
 			include: [
 				{
 					model: Players,
-					as: 'Player',
+					as: "Player",
 					where: {
 						guild_id: guildId,
 					},
 					include: [
 						{
 							model: Inventories,
-							as: 'Inventory',
+							as: "Inventory",
 						},
 						{
 							model: PetEntities,
-							as: 'Pet',
+							as: "Pet",
 							include: [
 								{
 									model: Pets,
-									as: 'PetModel'
+									as: "PetModel"
 								}
 							]
 						},
 						{
 							model: PlayerSmallEvents,
-							as: 'PlayerSmallEvents'
+							as: "PlayerSmallEvents"
 						}],
 				}],
 			order: [
-				[{model: Players, as: 'Player'}, 'score', 'DESC'],
-				[{model: Players, as: 'Player'}, 'level', 'DESC']
+				[{model: Players, as: "Player"}, "score", "DESC"],
+				[{model: Players, as: "Player"}, "level", "DESC"]
 			]
 		});
 	};
@@ -146,25 +146,25 @@ module.exports = (Sequelize, DataTypes) => {
 			include: [
 				{
 					model: Players,
-					as: 'Player',
+					as: "Player",
 					include: [
 						{
 							model: Inventories,
-							as: 'Inventory',
+							as: "Inventory",
 						},
 						{
 							model: PetEntities,
-							as: 'Pet',
+							as: "Pet",
 							include: [
 								{
 									model: Pets,
-									as: 'PetModel'
+									as: "PetModel"
 								}
 							]
 						},
 						{
 							model: PlayerSmallEvents,
-							as: 'PlayerSmallEvents'
+							as: "PlayerSmallEvents"
 						}],
 				}],
 		});
@@ -182,32 +182,32 @@ module.exports = (Sequelize, DataTypes) => {
 			include: [
 				{
 					model: Players,
-					as: 'Player',
+					as: "Player",
 					include: [
 						{
 							model: Inventories,
-							as: 'Inventory',
+							as: "Inventory",
 						},
 						{
 							model: PetEntities,
-							as: 'Pet',
+							as: "Pet",
 							include: [
 								{
 									model: Pets,
-									as: 'PetModel'
+									as: "PetModel"
 								}
 							]
 						},
 						{
 							model: PlayerSmallEvents,
-							as: 'PlayerSmallEvents'
+							as: "PlayerSmallEvents"
 						}],
 				}],
 		});
 	};
 
 	Entities.getServerRank = async (discord_id, ids) => {
-		const query = `SELECT rank FROM (SELECT entities.discordUser_id AS discordUser_id, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entity_id AND players.score > 100 WHERE entities.discordUser_id IN (:ids)) WHERE discordUser_id = :id;`;
+		const query = "SELECT rank FROM (SELECT entities.discordUser_id AS discordUser_id, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entity_id AND players.score > 100 WHERE entities.discordUser_id IN (:ids)) WHERE discordUser_id = :id;";
 		return Sequelize.query(query, {
 			replacements: {
 				ids: ids,
@@ -343,7 +343,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {String}
 	 */
 	Entities.prototype.getMention = function () {
-		return '<@' + this.discordUser_id + '>';
+		return "<@" + this.discordUser_id + ">";
 	};
 
 	return Entities;

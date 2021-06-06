@@ -29,7 +29,7 @@ const giveBadgeCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'gb',
+			name: "gb",
 			func: giveBadgeCommand
 		}
 	]

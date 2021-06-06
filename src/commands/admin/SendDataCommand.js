@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const SendDataCommand = async (language, message, args) => {
+const SendDataCommand = async (language, message) => {
 	if ((await canPerformCommand(message, language,
 		PERMISSION.ROLE.BOT_OWNER)) !== true) {
 		return;
@@ -12,8 +12,8 @@ const SendDataCommand = async (language, message, args) => {
 
 	await message.channel.send({
 		files: [{
-			attachment: 'database/database.sqlite',
-			name: 'database.sqlite',
+			attachment: "database/database.sqlite",
+			name: "database.sqlite",
 		}],
 	});
 };
@@ -21,7 +21,7 @@ const SendDataCommand = async (language, message, args) => {
 module.exports = {
 	commands: [
 		{
-			name: 'senddata',
+			name: "senddata",
 			func: SendDataCommand
 		}
 	]
