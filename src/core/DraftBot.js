@@ -92,7 +92,7 @@ class DraftBot {
             order: sequelize.literal('random()'),
         });
         let i = 0;
-        while (potion[i].id === shopPotion.shop_potion_id || potion[i].nature === 0) {
+        while (potion[i].id === shopPotion.shop_potion_id || potion[i].nature === 0 || potion[i].rarity === 7 || potion[i].rarity === 8) {
         i++;
         } potion = potion[i];
 
