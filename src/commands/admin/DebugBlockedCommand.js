@@ -5,9 +5,9 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const DebugBlockedCommand = async function (language, message, args) {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER)) !== true) {
+const DebugBlockedCommand = async function(language, message, args) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 
@@ -23,7 +23,7 @@ const DebugBlockedCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'debugblocked',
+			name: "debugblocked",
 			func: DebugBlockedCommand
 		}
 	]

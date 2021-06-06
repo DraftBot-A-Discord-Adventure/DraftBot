@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function updateCommand(language, message, args) {
+function updateCommand(language, message) {
 	const updateEmbed = new discord.MessageEmbed()
 		.setDescription(format(JsonReader.commands.update.getTranslation(language).text,
 			{
@@ -18,9 +18,9 @@ async function updateCommand(language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'update',
+			name: "update",
 			func: updateCommand,
-			aliases: ['changelog']
+			aliases: ["changelog"]
 		}
 	]
 };

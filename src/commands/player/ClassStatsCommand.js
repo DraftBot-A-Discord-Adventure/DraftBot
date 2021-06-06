@@ -4,18 +4,18 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ClassStatsCommand(language, message, args) {
-	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
+async function ClassStatsCommand(language, message) {
+	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	const classTranslations = JsonReader.commands.classStats.getTranslation(language);
 
-	let classesLineDisplay = [];
-	let allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
+	const classesLineDisplay = [];
+	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
 	for (let k = 0; k < allClasses.length; k++) {
 		classesLineDisplay.push(allClasses[k].toString(language, entity.Player.level));
 	}
 
-	//Creating classstats message
+	// Creating classstats message
 	await message.channel.send(
 		new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
@@ -30,9 +30,9 @@ async function ClassStatsCommand(language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'classstats',
+			name: "classstats",
 			func: ClassStatsCommand,
-			aliases: ['cs', 'classesstats', 'classcompare', 'classestats']
+			aliases: ["cs", "classesstats", "classcompare", "classestats"]
 		}
 	]
 };

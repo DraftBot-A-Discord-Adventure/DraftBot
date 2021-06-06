@@ -4,13 +4,14 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetFreeCommand = async function (language, message, args) {
+const PetFreeCommand = async function(language, message) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	// search for a user's guild
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 
@@ -56,23 +57,21 @@ const PetFreeCommand = async function (language, message, args) {
 
 	const confirmMessage = await message.channel.send(confirmEmbed);
 
-	const filter = (reaction, user) => {
-		return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id);
-	};
+	const filter = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id;
 
 	const collector = confirmMessage.createReactionCollector(filter, {
 		time: 30000,
-		max: 1,
+		max: 1
 	});
 
 	addBlockedPlayer(entity.discordUser_id, "freepet", collector);
 
-	collector.on('end', async (reaction) => {
+	collector.on("end", async(reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
-					entity.Player.money = entity.Player.money - PETFREE.FREE_FEISTY_COST;
+					entity.Player.money -= PETFREE.FREE_FEISTY_COST;
 				}
 				pPet.destroy();
 				entity.Player.pet_id = null;
@@ -90,8 +89,8 @@ const PetFreeCommand = async function (language, message, args) {
 					freedEmbed.setDescription(freedEmbed.description + "\n\n" + format(JsonReader.commands.petFree.getTranslation(language).wasFeisty, {}
 					));
 				}
-				if (guild != null && guild.carnivorousFood + 1 <= JsonReader.commands.guildShop.max.carnivorousFood && draftbotRandom.realZeroToOneInclusive() <= PETFREE.GIVE_MEAT_PROBABILITY && pPet.lovePoints > PETS.LOVE_LEVELS[0]) {
-					guild.carnivorousFood = guild.carnivorousFood + PETFREE.MEAT_GIVEN;
+				if (guild !== null && guild.carnivorousFood + 1 <= JsonReader.commands.guildShop.max.carnivorousFood && draftbotRandom.realZeroToOneInclusive() <= PETFREE.GIVE_MEAT_PROBABILITY && pPet.lovePoints > PETS.LOVE_LEVELS[0]) {
+					guild.carnivorousFood += PETFREE.MEAT_GIVEN;
 					guild.save();
 					freedEmbed.setDescription(freedEmbed.description + "\n\n" + format(JsonReader.commands.petFree.getTranslation(language).giveMeat, {}));
 				}
@@ -105,18 +104,20 @@ const PetFreeCommand = async function (language, message, args) {
 	try {
 		await Promise.all([
 			confirmMessage.react(MENU_REACTION.ACCEPT),
-			confirmMessage.react(MENU_REACTION.DENY),
+			confirmMessage.react(MENU_REACTION.DENY)
 		]);
-	} catch (e) {
+	}
+	catch (e) {
+		log("Cannot react to pet free message: " + e);
 	}
 };
 
 module.exports = {
 	commands: [
 		{
-			name: 'petfree',
+			name: "petfree",
 			func: PetFreeCommand,
-			aliases: ['petf', 'pfree', 'freepet', 'freep']
+			aliases: ["petf", "pfree", "freepet", "freep"]
 		}
 	]
 };

@@ -4,33 +4,33 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const MyPetCommand = async function (language, message, args) {
+const MyPetCommand = async function(language, message, args) {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
 	}
 
 	if (
-		(await canPerformCommand(
+		await canPerformCommand(
 			message,
 			language,
 			PERMISSION.ROLE.ALL,
 			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 			entity
-		)) !== true
+		) !== true
 	) {
 		return;
 	}
 
-	let authorPet = entity.Player.Pet;
+	const authorPet = entity.Player.Pet;
 	const tr = JsonReader.commands.myPet.getTranslation(language);
 
 	if (authorPet) {
 		const user = message.mentions.users.last() ? message.mentions.users.last() : message.author;
-		let mypetEmbed = new discord.MessageEmbed();
+		const mypetEmbed = new discord.MessageEmbed();
 		mypetEmbed.setAuthor(
 			format(tr.embedTitle, {
-				pseudo: await entity.Player.getPseudo(language),
+				pseudo: await entity.Player.getPseudo(language)
 			}),
 			user.displayAvatarURL()
 		);
@@ -47,7 +47,8 @@ const MyPetCommand = async function (language, message, args) {
 			language,
 			tr.noPet
 		);
-	} else {
+	}
+	else {
 		await sendErrorMessage(
 			message.author,
 			message.channel,
@@ -62,7 +63,7 @@ module.exports = {
 		{
 			name: "mypet",
 			func: MyPetCommand,
-			aliases: ["pet", "pp"],
-		},
-	],
+			aliases: ["pet", "pp"]
+		}
+	]
 };

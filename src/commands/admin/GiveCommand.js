@@ -5,15 +5,14 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const GiveCommand = async function (language, message, args) {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER)) !== true) {
+const GiveCommand = async function(language, message, args) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 	const embed = new discord.MessageEmbed();
-	let entity;
 	const player = getUserFromMention(args[0]);
-	[entity] = await Entities.getOrRegister(player.id);
+	const [entity] = await Entities.getOrRegister(player.id);
 	const itemType = args[1];
 	const itemId = args[2];
 	await entity.Player.Inventory.giveObject(itemId, itemType);
@@ -29,12 +28,14 @@ const GiveCommand = async function (language, message, args) {
 };
 
 function getUserFromMention(mention) {
-	if (!mention) return;
+	if (!mention) {
+		return;
+	}
 
-	if (mention.startsWith('<@') && mention.endsWith('>')) {
+	if (mention.startsWith("<@") && mention.endsWith(">")) {
 		mention = mention.slice(2, -1);
 
-		if (mention.startsWith('!')) {
+		if (mention.startsWith("!")) {
 			mention = mention.slice(1);
 		}
 
@@ -45,7 +46,7 @@ function getUserFromMention(mention) {
 module.exports = {
 	commands: [
 		{
-			name: 'give',
+			name: "give",
 			func: GiveCommand
 		}
 	]

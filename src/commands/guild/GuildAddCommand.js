@@ -4,17 +4,17 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildAddCommand = async (language, message, args) => {
-	let entity;
+const GuildAddCommand = async(language, message, args) => {
 	let invitedEntity;
 	let guild;
 	let invitedGuild;
 	const invitationEmbed = new discord.MessageEmbed();
 
-	[entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true)
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
+	}
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
@@ -22,11 +22,12 @@ const GuildAddCommand = async (language, message, args) => {
 
 	try {
 		[invitedEntity] = await Entities.getByArgs(args, message);
-	} catch (error) {
+	}
+	catch (error) {
 		invitedEntity = null;
 	}
 
-	if (invitedEntity == null) {
+	if (invitedEntity === null) {
 		// no user provided
 		return sendErrorMessage(
 			message.author,
@@ -49,7 +50,7 @@ const GuildAddCommand = async (language, message, args) => {
 					level: GUILD.REQUIRED_LEVEL,
 					playerLevel: invitedEntity.Player.level,
 					comeIn:
-						GUILD.REQUIRED_LEVEL - invitedEntity.Player.level > 1 ? `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux` : `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`,
+						GUILD.REQUIRED_LEVEL - invitedEntity.Player.level > 1 ? `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux` : `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`
 				}
 			)
 		);
@@ -68,11 +69,12 @@ const GuildAddCommand = async (language, message, args) => {
 	// search for a user's guild
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 
-	if (guild == null) {
+	if (guild === null) {
 		// not in a guild
 		return sendErrorMessage(
 			message.author,
@@ -82,7 +84,7 @@ const GuildAddCommand = async (language, message, args) => {
 		);
 	}
 
-	if ((entity.id !== guild.chief_id) && (entity.id !== guild.elder_id)) {
+	if (entity.id !== guild.chief_id && entity.id !== guild.elder_id) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -94,11 +96,12 @@ const GuildAddCommand = async (language, message, args) => {
 	// search for a user's guild
 	try {
 		invitedGuild = await Guilds.getById(invitedEntity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		invitedGuild = null;
 	}
 
-	if (invitedGuild != null) {
+	if (invitedGuild !== null) {
 		// already in a guild
 		return sendErrorMessage(
 			message.author,
@@ -123,46 +126,45 @@ const GuildAddCommand = async (language, message, args) => {
 		format(
 			JsonReader.commands.guildAdd.getTranslation(language).invitationTitle,
 			{
-				pseudo: message.mentions.users.last().username,
+				pseudo: message.mentions.users.last().username
 			}
 		),
 		message.mentions.users.last().displayAvatarURL()
 	);
 	invitationEmbed.setDescription(
 		format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
-			guildName: guild.name,
+			guildName: guild.name
 		})
 	);
 
 	const msg = await message.channel.send(invitationEmbed);
 
 	const embed = new discord.MessageEmbed();
-	const filterConfirm = (reaction, user) => {
-		return (
-			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+	const filterConfirm = (reaction, user) =>
+		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.mentions.users.last().id
-		);
-	};
+		;
 
 	const collector = msg.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
-		max: 1,
+		max: 1
 	});
 
 	addBlockedPlayer(invitedEntity.discordUser_id, "guildAdd", collector);
 
-	collector.on("end", async (reaction) => {
+	collector.on("end", async(reaction) => {
 		removeBlockedPlayer(invitedEntity.discordUser_id);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				try {
 					guild = await Guilds.getById(entity.Player.guild_id);
-				} catch (error) {
+				}
+				catch (error) {
 					guild = null;
 				}
-				if (guild == null) {
+				if (guild === null) {
 					// guild is destroy
 					return sendErrorMessage(
 						message.mentions.users.last(),
@@ -177,14 +179,14 @@ const GuildAddCommand = async (language, message, args) => {
 				await Promise.all([
 					guild.save(),
 					invitedEntity.save(),
-					invitedEntity.Player.save(),
+					invitedEntity.Player.save()
 				]);
 
 				embed.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
-						pseudo: message.mentions.users.last().username,
-						guildName: guild.name,
-					}),
-					message.mentions.users.last().displayAvatarURL()
+					pseudo: message.mentions.users.last().username,
+					guildName: guild.name
+				}),
+				message.mentions.users.last().displayAvatarURL()
 				);
 				embed.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess);
 				return message.channel.send(embed);
@@ -197,7 +199,7 @@ const GuildAddCommand = async (language, message, args) => {
 
 	await Promise.all([
 		msg.react(MENU_REACTION.ACCEPT),
-		msg.react(MENU_REACTION.DENY),
+		msg.react(MENU_REACTION.DENY)
 	]);
 };
 
@@ -206,7 +208,7 @@ module.exports = {
 		{
 			name: "guildadd",
 			func: GuildAddCommand,
-			aliases: ["gadd", "ga"],
-		},
-	],
+			aliases: ["gadd", "ga"]
+		}
+	]
 };

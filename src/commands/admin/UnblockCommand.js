@@ -4,9 +4,9 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const UnblockCommand = async function (language, message, args) {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER)) !== true) {
+const UnblockCommand = async function(language, message, args) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 
@@ -17,7 +17,7 @@ const UnblockCommand = async function (language, message, args) {
 		}
 		removeBlockedPlayer(args[0]);
 		await message.channel.send("Unblocked with success");
-		let user = await client.users.fetch(args[0]);
+		const user = await client.users.fetch(args[0]);
 		const [entity] = await Entities.getOrRegister(args[0]);
 		if (entity.Player.dmnotification) {
 			sendDirectMessage(
@@ -30,7 +30,8 @@ const UnblockCommand = async function (language, message, args) {
 		}
 
 
-	} else {
+	}
+	else {
 		await message.channel.send("Usage: !unblock <discord id>");
 	}
 };
@@ -38,7 +39,7 @@ const UnblockCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'unblock',
+			name: "unblock",
 			func: UnblockCommand
 		}
 	]

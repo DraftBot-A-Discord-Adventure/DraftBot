@@ -4,11 +4,11 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetTradeCommand = async function (language, message, args) {
+const PetTradeCommand = async function(language, message) {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader1)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader1) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -21,8 +21,8 @@ const PetTradeCommand = async function (language, message, args) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).cantTradeSelf);
 	}
 	let [trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader2)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader2) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.mentions.users.first(), message.channel, language)) {
@@ -60,9 +60,7 @@ const PetTradeCommand = async function (language, message, args) {
 	let trader1Accepted = null;
 	let trader2Accepted = null;
 
-	const filter = (reaction, user) => {
-		return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && (user.id === message.author.id || user.id === message.mentions.users.first().id));
-	};
+	const filter = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && (user.id === message.author.id || user.id === message.mentions.users.first().id);
 
 	const collector = confirmMessage.createReactionCollector(filter, {
 		time: COLLECTOR_TIME,
@@ -72,37 +70,41 @@ const PetTradeCommand = async function (language, message, args) {
 	addBlockedPlayer(trader1.discordUser_id, "petTrade", collector);
 	addBlockedPlayer(trader2.discordUser_id, "petTrade", collector);
 
-	collector.on('remove', (reaction, user) => {
+	collector.on("remove", (reaction, user) => {
 		if (reaction.emoji.name === MENU_REACTION.ACCEPT) {
 			if (user.id === message.author.id) {
 				trader1Accepted = null;
-			} else {
+			}
+			else {
 				trader2Accepted = null;
 			}
 		}
 	});
 
-	collector.on('collect', (reaction, user) => {
+	collector.on("collect", (reaction, user) => {
 		if (reaction.emoji.name === MENU_REACTION.ACCEPT) {
 			if (user.id === message.author.id) {
 				trader1Accepted = true;
-			} else {
+			}
+			else {
 				trader2Accepted = true;
 			}
 			if (trader1Accepted === true && trader2Accepted === true) {
 				collector.stop();
 			}
-		} else if (reaction.emoji.name === MENU_REACTION.DENY) {
+		}
+		else if (reaction.emoji.name === MENU_REACTION.DENY) {
 			if (user.id === message.author.id) {
 				trader1Accepted = false;
-			} else {
+			}
+			else {
 				trader2Accepted = false;
 			}
 			collector.stop();
 		}
 	});
 
-	collector.on('end', async (reaction) => {
+	collector.on("end", async() => {
 		[trader1] = await Entities.getOrRegister(message.author.id);
 		[trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
 		pet1 = trader1.Player.Pet;
@@ -122,11 +124,13 @@ const PetTradeCommand = async function (language, message, args) {
 			successEmbed.setAuthor(JsonReader.commands.petTrade.getTranslation(language).tradeTitle, message.author.displayAvatarURL());
 			successEmbed.setDescription(JsonReader.commands.petTrade.getTranslation(language).tradeSuccess);
 			await message.channel.send(successEmbed);
-		} else if (trader1Accepted === false || trader2Accepted === false) {
+		}
+		else if (trader1Accepted === false || trader2Accepted === false) {
 			await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petTrade.getTranslation(language).tradeCanceled, {
 				trader: trader1Accepted === false ? message.author : message.mentions.users.first()
 			}),true);
-		} else {
+		}
+		else {
 			await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).tradeCanceledTime, true);
 		}
 	});
@@ -140,9 +144,9 @@ const PetTradeCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'pettrade',
+			name: "pettrade",
 			func: PetTradeCommand,
-			aliases: ['ptrade']
+			aliases: ["ptrade"]
 		}
 	]
 };

@@ -5,10 +5,10 @@ const Maps = require("../../core/Maps");
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ShopCommand(language, message, args) {
-	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
+async function ShopCommand(language, message) {
+	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -18,39 +18,39 @@ async function ShopCommand(language, message, args) {
 	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
 
 	const shopPotion = await Shop.findOne({
-		attributes: ["shop_potion_id"],
+		attributes: ["shop_potion_id"]
 	});
 
-	//Formatting intems data into a string
+	// Formatting intems data into a string
 	const randomItem = format(shopTranslations.display, {
 		name: shopTranslations.permanentItems.randomItem.name,
-		price: shopTranslations.permanentItems.randomItem.price,
+		price: shopTranslations.permanentItems.randomItem.price
 	});
 	const healAlterations = format(shopTranslations.display, {
 		name: shopTranslations.permanentItems.healAlterations.name,
-		price: shopTranslations.permanentItems.healAlterations.price,
+		price: shopTranslations.permanentItems.healAlterations.price
 	});
 	const regen = format(shopTranslations.display, {
 		name: shopTranslations.permanentItems.regen.name,
-		price: shopTranslations.permanentItems.regen.price,
+		price: shopTranslations.permanentItems.regen.price
 	});
 	const badge = format(shopTranslations.display, {
 		name: shopTranslations.permanentItems.badge.name,
-		price: shopTranslations.permanentItems.badge.price,
+		price: shopTranslations.permanentItems.badge.price
 	});
 
-	//Fetching potion infos
+	// Fetching potion infos
 	const potion = await Potions.findOne({
 		where: {
-			id: shopPotion.shop_potion_id,
-		},
+			id: shopPotion.shop_potion_id
+		}
 	});
 
 	const potionPrice = Math.round(
 		getItemValue(potion) * 0.7
 	);
 
-	//Creating shop message
+	// Creating shop message
 	const shopMessage = await message.channel.send(
 		new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
@@ -59,19 +59,19 @@ async function ShopCommand(language, message, args) {
 				shopTranslations.dailyItem,
 				format(shopTranslations.display, {
 					name: potion.toString(language),
-					price: potionPrice,
+					price: potionPrice
 				})
 			)
 			.addField(
 				shopTranslations.permanentItem,
 				[randomItem, healAlterations, regen, badge].join("\n") +
 				format(shopTranslations.moneyQuantity, {
-					money: entity.Player.money,
+					money: entity.Player.money
 				})
 			)
 	);
 
-	//Creating maps to get shop items everywhere
+	// Creating maps to get shop items everywhere
 	const dailyPotion = new Map()
 		.set("price", potionPrice)
 		.set("potion", potion);
@@ -81,21 +81,19 @@ async function ShopCommand(language, message, args) {
 		.set(SHOP.HEART, shopTranslations.permanentItems.regen)
 		.set(SHOP.MONEY_MOUTH, shopTranslations.permanentItems.badge);
 
-	const filterConfirm = (reaction, user) => {
-		return user.id === entity.discordUser_id && reaction.me;
-	};
+	const filterConfirm = (reaction, user) => user.id === entity.discordUser_id && reaction.me;
 
 	const collector = shopMessage.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
-		max: 1,
+		max: 1
 	});
 
 	addBlockedPlayer(entity.discordUser_id, "shop", collector);
 
-	//Fetch the choice from the user
-	collector.on("end", async (reaction) => {
+	// Fetch the choice from the user
+	collector.on("end", async(reaction) => {
 		if (!reaction.first()) {
-			//the user is afk
+			// the user is afk
 			removeBlockedPlayer(entity.discordUser_id);
 			return;
 		}
@@ -126,7 +124,8 @@ async function ShopCommand(language, message, args) {
 					message.author,
 					item
 				);
-			} else {
+			}
+			else {
 				sendErrorMessage(
 					message.author,
 					message.channel,
@@ -135,13 +134,14 @@ async function ShopCommand(language, message, args) {
 						JsonReader.commands.shop.getTranslation(language).error
 							.cannotBuy,
 						{
-							missingMoney: item.price - entity.Player.money,
+							missingMoney: item.price - entity.Player.money
 						}
 					)
 				);
 				removeBlockedPlayer(entity.discordUser_id);
 			}
-		} else if (
+		}
+		else if (
 			potion.getEmoji() === reaction.first().emoji.id ||
 			potion.getEmoji() === reaction.first().emoji.name ||
 			SHOP.POTION_REPLACEMENT === reaction.first().emoji.name ||
@@ -159,7 +159,8 @@ async function ShopCommand(language, message, args) {
 					message.author,
 					dailyPotion
 				);
-			} else {
+			}
+			else {
 				sendErrorMessage(
 					message.author,
 					message.channel,
@@ -168,7 +169,7 @@ async function ShopCommand(language, message, args) {
 						JsonReader.commands.shop.getTranslation(language).error
 							.cannotBuy,
 						{
-							missingMoney: potionPrice - entity.Player.money,
+							missingMoney: potionPrice - entity.Player.money
 						}
 					)
 				);
@@ -177,10 +178,11 @@ async function ShopCommand(language, message, args) {
 		}
 	});
 
-	//Adding reactions
+	// Adding reactions
 	try {
 		await shopMessage.react(potion.getEmoji());
-	} catch {
+	}
+	catch {
 		await shopMessage.react(SHOP.POTION_REPLACEMENT);
 	}
 	await Promise.all([
@@ -188,7 +190,7 @@ async function ShopCommand(language, message, args) {
 		shopMessage.react(SHOP.HOSPITAL),
 		shopMessage.react(SHOP.HEART),
 		shopMessage.react(SHOP.MONEY_MOUTH),
-		shopMessage.react(MENU_REACTION.DENY),
+		shopMessage.react(MENU_REACTION.DENY)
 	]);
 }
 
@@ -205,13 +207,14 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
 	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
 	log(entity.discordUser_id + " bought the shop item " + selectedItem.name + " for " + selectedItem.price);
 	if (selectedItem.name) {
-		//This is not a potion
+		// This is not a potion
 		if (
 			selectedItem.name ===
 			shopTranslations.permanentItems.randomItem.name
 		) {
 			await giveRandomItem(customer, message.channel, language, entity);
-		} else if (
+		}
+		else if (
 			selectedItem.name ===
 			shopTranslations.permanentItems.healAlterations.name
 		) {
@@ -225,7 +228,8 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
 				);
 			}
 			await healAlterations(message, language, entity, customer, selectedItem);
-		} else if (
+		}
+		else if (
 			selectedItem.name === shopTranslations.permanentItems.regen.name
 		) {
 			await regenPlayer(
@@ -235,10 +239,11 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
 				customer,
 				selectedItem
 			);
-		} else if (
+		}
+		else if (
 			selectedItem.name === shopTranslations.permanentItems.badge.name
 		) {
-			let success = giveMoneyMouthBadge(
+			const success = giveMoneyMouthBadge(
 				message,
 				language,
 				entity,
@@ -248,29 +253,32 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
 			if (!success) {
 				return;
 			}
-		} else if (
+		}
+		else if (
 			selectedItem.name === shopTranslations.permanentItems.guildXp.name
 		) {
 			if (
-				!(await giveGuildXp(
+				!await giveGuildXp(
 					message,
 					language,
 					entity,
 					customer,
 					selectedItem
-				))
-			)
-				return; //if no guild, no need to proceed
+				)
+			) {
+				return;
+			} // if no guild, no need to proceed
 		}
-		entity.Player.addMoney(-selectedItem.price); //Remove money
-	} else {
+		entity.Player.addMoney(-selectedItem.price); // Remove money
+	}
+	else {
 		giveDailyPotion(message, language, entity, customer, selectedItem);
 	}
 
 	await Promise.all([
 		entity.save(),
 		entity.Player.save(),
-		entity.Player.Inventory.save(),
+		entity.Player.Inventory.save()
 	]);
 }
 
@@ -299,7 +307,7 @@ async function confirmPurchase(
 		.setColor(JsonReader.bot.embed.default)
 		.setAuthor(
 			format(JsonReader.commands.shop.getTranslation(language).confirm, {
-				pseudo: customer.username,
+				pseudo: customer.username
 			}),
 			customer.displayAvatarURL()
 		)
@@ -309,27 +317,25 @@ async function confirmPurchase(
 				JsonReader.commands.shop.getTranslation(language).display,
 				{
 					name: name,
-					price: price,
+					price: price
 				}
 			) +
 			info
 		);
 
 	const confirmMessage = await message.channel.send(confirmEmbed);
-	const filterConfirm = (reaction, user) => {
-		return (
-			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+	const filterConfirm = (reaction, user) =>
+		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === entity.discordUser_id
-		);
-	};
+		;
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
-		max: 1,
+		max: 1
 	});
 
-	collector.on("end", async (reaction) => {
+	collector.on("end", (reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
@@ -342,7 +348,7 @@ async function confirmPurchase(
 
 	await Promise.all([
 		confirmMessage.react(MENU_REACTION.ACCEPT),
-		confirmMessage.react(MENU_REACTION.DENY),
+		confirmMessage.react(MENU_REACTION.DENY)
 	]);
 }
 
@@ -350,11 +356,11 @@ async function confirmPurchase(
  * @param {number} price - The item price
  * @param {Players} player
  */
-const canBuy = function (price, player) {
+const canBuy = function(price, player) {
 	return player.money >= price;
 };
 
-/********************************************************** GIVE FUNCTIONS **********************************************************/
+/** ******************************************************** GIVE FUNCTIONS **********************************************************/
 
 /**
  * Give the daily potion to player
@@ -370,10 +376,10 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
 	entity.Player.Inventory.giveObject(
 		dailyPotion.get("potion").id,
 		ITEMTYPE.POTION
-	); //Give potion
-	entity.Player.addMoney(-dailyPotion.get("price")); //Remove money
-	entity.Player.Inventory.save(); //Save
-	entity.Player.save(); //Save
+	); // Give potion
+	entity.Player.addMoney(-dailyPotion.get("price")); // Remove money
+	entity.Player.Inventory.save(); // Save
+	entity.Player.save(); // Save
 	message.channel.send(
 		new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
@@ -382,7 +388,7 @@ function giveDailyPotion(message, language, entity, customer, dailyPotion) {
 					JsonReader.commands.shop.getTranslation(language).potion
 						.give,
 					{
-						pseudo: customer.username,
+						pseudo: customer.username
 					}
 				),
 				customer.displayAvatarURL()
@@ -407,7 +413,7 @@ async function healAlterations(message, language, entity, customer, selectedItem
 				format(
 					JsonReader.commands.shop.getTranslation(language).success,
 					{
-						pseudo: customer.username,
+						pseudo: customer.username
 					}
 				),
 				customer.displayAvatarURL()
@@ -420,7 +426,7 @@ async function healAlterations(message, language, entity, customer, selectedItem
  * Completely restore player life
  */
 async function regenPlayer(message, language, entity, customer, selectedItem) {
-	await entity.setHealth(await entity.getMaxHealth()); //Heal Player
+	await entity.setHealth(await entity.getMaxHealth()); // Heal Player
 	await message.channel.send(
 		new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
@@ -428,7 +434,7 @@ async function regenPlayer(message, language, entity, customer, selectedItem) {
 				format(
 					JsonReader.commands.shop.getTranslation(language).success,
 					{
-						pseudo: customer.username,
+						pseudo: customer.username
 					}
 				),
 				customer.displayAvatarURL()
@@ -456,21 +462,21 @@ function giveMoneyMouthBadge(
 				.alreadyHasItem
 		);
 		return false;
-	} else {
-		entity.Player.addBadge("🤑"); //Give badge
-		message.channel.send(
-			new discord.MessageEmbed()
-				.setColor(JsonReader.bot.embed.default)
-				.setAuthor(
-					format(selectedItem.give, {
-						pseudo: customer.username,
-					}),
-					customer.displayAvatarURL()
-				)
-				.setDescription("\n\n" + selectedItem.name)
-		);
-		return true;
 	}
+	entity.Player.addBadge("🤑"); // Give badge
+	message.channel.send(
+		new discord.MessageEmbed()
+			.setColor(JsonReader.bot.embed.default)
+			.setAuthor(
+				format(selectedItem.give, {
+					pseudo: customer.username
+				}),
+				customer.displayAvatarURL()
+			)
+			.setDescription("\n\n" + selectedItem.name)
+	);
+	return true;
+
 }
 
 module.exports = {
@@ -478,7 +484,7 @@ module.exports = {
 		{
 			name: "shop",
 			func: ShopCommand,
-			aliases: ["s"],
-		},
-	],
+			aliases: ["s"]
+		}
+	]
 };

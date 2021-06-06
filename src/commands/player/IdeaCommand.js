@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ideaCommand(language, message, args) {
+function ideaCommand(language, message) {
 	const ideaEmbed = new discord.MessageEmbed()
 		.setDescription(JsonReader.commands.idea.getTranslation(language).text)
 		.setTitle(JsonReader.commands.idea.getTranslation(language).title)
@@ -15,9 +15,9 @@ async function ideaCommand(language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'idea',
+			name: "idea",
 			func: ideaCommand,
-			aliases: ['ideas', 'suggestions', 'suggest', 'suggestion']
+			aliases: ["ideas", "suggestions", "suggest", "suggestion"]
 		}
 	]
 };

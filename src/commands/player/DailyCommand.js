@@ -4,9 +4,9 @@ const Maps = require("../../core/Maps");
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
-const DailyCommand = async function (language, message) {
+const DailyCommand = async function(language, message) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 
@@ -14,13 +14,14 @@ const DailyCommand = async function (language, message) {
 
 	const embed = new discord.MessageEmbed();
 
-	let time = millisecondsToHours(message.createdAt.getTime() - entity.Player.Inventory.lastDailyAt.valueOf());
+	const time = millisecondsToHours(message.createdAt.getTime() - entity.Player.Inventory.lastDailyAt.valueOf());
 
 	if (activeObject.nature === NATURE.NONE) {
 		if (activeObject.id !== JsonReader.models.inventories.object_id) {
 			// there is a object that do nothing in the inventory
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).objectDoNothingError);
-		} else {
+		}
+		else {
 			// there is no object in the inventory
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).noActiveObjectdescription);
 		}
@@ -38,7 +39,7 @@ const DailyCommand = async function (language, message) {
 					millisecondsToMinutes(
 						JsonReader.commands.daily.timeBetweenDailys * 3600000 - message.createdAt.getTime() + entity.Player.Inventory.lastDailyAt.valueOf()
 					)
-				),
+				)
 			})
 		);
 	}
@@ -78,7 +79,7 @@ const DailyCommand = async function (language, message) {
 			)
 			.setDescription(
 				format(JsonReader.commands.daily.getTranslation(language).hospitalBonus, {
-					value: minutesToString(activeObject.power * 60),
+					value: minutesToString(activeObject.power * 60)
 				})
 			);
 		Maps.advanceTime(entity.Player, activeObject.power * 60);
@@ -109,7 +110,7 @@ module.exports = {
 		{
 			name: "daily",
 			func: DailyCommand,
-			aliases: ["da"],
-		},
-	],
+			aliases: ["da"]
+		}
+	]
 };

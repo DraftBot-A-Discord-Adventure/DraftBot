@@ -1,4 +1,4 @@
-const fs = require("fs");
+// const fs = require("fs");
 
 /**
  * @class
@@ -8,9 +8,9 @@ class Attack {
 	/**
 	 * @return {Promise<void>}
 	 */
-	static async init() {
+	static /* async*/ init() {
 		Attack.attacks = new Map();
-		const attacksFiles = await fs.promises.readdir("src/core/fights/attacks");
+		/* const attacksFiles = await fs.promises.readdir("src/core/fights/attacks");
 		for (const attackFile of attacksFiles) {
 			if (!attackFile.endsWith(".js")) continue;
 			const attackName = attackFile.split(".")[0];
@@ -20,7 +20,7 @@ class Attack {
 					Attack.attacks.set(attacks[i].actionNumber, attacks[i].func);
 				}
 			}
-		}
+		}*/
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Attack {
  * @type {{init: attack.init}}
  */
 module.exports = {
-	init: Attack.init,
+	init: Attack.init
 };
 
 global.getAttack = Attack.getAttack;

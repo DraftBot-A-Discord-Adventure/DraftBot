@@ -4,11 +4,11 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetNicknameCommand = async function (language, message, args) {
+const PetNicknameCommand = async function(language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -36,7 +36,7 @@ const PetNicknameCommand = async function (language, message, args) {
 		return sendErrorMessage(message.author, message.channel, language,
 			format(JsonReader.commands.petNickname.getTranslation(language).invalidName + "\n" + JsonReader.error.getTranslation(language).nameRules, {
 				min: JsonReader.models.pets.nicknameMinLength,
-				max: JsonReader.models.pets.nicknameMaxLength,
+				max: JsonReader.models.pets.nicknameMaxLength
 			}));
 	}
 	pet.nickname = petNickname;
@@ -50,9 +50,9 @@ const PetNicknameCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'petnickname',
+			name: "petnickname",
 			func: PetNicknameCommand,
-			aliases: ['petnick', 'pnickname', 'pnick', 'petname', 'pname']
+			aliases: ["petnick", "pnickname", "pnick", "petname", "pname"]
 		}
 	]
 };

@@ -6,17 +6,18 @@
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity, seEmbed) {
+const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
-	let randomItem = await entity.Player.Inventory.generateRandomItem(RARITY.SPECIAL);
+	const randomItem = await entity.Player.Inventory.generateRandomItem(RARITY.SPECIAL);
 	let price = getItemValue(randomItem);
 	if (randInt(1, 10) === 10) {
 		price *= 5;
-	} else {
+	}
+	else {
 		price *= 0.6;
 	}
 	price = Math.round(price);
-	let gender = randInt(0, 1);
+	const gender = randInt(0, 1);
 	seEmbed.setDescription(seEmbed.description + format(JsonReader.small_events.shop.getTranslation(language).intro[gender][randInt(0, JsonReader.small_events.shop.getTranslation(language).intro[gender].length)] + JsonReader.small_events.shop.getTranslation(language).end, {
 		name: JsonReader.small_events.shop.getTranslation(language).names[gender][randInt(0, JsonReader.small_events.shop.getTranslation(language).names[gender].length)],
 		item: randomItem.toString(language),
@@ -27,20 +28,18 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 		msg.react(MENU_REACTION.ACCEPT),
 		msg.react(MENU_REACTION.DENY)
 	]);
-	const filterConfirm = (reaction, user) => {
-		return (
-			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+	const filterConfirm = (reaction, user) =>
+		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === entity.discordUser_id
-		);
-	};
+		;
 
 	const collector = msg.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
-		max: 1,
+		max: 1
 	});
 
-	collector.on("end", async (reaction) => {
+	collector.on("end", async(reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
@@ -53,7 +52,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 						format(
 							JsonReader.commands.shop.getTranslation(language).error.cannotBuy,
 							{
-								missingMoney: price - entity.Player.money,
+								missingMoney: price - entity.Player.money
 							}
 						)
 					);
@@ -64,7 +63,7 @@ const executeSmallEvent = async function (message, language, entity, seEmbed) {
 				entity.Player.addMoney(-price);
 				await Promise.all([
 					entity.Player.save(),
-					entity.Player.Inventory.save(),
+					entity.Player.Inventory.save()
 				]);
 				return;
 			}

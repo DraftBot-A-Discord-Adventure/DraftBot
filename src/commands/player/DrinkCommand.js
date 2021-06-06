@@ -4,9 +4,9 @@ const Maps = require("../../core/Maps");
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
-const DrinkCommand = async function (language, message) {
+const DrinkCommand = async function(language, message) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -21,7 +21,8 @@ const DrinkCommand = async function (language, message) {
 			await entity.Player.Inventory.drinkPotion();
 			entity.Player.Inventory.save();
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
-		} else {
+		}
+		else {
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).noActiveObjectdescription);
 		}
 		return;
@@ -55,7 +56,7 @@ const DrinkCommand = async function (language, message) {
 	await Promise.all([
 		entity.save(),
 		entity.Player.save(),
-		entity.Player.Inventory.save(),
+		entity.Player.Inventory.save()
 	]);
 	log(entity.discordUser_id + " drank " + potion.en);
 	return await message.channel.send(embed);
@@ -64,9 +65,9 @@ const DrinkCommand = async function (language, message) {
 module.exports = {
 	commands: [
 		{
-			name: 'drink',
+			name: "drink",
 			func: DrinkCommand,
-			aliases: ['dr', 'glouglou']
+			aliases: ["dr", "glouglou"]
 		}
 	]
 };

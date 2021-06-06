@@ -4,8 +4,8 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const giveBadgeCommand = async function (language, message, args) {
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER)) !== true) {
+const giveBadgeCommand = async function(language, message, args) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER) !== true) {
 		return;
 	}
 	const embed = new discord.MessageEmbed();
@@ -29,7 +29,7 @@ const giveBadgeCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'gb',
+			name: "gb",
 			func: giveBadgeCommand
 		}
 	]

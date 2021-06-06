@@ -4,12 +4,12 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetTransferCommand = async function (language, message, args) {
+const PetTransferCommand = async function(language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const pPet = entity.Player.Pet;
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -18,7 +18,8 @@ const PetTransferCommand = async function (language, message, args) {
 	let guild;
 	try {
 		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+	}
+	catch (error) {
 		guild = null;
 	}
 	if (!guild) {
@@ -29,7 +30,7 @@ const PetTransferCommand = async function (language, message, args) {
 	confirmEmbed.setAuthor(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitchTitle, {
 		pseudo: message.author.username
 	}), message.author.displayAvatarURL());
-	const [server] = (await Servers.getOrRegister(message.guild.id));
+	const [server] = await Servers.getOrRegister(message.guild.id);
 
 	if (args.length === 0) {
 		if (!pPet) {
@@ -82,21 +83,23 @@ const PetTransferCommand = async function (language, message, args) {
 	if (pPet) {
 		swPet.pet_entity_id = pPet.id;
 		await swPet.save();
-	} else {
+	}
+	else {
 		await swPet.destroy();
 	}
 	entity.Player.pet_id = swPetEntity.id;
 	await entity.Player.save();
 
 	if (pPet) {
+		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
+		}
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitch, {
 			pet1: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language)),
 			pet2: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));
-	} else if (pPet) {
-		if (pPet.lovePoints < PETS.LOVE_LEVELS[0])
-			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
-	} else {
+	}
+	else {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmFollows, {
 			pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));
@@ -107,9 +110,9 @@ const PetTransferCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'pettransfer',
+			name: "pettransfer",
 			func: PetTransferCommand,
-			aliases: ['pettr', 'ptr', 'ptransfer']
+			aliases: ["pettr", "ptr", "ptransfer"]
 		}
 	]
 };

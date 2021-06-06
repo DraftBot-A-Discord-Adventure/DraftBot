@@ -1,4 +1,4 @@
-const Maps = require('../../core/Maps');
+const Maps = require("../../core/Maps");
 
 /**
  * Show the map of DraftBot world
@@ -6,12 +6,12 @@ const Maps = require('../../core/Maps');
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function MapCommand(language, message, args) {
+async function MapCommand(language, message) {
 
-	let [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
+		[EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
 		return;
 	}
 
@@ -22,11 +22,11 @@ async function MapCommand(language, message, args) {
 
 		.setColor(JsonReader.bot.embed.default)
 		.setAuthor(format(JsonReader.commands.map.getTranslation(language).text, {
-			pseudo: message.author.username,
+			pseudo: message.author.username
 		}), message.author.displayAvatarURL());
 
 	if (Maps.isTravelling(entity.Player)) {
-		let destMap = await MapLocations.getById(entity.Player.map_id);
+		const destMap = await MapLocations.getById(entity.Player.map_id);
 		mapEmbed.setDescription(format(
 			JsonReader.commands.map.getTranslation(language).descText, {
 				direction: await destMap.getDisplayName(language),
@@ -42,9 +42,9 @@ async function MapCommand(language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'map',
+			name: "map",
 			func: MapCommand,
-			aliases: ['m', 'world']
+			aliases: ["m", "world"]
 		}
 	]
 };

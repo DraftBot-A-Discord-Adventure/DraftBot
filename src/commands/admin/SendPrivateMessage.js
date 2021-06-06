@@ -5,16 +5,16 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const SendPrivateMessage = async function (language, message, args) {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.SUPPORT)) !== true) {
+const SendPrivateMessage = async function(language, message, args) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.SUPPORT) !== true) {
 		return;
 	}
 
 	const userId = args[0];
-	const messageToSend = args.join(' ').replace(userId, '') +
+	const messageToSend = args.join(" ").replace(userId, "") +
 		format(JsonReader.commands.sendPrivateMessage.getTranslation(language).signature, {
-			username: message.author.username,
+			username: message.author.username
 		});
 	const user = client.users.cache.get(userId);
 
@@ -27,17 +27,18 @@ const SendPrivateMessage = async function (language, message, args) {
 	const embed = new discord.MessageEmbed();
 	embed.setColor(JsonReader.bot.embed.default)
 		.setTitle(format(JsonReader.commands.sendPrivateMessage.getTranslation(language).title, {
-			username: user.username,
+			username: user.username
 		}))
 		.setDescription(messageToSend)
-		.setImage(message.attachments.size > 0 ? [...message.attachments.values()][0].url : '');
+		.setImage(message.attachments.size > 0 ? [...message.attachments.values()][0].url : "");
 
 	message.delete();
 	try {
 		await user.send(messageToSend);
 		sendMessageAttachments(message, user);
 		return await message.channel.send(embed);
-	} catch {
+	}
+	catch {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).errorCannotSend);
 	}
 };
@@ -45,7 +46,7 @@ const SendPrivateMessage = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'dm',
+			name: "dm",
 			func: SendPrivateMessage
 		}
 	]
