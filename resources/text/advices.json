@@ -159,7 +159,8 @@
 				"Merci de jouer à DraftBot.",
 				"Vous pouvez exclure une personne d'une guilde sans la mentionner, en utilisant son classement. Si le joueur à exclure est classé 34ème au classement général, utilisez `!guildkick 34`",
 				"Ce texte sera peut être utile dans le futur : fzbyeifea",
-				"La potion de la mort qui tue est une potion très rare."
+				"La potion de la mort qui tue est une potion très rare.",
+				"Les marchands ambulants rachètent leur propre marchandise pour une somme ridicule."
 			]
 		},
 		"en": {
@@ -321,7 +322,8 @@
 				"Thank you for playing DraftBot.",
 				"You can kick a person from a guild without mentioning them, using your leaderboard ranking. If they are 34th on the leaderboard, use '!guildkick 34'",
 				"This text may be useful in the future: fzbyeifea",
-				"The potion of the death that kills is very rare."
+				"The potion of the death that kills is very rare.",
+				"The traveling merchants buy what they sell for a ridiculous price."
 			]
 		}
 	}
