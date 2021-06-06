@@ -10,7 +10,7 @@ const Maps = require("../../core/Maps");
  */
 const ReportCommand = async function (language, message, args, forceSpecificEvent = -1, forceSmallEvent = null) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -40,7 +40,7 @@ const ReportCommand = async function (language, message, args, forceSpecificEven
 	}
 
 	const smallEventNumber = triggersSmallEvent(entity);
-	if (forceSmallEvent != null || smallEventNumber !== -1) {
+	if (forceSmallEvent !== null || smallEventNumber !== -1) {
 		return await executeSmallEvent(message, language, entity, smallEventNumber, forceSmallEvent);
 	}
 
@@ -153,7 +153,7 @@ const chooseDestination = async function (entity, message, language, restricted_
 		return destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
 	}, {time: COLLECTOR_TIME});
 
-	collector.on("collect", async () => {
+	collector.on("collect", () => {
 		collector.stop();
 	});
 
@@ -212,7 +212,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 	}));
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector((reaction, user) => {
-		return (reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id);
+		return reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id;
 	}, {time: COLLECTOR_TIME});
 
 	await addBlockedPlayer(entity.discordUser_id, "report", collector);
@@ -282,7 +282,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	let result = "";
 	result += format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
 	if (moneyChange !== 0) {
-		result += (moneyChange >= 0) ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
+		result += moneyChange >= 0 ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
 	}
 	if (pDataValues.experience > 0) {
 		result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
@@ -341,7 +341,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		removeBlockedPlayer(entity.discordUser_id);
 	}
 
-	if (pDataValues.oneshot === true) entity.setHealth(0);
+	if (pDataValues.oneshot === true) {entity.setHealth(0);}
 
 	if (pDataValues.eventId === 0) {
 		player.money = 0;
@@ -381,8 +381,8 @@ const triggersSmallEvent = (entity) => {
 	const now = new Date();
 	const timeBetweenSmallEvents = REPORT.TIME_BETWEEN_BIG_EVENTS / (REPORT.SMALL_EVENTS_COUNT + 1);
 	for (let i = 1; i <= REPORT.SMALL_EVENTS_COUNT; ++i) {
-		const seBefore = entity.Player.start_travel_date.getTime() + (i * timeBetweenSmallEvents);
-		const seAfter = entity.Player.start_travel_date.getTime() + ((i + 1) * timeBetweenSmallEvents);
+		const seBefore = entity.Player.start_travel_date.getTime() + i * timeBetweenSmallEvents;
+		const seAfter = entity.Player.start_travel_date.getTime() + (i + 1) * timeBetweenSmallEvents;
 		if (seBefore < now.getTime() && seAfter > now.getTime()) {
 			for (let se of entity.Player.PlayerSmallEvents) {
 				if (se.number === i) {

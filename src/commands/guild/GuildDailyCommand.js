@@ -14,7 +14,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, GUILD.REQUIRED_LEVEL)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, GUILD.REQUIRED_LEVEL) !== true) {
 		return;
 	}
 
@@ -73,12 +73,14 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 			JsonReader.commands.guildDaily.minimalXp + guild.level,
 			JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
 		for (const i in members) {
-			members[i].Player.experience += xpWon;
-			while (members[i].Player.needLevelUp()) {
-				await members[i].Player.levelUpIfNeeded(members[i], message.channel, language);
+			if (Object.prototype.hasOwnProperty.call(members, i)) {
+				members[i].Player.experience += xpWon;
+				while (members[i].Player.needLevelUp()) {
+					await members[i].Player.levelUpIfNeeded(members[i], message.channel, language);
+				}
+				await members[i].Player.save();
+				await members[i].save();
 			}
-			await members[i].Player.save();
-			await members[i].save();
 		}
 		embed.setDescription(format(translations.personalXP, {
 			xp: xpWon,
@@ -106,8 +108,10 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 			JsonReader.commands.guildDaily.minimalMoney + guild.level,
 			JsonReader.commands.guildDaily.maximalMoney + guild.level * 4);
 		for (const i in members) {
-			members[i].Player.addMoney(moneyWon);
-			await members[i].Player.save();
+			if (Object.prototype.hasOwnProperty.call(members, i)) {
+				members[i].Player.addMoney(moneyWon);
+				await members[i].Player.save();
+			}
 		}
 		embed.setDescription(format(translations.money, {
 			money: moneyWon,
@@ -131,8 +135,10 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	if (rewardType === REWARD_TYPES.FIXED_MONEY) {
 		const moneyWon = JsonReader.commands.guildDaily.fixedMoney;
 		for (const i in members) {
-			members[i].Player.addMoney(moneyWon);
-			await members[i].Player.save();
+			if (Object.prototype.hasOwnProperty.call(members, i)) {
+				members[i].Player.addMoney(moneyWon);
+				await members[i].Player.save();
+			}
 		}
 		embed.setDescription(format(translations.money, {
 			money: moneyWon,
@@ -143,10 +149,12 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	if (rewardType === REWARD_TYPES.BADGE) {
 		let membersThatOwnTheBadge = 0;
 		for (const i in members) {
-			if (!members[i].Player.addBadge("💎")) {
-				membersThatOwnTheBadge++;
+			if (Object.prototype.hasOwnProperty.call(members, i)) {
+				if (!members[i].Player.addBadge("💎")) {
+					membersThatOwnTheBadge++;
+				}
+				await members[i].Player.save();
 			}
-			await members[i].Player.save();
 		}
 		if (membersThatOwnTheBadge !== members.length) {
 			embed.setDescription(translations.badge);
@@ -159,10 +167,12 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.FULL_HEAL) {
 		for (const i in members) {
-			if (members[i].Player.effect !== EFFECT.DEAD) {
-				await members[i].addHealth(members[i].maxHealth);
+			if (Object.prototype.hasOwnProperty.call(members, i)) {
+				if (members[i].Player.effect !== EFFECT.DEAD) {
+					await members[i].addHealth(members[i].maxHealth);
+				}
+				await members[i].save();
 			}
-			await members[i].save();
 		}
 		embed.setDescription(translations.fullHeal);
 		log("GuildDaily of guild " + guild.name + ": got full heal");
@@ -170,9 +180,10 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.HOSPITAL) {
 		for (const i in members) {
-			Maps.advanceTime(members[i].Player, Math.round(guild.level / 20) * 60);
-
-			await members[i].Player.save();
+			if (Object.prototype.hasOwnProperty.call(members, i)) {
+				Maps.advanceTime(members[i].Player, Math.round(guild.level / 20) * 60);
+				await members[i].Player.save();
+			}
 		}
 		embed.setDescription(format(translations.hospital, {
 			timeMoved: Math.round(guild.level / 20),
@@ -182,10 +193,12 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.PARTIAL_HEAL) {
 		for (const i in members) {
-			if (members[i].Player.effect !== EFFECT.DEAD) {
-				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier));
+			if (Object.prototype.hasOwnProperty.call(members, i)) {
+				if (members[i].Player.effect !== EFFECT.DEAD) {
+					await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier));
+				}
+				await members[i].save();
 			}
-			await members[i].save();
 		}
 		embed.setDescription(format(translations.partialHeal, {
 			healthWon: Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier),
@@ -195,12 +208,14 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 
 	if (rewardType === REWARD_TYPES.ALTERATION) {
 		for (const i in members) {
-			if (members[i].Player.currentEffectFinished()) {
-				await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier));
-				await members[i].save();
-			} else if (members[i].Player.effect !== EFFECT.DEAD && members[i].Player.effect !== EFFECT.LOCKED) {
-				await require("../../core/Maps").removeEffect(members[i].Player);
-				await members[i].Player.save();
+			if (Object.prototype.hasOwnProperty.call(members, i)) {
+				if (members[i].Player.currentEffectFinished()) {
+					await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier));
+					await members[i].save();
+				} else if (members[i].Player.effect !== EFFECT.DEAD && members[i].Player.effect !== EFFECT.LOCKED) {
+					await require("../../core/Maps").removeEffect(members[i].Player);
+					await members[i].Player.save();
+				}
 			}
 		}
 		embed.setDescription(format(translations.alterationHeal, {
@@ -257,10 +272,12 @@ function generateRandomProperty(guild) {
 	const rewardLevel = Math.floor(guild.level / 10);
 	const recompenses = JsonReader.commands.guildDaily.guildChances[rewardLevel];
 	for (const property in recompenses) {
-		if (recompenses[property] < resultNumber) {
-			resultNumber -= recompenses[property];
-		} else {
-			return property;
+		if (Object.prototype.hasOwnProperty.call(recompenses, property)) {
+			if (recompenses[property] < resultNumber) {
+				resultNumber -= recompenses[property];
+			} else {
+				return property;
+			}
 		}
 	}
 }

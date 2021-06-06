@@ -14,7 +14,7 @@ const PetSellCommand = async function (language, message, args) {
 
 	const translations = JsonReader.commands.petSell.getTranslation(language);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -27,7 +27,7 @@ const PetSellCommand = async function (language, message, args) {
 		guild = null;
 	}
 
-	if (guild == null) {
+	if (guild === null) {
 		// not in a guild
 		return sendErrorMessage(
 			message.author,
@@ -36,11 +36,11 @@ const PetSellCommand = async function (language, message, args) {
 			JsonReader.commands.guildAdd.getTranslation(language).notInAguild
 		);
 	}
-	if (!args[0]) return sendErrorMessage(message.author, message.channel, language, translations.needArgs);
+	if (!args[0]) {return sendErrorMessage(message.author, message.channel, language, translations.needArgs);}
 
 	petCost = parseInt(args[0], 10);
 
-	if (isNaN(petCost)) return sendErrorMessage(message.author, message.channel, language, translations.needNumber);
+	if (isNaN(petCost)) {return sendErrorMessage(message.author, message.channel, language, translations.needNumber);}
 
 	pet = entity.Player.Pet;
 	if (!pet) {
@@ -123,7 +123,7 @@ const PetSellCommand = async function (language, message, args) {
 				break;
 			}
 			[buyer] = await Entities.getOrRegister(user.id);
-			if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], buyer)) !== true) {
+			if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], buyer) !== true) {
 				buyer = null;
 				return;
 			}
@@ -148,14 +148,14 @@ const PetSellCommand = async function (language, message, args) {
 		collector.stop();
 	});
 
-	collector.on("end", async function () {
+	collector.on("end", function () {
 		if (sellInstance === undefined) {
 			global.removeBlockedPlayer(entity.discordUser_id);
-			if (buyer == null) {
+			if (buyer === null) {
 				sendErrorMessage(message.author, message.channel, language, translations.errors.noOneAvailable);
 			}
 		}
-		if (sellInstance == null) {
+		if (sellInstance === null) {
 			global.removeBlockedPlayer(entity.discordUser_id);
 		}
 	});
@@ -177,7 +177,7 @@ async function petSell(message, language, entity, user, pet, petCost) {
 		.setDescription(
 			format(translations.confirmEmbed.description, {
 				emote: await PetEntities.getPetEmote(pet),
-				pet: (await pet.nickname) ? pet.nickname : PetEntities.getPetTypeName(pet, language),
+				pet: await pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language),
 				price: petCost,
 			})
 		);
@@ -215,7 +215,7 @@ async function petSell(message, language, entity, user, pet, petCost) {
 			if (buyerPet) {
 				return sendErrorMessage(user, message.channel, language, translations.havePet);
 			}
-			if (petCost > buyer.Player.money) return sendErrorMessage(user, message.channel, language, translations.noMoney);
+			if (petCost > buyer.Player.money) {return sendErrorMessage(user, message.channel, language, translations.noMoney);}
 			const MIN_XP = Math.floor(petCost / (1000 / 50));
 			const MAX_XP = Math.floor(petCost / (1000 / 450));
 			const toAdd = Math.floor(randInt(MIN_XP, MAX_XP));

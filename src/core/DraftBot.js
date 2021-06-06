@@ -73,7 +73,7 @@ class DraftBot {
 	/**
 	 * Daily timeout actions
 	 */
-	static async dailyTimeout() {
+	static dailyTimeout() {
 		DraftBot.randomPotion();
 		DraftBot.randomLovePointsLoose();
 		DraftBot.programDailyTimeout();
@@ -305,13 +305,13 @@ class DraftBot {
 						""
 					) +
 					"\n",
-					new (function (err) {
+					new function (err) {
 						if (err !== undefined) {
 							originalConsoleError(
 								"Error while writing in log file: " + err
 							);
 						}
-					})()
+					}()
 				);
 				global.currLogsCount++;
 				if (global.currLogsCount > LOGS.LOG_COUNT_LINE_LIMIT) {

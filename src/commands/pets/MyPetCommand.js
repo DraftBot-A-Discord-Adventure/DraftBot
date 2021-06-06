@@ -11,13 +11,13 @@ const MyPetCommand = async function (language, message, args) {
 	}
 
 	if (
-		(await canPerformCommand(
+		await canPerformCommand(
 			message,
 			language,
 			PERMISSION.ROLE.ALL,
 			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 			entity
-		)) !== true
+		) !== true
 	) {
 		return;
 	}

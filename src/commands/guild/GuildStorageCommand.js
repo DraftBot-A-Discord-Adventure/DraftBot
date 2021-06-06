@@ -8,13 +8,13 @@ const GuildStorageCommand = async (language, message) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (
-		(await canPerformCommand(
+		await canPerformCommand(
 			message,
 			language,
 			PERMISSION.ROLE.ALL,
 			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 			entity
-		)) !== true
+		) !== true
 	) {
 		return;
 	}
@@ -32,7 +32,7 @@ const GuildStorageCommand = async (language, message) => {
 		guild = null;
 	}
 
-	if (guild == null) {
+	if (guild === null) {
 		// not in a guild
 		return sendErrorMessage(
 			message.author,

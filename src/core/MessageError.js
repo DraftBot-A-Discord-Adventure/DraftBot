@@ -46,7 +46,7 @@ class MessageError {
 		}
 
 		// Check disallowEffects on entity
-		if (disallowEffects == null) {
+		if (disallowEffects === null) {
 			return true;
 		}
 		const disallowEffect = disallowEffects.indexOf(entity.Player.effect);
@@ -60,7 +60,7 @@ class MessageError {
 			}
 		}
 
-		if (minimalLevel != null) {
+		if (minimalLevel !== null) {
 			if (entity.Player.level < minimalLevel) {
 				return await sendErrorMessage(
 					message.author,

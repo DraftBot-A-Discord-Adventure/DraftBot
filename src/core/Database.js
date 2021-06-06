@@ -136,7 +136,7 @@ class Database {
 	/**
 	 * @return {Promise<void>}
 	 */
-	static async setAssociations() {
+	static setAssociations() {
 		Entities.hasOne(Players, {
 			foreignKey: "entity_id",
 			as: "Player",
@@ -255,7 +255,7 @@ class Database {
 				if (fileContent.translations) {
 					if (
 						fileContent.translations.en &&
-						typeof fileContent.translations.fr == "string"
+						typeof fileContent.translations.fr === "string"
 					) {
 						fileContent.fr = fileContent.translations.fr;
 						fileContent.en = fileContent.translations.en;
@@ -291,7 +291,7 @@ class Database {
 
 			fileContent.id = fileName;
 
-			if (!Database.isEventValid(fileContent)) continue;
+			if (!Database.isEventValid(fileContent)) {continue;}
 
 			if (fileContent.map_location_ids) {
 				for (const mapLocationsId of fileContent.map_location_ids) {
@@ -541,7 +541,7 @@ class Database {
 	/**
 	 * @return {Promise<void>}
 	 */
-	static async setEverybodyAsUnOccupied() {
+	static setEverybodyAsUnOccupied() {
 		Entities.update(
 			{
 				effect: EFFECT.SMILEY,

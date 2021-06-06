@@ -6,7 +6,7 @@
  */
 
 const listItemsCommand = async function (language, message) {
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.BOT_OWNER)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 	const fs = require("fs");

@@ -23,7 +23,7 @@ class Command {
 		for (let folder of folders) {
 			const commandsFiles = await fs.promises.readdir(folder);
 			for (const commandFile of commandsFiles) {
-				if (!commandFile.endsWith(".js")) continue;
+				if (!commandFile.endsWith(".js")) {continue;}
 				folder = folder.replace("src/", "");
 				const commandName = commandFile.split(".")[0];
 
@@ -51,7 +51,7 @@ class Command {
 	 * @returns {String} The command
 	 */
 	static getMainCommandFromAlias(alias) {
-		if (Command.aliases.has(alias)) return Command.aliases.get(alias);
+		if (Command.aliases.has(alias)) {return Command.aliases.get(alias);}
 		return alias;
 	}
 
@@ -240,7 +240,7 @@ class Command {
 			max: 1,
 		});
 
-		collector.on("collect", async (reaction) => {
+		collector.on("collect", (reaction) => {
 			const language =
 				reaction.emoji.name === MENU_REACTION.ENGLISH_FLAG ? LANGUAGE.ENGLISH : LANGUAGE.FRENCH;
 			sendSimpleMessage(

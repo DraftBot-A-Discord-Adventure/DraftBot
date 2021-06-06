@@ -187,7 +187,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
 	 */
-	Guilds.prototype.levelUpIfNeeded = async function (channel, language) {
+	Guilds.prototype.levelUpIfNeeded = function (channel, language) {
 		if (!this.needLevelUp()) {
 			return;
 		}
@@ -222,7 +222,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {boolean}
 	 */
 	Guilds.isPetShelterFull = (guild) => {
-		if (!guild.GuildPets) return true;
+		if (!guild.GuildPets) {return true;}
 		return guild.GuildPets.length >= JsonReader.models.pets.slots;
 	};
 

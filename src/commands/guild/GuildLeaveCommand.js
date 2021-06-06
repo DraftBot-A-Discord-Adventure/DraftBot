@@ -12,7 +12,7 @@ const GuildLeaveCommand = async (language, message) => {
 
 	[entity] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -26,7 +26,7 @@ const GuildLeaveCommand = async (language, message) => {
 		guild = null;
 	}
 
-	if (guild == null) {
+	if (guild === null) {
 		// not in a guild
 		return sendErrorMessage(
 			message.author,
@@ -78,11 +78,11 @@ const GuildLeaveCommand = async (language, message) => {
 	});
 
 	await addBlockedPlayer(entity.discordUser_id, "guildLeave", collector);
-	if (elder) addBlockedPlayer(elder.discordUser_id, "chiefGuildLeave", collector);
+	if (elder) {addBlockedPlayer(elder.discordUser_id, "chiefGuildLeave", collector);}
 
 	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
-		if (elder) removeBlockedPlayer(elder.discordUser_id);
+		if (elder) {removeBlockedPlayer(elder.discordUser_id);}
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {

@@ -17,13 +17,13 @@ const GuildDescriptionCommand = async (language, message, args) => {
 	guild = await Guilds.getById(entity.Player.guild_id);
 
 	if (
-		(await canPerformCommand(
+		await canPerformCommand(
 			message,
 			language,
 			PERMISSION.ROLE.ALL,
 			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 			entity
-		)) !== true
+		) !== true
 	) {
 		return;
 	}
@@ -32,7 +32,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 		return;
 	}
 
-	if (guild == null) {
+	if (guild === null) {
 		// not in a guild
 		return sendErrorMessage(
 			message.author,
@@ -55,7 +55,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 		);
 	}
 
-	if ((entity.id !== guild.chief_id) && (entity.id !== guild.elder_id)) {
+	if (entity.id !== guild.chief_id && entity.id !== guild.elder_id) {
 		//not the chief
 		return sendErrorMessage(
 			message.author,
@@ -147,7 +147,7 @@ const GuildDescriptionCommand = async (language, message, args) => {
 				} catch (error) {
 					guild = null;
 				}
-				if (guild == null) {
+				if (guild === null) {
 					// guild is destroy
 					return sendErrorMessage(
 						message.author,

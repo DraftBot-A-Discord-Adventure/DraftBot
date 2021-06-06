@@ -14,7 +14,7 @@ const GuildAddCommand = async (language, message, args) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true)
-		return;
+	{return;}
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
@@ -26,7 +26,7 @@ const GuildAddCommand = async (language, message, args) => {
 		invitedEntity = null;
 	}
 
-	if (invitedEntity == null) {
+	if (invitedEntity === null) {
 		// no user provided
 		return sendErrorMessage(
 			message.author,
@@ -72,7 +72,7 @@ const GuildAddCommand = async (language, message, args) => {
 		guild = null;
 	}
 
-	if (guild == null) {
+	if (guild === null) {
 		// not in a guild
 		return sendErrorMessage(
 			message.author,
@@ -82,7 +82,7 @@ const GuildAddCommand = async (language, message, args) => {
 		);
 	}
 
-	if ((entity.id !== guild.chief_id) && (entity.id !== guild.elder_id)) {
+	if (entity.id !== guild.chief_id && entity.id !== guild.elder_id) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -98,7 +98,7 @@ const GuildAddCommand = async (language, message, args) => {
 		invitedGuild = null;
 	}
 
-	if (invitedGuild != null) {
+	if (invitedGuild !== null) {
 		// already in a guild
 		return sendErrorMessage(
 			message.author,
@@ -162,7 +162,7 @@ const GuildAddCommand = async (language, message, args) => {
 				} catch (error) {
 					guild = null;
 				}
-				if (guild == null) {
+				if (guild === null) {
 					// guild is destroy
 					return sendErrorMessage(
 						message.mentions.users.last(),

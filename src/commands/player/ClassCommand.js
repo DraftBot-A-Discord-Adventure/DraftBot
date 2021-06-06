@@ -7,7 +7,7 @@
 async function ClassCommand(language, message) {
 	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, CLASS.REQUIRED_LEVEL)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, CLASS.REQUIRED_LEVEL) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -45,7 +45,7 @@ async function ClassCommand(language, message) {
 	const classMessage = await message.channel.send(embedClassMessage);
 
 	const filterConfirm = (reaction, user) => {
-		return (user.id === entity.discordUser_id && reaction.me);
+		return user.id === entity.discordUser_id && reaction.me;
 	};
 
 	const collector = classMessage.createReactionCollector(filterConfirm, { time: COLLECTOR_TIME, max: 1 });
@@ -104,7 +104,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 
 	const confirmMessage = await message.channel.send(confirmEmbed);
 	const filterConfirm = (reaction, user) => {
-		return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUser_id);
+		return (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUser_id;
 	};
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
@@ -132,7 +132,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 				entity.Player.class = selectedClass.id;
 				const newClass = await Classes.getById(entity.Player.class);
 				await entity.setHealth(Math.round(
-					(entity.health / await playerClass.getMaxHealthValue(entity.Player.level)) * await newClass.getMaxHealthValue(entity.Player.level)));
+					entity.health / await playerClass.getMaxHealthValue(entity.Player.level) * await newClass.getMaxHealthValue(entity.Player.level)));
 				entity.Player.addMoney(-selectedClass.price);
 				await Promise.all([
 					entity.save(),

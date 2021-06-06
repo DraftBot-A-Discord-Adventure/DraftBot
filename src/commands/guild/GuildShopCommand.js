@@ -7,7 +7,7 @@
 async function GuildShopCommand(language, message) {
 	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -181,8 +181,8 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 	const quantityPosibilities = new Map()
 		.set(QUANTITY.ONE, 1)
 		.set(QUANTITY.FIVE, 5);
-	if ((selectedItem.type !== "ultimateFood"))
-		quantityPosibilities.set(QUANTITY.TEN, 10);
+	if (selectedItem.type !== "ultimateFood")
+	{quantityPosibilities.set(QUANTITY.TEN, 10);}
 
 	const confirmEmbed = new discord.MessageEmbed()
 		.setColor(JsonReader.bot.embed.default)
@@ -193,8 +193,8 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 			author.displayAvatarURL()
 		);
 	if (selectedItem.type === "ultimateFood")
-		confirmEmbed.setDescription(
-			"\n\u200b\n" +
+	{confirmEmbed.setDescription(
+		"\n\u200b\n" +
 			format(
 				JsonReader.commands.guildShop.getTranslation(language)
 					.confirmEmbedFieldForUltimateFood,
@@ -214,10 +214,10 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 			) +
 			JsonReader.commands.guildShop.getTranslation(language)
 				.selectQuantityWarning
-		);
+	);}
 	else
-		confirmEmbed.setDescription(
-			"\n\u200b\n" +
+	{confirmEmbed.setDescription(
+		"\n\u200b\n" +
 			format(
 				JsonReader.commands.guildShop.getTranslation(language)
 					.confirmEmbedField,
@@ -238,7 +238,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 			) +
 			JsonReader.commands.guildShop.getTranslation(language)
 				.selectQuantityWarning
-		);
+	);}
 
 	const confirmMessage = await message.channel.send(confirmEmbed);
 
@@ -294,18 +294,18 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 		);
 	});
 	if (selectedItem.type === "ultimateFood")
-		await Promise.all([
-			confirmMessage.react(QUANTITY.ONE),
-			confirmMessage.react(QUANTITY.FIVE),
-			confirmMessage.react(MENU_REACTION.DENY),
-		]);
+	{await Promise.all([
+		confirmMessage.react(QUANTITY.ONE),
+		confirmMessage.react(QUANTITY.FIVE),
+		confirmMessage.react(MENU_REACTION.DENY),
+	]);}
 	else
-		await Promise.all([
-			confirmMessage.react(QUANTITY.ONE),
-			confirmMessage.react(QUANTITY.FIVE),
-			confirmMessage.react(QUANTITY.TEN),
-			confirmMessage.react(MENU_REACTION.DENY),
-		]);
+	{await Promise.all([
+		confirmMessage.react(QUANTITY.ONE),
+		confirmMessage.react(QUANTITY.FIVE),
+		confirmMessage.react(QUANTITY.TEN),
+		confirmMessage.react(MENU_REACTION.DENY),
+	]);}
 }
 
 /**
@@ -328,15 +328,15 @@ async function purchaseXp(message, language, entity, customer, selectedItem) {
 
 	if (selectedItem.name === shopTranslations.permanentItems.guildXp.name) {
 		if (
-			!(await giveGuildXp(
+			!await giveGuildXp(
 				message,
 				language,
 				entity,
 				customer,
 				selectedItem
-			))
+			)
 		)
-			return; //if no guild, no need to proceed
+		{return;} //if no guild, no need to proceed
 	}
 	entity.Player.addMoney(-selectedItem.price); //Remove money
 
@@ -405,7 +405,7 @@ async function confirmXpPurchase(
 
 	addBlockedPlayer(entity.discordUser_id, "guildShop", collector);
 
-	collector.on("end", async (reaction) => {
+	collector.on("end", (reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		//confirmMessage.delete(); for now we'll keep the messages
 		if (reaction.first()) {
@@ -508,28 +508,28 @@ const giveFood = async (
 		author.displayAvatarURL()
 	);
 	if (quantity === 1)
-		successEmbed.setDescription(
-			format(
-				JsonReader.commands.guildShop.getTranslation(language)
-					.singleSuccessAddFoodDesc,
-				{
-					emote: selectedItem.emote,
-					quantity: quantity,
-					name: selectedItem.translations[language].name
-						.slice(2, -2)
-						.toLowerCase(),
-				}
-			)
-		);
+	{successEmbed.setDescription(
+		format(
+			JsonReader.commands.guildShop.getTranslation(language)
+				.singleSuccessAddFoodDesc,
+			{
+				emote: selectedItem.emote,
+				quantity: quantity,
+				name: selectedItem.translations[language].name
+					.slice(2, -2)
+					.toLowerCase(),
+			}
+		)
+	);}
 	else
-		successEmbed.setDescription(
-			format(
-				JsonReader.commands.guildShop.getTranslation(language)
-					.multipleSuccessAddFoodDesc,
-				{
-					emote: selectedItem.emote,
-					quantity: quantity,
-					name:
+	{successEmbed.setDescription(
+		format(
+			JsonReader.commands.guildShop.getTranslation(language)
+				.multipleSuccessAddFoodDesc,
+			{
+				emote: selectedItem.emote,
+				quantity: quantity,
+				name:
 						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
 							.slice(2, -2)
 							.toLowerCase()
@@ -547,9 +547,9 @@ const giveFood = async (
 							: selectedItem.translations[language].name
 								.slice(2, -2)
 								.toLowerCase(),
-				}
-			)
-		);
+			}
+		)
+	);}
 
 	return message.channel.send(successEmbed);
 };

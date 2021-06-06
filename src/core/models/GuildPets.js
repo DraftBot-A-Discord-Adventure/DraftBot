@@ -42,7 +42,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param pet_entity_id
 	 * @returns {Promise<GuildPets>}
 	 */
-	GuildPets.addPet = async (guild_id, pet_entity_id) => {
+	GuildPets.addPet = (guild_id, pet_entity_id) => {
 		return GuildPets.build({guild_id: guild_id, pet_entity_id: pet_entity_id});
 	};
 

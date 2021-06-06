@@ -8,7 +8,7 @@ const Maps = require("../../core/Maps");
 async function ShopCommand(language, message) {
 	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -252,15 +252,15 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
 			selectedItem.name === shopTranslations.permanentItems.guildXp.name
 		) {
 			if (
-				!(await giveGuildXp(
+				!await giveGuildXp(
 					message,
 					language,
 					entity,
 					customer,
 					selectedItem
-				))
+				)
 			)
-				return; //if no guild, no need to proceed
+			{return;} //if no guild, no need to proceed
 		}
 		entity.Player.addMoney(-selectedItem.price); //Remove money
 	} else {
@@ -329,7 +329,7 @@ async function confirmPurchase(
 		max: 1,
 	});
 
-	collector.on("end", async (reaction) => {
+	collector.on("end", (reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
@@ -456,21 +456,21 @@ function giveMoneyMouthBadge(
 				.alreadyHasItem
 		);
 		return false;
-	} else {
-		entity.Player.addBadge("🤑"); //Give badge
-		message.channel.send(
-			new discord.MessageEmbed()
-				.setColor(JsonReader.bot.embed.default)
-				.setAuthor(
-					format(selectedItem.give, {
-						pseudo: customer.username,
-					}),
-					customer.displayAvatarURL()
-				)
-				.setDescription("\n\n" + selectedItem.name)
-		);
-		return true;
-	}
+	} 
+	entity.Player.addBadge("🤑"); //Give badge
+	message.channel.send(
+		new discord.MessageEmbed()
+			.setColor(JsonReader.bot.embed.default)
+			.setAuthor(
+				format(selectedItem.give, {
+					pseudo: customer.username,
+				}),
+				customer.displayAvatarURL()
+			)
+			.setDescription("\n\n" + selectedItem.name)
+	);
+	return true;
+	
 }
 
 module.exports = {

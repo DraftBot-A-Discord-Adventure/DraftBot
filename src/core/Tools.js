@@ -51,7 +51,7 @@ global.sendErrorMessage = (user, channel, language, reason, isCancelling = false
  * @param {module:"discord.js".color} color - Color of the DM
  * @param {("fr"|"en")} language - Language to use in the response
  */
-global.sendDirectMessage = async (user, title, description, color, language) => {
+global.sendDirectMessage = (user, title, description, color, language) => {
 	try {
 		const embed = new discord.MessageEmbed();
 		embed.setColor(color)
@@ -185,57 +185,40 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 				)
 			)
 		);
-	} else {
-		await channel.send(receivedEmbed);
-		if (autoReplace) {
-			return await saveItem(item, entity);
-		}
+	} 
+	await channel.send(receivedEmbed);
+	if (autoReplace) {
+		return await saveItem(item, entity);
+	}
 
-		const msg = await channel.send(embed);
-		const filterConfirm = (reaction, user) => {
-			return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === discordUser.id);
-		};
+	const msg = await channel.send(embed);
+	const filterConfirm = (reaction, user) => {
+		return (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === discordUser.id;
+	};
 
-		const collector = msg.createReactionCollector(filterConfirm, {
-			time: COLLECTOR_TIME,
-			max: 1,
-		});
-		addBlockedPlayer(discordUser.id, "acceptItem", collector);
+	const collector = msg.createReactionCollector(filterConfirm, {
+		time: COLLECTOR_TIME,
+		max: 1,
+	});
+	addBlockedPlayer(discordUser.id, "acceptItem", collector);
 
-		collector.on("end", async (reaction) => {
-			removeBlockedPlayer(discordUser.id);
-			if (reaction.first()) { // a reaction exist
-				// msg.delete(); for now we are going to keep the message
-				if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-					const menuEmbed = new discord.MessageEmbed();
-					menuEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
-						pseudo: discordUser.username,
-					}), discordUser.displayAvatarURL())
-						.setDescription(item.toString(language));
+	collector.on("end", async (reaction) => {
+		removeBlockedPlayer(discordUser.id);
+		if (reaction.first()) { // a reaction exist
+			// msg.delete(); for now we are going to keep the message
+			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+				const menuEmbed = new discord.MessageEmbed();
+				menuEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
+					pseudo: discordUser.username,
+				}), discordUser.displayAvatarURL())
+					.setDescription(item.toString(language));
 
-					let oldItem = await saveItem(item, entity);
-					await channel.send(menuEmbed);
-					item = oldItem;
-					resaleMultiplier = resaleMultiplieActual;
-				}
-				if (item instanceof Potions) {
-					return await channel.send(
-						new discord.MessageEmbed().setAuthor(
-							format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
-								{
-									pseudo: discordUser.username,
-								},
-							), discordUser.displayAvatarURL()
-						).setDescription(
-							format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
-								{
-									item: item.getName(language)
-								}
-							)
-						)
-					); // potion are not sold (because of exploits and because of logic)
-				}
-			} else if (item instanceof Potions) {
+				let oldItem = await saveItem(item, entity);
+				await channel.send(menuEmbed);
+				item = oldItem;
+				resaleMultiplier = resaleMultiplieActual;
+			}
+			if (item instanceof Potions) {
 				return await channel.send(
 					new discord.MessageEmbed().setAuthor(
 						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
@@ -252,31 +235,48 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 					)
 				); // potion are not sold (because of exploits and because of logic)
 			}
-			const money = Math.round(getItemValue(item) * resaleMultiplier);
-			entity.Player.addMoney(money);
-			await entity.Player.save();
+		} else if (item instanceof Potions) {
 			return await channel.send(
 				new discord.MessageEmbed().setAuthor(
-					format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
+					format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
 						{
 							pseudo: discordUser.username,
 						},
 					), discordUser.displayAvatarURL()
 				).setDescription(
-					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+					format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
 						{
-							item: item.getName(language),
-							money: money
+							item: item.getName(language)
 						}
 					)
 				)
-			);
-		});
-		await Promise.all([
-			msg.react(MENU_REACTION.ACCEPT),
-			msg.react(MENU_REACTION.DENY),
-		]);
-	}
+			); // potion are not sold (because of exploits and because of logic)
+		}
+		const money = Math.round(getItemValue(item) * resaleMultiplier);
+		entity.Player.addMoney(money);
+		await entity.Player.save();
+		return await channel.send(
+			new discord.MessageEmbed().setAuthor(
+				format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
+					{
+						pseudo: discordUser.username,
+					},
+				), discordUser.displayAvatarURL()
+			).setDescription(
+				format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+					{
+						item: item.getName(language),
+						money: money
+					}
+				)
+			)
+		);
+	});
+	await Promise.all([
+		msg.react(MENU_REACTION.ACCEPT),
+		msg.react(MENU_REACTION.DENY),
+	]);
+	
 };
 
 /**
@@ -391,14 +391,14 @@ global.format = (string, replacement) => {
 		if (string[index - 1] === "{" &&
 			string[index + match.length] === "}") {
 			return i;
-		} else {
-			result = Object.prototype.hasOwnProperty.call(replacement, i) ? replacement[i] : null;
-			if (result === null || result === undefined) {
-				return "";
-			}
-
-			return result;
+		} 
+		result = Object.prototype.hasOwnProperty.call(replacement, i) ? replacement[i] : null;
+		if (result === null || result === undefined) {
+			return "";
 		}
+
+		return result;
+		
 	});
 };
 
@@ -426,7 +426,7 @@ global.progressBar = (value, maxValue) => {
 	if (percentage > 1) {
 		percentage = 1;
 	}
-	const progress = Math.round((PROGRESSBARS_SIZE * percentage)); // Calculate the number of square caracters to fill the progress side.
+	const progress = Math.round(PROGRESSBARS_SIZE * percentage); // Calculate the number of square caracters to fill the progress side.
 	const emptyProgress = PROGRESSBARS_SIZE - progress; // Calculate the number of dash caracters to fill the empty progress side.
 
 	const progressText = "▇".repeat(progress); // Repeat is creating a string with progress * caracters in it
@@ -479,7 +479,7 @@ global.sendBlockedError = async function (user, channel, language) {
 global.getNextSundayMidnight = function () {
 	let now = new Date();
 	let dateOfReset = new Date();
-	dateOfReset.setDate(now.getDate() + ((7 - now.getDay())) % 7);
+	dateOfReset.setDate(now.getDate() + (7 - now.getDay()) % 7);
 	dateOfReset.setHours(23, 59, 59);
 	while (dateOfReset < now) {
 		dateOfReset += 1000 * 60 * 60 * 24 * 7;
@@ -537,9 +537,9 @@ global.resetIsNow = function () {
 global.getValidationInfos = function (guild) {
 	let humans = guild.members.cache.filter(member => !member.user.bot).size;
 	let bots = guild.members.cache.filter(member => member.user.bot).size;
-	let ratio = Math.round((bots / humans) * 100);
+	let ratio = Math.round(bots / humans * 100);
 	let validation = ":white_check_mark:";
-	if (ratio > 30 || humans < 30 || (humans < 100 && ratio > 20)) {
+	if (ratio > 30 || humans < 30 || humans < 100 && ratio > 20) {
 		validation = ":x:";
 	} else {
 		if (ratio > 20 || bots > 15 || humans < 100) {

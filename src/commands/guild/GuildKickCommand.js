@@ -20,7 +20,7 @@ const GuildKickCommand = async (language, message, args) => {
 	}
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true)
-		return;
+	{return;}
 
 
 	if (await sendBlockedError(message.author, message.channel, language)) {

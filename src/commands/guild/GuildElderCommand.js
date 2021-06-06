@@ -14,7 +14,7 @@ const GuildElderCommand = async (language, message, args) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true)
-		return;
+	{return;}
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
@@ -27,7 +27,7 @@ const GuildElderCommand = async (language, message, args) => {
 		guild = null;
 	}
 
-	if (guild == null) {
+	if (guild === null) {
 		// not in a guild
 		return sendErrorMessage(
 			message.author,
@@ -43,7 +43,7 @@ const GuildElderCommand = async (language, message, args) => {
 		elderEntity = null;
 	}
 
-	if (elderEntity == null) {
+	if (elderEntity === null) {
 		// no user provided
 		return sendErrorMessage(
 			message.author,
@@ -71,7 +71,7 @@ const GuildElderCommand = async (language, message, args) => {
 		elderGuild = null;
 	}
 
-	if (elderGuild == null || elderEntity == null || elderGuild.id !== guild.id) {
+	if (elderGuild === null || elderEntity === null || elderGuild.id !== guild.id) {
 		// elder is not in guild
 		return sendErrorMessage(
 			message.author,
@@ -146,7 +146,7 @@ const GuildElderCommand = async (language, message, args) => {
 					elderGuild = null;
 				}
 
-				if (elderGuild == null || elderEntity == null || elderGuild.id !== guild.id) {
+				if (elderGuild === null || elderEntity === null || elderGuild.id !== guild.id) {
 					// elder is not in guild
 					return sendErrorMessage(
 						message.author,
@@ -161,7 +161,7 @@ const GuildElderCommand = async (language, message, args) => {
 				} catch (error) {
 					guild = null;
 				}
-				if (guild == null) {
+				if (guild === null) {
 					// guild is destroy
 					return sendErrorMessage(
 						message.author,

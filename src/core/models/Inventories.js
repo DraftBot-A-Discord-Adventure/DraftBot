@@ -88,7 +88,7 @@ module.exports = (Sequelize, DataTypes) => {
 		// generate a random item
 		const rarity = generateRandomRarity(rarityMax);
 		if (!itemType)
-			itemType = generateRandomItemType();
+		{itemType = generateRandomItemType();}
 		const query = `SELECT id
                    FROM :itemType
                    WHERE rarity = :rarity`;
@@ -137,8 +137,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {number} potionType
 	 * @returns {Potions} generated potion
 	 */
-	Inventories.prototype.generateRandomPotion = async function (potionType = null, rarityMax = 8) {
-		if (!potionType) return this.generateRandomItem(rarityMax, ITEMTYPE.POTION);
+	Inventories.prototype.generateRandomPotion = function (potionType = null, rarityMax = 8) {
+		if (!potionType) {return this.generateRandomItem(rarityMax, ITEMTYPE.POTION);}
 		// generate a random potion
 		const rarity = generateRandomRarity(rarityMax);
 		return Potions.findOne({
@@ -156,8 +156,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {number} objectType
 	 * @returns {Potions} generated potion
 	 */
-	Inventories.prototype.generateRandomObject = async function (objectType = null, rarityMax = 8) {
-		if (!objectType) return this.generateRandomItem(rarityMax, ITEMTYPE.POTION);
+	Inventories.prototype.generateRandomObject = function (objectType = null, rarityMax = 8) {
+		if (!objectType) {return this.generateRandomItem(rarityMax, ITEMTYPE.POTION);}
 		// generate a random potion
 		const rarity = generateRandomRarity(rarityMax);
 		return Objects.findOne({

@@ -4,13 +4,13 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function rarityCommand(language, message) {
+function rarityCommand(language, message) {
 	const maxValue = JsonReader.values.raritiesGenerator.maxValue;
 	const raritiesGenerator = JsonReader.values.raritiesGenerator;
 	const rarityEmbed = new discord.MessageEmbed()
 		.setDescription(format(JsonReader.commands.rarity.getTranslation(language).rarities,
 			{
-				pourcentage_common: (raritiesGenerator["0"] * 100) / maxValue,
+				pourcentage_common: raritiesGenerator["0"] * 100 / maxValue,
 				pourcentage_uncommon: (raritiesGenerator["1"] - raritiesGenerator["0"]) * 100 / maxValue,
 				pourcentage_exotic: (raritiesGenerator["2"] - raritiesGenerator["1"]) * 100 / maxValue,
 				pourcentage_rare: (raritiesGenerator["3"] - raritiesGenerator["2"]) * 100 / maxValue,

@@ -14,13 +14,13 @@ const GuildCommand = async (language, message, args) => {
 	}
 
 	if (
-		(await canPerformCommand(
+		await canPerformCommand(
 			message,
 			language,
 			PERMISSION.ROLE.ALL,
 			[EFFECT.BABY, EFFECT.DEAD],
 			entity
-		)) !== true
+		) !== true
 	) {
 		return;
 	}

@@ -5,7 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const giveBadgeCommand = async function (language, message, args) {
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER) !== true) {
 		return;
 	}
 	const embed = new discord.MessageEmbed();

@@ -7,7 +7,7 @@
 const SellCommand = async (language, message) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
 	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -32,7 +32,7 @@ const SellCommand = async (language, message) => {
 	const sellMessage = await message.channel.send(embed);
 
 	const filter = (reaction, user) => {
-		return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id);
+		return (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id;
 	};
 
 	const collector = sellMessage.createReactionCollector(filter, {

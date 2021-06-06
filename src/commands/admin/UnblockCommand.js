@@ -5,8 +5,8 @@
  */
 
 const UnblockCommand = async function (language, message, args) {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER)) !== true) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 

@@ -59,10 +59,10 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language - The language the inventory has to be displayed in
 	 * @param {("active"|"backup")} slot
 	 */
-	Objects.prototype.toFieldObject = async function (language, slot) {
+	Objects.prototype.toFieldObject = function (language, slot) {
 		return {
 			name: JsonReader.items.getTranslation(language).objects[slot].fieldName,
-			value: (this.id === 0) ? this[language] : this.toString(language),
+			value: this.id === 0 ? this[language] : this.toString(language),
 		};
 	};
 
@@ -72,7 +72,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {String}
 	 */
 	Objects.prototype.toString = function (language) {
-		return (this.id === 0) ? this[language] : format(
+		return this.id === 0 ? this[language] : format(
 			JsonReader.items.getTranslation(language).objects.active.fieldValue, {
 				name: this[language],
 				rarity: this.getRarityTranslation(language),
@@ -106,11 +106,11 @@ module.exports = (Sequelize, DataTypes) => {
 			return format(
 				JsonReader.items.getTranslation(language).objects.natures[this.nature],
 				{power: minutesToString(this.power * 60)});
-		} else {
-			return format(
-				JsonReader.items.getTranslation(language).objects.natures[this.nature],
-				{power: this.power});
-		}
+		} 
+		return format(
+			JsonReader.items.getTranslation(language).objects.natures[this.nature],
+			{power: this.power});
+		
 	};
 
 	/**

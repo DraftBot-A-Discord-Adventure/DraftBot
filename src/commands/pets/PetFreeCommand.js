@@ -57,7 +57,7 @@ const PetFreeCommand = async function (language, message) {
 	const confirmMessage = await message.channel.send(confirmEmbed);
 
 	const filter = (reaction, user) => {
-		return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id);
+		return (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id;
 	};
 
 	const collector = confirmMessage.createReactionCollector(filter, {
@@ -90,7 +90,7 @@ const PetFreeCommand = async function (language, message) {
 					freedEmbed.setDescription(freedEmbed.description + "\n\n" + format(JsonReader.commands.petFree.getTranslation(language).wasFeisty, {}
 					));
 				}
-				if (guild != null && guild.carnivorousFood + 1 <= JsonReader.commands.guildShop.max.carnivorousFood && draftbotRandom.realZeroToOneInclusive() <= PETFREE.GIVE_MEAT_PROBABILITY && pPet.lovePoints > PETS.LOVE_LEVELS[0]) {
+				if (guild !== null && guild.carnivorousFood + 1 <= JsonReader.commands.guildShop.max.carnivorousFood && draftbotRandom.realZeroToOneInclusive() <= PETFREE.GIVE_MEAT_PROBABILITY && pPet.lovePoints > PETS.LOVE_LEVELS[0]) {
 					guild.carnivorousFood = guild.carnivorousFood + PETFREE.MEAT_GIVEN;
 					guild.save();
 					freedEmbed.setDescription(freedEmbed.description + "\n\n" + format(JsonReader.commands.petFree.getTranslation(language).giveMeat, {}));

@@ -220,7 +220,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String|string} language
 	 * @returns {Promise<String>}
 	 */
-	PetEntities.displayName = async (pet_entity, language) => {
+	PetEntities.displayName = (pet_entity, language) => {
 		let displayedName = pet_entity.nickname ? pet_entity.nickname : PetEntities.getPetTypeName(pet_entity, language);
 		return PetEntities.getPetEmote(pet_entity) + " " + displayedName;
 	};
@@ -270,7 +270,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Génère une entité de pet
 	 * @returns {Promise<PetEntities>}
 	 */
-	PetEntities.generateRandomPetEntityNotGuild = async () => {
+	PetEntities.generateRandomPetEntityNotGuild = () => {
 		return PetEntities.generateRandomPetEntity(PETS.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT);
 	};
 
