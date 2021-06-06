@@ -63,7 +63,7 @@ Only the code available in the "realease" tab is considered "stable".
 
 # Screenshots
 
-![](https://cdn.discordapp.com/attachments/456120666874183680/575235223776788480/tuto.PNG)
+![image](https://user-images.githubusercontent.com/56274541/120916573-ad599000-c6aa-11eb-9e6f-ccc804bc63b2.png)
 
 # Links
 
