@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetTradeCommand = async function (language, message, args) {
+const PetTradeCommand = async function (language, message) {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
@@ -72,7 +72,7 @@ const PetTradeCommand = async function (language, message, args) {
 	addBlockedPlayer(trader1.discordUser_id, "petTrade", collector);
 	addBlockedPlayer(trader2.discordUser_id, "petTrade", collector);
 
-	collector.on('remove', (reaction, user) => {
+	collector.on("remove", (reaction, user) => {
 		if (reaction.emoji.name === MENU_REACTION.ACCEPT) {
 			if (user.id === message.author.id) {
 				trader1Accepted = null;
@@ -82,7 +82,7 @@ const PetTradeCommand = async function (language, message, args) {
 		}
 	});
 
-	collector.on('collect', (reaction, user) => {
+	collector.on("collect", (reaction, user) => {
 		if (reaction.emoji.name === MENU_REACTION.ACCEPT) {
 			if (user.id === message.author.id) {
 				trader1Accepted = true;
@@ -102,7 +102,7 @@ const PetTradeCommand = async function (language, message, args) {
 		}
 	});
 
-	collector.on('end', async (reaction) => {
+	collector.on("end", async () => {
 		[trader1] = await Entities.getOrRegister(message.author.id);
 		[trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
 		pet1 = trader1.Player.Pet;
@@ -140,9 +140,9 @@ const PetTradeCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'pettrade',
+			name: "pettrade",
 			func: PetTradeCommand,
-			aliases: ['ptrade']
+			aliases: ["ptrade"]
 		}
 	]
 };

@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Classes = Sequelize.define('Classes', {
+	const Classes = Sequelize.define("Classes", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -45,20 +45,20 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 	}, {
-		tableName: 'classes',
+		tableName: "classes",
 		freezeTableName: true,
 	});
 
 	Classes.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**

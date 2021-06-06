@@ -181,10 +181,10 @@ const GuildAddCommand = async (language, message, args) => {
 				]);
 
 				embed.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
-						pseudo: message.mentions.users.last().username,
-						guildName: guild.name,
-					}),
-					message.mentions.users.last().displayAvatarURL()
+					pseudo: message.mentions.users.last().username,
+					guildName: guild.name,
+				}),
+				message.mentions.users.last().displayAvatarURL()
 				);
 				embed.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess);
 				return message.channel.send(embed);

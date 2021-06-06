@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function DmnotificationCommand(language, message, args) {
+async function DmnotificationCommand(language, message) {
 
 	let [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 	const translations = JsonReader.commands.dmNotification.getTranslation(language);
@@ -49,9 +49,9 @@ async function DmnotificationCommand(language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'dmnotification',
+			name: "dmnotification",
 			func: DmnotificationCommand,
-			aliases: ['dmn', 'notifs', 'dms', 'notif', 'dmnotifications']
+			aliases: ["dmn", "notifs", "dms", "notif", "dmnotifications"]
 		}
 	]
 };

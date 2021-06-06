@@ -9,7 +9,7 @@ const HelpCommand = async (language, message, args) => {
 	[server] = await Servers.getOrRegister(message.guild.id);
 	let helpMessage = JsonReader.commands.help.getTranslation(language).commands[
 		command
-		];
+	];
 
 	if (helpMessage === undefined) {
 		helpMessage = new discord.MessageEmbed();
@@ -121,8 +121,8 @@ const HelpCommand = async (language, message, args) => {
 		client.guilds.cache
 			.get(JsonReader.app.MAIN_SERVER_ID)
 			.members.cache.find(
-			(val) =>
-				val.id === message.author.id) === undefined && entity.Player.dmnotification
+				(val) =>
+					val.id === message.author.id) === undefined && entity.Player.dmnotification
 	) {
 		await sendDirectMessage(message.author, JsonReader.commands.help.getTranslation(language).mp.title, JsonReader.commands.help.getTranslation(language).mp.description, JsonReader.bot.embed.default, language);
 	}
@@ -135,7 +135,7 @@ module.exports = {
 		{
 			name: "help",
 			func: HelpCommand,
-			aliases: ['h']
+			aliases: ["h"]
 		},
 	],
 };

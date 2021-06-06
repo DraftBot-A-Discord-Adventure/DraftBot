@@ -73,28 +73,27 @@ class DraftBot {
 	/**
 	 * Daily timeout actions
 	 */
-		static async dailyTimeout() {
-            DraftBot.randomPotion();
-            DraftBot.randomLovePointsLoose();
-            DraftBot.programDailyTimeout();
+	static async dailyTimeout() {
+		DraftBot.randomPotion();
+		DraftBot.randomLovePointsLoose();
+		DraftBot.programDailyTimeout();
 	}
 
-    static async randomPotion() {
-        const sequelize = require("sequelize");
-				console.log("INFO: Daily timeout");
-				const shopPotion = await Shop.findOne({
-            attributes: ["shop_potion_id"],
-        });
-        const numberOfPotions = await Potions.count();
-        let potion;
-
-        potion = await Potions.findAll({
-            order: sequelize.literal('random()'),
-        });
-        let i = 0;
-        while (potion[i].id === shopPotion.shop_potion_id || potion[i].nature === NATURE.NONE || potion[i].rarity >= RARITY.LEGENDARY) {
-        i++;
-        } potion = potion[i];
+	static async randomPotion() {
+		const sequelize = require("sequelize");
+		console.log("INFO: Daily timeout");
+		const shopPotion = await Shop.findOne({
+			attributes: ["shop_potion_id"],
+		});
+		let potion;
+		
+		potion = await Potions.findAll({
+			order: sequelize.literal("random()"),
+		});
+		let i = 0;
+		while (potion[i].id === shopPotion.shop_potion_id || potion[i].nature === NATURE.NONE || potion[i].rarity >= RARITY.LEGENDARY) {
+			i++;
+		} potion = potion[i];
 
 		await Shop.update(
 			{
@@ -109,16 +108,16 @@ class DraftBot {
 			}
 		);
 		console.info(`INFO : new potion in shop : ${potion.id}`);
-    }
+	}
 
-    static async randomLovePointsLoose() {
-        const sequelize = require("sequelize");
-        if (draftbotRandom.bool()) {
+	static async randomLovePointsLoose() {
+		const sequelize = require("sequelize");
+		if (draftbotRandom.bool()) {
 			console.log("INFO: All pets lost 4 loves point");
 			await PetEntities.update(
 				{
 					lovePoints: sequelize.literal(
-						`CASE WHEN lovePoints - 1 < 0 THEN 0 ELSE lovePoints - 4 END`
+						"CASE WHEN lovePoints - 1 < 0 THEN 0 ELSE lovePoints - 4 END"
 					),
 				},
 				{
@@ -130,7 +129,7 @@ class DraftBot {
 				}
 			);
 		}
-    }
+	}
 	/**
 	 * Handle the top week reward and reset
 	 * @return {Promise<void>}
@@ -301,6 +300,7 @@ class DraftBot {
 					global.currLogsFile,
 					dateStr +
 					message.replace(
+						// eslint-disable-next-line no-control-regex
 						/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
 						""
 					) +
@@ -318,7 +318,8 @@ class DraftBot {
 					DraftBot.updateGlobalLogsFile(now);
 					global.currLogsCount = 0;
 				}
-			} catch {
+			} catch (e) {
+				console.error("Cannot write to log file: " + e);
 			}
 		};
 

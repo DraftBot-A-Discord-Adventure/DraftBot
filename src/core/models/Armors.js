@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Armors = Sequelize.define('Armors', {
+	const Armors = Sequelize.define("Armors", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -49,11 +49,11 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		french_masculine: {
 			type: DataTypes.INTEGER
@@ -62,13 +62,13 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.INTEGER
 		}
 	}, {
-		tableName: 'armors',
+		tableName: "armors",
 		freezeTableName: true,
 	});
 
 	Armors.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
@@ -174,7 +174,7 @@ module.exports = (Sequelize, DataTypes) => {
 				{speed: this.getSpeed()}));
 		}
 
-		return values.join(' ');
+		return values.join(" ");
 	};
 
 	return Armors;

@@ -62,7 +62,7 @@ const UnlockCommand = async (language, message, args) => {
 
 	addBlockedPlayer(entity.discordUser_id, "unlock", collector);
 
-	collector.on('end', async (reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUser_id);
 		if (reaction.first()) { // a reaction exist
 			[entity] = await Entities.getOrRegister(message.mentions.users.first().id); //released entity
@@ -79,9 +79,9 @@ const UnlockCommand = async (language, message, args) => {
 				log(entity.discordUser_id + " has been released by" + message.author.id);
 				const successEmbed = new discord.MessageEmbed();
 				successEmbed.setAuthor(format(JsonReader.commands.unlock.getTranslation(language).unlockedTitle, {
-						pseudo: await entity.Player.getPseudo(language),
-					}),
-					message.author.displayAvatarURL());
+					pseudo: await entity.Player.getPseudo(language),
+				}),
+				message.author.displayAvatarURL());
 				successEmbed.setDescription(format(JsonReader.commands.unlock.getTranslation(language).unlockSuccess, {
 					pseudo: await entity.Player.getPseudo(language),
 				}));
@@ -97,6 +97,7 @@ const UnlockCommand = async (language, message, args) => {
 			unlockMessage.react(MENU_REACTION.DENY),
 		]);
 	} catch (e) {
+		log("Error while reaction to unlock message: " + e);
 	}
 };
 
@@ -104,9 +105,9 @@ const UnlockCommand = async (language, message, args) => {
 module.exports = {
 	commands: [
 		{
-			name: 'unlock',
+			name: "unlock",
 			func: UnlockCommand,
-			aliases: ['bail', 'release']
+			aliases: ["bail", "release"]
 		}
 	]
 };

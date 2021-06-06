@@ -1,8 +1,8 @@
-require('colors');
-require('core/Constant');
-require('core/MessageError');
-require('core/Tools');
-const Draftbot = require('core/DraftBot');
+require("colors");
+require("core/Constant");
+require("core/MessageError");
+require("core/Tools");
+const Draftbot = require("core/DraftBot");
 
 (async (Drafbot) => {
 
@@ -13,7 +13,7 @@ const Draftbot = require('core/DraftBot');
 	 * @return {Promise<void>}
 	 */
 	const onDiscordReady = async () => {
-		(require('figlet'))(JsonReader.bot.reboot, (err, data) => {
+		(require("figlet"))(JsonReader.bot.reboot, (err, data) => {
 			console.log(data.red);
 			console.log(JsonReader.bot.br.grey);
 		});
@@ -29,7 +29,7 @@ const Draftbot = require('core/DraftBot');
 			.setActivity(JsonReader.bot.activity)
 			.catch(console.error);
 
-		await require('core/DBL').verifyDBLRoles();
+		await require("core/DBL").verifyDBLRoles();
 	};
 
 	/**
@@ -81,17 +81,17 @@ const Draftbot = require('core/DraftBot');
 	 */
 	const onDiscordMessage = async (message) => {
 		if (message.author.bot) return;
-		if (message.channel.type === 'dm') {
+		if (message.channel.type === "dm") {
 			await handlePrivateMessage(message);
 		} else {
 			await handleMessage(message);
 		}
 	};
 
-	client.on('ready', onDiscordReady);
-	client.on('guildCreate', onDiscordGuildCreate);
-	client.on('guildDelete', onDiscordGuildDelete);
-	client.on('message', onDiscordMessage);
+	client.on("ready", onDiscordReady);
+	client.on("guildCreate", onDiscordGuildCreate);
+	client.on("guildDelete", onDiscordGuildDelete);
+	client.on("message", onDiscordMessage);
 
 	await client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);
 })(Draftbot);

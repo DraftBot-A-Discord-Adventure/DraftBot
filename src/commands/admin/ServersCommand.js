@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ServersCommand = async (language, message, args) => {
+const ServersCommand = async (language, message) => {
 	if ((await canPerformCommand(message, language,
 		PERMISSION.ROLE.BOT_OWNER)) !== true) {
 		return;
@@ -33,14 +33,14 @@ const ServersCommand = async (language, message, args) => {
 	}
 
 	client.guilds.cache.forEach(logMapElements);
-	result += '\n' + format(JsonReader.bot.getTranslation(language).totalUsersCount, {count: total});
+	result += "\n" + format(JsonReader.bot.getTranslation(language).totalUsersCount, {count: total});
 	message.channel.send(result);
 };
 
 module.exports = {
 	commands: [
 		{
-			name: 'servs',
+			name: "servs",
 			func: ServersCommand
 		}
 	]

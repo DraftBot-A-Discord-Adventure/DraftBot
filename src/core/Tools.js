@@ -6,7 +6,7 @@ global.draftbotRandom = new (require("random-js")).Random();
  * @param {Number} id - The role/user id
  */
 global.idToMention = (id) => {
-	return '<@&' + id + '>';
+	return "<@&" + id + ">";
 };
 
 /**
@@ -35,7 +35,6 @@ global.sendMessageAttachments = (message, channel) => {
  */
 global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => {
 	const embed = new discord.MessageEmbed();
-	let test = isCancelling ? 1 : 0;
 	embed.setColor(JsonReader.bot.embed.error)
 		.setAuthor(format(JsonReader.error.getTranslation(language).title[isCancelling ? 1 : 0], {
 			pseudo: user.username,
@@ -203,7 +202,7 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		});
 		addBlockedPlayer(discordUser.id, "acceptItem", collector);
 
-		collector.on('end', async (reaction) => {
+		collector.on("end", async (reaction) => {
 			removeBlockedPlayer(discordUser.id);
 			if (reaction.first()) { // a reaction exist
 				// msg.delete(); for now we are going to keep the message
@@ -301,19 +300,19 @@ global.generateRandomRarity = (maxRarity = RARITY.MYTHICAL) => {
 	const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue -
 		(maxRarity === RARITY.MYTHICAL ? 0 : JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity - 1]));
 
-	if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
+	if (randomValue <= JsonReader.values.raritiesGenerator["0"]) {
 		return RARITY.COMMON;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['1']) {
+	} else if (randomValue <= JsonReader.values.raritiesGenerator["1"]) {
 		return RARITY.UNCOMMON;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['2']) {
+	} else if (randomValue <= JsonReader.values.raritiesGenerator["2"]) {
 		return RARITY.EXOTIC;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['3']) {
+	} else if (randomValue <= JsonReader.values.raritiesGenerator["3"]) {
 		return RARITY.RARE;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['4']) {
+	} else if (randomValue <= JsonReader.values.raritiesGenerator["4"]) {
 		return RARITY.SPECIAL;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['5']) {
+	} else if (randomValue <= JsonReader.values.raritiesGenerator["5"]) {
 		return RARITY.EPIC;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['6']) {
+	} else if (randomValue <= JsonReader.values.raritiesGenerator["6"]) {
 		return RARITY.LEGENDARY;
 	}
 	return RARITY.MYTHICAL;
@@ -366,11 +365,11 @@ global.minutesToString = (minutes) => {
 
 	let display;
 	if (hours > 0) {
-		display = hours + ' H ' + minutes + " Min";
+		display = hours + " H " + minutes + " Min";
 	} else if (minutes !== 0) {
-		display = minutes + ' Min';
+		display = minutes + " Min";
 	} else {
-		display = '< 1 Min';
+		display = "< 1 Min";
 	}
 
 	return display;
@@ -389,13 +388,13 @@ global.format = (string, replacement) => {
 	return string.replace(/{([0-9a-zA-Z_]+)}/g, (match, i, index) => {
 		let result;
 
-		if (string[index - 1] === '{' &&
-			string[index + match.length] === '}') {
+		if (string[index - 1] === "{" &&
+			string[index + match.length] === "}") {
 			return i;
 		} else {
-			result = replacement.hasOwnProperty(i) ? replacement[i] : null;
+			result = Object.prototype.hasOwnProperty.call(replacement, i) ? replacement[i] : null;
 			if (result === null || result === undefined) {
-				return '';
+				return "";
 			}
 
 			return result;
@@ -430,11 +429,11 @@ global.progressBar = (value, maxValue) => {
 	const progress = Math.round((PROGRESSBARS_SIZE * percentage)); // Calculate the number of square caracters to fill the progress side.
 	const emptyProgress = PROGRESSBARS_SIZE - progress; // Calculate the number of dash caracters to fill the empty progress side.
 
-	const progressText = '▇'.repeat(progress); // Repeat is creating a string with progress * caracters in it
-	const emptyProgressText = '—'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
-	const percentageText = Math.floor(percentage * 100) + '%'; // Displaying the percentage of the bar
+	const progressText = "▇".repeat(progress); // Repeat is creating a string with progress * caracters in it
+	const emptyProgressText = "—".repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
+	const percentageText = Math.floor(percentage * 100) + "%"; // Displaying the percentage of the bar
 
-	return '```[' + progressText + emptyProgressText + ']' + percentageText + '```'; // Creating the bar
+	return "```[" + progressText + emptyProgressText + "]" + percentageText + "```"; // Creating the bar
 };
 
 /**

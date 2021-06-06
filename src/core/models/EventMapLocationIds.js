@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const EventMapLocationIds = Sequelize.define('EventMapLocationIds', {
+	const EventMapLocationIds = Sequelize.define("EventMapLocationIds", {
 		event_id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true
@@ -18,20 +18,20 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 	}, {
-		tableName: 'event_map_location_ids',
+		tableName: "event_map_location_ids",
 		freezeTableName: true,
 	});
 
 	EventMapLocationIds.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	return EventMapLocationIds;

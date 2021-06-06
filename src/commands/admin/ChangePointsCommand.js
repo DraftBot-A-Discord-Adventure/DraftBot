@@ -31,7 +31,7 @@ const ChangePointsCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'points',
+			name: "points",
 			func: ChangePointsCommand
 		}
 	]

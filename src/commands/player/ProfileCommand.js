@@ -59,7 +59,7 @@ const ProfileCommand = async function (language, message, args) {
 				numberOfPlayer: (await Players.count({
 					where: {
 						score: {
-							[(require('sequelize/lib/operators')).gt]: 100,
+							[(require("sequelize/lib/operators")).gt]: 100,
 						},
 					},
 				})),
@@ -70,7 +70,7 @@ const ProfileCommand = async function (language, message, args) {
 
 	if (!entity.Player.checkEffect()) {
 		if (message.createdAt.getTime() >= entity.Player.effect_end_date) {
-			titleEffect = ':hospital:';
+			titleEffect = ":hospital:";
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).timeLeft.fieldName,
 				value: JsonReader.commands.profile.getTranslation(language).noTimeLeft.fieldValue,
@@ -98,6 +98,7 @@ const ProfileCommand = async function (language, message, args) {
 			});
 		}
 	} catch (error) {
+		log("Error while getting class of player for profile: " + error);
 	}
 
 	try {
@@ -112,6 +113,7 @@ const ProfileCommand = async function (language, message, args) {
 			});
 		}
 	} catch (error) {
+		log("Error while getting guild of player for profile: " + error);
 	}
 
 	try {
@@ -159,7 +161,7 @@ const ProfileCommand = async function (language, message, args) {
 			.addFields(fields),
 	);
 
-	const filterConfirm = (reaction, user) => {
+	const filterConfirm = (reaction) => {
 		return (reaction.me && !reaction.users.cache.last().bot);
 	};
 
@@ -168,15 +170,14 @@ const ProfileCommand = async function (language, message, args) {
 		max: JsonReader.commands.profile.badgeMaxReactNumber,
 	});
 
-	collector.on('collect', async (reaction) => {
+	collector.on("collect", async (reaction) => {
 		message.channel.send(JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]).then((msg) => {
-			msg.delete({ 'timeout': JsonReader.commands.profile.badgeDescriptionTimeout });
-		}).catch((err) => {
+			msg.delete({ "timeout": JsonReader.commands.profile.badgeDescriptionTimeout });
 		});
 	});
 
-	if (entity.Player.badges !== null && entity.Player.badges !== '') {
-		const badges = entity.Player.badges.split('-');
+	if (entity.Player.badges !== null && entity.Player.badges !== "") {
+		const badges = entity.Player.badges.split("-");
 		for (const badgeid in badges) {
 			await msg.react(badges[badgeid]);
 		}
@@ -189,9 +190,9 @@ const ProfileCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'profile',
+			name: "profile",
 			func: ProfileCommand,
-			aliases: ['p', 'profil']
+			aliases: ["p", "profil"]
 		}
 	]
 };

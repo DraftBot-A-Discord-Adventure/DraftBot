@@ -31,10 +31,10 @@ const GiveCommand = async function (language, message, args) {
 function getUserFromMention(mention) {
 	if (!mention) return;
 
-	if (mention.startsWith('<@') && mention.endsWith('>')) {
+	if (mention.startsWith("<@") && mention.endsWith(">")) {
 		mention = mention.slice(2, -1);
 
-		if (mention.startsWith('!')) {
+		if (mention.startsWith("!")) {
 			mention = mention.slice(1);
 		}
 
@@ -45,7 +45,7 @@ function getUserFromMention(mention) {
 module.exports = {
 	commands: [
 		{
-			name: 'give',
+			name: "give",
 			func: GiveCommand
 		}
 	]

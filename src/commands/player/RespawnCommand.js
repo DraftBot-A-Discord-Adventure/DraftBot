@@ -1,12 +1,12 @@
-const Maps = require('../../core/Maps');
-//const PlayerSmallEvents = require('../../core/models/PlayerSmallEvents');
+const Maps = require("../../core/Maps");
+
 /**
  * Allow a player who is dead to respawn
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const RespawnCommand = async (language, message, args) => {
+const RespawnCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
@@ -46,7 +46,7 @@ const RespawnCommand = async (language, message, args) => {
 module.exports = {
 	commands: [
 		{
-			name: 'respawn',
+			name: "respawn",
 			func: RespawnCommand
 		}
 	]

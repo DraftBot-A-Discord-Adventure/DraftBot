@@ -50,9 +50,9 @@ const PetNicknameCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'petnickname',
+			name: "petnickname",
 			func: PetNicknameCommand,
-			aliases: ['petnick', 'pnickname', 'pnick', 'petname', 'pname']
+			aliases: ["petnick", "pnickname", "pnick", "petname", "pname"]
 		}
 	]
 };

@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function GuildShopCommand(language, message, args) {
+async function GuildShopCommand(language, message) {
 	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
 
 	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
@@ -531,19 +531,19 @@ const giveFood = async (
 					quantity: quantity,
 					name:
 						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
-								.slice(2, -2)
-								.toLowerCase()
-								.replace(
-									selectedItem.translations[language].name
-										.slice(2, -2)
-										.toLowerCase()
-										.split(" ")[0],
-									selectedItem.translations[language].name
-										.slice(2, -2)
-										.toLowerCase()
-										.split(" ")[0]
-										.concat("s")
-								)
+							.slice(2, -2)
+							.toLowerCase()
+							.replace(
+								selectedItem.translations[language].name
+									.slice(2, -2)
+									.toLowerCase()
+									.split(" ")[0],
+								selectedItem.translations[language].name
+									.slice(2, -2)
+									.toLowerCase()
+									.split(" ")[0]
+									.concat("s")
+							)
 							: selectedItem.translations[language].name
 								.slice(2, -2)
 								.toLowerCase(),

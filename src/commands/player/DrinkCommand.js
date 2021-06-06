@@ -64,9 +64,9 @@ const DrinkCommand = async function (language, message) {
 module.exports = {
 	commands: [
 		{
-			name: 'drink',
+			name: "drink",
 			func: DrinkCommand,
-			aliases: ['dr', 'glouglou']
+			aliases: ["dr", "glouglou"]
 		}
 	]
 };

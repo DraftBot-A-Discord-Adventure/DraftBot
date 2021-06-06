@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildElderRemoveCommand = async (language, message, args) => {
+const GuildElderRemoveCommand = async (language, message) => {
 	let entity;
 	let guild;
 	const elderRemoveEmbed = new discord.MessageEmbed();

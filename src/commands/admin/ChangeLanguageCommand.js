@@ -5,7 +5,7 @@
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const changeLanguageCommand = async function (language, message, args) {
+const changeLanguageCommand = async function (language, message) {
 	if ((await canPerformCommand(message, language,
 		PERMISSION.ROLE.ADMINISTRATOR)) !== true) {
 		return;
@@ -23,7 +23,7 @@ const changeLanguageCommand = async function (language, message, args) {
 		.setAuthor(format(
 			JsonReader.commands.changeLanguage.getTranslation(language).title,
 			{pseudo: message.author.username}),
-			message.author.displayAvatarURL())
+		message.author.displayAvatarURL())
 		.setDescription(JsonReader.commands.changeLanguage.getTranslation(language).desc);
 	message.channel.send(embed);
 	await server.save();
@@ -32,7 +32,7 @@ const changeLanguageCommand = async function (language, message, args) {
 module.exports = {
 	commands: [
 		{
-			name: 'language',
+			name: "language",
 			func: changeLanguageCommand
 		}
 	]

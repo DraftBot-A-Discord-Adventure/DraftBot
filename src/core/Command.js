@@ -292,9 +292,9 @@ class Command {
 				try {
 					await message.author.send(
 						JsonReader.bot.getTranslation(language).noSpeakPermission
-					)
+					);
 				} catch (err) {
-					log('No perms to show i can\'t react in server / channel : ' + message.guild + "/" + message.channel);
+					log("No perms to show i can't react in server / channel : " + message.guild + "/" + message.channel);
 				}
 				return;
 			}
@@ -378,8 +378,8 @@ class Command {
  */
 module
 	.exports = {
-	init: Command.init,
-};
+		init: Command.init,
+	};
 
 global
 	.getCommand = Command.getCommand;

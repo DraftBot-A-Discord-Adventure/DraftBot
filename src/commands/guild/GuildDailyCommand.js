@@ -143,7 +143,7 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	if (rewardType === REWARD_TYPES.BADGE) {
 		let membersThatOwnTheBadge = 0;
 		for (const i in members) {
-			if (!members[i].Player.addBadge('💎')) {
+			if (!members[i].Player.addBadge("💎")) {
 				membersThatOwnTheBadge++;
 			}
 			await members[i].Player.save();
@@ -245,22 +245,12 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 module.exports = {
 	commands: [
 		{
-			name: 'guilddaily',
+			name: "guilddaily",
 			func: GuildDailyCommand,
-			aliases: ['gdaily', 'gd']
+			aliases: ["gdaily", "gd"]
 		}
 	]
 };
-
-
-/**
- * update the moment where the daily guild was used
- * @param {*} guild
- * @param {*} message
- */
-function updateLastInvocation(guild, message) {
-	guild.lastInvocation = message.createdTimestamp;
-}
 
 function generateRandomProperty(guild) {
 	let resultNumber = randInt(0, 1000);

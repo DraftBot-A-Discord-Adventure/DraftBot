@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Events = Sequelize.define('Events', {
+	const Events = Sequelize.define("Events", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -21,23 +21,23 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
 		},
 		restricted_maps: {
 			type: DataTypes.TEXT
 		},
 	}, {
-		tableName: 'events',
+		tableName: "events",
 		freezeTableName: true,
 	});
 
 	Events.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
@@ -65,7 +65,7 @@ module.exports = (Sequelize, DataTypes) => {
 		return await Sequelize.query(query, {
 			model: Events,
 			replacements: {
-				map_type: '%' + map.type + '%',
+				map_type: "%" + map.type + "%",
 				map_id: map.id
 			},
 			type: Sequelize.QueryTypes.SELECT,
