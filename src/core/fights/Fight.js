@@ -464,10 +464,14 @@ class Fight {
 			this.lastSummary.delete({timeout: 5000}).catch();
 		}
 		if (winner !== null) {
-			log("Fight ended; winner: " + winner.entity.discordUserId + " (" + winner.power + "/" + winner.initialPower + "); loser: " + loser.entity.discordUserId + " (" + loser.power + "/" + loser.initialPower + "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
+			log("Fight ended; winner: " + winner.entity.discordUserId + " (" + winner.power + "/" + winner.initialPower
+				+ "); loser: " + loser.entity.discordUserId + " (" + loser.power + "/" + loser.initialPower
+				+ "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
 		}
 		else {
-			log("Fight ended; egality: " + this.fighters[0].entity.discordUserId + " (" + this.fighters[0].power + "/" + this.fighters[0].initialPower + "); loser: " + this.fighters[1].entity.discordUserId + " (" + this.fighters[1].power + "/" + this.fighters[1].initialPower + "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
+			log("Fight ended; egality: " + this.fighters[0].entity.discordUserId + " (" + this.fighters[0].power + "/" + this.fighters[0].initialPower
+				+ "); loser: " + this.fighters[1].entity.discordUserId + " (" + this.fighters[1].power + "/" + this.fighters[1].initialPower
+				+ "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
 		}
 		this.outroFight();
 		this.turn = -1;

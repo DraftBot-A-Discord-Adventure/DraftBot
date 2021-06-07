@@ -60,7 +60,9 @@ const PetTradeCommand = async function(language, message) {
 	let trader1Accepted = null;
 	let trader2Accepted = null;
 
-	const filter = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && (user.id === message.author.id || user.id === message.mentions.users.first().id);
+	const filter = (reaction, user) =>
+		(reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY)
+		&& (user.id === message.author.id || user.id === message.mentions.users.first().id);
 
 	const collector = confirmMessage.createReactionCollector(filter, {
 		time: COLLECTOR_TIME,

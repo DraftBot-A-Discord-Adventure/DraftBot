@@ -97,7 +97,9 @@ const fightCommand = async function(language, message, args, friendly = false) {
 					}
 					fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1, friendly);
 					await fightInstance.startFight();
-					log("Fight (tournament: " + isTournament + "; friendly: " + friendly + ") started in server " + message.guild.id + " between " + attacker.discordUserId + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and " + defender.discordUserId + " (" + await defender.getCumulativeHealth() + "/" + await defender.getMaxCumulativeHealth() + ")");
+					log("Fight (tournament: " + isTournament + "; friendly: " + friendly + ") started in server "
+						+ message.guild.id + " between " + attacker.discordUserId + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and "
+						+ defender.discordUserId + " (" + await defender.getCumulativeHealth() + "/" + await defender.getMaxCumulativeHealth() + ")");
 					break;
 				case MENU_REACTION.DENY:
 					if (user.id === attacker.discordUserId) {

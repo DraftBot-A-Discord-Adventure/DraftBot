@@ -292,7 +292,11 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 		});
 	}
 	if (topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek) {
-		embed.setFooter(format(JsonReader.commands.topCommand.getTranslation(language).nextReset, {time: parseTimeDifference(new Date(), getNextSundayMidnight(), language)}), "https://i.imgur.com/OpL9WpR.png");
+		embed.setFooter(
+			format(
+				JsonReader.commands.topCommand.getTranslation(language).nextReset, {time: parseTimeDifference(new Date(), getNextSundayMidnight(), language)}
+			), "https://i.imgur.com/OpL9WpR.png"
+		);
 	}
 	embed.setDescription(messages);
 

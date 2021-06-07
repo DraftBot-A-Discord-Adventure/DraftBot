@@ -282,7 +282,9 @@ const doPossibility = async(message, language, possibility, entity, time, forceP
 	let result = "";
 	result += format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
 	if (moneyChange !== 0) {
-		result += moneyChange >= 0 ? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange}) : format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
+		result += moneyChange >= 0
+			? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange})
+			: format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
 	}
 	if (pDataValues.experience > 0) {
 		result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});

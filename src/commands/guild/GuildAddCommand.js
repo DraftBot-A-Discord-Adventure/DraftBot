@@ -49,8 +49,9 @@ const GuildAddCommand = async(language, message, args) => {
 					pseudo: message.mentions.users.last(),
 					level: GUILD.REQUIRED_LEVEL,
 					playerLevel: invitedEntity.Player.level,
-					comeIn:
-						GUILD.REQUIRED_LEVEL - invitedEntity.Player.level > 1 ? `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux` : `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`
+					comeIn: GUILD.REQUIRED_LEVEL - invitedEntity.Player.level > 1
+						? `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux`
+						: `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`
 				}
 			)
 		);
@@ -194,7 +195,8 @@ const GuildAddCommand = async(language, message, args) => {
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(message.mentions.users.last(), message.channel, language, format(JsonReader.commands.guildAdd.getTranslation(language).invitationCancelled, {guildName: guild.name}), true);
+		return sendErrorMessage(message.mentions.users.last(), message.channel, language,
+			format(JsonReader.commands.guildAdd.getTranslation(language).invitationCancelled, {guildName: guild.name}), true);
 	});
 
 	await Promise.all([

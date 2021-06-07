@@ -201,7 +201,8 @@ const GuildElderCommand = async(language, message, args) => {
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(message.mentions.users.last(), message.channel, language, format(JsonReader.commands.guildElder.getTranslation(language).elderAddCancelled, {guildName: guild.name}), true);
+		return sendErrorMessage(message.mentions.users.last(), message.channel, language,
+			format(JsonReader.commands.guildElder.getTranslation(language).elderAddCancelled, {guildName: guild.name}), true);
 	});
 
 	await Promise.all([

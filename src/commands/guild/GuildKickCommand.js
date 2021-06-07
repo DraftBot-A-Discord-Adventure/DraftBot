@@ -169,7 +169,8 @@ const GuildKickCommand = async(language, message, args) => {
 		}
 
 		// Cancel the kick
-		return sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {kickedPseudo: await kickedEntity.Player.getPseudo(language)}),true);
+		return sendErrorMessage(message.author, message.channel, language,
+			format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {kickedPseudo: await kickedEntity.Player.getPseudo(language)}),true);
 	});
 
 	await Promise.all([
