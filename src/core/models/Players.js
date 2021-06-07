@@ -326,37 +326,11 @@ module.exports = (Sequelize, DataTypes) => {
 			return;
 		}
 
-		const bonuses = [];
 		const xpNeeded = this.getExperienceNeededToLevelUp();
 
 		this.level++;
-		if (this.level === FIGHT.REQUIRED_LEVEL) {
-			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.fightUnlocked);
-		}
-		if (this.level === GUILD.REQUIRED_LEVEL) {
-			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.guildUnlocked);
-		}
 
-		if (this.level % 10 === 0) {
-			entity.health = await entity.getMaxHealth();
-			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.healthRestored);
-		}
-
-		if (this.level === CLASS.REQUIRED_LEVEL) {
-			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classUnlocked);
-		}
-
-		if (this.level === CLASS.GROUP1LEVEL) {
-			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classTiertwo);
-		}
-		if (this.level === CLASS.GROUP2LEVEL) {
-			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classTierthree);
-		}
-		if (this.level === CLASS.GROUP3LEVEL) {
-			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classTierfour);
-		}
-
-		bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.noBonuses);
+		const bonuses = await this.getLvlUpReward(language, entity);
 
 		this.experience -= xpNeeded;
 		let msg = format(JsonReader.models.players.getTranslation(language).levelUp.mainMessage, {
