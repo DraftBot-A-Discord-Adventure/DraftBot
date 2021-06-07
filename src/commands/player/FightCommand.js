@@ -7,7 +7,7 @@ const Fight = require("../../core/fights/Fight");
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {boolean} friendly - If the fight is a friendly fight
  */
-const FightCommand = async function(language, message, args, friendly = false) {
+const fightCommand = async function(language, message, args, friendly = false) {
 	const [attacker] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], attacker) !== true) {
@@ -251,14 +251,14 @@ const FIGHT_ERROR = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const FriendlyFightCommand = async function(language, message, args) {
-	await FightCommand(language, message, args, true);
+	await fightCommand(language, message, args, true);
 };
 
 module.exports = {
 	commands: [
 		{
 			name: "fight",
-			func: FightCommand,
+			func: fightCommand,
 			aliases: ["f"]
 		},
 		{
