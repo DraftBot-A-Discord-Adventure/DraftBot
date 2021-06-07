@@ -278,6 +278,44 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * Get the different rewards the user can have when he level up
+	 * @param language
+	 * @param entity
+	 * @returns {Promise<*[]>} an array containing the bonuses to give to the player
+	 */
+	Players.prototype.getLvlUpReward = async function(language, entity) {
+		const bonuses = [];
+		if (this.level === FIGHT.REQUIRED_LEVEL) {
+			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.fightUnlocked);
+		}
+		if (this.level === GUILD.REQUIRED_LEVEL) {
+			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.guildUnlocked);
+		}
+
+		if (this.level % 10 === 0) {
+			entity.health = await entity.getMaxHealth();
+			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.healthRestored);
+		}
+
+		if (this.level === CLASS.REQUIRED_LEVEL) {
+			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classUnlocked);
+		}
+
+		if (this.level === CLASS.GROUP1LEVEL) {
+			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classTiertwo);
+		}
+		if (this.level === CLASS.GROUP2LEVEL) {
+			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classTierthree);
+		}
+		if (this.level === CLASS.GROUP3LEVEL) {
+			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.classTierfour);
+		}
+
+		bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.noBonuses);
+		return bonuses;
+	};
+
+	/**
 	 * Checks if the player need to level up and levels up him.
 	 * @param {Entity} entity
 	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
