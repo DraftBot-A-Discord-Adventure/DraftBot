@@ -16,10 +16,10 @@ module.exports = (Sequelize, DataTypes) => {
 				autoIncrement: true
 			},
 			name: {
-				type: DataTypes.STRING(32) // eslint-disable-line no-alert
+				type: DataTypes.STRING(32) // eslint-disable-line new-cap
 			},
 			guildDescription: {
-				type: DataTypes.STRING(300) // eslint-disable-line no-alert
+				type: DataTypes.STRING(300) // eslint-disable-line new-cap
 			},
 			score: {
 				type: DataTypes.INTEGER,
@@ -83,7 +83,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	Guilds.prototype.updateLastDailyAt = function() {
 		const moment = require("moment");
-		this.lastDailyAt = new moment(); // eslint-disable-line no-alert
+		this.lastDailyAt = new moment(); // eslint-disable-line new-cap
 	};
 
 	/**

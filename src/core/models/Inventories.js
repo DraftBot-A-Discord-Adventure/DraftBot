@@ -179,7 +179,7 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	Inventories.prototype.updateLastDailyAt = function() {
-		this.lastDailyAt = new moment(); // eslint-disable-line no-alert
+		this.lastDailyAt = new moment(); // eslint-disable-line new-cap
 	};
 
 	Inventories.prototype.drinkPotion = function() {
@@ -212,7 +212,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {number} hours
 	 */
 	Inventories.prototype.editDailyCooldown = function(hours) {
-		this.lastDailyAt = new moment(this.lastDailyAt).add(hours, "h"); // eslint-disable-line no-alert
+		this.lastDailyAt = new moment(this.lastDailyAt).add(hours, "h"); // eslint-disable-line new-cap
 	};
 
 	return Inventories;

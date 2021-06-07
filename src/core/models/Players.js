@@ -64,7 +64,7 @@ module.exports = (Sequelize, DataTypes) => {
 			defaultValue: new Date(0)
 		},
 		effect: {
-			type: DataTypes.STRING(32), // eslint-disable-line no-alert
+			type: DataTypes.STRING(32), // eslint-disable-line new-cap
 			defaultValue: JsonReader.models.entities.effect
 		},
 		effectEndDate: {

@@ -15,7 +15,7 @@ const SwitchCommand = async(language, message) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
-	const nextDailyDate = new moment(entity.Player.Inventory.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h"); // eslint-disable-line no-alert
+	const nextDailyDate = new moment(entity.Player.Inventory.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h"); // eslint-disable-line new-cap
 	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
 	const maxTime = JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd;
 	if (timeToCheck < 0) {

@@ -16,7 +16,7 @@ module.exports = (Sequelize, DataTypes) => {
 				autoIncrement: true
 			},
 			possibilityKey: {
-				type: DataTypes.STRING(32) // eslint-disable-line no-alert
+				type: DataTypes.STRING(32) // eslint-disable-line new-cap
 			},
 			lostTime: {
 				type: DataTypes.INTEGER
@@ -29,7 +29,7 @@ module.exports = (Sequelize, DataTypes) => {
 				defaultValue: false
 			},
 			effect: {
-				type: DataTypes.STRING(32) // eslint-disable-line no-alert
+				type: DataTypes.STRING(32) // eslint-disable-line new-cap
 			},
 			experience: {
 				type: DataTypes.INTEGER
