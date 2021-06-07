@@ -19,13 +19,12 @@ const DailyCommand = async function(language, message) {
 	if (activeObject.nature === NATURE.NONE) {
 		if (activeObject.id !== JsonReader.models.inventories.objectId) {
 			// there is a object that do nothing in the inventory
-			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).objectDoNothingError);
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).objectDoNothingError);
 		}
-		else {
+
 			// there is no object in the inventory
-			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).noActiveObjectdescription);
-		}
-		return;
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).noActiveObjectdescription);
+
 	}
 
 	if (time < JsonReader.commands.daily.timeBetweenDailys) {
