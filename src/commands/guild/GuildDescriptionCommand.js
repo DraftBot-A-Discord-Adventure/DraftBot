@@ -14,7 +14,7 @@ const GuildDescriptionCommand = async(language, message, args) => {
 		[entity] = await Entities.getOrRegister(message.author.id);
 	}
 
-	guild = await Guilds.getById(entity.Player.guild_id);
+	guild = await Guilds.getById(entity.Player.guildId);
 
 	if (
 		await canPerformCommand(
@@ -55,7 +55,7 @@ const GuildDescriptionCommand = async(language, message, args) => {
 		);
 	}
 
-	if (entity.id !== guild.chief_id && entity.id !== guild.elder_id) {
+	if (entity.id !== guild.chiefId && entity.id !== guild.elderId) {
 		// not the chief
 		return sendErrorMessage(
 			message.author,
@@ -132,16 +132,16 @@ const GuildDescriptionCommand = async(language, message, args) => {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "descriptionEdit", collector);
+	addBlockedPlayer(entity.discordUserId, "descriptionEdit", collector);
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				[entity] = await Entities.getOrRegister(message.author.id);
 				try {
-					guild = await Guilds.getById(entity.Player.guild_id);
+					guild = await Guilds.getById(entity.Player.guildId);
 				}
 				catch (error) {
 					guild = null;

@@ -8,7 +8,7 @@
 	"allowJs": true,
 	"outDir": "dist",
 	"checkJs": false,
-	"emitDeclarationOnly": true,
+	"emitDeclarationOnly": false,
 	"emitDecoratorMetadata": true,
 	"experimentalDecorators": true,
 	"incremental": true,

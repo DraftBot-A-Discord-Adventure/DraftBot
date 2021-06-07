@@ -12,11 +12,11 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	seEmbed.setDescription(
 		seEmbed.description +
 		JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] +
-		JsonReader.small_events.findItem.getTranslation(language).intrigue[randInt(0, JsonReader.small_events.findItem.getTranslation(language).intrigue.length)]
+		JsonReader.smallEvents.findItem.getTranslation(language).intrigue[randInt(0, JsonReader.smallEvents.findItem.getTranslation(language).intrigue.length)]
 	);
 
 	await message.channel.send(seEmbed);
-	log(entity.discordUser_id + " got an item from a mini event ");
+	log(entity.discordUserId + " got an item from a mini event ");
 	await giveItem(entity, randomItem, language, message.author, message.channel);
 };
 

@@ -28,7 +28,6 @@ const topCommand = async function(language, message, args) {
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	const actualPlayer = message.author.username;
 	let rankCurrentPlayer = 0;
 
 	let page = parseInt(args[args.length - 1]);
@@ -51,26 +50,6 @@ const topCommand = async function(language, message, args) {
 
 		rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
 
-		const numberOfPlayer = await Entities.count({
-			defaults: {
-				Player: {
-					Inventory: {}
-				}
-			},
-			where: {
-				discordUser_id: listId
-			},
-			include: [{
-				model: Players,
-				as: "Player",
-				where: {
-					score: {
-						[require("sequelize/lib/operators").gt]: 100
-					}
-				}
-			}]
-		});
-
 		const allEntities = await Entities.findAll({
 			defaults: {
 				Player: {
@@ -78,7 +57,7 @@ const topCommand = async function(language, message, args) {
 				}
 			},
 			where: {
-				discordUser_id: listId
+				discordUserId: listId
 			},
 			include: [{
 				model: Players,
@@ -97,7 +76,7 @@ const topCommand = async function(language, message, args) {
 			offset: (page - 1) * 15
 		});
 
-		await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).server, page);
+		await displayTop(message, language, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).server, page);
 	}
 
 	// top general of the week
@@ -109,13 +88,7 @@ const topCommand = async function(language, message, args) {
 
 		// rank of the user
 		const rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].weeklyRank;
-		const numberOfPlayer = await Players.count({
-			where: {
-				weeklyScore: {
-					[require("sequelize/lib/operators").gt]: 100
-				}
-			}
-		});
+
 		const allEntities = await Entities.findAll({
 			defaults: {
 				Player: {
@@ -139,7 +112,7 @@ const topCommand = async function(language, message, args) {
 			offset: (page - 1) * 15
 		});
 
-		await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).generalWeek, page);
+		await displayTop(message, language, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).generalWeek, page);
 	}
 
 	// top general by a page number
@@ -149,14 +122,6 @@ const topCommand = async function(language, message, args) {
 			return await errorScoreTooLow(message, language);
 		}
 		const rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].rank;
-
-		const numberOfPlayer = await Players.count({
-			where: {
-				score: {
-					[require("sequelize/lib/operators").gt]: 100
-				}
-			}
-		});
 
 		const allEntities = await Entities.findAll({
 			defaults: {
@@ -181,7 +146,7 @@ const topCommand = async function(language, message, args) {
 			offset: (page - 1) * 15
 		});
 
-		await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).general, page);
+		await displayTop(message, language, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).general, page);
 	}
 };
 
@@ -207,9 +172,29 @@ async function errorScoreTooLow(message, language) {
  * @param {Number} page
  * @return {Promise<Message>}
  */
-async function displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, topTitle, page) {
+async function displayTop(message, language, allEntities, rankCurrentPlayer, topTitle, page) {
 	const embedError = new discord.MessageEmbed();
 	const embed = new discord.MessageEmbed();
+	const actualPlayer = message.author.username;
+	const numberOfPlayer = await Entities.count({
+		defaults: {
+			Player: {
+				Inventory: {}
+			}
+		},
+		where: {
+			discordUserId: listId
+		},
+		include: [{
+			model: Players,
+			as: "Player",
+			where: {
+				score: {
+					[require("sequelize/lib/operators").gt]: 100
+				}
+			}
+		}]
+	});
 	let pageMax = Math.ceil(numberOfPlayer / 15);
 	if (pageMax < 1) {
 		pageMax = 1;
@@ -256,14 +241,14 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 			}
 		}
 		if (page !== 1 || k > 4) {
-			if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUser_id) !== null) {
+			if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUserId) !== null) {
 				badge = JsonReader.commands.topCommand.blue;
 			}
 			else {
 				badge = JsonReader.commands.topCommand.black;
 			}
 		}
-		if (message.author.id === allEntities[k].discordUser_id) {
+		if (message.author.id === allEntities[k].discordUserId) {
 			badge = JsonReader.commands.topCommand.white;
 		}
 
@@ -271,10 +256,10 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 		// const nowMoment = new moment(new Date());
 		// const lastReport = new moment(allEntities[k-1].Player.lastReportAt);
 		// const diffMinutes = lastReport.diff(nowMoment, 'millisecondes');
-		if (Date.now() < Date.parse(allEntities[k].Player.effect_end_date)) {
+		if (Date.now() < Date.parse(allEntities[k].Player.effectEndDate)) {
 			badgeState = allEntities[k].Player.effect;
 		}
-		if (Date.now() > Date.parse(allEntities[k].Player.effect_end_date) + 2 * JsonReader.commands.topCommand.oneHour) {
+		if (Date.now() > Date.parse(allEntities[k].Player.effectEndDate) + 2 * JsonReader.commands.topCommand.oneHour) {
 			if (allEntities[k].Player.isInactive()) {
 				badgeState = ":ghost:";
 			}
@@ -292,7 +277,11 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 		});
 	}
 	if (topTitle === JsonReader.commands.topCommand.getTranslation(language).generalWeek) {
-		embed.setFooter(format(JsonReader.commands.topCommand.getTranslation(language).nextReset, {time: parseTimeDifference(new Date(), getNextSundayMidnight(), language)}), "https://i.imgur.com/OpL9WpR.png");
+		embed.setFooter(
+			format(
+				JsonReader.commands.topCommand.getTranslation(language).nextReset, {time: parseTimeDifference(new Date(), getNextSundayMidnight(), language)}
+			), "https://i.imgur.com/OpL9WpR.png"
+		);
 	}
 	embed.setDescription(messages);
 

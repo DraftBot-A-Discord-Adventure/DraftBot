@@ -90,11 +90,12 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entity} entity
- * @param {Number} resaleMultiplier - used to lower the resale value of an object
+ * @param {Integer} resaleMultiplierNew
+ * @param {Integer} resaleMultiplierActual
  * @returns {Promise<*>}
  */
-global.giveItem = async(entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplieActual = 1) => {
-	log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
+global.giveItem = async(entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplierActual = 1) => { // eslint-disable-line max-params
+	log(entity.discordUserId + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
 	let autoSell = false;
 	let autoReplace = false;
 	let resaleMultiplier = resaleMultiplierNew;
@@ -214,7 +215,7 @@ global.giveItem = async(entity, item, language, discordUser, channel, resaleMult
 				const oldItem = await saveItem(item, entity);
 				await channel.send(menuEmbed);
 				item = oldItem;
-				resaleMultiplier = resaleMultiplieActual;
+				resaleMultiplier = resaleMultiplierActual;
 			}
 			if (item instanceof Potions) {
 				return await channel.send(
@@ -550,20 +551,20 @@ global.getValidationInfos = function(guild) {
 async function saveItem(item, entity) {
 	let oldItem;
 	if (item instanceof Potions) {
-		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
-		entity.Player.Inventory.potion_id = item.id;
+		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potionId}});
+		entity.Player.Inventory.potionId = item.id;
 	}
 	if (item instanceof Objects) {
-		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});
-		entity.Player.Inventory.backup_id = item.id;
+		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backupId}});
+		entity.Player.Inventory.backupId = item.id;
 	}
 	if (item instanceof Weapons) {
-		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weapon_id}});
-		entity.Player.Inventory.weapon_id = item.id;
+		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weaponId}});
+		entity.Player.Inventory.weaponId = item.id;
 	}
 	if (item instanceof Armors) {
-		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armor_id}});
-		entity.Player.Inventory.armor_id = item.id;
+		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armorId}});
+		entity.Player.Inventory.armorId = item.id;
 	}
 	await Promise.all([
 		entity.save(),

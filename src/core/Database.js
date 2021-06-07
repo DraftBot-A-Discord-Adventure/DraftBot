@@ -139,99 +139,99 @@ class Database {
 	 */
 	static setAssociations() {
 		Entities.hasOne(Players, {
-			foreignKey: "entity_id",
+			foreignKey: "entityId",
 			as: "Player"
 		});
 
 		Players.belongsTo(Entities, {
-			foreignKey: "entity_id",
+			foreignKey: "entityId",
 			as: "Entity"
 		});
 		Players.belongsTo(Guilds, {
-			foreignKey: "guild_id",
+			foreignKey: "guildId",
 			as: "Guild"
 		});
 		Players.belongsTo(Guilds, {
 			foreignKey: "id",
-			targetKey: "chief_id",
+			targetKey: "chiefId",
 			as: "Chief"
 		});
 		Players.hasOne(Inventories, {
-			foreignKey: "player_id",
+			foreignKey: "playerId",
 			as: "Inventory"
 		});
 		Players.hasOne(PetEntities, {
 			foreignKey: "id",
-			sourceKey: "pet_id",
+			sourceKey: "petId",
 			as: "Pet"
 		});
 		Players.hasMany(PlayerSmallEvents, {
-			foreignKey: "player_id",
+			foreignKey: "playerId",
 			as: "PlayerSmallEvents"
 		});
 
 		Guilds.hasMany(Players, {
-			foreignKey: "guild_id",
+			foreignKey: "guildId",
 			as: "Members"
 		});
 		Guilds.hasOne(Players, {
 			foreignKey: "id",
-			sourceKey: "chief_id",
+			sourceKey: "chiefId",
 			as: "Chief"
 		});
 		Guilds.hasMany(GuildPets, {
-			foreignKey: "guild_id",
+			foreignKey: "guildId",
 			as: "GuildPets"
 		});
 		GuildPets.hasOne(PetEntities, {
 			foreignKey: "id",
-			sourceKey: "pet_entity_id",
+			sourceKey: "petEntityId",
 			as: "PetEntity"
 		});
 
 		Inventories.belongsTo(Players, {
-			foreignKey: "player_id",
+			foreignKey: "playerId",
 			as: "Player"
 		});
 		Inventories.hasOne(Weapons, {
 			foreignKey: "id",
-			sourceKey: "weapon_id",
+			sourceKey: "weaponId",
 			as: "Weapon"
 		});
 		Inventories.hasOne(Armors, {
 			foreignKey: "id",
-			sourceKey: "armor_id",
+			sourceKey: "armorId",
 			as: "Armor"
 		});
 		Inventories.hasOne(Potions, {
 			foreignKey: "id",
-			sourceKey: "potion_id",
+			sourceKey: "potionId",
 			as: "Potion"
 		});
 		Inventories.hasOne(Objects, {
 			foreignKey: "id",
-			sourceKey: "object_id",
+			sourceKey: "objectId",
 			as: "ActiveObject"
 		});
 		Inventories.hasOne(Objects, {
 			foreignKey: "id",
-			sourceKey: "backup_id",
+			sourceKey: "backupId",
 			as: "BackupObject"
 		});
 
 		Events.hasMany(Possibilities, {
-			foreignKey: "event_id",
+			foreignKey: "eventId",
 			as: "Possibilities"
 		});
 
 		Possibilities.belongsTo(Events, {
-			foreignKey: "event_id",
+			foreignKey: "eventId",
 			as: "Event"
 		});
 
 		PetEntities.hasOne(Pets, {
 			foreignKey: "id",
-			sourceKey: "pet_id",
+			sourceKey: "petId",
 			as: "PetModel"
 		});
 	}
@@ -265,9 +265,9 @@ class Database {
 						const keys = Object.keys(fileContent.translations.en);
 						for (let i = 0; i < keys.length; ++i) {
 							const key = keys[i];
-							fileContent[key + "_en"] =
+							fileContent[key + "En"] =
 								fileContent.translations.en[key];
-							fileContent[key + "_fr"] =
+							fileContent[key + "Fr"] =
 								fileContent.translations.fr[key];
 						}
 					}
@@ -300,8 +300,8 @@ class Database {
 			if (fileContent.map_location_ids) {
 				for (const mapLocationsId of fileContent.map_location_ids) {
 					eventsMapLocationsContent.push({
-						event_id: fileContent.id,
-						map_location_id: mapLocationsId
+						eventId: fileContent.id,
+						mapLocationId: mapLocationsId
 					});
 				}
 			}
@@ -338,9 +338,9 @@ class Database {
 						item: possibility.item,
 						fr: possibility.translations.fr,
 						en: possibility.translations.en,
-						event_id: fileName,
+						eventId: fileName,
 						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
-						restricted_maps: possibility.restricted_maps
+						restrictedMaps: possibility.restrictedMaps
 					};
 					possibilitiesContent.push(possibilityContent);
 				}
@@ -372,8 +372,8 @@ class Database {
 			Database.sendEventLoadError(event, "English translation missing");
 			return false;
 		}
-		if (event.restricted_maps !== undefined) {
-			const types = event.restricted_maps.split(",");
+		if (event.restrictedMaps !== undefined) {
+			const types = event.restrictedMaps.split(",");
 			for (let i = 0; i < types.length; ++i) {
 				if (!JsonReader.models.maps.types.includes(types[i])) {
 					Database.sendEventLoadError(event, "Event map type doesn't exist");
@@ -490,7 +490,7 @@ class Database {
 					return false;
 				}
 				if (issue.restricted_map !== undefined) {
-					const types = issue.restricted_maps.split(",");
+					const types = issue.restrictedMaps.split(",");
 					for (let i = 0; i < types.length; ++i) {
 						if (!JsonReader.models.maps.types.includes(types[i])) {
 							Database.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + str(i) + " doesn't exist");
@@ -521,21 +521,21 @@ class Database {
 			if (!JsonReader.models.maps.types.includes(map.type)) {
 				console.error("Type of map " + map.id + " doesn't exist");
 			}
-			for (const dir1 of ["north_map", "south_map", "west_map", "east_map"]) {
+			for (const dir1 of ["northMap", "southMap", "westMap", "eastMap"]) {
 				if (map[dir1]) {
-					const other_map = dict[map[dir1]];
-					if (other_map.id === map.id) {
+					const otherMap = dict[map[dir1]];
+					if (otherMap.id === map.id) {
 						console.error("Map " + map.id + " is connected to itself");
 					}
 					let valid = false;
-					for (const dir2 of ["north_map", "south_map", "west_map", "east_map"]) {
-						if (other_map[dir2] === map.id) {
+					for (const dir2 of ["northMap", "southMap", "westMap", "eastMap"]) {
+						if (otherMap[dir2] === map.id) {
 							valid = true;
 							break;
 						}
 					}
 					if (!valid) {
-						console.error("Map " + map.id + " is connected to " + other_map.id + " but the latter is not");
+						console.error("Map " + map.id + " is connected to " + otherMap.id + " but the latter is not");
 					}
 				}
 			}
@@ -571,7 +571,7 @@ class Database {
 	}
 
 	static async updatePlayersRandomMap() {
-		const query = "UPDATE players SET map_id = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE map_id = -1;";
+		const query = "UPDATE players SET mapId = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE mapId = -1;";
 		await Database.Sequelize.query(query, {
 			type: Sequelize.QueryTypes.UPDATE
 		});

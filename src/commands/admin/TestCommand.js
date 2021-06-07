@@ -165,7 +165,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "weaponid":
 			if (args.length === 2) {
-				author.Player.Inventory.weapon_id = parseInt(args[1]);
+				author.Player.Inventory.weaponId = parseInt(args[1]);
 				author.Player.Inventory.save();
 			} else {
 				await message.channel.send("Usage correct: test weaponId <weaponId>");
@@ -174,7 +174,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "armorid":
 			if (args.length === 2) {
-				author.Player.Inventory.armor_id = parseInt(args[1]);
+				author.Player.Inventory.armorId = parseInt(args[1]);
 				author.Player.Inventory.save();
 			} else {
 				await message.channel.send("Usage correct: test armorId <armorId>");
@@ -183,7 +183,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "potionid":
 			if (args.length === 2) {
-				author.Player.Inventory.potion_id = parseInt(args[1]);
+				author.Player.Inventory.potionId = parseInt(args[1]);
 				author.Player.Inventory.save();
 			} else {
 				await message.channel.send("Usage correct: test potionId <potionId>");
@@ -192,7 +192,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "objectid":
 			if (args.length === 2) {
-				author.Player.Inventory.object_id = parseInt(args[1]);
+				author.Player.Inventory.objectId = parseInt(args[1]);
 				author.Player.Inventory.save();
 			} else {
 				await message.channel.send("Usage correct: test objectId <objectId>");
@@ -201,7 +201,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "backupid":
 			if (args.length === 2) {
-				author.Player.Inventory.backup_id = parseInt(args[1]);
+				author.Player.Inventory.backupId = parseInt(args[1]);
 				author.Player.Inventory.save();
 			} else {
 				await message.channel.send("Usage correct: test backupId <backupId>");
@@ -215,10 +215,10 @@ const TestCommand = async (language, message, args) => {
 			author.Player.experience = 0;
 			author.Player.money = 0;
 			author.Player.badges = null;
-			author.Player.effect_end_date = Date.now();
-			author.Player.effect_duration = 0;
+			author.Player.effectEndDate = Date.now();
+			author.Player.effectDuration = 0;
 			await Maps.removeEffect(entity.Player);
-			author.Player.start_travel_date = new Date();
+			author.Player.startTravelDate = new Date();
 			author.Player.save();
 
 			author.maxHealth = 100;
@@ -228,21 +228,21 @@ const TestCommand = async (language, message, args) => {
 			author.speed = 10;
 			author.save();
 
-			author.Player.Inventory.weapon_id = 0;
-			author.Player.Inventory.armor_id = 0;
-			author.Player.Inventory.object_id = 0;
-			author.Player.Inventory.backup_id = 0;
+			author.Player.Inventory.weaponId = 0;
+			author.Player.Inventory.armorId = 0;
+			author.Player.Inventory.objectId = 0;
+			author.Player.Inventory.backupId = 0;
 			author.Player.Inventory.save();
 			break;
 		case "destroy":
 			Inventories.destroy({
 				where: {
-					player_id: author.Player.id
+					playerId: author.Player.id
 				}
 			});
 			Players.destroy({
 				where: {
-					entity_id: author.id
+					entityId: author.id
 				}
 			});
 			Entities.destroy({
@@ -262,7 +262,7 @@ const TestCommand = async (language, message, args) => {
 			return;
 		case "agd":
 			if (args.length === 2) {
-				let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
+				let guild = await Guilds.findOne({where: {id: author.Player.guildId}});
 				guild.lastDailyAt -= parseInt(args[1]) * 60000;
 				guild.save();
 			}
@@ -275,7 +275,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "glvl":
 			if (args.length === 2 && !isNaN(args[1])) {
-				let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
+				let guild = await Guilds.findOne({where: {id: author.Player.guildId}});
 				guild.level = parseInt(args[1]);
 				guild.save();
 			}
@@ -289,7 +289,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "gxp":
 			if (args.length === 2 && !isNaN(args[1])) {
-				let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
+				let guild = await Guilds.findOne({where: {id: author.Player.guildId}});
 				guild.experience = parseInt(args[1]);
 				guild.save();
 			}
@@ -311,8 +311,8 @@ const TestCommand = async (language, message, args) => {
 		case "forcejoinguild":
 		case "fjg":
 			if (args.length >= 2) {
-				let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
-				if (guild && guild.chief_id === author.Player.id) {
+				let guild = await Guilds.findOne({where: {id: author.Player.guildId}});
+				if (guild && guild.chiefId === author.Player.id) {
 					// the chief is leaving : destroy the guild
 					await Guilds.destroy({
 						where: {
@@ -325,7 +325,7 @@ const TestCommand = async (language, message, args) => {
 					await message.channel.send("Guild not found");
 					return;
 				}
-				author.Player.guild_id = guild.id;
+				author.Player.guildId = guild.id;
 
 				await Promise.all([
 					guild.save(),
@@ -338,8 +338,8 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "forceguildowner":
 		case "fgo":
-			let guild = await Guilds.findOne({where: {id: author.Player.guild_id}});
-			guild.chief_id = author.Player.id;
+			let guild = await Guilds.findOne({where: {id: author.Player.guildId}});
+			guild.chiefId = author.Player.id;
 			await guild.save();
 			break;
 		case "pet":
@@ -352,7 +352,7 @@ const TestCommand = async (language, message, args) => {
 				}
 				const pet = PetEntities.createPet(parseInt(args[1]), args[2], null);
 				await pet.save();
-				author.Player.pet_id = pet.id;
+				author.Player.petId = pet.id;
 				await author.Player.save();
 				break;
 			}
@@ -361,7 +361,7 @@ const TestCommand = async (language, message, args) => {
 		case "gp":
 		case "guildpet":
 			if (args.length === 3) {
-				const guild = await Guilds.getById(author.Player.guild_id);
+				const guild = await Guilds.getById(author.Player.guildId);
 				if (!guild) {
 					await message.channel.send("Not in a guild!");
 					return;
@@ -379,13 +379,13 @@ const TestCommand = async (language, message, args) => {
 			return;
 		case "apfree":
 			if (args.length === 2) {
-				author.Player.last_pet_free -= parseInt(args[1]) * 60000;
+				author.Player.lastPetFree -= parseInt(args[1]) * 60000;
 				author.Player.save();
 			}
 			break;
 		case "pf":
 		case "petfree":
-			author.Player.pet_id = null;
+			author.Player.petId = null;
 			break;
 		case "greward":
 			await getCommand("gd")(language, message, [], args[1]);
@@ -402,15 +402,15 @@ const TestCommand = async (language, message, args) => {
 			});
 			collector.on("end", () => {
 			});
-			addBlockedPlayer(author.discordUser_id, "test", collector);
+			addBlockedPlayer(author.discordUserId, "test", collector);
 			break;
 		case "dailytimeout":
 			require("../../core/DraftBot").dailyTimeout();
 			break;
 		case "mapinfo":
 			const mapEmbed = new discord.MessageEmbed();
-			const currMap = await MapLocations.getById(author.Player.map_id);
-			const prevMap = await MapLocations.getById(author.Player.previous_map_id);
+			const currMap = await MapLocations.getById(author.Player.mapId);
+			const prevMap = await MapLocations.getById(author.Player.previousMapId);
 			const travelling = Maps.isTravelling(author.Player);
 			mapEmbed.setTitle(":map: Map debugging");
 			mapEmbed.addField(travelling ? "Next map" : "Current map", currMap.getDisplayName(language) + " (id: " + currMap.id + ")", true);
@@ -448,8 +448,8 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "travelreport":
 		case "tr":
-			author.Player.start_travel_date = new Date(0);
-			author.Player.effect_end_date = new Date(0);
+			author.Player.startTravelDate = new Date(0);
+			author.Player.effectEndDate = new Date(0);
 			await author.Player.save();
 			break;
 		case "tp":
@@ -460,7 +460,7 @@ const TestCommand = async (language, message, args) => {
 					await message.channel.send("This map doesn't exist");
 					return;
 				}
-				author.Player.map_id = id;
+				author.Player.mapId = id;
 				await author.Player.save();
 				break;
 			} else {
@@ -478,7 +478,7 @@ const TestCommand = async (language, message, args) => {
 			}
 		case "small_event":
 			if (args.length === 2) {
-				if (JsonReader.small_events[args[1]] === undefined) {
+				if (JsonReader.smallEvents[args[1]] === undefined) {
 					await message.channel.send("Unknown small event type");
 					return;
 				}

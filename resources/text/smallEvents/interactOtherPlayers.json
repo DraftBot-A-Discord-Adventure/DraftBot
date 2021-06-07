@@ -106,22 +106,22 @@
 			"duplicatePotion": [
 				"Vous discutez sur votre trajet avec **{pseudo}**. Après avoir fait connaissance, il verse un peu de sa potion dans l'une de vos fioles vides. Vous continuez votre aventure avec **1x** {item} !",
 				"Un inconnu du nom de **{pseudo}** arrive, et verse un peu de sa potion dans la vôtre, vous gagnez donc **1x** {item} !",
-				"Le partage est le secret d'une bonne amitié ! **{pseudo}** verse une partie de {prefix_item} {item} dans une de vos fioles vides. Vous repartez donc avec un exemplaire de cette potion !"
+				"Le partage est le secret d'une bonne amitié ! **{pseudo}** verse une partie de {prefixItem} {item} dans une de vos fioles vides. Vous repartez donc avec un exemplaire de cette potion !"
 			],
 			"pet": [
-				"**{pseudo}** passe près de vous avec son animal **{pet_name}**. Vous caressez cette brave bête et continuez votre chemin de bonne humeur !",
-				"**{pseudo}** passe près de vous et vous montre son animal **{pet_name}**. vous le caressez et repartez, bonne route !",
-				"**{pseudo}** passe sur votre route avec **{pet_name}** au bout de sa laisse. Vous le regardez stupéfait et vous vous dites que vous aimeriez bien avoir cet animal aussi !"
+				"**{pseudo}** passe près de vous avec son animal **{petName}**. Vous caressez cette brave bête et continuez votre chemin de bonne humeur !",
+				"**{pseudo}** passe près de vous et vous montre son animal **{petName}**. vous le caressez et repartez, bonne route !",
+				"**{pseudo}** passe sur votre route avec **{petName}** au bout de sa laisse. Vous le regardez stupéfait et vous vous dites que vous aimeriez bien avoir cet animal aussi !"
 			],
 			"guildChief": [
-				"Ne paniquez pas ! Vous passez à côté de **{pseudo}**, chef de la guilde **{guild_name}**.",
-				"Vous passez près de **{pseudo}**, il est le chef de la guilde **{guild_name}** !",
-				"Vous reconnaissez la personne qui passe sur votre chemin... C'est **{pseudo}**, le chef de la guilde **{guild_name}** !"
+				"Ne paniquez pas ! Vous passez à côté de **{pseudo}**, chef de la guilde **{guildName}**.",
+				"Vous passez près de **{pseudo}**, il est le chef de la guilde **{guildName}** !",
+				"Vous reconnaissez la personne qui passe sur votre chemin... C'est **{pseudo}**, le chef de la guilde **{guildName}** !"
 			],
 			"guildElder": [
-				"**{pseudo}** discute de sa guilde **{guild_name}** avec vous. Vous apprenez qu'il en est l'aîné !",
-				"Vous passez près de **{pseudo}**, il est aîné de la guilde **{guild_name}** !",
-				"Le bras droit de la guilde **{guild_name}**, **{pseudo}**, vous salue et continue son chemin."
+				"**{pseudo}** discute de sa guilde **{guildName}** avec vous. Vous apprenez qu'il en est l'aîné !",
+				"Vous passez près de **{pseudo}**, il est aîné de la guilde **{guildName}** !",
+				"Le bras droit de la guilde **{guildName}**, **{pseudo}**, vous salue et continue son chemin."
 			],
 			"class": [
 				"Vous frôlez **{pseudo}** qui possède la classe **{class}**. Vous parlez un peu avec lui et reprenez votre route paisiblement.",
@@ -169,24 +169,24 @@
 				"Vous voyez **{pseudo}** assez éméché, pour ne pas dire de terme plus fort. Celui-ci semble bien s'amuser... tout seul. Vous faites ce que vous pouvez pour l'ignorer et continuez votre route."
 			],
 			"weapon": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
-				"Un passant vient frimer à côté de vous, c'est **{pseudo}** et il vous montre {prefix_item} {item} !",
-				"Wow ! **{pseudo}** brandit {prefix_item} magnifique{plural_item} {item} devant vous. Vous reprenez votre chemin étonné."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"Un passant vient frimer à côté de vous, c'est **{pseudo}** et il vous montre {prefixItem} {item} !",
+				"Wow ! **{pseudo}** brandit {prefixItem} magnifique{pluralItem} {item} devant vous. Vous reprenez votre chemin étonné."
 			],
 			"armor": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
-				"Un garde vous aborde, c'est **{pseudo}**, il vient vous montrer {prefix_item} {item} !",
-				"**{pseudo}** vous met au défi de tester {prefix_item} {item}, qui lui sert de protection. Après avoir testé son efficacité, vous reprenez votre chemin."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"Un garde vous aborde, c'est **{pseudo}**, il vient vous montrer {prefixItem} {item} !",
+				"**{pseudo}** vous met au défi de tester {prefixItem} {item}, qui lui sert de protection. Après avoir testé son efficacité, vous reprenez votre chemin."
 			],
 			"potion": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
-				"**{pseudo}** vient vous parler, il vient vous montrer {prefix_item} {item} !",
-				"**{pseudo}**, que vous rencontrez sur votre parcours, vous dit qu'il a mis la main sur une sacrée potion. Il vous montre donc {prefix_item} {item}."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"**{pseudo}** vient vous parler, il vient vous montrer {prefixItem} {item} !",
+				"**{pseudo}**, que vous rencontrez sur votre parcours, vous dit qu'il a mis la main sur une sacrée potion. Il vous montre donc {prefixItem} {item}."
 			],
 			"object": [
-				"Vous rencontrez **{pseudo}** qui vous montre {prefix_item} magnifique{plural_item} {item}.",
-				"En parlant avec **{pseudo}**, il vous montre {prefix_item} {item} !",
-				"**{pseudo}**, un joueur marchant sur la même route que vous, sort un objet de sa collection. Il vous montre fièrement {prefix_item} {item}."
+				"Vous rencontrez **{pseudo}** qui vous montre {prefixItem} magnifique{pluralItem} {item}.",
+				"En parlant avec **{pseudo}**, il vous montre {prefixItem} {item} !",
+				"**{pseudo}**, un joueur marchant sur la même route que vous, sort un objet de sa collection. Il vous montre fièrement {prefixItem} {item}."
 			],
 			":scream:": [
 				"Vous croisez **{pseudo}** qui semble courir en votre direction. En effet celui-ci est pourchassé par des brigands en voulant après son argent. Vous l'accompagnez sur un bout de chemin afin qu'il regagne son calme. Une fois rassuré, vous le quittez et reprenez votre route.",
@@ -303,19 +303,19 @@
 				"Sharing is the secret of good friendship! **{pseudo}** drops some {item} into one of your empty vials. You leave with some of the potion!"
 			],
 			"pet": [
-				"**{pseudo}** passes near of you with his **{pet_name}** pet. You caress this brave animal and continue your way in a good mood!",
-				"**{pseudo}** passes near of you and shows you his pet **{pet_name}**. You caress him and leave, good road!",
-				"**{pseudo}** passes on your way with **{pet_name}** at the end of his lead. You look at him amazed and think to yourself that you would love to have this animal too!"
+				"**{pseudo}** passes near of you with his **{petName}** pet. You caress this brave animal and continue your way in a good mood!",
+				"**{pseudo}** passes near of you and shows you his pet **{petName}**. You caress him and leave, good road!",
+				"**{pseudo}** passes on your way with **{petName}** at the end of his lead. You look at him amazed and think to yourself that you would love to have this animal too!"
 			],
 			"guildChief": [
-				"Don't panic! You are passing by **{pseudo}**, leader of the **{guild_name}** guild.",
-				"You pass near of **{pseudo}**, he is the leader of the **{guild_name}** guild!",
-				"You recognize the person who passes on your way... It's **{pseudo}**, the leader of the **{guild_name}** guild!"
+				"Don't panic! You are passing by **{pseudo}**, leader of the **{guildName}** guild.",
+				"You pass near of **{pseudo}**, he is the leader of the **{guildName}** guild!",
+				"You recognize the person who passes on your way... It's **{pseudo}**, the leader of the **{guildName}** guild!"
 			],
 			"guildElder": [
-				"**{pseudo}** discusses of his guild **{guild_name}** with you. You learn that he is it's elder!",
-				"You pass near **{pseudo}**, he is the elder of the **{guild_name}** guild!",
-				"The **{guild_name}**'s guild right-hand man, **{pseudo}**, greets you and continues on his way."
+				"**{pseudo}** discusses of his guild **{guildName}** with you. You learn that he is it's elder!",
+				"You pass near **{pseudo}**, he is the elder of the **{guildName}** guild!",
+				"The **{guildName}**'s guild right-hand man, **{pseudo}**, greets you and continues on his way."
 			],
 			"class": [
 				"You come close to **{pseudo}** who is **{class}**. You talk a little with him and go back on your way peacefully.",

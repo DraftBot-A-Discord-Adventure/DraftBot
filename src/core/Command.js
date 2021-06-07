@@ -31,17 +31,21 @@ class Command {
 
 				const commands = require(`${folder}/${commandName}`).commands;
 				if (commands !== undefined) {
-					for (let i = 0; i < commands.length; ++i) {
-						const cmd = commands[i];
-						Command.commands.set(cmd.name, cmd.func);
-						Command.aliases.set(cmd.name, cmd.name);
-						if (cmd.aliases !== undefined) {
-							for (let j = 0; j < cmd.aliases.length; ++j) {
-								Command.commands.set(cmd.aliases[j], cmd.func);
-								Command.aliases.set(cmd.aliases[j], cmd.name);
-							}
-						}
-					}
+					Command.initCommands(commands);
+				}
+			}
+		}
+	}
+
+	static initCommands(commands) {
+		for (let i = 0; i < commands.length; ++i) {
+			const cmd = commands[i];
+			Command.commands.set(cmd.name, cmd.func);
+			Command.aliases.set(cmd.name, cmd.name);
+			if (cmd.aliases !== undefined) {
+				for (let j = 0; j < cmd.aliases.length; ++j) {
+					Command.commands.set(cmd.aliases[j], cmd.func);
+					Command.aliases.set(cmd.aliases[j], cmd.name);
 				}
 			}
 		}
@@ -133,7 +137,7 @@ class Command {
 		// server check :
 		const [server] = await Servers.findOrCreate({
 			where: {
-				discordGuild_id: message.guild.id
+				discordGuildId: message.guild.id
 			}
 		});
 

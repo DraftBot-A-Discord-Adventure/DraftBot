@@ -125,7 +125,8 @@ const HelpCommand = async(language, message, args) => {
 				(val) =>
 					val.id === message.author.id) === undefined && entity.Player.dmnotification
 	) {
-		await sendDirectMessage(message.author, JsonReader.commands.help.getTranslation(language).mp.title, JsonReader.commands.help.getTranslation(language).mp.description, JsonReader.bot.embed.default, language);
+		await sendDirectMessage(message.author, JsonReader.commands.help.getTranslation(language).mp.title,
+			JsonReader.commands.help.getTranslation(language).mp.description, JsonReader.bot.embed.default, language);
 	}
 
 	await message.channel.send(helpMessage);

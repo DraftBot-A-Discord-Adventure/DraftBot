@@ -17,7 +17,7 @@ async function GuildShopCommand(language, message) {
 	// search for a user's guild
 	let guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -91,18 +91,18 @@ async function GuildShopCommand(language, message) {
 		.set(GUILDSHOP.CARNIVOROUS_FOOD, JsonReader.food.carnivorousFood)
 		.set(GUILDSHOP.ULTIMATE_FOOD, JsonReader.food.ultimateFood);
 
-	const filterConfirm = (reaction, user) => user.id === entity.discordUser_id && reaction.me;
+	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
 	const collector = shopMessage.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "guildShop", collector);
+	addBlockedPlayer(entity.discordUserId, "guildShop", collector);
 
 	// Fetch the choice from the user
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (
 			!reaction.first() ||
 			reaction.first().emoji.name === MENU_REACTION.DENY
@@ -245,17 +245,17 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 
 	const confirmMessage = await message.channel.send(confirmEmbed);
 
-	const filterConfirm = (reaction, user) => user.id === entity.discordUser_id && reaction.me;
+	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "selectQuantity");
+	addBlockedPlayer(entity.discordUserId, "selectQuantity");
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (
 			!reaction.first() ||
 			reaction.first().emoji.name === MENU_REACTION.DENY
@@ -319,10 +319,10 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
  * @param {any} selectedItem
  */
 async function purchaseXp(message, language, entity, customer, selectedItem) {
-	[entity] = await Entities.getOrRegister(entity.discordUser_id);
+	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
 	log(
-		entity.discordUser_id +
+		entity.discordUserId +
 		" bought guild xp " +
 		selectedItem.name +
 		" for " +
@@ -362,6 +362,7 @@ async function purchaseXp(message, language, entity, customer, selectedItem) {
  * @param {any} selectedItem
  *
  */
+/* eslint-disable max-params */
 async function confirmXpPurchase(
 	message,
 	language,
@@ -372,6 +373,7 @@ async function confirmXpPurchase(
 	customer,
 	selectedItem
 ) {
+	/* eslint-enable max-params */
 	const confirmEmbed = new discord.MessageEmbed()
 		.setColor(JsonReader.bot.embed.default)
 		.setAuthor(
@@ -397,7 +399,7 @@ async function confirmXpPurchase(
 	const filterConfirm = (reaction, user) =>
 		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&
-			user.id === entity.discordUser_id
+			user.id === entity.discordUserId
 		;
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
@@ -405,10 +407,10 @@ async function confirmXpPurchase(
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "guildShop", collector);
+	addBlockedPlayer(entity.discordUserId, "guildShop", collector);
 
 	collector.on("end", (reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		// confirmMessage.delete(); for now we'll keep the messages
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
@@ -450,7 +452,7 @@ const canBuy = function(price, player) {
 // Give guild xp
 
 async function giveGuildXp(message, language, entity, author, selectedItem) {
-	const guild = await Guilds.getById(entity.Player.guild_id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 	const toAdd = randInt(50, 450);
 	guild.addExperience(toAdd); // Add xp
 	while (guild.needLevelUp()) {
@@ -487,7 +489,7 @@ const giveFood = async(
 	selectedItem,
 	quantity
 ) => {
-	const guild = await Guilds.getById(entity.Player.guild_id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 	if (
 		guild[selectedItem.type] + quantity >
 		JsonReader.commands.guildShop.max[selectedItem.type]

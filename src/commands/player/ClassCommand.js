@@ -44,20 +44,20 @@ async function ClassCommand(language, message) {
 	// Creating class message
 	const classMessage = await message.channel.send(embedClassMessage);
 
-	const filterConfirm = (reaction, user) => user.id === entity.discordUser_id && reaction.me;
+	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
 	const collector = classMessage.createReactionCollector(filterConfirm, { time: COLLECTOR_TIME, max: 1 });
 
-	addBlockedPlayer(entity.discordUser_id, "class", collector);
+	addBlockedPlayer(entity.discordUserId, "class", collector);
 
 	// Fetch the choice from the user
 	collector.on("end", async(reaction) => {
 		if (!reaction.first()) { // the user is afk
-			removeBlockedPlayer(entity.discordUser_id);
+			removeBlockedPlayer(entity.discordUserId);
 			return;
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.DENY) {
-			removeBlockedPlayer(entity.discordUser_id);
+			removeBlockedPlayer(entity.discordUserId);
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass, true);
 			return;
 		}
@@ -101,7 +101,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 		);
 
 	const confirmMessage = await message.channel.send(confirmEmbed);
-	const filterConfirm = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUser_id;
+	const filterConfirm = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUserId;
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
@@ -110,7 +110,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 
 	collector.on("end", async(reaction) => {
 		const playerClass = await Classes.getById(entity.Player.class);
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				if (!canBuy(selectedClass.price, entity.Player)) {
@@ -134,7 +134,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 					entity.save(),
 					entity.Player.save()
 				]);
-				log(entity.discordUser_id + " bought the class " + newClass.en);
+				log(entity.discordUserId + " bought the class " + newClass.en);
 				return message.channel.send(
 					new discord.MessageEmbed()
 						.setColor(JsonReader.bot.embed.default)

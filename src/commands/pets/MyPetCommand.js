@@ -40,7 +40,7 @@ const MyPetCommand = async function(language, message, args) {
 		return await message.channel.send(mypetEmbed);
 	}
 
-	if (entity.discordUser_id === message.author.id) {
+	if (entity.discordUserId === message.author.id) {
 		await sendErrorMessage(
 			message.author,
 			message.channel,

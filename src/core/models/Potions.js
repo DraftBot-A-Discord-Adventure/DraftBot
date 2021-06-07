@@ -39,10 +39,10 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.DATE,
 			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
-		french_masculine: {
+		frenchMasculine: {
 			type: DataTypes.INTEGER
 		},
-		french_plural: {
+		frenchPlural: {
 			type: DataTypes.INTEGER
 		}
 	}, {

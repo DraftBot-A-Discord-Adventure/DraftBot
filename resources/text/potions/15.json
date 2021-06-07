@@ -6,6 +6,6 @@
 	"rarity": 5,
 	"power": 135,
 	"nature": 3,
-	"french_masculine": 0,
-	"french_plural": 0
+	"frenchMasculine": 0,
+	"frenchPlural": 0
 }

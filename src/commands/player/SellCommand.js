@@ -38,23 +38,23 @@ const SellCommand = async(language, message) => {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "sell", collector);
+	addBlockedPlayer(entity.discordUserId, "sell", collector);
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) { // a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				[entity] = await Entities.getOrRegister(entity.discordUser_id);
+				[entity] = await Entities.getOrRegister(entity.discordUserId);
 				backupItem = await entity.Player.Inventory.getBackupObject();
 				if (entity.Player.Inventory.hasItemToSell()) { // Preventive
 					const money = getItemValue(backupItem);
-					entity.Player.Inventory.backup_id = JsonReader.models.inventories.backup_id;
+					entity.Player.Inventory.backupId = JsonReader.models.inventories.backupId;
 					entity.Player.money += money;
 					await Promise.all([
 						entity.Player.save(),
 						entity.Player.Inventory.save()
 					]);
-					log(entity.discordUser_id + " sold his item " + backupItem.en + " (money: " + money + ")");
+					log(entity.discordUserId + " sold his item " + backupItem.en + " (money: " + money + ")");
 					return await message.channel.send(
 						format(JsonReader.commands.sell.getTranslation(language).soldMessage,
 							{

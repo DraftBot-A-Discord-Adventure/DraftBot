@@ -42,12 +42,12 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.TEXT,
 			defaultValue: JsonReader.models.players.badges
 		},
-		entity_id: {
+		entityId: {
 			type: DataTypes.INTEGER
 		},
-		guild_id: {
+		guildId: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.players.guild_id
+			defaultValue: JsonReader.models.players.guildId
 		},
 		topggVoteAt: {
 			type: DataTypes.DATE,
@@ -56,32 +56,32 @@ module.exports = (Sequelize, DataTypes) => {
 		nextEvent: {
 			type: DataTypes.INTEGER
 		},
-		pet_id: {
+		petId: {
 			type: DataTypes.INTEGER
 		},
-		last_pet_free: {
+		lastPetFree: {
 			type: DataTypes.DATE,
 			defaultValue: new Date(0)
 		},
 		effect: {
-			type: DataTypes.STRING(32),
+			type: DataTypes.STRING(32), // eslint-disable-line new-cap
 			defaultValue: JsonReader.models.entities.effect
 		},
-		effect_end_date: {
+		effectEndDate: {
 			type: DataTypes.DATE,
 			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
-		effect_duration: {
+		effectDuration: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0
 		},
-		previous_map_id: {
+		previousMapId: {
 			type: DataTypes.INTEGER
 		},
-		map_id: {
+		mapId: {
 			type: DataTypes.INTEGER
 		},
-		start_travel_date: {
+		startTravelDate: {
 			type: DataTypes.DATE,
 			defaultValue: 0
 		},
@@ -158,7 +158,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getByRank = async(rank) => {
 		const query = `SELECT *
-                   FROM (SELECT entity_id,
+                   FROM (SELECT entityId,
                                 RANK() OVER (ORDER BY score desc, level desc)       rank,
                                 RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
                          FROM players)
@@ -251,9 +251,9 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.prototype.setPseudo = async function(language) {
 		const entity = await this.getEntity();
-		if (entity.discordUser_id !== undefined &&
-			client.users.cache.get(entity.discordUser_id) !== undefined) {
-			this.pseudo = client.users.cache.get(entity.discordUser_id).username;
+		if (entity.discordUserId !== undefined &&
+			client.users.cache.get(entity.discordUserId) !== undefined) {
+			this.pseudo = client.users.cache.get(entity.discordUserId).username;
 		}
 		else {
 			this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
@@ -278,20 +278,13 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * Checks if the player need to level up and levels up him.
-	 * @param {Entity} entity
-	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
-	 * @param {"fr"|"en"} language
+	 * Get the different rewards the user can have when he level up
+	 * @param language
+	 * @param entity
+	 * @returns {Promise<*[]>} an array containing the bonuses to give to the player
 	 */
-	Players.prototype.levelUpIfNeeded = async function(entity, channel, language) {
-		if (!this.needLevelUp()) {
-			return;
-		}
-
+	Players.prototype.getLvlUpReward = async function(language, entity) {
 		const bonuses = [];
-		const xpNeeded = this.getExperienceNeededToLevelUp();
-
-		this.level++;
 		if (this.level === FIGHT.REQUIRED_LEVEL) {
 			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.fightUnlocked);
 		}
@@ -319,6 +312,25 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 
 		bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.noBonuses);
+		return bonuses;
+	};
+
+	/**
+	 * Checks if the player need to level up and levels up him.
+	 * @param {Entity} entity
+	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
+	 * @param {"fr"|"en"} language
+	 */
+	Players.prototype.levelUpIfNeeded = async function(entity, channel, language) {
+		if (!this.needLevelUp()) {
+			return;
+		}
+
+		const xpNeeded = this.getExperienceNeededToLevelUp();
+
+		this.level++;
+
+		const bonuses = await this.getLvlUpReward(language, entity);
 
 		this.experience -= xpNeeded;
 		let msg = format(JsonReader.models.players.getTranslation(language).levelUp.mainMessage, {
@@ -343,7 +355,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String} effectMalus
 	 */
 	Players.prototype.setLastReportWithEffect = async function(time, timeMalus, effectMalus) {
-		this.start_travel_date = new Date(time);
+		this.startTravelDate = new Date(time);
 		await this.save();
 		await require("../../core/Maps").applyEffect(this, effectMalus, timeMalus);
 	};
@@ -360,24 +372,25 @@ module.exports = (Sequelize, DataTypes) => {
 		if (entity.health > 0) {
 			return false;
 		}
-		log("This user is dead : " + entity.discordUser_id);
+		log("This user is dead : " + entity.discordUserId);
 		await Maps.applyEffect(entity.Player, EFFECT.DEAD);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
 
-		const guildMember = await channel.guild.members.fetch(entity.discordUser_id);
+		const guildMember = await channel.guild.members.fetch(entity.discordUserId);
 		const user = guildMember.user;
-		this.dmnotification ? sendDirectMessage(user, JsonReader.models.players.getTranslation(language).koPM.title, JsonReader.models.players.getTranslation(language).koPM.description, JsonReader.bot.embed.default, language)
+		const transDMN = JsonReader.models.players.getTranslation(language);
+		this.dmnotification ? sendDirectMessage(user, transDMN.koPM.title, transDMN.koPM.description, JsonReader.bot.embed.default, language)
 			: channel.send(new discord.MessageEmbed()
-				.setDescription(JsonReader.models.players.getTranslation(language).koPM.description)
-				.setTitle(JsonReader.models.players.getTranslation(language).koPM.title)
+				.setDescription(transDMN.koPM.description)
+				.setTitle(transDMN.koPM.title)
 				.setColor(JsonReader.bot.embed.default)
-				.setFooter(JsonReader.models.players.getTranslation(language).dmDisabledFooter));
+				.setFooter(transDMN.dmDisabledFooter));
 
 		return true;
 	};
 
 	Players.prototype.isInactive = function() {
-		return this.start_travel_date.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days < Date.now();
+		return this.startTravelDate.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days < Date.now();
 	};
 
 	/**
@@ -391,13 +404,13 @@ module.exports = (Sequelize, DataTypes) => {
 		if (this.effect === EFFECT.SMILEY) {
 			return true;
 		}
-		return this.effect_end_date.getTime() < Date.now();
+		return this.effectEndDate.getTime() < Date.now();
 	};
 
 	Players.prototype.effectRemainingTime = function() {
 		let remainingTime = 0;
 		if (JsonReader.models.players.effectMalus[this.effect] || this.effect === EFFECT.OCCUPIED) {
-			remainingTime = this.effect_end_date - Date.now();
+			remainingTime = this.effectEndDate - Date.now();
 		}
 		if (remainingTime < 0) {
 			remainingTime = 0;

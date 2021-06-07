@@ -21,28 +21,28 @@ module.exports = (Sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 			},
-			player_id: {
+			playerId: {
 				type: DataTypes.INTEGER
 			},
-			weapon_id: {
+			weaponId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.weapon_id
+				defaultValue: JsonReader.models.inventories.weaponId
 			},
-			armor_id: {
+			armorId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.armor_id
+				defaultValue: JsonReader.models.inventories.armorId
 			},
-			potion_id: {
+			potionId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.potion_id
+				defaultValue: JsonReader.models.inventories.potionId
 			},
-			object_id: {
+			objectId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.object_id
+				defaultValue: JsonReader.models.inventories.objectId
 			},
-			backup_id: {
+			backupId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.backup_id
+				defaultValue: JsonReader.models.inventories.backupId
 			},
 			updatedAt: {
 				type: DataTypes.DATE,
@@ -65,16 +65,16 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Inventories.prototype.giveObject = function(itemID, itemType) {
 		if (ITEMTYPE.POTION === itemType) {
-			this.potion_id = itemID;
+			this.potionId = itemID;
 		}
 		if (ITEMTYPE.WEAPON === itemType) {
-			this.weapon_id = itemID;
+			this.weaponId = itemID;
 		}
 		if (ITEMTYPE.ARMOR === itemType) {
-			this.armor_id = itemID;
+			this.armorId = itemID;
 		}
 		if (ITEMTYPE.OBJECT === itemType) {
-			this.backup_id = itemID;
+			this.backupId = itemID;
 		}
 	};
 
@@ -179,11 +179,11 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	Inventories.prototype.updateLastDailyAt = function() {
-		this.lastDailyAt = new moment();
+		this.lastDailyAt = new moment(); // eslint-disable-line new-cap
 	};
 
 	Inventories.prototype.drinkPotion = function() {
-		this.potion_id = JsonReader.models.inventories.potion_id;
+		this.potionId = JsonReader.models.inventories.potionId;
 	};
 
 	/**
@@ -204,7 +204,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {boolean}
 	 */
 	Inventories.prototype.hasItemToSell = function() {
-		return this.backup_id !== JsonReader.models.inventories.backup_id;
+		return this.backupId !== JsonReader.models.inventories.backupId;
 	};
 
 	/**
@@ -212,7 +212,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {number} hours
 	 */
 	Inventories.prototype.editDailyCooldown = function(hours) {
-		this.lastDailyAt = new moment(this.lastDailyAt).add(hours, "h");
+		this.lastDailyAt = new moment(this.lastDailyAt).add(hours, "h"); // eslint-disable-line new-cap
 	};
 
 	return Inventories;

@@ -11,7 +11,7 @@ class DraftBot {
 		DraftBot.handleLogs();
 
 		await require("core/JsonReader").init({
-			folders: ["resources/text/commands", "resources/text/models", "resources/text/small_events"],
+			folders: ["resources/text/commands", "resources/text/models", "resources/text/smallEvents"],
 			files: [
 				"config/app.json",
 				"draftbot/package.json",
@@ -83,7 +83,7 @@ class DraftBot {
 		const sequelize = require("sequelize");
 		console.log("INFO: Daily timeout");
 		const shopPotion = await Shop.findOne({
-			attributes: ["shop_potion_id"]
+			attributes: ["shopPotionId"]
 		});
 		let potion;
 
@@ -91,18 +91,18 @@ class DraftBot {
 			order: sequelize.literal("random()")
 		});
 		let i = 0;
-		while (potion[i].id === shopPotion.shop_potion_id || potion[i].nature === NATURE.NONE || potion[i].rarity >= RARITY.LEGENDARY) {
+		while (potion[i].id === shopPotion.shopPotionId || potion[i].nature === NATURE.NONE || potion[i].rarity >= RARITY.LEGENDARY) {
 			i++;
 		} potion = potion[i];
 
 		await Shop.update(
 			{
-				shop_potion_id: potion.id
+				shopPotionId: potion.id
 			},
 			{
 				where: {
-					shop_potion_id: {
-						[sequelize.Op.col]: "shop.shop_potion_id"
+					shopPotionId: {
+						[sequelize.Op.col]: "shop.shopPotionId"
 					}
 				}
 			}

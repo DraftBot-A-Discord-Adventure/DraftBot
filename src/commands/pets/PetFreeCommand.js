@@ -9,7 +9,7 @@ const PetFreeCommand = async function(language, message) {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -27,7 +27,7 @@ const PetFreeCommand = async function(language, message) {
 		return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPet);
 	}
 
-	const cooldownTime = PETS.FREE_COOLDOWN - (new Date().getTime() - entity.Player.last_pet_free);
+	const cooldownTime = PETS.FREE_COOLDOWN - (new Date().getTime() - entity.Player.lastPetFree);
 	if (cooldownTime > 0) {
 		return sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petFree.getTranslation(language).cooldown, {
 			time: minutesToString(millisecondsToMinutes(cooldownTime))
@@ -64,18 +64,18 @@ const PetFreeCommand = async function(language, message) {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "freepet", collector);
+	addBlockedPlayer(entity.discordUserId, "freepet", collector);
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
 					entity.Player.money -= PETFREE.FREE_FEISTY_COST;
 				}
 				pPet.destroy();
-				entity.Player.pet_id = null;
-				entity.Player.last_pet_free = Date();
+				entity.Player.petId = null;
+				entity.Player.lastPetFree = Date();
 				entity.Player.save();
 				const freedEmbed = new discord.MessageEmbed();
 				freedEmbed.setAuthor(format(JsonReader.commands.petFree.getTranslation(language).successTitle, {
@@ -89,7 +89,10 @@ const PetFreeCommand = async function(language, message) {
 					freedEmbed.setDescription(freedEmbed.description + "\n\n" + format(JsonReader.commands.petFree.getTranslation(language).wasFeisty, {}
 					));
 				}
-				if (guild !== null && guild.carnivorousFood + 1 <= JsonReader.commands.guildShop.max.carnivorousFood && draftbotRandom.realZeroToOneInclusive() <= PETFREE.GIVE_MEAT_PROBABILITY && pPet.lovePoints > PETS.LOVE_LEVELS[0]) {
+				if (guild !== null
+					&& guild.carnivorousFood + 1 <= JsonReader.commands.guildShop.max.carnivorousFood
+					&& draftbotRandom.realZeroToOneInclusive() <= PETFREE.GIVE_MEAT_PROBABILITY
+					&& pPet.lovePoints > PETS.LOVE_LEVELS[0]) {
 					guild.carnivorousFood += PETFREE.MEAT_GIVEN;
 					guild.save();
 					freedEmbed.setDescription(freedEmbed.description + "\n\n" + format(JsonReader.commands.petFree.getTranslation(language).giveMeat, {}));

@@ -19,7 +19,7 @@ const GuildDailyCommand = async(language, message, args, forcedReward) => {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -48,10 +48,10 @@ const GuildDailyCommand = async(language, message, args, forcedReward) => {
 	const members = await Entities.getByGuild(guild.id);
 
 	for (const i in members) {
-		if (hasBlockedPlayer(members[i].discordUser_id) && getBlockedPlayer(members[i].discordUser_id).context === "fight") {
+		if (hasBlockedPlayer(members[i].discordUserId) && getBlockedPlayer(members[i].discordUserId).context === "fight") {
 			continue;
 		}
-		if (await sendBlockedError(await client.users.fetch(members[i].discordUser_id), message.channel, language)) {
+		if (await sendBlockedError(await client.users.fetch(members[i].discordUserId), message.channel, language)) {
 			return;
 		}
 	}
@@ -241,8 +241,8 @@ const GuildDailyCommand = async(language, message, args, forcedReward) => {
 	await message.channel.send(embed);
 
 	for (const member of members) {
-		const user = await client.users.fetch(member.discordUser_id);
-		if (member.Player.dmnotification && member.discordUser_id !== message.author.id) {
+		const user = await client.users.fetch(member.discordUserId);
+		if (member.Player.dmnotification && member.discordUserId !== message.author.id) {
 			sendDirectMessage(
 				user,
 				JsonReader.commands.guildDaily.getTranslation(language).dmNotification.title,

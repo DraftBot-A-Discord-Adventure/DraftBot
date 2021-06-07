@@ -1,13 +1,13 @@
 {
 	"type": "ci",
-	"name_fr": "Claire De Ville",
-	"name_en": "Claire De Ville",
-	"particle_fr": "vers",
-	"particle_en": "of",
-	"desc_fr": "Grande ville marchande et carrefour économique, Claire De Ville n’a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ces nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire De Ville est aussi réputée pour son calme et son respect de l’ordre.",
-	"desc_en": "Large commercial city and economical crossroad, Claire De Ville hasn't always been that welcoming. Very poor at the beginning, she managed to quickly develop thanks to its many shops and hostels which offers a great choice to wanderers of the region. Claire De Ville is also known for its calm and its order.",
-	"north_map": 24,
-	"east_map": null,
-	"south_map": 21,
-	"west_map": 22
+	"nameFr": "Claire De Ville",
+	"nameEn": "Claire De Ville",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Grande ville marchande et carrefour économique, Claire De Ville n’a pas toujours été aussi accueillante. Au début très pauvre, elle a su se développer rapidement grâce à ces nombreux commerces et hôtels offrant un large choix aux voyageurs de la région. Claire De Ville est aussi réputée pour son calme et son respect de l’ordre.",
+	"descEn": "Large commercial city and economical crossroad, Claire De Ville hasn't always been that welcoming. Very poor at the beginning, she managed to quickly develop thanks to its many shops and hostels which offers a great choice to wanderers of the region. Claire De Ville is also known for its calm and its order.",
+	"northMap": 24,
+	"eastMap": null,
+	"southMap": 21,
+	"westMap": 22
 }

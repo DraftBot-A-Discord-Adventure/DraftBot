@@ -19,7 +19,7 @@ const GuildCreateCommand = async(language, message, args) => {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -67,7 +67,7 @@ const GuildCreateCommand = async(language, message, args) => {
 		);
 	}
 
-	addBlockedPlayer(entity.discordUser_id, "guildCreate");
+	addBlockedPlayer(entity.discordUserId, "guildCreate");
 	choiceEmbed.setAuthor(
 		format(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, {
 			pseudo: message.author.username
@@ -101,10 +101,10 @@ const GuildCreateCommand = async(language, message, args) => {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "guildCreate", collector);
+	addBlockedPlayer(entity.discordUserId, "guildCreate", collector);
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
@@ -127,10 +127,10 @@ const GuildCreateCommand = async(language, message, args) => {
 
 				const newGuild = await Guilds.create({
 					name: askedName,
-					chief_id: entity.id
+					chiefId: entity.id
 				});
 
-				entity.Player.guild_id = newGuild.id;
+				entity.Player.guildId = newGuild.id;
 				entity.Player.addMoney(
 					-JsonReader.commands.guildCreate.guildCreationPrice
 				);

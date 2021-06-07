@@ -1,13 +1,13 @@
 {
 	"type": "be",
-	"name_fr": "Plage Sentinelle",
-	"name_en": "Sentinel Beach",
-	"particle_fr": "vers la",
-	"particle_en": "of the",
-	"desc_fr": "Une grande plage de sable fin au bord de la ville.",
-	"desc_en": "A large sandy beach on the edge of the town.",
-	"north_map": null,
-	"east_map": 26,
-	"south_map": null,
-	"west_map": null
+	"nameFr": "Plage Sentinelle",
+	"nameEn": "Sentinel Beach",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Une grande plage de sable fin au bord de la ville.",
+	"descEn": "A large sandy beach on the edge of the town.",
+	"northMap": null,
+	"eastMap": 26,
+	"southMap": null,
+	"westMap": null
 }

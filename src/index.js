@@ -65,13 +65,17 @@ const Draftbot = require("core/DraftBot");
 	 */
 	const getJoinLeaveMessage = (guild, join, language) => {
 		const {validation, humans, bots, ratio} = getValidationInfos(guild);
-		return format(join ? JsonReader.bot.getTranslation(language).joinGuild : JsonReader.bot.getTranslation(language).leaveGuild, {
-			guild: guild,
-			humans: humans,
-			robots: bots,
-			ratio: ratio,
-			validation: validation
-		});
+		return format(
+			join
+				? JsonReader.bot.getTranslation(language).joinGuild
+				: JsonReader.bot.getTranslation(language).leaveGuild,
+			{
+				guild: guild,
+				humans: humans,
+				robots: bots,
+				ratio: ratio,
+				validation: validation
+			});
 	};
 
 	/**

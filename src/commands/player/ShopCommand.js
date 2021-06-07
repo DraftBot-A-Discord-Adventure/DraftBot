@@ -18,7 +18,7 @@ async function ShopCommand(language, message) {
 	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
 
 	const shopPotion = await Shop.findOne({
-		attributes: ["shop_potion_id"]
+		attributes: ["shopPotionId"]
 	});
 
 	// Formatting intems data into a string
@@ -42,7 +42,7 @@ async function ShopCommand(language, message) {
 	// Fetching potion infos
 	const potion = await Potions.findOne({
 		where: {
-			id: shopPotion.shop_potion_id
+			id: shopPotion.shopPotionId
 		}
 	});
 
@@ -81,24 +81,24 @@ async function ShopCommand(language, message) {
 		.set(SHOP.HEART, shopTranslations.permanentItems.regen)
 		.set(SHOP.MONEY_MOUTH, shopTranslations.permanentItems.badge);
 
-	const filterConfirm = (reaction, user) => user.id === entity.discordUser_id && reaction.me;
+	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
 	const collector = shopMessage.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "shop", collector);
+	addBlockedPlayer(entity.discordUserId, "shop", collector);
 
 	// Fetch the choice from the user
 	collector.on("end", async(reaction) => {
 		if (!reaction.first()) {
 			// the user is afk
-			removeBlockedPlayer(entity.discordUser_id);
+			removeBlockedPlayer(entity.discordUserId);
 			return;
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.DENY) {
-			removeBlockedPlayer(entity.discordUser_id);
+			removeBlockedPlayer(entity.discordUserId);
 			sendErrorMessage(
 				message.author,
 				message.channel,
@@ -138,7 +138,7 @@ async function ShopCommand(language, message) {
 						}
 					)
 				);
-				removeBlockedPlayer(entity.discordUser_id);
+				removeBlockedPlayer(entity.discordUserId);
 			}
 		}
 		else if (
@@ -173,7 +173,7 @@ async function ShopCommand(language, message) {
 						}
 					)
 				);
-				removeBlockedPlayer(entity.discordUser_id);
+				removeBlockedPlayer(entity.discordUserId);
 			}
 		}
 	});
@@ -203,9 +203,9 @@ async function ShopCommand(language, message) {
  * @param {any} selectedItem
  */
 async function sellItem(message, reaction, language, entity, customer, selectedItem) {
-	[entity] = await Entities.getOrRegister(entity.discordUser_id);
+	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
-	log(entity.discordUser_id + " bought the shop item " + selectedItem.name + " for " + selectedItem.price);
+	log(entity.discordUserId + " bought the shop item " + selectedItem.name + " for " + selectedItem.price);
 	if (selectedItem.name) {
 		// This is not a potion
 		if (
@@ -292,6 +292,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
  * @param {Entities} customer
  * @param {any} selectedItem
  */
+/* eslint-disable max-params */
 async function confirmPurchase(
 	message,
 	language,
@@ -302,7 +303,8 @@ async function confirmPurchase(
 	customer,
 	selectedItem
 ) {
-	addBlockedPlayer(entity.discordUser_id, "confirmBuy");
+	/* eslint-enable max-params */
+	addBlockedPlayer(entity.discordUserId, "confirmBuy");
 	const confirmEmbed = new discord.MessageEmbed()
 		.setColor(JsonReader.bot.embed.default)
 		.setAuthor(
@@ -327,7 +329,7 @@ async function confirmPurchase(
 	const filterConfirm = (reaction, user) =>
 		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&
-			user.id === entity.discordUser_id
+			user.id === entity.discordUserId
 		;
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
@@ -336,7 +338,7 @@ async function confirmPurchase(
 	});
 
 	collector.on("end", (reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				reaction.first().message.delete();
@@ -367,7 +369,7 @@ const canBuy = function(price, player) {
  */
 function giveDailyPotion(message, language, entity, customer, dailyPotion) {
 	log(
-		entity.discordUser_id +
+		entity.discordUserId +
 		" bought the daily shop potion " +
 		dailyPotion.get("potion")[language] +
 		" for " +

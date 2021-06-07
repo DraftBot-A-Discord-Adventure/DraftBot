@@ -22,7 +22,7 @@ const GuildElderCommand = async(language, message, args) => {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -67,7 +67,7 @@ const GuildElderCommand = async(language, message, args) => {
 
 	try {
 		[elderEntity] = await Entities.getByArgs(args, message);
-		elderGuild = await Guilds.getById(elderEntity.Player.guild_id);
+		elderGuild = await Guilds.getById(elderEntity.Player.guildId);
 	}
 	catch (error) {
 		elderEntity = null;
@@ -83,7 +83,7 @@ const GuildElderCommand = async(language, message, args) => {
 			JsonReader.commands.guildElder.getTranslation(language).notInTheGuild
 		);
 	}
-	if (guild.chief_id !== entity.id) {
+	if (guild.chiefId !== entity.id) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -92,7 +92,7 @@ const GuildElderCommand = async(language, message, args) => {
 		);
 	}
 
-	if (guild.chief_id === elderEntity.id) {
+	if (guild.chiefId === elderEntity.id) {
 		// chief cannot be the elder
 		return sendErrorMessage(
 			message.author,
@@ -132,16 +132,16 @@ const GuildElderCommand = async(language, message, args) => {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "guildElder", collector);
+	addBlockedPlayer(entity.discordUserId, "guildElder", collector);
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				try {
 					[elderEntity] = await Entities.getByArgs(args, message);
-					elderGuild = await Guilds.getById(elderEntity.Player.guild_id);
+					elderGuild = await Guilds.getById(elderEntity.Player.guildId);
 				}
 				catch (error) {
 					elderEntity = null;
@@ -159,7 +159,7 @@ const GuildElderCommand = async(language, message, args) => {
 					);
 				}
 				try {
-					guild = await Guilds.getById(entity.Player.guild_id);
+					guild = await Guilds.getById(entity.Player.guildId);
 				}
 				catch (error) {
 					guild = null;
@@ -179,7 +179,7 @@ const GuildElderCommand = async(language, message, args) => {
 						)
 					);
 				}
-				guild.elder_id = elderEntity.id;
+				guild.elderId = elderEntity.id;
 				await Promise.all([guild.save()]);
 				confirmEmbed.setAuthor(
 					format(
@@ -201,7 +201,8 @@ const GuildElderCommand = async(language, message, args) => {
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(message.mentions.users.last(), message.channel, language, format(JsonReader.commands.guildElder.getTranslation(language).elderAddCancelled, {guildName: guild.name}), true);
+		return sendErrorMessage(message.mentions.users.last(), message.channel, language,
+			format(JsonReader.commands.guildElder.getTranslation(language).elderAddCancelled, {guildName: guild.name}), true);
 	});
 
 	await Promise.all([

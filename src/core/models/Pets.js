@@ -18,16 +18,16 @@ module.exports = (Sequelize, DataTypes) => {
 			rarity: {
 				type: DataTypes.INTEGER
 			},
-			maleName_fr: {
+			maleNameFr: {
 				type: DataTypes.TEXT
 			},
-			maleName_en: {
+			maleNameEn: {
 				type: DataTypes.TEXT
 			},
-			femaleName_fr: {
+			femaleNameFr: {
 				type: DataTypes.TEXT
 			},
-			femaleName_en: {
+			femaleNameEn: {
 				type: DataTypes.TEXT
 			},
 			emoteMale: {

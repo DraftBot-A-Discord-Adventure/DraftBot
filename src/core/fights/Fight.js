@@ -25,7 +25,7 @@ class Fight {
 	 * @param {boolean} friendly
 	 * @returns {Promise<void>}
 	 */
-	constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1, friendly = false) {
+	constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1, friendly = false) { // eslint-disable-line max-params
 		this.fighters = [new Fighter(player2, friendly, tournamentMode), new Fighter(player1, friendly, tournamentMode)];
 		this.turn = 0;
 		this.message = message;
@@ -82,7 +82,7 @@ class Fight {
 				this.fighters[i].power = this.maxPower;
 			}
 			await this.fighters[i].consumePotionIfNeeded();
-			global.addBlockedPlayer(this.fighters[i].entity.discordUser_id, "fight");
+			global.addBlockedPlayer(this.fighters[i].entity.discordUserId, "fight");
 		}
 
 		// the player with the highest speed start the fight
@@ -172,7 +172,7 @@ class Fight {
 	 * @return {Promise<void>}
 	 */
 	async sendTurnIndications() {
-		const playingId = this.getPlayingFighter().entity.discordUser_id;
+		const playingId = this.getPlayingFighter().entity.discordUserId;
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const fight = this;
 
@@ -434,7 +434,7 @@ class Fight {
 			throw new Error("The fight already ended !");
 		}
 		for (let i = 0; i < this.fighters.length; ++i) {
-			[this.fighters[i].entity] = await Entities.getOrRegister(this.fighters[i].entity.discordUser_id);
+			[this.fighters[i].entity] = await Entities.getOrRegister(this.fighters[i].entity.discordUserId);
 		}
 		const loser = this.getLoser();
 		const winner = this.getWinner();
@@ -458,16 +458,20 @@ class Fight {
 			}
 		}
 		for (let i = 0; i < this.fighters.length; i++) {
-			global.removeBlockedPlayer(this.fighters[i].entity.discordUser_id);
+			global.removeBlockedPlayer(this.fighters[i].entity.discordUserId);
 		}
 		if (this.lastSummary !== undefined) {
 			this.lastSummary.delete({timeout: 5000}).catch();
 		}
 		if (winner !== null) {
-			log("Fight ended; winner: " + winner.entity.discordUser_id + " (" + winner.power + "/" + winner.initialPower + "); loser: " + loser.entity.discordUser_id + " (" + loser.power + "/" + loser.initialPower + "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
+			log("Fight ended; winner: " + winner.entity.discordUserId + " (" + winner.power + "/" + winner.initialPower
+				+ "); loser: " + loser.entity.discordUserId + " (" + loser.power + "/" + loser.initialPower
+				+ "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
 		}
 		else {
-			log("Fight ended; egality: " + this.fighters[0].entity.discordUser_id + " (" + this.fighters[0].power + "/" + this.fighters[0].initialPower + "); loser: " + this.fighters[1].entity.discordUser_id + " (" + this.fighters[1].power + "/" + this.fighters[1].initialPower + "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
+			log("Fight ended; egality: " + this.fighters[0].entity.discordUserId + " (" + this.fighters[0].power + "/" + this.fighters[0].initialPower
+				+ "); loser: " + this.fighters[1].entity.discordUserId + " (" + this.fighters[1].power + "/" + this.fighters[1].initialPower
+				+ "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
 		}
 		this.outroFight();
 		this.turn = -1;

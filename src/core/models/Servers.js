@@ -14,15 +14,15 @@ module.exports = (Sequelize, DataTypes) => {
 			autoIncrement: true
 		},
 		prefix: {
-			type: DataTypes.STRING(10),
+			type: DataTypes.STRING(10), // eslint-disable-line new-cap
 			defaultValue: JsonReader.models.servers.prefix
 		},
 		language: {
-			type: DataTypes.STRING(2),
+			type: DataTypes.STRING(2), // eslint-disable-line new-cap
 			defaultValue: JsonReader.models.servers.language
 		},
-		discordGuild_id: {
-			type: DataTypes.STRING(64)
+		discordGuildId: {
+			type: DataTypes.STRING(64) // eslint-disable-line new-cap
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
@@ -48,7 +48,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Servers.getOrRegister = (discordGuildId) => Servers.findOrCreate({
 		where: {
-			discordGuild_id: discordGuildId
+			discordGuildId: discordGuildId
 		}
 	});
 
