@@ -292,6 +292,7 @@ async function sellItem(message, reaction, language, entity, customer, selectedI
  * @param {Entities} customer
  * @param {any} selectedItem
  */
+/* eslint-disable max-params */
 async function confirmPurchase(
 	message,
 	language,
@@ -302,6 +303,7 @@ async function confirmPurchase(
 	customer,
 	selectedItem
 ) {
+	/* eslint-enable max-params */
 	addBlockedPlayer(entity.discordUserId, "confirmBuy");
 	const confirmEmbed = new discord.MessageEmbed()
 		.setColor(JsonReader.bot.embed.default)

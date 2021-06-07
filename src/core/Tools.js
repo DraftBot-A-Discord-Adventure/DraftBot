@@ -90,10 +90,11 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entity} entity
- * @param {Number} resaleMultiplier - used to lower the resale value of an object
+ * @param {Integer} resaleMultiplierNew
+ * @param {Integer} resaleMultiplierActual
  * @returns {Promise<*>}
  */
-global.giveItem = async(entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplieActual = 1) => {
+global.giveItem = async(entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplierActual = 1) => { // eslint-disable-line max-params
 	log(entity.discordUserId + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
 	let autoSell = false;
 	let autoReplace = false;
@@ -214,7 +215,7 @@ global.giveItem = async(entity, item, language, discordUser, channel, resaleMult
 				const oldItem = await saveItem(item, entity);
 				await channel.send(menuEmbed);
 				item = oldItem;
-				resaleMultiplier = resaleMultiplieActual;
+				resaleMultiplier = resaleMultiplierActual;
 			}
 			if (item instanceof Potions) {
 				return await channel.send(

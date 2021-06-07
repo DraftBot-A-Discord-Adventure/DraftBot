@@ -362,6 +362,7 @@ async function purchaseXp(message, language, entity, customer, selectedItem) {
  * @param {any} selectedItem
  *
  */
+/* eslint-disable max-params */
 async function confirmXpPurchase(
 	message,
 	language,
@@ -372,6 +373,7 @@ async function confirmXpPurchase(
 	customer,
 	selectedItem
 ) {
+	/* eslint-enable max-params */
 	const confirmEmbed = new discord.MessageEmbed()
 		.setColor(JsonReader.bot.embed.default)
 		.setAuthor(

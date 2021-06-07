@@ -28,7 +28,6 @@ const topCommand = async function(language, message, args) {
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	const actualPlayer = message.author.username;
 	let rankCurrentPlayer = 0;
 
 	let page = parseInt(args[args.length - 1]);
@@ -50,26 +49,6 @@ const topCommand = async function(language, message, args) {
 		const listId = Array.from((await message.guild.members.fetch()).keys());
 
 		rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
-
-		const numberOfPlayer = await Entities.count({
-			defaults: {
-				Player: {
-					Inventory: {}
-				}
-			},
-			where: {
-				discordUserId: listId
-			},
-			include: [{
-				model: Players,
-				as: "Player",
-				where: {
-					score: {
-						[require("sequelize/lib/operators").gt]: 100
-					}
-				}
-			}]
-		});
 
 		const allEntities = await Entities.findAll({
 			defaults: {
@@ -97,7 +76,7 @@ const topCommand = async function(language, message, args) {
 			offset: (page - 1) * 15
 		});
 
-		await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).server, page);
+		await displayTop(message, language, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).server, page);
 	}
 
 	// top general of the week
@@ -109,13 +88,7 @@ const topCommand = async function(language, message, args) {
 
 		// rank of the user
 		const rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].weeklyRank;
-		const numberOfPlayer = await Players.count({
-			where: {
-				weeklyScore: {
-					[require("sequelize/lib/operators").gt]: 100
-				}
-			}
-		});
+
 		const allEntities = await Entities.findAll({
 			defaults: {
 				Player: {
@@ -139,7 +112,7 @@ const topCommand = async function(language, message, args) {
 			offset: (page - 1) * 15
 		});
 
-		await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).generalWeek, page);
+		await displayTop(message, language, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).generalWeek, page);
 	}
 
 	// top general by a page number
@@ -149,14 +122,6 @@ const topCommand = async function(language, message, args) {
 			return await errorScoreTooLow(message, language);
 		}
 		const rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].rank;
-
-		const numberOfPlayer = await Players.count({
-			where: {
-				score: {
-					[require("sequelize/lib/operators").gt]: 100
-				}
-			}
-		});
 
 		const allEntities = await Entities.findAll({
 			defaults: {
@@ -181,7 +146,7 @@ const topCommand = async function(language, message, args) {
 			offset: (page - 1) * 15
 		});
 
-		await displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).general, page);
+		await displayTop(message, language, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).general, page);
 	}
 };
 
@@ -207,9 +172,29 @@ async function errorScoreTooLow(message, language) {
  * @param {Number} page
  * @return {Promise<Message>}
  */
-async function displayTop(message, language, numberOfPlayer, allEntities, actualPlayer, rankCurrentPlayer, topTitle, page) {
+async function displayTop(message, language, allEntities, rankCurrentPlayer, topTitle, page) {
 	const embedError = new discord.MessageEmbed();
 	const embed = new discord.MessageEmbed();
+	const actualPlayer = message.author.username;
+	const numberOfPlayer = await Entities.count({
+		defaults: {
+			Player: {
+				Inventory: {}
+			}
+		},
+		where: {
+			discordUserId: listId
+		},
+		include: [{
+			model: Players,
+			as: "Player",
+			where: {
+				score: {
+					[require("sequelize/lib/operators").gt]: 100
+				}
+			}
+		}]
+	});
 	let pageMax = Math.ceil(numberOfPlayer / 15);
 	if (pageMax < 1) {
 		pageMax = 1;
