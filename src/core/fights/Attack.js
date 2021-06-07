@@ -10,7 +10,7 @@ class Attack {
 	 */
 	static /* async*/ init() {
 		Attack.attacks = new Map();
-		/* const attacksFiles = await fs.promises.readdir("src/core/fights/attacks");
+		/* const attacksFiles = await fs.promises.readdir("dist/src/core/fights/attacks");
 		for (const attackFile of attacksFiles) {
 			if (!attackFile.endsWith(".js")) continue;
 			const attackName = attackFile.split(".")[0];

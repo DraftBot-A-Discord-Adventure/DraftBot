@@ -21,7 +21,7 @@ class Database {
 
 		await Database.migrate();
 
-		const modelsFiles = await fs.promises.readdir("src/core/models");
+		const modelsFiles = await fs.promises.readdir("dist/src/core/models");
 		for (const modelFile of modelsFiles) {
 			const modelName = modelFile.split(".")[0];
 			global[modelName] = Database.Sequelize["import"](
