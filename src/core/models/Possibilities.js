@@ -16,7 +16,7 @@ module.exports = (Sequelize, DataTypes) => {
 				autoIncrement: true
 			},
 			possibilityKey: {
-				type: DataTypes.STRING(32)
+				type: DataTypes.STRING(32) // eslint-disable-line new-cap
 			},
 			lostTime: {
 				type: DataTypes.INTEGER
@@ -29,7 +29,7 @@ module.exports = (Sequelize, DataTypes) => {
 				defaultValue: false
 			},
 			effect: {
-				type: DataTypes.STRING(32)
+				type: DataTypes.STRING(32) // eslint-disable-line new-cap
 			},
 			experience: {
 				type: DataTypes.INTEGER
@@ -46,7 +46,7 @@ module.exports = (Sequelize, DataTypes) => {
 			en: {
 				type: DataTypes.TEXT
 			},
-			event_id: {
+			eventId: {
 				type: DataTypes.INTEGER
 			},
 			nextEvent: {
@@ -60,7 +60,7 @@ module.exports = (Sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 			},
-			restricted_maps: {
+			restrictedMaps: {
 				type: DataTypes.TEXT
 			}
 		},

@@ -27,7 +27,7 @@ const GuildStorageCommand = async(language, message) => {
 	// search for a user's guild
 	let guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;

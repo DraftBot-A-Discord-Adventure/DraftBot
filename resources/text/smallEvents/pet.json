@@ -24,7 +24,7 @@
 				"**{pet}** est heureux de vous avoir en sa compagnie. {nominativeShift} gagne en amour et vous devient plus fidèle.",
 				"Après avoir marché longuement, vous décidez de prendre soin de votre **{pet}** en {determinant} caressant. Ce moment passé avec {accusative} a renforcé vos liens.",
 				"Après être parti{feminine} quelques instant, **{pet}** reviens avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominative} vous aime ainsi d'avantage.",
-				"**{pet}** semble avoir déclenché les hostilités avec un{random_animal_feminine} **{random_animal}** sauvage ! Vous décidez de {determinant} défendre vaillamment. {nominativeShift} vous aime d'avantage et vous devient plus fidèle.",
+				"**{pet}** semble avoir déclenché les hostilités avec un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous décidez de {determinant} défendre vaillamment. {nominativeShift} vous aime d'avantage et vous devient plus fidèle.",
 				"**{pet}** est joueur, vous décidez de jouer avec {accusative}. Cette partie a renforcé vos liens."
 			],
 			"food": [
@@ -39,7 +39,7 @@
 				"Dans un virage, **{pet}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagnez **{amount} min** :clock2:.",
 				"**{pet}** semble être pressé{feminine}, malgré tout vous arrivez à {determinant} suivre tant bien que mal. Grâce à {accusative} vous gagnez **{amount} min** :clock2:.",
 				"Le flair de **{pet}** vous a permis de trouver un raccourci. Grâce à {accusatif} vous avez gagné **{amount} min** :clock2:.",
-				"Défendre **{pet}** contre un{random_animal_feminine} **{random_animal}** sauvage n'a pas été une mince affaire et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite et de courir à toute vitesse. Grâce à cette mésaventure vous gagnez **{amount} min** :clock2: sur votre trajet."
+				"Défendre **{pet}** contre un{randomAnimalFeminine} **{randomAnimal}** sauvage n'a pas été une mince affaire et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite et de courir à toute vitesse. Grâce à cette mésaventure vous gagnez **{amount} min** :clock2: sur votre trajet."
 			],
 			"points": [
 				"Les personnes qui vous croisent avec **{pet}** ne manquent pas de vous remarquez. Cela améliore votre réputation et vous gagnez donc **{amount}** :medal:.",
@@ -52,7 +52,7 @@
 				"Alors que vous tentez de carresser **{pet}**, {nominative} ne se laisse pas faire et vous mord la main. Vous perdez **{amount}** :broken_heart:",
 				"Dans un virage **{pet}** se met tout à coup à courir, vous gardez la laisse tant bien que mal dans les mains mais vous ressortez avec quelques égratinures. Vous perdez **{amount}** :broken_heart:.",
 				"Vous voyez **{pet}** partir. {nominativeShift} revient quelques minutes après avec de la nourriture. Vous la mangez et le regrettez amèrement quelques minutes plus tard. Vous avez soudainement mal au ventre... Vous perdez **{amount}** :broken_heart:.",
-				"**{pet}** semble avoir déclenché les hostilités avec un{random_animal_feminine} **{random_animal}** sauvage ! Vous décidez de {determinant} défendre mais malheureusement la créature sauvage vous blesse. Vous perdez **{amount}** :broken_heart:.",
+				"**{pet}** semble avoir déclenché les hostilités avec un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous décidez de {determinant} défendre mais malheureusement la créature sauvage vous blesse. Vous perdez **{amount}** :broken_heart:.",
 				"**{pet}** semble vouloir jouer et se jette en haut d'un arbre, malheureusement son poids a brisé la branche et {nominative} tombe sur vous. Vous perdez **{amount}** :broken_heart:."
 			],
 			"loseMoney": [
@@ -65,7 +65,7 @@
 			"loseTime": [
 				"A force de rappeler **{pet}** afin qu'{nominative} reste près de vous, vous perdez au total **{amount} min** :clock2:.",
 				"Vous sentez que **{pet}** ne semble pas vouloir bouger, vous décidez tout de même de {determinant} tirer de force. Par sa faute, vous perdez **{amount} min** :clock2:.",
-				"Vous voyez **{pet}** venir vers vous en courant poursuivi{feminine} par un{random_animal_feminine} **{random_animal}** sauvage ! Vous prenez la fuite avec {accusative}. Cette course poursuite vous à fait perdre **{amount} min** :clock2: sur votre trajet.",
+				"Vous voyez **{pet}** venir vers vous en courant poursuivi{feminine} par un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous prenez la fuite avec {accusative}. Cette course poursuite vous à fait perdre **{amount} min** :clock2: sur votre trajet.",
 				"En entrant dans un vilage, vous entendez une rumeur portant sur un familier ressemblant à **{pet}** qui attaquerait des villageois. En vous voyant, les habitants prennent peur de vous et de votre familier, et vous êtes alors immédiatement chassé du village. Cette mésaventure vous a fait perdre **{amount} min** :clock2: sur votre trajet.",
 				"**{pet}** regarde avec insistance le sol et décide d'y creuser un trou. {nominative} y ressort un coffre fermé. Après plusieurs tentatives, vous réussisez à l'ouvrir, malheureusement celui-ci est vide. Cette mésaventure vous a bien fait perdre **{amount} min** :clock2:."
 			],
@@ -121,7 +121,7 @@
 				"**{pet}** is happy to have you in his company. {nominativeShift} gains affection and becomes more loyal to you.",
 				"After a long walk, you decide to take care of your **{pet}** by stroking {determinant}. This moment spent with {accusative} has strengthened your bond.",
 				"After having left for a few moments, **{pet}** come back with food found further. You decide to give it before it's lost. {nominative} loves you more.",
-				"**{pet}** seems to have engaged a fight with a **{random_animal}** ! You decide to defend valiantly {determinant}, therefore, he likes you even more and becomes more trustworthy.",
+				"**{pet}** seems to have engaged a fight with a **{randomAnimal}** ! You decide to defend valiantly {determinant}, therefore, he likes you even more and becomes more trustworthy.",
 				"**{pet}** wants to play, you decide to play with him with {accusative}. This strengthened your ties."
 			],
 			"food": [
@@ -136,7 +136,7 @@
 				"In a corner, **{pet}** suddenly runs away. You end up being dragged at the end of his leash but you win **{amount}** min** :clock2:.",
 				"**{pet}** seems to be in a rush, despite everything you manage to follow {determinant} as best as possible. Thanks to {accusative} you gain **{amount} min** :clock2:.",
 				"**{pet}** 's flair has allowed you to find a shortcut. Thanks to {accusatif} you've gained **{amount}** min** :clock2:.",
-				"Defending **{pet}** against a wild **{random_animal}** was not an easy task and this time, you found stronger than yourself. You decide to flee the fight and run as fast as possible. Thanks to this mishap you gain **{amount} min** :clock2: on your travel."
+				"Defending **{pet}** against a wild **{randomAnimal}** was not an easy task and this time, you found stronger than yourself. You decide to flee the fight and run as fast as possible. Thanks to this mishap you gain **{amount} min** :clock2: on your travel."
 			],
 			"points": [
 				"People seeing you with **{pet}** do not fail to notice you. This enhances your reputation and you gain **{amount}** :medal:.",
@@ -149,7 +149,7 @@
 				"While you are trying to pet **{pet}**, {nominative} doesn't let it happen and bites your hand. You lose **{amount}** :broken_heart:",
 				"In a corner **{pet}** suddenly starts to run, you manage to keep the leash as good as you can but you get out with a few scratches. You loose **{amount}** :broken_heart:.",
 				"You see **{pet}** leave. {nominative} returns few minutes later with food. You eat it and regret it severely few minutes later. Your belly suddenly hurts... You loose **{amount}** :broken_heart:.",
-				"**{pet}** seems to have engaged a fight with a wild **{random_animal}** ! You decide to defend {determinant}, unfortunately the wild beast hurts you. You loose **{amount}** :broken_heart:.",
+				"**{pet}** seems to have engaged a fight with a wild **{randomAnimal}** ! You decide to defend {determinant}, unfortunately the wild beast hurts you. You loose **{amount}** :broken_heart:.",
 				"**{pet}** seems willing to play and throws himself up a tree, unfortunately his weight broke the branch and {nominative} falls on you. You loose **{amount}** :broken_heart:."
 			],
 			"loseMoney": [
@@ -162,7 +162,7 @@
 			"loseTime": [
 				"By dint of recalling **{pet}** so that {nominative} remains close to you, you loose in total **{amount} min** :clock2:.",
 				"You feel that **{pet}** doesn't want to move, you decide even tho to pull {déterminant} with force. By his fault, you loose **{amount} min** :clock2:.",
-				"You see **{pet}** rushing towards you, followed by a wild **{random_animal}** ! You flee with {accusative}. This chase made you loose **{amount} min** :clock2: on your travel.",
+				"You see **{pet}** rushing towards you, followed by a wild **{randomAnimal}** ! You flee with {accusative}. This chase made you loose **{amount} min** :clock2: on your travel.",
 				"As you enter a village, you hear a rumor about a pet that looks like **{pet}** that would attack villagers. When seeing you, the villagers become scared of you and your creature, therefore, your are immediately hunted out of the village. This misadventure cause you to loose **{amount} min** :clock2: on your travel.",
 				"**{pet}** stares at the ground and decides to dig a hole. {nominative} gets a sealed chest out. After multiple attempts, you manage to open it up, unfortunately, it is empty. This misadventure made you loose **{amount} min** :clock2:."
 			],

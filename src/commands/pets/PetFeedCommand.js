@@ -10,7 +10,7 @@ const PetFeedCommand = async function(language, message) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -76,14 +76,14 @@ const PetFeedCommand = async function(language, message) {
 
 		const breedMsg = await message.channel.send(breedEmbed);
 
-		const filterConfirm = (reaction, user) => user.id === entity.discordUser_id && reaction.me;
+		const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
 		const collector = breedMsg.createReactionCollector(filterConfirm, {
 			time: COLLECTOR_TIME,
 			max: 1
 		});
 
-		addBlockedPlayer(entity.discordUser_id, "petFeed");
+		addBlockedPlayer(entity.discordUserId, "petFeed");
 
 		// Fetch the choice from the user
 		collector.on("end", (reaction) => {
@@ -91,7 +91,7 @@ const PetFeedCommand = async function(language, message) {
 				!reaction.first() ||
 				reaction.first().emoji.name === MENU_REACTION.DENY
 			) {
-				removeBlockedPlayer(entity.discordUser_id);
+				removeBlockedPlayer(entity.discordUserId);
 				return sendErrorMessage(
 					message.author,
 					message.channel,
@@ -103,7 +103,7 @@ const PetFeedCommand = async function(language, message) {
 
 			if (foodItems.has(reaction.first().emoji.name)) {
 				const item = foodItems.get(reaction.first().emoji.name);
-				removeBlockedPlayer(entity.discordUser_id);
+				removeBlockedPlayer(entity.discordUserId);
 				feedPet(message, language, entity, authorPet, item);
 			}
 		});
@@ -133,18 +133,18 @@ const PetFeedCommand = async function(language, message) {
 
 		const breedMsg = await message.channel.send(breedEmbed);
 
-		const filterConfirm = (reaction, user) => user.id === entity.discordUser_id && reaction.me;
+		const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
 		const collector = breedMsg.createReactionCollector(filterConfirm, {
 			time: COLLECTOR_TIME,
 			max: 1
 		});
 
-		addBlockedPlayer(entity.discordUser_id, "petFeed");
+		addBlockedPlayer(entity.discordUserId, "petFeed");
 
 		// Fetch the choice from the user
 		collector.on("end", async(reaction) => {
-			removeBlockedPlayer(entity.discordUser_id);
+			removeBlockedPlayer(entity.discordUserId);
 			if (
 				!reaction.first() ||
 				reaction.first().emoji.name === MENU_REACTION.DENY
@@ -205,7 +205,7 @@ const PetFeedCommand = async function(language, message) {
  * @param {*} item - la nourriture à utiliser
  */
 async function feedPet(message, language, entity, pet, item) {
-	const guild = await Guilds.getById(entity.Player.guild_id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 	if (guild[item.type] <= 0) {
 		return sendErrorMessage(
 			message.author,

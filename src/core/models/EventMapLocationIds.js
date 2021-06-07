@@ -8,11 +8,11 @@
  */
 module.exports = (Sequelize, DataTypes) => {
 	const EventMapLocationIds = Sequelize.define("EventMapLocationIds", {
-		event_id: {
+		eventId: {
 			type: DataTypes.INTEGER,
 			primaryKey: true
 		},
-		map_location_id: {
+		mapLocationId: {
 			type: DataTypes.INTEGER,
 			primaryKey: true
 		},

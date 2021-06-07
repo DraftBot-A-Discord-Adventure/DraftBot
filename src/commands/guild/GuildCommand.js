@@ -42,7 +42,7 @@ const GuildCommand = async(language, message, args) => {
 		}
 		// search for a user's guild
 		try {
-			guild = await Guilds.getById(entity.Player.guild_id);
+			guild = await Guilds.getById(entity.Player.guildId);
 		}
 		catch (error) {
 			guild = null;
@@ -61,13 +61,13 @@ const GuildCommand = async(language, message, args) => {
 	}
 	const members = await Entities.getByGuild(guild.id);
 
-	const chief = await Players.findOne({where: {id: guild.chief_id}});
+	const chief = await Players.findOne({where: {id: guild.chiefId}});
 
 	let membersInfos = "";
 
 	for (const member of members) {
 		// if member is the owner of guild
-		if (member.Player.id === guild.chief_id) {
+		if (member.Player.id === guild.chiefId) {
 			membersInfos += format(
 				JsonReader.commands.guild.getTranslation(language).chiefinfos,
 				{
@@ -77,7 +77,7 @@ const GuildCommand = async(language, message, args) => {
 				}
 			);
 		}
-		else if (member.Player.id === guild.elder_id) {
+		else if (member.Player.id === guild.elderId) {
 			membersInfos += format(
 				JsonReader.commands.guild.getTranslation(language).elderinfos,
 				{

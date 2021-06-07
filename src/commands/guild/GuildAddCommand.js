@@ -49,8 +49,9 @@ const GuildAddCommand = async(language, message, args) => {
 					pseudo: message.mentions.users.last(),
 					level: GUILD.REQUIRED_LEVEL,
 					playerLevel: invitedEntity.Player.level,
-					comeIn:
-						GUILD.REQUIRED_LEVEL - invitedEntity.Player.level > 1 ? `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux` : `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`
+					comeIn: GUILD.REQUIRED_LEVEL - invitedEntity.Player.level > 1
+						? `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveaux`
+						: `${GUILD.REQUIRED_LEVEL - invitedEntity.Player.level} niveau`
 				}
 			)
 		);
@@ -68,7 +69,7 @@ const GuildAddCommand = async(language, message, args) => {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -84,7 +85,7 @@ const GuildAddCommand = async(language, message, args) => {
 		);
 	}
 
-	if (entity.id !== guild.chief_id && entity.id !== guild.elder_id) {
+	if (entity.id !== guild.chiefId && entity.id !== guild.elderId) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -95,7 +96,7 @@ const GuildAddCommand = async(language, message, args) => {
 
 	// search for a user's guild
 	try {
-		invitedGuild = await Guilds.getById(invitedEntity.Player.guild_id);
+		invitedGuild = await Guilds.getById(invitedEntity.Player.guildId);
 	}
 	catch (error) {
 		invitedGuild = null;
@@ -151,15 +152,15 @@ const GuildAddCommand = async(language, message, args) => {
 		max: 1
 	});
 
-	addBlockedPlayer(invitedEntity.discordUser_id, "guildAdd", collector);
+	addBlockedPlayer(invitedEntity.discordUserId, "guildAdd", collector);
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(invitedEntity.discordUser_id);
+		removeBlockedPlayer(invitedEntity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				try {
-					guild = await Guilds.getById(entity.Player.guild_id);
+					guild = await Guilds.getById(entity.Player.guildId);
 				}
 				catch (error) {
 					guild = null;
@@ -173,7 +174,7 @@ const GuildAddCommand = async(language, message, args) => {
 						JsonReader.commands.guildAdd.getTranslation(language).guildDestroy
 					);
 				}
-				invitedEntity.Player.guild_id = guild.id;
+				invitedEntity.Player.guildId = guild.id;
 				guild.updateLastDailyAt();
 
 				await Promise.all([
@@ -194,7 +195,8 @@ const GuildAddCommand = async(language, message, args) => {
 		}
 
 		// Cancel the creation
-		return sendErrorMessage(message.mentions.users.last(), message.channel, language, format(JsonReader.commands.guildAdd.getTranslation(language).invitationCancelled, {guildName: guild.name}), true);
+		return sendErrorMessage(message.mentions.users.last(), message.channel, language,
+			format(JsonReader.commands.guildAdd.getTranslation(language).invitationCancelled, {guildName: guild.name}), true);
 	});
 
 	await Promise.all([

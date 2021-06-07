@@ -16,10 +16,10 @@ module.exports = (Sequelize, DataTypes) => {
 				autoIncrement: true
 			},
 			name: {
-				type: DataTypes.STRING(32)
+				type: DataTypes.STRING(32) // eslint-disable-line new-cap
 			},
 			guildDescription: {
-				type: DataTypes.STRING(300)
+				type: DataTypes.STRING(300) // eslint-disable-line new-cap
 			},
 			score: {
 				type: DataTypes.INTEGER,
@@ -53,10 +53,10 @@ module.exports = (Sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 				defaultValue: JsonReader.models.guilds.lastDailyAt
 			},
-			chief_id: {
+			chiefId: {
 				type: DataTypes.INTEGER
 			},
-			elder_id: {
+			elderId: {
 				type: DataTypes.INTEGER
 			},
 			updatedAt: {
@@ -83,7 +83,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	Guilds.prototype.updateLastDailyAt = function() {
 		const moment = require("moment");
-		this.lastDailyAt = new moment();
+		this.lastDailyAt = new moment(); // eslint-disable-line new-cap
 	};
 
 	/**

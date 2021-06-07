@@ -57,10 +57,10 @@ const UnlockCommand = async(language, message, args) => {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "unlock", collector);
+	addBlockedPlayer(entity.discordUserId, "unlock", collector);
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) { // a reaction exist
 			[entity] = await Entities.getOrRegister(message.mentions.users.first().id); // released entity
 			[player] = await Entities.getOrRegister(message.author.id); // message author
@@ -73,7 +73,7 @@ const UnlockCommand = async(language, message, args) => {
 					player.save(),
 					player.Player.save()
 				]);
-				log(entity.discordUser_id + " has been released by" + message.author.id);
+				log(entity.discordUserId + " has been released by" + message.author.id);
 				const successEmbed = new discord.MessageEmbed();
 				successEmbed.setAuthor(format(JsonReader.commands.unlock.getTranslation(language).unlockedTitle, {
 					pseudo: await entity.Player.getPseudo(language)

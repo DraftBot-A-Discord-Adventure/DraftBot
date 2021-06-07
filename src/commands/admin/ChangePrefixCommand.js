@@ -24,8 +24,14 @@ const ChangePrefixCommand = async function(language, message, args) {
 	server.prefix = newPrefix;
 	await server.save();
 	embed.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(JsonReader.commands.changePrefix.getTranslation(language).ok, {pseudo: message.author.username}), message.author.displayAvatarURL())
-		.setDescription(format(JsonReader.commands.changePrefix.getTranslation(language).descOk, {newPrefix: newPrefix}));
+		.setAuthor(format(JsonReader.commands.changePrefix.getTranslation(language).ok,
+			{pseudo: message.author.username}), message.author.displayAvatarURL()
+		)
+		.setDescription(
+			format(JsonReader.commands.changePrefix.getTranslation(language).descOk,
+				{newPrefix: newPrefix}
+			)
+		);
 	return await message.channel.send(embed);
 };
 

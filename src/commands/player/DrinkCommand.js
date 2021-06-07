@@ -17,7 +17,7 @@ const DrinkCommand = async function(language, message) {
 
 
 	if (potion.nature === NATURE.NONE) {
-		if (potion.id !== JsonReader.models.inventories.potion_id) {
+		if (potion.id !== JsonReader.models.inventories.potionId) {
 			await entity.Player.Inventory.drinkPotion();
 			entity.Player.Inventory.save();
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
@@ -58,7 +58,7 @@ const DrinkCommand = async function(language, message) {
 		entity.Player.save(),
 		entity.Player.Inventory.save()
 	]);
-	log(entity.discordUser_id + " drank " + potion.en);
+	log(entity.discordUserId + " drank " + potion.en);
 	return await message.channel.send(embed);
 };
 

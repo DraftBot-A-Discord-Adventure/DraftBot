@@ -20,7 +20,7 @@ const PetSellCommand = async function(language, message, args) {
 	}
 
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -105,7 +105,7 @@ const PetSellCommand = async function(language, message, args) {
 		time: COLLECTOR_TIME
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "petSell", collector);
+	addBlockedPlayer(entity.discordUserId, "petSell", collector);
 
 	let spamCount = 0;
 	const spammers = [];
@@ -113,7 +113,7 @@ const PetSellCommand = async function(language, message, args) {
 	collector.on("collect", async(reaction, user) => {
 		switch (reaction.emoji.name) {
 		case MENU_REACTION.ACCEPT:
-			if (user.id === entity.discordUser_id) {
+			if (user.id === entity.discordUserId) {
 				spamCount++;
 				if (spamCount < 3) {
 					sendErrorMessage(user, message.channel, language, translations.errors.canSellYourself);
@@ -131,7 +131,7 @@ const PetSellCommand = async function(language, message, args) {
 			petSell(message, language, entity, user, pet, petCost);
 			break;
 		case MENU_REACTION.DENY:
-			if (user.id === entity.discordUser_id) {
+			if (user.id === entity.discordUserId) {
 				await sendErrorMessage(user, message.channel, language, translations.sellCancelled, true);
 			}
 			else {
@@ -152,13 +152,13 @@ const PetSellCommand = async function(language, message, args) {
 
 	collector.on("end", function() {
 		if (sellInstance === undefined) {
-			global.removeBlockedPlayer(entity.discordUser_id);
+			global.removeBlockedPlayer(entity.discordUserId);
 			if (buyer === null) {
 				sendErrorMessage(message.author, message.channel, language, translations.errors.noOneAvailable);
 			}
 		}
 		if (sellInstance === null) {
-			global.removeBlockedPlayer(entity.discordUser_id);
+			global.removeBlockedPlayer(entity.discordUserId);
 		}
 	});
 
@@ -168,7 +168,7 @@ const PetSellCommand = async function(language, message, args) {
 async function petSell(message, language, entity, user, pet, petCost) {
 	const translations = JsonReader.commands.petSell.getTranslation(language);
 	[buyer] = await Entities.getOrRegister(user.id);
-	const guild = await Guilds.getById(entity.Player.guild_id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 	const confirmEmbed = new discord.MessageEmbed()
 		.setAuthor(
 			format(translations.confirmEmbed.author, {
@@ -186,25 +186,25 @@ async function petSell(message, language, entity, user, pet, petCost) {
 
 	const confirmMessage = await message.channel.send(confirmEmbed);
 
-	const confirmFilter = (reaction, user) => user.id === buyer.discordUser_id && reaction.me;
+	const confirmFilter = (reaction, user) => user.id === buyer.discordUserId && reaction.me;
 
 	const confirmCollector = confirmMessage.createReactionCollector(confirmFilter, {
 		time: COLLECTOR_TIME,
 		max: 1
 	});
 
-	addBlockedPlayer(buyer.discordUser_id, "petSellConfirm", confirmCollector);
+	addBlockedPlayer(buyer.discordUserId, "petSellConfirm", confirmCollector);
 
 	confirmCollector.on("end", async(reaction) => {
 		if (!reaction.first() || reaction.first().emoji.name === MENU_REACTION.DENY) {
-			removeBlockedPlayer(buyer.discordUser_id);
+			removeBlockedPlayer(buyer.discordUserId);
 			return sendErrorMessage(user, message.channel, language, translations.sellCancelled, true);
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-			removeBlockedPlayer(buyer.discordUser_id);
+			removeBlockedPlayer(buyer.discordUserId);
 			let buyerGuild;
 			try {
-				buyerGuild = await Guilds.getById(buyer.Player.guild_id);
+				buyerGuild = await Guilds.getById(buyer.Player.guildId);
 			}
 			catch (error) {
 				buyerGuild = null;
@@ -227,10 +227,10 @@ async function petSell(message, language, entity, user, pet, petCost) {
 				await guild.levelUpIfNeeded(message.channel, language);
 			}
 			await guild.save();
-			buyer.Player.pet_id = pet.id;
+			buyer.Player.petId = pet.id;
 			buyer.Player.money -= petCost;
 			await buyer.Player.save();
-			entity.Player.pet_id = null;
+			entity.Player.petId = null;
 			await entity.Player.save();
 			pet.lovePoints = PETS.BASE_LOVE;
 			await pet.save();
