@@ -1,5 +1,5 @@
 {
-	"restrictedmaps": "de,be,pl,ro",
+	"restrictedMaps": "de,be,pl,ro",
 	"translations": {
 		"fr": "🌡️ Les températures dépassant les 30°C depuis plusieurs jours vous accablent. Alors que vos forces commencent à faiblir, incapable de continuer votre route, vous réfléchissez à une stratégie à suivre...",
 		"en": "🌡️ In this period when temperatures exceed 90°F, you get tired, so you decide to look for a way to relax and get back in shape."

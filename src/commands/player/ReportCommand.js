@@ -364,7 +364,7 @@ const doPossibility = async(message, language, possibility, entity, time, forceP
 	}
 
 	if (!await player.killIfNeeded(entity, message.channel, language)) {
-		await chooseDestination(entity, message, language, pDataValues.restrictedmaps);
+		await chooseDestination(entity, message, language, pDataValues.restrictedMaps);
 	}
 
 	entity.save();

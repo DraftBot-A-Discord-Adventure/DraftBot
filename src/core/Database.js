@@ -265,9 +265,9 @@ class Database {
 						const keys = Object.keys(fileContent.translations.en);
 						for (let i = 0; i < keys.length; ++i) {
 							const key = keys[i];
-							fileContent[key + "_en"] =
+							fileContent[key + "En"] =
 								fileContent.translations.en[key];
-							fileContent[key + "_fr"] =
+							fileContent[key + "Fr"] =
 								fileContent.translations.fr[key];
 						}
 					}
@@ -340,7 +340,7 @@ class Database {
 						en: possibility.translations.en,
 						eventId: fileName,
 						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
-						restrictedmaps: possibility.restrictedmaps
+						restrictedMaps: possibility.restrictedMaps
 					};
 					possibilitiesContent.push(possibilityContent);
 				}
@@ -372,8 +372,8 @@ class Database {
 			Database.sendEventLoadError(event, "English translation missing");
 			return false;
 		}
-		if (event.restrictedmaps !== undefined) {
-			const types = event.restrictedmaps.split(",");
+		if (event.restrictedMaps !== undefined) {
+			const types = event.restrictedMaps.split(",");
 			for (let i = 0; i < types.length; ++i) {
 				if (!JsonReader.models.maps.types.includes(types[i])) {
 					Database.sendEventLoadError(event, "Event map type doesn't exist");
@@ -490,7 +490,7 @@ class Database {
 					return false;
 				}
 				if (issue.restricted_map !== undefined) {
-					const types = issue.restrictedmaps.split(",");
+					const types = issue.restrictedMaps.split(",");
 					for (let i = 0; i < types.length; ++i) {
 						if (!JsonReader.models.maps.types.includes(types[i])) {
 							Database.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + str(i) + " doesn't exist");

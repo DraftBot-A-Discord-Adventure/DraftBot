@@ -15,6 +15,7 @@ ALTER TABLE objects RENAME COLUMN french_masculine TO frenchMasculine;
 ALTER TABLE objects RENAME COLUMN french_plural TO frenchPlural;
 
 ALTER TABLE pet_entities RENAME COLUMN pet_id TO petId;
+ALTER TABLE pet_entities RENAME COLUMN give_birth_date TO giveBirthDate;
 
 ALTER TABLE players RENAME COLUMN entity_id TO entityId;
 ALTER TABLE players RENAME COLUMN guild_id TO guildId;

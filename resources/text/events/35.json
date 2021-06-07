@@ -1,5 +1,5 @@
 {
-	"restrictedmaps": "ci,vi",
+	"restrictedMaps": "ci,vi",
 	"translations": {
 		"fr": "🍻 Vous entrez dans un bar, et le barman vous interpelle, vous disant qu'il aimerait \"tester de nouvelles boissons\" sur vous.",
 		"en": "🍻 You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you."
