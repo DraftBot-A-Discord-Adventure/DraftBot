@@ -20,7 +20,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		SMALL_EVENT.MAXIMUM_GUILD_EXPERIENCE_WON + g.level * 2
 	);
 
-	const translationWGXP = JsonReader.small_events.winGuildXP.getTranslation(language);
+	const translationWGXP = JsonReader.smallEvents.winGuildXP.getTranslation(language);
 	seEmbed.setDescription(
 		format(
 			translationWGXP.stories[randInt(0, translationWGXP.stories.length)]
@@ -37,7 +37,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	await g.save();
 
 	await message.channel.send(seEmbed);
-	log(entity.discordUser_id + "'guild gained some xp points in a mini event");
+	log(entity.discordUserId + "'guild gained some xp points in a mini event");
 };
 
 module.exports = {

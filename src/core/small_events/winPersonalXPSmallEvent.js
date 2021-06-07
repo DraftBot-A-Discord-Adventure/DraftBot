@@ -13,7 +13,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		SMALL_EVENT.MINIMUM_EXPERIENCE_WON,
 		SMALL_EVENT.MAXIMUM_EXPERIENCE_WON
 	);
-	const translationWXPP = JsonReader.small_events.winPersonalXP.getTranslation(language);
+	const translationWXPP = JsonReader.smallEvents.winPersonalXP.getTranslation(language);
 	seEmbed
 		.setDescription(
 			format(
@@ -30,7 +30,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	await entity.Player.save();
 	await entity.save();
 	await message.channel.send(seEmbed);
-	log(entity.discordUser_id + " gained some xp points in a mini event");
+	log(entity.discordUserId + " gained some xp points in a mini event");
 };
 
 module.exports = {

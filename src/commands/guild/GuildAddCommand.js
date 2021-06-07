@@ -151,10 +151,10 @@ const GuildAddCommand = async(language, message, args) => {
 		max: 1
 	});
 
-	addBlockedPlayer(invitedEntity.discordUser_id, "guildAdd", collector);
+	addBlockedPlayer(invitedEntity.discordUserId, "guildAdd", collector);
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(invitedEntity.discordUser_id);
+		removeBlockedPlayer(invitedEntity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {

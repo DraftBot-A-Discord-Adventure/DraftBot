@@ -11,18 +11,18 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;
 	const playersOnMap = await MapLocations.getPlayersOnMap(entity.Player.mapId, entity.Player.previousMapId, entity.Player.id);
 	for (let i = 0; i < playersOnMap.length; ++i) {
-		if (client.users.cache.has(playersOnMap[i].discordUser_id)) {
+		if (client.users.cache.has(playersOnMap[i].discordUserId)) {
 			selectedPlayer = playersOnMap[i];
 			break;
 		}
 	}
 
-	const tr = JsonReader.small_events.interactOtherPlayers.getTranslation(language);
+	const tr = JsonReader.smallEvents.interactOtherPlayers.getTranslation(language);
 	if (!selectedPlayer) {
 		seEmbed.setDescription(seEmbed.description + tr.no_one[randInt(0, tr.no_one.length)]);
 		return await message.channel.send(seEmbed);
 	}
-	const [otherEntity] = await Entities.getOrRegister(selectedPlayer.discordUser_id);
+	const [otherEntity] = await Entities.getOrRegister(selectedPlayer.discordUserId);
 	const cList = [];
 
 	const player = (await Players.getById(entity.Player.id))[0];
@@ -102,16 +102,16 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	if (!otherEntity.Player.checkEffect() && tr[otherEntity.Player.effect]) {
 		cList.push(otherEntity.Player.effect);
 	}
-	if (otherEntity.Player.Inventory.weapon_id !== JsonReader.models.inventories.weapon_id) {
+	if (otherEntity.Player.Inventory.weaponId !== JsonReader.models.inventories.weaponId) {
 		cList.push("weapon");
 	}
-	if (otherEntity.Player.Inventory.armor_id !== JsonReader.models.inventories.armor_id) {
+	if (otherEntity.Player.Inventory.armorId !== JsonReader.models.inventories.armorId) {
 		cList.push("armor");
 	}
 	if (otherEntity.Player.Inventory.potionId !== JsonReader.models.inventories.potionId) {
 		cList.push("potion");
 	}
-	if (otherEntity.Player.Inventory.object_id !== JsonReader.models.inventories.object_id) {
+	if (otherEntity.Player.Inventory.objectId !== JsonReader.models.inventories.objectId) {
 		cList.push("object");
 	}
 
@@ -163,7 +163,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const collector = msg.createReactionCollector((reaction, user) => [COIN_EMOTE, MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id, {time: COLLECTOR_TIME});
 	switch (characteristic) {
 	case "poor":
-		addBlockedPlayer(entity.discordUser_id, "report", collector);
+		addBlockedPlayer(entity.discordUserId, "report", collector);
 		collector.on("collect", () => {
 			collector.stop();
 		});
@@ -199,7 +199,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	}
 
-	log(entity.discordUser_id + " interacted with a player");
+	log(entity.discordUserId + " interacted with a player");
 };
 
 module.exports = {

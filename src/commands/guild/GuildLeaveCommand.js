@@ -77,15 +77,15 @@ const GuildLeaveCommand = async(language, message) => {
 		max: 1
 	});
 
-	await addBlockedPlayer(entity.discordUser_id, "guildLeave", collector);
+	await addBlockedPlayer(entity.discordUserId, "guildLeave", collector);
 	if (elder) {
-		addBlockedPlayer(elder.discordUser_id, "chiefGuildLeave", collector);
+		addBlockedPlayer(elder.discordUserId, "chiefGuildLeave", collector);
 	}
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (elder) {
-			removeBlockedPlayer(elder.discordUser_id);
+			removeBlockedPlayer(elder.discordUserId);
 		}
 		if (reaction.first()) {
 			// a reaction exist
@@ -94,7 +94,7 @@ const GuildLeaveCommand = async(language, message) => {
 				if (entity.id === guild.chiefId) {
 					if (elder) {
 						log(
-							elder.discordUser_id +
+							elder.discordUserId +
 							" becomes the chief of  " +
 							guild.name
 						);

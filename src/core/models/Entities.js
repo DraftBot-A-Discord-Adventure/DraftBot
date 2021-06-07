@@ -33,7 +33,7 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.INTEGER,
 			defaultValue: JsonReader.models.entities.speed
 		},
-		discordUser_id: {
+		discordUserId: {
 			type: DataTypes.STRING(64)
 		},
 		updatedAt: {
@@ -59,11 +59,11 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	/**
-	 * @param {String} discordUser_id
+	 * @param {String} discordUserId
 	 */
-	Entities.getOrRegister = (discordUser_id) => Entities.findOrCreate({
+	Entities.getOrRegister = (discordUserId) => Entities.findOrCreate({
 		where: {
-			discordUser_id: discordUser_id
+			discordUserId: discordUserId
 		},
 		defaults: {Player: {Inventory: {}}},
 		include: [
@@ -131,11 +131,11 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	/**
-	 * @param {String} discordUser_id
+	 * @param {String} discordUserId
 	 */
-	Entities.getByDiscordUserId = (discordUser_id) => Entities.findOne({
+	Entities.getByDiscordUserId = (discordUserId) => Entities.findOne({
 		where: {
-			discordUser_id: discordUser_id
+			discordUserId: discordUserId
 		},
 		defaults: {Player: {Inventory: {}}},
 		include: [
@@ -198,12 +198,12 @@ module.exports = (Sequelize, DataTypes) => {
 			}]
 	});
 
-	Entities.getServerRank = (discord_id, ids) => {
-		const query = "SELECT rank FROM (SELECT entities.discordUser_id AS discordUser_id, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entityId AND players.score > 100 WHERE entities.discordUser_id IN (:ids)) WHERE discordUser_id = :id;";
+	Entities.getServerRank = (discordId, ids) => {
+		const query = "SELECT rank FROM (SELECT entities.discordUserId AS discordUserId, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entityId AND players.score > 100 WHERE entities.discordUserId IN (:ids)) WHERE discordUserId = :id;";
 		return Sequelize.query(query, {
 			replacements: {
 				ids: ids,
-				id: discord_id
+				id: discordId
 			},
 			type: Sequelize.QueryTypes.SELECT
 		});
@@ -339,7 +339,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {String}
 	 */
 	Entities.prototype.getMention = function() {
-		return "<@" + this.discordUser_id + ">";
+		return "<@" + this.discordUserId + ">";
 	};
 
 	return Entities;

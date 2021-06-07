@@ -9,7 +9,7 @@
  */
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
-	const translationFP = JsonReader.small_events.findPotions.getTranslation(language);
+	const translationFP = JsonReader.smallEvents.findPotions.getTranslation(language);
 	const randomItem = await entity.Player.Inventory.generateRandomItem(undefined,ITEMTYPE.POTION);
 	seEmbed.setDescription(
 		seEmbed.description +
@@ -18,7 +18,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	);
 
 	await message.channel.send(seEmbed);
-	log(entity.discordUser_id + " got a potion from a mini event ");
+	log(entity.discordUserId + " got a potion from a mini event ");
 	await giveItem(entity, randomItem, language, message.author, message.channel);
 };
 

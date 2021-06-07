@@ -11,9 +11,9 @@ const Maps = require("../Maps");
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const outRand = draftbotRandom.integer(0, 2);
 	const translationIntrosSE = JsonReader.smallEventsIntros.getTranslation(language);
-	const translationSBE = JsonReader.small_events.smallBadEvent.getTranslation(language);
+	const translationSBE = JsonReader.smallEvents.smallBadEvent.getTranslation(language);
 	const base =
-		JsonReader.small_events.smallBadEvent.emote + " "
+		JsonReader.smallEvents.smallBadEvent.emote + " "
 		+ translationIntrosSE.intro[randInt(0, translationIntrosSE.intro.length)];
 	let lifeLoss, time, moneyLoss;
 	switch (outRand) {
@@ -53,7 +53,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	}
 	await message.channel.send(seEmbed);
-	log(entity.discordUser_id + " got small bad event.");
+	log(entity.discordUserId + " got small bad event.");
 	await entity.Player.killIfNeeded(entity, message.channel, language);
 	await entity.Player.save();
 	await entity.save();

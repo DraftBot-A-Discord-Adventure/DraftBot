@@ -10,14 +10,14 @@ function rarityCommand(language, message) {
 	const rarityEmbed = new discord.MessageEmbed()
 		.setDescription(format(JsonReader.commands.rarity.getTranslation(language).rarities,
 			{
-				pourcentage_common: raritiesGenerator["0"] * 100 / maxValue,
-				pourcentage_uncommon: (raritiesGenerator["1"] - raritiesGenerator["0"]) * 100 / maxValue,
-				pourcentage_exotic: (raritiesGenerator["2"] - raritiesGenerator["1"]) * 100 / maxValue,
-				pourcentage_rare: (raritiesGenerator["3"] - raritiesGenerator["2"]) * 100 / maxValue,
-				pourcentage_special: (raritiesGenerator["4"] - raritiesGenerator["3"]) * 100 / maxValue,
-				pourcentage_epic: (raritiesGenerator["5"] - raritiesGenerator["4"]) * 100 / maxValue,
-				pourcentage_legendary: (raritiesGenerator["6"] - raritiesGenerator["5"]) * 100 / maxValue,
-				pourcentage_unique: (maxValue - raritiesGenerator["6"]) * 100 / maxValue
+				pourcentageCommon: raritiesGenerator["0"] * 100 / maxValue,
+				pourcentageUncommon: (raritiesGenerator["1"] - raritiesGenerator["0"]) * 100 / maxValue,
+				pourcentageExotic: (raritiesGenerator["2"] - raritiesGenerator["1"]) * 100 / maxValue,
+				pourcentageRare: (raritiesGenerator["3"] - raritiesGenerator["2"]) * 100 / maxValue,
+				pourcentageSpecial: (raritiesGenerator["4"] - raritiesGenerator["3"]) * 100 / maxValue,
+				pourcentageEpic: (raritiesGenerator["5"] - raritiesGenerator["4"]) * 100 / maxValue,
+				pourcentageLegendary: (raritiesGenerator["6"] - raritiesGenerator["5"]) * 100 / maxValue,
+				pourcentageUnique: (maxValue - raritiesGenerator["6"]) * 100 / maxValue
 			}))
 		.setTitle(JsonReader.commands.rarity.getTranslation(language).title)
 		.setColor(JsonReader.bot.embed.default);

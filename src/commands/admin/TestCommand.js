@@ -165,7 +165,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "weaponid":
 			if (args.length === 2) {
-				author.Player.Inventory.weapon_id = parseInt(args[1]);
+				author.Player.Inventory.weaponId = parseInt(args[1]);
 				author.Player.Inventory.save();
 			} else {
 				await message.channel.send("Usage correct: test weaponId <weaponId>");
@@ -174,7 +174,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "armorid":
 			if (args.length === 2) {
-				author.Player.Inventory.armor_id = parseInt(args[1]);
+				author.Player.Inventory.armorId = parseInt(args[1]);
 				author.Player.Inventory.save();
 			} else {
 				await message.channel.send("Usage correct: test armorId <armorId>");
@@ -192,7 +192,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "objectid":
 			if (args.length === 2) {
-				author.Player.Inventory.object_id = parseInt(args[1]);
+				author.Player.Inventory.objectId = parseInt(args[1]);
 				author.Player.Inventory.save();
 			} else {
 				await message.channel.send("Usage correct: test objectId <objectId>");
@@ -201,7 +201,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "backupid":
 			if (args.length === 2) {
-				author.Player.Inventory.backup_id = parseInt(args[1]);
+				author.Player.Inventory.backupId = parseInt(args[1]);
 				author.Player.Inventory.save();
 			} else {
 				await message.channel.send("Usage correct: test backupId <backupId>");
@@ -228,16 +228,16 @@ const TestCommand = async (language, message, args) => {
 			author.speed = 10;
 			author.save();
 
-			author.Player.Inventory.weapon_id = 0;
-			author.Player.Inventory.armor_id = 0;
-			author.Player.Inventory.object_id = 0;
-			author.Player.Inventory.backup_id = 0;
+			author.Player.Inventory.weaponId = 0;
+			author.Player.Inventory.armorId = 0;
+			author.Player.Inventory.objectId = 0;
+			author.Player.Inventory.backupId = 0;
 			author.Player.Inventory.save();
 			break;
 		case "destroy":
 			Inventories.destroy({
 				where: {
-					player_id: author.Player.id
+					playerId: author.Player.id
 				}
 			});
 			Players.destroy({
@@ -402,7 +402,7 @@ const TestCommand = async (language, message, args) => {
 			});
 			collector.on("end", () => {
 			});
-			addBlockedPlayer(author.discordUser_id, "test", collector);
+			addBlockedPlayer(author.discordUserId, "test", collector);
 			break;
 		case "dailytimeout":
 			require("../../core/DraftBot").dailyTimeout();
@@ -478,7 +478,7 @@ const TestCommand = async (language, message, args) => {
 			}
 		case "small_event":
 			if (args.length === 2) {
-				if (JsonReader.small_events[args[1]] === undefined) {
+				if (JsonReader.smallEvents[args[1]] === undefined) {
 					await message.channel.send("Unknown small event type");
 					return;
 				}

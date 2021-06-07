@@ -58,7 +58,7 @@ const topCommand = async function(language, message, args) {
 				}
 			},
 			where: {
-				discordUser_id: listId
+				discordUserId: listId
 			},
 			include: [{
 				model: Players,
@@ -78,7 +78,7 @@ const topCommand = async function(language, message, args) {
 				}
 			},
 			where: {
-				discordUser_id: listId
+				discordUserId: listId
 			},
 			include: [{
 				model: Players,
@@ -256,14 +256,14 @@ async function displayTop(message, language, numberOfPlayer, allEntities, actual
 			}
 		}
 		if (page !== 1 || k > 4) {
-			if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUser_id) !== null) {
+			if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUserId) !== null) {
 				badge = JsonReader.commands.topCommand.blue;
 			}
 			else {
 				badge = JsonReader.commands.topCommand.black;
 			}
 		}
-		if (message.author.id === allEntities[k].discordUser_id) {
+		if (message.author.id === allEntities[k].discordUserId) {
 			badge = JsonReader.commands.topCommand.white;
 		}
 

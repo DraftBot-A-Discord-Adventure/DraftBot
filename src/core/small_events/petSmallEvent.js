@@ -121,7 +121,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	default:
 		break;
 	}
-	log(entity.discordUser_id + " got a pet interaction");
+	log(entity.discordUserId + " got a pet interaction");
 };
 
 /**
@@ -135,7 +135,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
  * @returns {Promise<void>}
  */
 const generatePetEmbed = async function(language, interaction, seEmbed, pet, amount, food) {
-	const tr = JsonReader.small_events.pet.getTranslation(language);
+	const tr = JsonReader.smallEvents.pet.getTranslation(language);
 	const sentence = tr[interaction][randInt(0, tr[interaction].length)];
 	const randomAnimal = sentence.includes("{randomAnimal}") ? await PetEntities.generateRandomPetEntityNotGuild() : null;
 	seEmbed.setDescription(format(sentence, {
@@ -161,7 +161,7 @@ const generatePetEmbed = async function(language, interaction, seEmbed, pet, amo
  * @returns {string|null} - une interaction aléatoire
  */
 const pickRandomInteraction = function(petEntity) {
-	const section = petEntity.lovePoints <= PETS.LOVE_LEVELS[0] ? JsonReader.small_events.pet.rarities.feisty : JsonReader.small_events.pet.rarities.normal;
+	const section = petEntity.lovePoints <= PETS.LOVE_LEVELS[0] ? JsonReader.smallEvents.pet.rarities.feisty : JsonReader.smallEvents.pet.rarities.normal;
 	const level = petEntity.PetModel.rarity + (PetEntities.getLoveLevelNumber(petEntity) === 5 ? 1 : 0);
 
 	let total = 0;

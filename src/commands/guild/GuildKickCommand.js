@@ -123,10 +123,10 @@ const GuildKickCommand = async(language, message, args) => {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "guildKick", collector);
+	addBlockedPlayer(entity.discordUserId, "guildKick", collector);
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {

@@ -10,10 +10,10 @@ class Maps {
 	/**
 	 * Returns the map ids a player can go to. It excludes the map the player is coming from if at least one map is available
 	 * @param {Players} player
-	 * @param {string|String} restricted_map_type
+	 * @param {string|String} restrictedMapType
 	 * @returns {Number[]}
 	 */
-	static async getNextPlayerAvailableMaps(player, restricted_map_type) {
+	static async getNextPlayerAvailableMaps(player, restrictedMapType) {
 		let map;
 		if (!player.mapId) {
 			map = await MapLocations.getRandomMap();
@@ -23,45 +23,45 @@ class Maps {
 		else {
 			map = await MapLocations.getById(player.mapId);
 		}
-		const next_maps = [];
-		if (restricted_map_type) {
-			const next_map_ids = await MapLocations.getMapConnectedWithTypeFilter(map.id, restricted_map_type);
-			for (const m of next_map_ids) {
-				next_maps.push(m.id);
+		const nextMaps = [];
+		if (restrictedMapType) {
+			const nextMapIds = await MapLocations.getMapConnectedWithTypeFilter(map.id, restrictedMapType);
+			for (const m of nextMapIds) {
+				nextMaps.push(m.id);
 			}
-			return next_maps;
+			return nextMaps;
 		}
-		for (const map_dir of ["north_map", "south_map", "east_map", "west_map"]) {
-			if (map[map_dir] && map[map_dir] !== player.previousMapId) {
-				next_maps.push(map[map_dir]);
+		for (const mapDir of ["northMap", "southMap", "eastMap", "westMap"]) {
+			if (map[mapDir] && map[mapDir] !== player.previousMapId) {
+				nextMaps.push(map[mapDir]);
 			}
 		}
-		if (next_maps.length === 0 && player.previousMapId) {
-			next_maps.push(player.previousMapId);
+		if (nextMaps.length === 0 && player.previousMapId) {
+			nextMaps.push(player.previousMapId);
 		}
-		return next_maps;
+		return nextMaps;
 	}
 
 	/**
 	 * Returns the direction of a map to another. The result is null if the maps are not connected
-	 * @param {MapLocations} from_map
-	 * @param {Number} to_map_id
+	 * @param {MapLocations} fromMap
+	 * @param {Number} toMapId
 	 * @returns {Directions|null}
 	 */
-	static getMapDirection(from_map, to_map_id) {
-		if (!from_map) {
+	static getMapDirection(fromMap, toMapId) {
+		if (!fromMap) {
 			return null;
 		}
-		if (from_map.north_map === to_map_id) {
+		if (fromMap.northMap === toMapId) {
 			return this.Directions.NORTH;
 		}
-		if (from_map.south_map === to_map_id) {
+		if (fromMap.southMap === toMapId) {
 			return this.Directions.SOUTH;
 		}
-		if (from_map.east_map === to_map_id) {
+		if (fromMap.eastMap === toMapId) {
 			return this.Directions.EAST;
 		}
-		if (from_map.west_map === to_map_id) {
+		if (fromMap.westMap === toMapId) {
 			return this.Directions.WEST;
 		}
 		return null;
@@ -74,11 +74,11 @@ class Maps {
 	 * @returns {{}}
 	 */
 	static async getEventPlaceHolders(player, language) {
-		const previous_map = await MapLocations.getById(player.previousMapId);
-		const direction = this.getMapDirection(previous_map, player.mapId);
+		const previousMap = await MapLocations.getById(player.previousMapId);
+		const direction = this.getMapDirection(previousMap, player.mapId);
 		return {
 			direction: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.names[direction],
-			direction_prefix: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.prefix[direction]
+			directionPrefix: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.prefix[direction]
 		};
 	}
 
@@ -212,7 +212,7 @@ class Maps {
 				let added = false;
 				for (let j = 0; j < player.PlayerSmallEvents.length; ++j) {
 					if (player.PlayerSmallEvents[j].number === i + 1) {
-						str += " " + JsonReader.small_events[player.PlayerSmallEvents[j].event_type].emote + " ";
+						str += " " + JsonReader.smallEvents[player.PlayerSmallEvents[j].eventType].emote + " ";
 						added = true;
 						break;
 					}

@@ -29,5 +29,29 @@ ALTER TABLE players RENAME COLUMN effect_end_date TO effectEndDate;
 ALTER TABLE players RENAME COLUMN last_pet_free TO lastPetFree;
 ALTER TABLE players RENAME COLUMN entity_id TO entityId;
 ALTER TABLE guild_pets RENAME COLUMN pet_entity_id TO petEntityId;
+ALTER TABLE inventories RENAME COLUMN player_id TO playerId;
+ALTER TABLE player_small_events RENAME COLUMN player_id TO playerId;
+ALTER TABLE player_small_events RENAME COLUMN event_type TO eventType;
+ALTER TABLE pets RENAME COLUMN maleName_fr TO maleNameFr;
+ALTER TABLE pets RENAME COLUMN maleName_en TO maleNameEn;
+ALTER TABLE pets RENAME COLUMN femaleName_fr TO femaleNameFr;
+ALTER TABLE pets RENAME COLUMN femaleName_en TO femaleNameEn;
+ALTER TABLE map_locations RENAME COLUMN particle_fr TO particleFr;
+ALTER TABLE map_locations RENAME COLUMN particle_en TO particleEn;
+ALTER TABLE inventories RENAME COLUMN backup_id TO backupId;
+ALTER TABLE inventories RENAME COLUMN weapon_id TO weaponId;
+ALTER TABLE inventories RENAME COLUMN armor_id TO armorId;
+ALTER TABLE inventories RENAME COLUMN object_id TO objectId;
+ALTER TABLE entities RENAME COLUMN discordUser_id TO discordUserId;
+ALTER TABLE event_map_location_ids RENAME COLUMN map_location_id TO mapLocationId;
+ALTER TABLE map_locations RENAME COLUMN north_map TO northMap;
+ALTER TABLE map_locations RENAME COLUMN east_map TO eastMap;
+ALTER TABLE map_locations RENAME COLUMN south_map TO southMap;
+ALTER TABLE map_locations RENAME COLUMN west_map TO westMap;
+ALTER TABLE map_locations RENAME COLUMN name_fr TO nameFr;
+ALTER TABLE map_locations RENAME COLUMN name_en TO nameEn;
+ALTER TABLE map_locations RENAME COLUMN desc_fr TO descFr;
+ALTER TABLE map_locations RENAME COLUMN desc_en TO descEn;
+
 
 -- Down

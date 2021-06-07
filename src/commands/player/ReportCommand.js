@@ -123,15 +123,15 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @param {Entities} entity
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
- * @param {string|String} restricted_map_type
+ * @param {string|String} restrictedMapType
  * @returns {Promise<void>}
  */
-const chooseDestination = async function(entity, message, language, restricted_map_type) {
+const chooseDestination = async function(entity, message, language, restrictedMapType) {
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
-	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restricted_map_type);
+	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restrictedMapType);
 
 	if (destinationMaps.length === 0) {
-		return log(message.author + " hasn't any destination map (current map: " + entity.Player.mapId + ", restricted_map_type: " + restricted_map_type + ")");
+		return log(message.author + " hasn't any destination map (current map: " + entity.Player.mapId + ", restrictedMapType: " + restrictedMapType + ")");
 	}
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
@@ -163,7 +163,7 @@ const chooseDestination = async function(entity, message, language, restricted_m
 		await destinationChoseMessage(entity, mapId, message, language);
 	});
 
-	await addBlockedPlayer(entity.discordUser_id, "chooseDestination", collector);
+	await addBlockedPlayer(entity.discordUserId, "chooseDestination", collector);
 
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		try {
@@ -214,7 +214,7 @@ const doEvent = async(message, language, event, entity, time, forcePoints = 0) =
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector((reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id, {time: COLLECTOR_TIME});
 
-	await addBlockedPlayer(entity.discordUser_id, "report", collector);
+	await addBlockedPlayer(entity.discordUserId, "report", collector);
 
 	collector.on("collect", async(reaction) => {
 		collector.stop();
@@ -250,12 +250,12 @@ const doEvent = async(message, language, event, entity, time, forcePoints = 0) =
  * @return {Promise<Message>}
  */
 const doPossibility = async(message, language, possibility, entity, time, forcePoints = 0) => {
-	[entity] = await Entities.getOrRegister(entity.discordUser_id);
+	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	const player = entity.Player;
 
 	if (possibility.length === 1) { // Don't do anything if the player ends the first report
 		if (possibility[0].dataValues.eventId === 0 && possibility[0].dataValues.possibilityKey === "end") {
-			removeBlockedPlayer(entity.discordUser_id);
+			removeBlockedPlayer(entity.discordUserId);
 			return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 				pseudo: message.author,
 				result: "",
@@ -338,10 +338,10 @@ const doPossibility = async(message, language, possibility, entity, time, forceP
 	}
 
 	if (pDataValues.item === true) {
-		await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
+		await giveRandomItem((await message.guild.members.fetch(entity.discordUserId)).user, message.channel, language, entity);
 	}
 	else {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 	}
 
 	if (pDataValues.oneshot === true) {
@@ -419,19 +419,19 @@ const executeSmallEvent = async(message, language, entity, number, forced) => {
 	// Pick random event
 	let event;
 	if (forced === null) {
-		const small_events = JsonReader.small_events;
-		const keys = Object.keys(small_events);
+		const smallEvents = JsonReader.smallEvents;
+		const keys = Object.keys(smallEvents);
 		if (totalSmallEventsRarity === null) {
 			totalSmallEventsRarity = 0;
 			for (let i = 0; i < keys.length; ++i) {
-				totalSmallEventsRarity += small_events[keys[i]].rarity;
+				totalSmallEventsRarity += smallEvents[keys[i]].rarity;
 			}
 		}
-		const random_nb = randInt(1, totalSmallEventsRarity);
+		const randomNb = randInt(1, totalSmallEventsRarity);
 		let cumul = 0;
 		for (let i = 0; i < keys.length; ++i) {
-			cumul += small_events[keys[i]].rarity;
-			if (cumul >= random_nb) {
+			cumul += smallEvents[keys[i]].rarity;
+			if (cumul >= randomNb) {
 				event = keys[i];
 				break;
 			}
@@ -444,7 +444,7 @@ const executeSmallEvent = async(message, language, entity, number, forced) => {
 	// Execute the event
 	const filename = event + "SmallEvent.js";
 	try {
-		const smallEventModule = require.resolve("../../core/small_events/" + filename);
+		const smallEventModule = require.resolve("../../core/smallEvents/" + filename);
 		try {
 			const smallEventFile = require(smallEventModule);
 			if (!smallEventFile.executeSmallEvent) {
@@ -456,7 +456,7 @@ const executeSmallEvent = async(message, language, entity, number, forced) => {
 				seEmbed.setAuthor(format(JsonReader.commands.report.getTranslation(language).journal, {
 					pseudo: message.author.username
 				}), message.author.displayAvatarURL());
-				seEmbed.setDescription(JsonReader.small_events[event].emote + " ");
+				seEmbed.setDescription(JsonReader.smallEvents[event].emote + " ");
 
 				await smallEventFile.executeSmallEvent(message, language, entity, seEmbed);
 			}

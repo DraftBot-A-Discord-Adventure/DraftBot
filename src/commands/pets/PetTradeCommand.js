@@ -67,8 +67,8 @@ const PetTradeCommand = async function(language, message) {
 		dispose: true
 	});
 
-	addBlockedPlayer(trader1.discordUser_id, "petTrade", collector);
-	addBlockedPlayer(trader2.discordUser_id, "petTrade", collector);
+	addBlockedPlayer(trader1.discordUserId, "petTrade", collector);
+	addBlockedPlayer(trader2.discordUserId, "petTrade", collector);
 
 	collector.on("remove", (reaction, user) => {
 		if (reaction.emoji.name === MENU_REACTION.ACCEPT) {
@@ -109,8 +109,8 @@ const PetTradeCommand = async function(language, message) {
 		[trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
 		pet1 = trader1.Player.Pet;
 		pet2 = trader2.Player.Pet;
-		removeBlockedPlayer(trader1.discordUser_id);
-		removeBlockedPlayer(trader2.discordUser_id);
+		removeBlockedPlayer(trader1.discordUserId);
+		removeBlockedPlayer(trader2.discordUserId);
 		if (trader1Accepted === true && trader2Accepted === true) {
 			trader1.Player.petId = pet2.id;
 			trader1.Player.save();

@@ -30,9 +30,9 @@ const SwitchCommand = async(language, message) => {
 	}
 
 
-	const temp = entity.Player.Inventory.object_id;
-	entity.Player.Inventory.object_id = entity.Player.Inventory.backup_id;
-	entity.Player.Inventory.backup_id = temp;
+	const temp = entity.Player.Inventory.objectId;
+	entity.Player.Inventory.objectId = entity.Player.Inventory.backupId;
+	entity.Player.Inventory.backupId = temp;
 
 	await entity.Player.Inventory.save();
 

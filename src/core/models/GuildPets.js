@@ -16,7 +16,7 @@ module.exports = (Sequelize, DataTypes) => {
 		guildId: {
 			type: DataTypes.INTEGER
 		},
-		pet_entity_id: {
+		petEntityId: {
 			type: DataTypes.CHAR
 		},
 		updatedAt: {
@@ -39,10 +39,10 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * @param guildId
-	 * @param pet_entity_id
+	 * @param petEntityId
 	 * @returns {Promise<GuildPets>}
 	 */
-	GuildPets.addPet = (guildId, pet_entity_id) => GuildPets.build({guildId: guildId, pet_entity_id: pet_entity_id});
+	GuildPets.addPet = (guildId, petEntityId) => GuildPets.build({guildId: guildId, petEntityId: petEntityId});
 
 	return GuildPets;
 };

@@ -22,11 +22,11 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
 	const petLine = await PetEntities.displayName(pet, language);
 	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
-	const base = JsonReader.small_events.findPet.emote + " "
+	const base = JsonReader.smallEvents.findPet.emote + " "
 		+ translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)];
 	const noRoomInGuild = guild === null ? true : await Guilds.isPetShelterFull(guild);
 	const seEmbedPetObtention = seEmbed;
-	const trad = JsonReader.small_events.findPet.getTranslation(language);
+	const trad = JsonReader.smallEvents.findPet.getTranslation(language);
 
 	if (noRoomInGuild && entity.Player.petId !== null) {
 		// no room
@@ -70,7 +70,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		}));
 		await message.channel.send(seEmbedPetObtention);
 	}
-	log(entity.discordUser_id + " got find pet event.");
+	log(entity.discordUserId + " got find pet event.");
 };
 
 /**

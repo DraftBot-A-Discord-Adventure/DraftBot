@@ -15,34 +15,34 @@ module.exports = (Sequelize, DataTypes) => {
 		type: {
 			type: DataTypes.TEXT
 		},
-		north_map: {
+		northMap: {
 			type: DataTypes.INTEGER
 		},
-		east_map: {
+		eastMap: {
 			type: DataTypes.INTEGER
 		},
-		south_map: {
+		southMap: {
 			type: DataTypes.INTEGER
 		},
-		west_map: {
+		westMap: {
 			type: DataTypes.INTEGER
 		},
-		name_fr: {
+		nameFr: {
 			type: DataTypes.TEXT
 		},
-		name_en: {
+		nameEn: {
 			type: DataTypes.TEXT
 		},
-		desc_fr: {
+		descFr: {
 			type: DataTypes.TEXT
 		},
-		desc_en: {
+		descEn: {
 			type: DataTypes.TEXT
 		},
-		particle_fr: {
+		particleFr: {
 			type: DataTypes.TEXT
 		},
-		particle_en: {
+		particleEn: {
 			type: DataTypes.TEXT
 		},
 		updatedAt: {
@@ -76,7 +76,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {string}
 	 */
 	MapLocations.prototype.getDisplayName = function(language) {
-		return this.getEmote(language) + " " + (language === "fr" ? this.name_fr : this.name_en);
+		return this.getEmote(language) + " " + (language === "fr" ? this.nameFr : this.nameEn);
 	};
 
 	/**
@@ -84,7 +84,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {string}
 	 */
 	MapLocations.prototype.getParticleName = function(language) {
-		return language === "fr" ? this.particle_fr : this.particle_en;
+		return language === "fr" ? this.particleFr : this.particleEn;
 	};
 
 	/**
@@ -92,7 +92,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {string}
 	 */
 	MapLocations.prototype.getDescription = function(language) {
-		return language === "fr" ? this.desc_fr : this.desc_en;
+		return language === "fr" ? this.descFr : this.descEn;
 	};
 
 	/**
@@ -116,19 +116,19 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * Get map connected to a map with a certain id and with a map type as a filter
 	 * @param mapId
-	 * @param map_types
+	 * @param mapTypes
 	 * @returns {Promise<[MapLocations]>}
 	 */
-	MapLocations.getMapConnectedWithTypeFilter = async(mapId, map_types) => {
-		const query = `SELECT id FROM map_locations WHERE :map_types LIKE '%' || type || '%' AND (
-										id IN (SELECT north_map FROM map_locations WHERE id = :mapId) OR
-										id IN (SELECT south_map FROM map_locations WHERE id = :mapId) OR
-										id IN (SELECT east_map FROM map_locations WHERE id = :mapId) OR
-										id IN (SELECT west_map FROM map_locations WHERE id = :mapId));`;
+	MapLocations.getMapConnectedWithTypeFilter = async(mapId, mapTypes) => {
+		const query = `SELECT id FROM map_locations WHERE :mapTypes LIKE '%' || type || '%' AND (
+										id IN (SELECT northMap FROM map_locations WHERE id = :mapId) OR
+										id IN (SELECT southMap FROM map_locations WHERE id = :mapId) OR
+										id IN (SELECT eastMap FROM map_locations WHERE id = :mapId) OR
+										id IN (SELECT westMap FROM map_locations WHERE id = :mapId));`;
 		return await Sequelize.query(query, {
 			type: Sequelize.QueryTypes.SELECT,
 			replacements: {
-				map_types: map_types,
+				mapTypes: mapTypes,
 				mapId: mapId
 			}
 		});
@@ -148,13 +148,13 @@ module.exports = (Sequelize, DataTypes) => {
 		}))[0]["COUNT(*)"];
 	};
 
-	MapLocations.getPlayersOnMap = async function(mapId, previousMapId, player_id) {
-		const query = "SELECT discordUser_id FROM players JOIN entities ON players.entityId = entities.id WHERE players.id != :player_id AND ((players.mapId = :mapId AND players.previousMapId = :p_map_id) OR (players.mapId = :p_map_id AND players.previousMapId = :mapId)) ORDER BY RANDOM();";
+	MapLocations.getPlayersOnMap = async function(mapId, previousMapId, playerId) {
+		const query = "SELECT discordUserId FROM players JOIN entities ON players.entityId = entities.id WHERE players.id != :playerId AND ((players.mapId = :mapId AND players.previousMapId = :pMapId) OR (players.mapId = :pMapId AND players.previousMapId = :mapId)) ORDER BY RANDOM();";
 		return await Sequelize.query(query, {
 			replacements: {
 				mapId: mapId,
-				p_map_id: previousMapId,
-				player_id: player_id
+				pMapId: previousMapId,
+				playerId: playerId
 			},
 			type: Sequelize.QueryTypes.SELECT
 		});

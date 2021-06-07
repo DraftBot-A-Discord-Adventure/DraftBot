@@ -12,7 +12,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let price = getItemValue(randomItem);
 	price = Math.round(randInt(1, 10) === 10 ? price * 5 : price *= 0.6);
 	const gender = randInt(0, 1);
-	const translationShop = JsonReader.small_events.shop.getTranslation(language);
+	const translationShop = JsonReader.smallEvents.shop.getTranslation(language);
 	seEmbed.setDescription(seEmbed.description
 		+ format(
 			translationShop.intro[gender][randInt(0, translationShop.intro[gender].length)]
@@ -29,12 +29,12 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		msg.react(MENU_REACTION.DENY)
 	]);
 	const filterConfirm = (reaction, user) =>	(reaction.emoji.name === MENU_REACTION.ACCEPT ||
-				reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUser_id;
+				reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUserId;
 
 	const collector = msg.createReactionCollector(filterConfirm, {time: COLLECTOR_TIME, max: 1});
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				if (entity.Player.money < price) {
@@ -45,7 +45,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				}
 				await giveItem(entity, randomItem, language,
 					message.author, message.channel, SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
-				log(entity.discordUser_id + " bought an item in a mini shop for " + price);
+				log(entity.discordUserId + " bought an item in a mini shop for " + price);
 				entity.Player.addMoney(-price);
 				await Promise.all([entity.Player.save(), entity.Player.Inventory.save()]);
 				return;

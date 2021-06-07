@@ -17,7 +17,7 @@ const DailyCommand = async function(language, message) {
 	const time = millisecondsToHours(message.createdAt.getTime() - entity.Player.Inventory.lastDailyAt.valueOf());
 
 	if (activeObject.nature === NATURE.NONE) {
-		if (activeObject.id !== JsonReader.models.inventories.object_id) {
+		if (activeObject.id !== JsonReader.models.inventories.objectId) {
 			// there is a object that do nothing in the inventory
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).objectDoNothingError);
 		}
@@ -101,7 +101,7 @@ const DailyCommand = async function(language, message) {
 	}
 
 	await Promise.all([entity.save(), entity.Player.save(), entity.Player.Inventory.save()]);
-	log(entity.discordUser_id + " used his daily item " + activeObject.en);
+	log(entity.discordUserId + " used his daily item " + activeObject.en);
 	return await message.channel.send(embed);
 };
 

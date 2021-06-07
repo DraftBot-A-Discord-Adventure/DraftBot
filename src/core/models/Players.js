@@ -251,9 +251,9 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.prototype.setPseudo = async function(language) {
 		const entity = await this.getEntity();
-		if (entity.discordUser_id !== undefined &&
-			client.users.cache.get(entity.discordUser_id) !== undefined) {
-			this.pseudo = client.users.cache.get(entity.discordUser_id).username;
+		if (entity.discordUserId !== undefined &&
+			client.users.cache.get(entity.discordUserId) !== undefined) {
+			this.pseudo = client.users.cache.get(entity.discordUserId).username;
 		}
 		else {
 			this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
@@ -360,11 +360,11 @@ module.exports = (Sequelize, DataTypes) => {
 		if (entity.health > 0) {
 			return false;
 		}
-		log("This user is dead : " + entity.discordUser_id);
+		log("This user is dead : " + entity.discordUserId);
 		await Maps.applyEffect(entity.Player, EFFECT.DEAD);
 		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
 
-		const guildMember = await channel.guild.members.fetch(entity.discordUser_id);
+		const guildMember = await channel.guild.members.fetch(entity.discordUserId);
 		const user = guildMember.user;
 		this.dmnotification ? sendDirectMessage(user, JsonReader.models.players.getTranslation(language).koPM.title, JsonReader.models.players.getTranslation(language).koPM.description, JsonReader.bot.embed.default, language)
 			: channel.send(new discord.MessageEmbed()

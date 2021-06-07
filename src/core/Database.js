@@ -157,7 +157,7 @@ class Database {
 			as: "Chief"
 		});
 		Players.hasOne(Inventories, {
-			foreignKey: "player_id",
+			foreignKey: "playerId",
 			as: "Inventory"
 		});
 		Players.hasOne(PetEntities, {
@@ -166,7 +166,7 @@ class Database {
 			as: "Pet"
 		});
 		Players.hasMany(PlayerSmallEvents, {
-			foreignKey: "player_id",
+			foreignKey: "playerId",
 			as: "PlayerSmallEvents"
 		});
 
@@ -185,22 +185,22 @@ class Database {
 		});
 		GuildPets.hasOne(PetEntities, {
 			foreignKey: "id",
-			sourceKey: "pet_entity_id",
+			sourceKey: "petEntityId",
 			as: "PetEntity"
 		});
 
 		Inventories.belongsTo(Players, {
-			foreignKey: "player_id",
+			foreignKey: "playerId",
 			as: "Player"
 		});
 		Inventories.hasOne(Weapons, {
 			foreignKey: "id",
-			sourceKey: "weapon_id",
+			sourceKey: "weaponId",
 			as: "Weapon"
 		});
 		Inventories.hasOne(Armors, {
 			foreignKey: "id",
-			sourceKey: "armor_id",
+			sourceKey: "armorId",
 			as: "Armor"
 		});
 		Inventories.hasOne(Potions, {
@@ -210,12 +210,12 @@ class Database {
 		});
 		Inventories.hasOne(Objects, {
 			foreignKey: "id",
-			sourceKey: "object_id",
+			sourceKey: "objectId",
 			as: "ActiveObject"
 		});
 		Inventories.hasOne(Objects, {
 			foreignKey: "id",
-			sourceKey: "backup_id",
+			sourceKey: "backupId",
 			as: "BackupObject"
 		});
 
@@ -301,7 +301,7 @@ class Database {
 				for (const mapLocationsId of fileContent.map_location_ids) {
 					eventsMapLocationsContent.push({
 						eventId: fileContent.id,
-						map_location_id: mapLocationsId
+						mapLocationId: mapLocationsId
 					});
 				}
 			}
@@ -521,21 +521,21 @@ class Database {
 			if (!JsonReader.models.maps.types.includes(map.type)) {
 				console.error("Type of map " + map.id + " doesn't exist");
 			}
-			for (const dir1 of ["north_map", "south_map", "west_map", "east_map"]) {
+			for (const dir1 of ["northMap", "southMap", "westMap", "eastMap"]) {
 				if (map[dir1]) {
-					const other_map = dict[map[dir1]];
-					if (other_map.id === map.id) {
+					const otherMap = dict[map[dir1]];
+					if (otherMap.id === map.id) {
 						console.error("Map " + map.id + " is connected to itself");
 					}
 					let valid = false;
-					for (const dir2 of ["north_map", "south_map", "west_map", "east_map"]) {
-						if (other_map[dir2] === map.id) {
+					for (const dir2 of ["northMap", "southMap", "westMap", "eastMap"]) {
+						if (otherMap[dir2] === map.id) {
 							valid = true;
 							break;
 						}
 					}
 					if (!valid) {
-						console.error("Map " + map.id + " is connected to " + other_map.id + " but the latter is not");
+						console.error("Map " + map.id + " is connected to " + otherMap.id + " but the latter is not");
 					}
 				}
 			}

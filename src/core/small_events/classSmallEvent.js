@@ -8,10 +8,10 @@
  */
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const classId = entity.Player.class;
-	const trans = JsonReader.small_events.class.getTranslation(language);
-	const base = JsonReader.small_events.class.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] + " ";
+	const trans = JsonReader.smallEvents.class.getTranslation(language);
+	const base = JsonReader.smallEvents.class.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] + " ";
 	let item;
-	if (JsonReader.small_events.class.attackEligible.includes(classId)) {
+	if (JsonReader.smallEvents.class.attackEligible.includes(classId)) {
 		const outRand = draftbotRandom.integer(0, 2);
 
 		switch (outRand) {
@@ -34,7 +34,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		await message.channel.send(seEmbed);
 		await giveItem(entity, item, language, message.author, message.channel);
 	}
-	else if (JsonReader.small_events.class.defenseEligible.includes(classId)) {
+	else if (JsonReader.smallEvents.class.defenseEligible.includes(classId)) {
 		const outRand = draftbotRandom.integer(0, 2);
 		switch (outRand) {
 		case 0:
@@ -56,7 +56,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		await message.channel.send(seEmbed);
 		await giveItem(entity, item, language, message.author, message.channel);
 	}
-	else if (JsonReader.small_events.class.basicEligible.includes(classId)) {
+	else if (JsonReader.smallEvents.class.basicEligible.includes(classId)) {
 		if (draftbotRandom.bool()) {
 			// winItem
 			seEmbed.setDescription(base + trans.basic.winItem[draftbotRandom.integer(0, trans.basic.winItem.length - 1)]);
@@ -71,7 +71,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			await entity.Player.addMoney(moneyWon);
 		}
 	}
-	else if (JsonReader.small_events.class.otherEligible.includes(classId)) {
+	else if (JsonReader.smallEvents.class.otherEligible.includes(classId)) {
 		if (draftbotRandom.bool()) {
 			// winItem
 			seEmbed.setDescription(base + trans.other.winItem[draftbotRandom.integer(0, trans.other.winItem.length - 1)]);
@@ -87,11 +87,11 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		}
 	}
 	else {
-		console.log("This user has an unknown class : " + entity.discordUser_id);
+		console.log("This user has an unknown class : " + entity.discordUserId);
 	}
 
 	await entity.Player.save();
-	log(entity.discordUser_id + " got class small event.");
+	log(entity.discordUserId + " got class small event.");
 };
 
 module.exports = {

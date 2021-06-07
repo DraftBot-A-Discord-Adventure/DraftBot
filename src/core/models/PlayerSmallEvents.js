@@ -13,10 +13,10 @@ module.exports = (Sequelize, DataTypes) => {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		player_id: {
+		playerId: {
 			type: DataTypes.INTEGER
 		},
-		event_type: {
+		eventType: {
 			type: DataTypes.TEXT
 		},
 		number: {
@@ -37,24 +37,24 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * Creates a PlayerSmallEvents object. DOES NOT SAVE IT, you have to do it yourself
-	 * @param {Number} player_id
-	 * @param {String|string} event_type
+	 * @param {Number} playerId
+	 * @param {String|string} eventType
 	 * @param {Number} number
 	 * @returns {PlayerSmallEvents}
 	 */
-	PlayerSmallEvents.createPlayerSmallEvent = (player_id, event_type, number) => PlayerSmallEvents.build({
-		player_id: player_id,
-		event_type: event_type,
+	PlayerSmallEvents.createPlayerSmallEvent = (playerId, eventType, number) => PlayerSmallEvents.build({
+		playerId: playerId,
+		eventType: eventType,
 		number: number
 	});
 
 	/**
 	 * Removes all the small events of a player
-	 * @param {Number} player_id
+	 * @param {Number} playerId
 	 * @returns {Promise<void>}
 	 */
-	PlayerSmallEvents.removeSmallEventsOfPlayer = async(player_id) => {
-		await PlayerSmallEvents.destroy({ where: { player_id: player_id }});
+	PlayerSmallEvents.removeSmallEventsOfPlayer = async(playerId) => {
+		await PlayerSmallEvents.destroy({ where: { playerId: playerId }});
 	};
 
 	return PlayerSmallEvents;

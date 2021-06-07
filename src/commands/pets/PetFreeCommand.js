@@ -64,10 +64,10 @@ const PetFreeCommand = async function(language, message) {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "freepet", collector);
+	addBlockedPlayer(entity.discordUserId, "freepet", collector);
 
 	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {

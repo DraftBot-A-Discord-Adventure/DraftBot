@@ -8,10 +8,10 @@ const DBL = require("../DBL");
  * @returns {Promise<>}
  */
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
-	const trans = JsonReader.small_events.botVote.getTranslation(language);
-	const base = JsonReader.small_events.botVote.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] + trans.stories[draftbotRandom.integer(0, trans.stories.length - 1)];
+	const trans = JsonReader.smallEvents.botVote.getTranslation(language);
+	const base = JsonReader.smallEvents.botVote.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] + trans.stories[draftbotRandom.integer(0, trans.stories.length - 1)];
 
-	if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUser_id) < 0) {
+	if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUserId) < 0) {
 		// hasn't voted
 		seEmbed.setDescription(base + trans.pleaseVote + "\n\n" + trans.pleaseVoteFooter);
 		await message.channel.send(seEmbed);
@@ -21,7 +21,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		// item win
 		seEmbed.setDescription(base + trans.itemWin + "\n\n" + trans.thanksFooter);
 		await message.channel.send(seEmbed);
-		await giveRandomItem((await message.guild.members.fetch(entity.discordUser_id)).user, message.channel, language, entity);
+		await giveRandomItem((await message.guild.members.fetch(entity.discordUserId)).user, message.channel, language, entity);
 
 	}
 	else {
@@ -32,7 +32,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		await message.channel.send(seEmbed);
 	}
 	await entity.Player.save();
-	log(entity.discordUser_id + " got botVote small event.");
+	log(entity.discordUserId + " got botVote small event.");
 };
 
 module.exports = {

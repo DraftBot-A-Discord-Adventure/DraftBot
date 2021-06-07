@@ -1,8 +1,8 @@
 {
 	"lastDailyAt": null,
-	"weapon_id": 0,
-	"armor_id": 0,
+	"weaponId": 0,
+	"armorId": 0,
 	"potionId": 0,
-	"object_id": 0,
-	"backup_id": 0
+	"objectId": 0,
+	"backupId": 0
 }

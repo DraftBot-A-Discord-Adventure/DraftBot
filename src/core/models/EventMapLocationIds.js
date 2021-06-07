@@ -12,7 +12,7 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.INTEGER,
 			primaryKey: true
 		},
-		map_location_id: {
+		mapLocationId: {
 			type: DataTypes.INTEGER,
 			primaryKey: true
 		},

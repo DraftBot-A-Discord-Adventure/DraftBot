@@ -81,7 +81,7 @@ const PetTransferCommand = async function(language, message, args) {
 	const swPetEntity = swPet.PetEntity;
 
 	if (pPet) {
-		swPet.pet_entity_id = pPet.id;
+		swPet.petEntityId = pPet.id;
 		await swPet.save();
 	}
 	else {

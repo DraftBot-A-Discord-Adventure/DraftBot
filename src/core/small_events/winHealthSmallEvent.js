@@ -13,7 +13,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		SMALL_EVENT.MINIMUM_HEALTH_WON,
 		SMALL_EVENT.MAXIMUM_HEALTH_WON
 	);
-	const translationWH = JsonReader.small_events.winHealth.getTranslation(language);
+	const translationWH = JsonReader.smallEvents.winHealth.getTranslation(language);
 	const translationIntrosSE = JsonReader.smallEventsIntros.getTranslation(language);
 	seEmbed.setDescription(
 		translationIntrosSE.intro[randInt(0, translationIntrosSE.intro.length)] +
@@ -24,7 +24,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	await entity.addHealth(healthWon);
 	await entity.save();
 	await message.channel.send(seEmbed);
-	log(entity.discordUser_id + " gained some health points in a mini event");
+	log(entity.discordUserId + " gained some health points in a mini event");
 };
 
 module.exports = {

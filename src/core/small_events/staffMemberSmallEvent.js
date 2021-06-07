@@ -9,7 +9,7 @@
  */
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
-	const tr = JsonReader.small_events.staffMember.getTranslation(language);
+	const tr = JsonReader.smallEvents.staffMember.getTranslation(language);
 	const keys = Object.keys(tr.members);
 	const key = keys[randInt(0, keys.length)];
 	seEmbed.setDescription(
@@ -19,7 +19,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			sentence: tr.members[key]
 		}));
 	await message.channel.send(seEmbed);
-	log(entity.discordUser_id + " met a staff member.");
+	log(entity.discordUserId + " met a staff member.");
 };
 
 module.exports = {
