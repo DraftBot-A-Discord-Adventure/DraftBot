@@ -23,7 +23,7 @@ const DailyCommand = async function(language, message) {
 		}
 
 			// there is no object in the inventory
-			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).noActiveObjectdescription);
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.daily.getTranslation(language).noActiveObjectdescription);
 
 	}
 
