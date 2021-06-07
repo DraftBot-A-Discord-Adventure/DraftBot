@@ -57,7 +57,7 @@
 				"keyword-spacing": "warn",
 				"lines-between-class-members": "warn",
 				"max-depth": ["warn", 5],
-				"max-len": ["warn",100],
+				"max-len": ["warn", 200],
 				"max-lines": ["warn", 800],
 				"max-lines-per-function": ["warn", 50],
 				"max-params": ["warn", 6],

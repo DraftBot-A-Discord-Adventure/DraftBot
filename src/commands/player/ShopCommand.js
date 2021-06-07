@@ -18,7 +18,7 @@ async function ShopCommand(language, message) {
 	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
 
 	const shopPotion = await Shop.findOne({
-		attributes: ["shop_potion_id"]
+		attributes: ["shopPotionId"]
 	});
 
 	// Formatting intems data into a string
@@ -42,7 +42,7 @@ async function ShopCommand(language, message) {
 	// Fetching potion infos
 	const potion = await Potions.findOne({
 		where: {
-			id: shopPotion.shop_potion_id
+			id: shopPotion.shopPotionId
 		}
 	});
 

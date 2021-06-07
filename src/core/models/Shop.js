@@ -10,7 +10,7 @@ module.exports = (Sequelize, DataTypes) => {
 	const Shop = Sequelize.define(
 		"Shop",
 		{
-			shop_potion_id: {
+			shopPotionId: {
 				type: DataTypes.INTEGER,
 				defaultValue: 5
 			},

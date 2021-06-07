@@ -135,10 +135,10 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	}
 	let prefix_item = "";
 	if (item) {
-		if (item.french_plural === 1) {
+		if (item.frenchPlural === 1) {
 			prefix_item = "ses";
 		}
-		else if (item.french_masculine === 1) {
+		else if (item.frenchMasculine === 1) {
 			prefix_item = "son";
 		}
 		else {
@@ -154,7 +154,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		pet_name: otherEntity.Player.Pet ? PetEntities.getPetEmote(otherEntity.Player.Pet) + " " + (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : PetEntities.getPetTypeName(otherEntity.Player.Pet, language)) : "",
 		guild_name: guild ? guild.name : "",
 		item: item ? item[language] : "",
-		plural_item: item ? item.french_plural === 1 ? "s" : "" : "",
+		plural_item: item ? item.frenchPlural === 1 ? "s" : "" : "",
 		prefix_item: prefix_item
 	}));
 	const msg = await message.channel.send(seEmbed);
