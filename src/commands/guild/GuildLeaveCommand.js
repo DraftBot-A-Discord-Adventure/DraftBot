@@ -20,7 +20,7 @@ const GuildLeaveCommand = async(language, message) => {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -36,11 +36,11 @@ const GuildLeaveCommand = async(language, message) => {
 		);
 	}
 
-	if (guild.elder_id) {
-		elder = await Entities.getById(guild.elder_id);
+	if (guild.elderId) {
+		elder = await Entities.getById(guild.elderId);
 	}
 
-	if (entity.id === guild.chief_id) {
+	if (entity.id === guild.chiefId) {
 		if (elder) {
 			confirmationEmbed.setDescription(
 				format(JsonReader.commands.guildLeave.getTranslation(language).leaveChiefDescWithElder, {
@@ -90,16 +90,16 @@ const GuildLeaveCommand = async(language, message) => {
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				entity.Player.guild_id = null;
-				if (entity.id === guild.chief_id) {
+				entity.Player.guildId = null;
+				if (entity.id === guild.chiefId) {
 					if (elder) {
 						log(
 							elder.discordUser_id +
 							" becomes the chief of  " +
 							guild.name
 						);
-						guild.chief_id = elder.id;
-						guild.elder_id = null;
+						guild.chiefId = elder.id;
+						guild.elderId = null;
 						await Promise.all([guild.save()]);
 						message.channel.send(
 							format(JsonReader.commands.guildLeave.getTranslation(language).newChiefTitle, {
@@ -114,10 +114,10 @@ const GuildLeaveCommand = async(language, message) => {
 						);
 						// the chief is leaving : destroy the guild
 						await Players.update(
-							{guild_id: null},
+							{guildId: null},
 							{
 								where: {
-									guild_id: guild.id
+									guildId: guild.id
 								}
 							}
 						);

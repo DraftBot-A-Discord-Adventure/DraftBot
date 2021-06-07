@@ -26,7 +26,7 @@ async function MapCommand(language, message) {
 		}), message.author.displayAvatarURL());
 
 	if (Maps.isTravelling(entity.Player)) {
-		const destMap = await MapLocations.getById(entity.Player.map_id);
+		const destMap = await MapLocations.getById(entity.Player.mapId);
 		mapEmbed.setDescription(format(
 			JsonReader.commands.map.getTranslation(language).descText, {
 				direction: await destMap.getDisplayName(language),

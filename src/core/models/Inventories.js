@@ -32,9 +32,9 @@ module.exports = (Sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				defaultValue: JsonReader.models.inventories.armor_id
 			},
-			potion_id: {
+			potionId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.potion_id
+				defaultValue: JsonReader.models.inventories.potionId
 			},
 			object_id: {
 				type: DataTypes.INTEGER,
@@ -65,7 +65,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Inventories.prototype.giveObject = function(itemID, itemType) {
 		if (ITEMTYPE.POTION === itemType) {
-			this.potion_id = itemID;
+			this.potionId = itemID;
 		}
 		if (ITEMTYPE.WEAPON === itemType) {
 			this.weapon_id = itemID;
@@ -183,7 +183,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Inventories.prototype.drinkPotion = function() {
-		this.potion_id = JsonReader.models.inventories.potion_id;
+		this.potionId = JsonReader.models.inventories.potionId;
 	};
 
 	/**

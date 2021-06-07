@@ -13,7 +13,7 @@ module.exports = (Sequelize, DataTypes) => {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		guild_id: {
+		guildId: {
 			type: DataTypes.INTEGER
 		},
 		pet_entity_id: {
@@ -38,11 +38,11 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	/**
-	 * @param guild_id
+	 * @param guildId
 	 * @param pet_entity_id
 	 * @returns {Promise<GuildPets>}
 	 */
-	GuildPets.addPet = (guild_id, pet_entity_id) => GuildPets.build({guild_id: guild_id, pet_entity_id: pet_entity_id});
+	GuildPets.addPet = (guildId, pet_entity_id) => GuildPets.build({guildId: guildId, pet_entity_id: pet_entity_id});
 
 	return GuildPets;
 };

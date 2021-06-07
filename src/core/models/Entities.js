@@ -102,7 +102,7 @@ module.exports = (Sequelize, DataTypes) => {
 				model: Players,
 				as: "Player",
 				where: {
-					guild_id: guildId
+					guildId: guildId
 				},
 				include: [
 					{
@@ -199,7 +199,7 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	Entities.getServerRank = (discord_id, ids) => {
-		const query = "SELECT rank FROM (SELECT entities.discordUser_id AS discordUser_id, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entity_id AND players.score > 100 WHERE entities.discordUser_id IN (:ids)) WHERE discordUser_id = :id;";
+		const query = "SELECT rank FROM (SELECT entities.discordUser_id AS discordUser_id, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entityId AND players.score > 100 WHERE entities.discordUser_id IN (:ids)) WHERE discordUser_id = :id;";
 		return Sequelize.query(query, {
 			replacements: {
 				ids: ids,
@@ -225,7 +225,7 @@ module.exports = (Sequelize, DataTypes) => {
 		if (player === undefined) {
 			return [null];
 		}
-		return [await Entities.getById(player.entity_id)];
+		return [await Entities.getById(player.entityId)];
 
 	};
 

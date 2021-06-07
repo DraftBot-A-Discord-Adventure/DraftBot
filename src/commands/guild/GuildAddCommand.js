@@ -68,7 +68,7 @@ const GuildAddCommand = async(language, message, args) => {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -84,7 +84,7 @@ const GuildAddCommand = async(language, message, args) => {
 		);
 	}
 
-	if (entity.id !== guild.chief_id && entity.id !== guild.elder_id) {
+	if (entity.id !== guild.chiefId && entity.id !== guild.elderId) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -95,7 +95,7 @@ const GuildAddCommand = async(language, message, args) => {
 
 	// search for a user's guild
 	try {
-		invitedGuild = await Guilds.getById(invitedEntity.Player.guild_id);
+		invitedGuild = await Guilds.getById(invitedEntity.Player.guildId);
 	}
 	catch (error) {
 		invitedGuild = null;
@@ -159,7 +159,7 @@ const GuildAddCommand = async(language, message, args) => {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				try {
-					guild = await Guilds.getById(entity.Player.guild_id);
+					guild = await Guilds.getById(entity.Player.guildId);
 				}
 				catch (error) {
 					guild = null;
@@ -173,7 +173,7 @@ const GuildAddCommand = async(language, message, args) => {
 						JsonReader.commands.guildAdd.getTranslation(language).guildDestroy
 					);
 				}
-				invitedEntity.Player.guild_id = guild.id;
+				invitedEntity.Player.guildId = guild.id;
 				guild.updateLastDailyAt();
 
 				await Promise.all([

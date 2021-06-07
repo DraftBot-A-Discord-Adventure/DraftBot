@@ -19,7 +19,7 @@ const GuildCreateCommand = async(language, message, args) => {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -127,10 +127,10 @@ const GuildCreateCommand = async(language, message, args) => {
 
 				const newGuild = await Guilds.create({
 					name: askedName,
-					chief_id: entity.id
+					chiefId: entity.id
 				});
 
-				entity.Player.guild_id = newGuild.id;
+				entity.Player.guildId = newGuild.id;
 				entity.Player.addMoney(
 					-JsonReader.commands.guildCreate.guildCreationPrice
 				);

@@ -58,7 +58,7 @@ const ReportCommand = async function(language, message, args, forceSpecificEvent
 const doRandomBigEvent = async function(message, language, entity, forceSpecificEvent) {
 	let time;
 	if (forceSpecificEvent === -1) {
-		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.start_travel_date);
+		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.startTravelDate);
 	}
 	else {
 		time = JsonReader.commands.report.timeMaximal + 1;
@@ -75,7 +75,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 	}
 
 	if (forceSpecificEvent === -1) {
-		const map = await MapLocations.getById(entity.Player.map_id);
+		const map = await MapLocations.getById(entity.Player.mapId);
 		[event] = await Events.pickEventOnMapType(map);
 		if (!event) {
 			await message.channel.send("It seems that there is no event here... It's a bug, please report it to the Draftbot staff.");
@@ -110,8 +110,8 @@ const sendTravelPath = async function(entity, message, language) {
 	const tr = JsonReader.commands.report.getTranslation(language);
 	travelEmbed.setAuthor(tr.travelPathTitle, message.author.displayAvatarURL());
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language));
-	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previous_map_id)).getDisplayName(language), true);
-	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.map_id)).getDisplayName(language), true);
+	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previousMapId)).getDisplayName(language), true);
+	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.mapId)).getDisplayName(language), true);
 	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 	return await message.channel.send(travelEmbed);
 };
@@ -131,7 +131,7 @@ const chooseDestination = async function(entity, message, language, restricted_m
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restricted_map_type);
 
 	if (destinationMaps.length === 0) {
-		return log(message.author + " hasn't any destination map (current map: " + entity.Player.map_id + ", restricted_map_type: " + restricted_map_type + ")");
+		return log(message.author + " hasn't any destination map (current map: " + entity.Player.mapId + ", restricted_map_type: " + restricted_map_type + ")");
 	}
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
@@ -220,7 +220,7 @@ const doEvent = async(message, language, event, entity, time, forcePoints = 0) =
 		collector.stop();
 		const possibility = await Possibilities.findAll({
 			where: {
-				event_id: event.id,
+				eventId: event.id,
 				possibilityKey: reaction.emoji.name
 			}
 		});
@@ -229,7 +229,7 @@ const doEvent = async(message, language, event, entity, time, forcePoints = 0) =
 
 	collector.on("end", async(collected) => {
 		if (!collected.first()) {
-			const possibility = await Possibilities.findAll({where: {event_id: event.id, possibilityKey: "end"}});
+			const possibility = await Possibilities.findAll({where: {eventId: event.id, possibilityKey: "end"}});
 			await doPossibility(message, language, possibility, entity, time, forcePoints);
 		}
 	});
@@ -254,7 +254,7 @@ const doPossibility = async(message, language, possibility, entity, time, forceP
 	const player = entity.Player;
 
 	if (possibility.length === 1) { // Don't do anything if the player ends the first report
-		if (possibility[0].dataValues.event_id === 0 && possibility[0].dataValues.possibilityKey === "end") {
+		if (possibility[0].dataValues.eventId === 0 && possibility[0].dataValues.possibilityKey === "end") {
 			removeBlockedPlayer(entity.discordUser_id);
 			return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 				pseudo: message.author,
@@ -330,7 +330,7 @@ const doPossibility = async(message, language, possibility, entity, time, forceP
 		player.nextEvent = pDataValues.nextEvent;
 	}
 
-	if (pDataValues.event_id !== 0) {
+	if (pDataValues.eventId !== 0) {
 		await player.setLastReportWithEffect(message.createdTimestamp, pDataValues.lostTime, pDataValues.effect);
 	}
 	else {
@@ -364,7 +364,7 @@ const doPossibility = async(message, language, possibility, entity, time, forceP
 	}
 
 	if (!await player.killIfNeeded(entity, message.channel, language)) {
-		await chooseDestination(entity, message, language, pDataValues.restricted_maps);
+		await chooseDestination(entity, message, language, pDataValues.restrictedmaps);
 	}
 
 	entity.save();
@@ -386,8 +386,8 @@ const triggersSmallEvent = (entity) => {
 	const now = new Date();
 	const timeBetweenSmallEvents = REPORT.TIME_BETWEEN_BIG_EVENTS / (REPORT.SMALL_EVENTS_COUNT + 1);
 	for (let i = 1; i <= REPORT.SMALL_EVENTS_COUNT; ++i) {
-		const seBefore = entity.Player.start_travel_date.getTime() + i * timeBetweenSmallEvents;
-		const seAfter = entity.Player.start_travel_date.getTime() + (i + 1) * timeBetweenSmallEvents;
+		const seBefore = entity.Player.startTravelDate.getTime() + i * timeBetweenSmallEvents;
+		const seAfter = entity.Player.startTravelDate.getTime() + (i + 1) * timeBetweenSmallEvents;
 		if (seBefore < now.getTime() && seAfter > now.getTime()) {
 			for (const se of entity.Player.PlayerSmallEvents) {
 				if (se.number === i) {

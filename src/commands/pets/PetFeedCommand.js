@@ -10,7 +10,7 @@ const PetFeedCommand = async function(language, message) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -205,7 +205,7 @@ const PetFeedCommand = async function(language, message) {
  * @param {*} item - la nourriture à utiliser
  */
 async function feedPet(message, language, entity, pet, item) {
-	const guild = await Guilds.getById(entity.Player.guild_id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 	if (guild[item.type] <= 0) {
 		return sendErrorMessage(
 			message.author,

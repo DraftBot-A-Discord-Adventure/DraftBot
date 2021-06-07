@@ -17,7 +17,7 @@ const PetTransferCommand = async function(language, message, args) {
 	}
 	let guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -46,7 +46,7 @@ const PetTransferCommand = async function(language, message, args) {
 		if (guildPetCount >= JsonReader.models.pets.slots) {
 			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).noSlotAvailable);
 		}
-		entity.Player.pet_id = null;
+		entity.Player.petId = null;
 		entity.Player.save();
 		await (await GuildPets.addPet(guild.id, pPet.id)).save();
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmDeposit, {
@@ -87,7 +87,7 @@ const PetTransferCommand = async function(language, message, args) {
 	else {
 		await swPet.destroy();
 	}
-	entity.Player.pet_id = swPetEntity.id;
+	entity.Player.petId = swPetEntity.id;
 	await entity.Player.save();
 
 	if (pPet) {

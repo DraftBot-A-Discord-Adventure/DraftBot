@@ -9,7 +9,7 @@
  */
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;
-	const playersOnMap = await MapLocations.getPlayersOnMap(entity.Player.map_id, entity.Player.previous_map_id, entity.Player.id);
+	const playersOnMap = await MapLocations.getPlayersOnMap(entity.Player.mapId, entity.Player.previousMapId, entity.Player.id);
 	for (let i = 0; i < playersOnMap.length; ++i) {
 		if (client.users.cache.has(playersOnMap[i].discordUser_id)) {
 			selectedPlayer = playersOnMap[i];
@@ -58,7 +58,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	if (otherEntity.Player.class && otherEntity.Player.class === entity.Player.class) {
 		cList.push("sameClass");
 	}
-	if (otherEntity.Player.guild_id && otherEntity.Player.guild_id === entity.Player.guild_id) {
+	if (otherEntity.Player.guildId && otherEntity.Player.guildId === entity.Player.guildId) {
 		cList.push("sameGuild");
 	}
 	if (otherPlayer.weeklyRank <= 5) {
@@ -83,18 +83,18 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	else if (entity.Player.money > 0 && otherEntity.Player.money < 200) {
 		cList.push("poor");
 	}
-	if (otherEntity.Player.Inventory.potion_id !== JsonReader.models.inventories.potion_id && entity.Player.Inventory.potion_id === JsonReader.models.inventories.potion_id) {
+	if (otherEntity.Player.Inventory.potionId !== JsonReader.models.inventories.potionId && entity.Player.Inventory.potionId === JsonReader.models.inventories.potionId) {
 		cList.push("duplicatePotion");
 	}
-	if (otherEntity.Player.pet_id) {
+	if (otherEntity.Player.petId) {
 		cList.push("pet");
 	}
-	if (otherEntity.Player.guild_id) {
-		guild = await Guilds.getById(otherEntity.Player.guild_id);
-		if (guild.chief_id === otherEntity.Player.id) {
+	if (otherEntity.Player.guildId) {
+		guild = await Guilds.getById(otherEntity.Player.guildId);
+		if (guild.chiefId === otherEntity.Player.id) {
 			cList.push("guildChief");
 		}
-		else if (guild.elder_id === otherEntity.Player.id) {
+		else if (guild.elderId === otherEntity.Player.id) {
 			cList.push("guildElder");
 		}
 	}
@@ -108,7 +108,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	if (otherEntity.Player.Inventory.armor_id !== JsonReader.models.inventories.armor_id) {
 		cList.push("armor");
 	}
-	if (otherEntity.Player.Inventory.potion_id !== JsonReader.models.inventories.potion_id) {
+	if (otherEntity.Player.Inventory.potionId !== JsonReader.models.inventories.potionId) {
 		cList.push("potion");
 	}
 	if (otherEntity.Player.Inventory.object_id !== JsonReader.models.inventories.object_id) {
@@ -133,16 +133,16 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	default:
 		break;
 	}
-	let prefix_item = "";
+	let prefixItem = "";
 	if (item) {
 		if (item.frenchPlural === 1) {
-			prefix_item = "ses";
+			prefixItem = "ses";
 		}
 		else if (item.frenchMasculine === 1) {
-			prefix_item = "son";
+			prefixItem = "son";
 		}
 		else {
-			prefix_item = "sa";
+			prefixItem = "sa";
 		}
 	}
 
@@ -151,11 +151,11 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		level: otherEntity.Player.level,
 		class: (await Classes.getById(otherEntity.Player.class))[language],
 		advice: JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length)],
-		pet_name: otherEntity.Player.Pet ? PetEntities.getPetEmote(otherEntity.Player.Pet) + " " + (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : PetEntities.getPetTypeName(otherEntity.Player.Pet, language)) : "",
-		guild_name: guild ? guild.name : "",
+		petName: otherEntity.Player.Pet ? PetEntities.getPetEmote(otherEntity.Player.Pet) + " " + (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : PetEntities.getPetTypeName(otherEntity.Player.Pet, language)) : "",
+		guildName: guild ? guild.name : "",
 		item: item ? item[language] : "",
-		plural_item: item ? item.frenchPlural === 1 ? "s" : "" : "",
-		prefix_item: prefix_item
+		pluralItem: item ? item.frenchPlural === 1 ? "s" : "" : "",
+		prefixItem: prefixItem
 	}));
 	const msg = await message.channel.send(seEmbed);
 
@@ -192,7 +192,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		await msg.react(MENU_REACTION.DENY);
 		break;
 	case "duplicatePotion":
-		entity.Player.Inventory.potion_id = otherEntity.Player.Inventory.potion_id;
+		entity.Player.Inventory.potionId = otherEntity.Player.Inventory.potionId;
 		await entity.Player.Inventory.save();
 		break;
 	default:

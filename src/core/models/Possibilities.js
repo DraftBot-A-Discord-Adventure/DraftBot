@@ -46,7 +46,7 @@ module.exports = (Sequelize, DataTypes) => {
 			en: {
 				type: DataTypes.TEXT
 			},
-			event_id: {
+			eventId: {
 				type: DataTypes.INTEGER
 			},
 			nextEvent: {
@@ -60,7 +60,7 @@ module.exports = (Sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 			},
-			restricted_maps: {
+			restrictedmaps: {
 				type: DataTypes.TEXT
 			}
 		},

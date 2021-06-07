@@ -14,7 +14,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -28,7 +28,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const seEmbedPetObtention = seEmbed;
 	const trad = JsonReader.small_events.findPet.getTranslation(language);
 
-	if (noRoomInGuild && entity.Player.pet_id !== null) {
+	if (noRoomInGuild && entity.Player.petId !== null) {
 		// no room
 		let outRand;
 		do {
@@ -45,10 +45,10 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, 1);
 		}
 	}
-	else if (!noRoomInGuild && entity.Player.pet_id !== null) {
+	else if (!noRoomInGuild && entity.Player.petId !== null) {
 		// Place le pet dans la guilde
 		await pet.save();
-		await (await GuildPets.addPet(entity.Player.guild_id, pet.id)).save();
+		await (await GuildPets.addPet(entity.Player.guildId, pet.id)).save();
 		generateRoomEmbed(seEmbed, base, trad, petLine, pet, true);
 		await message.channel.send(seEmbed);
 		seEmbedPetObtention.setDescription(format(trad.petObtentionGuild, {
@@ -60,7 +60,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	else {
 		// Place le pet avec le joueur
 		await pet.save();
-		entity.Player.pet_id = pet.id;
+		entity.Player.petId = pet.id;
 		await entity.Player.save();
 		generateRoomEmbed(seEmbed, base, trad, petLine, pet, false);
 		await message.channel.send(seEmbed);

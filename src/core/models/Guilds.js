@@ -53,10 +53,10 @@ module.exports = (Sequelize, DataTypes) => {
 				type: DataTypes.DATE,
 				defaultValue: JsonReader.models.guilds.lastDailyAt
 			},
-			chief_id: {
+			chiefId: {
 				type: DataTypes.INTEGER
 			},
-			elder_id: {
+			elderId: {
 				type: DataTypes.INTEGER
 			},
 			updatedAt: {

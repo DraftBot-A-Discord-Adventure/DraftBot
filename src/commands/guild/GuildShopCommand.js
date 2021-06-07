@@ -17,7 +17,7 @@ async function GuildShopCommand(language, message) {
 	// search for a user's guild
 	let guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -450,7 +450,7 @@ const canBuy = function(price, player) {
 // Give guild xp
 
 async function giveGuildXp(message, language, entity, author, selectedItem) {
-	const guild = await Guilds.getById(entity.Player.guild_id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 	const toAdd = randInt(50, 450);
 	guild.addExperience(toAdd); // Add xp
 	while (guild.needLevelUp()) {
@@ -487,7 +487,7 @@ const giveFood = async(
 	selectedItem,
 	quantity
 ) => {
-	const guild = await Guilds.getById(entity.Player.guild_id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 	if (
 		guild[selectedItem.type] + quantity >
 		JsonReader.commands.guildShop.max[selectedItem.type]

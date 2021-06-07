@@ -69,7 +69,7 @@ const ProfileCommand = async function(language, message, args) {
 	];
 
 	if (!entity.Player.checkEffect()) {
-		if (message.createdAt.getTime() >= entity.Player.effect_end_date) {
+		if (message.createdAt.getTime() >= entity.Player.effectEndDate) {
 			titleEffect = ":hospital:";
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).timeLeft.fieldName,
@@ -81,7 +81,7 @@ const ProfileCommand = async function(language, message, args) {
 				name: JsonReader.commands.profile.getTranslation(language).timeLeft.fieldName,
 				value: format(JsonReader.commands.profile.getTranslation(language).timeLeft.fieldValue, {
 					effect: entity.Player.effect,
-					timeLeft: minutesToString(millisecondsToMinutes(entity.Player.effect_end_date - message.createdAt.getTime()))
+					timeLeft: minutesToString(millisecondsToMinutes(entity.Player.effectEndDate - message.createdAt.getTime()))
 				})
 			});
 		}
@@ -104,7 +104,7 @@ const ProfileCommand = async function(language, message, args) {
 	}
 
 	try {
-		const guild = await Guilds.getById(entity.Player.guild_id);
+		const guild = await Guilds.getById(entity.Player.guildId);
 		if (guild) {
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).guild.fieldName,
@@ -120,9 +120,9 @@ const ProfileCommand = async function(language, message, args) {
 	}
 
 	try {
-		const map_id = entity.Player.map_id;
-		if (map_id !== null) {
-			const map = await MapLocations.getById(map_id);
+		const mapId = entity.Player.mapId;
+		if (mapId !== null) {
+			const map = await MapLocations.getById(mapId);
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).map.fieldName,
 				value: format(JsonReader.commands.profile.getTranslation(language).map.fieldValue, {

@@ -20,7 +20,7 @@ const PetSellCommand = async function(language, message, args) {
 	}
 
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -168,7 +168,7 @@ const PetSellCommand = async function(language, message, args) {
 async function petSell(message, language, entity, user, pet, petCost) {
 	const translations = JsonReader.commands.petSell.getTranslation(language);
 	[buyer] = await Entities.getOrRegister(user.id);
-	const guild = await Guilds.getById(entity.Player.guild_id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 	const confirmEmbed = new discord.MessageEmbed()
 		.setAuthor(
 			format(translations.confirmEmbed.author, {
@@ -204,7 +204,7 @@ async function petSell(message, language, entity, user, pet, petCost) {
 			removeBlockedPlayer(buyer.discordUser_id);
 			let buyerGuild;
 			try {
-				buyerGuild = await Guilds.getById(buyer.Player.guild_id);
+				buyerGuild = await Guilds.getById(buyer.Player.guildId);
 			}
 			catch (error) {
 				buyerGuild = null;
@@ -227,10 +227,10 @@ async function petSell(message, language, entity, user, pet, petCost) {
 				await guild.levelUpIfNeeded(message.channel, language);
 			}
 			await guild.save();
-			buyer.Player.pet_id = pet.id;
+			buyer.Player.petId = pet.id;
 			buyer.Player.money -= petCost;
 			await buyer.Player.save();
-			entity.Player.pet_id = null;
+			entity.Player.petId = null;
 			await entity.Player.save();
 			pet.lovePoints = PETS.BASE_LOVE;
 			await pet.save();

@@ -19,7 +19,7 @@ const GuildDailyCommand = async(language, message, args, forcedReward) => {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;

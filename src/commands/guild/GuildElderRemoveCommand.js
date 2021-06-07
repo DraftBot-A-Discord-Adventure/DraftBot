@@ -20,7 +20,7 @@ const GuildElderRemoveCommand = async(language, message) => {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -31,7 +31,7 @@ const GuildElderRemoveCommand = async(language, message) => {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notInAguild);
 	}
 
-	if (guild.chief_id !== entity.id) {
+	if (guild.chiefId !== entity.id) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notChiefError);
 	}
 
@@ -75,7 +75,7 @@ const GuildElderRemoveCommand = async(language, message) => {
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				guild.elder_id = null;
+				guild.elderId = null;
 				await Promise.all([guild.save()]);
 
 				confirmEmbed.setAuthor(

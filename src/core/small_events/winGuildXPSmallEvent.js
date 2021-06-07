@@ -11,7 +11,7 @@ const doNothing = require("./doNothingSmallEvent");
  */
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
-	const g = await Guilds.getById(entity.Player.guild_id);
+	const g = await Guilds.getById(entity.Player.guildId);
 	if (g === null) {
 		return await doNothing.executeSmallEvent(message, language, entity, seEmbed);
 	}

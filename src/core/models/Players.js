@@ -42,12 +42,12 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.TEXT,
 			defaultValue: JsonReader.models.players.badges
 		},
-		entity_id: {
+		entityId: {
 			type: DataTypes.INTEGER
 		},
-		guild_id: {
+		guildId: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.players.guild_id
+			defaultValue: JsonReader.models.players.guildId
 		},
 		topggVoteAt: {
 			type: DataTypes.DATE,
@@ -56,10 +56,10 @@ module.exports = (Sequelize, DataTypes) => {
 		nextEvent: {
 			type: DataTypes.INTEGER
 		},
-		pet_id: {
+		petId: {
 			type: DataTypes.INTEGER
 		},
-		last_pet_free: {
+		lastPetFree: {
 			type: DataTypes.DATE,
 			defaultValue: new Date(0)
 		},
@@ -67,21 +67,21 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.STRING(32),
 			defaultValue: JsonReader.models.entities.effect
 		},
-		effect_end_date: {
+		effectEndDate: {
 			type: DataTypes.DATE,
 			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
-		effect_duration: {
+		effectDuration: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0
 		},
-		previous_map_id: {
+		previousMapId: {
 			type: DataTypes.INTEGER
 		},
-		map_id: {
+		mapId: {
 			type: DataTypes.INTEGER
 		},
-		start_travel_date: {
+		startTravelDate: {
 			type: DataTypes.DATE,
 			defaultValue: 0
 		},
@@ -158,7 +158,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getByRank = async(rank) => {
 		const query = `SELECT *
-                   FROM (SELECT entity_id,
+                   FROM (SELECT entityId,
                                 RANK() OVER (ORDER BY score desc, level desc)       rank,
                                 RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
                          FROM players)
@@ -343,7 +343,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String} effectMalus
 	 */
 	Players.prototype.setLastReportWithEffect = async function(time, timeMalus, effectMalus) {
-		this.start_travel_date = new Date(time);
+		this.startTravelDate = new Date(time);
 		await this.save();
 		await require("../../core/Maps").applyEffect(this, effectMalus, timeMalus);
 	};
@@ -377,7 +377,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Players.prototype.isInactive = function() {
-		return this.start_travel_date.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days < Date.now();
+		return this.startTravelDate.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days < Date.now();
 	};
 
 	/**
@@ -391,13 +391,13 @@ module.exports = (Sequelize, DataTypes) => {
 		if (this.effect === EFFECT.SMILEY) {
 			return true;
 		}
-		return this.effect_end_date.getTime() < Date.now();
+		return this.effectEndDate.getTime() < Date.now();
 	};
 
 	Players.prototype.effectRemainingTime = function() {
 		let remainingTime = 0;
 		if (JsonReader.models.players.effectMalus[this.effect] || this.effect === EFFECT.OCCUPIED) {
-			remainingTime = this.effect_end_date - Date.now();
+			remainingTime = this.effectEndDate - Date.now();
 		}
 		if (remainingTime < 0) {
 			remainingTime = 0;

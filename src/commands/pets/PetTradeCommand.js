@@ -112,9 +112,9 @@ const PetTradeCommand = async function(language, message) {
 		removeBlockedPlayer(trader1.discordUser_id);
 		removeBlockedPlayer(trader2.discordUser_id);
 		if (trader1Accepted === true && trader2Accepted === true) {
-			trader1.Player.pet_id = pet2.id;
+			trader1.Player.petId = pet2.id;
 			trader1.Player.save();
-			trader2.Player.pet_id = pet1.id;
+			trader2.Player.petId = pet1.id;
 			trader2.Player.save();
 			pet1.lovePoints = PETS.BASE_LOVE;
 			pet2.lovePoints = PETS.BASE_LOVE;

@@ -44,7 +44,7 @@ const GuildKickCommand = async(language, message, args) => {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -60,7 +60,7 @@ const GuildKickCommand = async(language, message, args) => {
 		);
 	}
 
-	if (guild.chief_id !== entity.id) {
+	if (guild.chiefId !== entity.id) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -71,7 +71,7 @@ const GuildKickCommand = async(language, message, args) => {
 
 	// search for a user's guild
 	try {
-		kickedGuild = await Guilds.getById(kickedEntity.Player.guild_id);
+		kickedGuild = await Guilds.getById(kickedEntity.Player.guildId);
 	}
 	catch (error) {
 		kickedGuild = null;
@@ -132,7 +132,7 @@ const GuildKickCommand = async(language, message, args) => {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				try {
 					[kickedEntity] = await Entities.getByArgs(args, message);
-					kickedGuild = await Guilds.getById(kickedEntity.Player.guild_id);
+					kickedGuild = await Guilds.getById(kickedEntity.Player.guildId);
 				}
 				catch (error) {
 					kickedEntity = null;
@@ -148,7 +148,7 @@ const GuildKickCommand = async(language, message, args) => {
 						JsonReader.commands.guildKick.getTranslation(language).notInTheGuild
 					);
 				}
-				kickedEntity.Player.guild_id = null;
+				kickedEntity.Player.guildId = null;
 
 				await Promise.all([kickedEntity.save(), kickedEntity.Player.save()]);
 

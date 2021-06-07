@@ -21,7 +21,7 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.STRING(2),
 			defaultValue: JsonReader.models.servers.language
 		},
-		discordGuild_id: {
+		discordGuildId: {
 			type: DataTypes.STRING(64)
 		},
 		updatedAt: {
@@ -48,7 +48,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Servers.getOrRegister = (discordGuildId) => Servers.findOrCreate({
 		where: {
-			discordGuild_id: discordGuildId
+			discordGuildId: discordGuildId
 		}
 	});
 

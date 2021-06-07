@@ -133,7 +133,7 @@ class Command {
 		// server check :
 		const [server] = await Servers.findOrCreate({
 			where: {
-				discordGuild_id: message.guild.id
+				discordGuildId: message.guild.id
 			}
 		});
 

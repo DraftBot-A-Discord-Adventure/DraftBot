@@ -139,21 +139,21 @@ class Database {
 	 */
 	static setAssociations() {
 		Entities.hasOne(Players, {
-			foreignKey: "entity_id",
+			foreignKey: "entityId",
 			as: "Player"
 		});
 
 		Players.belongsTo(Entities, {
-			foreignKey: "entity_id",
+			foreignKey: "entityId",
 			as: "Entity"
 		});
 		Players.belongsTo(Guilds, {
-			foreignKey: "guild_id",
+			foreignKey: "guildId",
 			as: "Guild"
 		});
 		Players.belongsTo(Guilds, {
 			foreignKey: "id",
-			targetKey: "chief_id",
+			targetKey: "chiefId",
 			as: "Chief"
 		});
 		Players.hasOne(Inventories, {
@@ -162,7 +162,7 @@ class Database {
 		});
 		Players.hasOne(PetEntities, {
 			foreignKey: "id",
-			sourceKey: "pet_id",
+			sourceKey: "petId",
 			as: "Pet"
 		});
 		Players.hasMany(PlayerSmallEvents, {
@@ -171,16 +171,16 @@ class Database {
 		});
 
 		Guilds.hasMany(Players, {
-			foreignKey: "guild_id",
+			foreignKey: "guildId",
 			as: "Members"
 		});
 		Guilds.hasOne(Players, {
 			foreignKey: "id",
-			sourceKey: "chief_id",
+			sourceKey: "chiefId",
 			as: "Chief"
 		});
 		Guilds.hasMany(GuildPets, {
-			foreignKey: "guild_id",
+			foreignKey: "guildId",
 			as: "GuildPets"
 		});
 		GuildPets.hasOne(PetEntities, {
@@ -205,7 +205,7 @@ class Database {
 		});
 		Inventories.hasOne(Potions, {
 			foreignKey: "id",
-			sourceKey: "potion_id",
+			sourceKey: "potionId",
 			as: "Potion"
 		});
 		Inventories.hasOne(Objects, {
@@ -220,18 +220,18 @@ class Database {
 		});
 
 		Events.hasMany(Possibilities, {
-			foreignKey: "event_id",
+			foreignKey: "eventId",
 			as: "Possibilities"
 		});
 
 		Possibilities.belongsTo(Events, {
-			foreignKey: "event_id",
+			foreignKey: "eventId",
 			as: "Event"
 		});
 
 		PetEntities.hasOne(Pets, {
 			foreignKey: "id",
-			sourceKey: "pet_id",
+			sourceKey: "petId",
 			as: "PetModel"
 		});
 	}
@@ -300,7 +300,7 @@ class Database {
 			if (fileContent.map_location_ids) {
 				for (const mapLocationsId of fileContent.map_location_ids) {
 					eventsMapLocationsContent.push({
-						event_id: fileContent.id,
+						eventId: fileContent.id,
 						map_location_id: mapLocationsId
 					});
 				}
@@ -338,9 +338,9 @@ class Database {
 						item: possibility.item,
 						fr: possibility.translations.fr,
 						en: possibility.translations.en,
-						event_id: fileName,
+						eventId: fileName,
 						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
-						restricted_maps: possibility.restricted_maps
+						restrictedmaps: possibility.restrictedmaps
 					};
 					possibilitiesContent.push(possibilityContent);
 				}
@@ -372,8 +372,8 @@ class Database {
 			Database.sendEventLoadError(event, "English translation missing");
 			return false;
 		}
-		if (event.restricted_maps !== undefined) {
-			const types = event.restricted_maps.split(",");
+		if (event.restrictedmaps !== undefined) {
+			const types = event.restrictedmaps.split(",");
 			for (let i = 0; i < types.length; ++i) {
 				if (!JsonReader.models.maps.types.includes(types[i])) {
 					Database.sendEventLoadError(event, "Event map type doesn't exist");
@@ -490,7 +490,7 @@ class Database {
 					return false;
 				}
 				if (issue.restricted_map !== undefined) {
-					const types = issue.restricted_maps.split(",");
+					const types = issue.restrictedmaps.split(",");
 					for (let i = 0; i < types.length; ++i) {
 						if (!JsonReader.models.maps.types.includes(types[i])) {
 							Database.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + str(i) + " doesn't exist");
@@ -571,7 +571,7 @@ class Database {
 	}
 
 	static async updatePlayersRandomMap() {
-		const query = "UPDATE players SET map_id = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE map_id = -1;";
+		const query = "UPDATE players SET mapId = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE mapId = -1;";
 		await Database.Sequelize.query(query, {
 			type: Sequelize.QueryTypes.UPDATE
 		});

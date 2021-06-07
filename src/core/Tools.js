@@ -550,8 +550,8 @@ global.getValidationInfos = function(guild) {
 async function saveItem(item, entity) {
 	let oldItem;
 	if (item instanceof Potions) {
-		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
-		entity.Player.Inventory.potion_id = item.id;
+		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potionId}});
+		entity.Player.Inventory.potionId = item.id;
 	}
 	if (item instanceof Objects) {
 		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});

@@ -9,7 +9,7 @@ const PetFreeCommand = async function(language, message) {
 
 	// search for a user's guild
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
 	catch (error) {
 		guild = null;
@@ -27,7 +27,7 @@ const PetFreeCommand = async function(language, message) {
 		return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPet);
 	}
 
-	const cooldownTime = PETS.FREE_COOLDOWN - (new Date().getTime() - entity.Player.last_pet_free);
+	const cooldownTime = PETS.FREE_COOLDOWN - (new Date().getTime() - entity.Player.lastPetFree);
 	if (cooldownTime > 0) {
 		return sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petFree.getTranslation(language).cooldown, {
 			time: minutesToString(millisecondsToMinutes(cooldownTime))
@@ -74,8 +74,8 @@ const PetFreeCommand = async function(language, message) {
 					entity.Player.money -= PETFREE.FREE_FEISTY_COST;
 				}
 				pPet.destroy();
-				entity.Player.pet_id = null;
-				entity.Player.last_pet_free = Date();
+				entity.Player.petId = null;
+				entity.Player.lastPetFree = Date();
 				entity.Player.save();
 				const freedEmbed = new discord.MessageEmbed();
 				freedEmbed.setAuthor(format(JsonReader.commands.petFree.getTranslation(language).successTitle, {
