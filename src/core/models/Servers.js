@@ -14,15 +14,15 @@ module.exports = (Sequelize, DataTypes) => {
 			autoIncrement: true
 		},
 		prefix: {
-			type: DataTypes.STRING(10),
+			type: DataTypes.STRING(10), // eslint-disable-line no-alert
 			defaultValue: JsonReader.models.servers.prefix
 		},
 		language: {
-			type: DataTypes.STRING(2),
+			type: DataTypes.STRING(2), // eslint-disable-line no-alert
 			defaultValue: JsonReader.models.servers.language
 		},
 		discordGuildId: {
-			type: DataTypes.STRING(64)
+			type: DataTypes.STRING(64) // eslint-disable-line no-alert
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

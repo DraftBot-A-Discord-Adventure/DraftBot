@@ -34,7 +34,7 @@ module.exports = (Sequelize, DataTypes) => {
 			defaultValue: JsonReader.models.entities.speed
 		},
 		discordUserId: {
-			type: DataTypes.STRING(64)
+			type: DataTypes.STRING(64) // eslint-disable-line no-alert
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
