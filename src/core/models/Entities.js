@@ -199,7 +199,13 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	Entities.getServerRank = (discordId, ids) => {
-		const query = "SELECT rank FROM (SELECT entities.discordUserId AS discordUserId, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entityId AND players.score > 100 WHERE entities.discordUserId IN (:ids)) WHERE discordUserId = :id;";
+		const query = "SELECT rank " +
+			"FROM (" +
+				"SELECT entities.discordUserId AS discordUserId, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank " +
+				"FROM entities " +
+				"INNER JOIN players ON entities.id = players.entityId AND players.score > 100 " +
+				"WHERE entities.discordUserId IN (:ids)) " +
+			"WHERE discordUserId = :id;";
 		return Sequelize.query(query, {
 			replacements: {
 				ids: ids,
@@ -239,7 +245,9 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Entities.prototype.getCumulativeAttack = async function(weapon, armor, potion, object) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const attackItemValue = weapon.getAttack() + object.getAttack() / 2 > playerClass.getAttackValue(this.Player.level) ? playerClass.getAttackValue(this.Player.level) + Math.round(object.getAttack() / 2) : weapon.getAttack() + object.getAttack();
+		const attackItemValue = weapon.getAttack() + object.getAttack() / 2 > playerClass.getAttackValue(this.Player.level)
+			? playerClass.getAttackValue(this.Player.level) + Math.round(object.getAttack() / 2)
+			: weapon.getAttack() + object.getAttack();
 		const attack = playerClass.getAttackValue(this.Player.level) + attackItemValue + armor.getAttack() +
 			potion.getAttack();
 		return attack > 0 ? attack : 0;
@@ -255,7 +263,9 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Entities.prototype.getCumulativeDefense = async function(weapon, armor, potion, object) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const defenseItemValue = armor.getDefense() + object.getDefense() / 2 > playerClass.getDefenseValue(this.Player.level) ? playerClass.getDefenseValue(this.Player.level) + Math.round(object.getDefense() / 2) : armor.getDefense() + object.getDefense();
+		const defenseItemValue = armor.getDefense() + object.getDefense() / 2 > playerClass.getDefenseValue(this.Player.level)
+			? playerClass.getDefenseValue(this.Player.level) + Math.round(object.getDefense() / 2)
+			: armor.getDefense() + object.getDefense();
 		const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + defenseItemValue +
 			potion.getDefense();
 		return defense > 0 ? defense : 0;
@@ -271,7 +281,9 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Entities.prototype.getCumulativeSpeed = async function(weapon, armor, potion, object) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const speedItemValue = object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level) ? playerClass.getSpeedValue(this.Player.level) + Math.round(object.getSpeed() / 2) : object.getSpeed();
+		const speedItemValue = object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level)
+			? playerClass.getSpeedValue(this.Player.level) + Math.round(object.getSpeed() / 2)
+			: object.getSpeed();
 		const speed = playerClass.getSpeedValue(this.Player.level) + weapon.getSpeed() + armor.getSpeed() +
 			potion.getSpeed() + speedItemValue;
 		return speed > 0 ? speed : 0;

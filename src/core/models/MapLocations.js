@@ -149,7 +149,12 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	MapLocations.getPlayersOnMap = async function(mapId, previousMapId, playerId) {
-		const query = "SELECT discordUserId FROM players JOIN entities ON players.entityId = entities.id WHERE players.id != :playerId AND ((players.mapId = :mapId AND players.previousMapId = :pMapId) OR (players.mapId = :pMapId AND players.previousMapId = :mapId)) ORDER BY RANDOM();";
+		const query = "SELECT discordUserId " +
+			"FROM players " +
+			"JOIN entities ON players.entityId = entities.id " +
+			"WHERE players.id != :playerId " +
+			"AND ((players.mapId = :mapId AND players.previousMapId = :pMapId) OR (players.mapId = :pMapId AND players.previousMapId = :mapId)) " +
+			"ORDER BY RANDOM();";
 		return await Sequelize.query(query, {
 			replacements: {
 				mapId: mapId,

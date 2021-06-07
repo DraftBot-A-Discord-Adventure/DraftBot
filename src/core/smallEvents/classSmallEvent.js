@@ -9,7 +9,8 @@
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const classId = entity.Player.class;
 	const trans = JsonReader.smallEvents.class.getTranslation(language);
-	const base = JsonReader.smallEvents.class.emote + " " + JsonReader.smallEventsIntros.getTranslation(language).intro[randInt(0, JsonReader.smallEventsIntros.getTranslation(language).intro.length)] + " ";
+	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
+	const base = JsonReader.smallEvents.class.emote + " " + translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)] + " ";
 	let item;
 	if (JsonReader.smallEvents.class.attackEligible.includes(classId)) {
 		const outRand = draftbotRandom.integer(0, 2);

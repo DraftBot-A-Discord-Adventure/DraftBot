@@ -126,7 +126,11 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {Number}
 	 */
 	PetEntities.getLoveLevelNumber = function(petEntity) {
-		return petEntity.lovePoints === PETS.MAX_LOVE_POINTS ? 5 : petEntity.lovePoints > PETS.LOVE_LEVELS[2] ? 4 : petEntity.lovePoints > PETS.LOVE_LEVELS[1] ? 3 : petEntity.lovePoints > PETS.LOVE_LEVELS[0] ? 2 : 1;
+		return petEntity.lovePoints === PETS.MAX_LOVE_POINTS
+			? 5 : petEntity.lovePoints > PETS.LOVE_LEVELS[2]
+				? 4 : petEntity.lovePoints > PETS.LOVE_LEVELS[1]
+					? 3 : petEntity.lovePoints > PETS.LOVE_LEVELS[0]
+						? 2 : 1;
 	};
 
 	/**

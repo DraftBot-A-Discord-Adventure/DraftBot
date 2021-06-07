@@ -366,12 +366,13 @@ module.exports = (Sequelize, DataTypes) => {
 
 		const guildMember = await channel.guild.members.fetch(entity.discordUserId);
 		const user = guildMember.user;
-		this.dmnotification ? sendDirectMessage(user, JsonReader.models.players.getTranslation(language).koPM.title, JsonReader.models.players.getTranslation(language).koPM.description, JsonReader.bot.embed.default, language)
+		const transDMN = JsonReader.models.players.getTranslation(language);
+		this.dmnotification ? sendDirectMessage(user, transDMN.koPM.title, transDMN.koPM.description, JsonReader.bot.embed.default, language)
 			: channel.send(new discord.MessageEmbed()
-				.setDescription(JsonReader.models.players.getTranslation(language).koPM.description)
-				.setTitle(JsonReader.models.players.getTranslation(language).koPM.title)
+				.setDescription(transDMN.koPM.description)
+				.setTitle(transDMN.koPM.title)
 				.setColor(JsonReader.bot.embed.default)
-				.setFooter(JsonReader.models.players.getTranslation(language).dmDisabledFooter));
+				.setFooter(transDMN.dmDisabledFooter));
 
 		return true;
 	};
