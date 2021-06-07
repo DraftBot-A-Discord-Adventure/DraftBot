@@ -101,12 +101,12 @@ export class DraftBotReactionMessage extends MessageEmbed {
 	 * @param channel
 	 */
 	async send(channel: TextChannel | DMChannel | NewsChannel): Promise<Message> {
-		const sentMessage = await channel.send(this);
+		this._sentMessage = await channel.send(this);
 		const collectorFilter = (reaction: MessageReaction, user: User) =>
 			!user.bot &&
 			(this._anyUserAllowed || this._allowedUsersDiscordIdToReact.indexOf(user.id) !== -1)
 			&& this._reactionsNames.indexOf(reaction.emoji.name) !== -1;
-		this._collector = sentMessage.createReactionCollector(collectorFilter, {
+		this._collector = this._sentMessage.createReactionCollector(collectorFilter, {
 			time: this._collectorTime <= 0 ? COLLECTOR_TIME : this._collectorTime,
 			max: this._maxReactions
 		});
@@ -124,7 +124,10 @@ export class DraftBotReactionMessage extends MessageEmbed {
 				this._endCallback(this);
 			}
 		});
-		return sentMessage;
+		for (const reaction of this._reactions) {
+			await this._sentMessage.react(reaction.emote);
+		}
+		return this._sentMessage;
 	}
 
 	/**

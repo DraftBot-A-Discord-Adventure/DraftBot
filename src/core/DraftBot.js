@@ -10,7 +10,7 @@ class DraftBot {
 	static async init() {
 		DraftBot.handleLogs();
 
-		await require("core/JsonReader").init({
+		await require("./JsonReader").init({
 			folders: ["resources/text/commands", "resources/text/models", "resources/text/smallEvents"],
 			files: [
 				"config/app.json",
@@ -25,9 +25,9 @@ class DraftBot {
 				"resources/text/food.json"
 			]
 		});
-		await require("core/Database").init();
-		await require("core/Command").init();
-		await require("core/fights/Attack").init();
+		await require("./Database").init();
+		await require("./Command").init();
+		await require("./fights/Attack").init();
 
 		// TODO
 		// draftbot.checkEasterEggsFile();
@@ -39,7 +39,7 @@ class DraftBot {
 			FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
 		);
 
-		require("core/DBL").startDBLWebhook();
+		require("./DBL").startDBLWebhook();
 
 		return this;
 	}
@@ -280,6 +280,9 @@ class DraftBot {
 
 		/* Add log to file */
 		const addConsoleLog = function(message) {
+			if (!message) {
+				return;
+			}
 			const now = new Date();
 			const dateStr =
 				"[" +

@@ -15,10 +15,10 @@ class Command {
 		Command.players = new Map();
 
 		const folders = [
-			"src/commands/admin",
-			"src/commands/guild",
-			"src/commands/player",
-			"src/commands/pets"
+			"dist/src/commands/admin",
+			"dist/src/commands/guild",
+			"dist/src/commands/player",
+			"dist/src/commands/pets"
 		];
 		for (let folder of folders) {
 			const commandsFiles = await fs.promises.readdir(folder);
@@ -26,7 +26,7 @@ class Command {
 				if (!commandFile.endsWith(".js")) {
 					continue;
 				}
-				folder = folder.replace("src/", "");
+				folder = folder.replace("dist/src/", "");
 				const commandName = commandFile.split(".")[0];
 
 				const commands = require(`${folder}/${commandName}`).commands;

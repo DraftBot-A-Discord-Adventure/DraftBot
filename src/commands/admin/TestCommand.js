@@ -1,7 +1,7 @@
 /* eslint-disable */
 
-import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
-import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
+const DraftBotReactionMessageBuilder = require("../../core/messages/DraftBotReactionMessage").DraftBotReactionMessageBuilder;
+const DraftBotReaction = require("../../core/messages/DraftBotReaction").DraftBotReaction;
 
 const Maps = require("../../core/Maps");
 /**
@@ -508,7 +508,7 @@ const TestCommand = async (language, message, args) => {
 			break;
 		case "dbreactionembed":
 			const reactionCallback = (msg, reaction, user) => {
-				msg.description = "Last clicked: " + reaction.emoji.name + "\nClicked by " + user.username + "\n" + msg.collector.collected.size + " / " + msg.collector.max;
+				msg.description = "Last clicked: " + reaction.emoji.name + "\nClicked by " + user.username;
 				msg.sentMessage.edit(msg);
 			};
 			const stopCallback = (msg) => {
@@ -525,7 +525,7 @@ const TestCommand = async (language, message, args) => {
 				.addReaction(new DraftBotReaction("🛑", stopCallback))
 				.allowUser(message.author)
 				.endCallback(endCallback)
-				.maxReactions(20)
+				.maxReactions(999)
 				.build()
 				.setTitle("Test embed")
 				.setDescription("Try to click on a reaction !")

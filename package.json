@@ -16,9 +16,9 @@
 	"_moduleAliases": {
 		"draftbot": ".",
 		"config": "./config",
-		"core": "./src/core",
-		"commands": "./src/commands",
-		"models": "./src/core/models",
+		"core": "./dist/src/core",
+		"commands": "./dist/src/commands",
+		"models": "./dist/src/core/models",
 		"resources": "./resources"
 	},
 	"jest": {

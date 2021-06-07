@@ -1,8 +1,8 @@
 require("colors");
-require("core/Constant");
-require("core/MessageError");
-require("core/Tools");
-const Draftbot = require("core/DraftBot");
+require("./core/Constant");
+require("./core/MessageError");
+require("./core/Tools");
+const Draftbot = require("./core/DraftBot");
 
 (async(Drafbot) => {
 
@@ -29,7 +29,7 @@ const Draftbot = require("core/DraftBot");
 			.setActivity(JsonReader.bot.activity)
 			.catch(console.error);
 
-		await require("core/DBL").verifyDBLRoles();
+		await require("./core/DBL").verifyDBLRoles();
 	};
 
 	/**
