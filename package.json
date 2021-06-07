@@ -7,10 +7,11 @@
 		"url": "https://github.com/BastLast/DraftBot-A-Discord-Adventure.git"
 	},
 	"scripts": {
-		"start": "tsc && node dist/index.js",
+		"start": "tsc && node dist/src/index.js",
 		"postinstall": "link-module-alias",
-		"test": "jest",
-		"eslint": "eslint src test"
+		"test": "tsc && jest dist/test",
+		"eslint": "eslint src test",
+		"tsc": "tsc"
 	},
 	"_moduleAliases": {
 		"draftbot": ".",
@@ -22,10 +23,7 @@
 		"resources": "./resources"
 	},
 	"jest": {
-		"verbose": true,
-		"testPathIgnorePatterns": [
-			"dist"
-		]
+		"verbose": true
 	},
 	"dependencies": {
 		"@types/bluebird": "^3.5.35",

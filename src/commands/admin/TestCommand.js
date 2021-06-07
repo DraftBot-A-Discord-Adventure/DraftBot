@@ -1,5 +1,8 @@
 /* eslint-disable */
 
+import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
+import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
+
 const Maps = require("../../core/Maps");
 /**
  * Cheat command for testers
@@ -502,6 +505,31 @@ const TestCommand = async (language, message, args) => {
 		case "rmeffect":
 			await Maps.removeEffect(author.Player);
 			await author.Player.save();
+			break;
+		case "dbreactionembed":
+			const reactionCallback = (msg, reaction, user) => {
+				msg.description = "Last clicked: " + reaction.emoji.name + "\nClicked by " + user.username + "\n" + msg.collector.collected.size + " / " + msg.collector.max;
+				msg.sentMessage.edit(msg);
+			};
+			const stopCallback = (msg) => {
+				msg.stop();
+			};
+			const endCallback = (msg) => {
+				msg.description = "Embed ended :(";
+				msg.sentMessage.edit(msg);
+			};
+			await new DraftBotReactionMessageBuilder()
+				.addReaction(new DraftBotReaction("1⃣", reactionCallback))
+				.addReaction(new DraftBotReaction("2⃣", reactionCallback))
+				.addReaction(new DraftBotReaction("3⃣", reactionCallback))
+				.addReaction(new DraftBotReaction("🛑", stopCallback))
+				.allowUser(message.author)
+				.endCallback(endCallback)
+				.maxReactions(20)
+				.build()
+				.setTitle("Test embed")
+				.setDescription("Try to click on a reaction !")
+				.send(message.channel);
 			break;
 		default:
 			await message.channel.send("Argument inconnu !");

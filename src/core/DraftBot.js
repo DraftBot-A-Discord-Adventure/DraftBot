@@ -166,12 +166,10 @@ class DraftBot {
 					await client.channels.fetch(
 						JsonReader.app.FRENCH_ANNOUNCEMENT_CHANNEL_ID
 					)
-				).send(
-					format(
-						JsonReader.bot.getTranslation("fr").topWeekAnnouncement,
-						{mention: winner.getMention()}
-					)
-				);
+				).send(format(
+					JsonReader.bot.getTranslation("fr").topWeekAnnouncement,
+					{mention: winner.getMention()}
+				));
 				await message.react("🏆");
 			}
 			catch (e) {
@@ -182,12 +180,10 @@ class DraftBot {
 					await client.channels.fetch(
 						JsonReader.app.ENGLISH_ANNOUNCEMENT_CHANNEL_ID
 					)
-				).send(
-					format(
-						JsonReader.bot.getTranslation("en").topWeekAnnouncement,
-						{mention: winner.getMention()}
-					)
-				);
+				).send(format(
+					JsonReader.bot.getTranslation("en").topWeekAnnouncement,
+					{mention: winner.getMention()}
+				));
 				await message.react("🏆");
 			}
 			catch (e) {

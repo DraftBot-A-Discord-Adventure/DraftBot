@@ -215,13 +215,11 @@ class Command {
 		if (!entity.Player.dmnotification) {
 			icon = JsonReader.bot.dm.alertIcon;
 		}
-		dmChannel.send(
-			format(JsonReader.bot.dm.supportAlert, {
-				username: message.author.username,
-				alertIcon: icon,
-				id: message.author.id
-			}) + message.content
-		);
+		dmChannel.send(format(JsonReader.bot.dm.supportAlert, {
+			username: message.author.username,
+			alertIcon: icon,
+			id: message.author.id
+		}) + message.content);
 
 		const msg = await sendSimpleMessage(
 			message.author,

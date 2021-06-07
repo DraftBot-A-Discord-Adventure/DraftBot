@@ -8,16 +8,15 @@
 	"allowJs": true,
 	"outDir": "dist",
 	"checkJs": false,
-	"emitDeclarationOnly": true,
 	"emitDecoratorMetadata": true,
 	"experimentalDecorators": true,
 	"incremental": true,
 	"noResolve": false,
 	"noEmitOnError": false,
-	"declaration": true,
 	"moduleResolution": "node",
-	"skipLibCheck": true
+	"skipLibCheck": true,
+	"target": "es6"
 },
-"include": ["src/**/*"],
-"exclude": ["node_modules", "**/*.spec.ts", "test/**/*"]
+"include": ["src/**/*", "test/**/*"],
+"exclude": ["node_modules", "**/*.spec.ts"]
 }
