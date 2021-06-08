@@ -9,7 +9,7 @@ import {
 	User
 } from "discord.js";
 import { DraftBotReaction } from "./DraftBotReaction";
-declare const COLLECTOR_TIME: number;
+import {Constants} from "../Constants";
 
 /**
  * Error thrown if the message has not been sent before
@@ -107,7 +107,7 @@ export class DraftBotReactionMessage extends MessageEmbed {
 			(this._anyUserAllowed || this._allowedUsersDiscordIdToReact.indexOf(user.id) !== -1)
 			&& this._reactionsNames.indexOf(reaction.emoji.name) !== -1;
 		this._collector = this._sentMessage.createReactionCollector(collectorFilter, {
-			time: this._collectorTime <= 0 ? COLLECTOR_TIME : this._collectorTime,
+			time: this._collectorTime <= 0 ? Constants.MESSAGES.COLLECTOR_TIME : this._collectorTime,
 			max: this._maxReactions
 		});
 		this._collector.on("collect", (reaction, user) => {
