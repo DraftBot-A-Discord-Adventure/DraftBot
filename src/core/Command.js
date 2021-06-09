@@ -26,20 +26,6 @@ class Command {
 		console.log(Command.commands);
 	}
 
-	static initCommands(commands) {
-		for (let i = 0; i < commands.length; ++i) {
-			const cmd = commands[i];
-			Command.commands.set(cmd.name, cmd.func);
-			Command.aliases.set(cmd.name, cmd.name);
-			if (cmd.aliases !== undefined) {
-				for (let j = 0; j < cmd.aliases.length; ++j) {
-					Command.commands.set(cmd.aliases[j], cmd.func);
-					Command.aliases.set(cmd.aliases[j], cmd.name);
-				}
-			}
-		}
-	}
-
 	/**
 	 * search for a command uppon an alias
 	 * @param {String} alias - The alias
