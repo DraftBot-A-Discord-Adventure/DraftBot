@@ -76,7 +76,7 @@ const fightCommand = async function(language, message, args, friendly = false) {
 
 			const collector = messageFightAsk.createReactionCollector(filter, { time: 60000 });
 
-			collector.on("collect", async(reaction, user) => {
+			collector.on("collect", async (reaction, user) => {
 				switch (reaction.emoji.name) {
 				case MENU_REACTION.ACCEPT:
 					if (user.id === attacker.discordUserId) {

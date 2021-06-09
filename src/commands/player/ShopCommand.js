@@ -91,7 +91,7 @@ async function ShopCommand(language, message) {
 	addBlockedPlayer(entity.discordUserId, "shop", collector);
 
 	// Fetch the choice from the user
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		if (!reaction.first()) {
 			// the user is afk
 			removeBlockedPlayer(entity.discordUserId);

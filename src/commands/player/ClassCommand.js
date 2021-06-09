@@ -51,7 +51,7 @@ async function ClassCommand(language, message) {
 	addBlockedPlayer(entity.discordUserId, "class", collector);
 
 	// Fetch the choice from the user
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		if (!reaction.first()) { // the user is afk
 			removeBlockedPlayer(entity.discordUserId);
 			return;
@@ -108,7 +108,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 		max: 1
 	});
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		const playerClass = await Classes.getById(entity.Player.class);
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {

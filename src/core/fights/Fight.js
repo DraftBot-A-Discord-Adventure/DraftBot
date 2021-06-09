@@ -189,7 +189,7 @@ class Fight {
 
 				const collector = message.createReactionCollector(filter, {time: 30000});
 
-				collector.on("collect", async(reaction) => {
+				collector.on("collect", async (reaction) => {
 					switch (reaction.emoji.name) {
 					case "⚔":
 						await message.delete().catch();
