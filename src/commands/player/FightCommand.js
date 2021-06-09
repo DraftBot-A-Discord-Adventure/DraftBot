@@ -1,7 +1,7 @@
 const Fight = require("../../core/fights/Fight");
 
 module.exports.help = {
-	"name" : "fight"
+	"name": "fight"
 };
 
 /**
