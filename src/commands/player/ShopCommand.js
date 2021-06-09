@@ -1,3 +1,5 @@
+import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+
 const Maps = require("../../core/Maps");
 /**
  * Displays the shop
@@ -99,13 +101,12 @@ async function ShopCommand(language, message) {
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.DENY) {
 			removeBlockedPlayer(entity.discordUserId);
-			sendErrorMessage(
-				message.author,
-				message.channel,
-				language,
-				JsonReader.commands.shop.getTranslation(language).error
-					.leaveShop, true
-			);
+			await message.channel.send(
+				new DraftBotErrorEmbed(
+					message.author,
+					language,
+					JsonReader.commands.shop.getTranslation(language).error.leaveShop,
+					true));
 			return;
 		}
 

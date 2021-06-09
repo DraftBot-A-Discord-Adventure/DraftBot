@@ -10,6 +10,7 @@ import {
 } from "discord.js";
 import { DraftBotReaction } from "./DraftBotReaction";
 import {Constants} from "../Constants";
+import {DraftBotEmbed} from "./DraftBotEmbed";
 
 /**
  * Error thrown if the message has not been sent before
@@ -19,7 +20,7 @@ const MESSAGE_NOT_SENT_ERROR = "Message has not been sent";
 /**
  * A class corresponding to a reaction message used in the bot
  */
-export class DraftBotReactionMessage extends MessageEmbed {
+export class DraftBotReactionMessage extends DraftBotEmbed {
 	/**
 	 * This list of reactions of the message
 	 */
@@ -84,7 +85,6 @@ export class DraftBotReactionMessage extends MessageEmbed {
 		collectorTime: number
 	) {
 		super();
-		this.setColor(Constants.MESSAGES.COLORS.DEFAULT);
 		this._reactions = reactions;
 		this._allowedUsersDiscordIdToReact = allowedUsersDiscordIdToReact;
 		this._endCallback = endCallback;

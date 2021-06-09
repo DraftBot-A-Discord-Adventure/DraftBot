@@ -3,7 +3,17 @@ import {DraftBotReaction} from "./DraftBotReaction";
 import {MessageReaction, User} from "discord.js";
 import {Constants} from "../Constants";
 
-export class ValidateReactionMessage extends DraftBotReactionMessage {
+/**
+ * An embed with validate or refuse reactions
+ */
+export class DraftBotValidateReactionMessage extends DraftBotReactionMessage {
+	/**
+	 * Default constructor
+	 * @param allowedUser
+	 * @param endCallback
+	 * @param validateCallback
+	 * @param refuseCallback
+	 */
 	constructor(allowedUser: User,
 		endCallback: (msg: DraftBotReactionMessage) => void,
 		validateCallback: (msg: DraftBotReactionMessage, reaction: MessageReaction, user: User) => void = null,
@@ -22,10 +32,16 @@ export class ValidateReactionMessage extends DraftBotReactionMessage {
 		);
 	}
 
+	/**
+	 * Returns if someone reacted yes
+	 */
 	isValidated(): boolean {
 		return this.someoneReacted() && this.collector.collected.first().emoji.name === Constants.REACTIONS.VALIDATE_REACTION;
 	}
 
+	/**
+	 * Returns if someone reacted
+	 */
 	someoneReacted(): boolean {
 		return this.collector && !!this.collector.collected.first();
 	}

@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-import {ValidateReactionMessage} from "../../core/messages/ValidateReactionMessage";
+import {DraftBotValidateReactionMessage} from "../../core/messages/ValidateReactionMessage";
 
 const SellCommand = async(language, message) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
@@ -23,9 +23,9 @@ const SellCommand = async(language, message) => {
 
 	let backupItem = await entity.Player.Inventory.getBackupObject();
 
-	const sellEnd = async(msg) => {
+	const sellEnd = async(validateMessage) => {
 		removeBlockedPlayer(entity.discordUserId);
-		if (msg.isValidated()) {
+		if (validateMessage.isValidated()) {
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
 			backupItem = await entity.Player.Inventory.getBackupObject();
 			if (entity.Player.Inventory.hasItemToSell()) { // Preventive
@@ -49,10 +49,8 @@ const SellCommand = async(language, message) => {
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).sellCanceled, true);
 	};
 
-	const validationMessage = await new ValidateReactionMessage(message.author, sellEnd)
-		.setAuthor(format(JsonReader.commands.sell.getTranslation(language).sellTitle, {
-			pseudo: message.author.username
-		}), message.author.displayAvatarURL())
+	const validationMessage = await new DraftBotValidateReactionMessage(message.author, sellEnd)
+		.formatAuthor(JsonReader.commands.sell.getTranslation(language).sellTitle, message.author)
 		.setDescription(format(JsonReader.commands.sell.getTranslation(language).confirmSell, {
 			item: backupItem.getName(language),
 			money: getItemValue(backupItem)

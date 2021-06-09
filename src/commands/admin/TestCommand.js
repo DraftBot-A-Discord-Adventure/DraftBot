@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import {ValidateReactionMessage} from "../../core/messages/ValidateReactionMessage";
+import {DraftBotValidateReactionMessage} from "../../core/messages/ValidateReactionMessage";
 
 const DraftBotReactionMessageBuilder = require("../../core/messages/DraftBotReactionMessage").DraftBotReactionMessageBuilder;
 const DraftBotReaction = require("../../core/messages/DraftBotReaction").DraftBotReaction;
@@ -543,7 +543,7 @@ const TestCommand = async (language, message, args) => {
 					msg.description = "Refused by " + user.username;
 					msg.sentMessage.edit(msg);
 				}
-				await new ValidateReactionMessage(validateCallback, refuseCallback, null)
+				await new DraftBotValidateReactionMessage(validateCallback, refuseCallback, null)
 					.setTitle("Validate embed test")
 					.setDescription("Do you accept ?")
 					.send(message.channel);
