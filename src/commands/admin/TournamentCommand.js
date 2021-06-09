@@ -12,7 +12,7 @@ global.tournamentPower = 500;
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 module.exports.execute = async (message, language, args) => {
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.TOURNAMENT)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.TOURNAMENT) !== true) {
 		return;
 	}
 

@@ -1,5 +1,9 @@
 const Maps = require("../../core/Maps");
 
+module.exports.help = {
+	name: "respawn"
+};
+
 /**
  * Allow a player who is dead to respawn
  * @param {("fr"|"en")} language - Language to use in the response
@@ -44,19 +48,4 @@ const RespawnCommand = async (language, message) => {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "respawn",
-			func: RespawnCommand
-		}
-	]
-};
-
-module.exports.execute = (message, language, args) => {
-
-};
-
-module.exports.help = {
-	name : ""
-};
+module.exports.execute = RespawnCommand;

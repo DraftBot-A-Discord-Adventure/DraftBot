@@ -10,7 +10,6 @@ module.exports.help = {
  */
 
 module.exports.execute = async (message, language, args) => {
-	let entity;
 	let elderEntity;
 	let guild;
 	let elderGuild;

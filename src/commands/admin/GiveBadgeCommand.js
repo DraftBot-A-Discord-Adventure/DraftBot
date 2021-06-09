@@ -9,7 +9,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 module.exports.execute = async (message, language, args) => {
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER)) !== true) {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER) !== true) {
 		return;
 	}
 	const embed = new discord.MessageEmbed();

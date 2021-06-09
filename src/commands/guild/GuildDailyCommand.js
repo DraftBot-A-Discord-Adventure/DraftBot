@@ -1,7 +1,7 @@
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
-	name : "guilddaily"
+	name: "guilddaily"
 };
 
 /**
@@ -264,15 +264,6 @@ module.exports.execute = async (message, language, args, forcedReward) => {
 		}
 	}
 };
-
-/**
- * update the moment where the daily guild was used
- * @param {*} guild
- * @param {*} message
- */
-function updateLastInvocation(guild, message) {
-	guild.lastInvocation = message.createdTimestamp;
-}
 
 function generateRandomProperty(guild) {
 	let resultNumber = randInt(0, 1000);

@@ -1,5 +1,9 @@
 const Fight = require("../../core/fights/Fight");
 
+module.exports.help = {
+	"name" : "fight"
+};
+
 /**
  * Displays information about the profile of the player who sent the command
  * @param {("fr"|"en")} language - Language to use in the response
@@ -7,7 +11,7 @@ const Fight = require("../../core/fights/Fight");
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {boolean} friendly - If the fight is a friendly fight
  */
-const fightCommand = async function(language, message, args, friendly = false) {
+const FightCommand = async function(language, message, args, friendly = false) {
 	const [attacker] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], attacker) !== true) {
@@ -245,15 +249,6 @@ const FIGHT_ERROR = {
 	DISALLOWED_EFFECT: 2,
 	OCCUPIED: 3,
 	NO_FIGHT_POINTS: 4
-};
-
-/**
- * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
- * @param {String[]} args=[] - Additional arguments sent with the command
- */
-const FriendlyFightCommand = async function(language, message, args) {
-	await fightCommand(language, message, args, true);
 };
 
 module.exports.execute = FightCommand;

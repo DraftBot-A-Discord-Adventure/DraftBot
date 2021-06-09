@@ -1,5 +1,5 @@
 module.exports.help = {
-	name : "shelter"
+	name: "shelter"
 };
 
 /**
@@ -8,7 +8,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+module.exports.execute = async (message, language) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {

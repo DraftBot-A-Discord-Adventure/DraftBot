@@ -1,5 +1,5 @@
 module.exports.help = {
-	name : "guildstorage"
+	name: "guildstorage"
 };
 
 /**
@@ -8,7 +8,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+module.exports.execute = async (message, language) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (

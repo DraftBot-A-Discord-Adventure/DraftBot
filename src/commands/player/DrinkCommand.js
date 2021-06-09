@@ -1,7 +1,7 @@
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
-	name : "drink"
+	name: "drink"
 };
 
 /**
@@ -67,4 +67,4 @@ const DrinkCommand = async function(language, message) {
 	return await message.channel.send(embed);
 };
 
-module.exports.excute = DrinkCommand;
+module.exports.execute = DrinkCommand;

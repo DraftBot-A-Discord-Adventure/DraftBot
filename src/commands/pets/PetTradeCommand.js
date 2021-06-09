@@ -1,5 +1,5 @@
 module.exports.help = {
-	name : "pettrade"
+	name: "pettrade"
 };
 
 /**
@@ -8,7 +8,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async function (language, message, args) {
+module.exports.execute = async function(language, message) {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,

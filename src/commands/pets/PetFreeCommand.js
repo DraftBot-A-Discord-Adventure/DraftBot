@@ -1,5 +1,5 @@
 module.exports.help = {
-	name : "petfree"
+	name: "petfree"
 };
 
 /**
@@ -8,7 +8,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (language, message, args) => {
+module.exports.execute = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	// search for a user's guild

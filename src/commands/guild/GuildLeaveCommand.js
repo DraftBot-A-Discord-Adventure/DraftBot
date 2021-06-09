@@ -8,8 +8,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
-	let entity;
+module.exports.execute = async (message, language) => {
 	let guild;
 	let elder;
 	const confirmationEmbed = new discord.MessageEmbed();

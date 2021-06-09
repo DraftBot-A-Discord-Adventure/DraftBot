@@ -1,10 +1,14 @@
+module.exports.help = {
+	name: "profile"
+};
+
 /**
  * Displays information about the profile of the player who sent the command
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ProfileCommand = async function(language, message, args) {
+const ProfileCommand = async (message, language, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
@@ -175,7 +179,7 @@ const ProfileCommand = async function(language, message, args) {
 
 	collector.on("collect", (reaction) => {
 		message.channel.send(JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]).then((msg) => {
-			msg.delete({ "timeout": JsonReader.commands.profile.badgeDescriptionTimeout });
+			msg.delete({"timeout": JsonReader.commands.profile.badgeDescriptionTimeout});
 		});
 	});
 
@@ -192,20 +196,4 @@ const ProfileCommand = async function(language, message, args) {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "profile",
-			func: ProfileCommand,
-			aliases: ["p", "profil"]
-		}
-	]
-};
-
-module.exports.execute = (message, language, args) => {
-
-};
-
-module.exports.help = {
-	name : ""
-};
+module.exports.execute = ProfileCommand;

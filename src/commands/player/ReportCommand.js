@@ -1,5 +1,9 @@
 const Maps = require("../../core/Maps");
 
+module.exports.help = {
+	name: "report"
+};
+
 /**
  * Allow the user to learn more about what is going on with his character
  * @param {("fr"|"en")} language - Language to use in the response
@@ -8,7 +12,7 @@ const Maps = require("../../core/Maps");
  * @param {Number} forceSpecificEvent - For testing purpose
  * @param {String} forceSmallEvent
  */
-const ReportCommand = async function(language, message, args, forceSpecificEvent = -1, forceSmallEvent = null) {
+const ReportCommand = async (language, message, args, forceSpecificEvent = -1, forceSmallEvent = null) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity) !== true) {
 		return;
@@ -135,7 +139,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	}
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
-		await Maps.startTravel(entity.Player, destinationMaps[0],message.createdAt.getTime());
+		await Maps.startTravel(entity.Player, destinationMaps[0], message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
 
@@ -477,20 +481,5 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 
 /* ------------------------------------------------------------ */
 
-module.exports = {
-	commands: [
-		{
-			name: "report",
-			func: ReportCommand,
-			aliases: ["r"]
-		}
-	]
-};
 
-module.exports.execute = (message, language, args) => {
-
-};
-
-module.exports.help = {
-	name : ""
-};
+module.exports.execute = ReportCommand;

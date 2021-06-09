@@ -8,8 +8,8 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER)) !== true) {
+module.exports.execute = async (message, language) => {
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER) !== true) {
 		return;
 	}
 	const embed = new discord.MessageEmbed();

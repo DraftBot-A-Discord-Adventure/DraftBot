@@ -1,5 +1,5 @@
 module.exports.help = {
-	name : "unblock"
+	name: "unblock"
 };
 
 /**
@@ -8,8 +8,8 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 module.exports.execute = async (message, language, args) => {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER)) !== true) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 

@@ -9,9 +9,10 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
 */
-module.exports.execute = async (message, language, args) => {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.ADMINISTRATOR)) !== true) {
+
+module.exports.execute = async (message, language) => {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
 		return;
 	}
 

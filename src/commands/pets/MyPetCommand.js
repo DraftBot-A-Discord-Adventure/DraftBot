@@ -1,5 +1,5 @@
 module.exports.help = {
-	name : "mypet"
+	name: "mypet"
 };
 
 /**

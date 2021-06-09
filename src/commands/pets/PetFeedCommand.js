@@ -1,7 +1,7 @@
 const tr = JsonReader.commands.petFeed;
 
 module.exports.help = {
-	name : "petfeed",
+	name: "petfeed"
 };
 
 /**
@@ -10,8 +10,8 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (language, message, args) => {
-	let [entity] = await Entities.getOrRegister(message.author.id);
+const PetFeedCommand = async (language, message) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);
@@ -321,20 +321,4 @@ async function feedPet(message, language, entity, pet, item) {
 	return message.channel.send(successEmbed);
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "petfeed",
-			func: PetFeedCommand,
-			aliases: [
-				"feed",
-				"pf",
-				"petfeed",
-				"pfeed",
-				"feedp",
-				"feedpet",
-				"fp"
-			]
-		}
-	]
-};
+module.exports.execute = PetFeedCommand;

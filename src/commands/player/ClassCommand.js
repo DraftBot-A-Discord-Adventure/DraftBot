@@ -1,5 +1,5 @@
 module.exports.help = {
-	name : "class"
+	name: "class"
 };
 
 /**

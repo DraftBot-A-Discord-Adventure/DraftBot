@@ -1,5 +1,9 @@
 const Maps = require("../../core/Maps");
 
+module.exports.help = {
+	name: "unlock"
+};
+
 /**
  * Allow to free someone from the lock effect
  * @param {("fr"|"en")} language - Language to use in the response
@@ -99,21 +103,4 @@ const UnlockCommand = async (language, message, args) => {
 	}
 };
 
-
-module.exports = {
-	commands: [
-		{
-			name: "unlock",
-			func: UnlockCommand,
-			aliases: ["bail", "release"]
-		}
-	]
-};
-
-module.exports.execute = (message, language, args) => {
-
-};
-
-module.exports.help = {
-	name : ""
-};
+module.exports.execute = UnlockCommand;

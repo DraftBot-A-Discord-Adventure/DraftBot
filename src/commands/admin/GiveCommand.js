@@ -9,8 +9,8 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 module.exports.execute = async (message, language, args) => {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER)) !== true) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 	const embed = new discord.MessageEmbed();
@@ -44,4 +44,4 @@ function getUserFromMention(mention) {
 
 		return client.users.cache.get(mention);
 	}
-};
+}

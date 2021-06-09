@@ -1,11 +1,16 @@
 const Maps = require("../../core/Maps");
+
+module.exports.help = {
+	name: "shop"
+};
+
 /**
  * Displays the shop
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ShopCommand(language, message) {
+const ShopCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
@@ -192,7 +197,7 @@ async function ShopCommand(language, message) {
 		shopMessage.react(SHOP.MONEY_MOUTH),
 		shopMessage.react(MENU_REACTION.DENY)
 	]);
-}
+};
 
 /**
  * @param {module:"discord.js".Message} message - The message where the react event trigerred
@@ -481,20 +486,4 @@ function giveMoneyMouthBadge(
 
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "shop",
-			func: ShopCommand,
-			aliases: ["s"]
-		}
-	]
-};
-
-module.exports.execute = (message, language, args) => {
-
-};
-
-module.exports.help = {
-	name : ""
-};
+module.exports.execute = ShopCommand;

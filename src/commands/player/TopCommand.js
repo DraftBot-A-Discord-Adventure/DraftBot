@@ -1,30 +1,14 @@
+module.exports.help = {
+	name: "top"
+};
+
 /**
  * Allow to display the rankings of the players
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
-const topWeekCommand = async function(language, message, args) {
-	args.unshift("w");
-	await topCommand(language, message, args);
-};
-
-const topServerCommand = function(language, message/* , args*/) {
-
-	// TODO : Voir avec discord pourquoi le ts marche plus !
-	// Morceau de code à retirer
-	if (language === "fr") {
-		return message.channel.send(":x: Cette commande est désactivée pour le moment suite à un changement de la part de discord dans leur API. Elle sera de retour bientôt !");
-	}
-	return message.channel.send(":x: This command is broken due to changes in the discord API, We hope to get it back online soon!");
-	// fin du morceau de code à retirer
-
-	// args.unshift("s");
-	// await topCommand(language, message, args);
-};
-
-const topCommand = async function(language, message, args) {
+const TopCommand = async function(language, message, args) {
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -357,30 +341,4 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 	return await message.channel.send(embed);
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "top",
-			func: topCommand,
-			aliases: ["t", "rank"]
-		},
-		{
-			name: "topweek",
-			func: topWeekCommand,
-			aliases: ["topw", "tw"]
-		},
-		{
-			name: "topserver",
-			func: topServerCommand,
-			aliases: ["topserv", "tops", "ts"]
-		}
-	]
-};
-
-module.exports.execute = (message, language, args) => {
-
-};
-
-module.exports.help = {
-	name : ""
-};
+module.exports.execute = TopCommand;

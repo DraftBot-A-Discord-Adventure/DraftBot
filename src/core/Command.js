@@ -9,7 +9,7 @@ class Command {
 	 * load all the commands from source files
 	 * @return {Promise<void>}
 	 */
-	static async init() {
+	static init() {
 		Command.commands = new Map();
 		Command.aliases = new Map();
 		Command.players = new Map();
@@ -17,7 +17,7 @@ class Command {
 		fs.readdir("src/commands", (err, folders) => {
 			folders.forEach(folder => {
 				const commandsFiles = fs.readdirSync(`src/commands/${folder}`).filter(command => command.endsWith(".js"));
-				for (let commandFile of commandsFiles) {
+				for (const commandFile of commandsFiles) {
 					const command = require(`../commands/${folder}/${commandFile}`);
 					Command.commands.set(command.help.name, command);
 				}
@@ -257,7 +257,8 @@ class Command {
 			);
 		}
 
-		const args = message.content.slice(prefix.length).trim().split(/ +/g);
+		const args = message.content.slice(prefix.length).trim()
+			.split(/ +/g);
 		const commandName = args.shift().toLowerCase();
 
 		const command = Command.commands.get(commandName);

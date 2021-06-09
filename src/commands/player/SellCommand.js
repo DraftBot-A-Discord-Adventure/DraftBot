@@ -1,3 +1,7 @@
+module.exports.help = {
+	name: "sell"
+};
+
 /**
  * Allow to exchange the object that is in the player backup slot within the one that is active
  * @param {("fr"|"en")} language - Language to use in the response
@@ -79,19 +83,4 @@ const SellCommand = async (language, message) => {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "sell",
-			func: SellCommand
-		}
-	]
-};
-
-module.exports.execute = (message, language, args) => {
-
-};
-
-module.exports.help = {
-	name : ""
-};
+module.exports.execute = SellCommand;

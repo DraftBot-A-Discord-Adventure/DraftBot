@@ -1,7 +1,7 @@
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
-	name : "daily"
+	name: "daily"
 };
 
 /**

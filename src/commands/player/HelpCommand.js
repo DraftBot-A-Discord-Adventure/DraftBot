@@ -1,10 +1,15 @@
+module.exports.help = {
+	name: "help"
+};
+
 /**
  * Displays commands of the bot for a player, if arg match one command explain that command
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const HelpCommand = async (language, message, args) => {
+
+const HelpCommand = async (message, language, args) => {
 	const command = getMainCommandFromAlias(args[0]);
 	[server] = await Servers.getOrRegister(message.guild.id);
 	let helpMessage = JsonReader.commands.help.getTranslation(language).commands[
@@ -132,20 +137,4 @@ const HelpCommand = async (language, message, args) => {
 	await message.channel.send(helpMessage);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "help",
-			func: HelpCommand,
-			aliases: ["h"]
-		}
-	]
-};
-
-module.exports.execute = (message, language, args) => {
-
-};
-
-module.exports.help = {
-	name : ""
-};
+module.exports.execute = HelpCommand;

@@ -1,5 +1,5 @@
 module.exports.help = {
-	name : "dm"
+	name: "dm"
 };
 
 /**
@@ -9,8 +9,8 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 module.exports.execute = async (message, language, args) => {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.SUPPORT)) !== true) {
+	if (await canPerformCommand(message, language,
+		PERMISSION.ROLE.SUPPORT) !== true) {
 		return;
 	}
 

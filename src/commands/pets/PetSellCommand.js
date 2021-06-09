@@ -1,5 +1,5 @@
 module.exports.help = {
-	name : "petsell"
+	name: "petsell"
 };
 
 /**
@@ -9,8 +9,8 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 module.exports.execute = async (language, message, args) => {
-	let [entity] = await Entities.getOrRegister(message.author.id);
-	let fields = [];
+	const [entity] = await Entities.getOrRegister(message.author.id);
+	const fields = [];
 	let guild;
 	let sellInstance;
 

@@ -1,5 +1,9 @@
 const moment = require("moment");
 
+module.exports.help = {
+	name: "switch"
+};
+
 /**
  * Allow to exchange the object that is in the player backup slot within the one that is active
  * @param {("fr"|"en")} language - Language to use in the response
@@ -41,20 +45,4 @@ const SwitchCommand = async (language, message) => {
 	);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "switch",
-			func: SwitchCommand,
-			aliases: ["sw"]
-		}
-	]
-};
-
-module.exports.execute = (message, language, args) => {
-
-};
-
-module.exports.help = {
-	name : ""
-};
+module.exports.execute = SwitchCommand;
