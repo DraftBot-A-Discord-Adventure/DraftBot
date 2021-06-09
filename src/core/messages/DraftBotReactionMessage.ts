@@ -84,6 +84,7 @@ export class DraftBotReactionMessage extends MessageEmbed {
 		collectorTime: number
 	) {
 		super();
+		this.setColor(Constants.MESSAGES.COLORS.DEFAULT);
 		this._reactions = reactions;
 		this._allowedUsersDiscordIdToReact = allowedUsersDiscordIdToReact;
 		this._endCallback = endCallback;
