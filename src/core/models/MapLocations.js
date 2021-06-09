@@ -105,7 +105,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Returns a random map
 	 * @returns {Promise<null|MapLocations>}
 	 */
-	MapLocations.getRandomMap = async() => {
+	MapLocations.getRandomMap = async () => {
 		const query = "SELECT id FROM map_locations;";
 		const mapIds = await Sequelize.query(query, {
 			type: Sequelize.QueryTypes.SELECT
@@ -119,7 +119,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param mapTypes
 	 * @returns {Promise<[MapLocations]>}
 	 */
-	MapLocations.getMapConnectedWithTypeFilter = async(mapId, mapTypes) => {
+	MapLocations.getMapConnectedWithTypeFilter = async (mapId, mapTypes) => {
 		const query = `SELECT id FROM map_locations WHERE :mapTypes LIKE '%' || type || '%' AND (
 										id IN (SELECT northMap FROM map_locations WHERE id = :mapId) OR
 										id IN (SELECT southMap FROM map_locations WHERE id = :mapId) OR

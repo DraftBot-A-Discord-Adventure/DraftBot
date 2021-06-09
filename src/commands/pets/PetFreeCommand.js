@@ -66,7 +66,7 @@ const PetFreeCommand = async function(language, message) {
 
 	addBlockedPlayer(entity.discordUserId, "freepet", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {

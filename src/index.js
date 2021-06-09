@@ -4,7 +4,7 @@ require("./core/MessageError");
 require("./core/Tools");
 const Draftbot = require("./core/DraftBot");
 
-(async(Drafbot) => {
+(async (Drafbot) => {
 
 	await Drafbot.init();
 
@@ -12,7 +12,7 @@ const Draftbot = require("./core/DraftBot");
 	 * Will be executed whenever the bot has started
 	 * @return {Promise<void>}
 	 */
-	const onDiscordReady = async() => {
+	const onDiscordReady = async () => {
 		require("figlet")(JsonReader.bot.reboot, (err, data) => {
 			console.log(data.red);
 			console.log(JsonReader.bot.br.grey);
@@ -35,7 +35,7 @@ const Draftbot = require("./core/DraftBot");
 	/**
 	 * Will be executed each time the bot join a new server
 	 */
-	const onDiscordGuildCreate = async(guild) => {
+	const onDiscordGuildCreate = async (guild) => {
 		const [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, serv.language);
 		(await client.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID)).send(msg);
@@ -49,7 +49,7 @@ const Draftbot = require("./core/DraftBot");
 	/**
 	 * Will be executed each time the bot leave a server
 	 */
-	const onDiscordGuildDelete = async(guild) => {
+	const onDiscordGuildDelete = async (guild) => {
 		const [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, false, serv.language);
 		(await client.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID)).send(msg);
@@ -83,7 +83,7 @@ const Draftbot = require("./core/DraftBot");
 	 * @param {module:"discord.js".Message} message
 	 * @return {Promise<void>}
 	 */
-	const onDiscordMessage = async(message) => {
+	const onDiscordMessage = async (message) => {
 		if (message.author.bot) {
 			return;
 		}

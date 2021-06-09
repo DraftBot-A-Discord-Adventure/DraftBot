@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const SendDataCommand = async(language, message) => {
+const SendDataCommand = async (language, message) => {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;

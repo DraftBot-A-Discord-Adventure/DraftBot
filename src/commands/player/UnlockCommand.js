@@ -6,7 +6,7 @@ const Maps = require("../../core/Maps");
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const UnlockCommand = async(language, message, args) => {
+const UnlockCommand = async (language, message, args) => {
 	let [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (message.mentions.users.first()) {
@@ -59,7 +59,7 @@ const UnlockCommand = async(language, message, args) => {
 
 	addBlockedPlayer(entity.discordUserId, "unlock", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) { // a reaction exist
 			[entity] = await Entities.getOrRegister(message.mentions.users.first().id); // released entity

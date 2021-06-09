@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildLeaveCommand = async(language, message) => {
+const GuildLeaveCommand = async (language, message) => {
 	let guild;
 	let elder;
 	const confirmationEmbed = new discord.MessageEmbed();
@@ -82,7 +82,7 @@ const GuildLeaveCommand = async(language, message) => {
 		addBlockedPlayer(elder.discordUserId, "chiefGuildLeave", collector);
 	}
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (elder) {
 			removeBlockedPlayer(elder.discordUserId);

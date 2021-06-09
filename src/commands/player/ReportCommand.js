@@ -157,7 +157,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 		collector.stop();
 	});
 
-	collector.on("end", async(collected) => {
+	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[randInt(0, destinationMaps.length - 1)];
 		await Maps.startTravel(entity.Player, mapId, message.createdAt.getTime());
 		await destinationChoseMessage(entity, mapId, message, language);
@@ -206,7 +206,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<void>}
  */
-const doEvent = async(message, language, event, entity, time, forcePoints = 0) => {
+const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
 	const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {
 		pseudo: message.author,
 		event: event[language]
@@ -216,7 +216,7 @@ const doEvent = async(message, language, event, entity, time, forcePoints = 0) =
 
 	await addBlockedPlayer(entity.discordUserId, "report", collector);
 
-	collector.on("collect", async(reaction) => {
+	collector.on("collect", async (reaction) => {
 		collector.stop();
 		const possibility = await Possibilities.findAll({
 			where: {
@@ -227,7 +227,7 @@ const doEvent = async(message, language, event, entity, time, forcePoints = 0) =
 		await doPossibility(message, language, possibility, entity, time, forcePoints);
 	});
 
-	collector.on("end", async(collected) => {
+	collector.on("end", async (collected) => {
 		if (!collected.first()) {
 			const possibility = await Possibilities.findAll({where: {eventId: event.id, possibilityKey: "end"}});
 			await doPossibility(message, language, possibility, entity, time, forcePoints);
@@ -249,7 +249,7 @@ const doEvent = async(message, language, event, entity, time, forcePoints = 0) =
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<Message>}
  */
-const doPossibility = async(message, language, possibility, entity, time, forcePoints = 0) => {
+const doPossibility = async (message, language, possibility, entity, time, forcePoints = 0) => {
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	const player = entity.Player;
 
@@ -416,7 +416,7 @@ let totalSmallEventsRarity = null;
  * @param {Boolean} forced
  * @returns {Promise<void>}
  */
-const executeSmallEvent = async(message, language, entity, number, forced) => {
+const executeSmallEvent = async (message, language, entity, number, forced) => {
 
 	// Pick random event
 	let event;

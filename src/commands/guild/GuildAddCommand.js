@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildAddCommand = async(language, message, args) => {
+const GuildAddCommand = async (language, message, args) => {
 	let invitedEntity;
 	let guild;
 	let invitedGuild;
@@ -154,7 +154,7 @@ const GuildAddCommand = async(language, message, args) => {
 
 	addBlockedPlayer(invitedEntity.discordUserId, "guildAdd", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(invitedEntity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist

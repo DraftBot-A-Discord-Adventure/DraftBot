@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const HelpCommand = async(language, message, args) => {
+const HelpCommand = async (language, message, args) => {
 	const command = getMainCommandFromAlias(args[0]);
 	[server] = await Servers.getOrRegister(message.guild.id);
 	let helpMessage = JsonReader.commands.help.getTranslation(language).commands[
