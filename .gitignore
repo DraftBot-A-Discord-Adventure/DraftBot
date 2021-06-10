@@ -11,4 +11,5 @@ logs/*
 package-lock.json
 /database/archive/
 .directory
+/dist/
 dist/
