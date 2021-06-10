@@ -580,7 +580,7 @@ global.checkNameString = (name, minLength, maxLength) => {
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
 };
 
-global.giveFood = async(message, language, entity, author, selectedItem, quantity) => {
+global.giveFood = async (message, language, entity, author, selectedItem, quantity) => {
 	const guild = await Guilds.getById(entity.Player.guildId);
 	if (
 		guild[selectedItem.type] + quantity >

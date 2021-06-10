@@ -481,7 +481,7 @@ async function giveGuildXp(message, language, entity, author, selectedItem) {
 	);
 }
 
-const buyFood = async(message, language, entity, author, selectedItem, quantity) => {
+const buyFood = async (message, language, entity, author, selectedItem, quantity) => {
 	const guild = await Guilds.getById(entity.Player.guildId);
 	if (guild[selectedItem.type] + quantity <= JsonReader.commands.guildShop.max[selectedItem.type]) {
 		await entity.Player.addMoney(-selectedItem.price * quantity); // Remove money
@@ -497,5 +497,5 @@ module.exports = {
 			func: GuildShopCommand,
 			aliases: ["guildshop", "gs"]
 		}
-	],
+	]
 };
