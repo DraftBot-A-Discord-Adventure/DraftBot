@@ -106,7 +106,7 @@ const PetTradeCommand = async function(language, message) {
 		}
 	});
 
-	collector.on("end", async() => {
+	collector.on("end", async () => {
 		[trader1] = await Entities.getOrRegister(message.author.id);
 		[trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
 		pet1 = trader1.Player.Pet;

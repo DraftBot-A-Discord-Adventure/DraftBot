@@ -6,7 +6,7 @@ const Maps = require("../../core/Maps");
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {string|String} forcedReward
  */
-const GuildDailyCommand = async(language, message, args, forcedReward) => {
+const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	const translations = JsonReader.commands.guildDaily.getTranslation(language);
 	let guild;
 	const embed = new discord.MessageEmbed();

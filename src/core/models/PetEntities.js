@@ -193,7 +193,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String|string} language
 	 * @returns {Promise<String>}
 	 */
-	PetEntities.getPetDisplay = async(petEntity, language) => {
+	PetEntities.getPetDisplay = async (petEntity, language) => {
 		if (!petEntity) {
 			return await Pets.getById(JsonReader.models.pets.defaultPetId)[
 				"maleName_" + language
@@ -228,7 +228,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {number} level
 	 * @returns {Promise<PetEntities>}
 	 */
-	PetEntities.generateRandomPetEntity = async(level) => {
+	PetEntities.generateRandomPetEntity = async (level) => {
 		const sex = draftbotRandom.bool() ? "m" : "f";
 		const levelTier = "" + Math.floor(level / 10);
 		const probabilities = JsonReader.models.pets.probabilities[levelTier];

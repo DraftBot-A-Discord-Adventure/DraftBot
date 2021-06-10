@@ -143,7 +143,7 @@ const PetFeedCommand = async function(language, message) {
 		addBlockedPlayer(entity.discordUserId, "petFeed");
 
 		// Fetch the choice from the user
-		collector.on("end", async(reaction) => {
+		collector.on("end", async (reaction) => {
 			removeBlockedPlayer(entity.discordUserId);
 			if (
 				!reaction.first() ||

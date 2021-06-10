@@ -13,7 +13,7 @@ class DBL {
 			webhookPath: JsonReader.app.DBL_WEBHOOK_URL,
 			statsInterval: TOPGG.DBL_SERVER_COUNT_UPDATE_TIME
 		}, client);
-		this.dbl.webhook.on("vote", async(vote) => {
+		this.dbl.webhook.on("vote", async (vote) => {
 			await DBL.userDBLVote(vote.user);
 		});
 		this.dbl.webhook.on("ready", hook => {

@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildStorageCommand = async(language, message) => {
+const GuildStorageCommand = async (language, message) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (

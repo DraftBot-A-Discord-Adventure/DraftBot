@@ -101,7 +101,7 @@ async function GuildShopCommand(language, message) {
 	addBlockedPlayer(entity.discordUserId, "guildShop", collector);
 
 	// Fetch the choice from the user
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (
 			!reaction.first() ||
@@ -254,7 +254,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 
 	addBlockedPlayer(entity.discordUserId, "selectQuantity");
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (
 			!reaction.first() ||
@@ -481,7 +481,7 @@ async function giveGuildXp(message, language, entity, author, selectedItem) {
 	);
 }
 
-const giveFood = async(
+const giveFood = async (
 	message,
 	language,
 	entity,

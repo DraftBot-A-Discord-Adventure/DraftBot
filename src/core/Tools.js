@@ -94,7 +94,7 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  * @param {Integer} resaleMultiplierActual
  * @returns {Promise<*>}
  */
-global.giveItem = async(entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplierActual = 1) => { // eslint-disable-line max-params
+global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplierActual = 1) => { // eslint-disable-line max-params
 	log(entity.discordUserId + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
 	let autoSell = false;
 	let autoReplace = false;
@@ -201,7 +201,7 @@ global.giveItem = async(entity, item, language, discordUser, channel, resaleMult
 	});
 	addBlockedPlayer(discordUser.id, "acceptItem", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(discordUser.id);
 		if (reaction.first()) { // a reaction exist
 			// msg.delete(); for now we are going to keep the message
@@ -289,7 +289,7 @@ global.giveItem = async(entity, item, language, discordUser, channel, resaleMult
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entity} entity
  */
-global.giveRandomItem = async(discordUser, channel, language, entity) => {
+global.giveRandomItem = async (discordUser, channel, language, entity) => {
 	const item = await entity.Player.Inventory.generateRandomItem();
 	return await giveItem(entity, item, language, discordUser, channel);
 };

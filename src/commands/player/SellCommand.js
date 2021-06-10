@@ -4,7 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const SellCommand = async(language, message) => {
+const SellCommand = async (language, message) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
@@ -40,7 +40,7 @@ const SellCommand = async(language, message) => {
 
 	addBlockedPlayer(entity.discordUserId, "sell", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) { // a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
