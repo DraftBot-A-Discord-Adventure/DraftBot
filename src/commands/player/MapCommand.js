@@ -1,7 +1,8 @@
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
-	name: "map"
+	name: "map",
+	aliases: ["m", "world"]
 };
 
 /**

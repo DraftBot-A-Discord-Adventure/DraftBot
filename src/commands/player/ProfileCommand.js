@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "profile"
+	name: "profile",
+	aliases: ["p", "profil"]
 };
 
 /**

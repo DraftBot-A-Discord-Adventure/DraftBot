@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "invite"
+	name: "invite",
+	aliases: []
 };
 
 /**

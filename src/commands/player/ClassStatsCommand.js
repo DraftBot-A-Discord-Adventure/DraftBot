@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "classtats"
+	name: "classtats",
+	aliases: ["cs","classesstats","classcompare","classestats"]
 };
 
 /**

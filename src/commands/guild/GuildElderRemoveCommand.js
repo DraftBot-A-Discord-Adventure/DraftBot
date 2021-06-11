@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "guildelderremove"
+	name: "guildelderremove",
+	aliases: ["gelderremove", "ger"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language) => {
+const GuildElderRemoveCommand = async (message, language) => {
 	let guild;
 	const elderRemoveEmbed = new discord.MessageEmbed();
 
@@ -105,3 +106,5 @@ module.exports.execute = async (message, language) => {
 		msg.react(MENU_REACTION.DENY)
 	]);
 };
+
+module.exports.execute = GuildElderRemoveCommand;

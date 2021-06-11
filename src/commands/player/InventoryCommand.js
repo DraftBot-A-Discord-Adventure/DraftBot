@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "inventory"
+	name: "inventory",
+	aliases: ["inv", "i"]
 };
 
 /**

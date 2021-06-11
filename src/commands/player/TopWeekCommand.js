@@ -1,5 +1,6 @@
 module.exports.help = {
-	"name": "topweek"
+	name: "topweek",
+	aliases: ["tw", "topw"]
 };
 
 const TopWeekCommand = async (message, language, args) => {

@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "petsell"
+	name: "petsell",
+	aliases: ["psell", "ps"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (language, message, args) => {
+const PetSellCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const fields = [];
 	let guild;
@@ -268,3 +269,5 @@ async function petSell(message, language, entity, user, pet, petCost) {
 	});
 	await Promise.all([confirmMessage.react(MENU_REACTION.ACCEPT), confirmMessage.react(MENU_REACTION.DENY)]);
 }
+
+module.exports.execute = PetSellCommand;

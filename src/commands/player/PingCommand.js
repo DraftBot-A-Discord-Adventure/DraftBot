@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "ping"
+	name: "ping",
+	aliases: ["mention"]
 };
 
 /**

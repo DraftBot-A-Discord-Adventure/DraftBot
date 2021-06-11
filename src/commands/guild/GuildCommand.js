@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "guild"
+	name: "guild",
+	aliases: ["g"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+const GuildCommand = async (message, language, args) => {
 	let entity;
 	let guild;
 
@@ -154,3 +155,5 @@ module.exports.execute = async (message, language, args) => {
 
 	message.channel.send(embed);
 };
+
+module.exports.execute = GuildCommand;

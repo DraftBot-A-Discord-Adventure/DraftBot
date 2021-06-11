@@ -1,7 +1,8 @@
 const moment = require("moment");
 
 module.exports.help = {
-	name: "switch"
+	name: "switch",
+	aliases: ["sw"]
 };
 
 /**

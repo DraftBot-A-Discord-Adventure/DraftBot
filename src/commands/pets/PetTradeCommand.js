@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "pettrade"
+	name: "pettrade",
+	aliases: ["ptrade"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async function(language, message) {
+const PetTradeCommand = async function(language, message) {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
@@ -146,3 +147,5 @@ module.exports.execute = async function(language, message) {
 		confirmMessage.react(MENU_REACTION.DENY)
 	]);
 };
+
+module.exports.execute = PetTradeCommand;

@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "guildshop"
+	name: "guildshop",
+	aliases: ["gs"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language) => {
+const GuildShopCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
@@ -563,3 +564,5 @@ const giveFood = async (
 
 	return message.channel.send(successEmbed);
 };
+
+module.exports.execute = GuildShopCommand;

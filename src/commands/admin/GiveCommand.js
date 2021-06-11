@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "give"
+	name: "give",
+	aliases: []
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+const GiveCommand = async (message, language, args) => {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
@@ -45,3 +46,5 @@ function getUserFromMention(mention) {
 		return client.users.cache.get(mention);
 	}
 }
+
+module.exports.execute = GiveCommand;

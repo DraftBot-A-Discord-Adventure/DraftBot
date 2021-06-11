@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "guildelder"
+	name: "guildelder",
+	aliases: ["gelder"]
 };
 
 /**
@@ -9,7 +10,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-module.exports.execute = async (message, language, args) => {
+const GuildElderCommand = async (message, language, args) => {
 	let elderEntity;
 	let guild;
 	let elderGuild;
@@ -215,3 +216,5 @@ module.exports.execute = async (message, language, args) => {
 		msg.react(MENU_REACTION.DENY)
 	]);
 };
+
+module.exports.execute = GuildElderCommand;

@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "rarity"
+	name: "rarity",
+	aliases: ["rarities"]
 };
 
 /**

@@ -1,7 +1,8 @@
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
-	name: "daily"
+	name: "daily",
+	aliases: ["da"]
 };
 
 /**
@@ -9,7 +10,7 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
-const DailyCommand = async function(language, message) {
+const DailyCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;

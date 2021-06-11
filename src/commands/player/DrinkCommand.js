@@ -1,7 +1,8 @@
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
-	name: "drink"
+	name: "drink",
+	aliases: ["dr","glouglou"]
 };
 
 /**
@@ -9,7 +10,7 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
-const DrinkCommand = async function(language, message) {
+const DrinkCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;

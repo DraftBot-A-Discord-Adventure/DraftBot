@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "badge"
+	name: "badge",
+	aliases: ["badges"]
 };
 
 /**
@@ -7,7 +8,7 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
-const BadgeCommand = function(language, message) {
+const BadgeCommand = (language, message) => {
 	getCommand("help")(language, message, ["badge"]);
 };
 

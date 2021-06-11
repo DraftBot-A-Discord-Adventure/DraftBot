@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "sendlogs"
+	name: "sendlogs",
+	aliases: []
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+const SendLogsCommand = async (message, language, args) => {
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.CONTRIBUTORS) !== true) {
 		return;
 	}
@@ -66,3 +67,5 @@ module.exports.execute = async (message, language, args) => {
 		}
 	}
 };
+
+module.exports.execute = SendLogsCommand;

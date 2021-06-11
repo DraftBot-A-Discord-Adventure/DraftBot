@@ -1,5 +1,6 @@
 module.exports.help = {
-	"name": "topserver"
+	name: "topserver",
+	aliases: ["ts", "tops", "topserv"]
 };
 
 const TopServerCommand = (message, language) => {

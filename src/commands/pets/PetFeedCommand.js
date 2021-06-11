@@ -1,7 +1,8 @@
 const tr = JsonReader.commands.petFeed;
 
 module.exports.help = {
-	name: "petfeed"
+	name: "petfeed",
+	aliases: ["feed","pf","pfeed","feedp","feedpet","fp"]
 };
 
 /**

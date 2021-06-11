@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "class"
+	name: "class",
+	aliases: ["c", "classes", "classe"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ClassCommand(language, message) {
+const ClassCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, CLASS.REQUIRED_LEVEL) !== true) {
@@ -77,7 +78,7 @@ async function ClassCommand(language, message) {
 		classEmojis.set(allClasses[k].emoji, k);
 	}
 	classMessage.react(MENU_REACTION.DENY);
-}
+};
 
 /**
  * @param {*} message - message where the command is from

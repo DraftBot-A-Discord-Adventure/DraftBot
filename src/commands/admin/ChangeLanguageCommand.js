@@ -1,5 +1,6 @@
 module.exports.help = {
 	name: "language",
+	aliases: [],
 	adminOnly: true
 };
 
@@ -9,8 +10,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
 */
-
-module.exports.execute = async (message, language) => {
+const ChangeLanguageCommand = async (message, language) => {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
 		return;
@@ -34,3 +34,5 @@ module.exports.execute = async (message, language) => {
 	message.channel.send(embed);
 	await server.save();
 };
+
+module.exports.execute = ChangeLanguageCommand;

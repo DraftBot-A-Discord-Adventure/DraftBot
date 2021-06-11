@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "prefix"
+	name: "prefix",
+	aliases: []
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+const ChangePrefixCommand = async (message, language, args) => {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
 		return;
@@ -37,3 +38,5 @@ module.exports.execute = async (message, language, args) => {
 		);
 	return await message.channel.send(embed);
 };
+
+module.exports.execute = ChangePrefixCommand;

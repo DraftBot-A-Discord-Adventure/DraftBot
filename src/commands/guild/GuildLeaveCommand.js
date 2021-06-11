@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "guildleave"
+	name: "guildleave",
+	aliases: ["gleave", "gl"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language) => {
+const GuildLeaveCommand = async (message, language) => {
 	let guild;
 	let elder;
 	const confirmationEmbed = new discord.MessageEmbed();
@@ -161,3 +162,5 @@ module.exports.execute = async (message, language) => {
 
 	await Promise.all([msg.react(MENU_REACTION.ACCEPT), msg.react(MENU_REACTION.DENY)]);
 };
+
+module.exports.execute = GuildLeaveCommand;

@@ -1,7 +1,8 @@
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
-	name: "guilddaily"
+	name: "guilddaily",
+	aliases: ["gdaily", "gd"]
 };
 
 /**
@@ -11,7 +12,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {string|String} forcedReward
  */
-module.exports.execute = async (message, language, args, forcedReward) => {
+const GuildDailyCommand = async (message, language, args, forcedReward) => {
 	const translations = JsonReader.commands.guildDaily.getTranslation(language);
 	let guild;
 	const embed = new discord.MessageEmbed();
@@ -280,3 +281,5 @@ function generateRandomProperty(guild) {
 		}
 	}
 }
+
+module.exports.execute = GuildDailyCommand;

@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "debugblocked"
+	name: "debugblocked",
+	aliases: []
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+const DebugBlockedCommand = async (message, language, args) => {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
@@ -22,3 +23,5 @@ module.exports.execute = async (message, language, args) => {
 		await message.channel.send(getBlockedPlayer(args[0]).context);
 	}
 };
+
+module.exports.execute = DebugBlockedCommand;

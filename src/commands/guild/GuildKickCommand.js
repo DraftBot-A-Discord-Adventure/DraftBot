@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "guildkick"
+	name: "guildkick",
+	aliases: ["gkick", "gk"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+const GuildKickCommand = async (message, language, args) => {
 	let kickedEntity;
 	let guild;
 	let kickedGuild;
@@ -182,3 +183,5 @@ module.exports.execute = async (message, language, args) => {
 		msg.react(MENU_REACTION.DENY)
 	]);
 };
+
+module.exports.execute = GuildKickCommand;

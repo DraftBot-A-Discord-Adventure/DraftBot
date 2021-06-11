@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "list"
+	name: "listitems",
+	aliases: ["list"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language) => {
+const ListItemsCommand = async (message, language) => {
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
@@ -166,3 +167,5 @@ module.exports.execute = async (message, language) => {
 		}]
 	});
 };
+
+module.exports.execute = ListItemsCommand;

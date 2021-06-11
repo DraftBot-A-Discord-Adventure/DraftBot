@@ -1,18 +1,19 @@
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
-	name: "report"
+	name: "report",
+	aliases: ["r"]
 };
 
 /**
  * Allow the user to learn more about what is going on with his character
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {Number} forceSpecificEvent - For testing purpose
  * @param {String} forceSmallEvent
  */
-const ReportCommand = async (language, message, args, forceSpecificEvent = -1, forceSmallEvent = null) => {
+const ReportCommand = async (message, language, args, forceSpecificEvent = -1, forceSmallEvent = null) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity) !== true) {
 		return;

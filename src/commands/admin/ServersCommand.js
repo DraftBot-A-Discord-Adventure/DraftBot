@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "servs"
+	name: "servers",
+	aliases: ["servs"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language) => {
+const ServersCommand = async (message, language) => {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
@@ -40,3 +41,5 @@ module.exports.execute = async (message, language) => {
 	result += "\n" + format(JsonReader.bot.getTranslation(language).totalUsersCount, {count: total});
 	message.channel.send(result);
 };
+
+module.exports.execute = ServersCommand;

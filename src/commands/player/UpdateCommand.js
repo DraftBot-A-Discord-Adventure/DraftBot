@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "update"
+	name: "update",
+	aliases: ["changelog"]
 };
 
 /**

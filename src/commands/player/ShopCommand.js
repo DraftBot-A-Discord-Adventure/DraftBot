@@ -1,7 +1,8 @@
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
-	name: "shop"
+	name: "shop",
+	aliases: ["s"]
 };
 
 /**

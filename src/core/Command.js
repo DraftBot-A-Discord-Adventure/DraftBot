@@ -1,5 +1,7 @@
-const fs = require("fs");
+const {readdir} = require("fs/promises");
+const {readdirSync} = require("fs");
 
+const { Collection } = require("discord.js");
 /**
  * @class
  */
@@ -9,48 +11,18 @@ class Command {
 	 * load all the commands from source files
 	 * @return {Promise<void>}
 	 */
-	static init() {
-		Command.commands = new Map();
-		Command.aliases = new Map();
+	async static init() {
+		Command.commands = new Collection();
 		Command.players = new Map();
 
-		fs.readdir("src/commands", (err, folders) => {
-			folders.forEach(folder => {
-				const commandsFiles = fs.readdirSync(`src/commands/${folder}`).filter(command => command.endsWith(".js"));
-				for (const commandFile of commandsFiles) {
-					const command = require(`../commands/${folder}/${commandFile}`);
-					Command.commands.set(command.help.name, command);
-				}
-			});
-		});
-		console.log(Command.commands);
-	}
-
-	/**
-	 * search for a command uppon an alias
-	 * @param {String} alias - The alias
-	 * @returns {String} The command
-	 */
-	static getMainCommandFromAlias(alias) {
-		if (Command.aliases.has(alias)) {
-			return Command.aliases.get(alias);
-		}
-		return alias;
-	}
-
-	/**
-	 * get all the aliases linked to a command
-	 * @param {String} cmd - The command
-	 * @returns {String[]} The aliases
-	 */
-	static getAliasesFromCommand(cmd) {
-		const aliases = [];
-		for (const alias of Command.aliases.entries()) {
-			if (alias[1] === cmd && alias[0] !== cmd) {
-				aliases.push(alias[0]);
+		const categories = await readdir("src/commands");
+		categories.forEach(category => {
+			const commandsFiles = readdirSync(`src/commands/${category}`).filter(command => command.endsWith(".js"));
+			for (const commandFile of commandsFiles) {
+				const command = require(`../commands/${category}/${commandFile}`);
+				Command.commands.set(command.help.name, command);
 			}
-		}
-		return aliases;
+		});
 	}
 
 	/**
@@ -58,8 +30,9 @@ class Command {
 	 * @param {String} command - The command to get
 	 * @return An instance of the command asked
 	 */
-	static getCommand(command) {
-		return Command.commands.get(command);
+	static getCommand(commandName) {
+		return Command.commands.get(commandName)
+		|| Command.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commandName));
 	}
 
 	/**
@@ -259,14 +232,12 @@ class Command {
 
 		const args = message.content.slice(prefix.length).trim()
 			.split(/ +/g);
-		const commandName = args.shift().toLowerCase();
 
-		const command = Command.commands.get(commandName);
-		console.log(command);
+		const commandName = args.shift().toLowerCase();
+		const command = this.getCommand(commandName);
 
 		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
-		console.log(command.execute);
-		await Command.commands.get(commandName).execute(message, language, args);
+		await command.execute(message, language, args);
 	}
 }
 

@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "rb"
+	name: "resetbadge",
+	aliases: ["rb"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language) => {
+const ResetBadgeCommand = async (message, language) => {
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER) !== true) {
 		return;
 	}
@@ -26,6 +27,4 @@ module.exports.execute = async (message, language) => {
 	return await message.channel.send(embed);
 };
 
-module.exports.help = {
-	name: "rb"
-};
+module.exports.execute = ResetBadgeCommand;

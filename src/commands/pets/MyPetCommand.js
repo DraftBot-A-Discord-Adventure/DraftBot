@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "mypet"
+	name: "mypet",
+	aliases: ["pet", "pp"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+const MyPetCommand = async (message, language, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
@@ -61,3 +62,5 @@ module.exports.execute = async (message, language, args) => {
 		);
 	}
 };
+
+module.exports.execute = MyPetCommand;

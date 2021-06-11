@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "dmnotification"
+	name: "dmnotification",
+	aliases: ["dmn","notifs","dms","notif","dmnotifications"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function DmnotificationCommand(language, message) {
+const DmnotificationCommand = async (language, message) => {
 
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 	const translations = JsonReader.commands.dmNotification.getTranslation(language);
@@ -50,6 +51,6 @@ async function DmnotificationCommand(language, message) {
 	}
 	log("Player " + message.author + " switched dms to " + entity.Player.dmnotification);
 	await entity.Player.save();
-}
+};
 
 module.exports.execute = DmnotificationCommand;

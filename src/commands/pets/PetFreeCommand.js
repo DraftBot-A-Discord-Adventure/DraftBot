@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "petfree"
+	name: "petfree",
+	aliases: ["petf","pfree", "freepet", "freep"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (language, message) => {
+const PetFreeCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	// search for a user's guild
@@ -118,3 +119,5 @@ module.exports.execute = async (language, message) => {
 		log("Cannot react to pet free message: " + e);
 	}
 };
+
+module.exports.execute = PetFreeCommand;

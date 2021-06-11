@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "shelter"
+	name: "shelter",
+	aliases: ["guildshelter", "pets", "animals", "gshelter", "gpets", "ganimals", "guildpets", "guildanimals", "sh"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language) => {
+const GuildShelterCommand = async (message, language) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
@@ -70,3 +71,5 @@ module.exports.execute = async (message, language) => {
 
 	await message.channel.send(shelterEmbed);
 };
+
+module.exports.execute = GuildShelterCommand;

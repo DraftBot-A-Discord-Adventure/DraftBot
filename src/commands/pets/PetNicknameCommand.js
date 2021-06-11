@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "petnickname"
+	name: "petnickname",
+	aliases: ["petnick","pnickname","pnick","petname","pname"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (language, message, args) => {
+const PetNicknameCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
@@ -50,3 +51,5 @@ module.exports.execute = async (language, message, args) => {
 	}));
 	await message.channel.send(successEmbed);
 };
+
+module.exports.execute = PetNicknameCommand;

@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "top"
+	name: "top",
+	aliases: ["t","rank"]
 };
 
 /**

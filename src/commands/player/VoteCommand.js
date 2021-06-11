@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "vote"
+	name: "vote",
+	aliases: ["ilovedraftbot", "votes"]
 };
 
 /**

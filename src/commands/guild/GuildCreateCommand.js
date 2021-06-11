@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "guildcreate"
+	name: "guildcreate",
+	aliases: ["gcreate", "gc"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+const GuildCreateCommand = async (message, language, args) => {
 	let guild;
 	const choiceEmbed = new discord.MessageEmbed();
 
@@ -167,3 +168,5 @@ module.exports.execute = async (message, language, args) => {
 		msg.react(MENU_REACTION.DENY)
 	]);
 };
+
+module.exports.execute = GuildCreateCommand;

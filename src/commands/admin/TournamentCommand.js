@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "tournament"
+	name: "tournament",
+	aliases: []
 };
 
 global.tournamentChannel = "656586677841821728";
@@ -11,7 +12,7 @@ global.tournamentPower = 500;
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+const TournamentCommand = async (message, language, args) => {
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.TOURNAMENT) !== true) {
 		return;
 	}
@@ -34,3 +35,5 @@ module.exports.execute = async (message, language, args) => {
 		await message.channel.send(format(JsonReader.commands.tournament.getTranslation(language).maxPowerSet, {maxPower: args[1]}));
 	}
 };
+
+module.exports.execute = TournamentCommand;

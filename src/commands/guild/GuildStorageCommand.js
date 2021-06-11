@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "guildstorage"
+	name: "guildstorage",
+	aliases: ["gstorage", "gst"]
 };
 
 /**
@@ -8,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language) => {
+const GuildStorageCommand = async (message, language) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
 
 	if (
@@ -108,3 +109,5 @@ module.exports.execute = async (message, language) => {
 
 	await message.channel.send(storageEmbed);
 };
+
+module.exports.execute = GuildStorageCommand;

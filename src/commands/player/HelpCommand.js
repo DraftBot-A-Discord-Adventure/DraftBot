@@ -1,5 +1,6 @@
 module.exports.help = {
-	name: "help"
+	name: "help",
+	aliases: ["h"]
 };
 
 /**
@@ -8,7 +9,6 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
 const HelpCommand = async (message, language, args) => {
 	const command = getMainCommandFromAlias(args[0]);
 	[server] = await Servers.getOrRegister(message.guild.id);
