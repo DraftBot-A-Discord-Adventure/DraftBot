@@ -11,7 +11,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const UnlockCommand = async (language, message, args) => {
+const UnlockCommand = async (message, language, args) => {
 	let [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (message.mentions.users.first()) {

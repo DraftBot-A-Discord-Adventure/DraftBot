@@ -11,7 +11,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const RespawnCommand = async (language, message) => {
+const RespawnCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity) !== true) {

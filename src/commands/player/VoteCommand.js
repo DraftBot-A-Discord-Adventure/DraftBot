@@ -9,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const VoteCommand = (language, message) => {
+const VoteCommand = (message, language) => {
 	const voteEmbed = new discord.MessageEmbed()
 		.setDescription(JsonReader.commands.vote.getTranslation(language).text)
 		.setTitle(JsonReader.commands.vote.getTranslation(language).title)

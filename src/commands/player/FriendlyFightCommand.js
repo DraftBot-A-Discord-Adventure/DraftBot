@@ -3,8 +3,8 @@ module.exports.help = {
 	aliases: ["ff", "ffight"]
 };
 
-const FriendlyFightCommand = async function(language, message, args) {
-	await fightCommand(language, message, args, true);
+const FriendlyFightCommand = async function(message, language, args) {
+	await fightCommand(message, language, args, true);
 };
 
 module.exports.execute = FriendlyFightCommand;

@@ -8,7 +8,7 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
-const BadgeCommand = (language, message) => {
+const BadgeCommand = (message, language) => {
 	getCommand("help")(language, message, ["badge"]);
 };
 

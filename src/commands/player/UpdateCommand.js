@@ -9,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const UpdateCommand = (language, message) => {
+const UpdateCommand = (message, language) => {
 	const updateEmbed = new discord.MessageEmbed()
 		.setDescription(format(JsonReader.commands.update.getTranslation(language).text,
 			{

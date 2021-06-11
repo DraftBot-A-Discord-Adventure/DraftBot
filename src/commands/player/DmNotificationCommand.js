@@ -9,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const DmnotificationCommand = async (language, message) => {
+const DmnotificationCommand = async (message, language) => {
 
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 	const translations = JsonReader.commands.dmNotification.getTranslation(language);

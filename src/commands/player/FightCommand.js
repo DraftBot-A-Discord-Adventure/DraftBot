@@ -12,7 +12,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {boolean} friendly - If the fight is a friendly fight
  */
-const FightCommand = async function(language, message, args, friendly = false) {
+const FightCommand = async function(message, language, args, friendly = false) {
 	const [attacker] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], attacker) !== true) {

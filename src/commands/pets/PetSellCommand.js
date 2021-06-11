@@ -9,7 +9,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetSellCommand = async (language, message, args) => {
+const PetSellCommand = async (message, language, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const fields = [];
 	let guild;
