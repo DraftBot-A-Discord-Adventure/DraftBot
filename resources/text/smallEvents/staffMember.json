@@ -6,7 +6,7 @@
 				"Alors que vous cheminez tranquillement remarquez une grande affiche. Elle semble louer les exploits de **{pseudo}**... \"{sentence}\".",
 				"Durant l'une de vos aventures, vous entendez une histoire, \"{sentence}\", mais n'en connaissez pas le héros. Après quelques recherches, vous vous rendez compte qu'elle parle de **{pseudo}** ! Son nom vous semble familier...",
 				"En entrant dans un bâtiment le long de votre chemin, vous discutez quelques temps avec le gérant de l'établissement. Vous lui demandez de vous conter les légendes locales, il vous décrit alors **{pseudo}**, {sentence}.",
-				"Sur votre chemin, vous faites la rencontre d'un vielle homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{pseudo}** : {sentence}.",
+				"Sur votre chemin, vous faites la rencontre d'un vieil homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{pseudo}** : {sentence}.",
 				"En marchant le long de la route, vous apercevez un livre en mauvais état par terre. Intitulé **{pseudo}**, vous l'ouvrez et lisez les premières phrases... {sentence}.",
 				"Vous marchez longuement dans le calme, jusqu'à ce que vous croisiez une personne fredonnant un chant dédié à **{pseudo}**... :musical_note: {sentence} :musical_note:.",
 				"Sur votre voyage, un nuage de poussière apparaît au loin. Quelques minutes plus tard, un cavalier s'arrête devant vous, il dit chercher **{pseudo}**. À votre regard inquisiteur, il ajoute :  \"{sentence}\"."
@@ -24,7 +24,7 @@
 				"Royal": "un entrepreneur aguerri qui privilégie l'argent à la morale. Friand de tournoi, il n'hésitera pas à se battre pour la princesse",
 				"Max": "un inventeur fou, amoureux du voyage. Il est le seul à avoir, un jour, parcouru la terre des dragons. La légende raconte que ses projets ont presque tous menés l’humanité au bord de l’extinction",
 				"Eagle": "éleveur de dragon, qui a mené les premiers coups d'état du royaume",
-				"DeadAngelV6": "seul homme banni des terres du Duc Benatis. Il espère vous croisez dans votre aventure avec son mystérieux baluchon pour vous conter son histoire",
+				"DeadAngelV6": "seul homme banni des terres du Duc Benatis. Il espère vous croiser dans votre aventure avec son mystérieux baluchon pour vous conter son histoire",
 				"Kyusaki": "premier Grand prêtre du Kyutisme, il mène une route de méditation incognito parmi les aventuriers du monde, donnant souvent conseil à ceux qui en font la demande",
 				"Greninja_san": "batracien à l'intellect hors normes, il usa de ses connaissances multiples pour s'intégrer à la vie humaine, et apprendre les préceptes de leur magie",
 				"nwcubeok": "un célèbre magicien qui parcourt la contrée afin de promouvoir ses talents en magie. Il espère que la princesse saura les apprécier",

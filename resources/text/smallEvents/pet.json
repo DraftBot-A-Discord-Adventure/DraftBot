@@ -18,12 +18,12 @@
 			"gainLife": [
 				"Avoir **{pet}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{amount}** :heart:.",
 				"Sur le bord de la route, **{pet}** se précipite sur de la nourriture qui semble être en bon état. {nominative} vous la ramène, et vous la mangez avant qu'elle ne se déteriore. Vous gagnez **{amount}** :heart:.",
-				"Après être parti quelques instant, **{pet}** reviens avec une potion presque vide. Vous la buvez avant qu'elle ne soit perdue. Vous gagnez ainsi **{amount}** :heart:."
+				"Après être parti quelques instant, **{pet}** revient avec une potion presque vide. Vous la buvez avant qu'elle ne soit perdue. Vous gagnez ainsi **{amount}** :heart:."
 			],
 			"gainLove": [
 				"**{pet}** est heureux de vous avoir en sa compagnie. {nominativeShift} gagne en amour et vous devient plus fidèle.",
 				"Après avoir marché longuement, vous décidez de prendre soin de votre **{pet}** en {determinant} caressant. Ce moment passé avec {accusative} a renforcé vos liens.",
-				"Après être parti{feminine} quelques instant, **{pet}** reviens avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominative} vous aime ainsi d'avantage.",
+				"Après être parti{feminine} quelques instant, **{pet}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominative} vous aime ainsi d'avantage.",
 				"**{pet}** semble avoir déclenché les hostilités avec un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous décidez de {determinant} défendre vaillamment. {nominativeShift} vous aime d'avantage et vous devient plus fidèle.",
 				"**{pet}** est joueur, vous décidez de jouer avec {accusative}. Cette partie a renforcé vos liens."
 			],
