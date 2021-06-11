@@ -11,7 +11,7 @@ class Command {
 	 * load all the commands from source files
 	 * @return {Promise<void>}
 	 */
-	async static init() {
+	static async init() {
 		Command.commands = new Collection();
 		Command.players = new Map();
 
