@@ -4,10 +4,12 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildLeaveCommand = async(language, message) => {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+
+const GuildLeaveCommand = async (language, message) => {
 	let guild;
 	let elder;
-	const confirmationEmbed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -21,8 +23,7 @@ const GuildLeaveCommand = async(language, message) => {
 	// search for a user's guild
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
+	} catch (error) {
 		guild = null;
 	}
 
@@ -39,6 +40,83 @@ const GuildLeaveCommand = async(language, message) => {
 	if (guild.elderId) {
 		elder = await Entities.getById(guild.elderId);
 	}
+
+	const endCallback = async(validationMessage) => {
+		const embed = new DraftBotEmbed();
+		removeBlockedPlayer(entity.discordUserId);
+		if (elder) {
+			removeBlockedPlayer(elder.discordUserId);
+		}
+		if (validationMessage.isValidated()) {
+			entity.Player.guildId = null;
+			if (entity.id === guild.chiefId) {
+				if (elder) {
+					log(
+						elder.discordUserId +
+						" becomes the chief of  " +
+						guild.name
+					);
+					guild.chiefId = elder.id;
+					guild.elderId = null;
+					await Promise.all([guild.save()]);
+					message.channel.send(
+						format(JsonReader.commands.guildLeave.getTranslation(language).newChiefTitle, {
+							guild: guild.name
+						})
+					);
+				}
+				else {
+					log(
+						guild.name +
+						" has been destroyed"
+					);
+					// the chief is leaving : destroy the guild
+					await Players.update(
+						{guildId: null},
+						{
+							where: {
+								guildId: guild.id
+							}
+						}
+					);
+					for (const pet of guild.GuildPets) {
+						pet.PetEntity.destroy();
+						pet.destroy();
+					}
+					await Guilds.destroy({
+						where: {
+							id: guild.id
+						}
+					});
+				}
+			}
+
+			await Promise.all([entity.save(), entity.Player.save()]);
+
+			embed.setAuthor(
+				format(JsonReader.commands.guildLeave.getTranslation(language).successTitle, {
+					pseudo: message.author.username,
+					guildName: guild.name
+				}),
+				message.author.displayAvatarURL()
+			);
+			embed.setDescription(JsonReader.commands.guildLeave.getTranslation(language).leavingSuccess);
+			return message.channel.send(embed);
+		}
+
+		// Cancel leaving
+		return sendErrorMessage(
+			message.author, message.channel, language, format(JsonReader.commands.guildLeave.getTranslation(language).leavingCancelled, {
+				guildName: guild.name
+			}), true
+		);
+	};
+
+	const confirmationEmbed = new DraftBotValidateReactionMessage(
+		message.author,
+		endCallback
+	)
+		.formatAuthor(JsonReader.commands.guildLeave.getTranslation(language).leaveGuildTitle, message.author);
 
 	if (entity.id === guild.chiefId) {
 		if (elder) {
@@ -64,98 +142,13 @@ const GuildLeaveCommand = async(language, message) => {
 			})
 		);
 	}
-	const msg = await message.channel.send(confirmationEmbed);
 
-	const embed = new discord.MessageEmbed();
-	const filterConfirm = (reaction, user) =>
-		(reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) &&
-			user.id === message.author.id
-		;
+	const sentMessage = confirmationEmbed.send(message.channel);
 
-	const collector = msg.createReactionCollector(filterConfirm, {
-		time: COLLECTOR_TIME,
-		max: 1
-	});
-
-	await addBlockedPlayer(entity.discordUserId, "guildLeave", collector);
+	await addBlockedPlayer(entity.discordUserId, "guildLeave", sentMessage.collector);
 	if (elder) {
-		addBlockedPlayer(elder.discordUserId, "chiefGuildLeave", collector);
+		addBlockedPlayer(elder.discordUserId, "chiefGuildLeave", sentMessage.collector);
 	}
-
-	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
-		if (elder) {
-			removeBlockedPlayer(elder.discordUserId);
-		}
-		if (reaction.first()) {
-			// a reaction exist
-			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				entity.Player.guildId = null;
-				if (entity.id === guild.chiefId) {
-					if (elder) {
-						log(
-							elder.discordUserId +
-							" becomes the chief of  " +
-							guild.name
-						);
-						guild.chiefId = elder.id;
-						guild.elderId = null;
-						await Promise.all([guild.save()]);
-						message.channel.send(
-							format(JsonReader.commands.guildLeave.getTranslation(language).newChiefTitle, {
-								guild: guild.name
-							})
-						);
-					}
-					else {
-						log(
-							guild.name +
-							" has been destroyed"
-						);
-						// the chief is leaving : destroy the guild
-						await Players.update(
-							{guildId: null},
-							{
-								where: {
-									guildId: guild.id
-								}
-							}
-						);
-						for (const pet of guild.GuildPets) {
-							pet.PetEntity.destroy();
-							pet.destroy();
-						}
-						await Guilds.destroy({
-							where: {
-								id: guild.id
-							}
-						});
-					}
-				}
-
-				await Promise.all([entity.save(), entity.Player.save()]);
-
-				embed.setAuthor(
-					format(JsonReader.commands.guildLeave.getTranslation(language).successTitle, {
-						pseudo: message.author.username,
-						guildName: guild.name
-					}),
-					message.author.displayAvatarURL()
-				);
-				embed.setDescription(JsonReader.commands.guildLeave.getTranslation(language).leavingSuccess);
-				return message.channel.send(embed);
-			}
-		}
-
-		// Cancel leaving
-		return sendErrorMessage(
-			message.author, message.channel, language, format(JsonReader.commands.guildLeave.getTranslation(language).leavingCancelled, {
-				guildName: guild.name
-			}), true
-		);
-	});
-
-	await Promise.all([msg.react(MENU_REACTION.ACCEPT), msg.react(MENU_REACTION.DENY)]);
 };
 
 module.exports = {

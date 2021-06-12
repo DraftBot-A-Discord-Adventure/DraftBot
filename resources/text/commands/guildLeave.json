@@ -9,7 +9,8 @@
 			"leavingCancelled": "Votre départ a été annulé.",
 			"successTitle": "{pseudo} a quitté la guilde {guildName} !",
 			"leavingSuccess": "You're poor lonesome cowboy and a long long way from home...",
-			"newChiefTitle": ":crown: | la guilde **{guild}** à un nouveau chef !"
+			"newChiefTitle": ":crown: | la guilde **{guild}** à un nouveau chef !",
+			"leaveGuildTitle": "Quitter la guilde"
 		},
 		"en": {
 			"leaveTitle": "{pseudo}, confirmation:",
@@ -20,7 +21,8 @@
 			"leavingCancelled": "Your departure has been cancelled.",
 			"successTitle": "{pseudo} left the guild {guildName}!",
 			"leavingSuccess": "You're poor lonesome cowboy and a long long way from home...",
-			"newChiefTitle": ":crown: | The guild **{guild}** has a new chief!"
+			"newChiefTitle": ":crown: | The guild **{guild}** has a new chief!",
+			"leaveGuildTitle": "Leave the guild"
 		}
 	},
 	"guildCreationPrice": 5000

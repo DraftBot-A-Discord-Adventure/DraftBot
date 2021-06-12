@@ -4,6 +4,8 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const PetNicknameCommand = async function(language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -20,10 +22,8 @@ const PetNicknameCommand = async function(language, message, args) {
 		return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPet);
 	}
 
-	const successEmbed = new discord.MessageEmbed();
-	successEmbed.setAuthor(format(JsonReader.commands.petNickname.getTranslation(language).successTitle, {
-		pseudo: message.author.username
-	}), message.author.displayAvatarURL());
+	const successEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.petNickname.getTranslation(language).successTitle, message.author);
 	if (args.length === 0) {
 		pet.nickname = null;
 		await pet.save();
