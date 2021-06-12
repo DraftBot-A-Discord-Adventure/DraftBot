@@ -4,16 +4,15 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const listItemsCommand = async function(language, message) {
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.BOT_OWNER) !== true) {
 		return;
 	}
 	const fs = require("fs");
-	const embed = new discord.MessageEmbed();
-	embed.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(JsonReader.commands.listItems.getTranslation(language).title, {pseudo: message.author.username}), message.author.displayAvatarURL());
-	await message.channel.send(embed);
+	await message.channel.send(new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.listItems.getTranslation(language).title, message.author));
 
 	// Delete all old list
 	try {
@@ -53,7 +52,7 @@ const listItemsCommand = async function(language, message) {
 	}
 
 	// List armors
-	files = fs.readdirSync("resources/text/armors");
+	let files = fs.readdirSync("resources/text/armors");
 	fs.appendFileSync("allItems.txt", "ALL ARMORS :\n");
 	files.forEach(function(file) {
 		if (file !== "0.json") {

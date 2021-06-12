@@ -1,7 +1,6 @@
 import {
 	DMChannel,
 	Message,
-	MessageEmbed,
 	MessageReaction,
 	NewsChannel,
 	ReactionCollector,

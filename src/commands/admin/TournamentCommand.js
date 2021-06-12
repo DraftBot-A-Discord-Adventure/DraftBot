@@ -4,6 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 
 const TournamentCommand = async function(language, message, args) {
 
@@ -12,12 +13,12 @@ const TournamentCommand = async function(language, message, args) {
 	}
 
 	if (args.length <= 1 || args[0] !== "channel" && args[0] !== "maxpower") {
-		sendErrorMessage(message.author, message.channel, language, JsonReader.commands.tournament.getTranslation(language).usage);
+		await message.channel.send(new DraftBotErrorEmbed(message.author, language, JsonReader.commands.tournament.getTranslation(language).usage));
 		return;
 	}
 
 	if (isNaN(args[1])) {
-		sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.tournament.getTranslation(language).errorNaN, {arg: args[1]}));
+		await message.channel.send(new DraftBotErrorEmbed(message.author, language, format(JsonReader.commands.tournament.getTranslation(language).errorNaN, {arg: args[1]})));
 		return;
 	}
 	if (args[0] === "channel") {

@@ -4,13 +4,13 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const changeLanguageCommand = async function(language, message) {
 	if (await canPerformCommand(message, language,
 		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
 		return;
 	}
-	const embed = new discord.MessageEmbed();
 
 	const [server] = await Servers.getOrRegister(message.guild.id);
 	if (server.language === LANGUAGE.FRENCH) {
@@ -19,14 +19,10 @@ const changeLanguageCommand = async function(language, message) {
 	else {
 		server.language = LANGUAGE.FRENCH;
 	}
-	embed.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(
-			JsonReader.commands.changeLanguage.getTranslation(language).title,
-			{pseudo: message.author.username}),
-		message.author.displayAvatarURL())
-		.setDescription(JsonReader.commands.changeLanguage.getTranslation(language).desc);
-	message.channel.send(embed);
 	await server.save();
+	await message.channel.send(new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.changeLanguage.getTranslation(language).title, message.author)
+		.setDescription(JsonReader.commands.changeLanguage.getTranslation(language).desc));
 };
 
 module.exports = {

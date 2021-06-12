@@ -4,12 +4,12 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 function VoteCommand(language, message) {
-	const voteEmbed = new discord.MessageEmbed()
+	message.channel.send(new DraftBotEmbed()
 		.setDescription(JsonReader.commands.vote.getTranslation(language).text)
-		.setTitle(JsonReader.commands.vote.getTranslation(language).title)
-		.setColor(JsonReader.bot.embed.default);
-	message.channel.send(voteEmbed);
+		.setTitle(JsonReader.commands.vote.getTranslation(language).title));
 }
 
 module.exports = {

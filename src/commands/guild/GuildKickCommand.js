@@ -4,11 +4,13 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const GuildKickCommand = async(language, message, args) => {
 	let kickedEntity;
 	let guild;
 	let kickedGuild;
-	const choiceEmbed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -96,87 +98,64 @@ const GuildKickCommand = async(language, message, args) => {
 		);
 	}
 
-	choiceEmbed.setAuthor(
-		format(JsonReader.commands.guildKick.getTranslation(language).kickTitle, {
-			pseudo: message.author.username
-		}),
-		message.author.displayAvatarURL()
-	);
-	choiceEmbed.setDescription(
-		format(JsonReader.commands.guildKick.getTranslation(language).kick, {
-			guildName: guild.name,
-			kickedPseudo: await kickedEntity.Player.getPseudo(language)
-		})
-	);
-
-	const msg = await message.channel.send(choiceEmbed);
-
-	embed = new discord.MessageEmbed();
-	const filterConfirm = (reaction, user) =>
-		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
-				reaction.emoji.name === MENU_REACTION.DENY) &&
-			user.id === message.author.id
-		;
-
-	const collector = msg.createReactionCollector(filterConfirm, {
-		time: COLLECTOR_TIME,
-		max: 1
-	});
-
-	addBlockedPlayer(entity.discordUserId, "guildKick", collector);
-
-	collector.on("end", async(reaction) => {
+	const endCallback = async(validateMessage) => {
 		removeBlockedPlayer(entity.discordUserId);
-		if (reaction.first()) {
-			// a reaction exist
-			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				try {
-					[kickedEntity] = await Entities.getByArgs(args, message);
-					kickedGuild = await Guilds.getById(kickedEntity.Player.guildId);
-				}
-				catch (error) {
-					kickedEntity = null;
-					kickedGuild = null;
-				}
-
-				if (kickedGuild === null || kickedEntity === null) {
-					// not the same guild
-					return sendErrorMessage(
-						message.author,
-						message.channel,
-						language,
-						JsonReader.commands.guildKick.getTranslation(language).notInTheGuild
-					);
-				}
-				kickedEntity.Player.guildId = null;
-
-				await Promise.all([kickedEntity.save(), kickedEntity.Player.save()]);
-
-				embed.setAuthor(
-					format(
-						JsonReader.commands.guildKick.getTranslation(language).successTitle,
-						{
-							kickedPseudo: await kickedEntity.Player.getPseudo(language),
-							guildName: guild.name
-						}
-					)
-				);
-				embed.setDescription(
-					JsonReader.commands.guildKick.getTranslation(language).kickSuccess
-				);
-				return message.channel.send(embed);
+		if (validateMessage.isValidated()) {
+			try {
+				[kickedEntity] = await Entities.getByArgs(args, message);
+				kickedGuild = await Guilds.getById(kickedEntity.Player.guildId);
 			}
+			catch (error) {
+				kickedEntity = null;
+				kickedGuild = null;
+			}
+
+			if (kickedGuild === null || kickedEntity === null) {
+				// not the same guild
+				return sendErrorMessage(
+					message.author,
+					message.channel,
+					language,
+					JsonReader.commands.guildKick.getTranslation(language).notInTheGuild
+				);
+			}
+			kickedEntity.Player.guildId = null;
+
+			await Promise.all([kickedEntity.save(), kickedEntity.Player.save()]);
+
+			const embed = new DraftBotEmbed();
+			embed.setAuthor(
+				format(
+					JsonReader.commands.guildKick.getTranslation(language).successTitle,
+					{
+						kickedPseudo: await kickedEntity.Player.getPseudo(language),
+						guildName: guild.name
+					}
+				)
+			);
+			embed.setDescription(
+				JsonReader.commands.guildKick.getTranslation(language).kickSuccess
+			);
+			return message.channel.send(embed);
 		}
 
 		// Cancel the kick
 		return sendErrorMessage(message.author, message.channel, language,
-			format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {kickedPseudo: await kickedEntity.Player.getPseudo(language)}),true);
-	});
+			format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {kickedPseudo: await kickedEntity.Player.getPseudo(language)}), true);
+	};
 
-	await Promise.all([
-		msg.react(MENU_REACTION.ACCEPT),
-		msg.react(MENU_REACTION.DENY)
-	]);
+	const choiceEmbed = new DraftBotValidateReactionMessage(
+		message.author,
+		endCallback
+	)
+		.formatAuthor(JsonReader.commands.guildKick.getTranslation(language).kickTitle, message.author)
+		.setDescription(format(JsonReader.commands.guildKick.getTranslation(language).kick, {
+			guildName: guild.name,
+			kickedPseudo: await kickedEntity.Player.getPseudo(language)
+		}))
+		.send(message.channel);
+
+	addBlockedPlayer(entity.discordUserId, "guildKick", choiceEmbed.collector);
 };
 
 module.exports = {

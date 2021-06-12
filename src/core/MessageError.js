@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+
 class MessageError {
 	/**
 	 * @param {module:"discord.js".Message} message - Message from the discord server
@@ -93,7 +95,7 @@ class MessageError {
 	 * @return {Promise<Message>}
 	 */
 	static async permissionErrorMe(message, language, permission) {
-		const embed = new discord.MessageEmbed()
+		const embed = new DraftBotEmbed()
 			.setColor(JsonReader.bot.embed.error);
 
 		if (permission === PERMISSION.ROLE.BADGE_MANAGER) {

@@ -4,6 +4,8 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const InventoryCommand = async(language, message, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
@@ -16,8 +18,7 @@ const InventoryCommand = async(language, message, args) => {
 
 	const inventoryEmbed = await entity.Player.Inventory.toEmbedObject(language);
 	return await message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
+		new DraftBotEmbed()
 			.setTitle(format(JsonReader.commands.inventory.getTranslation(language).title, {pseudo: await entity.Player.getPseudo(language)}))
 			.addFields(inventoryEmbed)
 	);

@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+
 const fs = require("fs");
 
 /**
@@ -177,7 +179,7 @@ class Command {
 				JsonReader.app.MODE_MAINTENANCE
 			) {
 				return message.channel.send(
-					new discord.MessageEmbed()
+					new DraftBotEmbed()
 						.setDescription(JsonReader.bot.getTranslation(language).maintenance)
 						.setTitle(":x: **Maintenance**")
 						.setColor(JsonReader.bot.embed.error)

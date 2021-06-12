@@ -6,6 +6,8 @@
  * @param {DataTypes} DataTypes
  * @returns
  */
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+
 module.exports = (Sequelize, DataTypes) => {
 	const Guilds = Sequelize.define(
 		"Guilds",
@@ -190,7 +192,7 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 		this.experience -= this.getExperienceNeededToLevelUp();
 		this.level++;
-		const embed = new discord.MessageEmbed()
+		const embed = new DraftBotEmbed()
 			.setTitle(
 				format(
 					JsonReader.models.guilds.getTranslation(language).levelUp.title,

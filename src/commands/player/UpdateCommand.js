@@ -4,14 +4,15 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 function updateCommand(language, message) {
-	const updateEmbed = new discord.MessageEmbed()
+	const updateEmbed = new DraftBotEmbed()
 		.setDescription(format(JsonReader.commands.update.getTranslation(language).text,
 			{
 				version: JsonReader.package.version
 			}))
-		.setTitle(JsonReader.commands.update.getTranslation(language).title)
-		.setColor(JsonReader.bot.embed.default);
+		.setTitle(JsonReader.commands.update.getTranslation(language).title);
 	message.channel.send(updateEmbed);
 }
 
