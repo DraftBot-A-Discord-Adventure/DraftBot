@@ -4,7 +4,9 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const MyPetCommand = async function(language, message, args) {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+const MyPetCommand = async function (language, message, args) {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
@@ -27,17 +29,16 @@ const MyPetCommand = async function(language, message, args) {
 
 	if (authorPet) {
 		const user = message.mentions.users.last() ? message.mentions.users.last() : message.author;
-		const mypetEmbed = new discord.MessageEmbed();
-		mypetEmbed.setAuthor(
-			format(tr.embedTitle, {
-				pseudo: await entity.Player.getPseudo(language)
-			}),
-			user.displayAvatarURL()
-		);
-		mypetEmbed.setDescription(
-			await PetEntities.getPetDisplay(authorPet, language)
-		);
-		return await message.channel.send(mypetEmbed);
+		return await message.channel.send(new DraftBotEmbed()
+			.setAuthor(
+				format(tr.embedTitle, {
+					pseudo: await entity.Player.getPseudo(language)
+				}),
+				user.displayAvatarURL()
+			)
+			.setDescription(
+				await PetEntities.getPetDisplay(authorPet, language)
+			));
 	}
 
 	if (entity.discordUserId === message.author.id) {
@@ -47,8 +48,7 @@ const MyPetCommand = async function(language, message, args) {
 			language,
 			tr.noPet
 		);
-	}
-	else {
+	} else {
 		await sendErrorMessage(
 			message.author,
 			message.channel,

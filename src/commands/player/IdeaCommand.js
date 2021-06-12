@@ -4,11 +4,12 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 function ideaCommand(language, message) {
-	const ideaEmbed = new discord.MessageEmbed()
+	const ideaEmbed = new DraftBotEmbed()
 		.setDescription(JsonReader.commands.idea.getTranslation(language).text)
 		.setTitle(JsonReader.commands.idea.getTranslation(language).title)
-		.setColor(JsonReader.bot.embed.default);
 	message.channel.send(ideaEmbed);
 }
 

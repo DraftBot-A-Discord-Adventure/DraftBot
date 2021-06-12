@@ -176,7 +176,7 @@ export class DraftBotReactionMessageBuilder {
 
 	private _endCallback: (msg: DraftBotReactionMessage) => void = undefined;
 
-	private _maxReactions = 1;
+	private _maxReactions = 0;
 
 	private _anyUserAllowed = false;
 

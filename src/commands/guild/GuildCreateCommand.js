@@ -4,9 +4,11 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+
 const GuildCreateCommand = async(language, message, args) => {
 	let guild;
-	const choiceEmbed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, GUILD.REQUIRED_LEVEL) !== true) {
@@ -67,101 +69,67 @@ const GuildCreateCommand = async(language, message, args) => {
 		);
 	}
 
+	const endCallback = async(validateMessage) => {
+		removeBlockedPlayer(entity.discordUserId);
+		if (validateMessage.isValidated()) {
+			try {
+				guild = await Guilds.getByName(args.join(" "));
+			}
+			catch (error) {
+				guild = null;
+			}
+			if (guild !== null) {
+				// the name is already used
+				return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildCreate.getTranslation(language).nameAlreadyUsed);
+			}
+			if (
+				entity.Player.money <
+					JsonReader.commands.guildCreate.guildCreationPrice
+			) {
+				return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildCreate.getTranslation(language).notEnoughMoney);
+			}
+
+			const newGuild = await Guilds.create({
+				name: askedName,
+				chiefId: entity.id
+			});
+
+			entity.Player.guildId = newGuild.id;
+			entity.Player.addMoney(
+				-JsonReader.commands.guildCreate.guildCreationPrice
+			);
+			newGuild.updateLastDailyAt();
+			await Promise.all([
+				newGuild.save(),
+				entity.save(),
+				entity.Player.save()
+			]);
+
+			return message.channel.send(new DraftBotEmbed()
+				.formatAuthor(JsonReader.commands.guildCreate.getTranslation(language).createTitle, message.author)
+				.setDescription(format(JsonReader.commands.guildCreate.getTranslation(language).createSuccess, {guildName: askedName})));
+		}
+
+		// Cancel the creation
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildCreate.getTranslation(language).creationCancelled, true);
+	};
+
 	addBlockedPlayer(entity.discordUserId, "guildCreate");
-	choiceEmbed.setAuthor(
-		format(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, {
-			pseudo: message.author.username
-		}),
-		message.author.displayAvatarURL()
-	);
-	choiceEmbed.setDescription(
-		format(
+
+	new DraftBotValidateReactionMessage(
+		message.author,
+		endCallback
+	)
+		.formatAuthor(JsonReader.commands.guildCreate.getTranslation(language).buyTitle, message.author)
+		.setDescription(format(
 			JsonReader.commands.guildCreate.getTranslation(language).buyConfirm,
 			{
 				guildName: askedName,
 				price: JsonReader.commands.guildCreate.guildCreationPrice
 			}
-		)
-	);
-	choiceEmbed.setFooter(
-		JsonReader.commands.guildCreate.getTranslation(language).buyFooter,
-		null
-	);
-
-	const msg = await message.channel.send(choiceEmbed);
-	embed = new discord.MessageEmbed();
-	const filterConfirm = (reaction, user) =>
-		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
-				reaction.emoji.name === MENU_REACTION.DENY) &&
-			user.id === message.author.id
-		;
-
-	const collector = msg.createReactionCollector(filterConfirm, {
-		time: COLLECTOR_TIME,
-		max: 1
-	});
-
-	addBlockedPlayer(entity.discordUserId, "guildCreate", collector);
-
-	collector.on("end", async(reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
-		if (reaction.first()) {
-			// a reaction exist
-			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				try {
-					guild = await Guilds.getByName(args.join(" "));
-				}
-				catch (error) {
-					guild = null;
-				}
-				if (guild !== null) {
-					// the name is already used
-					return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildCreate.getTranslation(language).nameAlreadyUsed);
-				}
-				if (
-					entity.Player.money <
-					JsonReader.commands.guildCreate.guildCreationPrice
-				) {
-					return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildCreate.getTranslation(language).notEnoughMoney);
-				}
-
-				const newGuild = await Guilds.create({
-					name: askedName,
-					chiefId: entity.id
-				});
-
-				entity.Player.guildId = newGuild.id;
-				entity.Player.addMoney(
-					-JsonReader.commands.guildCreate.guildCreationPrice
-				);
-				newGuild.updateLastDailyAt();
-				await Promise.all([
-					newGuild.save(),
-					entity.save(),
-					entity.Player.save()
-				]);
-
-				embed.setAuthor(
-					format(
-						JsonReader.commands.guildCreate.getTranslation(language).createTitle, {pseudo: message.author.username}),
-					message.author.displayAvatarURL()
-				);
-				embed.setDescription(
-					format(
-						JsonReader.commands.guildCreate.getTranslation(language).createSuccess, {guildName: askedName})
-				);
-				return message.channel.send(embed);
-			}
-		}
-
-		// Cancel the creation
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildCreate.getTranslation(language).creationCancelled, true);
-	});
-
-	await Promise.all([
-		msg.react(MENU_REACTION.ACCEPT),
-		msg.react(MENU_REACTION.DENY)
-	]);
+		))
+		.setFooter(JsonReader.commands.guildCreate.getTranslation(language).buyFooter, null)
+		.send(message.channel);
 };
 
 module.exports = {

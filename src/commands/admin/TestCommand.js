@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import {DraftBotValidateReactionMessage} from "../../core/messages/ValidateReactionMessage";
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const DraftBotReactionMessageBuilder = require("../../core/messages/DraftBotReactionMessage").DraftBotReactionMessageBuilder;
 const DraftBotReaction = require("../../core/messages/DraftBotReaction").DraftBotReaction;
@@ -413,7 +414,7 @@ const TestCommand = async (language, message, args) => {
 			require("../../core/DraftBot").dailyTimeout();
 			break;
 		case "mapinfo":
-			const mapEmbed = new discord.MessageEmbed();
+			const mapEmbed = new DraftBotEmbed();
 			const currMap = await MapLocations.getById(author.Player.mapId);
 			const prevMap = await MapLocations.getById(author.Player.previousMapId);
 			const travelling = Maps.isTravelling(author.Player);
