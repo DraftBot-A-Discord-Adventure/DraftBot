@@ -236,8 +236,30 @@ class Command {
 		const commandName = args.shift().toLowerCase();
 		const command = this.getCommand(commandName);
 
+		const [entity] = await Entities.getOrRegister(message.author.id);
+
+		if (command.help.requiredLevel && entity.Player.getLevel() < command.help.requiredLevel) {
+			return await sendErrorMessage(
+				message.author,
+				message.channel,
+				language,
+				format(JsonReader.error.getTranslation(language).levelTooLow, {
+					pseudo: entity.getMention(),
+					level: command.help.requiredLevel
+				})
+			);
+		}
+
+		if (await canPerformCommand(message, language, command.help.permissions, command.help.restrictedEffects, entity) !== true) {
+			return;
+		}
+
+		if (await sendBlockedError(message.author, message.channel, language)) {
+			return;
+		}
+
 		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
-		await command.execute(message, language, args);
+		await command.execute(message, language, args, entity);
 	}
 }
 

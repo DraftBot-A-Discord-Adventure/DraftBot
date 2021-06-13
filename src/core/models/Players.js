@@ -425,5 +425,8 @@ module.exports = (Sequelize, DataTypes) => {
 		return [EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1;
 	};
 
+	Players.prototype.getLevel = () => this.level;
+
+
 	return Players;
 };
