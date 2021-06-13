@@ -1,10 +1,17 @@
+module.exports.help = {
+	name: "guilddescription",
+	aliases: ["gdesc", "guilddesc"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Change guild description
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildDescriptionCommand = async(language, message, args) => {
+const GuildDescriptionCommand = async (message, language, args) => {
 	let guild;
 	let entity;
 	const confirmationEmbed = new discord.MessageEmbed();
@@ -15,22 +22,6 @@ const GuildDescriptionCommand = async(language, message, args) => {
 	}
 
 	guild = await Guilds.getById(entity.Player.guildId);
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	if (guild === null) {
 		// not in a guild
@@ -134,7 +125,7 @@ const GuildDescriptionCommand = async(language, message, args) => {
 
 	addBlockedPlayer(entity.discordUserId, "descriptionEdit", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
@@ -189,12 +180,4 @@ const GuildDescriptionCommand = async(language, message, args) => {
 	]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guilddesc",
-			func: GuildDescriptionCommand,
-			aliases: ["gdesc", "guilddescription"]
-		}
-	]
-};
+module.exports.execute = GuildDescriptionCommand;

@@ -1,22 +1,21 @@
+module.exports.help = {
+	name: "guildelderremove",
+	aliases: ["gelderremove", "ger"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+};
+
 /**
  * remove guild elder
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildElderRemoveCommand = async(language, message) => {
+const GuildElderRemoveCommand = async (message, language) => {
 	let guild;
 	const elderRemoveEmbed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	// search for a user's guild
 	try {
@@ -70,7 +69,7 @@ const GuildElderRemoveCommand = async(language, message) => {
 
 	addBlockedPlayer(entity.discordUserId, "guildElderRemove", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
@@ -102,12 +101,4 @@ const GuildElderRemoveCommand = async(language, message) => {
 	]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildelderremove",
-			func: GuildElderRemoveCommand,
-			aliases: ["gelderremove", "guildelderremove", "ger"]
-		}
-	]
-};
+module.exports.execute = GuildElderRemoveCommand;

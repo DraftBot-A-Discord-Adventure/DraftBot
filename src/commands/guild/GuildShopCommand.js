@@ -1,18 +1,18 @@
+module.exports.help = {
+	name: "guildshop",
+	aliases: ["gs"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Displays the guild shop
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function GuildShopCommand(language, message) {
+const GuildShopCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	// search for a user's guild
 	let guild;
@@ -101,7 +101,7 @@ async function GuildShopCommand(language, message) {
 	addBlockedPlayer(entity.discordUserId, "guildShop", collector);
 
 	// Fetch the choice from the user
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (
 			!reaction.first() ||
@@ -166,7 +166,7 @@ async function GuildShopCommand(language, message) {
 		shopMessage.react(GUILDSHOP.ULTIMATE_FOOD),
 		shopMessage.react(MENU_REACTION.DENY)
 	]);
-}
+};
 
 /**
  * food purchase
@@ -254,7 +254,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 
 	addBlockedPlayer(entity.discordUserId, "selectQuantity");
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (
 			!reaction.first() ||
@@ -481,7 +481,7 @@ async function giveGuildXp(message, language, entity, author, selectedItem) {
 	);
 }
 
-const giveFood = async(
+const giveFood = async (
 	message,
 	language,
 	entity,
@@ -560,13 +560,4 @@ const giveFood = async(
 	return message.channel.send(successEmbed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildshop",
-			func: GuildShopCommand,
-			aliases: ["guildshop", "gs"]
-		}
-	],
-	giveFood: giveFood
-};
+module.exports.execute = GuildShopCommand;

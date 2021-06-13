@@ -1,10 +1,15 @@
+module.exports.help = {
+	name: "dmnotification",
+	aliases: ["dmn","notifs","dms","notif","dmnotifications"]
+};
+
 /**
  * Activate or desactivate DMs notifications.
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function DmnotificationCommand(language, message) {
+const DmnotificationCommand = async (message, language) => {
 
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 	const translations = JsonReader.commands.dmNotification.getTranslation(language);
@@ -46,14 +51,6 @@ async function DmnotificationCommand(language, message) {
 	}
 	log("Player " + message.author + " switched dms to " + entity.Player.dmnotification);
 	await entity.Player.save();
-}
-
-module.exports = {
-	commands: [
-		{
-			name: "dmnotification",
-			func: DmnotificationCommand,
-			aliases: ["dmn", "notifs", "dms", "notif", "dmnotifications"]
-		}
-	]
 };
+
+module.exports.execute = DmnotificationCommand;

@@ -1,22 +1,22 @@
+module.exports.help = {
+	name: "guildleave",
+	aliases: ["gleave", "gl"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to leave a guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildLeaveCommand = async(language, message) => {
+const GuildLeaveCommand = async (message, language) => {
 	let guild;
 	let elder;
 	const confirmationEmbed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	// search for a user's guild
 	try {
@@ -82,7 +82,7 @@ const GuildLeaveCommand = async(language, message) => {
 		addBlockedPlayer(elder.discordUserId, "chiefGuildLeave", collector);
 	}
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (elder) {
 			removeBlockedPlayer(elder.discordUserId);
@@ -158,12 +158,4 @@ const GuildLeaveCommand = async(language, message) => {
 	await Promise.all([msg.react(MENU_REACTION.ACCEPT), msg.react(MENU_REACTION.DENY)]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildleave",
-			func: GuildLeaveCommand,
-			aliases: ["gleave", "gl"]
-		}
-	]
-};
+module.exports.execute = GuildLeaveCommand;

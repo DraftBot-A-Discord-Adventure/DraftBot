@@ -1,23 +1,23 @@
+module.exports.help = {
+	name: "petsell",
+	aliases: ["psell", "ps"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to sell pet
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetSellCommand = async function(language, message, args) {
+const PetSellCommand = async (message, language, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const fields = [];
 	let guild;
 	let sellInstance;
 
 	const translations = JsonReader.commands.petSell.getTranslation(language);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);
@@ -110,7 +110,7 @@ const PetSellCommand = async function(language, message, args) {
 	let spamCount = 0;
 	const spammers = [];
 	let buyer = null;
-	collector.on("collect", async(reaction, user) => {
+	collector.on("collect", async (reaction, user) => {
 		switch (reaction.emoji.name) {
 		case MENU_REACTION.ACCEPT:
 			if (user.id === entity.discordUserId) {
@@ -195,7 +195,7 @@ async function petSell(message, language, entity, user, pet, petCost) {
 
 	addBlockedPlayer(buyer.discordUserId, "petSellConfirm", confirmCollector);
 
-	confirmCollector.on("end", async(reaction) => {
+	confirmCollector.on("end", async (reaction) => {
 		if (!reaction.first() || reaction.first().emoji.name === MENU_REACTION.DENY) {
 			removeBlockedPlayer(buyer.discordUserId);
 			return sendErrorMessage(user, message.channel, language, translations.sellCancelled, true);
@@ -265,12 +265,4 @@ async function petSell(message, language, entity, user, pet, petCost) {
 	await Promise.all([confirmMessage.react(MENU_REACTION.ACCEPT), confirmMessage.react(MENU_REACTION.DENY)]);
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "petsell",
-			func: PetSellCommand,
-			aliases: ["psell", "ps"]
-		}
-	]
-};
+module.exports.execute = PetSellCommand;

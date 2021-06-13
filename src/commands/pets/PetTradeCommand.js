@@ -1,19 +1,19 @@
+module.exports.help = {
+	name: "pettrade",
+	aliases: ["ptrade"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to trade pets
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetTradeCommand = async function(language, message) {
+const PetTradeCommand = async function(message, language) {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader1) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 	if (message.mentions.users.size === 0) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).needMention);
 	}
@@ -106,7 +106,7 @@ const PetTradeCommand = async function(language, message) {
 		}
 	});
 
-	collector.on("end", async() => {
+	collector.on("end", async () => {
 		[trader1] = await Entities.getOrRegister(message.author.id);
 		[trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
 		pet1 = trader1.Player.Pet;
@@ -143,12 +143,4 @@ const PetTradeCommand = async function(language, message) {
 	]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "pettrade",
-			func: PetTradeCommand,
-			aliases: ["ptrade"]
-		}
-	]
-};
+module.exports.execute = PetTradeCommand;

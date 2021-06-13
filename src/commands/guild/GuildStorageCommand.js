@@ -1,23 +1,18 @@
+module.exports.help = {
+	name: "guildstorage",
+	aliases: ["gstorage", "gst"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Display the storage of the guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildStorageCommand = async(language, message) => {
+const GuildStorageCommand = async (message, language) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
-	}
 
 	const foodInfos = JsonReader.food;
 	const translations = JsonReader.commands.guildStorage.getTranslation(
@@ -105,12 +100,4 @@ const GuildStorageCommand = async(language, message) => {
 	await message.channel.send(storageEmbed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildstorage",
-			func: GuildStorageCommand,
-			aliases: ["guildstorage", "gstorage", "gst"]
-		}
-	]
-};
+module.exports.execute = GuildStorageCommand;

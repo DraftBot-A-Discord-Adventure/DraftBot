@@ -219,7 +219,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String[]} args=[]
 	 * @param {module:"discord.js".Message} message
 	 */
-	Entities.getByArgs = async(args, message) => {
+	Entities.getByArgs = async (args, message) => {
 		if (isNaN(args[0])) {
 			const lastMention = message.mentions.users.last();
 			if (lastMention === undefined) {

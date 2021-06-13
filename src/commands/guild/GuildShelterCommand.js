@@ -1,15 +1,18 @@
+module.exports.help = {
+	name: "shelter",
+	aliases: ["guildshelter", "pets", "animals", "gshelter", "gpets", "ganimals", "guildpets", "guildanimals", "sh"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Display the shelter of guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildShelterCommand = async(language, message) => {
+const GuildShelterCommand = async (message, language) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
 
 	// search for a user's guild
 	let guild;
@@ -67,22 +70,4 @@ const GuildShelterCommand = async(language, message) => {
 	await message.channel.send(shelterEmbed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "shelter",
-			func: GuildShelterCommand,
-			aliases: [
-				"guildshelter",
-				"pets",
-				"animals",
-				"gshelter",
-				"gpets",
-				"ganimals",
-				"guildpets",
-				"guildanimals",
-				"sh"
-			]
-		}
-	]
-};
+module.exports.execute = GuildShelterCommand;

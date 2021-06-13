@@ -11,6 +11,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+
 const TestCommand = async(language, message, args) => {
 	// First test : check if we are in test mode
 	if (JsonReader.app.TEST_MODE !== true) {
@@ -19,6 +20,7 @@ const TestCommand = async(language, message, args) => {
 
 	// Second test : check if we have a command entered, if not, send the help message
 	let testCommand, argsTest;
+
 	if (args.length === 0) {
 		testCommand = "list";
 		argsTest = [];
