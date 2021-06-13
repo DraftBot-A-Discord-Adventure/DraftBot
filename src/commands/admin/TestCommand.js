@@ -225,7 +225,7 @@ module.exports.execute = async (message, language, args) => {
 			author.Player.badges = null;
 			author.Player.effectEndDate = Date.now();
 			author.Player.effectDuration = 0;
-			await Maps.removeEffect(entity.Player);
+			await Maps.removeEffect(author.Player);
 			author.Player.startTravelDate = new Date();
 			author.Player.save();
 
