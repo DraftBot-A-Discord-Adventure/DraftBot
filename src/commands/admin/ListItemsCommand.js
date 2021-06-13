@@ -1,14 +1,16 @@
+module.exports.help = {
+	name: "listitems",
+	aliases: ["list"],
+	userPermissions: ROLES.USER.BOT_OWNER
+};
+
 /**
  * Allow an admin to list all items
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
-const listItemsCommand = async function(language, message) {
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
+const ListItemsCommand = async (message, language) => {
 	const fs = require("fs");
 	const embed = new discord.MessageEmbed();
 	embed.setColor(JsonReader.bot.embed.default)
@@ -164,11 +166,4 @@ const listItemsCommand = async function(language, message) {
 	});
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "list",
-			func: listItemsCommand
-		}
-	]
-};
+module.exports.execute = ListItemsCommand;

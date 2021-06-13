@@ -1,15 +1,16 @@
+module.exports.help = {
+	name: "give",
+	aliases: [],
+	userPermissions: ROLES.USER.BOT_OWNER
+};
+
 /**
  * Allow the bot owner to give an item to somebody
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
-const GiveCommand = async function(language, message, args) {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
+const GiveCommand = async (message, language, args) => {
 	const embed = new discord.MessageEmbed();
 	const player = getUserFromMention(args[0]);
 	const [entity] = await Entities.getOrRegister(player.id);
@@ -43,13 +44,4 @@ function getUserFromMention(mention) {
 	}
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "give",
-			func: GiveCommand
-		}
-	]
-};
-
-
+module.exports.execute = GiveCommand;

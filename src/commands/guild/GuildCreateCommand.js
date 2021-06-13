@@ -1,21 +1,22 @@
+module.exports.help = {
+	name: "guildcreate",
+	aliases: ["gcreate", "gc"],
+	userPermissions: ROLES.USER.ALL,
+	requiredLevel: GUILD.REQUIRED_LEVEL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to Create a guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildCreateCommand = async (language, message, args) => {
+const GuildCreateCommand = async (message, language, args) => {
 	let guild;
 	const choiceEmbed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, GUILD.REQUIRED_LEVEL) !== true) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	// search for a user's guild
 	try {
@@ -164,12 +165,4 @@ const GuildCreateCommand = async (language, message, args) => {
 	]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildcreate",
-			func: GuildCreateCommand,
-			aliases: ["gcreate", "gc"]
-		}
-	]
-};
+module.exports.execute = GuildCreateCommand;

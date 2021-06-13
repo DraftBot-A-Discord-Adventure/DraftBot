@@ -4,25 +4,19 @@ const DraftBotReactionMessageBuilder = require("../../core/messages/DraftBotReac
 const DraftBotReaction = require("../../core/messages/DraftBotReaction").DraftBotReaction;
 
 const Maps = require("../../core/Maps");
+
+module.exports.help = {
+	name : "test",
+	testModeActivated: true
+};
+
 /**
  * Cheat command for testers
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const TestCommand = async (language, message, args) => {
-	let authorized = false;
-
-	if (JsonReader.app.TEST_MODE !== true) {
-		return;
-	} else {
-		authorized = true;
-	}
-
-	if (!authorized) { // Additional security in case of error
-		return;
-	}
-
+module.exports.execute = async (message, language, args) => {
 	if (args.length === 0) {
 		await message.channel.send(":x: | Pas assez d'arguments");
 		return;
@@ -220,7 +214,7 @@ const TestCommand = async (language, message, args) => {
 			author.Player.badges = null;
 			author.Player.effectEndDate = Date.now();
 			author.Player.effectDuration = 0;
-			await Maps.removeEffect(entity.Player);
+			await Maps.removeEffect(author.Player);
 			author.Player.startTravelDate = new Date();
 			author.Player.save();
 
@@ -541,13 +535,4 @@ const TestCommand = async (language, message, args) => {
 		return;
 	}
 	await message.channel.send(":man_mage: | Commande test reconnue et appliquée !");
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "test",
-			func: TestCommand
-		}
-	]
 };

@@ -1,12 +1,19 @@
 const tr = JsonReader.commands.petFeed;
 
+module.exports.help = {
+	name: "petfeed",
+	aliases: ["feed","pf","pfeed","feedp","feedpet","fp"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Feed your pet !
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetFeedCommand = async function(language, message) {
+const PetFeedCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
 	try {
@@ -14,22 +21,6 @@ const PetFeedCommand = async function(language, message) {
 	}
 	catch (error) {
 		guild = null;
-	}
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
 	}
 
 	const authorPet = entity.Player.Pet;
@@ -317,20 +308,4 @@ async function feedPet(message, language, entity, pet, item) {
 	return message.channel.send(successEmbed);
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "petfeed",
-			func: PetFeedCommand,
-			aliases: [
-				"feed",
-				"pf",
-				"petfeed",
-				"pfeed",
-				"feedp",
-				"feedpet",
-				"fp"
-			]
-		}
-	]
-};
+module.exports.execute = PetFeedCommand;

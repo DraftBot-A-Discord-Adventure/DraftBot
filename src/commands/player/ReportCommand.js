@@ -1,21 +1,22 @@
 const Maps = require("../../core/Maps");
 
+module.exports.help = {
+	name: "report",
+	aliases: ["r"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.DEAD]
+};
+
 /**
  * Allow the user to learn more about what is going on with his character
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {Number} forceSpecificEvent - For testing purpose
  * @param {String} forceSmallEvent
  */
-const ReportCommand = async function(language, message, args, forceSpecificEvent = -1, forceSmallEvent = null) {
+const ReportCommand = async (message, language, args, forceSpecificEvent = -1, forceSmallEvent = null) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});
@@ -135,7 +136,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	}
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
-		await Maps.startTravel(entity.Player, destinationMaps[0],message.createdAt.getTime());
+		await Maps.startTravel(entity.Player, destinationMaps[0], message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
 
@@ -477,12 +478,5 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 
 /* ------------------------------------------------------------ */
 
-module.exports = {
-	commands: [
-		{
-			name: "report",
-			func: ReportCommand,
-			aliases: ["r"]
-		}
-	]
-};
+
+module.exports.execute = ReportCommand;

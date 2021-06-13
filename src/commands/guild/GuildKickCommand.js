@@ -1,10 +1,17 @@
+module.exports.help = {
+	name: "guildkick",
+	aliases: ["gkick", "gk"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+};
+
 /**
  * Allow to kick a member from a guild
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildKickCommand = async (language, message, args) => {
+const GuildKickCommand = async (message, language, args) => {
 	let kickedEntity;
 	let guild;
 	let kickedGuild;
@@ -17,15 +24,6 @@ const GuildKickCommand = async (language, message, args) => {
 	}
 	catch (error) {
 		kickedEntity = null;
-	}
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
 	}
 
 	if (kickedEntity === null) {
@@ -179,12 +177,4 @@ const GuildKickCommand = async (language, message, args) => {
 	]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildkick",
-			func: GuildKickCommand,
-			aliases: ["gkick", "gk"]
-		}
-	]
-};
+module.exports.execute = GuildKickCommand;

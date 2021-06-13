@@ -1,20 +1,20 @@
+module.exports.help = {
+	name: "pettransfer",
+	aliases: ["pettr","ptr","ptransfer"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to transfer a pet
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetTransferCommand = async function(language, message, args) {
+const PetTransferCommand = async function(message, language, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const pPet = entity.Player.Pet;
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 	let guild;
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);
@@ -107,12 +107,4 @@ const PetTransferCommand = async function(language, message, args) {
 	return message.channel.send(confirmEmbed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "pettransfer",
-			func: PetTransferCommand,
-			aliases: ["pettr", "ptr", "ptransfer"]
-		}
-	]
-};
+module.exports.execute = PetTransferCommand;

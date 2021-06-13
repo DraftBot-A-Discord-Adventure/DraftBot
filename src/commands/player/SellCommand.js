@@ -1,18 +1,18 @@
+module.exports.help = {
+	name: "sell",
+	aliases: [],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to exchange the object that is in the player backup slot within the one that is active
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const SellCommand = async (language, message) => {
+const SellCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	if (!entity.Player.Inventory.hasItemToSell()) {
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).noItemToSell);
@@ -79,11 +79,4 @@ const SellCommand = async (language, message) => {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "sell",
-			func: SellCommand
-		}
-	]
-};
+module.exports.execute = SellCommand;

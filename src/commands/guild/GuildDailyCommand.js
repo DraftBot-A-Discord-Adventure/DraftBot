@@ -1,4 +1,13 @@
 const Maps = require("../../core/Maps");
+
+module.exports.help = {
+	name: "guilddaily",
+	aliases: ["gdaily", "gd"],
+	userPermissions: ROLES.USER.ALL,
+	requiredLevel: GUILD.REQUIRED_LEVEL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to claim a daily guild reward
  * @param {("fr"|"en")} language - Language to use in the response
@@ -6,16 +15,12 @@ const Maps = require("../../core/Maps");
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {string|String} forcedReward
  */
-const GuildDailyCommand = async (language, message, args, forcedReward) => {
+const GuildDailyCommand = async (message, language, args, forcedReward) => {
 	const translations = JsonReader.commands.guildDaily.getTranslation(language);
 	let guild;
 	const embed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, GUILD.REQUIRED_LEVEL) !== true) {
-		return;
-	}
 
 	// search for a user's guild
 	try {
@@ -260,16 +265,6 @@ const GuildDailyCommand = async (language, message, args, forcedReward) => {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guilddaily",
-			func: GuildDailyCommand,
-			aliases: ["gdaily", "gd"]
-		}
-	]
-};
-
 function generateRandomProperty(guild) {
 	let resultNumber = randInt(0, 1000);
 	const rewardLevel = Math.floor(guild.level / 10);
@@ -286,3 +281,4 @@ function generateRandomProperty(guild) {
 	}
 }
 
+module.exports.execute = GuildDailyCommand;

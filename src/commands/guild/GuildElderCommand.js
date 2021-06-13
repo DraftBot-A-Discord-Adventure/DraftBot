@@ -1,24 +1,24 @@
+module.exports.help = {
+	name: "guildelder",
+	aliases: ["gelder"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * add or change guild elder
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildElderCommand = async (language, message, args) => {
+
+const GuildElderCommand = async (message, language, args) => {
 	let elderEntity;
 	let guild;
 	let elderGuild;
 	const elderAddEmbed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	// search for a user's guild
 	try {
@@ -211,12 +211,4 @@ const GuildElderCommand = async (language, message, args) => {
 	]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildelder",
-			func: GuildElderCommand,
-			aliases: ["gelder", "guildelder"]
-		}
-	]
-};
+module.exports.execute = GuildElderCommand;

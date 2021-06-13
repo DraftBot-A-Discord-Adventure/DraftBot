@@ -1,17 +1,20 @@
+module.exports.help = {
+	name: "inventory",
+	aliases: ["inv", "i"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Displays the inventory of a player
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const InventoryCommand = async (language, message, args) => {
+const InventoryCommand = async (message, language, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
-	}
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
 	}
 
 	const inventoryEmbed = await entity.Player.Inventory.toEmbedObject(language);
@@ -23,12 +26,4 @@ const InventoryCommand = async (language, message, args) => {
 	);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "inventory",
-			func: InventoryCommand,
-			aliases: ["inv", "i"]
-		}
-	]
-};
+module.exports.execute = InventoryCommand;
