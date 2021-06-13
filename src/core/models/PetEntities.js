@@ -84,7 +84,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {String|string}
 	 */
 	PetEntities.getPetTypeName = (petEntity, language) => petEntity.PetModel[
-		(petEntity.sex === "m" ? "male" : "female") + "Name_" + language
+		(petEntity.sex === "m" ? "male" : "female") + "Name" + language.toUpperCase().slice(0,1) + language.slice(1)
 	];
 
 	/**
@@ -196,7 +196,7 @@ module.exports = (Sequelize, DataTypes) => {
 	PetEntities.getPetDisplay = async (petEntity, language) => {
 		if (!petEntity) {
 			return await Pets.getById(JsonReader.models.pets.defaultPetId)[
-				"maleName_" + language
+				"maleName" + language.toUpperCase().slice(0,1) + language.slice(1)
 			];
 		}
 		return format(
