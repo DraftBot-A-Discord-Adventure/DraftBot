@@ -331,6 +331,29 @@ class Command {
 			return;
 		}
 
+		if (!Command.players.has(command.name)) {
+			Command.players.set(command.name, new Map());
+		}
+
+		const now = Date.now();
+		const timestamps = Command.players.get(command.name);
+		const cooldownAmount = 1000;
+
+		if (timestamps.has(message.author.id)) {
+			const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+			if (now < expirationTime) {
+				return sendErrorMessage(
+					message.author,
+					message.channel,
+					language,
+					JsonReader.error.getTranslation(language).blockedContext["cooldown"]);
+			}
+		}
+
+		timestamps.set(message.author.id, now);
+		setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
 		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
 		await command.execute(message, language, args, entity);
 	}
