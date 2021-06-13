@@ -31,8 +31,11 @@ class Command {
 	 * @return An instance of the command asked
 	 */
 	static getCommand(commandName) {
-		return Command.commands.get(commandName)
-		|| Command.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commandName));
+		return Command.commands.get(commandName);
+	}
+
+	static getCommandFromAlias(alias) {
+		return Command.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(alias));
 	}
 
 	/**
@@ -221,6 +224,7 @@ class Command {
 	 * @param {('fr'|'en')} language - The language for the current server
 	 */
 	static async launchCommand(language, prefix, message) {
+		let command;
 		if (resetIsNow()) {
 			return await sendErrorMessage(
 				message.author,
@@ -234,7 +238,13 @@ class Command {
 			.split(/ +/g);
 
 		const commandName = args.shift().toLowerCase();
-		const command = this.getCommand(commandName);
+
+		try {
+			command = this.getCommand(commandName) || this.getCommandFromAlias(commandName);
+		}
+		catch (err) {
+			return;
+		}
 
 		const [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -286,6 +296,6 @@ global
 global
 	.handlePrivateMessage = Command.handlePrivateMessage;
 global
-	.getMainCommandFromAlias = Command.getMainCommandFromAlias;
+	.getCommandFromAlias = Command.getCommandFromAlias;
 global
 	.getAliasesFromCommand = Command.getAliasesFromCommand;

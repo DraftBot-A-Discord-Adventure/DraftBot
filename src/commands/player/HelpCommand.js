@@ -10,7 +10,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const HelpCommand = async (message, language, args) => {
-	const command = getMainCommandFromAlias(args[0]);
+	const command = getCommand(args[0]) || getCommandFromAlias(args[0]);
 	[server] = await Servers.getOrRegister(message.guild.id);
 	let helpMessage = JsonReader.commands.help.getTranslation(language).commands[
 		command
