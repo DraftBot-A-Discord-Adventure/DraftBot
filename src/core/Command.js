@@ -264,7 +264,7 @@ class Command {
 			return effectsErrorMe(message, language, entity, entity.Player.effect);
 		}
 
-		if (await canPerformCommand(message, language, command.help.permissions, command.help.restrictedEffects, entity) !== true) {
+		if (await canPerformCommand(message, language, command.help.userPermissions, command.help.restrictedEffects, entity) !== true) {
 			return;
 		}
 
