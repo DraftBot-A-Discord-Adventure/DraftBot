@@ -260,11 +260,11 @@ class Command {
 			);
 		}
 
-		if (await canPerformCommand(message, language, command.help.permissions, command.help.restrictedEffects, entity) !== true) {
-			return;
+		if (command.help.disallowEffects && command.help.disallowEffects.includes(entity.Player.effect) && !entity.Player.currentEffectFinished()) {
+			return effectsErrorMe(message, language, entity, entity.Player.effect);
 		}
 
-		if (await sendBlockedError(message.author, message.channel, language)) {
+		if (await canPerformCommand(message, language, command.help.permissions, command.help.restrictedEffects, entity) !== true) {
 			return;
 		}
 
