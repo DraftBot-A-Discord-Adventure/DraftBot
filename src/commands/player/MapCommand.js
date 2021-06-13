@@ -2,7 +2,9 @@ const Maps = require("../../core/Maps");
 
 module.exports.help = {
 	name: "map",
-	aliases: ["m", "world"]
+	aliases: ["m", "world"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -14,11 +16,6 @@ module.exports.help = {
 const MapCommand = async (message, language) => {
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
 
 	const mapEmbed = new discord.MessageEmbed()
 		.setImage(

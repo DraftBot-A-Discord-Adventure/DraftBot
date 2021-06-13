@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "petsell",
-	aliases: ["psell", "ps"]
+	aliases: ["psell", "ps"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -16,13 +18,6 @@ const PetSellCommand = async (message, language, args) => {
 	let sellInstance;
 
 	const translations = JsonReader.commands.petSell.getTranslation(language);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);

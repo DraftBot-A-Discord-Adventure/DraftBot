@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "guildstorage",
-	aliases: ["gstorage", "gst"]
+	aliases: ["gstorage", "gst"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -11,18 +13,6 @@ module.exports.help = {
  */
 const GuildStorageCommand = async (message, language) => {
 	[entity] = await Entities.getOrRegister(message.author.id);
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
-	}
 
 	const foodInfos = JsonReader.food;
 	const translations = JsonReader.commands.guildStorage.getTranslation(

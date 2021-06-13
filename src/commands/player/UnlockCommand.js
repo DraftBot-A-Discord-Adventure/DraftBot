@@ -2,7 +2,9 @@ const Maps = require("../../core/Maps");
 
 module.exports.help = {
 	name: "unlock",
-	aliases: ["bail","release"]
+	aliases: ["bail","release"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -18,13 +20,6 @@ const UnlockCommand = async (message, language, args) => {
 		if (message.mentions.users.first().id === message.author.id) {
 			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).unlockHimself);
 		}
-	}
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
 	}
 
 	const [lockedEntity] = await Entities.getByArgs(args, message);

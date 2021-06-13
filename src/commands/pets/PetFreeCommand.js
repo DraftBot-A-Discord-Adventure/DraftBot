@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "petfree",
-	aliases: ["petf","pfree", "freepet", "freep"]
+	aliases: ["petf","pfree", "freepet", "freep"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -18,13 +20,6 @@ const PetFreeCommand = async (message, language) => {
 	}
 	catch (error) {
 		guild = null;
-	}
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
 	}
 
 	const pPet = entity.Player.Pet;

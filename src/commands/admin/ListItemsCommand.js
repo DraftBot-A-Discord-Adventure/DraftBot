@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "listitems",
-	aliases: ["list"]
+	aliases: ["list"],
+	userPermissions: ROLES.USER.BOT_OWNER
 };
 
 /**
@@ -10,9 +11,6 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ListItemsCommand = async (message, language) => {
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
 	const fs = require("fs");
 	const embed = new discord.MessageEmbed();
 	embed.setColor(JsonReader.bot.embed.default)

@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "guildadd",
-	aliases: ["gadd", "ga"]
+	aliases: ["gadd", "ga"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -16,14 +18,6 @@ const GuildAddCommand = async (message, language, args) => {
 	const invitationEmbed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	try {
 		[invitedEntity] = await Entities.getByArgs(args, message);

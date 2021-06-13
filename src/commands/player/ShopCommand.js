@@ -2,7 +2,9 @@ const Maps = require("../../core/Maps");
 
 module.exports.help = {
 	name: "shop",
-	aliases: ["s"]
+	aliases: ["s"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -13,13 +15,6 @@ module.exports.help = {
  */
 const ShopCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
 

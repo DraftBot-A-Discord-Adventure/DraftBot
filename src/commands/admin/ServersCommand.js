@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "servers",
-	aliases: ["servs"]
+	aliases: ["servs"],
+	userPermissions: ROLES.USER.BOT_OWNER
 };
 
 /**
@@ -9,12 +10,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ServersCommand = async (message, language) => {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
-
+const ServersCommand = (message, language) => {
 	let count = 0;
 	let total = 0;
 	let result = "";

@@ -2,7 +2,9 @@ const moment = require("moment");
 
 module.exports.help = {
 	name: "switch",
-	aliases: ["sw"]
+	aliases: ["sw"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -14,12 +16,6 @@ module.exports.help = {
 const SwitchCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 	const nextDailyDate = new moment(entity.Player.Inventory.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h"); // eslint-disable-line new-cap
 	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
 	const maxTime = JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd;

@@ -1,7 +1,8 @@
 module.exports.help = {
 	name: "language",
 	aliases: [],
-	adminOnly: true
+	adminOnly: true,
+	userPermissions: ROLES.USER.ADMINISTRATOR
 };
 
 /**
@@ -11,11 +12,6 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
 */
 const ChangeLanguageCommand = async (message, language) => {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
-		return;
-	}
-
 	const embed = new discord.MessageEmbed();
 
 	const [server] = await Servers.getOrRegister(message.guild.id);

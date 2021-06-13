@@ -2,7 +2,9 @@ const Maps = require("../../core/Maps");
 
 module.exports.help = {
 	name: "report",
-	aliases: ["r"]
+	aliases: ["r"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.DEAD]
 };
 
 /**
@@ -15,12 +17,6 @@ module.exports.help = {
  */
 const ReportCommand = async (message, language, args, forceSpecificEvent = -1, forceSmallEvent = null) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});

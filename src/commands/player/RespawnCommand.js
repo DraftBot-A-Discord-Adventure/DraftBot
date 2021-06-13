@@ -2,7 +2,9 @@ const Maps = require("../../core/Maps");
 
 module.exports.help = {
 	name: "respawn",
-	aliases: []
+	aliases: [],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY]
 };
 
 /**
@@ -13,10 +15,6 @@ module.exports.help = {
  */
 const RespawnCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity) !== true) {
-		return;
-	}
 
 	if (entity.Player.effect !== EFFECT.DEAD) {
 		await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.respawn.getTranslation(language).alive, {pseudo: message.author.username}));

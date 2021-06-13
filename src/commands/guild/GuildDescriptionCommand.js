@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "guilddescription",
-	aliases: ["gdesc", "guilddesc"]
+	aliases: ["gdesc", "guilddesc"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -20,22 +22,6 @@ const GuildDescriptionCommand = async (message, language, args) => {
 	}
 
 	guild = await Guilds.getById(entity.Player.guildId);
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	if (guild === null) {
 		// not in a guild

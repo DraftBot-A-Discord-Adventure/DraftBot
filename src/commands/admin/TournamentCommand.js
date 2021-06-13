@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "tournament",
-	aliases: []
+	aliases: [],
+	userPermissions: ROLES.USER.TOURNAMENT
 };
 
 global.tournamentChannel = "656586677841821728";
@@ -13,10 +14,6 @@ global.tournamentPower = 500;
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const TournamentCommand = async (message, language, args) => {
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.TOURNAMENT) !== true) {
-		return;
-	}
-
 	if (args.length <= 1 || args[0] !== "channel" && args[0] !== "maxpower") {
 		sendErrorMessage(message.author, message.channel, language, JsonReader.commands.tournament.getTranslation(language).usage);
 		return;

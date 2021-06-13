@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "debugblocked",
-	aliases: []
+	aliases: [],
+	userPermissions: ROLES.USER.BOT_OWNER
 };
 
 /**
@@ -10,11 +11,6 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const DebugBlockedCommand = async (message, language, args) => {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
-
 	if (args.length === 1) {
 		if (!hasBlockedPlayer(args[0])) {
 			await message.channel.send("Not blocked");

@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "resetbadge",
-	aliases: ["rb"]
+	aliases: ["rb"],
+	userPermissions: ROLES.USER.BADGE_MANAGER
 };
 
 /**
@@ -10,9 +11,6 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ResetBadgeCommand = async (message, language) => {
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER) !== true) {
-		return;
-	}
 	const embed = new discord.MessageEmbed();
 	// the author of the command is the author of the bot
 	const playerId = message.mentions.users.last().id;

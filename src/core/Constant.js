@@ -229,3 +229,21 @@ global.SMALL_EVENT = {
 };
 
 global.COLLECTOR_TIME = 120000;
+
+global.ROLES = {
+	GUILD: {
+		NONE: "none",
+		MEMBER: "member",
+		ELDER: "elder",
+		CHIEF: "chief"
+	},
+	USER: {
+		ALL: "all",
+		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
+		BADGE_MANAGER: "manager", // has the badge manager role
+		SUPPORT: "support", // has the support role
+		TOURNAMENT: "tournament", // has the permission to use the tournament command
+		CONTRIBUTORS: "contributors",
+		BOT_OWNER: "owner" // is the owner of the bot
+	}
+};

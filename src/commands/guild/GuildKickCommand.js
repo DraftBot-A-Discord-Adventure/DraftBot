@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "guildkick",
-	aliases: ["gkick", "gk"]
+	aliases: ["gkick", "gk"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -22,15 +24,6 @@ const GuildKickCommand = async (message, language, args) => {
 	}
 	catch (error) {
 		kickedEntity = null;
-	}
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
 	}
 
 	if (kickedEntity === null) {

@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "petnickname",
-	aliases: ["petnick","pnickname","pnick","petname","pname"]
+	aliases: ["petnick","pnickname","pnick","petname","pname"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -11,14 +13,6 @@ module.exports.help = {
  */
 const PetNicknameCommand = async (message, language, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	const pet = entity.Player.Pet;
 	if (!pet) {

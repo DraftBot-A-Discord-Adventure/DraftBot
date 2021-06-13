@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "points",
-	aliases: []
+	aliases: [],
+	userPermissions: ROLES.USER.BOT_OWNER
 };
 
 /**
@@ -10,11 +11,6 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ChangePointsCommand = async (message, language, args) => {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
-
 	const embed = new discord.MessageEmbed();
 	const playerId = message.mentions.users.last().id;
 	const [entity] = await Entities.getOrRegister(playerId);

@@ -1,6 +1,9 @@
 module.exports.help = {
 	name: "class",
-	aliases: ["c", "classes", "classe"]
+	aliases: ["c", "classes", "classe"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	requiredLevel: CLASS.REQUIRED_LEVEL
 };
 
 /**

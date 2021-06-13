@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "sendprivatemessage",
-	aliases: ["dm"]
+	aliases: ["dm"],
+	userPermissions: ROLES.USER.SUPPORT
 };
 
 /**
@@ -10,11 +11,6 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SendPrivateMessageCommand = async (message, language, args) => {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.SUPPORT) !== true) {
-		return;
-	}
-
 	const userId = args[0];
 	const messageToSend = args.join(" ").replace(userId, "") +
 		format(JsonReader.commands.sendPrivateMessage.getTranslation(language).signature, {

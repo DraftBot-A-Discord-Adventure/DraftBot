@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "pettrade",
-	aliases: ["ptrade"]
+	aliases: ["ptrade"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -12,13 +14,6 @@ module.exports.help = {
 const PetTradeCommand = async function(message, language) {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader1) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 	if (message.mentions.users.size === 0) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).needMention);
 	}

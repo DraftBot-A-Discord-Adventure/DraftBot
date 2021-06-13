@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "mypet",
-	aliases: ["pet", "pp"]
+	aliases: ["pet", "pp"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -13,18 +15,6 @@ const MyPetCommand = async (message, language, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
-	}
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
 	}
 
 	const authorPet = entity.Player.Pet;

@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "guildelderremove",
-	aliases: ["gelderremove", "ger"]
+	aliases: ["gelderremove", "ger"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -14,14 +16,6 @@ const GuildElderRemoveCommand = async (message, language) => {
 	const elderRemoveEmbed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	// search for a user's guild
 	try {

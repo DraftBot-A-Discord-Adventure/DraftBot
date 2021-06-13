@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "profile",
-	aliases: ["p", "profil"]
+	aliases: ["p", "profil"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY]
 };
 
 /**
@@ -13,11 +15,6 @@ const ProfileCommand = async (message, language, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
-	}
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY], entity) !== true) {
-		return;
 	}
 
 	let titleEffect = entity.Player.effect;

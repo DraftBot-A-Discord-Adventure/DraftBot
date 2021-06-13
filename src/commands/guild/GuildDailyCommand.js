@@ -2,7 +2,10 @@ const Maps = require("../../core/Maps");
 
 module.exports.help = {
 	name: "guilddaily",
-	aliases: ["gdaily", "gd"]
+	aliases: ["gdaily", "gd"],
+	userPermissions: ROLES.USER.ALL,
+	requiredLevel: GUILD.REQUIRED_LEVEL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -18,10 +21,6 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 	const embed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, GUILD.REQUIRED_LEVEL) !== true) {
-		return;
-	}
 
 	// search for a user's guild
 	try {

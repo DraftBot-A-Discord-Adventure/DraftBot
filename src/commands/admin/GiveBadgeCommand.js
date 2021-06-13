@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "givebadge",
-	aliases: ["gb"]
+	aliases: ["gb"],
+	userPermissions: ROLES.USER.BADGE_MANAGER
 };
 
 /**
@@ -10,9 +11,6 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const GiveBadgeCommand = async (message, language, args) => {
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.BADGE_MANAGER) !== true) {
-		return;
-	}
 	const embed = new discord.MessageEmbed();
 	if (message.mentions.users.last() === undefined) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.giveBadgeCommand.getTranslation(language).descError);

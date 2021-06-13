@@ -2,7 +2,9 @@ const Maps = require("../../core/Maps");
 
 module.exports.help = {
 	name: "drink",
-	aliases: ["dr","glouglou"]
+	aliases: ["dr","glouglou"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -12,12 +14,7 @@ module.exports.help = {
  */
 const DrinkCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
+
 	const potion = await entity.Player.Inventory.getPotion();
 	const embed = new discord.MessageEmbed();
 

@@ -6,7 +6,8 @@ const DraftBotReaction = require("../../core/messages/DraftBotReaction").DraftBo
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
-	name : "test"
+	name : "test",
+	testModeActivated: true
 };
 
 /**
@@ -16,18 +17,6 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 module.exports.execute = async (message, language, args) => {
-	let authorized = false;
-
-	if (JsonReader.app.TEST_MODE !== true) {
-		return;
-	} else {
-		authorized = true;
-	}
-
-	if (!authorized) { // Additional security in case of error
-		return;
-	}
-
 	if (args.length === 0) {
 		await message.channel.send(":x: | Pas assez d'arguments");
 		return;

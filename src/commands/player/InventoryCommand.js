@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "inventory",
-	aliases: ["inv", "i"]
+	aliases: ["inv", "i"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -13,10 +15,6 @@ const InventoryCommand = async (message, language, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
-	}
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
 	}
 
 	const inventoryEmbed = await entity.Player.Inventory.toEmbedObject(language);

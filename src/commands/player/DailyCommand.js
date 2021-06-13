@@ -2,7 +2,9 @@ const Maps = require("../../core/Maps");
 
 module.exports.help = {
 	name: "daily",
-	aliases: ["da"]
+	aliases: ["da"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -12,9 +14,6 @@ module.exports.help = {
  */
 const DailyCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
 
 	const activeObject = await entity.Player.Inventory.getActiveObject();
 

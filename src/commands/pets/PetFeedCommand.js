@@ -2,7 +2,9 @@ const tr = JsonReader.commands.petFeed;
 
 module.exports.help = {
 	name: "petfeed",
-	aliases: ["feed","pf","pfeed","feedp","feedpet","fp"]
+	aliases: ["feed","pf","pfeed","feedp","feedpet","fp"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -19,22 +21,6 @@ const PetFeedCommand = async (message, language) => {
 	}
 	catch (error) {
 		guild = null;
-	}
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
 	}
 
 	const authorPet = entity.Player.Pet;

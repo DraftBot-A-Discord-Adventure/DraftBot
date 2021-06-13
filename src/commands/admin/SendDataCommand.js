@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "senddata",
-	aliases: []
+	aliases: [],
+	userPermissions: ROLES.USER.BOT_OWNER
 };
 
 /**
@@ -9,12 +10,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const SendDataCommand = async (message, language) => {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
-
+const SendDataCommand = async (message) => {
 	await message.channel.send({
 		files: [{
 			attachment: "database/database.sqlite",

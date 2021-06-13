@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "prefix",
-	aliases: []
+	aliases: [],
+	userPermissions: ROLES.USER.ADMINISTRATOR
 };
 
 /**

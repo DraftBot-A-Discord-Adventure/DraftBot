@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "guildleave",
-	aliases: ["gleave", "gl"]
+	aliases: ["gleave", "gl"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**
@@ -15,13 +17,6 @@ const GuildLeaveCommand = async (message, language) => {
 	const confirmationEmbed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	// search for a user's guild
 	try {

@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "give",
-	aliases: []
+	aliases: [],
+	userPermissions: ROLES.USER.BOT_OWNER
 };
 
 /**
@@ -10,10 +11,6 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const GiveCommand = async (message, language, args) => {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
 	const embed = new discord.MessageEmbed();
 	const player = getUserFromMention(args[0]);
 	const [entity] = await Entities.getOrRegister(player.id);

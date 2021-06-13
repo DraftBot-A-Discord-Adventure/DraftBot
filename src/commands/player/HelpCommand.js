@@ -10,13 +10,11 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const HelpCommand = async (message, language, args) => {
-	const command = getCommand(args[0]) || getCommandFromAlias(args[0]);
-	[server] = await Servers.getOrRegister(message.guild.id);
-	let helpMessage = JsonReader.commands.help.getTranslation(language).commands[
-		command
-	];
+	let helpMessage;
 
-	if (helpMessage === undefined) {
+	[server] = await Servers.getOrRegister(message.guild.id);
+
+	if (!args.length) {
 		helpMessage = new discord.MessageEmbed();
 		const commandsList = Object.entries(
 			JsonReader.commands.help.getTranslation(language).commands
@@ -91,37 +89,42 @@ const HelpCommand = async (message, language, args) => {
 		]);
 	}
 	else {
-		const helpMsgTmp = helpMessage;
+		const command = getCommand(args[0]) || getCommandFromAlias(args[0]);
+		const commandInfos = JsonReader.commands.help.getTranslation(language).commands[
+			command.name
+		];
+
 		helpMessage = new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
-			.setDescription(helpMsgTmp.description)
+			.setDescription(commandInfos.description)
 			.setTitle(
 				format(
 					JsonReader.commands.help.getTranslation(language).commandEmbedTitle,
-					{emote: helpMsgTmp.emote, cmd: command}
+					{emote: commandInfos.emote, cmd: commandInfos}
 				)
 			);
 		helpMessage.addField(
 			JsonReader.commands.help.getTranslation(language).usageFieldTitle,
-			"`" + helpMsgTmp.usage + "`",
+			"`" + commandInfos.usage + "`",
 			true
 		);
-		const aliases = getAliasesFromCommand(command);
-		if (aliases.length !== 0) {
+
+		if (command.help.aliases.length) {
 			let aliasField = "";
-			for (let i = 0; i < aliases.length; ++i) {
-				aliasField += "`" + aliases[i] + "`";
-				if (i !== aliases.length - 1) {
+			for (let i = 0; i < command.help.aliases.length; ++i) {
+				aliasField += "`" + command.help.aliases[i] + "`";
+				if (i !== command.help.aliases.length - 1) {
 					aliasField += ", ";
 				}
 			}
 			helpMessage.addField(
-				aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
+				command.help.aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
 				aliasField,
 				true
 			);
 		}
 	}
+
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (
 		client.guilds.cache

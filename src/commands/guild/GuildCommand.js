@@ -1,6 +1,8 @@
 module.exports.help = {
 	name: "guild",
-	aliases: ["g"]
+	aliases: ["g"],
+	userPermissions: ROLES.USER.ALL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -16,18 +18,6 @@ const GuildCommand = async (message, language, args) => {
 	[entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
-	}
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
-			entity
-		) !== true
-	) {
-		return;
 	}
 
 	if (args.length > 0 && message.mentions.users.last() === undefined) {
