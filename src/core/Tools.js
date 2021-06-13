@@ -8,6 +8,30 @@ global.draftbotRandom = new (require("random-js")).Random();
 global.idToMention = (id) => "<@&" + id + ">";
 
 /**
+ * Check if the given variable is a Mention
+ * @param {any} variable
+ * @return {boolean}
+ */
+global.isAMention = (variable) => {
+	if (typeof variable === "string") {
+		return RegExp(/^<@![0-9]{18}>$/).test(variable);
+	}
+	return false;
+};
+
+/**
+ * Check if the given variable is a Discord Emoji
+ * @param {any} variable
+ * @return {boolean}
+ */
+global.isAnEmoji = (variable) => {
+	if (typeof variable === "string") {
+		return RegExp(/^:[a-z0-9_]+:$/).test(variable);
+	}
+	return false;
+};
+
+/**
  * Send all attachments from a message to a discord channel
  * @param {module:"discord.js".Message} message - Message from the discord user
  * @param {module:"discord.js".TextChannel} channel - The channel where all attachments will be sent
