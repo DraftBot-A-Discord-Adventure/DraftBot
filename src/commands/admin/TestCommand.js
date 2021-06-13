@@ -1,9 +1,10 @@
 const CT = require("../../core/CommandsTest");
-CT.init().then();
 
 module.exports.help = {
 	name: "test"
 };
+
+// TODO : arrêté à la ligne 363
 
 /**
  * Cheat command for testers
@@ -11,8 +12,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
-const TestCommand = async(language, message, args) => {
+const TestCommand = async (language, message, args) => {
 	// First test : check if we are in test mode
 	if (JsonReader.app.TEST_MODE !== true) {
 		return;
@@ -20,7 +20,6 @@ const TestCommand = async(language, message, args) => {
 
 	// Second test : check if we have a command entered, if not, send the help message
 	let testCommand, argsTest;
-
 	if (args.length === 0) {
 		testCommand = "list";
 		argsTest = [];
@@ -33,15 +32,10 @@ const TestCommand = async(language, message, args) => {
 	// Third test : try to find that command
 	let commandTestCurrent;
 	try {
-		commandTestCurrent = await CT.testCommandsArray.get(testCommand);
+		commandTestCurrent = await CT.getTestCommand(testCommand);
 	}
-	catch (e1) {
-		try {
-			commandTestCurrent = await CT.aliasesCommandsArray.get(testCommand);
-		}
-		catch (e2) {
-			return message.channel.send(":x: | Commande test inexistante :" + testCommand + " : ```" + e1 + "\n\n" + e2 + "```");
-		}
+	catch (e) {
+		return message.channel.send(":x: | Commande test " + testCommand + " inexistante : ```" + e.stack + "```");
 	}
 
 	// Fourth test : see if we have the right format for that command
@@ -51,7 +45,7 @@ const TestCommand = async(language, message, args) => {
 	}
 
 	// Fifth test : try to launch the command
-	await CT.executeAndAlertUser(message, language, commandTestCurrent, argsTest);
+	await CT.executeAndAlertUser(language, message, commandTestCurrent, argsTest);
 };
 
 module.exports.execute = TestCommand;
