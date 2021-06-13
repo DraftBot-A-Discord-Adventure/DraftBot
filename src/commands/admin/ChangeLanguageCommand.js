@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "language",
 	aliases: [],
-	adminOnly: true,
 	userPermissions: ROLES.USER.ADMINISTRATOR
 };
 
