@@ -246,6 +246,69 @@ class Command {
 			return;
 		}
 
+		if (
+			!message.channel.permissionsFor(client.user).serialize()
+				.SEND_MESSAGES
+		) {
+			try {
+				await message.author.send(
+					JsonReader.bot.getTranslation(language).noSpeakPermission
+				);
+			}
+			catch (err) {
+				log("No perms to show i can't react in server / channel : " + message.guild + "/" + message.channel);
+			}
+			return;
+		}
+		if (
+			!message.channel.permissionsFor(client.user).serialize()
+				.ADD_REACTIONS
+		) {
+			try {
+				await message.author.send(
+					JsonReader.bot.getTranslation(language).noReacPermission
+				);
+			}
+			catch (err) {
+				await message.channel.send(
+					JsonReader.bot.getTranslation(language).noReacPermission
+				);
+			}
+			return;
+		}
+		if (
+			!message.channel.permissionsFor(client.user).serialize()
+				.EMBED_LINKS
+		) {
+			try {
+				await message.author.send(
+					JsonReader.bot.getTranslation(language).noEmbedPermission
+				);
+			}
+			catch (err) {
+				await message.channel.send(
+					JsonReader.bot.getTranslation(language).noEmbedPermission
+				);
+			}
+			return;
+		}
+		if (
+			!message.channel.permissionsFor(client.user).serialize()
+				.ATTACH_FILES
+		) {
+			try {
+				await message.author.send(
+					JsonReader.bot.getTranslation(language).noFilePermission
+				);
+			}
+			catch (err) {
+				await message.channel.send(
+					JsonReader.bot.getTranslation(language).noFilePermission
+				);
+			}
+			return;
+		}
+
 		const [entity] = await Entities.getOrRegister(message.author.id);
 
 		if (command.help.requiredLevel && entity.Player.getLevel() < command.help.requiredLevel) {
