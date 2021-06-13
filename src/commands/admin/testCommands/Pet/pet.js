@@ -17,10 +17,12 @@ module.exports.infos = {
  * @return {String} - The successful message formatted
  */
 async function pet(language, message, args) {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+
+	let [entity] = await Entities.getOrRegister(message.author.id);
 	if (entity.Player.Pet) {
 		await entity.Player.Pet.destroy();
 	}
+
 	if (args[0] === "0") {
 		return "Vous n'avez plus de pet maintenant !";
 	}
@@ -31,14 +33,16 @@ async function pet(language, message, args) {
 	if (args[0] > maxIdPet || args[0] < 0) {
 		throw new Error("Erreur pet : id invalide. L'id doit être compris entre 0 et " + maxIdPet + " !");
 	}
+
 	const pet = PetEntities.createPet(parseInt(args[0]), args[1], null);
 	await pet.save();
 	entity.Player.petId = pet.id;
 	await entity.Player.save();
-	// TODO : check if text is bugged because of env or wrong code
+
+	[entity] = await Entities.getOrRegister(message.author.id); // recall needed to refresh the pet
 	return format(
 		module.exports.infos.messageWhenExecuted, {
-			petString: await PetEntities.getPetDisplay(pet.PetEntity,language)
+			petString: await PetEntities.getPetDisplay(await entity.Player.Pet, language)
 		}
 	);
 }
