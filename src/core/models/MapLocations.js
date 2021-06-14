@@ -1,3 +1,5 @@
+const {readdir} = require("fs/promises");
+
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -164,6 +166,8 @@ module.exports = (Sequelize, DataTypes) => {
 			type: Sequelize.QueryTypes.SELECT
 		});
 	};
+
+	MapLocations.getIdMaxMap = async () => (await readdir("resources/text/maplocations/")).length;
 
 	return MapLocations;
 };

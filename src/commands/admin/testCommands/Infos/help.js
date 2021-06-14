@@ -43,7 +43,7 @@ async function help(language, message, args) {
 		if (Object.keys(helpOnCommand.infos.typeWaited).length !== 0) {
 			let reqArgs = "";
 			Object.keys(helpOnCommand.infos.typeWaited).forEach(arg => {
-				reqArgs += " - `<" + arg + ">` : " + helpOnCommand.infos.typeWaited[arg].type;
+				reqArgs += "\n - `<" + arg + ">` : " + helpOnCommand.infos.typeWaited[arg].type;
 			});
 			embedHelpTest.addField(Object.keys(helpOnCommand.infos.typeWaited).length === 1 ? "Argument attendu : " : "Arguments attendus : ", reqArgs);
 		}

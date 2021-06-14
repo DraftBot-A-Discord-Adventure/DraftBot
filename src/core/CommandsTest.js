@@ -46,6 +46,7 @@ class CommandsTest {
 	 * Say if the given args are the args awaited for the given command
 	 * @param commandTest - The command to test
 	 * @param {any[]} args - The args given to the test
+	 * @param {module:"discord.js".Message} message - The user's message
 	 * @return [Boolean,String] - if the test is successful or not, and if not, the reason why
 	 */
 	static isGoodFormat(commandTest, args, message) {
@@ -116,7 +117,16 @@ class CommandsTest {
 		}
 		catch (e) {
 			console.error(e);
-			await message.channel.send("**:x: Une erreur est survenue pendant la commande test " + commandTestCurrent.infos.name + "** : ```" + e.stack + "```");
+			try {
+				await message.channel.send("**:x: Une erreur est survenue pendant la commande test " + commandTestCurrent.infos.name + "** : ```" + e.stack + "```");
+			}
+			catch (e2) {
+				await message.channel.send(
+					"**:x: Une erreur est survenue pendant la commande test "
+					+ commandTestCurrent.infos.name
+					+ "** : (Erreur tronquée car limite de caractères atteinte) " +
+					"```" + e.stack.slice(0,1850) + "```");
+			}
 		}
 	}
 

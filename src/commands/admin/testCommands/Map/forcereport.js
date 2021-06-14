@@ -19,9 +19,13 @@ const CT = require("../../../../core/CommandsTest");
  * @return {String} - The successful message formatted
  */
 async function forcereport(language, message, args) {
+	const idMaxEvents = await Events.getIdMaxEvents();
+	if ((args[0] > idMaxEvents || args[0] <= 0) && args[0] !== "-1") {
+		throw new Error("Erreur forcereport : id invalide ! Id d'event attendu -1 ou compris entre 1 et " + idMaxEvents);
+	}
 	await CT.getTestCommand("atravel").execute(language, message,["1560"]);
-	await Command.getCommand("r").execute(message, language, [], args[0]);
-	return format(module.exports.infos.messageWhenExecuted,{id: args[0]});
+	getCommandFromAlias("r").execute(message, language, [], parseInt(args[0]));
+	return format(module.exports.infos.messageWhenExecuted,{id: args[0] === "-1" ? "aléatoire" : args[0]});
 }
 
 module.exports.execute = forcereport;
