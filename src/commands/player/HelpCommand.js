@@ -91,16 +91,15 @@ const HelpCommand = async (message, language, args) => {
 	else {
 		const command = getCommand(args[0]) || getCommandFromAlias(args[0]);
 		const commandInfos = JsonReader.commands.help.getTranslation(language).commands[
-			command.name
+			command.help.name
 		];
-
 		helpMessage = new discord.MessageEmbed()
 			.setColor(JsonReader.bot.embed.default)
 			.setDescription(commandInfos.description)
 			.setTitle(
 				format(
 					JsonReader.commands.help.getTranslation(language).commandEmbedTitle,
-					{emote: commandInfos.emote, cmd: commandInfos}
+					{emote: commandInfos.emote, cmd: command.help.name}
 				)
 			);
 		helpMessage.addField(
