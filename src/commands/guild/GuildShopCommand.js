@@ -285,7 +285,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 				)
 			);
 		}
-		await giveFood(
+		await buyFood(
 			message,
 			language,
 			entity,
@@ -481,83 +481,13 @@ async function giveGuildXp(message, language, entity, author, selectedItem) {
 	);
 }
 
-const giveFood = async (
-	message,
-	language,
-	entity,
-	author,
-	selectedItem,
-	quantity
-) => {
+const buyFood = async (message, language, entity, author, selectedItem, quantity) => {
 	const guild = await Guilds.getById(entity.Player.guildId);
-	if (
-		guild[selectedItem.type] + quantity >
-		JsonReader.commands.guildShop.max[selectedItem.type]
-	) {
-		return sendErrorMessage(
-			author,
-			message.channel,
-			language,
-			JsonReader.commands.guildShop.getTranslation(language).fullStock
-		);
+	if (isStorageFullFor(selectedItem, quantity, guild)) {
+		await entity.Player.addMoney(-selectedItem.price * quantity); // Remove money
+		await Promise.all([entity.Player.save()]);
 	}
-	guild[selectedItem.type] += quantity;
-	await entity.Player.addMoney(-selectedItem.price * quantity); // Remove money
-	await Promise.all([guild.save(), entity.Player.save()]);
-	const successEmbed = new discord.MessageEmbed();
-	successEmbed.setAuthor(
-		format(JsonReader.commands.guildShop.getTranslation(language).success, {
-			author: author.username
-		}),
-		author.displayAvatarURL()
-	);
-	if (quantity === 1) {
-		successEmbed.setDescription(
-			format(
-				JsonReader.commands.guildShop.getTranslation(language)
-					.singleSuccessAddFoodDesc,
-				{
-					emote: selectedItem.emote,
-					quantity: quantity,
-					name: selectedItem.translations[language].name
-						.slice(2, -2)
-						.toLowerCase()
-				}
-			)
-		);
-	}
-	else {
-		successEmbed.setDescription(
-			format(
-				JsonReader.commands.guildShop.getTranslation(language)
-					.multipleSuccessAddFoodDesc,
-				{
-					emote: selectedItem.emote,
-					quantity: quantity,
-					name:
-						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
-							.slice(2, -2)
-							.toLowerCase()
-							.replace(
-								selectedItem.translations[language].name
-									.slice(2, -2)
-									.toLowerCase()
-									.split(" ")[0],
-								selectedItem.translations[language].name
-									.slice(2, -2)
-									.toLowerCase()
-									.split(" ")[0]
-									.concat("s")
-							)
-							: selectedItem.translations[language].name
-								.slice(2, -2)
-								.toLowerCase()
-				}
-			)
-		);
-	}
-
-	return message.channel.send(successEmbed);
+	await giveFood(message, language, entity, author, selectedItem, quantity);
 };
 
 module.exports.execute = GuildShopCommand;

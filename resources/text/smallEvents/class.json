@@ -15,7 +15,7 @@
 				"winWeapon": [
 					"vous rencontrez un marchand, vous demandant quelle classe vous avez. Lui ayant répondu, celui-ci vous propose gratuitement une arme qu'il n'utilise plus :",
 					"vous voyez dans le bas-côté une arme et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
-					"vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décider de le fouiller. Après une rapide visite des lieux, il semblerait que seule l'armurerie est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une arme qui semble être encore en bon état."
+					"vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décidez de le fouiller. Après une rapide visite des lieux, il semblerait que seule l'armurerie est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une arme qui semble être encore en bon état."
 				]
 			},
 			"defense": {
@@ -32,14 +32,14 @@
 				"winArmor": [
 					"vous rencontrez un marchand, vous demandant quelle classe vous avez. Lui ayant répondu, celui-ci vous propose gratuitement une armure qu'il n'utilise plus :",
 					"vous voyez dans le bas-côté une pièce d'armure et vous n'en croyez pas vos yeux ! Vous vous demandez comment diable l'on peut jeter une si belle chose et décidez de vous en affubler. Elle vous sera probablement utile !",
-					"vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décider de le fouiller. Après une rapide visite des lieux, il semblerait que seule la salle des armures est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une armure qui semble être encore en bon état."
+					"vous trouvez un ancien fort en ruines. Toujours à la recherche d'équipement, vous décidez de le fouiller. Après une rapide visite des lieux, il semblerait que seule la salle des armures est encore intacte. Dans celle-ci, au milieu des objets rouillés et inutilisables, vous trouvez une armure qui semble être encore en bon état."
 				]
 			},
 			"basic": {
 				"winItem": [
 					"des villageois vous abordent et vous tendent un objet en reconnaissance d'un récent fait d'arme, vous les remerciez briévement et continuez votre périple.",
 					"vous croisez un groupe d'enfants jouant à se poursuivre. L'un d'eux vous bouscule et se met à pleurer, ses parents s'approchent et implorent votre pardon, vous leurs accordez et ceux-ci vous font don d'un objet pouvant vous être utile.",
-					"une charrette vous empêche de continuer, intrigué et désireux de poursuivre votre chemin, vous vous approchez du propriétaire, qui, d'abord odieux, vous dit de dégager et prendre une autre route, énervé, vous le mencez de votre arme. Cela a pour effet de le calmer instantanément. Il vous offre un objet et vous demande de patienter le temps de déplacer son chargement.",
+					"une charrette vous empêche de continuer, intrigué et désireux de poursuivre votre chemin, vous vous approchez du propriétaire, qui, d'abord odieux, vous dit de dégager et prendre une autre route, énervé, vous le menacez de votre arme. Cela a pour effet de le calmer instantanément. Il vous offre un objet et vous demande de patienter le temps de déplacer son chargement.",
 					"vous apercevez une foule de personnes réunies. Voulant voir ce qui se trame, vous écartez une dizaine de personnes d'une main et vous découvrez un objet ensanglanté *sinon pourquoi la foule autour ne l'aurait pas touché*. Vous repartez comme si de rien était avec l’objet en votre possession."
 				],
 				"winMoney": [

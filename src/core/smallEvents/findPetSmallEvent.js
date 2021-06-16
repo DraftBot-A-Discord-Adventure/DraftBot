@@ -42,7 +42,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		generateNoRoomEmbed(seEmbed, base, trad, petLine, pet, outRand);
 		await message.channel.send(seEmbed);
 		if (trad.noRoom.stories[outRand][PETS.IS_FOOD]) {
-			await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, 1);
+			await giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, 1);
 		}
 	}
 	else if (!noRoomInGuild && entity.Player.petId !== null) {
