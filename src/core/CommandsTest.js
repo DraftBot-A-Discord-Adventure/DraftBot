@@ -10,7 +10,7 @@ global.typeVariable = {
 		check: (v) => isAMention(v)
 	},
 	EMOJI: {
-			type: "emoji",
+		type: "emoji",
 		check: (v) => isAnEmoji(v)
 		},
 	STRING: {
