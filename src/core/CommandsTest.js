@@ -11,7 +11,7 @@ global.typeVariable = {
 	},
 	EMOJI: {
 			type: "emoji",
-			check: (v) => isAnEmoji(v)
+		check: (v) => isAnEmoji(v)
 		},
 	STRING: {
 		type: "string",
