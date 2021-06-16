@@ -580,12 +580,18 @@ global.checkNameString = (name, minLength, maxLength) => {
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
 };
 
+/**
+ * Check if the given food with its quantity can be added to the given guild storage
+ * @param {Object} selectedItem - The item to add in the storage
+ * @param {number} quantity - How many of selectedItem is asked to add in the storage
+ * @param guild - The guild to check
+ * @return {boolean}
+ */
+global.isStorageFullFor = (selectedItem, quantity, guild) => guild[selectedItem.type] + quantity > JsonReader.commands.guildShop.max[selectedItem.type];
+
 global.giveFood = async (message, language, entity, author, selectedItem, quantity) => {
 	const guild = await Guilds.getById(entity.Player.guildId);
-	if (
-		guild[selectedItem.type] + quantity >
-		JsonReader.commands.guildShop.max[selectedItem.type]
-	) {
+	if (isStorageFullFor(selectedItem, quantity, guild)) {
 		return sendErrorMessage(
 			author,
 			message.channel,

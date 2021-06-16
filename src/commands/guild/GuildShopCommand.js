@@ -483,7 +483,7 @@ async function giveGuildXp(message, language, entity, author, selectedItem) {
 
 const buyFood = async (message, language, entity, author, selectedItem, quantity) => {
 	const guild = await Guilds.getById(entity.Player.guildId);
-	if (guild[selectedItem.type] + quantity <= JsonReader.commands.guildShop.max[selectedItem.type]) {
+	if (isStorageFullFor(selectedItem, quantity, guild)) {
 		await entity.Player.addMoney(-selectedItem.price * quantity); // Remove money
 		await Promise.all([entity.Player.save()]);
 	}
