@@ -579,3 +579,80 @@ global.checkNameString = (name, minLength, maxLength) => {
 	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
 };
+
+/**
+ * Check if the given food with its quantity can be added to the given guild storage
+ * @param {Object} selectedItem - The item to add in the storage
+ * @param {number} quantity - How many of selectedItem is asked to add in the storage
+ * @param guild - The guild to check
+ * @return {boolean}
+ */
+global.isStorageFullFor = (selectedItem, quantity, guild) => guild[selectedItem.type] + quantity > JsonReader.commands.guildShop.max[selectedItem.type];
+
+global.giveFood = async (message, language, entity, author, selectedItem, quantity) => {
+	const guild = await Guilds.getById(entity.Player.guildId);
+	if (isStorageFullFor(selectedItem, quantity, guild)) {
+		return sendErrorMessage(
+			author,
+			message.channel,
+			language,
+			JsonReader.commands.guildShop.getTranslation(language).fullStock
+		);
+	}
+	guild[selectedItem.type] += quantity;
+	await Promise.all([guild.save()]);
+	const successEmbed = new discord.MessageEmbed();
+	// TODO : utiliser les nouveaux embeds
+	successEmbed.setAuthor(
+		format(JsonReader.commands.guildShop.getTranslation(language).success, {
+			author: author.username
+		}),
+		author.displayAvatarURL()
+	);
+	if (quantity === 1) {
+		successEmbed.setDescription(
+			format(
+				JsonReader.commands.guildShop.getTranslation(language)
+					.singleSuccessAddFoodDesc,
+				{
+					emote: selectedItem.emote,
+					quantity: quantity,
+					name: selectedItem.translations[language].name
+						.slice(2, -2)
+						.toLowerCase()
+				}
+			)
+		);
+	}
+	else {
+		successEmbed.setDescription(
+			format(
+				JsonReader.commands.guildShop.getTranslation(language)
+					.multipleSuccessAddFoodDesc,
+				{
+					emote: selectedItem.emote,
+					quantity: quantity,
+					name:
+						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
+							.slice(2, -2)
+							.toLowerCase()
+							.replace(
+								selectedItem.translations[language].name
+									.slice(2, -2)
+									.toLowerCase()
+									.split(" ")[0],
+								selectedItem.translations[language].name
+									.slice(2, -2)
+									.toLowerCase()
+									.split(" ")[0]
+									.concat("s")
+							)
+							: selectedItem.translations[language].name
+								.slice(2, -2)
+								.toLowerCase()
+				}
+			)
+		);
+	}
+	return message.channel.send(successEmbed);
+};

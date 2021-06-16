@@ -113,7 +113,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		await giveRandomItem(message.author, message.channel, language, entity);
 		break;
 	case "food":
-		await require("../../commands/guild/GuildShopCommand").giveFood(message, language, entity, message.author, food, 1);
+		await giveFood(message, language, entity, message.author, food, 1);
 		break;
 	case "loseLife":
 		await entity.Player.killIfNeeded(entity, message.channel, language);
