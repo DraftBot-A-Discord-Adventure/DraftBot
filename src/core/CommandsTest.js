@@ -2,7 +2,7 @@ const fs = require("fs");
 
 global.typeVariable = {
 	INTEGER: {
-			type: "number",
+		type: "number",
 			check: (v) => typeof v === typeVariable.INTEGER.type
 		},
 	MENTION: {
