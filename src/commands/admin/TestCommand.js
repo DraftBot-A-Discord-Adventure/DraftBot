@@ -12,7 +12,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const TestCommand = async(language, message, args) => {
+const TestCommand = async (language, message, args) => {
 	// First test : check if we are in test mode
 	if (JsonReader.app.TEST_MODE !== true) {
 		return;
