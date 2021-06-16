@@ -1,5 +1,5 @@
-const {readdir} = require("fs/promises");
-const {readdirSync} = require("fs");
+const { readdir } = require("fs/promises");
+const { readdirSync } = require("fs");
 
 const { Collection } = require("discord.js");
 /**
@@ -68,7 +68,7 @@ class Command {
 	 * @param {module:"discord.js".ReactionCollector} collector
 	 */
 	static addBlockedPlayer(id, context, collector = null) {
-		Command.players[id] = {context: context, collector: collector};
+		Command.players[id] = { context: context, collector: collector };
 	}
 
 	/**
@@ -141,7 +141,7 @@ class Command {
 				message,
 				JsonReader.app.BOT_OWNER_PREFIX
 			) === JsonReader.app.BOT_OWNER_PREFIX &&
-				message.author.id === JsonReader.app.BOT_OWNER_ID
+			message.author.id === JsonReader.app.BOT_OWNER_ID
 		) {
 			await Command.launchCommand(
 				language,
@@ -200,7 +200,7 @@ class Command {
 				message.channel,
 				format(
 					JsonReader.bot.getTranslation(language).dmHelpMessageTitle,
-					{pseudo: message.author.username}
+					{ pseudo: message.author.username }
 				),
 				JsonReader.bot.getTranslation(language).dmHelpMessage
 			);
@@ -224,7 +224,6 @@ class Command {
 	 * @param {('fr'|'en')} language - The language for the current server
 	 */
 	static async launchCommand(language, prefix, message) {
-		let command;
 		if (resetIsNow()) {
 			return await sendErrorMessage(
 				message.author,
@@ -239,10 +238,9 @@ class Command {
 
 		const commandName = args.shift().toLowerCase();
 
-		try {
-			command = this.getCommand(commandName) || this.getCommandFromAlias(commandName);
-		}
-		catch (err) {
+		const command = this.getCommand(commandName) || this.getCommandFromAlias(commandName);
+
+		if (!command) {
 			return;
 		}
 
