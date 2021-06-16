@@ -4,8 +4,6 @@ module.exports.help = {
 	name: "test"
 };
 
-// TODO : arrêté à la ligne 363
-
 /**
  * Cheat command for testers
  * @param {module:"discord.js".Message} message - Message from the discord server
