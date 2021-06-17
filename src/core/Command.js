@@ -182,7 +182,7 @@ class Command {
 					new DraftBotEmbed()
 						.setDescription(JsonReader.bot.getTranslation(language).maintenance)
 						.setTitle(":x: **Maintenance**")
-						.setColor(JsonReader.bot.embed.error)
+						.setErrorColor()
 				);
 			}
 			await Command.launchCommand(language, server.prefix, message);

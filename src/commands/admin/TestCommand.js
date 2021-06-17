@@ -2,6 +2,11 @@
 
 import {DraftBotValidateReactionMessage} from "../../core/messages/ValidateReactionMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {
+	DraftBotShopMessage,
+	DraftBotShopMessageBuilder, ShopItem,
+	ShopItemCategory
+} from "../../core/messages/DraftBotShopMessage";
 
 const DraftBotReactionMessageBuilder = require("../../core/messages/DraftBotReactionMessage").DraftBotReactionMessageBuilder;
 const DraftBotReaction = require("../../core/messages/DraftBotReaction").DraftBotReaction;
@@ -547,6 +552,18 @@ const TestCommand = async (language, message, args) => {
 				await new DraftBotValidateReactionMessage(validateCallback, refuseCallback, null)
 					.setTitle("Validate embed test")
 					.setDescription("Do you accept ?")
+					.send(message.channel);
+			}
+			else if (args[1] === "shop") {
+				const shop = await new DraftBotShopMessageBuilder(message.author.id, "Test shop", language, (userId) => Entities.getOrRegister(userId).Player.money)
+					.addCategory(new ShopItemCategory([
+						new ShopItem("😀", "product 1", 123),
+						new ShopItem("✨", "product 2", 897)
+					], "Category 1"))
+					.addCategory(new ShopItemCategory([
+						new ShopItem("🕳️", "product 3", 999999)
+					], "Category 2"))
+					.build()
 					.send(message.channel);
 			}
 			break;

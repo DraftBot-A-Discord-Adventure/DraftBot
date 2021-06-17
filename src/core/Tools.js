@@ -1,3 +1,5 @@
+import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
+
 global.draftbotRandom = new (require("random-js")).Random();
 
 /**
@@ -32,13 +34,7 @@ global.sendMessageAttachments = (message, channel) => {
  * @param {String} reason
  */
 global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => {
-	const embed = new discord.MessageEmbed();
-	embed.setColor(JsonReader.bot.embed.error)
-		.setAuthor(format(JsonReader.error.getTranslation(language).title[isCancelling ? 1 : 0], {
-			pseudo: user.username
-		}), user.displayAvatarURL())
-		.setDescription(reason);
-	return channel.send(embed);
+	return channel.send(new DraftBotErrorEmbed(user, language, reason, isCancelling));
 };
 
 /**

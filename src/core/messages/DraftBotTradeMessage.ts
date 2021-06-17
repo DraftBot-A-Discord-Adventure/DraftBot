@@ -3,19 +3,49 @@ import {DMChannel, Message, MessageReaction, NewsChannel, TextChannel, User} fro
 import {DraftBotReaction} from "./DraftBotReaction";
 import {Constants} from "../Constants";
 
+/**
+ * Trade message and executor
+ */
 export class DraftBotTradeMessage extends DraftBotReactionMessage {
+	/**
+	 * If the trader number 1 accepted the trade. true = yes, false = no, null = no choice
+	 */
 	public trader1Accepted: boolean = null;
 
+	/**
+	 * If the trader number 2 accepted the trade. true = yes, false = no, null = no choice
+	 */
 	public trader2Accepted: boolean = null;
 
+	/**
+	 * The id of the trader number 1
+	 * @private
+	 */
 	private readonly trader1id: string;
 
+	/**
+	 * The callback called if the trade is successful
+	 */
 	public readonly tradeSuccessCallback: (message: DraftBotTradeMessage) => void;
 
+	/**
+	 * The callback called if someone refused the trade
+	 */
 	public readonly tradeRefusedCallback: (message: DraftBotTradeMessage) => void;
 
+	/**
+	 * The callback called if someone didn't react
+	 */
 	public readonly tradeNoResponseCallback: (message: DraftBotTradeMessage) => void;
 
+	/**
+	 * Default constructor
+	 * @param trader1
+	 * @param trader2
+	 * @param tradeSuccess
+	 * @param tradeRefused
+	 * @param tradeNoResponse
+	 */
 	constructor(
 		trader1: User,
 		trader2: User,
@@ -78,6 +108,10 @@ export class DraftBotTradeMessage extends DraftBotReactionMessage {
 		return tradeMessage.tradeNoResponseCallback(message as DraftBotTradeMessage);
 	}
 
+	/**
+	 * Send the trade in a channel
+	 * @param channel
+	 */
 	async send(channel: TextChannel | DMChannel | NewsChannel): Promise<Message> {
 		const messageReturned = await super.send(channel);
 		// eslint-disable-next-line @typescript-eslint/no-this-alias

@@ -4,7 +4,7 @@
 			"title": ":shopping_cart:  **Affichage du Magasin :**",
 			"dailyItem": "Potion du jour :\n",
 			"permanentItem": "\n\nVentes permanentes :\n",
-			"display": "{name} | `{price}💰`",
+			"display": "{emote} **{name}** | `{price}💰`",
 			"success": "{pseudo}, transaction réussie !",
 			"permanentItems": {
 				"randomItem": {
@@ -39,7 +39,7 @@
 				}
 			},
 			"confirm": "{pseudo}, vous avez sélectionné le produit suivant :",
-			"moneyQuantity": "\n\nVous avez `{money}💰`.",
+			"moneyQuantity": "Vous avez `{money}💰`.",
 			"error": {
 				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
 				"cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
@@ -56,7 +56,7 @@
 			"title": ":shopping_cart:  **Shop Overlay:**",
 			"dailyItem": "Today's potion:\n",
 			"permanentItem": "\n\nPermanent sales:\n",
-			"display": "{name} | `{price}💰`",
+			"display": "{emote} **{name}** | `{price}💰`",
 			"success": "{pseudo}, transaction success!",
 			"permanentItems": {
 				"randomItem": {
@@ -91,7 +91,7 @@
 				}
 			},
 			"confirm": "{pseudo}, you have selected this product:",
-			"moneyQuantity": "\n\nYou have `{money}💰`.",
+			"moneyQuantity": "You have `{money}💰`.",
 			"error": {
 				"nothingToHeal": "You're not under status alterations.",
 				"cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",

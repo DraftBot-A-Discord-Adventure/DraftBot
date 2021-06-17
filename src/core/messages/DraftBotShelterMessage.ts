@@ -6,7 +6,17 @@ declare function format(s: string, replacement: any): string;
 declare const PetEntities: any;
 declare const Guilds: any;
 
+/**
+ * Shelter embed
+ */
 export class DraftBotShelterMessage extends DraftBotEmbed {
+	/**
+	 * Default constructor
+	 * @param title
+	 * @param description
+	 * @param fields
+	 * @param thumbnail
+	 */
 	constructor(title: string, description: string, fields: EmbedFieldData[], thumbnail: string) {
 		super();
 		this.setTitle(title);
@@ -16,16 +26,35 @@ export class DraftBotShelterMessage extends DraftBotEmbed {
 	}
 }
 
+/**
+ * Builder for {@link DraftBotShelterMessage}
+ */
 export class DraftBotShelterMessageBuilder {
+	/**
+	 * The guild for this shelter
+	 * @private
+	 */
 	private readonly _guild: any;
 
+	/**
+	 * The language to display the shelter
+	 * @private
+	 */
 	private readonly _language: string;
 
+	/**
+	 * Default constructor
+	 * @param guild
+	 * @param language
+	 */
 	constructor(guild: any, language: string) {
 		this._guild = guild;
 		this._language = language;
 	}
 
+	/**
+	 * Creates the {@link DraftBotShelterMessage}
+	 */
 	async build(): Promise<DraftBotShelterMessage> {
 		const tr = JsonReader.commands.guildShelter.getTranslation(this._language);
 		const title = format(tr.embedTitle, {

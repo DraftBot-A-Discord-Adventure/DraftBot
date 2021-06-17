@@ -4,6 +4,7 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const SendPrivateMessage = async function(language, message, args) {
 	if (await canPerformCommand(message, language,
@@ -24,11 +25,8 @@ const SendPrivateMessage = async function(language, message, args) {
 	if (user === undefined) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).personNotExists);
 	}
-	const embed = new discord.MessageEmbed();
-	embed.setColor(JsonReader.bot.embed.default)
-		.setTitle(format(JsonReader.commands.sendPrivateMessage.getTranslation(language).title, {
-			username: user.username
-		}))
+	const embed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.sendPrivateMessage.getTranslation(language).title, user)
 		.setDescription(messageToSend)
 		.setImage(message.attachments.size > 0 ? [...message.attachments.values()][0].url : "");
 
