@@ -10,12 +10,10 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildAddCommand = async (message, language, args) => {
+const GuildAddCommand = async (message, language, entity, args) => {
 	let invitedEntity;
 	let invitedGuild;
 	const invitationEmbed = new discord.MessageEmbed();
-
-	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	try {
 		[invitedEntity] = await Entities.getByArgs(args, message);
