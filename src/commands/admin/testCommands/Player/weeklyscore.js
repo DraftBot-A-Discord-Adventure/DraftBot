@@ -17,7 +17,7 @@ module.exports.infos = {
  */
 async function weeklyscore(language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	entity.Player.weeklyscore = parseInt(args[0]);
+	entity.Player.weeklyscore = parseInt(args[0],10);
 	entity.Player.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {weeklyscore: entity.Player.weeklyscore});

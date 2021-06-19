@@ -20,7 +20,7 @@ async function money(language, message, args) {
 	if (args[0] < 0) {
 		throw new Error("Erreur money : argent donné inférieur à 0 interdit !");
 	}
-	entity.Player.money = parseInt(args[0]);
+	entity.Player.money = parseInt(args[0],10);
 	entity.Player.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {money: entity.Player.money});

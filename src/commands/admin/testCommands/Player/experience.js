@@ -21,7 +21,7 @@ async function experience(language, message, args) {
 	if (args[0] < 0) {
 		throw new Error("Erreur experience : experience donné inférieur à 0 interdit !");
 	}
-	entity.Player.experience = parseInt(args[0]);
+	entity.Player.experience = parseInt(args[0],10);
 	entity.Player.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {experience: entity.Player.experience});

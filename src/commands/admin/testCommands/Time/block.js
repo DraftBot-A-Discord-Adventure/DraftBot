@@ -20,7 +20,7 @@ async function block(language, message, args) {
 	if (args[0] <= 0) {
 		throw new Error("Erreur block : on ne peut pas vous bloquer pendant un temps négatif ou nul !");
 	}
-	const sec = parseInt(args[0]);
+	const sec = parseInt(args[0],10);
 	const collector = message.createReactionCollector(() => true, {
 		time: sec * 1000
 	});

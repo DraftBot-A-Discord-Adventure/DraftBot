@@ -24,7 +24,7 @@ async function gxp(language, message, args) {
 	if (args[0] < 0) {
 		throw new Error("Erreur gxp : expérience de guilde invalide. Interdit de mettre de l'expérience négative !");
 	}
-	guild.experience = parseInt(args[0]);
+	guild.experience = parseInt(args[0],10);
 	guild.save();
 	return format(module.exports.infos.messageWhenExecuted, {experience: args[0]});
 }

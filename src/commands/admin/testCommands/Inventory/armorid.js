@@ -18,7 +18,7 @@ module.exports.infos = {
 async function armorid(language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	entity.Player.Inventory.armorId = parseInt(args[0]);
+	entity.Player.Inventory.armorId = parseInt(args[0],10);
 	let armorText;
 	try {
 		armorText = await (await entity.Player.Inventory.getArmor()).toFieldObject(language).value;

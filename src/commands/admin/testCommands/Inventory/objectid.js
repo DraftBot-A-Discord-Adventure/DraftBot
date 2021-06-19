@@ -18,7 +18,7 @@ module.exports.infos = {
 async function objectid(language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	entity.Player.Inventory.objectId = parseInt(args[0]);
+	entity.Player.Inventory.objectId = parseInt(args[0],10);
 	let objectText;
 	try {
 		objectText = await (await entity.Player.Inventory.getActiveObject()).toFieldObject(language, "").value;

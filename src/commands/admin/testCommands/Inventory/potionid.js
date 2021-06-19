@@ -18,7 +18,7 @@ module.exports.infos = {
 async function potionid(language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	entity.Player.Inventory.potionId = parseInt(args[0]);
+	entity.Player.Inventory.potionId = parseInt(args[0],10);
 	let potionText;
 	try {
 		potionText = await (await entity.Player.Inventory.getPotion()).toFieldObject(language).value;

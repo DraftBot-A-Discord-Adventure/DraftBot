@@ -20,7 +20,7 @@ async function score(language, message, args) {
 	if (args[0] < 100) {
 		throw new Error("Erreur score : score donné inférieur à 100 interdit !");
 	}
-	entity.Player.score = parseInt(args[0]);
+	entity.Player.score = parseInt(args[0],10);
 	entity.Player.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {score: entity.Player.score});

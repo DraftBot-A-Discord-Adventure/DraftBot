@@ -20,7 +20,7 @@ async function speed(language, message, args) {
 	if (args[0] < 0) {
 		throw new Error("Erreur speed : speed donné inférieur à 0 interdit !");
 	}
-	entity.speed = parseInt(args[0]);
+	entity.speed = parseInt(args[0],10);
 	entity.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {speed: entity.speed});

@@ -20,7 +20,7 @@ async function health(language, message, args) {
 	if (args[0] < 0) {
 		throw new Error("Erreur experience : experience donné inférieur à 0 interdit !");
 	}
-	entity.health = parseInt(args[0]);
+	entity.health = parseInt(args[0],10);
 	entity.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {health: entity.health});

@@ -18,7 +18,7 @@ module.exports.infos = {
  */
 async function fightpointslost(language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	entity.fightPointsLost = parseInt(args[0]);
+	entity.fightPointsLost = parseInt(args[0],10);
 	entity.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {lostPoints: args[0]});

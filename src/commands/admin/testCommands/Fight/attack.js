@@ -20,7 +20,7 @@ async function attack(language, message, args) {
 	if (args[0] < 0) {
 		throw new Error("Erreur attack : attack donné inférieur à 0 interdit !");
 	}
-	entity.attack = parseInt(args[0]);
+	entity.attack = parseInt(args[0],10);
 	entity.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {attack: entity.attack});

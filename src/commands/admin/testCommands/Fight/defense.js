@@ -20,7 +20,7 @@ async function defense(language, message, args) {
 	if (args[0] < 0) {
 		throw new Error("Erreur defense : defense donné inférieur à 0 interdit !");
 	}
-	entity.defense = parseInt(args[0]);
+	entity.defense = parseInt(args[0],10);
 	entity.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {defense: entity.defense});

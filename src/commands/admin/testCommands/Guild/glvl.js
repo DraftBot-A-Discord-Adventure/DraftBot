@@ -24,7 +24,7 @@ async function glvl(language, message, args) {
 	if (args[0] <= 0 || args[0] > 100) {
 		throw new Error("Erreur glvl : niveau de guilde invalide ! Fourchette de niveau compris entre 0 et 100.");
 	}
-	guild.level = parseInt(args[0]);
+	guild.level = parseInt(args[0],10);
 	guild.save();
 	return format(module.exports.infos.messageWhenExecuted, {level: args[0]});
 }

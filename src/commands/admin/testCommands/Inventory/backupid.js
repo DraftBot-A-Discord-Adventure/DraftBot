@@ -18,7 +18,7 @@ module.exports.infos = {
 async function backupid(language, message, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	entity.Player.Inventory.backupId = parseInt(args[0]);
+	entity.Player.Inventory.backupId = parseInt(args[0],10);
 	let backupText;
 	try {
 		backupText = await (await entity.Player.Inventory.getBackupObject()).toFieldObject(language, "").value;
