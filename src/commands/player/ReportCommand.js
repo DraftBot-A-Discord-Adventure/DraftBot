@@ -14,9 +14,7 @@ module.exports.help = {
  * @param {Number} forceSpecificEvent - For testing purpose
  * @param {String} forceSmallEvent
  */
-const ReportCommand = async (message, language, args, forceSpecificEvent = -1, forceSmallEvent = null) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
-
+const ReportCommand = async (message, language, args, entity ,forceSpecificEvent = -1, forceSmallEvent = null) => {
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
