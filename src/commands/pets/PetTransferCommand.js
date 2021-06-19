@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "pettransfer",
 	aliases: ["pettr","ptr","ptransfer"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 

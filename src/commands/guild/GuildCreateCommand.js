@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "guildcreate",
 	aliases: ["gcreate", "gc"],
-	userPermissions: ROLES.USER.ALL,
 	requiredLevel: GUILD.REQUIRED_LEVEL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };

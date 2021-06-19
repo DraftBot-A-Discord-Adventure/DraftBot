@@ -165,7 +165,7 @@
 			],
 			":zany_face:": [
 				"**{pseudo}** zigzague sur votre route, il semblerait qu'il ait un peu (trop) bu. Vous continuez ensuite votre route.",
-				"**{pseudo}**, n'a pas l'air d'avoir compris que l'alcool se consomme avec modération. Vous reprenez votre chemin après cet rencontre inattendue.",
+				"**{pseudo}**, n'a pas l'air d'avoir compris que l'alcool se consomme avec modération. Vous reprenez votre chemin après cette rencontre inattendue.",
 				"Vous voyez **{pseudo}** assez éméché, pour ne pas dire de terme plus fort. Celui-ci semble bien s'amuser... tout seul. Vous faites ce que vous pouvez pour l'ignorer et continuez votre route."
 			],
 			"weapon": [

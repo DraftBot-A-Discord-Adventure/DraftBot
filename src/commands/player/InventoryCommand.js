@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "inventory",
 	aliases: ["inv", "i"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 

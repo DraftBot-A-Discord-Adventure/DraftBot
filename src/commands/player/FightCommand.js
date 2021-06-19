@@ -3,7 +3,6 @@ const Fight = require("../../core/fights/Fight");
 module.exports.help = {
 	name: "fight",
 	aliases: ["f"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 

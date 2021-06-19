@@ -3,7 +3,6 @@ const Maps = require("../../core/Maps");
 module.exports.help = {
 	name: "respawn",
 	aliases: [],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY]
 };
 
