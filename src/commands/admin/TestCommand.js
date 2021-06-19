@@ -16,7 +16,7 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-module.exports.execute = async (message, language, args) => {
+module.exports.execute = async (message, language, author, args) => {
 	if (args.length === 0) {
 		await message.channel.send(":x: | Pas assez d'arguments");
 		return;
