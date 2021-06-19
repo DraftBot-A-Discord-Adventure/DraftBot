@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "profile",
 	aliases: ["p", "profil"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY]
 };
 

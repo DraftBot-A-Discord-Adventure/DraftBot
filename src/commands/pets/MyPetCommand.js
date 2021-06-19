@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "mypet",
 	aliases: ["pet", "pp"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 

@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "guildshop",
 	aliases: ["gs"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 

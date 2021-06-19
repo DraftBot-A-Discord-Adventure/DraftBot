@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "shelter",
 	aliases: ["guildshelter", "pets", "animals", "gshelter", "gpets", "ganimals", "guildpets", "guildanimals", "sh"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 

@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "guildelderremove",
 	aliases: ["gelderremove", "ger"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 

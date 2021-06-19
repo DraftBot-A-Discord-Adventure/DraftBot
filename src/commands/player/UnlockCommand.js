@@ -3,7 +3,6 @@ const Maps = require("../../core/Maps");
 module.exports.help = {
 	name: "unlock",
 	aliases: ["bail","release"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 

@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "guildleave",
 	aliases: ["gleave", "gl"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 

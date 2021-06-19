@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "guildkick",
 	aliases: ["gkick", "gk"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 

@@ -3,7 +3,6 @@ const tr = JsonReader.commands.petFeed;
 module.exports.help = {
 	name: "petfeed",
 	aliases: ["feed","pf","pfeed","feedp","feedpet","fp"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 

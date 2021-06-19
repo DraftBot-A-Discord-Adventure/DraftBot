@@ -3,7 +3,6 @@ const Maps = require("../../core/Maps");
 module.exports.help = {
 	name: "guilddaily",
 	aliases: ["gdaily", "gd"],
-	userPermissions: ROLES.USER.ALL,
 	requiredLevel: GUILD.REQUIRED_LEVEL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
