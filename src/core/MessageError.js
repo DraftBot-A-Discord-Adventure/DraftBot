@@ -8,7 +8,7 @@ class MessageError {
 	 * @param {number} minimalLevel
 	 * @return {Promise<any>}
 	 */
-	static async canPerformCommand(message, language, permission, disallowEffects = null, entity = null, minimalLevel = null) {
+	static async canPerformCommand(message, language, permission) {
 		if (permission === PERMISSION.ROLE.BADGE_MANAGER) {
 			if (!message.member.roles.cache.has(JsonReader.app.BADGE_MANAGER_ROLE) && !MessageError.isBotOwner(message.author.id)) {
 				return await MessageError.permissionErrorMe(message, language, permission);
@@ -44,37 +44,6 @@ class MessageError {
 				return await MessageError.permissionErrorMe(message, language, permission);
 			}
 		}
-
-		// Check disallowEffects on entity
-		if (disallowEffects === null) {
-			return true;
-		}
-		const disallowEffect = disallowEffects.indexOf(entity.Player.effect);
-		if (disallowEffect !== -1) {
-			if (message.author.id === entity.discordUserId) {
-				if (!entity.Player.currentEffectFinished()) {
-					return await MessageError.effectsErrorMe(message, language, entity, disallowEffects[disallowEffect]);
-				}
-			}
-			else {
-				return await MessageError.errorPlayer(message, language, entity.Player);
-			}
-		}
-
-		if (minimalLevel !== null) {
-			if (entity.Player.level < minimalLevel) {
-				return await sendErrorMessage(
-					message.author,
-					message.channel,
-					language,
-					format(JsonReader.error.getTranslation(language).levelTooLow, {
-						pseudo: entity.getMention(),
-						level: minimalLevel
-					})
-				);
-			}
-		}
-
 		return true;
 	}
 
