@@ -11,11 +11,6 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ChangePrefixCommand = async (message, language, args) => {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
-		return;
-	}
-
 	const embed = new discord.MessageEmbed();
 	const newPrefix = args[0];
 	const [server] = await Servers.getOrRegister(message.guild.id);
