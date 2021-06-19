@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "guildkick",
 	aliases: ["gkick", "gk"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
@@ -11,13 +10,11 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildKickCommand = async (message, language, args) => {
+const GuildKickCommand = async (message, language, entity, args) => {
 	let kickedEntity;
-	let guild;
+	const guild = await Guilds.getById(entity.Player.guildId);
 	let kickedGuild;
 	const choiceEmbed = new discord.MessageEmbed();
-
-	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	try {
 		[kickedEntity] = await Entities.getByArgs(args, message);
@@ -38,24 +35,6 @@ const GuildKickCommand = async (message, language, args) => {
 
 	if (await sendBlockedError(kickedEntity, message.channel, language)) {
 		return;
-	}
-
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildKick.getTranslation(language).notInAguild
-		);
 	}
 
 	if (guild.chiefId !== entity.id) {

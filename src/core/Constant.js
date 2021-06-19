@@ -238,7 +238,6 @@ global.ROLES = {
 		CHIEF: "chief"
 	},
 	USER: {
-		ALL: "all",
 		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
 		BADGE_MANAGER: "manager", // has the badge manager role
 		SUPPORT: "support", // has the support role

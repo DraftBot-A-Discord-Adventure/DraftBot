@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "class",
 	aliases: ["c", "classes", "classe"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 	requiredLevel: CLASS.REQUIRED_LEVEL
 };
@@ -14,13 +13,6 @@ module.exports.help = {
  */
 const ClassCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, CLASS.REQUIRED_LEVEL) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	const classTranslations = JsonReader.commands.class.getTranslation(language);
 

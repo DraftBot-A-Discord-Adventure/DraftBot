@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "guild",
 	aliases: ["g"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 

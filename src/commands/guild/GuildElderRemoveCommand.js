@@ -1,8 +1,8 @@
 module.exports.help = {
 	name: "guildelderremove",
 	aliases: ["gelderremove", "ger"],
-	userPermissions: ROLES.USER.ALL,
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
+	guildRequired: true
 };
 
 /**
@@ -11,24 +11,9 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildElderRemoveCommand = async (message, language) => {
-	let guild;
+const GuildElderRemoveCommand = async (message, language, entity) => {
+	const guild = await Guilds.getById(entity.Player.guildId);
 	const elderRemoveEmbed = new discord.MessageEmbed();
-
-	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notInAguild);
-	}
 
 	if (guild.chiefId !== entity.id) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notChiefError);

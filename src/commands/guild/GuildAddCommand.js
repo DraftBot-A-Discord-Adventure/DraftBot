@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "guildadd",
 	aliases: ["gadd", "ga"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
@@ -11,13 +10,10 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildAddCommand = async (message, language, args) => {
+const GuildAddCommand = async (message, language, entity, args) => {
 	let invitedEntity;
-	let guild;
 	let invitedGuild;
 	const invitationEmbed = new discord.MessageEmbed();
-
-	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	try {
 		[invitedEntity] = await Entities.getByArgs(args, message);
@@ -66,23 +62,8 @@ const GuildAddCommand = async (message, language, args) => {
 		return;
 	}
 
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
+	const guild = await Guilds.getById(entity.Player.guildId);
 
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildAdd.getTranslation(language).notInAguild
-		);
-	}
 
 	if (entity.id !== guild.chiefId && entity.id !== guild.elderId) {
 		return sendErrorMessage(
@@ -154,6 +135,7 @@ const GuildAddCommand = async (message, language, args) => {
 	addBlockedPlayer(invitedEntity.discordUserId, "guildAdd", collector);
 
 	collector.on("end", async (reaction) => {
+		let guild;
 		removeBlockedPlayer(invitedEntity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist

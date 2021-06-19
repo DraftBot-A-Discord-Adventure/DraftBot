@@ -1,8 +1,8 @@
 module.exports.help = {
 	name: "guildshop",
 	aliases: ["gs"],
-	userPermissions: ROLES.USER.ALL,
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
 };
 
 /**
@@ -13,20 +13,6 @@ module.exports.help = {
  */
 const GuildShopCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
-
-	// search for a user's guild
-	let guild;
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
-	}
 
 	const shopTranslations = JsonReader.commands.guildShop.getTranslation(
 		language

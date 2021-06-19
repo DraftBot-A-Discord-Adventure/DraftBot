@@ -1,7 +1,6 @@
 module.exports.help = {
 	name: "petnickname",
 	aliases: ["petnick","pnickname","pnick","petname","pname"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 

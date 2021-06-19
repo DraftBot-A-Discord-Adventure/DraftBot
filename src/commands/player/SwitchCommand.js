@@ -3,7 +3,6 @@ const moment = require("moment");
 module.exports.help = {
 	name: "switch",
 	aliases: ["sw"],
-	userPermissions: ROLES.USER.ALL,
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
