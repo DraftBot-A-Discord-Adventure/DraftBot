@@ -2,7 +2,7 @@ const tr = JsonReader.commands.petFeed;
 
 module.exports.help = {
 	name: "petfeed",
-	aliases: ["feed","pf","pfeed","feedp","feedpet","fp"],
+	aliases: ["feed", "pf", "pfeed", "feedp", "feedpet", "fp"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
@@ -10,7 +10,6 @@ module.exports.help = {
  * Feed your pet !
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
- * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const PetFeedCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
@@ -157,7 +156,10 @@ const PetFeedCommand = async (message, language) => {
 			}
 			entity.Player.money -= 20;
 			authorPet.hungrySince = Date();
-			await Promise.all[authorPet.save(), entity.Player.save()];
+			await Promise.all([
+				authorPet.save(),
+				entity.Player.save()
+			]);
 			const feedSuccessEmbed = new discord.MessageEmbed();
 			if (language === LANGUAGE.FRENCH) {
 				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
@@ -256,7 +258,6 @@ async function feedPet(message, language, entity, pet, item) {
 		guild[item.type]--;
 		switch (item.type) {
 		case "commonFood":
-			console.log(pet);
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["1"], {

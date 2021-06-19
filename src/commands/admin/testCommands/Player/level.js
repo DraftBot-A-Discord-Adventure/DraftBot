@@ -16,12 +16,15 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-function level(language, message, args) {
+async function level(language, message, args) {
+	const [entity] = await Entities.getOrRegister(message.author.id);
+	if (args[0] <= 0) {
+		throw new Error("Erreur level : niveau donné inférieur à 0 interdit !");
+	}
+	entity.Player.level = parseInt(args[0],10);
+	entity.Player.save();
 
-	message.author.Player.level = parseInt(args[0]);
-	message.author.Player.save();
-
-	return format(module.exports.infos.messageWhenExecuted, {level: message.author.Player.level});
+	return format(module.exports.infos.messageWhenExecuted, {level: entity.Player.level});
 }
 
 module.exports.execute = level;

@@ -27,7 +27,7 @@ class Command {
 
 	/**
 	 * Get a command
-	 * @param {String} command - The command to get
+	 * @param {String} commandName - The command to get
 	 * @return An instance of the command asked
 	 */
 	static getCommand(commandName) {
@@ -370,6 +370,7 @@ class Command {
 
 		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
 		await command.execute(message, language, entity, args);
+		// TODO : à repasser sans entity
 	}
 }
 

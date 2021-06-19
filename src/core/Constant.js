@@ -230,6 +230,11 @@ global.SMALL_EVENT = {
 
 global.COLLECTOR_TIME = 120000;
 
+global.TEST_EMBED_COLOR = {
+	SUCCESSFUL: "#FF8888",
+	ERROR: "#FF0000"
+};
+
 global.ROLES = {
 	GUILD: {
 		NONE: "none",
