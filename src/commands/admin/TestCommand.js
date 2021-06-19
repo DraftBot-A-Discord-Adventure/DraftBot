@@ -22,8 +22,6 @@ module.exports.execute = async (message, language, author, args) => {
 		return;
 	}
 
-	let author;
-	[author] = await Entities.getOrRegister(message.author.id);
 	try {
 		switch (args[0].toLowerCase()) {
 		case "lvl":
