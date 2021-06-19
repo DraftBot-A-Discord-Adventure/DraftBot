@@ -329,6 +329,22 @@ class Command {
 			return;
 		}
 
+		if (command.help.guildRequired) {
+			let guild;
+
+			try {
+				guild = await Guilds.getById(entity.Player.guildId);
+			}
+			catch (error) {
+				guild = null;
+			}
+
+			if (guild === null) {
+				// not in a guild
+				return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
+			}
+		}
+
 		if (!Command.players.has(command.name)) {
 			Command.players.set(command.name, new Map());
 		}
@@ -353,7 +369,7 @@ class Command {
 		setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
 		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
-		await command.execute(message, language, args, entity);
+		await command.execute(message, language, entity, args);
 	}
 }
 
