@@ -1,7 +1,8 @@
 module.exports.help = {
 	name: "guildleave",
 	aliases: ["gleave", "gl"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
 };
 
 /**
@@ -10,30 +11,10 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildLeaveCommand = async (message, language) => {
-	let guild;
+const GuildLeaveCommand = async (message, language, entity) => {
+	const guild = await Guilds.getById(entity.Player.guildId);
 	let elder;
 	const confirmationEmbed = new discord.MessageEmbed();
-
-	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildLeave.getTranslation(language).notInAGuild
-		);
-	}
 
 	if (guild.elderId) {
 		elder = await Entities.getById(guild.elderId);

@@ -4,7 +4,8 @@ module.exports.help = {
 	name: "guilddaily",
 	aliases: ["gdaily", "gd"],
 	requiredLevel: GUILD.REQUIRED_LEVEL,
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
 };
 
 /**
@@ -16,26 +17,11 @@ module.exports.help = {
  */
 const GuildDailyCommand = async (message, language, args, forcedReward) => {
 	const translations = JsonReader.commands.guildDaily.getTranslation(language);
-	let guild;
 	const embed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) { // not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			translations.notInAGuild);
-	}
+	const guild = await Guilds.getById(entity.Player.guildId);
 
 	const time = millisecondsToHours(message.createdAt.getTime() - guild.lastDailyAt.valueOf());
 	if (time < JsonReader.commands.guildDaily.timeBetweenDailys && !forcedReward) {

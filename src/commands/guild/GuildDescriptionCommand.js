@@ -1,7 +1,8 @@
 module.exports.help = {
 	name: "guilddescription",
 	aliases: ["gdesc", "guilddesc"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
 };
 
 /**
@@ -10,27 +11,9 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildDescriptionCommand = async (message, language, args) => {
-	let guild;
-	let entity;
+const GuildDescriptionCommand = async (message, language, entity, args) => {
+	let guild = await Guilds.getById(entity.Player.guildId);
 	const confirmationEmbed = new discord.MessageEmbed();
-
-	[entity] = await Entities.getByArgs(args, message);
-	if (entity === null) {
-		[entity] = await Entities.getOrRegister(message.author.id);
-	}
-
-	guild = await Guilds.getById(entity.Player.guildId);
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildDescription.getTranslation(language).notInAguild
-		);
-	}
 
 	if (args.length <= 0) {
 		// no description was given
