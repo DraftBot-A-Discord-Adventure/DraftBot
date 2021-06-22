@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "fightpointslost",
 	aliases: ["fpl"],
 	commandFormat: "<lostPoints>",
@@ -16,12 +16,12 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function fightpointslost(language, message, args) {
+const fightpointslost = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	entity.fightPointsLost = parseInt(args[0],10);
 	entity.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {lostPoints: args[0]});
-}
+};
 
 module.exports.execute = fightpointslost;

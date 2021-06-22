@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "pet",
 	commandFormat: "<id> <sex = m/f>",
 	typeWaited: {
@@ -16,7 +16,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function pet(language, message, args) {
+const pet = (language, message, args) => {
 
 	let [entity] = await Entities.getOrRegister(message.author.id);
 	if (entity.Player.Pet) {
@@ -45,6 +45,6 @@ async function pet(language, message, args) {
 			petString: await PetEntities.getPetDisplay(await entity.Player.Pet, language)
 		}
 	);
-}
+};
 
 module.exports.execute = pet;

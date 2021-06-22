@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "clearbadges",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez supprimé vos badges !",
@@ -12,12 +12,12 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function clearbadges(language, message) {
+const clearbadges = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	entity.Player.badges = null;
 	entity.Player.save();
 
 	return module.exports.infos.messageWhenExecuted;
-}
+};
 
 module.exports.execute = clearbadges;

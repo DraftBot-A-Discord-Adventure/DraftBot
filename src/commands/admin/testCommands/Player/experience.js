@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "experience",
 	aliases: ["xp"],
 	commandFormat: "<experience>",
@@ -16,7 +16,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function experience(language, message, args) {
+const experience = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (args[0] < 0) {
 		throw new Error("Erreur experience : experience donné inférieur à 0 interdit !");
@@ -25,6 +25,6 @@ async function experience(language, message, args) {
 	entity.Player.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {experience: entity.Player.experience});
-}
+};
 
 module.exports.execute = experience;

@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "destroy",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez été réinitialisé !",
@@ -11,7 +11,7 @@ module.exports.infos = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @return {String} - The successful message formatted
  */
-async function destroy(language, message) {
+const destroy = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	Inventories.destroy({
 		where: {
@@ -29,6 +29,6 @@ async function destroy(language, message) {
 		}
 	});
 	return module.exports.infos.messageWhenExecuted;
-}
+};
 
 module.exports.execute = destroy;

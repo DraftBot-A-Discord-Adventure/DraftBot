@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "armorid",
 	commandFormat: "<id>",
 	typeWaited: {
@@ -15,7 +15,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function armorid(language, message, args) {
+const armorid = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	entity.Player.Inventory.armorId = parseInt(args[0],10);
@@ -29,6 +29,6 @@ async function armorid(language, message, args) {
 	entity.Player.Inventory.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {armor: armorText});
-}
+};
 
 module.exports.execute = armorid;

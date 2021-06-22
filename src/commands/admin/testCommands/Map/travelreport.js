@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "travelreport",
 	aliases: ["tr"],
 	commandFormat: "",
@@ -14,7 +14,7 @@ const Maps = require("../../../../core/Maps");
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @return {String} - The successful message formatted
  */
-async function travelreport(language, message) {
+const travelreport = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (!Maps.isTravelling(entity.Player)) {
@@ -27,6 +27,6 @@ async function travelreport(language, message) {
 
 	return module.exports.infos.messageWhenExecuted;
 
-}
+};
 
 module.exports.execute = travelreport;

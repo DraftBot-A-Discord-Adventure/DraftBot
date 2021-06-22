@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "weeklyscore",
 	commandFormat: "<weeklyscore>",
 	typeWaited: {
@@ -15,12 +15,12 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function weeklyscore(language, message, args) {
+const weeklyscore = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	entity.Player.weeklyscore = parseInt(args[0],10);
 	entity.Player.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {weeklyscore: entity.Player.weeklyscore});
-}
+};
 
 module.exports.execute = weeklyscore;

@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "fakevote",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez faussement voté !",
@@ -11,9 +11,9 @@ module.exports.infos = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @return {String} - The successful message formatted
  */
-async function fakevote(language, message) {
+const fakevote = async (language, message) => {
 	await require("../../../../core/DBL").userDBLVote(message.author.id);
 	return module.exports.infos.messageWhenExecuted;
-}
+};
 
 module.exports.execute = fakevote;

@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "score",
 	commandFormat: "<score>",
 	typeWaited: {
@@ -15,7 +15,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function score(language, message, args) {
+const score = (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (args[0] < 100) {
 		throw new Error("Erreur score : score donné inférieur à 100 interdit !");
@@ -24,6 +24,6 @@ async function score(language, message, args) {
 	entity.Player.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {score: entity.Player.score});
-}
+};
 
 module.exports.execute = score;

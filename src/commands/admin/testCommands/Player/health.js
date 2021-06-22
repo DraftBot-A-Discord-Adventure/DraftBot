@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "health",
 	commandFormat: "<health>",
 	typeWaited: {
@@ -15,7 +15,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function health(language, message, args) {
+const health = (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (args[0] < 0) {
 		throw new Error("Erreur experience : experience donné inférieur à 0 interdit !");
@@ -24,6 +24,6 @@ async function health(language, message, args) {
 	entity.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {health: entity.health});
-}
+};
 
 module.exports.execute = health;

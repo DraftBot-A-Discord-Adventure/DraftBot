@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "petfree",
 	aliases: ["pf"],
 	commandFormat: "",
@@ -12,13 +12,13 @@ module.exports.infos = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @return {String} - The successful message formatted
  */
-async function petfree(language, message ) {
+const petfree = async (language, message ) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (entity.Player.petId === null) {
 		throw new Error("Erreur petfree : vous n'avez pas de pet !");
 	}
 	entity.Player.petId = null;
 	return module.exports.infos.messageWhenExecuted;
-}
+};
 
 module.exports.execute = petfree;

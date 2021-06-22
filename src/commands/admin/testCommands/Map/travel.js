@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "travel",
 	aliases: ["tp"],
 	commandFormat: "<idStart> <idEnd>",
@@ -19,7 +19,7 @@ const Maps = require("../../../../core/Maps");
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function travel(language, message, args) {
+const travel = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const idMaxMap = await MapLocations.getIdMaxMap();
@@ -43,6 +43,6 @@ async function travel(language, message, args) {
 		mapNameStart: (await MapLocations.getById(args[0])).getDisplayName(language),
 		mapNameEnd: (await MapLocations.getById(args[1])).getDisplayName(language)
 	});
-}
+};
 
 module.exports.execute = travel;

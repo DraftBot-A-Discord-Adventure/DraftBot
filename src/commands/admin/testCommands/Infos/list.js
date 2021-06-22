@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "list",
 	commandFormat: "",
 	messageWhenExecuted: "Voici la liste des commandes tests disponibles :",
@@ -14,7 +14,7 @@ const CT = require("../../../../core/CommandsTest");
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {module:"discord.js".MessageEmbed} - The successful message formatted
  */
-function list(language, message) {
+const list = (language, message) => {
 	const embedListCommandsTest = new discord.MessageEmbed()
 		.setAuthor(message.author.username + ", voici la liste des commandes tests disponibles :", message.author.displayAvatarURL())
 		.setDescription("Si vous voulez plus d'informations sur une commande test en particulier, écrivez ceci : `test help <command>`")
@@ -31,6 +31,6 @@ function list(language, message) {
 		);
 	});
 	return embedListCommandsTest;
-}
+};
 
 module.exports.execute = list;

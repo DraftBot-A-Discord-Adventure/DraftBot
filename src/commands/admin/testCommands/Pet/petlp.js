@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "petlp",
 	commandFormat: "<lovePoints>",
 	typeWaited: {
@@ -15,7 +15,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function petlp(language, message, args) {
+const petlp = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const pet = await entity.Player.Pet;
 	if (pet === null) {
@@ -32,6 +32,6 @@ async function petlp(language, message, args) {
 			loveLevel: PetEntities.getLoveLevel(pet, language)
 		}
 	);
-}
+};
 
 module.exports.execute = petlp;

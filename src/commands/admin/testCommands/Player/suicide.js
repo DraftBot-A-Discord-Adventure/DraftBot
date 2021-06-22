@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "suicide",
 	commandFormat: "",
 	messageWhenExecuted: "Vous vous êtes suicidé avec succès !",
@@ -11,7 +11,7 @@ module.exports.infos = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @return {String} - The successful message formatted
  */
-async function suicide(language, message) {
+const suicide = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	entity.health = 0;
@@ -19,6 +19,6 @@ async function suicide(language, message) {
 	await Promise.all([entity.save(), entity.Player.save()]);
 
 	return module.exports.infos.messageWhenExecuted;
-}
+};
 
 module.exports.execute = suicide;

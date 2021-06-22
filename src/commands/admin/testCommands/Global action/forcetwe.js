@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "forcetwe",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez effectué une fin de topweek !",
@@ -11,10 +11,10 @@ const DB = require("../../../../core/DraftBot");
  * Force a topweek end event
  * @return {String} - The successful message formatted
  */
-async function forcetwe() {
+const forcetwe = async () => {
 	await DB.twe();
 
 	return module.exports.infos.messageWhenExecuted;
-}
+};
 
 module.exports.execute = forcetwe;

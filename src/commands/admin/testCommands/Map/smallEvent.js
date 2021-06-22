@@ -3,7 +3,7 @@ Object.keys(JsonReader.smallEvents).forEach(seName => {
 	stringDesc += "\n - " + seName;
 });
 
-module.exports.infos = {
+module.exports.help = {
 	name: "smallEvent",
 	commandFormat: "<seName>",
 	typeWaited: {
@@ -20,12 +20,12 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-function smallEvent(language, message, args) {
+const smallEvent = (language, message, args) => {
 	if (JsonReader.smallEvents[args[0]] === undefined) {
 		throw new Error("Erreur smallEvent : le mini-event " + args[0] + " n'existe pas. Veuillez vous référer à la commande \"test help smallEvent\" pour plus d'informations");
 	}
 	getCommandFromAlias("r").execute(message, language, [], -1, args[0]);
 	return format(module.exports.infos.messageWhenExecuted,{name: args[0]});
-}
+};
 
 module.exports.execute = smallEvent;

@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "forcejoinguild",
 	aliases: ["fjg"],
 	commandFormat: "<guildToJoin>",
@@ -16,7 +16,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function forcejoinguild(language, message, args) {
+const forcejoinguild = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const guildToJoin = await Guilds.findOne({where: {id: args[0]}});
@@ -43,6 +43,6 @@ async function forcejoinguild(language, message, args) {
 	]);
 
 	return format(module.exports.infos.messageWhenExecuted, {guildToJoin: guildToJoin.name});
-}
+};
 
 module.exports.execute = forcejoinguild;

@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "init",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez initialisé votre joueur !",
@@ -13,7 +13,7 @@ const Maps = require("../../../../core/Maps");
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @return {String} - The successful message formatted
  */
-async function init(language, message) {
+const init = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	entity.Player.level = 1;
 	entity.Player.score = 2000;
@@ -40,6 +40,6 @@ async function init(language, message) {
 	entity.Player.Inventory.backupId = 0;
 	entity.Player.Inventory.save();
 	return module.exports.infos.messageWhenExecuted;
-}
+};
 
 module.exports.execute = init;

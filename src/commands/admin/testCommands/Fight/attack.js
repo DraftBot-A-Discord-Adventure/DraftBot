@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "attack",
 	commandFormat: "<attack>",
 	typeWaited: {
@@ -15,7 +15,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function attack(language, message, args) {
+const attack = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (args[0] < 0) {
 		throw new Error("Erreur attack : attack donné inférieur à 0 interdit !");
@@ -24,6 +24,6 @@ async function attack(language, message, args) {
 	entity.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {attack: entity.attack});
-}
+};
 
 module.exports.execute = attack;

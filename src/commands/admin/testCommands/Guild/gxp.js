@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "gxp",
 	commandFormat: "<experience>",
 	typeWaited: {
@@ -15,7 +15,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function gxp(language, message, args) {
+const gxp = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const guild = await Guilds.findOne({where: {id: entity.Player.guildId}});
 	if (guild === null) {
@@ -27,6 +27,6 @@ async function gxp(language, message, args) {
 	guild.experience = parseInt(args[0],10);
 	guild.save();
 	return format(module.exports.infos.messageWhenExecuted, {experience: args[0]});
-}
+};
 
 module.exports.execute = gxp;

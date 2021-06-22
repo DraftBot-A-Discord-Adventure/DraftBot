@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.test = {
 	name: "addmoney",
 	commandFormat: "<money>",
 	typeWaited: {
@@ -15,12 +15,12 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function addmoney(language, message, args) {
+const addmoney = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	entity.Player.addMoney(parseInt(args[0]));
 	entity.Player.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {money: entity.Player.money});
-}
+};
 
 module.exports.execute = addmoney;

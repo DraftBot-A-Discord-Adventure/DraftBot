@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "guildpet",
 	aliases: ["gp"],
 	commandFormat: "<id> <sex = m/f>",
@@ -17,7 +17,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function guildpet(language, message, args) {
+const guildpet = async (language, message, args) => {
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -50,6 +50,6 @@ async function guildpet(language, message, args) {
 			petString: await PetEntities.getPetDisplay(newPet.PetEntity, language)
 		}
 	);
-}
+};
 
 module.exports.execute = guildpet;

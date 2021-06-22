@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "mapinfo",
 	messageWhenExecuted: "",
 	description: "Donne des informations pratiques sur la map sur laquelle vous êtes"
@@ -12,7 +12,7 @@ const Maps = require("../../../../core/Maps");
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @return {String} - The successful message formatted
  */
-async function mapinfo(language, message) {
+const mapinfo = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const mapEmbed = new discord.MessageEmbed();
@@ -51,6 +51,6 @@ async function mapinfo(language, message) {
 		mapEmbed.addField("Players", ":speech_balloon: " + await currMap.playersCount() + " player(s) on this map", true);
 	}
 	return mapEmbed;
-}
+};
 
 module.exports.execute = mapinfo;

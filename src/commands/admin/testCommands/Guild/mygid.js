@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "mygid",
 	commandFormat: "",
 	messageWhenExecuted: "Votre guilde ({gName}) possède l'id n°{idGuild} !",
@@ -12,13 +12,13 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function mygid(language, message) {
+const mygid = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const guild = await Guilds.findOne({where: {id: entity.Player.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur mygid : vous n'êtes pas dans une guilde !");
 	}
 	return format(module.exports.infos.messageWhenExecuted, {gName: guild.name, idGuild: guild.id});
-}
+};
 
 module.exports.execute = mygid;

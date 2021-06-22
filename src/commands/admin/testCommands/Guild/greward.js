@@ -1,6 +1,6 @@
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
 Object.entries(REWARD_TYPES).forEach((v) => stringDesc += "\n - " + v[1]); // eslint-disable-line no-return-assign
-module.exports.infos = {
+module.exports.help = {
 	name: "greward",
 	commandFormat: "<reward>",
 	typeWaited: {
@@ -17,7 +17,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function greward(language, message, args) {
+const greward = async (language, message, args) => {
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -35,6 +35,6 @@ async function greward(language, message, args) {
 
 	await getCommandFromAlias("gd").execute(message, language, [], args[0]);
 	return format(module.exports.infos.messageWhenExecuted, {reward: args[0]});
-}
+};
 
 module.exports.execute = greward;

@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "dailytimeout",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez effectué un dailytimeout !",
@@ -11,10 +11,10 @@ const DB = require("../../../../core/DraftBot");
  * Do a dailytimeout
  * @return {String} - The successful message formatted
  */
-function dailytimeout() {
+const dailytimeout = () => {
 	DB.dailyTimeout();
 
 	return module.exports.infos.messageWhenExecuted;
-}
+};
 
 module.exports.execute = dailytimeout;

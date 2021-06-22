@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "money",
 	commandFormat: "<money>",
 	typeWaited: {
@@ -15,7 +15,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function money(language, message, args) {
+const money = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (args[0] < 0) {
 		throw new Error("Erreur money : argent donné inférieur à 0 interdit !");
@@ -24,6 +24,6 @@ async function money(language, message, args) {
 	entity.Player.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {money: entity.Player.money});
-}
+};
 
 module.exports.execute = money;

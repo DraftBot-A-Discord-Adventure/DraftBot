@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "potionid",
 	commandFormat: "<id>",
 	typeWaited: {
@@ -15,7 +15,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function potionid(language, message, args) {
+const potionid = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	entity.Player.Inventory.potionId = parseInt(args[0],10);
@@ -29,6 +29,6 @@ async function potionid(language, message, args) {
 	entity.Player.Inventory.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {potion: potionText});
-}
+};
 
 module.exports.execute = potionid;

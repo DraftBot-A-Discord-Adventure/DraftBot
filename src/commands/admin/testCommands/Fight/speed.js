@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "speed",
 	commandFormat: "<speed>",
 	typeWaited: {
@@ -15,7 +15,7 @@ module.exports.infos = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-async function speed(language, message, args) {
+const speed = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (args[0] < 0) {
 		throw new Error("Erreur speed : speed donné inférieur à 0 interdit !");
@@ -24,6 +24,6 @@ async function speed(language, message, args) {
 	entity.save();
 
 	return format(module.exports.infos.messageWhenExecuted, {speed: entity.speed});
-}
+};
 
 module.exports.execute = speed;

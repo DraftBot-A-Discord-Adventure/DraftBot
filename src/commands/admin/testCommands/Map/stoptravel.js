@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "stoptravel",
 	aliases: ["stravel"],
 	commandFormat: "",
@@ -14,7 +14,7 @@ const Maps = require("../../../../core/Maps");
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @return {String} - The successful message formatted
  */
-async function stoptravel(language, message) {
+const stoptravel = (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (!Maps.isTravelling(entity.Player)) {
 		throw new Error("Erreur stoptravel : vous ne voyagez pas actuellement !");
@@ -24,6 +24,6 @@ async function stoptravel(language, message) {
 
 	return module.exports.infos.messageWhenExecuted;
 
-}
+};
 
 module.exports.execute = stoptravel;

@@ -1,4 +1,4 @@
-module.exports.infos = {
+module.exports.help = {
 	name: "forceguildowner",
 	aliases: ["fgo"],
 	commandFormat: "",
@@ -12,7 +12,7 @@ module.exports.infos = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @return {String} - The successful message formatted
  */
-async function forceguildowner(language, message) {
+const forceguildowner = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const guild = await Guilds.findOne({where: {id: entity.Player.guildId}});
 	if (guild === null) {
@@ -21,6 +21,6 @@ async function forceguildowner(language, message) {
 	guild.chiefId = entity.Player.id;
 	await guild.save();
 	return format(module.exports.infos.messageWhenExecuted, {gName: guild.name});
-}
+};
 
 module.exports.execute = forceguildowner;
