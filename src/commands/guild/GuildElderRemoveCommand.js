@@ -2,7 +2,11 @@ module.exports.help = {
 	name: "guildelderremove",
 	aliases: ["gelderremove", "ger"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
-	guildRequired: true
+	guildRequired: true,
+	guildPermissions: {
+		elder: false,
+		chief: true
+	}
 };
 
 /**

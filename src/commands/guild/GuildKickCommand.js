@@ -1,7 +1,12 @@
 module.exports.help = {
 	name: "guildkick",
 	aliases: ["gkick", "gk"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
+	guildRequired: true,
+	guildPermissions: {
+		elder: false,
+		chief: true
+	}
 };
 
 /**

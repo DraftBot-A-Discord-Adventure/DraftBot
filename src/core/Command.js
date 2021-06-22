@@ -369,8 +369,7 @@ class Command {
 		setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
 		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
-		await command.execute(message, language, entity, args);
-		// TODO : à repasser sans entity
+		await command.execute(message, language, args);
 	}
 }
 

@@ -1,7 +1,8 @@
 module.exports.help = {
 	name: "guildstorage",
 	aliases: ["gstorage", "gst"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
 };
 
 /**

@@ -1,7 +1,12 @@
 module.exports.help = {
 	name: "guildadd",
 	aliases: ["gadd", "ga"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true,
+	guildPermissions: {
+		elder: true,
+		chief: true
+	}
 };
 
 /**
