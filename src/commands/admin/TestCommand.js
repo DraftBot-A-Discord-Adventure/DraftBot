@@ -555,15 +555,36 @@ const TestCommand = async (language, message, args) => {
 					.send(message.channel);
 			}
 			else if (args[1] === "shop") {
-				const shop = await new DraftBotShopMessageBuilder(message.author.id, "Test shop", language, (userId) => Entities.getOrRegister(userId).Player.money)
+				const buyProduct = (message, shopItem) => {
+					message.description = "Player bought " + shopItem;
+					message.sentMessage.edit(message);
+				}
+				const shop = (
+					await new DraftBotShopMessageBuilder(
+						message.author,
+						"Test shop",
+						language,
+						async (userId) => (await Entities.getOrRegister(userId))[0].Player.money,
+						async (userId, amount) => {
+							const [player] = (await Entities.getOrRegister(userId)).Player;
+							player.money -= amount;
+							await player.save();
+						})
 					.addCategory(new ShopItemCategory([
-						new ShopItem("😀", "product 1", 123),
-						new ShopItem("✨", "product 2", 897)
+						new ShopItem("😀", "product 1", 123, (msg) => buyProduct(msg, "product 1")),
+						new ShopItem("✨", "product 2", 897, (msg) => buyProduct(msg, "product 2"))
 					], "Category 1"))
 					.addCategory(new ShopItemCategory([
-						new ShopItem("🕳️", "product 3", 999999)
+						new ShopItem("🕳️", "product 3", 999999, (msg) => buyProduct(msg, "product 3"))
 					], "Category 2"))
+					.endCallback(
+						(shopMessage, reason) => {
+							shopMessage.setDescription("Shop ended\nReason: " + reason)
+							shopMessage.sentMessage.edit(shopMessage);
+						}
+					)
 					.build()
+				)
 					.send(message.channel);
 			}
 			break;
