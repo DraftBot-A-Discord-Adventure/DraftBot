@@ -1,3 +1,5 @@
+const {readdir} = require("fs/promises");
+
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -177,6 +179,8 @@ module.exports = (Sequelize, DataTypes) => {
 
 		return values.join(" ");
 	};
+
+	Weapons.getMaxId = async () => (await readdir("resources/text/weapons/")).length - 1;
 
 	return Weapons;
 };
