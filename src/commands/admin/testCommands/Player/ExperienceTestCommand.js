@@ -18,10 +18,15 @@ module.exports.help = {
  */
 const experience = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (args[0] < 0) {
-		throw new Error("Erreur experience : experience donné inférieur à 0 interdit !");
+	const maxXp = entity.Player.getExperienceNeededToLevelUp() * 2;
+	if (args[0] < 0 || args[0] > maxXp) {
+		throw new Error("Erreur experience : expérience donnée doit être comprise entre 0 et " + maxXp + " !");
 	}
 	entity.Player.experience = parseInt(args[0],10);
+
+	while (entity.Player.needLevelUp()) {
+		await entity.Player.levelUpIfNeeded(entity, message.channel, language);
+	}
 	entity.Player.save();
 
 	return format(module.exports.help.messageWhenExecuted, {experience: entity.Player.experience});

@@ -18,8 +18,8 @@ module.exports.help = {
  */
 const level = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (args[0] <= 0) {
-		throw new Error("Erreur level : niveau donné inférieur à 0 interdit !");
+	if (args[0] <= 0 || args[0] > 1000) {
+		throw new Error("Erreur level : niveau donné doit être compris entre 1 et 1000 !");
 	}
 	entity.Player.level = parseInt(args[0],10);
 	entity.Player.save();
