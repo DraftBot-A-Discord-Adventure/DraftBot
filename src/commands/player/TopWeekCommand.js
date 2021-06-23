@@ -5,7 +5,7 @@ module.exports.help = {
 
 const TopWeekCommand = async (message, language, args) => {
 	args.unshift("w");
-	await topCommand(message, language, args);
+	await getCommandFromAlias("t").execute(message, language, args);
 };
 
 module.exports.execute = TopWeekCommand;

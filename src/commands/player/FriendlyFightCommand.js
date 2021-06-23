@@ -4,7 +4,7 @@ module.exports.help = {
 };
 
 const FriendlyFightCommand = async function(message, language, args) {
-	await fightCommand(message, language, args, true);
+	await getCommandFromAlias("f").execute(message, language, args, true);
 };
 
 module.exports.execute = FriendlyFightCommand;
