@@ -17,10 +17,10 @@ module.exports.help = {
  */
 const weeklyscore = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	entity.Player.weeklyscore = parseInt(args[0],10);
+	entity.Player.weeklyScore = parseInt(args[0],10);
 	entity.Player.save();
 
-	return format(module.exports.help.messageWhenExecuted, {weeklyscore: entity.Player.weeklyscore});
+	return format(module.exports.help.messageWhenExecuted, {weeklyscore: entity.Player.weeklyScore});
 };
 
 module.exports.execute = weeklyscore;
