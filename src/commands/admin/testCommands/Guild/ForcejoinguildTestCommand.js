@@ -25,6 +25,12 @@ const forcejoinguild = async (language, message, args) => {
 	}
 
 	const guildToLeave = await Guilds.findOne({where: {id: entity.Player.guildId}});
+	if (guildToJoin.id === guildToLeave.id) {
+		throw new Error("Erreur forcejoinguild : vous êtes déjà dans la guilde donnée !");
+	}
+	if ((await Entities.getByGuild(guild.id)).length === GUILD.MAX_GUILD_MEMBER) {
+		throw new Error("Erreur forcejoinguild : nombre de joueurs maximum dans cette guilde atteint !");
+	}
 	if (guildToLeave && guildToLeave.chiefId === entity.Player.id) {
 		// the chief is leaving : destroy the guild
 		await Guilds.destroy({
