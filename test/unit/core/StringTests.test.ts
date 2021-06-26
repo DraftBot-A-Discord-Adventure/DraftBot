@@ -15,5 +15,5 @@ test("tests on strings", () => {
 	stringTestsTab.forEach(line => {
 		expect(Tools.isAMention(line.text)).toBe(line.isMention);
 		expect(Tools.isAnEmoji(line.text)).toBe(line.isEmoji);
-	})
+	});
 });
