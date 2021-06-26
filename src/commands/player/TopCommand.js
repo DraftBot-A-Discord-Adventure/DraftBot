@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "top",
-	aliases: ["t","rank"]
+	aliases: ["t","rank"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**

@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "classtats",
-	aliases: ["cs","classesstats","classcompare","classestats"]
+	aliases: ["cs","classesstats","classcompare","classestats"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**

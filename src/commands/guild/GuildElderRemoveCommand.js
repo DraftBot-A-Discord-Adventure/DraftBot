@@ -1,7 +1,7 @@
 module.exports.help = {
 	name: "guildelderremove",
 	aliases: ["gelderremove", "ger"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 	guildRequired: true,
 	guildPermissions: 3
 };

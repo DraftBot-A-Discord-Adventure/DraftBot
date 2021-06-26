@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "topweek",
-	aliases: ["tw", "topw"]
+	aliases: ["tw", "topw"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 const TopWeekCommand = async (message, language, args) => {

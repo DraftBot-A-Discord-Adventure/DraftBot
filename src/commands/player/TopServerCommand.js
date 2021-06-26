@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "topserver",
-	aliases: ["ts", "tops", "topserv"]
+	aliases: ["ts", "tops", "topserv"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 const TopServerCommand = (message, language) => {

@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "dmnotification",
-	aliases: ["dmn","notifs","dms","notif","dmnotifications"]
+	aliases: ["dmn","notifs","dms","notif","dmnotifications"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
 };
 
 /**

@@ -1,6 +1,7 @@
 module.exports.help = {
 	name: "friendlyfight",
-	aliases: ["ff", "ffight"]
+	aliases: ["ff", "ffight"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 const FriendlyFightCommand = async function(message, language, args) {
