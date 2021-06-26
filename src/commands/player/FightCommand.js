@@ -3,7 +3,8 @@ const Fight = require("../../core/fights/Fight");
 module.exports.help = {
 	name: "fight",
 	aliases: ["f"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	requiredLevel: FIGHT.REQUIRED_LEVEL
 };
 
 /**
