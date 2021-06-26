@@ -11,7 +11,8 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildShelterCommand = async (message, language, entity) => {
+const GuildShelterCommand = async (message, language) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const tr = JsonReader.commands.guildShelter.getTranslation(language);
 	const shelterEmbed = new discord.MessageEmbed();

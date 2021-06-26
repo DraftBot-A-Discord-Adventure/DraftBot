@@ -15,7 +15,8 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildKickCommand = async (message, language, entity, args) => {
+const GuildKickCommand = async (message, language, args) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	let kickedEntity;
 	const guild = await Guilds.getById(entity.Player.guildId);
 	let kickedGuild;

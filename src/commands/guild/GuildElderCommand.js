@@ -3,10 +3,7 @@ module.exports.help = {
 	aliases: ["gelder"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 	guildRequired: true,
-	guildPermissions: {
-		elder: false,
-		chief: true
-	}
+	guildPermissions: 3
 };
 
 /**

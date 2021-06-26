@@ -11,7 +11,8 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildStorageCommand = async (message, language, entity) => {
+const GuildStorageCommand = async (message, language) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	const foodInfos = JsonReader.food;
 	const translations = JsonReader.commands.guildStorage.getTranslation(
 		language
