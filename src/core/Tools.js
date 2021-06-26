@@ -25,8 +25,9 @@ global.getIdFromMention = (variable) => {
  * @return {boolean}
  */
 global.isAMention = (variable) => {
+	console.log("'" + variable + "'");
 	if (typeof variable === "string") {
-		return RegExp(/^<@![0-9]{18}>$/).test(variable);
+		return RegExp(/^<@!?[0-9]{18}>$/).test(variable);
 	}
 	return false;
 };
