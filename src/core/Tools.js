@@ -41,7 +41,7 @@ global.isAnEmoji = (variable) => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\
 module.exports = {
 	isAMention: isAMention,
 	isAnEmoji: isAnEmoji
-}
+};
 
 /**
  * Send all attachments from a message to a discord channel
