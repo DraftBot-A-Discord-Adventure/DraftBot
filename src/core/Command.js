@@ -308,7 +308,6 @@ class Command {
 		}
 
 		const [entity] = await Entities.getOrRegister(message.author.id);
-
 		if (command.help.requiredLevel && entity.Player.getLevel() < command.help.requiredLevel) {
 			return await sendErrorMessage(
 				message.author,
@@ -342,6 +341,15 @@ class Command {
 			if (guild === null) {
 				// not in a guild
 				return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
+			}
+
+			let userPermissionsLevel = 1;
+
+			if (entity.id === guild.getElderId()) {
+				userPermissionsLevel = 2;
+			}
+			if (entity.id === guild.getChiefId()) {
+				userPermissionsLevel = 3;
 			}
 		}
 
