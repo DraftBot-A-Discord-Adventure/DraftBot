@@ -30,17 +30,6 @@ const GuildDescriptionCommand = async (message, language, args) => {
 		);
 	}
 
-	if (entity.id !== guild.chiefId && entity.id !== guild.elderId) {
-		// not the chief
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildDescription.getTranslation(language)
-				.notAuthorizedError
-		);
-	}
-
 	const description = args.join(" ");
 	const regexAllowed = RegExp(
 		/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû"',.;:?!]+$/

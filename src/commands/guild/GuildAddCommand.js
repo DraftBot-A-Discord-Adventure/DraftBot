@@ -67,16 +67,6 @@ const GuildAddCommand = async (message, language, args) => {
 
 	const guild = await Guilds.getById(entity.Player.guildId);
 
-
-	if (entity.id !== guild.chiefId && entity.id !== guild.elderId) {
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildAdd.getTranslation(language).notAuthorizedError
-		);
-	}
-
 	// search for a user's guild
 	try {
 		invitedGuild = await Guilds.getById(invitedEntity.Player.guildId);

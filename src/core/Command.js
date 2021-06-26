@@ -351,6 +351,16 @@ class Command {
 			if (entity.id === guild.getChiefId()) {
 				userPermissionsLevel = 3;
 			}
+
+			if (userPermissionsLevel < command.help.guildPermissions) {
+				return sendErrorMessage(
+					message.author,
+					message.channel,
+					language,
+					JsonReader.commands.guildDescription.getTranslation(language)
+						.notAuthorizedError
+				);
+			}
 		}
 
 		if (!Command.players.has(command.name)) {

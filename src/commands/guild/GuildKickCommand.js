@@ -3,10 +3,7 @@ module.exports.help = {
 	aliases: ["gkick", "gk"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
 	guildRequired: true,
-	guildPermissions: {
-		elder: false,
-		chief: true
-	}
+	guildPermissions: 3
 };
 
 /**
@@ -41,15 +38,6 @@ const GuildKickCommand = async (message, language, args) => {
 
 	if (await sendBlockedError(kickedEntity, message.channel, language)) {
 		return;
-	}
-
-	if (guild.chiefId !== entity.id) {
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildKick.getTranslation(language).notChiefError
-		);
 	}
 
 	// search for a user's guild

@@ -66,14 +66,6 @@ const GuildElderCommand = async (message, language, args) => {
 			JsonReader.commands.guildElder.getTranslation(language).notInTheGuild
 		);
 	}
-	if (guild.chiefId !== entity.id) {
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildElder.getTranslation(language).notChiefError
-		);
-	}
 
 	if (guild.chiefId === elderEntity.id) {
 		// chief cannot be the elder

@@ -3,10 +3,7 @@ module.exports.help = {
 	aliases: ["gelderremove", "ger"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
 	guildRequired: true,
-	guildPermissions: {
-		elder: false,
-		chief: true
-	}
+	guildPermissions: 3
 };
 
 /**
@@ -19,10 +16,6 @@ const GuildElderRemoveCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const elderRemoveEmbed = new discord.MessageEmbed();
-
-	if (guild.chiefId !== entity.id) {
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notChiefError);
-	}
 
 	elderRemoveEmbed.setAuthor(
 		format(
