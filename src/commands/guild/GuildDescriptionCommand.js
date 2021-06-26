@@ -16,7 +16,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const GuildDescriptionCommand = async (message, language, args) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+	let [entity] = await Entities.getOrRegister(message.author.id);
 	let guild = await Guilds.getById(entity.Player.guildId);
 	const confirmationEmbed = new discord.MessageEmbed();
 
