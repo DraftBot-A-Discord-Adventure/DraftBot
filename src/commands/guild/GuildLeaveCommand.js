@@ -11,7 +11,8 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildLeaveCommand = async (message, language, entity) => {
+const GuildLeaveCommand = async (message, language) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	const guild = await Guilds.getById(entity.Player.guildId);
 	let elder;
 	const confirmationEmbed = new discord.MessageEmbed();
