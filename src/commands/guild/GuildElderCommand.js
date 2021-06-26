@@ -16,12 +16,14 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 
-const GuildElderCommand = async (message, language, entity, args) => {
+const GuildElderCommand = async (message, language, args) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	let elderEntity;
 	let guild;
 	let elderGuild;
 	const elderAddEmbed = new discord.MessageEmbed();
 
+	guild = await Guilds.getById(entity.Player.guildId);
 	try {
 		[elderEntity] = await Entities.getByArgs(args, message);
 	}
