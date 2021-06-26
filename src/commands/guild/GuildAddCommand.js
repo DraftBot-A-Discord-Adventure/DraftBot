@@ -65,7 +65,7 @@ const GuildAddCommand = async (message, language, args) => {
 		return;
 	}
 
-	const guild = await Guilds.getById(entity.Player.guildId);
+	let guild = await Guilds.getById(entity.Player.guildId);
 
 	// search for a user's guild
 	try {
@@ -128,7 +128,6 @@ const GuildAddCommand = async (message, language, args) => {
 	addBlockedPlayer(invitedEntity.discordUserId, "guildAdd", collector);
 
 	collector.on("end", async (reaction) => {
-		let guild;
 		removeBlockedPlayer(invitedEntity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
