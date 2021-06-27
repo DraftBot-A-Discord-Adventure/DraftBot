@@ -12,7 +12,7 @@ module.exports.help = {
  */
 const MyPetCommand = async (message, language, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
-	if (entity === null) {
+	if (!entity) {
 		[entity] = await Entities.getOrRegister(message.author.id);
 	}
 
