@@ -12,12 +12,7 @@ global.idToMention = (id) => "<@&" + id + ">";
  * @param {any} variable
  * @return {String} The id of the mention
  */
-global.getIdFromMention = (variable) => {
-	if (typeof variable === "string") {
-		return variable.slice(3,variable.length - 1);
-	}
-	return "";
-};
+global.getIdFromMention = (variable) => typeof variable === "string" ? variable.slice(3,variable.length - 1) : "";
 
 /**
  * Check if the given variable is a Mention
