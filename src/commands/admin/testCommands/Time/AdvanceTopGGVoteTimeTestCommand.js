@@ -21,6 +21,6 @@ const advanceTopGGVoteTimeTestCommand = async (language, message, args) => {
 	entity.Player.topggVoteAt -= parseInt(args[0]) * 60000;
 	entity.Player.save();
 	return format(module.exports.help.messageWhenExecuted, {time: args[0]});
-}
+};
 
 module.exports.execute = advanceTopGGVoteTimeTestCommand;

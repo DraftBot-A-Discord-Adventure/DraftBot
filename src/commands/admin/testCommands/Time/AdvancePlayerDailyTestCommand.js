@@ -21,6 +21,6 @@ const advancePlayerDailyTestCommand = async (language, message, args) => {
 	entity.Player.Inventory.lastDailyAt -= parseInt(args[0]) * 60000;
 	entity.Player.Inventory.save();
 	return format(module.exports.help.messageWhenExecuted, {time: args[0]});
-}
+};
 
 module.exports.execute = advancePlayerDailyTestCommand;

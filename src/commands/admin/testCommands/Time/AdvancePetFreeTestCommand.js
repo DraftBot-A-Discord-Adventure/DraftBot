@@ -21,6 +21,6 @@ const advancePetFreeTestCommand = async (language, message, args) => {
 	entity.Player.lastPetFree -= parseInt(args[0]) * 60000;
 	entity.Player.save();
 	return format(module.exports.help.messageWhenExecuted, {time: args[0]});
-}
+};
 
 module.exports.execute = advancePetFreeTestCommand;

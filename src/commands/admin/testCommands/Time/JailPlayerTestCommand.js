@@ -23,6 +23,6 @@ const jailPlayerTestCommand = async (language, message, args) => {
 	await Maps.applyEffect(entity.Player, ":lock:");
 	await entity.Player.save();
 	return format(module.exports.help.messageWhenExecuted, {player: args[0]});
-}
+};
 
 module.exports.execute = jailPlayerTestCommand;

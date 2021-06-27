@@ -28,6 +28,6 @@ const playerEffectTestCommand = async (language, message, args) => {
 	}
 	throw new Error("Effet inconnu ! (Il ne faut pas mettre les ::)");
 
-}
+};
 
 module.exports.execute = playerEffectTestCommand;

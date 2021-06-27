@@ -12,14 +12,24 @@ global.idToMention = (id) => "<@&" + id + ">";
  * @param {any} variable
  * @return {String} The id of the mention
  */
-global.getIdFromMention = (variable) => typeof variable === "string" ? variable.slice(3,variable.length - 1) : "";
+global.getIdFromMention = (variable) => {
+	if (typeof variable === "string") {
+		return variable.slice(3,variable.length - 1);
+	}
+	return "";
+};
 
 /**
  * Check if the given variable is a Mention
  * @param {String} variable
  * @return {boolean}
  */
-global.isAMention = (variable) => typeof variable === "string" ? RegExp(/^<@!?[0-9]{18}>$/).test(variable) : false;
+global.isAMention = (variable) => {
+	if (typeof variable === "string") {
+		return RegExp(/^<@!?[0-9]{18}>$/).test(variable);
+	}
+	return false;
+};
 
 /**
  * Check if the given variable is a Discord Emoji

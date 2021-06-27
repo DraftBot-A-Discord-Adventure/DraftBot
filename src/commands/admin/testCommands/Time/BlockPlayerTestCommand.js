@@ -33,6 +33,6 @@ const blockPlayerTestCommand = async (language, message, args) => {
 	/* eslint-enable @typescript-eslint/no-empty-function */
 	addBlockedPlayer(entity.discordUserId, "test", collector);
 	return format(module.exports.help.messageWhenExecuted, {time: sec});
-}
+};
 
 module.exports.execute = blockPlayerTestCommand;

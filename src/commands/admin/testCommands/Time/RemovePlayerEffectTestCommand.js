@@ -18,6 +18,6 @@ const removePlayerEffectTestCommand = async (language, message) => {
 
 	await Maps.removeEffect(entity.Player);
 	await entity.Player.save();
-}
+};
 
 module.exports.execute = removePlayerEffectTestCommand;

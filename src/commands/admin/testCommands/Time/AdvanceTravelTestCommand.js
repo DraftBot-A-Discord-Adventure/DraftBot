@@ -23,6 +23,6 @@ const advanceTravelTestCommand = async (language, message, args) => {
 	Maps.advanceTime(entity.Player, parseInt(args[0]));
 	entity.Player.save();
 	return format(module.exports.help.messageWhenExecuted, {time: args[0]});
-}
+};
 
 module.exports.execute = advanceTravelTestCommand;

@@ -25,6 +25,6 @@ const advanceGuildDailyTestCommand = async (language, message, args) => {
 	guild.lastDailyAt -= parseInt(args[0]) * 60000;
 	guild.save();
 	return format(module.exports.help.messageWhenExecuted, {time: args[0]});
-}
+};
 
 module.exports.execute = advanceGuildDailyTestCommand;
