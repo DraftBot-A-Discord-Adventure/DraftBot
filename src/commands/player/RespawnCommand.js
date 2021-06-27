@@ -8,8 +8,8 @@ module.exports.help = {
 
 /**
  * Allow a player who is dead to respawn
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const RespawnCommand = async (message, language) => {

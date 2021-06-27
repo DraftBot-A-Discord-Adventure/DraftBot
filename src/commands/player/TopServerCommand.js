@@ -3,7 +3,12 @@ module.exports.help = {
 	aliases: ["ts", "tops", "topserv"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
-
+/**
+ * Allow to display the rankings of the players in author server
+ * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {String[]} args=[] - Additional arguments sent with the command
+ */
 const TopServerCommand = (message, language) => {
 // TODO : Voir avec discord pourquoi le ts marche plus !
 	// Morceau de code à retirer

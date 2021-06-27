@@ -5,8 +5,8 @@ module.exports.help = {
 
 /**
  * Displays the link for the idea board
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const IdeaCommand = (message, language) => {

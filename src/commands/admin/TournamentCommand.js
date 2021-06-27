@@ -9,8 +9,8 @@ global.tournamentPower = 500;
 
 /**
  * Allow an admin to change the prefix the bot use in a specific server
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const TournamentCommand = async (message, language, args) => {

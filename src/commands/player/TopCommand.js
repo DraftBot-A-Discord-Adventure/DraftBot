@@ -6,8 +6,8 @@ module.exports.help = {
 
 /**
  * Allow to display the rankings of the players
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const TopCommand = async function(message, language, args) {

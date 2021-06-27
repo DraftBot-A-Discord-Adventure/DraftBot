@@ -6,8 +6,8 @@ module.exports.help = {
 
 /**
  * Allow to exchange the object that is in the player backup slot within the one that is active
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SellCommand = async (message, language) => {
