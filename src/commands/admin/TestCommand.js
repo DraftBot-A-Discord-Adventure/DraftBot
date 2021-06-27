@@ -11,40 +11,24 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const TestCommand = async (message, language, args) => {
-
-	// First test : check if we are in test mode
-	if (!JsonReader.app.TEST_MODE) {
-		return;
+	// First, we test if we are in test mode
+	if (JsonReader.app.TEST_MODE) {
+		// Second, we collect the test command entered
+		const testCommand = args[0] ?? "list";
+		const argsTest = args.slice(1) ?? [];
+		const	commandTestCurrent = await CT.getTestCommand(testCommand)
+			.catch((e) => message.channel.send(":x: | Commande test " + testCommand + " inexistante : ```" + e.stack + "```"));
+		if (!commandTestCurrent) {
+			return;
+		}
+		// Third, we check if the test command has the good arguments
+		const testGoodFormat = CT.isGoodFormat(commandTestCurrent, argsTest, message);
+		if (!testGoodFormat[0]) {
+			return message.channel.send(testGoodFormat[1]);
+		}
+		// Last, we execute the test command
+		await CT.executeAndAlertUser(language, message, commandTestCurrent, argsTest);
 	}
-
-	// Second test : check if we have a command entered, if not, send the help message
-	let testCommand, argsTest;
-	if (args.length === 0) {
-		testCommand = "list";
-		argsTest = [];
-	}
-	else {
-		testCommand = args[0];
-		argsTest = args.slice(1);
-	}
-
-	// Third test : try to find that command
-	let commandTestCurrent;
-	try {
-		commandTestCurrent = await CT.getTestCommand(testCommand);
-	}
-	catch (e) {
-		return message.channel.send(":x: | Commande test " + testCommand + " inexistante : ```" + e.stack + "```");
-	}
-
-	// Fourth test : see if we have the right format for that command
-	const testGoodFormat = CT.isGoodFormat(commandTestCurrent, argsTest, message);
-	if (!testGoodFormat[0]) {
-		return message.channel.send(testGoodFormat[1]);
-	}
-
-	// Fifth test : try to launch the command
-	await CT.executeAndAlertUser(language, message, commandTestCurrent, argsTest);
 };
 
 module.exports.execute = TestCommand;
