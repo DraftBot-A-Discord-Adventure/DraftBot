@@ -6,14 +6,14 @@ module.exports.help = {
 
 /**
  * Cheat command for testers
- * @param {("fr"|"en")} language - Language to use in the response
+ * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const TestCommand = async (message, language, args) => {
 
 	// First test : check if we are in test mode
-	if (JsonReader.app.TEST_MODE !== true) {
+	if (!JsonReader.app.TEST_MODE) {
 		return;
 	}
 

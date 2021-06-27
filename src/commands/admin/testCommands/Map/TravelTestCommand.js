@@ -19,7 +19,7 @@ const Maps = require("../../../../core/Maps");
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const travel = async (language, message, args) => {
+const travelTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const idMaxMap = await MapLocations.getIdMaxMap();
@@ -45,4 +45,4 @@ const travel = async (language, message, args) => {
 	});
 };
 
-module.exports.execute = travel;
+module.exports.execute = travelTestCommand;

@@ -11,10 +11,10 @@ const DB = require("../../../../core/DraftBot");
  * Do a dailytimeout
  * @return {String} - The successful message formatted
  */
-const dailytimeout = () => {
+const dailyTimeoutTestCommand = () => {
 	DB.dailyTimeout();
 
 	return module.exports.help.messageWhenExecuted;
 };
 
-module.exports.execute = dailytimeout;
+module.exports.execute = dailyTimeoutTestCommand;

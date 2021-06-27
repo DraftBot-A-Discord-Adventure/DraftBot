@@ -16,7 +16,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const experience = async (language, message, args) => {
+const experienceTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const maxXp = entity.Player.getExperienceNeededToLevelUp() * 2;
 	if (args[0] < 0 || args[0] > maxXp) {
@@ -32,4 +32,4 @@ const experience = async (language, message, args) => {
 	return format(module.exports.help.messageWhenExecuted, {experience: entity.Player.experience});
 };
 
-module.exports.execute = experience;
+module.exports.execute = experienceTestCommand;

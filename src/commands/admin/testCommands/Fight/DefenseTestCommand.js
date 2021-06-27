@@ -15,7 +15,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const defense = async (language, message, args) => {
+const defenseTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (args[0] < 0) {
 		throw new Error("Erreur defense : defense donné inférieur à 0 interdit !");
@@ -26,4 +26,4 @@ const defense = async (language, message, args) => {
 	return format(module.exports.help.messageWhenExecuted, {defense: entity.defense});
 };
 
-module.exports.execute = defense;
+module.exports.execute = defenseTestCommand;

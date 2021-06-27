@@ -18,7 +18,7 @@ const CT = require("../../../../core/CommandsTest");
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {module:"discord.js".MessageEmbed} - The successful message formatted
  */
-const help = async (language, message, args) => {
+const helpTestCommand = async (language, message, args) => {
 	let helpOnCommand;
 	try {
 		helpOnCommand = await CT.getTestCommand(args[0]);
@@ -60,4 +60,4 @@ const help = async (language, message, args) => {
 	return embedHelpTest;
 };
 
-module.exports.execute = help;
+module.exports.execute = helpTestCommand;

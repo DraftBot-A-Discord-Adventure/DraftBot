@@ -20,7 +20,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const smallEvent = (language, message, args) => {
+const smallEventTestCommand = (language, message, args) => {
 	if (JsonReader.smallEvents[args[0]] === undefined) {
 		throw new Error("Erreur smallEvent : le mini-event " + args[0] + " n'existe pas. Veuillez vous référer à la commande \"test help smallEvent\" pour plus d'informations");
 	}
@@ -28,4 +28,4 @@ const smallEvent = (language, message, args) => {
 	return format(module.exports.help.messageWhenExecuted,{name: args[0]});
 };
 
-module.exports.execute = smallEvent;
+module.exports.execute = smallEventTestCommand;
