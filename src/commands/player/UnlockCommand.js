@@ -22,7 +22,7 @@ const UnlockCommand = async (message, language, args) => {
 	}
 
 	const [lockedEntity] = await Entities.getByArgs(args, message);
-	if (lockedEntity === null) {
+	if (!lockedEntity) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).cannotGetlockedUser);
 	}
 
