@@ -19,12 +19,7 @@ global.getIdFromMention = (variable) => typeof variable === "string" ? variable.
  * @param {String} variable
  * @return {boolean}
  */
-global.isAMention = (variable) => {
-	if (typeof variable === "string") {
-		return RegExp(/^<@!?[0-9]{18}>$/).test(variable);
-	}
-	return false;
-};
+global.isAMention = (variable) => typeof variable === "string" ? RegExp(/^<@!?[0-9]{18}>$/).test(variable) : false;
 
 /**
  * Check if the given variable is a Discord Emoji
