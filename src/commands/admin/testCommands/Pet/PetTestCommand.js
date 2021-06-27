@@ -16,7 +16,7 @@ module.exports.help = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const pet = async (language, message, args) => {
+const petTestCommand = async (language, message, args) => {
 
 	let [entity] = await Entities.getOrRegister(message.author.id);
 	if (entity.Player.Pet) {
@@ -47,4 +47,4 @@ const pet = async (language, message, args) => {
 	);
 };
 
-module.exports.execute = pet;
+module.exports.execute = petTestCommand;

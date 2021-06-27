@@ -13,7 +13,7 @@ module.exports.help = {
 const TestCommand = async (message, language, args) => {
 
 	// First test : check if we are in test mode
-	if (JsonReader.app.TEST_MODE !== true) {
+	if (!JsonReader.app.TEST_MODE) {
 		return;
 	}
 
