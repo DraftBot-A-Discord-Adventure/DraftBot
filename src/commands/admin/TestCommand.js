@@ -16,18 +16,20 @@ const TestCommand = async (message, language, args) => {
 		// Second, we collect the test command entered
 		const testCommand = args[0] ?? "list";
 		const argsTest = args.slice(1) ?? [];
-		const	commandTestCurrent = await CT.getTestCommand(testCommand)
+		const commandTestCurrent = await CT.getTestCommand(testCommand)
 			.catch((e) => message.channel.send(":x: | Commande test " + testCommand + " inexistante : ```" + e.stack + "```"));
 		if (!commandTestCurrent) {
 			return;
 		}
 		// Third, we check if the test command has the good arguments
 		const testGoodFormat = CT.isGoodFormat(commandTestCurrent, argsTest, message);
-		if (!testGoodFormat[0]) {
+		if (testGoodFormat[0]) {
+			// Last, we execute the test command
+			await CT.executeAndAlertUser(language, message, commandTestCurrent, argsTest);
+		}
+		else {
 			return message.channel.send(testGoodFormat[1]);
 		}
-		// Last, we execute the test command
-		await CT.executeAndAlertUser(language, message, commandTestCurrent, argsTest);
 	}
 };
 
