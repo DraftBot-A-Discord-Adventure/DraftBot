@@ -2,15 +2,18 @@ import {DraftBotReactionMessage} from "./DraftBotReactionMessage";
 import {DraftBotReaction} from "./DraftBotReaction";
 import {TranslationModule, Translations} from "../Translations";
 import {Constants} from "../Constants";
-import {DMChannel, Message, MessageReaction, NewsChannel, TextChannel, User} from "discord.js";
+import {User} from "discord.js";
 import {DraftBotErrorEmbed} from "./DraftBotErrorEmbed";
+import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
 
 declare function format(s: string, replacement: any): string;
 
 export enum ShopEndReason {
 	TIME,
 	REACTION,
-	NOT_ENOUGH_MONEY
+	NOT_ENOUGH_MONEY,
+	REFUSED_CONFIRMATION,
+	SUCCESS
 }
 
 export class DraftBotShopMessage extends DraftBotReactionMessage {
@@ -97,6 +100,18 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		return this._shopItems[index];
 	}
 
+	async removeUserMoney(amount: number): Promise<void> {
+		return await this._removeUserMoney(this._user.id, amount);
+	}
+
+	get user(): User {
+		return this._user;
+	}
+
+	get language(): string {
+		return this._language;
+	}
+
 	private static async shopCallback(msg: DraftBotReactionMessage): Promise<void> {
 		const shopMessage = msg as DraftBotShopMessage;
 		const choseShopItem = shopMessage.getChoseShopItem();
@@ -118,10 +133,44 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.NOT_ENOUGH_MONEY);
 			}
 			else {
-				/* TODO buy confirmation */
+				const confirmBuyMessage = await new DraftBotValidateReactionMessage(
+					shopMessage._user,
+					async(reactionMessage) => {
+						const validateMessage = reactionMessage as DraftBotValidateReactionMessage;
+						if (validateMessage.isValidated()) {
+							const removeMoney = await choseShopItem.buyCallback(shopMessage);
+							if (removeMoney) {
+								await shopMessage.removeUserMoney(choseShopItem.price);
+							}
+							shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
+						}
+						else {
+							await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
+								shopMessage.user,
+								shopMessage.language,
+								shopMessage._translationModule.get("error.canceledPurchase"),
+								true
+							));
+							shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
+						}
+					}
+				);
+				confirmBuyMessage.formatAuthor(shopMessage._translationModule.get("confirm"), shopMessage._user);
+				confirmBuyMessage.setDescription(format(shopMessage._translationModule.get("display"), {
+					emote: choseShopItem.emote,
+					name: choseShopItem.name,
+					price: choseShopItem.price
+				}) + "\n\n" + Constants.REACTIONS.WARNING + " " + choseShopItem.description);
+				confirmBuyMessage.send(shopMessage.sentMessage.channel);
 			}
 		}
 		else if (msg.getFirstReaction()) {
+			await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
+				shopMessage.user,
+				shopMessage.language,
+				shopMessage._translationModule.get("error.leaveShop"),
+				true
+			));
 			shopMessage._shopEndCallback(shopMessage, ShopEndReason.REACTION);
 		}
 		else {
@@ -197,13 +246,16 @@ export class ShopItem {
 
 	private readonly _price: number;
 
-	private readonly _buyCallback: (message: DraftBotShopMessage) => Promise<void>
+	private readonly _buyCallback: (message: DraftBotShopMessage) => Promise<boolean>
 
-	constructor(emote: string, name: string, price: number, buyCallback: (message: DraftBotShopMessage) => Promise<void>) {
+	private readonly _description: string;
+
+	constructor(emote: string, name: string, price: number, description: string, buyCallback: (message: DraftBotShopMessage) => Promise<boolean>) {
 		this._emote = emote;
 		this._name = name;
 		this._price = price;
 		this._buyCallback = buyCallback;
+		this._description = description;
 	}
 
 	get emote(): string {
@@ -216,6 +268,14 @@ export class ShopItem {
 
 	get price(): number {
 		return this._price;
+	}
+
+	get buyCallback(): (message: DraftBotShopMessage) => Promise<boolean> {
+		return this._buyCallback;
+	}
+
+	get description(): string {
+		return this._description;
 	}
 }
 

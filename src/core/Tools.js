@@ -198,6 +198,7 @@ global.giveItem = async(entity, item, language, discordUser, channel, resaleMult
 	addBlockedPlayer(discordUser.id, "acceptItem", collector);
 
 	collector.on("end", async(reaction) => {
+		const [newEntity] = await Entities.getOrRegister(entity.discordUserId);
 		removeBlockedPlayer(discordUser.id);
 		if (reaction.first()) { // a reaction exist
 			// msg.delete(); for now we are going to keep the message
@@ -251,8 +252,8 @@ global.giveItem = async(entity, item, language, discordUser, channel, resaleMult
 			); // potion are not sold (because of exploits and because of logic)
 		}
 		const money = Math.round(getItemValue(item) * resaleMultiplier);
-		entity.Player.addMoney(money);
-		await entity.Player.save();
+		newEntity.Player.addMoney(money);
+		await newEntity.Player.save();
 		return await channel.send(
 			new discord.MessageEmbed().setAuthor(
 				format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,

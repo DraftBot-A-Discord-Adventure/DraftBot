@@ -84,12 +84,25 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * Get the potion name without bold or emoji
+	 * @param {("fr"|"en")} language
+	 * @returns {*}
+	 */
+	Potions.prototype.getSimplePotionName = function(language) {
+		return this[language].substr(this[language].indexOf(" ") + 1).replace(/\*\*/g, "");
+	};
+
+	/**
 	 *
 	 * @return {String}
 	 */
 	Potions.prototype.getEmoji = function() {
-		const emoji = this.fr.split(" ")[0];
-		return emoji.includes("<") ? emoji.split(":")[2].replace(">", "") : emoji;
+		const emojiSimple = this.fr.split(" ")[0];
+		const emoji = emojiSimple.includes("<") ? emojiSimple.split(":")[2].replace(">", "") : emojiSimple;
+		if (!client.emojis.cache.get(emoji)) {
+			return emojiSimple;
+		}
+		return emoji;
 	};
 
 	/**

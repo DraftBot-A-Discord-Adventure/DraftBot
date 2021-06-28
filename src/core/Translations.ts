@@ -33,6 +33,10 @@ export class TranslationModule {
 		return lastObject[language];
 	}
 
+	get language(): string {
+		return this._language;
+	}
+
 	get(translation: string): string {
 		if (!this._moduleTranslationObject) {
 			console.warn("Trying to use an invalid translation module: " + this._module);

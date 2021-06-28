@@ -571,11 +571,11 @@ const TestCommand = async (language, message, args) => {
 							await player.save();
 						})
 					.addCategory(new ShopItemCategory([
-						new ShopItem("😀", "product 1", 123, (msg) => buyProduct(msg, "product 1")),
-						new ShopItem("✨", "product 2", 897, (msg) => buyProduct(msg, "product 2"))
+						new ShopItem("😀", "product 1", 123, "description product 1", (msg) => buyProduct(msg, "product 1")),
+						new ShopItem("✨", "product 2", 897, "description product 2", (msg) => buyProduct(msg, "product 2"))
 					], "Category 1"))
 					.addCategory(new ShopItemCategory([
-						new ShopItem("🕳️", "product 3", 999999, (msg) => buyProduct(msg, "product 3"))
+						new ShopItem("🕳️", "product 3", 999999, "description product 3", (msg) => buyProduct(msg, "product 3"))
 					], "Category 2"))
 					.endCallback(
 						(shopMessage, reason) => {

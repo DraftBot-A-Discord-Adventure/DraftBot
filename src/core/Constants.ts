@@ -2,7 +2,8 @@ export abstract class Constants {
 	static readonly REACTIONS = {
 		VALIDATE_REACTION: "✅",
 		REFUSE_REACTION: "❌",
-		SHOPPING_CART: "🛒"
+		SHOPPING_CART: "🛒",
+		WARNING: "⚠️"
 	}
 
 	static readonly MESSAGES = {

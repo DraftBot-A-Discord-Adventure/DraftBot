@@ -1,14 +1,21 @@
-import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+import {
+	DraftBotShopMessageBuilder,
+	ShopEndReason,
+	ShopItem,
+	ShopItemCategory
+} from "../../core/messages/DraftBotShopMessage";
+import {Translations} from "../../core/Translations";
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const Maps = require("../../core/Maps");
+
 /**
  * Displays the shop
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
- * @param {String[]} args=[] - Additional arguments sent with the command
  */
 async function ShopCommand(language, message) {
-	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
+	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
 		return;
@@ -17,469 +24,157 @@ async function ShopCommand(language, message) {
 		return;
 	}
 
-	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
+	const shopTranslations = Translations.getModule("commands.shop", language);
 
+	const permanentItemsCategory = new ShopItemCategory(
+		[
+			getRandomItemShopItem(shopTranslations),
+			getHealAlterationShopItem(shopTranslations),
+			getRegenShopItem(shopTranslations),
+			getBadgeShopItem(shopTranslations)
+		],
+		shopTranslations.get("permanentItem")
+	);
+	const dailyItemsCategory = new ShopItemCategory(
+		[await getDailyPotionShopItem(shopTranslations)],
+		shopTranslations.get("dailyItem")
+	);
+
+	const shopMessage = (await new DraftBotShopMessageBuilder(
+		message.author,
+		shopTranslations.get("title"),
+		language,
+		async(userId) => (await Entities.getOrRegister(userId))[0].Player.money,
+		async(userId, amount) => {
+			const player = (await Entities.getOrRegister(userId))[0].Player;
+			player.money -= amount;
+			await player.save();
+		}
+	)
+		.addCategory(dailyItemsCategory)
+		.addCategory(permanentItemsCategory)
+		.endCallback(shopEndCallback)
+		.build())
+		.send(message.channel);
+
+	addBlockedPlayer(entity.discordUserId, "shop", shopMessage.collector);
+}
+
+function shopEndCallback(shopMessage, reason) {
+	removeBlockedPlayer(shopMessage.user.id);
+}
+
+function getPermanentItemShopItem(name, translationModule, buyCallback) {
+	return new ShopItem(
+		translationModule.get("permanentItems." + name + ".emote"),
+		translationModule.get("permanentItems." + name + ".name"),
+		parseInt(translationModule.get("permanentItems." + name + ".price")),
+		translationModule.get("permanentItems." + name + ".info"),
+		buyCallback
+	);
+}
+
+function getRandomItemShopItem(translationModule) {
+	return getPermanentItemShopItem(
+		"randomItem",
+		translationModule,
+		async(message) => {
+			const [entity] = await Entities.getOrRegister(message.user.id);
+			await giveRandomItem(message.user, message.sentMessage.channel, message.language, entity);
+			return true;
+		});
+}
+
+function getHealAlterationShopItem(translationModule) {
+	return getPermanentItemShopItem(
+		"healAlterations",
+		translationModule,
+		async(message) => {
+			const [entity] = await Entities.getOrRegister(message.user.id);
+			if (entity.Player.currentEffectFinished()) {
+				await sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.nothingToHeal"));
+				return false;
+			}
+			if (entity.Player.effect !== EFFECT.DEAD && entity.Player.effect !== EFFECT.LOCKED) {
+				await Maps.removeEffect(entity.Player);
+				await entity.Player.save();
+			}
+			await message.sentMessage.channel.send(new DraftBotEmbed()
+				.formatAuthor(translationModule.get("success"), message.user)
+				.setDescription(translationModule.get("permanentItems.healAlterations.give")));
+			return true;
+		}
+	);
+}
+
+function getRegenShopItem(translationModule) {
+	return getPermanentItemShopItem(
+		"regen",
+		translationModule,
+		async(message) => {
+			const [entity] = await Entities.getOrRegister(message.user.id);
+			await entity.setHealth(await entity.getMaxHealth());
+			await entity.save();
+			await message.sentMessage.channel.send(
+				new DraftBotEmbed()
+					.formatAuthor(translationModule.get("success"), message.user)
+					.setDescription(translationModule.get("permanentItems.regen.give"))
+			);
+			return true;
+		}
+	);
+}
+
+function getBadgeShopItem(translationModule) {
+	return getPermanentItemShopItem(
+		"badge",
+		translationModule,
+		async(message) => {
+			const [entity] = await Entities.getOrRegister(message.user.id);
+			if (entity.Player.hasBadge("🤑")) {
+				await sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.alreadyHasItem"));
+				return false;
+			}
+			entity.Player.addBadge("🤑");
+			await entity.Player.save();
+			await message.sentMessage.channel.send(new DraftBotEmbed()
+				.formatAuthor(translationModule.get("permanentItems.badge.give"), message.user)
+				.setDescription("🤑 " + translationModule.get("permanentItems.badge.name"))
+			);
+			return true;
+		}
+	);
+}
+
+async function getDailyPotionShopItem(translationModule) {
 	const shopPotion = await Shop.findOne({
 		attributes: ["shopPotionId"]
 	});
-
-	// Formatting intems data into a string
-	const randomItem = format(shopTranslations.display, {
-		name: shopTranslations.permanentItems.randomItem.name,
-		price: shopTranslations.permanentItems.randomItem.price
-	});
-	const healAlterations = format(shopTranslations.display, {
-		name: shopTranslations.permanentItems.healAlterations.name,
-		price: shopTranslations.permanentItems.healAlterations.price
-	});
-	const regen = format(shopTranslations.display, {
-		name: shopTranslations.permanentItems.regen.name,
-		price: shopTranslations.permanentItems.regen.price
-	});
-	const badge = format(shopTranslations.display, {
-		name: shopTranslations.permanentItems.badge.name,
-		price: shopTranslations.permanentItems.badge.price
-	});
-
-	// Fetching potion infos
 	const potion = await Potions.findOne({
 		where: {
 			id: shopPotion.shopPotionId
 		}
 	});
 
-	const potionPrice = Math.round(
-		getItemValue(potion) * 0.7
-	);
-
-	// Creating shop message
-	const shopMessage = await message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
-			.setTitle(shopTranslations.title)
-			.addField(
-				shopTranslations.dailyItem,
-				format(shopTranslations.display, {
-					name: potion.toString(language),
-					price: potionPrice
-				})
-			)
-			.addField(
-				shopTranslations.permanentItem,
-				[randomItem, healAlterations, regen, badge].join("\n") +
-				format(shopTranslations.moneyQuantity, {
-					money: entity.Player.money
-				})
-			)
-	);
-
-	// Creating maps to get shop items everywhere
-	const dailyPotion = new Map()
-		.set("price", potionPrice)
-		.set("potion", potion);
-	const shopItems = new Map()
-		.set(SHOP.QUESTION, shopTranslations.permanentItems.randomItem)
-		.set(SHOP.HOSPITAL, shopTranslations.permanentItems.healAlterations)
-		.set(SHOP.HEART, shopTranslations.permanentItems.regen)
-		.set(SHOP.MONEY_MOUTH, shopTranslations.permanentItems.badge);
-
-	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
-
-	const collector = shopMessage.createReactionCollector(filterConfirm, {
-		time: COLLECTOR_TIME,
-		max: 1
-	});
-
-	addBlockedPlayer(entity.discordUserId, "shop", collector);
-
-	// Fetch the choice from the user
-	collector.on("end", async(reaction) => {
-		if (!reaction.first()) {
-			// the user is afk
-			removeBlockedPlayer(entity.discordUserId);
-			return;
-		}
-		if (reaction.first().emoji.name === MENU_REACTION.DENY) {
-			removeBlockedPlayer(entity.discordUserId);
-			await message.channel.send(
-				new DraftBotErrorEmbed(
-					message.author,
-					language,
-					JsonReader.commands.shop.getTranslation(language).error.leaveShop,
-					true));
-			return;
-		}
-
-		const potion = dailyPotion.get("potion");
-		const potionPrice = dailyPotion.get("price");
-		if (shopItems.has(reaction.first().emoji.name)) {
-			const item = shopItems.get(reaction.first().emoji.name);
-			if (canBuy(item.price, entity.Player)) {
-				await confirmPurchase(
-					shopMessage,
-					language,
-					item.name,
-					item.price,
-					item.info,
-					entity,
-					message.author,
-					item
-				);
-			}
-			else {
-				sendErrorMessage(
-					message.author,
-					message.channel,
-					language,
-					format(
-						JsonReader.commands.shop.getTranslation(language).error
-							.cannotBuy,
-						{
-							missingMoney: item.price - entity.Player.money
-						}
-					)
-				);
-				removeBlockedPlayer(entity.discordUserId);
-			}
-		}
-		else if (
-			potion.getEmoji() === reaction.first().emoji.id ||
-			potion.getEmoji() === reaction.first().emoji.name ||
-			SHOP.POTION_REPLACEMENT === reaction.first().emoji.name ||
-			SHOP.POTION_REPLACEMENT === reaction.first().id
-		) {
-			if (canBuy(potionPrice, entity.Player)) {
-				await confirmPurchase(
-					shopMessage,
-					language,
-					potion.toString(language),
-					potionPrice,
-					JsonReader.commands.shop.getTranslation(language).potion
-						.info,
-					entity,
-					message.author,
-					dailyPotion
-				);
-			}
-			else {
-				sendErrorMessage(
-					message.author,
-					message.channel,
-					language,
-					format(
-						JsonReader.commands.shop.getTranslation(language).error
-							.cannotBuy,
-						{
-							missingMoney: potionPrice - entity.Player.money
-						}
-					)
-				);
-				removeBlockedPlayer(entity.discordUserId);
-			}
-		}
-	});
-
-	// Adding reactions
-	try {
-		await shopMessage.react(potion.getEmoji());
-	}
-	catch {
-		await shopMessage.react(SHOP.POTION_REPLACEMENT);
-	}
-	await Promise.all([
-		shopMessage.react(SHOP.QUESTION),
-		shopMessage.react(SHOP.HOSPITAL),
-		shopMessage.react(SHOP.HEART),
-		shopMessage.react(SHOP.MONEY_MOUTH),
-		shopMessage.react(MENU_REACTION.DENY)
-	]);
-}
-
-/**
- * @param {module:"discord.js".Message} message - The message where the react event trigerred
- * @param {Collection<Snowflake, MessageReaction>} reaction - The reaction
- * @param {"fr"|"en"} language
- * @param {Entities} entity
- * @param {Entities} customer
- * @param {any} selectedItem
- */
-async function sellItem(message, reaction, language, entity, customer, selectedItem) {
-	[entity] = await Entities.getOrRegister(entity.discordUserId);
-	const shopTranslations = JsonReader.commands.shop.getTranslation(language);
-	log(entity.discordUserId + " bought the shop item " + selectedItem.name + " for " + selectedItem.price);
-	if (selectedItem.name) {
-		// This is not a potion
-		if (
-			selectedItem.name ===
-			shopTranslations.permanentItems.randomItem.name
-		) {
-			await giveRandomItem(customer, message.channel, language, entity);
-		}
-		else if (
-			selectedItem.name ===
-			shopTranslations.permanentItems.healAlterations.name
-		) {
-			if (entity.Player.currentEffectFinished()) {
-				return sendErrorMessage(
-					customer,
-					message.channel,
-					language,
-					JsonReader.commands.shop.getTranslation(language).error
-						.nothingToHeal
-				);
-			}
-			await healAlterations(message, language, entity, customer, selectedItem);
-		}
-		else if (
-			selectedItem.name === shopTranslations.permanentItems.regen.name
-		) {
-			await regenPlayer(
-				message,
-				language,
-				entity,
-				customer,
-				selectedItem
+	return new ShopItem(
+		potion.getEmoji(),
+		potion.getSimplePotionName(translationModule.language) + " **| "
+			+ potion.getRarityTranslation(translationModule.language) + " | "
+			+ potion.getNatureTranslation(translationModule.language) + "** ",
+		Math.round(getItemValue(potion) * 0.7),
+		translationModule.get("potion.info"),
+		async(message) => {
+			const [entity] = await Entities.getOrRegister(message.user.id);
+			entity.Player.Inventory.giveObject(potion.id, ITEMTYPE.POTION);
+			entity.Player.Inventory.save();
+			await message.sentMessage.channel.send(
+				new DraftBotEmbed()
+					.formatAuthor(translationModule.get("potion.give"), message.user)
+					.setDescription(potion.toString(translationModule.language))
 			);
+			return true;
 		}
-		else if (
-			selectedItem.name === shopTranslations.permanentItems.badge.name
-		) {
-			const success = giveMoneyMouthBadge(
-				message,
-				language,
-				entity,
-				customer,
-				selectedItem
-			);
-			if (!success) {
-				return;
-			}
-		}
-		else if (
-			selectedItem.name === shopTranslations.permanentItems.guildXp.name
-		) {
-			if (
-				!await giveGuildXp(
-					message,
-					language,
-					entity,
-					customer,
-					selectedItem
-				)
-			) {
-				return;
-			} // if no guild, no need to proceed
-		}
-		entity.Player.addMoney(-selectedItem.price); // Remove money
-	}
-	else {
-		giveDailyPotion(message, language, entity, customer, selectedItem);
-	}
-
-	await Promise.all([
-		entity.save(),
-		entity.Player.save(),
-		entity.Player.Inventory.save()
-	]);
-}
-
-/**
- * @param {module:"discord.js".Message} message - The message where the react event trigerred
- * @param {"fr"|"en"} language
- * @param {string} name
- * @param {number} price
- * @param {string} info
- * @param {Entities} entity
- * @param {Entities} customer
- * @param {any} selectedItem
- */
-/* eslint-disable max-params */
-async function confirmPurchase(
-	message,
-	language,
-	name,
-	price,
-	info,
-	entity,
-	customer,
-	selectedItem
-) {
-	/* eslint-enable max-params */
-	addBlockedPlayer(entity.discordUserId, "confirmBuy");
-	const confirmEmbed = new discord.MessageEmbed()
-		.setColor(JsonReader.bot.embed.default)
-		.setAuthor(
-			format(JsonReader.commands.shop.getTranslation(language).confirm, {
-				pseudo: customer.username
-			}),
-			customer.displayAvatarURL()
-		)
-		.setDescription(
-			"\n\u200b\n" +
-			format(
-				JsonReader.commands.shop.getTranslation(language).display,
-				{
-					name: name,
-					price: price
-				}
-			) +
-			info
-		);
-
-	const confirmMessage = await message.channel.send(confirmEmbed);
-	const filterConfirm = (reaction, user) =>
-		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
-				reaction.emoji.name === MENU_REACTION.DENY) &&
-			user.id === entity.discordUserId
-		;
-
-	const collector = confirmMessage.createReactionCollector(filterConfirm, {
-		time: COLLECTOR_TIME,
-		max: 1
-	});
-
-	collector.on("end", (reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
-		if (reaction.first()) {
-			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				reaction.first().message.delete();
-				return sellItem(message, reaction, language, entity, customer, selectedItem);
-			}
-		}
-		sendErrorMessage(customer, message.channel, language, JsonReader.commands.shop.getTranslation(language).error.canceledPurchase, true);
-	});
-
-	await Promise.all([
-		confirmMessage.react(MENU_REACTION.ACCEPT),
-		confirmMessage.react(MENU_REACTION.DENY)
-	]);
-}
-
-/**
- * @param {number} price - The item price
- * @param {Players} player
- */
-const canBuy = function(price, player) {
-	return player.money >= price;
-};
-
-/** ******************************************************** GIVE FUNCTIONS **********************************************************/
-
-/**
- * Give the daily potion to player
- */
-function giveDailyPotion(message, language, entity, customer, dailyPotion) {
-	log(
-		entity.discordUserId +
-		" bought the daily shop potion " +
-		dailyPotion.get("potion")[language] +
-		" for " +
-		dailyPotion.get("price")
 	);
-	entity.Player.Inventory.giveObject(
-		dailyPotion.get("potion").id,
-		ITEMTYPE.POTION
-	); // Give potion
-	entity.Player.addMoney(-dailyPotion.get("price")); // Remove money
-	entity.Player.Inventory.save(); // Save
-	entity.Player.save(); // Save
-	message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
-			.setAuthor(
-				format(
-					JsonReader.commands.shop.getTranslation(language).potion
-						.give,
-					{
-						pseudo: customer.username
-					}
-				),
-				customer.displayAvatarURL()
-			)
-			.setDescription(
-				"\n\n" + dailyPotion.get("potion").toString(language)
-			)
-	);
-}
-
-/**
- * Clear all player alterations
- */
-async function healAlterations(message, language, entity, customer, selectedItem) {
-	if (entity.Player.effect !== EFFECT.DEAD && entity.Player.effect !== EFFECT.LOCKED) {
-		await Maps.removeEffect(entity.Player);
-	}
-	await message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
-			.setAuthor(
-				format(
-					JsonReader.commands.shop.getTranslation(language).success,
-					{
-						pseudo: customer.username
-					}
-				),
-				customer.displayAvatarURL()
-			)
-			.setDescription("\n\n" + selectedItem.give)
-	);
-}
-
-/**
- * Completely restore player life
- */
-async function regenPlayer(message, language, entity, customer, selectedItem) {
-	await entity.setHealth(await entity.getMaxHealth()); // Heal Player
-	await message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
-			.setAuthor(
-				format(
-					JsonReader.commands.shop.getTranslation(language).success,
-					{
-						pseudo: customer.username
-					}
-				),
-				customer.displayAvatarURL()
-			)
-			.setDescription("\n\n" + selectedItem.give)
-	);
-}
-
-/**
- * Give "MoneyMouth" badge to the player
- */
-function giveMoneyMouthBadge(
-	message,
-	language,
-	entity,
-	customer,
-	selectedItem
-) {
-	if (entity.Player.hasBadge("🤑")) {
-		sendErrorMessage(
-			customer,
-			message.channel,
-			language,
-			JsonReader.commands.shop.getTranslation(language).error
-				.alreadyHasItem
-		);
-		return false;
-	}
-	entity.Player.addBadge("🤑"); // Give badge
-	message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
-			.setAuthor(
-				format(selectedItem.give, {
-					pseudo: customer.username
-				}),
-				customer.displayAvatarURL()
-			)
-			.setDescription("\n\n" + selectedItem.name)
-	);
-	return true;
-
 }
 
 module.exports = {
