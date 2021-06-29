@@ -21,7 +21,7 @@ const MESSAGE_NOT_SENT_ERROR = "Message has not been sent";
  */
 export class DraftBotReactionMessage extends DraftBotEmbed {
 	/**
-	 * This list of reactions of the message
+	 * The list of reactions of the message
 	 */
 	private readonly _reactions: DraftBotReaction[];
 

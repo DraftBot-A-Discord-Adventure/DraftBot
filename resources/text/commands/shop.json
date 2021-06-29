@@ -55,6 +55,11 @@
 			"potion": {
 				"info": "Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
 				"give": "{pseudo}, vous avez reçu une nouvelle potion :"
+			},
+			"multipleChoice": {
+				"warning": "Choissisez la quantité à acheter. En cliquant sur une des réactions, vous confirmerez la transaction !",
+				"display": "{emote} **{name}**",
+				"priceDisplay": " | `{price}\uD83D\uDCB0`"
 			}
 		},
 		"en": {
@@ -112,6 +117,11 @@
 			"potion": {
 				"info": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
 				"give": "{pseudo}, you received a new potion:"
+			},
+			"multipleChoice": {
+				"warning": "Choose the amount to buy. By clicking on the reactions you confirm the transaction !",
+				"display": "{emote} **{name}**",
+				"priceDisplay": " | `{price}\uD83D\uDCB0`"
 			}
 		}
 	},

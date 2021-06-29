@@ -566,7 +566,7 @@ const TestCommand = async (language, message, args) => {
 						language,
 						async (userId) => (await Entities.getOrRegister(userId))[0].Player.money,
 						async (userId, amount) => {
-							const [player] = (await Entities.getOrRegister(userId)).Player;
+							const player = (await Entities.getOrRegister(userId))[0].Player;
 							player.money -= amount;
 							await player.save();
 						})
@@ -575,7 +575,8 @@ const TestCommand = async (language, message, args) => {
 						new ShopItem("✨", "product 2", 897, "description product 2", (msg) => buyProduct(msg, "product 2"))
 					], "Category 1"))
 					.addCategory(new ShopItemCategory([
-						new ShopItem("🕳️", "product 3", 999999, "description product 3", (msg) => buyProduct(msg, "product 3"))
+						new ShopItem("🕳️", "product 3", 999999, "description product 3", (msg) => buyProduct(msg, "product 3")),
+						new ShopItem("🔥", "buy multiple", 42, "Description du produit", (msg, amount) => { buyProduct(msg, "buy multiple: x" + amount); return true; }, [1, 2, 4, 8, 10])
 					], "Category 2"))
 					.endCallback(
 						(shopMessage, reason) => {
