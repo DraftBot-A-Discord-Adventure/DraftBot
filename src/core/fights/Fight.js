@@ -8,7 +8,6 @@ const FightActionResult = require("./FightActionResult.js");
  * @param {module:"discord.js".Message} message
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {boolean} tournamentMode
- * @param {Number} maxPower
  * @param {boolean} friendly
  * @returns {Promise<void>}
  */
@@ -21,17 +20,14 @@ class Fight {
 	 * @param {module:"discord.js".Message} message
 	 * @param {("fr"|"en")} language - Language to use in the response
 	 * @param {boolean} tournamentMode
-	 * @param {Number} maxPower
 	 * @param {boolean} friendly
 	 * @returns {Promise<void>}
 	 */
-	constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1, friendly = false) { // eslint-disable-line max-params
-		this.fighters = [new Fighter(player2, friendly, tournamentMode), new Fighter(player1, friendly, tournamentMode)];
+	constructor(player1, player2, message, language, friendly = false) { // eslint-disable-line max-params
+		this.fighters = [new Fighter(player2, friendly), new Fighter(player1, friendly)];
 		this.turn = 0;
 		this.message = message;
 		this.language = language;
-		this.tournamentMode = tournamentMode;
-		this.maxPower = maxPower;
 		this.friendly = friendly;
 		this.lastSummary = undefined;
 		this.actionMessages = undefined;
@@ -78,9 +74,6 @@ class Fight {
 		// load player stats
 		for (let i = 0; i < this.fighters.length; i++) {
 			await this.fighters[i].calculateStats();
-			if (this.maxPower !== -1 && this.fighters[i].power > this.maxPower) {
-				this.fighters[i].power = this.maxPower;
-			}
 			await this.fighters[i].consumePotionIfNeeded();
 			global.addBlockedPlayer(this.fighters[i].entity.discordUserId, "fight");
 		}

@@ -83,7 +83,6 @@
 			"dmSupportPermissionMissing": "You must be part of the support team!",
 			"administratorPermissionMissing": "You must have the `Administrator` permission on this server!",
 			"botOwnerPermissionMissing": "This command is for the bot owner only!",
-			"botTournamentPermissionMissing": "This command is for the tournament managers !",
 			"contributorPermissionMissing": "This command is for the bot contributors !",
 			"notContributorsChannel": "This command is can be executed by contributors only in a specific channel !",
 			"title": [
