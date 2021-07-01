@@ -39,11 +39,6 @@ class MessageError {
 			}
 		}
 
-		if (permission === PERMISSION.ROLE.TOURNAMENT) {
-			if (!message.member.roles.cache.has(JsonReader.app.TOURNAMENT_ROLE) && !MessageError.isBotOwner(message.author.id)) {
-				return await MessageError.permissionErrorMe(message, language, permission);
-			}
-		}
 		return true;
 	}
 
@@ -93,12 +88,6 @@ class MessageError {
 			embed
 				.setAuthor(format(JsonReader.error.getTranslation(language).titlePermissionError, {pseudo: message.author.username}), message.author.displayAvatarURL())
 				.setDescription(JsonReader.error.getTranslation(language).botOwnerPermissionMissing);
-		}
-
-		if (permission === PERMISSION.ROLE.TOURNAMENT) {
-			embed
-				.setAuthor(format(JsonReader.error.getTranslation(language).titlePermissionError, {pseudo: message.author.username}), message.author.displayAvatarURL())
-				.setDescription(JsonReader.error.getTranslation(language).botTournamentPermissionMissing);
 		}
 
 		return await message.channel.send(embed);

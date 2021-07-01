@@ -58,7 +58,6 @@ global.PERMISSION = {
 		BADGE_MANAGER: "manager", // has the badge manager role
 		SUPPORT: "support", // has the support role
 		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
-		TOURNAMENT: "tournament", // has the permission to use the tournament command
 		CONTRIBUTORS: "contributors",
 		ALL: "all"
 	}
@@ -246,7 +245,6 @@ global.ROLES = {
 		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
 		BADGE_MANAGER: "manager", // has the badge manager role
 		SUPPORT: "support", // has the support role
-		TOURNAMENT: "tournament", // has the permission to use the tournament command
 		CONTRIBUTORS: "contributors",
 		BOT_OWNER: "owner" // is the owner of the bot
 	}
