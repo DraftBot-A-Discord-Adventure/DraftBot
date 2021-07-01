@@ -7,7 +7,6 @@ const FightActionResult = require("./FightActionResult.js");
  * @param player2
  * @param {module:"discord.js".Message} message
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {boolean} tournamentMode
  * @param {boolean} friendly
  * @returns {Promise<void>}
  */
@@ -19,7 +18,6 @@ class Fight {
 	 * @param player2
 	 * @param {module:"discord.js".Message} message
 	 * @param {("fr"|"en")} language - Language to use in the response
-	 * @param {boolean} tournamentMode
 	 * @param {boolean} friendly
 	 * @returns {Promise<void>}
 	 */
@@ -444,7 +442,7 @@ class Fight {
 			winner.entity.Player.save();
 		}
 
-		if (!this.friendly && !this.tournamentMode) {
+		if (!this.friendly ) {
 			for (let i = 0; i < this.fighters.length; i++) {
 				this.fighters[i].entity.fightPointsLost = await this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
 				this.fighters[i].entity.save();
@@ -629,7 +627,7 @@ class Fight {
 	calculateElo() {
 		const loser = this.getLoser();
 		const winner = this.getWinner();
-		if (loser !== null && winner !== null && winner.entity.Player.score !== 0 && !this.tournamentMode && !this.friendly) {
+		if (loser !== null && winner !== null && winner.entity.Player.score !== 0 && !this.friendly) {
 			this.elo = Math.round(loser.entity.Player.score / winner.entity.Player.score * 100) / 100;
 		}
 		else {
@@ -644,7 +642,7 @@ class Fight {
 	 */
 	calculatePoints() {
 		const loser = this.getLoser();
-		if (loser !== null && !this.tournamentMode && !this.friendly) {
+		if (loser !== null && !this.friendly) {
 			this.points = Math.round(100 + 10 * loser.entity.Player.level * this.elo);
 			if (this.points > 2000) {
 				this.points = Math.round(2000 - randInt(5, 1000));

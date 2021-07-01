@@ -34,13 +34,12 @@ const FightCommand = async function(message, language, args, friendly = false) {
 		}
 	}
 
-	const isTournament = tournamentChannel === message.channel.id && !friendly;
 	let canF;
-	if ((canF = await canFight(attacker, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+	if ((canF = await canFight(attacker, friendly, friendly)) !== FIGHT_ERROR.NONE) {
 		sendError(message, attacker, canF, true, language);
 		return;
 	}
-	if (defender !== null && (canF = await canFight(defender, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+	if (defender !== null && (canF = await canFight(defender, friendly, friendly)) !== FIGHT_ERROR.NONE) {
 		sendError(message, defender, canF, false, language);
 		return;
 	}
@@ -63,9 +62,9 @@ const FightCommand = async function(message, language, args, friendly = false) {
 			opponent: defender.getMention()
 		});
 	}
-	msg += "\n\n" + await getStatsDisplay(attacker, language, isTournament ? tournamentPower : -1, friendly || isTournament);
+	msg += "\n\n" + await getStatsDisplay(attacker, language, friendly);
 	if (defender !== null) {
-		msg += "\n" + await getStatsDisplay(defender, language, isTournament ? tournamentPower : -1, friendly || isTournament);
+		msg += "\n" + await getStatsDisplay(defender, language, friendly);
 	}
 
 	await message.channel.send(msg)
@@ -97,12 +96,12 @@ const FightCommand = async function(message, language, args, friendly = false) {
 						break;
 					}
 					[defender] = await Entities.getOrRegister(user.id);
-					if ((canF = await canFight(defender, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+					if ((canF = await canFight(defender, friendly , friendly)) !== FIGHT_ERROR.NONE) {
 						sendError(message, defender, canF, true, language);
 						defender = null;
 						return;
 					}
-					fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1, friendly);
+					fightInstance = new Fight(attacker, defender, message, language, friendly);
 					await fightInstance.startFight();
 					log("Fight (friendly: " + friendly + ") started in server "
 							+ message.guild.id + " between " + attacker.discordUserId + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and "
