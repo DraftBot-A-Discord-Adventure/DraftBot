@@ -21,7 +21,7 @@ class Fight {
 	 * @param {boolean} friendly
 	 * @returns {Promise<void>}
 	 */
-	constructor(player1, player2, message, language, friendly = false) { // eslint-disable-line max-params
+	constructor(player1, player2, message, language, friendly = false) {
 		this.fighters = [new Fighter(player2, friendly), new Fighter(player1, friendly)];
 		this.turn = 0;
 		this.message = message;
