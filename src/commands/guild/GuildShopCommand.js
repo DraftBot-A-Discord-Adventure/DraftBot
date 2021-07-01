@@ -4,6 +4,46 @@
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {Translations} from "../../core/Translations";
+import {ShopItem} from "../../core/messages/DraftBotShopMessage";
+
+/*async function GuildShopCommand(language, message) {
+	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
+
+	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
+		return;
+	}
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
+	// search for a user's guild
+	let guild;
+	try {
+		guild = await Guilds.getById(entity.Player.guildId);
+	}
+	catch (error) {
+		guild = null;
+	}
+
+	if (guild === null) {
+		// not in a guild
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
+	}
+
+	const shopTranslations = Translations.getModule("commands.shop", language);
+	const guildShopTranslations = Translations.getModule("commands.guildShop", language);
+	const foodTranslations = Translations.getModule("food", language);
+
+
+}*/
+
+/**
+ * Displays the guild shop
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {String[]} args=[] - Additional arguments sent with the command
+ */
 async function GuildShopCommand(language, message) {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 

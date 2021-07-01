@@ -371,7 +371,8 @@ export class ShopItem {
 	 * @param name The name of the shop item
 	 * @param price The price of the shop item (for x1)
 	 * @param description The description of the shop item
-	 * @param buyCallback The callback called when this item is bought
+	 * @param buyCallback The callback called when this item is try to be bought
+	 * It must return false if the purchase failed in order not to remove money from the player, and true if bought with success
 	 * @param amounts The possible amounts for this item
 	 */
 	constructor(emote: string, name: string, price: number, description: string, buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>, amounts = [1]) {
