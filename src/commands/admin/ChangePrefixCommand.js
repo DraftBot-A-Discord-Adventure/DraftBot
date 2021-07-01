@@ -21,6 +21,10 @@ const ChangePrefixCommand = async (message, language, args) => {
 		);
 	}
 
+	if (isAMention(newPrefix)) {
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.changePrefix.getTranslation(language).noMentionForAPrefix);
+	}
+
 	server.prefix = newPrefix;
 	await server.save();
 	embed.setColor(JsonReader.bot.embed.default)
