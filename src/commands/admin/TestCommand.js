@@ -16,10 +16,12 @@ const TestCommand = async (message, language, args) => {
 		// Second, we collect the test command entered
 		const testCommand = args[0] ?? "list";
 		const argsTest = args.slice(1) ?? [];
-		const commandTestCurrent = await CT.getTestCommand(testCommand)
-			.catch((e) => message.channel.send(":x: | Commande test " + testCommand + " inexistante : ```" + e.stack + "```"));
-		if (!commandTestCurrent) {
-			return;
+		let commandTestCurrent;
+		try {
+			commandTestCurrent = await CT.getTestCommand(testCommand);
+		}
+		catch (e) {
+			return message.channel.send(":x: | Commande test " + testCommand + " inexistante : ```" + e.stack + "```");
 		}
 		// Third, we check if the test command has the good arguments
 		const testGoodFormat = CT.isGoodFormat(commandTestCurrent, argsTest, message);
