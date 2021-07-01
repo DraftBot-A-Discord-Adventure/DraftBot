@@ -88,7 +88,7 @@ class Maps {
 	 * @returns {boolean}
 	 */
 	static isTravelling(player) {
-		return player.startTravelDate.getUTCMilliseconds() !== 0;
+		return player.startTravelDate.getTime() !== 0;
 	}
 
 	/**
