@@ -1,18 +1,18 @@
+module.exports.help = {
+	name: "class",
+	aliases: ["c", "classes", "classe"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	requiredLevel: CLASS.REQUIRED_LEVEL
+};
+
 /**
  * Select a class
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ClassCommand(language, message) {
+const ClassCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, CLASS.REQUIRED_LEVEL) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	const classTranslations = JsonReader.commands.class.getTranslation(language);
 
@@ -73,7 +73,7 @@ async function ClassCommand(language, message) {
 		classEmojis.set(allClasses[k].emoji, k);
 	}
 	classMessage.react(MENU_REACTION.DENY);
-}
+};
 
 /**
  * @param {*} message - message where the command is from
@@ -165,13 +165,4 @@ const canBuy = function(price, player) {
 	return player.money >= price;
 };
 
-
-module.exports = {
-	commands: [
-		{
-			name: "class",
-			func: ClassCommand,
-			aliases: ["c", "classes", "classe"]
-		}
-	]
-};
+module.exports.execute = ClassCommand;

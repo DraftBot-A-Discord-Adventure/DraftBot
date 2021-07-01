@@ -1,3 +1,5 @@
+const {readdir} = require("fs/promises");
+
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -75,6 +77,6 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {String|string}
 	 */
 	Pets.getRarityDisplay = (pet) => JsonReader.models.pets.rarityEmote.repeat(pet.rarity);
-
+	Pets.getMaxId = async () => (await readdir("resources/text/pets/")).length - 1;
 	return Pets;
 };

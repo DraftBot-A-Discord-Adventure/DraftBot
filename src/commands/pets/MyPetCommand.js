@@ -1,25 +1,19 @@
+module.exports.help = {
+	name: "mypet",
+	aliases: ["pet", "pp"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Displays information about the pet of a user
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const MyPetCommand = async function(language, message, args) {
+const MyPetCommand = async (message, language, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
-	if (entity === null) {
+	if (!entity) {
 		[entity] = await Entities.getOrRegister(message.author.id);
-	}
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
 	}
 
 	const authorPet = entity.Player.Pet;
@@ -58,12 +52,4 @@ const MyPetCommand = async function(language, message, args) {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "mypet",
-			func: MyPetCommand,
-			aliases: ["pet", "pp"]
-		}
-	]
-};
+module.exports.execute = MyPetCommand;

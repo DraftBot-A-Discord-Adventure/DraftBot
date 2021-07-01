@@ -1,28 +1,22 @@
+module.exports.help = {
+	name: "guild",
+	aliases: ["g"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+};
+
 /**
  * Allow to display the info of a guild
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildCommand = async (language, message, args) => {
+const GuildCommand = async (message, language, args) => {
 	let entity;
 	let guild;
 
 	[entity] = await Entities.getByArgs(args, message);
 	if (entity === null) {
 		[entity] = await Entities.getOrRegister(message.author.id);
-	}
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD],
-			entity
-		) !== true
-	) {
-		return;
 	}
 
 	if (args.length > 0 && message.mentions.users.last() === undefined) {
@@ -151,12 +145,4 @@ const GuildCommand = async (language, message, args) => {
 	message.channel.send(embed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guild",
-			func: GuildCommand,
-			aliases: ["g"]
-		}
-	]
-};
+module.exports.execute = GuildCommand;

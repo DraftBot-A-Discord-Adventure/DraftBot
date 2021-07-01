@@ -1,3 +1,5 @@
+const {readdir} = require("fs/promises");
+
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -71,6 +73,8 @@ module.exports = (Sequelize, DataTypes) => {
 			type: Sequelize.QueryTypes.SELECT
 		});
 	};
+
+	Events.getIdMaxEvents = async () => (await readdir("resources/text/events/")).length - 1;
 
 	return Events;
 };

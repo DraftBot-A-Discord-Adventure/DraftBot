@@ -1,15 +1,16 @@
+module.exports.help = {
+	name: "servers",
+	aliases: ["servs"],
+	userPermissions: ROLES.USER.BOT_OWNER
+};
+
 /**
  * Allows an admin to check the server list
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const ServersCommand = async (language, message) => {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
-
+const ServersCommand = (message, language) => {
 	let count = 0;
 	let total = 0;
 	let result = "";
@@ -37,11 +38,4 @@ const ServersCommand = async (language, message) => {
 	message.channel.send(result);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "servs",
-			func: ServersCommand
-		}
-	]
-};
+module.exports.execute = ServersCommand;

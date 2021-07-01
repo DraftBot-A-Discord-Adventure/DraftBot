@@ -1,3 +1,5 @@
+const {readdir} = require("fs/promises");
+
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -157,6 +159,8 @@ module.exports = (Sequelize, DataTypes) => {
 		return this.getSpeed() !== 0 || this.getAttack() !== 0 ||
 			this.getDefense() !== 0;
 	};
+
+	Potions.getMaxId = async () => (await readdir("resources/text/potions/")).length - 1;
 
 	return Potions;
 };

@@ -225,5 +225,13 @@ module.exports = (Sequelize, DataTypes) => {
 		return guild.GuildPets.length >= JsonReader.models.pets.slots;
 	};
 
+	Guilds.prototype.getElderId = function() {
+		return this.elderId;
+	};
+
+	Guilds.prototype.getChiefId = function() {
+		return this.chiefId;
+	};
+
 	return Guilds;
 };

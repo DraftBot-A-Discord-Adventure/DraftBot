@@ -1,12 +1,17 @@
 const tr = JsonReader.commands.petFeed;
 
+module.exports.help = {
+	name: "petfeed",
+	aliases: ["feed", "pf", "pfeed", "feedp", "feedpet", "fp"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Feed your pet !
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
- * @param {String[]} args=[] - Additional arguments sent with the command
+ * @param {("fr"|"en")} language - Language to use in the response
  */
-const PetFeedCommand = async function(language, message) {
+const PetFeedCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
 	try {
@@ -14,22 +19,6 @@ const PetFeedCommand = async function(language, message) {
 	}
 	catch (error) {
 		guild = null;
-	}
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
 	}
 
 	const authorPet = entity.Player.Pet;
@@ -167,7 +156,10 @@ const PetFeedCommand = async function(language, message) {
 			}
 			entity.Player.money -= 20;
 			authorPet.hungrySince = Date();
-			await Promise.all[authorPet.save(), entity.Player.save()];
+			await Promise.all([
+				authorPet.save(),
+				entity.Player.save()
+			]);
 			const feedSuccessEmbed = new discord.MessageEmbed();
 			if (language === LANGUAGE.FRENCH) {
 				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
@@ -266,7 +258,6 @@ async function feedPet(message, language, entity, pet, item) {
 		guild[item.type]--;
 		switch (item.type) {
 		case "commonFood":
-			console.log(pet);
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["1"], {
@@ -317,20 +308,4 @@ async function feedPet(message, language, entity, pet, item) {
 	return message.channel.send(successEmbed);
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "petfeed",
-			func: PetFeedCommand,
-			aliases: [
-				"feed",
-				"pf",
-				"petfeed",
-				"pfeed",
-				"feedp",
-				"feedpet",
-				"fp"
-			]
-		}
-	]
-};
+module.exports.execute = PetFeedCommand;

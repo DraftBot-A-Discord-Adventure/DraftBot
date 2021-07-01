@@ -1,16 +1,16 @@
+module.exports.help = {
+	name: "prefix",
+	aliases: [],
+	userPermissions: ROLES.USER.ADMINISTRATOR
+};
+
 /**
  * Allow an admin to change the prefix the bot use in a specific server
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
-const ChangePrefixCommand = async function(language, message, args) {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.ADMINISTRATOR) !== true) {
-		return;
-	}
-
+const ChangePrefixCommand = async (message, language, args) => {
 	const embed = new discord.MessageEmbed();
 	const newPrefix = args[0];
 	const [server] = await Servers.getOrRegister(message.guild.id);
@@ -35,14 +35,4 @@ const ChangePrefixCommand = async function(language, message, args) {
 	return await message.channel.send(embed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "prefix",
-			func: ChangePrefixCommand,
-			aliases: ["prefix"]
-		}
-	]
-};
-
-
+module.exports.execute = ChangePrefixCommand;

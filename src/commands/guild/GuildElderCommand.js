@@ -1,43 +1,26 @@
+module.exports.help = {
+	name: "guildelder",
+	aliases: ["gelder"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true,
+	guildPermissions: 3
+};
+
 /**
  * add or change guild elder
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildElderCommand = async (language, message, args) => {
+
+const GuildElderCommand = async (message, language, args) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	let elderEntity;
 	let guild;
 	let elderGuild;
 	const elderAddEmbed = new discord.MessageEmbed();
 
-	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildElder.getTranslation(language).notInAguild
-		);
-	}
-
+	guild = await Guilds.getById(entity.Player.guildId);
 	try {
 		[elderEntity] = await Entities.getByArgs(args, message);
 	}
@@ -81,14 +64,6 @@ const GuildElderCommand = async (language, message, args) => {
 			message.channel,
 			language,
 			JsonReader.commands.guildElder.getTranslation(language).notInTheGuild
-		);
-	}
-	if (guild.chiefId !== entity.id) {
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildElder.getTranslation(language).notChiefError
 		);
 	}
 
@@ -211,12 +186,4 @@ const GuildElderCommand = async (language, message, args) => {
 	]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildelder",
-			func: GuildElderCommand,
-			aliases: ["gelder", "guildelder"]
-		}
-	]
-};
+module.exports.execute = GuildElderCommand;

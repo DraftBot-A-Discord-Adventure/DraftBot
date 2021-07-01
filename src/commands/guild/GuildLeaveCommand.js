@@ -1,40 +1,21 @@
+module.exports.help = {
+	name: "guildleave",
+	aliases: ["gleave", "gl"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
+};
+
 /**
  * Allow to leave a guild
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildLeaveCommand = async (language, message) => {
-	let guild;
+const GuildLeaveCommand = async (message, language) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 	let elder;
 	const confirmationEmbed = new discord.MessageEmbed();
-
-	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildLeave.getTranslation(language).notInAGuild
-		);
-	}
 
 	if (guild.elderId) {
 		elder = await Entities.getById(guild.elderId);
@@ -158,12 +139,4 @@ const GuildLeaveCommand = async (language, message) => {
 	await Promise.all([msg.react(MENU_REACTION.ACCEPT), msg.react(MENU_REACTION.DENY)]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildleave",
-			func: GuildLeaveCommand,
-			aliases: ["gleave", "gl"]
-		}
-	]
-};
+module.exports.execute = GuildLeaveCommand;

@@ -1,32 +1,18 @@
+module.exports.help = {
+	name: "guildshop",
+	aliases: ["gs"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
+};
+
 /**
  * Displays the guild shop
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function GuildShopCommand(language, message) {
+const GuildShopCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-
-	// search for a user's guild
-	let guild;
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
-	}
 
 	const shopTranslations = JsonReader.commands.guildShop.getTranslation(
 		language
@@ -166,7 +152,7 @@ async function GuildShopCommand(language, message) {
 		shopMessage.react(GUILDSHOP.ULTIMATE_FOOD),
 		shopMessage.react(MENU_REACTION.DENY)
 	]);
-}
+};
 
 /**
  * food purchase
@@ -490,12 +476,4 @@ const buyFood = async (message, language, entity, author, selectedItem, quantity
 	await giveFood(message, language, entity, author, selectedItem, quantity);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildshop",
-			func: GuildShopCommand,
-			aliases: ["guildshop", "gs"]
-		}
-	]
-};
+module.exports.execute = GuildShopCommand;

@@ -1,12 +1,18 @@
 const Maps = require("../../core/Maps");
 
+module.exports.help = {
+	name: "unlock",
+	aliases: ["bail","release"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to free someone from the lock effect
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const UnlockCommand = async (language, message, args) => {
+const UnlockCommand = async (message, language, args) => {
 	let [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (message.mentions.users.first()) {
@@ -15,15 +21,8 @@ const UnlockCommand = async (language, message, args) => {
 		}
 	}
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-
 	const [lockedEntity] = await Entities.getByArgs(args, message);
-	if (lockedEntity === null) {
+	if (!lockedEntity) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).cannotGetlockedUser);
 	}
 
@@ -99,13 +98,4 @@ const UnlockCommand = async (language, message, args) => {
 	}
 };
 
-
-module.exports = {
-	commands: [
-		{
-			name: "unlock",
-			func: UnlockCommand,
-			aliases: ["bail", "release"]
-		}
-	]
-};
+module.exports.execute = UnlockCommand;

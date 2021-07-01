@@ -1,17 +1,19 @@
 const Maps = require("../../core/Maps");
+
+module.exports.help = {
+	name: "drink",
+	aliases: ["dr","glouglou"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to use the potion if the player has one in the dedicated slot of his inventory
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  */
-const DrinkCommand = async function(language, message) {
+const DrinkCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
+
 	const potion = await entity.Player.Inventory.getPotion();
 	const embed = new discord.MessageEmbed();
 
@@ -62,12 +64,4 @@ const DrinkCommand = async function(language, message) {
 	return await message.channel.send(embed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "drink",
-			func: DrinkCommand,
-			aliases: ["dr", "glouglou"]
-		}
-	]
-};
+module.exports.execute = DrinkCommand;

@@ -28,6 +28,10 @@ class DraftBot {
 		await require("./Database").init();
 		await require("./Command").init();
 		await require("./fights/Attack").init();
+		if (JsonReader.app.TEST_MODE === true) {
+			require("./CommandsTest").init();
+		}
+
 
 		// TODO
 		// draftbot.checkEasterEggsFile();
