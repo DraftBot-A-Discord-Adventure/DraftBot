@@ -1,46 +1,21 @@
+module.exports.help = {
+	name: "guilddescription",
+	aliases: ["gdesc", "guilddesc"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true,
+	guildPermissions: 2
+};
+
 /**
  * Change guild description
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildDescriptionCommand = async(language, message, args) => {
-	let guild;
-	let entity;
+const GuildDescriptionCommand = async (message, language, args) => {
+	let [entity] = await Entities.getOrRegister(message.author.id);
+	let guild = await Guilds.getById(entity.Player.guildId);
 	const confirmationEmbed = new discord.MessageEmbed();
-
-	[entity] = await Entities.getByArgs(args, message);
-	if (entity === null) {
-		[entity] = await Entities.getOrRegister(message.author.id);
-	}
-
-	guild = await Guilds.getById(entity.Player.guildId);
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildDescription.getTranslation(language).notInAguild
-		);
-	}
 
 	if (args.length <= 0) {
 		// no description was given
@@ -52,17 +27,6 @@ const GuildDescriptionCommand = async(language, message, args) => {
 				JsonReader.commands.guildDescription.getTranslation(language)
 					.noDescriptionGiven
 			)
-		);
-	}
-
-	if (entity.id !== guild.chiefId && entity.id !== guild.elderId) {
-		// not the chief
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildDescription.getTranslation(language)
-				.notAuthorizedError
 		);
 	}
 
@@ -134,7 +98,7 @@ const GuildDescriptionCommand = async(language, message, args) => {
 
 	addBlockedPlayer(entity.discordUserId, "descriptionEdit", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
@@ -189,12 +153,4 @@ const GuildDescriptionCommand = async(language, message, args) => {
 	]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guilddesc",
-			func: GuildDescriptionCommand,
-			aliases: ["gdesc", "guilddescription"]
-		}
-	]
-};
+module.exports.execute = GuildDescriptionCommand;

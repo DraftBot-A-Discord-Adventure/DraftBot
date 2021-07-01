@@ -1,47 +1,29 @@
+module.exports.help = {
+	name: "guildleave",
+	aliases: ["gleave", "gl"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
+};
+
 /**
  * Allow to leave a guild
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 
-const GuildLeaveCommand = async (language, message) => {
-	let guild;
-	let elder;
-
+const GuildLeaveCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	} catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildLeave.getTranslation(language).notInAGuild
-		);
-	}
+	const guild = await Guilds.getById(entity.Player.guildId);
+	let elder;
 
 	if (guild.elderId) {
 		elder = await Entities.getById(guild.elderId);
 	}
 
-	const endCallback = async(validationMessage) => {
+	const endCallback = async (validationMessage) => {
 		const embed = new DraftBotEmbed();
 		removeBlockedPlayer(entity.discordUserId);
 		if (elder) {
@@ -151,12 +133,4 @@ const GuildLeaveCommand = async (language, message) => {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildleave",
-			func: GuildLeaveCommand,
-			aliases: ["gleave", "gl"]
-		}
-	]
-};
+module.exports.execute = GuildLeaveCommand;

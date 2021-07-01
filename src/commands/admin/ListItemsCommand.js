@@ -1,15 +1,18 @@
+module.exports.help = {
+	name: "listitems",
+	aliases: ["list"],
+	userPermissions: ROLES.USER.BOT_OWNER
+};
+
 /**
  * Allow an admin to list all items
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-const listItemsCommand = async function(language, message) {
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
+const ListItemsCommand = async (message, language) => {
 	const fs = require("fs");
 	await message.channel.send(new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.listItems.getTranslation(language).title, message.author));
@@ -163,11 +166,4 @@ const listItemsCommand = async function(language, message) {
 	});
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "list",
-			func: listItemsCommand
-		}
-	]
-};
+module.exports.execute = ListItemsCommand;

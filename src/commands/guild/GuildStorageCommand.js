@@ -1,47 +1,23 @@
+module.exports.help = {
+	name: "guildstorage",
+	aliases: ["gstorage", "gst"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
+};
+
 /**
  * Display the storage of the guild
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildStorageCommand = async(language, message) => {
-	[entity] = await Entities.getOrRegister(message.author.id);
-
-	if (
-		await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		) !== true
-	) {
-		return;
-	}
-
+const GuildStorageCommand = async (message, language) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	const foodInfos = JsonReader.food;
 	const translations = JsonReader.commands.guildStorage.getTranslation(
 		language
 	);
-
-	// search for a user's guild
-	let guild;
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			translations.notInAGuild
-		);
-	}
+	const guild = await Guilds.getById(entity.Player.guildId);
 
 	const storageEmbed = new discord.MessageEmbed();
 
@@ -105,12 +81,4 @@ const GuildStorageCommand = async(language, message) => {
 	await message.channel.send(storageEmbed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildstorage",
-			func: GuildStorageCommand,
-			aliases: ["guildstorage", "gstorage", "gst"]
-		}
-	]
-};
+module.exports.execute = GuildStorageCommand;

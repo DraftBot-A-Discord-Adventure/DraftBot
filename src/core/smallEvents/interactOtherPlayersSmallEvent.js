@@ -170,7 +170,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		collector.on("collect", () => {
 			collector.stop();
 		});
-		collector.on("end", async(reaction) => {
+		collector.on("end", async (reaction) => {
 			const poorEmbed = new discord.MessageEmbed();
 			poorEmbed.setAuthor(format(JsonReader.commands.report.getTranslation(language).journal, {
 				pseudo: message.author.username

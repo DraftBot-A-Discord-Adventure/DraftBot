@@ -1,6 +1,5 @@
 import {
 	DraftBotShopMessageBuilder,
-	ShopEndReason,
 	ShopItem,
 	ShopItemCategory
 } from "../../core/messages/DraftBotShopMessage";
@@ -9,12 +8,18 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const Maps = require("../../core/Maps");
 
+module.exports.help = {
+	name: "shop",
+	aliases: ["s"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Displays the shop
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
-async function ShopCommand(language, message) {
+const ShopCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
@@ -44,8 +49,8 @@ async function ShopCommand(language, message) {
 		message.author,
 		shopTranslations.get("title"),
 		language,
-		async(userId) => (await Entities.getOrRegister(userId))[0].Player.money,
-		async(userId, amount) => {
+		async (userId) => (await Entities.getOrRegister(userId))[0].Player.money,
+		async (userId, amount) => {
 			const player = (await Entities.getOrRegister(userId))[0].Player;
 			player.money -= amount;
 			await player.save();
@@ -58,9 +63,9 @@ async function ShopCommand(language, message) {
 		.send(message.channel);
 
 	addBlockedPlayer(entity.discordUserId, "shop", shopMessage.collector);
-}
+};
 
-function shopEndCallback(shopMessage, reason) {
+function shopEndCallback(shopMessage) {
 	removeBlockedPlayer(shopMessage.user.id);
 }
 
@@ -78,7 +83,7 @@ function getRandomItemShopItem(translationModule) {
 	return getPermanentItemShopItem(
 		"randomItem",
 		translationModule,
-		async(message) => {
+		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			await giveRandomItem(message.user, message.sentMessage.channel, message.language, entity);
 			return true;
@@ -89,7 +94,7 @@ function getHealAlterationShopItem(translationModule) {
 	return getPermanentItemShopItem(
 		"healAlterations",
 		translationModule,
-		async(message) => {
+		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.currentEffectFinished()) {
 				await sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.nothingToHeal"));
@@ -111,7 +116,7 @@ function getRegenShopItem(translationModule) {
 	return getPermanentItemShopItem(
 		"regen",
 		translationModule,
-		async(message) => {
+		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			await entity.setHealth(await entity.getMaxHealth());
 			await entity.save();
@@ -129,7 +134,7 @@ function getBadgeShopItem(translationModule) {
 	return getPermanentItemShopItem(
 		"badge",
 		translationModule,
-		async(message) => {
+		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.hasBadge("🤑")) {
 				await sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.alreadyHasItem"));
@@ -159,11 +164,11 @@ async function getDailyPotionShopItem(translationModule) {
 	return new ShopItem(
 		potion.getEmoji(),
 		potion.getSimplePotionName(translationModule.language) + " **| "
-			+ potion.getRarityTranslation(translationModule.language) + " | "
-			+ potion.getNatureTranslation(translationModule.language) + "** ",
+		+ potion.getRarityTranslation(translationModule.language) + " | "
+		+ potion.getNatureTranslation(translationModule.language) + "** ",
 		Math.round(getItemValue(potion) * 0.7),
 		translationModule.get("potion.info"),
-		async(message) => {
+		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			entity.Player.Inventory.giveObject(potion.id, ITEMTYPE.POTION);
 			entity.Player.Inventory.save();
@@ -177,12 +182,4 @@ async function getDailyPotionShopItem(translationModule) {
 	);
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "shop",
-			func: ShopCommand,
-			aliases: ["s"]
-		}
-	]
-};
+module.exports.execute = ShopCommand;

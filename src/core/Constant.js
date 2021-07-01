@@ -58,7 +58,6 @@ global.PERMISSION = {
 		BADGE_MANAGER: "manager", // has the badge manager role
 		SUPPORT: "support", // has the support role
 		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
-		TOURNAMENT: "tournament", // has the permission to use the tournament command
 		CONTRIBUTORS: "contributors",
 		ALL: "all"
 	}
@@ -229,3 +228,24 @@ global.SMALL_EVENT = {
 };
 
 global.COLLECTOR_TIME = 120000;
+
+global.TEST_EMBED_COLOR = {
+	SUCCESSFUL: "#FF8888",
+	ERROR: "#FF0000"
+};
+
+global.ROLES = {
+	GUILD: {
+		NONE: "none",
+		MEMBER: "member",
+		ELDER: "elder",
+		CHIEF: "chief"
+	},
+	USER: {
+		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
+		BADGE_MANAGER: "manager", // has the badge manager role
+		SUPPORT: "support", // has the support role
+		CONTRIBUTORS: "contributors",
+		BOT_OWNER: "owner" // is the owner of the bot
+	}
+};

@@ -1,10 +1,16 @@
+module.exports.help = {
+	name: "classtats",
+	aliases: ["cs","classesstats","classcompare","classestats"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Display information about classes
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ClassStatsCommand(language, message) {
+async function ClassStatsCommand(message, language) {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	const classTranslations = JsonReader.commands.classStats.getTranslation(language);
@@ -27,12 +33,4 @@ async function ClassStatsCommand(language, message) {
 	);
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "classstats",
-			func: ClassStatsCommand,
-			aliases: ["cs", "classesstats", "classcompare", "classestats"]
-		}
-	]
-};
+module.exports.execute = ClassStatsCommand;

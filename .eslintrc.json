@@ -71,7 +71,11 @@
 				"no-whitespace-before-property": "error",
 				"object-curly-newline": "warn",
 				"operator-assignment": "warn",
-				"space-before-function-paren": ["warn", "never"],
+				"space-before-function-paren": ["error", {
+					"anonymous": "never",
+					"named": "never",
+					"asyncArrow": "always"
+				}],
 				"space-infix-ops": "warn",
 				"spaced-comment": "warn",
 				"switch-colon-spacing": "warn",

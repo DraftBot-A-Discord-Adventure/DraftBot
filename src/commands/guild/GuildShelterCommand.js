@@ -1,17 +1,20 @@
+module.exports.help = {
+	name: "shelter",
+	aliases: ["guildshelter", "pets", "animals", "gshelter", "gpets", "ganimals", "guildpets", "guildanimals", "sh"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
+};
+
 /**
  * Display the shelter of guild
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 import {DraftBotShelterMessageBuilder} from "../../core/messages/DraftBotShelterMessage";
 
-const GuildShelterCommand = async(language, message) => {
+const GuildShelterCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
 
 	// search for a user's guild
 	let guild;
@@ -31,22 +34,4 @@ const GuildShelterCommand = async(language, message) => {
 	await message.channel.send(await new DraftBotShelterMessageBuilder(guild, language).build());
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "shelter",
-			func: GuildShelterCommand,
-			aliases: [
-				"guildshelter",
-				"pets",
-				"animals",
-				"gshelter",
-				"gpets",
-				"ganimals",
-				"guildpets",
-				"guildanimals",
-				"sh"
-			]
-		}
-	]
-};
+module.exports.execute = GuildShelterCommand;

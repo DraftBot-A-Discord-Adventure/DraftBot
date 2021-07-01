@@ -1,25 +1,21 @@
+module.exports.help = {
+	name: "pettrade",
+	aliases: ["ptrade"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to trade pets
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
-import {Constants} from "../../core/Constants";
 import {DraftBotTradeMessage} from "../../core/messages/DraftBotTradeMessage";
 
-const PetTradeCommand = async function(language, message) {
+const PetTradeCommand = async (message, language) => {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], trader1) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 	if (message.mentions.users.size === 0) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).needMention);
 	}
@@ -47,7 +43,7 @@ const PetTradeCommand = async function(language, message) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).isFeisty);
 	}
 
-	const tradeSuccessCallback = async() => {
+	const tradeSuccessCallback = async () => {
 		[trader1] = await Entities.getOrRegister(message.author.id);
 		[trader2] = await Entities.getOrRegister(message.mentions.users.first().id);
 		pet1 = trader1.Player.Pet;
@@ -68,7 +64,7 @@ const PetTradeCommand = async function(language, message) {
 		);
 	};
 
-	const tradeRefusedCallback = async(tradeMessage) => {
+	const tradeRefusedCallback = async (tradeMessage) => {
 		removeBlockedPlayer(message.author.id);
 		removeBlockedPlayer(message.mentions.users.first().id);
 		await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.petTrade.getTranslation(language).tradeCanceled, {
@@ -76,7 +72,7 @@ const PetTradeCommand = async function(language, message) {
 		}),true);
 	};
 
-	const tradeNoResponseCallback = async() => {
+	const tradeNoResponseCallback = async () => {
 		removeBlockedPlayer(message.author.id);
 		removeBlockedPlayer(message.mentions.users.first().id);
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).tradeCanceledTime, true);
@@ -107,12 +103,4 @@ const PetTradeCommand = async function(language, message) {
 	addBlockedPlayer(trader2.discordUserId, "petTrade", tradeMessage.collector);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "pettrade",
-			func: PetTradeCommand,
-			aliases: ["ptrade"]
-		}
-	]
-};
+module.exports.execute = PetTradeCommand;

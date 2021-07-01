@@ -1,33 +1,31 @@
+module.exports.help = {
+	name: "guildkick",
+	aliases: ["gkick", "gk"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true,
+	guildPermissions: 3
+};
+
 /**
  * Allow to kick a member from a guild
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-const GuildKickCommand = async(language, message, args) => {
-	let kickedEntity;
-	let guild;
-	let kickedGuild;
-
+const GuildKickCommand = async (message, language, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
+	let kickedEntity;
+	const guild = await Guilds.getById(entity.Player.guildId);
+	let kickedGuild;
 
 	try {
 		[kickedEntity] = await Entities.getByArgs(args, message);
 	}
 	catch (error) {
 		kickedEntity = null;
-	}
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
 	}
 
 	if (kickedEntity === null) {
@@ -42,33 +40,6 @@ const GuildKickCommand = async(language, message, args) => {
 
 	if (await sendBlockedError(kickedEntity, message.channel, language)) {
 		return;
-	}
-
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildKick.getTranslation(language).notInAguild
-		);
-	}
-
-	if (guild.chiefId !== entity.id) {
-		return sendErrorMessage(
-			message.author,
-			message.channel,
-			language,
-			JsonReader.commands.guildKick.getTranslation(language).notChiefError
-		);
 	}
 
 	// search for a user's guild
@@ -98,7 +69,7 @@ const GuildKickCommand = async(language, message, args) => {
 		);
 	}
 
-	const endCallback = async(validateMessage) => {
+	const endCallback = async (validateMessage) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (validateMessage.isValidated()) {
 			try {
@@ -158,12 +129,4 @@ const GuildKickCommand = async(language, message, args) => {
 	addBlockedPlayer(entity.discordUserId, "guildKick", choiceEmbed.collector);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildkick",
-			func: GuildKickCommand,
-			aliases: ["gkick", "gk"]
-		}
-	]
-};
+module.exports.execute = GuildKickCommand;

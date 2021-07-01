@@ -1,20 +1,20 @@
 const moment = require("moment");
 
+module.exports.help = {
+	name: "switch",
+	aliases: ["sw"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to exchange the object that is in the player backup slot within the one that is active
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const SwitchCommand = async(language, message) => {
+const SwitchCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 	const nextDailyDate = new moment(entity.Player.Inventory.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h"); // eslint-disable-line new-cap
 	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
 	const maxTime = JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd;
@@ -41,12 +41,4 @@ const SwitchCommand = async(language, message) => {
 	);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "switch",
-			func: SwitchCommand,
-			aliases: ["sw"]
-		}
-	]
-};
+module.exports.execute = SwitchCommand;

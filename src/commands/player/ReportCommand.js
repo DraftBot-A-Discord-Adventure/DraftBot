@@ -1,22 +1,21 @@
 const Maps = require("../../core/Maps");
 
+module.exports.help = {
+	name: "report",
+	aliases: ["r"],
+	disallowEffects: [EFFECT.DEAD]
+};
+
 /**
  * Allow the user to learn more about what is going on with his character
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {Number} forceSpecificEvent - For testing purpose
  * @param {String} forceSmallEvent
  */
-const ReportCommand = async function(language, message, args, forceSpecificEvent = -1, forceSmallEvent = null) {
+const ReportCommand = async (message, language, args ,forceSpecificEvent = -1, forceSmallEvent = null) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
@@ -135,7 +134,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	}
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
-		await Maps.startTravel(entity.Player, destinationMaps[0],message.createdAt.getTime());
+		await Maps.startTravel(entity.Player, destinationMaps[0], message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
 
@@ -157,7 +156,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 		collector.stop();
 	});
 
-	collector.on("end", async(collected) => {
+	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[randInt(0, destinationMaps.length - 1)];
 		await Maps.startTravel(entity.Player, mapId, message.createdAt.getTime());
 		await destinationChoseMessage(entity, mapId, message, language);
@@ -206,7 +205,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<void>}
  */
-const doEvent = async(message, language, event, entity, time, forcePoints = 0) => {
+const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
 	const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {
 		pseudo: message.author,
 		event: event[language]
@@ -216,7 +215,7 @@ const doEvent = async(message, language, event, entity, time, forcePoints = 0) =
 
 	await addBlockedPlayer(entity.discordUserId, "report", collector);
 
-	collector.on("collect", async(reaction) => {
+	collector.on("collect", async (reaction) => {
 		collector.stop();
 		const possibility = await Possibilities.findAll({
 			where: {
@@ -227,7 +226,7 @@ const doEvent = async(message, language, event, entity, time, forcePoints = 0) =
 		await doPossibility(message, language, possibility, entity, time, forcePoints);
 	});
 
-	collector.on("end", async(collected) => {
+	collector.on("end", async (collected) => {
 		if (!collected.first()) {
 			const possibility = await Possibilities.findAll({where: {eventId: event.id, possibilityKey: "end"}});
 			await doPossibility(message, language, possibility, entity, time, forcePoints);
@@ -249,7 +248,7 @@ const doEvent = async(message, language, event, entity, time, forcePoints = 0) =
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<Message>}
  */
-const doPossibility = async(message, language, possibility, entity, time, forcePoints = 0) => {
+const doPossibility = async (message, language, possibility, entity, time, forcePoints = 0) => {
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	const player = entity.Player;
 
@@ -416,7 +415,7 @@ let totalSmallEventsRarity = null;
  * @param {Boolean} forced
  * @returns {Promise<void>}
  */
-const executeSmallEvent = async(message, language, entity, number, forced) => {
+const executeSmallEvent = async (message, language, entity, number, forced) => {
 
 	// Pick random event
 	let event;
@@ -477,12 +476,5 @@ const executeSmallEvent = async(message, language, entity, number, forced) => {
 
 /* ------------------------------------------------------------ */
 
-module.exports = {
-	commands: [
-		{
-			name: "report",
-			func: ReportCommand,
-			aliases: ["r"]
-		}
-	]
-};
+
+module.exports.execute = ReportCommand;

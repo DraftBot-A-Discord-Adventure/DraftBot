@@ -164,7 +164,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 			else if (choseShopItem.amounts.length === 1 && choseShopItem.amounts[0] === 1) {
 				const confirmBuyMessage = await new DraftBotValidateReactionMessage(
 					shopMessage._user,
-					async(reactionMessage) => {
+					async (reactionMessage) => {
 						const validateMessage = reactionMessage as DraftBotValidateReactionMessage;
 						if (validateMessage.isValidated()) {
 							const removeMoney = await choseShopItem.buyCallback(shopMessage, 1);
@@ -201,7 +201,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 					if (amount < 0 || amount > 10 || choseShopItem.amounts.indexOf(amount) < i) {
 						continue;
 					}
-					numberReactions.push(new DraftBotReaction(numberEmote, async(reactionMessage: DraftBotReactionMessage) => {
+					numberReactions.push(new DraftBotReaction(numberEmote, async (reactionMessage: DraftBotReactionMessage) => {
 						const removeMoney = await choseShopItem.buyCallback(shopMessage, amount);
 						if (removeMoney) {
 							await shopMessage.removeUserMoney(choseShopItem.price * amount);
@@ -213,7 +213,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				}
 				numberReactions.push(new DraftBotReaction(
 					Constants.REACTIONS.REFUSE_REACTION,
-					async(reactionMessage: DraftBotReactionMessage) => {
+					async (reactionMessage: DraftBotReactionMessage) => {
 						reactionMessage.stop();
 						await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
 							shopMessage.user,

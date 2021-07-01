@@ -140,7 +140,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} id
 	 */
-	Players.getById = async(id) => {
+	Players.getById = async (id) => {
 		const query = `SELECT *
                    FROM (SELECT id,
                                 RANK() OVER (ORDER BY score desc, level desc)       rank,
@@ -158,7 +158,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} rank
 	 */
-	Players.getByRank = async(rank) => {
+	Players.getByRank = async (rank) => {
 		const query = `SELECT *
                    FROM (SELECT entityId,
                                 RANK() OVER (ORDER BY score desc, level desc)       rank,
@@ -425,6 +425,11 @@ module.exports = (Sequelize, DataTypes) => {
 	Players.prototype.checkEffect = function() {
 		return [EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1;
 	};
+
+	Players.prototype.getLevel = function() {
+		return this.level;
+	};
+
 
 	return Players;
 };

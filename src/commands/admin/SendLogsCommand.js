@@ -1,15 +1,16 @@
+module.exports.help = {
+	name: "sendlogs",
+	aliases: [],
+	userPermissions: ROLES.USER.CONTRIBUTORS
+};
+
 /**
  * Allow a contributor to get the console logs
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
-const SendLogsCommand = async function(language, message, args) {
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.CONTRIBUTORS) !== true) {
-		return;
-	}
-
+const SendLogsCommand = async (message, language, args) => {
 	if (message.channel.id !== JsonReader.app.CONTRIBUTORS_CHANNEL && message.author.id !== JsonReader.app.BOT_OWNER_ID) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.error.getTranslation(language).notContributorsChannel);
 	}
@@ -64,11 +65,4 @@ const SendLogsCommand = async function(language, message, args) {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "sendlogs",
-			func: SendLogsCommand
-		}
-	]
-};
+module.exports.execute = SendLogsCommand;

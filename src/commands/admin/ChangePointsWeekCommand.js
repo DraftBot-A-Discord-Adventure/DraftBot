@@ -1,17 +1,18 @@
+module.exports.help = {
+	name: "pointsw",
+	aliases: [],
+	userPermissions: ROLES.USER.BOT_OWNER
+};
+
 /**
  * Allow the bot owner to give an item to somebody
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-const ChangePointsWeekCommand = async function(language, message, args) {
-	if (await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER) !== true) {
-		return;
-	}
-
+const ChangePointsWeekCommand = async (message, language, args) => {
 	const playerId = message.mentions.users.last().id;
 	const [entity] = await Entities.getOrRegister(playerId);
 	entity.Player.weeklyScore = parseInt(args[1]);
@@ -23,11 +24,4 @@ const ChangePointsWeekCommand = async function(language, message, args) {
 			{player: args[0], points: args[1]})));
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "pointsw",
-			func: ChangePointsWeekCommand
-		}
-	]
-};
+module.exports.execute = ChangePointsWeekCommand;

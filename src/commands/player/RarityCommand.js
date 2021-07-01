@@ -1,10 +1,15 @@
+module.exports.help = {
+	name: "rarity",
+	aliases: ["rarities"]
+};
+
 /**
  * Allows to see the probability to get an item according to its rarity.
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-function rarityCommand(language, message) {
+const RarityCommand = (message, language) => {
 	const maxValue = JsonReader.values.raritiesGenerator.maxValue;
 	const raritiesGenerator = JsonReader.values.raritiesGenerator;
 	const rarityEmbed = new discord.MessageEmbed()
@@ -22,14 +27,6 @@ function rarityCommand(language, message) {
 		.setTitle(JsonReader.commands.rarity.getTranslation(language).title)
 		.setColor(JsonReader.bot.embed.default);
 	message.channel.send(rarityEmbed);
-}
-
-module.exports = {
-	commands: [
-		{
-			name: "rarity",
-			func: rarityCommand,
-			aliases: ["rarities"]
-		}
-	]
 };
+
+module.exports.execute = RarityCommand;

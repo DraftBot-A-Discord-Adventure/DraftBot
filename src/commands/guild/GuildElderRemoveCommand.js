@@ -1,39 +1,21 @@
+module.exports.help = {
+	name: "guildelderremove",
+	aliases: ["gelderremove", "ger"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true,
+	guildPermissions: 3
+};
+
 /**
  * remove guild elder
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildElderRemoveCommand = async(language, message) => {
-	let guild;
-	const elderRemoveEmbed = new discord.MessageEmbed();
-
+const GuildElderRemoveCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notInAguild);
-	}
-
-	if (guild.chiefId !== entity.id) {
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notChiefError);
-	}
+	const guild = await Guilds.getById(entity.Player.guildId);
+	const elderRemoveEmbed = new discord.MessageEmbed();
 
 	elderRemoveEmbed.setAuthor(
 		format(
@@ -70,7 +52,7 @@ const GuildElderRemoveCommand = async(language, message) => {
 
 	addBlockedPlayer(entity.discordUserId, "guildElderRemove", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
@@ -102,12 +84,4 @@ const GuildElderRemoveCommand = async(language, message) => {
 	]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildelderremove",
-			func: GuildElderRemoveCommand,
-			aliases: ["gelderremove", "guildelderremove", "ger"]
-		}
-	]
-};
+module.exports.execute = GuildElderRemoveCommand;

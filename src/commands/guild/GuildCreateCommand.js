@@ -1,23 +1,23 @@
+module.exports.help = {
+	name: "guildcreate",
+	aliases: ["gcreate", "gc"],
+	requiredLevel: GUILD.REQUIRED_LEVEL,
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to Create a guild
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 
-const GuildCreateCommand = async(language, message, args) => {
+const GuildCreateCommand = async (message, language, args) => {
 	let guild;
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity, GUILD.REQUIRED_LEVEL) !== true) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 
 	// search for a user's guild
 	try {
@@ -69,7 +69,7 @@ const GuildCreateCommand = async(language, message, args) => {
 		);
 	}
 
-	const endCallback = async(validateMessage) => {
+	const endCallback = async (validateMessage) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (validateMessage.isValidated()) {
 			try {
@@ -132,12 +132,4 @@ const GuildCreateCommand = async(language, message, args) => {
 		.send(message.channel);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildcreate",
-			func: GuildCreateCommand,
-			aliases: ["gcreate", "gc"]
-		}
-	]
-};
+module.exports.execute = GuildCreateCommand;

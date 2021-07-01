@@ -10,6 +10,42 @@ global.draftbotRandom = new (require("random-js")).Random();
 global.idToMention = (id) => "<@&" + id + ">";
 
 /**
+ * Get the id from a mention
+ * @param {any} variable
+ * @return {String} The id of the mention
+ */
+global.getIdFromMention = (variable) => {
+	if (typeof variable === "string") {
+		return variable.slice(3,variable.length - 1);
+	}
+	return "";
+};
+
+/**
+ * Check if the given variable is a Mention
+ * @param {String} variable
+ * @return {boolean}
+ */
+global.isAMention = (variable) => {
+	if (typeof variable === "string") {
+		return RegExp(/^<@!?[0-9]{18}>$/).test(variable);
+	}
+	return false;
+};
+
+/**
+ * Check if the given variable is a Discord Emoji
+ * @param {String} variable
+ * @return {boolean}
+ */
+global.isAnEmoji = (variable) => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi).test(variable);
+
+module.exports = {
+	isAMention: isAMention,
+	isAnEmoji: isAnEmoji
+};
+
+/**
  * Send all attachments from a message to a discord channel
  * @param {module:"discord.js".Message} message - Message from the discord user
  * @param {module:"discord.js".TextChannel} channel - The channel where all attachments will be sent
@@ -33,9 +69,7 @@ global.sendMessageAttachments = (message, channel) => {
  * @param {boolean} isCancelling - true if the error message is meant to cancel something
  * @param {String} reason
  */
-global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => {
-	return channel.send(new DraftBotErrorEmbed(user, language, reason, isCancelling));
-};
+global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => channel.send(new DraftBotErrorEmbed(user, language, reason, isCancelling));
 
 /**
  * Send a dm to a user
@@ -90,7 +124,7 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  * @param {Integer} resaleMultiplierActual
  * @returns {Promise<*>}
  */
-global.giveItem = async(entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplierActual = 1) => { // eslint-disable-line max-params
+global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplierActual = 1) => { // eslint-disable-line max-params
 	log(entity.discordUserId + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
 	let autoSell = false;
 	let autoReplace = false;
@@ -197,7 +231,7 @@ global.giveItem = async(entity, item, language, discordUser, channel, resaleMult
 	});
 	addBlockedPlayer(discordUser.id, "acceptItem", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		const [newEntity] = await Entities.getOrRegister(entity.discordUserId);
 		removeBlockedPlayer(discordUser.id);
 		if (reaction.first()) { // a reaction exist
@@ -286,7 +320,7 @@ global.giveItem = async(entity, item, language, discordUser, channel, resaleMult
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entity} entity
  */
-global.giveRandomItem = async(discordUser, channel, language, entity) => {
+global.giveRandomItem = async (discordUser, channel, language, entity) => {
 	const item = await entity.Player.Inventory.generateRandomItem();
 	return await giveItem(entity, item, language, discordUser, channel);
 };
@@ -575,4 +609,81 @@ global.checkNameString = (name, minLength, maxLength) => {
 	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
 	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
+};
+
+/**
+ * Check if the given food with its quantity can be added to the given guild storage
+ * @param {Object} selectedItem - The item to add in the storage
+ * @param {number} quantity - How many of selectedItem is asked to add in the storage
+ * @param guild - The guild to check
+ * @return {boolean}
+ */
+global.isStorageFullFor = (selectedItem, quantity, guild) => guild[selectedItem.type] + quantity > JsonReader.commands.guildShop.max[selectedItem.type];
+
+global.giveFood = async (message, language, entity, author, selectedItem, quantity) => {
+	const guild = await Guilds.getById(entity.Player.guildId);
+	if (isStorageFullFor(selectedItem, quantity, guild)) {
+		return sendErrorMessage(
+			author,
+			message.channel,
+			language,
+			JsonReader.commands.guildShop.getTranslation(language).fullStock
+		);
+	}
+	guild[selectedItem.type] += quantity;
+	await Promise.all([guild.save()]);
+	const successEmbed = new discord.MessageEmbed();
+	// TODO : utiliser les nouveaux embeds
+	successEmbed.setAuthor(
+		format(JsonReader.commands.guildShop.getTranslation(language).success, {
+			author: author.username
+		}),
+		author.displayAvatarURL()
+	);
+	if (quantity === 1) {
+		successEmbed.setDescription(
+			format(
+				JsonReader.commands.guildShop.getTranslation(language)
+					.singleSuccessAddFoodDesc,
+				{
+					emote: selectedItem.emote,
+					quantity: quantity,
+					name: selectedItem.translations[language].name
+						.slice(2, -2)
+						.toLowerCase()
+				}
+			)
+		);
+	}
+	else {
+		successEmbed.setDescription(
+			format(
+				JsonReader.commands.guildShop.getTranslation(language)
+					.multipleSuccessAddFoodDesc,
+				{
+					emote: selectedItem.emote,
+					quantity: quantity,
+					name:
+						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
+							.slice(2, -2)
+							.toLowerCase()
+							.replace(
+								selectedItem.translations[language].name
+									.slice(2, -2)
+									.toLowerCase()
+									.split(" ")[0],
+								selectedItem.translations[language].name
+									.slice(2, -2)
+									.toLowerCase()
+									.split(" ")[0]
+									.concat("s")
+							)
+							: selectedItem.translations[language].name
+								.slice(2, -2)
+								.toLowerCase()
+				}
+			)
+		);
+	}
+	return message.channel.send(successEmbed);
 };

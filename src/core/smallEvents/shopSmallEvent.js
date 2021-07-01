@@ -33,7 +33,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
 	const collector = msg.createReactionCollector(filterConfirm, {time: COLLECTOR_TIME, max: 1});
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {

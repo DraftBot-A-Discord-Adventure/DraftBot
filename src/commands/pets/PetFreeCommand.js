@@ -1,10 +1,16 @@
+module.exports.help = {
+	name: "petfree",
+	aliases: ["petf","pfree", "freepet", "freep"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to free a pet
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetFreeCommand = async function(language, message) {
+const PetFreeCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	// search for a user's guild
@@ -13,13 +19,6 @@ const PetFreeCommand = async function(language, message) {
 	}
 	catch (error) {
 		guild = null;
-	}
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
 	}
 
 	const pPet = entity.Player.Pet;
@@ -66,7 +65,7 @@ const PetFreeCommand = async function(language, message) {
 
 	addBlockedPlayer(entity.discordUserId, "freepet", collector);
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
@@ -115,12 +114,4 @@ const PetFreeCommand = async function(language, message) {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "petfree",
-			func: PetFreeCommand,
-			aliases: ["petf", "pfree", "freepet", "freep"]
-		}
-	]
-};
+module.exports.execute = PetFreeCommand;

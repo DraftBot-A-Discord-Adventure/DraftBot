@@ -1,13 +1,20 @@
 const Fight = require("../../core/fights/Fight");
 
+module.exports.help = {
+	name: "fight",
+	aliases: ["f"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	requiredLevel: FIGHT.REQUIRED_LEVEL
+};
+
 /**
  * Displays information about the profile of the player who sent the command
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {boolean} friendly - If the fight is a friendly fight
  */
-const fightCommand = async function(language, message, args, friendly = false) {
+const FightCommand = async function(message, language, args, friendly = false) {
 	const [attacker] = await Entities.getOrRegister(message.author.id);
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], attacker) !== true) {
@@ -27,13 +34,12 @@ const fightCommand = async function(language, message, args, friendly = false) {
 		}
 	}
 
-	const isTournament = tournamentChannel === message.channel.id && !friendly;
 	let canF;
-	if ((canF = await canFight(attacker, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+	if ((canF = await canFight(attacker, friendly, friendly)) !== FIGHT_ERROR.NONE) {
 		sendError(message, attacker, canF, true, language);
 		return;
 	}
-	if (defender !== null && (canF = await canFight(defender, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+	if (defender !== null && (canF = await canFight(defender, friendly, friendly)) !== FIGHT_ERROR.NONE) {
 		sendError(message, defender, canF, false, language);
 		return;
 	}
@@ -56,9 +62,9 @@ const fightCommand = async function(language, message, args, friendly = false) {
 			opponent: defender.getMention()
 		});
 	}
-	msg += "\n\n" + await getStatsDisplay(attacker, language, isTournament ? tournamentPower : -1, friendly || isTournament);
+	msg += "\n\n" + await getStatsDisplay(attacker, language, friendly);
 	if (defender !== null) {
-		msg += "\n" + await getStatsDisplay(defender, language, isTournament ? tournamentPower : -1, friendly || isTournament);
+		msg += "\n" + await getStatsDisplay(defender, language, friendly);
 	}
 
 	await message.channel.send(msg)
@@ -74,9 +80,9 @@ const fightCommand = async function(language, message, args, friendly = false) {
 				filter = (_, user) => user.id === attacker.discordUserId || user.id === defender.discordUserId;
 			}
 
-			const collector = messageFightAsk.createReactionCollector(filter, { time: 60000 });
+			const collector = messageFightAsk.createReactionCollector(filter, {time: 60000});
 
-			collector.on("collect", async(reaction, user) => {
+			collector.on("collect", async (reaction, user) => {
 				switch (reaction.emoji.name) {
 				case MENU_REACTION.ACCEPT:
 					if (user.id === attacker.discordUserId) {
@@ -90,20 +96,20 @@ const fightCommand = async function(language, message, args, friendly = false) {
 						break;
 					}
 					[defender] = await Entities.getOrRegister(user.id);
-					if ((canF = await canFight(defender, friendly || isTournament, friendly || isTournament)) !== FIGHT_ERROR.NONE) {
+					if ((canF = await canFight(defender, friendly , friendly)) !== FIGHT_ERROR.NONE) {
 						sendError(message, defender, canF, true, language);
 						defender = null;
 						return;
 					}
-					fightInstance = new Fight(attacker, defender, message, language, isTournament, isTournament ? tournamentPower : -1, friendly);
+					fightInstance = new Fight(attacker, defender, message, language, friendly);
 					await fightInstance.startFight();
-					log("Fight (tournament: " + isTournament + "; friendly: " + friendly + ") started in server "
-						+ message.guild.id + " between " + attacker.discordUserId + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and "
-						+ defender.discordUserId + " (" + await defender.getCumulativeHealth() + "/" + await defender.getMaxCumulativeHealth() + ")");
+					log("Fight (friendly: " + friendly + ") started in server "
+							+ message.guild.id + " between " + attacker.discordUserId + " (" + await attacker.getCumulativeHealth() + "/" + await attacker.getMaxCumulativeHealth() + ") and "
+							+ defender.discordUserId + " (" + await defender.getCumulativeHealth() + "/" + await defender.getMaxCumulativeHealth() + ")");
 					break;
 				case MENU_REACTION.DENY:
 					if (user.id === attacker.discordUserId) {
-						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.canceled,true);
+						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.canceled, true);
 					}
 					else if (defender !== null) {
 						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.opponentNotAvailable);
@@ -113,7 +119,7 @@ const fightCommand = async function(language, message, args, friendly = false) {
 							return;
 						}
 						spammers.push(user.id);
-						await sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, { pseudo: "<@" + user.id + ">" }));
+						await sendErrorMessage(user, message.channel, language, format(JsonReader.commands.fight.getTranslation(language).error.onlyInitiator, {pseudo: "<@" + user.id + ">"}));
 						return;
 					}
 					fightInstance = null;
@@ -158,22 +164,22 @@ function sendError(message, entity, error, direct, language) {
 				pseudo: entity.getMention(),
 				level: FIGHT.REQUIRED_LEVEL
 			}) :
-			format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.indirect, { level: FIGHT.REQUIRED_LEVEL });
+			format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.indirect, {level: FIGHT.REQUIRED_LEVEL});
 		sendErrorMessage(message.guild.members.cache.get(entity.discordUserId).user, message.channel, language, msg);
 		break;
 	case FIGHT_ERROR.DISALLOWED_EFFECT:
 		msg = direct ?
-			format(JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.direct, { pseudo: entity.getMention() }) :
+			format(JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.direct, {pseudo: entity.getMention()}) :
 			JsonReader.commands.fight.getTranslation(language).error.cantFightStatus.indirect;
 		break;
 	case FIGHT_ERROR.OCCUPIED:
 		msg = direct ?
-			format(JsonReader.commands.fight.getTranslation(language).error.occupied.direct, { pseudo: entity.getMention() }) :
+			format(JsonReader.commands.fight.getTranslation(language).error.occupied.direct, {pseudo: entity.getMention()}) :
 			JsonReader.commands.fight.getTranslation(language).error.occupied.indirect;
 		break;
 	case FIGHT_ERROR.NO_FIGHT_POINTS:
 		msg = direct ?
-			format(JsonReader.commands.fight.getTranslation(language).error.noFightPoints.direct, { pseudo: entity.getMention() }) :
+			format(JsonReader.commands.fight.getTranslation(language).error.noFightPoints.direct, {pseudo: entity.getMention()}) :
 			JsonReader.commands.fight.getTranslation(language).error.noFightPoints.indirect;
 		break;
 	default:
@@ -211,12 +217,11 @@ async function canFight(entity, bypassAlteration, bypassHealth) {
  * Returns the message which displays the stats of a player under the fight ask
  * @param {Entities} entity
  * @param {"fr"|"en"} language
- * @param {Number} maxPower
  * @param {boolean} friendly
  * @return {Promise<String>}
  */
-async function getStatsDisplay(entity, language, maxPower = -1, friendly = false) {
-	let msg = format(JsonReader.commands.fight.getTranslation(language).statsOfPlayer, { pseudo: await entity.Player.getPseudo(language) });
+async function getStatsDisplay(entity, language, friendly = false) {
+	let msg = format(JsonReader.commands.fight.getTranslation(language).statsOfPlayer, {pseudo: await entity.Player.getPseudo(language)});
 	const inv = entity.Player.Inventory;
 	const w = await inv.getWeapon();
 	const a = await inv.getArmor();
@@ -225,13 +230,9 @@ async function getStatsDisplay(entity, language, maxPower = -1, friendly = false
 		p.power = 0;
 	}
 	const o = await inv.getActiveObject();
-	let power = maxPower;
-	const pMaxPower = await entity.getMaxCumulativeHealth();
-	if (power === -1 || pMaxPower < maxPower) {
-		power = friendly ? pMaxPower : await entity.getCumulativeHealth();
-	}
+
 	msg += format(JsonReader.commands.fight.getTranslation(language).summarize.stats, {
-		power: power,
+		power: await entity.getCumulativeHealth(),
 		attack: await entity.getCumulativeAttack(w, a, p, o),
 		defense: await entity.getCumulativeDefense(w, a, p, o),
 		speed: await entity.getCumulativeSpeed(w, a, p, o)
@@ -247,26 +248,4 @@ const FIGHT_ERROR = {
 	NO_FIGHT_POINTS: 4
 };
 
-/**
- * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
- * @param {String[]} args=[] - Additional arguments sent with the command
- */
-const FriendlyFightCommand = async function(language, message, args) {
-	await fightCommand(language, message, args, true);
-};
-
-module.exports = {
-	commands: [
-		{
-			name: "fight",
-			func: fightCommand,
-			aliases: ["f"]
-		},
-		{
-			name: "friendlyfight",
-			func: FriendlyFightCommand,
-			aliases: ["ffight", "ff"]
-		}
-	]
-};
+module.exports.execute = FightCommand;

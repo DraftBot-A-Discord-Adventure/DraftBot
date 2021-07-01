@@ -7,8 +7,6 @@ const FightActionResult = require("./FightActionResult.js");
  * @param player2
  * @param {module:"discord.js".Message} message
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {boolean} tournamentMode
- * @param {Number} maxPower
  * @param {boolean} friendly
  * @returns {Promise<void>}
  */
@@ -20,18 +18,14 @@ class Fight {
 	 * @param player2
 	 * @param {module:"discord.js".Message} message
 	 * @param {("fr"|"en")} language - Language to use in the response
-	 * @param {boolean} tournamentMode
-	 * @param {Number} maxPower
 	 * @param {boolean} friendly
 	 * @returns {Promise<void>}
 	 */
-	constructor(player1, player2, message, language, tournamentMode = false, maxPower = -1, friendly = false) { // eslint-disable-line max-params
-		this.fighters = [new Fighter(player2, friendly, tournamentMode), new Fighter(player1, friendly, tournamentMode)];
+	constructor(player1, player2, message, language, friendly = false) {
+		this.fighters = [new Fighter(player2, friendly), new Fighter(player1, friendly)];
 		this.turn = 0;
 		this.message = message;
 		this.language = language;
-		this.tournamentMode = tournamentMode;
-		this.maxPower = maxPower;
 		this.friendly = friendly;
 		this.lastSummary = undefined;
 		this.actionMessages = undefined;
@@ -78,9 +72,6 @@ class Fight {
 		// load player stats
 		for (let i = 0; i < this.fighters.length; i++) {
 			await this.fighters[i].calculateStats();
-			if (this.maxPower !== -1 && this.fighters[i].power > this.maxPower) {
-				this.fighters[i].power = this.maxPower;
-			}
 			await this.fighters[i].consumePotionIfNeeded();
 			global.addBlockedPlayer(this.fighters[i].entity.discordUserId, "fight");
 		}
@@ -189,7 +180,7 @@ class Fight {
 
 				const collector = message.createReactionCollector(filter, {time: 30000});
 
-				collector.on("collect", async(reaction) => {
+				collector.on("collect", async (reaction) => {
 					switch (reaction.emoji.name) {
 					case "⚔":
 						await message.delete().catch();
@@ -451,7 +442,7 @@ class Fight {
 			winner.entity.Player.save();
 		}
 
-		if (!this.friendly && !this.tournamentMode) {
+		if (!this.friendly ) {
 			for (let i = 0; i < this.fighters.length; i++) {
 				this.fighters[i].entity.fightPointsLost = await this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
 				this.fighters[i].entity.save();
@@ -636,7 +627,7 @@ class Fight {
 	calculateElo() {
 		const loser = this.getLoser();
 		const winner = this.getWinner();
-		if (loser !== null && winner !== null && winner.entity.Player.score !== 0 && !this.tournamentMode && !this.friendly) {
+		if (loser !== null && winner !== null && winner.entity.Player.score !== 0 && !this.friendly) {
 			this.elo = Math.round(loser.entity.Player.score / winner.entity.Player.score * 100) / 100;
 		}
 		else {
@@ -651,7 +642,7 @@ class Fight {
 	 */
 	calculatePoints() {
 		const loser = this.getLoser();
-		if (loser !== null && !this.tournamentMode && !this.friendly) {
+		if (loser !== null && !this.friendly) {
 			this.points = Math.round(100 + 10 * loser.entity.Player.level * this.elo);
 			if (this.points > 2000) {
 				this.points = Math.round(2000 - randInt(5, 1000));

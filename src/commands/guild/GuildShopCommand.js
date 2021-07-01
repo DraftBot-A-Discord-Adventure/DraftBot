@@ -1,13 +1,21 @@
+module.exports.help = {
+	name: "guildshop",
+	aliases: ["gs"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	guildRequired: true
+};
+
 /**
  * Displays the guild shop
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+
+/*
 import {Translations} from "../../core/Translations";
 import {ShopItem} from "../../core/messages/DraftBotShopMessage";
-
-/*async function GuildShopCommand(language, message) {
+async function GuildShopCommand(language, message) {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
@@ -44,29 +52,8 @@ import {ShopItem} from "../../core/messages/DraftBotShopMessage";
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function GuildShopCommand(language, message) {
+const GuildShopCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-
-	// search for a user's guild
-	let guild;
-	try {
-		guild = await Guilds.getById(entity.Player.guildId);
-	}
-	catch (error) {
-		guild = null;
-	}
-
-	if (guild === null) {
-		// not in a guild
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildDaily.getTranslation(language).notInAGuild);
-	}
 
 	const shopTranslations = JsonReader.commands.guildShop.getTranslation(
 		language
@@ -141,7 +128,7 @@ async function GuildShopCommand(language, message) {
 	addBlockedPlayer(entity.discordUserId, "guildShop", collector);
 
 	// Fetch the choice from the user
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (
 			!reaction.first() ||
@@ -206,7 +193,7 @@ async function GuildShopCommand(language, message) {
 		shopMessage.react(GUILDSHOP.ULTIMATE_FOOD),
 		shopMessage.react(MENU_REACTION.DENY)
 	]);
-}
+};
 
 /**
  * food purchase
@@ -294,7 +281,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 
 	addBlockedPlayer(entity.discordUserId, "selectQuantity");
 
-	collector.on("end", async(reaction) => {
+	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (
 			!reaction.first() ||
@@ -325,7 +312,7 @@ async function purchaseFood(message, language, entity, author, selectedItem) {
 				)
 			);
 		}
-		await giveFood(
+		await buyFood(
 			message,
 			language,
 			entity,
@@ -521,92 +508,13 @@ async function giveGuildXp(message, language, entity, author, selectedItem) {
 	);
 }
 
-const giveFood = async(
-	message,
-	language,
-	entity,
-	author,
-	selectedItem,
-	quantity
-) => {
+const buyFood = async (message, language, entity, author, selectedItem, quantity) => {
 	const guild = await Guilds.getById(entity.Player.guildId);
-	if (
-		guild[selectedItem.type] + quantity >
-		JsonReader.commands.guildShop.max[selectedItem.type]
-	) {
-		return sendErrorMessage(
-			author,
-			message.channel,
-			language,
-			JsonReader.commands.guildShop.getTranslation(language).fullStock
-		);
+	if (isStorageFullFor(selectedItem, quantity, guild)) {
+		await entity.Player.addMoney(-selectedItem.price * quantity); // Remove money
+		await Promise.all([entity.Player.save()]);
 	}
-	guild[selectedItem.type] += quantity;
-	await entity.Player.addMoney(-selectedItem.price * quantity); // Remove money
-	await Promise.all([guild.save(), entity.Player.save()]);
-	const successEmbed = new discord.MessageEmbed();
-	successEmbed.setAuthor(
-		format(JsonReader.commands.guildShop.getTranslation(language).success, {
-			author: author.username
-		}),
-		author.displayAvatarURL()
-	);
-	if (quantity === 1) {
-		successEmbed.setDescription(
-			format(
-				JsonReader.commands.guildShop.getTranslation(language)
-					.singleSuccessAddFoodDesc,
-				{
-					emote: selectedItem.emote,
-					quantity: quantity,
-					name: selectedItem.translations[language].name
-						.slice(2, -2)
-						.toLowerCase()
-				}
-			)
-		);
-	}
-	else {
-		successEmbed.setDescription(
-			format(
-				JsonReader.commands.guildShop.getTranslation(language)
-					.multipleSuccessAddFoodDesc,
-				{
-					emote: selectedItem.emote,
-					quantity: quantity,
-					name:
-						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
-							.slice(2, -2)
-							.toLowerCase()
-							.replace(
-								selectedItem.translations[language].name
-									.slice(2, -2)
-									.toLowerCase()
-									.split(" ")[0],
-								selectedItem.translations[language].name
-									.slice(2, -2)
-									.toLowerCase()
-									.split(" ")[0]
-									.concat("s")
-							)
-							: selectedItem.translations[language].name
-								.slice(2, -2)
-								.toLowerCase()
-				}
-			)
-		);
-	}
-
-	return message.channel.send(successEmbed);
+	await giveFood(message, language, entity, author, selectedItem, quantity);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildshop",
-			func: GuildShopCommand,
-			aliases: ["guildshop", "gs"]
-		}
-	],
-	giveFood: giveFood
-};
+module.exports.execute = GuildShopCommand;
