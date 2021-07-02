@@ -10,7 +10,7 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-import {DraftBotValidateReactionMessage} from "../../core/messages/ValidateReactionMessage";
+import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 
 const SellCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);

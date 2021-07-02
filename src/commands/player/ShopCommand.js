@@ -48,13 +48,7 @@ const ShopCommand = async (message, language) => {
 	const shopMessage = (await new DraftBotShopMessageBuilder(
 		message.author,
 		shopTranslations.get("title"),
-		language,
-		async (userId) => (await Entities.getOrRegister(userId))[0].Player.money,
-		async (userId, amount) => {
-			const player = (await Entities.getOrRegister(userId))[0].Player;
-			player.money -= amount;
-			await player.save();
-		}
+		language
 	)
 		.addCategory(dailyItemsCategory)
 		.addCategory(permanentItemsCategory)

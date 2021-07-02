@@ -7,6 +7,7 @@ import {DraftBotErrorEmbed} from "./DraftBotErrorEmbed";
 import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
 
 declare function format(s: string, replacement: any): string;
+declare const Entities: any;
 
 /**
  * Reasons when the shop ends
@@ -80,7 +81,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		const shopItemReactions: string[] = [];
 		let content = "";
 		for (const shopItemCategory of shopItemCategories) {
-			content += "**" + shopItemCategory.categoryTitle + " :**\n";
+			content += "**" + shopItemCategory.categoryTitle + (language === "en" ? "" : " ") + ":**\n";
 			for (const shopItem of shopItemCategory.items) {
 				content += format(translationModule.get("display"), {
 					emote: shopItem.emote,
@@ -274,9 +275,13 @@ export class DraftBotShopMessageBuilder {
 
 	private readonly _language: string;
 
-	private readonly _getUserMoney: (userId: string) => Promise<number>;
+	private _getUserMoney: (userId: string) => Promise<number> = async (userId) => (await Entities.getOrRegister(userId))[0].Player.money;
 
-	private readonly _removeUserMoney: (userId: string, amount: number) => Promise<void>;
+	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
+		const player = (await Entities.getOrRegister(userId))[0].Player;
+		player.money -= amount;
+		await player.save();
+	};
 
 	private _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void = () => { /* do nothing */ };
 
@@ -287,23 +292,15 @@ export class DraftBotShopMessageBuilder {
 	 * @param user The user of the shop
 	 * @param title The title of the shop
 	 * @param language The language of the shop
-	 * @param getUserMoney A function which returns the money of the player
-	 * It MUST query the player from the database or whatever each time this function is called in order to prevent problems of concurrent modifications
-	 * @param removeUserMoney A function which removes money from the player
-	 * It MUST query the player from the database or whatever each time this function is called in order to prevent problems of concurrent modifications
 	 */
 	constructor(
 		user: User,
 		title: string,
-		language: string,
-		getUserMoney: (userId: string) => Promise<number>,
-		removeUserMoney: (userId: string, amount: number) => Promise<void>
+		language: string
 	) {
 		this._user = user;
 		this._title = title;
 		this._language = language;
-		this._getUserMoney = getUserMoney;
-		this._removeUserMoney = removeUserMoney;
 	}
 
 	/**
@@ -333,13 +330,35 @@ export class DraftBotShopMessageBuilder {
 	}
 
 	/**
+	 * Set the function which get the money from the player
+	 * To be used in the case the money is not the base game money (ex: points)
+	 * It MUST query the player from the database or whatever each time this function is called in order to prevent problems of concurrent modifications
+	 * @param getUserMoney
+	 */
+	setGetUserMoney(getUserMoney: (userId: string) => Promise<number>): DraftBotShopMessageBuilder {
+		this._getUserMoney = getUserMoney;
+		return this;
+	}
+
+	/**
+	 * Set the function which removes money from the player
+	 * To be used in the case the money is not the base game money (ex: points)
+	 * It MUST query the player from the database or whatever each time this function is called in order to prevent problems of concurrent modifications
+	 * @param removeUserMoney
+	 */
+	setRemoveUserMoney(removeUserMoney: (userId: string, amount: number) => Promise<void>): DraftBotShopMessageBuilder {
+		this._removeUserMoney = removeUserMoney;
+		return this;
+	}
+
+	/**
 	 * Build the shop message
 	 */
 	async build(): Promise<DraftBotShopMessage> {
 		return new DraftBotShopMessage(
 			this._shopItemCategories,
 			this._language,
-			(this._noShoppingCart ? this._title : Constants.REACTIONS.SHOPPING_CART + " " + this._title) + " :",
+			(this._noShoppingCart ? this._title : Constants.REACTIONS.SHOPPING_CART + " " + this._title) + (this._language === "en" ? "" : " ") + ":",
 			this._user,
 			await this._getUserMoney(this._user.id),
 			this._getUserMoney,
