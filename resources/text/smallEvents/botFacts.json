@@ -1,0 +1,50 @@
+{
+	"translations": {
+		"fr": {
+			"stories": [
+				"exemple. {botFact}. fin exemple."
+			],
+			"possiblesInfos": {
+				"nbPlayers": "",
+				"nbMeanPoints": "",
+				"nbMeanMoney": "",
+				"richestPlayer": "",
+				"trainedPets": "",
+				"feistyPets": "",
+				"levelMean": "",
+				"guildLevelMean": "",
+				"percentMaleFemalePets": "",
+				"meanWeeklyScore": "",
+				"nbPlayersWithGivenClass": "",
+				"nbPlayersOnGivenMap": "",
+				"nbPlayersDisabledDms": "",
+				"nbPlayersHaventStartedTheAdventure": ""
+			}
+		},
+		"en": {
+			"stories": [
+				"exemple. {botFact}. fin exemple."
+			],
+			"possiblesInfos": {
+				"nbPlayers": "",
+				"nbMeanPoints": "",
+				"nbMeanMoney": "",
+				"richestPlayer": "",
+				"trainedPets": "",
+				"feistyPets": "",
+				"levelMean": "",
+				"guildLevelMean": "",
+				"percentMaleFemalePets": "",
+				"meanWeeklyScore": "",
+				"nbPlayersWithGivenClass": "",
+				"nbPlayersOnGivenMap": "",
+				"nbPlayersDisabledDms": "",
+				"nbPlayersHaventStartedTheAdventure": ""
+			}
+		}
+	},
+	"rarity": 7040,
+	"emote": ":white_flower: "
+}
+
+
