@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
@@ -453,11 +455,9 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 			}
 			else {
 				// Create a template embed
-				const seEmbed = new discord.MessageEmbed();
-				seEmbed.setAuthor(format(JsonReader.commands.report.getTranslation(language).journal, {
-					pseudo: message.author.username
-				}), message.author.displayAvatarURL());
-				seEmbed.setDescription(JsonReader.smallEvents[event].emote + " ");
+				const seEmbed = new DraftBotEmbed()
+					.formatAuthor(JsonReader.commands.report.getTranslation(language).journal, message.author)
+					.setDescription(JsonReader.smallEvents[event].emote + " ");
 
 				await smallEventFile.executeSmallEvent(message, language, entity, seEmbed);
 			}

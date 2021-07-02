@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "list",
 	commandFormat: "",
@@ -14,8 +16,8 @@ const CT = require("../../../../core/CommandsTest");
  * @return {module:"discord.js".MessageEmbed} - The successful message formatted
  */
 const listTestCommand = (language, message) => {
-	const embedListCommandsTest = new discord.MessageEmbed()
-		.setAuthor(message.author.username + ", voici la liste des commandes tests disponibles :", message.author.displayAvatarURL())
+	const embedListCommandsTest = new DraftBotEmbed()
+		.formatAuthor(message.author.username + ", voici la liste des commandes tests disponibles :", message.author)
 		.setDescription("Si vous voulez plus d'informations sur une commande test en particulier, écrivez ceci : `test help <command>`")
 		.setColor(TEST_EMBED_COLOR.SUCCESSFUL);
 	CT.testCommType.forEach(category => {
