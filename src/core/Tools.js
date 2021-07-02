@@ -1,4 +1,5 @@
 import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
+import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 
 global.draftbotRandom = new (require("random-js")).Random();
 
@@ -81,14 +82,11 @@ global.sendErrorMessage = (user, channel, language, reason, isCancelling = false
  */
 global.sendDirectMessage = (user, title, description, color, language) => {
 	try {
-		const embed = new discord.MessageEmbed();
-		embed.setColor(color)
-			.setAuthor(format(title, {
-				pseudo: user.username
-			}), user.displayAvatarURL())
+		user.send(new DraftBotEmbed()
+			.setColor(color)
+			.formatAuthor(title, user)
 			.setDescription(description)
-			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
-		user.send(embed);
+			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter));
 		log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
 	}
 	catch (err) {
@@ -104,14 +102,9 @@ global.sendDirectMessage = (user, title, description, color, language) => {
  * @param {String} title - the title of the message
  * @param {String} message - the message
  */
-global.sendSimpleMessage = (user, channel, title, message) => {
-	const embed = new discord.MessageEmbed();
-	embed.setAuthor(format(title, {
-		pseudo: user.username
-	}), user.displayAvatarURL())
-		.setDescription(message);
-	return channel.send(embed);
-};
+global.sendSimpleMessage = (user, channel, title, message) => channel.send(new DraftBotEmbed()
+	.formatAuthor(title, user)
+	.setDescription(message));
 
 /**
  * Give an item to a user

@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
 
@@ -53,8 +55,8 @@ class CommandsTest {
 		if (commandTest.help.typeWaited === undefined) {
 			return args.length === 0 ? [true, ""] : [
 				false,
-				new discord.MessageEmbed()
-					.setAuthor("❌ Mauvais format pour la commande test " + commandTest.help.name, message.author.displayAvatarURL())
+				new DraftBotEmbed()
+					.formatAuthor("❌ Mauvais format pour la commande test " + commandTest.help.name, message.author)
 					.setDescription(
 						"**Format attendu :** `test " + commandTest.help.name + "`"
 					)

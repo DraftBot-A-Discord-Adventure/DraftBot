@@ -1,3 +1,6 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+
 module.exports.help = {
 	name: "guildadd",
 	aliases: ["gadd", "ga"],
@@ -16,7 +19,6 @@ const GuildAddCommand = async (message, language, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	let invitedEntity;
 	let invitedGuild;
-	const invitationEmbed = new discord.MessageEmbed();
 
 	try {
 		[invitedEntity] = await Entities.getByArgs(args, message);
@@ -96,86 +98,62 @@ const GuildAddCommand = async (message, language, args) => {
 		);
 	}
 
-	invitationEmbed.setAuthor(
-		format(
-			JsonReader.commands.guildAdd.getTranslation(language).invitationTitle,
-			{
-				pseudo: message.mentions.users.last().username
-			}
-		),
-		message.mentions.users.last().displayAvatarURL()
-	);
-	invitationEmbed.setDescription(
-		format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
+	const msg = await message.channel.send(new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.guildAdd.getTranslation(language).invitationTitle, message.mentions.users.last())
+		.setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
 			guildName: guild.name
-		})
-	);
+		})));
 
-	const msg = await message.channel.send(invitationEmbed);
-
-	const embed = new discord.MessageEmbed();
-	const filterConfirm = (reaction, user) =>
-		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
-				reaction.emoji.name === MENU_REACTION.DENY) &&
-			user.id === message.mentions.users.last().id
-		;
-
-	const collector = msg.createReactionCollector(filterConfirm, {
-		time: COLLECTOR_TIME,
-		max: 1
-	});
-
-	addBlockedPlayer(invitedEntity.discordUserId, "guildAdd", collector);
-
-	collector.on("end", async (reaction) => {
+	const endCallback = async (msg) => {
 		removeBlockedPlayer(invitedEntity.discordUserId);
-		if (reaction.first()) {
-			// a reaction exist
-			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				try {
-					guild = await Guilds.getById(entity.Player.guildId);
-				}
-				catch (error) {
-					guild = null;
-				}
-				if (guild === null) {
-					// guild is destroy
-					return sendErrorMessage(
-						message.mentions.users.last(),
-						message.channel,
-						language,
-						JsonReader.commands.guildAdd.getTranslation(language).guildDestroy
-					);
-				}
-				invitedEntity.Player.guildId = guild.id;
-				guild.updateLastDailyAt();
-
-				await Promise.all([
-					guild.save(),
-					invitedEntity.save(),
-					invitedEntity.Player.save()
-				]);
-
-				embed.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
-					pseudo: message.mentions.users.last().username,
-					guildName: guild.name
-				}),
-				message.mentions.users.last().displayAvatarURL()
-				);
-				embed.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess);
-				return message.channel.send(embed);
+		if (msg.isValidated()) {
+			try {
+				guild = await Guilds.getById(entity.Player.guildId);
 			}
+			catch (error) {
+				guild = null;
+			}
+			if (guild === null) {
+				// guild is destroy
+				return sendErrorMessage(
+					message.mentions.users.last(),
+					message.channel,
+					language,
+					JsonReader.commands.guildAdd.getTranslation(language).guildDestroy
+				);
+			}
+			invitedEntity.Player.guildId = guild.id;
+			guild.updateLastDailyAt();
+
+			await Promise.all([
+				guild.save(),
+				invitedEntity.save(),
+				invitedEntity.Player.save()
+			]);
+
+			return message.channel.send(
+				new DraftBotEmbed()
+					.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
+						pseudo: message.mentions.users.last().username,
+						guildName: guild.name
+					}),
+					message.mentions.users.last().displayAvatarURL())
+					.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess)
+			);
 		}
 
 		// Cancel the creation
 		return sendErrorMessage(message.mentions.users.last(), message.channel, language,
 			format(JsonReader.commands.guildAdd.getTranslation(language).invitationCancelled, {guildName: guild.name}), true);
-	});
+	};
 
-	await Promise.all([
-		msg.react(MENU_REACTION.ACCEPT),
-		msg.react(MENU_REACTION.DENY)
-	]);
+	const validationEmbed = new DraftBotValidateReactionMessage(
+		message.author,
+		endCallback
+	);
+	await validationEmbed.send(message.channel);
+
+	addBlockedPlayer(invitedEntity.discordUserId, "guildAdd", validationEmbed.collector);
 };
 
 module.exports.execute = GuildAddCommand;
