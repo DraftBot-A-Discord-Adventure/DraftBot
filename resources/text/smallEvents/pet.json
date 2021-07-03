@@ -23,8 +23,8 @@
 			"gainLove": [
 				"**{pet}** est heureux de vous avoir en sa compagnie. {nominativeShift} gagne en amour et vous devient plus fidèle.",
 				"Après avoir marché longuement, vous décidez de prendre soin de votre **{pet}** en {determinant} caressant. Ce moment passé avec {accusative} a renforcé vos liens.",
-				"Après être parti{feminine} quelques instant, **{pet}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominative} vous aime ainsi d'avantage.",
-				"**{pet}** semble avoir déclenché les hostilités avec un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous décidez de {determinant} défendre vaillamment. {nominativeShift} vous aime d'avantage et vous devient plus fidèle.",
+				"Après être parti{feminine} quelques instant, **{pet}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominative} vous aime ainsi davantage.",
+				"**{pet}** semble avoir déclenché les hostilités avec un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous décidez de {determinant} défendre vaillamment. {nominativeShift} vous aime davantage et vous devient plus fidèle.",
 				"**{pet}** est joueur, vous décidez de jouer avec {accusative}. Cette partie a renforcé vos liens."
 			],
 			"food": [
@@ -42,7 +42,7 @@
 				"Défendre **{pet}** contre un{randomAnimalFeminine} **{randomAnimal}** sauvage n'a pas été une mince affaire et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite et de courir à toute vitesse. Grâce à cette mésaventure vous gagnez **{amount} min** :clock2: sur votre trajet."
 			],
 			"points": [
-				"Les personnes qui vous croisent avec **{pet}** ne manquent pas de vous remarquez. Cela améliore votre réputation et vous gagnez donc **{amount}** :medal:.",
+				"Les personnes qui vous croisent avec **{pet}** ne manquent pas de vous remarquer. Cela améliore votre réputation et vous gagnez donc **{amount}** :medal:.",
 				"Raconter vos aventures auprès de **{pet}** à un vieil homme semble avoir amélioré votre réputation, vous gagnez donc **{amount}** :medal:."
 			],
 			"badge": [
@@ -67,7 +67,7 @@
 				"Vous sentez que **{pet}** ne semble pas vouloir bouger, vous décidez tout de même de {determinant} tirer de force. Par sa faute, vous perdez **{amount} min** :clock2:.",
 				"Vous voyez **{pet}** venir vers vous en courant poursuivi{feminine} par un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous prenez la fuite avec {accusative}. Cette course poursuite vous à fait perdre **{amount} min** :clock2: sur votre trajet.",
 				"En entrant dans un vilage, vous entendez une rumeur portant sur un familier ressemblant à **{pet}** qui attaquerait des villageois. En vous voyant, les habitants prennent peur de vous et de votre familier, et vous êtes alors immédiatement chassé du village. Cette mésaventure vous a fait perdre **{amount} min** :clock2: sur votre trajet.",
-				"**{pet}** regarde avec insistance le sol et décide d'y creuser un trou. {nominative} y ressort un coffre fermé. Après plusieurs tentatives, vous réussisez à l'ouvrir, malheureusement celui-ci est vide. Cette mésaventure vous a bien fait perdre **{amount} min** :clock2:."
+				"**{pet}** regarde avec insistance le sol et décide d'y creuser un trou. {nominative} en ressort un coffre fermé. Après plusieurs tentatives, vous réussissez à l'ouvrir, malheureusement celui-ci est vide. Cette mésaventure vous a bien fait perdre **{amount} min** :clock2:."
 			],
 			"petFlee": [
 				"**{pet}** ne vous respecte pas et part donc en courant au loin. Vous n'arrivez pas à {determinant} retrouver et {determinant} perdez à tout jamais...",

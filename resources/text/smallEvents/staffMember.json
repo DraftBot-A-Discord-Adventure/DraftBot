@@ -8,7 +8,7 @@
 				"En entrant dans un bâtiment le long de votre chemin, vous discutez quelques temps avec le gérant de l'établissement. Vous lui demandez de vous conter les légendes locales, il vous décrit alors **{pseudo}**, {sentence}.",
 				"Sur votre chemin, vous faites la rencontre d'un vieil homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{pseudo}** : {sentence}.",
 				"En marchant le long de la route, vous apercevez un livre en mauvais état par terre. Intitulé **{pseudo}**, vous l'ouvrez et lisez les premières phrases... {sentence}.",
-				"Vous marchez longuement dans le calme, jusqu'à ce que vous croisiez une personne fredonnant un chant dédié à **{pseudo}**... :musical_note: {sentence} :musical_note:.",
+				"Vous marchez longuement dans le calme, jusqu'à ce que vous croisiez une personne fredonnant un chant dédié à **{pseudo}**... {sentence}.",
 				"Sur votre voyage, un nuage de poussière apparaît au loin. Quelques minutes plus tard, un cavalier s'arrête devant vous, il dit chercher **{pseudo}**. À votre regard inquisiteur, il ajoute :  \"{sentence}\"."
 			],
 			"members": {
@@ -20,8 +20,8 @@
 				"romain22222": "un grand intellect, cherchant autant à résoudre les situations de façon optimale, qu'à les créer. Celui-ci discute trop, bien trop, avec les ménestrels et ses adorateurs, et évite les tentes dans les forêts",
 				"Asemerald": "un aventurier se laissant porter par sa chance, connu pour sa puissance de feu dépassant l’imaginable",
 				"Izuku": "un riche inventeur qui créa une potion d'amour pour la belle princesse mais qui se la fit voler par un marchand",
-				"Draft": "un ancien dieu créateur du monde dans lequel tous évolue. Épaté par les capacités de son peuple, il erre parmi eux tandis qu'il travaille à perfectionner leur expérience",
-				"Royal": "un entrepreneur aguerri qui privilégie l'argent à la morale. Friand de tournoi, il n'hésitera pas à se battre pour la princesse",
+				"Draft": "un ancien dieu créateur du monde dans lequel tous évoluent. Épaté par les capacités de son peuple, il erre parmi eux tandis qu'il travaille à perfectionner leur expérience",
+				"Royal": "un entrepreneur aguerri qui privilégie l'argent à la morale. Friand de tournois, il n'hésitera pas à se battre pour la princesse",
 				"Max": "un inventeur fou, amoureux du voyage. Il est le seul à avoir, un jour, parcouru la terre des dragons. La légende raconte que ses projets ont presque tous menés l’humanité au bord de l’extinction",
 				"Eagle": "éleveur de dragon, qui a mené les premiers coups d'état du royaume",
 				"DeadAngelV6": "seul homme banni des terres du Duc Benatis. Il espère vous croiser dans votre aventure avec son mystérieux baluchon pour vous conter son histoire",
