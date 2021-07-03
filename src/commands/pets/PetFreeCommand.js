@@ -14,6 +14,7 @@ module.exports.help = {
  */
 const PetFreeCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
+	let guild;
 
 	// search for a user's guild
 	try {

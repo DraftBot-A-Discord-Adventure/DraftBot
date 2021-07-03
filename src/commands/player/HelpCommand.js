@@ -14,7 +14,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 const HelpCommand = async (message, language, args) => {
 	let helpMessage;
 
-	[server] = await Servers.getOrRegister(message.guild.id);
+	const [server] = await Servers.getOrRegister(message.guild.id);
 
 	if (!args.length) {
 		helpMessage = new DraftBotEmbed();

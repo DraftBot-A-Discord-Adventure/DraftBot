@@ -98,12 +98,6 @@ const GuildAddCommand = async (message, language, args) => {
 		);
 	}
 
-	const msg = await message.channel.send(new DraftBotEmbed()
-		.formatAuthor(JsonReader.commands.guildAdd.getTranslation(language).invitationTitle, message.mentions.users.last())
-		.setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
-			guildName: guild.name
-		})));
-
 	const endCallback = async (msg) => {
 		removeBlockedPlayer(invitedEntity.discordUserId);
 		if (msg.isValidated()) {
@@ -148,9 +142,13 @@ const GuildAddCommand = async (message, language, args) => {
 	};
 
 	const validationEmbed = new DraftBotValidateReactionMessage(
-		message.author,
+		message.mentions.users.last(),
 		endCallback
-	);
+	)
+		.formatAuthor(JsonReader.commands.guildAdd.getTranslation(language).invitationTitle, message.mentions.users.last())
+		.setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
+			guildName: guild.name
+		}));
 	await validationEmbed.send(message.channel);
 
 	addBlockedPlayer(invitedEntity.discordUserId, "guildAdd", validationEmbed.collector);

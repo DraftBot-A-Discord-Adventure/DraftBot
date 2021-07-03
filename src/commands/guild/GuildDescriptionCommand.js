@@ -61,7 +61,7 @@ const GuildDescriptionCommand = async (message, language, args) => {
 		);
 	}
 
-	confirmationEmbed.formatAuthor(JsonReader.commands.guildDescription.getTranslation(language).changeDescriptionTitle, messahe.author);
+	confirmationEmbed.formatAuthor(JsonReader.commands.guildDescription.getTranslation(language).changeDescriptionTitle, message.author);
 	confirmationEmbed.setDescription(
 		format(
 			JsonReader.commands.guildDescription.getTranslation(language)

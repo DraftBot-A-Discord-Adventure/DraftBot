@@ -17,7 +17,7 @@ const GiveBadgeCommand = async (message, language, args) => {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.giveBadgeCommand.getTranslation(language).descError);
 	}
 	const playerId = message.mentions.users.last().id;
-	[entity] = await Entities.getOrRegister(playerId);
+	const [entity] = await Entities.getOrRegister(playerId);
 	await entity.Player.addBadge(args[0]);
 	await entity.Player.save();
 

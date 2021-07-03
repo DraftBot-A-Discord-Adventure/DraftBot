@@ -15,14 +15,14 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 const ResetBadgeCommand = async (message, language) => {
 	// the author of the command is the author of the bot
 	const playerId = message.mentions.users.last().id;
-	[entity] = await Entities.getOrRegister(playerId);
+	const [entity] = await Entities.getOrRegister(playerId);
 
 	entity.Player.badges = null;
 	await entity.Player.save();
 
 	return await message.channel.send(new DraftBotEmbed()
-		.formatAuthor(JsonReader.commands.resetBadgeCommand.getTranslation(language).resetSuccess, message.author))
-		.setDescription(format(JsonReader.commands.resetBadgeCommand.getTranslation(language).descReset, {player: message.mentions.users.last()}));
+		.formatAuthor(JsonReader.commands.resetBadgeCommand.getTranslation(language).resetSuccess, message.author)
+		.setDescription(format(JsonReader.commands.resetBadgeCommand.getTranslation(language).descReset, {player: message.mentions.users.last()})));
 };
 
 module.exports.execute = ResetBadgeCommand;

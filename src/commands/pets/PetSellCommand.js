@@ -125,7 +125,7 @@ const PetSellCommand = async (message, language, args) => {
 				break;
 			}
 			[buyer] = await Entities.getOrRegister(user.id);
-			if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], buyer) !== true) {
+			if (buyer.Player.effect === EFFECT.BABY) {
 				buyer = null;
 				return;
 			}
@@ -168,7 +168,7 @@ const PetSellCommand = async (message, language, args) => {
 
 async function petSell(message, language, entity, user, pet, petCost) {
 	const translations = JsonReader.commands.petSell.getTranslation(language);
-	[buyer] = await Entities.getOrRegister(user.id);
+	const [buyer] = await Entities.getOrRegister(user.id);
 	const guild = await Guilds.getById(entity.Player.guildId);
 	const confirmEmbed = new DraftBotEmbed()
 		.formatAuthor(translations.confirmEmbed.author, user)
