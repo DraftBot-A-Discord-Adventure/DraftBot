@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const tr = JsonReader.commands.petFeed;
 
 module.exports.help = {
@@ -52,13 +54,8 @@ const PetFeedCommand = async (message, language) => {
 			.set(GUILDSHOP.CARNIVOROUS_FOOD, JsonReader.food.carnivorousFood)
 			.set(GUILDSHOP.ULTIMATE_FOOD, JsonReader.food.ultimateFood);
 
-		const breedEmbed = new discord.MessageEmbed();
-		breedEmbed.setAuthor(
-			format(tr.getTranslation(language).breedEmbedAuthor, {
-				author: message.author.username
-			}),
-			message.author.displayAvatarURL()
-		);
+		const breedEmbed = new DraftBotEmbed()
+			.formatAuthor(tr.getTranslation(language).breedEmbedAuthor, message.author);
 		breedEmbed.setDescription(
 			tr.getTranslation(language).breedEmbedDescription
 		);
@@ -106,13 +103,8 @@ const PetFeedCommand = async (message, language) => {
 		]);
 	}
 	else {
-		const breedEmbed = new discord.MessageEmbed();
-		breedEmbed.setAuthor(
-			format(tr.getTranslation(language).breedEmbedTitle2, {
-				author: message.author.username
-			}),
-			message.author.displayAvatarURL()
-		);
+		const breedEmbed = new DraftBotEmbed()
+			.formatAuthor(tr.getTranslation(language).breedEmbedTitle2, message.author);
 		breedEmbed.setDescription(
 			format(tr.getTranslation(language).breedEmbedDescription2, {
 				petnick: await PetEntities.displayName(authorPet, language)
@@ -160,7 +152,7 @@ const PetFeedCommand = async (message, language) => {
 				authorPet.save(),
 				entity.Player.save()
 			]);
-			const feedSuccessEmbed = new discord.MessageEmbed();
+			const feedSuccessEmbed = new DraftBotEmbed();
 			if (language === LANGUAGE.FRENCH) {
 				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
 					petnick: await PetEntities.displayName(
@@ -207,14 +199,8 @@ async function feedPet(message, language, entity, pet, item) {
 		);
 	}
 
-	const successEmbed = new discord.MessageEmbed();
-
-	successEmbed.setAuthor(
-		format(tr.getTranslation(language).embedTitle, {
-			pseudo: message.author.username
-		}),
-		message.author.displayAvatarURL()
-	);
+	const successEmbed = new DraftBotEmbed()
+		.formatAuthor(tr.getTranslation(language).embedTitle, message.author);
 	if (
 		pet.PetModel.diet &&
 		(item.type === "herbivorousFood" || item.type === "carnivorousFood")

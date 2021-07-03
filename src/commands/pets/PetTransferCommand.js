@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "pettransfer",
 	aliases: ["pettr","ptr","ptransfer"],
@@ -25,10 +27,8 @@ const PetTransferCommand = async function(message, language, args) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildKick.getTranslation(language).notInAguild);
 	}
 	const guildPetCount = guild.GuildPets.length;
-	const confirmEmbed = new discord.MessageEmbed();
-	confirmEmbed.setAuthor(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitchTitle, {
-		pseudo: message.author.username
-	}), message.author.displayAvatarURL());
+	const confirmEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitchTitle, message.author);
 	const [server] = await Servers.getOrRegister(message.guild.id);
 
 	if (args.length === 0) {

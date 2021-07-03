@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "profile",
 	aliases: ["p", "profil"],
@@ -157,8 +159,7 @@ const ProfileCommand = async (message, language, args) => {
 	}
 
 	const msg = await message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
+		new DraftBotEmbed()
 			.setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
 				effect: titleEffect,
 				pseudo: await entity.Player.getPseudo(language),

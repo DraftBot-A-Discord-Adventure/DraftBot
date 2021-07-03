@@ -122,17 +122,11 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 	let autoSell = false;
 	let autoReplace = false;
 	let resaleMultiplier = resaleMultiplierNew;
-	const receivedEmbed = new discord.MessageEmbed();
-	const embed = new discord.MessageEmbed();
-	receivedEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
-		pseudo: discordUser.username
-	}), discordUser.displayAvatarURL())
+	const embed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, discordUser);
+	const receivedEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, discordUser)
 		.setDescription(item.toString(language));
-
-
-	embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-		pseudo: discordUser.username
-	}), discordUser.displayAvatarURL());
 
 	if (item instanceof Potions) {
 		const potion = await entity.Player.Inventory.getPotion();
@@ -193,13 +187,8 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		entity.Player.addMoney(money);
 		await entity.Player.save();
 		return await channel.send(
-			new discord.MessageEmbed().setAuthor(
-				format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle,
-					{
-						pseudo: discordUser.username
-					}
-				), discordUser.displayAvatarURL()
-			)
+			new DraftBotEmbed().
+				formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle, discordUser)
 				.setDescription(
 					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
 						{
@@ -230,10 +219,8 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		if (reaction.first()) { // a reaction exist
 			// msg.delete(); for now we are going to keep the message
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				const menuEmbed = new discord.MessageEmbed();
-				menuEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
-					pseudo: discordUser.username
-				}), discordUser.displayAvatarURL())
+				const menuEmbed = new DraftBotEmbed();
+				menuEmbed.formatAuthor(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, discordUser)
 					.setDescription(item.toString(language));
 
 				const oldItem = await saveItem(item, entity);
@@ -243,13 +230,8 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 			}
 			if (item instanceof Potions) {
 				return await channel.send(
-					new discord.MessageEmbed().setAuthor(
-						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
-							{
-								pseudo: discordUser.username
-							}
-						), discordUser.displayAvatarURL()
-					)
+					new DraftBotEmbed()
+						.formatAuthor(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle, discordUser)
 						.setDescription(
 							format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
 								{
@@ -262,13 +244,8 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		}
 		else if (item instanceof Potions) {
 			return await channel.send(
-				new discord.MessageEmbed().setAuthor(
-					format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
-						{
-							pseudo: discordUser.username
-						}
-					), discordUser.displayAvatarURL()
-				)
+				new DraftBotEmbed()
+					.formatAuthor(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle, discordUser)
 					.setDescription(
 						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
 							{
@@ -282,13 +259,8 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		newEntity.Player.addMoney(money);
 		await newEntity.Player.save();
 		return await channel.send(
-			new discord.MessageEmbed().setAuthor(
-				format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
-					{
-						pseudo: discordUser.username
-					}
-				), discordUser.displayAvatarURL()
-			)
+			new DraftBotEmbed()
+				.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageTitle, discordUser)
 				.setDescription(
 					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
 						{
@@ -625,14 +597,8 @@ global.giveFood = async (message, language, entity, author, selectedItem, quanti
 	}
 	guild[selectedItem.type] += quantity;
 	await Promise.all([guild.save()]);
-	const successEmbed = new discord.MessageEmbed();
-	// TODO : utiliser les nouveaux embeds
-	successEmbed.setAuthor(
-		format(JsonReader.commands.guildShop.getTranslation(language).success, {
-			author: author.username
-		}),
-		author.displayAvatarURL()
-	);
+	const successEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.guildShop.getTranslation(language).success, author);
 	if (quantity === 1) {
 		successEmbed.setDescription(
 			format(

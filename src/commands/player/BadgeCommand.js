@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "badge",
 	aliases: ["badges"]
@@ -13,8 +15,7 @@ const BadgeCommand = (message, language) => {
 	const commandInfos = JsonReader.commands.help.getTranslation(language).commands[
 		"badge"
 	];
-	helpMessage = new discord.MessageEmbed()
-		.setColor(JsonReader.bot.embed.default)
+	const helpMessage = new DraftBotEmbed()
 		.setDescription(commandInfos.description)
 		.setTitle(
 			format(

@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
@@ -17,7 +19,6 @@ module.exports.help = {
  */
 const GuildDailyCommand = async (message, language, args, forcedReward) => {
 	const translations = JsonReader.commands.guildDaily.getTranslation(language);
-	const embed = new discord.MessageEmbed();
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -54,11 +55,12 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		rewardType = forcedReward;
 	}
 
-	embed.setTitle(format(translations.rewardTitle, {
-		guildName: guild.name
-	}));
+	const embed = new DraftBotEmbed()
+		.setTitle(format(translations.rewardTitle, {
+			guildName: guild.name
+		}));
 
-	if (rewardType === REWARD_TYPES.PERSONAL_XP) {
+	if (rewardType === REWARD_TYP.PERSONAL_XP) {
 		const xpWon = randInt(
 			JsonReader.commands.guildDaily.minimalXp + guild.level,
 			JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
