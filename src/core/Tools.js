@@ -187,8 +187,8 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		entity.Player.addMoney(money);
 		await entity.Player.save();
 		return await channel.send(
-			new DraftBotEmbed().
-				formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle, discordUser)
+			new DraftBotEmbed()
+				.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle, discordUser)
 				.setDescription(
 					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
 						{
