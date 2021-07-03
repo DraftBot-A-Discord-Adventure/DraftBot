@@ -8,8 +8,29 @@
  */
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationBF = JsonReader.smallEvents.botFacts.getTranslation(language);
+	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
+
+	const base = JsonReader.smallEvents.botFacts.emote + " " + translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)];
+
 	const outReceived = draftbotRandom.pick(Object.keys(translationBF.possiblesInfos));
-	console.log(outReceived);
+
+	// TODO : changer la string quand on aura passé Tools en Module
+	const commandToEnter = "get" + outReceived.slice(0, 1).toUpperCase() + outReceived.slice(1) + "(entity, language)";
+	const resultToPutInEmbed = await eval(commandToEnter);
+	seEmbed.setDescription(base +
+		format(
+			translationBF.stories[draftbotRandom.pick(Object.keys(translationBF.stories))],
+			{
+				botFact: format(
+					translationBF.possiblesInfos[outReceived],
+					{
+						infoNumber: resultToPutInEmbed[0],
+						infoComplement: resultToPutInEmbed[1]
+					}
+				)
+			})
+	);
+	await message.channel.send(seEmbed);
 	log(entity.discordUserId + " got infos about people in the bot.");
 };
 

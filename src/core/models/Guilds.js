@@ -233,5 +233,22 @@ module.exports = (Sequelize, DataTypes) => {
 		return this.chiefId;
 	};
 
+	// ---------------------------------------------------------------------------------------------------------------------
+	// PART ON botFacts Small Events
+	// ---------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Get the mean level of all guilds
+	 * @return {Promise<Number>}
+	 */
+	Guilds.getGuildLevelMean = async () => {
+		const query = `SELECT AVG(level)
+		               FROM Guilds`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["AVG(level)"]
+		);
+	};
+
 	return Guilds;
 };
