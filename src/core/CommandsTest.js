@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
 
@@ -53,8 +55,8 @@ class CommandsTest {
 		if (commandTest.help.typeWaited === undefined) {
 			return args.length === 0 ? [true, ""] : [
 				false,
-				new discord.MessageEmbed()
-					.setAuthor("❌ Mauvais format pour la commande test " + commandTest.help.name, message.author.displayAvatarURL())
+				new DraftBotEmbed()
+					.formatAuthor("❌ Mauvais format pour la commande test " + commandTest.help.name, message.author)
 					.setDescription(
 						"**Format attendu :** `test " + commandTest.help.name + "`"
 					)
@@ -66,7 +68,7 @@ class CommandsTest {
 		if (nbArgsWaited !== args.length) {
 			return [
 				false,
-				new discord.MessageEmbed()
+				new DraftBotEmbed()
 					.setAuthor("❌ Mauvais format pour la commande test " + commandTest.help.name, message.author.displayAvatarURL())
 					.setDescription(
 						"**Format attendu :** `test " + commandTest.help.name + " " + commandTest.help.commandFormat + "`"
@@ -78,7 +80,7 @@ class CommandsTest {
 			if (commandTest.help.typeWaited[commandTypeKeys[i]].type !== CommandsTest.getTypeOf(args[i])) {
 				return [
 					false,
-					new discord.MessageEmbed()
+					new DraftBotEmbed()
 						.setAuthor("❌ Mauvais argument pour la commande test " + commandTest.help.name, message.author.displayAvatarURL())
 						.setDescription(
 							"**Format attendu** : `test " + commandTest.help.name + " " + commandTest.help.commandFormat + "`\n" +
@@ -105,7 +107,7 @@ class CommandsTest {
 			const messageToDisplay = await commandTestCurrent.execute(language, message, args);
 			let embedTestSuccessful;
 			if (typeof messageToDisplay === "string") {
-				embedTestSuccessful = new discord.MessageEmbed()
+				embedTestSuccessful = new DraftBotEmbed()
 					.setAuthor("Commande test " + commandTestCurrent.help.name + " exécutée :", message.author.displayAvatarURL())
 					.setDescription(messageToDisplay)
 					.setColor(TEST_EMBED_COLOR.SUCCESSFUL);

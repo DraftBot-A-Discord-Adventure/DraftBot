@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "classtats",
 	aliases: ["cs","classesstats","classcompare","classestats"],
@@ -23,8 +25,7 @@ async function ClassStatsCommand(message, language) {
 
 	// Creating classstats message
 	await message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
+		new DraftBotEmbed()
 			.setTitle(classTranslations.title)
 			.setDescription(classTranslations.desc)
 			.addField(

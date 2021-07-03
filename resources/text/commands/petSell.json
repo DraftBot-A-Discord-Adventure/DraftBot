@@ -9,15 +9,15 @@
 			"petFieldName": "Familier vendu :",
 			"sellMessage": {
 				"title": "Vente en cours !",
-				"description": "{author} souhaite vendre un pet pour `${price}💰` !",
+				"description": "{author} souhaite vendre un pet pour `{price}💰` !",
 				"footer": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell."
 			},
 			"confirmEmbed": {
-				"author": "{username}, confirmation !",
-				"description": "Vous allez acheter {emote} **{pet}** pour `${price}💰`"
+				"author": "{pseudo}, confirmation !",
+				"description": "Vous allez acheter {emote} **{pet}** pour `{price}💰`"
 			},
 			"addPetEmbed": {
-				"author": "{username}, transaction effectuée !",
+				"author": "{pseudo}, transaction effectuée !",
 				"description": "{emote} **{pet}** vous suit désormais. Occupez vous en bien !"
 			},
 			"noMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction.",
@@ -39,15 +39,15 @@
 			"petFieldName": "Pet sold:",
 			"sellMessage": {
 				"title": "Ongoing sale!",
-				"description": "{author} wants to sell a pet for `${price}💰`!",
+				"description": "{author} wants to sell a pet for `{price}💰`!",
 				"footer": "For more details about pet sales, use help petsell."
 			},
 			"confirmEmbed": {
-				"author": "${username}, confirmation!",
-				"description": "You will buy {emote} **{pet}** for `${price}💰`"
+				"author": "{pseudo}, confirmation!",
+				"description": "You will buy {emote} **{pet}** for `{price}💰`"
 			},
 			"addPetEmbed": {
-				"author": "{username}, transaction done!",
+				"author": "{pseudo}, transaction done!",
 				"description": "{emote} **{pet}** now follows you. Take care of them!"
 			},
 			"noMoney": "You don't have enough money to buy that.",

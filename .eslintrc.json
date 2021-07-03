@@ -85,6 +85,8 @@
 				"no-confusing-arrow": "warn",
 				"no-duplicate-imports": "error",
 				"no-var": "error",
-				"prefer-const": "warn"
+				"prefer-const": "warn",
+				"@typescript-eslint/no-explicit-any": "off",
+				"@typescript-eslint/explicit-module-boundary-types": "off"
     }
 }

@@ -1,68 +1,54 @@
 {
 	"translations": {
 		"fr": {
-			"title": ":shopping_cart:  **Magasin de guilde :**",
-			"xpItem": "\n\n Expérience de guilde :\n",
-			"foodItem": "\n\nNourriture :\n",
-			"display": "{emote} {name} | `{price}💰`",
-			"description": "\n\n{info}",
-			"selectQuantityWarning": "\n\n:warning: Choissisez la quantité à acheter. En cliquant sur une des réactions, vous confirmerez la transaction !",
-			"confirmEmbedFieldForUltimateFood": " {emote} {name} | `{price1}💰` | `{price5}💰`",
-			"confirmEmbedField": " {emote} {quantity} {name} | `{price1}💰` | `{price5}💰` | `{price10}💰`",
+			"title": "Magasin de guilde",
+			"xpItem": "Expérience de guilde",
+			"foodItem": "Nourriture",
 			"success": "{author}, Nourriture ajoutée à l'inventaire !",
 			"singleSuccessAddFoodDesc": "{emote} {quantity} {name} a été rajoutée à l'inventaire de votre guilde.",
 			"multipleSuccessAddFoodDesc": "{emote} {quantity} {name}s ont été rajoutées à l'inventaire de votre guilde.",
 			"fullStock": "L'inventaire de la guilde ne contient pas assez de place pour cette ressource.",
 			"quantityTitle": "Combien de nourriture voulez-vous acheter ?",
 			"guildXp": {
-				"name": ":star: **Un peu d'xp pour votre guilde**",
+				"emote": "⭐",
+				"name": "Un peu d'xp pour votre guilde",
 				"price": 1000,
-				"info": "\n\n:warning: Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450.",
+				"info": "Vous recevrez une quantité aléatoire d'xp de guilde, comprise entre 50 et 450.",
 				"type": "guildXp",
 				"give": "Votre guilde a reçu {experience} ⭐."
 			},
 			"confirm": "{pseudo}, vous avez sélectionné le produit suivant :",
-			"moneyQuantity": "\n\nVous avez `{money}💰`.",
 			"error": {
-				"nothingToHeal": "Vous n'êtes victime d'aucune altération d'état.",
 				"cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💰`.",
 				"canceledPurchase": "Transaction annulée!",
-				"alreadyHasItem": "Vous possédez déjà cet objet.",
 				"leaveShop": "Vous avez quitté le magasin."
 			},
-			"potion": {
-				"info": "\n\n:warning: Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
-				"give": "{pseudo}, vous avez reçu une nouvelle potion :"
-			}
+			"successNormal": "{pseudo}, transaction réussie !"
 		},
 		"en": {
-			"title": ":shopping_cart:  **Guild's shop:**",
-			"xpItem": "\n\n Guild's experience:\n",
-			"foodItem": "\n\n Food:\n",
-			"display": "{emote} {name} | `{price}💰`",
-			"description": "\n\n{info}",
-			"confirmEmbedFieldForUltimateFood": " {emote} {name} | `{price1}💰` | `{price5}💰`",
-			"confirmEmbedField": " {emote} {name} | `{price1}💰` | `{price5}💰` | `{price10}💰`",
-			"selectQuantityWarning": "\n\n :warning: Choose the amount to buy. By clicking on the reactions you confirm the transaction !",
+			"title": "Guild's shop",
+			"xpItem": "Guild's experience",
+			"foodItem": "Food",
 			"success": "{author}, Food added to the storage !",
 			"singleSuccessAddFoodDesc": "{emote} {quantity} {name} has been added to your guild's inventory.",
 			"multipleSuccessAddFoodDesc": "{emote} {quantity} {name}s have been added to your guild's inventory.",
-			"fullStock": "The guild storage doesn't have enough spacee for that resource.",
+			"fullStock": "The guild storage doesn't have enough space for that resource.",
 			"quantityTitle": "How many food would you like to buy ?",
 			"guildXp": {
-				"name": ":star: **Some xp for your guild**",
+				"emote": "⭐",
+				"name": "Some xp for your guild",
 				"price": 1000,
-				"info": "\n\n:warning: You will receive a random amount (between 50 and 450) of guild xp.",
+				"info": "You will receive a random amount (between 50 and 450) of guild xp.",
 				"type": "guildXp",
 				"give": "Your guild has received {experience} ⭐."
 			},
 			"confirm": "{pseudo}, you have selected this product:",
-			"moneyQuantity": "\n\nYou have `{money}💰`.",
 			"error": {
 				"cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💰` more.",
 				"canceledPurchase": "Transaction canceled!",
 				"leaveShop": "You left the shop."
-			}
+			},
+			"successNormal": "{pseudo}, transaction success!"
 		}
 	},
 	"max": {

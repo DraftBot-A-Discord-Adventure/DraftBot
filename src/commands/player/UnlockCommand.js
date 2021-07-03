@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
@@ -38,11 +40,8 @@ const UnlockCommand = async (message, language, args) => {
 		);
 	}
 
-	const embed = new discord.MessageEmbed()
-		.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(JsonReader.commands.unlock.getTranslation(language).unlockTitle, {
-			pseudo: message.author.username
-		}), message.author.displayAvatarURL())
+	const embed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.unlock.getTranslation(language).unlockTitle, message.author)
 		.setDescription(format(JsonReader.commands.unlock.getTranslation(language).confirmUnlock, {
 			pseudo: await lockedEntity.Player.getPseudo(language),
 			price: UNLOCK.PRICE_FOR_UNLOCK
@@ -73,7 +72,7 @@ const UnlockCommand = async (message, language, args) => {
 					player.Player.save()
 				]);
 				log(entity.discordUserId + " has been released by" + message.author.id);
-				const successEmbed = new discord.MessageEmbed();
+				const successEmbed = new DraftBotEmbed();
 				successEmbed.setAuthor(format(JsonReader.commands.unlock.getTranslation(language).unlockedTitle, {
 					pseudo: await entity.Player.getPseudo(language)
 				}),

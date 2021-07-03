@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "help",
 	aliases: ["h"],
@@ -26,8 +28,8 @@ const helpTestCommand = async (language, message, args) => {
 	catch (e) {
 		throw new Error("Commande inexistante : " + args[0]);
 	}
-	const embedHelpTest = new discord.MessageEmbed()
-		.setAuthor("Commande test : " + helpOnCommand.help.name, message.author.displayAvatarURL())
+	const embedHelpTest = new DraftBotEmbed()
+		.formatAuthor("Commande test : " + helpOnCommand.help.name, message.author)
 		.addFields(
 			{
 				name: "Description",

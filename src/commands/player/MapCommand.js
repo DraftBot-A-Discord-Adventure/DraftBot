@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
@@ -16,15 +18,11 @@ const MapCommand = async (message, language) => {
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	const mapEmbed = new discord.MessageEmbed()
+	const mapEmbed = new DraftBotEmbed()
 		.setImage(
 			JsonReader.commands.map.URL
 		)
-
-		.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(JsonReader.commands.map.getTranslation(language).text, {
-			pseudo: message.author.username
-		}), message.author.displayAvatarURL());
+		.formatAuthor(JsonReader.commands.map.getTranslation(language).text, message.author);
 
 	if (Maps.isTravelling(entity.Player)) {
 		const destMap = await MapLocations.getById(entity.Player.mapId);

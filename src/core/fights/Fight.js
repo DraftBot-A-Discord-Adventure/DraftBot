@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+
 const Fighter = require("./Fighter.js");
 // const Attack = require('./Attack.js');
 const FightActionResult = require("./FightActionResult.js");
@@ -154,8 +156,7 @@ class Fight {
 				}
 			}
 		}
-		this.message.channel.send(new discord.MessageEmbed().setColor(JsonReader.bot.embed.default)
-			.setDescription(msg));
+		this.message.channel.send(new DraftBotEmbed().setDescription(msg));
 	}
 
 	/**
@@ -167,7 +168,7 @@ class Fight {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const fight = this;
 
-		const embed = new discord.MessageEmbed();
+		const embed = new DraftBotEmbed();
 		/* embed.setThumbnail(await this.message.guild.members.cache.get(playingId).user.avatarURL())
 						.setTitle(format(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsTitle, {pseudo: await this.getPlayingFighter().entity.Player.getPseudo(this.language)}))
 						.setDescription(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsDescription);*/

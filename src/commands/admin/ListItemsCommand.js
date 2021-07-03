@@ -10,12 +10,12 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const ListItemsCommand = async (message, language) => {
 	const fs = require("fs");
-	const embed = new discord.MessageEmbed();
-	embed.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(JsonReader.commands.listItems.getTranslation(language).title, {pseudo: message.author.username}), message.author.displayAvatarURL());
-	await message.channel.send(embed);
+	await message.channel.send(new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.listItems.getTranslation(language).title, message.author));
 
 	// Delete all old list
 	try {
@@ -55,7 +55,7 @@ const ListItemsCommand = async (message, language) => {
 	}
 
 	// List armors
-	files = fs.readdirSync("resources/text/armors");
+	let files = fs.readdirSync("resources/text/armors");
 	fs.appendFileSync("allItems.txt", "ALL ARMORS :\n");
 	files.forEach(function(file) {
 		if (file !== "0.json") {

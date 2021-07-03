@@ -9,15 +9,15 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const UpdateCommand = (message, language) => {
-	const updateEmbed = new discord.MessageEmbed()
+	message.channel.send(new DraftBotEmbed()
 		.setDescription(format(JsonReader.commands.update.getTranslation(language).text,
 			{
 				version: JsonReader.package.version
 			}))
-		.setTitle(JsonReader.commands.update.getTranslation(language).title)
-		.setColor(JsonReader.bot.embed.default);
-	message.channel.send(updateEmbed);
+		.setTitle(JsonReader.commands.update.getTranslation(language).title));
 };
 
 module.exports.execute = UpdateCommand;

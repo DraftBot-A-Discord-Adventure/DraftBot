@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "mapinfo",
 	messageWhenExecuted: "",
@@ -15,12 +17,12 @@ const Maps = require("../../../../core/Maps");
 const mapInfosTestCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	const mapEmbed = new discord.MessageEmbed();
+	const mapEmbed = new DraftBotEmbed();
 	const currMap = await MapLocations.getById(entity.Player.mapId);
 	const prevMap = await MapLocations.getById(entity.Player.previousMapId);
 	const travelling = Maps.isTravelling(entity.Player);
 
-	mapEmbed.setAuthor("🗺️ Map debugging", message.author.displayAvatarURL())
+	mapEmbed.formatAuthor("🗺️ Map debugging", message.author)
 		.addField(
 			travelling ? "Next map" : "Current map",
 			currMap.getDisplayName(language) + " (id: " + currMap.id + ")",

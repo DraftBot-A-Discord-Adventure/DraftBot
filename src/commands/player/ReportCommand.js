@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const Maps = require("../../core/Maps");
 
 module.exports.help = {
@@ -105,9 +107,9 @@ const needBigEvent = function(entity) {
  * @returns {Promise<Message>}
  */
 const sendTravelPath = async function(entity, message, language) {
-	const travelEmbed = new discord.MessageEmbed();
+	const travelEmbed = new DraftBotEmbed();
 	const tr = JsonReader.commands.report.getTranslation(language);
-	travelEmbed.setAuthor(tr.travelPathTitle, message.author.displayAvatarURL());
+	travelEmbed.formatAuthor(tr.travelPathTitle, message.author);
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language));
 	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previousMapId)).getDisplayName(language), true);
 	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.mapId)).getDisplayName(language), true);
@@ -139,8 +141,8 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	}
 
 	const tr = JsonReader.commands.report.getTranslation(language);
-	const chooseDestinationEmbed = new discord.MessageEmbed();
-	chooseDestinationEmbed.setAuthor(format(tr.destinationTitle, {pseudo: message.author.username}), message.author.displayAvatarURL());
+	const chooseDestinationEmbed = new DraftBotEmbed();
+	chooseDestinationEmbed.formatAuthor(tr.destinationTitle, message.author);
 	let desc = tr.chooseDestinationIndications + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
@@ -186,8 +188,8 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 	const tr = JsonReader.commands.report.getTranslation(language);
 	const typeTr = JsonReader.models.maps.getTranslation(language);
 	const mapInstance = await MapLocations.getById(map);
-	const destinationEmbed = new discord.MessageEmbed();
-	destinationEmbed.setAuthor(format(tr.destinationTitle, {pseudo: message.author.username}), message.author.displayAvatarURL());
+	const destinationEmbed = new DraftBotEmbed();
+	destinationEmbed.formatAuthor(tr.destinationTitle, message.author);
 	destinationEmbed.setDescription(format(tr.choseMap, {
 		mapPrefix: typeTr.types[mapInstance.type].prefix,
 		mapName: mapInstance.getDisplayName(language),
@@ -453,11 +455,9 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 			}
 			else {
 				// Create a template embed
-				const seEmbed = new discord.MessageEmbed();
-				seEmbed.setAuthor(format(JsonReader.commands.report.getTranslation(language).journal, {
-					pseudo: message.author.username
-				}), message.author.displayAvatarURL());
-				seEmbed.setDescription(JsonReader.smallEvents[event].emote + " ");
+				const seEmbed = new DraftBotEmbed()
+					.formatAuthor(JsonReader.commands.report.getTranslation(language).journal, message.author)
+					.setDescription(JsonReader.smallEvents[event].emote + " ");
 
 				await smallEventFile.executeSmallEvent(message, language, entity, seEmbed);
 			}

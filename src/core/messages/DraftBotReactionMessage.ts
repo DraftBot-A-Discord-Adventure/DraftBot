@@ -1,7 +1,6 @@
 import {
 	DMChannel,
 	Message,
-	MessageEmbed,
 	MessageReaction,
 	NewsChannel,
 	ReactionCollector,
@@ -9,7 +8,8 @@ import {
 	User
 } from "discord.js";
 import { DraftBotReaction } from "./DraftBotReaction";
-declare const COLLECTOR_TIME: number;
+import {Constants} from "../Constants";
+import {DraftBotEmbed} from "./DraftBotEmbed";
 
 /**
  * Error thrown if the message has not been sent before
@@ -19,9 +19,9 @@ const MESSAGE_NOT_SENT_ERROR = "Message has not been sent";
 /**
  * A class corresponding to a reaction message used in the bot
  */
-export class DraftBotReactionMessage extends MessageEmbed {
+export class DraftBotReactionMessage extends DraftBotEmbed {
 	/**
-	 * This list of reactions of the message
+	 * The list of reactions of the message
 	 */
 	private readonly _reactions: DraftBotReaction[];
 
@@ -107,7 +107,7 @@ export class DraftBotReactionMessage extends MessageEmbed {
 			(this._anyUserAllowed || this._allowedUsersDiscordIdToReact.indexOf(user.id) !== -1)
 			&& this._reactionsNames.indexOf(reaction.emoji.name) !== -1;
 		this._collector = this._sentMessage.createReactionCollector(collectorFilter, {
-			time: this._collectorTime <= 0 ? COLLECTOR_TIME : this._collectorTime,
+			time: this._collectorTime <= 0 ? Constants.MESSAGES.COLLECTOR_TIME : this._collectorTime,
 			max: this._maxReactions
 		});
 		this._collector.on("collect", (reaction, user) => {
@@ -176,7 +176,7 @@ export class DraftBotReactionMessageBuilder {
 
 	private _endCallback: (msg: DraftBotReactionMessage) => void = undefined;
 
-	private _maxReactions = 1;
+	private _maxReactions = 0;
 
 	private _anyUserAllowed = false;
 

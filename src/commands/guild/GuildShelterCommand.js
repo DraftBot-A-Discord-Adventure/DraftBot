@@ -11,48 +11,27 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotShelterMessageBuilder} from "../../core/messages/DraftBotShelterMessage";
+
 const GuildShelterCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	const guild = await Guilds.getById(entity.Player.guildId);
-	const tr = JsonReader.commands.guildShelter.getTranslation(language);
-	const shelterEmbed = new discord.MessageEmbed();
 
-	shelterEmbed.setTitle(
-		format(tr.embedTitle, {
-			guild: guild.name,
-			count: guild.GuildPets.length,
-			max: JsonReader.models.pets.slots
-		})
-	);
-
-	if (guild.GuildPets.length === 0) {
-		shelterEmbed.setDescription(
-			JsonReader.commands.guildShelter.getTranslation(language)
-				.noPetMessage
-		);
-		shelterEmbed.setThumbnail(JsonReader.commands.guild.icon);
+	// search for a user's guild
+	let guild;
+	try {
+		guild = await Guilds.getById(entity.Player.guildId);
 	}
-	else {
-		for (let i = 0; i < guild.GuildPets.length; ++i) {
-			const pet = guild.GuildPets[i];
-			shelterEmbed.addField(
-				PetEntities.getPetTitle(pet.PetEntity, language, i + 1),
-				await PetEntities.getPetDisplay(pet.PetEntity, language),
-				true
-			);
-			shelterEmbed.setThumbnail(JsonReader.commands.guild.icon);
-		}
+	catch (error) {
+		guild = null;
 	}
 
-	if (Guilds.isPetShelterFull(guild)) {
-		shelterEmbed.setDescription(
-			JsonReader.commands.guildShelter.getTranslation(language)
-				.warningFull
-		);
-		shelterEmbed.setThumbnail(JsonReader.commands.guild.icon);
+	if (guild === null) {
+		// not in a guild
+		return sendErrorMessage(
+			message.author, message.channel, language, JsonReader.commands.guildAdd.getTranslation(language).notInAguild);
 	}
 
-	await message.channel.send(shelterEmbed);
+	await message.channel.send(await new DraftBotShelterMessageBuilder(guild, language).build());
 };
 
 module.exports.execute = GuildShelterCommand;

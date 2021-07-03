@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "guilddescription",
 	aliases: ["gdesc", "guilddesc"],
@@ -15,7 +17,7 @@ module.exports.help = {
 const GuildDescriptionCommand = async (message, language, args) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
 	let guild = await Guilds.getById(entity.Player.guildId);
-	const confirmationEmbed = new discord.MessageEmbed();
+	const confirmationEmbed = new DraftBotEmbed();
 
 	if (args.length <= 0) {
 		// no description was given
@@ -59,14 +61,7 @@ const GuildDescriptionCommand = async (message, language, args) => {
 		);
 	}
 
-	confirmationEmbed.setAuthor(
-		format(
-			JsonReader.commands.guildDescription.getTranslation(language)
-				.changeDescriptionTitle,
-			{ pseudo: message.author.username }
-		),
-		message.author.displayAvatarURL()
-	);
+	confirmationEmbed.formatAuthor(JsonReader.commands.guildDescription.getTranslation(language).changeDescriptionTitle, message.author);
 	confirmationEmbed.setDescription(
 		format(
 			JsonReader.commands.guildDescription.getTranslation(language)
@@ -84,7 +79,7 @@ const GuildDescriptionCommand = async (message, language, args) => {
 
 	const msg = await message.channel.send(confirmationEmbed);
 
-	const embed = new discord.MessageEmbed();
+	const embed = new DraftBotEmbed();
 	const filterConfirm = (reaction, user) =>
 		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&

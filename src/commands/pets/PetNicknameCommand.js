@@ -10,6 +10,8 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const PetNicknameCommand = async (message, language, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -18,10 +20,8 @@ const PetNicknameCommand = async (message, language, args) => {
 		return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPet);
 	}
 
-	const successEmbed = new discord.MessageEmbed();
-	successEmbed.setAuthor(format(JsonReader.commands.petNickname.getTranslation(language).successTitle, {
-		pseudo: message.author.username
-	}), message.author.displayAvatarURL());
+	const successEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.petNickname.getTranslation(language).successTitle, message.author);
 	if (args.length === 0) {
 		pet.nickname = null;
 		await pet.save();

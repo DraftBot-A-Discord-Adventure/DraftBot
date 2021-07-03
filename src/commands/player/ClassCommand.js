@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "class",
 	aliases: ["c", "classes", "classe"],
@@ -18,8 +20,7 @@ const ClassCommand = async (message, language) => {
 
 	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
 
-	const embedClassMessage = new discord.MessageEmbed()
-		.setColor(JsonReader.bot.embed.default)
+	const embedClassMessage = new DraftBotEmbed()
 		.setTitle(classTranslations.title)
 		.setDescription(
 			classTranslations.desc);
@@ -83,14 +84,8 @@ const ClassCommand = async (message, language) => {
  */
 async function confirmPurchase(message, language, selectedClass, entity) {
 
-	const confirmEmbed = new discord.MessageEmbed()
-		.setColor(JsonReader.bot.embed.default)
-		.setAuthor(
-			format(JsonReader.commands.class.getTranslation(language).confirm, {
-				pseudo: message.author.username
-			}),
-			message.author.displayAvatarURL()
-		)
+	const confirmEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.class.getTranslation(language).confirm, message.author)
 		.setDescription(
 			"\n\u200b\n" +
 			format(JsonReader.commands.class.getTranslation(language).display, {
@@ -136,14 +131,8 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 				]);
 				log(entity.discordUserId + " bought the class " + newClass.en);
 				return message.channel.send(
-					new discord.MessageEmbed()
-						.setColor(JsonReader.bot.embed.default)
-						.setAuthor(
-							format(JsonReader.commands.class.getTranslation(language).success, {
-								pseudo: message.author.username
-							}),
-							message.author.displayAvatarURL()
-						)
+					new DraftBotEmbed()
+						.formatAuthor(JsonReader.commands.class.getTranslation(language).success, message.author)
 						.setDescription(JsonReader.commands.class.getTranslation(language).newClass + selectedClass.getName(language))
 				);
 			}

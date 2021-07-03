@@ -1,7 +1,10 @@
+import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
 
 const {Collection} = require("discord.js");
+
 
 /**
  * @class
@@ -129,10 +132,10 @@ class Command {
 				JsonReader.app.MODE_MAINTENANCE
 			) {
 				return message.channel.send(
-					new discord.MessageEmbed()
+					new DraftBotEmbed()
 						.setDescription(JsonReader.bot.getTranslation(language).maintenance)
 						.setTitle(":x: **Maintenance**")
-						.setColor(JsonReader.bot.embed.error)
+						.setErrorColor()
 				);
 			}
 			await Command.launchCommand(language, server.prefix, message);

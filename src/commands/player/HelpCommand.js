@@ -9,13 +9,15 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const HelpCommand = async (message, language, args) => {
 	let helpMessage;
 
-	[server] = await Servers.getOrRegister(message.guild.id);
+	const [server] = await Servers.getOrRegister(message.guild.id);
 
 	if (!args.length) {
-		helpMessage = new discord.MessageEmbed();
+		helpMessage = new DraftBotEmbed();
 		const commandsList = Object.entries(
 			JsonReader.commands.help.getTranslation(language).commands
 		);
@@ -49,12 +51,7 @@ const HelpCommand = async (message, language, args) => {
 			)
 		);
 
-		helpMessage.setAuthor(
-			format(JsonReader.commands.help.getTranslation(language).helpEmbedTitle, {
-				pseudo: message.author.username
-			}),
-			message.author.displayAvatarURL()
-		);
+		helpMessage.formatAuthor(JsonReader.commands.help.getTranslation(language).helpEmbedTitle, message.author);
 		helpMessage.setDescription(
 			JsonReader.commands.help.getTranslation(language).helpEmbedDescription,
 			"\n\u200b"
@@ -93,8 +90,7 @@ const HelpCommand = async (message, language, args) => {
 		const commandInfos = JsonReader.commands.help.getTranslation(language).commands[
 			command.help.name
 		];
-		helpMessage = new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
+		helpMessage = new DraftBotEmbed()
 			.setDescription(commandInfos.description)
 			.setTitle(
 				format(

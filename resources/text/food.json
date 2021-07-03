@@ -11,7 +11,7 @@
 			}
 		},
 		"type": "commonFood",
-		"emote": ":candy:",
+		"emote": "\uD83C\uDF6C",
 		"price": 20,
 		"effect": 1
 	},
@@ -27,7 +27,7 @@
 			}
 		},
 		"type": "herbivorousFood",
-		"emote": ":leafy_green:",
+		"emote": "\uD83E\uDD6C",
 		"price": 250,
 		"effect": 3
 	},
@@ -43,7 +43,7 @@
 			}
 		},
 		"type": "carnivorousFood",
-		"emote": ":cut_of_meat:",
+		"emote": "\uD83E\uDD69",
 		"price": 250,
 		"effect": 3
 	},
@@ -59,7 +59,7 @@
 			}
 		},
 		"type": "ultimateFood",
-		"emote": ":stew:",
+		"emote": "\uD83C\uDF72",
 		"price": 600,
 		"effect": 5
 	}

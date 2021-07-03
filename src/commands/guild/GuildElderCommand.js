@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "guildelder",
 	aliases: ["gelder"],
@@ -18,7 +20,7 @@ const GuildElderCommand = async (message, language, args) => {
 	let elderEntity;
 	let guild;
 	let elderGuild;
-	const elderAddEmbed = new discord.MessageEmbed();
+	const elderAddEmbed = new DraftBotEmbed();
 
 	guild = await Guilds.getById(entity.Player.guildId);
 	try {
@@ -95,7 +97,7 @@ const GuildElderCommand = async (message, language, args) => {
 
 	const msg = await message.channel.send(elderAddEmbed);
 
-	const confirmEmbed = new discord.MessageEmbed();
+	const confirmEmbed = new DraftBotEmbed();
 	const filterConfirm = (reaction, user) =>
 		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&
