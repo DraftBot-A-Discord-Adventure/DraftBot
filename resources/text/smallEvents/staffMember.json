@@ -8,7 +8,6 @@
 				"En entrant dans un bâtiment le long de votre chemin, vous discutez quelques temps avec le gérant de l'établissement. Vous lui demandez de vous conter les légendes locales, il vous décrit alors **{pseudo}**, {sentence}.",
 				"Sur votre chemin, vous faites la rencontre d'un vieil homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{pseudo}** : {sentence}.",
 				"En marchant le long de la route, vous apercevez un livre en mauvais état par terre. Intitulé **{pseudo}**, vous l'ouvrez et lisez les premières phrases... {sentence}.",
-				"Vous marchez longuement dans le calme, jusqu'à ce que vous croisiez une personne fredonnant un chant dédié à **{pseudo}**... {sentence}.",
 				"Sur votre voyage, un nuage de poussière apparaît au loin. Quelques minutes plus tard, un cavalier s'arrête devant vous, il dit chercher **{pseudo}**. À votre regard inquisiteur, il ajoute :  \"{sentence}\"."
 			],
 			"members": {
