@@ -17,10 +17,6 @@ module.exports.help = {
 const FightCommand = async function(message, language, args, friendly = false) {
 	const [attacker] = await Entities.getOrRegister(message.author.id);
 
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], attacker) !== true) {
-		return;
-	}
-
 	let defender = null;
 	if (args.length !== 0) {
 		[defender] = await Entities.getByArgs(args, message);
@@ -165,7 +161,6 @@ function sendError(message, entity, error, direct, language) {
 				level: FIGHT.REQUIRED_LEVEL
 			}) :
 			format(JsonReader.commands.fight.getTranslation(language).error.levelTooLow.indirect, {level: FIGHT.REQUIRED_LEVEL});
-		sendErrorMessage(message.guild.members.cache.get(entity.discordUserId).user, message.channel, language, msg);
 		break;
 	case FIGHT_ERROR.DISALLOWED_EFFECT:
 		msg = direct ?

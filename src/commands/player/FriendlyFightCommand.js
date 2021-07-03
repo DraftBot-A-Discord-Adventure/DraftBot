@@ -1,7 +1,8 @@
 module.exports.help = {
 	name: "friendlyfight",
 	aliases: ["ff", "ffight"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	requiredLevel: FIGHT.REQUIRED_LEVEL
 };
 
 /**
