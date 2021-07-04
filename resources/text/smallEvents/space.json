@@ -1,0 +1,26 @@
+{
+	"translations": {
+		"fr": {
+			"intro": [
+				"vous rencontrez un oracle prétendant se nommer {name}."
+			],
+			"action": [
+				"Cette personne regarde dans un appareil étrange et vous dit que",
+				"Cet oracle regarde dans le ciel et vous informe que"
+			],
+			"specific": {
+				"neows": [
+					"{count} objets traversent le ciel aujourd'hui."
+				]
+			},
+			"names": [
+				"Bernard"
+			]
+		},
+		"en": {
+
+		}
+	},
+	"rarity": 3,
+	"emote": ":ringed_planet:"
+}
