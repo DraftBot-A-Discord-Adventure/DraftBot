@@ -131,7 +131,7 @@
 	"defenseEligible": [4,5,6,7,16],
 	"basicEligible": [0,1,2,3,12,13,14,15],
 	"otherEligible": [17],
-	"rarity": 2,
+	"rarity": 4,
 	"emote": ":bookmark:  "
 }
 

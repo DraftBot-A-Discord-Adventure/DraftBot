@@ -1,6 +1,9 @@
+import {Random} from "random-js";
+
 declare const JsonReader: any;
 
 const translationModulesCache: Record<string, TranslationModule> = {};
+declare const draftbotRandom: Random;
 
 export class TranslationModule {
 	private readonly _module: string;
@@ -37,7 +40,7 @@ export class TranslationModule {
 		return this._language;
 	}
 
-	get(translation: string): string {
+	private getTranslationObject(translation: string): unknown {
 		if (!this._moduleTranslationObject) {
 			console.warn("Trying to use an invalid translation module: " + this._module);
 			return "ERR:MODULE_NOT_FOUND";
@@ -52,6 +55,14 @@ export class TranslationModule {
 			lastObject = lastObject[path];
 		}
 		return lastObject;
+	}
+
+	get(translation: string): string {
+		return <string> this.getTranslationObject(translation);
+	}
+
+	getRandom(translation: string): string {
+		return draftbotRandom.pick(<string[]> this.getTranslationObject(translation));
 	}
 }
 
