@@ -48,7 +48,7 @@ const mapInfosTestCommand = async (language, message) => {
 		mapEmbed.addField("Next available maps", field, true);
 	}
 	else {
-		mapEmbed.addField("Players", ":speech_balloon: " + await currMap.playersCount() + " player(s) on this map", true);
+		mapEmbed.addField("Players", ":speech_balloon: " + await currMap.playersCount(entity.Player.previousMapId) + " player(s) on this map", true);
 	}
 	return mapEmbed;
 };

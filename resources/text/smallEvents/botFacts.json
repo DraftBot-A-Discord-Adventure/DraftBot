@@ -2,29 +2,29 @@
 	"translations": {
 		"fr": {
 			"stories": [
-				"vous recevez une missive du roi. Ce dernier vous écrit à propos de la compétition pour la main de la princesse à laquelle vous participez. Vous découvrez à la lecture de la lettre que {botFact} Grandement motivé par cette nouvelle, vous reprenez votre route."
+				"vous recevez une missive du roi. Ce dernier vous écrit à propos de la compétition pour la main de la princesse à laquelle vous participez. Vous découvrez à la lecture de la lettre que {botFact} vous reprenez votre route."
 			],
 			"possiblesInfos": {
-				"nbMeanPoints": "d'après un comptage des points effectué récemment par les organisateur, les candidats ont en moyenne un score de **{infoNumber} :medal:**.",
-				"meanWeeklyScore": "d'après un comptage des points effectué récemment par les organisateur, les candidats ont récoltés en moyenne **{infoNumber} :medal: cette semaine**.",
-				"nbPlayersHaventStartedTheAdventure": "le SAFAC, ou Service Anti-Fraude des Aventuriers de la Contrée, a découvert que **{infoNumber} joueurs** sont partis directement après avoir pris leur license d'aventurier.",
-				"levelMean": "le dernier recensement avait noté que les joueurs ont en moyenne le **Niveau {infoNumber}**.",
-				"nbMeanMoney": "la banque du pays a compté une moyenne de **{infoNumber} :moneybag:** dans les comptes de ses aventuriers.",
-				"sumAllMoney": "la banque du pays a compté **{infoNumber} :moneybag:** en circulation à cette heure-ci.",
-				"richestPlayer": "la banque du pays a évalué que le joueur le plus riche actuellement a **{infoNumber} :moneybag:** sur son compte.",
-				"trainedPets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, souhaite féliciter les dresseurs des **{infoNumber} animaux dressés**.",
-				"feistyPets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, milite pour aider les **{infoNumber} animaux fielleux** à obtenir une meilleure vie.",
-				"percentMalePets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, a découvert que **{infoNumber}%** des animaux sur le territoire sont des mâles.",
-				"percentFemalePets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, a découvert que **{infoNumber}%** des animaux sur le territoire sont des femelles.",
-				"guildLevelMean": "l'AGC, ou Agence des Guildes de la Contrée, a noté que les guildes actuelles ont en moyenne le **Niveau {infoNumber}**.",
-				"nbPlayersWithGivenClass": "d'après un récent recensement des aventuriers, il y aurait **{infoNumber}** avec la classe **{infoComplement}**.",
-				"nbPlayersOnYourMap": "les chevaliers alentours ont compté **{infoNumber} personnes** actuellement en train de circuler sur votre route."
+				"nbMeanPoints": "d'après un comptage des points effectué récemment par les organisateur, les candidats ont en moyenne un score de **{infoNumber} :medal:**. Encouragé par cette nouvelle,",
+				"meanWeeklyScore": "d'après un comptage des points effectué récemment par les organisateur, les candidats ont récoltés en moyenne **{infoNumber} :medal: cette semaine**. Attristé par cette nouvelle,",
+				"nbPlayersHaventStartedTheAdventure": "vous êtes probablement victime d'une erreur puisque la missive semble être en réalité adressée aux **{infoNumber} aventuriers** qui n'ont pas encore débuté leur aventure après avoir réalisé l'enregistrement. Amusé par cette erreur,",
+				"levelMean": "le dernier recensement avait noté que les aventuriers ont atteint en moyenne le **Niveau {infoNumber}**. Sans savoir que faire de cette information,",
+				"nbMeanMoney": "la banque du pays a compté une moyenne de **{infoNumber} :moneybag:** dans les bourses de ses clients. Amusé par cette nouvelle,",
+				"sumAllMoney": "la banque du pays a compté **{infoNumber} :moneybag:** en circulation à cette heure-ci. Surpris par cette nouvelle,",
+				"richestPlayer": "la banque du pays a évalué que l'aventurier le plus riche a actuellement **{infoNumber} :moneybag:** sur son compte. Ébahi par cette nouvelle,",
+				"trainedPets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, souhaite féliciter les dresseurs des **{infoNumber} animaux dressés**. Impressionné par cet exploit,",
+				"feistyPets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, milite pour aider les **{infoNumber} animaux fielleux** à obtenir une meilleure vie. Réconforté par cette nouvelle,",
+				"percentMalePets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, a découvert que **{infoNumber}%** des animaux sur le territoire sont des mâles. Ravi de cette nouvelle,",
+				"percentFemalePets": "la SPAC, ou Société Protectrice des Animaux de la Contrée, a découvert que **{infoNumber}%** des animaux sur le territoire sont des femelles. Ravi de cette nouvelle,",
+				"guildLevelMean": "l'AGC, ou Agence des Guildes de la Contrée, a noté que les guildes actuelles ont atteint en moyenne le **Niveau {infoNumber}**. Intrigué par cette information,",
+				"nbPlayersWithGivenClass": "d'après un récent recensement des aventuriers, il y aurait **{infoNumber}** avec la classe **{infoComplement}**. Étonné par cette nouvelle,",
+				"nbPlayersOnYourMap": "les chevaliers alentours ont compté **{infoNumber} personnes** actuellement en train de circuler sur votre route. Surpris par cette nouvelle,"
 			}
 		},
 		"en": {
 		}
 	},
-	"rarity": 7040,
+	"rarity": 2,
 	"emote": ":white_flower: "
 }
 

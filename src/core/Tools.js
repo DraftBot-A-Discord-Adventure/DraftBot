@@ -790,5 +790,5 @@ global.getNbPlayersWithGivenClass = async (_entity, language) => {
  */
 global.getNbPlayersOnYourMap = async (entity) => {
 	const actualMap = await MapLocations.getById(entity.Player.mapId);
-	return [await actualMap.playersCount(), ""];
+	return [await actualMap.playersCount(entity.Player.previousMapId), ""];
 };
