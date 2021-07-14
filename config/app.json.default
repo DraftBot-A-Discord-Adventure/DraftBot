@@ -11,9 +11,6 @@
   "//SUPPORT_ROLE": "Put ids of the persons that will be able to send dms with the bot separated by a comma",
   "SUPPORT_ROLE": "",
 
-  "//TOURNAMENT_ROLE": "Put ids of the persons that will be able to use the tournament command",
-  "TOURNAMENT_ROLE": "",
-
   "//CONTRIBUTOR_ROLE": "Put id of the contributors role",
   "CONTRIBUTOR_ROLE": "",
 

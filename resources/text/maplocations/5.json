@@ -1,13 +1,13 @@
 {
 	"type": "ro",
-	"name_fr": "Le Chemin du Dédale",
-	"name_en": "The Daedalus Path",
-	"particle_fr": "vers",
-	"particle_en": "of",
-	"desc_fr": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard.",
-	"desc_en": "A way named after its furrow within the abundant nature at the South of the Oldster's forest.",
-	"north_map": 4,
-	"east_map": null,
-	"south_map": 6,
-	"west_map": 26
+	"nameFr": "Le Chemin du Dédale",
+	"nameEn": "The Daedalus Path",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Chemin tirant son surnom de son sillonement au sein de la nature foisonnant du sud de la forêt du vieillard.",
+	"descEn": "A way named after its furrow within the abundant nature at the South of the Oldster's forest.",
+	"northMap": 4,
+	"eastMap": null,
+	"southMap": 6,
+	"westMap": 26
 }

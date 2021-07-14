@@ -1,3 +1,6 @@
+import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
+import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+
 global.draftbotRandom = new (require("random-js")).Random();
 
 /**
@@ -5,8 +8,42 @@ global.draftbotRandom = new (require("random-js")).Random();
  * Convert a discord id into a discord mention
  * @param {Number} id - The role/user id
  */
-global.idToMention = (id) => {
-	return '<@&' + id + '>';
+global.idToMention = (id) => "<@&" + id + ">";
+
+/**
+ * Get the id from a mention
+ * @param {any} variable
+ * @return {String} The id of the mention
+ */
+global.getIdFromMention = (variable) => {
+	if (typeof variable === "string") {
+		return variable.slice(3,variable.length - 1);
+	}
+	return "";
+};
+
+/**
+ * Check if the given variable is a Mention
+ * @param {String} variable
+ * @return {boolean}
+ */
+global.isAMention = (variable) => {
+	if (typeof variable === "string") {
+		return RegExp(/^<@!?[0-9]{18}>$/).test(variable);
+	}
+	return false;
+};
+
+/**
+ * Check if the given variable is a Discord Emoji
+ * @param {String} variable
+ * @return {boolean}
+ */
+global.isAnEmoji = (variable) => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi).test(variable);
+
+module.exports = {
+	isAMention: isAMention,
+	isAnEmoji: isAnEmoji
 };
 
 /**
@@ -19,8 +56,8 @@ global.sendMessageAttachments = (message, channel) => {
 		channel.send({
 			files: [{
 				attachment: element.url,
-				name: element.filename,
-			}],
+				name: element.filename
+			}]
 		});
 	});
 };
@@ -33,16 +70,7 @@ global.sendMessageAttachments = (message, channel) => {
  * @param {boolean} isCancelling - true if the error message is meant to cancel something
  * @param {String} reason
  */
-global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => {
-	const embed = new discord.MessageEmbed();
-	let test = isCancelling ? 1 : 0;
-	embed.setColor(JsonReader.bot.embed.error)
-		.setAuthor(format(JsonReader.error.getTranslation(language).title[isCancelling ? 1 : 0], {
-			pseudo: user.username,
-		}), user.displayAvatarURL())
-		.setDescription(reason);
-	return channel.send(embed);
-};
+global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => channel.send(new DraftBotErrorEmbed(user, language, reason, isCancelling));
 
 /**
  * Send a dm to a user
@@ -52,18 +80,16 @@ global.sendErrorMessage = (user, channel, language, reason, isCancelling = false
  * @param {module:"discord.js".color} color - Color of the DM
  * @param {("fr"|"en")} language - Language to use in the response
  */
-global.sendDirectMessage = async (user, title, description, color, language) => {
+global.sendDirectMessage = (user, title, description, color, language) => {
 	try {
-		const embed = new discord.MessageEmbed();
-		embed.setColor(color)
-			.setAuthor(format(title, {
-				pseudo: user.username,
-			}), user.displayAvatarURL())
+		user.send(new DraftBotEmbed()
+			.setColor(color)
+			.formatAuthor(title, user)
 			.setDescription(description)
-			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
-		user.send(embed);
+			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter));
 		log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
-	} catch (err) {
+	}
+	catch (err) {
 		log("user" + user.id + "has closed dms !");
 	}
 };
@@ -76,14 +102,9 @@ global.sendDirectMessage = async (user, title, description, color, language) => 
  * @param {String} title - the title of the message
  * @param {String} message - the message
  */
-global.sendSimpleMessage = (user, channel, title, message) => {
-	const embed = new discord.MessageEmbed();
-	embed.setAuthor(format(title, {
-		pseudo: user.username,
-	}), user.displayAvatarURL())
-		.setDescription(message);
-	return channel.send(embed);
-};
+global.sendSimpleMessage = (user, channel, title, message) => channel.send(new DraftBotEmbed()
+	.formatAuthor(title, user)
+	.setDescription(message));
 
 /**
  * Give an item to a user
@@ -92,25 +113,20 @@ global.sendSimpleMessage = (user, channel, title, message) => {
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entity} entity
- * @param {Number} resaleMultiplier - used to lower the resale value of an object
+ * @param {Integer} resaleMultiplierNew
+ * @param {Integer} resaleMultiplierActual
  * @returns {Promise<*>}
  */
-global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplieActual = 1) => {
-	log(entity.discordUser_id + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
+global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplierActual = 1) => { // eslint-disable-line max-params
+	log(entity.discordUserId + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
 	let autoSell = false;
 	let autoReplace = false;
 	let resaleMultiplier = resaleMultiplierNew;
-	const receivedEmbed = new discord.MessageEmbed();
-	const embed = new discord.MessageEmbed();
-	receivedEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
-		pseudo: discordUser.username,
-	}), discordUser.displayAvatarURL())
+	const embed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, discordUser);
+	const receivedEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, discordUser)
 		.setDescription(item.toString(language));
-
-
-	embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-		pseudo: discordUser.username,
-	}), discordUser.displayAvatarURL());
 
 	if (item instanceof Potions) {
 		const potion = await entity.Player.Inventory.getPotion();
@@ -121,10 +137,10 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 			autoReplace = true;
 		}
 		embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooterPotion, {
-			pseudo: discordUser.username,
+			pseudo: discordUser.username
 		}), discordUser.displayAvatarURL());
 		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-			actualItem: potion.toString(language),
+			actualItem: potion.toString(language)
 		}));
 	}
 	if (item instanceof Objects) {
@@ -138,7 +154,7 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 			autoReplace = true;
 		}
 		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-			actualItem: backupObject.toString(language),
+			actualItem: backupObject.toString(language)
 		}));
 	}
 	if (item instanceof Weapons) {
@@ -150,7 +166,7 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 			autoReplace = true;
 		}
 		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-			actualItem: weapon.toString(language),
+			actualItem: weapon.toString(language)
 		}));
 	}
 	if (item instanceof Armors) {
@@ -162,7 +178,7 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 			autoReplace = true;
 		}
 		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-			actualItem: armor.toString(language),
+			actualItem: armor.toString(language)
 		}));
 	}
 
@@ -171,99 +187,9 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		entity.Player.addMoney(money);
 		await entity.Player.save();
 		return await channel.send(
-			new discord.MessageEmbed().setAuthor(
-				format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle,
-					{
-						pseudo: discordUser.username,
-					},
-				), discordUser.displayAvatarURL()
-			).setDescription(
-				format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-					{
-						item: item.getName(language),
-						money: money
-					}
-				)
-			)
-		);
-	} else {
-		await channel.send(receivedEmbed);
-		if (autoReplace) {
-			return await saveItem(item, entity);
-		}
-
-		const msg = await channel.send(embed);
-		const filterConfirm = (reaction, user) => {
-			return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === discordUser.id);
-		};
-
-		const collector = msg.createReactionCollector(filterConfirm, {
-			time: COLLECTOR_TIME,
-			max: 1,
-		});
-		addBlockedPlayer(discordUser.id, "acceptItem", collector);
-
-		collector.on('end', async (reaction) => {
-			removeBlockedPlayer(discordUser.id);
-			if (reaction.first()) { // a reaction exist
-				// msg.delete(); for now we are going to keep the message
-				if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-					const menuEmbed = new discord.MessageEmbed();
-					menuEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
-						pseudo: discordUser.username,
-					}), discordUser.displayAvatarURL())
-						.setDescription(item.toString(language));
-
-					let oldItem = await saveItem(item, entity);
-					await channel.send(menuEmbed);
-					item = oldItem;
-					resaleMultiplier = resaleMultiplieActual;
-				}
-				if (item instanceof Potions) {
-					return await channel.send(
-						new discord.MessageEmbed().setAuthor(
-							format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
-								{
-									pseudo: discordUser.username,
-								},
-							), discordUser.displayAvatarURL()
-						).setDescription(
-							format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
-								{
-									item: item.getName(language)
-								}
-							)
-						)
-					); // potion are not sold (because of exploits and because of logic)
-				}
-			} else if (item instanceof Potions) {
-				return await channel.send(
-					new discord.MessageEmbed().setAuthor(
-						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
-							{
-								pseudo: discordUser.username,
-							},
-						), discordUser.displayAvatarURL()
-					).setDescription(
-						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
-							{
-								item: item.getName(language)
-							}
-						)
-					)
-				); // potion are not sold (because of exploits and because of logic)
-			}
-			const money = Math.round(getItemValue(item) * resaleMultiplier);
-			entity.Player.addMoney(money);
-			await entity.Player.save();
-			return await channel.send(
-				new discord.MessageEmbed().setAuthor(
-					format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
-						{
-							pseudo: discordUser.username,
-						},
-					), discordUser.displayAvatarURL()
-				).setDescription(
+			new DraftBotEmbed()
+				.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle, discordUser)
+				.setDescription(
 					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
 						{
 							item: item.getName(language),
@@ -271,13 +197,85 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 						}
 					)
 				)
-			);
-		});
-		await Promise.all([
-			msg.react(MENU_REACTION.ACCEPT),
-			msg.react(MENU_REACTION.DENY),
-		]);
+		);
 	}
+	await channel.send(receivedEmbed);
+	if (autoReplace) {
+		return await saveItem(item, entity);
+	}
+
+	const msg = await channel.send(embed);
+	const filterConfirm = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === discordUser.id;
+
+	const collector = msg.createReactionCollector(filterConfirm, {
+		time: COLLECTOR_TIME,
+		max: 1
+	});
+	addBlockedPlayer(discordUser.id, "acceptItem", collector);
+
+	collector.on("end", async (reaction) => {
+		const [newEntity] = await Entities.getOrRegister(entity.discordUserId);
+		removeBlockedPlayer(discordUser.id);
+		if (reaction.first()) { // a reaction exist
+			// msg.delete(); for now we are going to keep the message
+			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
+				const menuEmbed = new DraftBotEmbed();
+				menuEmbed.formatAuthor(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, discordUser)
+					.setDescription(item.toString(language));
+
+				const oldItem = await saveItem(item, entity);
+				await channel.send(menuEmbed);
+				item = oldItem;
+				resaleMultiplier = resaleMultiplierActual;
+			}
+			if (item instanceof Potions) {
+				return await channel.send(
+					new DraftBotEmbed()
+						.formatAuthor(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle, discordUser)
+						.setDescription(
+							format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
+								{
+									item: item.getName(language)
+								}
+							)
+						)
+				); // potion are not sold (because of exploits and because of logic)
+			}
+		}
+		else if (item instanceof Potions) {
+			return await channel.send(
+				new DraftBotEmbed()
+					.formatAuthor(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle, discordUser)
+					.setDescription(
+						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
+							{
+								item: item.getName(language)
+							}
+						)
+					)
+			); // potion are not sold (because of exploits and because of logic)
+		}
+		const money = Math.round(getItemValue(item) * resaleMultiplier);
+		newEntity.Player.addMoney(money);
+		await newEntity.Player.save();
+		return await channel.send(
+			new DraftBotEmbed()
+				.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageTitle, discordUser)
+				.setDescription(
+					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+						{
+							item: item.getName(language),
+							money: money
+						}
+					)
+				)
+		);
+	});
+	await Promise.all([
+		msg.react(MENU_REACTION.ACCEPT),
+		msg.react(MENU_REACTION.DENY)
+	]);
+
 };
 
 /**
@@ -288,7 +286,7 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
  * @param {Entity} entity
  */
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
-	let item = await entity.Player.Inventory.generateRandomItem();
+	const item = await entity.Player.Inventory.generateRandomItem();
 	return await giveItem(entity, item, language, discordUser, channel);
 };
 
@@ -301,19 +299,25 @@ global.generateRandomRarity = (maxRarity = RARITY.MYTHICAL) => {
 	const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue -
 		(maxRarity === RARITY.MYTHICAL ? 0 : JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity - 1]));
 
-	if (randomValue <= JsonReader.values.raritiesGenerator['0']) {
+	if (randomValue <= JsonReader.values.raritiesGenerator["0"]) {
 		return RARITY.COMMON;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['1']) {
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["1"]) {
 		return RARITY.UNCOMMON;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['2']) {
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["2"]) {
 		return RARITY.EXOTIC;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['3']) {
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["3"]) {
 		return RARITY.RARE;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['4']) {
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["4"]) {
 		return RARITY.SPECIAL;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['5']) {
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["5"]) {
 		return RARITY.EPIC;
-	} else if (randomValue <= JsonReader.values.raritiesGenerator['6']) {
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["6"]) {
 		return RARITY.LEGENDARY;
 	}
 	return RARITY.MYTHICAL;
@@ -324,36 +328,28 @@ global.generateRandomRarity = (maxRarity = RARITY.MYTHICAL) => {
  * Generate a random itemType
  * @return {Number}
  */
-global.generateRandomItemType = () => {
-	return JsonReader.values.itemGenerator.tab[draftbotRandom.integer(1, JsonReader.values.itemGenerator.max - 1)];
-};
+global.generateRandomItemType = () => JsonReader.values.itemGenerator.tab[draftbotRandom.integer(1, JsonReader.values.itemGenerator.max - 1)];
 
 /**
  * Convert a number of milliseconds in a number of minutes
  * @param {Number} milliseconds - The number of milliseconds
  * @return {Number}
  */
-global.millisecondsToMinutes = (milliseconds) => {
-	return Math.round(milliseconds / 60000);
-};
+global.millisecondsToMinutes = (milliseconds) => Math.round(milliseconds / 60000);
 
 /**
  * Convert a number of milliseconds in a number of hours
  * @param {Number} milliseconds - The number of milliseconds
  * @return {Number}
  */
-global.millisecondsToHours = (milliseconds) => {
-	return milliseconds / 3600000;
-};
+global.millisecondsToHours = (milliseconds) => milliseconds / 3600000;
 
 /**
  * Convert a number of minutes in a number of milliseconds
  * @param {Number} minutes - The number of minutes
  * @return {Number}
  */
-global.minutesToMilliseconds = (minutes) => {
-	return minutes * 60000;
-};
+global.minutesToMilliseconds = (minutes) => minutes * 60000;
 
 /**
  * Return a string containing a proper display of a duration
@@ -362,15 +358,17 @@ global.minutesToMilliseconds = (minutes) => {
  */
 global.minutesToString = (minutes) => {
 	const hours = Math.floor(minutes / 60);
-	minutes = minutes % 60;
+	minutes %= 60;
 
 	let display;
 	if (hours > 0) {
-		display = hours + ' H ' + minutes + " Min";
-	} else if (minutes !== 0) {
-		display = minutes + ' Min';
-	} else {
-		display = '< 1 Min';
+		display = hours + " H " + minutes + " Min";
+	}
+	else if (minutes !== 0) {
+		display = minutes + " Min";
+	}
+	else {
+		display = "< 1 Min";
 	}
 
 	return display;
@@ -387,19 +385,18 @@ global.format = (string, replacement) => {
 	}
 
 	return string.replace(/{([0-9a-zA-Z_]+)}/g, (match, i, index) => {
-		let result;
 
-		if (string[index - 1] === '{' &&
-			string[index + match.length] === '}') {
+		if (string[index - 1] === "{" &&
+			string[index + match.length] === "}") {
 			return i;
-		} else {
-			result = replacement.hasOwnProperty(i) ? replacement[i] : null;
-			if (result === null || result === undefined) {
-				return '';
-			}
-
-			return result;
 		}
+		const result = Object.prototype.hasOwnProperty.call(replacement, i) ? replacement[i] : null;
+		if (result === null || result === undefined) {
+			return "";
+		}
+
+		return result;
+
 	});
 };
 
@@ -409,9 +406,7 @@ global.format = (string, replacement) => {
  * @param {Number} max
  * @return {number}
  */
-global.randInt = (min, max) => {
-	return draftbotRandom.integer(min, max - 1);
-};
+global.randInt = (min, max) => draftbotRandom.integer(min, max - 1);
 
 /**
  * Create a text progress bar
@@ -427,14 +422,14 @@ global.progressBar = (value, maxValue) => {
 	if (percentage > 1) {
 		percentage = 1;
 	}
-	const progress = Math.round((PROGRESSBARS_SIZE * percentage)); // Calculate the number of square caracters to fill the progress side.
+	const progress = Math.round(PROGRESSBARS_SIZE * percentage); // Calculate the number of square caracters to fill the progress side.
 	const emptyProgress = PROGRESSBARS_SIZE - progress; // Calculate the number of dash caracters to fill the empty progress side.
 
-	const progressText = '▇'.repeat(progress); // Repeat is creating a string with progress * caracters in it
-	const emptyProgressText = '—'.repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
-	const percentageText = Math.floor(percentage * 100) + '%'; // Displaying the percentage of the bar
+	const progressText = "▇".repeat(progress); // Repeat is creating a string with progress * caracters in it
+	const emptyProgressText = "—".repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
+	const percentageText = Math.floor(percentage * 100) + "%"; // Displaying the percentage of the bar
 
-	return '```[' + progressText + emptyProgressText + ']' + percentageText + '```'; // Creating the bar
+	return "```[" + progressText + emptyProgressText + "]" + percentageText + "```"; // Creating the bar
 };
 
 /**
@@ -442,7 +437,7 @@ global.progressBar = (value, maxValue) => {
  * @param {Objects|Armors|Weapons|Potions} item
  * @return {Number} - The value of the item
  */
-global.getItemValue = function (item) {
+global.getItemValue = function(item) {
 	let addedvalue;
 	if (item instanceof Potions || item instanceof Objects) {
 		addedvalue = parseInt(item.power);
@@ -463,7 +458,7 @@ global.getItemValue = function (item) {
  * @param {"fr"|"en"} language
  * @returns {boolean}
  */
-global.sendBlockedError = async function (user, channel, language) {
+global.sendBlockedError = async function(user, channel, language) {
 	if (hasBlockedPlayer(user.id)) {
 		await sendErrorMessage(user, channel, language, format(JsonReader.error.getTranslation(language).playerBlocked, {
 			context: JsonReader.error.getTranslation(language).blockedContext[getBlockedPlayer(user.id).context]
@@ -477,10 +472,10 @@ global.sendBlockedError = async function (user, channel, language) {
  * Returns the next sunday 23h59 59s
  * @return {Date}
  */
-global.getNextSundayMidnight = function () {
-	let now = new Date();
+global.getNextSundayMidnight = function() {
+	const now = new Date();
 	let dateOfReset = new Date();
-	dateOfReset.setDate(now.getDate() + ((7 - now.getDay())) % 7);
+	dateOfReset.setDate(now.getDate() + (7 - now.getDay()) % 7);
 	dateOfReset.setHours(23, 59, 59);
 	while (dateOfReset < now) {
 		dateOfReset += 1000 * 60 * 60 * 24 * 7;
@@ -492,9 +487,9 @@ global.getNextSundayMidnight = function () {
  * Returns the next day 01h59 59s
  * @return {Date}
  */
-global.getNextDay2AM = function () {
-	let now = new Date();
-	let dateOfReset = new Date();
+global.getNextDay2AM = function() {
+	const now = new Date();
+	const dateOfReset = new Date();
 	dateOfReset.setHours(1, 59, 59);
 	if (dateOfReset < now) {
 		dateOfReset.setDate(dateOfReset.getDate() + 1);
@@ -502,21 +497,21 @@ global.getNextDay2AM = function () {
 	return new Date(dateOfReset);
 };
 
-global.parseTimeDifference = function (date1, date2, language) {
+global.parseTimeDifference = function(date1, date2, language) {
 	if (date1 > date2) {
 		date1 = [date2, date2 = date1][0];
 	}
 	let seconds = Math.floor((date2 - date1) / 1000);
 	let parsed = "";
-	let days = Math.floor(seconds / (24 * 60 * 60));
+	const days = Math.floor(seconds / (24 * 60 * 60));
 	if (days > 0) {
 		parsed += days + (language === "fr" ? " J " : " D ");
 		seconds -= days * 24 * 60 * 60;
 	}
-	let hours = Math.floor(seconds / (60 * 60));
+	const hours = Math.floor(seconds / (60 * 60));
 	parsed += hours + " H ";
 	seconds -= hours * 60 * 60;
-	let minutes = Math.floor(seconds / 60);
+	const minutes = Math.floor(seconds / 60);
 	parsed += minutes + " Min ";
 	seconds -= minutes * 60;
 	parsed += seconds + " s";
@@ -527,7 +522,7 @@ global.parseTimeDifference = function (date1, date2, language) {
  * Block commands if it is 5 minutes before top week reset
  * @return {boolean}
  */
-global.resetIsNow = function () {
+global.resetIsNow = function() {
 	return getNextSundayMidnight() - new Date() <= 1000 * 5 * 60;
 };
 
@@ -535,17 +530,16 @@ global.resetIsNow = function () {
  * Allow to get the validation information of a guild
  * @param {module:"discord.js".Guild} guild - The guild that has to be checked
  */
-global.getValidationInfos = function (guild) {
-	let humans = guild.members.cache.filter(member => !member.user.bot).size;
-	let bots = guild.members.cache.filter(member => member.user.bot).size;
-	let ratio = Math.round((bots / humans) * 100);
+global.getValidationInfos = function(guild) {
+	const humans = guild.members.cache.filter(member => !member.user.bot).size;
+	const bots = guild.members.cache.filter(member => member.user.bot).size;
+	const ratio = Math.round(bots / humans * 100);
 	let validation = ":white_check_mark:";
-	if (ratio > 30 || humans < 30 || (humans < 100 && ratio > 20)) {
+	if (ratio > 30 || humans < 30 || humans < 100 && ratio > 20) {
 		validation = ":x:";
-	} else {
-		if (ratio > 20 || bots > 15 || humans < 100) {
-			validation = ":warning:";
-		}
+	}
+	else if (ratio > 20 || bots > 15 || humans < 100) {
+		validation = ":warning:";
 	}
 	return {validation: validation, humans: humans, bots: bots, ratio: ratio};
 };
@@ -553,25 +547,25 @@ global.getValidationInfos = function (guild) {
 async function saveItem(item, entity) {
 	let oldItem;
 	if (item instanceof Potions) {
-		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potion_id}});
-		entity.Player.Inventory.potion_id = item.id;
+		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potionId}});
+		entity.Player.Inventory.potionId = item.id;
 	}
 	if (item instanceof Objects) {
-		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backup_id}});
-		entity.Player.Inventory.backup_id = item.id;
+		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backupId}});
+		entity.Player.Inventory.backupId = item.id;
 	}
 	if (item instanceof Weapons) {
-		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weapon_id}});
-		entity.Player.Inventory.weapon_id = item.id;
+		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weaponId}});
+		entity.Player.Inventory.weaponId = item.id;
 	}
 	if (item instanceof Armors) {
-		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armor_id}});
-		entity.Player.Inventory.armor_id = item.id;
+		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armorId}});
+		entity.Player.Inventory.armorId = item.id;
 	}
 	await Promise.all([
 		entity.save(),
 		entity.Player.save(),
-		entity.Player.Inventory.save(),
+		entity.Player.Inventory.save()
 	]);
 	return oldItem;
 }
@@ -580,4 +574,75 @@ global.checkNameString = (name, minLength, maxLength) => {
 	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);
 	const regexSpecialCases = RegExp(/^[0-9 ]+$|( {2})+/);
 	return regexAllowed.test(name) && !regexSpecialCases.test(name) && name.length >= minLength && name.length <= maxLength;
+};
+
+/**
+ * Check if the given food with its quantity can be added to the given guild storage
+ * @param {Object} selectedItem - The item to add in the storage
+ * @param {number} quantity - How many of selectedItem is asked to add in the storage
+ * @param guild - The guild to check
+ * @return {boolean}
+ */
+global.isStorageFullFor = (selectedItem, quantity, guild) => guild[selectedItem.type] + quantity > JsonReader.commands.guildShop.max[selectedItem.type];
+
+global.giveFood = async (message, language, entity, author, selectedItem, quantity) => {
+	const guild = await Guilds.getById(entity.Player.guildId);
+	if (isStorageFullFor(selectedItem, quantity, guild)) {
+		return sendErrorMessage(
+			author,
+			message.channel,
+			language,
+			JsonReader.commands.guildShop.getTranslation(language).fullStock
+		);
+	}
+	guild[selectedItem.type] += quantity;
+	await Promise.all([guild.save()]);
+	const successEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.guildShop.getTranslation(language).success, author);
+	if (quantity === 1) {
+		successEmbed.setDescription(
+			format(
+				JsonReader.commands.guildShop.getTranslation(language)
+					.singleSuccessAddFoodDesc,
+				{
+					emote: selectedItem.emote,
+					quantity: quantity,
+					name: selectedItem.translations[language].name
+						.slice(2, -2)
+						.toLowerCase()
+				}
+			)
+		);
+	}
+	else {
+		successEmbed.setDescription(
+			format(
+				JsonReader.commands.guildShop.getTranslation(language)
+					.multipleSuccessAddFoodDesc,
+				{
+					emote: selectedItem.emote,
+					quantity: quantity,
+					name:
+						selectedItem.type === "ultimateFood" && language === "fr" ? selectedItem.translations[language].name
+							.slice(2, -2)
+							.toLowerCase()
+							.replace(
+								selectedItem.translations[language].name
+									.slice(2, -2)
+									.toLowerCase()
+									.split(" ")[0],
+								selectedItem.translations[language].name
+									.slice(2, -2)
+									.toLowerCase()
+									.split(" ")[0]
+									.concat("s")
+							)
+							: selectedItem.translations[language].name
+								.slice(2, -2)
+								.toLowerCase()
+				}
+			)
+		);
+	}
+	return message.channel.send(successEmbed);
 };

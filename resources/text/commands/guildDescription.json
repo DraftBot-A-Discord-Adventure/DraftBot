@@ -20,7 +20,7 @@
 			"noDescriptionGiven": "Please indicate a valide description for your guild : `guilddescription [description]`",
 			"descriptionChanged": "The description has been changed.",
 			"changeDescriptionTitle": "{pseudo}, confirmation :",
-			"changeDescriptionConfirm": ":question: Do you really wish to change your guilds description ? \n\n New description: :scroll: `{description}",
+			"changeDescriptionConfirm": ":question: Do you really wish to change your guilds description ? \n\n New description: :scroll: `{description}`",
 			"changeDescriptionFooter": "Warning, the bot's staff keeps control on guild's description and may change it.",
 			"editSuccessTitle": "The description of guild has been edit !",
 			"editCancelled": "You does not change the description of guild !",

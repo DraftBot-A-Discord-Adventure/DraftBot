@@ -10,22 +10,22 @@ module.exports = (Sequelize, DataTypes) => {
 	const Shop = Sequelize.define(
 		"Shop",
 		{
-			shop_potion_id: {
+			shopPotionId: {
 				type: DataTypes.INTEGER,
-				defaultValue: 5,
+				defaultValue: 5
 			},
 			updatedAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 			},
 			createdAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
-			},
+				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			}
 		},
 		{
 			tableName: "shop",
-			freezeTableName: true,
+			freezeTableName: true
 		}
 	);
 

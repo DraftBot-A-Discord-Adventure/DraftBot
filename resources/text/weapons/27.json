@@ -5,6 +5,6 @@
 	},
 	"rarity": 7,
 	"rawAttack": 10,
-	"french_masculine": 1,
-	"french_plural": 0
+	"frenchMasculine": 1,
+	"frenchPlural": 0
 }

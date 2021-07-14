@@ -1,13 +1,21 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const Maps = require("../../core/Maps");
+
+module.exports.help = {
+	name: "unlock",
+	aliases: ["bail","release"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
 
 /**
  * Allow to free someone from the lock effect
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const UnlockCommand = async (language, message, args) => {
-	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
+const UnlockCommand = async (message, language, args) => {
+	let [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	if (message.mentions.users.first()) {
 		if (message.mentions.users.first().id === message.author.id) {
@@ -15,75 +23,62 @@ const UnlockCommand = async (language, message, args) => {
 		}
 	}
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-	let lockedEntity;
-
-	[lockedEntity] = await Entities.getByArgs(args, message);
-	if (lockedEntity === null) {
+	const [lockedEntity] = await Entities.getByArgs(args, message);
+	if (!lockedEntity) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).cannotGetlockedUser);
 	}
 
 	if (lockedEntity.Player.effect !== EFFECT.LOCKED) {
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).userNotLocked,);
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).userNotLocked);
 	}
 	if (entity.Player.money < UNLOCK.PRICE_FOR_UNLOCK) {
 		return sendErrorMessage(message.author, message.channel, language,
 			format(JsonReader.commands.unlock.getTranslation(language).noMoney, {
 				money: UNLOCK.PRICE_FOR_UNLOCK - entity.Player.money,
-				pseudo: await lockedEntity.Player.getPseudo(language),
+				pseudo: await lockedEntity.Player.getPseudo(language)
 			})
 		);
 	}
 
-	const embed = new discord.MessageEmbed()
-		.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(JsonReader.commands.unlock.getTranslation(language).unlockTitle, {
-			pseudo: message.author.username,
-		}), message.author.displayAvatarURL())
+	const embed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.unlock.getTranslation(language).unlockTitle, message.author)
 		.setDescription(format(JsonReader.commands.unlock.getTranslation(language).confirmUnlock, {
 			pseudo: await lockedEntity.Player.getPseudo(language),
 			price: UNLOCK.PRICE_FOR_UNLOCK
 		}));
 	const unlockMessage = await message.channel.send(embed);
 
-	const filter = (reaction, user) => {
-		return ((reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id);
-	};
+	const filter = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id;
 
 	const collector = unlockMessage.createReactionCollector(filter, {
 		time: 30000,
-		max: 1,
+		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "unlock", collector);
+	addBlockedPlayer(entity.discordUserId, "unlock", collector);
 
-	collector.on('end', async (reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+	collector.on("end", async (reaction) => {
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) { // a reaction exist
-			[entity] = await Entities.getOrRegister(message.mentions.users.first().id); //released entity
+			[entity] = await Entities.getOrRegister(message.mentions.users.first().id); // released entity
 			[player] = await Entities.getOrRegister(message.author.id); // message author
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				await Maps.removeEffect(entity.Player);
-				player.Player.addMoney(-UNLOCK.PRICE_FOR_UNLOCK); //Remove money
+				player.Player.addMoney(-UNLOCK.PRICE_FOR_UNLOCK); // Remove money
 				await Promise.all([
 					entity.save(),
 					entity.Player.save(),
 					player.save(),
 					player.Player.save()
 				]);
-				log(entity.discordUser_id + " has been released by" + message.author.id);
-				const successEmbed = new discord.MessageEmbed();
+				log(entity.discordUserId + " has been released by" + message.author.id);
+				const successEmbed = new DraftBotEmbed();
 				successEmbed.setAuthor(format(JsonReader.commands.unlock.getTranslation(language).unlockedTitle, {
-						pseudo: await entity.Player.getPseudo(language),
-					}),
-					message.author.displayAvatarURL());
+					pseudo: await entity.Player.getPseudo(language)
+				}),
+				message.author.displayAvatarURL());
 				successEmbed.setDescription(format(JsonReader.commands.unlock.getTranslation(language).unlockSuccess, {
-					pseudo: await entity.Player.getPseudo(language),
+					pseudo: await entity.Player.getPseudo(language)
 				}));
 				return await message.channel.send(successEmbed);
 			}
@@ -94,19 +89,12 @@ const UnlockCommand = async (language, message, args) => {
 	try {
 		await Promise.all([
 			unlockMessage.react(MENU_REACTION.ACCEPT),
-			unlockMessage.react(MENU_REACTION.DENY),
+			unlockMessage.react(MENU_REACTION.DENY)
 		]);
-	} catch (e) {
+	}
+	catch (e) {
+		log("Error while reaction to unlock message: " + e);
 	}
 };
 
-
-module.exports = {
-	commands: [
-		{
-			name: 'unlock',
-			func: UnlockCommand,
-			aliases: ['bail', 'release']
-		}
-	]
-};
+module.exports.execute = UnlockCommand;

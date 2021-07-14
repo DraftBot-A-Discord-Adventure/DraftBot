@@ -7,56 +7,54 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const PlayerSmallEvents = Sequelize.define('player_small_events', {
+	const PlayerSmallEvents = Sequelize.define("player_small_events", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
-			autoIncrement: true,
+			autoIncrement: true
 		},
-		player_id: {
-			type: DataTypes.INTEGER,
+		playerId: {
+			type: DataTypes.INTEGER
 		},
-		event_type: {
-			type: DataTypes.TEXT,
+		eventType: {
+			type: DataTypes.TEXT
 		},
 		number: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
-		tableName: 'player_small_events',
-		freezeTableName: true,
+		tableName: "player_small_events",
+		freezeTableName: true
 	});
 
 	/**
 	 * Creates a PlayerSmallEvents object. DOES NOT SAVE IT, you have to do it yourself
-	 * @param {Number} player_id
-	 * @param {String|string} event_type
+	 * @param {Number} playerId
+	 * @param {String|string} eventType
 	 * @param {Number} number
 	 * @returns {PlayerSmallEvents}
 	 */
-	PlayerSmallEvents.createPlayerSmallEvent = (player_id, event_type, number) => {
-		return PlayerSmallEvents.build({
-			player_id: player_id,
-			event_type: event_type,
-			number: number
-		});
-	};
+	PlayerSmallEvents.createPlayerSmallEvent = (playerId, eventType, number) => PlayerSmallEvents.build({
+		playerId: playerId,
+		eventType: eventType,
+		number: number
+	});
 
 	/**
 	 * Removes all the small events of a player
-	 * @param {Number} player_id
+	 * @param {Number} playerId
 	 * @returns {Promise<void>}
 	 */
-	PlayerSmallEvents.removeSmallEventsOfPlayer = async (player_id) => {
-		await PlayerSmallEvents.destroy({ where : { player_id: player_id }});
+	PlayerSmallEvents.removeSmallEventsOfPlayer = async (playerId) => {
+		await PlayerSmallEvents.destroy({ where: { playerId: playerId }});
 	};
 
 	return PlayerSmallEvents;

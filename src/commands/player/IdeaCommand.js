@@ -1,23 +1,21 @@
+module.exports.help = {
+	name: "idea",
+	aliases: ["ideas","suggestions","suggestion","suggest"]
+};
+
 /**
  * Displays the link for the idea board
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ideaCommand(language, message, args) {
-	const ideaEmbed = new discord.MessageEmbed()
-		.setDescription(JsonReader.commands.idea.getTranslation(language).text)
-		.setTitle(JsonReader.commands.idea.getTranslation(language).title)
-		.setColor(JsonReader.bot.embed.default);
-	message.channel.send(ideaEmbed);
-}
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-module.exports = {
-	commands: [
-		{
-			name: 'idea',
-			func: ideaCommand,
-			aliases: ['ideas', 'suggestions', 'suggest', 'suggestion']
-		}
-	]
+const IdeaCommand = (message, language) => {
+	message.channel.send(
+		new DraftBotEmbed().setDescription(JsonReader.commands.idea.getTranslation(language).text)
+			.setTitle(JsonReader.commands.idea.getTranslation(language).title)
+	);
 };
+
+module.exports.execute = IdeaCommand;

@@ -1,35 +1,35 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.help = {
+	name: "pettransfer",
+	aliases: ["pettr","ptr","ptransfer"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Allow to transfer a pet
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetTransferCommand = async function (language, message, args) {
+const PetTransferCommand = async function(message, language, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const pPet = entity.Player.Pet;
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
 	let guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+		guild = await Guilds.getById(entity.Player.guildId);
+	}
+	catch (error) {
 		guild = null;
 	}
 	if (!guild) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildKick.getTranslation(language).notInAguild);
 	}
 	const guildPetCount = guild.GuildPets.length;
-	const confirmEmbed = new discord.MessageEmbed();
-	confirmEmbed.setAuthor(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitchTitle, {
-		pseudo: message.author.username
-	}), message.author.displayAvatarURL());
-	const [server] = (await Servers.getOrRegister(message.guild.id));
+	const confirmEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitchTitle, message.author);
+	const [server] = await Servers.getOrRegister(message.guild.id);
 
 	if (args.length === 0) {
 		if (!pPet) {
@@ -45,7 +45,7 @@ const PetTransferCommand = async function (language, message, args) {
 		if (guildPetCount >= JsonReader.models.pets.slots) {
 			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).noSlotAvailable);
 		}
-		entity.Player.pet_id = null;
+		entity.Player.petId = null;
 		entity.Player.save();
 		await (await GuildPets.addPet(guild.id, pPet.id)).save();
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmDeposit, {
@@ -80,23 +80,25 @@ const PetTransferCommand = async function (language, message, args) {
 	const swPetEntity = swPet.PetEntity;
 
 	if (pPet) {
-		swPet.pet_entity_id = pPet.id;
+		swPet.petEntityId = pPet.id;
 		await swPet.save();
-	} else {
+	}
+	else {
 		await swPet.destroy();
 	}
-	entity.Player.pet_id = swPetEntity.id;
+	entity.Player.petId = swPetEntity.id;
 	await entity.Player.save();
 
 	if (pPet) {
+		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
+		}
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitch, {
 			pet1: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language)),
 			pet2: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));
-	} else if (pPet) {
-		if (pPet.lovePoints < PETS.LOVE_LEVELS[0])
-			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
-	} else {
+	}
+	else {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmFollows, {
 			pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));
@@ -104,12 +106,4 @@ const PetTransferCommand = async function (language, message, args) {
 	return message.channel.send(confirmEmbed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: 'pettransfer',
-			func: PetTransferCommand,
-			aliases: ['pettr', 'ptr', 'ptransfer']
-		}
-	]
-};
+module.exports.execute = PetTransferCommand;

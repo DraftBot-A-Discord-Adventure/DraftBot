@@ -1,3 +1,5 @@
+const {readdir} = require("fs/promises");
+
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -7,62 +9,62 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Objects = Sequelize.define('Objects', {
+	const Objects = Sequelize.define("Objects", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
-			autoIncrement: true,
+			autoIncrement: true
 		},
 		rarity: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.objects.rarity,
+			defaultValue: JsonReader.models.objects.rarity
 		},
 		power: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.objects.power,
+			defaultValue: JsonReader.models.objects.power
 		},
 		nature: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.objects.nature,
+			defaultValue: JsonReader.models.objects.nature
 		},
 		fr: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT
 		},
 		en: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
-		french_masculine: {
+		frenchMasculine: {
 			type: DataTypes.INTEGER
 		},
-		french_plural: {
+		frenchPlural: {
 			type: DataTypes.INTEGER
 		}
 	}, {
-		tableName: 'objects',
-		freezeTableName: true,
+		tableName: "objects",
+		freezeTableName: true
 	});
 
 	Objects.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
 	 * @param {("fr"|"en")} language - The language the inventory has to be displayed in
 	 * @param {("active"|"backup")} slot
 	 */
-	Objects.prototype.toFieldObject = async function (language, slot) {
+	Objects.prototype.toFieldObject = function(language, slot) {
 		return {
 			name: JsonReader.items.getTranslation(language).objects[slot].fieldName,
-			value: (this.id === 0) ? this[language] : this.toString(language),
+			value: this.id === 0 ? this[language] : this.toString(language)
 		};
 	};
 
@@ -71,12 +73,12 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language - The language the potion has to be displayed in
 	 * @return {String}
 	 */
-	Objects.prototype.toString = function (language) {
-		return (this.id === 0) ? this[language] : format(
+	Objects.prototype.toString = function(language) {
+		return this.id === 0 ? this[language] : format(
 			JsonReader.items.getTranslation(language).objects.active.fieldValue, {
 				name: this[language],
 				rarity: this.getRarityTranslation(language),
-				nature: this.getNatureTranslation(language),
+				nature: this.getNatureTranslation(language)
 			});
 	};
 
@@ -85,7 +87,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language
 	 * @return {String}
 	 */
-	Objects.prototype.getName = function (language) {
+	Objects.prototype.getName = function(language) {
 		return this[language];
 	};
 
@@ -93,7 +95,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language
 	 * @return {String}
 	 */
-	Objects.prototype.getRarityTranslation = function (language) {
+	Objects.prototype.getRarityTranslation = function(language) {
 		return JsonReader.items.getTranslation(language).rarities[this.rarity];
 	};
 
@@ -101,22 +103,22 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language
 	 * @return {String}
 	 */
-	Objects.prototype.getNatureTranslation = function (language) {
+	Objects.prototype.getNatureTranslation = function(language) {
 		if (this.nature === NATURE.HOSPITAL) {
 			return format(
 				JsonReader.items.getTranslation(language).objects.natures[this.nature],
 				{power: minutesToString(this.power * 60)});
-		} else {
-			return format(
-				JsonReader.items.getTranslation(language).objects.natures[this.nature],
-				{power: this.power});
 		}
+		return format(
+			JsonReader.items.getTranslation(language).objects.natures[this.nature],
+			{power: this.power});
+
 	};
 
 	/**
 	 * @return {Number}
 	 */
-	Objects.prototype.getAttack = function () {
+	Objects.prototype.getAttack = function() {
 		if (this.nature === NATURE.ATTACK) {
 			return this.power;
 		}
@@ -126,7 +128,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @return {Number}
 	 */
-	Objects.prototype.getDefense = function () {
+	Objects.prototype.getDefense = function() {
 		if (this.nature === NATURE.DEFENSE) {
 			return this.power;
 		}
@@ -136,12 +138,14 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @return {Number}
 	 */
-	Objects.prototype.getSpeed = function () {
+	Objects.prototype.getSpeed = function() {
 		if (this.nature === NATURE.SPEED) {
 			return this.power;
 		}
 		return 0;
 	};
+
+	Objects.getMaxId = async () => (await readdir("resources/text/objects/")).length - 1;
 
 	return Objects;
 };

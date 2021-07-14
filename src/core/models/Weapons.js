@@ -1,3 +1,5 @@
+const {readdir} = require("fs/promises");
+
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
  * @typedef {import('sequelize/types')} DataTypes
@@ -7,82 +9,82 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Weapons = Sequelize.define('Weapons', {
+	const Weapons = Sequelize.define("Weapons", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
-			autoIncrement: true,
+			autoIncrement: true
 		},
 		rarity: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.weapons.rarity,
+			defaultValue: JsonReader.models.weapons.rarity
 		},
 		rawAttack: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.weapons.rawAttack,
+			defaultValue: JsonReader.models.weapons.rawAttack
 		},
 		rawDefense: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.weapons.rawDefense,
+			defaultValue: JsonReader.models.weapons.rawDefense
 		},
 		rawSpeed: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.weapons.rawSpeed,
+			defaultValue: JsonReader.models.weapons.rawSpeed
 		},
 		attack: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.weapons.attack,
+			defaultValue: JsonReader.models.weapons.attack
 		},
 		defense: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.weapons.defense,
+			defaultValue: JsonReader.models.weapons.defense
 		},
 		speed: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.weapons.speed,
+			defaultValue: JsonReader.models.weapons.speed
 		},
 		fr: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT
 		},
 		en: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
-		french_masculine: {
+		frenchMasculine: {
 			type: DataTypes.INTEGER
 		},
-		french_plural: {
+		frenchPlural: {
 			type: DataTypes.INTEGER
 		}
 	}, {
-		tableName: 'weapons',
-		freezeTableName: true,
+		tableName: "weapons",
+		freezeTableName: true
 	});
 
 	Weapons.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
 	 * @param {("fr"|"en")} language - The language the inventory has to be displayed in
 	 */
-	Weapons.prototype.toFieldObject = async function (language) {
+	Weapons.prototype.toFieldObject = function(language) {
 		return {
 			name: JsonReader.items.getTranslation(language).weapons.fieldName,
-			value: (this.id === 0) ? this[language] : format(
+			value: this.id === 0 ? this[language] : format(
 				JsonReader.items.getTranslation(language).weapons.fieldValue, {
 					name: this[language],
 					rarity: this.getRarityTranslation(language),
-					values: this.getValues(language),
-				}),
+					values: this.getValues(language)
+				})
 		};
 	};
 
@@ -90,12 +92,12 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language - The language the weapon has to be displayed in
 	 * @return {String}
 	 */
-	Weapons.prototype.toString = function (language) {
-		return (this.id === 0) ? this[language] : format(
+	Weapons.prototype.toString = function(language) {
+		return this.id === 0 ? this[language] : format(
 			JsonReader.items.getTranslation(language).weapons.fieldValue, {
 				name: this[language],
 				rarity: this.getRarityTranslation(language),
-				values: this.getValues(language),
+				values: this.getValues(language)
 			});
 	};
 
@@ -103,7 +105,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language
 	 * @return {String}
 	 */
-	Weapons.prototype.getRarityTranslation = function (language) {
+	Weapons.prototype.getRarityTranslation = function(language) {
 		return JsonReader.items.getTranslation(language).rarities[this.rarity];
 	};
 
@@ -113,11 +115,11 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language
 	 * @return {String}
 	 */
-	Weapons.prototype.getName = function (language) {
+	Weapons.prototype.getName = function(language) {
 		return this[language];
 	};
 
-	Weapons.prototype.multiplicateur = function () {
+	Weapons.prototype.multiplicateur = function() {
 		return JsonReader.items.mapper[this.rarity];
 	};
 
@@ -125,18 +127,18 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Return the property from rawProperty and property modifier
 	 * @return {Number}
 	 */
-	Weapons.prototype.getAttack = function () {
-		return Math.round(1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawAttack)) + this.attack;
+	Weapons.prototype.getAttack = function() {
+		return Math.round(1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplicateur(), this.rawAttack)) + this.attack;
 	};
 
 	/**
 	 * Return the property from rawProperty and property modifier
 	 * @return {Number}
 	 */
-	Weapons.prototype.getDefense = function () {
+	Weapons.prototype.getDefense = function() {
 		let before = 0;
 		if (this.rawDefense > 0) {
-			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawDefense);
+			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplicateur(), this.rawDefense);
 		}
 		return Math.round(before * 0.75) + this.defense;
 	};
@@ -145,10 +147,10 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Return the property from rawProperty and property modifier
 	 * @return {Number}
 	 */
-	Weapons.prototype.getSpeed = function () {
+	Weapons.prototype.getSpeed = function() {
 		let before = 0;
 		if (this.rawSpeed > 0) {
-			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + (0.1448 / this.multiplicateur()), this.rawSpeed);
+			before = 1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplicateur(), this.rawSpeed);
 		}
 		return Math.round(before * 0.5) + this.speed;
 	};
@@ -157,7 +159,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language
 	 * @return {String}
 	 */
-	Weapons.prototype.getValues = function (language) {
+	Weapons.prototype.getValues = function(language) {
 		const values = [];
 
 		if (this.getAttack() !== 0) {
@@ -175,8 +177,10 @@ module.exports = (Sequelize, DataTypes) => {
 				{speed: this.getSpeed()}));
 		}
 
-		return values.join(' ');
+		return values.join(" ");
 	};
+
+	Weapons.getMaxId = async () => (await readdir("resources/text/weapons/")).length - 1;
 
 	return Weapons;
 };

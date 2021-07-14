@@ -5,7 +5,7 @@
 			"noPetMessage": "Oh ! Il semblerait qu'il n'y ait aucun familier dans le refuge.",
 			"petFieldName": "__Familier n°{number}__",
 			"petField": "**Type :** {emote} {type}\n**Surnom :** {nickname}\n\n**Rareté :** {rarity}\n**Sexe :** {sex}\n**Mentalité :** {loveLevel}",
-			"warningFull": ":warning: Le refuge est plein, aucun nouvel familier ne pourra être obtenu !"
+			"warningFull": ":warning: Le refuge est plein, aucun nouveau familier ne pourra être obtenu !"
 		},
 		"en": {
 			"embedTitle": "Pet shelter of the {guild} guild: {count} / {max} ",

@@ -1,24 +1,31 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.help = {
+	name: "classtats",
+	aliases: ["cs","classesstats","classcompare","classestats"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
+
 /**
  * Display information about classes
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function ClassStatsCommand(language, message, args) {
-	let [entity] = await Entities.getOrRegister(message.author.id); //Loading player
+async function ClassStatsCommand(message, language) {
+	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 
 	const classTranslations = JsonReader.commands.classStats.getTranslation(language);
 
-	let classesLineDisplay = [];
-	let allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
+	const classesLineDisplay = [];
+	const allClasses = await Classes.getByGroupId(entity.Player.getClassGroup());
 	for (let k = 0; k < allClasses.length; k++) {
 		classesLineDisplay.push(allClasses[k].toString(language, entity.Player.level));
 	}
 
-	//Creating classstats message
+	// Creating classstats message
 	await message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
+		new DraftBotEmbed()
 			.setTitle(classTranslations.title)
 			.setDescription(classTranslations.desc)
 			.addField(
@@ -27,12 +34,4 @@ async function ClassStatsCommand(language, message, args) {
 	);
 }
 
-module.exports = {
-	commands: [
-		{
-			name: 'classstats',
-			func: ClassStatsCommand,
-			aliases: ['cs', 'classesstats', 'classcompare', 'classestats']
-		}
-	]
-};
+module.exports.execute = ClassStatsCommand;

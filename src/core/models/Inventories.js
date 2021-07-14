@@ -15,47 +15,47 @@ module.exports = (Sequelize, DataTypes) => {
 			id: {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
-				autoIncrement: true,
+				autoIncrement: true
 			},
 			lastDailyAt: {
 				type: DataTypes.DATE,
-				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss"),
+				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 			},
-			player_id: {
-				type: DataTypes.INTEGER,
+			playerId: {
+				type: DataTypes.INTEGER
 			},
-			weapon_id: {
+			weaponId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.weapon_id,
+				defaultValue: JsonReader.models.inventories.weaponId
 			},
-			armor_id: {
+			armorId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.armor_id,
+				defaultValue: JsonReader.models.inventories.armorId
 			},
-			potion_id: {
+			potionId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.potion_id,
+				defaultValue: JsonReader.models.inventories.potionId
 			},
-			object_id: {
+			objectId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.object_id,
+				defaultValue: JsonReader.models.inventories.objectId
 			},
-			backup_id: {
+			backupId: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.inventories.backup_id,
+				defaultValue: JsonReader.models.inventories.backupId
 			},
 			updatedAt: {
 				type: DataTypes.DATE,
-				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss"),
+				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 			},
 			createdAt: {
 				type: DataTypes.DATE,
-				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss"),
-			},
+				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
+			}
 		},
 		{
 			tableName: "inventories",
-			freezeTableName: true,
+			freezeTableName: true
 		}
 	);
 
@@ -63,18 +63,18 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("itemID")} itemID - The itemID
 	 * @param {("itemType")} itemType - The itemType to know what kind of object is updated
 	 */
-	Inventories.prototype.giveObject = function (itemID, itemType) {
+	Inventories.prototype.giveObject = function(itemID, itemType) {
 		if (ITEMTYPE.POTION === itemType) {
-			this.potion_id = itemID;
+			this.potionId = itemID;
 		}
 		if (ITEMTYPE.WEAPON === itemType) {
-			this.weapon_id = itemID;
+			this.weaponId = itemID;
 		}
 		if (ITEMTYPE.ARMOR === itemType) {
-			this.armor_id = itemID;
+			this.armorId = itemID;
 		}
 		if (ITEMTYPE.OBJECT === itemType) {
-			this.backup_id = itemID;
+			this.backupId = itemID;
 		}
 	};
 
@@ -84,48 +84,49 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {number} itemType
 	 * @returns {Item} generated item
 	 */
-	Inventories.prototype.generateRandomItem = async function (rarityMax = 8, itemType = null) {
+	Inventories.prototype.generateRandomItem = async function(rarityMax = 8, itemType = null) {
 		// generate a random item
 		const rarity = generateRandomRarity(rarityMax);
-		if (!itemType)
+		if (!itemType) {
 			itemType = generateRandomItemType();
+		}
 		const query = `SELECT id
                    FROM :itemType
                    WHERE rarity = :rarity`;
 		const itemsIds = await Sequelize.query(query, {
 			replacements: {
 				itemType: itemType,
-				rarity: rarity,
+				rarity: rarity
 			},
-			type: Sequelize.QueryTypes.SELECT,
+			type: Sequelize.QueryTypes.SELECT
 		});
 		let item;
 		if (ITEMTYPE.POTION === itemType) {
 			item = await Potions.findOne({
 				where: {
-					id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id,
-				},
+					id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
+				}
 			});
 		}
 		if (ITEMTYPE.WEAPON === itemType) {
 			item = await Weapons.findOne({
 				where: {
-					id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id,
-				},
+					id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
+				}
 			});
 		}
 		if (ITEMTYPE.ARMOR === itemType) {
 			item = await Armors.findOne({
 				where: {
-					id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id,
-				},
+					id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
+				}
 			});
 		}
 		if (ITEMTYPE.OBJECT === itemType) {
 			item = await Objects.findOne({
 				where: {
-					id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id,
-				},
+					id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
+				}
 			});
 		}
 		return item;
@@ -137,14 +138,16 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {number} potionType
 	 * @returns {Potions} generated potion
 	 */
-	Inventories.prototype.generateRandomPotion = async function (potionType = null, rarityMax = 8) {
-		if (!potionType) return this.generateRandomItem(rarityMax, ITEMTYPE.POTION);
+	Inventories.prototype.generateRandomPotion = function(potionType = null, rarityMax = 8) {
+		if (!potionType) {
+			return this.generateRandomItem(rarityMax, ITEMTYPE.POTION);
+		}
 		// generate a random potion
 		const rarity = generateRandomRarity(rarityMax);
 		return Potions.findOne({
 			where: {
 				nature: potionType,
-				rarity: rarity,
+				rarity: rarity
 			},
 			order: Sequelize.random()
 		});
@@ -156,14 +159,16 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {number} objectType
 	 * @returns {Potions} generated potion
 	 */
-	Inventories.prototype.generateRandomObject = async function (objectType = null, rarityMax = 8) {
-		if (!objectType) return this.generateRandomItem(rarityMax, ITEMTYPE.POTION);
+	Inventories.prototype.generateRandomObject = function(objectType = null, rarityMax = 8) {
+		if (!objectType) {
+			return this.generateRandomItem(rarityMax, ITEMTYPE.POTION);
+		}
 		// generate a random potion
 		const rarity = generateRandomRarity(rarityMax);
 		return Objects.findOne({
 			where: {
 				nature: objectType,
-				rarity: rarity,
+				rarity: rarity
 			},
 			order: Sequelize.random()
 		});
@@ -173,24 +178,24 @@ module.exports = (Sequelize, DataTypes) => {
 		instance.setDataValue("updatedAt", moment().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
-	Inventories.prototype.updateLastDailyAt = function () {
-		this.lastDailyAt = new moment();
+	Inventories.prototype.updateLastDailyAt = function() {
+		this.lastDailyAt = new moment(); // eslint-disable-line new-cap
 	};
 
-	Inventories.prototype.drinkPotion = function () {
-		this.potion_id = JsonReader.models.inventories.potion_id;
+	Inventories.prototype.drinkPotion = function() {
+		this.potionId = JsonReader.models.inventories.potionId;
 	};
 
 	/**
 	 * @param {("fr"|"en")} language - The language the inventory has to be displayed in
 	 */
-	Inventories.prototype.toEmbedObject = async function (language) {
+	Inventories.prototype.toEmbedObject = async function(language) {
 		return [
 			await (await this.getWeapon()).toFieldObject(language),
 			await (await this.getArmor()).toFieldObject(language),
 			await (await this.getPotion()).toFieldObject(language),
 			await (await this.getActiveObject()).toFieldObject(language, "active"),
-			await (await this.getBackupObject()).toFieldObject(language, "backup"),
+			await (await this.getBackupObject()).toFieldObject(language, "backup")
 		];
 	};
 
@@ -198,16 +203,16 @@ module.exports = (Sequelize, DataTypes) => {
 	 * check if inventory contains item to sell
 	 * @return {boolean}
 	 */
-	Inventories.prototype.hasItemToSell = function () {
-		return this.backup_id !== JsonReader.models.inventories.backup_id;
+	Inventories.prototype.hasItemToSell = function() {
+		return this.backupId !== JsonReader.models.inventories.backupId;
 	};
 
 	/**
 	 * edit daily cooldown
 	 * @param {number} hours
 	 */
-	Inventories.prototype.editDailyCooldown = function (hours) {
-		this.lastDailyAt = new moment(this.lastDailyAt).add(hours, "h");
+	Inventories.prototype.editDailyCooldown = function(hours) {
+		this.lastDailyAt = new moment(this.lastDailyAt).add(hours, "h"); // eslint-disable-line new-cap
 	};
 
 	return Inventories;

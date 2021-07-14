@@ -16,12 +16,12 @@ class Database {
 		Database.Sequelize = new Sequelize({
 			dialect: "sqlite",
 			storage: "database/database.sqlite",
-			logging: false,
+			logging: false
 		});
 
 		await Database.migrate();
 
-		const modelsFiles = await fs.promises.readdir("src/core/models");
+		const modelsFiles = await fs.promises.readdir("dist/src/core/models");
 		for (const modelFile of modelsFiles) {
 			const modelName = modelFile.split(".")[0];
 			global[modelName] = Database.Sequelize["import"](
@@ -48,12 +48,8 @@ class Database {
 	 * @return {Promise<void>}
 	 */
 	static async migrate() {
-		const config = {
-			force: false,
-			table: "migrations",
-			migrationsPath: "database/migrations",
-		};
-		const {force, table, migrationsPath} = config;
+		const table = "migrations";
+		const migrationsPath = "database/migrations";
 		const location = path.resolve(migrationsPath);
 		const migrations = await new Promise((resolve, reject) => {
 			fs.readdir(location, (err, files) => {
@@ -67,7 +63,7 @@ class Database {
 						.map((x) => ({
 							id: Number(x[1]),
 							name: x[2],
-							filename: x[0],
+							filename: x[0]
 						}))
 						.sort((a, b) => Math.sign(a.id - b.id))
 				);
@@ -129,7 +125,8 @@ class Database {
 						`INSERT INTO "${table}" (id, name, up, down) VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`
 					);
 					await Database.Sequelize.query("COMMIT");
-				} catch (err) {
+				}
+				catch (err) {
 					await Database.Sequelize.query("ROLLBACK");
 					throw err;
 				}
@@ -140,102 +137,102 @@ class Database {
 	/**
 	 * @return {Promise<void>}
 	 */
-	static async setAssociations() {
+	static setAssociations() {
 		Entities.hasOne(Players, {
-			foreignKey: "entity_id",
-			as: "Player",
+			foreignKey: "entityId",
+			as: "Player"
 		});
 
 		Players.belongsTo(Entities, {
-			foreignKey: "entity_id",
-			as: "Entity",
+			foreignKey: "entityId",
+			as: "Entity"
 		});
 		Players.belongsTo(Guilds, {
-			foreignKey: "guild_id",
-			as: "Guild",
+			foreignKey: "guildId",
+			as: "Guild"
 		});
 		Players.belongsTo(Guilds, {
 			foreignKey: "id",
-			targetKey: "chief_id",
-			as: "Chief",
+			targetKey: "chiefId",
+			as: "Chief"
 		});
 		Players.hasOne(Inventories, {
-			foreignKey: "player_id",
-			as: "Inventory",
+			foreignKey: "playerId",
+			as: "Inventory"
 		});
 		Players.hasOne(PetEntities, {
 			foreignKey: "id",
-			sourceKey: "pet_id",
-			as: "Pet",
+			sourceKey: "petId",
+			as: "Pet"
 		});
 		Players.hasMany(PlayerSmallEvents, {
-			foreignKey: "player_id",
-			as: "PlayerSmallEvents",
+			foreignKey: "playerId",
+			as: "PlayerSmallEvents"
 		});
 
 		Guilds.hasMany(Players, {
-			foreignKey: "guild_id",
-			as: "Members",
+			foreignKey: "guildId",
+			as: "Members"
 		});
 		Guilds.hasOne(Players, {
 			foreignKey: "id",
-			sourceKey: "chief_id",
-			as: "Chief",
+			sourceKey: "chiefId",
+			as: "Chief"
 		});
 		Guilds.hasMany(GuildPets, {
-			foreignKey: "guild_id",
-			as: "GuildPets",
+			foreignKey: "guildId",
+			as: "GuildPets"
 		});
 		GuildPets.hasOne(PetEntities, {
 			foreignKey: "id",
-			sourceKey: "pet_entity_id",
-			as: "PetEntity",
+			sourceKey: "petEntityId",
+			as: "PetEntity"
 		});
 
 		Inventories.belongsTo(Players, {
-			foreignKey: "player_id",
-			as: "Player",
+			foreignKey: "playerId",
+			as: "Player"
 		});
 		Inventories.hasOne(Weapons, {
 			foreignKey: "id",
-			sourceKey: "weapon_id",
-			as: "Weapon",
+			sourceKey: "weaponId",
+			as: "Weapon"
 		});
 		Inventories.hasOne(Armors, {
 			foreignKey: "id",
-			sourceKey: "armor_id",
-			as: "Armor",
+			sourceKey: "armorId",
+			as: "Armor"
 		});
 		Inventories.hasOne(Potions, {
 			foreignKey: "id",
-			sourceKey: "potion_id",
-			as: "Potion",
+			sourceKey: "potionId",
+			as: "Potion"
 		});
 		Inventories.hasOne(Objects, {
 			foreignKey: "id",
-			sourceKey: "object_id",
-			as: "ActiveObject",
+			sourceKey: "objectId",
+			as: "ActiveObject"
 		});
 		Inventories.hasOne(Objects, {
 			foreignKey: "id",
-			sourceKey: "backup_id",
-			as: "BackupObject",
+			sourceKey: "backupId",
+			as: "BackupObject"
 		});
 
 		Events.hasMany(Possibilities, {
-			foreignKey: "event_id",
-			as: "Possibilities",
+			foreignKey: "eventId",
+			as: "Possibilities"
 		});
 
 		Possibilities.belongsTo(Events, {
-			foreignKey: "event_id",
-			as: "Event",
+			foreignKey: "eventId",
+			as: "Event"
 		});
 
 		PetEntities.hasOne(Pets, {
 			foreignKey: "id",
-			sourceKey: "pet_id",
-			as: "PetModel",
+			sourceKey: "petId",
+			as: "PetModel"
 		});
 	}
 
@@ -259,17 +256,18 @@ class Database {
 				if (fileContent.translations) {
 					if (
 						fileContent.translations.en &&
-						typeof fileContent.translations.fr == "string"
+						typeof fileContent.translations.fr === "string"
 					) {
 						fileContent.fr = fileContent.translations.fr;
 						fileContent.en = fileContent.translations.en;
-					} else {
+					}
+					else {
 						const keys = Object.keys(fileContent.translations.en);
 						for (let i = 0; i < keys.length; ++i) {
 							const key = keys[i];
-							fileContent[key + "_en"] =
+							fileContent[key + "En"] =
 								fileContent.translations.en[key];
-							fileContent[key + "_fr"] =
+							fileContent[key + "Fr"] =
 								fileContent.translations.fr[key];
 						}
 					}
@@ -285,7 +283,7 @@ class Database {
 		await EventMapLocationIds.destroy({truncate: true});
 		await Possibilities.destroy({truncate: true});
 
-		const files = await fs.promises.readdir(`resources/text/events`);
+		const files = await fs.promises.readdir("resources/text/events");
 		const eventsContent = [];
 		const eventsMapLocationsContent = [];
 		const possibilitiesContent = [];
@@ -295,25 +293,27 @@ class Database {
 
 			fileContent.id = fileName;
 
-			if (!Database.isEventValid(fileContent)) continue;
+			if (!Database.isEventValid(fileContent)) {
+				continue;
+			}
 
 			if (fileContent.map_location_ids) {
 				for (const mapLocationsId of fileContent.map_location_ids) {
 					eventsMapLocationsContent.push({
-						event_id: fileContent.id,
-						map_location_id: mapLocationsId
+						eventId: fileContent.id,
+						mapLocationId: mapLocationsId
 					});
 				}
 			}
 			fileContent.fr = fileContent.translations.fr + "\n\n";
 			fileContent.en = fileContent.translations.en + "\n\n";
 			for (const possibilityKey of Object.keys(fileContent.possibilities)) {
-				if(possibilityKey !== "end") {
-					fileContent.fr = fileContent.fr + format(JsonReader.commands.report.getTranslation("fr").doChoice, {
+				if (possibilityKey !== "end") {
+					fileContent.fr += format(JsonReader.commands.report.getTranslation("fr").doChoice, {
 						emoji: possibilityKey,
 						choiceText: fileContent.possibilities[possibilityKey].translations.fr
 					});
-					fileContent.en = fileContent.en + format(JsonReader.commands.report.getTranslation("en").doChoice, {
+					fileContent.en += format(JsonReader.commands.report.getTranslation("en").doChoice, {
 						emoji: possibilityKey,
 						choiceText: fileContent.possibilities[possibilityKey].translations.en
 					});
@@ -326,7 +326,7 @@ class Database {
 			)) {
 				for (const possibility of fileContent.possibilities[
 					possibilityKey
-					].issues) {
+				].issues) {
 					const possibilityContent = {
 						possibilityKey: possibilityKey,
 						lostTime: possibility.lostTime,
@@ -338,9 +338,9 @@ class Database {
 						item: possibility.item,
 						fr: possibility.translations.fr,
 						en: possibility.translations.en,
-						event_id: fileName,
+						eventId: fileName,
 						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
-						restricted_maps: possibility.restricted_maps
+						restrictedMaps: possibility.restrictedMaps
 					};
 					possibilitiesContent.push(possibilityContent);
 				}
@@ -372,8 +372,8 @@ class Database {
 			Database.sendEventLoadError(event, "English translation missing");
 			return false;
 		}
-		if (event.restricted_maps !== undefined) {
-			const types = event.restricted_maps.split(",");
+		if (event.restrictedMaps !== undefined) {
+			const types = event.restrictedMaps.split(",");
 			for (let i = 0; i < types.length; ++i) {
 				if (!JsonReader.models.maps.types.includes(types[i])) {
 					Database.sendEventLoadError(event, "Event map type doesn't exist");
@@ -390,7 +390,7 @@ class Database {
 			"experience",
 			"money",
 			"item",
-			"translations",
+			"translations"
 		];
 		const possibilityFields = [
 			"translations",
@@ -482,15 +482,15 @@ class Database {
 				) {
 					Database.sendEventLoadError(
 						event,
-						'Unknown effect "' +
+						"Unknown effect \"" +
 						issue.effect +
-						'" in issue ' +
+						"\" in issue " +
 						possibilityKey + " " + str(i)
 					);
 					return false;
 				}
 				if (issue.restricted_map !== undefined) {
-					const types = issue.restricted_maps.split(",");
+					const types = issue.restrictedMaps.split(",");
 					for (let i = 0; i < types.length; ++i) {
 						if (!JsonReader.models.maps.types.includes(types[i])) {
 							Database.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + str(i) + " doesn't exist");
@@ -511,7 +511,7 @@ class Database {
 	}
 
 	static async verifyMaps() {
-		let dict = {};
+		const dict = {};
 		for (const map of await MapLocations.findAll()) {
 			dict[map.id] = map;
 		}
@@ -521,21 +521,21 @@ class Database {
 			if (!JsonReader.models.maps.types.includes(map.type)) {
 				console.error("Type of map " + map.id + " doesn't exist");
 			}
-			for (const dir1 of ["north_map", "south_map", "west_map", "east_map"]) {
+			for (const dir1 of ["northMap", "southMap", "westMap", "eastMap"]) {
 				if (map[dir1]) {
-					const other_map = dict[map[dir1]];
-					if (other_map.id === map.id) {
+					const otherMap = dict[map[dir1]];
+					if (otherMap.id === map.id) {
 						console.error("Map " + map.id + " is connected to itself");
 					}
 					let valid = false;
-					for (const dir2 of ["north_map", "south_map", "west_map", "east_map"]) {
-						if (other_map[dir2] === map.id) {
+					for (const dir2 of ["northMap", "southMap", "westMap", "eastMap"]) {
+						if (otherMap[dir2] === map.id) {
 							valid = true;
 							break;
 						}
 					}
 					if (!valid) {
-						console.error("Map " + map.id + " is connected to " + other_map.id + " but the latter is not");
+						console.error("Map " + map.id + " is connected to " + otherMap.id + " but the latter is not");
 					}
 				}
 			}
@@ -545,21 +545,21 @@ class Database {
 	/**
 	 * @return {Promise<void>}
 	 */
-	static async setEverybodyAsUnOccupied() {
+	static setEverybodyAsUnOccupied() {
 		Entities.update(
 			{
-				effect: EFFECT.SMILEY,
+				effect: EFFECT.SMILEY
 			},
 			{
 				where: {
-					effect: EFFECT.AWAITING_ANSWER,
-				},
+					effect: EFFECT.AWAITING_ANSWER
+				}
 			}
 		);
 	}
 
 	static replaceWarningLogger() {
-		sequelizeLogger.logger.warn = function (message) {
+		sequelizeLogger.logger.warn = function(message) {
 			if (
 				message ===
 				"Unknown attributes (Player) passed to defaults option of findOrCreate"
@@ -571,13 +571,13 @@ class Database {
 	}
 
 	static async updatePlayersRandomMap() {
-		const query = `UPDATE players SET map_id = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE map_id = -1;`;
+		const query = "UPDATE players SET mapId = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE mapId = -1;";
 		await Database.Sequelize.query(query, {
-			type: Sequelize.QueryTypes.UPDATE,
+			type: Sequelize.QueryTypes.UPDATE
 		});
 	}
 }
 
 module.exports = {
-	init: Database.init,
+	init: Database.init
 };

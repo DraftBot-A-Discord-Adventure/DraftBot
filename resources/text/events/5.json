@@ -1,5 +1,5 @@
 {
-	"restricted_maps": "ci,vi",
+	"restrictedMaps": "ci,vi",
 	"translations": {
 		"fr": "⛲ Vous avez trouvé une fontaine !",
 		"en": "⛲ You have found a fountain!"

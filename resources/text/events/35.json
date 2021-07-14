@@ -1,5 +1,5 @@
 {
-	"restricted_maps": "ci,vi",
+	"restrictedMaps": "ci,vi",
 	"translations": {
 		"fr": "🍻 Vous entrez dans un bar, et le barman vous interpelle, vous disant qu'il aimerait \"tester de nouvelles boissons\" sur vous.",
 		"en": "🍻 You walk into a bar and the bartender calls out to you, telling you that he would like to \"test new drinks\" on you."
@@ -81,7 +81,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous expliquez au barman que vous n'avez pas trop envie de boire quelque chose d'inconnu, et encore moins de servir de cobaye. Il vous rassure en vous disant qu'il a juste mixé deux alcools et quelques extraits de plantes sans danger. Vous buvez donc, et lui dites vos impressions.",
+						"fr": "Vous expliquez au barman que vous n'avez pas trop envie de boire quelque chose d'inconnu, et encore moins de servir de cobaye. Il vous rassure en vous disant qu'il a juste mélangé deux alcools et quelques extraits de plantes sans danger. Vous buvez donc, et lui dites vos impressions.",
 						"en": "You explain to the bartender that you don’t want to drink something of which the origins are unknown, let alone be a guinea pig. He reassures you by telling you that he just mixed two alcohols and some plant extracts. So you drink and tell him your impressions."
 					},
 					"lostTime": 0,

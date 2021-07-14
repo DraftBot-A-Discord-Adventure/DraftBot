@@ -1,37 +1,29 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const tr = JsonReader.commands.petFeed;
+
+module.exports.help = {
+	name: "petfeed",
+	aliases: ["feed", "pf", "pfeed", "feedp", "feedpet", "fp"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+};
 
 /**
  * Feed your pet !
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
- * @param {String[]} args=[] - Additional arguments sent with the command
+ * @param {("fr"|"en")} language - Language to use in the response
  */
-const PetFeedCommand = async function (language, message, args) {
-	let [entity] = await Entities.getOrRegister(message.author.id);
+const PetFeedCommand = async (message, language) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
 	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
+		guild = await Guilds.getById(entity.Player.guildId);
+	}
+	catch (error) {
 		guild = null;
 	}
 
-	if (
-		(await canPerformCommand(
-			message,
-			language,
-			PERMISSION.ROLE.ALL,
-			[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
-			entity
-		)) !== true
-	) {
-		return;
-	}
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
-
-	let authorPet = entity.Player.Pet;
+	const authorPet = entity.Player.Pet;
 
 	if (!authorPet) {
 		return await sendErrorMessage(
@@ -51,7 +43,7 @@ const PetFeedCommand = async function (language, message, args) {
 			message.channel,
 			language,
 			format(tr.getTranslation(language).notHungry, {
-				petnick: await PetEntities.displayName(authorPet, language),
+				petnick: await PetEntities.displayName(authorPet, language)
 			})
 		);
 	}
@@ -62,37 +54,30 @@ const PetFeedCommand = async function (language, message, args) {
 			.set(GUILDSHOP.CARNIVOROUS_FOOD, JsonReader.food.carnivorousFood)
 			.set(GUILDSHOP.ULTIMATE_FOOD, JsonReader.food.ultimateFood);
 
-		let breedEmbed = new discord.MessageEmbed();
-		breedEmbed.setAuthor(
-			format(tr.getTranslation(language).breedEmbedAuthor, {
-				author: message.author.username,
-			}),
-			message.author.displayAvatarURL()
-		);
+		const breedEmbed = new DraftBotEmbed()
+			.formatAuthor(tr.getTranslation(language).breedEmbedAuthor, message.author);
 		breedEmbed.setDescription(
 			tr.getTranslation(language).breedEmbedDescription
 		);
 
 		const breedMsg = await message.channel.send(breedEmbed);
 
-		const filterConfirm = (reaction, user) => {
-			return user.id === entity.discordUser_id && reaction.me;
-		};
+		const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
 		const collector = breedMsg.createReactionCollector(filterConfirm, {
 			time: COLLECTOR_TIME,
-			max: 1,
+			max: 1
 		});
 
-		addBlockedPlayer(entity.discordUser_id, "petFeed");
+		addBlockedPlayer(entity.discordUserId, "petFeed");
 
-		//Fetch the choice from the user
-		collector.on("end", async (reaction) => {
+		// Fetch the choice from the user
+		collector.on("end", (reaction) => {
 			if (
 				!reaction.first() ||
 				reaction.first().emoji.name === MENU_REACTION.DENY
 			) {
-				removeBlockedPlayer(entity.discordUser_id);
+				removeBlockedPlayer(entity.discordUserId);
 				return sendErrorMessage(
 					message.author,
 					message.channel,
@@ -104,7 +89,7 @@ const PetFeedCommand = async function (language, message, args) {
 
 			if (foodItems.has(reaction.first().emoji.name)) {
 				const item = foodItems.get(reaction.first().emoji.name);
-				removeBlockedPlayer(entity.discordUser_id);
+				removeBlockedPlayer(entity.discordUserId);
 				feedPet(message, language, entity, authorPet, item);
 			}
 		});
@@ -114,39 +99,33 @@ const PetFeedCommand = async function (language, message, args) {
 			breedMsg.react(GUILDSHOP.HERBIVOROUS_FOOD),
 			breedMsg.react(GUILDSHOP.CARNIVOROUS_FOOD),
 			breedMsg.react(GUILDSHOP.ULTIMATE_FOOD),
-			breedMsg.react(MENU_REACTION.DENY),
+			breedMsg.react(MENU_REACTION.DENY)
 		]);
-	} else {
-		let breedEmbed = new discord.MessageEmbed();
-		breedEmbed.setAuthor(
-			format(tr.getTranslation(language).breedEmbedTitle2, {
-				author: message.author.username,
-			}),
-			message.author.displayAvatarURL()
-		);
+	}
+	else {
+		const breedEmbed = new DraftBotEmbed()
+			.formatAuthor(tr.getTranslation(language).breedEmbedTitle2, message.author);
 		breedEmbed.setDescription(
 			format(tr.getTranslation(language).breedEmbedDescription2, {
-				petnick: await PetEntities.displayName(authorPet, language),
+				petnick: await PetEntities.displayName(authorPet, language)
 			})
 		);
 		breedEmbed.setFooter(tr.getTranslation(language).breedEmbedFooter);
 
 		const breedMsg = await message.channel.send(breedEmbed);
 
-		const filterConfirm = (reaction, user) => {
-			return user.id === entity.discordUser_id && reaction.me;
-		};
+		const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
 		const collector = breedMsg.createReactionCollector(filterConfirm, {
 			time: COLLECTOR_TIME,
-			max: 1,
+			max: 1
 		});
 
-		addBlockedPlayer(entity.discordUser_id, "petFeed");
+		addBlockedPlayer(entity.discordUserId, "petFeed");
 
-		//Fetch the choice from the user
+		// Fetch the choice from the user
 		collector.on("end", async (reaction) => {
-			removeBlockedPlayer(entity.discordUser_id);
+			removeBlockedPlayer(entity.discordUserId);
 			if (
 				!reaction.first() ||
 				reaction.first().emoji.name === MENU_REACTION.DENY
@@ -159,17 +138,21 @@ const PetFeedCommand = async function (language, message, args) {
 				);
 			}
 
-			if (entity.Player.money - 20 < 0)
+			if (entity.Player.money - 20 < 0) {
 				return sendErrorMessage(
 					message.author,
 					message.channel,
 					language,
 					tr.getTranslation(language).noMoney
 				);
-			entity.Player.money = entity.Player.money - 20;
+			}
+			entity.Player.money -= 20;
 			authorPet.hungrySince = Date();
-			await Promise.all[(authorPet.save(), entity.Player.save())];
-			const feedSuccessEmbed = new discord.MessageEmbed();
+			await Promise.all([
+				authorPet.save(),
+				entity.Player.save()
+			]);
+			const feedSuccessEmbed = new DraftBotEmbed();
 			if (language === LANGUAGE.FRENCH) {
 				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
 					petnick: await PetEntities.displayName(
@@ -178,7 +161,8 @@ const PetFeedCommand = async function (language, message, args) {
 					),
 					typeSuffix: authorPet.sex === PETS.FEMALE ? "se" : "x"
 				});
-			} else {
+			}
+			else {
 				feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
 					petnick: await PetEntities.displayName(
 						authorPet,
@@ -191,7 +175,7 @@ const PetFeedCommand = async function (language, message, args) {
 
 		await Promise.all([
 			breedMsg.react(MENU_REACTION.ACCEPT),
-			breedMsg.react(MENU_REACTION.DENY),
+			breedMsg.react(MENU_REACTION.DENY)
 		]);
 	}
 };
@@ -205,7 +189,7 @@ const PetFeedCommand = async function (language, message, args) {
  * @param {*} item - la nourriture à utiliser
  */
 async function feedPet(message, language, entity, pet, item) {
-	const guild = await Guilds.getById(entity.Player.guild_id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 	if (guild[item.type] <= 0) {
 		return sendErrorMessage(
 			message.author,
@@ -215,23 +199,18 @@ async function feedPet(message, language, entity, pet, item) {
 		);
 	}
 
-	const successEmbed = new discord.MessageEmbed();
-
-	successEmbed.setAuthor(
-		format(tr.getTranslation(language).embedTitle, {
-			pseudo: message.author.username,
-		}),
-		message.author.displayAvatarURL()
-	);
+	const successEmbed = new DraftBotEmbed()
+		.formatAuthor(tr.getTranslation(language).embedTitle, message.author);
 	if (
 		pet.PetModel.diet &&
 		(item.type === "herbivorousFood" || item.type === "carnivorousFood")
 	) {
 		if (item.type.includes(pet.PetModel.diet)) {
 			pet.lovePoints += item.effect;
-			if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
+			if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
 				pet.lovePoints = PETS.MAX_LOVE_POINTS;
-			guild[item.type] = guild[item.type] - 1;
+			}
+			guild[item.type]--;
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
@@ -239,68 +218,75 @@ async function feedPet(message, language, entity, pet, item) {
 						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
-			} else {
+			}
+			else {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
 						petnick: await PetEntities.displayName(pet, language)
 					})
 				);
 			}
-		} else {
-			guild[item.type] = guild[item.type] - 1;
+		}
+		else {
+			guild[item.type]--;
 			successEmbed.setDescription(
 				format(tr.getTranslation(language).description["0"], {
-					petnick: await PetEntities.displayName(pet, language),
+					petnick: await PetEntities.displayName(pet, language)
 				})
 			);
 		}
-	} else {
+	}
+	else {
 		pet.lovePoints += item.effect;
-		if (pet.lovePoints > PETS.MAX_LOVE_POINTS)
+		if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
 			pet.lovePoints = PETS.MAX_LOVE_POINTS;
-		guild[item.type] = guild[item.type] - 1;
+		}
+		guild[item.type]--;
 		switch (item.type) {
-			case "commonFood":
-				console.log(pet);
-				if (language === LANGUAGE.FRENCH) {
-					successEmbed.setDescription(
-						format(tr.getTranslation(language).description["1"], {
-							petnick: await PetEntities.displayName(pet, language),
-							typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
-						})
-					);
-				} else {
-					successEmbed.setDescription(
-						format(tr.getTranslation(language).description["1"], {
-							petnick: await PetEntities.displayName(pet, language),
-						})
-					);
-				}
-				break;
-			case "carnivorousFood":
-			case "herbivorousFood":
-				if (language === LANGUAGE.FRENCH) {
-					successEmbed.setDescription(
-						format(tr.getTranslation(language).description["2"], {
-							petnick: await PetEntities.displayName(pet, language),
-							typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
-						})
-					);
-				} else {
-					successEmbed.setDescription(
-						format(tr.getTranslation(language).description["2"], {
-							petnick: await PetEntities.displayName(pet, language)
-						})
-					);
-				}
-				break;
-			case "ultimateFood":
+		case "commonFood":
+			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
-					format(tr.getTranslation(language).description["3"], {
+					format(tr.getTranslation(language).description["1"], {
 						petnick: await PetEntities.displayName(pet, language),
+						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
-				break;
+			}
+			else {
+				successEmbed.setDescription(
+					format(tr.getTranslation(language).description["1"], {
+						petnick: await PetEntities.displayName(pet, language)
+					})
+				);
+			}
+			break;
+		case "carnivorousFood":
+		case "herbivorousFood":
+			if (language === LANGUAGE.FRENCH) {
+				successEmbed.setDescription(
+					format(tr.getTranslation(language).description["2"], {
+						petnick: await PetEntities.displayName(pet, language),
+						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
+					})
+				);
+			}
+			else {
+				successEmbed.setDescription(
+					format(tr.getTranslation(language).description["2"], {
+						petnick: await PetEntities.displayName(pet, language)
+					})
+				);
+			}
+			break;
+		case "ultimateFood":
+			successEmbed.setDescription(
+				format(tr.getTranslation(language).description["3"], {
+					petnick: await PetEntities.displayName(pet, language)
+				})
+			);
+			break;
+		default:
+			break;
 		}
 	}
 	pet.hungrySince = Date();
@@ -308,20 +294,4 @@ async function feedPet(message, language, entity, pet, item) {
 	return message.channel.send(successEmbed);
 }
 
-module.exports = {
-	commands: [
-		{
-			name: "petfeed",
-			func: PetFeedCommand,
-			aliases: [
-				"feed",
-				"pf",
-				"petfeed",
-				"pfeed",
-				"feedp",
-				"feedpet",
-				"fp",
-			],
-		},
-	],
-};
+module.exports.execute = PetFeedCommand;

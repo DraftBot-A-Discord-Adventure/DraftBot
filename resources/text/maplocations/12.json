@@ -1,13 +1,13 @@
 {
 	"type": "pl",
-	"name_fr": "L’Étendue",
-	"name_en": "The Extent",
-	"particle_fr": "vers",
-	"particle_en": "of",
-	"desc_fr": "Une grande plaine vide nordique sans grand intérêt.",
-	"desc_en": "A great empty Nordic plain, without much interest.",
-	"north_map": 11,
-	"east_map": 15,
-	"south_map": 14,
-	"west_map": 13
+	"nameFr": "L’Étendue",
+	"nameEn": "The Extent",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Une grande plaine vide nordique sans grand intérêt.",
+	"descEn": "A great empty Nordic plain, without much interest.",
+	"northMap": 11,
+	"eastMap": 15,
+	"southMap": 14,
+	"westMap": 13
 }

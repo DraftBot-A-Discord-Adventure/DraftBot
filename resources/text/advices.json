@@ -59,19 +59,19 @@
 				"Des idées pour améliorer le bot ? Utilisez la commande `suggestion`.",
 				"Garder de l'argent de côté est judicieux pour pouvoir se soigner.",
 				"Chaque semaine un classement est effectué pour élire le joueur de la semaine qui a gagné le plus de point. Pour consulter ce classement, utilisez la commande `topweek`.",
-				"L'argent est la ressource l'une des plus importantes du jeu, obtenez-en grâce aux rapports (`report`), aux items à effets journaliers (`daily`) ou aux récompenses journalières de guildes (`guilddaily`).",
+				"L'argent est l'une des ressources les plus importantes du jeu, obtenez-en grâce aux rapports (`report`), aux items à effets journaliers (`daily`) ou aux récompenses journalières de guildes (`guilddaily`).",
 				"En manque de PV ? Avant d'acheter le soin à 3000$, vérifiez que le shop ne contient pas de potions plus rentable !",
 				"Envie d'avoir un super nouveau trop beau badge pour sublimer votre profil ? Votez pour le bot ! : https://top.gg/bot/448110812801007618",
 				"Les potions vendues dans le shop sont souvent disponibles à des prix très attractifs.",
 				"Pour être le premier au classement de la semaine et remporter un badge, soyez assidus dans vos rapports et n'ayez pas peur des combats.",
 				"Le classement général est disponible en utilisant la commande `top`.",
 				"Le classement de la semaine est disponible en utilisant la commande `topweek`.",
-				"Votre guilde est lvl 50 ? Vous avez alors 1% de chance d'obtenir un badge pour tout les membres de la guilde à chaque récompense journalière.",
+				"Votre guilde est lvl 50 ? Vous avez alors 1% de chance d'obtenir un badge pour tous les membres de la guilde à chaque récompense journalière.",
 				"Une fois que votre familier est dressé, vous n’avez plus besoin de le nourrir.",
 				"Le temps pour pouvoir nourrir son familier à nouveau dépend de sa rareté ! Une étoile = une heure !",
 				"Il est possible d'acheter un familier à un autre joueur grâce à la commande `petsell <prix>`.",
 				"En cliquant sur les badges des profils des joueurs qui en ont, vous pouvez apprendre comment ils les ont obtenus.",
-				"Si vous voulez voir le profile d'un autre joueur taper la commande !profile <@user> !",
+				"Si vous voulez voir le profil d'un autre joueur tapez la commande !profile <@user> !",
 				"Il y a neuf niveaux d’équipements : Basique, Commun, Peu commun, Exotique, Rare, Special, Épique, Légendaire et Mythique.",
 				"Le temps maximum de rentabilité entre deux rapports est de 16H environ. Passé cette durée vous ne gagnerez plus de points.",
 				"Il n'est pas nécessaire d'appartenir à une guilde pour pouvoir nourrir son pet.",
@@ -144,7 +144,7 @@
 				"Vous pouvez décider du contenu des prochaines mises à jour en utilisant ce site : https://feedback.draftbot.com",
 				"Votre familier ne vous accompagne pas en prison, il n'est donc pas possible de le nourrir pendant votre séjour.",
 				"La commande `map` vous permet d'obtenir des informations sur votre destination.",
-				"Un trajet entre deux destination dure 2 heures",
+				"Un trajet entre deux destinations dure 2 heures",
 				"Pendant un trajet, des petits évènements peuvent survenir.",
 				"Les marchands ambulants vendent des items à des prix très attrayants. Attention aux quelques arnaqueurs.",
 				"Si l'un de vos amis est enfermé en prison, vous pouvez le libérer en utilisant la commande `unlock`.",
@@ -159,7 +159,8 @@
 				"Merci de jouer à DraftBot.",
 				"Vous pouvez exclure une personne d'une guilde sans la mentionner, en utilisant son classement. Si le joueur à exclure est classé 34ème au classement général, utilisez `!guildkick 34`",
 				"Ce texte sera peut être utile dans le futur : fzbyeifea",
-				"La potion de la mort qui tue est une potion très rare."
+				"La potion de la mort qui tue est une potion très rare.",
+				"Les marchands ambulants rachètent leur propre marchandise pour une somme ridicule."
 			]
 		},
 		"en": {
@@ -321,7 +322,8 @@
 				"Thank you for playing DraftBot.",
 				"You can kick a person from a guild without mentioning them, using your leaderboard ranking. If they are 34th on the leaderboard, use '!guildkick 34'",
 				"This text may be useful in the future: fzbyeifea",
-				"The potion of the death that kills is very rare."
+				"The potion of the death that kills is very rare.",
+				"The traveling merchants buy what they sell for a ridiculous price."
 			]
 		}
 	}

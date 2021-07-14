@@ -1,15 +1,15 @@
+module.exports.help = {
+	name: "unblock",
+	aliases: [],
+	userPermissions: ROLES.USER.BOT_OWNER
+};
+
 /**
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-
-const UnblockCommand = async function (language, message, args) {
-	if ((await canPerformCommand(message, language,
-		PERMISSION.ROLE.BOT_OWNER)) !== true) {
-		return;
-	}
-
+const UnblockCommand = async (message, language, args) => {
 	if (args.length === 1) {
 		if (!hasBlockedPlayer(args[0])) {
 			await message.channel.send("Not blocked");
@@ -17,7 +17,7 @@ const UnblockCommand = async function (language, message, args) {
 		}
 		removeBlockedPlayer(args[0]);
 		await message.channel.send("Unblocked with success");
-		let user = await client.users.fetch(args[0]);
+		const user = await client.users.fetch(args[0]);
 		const [entity] = await Entities.getOrRegister(args[0]);
 		if (entity.Player.dmnotification) {
 			sendDirectMessage(
@@ -30,16 +30,10 @@ const UnblockCommand = async function (language, message, args) {
 		}
 
 
-	} else {
+	}
+	else {
 		await message.channel.send("Usage: !unblock <discord id>");
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: 'unblock',
-			func: UnblockCommand
-		}
-	]
-};
+module.exports.execute = UnblockCommand;

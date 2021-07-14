@@ -1,21 +1,24 @@
-const Maps = require('../../core/Maps');
-//const PlayerSmallEvents = require('../../core/models/PlayerSmallEvents');
+const Maps = require("../../core/Maps");
+
+module.exports.help = {
+	name: "respawn",
+	aliases: [],
+	disallowEffects: [EFFECT.BABY]
+};
+
 /**
  * Allow a player who is dead to respawn
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const RespawnCommand = async (language, message, args) => {
+const RespawnCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], entity)) !== true) {
-		return;
-	}
 
 	if (entity.Player.effect !== EFFECT.DEAD) {
 		await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.respawn.getTranslation(language).alive, {pseudo: message.author.username}));
-	} else {
+	}
+	else {
 		const lostScore = Math.round(entity.Player.score * JsonReader.commands.respawn.score_remove_during_respawn);
 		entity.health = await entity.getMaxHealth();
 		entity.Player.addScore(-lostScore);
@@ -23,10 +26,10 @@ const RespawnCommand = async (language, message, args) => {
 
 		await Promise.all([
 			entity.save(),
-			entity.Player.save(),
+			entity.Player.save()
 		]);
 
-		let destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, null);
+		const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, null);
 
 		await Maps.removeEffect(entity.Player);
 		await Maps.stopTravel(entity.Player);
@@ -43,11 +46,4 @@ const RespawnCommand = async (language, message, args) => {
 	}
 };
 
-module.exports = {
-	commands: [
-		{
-			name: 'respawn',
-			func: RespawnCommand
-		}
-	]
-};
+module.exports.execute = RespawnCommand;

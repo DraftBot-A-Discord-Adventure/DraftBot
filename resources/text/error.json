@@ -6,7 +6,6 @@
 			"dmSupportPermissionMissing": "Vous devez être membre de l'équipe de support du bot pour utiliser cette commande !",
 			"administratorPermissionMissing": "Vous devez posséder la permission `Administrateur` sur ce serveur pour utiliser cette commande !",
 			"botOwnerPermissionMissing": "Cette commande est réservée au propriétaire du bot !",
-			"botTournamentPermissionMissing": "Cette commande est réservée aux gérants du tournoi !",
 			"contributorPermissionMissing": "Cette commande est réservée aux collaborateurs du bot !",
 			"notContributorsChannel": "Cette commande n'est exécutable que dans le channel spécifique aux collaborateurs !",
 			"title": [
@@ -83,7 +82,6 @@
 			"dmSupportPermissionMissing": "You must be part of the support team!",
 			"administratorPermissionMissing": "You must have the `Administrator` permission on this server!",
 			"botOwnerPermissionMissing": "This command is for the bot owner only!",
-			"botTournamentPermissionMissing": "This command is for the tournament managers !",
 			"contributorPermissionMissing": "This command is for the bot contributors !",
 			"notContributorsChannel": "This command is can be executed by contributors only in a specific channel !",
 			"title": [

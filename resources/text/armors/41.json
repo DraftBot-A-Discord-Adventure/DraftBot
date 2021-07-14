@@ -7,6 +7,6 @@
 	"rawDefense": 4,
 	"attack": 45,
 	"speed": -40,
-	"french_masculine": 1,
-	"french_plural": 0
+	"frenchMasculine": 1,
+	"frenchPlural": 0
 }

@@ -6,6 +6,6 @@
 	"rarity": 8,
 	"rawAttack": 7,
 	"speed" : 50,
-	"french_masculine": 1,
-	"french_plural": 0
+	"frenchMasculine": 1,
+	"frenchPlural": 0
 }
