@@ -5,7 +5,7 @@ module.exports.help = {
 	typeWaited: {
 		health: typeVariable.INTEGER
 	},
-	messageWhenExecuted: "Vous avez maintenant {maxhealth} :heart:!",
+	messageWhenExecuted: "Vous avez maintenant {health} :heart:!",
 	description: "Mets la vie de votre joueur à la valeur donnée"
 };
 
