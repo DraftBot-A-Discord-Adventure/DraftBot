@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const moment = require("moment");
 
 module.exports.help = {
@@ -35,9 +37,9 @@ const SwitchCommand = async (message, language) => {
 	entity.Player.Inventory.backupId = temp;
 
 	await entity.Player.Inventory.save();
-
-	await message.channel.send(
-		format(JsonReader.commands.switch.getTranslation(language).main, {pseudo: message.author.username})
+	return await message.channel.send(new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.switch.getTranslation(language).title, message.author)
+		.setDescription(JsonReader.commands.switch.getTranslation(language).desc)
 	);
 };
 
