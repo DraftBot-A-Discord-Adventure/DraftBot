@@ -5,8 +5,8 @@
 			"desc": ":repeat: L'objet actif et l'objet en réserve ont été inversés !"
 		},
 		"en": {
-			"title": ":repeat: **{pseudo}**, switch command done!",
-			"desc": "The active and reserve items were swapped!"
+			"title": "{pseudo}, switch command done!",
+			"desc": ":repeat: The active and reserve items were swapped!"
 		}
 	},
 	"timeToAdd" : 0.5
