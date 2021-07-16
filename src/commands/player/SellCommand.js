@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 module.exports.help = {
 	name: "sell",
 	aliases: [],
@@ -36,13 +38,15 @@ const SellCommand = async (message, language) => {
 					entity.Player.Inventory.save()
 				]);
 				log(entity.discordUserId + " sold his item " + backupItem.en + " (money: " + money + ")");
-				return await message.channel.send(
-					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+				return await message.channel.send(new DraftBotEmbed()
+					.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageTitle, message.author)
+					.setDescription(format(JsonReader.commands.sell.getTranslation(language).soldMessage,
 						{
 							item: backupItem.getName(language),
 							money: money
 						}
-					));
+					))
+				);
 			}
 		}
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).sellCanceled, true);
