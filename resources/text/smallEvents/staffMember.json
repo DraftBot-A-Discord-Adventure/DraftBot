@@ -15,6 +15,7 @@
 				"Thero1st": "un des premiers compétiteurs pour la main de la princesse et grand chef cuisinier spécialisé dans les brochettes au poulpe, ce combattant prend pourtant le concours à la légère, préférant passer du temps dans ses stands avec ses animaux",
 				"Oscar": "un piètre guerrier qui, à son apogée, d'un ancien temps révolu, dominait le classement de par ses points et ses connaissances",
 				"QuenQuentin": "un fidèle chevalier terrassant de nombreux ennemis grâce au cadeau du ciel et qui a contribué à ce que ce monde devienne meilleur",
+				"LePourfendeur": "manipulateur, il use de différents stratagèmes pour faire vivre aux aventuriers des situations dangereuses, parfois mortelles",
 				"Ines": "une combattante des débuts de ce monde, qui malheureusement se bat de moins en moins pour lui par manque de temps, mais qui reste fidèle dans la course à la princesse (enfin au prince plutôt). Fidèle partisane du Kyutisme",
 				"romain22222": "un grand intellect, cherchant autant à résoudre les situations de façon optimale, qu'à les créer. Celui-ci discute trop, bien trop, avec les ménestrels et ses adorateurs, et évite les tentes dans les forêts",
 				"Asemerald": "un aventurier se laissant porter par sa chance, connu pour sa puissance de feu dépassant l’imaginable",
@@ -42,10 +43,11 @@
 				"During your journey, a dust cloud appears in the distance. A few minutes later, a horseman stops in front of you, saying he's looking for **{pseudo}**. Seeing your inquisitive look, he adds: \"{sentence}\"."
 			],
 			"members": {
-				"Nysvaa": "one of the princess' suitors who doesn't intend to win her by fighting but rather by prouving their ability to think during their adventures (and by their luck a little... a lot)",
+				"Nysvaa": "one of the princess' suitors who doesn't intend to win her by fighting but rather by proving their ability to think during their adventures (and by their luck a little... a lot)",
 				"Thero1st": "one of the first suitors of the princess and a great chef specializing in octopus skewers. However, this fighter takes the contest lightly, preferring to spend time in their stands with their animals",
 				"Oscar": "a poor warrior who, in their prime, from a forgotten time, dominated the ranking with their points and their knowledge",
 				"QuenQuentin": "a faithful knight defeating numerous enemies thanks to the grace of heaven and who helped make this world a better place",
+				"LePourfendeur": "manipulator, he uses different ruses to provide for adventurers dangerous situations, fatal sometimes",
 				"Ines": "a fighter from the beginning of this world, who unfortunately fights less and less for him because of lack of time, but who remains faithful in the race to the princess (well, to the prince rather). Faithful supporter of Kyutism",
 				"romain22222": "a great thinker, seeking as much to resolve situations optimally as to create them. He talks too much, far too much, with the minstrels and his worshippers, and avoids the tents in the forests",
 				"Asemerald": "an adventurer who lets himself be carried by his luck, known for his beyond imaginable firepower",
@@ -57,7 +59,7 @@
 				"DeadAngelV6": "only man banned from the lands of Duke Benatis. With his mysterious bundle, he hopes to meet you during your adventure to tell you his story",
 				"Kyusaki": "first High Priest of Kyutism, he leads an incognito meditation route among the adventurers of the world, often giving advice to those who ask for it",
 				"Greninja_san": "amphibian with an extraordinary mind, he used his extensive knowledge to fit into human life and learned the precepts of their magic",
-				"nwcubeok": "a famous wizard travelling the country to advertize his magical skills. He hopes the princess will appreciate them",
+				"nwcubeok": "a famous wizard travelling the country to advertise his magical skills. He hopes the princess will appreciate them",
 				"SuperBananeNinja": "a discreet mage crisscrossing the land, generally solitary, often salutary, with his heterogeneous manners and disconcerting tricks, but always straight in his boots"
 			}
 		}
