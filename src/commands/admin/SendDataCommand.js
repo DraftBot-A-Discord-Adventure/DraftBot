@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "senddata",
 	aliases: [],
 	userPermissions: ROLES.USER.BOT_OWNER

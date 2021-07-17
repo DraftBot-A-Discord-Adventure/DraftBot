@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildid",
 	aliases: ["gid", "mygid"],
 	commandFormat: "",
@@ -18,7 +18,7 @@ const guildIdTestCommand = async (language, message) => {
 	if (guild === null) {
 		throw new Error("Erreur mygid : vous n'êtes pas dans une guilde !");
 	}
-	return format(module.exports.help.messageWhenExecuted, {gName: guild.name, idGuild: guild.id});
+	return format(module.exports.commandInfo.messageWhenExecuted, {gName: guild.name, idGuild: guild.id});
 };
 
 module.exports.execute = guildIdTestCommand;

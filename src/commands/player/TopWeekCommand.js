@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "topweek",
 	aliases: ["tw", "topw"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]

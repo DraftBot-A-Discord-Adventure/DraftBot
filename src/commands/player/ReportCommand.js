@@ -2,7 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const Maps = require("../../core/Maps");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "report",
 	aliases: ["r"],
 	disallowEffects: [EFFECT.DEAD]

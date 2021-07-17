@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "playereffect",
 	aliases: ["effect"],
 	commandFormat: "<effect>",
@@ -24,7 +24,7 @@ const playerEffectTestCommand = async (language, message, args) => {
 	if (JsonReader.models.players.effectMalus[effectMalus]) {
 		await Maps.applyEffect(entity.Player, effectMalus);
 		await entity.Player.save();
-		return format(module.exports.help.messageWhenExecuted, {effect: effectMalus});
+		return format(module.exports.commandInfo.messageWhenExecuted, {effect: effectMalus});
 	}
 	throw new Error("Effet inconnu ! (Il ne faut pas mettre les ::)");
 

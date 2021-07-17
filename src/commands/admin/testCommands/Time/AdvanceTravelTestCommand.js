@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "advancetravel",
 	aliases: ["atravel"],
 	commandFormat: "<time>",
@@ -22,7 +22,7 @@ const advanceTravelTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	Maps.advanceTime(entity.Player, parseInt(args[0]));
 	entity.Player.save();
-	return format(module.exports.help.messageWhenExecuted, {time: args[0]});
+	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
 module.exports.execute = advanceTravelTestCommand;

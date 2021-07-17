@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "topserver",
 	aliases: ["ts", "tops", "topserv"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]

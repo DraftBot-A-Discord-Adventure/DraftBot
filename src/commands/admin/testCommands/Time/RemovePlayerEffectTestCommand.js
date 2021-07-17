@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "removeplayereffect",
 	aliases: ["rmeffect"],
 	messageWhenExecuted: "Vous n'avez plus d'effets !",

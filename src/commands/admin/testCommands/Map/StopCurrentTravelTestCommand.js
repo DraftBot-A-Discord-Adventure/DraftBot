@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "stopcurrenttravel",
 	aliases: ["stravel", "stoptravel"],
 	commandFormat: "",
@@ -22,7 +22,7 @@ const stopCurrentTravelTestCommand = async (language, message) => {
 
 	await Maps.stopTravel(entity.Player);
 
-	return module.exports.help.messageWhenExecuted;
+	return module.exports.commandInfo.messageWhenExecuted;
 
 };
 

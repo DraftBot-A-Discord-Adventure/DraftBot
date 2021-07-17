@@ -24,7 +24,7 @@ class Command {
 			const commandsFiles = readdirSync(`src/commands/${category}`).filter(command => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
 				const command = require(`../commands/${category}/${commandFile}`);
-				Command.commands.set(command.help.name, command);
+				Command.commands.set(command.commandInfo.name, command);
 			}
 		});
 	}
@@ -39,7 +39,7 @@ class Command {
 	}
 
 	static getCommandFromAlias(alias) {
-		return Command.commands.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(alias));
+		return Command.commands.find(cmd => cmd.commandInfo.aliases && cmd.commandInfo.aliases.includes(alias));
 	}
 
 	/**
@@ -312,27 +312,27 @@ class Command {
 		}
 
 		const [entity] = await Entities.getOrRegister(message.author.id);
-		if (command.help.requiredLevel && entity.Player.getLevel() < command.help.requiredLevel) {
+		if (command.commandInfo.requiredLevel && entity.Player.getLevel() < command.commandInfo.requiredLevel) {
 			return await sendErrorMessage(
 				message.author,
 				message.channel,
 				language,
 				format(JsonReader.error.getTranslation(language).levelTooLow, {
 					pseudo: entity.getMention(),
-					level: command.help.requiredLevel
+					level: command.commandInfo.requiredLevel
 				})
 			);
 		}
 
-		if (command.help.disallowEffects && command.help.disallowEffects.includes(entity.Player.effect) && !entity.Player.currentEffectFinished()) {
+		if (command.commandInfo.disallowEffects && command.commandInfo.disallowEffects.includes(entity.Player.effect) && !entity.Player.currentEffectFinished()) {
 			return effectsErrorMe(message, language, entity, entity.Player.effect);
 		}
 
-		if (await canPerformCommand(message, language, command.help.userPermissions, command.help.restrictedEffects, entity) !== true) {
+		if (await canPerformCommand(message, language, command.commandInfo.userPermissions, command.commandInfo.restrictedEffects, entity) !== true) {
 			return;
 		}
 
-		if (command.help.guildRequired) {
+		if (command.commandInfo.guildRequired) {
 			let guild;
 
 			try {
@@ -356,7 +356,7 @@ class Command {
 				userPermissionsLevel = 3;
 			}
 
-			if (userPermissionsLevel < command.help.guildPermissions) {
+			if (userPermissionsLevel < command.commandInfo.guildPermissions) {
 				return sendErrorMessage(
 					message.author,
 					message.channel,
