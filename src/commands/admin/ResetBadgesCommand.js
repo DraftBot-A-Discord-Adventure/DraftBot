@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "resetbadge",
 	aliases: ["rb"],
 	userPermissions: ROLES.USER.BADGE_MANAGER

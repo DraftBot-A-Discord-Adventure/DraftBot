@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "language",
 	aliases: [],
 	userPermissions: ROLES.USER.ADMINISTRATOR

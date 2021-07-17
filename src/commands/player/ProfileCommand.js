@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "profile",
 	aliases: ["p", "profil"],
 	disallowEffects: [EFFECT.BABY]

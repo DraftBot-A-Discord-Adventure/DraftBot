@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "list",
 	commandFormat: "",
 	messageWhenExecuted: "Voici la liste des commandes tests disponibles :",
@@ -24,7 +24,7 @@ const listTestCommand = (language, message) => {
 		const allTestCommInCate = CT.getAllCommandsFromCategory(category);
 		let stringForThisCategory = "";
 		allTestCommInCate.forEach(testCommand => {
-			stringForThisCategory += testCommand.help.name + " • ";
+			stringForThisCategory += testCommand.commandInfo.name + " • ";
 		});
 		embedListCommandsTest.addField(
 			"**" + category + "**",

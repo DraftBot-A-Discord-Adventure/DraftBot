@@ -1,9 +1,9 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guilddescription",
 	aliases: ["gdesc", "guilddesc"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
 	guildRequired: true,
 	guildPermissions: 2
 };

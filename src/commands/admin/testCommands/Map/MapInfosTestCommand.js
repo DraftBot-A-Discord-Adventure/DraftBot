@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "mapinfo",
 	messageWhenExecuted: "",
 	description: "Donne des informations pratiques sur la map sur laquelle vous êtes"

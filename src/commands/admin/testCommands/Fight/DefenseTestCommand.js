@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "defense",
 	commandFormat: "<defense>",
 	typeWaited: {
@@ -23,7 +23,7 @@ const defenseTestCommand = async (language, message, args) => {
 	entity.defense = parseInt(args[0],10);
 	entity.save();
 
-	return format(module.exports.help.messageWhenExecuted, {defense: entity.defense});
+	return format(module.exports.commandInfo.messageWhenExecuted, {defense: entity.defense});
 };
 
 module.exports.execute = defenseTestCommand;

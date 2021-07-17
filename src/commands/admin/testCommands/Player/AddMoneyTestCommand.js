@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "addmoney",
 	commandFormat: "<money>",
 	typeWaited: {
@@ -20,7 +20,7 @@ const addMoneyTestCommand = async (language, message, args) => {
 	entity.Player.addMoney(parseInt(args[0]));
 	entity.Player.save();
 
-	return format(module.exports.help.messageWhenExecuted, {money: entity.Player.money});
+	return format(module.exports.commandInfo.messageWhenExecuted, {money: entity.Player.money});
 };
 
 module.exports.execute = addMoneyTestCommand;

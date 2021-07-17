@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "playerhealth",
 	aliases: ["health"],
 	commandFormat: "<health>",
@@ -24,7 +24,7 @@ const playerHealthTestCommand = async (language, message, args) => {
 	entity.health = parseInt(args[0],10);
 	entity.save();
 
-	return format(module.exports.help.messageWhenExecuted, {health: entity.health});
+	return format(module.exports.commandInfo.messageWhenExecuted, {health: entity.health});
 };
 
 module.exports.execute = playerHealthTestCommand;

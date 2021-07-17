@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "servers",
 	aliases: ["servs"],
 	userPermissions: ROLES.USER.BOT_OWNER

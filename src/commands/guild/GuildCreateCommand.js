@@ -1,8 +1,8 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildcreate",
 	aliases: ["gcreate", "gc"],
 	requiredLevel: GUILD.REQUIRED_LEVEL,
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**

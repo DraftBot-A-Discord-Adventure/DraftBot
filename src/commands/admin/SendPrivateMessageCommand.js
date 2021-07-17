@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "sendprivatemessage",
 	aliases: ["dm"],
 	userPermissions: ROLES.USER.SUPPORT

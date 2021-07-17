@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "travel",
 	aliases: ["tp"],
 	commandFormat: "<idStart> <idEnd>",
@@ -39,7 +39,7 @@ const travelTestCommand = async (language, message, args) => {
 	await Maps.startTravel(entity.Player, parseInt(args[1]), message.createdAt.getTime());
 	entity.Player.previousMapId = args[0];
 	await entity.Player.save();
-	return format(module.exports.help.messageWhenExecuted, {
+	return format(module.exports.commandInfo.messageWhenExecuted, {
 		mapNameStart: (await MapLocations.getById(args[0])).getDisplayName(language),
 		mapNameEnd: (await MapLocations.getById(args[1])).getDisplayName(language)
 	});

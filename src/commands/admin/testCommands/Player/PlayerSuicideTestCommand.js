@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "playersuicide",
 	aliases: ["suicide"],
 	commandFormat: "",
@@ -19,7 +19,7 @@ const playerSuicideTestCommand = async (language, message) => {
 	await entity.Player.killIfNeeded(entity, message.channel, language);
 	await Promise.all([entity.save(), entity.Player.save()]);
 
-	return module.exports.help.messageWhenExecuted;
+	return module.exports.commandInfo.messageWhenExecuted;
 };
 
 module.exports.execute = playerSuicideTestCommand;

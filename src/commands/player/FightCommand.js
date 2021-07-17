@@ -1,6 +1,6 @@
 const Fight = require("../../core/fights/Fight");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "fight",
 	aliases: ["f"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],

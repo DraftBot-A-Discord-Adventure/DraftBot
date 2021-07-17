@@ -2,7 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const moment = require("moment");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "switch",
 	aliases: ["sw"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]

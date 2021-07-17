@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "travelreport",
 	aliases: ["tr"],
 	commandFormat: "",
@@ -25,7 +25,7 @@ const travelReportTestCommand = async (language, message) => {
 	entity.Player.effectEndDate = new Date(0);
 	await entity.Player.save();
 
-	return module.exports.help.messageWhenExecuted;
+	return module.exports.commandInfo.messageWhenExecuted;
 
 };
 

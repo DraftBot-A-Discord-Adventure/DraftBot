@@ -1,6 +1,6 @@
 const Maps = require("../../core/Maps");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "respawn",
 	aliases: [],
 	disallowEffects: [EFFECT.BABY]
