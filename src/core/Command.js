@@ -328,6 +328,10 @@ class Command {
 			return effectsErrorMe(message, language, entity, entity.Player.effect);
 		}
 
+		if (command.commandInfo.allowEffects && !command.commandInfo.allowEffects.includes(entity.Player.effect) && !entity.Player.currentEffectFinished()) {
+			return effectsErrorMe(message, language, entity, entity.Player.effect);
+		}
+
 		if (await canPerformCommand(message, language, command.commandInfo.userPermissions, command.commandInfo.restrictedEffects, entity) !== true) {
 			return;
 		}

@@ -3,7 +3,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 module.exports.commandInfo = {
 	name: "classtats",
 	aliases: ["cs","classesstats","classcompare","classestats"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**

@@ -1,7 +1,7 @@
 module.exports.commandInfo = {
 	name: "inventory",
 	aliases: ["inv", "i"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**

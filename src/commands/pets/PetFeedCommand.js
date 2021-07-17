@@ -1,11 +1,10 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const tr = JsonReader.commands.petFeed;
-
 module.exports.commandInfo = {
 	name: "petfeed",
 	aliases: ["feed", "pf", "pfeed", "feedp", "feedpet", "fp"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	allowEffects: EFFECT.SMILEY
 };
 
 /**

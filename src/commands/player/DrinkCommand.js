@@ -5,7 +5,7 @@ const Maps = require("../../core/Maps");
 module.exports.commandInfo = {
 	name: "drink",
 	aliases: ["dr","glouglou"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**

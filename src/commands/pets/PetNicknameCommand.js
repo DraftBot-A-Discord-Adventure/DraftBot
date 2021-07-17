@@ -1,7 +1,7 @@
 module.exports.commandInfo = {
 	name: "petnickname",
 	aliases: ["petnick","pnickname","pnick","petname","pname"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**

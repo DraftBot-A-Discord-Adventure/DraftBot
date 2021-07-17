@@ -1,7 +1,7 @@
 module.exports.commandInfo = {
 	name: "pettrade",
 	aliases: ["ptrade"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	allowEffects: EFFECT.SMILEY
 };
 
 /**
