@@ -3,7 +3,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 module.exports.commandInfo = {
 	name: "dmnotification",
 	aliases: ["dmn","notifs","dms","notif","dmnotifications"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**

@@ -5,7 +5,7 @@ const moment = require("moment");
 module.exports.commandInfo = {
 	name: "switch",
 	aliases: ["sw"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**

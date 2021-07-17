@@ -10,7 +10,7 @@ import {Translations} from "../../core/Translations";
 module.exports.commandInfo = {
 	name: "guildshop",
 	aliases: ["gs"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
 	guildRequired: true
 };
 
