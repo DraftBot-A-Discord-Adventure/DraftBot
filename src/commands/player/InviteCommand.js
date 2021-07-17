@@ -1,6 +1,6 @@
 module.exports.commandInfo = {
 	name: "invite",
-	aliases: []
+	aliases: ["addbot"]
 };
 
 /**
