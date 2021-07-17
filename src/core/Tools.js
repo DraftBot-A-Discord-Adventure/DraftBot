@@ -17,7 +17,7 @@ global.idToMention = (id) => "<@&" + id + ">";
  */
 global.getIdFromMention = (variable) => {
 	if (typeof variable === "string") {
-		return variable.slice(3,variable.length - 1);
+		return variable.slice(3, variable.length - 1);
 	}
 	return "";
 };
@@ -182,8 +182,11 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		}));
 	}
 
-	if (autoSell) {
-		const money = getItemValue(item);
+	if (autoSell && item instanceof Potions) {
+		return await destroyPotionMessage(channel, language, discordUser, item, true);
+	}
+	else if (autoSell) {
+		const money = Math.round(getItemValue(item) * resaleMultiplierNew);
 		entity.Player.addMoney(money);
 		await entity.Player.save();
 		return await channel.send(
@@ -229,31 +232,11 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 				resaleMultiplier = resaleMultiplierActual;
 			}
 			if (item instanceof Potions) {
-				return await channel.send(
-					new DraftBotEmbed()
-						.formatAuthor(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle, discordUser)
-						.setDescription(
-							format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
-								{
-									item: item.getName(language)
-								}
-							)
-						)
-				); // potion are not sold (because of exploits and because of logic)
+				return await destroyPotionMessage(channel, language, discordUser, item);
 			}
 		}
 		else if (item instanceof Potions) {
-			return await channel.send(
-				new DraftBotEmbed()
-					.formatAuthor(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle, discordUser)
-					.setDescription(
-						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
-							{
-								item: item.getName(language)
-							}
-						)
-					)
-			); // potion are not sold (because of exploits and because of logic)
+			return await destroyPotionMessage(channel, language, discordUser, item);
 		}
 		const money = Math.round(getItemValue(item) * resaleMultiplier);
 		newEntity.Player.addMoney(money);
@@ -276,6 +259,32 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		msg.react(MENU_REACTION.DENY)
 	]);
 
+};
+
+/**
+ * Sends a destroyed potion message
+ * @param channel
+ * @param language
+ * @param discordUser
+ * @param item
+ * @param isAutoSell
+ * @return {Promise<*>}
+ */
+global.destroyPotionMessage = async (channel, language, discordUser, item, isAutoSell = false) => {
+	const titleEmbedDestroyPotionMessage = isAutoSell
+		? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
+		: JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle;
+	return await channel.send(
+		new DraftBotEmbed()
+			.formatAuthor(titleEmbedDestroyPotionMessage, discordUser)
+			.setDescription(
+				format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
+					{
+						item: item.getName(language)
+					}
+				)
+			)
+	); // potion are not sold (because of exploits and because of logic)
 };
 
 /**
