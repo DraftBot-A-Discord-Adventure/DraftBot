@@ -16,7 +16,7 @@ module.exports.commandInfo = {
  * @param {Number} forceSpecificEvent - For testing purpose
  * @param {String} forceSmallEvent
  */
-const ReportCommand = async (message, language, args ,forceSpecificEvent = -1, forceSmallEvent = null) => {
+const ReportCommand = async (message, language, args, forceSpecificEvent = -1, forceSmallEvent = null) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});
@@ -24,12 +24,7 @@ const ReportCommand = async (message, language, args ,forceSpecificEvent = -1, f
 	}
 
 	if (!entity.Player.currentEffectFinished()) {
-		return await effectsErrorMe(
-			message,
-			language,
-			entity,
-			entity.Player.effect
-		);
+		return await sendTravelPath(entity, message, language, entity.Player.effect);
 	}
 
 	if (!Maps.isTravelling(entity.Player)) {
@@ -45,7 +40,7 @@ const ReportCommand = async (message, language, args ,forceSpecificEvent = -1, f
 		return await executeSmallEvent(message, language, entity, smallEventNumber, forceSmallEvent);
 	}
 
-	return await sendTravelPath(entity, message, language);
+	return await sendTravelPath(entity, message, language, null);
 };
 
 /**
@@ -104,16 +99,24 @@ const needBigEvent = function(entity) {
  * @param {Entities} entity
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
+ * @param {string|String} effect
  * @returns {Promise<Message>}
  */
-const sendTravelPath = async function(entity, message, language) {
+const sendTravelPath = async function(entity, message, language, effect = null) {
 	const travelEmbed = new DraftBotEmbed();
 	const tr = JsonReader.commands.report.getTranslation(language);
 	travelEmbed.formatAuthor(tr.travelPathTitle, message.author);
-	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language));
+	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, effect));
 	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previousMapId)).getDisplayName(language), true);
 	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.mapId)).getDisplayName(language), true);
-	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
+	if (effect === null){
+		travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
+	}
+	else {
+		const errorMessageObject = effectsErrorMeTextValue(message,language,entity,effect);
+		travelEmbed.addField(errorMessageObject.title, errorMessageObject.description, false);
+	}
+
 	return await message.channel.send(travelEmbed);
 };
 

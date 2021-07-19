@@ -6,6 +6,23 @@ global.DATASOURCE = {
 
 // Effect
 global.EFFECT = {
+	EMOJIS: {
+		":baby:": "👶",
+		":smiley:": "😃",
+		":clock10:": "🕙", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
+		":skull:": "💀",
+		":sleeping:": "😴",
+		":zany_face:": "🤪",
+		":cold_face:": "🥶",
+		":head_bandage:": "🤕",
+		":sick:": "🤢",
+		":lock:": "🔒",
+		":dizzy_face:": "😵",
+		":clock2:": "🕑",
+		":drooling_face:": "🤤",
+		":confounded:": "😖",
+		":scream:": "😱"
+	},
 	BABY: ":baby:",
 	SMILEY: ":smiley:",
 	AWAITING_ANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
