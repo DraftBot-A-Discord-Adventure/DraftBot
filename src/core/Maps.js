@@ -150,7 +150,7 @@ class Maps {
 	 * @param {number} time - The start time
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player, mapId,time) {
+	static async startTravel(player, mapId, time) {
 		player.previousMapId = player.mapId;
 		player.mapId = mapId;
 		player.startTravelDate = new Date(time + minutesToMilliseconds(player.effectDuration));
@@ -180,12 +180,14 @@ class Maps {
 	 * Generates a string representing the player walking form a map to another
 	 * @param {Players} player
 	 * @param {"fr"|"en"} language
+	 * @param {string|String} effect
 	 * @returns {Promise<string>}
 	 */
-	static async generateTravelPathString(player, language) {
+	static async generateTravelPathString(player, language, effect = null) {
 		const prevMapInstance = await MapLocations.getById(player.previousMapId);
 		const nextMapInstance = await MapLocations.getById(player.mapId);
-		let percentage = this.getTravellingTime(player) / (2 * 60 * 60 * 1000);
+		const time = effect !== null ? player.effectEndDate.getTime() - player.startTravelDate : this.getTravellingTime(player);
+		let percentage = time / (2 * 60 * 60 * 1000);
 		if (percentage > 1) {
 			percentage = 1;
 		}
@@ -202,7 +204,12 @@ class Maps {
 		for (let i = 0; i < REPORT.SMALL_EVENTS_COUNT + 1; ++i) {
 			for (let j = 0; j < this.PATH_SQUARE_COUNT; ++j) {
 				if (i * (this.PATH_SQUARE_COUNT + 1) + j === index) {
-					str += "🧍";
+					if (effect === null){
+						str += "🧍";
+					}
+					else {
+						str += EFFECT.EMOJIS[effect];
+					}
 				}
 				else {
 					str += "■";
