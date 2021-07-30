@@ -17,18 +17,6 @@ module.exports = (Sequelize, DataTypes) => {
 		type: {
 			type: DataTypes.TEXT
 		},
-		northMap: {
-			type: DataTypes.INTEGER
-		},
-		eastMap: {
-			type: DataTypes.INTEGER
-		},
-		southMap: {
-			type: DataTypes.INTEGER
-		},
-		westMap: {
-			type: DataTypes.INTEGER
-		},
 		nameFr: {
 			type: DataTypes.TEXT
 		},
@@ -121,7 +109,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param mapTypes
 	 * @returns {Promise<[MapLocations]>}
 	 */
-	MapLocations.getMapConnectedWithTypeFilter = async (mapId, mapTypes) => {
+	/* MapLocations.getMapConnectedWithTypeFilter = async (mapId, mapTypes) => {
 		const query = `SELECT id FROM map_locations WHERE :mapTypes LIKE '%' || type || '%' AND (
 										id IN (SELECT northMap FROM map_locations WHERE id = :mapId) OR
 										id IN (SELECT southMap FROM map_locations WHERE id = :mapId) OR
@@ -134,7 +122,7 @@ module.exports = (Sequelize, DataTypes) => {
 				mapId: mapId
 			}
 		});
-	};
+	};*/
 
 	/**
 	 * Get the number of players on this map

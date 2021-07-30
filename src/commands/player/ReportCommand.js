@@ -108,7 +108,8 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 	travelEmbed.formatAuthor(tr.travelPathTitle, message.author);
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, effect));
 	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previousMapId)).getDisplayName(language), true);
-	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.mapId)).getDisplayName(language), true);
+	travelEmbed.addField("Prochain arrêt :", ":question: 9 Minutes...", true);
+	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previousMapId)).getDisplayName(language), true);
 	if (effect === null){
 		travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 	}

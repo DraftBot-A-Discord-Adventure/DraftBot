@@ -215,7 +215,7 @@ class Maps {
 					str += "■";
 				}
 			}
-			if (i < REPORT.SMALL_EVENTS_COUNT) {
+			/* if (i < REPORT.SMALL_EVENTS_COUNT) {
 				let added = false;
 				for (let j = 0; j < player.PlayerSmallEvents.length; ++j) {
 					if (player.PlayerSmallEvents[j].number === i + 1) {
@@ -227,7 +227,7 @@ class Maps {
 				if (!added) {
 					str += " ❓ ";
 				}
-			}
+			}*/
 		}
 		return str + " " + nextMapInstance.getEmote(language);
 	}

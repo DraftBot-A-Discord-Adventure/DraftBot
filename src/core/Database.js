@@ -21,6 +21,7 @@ class Database {
 
 		await Database.migrate();
 
+
 		const modelsFiles = await fs.promises.readdir("dist/src/core/models");
 		for (const modelFile of modelsFiles) {
 			const modelName = modelFile.split(".")[0];
@@ -100,14 +101,17 @@ class Database {
 					})
 			)
 		);
-		await Database.Sequelize.query(`CREATE TABLE IF NOT EXISTS "${table}" (
-      id   INTEGER PRIMARY KEY,
-      name TEXT    NOT NULL,
-      up   TEXT    NOT NULL,
-      down TEXT    NOT NULL
-    )`);
+		await Database.Sequelize.query(`CREATE TABLE IF NOT EXISTS "${table}"
+		                                (
+			                                id   INTEGER PRIMARY KEY,
+			                                name TEXT NOT NULL,
+			                                up   TEXT NOT NULL,
+			                                down TEXT NOT NULL
+		                                )`);
 		const dbMigrations = await Database.Sequelize.query(
-			`SELECT id, name, up, down FROM "${table}" ORDER BY id ASC`
+			`SELECT id, name, up, down
+			 FROM "${table}"
+			 ORDER BY id ASC`
 		);
 
 		const lastMigrationId = dbMigrations[0].length ? dbMigrations[0][dbMigrations[0].length - 1].id : 0;
@@ -122,7 +126,8 @@ class Database {
 						}
 					}
 					await Database.Sequelize.query(
-						`INSERT INTO "${table}" (id, name, up, down) VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`
+						`INSERT INTO "${table}" (id, name, up, down)
+						 VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`
 					);
 					await Database.Sequelize.query("COMMIT");
 				}
