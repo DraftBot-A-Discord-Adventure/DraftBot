@@ -9,8 +9,8 @@ class Maps {
 	static async getNextPlayerAvailableMaps(player, restrictedMapType) {
 		let map, previousMap;
 
-		if (!player.mapLinksId) {
-			player.mapLinksId = await MapLinks.getRandomLink().id;
+		if (!player.mapLinkId) {
+			player.mapLinkId = await MapLinks.getRandomLink().id;
 		}
 		else {
 			map = await player.getMap();

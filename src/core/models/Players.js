@@ -92,7 +92,7 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.DATE,
 			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
-		dmnotification: {
+		dmNotification: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
 		}
@@ -397,7 +397,7 @@ module.exports = (Sequelize, DataTypes) => {
 		const guildMember = await channel.guild.members.fetch(entity.discordUserId);
 		const user = guildMember.user;
 		const transDMN = JsonReader.models.players.getTranslation(language);
-		this.dmnotification ? sendDirectMessage(user, transDMN.koPM.title, transDMN.koPM.description, JsonReader.bot.embed.default, language)
+		this.dmNotification ? sendDirectMessage(user, transDMN.koPM.title, transDMN.koPM.description, JsonReader.bot.embed.default, language)
 			: channel.send(new DraftBotEmbed()
 				.setDescription(transDMN.koPM.description)
 				.setTitle(transDMN.koPM.title)

@@ -600,7 +600,7 @@ class Database {
 	}
 
 	static async updatePlayersRandomMap() {
-		const query = "UPDATE players SET mapLinksId = (abs(random()) % (SELECT MAX(id) FROM map_links) + 1) WHERE mapLinksId is NULL;";
+		const query = "UPDATE players SET mapLinkId = (abs(random()) % (SELECT MAX(id) FROM map_links) + 1) WHERE mapLinkId is NULL;";
 		await Database.Sequelize.query(query, {
 			type: Sequelize.QueryTypes.UPDATE
 		});

@@ -171,7 +171,7 @@ class Command {
 		}
 		let icon = "";
 		const [entity] = await Entities.getOrRegister(message.author.id);
-		if (!entity.Player.dmnotification) {
+		if (!entity.Player.dmNotification) {
 			icon = JsonReader.bot.dm.alertIcon;
 		}
 		dmChannel.send(format(JsonReader.bot.dm.supportAlert, {
