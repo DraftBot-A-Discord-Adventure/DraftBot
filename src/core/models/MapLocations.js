@@ -37,11 +37,13 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		tableName: "map_locations",
@@ -50,7 +52,8 @@ module.exports = (Sequelize, DataTypes) => {
 
 	MapLocations.beforeSave((instance) => {
 		instance.setDataValue("updatedAt",
-			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
+			require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
@@ -89,7 +92,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Number} id
 	 * @returns {Promise<null | MapLocations>}
 	 */
-	MapLocations.getById = (id) => MapLocations.findOne({ where: { id: id }});
+	MapLocations.getById = (id) => MapLocations.findOne({where: {id: id}});
 
 	/**
 	 * Returns a random map
@@ -106,23 +109,41 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * Get map connected to a map with a certain id and with a map type as a filter
 	 * @param mapId
+	 * @param blacklistId
 	 * @param mapTypes
 	 * @returns {Promise<[MapLocations]>}
 	 */
-	/* MapLocations.getMapConnectedWithTypeFilter = async (mapId, mapTypes) => {
-		const query = `SELECT id FROM map_locations WHERE :mapTypes LIKE '%' || type || '%' AND (
-										id IN (SELECT northMap FROM map_locations WHERE id = :mapId) OR
-										id IN (SELECT southMap FROM map_locations WHERE id = :mapId) OR
-										id IN (SELECT eastMap FROM map_locations WHERE id = :mapId) OR
-										id IN (SELECT westMap FROM map_locations WHERE id = :mapId));`;
+	MapLocations.getMapConnected = async (mapId, blacklistId, mapTypes = null) => {
+		if (mapTypes) {
+			const query = `SELECT id
+                           FROM map_locations
+                           WHERE :mapTypes LIKE '%' || type || '%'
+                             AND id != :blacklistId
+                             AND (
+                               id IN (SELECT endMap FROM map_links WHERE startMap = :mapId));`;
+			return await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT,
+				replacements: {
+					mapTypes: mapTypes,
+					blacklistId: blacklistId,
+					mapId: mapId
+				}
+			});
+		}
+		const query = `SELECT id
+                       FROM map_locations
+                       WHERE id != :blacklistid
+                         AND (
+                           id IN (SELECT endMap FROM map_links WHERE startMap = :mapId));`;
 		return await Sequelize.query(query, {
 			type: Sequelize.QueryTypes.SELECT,
 			replacements: {
-				mapTypes: mapTypes,
-				mapId: mapId
+				mapId: mapId,
+				blacklistId: blacklistId
 			}
 		});
-	};*/
+
+	};
 
 	/**
 	 * Get the number of players on this map

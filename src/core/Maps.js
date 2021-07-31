@@ -1,12 +1,5 @@
 class Maps {
 
-	static Directions = {
-		NORTH: "north",
-		SOUTH: "south",
-		EAST: "east",
-		WEST: "west"
-	};
-
 	/**
 	 * Returns the map ids a player can go to. It excludes the map the player is coming from if at least one map is available
 	 * @param {Players} player
@@ -24,62 +17,16 @@ class Maps {
 			map = await MapLocations.getById(player.mapId);
 		}
 		const nextMaps = [];
-		if (restrictedMapType) {
-			const nextMapIds = await MapLocations.getMapConnectedWithTypeFilter(map.id, restrictedMapType);
-			for (const m of nextMapIds) {
-				nextMaps.push(m.id);
-			}
-			return nextMaps;
+
+		const nextMapIds = await MapLocations.getMapConnected(map.id, player.previousMapId, restrictedMapType);
+		for (const m of nextMapIds) {
+			nextMaps.push(m.id);
 		}
-		for (const mapDir of ["northMap", "southMap", "eastMap", "westMap"]) {
-			if (map[mapDir] && map[mapDir] !== player.previousMapId) {
-				nextMaps.push(map[mapDir]);
-			}
-		}
+
 		if (nextMaps.length === 0 && player.previousMapId) {
 			nextMaps.push(player.previousMapId);
 		}
 		return nextMaps;
-	}
-
-	/**
-	 * Returns the direction of a map to another. The result is null if the maps are not connected
-	 * @param {MapLocations} fromMap
-	 * @param {Number} toMapId
-	 * @returns {Directions|null}
-	 */
-	static getMapDirection(fromMap, toMapId) {
-		if (!fromMap) {
-			return null;
-		}
-		if (fromMap.northMap === toMapId) {
-			return this.Directions.NORTH;
-		}
-		if (fromMap.southMap === toMapId) {
-			return this.Directions.SOUTH;
-		}
-		if (fromMap.eastMap === toMapId) {
-			return this.Directions.EAST;
-		}
-		if (fromMap.westMap === toMapId) {
-			return this.Directions.WEST;
-		}
-		return null;
-	}
-
-	/**
-	 * Get the placeholder of the events. It is designed to be used in the format function
-	 * @param {Players} player
-	 * @param {"fr"|"en"} language
-	 * @returns {{}}
-	 */
-	static async getEventPlaceHolders(player, language) {
-		const previousMap = await MapLocations.getById(player.previousMapId);
-		const direction = this.getMapDirection(previousMap, player.mapId);
-		return {
-			direction: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.names[direction],
-			directionPrefix: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.prefix[direction]
-		};
 	}
 
 	/**
@@ -204,7 +151,7 @@ class Maps {
 		for (let i = 0; i < REPORT.SMALL_EVENTS_COUNT + 1; ++i) {
 			for (let j = 0; j < this.PATH_SQUARE_COUNT; ++j) {
 				if (i * (this.PATH_SQUARE_COUNT + 1) + j === index) {
-					if (effect === null){
+					if (effect === null) {
 						str += "🧍";
 					}
 					else {
@@ -215,19 +162,6 @@ class Maps {
 					str += "■";
 				}
 			}
-			/* if (i < REPORT.SMALL_EVENTS_COUNT) {
-				let added = false;
-				for (let j = 0; j < player.PlayerSmallEvents.length; ++j) {
-					if (player.PlayerSmallEvents[j].number === i + 1) {
-						str += " " + JsonReader.smallEvents[player.PlayerSmallEvents[j].eventType].emote + " ";
-						added = true;
-						break;
-					}
-				}
-				if (!added) {
-					str += " ❓ ";
-				}
-			}*/
 		}
 		return str + " " + nextMapInstance.getEmote(language);
 	}
