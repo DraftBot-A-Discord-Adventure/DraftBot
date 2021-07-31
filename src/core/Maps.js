@@ -118,12 +118,6 @@ class Maps {
 	}
 
 	/**
-	 * The number of squares between small events in the travel path string
-	 * @type {number}
-	 */
-	static PATH_SQUARE_COUNT = 4;
-
-	/**
 	 * Generates a string representing the player walking form a map to another
 	 * @param {Players} player
 	 * @param {"fr"|"en"} language
@@ -138,31 +132,29 @@ class Maps {
 		if (percentage > 1) {
 			percentage = 1;
 		}
-		let index = 0;
-		const percentageSpan = 1 / (REPORT.SMALL_EVENTS_COUNT + 1);
-		for (let i = 0; i < REPORT.SMALL_EVENTS_COUNT + 1; ++i) {
-			if (percentage <= (i + 1) * percentageSpan) {
-				index = i * (this.PATH_SQUARE_COUNT + 1) + this.PATH_SQUARE_COUNT * (percentage - i * percentageSpan) / percentageSpan;
-				break;
-			}
-		}
+		let index = REPORT.PATH_SQUARE_COUNT * percentage;
+
 		index = Math.floor(index);
+
 		let str = prevMapInstance.getEmote(language) + " ";
-		for (let i = 0; i < REPORT.SMALL_EVENTS_COUNT + 1; ++i) {
-			for (let j = 0; j < this.PATH_SQUARE_COUNT; ++j) {
-				if (i * (this.PATH_SQUARE_COUNT + 1) + j === index) {
-					if (effect === null) {
-						str += "🧍";
-					}
-					else {
-						str += EFFECT.EMOJIS[effect];
-					}
+
+		for (let j = 0; j < REPORT.PATH_SQUARE_COUNT; ++j) {
+			if (j === index) {
+				if (effect === null) {
+					str += "🧍";
 				}
 				else {
-					str += "■";
+					str += EFFECT.EMOJIS[effect];
 				}
 			}
+			else {
+				str += "■";
+			}
+			if (j === Math.floor(REPORT.PATH_SQUARE_COUNT / 2) - 1){
+				str += "[9h00]";
+			}
 		}
+
 		return str + " " + nextMapInstance.getEmote(language);
 	}
 }
