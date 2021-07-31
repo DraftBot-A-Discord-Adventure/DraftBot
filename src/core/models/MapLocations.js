@@ -132,7 +132,7 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 		const query = `SELECT id
                        FROM map_locations
-                       WHERE id != :blacklistid
+                       WHERE id != :blacklistId
                          AND (
                            id IN (SELECT endMap FROM map_links WHERE startMap = :mapId));`;
 		return await Sequelize.query(query, {
