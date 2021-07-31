@@ -77,10 +77,7 @@ module.exports = (Sequelize, DataTypes) => {
 			type: DataTypes.INTEGER,
 			defaultValue: 0
 		},
-		previousMapId: {
-			type: DataTypes.INTEGER
-		},
-		mapId: {
+		mapLinkId: {
 			type: DataTypes.INTEGER
 		},
 		startTravelDate: {
@@ -124,6 +121,7 @@ module.exports = (Sequelize, DataTypes) => {
 		return true;
 	};
 
+
 	/**
 	 * @param {String} badge - The badge to be added to player
 	 */
@@ -136,6 +134,24 @@ module.exports = (Sequelize, DataTypes) => {
 		instance.setDataValue("updatedAt",
 			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
+
+	/**
+	 * Read the destination of the player
+	 * @returns {Number} the id of the current destination of the player
+	 */
+	Players.prototype.getMapId = async () => await MapLinks.getById(this.mapLinkId).endMap;
+
+	/**
+	 * Read the starting point of the player
+	 * @returns {Number} the id of the current starting map of the player
+	 */
+	Players.prototype.getPreviousMapId = async () => await MapLinks.getById(this.mapLinkId).startMap;
+
+	/**
+	 * Read the current trip duration of the player
+	 * @returns {Number} The current trip duration in hours
+	 */
+	Players.prototype.getCurrentTripDuration = async () => await MapLinks.getById(this.mapLinkId).tripDuration;
 
 	/**
 	 * @param {Number} id
