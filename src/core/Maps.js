@@ -7,24 +7,24 @@ class Maps {
 	 * @returns {Number[]}
 	 */
 	static async getNextPlayerAvailableMaps(player, restrictedMapType) {
-		let map;
-		if (!player.mapId) {
-			map = await MapLocations.getRandomMap();
-			player.previousMapId = map.id;
-			player.mapId = map.id;
+		let map, previousMap;
+
+		if (!player.mapLinksId) {
+			player.mapLinksId = await MapLinks.getRandomLink().id;
 		}
 		else {
-			map = await MapLocations.getById(player.mapId);
+			map = await player.getMap();
+			previousMap = await player.getPreviousMap();
 		}
 		const nextMaps = [];
 
-		const nextMapIds = await MapLocations.getMapConnected(map.id, player.previousMapId, restrictedMapType);
+		const nextMapIds = await MapLocations.getMapConnected(map.id, previousMap.id, restrictedMapType);
 		for (const m of nextMapIds) {
 			nextMaps.push(m.id);
 		}
 
-		if (nextMaps.length === 0 && player.previousMapId) {
-			nextMaps.push(player.previousMapId);
+		if (nextMaps.length === 0 && previousMap.id) {
+			nextMaps.push(previousMap.id);
 		}
 		return nextMaps;
 	}
@@ -150,7 +150,7 @@ class Maps {
 			else {
 				str += "■";
 			}
-			if (j === Math.floor(REPORT.PATH_SQUARE_COUNT / 2) - 1){
+			if (j === Math.floor(REPORT.PATH_SQUARE_COUNT / 2) - 1) {
 				str += "[9h00]";
 			}
 		}

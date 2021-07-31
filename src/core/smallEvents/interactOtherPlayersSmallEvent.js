@@ -10,7 +10,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;
-	const playersOnMap = await MapLocations.getPlayersOnMap(entity.Player.mapId, entity.Player.previousMapId, entity.Player.id);
+	const playersOnMap = await MapLocations.getPlayersOnMap(await entity.Player.getMap().id, await entity.Player.getPreviousMap().id, entity.Player.id);
 	for (let i = 0; i < playersOnMap.length; ++i) {
 		if (client.users.cache.has(playersOnMap[i].discordUserId)) {
 			selectedPlayer = playersOnMap[i];

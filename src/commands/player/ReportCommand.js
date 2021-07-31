@@ -71,7 +71,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 	}
 
 	if (forceSpecificEvent === -1) {
-		const map = await MapLocations.getById(entity.Player.mapId);
+		const map = await entity.Player.getMap();
 		[event] = await Events.pickEventOnMapType(map);
 		if (!event) {
 			await message.channel.send("It seems that there is no event here... It's a bug, please report it to the Draftbot staff.");
@@ -107,9 +107,9 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 	const tr = JsonReader.commands.report.getTranslation(language);
 	travelEmbed.formatAuthor(tr.travelPathTitle, message.author);
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, effect));
-	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previousMapId)).getDisplayName(language), true);
+	travelEmbed.addField(tr.startPoint, (await entity.Player.getPreviousMap()).getDisplayName(language), true);
 	travelEmbed.addField("Prochain arrêt :", ":question: 9 Minutes...", true);
-	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.mapId)).getDisplayName(language), true);
+	travelEmbed.addField(tr.endPoint, (await entity.Player.getMap()).getDisplayName(language), true);
 	if (effect === null){
 		travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 	}
@@ -136,7 +136,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restrictedMapType);
 
 	if (destinationMaps.length === 0) {
-		return log(message.author + " hasn't any destination map (current map: " + entity.Player.mapId + ", restrictedMapType: " + restrictedMapType + ")");
+		return log(message.author + " hasn't any destination map (current map: " + await entity.Player.getMap().id + ", restrictedMapType: " + restrictedMapType + ")");
 	}
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {

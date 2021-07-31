@@ -137,15 +137,15 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * Read the destination of the player
-	 * @returns {Number} the id of the current destination of the player
+	 * @returns {MapLinks} The current destination of the player
 	 */
-	Players.prototype.getMapId = async () => await MapLinks.getById(this.mapLinkId).endMap;
+	Players.prototype.getMap = async () => await MapLinks.getById(this.mapLinkId).endMap;
 
 	/**
 	 * Read the starting point of the player
-	 * @returns {Number} the id of the current starting map of the player
+	 * @returns {MapLinks} The current starting map of the player
 	 */
-	Players.prototype.getPreviousMapId = async () => await MapLinks.getById(this.mapLinkId).startMap;
+	Players.prototype.getPreviousMap = async () => await MapLinks.getById(this.mapLinkId).startMap;
 
 	/**
 	 * Read the current trip duration of the player

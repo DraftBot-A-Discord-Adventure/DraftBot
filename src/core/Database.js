@@ -92,7 +92,8 @@ class Database {
 								return reject(new Error(message));
 							}
 							/* eslint-disable no-param-reassign */
-							migration.up = up.replace(/^-- .*?$/gm, "").trim(); // Remove comments
+							migration.up = up.replace(/^-- .*?$/gm, "")
+								.trim(); // Remove comments
 							migration.up = migration.up.replace(/\r\n/g, "\n"); // Replace CRLF with LF (in the case both are present)
 							migration.up = migration.up.replace(/\n/g, "\r\n"); // Replace LF with CRLF
 							migration.down = down.trim(); // and trim whitespaces
@@ -103,16 +104,16 @@ class Database {
 			)
 		);
 		await Database.Sequelize.query(`CREATE TABLE IF NOT EXISTS "${table}"
-		                                (
-			                                id   INTEGER PRIMARY KEY,
-			                                name TEXT NOT NULL,
-			                                up   TEXT NOT NULL,
-			                                down TEXT NOT NULL
-		                                )`);
+                                        (
+                                            id   INTEGER PRIMARY KEY,
+                                            name TEXT NOT NULL,
+                                            up   TEXT NOT NULL,
+                                            down TEXT NOT NULL
+                                        )`);
 		const dbMigrations = await Database.Sequelize.query(
 			`SELECT id, name, up, down
-			 FROM "${table}"
-			 ORDER BY id ASC`
+             FROM "${table}"
+             ORDER BY id ASC`
 		);
 
 		const lastMigrationId = dbMigrations[0].length ? dbMigrations[0][dbMigrations[0].length - 1].id : 0;
@@ -128,7 +129,7 @@ class Database {
 					}
 					await Database.Sequelize.query(
 						`INSERT INTO "${table}" (id, name, up, down)
-						 VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`
+                         VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`
 					);
 					await Database.Sequelize.query("COMMIT");
 				}
@@ -171,9 +172,26 @@ class Database {
 			sourceKey: "petId",
 			as: "Pet"
 		});
+		Players.hasOne(MapLinks, {
+			foreignKey: "id",
+			sourceKey: "mapLinkId",
+			as: "MapLink"
+		});
 		Players.hasMany(PlayerSmallEvents, {
 			foreignKey: "playerId",
 			as: "PlayerSmallEvents"
+		});
+
+		MapLinks.hasOne(MapLocations, {
+			foreignKey: "id",
+			sourceKey: "startMap",
+			as: "StartMap"
+		});
+
+		MapLinks.hasOne(MapLocations, {
+			foreignKey: "id",
+			sourceKey: "endMap",
+			as: "EndMap"
 		});
 
 		Guilds.hasMany(Players, {
@@ -365,7 +383,8 @@ class Database {
 	static isEventValid(event) {
 		const eventFields = ["translations", "possibilities"];
 		for (let i = 0; i < eventFields.length; ++i) {
-			if (!Object.keys(event).includes(eventFields[i])) {
+			if (!Object.keys(event)
+				.includes(eventFields[i])) {
 				Database.sendEventLoadError(event, "Key missing: " + field);
 				return false;
 			}
@@ -405,7 +424,8 @@ class Database {
 		for (const possibilityKey of Object.keys(event.possibilities)) {
 			if (possibilityKey === "end") {
 				endPresent = true;
-				if (Object.keys(event.possibilities[possibilityKey]).includes(possibilityFields[0])) {
+				if (Object.keys(event.possibilities[possibilityKey])
+					.includes(possibilityFields[0])) {
 					Database.sendEventLoadError(event,
 						"Key present in possibility " +
 						possibilityKey +
@@ -413,7 +433,8 @@ class Database {
 						possibilityFields[i]);
 					return false;
 				}
-				if (!Object.keys(event.possibilities[possibilityKey]).includes(possibilityFields[1])) {
+				if (!Object.keys(event.possibilities[possibilityKey])
+					.includes(possibilityFields[1])) {
 					Database.sendEventLoadError(event,
 						"Key missing in possibility " +
 						possibilityKey +
@@ -424,7 +445,8 @@ class Database {
 			}
 			else {
 				for (let i = 0; i < possibilityFields.length; ++i) {
-					if (!Object.keys(event.possibilities[possibilityKey]).includes(possibilityFields[i])) {
+					if (!Object.keys(event.possibilities[possibilityKey])
+						.includes(possibilityFields[i])) {
 						Database.sendEventLoadError(event,
 							"Key missing in possibility " +
 							possibilityKey +
@@ -452,7 +474,8 @@ class Database {
 			}
 			for (const issue of event.possibilities[possibilityKey].issues) {
 				for (let i = 0; i < issuesFields.length; ++i) {
-					if (!Object.keys(issue).includes(issuesFields[i])) {
+					if (!Object.keys(issue)
+						.includes(issuesFields[i])) {
 						Database.sendEventLoadError(
 							event,
 							"Key missing in possibility " +
@@ -577,7 +600,7 @@ class Database {
 	}
 
 	static async updatePlayersRandomMap() {
-		const query = "UPDATE players SET mapId = (abs(random()) % (SELECT MAX(id) FROM map_locations) + 1) WHERE mapId = -1;";
+		const query = "UPDATE players SET mapLinksId = (abs(random()) % (SELECT MAX(id) FROM map_links) + 1) WHERE mapLinksId is NULL;";
 		await Database.Sequelize.query(query, {
 			type: Sequelize.QueryTypes.UPDATE
 		});

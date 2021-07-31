@@ -20,6 +20,11 @@ const Maps = require("../../../../core/Maps");
  * @return {String} - The successful message formatted
  */
 const travelTestCommand = async (language, message, args) => {
+
+	// TODO : A METTRE A JOUR
+
+	throw new Error("Erreur travel : Cette commande test doit être mise à jour pour supporter les mapLinks");
+
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const idMaxMap = await MapLocations.getIdMaxMap();

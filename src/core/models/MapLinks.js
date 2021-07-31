@@ -39,6 +39,18 @@ module.exports = (Sequelize, DataTypes) => {
 			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
+	/**
+	 * Returns a random link
+	 * @returns {Promise<null|MapLinks>}
+	 */
+	MapLinks.getRandomLink = async () => {
+		const query = "SELECT id FROM map_links;";
+		const linkIds = await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT
+		});
+		return await MapLinks.getById(linkIds[randInt(0, linkIds.length - 1)].id);
+	};
+
 
 	/**
 	 * @param {Number} id
