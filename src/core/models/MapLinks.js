@@ -30,7 +30,7 @@ module.exports = (Sequelize, DataTypes) => {
 			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
-		tableName: "map_locations",
+		tableName: "map_links",
 		freezeTableName: true
 	});
 

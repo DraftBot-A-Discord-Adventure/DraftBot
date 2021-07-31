@@ -38,6 +38,7 @@ class Database {
 			"Potions",
 			"Classes",
 			"Pets",
+			"MapLinks",
 			"MapLocations"
 		]);
 		await Database.verifyMaps();
