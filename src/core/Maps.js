@@ -13,18 +13,18 @@ class Maps {
 			player.mapLinkId = await MapLinks.getRandomLink().id;
 		}
 		else {
-			map = await player.getMap();
-			previousMap = await player.getPreviousMap();
+			map = await player.getDestinationId();
+			previousMap = await player.getPreviousMapId();
 		}
 		const nextMaps = [];
 
-		const nextMapIds = await MapLocations.getMapConnected(map.id, previousMap.id, restrictedMapType);
+		const nextMapIds = await MapLocations.getMapConnected(map, previousMap, restrictedMapType);
 		for (const m of nextMapIds) {
 			nextMaps.push(m.id);
 		}
 
-		if (nextMaps.length === 0 && previousMap.id) {
-			nextMaps.push(previousMap.id);
+		if (nextMaps.length === 0 && previousMap) {
+			nextMaps.push(previousMap);
 		}
 		return nextMaps;
 	}
@@ -93,13 +93,12 @@ class Maps {
 	/**
 	 * Make a player start travelling. It does not check if the player currently travelling, if the maps are connected etc. It also saves the player
 	 * @param {Players} player
-	 * @param {number} mapId
+	 * @param {number} newLink
 	 * @param {number} time - The start time
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player, mapId, time) {
-		player.previousMapId = player.mapId;
-		player.mapId = mapId;
+	static async startTravel(player, newLink, time) {
+		player.mapLinkId = newLink;
 		player.startTravelDate = new Date(time + minutesToMilliseconds(player.effectDuration));
 		await player.save();
 		if (player.effect !== EFFECT.SMILEY) {
@@ -125,8 +124,8 @@ class Maps {
 	 * @returns {Promise<string>}
 	 */
 	static async generateTravelPathString(player, language, effect = null) {
-		const prevMapInstance = await MapLocations.getById(player.previousMapId);
-		const nextMapInstance = await MapLocations.getById(player.mapId);
+		const prevMapInstance = await player.getPreviousMap();
+		const nextMapInstance = await player.getDestination();
 		const time = effect !== null ? player.effectEndDate.getTime() - player.startTravelDate : this.getTravellingTime(player);
 		let percentage = time / hoursToMilliseconds(player.getCurrentTripDuration());
 

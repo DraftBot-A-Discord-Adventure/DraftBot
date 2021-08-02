@@ -23,11 +23,13 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		tableName: "map_links",
@@ -36,7 +38,8 @@ module.exports = (Sequelize, DataTypes) => {
 
 	MapLinks.beforeSave((instance) => {
 		instance.setDataValue("updatedAt",
-			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
+			require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
@@ -51,12 +54,24 @@ module.exports = (Sequelize, DataTypes) => {
 		return await MapLinks.getById(linkIds[randInt(0, linkIds.length - 1)].id);
 	};
 
+	/**
+	 * @param {Number} idStartPoint
+	 * @param {Number} idEndPoint
+	 * @returns {Promise<null | MapLinks>}
+	 */
+	MapLinks.getLinkByLocations = async (idStartPoint, idEndPoint) => await MapLinks.findOne({
+		where: {
+			startMap: idStartPoint,
+			endMap: idEndPoint
+		}
+	});
+
 
 	/**
 	 * @param {Number} id
 	 * @returns {Promise<null | MapLinks>}
 	 */
-	MapLinks.getById = (id) => MapLinks.findOne({where: {id: id}});
+	MapLinks.getById = async (id) => await MapLinks.findOne({where: {id: id}});
 
 	return MapLinks;
 };

@@ -71,7 +71,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 	}
 
 	if (forceSpecificEvent === -1) {
-		const map = await entity.Player.getMap();
+		const map = await entity.Player.getDestination();
 		[event] = await Events.pickEventOnMapType(map);
 		if (!event) {
 			await message.channel.send("It seems that there is no event here... It's a bug, please report it to the Draftbot staff.");
@@ -109,7 +109,7 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, effect));
 	travelEmbed.addField(tr.startPoint, (await entity.Player.getPreviousMap()).getDisplayName(language), true);
 	travelEmbed.addField("Prochain arrêt :", ":question: 9 Minutes...", true);
-	travelEmbed.addField(tr.endPoint, (await entity.Player.getMap()).getDisplayName(language), true);
+	travelEmbed.addField(tr.endPoint, (await entity.Player.getDestination()).getDisplayName(language), true);
 	if (effect === null){
 		travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 	}
@@ -136,11 +136,12 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restrictedMapType);
 
 	if (destinationMaps.length === 0) {
-		return log(message.author + " hasn't any destination map (current map: " + await entity.Player.getMap().id + ", restrictedMapType: " + restrictedMapType + ")");
+		return log(message.author + " hasn't any destination map (current map: " + await entity.Player.getDestinationId() + ", restrictedMapType: " + restrictedMapType + ")");
 	}
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
-		await Maps.startTravel(entity.Player, destinationMaps[0], message.createdAt.getTime());
+		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(),destinationMaps[0].id);
+		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
 
@@ -164,7 +165,8 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[randInt(0, destinationMaps.length - 1)];
-		await Maps.startTravel(entity.Player, mapId, message.createdAt.getTime());
+		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(),mapId);
+		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
 		await destinationChoseMessage(entity, mapId, message, language);
 	});
 

@@ -109,11 +109,14 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * Get map connected to a map with a certain id and with a map type as a filter
 	 * @param mapId
-	 * @param blacklistId
+	 * @param blacklistId // id of a path that cannot be chosen
 	 * @param mapTypes
 	 * @returns {Promise<[MapLocations]>}
 	 */
 	MapLocations.getMapConnected = async (mapId, blacklistId, mapTypes = null) => {
+		if (!blacklistId){
+			blacklistId = -1;
+		}
 		if (mapTypes) {
 			const query = `SELECT id
                            FROM map_locations
@@ -150,7 +153,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {Promise<Number>}
 	 */
 	MapLocations.prototype.playersCount = async function() {
-		const query = "SELECT COUNT(*) FROM players WHERE mapId = :id;";
+		const query = "SELECT COUNT(*) FROM players WHERE mapLinkId in (SELECT id FROM map_links WHERE startMap = :id OR endMap = :id) ;";
 		return (await Sequelize.query(query, {
 			replacements: {
 				id: this.id
@@ -164,7 +167,7 @@ module.exports = (Sequelize, DataTypes) => {
 			"FROM players " +
 			"JOIN entities ON players.entityId = entities.id " +
 			"WHERE players.id != :playerId " +
-			"AND ((players.mapId = :mapId AND players.previousMapId = :pMapId) OR (players.mapId = :pMapId AND players.previousMapId = :mapId)) " +
+			"AND players.mapLinkId IN (SELECT id from map_links WHERE (startMap = :pMapId AND endMap = :mapId) OR (startMap = :mapId AND endMap = :pMapId)" +
 			"ORDER BY RANDOM();";
 		return await Sequelize.query(query, {
 			replacements: {

@@ -25,7 +25,7 @@ const MapCommand = async (message, language) => {
 		.formatAuthor(JsonReader.commands.map.getTranslation(language).text, message.author);
 
 	if (Maps.isTravelling(entity.Player)) {
-		const destMap = await entity.Player.getMap();
+		const destMap = await entity.Player.getDestination();
 		mapEmbed.setDescription(format(
 			JsonReader.commands.map.getTranslation(language).descText, {
 				direction: await destMap.getDisplayName(language),

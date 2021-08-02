@@ -140,11 +140,21 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	/**
+	 * Read the id of the destination of the player
+	 * @returns {number} The current destination id of the player
+	 */
+	Players.prototype.getDestinationId = async function() {
+		const link = await MapLinks.getById(this.mapLinkId);
+		return link.endMap;
+	};
+
+	/**
 	 * Read the destination of the player
 	 * @returns {MapLinks} The current destination of the player
 	 */
-	Players.prototype.getMap = async function() {
-		await MapLinks.getById(this.mapLinkId).endMap;
+	Players.prototype.getDestination = async function() {
+		const link = await MapLinks.getById(this.mapLinkId);
+		return await MapLocations.getById(link.endMap);
 	};
 
 	/**
@@ -152,7 +162,17 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {MapLinks} The current starting map of the player
 	 */
 	Players.prototype.getPreviousMap = async function() {
-		await MapLinks.getById(this.mapLinkId).startMap;
+		const link = await MapLinks.getById(this.mapLinkId);
+		return await MapLocations.getById(link.startMap);
+	};
+
+	/**
+	 * Read the id of the starting point of the player
+	 * @returns {number} The current starting map id of the player
+	 */
+	Players.prototype.getPreviousMapId = async function() {
+		const link = await MapLinks.getById(this.mapLinkId);
+		return link.startMap;
 	};
 
 	/**
@@ -160,7 +180,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {Number} The current trip duration in hours
 	 */
 	Players.prototype.getCurrentTripDuration = async function() {
-		await MapLinks.getById(this.mapLinkId).tripDuration;
+		const link = await MapLinks.getById(this.mapLinkId);
+		return link.tripDuration;
 	};
 
 	/**
