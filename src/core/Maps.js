@@ -93,12 +93,12 @@ class Maps {
 	/**
 	 * Make a player start travelling. It does not check if the player currently travelling, if the maps are connected etc. It also saves the player
 	 * @param {Players} player
-	 * @param {number} newLink
+	 * @param {MapLinks} newLink
 	 * @param {number} time - The start time
 	 * @returns {Promise<void>}
 	 */
 	static async startTravel(player, newLink, time) {
-		player.mapLinkId = newLink;
+		player.mapLinkId = newLink.id;
 		player.startTravelDate = new Date(time + minutesToMilliseconds(player.effectDuration));
 		await player.save();
 		if (player.effect !== EFFECT.SMILEY) {

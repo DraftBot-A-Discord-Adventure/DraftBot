@@ -140,7 +140,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	}
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
-		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(),destinationMaps[0].id);
+		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(),destinationMaps[0]);
 		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
