@@ -112,7 +112,7 @@ global.sendSimpleMessage = (user, channel, title, message) => channel.send(new D
  * @param {Item} item - The item that has to be given
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Entity} entity
+ * @param {Entities} entity
  * @param {Integer} resaleMultiplierNew
  * @param {Integer} resaleMultiplierActual
  * @returns {Promise<*>}
@@ -264,7 +264,7 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 /**
  * Sends a destroyed potion message
  * @param channel
- * @param language
+ * @param {("fr"|"en")} language
  * @param discordUser
  * @param item
  * @param isAutoSell
@@ -292,7 +292,7 @@ global.destroyPotionMessage = async (channel, language, discordUser, item, isAut
  * @param {module:"discord.js".User} discordUser
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Entity} entity
+ * @param {Entities} entity
  */
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
 	const item = await entity.Player.Inventory.generateRandomItem();

@@ -254,8 +254,8 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 /**
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Possibility} possibility
- * @param {Entity} entity
+ * @param {Possibilities} possibility
+ * @param {Entities} entity
  * @param {Number} time
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<Message>}

@@ -10,7 +10,7 @@ const Maps = require("../Maps");
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Players = Sequelize.define("players", {
+	const Players = Sequelize.define("Players", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -159,7 +159,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * Read the starting point of the player
-	 * @returns {MapLinks} The current starting map of the player
+	 * @returns {E} The current starting map of the player
 	 */
 	Players.prototype.getPreviousMap = async function() {
 		const link = await MapLinks.getById(this.mapLinkId);
@@ -366,7 +366,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * Checks if the player need to level up and levels up him.
-	 * @param {Entity} entity
+	 * @param {Entities} entity
 	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
 	 */
@@ -412,7 +412,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * Apply dead effect, send message in channel and in PM only if the health is 0 or less.
-	 * @param {Entity} entity
+	 * @param {Entities} entity
 	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
 	 * @return {Promise<boolean>}
