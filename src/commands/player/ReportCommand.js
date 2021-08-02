@@ -27,6 +27,10 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
 		return await sendTravelPath(entity, message, language, entity.Player.effect);
 	}
 
+	if (entity.Player.mapLinkId === null) {
+		return await Maps.startTravel(entity.player,await MapLinks.getRandomLink(), message.createdAt.getTime());
+	}
+
 	if (!Maps.isTravelling(entity.Player)) {
 		return await chooseDestination(entity, message, language);
 	}

@@ -10,7 +10,7 @@ class Maps {
 		let map, previousMap;
 
 		if (!player.mapLinkId) {
-			player.mapLinkId = await MapLinks.getRandomLink().id;
+			player.mapLinkId = (await MapLinks.getRandomLink()).id;
 		}
 		else {
 			map = await player.getDestinationId();
