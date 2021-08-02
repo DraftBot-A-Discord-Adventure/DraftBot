@@ -71,7 +71,8 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		effectEndDate: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		effectDuration: {
 			type: DataTypes.INTEGER,
@@ -86,11 +87,13 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		dmNotification: {
 			type: DataTypes.BOOLEAN,
@@ -132,37 +135,44 @@ module.exports = (Sequelize, DataTypes) => {
 
 	Players.beforeSave((instance) => {
 		instance.setDataValue("updatedAt",
-			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
+			require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
 	 * Read the destination of the player
 	 * @returns {MapLinks} The current destination of the player
 	 */
-	Players.prototype.getMap = async () => await MapLinks.getById(this.mapLinkId).endMap;
+	Players.prototype.getMap = async function() {
+		await MapLinks.getById(this.mapLinkId).endMap;
+	};
 
 	/**
 	 * Read the starting point of the player
 	 * @returns {MapLinks} The current starting map of the player
 	 */
-	Players.prototype.getPreviousMap = async () => await MapLinks.getById(this.mapLinkId).startMap;
+	Players.prototype.getPreviousMap = async function() {
+		await MapLinks.getById(this.mapLinkId).startMap;
+	};
 
 	/**
 	 * Read the current trip duration of the player
 	 * @returns {Number} The current trip duration in hours
 	 */
-	Players.prototype.getCurrentTripDuration = async () => await MapLinks.getById(this.mapLinkId).tripDuration;
+	Players.prototype.getCurrentTripDuration = async function() {
+		await MapLinks.getById(this.mapLinkId).tripDuration;
+	};
 
 	/**
 	 * @param {Number} id
 	 */
 	Players.getById = async (id) => {
 		const query = `SELECT *
-                   FROM (SELECT id,
-                                RANK() OVER (ORDER BY score desc, level desc)       rank,
-                                RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-                         FROM players)
-                   WHERE id = :id`;
+                       FROM (SELECT id,
+                                    RANK() OVER (ORDER BY score desc, level desc)       rank,
+                                    RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+                             FROM players)
+                       WHERE id = :id`;
 		return await Sequelize.query(query, {
 			replacements: {
 				id: id
@@ -176,11 +186,11 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getByRank = async (rank) => {
 		const query = `SELECT *
-                   FROM (SELECT entityId,
-                                RANK() OVER (ORDER BY score desc, level desc)       rank,
-                                RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-                         FROM players)
-                   WHERE rank = :rank`;
+                       FROM (SELECT entityId,
+                                    RANK() OVER (ORDER BY score desc, level desc)       rank,
+                                    RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+                             FROM players)
+                       WHERE rank = :rank`;
 		return await Sequelize.query(query, {
 			replacements: {
 				rank: rank
@@ -375,7 +385,8 @@ module.exports = (Sequelize, DataTypes) => {
 	Players.prototype.setLastReportWithEffect = async function(time, timeMalus, effectMalus) {
 		this.startTravelDate = new Date(time);
 		await this.save();
-		await require("../../core/Maps").applyEffect(this, effectMalus, timeMalus);
+		await require("../../core/Maps")
+			.applyEffect(this, effectMalus, timeMalus);
 	};
 
 	/**
@@ -445,7 +456,6 @@ module.exports = (Sequelize, DataTypes) => {
 	Players.prototype.getLevel = function() {
 		return this.level;
 	};
-
 
 	return Players;
 };

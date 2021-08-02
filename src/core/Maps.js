@@ -128,7 +128,11 @@ class Maps {
 		const prevMapInstance = await MapLocations.getById(player.previousMapId);
 		const nextMapInstance = await MapLocations.getById(player.mapId);
 		const time = effect !== null ? player.effectEndDate.getTime() - player.startTravelDate : this.getTravellingTime(player);
-		let percentage = time / (2 * 60 * 60 * 1000);
+		let percentage = time / hoursToMilliseconds(player.getCurrentTripDuration());
+
+		const remainingHours = Math.floor(player.getCurrentTripDuration() - time);
+		const remainingMinutes = player.getCurrentTripDuration() - time - Math.floor(player.getCurrentTripDuration() - time);
+		const timeRemainingString = "[" + remainingHours + "h" + remainingMinutes + "]";
 		if (percentage > 1) {
 			percentage = 1;
 		}
@@ -151,7 +155,7 @@ class Maps {
 				str += "■";
 			}
 			if (j === Math.floor(REPORT.PATH_SQUARE_COUNT / 2) - 1) {
-				str += "[9h00]";
+				str += timeRemainingString;
 			}
 		}
 

@@ -361,6 +361,13 @@ global.millisecondsToHours = (milliseconds) => milliseconds / 3600000;
 global.minutesToMilliseconds = (minutes) => minutes * 60000;
 
 /**
+ * Convert a number of hours in a number of milliseconds
+ * @param {Number} hours - The number of hours
+ * @return {Number}
+ */
+global.hoursToMilliseconds = (hours) => hours * 3600000;
+
+/**
  * Return a string containing a proper display of a duration
  * @param {Number} minutes - The number of minutes to display
  * @return {String}
