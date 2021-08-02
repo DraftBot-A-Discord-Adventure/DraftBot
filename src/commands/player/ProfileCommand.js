@@ -125,7 +125,6 @@ const ProfileCommand = async (message, language, args) => {
 	try {
 		const mapId = await entity.Player.getDestinationId();
 		if (mapId !== null) {
-			const map = await MapLocations.getById(mapId);
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).map.fieldName,
 				value: (await entity.Player.getDestination()).getDisplayName(language),
