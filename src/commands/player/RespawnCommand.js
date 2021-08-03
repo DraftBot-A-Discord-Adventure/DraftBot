@@ -29,8 +29,6 @@ const RespawnCommand = async (message, language) => {
 			entity.Player.save()
 		]);
 
-		const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, null);
-
 		await Maps.removeEffect(entity.Player);
 		await Maps.stopTravel(entity.Player);
 		const newlink = await MapLinks.getLinkByLocations(

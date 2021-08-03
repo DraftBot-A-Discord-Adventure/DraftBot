@@ -133,7 +133,7 @@ class Maps {
 		let remainingMinutes =
 			Math.floor(hoursToMinutes(await player.getCurrentTripDuration() - millisecondsToHours(time) -
 			Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time))));
-		if (remainingMinutes === remainingHours === 0) {
+		if (remainingMinutes === remainingHours && remainingHours === 0) {
 			remainingMinutes++;
 		}
 
