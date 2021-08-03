@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const PlayerSmallEvents = Sequelize.define("player_small_events", {
+	const PlayerSmallEvents = Sequelize.define("PlayerSmallEvents", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
