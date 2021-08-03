@@ -28,7 +28,7 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
 	}
 
 	if (entity.Player.mapLinkId === null) {
-		return await Maps.startTravel(entity.player,await MapLinks.getRandomLink(), message.createdAt.getTime());
+		return await Maps.startTravel(entity.player, await MapLinks.getRandomLink(), message.createdAt.getTime());
 	}
 
 	if (!Maps.isTravelling(entity.Player)) {
@@ -112,15 +112,23 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 	travelEmbed.formatAuthor(tr.travelPathTitle, message.author);
 	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, effect));
 	travelEmbed.addField(tr.startPoint, (await entity.Player.getPreviousMap()).getDisplayName(language), true);
-	travelEmbed.addField("Prochain arrêt :", ":question: 9 Minutes...", true);
 	travelEmbed.addField(tr.endPoint, (await entity.Player.getDestination()).getDisplayName(language), true);
-	if (effect === null){
-		travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
-	}
-	else {
-		const errorMessageObject = effectsErrorMeTextValue(message,language,entity,effect);
+	if (effect !== null) {
+		const errorMessageObject = effectsErrorMeTextValue(message, language, entity, effect);
 		travelEmbed.addField(errorMessageObject.title, errorMessageObject.description, false);
 	}
+	else if (entity.Player.PlayerSmallEvents.length !== 0) {
+
+		const lastMinievent = entity.Player.PlayerSmallEvents[entity.Player.PlayerSmallEvents.length - 1];
+		travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescription, {
+			smallEventEmoji: JsonReader.smallEvents[lastMinievent.eventType].emote,
+			time: parseTimeDifference(lastMinievent.createdAt.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+		}), false);
+	}
+	else {
+		travelEmbed.addField("todo", "todo", false);
+	}
+	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 
 	return await message.channel.send(travelEmbed);
 };
@@ -144,7 +152,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	}
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
-		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(),destinationMaps[0]);
+		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[0]);
 		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
@@ -169,7 +177,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[randInt(0, destinationMaps.length - 1)];
-		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(),mapId);
+		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
 		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
 		await destinationChoseMessage(entity, mapId, message, language);
 	});
@@ -187,7 +195,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 };
 
 /**
- * Function called to display the direction chose by a player
+ * Function called to display the direction chosen by a player
  * @param entity
  * @param map
  * @param message
@@ -240,13 +248,19 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 
 	collector.on("end", async (collected) => {
 		if (!collected.first()) {
-			const possibility = await Possibilities.findAll({where: {eventId: event.id, possibilityKey: "end"}});
+			const possibility = await Possibilities.findAll({
+				where: {
+					eventId: event.id,
+					possibilityKey: "end"
+				}
+			});
 			await doPossibility(message, language, possibility, entity, time, forcePoints);
 		}
 	});
 	for (const reaction of reactions) {
 		if (reaction !== "end") {
-			await eventDisplayed.react(reaction).catch();
+			await eventDisplayed.react(reaction)
+				.catch();
 		}
 	}
 };
@@ -481,7 +495,8 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 	}
 
 	// Save
-	PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, number).save();
+	PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, number)
+		.save();
 };
 
 /* ------------------------------------------------------------ */

@@ -130,7 +130,13 @@ class Maps {
 		let percentage = time / hoursToMilliseconds(await player.getCurrentTripDuration());
 
 		const remainingHours = Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time));
-		const remainingMinutes = Math.round(hoursToMinutes(await player.getCurrentTripDuration() - millisecondsToHours(time) - Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time))));
+		let remainingMinutes =
+			Math.floor(hoursToMinutes(await player.getCurrentTripDuration() - millisecondsToHours(time) -
+			Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time))));
+		if (remainingMinutes === remainingHours === 0) {
+			remainingMinutes++;
+		}
+
 		const timeRemainingString = "[" + remainingHours + "h" + remainingMinutes + "]";
 		if (percentage > 1) {
 			percentage = 1;

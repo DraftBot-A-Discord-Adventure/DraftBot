@@ -533,8 +533,11 @@ global.parseTimeDifference = function(date1, date2, language) {
 		parsed += days + (language === "fr" ? " J " : " D ");
 		seconds -= days * 24 * 60 * 60;
 	}
+
 	const hours = Math.floor(seconds / (60 * 60));
-	parsed += hours + " H ";
+	if (hours !== 0) {
+		parsed += hours + " H ";
+	}
 	seconds -= hours * 60 * 60;
 	const minutes = Math.floor(seconds / 60);
 	parsed += minutes + " Min ";
