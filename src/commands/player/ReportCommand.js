@@ -35,13 +35,12 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
 		return await chooseDestination(entity, message, language);
 	}
 
-	if (needBigEvent(entity)) {
+	if (await needBigEvent(entity)) {
 		return await doRandomBigEvent(message, language, entity, forceSpecificEvent);
 	}
 
-	const smallEventNumber = triggersSmallEvent(entity);
-	if (forceSmallEvent !== null || smallEventNumber !== -1) {
-		return await executeSmallEvent(message, language, entity, smallEventNumber, forceSmallEvent);
+	if (forceSmallEvent !== null || needSmallEvent(entity)) {
+		return await executeSmallEvent(message, language, entity, forceSmallEvent);
 	}
 
 	return await sendTravelPath(entity, message, language, null);
@@ -94,8 +93,8 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
  * @param {Entities} entity
  * @returns {boolean}
  */
-const needBigEvent = function(entity) {
-	return Maps.getTravellingTime(entity.Player) >= 2 * 60 * 60 * 1000;
+const needBigEvent = async function(entity) {
+	return Maps.getTravellingTime(entity.Player) >= hoursToMilliseconds(await entity.Player.getCurrentTripDuration());
 };
 
 /**
@@ -119,14 +118,14 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 	}
 	else if (entity.Player.PlayerSmallEvents.length !== 0) {
 
-		const lastMinievent = entity.Player.PlayerSmallEvents[entity.Player.PlayerSmallEvents.length - 1];
+		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
 		travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescription, {
-			smallEventEmoji: JsonReader.smallEvents[lastMinievent.eventType].emote,
-			time: parseTimeDifference(lastMinievent.createdAt.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+			smallEventEmoji: JsonReader.smallEvents[lastMiniEvent.eventType].emote,
+			time: parseTimeDifference(lastMiniEvent.createdAt.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
 		}), false);
 	}
 	else {
-		travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescriptionWithoutSmallEvent,{
+		travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescriptionWithoutSmallEvent, {
 			time: parseTimeDifference(entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
 		}), false);
 	}
@@ -406,26 +405,16 @@ const doPossibility = async (message, language, possibility, entity, time, force
 --------------------------------------------------------------- */
 
 /**
- * Returns the number of the small event to trigger or -1 if none has to be executed
+ * If the entity reached a stopping point (= small event)
  * @param {Entities} entity
- * @returns {number}
+ * @returns {boolean}
  */
-const triggersSmallEvent = (entity) => {
-	const now = new Date();
-	const timeBetweenSmallEvents = REPORT.TIME_BETWEEN_BIG_EVENTS / (REPORT.SMALL_EVENTS_COUNT + 1);
-	for (let i = 1; i <= REPORT.SMALL_EVENTS_COUNT; ++i) {
-		const seBefore = entity.Player.startTravelDate.getTime() + i * timeBetweenSmallEvents;
-		const seAfter = entity.Player.startTravelDate.getTime() + (i + 1) * timeBetweenSmallEvents;
-		if (seBefore < now.getTime() && seAfter > now.getTime()) {
-			for (const se of entity.Player.PlayerSmallEvents) {
-				if (se.number === i) {
-					return -1;
-				}
-			}
-			return i;
-		}
+const needSmallEvent = function(entity) {
+	if (entity.Player.PlayerSmallEvents.length !== 0) {
+		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
+		return Date.now() >= lastMiniEvent.createdAt.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS;
 	}
-	return -1;
+	return Date.now() >= entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS;
 };
 
 /**
@@ -438,11 +427,10 @@ let totalSmallEventsRarity = null;
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
- * @param {Number} number
  * @param {Boolean} forced
  * @returns {Promise<void>}
  */
-const executeSmallEvent = async (message, language, entity, number, forced) => {
+const executeSmallEvent = async (message, language, entity, forced) => {
 
 	// Pick random event
 	let event;
@@ -496,7 +484,7 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 	}
 
 	// Save
-	PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, number)
+	PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, 0)
 		.save();
 };
 

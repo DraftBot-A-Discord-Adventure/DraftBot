@@ -24,11 +24,13 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		}
 	}, {
 		tableName: "player_small_events",
@@ -49,12 +51,30 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	/**
+	 * get the most recent small Event
+	 * @param {[PlayerSmallEvents]} playerSmallEvents
+	 * @returns {PlayerSmallEvents} The most recent small event
+	 */
+	PlayerSmallEvents.getLast = (playerSmallEvents) => {
+		let mostRecent = null;
+		for (const i of playerSmallEvents) {
+			if (mostRecent === null) {
+				mostRecent = i;
+			}
+			else if (i.createdAt >= mostRecent.createdAt) {
+				mostRecent = i;
+			}
+		}
+		return mostRecent;
+	};
+
+	/**
 	 * Removes all the small events of a player
 	 * @param {Number} playerId
 	 * @returns {Promise<void>}
 	 */
 	PlayerSmallEvents.removeSmallEventsOfPlayer = async (playerId) => {
-		await PlayerSmallEvents.destroy({ where: { playerId: playerId }});
+		await PlayerSmallEvents.destroy({where: {playerId: playerId}});
 	};
 
 	return PlayerSmallEvents;
