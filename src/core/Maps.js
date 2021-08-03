@@ -137,7 +137,7 @@ class Maps {
 			remainingMinutes++;
 		}
 
-		const timeRemainingString = "[" + remainingHours + "h" + remainingMinutes + "]";
+		const timeRemainingString = "**[" + remainingHours + "h" + remainingMinutes + "]**";
 		if (percentage > 1) {
 			percentage = 1;
 		}

@@ -126,10 +126,11 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 		}), false);
 	}
 	else {
-		travelEmbed.addField("todo", "todo", false);
+		travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescriptionWithoutSmallEvent,{
+			time: parseTimeDifference(entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+		}), false);
 	}
 	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
-
 	return await message.channel.send(travelEmbed);
 };
 
