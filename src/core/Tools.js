@@ -29,7 +29,8 @@ global.getIdFromMention = (variable) => {
  */
 global.isAMention = (variable) => {
 	if (typeof variable === "string") {
-		return RegExp(/^<@!?[0-9]{18}>$/).test(variable);
+		return RegExp(/^<@!?[0-9]{18}>$/)
+			.test(variable);
 	}
 	return false;
 };
@@ -39,7 +40,8 @@ global.isAMention = (variable) => {
  * @param {String} variable
  * @return {boolean}
  */
-global.isAnEmoji = (variable) => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi).test(variable);
+global.isAnEmoji = (variable) => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi)
+	.test(variable);
 
 module.exports = {
 	isAMention: isAMention,
@@ -354,6 +356,13 @@ global.millisecondsToMinutes = (milliseconds) => Math.round(milliseconds / 60000
 global.millisecondsToHours = (milliseconds) => milliseconds / 3600000;
 
 /**
+ * Convert a number of hours in a number of minutes
+ * @param {Number} hours - The number of hours
+ * @return {Number}
+ */
+global.hoursToMinutes = (hours) => hours * 60;
+
+/**
  * Convert a number of minutes in a number of milliseconds
  * @param {Number} minutes - The number of minutes
  * @return {Number}
@@ -557,7 +566,12 @@ global.getValidationInfos = function(guild) {
 	else if (ratio > 20 || bots > 15 || humans < 100) {
 		validation = ":warning:";
 	}
-	return {validation: validation, humans: humans, bots: bots, ratio: ratio};
+	return {
+		validation: validation,
+		humans: humans,
+		bots: bots,
+		ratio: ratio
+	};
 };
 
 async function saveItem(item, entity) {

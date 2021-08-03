@@ -126,11 +126,11 @@ class Maps {
 	static async generateTravelPathString(player, language, effect = null) {
 		const prevMapInstance = await player.getPreviousMap();
 		const nextMapInstance = await player.getDestination();
-		const time = effect !== null ? player.effectEndDate.getTime() - player.startTravelDate : this.getTravellingTime(player);
-		let percentage = time / hoursToMilliseconds(player.getCurrentTripDuration());
+		const time = this.getTravellingTime(player);
+		let percentage = time / hoursToMilliseconds(await player.getCurrentTripDuration());
 
-		const remainingHours = Math.floor(player.getCurrentTripDuration() - time);
-		const remainingMinutes = player.getCurrentTripDuration() - time - Math.floor(player.getCurrentTripDuration() - time);
+		const remainingHours = Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time));
+		const remainingMinutes = Math.round(hoursToMinutes(await player.getCurrentTripDuration() - millisecondsToHours(time) - Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time))));
 		const timeRemainingString = "[" + remainingHours + "h" + remainingMinutes + "]";
 		if (percentage > 1) {
 			percentage = 1;
