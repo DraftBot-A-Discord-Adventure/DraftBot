@@ -7,15 +7,13 @@ class Maps {
 	 * @returns {Number[]}
 	 */
 	static async getNextPlayerAvailableMaps(player, restrictedMapType) {
-		let map, previousMap;
-
 		if (!player.mapLinkId) {
 			player.mapLinkId = (await MapLinks.getRandomLink()).id;
 		}
-		else {
-			map = await player.getDestinationId();
-			previousMap = await player.getPreviousMapId();
-		}
+
+		const map = await player.getDestinationId();
+		const previousMap = await player.getPreviousMapId();
+
 		const nextMaps = [];
 
 		const nextMapIds = await MapLocations.getMapConnected(map, previousMap, restrictedMapType);
@@ -132,7 +130,7 @@ class Maps {
 		const remainingHours = Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time));
 		let remainingMinutes =
 			Math.floor(hoursToMinutes(await player.getCurrentTripDuration() - millisecondsToHours(time) -
-			Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time))));
+				Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time))));
 		if (remainingMinutes === remainingHours && remainingHours === 0) {
 			remainingMinutes++;
 		}
