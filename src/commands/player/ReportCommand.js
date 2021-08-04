@@ -163,7 +163,9 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	let desc = tr.chooseDestinationIndications + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
-		desc += destinationChoiceEmotes[i] + " - " + map.getDisplayName(language) + "\n";
+		const link = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[i]);
+		const duration = draftbotRandom.bool() ? link.tripDuration : "?";
+		desc += destinationChoiceEmotes[i] + " - " + map.getDisplayName(language) + " (" + duration + "h)\n";
 	}
 	chooseDestinationEmbed.setDescription(desc);
 
