@@ -140,7 +140,11 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 		}
 	}
 
-	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
+	travelEmbed.addField("Points récoltés", "🏅 150",true);
+	// travelEmbed.addField("Points récoltés", "🏅 150",true);
+	// travelEmbed.addField("Prochaine récompense d'aventure", "🏅 25", true);
+
+	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], true);
 	return await message.channel.send(travelEmbed);
 };
 
@@ -312,7 +316,8 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		scoreChange = forcePoints;
 	}
 	else {
-		scoreChange = time + draftbotRandom.integer(0, time / REPORT.BONUS_POINT_TIME_DIVIDER) + entity.Player.PlayerSmallEvents.length * REPORT.POINTS_BY_SMALL_EVENT;
+		// TODO : ADD SCORE FROM SMALL EVENT
+		scoreChange = time + draftbotRandom.integer(0, time / REPORT.BONUS_POINT_TIME_DIVIDER);
 	}
 	let moneyChange = pDataValues.money + Math.round(time / 10 + draftbotRandom.integer(0, time / 10 + player.level / 5 - 1));
 	if (pDataValues.money < 0 && moneyChange > 0) {
