@@ -69,6 +69,26 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * calculate how much points a players gained thanks to the small events
+	 * @param {Players} player
+	 * @returns {number} The score of the player thanks to the small events he did
+	 */
+	PlayerSmallEvents.calculateCurrentScore = async (player) => {
+		const numberOfSmallEventsDone = player.PlayerSmallEvents.length;
+		const tripDuration = await player.getCurrentTripDuration();
+		let somme = 0;
+		for (let i = 1 ; i <= numberOfSmallEventsDone; i++){
+			// By Pokegali Le sang (et romain22222 pour sa tentative)
+			// vive la tangente hyperbolique
+			const init = 75 + ((tripDuration - 1) / 2) ** 2;
+			somme += Math.floor(init * Math.tanh(-(i - 1) / (tripDuration ** 0.75 * 2)) + init + 5);
+		}
+
+		return somme;
+	};
+
+
+	/**
 	 * Removes all the small events of a player
 	 * @param {Number} playerId
 	 * @returns {Promise<void>}
