@@ -118,7 +118,7 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 	}
 	else {
 		const milisecondsBeforeSmallEvent = entity.Player.PlayerSmallEvents.length !== 0 ?
-			0 : entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS - Date.now();
+			PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents).time + REPORT.TIME_BETWEEN_MINI_EVENTS - Date.now() : 0;
 		const milisecondsBeforeBigEvent = hoursToMilliseconds(await entity.Player.getCurrentTripDuration()) - Maps.getTravellingTime(entity.Player);
 		if (milisecondsBeforeSmallEvent >= milisecondsBeforeBigEvent) {
 			// if there is no small event before the big event, do not display anything
