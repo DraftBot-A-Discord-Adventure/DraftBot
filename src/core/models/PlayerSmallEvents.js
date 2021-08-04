@@ -19,7 +19,7 @@ module.exports = (Sequelize, DataTypes) => {
 		eventType: {
 			type: DataTypes.TEXT
 		},
-		number: {
+		time: {
 			type: DataTypes.INTEGER
 		},
 		updatedAt: {
@@ -41,13 +41,13 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Creates a PlayerSmallEvents object. DOES NOT SAVE IT, you have to do it yourself
 	 * @param {Number} playerId
 	 * @param {String|string} eventType
-	 * @param {Number} number
+	 * @param {Number} time
 	 * @returns {PlayerSmallEvents}
 	 */
-	PlayerSmallEvents.createPlayerSmallEvent = (playerId, eventType, number) => PlayerSmallEvents.build({
+	PlayerSmallEvents.createPlayerSmallEvent = (playerId, eventType, time) => PlayerSmallEvents.build({
 		playerId: playerId,
 		eventType: eventType,
-		number: number
+		time: time
 	});
 
 	/**
@@ -61,7 +61,7 @@ module.exports = (Sequelize, DataTypes) => {
 			if (mostRecent === null) {
 				mostRecent = i;
 			}
-			else if (i.createdAt >= mostRecent.createdAt) {
+			else if (i.time >= mostRecent.time) {
 				mostRecent = i;
 			}
 		}

@@ -15,4 +15,6 @@ CREATE TABLE players (id INTEGER PRIMARY KEY, score INTEGER NOT NULL, weeklyScor
 INSERT INTO players SELECT * FROM players_backup;
 DROP TABLE players_backup;
 
+ALTER TABLE player_small_events RENAME number TO time;
+
 -- Down
