@@ -116,22 +116,34 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 		const errorMessageObject = effectsErrorMeTextValue(message, language, entity, effect);
 		travelEmbed.addField(errorMessageObject.title, errorMessageObject.description, false);
 	}
-	else if (entity.Player.PlayerSmallEvents.length !== 0) {
-
-		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-		travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescription, {
-			smallEventEmoji: JsonReader.smallEvents[lastMiniEvent.eventType].emote,
-			time: parseTimeDifference(lastMiniEvent.time + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
-		}), false);
-	}
 	else {
-		travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescriptionWithoutSmallEvent, {
-			time: parseTimeDifference(entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
-		}), false);
+		const milisecondsBeforeSmallEvent = entity.Player.PlayerSmallEvents.length !== 0 ?
+			0 : entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS - Date.now();
+		const milisecondsBeforeBigEvent = hoursToMilliseconds(await entity.Player.getCurrentTripDuration()) - Maps.getTravellingTime(entity.Player);
+		if (milisecondsBeforeSmallEvent >= milisecondsBeforeBigEvent) {
+			// if there is no small event before the big event, do not display anything
+			travelEmbed.addField(tr.travellingTitle, tr.travellingDescriptionEndTravel, false);
+		}
+
+		else if (entity.Player.PlayerSmallEvents.length !== 0) {
+			// the first mini event of the travel is calculated differently
+			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
+			travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescription, {
+				smallEventEmoji: JsonReader.smallEvents[lastMiniEvent.eventType].emote,
+				time: parseTimeDifference(lastMiniEvent.time + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+			}), false);
+		}
+		else {
+			travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescriptionWithoutSmallEvent, {
+				time: parseTimeDifference(entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+			}), false);
+		}
 	}
+
 	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
 	return await message.channel.send(travelEmbed);
 };
+
 
 const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
 
