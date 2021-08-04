@@ -65,7 +65,7 @@ module.exports = (Sequelize, DataTypes) => {
 			endMap: idEndPoint
 		}
 	});
-	
+
 	/**
 	 * @param {Number} idStartPoint
 	 * @returns {Promise<null | MapLinks>}
@@ -75,7 +75,6 @@ module.exports = (Sequelize, DataTypes) => {
 			startMap: idStartPoint,
 		}
 	});
-	
 
 	/**
 	 * @param {Number} idStartPoint
