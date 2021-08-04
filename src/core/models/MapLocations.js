@@ -114,7 +114,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {Promise<[MapLocations]>}
 	 */
 	MapLocations.getMapConnected = async (mapId, blacklistId, mapTypes = null) => {
-		if (!blacklistId){
+		if (!blacklistId) {
 			blacklistId = -1;
 		}
 		if (mapTypes) {
@@ -163,12 +163,8 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	MapLocations.getPlayersOnMap = async function(mapId, previousMapId, playerId) {
-		const query = "SELECT discordUserId " +
-			"FROM players " +
-			"JOIN entities ON players.entityId = entities.id " +
-			"WHERE players.id != :playerId " +
-			"AND players.mapLinkId IN (SELECT id from map_links WHERE (startMap = :pMapId AND endMap = :mapId) OR (startMap = :mapId AND endMap = :pMapId)" +
-			"ORDER BY RANDOM();";
+		const query = "SELECT discordUserId FROM players JOIN entities ON players.entityId = entities.id WHERE players.id != :playerId AND players.mapLinkId IN (" +
+			"SELECT id from map_links WHERE (startMap = :pMapId AND endMap = :mapId) OR (startMap = :mapId AND endMap = :pMapId)) ORDER BY RANDOM();";
 		return await Sequelize.query(query, {
 			replacements: {
 				mapId: mapId,

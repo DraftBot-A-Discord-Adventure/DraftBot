@@ -134,7 +134,9 @@ class Maps {
 		if (remainingMinutes === remainingHours && remainingHours === 0) {
 			remainingMinutes++;
 		}
-
+		if (remainingMinutes < 10){
+			remainingMinutes = "0" + remainingMinutes;
+		}
 		const timeRemainingString = "**[" + remainingHours + "h" + remainingMinutes + "]**";
 		if (percentage > 1) {
 			percentage = 1;

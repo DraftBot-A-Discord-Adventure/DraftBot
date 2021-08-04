@@ -23,6 +23,10 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
 	}
 
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
 	if (!entity.Player.currentEffectFinished()) {
 		return await sendTravelPath(entity, message, language, entity.Player.effect);
 	}
@@ -140,7 +144,7 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 		}
 	}
 
-	travelEmbed.addField("Points récoltés", "🏅 150",true);
+	travelEmbed.addField("Points récoltés", "🏅 150", true);
 	// travelEmbed.addField("Points récoltés", "🏅 150",true);
 	// travelEmbed.addField("Prochaine récompense d'aventure", "🏅 25", true);
 
@@ -201,7 +205,6 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	});
 
 	await addBlockedPlayer(entity.discordUserId, "chooseDestination", collector);
-
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		try {
 			await sentMessage.react(destinationChoiceEmotes[i]);
