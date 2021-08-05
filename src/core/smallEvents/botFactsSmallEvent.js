@@ -12,8 +12,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
 	const base = JsonReader.smallEvents.botFacts.emote + " " + translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)];
 
-	// const outReceived = draftbotRandom.pick(Object.keys(translationBF.possiblesInfos));
-	const outReceived = "nbPlayersOnYourMap";
+	const outReceived = draftbotRandom.pick(Object.keys(translationBF.possiblesInfos));
 	let result;
 	let complement = "";
 	let array = [];
