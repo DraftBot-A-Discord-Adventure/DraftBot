@@ -1,0 +1,205 @@
+{
+  "map_location_ids": [
+    14
+  ],
+  "translations": {
+    "fr": "📬 Alors que vous passez au bord du lac Mirage, vous remarquez un homme vous faisant signe d'un peu plus loin. Intrigué, vous décidez de le rejoindre. L'homme se présente à vous comme étant coursier et vous implore de l'aider. Vous remarquez qu'il est épuisé et mal en point. Il vous demande de livrer le colis qu'il possède avant la tombée de la nuit, à une maison isolée relativement proche. Il vous dit qu'en échange de cette bonne action, l'homme qui réceptionnera le colis vous offrira un sac rempli de pièces d'or.",
+    "en": "📬 As you pass by the shore of Mirage Lake, you notice a man waving at you from a little farther away. Intrigued, you decide to join him. The man introduces himself to you as a courier and begs you to help him. You notice that he is exhausted and in a bad way. He asks you to deliver the package he has before nightfall to a secluded house nearby. He tells you that in exchange for this good deed, the man who receives the package will offer you a bag full of gold coins."
+  },
+  "possibilities": {
+    "✅": {
+      "translations": {
+        "fr": "Accepter de livrer le colis",
+        "en": "Agree to deliver the package"
+      },
+      "issues": [
+        {
+          "translations": {
+            "fr": "Sans que rien de particulier ne se passe sur la route, vous réussissez à atteindre le bâtiment où vous devez livrer votre colis. Un homme en sort et vous tends votre dû. Vous repartez vers la suite de vos aventures.",
+            "en": "With nothing special happening on the road, you succeed in reaching the building where you have to deliver your package. A man comes out and hands you your due. You set off again for the next part of your adventures."
+          },
+          "lostTime": 15,
+          "health": 0,
+          "effect": ":clock2:",
+          "experience": 125,
+          "money": 500,
+          "item": false
+        },
+        {
+          "translations": {
+            "fr": "Vous prenez le colis et partez dans la direction que le coursier vous indique. Vous tombez rapidement dans une embuscade et vous vous faites dérober le colis ainsi que votre bourse. Encore sous le choc, vous décidez de prendre un peu de repos sous un arbre proche.",
+            "en": "You pick up the package and head off in the direction the courier points you. You quickly fall into an ambush and get robbed of the package and your purse. Still in shock, you decide to take a rest under a nearby tree."
+          },
+          "lostTime": 20,
+          "health": 0,
+          "effect": ":clock2:",
+          "experience": 25,
+          "money": -200,
+          "item": false
+        },
+        {
+          "translations": {
+            "fr": "Vous prenez le colis des mains du coursier et partez vers la maison qu'il vous a indiqué. Arrivé à destination, vous vous retrouvez incapable de localiser la maison malgré de longues recherches. Vous décidez finalement de garder l'objet et de continuer votre route.",
+            "en": "You take the package from the courier's hands and leave for the house he indicated to you. Arrived at your destination, you find yourself unable to locate the house despite long research. You finally decide to keep the object and continue your way."
+          },
+          "lostTime": 75,
+          "health": 0,
+          "effect": ":clock2:",
+          "experience": 325,
+          "money": 0,
+          "item": true
+        }
+      ]
+    },
+    "🕵️": {
+      "translations": {
+        "fr": "Voler le colis",
+        "en": "Steal the package"
+      },
+      "issues": [
+        {
+          "translations": {
+            "fr": "Vous prenez le colis et le rangez dans votre besace. Vous affirmez à l'homme qu'il sera livré avant la tombée de la nuit. Un peu plus tard, vous ouvrez le colis et découvrez une magnifique toile. Vous continuez votre chemin et tombez sur un bâtiment d'expert en peinture, où vous décidez donc d'aller faire expertiser la toile que vous venez de dérober. Vous montrez votre œuvre au peintre, qui vous insulte de tous les noms à la vue de celle-ci. C'était à lui que le colis était destiné ! Vous décidez donc de le dédommager et vous lui présentez vos excuses. Pris de remords, vous reprenez chemin immédiatement.",
+            "en": "You take the package and store it in your bag. You assure the man that it will be delivered before nightfall. A bit later, you open the package and discover a beautiful painting. You continue on your way and come across a painting expert's building, where you decide to get the painting you just stole assessed. You show your work to the painter, who calls you every name under the sun. It was to him that the package was intended! You decide to compensate him and you apologize to him. Taken with remorse, you immediately return to your way."
+          },
+          "lostTime": 0,
+          "health": 0,
+          "effect": ":smiley:",
+          "experience": 150,
+          "money": -80,
+          "item": false
+        },
+        {
+          "translations": {
+            "fr": "Vous prenez le colis. Sur votre route, vous croisez le chemin d'un marchand ambulant. Vous l'interpellez pour qu'il vous achète le colis. Vous en tirez un très bon prix. Vous continuez votre route, sans le moindre remord.",
+            "en": "You take the package. On your road, you cross the path of an itinerant trader. You call out to him to buy the package. You get a very good price for it. You continue on your way, without any remorse."
+          },
+          "lostTime": 0,
+          "health": 0,
+          "effect": ":smiley:",
+          "experience": 250,
+          "money": 300,
+          "item": false
+        },
+        {
+          "translations": {
+            "fr": "Vous promettez au coursier de livrer le colis et rentrez dans l'auberge qui vous a logé la nuit précédente. Vous décidez d'ouvrir le colis afin d'en voir le contenu et découvrez qu'il est totalement vide. Quel gâchis !",
+            "en": "You promise to the courier to deliver the package and return to the inn that hosted you the night before. You decide to open the package in order to see the content and find out that it is completely empty. What a waste !"
+          },
+          "lostTime": 10,
+          "health": 0,
+          "effect": ":clock2:",
+          "experience": 25,
+          "money": 0,
+          "item": false
+        },
+        {
+          "translations": {
+            "fr": "Vous décidez de voler le colis et de le revendre. N'étant cependant pas bien pressé, vous décidez de vous asseoir près d'une rivière. Vous êtes rapidement rejoint par ce qui semble être un marchand ambulant. N'ayant aucun besoin de ses babioles, vous lui proposez d'acheter le colis. L'homme, à la curiosité piquée par votre misterieux colis, accepte votre offre. Vous ne connaitrez jamais le contenu de ce colis mais les quelques pièces que vous en avez tiré vous suffisent.",
+            "en": "You decide to steal the package and resell it. However, since you were not in a hurry, you decide to sit down near a river. You quickly joiny by what seems to be a wandering trader. Having no need for his trinkets, you offer to buy the package. The man, at the curiosity picked by your mysterious packet, accepts your offer. You will never know the contents of this package but the few pieces you have taken from it are enough for you."
+          },
+          "lostTime": 0,
+          "health": 0,
+          "effect": ":smiley:",
+          "experience": 250,
+          "money": 200,
+          "item": false
+        },
+        {
+          "translations": {
+            "fr": "Vous partez avec le colis et dites au coursier qu'il arrivera à bon port. Quelques minutes après vous rencontrez une femme avec une allure de marchande. Celle-ci vous explique qu'elle n'a pas d'argent, mais qu'elle peut échanger votre colis contre un objet de sa carriole. Vous troquez le paquet contre un objet que vous pensez être utile et continuez votre route.",
+            "en": "You leave with the package and tell the courier that it will arrive safely. A few minutes later you meet a woman who looks like a merchant. She explains to you that she has no money, but that she can exchange your package for an item from her cart. You trade the packet for an item you think it's useful and continuing your journey."
+          },
+          "lostTime": 0,
+          "health": 0,
+          "effect": ":smiley:",
+          "experience": 450,
+          "money": 0,
+          "item": true
+        }
+      ]
+    },
+    "❌": {
+      "translations": {
+        "fr": "Refuser poliment",
+        "en": "Politely decline"
+      },
+      "issues": [
+        {
+          "translations": {
+            "fr": "Vous refusez poliment, expliquant que vous êtes occupé. Vous partez vous reposer sous un arbre voisin.",
+            "en": "You Politely decline, explaining that you are occupied. You go to rest under a nearby tree."
+          },
+          "lostTime": 15,
+          "health": 0,
+          "effect": ":clock2:",
+          "experience": 25,
+          "money": 0,
+          "item": false
+        },
+        {
+          "translations": {
+            "fr": "Vous refusez et l'homme s'excuse du dérangement. Vous changez rapidement de sujet et discutez avec lui. Après quelques minutes de conversation, il vous propose un casse-croûte. Cette petite pause n'aura pas été une totale perte de temps, vous vous êtes fait un ami.",
+            "en": "You refuse and the man apologizes for the inconvenience. You quickly change the subject and chat with him. After a few minutes of conversation, he offers you a snack. This little break won't have been a total waste of time, you made a friend."
+          },
+          "lostTime": 30,
+          "health": 10,
+          "effect": ":clock2:",
+          "experience": 225,
+          "money": 0,
+          "item": false
+        },
+        {
+          "translations": {
+            "fr": "Vous refusez poliment l'offre. L'homme outré vous lance le colis au visage et vous ordonne de le livrer à sa place ! Vous prenez le colis pour vous et partez loin de cet odieux personnage. Vous en sortez avec un joli bleu au visage et un objet qui vous sera sûrement utile.",
+            "en": "You politely reject the offer. The outraged man throws the package in your face and orders you to deliver it for him! You take the package for yourself and go away from this obnoxious character. You come out with a pretty bruise on your face and an item that will surely come in handy."
+          },
+          "lostTime": 0,
+          "health": -10,
+          "effect": ":smiley:",
+          "experience": 0,
+          "money": 0,
+          "item": true
+        }
+      ]
+    },
+    "end": [
+      {
+        "translations": {
+          "fr": "\uD83D\uDE36 Vous restez muet devant l'homme. Celui-ci ne sait pas trop comment réagir face à votre béatitude. Après 5 minutes, il décide d'accoster un autre homme pour lui faire livrer le colis.",
+          "en": "\uD83D\uDE36 You remain silent in front of man. He doesn't quite know how to react to your bliss. After 5 minutes, he decides to accost another man to have the package delivered to him."
+        },
+        "lostTime": 5,
+        "health": 0,
+        "effect": ":clock2:",
+        "experience": 25,
+        "money": 0,
+        "item": false
+      },
+      {
+        "translations": {
+          "fr": "\uD83D\uDEB6 Vous hésitez puis finissez par refuser et continuez votre chemin sans vous préoccuper de l'avenir de ce colis.",
+          "en": "\uD83D\uDEB6 You hesitate then end up refusing and continue your journey without worrying about the future of this package."
+        },
+        "lostTime": 0,
+        "health": 0,
+        "effect": ":smiley:",
+        "experience": 150,
+        "money": 0,
+        "item": false
+      },
+      {
+        "translations": {
+          "fr": "\uD83D\uDEB6 Vous restez sans réponse face à cette proposition. L'homme ne vous dérange pas plus quand il comprend que vous n'accepterez pas sa requête. Vous le quittez pour continuer votre route.",
+          "en": "\uD83D\uDEB6 You have no answer to this proposition. The man is not disturbing you more when he understands that you will not accept his request. You leave it for continuing your journey."
+        },
+        "lostTime": 0,
+        "health": 0,
+        "effect": ":smiley:",
+        "experience": 150,
+        "money": 0,
+        "item": false
+      }
+    ]
+  }
+}
