@@ -487,8 +487,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getNbMeanPoints = async () => {
 		const query = `SELECT AVG(score)
-		               FROM Players
-		               WHERE score > 100`;
+                       FROM Players
+                       WHERE score > 100`;
 		return Math.round(
 			(await Sequelize.query(query, {
 				type: Sequelize.QueryTypes.SELECT
@@ -502,8 +502,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getMeanWeeklyScore = async () => {
 		const query = `SELECT AVG(weeklyScore)
-		               FROM Players
-		               WHERE score > 100`;
+                       FROM Players
+                       WHERE score > 100`;
 		return Math.round(
 			(await Sequelize.query(query, {
 				type: Sequelize.QueryTypes.SELECT
@@ -517,8 +517,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getNbPlayersHaventStartedTheAdventure = async () => {
 		const query = `SELECT COUNT(*)
-		               FROM Players
-		               WHERE effect = ":baby:"`;
+                       FROM Players
+                       WHERE effect = ":baby:"`;
 		return (await Sequelize.query(query, {
 			type: Sequelize.QueryTypes.SELECT
 		}))[0]["COUNT(*)"];
@@ -530,8 +530,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getLevelMean = async () => {
 		const query = `SELECT AVG(level)
-		               FROM Players
-		               WHERE score > 100`;
+                       FROM Players
+                       WHERE score > 100`;
 		return Math.round(
 			(await Sequelize.query(query, {
 				type: Sequelize.QueryTypes.SELECT
@@ -545,8 +545,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getNbMeanMoney = async () => {
 		const query = `SELECT AVG(money)
-		               FROM Players
-		               WHERE score > 100`;
+                       FROM Players
+                       WHERE score > 100`;
 		return Math.round(
 			(await Sequelize.query(query, {
 				type: Sequelize.QueryTypes.SELECT
@@ -559,8 +559,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getSumAllMoney = async () => {
 		const query = `SELECT SUM(money)
-		               FROM Players
-		               WHERE score > 100`;
+                       FROM Players
+                       WHERE score > 100`;
 		return (await Sequelize.query(query, {
 			type: Sequelize.QueryTypes.SELECT
 		}))[0]["SUM(money)"];
@@ -572,7 +572,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getRichestPlayer = async () => {
 		const query = `SELECT MAX(money)
-		               FROM Players`;
+                       FROM Players`;
 		return (await Sequelize.query(query, {
 			type: Sequelize.QueryTypes.SELECT
 		}))[0]["MAX(money)"];
@@ -585,13 +585,32 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getNbPlayersWithClass = async (classEntity) => {
 		const query = `SELECT COUNT(*)
-		               FROM Players
-		               WHERE class = :class
-				             AND score > 100`;
+                       FROM Players
+                       WHERE class = :class
+                         AND score > 100`;
 		return Math.round(
 			(await Sequelize.query(query, {
 				replacements: {
 					class: classEntity.id
+				},
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["COUNT(*)"]
+		);
+	};
+
+	/**
+	 * Count the amount of players that have the same link
+	 * @returns {number} number of player that have the same link
+	 */
+	Players.getNbPlayersOnYourMap = async function() {
+		const query = `SELECT COUNT(*)
+                       FROM Players
+                       WHERE mapLinkId = :link
+                         AND score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				replacements: {
+					link: this.mapLinkId
 				},
 				type: Sequelize.QueryTypes.SELECT
 			}))[0]["COUNT(*)"]
