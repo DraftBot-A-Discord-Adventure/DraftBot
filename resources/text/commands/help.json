@@ -125,7 +125,7 @@
 					"emote": ":military_medal:",
 					"usage": "badge",
 					"category": "util",
-					"description": "Les badges sont des distinctions très difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le discord du bot. (utilisez la commande `invite` pour en obtenir le lien)"
+					"description": "Les badges sont des distinctions difficiles à obtenir qui ont été crées pour récompenser les personnes ayant le plus soutenu le développement du bot. La liste des badges est disponible sur le guide du bot.\n(via ce lien : https://guide.draftbot.com/notions-avancees/badges)"
 				},
 				"drink": {
 					"emote": ":tropical_drink:",

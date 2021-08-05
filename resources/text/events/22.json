@@ -81,7 +81,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Après avoir mangé quelques fruits, vous repartez en ayant re-gagné de l'énergie.",
+						"fr": "Après avoir mangé quelques fruits, vous repartez en ayant regagné de l'énergie.",
 						"en": "After eating some fruit, you leave, having regained your energy."
 					},
 					"lostTime": 15,

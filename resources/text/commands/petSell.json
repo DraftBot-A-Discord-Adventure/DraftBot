@@ -4,7 +4,7 @@
 			"needArgs": "Veuillez préciser un prix pour finaliser la vente : `petsell [prix]`",
 			"sameGuild": "Vous ne pouvez pas acheter ce familier car le vendeur fait partie de votre guilde.",
 			"needNumber": "Le prix entré semble incorrect. Veuillez indiquer un nombre : `petsell [prix]`",
-			"badPrice": "Le prix doit être supérieur à `{minPrice}💰` et inférieur à `{maxPrice}💰`.",
+			"badPrice": "Le prix doit être supérieur à `{minPrice}\uD83D\uDCB0` et inférieur à `{maxPrice}\uD83D\uDCB0`.",
 			"isFeisty": "Vous ne pouvez pas vendre un familier fielleux.",
 			"petFieldName": "Familier vendu :",
 			"sellMessage": {
@@ -34,7 +34,7 @@
 			"needArgs": "You have to set a price to conclude the sale: `petsell [price]`",
 			"sameGuild": "You can't buy this pet, because the seller is part of your guild.",
 			"needNumber": "You have to define a number to conclude the sale: `petsell [price]`",
-			"badPrice": "The price must be higher than `100💰` and lower than `10000💰`",
+			"badPrice": "The price must be higher than `{minPrice}\uD83D\uDCB0` and lower than `{maxPrice}\uD83D\uDCB0`",
 			"isFeisty": "You can't sell a feisty pet.",
 			"petFieldName": "Pet sold:",
 			"sellMessage": {
