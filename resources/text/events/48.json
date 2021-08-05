@@ -91,12 +91,11 @@
             "en": "Ready to fight, you quickly lunge at your opponent, drawing your sword. The knight barely had time to draw his weapon before you came on him. At this moment you realize your mistake. He has an armor, not you. So you try to knock him out with the knob of your sword, several times. It seems to have confused him and you get ready to try again. But before you can do it, your opponent injures you at the leg. You are on the ground, unable to get up. The knight moves over you and raises his sword. You close your eyes, and hear your own scream."
           },
           "lostTime": 0,
-          "health": 0,
-          "effect": ":smiley:",
+          "health": -120,
+          "effect": ":dizzy_face:",
           "experience": 0,
           "money": 0,
-          "item": false,
-          "oneshot": true
+          "item": false
         }
       ]
     },

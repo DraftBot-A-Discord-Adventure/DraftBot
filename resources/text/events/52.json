@@ -3,8 +3,8 @@
     6
   ],
   "translations": {
-    "fr": "\uD83E\uDDD2 Alors que vous faites étape à Boug Coton, vous êtes interpellé par des enfants vous demandant de jouer avec eux.",
-    "en": "\uD83E\uDDD2 While you are making a stopover at Boug Coton, you are called out by children asking you to play with them."
+    "fr": "\uD83E\uDDD2 Alors que vous faites étape à Boug-Coton, vous êtes interpellé par des enfants vous demandant de jouer avec eux.",
+    "en": "\uD83E\uDDD2 While you are making a stopover at Boug-Coton, you are called out by children asking you to play with them."
   },
   "possibilities": {
     "⚔️": {
@@ -40,7 +40,7 @@
         {
           "translations": {
             "fr": "Sans le faire exprès, vous entaillez la joue d'un des enfants... Gêné, vous lui donnez quelques pièces afin qu'il puisse payer ses soins.",
-            "en": "Without doing it intentionally, you cut the cheek of one of the children... Embarassed, you give him some pieces so that he can pay for his care."
+            "en": "Without doing it intentionally, you cut the cheek of one of the children... Embarrassed, you give him some pieces so that he can pay for his care."
           },
           "lostTime": 0,
           "health": 0,
@@ -52,7 +52,7 @@
         {
           "translations": {
             "fr": "Très énergiques, les enfants vous font tourner en rond un moment. Après vingt minutes vous finissez cependant par mettre fin au jeu.",
-            "en": "Very energic, the kids turn you round for a while. However, after twenty minutes you put a stop to the game."
+            "en": "Very energetic, the kids turn you round for a while. However, after twenty minutes you put a stop to the game."
           },
           "lostTime": 20,
           "health": 0,
@@ -84,7 +84,7 @@
         {
           "translations": {
             "fr": "Vous expliquez aux enfants comment se placer pour tirer et ceux-ci s'en sortent très bien. Vous passez le reste de la journée à les entraîner au tir à l'arc. Avant que vous ne les quittiez vous êtes chaudement remercié par un petit présent de vos apprentis du jour. Vous reprenez la route, heureux d'avoir pu vous rendre utile.",
-            "en": "You explain to the children how to place themselves to shoot and the children do well. You spend the rest of the day training them in archery. Before you left them you were warmly thanked by a small present from your apprentices of the day. Vous reprenez la route, heureux d'avoir pu vous rendre utile."
+            "en": "You explain to the children how to place themselves to shoot and the children do well. You spend the rest of the day training them in archery. Before you left them you were warmly thanked by a small present from your apprentices of the day. You leave them and resume your journey"
           },
           "lostTime": 190,
           "health": 0,
@@ -160,7 +160,7 @@
         {
           "translations": {
             "fr": "Vous refusez de jouer avec les enfants et passez votre chemin.",
-            "en": "You refuse to play with childrens and go away."
+            "en": "You refuse to play with children and go away."
           },
           "lostTime": 0,
           "health": 0,

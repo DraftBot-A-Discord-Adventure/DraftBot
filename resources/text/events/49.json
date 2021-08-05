@@ -19,9 +19,9 @@
           "lostTime": 0,
           "health": 0,
           "effect": ":smiley:",
-          "experience": 450,
+          "experience": 150,
           "money": 0,
-          "item": true
+          "item": false
         },
         {
           "translations": {

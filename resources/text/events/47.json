@@ -53,12 +53,11 @@
             "en": "You take advantage of your knight status to visit the castle's lord, after introductions , you reveal the reason of your coming by sticking a dagger in his heart. The guards react immediately and surround you. One of them gives you a swordstrike that you manage to dodge, but another rushes at you and pierces you with his blade."
           },
           "lostTime": 0,
-          "health": 0,
-          "effect": ":smiley:",
+          "health": 120,
+          "effect": ":dizzy_face:",
           "experience": 0,
           "money": 0,
-          "item": false,
-          "oneshot": true
+          "item": false
         },
         {
           "translations": {
