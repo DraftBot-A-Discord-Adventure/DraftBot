@@ -53,7 +53,7 @@
 						"en": "You take advantage of your knight status to visit the castle's lord, after introductions , you reveal the reason of your coming by sticking a dagger in his heart. The guards react immediately and surround you. One of them gives you a swordstrike that you manage to dodge, but another rushes at you and pierces you with his blade."
 					},
 					"lostTime": 0,
-					"health": 120,
+					"health": -120,
 					"effect": ":dizzy_face:",
 					"experience": 0,
 					"money": 0,
@@ -233,43 +233,45 @@
 				}
 			]
 		},
-		"end": [
-			{
-				"translations": {
-					"fr": "🚶 Vous réfléchissez à l'offre du villageois mais n'y répondez pas. Il insiste et vous partez sans dire un mot, songeur.",
-					"en": "🚶 You think about the villager's offer but do not answer it. He insists and you leave without saying a word, thoughtful."
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🚶 Vous réfléchissez à l'offre du villageois mais n'y répondez pas. Il insiste et vous partez sans dire un mot, songeur.",
+						"en": "🚶 You think about the villager's offer but do not answer it. He insists and you leave without saying a word, thoughtful."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "🏃 Vous ne réagissez pas, et lorsque votre interlocuteur s’en va, vous fuyez le village pour ne pas avoir d'ennuis avec le seigneur.",
-					"en": "🏃 You do not react, and when your interlocutor leaves, you run away from the village so you don't get in trouble with the lord."
+				{
+					"translations": {
+						"fr": "🏃 Vous ne réagissez pas, et lorsque votre interlocuteur s’en va, vous fuyez le village pour ne pas avoir d'ennuis avec le seigneur.",
+						"en": "🏃 You do not react, and when your interlocutor leaves, you run away from the village so you don't get in trouble with the lord."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "🕵️ Vous réfléchissez à l'offre du villageois mais vous êtes rapidement appréhendé par des gardes ayant entendu la conversation. Vos protestations ne vous sauvent pas d'une journée en cellule.",
-					"en": "🕵️ You think about the villager's offer but you are quickly arrested by guards who overheard the conversation. Your protests do not save you one day in jail."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":lock:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "🕵️ Vous réfléchissez à l'offre du villageois mais vous êtes rapidement appréhendé par des gardes ayant entendu la conversation. Vos protestations ne vous sauvent pas d'une journée en cellule.",
+						"en": "🕵️ You think about the villager's offer but you are quickly arrested by guards who overheard the conversation. Your protests do not save you one day in jail."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":lock:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

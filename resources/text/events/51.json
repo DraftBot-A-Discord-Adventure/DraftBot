@@ -140,43 +140,45 @@
 				}
 			]
 		},
-		"end": [
-			{
-				"translations": {
-					"fr": "😴 Après avoir longtemps hésité face aux possibilités qui s'offrent à vous, le Soleil est sur le point de se coucher, vous vous installez donc afin de vous reposer.",
-					"en": "😴 After having hesitated for a long time in front of the possibilities open to you, the Sun is about to set, so you settle down to rest."
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "😴 Après avoir longtemps hésité face aux possibilités qui s'offrent à vous, le Soleil est sur le point de se coucher, vous vous installez donc afin de vous reposer.",
+						"en": "😴 After having hesitated for a long time in front of the possibilities open to you, the Sun is about to set, so you settle down to rest."
+					},
+					"lostTime": 0,
+					"health": 5,
+					"effect": ":sleeping:",
+					"money": 0,
+					"experience": 220,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 5,
-				"effect": ":sleeping:",
-				"money": 0,
-				"experience": 220,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "💥 Après avoir longtemps hésité face aux possibilités qui s'offrent à vous, vous décidez d'essayer de gravir une demi-douzaine de marches avant de changer d'avis, estimant l’ascension trop périlleuse. Alors que vous pivotez votre pied pour redescendre, celui-ci dérape et vous roulez en bas de l'escalier. Vous vous redressez péniblement pour constater avec peine que vous vous êtes méchamment entaillé. Vous reprenez votre route, dépité de ce fâcheux incident.",
-					"en": "💥 After hesitating for a long time about the possibilities available to you, you decide to try to climb half a dozen steps before changing your mind, finding the climb too perilous. As you pivot your foot back to go down, it slips and you roll down the stairs. You stand up painfully to see with difficulty that you are badly involved. You get back on your way, annoyed by this unfortunate incident."
+				{
+					"translations": {
+						"fr": "💥 Après avoir longtemps hésité face aux possibilités qui s'offrent à vous, vous décidez d'essayer de gravir une demi-douzaine de marches avant de changer d'avis, estimant l’ascension trop périlleuse. Alors que vous pivotez votre pied pour redescendre, celui-ci dérape et vous roulez en bas de l'escalier. Vous vous redressez péniblement pour constater avec peine que vous vous êtes méchamment entaillé. Vous reprenez votre route, dépité de ce fâcheux incident.",
+						"en": "💥 After hesitating for a long time about the possibilities available to you, you decide to try to climb half a dozen steps before changing your mind, finding the climb too perilous. As you pivot your foot back to go down, it slips and you roll down the stairs. You stand up painfully to see with difficulty that you are badly involved. You get back on your way, annoyed by this unfortunate incident."
+					},
+					"lostTime": 10,
+					"health": -10,
+					"effect": ":clock2:",
+					"money": 0,
+					"experience": 0,
+					"item": false
 				},
-				"lostTime": 10,
-				"health": -10,
-				"effect": ":clock2:",
-				"money": 0,
-				"experience": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "🦊 Vous vous asseyez sur le sol tapissé de trèfles afin de réfléchir à ce que vous avez envie de faire. Promptement, un renard vous fait face. Il se rapproche doucement de vous et finit par atteindre une de vos mains, pose sa truffe dessus, jappe à votre encontre et s'enfuit. Vous décidez de suivre le chemin que cet amical animal vient de tracer pour vous.",
-					"en": "🦊 You sit down on the ground lined with clovers to think about what you want to do. Quickly, a fox faces you. He slowly approaches you and ends up reaching for one of your hands, puts his nose on it, yaps at you and runs away. You decide to follow the path this friendly animal has just blazed for you."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"money": 0,
-				"experience": 150,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "🦊 Vous vous asseyez sur le sol tapissé de trèfles afin de réfléchir à ce que vous avez envie de faire. Promptement, un renard vous fait face. Il se rapproche doucement de vous et finit par atteindre une de vos mains, pose sa truffe dessus, jappe à votre encontre et s'enfuit. Vous décidez de suivre le chemin que cet amical animal vient de tracer pour vous.",
+						"en": "🦊 You sit down on the ground lined with clovers to think about what you want to do. Quickly, a fox faces you. He slowly approaches you and ends up reaching for one of your hands, puts his nose on it, yaps at you and runs away. You decide to follow the path this friendly animal has just blazed for you."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"money": 0,
+					"experience": 150,
+					"item": false
+				}
+			]
+		}
 	}
 }

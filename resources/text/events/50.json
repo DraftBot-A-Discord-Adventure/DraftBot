@@ -139,31 +139,33 @@
 				}
 			]
 		},
-		"end": [
-			{
-				"translations": {
-					"fr": "Vous regardez un moment le spectacle des villageois en train de récolter ces fruits singuliers et reprenez votre route sous le soleil ardent.",
-					"en": "You watch for a moment the spectacle of the villagers harvesting these singular fruits and resume your journey under the blazing sun."
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous regardez un moment le spectacle des villageois en train de récolter ces fruits singuliers et reprenez votre route sous le soleil ardent.",
+						"en": "You watch for a moment the spectacle of the villagers harvesting these singular fruits and resume your journey under the blazing sun."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "L'un de ces fruits tombe à côté de vous. Vous le prenez dans vos mains et l'examinez avec attention avant de reprendre votre route.",
-					"en": "One of these fruits falls next to you. You take it in your hands and examine it carefully before resuming your journey."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "L'un de ces fruits tombe à côté de vous. Vous le prenez dans vos mains et l'examinez avec attention avant de reprendre votre route.",
+						"en": "One of these fruits falls next to you. You take it in your hands and examine it carefully before resuming your journey."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

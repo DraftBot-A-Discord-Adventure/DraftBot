@@ -44,7 +44,7 @@
 					},
 					"lostTime": 60,
 					"health": 0,
-					"effect": ":clock_2:",
+					"effect": ":clock2:",
 					"experience": 125,
 					"money": 500,
 					"item": false
@@ -191,67 +191,69 @@
 				}
 			]
 		},
-		"end": [
-			{
-				"translations": {
-					"fr": "\uD83D\uDEB6 Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Finalement, vous reprenez votre chemin.",
-					"en": "\uD83D\uDEB6 You watch the knight, not knowing what to do about this colossus in armor. Finally, you get back on your way."
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "\uD83D\uDEB6 Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Finalement, vous reprenez votre chemin.",
+						"en": "\uD83D\uDEB6 You watch the knight, not knowing what to do about this colossus in armor. Finally, you get back on your way."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "\uD83E\uDD14 Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Prenant votre courage à deux mains, vous l'affrontez en duel... Et êtes misérablement vaincu par celui-ci. Blessé, vous repartez en rampant et trouvez un abri où vous reposer.",
-					"en": "\uD83E\uDD14 You watch the knight, not knowing what to do about this colossus in armor. Taking your courage in both hands, you face him in a duel...\nand are miserably defeated by him. Injured, you crawl back and find a shelter where you can rest."
+				{
+					"translations": {
+						"fr": "\uD83E\uDD14 Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Prenant votre courage à deux mains, vous l'affrontez en duel... Et êtes misérablement vaincu par celui-ci. Blessé, vous repartez en rampant et trouvez un abri où vous reposer.",
+						"en": "\uD83E\uDD14 You watch the knight, not knowing what to do about this colossus in armor. Taking your courage in both hands, you face him in a duel...\nand are miserably defeated by him. Injured, you crawl back and find a shelter where you can rest."
+					},
+					"lostTime": 0,
+					"health": -40,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": -40,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "\uD83C\uDF0C Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Soudain, vous vient une idée, vous attendez qu'il fasse nuit et d'être dans le noir total avant de vous diriger discrètement vers la tour. La porte est fermée, le chevalier disparu. Vous escaladez la tour et entrez par une fenêtre. Vous la fouillez de fond en comble, mais ne trouvez rien à part de la nourriture. Vous mangez sur place et en prenez autant que possible. Ce bon repas vous à redonner des forces, vous vous sentez à présent mieux que jamais.",
-					"en": "\uD83C\uDF0C You watch the knight, not knowing what to do about this colossus in armor. You suddenly have an idea, you wait until the night and be in total darkness before you discreetly go towards the tower. The door is closed, the knight gone. You climb the tower and enter by a window. You rummage through it from top to bottom but find nothing except food. You eat on site and take as much as you can. This good meal has restored your strengths, you are now feeling better than ever."
+				{
+					"translations": {
+						"fr": "\uD83C\uDF0C Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Soudain, vous vient une idée, vous attendez qu'il fasse nuit et d'être dans le noir total avant de vous diriger discrètement vers la tour. La porte est fermée, le chevalier disparu. Vous escaladez la tour et entrez par une fenêtre. Vous la fouillez de fond en comble, mais ne trouvez rien à part de la nourriture. Vous mangez sur place et en prenez autant que possible. Ce bon repas vous à redonner des forces, vous vous sentez à présent mieux que jamais.",
+						"en": "\uD83C\uDF0C You watch the knight, not knowing what to do about this colossus in armor. You suddenly have an idea, you wait until the night and be in total darkness before you discreetly go towards the tower. The door is closed, the knight gone. You climb the tower and enter by a window. You rummage through it from top to bottom but find nothing except food. You eat on site and take as much as you can. This good meal has restored your strengths, you are now feeling better than ever."
+					},
+					"lostTime": 0,
+					"health": 30,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 30,
-				"effect": ":smiley:",
-				"experience": 350,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "\uD83E\uDEC2 Ne sachant que faire, vous engagez la discussion et sympathisez avec le chevalier. Vous aiguillez progressivement la discussion sur l'artefact et jouissez par avance de votre talent d'orateur. Le chevalier, convaincu que vous êtes digne de le posséder, s'en va vous chercher l'artefact. Il vous le rapporte, comme promis. Vous le remerciez et partez à la recherche d'un acheteur. Vous croisez ce qui semble être un marchand, mais c'est en réalité un voleur qui vous tire une flèche dans la jambe. Il vous vole l'artefact et s'en va en courant. Blessé et impuissant, vous le regardez fuir avec votre butin.",
-					"en": "\uD83E\uDEC2 Not knowing what to do, you engage the discussion and sympathize with the knight. You gradually get the discussion on the artifact and enjoy your speaker talent in advance. The knight, convinced that you are worthy of possessing it, will get you the artifact. He brings it to you, as promised. You thank him and go to search for someone to buy it. You see what seems to be a merchant, but it was a thief shooting you an arrow in the leg. He steals the artifact from you and runs away. Blessed and helpless, you watch him running away with your loot."
+				{
+					"translations": {
+						"fr": "\uD83E\uDEC2 Ne sachant que faire, vous engagez la discussion et sympathisez avec le chevalier. Vous aiguillez progressivement la discussion sur l'artefact et jouissez par avance de votre talent d'orateur. Le chevalier, convaincu que vous êtes digne de le posséder, s'en va vous chercher l'artefact. Il vous le rapporte, comme promis. Vous le remerciez et partez à la recherche d'un acheteur. Vous croisez ce qui semble être un marchand, mais c'est en réalité un voleur qui vous tire une flèche dans la jambe. Il vous vole l'artefact et s'en va en courant. Blessé et impuissant, vous le regardez fuir avec votre butin.",
+						"en": "\uD83E\uDEC2 Not knowing what to do, you engage the discussion and sympathize with the knight. You gradually get the discussion on the artifact and enjoy your speaker talent in advance. The knight, convinced that you are worthy of possessing it, will get you the artifact. He brings it to you, as promised. You thank him and go to search for someone to buy it. You see what seems to be a merchant, but it was a thief shooting you an arrow in the leg. He steals the artifact from you and runs away. Blessed and helpless, you watch him running away with your loot."
+					},
+					"lostTime": 0,
+					"health": -20,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": -20,
-				"effect": ":head_bandage:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "\uD83D\uDE15 Ne sachant que faire, vous engagez la discussion et sympathisez avec le chevalier. Vous aiguillez progressivement la discussion sur l'artefact et jouissez par avance de votre talent d'orateur. Contre toute attente, lorsque vous lui demandez l'artefact, celui-ci refuse. Ne souhaitant guère le contrarier, vous n'insistez pas plus et discutez un peu avec le chevalier avant de reprendre votre chemin.",
-					"en": "\uD83D\uDE15 Not knowing what to do, you engage the discussion and sympathize with the knight. You gradually get the discussion on the artifact and enjoy your speaker talent in advance. Against all expectations, when you ask him about the artifact he refuses. Not wishing to bother him, you do not insist more and talk to the knight a little before you get back to your path."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "\uD83D\uDE15 Ne sachant que faire, vous engagez la discussion et sympathisez avec le chevalier. Vous aiguillez progressivement la discussion sur l'artefact et jouissez par avance de votre talent d'orateur. Contre toute attente, lorsque vous lui demandez l'artefact, celui-ci refuse. Ne souhaitant guère le contrarier, vous n'insistez pas plus et discutez un peu avec le chevalier avant de reprendre votre chemin.",
+						"en": "\uD83D\uDE15 Not knowing what to do, you engage the discussion and sympathize with the knight. You gradually get the discussion on the artifact and enjoy your speaker talent in advance. Against all expectations, when you ask him about the artifact he refuses. Not wishing to bother him, you do not insist more and talk to the knight a little before you get back to your path."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

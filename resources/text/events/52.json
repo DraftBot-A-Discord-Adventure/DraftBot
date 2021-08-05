@@ -195,43 +195,45 @@
 				}
 			]
 		},
-		"end": [
-			{
-				"translations": {
-					"fr": "\uD83D\uDEB6 Devant votre manque de répondant, les enfants se désintéressent de vous et vont jouer ailleurs. Vous reprenez donc votre route.",
-					"en": "\uD83D\uDEB6 Faced with your lack of respondent, the children lose interest in you and go to play elsewhere. So you resume your journey."
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "\uD83D\uDEB6 Devant votre manque de répondant, les enfants se désintéressent de vous et vont jouer ailleurs. Vous reprenez donc votre route.",
+						"en": "\uD83D\uDEB6 Faced with your lack of respondent, the children lose interest in you and go to play elsewhere. So you resume your journey."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "\uD83D\uDC5E Vous voyant perdu dans vos pensées les gamins vous attachent les lacets ensemble. Lorsque vous sortez de cet état de transe, vous trébuchez et tombez face contre terre.",
-					"en": "\uD83D\uDC5E Seeing you lost in your thoughts, the kids tie the laces together. When you come out of this trance state, you stumble and fall face down on the ground."
+				{
+					"translations": {
+						"fr": "\uD83D\uDC5E Vous voyant perdu dans vos pensées les gamins vous attachent les lacets ensemble. Lorsque vous sortez de cet état de transe, vous trébuchez et tombez face contre terre.",
+						"en": "\uD83D\uDC5E Seeing you lost in your thoughts, the kids tie the laces together. When you come out of this trance state, you stumble and fall face down on the ground."
+					},
+					"lostTime": 0,
+					"health": -5,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": -5,
-				"effect": ":smiley:",
-				"experience": 0,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "\uD83D\uDCB8 Vous restez planté là pendant des heures, et lorsque vous recouvrez vos esprits, vous vous rendez compte que votre bourse a disparu. Vous poursuivez votre chemin, dépité.",
-					"en": "\uD83D\uDCB8 You just sit there for hours, and when you come back to your senses, you realize your purse is gone. You continue on your way, annoyed."
-				},
-				"lostTime": 120,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": -100,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "\uD83D\uDCB8 Vous restez planté là pendant des heures, et lorsque vous recouvrez vos esprits, vous vous rendez compte que votre bourse a disparu. Vous poursuivez votre chemin, dépité.",
+						"en": "\uD83D\uDCB8 You just sit there for hours, and when you come back to your senses, you realize your purse is gone. You continue on your way, annoyed."
+					},
+					"lostTime": 120,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": -100,
+					"item": false
+				}
+			]
+		}
 	}
 }

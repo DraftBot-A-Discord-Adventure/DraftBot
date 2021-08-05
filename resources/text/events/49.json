@@ -125,43 +125,45 @@
 				}
 			]
 		},
-		"end": [
-			{
-				"translations": {
-					"fr": "🐚 Vous observez la créature se débattre de toutes ses forces pendant un petit moment puis repartez.",
-					"en": "🐚 You watch the creature struggle with all its strength for a little time, then leave."
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🐚 Vous observez la créature se débattre de toutes ses forces pendant un petit moment puis repartez.",
+						"en": "🐚 You watch the creature struggle with all its strength for a little time, then leave."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"money": 0,
+					"experience": 25,
+					"item": false
 				},
-				"lostTime": 10,
-				"health": 0,
-				"effect": ":clock2:",
-				"money": 0,
-				"experience": 25,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "🐚 Ce spectacle ne revêt aucun interêt à vos yeux et vous reprenez votre route immédiatement.",
-					"en": "🐚 This spectacle is of no interest to you and you continue on your way immediately."
+				{
+					"translations": {
+						"fr": "🐚 Ce spectacle ne revêt aucun interêt à vos yeux et vous reprenez votre route immédiatement.",
+						"en": "🐚 This spectacle is of no interest to you and you continue on your way immediately."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"money": 0,
+					"experience": 150,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"money": 0,
-				"experience": 150,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "🐚 Vous continuez sans faire attention à la créature, maladroit, vous marchez dans un trou et vous tordez la cheville. Il vous faudra vous soigner.",
-					"en": "🐚 You continue without paying attention to the creature, clumsy, you step in a hole and twist your ankle. You will need to heal yourself."
-				},
-				"lostTime": 60,
-				"health": -10,
-				"effect": ":clock2:",
-				"money": 0,
-				"experience": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "🐚 Vous continuez sans faire attention à la créature, maladroit, vous marchez dans un trou et vous tordez la cheville. Il vous faudra vous soigner.",
+						"en": "🐚 You continue without paying attention to the creature, clumsy, you step in a hole and twist your ankle. You will need to heal yourself."
+					},
+					"lostTime": 60,
+					"health": -10,
+					"effect": ":clock2:",
+					"money": 0,
+					"experience": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }

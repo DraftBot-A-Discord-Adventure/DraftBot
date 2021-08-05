@@ -163,43 +163,45 @@
 				}
 			]
 		},
-		"end": [
-			{
-				"translations": {
-					"fr": "\uD83D\uDE36 Vous restez muet devant l'homme. Celui-ci ne sait pas trop comment réagir face à votre béatitude. Après 5 minutes, il décide d'accoster un autre homme pour lui faire livrer le colis.",
-					"en": "\uD83D\uDE36 You remain silent in front of man. He doesn't quite know how to react to your bliss. After 5 minutes, he decides to accost another man to have the package delivered to him."
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "\uD83D\uDE36 Vous restez muet devant l'homme. Celui-ci ne sait pas trop comment réagir face à votre béatitude. Après 5 minutes, il décide d'accoster un autre homme pour lui faire livrer le colis.",
+						"en": "\uD83D\uDE36 You remain silent in front of man. He doesn't quite know how to react to your bliss. After 5 minutes, he decides to accost another man to have the package delivered to him."
+					},
+					"lostTime": 5,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 5,
-				"health": 0,
-				"effect": ":clock2:",
-				"experience": 25,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "\uD83D\uDEB6 Vous hésitez puis finissez par refuser et continuez votre chemin sans vous préoccuper de l'avenir de ce colis.",
-					"en": "\uD83D\uDEB6 You hesitate then end up refusing and continue your journey without worrying about the future of this package."
+				{
+					"translations": {
+						"fr": "\uD83D\uDEB6 Vous hésitez puis finissez par refuser et continuez votre chemin sans vous préoccuper de l'avenir de ce colis.",
+						"en": "\uD83D\uDEB6 You hesitate then end up refusing and continue your journey without worrying about the future of this package."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
 				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			},
-			{
-				"translations": {
-					"fr": "\uD83D\uDEB6 Vous restez sans réponse face à cette proposition. L'homme ne vous dérange pas plus quand il comprend que vous n'accepterez pas sa requête. Vous le quittez pour continuer votre route.",
-					"en": "\uD83D\uDEB6 You have no answer to this proposition. The man is not disturbing you more when he understands that you will not accept his request. You leave it for continuing your journey."
-				},
-				"lostTime": 0,
-				"health": 0,
-				"effect": ":smiley:",
-				"experience": 150,
-				"money": 0,
-				"item": false
-			}
-		]
+				{
+					"translations": {
+						"fr": "\uD83D\uDEB6 Vous restez sans réponse face à cette proposition. L'homme ne vous dérange pas plus quand il comprend que vous n'accepterez pas sa requête. Vous le quittez pour continuer votre route.",
+						"en": "\uD83D\uDEB6 You have no answer to this proposition. The man is not disturbing you more when he understands that you will not accept his request. You leave it for continuing your journey."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
 	}
 }
