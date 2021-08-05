@@ -1,169 +1,169 @@
 {
-  "map_location_ids": [
-    17
-  ],
-  "translations": {
-    "fr": "\uD83C\uDFDD️Lors de votre périple, vous atteignez un petit hameau du nom de village Coco, il fait très chaud et vous avez besoin de vous reposer. Les lieux ne vous semblants pas hostiles vous faites donc une halte dans cette oasis. Alors que vous vous reposez au pied d'un cocotier, vous apercevez un groupe de villageois escaladant les arbres pour attraper des fruits que vous n'aviez jamais vu auparavant, ils sont ronds comme des ballons et durs comme du bois et ne vous semblent pas appétissants.",
-    "en": "\uD83C\uDFDD️During your trip, you reach a small hamlet named Coco Village, it is very hot and you need to rest. The places do not seem hostile to you, so you make a stop in this oasis. While you are resting at the foot of a coconut tree, you see a group of villagers climbing trees to catch fruits you've never seen before, they are round like balloons and hard like wood and do not seem appealing."
-  },
-  "possibilities": {
-    "😴": {
-      "translations": {
-        "fr": "Continuer votre sieste au pied de l'arbre",
-        "en": "Continue your nap at the foot of the tree"
-      },
-      "issues": [
-        {
-          "translations": {
-            "fr": "Vous poursuivez votre sieste, mais l'un des fruits se décroche et vient s'écraser sur votre tête. Vous êtes blessé et saignez beaucoup, des villageois vous ayant aperçu viennent vous porter secours, il vous faudra un moment pour vous rétablir.",
-            "en": "You continue your nap, but one of the fruits unhooks and comes crashing down onto your head. You are wounded and bleed a lot, some villagers who saw you come to help you, you will have to take a moment to recover."
-          },
-          "lostTime": 0,
-          "health": -30,
-          "effect": ":head_bandage:",
-          "experience": 0,
-          "money": 0,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "Vous dormez un moment. Lorsque vous vous réveillez, vous constatez que le soleil commence à se coucher et la température diminuer, vous reprenez votre route, revigoré.",
-            "en": "You are sleeping for a moment. When you wake up to find that the sun is starting to set and the temperature is dropping, you resume your route, invigorated."
-          },
-          "lostTime": 60,
-          "health": 10,
-          "effect": ":clock2:",
-          "experience": 225,
-          "money": 0,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "Vous décidez de continuer votre sieste. À votre réveil, vous vous levez, prêt à partir, et remarquez qu'il vous manque quelque chose dans vos poches, il s'agit de votre porte-monnaie. Vous décidez donc de repartir, déçu.",
-            "en": "You decide to continue your nap. When you wake up, you get up, ready to go, and notice that you are missing something in your pockets, it is your wallet. So you decide to leave, disappointed."
-          },
-          "lostTime": 0,
-          "health": 0,
-          "effect": ":sleeping:",
-          "experience": 20,
-          "money": -50,
-          "item": false
-        }
-      ]
-    },
-    "🗣️": {
-      "translations": {
-        "fr": "Aborder les villageois pour les questionner",
-        "en": "Talk to the villagers to question them"
-      },
-      "issues": [
-        {
-          "translations": {
-            "fr": "Vous vous approchez des villageois et les questionnez à propos de ces étranges fruits. Ceux-ci vous expliquent que ce sont des noix de coco et que leur chair se mange lorsque la coque du fruit est ouverte et que leur jus est réputé à travers tout le pays. Les villageois vous proposent d'y goûter et vous ne dites pas non à l'offre. En effet, le jus est rafraîchissant et la chair apaise votre appétit. Vous repartez après avoir remercié les villageois pour cette découverte en leur donnant quelques pièces et reprenez votre chemin.",
-            "en": "You approach the villagers and ask them about these strange fruits. They explain to you that they are coconuts and that their flesh is eaten when the shell of the fruit is opened and that their juice is famous throughout the country. The villagers offer you to taste it and you do not say no to the offer. Indeed, the juice is refreshing and the chair soothes your appetite. You leave after having thanked the villagers for this discovery by giving them some coins and continue on your way."
-          },
-          "lostTime": 0,
-          "health": 15,
-          "effect": ":smiley:",
-          "experience": 350,
-          "money": -50,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "Vous vous approchez des villageois et les questionnez à propos de ces étranges fruits. Alors que l'un d'eux vous explique, les autres commencent à se rapprocher de vous. Brusquement, quelqu'un vous fait une clé de bras tandis que les autres se jettent sur vous pour vous dérober vos affaires. Après avoir préalablement été passé à tabac, vous reprenez votre route.",
-            "en": "You approach the villagers and ask them about these strange fruits. As one of them explains to you, the others start to draw closer to you. Suddenly, someone gives you an arm lock while the others throw themselves at you to steal your things. After having been beaten beforehand, you resume your journey."
-          },
-          "lostTime": 0,
-          "health": -15,
-          "effect": ":smiley:",
-          "experience": 0,
-          "money": -100,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "Vous vous approchez des villageois et les questionnez à propos de ces étranges fruits. Ceux-ci vous expliquent que ce sont des noix de coco et que leur chair se mange lorsque la coque du fruit est ouverte et que leur jus est réputé à travers tout le pays. Sur ces précieuses informations, vous reprenez la route.",
-            "en": "You approach the villagers and ask them about these strange fruits. They explain to you that they are coconuts and that their flesh is eaten when the shell of the fruit is opened and that their juice is famous throughout the country. With this precious information, you hit the road again."
-          },
-          "lostTime": 0,
-          "health": 0,
-          "effect": ":smiley:",
-          "experience": 150,
-          "money": 0,
-          "item": false
-        }
-      ]
-    },
-    "🚶": {
-      "translations": {
-        "fr": "Quitter le village sans plus attendre",
-        "en": "Leave the village without further waiting"
-      },
-      "issues": [
-        {
-          "translations": {
-            "fr": "Après vous être bien reposé, vous décidez de repartir, sans garder la moindre cerne sur le visage.",
-            "en": "After you have rested well, you decide to leave, without keeping the slightest dark circles on your face."
-          },
-          "lostTime": 0,
-          "health": 10,
-          "effect": ":smiley:",
-          "experience": 350,
-          "money": 0,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "Alors que vous vous apprêtiez à repartir, vous vous rendez compte que le groupe de villageois se dirige vers vous, il se mettent alors à vous racketter et vous leur donnez de l'argent pour qu'ils vous laissent tranquille.",
-            "en": "As you are about to leave, you realize that the group of villagers is heading towards you, they then begin to extort money from you and you give them money so that they leave you alone."
-          },
-          "lostTime": 0,
-          "health": 0,
-          "effect": ":smiley:",
-          "experience": 150,
-          "money": -100,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "Vous décidez de repartir, sans un regard, vous quittez le village Coco afin de continuer votre quête.",
-            "en": "You decide to leave, without a glance, you leave the Coco village to continue your quest."
-          },
-          "lostTime": 0,
-          "health": 0,
-          "effect": ":smiley:",
-          "experience": 150,
-          "money": 0,
-          "item": false
-        }
-      ]
-    },
-    "end": [
-      {
-        "translations": {
-          "fr": "Vous regardez un moment le spectacle des villageois en train de récolter ces fruits singuliers et reprenez votre route sous le soleil ardent.",
-          "en": "You watch for a moment the spectacle of the villagers harvesting these singular fruits and resume your journey under the blazing sun."
-        },
-        "lostTime": 10,
-        "health": 0,
-        "effect": ":clock2:",
-        "experience": 25,
-        "money": 0,
-        "item": false
-      },
-      {
-        "translations": {
-          "fr": "L'un de ces fruits tombe à côté de vous. Vous le prenez dans vos mains et l'examinez avec attention avant de reprendre votre route.",
-          "en": "One of these fruits falls next to you. You take it in your hands and examine it carefully before resuming your journey."
-        },
-        "lostTime": 0,
-        "health": 0,
-        "effect": ":smiley:",
-        "experience": 150,
-        "money": 0,
-        "item": false
-      }
-    ]
-  }
+	"map_location_ids": [
+		17
+	],
+	"translations": {
+		"fr": "\uD83C\uDFDD️Lors de votre périple, vous atteignez un petit hameau du nom de village Coco, il fait très chaud et vous avez besoin de vous reposer. Les lieux ne vous semblants pas hostiles vous faites donc une halte dans cette oasis. Alors que vous vous reposez au pied d'un cocotier, vous apercevez un groupe de villageois escaladant les arbres pour attraper des fruits que vous n'aviez jamais vu auparavant, ils sont ronds comme des ballons et durs comme du bois et ne vous semblent pas appétissants.",
+		"en": "\uD83C\uDFDD️During your trip, you reach a small hamlet named Coco Village, it is very hot and you need to rest. The places do not seem hostile to you, so you make a stop in this oasis. While you are resting at the foot of a coconut tree, you see a group of villagers climbing trees to catch fruits you've never seen before, they are round like balloons and hard like wood and do not seem appealing."
+	},
+	"possibilities": {
+		"😴": {
+			"translations": {
+				"fr": "Continuer votre sieste au pied de l'arbre",
+				"en": "Continue your nap at the foot of the tree"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous poursuivez votre sieste, mais l'un des fruits se décroche et vient s'écraser sur votre tête. Vous êtes blessé et saignez beaucoup, des villageois vous ayant aperçu viennent vous porter secours, il vous faudra un moment pour vous rétablir.",
+						"en": "You continue your nap, but one of the fruits unhooks and comes crashing down onto your head. You are wounded and bleed a lot, some villagers who saw you come to help you, you will have to take a moment to recover."
+					},
+					"lostTime": 0,
+					"health": -30,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous dormez un moment. Lorsque vous vous réveillez, vous constatez que le soleil commence à se coucher et la température diminuer, vous reprenez votre route, revigoré.",
+						"en": "You are sleeping for a moment. When you wake up to find that the sun is starting to set and the temperature is dropping, you resume your route, invigorated."
+					},
+					"lostTime": 60,
+					"health": 10,
+					"effect": ":clock2:",
+					"experience": 225,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous décidez de continuer votre sieste. À votre réveil, vous vous levez, prêt à partir, et remarquez qu'il vous manque quelque chose dans vos poches, il s'agit de votre porte-monnaie. Vous décidez donc de repartir, déçu.",
+						"en": "You decide to continue your nap. When you wake up, you get up, ready to go, and notice that you are missing something in your pockets, it is your wallet. So you decide to leave, disappointed."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":sleeping:",
+					"experience": 20,
+					"money": -50,
+					"item": false
+				}
+			]
+		},
+		"🗣️": {
+			"translations": {
+				"fr": "Aborder les villageois pour les questionner",
+				"en": "Talk to the villagers to question them"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous vous approchez des villageois et les questionnez à propos de ces étranges fruits. Ceux-ci vous expliquent que ce sont des noix de coco et que leur chair se mange lorsque la coque du fruit est ouverte et que leur jus est réputé à travers tout le pays. Les villageois vous proposent d'y goûter et vous ne dites pas non à l'offre. En effet, le jus est rafraîchissant et la chair apaise votre appétit. Vous repartez après avoir remercié les villageois pour cette découverte en leur donnant quelques pièces et reprenez votre chemin.",
+						"en": "You approach the villagers and ask them about these strange fruits. They explain to you that they are coconuts and that their flesh is eaten when the shell of the fruit is opened and that their juice is famous throughout the country. The villagers offer you to taste it and you do not say no to the offer. Indeed, the juice is refreshing and the chair soothes your appetite. You leave after having thanked the villagers for this discovery by giving them some coins and continue on your way."
+					},
+					"lostTime": 0,
+					"health": 15,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": -50,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous vous approchez des villageois et les questionnez à propos de ces étranges fruits. Alors que l'un d'eux vous explique, les autres commencent à se rapprocher de vous. Brusquement, quelqu'un vous fait une clé de bras tandis que les autres se jettent sur vous pour vous dérober vos affaires. Après avoir préalablement été passé à tabac, vous reprenez votre route.",
+						"en": "You approach the villagers and ask them about these strange fruits. As one of them explains to you, the others start to draw closer to you. Suddenly, someone gives you an arm lock while the others throw themselves at you to steal your things. After having been beaten beforehand, you resume your journey."
+					},
+					"lostTime": 0,
+					"health": -15,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": -100,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous vous approchez des villageois et les questionnez à propos de ces étranges fruits. Ceux-ci vous expliquent que ce sont des noix de coco et que leur chair se mange lorsque la coque du fruit est ouverte et que leur jus est réputé à travers tout le pays. Sur ces précieuses informations, vous reprenez la route.",
+						"en": "You approach the villagers and ask them about these strange fruits. They explain to you that they are coconuts and that their flesh is eaten when the shell of the fruit is opened and that their juice is famous throughout the country. With this precious information, you hit the road again."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🚶": {
+			"translations": {
+				"fr": "Quitter le village sans plus attendre",
+				"en": "Leave the village without further waiting"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Après vous être bien reposé, vous décidez de repartir, sans garder la moindre cerne sur le visage.",
+						"en": "After you have rested well, you decide to leave, without keeping the slightest dark circles on your face."
+					},
+					"lostTime": 0,
+					"health": 10,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Alors que vous vous apprêtiez à repartir, vous vous rendez compte que le groupe de villageois se dirige vers vous, il se mettent alors à vous racketter et vous leur donnez de l'argent pour qu'ils vous laissent tranquille.",
+						"en": "As you are about to leave, you realize that the group of villagers is heading towards you, they then begin to extort money from you and you give them money so that they leave you alone."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": -100,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous décidez de repartir, sans un regard, vous quittez le village Coco afin de continuer votre quête.",
+						"en": "You decide to leave, without a glance, you leave the Coco village to continue your quest."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": [
+			{
+				"translations": {
+					"fr": "Vous regardez un moment le spectacle des villageois en train de récolter ces fruits singuliers et reprenez votre route sous le soleil ardent.",
+					"en": "You watch for a moment the spectacle of the villagers harvesting these singular fruits and resume your journey under the blazing sun."
+				},
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"experience": 25,
+				"money": 0,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "L'un de ces fruits tombe à côté de vous. Vous le prenez dans vos mains et l'examinez avec attention avant de reprendre votre route.",
+					"en": "One of these fruits falls next to you. You take it in your hands and examine it carefully before resuming your journey."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"experience": 150,
+				"money": 0,
+				"item": false
+			}
+		]
+	}
 }

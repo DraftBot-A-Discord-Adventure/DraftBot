@@ -1,167 +1,167 @@
 {
-  "restrictedMaps": "pl",
-  "translations": {
-    "fr": "🏖️ Après vous être baladé plusieurs minutes sur la plage vous croisez une étrange petite créature, c'est un bernard l'hermite ! Il semble s'être retourné sur sa coquille...",
-    "en": "🏖️ After walking for several minutes on the beach you meet a strange little creature, this is a hermit crab! It seems to have turned on its shell..."
-  },
-  "possibilities": {
-    "🤝": {
-      "translations": {
-        "fr": "L'aider et le remettre sur pattes",
-        "en": "Help it and put it back on its feet"
-      },
-      "issues": [
-        {
-          "translations": {
-            "fr": "Vous le remettez sur pattes puis le regardez partir, fier d'avoir fait une bonne action.",
-            "en": "You get it back on its feet and then watch it go, proud to have done a good deed."
-          },
-          "lostTime": 0,
-          "health": 0,
-          "effect": ":smiley:",
-          "experience": 150,
-          "money": 0,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "À peine remis sur pieds que le petit crustacé vous pince la cheville et repart en direction de l'eau.",
-            "en": "Barely getting back on its feet, the little crustacean pinches your ankle and leaves in the direction of the water."
-          },
-          "lostTime": 0,
-          "health": -1,
-          "effect": ":smiley:",
-          "experience": 0,
-          "money": 0,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "Vous vous empressez de l'aider et l'observez repartir vers l'eau. Quelques secondes plus tard vous voyez une énorme masse émerger de la mer, c'est un coffre rempli d'or qui vous est offert par une horde de ces petits crustacés.",
-            "en": "You hurry to help it and watch it go back towards the water. A few seconds later you see a huge mass emerging from the sea, it's a chest full of gold offered to you by a horde of these little crustaceans."
-          },
-          "lostTime": 0,
-          "health": 0,
-          "effect": ":smiley:",
-          "experience": 250,
-          "money": 500,
-          "item": false
-        }
-      ]
-    },
-    "💞": {
-      "translations": {
-        "fr": "Le prendre avec vous",
-        "en": "Take it with you"
-      },
-      "issues": [
-        {
-          "translations": {
-            "fr": "Vous décidez d'emmener la petite créature avec vous mais celle-ci vous pince violemment au visage et s'empresse de vous échapper.",
-            "en": "You decide to take the little creature with you but it pinches you violently in the face and hurries to escape."
-          },
-          "lostTime": 0,
-          "health": -5,
-          "effect": ":smiley:",
-          "experience": 0,
-          "money": 0,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "Vous décidez d'emmener la petite créature avec vous. Quelques heures plus tard, alors que vous vérifiez comment se porte la frêle créature, vous découvrez un amas sanglant au fond de votre sac, le bernard l'hermite s'est fait écrasé par le contenu de votre sac, vous passez une dizaine de minutes à nettoyer votre sac et repartez.",
-            "en": "You decide to take the little creature with you. A few hours later, as you check how the frail creature is feeling, you discover a bloody heap deep in your bag, the hermit crab has been crushed by the contents of your bag, you spend about ten minutes cleaning your bag and leave."
-          },
-          "lostTime": 10,
-          "health": 0,
-          "effect": ":clock2:",
-          "experience": 25,
-          "money": 0,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "Vous décidez d'emmener la petite créature avec vous. Quelques heures plus tard vous trouvez un petit ruisseau, vous décidez d'y laisser votre petit ami et poursuivez votre route.",
-            "en": "You decide to take the little creature with you. A few hours later you find a small stream, you decide to leave your little friend there and continue on your way."
-          },
-          "lostTime": 120,
-          "health": 0,
-          "effect": ":clock2:",
-          "experience": 25,
-          "money": 0,
-          "item": false
-        }
-      ]
-    },
-    "🍖": {
-      "translations": {
-        "fr": "Décider de le manger",
-        "en": "Decide to eat him"
-      },
-      "issues": [
-        {
-          "translations": {
-            "fr": "Vous l'attrapez et le gobez d'un coup d'un seul, il ne vous faut pas longtemps pour comprendre que ne pas cuire la pauvre créature était une erreur.",
-            "en": "You catch it and swallow it in one fell swoop, it doesn't take you long to realize that not baking the poor creature was a mistake."
-          },
-          "lostTime": 0,
-          "health": 0,
-          "effect": ":sick:",
-          "experience": 0,
-          "money": 0,
-          "item": false
-        },
-        {
-          "translations": {
-            "fr": "Vous l'attrapez et le faites cuire, sa chair est délicieuse et vous permet de reprendre des forces pour le voyage.",
-            "en": "You catch it and bake it, its flesh is delicious and enables you to regain strength for the journey."
-          },
-          "lostTime": 0,
-          "health": 10,
-          "effect": ":smiley:",
-          "money": 0,
-          "experience": 350,
-          "item": false
-        }
-      ]
-    },
-    "end": [
-      {
-        "translations": {
-          "fr": "🐚 Vous observez la créature se débattre de toutes ses forces pendant un petit moment puis repartez.",
-          "en": "🐚 You watch the creature struggle with all its strength for a little time, then leave."
-        },
-        "lostTime": 10,
-        "health": 0,
-        "effect": ":clock2:",
-        "money": 0,
-        "experience": 25,
-        "item": false
-      },
-      {
-        "translations": {
-          "fr": "🐚 Ce spectacle ne revêt aucun interêt à vos yeux et vous reprenez votre route immédiatement.",
-          "en": "🐚 This spectacle is of no interest to you and you continue on your way immediately."
-        },
-        "lostTime": 0,
-        "health": 0,
-        "effect": ":smiley:",
-        "money": 0,
-        "experience": 150,
-        "item": false
-      },
-      {
-        "translations": {
-          "fr": "🐚 Vous continuez sans faire attention à la créature, maladroit, vous marchez dans un trou et vous tordez la cheville. Il vous faudra vous soigner.",
-          "en": "🐚 You continue without paying attention to the creature, clumsy, you step in a hole and twist your ankle. You will need to heal yourself."
-        },
-        "lostTime": 60,
-        "health": -10,
-        "effect": ":clock2:",
-        "money": 0,
-        "experience": 0,
-        "item": false
-      }
-    ]
-  }
+	"restrictedMaps": "pl",
+	"translations": {
+		"fr": "🏖️ Après vous être baladé plusieurs minutes sur la plage vous croisez une étrange petite créature, c'est un bernard l'hermite ! Il semble s'être retourné sur sa coquille...",
+		"en": "🏖️ After walking for several minutes on the beach you meet a strange little creature, this is a hermit crab! It seems to have turned on its shell..."
+	},
+	"possibilities": {
+		"🤝": {
+			"translations": {
+				"fr": "L'aider et le remettre sur pattes",
+				"en": "Help it and put it back on its feet"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous le remettez sur pattes puis le regardez partir, fier d'avoir fait une bonne action.",
+						"en": "You get it back on its feet and then watch it go, proud to have done a good deed."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "À peine remis sur pieds que le petit crustacé vous pince la cheville et repart en direction de l'eau.",
+						"en": "Barely getting back on its feet, the little crustacean pinches your ankle and leaves in the direction of the water."
+					},
+					"lostTime": 0,
+					"health": -1,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous vous empressez de l'aider et l'observez repartir vers l'eau. Quelques secondes plus tard vous voyez une énorme masse émerger de la mer, c'est un coffre rempli d'or qui vous est offert par une horde de ces petits crustacés.",
+						"en": "You hurry to help it and watch it go back towards the water. A few seconds later you see a huge mass emerging from the sea, it's a chest full of gold offered to you by a horde of these little crustaceans."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 250,
+					"money": 500,
+					"item": false
+				}
+			]
+		},
+		"💞": {
+			"translations": {
+				"fr": "Le prendre avec vous",
+				"en": "Take it with you"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous décidez d'emmener la petite créature avec vous mais celle-ci vous pince violemment au visage et s'empresse de vous échapper.",
+						"en": "You decide to take the little creature with you but it pinches you violently in the face and hurries to escape."
+					},
+					"lostTime": 0,
+					"health": -5,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous décidez d'emmener la petite créature avec vous. Quelques heures plus tard, alors que vous vérifiez comment se porte la frêle créature, vous découvrez un amas sanglant au fond de votre sac, le bernard l'hermite s'est fait écrasé par le contenu de votre sac, vous passez une dizaine de minutes à nettoyer votre sac et repartez.",
+						"en": "You decide to take the little creature with you. A few hours later, as you check how the frail creature is feeling, you discover a bloody heap deep in your bag, the hermit crab has been crushed by the contents of your bag, you spend about ten minutes cleaning your bag and leave."
+					},
+					"lostTime": 10,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous décidez d'emmener la petite créature avec vous. Quelques heures plus tard vous trouvez un petit ruisseau, vous décidez d'y laisser votre petit ami et poursuivez votre route.",
+						"en": "You decide to take the little creature with you. A few hours later you find a small stream, you decide to leave your little friend there and continue on your way."
+					},
+					"lostTime": 120,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🍖": {
+			"translations": {
+				"fr": "Décider de le manger",
+				"en": "Decide to eat him"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous l'attrapez et le gobez d'un coup d'un seul, il ne vous faut pas longtemps pour comprendre que ne pas cuire la pauvre créature était une erreur.",
+						"en": "You catch it and swallow it in one fell swoop, it doesn't take you long to realize that not baking the poor creature was a mistake."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":sick:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous l'attrapez et le faites cuire, sa chair est délicieuse et vous permet de reprendre des forces pour le voyage.",
+						"en": "You catch it and bake it, its flesh is delicious and enables you to regain strength for the journey."
+					},
+					"lostTime": 0,
+					"health": 10,
+					"effect": ":smiley:",
+					"money": 0,
+					"experience": 350,
+					"item": false
+				}
+			]
+		},
+		"end": [
+			{
+				"translations": {
+					"fr": "🐚 Vous observez la créature se débattre de toutes ses forces pendant un petit moment puis repartez.",
+					"en": "🐚 You watch the creature struggle with all its strength for a little time, then leave."
+				},
+				"lostTime": 10,
+				"health": 0,
+				"effect": ":clock2:",
+				"money": 0,
+				"experience": 25,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "🐚 Ce spectacle ne revêt aucun interêt à vos yeux et vous reprenez votre route immédiatement.",
+					"en": "🐚 This spectacle is of no interest to you and you continue on your way immediately."
+				},
+				"lostTime": 0,
+				"health": 0,
+				"effect": ":smiley:",
+				"money": 0,
+				"experience": 150,
+				"item": false
+			},
+			{
+				"translations": {
+					"fr": "🐚 Vous continuez sans faire attention à la créature, maladroit, vous marchez dans un trou et vous tordez la cheville. Il vous faudra vous soigner.",
+					"en": "🐚 You continue without paying attention to the creature, clumsy, you step in a hole and twist your ankle. You will need to heal yourself."
+				},
+				"lostTime": 60,
+				"health": -10,
+				"effect": ":clock2:",
+				"money": 0,
+				"experience": 0,
+				"item": false
+			}
+		]
+	}
 }
