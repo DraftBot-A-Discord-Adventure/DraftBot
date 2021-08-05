@@ -60,7 +60,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {"fr"|"en"} language
 	 * @returns {string}
 	 */
-	MapLocations.prototype.getEmote = function(language) {
+	MapLocations.prototype.getEmote = function (language) {
 		return JsonReader.models.maps.getTranslation(language).types[this.type].emote;
 	};
 
@@ -68,7 +68,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {"fr"|"en"} language
 	 * @returns {string}
 	 */
-	MapLocations.prototype.getDisplayName = function(language) {
+	MapLocations.prototype.getDisplayName = function (language) {
 		return this.getEmote(language) + " " + (language === "fr" ? this.nameFr : this.nameEn);
 	};
 
@@ -76,7 +76,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {"fr"|"en"} language
 	 * @returns {string}
 	 */
-	MapLocations.prototype.getParticleName = function(language) {
+	MapLocations.prototype.getParticleName = function (language) {
 		return language === "fr" ? this.particleFr : this.particleEn;
 	};
 
@@ -84,7 +84,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {"fr"|"en"} language
 	 * @returns {string}
 	 */
-	MapLocations.prototype.getDescription = function(language) {
+	MapLocations.prototype.getDescription = function (language) {
 		return language === "fr" ? this.descFr : this.descEn;
 	};
 
@@ -152,7 +152,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Get the number of players on this map
 	 * @returns {Promise<Number>}
 	 */
-	MapLocations.prototype.playersCount = async function() {
+	MapLocations.prototype.playersCount = async function () {
 		const query = "SELECT COUNT(*) FROM players WHERE mapLinkId in (SELECT id FROM map_links WHERE startMap = :id OR endMap = :id) ;";
 		return (await Sequelize.query(query, {
 			replacements: {
@@ -163,7 +163,7 @@ module.exports = (Sequelize, DataTypes) => {
 		}))[0]["COUNT(*)"];
 	};
 
-	MapLocations.getPlayersOnMap = async function(mapId, previousMapId, playerId) {
+	MapLocations.getPlayersOnMap = async function (mapId, previousMapId, playerId) {
 		const query = "SELECT discordUserId FROM players JOIN entities ON players.entityId = entities.id WHERE players.id != :playerId AND players.mapLinkId IN (" +
 			"SELECT id from map_links WHERE (startMap = :pMapId AND endMap = :mapId) OR (startMap = :mapId AND endMap = :pMapId)) ORDER BY RANDOM();";
 		return await Sequelize.query(query, {

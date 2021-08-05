@@ -6,60 +6,61 @@
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function(message, language, entity, seEmbed) {
+const executeSmallEvent = async function (message, language, entity, seEmbed) {
 	const translationBF = JsonReader.smallEvents.botFacts.getTranslation(language);
 	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
 
 	const base = JsonReader.smallEvents.botFacts.emote + " " + translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)];
 
-	const outReceived = draftbotRandom.pick(Object.keys(translationBF.possiblesInfos));
+	//const outReceived = draftbotRandom.pick(Object.keys(translationBF.possiblesInfos));
+	const outReceived = "nbPlayersOnYourMap";
 	let result;
 	let complement = "";
 	let array = [];
 	switch (outReceived) {
-	case "nbMeanPoints":
-		result = await Players.getNbMeanPoints();
-		break;
-	case "meanWeeklyScore":
-		result = await Players.getMeanWeeklyScore();
-		break;
-	case "nbPlayersHaventStartedTheAdventure":
-		result = await Players.getNbPlayersHaventStartedTheAdventure();
-		break;
-	case "levelMean":
-		result = await Players.getLevelMean();
-		break;
-	case "nbMeanMoney":
-		result = await Players.getNbMeanMoney();
-		break;
-	case "sumAllMoney":
-		result = await Players.getSumAllMoney();
-		break;
-	case "richestPlayer":
-		result = await Players.getRichestPlayer();
-		break;
-	case "trainedPets":
-		result = await PetEntities.getNbTrainedPets();
-		break;
-	case "percentMalePets":
-		result = Math.round(await PetEntities.getNbPetsGivenSex("m") / await PetEntities.getNbPets() * 10000) / 100;
-		break;
-	case "percentFemalePets":
-		result = Math.round(await PetEntities.getNbPetsGivenSex("f") / await PetEntities.getNbPets() * 10000) / 100;
-		break;
-	case "guildLevelMean":
-		result = await Guilds.getGuildLevelMean();
-		break;
-	case "feistyPets":
-		result = await PetEntities.getNbFeistyPets();
-		break;
-	case "nbPlayersOnYourMap\n":
-		result = await Players.getNbPlayersOnYourMap();
-		break;
-	default:
-		array = await getNbPlayersWithGivenClass(language);
-		result = array[0];
-		complement = array[1];
+		case "nbMeanPoints":
+			result = await Players.getNbMeanPoints();
+			break;
+		case "meanWeeklyScore":
+			result = await Players.getMeanWeeklyScore();
+			break;
+		case "nbPlayersHaventStartedTheAdventure":
+			result = await Players.getNbPlayersHaventStartedTheAdventure();
+			break;
+		case "levelMean":
+			result = await Players.getLevelMean();
+			break;
+		case "nbMeanMoney":
+			result = await Players.getNbMeanMoney();
+			break;
+		case "sumAllMoney":
+			result = await Players.getSumAllMoney();
+			break;
+		case "richestPlayer":
+			result = await Players.getRichestPlayer();
+			break;
+		case "trainedPets":
+			result = await PetEntities.getNbTrainedPets();
+			break;
+		case "percentMalePets":
+			result = Math.round(await PetEntities.getNbPetsGivenSex("m") / await PetEntities.getNbPets() * 10000) / 100;
+			break;
+		case "percentFemalePets":
+			result = Math.round(await PetEntities.getNbPetsGivenSex("f") / await PetEntities.getNbPets() * 10000) / 100;
+			break;
+		case "guildLevelMean":
+			result = await Guilds.getGuildLevelMean();
+			break;
+		case "feistyPets":
+			result = await PetEntities.getNbFeistyPets();
+			break;
+		case "nbPlayersOnYourMap":
+			result = await entity.Player.getNbPlayersOnYourMap();
+			break;
+		default:
+			array = await getNbPlayersWithGivenClass(language);
+			result = array[0];
+			complement = array[1];
 	}
 	seEmbed.setDescription(base +
 		format(

@@ -72,20 +72,23 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	MapLinks.getLinksByMapStart = async (idStartPoint) => await MapLinks.findAll({
 		where: {
-			startMap: idStartPoint,
+			startMap: idStartPoint
 		}
 	});
 
 	/**
-	 * @param {Number} idStartPoint
+	 * @param {Number} idMapLink
 	 * @returns {Promise<null | MapLinks>}
 	 */
-	MapLinks.getLinksByMapStart = async (idStartPoint) => await MapLinks.findAll({
-		where: {
-			startMap: idStartPoint,
-		}
-	});
-
+	MapLinks.getInverseLinkOf = async (idMapLink) => {
+		const mapLinkToInvert = await MapLinks.getById(idMapLink);
+		return MapLinks.findOne({
+			where: {
+				startMap: mapLinkToInvert.endMap,
+				endMap: mapLinkToInvert.startMap
+			}
+		});
+	}
 
 	/**
 	 * @param {Number} id
