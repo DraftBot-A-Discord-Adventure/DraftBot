@@ -109,14 +109,16 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String} badge - The badge to be added to player
 	 * @returns {boolean} if the badge has been applied
 	 */
-	Players.prototype.addBadge = function (badge) {
+	Players.prototype.addBadge = function(badge) {
 		if (this.badges !== null) {
 			if (!this.hasBadge(badge)) {
 				this.badges += "-" + badge;
-			} else {
+			}
+ else {
 				return false;
 			}
-		} else {
+		}
+ else {
 			this.badges = badge;
 		}
 		return true;
@@ -126,7 +128,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {String} badge - The badge to be added to player
 	 */
-	Players.prototype.hasBadge = function (badge) {
+	Players.prototype.hasBadge = function(badge) {
 		return this.badges === null ? false : this.badges.split("-")
 			.includes(badge);
 	};
@@ -141,7 +143,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Read the id of the destination of the player
 	 * @returns {number} The current destination id of the player
 	 */
-	Players.prototype.getDestinationId = async function () {
+	Players.prototype.getDestinationId = async function() {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return link.endMap;
 	};
@@ -150,7 +152,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Read the destination of the player
 	 * @returns {MapLinks} The current destination of the player
 	 */
-	Players.prototype.getDestination = async function () {
+	Players.prototype.getDestination = async function() {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return await MapLocations.getById(link.endMap);
 	};
@@ -159,7 +161,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Read the starting point of the player
 	 * @returns {E} The current starting map of the player
 	 */
-	Players.prototype.getPreviousMap = async function () {
+	Players.prototype.getPreviousMap = async function() {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return await MapLocations.getById(link.startMap);
 	};
@@ -168,7 +170,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Read the id of the starting point of the player
 	 * @returns {number} The current starting map id of the player
 	 */
-	Players.prototype.getPreviousMapId = async function () {
+	Players.prototype.getPreviousMapId = async function() {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return link.startMap;
 	};
@@ -177,7 +179,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Read the current trip duration of the player
 	 * @returns {Number} The current trip duration in hours
 	 */
-	Players.prototype.getCurrentTripDuration = async function () {
+	Players.prototype.getCurrentTripDuration = async function() {
 		const link = await MapLinks.getById(this.mapLinkId);
 		return link.tripDuration;
 	};
@@ -221,14 +223,14 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @return {Number} Return the experience needed to level up.
 	 */
-	Players.prototype.getExperienceNeededToLevelUp = function () {
+	Players.prototype.getExperienceNeededToLevelUp = function() {
 		return Math.round(JsonReader.values.xp.player.baseValue * Math.pow(JsonReader.values.xp.player.coeff, this.level + 1)) - JsonReader.values.xp.player.minus;
 	};
 
 	/**
 	 * @param {Number} score
 	 */
-	Players.prototype.addScore = function (score) {
+	Players.prototype.addScore = function(score) {
 		this.score += score;
 		this.setScore(this.score);
 	};
@@ -236,10 +238,11 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} score
 	 */
-	Players.prototype.setScore = function (score) {
+	Players.prototype.setScore = function(score) {
 		if (score > 0) {
 			this.score = score;
-		} else {
+		}
+ else {
 			this.score = 0;
 		}
 	};
@@ -247,7 +250,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} money
 	 */
-	Players.prototype.addMoney = function (money) {
+	Players.prototype.addMoney = function(money) {
 		this.money += money;
 		this.setMoney(this.money);
 	};
@@ -255,10 +258,11 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} money
 	 */
-	Players.prototype.setMoney = function (money) {
+	Players.prototype.setMoney = function(money) {
 		if (money > 0) {
 			this.money = money;
-		} else {
+		}
+ else {
 			this.money = 0;
 		}
 	};
@@ -266,7 +270,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} weeklyScore
 	 */
-	Players.prototype.addWeeklyScore = function (weeklyScore) {
+	Players.prototype.addWeeklyScore = function(weeklyScore) {
 		this.weeklyScore += weeklyScore;
 		this.setWeeklyScore(this.weeklyScore);
 	};
@@ -274,10 +278,11 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} weeklyScore
 	 */
-	Players.prototype.setWeeklyScore = function (weeklyScore) {
+	Players.prototype.setWeeklyScore = function(weeklyScore) {
 		if (weeklyScore > 0) {
 			this.weeklyScore = weeklyScore;
-		} else {
+		}
+ else {
 			this.weeklyScore = 0;
 		}
 	};
@@ -285,7 +290,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {"fr"|"en"} language
 	 */
-	Players.prototype.getPseudo = async function (language) {
+	Players.prototype.getPseudo = async function(language) {
 		await this.setPseudo(language);
 		return this.pseudo;
 	};
@@ -293,12 +298,13 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {"fr"|"en"} language
 	 */
-	Players.prototype.setPseudo = async function (language) {
+	Players.prototype.setPseudo = async function(language) {
 		const entity = await this.getEntity();
 		if (entity.discordUserId !== undefined &&
 			client.users.cache.get(entity.discordUserId) !== undefined) {
 			this.pseudo = client.users.cache.get(entity.discordUserId).username;
-		} else {
+		}
+ else {
 			this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
 		}
 	};
@@ -306,14 +312,14 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @return {Boolean} True if the player has levelUp false otherwise
 	 */
-	Players.prototype.needLevelUp = function () {
+	Players.prototype.needLevelUp = function() {
 		return this.experience >= this.getExperienceNeededToLevelUp();
 	};
 
 	/**
 	 * @return {Number} get the id of the classgroup
 	 */
-	Players.prototype.getClassGroup = function () {
+	Players.prototype.getClassGroup = function() {
 		return this.level < CLASS.GROUP1LEVEL ? 0 :
 			this.level < CLASS.GROUP2LEVEL ? 1 :
 				this.level < CLASS.GROUP3LEVEL ? 2 :
@@ -326,7 +332,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param entity
 	 * @returns {Promise<*[]>} an array containing the bonuses to give to the player
 	 */
-	Players.prototype.getLvlUpReward = async function (language, entity) {
+	Players.prototype.getLvlUpReward = async function(language, entity) {
 		const bonuses = [];
 		if (this.level === FIGHT.REQUIRED_LEVEL) {
 			bonuses.push(JsonReader.models.players.getTranslation(language).levelUp.fightUnlocked);
@@ -364,7 +370,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
 	 */
-	Players.prototype.levelUpIfNeeded = async function (entity, channel, language) {
+	Players.prototype.levelUpIfNeeded = async function(entity, channel, language) {
 		if (!this.needLevelUp()) {
 			return;
 		}
@@ -397,7 +403,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Number} timeMalus
 	 * @param {String} effectMalus
 	 */
-	Players.prototype.setLastReportWithEffect = async function (time, timeMalus, effectMalus) {
+	Players.prototype.setLastReportWithEffect = async function(time, timeMalus, effectMalus) {
 		this.startTravelDate = new Date(time);
 		await this.save();
 		await require("../../core/Maps")
@@ -411,7 +417,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {"fr"|"en"} language
 	 * @return {Promise<boolean>}
 	 */
-	Players.prototype.killIfNeeded = async function (entity, channel, language) {
+	Players.prototype.killIfNeeded = async function(entity, channel, language) {
 
 		if (entity.health > 0) {
 			return false;
@@ -432,7 +438,7 @@ module.exports = (Sequelize, DataTypes) => {
 		return true;
 	};
 
-	Players.prototype.isInactive = function () {
+	Players.prototype.isInactive = function() {
 		return this.startTravelDate.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days < Date.now();
 	};
 
@@ -440,7 +446,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Returns if the effect of the player is finished or not
 	 * @return {boolean}
 	 */
-	Players.prototype.currentEffectFinished = function () {
+	Players.prototype.currentEffectFinished = function() {
 		if (this.effect === EFFECT.DEAD || this.effect === EFFECT.BABY) {
 			return false;
 		}
@@ -450,7 +456,7 @@ module.exports = (Sequelize, DataTypes) => {
 		return this.effectEndDate.getTime() < Date.now();
 	};
 
-	Players.prototype.effectRemainingTime = function () {
+	Players.prototype.effectRemainingTime = function() {
 		let remainingTime = 0;
 		if (JsonReader.models.players.effectMalus[this.effect] || this.effect === EFFECT.OCCUPIED) {
 			remainingTime = this.effectEndDate - Date.now();
@@ -464,11 +470,11 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @return {Boolean}
 	 */
-	Players.prototype.checkEffect = function () {
+	Players.prototype.checkEffect = function() {
 		return [EFFECT.BABY, EFFECT.SMILEY, EFFECT.DEAD].indexOf(this.effect) !== -1;
 	};
 
-	Players.prototype.getLevel = function () {
+	Players.prototype.getLevel = function() {
 		return this.level;
 	};
 
@@ -596,7 +602,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Count the amount of players that have the same link
 	 * @returns {number} number of player that have the same link
 	 */
-	Players.prototype.getNbPlayersOnYourMap = async function () {
+	Players.prototype.getNbPlayersOnYourMap = async function() {
 		const query = `SELECT COUNT(*)
                        FROM Players
                        WHERE (mapLinkId = :link OR mapLinkId = :linkInverse)

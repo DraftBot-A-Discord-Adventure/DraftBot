@@ -88,7 +88,7 @@ module.exports = (Sequelize, DataTypes) => {
 				endMap: mapLinkToInvert.startMap
 			}
 		});
-	}
+	};
 
 	/**
 	 * @param {Number} id

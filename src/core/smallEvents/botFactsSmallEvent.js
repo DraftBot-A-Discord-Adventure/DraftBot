@@ -6,13 +6,13 @@
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
-const executeSmallEvent = async function (message, language, entity, seEmbed) {
+const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationBF = JsonReader.smallEvents.botFacts.getTranslation(language);
 	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
 
 	const base = JsonReader.smallEvents.botFacts.emote + " " + translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)];
 
-	//const outReceived = draftbotRandom.pick(Object.keys(translationBF.possiblesInfos));
+	// const outReceived = draftbotRandom.pick(Object.keys(translationBF.possiblesInfos));
 	const outReceived = "nbPlayersOnYourMap";
 	let result;
 	let complement = "";
