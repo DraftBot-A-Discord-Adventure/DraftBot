@@ -79,10 +79,8 @@ class Fight {
 		}
 
 		// the player with the highest speed start the fight
-		if (this.fighters[1].speed > this.fighters[0].speed) {
-			const temp = this.fighters[0];
-			this.fighters[0] = this.fighters[1];
-			this.fighters[1] = temp;
+		if (this.fighters[1].speed > this.fighters[0].speed || draftbotRandom.bool() && this.fighters[1].speed === this.fighters[0].speed) {
+			this.invertFighters();
 		}
 
 		this.introduceFight();
@@ -90,6 +88,16 @@ class Fight {
 			await this.message.channel.send("_ _")
 		];
 		await this.nextTurn();
+	}
+
+	/**
+	 * Change who is the player 1 and who is the player 2.
+	 * The player 1 start the fight.
+	 */
+	invertFighters() {
+		const temp = this.fighters[0];
+		this.fighters[0] = this.fighters[1];
+		this.fighters[1] = temp;
 	}
 
 	/**
@@ -443,7 +451,7 @@ class Fight {
 			winner.entity.Player.save();
 		}
 
-		if (!this.friendly ) {
+		if (!this.friendly) {
 			for (let i = 0; i < this.fighters.length; i++) {
 				this.fighters[i].entity.fightPointsLost = await this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
 				this.fighters[i].entity.save();

@@ -1,7 +1,7 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildkick",
 	aliases: ["gkick", "gk"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
 	guildRequired: true,
 	guildPermissions: 3
 };

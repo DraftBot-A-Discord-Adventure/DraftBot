@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "playerlevel",
 	aliases: ["level", "lvl"],
 	commandFormat: "<niveau>",
@@ -24,7 +24,7 @@ const playerLevelTestCommand = async (language, message, args) => {
 	entity.Player.level = parseInt(args[0],10);
 	entity.Player.save();
 
-	return format(module.exports.help.messageWhenExecuted, {level: entity.Player.level});
+	return format(module.exports.commandInfo.messageWhenExecuted, {level: entity.Player.level});
 };
 
 module.exports.execute = playerLevelTestCommand;

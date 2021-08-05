@@ -1,7 +1,7 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildleave",
 	aliases: ["gleave", "gl"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
 	guildRequired: true
 };
 

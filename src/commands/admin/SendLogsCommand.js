@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "sendlogs",
 	aliases: [],
 	userPermissions: ROLES.USER.CONTRIBUTORS

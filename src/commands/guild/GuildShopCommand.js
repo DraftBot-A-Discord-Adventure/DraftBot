@@ -7,7 +7,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {Translations} from "../../core/Translations";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildshop",
 	aliases: ["gs"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],

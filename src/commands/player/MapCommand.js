@@ -2,7 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const Maps = require("../../core/Maps");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "map",
 	aliases: ["m", "world"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
@@ -25,7 +25,7 @@ const MapCommand = async (message, language) => {
 		.formatAuthor(JsonReader.commands.map.getTranslation(language).text, message.author);
 
 	if (Maps.isTravelling(entity.Player)) {
-		const destMap = await MapLocations.getById(entity.Player.mapId);
+		const destMap = await entity.Player.getDestination();
 		mapEmbed.setDescription(format(
 			JsonReader.commands.map.getTranslation(language).descText, {
 				direction: await destMap.getDisplayName(language),

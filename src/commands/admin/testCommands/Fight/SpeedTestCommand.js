@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "speed",
 	commandFormat: "<speed>",
 	typeWaited: {
@@ -23,7 +23,7 @@ const speedTestCommand = async (language, message, args) => {
 	entity.speed = parseInt(args[0],10);
 	entity.save();
 
-	return format(module.exports.help.messageWhenExecuted, {speed: entity.speed});
+	return format(module.exports.commandInfo.messageWhenExecuted, {speed: entity.speed});
 };
 
 module.exports.execute = speedTestCommand;

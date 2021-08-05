@@ -6,6 +6,23 @@ global.DATASOURCE = {
 
 // Effect
 global.EFFECT = {
+	EMOJIS: {
+		":baby:": "👶",
+		":smiley:": "😃",
+		":clock10:": "🕙", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
+		":skull:": "💀",
+		":sleeping:": "😴",
+		":zany_face:": "🤪",
+		":cold_face:": "🥶",
+		":head_bandage:": "🤕",
+		":sick:": "🤢",
+		":lock:": "🔒",
+		":dizzy_face:": "😵",
+		":clock2:": "🕑",
+		":drooling_face:": "🤤",
+		":confounded:": "😖",
+		":scream:": "😱"
+	},
 	BABY: ":baby:",
 	SMILEY: ":smiley:",
 	AWAITING_ANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
@@ -195,10 +212,11 @@ global.LOGS = {
 };
 
 global.REPORT = {
-	TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000,
+	TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000, // 2 hours
 	BONUS_POINT_TIME_DIVIDER: 6,
-	SMALL_EVENTS_COUNT: 3,
-	POINTS_BY_SMALL_EVENT: 50
+	POINTS_BY_SMALL_EVENT: 50,
+	PATH_SQUARE_COUNT: 16,
+	TIME_BETWEEN_MINI_EVENTS: 10 * 60 * 1000 // 10 minutes
 };
 
 global.SMALL_EVENT = {

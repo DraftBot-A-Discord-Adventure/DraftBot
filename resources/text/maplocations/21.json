@@ -5,9 +5,5 @@
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "Une route très empruntée par les villageois. Beaucoup de petits vendeurs ambulants s’y installent le temps d’une journée pour au final créer un immense marché.",
-	"descEn": "A road, very popular with the villagers. Lots of small sellers settle there for a day for making a huge market together.",
-	"northMap": 23,
-	"eastMap": null,
-	"southMap": null,
-	"westMap": 20
+	"descEn": "A road, very popular with the villagers. Lots of small sellers settle there for a day for making a huge market together."
 }

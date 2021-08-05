@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "badge",
 	aliases: ["badges"]
 };
@@ -12,33 +12,33 @@ module.exports.help = {
  */
 const BadgeCommand = (message, language) => {
 	const command = getCommand("badge");
-	const commandInfos = JsonReader.commands.help.getTranslation(language).commands[
+	const commandData = JsonReader.commands.help.getTranslation(language).commands[
 		"badge"
 	];
 	const helpMessage = new DraftBotEmbed()
-		.setDescription(commandInfos.description)
+		.setDescription(commandData.description)
 		.setTitle(
 			format(
 				JsonReader.commands.help.getTranslation(language).commandEmbedTitle,
-				{emote: commandInfos.emote, cmd: command.help.name}
+				{emote: commandData.emote, cmd: command.commandInfo.name}
 			)
 		);
 	helpMessage.addField(
 		JsonReader.commands.help.getTranslation(language).usageFieldTitle,
-		"`" + commandInfos.usage + "`",
+		"`" + commandData.usage + "`",
 		true
 	);
 
-	if (command.help.aliases.length) {
+	if (command.commandInfo.aliases.length) {
 		let aliasField = "";
-		for (let i = 0; i < command.help.aliases.length; ++i) {
-			aliasField += "`" + command.help.aliases[i] + "`";
-			if (i !== command.help.aliases.length - 1) {
+		for (let i = 0; i < command.commandInfo.aliases.length; ++i) {
+			aliasField += "`" + command.commandInfo.aliases[i] + "`";
+			if (i !== command.commandInfo.aliases.length - 1) {
 				aliasField += ", ";
 			}
 		}
 		helpMessage.addField(
-			command.help.aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
+			command.commandInfo.aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
 			aliasField,
 			true
 		);

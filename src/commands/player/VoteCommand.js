@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "vote",
 	aliases: ["ilovedraftbot", "votes"]
 };

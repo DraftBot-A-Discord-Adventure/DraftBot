@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildxp",
 	aliases: ["gxp"],
 	commandFormat: "<experience>",
@@ -36,7 +36,7 @@ const guildXpTestCommand = async (language, message, args) => {
 		await guild.levelUpIfNeeded(message.channel, language);
 	}
 	guild.save();
-	return format(module.exports.help.messageWhenExecuted, {experience: args[0]});
+	return format(module.exports.commandInfo.messageWhenExecuted, {experience: args[0]});
 };
 
 module.exports.execute = guildXpTestCommand;

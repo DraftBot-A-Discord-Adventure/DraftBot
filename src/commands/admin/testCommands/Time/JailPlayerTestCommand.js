@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "jailplayer",
 	aliases: ["jail"],
 	commandFormat: "<mention>",
@@ -22,7 +22,7 @@ const jailPlayerTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(getIdFromMention(args[0]));
 	await Maps.applyEffect(entity.Player, ":lock:");
 	await entity.Player.save();
-	return format(module.exports.help.messageWhenExecuted, {player: args[0]});
+	return format(module.exports.commandInfo.messageWhenExecuted, {player: args[0]});
 };
 
 module.exports.execute = jailPlayerTestCommand;

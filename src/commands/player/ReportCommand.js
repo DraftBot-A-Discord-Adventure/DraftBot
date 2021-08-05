@@ -2,7 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const Maps = require("../../core/Maps");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "report",
 	aliases: ["r"],
 	disallowEffects: [EFFECT.DEAD]
@@ -16,36 +16,38 @@ module.exports.help = {
  * @param {Number} forceSpecificEvent - For testing purpose
  * @param {String} forceSmallEvent
  */
-const ReportCommand = async (message, language, args ,forceSpecificEvent = -1, forceSmallEvent = null) => {
+const ReportCommand = async (message, language, args, forceSpecificEvent = -1, forceSmallEvent = null) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
 		const event = await Events.findOne({where: {id: 0}});
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
 	}
 
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
 	if (!entity.Player.currentEffectFinished()) {
-		return await effectsErrorMe(
-			message,
-			language,
-			entity,
-			entity.Player.effect
-		);
+		return await sendTravelPath(entity, message, language, entity.Player.effect);
+	}
+
+	if (entity.Player.mapLinkId === null) {
+		return await Maps.startTravel(entity.player, await MapLinks.getRandomLink(), message.createdAt.getTime());
 	}
 
 	if (!Maps.isTravelling(entity.Player)) {
 		return await chooseDestination(entity, message, language);
 	}
 
-	if (needBigEvent(entity)) {
+	if (await needBigEvent(entity)) {
 		return await doRandomBigEvent(message, language, entity, forceSpecificEvent);
 	}
 
-	const smallEventNumber = triggersSmallEvent(entity);
-	if (forceSmallEvent !== null || smallEventNumber !== -1) {
-		return await executeSmallEvent(message, language, entity, smallEventNumber, forceSmallEvent);
+	if (forceSmallEvent !== null || needSmallEvent(entity)) {
+		return await executeSmallEvent(message, language, entity, forceSmallEvent);
 	}
 
-	return await sendTravelPath(entity, message, language);
+	return await sendTravelPath(entity, message, language, null);
 };
 
 /**
@@ -76,7 +78,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 	}
 
 	if (forceSpecificEvent === -1) {
-		const map = await MapLocations.getById(entity.Player.mapId);
+		const map = await entity.Player.getDestination();
 		[event] = await Events.pickEventOnMapType(map);
 		if (!event) {
 			await message.channel.send("It seems that there is no event here... It's a bug, please report it to the Draftbot staff.");
@@ -95,8 +97,8 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
  * @param {Entities} entity
  * @returns {boolean}
  */
-const needBigEvent = function(entity) {
-	return Maps.getTravellingTime(entity.Player) >= 2 * 60 * 60 * 1000;
+const needBigEvent = async function(entity) {
+	return Maps.getTravellingTime(entity.Player) >= hoursToMilliseconds(await entity.Player.getCurrentTripDuration());
 };
 
 /**
@@ -104,18 +106,50 @@ const needBigEvent = function(entity) {
  * @param {Entities} entity
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
+ * @param {string|String} effect
  * @returns {Promise<Message>}
  */
-const sendTravelPath = async function(entity, message, language) {
+const sendTravelPath = async function(entity, message, language, effect = null) {
 	const travelEmbed = new DraftBotEmbed();
 	const tr = JsonReader.commands.report.getTranslation(language);
 	travelEmbed.formatAuthor(tr.travelPathTitle, message.author);
-	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language));
-	travelEmbed.addField(tr.startPoint, (await MapLocations.getById(entity.Player.previousMapId)).getDisplayName(language), true);
-	travelEmbed.addField(tr.endPoint, (await MapLocations.getById(entity.Player.mapId)).getDisplayName(language), true);
-	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], false);
+	travelEmbed.setDescription(await Maps.generateTravelPathString(entity.Player, language, effect));
+	travelEmbed.addField(tr.startPoint, (await entity.Player.getPreviousMap()).getDisplayName(language), true);
+	travelEmbed.addField(tr.endPoint, (await entity.Player.getDestination()).getDisplayName(language), true);
+	if (effect !== null) {
+		const errorMessageObject = effectsErrorMeTextValue(message, language, entity, effect);
+		travelEmbed.addField(errorMessageObject.title, errorMessageObject.description, false);
+	}
+	else {
+		const milisecondsBeforeSmallEvent = entity.Player.PlayerSmallEvents.length !== 0 ?
+			PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents).time + REPORT.TIME_BETWEEN_MINI_EVENTS - Date.now() : 0;
+		const milisecondsBeforeBigEvent = hoursToMilliseconds(await entity.Player.getCurrentTripDuration()) - Maps.getTravellingTime(entity.Player);
+		if (milisecondsBeforeSmallEvent >= milisecondsBeforeBigEvent) {
+			// if there is no small event before the big event, do not display anything
+			travelEmbed.addField(tr.travellingTitle, tr.travellingDescriptionEndTravel, false);
+		}
+
+		else if (entity.Player.PlayerSmallEvents.length !== 0) {
+			// the first mini event of the travel is calculated differently
+			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
+			travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescription, {
+				smallEventEmoji: JsonReader.smallEvents[lastMiniEvent.eventType].emote,
+				time: parseTimeDifference(lastMiniEvent.time + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+			}), false);
+		}
+		else {
+			travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescriptionWithoutSmallEvent, {
+				time: parseTimeDifference(entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+			}), false);
+		}
+	}
+
+	travelEmbed.addField("Points récoltés", "🏅 " + await PlayerSmallEvents.calculateCurrentScore(entity.Player), true);
+
+	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], true);
 	return await message.channel.send(travelEmbed);
 };
+
 
 const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣"];
 
@@ -132,11 +166,12 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restrictedMapType);
 
 	if (destinationMaps.length === 0) {
-		return log(message.author + " hasn't any destination map (current map: " + entity.Player.mapId + ", restrictedMapType: " + restrictedMapType + ")");
+		return log(message.author + " hasn't any destination map (current map: " + await entity.Player.getDestinationId() + ", restrictedMapType: " + restrictedMapType + ")");
 	}
 
 	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
-		await Maps.startTravel(entity.Player, destinationMaps[0], message.createdAt.getTime());
+		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[0]);
+		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
 	}
 
@@ -146,7 +181,9 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	let desc = tr.chooseDestinationIndications + "\n";
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		const map = await MapLocations.getById(destinationMaps[i]);
-		desc += destinationChoiceEmotes[i] + " - " + map.getDisplayName(language) + "\n";
+		const link = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[i]);
+		const duration = draftbotRandom.bool() ? link.tripDuration : "?";
+		desc += destinationChoiceEmotes[i] + " - " + map.getDisplayName(language) + " (" + duration + "h)\n";
 	}
 	chooseDestinationEmbed.setDescription(desc);
 
@@ -160,12 +197,12 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 
 	collector.on("end", async (collected) => {
 		const mapId = collected.first() ? destinationMaps[destinationChoiceEmotes.indexOf(collected.first().emoji.name)] : destinationMaps[randInt(0, destinationMaps.length - 1)];
-		await Maps.startTravel(entity.Player, mapId, message.createdAt.getTime());
+		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), mapId);
+		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
 		await destinationChoseMessage(entity, mapId, message, language);
 	});
 
 	await addBlockedPlayer(entity.discordUserId, "chooseDestination", collector);
-
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		try {
 			await sentMessage.react(destinationChoiceEmotes[i]);
@@ -177,7 +214,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 };
 
 /**
- * Function called to display the direction chose by a player
+ * Function called to display the direction chosen by a player
  * @param entity
  * @param map
  * @param message
@@ -230,13 +267,19 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 
 	collector.on("end", async (collected) => {
 		if (!collected.first()) {
-			const possibility = await Possibilities.findAll({where: {eventId: event.id, possibilityKey: "end"}});
+			const possibility = await Possibilities.findAll({
+				where: {
+					eventId: event.id,
+					possibilityKey: "end"
+				}
+			});
 			await doPossibility(message, language, possibility, entity, time, forcePoints);
 		}
 	});
 	for (const reaction of reactions) {
 		if (reaction !== "end") {
-			await eventDisplayed.react(reaction).catch();
+			await eventDisplayed.react(reaction)
+				.catch();
 		}
 	}
 };
@@ -244,8 +287,8 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 /**
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Possibility} possibility
- * @param {Entity} entity
+ * @param {Possibilities} possibility
+ * @param {Entities} entity
  * @param {Number} time
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<Message>}
@@ -274,7 +317,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		scoreChange = forcePoints;
 	}
 	else {
-		scoreChange = time + draftbotRandom.integer(0, time / REPORT.BONUS_POINT_TIME_DIVIDER) + entity.Player.PlayerSmallEvents.length * REPORT.POINTS_BY_SMALL_EVENT;
+		scoreChange = time + draftbotRandom.integer(0, time / REPORT.BONUS_POINT_TIME_DIVIDER) + await PlayerSmallEvents.calculateCurrentScore(entity.Player);
 	}
 	let moneyChange = pDataValues.money + Math.round(time / 10 + draftbotRandom.integer(0, time / 10 + player.level / 5 - 1));
 	if (pDataValues.money < 0 && moneyChange > 0) {
@@ -381,26 +424,16 @@ const doPossibility = async (message, language, possibility, entity, time, force
 --------------------------------------------------------------- */
 
 /**
- * Returns the number of the small event to trigger or -1 if none has to be executed
+ * Returns if the entity reached a stopping point (= small event)
  * @param {Entities} entity
- * @returns {number}
+ * @returns {boolean}
  */
-const triggersSmallEvent = (entity) => {
-	const now = new Date();
-	const timeBetweenSmallEvents = REPORT.TIME_BETWEEN_BIG_EVENTS / (REPORT.SMALL_EVENTS_COUNT + 1);
-	for (let i = 1; i <= REPORT.SMALL_EVENTS_COUNT; ++i) {
-		const seBefore = entity.Player.startTravelDate.getTime() + i * timeBetweenSmallEvents;
-		const seAfter = entity.Player.startTravelDate.getTime() + (i + 1) * timeBetweenSmallEvents;
-		if (seBefore < now.getTime() && seAfter > now.getTime()) {
-			for (const se of entity.Player.PlayerSmallEvents) {
-				if (se.number === i) {
-					return -1;
-				}
-			}
-			return i;
-		}
+const needSmallEvent = function(entity) {
+	if (entity.Player.PlayerSmallEvents.length !== 0) {
+		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
+		return Date.now() >= lastMiniEvent.time + REPORT.TIME_BETWEEN_MINI_EVENTS;
 	}
-	return -1;
+	return Date.now() >= entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS;
 };
 
 /**
@@ -413,11 +446,10 @@ let totalSmallEventsRarity = null;
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
- * @param {Number} number
  * @param {Boolean} forced
  * @returns {Promise<void>}
  */
-const executeSmallEvent = async (message, language, entity, number, forced) => {
+const executeSmallEvent = async (message, language, entity, forced) => {
 
 	// Pick random event
 	let event;
@@ -471,7 +503,8 @@ const executeSmallEvent = async (message, language, entity, number, forced) => {
 	}
 
 	// Save
-	PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, number).save();
+	PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, message.createdTimestamp)
+		.save();
 };
 
 /* ------------------------------------------------------------ */

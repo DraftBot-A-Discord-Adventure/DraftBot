@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "blockplayer",
 	aliases: ["block"],
 	commandFormat: "<time>",
@@ -32,7 +32,7 @@ const blockPlayerTestCommand = async (language, message, args) => {
 	});
 	/* eslint-enable @typescript-eslint/no-empty-function */
 	addBlockedPlayer(entity.discordUserId, "test", collector);
-	return format(module.exports.help.messageWhenExecuted, {time: sec});
+	return format(module.exports.commandInfo.messageWhenExecuted, {time: sec});
 };
 
 module.exports.execute = blockPlayerTestCommand;

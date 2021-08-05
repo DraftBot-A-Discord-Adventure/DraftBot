@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "armorid",
 	commandFormat: "<id>",
 	typeWaited: {
@@ -28,7 +28,7 @@ const armorIDTestCommand = async (language, message, args) => {
 	}
 	entity.Player.Inventory.save();
 
-	return format(module.exports.help.messageWhenExecuted, {armor: armorText});
+	return format(module.exports.commandInfo.messageWhenExecuted, {armor: armorText});
 };
 
 module.exports.execute = armorIDTestCommand;

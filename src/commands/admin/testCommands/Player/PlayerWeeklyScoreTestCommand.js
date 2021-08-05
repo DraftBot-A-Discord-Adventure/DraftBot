@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "playerweeklyscore",
 	aliases: ["weeklyscore"],
 	commandFormat: "<weeklyscore>",
@@ -21,7 +21,7 @@ const playerWeeklyScoreTestCommand = async (language, message, args) => {
 	entity.Player.weeklyScore = parseInt(args[0],10);
 	entity.Player.save();
 
-	return format(module.exports.help.messageWhenExecuted, {weeklyscore: entity.Player.weeklyScore});
+	return format(module.exports.commandInfo.messageWhenExecuted, {weeklyscore: entity.Player.weeklyScore});
 };
 
 module.exports.execute = playerWeeklyScoreTestCommand;

@@ -173,7 +173,7 @@
 				"The lack of attention towards **{pet}** drove him to flee. You {nominative} lose sight rapidly, it will be impossible to find {nominative} back."
 			],
 			"loseLove": [
-				"It seems like **{pet}**doesn't appreciate you much... Traveling with {accusative} lowers this relationship. {nominative} loses a bit of love.",
+				"It seems like **{pet}**doesn't appreciate you much... travelling with {accusative} lowers this relationship. {nominative} loses a bit of love.",
 				"While you were training to fight,**{pet}** passes by. You hit him in a moment of inadvertence, {nominative} seems to like you a bit less now.",
 				"**{pet}** is winded, seems like {nominative} can't follow you. Not waiting for him deteriorated your relation. {nominative} loses some love...",
 				"Approaching a stand, **{pet}** stares with insistance on placing food on a board. Despite his request, you decide to resume your way. This one is vindictive, {nominative} loses a bit faith in you."

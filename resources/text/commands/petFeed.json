@@ -2,12 +2,12 @@
 	"translations": {
 		"fr": {
 			"embedTitle": "{pseudo}, vous offrez de la nourriture à votre familier.",
-			"breedEmbedAuthor": "{author}, choix :",
-			"breedEmbedDescription": "Avec quel type de nourriture voulez-vous nourrir votre familier ?",
-			"breedEmbedTitle2": "{author}, confirmation :",
-			"breedEmbedDescription2": "Souhaitez vous acheter une friandise pour {petnick} ? \n\n 🍬 Friandise | `20💰`",
-			"breedEmbedFooter": "Pour profiter de meilleurs sources de nourriture, rejoignez une guilde !",
-			"cancelBreed": "Vous n'avez pas nourri votre familier...",
+			"feedEmbedAuthor": "{pseudo}, choix :",
+			"feedEmbedDescription": "Avec quel type de nourriture voulez-vous nourrir votre familier ?",
+			"feedEmbedTitle2": "{pseudo}, confirmation :",
+			"feedEmbedDescription2": "Souhaitez vous acheter une friandise pour {petnick} ? \n\n 🍬 Friandise | `20💰`",
+			"feedEmbedFooter": "Pour profiter de meilleurs sources de nourriture, rejoignez une guilde !",
+			"cancelFeed": "Vous n'avez pas nourri votre familier...",
 			"notEnoughFood": "L'entrepôt de la guilde ne contient pas assez de nourriture de ce type pour nourrir votre familier.",
 			"noPet": "Vous n'avez aucun familier !",
 			"description": {
@@ -21,12 +21,12 @@
 		},
 		"en": {
 			"embedTitle": "{pseudo}, you offer some food to your pet.",
-			"breedEmbedAuthor": "{author}, choice :",
-			"breedEmbedDescription": "What type of food do you want to give to your pet?",
-			"breedEmbedTitle2": "{author}, confirmation:",
-			"breedEmbedDescription2": "Do you want to buy a Treat for {petnick}? \n\n :candy: Treat | `20 💰`",
-			"breedEmbedFooter": "To gain better food sources, join a guild!",
-			"cancelBreed": "You didn't feed your pet...",
+			"feedEmbedAuthor": "{pseudo}, choice :",
+			"feedEmbedDescription": "What type of food do you want to give to your pet?",
+			"feedEmbedTitle2": "{pseudo}, confirmation:",
+			"feedEmbedDescription2": "Do you want to buy a Treat for {petnick}? \n\n :candy: Treat | `20 💰`",
+			"feedEmbedFooter": "To gain better food sources, join a guild!",
+			"cancelFeed": "You didn't feed your pet...",
 			"notEnoughFood": "The guild storage doesn't have enough of that food type to feed your pet.",
 			"noPet": "You don't have any pet!",
 			"description": {

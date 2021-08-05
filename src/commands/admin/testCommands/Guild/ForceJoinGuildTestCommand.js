@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "forcejoinguild",
 	aliases: ["fjg"],
 	commandFormat: "<guildToJoin>",
@@ -50,7 +50,7 @@ const forceJoinGuildTestCommand = async (language, message, args) => {
 		entity.Player.save()
 	]);
 
-	return format(module.exports.help.messageWhenExecuted, {guildToJoin: guildToJoin.name});
+	return format(module.exports.commandInfo.messageWhenExecuted, {guildToJoin: guildToJoin.name});
 };
 
 module.exports.execute = forceJoinGuildTestCommand;

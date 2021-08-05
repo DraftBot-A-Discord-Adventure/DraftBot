@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "fightpointslost",
 	aliases: ["fpl"],
 	commandFormat: "<lostPoints>",
@@ -21,7 +21,7 @@ const fightPointsLostTestCommand = async (language, message, args) => {
 	entity.fightPointsLost = parseInt(args[0],10);
 	entity.save();
 
-	return format(module.exports.help.messageWhenExecuted, {lostPoints: args[0]});
+	return format(module.exports.commandInfo.messageWhenExecuted, {lostPoints: args[0]});
 };
 
 module.exports.execute = fightPointsLostTestCommand;

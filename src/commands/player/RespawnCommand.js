@@ -1,6 +1,6 @@
 const Maps = require("../../core/Maps");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "respawn",
 	aliases: [],
 	disallowEffects: [EFFECT.BABY]
@@ -29,11 +29,13 @@ const RespawnCommand = async (message, language) => {
 			entity.Player.save()
 		]);
 
-		const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, null);
-
 		await Maps.removeEffect(entity.Player);
 		await Maps.stopTravel(entity.Player);
-		await Maps.startTravel(entity.Player, destinationMaps[draftbotRandom.integer(0,destinationMaps.length - 1)], message.createdAt.getTime());
+		const newlink = await MapLinks.getLinkByLocations(
+			await entity.Player.getPreviousMapId(),
+			await entity.Player.getDestinationId()
+		);
+		await Maps.startTravel(entity.Player, newlink, message.createdAt.getTime());
 
 		await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 
