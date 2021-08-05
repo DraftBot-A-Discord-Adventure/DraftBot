@@ -156,7 +156,8 @@ module.exports = (Sequelize, DataTypes) => {
 		const query = "SELECT COUNT(*) FROM players WHERE mapLinkId in (SELECT id FROM map_links WHERE startMap = :id OR endMap = :id) ;";
 		return (await Sequelize.query(query, {
 			replacements: {
-				id: this.id
+				id: this.id,
+				idPrev: prevId
 			},
 			type: Sequelize.QueryTypes.SELECT
 		}))[0]["COUNT(*)"];

@@ -270,5 +270,64 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	PetEntities.generateRandomPetEntityNotGuild = () => PetEntities.generateRandomPetEntity(PETS.GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT);
 
+	// ---------------------------------------------------------------------------------------------------------------------
+	// PART ON botFacts Small Events
+	// ---------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Get how many pets are trained
+	 * @return {Promise<Number>}
+	 */
+	PetEntities.getNbTrainedPets = async () => {
+		const query = `SELECT COUNT(*)
+		               FROM pet_entities
+		               WHERE lovePoints = 100`;
+		return (await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT
+		}))[0]["COUNT(*)"];
+	};
+
+	/**
+	 * Get how many pets are feisty
+	 * @return {Promise<Number>}
+	 */
+	PetEntities.getNbFeistyPets = async () => {
+		const query = `SELECT COUNT(*)	
+		               FROM pet_entities
+		               WHERE lovePoints <= :feistyLvl`;
+		return (await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT,
+			replacements: {
+				feistyLvl: PETS.LOVE_LEVELS[0]
+			}
+		}))[0]["COUNT(*)"];
+	};
+
+	/**
+	 * Get how many pets are of a given sex
+	 * @return {Promise<Number>}
+	 */
+	PetEntities.getNbPetsGivenSex = async (sex) => {
+		const query = `SELECT COUNT(*)	
+		               FROM pet_entities
+		               WHERE sex = :sex`;
+		return (await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT,
+			replacements: {
+				sex: sex
+			}
+		}))[0]["COUNT(*)"];
+	};
+	/**
+	 * Get how many pets are they
+	 * @return {Promise<Number>}
+	 */
+	PetEntities.getNbPets = async () => {
+		const query = `SELECT COUNT(*)	
+		               FROM pet_entities`;
+		return (await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT
+		}))[0]["COUNT(*)"];
+	};
+
 	return PetEntities;
 };
