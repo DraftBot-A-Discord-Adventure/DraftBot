@@ -114,11 +114,11 @@ module.exports = (Sequelize, DataTypes) => {
 			if (!this.hasBadge(badge)) {
 				this.badges += "-" + badge;
 			}
- else {
+			else {
 				return false;
 			}
 		}
- else {
+		else {
 			this.badges = badge;
 		}
 		return true;
@@ -242,7 +242,7 @@ module.exports = (Sequelize, DataTypes) => {
 		if (score > 0) {
 			this.score = score;
 		}
- else {
+		else {
 			this.score = 0;
 		}
 	};
@@ -262,7 +262,7 @@ module.exports = (Sequelize, DataTypes) => {
 		if (money > 0) {
 			this.money = money;
 		}
- else {
+		else {
 			this.money = 0;
 		}
 	};
@@ -282,7 +282,7 @@ module.exports = (Sequelize, DataTypes) => {
 		if (weeklyScore > 0) {
 			this.weeklyScore = weeklyScore;
 		}
- else {
+		else {
 			this.weeklyScore = 0;
 		}
 	};
@@ -304,7 +304,7 @@ module.exports = (Sequelize, DataTypes) => {
 			client.users.cache.get(entity.discordUserId) !== undefined) {
 			this.pseudo = client.users.cache.get(entity.discordUserId).username;
 		}
- else {
+		else {
 			this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
 		}
 	};

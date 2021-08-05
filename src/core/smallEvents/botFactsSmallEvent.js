@@ -17,49 +17,49 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let complement = "";
 	let array = [];
 	switch (outReceived) {
-		case "nbMeanPoints":
-			result = await Players.getNbMeanPoints();
-			break;
-		case "meanWeeklyScore":
-			result = await Players.getMeanWeeklyScore();
-			break;
-		case "nbPlayersHaventStartedTheAdventure":
-			result = await Players.getNbPlayersHaventStartedTheAdventure();
-			break;
-		case "levelMean":
-			result = await Players.getLevelMean();
-			break;
-		case "nbMeanMoney":
-			result = await Players.getNbMeanMoney();
-			break;
-		case "sumAllMoney":
-			result = await Players.getSumAllMoney();
-			break;
-		case "richestPlayer":
-			result = await Players.getRichestPlayer();
-			break;
-		case "trainedPets":
-			result = await PetEntities.getNbTrainedPets();
-			break;
-		case "percentMalePets":
-			result = Math.round(await PetEntities.getNbPetsGivenSex("m") / await PetEntities.getNbPets() * 10000) / 100;
-			break;
-		case "percentFemalePets":
-			result = Math.round(await PetEntities.getNbPetsGivenSex("f") / await PetEntities.getNbPets() * 10000) / 100;
-			break;
-		case "guildLevelMean":
-			result = await Guilds.getGuildLevelMean();
-			break;
-		case "feistyPets":
-			result = await PetEntities.getNbFeistyPets();
-			break;
-		case "nbPlayersOnYourMap":
-			result = await entity.Player.getNbPlayersOnYourMap();
-			break;
-		default:
-			array = await getNbPlayersWithGivenClass(language);
-			result = array[0];
-			complement = array[1];
+	case "nbMeanPoints":
+		result = await Players.getNbMeanPoints();
+		break;
+	case "meanWeeklyScore":
+		result = await Players.getMeanWeeklyScore();
+		break;
+	case "nbPlayersHaventStartedTheAdventure":
+		result = await Players.getNbPlayersHaventStartedTheAdventure();
+		break;
+	case "levelMean":
+		result = await Players.getLevelMean();
+		break;
+	case "nbMeanMoney":
+		result = await Players.getNbMeanMoney();
+		break;
+	case "sumAllMoney":
+		result = await Players.getSumAllMoney();
+		break;
+	case "richestPlayer":
+		result = await Players.getRichestPlayer();
+		break;
+	case "trainedPets":
+		result = await PetEntities.getNbTrainedPets();
+		break;
+	case "percentMalePets":
+		result = Math.round(await PetEntities.getNbPetsGivenSex("m") / await PetEntities.getNbPets() * 10000) / 100;
+		break;
+	case "percentFemalePets":
+		result = Math.round(await PetEntities.getNbPetsGivenSex("f") / await PetEntities.getNbPets() * 10000) / 100;
+		break;
+	case "guildLevelMean":
+		result = await Guilds.getGuildLevelMean();
+		break;
+	case "feistyPets":
+		result = await PetEntities.getNbFeistyPets();
+		break;
+	case "nbPlayersOnYourMap":
+		result = await entity.Player.getNbPlayersOnYourMap();
+		break;
+	default:
+		array = await getNbPlayersWithGivenClass(language);
+		result = array[0];
+		complement = array[1];
 	}
 	seEmbed.setDescription(base +
 		format(
