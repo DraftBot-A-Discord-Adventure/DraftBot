@@ -142,11 +142,11 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getById = async (id) => {
 		const query = `SELECT *
-                   FROM (SELECT id,
-                                RANK() OVER (ORDER BY score desc, level desc)       rank,
-                                RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-                         FROM players)
-                   WHERE id = :id`;
+		               FROM (SELECT id,
+		                            RANK() OVER (ORDER BY score desc, level desc)       rank,
+		                            RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+		                     FROM players)
+		               WHERE id = :id`;
 		return await Sequelize.query(query, {
 			replacements: {
 				id: id
@@ -160,11 +160,11 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getByRank = async (rank) => {
 		const query = `SELECT *
-                   FROM (SELECT entityId,
-                                RANK() OVER (ORDER BY score desc, level desc)       rank,
-                                RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-                         FROM players)
-                   WHERE rank = :rank`;
+		               FROM (SELECT entityId,
+		                            RANK() OVER (ORDER BY score desc, level desc)       rank,
+		                            RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+		                     FROM players)
+		               WHERE rank = :rank`;
 		return await Sequelize.query(query, {
 			replacements: {
 				rank: rank
@@ -430,6 +430,125 @@ module.exports = (Sequelize, DataTypes) => {
 		return this.level;
 	};
 
+	// ---------------------------------------------------------------------------------------------------------------------
+	// PART ON botFacts Small Events
+	// ---------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Gives the points mean of all players
+	 * @return {Promise<Number>}
+	 */
+	Players.getNbMeanPoints = async () => {
+		const query = `SELECT AVG(score)
+		               FROM Players
+		               WHERE score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["AVG(score)"]
+		);
+	};
+
+	/**
+	 * Gives the points mean for this week of all players
+	 * @return {Promise<Number>}
+	 */
+	Players.getMeanWeeklyScore = async () => {
+		const query = `SELECT AVG(weeklyScore)
+		               FROM Players
+		               WHERE score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["AVG(weeklyScore)"]
+		);
+	};
+
+	/**
+	 * Get how many players are still under baby effect
+	 * @return {Promise<Number>}
+	 */
+	Players.getNbPlayersHaventStartedTheAdventure = async () => {
+		const query = `SELECT COUNT(*)
+		               FROM Players
+		               WHERE effect = ":baby:"`;
+		return (await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT
+		}))[0]["COUNT(*)"];
+	};
+
+	/**
+	 * Gives the points mean for this week of all players
+	 * @return {Promise<Number>}
+	 */
+	Players.getLevelMean = async () => {
+		const query = `SELECT AVG(level)
+		               FROM Players
+		               WHERE score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["AVG(level)"]
+		);
+	};
+
+	/**
+	 * Gives the money mean of all players
+	 * @return {Promise<Number>}
+	 */
+	Players.getNbMeanMoney = async () => {
+		const query = `SELECT AVG(money)
+		               FROM Players
+		               WHERE score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["AVG(money)"]
+		);
+	};
+	/**
+	 * Gives the money mean of all players
+	 * @return {Promise<Number>}
+	 */
+	Players.getSumAllMoney = async () => {
+		const query = `SELECT SUM(money)
+		               FROM Players
+		               WHERE score > 100`;
+		return (await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT
+		}))[0]["SUM(money)"];
+	};
+
+	/**
+	 * Gives the richest player
+	 * @return {Promise<Number>}
+	 */
+	Players.getRichestPlayer = async () => {
+		const query = `SELECT MAX(money)
+		               FROM Players`;
+		return (await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT
+		}))[0]["MAX(money)"];
+	};
+
+	/**
+	 * Get how many players have a given class
+	 * @param {Classes} classEntity
+	 * @return {Promise<Number>}
+	 */
+	Players.getNbPlayersWithClass = async (classEntity) => {
+		const query = `SELECT COUNT(*)
+		               FROM Players
+		               WHERE class = :class
+				             AND score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				replacements: {
+					class: classEntity.id
+				},
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["COUNT(*)"]
+		);
+	};
 
 	return Players;
 };

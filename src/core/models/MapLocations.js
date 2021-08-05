@@ -140,11 +140,12 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Get the number of players on this map
 	 * @returns {Promise<Number>}
 	 */
-	MapLocations.prototype.playersCount = async function() {
-		const query = "SELECT COUNT(*) FROM players WHERE mapId = :id;";
+	MapLocations.prototype.playersCount = async function(prevId) {
+		const query = "SELECT COUNT(*) FROM players WHERE ((mapId = :id AND previousMapId = :idPrev) OR (mapId = :idPrev AND previousMapId = :id)) AND score > 100;";
 		return (await Sequelize.query(query, {
 			replacements: {
-				id: this.id
+				id: this.id,
+				idPrev: prevId
 			},
 			type: Sequelize.QueryTypes.SELECT
 		}))[0]["COUNT(*)"];
