@@ -33,7 +33,12 @@ const travelTestCommand = async (language, message, args) => {
 
 	const link = await MapLinks.getLinkByLocations(parseInt(args[0]), parseInt(args[1]));
 	if (!link) {
-		throw new Error("Erreur travel : Maps non reliées.");
+		const connectedMapsWithStartLinks = await MapLinks.getLinksByMapStart(parseInt(args[0]));
+		const conMapsWthStart = [];
+		for (const l of connectedMapsWithStartLinks) {
+			conMapsWthStart.push(l.endMap);
+		}
+		throw new Error("Erreur travel : Maps non reliées. Maps reliées avec la map " + parseInt(args[0]) + " : " + conMapsWthStart);
 	}
 
 	await Maps.startTravel(entity.Player, link, message.createdAt.getTime());

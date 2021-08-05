@@ -66,6 +66,16 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 	});
 
+	/**
+	 * @param {Number} idStartPoint
+	 * @returns {Promise<null | MapLinks>}
+	 */
+	MapLinks.getLinksByMapStart = async (idStartPoint) => await MapLinks.findAll({
+		where: {
+			startMap: idStartPoint,
+		}
+	});
+
 
 	/**
 	 * @param {Number} id
