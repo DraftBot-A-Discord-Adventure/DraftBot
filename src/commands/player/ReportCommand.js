@@ -145,8 +145,6 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 	}
 
 	travelEmbed.addField("Points récoltés", "🏅 " + await PlayerSmallEvents.calculateCurrentScore(entity.Player), true);
-	// travelEmbed.addField("Points récoltés", "🏅 150",true);
-	// travelEmbed.addField("Prochaine récompense d'aventure", "🏅 25", true);
 
 	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], true);
 	return await message.channel.send(travelEmbed);
