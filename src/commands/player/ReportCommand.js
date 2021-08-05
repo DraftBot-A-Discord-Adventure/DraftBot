@@ -426,7 +426,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 --------------------------------------------------------------- */
 
 /**
- * If the entity reached a stopping point (= small event)
+ * Returns if the entity reached a stopping point (= small event)
  * @param {Entities} entity
  * @returns {boolean}
  */
