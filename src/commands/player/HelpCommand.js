@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "help",
 	aliases: ["h"]
 };
@@ -9,13 +9,15 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const HelpCommand = async (message, language, args) => {
 	let helpMessage;
 
-	[server] = await Servers.getOrRegister(message.guild.id);
+	const [server] = await Servers.getOrRegister(message.guild.id);
 
 	if (!args.length) {
-		helpMessage = new discord.MessageEmbed();
+		helpMessage = new DraftBotEmbed();
 		const commandsList = Object.entries(
 			JsonReader.commands.help.getTranslation(language).commands
 		);
@@ -49,12 +51,7 @@ const HelpCommand = async (message, language, args) => {
 			)
 		);
 
-		helpMessage.setAuthor(
-			format(JsonReader.commands.help.getTranslation(language).helpEmbedTitle, {
-				pseudo: message.author.username
-			}),
-			message.author.displayAvatarURL()
-		);
+		helpMessage.formatAuthor(JsonReader.commands.help.getTranslation(language).helpEmbedTitle, message.author);
 		helpMessage.setDescription(
 			JsonReader.commands.help.getTranslation(language).helpEmbedDescription,
 			"\n\u200b"
@@ -91,15 +88,14 @@ const HelpCommand = async (message, language, args) => {
 	else {
 		const command = getCommand(args[0]) || getCommandFromAlias(args[0]);
 		const commandInfos = JsonReader.commands.help.getTranslation(language).commands[
-			command.help.name
+			command.commandInfo.name
 		];
-		helpMessage = new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
+		helpMessage = new DraftBotEmbed()
 			.setDescription(commandInfos.description)
 			.setTitle(
 				format(
 					JsonReader.commands.help.getTranslation(language).commandEmbedTitle,
-					{emote: commandInfos.emote, cmd: command.help.name}
+					{emote: commandInfos.emote, cmd: command.commandInfo.name}
 				)
 			);
 		helpMessage.addField(
@@ -108,16 +104,16 @@ const HelpCommand = async (message, language, args) => {
 			true
 		);
 
-		if (command.help.aliases.length) {
+		if (command.commandInfo.aliases.length) {
 			let aliasField = "";
-			for (let i = 0; i < command.help.aliases.length; ++i) {
-				aliasField += "`" + command.help.aliases[i] + "`";
-				if (i !== command.help.aliases.length - 1) {
+			for (let i = 0; i < command.commandInfo.aliases.length; ++i) {
+				aliasField += "`" + command.commandInfo.aliases[i] + "`";
+				if (i !== command.commandInfo.aliases.length - 1) {
 					aliasField += ", ";
 				}
 			}
 			helpMessage.addField(
-				command.help.aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
+				command.commandInfo.aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
 				aliasField,
 				true
 			);

@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+
 const Maps = require("../Maps");
 /**
  * @typedef {import('sequelize').Sequelize} Sequelize
@@ -380,10 +382,9 @@ module.exports = (Sequelize, DataTypes) => {
 		const user = guildMember.user;
 		const transDMN = JsonReader.models.players.getTranslation(language);
 		this.dmnotification ? sendDirectMessage(user, transDMN.koPM.title, transDMN.koPM.description, JsonReader.bot.embed.default, language)
-			: channel.send(new discord.MessageEmbed()
+			: channel.send(new DraftBotEmbed()
 				.setDescription(transDMN.koPM.description)
 				.setTitle(transDMN.koPM.title)
-				.setColor(JsonReader.bot.embed.default)
 				.setFooter(transDMN.dmDisabledFooter));
 
 		return true;

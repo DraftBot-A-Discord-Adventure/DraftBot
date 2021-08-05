@@ -1,7 +1,9 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "dmnotification",
 	aliases: ["dmn","notifs","dms","notif","dmnotifications"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -20,21 +22,18 @@ const DmnotificationCommand = async (message, language) => {
 	const isDmNotificationOn = entity.Player.dmnotification;
 
 	// send message updated value
-	const dmNotifEmbed = new discord.MessageEmbed()
+	const dmNotificationEmbed = new DraftBotEmbed()
 		.setDescription(
 			format(translations.normal, {
 				pseudo: message.author.username,
 				notifOnVerif: isDmNotificationOn ? translations.open : translations.closed
 			})
 		)
-		.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(translations.title, {
-			pseudo: message.author.username
-		}), message.author.displayAvatarURL());
+		.formatAuthor(translations.title, message.author);
 	if (isDmNotificationOn) {
 		try {
-			await message.author.send(dmNotifEmbed);
-			await message.channel.send(dmNotifEmbed);
+			await message.author.send(dmNotificationEmbed);
+			await message.channel.send(dmNotificationEmbed);
 		}
 		catch (err) {
 			entity.Player.dmnotification = false;
@@ -48,7 +47,7 @@ const DmnotificationCommand = async (message, language) => {
 
 	}
 	else {
-		await message.channel.send(dmNotifEmbed);
+		await message.channel.send(dmNotificationEmbed);
 	}
 	log("Player " + message.author + " switched dms to " + entity.Player.dmnotification);
 	await entity.Player.save();

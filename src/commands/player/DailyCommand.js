@@ -1,9 +1,11 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const Maps = require("../../core/Maps");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "daily",
 	aliases: ["da"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -15,8 +17,6 @@ const DailyCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const activeObject = await entity.Player.Inventory.getActiveObject();
-
-	const embed = new discord.MessageEmbed();
 
 	const time = millisecondsToHours(message.createdAt.getTime() - entity.Player.Inventory.lastDailyAt.valueOf());
 
@@ -47,16 +47,13 @@ const DailyCommand = async (message, language) => {
 		);
 	}
 
+	const embed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.daily.getTranslation(language).dailySuccess, message.author);
+
 	if (activeObject.nature === NATURE.HEALTH) {
-		embed
-			.setColor(JsonReader.bot.embed.default)
-			.setAuthor(
-				format(JsonReader.commands.daily.getTranslation(language).dailySuccess, { pseudo: message.author.username }),
-				message.author.displayAvatarURL()
-			)
-			.setDescription(
-				format(JsonReader.commands.daily.getTranslation(language).healthDaily, { value: activeObject.power })
-			);
+		embed.setDescription(
+			format(JsonReader.commands.daily.getTranslation(language).healthDaily, {value: activeObject.power})
+		);
 		await entity.addHealth(activeObject.power);
 		entity.Player.Inventory.updateLastDailyAt();
 	}
@@ -74,31 +71,19 @@ const DailyCommand = async (message, language) => {
 		);
 	}
 	if (activeObject.nature === NATURE.HOSPITAL) {
-		embed
-			.setColor(JsonReader.bot.embed.default)
-			.setAuthor(
-				format(JsonReader.commands.daily.getTranslation(language).dailySuccess, { pseudo: message.author.username }),
-				message.author.displayAvatarURL()
-			)
-			.setDescription(
-				format(JsonReader.commands.daily.getTranslation(language).hospitalBonus, {
-					value: minutesToString(activeObject.power * 60)
-				})
-			);
+		embed.setDescription(
+			format(JsonReader.commands.daily.getTranslation(language).hospitalBonus, {
+				value: minutesToString(activeObject.power * 60)
+			})
+		);
 		Maps.advanceTime(entity.Player, activeObject.power * 60);
 		await entity.Player.save();
 		entity.Player.Inventory.updateLastDailyAt();
 	}
 	if (activeObject.nature === NATURE.MONEY) {
-		embed
-			.setColor(JsonReader.bot.embed.default)
-			.setAuthor(
-				format(JsonReader.commands.daily.getTranslation(language).dailySuccess, { pseudo: message.author.username }),
-				message.author.displayAvatarURL()
-			)
-			.setDescription(
-				format(JsonReader.commands.daily.getTranslation(language).moneyBonus, { value: activeObject.power })
-			);
+		embed.setDescription(
+			format(JsonReader.commands.daily.getTranslation(language).moneyBonus, {value: activeObject.power})
+		);
 		entity.Player.addMoney(activeObject.power);
 		entity.Player.Inventory.updateLastDailyAt();
 	}

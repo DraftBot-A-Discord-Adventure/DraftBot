@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "petfree",
 	aliases: ["pf"],
 	commandFormat: "",
@@ -18,7 +18,7 @@ const petFreeTestCommand = async (language, message ) => {
 		throw new Error("Erreur petfree : vous n'avez pas de pet !");
 	}
 	entity.Player.petId = null;
-	return module.exports.help.messageWhenExecuted;
+	return module.exports.commandInfo.messageWhenExecuted;
 };
 
 module.exports.execute = petFreeTestCommand;

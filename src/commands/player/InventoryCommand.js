@@ -1,7 +1,7 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "inventory",
 	aliases: ["inv", "i"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -10,6 +10,8 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const InventoryCommand = async (message, language, args) => {
 	let [entity] = await Entities.getByArgs(args, message);
 	if (!entity) {
@@ -18,8 +20,7 @@ const InventoryCommand = async (message, language, args) => {
 
 	const inventoryEmbed = await entity.Player.Inventory.toEmbedObject(language);
 	return await message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
+		new DraftBotEmbed()
 			.setTitle(format(JsonReader.commands.inventory.getTranslation(language).title, {pseudo: await entity.Player.getPseudo(language)}))
 			.addFields(inventoryEmbed)
 	);

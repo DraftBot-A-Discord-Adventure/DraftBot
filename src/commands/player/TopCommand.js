@@ -1,4 +1,6 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "top",
 	aliases: ["t","rank"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
@@ -194,8 +196,8 @@ async function errorScoreTooLow(message, language) {
  */
 
 async function displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, topTitle, page) { // eslint-disable-line max-params
-	const embedError = new discord.MessageEmbed();
-	const embed = new discord.MessageEmbed();
+	const embedError = new DraftBotEmbed();
+	const embed = new DraftBotEmbed();
 	const actualPlayer = message.author.username;
 	let pageMax = Math.ceil(numberOfPlayer / 15);
 	if (pageMax < 1) {

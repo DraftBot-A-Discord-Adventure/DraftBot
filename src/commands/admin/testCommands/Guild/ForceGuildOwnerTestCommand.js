@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "forceguildowner",
 	aliases: ["fgo"],
 	commandFormat: "",
@@ -20,7 +20,7 @@ const forceGuildOwnerTestCommand = async (language, message) => {
 	}
 	guild.chiefId = entity.Player.id;
 	await guild.save();
-	return format(module.exports.help.messageWhenExecuted, {gName: guild.name});
+	return format(module.exports.commandInfo.messageWhenExecuted, {gName: guild.name});
 };
 
 module.exports.execute = forceGuildOwnerTestCommand;

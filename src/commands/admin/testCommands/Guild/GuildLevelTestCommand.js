@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildlevel",
 	aliases: ["glvl"],
 	commandFormat: "<level>",
@@ -27,7 +27,7 @@ const guildLevelTestCommand = async (language, message, args) => {
 	}
 	guild.level = parseInt(args[0],10);
 	guild.save();
-	return format(module.exports.help.messageWhenExecuted, {level: args[0]});
+	return format(module.exports.commandInfo.messageWhenExecuted, {level: args[0]});
 };
 
 module.exports.execute = guildLevelTestCommand;

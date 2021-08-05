@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "sendprivatemessage",
 	aliases: ["dm"],
 	userPermissions: ROLES.USER.SUPPORT
@@ -10,6 +10,8 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const SendPrivateMessageCommand = async (message, language, args) => {
 	const userId = args[0];
 	const messageToSend = args.join(" ").replace(userId, "") +
@@ -24,11 +26,8 @@ const SendPrivateMessageCommand = async (message, language, args) => {
 	if (user === undefined) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).personNotExists);
 	}
-	const embed = new discord.MessageEmbed();
-	embed.setColor(JsonReader.bot.embed.default)
-		.setTitle(format(JsonReader.commands.sendPrivateMessage.getTranslation(language).title, {
-			username: user.username
-		}))
+	const embed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.sendPrivateMessage.getTranslation(language).title, user)
 		.setDescription(messageToSend)
 		.setImage(message.attachments.size > 0 ? [...message.attachments.values()][0].url : "");
 

@@ -20,7 +20,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				name: translationShop.names[gender][
 					randInt(0, translationShop.names[gender].length)
 				],
-				item: randomItem.toString(),
+				item: randomItem.toString(language),
 				price: price
 			}));
 	const msg = await message.channel.send(seEmbed);

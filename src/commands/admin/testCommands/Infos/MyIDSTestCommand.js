@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "myids",
 	messageWhenExecuted: "Entity id: {entityId}\nPlayer id: {playerId}",
 	description: "Montre vos IDs d'entité et de joueur"
@@ -12,7 +12,7 @@ module.exports.help = {
  */
 const MyIDsTestCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	return format(module.exports.help.messageWhenExecuted, {entityId: entity.id, playerId: entity.Player.id});
+	return format(module.exports.commandInfo.messageWhenExecuted, {entityId: entity.id, playerId: entity.Player.id});
 };
 
 module.exports.execute = MyIDsTestCommand;

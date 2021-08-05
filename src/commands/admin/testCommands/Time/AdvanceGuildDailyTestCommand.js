@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "advanceguilddaily",
 	aliases: ["agd"],
 	commandFormat: "<time>",
@@ -24,7 +24,7 @@ const advanceGuildDailyTestCommand = async (language, message, args) => {
 	}
 	guild.lastDailyAt -= parseInt(args[0]) * 60000;
 	guild.save();
-	return format(module.exports.help.messageWhenExecuted, {time: args[0]});
+	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
 module.exports.execute = advanceGuildDailyTestCommand;

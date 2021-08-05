@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "language",
 	aliases: [],
 	userPermissions: ROLES.USER.ADMINISTRATOR
@@ -9,10 +9,10 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
-*/
-const ChangeLanguageCommand = async (message, language) => {
-	const embed = new discord.MessageEmbed();
+ */
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
+const ChangeLanguageCommand = async (message, language) => {
 	const [server] = await Servers.getOrRegister(message.guild.id);
 	if (server.language === LANGUAGE.FRENCH) {
 		server.language = LANGUAGE.ENGLISH;
@@ -20,14 +20,10 @@ const ChangeLanguageCommand = async (message, language) => {
 	else {
 		server.language = LANGUAGE.FRENCH;
 	}
-	embed.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(
-			JsonReader.commands.changeLanguage.getTranslation(language).title,
-			{pseudo: message.author.username}),
-		message.author.displayAvatarURL())
-		.setDescription(JsonReader.commands.changeLanguage.getTranslation(language).desc);
-	message.channel.send(embed);
 	await server.save();
+	await message.channel.send(new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.changeLanguage.getTranslation(language).title, message.author)
+		.setDescription(JsonReader.commands.changeLanguage.getTranslation(language).desc));
 };
 
 module.exports.execute = ChangeLanguageCommand;

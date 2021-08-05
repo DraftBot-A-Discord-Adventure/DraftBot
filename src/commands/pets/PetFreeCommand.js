@@ -1,7 +1,9 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "petfree",
 	aliases: ["petf","pfree", "freepet", "freep"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	allowEffects: EFFECT.SMILEY
 };
 
 /**
@@ -12,6 +14,7 @@ module.exports.help = {
  */
 const PetFreeCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
+	let guild;
 
 	// search for a user's guild
 	try {
@@ -41,11 +44,9 @@ const PetFreeCommand = async (message, language) => {
 		}
 	}
 
-	const confirmEmbed = new discord.MessageEmbed();
+	const confirmEmbed = new DraftBotEmbed();
 	const petField = PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language));
-	confirmEmbed.setAuthor(format(JsonReader.commands.petFree.getTranslation(language).successTitle, {
-		pseudo: message.author.username
-	}), message.author.displayAvatarURL());
+	confirmEmbed.formatAuthor(JsonReader.commands.petFree.getTranslation(language).successTitle, message.author);
 	confirmEmbed.setDescription(format(JsonReader.commands.petFree.getTranslation(language).confirmDesc, {
 		pet: petField
 	}));
@@ -76,10 +77,8 @@ const PetFreeCommand = async (message, language) => {
 				entity.Player.petId = null;
 				entity.Player.lastPetFree = Date();
 				entity.Player.save();
-				const freedEmbed = new discord.MessageEmbed();
-				freedEmbed.setAuthor(format(JsonReader.commands.petFree.getTranslation(language).successTitle, {
-					pseudo: message.author.username
-				}), message.author.displayAvatarURL());
+				const freedEmbed = new DraftBotEmbed();
+				freedEmbed.formatAuthor(JsonReader.commands.petFree.getTranslation(language).successTitle, message.author);
 				freedEmbed.setDescription(format(JsonReader.commands.petFree.getTranslation(language).petFreed, {
 					pet: petField
 				}));

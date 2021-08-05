@@ -1,4 +1,6 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "guild",
 	aliases: ["g"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
@@ -43,7 +45,7 @@ const GuildCommand = async (message, language, args) => {
 		}
 	}
 
-	const embed = new discord.MessageEmbed();
+	const embed = new DraftBotEmbed();
 
 	if (guild === null) {
 		return sendErrorMessage(

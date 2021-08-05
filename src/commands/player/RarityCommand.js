@@ -1,4 +1,6 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "rarity",
 	aliases: ["rarities"]
 };
@@ -12,7 +14,7 @@ module.exports.help = {
 const RarityCommand = (message, language) => {
 	const maxValue = JsonReader.values.raritiesGenerator.maxValue;
 	const raritiesGenerator = JsonReader.values.raritiesGenerator;
-	const rarityEmbed = new discord.MessageEmbed()
+	const rarityEmbed = new DraftBotEmbed()
 		.setDescription(format(JsonReader.commands.rarity.getTranslation(language).rarities,
 			{
 				pourcentageCommon: raritiesGenerator["0"] * 100 / maxValue,

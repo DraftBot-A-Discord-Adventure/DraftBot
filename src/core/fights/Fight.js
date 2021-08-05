@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+
 const Fighter = require("./Fighter.js");
 // const Attack = require('./Attack.js');
 const FightActionResult = require("./FightActionResult.js");
@@ -77,10 +79,8 @@ class Fight {
 		}
 
 		// the player with the highest speed start the fight
-		if (this.fighters[1].speed > this.fighters[0].speed) {
-			const temp = this.fighters[0];
-			this.fighters[0] = this.fighters[1];
-			this.fighters[1] = temp;
+		if (this.fighters[1].speed > this.fighters[0].speed || draftbotRandom.bool() && this.fighters[1].speed === this.fighters[0].speed) {
+			this.invertFighters();
 		}
 
 		this.introduceFight();
@@ -88,6 +88,16 @@ class Fight {
 			await this.message.channel.send("_ _")
 		];
 		await this.nextTurn();
+	}
+
+	/**
+	 * Change who is the player 1 and who is the player 2.
+	 * The player 1 start the fight.
+	 */
+	invertFighters() {
+		const temp = this.fighters[0];
+		this.fighters[0] = this.fighters[1];
+		this.fighters[1] = temp;
 	}
 
 	/**
@@ -154,8 +164,7 @@ class Fight {
 				}
 			}
 		}
-		this.message.channel.send(new discord.MessageEmbed().setColor(JsonReader.bot.embed.default)
-			.setDescription(msg));
+		this.message.channel.send(new DraftBotEmbed().setDescription(msg));
 	}
 
 	/**
@@ -167,7 +176,7 @@ class Fight {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		const fight = this;
 
-		const embed = new discord.MessageEmbed();
+		const embed = new DraftBotEmbed();
 		/* embed.setThumbnail(await this.message.guild.members.cache.get(playingId).user.avatarURL())
 						.setTitle(format(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsTitle, {pseudo: await this.getPlayingFighter().entity.Player.getPseudo(this.language)}))
 						.setDescription(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsDescription);*/
@@ -442,7 +451,7 @@ class Fight {
 			winner.entity.Player.save();
 		}
 
-		if (!this.friendly ) {
+		if (!this.friendly) {
 			for (let i = 0; i < this.fighters.length; i++) {
 				this.fighters[i].entity.fightPointsLost = await this.fighters[i].entity.getMaxCumulativeHealth() - this.fighters[i].power;
 				this.fighters[i].entity.save();

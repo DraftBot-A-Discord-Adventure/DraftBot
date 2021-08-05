@@ -1,7 +1,9 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "guildstorage",
 	aliases: ["gstorage", "gst"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
 	guildRequired: true
 };
 
@@ -19,7 +21,7 @@ const GuildStorageCommand = async (message, language) => {
 	);
 	const guild = await Guilds.getById(entity.Player.guildId);
 
-	const storageEmbed = new discord.MessageEmbed();
+	const storageEmbed = new DraftBotEmbed();
 
 	storageEmbed.setTitle(
 		format(translations.embedTitle, {

@@ -1,6 +1,6 @@
 const CT = require("../../core/CommandsTest");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "test"
 };
 

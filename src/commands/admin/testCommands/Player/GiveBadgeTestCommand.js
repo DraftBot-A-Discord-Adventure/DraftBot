@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "givebadge",
 	commandFormat: "<badge>",
 	typeWaited: {
@@ -20,7 +20,7 @@ const giveBadgeTestCommand = async (language, message, args) => {
 	entity.Player.addBadge(args[0]);
 	entity.Player.save();
 
-	return format(module.exports.help.messageWhenExecuted, {badge: args[0]});
+	return format(module.exports.commandInfo.messageWhenExecuted, {badge: args[0]});
 };
 
 module.exports.execute = giveBadgeTestCommand;

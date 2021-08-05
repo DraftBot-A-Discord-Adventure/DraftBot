@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "pet",
 	commandFormat: "<id> <sex = m/f>",
 	typeWaited: {
@@ -41,7 +41,7 @@ const petTestCommand = async (language, message, args) => {
 
 	[entity] = await Entities.getOrRegister(message.author.id); // recall needed to refresh the pet
 	return format(
-		module.exports.help.messageWhenExecuted, {
+		module.exports.commandInfo.messageWhenExecuted, {
 			petString: await PetEntities.getPetDisplay(await entity.Player.Pet, language)
 		}
 	);

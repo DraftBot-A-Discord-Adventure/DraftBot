@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "debugblocked",
 	aliases: [],
 	userPermissions: ROLES.USER.BOT_OWNER

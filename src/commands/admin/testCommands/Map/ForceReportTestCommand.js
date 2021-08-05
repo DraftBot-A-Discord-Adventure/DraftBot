@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "forcereport",
 	aliases: ["fr", "forcer"],
 	commandFormat: "<id>",
@@ -25,7 +25,7 @@ const forceReportTestCommand = async (language, message, args) => {
 	}
 	await CT.getTestCommand("atravel").execute(language, message,["1560"]);
 	getCommandFromAlias("r").execute(message, language, [], parseInt(args[0]));
-	return format(module.exports.help.messageWhenExecuted,{id: args[0] === "-1" ? "aléatoire" : args[0]});
+	return format(module.exports.commandInfo.messageWhenExecuted,{id: args[0] === "-1" ? "aléatoire" : args[0]});
 };
 
 module.exports.execute = forceReportTestCommand;

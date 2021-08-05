@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildpet",
 	aliases: ["gp"],
 	commandFormat: "<id> <sex = m/f>",
@@ -46,7 +46,7 @@ const guildPetTestCommand = async (language, message, args) => {
 	guild = await Guilds.getById(entity.Player.guildId); // recall needed to refresh the pet
 	const newPet = guild.GuildPets[guild.GuildPets.length - 1];
 	return format(
-		module.exports.help.messageWhenExecuted, {
+		module.exports.commandInfo.messageWhenExecuted, {
 			petString: await PetEntities.getPetDisplay(newPet.PetEntity, language)
 		}
 	);

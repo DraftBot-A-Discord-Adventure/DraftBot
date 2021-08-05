@@ -1,7 +1,9 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "sell",
 	aliases: [],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	allowEffects: EFFECT.SMILEY
 };
 
 /**
@@ -10,6 +12,8 @@ module.exports.help = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
+import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+
 const SellCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
 
@@ -19,63 +23,44 @@ const SellCommand = async (message, language) => {
 	}
 
 	let backupItem = await entity.Player.Inventory.getBackupObject();
-	const embed = new discord.MessageEmbed()
-		.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(JsonReader.commands.sell.getTranslation(language).sellTitle, {
-			pseudo: message.author.username
-		}), message.author.displayAvatarURL())
-		.setDescription(format(JsonReader.commands.sell.getTranslation(language).confirmSell, {
-			item: backupItem.getName(language),
-			money: getItemValue(backupItem)
-		}));
-	const sellMessage = await message.channel.send(embed);
 
-	const filter = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id;
-
-	const collector = sellMessage.createReactionCollector(filter, {
-		time: 30000,
-		max: 1
-	});
-
-	addBlockedPlayer(entity.discordUserId, "sell", collector);
-
-	collector.on("end", async (reaction) => {
+	const sellEnd = async (validateMessage) => {
 		removeBlockedPlayer(entity.discordUserId);
-		if (reaction.first()) { // a reaction exist
-			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				[entity] = await Entities.getOrRegister(entity.discordUserId);
-				backupItem = await entity.Player.Inventory.getBackupObject();
-				if (entity.Player.Inventory.hasItemToSell()) { // Preventive
-					const money = getItemValue(backupItem);
-					entity.Player.Inventory.backupId = JsonReader.models.inventories.backupId;
-					entity.Player.money += money;
-					await Promise.all([
-						entity.Player.save(),
-						entity.Player.Inventory.save()
-					]);
-					log(entity.discordUserId + " sold his item " + backupItem.en + " (money: " + money + ")");
-					return await message.channel.send(
-						format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-							{
-								item: backupItem.getName(language),
-								money: money
-							}
-						));
-				}
+		if (validateMessage.isValidated()) {
+			[entity] = await Entities.getOrRegister(entity.discordUserId);
+			backupItem = await entity.Player.Inventory.getBackupObject();
+			if (entity.Player.Inventory.hasItemToSell()) { // Preventive
+				const money = getItemValue(backupItem);
+				entity.Player.Inventory.backupId = JsonReader.models.inventories.backupId;
+				entity.Player.money += money;
+				await Promise.all([
+					entity.Player.save(),
+					entity.Player.Inventory.save()
+				]);
+				log(entity.discordUserId + " sold his item " + backupItem.en + " (money: " + money + ")");
+				return await message.channel.send(new DraftBotEmbed()
+					.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageTitle, message.author)
+					.setDescription(format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+						{
+							item: backupItem.getName(language),
+							money: money
+						}
+					))
+				);
 			}
 		}
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).sellCanceled, true);
-	});
+	};
 
-	try {
-		await Promise.all([
-			sellMessage.react(MENU_REACTION.ACCEPT),
-			sellMessage.react(MENU_REACTION.DENY)
-		]);
-	}
-	catch (e) {
-		log("Error while reaction to sell message: " + e);
-	}
+	const validationMessage = await new DraftBotValidateReactionMessage(message.author, sellEnd)
+		.formatAuthor(JsonReader.commands.sell.getTranslation(language).sellTitle, message.author)
+		.setDescription(format(JsonReader.commands.sell.getTranslation(language).confirmSell, {
+			item: backupItem.getName(language),
+			money: getItemValue(backupItem)
+		}))
+		.send(message.channel);
+
+	addBlockedPlayer(entity.discordUserId, "sell", validationMessage.collector);
 };
 
 module.exports.execute = SellCommand;

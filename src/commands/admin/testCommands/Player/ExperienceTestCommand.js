@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "experience",
 	aliases: ["xp"],
 	commandFormat: "<experience>",
@@ -29,7 +29,7 @@ const experienceTestCommand = async (language, message, args) => {
 	}
 	entity.Player.save();
 
-	return format(module.exports.help.messageWhenExecuted, {experience: entity.Player.experience});
+	return format(module.exports.commandInfo.messageWhenExecuted, {experience: entity.Player.experience});
 };
 
 module.exports.execute = experienceTestCommand;

@@ -1,7 +1,9 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "classtats",
 	aliases: ["cs","classesstats","classcompare","classestats"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -23,8 +25,7 @@ async function ClassStatsCommand(message, language) {
 
 	// Creating classstats message
 	await message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
+		new DraftBotEmbed()
 			.setTitle(classTranslations.title)
 			.setDescription(classTranslations.desc)
 			.addField(

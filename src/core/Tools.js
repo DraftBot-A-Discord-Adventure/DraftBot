@@ -1,3 +1,6 @@
+import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
+import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+
 global.draftbotRandom = new (require("random-js")).Random();
 
 /**
@@ -67,15 +70,7 @@ global.sendMessageAttachments = (message, channel) => {
  * @param {boolean} isCancelling - true if the error message is meant to cancel something
  * @param {String} reason
  */
-global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => {
-	const embed = new discord.MessageEmbed();
-	embed.setColor(JsonReader.bot.embed.error)
-		.setAuthor(format(JsonReader.error.getTranslation(language).title[isCancelling ? 1 : 0], {
-			pseudo: user.username
-		}), user.displayAvatarURL())
-		.setDescription(reason);
-	return channel.send(embed);
-};
+global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => channel.send(new DraftBotErrorEmbed(user, language, reason, isCancelling));
 
 /**
  * Send a dm to a user
@@ -87,14 +82,11 @@ global.sendErrorMessage = (user, channel, language, reason, isCancelling = false
  */
 global.sendDirectMessage = (user, title, description, color, language) => {
 	try {
-		const embed = new discord.MessageEmbed();
-		embed.setColor(color)
-			.setAuthor(format(title, {
-				pseudo: user.username
-			}), user.displayAvatarURL())
+		user.send(new DraftBotEmbed()
+			.setColor(color)
+			.formatAuthor(title, user)
 			.setDescription(description)
-			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter);
-		user.send(embed);
+			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter));
 		log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
 	}
 	catch (err) {
@@ -110,14 +102,9 @@ global.sendDirectMessage = (user, title, description, color, language) => {
  * @param {String} title - the title of the message
  * @param {String} message - the message
  */
-global.sendSimpleMessage = (user, channel, title, message) => {
-	const embed = new discord.MessageEmbed();
-	embed.setAuthor(format(title, {
-		pseudo: user.username
-	}), user.displayAvatarURL())
-		.setDescription(message);
-	return channel.send(embed);
-};
+global.sendSimpleMessage = (user, channel, title, message) => channel.send(new DraftBotEmbed()
+	.formatAuthor(title, user)
+	.setDescription(message));
 
 /**
  * Give an item to a user
@@ -135,17 +122,11 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 	let autoSell = false;
 	let autoReplace = false;
 	let resaleMultiplier = resaleMultiplierNew;
-	const receivedEmbed = new discord.MessageEmbed();
-	const embed = new discord.MessageEmbed();
-	receivedEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, {
-		pseudo: discordUser.username
-	}), discordUser.displayAvatarURL())
+	const embed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, discordUser);
+	const receivedEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, discordUser)
 		.setDescription(item.toString(language));
-
-
-	embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, {
-		pseudo: discordUser.username
-	}), discordUser.displayAvatarURL());
 
 	if (item instanceof Potions) {
 		const potion = await entity.Player.Inventory.getPotion();
@@ -201,18 +182,16 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		}));
 	}
 
-	if (autoSell) {
-		const money = getItemValue(item);
+	if (autoSell && item instanceof Potions) {
+		return await destroyPotionMessage(channel, language, discordUser, item, true);
+	}
+	else if (autoSell) {
+		const money = Math.round(getItemValue(item) * resaleMultiplierNew);
 		entity.Player.addMoney(money);
 		await entity.Player.save();
 		return await channel.send(
-			new discord.MessageEmbed().setAuthor(
-				format(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle,
-					{
-						pseudo: discordUser.username
-					}
-				), discordUser.displayAvatarURL()
-			)
+			new DraftBotEmbed()
+				.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle, discordUser)
 				.setDescription(
 					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
 						{
@@ -238,14 +217,13 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 	addBlockedPlayer(discordUser.id, "acceptItem", collector);
 
 	collector.on("end", async (reaction) => {
+		const [newEntity] = await Entities.getOrRegister(entity.discordUserId);
 		removeBlockedPlayer(discordUser.id);
 		if (reaction.first()) { // a reaction exist
 			// msg.delete(); for now we are going to keep the message
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				const menuEmbed = new discord.MessageEmbed();
-				menuEmbed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, {
-					pseudo: discordUser.username
-				}), discordUser.displayAvatarURL())
+				const menuEmbed = new DraftBotEmbed();
+				menuEmbed.formatAuthor(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, discordUser)
 					.setDescription(item.toString(language));
 
 				const oldItem = await saveItem(item, entity);
@@ -254,53 +232,18 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 				resaleMultiplier = resaleMultiplierActual;
 			}
 			if (item instanceof Potions) {
-				return await channel.send(
-					new discord.MessageEmbed().setAuthor(
-						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
-							{
-								pseudo: discordUser.username
-							}
-						), discordUser.displayAvatarURL()
-					)
-						.setDescription(
-							format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
-								{
-									item: item.getName(language)
-								}
-							)
-						)
-				); // potion are not sold (because of exploits and because of logic)
+				return await destroyPotionMessage(channel, language, discordUser, item);
 			}
 		}
 		else if (item instanceof Potions) {
-			return await channel.send(
-				new discord.MessageEmbed().setAuthor(
-					format(JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle,
-						{
-							pseudo: discordUser.username
-						}
-					), discordUser.displayAvatarURL()
-				)
-					.setDescription(
-						format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
-							{
-								item: item.getName(language)
-							}
-						)
-					)
-			); // potion are not sold (because of exploits and because of logic)
+			return await destroyPotionMessage(channel, language, discordUser, item);
 		}
 		const money = Math.round(getItemValue(item) * resaleMultiplier);
-		entity.Player.addMoney(money);
-		await entity.Player.save();
+		newEntity.Player.addMoney(money);
+		await newEntity.Player.save();
 		return await channel.send(
-			new discord.MessageEmbed().setAuthor(
-				format(JsonReader.commands.sell.getTranslation(language).soldMessageTitle,
-					{
-						pseudo: discordUser.username
-					}
-				), discordUser.displayAvatarURL()
-			)
+			new DraftBotEmbed()
+				.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageTitle, discordUser)
 				.setDescription(
 					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
 						{
@@ -316,6 +259,32 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 		msg.react(MENU_REACTION.DENY)
 	]);
 
+};
+
+/**
+ * Sends a destroyed potion message
+ * @param channel
+ * @param language
+ * @param discordUser
+ * @param item
+ * @param isAutoSell
+ * @return {Promise<*>}
+ */
+global.destroyPotionMessage = async (channel, language, discordUser, item, isAutoSell = false) => {
+	const titleEmbedDestroyPotionMessage = isAutoSell
+		? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
+		: JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle;
+	return await channel.send(
+		new DraftBotEmbed()
+			.formatAuthor(titleEmbedDestroyPotionMessage, discordUser)
+			.setDescription(
+				format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
+					{
+						item: item.getName(language)
+					}
+				)
+			)
+	); // potion are not sold (because of exploits and because of logic)
 };
 
 /**
@@ -637,14 +606,8 @@ global.giveFood = async (message, language, entity, author, selectedItem, quanti
 	}
 	guild[selectedItem.type] += quantity;
 	await Promise.all([guild.save()]);
-	const successEmbed = new discord.MessageEmbed();
-	// TODO : utiliser les nouveaux embeds
-	successEmbed.setAuthor(
-		format(JsonReader.commands.guildShop.getTranslation(language).success, {
-			author: author.username
-		}),
-		author.displayAvatarURL()
-	);
+	const successEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.guildShop.getTranslation(language).success, author);
 	if (quantity === 1) {
 		successEmbed.setDescription(
 			format(
@@ -792,3 +755,4 @@ global.getNbPlayersOnYourMap = async (entity) => {
 	const actualMap = await MapLocations.getById(entity.Player.mapId);
 	return [await actualMap.playersCount(entity.Player.previousMapId), ""];
 };
+

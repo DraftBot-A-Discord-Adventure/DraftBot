@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "playermoney",
 	aliases: ["money"],
 	commandFormat: "<money>",
@@ -24,7 +24,7 @@ const playerMoneyTestCommand = async (language, message, args) => {
 	entity.Player.money = parseInt(args[0],10);
 	entity.Player.save();
 
-	return format(module.exports.help.messageWhenExecuted, {money: entity.Player.money});
+	return format(module.exports.commandInfo.messageWhenExecuted, {money: entity.Player.money});
 };
 
 module.exports.execute = playerMoneyTestCommand;

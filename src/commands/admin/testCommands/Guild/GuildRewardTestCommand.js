@@ -1,6 +1,6 @@
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
 Object.entries(REWARD_TYPES).forEach((v) => stringDesc += "\n - " + v[1]); // eslint-disable-line no-return-assign
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildreward",
 	aliases: ["greward"],
 	commandFormat: "<reward>",
@@ -35,7 +35,7 @@ const guildRewardTestCommand = async (language, message, args) => {
 	}
 
 	await getCommandFromAlias("gd").execute(message, language, [], args[0]);
-	return format(module.exports.help.messageWhenExecuted, {reward: args[0]});
+	return format(module.exports.commandInfo.messageWhenExecuted, {reward: args[0]});
 };
 
 module.exports.execute = guildRewardTestCommand;

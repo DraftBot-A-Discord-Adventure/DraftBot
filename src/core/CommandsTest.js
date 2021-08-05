@@ -1,3 +1,5 @@
+import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
 
@@ -36,8 +38,8 @@ class CommandsTest {
 			const commandsFiles = readdirSync(`src/commands/admin/testCommands/${type}`).filter(command => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
 				const testCommand = require(`../commands/admin/testCommands/${type}/${commandFile}`);
-				testCommand.help.category = type;
-				CommandsTest.testCommandsArray.set(testCommand.help.name, testCommand);
+				testCommand.commandInfo.category = type;
+				CommandsTest.testCommandsArray.set(testCommand.commandInfo.name, testCommand);
 			}
 		});
 	}
@@ -50,39 +52,39 @@ class CommandsTest {
 	 * @return [Boolean,String] - if the test is successful or not, and if not, the reason why
 	 */
 	static isGoodFormat(commandTest, args, message) {
-		if (commandTest.help.typeWaited === undefined) {
+		if (commandTest.commandInfo.typeWaited === undefined) {
 			return args.length === 0 ? [true, ""] : [
 				false,
-				new discord.MessageEmbed()
-					.setAuthor("❌ Mauvais format pour la commande test " + commandTest.help.name, message.author.displayAvatarURL())
+				new DraftBotEmbed()
+					.formatAuthor("❌ Mauvais format pour la commande test " + commandTest.commandInfo.name, message.author)
 					.setDescription(
-						"**Format attendu :** `test " + commandTest.help.name + "`"
+						"**Format attendu :** `test " + commandTest.commandInfo.name + "`"
 					)
 					.setColor(TEST_EMBED_COLOR.ERROR)
 			];
 		}
-		const commandTypeKeys = Object.keys(commandTest.help.typeWaited);
+		const commandTypeKeys = Object.keys(commandTest.commandInfo.typeWaited);
 		const nbArgsWaited = commandTypeKeys.length;
 		if (nbArgsWaited !== args.length) {
 			return [
 				false,
-				new discord.MessageEmbed()
-					.setAuthor("❌ Mauvais format pour la commande test " + commandTest.help.name, message.author.displayAvatarURL())
+				new DraftBotEmbed()
+					.setAuthor("❌ Mauvais format pour la commande test " + commandTest.commandInfo.name, message.author.displayAvatarURL())
 					.setDescription(
-						"**Format attendu :** `test " + commandTest.help.name + " " + commandTest.help.commandFormat + "`"
+						"**Format attendu :** `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`"
 					)
 					.setColor(TEST_EMBED_COLOR.ERROR)
 			];
 		}
 		for (let i = 0; i < nbArgsWaited; i++) {
-			if (commandTest.help.typeWaited[commandTypeKeys[i]].type !== CommandsTest.getTypeOf(args[i])) {
+			if (commandTest.commandInfo.typeWaited[commandTypeKeys[i]].type !== CommandsTest.getTypeOf(args[i])) {
 				return [
 					false,
-					new discord.MessageEmbed()
-						.setAuthor("❌ Mauvais argument pour la commande test " + commandTest.help.name, message.author.displayAvatarURL())
+					new DraftBotEmbed()
+						.setAuthor("❌ Mauvais argument pour la commande test " + commandTest.commandInfo.name, message.author.displayAvatarURL())
 						.setDescription(
-							"**Format attendu** : `test " + commandTest.help.name + " " + commandTest.help.commandFormat + "`\n" +
-							"**Format de l'argument** `<" + commandTypeKeys[i] + ">` : " + commandTest.help.typeWaited[commandTypeKeys[i]].type + "\n" +
+							"**Format attendu** : `test " + commandTest.commandInfo.name + " " + commandTest.commandInfo.commandFormat + "`\n" +
+							"**Format de l'argument** `<" + commandTypeKeys[i] + ">` : " + commandTest.commandInfo.typeWaited[commandTypeKeys[i]].type + "\n" +
 							"**Format reçu** : " + CommandsTest.getTypeOf(args[i])
 						)
 						.setColor(TEST_EMBED_COLOR.ERROR)
@@ -105,8 +107,8 @@ class CommandsTest {
 			const messageToDisplay = await commandTestCurrent.execute(language, message, args);
 			let embedTestSuccessful;
 			if (typeof messageToDisplay === "string") {
-				embedTestSuccessful = new discord.MessageEmbed()
-					.setAuthor("Commande test " + commandTestCurrent.help.name + " exécutée :", message.author.displayAvatarURL())
+				embedTestSuccessful = new DraftBotEmbed()
+					.setAuthor("Commande test " + commandTestCurrent.commandInfo.name + " exécutée :", message.author.displayAvatarURL())
 					.setDescription(messageToDisplay)
 					.setColor(TEST_EMBED_COLOR.SUCCESSFUL);
 			}
@@ -118,12 +120,12 @@ class CommandsTest {
 		catch (e) {
 			console.error(e);
 			try {
-				await message.channel.send("**:x: Une erreur est survenue pendant la commande test " + commandTestCurrent.help.name + "** : ```" + e.stack + "```");
+				await message.channel.send("**:x: Une erreur est survenue pendant la commande test " + commandTestCurrent.commandInfo.name + "** : ```" + e.stack + "```");
 			}
 			catch (e2) {
 				await message.channel.send(
 					"**:x: Une erreur est survenue pendant la commande test "
-					+ commandTestCurrent.help.name
+					+ commandTestCurrent.commandInfo.name
 					+ "** : (Erreur tronquée car limite de caractères atteinte) " +
 					"```" + e.stack.slice(0,1850) + "```");
 			}
@@ -142,7 +144,7 @@ class CommandsTest {
 
 	static getTestCommand(commandName) {
 		const commandTestCurrent = CommandsTest.testCommandsArray.get(commandName)
-			|| CommandsTest.testCommandsArray.find(cmd => cmd.help.aliases && cmd.help.aliases.includes(commandName));
+			|| CommandsTest.testCommandsArray.find(cmd => cmd.commandInfo.aliases && cmd.commandInfo.aliases.includes(commandName));
 		if (commandTestCurrent === undefined) {
 			throw new Error("Commande Test non définie : " + commandName);
 		}
@@ -152,7 +154,7 @@ class CommandsTest {
 	static getAllCommandsFromCategory(category) {
 		const tabCommandReturn = [];
 		CommandsTest.testCommandsArray.forEach(command => {
-			if (command.help.category === category) {
+			if (command.commandInfo.category === category) {
 				tabCommandReturn.push(command);
 			}
 		});

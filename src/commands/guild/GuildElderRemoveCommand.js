@@ -1,7 +1,9 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "guildelderremove",
 	aliases: ["gelderremove", "ger"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
 	guildRequired: true,
 	guildPermissions: 3
 };
@@ -15,18 +17,8 @@ module.exports.help = {
 const GuildElderRemoveCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const guild = await Guilds.getById(entity.Player.guildId);
-	const elderRemoveEmbed = new discord.MessageEmbed();
-
-	elderRemoveEmbed.setAuthor(
-		format(
-			JsonReader.commands.guildElderRemove.getTranslation(language)
-				.elderRemoveTitle,
-			{
-				pseudo: message.author.username
-			}
-		),
-		message.author.displayAvatarURL()
-	);
+	const elderRemoveEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.guildElderRemove.getTranslation(language).elderRemoveTitle, message.author);
 	elderRemoveEmbed.setDescription(
 		format(
 			JsonReader.commands.guildElderRemove.getTranslation(language).elderRemove,
@@ -38,7 +30,7 @@ const GuildElderRemoveCommand = async (message, language) => {
 
 	const msg = await message.channel.send(elderRemoveEmbed);
 
-	const confirmEmbed = new discord.MessageEmbed();
+	const confirmEmbed = new DraftBotEmbed();
 	const filterConfirm = (reaction, user) =>
 		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&

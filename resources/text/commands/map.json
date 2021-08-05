@@ -9,5 +9,5 @@
 			"descText": "Currently, you are going in the direction {particle} **{direction}** : {dirDesc}"
 		}
 	},
-	"URL": "https://raw.githubusercontent.com/DraftBot-A-Discord-Adventure/DraftBot/website/public/ressources/map.jpg"
+	"URL": "https://draftbot.com/public/ressources/map.jpg"
 }

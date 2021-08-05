@@ -1,7 +1,9 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "petsell",
 	aliases: ["psell", "ps"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	allowEffects: EFFECT.SMILEY
 };
 
 /**
@@ -86,7 +88,7 @@ const PetSellCommand = async (message, language, args) => {
 	});
 
 	const sellMessage = await message.channel.send(
-		new discord.MessageEmbed()
+		new DraftBotEmbed()
 			.setTitle(translations.sellMessage.title)
 			.setDescription(
 				format(translations.sellMessage.description, {
@@ -123,7 +125,7 @@ const PetSellCommand = async (message, language, args) => {
 				break;
 			}
 			[buyer] = await Entities.getOrRegister(user.id);
-			if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY], buyer) !== true) {
+			if (buyer.Player.effect === EFFECT.BABY) {
 				buyer = null;
 				return;
 			}
@@ -166,15 +168,10 @@ const PetSellCommand = async (message, language, args) => {
 
 async function petSell(message, language, entity, user, pet, petCost) {
 	const translations = JsonReader.commands.petSell.getTranslation(language);
-	[buyer] = await Entities.getOrRegister(user.id);
+	const [buyer] = await Entities.getOrRegister(user.id);
 	const guild = await Guilds.getById(entity.Player.guildId);
-	const confirmEmbed = new discord.MessageEmbed()
-		.setAuthor(
-			format(translations.confirmEmbed.author, {
-				username: user.username
-			}),
-			user.displayAvatarURL()
-		)
+	const confirmEmbed = new DraftBotEmbed()
+		.formatAuthor(translations.confirmEmbed.author, user)
 		.setDescription(
 			format(translations.confirmEmbed.description, {
 				emote: await PetEntities.getPetEmote(pet),
@@ -233,7 +230,7 @@ async function petSell(message, language, entity, user, pet, petCost) {
 			await entity.Player.save();
 			pet.lovePoints = PETS.BASE_LOVE;
 			await pet.save();
-			const guildXpEmbed = new discord.MessageEmbed();
+			const guildXpEmbed = new DraftBotEmbed();
 			guildXpEmbed.setTitle(
 				format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
 					guildName: guild.name
@@ -244,13 +241,8 @@ async function petSell(message, language, entity, user, pet, petCost) {
 					xp: toAdd
 				})
 			);
-			const addPetEmbed = new discord.MessageEmbed();
-			addPetEmbed.setAuthor(
-				format(translations.addPetEmbed.author, {
-					username: user.username
-				}),
-				user.displayAvatarURL()
-			);
+			const addPetEmbed = new DraftBotEmbed()
+				.formatAuthor(translations.addPetEmbed.author, user);
 			addPetEmbed.setDescription(
 				format(translations.addPetEmbed.description, {
 					emote: await PetEntities.getPetEmote(pet),

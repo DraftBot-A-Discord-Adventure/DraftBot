@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "advancetopggvotetime",
 	aliases: ["topggatime"],
 	commandFormat: "<time>",
@@ -20,7 +20,7 @@ const advanceTopGGVoteTimeTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	entity.Player.topggVoteAt -= parseInt(args[0]) * 60000;
 	entity.Player.save();
-	return format(module.exports.help.messageWhenExecuted, {time: args[0]});
+	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
 
 module.exports.execute = advanceTopGGVoteTimeTestCommand;

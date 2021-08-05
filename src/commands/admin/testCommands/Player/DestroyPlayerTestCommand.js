@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "destroyplayer",
 	aliases: ["destroy"],
 	commandFormat: "",
@@ -29,7 +29,7 @@ const destroyPlayerTestCommand = async (language, message) => {
 			id: entity.id
 		}
 	});
-	return module.exports.help.messageWhenExecuted;
+	return module.exports.commandInfo.messageWhenExecuted;
 };
 
 module.exports.execute = destroyPlayerTestCommand;
