@@ -20,6 +20,7 @@ const Maps = require("../../../../core/Maps");
  * @return {String} - The successful message formatted
  */
 const travelTestCommand = async (language, message, args) => {
+
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const idMaxMap = await MapLocations.getIdMaxMap();
@@ -30,14 +31,17 @@ const travelTestCommand = async (language, message, args) => {
 		throw new Error("Erreur travel : Map avec idEnd inexistante. idEnd doit être compris entre 1 et " + idMaxMap);
 	}
 
-	const mapStart = await MapLocations.getById(parseInt(args[0]));
-	const linkedMapToStart = [mapStart.westMap, mapStart.northMap, mapStart.eastMap, mapStart.southMap];
-	if (!linkedMapToStart.includes(parseInt(args[1]))) {
-		throw new Error("Erreur travel : Maps non reliées. Map reliées avec la " + args[0] + " : " + linkedMapToStart);
+	const link = await MapLinks.getLinkByLocations(parseInt(args[0]), parseInt(args[1]));
+	if (!link) {
+		const connectedMapsWithStartLinks = await MapLinks.getLinksByMapStart(parseInt(args[0]));
+		const conMapsWthStart = [];
+		for (const l of connectedMapsWithStartLinks) {
+			conMapsWthStart.push(l.endMap);
+		}
+		throw new Error("Erreur travel : Maps non reliées. Maps reliées avec la map " + parseInt(args[0]) + " : " + conMapsWthStart);
 	}
 
-	await Maps.startTravel(entity.Player, parseInt(args[1]), message.createdAt.getTime());
-	entity.Player.previousMapId = args[0];
+	await Maps.startTravel(entity.Player, link, message.createdAt.getTime());
 	await entity.Player.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		mapNameStart: (await MapLocations.getById(args[0])).getDisplayName(language),

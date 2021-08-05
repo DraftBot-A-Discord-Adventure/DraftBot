@@ -29,7 +29,8 @@ global.getIdFromMention = (variable) => {
  */
 global.isAMention = (variable) => {
 	if (typeof variable === "string") {
-		return RegExp(/^<@!?[0-9]{18}>$/).test(variable);
+		return RegExp(/^<@!?[0-9]{18}>$/)
+			.test(variable);
 	}
 	return false;
 };
@@ -39,7 +40,8 @@ global.isAMention = (variable) => {
  * @param {String} variable
  * @return {boolean}
  */
-global.isAnEmoji = (variable) => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi).test(variable);
+global.isAnEmoji = (variable) => RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi)
+	.test(variable);
 
 module.exports = {
 	isAMention: isAMention,
@@ -112,7 +114,7 @@ global.sendSimpleMessage = (user, channel, title, message) => channel.send(new D
  * @param {Item} item - The item that has to be given
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Entity} entity
+ * @param {Entities} entity
  * @param {Integer} resaleMultiplierNew
  * @param {Integer} resaleMultiplierActual
  * @returns {Promise<*>}
@@ -264,7 +266,7 @@ global.giveItem = async (entity, item, language, discordUser, channel, resaleMul
 /**
  * Sends a destroyed potion message
  * @param channel
- * @param language
+ * @param {("fr"|"en")} language
  * @param discordUser
  * @param item
  * @param isAutoSell
@@ -292,7 +294,7 @@ global.destroyPotionMessage = async (channel, language, discordUser, item, isAut
  * @param {module:"discord.js".User} discordUser
  * @param {module:"discord.js".TextChannel} channel
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Entity} entity
+ * @param {Entities} entity
  */
 global.giveRandomItem = async (discordUser, channel, language, entity) => {
 	const item = await entity.Player.Inventory.generateRandomItem();
@@ -354,11 +356,25 @@ global.millisecondsToMinutes = (milliseconds) => Math.round(milliseconds / 60000
 global.millisecondsToHours = (milliseconds) => milliseconds / 3600000;
 
 /**
+ * Convert a number of hours in a number of minutes
+ * @param {Number} hours - The number of hours
+ * @return {Number}
+ */
+global.hoursToMinutes = (hours) => hours * 60;
+
+/**
  * Convert a number of minutes in a number of milliseconds
  * @param {Number} minutes - The number of minutes
  * @return {Number}
  */
 global.minutesToMilliseconds = (minutes) => minutes * 60000;
+
+/**
+ * Convert a number of hours in a number of milliseconds
+ * @param {Number} hours - The number of hours
+ * @return {Number}
+ */
+global.hoursToMilliseconds = (hours) => hours * 3600000;
 
 /**
  * Return a string containing a proper display of a duration
@@ -517,8 +533,11 @@ global.parseTimeDifference = function(date1, date2, language) {
 		parsed += days + (language === "fr" ? " J " : " D ");
 		seconds -= days * 24 * 60 * 60;
 	}
+
 	const hours = Math.floor(seconds / (60 * 60));
-	parsed += hours + " H ";
+	if (hours !== 0) {
+		parsed += hours + " H ";
+	}
 	seconds -= hours * 60 * 60;
 	const minutes = Math.floor(seconds / 60);
 	parsed += minutes + " Min ";
@@ -550,7 +569,12 @@ global.getValidationInfos = function(guild) {
 	else if (ratio > 20 || bots > 15 || humans < 100) {
 		validation = ":warning:";
 	}
-	return {validation: validation, humans: humans, bots: bots, ratio: ratio};
+	return {
+		validation: validation,
+		humans: humans,
+		bots: bots,
+		ratio: ratio
+	};
 };
 
 async function saveItem(item, entity) {
@@ -656,103 +680,4 @@ global.giveFood = async (message, language, entity, author, selectedItem, quanti
 	return message.channel.send(successEmbed);
 };
 
-// ---------------------------------------------------------------------------------------------------------------------
-// PART ON botFacts Small Events
-// ---------------------------------------------------------------------------------------------------------------------
-
-const {readdir} = require("fs/promises");
-
-/**
- * Gives the points mean of all players
- * @return {Promise<(*)[]>}
- */
-global.getNbMeanPoints = async () => [await Players.getNbMeanPoints(), ""];
-
-/**
- * Gives the points mean of all players for this week
- * @return {Promise<(*)[]>}
- */
-global.getMeanWeeklyScore = async () => [await Players.getMeanWeeklyScore(), ""];
-
-/**
- * Get how many players are still under baby alteration
- * @return {Promise<(*)[]>}
- */
-global.getNbPlayersHaventStartedTheAdventure = async () => [await Players.getNbPlayersHaventStartedTheAdventure(), ""];
-
-/**
- * Gives the level mean of all players
- * @return {Promise<(*)[]>}
- */
-global.getLevelMean = async () => [await Players.getLevelMean(), ""];
-
-/**
- * Gives the money mean of all players
- * @return {Promise<(*)[]>}
- */
-global.getNbMeanMoney = async () => [await Players.getNbMeanMoney(), ""];
-
-/**
- * Gives the money sum of all players
- * @return {Promise<(*)[]>}
- */
-global.getSumAllMoney = async () => [await Players.getSumAllMoney(), ""];
-
-/**
- * Gives the level mean of all players
- * @return {Promise<(*)[]>}
- */
-global.getRichestPlayer = async () => [await Players.getRichestPlayer(), ""];
-
-/**
- * Gives how many pets are trained
- * @return {Promise<(*)[]>}
- */
-global.getTrainedPets = async () => [await PetEntities.getNbTrainedPets(), ""];
-
-/**
- * Get percentage of pets which are males
- * @return {Promise<(*)[]>}
- */
-global.getPercentMalePets = async () => [Math.round(await PetEntities.getNbPetsGivenSex("m") / await PetEntities.getNbPets() * 10000) / 100, ""];
-
-/**
- * Get percentage of pets which are females
- * @return {Promise<(*)[]>}
- */
-global.getPercentFemalePets = async () => [Math.round(await PetEntities.getNbPetsGivenSex("f") / await PetEntities.getNbPets() * 10000) / 100, ""];
-
-/**
- * Gives how many pets are feisty
- * @return {Promise<(*)[]>}
- */
-global.getGuildLevelMean = async () => [await Guilds.getGuildLevelMean(), ""];
-
-/**
- * Gives how many pets are feisty
- * @return {Promise<(*)[]>}
- */
-global.getFeistyPets = async () => [await PetEntities.getNbFeistyPets(), ""];
-
-/**
- * Gives how many players have a random class
- * @param {Entities} _entity
- * @param {("fr"|"en")} language
- * @return {Promise<(*)[]>}
- */
-global.getNbPlayersWithGivenClass = async (_entity, language) => {
-	const classToCheck = await Classes.getById(parseInt(draftbotRandom.pick(await readdir("resources/text/classes")).slice(0, -5), 10));
-	const nbPlayersWithThisClass = await Players.getNbPlayersWithClass(classToCheck);
-	return [nbPlayersWithThisClass + " joueur" + (nbPlayersWithThisClass ? "s" : ""), classToCheck[language]];
-};
-
-/**
- * Gives how many players are on your current map
- * @param {Entities} entity
- * @return {Promise<(*)[]>}
- */
-global.getNbPlayersOnYourMap = async (entity) => {
-	const actualMap = await MapLocations.getById(entity.Player.mapId);
-	return [await actualMap.playersCount(entity.Player.previousMapId), ""];
-};
 

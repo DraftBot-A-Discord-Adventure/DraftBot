@@ -7,7 +7,7 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Entities = Sequelize.define("entities", {
+	const Entities = Sequelize.define("Entities", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,

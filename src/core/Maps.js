@@ -1,12 +1,5 @@
 class Maps {
 
-	static Directions = {
-		NORTH: "north",
-		SOUTH: "south",
-		EAST: "east",
-		WEST: "west"
-	};
-
 	/**
 	 * Returns the map ids a player can go to. It excludes the map the player is coming from if at least one map is available
 	 * @param {Players} player
@@ -14,72 +7,24 @@ class Maps {
 	 * @returns {Number[]}
 	 */
 	static async getNextPlayerAvailableMaps(player, restrictedMapType) {
-		let map;
-		if (!player.mapId) {
-			map = await MapLocations.getRandomMap();
-			player.previousMapId = map.id;
-			player.mapId = map.id;
+		if (!player.mapLinkId) {
+			player.mapLinkId = (await MapLinks.getRandomLink()).id;
 		}
-		else {
-			map = await MapLocations.getById(player.mapId);
-		}
+
+		const map = await player.getDestinationId();
+		const previousMap = await player.getPreviousMapId();
+
 		const nextMaps = [];
-		if (restrictedMapType) {
-			const nextMapIds = await MapLocations.getMapConnectedWithTypeFilter(map.id, restrictedMapType);
-			for (const m of nextMapIds) {
-				nextMaps.push(m.id);
-			}
-			return nextMaps;
+
+		const nextMapIds = await MapLocations.getMapConnected(map, previousMap, restrictedMapType);
+		for (const m of nextMapIds) {
+			nextMaps.push(m.id);
 		}
-		for (const mapDir of ["northMap", "southMap", "eastMap", "westMap"]) {
-			if (map[mapDir] && map[mapDir] !== player.previousMapId) {
-				nextMaps.push(map[mapDir]);
-			}
-		}
-		if (nextMaps.length === 0 && player.previousMapId) {
-			nextMaps.push(player.previousMapId);
+
+		if (nextMaps.length === 0 && previousMap) {
+			nextMaps.push(previousMap);
 		}
 		return nextMaps;
-	}
-
-	/**
-	 * Returns the direction of a map to another. The result is null if the maps are not connected
-	 * @param {MapLocations} fromMap
-	 * @param {Number} toMapId
-	 * @returns {Directions|null}
-	 */
-	static getMapDirection(fromMap, toMapId) {
-		if (!fromMap) {
-			return null;
-		}
-		if (fromMap.northMap === toMapId) {
-			return this.Directions.NORTH;
-		}
-		if (fromMap.southMap === toMapId) {
-			return this.Directions.SOUTH;
-		}
-		if (fromMap.eastMap === toMapId) {
-			return this.Directions.EAST;
-		}
-		if (fromMap.westMap === toMapId) {
-			return this.Directions.WEST;
-		}
-		return null;
-	}
-
-	/**
-	 * Get the placeholder of the events. It is designed to be used in the format function
-	 * @param {Players} player
-	 * @param {"fr"|"en"} language
-	 * @returns {{}}
-	 */
-	static async getEventPlaceHolders(player, language) {
-		const previousMap = await MapLocations.getById(player.previousMapId);
-		const direction = this.getMapDirection(previousMap, player.mapId);
-		return {
-			direction: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.names[direction],
-			directionPrefix: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.prefix[direction]
-		};
 	}
 
 	/**
@@ -146,13 +91,12 @@ class Maps {
 	/**
 	 * Make a player start travelling. It does not check if the player currently travelling, if the maps are connected etc. It also saves the player
 	 * @param {Players} player
-	 * @param {number} mapId
+	 * @param {MapLinks} newLink
 	 * @param {number} time - The start time
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player, mapId, time) {
-		player.previousMapId = player.mapId;
-		player.mapId = mapId;
+	static async startTravel(player, newLink, time) {
+		player.mapLinkId = newLink.id;
 		player.startTravelDate = new Date(time + minutesToMilliseconds(player.effectDuration));
 		await player.save();
 		if (player.effect !== EFFECT.SMILEY) {
@@ -171,12 +115,6 @@ class Maps {
 	}
 
 	/**
-	 * The number of squares between small events in the travel path string
-	 * @type {number}
-	 */
-	static PATH_SQUARE_COUNT = 4;
-
-	/**
 	 * Generates a string representing the player walking form a map to another
 	 * @param {Players} player
 	 * @param {"fr"|"en"} language
@@ -184,51 +122,48 @@ class Maps {
 	 * @returns {Promise<string>}
 	 */
 	static async generateTravelPathString(player, language, effect = null) {
-		const prevMapInstance = await MapLocations.getById(player.previousMapId);
-		const nextMapInstance = await MapLocations.getById(player.mapId);
-		const time = effect !== null ? player.effectEndDate.getTime() - player.startTravelDate : this.getTravellingTime(player);
-		let percentage = time / (2 * 60 * 60 * 1000);
+		const prevMapInstance = await player.getPreviousMap();
+		const nextMapInstance = await player.getDestination();
+		const time = this.getTravellingTime(player);
+		let percentage = time / hoursToMilliseconds(await player.getCurrentTripDuration());
+
+		const remainingHours = Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time));
+		let remainingMinutes =
+			Math.floor(hoursToMinutes(await player.getCurrentTripDuration() - millisecondsToHours(time) -
+				Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time))));
+		if (remainingMinutes === remainingHours && remainingHours === 0) {
+			remainingMinutes++;
+		}
+		if (remainingMinutes < 10){
+			remainingMinutes = "0" + remainingMinutes;
+		}
+		const timeRemainingString = "**[" + remainingHours + "h" + remainingMinutes + "]**";
 		if (percentage > 1) {
 			percentage = 1;
 		}
-		let index = 0;
-		const percentageSpan = 1 / (REPORT.SMALL_EVENTS_COUNT + 1);
-		for (let i = 0; i < REPORT.SMALL_EVENTS_COUNT + 1; ++i) {
-			if (percentage <= (i + 1) * percentageSpan) {
-				index = i * (this.PATH_SQUARE_COUNT + 1) + this.PATH_SQUARE_COUNT * (percentage - i * percentageSpan) / percentageSpan;
-				break;
-			}
-		}
+		let index = REPORT.PATH_SQUARE_COUNT * percentage;
+
 		index = Math.floor(index);
+
 		let str = prevMapInstance.getEmote(language) + " ";
-		for (let i = 0; i < REPORT.SMALL_EVENTS_COUNT + 1; ++i) {
-			for (let j = 0; j < this.PATH_SQUARE_COUNT; ++j) {
-				if (i * (this.PATH_SQUARE_COUNT + 1) + j === index) {
-					if (effect === null){
-						str += "🧍";
-					}
-					else {
-						str += EFFECT.EMOJIS[effect];
-					}
+
+		for (let j = 0; j < REPORT.PATH_SQUARE_COUNT; ++j) {
+			if (j === index) {
+				if (effect === null) {
+					str += "🧍";
 				}
 				else {
-					str += "■";
+					str += EFFECT.EMOJIS[effect];
 				}
 			}
-			if (i < REPORT.SMALL_EVENTS_COUNT) {
-				let added = false;
-				for (let j = 0; j < player.PlayerSmallEvents.length; ++j) {
-					if (player.PlayerSmallEvents[j].number === i + 1) {
-						str += " " + JsonReader.smallEvents[player.PlayerSmallEvents[j].eventType].emote + " ";
-						added = true;
-						break;
-					}
-				}
-				if (!added) {
-					str += " ❓ ";
-				}
+			else {
+				str += "■";
+			}
+			if (j === Math.floor(REPORT.PATH_SQUARE_COUNT / 2) - 1) {
+				str += timeRemainingString;
 			}
 		}
+
 		return str + " " + nextMapInstance.getEmote(language);
 	}
 }

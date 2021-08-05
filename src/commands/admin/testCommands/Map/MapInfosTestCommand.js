@@ -18,8 +18,8 @@ const mapInfosTestCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const mapEmbed = new DraftBotEmbed();
-	const currMap = await MapLocations.getById(entity.Player.mapId);
-	const prevMap = await MapLocations.getById(entity.Player.previousMapId);
+	const currMap = await entity.Player.getDestination();
+	const prevMap = await entity.Player.getPreviousMap();
 	const travelling = Maps.isTravelling(entity.Player);
 
 	mapEmbed.formatAuthor("🗺️ Map debugging", message.author)

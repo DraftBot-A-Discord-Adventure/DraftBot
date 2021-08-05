@@ -5,9 +5,5 @@
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "Petit chemin dangereux bordant la rivière Vacarme. Attention à ne pas tomber.",
-	"descEn": "Small and dangerous path bordering the Vacarme river. Be careful not to fall off.",
-	"northMap": 14,
-	"eastMap": null,
-	"southMap": 17,
-	"westMap": 15
+	"descEn": "Small and dangerous path bordering the Vacarme river. Be careful not to fall off."
 }

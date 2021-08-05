@@ -5,9 +5,5 @@
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "Une grande plaine vide nordique sans grand intérêt.",
-	"descEn": "A great empty Nordic plain, without much interest.",
-	"northMap": 11,
-	"eastMap": 15,
-	"southMap": 14,
-	"westMap": 13
+	"descEn": "A great empty Nordic plain, without much interest."
 }

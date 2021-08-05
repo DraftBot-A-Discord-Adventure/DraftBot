@@ -56,7 +56,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * Pick a random event compatible with the given map type
-	 * @param {Maps} map
+	 * @param {MapLocations} map
 	 * @returns {Promise<Events>}
 	 */
 	Events.pickEventOnMapType = async function(map) {

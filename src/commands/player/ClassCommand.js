@@ -78,9 +78,9 @@ const ClassCommand = async (message, language) => {
 
 /**
  * @param {*} message - message where the command is from
- * @param {*} language - the language that has to be used
+ * @param {("fr"|"en")} language - the language that has to be used
  * @param {*} selectedClass - The selected class
- * @param {*} entity - The entity that is playing
+ * @param {Entities} entity - The entity that is playing
  */
 async function confirmPurchase(message, language, selectedClass, entity) {
 
