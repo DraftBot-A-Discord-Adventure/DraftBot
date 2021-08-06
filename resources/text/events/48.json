@@ -171,7 +171,7 @@
 						"en": "You engage the knight in discussion and attempt to sympathise for over an hour. He does not want to let you pass by in any way. With no other choice, you draw your sword and attack him. With no other choice, you draw your sword and attack him. The knight, insensitive to your blows thanks to his armor, hits you violently in the face before knocking you out with a stroke of his knob."
 					},
 					"lostTime": 0,
-					"health": -30,
+					"health": -90,
 					"effect": ":dizzy_face:",
 					"experience": 0,
 					"money": 0,
