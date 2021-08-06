@@ -1,0 +1,181 @@
+{
+	"restrictedMaps": "ro",
+	"translations": {
+		"fr": "🌳 Sans doute à cause de la rude tempête d'hier, un arbre est tombé sur le petit sentier de forêt où vous marchez. Son tronc faisant 3 bons mètres d'épaisseur, il vous bloque le passage !",
+		"en": "🌳 Probably because of the big storm of yesterday, a tree has fallen on the small path where you are walking. His trunk does 3 meters of thickness. It's blocking you the passage."
+	},
+	"possibilities": {
+		"🪓": {
+			"translations": {
+				"fr": "Couper l'arbre et continuer",
+				"en": "Cut down the tree and continue"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous sortez de votre sac une hache, et attaquez l'arbre. Il vous aura fallu 30 minutes pour vous frayer un passage !",
+						"en": "You take an axe from your bag and cut down the tree. It took you 30 minutes to clear your way!"
+					},
+					"lostTime": 30,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous vous mettez à couper l'arbre, et prenez un bon moment à en débiter la totalité. Vous allez dans le village le plus proche, empruntez une charrette et son attelage, revenez dans la forêt, chargez le bois préalablement découpé dans la charrette, revenez au village, et vendez le tout à l'ébéniste. C'est seulement après cela que vous découvrez qu'une charrette et son attelage coûtent plus cher que le bois résultant d'un seul arbre !",
+						"en": "You begin to cut down the tree and take a long time to cut the totality of it. You go to the nearest village, borrow a wain and his horse and carriage, come back to the forest, and load the cut wood in the wain, come back to the village, and sell it to the cabinetmaker. It's only after all that you discover that a wain and his horse and carriage are more expansive than the wood of only one tree!"
+					},
+					"lostTime": 90,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 0,
+					"money": -125,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous vouliez couper l'arbre, mais vous réalisez que vous n'avez absolument pas de quoi le faire. Vous décidez alors d'escalader l'imposant chêne, y arrivez sans encombre, et continuez votre route.",
+						"en": "You want to cut down the tree, but you realize that you don't have any tool. So you decide to climb the tree and did it without problems. You continue your road."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🧗": {
+			"translations": {
+				"fr": "Escalader l'arbre",
+				"en": "Climb the tree"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous choisissez d'escalader le tronc, car il vous semble que c'est la plus rapide façon de faire. En quelques secondes, vous voilà de l'autre côté, libre de continuer votre chemin.",
+						"en": "You decide to climb the tree because you think that it's the faster way to do it. In a few seconds, you are in the other side, free to continue your way."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous escaladez le tronc, cependant vous n'êtes pas assez précautionneux : vous vous blessez la main contre l'écorce rugueuse de l'arbre et perdez prise. Vous vous retrouvez contraint de recommencer votre escalade. Au deuxième essai vous y arrivez, mais votre main est bien endolorie !",
+						"en": "You climb the trunk, however you are not enough careful: you wounded yourself with the rough tree's bark and fall. You have to retry your climbing. At the second time you did it, but your hand is very painful."
+					},
+					"lostTime": 0,
+					"health": -15,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous vous dites qu'escalader serait une bonne idée, alors vous le faites. En arrivant de l'autre côté, vous constatez que quatre personnes, armées et vous attendant de pied ferme, ont les yeux rivés sur vous. Prudent, vous n'hésitez pas à leur donner vos possessions afin de garder la vie sauve.",
+						"en": "You find that climb is a good idea so you do it. When you arrive at the other side, you note the presence of four peoples, armed and they are waiting for you. Because of your numerical inferiority, you don't hesitate to give them your possessions to live."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 50,
+					"money": -250,
+					"item": false
+				}
+			]
+		},
+		"🚶": {
+			"translations": {
+				"fr": "Passer par un autre chemin",
+				"en": "Pass by another path"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous préférez changer légèrement votre chemin. Vous escaladez donc le talus du chemin sur lequel vous étiez, et passez quelques mètres comme cela. Après avoir dépassé l'arbre, vous redescendez sur le sentier, et reprenez tranquillement votre route.",
+						"en": "You prefer change lightly your way. You climb the embankment of the path where you were and pass some meters like. After having passed the tree, you come back down on the path and resume your way."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous décidez de changer de chemin. Pour cela, vous montez le talus de votre actuelle route, et avancez dans la forêt. Vous trouvez, sur un cadavre en piteux état, un bel objet et une bourse rebondie. Sachant qu'ils seront plus utiles à vous qu'au corps, vous vous en emparez et continuez votre marche forestière.",
+						"en": "You decide to change of path. For it, you go up to the embankment of your way and progress in the forest. You find, on a dead body, a beautiful item and a lot of money. Knowing that it will be more useful for you than the body, you take it and continue your forest hike."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 450,
+					"money": 0,
+					"item": true
+				},
+				{
+					"translations": {
+						"fr": "Vous estimez qu'escalader l'arbre est trop dangereux et vous n'avez pas de quoi le couper. Par conséquent, vous êtes contraints de changer d'itinéraire. C'est sans compter sur votre sens de l'orientation que vous parvenez à perdre votre chemin. Vous ne parvenez à sortir de la forêt qu'à la nuit tombée.",
+						"en": "You think that climb the tree is too much dangerous and you don't have any tool to cut down it. Consequently, you have to change of way. But because of your bad sense of direction you succeed to lose your way. You arrive to go out of the forest only in the evening."
+					},
+					"lostTime": 180,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "🤷 Ne sachant que faire, vous finissez par décider d'escalader l'arbre. En quelques secondes, vous voilà de l'autre côté, libre de continuer votre chemin.",
+						"en": "🤷 No knowing what to do, you finish by chose to climb the tree. In a few seconds, you are in the other side, free to continue your way."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "🤷 Ne sachant que faire, et vous souvenant être rentré dans la forêt il y a peu, vous rebroussez juste chemin.",
+						"en": "🤷 No knowing what to do, you remember that you entered in the forest a short time ago so you decide to retrace your steps."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "👥 Alors que vous hésitez sur quoi faire, vous entendez des bruits de pas dans votre dos ! Vous avez à peine le temps de vous retourner que quatre hommes se jettent sur vous. Vous vous évanouissez presque instantanément, et ne vous relevez que quelques heures plus tard, sonné, et la bourse bien plus légère.",
+						"en": "👥 While you are hesitating on what to do, you listen to some noises of footsteps behind you! You don't have the time to turn you around that four men jump on you. You faint almost instantly and get up some hours later, stunned and the purse more light."
+					},
+					"lostTime": 0,
+					"health": -20,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": -150,
+					"item": false
+				}
+			]
+		}
+	}
+}
