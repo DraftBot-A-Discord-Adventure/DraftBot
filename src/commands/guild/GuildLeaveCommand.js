@@ -15,6 +15,9 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 
 const GuildLeaveCommand = async (message, language) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const guild = await Guilds.getById(entity.Player.guildId);
 	let elder;

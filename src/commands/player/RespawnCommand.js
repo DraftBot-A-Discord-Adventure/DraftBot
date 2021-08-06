@@ -14,7 +14,9 @@ module.exports.commandInfo = {
  */
 const RespawnCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	if (entity.Player.effect !== EFFECT.DEAD) {
 		await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.respawn.getTranslation(language).alive, {pseudo: message.author.username}));
 	}

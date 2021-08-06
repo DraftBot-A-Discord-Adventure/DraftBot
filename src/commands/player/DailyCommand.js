@@ -15,7 +15,9 @@ module.exports.commandInfo = {
  */
 const DailyCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const activeObject = await entity.Player.Inventory.getActiveObject();
 
 	const time = millisecondsToHours(message.createdAt.getTime() - entity.Player.Inventory.lastDailyAt.valueOf());

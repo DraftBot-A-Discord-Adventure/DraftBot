@@ -15,7 +15,9 @@ module.exports.commandInfo = {
 const PetFreeCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	// search for a user's guild
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);

@@ -1,8 +1,4 @@
-import {
-	DraftBotShopMessageBuilder,
-	ShopItem,
-	ShopItemCategory
-} from "../../core/messages/DraftBotShopMessage";
+import {DraftBotShopMessageBuilder, ShopItem, ShopItemCategory} from "../../core/messages/DraftBotShopMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {Translations} from "../../core/Translations";
@@ -20,8 +16,10 @@ module.exports.commandInfo = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
 const GuildShopCommand = async (message, language) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const guild = await Guilds.getById((await Entities.getOrRegister(message.author.id))[0].Player.guildId);
-
 	const guildShopTranslations = Translations.getModule("commands.guildShop", language);
 	const commonFoodRemainingSlots = Math.max(GUILD.MAX_COMMON_PET_FOOD - guild.commonFood, 1);
 	const herbivorousFoodRemainingSlots = Math.max(GUILD.MAX_HERBIVOROUS_PET_FOOD - guild.herbivorousFood, 1);
