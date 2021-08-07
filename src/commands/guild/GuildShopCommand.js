@@ -26,7 +26,7 @@ const GuildShopCommand = async (message, language) => {
 	const carnivorousFoodRemainingSlots = Math.max(GUILD.MAX_CARNIVOROUS_PET_FOOD - guild.carnivorousFood, 1);
 	const ultimateFoodRemainingSlots = Math.max(GUILD.MAX_ULTIMATE_PET_FOOD - guild.ultimateFood, 1);
 
-	await (await new DraftBotShopMessageBuilder(
+	const shopMessage = (await new DraftBotShopMessageBuilder(
 		message.author,
 		guildShopTranslations.get("title"),
 		language
@@ -48,6 +48,8 @@ const GuildShopCommand = async (message, language) => {
 		))
 		.build())
 		.send(message.channel);
+
+	addBlockedPlayer(message.author.id, "guildShop", shopMessage.collector);
 };
 
 function getGuildXPShopItem(guildShopTranslations) {
