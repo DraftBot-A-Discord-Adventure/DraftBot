@@ -125,7 +125,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	}
 
 	private getChoseShopItem(): ShopItem {
-		const emoji = this.getFirstReaction().emoji.id === null ? this.getFirstReaction().emoji.name : "<:" + this.getFirstReaction().emoji.name + ":" + this.getFirstReaction().emoji.id + ">";
+		const emoji = this.getFirstReaction() ? this.getFirstReaction().emoji.id === null ? this.getFirstReaction().emoji.name : "<:" + this.getFirstReaction().emoji.name + ":" + this.getFirstReaction().emoji.id + ">" : null;
 		const index: number = this._shopItemReactions.indexOf(emoji);
 		if (index === -1) {
 			return null;
@@ -251,17 +251,18 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				confirmBuyMessage.send(shopMessage.sentMessage.channel);
 			}
 		}
-		else if (msg.getFirstReaction()) {
+		else {
 			await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
 				shopMessage.user,
 				shopMessage.language,
 				shopMessage._translationModule.get("error.leaveShop"),
 				true
 			));
-			shopMessage._shopEndCallback(shopMessage, ShopEndReason.REACTION);
-		}
-		else {
-			shopMessage._shopEndCallback(shopMessage, ShopEndReason.TIME);
+			if (msg.getFirstReaction()) {
+				shopMessage._shopEndCallback(shopMessage, ShopEndReason.REACTION);
+			} else {
+				shopMessage._shopEndCallback(shopMessage, ShopEndReason.TIME);
+			}
 		}
 	}
 }

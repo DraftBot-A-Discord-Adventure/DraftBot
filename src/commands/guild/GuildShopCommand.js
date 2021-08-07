@@ -46,11 +46,16 @@ const GuildShopCommand = async (message, language) => {
 			],
 			guildShopTranslations.get("foodItem")
 		))
+		.endCallback(shopEndCallback)
 		.build())
 		.send(message.channel);
 
 	addBlockedPlayer(message.author.id, "guildShop", shopMessage.collector);
 };
+
+function shopEndCallback(shopMessage) {
+	removeBlockedPlayer(shopMessage.user.id);
+}
 
 function getGuildXPShopItem(guildShopTranslations) {
 	return new ShopItem(
