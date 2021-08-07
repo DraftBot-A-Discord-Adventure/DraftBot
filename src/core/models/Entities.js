@@ -7,213 +7,211 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Entities = Sequelize.define('entities', {
+	const Entities = Sequelize.define("Entities", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
-			autoIncrement: true,
+			autoIncrement: true
 		},
 		maxHealth: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.entities.maxHealth,
+			defaultValue: JsonReader.models.entities.maxHealth
 		},
 		health: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.entities.health,
+			defaultValue: JsonReader.models.entities.health
 		},
 		attack: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.entities.attack,
+			defaultValue: JsonReader.models.entities.attack
 		},
 		defense: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.entities.defense,
+			defaultValue: JsonReader.models.entities.defense
 		},
 		speed: {
 			type: DataTypes.INTEGER,
-			defaultValue: JsonReader.models.entities.speed,
+			defaultValue: JsonReader.models.entities.speed
 		},
-		discordUser_id: {
-			type: DataTypes.STRING(64),
+		discordUserId: {
+			type: DataTypes.STRING(64) // eslint-disable-line new-cap
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		fightPointsLost: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0
 		}
 	}, {
-		tableName: 'entities',
-		freezeTableName: true,
+		tableName: "entities",
+		freezeTableName: true
 	});
 
 	Entities.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
-	 * @param {String} discordUser_id
+	 * @param {String} discordUserId
 	 */
-	Entities.getOrRegister = (discordUser_id) => {
-		return Entities.findOrCreate({
-			where: {
-				discordUser_id: discordUser_id,
-			},
-			defaults: {Player: {Inventory: {}}},
-			include: [
-				{
-					model: Players,
-					as: 'Player',
-					include: [
-						{
-							model: Inventories,
-							as: 'Inventory',
-						},
-						{
-							model: PetEntities,
-							as: 'Pet',
-							include: [
-								{
-									model: Pets,
-									as: 'PetModel'
-								}
-							]
-						},
-						{
-							model: PlayerSmallEvents,
-							as: 'PlayerSmallEvents'
-						}],
-				}],
-		});
-	};
+	Entities.getOrRegister = (discordUserId) => Entities.findOrCreate({
+		where: {
+			discordUserId: discordUserId
+		},
+		defaults: {Player: {Inventory: {}}},
+		include: [
+			{
+				model: Players,
+				as: "Player",
+				include: [
+					{
+						model: Inventories,
+						as: "Inventory"
+					},
+					{
+						model: PetEntities,
+						as: "Pet",
+						include: [
+							{
+								model: Pets,
+								as: "PetModel"
+							}
+						]
+					},
+					{
+						model: PlayerSmallEvents,
+						as: "PlayerSmallEvents"
+					}]
+			}]
+	});
 
 	/**
 	 * @param {String} guildId
 	 */
-	Entities.getByGuild = (guildId) => {
-		return Entities.findAll({
-			defaults: {Player: {Inventory: {}}},
-			include: [
-				{
-					model: Players,
-					as: 'Player',
-					where: {
-						guild_id: guildId,
+	Entities.getByGuild = (guildId) => Entities.findAll({
+		defaults: {Player: {Inventory: {}}},
+		include: [
+			{
+				model: Players,
+				as: "Player",
+				where: {
+					guildId: guildId
+				},
+				include: [
+					{
+						model: Inventories,
+						as: "Inventory"
 					},
-					include: [
-						{
-							model: Inventories,
-							as: 'Inventory',
-						},
-						{
-							model: PetEntities,
-							as: 'Pet',
-							include: [
-								{
-									model: Pets,
-									as: 'PetModel'
-								}
-							]
-						},
-						{
-							model: PlayerSmallEvents,
-							as: 'PlayerSmallEvents'
-						}],
-				}],
-			order: [
-				[{model: Players, as: 'Player'}, 'score', 'DESC'],
-				[{model: Players, as: 'Player'}, 'level', 'DESC']
-			]
-		});
-	};
+					{
+						model: PetEntities,
+						as: "Pet",
+						include: [
+							{
+								model: Pets,
+								as: "PetModel"
+							}
+						]
+					},
+					{
+						model: PlayerSmallEvents,
+						as: "PlayerSmallEvents"
+					}]
+			}],
+		order: [
+			[{model: Players, as: "Player"}, "score", "DESC"],
+			[{model: Players, as: "Player"}, "level", "DESC"]
+		]
+	});
 
 	/**
-	 * @param {String} discordUser_id
+	 * @param {String} discordUserId
 	 */
-	Entities.getByDiscordUserId = (discordUser_id) => {
-		return Entities.findOne({
-			where: {
-				discordUser_id: discordUser_id,
-			},
-			defaults: {Player: {Inventory: {}}},
-			include: [
-				{
-					model: Players,
-					as: 'Player',
-					include: [
-						{
-							model: Inventories,
-							as: 'Inventory',
-						},
-						{
-							model: PetEntities,
-							as: 'Pet',
-							include: [
-								{
-									model: Pets,
-									as: 'PetModel'
-								}
-							]
-						},
-						{
-							model: PlayerSmallEvents,
-							as: 'PlayerSmallEvents'
-						}],
-				}],
-		});
-	};
+	Entities.getByDiscordUserId = (discordUserId) => Entities.findOne({
+		where: {
+			discordUserId: discordUserId
+		},
+		defaults: {Player: {Inventory: {}}},
+		include: [
+			{
+				model: Players,
+				as: "Player",
+				include: [
+					{
+						model: Inventories,
+						as: "Inventory"
+					},
+					{
+						model: PetEntities,
+						as: "Pet",
+						include: [
+							{
+								model: Pets,
+								as: "PetModel"
+							}
+						]
+					},
+					{
+						model: PlayerSmallEvents,
+						as: "PlayerSmallEvents"
+					}]
+			}]
+	});
 
 	/**
 	 * @param {Number} id
 	 */
-	Entities.getById = (id) => {
-		return Entities.findOne({
-			where: {
-				id: id,
-			},
-			defaults: {Player: {Inventory: {}}},
-			include: [
-				{
-					model: Players,
-					as: 'Player',
-					include: [
-						{
-							model: Inventories,
-							as: 'Inventory',
-						},
-						{
-							model: PetEntities,
-							as: 'Pet',
-							include: [
-								{
-									model: Pets,
-									as: 'PetModel'
-								}
-							]
-						},
-						{
-							model: PlayerSmallEvents,
-							as: 'PlayerSmallEvents'
-						}],
-				}],
-		});
-	};
+	Entities.getById = (id) => Entities.findOne({
+		where: {
+			id: id
+		},
+		defaults: {Player: {Inventory: {}}},
+		include: [
+			{
+				model: Players,
+				as: "Player",
+				include: [
+					{
+						model: Inventories,
+						as: "Inventory"
+					},
+					{
+						model: PetEntities,
+						as: "Pet",
+						include: [
+							{
+								model: Pets,
+								as: "PetModel"
+							}
+						]
+					},
+					{
+						model: PlayerSmallEvents,
+						as: "PlayerSmallEvents"
+					}]
+			}]
+	});
 
-	Entities.getServerRank = async (discord_id, ids) => {
-		const query = `SELECT rank FROM (SELECT entities.discordUser_id AS discordUser_id, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank FROM entities INNER JOIN players ON entities.id = players.entity_id AND players.score > 100 WHERE entities.discordUser_id IN (:ids)) WHERE discordUser_id = :id;`;
+	Entities.getServerRank = (discordId, ids) => {
+		const query = "SELECT rank " +
+			"FROM (" +
+				"SELECT entities.discordUserId AS discordUserId, (RANK() OVER (ORDER BY score DESC, players.level DESC)) AS rank " +
+				"FROM entities " +
+				"INNER JOIN players ON entities.id = players.entityId AND players.score > 100 " +
+				"WHERE entities.discordUserId IN (:ids)) " +
+			"WHERE discordUserId = :id;";
 		return Sequelize.query(query, {
 			replacements: {
 				ids: ids,
-				id: discord_id,
+				id: discordId
 			},
-			type: Sequelize.QueryTypes.SELECT,
+			type: Sequelize.QueryTypes.SELECT
 		});
 	};
 
@@ -228,13 +226,13 @@ module.exports = (Sequelize, DataTypes) => {
 				return [null];
 			}
 			return Entities.getOrRegister(lastMention.id);
-		} else {
-			const [player] = await Players.getByRank(parseInt(args[0]));
-			if (player === undefined) {
-				return [null];
-			}
-			return [await Entities.getById(player.entity_id)];
 		}
+		const [player] = await Players.getByRank(parseInt(args[0]));
+		if (player === undefined) {
+			return [null];
+		}
+		return [await Entities.getById(player.entityId)];
+
 	};
 
 	/**
@@ -245,12 +243,14 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Objects} object
 	 * @return {Number}
 	 */
-	Entities.prototype.getCumulativeAttack = async function (weapon, armor, potion, object) {
+	Entities.prototype.getCumulativeAttack = async function(weapon, armor, potion, object) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const attackItemValue = weapon.getAttack() + object.getAttack() / 2 > playerClass.getAttackValue(this.Player.level) ? playerClass.getAttackValue(this.Player.level) + Math.round(object.getAttack() / 2) : weapon.getAttack() + object.getAttack();
+		const attackItemValue = weapon.getAttack() + object.getAttack() / 2 > playerClass.getAttackValue(this.Player.level)
+			? playerClass.getAttackValue(this.Player.level) + Math.round(object.getAttack() / 2)
+			: weapon.getAttack() + object.getAttack();
 		const attack = playerClass.getAttackValue(this.Player.level) + attackItemValue + armor.getAttack() +
 			potion.getAttack();
-		return (attack > 0) ? attack : 0;
+		return attack > 0 ? attack : 0;
 	};
 
 	/**
@@ -261,12 +261,14 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Objects} object
 	 * @return {Number}
 	 */
-	Entities.prototype.getCumulativeDefense = async function (weapon, armor, potion, object) {
+	Entities.prototype.getCumulativeDefense = async function(weapon, armor, potion, object) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const defenseItemValue = armor.getDefense() + object.getDefense() / 2 > playerClass.getDefenseValue(this.Player.level) ? playerClass.getDefenseValue(this.Player.level) + Math.round(object.getDefense() / 2) : armor.getDefense() + object.getDefense();
+		const defenseItemValue = armor.getDefense() + object.getDefense() / 2 > playerClass.getDefenseValue(this.Player.level)
+			? playerClass.getDefenseValue(this.Player.level) + Math.round(object.getDefense() / 2)
+			: armor.getDefense() + object.getDefense();
 		const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + defenseItemValue +
 			potion.getDefense();
-		return (defense > 0) ? defense : 0;
+		return defense > 0 ? defense : 0;
 	};
 
 	/**
@@ -277,23 +279,29 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Objects} object
 	 * @return {Number}
 	 */
-	Entities.prototype.getCumulativeSpeed = async function (weapon, armor, potion, object) {
+	Entities.prototype.getCumulativeSpeed = async function(weapon, armor, potion, object) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const speedItemValue = object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level) ? playerClass.getSpeedValue(this.Player.level) + Math.round(object.getSpeed() / 2) : object.getSpeed();
+		const speedItemValue = object.getSpeed() / 2 > playerClass.getSpeedValue(this.Player.level)
+			? playerClass.getSpeedValue(this.Player.level) + Math.round(object.getSpeed() / 2)
+			: object.getSpeed();
 		const speed = playerClass.getSpeedValue(this.Player.level) + weapon.getSpeed() + armor.getSpeed() +
 			potion.getSpeed() + speedItemValue;
-		return (speed > 0) ? speed : 0;
+		return speed > 0 ? speed : 0;
 	};
 
 	/**
 	 * Returns this player instance's current cumulative health. Returns the regenerative health
 	 * @return {Number}
 	 */
-	Entities.prototype.getCumulativeHealth = async function () {
-		let maxHealth = await this.getMaxCumulativeHealth();
+	Entities.prototype.getCumulativeHealth = async function() {
+		const maxHealth = await this.getMaxCumulativeHealth();
 		let fp = maxHealth - this.fightPointsLost;
-		if (fp < 0) fp = 0;
-		else if (fp > maxHealth) fp = maxHealth;
+		if (fp < 0) {
+			fp = 0;
+		}
+		else if (fp > maxHealth) {
+			fp = maxHealth;
+		}
 		return fp;
 	};
 
@@ -301,7 +309,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Returns this player instance's max cumulative health
 	 * @return {Number}
 	 */
-	Entities.prototype.getMaxHealth = async function () {
+	Entities.prototype.getMaxHealth = async function() {
 		const playerClass = await Classes.getById(this.Player.class);
 		return playerClass.getMaxHealthValue(this.Player.level);
 	};
@@ -311,7 +319,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * Returns this player instance's max cumulative health
 	 * @return {Number}
 	 */
-	Entities.prototype.getMaxCumulativeHealth = async function () {
+	Entities.prototype.getMaxCumulativeHealth = async function() {
 		const playerClass = await Classes.getById(this.Player.class);
 		return playerClass.getMaxCumulativeHealthValue(this.Player.level);
 	};
@@ -319,7 +327,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} health
 	 */
-	Entities.prototype.addHealth = async function (health) {
+	Entities.prototype.addHealth = async function(health) {
 		this.health += health;
 		await this.setHealth(this.health);
 	};
@@ -327,23 +335,23 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} health
 	 */
-	Entities.prototype.setHealth = async function (health) {
+	Entities.prototype.setHealth = async function(health) {
 		if (health < 0) {
 			this.health = 0;
-		} else {
-			if (health > await this.getMaxHealth()) {
-				this.health = await this.getMaxHealth();
-			} else {
-				this.health = health;
-			}
+		}
+		else if (health > await this.getMaxHealth()) {
+			this.health = await this.getMaxHealth();
+		}
+		else {
+			this.health = health;
 		}
 	};
 
 	/**
 	 * @return {String}
 	 */
-	Entities.prototype.getMention = function () {
-		return '<@' + this.discordUser_id + '>';
+	Entities.prototype.getMention = function() {
+		return "<@" + this.discordUserId + ">";
 	};
 
 	return Entities;

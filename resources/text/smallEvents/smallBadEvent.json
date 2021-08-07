@@ -1,0 +1,66 @@
+{
+	"translations": {
+		"fr": {
+			"lifeLoss": {
+				"stories": [
+					"vos pieds se prennent dans une racine. Blessé, vous perdez **{lifeLoss} :broken_heart:**.",
+					"plongé dans vos pensées, vous ne prêtez guère attention au sol sous vos pieds et trébuchez malencontreusement contre un caillou, vous vous êtes blessé au genou. Ce n'est pas très grave, bien que douloureux. Vous perdez **{lifeLoss} :broken_heart:**.",
+					"vous sifflotez en marchant. Tout à coup, quelque chose entre dans votre champ de vision : il s'agit d'un chien, et il fonce droit sur vous ! Avant que vous n'ayez le temps de comprendre plus en détail ce qu'il se passe, l'animal entre en collision avec vous, mais repart aussitôt. Heureusement, vous n'avez été que légèrement blessé, et perdez seulement **{lifeLoss} :broken_heart:**.",
+					"vous percutez un cheval arrivant au galop, vous n'êtes blessé que superficiellement. Vous perdez **{lifeLoss} :broken_heart:**.",
+					"vous êtes violemment percuté par un groupe de sangliers, vous vous relevez non sans peine et reprenez votre route en ayant perdu **{lifeLoss} :broken_heart:**."
+				]
+			},
+			"alteration": {
+				"stories": [
+					"vous marchez sur un piège, l'instant d'après vous êtes suspendu par le pied, vous défaire de ce piège risque de vous faire perdre du temps, vous perdez **{alteTime} :clock2:**.",
+					"il se met à pleuvoir. Vous vous apprêtiez à courir pour ne pas être trempé quand vous apercevez un superbe arc-en-ciel à quelques pas. Vous ne pensez plus à la pluie et vous vous laissez absorber par le spectacle durant **{alteTime} :clock2:**.",
+					"vous tombez de fatigue. Vos aventures vous ont épuisé, c'est pour cela que vous décidez de vous reposer, durant **{alteTime} :clock2:**.",
+					"en marchant plongé dans vos pensées, vous ne remarquez pas la branche au sol. Vous trébuchez dessus et vos affaires s'éparpillent au sol. Vous perdez **{alteTime} :clock2:**.",
+					"vous entendez un bruit sourd et fracassant provenant d'un sous-bois. Votre curiosité a été piqué au vif : vous voulez en avoir le cœur net et allez inspecter la zone. Après **{alteTime} :clock2:** vous abandonnez sans avoir trouvé ni compris l'origine de ce bruit qui vous a fait sursauter."
+				]
+			},
+			"moneyLoss": {
+				"stories": [
+					"traversant une foule, vous sentez une main vous fouiller vivement et alléger vos poches, vous n’avez pas le temps de répliquer que votre détrousseur a disparu. Vous avez perdu **{moneyLost} :money_with_wings:**.",
+					"vous croisez un mendiant vous demandant un peu d’argent pour subvenir à ses besoins. Pris d’un élan de pitié, vous satisfaisez sa demande et lui donnez **{moneyLost} :money_with_wings:**.",
+					"un homme masqué vous interpelle et vous menace de son arme. Afin qu'il vous laisse la vie sauve, vous lui donnez les **{moneyLost} :money_with_wings:** pièces que avez dans votre poche, ainsi que les clés de votre charrette.",
+					"vous vous souvenez soudainement avoir oublié votre bourse dans la chambre de la dernière auberge par laquelle vous êtes passé. Vous avez perdu **{moneyLost} :money_with_wings:**.",
+					"Vous croisez une charrette dont le chargement dépasse et déchire votre sac. Pendant que vous rassemblez vos affaires un groupe d’enfants passe et vous dérobe de l’argent. Vous perdez **{moneyLost} :money_with_wings:**."
+				]
+			}
+		},
+		"en": {
+			"lifeLoss": {
+				"stories": [
+					"your feet stumble on a root. Wounded, you loose **{lifeLoss} :broken_heart:**.",
+					"deep in your thoughts, you barely pay attention to the ground under your feet and unfortunately stumble on a pebble, you injured your knee. It's not too bad, but it' s painful. You lose **{lifeLoss} :broken_heart:**.",
+					"you whistle while walking. Suddenly, something enters into your field of vision: it's a dog, and it's running straight at you! Before you have time to understand what is happening, the animal collides with you. but immediately leaves. Fortunately, you are only slightly injured. and only lose **{lifeLoss} :broken_heart:**.",
+					"you get hit a horse arriving at the galop, you are only hurt superficially. You lose **{lifeLoss} :broken_heart:**.",
+					"you are violently hit by a group of boars, you get up and get back on your way losing **{lifeLoss} :broken_heart:**."
+				]
+			},
+			"alteration": {
+				"stories": [
+					"you walk on a trap, the moment after you are suspended by the foot, undoing this trap will take some time, you lose **{alteTime} :clock2: **.",
+					"it starts to rain, You ready yourself to start running to avoid being soaked when you see a stunning rainbow just a few steps away. You stop thinking about the rain and get absorbed by the show during **{alteTime} :clock2:**.",
+					"you collapse from fatigue. Your adventure have exhausted your body, you decide to rest for **{alteTime} :clock2:**.",
+					"while walking distracted by your thoughts, you don't notice the branch on the ground. You stumble on it and your stuff scatter on the ground. You lose **{alteTime} :clock2:**.",
+					"you hear a loud and earth-shattering noise coming from an undergrowth. Your curiosity clearly stung by: you want to know and go inspect the area.\nAfter **{alteTime} :clock2: ** you abandon without finding anything nor understanding the source of the noise that made you jump."
+				]
+			},
+			"moneyLoss": {
+				"stories": [
+					"crossing a crowd, you feel a hand to search you deeply and make your pockets weigh less, you don't have time to give back a shot that your thief has already disappeared. You lost **{moneyLost} :money_with_wings:**.",
+					"you come across a beggar asking you for some money to support him. Seized with a surge of pity, you satisfy his request and give him **{moneyLost} :money_with_wings:**.",
+					"a masked man calls you out and threatens you with his weapon. In order for him to spare your life, you give him the **{moneyLost} :money_with_wings:** coins in your pocket, as well as the keys to your cart.",
+					"you suddenly remember forgetting your purse in the room of the last inn you passed by. You lose **{moneyLost} :money_with_wings:**.",
+					"you cross a cart whose load protrudes and tears your bag. While you are gathering your belongings a group of children pass by and steal money from you. You lose **{moneyLost} :money_with_wings:**."
+				]
+			}
+		}
+	},
+	"rarity": 8,
+	"emote": ":confounded:   "
+}
+
+

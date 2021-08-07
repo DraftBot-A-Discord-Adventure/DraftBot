@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "ci",
+	"map_location_ids": [
+		23
+	],
 	"translations": {
 		"fr": "👮 Alors que vous continuez votre chemin, vous arrivez à une ville. Juste après, un groupe d'homme arrive vers vous et vous attrape, puis vous amène dans un bâtiment. Les personnes du groupe vous jettent dans une cellule où se trouve un détenu, vous comprenez très vite que vous vous trouvez dans une prison et que vous avez été victime d'un malentendu.",
 		"en": "👮 As you continue your journey, you reach a city. Soon after, a group of men approaches you, abducts you, and brings you inside a building. The group throws you into a cell with another person already detained in it. You quickly understand that you are in a jail and victim of a misunderstanding."

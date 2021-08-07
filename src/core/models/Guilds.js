@@ -6,6 +6,8 @@
  * @param {DataTypes} DataTypes
  * @returns
  */
+import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+
 module.exports = (Sequelize, DataTypes) => {
 	const Guilds = Sequelize.define(
 		"Guilds",
@@ -13,64 +15,64 @@ module.exports = (Sequelize, DataTypes) => {
 			id: {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
-				autoIncrement: true,
+				autoIncrement: true
 			},
 			name: {
-				type: DataTypes.STRING(32),
+				type: DataTypes.STRING(32) // eslint-disable-line new-cap
 			},
 			guildDescription: {
-				type: DataTypes.STRING(300),
+				type: DataTypes.STRING(300) // eslint-disable-line new-cap
 			},
 			score: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.guilds.score,
+				defaultValue: JsonReader.models.guilds.score
 			},
 			level: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.guilds.level,
+				defaultValue: JsonReader.models.guilds.level
 			},
 			experience: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.guilds.experience,
+				defaultValue: JsonReader.models.guilds.experience
 			},
 			commonFood: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.guilds.commonFood,
+				defaultValue: JsonReader.models.guilds.commonFood
 			},
 			carnivorousFood: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.guilds.carnivorousFood,
+				defaultValue: JsonReader.models.guilds.carnivorousFood
 			},
 			herbivorousFood: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.guilds.herbivorousFood,
+				defaultValue: JsonReader.models.guilds.herbivorousFood
 			},
 			ultimateFood: {
 				type: DataTypes.INTEGER,
-				defaultValue: JsonReader.models.guilds.ultimateFood,
+				defaultValue: JsonReader.models.guilds.ultimateFood
 			},
 			lastDailyAt: {
 				type: DataTypes.DATE,
-				defaultValue: JsonReader.models.guilds.lastDailyAt,
+				defaultValue: JsonReader.models.guilds.lastDailyAt
 			},
-			chief_id: {
-				type: DataTypes.INTEGER,
+			chiefId: {
+				type: DataTypes.INTEGER
 			},
-			elder_id: {
-				type: DataTypes.INTEGER,
+			elderId: {
+				type: DataTypes.INTEGER
 			},
 			updatedAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 			},
 			createdAt: {
 				type: DataTypes.DATE,
-				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
-			},
+				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			}
 		},
 		{
 			tableName: "guilds",
-			freezeTableName: true,
+			freezeTableName: true
 		}
 	);
 
@@ -81,73 +83,69 @@ module.exports = (Sequelize, DataTypes) => {
 		);
 	});
 
-	Guilds.prototype.updateLastDailyAt = function () {
+	Guilds.prototype.updateLastDailyAt = function() {
 		const moment = require("moment");
-		this.lastDailyAt = new moment();
+		this.lastDailyAt = new moment(); // eslint-disable-line new-cap
 	};
 
 	/**
 	 * @param {Number} id
 	 */
-	Guilds.getById = (id) => {
-		return Guilds.findOne({
-			where: {
-				id: id,
-			},
-			include: [
-				{
-					model: GuildPets,
-					as: "GuildPets",
-					include: [
-						{
-							model: PetEntities,
-							as: "PetEntity",
-							include: [
-								{
-									model: Pets,
-									as: "PetModel",
-								},
-							],
-						},
-					],
-				},
-			],
-		});
-	};
+	Guilds.getById = (id) => Guilds.findOne({
+		where: {
+			id: id
+		},
+		include: [
+			{
+				model: GuildPets,
+				as: "GuildPets",
+				include: [
+					{
+						model: PetEntities,
+						as: "PetEntity",
+						include: [
+							{
+								model: Pets,
+								as: "PetModel"
+							}
+						]
+					}
+				]
+			}
+		]
+	});
 
 	/**
 	 * @param {String} name
 	 */
-	Guilds.getByName = (name) => {
-		return Guilds.findOne({
-			where: {
-				name: name,
-			},
-			include: [
-				{
-					model: GuildPets,
-					as: "GuildPets",
-					include: [
-						{
-							model: PetEntities,
-							as: "PetEntity",
-							include: [
-								{
-									model: Pets,
-									as: "PetModel",
-								},
-							],
-						},
-					],
-				},
-			],
-		});
-	};
+	Guilds.getByName = (name) => Guilds.findOne({
+		where: {
+			name: name
+		},
+		include: [
+			{
+				model: GuildPets,
+				as: "GuildPets",
+				include: [
+					{
+						model: PetEntities,
+						as: "PetEntity",
+						include: [
+							{
+								model: Pets,
+								as: "PetModel"
+							}
+						]
+					}
+				]
+			}
+		]
+	});
 
 	/**
 	 * @return {Number} Return the experience needed to level up.
 	 */
-	Guilds.prototype.getExperienceNeededToLevelUp = function () {
+	Guilds.prototype.getExperienceNeededToLevelUp = function() {
 		return (
 			Math.round(
 				JsonReader.values.xp.player.baseValue *
@@ -159,7 +157,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} experience
 	 */
-	Guilds.prototype.addExperience = function (experience) {
+	Guilds.prototype.addExperience = function(experience) {
 		this.experience += experience;
 		this.setExperience(this.experience);
 	};
@@ -167,10 +165,11 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @param {Number} experience
 	 */
-	Guilds.prototype.setExperience = function (experience) {
+	Guilds.prototype.setExperience = function(experience) {
 		if (experience > 0) {
 			this.experience = experience;
-		} else {
+		}
+		else {
 			this.experience = 0;
 		}
 	};
@@ -178,7 +177,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * @return {Boolean} True if the guild has levelUp false otherwise
 	 */
-	Guilds.prototype.needLevelUp = function () {
+	Guilds.prototype.needLevelUp = function() {
 		return this.experience >= this.getExperienceNeededToLevelUp();
 	};
 
@@ -187,18 +186,18 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
 	 */
-	Guilds.prototype.levelUpIfNeeded = async function (channel, language) {
+	Guilds.prototype.levelUpIfNeeded = function(channel, language) {
 		if (!this.needLevelUp()) {
 			return;
 		}
 		this.experience -= this.getExperienceNeededToLevelUp();
 		this.level++;
-		const embed = new discord.MessageEmbed()
+		const embed = new DraftBotEmbed()
 			.setTitle(
 				format(
 					JsonReader.models.guilds.getTranslation(language).levelUp.title,
 					{
-						guildName: this.name,
+						guildName: this.name
 					}
 				)
 			)
@@ -207,7 +206,7 @@ module.exports = (Sequelize, DataTypes) => {
 					JsonReader.models.guilds.getTranslation(language).levelUp
 						.desc,
 					{
-						level: this.level,
+						level: this.level
 					}
 				)
 			);
@@ -222,8 +221,35 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {boolean}
 	 */
 	Guilds.isPetShelterFull = (guild) => {
-		if (!guild.GuildPets) return true;
+		if (!guild.GuildPets) {
+			return true;
+		}
 		return guild.GuildPets.length >= JsonReader.models.pets.slots;
+	};
+
+	Guilds.prototype.getElderId = function() {
+		return this.elderId;
+	};
+
+	Guilds.prototype.getChiefId = function() {
+		return this.chiefId;
+	};
+
+	// ---------------------------------------------------------------------------------------------------------------------
+	// PART ON botFacts Small Events
+	// ---------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Get the mean level of all guilds
+	 * @return {Promise<Number>}
+	 */
+	Guilds.getGuildLevelMean = async () => {
+		const query = `SELECT AVG(level)
+		               FROM Guilds`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["AVG(level)"]
+		);
 	};
 
 	return Guilds;

@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "vi,ro,pl",
+	"map_location_ids": [
+		2
+	],
 	"translations": {
 		"fr": "🥳 Vous arrivez dans une ferme où se déroule un grand festin. Les gens paraissent accueillants.",
 		"en": "🥳 You arrive in farm in which festivities are conducted. The people seem to receive you with hospitality."
@@ -137,7 +139,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous en profitez pour amasser quelques pièces d'or récupérés çà et là.",
+						"fr": "Vous en profitez pour amasser quelques pièces d'or récupérées çà et là.",
 						"en": "You take advantage of the situation to gather some gold here and there."
 					},
 					"lostTime": 0,

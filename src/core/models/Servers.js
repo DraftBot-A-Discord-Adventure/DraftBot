@@ -7,52 +7,50 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Servers = Sequelize.define('Servers', {
+	const Servers = Sequelize.define("Servers", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
-			autoIncrement: true,
+			autoIncrement: true
 		},
 		prefix: {
-			type: DataTypes.STRING(10),
-			defaultValue: JsonReader.models.servers.prefix,
+			type: DataTypes.STRING(10), // eslint-disable-line new-cap
+			defaultValue: JsonReader.models.servers.prefix
 		},
 		language: {
-			type: DataTypes.STRING(2),
-			defaultValue: JsonReader.models.servers.language,
+			type: DataTypes.STRING(2), // eslint-disable-line new-cap
+			defaultValue: JsonReader.models.servers.language
 		},
-		discordGuild_id: {
-			type: DataTypes.STRING(64),
+		discordGuildId: {
+			type: DataTypes.STRING(64) // eslint-disable-line new-cap
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
-		},
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+		}
 	}, {
-		tableName: 'servers',
-		freezeTableName: true,
+		tableName: "servers",
+		freezeTableName: true
 	});
 
 	Servers.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
 	 * @param {String} discordGuildId
 	 * @return {Servers}
 	 */
-	Servers.getOrRegister = (discordGuildId) => {
-		return Servers.findOrCreate({
-			where: {
-				discordGuild_id: discordGuildId,
-			},
-		});
-	};
+	Servers.getOrRegister = (discordGuildId) => Servers.findOrCreate({
+		where: {
+			discordGuildId: discordGuildId
+		}
+	});
 
 	return Servers;
 };

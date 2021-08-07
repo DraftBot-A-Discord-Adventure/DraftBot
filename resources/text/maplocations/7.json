@@ -1,13 +1,9 @@
 {
 	"type": "de",
-	"name_fr": "La Vallée des Rois",
-	"name_en": "The Kings' Valley",
-	"particle_fr": "vers",
-	"particle_en": "of",
-	"desc_fr": "Désert de sable chaud nommé en l'honneur des anciens rois de la région.",
-	"desc_en": "Hot sandy desert named in honor of the region's ancient kings.",
-	"north_map": 8,
-	"east_map": 17,
-	"south_map": 19,
-	"west_map": 6
+	"nameFr": "La Vallée des Rois",
+	"nameEn": "The Kings' Valley",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Désert de sable chaud nommé en l'honneur des anciens rois de la région.",
+	"descEn": "Hot sandy desert named in honor of the region's ancient kings."
 }

@@ -1,35 +1,41 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const Maps = require("../../core/Maps");
+
+module.exports.commandInfo = {
+	name: "drink",
+	aliases: ["dr","glouglou"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+};
+
 /**
  * Allow to use the potion if the player has one in the dedicated slot of his inventory
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  */
-const DrinkCommand = async function (language, message) {
+const DrinkCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
-		return;
-	}
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
 	const potion = await entity.Player.Inventory.getPotion();
-	const embed = new discord.MessageEmbed();
+	const embed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.drink.getTranslation(language).drinkSuccess, message.author);
 
 
 	if (potion.nature === NATURE.NONE) {
-		if (potion.id !== JsonReader.models.inventories.potion_id) {
+		if (potion.id !== JsonReader.models.inventories.potionId) {
 			await entity.Player.Inventory.drinkPotion();
 			entity.Player.Inventory.save();
-			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
-		} else {
-			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).noActiveObjectdescription);
+			await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
+		}
+		else {
+			await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).noActiveObjectdescription);
 		}
 		return;
 	}
 	if (potion.nature === NATURE.HEALTH) {
-		embed.setColor(JsonReader.bot.embed.default)
-			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
-			.setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, {value: potion.power}));
+		embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, {value: potion.power}));
 		await entity.addHealth(potion.power);
 		entity.Player.Inventory.drinkPotion();
 	}
@@ -37,17 +43,13 @@ const DrinkCommand = async function (language, message) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectIsActiveDuringFights);
 	}
 	if (potion.nature === NATURE.HOSPITAL) {
-		embed.setColor(JsonReader.bot.embed.default)
-			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
-			.setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, {value: potion.power}));
+		embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, {value: potion.power}));
 		Maps.advanceTime(entity.Player, potion.power * 60);
 		entity.Player.save();
 		entity.Player.Inventory.drinkPotion();
 	}
 	if (potion.nature === NATURE.MONEY) {
-		embed.setColor(JsonReader.bot.embed.default)
-			.setAuthor(format(JsonReader.commands.drink.getTranslation(language).drinkSuccess, {pseudo: message.author.username}), message.author.displayAvatarURL())
-			.setDescription(format(JsonReader.commands.drink.getTranslation(language).moneyBonus, {value: potion.power}));
+		embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).moneyBonus, {value: potion.power}));
 		entity.Player.addMoney(potion.power);
 		entity.Player.Inventory.drinkPotion();
 	}
@@ -55,18 +57,10 @@ const DrinkCommand = async function (language, message) {
 	await Promise.all([
 		entity.save(),
 		entity.Player.save(),
-		entity.Player.Inventory.save(),
+		entity.Player.Inventory.save()
 	]);
-	log(entity.discordUser_id + " drank " + potion.en);
+	log(entity.discordUserId + " drank " + potion.en);
 	return await message.channel.send(embed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: 'drink',
-			func: DrinkCommand,
-			aliases: ['dr', 'glouglou']
-		}
-	]
-};
+module.exports.execute = DrinkCommand;

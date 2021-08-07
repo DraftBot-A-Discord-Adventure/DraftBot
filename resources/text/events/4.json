@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "pl,ro",
+	"map_location_ids": [
+		21
+	],
 	"translations": {
 		"fr": "🌠 Vous avez décidé de profiter d'une nuit calme pour continuer votre progression. Le ciel est magnifique et après quelques minutes à scruter le ciel, vous observez une étoile filante!",
 		"en": "🌠 You have decided to enjoy a quiet night to continue your progress. The sky is magnificent and after a few minutes scrutinizing the sky, you observe a shooting star!"

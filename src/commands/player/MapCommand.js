@@ -1,32 +1,31 @@
-const Maps = require('../../core/Maps');
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+const Maps = require("../../core/Maps");
+
+module.exports.commandInfo = {
+	name: "map",
+	aliases: ["m", "world"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+};
 
 /**
  * Show the map of DraftBot world
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-async function MapCommand(language, message, args) {
+const MapCommand = async (message, language) => {
 
-	let [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD], entity)) !== true) {
-		return;
-	}
-
-	const mapEmbed = new discord.MessageEmbed()
+	const mapEmbed = new DraftBotEmbed()
 		.setImage(
 			JsonReader.commands.map.URL
 		)
-
-		.setColor(JsonReader.bot.embed.default)
-		.setAuthor(format(JsonReader.commands.map.getTranslation(language).text, {
-			pseudo: message.author.username,
-		}), message.author.displayAvatarURL());
+		.formatAuthor(JsonReader.commands.map.getTranslation(language).text, message.author);
 
 	if (Maps.isTravelling(entity.Player)) {
-		let destMap = await MapLocations.getById(entity.Player.map_id);
+		const destMap = await entity.Player.getDestination();
 		mapEmbed.setDescription(format(
 			JsonReader.commands.map.getTranslation(language).descText, {
 				direction: await destMap.getDisplayName(language),
@@ -37,14 +36,6 @@ async function MapCommand(language, message, args) {
 	await message.channel.send(mapEmbed);
 
 	log("Player " + message.author + " asked the map");
-}
-
-module.exports = {
-	commands: [
-		{
-			name: 'map',
-			func: MapCommand,
-			aliases: ['m', 'world']
-		}
-	]
 };
+
+module.exports.execute = MapCommand;

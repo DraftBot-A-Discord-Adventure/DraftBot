@@ -1,34 +1,29 @@
+module.exports.commandInfo = {
+	name: "inventory",
+	aliases: ["inv", "i"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+};
+
 /**
  * Displays the inventory of a player
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const InventoryCommand = async (language, message, args) => {
-	let [entity] = await Entities.getByArgs(args, message);
-	if (entity === null) {
-		[entity] = await Entities.getOrRegister(message.author.id);
-	}
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
-		return;
+const InventoryCommand = async (message, language, args) => {
+	let [entity] = await Entities.getByArgs(args, message);
+	if (!entity) {
+		[entity] = await Entities.getOrRegister(message.author.id);
 	}
 
 	const inventoryEmbed = await entity.Player.Inventory.toEmbedObject(language);
 	return await message.channel.send(
-		new discord.MessageEmbed()
-			.setColor(JsonReader.bot.embed.default)
+		new DraftBotEmbed()
 			.setTitle(format(JsonReader.commands.inventory.getTranslation(language).title, {pseudo: await entity.Player.getPseudo(language)}))
-			.addFields(inventoryEmbed),
+			.addFields(inventoryEmbed)
 	);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: 'inventory',
-			func: InventoryCommand,
-			aliases: ['inv', 'i']
-		}
-	]
-};
+module.exports.execute = InventoryCommand;

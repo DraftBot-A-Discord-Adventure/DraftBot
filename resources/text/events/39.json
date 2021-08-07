@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "ci",
+	"map_location_ids": [
+		26
+	],
 	"translations": {
 		"fr": "👤 Durant votre périple vous arrivez dans une ville en bord de mer. Vous faites là-bas la rencontre d'un homme, disant s'appeler Price et être mercenaire.",
 		"en": "👤 During your journey you arrive in a seaside town. There you meet a man, who says that his name is Price and that he is a mercenary."

@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "ci,vi",
+	"map_location_ids": [
+		26
+	],
 	"translations": {
 		"fr": "🎆 Vous montez sur une colline. Alors que vous regardez autour de vous, vous voyez des lumières au loin. Au fur et à mesure que vous vous approchez, vous entendez également de la musique. C'est un festival ! Excité de faire la fête, vous courez vers la ville.",
 		"en": "🎆 You're going up a hill. As you look around, you see lights in the distance. As you get closer, you also hear music. It's a festival! Excited to party, you run to the city."

@@ -1,0 +1,239 @@
+{
+	"map_location_ids": [
+		6
+	],
+	"translations": {
+		"fr": "\uD83E\uDDD2 Alors que vous faites étape à Boug-Coton, vous êtes interpellé par des enfants vous demandant de jouer avec eux.",
+		"en": "\uD83E\uDDD2 While you are making a stopover at Boug-Coton, you are called out by children asking you to play with them."
+	},
+	"possibilities": {
+		"⚔️": {
+			"translations": {
+				"fr": "Jouer à se battre",
+				"en": "Play a fighting game"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Après avoir joué pendant un certain temps, les enfants remarquent que le soleil est en train de se coucher et se voient contraints de vous dire au revoir.",
+						"en": "After playing for a while, the Kids notice that the Sun is setting and are forced to tell you good bye."
+					},
+					"lostTime": 20,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Au cours de la joute amicale, l'un des enfants arrive à vous écorcher superficiellement.",
+						"en": "During the friendly fight, one of the children hurts you superficially."
+					},
+					"lostTime": 0,
+					"health": -1,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Sans le faire exprès, vous entaillez la joue d'un des enfants... Gêné, vous lui donnez quelques pièces afin qu'il puisse payer ses soins.",
+						"en": "Without doing it intentionally, you cut the cheek of one of the children... Embarrassed, you give him some coins so that he can pay for his care."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": -250,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Très énergiques, les enfants vous font tourner en rond un moment. Après vingt minutes vous finissez cependant par mettre fin au jeu.",
+						"en": "Very energetic, the kids turn you round for a while. However, after twenty minutes you put a stop to the game."
+					},
+					"lostTime": 20,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🏹": {
+			"translations": {
+				"fr": "Leur apprendre à tirer à l'arc",
+				"en": "Teach them how to use a Bow"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Alors que vous expliquez aux enfants comment se positionner au mieux pour tirer, l'un d'eux, un peu en retrait parvient à bander son arc, et, avant que vous ne puissiez faire quoi que ce soit, relâche la flèche qui vient se planter dans votre jambe. Blessé, vous les quittez pour chercher en endroit où vous soigner.",
+						"en": "While you explain to the children how to position themselves at best to shoot, one of them, a little backward manages to bandage his bow, and, before you can do anything, shoot the arrow that comes to your leg. Wounded, you leave them to find a place to cure yourself."
+					},
+					"lostTime": 0,
+					"health": -25,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous expliquez aux enfants comment se placer pour tirer et ceux-ci s'en sortent très bien. Vous passez le reste de la journée à les entraîner au tir à l'arc. Avant que vous ne les quittiez vous êtes chaudement remercié par un petit présent de vos apprentis du jour. Vous reprenez la route, heureux d'avoir pu vous rendre utile.",
+						"en": "You explain to the children how to place themselves to shoot and the children do well. You spend the rest of the day training them in archery. Before you left them you were warmly thanked by a small present from your apprentices of the day. You leave them and resume your journey"
+					},
+					"lostTime": 190,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 325,
+					"money": 0,
+					"item": true
+				},
+				{
+					"translations": {
+						"fr": "Très vite, vous constatez que les enfants ne sont pas encore assez forts pour tendre la corde, vous leur dites donc que vous reviendrez les entraîner quand ils seront plus grands et reprenez votre route.",
+						"en": "Very quickly, you notice that the children are not yet strong enough to tighten the rope, so you say that you will come back to train them when they are older and resume your journey."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"👥": {
+			"translations": {
+				"fr": "Jouer au fuyard et au garde",
+				"en": "Play Cops & Robbers"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Ne comprenant pas très bien les règles du jeu, vous êtes rapidement mis de côté et reprenez votre route sans que les enfants ne se préoccupent de vous.",
+						"en": "Not understanding the rules of the game very well, you are quickly put aside and resume your journey without the children worrying about you."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous jouez avec eux jusqu'à ce que leurs parents arrivent, vous trouvant suspect ils vous répudient de leur village en vous menaçant. Vous reprenez la route sans demander votre reste.",
+						"en": "You play with them until their parents arrive, finding you suspicious, they repudiate you from their village by threatening you. You get back on the road without asking for your rest."
+					},
+					"lostTime": 5,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Jouant le rôle du fuyard vous êtes poursuivi par les gamins. En regardant par-dessus votre épaule pour évaluer la distance entre eux et vous, vous vous prenez les pieds dans une racine et vous blessez. Les enfants vous abandonnent à votre triste sort lorsqu'ils constatent votre inaptitude à continuer à jouer. Il faudra vous soigner.",
+						"en": "Playing the role of the runaway you are chased by the kids. As you look over your shoulder to gauge the distance between them and you, you trip over a root and injure yourself. Children leave you to your sad fate when they see your inability to continue playing. You will need to be treated."
+					},
+					"lostTime": 0,
+					"health": -15,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"❌": {
+			"translations": {
+				"fr": "Refuser et passer votre chemin",
+				"en": "Refuse and continue"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous refusez de jouer avec les enfants et passez votre chemin.",
+						"en": "You refuse to play with children and go away."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous refusez, et cela a pour conséquence d'énerver les enfants qui ramassent des pierres au sol et vous les jettent. Devant la pluie de gravats, vous êtes contraint de fuir, hors de portée des enfants. Vous vous rendez compte que vous avez été touché à la tête et que la blessure saigne abondamment, il faudra vous soigner.",
+						"en": "You refuse, and this has the consequence of annoying the children who pick up stones from the ground and throw them at you. In front of the rubble rain, you are forced to flee, out of reach of children. You realize that you have been hit in the head and the wound is bleeding profusely, you will need treatment."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous refusez, et les enfants s'en énervent. Voyant que la situation risque de tourner au vinaigre, vous reprenez vite la route.",
+						"en": "You refuse, and the children get angry. Seeing that the situation could turn sour, you quickly hit the road."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "\uD83D\uDEB6 Devant votre manque de répondant, les enfants se désintéressent de vous et vont jouer ailleurs. Vous reprenez donc votre route.",
+						"en": "\uD83D\uDEB6 Faced with your lack of respondent, the children lose interest in you and go to play elsewhere. So you resume your journey."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "\uD83D\uDC5E Vous voyant perdu dans vos pensées les gamins vous attachent les lacets ensemble. Lorsque vous sortez de cet état de transe, vous trébuchez et tombez face contre terre.",
+						"en": "\uD83D\uDC5E Seeing you lost in your thoughts, the kids tie the laces together. When you come out of this trance state, you stumble and fall face down on the ground."
+					},
+					"lostTime": 0,
+					"health": -5,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "\uD83D\uDCB8 Vous restez planté là pendant des heures, et lorsque vous recouvrez vos esprits, vous vous rendez compte que votre bourse a disparu. Vous poursuivez votre chemin, dépité.",
+						"en": "\uD83D\uDCB8 You just sit there for hours, and when you come back to your senses, you realize your purse is gone. You continue on your way, annoyed."
+					},
+					"lostTime": 120,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 25,
+					"money": -100,
+					"item": false
+				}
+			]
+		}
+	}
+}

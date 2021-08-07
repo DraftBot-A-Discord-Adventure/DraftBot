@@ -1,13 +1,9 @@
 {
 	"type": "pl",
-	"name_fr": "Le Berceau",
-	"name_en": "The Cradle",
-	"particle_fr": "vers",
-	"particle_en": "of",
-	"desc_fr": "Grande plaine de l'ouest de la contrée bordée d'une grande forêt et traversée par une grande route.",
-	"desc_en": "Huge plain in the West of the region bordered by a large forest and crossed by a large road.",
-	"north_map": null,
-	"east_map": 9,
-	"south_map": 4,
-	"west_map": 2
+	"nameFr": "Le Berceau",
+	"nameEn": "The Cradle",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Grande plaine de l'ouest de la contrée bordée d'une grande forêt et traversée par une grande route.",
+	"descEn": "Huge plain in the West of the region bordered by a large forest and crossed by a large road."
 }

@@ -7,58 +7,58 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Classes = Sequelize.define('Classes', {
+	const Classes = Sequelize.define("Classes", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
-			autoIncrement: true,
+			autoIncrement: true
 		},
 		attack: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		defense: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		speed: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		health: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		fightPoint: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		emoji: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT
 		},
 		classgroup: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		price: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.INTEGER
 		},
 		fr: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT
 		},
 		en: {
-			type: DataTypes.TEXT,
+			type: DataTypes.TEXT
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require('moment')().format('YYYY-MM-DD HH:mm:ss'),
-		},
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+		}
 	}, {
-		tableName: 'classes',
-		freezeTableName: true,
+		tableName: "classes",
+		freezeTableName: true
 	});
 
 	Classes.beforeSave((instance) => {
-		instance.setDataValue('updatedAt',
-			require('moment')().format('YYYY-MM-DD HH:mm:ss'));
+		instance.setDataValue("updatedAt",
+			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
@@ -66,7 +66,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Number} level - the level of the player
 	 * @return {String}
 	 */
-	Classes.prototype.toString = function (language, level) {
+	Classes.prototype.toString = function(language, level) {
 		return format(
 			JsonReader.classesValues.getTranslation(language).fieldsValue, {
 				name: this[language],
@@ -84,7 +84,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language - The language the class name has to be displayed in
 	 * @return {String}
 	 */
-	Classes.prototype.getName = function (language) {
+	Classes.prototype.getName = function(language) {
 		return this[language];
 	};
 
@@ -93,7 +93,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language - The language the class description has to be displayed in
 	 * @return {String}
 	 */
-	Classes.prototype.getDescription = function (language) {
+	Classes.prototype.getDescription = function(language) {
 		return JsonReader.commands.class.getTranslation(language).description[this.id];
 	};
 
@@ -101,7 +101,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * return the attack value of the player
 	 * @param {Number} level - the level of the player
 	 */
-	Classes.prototype.getAttackValue = function (level) {
+	Classes.prototype.getAttackValue = function(level) {
 		return Math.round(this.attack + this.attack / 100 * level / 4 * level / 10);
 	};
 
@@ -109,7 +109,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * return the defense value of the player
 	 * @param {Number} level - the level of the player
 	 */
-	Classes.prototype.getDefenseValue = function (level) {
+	Classes.prototype.getDefenseValue = function(level) {
 		return Math.round(this.defense + this.defense / 100 * level / 4 * level / 10);
 	};
 
@@ -117,7 +117,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * return the speed value of the player
 	 * @param {Number} level - the level of the player
 	 */
-	Classes.prototype.getSpeedValue = function (level) {
+	Classes.prototype.getSpeedValue = function(level) {
 		return Math.round(this.speed + this.speed / 100 * level / 4 * level / 10);
 	};
 
@@ -125,7 +125,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * return the maxCumulativeHealth value of the player
 	 * @param {Number} level - the level of the player
 	 */
-	Classes.prototype.getMaxCumulativeHealthValue = function (level) {
+	Classes.prototype.getMaxCumulativeHealthValue = function(level) {
 		return Math.round(this.fightPoint + 10 * level + level / 4 * level / 8);
 	};
 
@@ -133,43 +133,37 @@ module.exports = (Sequelize, DataTypes) => {
 	 * return the maxHealth value of the player
 	 * @param {Number} level - the level of the player
 	 */
-	Classes.prototype.getMaxHealthValue = function (level) {
+	Classes.prototype.getMaxHealthValue = function(level) {
 		return this.health + level;
 	};
 
 	/**
 	 * @param {Number} id
 	 */
-	Classes.getById = (id) => {
-		return Classes.findOne({
-			where: {
-				id: id,
-			},
-		});
-	};
+	Classes.getById = (id) => Classes.findOne({
+		where: {
+			id: id
+		}
+	});
 
 
 	/**
 	 * @param {Number} groupId
 	 */
-	Classes.getByGroupId = (groupId) => {
-		return Classes.findAll({
-			where: {
-				classgroup: groupId,
-			},
-		});
-	};
+	Classes.getByGroupId = (groupId) => Classes.findAll({
+		where: {
+			classgroup: groupId
+		}
+	});
 
 	/**
 	 * @param {Text} emoji
 	 */
-	Classes.getByEmojy = (emoji) => {
-		return Classes.findOne({
-			where: {
-				emoji: emoji,
-			},
-		});
-	};
+	Classes.getByEmojy = (emoji) => Classes.findOne({
+		where: {
+			emoji: emoji
+		}
+	});
 
 	return Classes;
 };

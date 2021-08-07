@@ -1,85 +1,30 @@
 class Maps {
 
-	static Directions = {
-		NORTH: "north",
-		SOUTH: "south",
-		EAST: "east",
-		WEST: "west"
-	};
-
 	/**
 	 * Returns the map ids a player can go to. It excludes the map the player is coming from if at least one map is available
 	 * @param {Players} player
-	 * @param {string|String} restricted_map_type
+	 * @param {string|String} restrictedMapType
 	 * @returns {Number[]}
 	 */
-	static async getNextPlayerAvailableMaps(player, restricted_map_type) {
-		let map;
-		if (!player.map_id) {
-			map = await MapLocations.getRandomMap();
-			player.previous_map_id = map.id;
-			player.map_id = map.id;
+	static async getNextPlayerAvailableMaps(player, restrictedMapType) {
+		if (!player.mapLinkId) {
+			player.mapLinkId = (await MapLinks.getRandomLink()).id;
 		}
-		else {
-			map = await MapLocations.getById(player.map_id);
-		}
-		let next_maps = [];
-		if (restricted_map_type) {
-			const next_map_ids = await MapLocations.getMapConnectedWithTypeFilter(map.id, restricted_map_type);
-			for (const m of next_map_ids) {
-				next_maps.push(m.id);
-			}
-			return next_maps;
-		}
-		for (const map_dir of ["north_map", "south_map", "east_map", "west_map"]) {
-			if (map[map_dir] && map[map_dir] !== player.previous_map_id) {
-				next_maps.push(map[map_dir]);
-			}
-		}
-		if (next_maps.length === 0 && player.previous_map_id) {
-			next_maps.push(player.previous_map_id);
-		}
-		return next_maps;
-	}
 
-	/**
-	 * Returns the direction of a map to another. The result is null if the maps are not connected
-	 * @param {MapLocations} from_map
-	 * @param {Number} to_map_id
-	 * @returns {Directions|null}
-	 */
-	static getMapDirection(from_map, to_map_id) {
-		if (!from_map) {
-			return null;
-		}
-		if (from_map.north_map === to_map_id) {
-			return this.Directions.NORTH;
-		}
-		if (from_map.south_map === to_map_id) {
-			return this.Directions.SOUTH;
-		}
-		if (from_map.east_map === to_map_id) {
-			return this.Directions.EAST;
-		}
-		if (from_map.west_map === to_map_id) {
-			return this.Directions.WEST;
-		}
-		return null;
-	}
+		const map = await player.getDestinationId();
+		const previousMap = await player.getPreviousMapId();
 
-	/**
-	 * Get the placeholder of the events. It is designed to be used in the format function
-	 * @param {Players} player
-	 * @param {"fr"|"en"} language
-	 * @returns {{}}
-	 */
-	static async getEventPlaceHolders(player, language) {
-		const previous_map = await MapLocations.getById(player.previous_map_id);
-		const direction = this.getMapDirection(previous_map, player.map_id);
-		return {
-			direction: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.names[direction],
-			direction_prefix: !direction ? "null" : JsonReader.models.maps.getTranslation(language).directions.prefix[direction],
-		};
+		const nextMaps = [];
+
+		const nextMapIds = await MapLocations.getMapConnected(map, previousMap, restrictedMapType);
+		for (const m of nextMapIds) {
+			nextMaps.push(m.id);
+		}
+
+		if (nextMaps.length === 0 && previousMap) {
+			nextMaps.push(previousMap);
+		}
+		return nextMaps;
 	}
 
 	/**
@@ -88,7 +33,7 @@ class Maps {
 	 * @returns {boolean}
 	 */
 	static isTravelling(player) {
-		return player.start_travel_date.getUTCMilliseconds() !== 0;
+		return player.startTravelDate.getTime() !== 0;
 	}
 
 	/**
@@ -97,9 +42,11 @@ class Maps {
 	 * @returns {number}
 	 */
 	static getTravellingTime(player) {
-		if (!this.isTravelling(player)) return 0;
-		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effect_end_date.getTime();
-		return Date.now() - player.start_travel_date - malus;
+		if (!this.isTravelling(player)) {
+			return 0;
+		}
+		const malus = player.currentEffectFinished() ? 0 : Date.now() - player.effectEndDate.getTime();
+		return Date.now() - player.startTravelDate - malus;
 	}
 
 
@@ -107,20 +54,21 @@ class Maps {
 		await this.removeEffect(player);
 		player.effect = effect;
 		if (effect === EFFECT.OCCUPIED) {
-			player.effect_duration = time;
-		} else {
-			player.effect_duration = millisecondsToMinutes(JsonReader.models.players.effectMalus[effect]);
+			player.effectDuration = time;
 		}
-		player.effect_end_date = new Date(Date.now() + minutesToMilliseconds(player.effect_duration));
-		player.start_travel_date = new Date(player.start_travel_date.getTime() + minutesToMilliseconds(player.effect_duration));
+		else {
+			player.effectDuration = millisecondsToMinutes(JsonReader.models.players.effectMalus[effect]);
+		}
+		player.effectEndDate = new Date(Date.now() + minutesToMilliseconds(player.effectDuration));
+		player.startTravelDate = new Date(player.startTravelDate.getTime() + minutesToMilliseconds(player.effectDuration));
 		await player.save();
 	}
 
 	static async removeEffect(player) {
 		const remainingTime = player.effectRemainingTime();
 		player.effect = EFFECT.SMILEY;
-		player.effect_duration = 0;
-		player.effect_end_date = new Date();
+		player.effectDuration = 0;
+		player.effectEndDate = new Date();
 		if (remainingTime > 0) {
 			this.advanceTime(player, millisecondsToMinutes(remainingTime));
 		}
@@ -128,31 +76,31 @@ class Maps {
 	}
 
 	static advanceTime(player, time) {
-		let t = minutesToMilliseconds(time);
+		const t = minutesToMilliseconds(time);
 		if (player.effectRemainingTime() !== 0) {
-			if (t>=player.effect_end_date.getTime()-Date.now()) {
-				player.effect_end_date = Date.now();
-			} else {
-				player.effect_end_date = new Date(player.effect_end_date.getTime() - t);
+			if (t >= player.effectEndDate.getTime() - Date.now()) {
+				player.effectEndDate = Date.now();
+			}
+			else {
+				player.effectEndDate = new Date(player.effectEndDate.getTime() - t);
 			}
 		}
-		player.start_travel_date = new Date(player.start_travel_date.getTime() - t);
+		player.startTravelDate = new Date(player.startTravelDate.getTime() - t);
 	}
 
 	/**
 	 * Make a player start travelling. It does not check if the player currently travelling, if the maps are connected etc. It also saves the player
 	 * @param {Players} player
-	 * @param {number} map_id
+	 * @param {MapLinks} newLink
 	 * @param {number} time - The start time
 	 * @returns {Promise<void>}
 	 */
-	static async startTravel(player, map_id,time) {
-		player.previous_map_id = player.map_id;
-		player.map_id = map_id;
-		player.start_travel_date = new Date(time + minutesToMilliseconds(player.effect_duration));
+	static async startTravel(player, newLink, time) {
+		player.mapLinkId = newLink.id;
+		player.startTravelDate = new Date(time + minutesToMilliseconds(player.effectDuration));
 		await player.save();
 		if (player.effect !== EFFECT.SMILEY) {
-			await Maps.applyEffect(player, player.effect, player.effect_duration);
+			await Maps.applyEffect(player, player.effect, player.effectDuration);
 		}
 	}
 
@@ -162,62 +110,60 @@ class Maps {
 	 * @returns {Promise<void>}
 	 */
 	static async stopTravel(player) {
-		player.start_travel_date = new Date(0);
+		player.startTravelDate = new Date(0);
 		await player.save();
 	}
-
-	/**
-	 * The number of squares between small events in the travel path string
-	 * @type {number}
-	 */
-	static PATH_SQUARE_COUNT = 4;
 
 	/**
 	 * Generates a string representing the player walking form a map to another
 	 * @param {Players} player
 	 * @param {"fr"|"en"} language
+	 * @param {string|String} effect
 	 * @returns {Promise<string>}
 	 */
-	static async generateTravelPathString(player, language) {
-		const prevMapInstance = await MapLocations.getById(player.previous_map_id);
-		const nextMapInstance = await MapLocations.getById(player.map_id);
-		let percentage = this.getTravellingTime(player) / (2*60*60*1000);
+	static async generateTravelPathString(player, language, effect = null) {
+		const prevMapInstance = await player.getPreviousMap();
+		const nextMapInstance = await player.getDestination();
+		const time = this.getTravellingTime(player);
+		let percentage = time / hoursToMilliseconds(await player.getCurrentTripDuration());
+
+		const remainingHours = Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time));
+		let remainingMinutes =
+			Math.floor(hoursToMinutes(await player.getCurrentTripDuration() - millisecondsToHours(time) -
+				Math.floor(await player.getCurrentTripDuration() - millisecondsToHours(time))));
+		if (remainingMinutes === remainingHours && remainingHours === 0) {
+			remainingMinutes++;
+		}
+		if (remainingMinutes < 10){
+			remainingMinutes = "0" + remainingMinutes;
+		}
+		const timeRemainingString = "**[" + remainingHours + "h" + remainingMinutes + "]**";
 		if (percentage > 1) {
 			percentage = 1;
 		}
-		let index = 0;
-		const percentageSpan = 1 / (REPORT.SMALL_EVENTS_COUNT + 1);
-		for (let i = 0; i < REPORT.SMALL_EVENTS_COUNT + 1; ++i) {
-			if (percentage <= (i + 1) * percentageSpan) {
-				index = i * (this.PATH_SQUARE_COUNT + 1) + this.PATH_SQUARE_COUNT * (percentage - i * percentageSpan) / percentageSpan;
-				break;
-			}
-		}
+		let index = REPORT.PATH_SQUARE_COUNT * percentage;
+
 		index = Math.floor(index);
+
 		let str = prevMapInstance.getEmote(language) + " ";
-		for (let i = 0; i < REPORT.SMALL_EVENTS_COUNT + 1; ++i) {
-			for (let j = 0; j < this.PATH_SQUARE_COUNT; ++j) {
-				if (i * (this.PATH_SQUARE_COUNT + 1) + j === index) {
+
+		for (let j = 0; j < REPORT.PATH_SQUARE_COUNT; ++j) {
+			if (j === index) {
+				if (effect === null) {
 					str += "🧍";
 				}
 				else {
-					str += "■";
+					str += EFFECT.EMOJIS[effect];
 				}
 			}
-			if (i < REPORT.SMALL_EVENTS_COUNT) {
-				let added = false;
-				for (let j = 0; j < player.PlayerSmallEvents.length; ++j) {
-					if (player.PlayerSmallEvents[j].number === i + 1) {
-						str += " " + JsonReader.small_events[player.PlayerSmallEvents[j].event_type].emote + " ";
-						added = true;
-						break;
-					}
-				}
-				if (!added) {
-					str += " ❓ ";
-				}
+			else {
+				str += "■";
+			}
+			if (j === Math.floor(REPORT.PATH_SQUARE_COUNT / 2) - 1) {
+				str += timeRemainingString;
 			}
 		}
+
 		return str + " " + nextMapInstance.getEmote(language);
 	}
 }

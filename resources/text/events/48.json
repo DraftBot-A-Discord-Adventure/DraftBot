@@ -1,0 +1,259 @@
+{
+	"map_location_ids": [
+		7
+	],
+	"translations": {
+		"fr": "🏯 Vous êtes à la recherche d'un artéfact. Vous le convoitez car celui-ci, d'après les légendes, offrirait richesse et pouvoir à son possesseur. Après que votre quête vous ai mené jusque devant une tour censée renfermer le trésor, vous vous retrouvez face à un chevalier en armure bloquant l'entrée. Ce dernier reste impassible malgré vos injonctions...",
+		"en": "🏯 You are looking for an artefact. You covet it because, according to legends, it offers wealth and power to its owner. After your quest has led you to a tower that is supposed to contain the treasure, you find yourself face to face with a knight in armor blocking the entrance. The latter stays impassive in spite of your injunctions..."
+	},
+	"possibilities": {
+		"⚔️": {
+			"translations": {
+				"fr": "Combattre le chevalier",
+				"en": "Fight the knight"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Prêt à vous battre mais ne connaissant guère votre adversaire, vous vous rapprochez en prétextant vouloir discuter un arrangement. Assez proche de votre ennemi, vous dégainez votre épée et vous élancez sur lui. Malheureusement pour vous, le chevalier était aux aguets et possède une force colossale qu’il utilise pour vous désarmer avant de vous repousser à terre.",
+						"en": "Ready to fight, you come closer pretending to want to discuss an arrangement. Close enough to your enemy, you draw your sword and lunge at him. Unfortunately for you, the knight was on the lookout and has colossal strength which he uses to disarm you before pushing you back to the ground."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Prêt à vous battre, mais ne connaissant guère votre adversaire, vous vous rapprochez en prétextant vouloir discuter un arrangement. Assez proche de votre ennemi, vous dégainez votre épée et vous élancez sur lui. Le chevalier n’a guère le temps de réagir que vous l’assommez déjà avec le pommeau de votre épée. Cela ne suffit pas. Vous lui assénez un deuxième coup, et cette fois-ci, il s’écroule par terre. Vous tentez ensuite d’ouvrir la porte de la tour, en vain. Vous vérifiez si le garde ne possède pas la clé, mais il ne l'a pas sur lui. Vous repartez donc, dépité.",
+						"en": "Ready to fight but barely knowing your opponent, you approach under the pretext of wanting to discuss a settlement. Close enough to your opponent, you draw your sword and lunge at him. The knight barely has time to react when you knock him out with the knob of your sword.\nIt's not enough. You strike him a second shot, and this time he falls down on the ground. Then you try to open the tower door, in vain. You check whether the guard has the key, but he does not carry it. And so you leave, disappointed."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Prêt à vous battre, mais ne connaissant guère votre adversaire, vous vous rapprochez en prétextant vouloir discuter un arrangement. Assez proche de votre ennemi, vous dégainez votre épée et l'assommez avec le pommeau.Prêt à vous battre, mais ne connaissant guère votre adversaire, vous vous rapprochez en prétextant vouloir discuter un arrangement. Vous fouillez donc le garde et ne tardez pas à trouver une clé. Vous ouvrez la porte, une fois à l’intérieur, vous n’avez aucun mal à trouver l'artefact. Vous trouvez un marchand après une heure de recherche. Celui-ci vous achète l'artefact pour la modique somme de cinq cents pièces d’or.",
+						"en": "Ready to fight but not knowing much about your opponent, you approach under the pretext of wanting to discuss a settlement. Close enough to your enemy, you draw your sword and knock him out with the knob. Then you try to open the tower door but it is locked. Therefore, you search the guard and quickly find a key. You open the door, once inside, you have no difficulty to find the artefact. You find a marchant after searching for one hour. This one buys you the artifact for the modest sum of five hundred gold pieces."
+					},
+					"lostTime": 60,
+					"health": 0,
+					"effect": ":clock2:",
+					"experience": 125,
+					"money": 500,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Prêt à vous battre, mais ne connaissant guère votre adversaire, vous vous rapprochez en prétextant vouloir discuter un arrangement. Proche de votre ennemi, vous dégainez votre épée et l'assommez avec le pommeau. Vous tentez ensuite d’ouvrir la porte de la tour, mais celle-ci est fermée... Vous fouillez le garde et ne tardez pas à trouver la clé. Vous ouvrez la porte, à l’intérieur, vous n’avez aucun mal à trouver l’artefact. Vous partez donc à la recherche d'un marchand que vous trouvez aisément. Il vole l'artefact d'un habile geste, mais vous parvenez vous aussi à lui voler un objet. Espérant que celui-ci a de la valeur, vous regardez ce que c’est.",
+						"en": "Ready to fight but not knowing your opponent, you come together on the pretext of wanting to discuss an arrangement. Close to your opponent, you draw your sword and knock him with the knob. Then you try to open the tower door but it is locked... You search the guard and quickly find a key. You open the door, inside you don't find any difficulty to find the artifact. So you go in search of a merchant and find one easily. He steals the artifact with a skillful move, but you also reach to steal one of his objects. Hoping that this one has value, you look at what it is."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 450,
+					"money": 0,
+					"item": true
+				},
+				{
+					"translations": {
+						"fr": "Ne connaissant guère votre adversaire, vous vous rapprochez en prétextant vouloir discuter un arrangement. Une fois assez proche de votre ennemi, vous dégainez votre épée pour l'assommer avec le pommeau. Malheureusement pour vous, le chevalier était bien plus fort et rapide que vous. Celui-ci vous fonce dessus, vous fait un crochet du droit et vous repousse avec un coup de pied au ventre avant de vous asséner un puissant uppercut. À terre, au bord de l'évanouissement, vous n'arrivez pas à vous relever.",
+						"en": "Barely knowing your opponent, you approach with the excuse of wanting to discuss an arrangement. Once close enough to your enemy you draw your sword to stun him with the knob. Unfortunately for you, the knight was far stronger and faster than you. The knight runs at you, makes a right hook and pushes you back by hitting you in the stomach with his foot before hitting you with a powerful uppercut. On the ground, on the edge of fainting, you are not able to get up."
+					},
+					"lostTime": 0,
+					"health": -70,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Le chevalier brandit son épée afin de vous intimider. Devant ce colosse, vous hésitez à fuir, mais décidez de rester. Vous combattrez ce chevalier bien que vos chances de le vaincre soient minces. Votre adversaire pare vos coups un à un sans faire le moindre effort avant de vous renverser à terre. Au sol, désarmé, vous savez que le combat est fini. C'est alors que le chevalier vous dit : tu es bien courageux, voici donc ta récompense. Il vous donne un objet avant de se placer à l'entrée de la tour.",
+						"en": "The knight brandishes his sword to intimidate you. In front of this colossus, you hesitate to flee, but decide to stay. You will fight this knight although your chances of defeating him are low. Your opponent blocks your blows one by one without making the smallest effort before knocking you to the ground. Disarmed, on the ground, you know the fight is over. It is then that the knight tells you: \"You are very brave, so here is your reward.\" He gives you an item before moving to the entrance of the tower."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 450,
+					"money": 0,
+					"item": true
+				},
+				{
+					"translations": {
+						"fr": "Prêt à vous battre, vous vous élancez rapidement sur votre adversaire, dégainant votre épée. Le chevalier eut à peine le temps de dégainer son arme que vous lui foncez dessus. À cet instant, vous vous rendez compte de votre erreur. Lui possède une armure, vous non. Vous essayez donc de l'assommer avec le pommeau de votre épée, plusieurs fois. Cela semble l'avoir désorienté et vous vous apprêtez donc à recommencer. Mais avant que vous ne puissiez le faire, votre adversaire vous blesse à la jambe. Vous êtes à terre, incapable de vous relever. Le chevalier se place au-dessus de vous et lève son épée. Vous fermez les yeux, et entendez votre propre cri.",
+						"en": "Ready to fight, you quickly lunge at your opponent, drawing your sword. The knight barely had time to draw his weapon before you came on him. At this moment you realize your mistake. He has an armor, not you. So you try to knock him out with the knob of your sword, several times. It seems to have confused him and you get ready to try again. But before you can do it, your opponent injures you at the leg. You are on the ground, unable to get up. The knight moves over you and raises his sword. You close your eyes, and hear your own scream."
+					},
+					"lostTime": 0,
+					"health": -120,
+					"effect": ":dizzy_face:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"🤝": {
+			"translations": {
+				"fr": "Faire connaissance avec lui",
+				"en": "Meet him"
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous commencez à discuter avec lui, et le trouvez fort sympathique. Vous aiguillez progressivement la discussion sur son rôle ici, il vous explique qu'il est le gardien de la tour. Vous lui demandez s'il est possible que vous y entriez, mais celui-ci refuse. Vous reprenez votre route.",
+						"en": "You start talking to him, and find him very nice. You gradually steer the discussion towards his role here, he explains that he is the tower's guardian. You ask him if it is possible for you to enter, but he refuses. You get back on your way."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous engagez la discussion et parlez durant plusieurs minutes. Le chevalier ne dit pas un mot. Comprenant bien qu'il ne parlera pas, vous abandonnez toute discussion en repartant.",
+						"en": "You engage the discussion and talk for several minutes. The knight didn't say a word. Understanding that he will not talk, you abandon any discussion as you leave."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous engagez la discussion, le chevalier vous ordonne immédiatement de passer votre route. Vous ne souhaitez pas partir, mais après qu'il vous montre son épée, vous n'hésitez plus un instant.",
+						"en": "You engage the discussion, the knight immediately orders you to move on. You don't want to leave, but as soon as he shows you his sword, you don't hesitate any longer."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous engagez la discussion, mais le chevalier reste muet. Comprenant que toute tentative de dialogue est vaine, vous partez.",
+						"en": "You start a discussion but the knight stays quiet. Understanding that any attempt to dialogue is useless, you leave."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous engagez la discussion et sympathisez durant plus d'une heure avec le chevalier. Vous aiguillez progressivement la discussion sur l'artefact et jouissez par avance de votre talent d'orateur. Le chevalier s'en va chercher l'artefact tandis que vous, obnubilé par votre triomphe, ne remarquez pas la personne derrière vous avant que celle-ci ne vous poignarde dans le dos. Vous tombez à terre.",
+						"en": "You start a discussion and spend over an hour with the knight. You gradually steer the discussion around the artefact and enjoy in advance your oratory skills. The knight goes away to get the artefact while you, obsessed by your triumph, do not notice the person behind you until he stabs you in the back. You fall to the ground."
+					},
+					"lostTime": 0,
+					"health": -80,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous engagez la discussion et tentez de sympathiser durant plus d'une heure avec le chevalier. Celui-ci ne souhaite aucunement vous laisser passer. N'ayant pas d'autres choix, vous dégainez votre épée et l'attaquez. Le chevalier, insensible à vos coups grâce à son armure, vous frappe violemment au visage avant de vous assommer d'un coup de pommeau.",
+						"en": "You engage the knight in discussion and attempt to sympathise for over an hour. He does not want to let you pass by in any way. With no other choice, you draw your sword and attack him. With no other choice, you draw your sword and attack him. The knight, insensitive to your blows thanks to his armor, hits you violently in the face before knocking you out with a stroke of his knob."
+					},
+					"lostTime": 0,
+					"health": -90,
+					"effect": ":dizzy_face:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "Vous engagez la discussion et sympathisez avec le chevalier. Vous aiguillez progressivement la discussion sur l'artefact et jouissez par avance de votre talent d'orateur. Le chevalier, convaincu que vous êtes digne de le posséder, s'en va vous chercher l'artefact. Il vous le rapporte, comme promis. Vous le remerciez et partez à la recherche d'un marchand. Vous parvenez à le vendre pour la modique somme de cinq cents pièces d'or.",
+						"en": "You start a discussion and sympathize with the knight. You gradually steer the discussion around the artefact and enjoy in advance your oratory skills. The knight, convinced that you are worthy to possess it, goes to fetch the artefact for you. He brings it to you, as promised. You thank him and go looking for a merchant. You manage to sell it for the modest sum of five hundred gold coins."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 250,
+					"money": 500,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "\uD83D\uDEB6 Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Finalement, vous reprenez votre chemin.",
+						"en": "\uD83D\uDEB6 You watch the knight, not knowing what to do about this colossus in armor. Finally, you get back on your way."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "\uD83E\uDD14 Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Prenant votre courage à deux mains, vous l'affrontez en duel... Et êtes misérablement vaincu par celui-ci. Blessé, vous repartez en rampant et trouvez un abri où vous reposer.",
+						"en": "\uD83E\uDD14 You watch the knight, not knowing what to do about this colossus in armor. Taking your courage in both hands, you face him in a duel...\nand are miserably defeated by him. Injured, you crawl back and find a shelter where you can rest."
+					},
+					"lostTime": 0,
+					"health": -40,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "\uD83C\uDF0C Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Soudain, vous vient une idée, vous attendez qu'il fasse nuit et d'être dans le noir total avant de vous diriger discrètement vers la tour. La porte est fermée, le chevalier disparu. Vous escaladez la tour et entrez par une fenêtre. Vous la fouillez de fond en comble, mais ne trouvez rien à part de la nourriture. Vous mangez sur place et en prenez autant que possible. Ce bon repas vous à redonner des forces, vous vous sentez à présent mieux que jamais.",
+						"en": "\uD83C\uDF0C You watch the knight, not knowing what to do about this colossus in armor. You suddenly have an idea, you wait until the night and be in total darkness before you discreetly go towards the tower. The door is closed, the knight gone. You climb the tower and enter by a window. You rummage through it from top to bottom but find nothing except food. You eat on site and take as much as you can. This good meal has restored your strengths, you are now feeling better than ever."
+					},
+					"lostTime": 0,
+					"health": 30,
+					"effect": ":smiley:",
+					"experience": 350,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "\uD83E\uDEC2 Ne sachant que faire, vous engagez la discussion et sympathisez avec le chevalier. Vous aiguillez progressivement la discussion sur l'artefact et jouissez par avance de votre talent d'orateur. Le chevalier, convaincu que vous êtes digne de le posséder, s'en va vous chercher l'artefact. Il vous le rapporte, comme promis. Vous le remerciez et partez à la recherche d'un acheteur. Vous croisez ce qui semble être un marchand, mais c'est en réalité un voleur qui vous tire une flèche dans la jambe. Il vous vole l'artefact et s'en va en courant. Blessé et impuissant, vous le regardez fuir avec votre butin.",
+						"en": "\uD83E\uDEC2 Not knowing what to do, you engage the discussion and sympathize with the knight. You gradually get the discussion on the artifact and enjoy your speaker talent in advance. The knight, convinced that you are worthy of possessing it, will get you the artifact. He brings it to you, as promised. You thank him and go to search for someone to buy it. You see what seems to be a merchant, but it was a thief shooting you an arrow in the leg. He steals the artifact from you and runs away. Blessed and helpless, you watch him running away with your loot."
+					},
+					"lostTime": 0,
+					"health": -20,
+					"effect": ":head_bandage:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				},
+				{
+					"translations": {
+						"fr": "\uD83D\uDE15 Ne sachant que faire, vous engagez la discussion et sympathisez avec le chevalier. Vous aiguillez progressivement la discussion sur l'artefact et jouissez par avance de votre talent d'orateur. Contre toute attente, lorsque vous lui demandez l'artefact, celui-ci refuse. Ne souhaitant guère le contrarier, vous n'insistez pas plus et discutez un peu avec le chevalier avant de reprendre votre chemin.",
+						"en": "\uD83D\uDE15 Not knowing what to do, you engage the discussion and sympathize with the knight. You gradually get the discussion on the artifact and enjoy your speaker talent in advance. Against all expectations, when you ask him about the artifact he refuses. Not wishing to bother him, you do not insist more and talk to the knight a little before you get back to your path."
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 150,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
+	}
+}

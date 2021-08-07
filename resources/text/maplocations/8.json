@@ -1,13 +1,9 @@
 {
 	"type": "ro",
-	"name_fr": "Croisement des Destins",
-	"name_en": "Crossroads of Fates",
-	"particle_fr": "vers le",
-	"particle_en": "of the",
-	"desc_fr": "Un très grand carrefour qui relie les principaux chemins à l'ouest du Mont Célestrum.",
-	"desc_en": "A major crossroad that links main paths to the West of Mount Celestrum.",
-	"north_map": 10,
-	"east_map": 15,
-	"south_map": 7,
-	"west_map": 4
+	"nameFr": "Croisement des Destins",
+	"nameEn": "Crossroads of Fates",
+	"particleFr": "vers le",
+	"particleEn": "of the",
+	"descFr": "Un très grand carrefour qui relie les principaux chemins à l'ouest du Mont Célestrum.",
+	"descEn": "A major crossroad that links main paths to the West of Mount Celestrum."
 }

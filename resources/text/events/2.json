@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "ro,vi,fo,pl,la",
+	"map_location_ids": [
+		9
+	],
 	"translations": {
 		"fr": "🐶 Devant vous, un chien arrive, et tourne autour de vous. Il semble vouloir que vous le suiviez !",
 		"en": "🐶 In front of you, a dog arrives, and circles you. He seems to want you to follow him!"

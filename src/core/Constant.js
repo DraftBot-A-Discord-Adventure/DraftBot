@@ -1,11 +1,28 @@
 // Defines allowed datasource
 global.DATASOURCE = {
 	SQLITE: "sqlite",
-	JSON: "json",
+	JSON: "json"
 };
 
 // Effect
 global.EFFECT = {
+	EMOJIS: {
+		":baby:": "👶",
+		":smiley:": "😃",
+		":clock10:": "🕙", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
+		":skull:": "💀",
+		":sleeping:": "😴",
+		":zany_face:": "🤪",
+		":cold_face:": "🥶",
+		":head_bandage:": "🤕",
+		":sick:": "🤢",
+		":lock:": "🔒",
+		":dizzy_face:": "😵",
+		":clock2:": "🕑",
+		":drooling_face:": "🤤",
+		":confounded:": "😖",
+		":scream:": "😱"
+	},
 	BABY: ":baby:",
 	SMILEY: ":smiley:",
 	AWAITING_ANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
@@ -25,7 +42,7 @@ global.EFFECT = {
 
 global.LANGUAGE = {
 	FRENCH: "fr",
-	ENGLISH: "en",
+	ENGLISH: "en"
 };
 
 // Object nature
@@ -36,7 +53,7 @@ global.NATURE = {
 	ATTACK: 3,
 	DEFENSE: 4,
 	HOSPITAL: 5,
-	MONEY: 6,
+	MONEY: 6
 };
 
 // Object rarity
@@ -58,10 +75,9 @@ global.PERMISSION = {
 		BADGE_MANAGER: "manager", // has the badge manager role
 		SUPPORT: "support", // has the support role
 		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
-		TOURNAMENT: "tournament", // has the permission to use the tournament command
 		CONTRIBUTORS: "contributors",
-		ALL: "all",
-	},
+		ALL: "all"
+	}
 };
 
 global.REWARD_TYPES = {
@@ -74,14 +90,14 @@ global.REWARD_TYPES = {
 	FULL_HEAL: "fullHeal",
 	PARTIAL_HEAL: "partialHeal",
 	ALTERATION: "alterationHeal",
-	PET_FOOD: "petFood",
+	PET_FOOD: "petFood"
 };
 
 global.ITEMTYPE = {
 	POTION: "potions",
 	WEAPON: "weapons",
 	ARMOR: "armors",
-	OBJECT: "objects",
+	OBJECT: "objects"
 };
 
 global.GUILD = {
@@ -94,7 +110,7 @@ global.GUILD = {
 	MAX_COMMON_PET_FOOD: 25,
 	MAX_HERBIVOROUS_PET_FOOD: 15,
 	MAX_CARNIVOROUS_PET_FOOD: 15,
-	MAX_ULTIMATE_PET_FOOD: 5,
+	MAX_ULTIMATE_PET_FOOD: 5
 };
 
 global.CLASS = {
@@ -102,7 +118,7 @@ global.CLASS = {
 	PRICE: 5000,
 	GROUP1LEVEL: 16,
 	GROUP2LEVEL: 32,
-	GROUP3LEVEL: 48,
+	GROUP3LEVEL: 48
 };
 
 global.CATEGORY = {
@@ -110,13 +126,13 @@ global.CATEGORY = {
 	UTIL: "util",
 	PLAYER: "player",
 	GUILD: "guild",
-	PET: "pet",
+	PET: "pet"
 };
 global.MENU_REACTION = {
 	ACCEPT: "✅",
 	DENY: "❌",
 	FRENCH_FLAG: "🇫🇷",
-	ENGLISH_FLAG: "🇬🇧",
+	ENGLISH_FLAG: "🇬🇧"
 };
 
 global.PROGRESSBARS_SIZE = 20;
@@ -133,8 +149,8 @@ global.FIGHT = {
 		POWERFUL_ATTACK: 2,
 		BULK_ATTACK: 3,
 		IMPROVE_SPEED: 4,
-		ULTIMATE_ATTACK: 5,
-	},
+		ULTIMATE_ATTACK: 5
+	}
 };
 
 global.SHOP = {
@@ -142,7 +158,7 @@ global.SHOP = {
 	HOSPITAL: "🏥",
 	HEART: "💗",
 	MONEY_MOUTH: "🤑",
-	POTION_REPLACEMENT: "🍷",
+	POTION_REPLACEMENT: "🍷"
 };
 
 global.GUILDSHOP = {
@@ -150,13 +166,13 @@ global.GUILDSHOP = {
 	COMMON_FOOD: "🍬",
 	HERBIVOROUS_FOOD: "🥬",
 	CARNIVOROUS_FOOD: "🥩",
-	ULTIMATE_FOOD: "🍲",
+	ULTIMATE_FOOD: "🍲"
 };
 
 global.QUANTITY = {
 	ONE: "1️⃣",
 	FIVE: "5️⃣",
-	TEN: "🔟",
+	TEN: "🔟"
 };
 
 global.PETFREE = {
@@ -169,37 +185,39 @@ global.TOPGG = {
 	BADGE: "🗳️",
 	BADGE_DURATION: 12,
 	ROLE_DURATION: 24,
-	DBL_SERVER_COUNT_UPDATE_TIME: 1800000,
+	DBL_SERVER_COUNT_UPDATE_TIME: 1800000
 };
 
 global.PETS = {
-	IS_FOOD : 1,
-	MALE : "m",
-	FEMALE : "f",
+	IS_FOOD: 1,
+	MALE: "m",
+	FEMALE: "f",
 	FREE_COOLDOWN: 60 * 60 * 1000, // 1 hour
 	BREED_COOLDOWN: 60 * 60 * 1000, // 1 hour
 	MAX_LOVE_POINTS: 100,
 	BASE_LOVE: 10,
-	GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT : 20,
+	GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT: 20,
 	LOVE_LEVELS: [5, 20, 50],
 	SELL: {
 		MIN: 100,
-		MAX: 50000,
-	},
+		MAX: 50000
+	}
 };
 global.UNLOCK = {
-	PRICE_FOR_UNLOCK: 3000,
+	PRICE_FOR_UNLOCK: 3000
 };
 
 global.LOGS = {
-	LOG_COUNT_LINE_LIMIT: 50000,
+	LOG_COUNT_LINE_LIMIT: 50000
 };
 
 global.REPORT = {
-	TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000,
-	BONUS_POINT_TIME_DIVIDER : 6,
-	SMALL_EVENTS_COUNT: 3,
-	POINTS_BY_SMALL_EVENT : 50,
+	TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000, // 2 hours
+	BONUS_POINT_TIME_DIVIDER: 6,
+	POINTS_BY_SMALL_EVENT: 50,
+	PATH_SQUARE_COUNT: 16,
+	TIME_BETWEEN_MINI_EVENTS: 10 * 60 * 1000, // 10 minutes
+	QUICK_END_EMOTE: "🔚"
 };
 
 global.SMALL_EVENT = {
@@ -229,3 +247,24 @@ global.SMALL_EVENT = {
 };
 
 global.COLLECTOR_TIME = 120000;
+
+global.TEST_EMBED_COLOR = {
+	SUCCESSFUL: "#FF8888",
+	ERROR: "#FF0000"
+};
+
+global.ROLES = {
+	GUILD: {
+		NONE: "none",
+		MEMBER: "member",
+		ELDER: "elder",
+		CHIEF: "chief"
+	},
+	USER: {
+		ADMINISTRATOR: "administrator", // has the admin permission in a server where the bot is.
+		BADGE_MANAGER: "manager", // has the badge manager role
+		SUPPORT: "support", // has the support role
+		CONTRIBUTORS: "contributors",
+		BOT_OWNER: "owner" // is the owner of the bot
+	}
+};

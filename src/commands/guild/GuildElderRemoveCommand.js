@@ -1,82 +1,66 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
+	name: "guildelderremove",
+	aliases: ["gelderremove", "ger"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
+	guildRequired: true,
+	guildPermissions: 3
+};
+
 /**
  * remove guild elder
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const GuildElderRemoveCommand = async (language, message, args) => {
-	let entity;
-	let guild;
-	const elderRemoveEmbed = new discord.MessageEmbed();
+const GuildElderRemoveCommand = async (message, language) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
+	const guild = await Guilds.getById(entity.Player.guildId);
 
-	[entity] = await Entities.getOrRegister(message.author.id);
-
-	if (await canPerformCommand(message, language, PERMISSION.ROLE.ALL, [EFFECT.BABY, EFFECT.DEAD], entity) !== true)
-		return;
-
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
+	if (guild.elderId === null) {
+		// trying to remove an elder that does not exist
+		return sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			JsonReader.commands.guildElderRemove.getTranslation(language).noElderToRemove
+		);
 	}
 
-	// search for a user's guild
-	try {
-		guild = await Guilds.getById(entity.Player.guild_id);
-	} catch (error) {
-		guild = null;
-	}
-
-	if (guild == null) {
-		// not in a guild
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notInAguild);
-	}
-
-	if (guild.chief_id !== entity.id) {
-		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildElder.getTranslation(language).notChiefError);
-	}
-
-	elderRemoveEmbed.setAuthor(
-		format(
-			JsonReader.commands.guildElderRemove.getTranslation(language)
-				.elderRemoveTitle,
-			{
-				pseudo: message.author.username,
-			}
-		),
-		message.author.displayAvatarURL()
-	);
+	const elderRemoveEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.guildElderRemove.getTranslation(language).elderRemoveTitle, message.author);
 	elderRemoveEmbed.setDescription(
 		format(
 			JsonReader.commands.guildElderRemove.getTranslation(language).elderRemove,
 			{
-				guildName: guild.name,
+				guildName: guild.name
 			}
 		)
 	);
 
 	const msg = await message.channel.send(elderRemoveEmbed);
 
-	const confirmEmbed = new discord.MessageEmbed();
-	const filterConfirm = (reaction, user) => {
-		return (
-			(reaction.emoji.name === MENU_REACTION.ACCEPT ||
+	const confirmEmbed = new DraftBotEmbed();
+	const filterConfirm = (reaction, user) =>
+		(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) &&
 			user.id === message.author.id
-		);
-	};
+		;
 
 	const collector = msg.createReactionCollector(filterConfirm, {
 		time: COLLECTOR_TIME,
-		max: 1,
+		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUser_id, "guildElderRemove", collector);
+	addBlockedPlayer(entity.discordUserId, "guildElderRemove", collector);
 
 	collector.on("end", async (reaction) => {
-		removeBlockedPlayer(entity.discordUser_id);
+		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				guild.elder_id = null;
+				guild.elderId = null;
 				await Promise.all([guild.save()]);
 
 				confirmEmbed.setAuthor(
@@ -99,16 +83,8 @@ const GuildElderRemoveCommand = async (language, message, args) => {
 
 	await Promise.all([
 		msg.react(MENU_REACTION.ACCEPT),
-		msg.react(MENU_REACTION.DENY),
+		msg.react(MENU_REACTION.DENY)
 	]);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: "guildelderremove",
-			func: GuildElderRemoveCommand,
-			aliases: ["gelderremove", "guildelderremove", "ger"],
-		},
-	],
-};
+module.exports.execute = GuildElderRemoveCommand;

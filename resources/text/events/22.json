@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "pl,ro,vi",
+	"map_location_ids": [
+		3
+	],
 	"translations": {
 		"fr": "🍎 Alors que vous traversez la propriété d'un fermier, vous voyez un pommier aux fruits forts appétissants.",
 		"en": "🍎 As you walk through a farmer's property, you see an apple tree with very appetizing fruit."
@@ -81,7 +83,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Après avoir mangé quelques fruits, vous repartez en ayant re-gagné de l'énergie.",
+						"fr": "Après avoir mangé quelques fruits, vous repartez en ayant regagné de l'énergie.",
 						"en": "After eating some fruit, you leave, having regained your energy."
 					},
 					"lostTime": 15,

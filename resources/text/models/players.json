@@ -50,7 +50,7 @@
 	"experience": 0,
 	"money": 0,
 	"badges": null,
-	"guild_id": null,
+	"guildId": null,
 	"effectMalus": {
 		":smiley:": 0,
 		":sick:": 21600000,

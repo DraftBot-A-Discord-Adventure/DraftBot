@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "pl,vi,ro",
+	"map_location_ids": [
+		3
+	],
 	"translations": {
 		"fr": "👤 Au milieu d'un champ, vous rencontrez un paysan. Ce dernier a perdu sa fourche...",
 		"en": "👤 In the middle of a field, you meet a farmer. He lost his pitchfork..."

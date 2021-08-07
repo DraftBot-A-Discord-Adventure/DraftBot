@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "fo,mo,ro,la",
+	"map_location_ids": [
+		11
+	],
 	"translations": {
 		"fr": "🍲 Affamé par votre journée de voyage, vous décidez de faire une halte et de rechercher de quoi vous nourrir autour de vous.",
 		"en": "🍲 Hungry after your day of travel, you decide to stop and look for something to eat around you."

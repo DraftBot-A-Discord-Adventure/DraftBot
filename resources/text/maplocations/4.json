@@ -1,13 +1,9 @@
 {
 	"type": "fo",
-	"name_fr": "Forêt Du Vieillard",
-	"name_en": "Oldster's Forest",
-	"particle_fr": "vers la",
-	"particle_en": "of the",
-	"desc_fr": "Immense forêt au sud du Berceau. On raconte que beaucoup de voyageurs s'y sont perdus.",
-	"desc_en": "Huge forest at the South of the Cradle. It is said that many travelers got lost there.",
-	"north_map": 3,
-	"east_map": 8,
-	"south_map": 5,
-	"west_map": null
+	"nameFr": "Forêt Du Vieillard",
+	"nameEn": "Oldster's Forest",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Immense forêt au sud du Berceau. On raconte que beaucoup de voyageurs s'y sont perdus.",
+	"descEn": "Huge forest at the South of the Cradle. It is said that many travelers got lost there."
 }

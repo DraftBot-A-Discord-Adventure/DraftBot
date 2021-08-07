@@ -1,4 +1,7 @@
 {
+	"map_location_ids": [
+		11
+	],
 	"translations": {
 		"fr": "🌕 Faisant route vers l'Est en pleine nuit, vous marchez. Il fait sombre mais la lune est claire. Vous apercevez devant vous un être éclairé par la lumière de la lune. Il est grand, vêtu de noir; vous voyez un liquide dégouliner d'une de ses mains, la nuit illumine la peau pâle de l'individu qui ne vous a pas encore repéré. Que faire ?",
 		"en": "🌕 You are heading eastwards in the middle of the night. It is dark but the moon is clear. You see before you a being bathed in moonlight. A tall man, dressed in black; you see a red liquid dripping from one of his hands, the dim white light puncturing the skies illuminates the pale skin of the individual, who has not yet noticed you. What to do?"
@@ -6,8 +9,8 @@
 	"possibilities": {
 		"⬆️": {
 			"translations": {
-				"fr": "Continuer votre route sans faire attention à lui",
-				"en": "Continue down the road, ignoring the mysterious figure"
+				"fr": "Continuer votre route",
+				"en": "Continue down the road"
 			},
 			"issues": [
 				{
@@ -120,7 +123,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous vous rappelez être passé devant un église quelques minutes auparavant, alors vous n'hésitez pas longtemps avant de vous décider à vous y rendre, afin d'être protégé de l'être démoniaque. Vous courez sur tout le trajet, et arrivez en moins d'une dizaine de minutes devant ladite église. Vous toquez, un peu fébrile par peur d'avoir été suivi pas la bête. Un kyutiste vous ouvre, et après que vous lui ayez expliqué, il vous laisse entrer. D'une grande bonté, les personnes à l'intérieur de l'église vous donnent de quoi manger, et vous disent qu'ils peuvent sans problème vous garder pour la nuit. Reconnaissant, vous les rejoignez lors des Louanges à Askeriel, pendant lesquels tout le monde présent murmure en choeur la façon dont Askeriel, le Grand Dieu, créa l'existence, la matière, la terre, puis les humains et les animaux. Après avoir fini, vous partez tous vous coucher.",
+						"fr": "Vous vous rappelez être passé devant une église quelques minutes auparavant, alors vous n'hésitez pas longtemps avant de vous décider à vous y rendre, afin d'être protégé de l'être démoniaque. Vous courez sur tout le trajet, et arrivez en moins d'une dizaine de minutes devant ladite église. Vous toquez, un peu fébrile par peur d'avoir été suivi pas la bête. Un kyutiste vous ouvre, et après que vous lui ayez expliqué, il vous laisse entrer. D'une grande bonté, les personnes à l'intérieur de l'église vous donnent de quoi manger, et vous disent qu'ils peuvent sans problème vous garder pour la nuit. Reconnaissant, vous les rejoignez lors des Louanges à Askeriel, pendant lesquels tout le monde présent murmure en choeur la façon dont Askeriel, le Grand Dieu, créa l'existence, la matière, la terre, puis les humains et les animaux. Après avoir fini, vous partez tous vous coucher.",
 						"en": "You remember having passed by a church few minutes ago, without any hesitation you decide to go there, in order to be protected from the unholy being. You run all the way there and arrive in less than ten minutes in front of said church. You knock, a little feverish for fear of having been followed by the beast. A kyutist answers the door, and after you have explained everything to him, he lets you in. Very kindly, the people inside the church give you something to eat and tell you that they can keep you for the night without any problem. Grateful, you join them in the praises to Askeriel, during which everyone present whispers in chorus how Askeriel, the Great God, created existence, matter, the earth, and then humans and animals. When you have finished, you all go to bed."
 					},
 					"lostTime": 0,
@@ -200,7 +203,7 @@
 						"en": "🚶 You run without looking any closer what it actually was. You trip over a rock in the dark which sends you falling onto your arms, now full of scratches."
 					},
 					"lostTime": 10,
-					"health": 0,
+					"health": -5,
 					"effect": ":clock2:",
 					"experience": 25,
 					"money": 0,

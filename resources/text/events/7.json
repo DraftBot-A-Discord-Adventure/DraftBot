@@ -1,5 +1,7 @@
 {
-	"restricted_maps": "fo,vi,ci,pl,ro,la",
+	"map_location_ids": [
+		10
+	],
 	"translations": {
 		"fr": "🏠 Vous avez découvert une maison ! Elle semble abandonnée...",
 		"en": "🏠 You discovered a house! It seems abandoned..."

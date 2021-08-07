@@ -1,0 +1,48 @@
+{
+	"translations": {
+		"fr": {
+			"intrigue": [
+				"vous découvrez un arbre dont les fruits semblent appétissants. Curieux, vous en mangez quelques uns et reprenez votre route. Vous gagnez **{health} :heart:**.",
+				"vous trouvez une fiole presque vide. Comme son contenu ne semble pas dangereux, vous finissez de le boire avant de continuer votre chemin. Vous gagnez **{health} :heart:**.",
+				"vous découvrez un bâtiment abandonné. Vous décidez de l'explorer et trouvez rapidement un peu de nourriture. Vous gagnez **{health} :heart:**.",
+				"vous rencontrez une femme qui se vante de pouvoir soigner tous vos maux. Vous décidez de lui faire confiance et lui laissez réciter des incantations pendant quelques minutes. Vous gagnez **{health} :heart:**.",
+				"vous faites la rencontre d'un groupe d'enfants qui partagent les fruits de leur récoltes. Ils vous offrent quelques poires avant que vous ne repreniez votre route. Vous gagnez **{health} :heart:**.",
+				"votre regard est attiré par ce qui semble être un étroit passage entre les buissons. Vous le suivez et trouvez quelques champignons sur le sol. Ces derniers n'ont pas l'air dangereux et vous prenez le risque de les goûter. Vous gagnez **{health} :heart:**.",
+				"vous entendez le bruissement d'une tout petit cours d'eau. Vous décidez de vous y rendre et buvez un peu de son eau qui s'avère être très fraîche. Vous gagnez **{health} :heart:**.",
+				"vous découvrez des paniers entiers de nourriture près d'un feu de camp. Vous hésitez quelques secondes avant de vous empresser d'en manger autant que vous le pouvez. Repus, vous vous sentez bien mieux à présent. Vous gagnez **{health} :heart:**.",
+				"vous apercevez une hutte abandonnée. Vous décidez d'entrer dans celle-ci quand un flacon brillant vous attire. Intrépide, vous buvez son contenu. Vous gagnez **{health} :heart:**.",
+				"vous trouvez une petite ferme avec un feu de cheminée récemment éteint, vous vous dépêchez de voler quelques légumes avant que les propriétaires ne reviennent et les mangez. Vous gagnez **{health} :heart:**.",
+				"vous rencontrez un moine avec qui vous discutez, celui-ci impressionné par votre quête de la princesse décide de vous dédier une prière. Vous gagnez **{health} :heart:**.",
+				"vous trouvez quelques fraises des bois ! Après vous être régalé, vous poursuivez votre route. Vous gagnez **{health} :heart:**.",
+				"vous apercevez un paquet abandonné au sol, vous l’ouvrez et y découvrez des vivres que vous mangez avant de reprendre votre route. Vous gagnez **{health} :heart:**.",
+				"vous trouvez une cascade et décidez de vous y désaltérer. Vous gagnez **{health} :heart:**.",
+				"vous croisez un vieillard qui dit posséder un élixir qu’il serait prêt à vous céder gratuitement. Curieux, vous l’acceptez et le buvez. Vous gagnez **{health} :heart:**.",
+				"vous trouvez une gourde d'eau dans une charrette abandonné. Vous buvez l'eau et vous vous sentez mieux. Vous gagnez **{health} :heart:**"
+			]
+		},
+		"en": {
+			"intrigue": [
+				"you discover a tree whose fruits seems appetizing. Curious, you eat some and resume your way. You win **{health} :heart:**.",
+				"you find an almost empty vial. It's content seems safe, you finish drinking it before continue your way. You win **{health} :heart:**.",
+				"you find an abandoned building. You decides to explore it and quickly find some food. You win **{health} :heart:**.",
+				"you meet a woman who boasts of being able to heal all your ills. You decide to trust her and let her recite incantations during a few minutes. You gain **{health} :heart:**.",
+				"you meet a child group who share their harvest's fruits. They offer you some pears before you continue your journey. You win **{health} :heart:**.",
+				"your eyes are attracted by what seems to be a narrow passage between bushes. You follow it and find some mushrooms on the ground. They don't look dangerous and you take the risk of eating them. You win **{health} :heart:**.",
+				"you hear the rustling of a tiny stream. You decide to go there and drink some of it's water, which turns out very fresh. You win **{health} :heart:**.",
+				"you discover whole baskets of food near a campfire. You hesitates a few seconds before you hurry to eat as much as you can. Sated, you feel much better now. You win **{health} :heart:**.",
+				"you see an abandoned hut. You decide to enter it when a shiny vial attracts you. Fearless, you drink its content. You win **{health} :heart:**.",
+				"you find a small farm with a recently turned off fireplace, you quickly steal a few vegetables before they come back and eat them. You gain **{health} :heart:**.",
+				"you meet a monk with whom you discuss, this one, impressed by your princess' quest, decides to dedicate you a prayer. You win **{health} :heart:**.",
+				"you find some wild strawberries! After enjoying this meal, you continue your way. You earn **{health} :heart:**.",
+				"you discover an abandoned packaging on the ground, you open it and found some supplies, that you eat before resume your way. You win **{health} :heart:**.",
+				"you find a waterfall and decide to drink there a bit. You win **{health} :heart:**.",
+				"you meet an old man who says he possess an elixir that he wants to rent you for free. Curious, you accept it and drink it. You win **{health} :heart:**.",
+				"you find a water bottle in an abandoned cart. You drink the water and feels better. You win **{health} :heart:**."
+			]
+		}
+	},
+	"rarity": 3,
+	"emote": ":heart: "
+}
+
+

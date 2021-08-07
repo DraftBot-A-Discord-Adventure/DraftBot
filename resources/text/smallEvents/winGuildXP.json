@@ -1,0 +1,30 @@
+{
+	"translations": {
+		"fr": {
+			"stories": [
+				"La renommée de **{guilde}** semble vous précéder. En apprenant que vous faites partie de la guilde, les aventuriers qui vous suivaient depuis quelques kilomètres vous transmettent leur plus profond respect.",
+				"Suite à quelques affrontements dont vous sortez victorieux, vous appliquez sur les dépouilles de vos agresseurs la marque de la guilde **{guilde}**. Tous ceux qui passeront par ici la reconnaitront.",
+				"Vos bonnes actions dans la région ont séduit une bonne partie de la population, lorsqu'ils vous demandent comment ils pourraient vous remercier vous leur demandez de se souvenir du nom de **{guilde}**.",
+				"Félicitation ! Au fil du temps, votre guilde, **{guilde}**, se fait connaître à travers tout le royaume. Vous remportez un peu d'xp.",
+				"**{guilde}** se fait connaître d’avantage au fil du temps et possède une popularité qui ne cesse d’accroître ! Nous vous souhaitons de continuer ainsi et c’est pour cela que nous vous offrons ce gain d’xp !",
+				"Alors que vous entrez dans l'auberge, le tenancier reconnaît l'emblème de votre bouclier, symbole de la guilde **{guilde}**. Il décide d'offrir une tournée générale en votre honneur, du meilleur effet auprès des autres clients."
+			],
+			"end": " Votre guilde remporte **{xp}** :star:."
+		},
+		"en": {
+			"stories": [
+				"**{guilde}**'s rename seems to precede. By learning you are part of the guild, adventurers who have been following you from few kilometres gives you their profound respect.",
+				"Result of a few battles that you are victorious, you apply the **{guilde}**'s guild mark on your opponents' remains. All those who will pass here will recognize it.",
+				"You good actions in the region have seduced a large part of the population, when they ask you how could they thank you, you just ask them to remember **{guilde}**'s name.",
+				"Congratulations ! Over time, your guild **{guilde}** is known throughout the whole kingdom. You gain a bit of exp.",
+				"**{guilde}** becomes more popular over time and possess an increasing popularity ! We wish you to continue this way and that's why we offer you this bonus exp !",
+				"While you enter the hostel, the bartender recognize your shield's emblem, symbol of the **{guilde}**'s guild. He decides to offer a big turn in your honor, the best effect to other customers."
+			],
+			"end": " Your guild wins **{xp}** :star:."
+		}
+	},
+	"rarity": 5,
+	"emote": ":star:  "
+}
+
+

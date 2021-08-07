@@ -1,13 +1,9 @@
 {
 	"type": "fo",
-	"name_fr": "La Forêt Célestrum",
-	"name_en": "The Celestrum Forest",
-	"particle_fr": "vers",
-	"particle_en": "of",
-	"desc_fr": "Une forêt au bord du Mont Célestrum.",
-	"desc_en": "A forest on the verge of the Mount Celestrum",
-	"north_map": 15,
-	"east_map": 17,
-	"south_map": null,
-	"west_map": null
+	"nameFr": "La Forêt Célestrum",
+	"nameEn": "The Celestrum Forest",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Une forêt au bord du Mont Célestrum.",
+	"descEn": "A forest on the verge of the Mount Celestrum"
 }

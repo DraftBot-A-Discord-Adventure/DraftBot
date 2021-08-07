@@ -1,0 +1,257 @@
+{
+	"translations": {
+		"fr": {
+			"money": [
+				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort **{amount}** :moneybag:, que vous gardez pour la suite de votre aventure.",
+				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir **{amount}** :moneybag: !",
+				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec **{amount}** :moneybag: vous remplit de joie !",
+				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec une bourse de {amount} :moneybag: !",
+				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une bourse. Il semblerait bien qu'{nominative} l'ait volée à un marchand. Vous décidez de partir avec vos **{amount}** :moneybag: avant qu'il ne s'en aperçoive."
+			],
+			"item": [
+				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort un **objet**, que vous pouvez éventuellement garder pour la suite de votre aventure.",
+				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir un **objet** !",
+				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec un **objet** vous remplit de joie !",
+				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec un **objet** !",
+				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec un **objet**. Il semblerait bien qu'{nominative} l'ait volé à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
+			],
+			"gainLife": [
+				"Avoir **{pet}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{amount}** :heart:.",
+				"Sur le bord de la route, **{pet}** se précipite sur de la nourriture qui semble être en bon état. {nominative} vous la ramène, et vous la mangez avant qu'elle ne se déteriore. Vous gagnez **{amount}** :heart:.",
+				"Après être parti quelques instant, **{pet}** revient avec une potion presque vide. Vous la buvez avant qu'elle ne soit perdue. Vous gagnez ainsi **{amount}** :heart:."
+			],
+			"gainLove": [
+				"**{pet}** est heureux de vous avoir en sa compagnie. {nominativeShift} gagne en amour et vous devient plus fidèle.",
+				"Après avoir marché longuement, vous décidez de prendre soin de votre **{pet}** en {determinant} caressant. Ce moment passé avec {accusative} a renforcé vos liens.",
+				"Après être parti{feminine} quelques instant, **{pet}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominativeShift} vous aime ainsi davantage.",
+				"**{pet}** semble avoir déclenché les hostilités avec un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous décidez de {determinant} défendre vaillamment. {nominativeShift} vous aime davantage et vous devient plus fidèle.",
+				"**{pet}** est joueur, vous décidez de jouer avec {accusative}. Cette partie a renforcé vos liens."
+			],
+			"food": [
+				"Le flair de **{pet}** vous a permis de trouver une {food}. Vous rangez cette nourriture et continuez votre route.",
+				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir une {food} !",
+				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et vous {determinant} voyez revenir avec une {food} dans la bouche !",
+				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec une {food} !",
+				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une {food}. Il semblerait bien qu'{nominative} l'ai volée à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
+			],
+			"gainTime": [
+				"**{pet}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{amount} min** :clock2:.",
+				"Dans un virage, **{pet}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagnez **{amount} min** :clock2:.",
+				"**{pet}** semble être pressé{feminine}, malgré tout vous arrivez à {determinant} suivre tant bien que mal. Grâce à {accusative} vous gagnez **{amount} min** :clock2:.",
+				"Le flair de **{pet}** vous a permis de trouver un raccourci. Grâce à {accusative} vous avez gagné **{amount} min** :clock2:.",
+				"Défendre **{pet}** contre un{randomAnimalFeminine} **{randomAnimal}** sauvage n'a pas été une mince affaire et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite et de courir à toute vitesse. Grâce à cette mésaventure vous gagnez **{amount} min** :clock2: sur votre trajet."
+			],
+			"points": [
+				"Les personnes qui vous croisent avec **{pet}** ne manquent pas de vous remarquer. Cela améliore votre réputation et vous gagnez donc **{amount}** :medal:.",
+				"Raconter vos aventures auprès de **{pet}** à un vieil homme semble avoir amélioré votre réputation, vous gagnez donc **{amount}** :medal:."
+			],
+			"badge": [
+				"Réussir à dresser **{pet}** a été un véritable défi qui prouve votre talent avec les animaux. Vous obtenez le badge {badge} !"
+			],
+			"loseLife": [
+				"Alors que vous tentez de carresser **{pet}**, {nominative} ne se laisse pas faire et vous mord la main. Vous perdez **{amount}** :broken_heart:",
+				"Dans un virage **{pet}** se met tout à coup à courir, vous gardez la laisse tant bien que mal dans les mains mais vous ressortez avec quelques égratinures. Vous perdez **{amount}** :broken_heart:.",
+				"Vous voyez **{pet}** partir. {nominativeShift} revient quelques minutes après avec de la nourriture. Vous la mangez et le regrettez amèrement quelques minutes plus tard. Vous avez soudainement mal au ventre... Vous perdez **{amount}** :broken_heart:.",
+				"**{pet}** semble avoir déclenché les hostilités avec un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous décidez de {determinant} défendre mais malheureusement la créature sauvage vous blesse. Vous perdez **{amount}** :broken_heart:.",
+				"**{pet}** semble vouloir jouer et se jette en haut d'un arbre, malheureusement son poids a brisé la branche et {nominative} tombe sur vous. Vous perdez **{amount}** :broken_heart:."
+			],
+			"loseMoney": [
+				"Vous sentez que **{pet}** vole quelques pièces dans votre bourse et part les cacher plus loin. Vous n'arrivez malheureusement pas à les retrouver. Vous perdez donc {amount} :money_with_wings:.",
+				"Vous remarquez un large trou dans votre bourse, **{pet}** a dû jouer avec durant la nuit ! Après avoir compté ce qu'il vous restait, vous remarquez qu'il vous manque en tout **{amount}** :money_with_wings:.",
+				"Alors que vous jouez avec **{pet}**, celui-ci vous bouscule et fait tomber votre bourse dans une crevasse. Impossible de récuperer ces **{amount}** :money_with_wings: !",
+				"**{pet}** semble être irrité, {nominative} ira même jusqu'à blesser un passant. Après s'être excusé, vous décidez de le dédommager et repartez la tête basse. Vous perdez **{amount}** :money_with_wings:.",
+				"En voulant jouer avec **{pet}**, vous {accusative} assenez un coup. Blessé, vous l'amenez vers un soigneur afin de {determinant} guérir. Après l'avoir soigné{feminine}, il vous délaisse de **{amount}** :money_with_wings:."
+			],
+			"loseTime": [
+				"A force de rappeler **{pet}** afin qu'{nominative} reste près de vous, vous perdez au total **{amount} min** :clock2:.",
+				"Vous sentez que **{pet}** ne semble pas vouloir bouger, vous décidez tout de même de {determinant} tirer de force. Par sa faute, vous perdez **{amount} min** :clock2:.",
+				"Vous voyez **{pet}** venir vers vous en courant poursuivi{feminine} par un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous prenez la fuite avec {accusative}. Cette course poursuite vous à fait perdre **{amount} min** :clock2: sur votre trajet.",
+				"En entrant dans un vilage, vous entendez une rumeur portant sur un familier ressemblant à **{pet}** qui attaquerait des villageois. En vous voyant, les habitants prennent peur de vous et de votre familier, et vous êtes alors immédiatement chassé du village. Cette mésaventure vous a fait perdre **{amount} min** :clock2: sur votre trajet.",
+				"**{pet}** regarde avec insistance le sol et décide d'y creuser un trou. {nominative} en ressort un coffre fermé. Après plusieurs tentatives, vous réussissez à l'ouvrir, malheureusement celui-ci est vide. Cette mésaventure vous a bien fait perdre **{amount} min** :clock2:."
+			],
+			"petFlee": [
+				"**{pet}** ne vous respecte pas et part donc en courant au loin. Vous n'arrivez pas à {determinant} retrouver et {determinant} perdez à tout jamais...",
+				"Après avoir passé du temps avec vous, **{pet}** semble ne plus vous aimer et décide de s'enfuir en courant. Vous ne {determinant} reverrez probablement plus jamais.",
+				"Il semblerait que **{pet}** ait trouvé l'âme soeur, celui-ci vous abandonne et vous laisse seul. Vous ne {determinant} reverrez plus jamais...",
+				"Le manque d'attention envers **{pet}** l'a amené à s'enfuir. Vous {nominative} perdez de vue très rapidement, il sera impossible de {determinant} retrouver."
+			],
+			"loseLove": [
+				"Il semblerait bien que **{pet}** ne vous apprécie pas trop... Voyager avec {accusative} déteriore d'autant plus cette relation. {nominativeShift} perd un peu en amour.",
+				"Alors que vous vous entrainiez à combattre, **{pet}** passe par là. Vous lui assénez un coup dans un moment d'inadvertance. {nominativeShift} semble maintenant vous aimer un peu moins.",
+				"**{pet}** est essouflé, il semblerait qu'{nominative} n'arrive pas à vous suivre. Ne pas l'avoir attendu a déterioré votre relation. {nominative} perd donc un peu en amour...",
+				"À l'approche d'un stand, **{pet}** fixe avec insistance la nourriture posée sur une planche. Malgré sa requête, vous décidez de continuer votre route. Celui-ci est rancunier, {nominative} perd un peu foi en vous."
+			],
+			"nothing": [
+				"Vous continuez votre route aux côtés de **{pet}**. Rien de spécial ne se passe."
+			],
+			"nominative": {
+				"m": "il",
+				"f": "elle"
+			},
+			"accusative": {
+				"m": "lui",
+				"f": "elle"
+			},
+			"determinant": {
+				"m": "le",
+				"f": "la"
+			}
+		},
+		"en": {
+			"money": [
+				"You see **{pet}** search in tall grass. {nominativeShift} manages to get you **{amount}** :moneybag: out, which you keep for the rest of your adventure.",
+				"**{pet}** looks with insistence to the ground and decides to dig a hole. What was your surprise when you saw it out **{amount}** :moneybag: !",
+				"**{pet}** smells with insistence towards a bush. You decide to take a look and see {determinant} coming back with **{amount}** :moneybag: fills you with joy !",
+				"You see **{pet}** jump into the water. What was your surprise when {determinant} came out with a {amount} :moneybag: purse !",
+				"After taking a short break on your journey, you see **{pet}** returning with a purse. It seems that {nominative} stole it to a merchant. You decide to leave with your **{amount}** :moneybag: before he notices it."
+			],
+			"item": [
+				"You see **{pet}** searching in tall grass. {nominativeShift} comes out an **object**, that you can optionally keep for the rest of your adventure.",
+				"**{pet}** fix with insistence to the ground an decides to dig a hole. What was your surprise when you saw it getting an **object** out!",
+				"**{pet}** smells with insistence towards a bush. You decide to take a look and see {determinant} coming back with an **object** fills you with joy !",
+				"You see **{pet}** suddenly jump into the water. What was your surprise when {determinant} came out with an **object** !",
+				"After taking a short break on your journey, you see **{pet}** returning with an **object**. It seems that {nominative} stole it to a merchant. You decide to leave before he notice it."
+			],
+			"gainLife": [
+				"Having **{pet}** along makes you happy. This cheers you up and you gain **{amount}** :heart:.",
+				"On the edge of the road, **{pet}** rushes for food that appears to be in good condition. {nominative} takes it back to you, and you eat it before it deteriorates. You gain **{amount}** :heart:.",
+				"After leaving for a few moments, **{pet}** comes back with an almost empty potion. You drink it before it's wasted. You earn **{amount}** :heart:."
+			],
+			"gainLove": [
+				"**{pet}** is happy to have you in his company. {nominativeShift} gains affection and becomes more loyal to you.",
+				"After a long walk, you decide to take care of your **{pet}** by stroking {determinant}. This moment spent with {accusative} has strengthened your bond.",
+				"After having left for a few moments, **{pet}** come back with food found further. You decide to give it before it's lost. {nominative} loves you more.",
+				"**{pet}** seems to have engaged a fight with a **{randomAnimal}** ! You decide to defend valiantly {determinant}, therefore, he likes you even more and becomes more trustworthy.",
+				"**{pet}** wants to play, you decide to play with him with {accusative}. This strengthened your ties."
+			],
+			"food": [
+				"**{pet}'s** flair allowed {accusative} to find {food}. You store it and continue your way.",
+				"**{pet}** looks with insistence to the ground and decides to dig a hole. What was your surprise when you saw it out {food} !",
+				"**{pet}** smells with insistence towards a bush. You decide to take a look and see {determinant} coming back with **{food}** in his mouth !",
+				"You see **{pet}** suddenly jump into the water. What was your surprise when {determinant} came out with {food} !",
+				"After taking a short break on your journey, you see **{pet}** returning with a {food}. It seems that {nominative} stole it to a merchant. You decide to leave before he notices it."
+			],
+			"gainTime": [
+				"**{pet}** is in good shape. You ride on his back for a few minutes and you win **{amount}** min** :clock2:.",
+				"In a corner, **{pet}** suddenly runs away. You end up being dragged at the end of his leash but you win **{amount}** min** :clock2:.",
+				"**{pet}** seems to be in a rush, despite everything you manage to follow {determinant} as best as possible. Thanks to {accusative} you gain **{amount} min** :clock2:.",
+				"**{pet}** 's flair has allowed you to find a shortcut. Thanks to {accusative} you've gained **{amount}** min** :clock2:.",
+				"Defending **{pet}** against a wild **{randomAnimal}** was not an easy task and this time, you found stronger than yourself. You decide to flee the fight and run as fast as possible. Thanks to this mishap you gain **{amount} min** :clock2: on your travel."
+			],
+			"points": [
+				"People seeing you with **{pet}** do not fail to notice you. This enhances your reputation and you gain **{amount}** :medal:.",
+				"Telling your adventures of you and **{pet}** to an old man seems to have improved your reputation, therefore you gain **{amount}** :medal:."
+			],
+			"badge": [
+				"Succeeding to train **{pet}** was a real challenge that proves your talent with animals. You obtain the {badge} badge !"
+			],
+			"loseLife": [
+				"While you are trying to pet **{pet}**, {nominative} doesn't let it happen and bites your hand. You lose **{amount}** :broken_heart:",
+				"In a corner **{pet}** suddenly starts to run, you manage to keep the leash as good as you can but you get out with a few scratches. You loose **{amount}** :broken_heart:.",
+				"You see **{pet}** leave. {nominative} returns few minutes later with food. You eat it and regret it severely few minutes later. Your belly suddenly hurts... You loose **{amount}** :broken_heart:.",
+				"**{pet}** seems to have engaged a fight with a wild **{randomAnimal}** ! You decide to defend {determinant}, unfortunately the wild beast hurts you. You loose **{amount}** :broken_heart:.",
+				"**{pet}** seems willing to play and throws himself up a tree, unfortunately his weight broke the branch and {nominative} falls on you. You loose **{amount}** :broken_heart:."
+			],
+			"loseMoney": [
+				"You feel that **{pet}** steals some coins in your purse and goes to hide them somewhere. You unfortunately don't manage to find them. Therefore, you loose **{amount}** :money_with_wings:.",
+				"You notice a large hole in your purse, **{pet}** probably played with it during the night ! After counting what was left, you notice that **{amount}** :money_with_wings: is missing.",
+				"As you play with **{pet}**, this one pushes you and makes your purse fall in a crack. It will be impossible to recover those **{amount}** :money_with_wings: !",
+				"**{pet}** seems irritated, {nominative} will even injuring a passerby. After excusing yourself, you decide to compensate him and leave with your head down. You loose **{amount}** :money_with_wings:.",
+				"While wanting to play with **{pet}**, you {accusative} strike a blow. Wounded, you take him to a groomer to {determinant} heal. Afetr healing {feminine}, he charges you **{amount}** :money_with_wings:."
+			],
+			"loseTime": [
+				"By dint of recalling **{pet}** so that {nominative} remains close to you, you loose in total **{amount} min** :clock2:.",
+				"You feel that **{pet}** doesn't want to move, you decide even tho to pull {déterminant} with force. By his fault, you loose **{amount} min** :clock2:.",
+				"You see **{pet}** rushing towards you, followed by a wild **{randomAnimal}** ! You flee with {accusative}. This chase made you loose **{amount} min** :clock2: on your travel.",
+				"As you enter a village, you hear a rumor about a pet that looks like **{pet}** that would attack villagers. When seeing you, the villagers become scared of you and your creature, therefore, your are immediately hunted out of the village. This misadventure cause you to loose **{amount} min** :clock2: on your travel.",
+				"**{pet}** stares at the ground and decides to dig a hole. {nominative} gets a sealed chest out. After multiple attempts, you manage to open it up, unfortunately, it is empty. This misadventure made you loose **{amount} min** :clock2:."
+			],
+			"petFlee": [
+				"**{pet}** doesn't respect you anymore and runs away in the horizon. You don't manage to find {determinant} and lose {determinant} forever...",
+				"After spending some time with you, **{pet}** seems to not like you anymore and runs away. You will probably never see {determinant} again.",
+				"It seems like **{pet}** has found his soulmate, therefore, he abandons you and leaves you alone. You will never see {determinant} again...",
+				"The lack of attention towards **{pet}** drove him to flee. You {nominative} lose sight rapidly, it will be impossible to find {nominative} back."
+			],
+			"loseLove": [
+				"It seems like **{pet}**doesn't appreciate you much... travelling with {accusative} lowers this relationship. {nominative} loses a bit of love.",
+				"While you were training to fight,**{pet}** passes by. You hit him in a moment of inadvertence, {nominative} seems to like you a bit less now.",
+				"**{pet}** is winded, seems like {nominative} can't follow you. Not waiting for him deteriorated your relation. {nominative} loses some love...",
+				"Approaching a stand, **{pet}** stares with insistance on placing food on a board. Despite his request, you decide to resume your way. This one is vindictive, {nominative} loses a bit faith in you."
+			],
+			"nothing": [
+				"You continue your route along **{pet}**. Nothing special happens."
+			],
+			"nominative": {
+				"m": "he",
+				"f": "she"
+			},
+			"accusative": {
+				"m": "him",
+				"f": "her"
+			},
+			"determinant": {
+				"m": "him",
+				"f": "her"
+			}
+		}
+	},
+	"rarities": {
+		"normal": {
+			"money": {
+				"minLevel": 3,
+				"probabilityWeight": 9
+			},
+			"item": {
+				"minLevel": 5,
+				"probabilityWeight": 3
+			},
+			"gainLife": {
+				"minLevel": 4,
+				"probabilityWeight": 5
+			},
+			"nothing": {
+				"minLevel": 1,
+				"probabilityWeight": 15
+			},
+			"gainLove": {
+				"minLevel": 2,
+				"probabilityWeight": 6
+			},
+			"food": {
+				"minLevel": 1,
+				"probabilityWeight": 5
+			},
+			"gainTime": {
+				"minLevel": 3,
+				"probabilityWeight": 4
+			},
+			"points": {
+				"minLevel": 1,
+				"probabilityWeight": 5
+			},
+			"badge": {
+				"minLevel": 6,
+				"probabilityWeight": 1
+			}
+		},
+		"feisty": {
+			"loseLife": {
+				"probabilityWeight": 5
+			},
+			"loseMoney": {
+				"probabilityWeight": 5
+			},
+			"loseTime": {
+				"probabilityWeight": 5
+			},
+			"petFlee": {
+				"probabilityWeight": 1
+			},
+			"loseLove": {
+				"probabilityWeight": 5
+			}
+		}
+	},
+	"rarity": 5,
+	"emote": ":service_dog:   "
+}

@@ -1,13 +1,9 @@
 {
 	"type": "ro",
-	"name_fr": "Voie champêtre",
-	"name_en": "Rural Path",
-	"particle_fr": "vers la",
-	"particle_en": "of the",
-	"desc_fr": "Une petite route qui permet de se rendre à la campagne à partir de Mergagnan et inversement.",
-	"desc_en": "A small road that takes you to the countryside from Mergagnan and vice versa.",
-	"north_map": null,
-	"east_map": 3,
-	"south_map": 26,
-	"west_map": null
+	"nameFr": "Voie champêtre",
+	"nameEn": "Rural Path",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Une petite route qui permet de se rendre à la campagne à partir de Mergagnan et inversement.",
+	"descEn": "A small road that takes you to the countryside from Mergagnan and vice versa."
 }

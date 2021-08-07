@@ -24,7 +24,7 @@
 					"experience": 150,
 					"money": 0,
 					"item": false,
-					"restricted_maps": "fo"
+					"restrictedMaps": "fo"
 				},
 				{
 					"translations": {
@@ -37,7 +37,7 @@
 					"experience": 450,
 					"money": 0,
 					"item": true,
-					"restricted_maps": "fo"
+					"restrictedMaps": "fo"
 				},
 				{
 					"translations": {
@@ -50,7 +50,7 @@
 					"experience": 0,
 					"money": 0,
 					"item": false,
-					"restricted_maps": "fo"
+					"restrictedMaps": "fo"
 				}
 			]
 		},
@@ -71,7 +71,7 @@
 					"experience": 25,
 					"money": 0,
 					"item": false,
-					"restricted_maps": "pl"
+					"restrictedMaps": "pl"
 				},
 				{
 					"translations": {
@@ -84,7 +84,7 @@
 					"experience": 225,
 					"money": 0,
 					"item": false,
-					"restricted_maps": "pl"
+					"restrictedMaps": "pl"
 				}
 			]
 		},

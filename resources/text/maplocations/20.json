@@ -1,13 +1,9 @@
 {
 	"type": "pl",
-	"name_fr": "Plaines du Contre Bois",
-	"name_en": "Backwoods Plains",
-	"particle_fr": "vers les",
-	"particle_en": "of the",
-	"desc_fr": "Une vaste plaine paisible et agricole.",
-	"desc_en": "A vast and peaceful plain, for agricultural purposes.",
-	"north_map": 19,
-	"east_map": 21,
-	"south_map": null,
-	"west_map": null
+	"nameFr": "Plaines du Contre Bois",
+	"nameEn": "Backwoods Plains",
+	"particleFr": "vers les",
+	"particleEn": "of the",
+	"descFr": "Une vaste plaine paisible et agricole.",
+	"descEn": "A vast and peaceful plain, for agricultural purposes."
 }

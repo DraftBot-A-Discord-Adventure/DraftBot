@@ -1,13 +1,9 @@
 {
 	"type": "vi",
-	"name_fr": "Village Coco",
-	"name_en": "Coco Village",
-	"particle_fr": "vers le",
-	"particle_en": "of the",
-	"desc_fr": "Village chaud bordant la vallée des rois. Il s'agit d'une oasis chaleureuse pour les voyageurs en transit.",
-	"desc_en": "Warm village bordering the Kings' Valley. It is a welcoming oasis for transit travelers.",
-	"north_map": 16,
-	"east_map": 18,
-	"south_map": 7,
-	"west_map": 27
+	"nameFr": "Village Coco",
+	"nameEn": "Coco Village",
+	"particleFr": "vers le",
+	"particleEn": "of the",
+	"descFr": "Village chaud bordant la vallée des rois. Il s'agit d'une oasis chaleureuse pour les voyageurs en transit.",
+	"descEn": "Warm village bordering the Kings' Valley. It is a welcoming oasis for transit travelers."
 }

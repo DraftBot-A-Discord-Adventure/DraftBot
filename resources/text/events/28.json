@@ -1,4 +1,7 @@
 {
+	"map_location_ids": [
+		13
+	],
 	"translations": {
 		"fr": "👼 Pendant votre périple, un groupe d'hommes \"prêchant la parole des dieux\", vous invite à rejoindre leur cause.",
 		"en": "👼 On your journey, a group of men \"preaching the word of the Gods\", invites you to join their cause."

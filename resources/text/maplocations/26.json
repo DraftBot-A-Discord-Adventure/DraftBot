@@ -1,13 +1,9 @@
 {
 	"type": "ci",
-	"name_fr": "Mergagnan",
-	"name_en": "Seawynne",
-	"particle_fr": "vers",
-	"particle_en": "of",
-	"desc_fr": "Une paisible ville au bord de la Plage Sentinelle.",
-	"desc_en": "A peaceful town on the verge of the Sentinel Beach.",
-	"north_map": 2,
-	"east_map": 5,
-	"south_map": null,
-	"west_map": 1
+	"nameFr": "Mergagnan",
+	"nameEn": "Seawynne",
+	"particleFr": "vers",
+	"particleEn": "of",
+	"descFr": "Une paisible ville au bord de la Plage Sentinelle.",
+	"descEn": "A peaceful town on the verge of the Sentinel Beach."
 }

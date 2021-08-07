@@ -1,29 +1,27 @@
+module.exports.commandInfo = {
+	name: "petnickname",
+	aliases: ["petnick","pnickname","pnick","petname","pname"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+};
+
 /**
  * Allow to change the nickname of a pet
- * @param {("fr"|"en")} language - Language to use in the response
  * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const PetNicknameCommand = async function (language, message, args) {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-	if ((await canPerformCommand(message, language, PERMISSION.ROLE.ALL,
-		[EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED], entity)) !== true) {
-		return;
-	}
-	if (await sendBlockedError(message.author, message.channel, language)) {
-		return;
-	}
+const PetNicknameCommand = async (message, language, args) => {
+	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const pet = entity.Player.Pet;
 	if (!pet) {
 		return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPet);
 	}
 
-	const successEmbed = new discord.MessageEmbed();
-	successEmbed.setAuthor(format(JsonReader.commands.petNickname.getTranslation(language).successTitle, {
-		pseudo: message.author.username
-	}), message.author.displayAvatarURL());
+	const successEmbed = new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.petNickname.getTranslation(language).successTitle, message.author);
 	if (args.length === 0) {
 		pet.nickname = null;
 		await pet.save();
@@ -36,7 +34,7 @@ const PetNicknameCommand = async function (language, message, args) {
 		return sendErrorMessage(message.author, message.channel, language,
 			format(JsonReader.commands.petNickname.getTranslation(language).invalidName + "\n" + JsonReader.error.getTranslation(language).nameRules, {
 				min: JsonReader.models.pets.nicknameMinLength,
-				max: JsonReader.models.pets.nicknameMaxLength,
+				max: JsonReader.models.pets.nicknameMaxLength
 			}));
 	}
 	pet.nickname = petNickname;
@@ -47,12 +45,4 @@ const PetNicknameCommand = async function (language, message, args) {
 	await message.channel.send(successEmbed);
 };
 
-module.exports = {
-	commands: [
-		{
-			name: 'petnickname',
-			func: PetNicknameCommand,
-			aliases: ['petnick', 'pnickname', 'pnick', 'petname', 'pname']
-		}
-	]
-};
+module.exports.execute = PetNicknameCommand;
