@@ -4,7 +4,7 @@
 	],
 	"translations": {
 		"fr": "⚔️ Vous apercevez le village Boug-Coton et décidez de vous y rendre. À peine arrivé vous entendez parler d'un conflit entre le seigneur de ces lieux et celui du village voisin. Pour le régler, un combat est organisé entre leurs meilleurs combattants, mais tous ici sont médiocres et le duel débute bientôt.",
-		"en": "⚔ ️You see the village of Boug-Coton and decide to go there. Once you have arrived you hear rumours about a duel against a knight. You soon understand that there is conflict between the lord of these lands and that of the neighbouring village. To solve it, a fight is organized between their best combatants, but all here are mediocres and the duel begins soon."
+		"en": "⚔ ️You see the village of Boug-Coton and decide to go there. Once you have arrived you hear rumours about a duel against a knight. You soon understand that there is conflict between the lord of these lands and that of the neighbouring village. To solve it, a fight is organized between their best combatants, but all here are mediocre and the duel begins soon."
 	},
 	"possibilities": {
 		"🤝": {
@@ -48,7 +48,7 @@
 					"effect": ":smiley:",
 					"experience": 250,
 					"money": 500,
-					"item": false,
+					"item": false
 				},
 				{
 					"translations": {
@@ -293,7 +293,7 @@
 				{
 					"translations": {
 						"fr": "Vous organisez des paris et pariez que le chevalier ne gagnera pas. Beaucoup viennent parier, car tous savent qu'il ne perdra pas. Des gardes vous surveillent afin d'être sûr que vous ne voliez pas l'argent. Vous leur proposez d'aller voir le duel avec eux, sauf quelques-uns qui garderont l'endroit. Ils commencent à se disputer pour savoir qui doit rester, vous en profitez pour prendre une partie de l'argent et filer à toute vitesse. Ils vous poursuivent, mais finissent par abandonner, se rendant compte qu'ils ne peuvent pas vous rattraper. Vous regardez l'argent que vous avez ramassé, ravi de votre coup.",
-						"en": "You decide to arrange bets and bet that the knight will not win. Many come to bet, because everyone knows that he will not lose. Guards are watching you to make sure you don't steal money. You propose them going and see the duel with them, except for a few who will keep the place. They start arguing about who should stay, you take advantage of the oportunity to take part of the money and go fast. They follow you but end up abandoning, realizing that they cannot catch you. You look at the money you picked up, glad of what you've done."
+						"en": "You decide to arrange bets and bet that the knight will not win. Many come to bet, because everyone knows that he will not lose. Guards are watching you to make sure you don't steal money. You propose them going and see the duel with them, except for a few who will keep the place. They start arguing about who should stay, you take advantage of the opportunity to take part of the money and go fast. They follow you but end up abandoning, realizing that they cannot catch you. You look at the money you picked up, glad of what you've done."
 					},
 					"lostTime": 0,
 					"health": 0,
