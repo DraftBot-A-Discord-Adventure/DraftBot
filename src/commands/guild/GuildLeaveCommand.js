@@ -34,6 +34,9 @@ const GuildLeaveCommand = async (message, language) => {
 		}
 		if (validationMessage.isValidated()) {
 			entity.Player.guildId = null;
+			if (guild.elderId === entity.Player.id) {
+				guild.elderId = null;
+			}
 			if (entity.id === guild.chiefId) {
 				if (elder) {
 					log(
@@ -76,7 +79,7 @@ const GuildLeaveCommand = async (message, language) => {
 				}
 			}
 
-			await Promise.all([entity.save(), entity.Player.save()]);
+			await Promise.all([guild.save(), entity.save(), entity.Player.save()]);
 
 			embed.setAuthor(
 				format(JsonReader.commands.guildLeave.getTranslation(language).successTitle, {
