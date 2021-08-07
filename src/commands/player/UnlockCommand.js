@@ -61,7 +61,7 @@ const UnlockCommand = async (message, language, args) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) { // a reaction exist
 			[entity] = await Entities.getOrRegister(message.mentions.users.first().id); // released entity
-			[player] = await Entities.getOrRegister(message.author.id); // message author
+			const [player] = await Entities.getOrRegister(message.author.id); // message author
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				await Maps.removeEffect(entity.Player);
 				player.Player.addMoney(-UNLOCK.PRICE_FOR_UNLOCK); // Remove money
