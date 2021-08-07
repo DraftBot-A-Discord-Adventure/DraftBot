@@ -149,15 +149,17 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * Get the number of players on this map
+	 * Get the number of players on the link between the origine point and this map
+	 * @param {MapLocations.id} originId
 	 * @returns {Promise<Number>}
 	 */
-	MapLocations.prototype.playersCount = async function() {
-		const query = "SELECT COUNT(*) FROM players WHERE mapLinkId in (SELECT id FROM map_links WHERE startMap = :id OR endMap = :id) ;";
+	MapLocations.prototype.playersCount = async function(originId) {
+
+		const query = "SELECT COUNT(*) FROM players WHERE mapLinkId in (SELECT id FROM map_links WHERE startMap = :id AND endMap = :prevId OR endMap = :id AND startMap = :prevId) ;";
 		return (await Sequelize.query(query, {
 			replacements: {
 				id: this.id,
-				idPrev: prevId
+				prevId: originId
 			},
 			type: Sequelize.QueryTypes.SELECT
 		}))[0]["COUNT(*)"];

@@ -16,7 +16,9 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 
 const GuildCreateCommand = async (message, language, args) => {
 	let guild;
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	// search for a user's guild

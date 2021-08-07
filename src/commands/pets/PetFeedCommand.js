@@ -16,6 +16,9 @@ module.exports.commandInfo = {
 const PetFeedCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);
 	}

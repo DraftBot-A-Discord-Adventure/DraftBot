@@ -16,7 +16,9 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 
 const SellCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	if (!entity.Player.Inventory.hasItemToSell()) {
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).noItemToSell);
 		return;

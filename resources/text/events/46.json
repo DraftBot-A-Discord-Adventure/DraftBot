@@ -1,5 +1,7 @@
 {
-	"restrictedMaps": "vi",
+	"map_location_ids": [
+		6
+	],
 	"translations": {
 		"fr": "🏘️ En passant dans un petit village, vous tombez sur le plus célèbre ménestrel connu dans la région et au-delà des frontières, nommé Pérotin. Celui-ci est tellement bon dans son métier qu'il peut vous faire vivre la chanson, littéralement, grâce à ses drogues puissantes. Ayant eu le courage d'aller lui parler, celui-ci aimerait que vous lui proposiez le prochain thème de sa chanson. Que lui suggérez-vous ?",
 		"en": "🏘️ While crossing a small village, you found the most famous minstrel of the region, called Perotin. His is so good in his work, that he wanted to let you live a song, because of his powerful drugs. Having the courage of going talk to him, he would like you to choose the following theme. What do you suggest ?"
@@ -158,7 +160,7 @@
 				{
 					"translations": {
 						"fr": "Pérotin, nostalgique, décide de raconter ses débuts dans le métier via sa chanson. Il racontait comment son ancien maître lui faisait ses cours mélodieux via ses drogues assouplissants. Vous ressentez cette douceur dans les mots du professeur qui vous inhibe de tout votre être. À la fin de sa dernière leçon, Périssien, le maître de Pérotin, décide de vous offrir un cadeau de départ, comme il l'avait reçu de ses prédécesseurs, mais pour éviter que ce soit cet instrument magique, cette mandoline, qui ne la quitte pas depuis ses débuts, Pérotin change la fin afin de vous donner un objet qui pourrait vous être utile pour la suite de votre aventure.",
-						"en": "Perotin, nostalgic, decides to tell his beginnings in the profession in his song. He tells how his master gave him his melodious lessons , and his softening drugs. You feel this sweetness in the teacher's words that inhibits you with all your being. At the end of his last lesson, Perissien, Perotin's master, decides to give you a present, as he had received from his predecessors, but to prevent this magical instrument, this mandolin, from leaving you since its beginnings, Perotin changes the end of the song in order to give you an object that could be useful to you for the rest of your adventure."
+						"en": "Perotin, nostalgic, decides to tell his beginnings in the profession in his song. He tells how his master gave him his melodious lessons, and his softening drugs. You feel this sweetness in the teacher's words that inhibits you with all your being. At the end of his last lesson, Perissien, Perotin's master, decides to give you a present, as he had received from his predecessors, but to prevent this magical instrument, this mandolin, from leaving you since its beginnings, Perotin changes the end of the song in order to give you an object that could be useful to you for the rest of your adventure."
 					},
 					"lostTime": 0,
 					"health": 0,
