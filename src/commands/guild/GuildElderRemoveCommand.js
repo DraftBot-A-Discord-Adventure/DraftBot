@@ -17,6 +17,17 @@ module.exports.commandInfo = {
 const GuildElderRemoveCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const guild = await Guilds.getById(entity.Player.guildId);
+
+	if (guild.elderId === null) {
+		// trying to remove an elder that does not exist
+		return sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			JsonReader.commands.guildElderRemove.getTranslation(language).noElderToRemove
+		);
+	}
+
 	const elderRemoveEmbed = new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.guildElderRemove.getTranslation(language).elderRemoveTitle, message.author);
 	elderRemoveEmbed.setDescription(

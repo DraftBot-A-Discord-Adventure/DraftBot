@@ -91,8 +91,11 @@ const GuildKickCommand = async (message, language, args) => {
 				);
 			}
 			kickedEntity.Player.guildId = null;
+			if (guild.elderId === kickedEntity.id) {
+				guild.elderId = null;
+			}
 
-			await Promise.all([kickedEntity.save(), kickedEntity.Player.save()]);
+			await Promise.all([guild.save(), kickedEntity.save(), kickedEntity.Player.save()]);
 
 			const embed = new DraftBotEmbed();
 			embed.setAuthor(
