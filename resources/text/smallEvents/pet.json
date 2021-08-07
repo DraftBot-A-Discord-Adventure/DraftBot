@@ -4,14 +4,14 @@
 			"money": [
 				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort **{amount}** :moneybag:, que vous gardez pour la suite de votre aventure.",
 				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir **{amount}** :moneybag: !",
-				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec **{amount}** :moneybag: vous rempli de joie !",
+				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec **{amount}** :moneybag: vous remplit de joie !",
 				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec une bourse de {amount} :moneybag: !",
 				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une bourse. Il semblerait bien qu'{nominative} l'ait volée à un marchand. Vous décidez de partir avec vos **{amount}** :moneybag: avant qu'il ne s'en aperçoive."
 			],
 			"item": [
 				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort un **objet**, que vous pouvez éventuellement garder pour la suite de votre aventure.",
 				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir un **objet** !",
-				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec un **objet** vous rempli de joie !",
+				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec un **objet** vous remplit de joie !",
 				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec un **objet** !",
 				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec un **objet**. Il semblerait bien qu'{nominative} l'ait volé à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
 			],

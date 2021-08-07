@@ -6,8 +6,8 @@
 	"possibilities": {
 		"⬆️": {
 			"translations": {
-				"fr": "Continuer votre route sans faire attention à lui",
-				"en": "Continue down the road, ignoring the mysterious figure"
+				"fr": "Continuer votre route",
+				"en": "Continue down the road"
 			},
 			"issues": [
 				{

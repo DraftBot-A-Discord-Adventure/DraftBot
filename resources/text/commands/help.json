@@ -434,7 +434,7 @@
 					"emote": ":military_medal:",
 					"usage": "badge",
 					"category": "util",
-					"description": "Badges are rewards very hard to get created to honor people who helped the bot development. The list of available badges is diplayed on the bot's discord server. (you can have the link of the server using the `invite` command)"
+					"description": "Badges are rewards very hard to get created to honor people who helped the bot development. The list of badges is available on the bot guide.\n Available by this link : https://guide.draftbot.com/v/en/notions-avancees/badges"
 				},
 				"drink": {
 					"emote": ":tropical_drink:",
