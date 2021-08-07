@@ -153,7 +153,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		class: (await Classes.getById(otherEntity.Player.class))[language],
 		advice: JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length)],
 		petName: otherEntity.Player.Pet
-			? otherEntity.Player.Pet.getPetEmote() + " "
+			? PetEntities.getPetEmote(otherEntity.Player.Pet) + " "
 			+ (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : PetEntities.getPetTypeName(otherEntity.Player.Pet, language))
 			: "",
 		guildName: guild ? guild.name : "",
