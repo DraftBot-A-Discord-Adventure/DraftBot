@@ -18,7 +18,7 @@
 					"emote": "\uD83C\uDFE5",
 					"name": "Soin des altérations d'état",
 					"price": 500,
-					"info": "Vos altérations d'état seront immédiatement supprimées et votre prochain rapport sera disponible dans une heure.",
+					"info": "Vos altérations d'état seront supprimées et vous reprendrez votre route immédiatement.",
 					"give": ":hospital: Vos altérations d'état ont été supprimées."
 				},
 				"regen": {
@@ -80,7 +80,7 @@
 					"emote": "\uD83C\uDFE5",
 					"name": "Heal alterations",
 					"price": 500,
-					"info": "Your status will be reset and the next report will be available in an hour.",
+					"info": "Your status will be reset and you will be back on your road immediately.",
 					"give": ":hospital: Your status has been reset."
 				},
 				"regen": {
