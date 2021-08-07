@@ -33,9 +33,10 @@
 					"lostTime": 0,
 					"health": 0,
 					"effect": ":smiley:",
-					"experience": 250,
-					"money": 500,
-					"item": false
+					"money": 0,
+					"experience": 0,
+					"item": false,
+					"oneshot": true
 				},
 				{
 					"translations": {
@@ -45,10 +46,9 @@
 					"lostTime": 0,
 					"health": 0,
 					"effect": ":smiley:",
-					"money": 0,
-					"experience": 0,
+					"experience": 250,
+					"money": 500,
 					"item": false,
-					"oneshot": true
 				},
 				{
 					"translations": {
@@ -305,7 +305,7 @@
 				{
 					"translations": {
 						"fr": "Vous organisez des paris et pariez que le chevalier ne gagnera pas. Beaucoup viennent parier, car tous savent qu'il ne perdra pas. Mais vous avez un plan en tête. Vous proposez au seigneur des lieux de vous battre pour lui, il accepte volontiers votre offre. Comme prévu vous gagnez le combat, et allez récupérer l'argent des paris. Un villageois vous attaque à la sortie du village, souhaitant certainement vous voler votre argent. Après un rude combat, vous parvenez à lui échapper, non sans être gravement blessé. Il faudra vous reposer.",
-						"en": "You decide to organize bets and bet that the knight will not win. Many come to bet, because everyone knows that he will not lose. But you have a plan. You propose to the lord of the places to fight for him, he accepts your offer. As expected you win the battle, and go collect the money of the bets. A villager attacks you at the exit of the village, proably to steal your money. After a hard fight, you manage to escape it, without serious injury. You will have to rest."
+						"en": "You decide to organize bets and bet that the knight will not win. Many people come to bet, because everyone knows that he will not lose. But you have a plan. You propose to the lord of the places to fight for him, he accepts your offer. As expected you win the battle, and go collect the money of the bets. A villager attacks you at the exit of the village, probably to steal your money. After a hard fight, you manage to escape it, not without being seriously injured. You will have to rest."
 					},
 					"lostTime": 0,
 					"health": -60,
