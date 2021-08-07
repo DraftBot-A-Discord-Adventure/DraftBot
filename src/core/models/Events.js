@@ -49,8 +49,11 @@ module.exports = (Sequelize, DataTypes) => {
 		const possibilities = await this.getPossibilities();
 		const reactions = [];
 		for (const possibility of possibilities) {
-			reactions.push(possibility.possibilityKey);
+			if (reactions.indexOf(possibility.possibilityKey) === -1 ){
+				reactions.push(possibility.possibilityKey);
+			}
 		}
+		reactions.push(REPORT.QUICK_END_EMOTE);
 		return reactions;
 	};
 

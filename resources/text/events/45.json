@@ -1,5 +1,7 @@
 {
-	"restrictedMaps": "vi",
+	"map_location_ids": [
+		17
+	],
 	"translations": {
 		"fr": "🏚️ Alors que vous traversiez un village animé, vous entendez un groupe de personnes parler d'un sanctuaire qui serait hanté. Curieux que vous êtes, vous continuez à écouter. Le sanctuaire serait à 1 heure de route au Sud, et le départ a lieu dans 30 minutes.",
 		"en": "🏚️ As you walk through a lively village, you hear a group of people talking about a haunted shrine. Feeling curious, you keep listening, and discover that the shrine would be a 1 hour journey to the South, and the departure is in 30 minutes."

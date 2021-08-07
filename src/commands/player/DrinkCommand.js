@@ -15,7 +15,9 @@ module.exports.commandInfo = {
  */
 const DrinkCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const potion = await entity.Player.Inventory.getPotion();
 	const embed = new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.drink.getTranslation(language).drinkSuccess, message.author);

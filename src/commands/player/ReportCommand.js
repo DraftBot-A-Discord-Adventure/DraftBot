@@ -238,7 +238,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 /**
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Event} event
+ * @param {Events} event
  * @param {Entities} entity
  * @param {Number} time
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
@@ -256,6 +256,9 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 
 	collector.on("collect", async (reaction) => {
 		collector.stop();
+		if (reaction.emoji.name === REPORT.QUICK_END_EMOTE){
+			return;
+		}
 		const possibility = await Possibilities.findAll({
 			where: {
 				eventId: event.id,
@@ -266,7 +269,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 	});
 
 	collector.on("end", async (collected) => {
-		if (!collected.first()) {
+		if (!collected.first() || collected.firstKey() === REPORT.QUICK_END_EMOTE) {
 			const possibility = await Possibilities.findAll({
 				where: {
 					eventId: event.id,
@@ -277,7 +280,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 		}
 	});
 	for (const reaction of reactions) {
-		if (reaction !== "end") {
+		if (reaction !== "end" && reaction !== REPORT.QUICK_END_EMOTE) {
 			await eventDisplayed.react(reaction)
 				.catch();
 		}

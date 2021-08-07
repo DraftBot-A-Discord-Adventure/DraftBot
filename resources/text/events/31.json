@@ -1,5 +1,7 @@
 {
-	"restrictedMaps": "ro",
+	"map_location_ids": [
+		5
+	],
 	"translations": {
 		"fr": "🏇 Vous entendez un bruit de galop au loin. Vous vous retournez et voyez un chevalier à l'armure noire et au blason inconnu.",
 		"en": "🏇 You hear the rhythm of a gallop from far away. You turn back and see a black armoured knight with a coat of arms that you do not recognise."

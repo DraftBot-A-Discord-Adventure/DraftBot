@@ -1,4 +1,7 @@
 {
+	"map_location_ids": [
+		11
+	],
 	"translations": {
 		"fr": "🌕 Faisant route vers l'Est en pleine nuit, vous marchez. Il fait sombre mais la lune est claire. Vous apercevez devant vous un être éclairé par la lumière de la lune. Il est grand, vêtu de noir; vous voyez un liquide dégouliner d'une de ses mains, la nuit illumine la peau pâle de l'individu qui ne vous a pas encore repéré. Que faire ?",
 		"en": "🌕 You are heading eastwards in the middle of the night. It is dark but the moon is clear. You see before you a being bathed in moonlight. A tall man, dressed in black; you see a red liquid dripping from one of his hands, the dim white light puncturing the skies illuminates the pale skin of the individual, who has not yet noticed you. What to do?"

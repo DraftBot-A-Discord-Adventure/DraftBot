@@ -21,7 +21,9 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 	const translations = JsonReader.commands.guildDaily.getTranslation(language);
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const guild = await Guilds.getById(entity.Player.guildId);
 
 	const time = millisecondsToHours(message.createdAt.getTime() - guild.lastDailyAt.valueOf());

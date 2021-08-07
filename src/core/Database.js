@@ -429,8 +429,7 @@ class Database {
 					Database.sendEventLoadError(event,
 						"Key present in possibility " +
 						possibilityKey +
-						": " +
-						possibilityFields[i]);
+						": ");
 					return false;
 				}
 				if (!Object.keys(event.possibilities[possibilityKey])
@@ -438,8 +437,7 @@ class Database {
 					Database.sendEventLoadError(event,
 						"Key missing in possibility " +
 						possibilityKey +
-						": " +
-						possibilityFields[i]);
+						": ");
 					return false;
 				}
 			}
@@ -450,8 +448,7 @@ class Database {
 						Database.sendEventLoadError(event,
 							"Key missing in possibility " +
 							possibilityKey +
-							": " +
-							possibilityFields[i]);
+							": ");
 						return false;
 					}
 				}
@@ -479,7 +476,7 @@ class Database {
 						Database.sendEventLoadError(
 							event,
 							"Key missing in possibility " +
-							possibilityKey + " " + str(i) +
+							possibilityKey + " " +
 							": " +
 							issuesFields[i]
 						);
@@ -490,7 +487,7 @@ class Database {
 					Database.sendEventLoadError(
 						event,
 						"Lost time must be positive in issue " +
-						possibilityKey + " " + str(i)
+						possibilityKey + " "
 					);
 					return false;
 				}
@@ -501,7 +498,7 @@ class Database {
 					Database.sendEventLoadError(
 						event,
 						"Time lost and no clock2 effect in issue " +
-						possibilityKey + " " + str(i)
+						possibilityKey + " "
 					);
 					return false;
 				}
@@ -514,7 +511,7 @@ class Database {
 						"Unknown effect \"" +
 						issue.effect +
 						"\" in issue " +
-						possibilityKey + " " + str(i)
+						possibilityKey + " "
 					);
 					return false;
 				}
@@ -522,7 +519,7 @@ class Database {
 					const types = issue.restrictedMaps.split(",");
 					for (let i = 0; i < types.length; ++i) {
 						if (!JsonReader.models.maps.types.includes(types[i])) {
-							Database.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + str(i) + " doesn't exist");
+							Database.sendEventLoadError(event, "Map type of issue" + possibilityKey + " " + " doesn't exist");
 							return false;
 						}
 					}

@@ -1,5 +1,7 @@
 {
-	"restrictedMaps": "vi",
+	"map_location_ids": [
+		17
+	],
 	"translations": {
 		"fr": "🚶 En vous promenant dans le petit village que vous avez trouvé, vous remarquez un puits avec un petit objet brillant au fond.",
 		"en": "🚶 Walking through the small village you found, you notice a well with a small shiny object at the bottom."
