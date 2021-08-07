@@ -1,5 +1,7 @@
 {
-	"restrictedMaps": "ri",
+	"map_location_ids": [
+		18
+	],
 	"translations": {
 		"fr": "🏞️ Vous voyez une rivière devant vous, de l'autre côté du rivage, vous apercevez un village.",
 		"en": "🏞️ You see a river in front of you. On the other shore, you catch a glimpse of a village."

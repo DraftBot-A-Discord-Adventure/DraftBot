@@ -1,5 +1,7 @@
 {
-	"restrictedMaps": "ro",
+	"map_location_ids": [
+		16
+	],
 	"translations": {
 		"fr": "🌳 Sans doute à cause de la rude tempête d'hier, un arbre est tombé sur le petit sentier de forêt où vous marchez. Son tronc faisant 3 bons mètres d'épaisseur, il vous bloque le passage !",
 		"en": "🌳 Probably because of the big storm of yesterday, a tree has fallen on the small path where you are walking. His trunk does 3 meters of thickness. It's blocking you the passage."

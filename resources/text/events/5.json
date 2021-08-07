@@ -1,5 +1,7 @@
 {
-	"restrictedMaps": "ci,vi",
+	"map_location_ids": [
+		2
+	],
 	"translations": {
 		"fr": "⛲ Vous avez trouvé une fontaine !",
 		"en": "⛲ You have found a fountain!"

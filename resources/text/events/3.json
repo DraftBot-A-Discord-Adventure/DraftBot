@@ -1,4 +1,7 @@
 {
+	"map_location_ids": [
+		21
+	],
 	"translations": {
 		"fr": "🔒 Alors que vous voyagez sur la Route des Merveilles, vous découvrez un coffret ! Malheureusement il est verrouillé...",
 		"en": "🔒  While you travel on the Road of Wonders, you find a chest ! Unfortunately it's closed..."

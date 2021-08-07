@@ -1,5 +1,7 @@
 {
-	"restrictedMaps": "pl",
+	"map_location_ids": [
+		1
+	],
 	"translations": {
 		"fr": "🏖️ Après vous être baladé plusieurs minutes sur la plage vous croisez une étrange petite créature, c'est un bernard l'hermite ! Il semble s'être retourné sur sa coquille...",
 		"en": "🏖️ After walking for several minutes on the beach you meet a strange little creature, this is a hermit crab! It seems to have turned on its shell..."

@@ -1,5 +1,7 @@
 {
-	"restrictedMaps": "ro",
+	"map_location_ids": [
+		4
+	],
 	"translations": {
 		"fr": "🌳 Un arbre est tombé sur le chemin et bloque le passage !",
 		"en": "🌳 A tree fell on the path and blocked it!"

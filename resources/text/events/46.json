@@ -1,5 +1,7 @@
 {
-	"restrictedMaps": "vi",
+	"map_location_ids": [
+		6
+	],
 	"translations": {
 		"fr": "🏘️ En passant dans un petit village, vous tombez sur le plus célèbre ménestrel connu dans la région et au-delà des frontières, nommé Pérotin. Celui-ci est tellement bon dans son métier qu'il peut vous faire vivre la chanson, littéralement, grâce à ses drogues puissantes. Ayant eu le courage d'aller lui parler, celui-ci aimerait que vous lui proposiez le prochain thème de sa chanson. Que lui suggérez-vous ?",
 		"en": "🏘️ While crossing a small village, you found the most famous minstrel of the region, called Perotin. His is so good in his work, that he wanted to let you live a song, because of his powerful drugs. Having the courage of going talk to him, he would like you to choose the following theme. What do you suggest ?"
