@@ -23,7 +23,8 @@
 			"startPoint": "Point de départ :",
 			"endPoint": "Point d'arrivée :",
 			"adviceTitle": "Conseil :",
-			"journal": "Journal de {pseudo}"
+			"journal": "Journal de {pseudo}",
+			"collectedPointsTitle": "Points récoltés :"
 		},
 		"en": {
 			"doEvent": ":newspaper: ** Journal of {pseudo} : ** {event}\n*-Use reactions to make an action ⚠️ Not responding is considered a separate choice!*",
@@ -48,7 +49,8 @@
 			"startPoint": "Start point:",
 			"endPoint": "End point:",
 			"adviceTitle": "Advice:",
-			"journal": "Journal of {pseudo}"
+			"journal": "Journal of {pseudo}",
+			"collectedPointsTitle": "Collected points:"
 		}
 	},
 	"timeMinimal": 60,
