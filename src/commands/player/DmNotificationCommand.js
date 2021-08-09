@@ -1,8 +1,8 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 module.exports.commandInfo = {
-	name: "dmNotification",
-	aliases: ["dmn","notifs","dms","notif","dmNotifications"],
+	name: "dmnotification",
+	aliases: ["dmn","notifs","dms","notif","dmnotifications"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
