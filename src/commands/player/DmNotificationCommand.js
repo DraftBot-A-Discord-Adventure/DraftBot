@@ -52,4 +52,4 @@ const DmNotificationCommand = async (message, language) => {
 	await entity.Player.save();
 };
 
-module.exports.execute = dmNotificationCommand;
+module.exports.execute = DmNotificationCommand;
