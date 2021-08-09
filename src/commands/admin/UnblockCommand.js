@@ -19,7 +19,7 @@ const UnblockCommand = async (message, language, args) => {
 		await message.channel.send("Unblocked with success");
 		const user = await client.users.fetch(args[0]);
 		const [entity] = await Entities.getOrRegister(args[0]);
-		if (entity.Player.dmnotification) {
+		if (entity.Player.dmNotification) {
 			sendDirectMessage(
 				user,
 				JsonReader.commands.unblock.getTranslation(language).title,
