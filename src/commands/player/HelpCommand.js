@@ -126,7 +126,7 @@ const HelpCommand = async (message, language, args) => {
 			.get(JsonReader.app.MAIN_SERVER_ID)
 			.members.cache.find(
 				(val) =>
-					val.id === message.author.id) === undefined && entity.Player.dmnotification
+					val.id === message.author.id) === undefined && entity.Player.dmNotification
 	) {
 		await sendDirectMessage(message.author, JsonReader.commands.help.getTranslation(language).mp.title,
 			JsonReader.commands.help.getTranslation(language).mp.description, JsonReader.bot.embed.default, language);

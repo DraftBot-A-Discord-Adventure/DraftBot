@@ -236,7 +236,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 
 	for (const member of members) {
 		const user = await client.users.fetch(member.discordUserId);
-		if (member.Player.dmnotification && member.discordUserId !== message.author.id) {
+		if (member.Player.dmNotification && member.discordUserId !== message.author.id) {
 			sendDirectMessage(
 				user,
 				JsonReader.commands.guildDaily.getTranslation(language).dmNotification.title,
