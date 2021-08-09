@@ -1,0 +1,29 @@
+{
+	"type": "nbReports",
+	"translations": {
+		"fr": {
+			"title": "{level} des rapports",
+			"description": "Faîtes {toDoTimes} rapport{pluralS}"
+		},
+		"en": {
+			"title": "",
+			"description": ""
+		}
+	},
+	"isMission": [
+		{
+			"toDo":1,
+			"reward":10
+		},
+		{
+			"toDo":5,
+			"reward":40
+		}
+	],
+	"isSuccess": [
+		{
+			"toDo":10,
+			"reward":100
+		}
+	]
+}

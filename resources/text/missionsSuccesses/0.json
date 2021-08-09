@@ -1,0 +1,15 @@
+{
+	"type": "none",
+	"translations": {
+		"fr": {
+			"title": "Aucune mission",
+			"description": ""
+		},
+		"en": {
+			"title": "",
+			"description": ""
+		}
+	},
+	"isMission": [],
+	"isSuccess": []
+}

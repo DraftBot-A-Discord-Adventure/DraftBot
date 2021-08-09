@@ -1,0 +1,25 @@
+{
+	"type": "nbFriendlyFights",
+	"translations": {
+		"fr": {
+			"title": "Combattant amical {level}",
+			"description": "Faîtes {toDoTimes} match{pluralS} amica{pluralLUX}"
+		},
+		"en": {
+			"title": "",
+			"description": ""
+		}
+	},
+	"isMission": [
+		{
+			"toDo":3,
+			"reward":50
+		}
+	],
+	"isSuccess": [
+		{
+			"toDo":10,
+			"reward":500
+		}
+	]
+}
