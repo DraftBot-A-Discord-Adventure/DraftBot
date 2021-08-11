@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": "\uD83D\uDC3A **Potion de sang de loup**",
-		"en": "\uD83D\uDC3A **Potion of wolf blood**"
+		"fr": "🐺 **Potion de sang de loup**",
+		"en": "🐺 **Potion of wolf blood**"
 	},
 	"rarity": 6,
 	"power": 178,
