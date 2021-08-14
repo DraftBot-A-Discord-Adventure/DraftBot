@@ -1,16 +1,50 @@
 {
 	"translations": {
 		"fr": {
+			"before_search_format": "{se_intro}{intro}. {search_action}.\n\n:telescope: *{search}*.",
+			"after_search_format": "{se_intro}{intro}. {search_action}.\n\n:telescope: *{search}*.\n\n{action_intro}, {action} **{specific}**. {outro}.",
 			"intro": [
-				"vous rencontrez un oracle prétendant se nommer {name}."
+				"vous rencontrez un oracle prétendant se nommer **{name}**",
+				"un homme vous semble étrange, vous allez à sa rencontre. Il dit être un oracle du nom de **{name}**",
+				"vous rencontrez un oracle s'appelant **{name}**",
+				"vous passez à côté d'un oracle qui vous interpelle, il dit s'appeller **{name}**"
+			],
+			"search_action": [
+				"Il vous dit qu'il peut vous donner des informations sur le ciel mais il a besoin de temps pour l'observer",
+				"Il se dit capable de vous donner des informations sur le ciel à condition de lui accorder un peu de temps",
+				"Il vous dit que si vous lui en laissez le temps, il serait capable de vous donner des informations sur le ciel",
+				"Il dit pouvoir donner des informations sur le ciel si on lui en accorde le temps nécessaire"
+			],
+			"search": [
+				"L'homme regarde le ciel dans un petit appareil",
+				"Il se couche par terre et regarde le ciel",
+				"L'homme se met à contempler le ciel",
+				"Il semble concentré à regarder quelque chose se trouvant dans le ciel"
+			],
+			"action_intro": [
+				"Après quelques minutes",
+				"Peu de temps après",
+				"Quelques minutes plus tard",
+				"Après vous avoir fait attendre quelques minutes",
+				"Après une petite attente"
 			],
 			"action": [
-				"Cette personne regarde dans un appareil étrange et vous dit que",
-				"Cet oracle regarde dans le ciel et vous informe que"
+				"il vous informe que",
+				"il vous met au courant que",
+				"il vous annonce que",
+				"il vous dit que",
+				"il se met à vous dire que"
+			],
+			"outro": [
+				"Vous repartez ébahit par cette nouvelle",
+				"Vous reprenez votre chemin rêveur",
+				"Vous le remerciez et repartez heureux d'avoir appris cette nouvelle",
+				"Vous le quittez plein d'étoiles dans les yeux",
+				"Vous repartez sans regretter de vous être arrêté"
 			],
 			"specific": {
 				"neoWS": [
-					"{count} objets traversent le ciel aujourd'hui."
+					"{count} objets traversent le ciel aujourd'hui"
 				]
 			},
 			"names": [
