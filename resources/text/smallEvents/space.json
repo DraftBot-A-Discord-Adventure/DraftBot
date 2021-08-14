@@ -9,7 +9,7 @@
 				"Cet oracle regarde dans le ciel et vous informe que"
 			],
 			"specific": {
-				"neows": [
+				"neoWS": [
 					"{count} objets traversent le ciel aujourd'hui."
 				]
 			},

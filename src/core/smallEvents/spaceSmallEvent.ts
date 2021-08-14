@@ -16,7 +16,7 @@ declare const draftbotRandom: Random;
 declare const JsonReader: any;
 
 const executeSmallEvent = function(message: Message, language: string, entity: any, seEmbed: MessageEmbed) {
-	const specificEvents = Object.keys(JsonReader.smallEvents.space.getTranslation(language).specific);
+	const specificEvent = draftbotRandom.pick(Object.keys(JsonReader.smallEvents.space.getTranslation(language).specific));
 
 	const translationModule = Translations.getModule("smallEvents.space", language);
 	const intro = translationModule.getRandom("intro");
@@ -34,7 +34,7 @@ const executeSmallEvent = function(message: Message, language: string, entity: a
 	console.log(Math.sqrt(distMarsEarthX ** 2 + distMarsEarthY ** 2 + distMarsEarthZ ** 2) * 149597870.7); */
 };
 
-function neoWSFeedReplacements(): Record<string, unknown> {
+function neoWS(): Record<string, unknown> {
 	const neoWSFeed = SpaceUtils.getNeoWSFeed();
 	return {
 		count: neoWSFeed.length
