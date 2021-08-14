@@ -67,20 +67,20 @@ export class SpaceUtils {
 
 	private static cachedNeoFeedDate: string = null;
 
-	static getNeoWSFeed(): NearEarthObject[] {
+	static getNeoWSFeed(apiKey: string): NearEarthObject[] {
 		const today = new Date().toISOString()
 			.slice(0, 10);
 		if (today === this.cachedNeoFeedDate) {
 			return this.cachedNeoFeed;
 		}
-		const res: Response = request("GET", "https://api.nasa.gov/neo/rest/v1/feed?start_date=" + today + "&end_date=" + today + "&api_key=47NucpwWv137CZPlAJZxykgMTMR9KF4bj5TzCYSG");
+		const res: Response = request("GET", "https://api.nasa.gov/neo/rest/v1/feed?start_date=" + today + "&end_date=" + today + "&api_key=" + apiKey);
 		const parsedAnswer = JSON.parse(res.getBody().toString());
 		if (parsedAnswer.near_earth_objects[today]) {
 			parsedAnswer.near_earth_objects = parsedAnswer.near_earth_objects[today];
 		}
 		this.cachedNeoFeedDate = today;
 		this.cachedNeoFeed = parsedAnswer;
-		return <NearEarthObject[]>parsedAnswer;
+		return <NearEarthObject[]>(parsedAnswer.near_earth_objects);
 	}
 
 	private static keplerianElements2050 = [
