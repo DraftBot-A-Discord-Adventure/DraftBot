@@ -1,25 +1,24 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-module.exports.help = {
-	name: "dmnotification",
-	aliases: ["dmn","notifs","dms","notif","dmnotifications"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+module.exports.commandInfo = {
+	name: "dmNotification",
+	aliases: ["dmn","notifs","dms","notif","dmNotifications"],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
  * Activate or desactivate DMs notifications.
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {String[]} args=[] - Additional arguments sent with the command
  */
-const DmnotificationCommand = async (message, language) => {
+const dmNotificationCommand = async (message, language) => {
 
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 	const translations = JsonReader.commands.dmNotification.getTranslation(language);
 
-	// update value user dmnotification
-	entity.Player.dmnotification = !entity.Player.dmnotification;
-	const isDmNotificationOn = entity.Player.dmnotification;
+	// update value user dmNotification
+	entity.Player.dmNotification = !entity.Player.dmNotification;
+	const isDmNotificationOn = entity.Player.dmNotification;
 
 	// send message updated value
 	const dmNotificationEmbed = new DraftBotEmbed()
@@ -36,7 +35,7 @@ const DmnotificationCommand = async (message, language) => {
 			await message.channel.send(dmNotificationEmbed);
 		}
 		catch (err) {
-			entity.Player.dmnotification = false;
+			entity.Player.dmNotification = false;
 			await sendErrorMessage(
 				message.author,
 				message.channel,
@@ -49,8 +48,8 @@ const DmnotificationCommand = async (message, language) => {
 	else {
 		await message.channel.send(dmNotificationEmbed);
 	}
-	log("Player " + message.author + " switched dms to " + entity.Player.dmnotification);
+	log("Player " + message.author + " switched dms to " + entity.Player.dmNotification);
 	await entity.Player.save();
 };
 
-module.exports.execute = DmnotificationCommand;
+module.exports.execute = dmNotificationCommand;

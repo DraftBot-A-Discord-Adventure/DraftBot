@@ -2,10 +2,10 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const Maps = require("../../core/Maps");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "daily",
 	aliases: ["da"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -15,7 +15,9 @@ module.exports.help = {
  */
 const DailyCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const activeObject = await entity.Player.Inventory.getActiveObject();
 
 	const time = millisecondsToHours(message.createdAt.getTime() - entity.Player.Inventory.lastDailyAt.valueOf());

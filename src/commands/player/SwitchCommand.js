@@ -1,9 +1,11 @@
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
 const moment = require("moment");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "switch",
 	aliases: ["sw"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -14,7 +16,9 @@ module.exports.help = {
  */
 const SwitchCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const nextDailyDate = new moment(entity.Player.Inventory.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h"); // eslint-disable-line new-cap
 	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
 	const maxTime = JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd;
@@ -35,9 +39,9 @@ const SwitchCommand = async (message, language) => {
 	entity.Player.Inventory.backupId = temp;
 
 	await entity.Player.Inventory.save();
-
-	await message.channel.send(
-		format(JsonReader.commands.switch.getTranslation(language).main, {pseudo: message.author.username})
+	return await message.channel.send(new DraftBotEmbed()
+		.formatAuthor(JsonReader.commands.switch.getTranslation(language).title, message.author)
+		.setDescription(JsonReader.commands.switch.getTranslation(language).desc)
 	);
 };
 

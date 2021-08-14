@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": "\uD83D\uDDFF **Nam Nam**",
+		"en": "\uD83D\uDDFF **Nam Nam**"
+	},
+	"rarity": 4,
+	"rawDefense": 5,
+	"attack": 38,
+	"speed": -10,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}

@@ -35,11 +35,13 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		frenchMasculine: {
 			type: DataTypes.INTEGER
@@ -54,7 +56,8 @@ module.exports = (Sequelize, DataTypes) => {
 
 	Potions.beforeSave((instance) => {
 		instance.setDataValue("updatedAt",
-			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
+			require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss"));
 	});
 
 	/**
@@ -91,7 +94,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @returns {*}
 	 */
 	Potions.prototype.getSimplePotionName = function(language) {
-		return this[language].substr(this[language].indexOf(" ") + 1).replace(/\*\*/g, "");
+		return this[language].substr(this[language].indexOf(" ") + 1)
+			.replace(/\*\*/g, "");
 	};
 
 	/**
@@ -99,12 +103,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {String}
 	 */
 	Potions.prototype.getEmoji = function() {
-		const emojiSimple = this.fr.split(" ")[0];
-		const emoji = emojiSimple.includes("<") ? emojiSimple.split(":")[2].replace(">", "") : emojiSimple;
-		if (!client.emojis.cache.get(emoji)) {
-			return emojiSimple;
-		}
-		return emoji;
+		return this.fr.split(" ")[0];
 	};
 
 	/**

@@ -2,10 +2,10 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const Maps = require("../../core/Maps");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "drink",
 	aliases: ["dr","glouglou"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -15,7 +15,9 @@ module.exports.help = {
  */
 const DrinkCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const potion = await entity.Player.Inventory.getPotion();
 	const embed = new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.drink.getTranslation(language).drinkSuccess, message.author);

@@ -1,9 +1,9 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "petsell",
 	aliases: ["psell", "ps"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	allowEffects: EFFECT.SMILEY
 };
 
 /**

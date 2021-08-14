@@ -35,14 +35,13 @@
 				"fieldValue": "Rareté: {rarity}\n{emote} {nickname}"
 			},
 			"map": {
-				"fieldName": "Destination :",
-				"fieldValue": "{mapEmote} {mapName}"
+				"fieldName": "Destination :"
 			},
 			"badges": {
 				"🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
 				"🏅": ":medal:  `Joueur dans le top 10 au reset de la 1.0`",
 				"👑": ":crown:  `Propriétaire du bot`",
-				"⚙️": ":gear:  `Equipe technique`",
+				"⚙️": ":gear:  `Équipe technique`",
 				"🥚": ":egg:  `Personne ayant trouvé tous les secrets du bot`",
 				"❤️": ":heart:  `Personne ayant le grade Involved sur le serveur du bot`",
 				"🍀": ":four_leaf_clover:  `Badge pouvant être gagné de temps en temps dans des concours sur le serveur du bot ou sur twitter`",
@@ -111,7 +110,7 @@
 				"🥚": ":egg:  `People who found all of the bot's easter eggs`",
 				"❤️": ":heart:  `User who has the Support role on the bot server`",
 				"🍀": ":four_leaf_clover:  `Badge that can be won from time to time in contests on the bot official server or on Twitter`",
-				"💸": ":money_with_wings:  `Donator`",
+				"💸": ":money_with_wings:  `Donor`",
 				"🖊": ":pen_ballpoint:  `Person who helped fix a lot of spelling mistakes`",
 				"🐞": ":lady_beetle:  `person who reported major bugs`",
 				"🎰": ":slot_machine:  `Badge given in a completely random way`",

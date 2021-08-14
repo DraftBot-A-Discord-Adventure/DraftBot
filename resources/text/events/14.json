@@ -1,8 +1,10 @@
 {
-	"restrictedMaps": "pl",
+	"map_location_ids": [
+		12
+	],
 	"translations": {
-		"fr": "🏠 Vous arrivez dans une petite prairie où se tient une petite maison. Vous vous approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.",
-		"en": "🏠 You arrive at a plain where a single small house stands. As you get closer, you see a man working on an incandescent piece of metal."
+		"fr": "🏠 Alors que la fatigue commence à vous assaillir, vous découvrez une petite prairie où se tient une petite maison. Vous vous en approchez et découvrez un homme occupé à travailler une pièce métallique incandescente.",
+		"en": "🏠 As exhaustion starts to be felt, you discover a small house standing in a small clearing. You approach and find a man busy forging an incandescent piece of metal."
 	},
 	"possibilities": {
 		"🔨": {
@@ -141,8 +143,8 @@
 						"en": "You decide to continue walking despite the fatigue. After a few miles, you collapse at the side of the road."
 					},
 					"lostTime": 0,
-					"health": -40,
-					"effect": ":sick:",
+					"health": -20,
+					"effect": ":sleeping:",
 					"experience": 0,
 					"money": 0,
 					"item": false

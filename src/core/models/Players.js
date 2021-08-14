@@ -10,7 +10,7 @@ const Maps = require("../Maps");
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const Players = Sequelize.define("players", {
+	const Players = Sequelize.define("Players", {
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -71,16 +71,14 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		effectEndDate: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		effectDuration: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0
 		},
-		previousMapId: {
-			type: DataTypes.INTEGER
-		},
-		mapId: {
+		mapLinkId: {
 			type: DataTypes.INTEGER
 		},
 		startTravelDate: {
@@ -89,13 +87,15 @@ module.exports = (Sequelize, DataTypes) => {
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss")
 		},
-		dmnotification: {
+		dmNotification: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
 		}
@@ -124,6 +124,7 @@ module.exports = (Sequelize, DataTypes) => {
 		return true;
 	};
 
+
 	/**
 	 * @param {String} badge - The badge to be added to player
 	 */
@@ -134,19 +135,65 @@ module.exports = (Sequelize, DataTypes) => {
 
 	Players.beforeSave((instance) => {
 		instance.setDataValue("updatedAt",
-			require("moment")().format("YYYY-MM-DD HH:mm:ss"));
+			require("moment")()
+				.format("YYYY-MM-DD HH:mm:ss"));
 	});
+
+	/**
+	 * Read the id of the destination of the player
+	 * @returns {number} The current destination id of the player
+	 */
+	Players.prototype.getDestinationId = async function() {
+		const link = await MapLinks.getById(this.mapLinkId);
+		return link.endMap;
+	};
+
+	/**
+	 * Read the destination of the player
+	 * @returns {MapLinks} The current destination of the player
+	 */
+	Players.prototype.getDestination = async function() {
+		const link = await MapLinks.getById(this.mapLinkId);
+		return await MapLocations.getById(link.endMap);
+	};
+
+	/**
+	 * Read the starting point of the player
+	 * @returns {E} The current starting map of the player
+	 */
+	Players.prototype.getPreviousMap = async function() {
+		const link = await MapLinks.getById(this.mapLinkId);
+		return await MapLocations.getById(link.startMap);
+	};
+
+	/**
+	 * Read the id of the starting point of the player
+	 * @returns {number} The current starting map id of the player
+	 */
+	Players.prototype.getPreviousMapId = async function() {
+		const link = await MapLinks.getById(this.mapLinkId);
+		return link.startMap;
+	};
+
+	/**
+	 * Read the current trip duration of the player
+	 * @returns {Number} The current trip duration in hours
+	 */
+	Players.prototype.getCurrentTripDuration = async function() {
+		const link = await MapLinks.getById(this.mapLinkId);
+		return link.tripDuration;
+	};
 
 	/**
 	 * @param {Number} id
 	 */
 	Players.getById = async (id) => {
 		const query = `SELECT *
-                   FROM (SELECT id,
-                                RANK() OVER (ORDER BY score desc, level desc)       rank,
-                                RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-                         FROM players)
-                   WHERE id = :id`;
+                       FROM (SELECT id,
+                                    RANK() OVER (ORDER BY score desc, level desc)       rank,
+                                    RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+                             FROM players)
+                       WHERE id = :id`;
 		return await Sequelize.query(query, {
 			replacements: {
 				id: id
@@ -160,11 +207,11 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.getByRank = async (rank) => {
 		const query = `SELECT *
-                   FROM (SELECT entityId,
-                                RANK() OVER (ORDER BY score desc, level desc)       rank,
-                                RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
-                         FROM players)
-                   WHERE rank = :rank`;
+                       FROM (SELECT entityId,
+                                    RANK() OVER (ORDER BY score desc, level desc)       rank,
+                                    RANK() OVER (ORDER BY weeklyScore desc, level desc) weeklyRank
+                             FROM players)
+                       WHERE rank = :rank`;
 		return await Sequelize.query(query, {
 			replacements: {
 				rank: rank
@@ -319,7 +366,7 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * Checks if the player need to level up and levels up him.
-	 * @param {Entity} entity
+	 * @param {Entities} entity
 	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
 	 */
@@ -359,12 +406,13 @@ module.exports = (Sequelize, DataTypes) => {
 	Players.prototype.setLastReportWithEffect = async function(time, timeMalus, effectMalus) {
 		this.startTravelDate = new Date(time);
 		await this.save();
-		await require("../../core/Maps").applyEffect(this, effectMalus, timeMalus);
+		await require("../../core/Maps")
+			.applyEffect(this, effectMalus, timeMalus);
 	};
 
 	/**
 	 * Apply dead effect, send message in channel and in PM only if the health is 0 or less.
-	 * @param {Entity} entity
+	 * @param {Entities} entity
 	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
 	 * @return {Promise<boolean>}
@@ -381,7 +429,7 @@ module.exports = (Sequelize, DataTypes) => {
 		const guildMember = await channel.guild.members.fetch(entity.discordUserId);
 		const user = guildMember.user;
 		const transDMN = JsonReader.models.players.getTranslation(language);
-		this.dmnotification ? sendDirectMessage(user, transDMN.koPM.title, transDMN.koPM.description, JsonReader.bot.embed.default, language)
+		this.dmNotification ? sendDirectMessage(user, transDMN.koPM.title, transDMN.koPM.description, JsonReader.bot.embed.default, language)
 			: channel.send(new DraftBotEmbed()
 				.setDescription(transDMN.koPM.description)
 				.setTitle(transDMN.koPM.title)
@@ -430,6 +478,146 @@ module.exports = (Sequelize, DataTypes) => {
 		return this.level;
 	};
 
+	// ---------------------------------------------------------------------------------------------------------------------
+	// PART ON botFacts Small Events
+	// ---------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Gives the points mean of all players
+	 * @return {Promise<Number>}
+	 */
+	Players.getNbMeanPoints = async () => {
+		const query = `SELECT AVG(score)
+                       FROM Players
+                       WHERE score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["AVG(score)"]
+		);
+	};
+
+	/**
+	 * Gives the points mean for this week of all players
+	 * @return {Promise<Number>}
+	 */
+	Players.getMeanWeeklyScore = async () => {
+		const query = `SELECT AVG(weeklyScore)
+                       FROM Players
+                       WHERE score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["AVG(weeklyScore)"]
+		);
+	};
+
+	/**
+	 * Get how many players are still under baby effect
+	 * @return {Promise<Number>}
+	 */
+	Players.getNbPlayersHaventStartedTheAdventure = async () => {
+		const query = `SELECT COUNT(*)
+                       FROM Players
+                       WHERE effect = ":baby:"`;
+		return (await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT
+		}))[0]["COUNT(*)"];
+	};
+
+	/**
+	 * Gives the points mean for this week of all players
+	 * @return {Promise<Number>}
+	 */
+	Players.getLevelMean = async () => {
+		const query = `SELECT AVG(level)
+                       FROM Players
+                       WHERE score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["AVG(level)"]
+		);
+	};
+
+	/**
+	 * Gives the money mean of all players
+	 * @return {Promise<Number>}
+	 */
+	Players.getNbMeanMoney = async () => {
+		const query = `SELECT AVG(money)
+                       FROM Players
+                       WHERE score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["AVG(money)"]
+		);
+	};
+	/**
+	 * Gives the money mean of all players
+	 * @return {Promise<Number>}
+	 */
+	Players.getSumAllMoney = async () => {
+		const query = `SELECT SUM(money)
+                       FROM Players
+                       WHERE score > 100`;
+		return (await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT
+		}))[0]["SUM(money)"];
+	};
+
+	/**
+	 * Gives the richest player
+	 * @return {Promise<Number>}
+	 */
+	Players.getRichestPlayer = async () => {
+		const query = `SELECT MAX(money)
+                       FROM Players`;
+		return (await Sequelize.query(query, {
+			type: Sequelize.QueryTypes.SELECT
+		}))[0]["MAX(money)"];
+	};
+
+	/**
+	 * Get how many players have a given class
+	 * @param {Classes} classEntity
+	 * @return {Promise<Number>}
+	 */
+	Players.getNbPlayersWithClass = async (classEntity) => {
+		const query = `SELECT COUNT(*)
+                       FROM Players
+                       WHERE class = :class
+                         AND score > 100`;
+		return Math.round(
+			(await Sequelize.query(query, {
+				replacements: {
+					class: classEntity.id
+				},
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["COUNT(*)"]
+		);
+	};
+
+	/**
+	 * Count the amount of players that have the same link
+	 * @returns {number} number of player that have the same link
+	 */
+	Players.prototype.getNbPlayersOnYourMap = async function() {
+		const query = `SELECT COUNT(*)
+                       FROM Players
+                       WHERE (mapLinkId = :link OR mapLinkId = :linkInverse)
+                         AND score > 100`;
+		const linkInverse = await MapLinks.getInverseLinkOf(this.mapLinkId);
+		return Math.round(
+			(await Sequelize.query(query, {
+				replacements: {
+					link: this.mapLinkId,
+					linkInverse: linkInverse.id
+				},
+				type: Sequelize.QueryTypes.SELECT
+			}))[0]["COUNT(*)"]
+		);
+	};
 
 	return Players;
 };

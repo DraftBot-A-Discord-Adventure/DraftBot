@@ -45,7 +45,7 @@
 			"sameClass": [
 				"Sur votre chemin, vous ne manquez pas de reconnaître l'accoutrement de **{pseudo}**. Il est **{class}** tout comme vous !",
 				"Vous remarquez **{pseudo}**, et observez rapidement son accoutrement et ses manières qui vous sont familières, en effet il est **{class}**, tout comme vous ! Vous reprenez ensuite votre route.",
-				"Vous saluez l'un de vos confrère **{class}*, **{pseudo}**, qui passe dans le coin. Pas le temps de vous arrêter, vous continuez votre route."
+				"Vous saluez l'un de vos confrère **{class}**, **{pseudo}**, qui passe dans le coin. Pas le temps de vous arrêter, vous continuez votre route."
 			],
 			"sameGuild": [
 				"Vous croisez sur votre chemin une tête très familière... En effet, **{pseudo}** fait partie de votre guilde !",

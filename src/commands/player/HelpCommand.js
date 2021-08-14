@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "help",
 	aliases: ["h"]
 };
@@ -88,14 +88,14 @@ const HelpCommand = async (message, language, args) => {
 	else {
 		const command = getCommand(args[0]) || getCommandFromAlias(args[0]);
 		const commandInfos = JsonReader.commands.help.getTranslation(language).commands[
-			command.help.name
+			command.commandInfo.name
 		];
 		helpMessage = new DraftBotEmbed()
 			.setDescription(commandInfos.description)
 			.setTitle(
 				format(
 					JsonReader.commands.help.getTranslation(language).commandEmbedTitle,
-					{emote: commandInfos.emote, cmd: command.help.name}
+					{emote: commandInfos.emote, cmd: command.commandInfo.name}
 				)
 			);
 		helpMessage.addField(
@@ -104,16 +104,16 @@ const HelpCommand = async (message, language, args) => {
 			true
 		);
 
-		if (command.help.aliases.length) {
+		if (command.commandInfo.aliases.length) {
 			let aliasField = "";
-			for (let i = 0; i < command.help.aliases.length; ++i) {
-				aliasField += "`" + command.help.aliases[i] + "`";
-				if (i !== command.help.aliases.length - 1) {
+			for (let i = 0; i < command.commandInfo.aliases.length; ++i) {
+				aliasField += "`" + command.commandInfo.aliases[i] + "`";
+				if (i !== command.commandInfo.aliases.length - 1) {
 					aliasField += ", ";
 				}
 			}
 			helpMessage.addField(
-				command.help.aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
+				command.commandInfo.aliases.length > 1 ? JsonReader.commands.help.getTranslation(language).aliasesFieldTitle : JsonReader.commands.help.getTranslation(language).aliasFieldTitle,
 				aliasField,
 				true
 			);
@@ -126,7 +126,7 @@ const HelpCommand = async (message, language, args) => {
 			.get(JsonReader.app.MAIN_SERVER_ID)
 			.members.cache.find(
 				(val) =>
-					val.id === message.author.id) === undefined && entity.Player.dmnotification
+					val.id === message.author.id) === undefined && entity.Player.dmNotification
 	) {
 		await sendDirectMessage(message.author, JsonReader.commands.help.getTranslation(language).mp.title,
 			JsonReader.commands.help.getTranslation(language).mp.description, JsonReader.bot.embed.default, language);

@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "\uD83D\uDDE1️️ **Exagide**",
+		"en": "\uD83D\uDDE1️ **Exagide**"
+	},
+	"rarity": 6,
+	"rawAttack": 5,
+	"defense" : 30,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}

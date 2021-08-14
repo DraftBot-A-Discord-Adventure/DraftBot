@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "forcetopweekend",
 	aliases: ["forcetwe"],
 	commandFormat: "",
@@ -15,7 +15,7 @@ const DB = require("../../../../core/DraftBot");
 const forceTopWeekEndTestCommand = async () => {
 	await DB.twe();
 
-	return module.exports.help.messageWhenExecuted;
+	return module.exports.commandInfo.messageWhenExecuted;
 };
 
 module.exports.execute = forceTopWeekEndTestCommand;

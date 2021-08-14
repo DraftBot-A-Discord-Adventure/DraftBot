@@ -15,6 +15,7 @@
 		"postinstall": "link-module-alias",
 		"test": "tsc && jest dist/test",
 		"eslint": "eslint src test",
+		"eslintFix": "eslint src test --fix",
 		"tsc": "tsc"
 	},
 	"_moduleAliases": {

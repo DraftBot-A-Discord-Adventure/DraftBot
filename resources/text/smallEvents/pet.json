@@ -4,16 +4,16 @@
 			"money": [
 				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort **{amount}** :moneybag:, que vous gardez pour la suite de votre aventure.",
 				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir **{amount}** :moneybag: !",
-				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec **{amount}** :moneybag: vous rempli de joie !",
+				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec **{amount}** :moneybag: vous remplit de joie !",
 				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec une bourse de {amount} :moneybag: !",
-				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une bourse. Il semblerait bien qu'{nominative} l'ai volée à un marchand. Vous décidez de partir avec vos **{amount}** :moneybag: avant qu'il ne s'en aperçoivre."
+				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une bourse. Il semblerait bien qu'{nominative} l'ait volée à un marchand. Vous décidez de partir avec vos **{amount}** :moneybag: avant qu'il ne s'en aperçoive."
 			],
 			"item": [
 				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort un **objet**, que vous pouvez éventuellement garder pour la suite de votre aventure.",
 				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir un **objet** !",
-				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec un **objet** vous rempli de joie !",
+				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec un **objet** vous remplit de joie !",
 				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec un **objet** !",
-				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec un **objet**. Il semblerait bien qu'{nominative} l'ai volé à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoivre."
+				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec un **objet**. Il semblerait bien qu'{nominative} l'ait volé à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
 			],
 			"gainLife": [
 				"Avoir **{pet}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{amount}** :heart:.",
@@ -23,7 +23,7 @@
 			"gainLove": [
 				"**{pet}** est heureux de vous avoir en sa compagnie. {nominativeShift} gagne en amour et vous devient plus fidèle.",
 				"Après avoir marché longuement, vous décidez de prendre soin de votre **{pet}** en {determinant} caressant. Ce moment passé avec {accusative} a renforcé vos liens.",
-				"Après être parti{feminine} quelques instant, **{pet}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominative} vous aime ainsi davantage.",
+				"Après être parti{feminine} quelques instant, **{pet}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominativeShift} vous aime ainsi davantage.",
 				"**{pet}** semble avoir déclenché les hostilités avec un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous décidez de {determinant} défendre vaillamment. {nominativeShift} vous aime davantage et vous devient plus fidèle.",
 				"**{pet}** est joueur, vous décidez de jouer avec {accusative}. Cette partie a renforcé vos liens."
 			],
@@ -38,7 +38,7 @@
 				"**{pet}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{amount} min** :clock2:.",
 				"Dans un virage, **{pet}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagnez **{amount} min** :clock2:.",
 				"**{pet}** semble être pressé{feminine}, malgré tout vous arrivez à {determinant} suivre tant bien que mal. Grâce à {accusative} vous gagnez **{amount} min** :clock2:.",
-				"Le flair de **{pet}** vous a permis de trouver un raccourci. Grâce à {accusatif} vous avez gagné **{amount} min** :clock2:.",
+				"Le flair de **{pet}** vous a permis de trouver un raccourci. Grâce à {accusative} vous avez gagné **{amount} min** :clock2:.",
 				"Défendre **{pet}** contre un{randomAnimalFeminine} **{randomAnimal}** sauvage n'a pas été une mince affaire et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite et de courir à toute vitesse. Grâce à cette mésaventure vous gagnez **{amount} min** :clock2: sur votre trajet."
 			],
 			"points": [
@@ -60,7 +60,7 @@
 				"Vous remarquez un large trou dans votre bourse, **{pet}** a dû jouer avec durant la nuit ! Après avoir compté ce qu'il vous restait, vous remarquez qu'il vous manque en tout **{amount}** :money_with_wings:.",
 				"Alors que vous jouez avec **{pet}**, celui-ci vous bouscule et fait tomber votre bourse dans une crevasse. Impossible de récuperer ces **{amount}** :money_with_wings: !",
 				"**{pet}** semble être irrité, {nominative} ira même jusqu'à blesser un passant. Après s'être excusé, vous décidez de le dédommager et repartez la tête basse. Vous perdez **{amount}** :money_with_wings:.",
-				"En voulant jouer avec **{pet}**, vous {accusatif} assenez un coup. Blessé, vous l'amenez vers un soigneur afin de {determinant} guérir. Après l'avoir soigné{feminine}, il vous délaisse de **{amount}** :money_with_wings:."
+				"En voulant jouer avec **{pet}**, vous {accusative} assenez un coup. Blessé, vous l'amenez vers un soigneur afin de {determinant} guérir. Après l'avoir soigné{feminine}, il vous délaisse de **{amount}** :money_with_wings:."
 			],
 			"loseTime": [
 				"A force de rappeler **{pet}** afin qu'{nominative} reste près de vous, vous perdez au total **{amount} min** :clock2:.",
@@ -135,7 +135,7 @@
 				"**{pet}** is in good shape. You ride on his back for a few minutes and you win **{amount}** min** :clock2:.",
 				"In a corner, **{pet}** suddenly runs away. You end up being dragged at the end of his leash but you win **{amount}** min** :clock2:.",
 				"**{pet}** seems to be in a rush, despite everything you manage to follow {determinant} as best as possible. Thanks to {accusative} you gain **{amount} min** :clock2:.",
-				"**{pet}** 's flair has allowed you to find a shortcut. Thanks to {accusatif} you've gained **{amount}** min** :clock2:.",
+				"**{pet}** 's flair has allowed you to find a shortcut. Thanks to {accusative} you've gained **{amount}** min** :clock2:.",
 				"Defending **{pet}** against a wild **{randomAnimal}** was not an easy task and this time, you found stronger than yourself. You decide to flee the fight and run as fast as possible. Thanks to this mishap you gain **{amount} min** :clock2: on your travel."
 			],
 			"points": [
@@ -157,7 +157,7 @@
 				"You notice a large hole in your purse, **{pet}** probably played with it during the night ! After counting what was left, you notice that **{amount}** :money_with_wings: is missing.",
 				"As you play with **{pet}**, this one pushes you and makes your purse fall in a crack. It will be impossible to recover those **{amount}** :money_with_wings: !",
 				"**{pet}** seems irritated, {nominative} will even injuring a passerby. After excusing yourself, you decide to compensate him and leave with your head down. You loose **{amount}** :money_with_wings:.",
-				"While wanting to play with **{pet}**, you {accusatif} strike a blow. Wounded, you take him to a groomer to {determinant} heal. Afetr healing {feminine}, he charges you **{amount}** :money_with_wings:."
+				"While wanting to play with **{pet}**, you {accusative} strike a blow. Wounded, you take him to a groomer to {determinant} heal. Afetr healing {feminine}, he charges you **{amount}** :money_with_wings:."
 			],
 			"loseTime": [
 				"By dint of recalling **{pet}** so that {nominative} remains close to you, you loose in total **{amount} min** :clock2:.",
@@ -173,7 +173,7 @@
 				"The lack of attention towards **{pet}** drove him to flee. You {nominative} lose sight rapidly, it will be impossible to find {nominative} back."
 			],
 			"loseLove": [
-				"It seems like **{pet}**doesn't appreciate you much... Traveling with {accusative} lowers this relationship. {nominative} loses a bit of love.",
+				"It seems like **{pet}**doesn't appreciate you much... travelling with {accusative} lowers this relationship. {nominative} loses a bit of love.",
 				"While you were training to fight,**{pet}** passes by. You hit him in a moment of inadvertence, {nominative} seems to like you a bit less now.",
 				"**{pet}** is winded, seems like {nominative} can't follow you. Not waiting for him deteriorated your relation. {nominative} loses some love...",
 				"Approaching a stand, **{pet}** stares with insistance on placing food on a board. Despite his request, you decide to resume your way. This one is vindictive, {nominative} loses a bit faith in you."

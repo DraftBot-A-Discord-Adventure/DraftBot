@@ -1,11 +1,11 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "playerhealth",
 	aliases: ["health"],
 	commandFormat: "<health>",
 	typeWaited: {
 		health: typeVariable.INTEGER
 	},
-	messageWhenExecuted: "Vous avez maintenant {maxhealth} :heart:!",
+	messageWhenExecuted: "Vous avez maintenant {health} :heart:!",
 	description: "Mets la vie de votre joueur à la valeur donnée"
 };
 
@@ -24,7 +24,7 @@ const playerHealthTestCommand = async (language, message, args) => {
 	entity.health = parseInt(args[0],10);
 	entity.save();
 
-	return format(module.exports.help.messageWhenExecuted, {health: entity.health});
+	return format(module.exports.commandInfo.messageWhenExecuted, {health: entity.health});
 };
 
 module.exports.execute = playerHealthTestCommand;

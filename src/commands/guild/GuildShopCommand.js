@@ -1,13 +1,9 @@
-import {
-	DraftBotShopMessageBuilder,
-	ShopItem,
-	ShopItemCategory
-} from "../../core/messages/DraftBotShopMessage";
+import {DraftBotShopMessageBuilder, ShopItem, ShopItemCategory} from "../../core/messages/DraftBotShopMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {Translations} from "../../core/Translations";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildshop",
 	aliases: ["gs"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
@@ -20,15 +16,17 @@ module.exports.help = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  */
 const GuildShopCommand = async (message, language) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const guild = await Guilds.getById((await Entities.getOrRegister(message.author.id))[0].Player.guildId);
-
 	const guildShopTranslations = Translations.getModule("commands.guildShop", language);
 	const commonFoodRemainingSlots = Math.max(GUILD.MAX_COMMON_PET_FOOD - guild.commonFood, 1);
 	const herbivorousFoodRemainingSlots = Math.max(GUILD.MAX_HERBIVOROUS_PET_FOOD - guild.herbivorousFood, 1);
 	const carnivorousFoodRemainingSlots = Math.max(GUILD.MAX_CARNIVOROUS_PET_FOOD - guild.carnivorousFood, 1);
 	const ultimateFoodRemainingSlots = Math.max(GUILD.MAX_ULTIMATE_PET_FOOD - guild.ultimateFood, 1);
 
-	await (await new DraftBotShopMessageBuilder(
+	const shopMessage = (await new DraftBotShopMessageBuilder(
 		message.author,
 		guildShopTranslations.get("title"),
 		language
@@ -48,9 +46,16 @@ const GuildShopCommand = async (message, language) => {
 			],
 			guildShopTranslations.get("foodItem")
 		))
+		.endCallback(shopEndCallback)
 		.build())
 		.send(message.channel);
+
+	addBlockedPlayer(message.author.id, "guildShop", shopMessage.collector);
 };
+
+function shopEndCallback(shopMessage) {
+	removeBlockedPlayer(shopMessage.user.id);
+}
 
 function getGuildXPShopItem(guildShopTranslations) {
 	return new ShopItem(

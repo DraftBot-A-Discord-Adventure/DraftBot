@@ -10,7 +10,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;
-	const playersOnMap = await MapLocations.getPlayersOnMap(entity.Player.mapId, entity.Player.previousMapId, entity.Player.id);
+	const playersOnMap = await MapLocations.getPlayersOnMap(await entity.Player.getDestinationId(), await entity.Player.getPreviousMapId(), entity.Player.id);
 	for (let i = 0; i < playersOnMap.length; ++i) {
 		if (client.users.cache.has(playersOnMap[i].discordUserId)) {
 			selectedPlayer = playersOnMap[i];
@@ -153,7 +153,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		class: (await Classes.getById(otherEntity.Player.class))[language],
 		advice: JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length)],
 		petName: otherEntity.Player.Pet
-			? otherEntity.Player.Pet.getPetEmote() + " "
+			? PetEntities.getPetEmote(otherEntity.Player.Pet) + " "
 			+ (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : PetEntities.getPetTypeName(otherEntity.Player.Pet, language))
 			: "",
 		guildName: guild ? guild.name : "",

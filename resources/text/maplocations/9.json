@@ -5,9 +5,5 @@
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "Ancienne grande route commerciale reliant le Berceau et Ville forte, il ne reste de la Grande Rue que de vieux pavés ébréchés.",
-	"descEn": "Formerly important trade route connecting the Cradle and Ville Forte, only old chipped pavement remains of the Main Road.",
-	"northMap": null,
-	"eastMap": 10,
-	"southMap": null,
-	"westMap": 3
+	"descEn": "Formerly important trade route connecting the Cradle and Ville Forte, only old chipped pavement remains of the Main Road."
 }

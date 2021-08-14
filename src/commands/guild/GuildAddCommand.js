@@ -1,10 +1,10 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildadd",
 	aliases: ["gadd", "ga"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
 	guildRequired: true,
 	guildPermissions: 2
 };

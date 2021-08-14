@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "clearbadges",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez supprimé vos badges !",
@@ -16,7 +16,7 @@ const clearBadgesTestCommand = async (language, message) => {
 	entity.Player.badges = null;
 	entity.Player.save();
 
-	return module.exports.help.messageWhenExecuted;
+	return module.exports.commandInfo.messageWhenExecuted;
 };
 
 module.exports.execute = clearBadgesTestCommand;

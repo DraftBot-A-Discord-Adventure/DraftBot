@@ -1,7 +1,7 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "shelter",
 	aliases: ["guildshelter", "pets", "animals", "gshelter", "gpets", "ganimals", "guildpets", "guildanimals", "sh"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
 	guildRequired: true
 };
 

@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "petlovepoints",
 	aliases: ["petlp"],
 	commandFormat: "<lovePoints>",
@@ -28,7 +28,7 @@ const petLovePointsTestCommand = async (language, message, args) => {
 	pet.lovePoints = parseInt(args[0],10);
 	pet.save();
 	return format(
-		module.exports.help.messageWhenExecuted, {
+		module.exports.commandInfo.messageWhenExecuted, {
 			love: args[0],
 			loveLevel: PetEntities.getLoveLevel(pet, language)
 		}

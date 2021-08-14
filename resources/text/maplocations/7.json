@@ -5,9 +5,5 @@
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "Désert de sable chaud nommé en l'honneur des anciens rois de la région.",
-	"descEn": "Hot sandy desert named in honor of the region's ancient kings.",
-	"northMap": 8,
-	"eastMap": 17,
-	"southMap": 19,
-	"westMap": 6
+	"descEn": "Hot sandy desert named in honor of the region's ancient kings."
 }

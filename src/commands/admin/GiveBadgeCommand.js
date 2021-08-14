@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "givebadge",
 	aliases: ["gb"],
 	userPermissions: ROLES.USER.BADGE_MANAGER

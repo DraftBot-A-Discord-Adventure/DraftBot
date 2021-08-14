@@ -7,6 +7,7 @@ import {DraftBotErrorEmbed} from "./DraftBotErrorEmbed";
 import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
 
 declare function format(s: string, replacement: any): string;
+
 declare const Entities: any;
 
 /**
@@ -88,7 +89,8 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 					name: shopItem.name,
 					price: shopItem.price
 				}) + "\n";
-				reactions.push(new DraftBotReaction(shopItem.emote));
+				const emoji = shopItem.emote.includes("<") ? shopItem.emote.split(":")[2].replace(">", "") : shopItem.emote;
+				reactions.push(new DraftBotReaction(emoji));
 				shopItems.push(shopItem);
 				shopItemReactions.push(shopItem.emote);
 			}
@@ -123,7 +125,8 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	}
 
 	private getChoseShopItem(): ShopItem {
-		const index: number = this._shopItemReactions.indexOf(this.getFirstReaction().emoji.name);
+		const emoji = this.getFirstReaction() ? this.getFirstReaction().emoji.id === null ? this.getFirstReaction().emoji.name : "<:" + this.getFirstReaction().emoji.name + ":" + this.getFirstReaction().emoji.id + ">" : null;
+		const index: number = this._shopItemReactions.indexOf(emoji);
 		if (index === -1) {
 			return null;
 		}
@@ -248,17 +251,18 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				confirmBuyMessage.send(shopMessage.sentMessage.channel);
 			}
 		}
-		else if (msg.getFirstReaction()) {
+		else {
 			await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
 				shopMessage.user,
 				shopMessage.language,
 				shopMessage._translationModule.get("error.leaveShop"),
 				true
 			));
-			shopMessage._shopEndCallback(shopMessage, ShopEndReason.REACTION);
-		}
-		else {
-			shopMessage._shopEndCallback(shopMessage, ShopEndReason.TIME);
+			if (msg.getFirstReaction()) {
+				shopMessage._shopEndCallback(shopMessage, ShopEndReason.REACTION);
+			} else {
+				shopMessage._shopEndCallback(shopMessage, ShopEndReason.TIME);
+			}
 		}
 	}
 }
@@ -283,7 +287,8 @@ export class DraftBotShopMessageBuilder {
 		await player.save();
 	};
 
-	private _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void = () => { /* do nothing */ };
+	private _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void = () => { /* do nothing */
+	};
 
 	private _noShoppingCart = false;
 
@@ -378,7 +383,7 @@ export class ShopItem {
 
 	private readonly _price: number;
 
-	private readonly _buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>
+	private readonly _buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>;
 
 	private readonly _description: string;
 

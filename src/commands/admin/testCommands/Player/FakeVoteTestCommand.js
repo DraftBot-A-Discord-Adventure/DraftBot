@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "fakevote",
 	commandFormat: "",
 	messageWhenExecuted: "Vous avez faussement voté !",
@@ -13,7 +13,7 @@ module.exports.help = {
  */
 const fakeVoteTestCommand = async (language, message) => {
 	await require("../../../../core/DBL").userDBLVote(message.author.id);
-	return module.exports.help.messageWhenExecuted;
+	return module.exports.commandInfo.messageWhenExecuted;
 };
 
 module.exports.execute = fakeVoteTestCommand;

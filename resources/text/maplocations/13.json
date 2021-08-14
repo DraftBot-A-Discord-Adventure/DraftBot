@@ -5,9 +5,5 @@
 	"particleFr": "vers la",
 	"particleEn": "of the",
 	"descFr": "Un chemin difficile d’accès, boueux et humide. La Route Marécageuse relie l’Étendue à la Rivière aux crabes.",
-	"descEn": "A difficult course. Muddy and wet, the Marshy Road connects the Extent to the Crab River.",
-	"northMap": null,
-	"eastMap": 25,
-	"southMap": 12,
-	"westMap": null
+	"descEn": "A difficult course. Muddy and wet, the Marshy Road connects the Extent to the Crab River."
 }

@@ -1,8 +1,8 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guildcreate",
 	aliases: ["gcreate", "gc"],
 	requiredLevel: GUILD.REQUIRED_LEVEL,
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**
@@ -16,7 +16,9 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 
 const GuildCreateCommand = async (message, language, args) => {
 	let guild;
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	// search for a user's guild

@@ -1,7 +1,7 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "mypet",
 	aliases: ["pet", "pp"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
 /**

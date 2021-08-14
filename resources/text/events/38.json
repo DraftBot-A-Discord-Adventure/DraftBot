@@ -1,7 +1,10 @@
 {
+	"map_location_ids": [
+		9
+	],
 	"translations": {
 		"fr": "🚶 Faisant route, vous croisez un marchand itinérant, qui vous interpelle. Il dit avoir des objets qui pourraient vous intéresser, et ce à des prix tout à fait abordables.",
-		"en": "🚶 On your way, you meet a traveling merchant. He says that he possesses some nice items that might interest you, for cheap."
+		"en": "🚶 On your way, you meet a travelling merchant. He says that he possesses some nice items that might interest you, for cheap."
 	},
 	"possibilities": {
 		"💸": {

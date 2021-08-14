@@ -5,9 +5,5 @@
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "Une forêt au bord du Mont Célestrum.",
-	"descEn": "A forest on the verge of the Mount Celestrum",
-	"northMap": 15,
-	"eastMap": 17,
-	"southMap": null,
-	"westMap": null
+	"descEn": "A forest on the verge of the Mount Celestrum"
 }

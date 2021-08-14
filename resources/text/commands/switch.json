@@ -1,10 +1,12 @@
 {
 	"translations": {
 		"fr": {
-			"main": ":repeat: | ** {pseudo} **, l'objet actif et l'objet en réserve ont été inversés !"
+			"title": "{pseudo}, commande switch effectuée !",
+			"desc": ":repeat: L'objet actif et l'objet en réserve ont été inversés !"
 		},
 		"en": {
-			"main": ":repeat: | ** {pseudo} **, The active and reserve items were swapped!"
+			"title": "{pseudo}, switch command done!",
+			"desc": ":repeat: The active and reserve items were swapped!"
 		}
 	},
 	"timeToAdd" : 0.5

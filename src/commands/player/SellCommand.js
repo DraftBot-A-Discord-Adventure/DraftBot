@@ -1,7 +1,9 @@
-module.exports.help = {
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
 	name: "sell",
 	aliases: [],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	allowEffects: EFFECT.SMILEY
 };
 
 /**
@@ -14,7 +16,9 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 
 const SellCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	if (!entity.Player.Inventory.hasItemToSell()) {
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).noItemToSell);
 		return;
@@ -36,13 +40,15 @@ const SellCommand = async (message, language) => {
 					entity.Player.Inventory.save()
 				]);
 				log(entity.discordUserId + " sold his item " + backupItem.en + " (money: " + money + ")");
-				return await message.channel.send(
-					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
+				return await message.channel.send(new DraftBotEmbed()
+					.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageTitle, message.author)
+					.setDescription(format(JsonReader.commands.sell.getTranslation(language).soldMessage,
 						{
 							item: backupItem.getName(language),
 							money: money
 						}
-					));
+					))
+				);
 			}
 		}
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sell.getTranslation(language).sellCanceled, true);

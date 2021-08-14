@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "mapinfo",
 	messageWhenExecuted: "",
 	description: "Donne des informations pratiques sur la map sur laquelle vous êtes"
@@ -18,8 +18,8 @@ const mapInfosTestCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const mapEmbed = new DraftBotEmbed();
-	const currMap = await MapLocations.getById(entity.Player.mapId);
-	const prevMap = await MapLocations.getById(entity.Player.previousMapId);
+	const currMap = await entity.Player.getDestination();
+	const prevMap = await entity.Player.getPreviousMap();
 	const travelling = Maps.isTravelling(entity.Player);
 
 	mapEmbed.formatAuthor("🗺️ Map debugging", message.author)
@@ -50,7 +50,7 @@ const mapInfosTestCommand = async (language, message) => {
 		mapEmbed.addField("Next available maps", field, true);
 	}
 	else {
-		mapEmbed.addField("Players", ":speech_balloon: " + await currMap.playersCount() + " player(s) on this map", true);
+		mapEmbed.addField("Players", ":speech_balloon: " + await currMap.playersCount(prevMap.id) + " player(s) on this map", true);
 	}
 	return mapEmbed;
 };

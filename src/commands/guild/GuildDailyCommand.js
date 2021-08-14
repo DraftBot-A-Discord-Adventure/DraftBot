@@ -2,11 +2,11 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const Maps = require("../../core/Maps");
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "guilddaily",
 	aliases: ["gdaily", "gd"],
 	requiredLevel: GUILD.REQUIRED_LEVEL,
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED],
+	disallowEffects: [EFFECT.BABY, EFFECT.DEAD],
 	guildRequired: true
 };
 
@@ -21,7 +21,9 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 	const translations = JsonReader.commands.guildDaily.getTranslation(language);
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	const guild = await Guilds.getById(entity.Player.guildId);
 
 	const time = millisecondsToHours(message.createdAt.getTime() - guild.lastDailyAt.valueOf());
@@ -234,7 +236,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 
 	for (const member of members) {
 		const user = await client.users.fetch(member.discordUserId);
-		if (member.Player.dmnotification && member.discordUserId !== message.author.id) {
+		if (member.Player.dmNotification && member.discordUserId !== message.author.id) {
 			sendDirectMessage(
 				user,
 				JsonReader.commands.guildDaily.getTranslation(language).dmNotification.title,

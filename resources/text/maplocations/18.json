@@ -5,9 +5,5 @@
 	"particleFr": "vers la",
 	"particleEn": "of the",
 	"descFr": "Cette rivière doit son nom au bruit produit par son fort courant qui a fait perdre la vie à de nombreux villageois.",
-	"descEn": "This river owes its name to the noise produced by its strong current which took the lives of many villagers.",
-	"northMap": 22,
-	"eastMap": null,
-	"southMap": 19,
-	"westMap": 17
+	"descEn": "This river owes its name to the noise produced by its strong current which took the lives of many villagers."
 }

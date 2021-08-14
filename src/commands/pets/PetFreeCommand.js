@@ -1,9 +1,9 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "petfree",
 	aliases: ["petf","pfree", "freepet", "freep"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD, EFFECT.LOCKED]
+	allowEffects: EFFECT.SMILEY
 };
 
 /**
@@ -15,7 +15,9 @@ module.exports.help = {
 const PetFreeCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	let guild;
-
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
 	// search for a user's guild
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);

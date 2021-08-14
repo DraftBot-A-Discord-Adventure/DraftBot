@@ -1,4 +1,4 @@
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "initplayer",
 	aliases: ["init"],
 	commandFormat: "",
@@ -40,7 +40,7 @@ const initPlayerTestCommand = async (language, message) => {
 	entity.Player.Inventory.objectId = 0;
 	entity.Player.Inventory.backupId = 0;
 	entity.Player.Inventory.save();
-	return module.exports.help.messageWhenExecuted;
+	return module.exports.commandInfo.messageWhenExecuted;
 };
 
 module.exports.execute = initPlayerTestCommand;

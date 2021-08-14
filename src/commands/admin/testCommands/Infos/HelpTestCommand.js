@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 
-module.exports.help = {
+module.exports.commandInfo = {
 	name: "help",
 	aliases: ["h"],
 	commandFormat: "<command>",
@@ -29,31 +29,31 @@ const helpTestCommand = async (language, message, args) => {
 		throw new Error("Commande inexistante : " + args[0]);
 	}
 	const embedHelpTest = new DraftBotEmbed()
-		.formatAuthor("Commande test : " + helpOnCommand.help.name, message.author)
+		.formatAuthor("Commande test : " + helpOnCommand.commandInfo.name, message.author)
 		.addFields(
 			{
 				name: "Description",
-				value: helpOnCommand.help.description
+				value: helpOnCommand.commandInfo.description
 			},
 			{
 				name: "Utilisation",
-				value: "`test " + helpOnCommand.help.name + (helpOnCommand.help.commandFormat === "" ? "" : " " + helpOnCommand.help.commandFormat) + "`"
+				value: "`test " + helpOnCommand.commandInfo.name + (helpOnCommand.commandInfo.commandFormat === "" ? "" : " " + helpOnCommand.commandInfo.commandFormat) + "`"
 			}
 		)
 		.setColor(TEST_EMBED_COLOR.SUCCESSFUL);
-	if (helpOnCommand.help.typeWaited !== undefined) {
-		if (Object.keys(helpOnCommand.help.typeWaited).length !== 0) {
+	if (helpOnCommand.commandInfo.typeWaited !== undefined) {
+		if (Object.keys(helpOnCommand.commandInfo.typeWaited).length !== 0) {
 			let reqArgs = "";
-			Object.keys(helpOnCommand.help.typeWaited).forEach(arg => {
-				reqArgs += "\n - `<" + arg + ">` : " + helpOnCommand.help.typeWaited[arg].type;
+			Object.keys(helpOnCommand.commandInfo.typeWaited).forEach(arg => {
+				reqArgs += "\n - `<" + arg + ">` : " + helpOnCommand.commandInfo.typeWaited[arg].type;
 			});
-			embedHelpTest.addField(Object.keys(helpOnCommand.help.typeWaited).length === 1 ? "Argument attendu : " : "Arguments attendus : ", reqArgs);
+			embedHelpTest.addField(Object.keys(helpOnCommand.commandInfo.typeWaited).length === 1 ? "Argument attendu : " : "Arguments attendus : ", reqArgs);
 		}
 	}
-	if (helpOnCommand.help.aliases !== undefined) {
-		if (helpOnCommand.help.aliases.length !== 0) {
+	if (helpOnCommand.commandInfo.aliases !== undefined) {
+		if (helpOnCommand.commandInfo.aliases.length !== 0) {
 			let aliases = "";
-			helpOnCommand.help.aliases.forEach(alias => {
+			helpOnCommand.commandInfo.aliases.forEach(alias => {
 				aliases += "`" + alias + "`, ";
 			});
 			embedHelpTest.addField("Alias : ", aliases.slice(0, aliases.length - 2));
