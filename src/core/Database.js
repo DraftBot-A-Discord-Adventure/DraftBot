@@ -39,7 +39,8 @@ class Database {
 			"Classes",
 			"Pets",
 			"MapLinks",
-			"MapLocations"
+			"MapLocations",
+			"MissionsSuccesses"
 		]);
 		await Database.verifyMaps();
 		await Database.setEverybodyAsUnOccupied();
@@ -258,6 +259,17 @@ class Database {
 			sourceKey: "petId",
 			as: "PetModel"
 		});
+
+		Players.hasMany(PlayerMissionsSuccesses, {
+			foreignKey: "playerId",
+			as: "PlayerMissionsSuccesses"
+		});
+
+		PlayerMissionsSuccesses.hasOne(MissionsSuccesses, {
+			foreignKey: "id",
+			sourceKey: "missionSuccessId",
+			as: "MissionsSuccesses"
+		})
 	}
 
 	/**

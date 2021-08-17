@@ -7,31 +7,25 @@
  * @returns
  */
 module.exports = (Sequelize, DataTypes) => {
-	const PlayerMissionsSuccesses = Sequelize.define(
-		"PlayerMissionsSuccesses",
+	const MissionsSuccesses = Sequelize.define(
+		"MissionsSuccesses",
 		{
 			id: {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
 				autoIncrement: true
 			},
-			playerId: {
-				type: DataTypes.INTEGER
+			titleFr: {
+				type: DataTypes.TEXT
 			},
-			missionSuccessId: {
-				type: DataTypes.INTEGER,
-				defaultValue: 0
+			descriptionFr: {
+				type: DataTypes.TEXT
 			},
-			strength: {
-				type: DataTypes.INTEGER
+			titleEn: {
+				type: DataTypes.TEXT
 			},
-			isMission: {
-				type: DataTypes.BOOLEAN,
-				defaultValue: false
-			},
-			numberDone: {
-				type: DataTypes.INTEGER,
-				defaultValue: 0
+			descriptionEn: {
+				type: DataTypes.TEXT
 			},
 			updatedAt: {
 				type: DataTypes.DATE,
@@ -43,12 +37,12 @@ module.exports = (Sequelize, DataTypes) => {
 			}
 		},
 		{
-			tableName: "PlayerMissionsSuccesses",
+			tableName: "MissionsSuccesses",
 			freezeTableName: true
 		}
 	);
 
-	PlayerMissionsSuccesses.beforeSave((instance) => {
+	MissionsSuccesses.beforeSave((instance) => {
 		instance.setDataValue(
 			"updatedAt",
 			require("moment")().format("YYYY-MM-DD HH:mm:ss")
@@ -56,76 +50,35 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	/**
-	 * get a playerMissionSuccess from its id
+	 * get a missionSuccess from its id
 	 * @param {Number} id
 	 */
-	PlayerMissionsSuccesses.getById = (id) => PlayerMissionsSuccesses.findOne({
+	MissionsSuccesses.getById = (id) => MissionsSuccesses.findOne({
 		where: {
 			id: id
 		}
 	});
 
 	/**
-	 * create a playerMission in the database
-	 * @param {Player} player
-	 * @param {MissionsSuccesses} missionSuccess
+	 * get how many times the task must be done
 	 * @param {Number} strength
-	 * @returns {Promise<PlayerMissionsSuccesses>}
+	 * @param {Boolean} isMission
 	 */
-	PlayerMissionsSuccesses.createPlayerMission = (player, missionSuccess, strength) => PlayerMissionsSuccesses.build({
-		playerId: player.id,
-		missionSuccessId: missionSuccess.id,
-		strength: strength,
-		isMission: true
-	});
-
-	/**
-	 * Create a playerSuccess in the database
-	 * @param {Player} player
-	 * @param {MissionsSuccesses} missionSuccess
-	 * @param {Number} strength
-	 * @param {Number} numberDone
-	 * @returns {Promise<PlayerMissionsSuccesses>}
-	 */
-	PlayerMissionsSuccesses.createPlayerSuccess = (player, missionSuccess, strength, numberDone) => PlayerMissionsSuccesses.build({
-		playerId: player.id,
-		missionSuccessId: missionSuccess.id,
-		strength: strength,
-		numberDone: numberDone
-	});
-
-	/**
-	 * Update the current PlayerMissionSuccess entity
-	 * @param nbTimes
-	 */
-	PlayerMissionsSuccesses.prototype.updateMissionSuccess = (nbTimes) => {
-		this.numberDone += nbTimes;
-		this.awardMissionSuccess()
+	MissionsSuccesses.prototype.getNumberToDo = (strength, isMission) => {
+		const allStrengths = this.getAllStrengths(isMission);
+		return allStrengths[strength];
 	}
 
 	/**
-	 * Test if the quest must be awarded
-	 * @return boolean
+	 * get all strengths for a given missionSuccess
+	 * @param {Boolean} isMission
 	 */
-	PlayerMissionsSuccesses.prototype.isAwardable = () => {
-		// TODO à remplir quand y'aura MissionSuccess
-		return this.X >= this.numberDone;
+	MissionsSuccesses.prototype.getAllStrengths = (isMission) => {
+		const missionSuccessCurrent = JsonReader.missionsSuccesses.loadFile(parseInt(this.id) + ".json");
+		return isMission ? missionSuccessCurrent.isMission : missionSuccessCurrent.isSuccess;
 	}
 
-	/**
-	 * Award the player for its completed PlayerMissionSuccess
-	 */
-	PlayerMissionsSuccesses.prototype.awardMissionSuccess = () => {
-		if (!this.isAwardable()) {
-			return;
-		}
-		// TODO donner la récompense
-		if (this.isMission) {
-			// TODO remplacer la mission par une mission 0
-		} else {
-			// TODO remplacer le haut fait par sa version supérieure
-		}
-	}
 
-	return PlayerMissionsSuccesses;
+
+	return MissionsSuccesses;
 };
