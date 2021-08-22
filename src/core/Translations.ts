@@ -61,6 +61,19 @@ export class TranslationModule {
 		return <string> this.getTranslationObject(translation);
 	}
 
+	getFromArray(translation: string, index: number): string {
+		const array = this.getTranslationObject(translation);
+		if (array && Array.isArray(array)) {
+			if (index >= array.length) {
+				console.warn("Trying to use an invalid translation array index: " + index + " with translation " + translation + " in module " + this._module);
+				return "ERR:ARRAY_OUT_OF_BOUND";
+			}
+			return array[index];
+		}
+		console.warn("Trying to use an invalid translation array: " + translation + " in module " + this._module);
+		return "ERR:NOT_AN_ARRAY";
+	}
+
 	getRandom(translation: string): string {
 		return draftbotRandom.pick(<string[]> this.getTranslationObject(translation));
 	}

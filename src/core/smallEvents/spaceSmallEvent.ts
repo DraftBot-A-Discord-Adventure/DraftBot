@@ -8,10 +8,11 @@
  * @returns {Promise<>}
  */
 import {Message, MessageEmbed} from "discord.js";
-import {SpaceUtils} from "../utils/SpaceUtils";
+import {NearEarthObject, SpaceUtils} from "../utils/SpaceUtils";
 import {Random} from "random-js";
-import {Translations} from "../Translations";
-import { performance } from "perf_hooks";
+import {TranslationModule, Translations} from "../Translations";
+import {performance} from "perf_hooks";
+import {NextLunarEclipse, SearchLunarEclipse, SearchMoonQuarter} from "../utils/astronomy";
 
 declare const draftbotRandom: Random;
 declare const JsonReader: any;
@@ -19,8 +20,11 @@ declare function format(s: string, replacement: any): string;
 
 const executeSmallEvent = function(message: Message, language: string, entity: any, seEmbed: MessageEmbed) {
 	let keysList = Object.keys(JsonReader.smallEvents.space.getTranslation(language).specific);
-	if (JsonReader.app.NASA_API_KEY === "") {
+	if (JsonReader.app.NASA_API_KEY === "" || SpaceUtils.getNeoWSFeed(JsonReader.app.NASA_API_KEY).length < 2) {
 		keysList = keysList.filter(e => e !== "neoWS");
+	}
+	if (nextFullMoon().days === 0) {
+		keysList = keysList.filter(e => e !== "nextFullMoon");
 	}
 	const specificEvent = draftbotRandom.pick(keysList);
 
@@ -42,7 +46,7 @@ const executeSmallEvent = function(message: Message, language: string, entity: a
 	message.channel.send(seEmbed).then(async (sentMessage) => {
 		const waitTime = 5000;
 		const t0 = performance.now();
-		const replacements = eval(`${specificEvent}()`);
+		const replacements = eval(`${specificEvent}(translationModule)`);
 		const specific = format(translationModule.getRandom("specific." + specificEvent), replacements);
 		const t1 = performance.now();
 		const timeLeft = waitTime - (t1 - t0);
@@ -62,22 +66,63 @@ const executeSmallEvent = function(message: Message, language: string, entity: a
 			}, timeLeft);
 		}
 	});
-
-	/* const posMars = SpaceUtils.computeEclipticCoordinates(Planet.MARS, new Date(2021, 9, 4).getTime() / 1000);
-	const posEarth = SpaceUtils.computeEclipticCoordinates(Planet.EARTH, new Date(2021, 9, 4).getTime() / 1000);
-	console.log(new Date().getTime());
-	console.log(posMars);
-	console.log(posEarth);
-	const distMarsEarthX = posEarth[0];
-	const distMarsEarthY = posEarth[1];
-	const distMarsEarthZ = posEarth[2];
-	console.log(Math.sqrt(distMarsEarthX ** 2 + distMarsEarthY ** 2 + distMarsEarthZ ** 2) * 149597870.7); */
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function neoWS(): Record<string, unknown> {
 	const neoWSFeed = SpaceUtils.getNeoWSFeed(JsonReader.app.NASA_API_KEY);
+	const randomObject: NearEarthObject = draftbotRandom.pick(neoWSFeed.near_earth_objects);
 	return {
-		count: neoWSFeed.length
+		count: neoWSFeed.near_earth_objects.length,
+		randomObjectName: randomObject.name,
+		randomObjectDistance: Math.floor(parseInt(randomObject.close_approach_data[0].miss_distance.kilometers) / 1000000),
+		randomObjectDiameter: Math.floor((randomObject.estimated_diameter.meters.estimated_diameter_max + randomObject.estimated_diameter.meters.estimated_diameter_min) / 2)
+	};
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function moonPhase(translationModule: TranslationModule): Record<string, unknown> {
+	return {
+		moonPhase: translationModule.getFromArray("moonPhases", SearchMoonQuarter(new Date()).quarter)
+	};
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function nextFullMoon(): Record<string, unknown> {
+	let days = 0;
+	const currDate = new Date();
+	while (SearchMoonQuarter(currDate).quarter !== 2) {
+		currDate.setDate(currDate.getDate() + 1);
+		days++;
+	}
+	return { days };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function nextPartialLunarEclipse(): Record<string, unknown> {
+	let eclipse = SearchLunarEclipse(new Date());
+	for (;;) {
+		if (eclipse.kind === "partial") {
+			break;
+		}
+		eclipse = NextLunarEclipse(eclipse.peak);
+	}
+	return {
+		days: Math.floor((eclipse.peak.date.getTime() - new Date().getTime()) / (1000 * 3600 * 24))
+	};
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function nextTotalLunarEclipse(): Record<string, unknown> {
+	let eclipse = SearchLunarEclipse(new Date());
+	for (;;) {
+		if (eclipse.kind === "total") {
+			break;
+		}
+		eclipse = NextLunarEclipse(eclipse.peak);
+	}
+	return {
+		days: Math.floor((eclipse.peak.date.getTime() - new Date().getTime()) / (1000 * 3600 * 24))
 	};
 }
 
