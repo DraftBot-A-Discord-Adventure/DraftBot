@@ -44,9 +44,29 @@
 			],
 			"specific": {
 				"neoWS": [
-					"{count} objets traversent le ciel aujourd'hui"
+					"{count} objets traverseront le ciel aujourd'hui",
+					"un objet nommé \"{randomObjectName}\" avec un diamètre d'environ {randomObjectDiameter} mètres passe proche de la planète aujourd'hui",
+					"un objet nommé \"{randomObjectName}\" passe à une distance d'environ {randomObjectDistance} millions de kilomètres de la planète"
+				],
+				"moonPhase": [
+					"c'est {moonPhase} en ce moment"
+				],
+				"nextFullMoon": [
+					"la prochaine pleine lune est dans {days} jour(s)"
+				],
+				"nextPartialLunarEclipse": [
+					"la prochaine éclipse lunaire partielle est dans {days} jour(s)"
+				],
+				"nextTotalLunarEclipse": [
+					"la prochaine éclipse lunaire totale est dans {days} jour(s)"
 				]
 			},
+			"moonPhases": [
+				"la pleine nouvelle lune",
+				"le premier quartier de la lune",
+				"la pleine lune",
+				"le dernier quartier de la lune"
+			],
 			"names": [
 				"Bernard"
 			]
