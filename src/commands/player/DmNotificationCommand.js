@@ -1,8 +1,8 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 module.exports.commandInfo = {
-	name: "dmnotification",
-	aliases: ["dmn","notifs","dms","notif","dmnotifications"],
+	name: "dmNotification",
+	aliases: ["dmn","notifs","dms","notif","dmNotifications"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
@@ -11,7 +11,9 @@ module.exports.commandInfo = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  */
+
 const DmNotificationCommand = async (message, language) => {
+
 
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 	const translations = JsonReader.commands.dmNotification.getTranslation(language);
