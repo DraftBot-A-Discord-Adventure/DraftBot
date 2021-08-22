@@ -4,8 +4,12 @@ require("./core/MessageError");
 require("./core/Tools");
 const Draftbot = require("./core/DraftBot");
 
-(async (Drafbot) => {
+process.on("unhandledRejection", function(err) {
+	console.log(err.stack);
+	process.exit(1);
+});
 
+(async (Drafbot) => {
 	await Drafbot.init();
 
 	/**
@@ -103,10 +107,4 @@ const Draftbot = require("./core/DraftBot");
 	await client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);
 })(Draftbot);
 
-// /**
-//  * Send a message to the owner of the guild the bot is leaving
-//  * @param {*} guilde - The guild the bot is leaving
-//  */
-// function sendLeavingMessage(guilde) {
-//   guilde.owner.send(Console.departurMessage);
-// }
+
