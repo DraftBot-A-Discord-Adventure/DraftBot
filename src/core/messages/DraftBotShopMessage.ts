@@ -202,7 +202,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				for (let i = 0; i < choseShopItem.amounts.length; ++i) {
 					const amount = choseShopItem.amounts[i];
 					const numberEmote: string = Constants.REACTIONS.NUMBERS[amount];
-					if (amount < 0 || amount > 10 || choseShopItem.amounts.indexOf(amount) < i) {
+					if (amount < 0 || amount > 10 || choseShopItem.amounts.indexOf(amount) < i || userMoney < amount * choseShopItem.price) {
 						continue;
 					}
 					numberReactions.push(new DraftBotReaction(numberEmote, async (reactionMessage: DraftBotReactionMessage) => {
