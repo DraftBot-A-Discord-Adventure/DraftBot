@@ -248,3 +248,13 @@ test("format: complex", () => {
 		a: true, b: 5, d: false, g: 9.5, h: 9.49
 	})).toBe("The ultimate test. f and FORMAT_ERROR:VARIABLE_NOT_IN_REPLACEMENTS");
 });
+test("format: empty member 1", () => {
+	expect(format("There {cowsCount>1?are:is} {cowsCount} cow{cowsCount>1?s:}", {
+		cowsCount: 2
+	})).toBe("There are 2 cows");
+});
+test("format: empty member 2", () => {
+	expect(format("There {cowsCount>1?are:is} {cowsCount} cow{cowsCount>1?s:}", {
+		cowsCount: 1
+	})).toBe("There is 1 cow");
+});
