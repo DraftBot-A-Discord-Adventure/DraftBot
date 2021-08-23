@@ -230,7 +230,8 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 	destinationEmbed.setDescription(format(tr.choseMap, {
 		mapPrefix: typeTr.types[mapInstance.type].prefix,
 		mapName: mapInstance.getDisplayName(language),
-		mapType: typeTr.types[mapInstance.type].name.toLowerCase()
+		mapType: typeTr.types[mapInstance.type].name.toLowerCase(),
+		time: await entity.Player.getCurrentTripDuration()
 	}));
 	await message.channel.send(destinationEmbed);
 };
