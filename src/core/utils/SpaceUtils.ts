@@ -1,4 +1,4 @@
-import request, {Response} from "sync-request";
+import * as https from "https";
 
 export interface NearEarthObjectApproachData {
 	close_approach_date: string,
@@ -67,19 +67,28 @@ export class SpaceUtils {
 
 	private static cachedNeoFeedDate: string = null;
 
-	static getNeoWSFeed(apiKey: string): any {
+	static getNeoWSFeed(apiKey: string): Promise<any> {
 		const today = new Date().toISOString()
 			.slice(0, 10);
 		if (today === this.cachedNeoFeedDate) {
-			return this.cachedNeoFeed;
+			return Promise.resolve(this.cachedNeoFeed);
 		}
-		const res: Response = request("GET", "https://api.nasa.gov/neo/rest/v1/feed?start_date=" + today + "&end_date=" + today + "&api_key=" + apiKey);
-		const parsedAnswer = JSON.parse(res.getBody().toString());
-		if (parsedAnswer.near_earth_objects[today]) {
-			parsedAnswer.near_earth_objects = parsedAnswer.near_earth_objects[today];
-		}
-		this.cachedNeoFeedDate = today;
-		this.cachedNeoFeed = parsedAnswer;
-		return parsedAnswer.near_earth_objects;
+		return new Promise((resolve) => {
+			https.get("https://api.nasa.gov/neo/rest/v1/feed?start_date=" + today + "&end_date=" + today + "&api_key=" + apiKey, res => {
+				let data = "";
+				res.on("data", chunk => {
+					data += chunk;
+				});
+				res.on("end", () => {
+					const parsedAnswer = JSON.parse(data);
+					if (parsedAnswer.near_earth_objects[today]) {
+						parsedAnswer.near_earth_objects = parsedAnswer.near_earth_objects[today];
+					}
+					this.cachedNeoFeedDate = today;
+					this.cachedNeoFeed = parsedAnswer;
+					resolve(parsedAnswer.near_earth_objects);
+				});
+			});
+		});
 	}
 }

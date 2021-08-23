@@ -7,58 +7,91 @@
 				"vous rencontrez un oracle prétendant se nommer **{name}**",
 				"un homme vous semble étrange, vous allez à sa rencontre. Il dit être un oracle du nom de **{name}**",
 				"vous rencontrez un oracle s'appelant **{name}**",
-				"vous passez à côté d'un oracle qui vous interpelle, il dit s'appeller **{name}**"
+				"vous passez à côté d'un oracle qui vous interpelle, il dit s'appeller **{name}**",
+				"vous êtes interpelé par un homme disant s'appeler **{name}**",
+				"un oracle du nom de **{name}** vous apostrophe",
+				"un étranger prétendant s'appeler **{name}** vous demande d'approcher",
+				"un homme surgit de nulle part court vers vous et se présente sous le nom de **{name}**",
+				"un inconnu suspect vous demande d'approcher, il vous dit s'appeler **{name}**"
 			],
 			"search_action": [
 				"Il vous dit qu'il peut vous donner des informations sur le ciel mais il a besoin de temps pour l'observer",
 				"Il se dit capable de vous donner des informations sur le ciel à condition de lui accorder un peu de temps",
 				"Il vous dit que si vous lui en laissez le temps, il serait capable de vous donner des informations sur le ciel",
-				"Il dit pouvoir donner des informations sur le ciel si on lui en accorde le temps nécessaire"
+				"Il dit pouvoir donner des informations sur le ciel si on lui en accorde le temps nécessaire",
+				"Celui-ci prétend pouvoir lire dans les étoiles à condition que vous ne lui en laissiez le temps",
+				"Celui-ci affirme être capable de vous donner des informations à propos du ciel si vous lui accordez un peu de votre temps"
 			],
 			"search": [
 				"L'homme regarde le ciel dans un petit appareil",
 				"Il se couche par terre et regarde le ciel",
 				"L'homme se met à contempler le ciel",
-				"Il semble concentré à regarder quelque chose se trouvant dans le ciel"
+				"Il semble concentré à regarder quelque chose se trouvant dans le ciel",
+				"Se penchant sur sa lunette astronomique, il observe la voûte céleste avec attention",
+				"L'oracle observe le ciel avec attention",
+				"Il lève la tête afin de contempler attentivement le ciel",
+				"Il se met à scruter intensément les étoiles",
+				"L'homme s'assoit contre un arbre et contemple le ciel",
+				"L'homme s'étend au sol et lève ses yeux vers le ciel"
 			],
 			"action_intro": [
 				"Après quelques minutes",
 				"Peu de temps après",
 				"Quelques minutes plus tard",
 				"Après vous avoir fait attendre quelques minutes",
-				"Après une petite attente"
+				"Après une petite attente",
+				"Quelques instants plus tard",
+				"Après avoir attendu une poignée de secondes"
 			],
 			"action": [
 				"il vous informe que",
 				"il vous met au courant que",
 				"il vous annonce que",
 				"il vous dit que",
-				"il se met à vous dire que"
+				"il se met à vous dire que",
+				"il déclare que"
 			],
 			"outro": [
 				"Vous repartez ébahit par cette nouvelle",
 				"Vous reprenez votre chemin rêveur",
 				"Vous le remerciez et repartez heureux d'avoir appris cette nouvelle",
 				"Vous le quittez plein d'étoiles dans les yeux",
-				"Vous repartez sans regretter de vous être arrêté"
+				"Vous repartez sans regretter de vous être arrêté",
+				"Vous reprenez votre route perplexe"
 			],
 			"specific": {
 				"neoWS": [
 					"{count} objets traverseront le ciel aujourd'hui",
-					"un objet nommé \"{randomObjectName}\" avec un diamètre d'environ {randomObjectDiameter} mètres passe proche de la planète aujourd'hui",
-					"un objet nommé \"{randomObjectName}\" passe à une distance d'environ {randomObjectDistance} millions de kilomètres de la planète"
+					"l'objet nommé \"{randomObjectName}\" avec un diamètre d'environ {randomObjectDiameter} mètres passe proche de la planète aujourd'hui",
+					"l'objet nommé \"{randomObjectName}\" passe à une distance d'environ {randomObjectDistance} millions de kilomètres de la planète",
+					"l'astéroïde du nom de \"{randomObjectName}\" dépasse notre planète d'environ {randomObjectDistance} millions de kilomètres",
+					"l'astéroïde du nom de \"{randomObjectName}\" sera peut-être visible aujourd'hui",
+					"l'astéroïde nommé \"{randomObjectName}\" passera à proximité de notre planète",
+					"l'astéroïde nommé \"{randomObjectName}\" passera à {randomObjectDistance} millions de kilomètres de nous"
 				],
 				"moonPhase": [
-					"c'est {moonPhase} en ce moment"
+					"c'est {moonPhase} en ce moment",
+					"{moonPhase} éclaire actuellement le ciel",
+					"derrière les nuages se cache {moonPhase}",
+					"le ciel parcimonieux laisse entrevoir {moonPhase}"
 				],
 				"nextFullMoon": [
-					"la prochaine pleine lune est dans {days} jour(s)"
+					"la prochaine pleine lune est dans {days} jour(s)",
+					"la pleine lune brillera dans {days} jour(s)",
+					"nous apercevrons la pleine lune dans {days} jour(s)",
+					"dans {days} jours(s) on pourra observer la pleine lune"
 				],
 				"nextPartialLunarEclipse": [
-					"la prochaine éclipse lunaire partielle est dans {days} jour(s)"
+					"la prochaine éclipse lunaire partielle est dans {days} jour(s)",
+					"dans {days} jour(s) on pourra apercevoir une éclipse de lune partielle",
+					"dans les {days} qui viennent vous aurez la chance d'assister à une éclipse lunaire partielle",
+					"le temps avant d'apercevoir la prochaine éclipse de lune partielle est de {days} jour(s)"
 				],
 				"nextTotalLunarEclipse": [
-					"la prochaine éclipse lunaire totale est dans {days} jour(s)"
+					"la prochaine éclipse lunaire totale est dans {days} jour(s)",
+					"d'ici {days} vous apercevrez une éclipse lunaire complète",
+					"dans les {days} qui viennent vous aurez la chance d'assister à une éclipse lunaire totale",
+					"si vous observez le ciel dans {days} vous pourrez contempler une éclipse lunaire totale"
 				]
 			},
 			"moonPhases": [
@@ -68,7 +101,19 @@
 				"le dernier quartier de la lune"
 			],
 			"names": [
-				"Bernard"
+				"Claude",
+				"Pierre Alphonse",
+				"Friedrich",
+				"Wilhelm",
+				"Nicolas",
+				"Clyde",
+				"Tycho",
+				"Giordano",
+				"Johannes",
+				"Jean-Dominique",
+				"Isaac",
+				"Edwin",
+				"Albert"
 			]
 		},
 		"en": {
