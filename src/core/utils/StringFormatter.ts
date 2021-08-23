@@ -124,64 +124,79 @@ export const parsePlaceholder = function(placeholder: string, start: number, end
 	return defaultReturn;
 };
 
-/* export const formatBackup = function(text: string, replacements: Replacements): string {
-	const placeholders: ReplacementPlaceholder[] = [];
-	const keys = Object.keys(replacements);
+export const formatPlaceholder = function(placeholder: ReplacementPlaceholder, replacements: Replacements): string {
+	if (placeholder.operand === null) {
+		if (placeholder.leftValue in replacements) {
+			return replacements[placeholder.leftValue];
+		}
+		return placeholder.leftValue;
+	}
+	let conditionResult = false;
+	const leftValueFloat = parseFloat(placeholder.leftValue);
+	const rightValueFloat = parseFloat(placeholder.rightValue);
+	const leftValue: number = isNaN(leftValueFloat) ? placeholder.leftValue in replacements ? replacements[placeholder.leftValue] : null : leftValueFloat;
+	const rightValue: number = isNaN(rightValueFloat) ? placeholder.rightValue in replacements ? replacements[placeholder.rightValue] : null : rightValueFloat;
+	if (leftValue === null || rightValue === null && placeholder.operand !== PlaceholderOperand.BOOL) {
+		return "FORMAT_ERROR:VARIABLE_NOT_IN_REPLACEMENTS";
+	}
+	switch (placeholder.operand) {
+	case PlaceholderOperand.BOOL:
+		conditionResult = replacements[placeholder.leftValue] === true;
+		break;
+	case PlaceholderOperand.DIFFERENT:
+		conditionResult = leftValue !== rightValue;
+		break;
+	case PlaceholderOperand.EQUAL:
+		conditionResult = leftValue === rightValue;
+		break;
+	case PlaceholderOperand.SMALLER_OR_EQUAL:
+		conditionResult = leftValue <= rightValue;
+		break;
+	case PlaceholderOperand.SMALLER:
+		conditionResult = leftValue < rightValue;
+		break;
+	case PlaceholderOperand.GREATER_OR_EQUAL:
+		conditionResult = leftValue >= rightValue;
+		break;
+	case PlaceholderOperand.GREATER:
+		conditionResult = leftValue > rightValue;
+		break;
+	default:
+		break;
+	}
+	const value = conditionResult ? placeholder.trueValue : placeholder.falseValue;
+	if (typeof value === "string") {
+		return value;
+	}
+	return formatPlaceholder(value, replacements);
+};
+
+export const format = function(text: string, replacements: Replacements): string {
+	const placeholders = [];
 	for (let i = 0; i < text.length; ++i) {
 		if (text[i] === "{") {
-			const start = i;
-			let condition1Start = -1;
-			let condition1End = -1;
-			let condition2Start: number = null;
-			while (text[i] !== "}" && i < text.length) {
-				if (i !== text.length - 1 && text[i + 1] !== "}") {
-					if (text[i] === "?" && condition1Start === -1) {
-						condition1Start = i + 1;
-					}
-					else if (text[i] === ":" && condition1Start !== -1) {
-						condition1End = i;
-						condition2Start = i + 1;
-					}
+			const startBracket = i;
+			let openedBrackets = 0;
+			for (i++; i < text.length; ++i) {
+				if (text[i] === "{") {
+					openedBrackets++;
 				}
-				++i;
-			}
-			if (i === text.length) {
-				continue;
-			}
-			const name = text.substring(start + 1, condition1Start !== -1 ? condition1Start - 1 : i);
-			if (keys.includes(name)) {
-				if (condition1Start !== -1 && condition1End !== -1 && condition2Start !== -1) {
-					placeholders.push({
-						name,
-						start,
-						end: i,
-						condition1: text.substring(condition1Start, condition1End),
-						condition2: text.substring(condition2Start, i)
-					});
-				}
-				else {
-					placeholders.push({
-						name,
-						start,
-						end: i,
-						condition1: null,
-						condition2: null
-					});
+				if (text[i] === "}") {
+					if (openedBrackets > 0) {
+						openedBrackets--;
+					}
+					else {
+						placeholders.push(parsePlaceholder(text.substring(startBracket + 1, i), startBracket, i));
+						break;
+					}
 				}
 			}
 		}
 	}
 	let newText = text;
 	for (let i = placeholders.length - 1; i >= 0; --i) {
-		const placeholder = placeholders[i];
-		let value: string;
-		if (placeholder.condition1) {
-			value = replacements[placeholder["name"]] === true ? placeholder.condition1 : placeholder.condition2;
-		}
-		else {
-			value = replacements[placeholder["name"]];
-		}
-		newText = newText.substring(0, placeholder.start) + value + newText.substring(placeholder.end + 1, newText.length);
+		const ph = placeholders[i];
+		newText = newText.substring(0, ph.start) + formatPlaceholder(ph, replacements) + newText.substring(ph.end + 1, newText.length);
 	}
 	return newText;
-};*/
+};

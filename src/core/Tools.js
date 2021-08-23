@@ -1,5 +1,6 @@
 import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+import {format} from "./utils/StringFormatter";
 
 global.draftbotRandom = new (require("random-js")).Random();
 
@@ -405,24 +406,7 @@ global.minutesToString = (minutes) => {
  * @return {String}
  */
 global.format = (string, replacement) => {
-	if (!replacement || !replacement.hasOwnProperty) {
-		replacement = {};
-	}
-
-	return string.replace(/{([0-9a-zA-Z_]+)}/g, (match, i, index) => {
-
-		if (string[index - 1] === "{" &&
-			string[index + match.length] === "}") {
-			return i;
-		}
-		const result = Object.prototype.hasOwnProperty.call(replacement, i) ? replacement[i] : null;
-		if (result === null || result === undefined) {
-			return "";
-		}
-
-		return result;
-
-	});
+	return format(string, replacement);
 };
 
 /**
