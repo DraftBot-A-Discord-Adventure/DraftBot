@@ -127,7 +127,11 @@ export const parsePlaceholder = function(placeholder: string, start: number, end
 export const formatPlaceholder = function(placeholder: ReplacementPlaceholder, replacements: Replacements): string {
 	if (placeholder.operand === null) {
 		if (placeholder.leftValue in replacements) {
-			return replacements[placeholder.leftValue];
+			const replacement = replacements[placeholder.leftValue];
+			if (typeof replacement === "string") {
+				return replacement;
+			}
+			return replacement.toString();
 		}
 		return placeholder.leftValue;
 	}
