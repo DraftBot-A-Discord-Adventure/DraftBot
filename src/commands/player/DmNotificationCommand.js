@@ -11,7 +11,9 @@ module.exports.commandInfo = {
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  */
-const dmNotificationCommand = async (message, language) => {
+
+const DmNotificationCommand = async (message, language) => {
+
 
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
 	const translations = JsonReader.commands.dmNotification.getTranslation(language);
@@ -52,4 +54,4 @@ const dmNotificationCommand = async (message, language) => {
 	await entity.Player.save();
 };
 
-module.exports.execute = dmNotificationCommand;
+module.exports.execute = DmNotificationCommand;
