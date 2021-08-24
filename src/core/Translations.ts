@@ -1,3 +1,5 @@
+import {format, Replacements} from "./utils/StringFormatter";
+
 declare const JsonReader: any;
 
 const translationModulesCache: Record<string, TranslationModule> = {};
@@ -52,6 +54,10 @@ export class TranslationModule {
 			lastObject = lastObject[path];
 		}
 		return lastObject;
+	}
+
+	format(translation: string, replacements: Replacements) {
+		return format(this.get(translation), replacements);
 	}
 }
 

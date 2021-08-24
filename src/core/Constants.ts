@@ -16,7 +16,8 @@ export abstract class Constants {
 			"8️⃣",
 			"9️⃣",
 			"🔟"
-		]
+		],
+		INVENTORY_RESERVE: "🔃"
 	}
 
 	static readonly MESSAGES = {
@@ -31,5 +32,12 @@ export abstract class Constants {
 		BADGE_DURATION: 12,
 		ROLE_DURATION: 24,
 		DBL_SERVER_COUNT_UPDATE_TIME: 1800000
+	}
+
+	static readonly ITEM_CATEGORIES = {
+		WEAPON: 0,
+		ARMOR: 1,
+		POTION: 2,
+		OBJECT: 3
 	}
 }

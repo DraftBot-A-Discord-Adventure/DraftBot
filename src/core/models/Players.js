@@ -619,5 +619,53 @@ module.exports = (Sequelize, DataTypes) => {
 		);
 	};
 
+	/**
+	 * Returns the equipped weapon or null
+	 * @returns {null|*}
+	 */
+	Players.prototype.getMainWeaponSlot = function() {
+		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isWeapon());
+		if (filtered.length === 0) {
+			return null;
+		}
+		return filtered[0];
+	};
+
+	/**
+	 * Returns the equipped armor or null
+	 * @returns {null|*}
+	 */
+	Players.prototype.getMainArmorSlot = function() {
+		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isArmor());
+		if (filtered.length === 0) {
+			return null;
+		}
+		return filtered[0];
+	};
+
+	/**
+	 * Returns the equipped potion or null
+	 * @returns {null|*}
+	 */
+	Players.prototype.getMainPotionSlot = function() {
+		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isPotion());
+		if (filtered.length === 0) {
+			return null;
+		}
+		return filtered[0];
+	};
+
+	/**
+	 * Returns the equipped object or null
+	 * @returns {null|*}
+	 */
+	Players.prototype.getMainObjectSlot = function() {
+		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isObject());
+		if (filtered.length === 0) {
+			return null;
+		}
+		return filtered[0];
+	};
+
 	return Players;
 };

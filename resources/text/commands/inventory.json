@@ -2,19 +2,37 @@
 	"translations": {
 		"fr": {
 			"title": ":briefcase: **Inventaire de {pseudo}**",
+			"stockTitle": ":package: **Réserve d'objets de {pseudo}**",
 			"randomItemTitle": "{pseudo}, vous avez trouvé quelque chose !",
 			"randomItemFooter": "Vous avez déjà un équipement, souhaitez vous le vendre ?",
 			"randomItemFooterPotion": "Souhaitez vous détruire votre potion actuelle ?",
 			"randomItemDesc": "{actualItem}",
-			"acceptedTitle": "{pseudo}, vous avez reçu un équipement !"
+			"acceptedTitle": "{pseudo}, vous avez reçu un équipement !",
+			"clickStock": "Cliquez sur {emote} pour voir votre réserve",
+			"clickMainInventory": "Cliquez sur {emote} pour voir votre inventaire principal",
+			"noSlot": ":x: Aucun emplacement disponible. Achetez-en plus dans le magasin !",
+			"emptySlot": ":black_large_square: **Emplacement vide**",
+			"weapons": "Arme{count>1?s:} ({count}/{max}) :",
+			"armors": "Armure{count>1?s:}/Bouclier{count>1?s:} ({count}/{max}) :",
+			"potions": "Potion{count>1?s:} ({count}/{max}) :",
+			"objects": "Objet{count>1?s:} ({count}/{max}) :"
 		},
 		"en": {
 			"title": ":briefcase: **{pseudo}'s inventory**",
+			"stockTitle": ":package: **{pseudo}'s items stock**",
 			"randomItemTitle": "{pseudo}, you just found something!",
 			"randomItemFooter": "You already have an item, do you want to sell it?",
 			"randomItemFooterPotion": "Do you want to destroy your current potion?",
 			"randomItemDesc": "{actualItem}",
-			"acceptedTitle": "{pseudo}, you received an item!"
+			"acceptedTitle": "{pseudo}, you received an item!",
+			"clickStock": "Click on {emote} to see your items stock",
+			"clickMainInventory": "Click on {emote} to see your main inventory",
+			"noSlot": ":x: No slot available. Buy slots in the shop!",
+			"emptySlot": ":black_large_square: **Empty slot**",
+			"weapons": "Weapon{count>1?s:} ({count}/{max}):",
+			"armors": "Armor{count>1?s:}/Shield{count>1?s:} ({count}/{max}):",
+			"potions": "Potion{count>1?s:} ({count}/{max}):",
+			"objects": "Item{count>1?s:} ({count}/{max}):"
 		}
 	}
 }

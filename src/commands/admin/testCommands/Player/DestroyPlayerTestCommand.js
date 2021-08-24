@@ -14,7 +14,12 @@ module.exports.commandInfo = {
  */
 const destroyPlayerTestCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	Inventories.destroy({
+	InventorySlots.destroy({
+		where: {
+			playerId: entity.Player.id
+		}
+	});
+	InventoryInfo.destroy({
 		where: {
 			playerId: entity.Player.id
 		}

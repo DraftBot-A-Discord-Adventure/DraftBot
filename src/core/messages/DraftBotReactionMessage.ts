@@ -108,7 +108,8 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 			&& (this._reactionsNames.indexOf(reaction.emoji.name) !== -1 || this._reactionsNames.indexOf(reaction.emoji.id) !== -1);
 		this._collector = this._sentMessage.createReactionCollector(collectorFilter, {
 			time: this._collectorTime <= 0 ? Constants.MESSAGES.COLLECTOR_TIME : this._collectorTime,
-			max: this._maxReactions
+			max: this._maxReactions,
+			dispose: true
 		});
 		this._collector.on("collect", (reaction, user) => {
 			const reactionName = this._reactionsNames.indexOf(reaction.emoji.id) !== -1 ? reaction.emoji.id : reaction.emoji.name;
@@ -117,6 +118,13 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 				this._collector.stop();
 			}
 			else {
+				callback(this, reaction, user);
+			}
+		});
+		this._collector.on("remove", (reaction, user) => {
+			const reactionName = this._reactionsNames.indexOf(reaction.emoji.id) !== -1 ? reaction.emoji.id : reaction.emoji.name;
+			const callback = this._reactions[this._reactionsNames.indexOf(reactionName)].removeCallback;
+			if (callback) {
 				callback(this, reaction, user);
 			}
 		});

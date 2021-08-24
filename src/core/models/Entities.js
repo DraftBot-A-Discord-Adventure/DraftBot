@@ -72,8 +72,12 @@ module.exports = (Sequelize, DataTypes) => {
 				as: "Player",
 				include: [
 					{
-						model: Inventories,
-						as: "Inventory"
+						model: InventorySlots,
+						as: "InventorySlots"
+					},
+					{
+						model: InventoryInfo,
+						as: "InventoryInfo"
 					},
 					{
 						model: PetEntities,
@@ -106,8 +110,12 @@ module.exports = (Sequelize, DataTypes) => {
 				},
 				include: [
 					{
-						model: Inventories,
-						as: "Inventory"
+						model: InventorySlots,
+						as: "InventorySlots"
+					},
+					{
+						model: InventoryInfo,
+						as: "InventoryInfo"
 					},
 					{
 						model: PetEntities,
@@ -144,8 +152,12 @@ module.exports = (Sequelize, DataTypes) => {
 				as: "Player",
 				include: [
 					{
-						model: Inventories,
-						as: "Inventory"
+						model: InventorySlots,
+						as: "InventorySlots"
+					},
+					{
+						model: InventoryInfo,
+						as: "InventoryInfo"
 					},
 					{
 						model: PetEntities,
@@ -178,8 +190,12 @@ module.exports = (Sequelize, DataTypes) => {
 				as: "Player",
 				include: [
 					{
-						model: Inventories,
-						as: "Inventory"
+						model: InventorySlots,
+						as: "InventorySlots"
+					},
+					{
+						model: InventoryInfo,
+						as: "InventoryInfo"
 					},
 					{
 						model: PetEntities,

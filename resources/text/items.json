@@ -26,14 +26,8 @@
 				]
 			},
 			"objects": {
-				"active": {
-					"fieldName": "Objet actif :",
-					"fieldValue": "{name} | {rarity} | {nature}"
-				},
-				"backup": {
-					"fieldName": "Réserve d'objet :",
-					"fieldValue": "{name} | {rarity} | {nature}"
-				},
+				"fieldName": "Objet :",
+				"fieldValue": "{name} | {rarity} | {nature}",
 				"natures": [
 					":x: Aucun effet",
 					":heart: Vie + {power} par jour",
@@ -82,14 +76,8 @@
 				]
 			},
 			"objects": {
-				"active": {
-					"fieldName": "Active item :",
-					"fieldValue": "{name} | {rarity} | {nature}"
-				},
-				"backup": {
-					"fieldName": "Reserve item :",
-					"fieldValue": "{name} | {rarity} | {nature}"
-				},
+				"fieldName": "Item :",
+				"fieldValue": "{name} | {rarity} | {nature}",
 				"natures": [
 					":x: No effect",
 					":heart: Health + {power} per day",
