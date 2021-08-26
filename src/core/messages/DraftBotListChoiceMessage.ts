@@ -21,7 +21,7 @@ export class DraftBotListChoiceMessage extends DraftBotReactionMessage {
 		this.setDescription(desc);
 	}
 
-	public isCancelled(): boolean {
+	public isCanceled(): boolean {
 		return !this.collector.collected.first() || !Constants.REACTIONS.NUMBERS.includes(this.collector.collected.first().emoji.name);
 	}
 }

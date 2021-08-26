@@ -64,5 +64,17 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 	};
 
+	InventoryInfo.prototype.updateLastDailyAt = function() {
+		this.lastDailyAt = new moment(); // eslint-disable-line new-cap
+	};
+
+	/**
+	 * edit daily cooldown
+	 * @param {number} hours
+	 */
+	Inventories.prototype.editDailyCooldown = function(hours) {
+		this.lastDailyAt = new moment(this.lastDailyAt).add(hours, "h"); // eslint-disable-line new-cap
+	};
+
 	return InventoryInfo;
 };

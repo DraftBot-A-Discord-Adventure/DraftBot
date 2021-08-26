@@ -1,10 +1,14 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Translations} from "../../core/Translations";
+import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+import {ChoiceItem, DraftBotListChoiceMessage} from "../../core/messages/DraftBotListChoiceMessage";
+import {Constants} from "../../core/Constants";
 
 const moment = require("moment");
 
 module.exports.commandInfo = {
 	name: "switch",
-	aliases: ["sw"],
+	aliases: ["sw", "equip"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
@@ -19,30 +23,78 @@ const SwitchCommand = async (message, language) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
-	const nextDailyDate = new moment(entity.Player.Inventory.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h"); // eslint-disable-line new-cap
-	const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
-	const maxTime = JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd;
-	if (timeToCheck < 0) {
-		entity.Player.Inventory.updateLastDailyAt();
-		entity.Player.Inventory.editDailyCooldown(-maxTime);
-	}
-	else if (timeToCheck < maxTime) {
-		entity.Player.Inventory.editDailyCooldown(JsonReader.commands.switch.timeToAdd);
-	}
-	else {
-		entity.Player.Inventory.updateLastDailyAt();
-	}
 
-
-	const temp = entity.Player.Inventory.objectId;
-	entity.Player.Inventory.objectId = entity.Player.Inventory.backupId;
-	entity.Player.Inventory.backupId = temp;
-
-	await entity.Player.Inventory.save();
-	return await message.channel.send(new DraftBotEmbed()
-		.formatAuthor(JsonReader.commands.switch.getTranslation(language).title, message.author)
-		.setDescription(JsonReader.commands.switch.getTranslation(language).desc)
-	);
+	const tr = Translations.getModule("commands.switch", language);
+	const toSwitchItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped());
+	if (toSwitchItems.length === 0) {
+		return message.channel.send(new DraftBotErrorEmbed(message.author, language, tr.get("noItemToSwitch")));
+	}
+	const choiceItems = [];
+	for (const item of toSwitchItems) {
+		const itemInstance = await item.getItem();
+		const name = itemInstance.toString(language);
+		choiceItems.push(new ChoiceItem(
+			itemInstance.toString(language),
+			{
+				name: name,
+				shortName: itemInstance.getName(language),
+				item: item
+			}
+		));
+	}
+	const choiceMessage = await new DraftBotListChoiceMessage(choiceItems, message.author.id, async (item) => {
+		if (item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT) {
+			const nextDailyDate = new moment(entity.Player.InventoryInfo.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h"); // eslint-disable-line new-cap
+			const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
+			const maxTime = JsonReader.commands.daily.timeBetweenDailys - JsonReader.commands.switch.timeToAdd;
+			if (timeToCheck < 0) {
+				entity.Player.InventoryInfo.updateLastDailyAt();
+				entity.Player.InventoryInfo.editDailyCooldown(-maxTime);
+			}
+			else if (timeToCheck < maxTime) {
+				entity.Player.InventoryInfo.editDailyCooldown(JsonReader.commands.switch.timeToAdd);
+			}
+			else {
+				entity.Player.InventoryInfo.updateLastDailyAt();
+			}
+		}
+		const otherItem = entity.Player.InventorySlots.filter(slot => slot.isEquipped() && slot.itemCategory === item.item.itemCategory)[0];
+		const otherItemInstance = await otherItem.getItem();
+		await Promise.all([
+			InventorySlots.update({
+				itemId: otherItem.itemId
+			}, {
+				where: {
+					playerId: entity.Player.id,
+					itemCategory: item.item.itemCategory,
+					slot: item.item.slot
+				}
+			}),
+			InventorySlots.update({
+				itemId: item.item.itemId
+			}, {
+				where: {
+					playerId: entity.Player.id,
+					itemCategory: otherItem.itemCategory,
+					slot: otherItem.slot
+				}
+			})
+		]);
+		return message.channel.send(new DraftBotEmbed()
+			.formatAuthor(tr.get("title"), message.author)
+			.setDescription(tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
+				item1: item.shortName,
+				item2: otherItemInstance.getName(language)
+			}))
+		);
+	},
+	async (endMessage) => {
+		removeBlockedPlayer(entity.discordUserId);
+		if (endMessage.isCanceled()) {
+			await sendErrorMessage(message.author, message.channel, language, tr.get("canceled"), true);
+		}
+	}).send(message.channel);
+	addBlockedPlayer(entity.discordUserId, "switch", choiceMessage.collector);
 };
 
 module.exports.execute = SwitchCommand;

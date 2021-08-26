@@ -110,7 +110,7 @@ const SellCommand = async (message, language) => {
 		await validationMessage.send(message.channel);
 		addBlockedPlayer(entity.discordUserId, "sell", validationMessage.collector);
 	}, async (endMessage) => {
-		if (endMessage.isCancelled()) {
+		if (endMessage.isCanceled()) {
 			removeBlockedPlayer(entity.discordUserId);
 			await sendErrorMessage(message.author, message.channel, language, tr.get("sellCanceled"), true);
 		}

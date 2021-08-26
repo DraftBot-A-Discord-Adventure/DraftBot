@@ -1,12 +1,17 @@
 {
 	"translations": {
 		"fr": {
-			"title": "{pseudo}, commande switch effectuée !",
-			"desc": ":repeat: L'objet actif et l'objet en réserve ont été inversés !"
+			"title": "{pseudo}, commande effectuée !",
+			"desc": "{item1} et {item2} ont été échangés !",
+			"descAndDaily": "{item1} et {item2} ont été échangés ! De plus, 30 minutes ont été ajoutées pour faire votre prochain !daily.",
+			"noItemToSwitch": "Vous n'avez aucun équipement à équiper !",
+			"canceled": "Action annulée !"
 		},
 		"en": {
-			"title": "{pseudo}, switch command done!",
-			"desc": ":repeat: The active and reserve items were swapped!"
+			"title": "{pseudo}, command done!",
+			"desc": "{item1} and {item2} were swapped!",
+			"noItemToSwitch": "You don't have anything to equip! Moreover, 30 minutes were added to do your next !daily.",
+			"canceled": "Action canceled !"
 		}
 	},
 	"timeToAdd" : 0.5
