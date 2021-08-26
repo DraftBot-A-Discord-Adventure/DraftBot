@@ -73,6 +73,7 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 				)
 			);
 		}
+		const pointsWBefore = entityToEdit.Player.weeklyScore;
 		try {
 			giveWeeklyPointsTo(entityToEdit, amount, args);
 		} catch (e) {
@@ -93,6 +94,17 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 			player: entityToEdit.getMention(),
 			points: entityToEdit.Player.weeklyScore
 		});
+		if (entityToEdit.Player.dmNotification) {
+			sendDirectMessage(
+				(await client.users.fetch(user)),
+				JsonReader.commands.pointsWeek.getTranslation(language).dm.title,
+				format(JsonReader.commands.pointsWeek.getTranslation(language).dm.description, {
+					pointsGained: entityToEdit.Player.weeklyScore - pointsWBefore,
+				}),
+				JsonReader.bot.embed.default,
+				language
+			);
+		}
 	}
 	return await message.channel.send(new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.pointsWeek.getTranslation(language).title, message.author)
