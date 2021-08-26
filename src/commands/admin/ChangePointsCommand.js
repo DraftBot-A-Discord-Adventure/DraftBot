@@ -13,14 +13,100 @@ module.exports.commandInfo = {
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const ChangePointsCommand = async (message, language, args) => {
-	const playerId = message.mentions.users.last().id;
-	const [entity] = await Entities.getOrRegister(playerId);
-	entity.Player.score = parseInt(args[1]);
-	await entity.Player.save();
+	if (args.length < 3) {
+		return await sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			JsonReader.commands.points.getTranslation(language).errors.invalidNumberOfArgs
+		);
+	}
+	if (args.length > 87) {
+		return await sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			JsonReader.commands.points.getTranslation(language).errors.tooMuchPeople
+		);
+	}
+	const amount = parseInt(args[1]);
+	if (isNaN(amount) || amount > 10**17) {
+		return await sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			JsonReader.commands.points.getTranslation(language).errors.invalidAmountFormat
+		);
+	}
+	const users = new Set();
+	for (let i = 2; i < args.length; i++) {
+		let mention = args[i];
+		if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
+			return await sendErrorMessage(
+				message.author,
+				message.channel,
+				language,
+				format(JsonReader.commands.points.getTranslation(language).errors.invalidIdOrMention, {
+						position: i-1,
+						wrongText: args[i]
+					}
+				)
+			);
+		}
+		users.add(isAMention(mention) ? getIdFromMention(mention) : mention);
+	}
 
+	let descString = "";
+	for (const user of users) {
+		let entityToEdit;
+		try {
+			[entityToEdit] = await Entities.getOrRegister(user);
+		} catch (e) {
+			return await sendErrorMessage(
+				message.author,
+				message.channel,
+				language,
+				format(JsonReader.commands.points.getTranslation(language).errors.invalidIdOrMentionDoesntExist, {
+						position: (args.indexOf(user) - 1),
+						wrongText: user
+					}
+				)
+			);
+		}
+		try {
+			givePointsTo(entityToEdit, amount, args);
+		} catch (e) {
+			if (e.message === "mauvais paramètre don points") {
+				return await sendErrorMessage(
+					message.author,
+					message.channel,
+					language,
+					JsonReader.commands.points.getTranslation(language).errors.invalidDonationParameter
+				);
+			}
+			else {
+				console.error(e.stack);
+			}
+		}
+		entityToEdit.Player.save();
+		descString += format(JsonReader.commands.points.getTranslation(language).desc, {
+			player: entityToEdit.getMention(),
+			points: entityToEdit.Player.score
+		});
+	}
 	return await message.channel.send(new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.points.getTranslation(language).title, message.author)
-		.setDescription(format(JsonReader.commands.points.getTranslation(language).desc,{player: args[0], points: args[1]})));
+		.setDescription(descString));
 };
+
+function givePointsTo(entityToEdit, amount, args) {
+	if (args[0] === "set") {
+		entityToEdit.Player.score = amount;
+	} else if (args[0] === "add") {
+		entityToEdit.Player.score += amount;
+	} else {
+		throw new Error("mauvais paramètre don points")
+	}
+}
 
 module.exports.execute = ChangePointsCommand;
