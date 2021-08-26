@@ -1,3 +1,5 @@
+import {Constants} from "../Constants";
+
 const {readdir} = require("fs/promises");
 
 /**
@@ -173,6 +175,16 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Potions.getMaxId = async () => (await readdir("resources/text/potions/")).length - 1;
+
+	Potions.prototype.getCategory = function() {
+		return Constants.ITEM_CATEGORIES.POTION;
+	};
+
+	Potions.getById = function(id) {
+		return Potions.findOne({
+			where: {id}
+		});
+	};
 
 	return Potions;
 };

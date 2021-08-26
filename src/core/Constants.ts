@@ -17,7 +17,9 @@ export abstract class Constants {
 			"9️⃣",
 			"🔟"
 		],
-		INVENTORY_RESERVE: "🔃"
+		INVENTORY_RESERVE: "🔃",
+		MONEY_ICON: "💰",
+		TRASH: "🗑️"
 	}
 
 	static readonly MESSAGES = {

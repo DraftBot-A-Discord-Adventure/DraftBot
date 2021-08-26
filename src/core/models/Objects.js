@@ -1,3 +1,5 @@
+import {Constants} from "../Constants";
+
 const {readdir} = require("fs/promises");
 
 /**
@@ -146,6 +148,16 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Objects.getMaxId = async () => (await readdir("resources/text/objects/")).length - 1;
+
+	Objects.prototype.getCategory = function() {
+		return Constants.ITEM_CATEGORIES.OBJECT;
+	};
+
+	Objects.getById = function(id) {
+		return Objects.findOne({
+			where: {id}
+		});
+	};
 
 	return Objects;
 };

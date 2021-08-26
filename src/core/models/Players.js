@@ -667,5 +667,30 @@ module.exports = (Sequelize, DataTypes) => {
 		return filtered[0];
 	};
 
+	/**
+	 * Gives an item to the player
+	 * @returns {Boolean} true if gave with success, false if not
+	 */
+	Players.prototype.giveItem = async function(item) {
+		const category = item.getCategory();
+		const slotsLimit = this.InventoryInfo.slotLimitForCategory(category);
+		const items = this.InventorySlots.filter(slot => slot.itemCategory === category && slot.slot < slotsLimit);
+		if (items.length >= slotsLimit) {
+			return Promise.resolve(false);
+		}
+		for (let i = 0; i < slotsLimit; ++i) {
+			if (items.filter(slot => slot.slot === i).length === 0) {
+				await InventorySlots.create({
+					playerId: this.id,
+					itemCategory: category,
+					itemId: item.id,
+					slot: i
+				});
+				return true;
+			}
+		}
+		return false;
+	};
+
 	return Players;
 };

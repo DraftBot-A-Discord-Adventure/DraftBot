@@ -1,3 +1,5 @@
+import {Constants} from "../Constants";
+
 const moment = require("moment");
 
 /**
@@ -46,6 +48,21 @@ module.exports = (Sequelize, DataTypes) => {
 			freezeTableName: true
 		}
 	);
+
+	InventoryInfo.prototype.slotLimitForCategory = function(category) {
+		switch (category) {
+		case Constants.ITEM_CATEGORIES.WEAPON:
+			return this.weaponSlots;
+		case Constants.ITEM_CATEGORIES.ARMOR:
+			return this.armorSlots;
+		case Constants.ITEM_CATEGORIES.POTION:
+			return this.potionSlots;
+		case Constants.ITEM_CATEGORIES.OBJECT:
+			return this.objectSlots;
+		default:
+			return 0;
+		}
+	};
 
 	return InventoryInfo;
 };

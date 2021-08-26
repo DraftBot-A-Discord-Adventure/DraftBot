@@ -1,3 +1,5 @@
+import {Constants} from "../Constants";
+
 const {readdir} = require("fs/promises");
 
 /**
@@ -181,6 +183,16 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Weapons.getMaxId = async () => (await readdir("resources/text/weapons/")).length - 1;
+
+	Weapons.prototype.getCategory = function() {
+		return Constants.ITEM_CATEGORIES.WEAPON;
+	};
+
+	Weapons.getById = function(id) {
+		return Weapons.findOne({
+			where: {id}
+		});
+	};
 
 	return Weapons;
 };

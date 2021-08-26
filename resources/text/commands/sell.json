@@ -9,7 +9,11 @@
 			"soldMessageTitle": "{pseudo}, vous avez vendu un équipement.",
 			"potionDestroyedTitle": "Vous avez détruit une potion.",
 			"potionDestroyedMessage": "{item} a été versé(e) dans un évier.",
-			"soldMessageAlreadyOwnTitle": "{pseudo}, vous avez reçu un équipement que vous possédiez déjà."
+			"soldMessageAlreadyOwnTitle": "{pseudo}, vous avez reçu un équipement que vous possédiez déjà.",
+			"titleChoiceEmbed": "{pseudo}, vente d'objet",
+			"sellField": "{name} | {value} {moneyIcon}",
+			"throwAwayField": "{name} | {throwEmote}",
+			"confirmThrowAway": "Êtes-vous sûr de vouloir jeter {item} ?"
 		},
 		"en": {
 			"noItemToSell": "Unfortunately, you don't have any backup item in your inventory!",
@@ -20,7 +24,11 @@
 			"soldMessage": "You sold {item} for **{money}** :moneybag:",
 			"potionDestroyedTitle": "You destroyed a potion.",
 			"potionDestroyedMessage": "{item} is now gone forever.",
-			"soldMessageAlreadyOwnTitle": "{pseudo}, you received an item that you already own."
+			"soldMessageAlreadyOwnTitle": "{pseudo}, you received an item that you already own.",
+			"titleChoiceEmbed": "{pseudo}, sell item",
+			"sellField": "{name} | {value} {moneyIcon}",
+			"throwAwayField": "{name} | {throwEmote}",
+			"confirmThrowAway": "Do you really want to throw {item} away?"
 		}
 	}
 }
