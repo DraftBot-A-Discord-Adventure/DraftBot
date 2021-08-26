@@ -10,6 +10,10 @@
 				"invalidIdOrMentionDoesntExist": "Mention / ID n'appartenant à personne en position {position} : {wrongText}",
 				"invalidDonationParameter": "Premier paramètre invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
 				"tooMuchPeople": "Modification de points hebdomadaires sur trop de personnes en même temps. Veuillez vous limiter à 66 personnes par commande."
+			},
+			"dm": {
+				"title": "{pseudo}, vos points hebdomadaires ont été édités !",
+				"description": "Vous avez {pointsGained>=0?gagné:perdu} {pointsGained} point{pointsGained>1?s:}{pointsGained<-1?s:} hebdomadaire{pointsGained>1?s:}{pointsGained<-1?s:} !"
 			}
 		},
 		"en": {

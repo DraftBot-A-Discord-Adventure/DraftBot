@@ -73,6 +73,7 @@ const ChangePointsCommand = async (message, language, args) => {
 				)
 			);
 		}
+		const pointsBefore = entityToEdit.Player.score;
 		try {
 			givePointsTo(entityToEdit, amount, args);
 		} catch (e) {
@@ -93,6 +94,17 @@ const ChangePointsCommand = async (message, language, args) => {
 			player: entityToEdit.getMention(),
 			points: entityToEdit.Player.score
 		});
+		if (entityToEdit.Player.dmNotification) {
+			sendDirectMessage(
+				(await client.users.fetch(user)),
+				JsonReader.commands.points.getTranslation(language).dm.title,
+				format(JsonReader.commands.points.getTranslation(language).dm.description, {
+					pointsGained: entityToEdit.Player.score - pointsBefore,
+				}),
+				JsonReader.bot.embed.default,
+				language
+			);
+		}
 	}
 	return await message.channel.send(new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.points.getTranslation(language).title, message.author)
