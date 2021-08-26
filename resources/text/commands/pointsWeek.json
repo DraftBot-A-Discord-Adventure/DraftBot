@@ -1,12 +1,20 @@
 {
 	"translations": {
 		"fr": {
-			"title": "{pseudo}, vous avez changé le score hebdomadaire d'un joueur !",
-			"desc": "{player} a maintenant {points} points"
+			"title": "{pseudo}, vous avez changé le score hebdomadaire d'un ou plusieurs joueur(s) !",
+			"desc": "{player} a maintenant {points} points hebdomadaires\n",
+			"errors": {
+				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Montant invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Mention / ID invalide en position {position} : {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID n'appartenant à personne en position {position} : {wrongText}",
+				"invalidDonationParameter": "Premier paramètre invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
+				"tooMuchPeople": "Modification de points hebdomadaires sur trop de personnes en même temps. Veuillez vous limiter à 66 personnes par commande."
+			}
 		},
 		"en": {
-			"title": "{pseudo}, you have updated the weekly score of a player !",
-			"desc": "{player} has {points} points"
+			"title": "{pseudo}, you have updated the weekly score of one or several player(s) !",
+			"desc": "{player} has {points} weekly points\n"
 		}
 	}
 }

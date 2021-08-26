@@ -5,7 +5,7 @@ module.exports.commandInfo = {
 };
 
 /**
- * Allow the bot owner to give an item to somebody
+ * Allow the bot owner to give points to 1 or more people
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
