@@ -21,7 +21,7 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 			JsonReader.commands.pointsWeek.getTranslation(language).errors.invalidNumberOfArgs
 		);
 	}
-	if (args.length > 68) {
+	if (args.length > 52) {
 		return await sendErrorMessage(
 			message.author,
 			message.channel,
@@ -30,7 +30,7 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 		);
 	}
 	const amount = parseInt(args[1]);
-	if (isNaN(amount) || amount > 10**17) {
+	if (isNaN(amount) || amount > 10 ** 17) {
 		return await sendErrorMessage(
 			message.author,
 			message.channel,
@@ -47,7 +47,7 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 				message.channel,
 				language,
 				format(JsonReader.commands.pointsWeek.getTranslation(language).errors.invalidIdOrMention, {
-						position: i-1,
+						position: i - 1,
 						wrongText: args[i]
 					}
 				)
@@ -84,22 +84,21 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 					language,
 					JsonReader.commands.pointsWeek.getTranslation(language).errors.invalidDonationParameter
 				);
-			}
-			else {
+			} else {
 				console.error(e.stack);
 			}
 		}
 		entityToEdit.Player.save();
 		descString += format(JsonReader.commands.pointsWeek.getTranslation(language).desc, {
 			player: entityToEdit.getMention(),
-			points: entityToEdit.Player.weeklyScore
+			pointsw: entityToEdit.Player.weeklyScore
 		});
 		if (entityToEdit.Player.dmNotification) {
 			sendDirectMessage(
 				(await client.users.fetch(user)),
 				JsonReader.commands.pointsWeek.getTranslation(language).dm.title,
 				format(JsonReader.commands.pointsWeek.getTranslation(language).dm.description, {
-					pointsGained: entityToEdit.Player.weeklyScore - pointsWBefore,
+					pointsWGained: entityToEdit.Player.weeklyScore - pointsWBefore,
 				}),
 				JsonReader.bot.embed.default,
 				language
