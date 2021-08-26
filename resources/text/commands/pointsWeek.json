@@ -1,24 +1,22 @@
 {
 	"translations": {
 		"fr": {
-			"title": "{pseudo}, vous avez changé le score hebdomadaire d'un ou plusieurs joueur(s) !",
-			"desc": "{player} a maintenant {points} points hebdomadaires\n",
+			"title": "{pseudo}, vous avez changé le score hebdomadaire d'un ou plusieurs joueurs !",
+			"desc": "{player} a maintenant {pointsw} point{pointsw>1?s:} hebdomadaire{pointsw>1?s:}\n",
 			"errors": {
-				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
-				"invalidAmountFormat": "Montant invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
+				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Montant invalide\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
 				"invalidIdOrMention": "Mention / ID invalide en position {position} : {wrongText}",
 				"invalidIdOrMentionDoesntExist": "Mention / ID n'appartenant à personne en position {position} : {wrongText}",
-				"invalidDonationParameter": "Premier paramètre invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
-				"tooMuchPeople": "Modification de points hebdomadaires sur trop de personnes en même temps. Veuillez vous limiter à 66 personnes par commande."
+				"invalidDonationParameter": "Premier paramètre invalide\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"tooMuchPeople": "Modification de points hebdomadaires sur trop de personnes en même temps. Veuillez vous limiter à 50 personnes par commande."
 			},
 			"dm": {
 				"title": "{pseudo}, vos points hebdomadaires ont été édités !",
-				"description": "Vous avez {pointsGained>=0?gagné:perdu} {pointsGained} point{pointsGained>1?s:}{pointsGained<-1?s:} hebdomadaire{pointsGained>1?s:}{pointsGained<-1?s:} !"
+				"description": "Vous avez {pointsWGained>=0?gagné:perdu} {pointsWGained} point{pointsWGained>1?s:}{pointsWGained<-1?s:} hebdomadaire{pointsWGained>1?s:}{pointsWGained<-1?s:} !"
 			}
 		},
 		"en": {
-			"title": "{pseudo}, you have updated the weekly score of one or several player(s) !",
-			"desc": "{player} has {points} weekly points\n"
 		}
 	}
 }

@@ -1,15 +1,15 @@
 {
 	"translations": {
 		"fr": {
-			"title": "{pseudo}, vous avez changé le score d'un ou plusieurs joueur(s) !",
-			"desc": "{player} a maintenant {points} points\n",
+			"title": "{pseudo}, vous avez changé le score d'un ou plusieurs joueurs !",
+			"desc": "{player} a maintenant {points} point{points>1?s:}\n",
 			"errors": {
 				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
 				"invalidAmountFormat": "Montant invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
 				"invalidIdOrMention": "Mention / ID invalide en position {position} : {wrongText}",
 				"invalidIdOrMentionDoesntExist": "Mention / ID n'appartenant à personne en position {position} : {wrongText}",
 				"invalidDonationParameter": "Premier paramètre invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
-				"tooMuchPeople": "Modification de points sur trop de personnes en même temps. Veuillez vous limiter à 85 personnes par commande."
+				"tooMuchPeople": "Modification de points sur trop de personnes en même temps. Veuillez vous limiter à 50 personnes par commande."
 			},
 			"dm": {
 				"title": "{pseudo}, vos points ont été édités !",
@@ -17,8 +17,6 @@
 			}
 		},
 		"en": {
-			"title": "{pseudo}, you have updated the score of one or several player(s) !",
-			"desc": "{player} has {points} points\n"
 		}
 	}
 }
