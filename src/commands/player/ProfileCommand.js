@@ -19,6 +19,10 @@ const ProfileCommand = async (message, language, args) => {
 	}
 
 	let titleEffect = entity.Player.effect;
+	const w = await entity.Player.getMainWeaponSlot().getItem();
+	const a = await entity.Player.getMainArmorSlot().getItem();
+	const p = await entity.Player.getMainPotionSlot().getItem();
+	const o = await entity.Player.getMainObjectSlot().getItem();
 	const fields = [
 		{
 			name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
@@ -33,23 +37,9 @@ const ProfileCommand = async (message, language, args) => {
 		{
 			name: JsonReader.commands.profile.getTranslation(language).statistique.fieldName,
 			value: format(JsonReader.commands.profile.getTranslation(language).statistique.fieldValue, {
-				cumulativeAttack: await entity.getCumulativeAttack(
-					await entity.Player.Inventory.getWeapon(),
-					await entity.Player.Inventory.getArmor(),
-					await entity.Player.Inventory.getPotion(),
-					await entity.Player.Inventory.getActiveObject()
-				),
-				cumulativeDefense: await entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(),
-					await entity.Player.Inventory.getArmor(),
-					await entity.Player.Inventory.getPotion(),
-					await entity.Player.Inventory.getActiveObject()
-				),
-				cumulativeSpeed: await entity.getCumulativeSpeed(
-					await entity.Player.Inventory.getWeapon(),
-					await entity.Player.Inventory.getArmor(),
-					await entity.Player.Inventory.getPotion(),
-					await entity.Player.Inventory.getActiveObject()
-				),
+				cumulativeAttack: await entity.getCumulativeAttack(w, a, p, o),
+				cumulativeDefense: await entity.getCumulativeDefense(w, a, p, o),
+				cumulativeSpeed: await entity.getCumulativeSpeed(w, a, p, o),
 				cumulativeHealth: await entity.getCumulativeHealth(),
 				cumulativeMaxHealth: await entity.getMaxCumulativeHealth()
 			})

@@ -23,16 +23,20 @@ module.exports = (Sequelize, DataTypes) => {
 				defaultValue: moment().format("YYYY-MM-DD HH:mm:ss")
 			},
 			weaponSlots: {
-				type: DataTypes.INTEGER
+				type: DataTypes.INTEGER,
+				defaultValue: 1
 			},
 			armorSlots: {
-				type: DataTypes.INTEGER
+				type: DataTypes.INTEGER,
+				defaultValue: 1
 			},
 			potionSlots: {
-				type: DataTypes.INTEGER
+				type: DataTypes.INTEGER,
+				defaultValue: 1
 			},
 			objectSlots: {
-				type: DataTypes.INTEGER
+				type: DataTypes.INTEGER,
+				defaultValue: 2
 			},
 			updatedAt: {
 				type: DataTypes.DATE,
@@ -72,7 +76,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * edit daily cooldown
 	 * @param {number} hours
 	 */
-	Inventories.prototype.editDailyCooldown = function(hours) {
+	InventoryInfo.prototype.editDailyCooldown = function(hours) {
 		this.lastDailyAt = new moment(this.lastDailyAt).add(hours, "h"); // eslint-disable-line new-cap
 	};
 

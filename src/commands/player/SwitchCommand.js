@@ -19,7 +19,7 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const SwitchCommand = async (message, language) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+	let [entity] = await Entities.getOrRegister(message.author.id);
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
@@ -43,6 +43,7 @@ const SwitchCommand = async (message, language) => {
 		));
 	}
 	const choiceMessage = await new DraftBotListChoiceMessage(choiceItems, message.author.id, async (item) => {
+		[entity] = await Entities.getOrRegister(message.author.id);
 		if (item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT) {
 			const nextDailyDate = new moment(entity.Player.InventoryInfo.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h"); // eslint-disable-line new-cap
 			const timeToCheck = millisecondsToHours(nextDailyDate.valueOf() - message.createdAt.getTime());
@@ -61,15 +62,24 @@ const SwitchCommand = async (message, language) => {
 		const otherItem = entity.Player.InventorySlots.filter(slot => slot.isEquipped() && slot.itemCategory === item.item.itemCategory)[0];
 		const otherItemInstance = await otherItem.getItem();
 		await Promise.all([
-			InventorySlots.update({
-				itemId: otherItem.itemId
-			}, {
-				where: {
-					playerId: entity.Player.id,
-					itemCategory: item.item.itemCategory,
-					slot: item.item.slot
-				}
-			}),
+			otherItem.itemId === 0 ?
+				InventorySlots.destroy({
+					where: {
+						playerId: entity.Player.id,
+						itemCategory: item.item.itemCategory,
+						slot: item.item.slot
+					}
+				})
+				:
+				InventorySlots.update({
+					itemId: otherItem.itemId
+				}, {
+					where: {
+						playerId: entity.Player.id,
+						itemCategory: item.item.itemCategory,
+						slot: item.item.slot
+					}
+				}),
 			InventorySlots.update({
 				itemId: item.item.itemId
 			}, {
@@ -78,14 +88,24 @@ const SwitchCommand = async (message, language) => {
 					itemCategory: otherItem.itemCategory,
 					slot: otherItem.slot
 				}
-			})
+			}),
+			entity.Player.InventoryInfo.save()
 		]);
-		return message.channel.send(new DraftBotEmbed()
-			.formatAuthor(tr.get("title"), message.author)
-			.setDescription(tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
+		let desc;
+		if (otherItem.itemId === 0) {
+			desc = tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
+				item: item.shortName
+			});
+		}
+		else {
+			desc = tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
 				item1: item.shortName,
 				item2: otherItemInstance.getName(language)
-			}))
+			});
+		}
+		return message.channel.send(new DraftBotEmbed()
+			.formatAuthor(tr.get("title"), message.author)
+			.setDescription(desc)
 		);
 	},
 	async (endMessage) => {

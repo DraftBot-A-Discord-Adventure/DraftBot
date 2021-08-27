@@ -20,15 +20,14 @@ class Fighter {
 	 * @return {Promise<void>}
 	 */
 	async calculateStats() {
-		const inv = this.entity.Player.Inventory;
-		const w = await inv.getWeapon();
-		const a = await inv.getArmor();
-		const p = await inv.getPotion();
+		const w = await this.entity.Player.getMainWeaponSlot().getItem();
+		const a = await this.entity.Player.getMainArmorSlot().getItem();
+		const p = await this.entity.Player.getMainPotionSlot().getItem();
 		if (this.friendly) {
 			p.power = 0;
 		}
 		const power = this.friendly ? await this.entity.getMaxCumulativeHealth() : await this.entity.getCumulativeHealth();
-		const o = await inv.getActiveObject();
+		const o = await this.entity.Player.getMainObjectSlot().getItem();
 		this.attack = await this.entity.getCumulativeAttack(w, a, p, o);
 		this.defense = await this.entity.getCumulativeDefense(w, a, p, o);
 		this.speed = await this.entity.getCumulativeSpeed(w, a, p, o);
@@ -44,10 +43,8 @@ class Fighter {
 	 */
 	async consumePotionIfNeeded() {
 		if (!this.friendly) {
-			if ((await this.entity.Player.Inventory.getPotion()).isFightPotion()) {
-				this.entity.Player.Inventory.drinkPotion();
-				this.entity.Player.Inventory.save();
-				this.entity.Player.save();
+			if ((await this.entity.Player.getMainPotionSlot().getItem()).isFightPotion()) {
+				await this.entity.Player.drinkPotion();
 			}
 		}
 	}

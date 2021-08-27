@@ -5,13 +5,17 @@
 			"desc": "{item1} et {item2} ont été échangés !",
 			"descAndDaily": "{item1} et {item2} ont été échangés ! De plus, 30 minutes ont été ajoutées pour faire votre prochain !daily.",
 			"noItemToSwitch": "Vous n'avez aucun équipement à équiper !",
-			"canceled": "Action annulée !"
+			"canceled": "Action annulée !",
+			"hasBeenEquipped": "{item} a été équippé(e) !",
+			"hasBeenEquippedAndDaily": "{item} a été équippé ! De plus, 30 minutes ont été ajoutées pour faire votre prochain !daily."
 		},
 		"en": {
 			"title": "{pseudo}, command done!",
 			"desc": "{item1} and {item2} were swapped!",
 			"noItemToSwitch": "You don't have anything to equip! Moreover, 30 minutes were added to do your next !daily.",
-			"canceled": "Action canceled !"
+			"canceled": "Action canceled !",
+			"hasBeenEquipped": "{item} has been equipped!",
+			"hasBeenEquippedAndDaily": "{item} has been equipped! Moreover, 30 minutes were added to do your next !daily."
 		}
 	},
 	"timeToAdd" : 0.5

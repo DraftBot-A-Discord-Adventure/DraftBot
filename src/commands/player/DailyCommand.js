@@ -18,9 +18,9 @@ const DailyCommand = async (message, language) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
-	const activeObject = await entity.Player.Inventory.getActiveObject();
+	const activeObject = await entity.Player.getMainObjectSlot().getItem();
 
-	const time = millisecondsToHours(message.createdAt.getTime() - entity.Player.Inventory.lastDailyAt.valueOf());
+	const time = millisecondsToHours(message.createdAt.getTime() - entity.Player.InventoryInfo.lastDailyAt.valueOf());
 
 	if (activeObject.nature === NATURE.NONE) {
 		if (activeObject.id !== JsonReader.models.inventories.objectId) {
@@ -42,7 +42,7 @@ const DailyCommand = async (message, language) => {
 				coolDownTime: JsonReader.commands.daily.timeBetweenDailys,
 				time: minutesToString(
 					millisecondsToMinutes(
-						JsonReader.commands.daily.timeBetweenDailys * 3600000 - message.createdAt.getTime() + entity.Player.Inventory.lastDailyAt.valueOf()
+						JsonReader.commands.daily.timeBetweenDailys * 3600000 - message.createdAt.getTime() + entity.Player.InventoryInfo.lastDailyAt.valueOf()
 					)
 				)
 			})
@@ -57,7 +57,7 @@ const DailyCommand = async (message, language) => {
 			format(JsonReader.commands.daily.getTranslation(language).healthDaily, {value: activeObject.power})
 		);
 		await entity.addHealth(activeObject.power);
-		entity.Player.Inventory.updateLastDailyAt();
+		entity.Player.InventoryInfo.updateLastDailyAt();
 	}
 	if (
 		activeObject.nature === NATURE.SPEED ||
@@ -80,17 +80,17 @@ const DailyCommand = async (message, language) => {
 		);
 		Maps.advanceTime(entity.Player, activeObject.power * 60);
 		await entity.Player.save();
-		entity.Player.Inventory.updateLastDailyAt();
+		entity.Player.InventoryInfo.updateLastDailyAt();
 	}
 	if (activeObject.nature === NATURE.MONEY) {
 		embed.setDescription(
 			format(JsonReader.commands.daily.getTranslation(language).moneyBonus, {value: activeObject.power})
 		);
 		entity.Player.addMoney(activeObject.power);
-		entity.Player.Inventory.updateLastDailyAt();
+		entity.Player.InventoryInfo.updateLastDailyAt();
 	}
 
-	await Promise.all([entity.save(), entity.Player.save(), entity.Player.Inventory.save()]);
+	await Promise.all([entity.save(), entity.Player.save(), entity.Player.InventoryInfo.save()]);
 	log(entity.discordUserId + " used his daily item " + activeObject.en);
 	return await message.channel.send(embed);
 };

@@ -1,4 +1,5 @@
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {Constants} from "../Constants";
 
 const Maps = require("../Maps");
 /**
@@ -690,6 +691,24 @@ module.exports = (Sequelize, DataTypes) => {
 			}
 		}
 		return false;
+	};
+
+	/**
+	 * Delete the player's potion if has one
+	 * @returns {Promise<void>}
+	 */
+	Players.prototype.drinkPotion = async function() {
+		await InventorySlots.update(
+			{
+				itemId: JsonReader.models.inventories.potionId
+			},
+			{
+				where: {
+					slot: 0,
+					itemCategory: Constants.ITEM_CATEGORIES.POTION,
+					playerId: this.id
+				}
+			});
 	};
 
 	return Players;
