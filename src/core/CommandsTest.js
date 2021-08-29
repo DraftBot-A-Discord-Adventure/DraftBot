@@ -105,6 +105,9 @@ class CommandsTest {
 		try {
 
 			const messageToDisplay = await commandTestCurrent.execute(language, message, args);
+			if (!messageToDisplay || messageToDisplay === "") {
+				return;
+			}
 			let embedTestSuccessful;
 			if (typeof messageToDisplay === "string") {
 				embedTestSuccessful = new DraftBotEmbed()

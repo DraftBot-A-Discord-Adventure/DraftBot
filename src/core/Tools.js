@@ -1,6 +1,7 @@
 import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {format} from "./utils/StringFormatter";
+import * as ItemUtils from "../core/utils/ItemUtils";
 
 global.draftbotRandom = new (require("random-js")).Random();
 
@@ -110,6 +111,7 @@ global.sendSimpleMessage = (user, channel, title, message) => channel.send(new D
 	.setDescription(message));
 
 /**
+ * @deprecated Use ItemUtils.giveItemToPlayer instead
  * Give an item to a user
  * @param {module:"discord.js".User} discordUser
  * @param {Item} item - The item that has to be given
@@ -121,147 +123,15 @@ global.sendSimpleMessage = (user, channel, title, message) => channel.send(new D
  * @returns {Promise<*>}
  */
 global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplierActual = 1) => { // eslint-disable-line max-params
-	log(entity.discordUserId + " found the item " + item.getName("en") + "; value: " + getItemValue(item));
-	let autoSell = false;
-	let autoReplace = false;
-	let resaleMultiplier = resaleMultiplierNew;
-	const embed = new DraftBotEmbed()
-		.formatAuthor(JsonReader.commands.inventory.getTranslation(language).randomItemFooter, discordUser);
-	const receivedEmbed = new DraftBotEmbed()
-		.formatAuthor(JsonReader.commands.inventory.getTranslation(language).randomItemTitle, discordUser)
-		.setDescription(item.toString(language));
-
-	if (item instanceof Potions) {
-		const potion = await entity.Player.Inventory.getPotion();
-		if (potion.id === item.id) {
-			autoSell = true;
-		}
-		if (potion.rarity === 0) {
-			autoReplace = true;
-		}
-		embed.setAuthor(format(JsonReader.commands.inventory.getTranslation(language).randomItemFooterPotion, {
-			pseudo: discordUser.username
-		}), discordUser.displayAvatarURL());
-		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-			actualItem: potion.toString(language)
-		}));
-	}
-	if (item instanceof Objects) {
-		const inventory = await entity.Player.Inventory;
-		const backupObject = await inventory.getBackupObject();
-		const activeObject = await inventory.getActiveObject();
-		if (backupObject.id === item.id || activeObject.id === item.id) {
-			autoSell = true;
-		}
-		if (backupObject.rarity === 0) {
-			autoReplace = true;
-		}
-		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-			actualItem: backupObject.toString(language)
-		}));
-	}
-	if (item instanceof Weapons) {
-		const weapon = await entity.Player.Inventory.getWeapon();
-		if (weapon.id === item.id) {
-			autoSell = true;
-		}
-		if (weapon.rarity === 0) {
-			autoReplace = true;
-		}
-		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-			actualItem: weapon.toString(language)
-		}));
-	}
-	if (item instanceof Armors) {
-		const armor = await entity.Player.Inventory.getArmor();
-		if (armor.id === item.id) {
-			autoSell = true;
-		}
-		if (armor.rarity === 0) {
-			autoReplace = true;
-		}
-		embed.setDescription(format(JsonReader.commands.inventory.getTranslation(language).randomItemDesc, {
-			actualItem: armor.toString(language)
-		}));
-	}
-
-	if (autoSell && item instanceof Potions) {
-		return await destroyPotionMessage(channel, language, discordUser, item, true);
-	}
-	else if (autoSell) {
-		const money = Math.round(getItemValue(item) * resaleMultiplierNew);
-		entity.Player.addMoney(money);
-		await entity.Player.save();
-		return await channel.send(
-			new DraftBotEmbed()
-				.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle, discordUser)
-				.setDescription(
-					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-						{
-							item: item.getName(language),
-							money: money
-						}
-					)
-				)
-		);
-	}
-	await channel.send(receivedEmbed);
-	if (autoReplace) {
-		return await saveItem(item, entity);
-	}
-
-	const msg = await channel.send(embed);
-	const filterConfirm = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === discordUser.id;
-
-	const collector = msg.createReactionCollector(filterConfirm, {
-		time: COLLECTOR_TIME,
-		max: 1
-	});
-	addBlockedPlayer(discordUser.id, "acceptItem", collector);
-
-	collector.on("end", async (reaction) => {
-		const [newEntity] = await Entities.getOrRegister(entity.discordUserId);
-		removeBlockedPlayer(discordUser.id);
-		if (reaction.first()) { // a reaction exist
-			// msg.delete(); for now we are going to keep the message
-			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-				const menuEmbed = new DraftBotEmbed();
-				menuEmbed.formatAuthor(JsonReader.commands.inventory.getTranslation(language).acceptedTitle, discordUser)
-					.setDescription(item.toString(language));
-
-				const oldItem = await saveItem(item, entity);
-				await channel.send(menuEmbed);
-				item = oldItem;
-				resaleMultiplier = resaleMultiplierActual;
-			}
-			if (item instanceof Potions) {
-				return await destroyPotionMessage(channel, language, discordUser, item);
-			}
-		}
-		else if (item instanceof Potions) {
-			return await destroyPotionMessage(channel, language, discordUser, item);
-		}
-		const money = Math.round(getItemValue(item) * resaleMultiplier);
-		newEntity.Player.addMoney(money);
-		await newEntity.Player.save();
-		return await channel.send(
-			new DraftBotEmbed()
-				.formatAuthor(JsonReader.commands.sell.getTranslation(language).soldMessageTitle, discordUser)
-				.setDescription(
-					format(JsonReader.commands.sell.getTranslation(language).soldMessage,
-						{
-							item: item.getName(language),
-							money: money
-						}
-					)
-				)
-		);
-	});
-	await Promise.all([
-		msg.react(MENU_REACTION.ACCEPT),
-		msg.react(MENU_REACTION.DENY)
-	]);
-
+	await ItemUtils.giveItemToPlayer(
+		entity,
+		item,
+		language,
+		discordUser,
+		channel,
+		resaleMultiplierNew,
+		resaleMultiplierActual
+	);
 };
 
 /**
@@ -401,6 +271,7 @@ global.minutesToString = (minutes) => {
 };
 
 /**
+ * @deprecated Use StringFormatted.format instead
  * @param {String} string
  * @param {Object} replacement
  * @return {String}

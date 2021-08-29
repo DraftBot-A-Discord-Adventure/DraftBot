@@ -674,10 +674,23 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.prototype.giveItem = async function(item) {
 		const category = item.getCategory();
+		const equippedItem = this.InventorySlots.filter(slot => slot.itemCategory === category && slot.isEquipped())[0];
+		if (equippedItem && equippedItem.itemId === 0) {
+			await InventorySlots.update({
+				itemId: item.id
+			}, {
+				where: {
+					playerId: this.id,
+					itemCategory: category,
+					slot: equippedItem.slot
+				}
+			});
+			return true;
+		}
 		const slotsLimit = this.InventoryInfo.slotLimitForCategory(category);
 		const items = this.InventorySlots.filter(slot => slot.itemCategory === category && slot.slot < slotsLimit);
 		if (items.length >= slotsLimit) {
-			return Promise.resolve(false);
+			return false;
 		}
 		for (let i = 0; i < slotsLimit; ++i) {
 			if (items.filter(slot => slot.slot === i).length === 0) {
