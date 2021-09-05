@@ -1,0 +1,58 @@
+{
+	"translations": {
+		"fr": {
+			"intro": "Vous croisez le chemin d'un homme qui vous interpelle, curieux, vous vous arrêtez pour voir ce qu'il peut bien vous vouloir. Celui-ci se présente et vous parle d'un jeu basé sur la chance, il vous propose d'y participer. Pour ce faire, il vous demande de choisir un palier parmis les différents niveaux de récompenses.\n\n:coin: Petite récompense\n:dollar:  Moyenne récompense\n:moneybag: Grosse récompense\n",
+			"\uD83E\uDE99": [
+				"Vous participez et réussissez à remporter un lot que l'homme vous remet avant de partir.",
+				"Vous perdez au jeu de l'homme cependant la participation était gratuite donc vous décidez de reprendre votre route."
+			],
+			"\uD83D\uDCB5": [
+				"Vous tentez votre chance et gagnez au jeu, l'homme vous récompense comme il se doit.",
+				"Vous participez au jeu de l'homme cependant vous ne gagnez pas et repartez en espérant avoir plus de chance la prochaine fois."
+			],
+			"\uD83D\uDCB0": [
+				"Vous gagnez au jeu de l'homme, en conséquence, celui-ci vous récompense gracieusement. ",
+				"Vous saisissez votre chance malheureusement vous ne gagnez pas, vous aurez peut-être plus de chance la prochaine fois.",
+				"Vous misez une centaine de pièce au jeu de l'homme cependant vous perdez et repartez, dépité d'avoir perdu cet argent."
+			],
+			"end": "Vous ne réagissez pas et lorsqu'il vous repose la question vous dites simplement ne pas être intéressé et continuez votre chemin.",
+			"rewardTypeText": {
+				"xp": "Vous avez gagné {xpWon}:star:",
+				"money": "Vous avez {moneyWon>=0?gagné:perdu} {moneyWon} :{moneyWon>=0?moneybag:money_with_wings}: !",
+				"guildXp": "Votre guilde gagne {guildXpWon}:star:",
+				"points": "Vous avez gagné {pointsWon}:medal:"
+			}
+		},
+		"en": {
+			"intro": "You cross the path of a man who calls you out, curious, you stop to see what he want from you. He introduces himself and tells you about a game based on luck, he invites you to participate. Therefore, he asks you to choose a level among the different reward levels.\n\n:coin: Small reward\n:dollar:  Medium reward\n:moneybag: Big reward\n",
+			"\uD83E\uDE99": [
+				"You participate and manage to win a prize that the man gives you before leaving.",
+				"You lose at the game of this man however the participation was free so you decide to resume your journey."
+			],
+			"\uD83D\uDCB5": [
+				"You take your chance and win the game, the man rewards you as it should be.",
+				"You take part of the man's game however you do not win and go back on your way hoping for better luck next time."
+			],
+			"\uD83D\uDCB0": [
+				"You win at the man's game, as a result, he rewards you graciously.",
+				"You take your luck unfortunately you don't win, you might have better luck next time.",
+				"You bet a hundred of coins at the man's game but you lose and go away, annoyed that you lost that money."
+			],
+			"end": "You do not react, when he asks you the question again you simply say that you are not interested and go on your way.",
+			"rewardTypeText": {
+				"xp": " You won {xpWon}:star:",
+				"money": " You {moneyWon>=0?won:lost} {moneyWon} :{moneyWon>=0?moneybag:money_with_wings}: !",
+				"guildXp": " Your guild won {guildXpWon}:star:",
+				"points": " You won {pointsWon}:medal:"
+			}
+		}
+	},
+	"rewardType": ["xp","money","guildXp","points"],
+	"emojiLottery": ["\uD83E\uDE99", "\uD83D\uDCB5", "\uD83D\uDCB0"],
+	"successRate": {"\uD83E\uDE99":0.9,"\uD83D\uDCB5":0.5,"\uD83D\uDCB0": 0.2},
+	"coeff": {"\uD83E\uDE99":1,"\uD83D\uDCB5":2,"\uD83D\uDCB0": 4},
+	"rarity": 6,
+	"emote": ":slot_machine:  "
+}
+
+

@@ -125,6 +125,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	}
 
 	private getChoseShopItem(): ShopItem {
+		// eslint-disable-next-line max-len
 		const emoji = this.getFirstReaction() ? this.getFirstReaction().emoji.id === null ? this.getFirstReaction().emoji.name : "<:" + this.getFirstReaction().emoji.name + ":" + this.getFirstReaction().emoji.id + ">" : null;
 		const index: number = this._shopItemReactions.indexOf(emoji);
 		if (index === -1) {
