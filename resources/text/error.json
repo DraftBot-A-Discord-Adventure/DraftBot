@@ -74,6 +74,7 @@
 				"chiefGuildLeave": "Passation de pouvoir.",
 				"unlock": "Libération de quelqu'un",
 				"chooseDestination": "Choix de la destination",
+				"lottery": "Mini-évent lotterie",
 				"switch": "Échange d'équipement"
 			}
 		},
@@ -151,7 +152,8 @@
 				"chiefGuildLeave": "Authority will be transferred.",
 				"unlock": "Releasing someone",
 				"chooseDestination": "Choose the destination",
-				"switch": "Equipment switch"
+				"switch": "Equipment switch",
+				"lottery": "Lottery small event"
 			}
 		}
 	}
