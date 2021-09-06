@@ -84,7 +84,7 @@
 				"nextPartialLunarEclipse": [
 					"la prochaine éclipse lunaire partielle est dans {days} jour(s)",
 					"dans {days} jour(s) on pourra apercevoir une éclipse de lune partielle",
-					"dans les {days} qui viennent vous aurez la chance d'assister à une éclipse lunaire partielle",
+					"dans les {days} jour(s) qui viennent vous aurez la chance d'assister à une éclipse lunaire partielle",
 					"le temps avant d'apercevoir la prochaine éclipse de lune partielle est de {days} jour(s)"
 				],
 				"nextTotalLunarEclipse": [
@@ -95,7 +95,7 @@
 				]
 			},
 			"moonPhases": [
-				"la pleine nouvelle lune",
+				"la nouvelle lune",
 				"le premier quartier de la lune",
 				"la pleine lune",
 				"le dernier quartier de la lune"
