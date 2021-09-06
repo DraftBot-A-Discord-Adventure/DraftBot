@@ -12,7 +12,7 @@ import {NearEarthObject, SpaceUtils} from "../utils/SpaceUtils";
 import {Random} from "random-js";
 import {TranslationModule, Translations} from "../Translations";
 import {performance} from "perf_hooks";
-import {NextLunarEclipse, SearchLunarEclipse, SearchMoonQuarter} from "../utils/astronomy";
+import {MoonPhase, NextLunarEclipse, SearchLunarEclipse, SearchMoonQuarter} from "../utils/astronomy";
 
 declare const draftbotRandom: Random;
 declare const JsonReader: any;
@@ -92,8 +92,12 @@ function moonPhase(translationModule: TranslationModule): Promise<Record<string,
 function nextFullMoon(): Promise<Record<string, unknown>> {
 	let days = 0;
 	const currDate = new Date();
-	while (SearchMoonQuarter(currDate).quarter !== 2) {
+	let currDegrees = MoonPhase(currDate);
+	let nextDegrees = MoonPhase(new Date(currDate.getDate() + 1));
+	while (!(currDegrees <= 180 && nextDegrees > 180)) {
+		currDegrees = nextDegrees;
 		currDate.setDate(currDate.getDate() + 1);
+		nextDegrees = MoonPhase(currDate);
 		days++;
 	}
 	return Promise.resolve({ days });
