@@ -1,0 +1,238 @@
+{
+	"translations": {
+		"fr": {
+			"before_search_format": "{se_intro}{intro}. {search_action}.\n\n:telescope: *{search}*.",
+			"after_search_format": "{se_intro}{intro}. {search_action}.\n\n:telescope: *{search}*.\n\n{action_intro}, {action} **{specific}**. {outro}.",
+			"intro": [
+				"vous rencontrez un oracle prétendant se nommer **{name}**",
+				"un homme vous semble étrange, vous allez à sa rencontre. Il dit être un oracle du nom de **{name}**",
+				"vous rencontrez un oracle s'appelant **{name}**",
+				"vous passez à côté d'un oracle qui vous interpelle, il dit s'appeller **{name}**",
+				"vous êtes interpelé par un homme disant s'appeler **{name}**",
+				"un oracle du nom de **{name}** vous apostrophe",
+				"un étranger prétendant s'appeler **{name}** vous demande d'approcher",
+				"un homme surgit de nulle part court vers vous et se présente sous le nom de **{name}**",
+				"un inconnu suspect vous demande d'approcher, il vous dit s'appeler **{name}**"
+			],
+			"search_action": [
+				"Il vous dit qu'il peut vous donner des informations sur le ciel mais il a besoin de temps pour l'observer",
+				"Il se dit capable de vous donner des informations sur le ciel à condition de lui accorder un peu de temps",
+				"Il vous dit que si vous lui en laissez le temps, il serait capable de vous donner des informations sur le ciel",
+				"Il dit pouvoir donner des informations sur le ciel si on lui en accorde le temps nécessaire",
+				"Celui-ci prétend pouvoir lire dans les étoiles à condition que vous ne lui en laissiez le temps",
+				"Celui-ci affirme être capable de vous donner des informations à propos du ciel si vous lui accordez un peu de votre temps"
+			],
+			"search": [
+				"L'homme regarde le ciel dans un petit appareil",
+				"Il se couche par terre et regarde le ciel",
+				"L'homme se met à contempler le ciel",
+				"Il semble concentré à regarder quelque chose se trouvant dans le ciel",
+				"Se penchant sur sa lunette astronomique, il observe la voûte céleste avec attention",
+				"L'oracle observe le ciel avec attention",
+				"Il lève la tête afin de contempler attentivement le ciel",
+				"Il se met à scruter intensément les étoiles",
+				"L'homme s'assoit contre un arbre et contemple le ciel",
+				"L'homme s'étend au sol et lève ses yeux vers le ciel"
+			],
+			"action_intro": [
+				"Après quelques minutes",
+				"Peu de temps après",
+				"Quelques minutes plus tard",
+				"Après vous avoir fait attendre quelques minutes",
+				"Après une petite attente",
+				"Quelques instants plus tard",
+				"Après avoir attendu une poignée de secondes"
+			],
+			"action": [
+				"il vous informe que",
+				"il vous met au courant que",
+				"il vous annonce que",
+				"il vous dit que",
+				"il se met à vous dire que",
+				"il déclare que"
+			],
+			"outro": [
+				"Vous repartez ébahit par cette nouvelle",
+				"Vous reprenez votre chemin rêveur",
+				"Vous le remerciez et repartez heureux d'avoir appris cette nouvelle",
+				"Vous le quittez plein d'étoiles dans les yeux",
+				"Vous repartez sans regretter de vous être arrêté",
+				"Vous reprenez votre route perplexe"
+			],
+			"specific": {
+				"neoWS": [
+					"{count} objets traverseront le ciel aujourd'hui",
+					"l'objet nommé \"{randomObjectName}\" avec un diamètre d'environ {randomObjectDiameter} mètres passe proche de la planète aujourd'hui",
+					"l'objet nommé \"{randomObjectName}\" passe à une distance d'environ {randomObjectDistance} millions de kilomètres de la planète",
+					"l'astéroïde du nom de \"{randomObjectName}\" dépasse notre planète d'environ {randomObjectDistance} millions de kilomètres",
+					"l'astéroïde du nom de \"{randomObjectName}\" sera peut-être visible aujourd'hui",
+					"l'astéroïde nommé \"{randomObjectName}\" passera à proximité de notre planète",
+					"l'astéroïde nommé \"{randomObjectName}\" passera à {randomObjectDistance} millions de kilomètres de nous"
+				],
+				"moonPhase": [
+					"c'est {moonPhase} en ce moment",
+					"{moonPhase} éclaire actuellement le ciel",
+					"derrière les nuages se cache {moonPhase}",
+					"le ciel parcimonieux laisse entrevoir {moonPhase}"
+				],
+				"nextFullMoon": [
+					"la prochaine pleine lune est dans {days} jour(s)",
+					"la pleine lune brillera dans {days} jour(s)",
+					"nous apercevrons la pleine lune dans {days} jour(s)",
+					"dans {days} jours(s) on pourra observer la pleine lune"
+				],
+				"nextPartialLunarEclipse": [
+					"la prochaine éclipse lunaire partielle est dans {days} jour(s)",
+					"dans {days} jour(s) on pourra apercevoir une éclipse de lune partielle",
+					"dans les {days} jour(s) qui viennent vous aurez la chance d'assister à une éclipse lunaire partielle",
+					"le temps avant d'apercevoir la prochaine éclipse de lune partielle est de {days} jour(s)"
+				],
+				"nextTotalLunarEclipse": [
+					"la prochaine éclipse lunaire totale est dans {days} jour(s)",
+					"d'ici {days} jour(s) vous apercevrez une éclipse lunaire complète",
+					"dans les {days} jour(s) qui viennent vous aurez la chance d'assister à une éclipse lunaire totale",
+					"si vous observez le ciel dans {days} jour(s) vous pourrez contempler une éclipse lunaire totale"
+				]
+			},
+			"moonPhases": [
+				"la nouvelle lune",
+				"le premier quartier de la lune",
+				"la pleine lune",
+				"le dernier quartier de la lune"
+			],
+			"names": [
+				"Claude",
+				"Pierre Alphonse",
+				"Friedrich",
+				"Wilhelm",
+				"Nicolas",
+				"Clyde",
+				"Tycho",
+				"Giordano",
+				"Johannes",
+				"Jean-Dominique",
+				"Isaac",
+				"Edwin",
+				"Albert"
+			]
+		},
+		"en": {
+			"before_search_format": "{se_intro}{intro}. {search_action}.\n\n:telescope: *{search}*.",
+			"after_search_format": "{se_intro}{intro}. {search_action}.\n\n:telescope: *{search}*.\n\n{action_intro}, {action} **{specific}**. {outro}.",
+			"intro": [
+				"you meet an oracle who pretends to be called **{name}**",
+				"a man seems weird, you go meet him. He says to be an oracle named **{name}**",
+				"you meet an oracle named **{name}**",
+				"you pass by an oracle who calls you, he says his name is **{name}**",
+				"you are called out by a man who says to be called **{name}**",
+				"an oracle named **{name}** shouts at you",
+				"a strange person who pretends to be called **{name}** asks you to approach",
+				"a man appears out of nowhere, runs towards you and presents himself as **{name}**",
+				"a suspicious stranger asks you to approach, he tells you to call himself ** {name} **"
+			],
+			"search_action": [
+				"He tells you that he can give you information about the sky but he needs time to observe it",
+				"He says he is able to give you information about the sky as long as you give him a little time",
+				"He tells you that if you give him time, he would be able to give you information about the sky",
+				"He says he can give information about the sky if he is given the necessary time",
+				"This one claims to be able to read the stars as long as you give him time",
+				"He claims to be able to give you information about the sky if you give him some of your time"
+			],
+			"search": [
+				"The man looks at the sky in a small device",
+				"He lies on the ground and looks at the sky",
+				"The man begins to contemplate the sky",
+				"He seems focused on looking at something in the sky",
+				"Leaning on his refracting telescope, he observes the celestial vault with attention",
+				"The oracle observes the sky with attention",
+				"He lifts his head to carefully contemplate the sky",
+				"He starts to scrutinize intensely at the stars",
+				"The man sits against a tree and contemplate the sky",
+				"The man lies on the ground and looks up to the sky"
+			],
+			"action_intro": [
+				"After a few minutes",
+				"Short time after",
+				"A couple of minutes later",
+				"After making you wait a few minutes",
+				"After a little wait",
+				"A few moments later",
+				"After waiting a handful of seconds"
+			],
+			"action": [
+				"he informs you that",
+				"he informs you that",
+				"he informs you that",
+				"he tells you that",
+				"he starts to tell you that",
+				"he declares that"
+			],
+			"outro": [
+				"You leave amazed by this news",
+				"You resume your way dreaming",
+				"You thank him and leave happy to know this news",
+				"You leave him full of stars in your eyes",
+				"You leave without regretting having stopped",
+				"You go back on your way perplexed"
+			],
+			"specific": {
+				"neoWS": [
+					"{count} objects will cross the sky today",
+					"the object named \"{randomObjectName}\" with a diameter of about {randomObjectDiameter} meters passes close to the planet today",
+					"the object named \"{randomObjectName}\" passes at a distance of approximately {randomObjectDistance} million kilometers from the planet",
+					"the asteroid named \"{randomObjectName}\" passes our planet by about {randomObjectDistance} million kilometers",
+					"the asteroid named \"{randomObjectName}\" will be maybe visible today",
+					"the asteroid named \"{randomObjectName}\" will pass close to our planet",
+					"the asteroid named \"{randomObjectName}\" will pass to {randomObjectDistance} million kilometers away from us"
+				],
+				"moonPhase": [
+					"it's {moonPhase} right now",
+					"{moonPhase} currently lights up the sky",
+					"behind the clouds hides {moonPhase}",
+					"the parsimonious sky gives a glimpse of {moonPhase}"
+				],
+				"nextFullMoon": [
+					"the next full moon is in {days} day(s)",
+					"the full moon will shine in {days} day(s)",
+					"we will see the full moon in {days} day(s)",
+					"in {days} day(s) we will be able to observe the full moon"
+				],
+				"nextPartialLunarEclipse": [
+					"the next partial lunar eclipse is in {days} day(s)",
+					"in {days} day(s) we will be able to see a partial lunar eclipse",
+					"in the coming {days} day(s) you will have the chance to witness a partial lunar eclipse",
+					"the time before seeing the next partial lunar eclipse is {days} day(s)"
+				],
+				"nextTotalLunarEclipse": [
+					"the next total lunar eclipse is in {days} day(s)",
+					"within {days} you will see a complete lunar eclipse",
+					"in the next {days} day(s) you will have the chance to witness a total lunar eclipse",
+					"if you observe the sky in {days} you will be able to contemplate a total lunar eclipse"
+				]
+			},
+			"moonPhases": [
+				"the new moon",
+				"the first quarter of the moon",
+				"the full moon",
+				"the last quarter of the moon"
+			],
+			"names": [
+				"Claude",
+				"Pierre Alphonse",
+				"Friedrich",
+				"Wilhelm",
+				"Nicolas",
+				"Clyde",
+				"Tycho",
+				"Giordano",
+				"Johannes",
+				"Jean-Dominique",
+				"Isaac",
+				"Edwin",
+				"Albert"
+			]
+		}
+	},
+	"rarity": 3,
+	"emote": ":ringed_planet:"
+}

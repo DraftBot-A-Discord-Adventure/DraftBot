@@ -55,6 +55,9 @@
   
   "//MODE_MAINTENANCE": "Boolean to tell if the bot is under maintenance or not",
   "MODE_MAINTENANCE": false,
+
+  "//NASA_API_KEY": "The API key for the nasa API",
+  "NASA_API_KEY": "",
   
    "//TEST_MODE": "Boolean to tell if the bot is under test mode",
   "TEST_MODE": false

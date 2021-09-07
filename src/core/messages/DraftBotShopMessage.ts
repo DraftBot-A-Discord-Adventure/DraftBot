@@ -171,11 +171,11 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 					async (reactionMessage) => {
 						const validateMessage = reactionMessage as DraftBotValidateReactionMessage;
 						if (validateMessage.isValidated()) {
+							shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
 							const removeMoney = await choseShopItem.buyCallback(shopMessage, 1);
 							if (removeMoney) {
 								await shopMessage.removeUserMoney(choseShopItem.price);
 							}
-							shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
 						}
 						else {
 							await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
@@ -206,11 +206,11 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 						continue;
 					}
 					numberReactions.push(new DraftBotReaction(numberEmote, async (reactionMessage: DraftBotReactionMessage) => {
+						shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
 						const removeMoney = await choseShopItem.buyCallback(shopMessage, amount);
 						if (removeMoney) {
 							await shopMessage.removeUserMoney(choseShopItem.price * amount);
 						}
-						shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
 						reactionMessage.stop();
 					}));
 					prices.push(amount * choseShopItem.price);
