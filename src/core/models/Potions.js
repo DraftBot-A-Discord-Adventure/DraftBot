@@ -186,5 +186,27 @@ module.exports = (Sequelize, DataTypes) => {
 		});
 	};
 
+	Potions.randomItem = async function(nature, rarity) {
+		return await Potions.findOne({
+			where: {
+				nature,
+				rarity
+			},
+			order: Sequelize.random()
+		});
+	};
+
+	Potions.getAllIdsForRarity = async function(rarity) {
+		const query = `SELECT id
+	               FROM potions
+	               WHERE rarity = :rarity`;
+		return await Sequelize.query(query, {
+			replacements: {
+				rarity: rarity
+			},
+			type: Sequelize.QueryTypes.SELECT
+		});
+	};
+
 	return Potions;
 };

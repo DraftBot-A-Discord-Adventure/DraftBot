@@ -7,10 +7,13 @@
  *    The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
+import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
+import {Constants} from "../Constants";
+
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
 	const translationFP = JsonReader.smallEvents.findPotions.getTranslation(language);
-	const randomItem = await entity.Player.Inventory.generateRandomItem(undefined,ITEMTYPE.POTION);
+	const randomItem = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.POTION);
 	seEmbed.setDescription(
 		seEmbed.description +
 		translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)] +
@@ -19,7 +22,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
 	await message.channel.send(seEmbed);
 	log(entity.discordUserId + " got a potion from a mini event ");
-	await giveItem(entity, randomItem, language, message.author, message.channel);
+	await giveItemToPlayer(entity, randomItem, language, message.author, message.channel);
 };
 
 module.exports = {

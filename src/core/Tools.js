@@ -161,58 +161,6 @@ global.destroyPotionMessage = async (channel, language, discordUser, item, isAut
 };
 
 /**
- * give a random item
- * @param {module:"discord.js".User} discordUser
- * @param {module:"discord.js".TextChannel} channel
- * @param {("fr"|"en")} language - Language to use in the response
- * @param {Entities} entity
- */
-global.giveRandomItem = async (discordUser, channel, language, entity) => {
-	const item = await entity.Player.Inventory.generateRandomItem();
-	return await giveItem(entity, item, language, discordUser, channel);
-};
-
-/**
- * Generate a random rarity. Legendary is very rare and common is not rare at all
- * @param {number} maxRarity
- * @return {Number} generated rarity
- */
-global.generateRandomRarity = (maxRarity = RARITY.MYTHICAL) => {
-	const randomValue = randInt(0, JsonReader.values.raritiesGenerator.maxValue -
-		(maxRarity === RARITY.MYTHICAL ? 0 : JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity - 1]));
-
-	if (randomValue <= JsonReader.values.raritiesGenerator["0"]) {
-		return RARITY.COMMON;
-	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["1"]) {
-		return RARITY.UNCOMMON;
-	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["2"]) {
-		return RARITY.EXOTIC;
-	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["3"]) {
-		return RARITY.RARE;
-	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["4"]) {
-		return RARITY.SPECIAL;
-	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["5"]) {
-		return RARITY.EPIC;
-	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["6"]) {
-		return RARITY.LEGENDARY;
-	}
-	return RARITY.MYTHICAL;
-};
-
-
-/**
- * Generate a random itemType
- * @return {Number}
- */
-global.generateRandomItemType = () => JsonReader.values.itemGenerator.tab[draftbotRandom.integer(1, JsonReader.values.itemGenerator.max - 1)];
-
-/**
  * Convert a number of milliseconds in a number of minutes
  * @param {Number} milliseconds - The number of milliseconds
  * @return {Number}
@@ -431,32 +379,6 @@ global.getValidationInfos = function(guild) {
 		ratio: ratio
 	};
 };
-
-async function saveItem(item, entity) {
-	let oldItem;
-	if (item instanceof Potions) {
-		oldItem = await Potions.findOne({where: {id: entity.Player.Inventory.potionId}});
-		entity.Player.Inventory.potionId = item.id;
-	}
-	if (item instanceof Objects) {
-		oldItem = await Objects.findOne({where: {id: entity.Player.Inventory.backupId}});
-		entity.Player.Inventory.backupId = item.id;
-	}
-	if (item instanceof Weapons) {
-		oldItem = await Weapons.findOne({where: {id: entity.Player.Inventory.weaponId}});
-		entity.Player.Inventory.weaponId = item.id;
-	}
-	if (item instanceof Armors) {
-		oldItem = await Armors.findOne({where: {id: entity.Player.Inventory.armorId}});
-		entity.Player.Inventory.armorId = item.id;
-	}
-	await Promise.all([
-		entity.save(),
-		entity.Player.save(),
-		entity.Player.Inventory.save()
-	]);
-	return oldItem;
-}
 
 global.checkNameString = (name, minLength, maxLength) => {
 	const regexAllowed = RegExp(/^[A-Za-z0-9 ÇçÜüÉéÂâÄäÀàÊêËëÈèÏïÎîÔôÖöÛû]+$/);

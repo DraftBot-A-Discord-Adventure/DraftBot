@@ -159,5 +159,27 @@ module.exports = (Sequelize, DataTypes) => {
 		});
 	};
 
+	Objects.randomItem = async function(nature, rarity) {
+		return await Objects.findOne({
+			where: {
+				nature,
+				rarity
+			},
+			order: Sequelize.random()
+		});
+	};
+
+	Objects.getAllIdsForRarity = async function(rarity) {
+		const query = `SELECT id
+	               FROM objects
+	               WHERE rarity = :rarity`;
+		return await Sequelize.query(query, {
+			replacements: {
+				rarity: rarity
+			},
+			type: Sequelize.QueryTypes.SELECT
+		});
+	};
+
 	return Objects;
 };

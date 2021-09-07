@@ -42,4 +42,26 @@ export abstract class Constants {
 		POTION: 2,
 		OBJECT: 3
 	}
+
+	static readonly RARITY = {
+		BASIC: 0,
+		COMMON: 1,
+		UNCOMMON: 2,
+		EXOTIC: 3,
+		RARE: 4,
+		SPECIAL: 5,
+		EPIC: 6,
+		LEGENDARY: 7,
+		MYTHICAL: 8
+	}
+
+	static readonly ITEM_NATURE = {
+		NO_EFFECT: 0,
+		HEALTH: 1,
+		SPEED: 2,
+		ATTACK: 3,
+		DEFENSE: 4,
+		TIME_SPEEDUP: 5,
+		MONEY: 6
+	}
 }

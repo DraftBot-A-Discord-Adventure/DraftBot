@@ -193,5 +193,27 @@ module.exports = (Sequelize, DataTypes) => {
 		});
 	};
 
+	Armors.randomItem = async function(nature, rarity) {
+		return await Armors.findOne({
+			where: {
+				nature,
+				rarity
+			},
+			order: Sequelize.random()
+		});
+	};
+
+	Armors.getAllIdsForRarity = async function(rarity) {
+		const query = `SELECT id
+	               FROM armors
+	               WHERE rarity = :rarity`;
+		return await Sequelize.query(query, {
+			replacements: {
+				rarity: rarity
+			},
+			type: Sequelize.QueryTypes.SELECT
+		});
+	};
+
 	return Armors;
 };

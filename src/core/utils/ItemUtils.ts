@@ -5,13 +5,18 @@ import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListCho
 import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReactionMessage";
 import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
+import {Random} from "random-js";
 
-declare function log(s: string): void;
 declare const InventorySlots: any;
 declare const Entities: any;
 declare const JsonReader: any;
 declare function removeBlockedPlayer(id: string): void;
 declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any>): void;
+declare const draftbotRandom: Random;
+declare const Weapons: any;
+declare const Armors: any;
+declare const Potions: any;
+declare const Objects: any;
 
 export const giveItemToPlayer = async function(
 	entity: any,
@@ -54,7 +59,7 @@ export const giveItemToPlayer = async function(
 		else {
 			const choiceList: ChoiceItem[] = [];
 			items.sort((a: any, b: any) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
-			for (let item of items) {
+			for (const item of items) {
 				choiceList.push(new ChoiceItem(
 					(await item.getItem()).toString(language),
 					item
@@ -239,4 +244,125 @@ export const getItemValue = function(item: any) {
 		addedvalue = parseInt(item.rawDefense);
 	}
 	return parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedvalue;
+};
+
+export const generateRandomItem = async function(maxRarity = 8, itemCategory: number = null): Promise<any> {
+	const rarity = generateRandomRarity(maxRarity);
+	if (itemCategory === null) {
+		itemCategory = generateRandomItemCategory();
+	}
+	let itemsIds;
+	switch (itemCategory) {
+	case Constants.ITEM_CATEGORIES.WEAPON:
+		itemsIds = await Weapons.getAllIdsForRarity(rarity);
+		return await Weapons.findOne({
+			where: {
+				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
+			}
+		});
+	case Constants.ITEM_CATEGORIES.ARMOR:
+		itemsIds = await Armors.getAllIdsForRarity(rarity);
+		return await Armors.findOne({
+			where: {
+				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
+			}
+		});
+	case Constants.ITEM_CATEGORIES.POTION:
+		itemsIds = await Potions.getAllIdsForRarity(rarity);
+		return await Potions.findOne({
+			where: {
+				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
+			}
+		});
+	case Constants.ITEM_CATEGORIES.OBJECT:
+		itemsIds = await Objects.getAllIdsForRarity(rarity);
+		return await Objects.findOne({
+			where: {
+				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
+			}
+		});
+	default:
+		return null;
+	}
+};
+
+/**
+ * Generate a random rarity. Legendary is very rare and common is not rare at all
+ * @param {number} maxRarity
+ * @return {Number} generated rarity
+ */
+export const generateRandomRarity = function(maxRarity = Constants.RARITY.MYTHICAL): number {
+	const randomValue = draftbotRandom.integer(0, JsonReader.values.raritiesGenerator.maxValue -
+		(maxRarity === Constants.RARITY.MYTHICAL ? 0 : JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity - 1]));
+
+	if (randomValue <= JsonReader.values.raritiesGenerator["0"]) {
+		return Constants.RARITY.COMMON;
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["1"]) {
+		return Constants.RARITY.UNCOMMON;
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["2"]) {
+		return Constants.RARITY.EXOTIC;
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["3"]) {
+		return Constants.RARITY.RARE;
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["4"]) {
+		return Constants.RARITY.SPECIAL;
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["5"]) {
+		return Constants.RARITY.EPIC;
+	}
+	else if (randomValue <= JsonReader.values.raritiesGenerator["6"]) {
+		return Constants.RARITY.LEGENDARY;
+	}
+	return Constants.RARITY.MYTHICAL;
+};
+
+/**
+ * Generate a random itemType
+ * @return {Number}
+ */
+export const generateRandomItemCategory = function() {
+	return draftbotRandom.pick(Object.values(Constants.ITEM_CATEGORIES));
+};
+
+/**
+ * Generate a random potion
+ * @param {number} maxRarity
+ * @param {number} potionType
+ * @returns {Potions} generated potion
+ */
+export const generateRandomPotion = async function(potionType: number = null, maxRarity = 8) {
+	if (potionType === null) {
+		return this.generateRandomItem(maxRarity, Constants.ITEM_CATEGORIES.POTION);
+	}
+	const rarity = generateRandomRarity(maxRarity);
+	return await Potions.randomItem(potionType, rarity);
+};
+
+/**
+ * Generate a random object
+ * @param {number} maxRarity
+ * @param {number} objectType
+ * @returns {Objects} generated object
+ */
+export const generateRandomObject = async function(objectType: number = null, maxRarity = 8) {
+	if (objectType === null) {
+		return this.generateRandomItem(maxRarity, Constants.ITEM_CATEGORIES.OBJECT);
+	}
+	const rarity = generateRandomRarity(maxRarity);
+	return await Objects.randomItem(objectType, rarity);
+};
+
+/**
+ * give a random item
+ * @param {module:"discord.js".User} discordUser
+ * @param {module:"discord.js".TextChannel} channel
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {Entities} entity
+ */
+export const giveRandomItem = async function(discordUser: User, channel: TextChannel | DMChannel | NewsChannel, language: string, entity: any) {
+	const item = await generateRandomItem();
+	return await giveItemToPlayer(entity, item, language, discordUser, channel);
 };
