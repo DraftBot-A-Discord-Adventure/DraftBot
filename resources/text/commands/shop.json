@@ -53,14 +53,25 @@
 				"leaveShop": "Vous avez quitté le magasin."
 			},
 			"potion": {
-				"info": "Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
+				"info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà elle sera jetée sans remboursement !",
 				"give": "{pseudo}, vous avez reçu une nouvelle potion :"
 			},
 			"multipleChoice": {
 				"warning": "Choissisez la quantité à acheter. En cliquant sur une des réactions, vous confirmerez la transaction !",
 				"display": "{emote} **{name}**",
 				"priceDisplay": " | `{price}\uD83D\uDCB0`"
-			}
+			},
+			"slotsExtension": "Nouvel emplacement d'inventaire",
+			"inventoryCategory": "Inventaire",
+			"slotsExtensionInfo": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement",
+			"chooseSlotTitle": "{pseudo}, choisissez un nouvel emplacement d'inventaire",
+			"slotCategories": [
+				"**Arme**",
+				"**Armure**",
+				"**Potion**",
+				"**Objet**"
+			],
+			"slotGive": "Vous avez reçu un nouvel emplacement d'inventaire !"
 		},
 		"en": {
 			"title": "Shop Overlay:",
@@ -115,14 +126,25 @@
 				"leaveShop": "You left the shop."
 			},
 			"potion": {
-				"info": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
+				"info": "You will receive a potion and have to choose to keep it or not. If you already have the same potion, it will be destroyed without refund!",
 				"give": "{pseudo}, you received a new potion:"
 			},
 			"multipleChoice": {
 				"warning": "Choose the amount to buy. By clicking on the reactions you confirm the transaction !",
 				"display": "{emote} **{name}**",
 				"priceDisplay": " | `{price}\uD83D\uDCB0`"
-			}
+			},
+			"slotsExtension": "Slots extension",
+			"inventoryCategory": "Inventory",
+			"slotsExtensionInfo": "You will choose an inventory category to add a slot to",
+			"chooseSlotTitle": "{pseudo}, choose a new inventory slot",
+			"slotCategories": [
+				"**Weapon**",
+				"**Armor**",
+				"**Potion**",
+				"**Item**"
+			],
+			"slotGive": "You got a new inventory slot!"
 		}
 	},
 	"prices": {

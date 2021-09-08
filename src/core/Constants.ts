@@ -19,7 +19,14 @@ export abstract class Constants {
 		],
 		INVENTORY_RESERVE: "🔃",
 		MONEY_ICON: "💰",
-		TRASH: "🗑️"
+		TRASH: "🗑️",
+		INVENTORY_EXTENSION: "📦",
+		ITEM_CATEGORIES: [
+			"⚔️",
+			"🛡️",
+			"⚗️",
+			"🧸"
+		]
 	}
 
 	static readonly MESSAGES = {

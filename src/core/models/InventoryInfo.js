@@ -68,6 +68,25 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 	};
 
+	InventoryInfo.prototype.addSlotForCategory = function(category) {
+		switch (category) {
+		case Constants.ITEM_CATEGORIES.WEAPON:
+			this.weaponSlots++;
+			break;
+		case Constants.ITEM_CATEGORIES.ARMOR:
+			this.armorSlots++;
+			break;
+		case Constants.ITEM_CATEGORIES.POTION:
+			this.potionSlots++;
+			break;
+		case Constants.ITEM_CATEGORIES.OBJECT:
+			this.objectSlots++;
+			break;
+		default:
+			break;
+		}
+	};
+
 	InventoryInfo.prototype.updateLastDailyAt = function() {
 		this.lastDailyAt = new moment(); // eslint-disable-line new-cap
 	};
