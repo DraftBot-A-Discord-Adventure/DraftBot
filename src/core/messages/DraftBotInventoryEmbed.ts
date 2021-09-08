@@ -12,17 +12,11 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 
 	mainFooter: string;
 
-	stockTitle = "TODO";
+	stockTitle: string;
 
-	stockFields: EmbedField[] = [
-		{
-			name: "TODO",
-			value: "TODO",
-			inline: false
-		}
-	];
+	stockFields: EmbedField[];
 
-	stockFooter = "TODO";
+	stockFooter: string;
 
 	isMainState = true;
 

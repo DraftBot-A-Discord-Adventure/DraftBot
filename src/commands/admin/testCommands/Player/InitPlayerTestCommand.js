@@ -15,7 +15,7 @@ const Maps = require("../../../../core/Maps");
  * @return {String} - The successful message formatted
  */
 const initPlayerTestCommand = async (language, message) => {
-	let [entity] = await Entities.getOrRegister(message.author.id);
+	const [entity] = await Entities.getOrRegister(message.author.id);
 	entity.Player.level = 1;
 	entity.Player.score = 2000;
 	entity.Player.weeklyScore = 0;
@@ -35,16 +35,6 @@ const initPlayerTestCommand = async (language, message) => {
 	entity.speed = 10;
 	await entity.save();
 
-	await InventoryInfo.create({
-		playerId: entity.Player.id
-	});
-	[entity] = await Entities.getOrRegister(message.author.id);
-	await Promise.all([
-		entity.Player.giveItem(await Weapons.getById(0)),
-		entity.Player.giveItem(await Armors.getById(0)),
-		entity.Player.giveItem(await Potions.getById(0)),
-		entity.Player.giveItem(await Objects.getById(0))
-	]);
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 

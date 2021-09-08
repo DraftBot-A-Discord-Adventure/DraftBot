@@ -65,7 +65,35 @@ module.exports = (Sequelize, DataTypes) => {
 		where: {
 			discordUserId: discordUserId
 		},
-		defaults: {Player: {Inventory: {}}},
+		defaults: {
+			Player: {
+				InventoryInfo: {
+
+				},
+				InventorySlots: [
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 0
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 1
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 2
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 3
+					}
+				]
+			}
+		},
 		include: [
 			{
 				model: Players,
@@ -100,7 +128,35 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String} guildId
 	 */
 	Entities.getByGuild = (guildId) => Entities.findAll({
-		defaults: {Player: {Inventory: {}}},
+		defaults: {
+			Player: {
+				InventoryInfo: {
+
+				},
+				InventorySlots: [
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 0
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 1
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 2
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 3
+					}
+				]
+			}
+		},
 		include: [
 			{
 				model: Players,
@@ -145,7 +201,35 @@ module.exports = (Sequelize, DataTypes) => {
 		where: {
 			discordUserId: discordUserId
 		},
-		defaults: {Player: {Inventory: {}}},
+		defaults: {
+			Player: {
+				InventoryInfo: {
+
+				},
+				InventorySlots: [
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 0
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 1
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 2
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 3
+					}
+				]
+			}
+		},
 		include: [
 			{
 				model: Players,
@@ -183,7 +267,35 @@ module.exports = (Sequelize, DataTypes) => {
 		where: {
 			id: id
 		},
-		defaults: {Player: {Inventory: {}}},
+		defaults: {
+			Player: {
+				InventoryInfo: {
+
+				},
+				InventorySlots: [
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 0
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 1
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 2
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 3
+					}
+				]
+			}
+		},
 		include: [
 			{
 				model: Players,
