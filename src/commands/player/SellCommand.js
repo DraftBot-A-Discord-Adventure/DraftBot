@@ -25,7 +25,7 @@ const SellCommand = async (message, language) => {
 	}
 
 	const tr = Translations.getModule("commands.sell", language);
-	const toSellItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped());
+	const toSellItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSellItems.length === 0) {
 		return message.channel.send(new DraftBotErrorEmbed(message.author, language, tr.get("noItemToSell")));
 	}
@@ -91,7 +91,7 @@ const SellCommand = async (message, language) => {
 		await sendErrorMessage(message.author, message.channel, language, tr.get("sellCanceled"), true);
 	};
 
-	const choiceMessage = await new DraftBotListChoiceMessage(choiceItems, message.author.id, async (item) => {
+	const choiceMessage = new DraftBotListChoiceMessage(choiceItems, message.author.id, async (item) => {
 		const validationMessage = await new DraftBotValidateReactionMessage(message.author, (msg) => sellEnd(msg, item))
 			.formatAuthor(tr.get("sellTitle"), message.author);
 		if (item.value !== 0) {
@@ -107,7 +107,7 @@ const SellCommand = async (message, language) => {
 					item: item.name
 				}));
 		}
-		await validationMessage.send(message.channel);
+		validationMessage.send(message.channel);
 		addBlockedPlayer(entity.discordUserId, "sell", validationMessage.collector);
 	}, async (endMessage) => {
 		if (endMessage.isCanceled()) {

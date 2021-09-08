@@ -108,7 +108,7 @@ export const giveItemToPlayer = async function(
 				tr.get("chooseItemToReplaceTitle"),
 				discordUser
 			);
-			await choiceMessage.send(channel);
+			choiceMessage.send(channel);
 			addBlockedPlayer(discordUser.id, "acceptItem", choiceMessage.collector);
 			return;
 		}
@@ -155,7 +155,7 @@ export const giveItemToPlayer = async function(
 		.setDescription(tr.format("randomItemDesc", {
 			actualItem: itemToReplaceInstance.toString(language)
 		})) as DraftBotValidateReactionMessage;
-	await validateSell.send(channel);
+	validateSell.send(channel);
 	addBlockedPlayer(discordUser.id, "acceptItem", validateSell.collector);
 };
 

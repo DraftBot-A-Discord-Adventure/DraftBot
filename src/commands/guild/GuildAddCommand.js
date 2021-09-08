@@ -149,7 +149,7 @@ const GuildAddCommand = async (message, language, args) => {
 		.setDescription(format(JsonReader.commands.guildAdd.getTranslation(language).invitation, {
 			guildName: guild.name
 		}));
-	await validationEmbed.send(message.channel);
+	validationEmbed.send(message.channel);
 
 	addBlockedPlayer(invitedEntity.discordUserId, "guildAdd", validationEmbed.collector);
 };

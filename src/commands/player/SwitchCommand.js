@@ -25,7 +25,7 @@ const SwitchCommand = async (message, language) => {
 	}
 
 	const tr = Translations.getModule("commands.switch", language);
-	const toSwitchItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped());
+	const toSwitchItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSwitchItems.length === 0) {
 		return message.channel.send(new DraftBotErrorEmbed(message.author, language, tr.get("noItemToSwitch")));
 	}
@@ -42,7 +42,7 @@ const SwitchCommand = async (message, language) => {
 			}
 		));
 	}
-	const choiceMessage = await new DraftBotListChoiceMessage(choiceItems, message.author.id, async (item) => {
+	const choiceMessage = new DraftBotListChoiceMessage(choiceItems, message.author.id, async (item) => {
 		[entity] = await Entities.getOrRegister(message.author.id);
 		if (item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT) {
 			const nextDailyDate = new moment(entity.Player.InventoryInfo.lastDailyAt).add(JsonReader.commands.daily.timeBetweenDailys, "h"); // eslint-disable-line new-cap
