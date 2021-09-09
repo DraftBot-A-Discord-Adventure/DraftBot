@@ -1,0 +1,17 @@
+{
+	"translations": {
+		"fr": {
+			"stories": [
+				"vous voyez une personne ressemblant étrangement à Pérotin. Vous accourez vers lui, mais celui se met à courir, surement de peur. Vous réussissez à le rattraper, sauf que vous vous êtes trompés de personne. Vous avez cependant gagné **{time} minutes** sur votre trajet."
+			]
+		},
+		"en": {
+			"stories": [
+			]
+		}
+	},
+	"rarity": 6,
+	"emote": ":stopwatch:  "
+}
+
+
