@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"intro": "Vous croisez le chemin d'un homme qui vous interpelle, curieux, vous vous arrêtez pour voir ce qu'il peut bien vous vouloir. Celui-ci se présente et vous parle d'un jeu basé sur la chance, il vous propose d'y participer. Pour ce faire, il vous demande de choisir un palier parmis les différents niveaux de récompenses.\n\n:coin: Petite récompense\n:dollar:  Moyenne récompense\n:moneybag: Grosse récompense\n",
+			"intro": "Vous croisez le chemin d'un homme qui vous interpelle, curieux, vous vous arrêtez. Celui-ci ous propose de participer à un jeu de hasard de sa concoction. Vous pouvez choisir entre plusieurs niveaux de récompenses.\n\n:coin: Petite récompense\n:dollar:  Moyenne récompense\n:moneybag: Grosse récompense\n",
 			"\uD83E\uDE99": [
 				"Vous participez et réussissez à remporter un lot que l'homme vous remet avant de partir.",
 				"Vous perdez au jeu de l'homme cependant la participation était gratuite donc vous décidez de reprendre votre route."
@@ -15,12 +15,12 @@
 				"Vous saisissez votre chance malheureusement vous ne gagnez pas, vous aurez peut-être plus de chance la prochaine fois.",
 				"Vous misez une centaine de pièce au jeu de l'homme cependant vous perdez et repartez, dépité d'avoir perdu cet argent."
 			],
-			"end": "Vous ne réagissez pas et lorsqu'il vous repose la question vous dites simplement ne pas être intéressé et continuez votre chemin.",
+			"end": "Sans prêter plus d'attention à l'individu, vous continuez votre route.",
 			"rewardTypeText": {
-				"xp": "Vous avez gagné {xpWon}:star:",
-				"money": "Vous avez {moneyWon>=0?gagné:perdu} {moneyWon} :{moneyWon>=0?moneybag:money_with_wings}: !",
-				"guildXp": "Votre guilde gagne {guildXpWon}:star:",
-				"points": "Vous avez gagné {pointsWon}:medal:"
+				"xp": " Vous avez gagné {xpWon}:star:",
+				"money": " Vous avez {moneyWon>=0?gagné:perdu} {moneyWon} :{moneyWon>=0?moneybag:money_with_wings}: !",
+				"guildXp": " Votre guilde gagne {guildXpWon}:star:",
+				"points": " Vous avez gagné {pointsWon}:medal:"
 			}
 		},
 		"en": {
@@ -49,9 +49,10 @@
 	},
 	"rewardType": ["xp","money","guildXp","points"],
 	"emojiLottery": ["\uD83E\uDE99", "\uD83D\uDCB5", "\uD83D\uDCB0"],
-	"successRate": {"\uD83E\uDE99":0.9,"\uD83D\uDCB5":0.5,"\uD83D\uDCB0": 0.2},
-	"coeff": {"\uD83E\uDE99":1,"\uD83D\uDCB5":2,"\uD83D\uDCB0": 4},
+	"successRate": {"\uD83E\uDE99":0.8,"\uD83D\uDCB5":0.5,"\uD83D\uDCB0": 0.2},
+	"coeff": {"\uD83E\uDE99":1,"\uD83D\uDCB5":4,"\uD83D\uDCB0": 8},
 	"rarity": 6,
+
 	"emote": ":slot_machine:  "
 }
 
