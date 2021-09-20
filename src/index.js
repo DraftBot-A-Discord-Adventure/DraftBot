@@ -43,10 +43,6 @@ process.on("unhandledRejection", function(err) {
 		const [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, serv.language);
 		(await client.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID)).send(msg);
-		// if (validation == ":x:") {
-		//   sendLeavingMessage(guilde);
-		//   //guilde.leave() //temporairement désactivé pour top.gg
-		// }
 		console.log(msg);
 	};
 
