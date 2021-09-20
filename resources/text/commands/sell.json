@@ -13,7 +13,8 @@
 			"titleChoiceEmbed": "{pseudo}, vente d'objet",
 			"sellField": "{name} | {value} {moneyIcon}",
 			"throwAwayField": "{name} | {throwEmote}",
-			"confirmThrowAway": "Êtes-vous sûr de vouloir jeter {item} ?"
+			"confirmThrowAway": "Êtes-vous sûr de vouloir jeter {item} ?",
+			"sellIndication": "Choisissez un objet à vendre dans la liste ci-dessous :"
 		},
 		"en": {
 			"noItemToSell": "Unfortunately, you don't have any backup item in your inventory!",
@@ -28,7 +29,8 @@
 			"titleChoiceEmbed": "{pseudo}, sell item",
 			"sellField": "{name} | {value} {moneyIcon}",
 			"throwAwayField": "{name} | {throwEmote}",
-			"confirmThrowAway": "Do you really want to throw {item} away?"
+			"confirmThrowAway": "Do you really want to throw {item} away?",
+			"sellIndication": "Choose an item to sell in the following list:"
 		}
 	}
 }

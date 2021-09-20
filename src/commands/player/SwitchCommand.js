@@ -3,6 +3,7 @@ import {Translations} from "../../core/Translations";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../../core/messages/DraftBotListChoiceMessage";
 import {Constants} from "../../core/Constants";
+import {sortPlayerItemList} from "../../core/utils/ItemUtils";
 
 const moment = require("moment");
 
@@ -25,10 +26,11 @@ const SwitchCommand = async (message, language) => {
 	}
 
 	const tr = Translations.getModule("commands.switch", language);
-	const toSwitchItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
+	let toSwitchItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSwitchItems.length === 0) {
 		return message.channel.send(new DraftBotErrorEmbed(message.author, language, tr.get("noItemToSwitch")));
 	}
+	toSwitchItems = await sortPlayerItemList(toSwitchItems);
 	const choiceItems = [];
 	for (const item of toSwitchItems) {
 		const itemInstance = await item.getItem();
@@ -113,7 +115,10 @@ const SwitchCommand = async (message, language) => {
 		if (endMessage.isCanceled()) {
 			await sendErrorMessage(message.author, message.channel, language, tr.get("canceled"), true);
 		}
-	}).send(message.channel);
+	})
+		.formatAuthor(tr.get("switchTitle"), message.author);
+	choiceMessage.setDescription(tr.get("switchIndication") + "\n\n" + choiceMessage.description);
+	choiceMessage.send(message.channel);
 	addBlockedPlayer(entity.discordUserId, "switch", choiceMessage.collector);
 };
 

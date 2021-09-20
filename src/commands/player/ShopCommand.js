@@ -10,6 +10,7 @@ import {Constants} from "../../core/Constants";
 import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
+import {format} from "../../core/utils/StringFormatter";
 
 const Maps = require("../../core/Maps");
 
@@ -198,7 +199,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 		(shopMessage) => {
 			let chooseSlot = new DraftBotReactionMessageBuilder()
 				.allowUser(shopMessage.user)
-				.endCallback(async(chooseSlotMessage) => {
+				.endCallback(async (chooseSlotMessage) => {
 					const reaction = chooseSlotMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 						removeBlockedPlayer(shopMessage.user.id);
@@ -229,12 +230,15 @@ function getSlotExtensionShopItem(translationModule, entity) {
 			let desc = "";
 			for (const category of availableCategories) {
 				chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.ITEM_CATEGORIES[category]));
-				desc += Constants.REACTIONS.ITEM_CATEGORIES[category] + " " + translationModule.getFromArray("slotCategories", category) + "\n";
+				desc += Constants.REACTIONS.ITEM_CATEGORIES[category] + " " + format(translationModule.getFromArray("slotCategories", category), {
+					available: JsonReader.items.slots.limits[category] - entity.Player.InventoryInfo.slotLimitForCategory(category),
+					limit: JsonReader.items.slots.limits[category] - 1
+				}) + "\n";
 			}
 			chooseSlot.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
 			chooseSlot = chooseSlot.build();
 			chooseSlot.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
-			chooseSlot.setDescription(desc);
+			chooseSlot.setDescription(translationModule.get("chooseSlotIndication") + "\n\n" + desc);
 			chooseSlot.send(shopMessage.sentMessage.channel);
 			addBlockedPlayer(entity.discordUserId, "shop", chooseSlot.collector);
 			Promise.resolve(false);

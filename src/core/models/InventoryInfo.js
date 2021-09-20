@@ -36,7 +36,7 @@ module.exports = (Sequelize, DataTypes) => {
 			},
 			objectSlots: {
 				type: DataTypes.INTEGER,
-				defaultValue: 2
+				defaultValue: 1
 			},
 			updatedAt: {
 				type: DataTypes.DATE,

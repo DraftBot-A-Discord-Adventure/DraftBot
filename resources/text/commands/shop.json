@@ -64,12 +64,13 @@
 			"slotsExtension": "Nouvel emplacement d'inventaire",
 			"inventoryCategory": "Inventaire",
 			"slotsExtensionInfo": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement",
-			"chooseSlotTitle": "{pseudo}, choisissez un nouvel emplacement d'inventaire",
+			"chooseSlotTitle": "{pseudo}, nouvel emplacement d'inventaire",
+			"chooseSlotIndication": "Choisissez un nouvel emplacement d'inventaire ou annulez :",
 			"slotCategories": [
-				"**Arme**",
-				"**Armure**",
-				"**Potion**",
-				"**Objet**"
+				"**Arme** ({available}/{limit} restant{available>1?s:})",
+				"**Armure** ({available}/{limit} restant{available>1?s:})",
+				"**Potion** ({available}/{limit} restant{available>1?s:})",
+				"**Objet** ({available}/{limit} restant{available>1?s:})"
 			],
 			"slotGive": "Vous avez reçu un nouvel emplacement d'inventaire !"
 		},
@@ -137,12 +138,13 @@
 			"slotsExtension": "Slots extension",
 			"inventoryCategory": "Inventory",
 			"slotsExtensionInfo": "You will choose an inventory category to add a slot to",
-			"chooseSlotTitle": "{pseudo}, choose a new inventory slot",
+			"chooseSlotTitle": "{pseudo}, new inventory slot",
+			"chooseSlotIndication": "Choose a new inventory slot category or cancel:",
 			"slotCategories": [
-				"**Weapon**",
-				"**Armor**",
-				"**Potion**",
-				"**Item**"
+				"**Weapon** ({available}/{limit} still left)",
+				"**Armor** ({available}/{limit} still left)",
+				"**Potion** ({available}/{limit} still left)",
+				"**Item** ({available}/{limit} still left)"
 			],
 			"slotGive": "You got a new inventory slot!"
 		}

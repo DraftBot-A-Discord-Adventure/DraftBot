@@ -366,3 +366,35 @@ export const giveRandomItem = async function(discordUser: User, channel: TextCha
 	const item = await generateRandomItem();
 	return await giveItemToPlayer(entity, item, language, discordUser, channel);
 };
+
+/**
+ * Sort an item slots list by type then price
+ * @param items
+ */
+export const sortPlayerItemList = async function(items: any[]): Promise<any[]> {
+	let itemInstances = await Promise.all(items.map(async function(e) {
+		return [e, await e.getItem()];
+	}));
+	itemInstances = itemInstances.sort(
+		(a: any, b: any) => {
+			if (a[0].itemCategory < b[0].itemCategory) {
+				return -1;
+			}
+			if (a[0].itemCategory > b[0].itemCategory) {
+				return 1;
+			}
+			const aValue = getItemValue(a[1]);
+			const bValue = getItemValue(b[1]);
+			if (aValue > bValue) {
+				return -1;
+			}
+			else if (aValue < bValue) {
+				return 1;
+			}
+			return 0;
+		}
+	);
+	return itemInstances.map(function(e) {
+		return e[0];
+	});
+};

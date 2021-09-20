@@ -17,6 +17,7 @@ import {Constants} from "../../core/Constants";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import {sortPlayerItemList} from "../../core/utils/ItemUtils";
 
 const SellCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
@@ -25,10 +26,11 @@ const SellCommand = async (message, language) => {
 	}
 
 	const tr = Translations.getModule("commands.sell", language);
-	const toSellItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
+	let toSellItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSellItems.length === 0) {
 		return message.channel.send(new DraftBotErrorEmbed(message.author, language, tr.get("noItemToSell")));
 	}
+	toSellItems = await sortPlayerItemList(toSellItems);
 
 	const choiceItems = [];
 	for (const item of toSellItems) {
@@ -115,8 +117,9 @@ const SellCommand = async (message, language) => {
 			await sendErrorMessage(message.author, message.channel, language, tr.get("sellCanceled"), true);
 		}
 	})
-		.formatAuthor(tr.get("titleChoiceEmbed"), message.author)
-		.send(message.channel);
+		.formatAuthor(tr.get("titleChoiceEmbed"), message.author);
+	choiceMessage.setDescription(tr.get("sellIndication") + "\n\n" + choiceMessage.description);
+	choiceMessage.send(message.channel);
 
 	addBlockedPlayer(entity.discordUserId, "sell", choiceMessage.collector);
 };
