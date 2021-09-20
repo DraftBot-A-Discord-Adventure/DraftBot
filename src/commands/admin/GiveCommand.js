@@ -1,3 +1,5 @@
+import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+
 module.exports.commandInfo = {
 	name: "give",
 	aliases: [],
@@ -11,20 +13,46 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Constants} from "../../core/Constants";
+import {Translations} from "../../core/Translations";
 
 const GiveCommand = async (message, language, args) => {
+	const tr = Translations.getModule("commands.giveCommand", language);
 	const player = getUserFromMention(args[0]);
 	const [entity] = await Entities.getOrRegister(player.id);
-	const itemType = args[1];
-	const itemId = args[2];
-	await entity.Player.Inventory.giveObject(itemId, itemType);
-	await entity.Player.Inventory.save();
+	const itemId = parseInt(args[2],10);
+	const category = parseInt(args[1], 10);
+	if (category < 0 || category > 3) {
+		return await message.channel.send(new DraftBotErrorEmbed(player, language, tr.get("unknownCategory")));
+	}
+	let item = null;
+	switch (category) {
+	case Constants.ITEM_CATEGORIES.WEAPON:
+		item = itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null;
+		break;
+	case Constants.ITEM_CATEGORIES.ARMOR:
+		item = itemId <= await Armors.getMaxId() && itemId > 0 ? await Armors.getById(itemId) : null;
+		break;
+	case Constants.ITEM_CATEGORIES.POTION:
+		item = itemId <= await Potions.getMaxId() && itemId > 0 ? await Potions.getById(itemId) : null;
+		break;
+	case Constants.ITEM_CATEGORIES.OBJECT:
+		item = itemId <= await Objects.getMaxId() && itemId > 0 ? await Objects.getById(itemId) : null;
+		break;
+	default:
+		break;
+	}
+	if (item === null) {
+		return await message.channel.send(new DraftBotErrorEmbed(player, language, tr.get("wrongItemId")));
+	}
+	if (!await entity.Player.giveItem(item)) {
+		return await message.channel.send(new DraftBotErrorEmbed(player, language, tr.get("noAvailableSlot")));
+	}
 
 	return await message.channel.send(new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.giveCommand.getTranslation(language).giveSuccess, message.author)
 		.setDescription(format(JsonReader.commands.giveCommand.getTranslation(language).descGive, {
-			type: itemType,
-			id: itemId,
+			item: item.getName(language),
 			player: player
 		})));
 };

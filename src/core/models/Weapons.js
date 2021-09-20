@@ -1,3 +1,5 @@
+import {Constants} from "../Constants";
+
 const {readdir} = require("fs/promises");
 
 /**
@@ -181,6 +183,38 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Weapons.getMaxId = async () => (await readdir("resources/text/weapons/")).length - 1;
+
+	Weapons.prototype.getCategory = function() {
+		return Constants.ITEM_CATEGORIES.WEAPON;
+	};
+
+	Weapons.getById = function(id) {
+		return Weapons.findOne({
+			where: {id}
+		});
+	};
+
+	Weapons.randomItem = async function(nature, rarity) {
+		return await Weapons.findOne({
+			where: {
+				nature,
+				rarity
+			},
+			order: Sequelize.random()
+		});
+	};
+
+	Weapons.getAllIdsForRarity = async function(rarity) {
+		const query = `SELECT id
+	               FROM weapons
+	               WHERE rarity = :rarity`;
+		return await Sequelize.query(query, {
+			replacements: {
+				rarity: rarity
+			},
+			type: Sequelize.QueryTypes.SELECT
+		});
+	};
 
 	return Weapons;
 };

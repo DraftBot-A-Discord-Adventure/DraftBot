@@ -1,3 +1,5 @@
+import {Constants} from "../Constants";
+
 const {readdir} = require("fs/promises");
 
 /**
@@ -173,6 +175,38 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Potions.getMaxId = async () => (await readdir("resources/text/potions/")).length - 1;
+
+	Potions.prototype.getCategory = function() {
+		return Constants.ITEM_CATEGORIES.POTION;
+	};
+
+	Potions.getById = function(id) {
+		return Potions.findOne({
+			where: {id}
+		});
+	};
+
+	Potions.randomItem = async function(nature, rarity) {
+		return await Potions.findOne({
+			where: {
+				nature,
+				rarity
+			},
+			order: Sequelize.random()
+		});
+	};
+
+	Potions.getAllIdsForRarity = async function(rarity) {
+		const query = `SELECT id
+	               FROM potions
+	               WHERE rarity = :rarity`;
+		return await Sequelize.query(query, {
+			replacements: {
+				rarity: rarity
+			},
+			type: Sequelize.QueryTypes.SELECT
+		});
+	};
 
 	return Potions;
 };

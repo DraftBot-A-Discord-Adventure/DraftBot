@@ -84,9 +84,6 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	else if (entity.Player.money > 0 && otherEntity.Player.money < 200) {
 		cList.push("poor");
 	}
-	if (otherEntity.Player.Inventory.potionId !== JsonReader.models.inventories.potionId && entity.Player.Inventory.potionId === JsonReader.models.inventories.potionId) {
-		cList.push("duplicatePotion");
-	}
 	if (otherEntity.Player.petId) {
 		cList.push("pet");
 	}
@@ -103,33 +100,32 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	if (!otherEntity.Player.checkEffect() && tr[otherEntity.Player.effect]) {
 		cList.push(otherEntity.Player.effect);
 	}
-	if (otherEntity.Player.Inventory.weaponId !== JsonReader.models.inventories.weaponId) {
+	if (otherEntity.Player.getMainWeaponSlot().itemId !== JsonReader.models.inventories.weaponId) {
 		cList.push("weapon");
 	}
-	if (otherEntity.Player.Inventory.armorId !== JsonReader.models.inventories.armorId) {
+	if (otherEntity.Player.getMainArmorSlot().itemId !== JsonReader.models.inventories.armorId) {
 		cList.push("armor");
 	}
-	if (otherEntity.Player.Inventory.potionId !== JsonReader.models.inventories.potionId) {
+	if (otherEntity.Player.getMainPotionSlot().itemId !== JsonReader.models.inventories.potionId) {
 		cList.push("potion");
 	}
-	if (otherEntity.Player.Inventory.objectId !== JsonReader.models.inventories.objectId) {
+	if (otherEntity.Player.getMainPotionSlot().itemId !== JsonReader.models.inventories.objectId) {
 		cList.push("object");
 	}
 
 	const characteristic = cList[randInt(0, cList.length)];
 	switch (characteristic) {
 	case "weapon":
-		item = await otherEntity.Player.Inventory.getWeapon();
+		item = await otherEntity.Player.getMainWeaponSlot().getItem();
 		break;
 	case "armor":
-		item = await otherEntity.Player.Inventory.getArmor();
+		item = await otherEntity.Player.getMainArmorSlot().getItem();
 		break;
-	case "duplicatePotion":
 	case "potion":
-		item = await otherEntity.Player.Inventory.getPotion();
+		item = await otherEntity.Player.getMainPotionSlot().getItem();
 		break;
 	case "object":
-		item = await otherEntity.Player.Inventory.getActiveObject();
+		item = await otherEntity.Player.getMainObjectSlot().getItem();
 		break;
 	default:
 		break;
@@ -192,10 +188,6 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		});
 		await msg.react(COIN_EMOTE);
 		await msg.react(MENU_REACTION.DENY);
-		break;
-	case "duplicatePotion":
-		entity.Player.Inventory.potionId = otherEntity.Player.Inventory.potionId;
-		await entity.Player.Inventory.save();
 		break;
 	default:
 		break;

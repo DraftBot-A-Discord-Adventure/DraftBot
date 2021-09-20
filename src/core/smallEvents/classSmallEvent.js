@@ -6,6 +6,15 @@
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
+import {
+	generateRandomItem,
+	generateRandomObject,
+	generateRandomPotion,
+	giveItemToPlayer,
+	giveRandomItem
+} from "../utils/ItemUtils";
+import {Constants} from "../Constants";
+
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const classId = entity.Player.class;
 	const trans = JsonReader.smallEvents.class.getTranslation(language);
@@ -19,21 +28,21 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		case 0:
 			// winAttackPotion
 			seEmbed.setDescription(base + trans.attack.winPotion[draftbotRandom.integer(0, trans.attack.winPotion.length - 1)]);
-			item = await entity.Player.Inventory.generateRandomPotion(3);
+			item = await generateRandomPotion(Constants.ITEM_NATURE.ATTACK);
 			break;
 		case 1:
 			// winAttackObject
 			seEmbed.setDescription(base + trans.attack.winObject[draftbotRandom.integer(0, trans.attack.winObject.length - 1)]);
-			item = await entity.Player.Inventory.generateRandomObject(3);
+			item = await generateRandomObject(Constants.ITEM_NATURE.ATTACK);
 			break;
 		default:
 			// winWeapon
 			seEmbed.setDescription(base + trans.attack.winWeapon[draftbotRandom.integer(0, trans.attack.winWeapon.length - 1)]);
-			item = await entity.Player.Inventory.generateRandomItem(8, ITEMTYPE.WEAPON);
+			item = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.WEAPON);
 			break;
 		}
 		await message.channel.send(seEmbed);
-		await giveItem(entity, item, language, message.author, message.channel);
+		await giveItemToPlayer(entity, item, language, message.author, message.channel);
 	}
 	else if (JsonReader.smallEvents.class.defenseEligible.includes(classId)) {
 		const outRand = draftbotRandom.integer(0, 2);
@@ -41,21 +50,21 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		case 0:
 			// winDefensePotion
 			seEmbed.setDescription(base + trans.defense.winPotion[draftbotRandom.integer(0, trans.defense.winPotion.length - 1)]);
-			item = await entity.Player.Inventory.generateRandomPotion(4);
+			item = await generateRandomPotion(Constants.ITEM_NATURE.DEFENSE);
 			break;
 		case 1:
 			// winDefenseObject
 			seEmbed.setDescription(base + trans.defense.winObject[draftbotRandom.integer(0, trans.defense.winObject.length - 1)]);
-			item = await entity.Player.Inventory.generateRandomObject(4);
+			item = await generateRandomObject(Constants.ITEM_NATURE.DEFENSE);
 			break;
 		default:
 			// winArmor
 			seEmbed.setDescription(base + trans.defense.winArmor[draftbotRandom.integer(0, trans.defense.winArmor.length - 1)]);
-			item = await entity.Player.Inventory.generateRandomItem(8, ITEMTYPE.ARMOR);
+			item = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.ARMOR);
 			break;
 		}
 		await message.channel.send(seEmbed);
-		await giveItem(entity, item, language, message.author, message.channel);
+		await giveItemToPlayer(entity, item, language, message.author, message.channel);
 	}
 	else if (JsonReader.smallEvents.class.basicEligible.includes(classId)) {
 		if (draftbotRandom.bool()) {

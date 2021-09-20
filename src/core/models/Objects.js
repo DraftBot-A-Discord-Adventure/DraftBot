@@ -1,3 +1,5 @@
+import {Constants} from "../Constants";
+
 const {readdir} = require("fs/promises");
 
 /**
@@ -61,9 +63,9 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language - The language the inventory has to be displayed in
 	 * @param {("active"|"backup")} slot
 	 */
-	Objects.prototype.toFieldObject = function(language, slot) {
+	Objects.prototype.toFieldObject = function(language) {
 		return {
-			name: JsonReader.items.getTranslation(language).objects[slot].fieldName,
+			name: JsonReader.items.getTranslation(language).objects.fieldName,
 			value: this.id === 0 ? this[language] : this.toString(language)
 		};
 	};
@@ -75,7 +77,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Objects.prototype.toString = function(language) {
 		return this.id === 0 ? this[language] : format(
-			JsonReader.items.getTranslation(language).objects.active.fieldValue, {
+			JsonReader.items.getTranslation(language).objects.fieldValue, {
 				name: this[language],
 				rarity: this.getRarityTranslation(language),
 				nature: this.getNatureTranslation(language)
@@ -146,6 +148,38 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Objects.getMaxId = async () => (await readdir("resources/text/objects/")).length - 1;
+
+	Objects.prototype.getCategory = function() {
+		return Constants.ITEM_CATEGORIES.OBJECT;
+	};
+
+	Objects.getById = function(id) {
+		return Objects.findOne({
+			where: {id}
+		});
+	};
+
+	Objects.randomItem = async function(nature, rarity) {
+		return await Objects.findOne({
+			where: {
+				nature,
+				rarity
+			},
+			order: Sequelize.random()
+		});
+	};
+
+	Objects.getAllIdsForRarity = async function(rarity) {
+		const query = `SELECT id
+	               FROM objects
+	               WHERE rarity = :rarity`;
+		return await Sequelize.query(query, {
+			replacements: {
+				rarity: rarity
+			},
+			type: Sequelize.QueryTypes.SELECT
+		});
+	};
 
 	return Objects;
 };

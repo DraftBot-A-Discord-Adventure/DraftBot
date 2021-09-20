@@ -1,3 +1,4 @@
+import {format, Replacements} from "./utils/StringFormatter";
 import {Random} from "random-js";
 
 declare const JsonReader: any;
@@ -55,6 +56,10 @@ export class TranslationModule {
 			lastObject = lastObject[path];
 		}
 		return lastObject;
+	}
+
+	format(translation: string, replacements: Replacements) {
+		return format(this.get(translation), replacements);
 	}
 
 	get(translation: string): string {

@@ -2,11 +2,17 @@
 	"translations": {
 		"fr": {
 			"giveSuccess": "{pseudo}, vous avez donné un objet, j'espère que c'est mérité !",
-			"descGive": "{type} d'id {id} a été donné à {player}"
+			"descGive": "{item} a été donné à {player}",
+			"unknownCategory": "Catégorie inconnue. Elle doit être en 0 et 3",
+			"wrongItemId": "Aucun objet n'existe dans cette catégorie avec cet id",
+			"noAvailableSlot": "Aucun emplacement libre dans l'inventaire du joueur"
 		},
 		"en": {
 			"giveSuccess": "{pseudo}, you gave an object, i hope it is well deserved !",
-			"descGive": "{type} with id {id} has been given to {player}"
+			"descGive": "{item} has been given to {player}",
+			"unknownCategory": "Unknown category. The id must be between 0 and 3",
+			"wrongItemId": "No item exists with this id and category",
+			"noAvailableSlot": "No available slot in the inventory du joueur"
 		}
 	}
 }
