@@ -8,6 +8,7 @@
  * @returns {Promise<>}
  */
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
+import {Constants} from "../Constants";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const randomItem = await generateRandomItem(RARITY.SPECIAL);
@@ -23,7 +24,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 					randInt(0, translationShop.names[gender].length)
 				],
 				item: randomItem.toString(language),
-				price: price
+				price: price,
+				type: Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()] + " " + translationShop.types[randomItem.getCategory()]
 			}));
 	const msg = await message.channel.send(seEmbed);
 	await Promise.all([
