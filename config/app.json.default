@@ -58,6 +58,15 @@
 
   "//NASA_API_KEY": "The API key for the nasa API",
   "NASA_API_KEY": "",
+
+  "//ENABLED_BACKUPS": "Enabled backups. May contain LOCAL and DROPBOX and must be separated with commas (e.g. LOCAL,DROPBOX)",
+  "ENABLED_BACKUPS": "",
+
+  "//BACKUP_ARCHIVE_PASSWORD": "Zip backup archive password",
+  "BACKUP_ARCHIVE_PASSWORD": "",
+
+  "//DROPBOX_TOKEN": "Ths dropbox token used to backup the database",
+  "DROPBOX_TOKEN": "",
   
    "//TEST_MODE": "Boolean to tell if the bot is under test mode",
   "TEST_MODE": false

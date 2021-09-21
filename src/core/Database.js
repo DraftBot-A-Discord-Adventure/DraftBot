@@ -1,3 +1,6 @@
+import {connectDropbox, draftBotDropbox} from "./backup/DraftBotDropbox";
+import {DraftBotBackup} from "./backup/DraftBotBackup";
+
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -44,6 +47,7 @@ class Database {
 		await Database.verifyMaps();
 		await Database.setEverybodyAsUnOccupied();
 		await Database.updatePlayersRandomMap();
+		DraftBotBackup.backupFiles(["database/database.sqlite"], 12 * 60 * 60 * 1000, "database");
 	}
 
 	/**

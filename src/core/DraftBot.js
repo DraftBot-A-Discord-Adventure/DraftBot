@@ -1,3 +1,5 @@
+import {DraftBotBackup} from "./backup/DraftBotBackup";
+
 const fs = require("fs");
 
 /**
@@ -25,6 +27,7 @@ class DraftBot {
 				"resources/text/food.json"
 			]
 		});
+		await DraftBotBackup.init();
 		await require("./Database").init();
 		await require("./Command").init();
 		await require("./fights/Attack").init();
