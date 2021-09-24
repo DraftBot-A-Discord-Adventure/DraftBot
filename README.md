@@ -64,6 +64,7 @@ Only the code available in the "realease" tab is considered "stable".
 # Screenshots
 
 ![image](https://user-images.githubusercontent.com/56274541/120916573-ad599000-c6aa-11eb-9e6f-ccc804bc63b2.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDraftBot-A-Discord-Adventure%2FDraftBot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDraftBot-A-Discord-Adventure%2FDraftBot?ref=badge_shield)
 
 # Links
 
@@ -71,3 +72,7 @@ Only the code available in the "realease" tab is considered "stable".
 - [Suggestion board _(in french)_](https://feedback.draftbot.com/)
 - [Player guide](https://guide.draftbot.com)
 - [Twitter account _(in french)_](https://twitter.com/DraftBot_?s=09)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDraftBot-A-Discord-Adventure%2FDraftBot.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDraftBot-A-Discord-Adventure%2FDraftBot?ref=badge_large)
