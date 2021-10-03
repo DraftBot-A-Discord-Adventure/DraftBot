@@ -99,7 +99,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
  * @returns {boolean}
  */
 const needBigEvent = async function(entity) {
-	return Maps.getTravellingTime(entity.Player) >= hoursToMilliseconds(await entity.Player.getCurrentTripDuration());
+	return await Maps.isArrived(entity.Player);
 };
 
 /**
