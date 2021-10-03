@@ -166,6 +166,10 @@ class Maps {
 
 		return str + " " + nextMapInstance.getEmote(language);
 	}
+
+	static async isArrived(player) {
+		return Maps.getTravellingTime(player) >= hoursToMilliseconds(await player.getCurrentTripDuration());
+	}
 }
 
 module.exports = Maps;
