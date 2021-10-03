@@ -104,7 +104,8 @@ const GuildElderCommand = async (message, language, args) => {
 			user.id === message.author.id
 		;
 
-	const collector = msg.createReactionCollector(filterConfirm, {
+	const collector = msg.createReactionCollector({
+		filter: filterConfirm,
 		time: COLLECTOR_TIME,
 		max: 1
 	});

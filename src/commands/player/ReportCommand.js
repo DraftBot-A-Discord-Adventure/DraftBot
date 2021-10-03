@@ -190,7 +190,10 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 
 	const sentMessage = await message.channel.send({ embeds: [chooseDestinationEmbed] });
 
-	const collector = sentMessage.createReactionCollector((reaction, user) => destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id, {time: COLLECTOR_TIME});
+	const collector = sentMessage.createReactionCollector({
+		filter: (reaction, user) => destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id,
+		time: COLLECTOR_TIME
+	});
 
 	collector.on("collect", () => {
 		collector.stop();
@@ -252,7 +255,10 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 		event: event[language]
 	})});
 	const reactions = await event.getReactions();
-	const collector = eventDisplayed.createReactionCollector((reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id, {time: COLLECTOR_TIME});
+	const collector = eventDisplayed.createReactionCollector({
+		filter: (reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id,
+		time: COLLECTOR_TIME
+	});
 
 	await addBlockedPlayer(entity.discordUserId, "report", collector);
 

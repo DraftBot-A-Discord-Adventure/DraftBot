@@ -156,7 +156,8 @@ const ProfileCommand = async (message, language, args) => {
 
 	const filterConfirm = (reaction) => reaction.me && !reaction.users.cache.last().bot;
 
-	const collector = msg.createReactionCollector(filterConfirm, {
+	const collector = msg.createReactionCollector({
+		filter: filterConfirm,
 		time: COLLECTOR_TIME,
 		max: JsonReader.commands.profile.badgeMaxReactNumber
 	});

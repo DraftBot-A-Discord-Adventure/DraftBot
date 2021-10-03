@@ -50,7 +50,8 @@ const UnlockCommand = async (message, language, args) => {
 
 	const filter = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id;
 
-	const collector = unlockMessage.createReactionCollector(filter, {
+	const collector = unlockMessage.createReactionCollector({
+		filter,
 		time: 30000,
 		max: 1
 	});

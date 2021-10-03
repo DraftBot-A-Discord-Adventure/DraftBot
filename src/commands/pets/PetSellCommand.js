@@ -102,7 +102,8 @@ const PetSellCommand = async (message, language, args) => {
 
 	const filter = (reaction, user) => !user.bot;
 
-	const collector = sellMessage.createReactionCollector(filter, {
+	const collector = sellMessage.createReactionCollector({
+		filter,
 		time: COLLECTOR_TIME
 	});
 
@@ -184,7 +185,8 @@ async function petSell(message, language, entity, user, pet, petCost) {
 
 	const confirmFilter = (reaction, user) => user.id === buyer.discordUserId && reaction.me;
 
-	const confirmCollector = confirmMessage.createReactionCollector(confirmFilter, {
+	const confirmCollector = confirmMessage.createReactionCollector({
+		filter: confirmFilter,
 		time: COLLECTOR_TIME,
 		max: 1
 	});

@@ -85,7 +85,8 @@ async function guildUserFeedPet(language, message, entity, authorPet) {
 
 	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
-	const collector = feedMsg.createReactionCollector(filterConfirm, {
+	const collector = feedMsg.createReactionCollector({
+		filter: filterConfirm,
 		time: COLLECTOR_TIME,
 		max: 1
 	});
@@ -146,7 +147,8 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 
 	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
-	const collector = feedMsg.createReactionCollector(filterConfirm, {
+	const collector = feedMsg.createReactionCollector({
+		filter: filterConfirm,
 		time: COLLECTOR_TIME,
 		max: 1
 	});

@@ -47,7 +47,7 @@ const ClassCommand = async (message, language) => {
 
 	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
-	const collector = classMessage.createReactionCollector(filterConfirm, { time: COLLECTOR_TIME, max: 1 });
+	const collector = classMessage.createReactionCollector({ filter: filterConfirm, time: COLLECTOR_TIME, max: 1 });
 
 	addBlockedPlayer(entity.discordUserId, "class", collector);
 
@@ -98,7 +98,8 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 	const confirmMessage = await message.channel.send({ embeds: [confirmEmbed] });
 	const filterConfirm = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUserId;
 
-	const collector = confirmMessage.createReactionCollector(filterConfirm, {
+	const collector = confirmMessage.createReactionCollector({
+		filter: filterConfirm,
 		time: COLLECTOR_TIME,
 		max: 1
 	});

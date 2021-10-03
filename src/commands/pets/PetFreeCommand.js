@@ -61,7 +61,8 @@ const PetFreeCommand = async (message, language) => {
 
 	const filter = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id;
 
-	const collector = confirmMessage.createReactionCollector(filter, {
+	const collector = confirmMessage.createReactionCollector({
+		filter,
 		time: 30000,
 		max: 1
 	});

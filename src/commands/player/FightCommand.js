@@ -76,7 +76,7 @@ const FightCommand = async function(message, language, args, friendly = false) {
 				filter = (_, user) => user.id === attacker.discordUserId || user.id === defender.discordUserId;
 			}
 
-			const collector = messageFightAsk.createReactionCollector(filter, {time: 60000});
+			const collector = messageFightAsk.createReactionCollector({ filter, time: 60000});
 
 			collector.on("collect", async (reaction, user) => {
 				switch (reaction.emoji.name) {

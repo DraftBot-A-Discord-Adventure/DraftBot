@@ -106,7 +106,8 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 			!user.bot &&
 			(this._anyUserAllowed || this._allowedUsersDiscordIdToReact.indexOf(user.id) !== -1)
 			&& (this._reactionsNames.indexOf(reaction.emoji.name) !== -1 || this._reactionsNames.indexOf(reaction.emoji.id) !== -1);
-		this._collector = this._sentMessage.createReactionCollector(collectorFilter, {
+		this._collector = this._sentMessage.createReactionCollector({
+			filter: collectorFilter,
 			time: this._collectorTime <= 0 ? Constants.MESSAGES.COLLECTOR_TIME : this._collectorTime,
 			max: this._maxReactions,
 			dispose: true

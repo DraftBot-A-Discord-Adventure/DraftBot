@@ -160,7 +160,10 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const msg = await message.channel.send({ embeds: [seEmbed] });
 
 	const COIN_EMOTE = "🪙";
-	const collector = msg.createReactionCollector((reaction, user) => [COIN_EMOTE, MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id, {time: COLLECTOR_TIME});
+	const collector = msg.createReactionCollector({
+		filter: (reaction, user) => [COIN_EMOTE, MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id,
+		time: COLLECTOR_TIME
+	});
 	switch (characteristic) {
 	case "poor":
 		addBlockedPlayer(entity.discordUserId, "report", collector);
