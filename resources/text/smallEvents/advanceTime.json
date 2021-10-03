@@ -18,6 +18,18 @@
 		},
 		"en": {
 			"stories": [
+				"you see a person strangely resembling to Pérotin. You run up to him, but he starts running, probably out of fear. You manage to catch him up, except you got the wrong person. However, you have gained **{time} minutes** on your way.",
+				"you hear a cart behind you. The man in the vehicle offers to drop you off where you want, you accept and tell him your destination. After driving a few kilometers, this man tells you that he has to go in a different direction than yours, so he drops you off and you thank him. You save **{time} minutes** on your journey.",
+				"you see a coach in the distance. The princess may be on board! You decide to go talk to him and therefore run as fast as possible. Once close enough, you discover with spite that you cannot approach it because the vehicle is protected by a procession of riders. However, you have gained **{time} minutes** on your destination.",
+				"you are having a small snack when suddenly a shadow rushes over you and steals it. You pursue her immediately but unable to catch up with it you give up, this misadventure has nevertheless saved you **{time} minutes** on your journey.",
+				"you see a person strangely looking like Gruffo. You run up to him but he starts running, probably out of fear. After catching up with him, you ask him what he is doing there, except that he totally ignores you. However, you have gained **{time} minutes** on your journey.",
+				"a bright point catches your attention. Your curiosity prompts you to run towards the light source. It's just a vulgar piece of copper, but it saved you **{time} minutes** on your journey.",
+				"a massive fawn-colored dog emerges from a large grove. He growls, shows sharp canines, and seems to want to bite your leg. Strongly appreciating the idea of keeping them in one piece, now they push you to run at full speed and save you **{time} minutes** on your journey!",
+				"a voluminous nest of wasps detaches itself and falls at your feet. You run until your lungs beg you to walk again. Not a wasp has managed to sting you. This mishap saved you **{time} minutes** on your itinerary !",
+				"you enjoy a pleasant spring weather. Your break is short-lived: bandits armed with clubs and chipped swords tear through the bushes to your left and chuckle as they advance quietly towards you. No sooner do you have time to think, your body carries you in a flight forward, so that it saves you **{time} minutes** on your course.",
+				"a young boy passes you and in the process, pushes you aside. Overwhelmed by a bad feeling, you check your pockets: your purse has disappeared! Now you start a frantic race to catch up with this young trickster. Once done, you realize that it got you **{time} minutes** ahead of your route.",
+				"you are surprised by the passage of a rabbit with an immaculate coat sneaking between your legs. First of all, you try to catch up with him, it's a waste of time, it doesn't take long for the little animal to throw you away. All these adventures will have saved you **{time} minutes**.",
+				"you hear the call of a woman behind you. When you turn around, you immediately notice the metallic shimmering object in his hand. Panicked, you take flight. After arriving in a safer place, you notice that you have taken **{time} minutes** ahead of your travel time."
 			]
 		}
 	},
