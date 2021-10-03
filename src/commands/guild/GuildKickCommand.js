@@ -110,7 +110,7 @@ const GuildKickCommand = async (message, language, args) => {
 			embed.setDescription(
 				JsonReader.commands.guildKick.getTranslation(language).kickSuccess
 			);
-			return message.channel.send(embed);
+			return message.channel.send({ embeds: [embed] });
 		}
 
 		// Cancel the kick

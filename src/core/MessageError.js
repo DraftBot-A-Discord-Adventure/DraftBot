@@ -83,7 +83,7 @@ class MessageError {
 			embed.setDescription(JsonReader.error.getTranslation(language).botOwnerPermissionMissing);
 		}
 
-		return await message.channel.send(embed);
+		return await message.channel.send({ embeds: [embed] });
 	}
 
 	/**
@@ -178,7 +178,7 @@ class MessageError {
 				.setDescription(format(entity.Player.effect + JsonReader.error.getTranslation(language).pleaseWaitForHeal, {time: timeEffect}));
 		}
 
-		return await message.channel.send(embed);
+		return await message.channel.send({ embeds: [embed] });
 	}
 
 	/**

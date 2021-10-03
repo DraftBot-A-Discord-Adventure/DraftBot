@@ -12,10 +12,10 @@ module.exports.commandInfo = {
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const IdeaCommand = (message, language) => {
-	message.channel.send(
+	message.channel.send({ embeds: [
 		new DraftBotEmbed().setDescription(JsonReader.commands.idea.getTranslation(language).text)
 			.setTitle(JsonReader.commands.idea.getTranslation(language).title)
-	);
+	] });
 };
 
 module.exports.execute = IdeaCommand;

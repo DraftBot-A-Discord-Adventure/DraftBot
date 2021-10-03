@@ -107,7 +107,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	}
 	await generatePetEmbed(language, interaction, seEmbed, pet, amount, food);
 
-	await message.channel.send(seEmbed);
+	await message.channel.send({ embeds: [seEmbed] });
 	switch (interaction) {
 	case "item":
 		await giveRandomItem(message.author, message.channel, language, entity);

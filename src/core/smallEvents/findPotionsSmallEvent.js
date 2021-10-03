@@ -20,7 +20,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		translationFP.intrigue[randInt(0, translationFP.intrigue.length)]
 	);
 
-	await message.channel.send(seEmbed);
+	await message.channel.send({ embeds: [seEmbed] });
 	log(entity.discordUserId + " got a potion from a mini event ");
 	await giveItemToPlayer(entity, randomItem, language, message.author, message.channel);
 };

@@ -12,12 +12,12 @@ module.exports.commandInfo = {
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const UpdateCommand = (message, language) => {
-	message.channel.send(new DraftBotEmbed()
+	message.channel.send({ embeds: [new DraftBotEmbed()
 		.setDescription(format(JsonReader.commands.update.getTranslation(language).text,
 			{
 				version: JsonReader.package.version
 			}))
-		.setTitle(JsonReader.commands.update.getTranslation(language).title));
+		.setTitle(JsonReader.commands.update.getTranslation(language).title)] });
 };
 
 module.exports.execute = UpdateCommand;

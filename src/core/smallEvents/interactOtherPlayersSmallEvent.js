@@ -21,7 +21,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const tr = JsonReader.smallEvents.interactOtherPlayers.getTranslation(language);
 	if (!selectedPlayer) {
 		seEmbed.setDescription(seEmbed.description + tr.no_one[randInt(0, tr.no_one.length)]);
-		return await message.channel.send(seEmbed);
+		return await message.channel.send({ embeds: [seEmbed] });
 	}
 	const [otherEntity] = await Entities.getOrRegister(selectedPlayer.discordUserId);
 	const cList = [];
@@ -157,7 +157,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		pluralItem: item ? item.frenchPlural === 1 ? "s" : "" : "",
 		prefixItem: prefixItem
 	}));
-	const msg = await message.channel.send(seEmbed);
+	const msg = await message.channel.send({ embeds: [seEmbed] });
 
 	const COIN_EMOTE = "🪙";
 	const collector = msg.createReactionCollector((reaction, user) => [COIN_EMOTE, MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id, {time: COLLECTOR_TIME});
@@ -184,7 +184,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 					pseudo: await otherEntity.Player.getPseudo(language)
 				}));
 			}
-			await message.channel.send(poorEmbed);
+			await message.channel.send({ embeds: [poorEmbed] });
 		});
 		await msg.react(COIN_EMOTE);
 		await msg.react(MENU_REACTION.DENY);

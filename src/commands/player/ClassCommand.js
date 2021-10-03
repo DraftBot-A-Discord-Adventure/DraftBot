@@ -43,7 +43,7 @@ const ClassCommand = async (message, language) => {
 			money: entity.Player.money
 		}));
 	// Creating class message
-	const classMessage = await message.channel.send(embedClassMessage);
+	const classMessage = await message.channel.send({ embeds: [embedClassMessage] });
 
 	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
@@ -95,7 +95,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 			})
 		);
 
-	const confirmMessage = await message.channel.send(confirmEmbed);
+	const confirmMessage = await message.channel.send({ embeds: [confirmEmbed] });
 	const filterConfirm = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUserId;
 
 	const collector = confirmMessage.createReactionCollector(filterConfirm, {
@@ -130,11 +130,11 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 					entity.Player.save()
 				]);
 				log(entity.discordUserId + " bought the class " + newClass.en);
-				return message.channel.send(
+				return message.channel.send({ embeds: [
 					new DraftBotEmbed()
 						.formatAuthor(JsonReader.commands.class.getTranslation(language).success, message.author)
 						.setDescription(JsonReader.commands.class.getTranslation(language).newClass + selectedClass.getName(language))
-				);
+				] });
 			}
 		}
 		sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.canceledPurchase);

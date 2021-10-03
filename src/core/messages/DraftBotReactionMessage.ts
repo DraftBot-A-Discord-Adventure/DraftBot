@@ -101,7 +101,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * @param channel
 	 */
 	async send(channel: TextChannel | DMChannel | NewsChannel): Promise<Message> {
-		this._sentMessage = await channel.send(this);
+		this._sentMessage = await channel.send({ embeds: [this] });
 		const collectorFilter = (reaction: MessageReaction, user: User) =>
 			!user.bot &&
 			(this._anyUserAllowed || this._allowedUsersDiscordIdToReact.indexOf(user.id) !== -1)

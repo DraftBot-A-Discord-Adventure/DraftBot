@@ -81,7 +81,7 @@ async function guildUserFeedPet(language, message, entity, authorPet) {
 		tr.getTranslation(language).feedEmbedDescription
 	);
 
-	const feedMsg = await message.channel.send(feedEmbed);
+	const feedMsg = await message.channel.send({ embeds: [feedEmbed] });
 
 	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
@@ -142,7 +142,7 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 	);
 	feedEmbed.setFooter(tr.getTranslation(language).feedEmbedFooter);
 
-	const feedMsg = await message.channel.send(feedEmbed);
+	const feedMsg = await message.channel.send({ embeds: [feedEmbed] });
 
 	const filterConfirm = (reaction, user) => user.id === entity.discordUserId && reaction.me;
 
@@ -201,7 +201,7 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 				)
 			});
 		}
-		return message.channel.send(feedSuccessEmbed);
+		return message.channel.send({ embeds: [feedSuccessEmbed] });
 	});
 
 	await Promise.all([
@@ -321,7 +321,7 @@ async function feedPet(message, language, entity, pet, item) {
 	}
 	pet.hungrySince = Date();
 	await Promise.all([pet.save(), guild.save()]);
-	return message.channel.send(successEmbed);
+	return message.channel.send({ embeds: [successEmbed] });
 }
 
 module.exports.execute = PetFeedCommand;

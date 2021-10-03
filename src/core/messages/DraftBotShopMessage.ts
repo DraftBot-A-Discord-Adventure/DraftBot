@@ -151,7 +151,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		if (choseShopItem) {
 			const userMoney = await shopMessage.getUserMoney();
 			if (userMoney < choseShopItem.price) {
-				await shopMessage.sentMessage.channel.send(
+				await shopMessage.sentMessage.channel.send({ embeds: [
 					new DraftBotErrorEmbed(
 						shopMessage._user,
 						shopMessage._language,
@@ -161,7 +161,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 								missingMoney: choseShopItem.price - userMoney
 							}
 						)
-					)
+					)] }
 				);
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.NOT_ENOUGH_MONEY);
 			}
@@ -178,12 +178,12 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 							}
 						}
 						else {
-							await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
+							await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
 								shopMessage.user,
 								shopMessage.language,
 								shopMessage._translationModule.get("error.canceledPurchase"),
 								true
-							));
+							)] });
 							shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
 						}
 					}
@@ -219,12 +219,12 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 					Constants.REACTIONS.REFUSE_REACTION,
 					async (reactionMessage: DraftBotReactionMessage) => {
 						reactionMessage.stop();
-						await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
+						await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
 							shopMessage.user,
 							shopMessage.language,
 							shopMessage._translationModule.get("error.canceledPurchase"),
 							true
-						));
+						)] });
 						shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
 					}
 				));
@@ -252,12 +252,12 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 			}
 		}
 		else {
-			await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
+			await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
 				shopMessage.user,
 				shopMessage.language,
 				shopMessage._translationModule.get("error.leaveShop"),
 				true
-			));
+			)] });
 			if (msg.getFirstReaction()) {
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.REACTION);
 			} else {

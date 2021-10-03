@@ -47,10 +47,10 @@ const GuildLeaveCommand = async (message, language) => {
 					guild.chiefId = elder.id;
 					guild.elderId = null;
 					await Promise.all([guild.save()]);
-					message.channel.send(
+					message.channel.send({ content:
 						format(JsonReader.commands.guildLeave.getTranslation(language).newChiefTitle, {
 							guild: guild.name
-						})
+						})}
 					);
 				}
 				else {
@@ -89,7 +89,7 @@ const GuildLeaveCommand = async (message, language) => {
 				message.author.displayAvatarURL()
 			);
 			embed.setDescription(JsonReader.commands.guildLeave.getTranslation(language).leavingSuccess);
-			return message.channel.send(embed);
+			return message.channel.send({ embeds: [embed] });
 		}
 
 		// Cancel leaving

@@ -14,8 +14,10 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const ListItemsCommand = async (message, language) => {
 	const fs = require("fs");
-	await message.channel.send(new DraftBotEmbed()
-		.formatAuthor(JsonReader.commands.listItems.getTranslation(language).title, message.author));
+	await message.channel.send({ embeds: [
+		new DraftBotEmbed()
+			.formatAuthor(JsonReader.commands.listItems.getTranslation(language).title, message.author)
+	]});
 
 	// Delete all old list
 	try {

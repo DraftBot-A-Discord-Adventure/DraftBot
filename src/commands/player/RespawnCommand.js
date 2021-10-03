@@ -41,10 +41,10 @@ const RespawnCommand = async (message, language) => {
 
 		await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 
-		await message.channel.send(format(JsonReader.commands.respawn.getTranslation(language).respawn, {
+		await message.channel.send({ content: format(JsonReader.commands.respawn.getTranslation(language).respawn, {
 			pseudo: message.author.username,
 			lostScore: lostScore
-		}));
+		})});
 
 		log(message.author.id + " respawned (" + lostScore + " points lost)");
 	}

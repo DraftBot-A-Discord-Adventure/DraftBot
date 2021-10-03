@@ -173,10 +173,10 @@ class DraftBot {
 					await client.channels.fetch(
 						JsonReader.app.FRENCH_ANNOUNCEMENT_CHANNEL_ID
 					)
-				).send(format(
+				).send({ content: format(
 					JsonReader.bot.getTranslation("fr").topWeekAnnouncement,
 					{mention: winner.getMention()}
-				));
+				) });
 				await message.react("🏆");
 			}
 			catch (e) {
@@ -187,10 +187,10 @@ class DraftBot {
 					await client.channels.fetch(
 						JsonReader.app.ENGLISH_ANNOUNCEMENT_CHANNEL_ID
 					)
-				).send(format(
+				).send({ content: format(
 					JsonReader.bot.getTranslation("en").topWeekAnnouncement,
 					{mention: winner.getMention()}
-				));
+				)});
 				await message.react("🏆");
 			}
 			catch (e) {
@@ -249,9 +249,10 @@ class DraftBot {
 		else {
 			fs.readdir("logs", function(err, files) {
 				if (err) {
-					return message.author.send(
-						"```Unable to scan directory: " + err + "```"
-					);
+					return message.author.send({
+						content:
+							"```Unable to scan directory: " + err + "```"
+					});
 				}
 				files.forEach(function(file) {
 					const parts = file.split("-");

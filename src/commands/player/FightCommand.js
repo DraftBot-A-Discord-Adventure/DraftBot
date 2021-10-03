@@ -63,7 +63,7 @@ const FightCommand = async function(message, language, args, friendly = false) {
 		msg += "\n" + await getStatsDisplay(defender, language, friendly);
 	}
 
-	await message.channel.send(msg)
+	await message.channel.send({ content: msg })
 		.then(async function(messageFightAsk) {
 			await messageFightAsk.react(MENU_REACTION.ACCEPT);
 			await messageFightAsk.react(MENU_REACTION.DENY);

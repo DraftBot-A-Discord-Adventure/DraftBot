@@ -85,7 +85,7 @@ class Fight {
 
 		this.introduceFight();
 		this.actionMessages = [
-			await this.message.channel.send("_ _")
+			await this.message.channel.send({ content: "_ _" })
 		];
 		await this.nextTurn();
 	}
@@ -104,10 +104,10 @@ class Fight {
 	 * Send the fight intro message
 	 */
 	introduceFight() {
-		this.message.channel.send(format(JsonReader.commands.fight.getTranslation(this.language).intro, {
+		this.message.channel.send({ content: format(JsonReader.commands.fight.getTranslation(this.language).intro, {
 			player1: this.fighters[0].entity.getMention(),
 			player2: this.fighters[1].entity.getMention()
-		}));
+		})});
 	}
 
 	/**
@@ -164,7 +164,7 @@ class Fight {
 				}
 			}
 		}
-		this.message.channel.send(new DraftBotEmbed().setDescription(msg));
+		this.message.channel.send({ embeds: [new DraftBotEmbed().setDescription(msg)] });
 	}
 
 	/**
@@ -183,7 +183,7 @@ class Fight {
 		embed.setDescription(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsDescription)
 			.setAuthor(format(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsTitle, {pseudo: await this.getPlayingFighter().entity.Player.getPseudo(this.language)}),
 				await this.message.guild.members.cache.get(playingId).user.avatarURL());
-		this.message.channel.send(embed)
+		this.message.channel.send({ embeds: [embed] })
 			.then(async function(message) {
 				const filter = (reaction, user) => user.id === playingId;
 
@@ -289,7 +289,7 @@ class Fight {
 		const defender = this.getDefendingFighter();
 
 		if (this.lastSummary === undefined) {
-			this.lastSummary = await this.message.channel.send(await this.getSummarizeEmbed(this, attacker, defender));
+			this.lastSummary = await this.message.channel.send({ embeds: [await this.getSummarizeEmbed(this, attacker, defender)] });
 		}
 		else {
 			await this.lastSummary.edit(await this.getSummarizeEmbed(this, attacker, defender));
@@ -365,7 +365,7 @@ class Fight {
 		if (amsg.content.length + msg.length > 1950) {
 			await this.lastSummary.delete();
 			this.lastSummary = undefined;
-			amsg = await this.message.channel.send(msg);
+			amsg = await this.message.channel.send({ content: msg });
 			this.actionMessages.push(amsg);
 		}
 		else if (amsg.content === "_ _") {
@@ -388,7 +388,7 @@ class Fight {
 			for (let i = 0; i < this.actionMessages.length; ++i) {
 				const content = this.actionMessages[i].content;
 				await this.actionMessages[i].delete();
-				this.actionMessages[i] = await this.message.channel.send(content);
+				this.actionMessages[i] = await this.message.channel.send({ content: content });
 			}
 			await this.lastSummary.delete();
 			this.lastSummary = undefined;

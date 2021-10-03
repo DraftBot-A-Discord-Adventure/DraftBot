@@ -27,7 +27,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				price: price,
 				type: Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()] + " " + translationShop.types[randomItem.getCategory()]
 			}));
-	const msg = await message.channel.send(seEmbed);
+	const msg = await message.channel.send({ embeds: [seEmbed] });
 	await Promise.all([
 		msg.react(MENU_REACTION.ACCEPT),
 		msg.react(MENU_REACTION.DENY)

@@ -125,7 +125,7 @@ const GuildAddCommand = async (message, language, args) => {
 				invitedEntity.Player.save()
 			]);
 
-			return message.channel.send(
+			return message.channel.send({ embeds: [
 				new DraftBotEmbed()
 					.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
 						pseudo: message.mentions.users.last().username,
@@ -133,7 +133,7 @@ const GuildAddCommand = async (message, language, args) => {
 					}),
 					message.mentions.users.last().displayAvatarURL())
 					.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess)
-			);
+			] });
 		}
 
 		// Cancel the creation

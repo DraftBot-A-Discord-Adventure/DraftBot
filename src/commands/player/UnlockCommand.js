@@ -46,7 +46,7 @@ const UnlockCommand = async (message, language, args) => {
 			pseudo: await lockedEntity.Player.getPseudo(language),
 			price: UNLOCK.PRICE_FOR_UNLOCK
 		}));
-	const unlockMessage = await message.channel.send(embed);
+	const unlockMessage = await message.channel.send({ embeds: [embed] });
 
 	const filter = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id;
 
@@ -80,7 +80,7 @@ const UnlockCommand = async (message, language, args) => {
 				successEmbed.setDescription(format(JsonReader.commands.unlock.getTranslation(language).unlockSuccess, {
 					pseudo: await entity.Player.getPseudo(language)
 				}));
-				return await message.channel.send(successEmbed);
+				return await message.channel.send({ embeds: [successEmbed] });
 			}
 		}
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.unlock.getTranslation(language).unlockCanceled, true);

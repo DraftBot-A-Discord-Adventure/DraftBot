@@ -118,19 +118,19 @@ class CommandsTest {
 			else {
 				embedTestSuccessful = messageToDisplay;
 			}
-			await message.channel.send(embedTestSuccessful);
+			await message.channel.send({ embeds: [embedTestSuccessful] });
 		}
 		catch (e) {
 			console.error(e);
 			try {
-				await message.channel.send("**:x: Une erreur est survenue pendant la commande test " + commandTestCurrent.commandInfo.name + "** : ```" + e.stack + "```");
+				await message.channel.send({ content: "**:x: Une erreur est survenue pendant la commande test " + commandTestCurrent.commandInfo.name + "** : ```" + e.stack + "```" });
 			}
 			catch (e2) {
-				await message.channel.send(
+				await message.channel.send({ content:
 					"**:x: Une erreur est survenue pendant la commande test "
 					+ commandTestCurrent.commandInfo.name
 					+ "** : (Erreur tronquée car limite de caractères atteinte) " +
-					"```" + e.stack.slice(0,1850) + "```");
+					"```" + e.stack.slice(0,1850) + "```" });
 			}
 		}
 	}

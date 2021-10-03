@@ -20,9 +20,9 @@ const ResetBadgeCommand = async (message, language) => {
 	entity.Player.badges = null;
 	await entity.Player.save();
 
-	return await message.channel.send(new DraftBotEmbed()
+	return await message.channel.send({ embeds: [new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.resetBadgeCommand.getTranslation(language).resetSuccess, message.author)
-		.setDescription(format(JsonReader.commands.resetBadgeCommand.getTranslation(language).descReset, {player: message.mentions.users.last()})));
+		.setDescription(format(JsonReader.commands.resetBadgeCommand.getTranslation(language).descReset, {player: message.mentions.users.last()}))] });
 };
 
 module.exports.execute = ResetBadgeCommand;

@@ -24,13 +24,13 @@ async function ClassStatsCommand(message, language) {
 	}
 
 	// Creating classstats message
-	await message.channel.send(
+	await message.channel.send({ embeds: [
 		new DraftBotEmbed()
 			.setTitle(classTranslations.title)
 			.setDescription(classTranslations.desc)
 			.addField(
 				"\u200b", classesLineDisplay.join("\n")
-			)
+			)] }
 	);
 }
 

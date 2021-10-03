@@ -214,7 +214,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 				pageMax: pageMax
 			}))
 			.setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPageDesc, {pageMax: pageMax}));
-		return await message.channel.send(embedError);
+		return await message.channel.send({ embeds: [embedError] });
 	}
 	const fin = page * 15;
 	const debut = fin - 14;
@@ -346,7 +346,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 		}));
 	}
 
-	return await message.channel.send(embed);
+	return await message.channel.send({ embeds: [embed] });
 }
 
 module.exports.execute = TopCommand;

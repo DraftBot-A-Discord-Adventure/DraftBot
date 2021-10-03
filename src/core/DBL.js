@@ -54,7 +54,7 @@ class DBL {
 		if (dUser === undefined || dUser === null) {
 			return;
 		}
-		(await guild.channels.cache.get(JsonReader.app.DBL_LOGS_CHANNEL)).send(new DraftBotVoteMessage(dUser, await guild.roles.fetch(JsonReader.app.DBL_VOTE_ROLE)));
+		(await guild.channels.cache.get(JsonReader.app.DBL_LOGS_CHANNEL)).send({ embeds: [new DraftBotVoteMessage(dUser, await guild.roles.fetch(JsonReader.app.DBL_VOTE_ROLE))] });
 	}
 
 	/**

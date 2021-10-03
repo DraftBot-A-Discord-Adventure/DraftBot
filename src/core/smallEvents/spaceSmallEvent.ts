@@ -39,7 +39,7 @@ const executeSmallEvent = async function(message: Message, language: string, ent
 		se_intro, intro, search_action, search
 	});
 	seEmbed.setDescription(baseDescription + messageBefore);
-	message.channel.send(seEmbed).then(async (sentMessage) => {
+	message.channel.send({ embeds: [seEmbed] }).then(async (sentMessage) => {
 		const waitTime = 5000;
 		const t0 = performance.now();
 		if (JsonReader.app.NASA_API_KEY === "" || (await SpaceUtils.getNeoWSFeed(JsonReader.app.NASA_API_KEY)).length < 2) {

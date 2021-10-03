@@ -28,19 +28,19 @@ const SendLogsCommand = async (message, language, args) => {
 	else if (args[0] === "list") {
 		fs.readdir("logs", function(err, files) {
 			if (err) {
-				return message.author.send("```Unable to scan directory: " + err + "```");
+				return message.author.send({ content: "```Unable to scan directory: " + err + "```" });
 			}
 
 			let msg = "```";
 			files.forEach(function(file) {
 				msg += file + " (" + fs.statSync("logs/" + file).size / 1000.0 + " ko)" + "\n";
 				if (msg > 1800) {
-					message.author.send(msg + "```");
+					message.author.send({ content: msg + "```" });
 					msg = "```";
 				}
 			});
 			if (msg !== "```") {
-				message.author.send(msg + "```");
+				message.author.send({ content: msg + "```" });
 			}
 		});
 	}

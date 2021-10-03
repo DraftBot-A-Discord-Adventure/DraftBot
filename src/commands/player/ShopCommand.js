@@ -109,9 +109,9 @@ function getHealAlterationShopItem(translationModule) {
 				await Maps.removeEffect(entity.Player);
 				await entity.Player.save();
 			}
-			await message.sentMessage.channel.send(new DraftBotEmbed()
+			await message.sentMessage.channel.send({ embeds: [new DraftBotEmbed()
 				.formatAuthor(translationModule.get("success"), message.user)
-				.setDescription(translationModule.get("permanentItems.healAlterations.give")));
+				.setDescription(translationModule.get("permanentItems.healAlterations.give"))] });
 			return true;
 		}
 	);
@@ -125,11 +125,11 @@ function getRegenShopItem(translationModule) {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			await entity.setHealth(await entity.getMaxHealth());
 			await entity.save();
-			await message.sentMessage.channel.send(
+			await message.sentMessage.channel.send({ embeds: [
 				new DraftBotEmbed()
 					.formatAuthor(translationModule.get("success"), message.user)
 					.setDescription(translationModule.get("permanentItems.regen.give"))
-			);
+			] });
 			return true;
 		}
 	);
@@ -147,10 +147,10 @@ function getBadgeShopItem(translationModule) {
 			}
 			entity.Player.addBadge("🤑");
 			await entity.Player.save();
-			await message.sentMessage.channel.send(new DraftBotEmbed()
+			await message.sentMessage.channel.send({ embeds: [new DraftBotEmbed()
 				.formatAuthor(translationModule.get("permanentItems.badge.give"), message.user)
 				.setDescription("🤑 " + translationModule.get("permanentItems.badge.name"))
-			);
+			] });
 			return true;
 		}
 	);
@@ -203,11 +203,11 @@ function getSlotExtensionShopItem(translationModule, entity) {
 					const reaction = chooseSlotMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
 						removeBlockedPlayer(shopMessage.user.id);
-						await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
+						await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
 							shopMessage.user,
 							shopMessage.language,
 							translationModule.get("error.canceledPurchase")
-						));
+						)] });
 						return;
 					}
 					[entity] = await Entities.getOrRegister(shopMessage.user.id);
@@ -217,11 +217,11 @@ function getSlotExtensionShopItem(translationModule, entity) {
 							await entity.Player.save();
 							entity.Player.InventoryInfo.addSlotForCategory(i);
 							await entity.Player.InventoryInfo.save();
-							await shopMessage.sentMessage.channel.send(
+							await shopMessage.sentMessage.channel.send({ embeds: [
 								new DraftBotEmbed()
 									.formatAuthor(translationModule.get("success"), shopMessage.user)
 									.setDescription(translationModule.get("slotGive"))
-							);
+							] });
 							break;
 						}
 					}
