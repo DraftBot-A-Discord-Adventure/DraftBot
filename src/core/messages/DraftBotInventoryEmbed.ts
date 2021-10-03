@@ -20,7 +20,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 
 	isMainState = true;
 
-	constructor(pseudo: string, user: User, language: string, weapons: any, armors: any, potions: any, objects: any, inventoryInfo: any) {
+	constructor(user: User, language: string, weapons: any, armors: any, potions: any, objects: any, player: any, maxStatsValue: any) {
 		super(
 			[
 				new DraftBotReaction(
@@ -36,21 +36,22 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 			0
 		);
 		const trInventory = Translations.getModule("commands.inventory", language);
-		this.mainTitle = trInventory.format("title", { pseudo });
+		const pseudo = player.pseudo;
+		this.mainTitle = trInventory.format("title", {pseudo});
 		this.mainFields = [
-			weapons.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language),
-			armors.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language),
-			potions.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language),
-			objects.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language)
+			weapons.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue[0]),
+			armors.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue[1]),
+			potions.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue),
+			objects.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue)
 		];
-		this.mainFooter = trInventory.format("clickStock", { emote: Constants.REACTIONS.INVENTORY_RESERVE });
-		this.stockTitle = trInventory.format("stockTitle", { pseudo });
-		this.stockFooter = trInventory.format("clickMainInventory", { emote: Constants.REACTIONS.INVENTORY_RESERVE });
+		this.mainFooter = trInventory.format("clickStock", {emote: Constants.REACTIONS.INVENTORY_RESERVE});
+		this.stockTitle = trInventory.format("stockTitle", {pseudo});
+		this.stockFooter = trInventory.format("clickMainInventory", {emote: Constants.REACTIONS.INVENTORY_RESERVE});
 		this.stockFields = [
-			this.createStockField(trInventory.get("weapons"), trInventory, weapons, inventoryInfo.weaponSlots),
-			this.createStockField(trInventory.get("armors"), trInventory, armors, inventoryInfo.armorSlots),
-			this.createStockField(trInventory.get("potions"), trInventory, potions, inventoryInfo.potionSlots),
-			this.createStockField(trInventory.get("objects"), trInventory, objects, inventoryInfo.objectSlots)
+			this.createStockField(trInventory.get("weapons"), trInventory, weapons, player.InventoryInfo.weaponSlots),
+			this.createStockField(trInventory.get("armors"), trInventory, armors, player.InventoryInfo.armorSlots),
+			this.createStockField(trInventory.get("potions"), trInventory, potions, player.InventoryInfo.potionSlots),
+			this.createStockField(trInventory.get("objects"), trInventory, objects, player.InventoryInfo.objectSlots)
 		];
 		this.setTitle(this.mainTitle);
 		this.addFields(this.mainFields);
@@ -85,7 +86,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 			value,
 			inline: false
 		};
-	}
+	};
 
 	static reactionCallback = async function(msg: DraftBotReactionMessage): Promise<void> {
 		const invMsg: DraftBotInventoryEmbed = msg as DraftBotInventoryEmbed;
@@ -101,7 +102,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 		}
 		invMsg.isMainState = !invMsg.isMainState;
 		await msg.sentMessage.edit(invMsg);
-	}
+	};
 }
 
 export class DraftBotInventoryEmbedBuilder {
@@ -122,8 +123,8 @@ export class DraftBotInventoryEmbedBuilder {
 		const armors = this._player.InventorySlots.filter((slot: { itemCategory: number; }) => slot.itemCategory === Constants.ITEM_CATEGORIES.ARMOR);
 		const potions = this._player.InventorySlots.filter((slot: { itemCategory: number; }) => slot.itemCategory === Constants.ITEM_CATEGORIES.POTION);
 		const objects = this._player.InventorySlots.filter((slot: { itemCategory: number; }) => slot.itemCategory === Constants.ITEM_CATEGORIES.OBJECT);
+		await this._player.getPseudo(this._language);
 		return new DraftBotInventoryEmbed(
-			await this._player.getPseudo(this._language),
 			this._user,
 			this._language,
 			await Promise.all(weapons.map(async function(item: { slot: number; getItem: () => any; }) {
@@ -146,7 +147,8 @@ export class DraftBotInventoryEmbedBuilder {
 				newItem.slot = item.slot;
 				return newItem;
 			})),
-			this._player.InventoryInfo
+			this._player,
+			await this._player.getMaxStatsValue()
 		);
 	}
 }

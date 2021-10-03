@@ -77,8 +77,9 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * @param {("fr"|"en")} language - The language the armor has to be displayed in
+	 *  @param {number} maxStatsValue - the max amount used
 	 */
-	Armors.prototype.toFieldObject = function(language) {
+	Armors.prototype.toFieldObject = function(language,maxStatsValue) {
 		return {
 			name: JsonReader.items.getTranslation(language).armors.fieldName,
 			value: this.id === 0 ? this[language] : format(
@@ -86,7 +87,7 @@ module.exports = (Sequelize, DataTypes) => {
 					name: this[language],
 					rarity: this.getRarityTranslation(language),
 					values: this.getValues(language)
-				})
+				}) + " " + maxStatsValue
 		};
 	};
 
@@ -95,6 +96,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {String}
 	 */
 	Armors.prototype.toString = function(language) {
+
 		return this.id === 0 ? this[language] : format(
 			JsonReader.items.getTranslation(language).weapons.fieldValue, {
 				name: this[language],
