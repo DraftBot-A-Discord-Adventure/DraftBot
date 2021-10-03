@@ -1,3 +1,6 @@
+import {DraftBotBackup} from "./backup/DraftBotBackup";
+import {Constants} from "./Constants";
+
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -44,6 +47,7 @@ class Database {
 		await Database.verifyMaps();
 		await Database.setEverybodyAsUnOccupied();
 		await Database.updatePlayersRandomMap();
+		DraftBotBackup.backupFiles(["database/database.sqlite"], Constants.BACKUP.DATABASE_BACKUP_INTERVAL, "database");
 	}
 
 	/**

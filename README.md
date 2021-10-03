@@ -63,6 +63,13 @@ Only the code available in the "release" tab is considered "stable".
 - [Player guide](https://guide.draftbot.com)
 - [Twitter account _(in french)_](https://twitter.com/DraftBot_?s=09)
 
+# Get a dropbox token
+
+- First go to https://www.dropbox.com/developers/apps/create
+- Select 1. "Scoped access", 2. "App folder", 3. The name you want (DraftBot for e.g.)
+- Go to the "Permissions" tab and check the *files.metadata.write*, *files.content.write* and *files.content.read* permissions
+- In the "Settings" tab, set "Access token expiration" to "Not expiration" and then generate a token with the button above
+- Put this token in config/config.json
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDraftBot-A-Discord-Adventure%2FDraftBot.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDraftBot-A-Discord-Adventure%2FDraftBot?ref=badge_large)

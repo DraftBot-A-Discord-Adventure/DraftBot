@@ -30,7 +30,7 @@
         ],
 				"no-undef": "off",
 				"@typescript-eslint/no-var-requires": "off",
-				"no-extra-parens": "warn",
+				"@typescript-eslint/no-extra-parens": "warn",
 				"block-scoped-var": "warn",
 				"curly": "warn",
 				"default-case": "error",
