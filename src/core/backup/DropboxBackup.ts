@@ -12,6 +12,7 @@ export class DropboxBackup implements IDraftBotBackup {
 
 	private _dropbox: Dropbox;
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	async backup(zipPath: string, backupName: string, baseName: string): Promise<void> {
 		console.log("Starting to upload " + backupName + " to dropbox...");
 		await this._dropbox.filesUpload({

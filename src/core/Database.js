@@ -1,4 +1,3 @@
-import {connectDropbox, draftBotDropbox} from "./backup/DraftBotDropbox";
 import {DraftBotBackup} from "./backup/DraftBotBackup";
 
 const fs = require("fs");
