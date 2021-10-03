@@ -73,6 +73,7 @@ export abstract class Constants {
 	}
 
 	static readonly BACKUP = {
+		DATABASE_BACKUP_INTERVAL: 12 * 60 * 60 * 1000,
 		LOCAL_SPACE_LIMIT: 500 * 1024 * 1024
 	}
 }
