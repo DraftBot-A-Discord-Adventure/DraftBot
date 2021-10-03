@@ -13,6 +13,26 @@ export interface IDraftBotBackup {
 	create: () => Promise<boolean>;
 
 	backup: (zipPath: string, backupName: string, baseName: string) => Promise<void>;
+
+	getAllBackupFiles: () => Promise<IBackupFileSimple[]>;
+
+	availableSpace: () => Promise<number>;
+
+	deleteFile: (path: string) => Promise<void>;
+}
+
+export interface IBackupFileSimple {
+	path: string;
+
+	size: number;
+}
+
+interface IBackupFile {
+	path: string;
+
+	size: number;
+
+	date: Date;
 }
 
 export class DraftBotBackup {
@@ -43,6 +63,10 @@ export class DraftBotBackup {
 
 	public static backupFiles(files: string[], interval: number, archiveBasename: string) {
 		if (DraftBotBackup._backupInterfaces.length === 0) {
+			return;
+		}
+		if (archiveBasename.includes("-") || archiveBasename.includes(".")) {
+			console.error("Can't register \"" + archiveBasename + "\", archive base name must not contain - or .");
 			return;
 		}
 		const callback = function() {
@@ -76,6 +100,12 @@ export class DraftBotBackup {
 					console.log("Backup archive \"" + archiveName + "\" created with success");
 					for (const backupInterface of DraftBotBackup._backupInterfaces) {
 						try {
+							const availableSpace = await backupInterface.availableSpace();
+							if (availableSpace < outputZip.bytesWritten) {
+								if (!await DraftBotBackup.removeOldBackups(backupInterface, availableSpace, outputZip.bytesWritten)) {
+									continue;
+								}
+							}
 							await backupInterface.backup(zipPath, archiveName, archiveBasename);
 						}
 						catch (err) {
@@ -98,5 +128,57 @@ export class DraftBotBackup {
 		};
 		setInterval(callback, interval);
 		callback();
+	}
+
+	public static async removeOldBackups(backupInterface: IDraftBotBackup, availableSpace: number, bytesToWrite: number): Promise<boolean> {
+		const backupFiles = DraftBotBackup.convertToBackupFiles(await backupInterface.getAllBackupFiles());
+		backupFiles.sort((a: IBackupFile, b: IBackupFile) => {
+			if (a.date < b.date) {
+				return -1;
+			}
+			if (a.date > b.date) {
+				return 1;
+			}
+			return 0;
+		});
+		let i = 0;
+		const toDeleteFiles: IBackupFile[] = [];
+		while (availableSpace < bytesToWrite && i !== backupFiles.length) {
+			toDeleteFiles.push(backupFiles[i]);
+			availableSpace += backupFiles[i].size;
+			i++;
+		}
+		if (i === backupFiles.length) {
+			console.error("Cannot write backup with size " + bytesToWrite + " in backup " + backupInterface.name + ": not enough space available");
+			return Promise.resolve(false);
+		}
+		for (const toDeleteFile of toDeleteFiles) {
+			await backupInterface.deleteFile(toDeleteFile.path);
+			console.log("Deleted backup " + toDeleteFile.path + " in " + backupInterface.name);
+		}
+		return Promise.resolve(true);
+	}
+
+	private static convertToBackupFiles(simpleBackupFiles: IBackupFileSimple[]): IBackupFile[] {
+		const backupFiles: IBackupFile[] = [];
+		for (const simpleBackupFile of simpleBackupFiles) {
+			const filename = path.parse(simpleBackupFile.path).base;
+			const splitBaseName = filename.split(/[-](.+)/);
+			const splitExtension = splitBaseName[1].split(/[.]/);
+			const splitDate = splitExtension[0].split(/[-TZ]/);
+			backupFiles.push({
+				path: simpleBackupFile.path,
+				size: simpleBackupFile.size,
+				date: new Date(
+					parseInt(splitDate[0]),
+					parseInt(splitDate[1]),
+					parseInt(splitDate[2]),
+					parseInt(splitDate[3]),
+					parseInt(splitDate[4]),
+					parseInt(splitDate[5]),
+					parseInt(splitDate[6]))
+			});
+		}
+		return backupFiles;
 	}
 }

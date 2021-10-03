@@ -71,4 +71,8 @@ export abstract class Constants {
 		TIME_SPEEDUP: 5,
 		MONEY: 6
 	}
+
+	static readonly BACKUP = {
+		LOCAL_SPACE_LIMIT: 500 * 1024 * 1024
+	}
 }
