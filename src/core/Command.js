@@ -249,7 +249,6 @@ class Command {
 		if (!command) {
 			return;
 		}
-
 		if (
 			!message.channel.permissionsFor(client.user).serialize()
 				.SEND_MESSAGES

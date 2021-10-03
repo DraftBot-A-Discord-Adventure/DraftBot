@@ -11,7 +11,7 @@ declare const InventorySlots: any;
 declare const Entities: any;
 declare const JsonReader: any;
 declare function removeBlockedPlayer(id: string): void;
-declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any>): void;
+declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any, any[]>): void;
 declare const draftbotRandom: Random;
 declare const Weapons: any;
 declare const Armors: any;

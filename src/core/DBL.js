@@ -92,7 +92,7 @@ class DBL {
 		const guild = await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
 		const members = guild.members.cache.entries();
 		for (const member of members) {
-			if (member[1].roles.cache.has(JsonReader.app.DBL_VOTE_ROLE)) {
+			if (await member[1].roles.cache.has(JsonReader.app.DBL_VOTE_ROLE)) {
 				await DBL.programDBLRoleRemoval(member[1].id);
 			}
 		}

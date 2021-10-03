@@ -164,7 +164,7 @@ const ProfileCommand = async (message, language, args) => {
 
 	collector.on("collect", (reaction) => {
 		message.channel.send({ content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name] }).then((msg) => {
-			msg.delete({"timeout": JsonReader.commands.profile.badgeDescriptionTimeout});
+			setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
 		});
 	});
 

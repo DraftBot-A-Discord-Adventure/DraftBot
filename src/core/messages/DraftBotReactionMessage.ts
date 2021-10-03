@@ -3,7 +3,7 @@ import {
 	Message,
 	MessageReaction,
 	NewsChannel,
-	ReactionCollector,
+	ReactionCollector, TextBasedChannels,
 	TextChannel,
 	User
 } from "discord.js";
@@ -100,7 +100,7 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	 * Send the message to a channel
 	 * @param channel
 	 */
-	async send(channel: TextChannel | DMChannel | NewsChannel): Promise<Message> {
+	async send(channel: TextChannel | DMChannel | NewsChannel | TextBasedChannels): Promise<Message> {
 		this._sentMessage = await channel.send({ embeds: [this] });
 		const collectorFilter = (reaction: MessageReaction, user: User) =>
 			!user.bot &&

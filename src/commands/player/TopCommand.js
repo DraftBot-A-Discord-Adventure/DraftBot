@@ -208,7 +208,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 		page = 1;
 	}
 	if (page > pageMax || page < 1) {
-		embedError.setColor(JsonReader.bot.embed.default)
+		embedError
 			.setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {
 				pseudo: actualPlayer,
 				pageMax: pageMax
@@ -221,7 +221,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 	let messages = "";
 	let badge;
 	// Indicate which top we are going to display
-	embed.setColor(JsonReader.bot.embed.default)
+	embed
 		.setTitle(format(topTitle, {debut: debut, fin: fin}));
 	// Fetch all server members
 	await message.guild.members.fetch();

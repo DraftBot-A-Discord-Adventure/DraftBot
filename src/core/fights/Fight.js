@@ -295,7 +295,7 @@ class Fight {
 			this.lastSummary = await this.message.channel.send({ embeds: [await this.getSummarizeEmbed(this, attacker, defender)] });
 		}
 		else {
-			await this.lastSummary.edit(await this.getSummarizeEmbed(this, attacker, defender));
+			await this.lastSummary.edit({ embeds: [await this.getSummarizeEmbed(this, attacker, defender)] });
 		}
 	}
 
@@ -372,10 +372,10 @@ class Fight {
 			this.actionMessages.push(amsg);
 		}
 		else if (amsg.content === "_ _") {
-			await amsg.edit(msg);
+			await amsg.edit({ content: msg });
 		}
 		else {
-			await amsg.edit(amsg.content + "\n" + msg);
+			await amsg.edit({ content: amsg.content + "\n" + msg });
 		}
 	}
 
@@ -464,7 +464,7 @@ class Fight {
 			global.removeBlockedPlayer(this.fighters[i].entity.discordUserId);
 		}
 		if (this.lastSummary !== undefined) {
-			this.lastSummary.delete({timeout: 5000}).catch();
+			setTimeout(() => this.lastSummary.delete(), 5000);
 		}
 		if (winner !== null) {
 			log("Fight ended; winner: " + winner.entity.discordUserId + " (" + winner.power + "/" + winner.initialPower

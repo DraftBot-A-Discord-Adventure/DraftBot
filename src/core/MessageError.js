@@ -1,4 +1,5 @@
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+import {Permissions} from "discord.js";
 
 class MessageError {
 	/**
@@ -30,7 +31,7 @@ class MessageError {
 		}
 
 		if (permission === PERMISSION.ROLE.ADMINISTRATOR) {
-			if (!message.member.hasPermission("ADMINISTRATOR") && !MessageError.isBotOwner(message.author.id)) {
+			if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) && !MessageError.isBotOwner(message.author.id)) {
 				return await MessageError.permissionErrorMe(message, language, permission);
 			}
 		}

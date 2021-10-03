@@ -409,7 +409,7 @@ global.client = new (require("discord.js").Client)(
 	{
 		restTimeOffset: 0,
 		intents: [
-			// Intents.FLAGS.GUILDS We may need it later to create threads
+			Intents.FLAGS.GUILDS, // We need it for roles
 			// Intents.FLAGS.GUILD_MEMBERS We don't need to add or remove members
 			// Intents.FLAGS.GUILD_BANS We don't need to ban or unban
 			// Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS We don't need to create emojis or stickers
@@ -424,6 +424,7 @@ global.client = new (require("discord.js").Client)(
 			Intents.FLAGS.DIRECT_MESSAGES, // We need to send and receive direct messages
 			Intents.FLAGS.DIRECT_MESSAGE_REACTIONS // We maybe need to receive direct messages reaction
 			// Intents.FLAGS.DIRECT_MESSAGE_TYPING We don't need to know this
-		]
+		],
+		allowedMentions: [{ allowedMentions: { parse: ["users", "roles"], repliedUser: true } }]
 	}
 );

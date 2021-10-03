@@ -37,7 +37,7 @@
 	"startStatus": ":robot: **DraftBot** - v",
 	"embed": {
 		"error": "#D92D43",
-		"default": ""
+		"default": "NOT_QUITE_BLACK"
 	},
 	"reboot": "DraftBot",
 	"br": "############################################\n",

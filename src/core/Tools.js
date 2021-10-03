@@ -87,7 +87,8 @@ global.sendErrorMessage = (user, channel, language, reason, isCancelling = false
 global.sendDirectMessage = (user, title, description, color, language) => {
 	try {
 		user.send({ embeds: [new DraftBotEmbed()
-			.setColor(color)
+			// Ignore this for now
+			// .setColor(color)
 			.formatAuthor(title, user)
 			.setDescription(description)
 			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter)] });

@@ -55,7 +55,7 @@ const executeSmallEvent = async function(message: Message, language: string, ent
 			});
 			const callBack = async () => {
 				seEmbed.setDescription(baseDescription + messageAfter);
-				await sentMessage.edit(seEmbed);
+				await sentMessage.edit({ embeds: [seEmbed] });
 			};
 			if (timeLeft <= 0) {
 				callBack().then();
