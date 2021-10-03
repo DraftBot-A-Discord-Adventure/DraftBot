@@ -1,4 +1,5 @@
 import {DraftBotBackup} from "./backup/DraftBotBackup";
+import {Intents} from "discord.js";
 
 const fs = require("fs");
 
@@ -404,4 +405,25 @@ global.discord = require("discord.js");
 /**
  * @type {module:"discord.js".Client}
  */
-global.client = new (require("discord.js").Client)({restTimeOffset: 0});
+global.client = new (require("discord.js").Client)(
+	{
+		restTimeOffset: 0,
+		intents: [
+			// Intents.FLAGS.GUILDS We may need it later to create threads
+			// Intents.FLAGS.GUILD_MEMBERS We don't need to add or remove members
+			// Intents.FLAGS.GUILD_BANS We don't need to ban or unban
+			// Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS We don't need to create emojis or stickers
+			// Intents.FLAGS.GUILD_INTEGRATIONS Not sure what it is so disable it
+			// Intents.FLAGS.GUILD_WEBHOOKS We don't need to create webhooks
+			// Intents.FLAGS.GUILD_INVITES We don't need to create or delete invites
+			// Intents.FLAGS.GUILD_VOICE_STATES We don't use voice
+			Intents.FLAGS.GUILD_PRESENCES, // Needed to update the bot presence
+			Intents.FLAGS.GUILD_MESSAGES, // We need to receive, send, update and delete messages
+			Intents.FLAGS.GUILD_MESSAGE_REACTIONS, // We need to add reactions
+			// Intents.FLAGS.GUILD_MESSAGE_TYPING We don't need to know this
+			Intents.FLAGS.DIRECT_MESSAGES, // We need to send and receive direct messages
+			Intents.FLAGS.DIRECT_MESSAGE_REACTIONS // We maybe need to receive direct messages reaction
+			// Intents.FLAGS.DIRECT_MESSAGE_TYPING We don't need to know this
+		]
+	}
+);
