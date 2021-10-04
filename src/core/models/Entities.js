@@ -373,10 +373,9 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Entities.prototype.getCumulativeAttack = async function(weapon, armor, potion, object) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const attackItemValue = weapon.getAttack() + object.getAttack() / 2 > playerClass.getAttackValue(this.Player.level)
-			? playerClass.getAttackValue(this.Player.level) + Math.round(object.getAttack() / 2)
-			: weapon.getAttack() + object.getAttack();
-		const attack = playerClass.getAttackValue(this.Player.level) + attackItemValue + armor.getAttack() +
+		const attackItemValue = weapon.getAttack() > playerClass.getAttackValue(this.Player.level)
+			? playerClass.getAttackValue(this.Player.level)	: weapon.getAttack();
+		const attack = playerClass.getAttackValue(this.Player.level) + object.getAttack() + attackItemValue + armor.getAttack() +
 			potion.getAttack();
 		return attack > 0 ? attack : 0;
 	};
@@ -391,10 +390,9 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Entities.prototype.getCumulativeDefense = async function(weapon, armor, potion, object) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const defenseItemValue = armor.getDefense() + object.getDefense() / 2 > playerClass.getDefenseValue(this.Player.level)
-			? playerClass.getDefenseValue(this.Player.level) + Math.round(object.getDefense() / 2)
-			: armor.getDefense() + object.getDefense();
-		const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + defenseItemValue +
+		const defenseItemValue = armor.getDefense() > playerClass.getDefenseValue(this.Player.level)
+			? playerClass.getDefenseValue(this.Player.level) : armor.getDefense() ;
+		const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + object.getDefense() + defenseItemValue +
 			potion.getDefense();
 		return defense > 0 ? defense : 0;
 	};
