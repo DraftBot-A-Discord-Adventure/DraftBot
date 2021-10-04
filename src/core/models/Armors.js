@@ -79,15 +79,18 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {("fr"|"en")} language - The language the armor has to be displayed in
 	 *  @param {number} maxStatsValue - the max amount used
 	 */
-	Armors.prototype.toFieldObject = function(language,maxStatsValue) {
+	Armors.prototype.toFieldObject = function(language, maxStatsValue) {
+		if (isNaN(maxStatsValue)) {
+			maxStatsValue = 0;
+		}
 		return {
 			name: JsonReader.items.getTranslation(language).armors.fieldName,
 			value: this.id === 0 ? this[language] : format(
 				JsonReader.items.getTranslation(language).armors.fieldValue, {
 					name: this[language],
 					rarity: this.getRarityTranslation(language),
-					values: this.getValues(language)
-				}) + " " + maxStatsValue
+					values: this.getValues(language, maxStatsValue)
+				})
 		};
 	};
 
@@ -149,6 +152,8 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * get the speed amount of an armor
+	 * @returns {*}
 	 */
 	Armors.prototype.getSpeed = function() {
 		let before = 0;
@@ -160,9 +165,10 @@ module.exports = (Sequelize, DataTypes) => {
 
 	/**
 	 * @param {("fr"|"en")} language
+	 * @param {number} maxStatsValue armor amount before being nerfed
 	 * @return {String}
 	 */
-	Armors.prototype.getValues = function(language) {
+	Armors.prototype.getValues = function(language, maxStatsValue) {
 		const values = [];
 
 		if (this.getAttack() !== 0) {
@@ -171,8 +177,13 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 
 		if (this.getDefense() !== 0) {
+			const defenseDisplay = maxStatsValue > this.getDefense() ? this.getDefense() : format(JsonReader.items.getTranslation(language).nerfDisplay,
+				{
+					oldDefense: this.getDefense(),
+					maxDefense: maxStatsValue
+				});
 			values.push(format(JsonReader.items.getTranslation(language).defense,
-				{defense: this.getDefense()}));
+				{defense: defenseDisplay}));
 		}
 
 		if (this.getSpeed() !== 0) {
