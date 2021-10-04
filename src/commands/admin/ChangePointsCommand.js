@@ -40,16 +40,16 @@ const ChangePointsCommand = async (message, language, args) => {
 	}
 	const users = new Set();
 	for (let i = 2; i < args.length; i++) {
-		let mention = args[i];
+		const mention = args[i];
 		if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
 			return await sendErrorMessage(
 				message.author,
 				message.channel,
 				language,
 				format(JsonReader.commands.points.getTranslation(language).errors.invalidIdOrMention, {
-						position: i - 1,
-						wrongText: args[i]
-					}
+					position: i - 1,
+					wrongText: args[i]
+				}
 				)
 			);
 		}
@@ -61,22 +61,24 @@ const ChangePointsCommand = async (message, language, args) => {
 		let entityToEdit;
 		try {
 			[entityToEdit] = await Entities.getOrRegister(user);
-		} catch (e) {
+		}
+		catch (e) {
 			return await sendErrorMessage(
 				message.author,
 				message.channel,
 				language,
 				format(JsonReader.commands.points.getTranslation(language).errors.invalidIdOrMentionDoesntExist, {
-						position: (args.indexOf(user) - 1),
-						wrongText: user
-					}
+					position: args.indexOf(user) - 1,
+					wrongText: user
+				}
 				)
 			);
 		}
 		const pointsBefore = entityToEdit.Player.score;
 		try {
 			givePointsTo(entityToEdit, amount, args);
-		} catch (e) {
+		}
+		catch (e) {
 			if (e.message === "mauvais paramètre don points") {
 				return await sendErrorMessage(
 					message.author,
@@ -84,9 +86,9 @@ const ChangePointsCommand = async (message, language, args) => {
 					language,
 					JsonReader.commands.points.getTranslation(language).errors.invalidDonationParameter
 				);
-			} else {
-				console.error(e.stack);
 			}
+			console.error(e.stack);
+
 		}
 		entityToEdit.Player.save();
 		descString += format(JsonReader.commands.points.getTranslation(language).desc, {
@@ -95,10 +97,10 @@ const ChangePointsCommand = async (message, language, args) => {
 		});
 		if (entityToEdit.Player.dmNotification) {
 			sendDirectMessage(
-				(await client.users.fetch(user)),
+				await client.users.fetch(user),
 				JsonReader.commands.points.getTranslation(language).dm.title,
 				format(JsonReader.commands.points.getTranslation(language).dm.description, {
-					pointsGained: entityToEdit.Player.score - pointsBefore,
+					pointsGained: entityToEdit.Player.score - pointsBefore
 				}),
 				JsonReader.bot.embed.default,
 				language
@@ -113,10 +115,12 @@ const ChangePointsCommand = async (message, language, args) => {
 function givePointsTo(entityToEdit, amount, args) {
 	if (args[0] === "set") {
 		entityToEdit.Player.score = amount;
-	} else if (args[0] === "add") {
+	}
+	else if (args[0] === "add") {
 		entityToEdit.Player.score += amount;
-	} else {
-		throw new Error("mauvais paramètre don points")
+	}
+	else {
+		throw new Error("mauvais paramètre don points");
 	}
 }
 
