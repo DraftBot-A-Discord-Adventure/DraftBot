@@ -40,16 +40,16 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 	}
 	const users = new Set();
 	for (let i = 2; i < args.length; i++) {
-		let mention = args[i];
+		const mention = args[i];
 		if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
 			return await sendErrorMessage(
 				message.author,
 				message.channel,
 				language,
 				format(JsonReader.commands.pointsWeek.getTranslation(language).errors.invalidIdOrMention, {
-						position: i - 1,
-						wrongText: args[i]
-					}
+					position: i - 1,
+					wrongText: args[i]
+				}
 				)
 			);
 		}
@@ -61,22 +61,24 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 		let entityToEdit;
 		try {
 			[entityToEdit] = await Entities.getOrRegister(user);
-		} catch (e) {
+		}
+		catch (e) {
 			return await sendErrorMessage(
 				message.author,
 				message.channel,
 				language,
 				format(JsonReader.commands.pointsWeek.getTranslation(language).errors.invalidIdOrMentionDoesntExist, {
-						position: (args.indexOf(user) - 1),
-						wrongText: user
-					}
+					position: args.indexOf(user) - 1,
+					wrongText: user
+				}
 				)
 			);
 		}
 		const pointsWBefore = entityToEdit.Player.weeklyScore;
 		try {
 			giveWeeklyPointsTo(entityToEdit, amount, args);
-		} catch (e) {
+		}
+		catch (e) {
 			if (e.message === "mauvais paramètre don points hebdo") {
 				return await sendErrorMessage(
 					message.author,
@@ -84,9 +86,9 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 					language,
 					JsonReader.commands.pointsWeek.getTranslation(language).errors.invalidDonationParameter
 				);
-			} else {
-				console.error(e.stack);
 			}
+			console.error(e.stack);
+
 		}
 		entityToEdit.Player.save();
 		descString += format(JsonReader.commands.pointsWeek.getTranslation(language).desc, {
@@ -95,10 +97,10 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 		});
 		if (entityToEdit.Player.dmNotification) {
 			sendDirectMessage(
-				(await client.users.fetch(user)),
+				await client.users.fetch(user),
 				JsonReader.commands.pointsWeek.getTranslation(language).dm.title,
 				format(JsonReader.commands.pointsWeek.getTranslation(language).dm.description, {
-					pointsWGained: entityToEdit.Player.weeklyScore - pointsWBefore,
+					pointsWGained: entityToEdit.Player.weeklyScore - pointsWBefore
 				}),
 				JsonReader.bot.embed.default,
 				language
@@ -113,10 +115,12 @@ const ChangePointsWeekCommand = async (message, language, args) => {
 function giveWeeklyPointsTo(entityToEdit, amount, args) {
 	if (args[0] === "set") {
 		entityToEdit.Player.weeklyScore = amount;
-	} else if (args[0] === "add") {
+	}
+	else if (args[0] === "add") {
 		entityToEdit.Player.weeklyScore += amount;
-	} else {
-		throw new Error("mauvais paramètre don points hebdo")
+	}
+	else {
+		throw new Error("mauvais paramètre don points hebdo");
 	}
 }
 

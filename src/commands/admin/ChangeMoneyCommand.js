@@ -40,16 +40,16 @@ const ChangeMoneyCommand = async (message, language, args) => {
 	}
 	const users = new Set();
 	for (let i = 2; i < args.length; i++) {
-		let mention = args[i];
+		const mention = args[i];
 		if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
 			return await sendErrorMessage(
 				message.author,
 				message.channel,
 				language,
 				format(JsonReader.commands.money.getTranslation(language).errors.invalidIdOrMention, {
-						position: i - 1,
-						wrongText: args[i]
-					}
+					position: i - 1,
+					wrongText: args[i]
+				}
 				)
 			);
 		}
@@ -61,22 +61,24 @@ const ChangeMoneyCommand = async (message, language, args) => {
 		let entityToEdit;
 		try {
 			[entityToEdit] = await Entities.getOrRegister(user);
-		} catch (e) {
+		}
+		catch (e) {
 			return await sendErrorMessage(
 				message.author,
 				message.channel,
 				language,
 				format(JsonReader.commands.money.getTranslation(language).errors.invalidIdOrMentionDoesntExist, {
-						position: (args.indexOf(user) - 1),
-						wrongText: user
-					}
+					position: args.indexOf(user) - 1,
+					wrongText: user
+				}
 				)
 			);
 		}
 		const moneyBefore = entityToEdit.Player.money;
 		try {
 			giveMoneyTo(entityToEdit, amount, args);
-		} catch (e) {
+		}
+		catch (e) {
 			if (e.message === "mauvais paramètre don monnaie") {
 				return await sendErrorMessage(
 					message.author,
@@ -84,9 +86,9 @@ const ChangeMoneyCommand = async (message, language, args) => {
 					language,
 					JsonReader.commands.money.getTranslation(language).errors.invalidDonationParameter
 				);
-			} else {
-				console.error(e.stack);
 			}
+			console.error(e.stack);
+
 		}
 		entityToEdit.Player.save();
 		descString += format(JsonReader.commands.money.getTranslation(language).desc, {
@@ -95,10 +97,10 @@ const ChangeMoneyCommand = async (message, language, args) => {
 		});
 		if (entityToEdit.Player.dmNotification) {
 			sendDirectMessage(
-				(await client.users.fetch(user)),
+				await client.users.fetch(user),
 				JsonReader.commands.money.getTranslation(language).dm.title,
 				format(JsonReader.commands.money.getTranslation(language).dm.description, {
-					moneyGained: entityToEdit.Player.money - moneyBefore,
+					moneyGained: entityToEdit.Player.money - moneyBefore
 				}),
 				JsonReader.bot.embed.default,
 				language
@@ -113,10 +115,12 @@ const ChangeMoneyCommand = async (message, language, args) => {
 function giveMoneyTo(entityToEdit, amount, args) {
 	if (args[0] === "set") {
 		entityToEdit.Player.money = amount;
-	} else if (args[0] === "add") {
+	}
+	else if (args[0] === "add") {
 		entityToEdit.Player.money += amount;
-	} else {
-		throw new Error("mauvais paramètre don monnaie")
+	}
+	else {
+		throw new Error("mauvais paramètre don monnaie");
 	}
 }
 
