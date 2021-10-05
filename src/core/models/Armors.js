@@ -80,9 +80,6 @@ module.exports = (Sequelize, DataTypes) => {
 	 *  @param {number} maxStatsValue - the max amount used
 	 */
 	Armors.prototype.toFieldObject = function(language, maxStatsValue) {
-		if (isNaN(maxStatsValue)) {
-			maxStatsValue = 0;
-		}
 		return {
 			name: JsonReader.items.getTranslation(language).armors.fieldName,
 			value: this.id === 0 ? this[language] : format(
@@ -177,10 +174,13 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 
 		if (this.getDefense() !== 0) {
+			if (isNaN(maxStatsValue)) {
+				maxStatsValue = Infinity;
+			}
 			const defenseDisplay = maxStatsValue > this.getDefense() ? this.getDefense() : format(JsonReader.items.getTranslation(language).nerfDisplay,
 				{
-					oldDefense: this.getDefense(),
-					maxDefense: maxStatsValue
+					old: this.getDefense(),
+					max: maxStatsValue
 				});
 			values.push(format(JsonReader.items.getTranslation(language).defense,
 				{defense: defenseDisplay}));

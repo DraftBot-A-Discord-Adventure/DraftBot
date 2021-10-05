@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"nerfDisplay": "~~{oldDefense}~~ :small_red_triangle_down: {maxDefense}",
+			"nerfDisplay": "~~{old}~~ {max}",
 			"attack": ":dagger: {attack}",
 			"defense": ":shield: {defense}",
 			"speed": ":rocket: {speed}",
