@@ -41,8 +41,8 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 		this.mainFields = [
 			weapons.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue[0]),
 			armors.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue[1]),
-			potions.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue),
-			objects.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue)
+			potions.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language),
+			objects.filter((item: { slot: number; }) => item.slot === 0)[0].toFieldObject(language, maxStatsValue[2])
 		];
 		this.mainFooter = trInventory.format("clickStock", {emote: Constants.REACTIONS.INVENTORY_RESERVE});
 		this.stockTitle = trInventory.format("stockTitle", {pseudo});
