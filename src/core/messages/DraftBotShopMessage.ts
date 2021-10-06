@@ -260,7 +260,8 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 			)] });
 			if (msg.getFirstReaction()) {
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.REACTION);
-			} else {
+			}
+			else {
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.TIME);
 			}
 		}

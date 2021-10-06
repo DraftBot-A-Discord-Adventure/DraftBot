@@ -76,24 +76,25 @@ module.exports = (Sequelize, DataTypes) => {
 	});
 
 	/**
-	 * @param {("fr"|"en")} language - The language the inventory has to be displayed in
-	 */
-	Weapons.prototype.toFieldObject = function(language) {
+     * @param {("fr"|"en")} language - The language the inventory has to be displayed in
+     * @param {number} maxStatsValue - the max amount used
+     */
+	Weapons.prototype.toFieldObject = function(language, maxStatsValue) {
 		return {
 			name: JsonReader.items.getTranslation(language).weapons.fieldName,
 			value: this.id === 0 ? this[language] : format(
 				JsonReader.items.getTranslation(language).weapons.fieldValue, {
 					name: this[language],
 					rarity: this.getRarityTranslation(language),
-					values: this.getValues(language)
+					values: this.getValues(language, maxStatsValue)
 				})
 		};
 	};
 
 	/**
-	 * @param {("fr"|"en")} language - The language the weapon has to be displayed in
-	 * @return {String}
-	 */
+     * @param {("fr"|"en")} language - The language the weapon has to be displayed in
+     * @return {String}
+     */
 	Weapons.prototype.toString = function(language) {
 		return this.id === 0 ? this[language] : format(
 			JsonReader.items.getTranslation(language).weapons.fieldValue, {
@@ -104,19 +105,19 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * @param {("fr"|"en")} language
-	 * @return {String}
-	 */
+     * @param {("fr"|"en")} language
+     * @return {String}
+     */
 	Weapons.prototype.getRarityTranslation = function(language) {
 		return JsonReader.items.getTranslation(language).rarities[this.rarity];
 	};
 
 
 	/**
-	 * Get the simple name of the item, without rarity or anything else
-	 * @param {("fr"|"en")} language
-	 * @return {String}
-	 */
+     * Get the simple name of the item, without rarity or anything else
+     * @param {("fr"|"en")} language
+     * @return {String}
+     */
 	Weapons.prototype.getName = function(language) {
 		return this[language];
 	};
@@ -126,17 +127,17 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * Return the property from rawProperty and property modifier
-	 * @return {Number}
-	 */
+     * Return the property from rawProperty and property modifier
+     * @return {Number}
+     */
 	Weapons.prototype.getAttack = function() {
 		return Math.round(1.15053 * Math.pow(this.multiplicateur(), 2.3617) * Math.pow(1.0569 + 0.1448 / this.multiplicateur(), this.rawAttack)) + this.attack;
 	};
 
 	/**
-	 * Return the property from rawProperty and property modifier
-	 * @return {Number}
-	 */
+     * Return the property from rawProperty and property modifier
+     * @return {Number}
+     */
 	Weapons.prototype.getDefense = function() {
 		let before = 0;
 		if (this.rawDefense > 0) {
@@ -146,9 +147,9 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * Return the property from rawProperty and property modifier
-	 * @return {Number}
-	 */
+     * Return the property from rawProperty and property modifier
+     * @return {Number}
+     */
 	Weapons.prototype.getSpeed = function() {
 		let before = 0;
 		if (this.rawSpeed > 0) {
@@ -158,15 +159,24 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * @param {("fr"|"en")} language
-	 * @return {String}
-	 */
-	Weapons.prototype.getValues = function(language) {
+     * @param {("fr"|"en")} language
+     * @param {number} maxStatsValue armor amount before being nerfed
+     * @return {String}
+     */
+	Weapons.prototype.getValues = function(language, maxStatsValue) {
 		const values = [];
 
 		if (this.getAttack() !== 0) {
+			if (isNaN(maxStatsValue)) {
+				maxStatsValue = Infinity;
+			}
+			const attackDisplay = maxStatsValue > this.getAttack() ? this.getAttack() : format(JsonReader.items.getTranslation(language).nerfDisplay,
+				{
+					old: this.getAttack(),
+					max: maxStatsValue
+				});
 			values.push(format(JsonReader.items.getTranslation(language).attack,
-				{attack: this.getAttack()}));
+				{attack: attackDisplay}));
 		}
 
 		if (this.getDefense() !== 0) {

@@ -225,9 +225,7 @@ global.minutesToString = (minutes) => {
  * @param {Object} replacement
  * @return {String}
  */
-global.format = (string, replacement) => {
-	return format(string, replacement);
-};
+global.format = (string, replacement) => format(string, replacement);
 
 /**
  * Generates a random int between min (included) and max (excluded)

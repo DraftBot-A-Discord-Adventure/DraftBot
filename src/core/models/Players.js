@@ -3,8 +3,8 @@ import {Constants} from "../Constants";
 
 const Maps = require("../Maps");
 /**
- * @typedef {import('sequelize').Sequelize} Sequelize
- * @typedef {import('sequelize/types')} DataTypes
+ * @typedef {import("sequelize").Sequelize} Sequelize
+ * @typedef {import("sequelize/types")} DataTypes
  *
  * @param {Sequelize} Sequelize
  * @param {DataTypes} DataTypes
@@ -723,6 +723,19 @@ module.exports = (Sequelize, DataTypes) => {
 				}
 			});
 	};
+
+	/**
+	 * get the max values for each stat that the player can have.
+	 * @returns {Promise<*[number: attack]>}
+	 */
+	Players.prototype.getMaxStatsValue = async function() {
+		const playerClass = await Classes.getById(this.class);
+		const attackItemValue = playerClass.getAttackValue(this.level);
+		const defenseItemValue = playerClass.getDefenseValue(this.level);
+		const speedItemValue = playerClass.getSpeedValue(this.level);
+		return [attackItemValue, defenseItemValue, speedItemValue];
+	};
+
 
 	return Players;
 };

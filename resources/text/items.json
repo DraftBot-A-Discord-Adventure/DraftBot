@@ -1,6 +1,7 @@
 {
 	"translations": {
 		"fr": {
+			"nerfDisplay": "~~{old}~~ {max}",
 			"attack": ":dagger: {attack}",
 			"defense": ":shield: {defense}",
 			"speed": ":rocket: {speed}",
@@ -45,12 +46,13 @@
 				":trident: Exotique",
 				":comet: Rare",
 				":dizzy: Spécial",
-				":star: Epique",
-				":star2: Legendaire",
+				":star: Épique",
+				":star2: Légendaire",
 				":gem: Mythique"
 			]
 		},
 		"en": {
+			"nerfDisplay": "~~{old}~~ {max}",
 			"attack": ":dagger: {attack}",
 			"defense": ":shield: {defense}",
 			"speed": ":rocket: {speed}",
