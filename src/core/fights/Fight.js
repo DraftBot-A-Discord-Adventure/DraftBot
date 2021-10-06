@@ -251,36 +251,32 @@ class Fight {
 	 * @param {Fight} fight
 	 * @param {Fighter} attacker
 	 * @param {Fighter} defender
-	 * @return {Promise<{embed: {}}>}
+	 * @return {Promise<DraftBotEmbed>}
 	 */
 	async getSummarizeEmbed(fight, attacker, defender) {
-		return {
-			embed: {
-				title: JsonReader.commands.fight.getTranslation(this.language).summarize.title,
-				description:
-					JsonReader.commands.fight.getTranslation(this.language).summarize.intro +
-					format(JsonReader.commands.fight.getTranslation(this.language).summarize.attacker, {
-						pseudo: await attacker.entity.Player.getPseudo(this.language),
-						charging: attacker.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
-					}) +
-					format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
-						power: attacker.power,
-						attack: attacker.attack,
-						defense: attacker.defense,
-						speed: attacker.speed
-					}) + "\n\n" +
-					format(JsonReader.commands.fight.getTranslation(this.language).summarize.defender, {
-						pseudo: await defender.entity.Player.getPseudo(this.language),
-						charging: defender.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
-					}) +
-					format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
-						power: defender.power,
-						attack: defender.attack,
-						defense: defender.defense,
-						speed: defender.speed
-					})
-			}
-		};
+		return new DraftBotEmbed()
+			.setTitle(JsonReader.commands.fight.getTranslation(this.language).summarize.title)
+			.setDescription(JsonReader.commands.fight.getTranslation(this.language).summarize.intro +
+				format(JsonReader.commands.fight.getTranslation(this.language).summarize.attacker, {
+					pseudo: await attacker.entity.Player.getPseudo(this.language),
+					charging: attacker.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
+				}) +
+				format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
+					power: attacker.power,
+					attack: attacker.attack,
+					defense: attacker.defense,
+					speed: attacker.speed
+				}) + "\n\n" +
+				format(JsonReader.commands.fight.getTranslation(this.language).summarize.defender, {
+					pseudo: await defender.entity.Player.getPseudo(this.language),
+					charging: defender.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
+				}) +
+				format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
+					power: defender.power,
+					attack: defender.attack,
+					defense: defender.defense,
+					speed: defender.speed
+				}));
 	}
 
 	/**

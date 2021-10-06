@@ -7,7 +7,7 @@ import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {giveItemToPlayer, giveRandomItem} from "../../core/utils/ItemUtils";
 import {Constants} from "../../core/Constants";
-import {DraftBotReactionMessage, DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
+import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {format} from "../../core/utils/StringFormatter";
@@ -191,6 +191,9 @@ function getSlotExtensionShopItem(translationModule, entity) {
 		+ entity.Player.InventoryInfo.potionSlots
 		+ entity.Player.InventoryInfo.objectSlots;
 	const price = JsonReader.items.slots.prices[totalSlots - 4];
+	if (!price) {
+		return null;
+	}
 	return new ShopItem(
 		Constants.REACTIONS.INVENTORY_EXTENSION,
 		translationModule.get("slotsExtension"),
