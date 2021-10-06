@@ -725,7 +725,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 *g
+	 * get the max values for each stat that the player can have.
 	 * @returns {Promise<*[number: attack]>}
 	 */
 	Players.prototype.getMaxStatsValue = async function() {
