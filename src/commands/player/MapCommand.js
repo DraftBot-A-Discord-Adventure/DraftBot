@@ -33,7 +33,7 @@ const MapCommand = async (message, language) => {
 				particle: await destMap.getParticleName(language)
 			}));
 	}
-	await message.channel.send(mapEmbed);
+	await message.channel.send({ embeds: [mapEmbed] });
 
 	log("Player " + message.author + " asked the map");
 };

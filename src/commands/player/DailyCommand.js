@@ -92,7 +92,7 @@ const DailyCommand = async (message, language) => {
 
 	await Promise.all([entity.save(), entity.Player.save(), entity.Player.InventoryInfo.save()]);
 	log(entity.discordUserId + " used his daily item " + activeObject.en);
-	return await message.channel.send(embed);
+	return await message.channel.send({ embeds: [embed] });
 };
 
 module.exports.execute = DailyCommand;

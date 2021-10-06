@@ -58,7 +58,7 @@ const DrinkCommand = async (message, language) => {
 		entity.Player.save()
 	]);
 	log(entity.discordUserId + " drank " + potion.en);
-	return await message.channel.send(embed);
+	return await message.channel.send({ embeds: [embed] });
 };
 
 module.exports.execute = DrinkCommand;

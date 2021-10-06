@@ -33,8 +33,8 @@ const DmNotificationCommand = async (message, language) => {
 		.formatAuthor(translations.title, message.author);
 	if (isDmNotificationOn) {
 		try {
-			await message.author.send(dmNotificationEmbed);
-			await message.channel.send(dmNotificationEmbed);
+			await message.author.send({ embeds: [dmNotificationEmbed] });
+			await message.channel.send({ embeds: [dmNotificationEmbed] });
 		}
 		catch (err) {
 			entity.Player.dmNotification = false;
@@ -48,7 +48,7 @@ const DmNotificationCommand = async (message, language) => {
 
 	}
 	else {
-		await message.channel.send(dmNotificationEmbed);
+		await message.channel.send({ embeds: [dmNotificationEmbed] });
 	}
 	log("Player " + message.author + " switched dms to " + entity.Player.dmNotification);
 	await entity.Player.save();

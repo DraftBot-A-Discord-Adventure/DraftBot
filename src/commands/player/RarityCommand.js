@@ -28,7 +28,7 @@ const RarityCommand = (message, language) => {
 			}))
 		.setTitle(JsonReader.commands.rarity.getTranslation(language).title)
 		.setColor(JsonReader.bot.embed.default);
-	message.channel.send(rarityEmbed);
+	message.channel.send({ embeds: [rarityEmbed] });
 };
 
 module.exports.execute = RarityCommand;

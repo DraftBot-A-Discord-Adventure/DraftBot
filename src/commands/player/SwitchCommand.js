@@ -28,7 +28,7 @@ const SwitchCommand = async (message, language) => {
 	const tr = Translations.getModule("commands.switch", language);
 	let toSwitchItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSwitchItems.length === 0) {
-		return message.channel.send(new DraftBotErrorEmbed(message.author, language, tr.get("noItemToSwitch")));
+		return message.channel.send({ embeds: [new DraftBotErrorEmbed(message.author, language, tr.get("noItemToSwitch"))] });
 	}
 	toSwitchItems = await sortPlayerItemList(toSwitchItems);
 	const choiceItems = [];
@@ -105,10 +105,10 @@ const SwitchCommand = async (message, language) => {
 				item2: otherItemInstance.getName(language)
 			});
 		}
-		return message.channel.send(new DraftBotEmbed()
+		return message.channel.send({ embeds: [new DraftBotEmbed()
 			.formatAuthor(tr.get("title"), message.author)
 			.setDescription(desc)
-		);
+		] });
 	},
 	async (endMessage) => {
 		removeBlockedPlayer(entity.discordUserId);

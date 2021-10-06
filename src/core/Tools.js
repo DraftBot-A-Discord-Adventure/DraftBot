@@ -74,7 +74,7 @@ global.sendMessageAttachments = (message, channel) => {
  * @param {boolean} isCancelling - true if the error message is meant to cancel something
  * @param {String} reason
  */
-global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => channel.send(new DraftBotErrorEmbed(user, language, reason, isCancelling));
+global.sendErrorMessage = (user, channel, language, reason, isCancelling = false) => channel.send({ embeds: [new DraftBotErrorEmbed(user, language, reason, isCancelling)] });
 
 /**
  * Send a dm to a user
@@ -86,11 +86,12 @@ global.sendErrorMessage = (user, channel, language, reason, isCancelling = false
  */
 global.sendDirectMessage = (user, title, description, color, language) => {
 	try {
-		user.send(new DraftBotEmbed()
-			.setColor(color)
+		user.send({ embeds: [new DraftBotEmbed()
+			// Ignore this for now
+			// .setColor(color)
 			.formatAuthor(title, user)
 			.setDescription(description)
-			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter));
+			.setFooter(JsonReader.models.players.getTranslation(language).dmEnabledFooter)] });
 		log("Dm sent to " + user.id + ", title : " + title + ", description : " + description);
 	}
 	catch (err) {
@@ -106,9 +107,9 @@ global.sendDirectMessage = (user, title, description, color, language) => {
  * @param {String} title - the title of the message
  * @param {String} message - the message
  */
-global.sendSimpleMessage = (user, channel, title, message) => channel.send(new DraftBotEmbed()
+global.sendSimpleMessage = (user, channel, title, message) => channel.send({ embeds: [new DraftBotEmbed()
 	.formatAuthor(title, user)
-	.setDescription(message));
+	.setDescription(message)] });
 
 /**
  * @deprecated Use ItemUtils.giveItemToPlayer instead
@@ -147,7 +148,7 @@ global.destroyPotionMessage = async (channel, language, discordUser, item, isAut
 	const titleEmbedDestroyPotionMessage = isAutoSell
 		? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
 		: JsonReader.commands.sell.getTranslation(language).potionDestroyedTitle;
-	return await channel.send(
+	return await channel.send({ embeds: [
 		new DraftBotEmbed()
 			.formatAuthor(titleEmbedDestroyPotionMessage, discordUser)
 			.setDescription(
@@ -157,7 +158,7 @@ global.destroyPotionMessage = async (channel, language, discordUser, item, isAut
 					}
 				)
 			)
-	); // potion are not sold (because of exploits and because of logic)
+	] }); // potion are not sold (because of exploits and because of logic)
 };
 
 /**
@@ -452,7 +453,7 @@ global.giveFood = async (message, language, entity, author, selectedItem, quanti
 			)
 		);
 	}
-	return message.channel.send(successEmbed);
+	return message.channel.send({ embeds: [successEmbed] });
 };
 
 

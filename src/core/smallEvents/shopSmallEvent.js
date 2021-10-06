@@ -27,7 +27,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				price: price,
 				type: Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()] + " " + translationShop.types[randomItem.getCategory()]
 			}));
-	const msg = await message.channel.send(seEmbed);
+	const msg = await message.channel.send({ embeds: [seEmbed] });
 	await Promise.all([
 		msg.react(MENU_REACTION.ACCEPT),
 		msg.react(MENU_REACTION.DENY)
@@ -35,7 +35,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const filterConfirm = (reaction, user) =>	(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUserId;
 
-	const collector = msg.createReactionCollector(filterConfirm, {time: COLLECTOR_TIME, max: 1});
+	const collector = msg.createReactionCollector({filter: filterConfirm, time: COLLECTOR_TIME, max: 1});
 
 	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);

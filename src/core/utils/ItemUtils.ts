@@ -11,7 +11,7 @@ declare const InventorySlots: any;
 declare const Entities: any;
 declare const JsonReader: any;
 declare function removeBlockedPlayer(id: string): void;
-declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any>): void;
+declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any, any[]>): void;
 declare const draftbotRandom: Random;
 declare const Weapons: any;
 declare const Armors: any;
@@ -29,11 +29,11 @@ export const giveItemToPlayer = async function(
 ): Promise<void> {
 	const resaleMultiplier = resaleMultiplierNew;
 	const tr = Translations.getModule("commands.inventory", language);
-	await channel.send(
+	await channel.send({ embeds: [
 		new DraftBotEmbed()
 			.formatAuthor(tr.get("randomItemTitle"), discordUser)
 			.setDescription(item.toString(language))
-	);
+	] });
 
 	if (await entity.Player.giveItem(item) === true) {
 		return;
@@ -190,12 +190,12 @@ const sellOrKeepItem = async function(
 					playerId: entity.Player.id
 				}
 			});
-		await channel.send(menuEmbed);
+		await channel.send({ embeds: [menuEmbed] });
 		item = itemToReplaceInstance;
 		resaleMultiplier = resaleMultiplierActual;
 	}
 	if (item.getCategory() === Constants.ITEM_CATEGORIES.POTION) {
-		await channel.send(
+		await channel.send({ embeds: [
 			new DraftBotEmbed()
 				.formatAuthor(
 					autoSell ? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
@@ -207,14 +207,14 @@ const sellOrKeepItem = async function(
 							item: item.getName(language)
 						}
 					)
-				)
+				)] }
 		);
 		return;
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
 	entity.Player.addMoney(money);
 	await entity.Player.save();
-	return await channel.send(
+	return await channel.send({ embeds: [
 		new DraftBotEmbed()
 			.formatAuthor(
 				autoSell ? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
@@ -228,7 +228,7 @@ const sellOrKeepItem = async function(
 					}
 				)
 			)
-	);
+	] });
 };
 
 export const getItemValue = function(item: any) {

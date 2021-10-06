@@ -39,7 +39,7 @@ const GuildElderRemoveCommand = async (message, language) => {
 		)
 	);
 
-	const msg = await message.channel.send(elderRemoveEmbed);
+	const msg = await message.channel.send({ embeds: [elderRemoveEmbed] });
 
 	const confirmEmbed = new DraftBotEmbed();
 	const filterConfirm = (reaction, user) =>
@@ -48,7 +48,8 @@ const GuildElderRemoveCommand = async (message, language) => {
 			user.id === message.author.id
 		;
 
-	const collector = msg.createReactionCollector(filterConfirm, {
+	const collector = msg.createReactionCollector({
+		filter: filterConfirm,
 		time: COLLECTOR_TIME,
 		max: 1
 	});
@@ -73,7 +74,7 @@ const GuildElderRemoveCommand = async (message, language) => {
 					JsonReader.commands.guildElderRemove.getTranslation(language)
 						.successElderRemove
 				);
-				return message.channel.send(confirmEmbed);
+				return message.channel.send({ embeds: [confirmEmbed] });
 			}
 		}
 

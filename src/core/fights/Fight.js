@@ -85,7 +85,7 @@ class Fight {
 
 		this.introduceFight();
 		this.actionMessages = [
-			await this.message.channel.send("_ _")
+			await this.message.channel.send({ content: "_ _" })
 		];
 		await this.nextTurn();
 	}
@@ -104,10 +104,10 @@ class Fight {
 	 * Send the fight intro message
 	 */
 	introduceFight() {
-		this.message.channel.send(format(JsonReader.commands.fight.getTranslation(this.language).intro, {
+		this.message.channel.send({ content: format(JsonReader.commands.fight.getTranslation(this.language).intro, {
 			player1: this.fighters[0].entity.getMention(),
 			player2: this.fighters[1].entity.getMention()
-		}));
+		})});
 	}
 
 	/**
@@ -164,7 +164,7 @@ class Fight {
 				}
 			}
 		}
-		this.message.channel.send(new DraftBotEmbed().setDescription(msg));
+		this.message.channel.send({ embeds: [new DraftBotEmbed().setDescription(msg)] });
 	}
 
 	/**
@@ -183,11 +183,14 @@ class Fight {
 		embed.setDescription(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsDescription)
 			.setAuthor(format(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsTitle, {pseudo: await this.getPlayingFighter().entity.Player.getPseudo(this.language)}),
 				await this.message.guild.members.cache.get(playingId).user.avatarURL());
-		this.message.channel.send(embed)
+		this.message.channel.send({ embeds: [embed] })
 			.then(async function(message) {
 				const filter = (reaction, user) => user.id === playingId;
 
-				const collector = message.createReactionCollector(filter, {time: 30000});
+				const collector = message.createReactionCollector({
+					filter,
+					time: 30000
+				});
 
 				collector.on("collect", async (reaction) => {
 					switch (reaction.emoji.name) {
@@ -248,36 +251,32 @@ class Fight {
 	 * @param {Fight} fight
 	 * @param {Fighter} attacker
 	 * @param {Fighter} defender
-	 * @return {Promise<{embed: {}}>}
+	 * @return {Promise<DraftBotEmbed>}
 	 */
 	async getSummarizeEmbed(fight, attacker, defender) {
-		return {
-			embed: {
-				title: JsonReader.commands.fight.getTranslation(this.language).summarize.title,
-				description:
-					JsonReader.commands.fight.getTranslation(this.language).summarize.intro +
-					format(JsonReader.commands.fight.getTranslation(this.language).summarize.attacker, {
-						pseudo: await attacker.entity.Player.getPseudo(this.language),
-						charging: attacker.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
-					}) +
-					format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
-						power: attacker.power,
-						attack: attacker.attack,
-						defense: attacker.defense,
-						speed: attacker.speed
-					}) + "\n\n" +
-					format(JsonReader.commands.fight.getTranslation(this.language).summarize.defender, {
-						pseudo: await defender.entity.Player.getPseudo(this.language),
-						charging: defender.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
-					}) +
-					format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
-						power: defender.power,
-						attack: defender.attack,
-						defense: defender.defense,
-						speed: defender.speed
-					})
-			}
-		};
+		return new DraftBotEmbed()
+			.setTitle(JsonReader.commands.fight.getTranslation(this.language).summarize.title)
+			.setDescription(JsonReader.commands.fight.getTranslation(this.language).summarize.intro +
+				format(JsonReader.commands.fight.getTranslation(this.language).summarize.attacker, {
+					pseudo: await attacker.entity.Player.getPseudo(this.language),
+					charging: attacker.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
+				}) +
+				format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
+					power: attacker.power,
+					attack: attacker.attack,
+					defense: attacker.defense,
+					speed: attacker.speed
+				}) + "\n\n" +
+				format(JsonReader.commands.fight.getTranslation(this.language).summarize.defender, {
+					pseudo: await defender.entity.Player.getPseudo(this.language),
+					charging: defender.chargeTurns > 0 ? JsonReader.commands.fight.getTranslation(this.language).actions.chargingEmote : ""
+				}) +
+				format(JsonReader.commands.fight.getTranslation(this.language).summarize.stats, {
+					power: defender.power,
+					attack: defender.attack,
+					defense: defender.defense,
+					speed: defender.speed
+				}));
 	}
 
 	/**
@@ -289,10 +288,10 @@ class Fight {
 		const defender = this.getDefendingFighter();
 
 		if (this.lastSummary === undefined) {
-			this.lastSummary = await this.message.channel.send(await this.getSummarizeEmbed(this, attacker, defender));
+			this.lastSummary = await this.message.channel.send({ embeds: [await this.getSummarizeEmbed(this, attacker, defender)] });
 		}
 		else {
-			await this.lastSummary.edit(await this.getSummarizeEmbed(this, attacker, defender));
+			await this.lastSummary.edit({ embeds: [await this.getSummarizeEmbed(this, attacker, defender)] });
 		}
 	}
 
@@ -365,14 +364,14 @@ class Fight {
 		if (amsg.content.length + msg.length > 1950) {
 			await this.lastSummary.delete();
 			this.lastSummary = undefined;
-			amsg = await this.message.channel.send(msg);
+			amsg = await this.message.channel.send({ content: msg });
 			this.actionMessages.push(amsg);
 		}
 		else if (amsg.content === "_ _") {
-			await amsg.edit(msg);
+			await amsg.edit({ content: msg });
 		}
 		else {
-			await amsg.edit(amsg.content + "\n" + msg);
+			await amsg.edit({ content: amsg.content + "\n" + msg });
 		}
 	}
 
@@ -388,7 +387,7 @@ class Fight {
 			for (let i = 0; i < this.actionMessages.length; ++i) {
 				const content = this.actionMessages[i].content;
 				await this.actionMessages[i].delete();
-				this.actionMessages[i] = await this.message.channel.send(content);
+				this.actionMessages[i] = await this.message.channel.send({ content: content });
 			}
 			await this.lastSummary.delete();
 			this.lastSummary = undefined;
@@ -461,7 +460,7 @@ class Fight {
 			global.removeBlockedPlayer(this.fighters[i].entity.discordUserId);
 		}
 		if (this.lastSummary !== undefined) {
-			this.lastSummary.delete({timeout: 5000}).catch();
+			setTimeout(() => this.lastSummary.delete(), 5000);
 		}
 		if (winner !== null) {
 			log("Fight ended; winner: " + winner.entity.discordUserId + " (" + winner.power + "/" + winner.initialPower

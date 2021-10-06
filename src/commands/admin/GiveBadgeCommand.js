@@ -21,12 +21,12 @@ const GiveBadgeCommand = async (message, language, args) => {
 	await entity.Player.addBadge(args[0]);
 	await entity.Player.save();
 
-	return await message.channel.send(new DraftBotEmbed()
+	return await message.channel.send({ embeds: [new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.giveBadgeCommand.getTranslation(language).giveSuccess, message.author)
 		.setDescription(format(JsonReader.commands.giveBadgeCommand.getTranslation(language).descGive, {
 			badge: args[0],
 			player: message.mentions.users.last()
-		})));
+		}))] });
 };
 
 module.exports.execute = GiveBadgeCommand;

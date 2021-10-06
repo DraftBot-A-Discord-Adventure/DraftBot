@@ -29,7 +29,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	}
 	await entity.Player.save();
 	await entity.save();
-	await message.channel.send(seEmbed);
+	await message.channel.send({ embeds: [seEmbed] });
 	log(entity.discordUserId + " gained some xp points in a mini event");
 };
 

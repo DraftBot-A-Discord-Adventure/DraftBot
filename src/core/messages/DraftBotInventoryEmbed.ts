@@ -101,8 +101,8 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 			invMsg.setFooter(invMsg.mainFooter);
 		}
 		invMsg.isMainState = !invMsg.isMainState;
-		await msg.sentMessage.edit(invMsg);
-	};
+		await msg.sentMessage.edit({ embeds: [invMsg] });
+	}
 }
 
 export class DraftBotInventoryEmbedBuilder {

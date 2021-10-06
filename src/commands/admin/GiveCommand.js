@@ -23,7 +23,7 @@ const GiveCommand = async (message, language, args) => {
 	const itemId = parseInt(args[2],10);
 	const category = parseInt(args[1], 10);
 	if (category < 0 || category > 3) {
-		return await message.channel.send(new DraftBotErrorEmbed(player, language, tr.get("unknownCategory")));
+		return await message.channel.send({ embeds: [new DraftBotErrorEmbed(player, language, tr.get("unknownCategory"))] });
 	}
 	let item = null;
 	switch (category) {
@@ -43,18 +43,18 @@ const GiveCommand = async (message, language, args) => {
 		break;
 	}
 	if (item === null) {
-		return await message.channel.send(new DraftBotErrorEmbed(player, language, tr.get("wrongItemId")));
+		return await message.channel.send({ embeds: [new DraftBotErrorEmbed(player, language, tr.get("wrongItemId"))] });
 	}
 	if (!await entity.Player.giveItem(item)) {
-		return await message.channel.send(new DraftBotErrorEmbed(player, language, tr.get("noAvailableSlot")));
+		return await message.channel.send({ embeds: [new DraftBotErrorEmbed(player, language, tr.get("noAvailableSlot"))] });
 	}
 
-	return await message.channel.send(new DraftBotEmbed()
+	return await message.channel.send({ embeds: [new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.giveCommand.getTranslation(language).giveSuccess, message.author)
 		.setDescription(format(JsonReader.commands.giveCommand.getTranslation(language).descGive, {
 			item: item.getName(language),
 			player: player
-		})));
+		}))] });
 };
 
 function getUserFromMention(mention) {

@@ -210,7 +210,7 @@ module.exports = (Sequelize, DataTypes) => {
 					}
 				)
 			);
-		channel.send(embed);
+		channel.send({ embeds: [embed] });
 
 		if (this.needLevelUp()) {
 			return this.levelUpIfNeeded(channel, language);

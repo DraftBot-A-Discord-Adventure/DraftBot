@@ -28,7 +28,7 @@ const SellCommand = async (message, language) => {
 	const tr = Translations.getModule("commands.sell", language);
 	let toSellItems = entity.Player.InventorySlots.filter(slot => !slot.isEquipped() && slot.itemId !== 0);
 	if (toSellItems.length === 0) {
-		return message.channel.send(new DraftBotErrorEmbed(message.author, language, tr.get("noItemToSell")));
+		return message.channel.send({ embeds: [new DraftBotErrorEmbed(message.author, language, tr.get("noItemToSell"))] });
 	}
 	toSellItems = await sortPlayerItemList(toSellItems);
 
@@ -73,22 +73,22 @@ const SellCommand = async (message, language) => {
 			await entity.Player.save();
 			log(entity.discordUserId + " sold his item " + item.name + " (money: " + money + ")");
 			if (money === 0) {
-				return await message.channel.send(new DraftBotEmbed()
+				return await message.channel.send({ embeds: [new DraftBotEmbed()
 					.formatAuthor(tr.get("potionDestroyedTitle"), message.author)
 					.setDescription(
 						tr.format("potionDestroyedMessage", {
 							item: item.name
 						})
-					));
+					)] });
 			}
-			return await message.channel.send(new DraftBotEmbed()
+			return await message.channel.send({ embeds: [new DraftBotEmbed()
 				.formatAuthor(tr.get("soldMessageTitle"), message.author)
 				.setDescription(tr.format("soldMessage",
 					{
 						item: item.name,
 						money: money
 					}
-				)));
+				))] });
 		}
 		await sendErrorMessage(message.author, message.channel, language, tr.get("sellCanceled"), true);
 	};

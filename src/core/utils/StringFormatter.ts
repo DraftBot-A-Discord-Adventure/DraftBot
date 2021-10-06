@@ -131,6 +131,9 @@ export const formatPlaceholder = function(placeholder: ReplacementPlaceholder, r
 			if (typeof replacement === "string") {
 				return replacement;
 			}
+			if (replacement === null || replacement === undefined) {
+				return "FORMAT_ERROR:NULL_OR_UNDEFINED_VALUE";
+			}
 			return replacement.toString();
 		}
 		return placeholder.leftValue;

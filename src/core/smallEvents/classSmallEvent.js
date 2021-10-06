@@ -41,7 +41,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			item = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.WEAPON);
 			break;
 		}
-		await message.channel.send(seEmbed);
+		await message.channel.send({ embeds: [seEmbed] });
 		await giveItemToPlayer(entity, item, language, message.author, message.channel);
 	}
 	else if (JsonReader.smallEvents.class.defenseEligible.includes(classId)) {
@@ -63,21 +63,21 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			item = await generateRandomItem(Constants.RARITY.MYTHICAL, Constants.ITEM_CATEGORIES.ARMOR);
 			break;
 		}
-		await message.channel.send(seEmbed);
+		await message.channel.send({ embeds: [seEmbed] });
 		await giveItemToPlayer(entity, item, language, message.author, message.channel);
 	}
 	else if (JsonReader.smallEvents.class.basicEligible.includes(classId)) {
 		if (draftbotRandom.bool()) {
 			// winItem
 			seEmbed.setDescription(base + trans.basic.winItem[draftbotRandom.integer(0, trans.basic.winItem.length - 1)]);
-			await message.channel.send(seEmbed);
+			await message.channel.send({ embeds: [seEmbed] });
 			await giveRandomItem(message.author, message.channel, language, entity);
 		}
 		else {
 			// winMoney
 			const moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_CLASS, SMALL_EVENT.MAXIMUM_MONEY_WON_CLASS);
 			seEmbed.setDescription(base + format(trans.basic.winMoney[draftbotRandom.integer(0, trans.basic.winMoney.length - 1)], {money: moneyWon}));
-			await message.channel.send(seEmbed);
+			await message.channel.send({ embeds: [seEmbed] });
 			await entity.Player.addMoney(moneyWon);
 		}
 	}
@@ -85,14 +85,14 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		if (draftbotRandom.bool()) {
 			// winItem
 			seEmbed.setDescription(base + trans.other.winItem[draftbotRandom.integer(0, trans.other.winItem.length - 1)]);
-			await message.channel.send(seEmbed);
+			await message.channel.send({ embeds: [seEmbed] });
 			await giveRandomItem(message.author, message.channel, language, entity);
 		}
 		else {
 			// winHealth
 			const healthWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_WON_CLASS, SMALL_EVENT.MAXIMUM_HEALTH_WON_CLASS);
 			seEmbed.setDescription(base + format(trans.other.winHealth[draftbotRandom.integer(0, trans.other.winHealth.length - 1)], {health: healthWon}));
-			await message.channel.send(seEmbed);
+			await message.channel.send({ embeds: [seEmbed] });
 			await entity.addHealth(healthWon);
 		}
 	}

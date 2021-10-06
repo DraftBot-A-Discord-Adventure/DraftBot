@@ -31,7 +31,7 @@ const GuildShelterCommand = async (message, language) => {
 			message.author, message.channel, language, JsonReader.commands.guildAdd.getTranslation(language).notInAguild);
 	}
 
-	await message.channel.send(await new DraftBotShelterMessageBuilder(guild, language).build());
+	await message.channel.send({ embeds: [await new DraftBotShelterMessageBuilder(guild, language).build()] });
 };
 
 module.exports.execute = GuildShelterCommand;

@@ -107,9 +107,9 @@ const ChangeMoneyCommand = async (message, language, args) => {
 			);
 		}
 	}
-	return await message.channel.send(new DraftBotEmbed()
+	return await message.channel.send({ embeds: [new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.money.getTranslation(language).title, message.author)
-		.setDescription(descString));
+		.setDescription(descString)] });
 };
 
 function giveMoneyTo(entityToEdit, amount, args) {

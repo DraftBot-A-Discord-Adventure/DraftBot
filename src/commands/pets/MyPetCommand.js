@@ -23,7 +23,7 @@ const MyPetCommand = async (message, language, args) => {
 
 	if (authorPet) {
 		const user = message.mentions.users.last() ? message.mentions.users.last() : message.author;
-		return await message.channel.send(new DraftBotEmbed()
+		return await message.channel.send({ embeds: [new DraftBotEmbed()
 			.setAuthor(
 				format(tr.embedTitle, {
 					pseudo: await entity.Player.getPseudo(language)
@@ -32,7 +32,7 @@ const MyPetCommand = async (message, language, args) => {
 			)
 			.setDescription(
 				await PetEntities.getPetDisplay(authorPet, language)
-			));
+			)] });
 	}
 
 	if (entity.discordUserId === message.author.id) {

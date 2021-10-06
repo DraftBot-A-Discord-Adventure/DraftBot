@@ -144,7 +144,7 @@ const ProfileCommand = async (message, language, args) => {
 		console.log(error);
 	}
 
-	const msg = await message.channel.send(
+	const msg = await message.channel.send({ embeds: [
 		new DraftBotEmbed()
 			.setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
 				effect: titleEffect,
@@ -152,18 +152,19 @@ const ProfileCommand = async (message, language, args) => {
 				level: entity.Player.level
 			}))
 			.addFields(fields)
-	);
+	] });
 
 	const filterConfirm = (reaction) => reaction.me && !reaction.users.cache.last().bot;
 
-	const collector = msg.createReactionCollector(filterConfirm, {
+	const collector = msg.createReactionCollector({
+		filter: filterConfirm,
 		time: COLLECTOR_TIME,
 		max: JsonReader.commands.profile.badgeMaxReactNumber
 	});
 
 	collector.on("collect", (reaction) => {
-		message.channel.send(JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]).then((msg) => {
-			msg.delete({"timeout": JsonReader.commands.profile.badgeDescriptionTimeout});
+		message.channel.send({ content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name] }).then((msg) => {
+			setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
 		});
 	});
 

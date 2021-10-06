@@ -82,7 +82,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 		const map = await entity.Player.getDestination();
 		[event] = await Events.pickEventOnMapType(map);
 		if (!event) {
-			await message.channel.send("It seems that there is no event here... It's a bug, please report it to the Draftbot staff.");
+			await message.channel.send({ content: "It seems that there is no event here... It's a bug, please report it to the Draftbot staff." });
 			return;
 		}
 	}
@@ -148,7 +148,7 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 	travelEmbed.addField(tr.collectedPointsTitle, "🏅 " + await PlayerSmallEvents.calculateCurrentScore(entity.Player), true);
 
 	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], true);
-	return await message.channel.send(travelEmbed);
+	return await message.channel.send({ embeds: [travelEmbed] });
 };
 
 
@@ -188,9 +188,12 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	}
 	chooseDestinationEmbed.setDescription(desc);
 
-	const sentMessage = await message.channel.send(chooseDestinationEmbed);
+	const sentMessage = await message.channel.send({ embeds: [chooseDestinationEmbed] });
 
-	const collector = sentMessage.createReactionCollector((reaction, user) => destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id, {time: COLLECTOR_TIME});
+	const collector = sentMessage.createReactionCollector({
+		filter: (reaction, user) => destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id,
+		time: COLLECTOR_TIME
+	});
 
 	collector.on("collect", () => {
 		collector.stop();
@@ -234,7 +237,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 		mapType: typeTr.types[mapInstance.type].name.toLowerCase(),
 		time: await entity.Player.getCurrentTripDuration()
 	}));
-	await message.channel.send(destinationEmbed);
+	await message.channel.send({ embeds: [destinationEmbed] });
 };
 
 /**
@@ -247,12 +250,15 @@ const destinationChoseMessage = async function(entity, map, message, language) {
  * @return {Promise<void>}
  */
 const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
-	const eventDisplayed = await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doEvent, {
+	const eventDisplayed = await message.channel.send({ content: format(JsonReader.commands.report.getTranslation(language).doEvent, {
 		pseudo: message.author,
 		event: event[language]
-	}));
+	})});
 	const reactions = await event.getReactions();
-	const collector = eventDisplayed.createReactionCollector((reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id, {time: COLLECTOR_TIME});
+	const collector = eventDisplayed.createReactionCollector({
+		filter: (reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id,
+		time: COLLECTOR_TIME
+	});
 
 	await addBlockedPlayer(entity.discordUserId, "report", collector);
 
@@ -305,13 +311,13 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	if (possibility.length === 1) { // Don't do anything if the player ends the first report
 		if (possibility[0].dataValues.eventId === 0 && possibility[0].dataValues.possibilityKey === "end") {
 			removeBlockedPlayer(entity.discordUserId);
-			return await message.channel.send(format(JsonReader.commands.report.getTranslation(language).doPossibility, {
+			return await message.channel.send({ content: format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 				pseudo: message.author,
 				result: "",
 				event: possibility[0].dataValues[language],
 				emoji: "",
 				alte: ""
-			}));
+			})});
 		}
 	}
 
@@ -408,7 +414,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		}
 	}
 
-	const resultMsg = await message.channel.send(result);
+	const resultMsg = await message.channel.send({ content: result });
 
 	while (player.needLevelUp()) {
 		await player.levelUpIfNeeded(entity, message.channel, language);
@@ -488,7 +494,7 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 		try {
 			const smallEventFile = require(smallEventModule);
 			if (!smallEventFile.executeSmallEvent) {
-				await message.channel.send(filename + " doesn't contain an executeSmallEvent function");
+				await message.channel.send({ content: filename + " doesn't contain an executeSmallEvent function" });
 			}
 			else {
 				// Create a template embed
@@ -504,7 +510,7 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 		}
 	}
 	catch (e) {
-		await message.channel.send(filename + " doesn't exist");
+		await message.channel.send({ content: filename + " doesn't exist" });
 	}
 
 	// Save

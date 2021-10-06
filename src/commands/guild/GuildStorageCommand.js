@@ -80,7 +80,7 @@ const GuildStorageCommand = async (message, language) => {
 		true
 	);
 
-	await message.channel.send(storageEmbed);
+	await message.channel.send({ embeds: [storageEmbed] });
 };
 
 module.exports.execute = GuildStorageCommand;

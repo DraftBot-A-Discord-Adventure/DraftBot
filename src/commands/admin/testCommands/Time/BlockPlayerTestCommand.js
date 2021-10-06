@@ -22,7 +22,8 @@ const blockPlayerTestCommand = async (language, message, args) => {
 		throw new Error("Erreur block : on ne peut pas vous bloquer pendant un temps négatif ou nul !");
 	}
 	const sec = parseInt(args[0],10);
-	const collector = message.createReactionCollector(() => true, {
+	const collector = message.createReactionCollector({
+		filter: () => true,
 		time: sec * 1000
 	});
 	/* eslint-disable @typescript-eslint/no-empty-function */

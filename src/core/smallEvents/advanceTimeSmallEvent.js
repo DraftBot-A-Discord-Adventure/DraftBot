@@ -24,7 +24,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		})
 	);
 
-	await message.channel.send(seEmbed);
+	await message.channel.send({ embeds: [seEmbed] });
 	log(entity.discordUserId + " advanced " + timeAdvanced + "minutes from a small event.");
 };
 

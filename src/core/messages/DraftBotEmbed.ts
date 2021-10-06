@@ -13,7 +13,8 @@ export class DraftBotEmbed extends MessageEmbed {
 	 */
 	constructor() {
 		super();
-		this.setColor(Constants.MESSAGES.COLORS.DEFAULT);
+		// Ignore this for now
+		// this.setColor(Constants.MESSAGES.COLORS.DEFAULT);
 	}
 
 	/**

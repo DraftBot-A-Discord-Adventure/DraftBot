@@ -208,20 +208,20 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 		page = 1;
 	}
 	if (page > pageMax || page < 1) {
-		embedError.setColor(JsonReader.bot.embed.default)
+		embedError
 			.setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {
 				pseudo: actualPlayer,
 				pageMax: pageMax
 			}))
 			.setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPageDesc, {pageMax: pageMax}));
-		return await message.channel.send(embedError);
+		return await message.channel.send({ embeds: [embedError] });
 	}
 	const fin = page * 15;
 	const debut = fin - 14;
 	let messages = "";
 	let badge;
 	// Indicate which top we are going to display
-	embed.setColor(JsonReader.bot.embed.default)
+	embed
 		.setTitle(format(topTitle, {debut: debut, fin: fin}));
 	// Fetch all server members
 	await message.guild.members.fetch();
@@ -346,7 +346,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 		}));
 	}
 
-	return await message.channel.send(embed);
+	return await message.channel.send({ embeds: [embed] });
 }
 
 module.exports.execute = TopCommand;

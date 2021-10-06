@@ -77,7 +77,7 @@ const GuildDescriptionCommand = async (message, language, args) => {
 		null
 	);
 
-	const msg = await message.channel.send(confirmationEmbed);
+	const msg = await message.channel.send({ embeds: [confirmationEmbed] });
 
 	const embed = new DraftBotEmbed();
 	const filterConfirm = (reaction, user) =>
@@ -86,7 +86,8 @@ const GuildDescriptionCommand = async (message, language, args) => {
 			user.id === message.author.id
 		;
 
-	const collector = msg.createReactionCollector(filterConfirm, {
+	const collector = msg.createReactionCollector({
+		filter: filterConfirm,
 		time: COLLECTOR_TIME,
 		max: 1
 	});
@@ -126,7 +127,7 @@ const GuildDescriptionCommand = async (message, language, args) => {
 					),
 					message.author.displayAvatarURL()
 				);
-				return message.channel.send(embed);
+				return message.channel.send({ embeds: [embed] });
 			}
 		}
 

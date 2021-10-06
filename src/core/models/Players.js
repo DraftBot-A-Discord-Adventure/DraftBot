@@ -391,7 +391,7 @@ module.exports = (Sequelize, DataTypes) => {
 			msg += bonuses[i] + "\n";
 		}
 		msg += bonuses[bonuses.length - 1];
-		await channel.send(msg);
+		await channel.send({ content: msg });
 
 		if (this.needLevelUp()) {
 			return this.levelUpIfNeeded(entity, channel, language);
@@ -425,16 +425,16 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 		log("This user is dead : " + entity.discordUserId);
 		await Maps.applyEffect(entity.Player, EFFECT.DEAD);
-		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
+		await channel.send({ content: format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)})});
 
 		const guildMember = await channel.guild.members.fetch(entity.discordUserId);
 		const user = guildMember.user;
 		const transDMN = JsonReader.models.players.getTranslation(language);
 		this.dmNotification ? sendDirectMessage(user, transDMN.koPM.title, transDMN.koPM.description, JsonReader.bot.embed.default, language)
-			: channel.send(new DraftBotEmbed()
+			: channel.send({ embeds: [new DraftBotEmbed()
 				.setDescription(transDMN.koPM.description)
 				.setTitle(transDMN.koPM.title)
-				.setFooter(transDMN.dmDisabledFooter));
+				.setFooter(transDMN.dmDisabledFooter)] });
 
 		return true;
 	};
