@@ -17,6 +17,20 @@
 			}
 		},
 		"en": {
+			"title": "{pseudo}, you changed the week score of one or more players!",
+			"desc": "{player} now has {points} week point{points>1?s:}\n",
+			"errors": {
+				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Invalid amount\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
+				"invalidDonationParameter": "Invalid first parameter\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"tooMuchPeople": "Modification of the week score on too much users. Please limit your command to 50 users."
+			},
+			"dm": {
+				"title": "{pseudo}, your week points has been edited!",
+				"description": "You {pointsWGained>=0?won:lost} {pointsWGained} week point{pointsWGained>1?s:}{pointsWGained<-1?s:}!"
+			}
 		}
 	}
 }

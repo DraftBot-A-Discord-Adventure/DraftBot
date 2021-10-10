@@ -60,7 +60,10 @@ const ChangeMoneyCommand = async (message, language, args) => {
 	for (const user of users) {
 		let entityToEdit;
 		try {
-			[entityToEdit] = await Entities.getOrRegister(user);
+			entityToEdit = await Entities.getByDiscordUserId(user);
+			if (!entityToEdit) {
+				throw new Error();
+			}
 		}
 		catch (e) {
 			return await sendErrorMessage(
