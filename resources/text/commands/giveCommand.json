@@ -4,9 +4,9 @@
 			"confirmTitle": "{pseudo}, confirmation de give",
 			"confirmDesc": "Voulez-vous vraiment donner {item} à {usersCount} utilisateur{usersCount>1?s:} ?",
 			"resultTitle": "{pseudo}, résultat de la commande give",
-			"giveSuccess": "✅ {user} ({mention})",
+			"giveSuccess": "✅ {user} ({mention})\n",
 			"giveError": {
-				"baseText": "❌ {user} ({mention}): {reason}",
+				"baseText": "❌ {user} ({mention}): {reason}\n",
 				"reasons": {
 					"noSpace": "Aucun emplacement libre",
 					"invalidMention": "Mention / ID invalide"
@@ -21,7 +21,7 @@
 				"commandCanceled": "Commande `give` annulée !"
 			},
 			"dm": {
-				"title": "{pseudo}, vous avez gagné un objet !",
+				"title": "{pseudo}, vous avez gagné un objet de la part d'un administrateur !",
 				"description": "Vous avez obtenu l'objet {item} !"
 			}
 		},
@@ -46,7 +46,7 @@
 				"commandCanceled": "`give` command canceled!"
 			},
 			"dm": {
-				"title": "{pseudo}, you earned an item!",
+				"title": "{pseudo}, you earned an item by an administrator!",
 				"description": "You got the following item: {item}!"
 			}
 		}

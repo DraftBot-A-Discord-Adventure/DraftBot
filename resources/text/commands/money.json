@@ -12,7 +12,7 @@
 				"tooMuchPeople": "Modification de la monnaie sur trop de personnes en même temps. Veuillez vous limiter à 50 personnes par commande."
 			},
 			"dm": {
-				"title": "{pseudo}, votre argent a été éditée !",
+				"title": "{pseudo}, votre argent a été éditée par un administrateur !",
 				"description": "Vous avez {moneyGained>=0?gagné:perdu} {moneyGained} :{moneyGained>=0?moneybag:money_with_wings}: !"
 			}
 		},
@@ -28,7 +28,7 @@
 				"tooMuchPeople": "Modification of the money on too much users. Please limit your command to 50 users."
 			},
 			"dm": {
-				"title": "{pseudo}, your money has been edited!",
+				"title": "{pseudo}, your money has been edited by an administrator!",
 				"description": "You {moneyGained>=0?won:lost} {moneyGained} :{moneyGained>=0?moneybag:money_with_wings}:!"
 			}
 		}
