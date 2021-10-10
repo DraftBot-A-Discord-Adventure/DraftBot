@@ -12,7 +12,7 @@
 				"tooMuchPeople": "Modification de points sur trop de personnes en même temps. Veuillez vous limiter à 50 personnes par commande."
 			},
 			"dm": {
-				"title": "{pseudo}, vos points ont été édités !",
+				"title": "{pseudo}, vos points ont été édités par un administrateur !",
 				"description": "Vous avez {pointsGained>=0?gagné:perdu} {pointsGained} point{pointsGained>1?s:}{pointsGained<-1?s:} !"
 			}
 		},
@@ -28,7 +28,7 @@
 				"tooMuchPeople": "Modification of the score on too much users. Please limit your command to 50 users."
 			},
 			"dm": {
-				"title": "{pseudo}, your points has been edited!",
+				"title": "{pseudo}, your points has been edited by an administrator!",
 				"description": "You {pointsGained>=0?won:lost} {pointsGained} point{pointsGained>1?s:}{pointsGained<-1?s:}!"
 			}
 		}
