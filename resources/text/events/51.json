@@ -87,7 +87,7 @@
 						"en": "After having carefully climbed a few steps lined with moss, you slip and tumble down the few meters that separate you from the ground. Slightly stunned and injured, you give up the idea of trying your luck again and continue your journey."
 					},
 					"lostTime": 10,
-					"health": -5,
+					"health": -35,
 					"effect": ":clock2:",
 					"money": 0,
 					"experience": 0,
@@ -127,16 +127,15 @@
 				},
 				{
 					"translations": {
-						"fr": "Soudain, en fouillant les alentours, un énorme rocher se détache du Mont Célestrum et vous écrase. Vous n'avez même pas le temps de réagir que vous avez déjà rendu votre dernier souffle.",
-						"en": "Suddenly, while searching the surroundings, a huge rock breaks off from Mount Celestrum and crushes you. You don't even have time to react that you've already given your last breath."
+						"fr": "Soudain, en fouillant les alentours, un énorme rocher se détache du Mont Célestrum et vous frôle dans sa chute. Vous n'avez même pas le temps de réagir et regardez le rocher continuer sa course non sans avoir violemment écorché votre avant-bras.",
+						"en": "Suddenly, when looking around, an enormous rock gets off celestrum mount and hits you in its fall. You don't even have time to react and look at the rock still falling, hitting you at the arm violently."
 					},
 					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
+					"health": -20,
+					"effect": ":head_bandage:",
 					"money": 0,
 					"experience": 0,
-					"item": false,
-					"oneshot": true
+					"item": false
 				}
 			]
 		},
