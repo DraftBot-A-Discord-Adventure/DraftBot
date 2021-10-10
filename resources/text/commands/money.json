@@ -17,6 +17,20 @@
 			}
 		},
 		"en": {
+			"title": "{pseudo}, you changed the money of one or players!",
+			"desc": "{player} now has {money} :moneybag:\n",
+			"errors": {
+				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>money <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Invalid amount\nformat : `<prefix>money <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
+				"invalidDonationParameter": "Invalid first parameter\nformat : `<prefix>money <set|add> <amount> [mentions]`",
+				"tooMuchPeople": "Modification of the money on too much users. Please limit your command to 50 users."
+			},
+			"dm": {
+				"title": "{pseudo}, your money has been edited!",
+				"description": "You {moneyGained>=0?won:lost} {moneyGained} :{moneyGained>=0?moneybag:money_with_wings}:!"
+			}
 		}
 	}
 }

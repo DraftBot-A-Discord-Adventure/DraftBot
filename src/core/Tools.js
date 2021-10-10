@@ -10,7 +10,7 @@ global.draftbotRandom = new (require("random-js")).Random();
  * Convert a discord id into a discord mention
  * @param {Number} id - The role/user id
  */
-global.idToMention = (id) => "<@&" + id + ">";
+global.idToMention = (id) => "<@" + id + ">";
 
 /**
  * Get the id from a mention
