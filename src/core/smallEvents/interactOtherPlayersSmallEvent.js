@@ -144,7 +144,10 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	}
 
 	seEmbed.setDescription(seEmbed.description + format(tr[characteristic][randInt(0, tr[characteristic].length)], {
-		pseudo: await otherEntity.Player.getPseudo(language),
+		playerDisplay: format(tr.playerDisplay, {
+			pseudo: await otherEntity.Player.getPseudo(language),
+			rank: (await Players.getById(otherEntity.Player.id))[0].rank
+		}),
 		level: otherEntity.Player.level,
 		class: (await Classes.getById(otherEntity.Player.class))[language],
 		advice: JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length)],
