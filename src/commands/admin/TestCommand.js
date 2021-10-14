@@ -30,7 +30,7 @@ const TestCommand = async (message, language, args) => {
 			await CT.executeAndAlertUser(language, message, commandTestCurrent, argsTest);
 		}
 		else {
-			return message.channel.send({ content: testGoodFormat[1] });
+			return message.channel.send({ embeds: [testGoodFormat[1]] });
 		}
 	}
 };
