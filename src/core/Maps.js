@@ -85,6 +85,11 @@ class Maps {
 				player.effectEndDate = new Date(player.effectEndDate.getTime() - t);
 			}
 		}
+		const lastSmallEvent = PlayerSmallEvents.getLast(Player.PlayerSmallEvents);
+		if (lastSmallEvent) {
+			lastSmallEvent.time -= t;
+			lastSmallEvent.save();
+		}
 		player.startTravelDate = new Date(player.startTravelDate.getTime() - t);
 	}
 
