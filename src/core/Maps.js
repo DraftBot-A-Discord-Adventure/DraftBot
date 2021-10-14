@@ -85,7 +85,7 @@ class Maps {
 				player.effectEndDate = new Date(player.effectEndDate.getTime() - t);
 			}
 		}
-		const lastSmallEvent = PlayerSmallEvents.getLast(Player.PlayerSmallEvents);
+		const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
 		if (lastSmallEvent) {
 			lastSmallEvent.time -= t;
 			lastSmallEvent.save();
