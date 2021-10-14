@@ -82,7 +82,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		else {
 			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,1), {lostTime: JsonReader.smallEvents.lottery.lostTime});
 		}
-		seEmbed.setDescription(collected.first().emoji.name + " " +sentenceReward);
+		seEmbed.setDescription(collected.first().emoji.name + " " + sentenceReward);
 		return await message.channel.send({embeds: [seEmbed]});
 	});
 
