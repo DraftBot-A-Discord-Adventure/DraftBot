@@ -1,0 +1,10 @@
+{
+	"translations": {
+		"fr": "\uD83E\uDD2C **Injures**",
+		"en": "\uD83E\uDD2C **Insults**"
+	},
+	"rarity": 0,
+	"rawAttack": 9,
+	"frenchMasculine": 0,
+	"frenchPlural": 1
+}
