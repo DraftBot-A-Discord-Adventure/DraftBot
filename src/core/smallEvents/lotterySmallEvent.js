@@ -7,6 +7,7 @@
  * @returns {Promise<>}
  */
 import {Translations} from "../Translations";
+import {format} from "../utils/StringFormatter";
 const Maps = require("../Maps");
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
@@ -66,7 +67,9 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			default:
 				throw new Error("lottery reward type not found");
 			}
-			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,0), {lostTime: JsonReader.smallEvents.lottery.lostTime}) + format(translationLottery.getFromArray("rewardTypeText",reward), {
+			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,0), {
+				lostTime: JsonReader.smallEvents.lottery.lostTime
+			}) + format(translationLottery.getFromArray("rewardTypeText",reward), {
 				moneyWon: SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff,
 				xpWon: SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,
 				guildXpWon: SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff,
@@ -77,10 +80,16 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		else if (malus && draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name])) {
 			player.addMoney(-100);
 			player.save();
-			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,2), {lostTime: JsonReader.smallEvents.lottery.lostTime}) + format(translationLottery.get("rewardTypeText.money"), {moneyWon: -100});
+			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,2), {
+				lostTime: JsonReader.smallEvents.lottery.lostTime
+			}) + format(translationLottery.get("rewardTypeText.money"), {
+				moneyWon: -100
+			});
 		}
 		else {
-			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,1), {lostTime: JsonReader.smallEvents.lottery.lostTime});
+			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,1), {
+				lostTime: JsonReader.smallEvents.lottery.lostTime
+			});
 		}
 		seEmbed.setDescription(collected.first().emoji.name + " " + sentenceReward);
 		return await message.channel.send({embeds: [seEmbed]});
