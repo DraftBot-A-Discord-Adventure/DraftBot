@@ -38,7 +38,7 @@
 				"Vous faites une pause de 5 min pour vous changer les idées. Pour cela, vous entraînez **{pseudo}**, qui vient de commencer le jeu."
 			],
 			"advanced": [
-				"Les cheveux gris de **{pseudo}** témoignent de l'expérience qu'il a accumulé. Il est en effet niveau **{level}** ! Vous continuez ensuite votre route.",
+				"Les cheveux gris de **{pseudo}** témoignent de l'expérience qu'il a accumulée. Il est en effet niveau **{level}** ! Vous continuez ensuite votre route.",
 				"En vous baladant, vous croisez **{pseudo}** c'est un héros puissant, il est en effet niveau **{level}** !",
 				"**{pseudo}** ne s'arrête pas de monter en niveau et de se rapprocher du niveau 100 ! Il est actuellement niveau **{level}**. Vous reprenez votre chemin après cette rencontre."
 			],
@@ -81,7 +81,7 @@
 			"betterRankThanHim": [
 				"Vous croisez **{pseudo}**, celui-ci a un moins bon classement... Mais attention il peut très bien vous rattraper un jour !",
 				"Un joueur vient vous voir, c'est **{pseudo}** il vous demande quelques conseils pour progresser et passe son chemin !",
-				"Vous papotez avec **{pseudo}** de votre classement. Vous avez une longueur d'avance sur lui car vous êtes mieux classé !"
+				"Vous papotez avec **{pseudo}** de votre classement. Vous êtes mieux classé que lui !"
 			],
 			"rich": [
 				"Vous vous cachez les yeux pour arrêter d'être ébloui par le soleil qui reflète sur l'or que porte **{pseudo}** ! Vous continuez votre route en ayant mal aux yeux.",
@@ -89,13 +89,13 @@
 				"Des pièces tombent des poches de **{pseudo}** tellement elles en sont remplies. Cela ne semble même pas l'inquiéter. Un animal vient les prendre avant que vous puissiez mettre la main dessus. Vous continuez votre route un peu déçu."
 			],
 			"poor": [
-				"À la vue des vêtements que porte **{pseudo}**, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donnez une pièce.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce",
+				"À la vue des vêtements que porte **{pseudo}**, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donniez une pièce.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce",
 				"En marchant, vous rencontrez ce pauvre vagabond de **{pseudo}**, celui-ci vous demande quelques pièces:\n\n:coin: Donner une pièce, car vous en avez déjà assez\n:x: Ne pas lui donner une pièce",
 				"La misère touche tout le monde un jour, et aujourd'hui c'est **{pseudo}** qui peut à peine se payer un repas.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce"
 			],
 			"poorGiveMoney": [
 				"Vous vous sentez bien après avoir fait ce geste humanitaire.",
-				"C'est en faisant le bien que celui-ci se répand à dit un jour ce prêtre ! Vous lui donnez quelques pièces, et il vous fait un sourire avant de continuer son chemin !",
+				"C'est en faisant le bien que celui-ci se répand a dit un jour un prêtre que vous avez recontré ! Vous lui donnez une pièce, et il vous fait un sourire avant de continuer son chemin !",
 				"Voici une bonne action de votre part ! Il repart avec une pièce en plus et donc la possibilité de vivre un peu plus longtemps..."
 			],
 			"poorDontGiveMoney": [
@@ -126,7 +126,7 @@
 			"class": [
 				"Vous frôlez **{pseudo}** qui possède la classe **{class}**. Vous parlez un peu avec lui et reprenez votre route paisiblement.",
 				"**{pseudo}** passe près de vous, il possède la classe **{class}** !",
-				"Vous heurtez malencontreusement le bras de **{pseudo}**, fier **{class}**. Vous vous excusez tous les deux et continuez votre route."
+				"Vous heurtez malencontreusement le bras de **{pseudo}**, honorable **{class}**. Vous vous excusez tous les deux et continuez votre route."
 			],
 			":sick:": [
 				"Vous entendez un bruit au loin... C'est **{pseudo}** qui vomit dans un buisson... Vous reprenez votre route bouleversé.",
@@ -136,7 +136,7 @@
 			":head_bandage:": [
 				"Vous apercevez une momie au loin ! Ah non, ce n'est que **{pseudo}** recouvert de bandages...",
 				"Sur votre chemin, vous croisez **{pseudo}**. Il est recouvert de bandages, que lui est-t-il arrivé ?",
-				"Alors que vous êtes élancé pour atteindre votre destination, **{pseudo}** vous demande de bien vouloir resserer les bandages sur sa tête. Vous le faites et vous étonnez de votre que quelqu'un puisse être autant blessé."
+				"Alors que vous êtes élancé pour atteindre votre destination, **{pseudo}** vous demande de bien vouloir resserrer les bandages sur sa tête. Vous le faites et vous étonnez que quelqu'un puisse être autant blessé."
 			],
 			":dizzy_face:": [
 				"Vous trébuchez sur **{pseudo}** qui est inconscient sur le sol. Vous lui donnez de petites tapes pour le réveiller, sans succès.",

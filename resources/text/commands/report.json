@@ -15,7 +15,7 @@
 			"travellingTitle" : "Vous êtes actuellement en train d'avancer !",
 			"travellingDescriptionWithoutSmallEvent" : "Tout se passe bien dans votre aventure. Prochain arrêt prévu dans **{time}**.",
 			"travellingDescription" : "Tout se passe bien depuis votre dernière aventure {smallEventEmoji}. Prochain arrêt prévu dans **{time}**.",
-			"travellingDescriptionEndTravel" : "Tout se passe bien dans votre aventure, Vous arriverez bientôt à destination.",
+			"travellingDescriptionEndTravel" : "Tout se passe bien dans votre aventure, vous arriverez bientôt à destination.",
 			"choseMap": "Vous avez décidé de partir en direction {mapPrefix} {mapType} **{mapName}**. Ce trajet durera environ **{time} heure{time>1?s:}**.",
 			"destinationTitle": "{pseudo}, destination du voyage",
 			"chooseDestinationIndications": "Choisissez une destination pour votre voyage:",

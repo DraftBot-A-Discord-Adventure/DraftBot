@@ -18,14 +18,14 @@
 			"gainLife": [
 				"Avoir **{pet}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{amount}** :heart:.",
 				"Sur le bord de la route, **{pet}** se précipite sur de la nourriture qui semble être en bon état. {nominative} vous la ramène, et vous la mangez avant qu'elle ne se déteriore. Vous gagnez **{amount}** :heart:.",
-				"Après être parti quelques instant, **{pet}** revient avec une potion presque vide. Vous la buvez avant qu'elle ne soit perdue. Vous gagnez ainsi **{amount}** :heart:."
+				"Après être parti quelques instants, **{pet}** revient avec une potion presque vide. Vous la buvez avant qu'elle ne soit perdue. Vous gagnez ainsi **{amount}** :heart:."
 			],
 			"gainLove": [
 				"**{pet}** est heureux de vous avoir en sa compagnie. {nominativeShift} gagne en amour et vous devient plus fidèle.",
 				"Après avoir marché longuement, vous décidez de prendre soin de votre **{pet}** en {determinant} caressant. Ce moment passé avec {accusative} a renforcé vos liens.",
-				"Après être parti{feminine} quelques instant, **{pet}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominativeShift} vous aime ainsi davantage.",
+				"Après être parti{feminine} quelques instants, **{pet}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominativeShift} vous aime ainsi davantage.",
 				"**{pet}** semble avoir déclenché les hostilités avec un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous décidez de {determinant} défendre vaillamment. {nominativeShift} vous aime davantage et vous devient plus fidèle.",
-				"**{pet}** est joueur, vous décidez de jouer avec {accusative}. Cette partie a renforcé vos liens."
+				"**{pet}** est joueu{petFemale?se:r}, vous décidez de jouer avec {accusative}. Cette partie a renforcé vos liens."
 			],
 			"food": [
 				"Le flair de **{pet}** vous a permis de trouver une {food}. Vous rangez cette nourriture et continuez votre route.",
@@ -37,7 +37,7 @@
 			"gainTime": [
 				"**{pet}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{amount} min** :clock2:.",
 				"Dans un virage, **{pet}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagnez **{amount} min** :clock2:.",
-				"**{pet}** semble être pressé{feminine}, malgré tout vous arrivez à {determinant} suivre tant bien que mal. Grâce à {accusative} vous gagnez **{amount} min** :clock2:.",
+				"**{pet}** semble être pressé{feminine}, malgré cela, vous arrivez à {determinant} suivre tant bien que mal. Grâce à {accusative} vous gagnez **{amount} min** :clock2:.",
 				"Le flair de **{pet}** vous a permis de trouver un raccourci. Grâce à {accusative} vous avez gagné **{amount} min** :clock2:.",
 				"Défendre **{pet}** contre un{randomAnimalFeminine} **{randomAnimal}** sauvage n'a pas été une mince affaire et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite et de courir à toute vitesse. Grâce à cette mésaventure vous gagnez **{amount} min** :clock2: sur votre trajet."
 			],
@@ -73,7 +73,7 @@
 				"**{pet}** ne vous respecte pas et part donc en courant au loin. Vous n'arrivez pas à {determinant} retrouver et {determinant} perdez à tout jamais...",
 				"Après avoir passé du temps avec vous, **{pet}** semble ne plus vous aimer et décide de s'enfuir en courant. Vous ne {determinant} reverrez probablement plus jamais.",
 				"Il semblerait que **{pet}** ait trouvé l'âme soeur, celui-ci vous abandonne et vous laisse seul. Vous ne {determinant} reverrez plus jamais...",
-				"Le manque d'attention envers **{pet}** l'a amené à s'enfuir. Vous {nominative} perdez de vue très rapidement, il sera impossible de {determinant} retrouver."
+				"Le manque d'attention envers **{pet}** l'a amené à s'enfuir. Vous {determinant} perdez de vue très rapidement, il sera impossible de {determinant} retrouver."
 			],
 			"loseLove": [
 				"Il semblerait bien que **{pet}** ne vous apprécie pas trop... Voyager avec {accusative} déteriore d'autant plus cette relation. {nominativeShift} perd un peu en amour.",

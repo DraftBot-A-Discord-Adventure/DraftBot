@@ -151,7 +151,8 @@ const generatePetEmbed = async function(language, interaction, seEmbed, pet, amo
 		badge: BADGE,
 		feminine: pet.sex === "f" ? "e" : "",
 		randomAnimal: randomAnimal ? PetEntities.getPetEmote(randomAnimal) + " " + PetEntities.getPetTypeName(randomAnimal, language) : "",
-		randomAnimalFeminine: randomAnimal ? randomAnimal.sex === "f" ? "e" : "" : ""
+		randomAnimalFeminine: randomAnimal ? randomAnimal.sex === "f" ? "e" : "" : "",
+		petFemale: pet.sex === "f"
 	}));
 };
 

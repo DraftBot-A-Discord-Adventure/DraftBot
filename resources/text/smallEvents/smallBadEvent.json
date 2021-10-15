@@ -16,7 +16,7 @@
 					"il se met à pleuvoir. Vous vous apprêtiez à courir pour ne pas être trempé quand vous apercevez un superbe arc-en-ciel à quelques pas. Vous ne pensez plus à la pluie et vous vous laissez absorber par le spectacle durant **{alteTime} :clock2:**.",
 					"vous tombez de fatigue. Vos aventures vous ont épuisé, c'est pour cela que vous décidez de vous reposer, durant **{alteTime} :clock2:**.",
 					"en marchant plongé dans vos pensées, vous ne remarquez pas la branche au sol. Vous trébuchez dessus et vos affaires s'éparpillent au sol. Vous perdez **{alteTime} :clock2:**.",
-					"vous entendez un bruit sourd et fracassant provenant d'un sous-bois. Votre curiosité a été piqué au vif : vous voulez en avoir le cœur net et allez inspecter la zone. Après **{alteTime} :clock2:** vous abandonnez sans avoir trouvé ni compris l'origine de ce bruit qui vous a fait sursauter."
+					"vous entendez un bruit sourd et fracassant provenant d'un sous-bois. Votre curiosité a été piquée au vif : vous voulez en avoir le cœur net et allez inspecter la zone. Après **{alteTime} :clock2:** vous abandonnez sans avoir trouvé ni compris l'origine de ce bruit qui vous a fait sursauter."
 				]
 			},
 			"moneyLoss": {
