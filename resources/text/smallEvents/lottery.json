@@ -7,21 +7,21 @@
 				"Vous perdez au jeu de l'homme cependant la participation était gratuite donc vous décidez de reprendre votre route."
 			],
 			"\uD83D\uDCB5": [
-				"Vous tentez votre chance et gagnez au jeu, l'homme vous récompense comme il se doit. Cependant vous perdez **{lostTime} minutes**.",
-				"Vous participez au jeu de l'homme cependant vous ne gagnez pas et repartez en espérant avoir plus de chance la prochaine fois. Et vous perdez **{lostTime} minutes**."
+				"Vous tentez votre chance et gagnez au jeu, l'homme vous récompense comme il se doit. Cependant vous perdez **{lostTime} min :clock2:**.",
+				"Vous participez au jeu de l'homme cependant vous ne gagnez pas et repartez en espérant avoir plus de chance la prochaine fois. Et vous perdez **{lostTime} min :clock2:**."
 			],
 			"\uD83D\uDCB0": [
-				"Vous gagnez au jeu de l'homme, en conséquence, celui-ci vous récompense gracieusement. Cependant vous perdez **{lostTime} minutes**.",
-				"Vous saisissez votre chance malheureusement vous ne gagnez pas, vous aurez peut-être plus de chance la prochaine fois. Et vous perdez **{lostTime} minutes**.",
-				"Vous misez une centaine de pièce au jeu de l'homme cependant vous perdez et repartez, dépité d'avoir perdu cet argent. Malheureusement vous perdez **{lostTime} minutes**."
+				"Vous gagnez au jeu de l'homme, en conséquence, celui-ci vous récompense gracieusement. Cependant vous perdez **{lostTime} min :clock2:**.",
+				"Vous saisissez votre chance malheureusement vous ne gagnez pas, vous aurez peut-être plus de chance la prochaine fois. Et vous perdez **{lostTime} min :clock2:**.",
+				"Vous misez une centaine de pièce au jeu de l'homme cependant vous perdez et repartez, dépité d'avoir perdu cet argent. Malheureusement vous perdez **{lostTime} min :clock2:**."
 			],
 			"poor": "Vous tentez de vous jouer de l'attention de l'homme et misez une somme importante. Malheureusement pour vous, le commerçant doute de votre bonne foi, incapable d'attester de quelconque richesse, vous êtes rejeté sans ménagement.",
 			"end": "Sans prêter plus d'attention à l'individu, vous continuez votre route.",
 			"rewardTypeText": {
-				"xp": " Vous avez gagné {xpWon}:star:",
-				"money": " Vous avez {moneyWon>=0?gagné:perdu} {moneyWon} :{moneyWon>=0?moneybag:money_with_wings}: !",
-				"guildXp": " Votre guilde gagne {guildXpWon}:star:",
-				"points": " Vous avez gagné {pointsWon}:medal:"
+				"xp": " Vous avez gagné {xpWon} :star:",
+				"money": " Vous avez {negativeMoney?perdu:gagné} {money} :{negativeMoney?money_with_wings:moneybag}: !",
+				"guildXp": " Votre guilde gagne {guildXpWon} :star:",
+				"points": " Vous avez gagné {pointsWon} :medal:"
 			}
 		},
 		"en": {
@@ -31,19 +31,19 @@
 				"You lose at the game of this man however the participation was free so you decide to resume your journey."
 			],
 			"\uD83D\uDCB5": [
-				"You take your chance and win the game, the man rewards you as it should be. However you lose **{lostTime} minutes**.",
-				"You take part of the man's game however you do not win and go back on your way hoping for better luck next time. Unfortunately you lose **{lostTime} minutes**."
+				"You take your chance and win the game, the man rewards you as it should be. However you lose **{lostTime} min :clock2:**.",
+				"You take part of the man's game however you do not win and go back on your way hoping for better luck next time. Unfortunately you lose **{lostTime} min :clock2:**."
 			],
 			"\uD83D\uDCB0": [
-				"You win at the man's game, as a result, he rewards you graciously. However you lose **{lostTime} minutes**.",
-				"You take your luck unfortunately you don't win, you might have better luck next time. And you lose **{lostTime} minutes**.",
-				"You bet a hundred of coins at the man's game but you lose and go away, annoyed that you lost that money. Unfortunately you lose **{lostTime} minutes**."
+				"You win at the man's game, as a result, he rewards you graciously. However you lose **{lostTime} min :clock2:**.",
+				"You take your luck unfortunately you don't win, you might have better luck next time. And you lose **{lostTime} min :clock2:**.",
+				"You bet a hundred of coins at the man's game but you lose and go away, annoyed that you lost that money. Unfortunately you lose **{lostTime} min :clock2:**."
 			],
 			"end": "You do not react, when he asks you the question again you simply say that you are not interested and go on your way.",
 			"poor": "You try to fool the man's attention and bet a large sum. Unfortunately for you, the merchant doubts your good faith, unable to prove that you have the money, you are rejected without mercy.",
 			"rewardTypeText": {
 				"xp": " You won {xpWon}:star:",
-				"money": " You {moneyWon>=0?won:lost} {moneyWon} :{moneyWon>=0?moneybag:money_with_wings}: !",
+				"money": " You {negativeMoney?lost:won} {moneyWon} :{negativeMoney?money_with_wings:moneybag}: !",
 				"guildXp": " Your guild won {guildXpWon}:star:",
 				"points": " You won {pointsWon}:medal:"
 			}

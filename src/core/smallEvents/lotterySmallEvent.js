@@ -67,10 +67,12 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			default:
 				throw new Error("lottery reward type not found");
 			}
+			const money = SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff;
 			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,0), {
 				lostTime: JsonReader.smallEvents.lottery.lostTime
-			}) + format(translationLottery.getFromArray("rewardTypeText",reward), {
-				moneyWon: SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff,
+			}) + format(translationLottery.get("rewardTypeText." + reward), {
+				money: Math.abs(money),
+				negativeMoney: money < 0,
 				xpWon: SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,
 				guildXpWon: SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff,
 				pointsWon: SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff
@@ -83,7 +85,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,2), {
 				lostTime: JsonReader.smallEvents.lottery.lostTime
 			}) + format(translationLottery.get("rewardTypeText.money"), {
-				moneyWon: -100
+				negativeMoney: true,
+				money: 100
 			});
 		}
 		else {
