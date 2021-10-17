@@ -8,9 +8,9 @@
 				"fightUnlocked": ":dagger: | Combats débloqués avec la commande `fight` ! Pour plus d'informations sur les combats, executez la commande `help fight`",
 				"guildUnlocked": ":stadium: | Guildes débloquées avec les commandes `guild`, `guildCreate`, `guildAdd`, `guildLeave`, `guildDaily`, `guildKick` et bien plus ! Pour plus d'informations sur les guildes, utilisez la commande `help`.",
 				"classUnlocked": ":bookmark: | Classes débloquées avec les commandes `class` et `classstats` ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
-				"classTiertwo": ":bookmark: | Classes de pallier 2 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
-				"classTierthree": ":bookmark: | Classes de pallier 3 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
-				"classTierfour": ":bookmark: | Classes de pallier 4 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
+				"classTiertwo": ":bookmark: | Classes de palier 2 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
+				"classTierthree": ":bookmark: | Classes de palier 3 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
+				"classTierfour": ":bookmark: | Classes de palier 4 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
 				"noBonuses": ":arrow_up: | Statistiques améliorées."
 			},
 			"ko": ":skull: | **{pseudo}** a été mis K.O !",
