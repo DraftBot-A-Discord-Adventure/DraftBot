@@ -2,7 +2,6 @@
 	"map_location_ids": [
 		25
 	],
-
     "translations": {
         "fr": "🚶 Vous marchez sous un ciel bleu azur. L'air est doux et vous continuez votre chemin en écoutant les oiseaux qui chantent, le craquement des arbres, le bruissement du sol sous vos pas. Soudain, le bruit d'une rivière se fait entendre au loin. Vous poursuivez votre chemin jusqu'à la rivière.",
         "en": "🚶 You are walking under an azure blue sky. The air is soft and you continue on your way listening to the singing birds, the creaking of the trees, the rustle of the ground under your feet. Suddenly, the sound of a river is heard in the distance. You continue your way to the river."
@@ -16,13 +15,13 @@
             "issues": [
                 {
                     "translations": {
-                        "fr": "Vous décidez de vous asseoir sur un rocher plat et contemplez le magnifique paysage aux milles couleurs pendant quelques instants avant de poursuivre votre chemin.",
-                        "en": "You decide to sit on a flat rock and contemplate the magnificent landscape with a thousands of colors for a few moments before continuing on your way."
+                        "fr": "Vous décidez de vous asseoir sur un rocher plat et contemplez le magnifique paysage aux milles couleurs pendant quelques heures avant de poursuivre votre chemin.",
+                        "en": "You decide to sit on a flat rock and contemplate the magnificent landscape with a thousands of colors for a few hours before continuing on your way."
                     },
-                    "lostTime": 0,
+                    "lostTime": 120,
                     "health": 0,
-                    "effect": ":smiley:",
-                    "experience": 150,
+                    "effect": ":clock2:",
+                    "experience": 25,
                     "money": 0,
                     "item": false
                 },
@@ -40,13 +39,13 @@
                 },
                 {
                     "translations": {
-                        "fr": "Vous vous appuyez contre un arbre et, sentant vos paupières devenir lourdes, vous endormez. Vous vous réveillez une demi-heure plus tard mais vous êtes si reposé que votre marche est bien plus vigoureuse et votre retard est bien vite rattrapé.",
-                        "en": "You lean against a tree and, feeling your eyelids grow heavy, you fall asleep. You wake up half an hour later but you are so rested that your walk is much more vigorous and your delay is quickly caught up."
+                        "fr": "Vous vous appuyez contre un arbre et, sentant vos paupières devenir lourdes, vous endormez. Vous vous réveillez plusieurs heures plus tard mais vous êtes si reposé que votre marche est bien plus vigoureuse et votre retard est bien vite rattrapé.",
+                        "en": "You lean against a tree and, feeling your eyelids grow heavy, you fall asleep. You wake up a few hours later but you are so rested that your walk is much more vigorous and your delay is quickly caught up."
                     },
                     "lostTime": 0,
-                    "health": 10,
-                    "effect": ":smiley:",
-                    "experience": 350,
+                    "health": 5,
+                    "effect": ":sleeping:",
+                    "experience": 220,
                     "money": 0,
                     "item": false
                 }
@@ -120,7 +119,7 @@
                         "en": "You see at the bottom of the water strange creatures that you had never seen before. They are fitted with two grippers and move sideways. You assume that these are the famous things that gave this river their name and remember that they are edible. You decide to catch a few of them. You dip your hand in and manage to catch some, but they attack you with their pincers. You end up injured with a nice gash in your hand, but also with enough to make you a delicious meal."
                     },
                     "lostTime": 0,
-                    "health": -10,
+                    "health": -35,
                     "effect": ":smiley:",
                     "experience": 0,
                     "money": 0,
@@ -160,7 +159,7 @@
                     "en": "You are hungry. You look into the river and see these famous gigantic crabs. There are two species. One of orange red color and one in red and black colors. You hesitate and decide to try your luck with the big red-orange. After you've prepared and swallowed them, you start to feel hot and sweaty. You understand your mistake too late, you have chosen the inedible species."
                 },
                 "lostTime": 0,
-                "health": 0,
+                "health": -5,
                 "effect": ":sick:",
                 "experience": 0,
                 "money": 0,

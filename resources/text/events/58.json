@@ -2,7 +2,6 @@
 	"map_location_ids": [
 		13
 	],
-
 	"translations": {
 	  "fr": "🚶 Après de longues heures de marche au travers de la route marécageuse, vous croisez une femme à un carrefour. Épuisé, vous l'ignorez mais elle, voyant votre état, vous interpelle. Celle-ci vous propose deux chemins pouvant vous être utiles : l'un menant chez un alchimiste expérimenté qui pourrait vous remettre d'aplomb, l'autre étant un raccourci.",
 	  "en": "🚶 After long hours of walking through the marshy road, you meet a woman at a crossroads. Exhausted, you ignore her but she, seeing your condition, calls out to you. This offers two paths that may be useful to you: one leading to an experienced alchemist who can get you back on your feet, the other being a shortcut."
@@ -23,7 +22,7 @@
 			"health": 25,
 			"effect": ":smiley:",
 			"experience": 350,
-			"money": -30,
+			"money": -300,
 			"item": false
 		  },
 		  {
@@ -72,11 +71,11 @@
 		"issues": [
 		  {
 			"translations": {
-			  "fr": "Vous suivez le chemin indiqué jusqu'à ce que vous vous retrouviez face à une rivière surmontée d'un pont délabré. Vous entendez celui-ci craqueler mais cela ne vous inquiète pas jusqu'au moment où vous voyez le bois s'effondrer sous vos pieds. Cela vous aura pris au moins 12 heures avant d'arriver à destination.",
-			  "en": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear this one crackle but that doesn't worry you until the moment you see the wood crumble under your feet. It will have taken you at least 12 hours to reach your destination."
+			  "fr": "Vous suivez le chemin indiqué jusqu'à ce que vous vous retrouviez face à une rivière surmontée d'un pont délabré. Vous entendez celui-ci craqueler mais cela ne vous inquiète pas jusqu'au moment où vous voyez le bois s'effondrer sous vos pieds.",
+			  "en": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear this one crackle but that doesn't worry you until the moment you see the wood crumble under your feet."
 			},
 			"lostTime": 0,
-			"health": 0,
+			"health": -50,
 			"effect": ":dizzy_face:",
 			"experience": 0,
 			"money": 0,
@@ -96,14 +95,14 @@
 		  },
 		  {
 			"translations": {
-			  "fr": "Vous suivez le chemin indiqué jusqu'à ce que vous vous retrouviez face à une rivière surmontée d'un pont délabré. Vous entendez celui-ci craqueler mais cela ne vous inquiète pas. La suite de la traversée se déroule sans accrocs.",
-			  "en": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear this one crackle but it doesn't worry you. The rest of the crossing goes smoothly."
+			  "fr": "Vous suivez le chemin indiqué jusqu'à ce que vous vous retrouviez face à une rivière surmontée d'un pont délabré. Vous entendez celui-ci craqueler mais cela ne vous inquiète pas. La suite de la traversée se déroule sans accrocs. Vous trouvez même quelques pièces sur votre chemin !",
+			  "en": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear this one crackle but it doesn't worry you. The rest of the crossing goes smoothly. You even find a few coins among your way."
 			},
 			"lostTime": 0,
 			"health": 0,
 			"effect": ":smiley:",
 			"experience": 150,
-			"money": 0,
+			"money": 85,
 			"item": false
 		  }
 		]
