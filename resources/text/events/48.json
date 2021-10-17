@@ -67,7 +67,7 @@
 						"en": "Barely knowing your opponent, you approach with the excuse of wanting to discuss an arrangement. Once close enough to your enemy you draw your sword to stun him with the knob. Unfortunately for you, the knight was far stronger and faster than you. The knight runs at you, makes a right hook and pushes you back by hitting you in the stomach with his foot before hitting you with a powerful uppercut. On the ground, on the edge of fainting, you are not able to get up."
 					},
 					"lostTime": 0,
-					"health": -70,
+					"health": -35,
 					"effect": ":head_bandage:",
 					"experience": 0,
 					"money": 0,
@@ -155,12 +155,12 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous engagez la discussion et sympathisez durant plus d'une heure avec le chevalier. Vous aiguillez progressivement la discussion sur l'artefact et jouissez par avance de votre talent d'orateur. Le chevalier s'en va chercher l'artefact tandis que vous, obnubilé par votre triomphe, ne remarquez pas la personne derrière vous avant que celle-ci ne vous poignarde dans le dos. Vous tombez à terre.",
+						"fr": "Vous engagez la discussion et sympathisez durant plus d'une heure avec le chevalier. Vous aiguillez progressivement la discussion sur l'artefact et vous félicitez par avance de votre talent d'orateur. Le chevalier s'en va chercher l'artefact tandis que vous, obnubilé par votre triomphe, ne remarquez pas la personne derrière vous avant que celle-ci ne vous poignarde dans le dos. Vous tombez à terre, gravement blessé.",
 						"en": "You start a discussion and spend over an hour with the knight. You gradually steer the discussion around the artefact and enjoy in advance your oratory skills. The knight goes away to get the artefact while you, obsessed by your triumph, do not notice the person behind you until he stabs you in the back. You fall to the ground."
 					},
 					"lostTime": 0,
-					"health": -80,
-					"effect": ":head_bandage:",
+					"health": -75,
+					"effect": ":dizzy_face:",
 					"experience": 0,
 					"money": 0,
 					"item": false
@@ -171,8 +171,8 @@
 						"en": "You engage the knight in discussion and attempt to sympathise for over an hour. He does not want to let you pass by in any way. With no other choice, you draw your sword and attack him. With no other choice, you draw your sword and attack him. The knight, insensitive to your blows thanks to his armor, hits you violently in the face before knocking you out with a stroke of his knob."
 					},
 					"lostTime": 0,
-					"health": -90,
-					"effect": ":dizzy_face:",
+					"health": -30,
+					"effect": ":head_bandage:",
 					"experience": 0,
 					"money": 0,
 					"item": false
@@ -207,14 +207,14 @@
 				},
 				{
 					"translations": {
-						"fr": "\uD83E\uDD14 Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Prenant votre courage à deux mains, vous l'affrontez en duel... Et êtes misérablement vaincu par celui-ci. Blessé, vous repartez en rampant et trouvez un abri où vous reposer.",
-						"en": "\uD83E\uDD14 You watch the knight, not knowing what to do about this colossus in armor. Taking your courage in both hands, you face him in a duel...\nand are miserably defeated by him. Injured, you crawl back and find a shelter where you can rest."
+						"fr": "\uD83E\uDD14 Vous observez le chevalier, ne sachant que faire face à ce colosse en armure. Prenant votre courage à deux mains, vous l'affrontez en duel... Et êtes misérablement vaincu par celui-ci. Ce dernier vous demande votre bourse en échange de votre vie.",
+						"en": "\uD83E\uDD14 You watch the knight, not knowing what to do about this colossus in armor. Taking your courage in both hands, you face him in a duel...\nand are miserably defeated by him. He ask for all your money in exchange for your life."
 					},
 					"lostTime": 0,
-					"health": -40,
+					"health": -5,
 					"effect": ":smiley:",
 					"experience": 0,
-					"money": 0,
+					"money": -700,
 					"item": false
 				},
 				{
@@ -235,7 +235,7 @@
 						"en": "\uD83E\uDEC2 Not knowing what to do, you engage the discussion and sympathize with the knight. You gradually get the discussion on the artifact and enjoy your speaker talent in advance. The knight, convinced that you are worthy of possessing it, will get you the artifact. He brings it to you, as promised. You thank him and go to search for someone to buy it. You see what seems to be a merchant, but it was a thief shooting you an arrow in the leg. He steals the artifact from you and runs away. Blessed and helpless, you watch him running away with your loot."
 					},
 					"lostTime": 0,
-					"health": -20,
+					"health": -10,
 					"effect": ":head_bandage:",
 					"experience": 0,
 					"money": 0,
