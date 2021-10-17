@@ -9,7 +9,7 @@
 			"permanentItems": {
 				"randomItem": {
 					"emote": "❓",
-					"name": "Un équipement random",
+					"name": "Un équipement aléatoire",
 					"price": 350,
 					"info": "Vous recevrez un équipements aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu.",
 					"give": "{pseudo}, vous avez reçu un(e) nouvel(le) {type}:"

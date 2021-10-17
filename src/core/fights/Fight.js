@@ -85,7 +85,7 @@ class Fight {
 
 		this.introduceFight();
 		this.actionMessages = [
-			await this.message.channel.send({ content: "_ _" })
+			await this.message.channel.send({content: "_ _"})
 		];
 		await this.nextTurn();
 	}
@@ -104,10 +104,12 @@ class Fight {
 	 * Send the fight intro message
 	 */
 	introduceFight() {
-		this.message.channel.send({ content: format(JsonReader.commands.fight.getTranslation(this.language).intro, {
-			player1: this.fighters[0].entity.getMention(),
-			player2: this.fighters[1].entity.getMention()
-		})});
+		this.message.channel.send({
+			content: format(JsonReader.commands.fight.getTranslation(this.language).intro, {
+				player1: this.fighters[0].entity.getMention(),
+				player2: this.fighters[1].entity.getMention()
+			})
+		});
 	}
 
 	/**
@@ -164,7 +166,7 @@ class Fight {
 				}
 			}
 		}
-		this.message.channel.send({ embeds: [new DraftBotEmbed().setDescription(msg)] });
+		this.message.channel.send({embeds: [new DraftBotEmbed().setDescription(msg)]});
 	}
 
 	/**
@@ -183,7 +185,7 @@ class Fight {
 		embed.setDescription(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsDescription)
 			.setAuthor(format(JsonReader.commands.fight.getTranslation(this.language).turnIndicationsTitle, {pseudo: await this.getPlayingFighter().entity.Player.getPseudo(this.language)}),
 				await this.message.guild.members.cache.get(playingId).user.avatarURL());
-		this.message.channel.send({ embeds: [embed] })
+		this.message.channel.send({embeds: [embed]})
 			.then(async function(message) {
 				const filter = (reaction, user) => user.id === playingId;
 
@@ -195,26 +197,32 @@ class Fight {
 				collector.on("collect", async (reaction) => {
 					switch (reaction.emoji.name) {
 					case "⚔":
+						fight.endedByTime = false;
 						await message.delete().catch();
 						await fight.useAction(FIGHT.ACTION.SIMPLE_ATTACK);
 						break;
 					case "🗡":
+						fight.endedByTime = false;
 						await message.delete().catch();
 						await fight.useAction(FIGHT.ACTION.QUICK_ATTACK);
 						break;
 					case "🪓":
+						fight.endedByTime = false;
 						await message.delete().catch();
 						await fight.useAction(FIGHT.ACTION.POWERFUL_ATTACK);
 						break;
 					case "🧨":
+						fight.endedByTime = false;
 						await message.delete().catch();
 						await fight.useAction(FIGHT.ACTION.BULK_ATTACK);
 						break;
 					case "🚀":
+						fight.endedByTime = false;
 						await message.delete().catch();
 						await fight.useAction(FIGHT.ACTION.IMPROVE_SPEED);
 						break;
 					case "💣":
+						fight.endedByTime = false;
 						await message.delete().catch();
 						await fight.useAction(FIGHT.ACTION.ULTIMATE_ATTACK);
 						break;
@@ -223,12 +231,11 @@ class Fight {
 					}
 				});
 
-				collector.on("end", () => {
-					if (!message.deleted) {
-						message.delete().catch();
+				collector.on("end", async () => {
+					if (fight.endedByTime) {
+						await message.delete().catch();
 						fight.getPlayingFighter().power = 0;
-						fight.endedByTime = true;
-						fight.endFight();
+						await fight.endFight();
 					}
 				});
 
@@ -288,10 +295,10 @@ class Fight {
 		const defender = this.getDefendingFighter();
 
 		if (this.lastSummary === undefined) {
-			this.lastSummary = await this.message.channel.send({ embeds: [await this.getSummarizeEmbed(this, attacker, defender)] });
+			this.lastSummary = await this.message.channel.send({embeds: [await this.getSummarizeEmbed(this, attacker, defender)]});
 		}
 		else {
-			await this.lastSummary.edit({ embeds: [await this.getSummarizeEmbed(this, attacker, defender)] });
+			await this.lastSummary.edit({embeds: [await this.getSummarizeEmbed(this, attacker, defender)]});
 		}
 	}
 
@@ -360,19 +367,21 @@ class Fight {
 	 * @return {Promise<void>}
 	 */
 	async addActionMessage(msg) {
-		let amsg = this.actionMessages[this.actionMessages.length - 1];
+		let amsg;
+		amsg = await this.message.channel.messages.fetch(this.actionMessages[this.actionMessages.length - 1].id);
 		if (amsg.content.length + msg.length > 1950) {
 			await this.lastSummary.delete();
 			this.lastSummary = undefined;
-			amsg = await this.message.channel.send({ content: msg });
+			amsg = await this.message.channel.send({content: msg});
 			this.actionMessages.push(amsg);
 		}
 		else if (amsg.content === "_ _") {
-			await amsg.edit({ content: msg });
+			await amsg.edit({content: msg});
 		}
 		else {
-			await amsg.edit({ content: amsg.content + "\n" + msg });
+			await amsg.edit({content: amsg.content + "\n" + msg});
 		}
+
 	}
 
 	/** ******************************************************** INTERNAL MECHANICS FUNCTIONS **********************************************************/
@@ -387,7 +396,7 @@ class Fight {
 			for (let i = 0; i < this.actionMessages.length; ++i) {
 				const content = this.actionMessages[i].content;
 				await this.actionMessages[i].delete();
-				this.actionMessages[i] = await this.message.channel.send({ content: content });
+				this.actionMessages[i] = await this.message.channel.send({content: content});
 			}
 			await this.lastSummary.delete();
 			this.lastSummary = undefined;
@@ -402,7 +411,7 @@ class Fight {
 	async nextTurn() {
 		this.turn++;
 		if (this.getLoser() !== null || this.turn >= FIGHT.MAX_TURNS) {
-			this.endFight();
+			await this.endFight();
 			return;
 		}
 		const playing = this.getPlayingFighter();
@@ -410,6 +419,7 @@ class Fight {
 			playing.chargeTurns--;
 		}
 		await this.scrollIfNeeded();
+		this.endedByTime = true;
 		if (playing.chargeTurns === 0) {
 			await this.useAction(playing.chargeAct, true);
 		}

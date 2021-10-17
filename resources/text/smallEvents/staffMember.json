@@ -3,7 +3,7 @@
 		"fr": {
 			"context": [
 				"En contournant un ravin, vous rencontrez un barde. Pendant que vous marchez, il vous raconte l'histoire de **{pseudo}**, {sentence}.",
-				"Alors que vous cheminez tranquillement remarquez une grande affiche. Elle semble louer les exploits de **{pseudo}**... \"{sentence}\".",
+				"Alors que vous cheminez tranquillement, vous remarquez une grande affiche. Elle semble louer les exploits de **{pseudo}**... \"{sentence}\".",
 				"Durant l'une de vos aventures, vous entendez une histoire, \"{sentence}\", mais n'en connaissez pas le héros. Après quelques recherches, vous vous rendez compte qu'elle parle de **{pseudo}** ! Son nom vous semble familier...",
 				"En entrant dans un bâtiment le long de votre chemin, vous discutez quelques temps avec le gérant de l'établissement. Vous lui demandez de vous conter les légendes locales, il vous décrit alors **{pseudo}**, {sentence}.",
 				"Sur votre chemin, vous faites la rencontre d'un vieil homme que vous décidez d'accompagner. Durant votre bout de chemin ensemble, celui-ci vous raconte l'histoire de **{pseudo}** : {sentence}.",
