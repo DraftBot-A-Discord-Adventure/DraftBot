@@ -72,8 +72,8 @@
 		"issues": [
 		  {
 			"translations": {
-			  "fr": "Vous suivez le chemin indiqué jusqu'à ce que vous vous retrouviez face à une rivière surmontée d'un pont délabré. Vous entendez celui-ci craqueler mais cela ne vous inquiète pas jusqu'au moment où vous voyez le bois s'effondrer sous vos pieds. Cela vous aura pris au moins 10 heures avant d'arriver à destination.",
-			  "en": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear this one crackle but that doesn't worry you until the moment you see the wood crumble under your feet. It will have taken you at least 10 hours to reach your destination."
+			  "fr": "Vous suivez le chemin indiqué jusqu'à ce que vous vous retrouviez face à une rivière surmontée d'un pont délabré. Vous entendez celui-ci craqueler mais cela ne vous inquiète pas jusqu'au moment où vous voyez le bois s'effondrer sous vos pieds. Cela vous aura pris au moins 12 heures avant d'arriver à destination.",
+			  "en": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear this one crackle but that doesn't worry you until the moment you see the wood crumble under your feet. It will have taken you at least 12 hours to reach your destination."
 			},
 			"lostTime": 0,
 			"health": 0,
