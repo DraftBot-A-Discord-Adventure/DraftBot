@@ -1,8 +1,8 @@
 {
 	"translations": {
 		"fr": {
-			"before_search_format": "{se_intro}{intro}. {search_action}.\n\n:telescope: *{search}*.",
-			"after_search_format": "{se_intro}{intro}. {search_action}.\n\n:telescope: *{search}*.\n\n{action_intro}, {action} **{specific}**. {outro}.",
+			"before_search_format": "{seIntro}{intro}. {searchAction}.\n\n:telescope: *{search}*.",
+			"after_search_format": "{seIntro}{intro}. {searchAction}.\n\n:telescope: *{search}*.\n\n{actionIntro}, {action} **{specific}**. {outro}.",
 			"intro": [
 				"vous rencontrez un oracle prétendant se nommer **{name}**",
 				"un homme vous semble étrange, vous allez à sa rencontre. Il dit être un oracle du nom de **{name}**",
@@ -14,7 +14,7 @@
 				"un homme surgit de nulle part court vers vous et se présente sous le nom de **{name}**",
 				"un inconnu suspect vous demande d'approcher, il vous dit s'appeler **{name}**"
 			],
-			"search_action": [
+			"searchAction": [
 				"Il vous dit qu'il peut vous donner des informations sur le ciel mais il a besoin de temps pour l'observer",
 				"Il se dit capable de vous donner des informations sur le ciel à condition de lui accorder un peu de temps",
 				"Il vous dit que si vous lui en laissez le temps, il serait capable de vous donner des informations sur le ciel",
@@ -34,7 +34,7 @@
 				"L'homme s'assoit contre un arbre et contemple le ciel",
 				"L'homme s'étend au sol et lève ses yeux vers le ciel"
 			],
-			"action_intro": [
+			"actionIntro": [
 				"Après quelques minutes",
 				"Peu de temps après",
 				"Quelques minutes plus tard",
@@ -117,8 +117,8 @@
 			]
 		},
 		"en": {
-			"before_search_format": "{se_intro}{intro}. {search_action}.\n\n:telescope: *{search}*.",
-			"after_search_format": "{se_intro}{intro}. {search_action}.\n\n:telescope: *{search}*.\n\n{action_intro}, {action} **{specific}**. {outro}.",
+			"before_search_format": "{seIntro}{intro}. {searchAction}.\n\n:telescope: *{search}*.",
+			"after_search_format": "{seIntro}{intro}. {searchAction}.\n\n:telescope: *{search}*.\n\n{actionIntro}, {action} **{specific}**. {outro}.",
 			"intro": [
 				"you meet an oracle who pretends to be called **{name}**",
 				"a man seems weird, you go meet him. He says to be an oracle named **{name}**",
@@ -130,7 +130,7 @@
 				"a man appears out of nowhere, runs towards you and presents himself as **{name}**",
 				"a suspicious stranger asks you to approach, he tells you to call himself ** {name} **"
 			],
-			"search_action": [
+			"searchAction": [
 				"He tells you that he can give you information about the sky but he needs time to observe it",
 				"He says he is able to give you information about the sky as long as you give him a little time",
 				"He tells you that if you give him time, he would be able to give you information about the sky",
@@ -150,7 +150,7 @@
 				"The man sits against a tree and contemplate the sky",
 				"The man lies on the ground and looks up to the sky"
 			],
-			"action_intro": [
+			"actionIntro": [
 				"After a few minutes",
 				"Short time after",
 				"A couple of minutes later",

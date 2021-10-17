@@ -18,6 +18,7 @@ declare const Armors: any;
 declare const Potions: any;
 declare const Objects: any;
 
+// eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
 	entity: any,
 	item: any,
@@ -58,6 +59,7 @@ export const giveItemToPlayer = async function(
 		}
 		else {
 			const choiceList: ChoiceItem[] = [];
+			// eslint-disable-next-line @typescript-eslint/no-extra-parens
 			items.sort((a: any, b: any) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 			for (const item of items) {
 				choiceList.push(new ChoiceItem(

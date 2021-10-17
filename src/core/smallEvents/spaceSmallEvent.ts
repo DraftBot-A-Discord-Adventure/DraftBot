@@ -26,17 +26,17 @@ const executeSmallEvent = async function(message: Message, language: string, ent
 
 	const translationModule = Translations.getModule("smallEvents.space", language);
 	const name = translationModule.getRandom("names");
-	const se_intro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
+	const seIntro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
 	const intro = format(translationModule.getRandom("intro"), {name});
-	const search_action = translationModule.getRandom("search_action");
+	const searchAction = translationModule.getRandom("searchAction");
 	const search = translationModule.getRandom("search");
-	const action_intro = translationModule.getRandom("action_intro");
+	const actionIntro = translationModule.getRandom("actionIntro");
 	const action = translationModule.getRandom("action");
 	const outro = translationModule.getRandom("outro");
 
 	const baseDescription = seEmbed.description;
 	const messageBefore = format(translationModule.get("before_search_format"), {
-		se_intro, intro, search_action, search
+		seIntro, intro, searchAction, search
 	});
 	seEmbed.setDescription(baseDescription + messageBefore);
 	message.channel.send({ embeds: [seEmbed] }).then(async (sentMessage) => {
@@ -51,7 +51,7 @@ const executeSmallEvent = async function(message: Message, language: string, ent
 			const t1 = performance.now();
 			const timeLeft = waitTime - (t1 - t0);
 			const messageAfter = format(translationModule.get("after_search_format"), {
-				se_intro, intro, search_action, search, action_intro, action, outro, specific
+				seIntro, intro, searchAction, search, actionIntro, action, outro, specific
 			});
 			const callBack = async () => {
 				seEmbed.setDescription(baseDescription + messageAfter);
@@ -84,6 +84,7 @@ async function neoWS(): Promise<Record<string, unknown>> {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function moonPhase(translationModule: TranslationModule): Promise<Record<string, unknown>> {
 	return Promise.resolve({
+		// eslint-disable-next-line new-cap
 		moonPhase: translationModule.getFromArray("moonPhases", SearchMoonQuarter(new Date()).quarter)
 	});
 }
@@ -92,11 +93,14 @@ function moonPhase(translationModule: TranslationModule): Promise<Record<string,
 function nextFullMoon(): Promise<Record<string, unknown>> {
 	let days = 0;
 	const currDate = new Date();
+	// eslint-disable-next-line new-cap
 	let currDegrees = MoonPhase(currDate);
+	// eslint-disable-next-line new-cap
 	let nextDegrees = MoonPhase(new Date(currDate.getDate() + 1));
 	while (!(currDegrees <= 180 && nextDegrees > 180)) {
 		currDegrees = nextDegrees;
 		currDate.setDate(currDate.getDate() + 1);
+		// eslint-disable-next-line new-cap
 		nextDegrees = MoonPhase(currDate);
 		days++;
 	}
@@ -105,11 +109,13 @@ function nextFullMoon(): Promise<Record<string, unknown>> {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function nextPartialLunarEclipse(): Promise<Record<string, unknown>> {
+	// eslint-disable-next-line new-cap
 	let eclipse = SearchLunarEclipse(new Date());
 	for (;;) {
 		if (eclipse.kind === "partial") {
 			break;
 		}
+		// eslint-disable-next-line new-cap
 		eclipse = NextLunarEclipse(eclipse.peak);
 	}
 	return Promise.resolve({
@@ -119,11 +125,13 @@ function nextPartialLunarEclipse(): Promise<Record<string, unknown>> {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function nextTotalLunarEclipse(): Promise<Record<string, unknown>> {
+	// eslint-disable-next-line new-cap
 	let eclipse = SearchLunarEclipse(new Date());
 	for (;;) {
 		if (eclipse.kind === "total") {
 			break;
 		}
+		// eslint-disable-next-line new-cap
 		eclipse = NextLunarEclipse(eclipse.peak);
 	}
 	return Promise.resolve({

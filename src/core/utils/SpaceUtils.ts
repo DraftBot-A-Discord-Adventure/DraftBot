@@ -1,20 +1,29 @@
 import * as https from "https";
 
 export interface NearEarthObjectApproachData {
+	// eslint-disable-next-line camelcase
 	close_approach_date: string,
+	// eslint-disable-next-line camelcase
 	close_approach_date_full: string,
+	// eslint-disable-next-line camelcase
 	epoch_date_close_approach: number,
+	// eslint-disable-next-line camelcase
 	relative_velocity: {
+		// eslint-disable-next-line camelcase
 		kilometers_per_second: string,
+		// eslint-disable-next-line camelcase
 		kilometers_per_hour: string,
+		// eslint-disable-next-line camelcase
 		miles_per_hour: string
 	},
+	// eslint-disable-next-line camelcase
 	miss_distance: {
 		astronomical: string,
 		lunar: string,
 		kilometers: string,
 		miles: string
 	},
+	// eslint-disable-next-line camelcase
 	orbiting_body: string
 }
 
@@ -23,30 +32,45 @@ export interface NearEarthObject {
 		self: string
 	},
 	id: string,
+	// eslint-disable-next-line camelcase
 	neo_reference_id: string,
 	name: string,
+	// eslint-disable-next-line camelcase
 	nasa_jpl_url: string,
+	// eslint-disable-next-line camelcase
 	absolute_magnitude_h: number,
+	// eslint-disable-next-line camelcase
 	estimated_diameter: {
 		kilometers: {
+			// eslint-disable-next-line camelcase
 			estimated_diameter_min: number,
+			// eslint-disable-next-line camelcase
 			estimated_diameter_max: number
 		},
 		meters: {
+			// eslint-disable-next-line camelcase
 			estimated_diameter_min: number,
+			// eslint-disable-next-line camelcase
 			estimated_diameter_max: number
 		},
 		miles: {
+			// eslint-disable-next-line camelcase
 			estimated_diameter_min: number,
+			// eslint-disable-next-line camelcase
 			estimated_diameter_max: number
 		},
 		feet: {
+			// eslint-disable-next-line camelcase
 			estimated_diameter_min: number,
+			// eslint-disable-next-line camelcase
 			estimated_diameter_max: number
 		}
 	},
+	// eslint-disable-next-line camelcase
 	is_potentially_hazardous_asteroid: boolean,
+	// eslint-disable-next-line camelcase
 	close_approach_data: NearEarthObjectApproachData[],
+	// eslint-disable-next-line camelcase
 	is_sentry_object: boolean
 }
 
@@ -82,6 +106,7 @@ export class SpaceUtils {
 				res.on("end", () => {
 					const parsedAnswer = JSON.parse(data);
 					if (parsedAnswer.near_earth_objects[today]) {
+						// eslint-disable-next-line camelcase
 						parsedAnswer.near_earth_objects = parsedAnswer.near_earth_objects[today];
 					}
 					this.cachedNeoFeedDate = today;

@@ -1,5 +1,4 @@
 import {MessageEmbed, User} from "discord.js";
-import {Constants} from "../Constants";
 
 declare const JsonReader: any;
 declare function format(s: string, replacement: any): string;
