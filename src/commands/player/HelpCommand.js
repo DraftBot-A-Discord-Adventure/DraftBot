@@ -87,6 +87,10 @@ const HelpCommand = async (message, language, args) => {
 	}
 	else {
 		const command = getCommand(args[0]) || getCommandFromAlias(args[0]);
+		if (!command) {
+			getCommand("help").execute(message, language, []);
+			return;
+		}
 		const commandInfos = JsonReader.commands.help.getTranslation(language).commands[
 			command.commandInfo.name
 		];
