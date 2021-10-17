@@ -39,9 +39,9 @@
 				"Vous faites une pause de 5 min pour vous changer les idées. Pour cela, vous entraînez {playerDisplay}, qui vient de commencer le jeu."
 			],
 			"advanced": [
-				"Les cheveux gris de **{playerDisplay}** témoignent de l'expérience qu'il a accumulée. Il est en effet niveau **{level}** ! Vous continuez ensuite votre route.",
-				"En vous baladant, vous croisez **{playerDisplay}** c'est un héros puissant, il est en effet niveau **{level}** !",
-				"**{playerDisplay}** ne s'arrête pas de monter en niveau et de se rapprocher du niveau 100 ! Il est actuellement niveau **{level}**. Vous reprenez votre chemin après cette rencontre."
+				"Les cheveux gris de {playerDisplay} témoignent de l'expérience qu'il a accumulée. Il est en effet niveau **{level}** ! Vous continuez ensuite votre route.",
+				"En vous baladant, vous croisez {playerDisplay} c'est un héros puissant, il est en effet niveau **{level}** !",
+				"{playerDisplay} ne s'arrête pas de monter en niveau et de se rapprocher du niveau 100 ! Il est actuellement niveau **{level}**. Vous reprenez votre chemin après cette rencontre."
 			],
 			"sameClass": [
 				"Sur votre chemin, vous ne manquez pas de reconnaître l'accoutrement de {playerDisplay}. Il est **{class}** tout comme vous !",
@@ -80,9 +80,9 @@
 				"Même s'il pourrait se vanter de son classement plus élevé que le vôtre, {playerDisplay} reste humble pendant votre conversation."
 			],
 			"betterRankThanHim": [
-				"Vous croisez **{playerDisplay}**, celui-ci a un moins bon classement... Mais attention il peut très bien vous rattraper un jour !",
-				"Un joueur vient vous voir, c'est **{playerDisplay}** il vous demande quelques conseils pour progresser et passe son chemin !",
-				"Vous papotez avec **{playerDisplay}** de votre classement. Vous êtes mieux classé que lui !"
+				"Vous croisez {playerDisplay}, celui-ci a un moins bon classement... Mais attention il peut très bien vous rattraper un jour !",
+				"Un joueur vient vous voir, c'est {playerDisplay} il vous demande quelques conseils pour progresser et passe son chemin !",
+				"Vous papotez avec {playerDisplay} de votre classement. Vous êtes mieux classé que lui !"
 			],
 			"rich": [
 				"Vous vous cachez les yeux pour arrêter d'être ébloui par le soleil qui reflète sur l'or que porte {playerDisplay} ! Vous continuez votre route en ayant mal aux yeux.",
@@ -90,9 +90,9 @@
 				"Des pièces tombent des poches de {playerDisplay} tellement elles en sont remplies. Cela ne semble même pas l'inquiéter. Un animal vient les prendre avant que vous puissiez mettre la main dessus. Vous continuez votre route un peu déçu."
 			],
 			"poor": [
-				"À la vue des vêtements que porte **{playerDisplay}**, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donniez une pièce.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce",
-				"En marchant, vous rencontrez ce pauvre vagabond de **{playerDisplay}**, celui-ci vous demande quelques pièces:\n\n:coin: Donner une pièce, car vous en avez déjà assez\n:x: Ne pas lui donner une pièce",
-				"La misère touche tout le monde un jour, et aujourd'hui c'est **{playerDisplay}** qui peut à peine se payer un repas.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce"
+				"À la vue des vêtements que porte {playerDisplay}, celui-ci semble avoir des problèmes d'argent... Vous pensez qu'il serait heureux si vous lui donniez une pièce.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce",
+				"En marchant, vous rencontrez ce pauvre vagabond de {playerDisplay}, celui-ci vous demande quelques pièces:\n\n:coin: Donner une pièce, car vous en avez déjà assez\n:x: Ne pas lui donner une pièce",
+				"La misère touche tout le monde un jour, et aujourd'hui c'est {playerDisplay} qui peut à peine se payer un repas.\n\n:coin: Lui donner une pièce\n:x: Ne pas lui donner une pièce"
 			],
 			"poorGiveMoney": [
 				"Vous vous sentez bien après avoir fait ce geste humanitaire.",
@@ -125,9 +125,9 @@
 				"Le bras droit de la guilde **{guildName}**, {playerDisplay}, vous salue et continue son chemin."
 			],
 			"class": [
-				"Vous frôlez **{playerDisplay}** qui possède la classe **{class}**. Vous parlez un peu avec lui et reprenez votre route paisiblement.",
-				"**{playerDisplay}** passe près de vous, il possède la classe **{class}** !",
-				"Vous heurtez malencontreusement le bras de **{playerDisplay}**, honorable **{class}**. Vous vous excusez tous les deux et continuez votre route."
+				"Vous frôlez {playerDisplay} qui possède la classe **{class}**. Vous parlez un peu avec lui et reprenez votre route paisiblement.",
+				"{playerDisplay} passe près de vous, il possède la classe **{class}** !",
+				"Vous heurtez malencontreusement le bras de {playerDisplay}, honorable **{class}**. Vous vous excusez tous les deux et continuez votre route."
 			],
 			":sick:": [
 				"Vous entendez un bruit au loin... C'est {playerDisplay} qui vomit dans un buisson... Vous reprenez votre route bouleversé.",
@@ -135,9 +135,9 @@
 				"{playerDisplay} ne peut se retenir et vomi à vos pieds. Vous esquivez de justesse l'attaque et accélerez votre cadence pour vous éloigner du massacre."
 			],
 			":head_bandage:": [
-				"Vous apercevez une momie au loin ! Ah non, ce n'est que **{playerDisplay}** recouvert de bandages...",
-				"Sur votre chemin, vous croisez **{playerDisplay}**. Il est recouvert de bandages, que lui est-t-il arrivé ?",
-				"Alors que vous êtes élancé pour atteindre votre destination, **{playerDisplay}** vous demande de bien vouloir resserrer les bandages sur sa tête. Vous le faites et vous étonnez que quelqu'un puisse être autant blessé."
+				"Vous apercevez une momie au loin ! Ah non, ce n'est que {playerDisplay} recouvert de bandages...",
+				"Sur votre chemin, vous croisez {playerDisplay}. Il est recouvert de bandages, que lui est-t-il arrivé ?",
+				"Alors que vous êtes élancé pour atteindre votre destination, {playerDisplay} vous demande de bien vouloir resserrer les bandages sur sa tête. Vous le faites et vous étonnez que quelqu'un puisse être autant blessé."
 			],
 			":dizzy_face:": [
 				"Vous trébuchez sur {playerDisplay} qui est inconscient sur le sol. Vous lui donnez de petites tapes pour le réveiller, sans succès.",
