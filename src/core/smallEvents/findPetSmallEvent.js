@@ -40,7 +40,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		// choisir une autre issue si le joueur n'a pas de guilde pour stocker la viande
 
 		generateNoRoomEmbed(seEmbed, base, trad, petLine, pet, outRand);
-		await message.channel.send(seEmbed);
+		message.channel.send({ embeds: [seEmbed] });
 		if (trad.noRoom.stories[outRand][PETS.IS_FOOD]) {
 			await giveFood(message, language, entity, message.author, JsonReader.food.carnivorousFood, 1);
 		}
@@ -50,12 +50,12 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		await pet.save();
 		await (await GuildPets.addPet(entity.Player.guildId, pet.id)).save();
 		generateRoomEmbed(seEmbed, base, trad, petLine, pet, true);
-		await message.channel.send(seEmbed);
+		message.channel.send({ embeds: [seEmbed] });
 		seEmbedPetObtention.setDescription(format(trad.petObtentionGuild, {
 			emote: PetEntities.getPetEmote(pet),
 			pet: PetEntities.getPetTypeName(pet, language)
 		}));
-		await message.channel.send(seEmbedPetObtention);
+		await message.channel.send({ embeds: [seEmbedPetObtention] });
 	}
 	else {
 		// Place le pet avec le joueur
@@ -63,12 +63,12 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		entity.Player.petId = pet.id;
 		await entity.Player.save();
 		generateRoomEmbed(seEmbed, base, trad, petLine, pet, false);
-		await message.channel.send(seEmbed);
+		message.channel.send({ embeds: [seEmbed] });
 		seEmbedPetObtention.setDescription(format(trad.petObtentionPlayer, {
 			emote: PetEntities.getPetEmote(pet),
 			pet: PetEntities.getPetTypeName(pet, language)
 		}));
-		await message.channel.send(seEmbedPetObtention);
+		await message.channel.send({ embeds: [seEmbedPetObtention] });
 	}
 	log(entity.discordUserId + " got find pet event.");
 };

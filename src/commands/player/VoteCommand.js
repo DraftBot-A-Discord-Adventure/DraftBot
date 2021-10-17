@@ -12,9 +12,9 @@ module.exports.commandInfo = {
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const VoteCommand = (message, language) => {
-	message.channel.send(new DraftBotEmbed()
+	message.channel.send({ embeds: [new DraftBotEmbed()
 		.setDescription(JsonReader.commands.vote.getTranslation(language).text)
-		.setTitle(JsonReader.commands.vote.getTranslation(language).title));
+		.setTitle(JsonReader.commands.vote.getTranslation(language).title)] });
 };
 
 module.exports.execute = VoteCommand;

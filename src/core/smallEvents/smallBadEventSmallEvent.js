@@ -52,7 +52,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		entity.Player.addMoney(-moneyLoss);
 		break;
 	}
-	await message.channel.send(seEmbed);
+	await message.channel.send({ embeds: [seEmbed] });
 	log(entity.discordUserId + " got small bad event.");
 	await entity.Player.killIfNeeded(entity, message.channel, language);
 	await entity.Player.save();

@@ -3,7 +3,7 @@
 		"fr": {
 			"attack": {
 				"winPotion": [
-					"vous apercevez une lumière étrange dans le lointain. En vous rapprochant, curieux, vous vous rendez compte qu'il s'agit la d'une fiole au contenu inconnu, vous vous humectez les lèvres du breuvage et sentez que vos forces pourraient être décuplées si vous l'ingériez...",
+					"vous apercevez une lumière étrange dans le lointain. En vous rapprochant, curieux, vous vous rendez compte qu'il s'agit là d'une fiole au contenu inconnu, vous vous humectez les lèvres du breuvage et sentez que vos forces pourraient être décuplées si vous l'ingériez...",
 					"vous remarquez une tente installée là. Intrigué, vous y entrez et y découvrez un vieil homme possédant de nombreuses potions. Celui-ci vous demande de bien vouloir tester ses potions. Vous acceptez, et une fois les expériences finies, il vous donne une potion d'attaque en gage de remerciement.",
 					"vous trouvez une charrette abandonnée. Celle-ci contient des caisses de potions. Vous en volez une à la hâte. Après avoir fui, vous voyez que la potion volée semble être utile pour votre prochain combat..."
 				],
@@ -131,7 +131,7 @@
 	"defenseEligible": [4,5,6,7,16],
 	"basicEligible": [0,1,2,3,12,13,14,15],
 	"otherEligible": [17],
-	"rarity": 2,
+	"rarity": 4,
 	"emote": ":bookmark:  "
 }
 

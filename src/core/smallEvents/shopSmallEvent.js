@@ -7,8 +7,11 @@
  *    The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
+import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
+import {Constants} from "../Constants";
+
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
-	const randomItem = await entity.Player.Inventory.generateRandomItem(RARITY.SPECIAL);
+	const randomItem = await generateRandomItem(RARITY.SPECIAL);
 	let price = getItemValue(randomItem);
 	price = Math.round(randInt(1, 10) === 10 ? price * 5 : price *= 0.6);
 	const gender = randInt(0, 1);
@@ -21,9 +24,10 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 					randInt(0, translationShop.names[gender].length)
 				],
 				item: randomItem.toString(language),
-				price: price
+				price: price,
+				type: Constants.REACTIONS.ITEM_CATEGORIES[randomItem.getCategory()] + " " + translationShop.types[randomItem.getCategory()]
 			}));
-	const msg = await message.channel.send(seEmbed);
+	const msg = await message.channel.send({ embeds: [seEmbed] });
 	await Promise.all([
 		msg.react(MENU_REACTION.ACCEPT),
 		msg.react(MENU_REACTION.DENY)
@@ -31,7 +35,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const filterConfirm = (reaction, user) =>	(reaction.emoji.name === MENU_REACTION.ACCEPT ||
 				reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUserId;
 
-	const collector = msg.createReactionCollector(filterConfirm, {time: COLLECTOR_TIME, max: 1});
+	const collector = msg.createReactionCollector({filter: filterConfirm, time: COLLECTOR_TIME, max: 1});
 
 	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
@@ -43,11 +47,11 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 							{missingMoney: price - entity.Player.money})
 					);
 				}
-				await giveItem(entity, randomItem, language,
+				await giveItemToPlayer(entity, randomItem, language,
 					message.author, message.channel, SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
 				log(entity.discordUserId + " bought an item in a mini shop for " + price);
 				entity.Player.addMoney(-price);
-				await Promise.all([entity.Player.save(), entity.Player.Inventory.save()]);
+				await entity.Player.save();
 				return;
 			}
 		}

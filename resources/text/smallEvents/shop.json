@@ -19,7 +19,13 @@
 					"Tandis que vous avancez tranquillement sur votre route, vous croisez une charrette dans laquelle se trouve une marchande du nom de {name}. Celle-ci vous propose de lui acheter l'un de ses objets, vous affirmant qu'ils pourraient vous être utiles dans votre aventure."
 				]
 			],
-			"end": "\n\n{item} | `{price}\uD83D\uDCB0`",
+			"end": "\n\n{item} | `{price}\uD83D\uDCB0`\n\n**Type :** {type}",
+			"types": [
+				"Arme",
+				"Armure",
+				"Potion",
+				"Objet"
+			],
 			"names": [
 				[
 					"Terry",
@@ -71,7 +77,13 @@
 					"As you make your way along the road, you come across a cart with a merchant named {name} in it. She proposes you to buy one of her items, saying that they might be useful in your adventure."
 				]
 			],
-			"end": "\n\n{item} | `{price}\uD83D\uDCB0`",
+			"end": "\n\n{item} | `{price}\uD83D\uDCB0`\n\n**Type:** {type}",
+			"types": [
+				"Weapon",
+				"Armor",
+				"Potion",
+				"Item"
+			],
 			"names": [
 				[
 					"Terry",

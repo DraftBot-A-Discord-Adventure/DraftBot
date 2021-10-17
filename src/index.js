@@ -22,16 +22,14 @@ process.on("unhandledRejection", function(err) {
 			console.log(JsonReader.bot.br.grey);
 		});
 
-		await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
+		await (await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
 			.channels
-			.cache
-			.get(JsonReader.app.CONSOLE_CHANNEL_ID)
-			.send(JsonReader.bot.startStatus + JsonReader.package.version)
+			.fetch(JsonReader.app.CONSOLE_CHANNEL_ID))
+			.send({ content: JsonReader.bot.startStatus + JsonReader.package.version })
 			.catch(console.error);
 
-		await client.user
-			.setActivity(JsonReader.bot.activity)
-			.catch(console.error);
+		client.user
+			.setActivity(JsonReader.bot.activity);
 
 		await require("./core/DBL").verifyDBLRoles();
 	};
@@ -42,11 +40,7 @@ process.on("unhandledRejection", function(err) {
 	const onDiscordGuildCreate = async (guild) => {
 		const [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, true, serv.language);
-		(await client.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID)).send(msg);
-		// if (validation == ":x:") {
-		//   sendLeavingMessage(guilde);
-		//   //guilde.leave() //temporairement désactivé pour top.gg
-		// }
+		(await client.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID)).send({ content: msg });
 		console.log(msg);
 	};
 
@@ -56,7 +50,7 @@ process.on("unhandledRejection", function(err) {
 	const onDiscordGuildDelete = async (guild) => {
 		const [serv] = await Servers.getOrRegister(JsonReader.app.MAIN_SERVER_ID);
 		const msg = getJoinLeaveMessage(guild, false, serv.language);
-		(await client.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID)).send(msg);
+		(await client.channels.fetch(JsonReader.app.CONSOLE_CHANNEL_ID)).send({ content: msg });
 		console.log(msg);
 	};
 
@@ -91,7 +85,7 @@ process.on("unhandledRejection", function(err) {
 		if (message.author.bot) {
 			return;
 		}
-		if (message.channel.type === "dm") {
+		if (message.channel.type === "DM") {
 			await handlePrivateMessage(message);
 		}
 		else {
@@ -102,7 +96,7 @@ process.on("unhandledRejection", function(err) {
 	client.on("ready", onDiscordReady);
 	client.on("guildCreate", onDiscordGuildCreate);
 	client.on("guildDelete", onDiscordGuildDelete);
-	client.on("message", onDiscordMessage);
+	client.on("messageCreate", onDiscordMessage);
 
 	await client.login(JsonReader.app.DISCORD_CLIENT_TOKEN);
 })(Draftbot);

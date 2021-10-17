@@ -65,15 +65,47 @@ module.exports = (Sequelize, DataTypes) => {
 		where: {
 			discordUserId: discordUserId
 		},
-		defaults: {Player: {Inventory: {}}},
+		defaults: {
+			Player: {
+				InventoryInfo: {
+
+				},
+				InventorySlots: [
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 0
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 1
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 2
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 3
+					}
+				]
+			}
+		},
 		include: [
 			{
 				model: Players,
 				as: "Player",
 				include: [
 					{
-						model: Inventories,
-						as: "Inventory"
+						model: InventorySlots,
+						as: "InventorySlots"
+					},
+					{
+						model: InventoryInfo,
+						as: "InventoryInfo"
 					},
 					{
 						model: PetEntities,
@@ -96,7 +128,35 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {String} guildId
 	 */
 	Entities.getByGuild = (guildId) => Entities.findAll({
-		defaults: {Player: {Inventory: {}}},
+		defaults: {
+			Player: {
+				InventoryInfo: {
+
+				},
+				InventorySlots: [
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 0
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 1
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 2
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 3
+					}
+				]
+			}
+		},
 		include: [
 			{
 				model: Players,
@@ -106,8 +166,12 @@ module.exports = (Sequelize, DataTypes) => {
 				},
 				include: [
 					{
-						model: Inventories,
-						as: "Inventory"
+						model: InventorySlots,
+						as: "InventorySlots"
+					},
+					{
+						model: InventoryInfo,
+						as: "InventoryInfo"
 					},
 					{
 						model: PetEntities,
@@ -137,15 +201,47 @@ module.exports = (Sequelize, DataTypes) => {
 		where: {
 			discordUserId: discordUserId
 		},
-		defaults: {Player: {Inventory: {}}},
+		defaults: {
+			Player: {
+				InventoryInfo: {
+
+				},
+				InventorySlots: [
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 0
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 1
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 2
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 3
+					}
+				]
+			}
+		},
 		include: [
 			{
 				model: Players,
 				as: "Player",
 				include: [
 					{
-						model: Inventories,
-						as: "Inventory"
+						model: InventorySlots,
+						as: "InventorySlots"
+					},
+					{
+						model: InventoryInfo,
+						as: "InventoryInfo"
 					},
 					{
 						model: PetEntities,
@@ -171,15 +267,47 @@ module.exports = (Sequelize, DataTypes) => {
 		where: {
 			id: id
 		},
-		defaults: {Player: {Inventory: {}}},
+		defaults: {
+			Player: {
+				InventoryInfo: {
+
+				},
+				InventorySlots: [
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 0
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 1
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 2
+					},
+					{
+						itemId: 0,
+						slot: 0,
+						itemCategory: 3
+					}
+				]
+			}
+		},
 		include: [
 			{
 				model: Players,
 				as: "Player",
 				include: [
 					{
-						model: Inventories,
-						as: "Inventory"
+						model: InventorySlots,
+						as: "InventorySlots"
+					},
+					{
+						model: InventoryInfo,
+						as: "InventoryInfo"
 					},
 					{
 						model: PetEntities,
@@ -245,10 +373,9 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Entities.prototype.getCumulativeAttack = async function(weapon, armor, potion, object) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const attackItemValue = weapon.getAttack() + object.getAttack() / 2 > playerClass.getAttackValue(this.Player.level)
-			? playerClass.getAttackValue(this.Player.level) + Math.round(object.getAttack() / 2)
-			: weapon.getAttack() + object.getAttack();
-		const attack = playerClass.getAttackValue(this.Player.level) + attackItemValue + armor.getAttack() +
+		const attackItemValue = weapon.getAttack() > playerClass.getAttackValue(this.Player.level)
+			? playerClass.getAttackValue(this.Player.level)	: weapon.getAttack();
+		const attack = playerClass.getAttackValue(this.Player.level) + object.getAttack() + attackItemValue + armor.getAttack() +
 			potion.getAttack();
 		return attack > 0 ? attack : 0;
 	};
@@ -263,10 +390,9 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Entities.prototype.getCumulativeDefense = async function(weapon, armor, potion, object) {
 		const playerClass = await Classes.getById(this.Player.class);
-		const defenseItemValue = armor.getDefense() + object.getDefense() / 2 > playerClass.getDefenseValue(this.Player.level)
-			? playerClass.getDefenseValue(this.Player.level) + Math.round(object.getDefense() / 2)
-			: armor.getDefense() + object.getDefense();
-		const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + defenseItemValue +
+		const defenseItemValue = armor.getDefense() > playerClass.getDefenseValue(this.Player.level)
+			? playerClass.getDefenseValue(this.Player.level) : armor.getDefense() ;
+		const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + object.getDefense() + defenseItemValue +
 			potion.getDefense();
 		return defense > 0 ? defense : 0;
 	};

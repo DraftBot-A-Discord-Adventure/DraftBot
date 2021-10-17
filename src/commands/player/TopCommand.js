@@ -1,4 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+const Maps = require("../../core/Maps");
 
 module.exports.commandInfo = {
 	name: "top",
@@ -207,21 +208,23 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 		page = 1;
 	}
 	if (page > pageMax || page < 1) {
-		embedError.setColor(JsonReader.bot.embed.default)
+		embedError
 			.setTitle(format(JsonReader.commands.topCommand.getTranslation(language).maxPageTitle, {
 				pseudo: actualPlayer,
 				pageMax: pageMax
 			}))
 			.setDescription(format(JsonReader.commands.topCommand.getTranslation(language).maxPageDesc, {pageMax: pageMax}));
-		return await message.channel.send(embedError);
+		return await message.channel.send({ embeds: [embedError] });
 	}
 	const fin = page * 15;
 	const debut = fin - 14;
 	let messages = "";
 	let badge;
 	// Indicate which top we are going to display
-	embed.setColor(JsonReader.bot.embed.default)
+	embed
 		.setTitle(format(topTitle, {debut: debut, fin: fin}));
+	// Fetch all server members
+	await message.guild.members.fetch();
 	// Build a string with 15 players informations
 	for (let k = 0; k < allEntities.length; k++) {
 
@@ -245,7 +248,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 			}
 		}
 		if (page !== 1 || k > 4) {
-			if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUserId) !== null) {
+			if (message.guild.members.cache.find(val => val.id === allEntities[k].discordUserId)) {
 				badge = JsonReader.commands.topCommand.blue;
 			}
 			else {
@@ -263,13 +266,14 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 		if (Date.now() < Date.parse(allEntities[k].Player.effectEndDate)) {
 			badgeState = allEntities[k].Player.effect;
 		}
-		if (Date.now() > Date.parse(allEntities[k].Player.effectEndDate) + 2 * JsonReader.commands.topCommand.oneHour) {
-			if (allEntities[k].Player.isInactive()) {
-				badgeState = ":ghost:";
-			}
-			else {
-				badgeState = ":newspaper2:";
-			}
+		else if (allEntities[k].Player.isInactive()) {
+			badgeState = ":ghost:";
+		}
+		else if (await Maps.isArrived(allEntities[k].Player)) {
+			badgeState = (await allEntities[k].Player.getDestination()).getEmote(language);
+		}
+		else {
+			badgeState = ":smiley:";
 		}
 		messages += format(JsonReader.commands.topCommand.getTranslation(language).playerRankLine, {
 			badge: badge,
@@ -342,7 +346,7 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 		}));
 	}
 
-	return await message.channel.send(embed);
+	return await message.channel.send({ embeds: [embed] });
 }
 
 module.exports.execute = TopCommand;

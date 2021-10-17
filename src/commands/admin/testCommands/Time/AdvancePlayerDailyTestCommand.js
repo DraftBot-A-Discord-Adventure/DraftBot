@@ -18,8 +18,8 @@ module.exports.commandInfo = {
  */
 const advancePlayerDailyTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	entity.Player.Inventory.lastDailyAt -= parseInt(args[0]) * 60000;
-	entity.Player.Inventory.save();
+	entity.Player.InventoryInfo.lastDailyAt -= parseInt(args[0]) * 60000;
+	entity.Player.InventoryInfo.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: args[0]});
 };
 

@@ -1,12 +1,54 @@
 {
 	"translations": {
 		"fr": {
-			"giveSuccess": "{pseudo}, vous avez donné un objet, j'espère que c'est mérité !",
-			"descGive": "{type} d'id {id} a été donné à {player}"
+			"confirmTitle": "{pseudo}, confirmation de give",
+			"confirmDesc": "Voulez-vous vraiment donner {item} à {usersCount} utilisateur{usersCount>1?s:} ?",
+			"resultTitle": "{pseudo}, résultat de la commande give",
+			"giveSuccess": "✅ {user} ({mention})\n",
+			"giveError": {
+				"baseText": "❌ {user} ({mention}): {reason}\n",
+				"reasons": {
+					"noSpace": "Aucun emplacement libre",
+					"invalidMention": "Mention / ID invalide"
+				}
+			},
+			"errors": {
+				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>give <category [0-3]> <item id> [mentions]`",
+				"tooMuchPeople": "Give d'objet sur trop de personnes en même temps. Veuillez vous limiter à 50 personnes par commande.",
+				"unknownCategory": "Catégorie inconnue. Elle doit être en 0 et 3",
+				"wrongItemId": "Aucun objet n'existe dans cette catégorie avec cet id",
+				"invalidIdOrMention": "Mention / ID invalide en position {position} : {wrongText}",
+				"commandCanceled": "Commande `give` annulée !"
+			},
+			"dm": {
+				"title": "{pseudo}, vous avez gagné un objet de la part d'un administrateur !",
+				"description": "Vous avez obtenu l'objet {item} !"
+			}
 		},
 		"en": {
-			"giveSuccess": "{pseudo}, you gave an object, i hope it is well deserved !",
-			"descGive": "{type} with id {id} has been given to {player}"
+			"confirmTitle": "{pseudo}, give confirmation",
+			"confirmDesc": "Do you really want to give {item} to {usersCount} user{usersCount>1?s:} ?",
+			"resultTitle": "{pseudo}, result of the give command",
+			"giveSuccess": "✅ {user} ({mention})",
+			"giveError": {
+				"baseText": "❌ {user} ({mention}): {reason}",
+				"reasons": {
+					"noSpace": "No empty slot",
+					"invalidMention": "Invalid mention / ID"
+				}
+			},
+			"errors": {
+				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>give <category [0-3]> <item id> [mentions]`",
+				"tooMuchPeople": "Give of item on too much users. Please limit your command to 50 users.",
+				"unknownCategory": "Unknown category. It must be between 0 and 3",
+				"wrongItemId": "No item exists in this category with this id",
+				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
+				"commandCanceled": "`give` command canceled!"
+			},
+			"dm": {
+				"title": "{pseudo}, you earned an item by an administrator!",
+				"description": "You got the following item: {item}!"
+			}
 		}
 	}
 }

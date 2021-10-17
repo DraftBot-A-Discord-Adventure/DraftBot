@@ -51,7 +51,7 @@ const PetTransferCommand = async function(message, language, args) {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmDeposit, {
 			pet: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language))
 		}));
-		return message.channel.send(confirmEmbed);
+		return message.channel.send({ embeds: [confirmEmbed] });
 	}
 
 	if (guildPetCount === 0) {
@@ -80,6 +80,9 @@ const PetTransferCommand = async function(message, language, args) {
 	const swPetEntity = swPet.PetEntity;
 
 	if (pPet) {
+		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
+		}
 		swPet.petEntityId = pPet.id;
 		await swPet.save();
 	}
@@ -90,9 +93,6 @@ const PetTransferCommand = async function(message, language, args) {
 	await entity.Player.save();
 
 	if (pPet) {
-		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
-			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
-		}
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmSwitch, {
 			pet1: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language)),
 			pet2: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
@@ -103,7 +103,7 @@ const PetTransferCommand = async function(message, language, args) {
 			pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));
 	}
-	return message.channel.send(confirmEmbed);
+	return message.channel.send({ embeds: [confirmEmbed] });
 };
 
 module.exports.execute = PetTransferCommand;

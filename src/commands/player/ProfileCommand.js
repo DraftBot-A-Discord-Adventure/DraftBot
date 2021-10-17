@@ -19,6 +19,10 @@ const ProfileCommand = async (message, language, args) => {
 	}
 
 	let titleEffect = entity.Player.effect;
+	const w = await entity.Player.getMainWeaponSlot().getItem();
+	const a = await entity.Player.getMainArmorSlot().getItem();
+	const p = await entity.Player.getMainPotionSlot().getItem();
+	const o = await entity.Player.getMainObjectSlot().getItem();
 	const fields = [
 		{
 			name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
@@ -33,23 +37,9 @@ const ProfileCommand = async (message, language, args) => {
 		{
 			name: JsonReader.commands.profile.getTranslation(language).statistique.fieldName,
 			value: format(JsonReader.commands.profile.getTranslation(language).statistique.fieldValue, {
-				cumulativeAttack: await entity.getCumulativeAttack(
-					await entity.Player.Inventory.getWeapon(),
-					await entity.Player.Inventory.getArmor(),
-					await entity.Player.Inventory.getPotion(),
-					await entity.Player.Inventory.getActiveObject()
-				),
-				cumulativeDefense: await entity.getCumulativeDefense(await entity.Player.Inventory.getWeapon(),
-					await entity.Player.Inventory.getArmor(),
-					await entity.Player.Inventory.getPotion(),
-					await entity.Player.Inventory.getActiveObject()
-				),
-				cumulativeSpeed: await entity.getCumulativeSpeed(
-					await entity.Player.Inventory.getWeapon(),
-					await entity.Player.Inventory.getArmor(),
-					await entity.Player.Inventory.getPotion(),
-					await entity.Player.Inventory.getActiveObject()
-				),
+				cumulativeAttack: await entity.getCumulativeAttack(w, a, p, o),
+				cumulativeDefense: await entity.getCumulativeDefense(w, a, p, o),
+				cumulativeSpeed: await entity.getCumulativeSpeed(w, a, p, o),
 				cumulativeHealth: await entity.getCumulativeHealth(),
 				cumulativeMaxHealth: await entity.getMaxCumulativeHealth()
 			})
@@ -154,7 +144,7 @@ const ProfileCommand = async (message, language, args) => {
 		console.log(error);
 	}
 
-	const msg = await message.channel.send(
+	const msg = await message.channel.send({ embeds: [
 		new DraftBotEmbed()
 			.setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
 				effect: titleEffect,
@@ -162,18 +152,19 @@ const ProfileCommand = async (message, language, args) => {
 				level: entity.Player.level
 			}))
 			.addFields(fields)
-	);
+	] });
 
 	const filterConfirm = (reaction) => reaction.me && !reaction.users.cache.last().bot;
 
-	const collector = msg.createReactionCollector(filterConfirm, {
+	const collector = msg.createReactionCollector({
+		filter: filterConfirm,
 		time: COLLECTOR_TIME,
 		max: JsonReader.commands.profile.badgeMaxReactNumber
 	});
 
 	collector.on("collect", (reaction) => {
-		message.channel.send(JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]).then((msg) => {
-			msg.delete({"timeout": JsonReader.commands.profile.badgeDescriptionTimeout});
+		message.channel.send({ content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name] }).then((msg) => {
+			setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
 		});
 	});
 

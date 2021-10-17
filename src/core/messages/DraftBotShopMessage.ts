@@ -125,6 +125,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	}
 
 	private getChoseShopItem(): ShopItem {
+		// eslint-disable-next-line max-len
 		const emoji = this.getFirstReaction() ? this.getFirstReaction().emoji.id === null ? this.getFirstReaction().emoji.name : "<:" + this.getFirstReaction().emoji.name + ":" + this.getFirstReaction().emoji.id + ">" : null;
 		const index: number = this._shopItemReactions.indexOf(emoji);
 		if (index === -1) {
@@ -151,7 +152,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		if (choseShopItem) {
 			const userMoney = await shopMessage.getUserMoney();
 			if (userMoney < choseShopItem.price) {
-				await shopMessage.sentMessage.channel.send(
+				await shopMessage.sentMessage.channel.send({ embeds: [
 					new DraftBotErrorEmbed(
 						shopMessage._user,
 						shopMessage._language,
@@ -161,7 +162,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 								missingMoney: choseShopItem.price - userMoney
 							}
 						)
-					)
+					)] }
 				);
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.NOT_ENOUGH_MONEY);
 			}
@@ -171,19 +172,19 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 					async (reactionMessage) => {
 						const validateMessage = reactionMessage as DraftBotValidateReactionMessage;
 						if (validateMessage.isValidated()) {
+							shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
 							const removeMoney = await choseShopItem.buyCallback(shopMessage, 1);
 							if (removeMoney) {
 								await shopMessage.removeUserMoney(choseShopItem.price);
 							}
-							shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
 						}
 						else {
-							await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
+							await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
 								shopMessage.user,
 								shopMessage.language,
 								shopMessage._translationModule.get("error.canceledPurchase"),
 								true
-							));
+							)] });
 							shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
 						}
 					}
@@ -202,15 +203,15 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 				for (let i = 0; i < choseShopItem.amounts.length; ++i) {
 					const amount = choseShopItem.amounts[i];
 					const numberEmote: string = Constants.REACTIONS.NUMBERS[amount];
-					if (amount < 0 || amount > 10 || choseShopItem.amounts.indexOf(amount) < i) {
+					if (amount < 0 || amount > 10 || choseShopItem.amounts.indexOf(amount) < i || userMoney < amount * choseShopItem.price) {
 						continue;
 					}
 					numberReactions.push(new DraftBotReaction(numberEmote, async (reactionMessage: DraftBotReactionMessage) => {
+						shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
 						const removeMoney = await choseShopItem.buyCallback(shopMessage, amount);
 						if (removeMoney) {
 							await shopMessage.removeUserMoney(choseShopItem.price * amount);
 						}
-						shopMessage._shopEndCallback(shopMessage, ShopEndReason.SUCCESS);
 						reactionMessage.stop();
 					}));
 					prices.push(amount * choseShopItem.price);
@@ -219,12 +220,12 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 					Constants.REACTIONS.REFUSE_REACTION,
 					async (reactionMessage: DraftBotReactionMessage) => {
 						reactionMessage.stop();
-						await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
+						await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
 							shopMessage.user,
 							shopMessage.language,
 							shopMessage._translationModule.get("error.canceledPurchase"),
 							true
-						));
+						)] });
 						shopMessage._shopEndCallback(shopMessage, ShopEndReason.REFUSED_CONFIRMATION);
 					}
 				));
@@ -252,15 +253,16 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 			}
 		}
 		else {
-			await shopMessage.sentMessage.channel.send(new DraftBotErrorEmbed(
+			await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
 				shopMessage.user,
 				shopMessage.language,
 				shopMessage._translationModule.get("error.leaveShop"),
 				true
-			));
+			)] });
 			if (msg.getFirstReaction()) {
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.REACTION);
-			} else {
+			}
+			else {
 				shopMessage._shopEndCallback(shopMessage, ShopEndReason.TIME);
 			}
 		}
@@ -313,6 +315,9 @@ export class DraftBotShopMessageBuilder {
 	 * @param category
 	 */
 	addCategory(category: ShopItemCategory): DraftBotShopMessageBuilder {
+		if (!category || category.items.length === 0 || category.items.filter(item => item !== null && item !== undefined).length === 0) {
+			return this;
+		}
 		this._shopItemCategories.push(category);
 		return this;
 	}

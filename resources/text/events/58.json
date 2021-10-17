@@ -1,0 +1,172 @@
+{
+	"map_location_ids": [
+		13
+	],
+	"translations": {
+	  "fr": "🚶 Après de longues heures de marche au travers de la route marécageuse, vous croisez une femme à un carrefour. Épuisé, vous l'ignorez mais elle, voyant votre état, vous interpelle. Celle-ci vous propose deux chemins pouvant vous être utiles : l'un menant chez un alchimiste expérimenté qui pourrait vous remettre d'aplomb, l'autre étant un raccourci.",
+	  "en": "🚶 After long hours of walking through the marshy road, you meet a woman at a crossroads. Exhausted, you ignore her but she, seeing your condition, calls out to you. This offers two paths that may be useful to you: one leading to an experienced alchemist who can get you back on your feet, the other being a shortcut."
+	},
+	"possibilities": {
+	  "🍵": {
+		"translations": {
+		  "fr": "Aller chez l'alchimiste",
+		  "en": "Go to the alchemist"
+		},
+		"issues": [
+		  {
+			"translations": {
+			  "fr": "Vous arrivez chez l'alchimiste. Celui-ci se prénomme Gruffo et vous propose une potion de rétablissement pour quelques pièces. Vous acceptez et buvez tranquillement la potion. Une chaleur réconfortante émane en vous. Revigoré, vous vous mettez à courir si vite que vous arrivez à destination sans aucun retard.",
+			  "en": "You arrive at the alchemist. This one is called Gruffo and offers you a recovery potion for a few coins. You accept and quietly drink the potion. A comforting warmth radiates within you. Invigorated, you start running so fast that you get to your destination without any delay."
+			},
+			"lostTime": 0,
+			"health": 25,
+			"effect": ":smiley:",
+			"experience": 350,
+			"money": -300,
+			"item": false
+		  },
+		  {
+			"translations": {
+			  "fr": "Vous arrivez chez l'alchimiste. Celui-ci se prénomme Gruffo et vous propose une potion de rétablissement pour quelques pièces. Vous refusez l'offre et continuez tranquillement votre trajet.",
+			  "en": "You arrive at the alchemist. This one is called Gruffo and offers you a recovery potion for a few coins. You refuse the offer and quietly continue your journey."
+			},
+			"lostTime": 0,
+			"health": 0,
+			"effect": ":smiley:",
+			"experience": 150,
+			"money": 0,
+			"item": false
+		  },
+		  {
+			"translations": {
+			  "fr": "Vous entrer dans l'antre de l'alchimiste. Celui-ci se prénomme Gruffo et vous propose de goûter une de ses nouvelles potions gratuitement afin d'en tester les effets. Vous buvez le breuvage et sentez un sentiment de réconfort émaner en vous. Vous décrivez les effets à l'homme et sortez de la hutte, revigoré.",
+			  "en": "You enter the alchemist's lair. His name is Gruffo and offers you to taste one of his new potions for free in order to test the effects. You drink the brew and feel a sense of comfort emanating from you. You describe the effects to the man and come out of the hut, reinvigorated."
+			},
+			"lostTime": 0,
+			"health": 25,
+			"effect": ":smiley:",
+			"experience": 350,
+			"money": 0,
+			"item": false
+		  },
+		  {
+			"translations": {
+			  "fr": "Vous entrer dans l'antre de l'alchimiste. Celui-ci se prénomme Gruffo et vous propose de goûter une de ses nouvelles potions gratuitement afin d'en tester les effets. Vous buvez le breuvage et le recrachez directement mais il semble qu'il reste encore un peu de ce poison au fond de votre gorge. ",
+			  "en": "You enter the alchemist's lair. His name is Gruffo and offers you to taste one of his new potions for free in order to test the effects. You drink the brew and spit it out straight away, but there seems to be some of the poison still in your throat. "
+			},
+			"lostTime": 0,
+			"health": 0,
+			"effect": ":confounded:",
+			"experience": 10,
+			"money": 0,
+			"item": false
+		  }
+		]
+	  },
+	  "🏃": {
+		"translations": {
+		  "fr": "Prendre le raccourci",
+		  "en": "Take the shortcut"
+		},
+		"issues": [
+		  {
+			"translations": {
+			  "fr": "Vous suivez le chemin indiqué jusqu'à ce que vous vous retrouviez face à une rivière surmontée d'un pont délabré. Vous entendez celui-ci craqueler mais cela ne vous inquiète pas jusqu'au moment où vous voyez le bois s'effondrer sous vos pieds.",
+			  "en": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear this one crackle but that doesn't worry you until the moment you see the wood crumble under your feet."
+			},
+			"lostTime": 0,
+			"health": -50,
+			"effect": ":dizzy_face:",
+			"experience": 0,
+			"money": 0,
+			"item": false
+		  },
+		  {
+			"translations": {
+			  "fr": "Vous suivez le chemin indiqué jusqu'à ce que vous vous retrouviez face à une rivière dangereuse surmontée d'un pont délabré. N'étant pas très courageux de nature, vous décidez de faire demi-tour. Cela vous aura fait perdre 10 bonnes minutes.",
+			  "en": "You follow the indicated path until you find yourself facing a dangerous river with a dilapidated bridge on it. Not being very brave by nature, you decide to turn around. This will have made you lose a good 10 minutes."
+			},
+			"lostTime": 10,
+			"health": 0,
+			"effect": ":clock2:",
+			"experience": 25,
+			"money": 0,
+			"item": false
+		  },
+		  {
+			"translations": {
+			  "fr": "Vous suivez le chemin indiqué jusqu'à ce que vous vous retrouviez face à une rivière surmontée d'un pont délabré. Vous entendez celui-ci craqueler mais cela ne vous inquiète pas. La suite de la traversée se déroule sans accrocs. Vous trouvez même quelques pièces sur votre chemin !",
+			  "en": "You follow the indicated path until you find yourself facing a river with a dilapidated bridge over it. You hear this one crackle but it doesn't worry you. The rest of the crossing goes smoothly. You even find a few coins among your way."
+			},
+			"lostTime": 0,
+			"health": 0,
+			"effect": ":smiley:",
+			"experience": 150,
+			"money": 85,
+			"item": false
+		  }
+		]
+	  },
+	  "🚶": {
+		"translations": {
+		  "fr": "Continuer le trajet",
+		  "en": "Continue the journey"
+		},
+		"issues": [
+		  {
+			"translations": {
+			  "fr": "Vous ignorez les conseils de la femme et continuez votre chemin.",
+			  "en": "You ignore the woman's advice and continue on your path."
+			},
+			"lostTime": 0,
+			"health": 0,
+			"effect": ":smiley:",
+			"experience": 150,
+			"money": 0,
+			"item": false
+		  },
+		  {
+			"translations": {
+			  "fr": "Vous continuez votre chemin. Deux kilomètres plus loin, vous vous effondrez de fatigue.",
+			  "en": "You continue on your way. Two kilometers further on, you collapse from fatigue."
+			},
+			"lostTime": 0,
+			"health": 0,
+			"effect": ":sleeping:",
+			"experience": 20,
+			"money": 0,
+			"item": false
+		  }
+		]
+	  },
+	  "end": {
+		"issues": [
+	  
+		{
+		  "translations": {
+			"fr": "Vous réfléchissez pendant de longues minutes puis, ne sachant quoi faire, continuez votre chemin.",
+			"en": "You think for long minutes and then, not knowing what to do, continue on your way."
+		  },
+		  "lostTime": 0,
+		  "health": 0,
+		  "effect": ":smiley:",
+		  "experience": 150,
+		  "money": 0,
+		  "item": false
+		},
+		{
+		  "translations": {
+			"fr": "Épuisé, vous décidez d'établir votre campement ici et de continuer le trajet plus tard.",
+			"en": "Exhausted, you decide to set up your camp here and continue the journey later."
+		  },
+		  "lostTime": 0,
+		  "health": 0,
+		  "effect": ":sleeping:",
+		  "experience": 20,
+		  "money": 0,
+		  "item": false
+		}
+	  ]
+	}
+  }
+}

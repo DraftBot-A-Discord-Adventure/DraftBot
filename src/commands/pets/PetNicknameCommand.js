@@ -26,7 +26,7 @@ const PetNicknameCommand = async (message, language, args) => {
 		pet.nickname = null;
 		await pet.save();
 		successEmbed.setDescription(JsonReader.commands.petNickname.getTranslation(language).successNoName);
-		return await message.channel.send(successEmbed);
+		return await message.channel.send({ embeds: [successEmbed] });
 	}
 
 	const petNickname = args.join(" ");
@@ -42,7 +42,7 @@ const PetNicknameCommand = async (message, language, args) => {
 	successEmbed.setDescription(format(JsonReader.commands.petNickname.getTranslation(language).success, {
 		name: petNickname
 	}));
-	await message.channel.send(successEmbed);
+	await message.channel.send({ embeds: [successEmbed] });
 };
 
 module.exports.execute = PetNicknameCommand;

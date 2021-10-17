@@ -6,7 +6,7 @@
 				"description": ":crossed_swords: Hey ! Ce message est envoyé suite à ta demande d'aide.\n\nSi tu as besoin d'aide pour m'utiliser tu peux rejoindre le serveur du bot !\n\nTu pourras participer au développement du bot et obtenir des détails sur le bot !\n\nhttps://discord.gg/USnCxg4\n\nSi tu ne veux pas nous rejoindre, tu peux te contenter de lire le magnifique wiki du bot !\n https://guide.draftbot.com/"
 			},
 			"helpEmbedTitle": "{pseudo}, voici la liste des commandes disponibles :",
-			"helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier écris ceci : `help [nom de la commande]` :wink:",
+			"helpEmbedDescription": ":arrow_forward: Si vous voulez plus d'informations sur une commande en particulier, écrivez ceci : `help [nom de la commande]` :wink:",
 			"serverCommands": ":gear: Serveur :",
 			"utilCommands": ":question: Utiles :",
 			"playerCommands": ":bust_in_silhouette: Joueur :",

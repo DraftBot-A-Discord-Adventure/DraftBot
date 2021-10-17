@@ -1,3 +1,10 @@
+import {Constants} from "../../core/Constants";
+import {format} from "../../core/utils/StringFormatter";
+import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Translations} from "../../core/Translations";
+import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+
 module.exports.commandInfo = {
 	name: "give",
 	aliases: [],
@@ -10,39 +17,136 @@ module.exports.commandInfo = {
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
-import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const GiveCommand = async (message, language, args) => {
-	const player = getUserFromMention(args[0]);
-	const [entity] = await Entities.getOrRegister(player.id);
-	const itemType = args[1];
-	const itemId = args[2];
-	await entity.Player.Inventory.giveObject(itemId, itemType);
-	await entity.Player.Inventory.save();
-
-	return await message.channel.send(new DraftBotEmbed()
-		.formatAuthor(JsonReader.commands.giveCommand.getTranslation(language).giveSuccess, message.author)
-		.setDescription(format(JsonReader.commands.giveCommand.getTranslation(language).descGive, {
-			type: itemType,
-			id: itemId,
-			player: player
-		})));
-};
-
-function getUserFromMention(mention) {
-	if (!mention) {
-		return;
+	const tr = Translations.getModule("commands.giveCommand", language);
+	if (args.length < 3) {
+		return await sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			tr.get("errors.invalidNumberOfArgs")
+		);
+	}
+	if (args.length > 52) {
+		return await sendErrorMessage(
+			message.author,
+			message.channel,
+			language,
+			tr.get("errors.tooMuchPeople")
+		);
+	}
+	const category = parseInt(args[0], 10);
+	if (isNaN(category) || category < 0 || category > 3) {
+		return await message.channel.send({ embeds: [new DraftBotErrorEmbed(message.author, language, tr.get("errors.unknownCategory"))] });
+	}
+	const itemId = parseInt(args[1],10);
+	let item = null;
+	switch (category) {
+	case Constants.ITEM_CATEGORIES.WEAPON:
+		item = itemId <= await Weapons.getMaxId() && itemId > 0 ? await Weapons.getById(itemId) : null;
+		break;
+	case Constants.ITEM_CATEGORIES.ARMOR:
+		item = itemId <= await Armors.getMaxId() && itemId > 0 ? await Armors.getById(itemId) : null;
+		break;
+	case Constants.ITEM_CATEGORIES.POTION:
+		item = itemId <= await Potions.getMaxId() && itemId > 0 ? await Potions.getById(itemId) : null;
+		break;
+	case Constants.ITEM_CATEGORIES.OBJECT:
+		item = itemId <= await Objects.getMaxId() && itemId > 0 ? await Objects.getById(itemId) : null;
+		break;
+	default:
+		break;
+	}
+	if (item === null) {
+		return await message.channel.send({ embeds: [new DraftBotErrorEmbed(message.author, language, tr.get("errors.wrongItemId"))] });
 	}
 
-	if (mention.startsWith("<@") && mention.endsWith(">")) {
-		mention = mention.slice(2, -1);
-
-		if (mention.startsWith("!")) {
-			mention = mention.slice(1);
+	const users = new Set();
+	for (let i = 2; i < args.length; i++) {
+		const mention = args[i];
+		if (!isAMention(mention) && (parseInt(mention) < 10 ** 17 || parseInt(mention) >= 10 ** 18)) {
+			return await sendErrorMessage(
+				message.author,
+				message.channel,
+				language,
+				tr.format("errors.invalidIdOrMention", {
+					position: i - 1,
+					wrongText: args[i]
+				})
+			);
 		}
-
-		return client.users.cache.get(mention);
+		users.add(isAMention(mention) ? getIdFromMention(mention) : mention);
 	}
-}
+
+	new DraftBotValidateReactionMessage(
+		message.author,
+		async (validateMessage) => {
+			if (validateMessage.isValidated()) {
+				let descString = "";
+				for (const user of users) {
+					let entityToEdit;
+					try {
+						entityToEdit = await Entities.getByDiscordUserId(user);
+						if (!entityToEdit) {
+							throw new Error();
+						}
+					}
+					catch (e) {
+						descString += tr.format("giveError.baseText", {
+							user,
+							mention: idToMention(user),
+							reason: tr.get("giveError.reasons.invalidMention")
+						});
+						continue;
+					}
+					if (!await entityToEdit.Player.giveItem(item)) {
+						descString += tr.format("giveError.baseText", {
+							user,
+							mention: idToMention(user),
+							reason: tr.get("giveError.reasons.noSpace")
+						});
+						continue;
+					}
+					descString += format(tr.get("giveSuccess"), {
+						user,
+						mention: idToMention(user)
+					});
+					if (entityToEdit.Player.dmNotification) {
+						sendDirectMessage(
+							await client.users.fetch(user),
+							tr.get("dm.title"),
+							tr.format("dm.description", {
+								item: item.toString(language)
+							}),
+							JsonReader.bot.embed.default,
+							language
+						);
+					}
+				}
+				await message.channel.send({ embeds: [new DraftBotEmbed()
+					.formatAuthor(tr.get("resultTitle"), message.author)
+					.setDescription(descString)]});
+			}
+			else {
+				await sendErrorMessage(
+					message.author,
+					message.channel,
+					language,
+					tr.get("errors.commandCanceled")
+				);
+			}
+		}
+	)
+		.formatAuthor(
+			tr.get("confirmTitle"),
+			message.author
+		)
+		.setDescription(format(tr.get("confirmDesc"), {
+			item: item.toString(language),
+			usersCount: users.size
+		}))
+		.send(message.channel);
+};
 
 module.exports.execute = GiveCommand;

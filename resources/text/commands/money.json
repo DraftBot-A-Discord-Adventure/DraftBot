@@ -1,0 +1,36 @@
+{
+	"translations": {
+		"fr": {
+			"title": "{pseudo}, vous avez changé la monnaie d'un ou plusieurs joueurs !",
+			"desc": "{player} a maintenant {money} :moneybag:\n",
+			"errors": {
+				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>money <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Montant invalide\nformat : `<prefix>money <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Mention / ID invalide en position {position} : {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID n'appartenant à personne en position {position} : {wrongText}",
+				"invalidDonationParameter": "Premier paramètre invalide\nformat : `<prefix>money <set|add> <amount> [mentions]`",
+				"tooMuchPeople": "Modification de la monnaie sur trop de personnes en même temps. Veuillez vous limiter à 50 personnes par commande."
+			},
+			"dm": {
+				"title": "{pseudo}, votre argent a été éditée par un administrateur !",
+				"description": "Vous avez {moneyGained>=0?gagné:perdu} {moneyGained} :{moneyGained>=0?moneybag:money_with_wings}: !"
+			}
+		},
+		"en": {
+			"title": "{pseudo}, you changed the money of one or players!",
+			"desc": "{player} now has {money} :moneybag:\n",
+			"errors": {
+				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>money <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Invalid amount\nformat : `<prefix>money <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
+				"invalidDonationParameter": "Invalid first parameter\nformat : `<prefix>money <set|add> <amount> [mentions]`",
+				"tooMuchPeople": "Modification of the money on too much users. Please limit your command to 50 users."
+			},
+			"dm": {
+				"title": "{pseudo}, your money has been edited by an administrator!",
+				"description": "You {moneyGained>=0?won:lost} {moneyGained} :{moneyGained>=0?moneybag:money_with_wings}:!"
+			}
+		}
+	}
+}

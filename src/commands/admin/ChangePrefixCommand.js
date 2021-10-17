@@ -28,11 +28,11 @@ const ChangePrefixCommand = async (message, language, args) => {
 
 	server.prefix = newPrefix;
 	await server.save();
-	return await message.channel.send(new DraftBotEmbed()
+	return await message.channel.send({ embeds: [new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.changePrefix.getTranslation(language).ok, message.author)
 		.setDescription(format(JsonReader.commands.changePrefix.getTranslation(language).descOk,
 			{newPrefix: newPrefix}
-		)));
+		))] });
 };
 
 module.exports.execute = ChangePrefixCommand;

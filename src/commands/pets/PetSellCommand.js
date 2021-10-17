@@ -87,7 +87,7 @@ const PetSellCommand = async (message, language, args) => {
 		inline: false
 	});
 
-	const sellMessage = await message.channel.send(
+	const sellMessage = await message.channel.send({ embeds: [
 		new DraftBotEmbed()
 			.setTitle(translations.sellMessage.title)
 			.setDescription(
@@ -97,12 +97,13 @@ const PetSellCommand = async (message, language, args) => {
 				})
 			)
 			.addFields(fields)
-			.setFooter(translations.sellMessage.footer)
+			.setFooter(translations.sellMessage.footer)] }
 	);
 
 	const filter = (reaction, user) => !user.bot;
 
-	const collector = sellMessage.createReactionCollector(filter, {
+	const collector = sellMessage.createReactionCollector({
+		filter,
 		time: COLLECTOR_TIME
 	});
 
@@ -180,11 +181,12 @@ async function petSell(message, language, entity, user, pet, petCost) {
 			})
 		);
 
-	const confirmMessage = await message.channel.send(confirmEmbed);
+	const confirmMessage = await message.channel.send({ embeds: [confirmEmbed] });
 
 	const confirmFilter = (reaction, user) => user.id === buyer.discordUserId && reaction.me;
 
-	const confirmCollector = confirmMessage.createReactionCollector(confirmFilter, {
+	const confirmCollector = confirmMessage.createReactionCollector({
+		filter: confirmFilter,
 		time: COLLECTOR_TIME,
 		max: 1
 	});
@@ -249,8 +251,8 @@ async function petSell(message, language, entity, user, pet, petCost) {
 					pet: pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)
 				})
 			);
-			await message.channel.send(guildXpEmbed);
-			return message.channel.send(addPetEmbed);
+			await message.channel.send({ embeds: [guildXpEmbed] });
+			return message.channel.send({ embeds: [addPetEmbed] });
 		}
 	});
 	await Promise.all([confirmMessage.react(MENU_REACTION.ACCEPT), confirmMessage.react(MENU_REACTION.DENY)]);

@@ -1,0 +1,40 @@
+{
+	"translations": {
+		"fr": {
+			"stories": [
+				"vous voyez une personne ressemblant étrangement à Pérotin. Vous accourez vers lui, mais celui-ci se met à courir, sûrement de peur. Vous réussissez à le rattraper, sauf que vous vous êtes trompé de personne. Vous avez cependant gagné **{time} minutes** sur votre chemin.",
+				"vous entendez une charette derrière vous. L'homme dans le véhicule vous propose de vous déposer là où vous le souhaitez, vous acceptez et lui indiquez votre destination. Après avoir parcouru quelques kilomètres, cet homme vous dit qu'il doit aller dans une autre direction que la vôtre, il vous dépose donc et vous le remerciez. Vous gagnez **{time} minutes** sur votre trajet.",
+				"vous apercevez un carrosse au loin. La princesse est peut-être à bord ! Vous décidez d'aller lui parler et courez donc aussi vite que possible. Une fois assez proche, vous découvrez avec dépit que vous ne pouvez l'approcher car le véhicule est protégé par un cortège de cavaliers. Vous avez cependant gagné **{time} minutes** sur votre destination.",
+				"vous prenez une petite collation quand soudain une ombre se précipite sur vous et la dérobe. Vous la poursuivez aussitôt mais incapable de la rattraper vous abandonnez, cette mésaventure vous a néanmoins fait gagner **{time} minutes** sur votre trajet.",
+				"vous voyez une personne ressemblant étrangement à Gruffo. Vous accourez vers lui mais celui-ci se met à courir, sûrement de peur. Après l'avoir rattrapé, vous lui demandez ce qu'il fait là, sauf qu'il vous ignore totalement. Vous avez cependant gagné **{time} minutes** sur votre trajet.",
+				"un point brillant attire votre attention. Votre curiosité vous pousse à courir vers la source lumineuse. Ce n'est qu'une vulgaire pièce de cuivre mais elle vous a fait gagner **{time} minutes** sur votre trajet.",
+				"un chien massif de couleur fauve surgit d'un large bosquet. Il grogne, montre des canines acérées et semble vouloir vous mordre la jambe. Appréciant fortement l'idée de les garder en un seul morceau, voilà qu'elles vous poussent à courir à toute vitesse et vous font gagner **{time} minutes** sur votre trajet !",
+				"un volumineux nid de guêpes s'en détache et tombe à vos pieds. Vous courez jusqu'à ce que vos poumons vous supplient de vous remettre à marcher. Pas une guêpe n'a réussi à vous piquer. Cette mésaventure vous a fait gagner **{time} minutes** sur votre itinéraire !",
+				"vous savourez un agréable temps printanier. Votre pause est de courte durée : des bandits armés de gourdins et d'épées ébréchées déchirent les buissons à votre gauche et ricanent en avançant tranquillement vers vous. À peine avez-vous le temps de réfléchir, votre corps vous emporte dans une fuite vers l'avant, si bien que cela vous fait gagner **{time} minutes** sur votre parcours.",
+				"un jeune garçon vous double et au passage, vous bouscule. Envahi d'un mauvais pressentiment, vous vérifiez vos poches : votre bourse a disparu ! Voilà que vous démarrez une course effrénée afin de rattraper ce jeune filou. Une fois fait, vous vous rendez compte que cela vous a permis d'avancer de **{time} minutes** votre itinéraire.",
+				"vous êtes surpris par le passage d'un lapin au pelage immaculé se faufilant entre vos jambes. Interloqué tout d'abord, vous tentez de le rattraper, c'est peine perdue, il ne faut pas longtemps au petit animal pour vous semer. Toutes ces péripéties vous auront fait gagner **{time} minutes**.",
+				"vous entendez l'appel d'une femme derrière vous. Quand vous vous retournez, vous remarquez immédiatement l'objet aux reflets métalliques dans sa main. Paniqué, vous prenez la fuite. Après être arrivé dans un endroit plus sûr, vous remarquez que vous avez pris **{time} minutes** d'avance sur votre temps de voyage."
+			]
+		},
+		"en": {
+			"stories": [
+				"you see a person strangely resembling to Pérotin. You run up to him, but he starts running, probably out of fear. You manage to catch him up, except you got the wrong person. However, you have gained **{time} minutes** on your way.",
+				"you hear a cart behind you. The man in the vehicle offers to drop you off where you want, you accept and tell him your destination. After driving a few kilometers, this man tells you that he has to go in a different direction than yours, so he drops you off and you thank him. You save **{time} minutes** on your journey.",
+				"you see a coach in the distance. The princess may be on board! You decide to go talk to him and therefore run as fast as possible. Once close enough, you discover with spite that you cannot approach it because the vehicle is protected by a procession of riders. However, you have gained **{time} minutes** on your destination.",
+				"you are having a small snack when suddenly a shadow rushes over you and steals it. You pursue her immediately but unable to catch up with it you give up, this misadventure has nevertheless saved you **{time} minutes** on your journey.",
+				"you see a person strangely looking like Gruffo. You run up to him but he starts running, probably out of fear. After catching up with him, you ask him what he is doing there, except that he totally ignores you. However, you have gained **{time} minutes** on your journey.",
+				"a bright point catches your attention. Your curiosity prompts you to run towards the light source. It's just a vulgar piece of copper, but it saved you **{time} minutes** on your journey.",
+				"a massive fawn-colored dog emerges from a large grove. He growls, shows sharp canines, and seems to want to bite your leg. Strongly appreciating the idea of keeping them in one piece, now they push you to run at full speed and save you **{time} minutes** on your journey!",
+				"a voluminous nest of wasps detaches itself and falls at your feet. You run until your lungs beg you to walk again. Not a wasp has managed to sting you. This mishap saved you **{time} minutes** on your itinerary !",
+				"you enjoy a pleasant spring weather. Your break is short-lived: bandits armed with clubs and chipped swords tear through the bushes to your left and chuckle as they advance quietly towards you. No sooner do you have time to think, your body carries you in a flight forward, so that it saves you **{time} minutes** on your course.",
+				"a young boy passes you and in the process, pushes you aside. Overwhelmed by a bad feeling, you check your pockets: your purse has disappeared! Now you start a frantic race to catch up with this young trickster. Once done, you realize that it got you **{time} minutes** ahead of your route.",
+				"you are surprised by the passage of a rabbit with an immaculate coat sneaking between your legs. First of all, you try to catch up with him, it's a waste of time, it doesn't take long for the little animal to throw you away. All these adventures will have saved you **{time} minutes**.",
+				"you hear the call of a woman behind you. When you turn around, you immediately notice the metallic shimmering object in his hand. Panicked, you take flight. After arriving in a safer place, you notice that you have taken **{time} minutes** ahead of your travel time."
+			]
+		}
+	},
+	"rarity": 6,
+	"emote": ":hourglass:  "
+}
+
+

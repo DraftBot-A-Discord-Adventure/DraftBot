@@ -21,9 +21,9 @@ const ChangeLanguageCommand = async (message, language) => {
 		server.language = LANGUAGE.FRENCH;
 	}
 	await server.save();
-	await message.channel.send(new DraftBotEmbed()
+	await message.channel.send({ embeds: [new DraftBotEmbed()
 		.formatAuthor(JsonReader.commands.changeLanguage.getTranslation(language).title, message.author)
-		.setDescription(JsonReader.commands.changeLanguage.getTranslation(language).desc));
+		.setDescription(JsonReader.commands.changeLanguage.getTranslation(language).desc)] });
 };
 
 module.exports.execute = ChangeLanguageCommand;
