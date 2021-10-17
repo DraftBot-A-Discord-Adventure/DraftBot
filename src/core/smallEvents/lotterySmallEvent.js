@@ -32,7 +32,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			seEmbed.setDescription(JsonReader.smallEvents.lottery.emote + " " + translationLottery.get("intro"));
 			return await message.channel.send({embeds: [seEmbed]});
 		}
-		if (player.money < 100 && emojiLottery[2]) {
+		if (player.money < 175 && emojiLottery[2]) {
 			seEmbed.setDescription(collected.first().emoji.name + " " + translationLottery.get("poor"));
 			return await message.channel.send({embeds: [seEmbed]});
 		}
@@ -42,11 +42,11 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		if (emojiLottery[0] !== collected.first().emoji.name) {
 			await Maps.applyEffect(player,":clock2:",JsonReader.smallEvents.lottery.lostTime);
 		}
-		if (draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name])) {
-			const reward = draftbotRandom.pick(rewardType);
+		const guild = await Guilds.getById(entity.Player.guildId);
+		const reward = draftbotRandom.pick(rewardType);
+		if (draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name]) && (guild || reward !== rewardType[2])) {
 			log(entity.discordUserId + " got " + reward + " in smallEvent lottery");
 			const coeff = JsonReader.smallEvents.lottery.coeff[collected.first().emoji.name];
-			const guild = await Guilds.getById(entity.Player.guildId);
 			switch (reward) {
 			case rewardType[0]:
 				player.experience += SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff;
@@ -80,13 +80,13 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		}
 		// eslint-disable-next-line no-dupe-else-if
 		else if (malus && draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name])) {
-			player.addMoney(-100);
+			player.addMoney(-175);
 			player.save();
 			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,2), {
 				lostTime: JsonReader.smallEvents.lottery.lostTime
 			}) + format(translationLottery.get("rewardTypeText.money"), {
 				negativeMoney: true,
-				money: 100
+				money: 175
 			});
 		}
 		else {

@@ -18,10 +18,10 @@
 			"poor": "Vous tentez de vous jouer de l'attention de l'homme et misez une somme importante. Malheureusement pour vous, le commerçant doute de votre bonne foi, incapable d'attester de quelconque richesse, vous êtes rejeté sans ménagement.",
 			"end": "Sans prêter plus d'attention à l'individu, vous continuez votre route.",
 			"rewardTypeText": {
-				"xp": " Vous avez gagné {xpWon} :star:",
+				"xp": " Vous avez gagné {xpWon} :star:.",
 				"money": " Vous avez {negativeMoney?perdu:gagné} {money} :{negativeMoney?money_with_wings:moneybag}: !",
-				"guildXp": " Votre guilde gagne {guildXpWon} :star:",
-				"points": " Vous avez gagné {pointsWon} :medal:"
+				"guildXp": " Votre guilde gagne {guildXpWon} :star:.",
+				"points": " Vous avez gagné {pointsWon} :medal:."
 			}
 		},
 		"en": {
@@ -42,17 +42,17 @@
 			"end": "You do not react, when he asks you the question again you simply say that you are not interested and go on your way.",
 			"poor": "You try to fool the man's attention and bet a large sum. Unfortunately for you, the merchant doubts your good faith, unable to prove that you have the money, you are rejected without mercy.",
 			"rewardTypeText": {
-				"xp": " You won {xpWon}:star:",
+				"xp": " You won {xpWon}:star:.",
 				"money": " You {negativeMoney?lost:won} {moneyWon} :{negativeMoney?money_with_wings:moneybag}: !",
-				"guildXp": " Your guild won {guildXpWon}:star:",
-				"points": " You won {pointsWon}:medal:"
+				"guildXp": " Your guild won {guildXpWon}:star:.",
+				"points": " You won {pointsWon}:medal:."
 			}
 		}
 	},
 	"rewardType": ["xp","money","guildXp","points"],
 	"emojiLottery": ["\uD83E\uDE99", "\uD83D\uDCB5", "\uD83D\uDCB0"],
 	"successRate": {"\uD83E\uDE99":0.8,"\uD83D\uDCB5":0.5,"\uD83D\uDCB0": 0.2},
-	"coeff": {"\uD83E\uDE99":1,"\uD83D\uDCB5":3,"\uD83D\uDCB0": 6},
+	"coeff": {"\uD83E\uDE99":1,"\uD83D\uDCB5":3,"\uD83D\uDCB0": 10},
 	"lostTime": 10,
 	"rarity": 3,
 	"emote": ":slot_machine:  "
