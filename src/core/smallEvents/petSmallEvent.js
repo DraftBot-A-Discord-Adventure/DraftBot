@@ -1,3 +1,5 @@
+import {giveRandomItem} from "../utils/ItemUtils";
+
 const BADGE = "💞";
 const doNothing = require("./doNothingSmallEvent");
 

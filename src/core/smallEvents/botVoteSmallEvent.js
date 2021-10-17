@@ -1,3 +1,5 @@
+import {giveRandomItem} from "../utils/ItemUtils";
+
 const DBL = require("../DBL");
 /**
  * Main function of small event
