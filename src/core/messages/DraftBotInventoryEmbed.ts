@@ -20,6 +20,7 @@ class DraftBotInventoryEmbed extends DraftBotReactionMessage {
 
 	isMainState = true;
 
+	// eslint-disable-next-line max-params
 	constructor(user: User, language: string, weapons: any, armors: any, potions: any, objects: any, player: any, maxStatsValue: any) {
 		super(
 			[
