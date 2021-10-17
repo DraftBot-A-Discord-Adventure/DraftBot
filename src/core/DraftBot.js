@@ -417,7 +417,7 @@ global.client = new (require("discord.js").Client)(
 			// Intents.FLAGS.GUILD_WEBHOOKS We don't need to create webhooks
 			// Intents.FLAGS.GUILD_INVITES We don't need to create or delete invites
 			// Intents.FLAGS.GUILD_VOICE_STATES We don't use voice
-			Intents.FLAGS.GUILD_PRESENCES, // Needed to update the bot presence
+			// Intents.FLAGS.GUILD_PRESENCES // Needed to update the bot presence
 			Intents.FLAGS.GUILD_MESSAGES, // We need to receive, send, update and delete messages
 			Intents.FLAGS.GUILD_MESSAGE_REACTIONS, // We need to add reactions
 			// Intents.FLAGS.GUILD_MESSAGE_TYPING We don't need to know this
