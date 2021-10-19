@@ -1,6 +1,10 @@
+import {format, Replacements} from "./utils/StringFormatter";
+import {Random} from "random-js";
+
 declare const JsonReader: any;
 
 const translationModulesCache: Record<string, TranslationModule> = {};
+declare const draftbotRandom: Random;
 
 export class TranslationModule {
 	private readonly _module: string;
@@ -37,7 +41,7 @@ export class TranslationModule {
 		return this._language;
 	}
 
-	get(translation: string): string {
+	private getTranslationObject(translation: string): unknown {
 		if (!this._moduleTranslationObject) {
 			console.warn("Trying to use an invalid translation module: " + this._module);
 			return "ERR:MODULE_NOT_FOUND";
@@ -52,6 +56,31 @@ export class TranslationModule {
 			lastObject = lastObject[path];
 		}
 		return lastObject;
+	}
+
+	format(translation: string, replacements: Replacements) {
+		return format(this.get(translation), replacements);
+	}
+
+	get(translation: string): string {
+		return <string> this.getTranslationObject(translation);
+	}
+
+	getFromArray(translation: string, index: number): string {
+		const array = this.getTranslationObject(translation);
+		if (array && Array.isArray(array)) {
+			if (index >= array.length) {
+				console.warn("Trying to use an invalid translation array index: " + index + " with translation " + translation + " in module " + this._module);
+				return "ERR:ARRAY_OUT_OF_BOUND";
+			}
+			return array[index];
+		}
+		console.warn("Trying to use an invalid translation array: " + translation + " in module " + this._module);
+		return "ERR:NOT_AN_ARRAY";
+	}
+
+	getRandom(translation: string): string {
+		return draftbotRandom.pick(<string[]> this.getTranslationObject(translation));
 	}
 }
 

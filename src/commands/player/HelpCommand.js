@@ -87,6 +87,10 @@ const HelpCommand = async (message, language, args) => {
 	}
 	else {
 		const command = getCommand(args[0]) || getCommandFromAlias(args[0]);
+		if (!command) {
+			getCommand("help").execute(message, language, []);
+			return;
+		}
 		const commandInfos = JsonReader.commands.help.getTranslation(language).commands[
 			command.commandInfo.name
 		];
@@ -132,7 +136,7 @@ const HelpCommand = async (message, language, args) => {
 			JsonReader.commands.help.getTranslation(language).mp.description, JsonReader.bot.embed.default, language);
 	}
 
-	await message.channel.send(helpMessage);
+	await message.channel.send({ embeds: [helpMessage] });
 };
 
 module.exports.execute = HelpCommand;

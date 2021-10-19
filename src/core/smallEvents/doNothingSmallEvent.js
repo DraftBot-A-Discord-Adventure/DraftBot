@@ -9,7 +9,7 @@
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationDN = JsonReader.smallEvents.doNothing.getTranslation(language);
 	seEmbed.setDescription(JsonReader.smallEvents.doNothing.emote + translationDN.stories[randInt(0, translationDN.stories.length)]);
-	await message.channel.send(seEmbed);
+	await message.channel.send({ embeds: [seEmbed] });
 	log(entity.discordUserId + " done nothing.");
 };
 

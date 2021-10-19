@@ -1,3 +1,6 @@
+import {DraftBotBackup} from "./backup/DraftBotBackup";
+import {Constants} from "./Constants";
+
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -45,6 +48,7 @@ class Database {
 		await Database.verifyMaps();
 		await Database.setEverybodyAsUnOccupied();
 		await Database.updatePlayersRandomMap();
+		DraftBotBackup.backupFiles(["database/database.sqlite"], Constants.BACKUP.DATABASE_BACKUP_INTERVAL, "database");
 	}
 
 	/**
@@ -164,9 +168,13 @@ class Database {
 			targetKey: "chiefId",
 			as: "Chief"
 		});
-		Players.hasOne(Inventories, {
+		Players.hasMany(InventorySlots, {
 			foreignKey: "playerId",
-			as: "Inventory"
+			as: "InventorySlots"
+		});
+		Players.hasOne(InventoryInfo, {
+			foreignKey: "playerId",
+			as: "InventoryInfo"
 		});
 		Players.hasOne(PetEntities, {
 			foreignKey: "id",
@@ -212,36 +220,6 @@ class Database {
 			foreignKey: "id",
 			sourceKey: "petEntityId",
 			as: "PetEntity"
-		});
-
-		Inventories.belongsTo(Players, {
-			foreignKey: "playerId",
-			as: "Player"
-		});
-		Inventories.hasOne(Weapons, {
-			foreignKey: "id",
-			sourceKey: "weaponId",
-			as: "Weapon"
-		});
-		Inventories.hasOne(Armors, {
-			foreignKey: "id",
-			sourceKey: "armorId",
-			as: "Armor"
-		});
-		Inventories.hasOne(Potions, {
-			foreignKey: "id",
-			sourceKey: "potionId",
-			as: "Potion"
-		});
-		Inventories.hasOne(Objects, {
-			foreignKey: "id",
-			sourceKey: "objectId",
-			as: "ActiveObject"
-		});
-		Inventories.hasOne(Objects, {
-			foreignKey: "id",
-			sourceKey: "backupId",
-			as: "BackupObject"
 		});
 
 		Events.hasMany(Possibilities, {

@@ -75,7 +75,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			}
 		)
 	);
-	await message.channel.send(seEmbed);
+	await message.channel.send({ embeds: [seEmbed] });
 	log(entity.discordUserId + " got infos about people in the bot.");
 };
 

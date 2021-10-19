@@ -72,12 +72,12 @@ function getGuildXPShopItem(guildShopTranslations) {
 				await guild.levelUpIfNeeded(message.sentMessage.channel, message.language);
 			}
 			await guild.save();
-			await message.sentMessage.channel.send(
+			await message.sentMessage.channel.send({ embeds: [
 				new DraftBotEmbed()
 					.formatAuthor(guildShopTranslations.get("successNormal"), message.user)
 					.setDescription(format(guildShopTranslations.get("guildXp.give"), {
 						experience: xpToAdd
-					}))
+					}))] }
 			);
 			return true;
 		}
@@ -95,7 +95,7 @@ function getFoodShopItem(guildShopTranslations, name, language, amounts) {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(entity.Player.guildId);
 			if (isStorageFullFor(foodJson, amount, guild)) {
-				await message.sentMessage.channel.send(new DraftBotErrorEmbed(message.user, language, guildShopTranslations.get("fullStock")));
+				await message.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(message.user, language, guildShopTranslations.get("fullStock"))] });
 				return false;
 			}
 			await giveFood(message.sentMessage, message.language, entity, message.user, foodJson, amount);

@@ -1,3 +1,5 @@
+import {giveRandomItem} from "../utils/ItemUtils";
+
 const DBL = require("../DBL");
 /**
  * Main function of small event
@@ -15,13 +17,13 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	if (await DBL.getTimeBeforeDBLRoleRemove(entity.discordUserId) < 0) {
 		// hasn't voted
 		seEmbed.setDescription(base + trans.pleaseVote + "\n\n" + trans.pleaseVoteFooter);
-		await message.channel.send(seEmbed);
+		await message.channel.send({ embeds: [seEmbed] });
 
 	}
 	else if (draftbotRandom.bool()) {
 		// item win
 		seEmbed.setDescription(base + trans.itemWin + "\n\n" + trans.thanksFooter);
-		await message.channel.send(seEmbed);
+		await message.channel.send({ embeds: [seEmbed] });
 		await giveRandomItem((await message.guild.members.fetch(entity.discordUserId)).user, message.channel, language, entity);
 
 	}
@@ -30,7 +32,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		const moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_VOTE, SMALL_EVENT.MAXIMUM_MONEY_WON_VOTE);
 		entity.Player.addMoney(moneyWon);
 		seEmbed.setDescription(base + format(trans.moneyWin, {money: moneyWon}) + "\n\n" + trans.thanksFooter);
-		await message.channel.send(seEmbed);
+		await message.channel.send({ embeds: [seEmbed] });
 	}
 	await entity.Player.save();
 	log(entity.discordUserId + " got botVote small event.");

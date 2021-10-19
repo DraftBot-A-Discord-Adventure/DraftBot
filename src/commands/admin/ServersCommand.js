@@ -28,14 +28,14 @@ const ServersCommand = (message, language) => {
 			validation: validation
 		}) + "\n";
 		if (result.length > 1800) {
-			message.channel.send(result);
+			message.channel.send({ content: result });
 			result = "";
 		}
 	}
 
 	client.guilds.cache.forEach(logMapElements);
 	result += "\n" + format(JsonReader.bot.getTranslation(language).totalUsersCount, {count: total});
-	message.channel.send(result);
+	message.channel.send({ content: result });
 };
 
 module.exports.execute = ServersCommand;

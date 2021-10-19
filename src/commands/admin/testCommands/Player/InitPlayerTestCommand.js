@@ -33,13 +33,8 @@ const initPlayerTestCommand = async (language, message) => {
 	entity.attack = 50;
 	entity.defense = 20;
 	entity.speed = 10;
-	entity.save();
+	await entity.save();
 
-	entity.Player.Inventory.weaponId = 0;
-	entity.Player.Inventory.armorId = 0;
-	entity.Player.Inventory.objectId = 0;
-	entity.Player.Inventory.backupId = 0;
-	entity.Player.Inventory.save();
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 

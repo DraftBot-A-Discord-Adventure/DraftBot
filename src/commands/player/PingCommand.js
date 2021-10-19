@@ -10,10 +10,10 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const PingCommand = (message, language) => {
-	message.channel.send(JsonReader.commands.ping.getTranslation(language).create)
+	message.channel.send({ content: JsonReader.commands.ping.getTranslation(language).create })
 		.then((msg) => {
-			msg.edit(format(JsonReader.commands.ping.getTranslation(language).edit,
-				{timeElasped: msg.createdTimestamp - message.createdTimestamp}));
+			msg.edit({ content: format(JsonReader.commands.ping.getTranslation(language).edit,
+				{timeElasped: msg.createdTimestamp - message.createdTimestamp}) });
 		});
 };
 

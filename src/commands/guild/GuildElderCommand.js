@@ -95,7 +95,7 @@ const GuildElderCommand = async (message, language, args) => {
 		})
 	);
 
-	const msg = await message.channel.send(elderAddEmbed);
+	const msg = await message.channel.send({ embeds: [elderAddEmbed] });
 
 	const confirmEmbed = new DraftBotEmbed();
 	const filterConfirm = (reaction, user) =>
@@ -104,7 +104,8 @@ const GuildElderCommand = async (message, language, args) => {
 			user.id === message.author.id
 		;
 
-	const collector = msg.createReactionCollector(filterConfirm, {
+	const collector = msg.createReactionCollector({
+		filter: filterConfirm,
 		time: COLLECTOR_TIME,
 		max: 1
 	});
@@ -173,7 +174,7 @@ const GuildElderCommand = async (message, language, args) => {
 					JsonReader.commands.guildElder.getTranslation(language)
 						.successElderAdd
 				);
-				return message.channel.send(confirmEmbed);
+				return message.channel.send({ embeds: [confirmEmbed] });
 			}
 		}
 

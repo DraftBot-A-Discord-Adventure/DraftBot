@@ -111,11 +111,12 @@ class Command {
 			split[0].match(discord.MessageMentions.USERS_PATTERN) &&
 			split[0].includes(client.user.id)
 		) {
-			await message.channel.send(
-				format(JsonReader.bot.getTranslation(language).mentionHelp, {
-					prefix: server.prefix
-				})
-			);
+			await message.channel.send({
+				content:
+					format(JsonReader.bot.getTranslation(language).mentionHelp, {
+						prefix: server.prefix
+					})
+			});
 			return;
 		}
 		if (message.mentions.has(client.user)) {
@@ -131,12 +132,12 @@ class Command {
 				message.author.id !== JsonReader.app.BOT_OWNER_ID &&
 				JsonReader.app.MODE_MAINTENANCE
 			) {
-				return message.channel.send(
+				return message.channel.send({ embeds: [
 					new DraftBotEmbed()
 						.setDescription(JsonReader.bot.getTranslation(language).maintenance)
 						.setTitle(":x: **Maintenance**")
 						.setErrorColor()
-				);
+				] });
 			}
 			await Command.launchCommand(language, server.prefix, message);
 		}
@@ -174,11 +175,11 @@ class Command {
 		if (!entity.Player.dmNotification) {
 			icon = JsonReader.bot.dm.alertIcon;
 		}
-		dmChannel.send(format(JsonReader.bot.dm.supportAlert, {
+		dmChannel.send({ content: format(JsonReader.bot.dm.supportAlert, {
 			username: message.author.username,
 			alertIcon: icon,
 			id: message.author.id
-		}) + message.content);
+		}) + message.content });
 
 		const msg = await sendSimpleMessage(
 			message.author,
@@ -191,7 +192,8 @@ class Command {
 
 		const filterConfirm = (reaction) => reaction.me && !reaction.users.cache.last().bot;
 
-		const collector = msg.createReactionCollector(filterConfirm, {
+		const collector = msg.createReactionCollector({
+			filter: filterConfirm,
 			time: COLLECTOR_TIME,
 			max: 1
 		});
@@ -247,15 +249,15 @@ class Command {
 		if (!command) {
 			return;
 		}
-
 		if (
 			!message.channel.permissionsFor(client.user).serialize()
 				.SEND_MESSAGES
 		) {
 			try {
-				await message.author.send(
+				await message.author.send({
+					content:
 					JsonReader.bot.getTranslation(language).noSpeakPermission
-				);
+				});
 			}
 			catch (err) {
 				log("No perms to show i can't react in server / channel : " + message.guild + "/" + message.channel);
@@ -267,14 +269,16 @@ class Command {
 				.ADD_REACTIONS
 		) {
 			try {
-				await message.author.send(
+				await message.author.send({
+					content:
 					JsonReader.bot.getTranslation(language).noReacPermission
-				);
+				});
 			}
 			catch (err) {
-				await message.channel.send(
+				await message.channel.send({
+					content:
 					JsonReader.bot.getTranslation(language).noReacPermission
-				);
+				});
 			}
 			return;
 		}
@@ -283,14 +287,16 @@ class Command {
 				.EMBED_LINKS
 		) {
 			try {
-				await message.author.send(
+				await message.author.send({
+					content:
 					JsonReader.bot.getTranslation(language).noEmbedPermission
-				);
+				});
 			}
 			catch (err) {
-				await message.channel.send(
+				await message.channel.send({
+					content:
 					JsonReader.bot.getTranslation(language).noEmbedPermission
-				);
+				});
 			}
 			return;
 		}
@@ -299,14 +305,16 @@ class Command {
 				.ATTACH_FILES
 		) {
 			try {
-				await message.author.send(
+				await message.author.send({
+					content:
 					JsonReader.bot.getTranslation(language).noFilePermission
-				);
+				});
 			}
 			catch (err) {
-				await message.channel.send(
+				await message.channel.send({
+					content:
 					JsonReader.bot.getTranslation(language).noFilePermission
-				);
+				});
 			}
 			return;
 		}

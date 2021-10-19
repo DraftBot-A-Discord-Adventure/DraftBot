@@ -85,6 +85,11 @@ class Maps {
 				player.effectEndDate = new Date(player.effectEndDate.getTime() - t);
 			}
 		}
+		const lastSmallEvent = PlayerSmallEvents.getLast(player.PlayerSmallEvents);
+		if (lastSmallEvent) {
+			lastSmallEvent.time -= t;
+			lastSmallEvent.save();
+		}
 		player.startTravelDate = new Date(player.startTravelDate.getTime() - t);
 	}
 
@@ -165,6 +170,10 @@ class Maps {
 		}
 
 		return str + " " + nextMapInstance.getEmote(language);
+	}
+
+	static async isArrived(player) {
+		return Maps.getTravellingTime(player) >= hoursToMilliseconds(await player.getCurrentTripDuration());
 	}
 }
 

@@ -27,16 +27,15 @@
 				},
 				{
 					"translations": {
-						"fr": "Comprenant la détresse du seigneur, vous lui proposez votre aide. On vous équipe alors avant que le duel ne débute. Vous combattez vaillamment, mais êtes tout aussi aisément terrassé par votre adversaire. C'est lorsque celui-ci vous pourfend de sa lame que vous regrettez amèrement d'avoir offert votre aide. En effet, c'est un match à mort. Et vous venez de le perdre. Vous fermez les yeux, et la douleur disparaît.",
-						"en": "Understanding the Lord's distress, you offer him your help. You are then equipped before the duel begins. You fight valiantly but are just as easily overcome by your opponent. It is when he slashes you with his blade that you bitterly regret having offered your help. Indeed, it is a death match. And you just lost it. You close your eyes, and the pain goes away."
+						"fr": "Comprenant la détresse du seigneur, vous lui proposez votre aide. On vous équipe alors avant que le duel ne débute. Vous combattez vaillamment, mais êtes tout aussi aisément terrassé par votre adversaire. C'est lorsque celui-ci vous pourfend de sa lame que vous regrettez amèrement d'avoir offert votre aide. En effet, c'est un match à mort. Et vous venez de le perdre. Vous fermez les yeux, et la douleur disparaît. Vous vous réveillez de manière inattendue plusieurs heures plus tard, grièvement blessé.",
+						"en": "Understanding the Lord's distress, you offer him your help. You are then equipped before the duel begins. You fight valiantly but are just as easily overcome by your opponent. It is when he slashes you with his blade that you bitterly regret having offered your help. Indeed, it is a death match. And you just lost it. You close your eyes, and the pain goes away. You wake up a few hours later, seriously injured."
 					},
 					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
+					"health": -105,
+					"effect": ":dizzy_face:",
 					"money": 0,
 					"experience": 0,
-					"item": false,
-					"oneshot": true
+					"item": false
 				},
 				{
 					"translations": {
@@ -47,7 +46,7 @@
 					"health": 0,
 					"effect": ":smiley:",
 					"experience": 250,
-					"money": 500,
+					"money": 300,
 					"item": false
 				},
 				{

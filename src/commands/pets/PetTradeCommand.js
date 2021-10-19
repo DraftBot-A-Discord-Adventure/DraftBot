@@ -58,10 +58,10 @@ const PetTradeCommand = async (message, language) => {
 		pet2.lovePoints = PETS.BASE_LOVE;
 		pet1.save();
 		pet2.save();
-		await message.channel.send(new DraftBotEmbed()
+		await message.channel.send({ embeds: [new DraftBotEmbed()
 			.formatAuthor(JsonReader.commands.petTrade.getTranslation(language).tradeTitle, message.author)
 			.setDescription(JsonReader.commands.petTrade.getTranslation(language).tradeSuccess)
-		);
+		] });
 	};
 
 	const tradeRefusedCallback = async (tradeMessage) => {

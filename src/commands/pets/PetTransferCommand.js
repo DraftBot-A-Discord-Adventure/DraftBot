@@ -51,7 +51,7 @@ const PetTransferCommand = async function(message, language, args) {
 		confirmEmbed.setDescription(format(JsonReader.commands.petTransfer.getTranslation(language).confirmDeposit, {
 			pet: PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language))
 		}));
-		return message.channel.send(confirmEmbed);
+		return message.channel.send({ embeds: [confirmEmbed] });
 	}
 
 	if (guildPetCount === 0) {
@@ -103,7 +103,7 @@ const PetTransferCommand = async function(message, language, args) {
 			pet: PetEntities.getPetEmote(swPetEntity) + " " + (swPetEntity.nickname ? swPetEntity.nickname : PetEntities.getPetTypeName(swPetEntity, language))
 		}));
 	}
-	return message.channel.send(confirmEmbed);
+	return message.channel.send({ embeds: [confirmEmbed] });
 };
 
 module.exports.execute = PetTransferCommand;

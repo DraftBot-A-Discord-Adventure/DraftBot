@@ -44,7 +44,7 @@ const BadgeCommand = (message, language) => {
 		);
 	}
 
-	message.channel.send(helpMessage);
+	message.channel.send({ embeds: [helpMessage] });
 };
 
 module.exports.execute = BadgeCommand;

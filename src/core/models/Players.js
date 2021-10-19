@@ -1,9 +1,10 @@
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {Constants} from "../Constants";
 
 const Maps = require("../Maps");
 /**
- * @typedef {import('sequelize').Sequelize} Sequelize
- * @typedef {import('sequelize/types')} DataTypes
+ * @typedef {import("sequelize").Sequelize} Sequelize
+ * @typedef {import("sequelize/types")} DataTypes
  *
  * @param {Sequelize} Sequelize
  * @param {DataTypes} DataTypes
@@ -390,7 +391,7 @@ module.exports = (Sequelize, DataTypes) => {
 			msg += bonuses[i] + "\n";
 		}
 		msg += bonuses[bonuses.length - 1];
-		await channel.send(msg);
+		await channel.send({ content: msg });
 
 		if (this.needLevelUp()) {
 			return this.levelUpIfNeeded(entity, channel, language);
@@ -424,16 +425,16 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 		log("This user is dead : " + entity.discordUserId);
 		await Maps.applyEffect(entity.Player, EFFECT.DEAD);
-		await channel.send(format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)}));
+		await channel.send({ content: format(JsonReader.models.players.getTranslation(language).ko, {pseudo: await this.getPseudo(language)})});
 
 		const guildMember = await channel.guild.members.fetch(entity.discordUserId);
 		const user = guildMember.user;
 		const transDMN = JsonReader.models.players.getTranslation(language);
 		this.dmNotification ? sendDirectMessage(user, transDMN.koPM.title, transDMN.koPM.description, JsonReader.bot.embed.default, language)
-			: channel.send(new DraftBotEmbed()
+			: channel.send({ embeds: [new DraftBotEmbed()
 				.setDescription(transDMN.koPM.description)
 				.setTitle(transDMN.koPM.title)
-				.setFooter(transDMN.dmDisabledFooter));
+				.setFooter(transDMN.dmDisabledFooter)] });
 
 		return true;
 	};
@@ -618,6 +619,123 @@ module.exports = (Sequelize, DataTypes) => {
 			}))[0]["COUNT(*)"]
 		);
 	};
+
+	/**
+	 * Returns the equipped weapon or null
+	 * @returns {null|*}
+	 */
+	Players.prototype.getMainWeaponSlot = function() {
+		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isWeapon());
+		if (filtered.length === 0) {
+			return null;
+		}
+		return filtered[0];
+	};
+
+	/**
+	 * Returns the equipped armor or null
+	 * @returns {null|*}
+	 */
+	Players.prototype.getMainArmorSlot = function() {
+		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isArmor());
+		if (filtered.length === 0) {
+			return null;
+		}
+		return filtered[0];
+	};
+
+	/**
+	 * Returns the equipped potion or null
+	 * @returns {null|*}
+	 */
+	Players.prototype.getMainPotionSlot = function() {
+		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isPotion());
+		if (filtered.length === 0) {
+			return null;
+		}
+		return filtered[0];
+	};
+
+	/**
+	 * Returns the equipped object or null
+	 * @returns {null|*}
+	 */
+	Players.prototype.getMainObjectSlot = function() {
+		const filtered = this.InventorySlots.filter(slot => slot.isEquipped() && slot.isObject());
+		if (filtered.length === 0) {
+			return null;
+		}
+		return filtered[0];
+	};
+
+	/**
+	 * Gives an item to the player
+	 * @returns {Boolean} true if gave with success, false if not
+	 */
+	Players.prototype.giveItem = async function(item) {
+		const category = item.getCategory();
+		const equippedItem = this.InventorySlots.filter(slot => slot.itemCategory === category && slot.isEquipped())[0];
+		if (equippedItem && equippedItem.itemId === 0) {
+			await InventorySlots.update({
+				itemId: item.id
+			}, {
+				where: {
+					playerId: this.id,
+					itemCategory: category,
+					slot: equippedItem.slot
+				}
+			});
+			return true;
+		}
+		const slotsLimit = this.InventoryInfo.slotLimitForCategory(category);
+		const items = this.InventorySlots.filter(slot => slot.itemCategory === category && slot.slot < slotsLimit);
+		if (items.length >= slotsLimit) {
+			return false;
+		}
+		for (let i = 0; i < slotsLimit; ++i) {
+			if (items.filter(slot => slot.slot === i).length === 0) {
+				await InventorySlots.create({
+					playerId: this.id,
+					itemCategory: category,
+					itemId: item.id,
+					slot: i
+				});
+				return true;
+			}
+		}
+		return false;
+	};
+
+	/**
+	 * Delete the player's potion if has one
+	 * @returns {Promise<void>}
+	 */
+	Players.prototype.drinkPotion = async function() {
+		await InventorySlots.update(
+			{
+				itemId: JsonReader.models.inventories.potionId
+			},
+			{
+				where: {
+					slot: 0,
+					itemCategory: Constants.ITEM_CATEGORIES.POTION,
+					playerId: this.id
+				}
+			});
+	};
+
+	/**
+	 * get the max values for each stat that the player can have.
+	 * @returns {Promise<*[number: attack]>}
+	 */
+	Players.prototype.getMaxStatsValue = async function() {
+		const playerClass = await Classes.getById(this.class);
+		const attackItemValue = playerClass.getAttackValue(this.level);
+		const defenseItemValue = playerClass.getDefenseValue(this.level);
+		const speedItemValue = playerClass.getSpeedValue(this.level);
+		return [attackItemValue, defenseItemValue, speedItemValue];
+	};
+
 
 	return Players;
 };

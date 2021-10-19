@@ -1,3 +1,5 @@
+import {giveRandomItem} from "../utils/ItemUtils";
+
 const BADGE = "💞";
 const doNothing = require("./doNothingSmallEvent");
 
@@ -107,7 +109,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	}
 	await generatePetEmbed(language, interaction, seEmbed, pet, amount, food);
 
-	await message.channel.send(seEmbed);
+	await message.channel.send({ embeds: [seEmbed] });
 	switch (interaction) {
 	case "item":
 		await giveRandomItem(message.author, message.channel, language, entity);
@@ -151,7 +153,8 @@ const generatePetEmbed = async function(language, interaction, seEmbed, pet, amo
 		badge: BADGE,
 		feminine: pet.sex === "f" ? "e" : "",
 		randomAnimal: randomAnimal ? PetEntities.getPetEmote(randomAnimal) + " " + PetEntities.getPetTypeName(randomAnimal, language) : "",
-		randomAnimalFeminine: randomAnimal ? randomAnimal.sex === "f" ? "e" : "" : ""
+		randomAnimalFeminine: randomAnimal ? randomAnimal.sex === "f" ? "e" : "" : "",
+		petFemale: pet.sex === "f"
 	}));
 };
 

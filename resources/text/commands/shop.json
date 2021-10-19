@@ -9,7 +9,7 @@
 			"permanentItems": {
 				"randomItem": {
 					"emote": "❓",
-					"name": "Un équipement random",
+					"name": "Un équipement aléatoire",
 					"price": 350,
 					"info": "Vous recevrez un équipements aléatoire (Arme / Armure / Objet ou Potion) parmi tous ceux présents dans le jeu.",
 					"give": "{pseudo}, vous avez reçu un(e) nouvel(le) {type}:"
@@ -53,14 +53,26 @@
 				"leaveShop": "Vous avez quitté le magasin."
 			},
 			"potion": {
-				"info": "Si vous possédez déjà une potion dans votre inventaire, elle sera remplacée sans compensation par cette nouvelle potion !",
+				"info": "Vous obtiendrez une potion que vous déciderez de garder ou non. Si vous l'avez déjà elle sera jetée sans remboursement !",
 				"give": "{pseudo}, vous avez reçu une nouvelle potion :"
 			},
 			"multipleChoice": {
 				"warning": "Choissisez la quantité à acheter. En cliquant sur une des réactions, vous confirmerez la transaction !",
 				"display": "{emote} **{name}**",
 				"priceDisplay": " | `{price}\uD83D\uDCB0`"
-			}
+			},
+			"slotsExtension": "Nouvel emplacement d'inventaire",
+			"inventoryCategory": "Inventaire",
+			"slotsExtensionInfo": "Vous pourrez choisir une catégorie d'inventaire à laquelle ajouter un emplacement",
+			"chooseSlotTitle": "{pseudo}, nouvel emplacement d'inventaire",
+			"chooseSlotIndication": "Choisissez un nouvel emplacement d'inventaire ou annulez :",
+			"slotCategories": [
+				"**Arme** ({available}/{limit} restant{available>1?s:})",
+				"**Armure** ({available}/{limit} restant{available>1?s:})",
+				"**Potion** ({available}/{limit} restant{available>1?s:})",
+				"**Objet** ({available}/{limit} restant{available>1?s:})"
+			],
+			"slotGive": "Vous avez reçu un nouvel emplacement d'inventaire !"
 		},
 		"en": {
 			"title": "Shop Overlay:",
@@ -115,14 +127,26 @@
 				"leaveShop": "You left the shop."
 			},
 			"potion": {
-				"info": "\n\n:warning: If you already have a potion in your inventory, it will get replaced by this one with no refund!",
+				"info": "You will receive a potion and have to choose to keep it or not. If you already have the same potion, it will be destroyed without refund!",
 				"give": "{pseudo}, you received a new potion:"
 			},
 			"multipleChoice": {
 				"warning": "Choose the amount to buy. By clicking on the reactions you confirm the transaction !",
 				"display": "{emote} **{name}**",
 				"priceDisplay": " | `{price}\uD83D\uDCB0`"
-			}
+			},
+			"slotsExtension": "Slots extension",
+			"inventoryCategory": "Inventory",
+			"slotsExtensionInfo": "You will choose an inventory category to add a slot to",
+			"chooseSlotTitle": "{pseudo}, new inventory slot",
+			"chooseSlotIndication": "Choose a new inventory slot category or cancel:",
+			"slotCategories": [
+				"**Weapon** ({available}/{limit} still left)",
+				"**Armor** ({available}/{limit} still left)",
+				"**Potion** ({available}/{limit} still left)",
+				"**Item** ({available}/{limit} still left)"
+			],
+			"slotGive": "You got a new inventory slot!"
 		}
 	},
 	"prices": {

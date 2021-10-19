@@ -107,9 +107,9 @@ const GuildCreateCommand = async (message, language, args) => {
 				entity.Player.save()
 			]);
 
-			return message.channel.send(new DraftBotEmbed()
+			return message.channel.send({ embeds: [new DraftBotEmbed()
 				.formatAuthor(JsonReader.commands.guildCreate.getTranslation(language).createTitle, message.author)
-				.setDescription(format(JsonReader.commands.guildCreate.getTranslation(language).createSuccess, {guildName: askedName})));
+				.setDescription(format(JsonReader.commands.guildCreate.getTranslation(language).createSuccess, {guildName: askedName}))] });
 		}
 
 		// Cancel the creation

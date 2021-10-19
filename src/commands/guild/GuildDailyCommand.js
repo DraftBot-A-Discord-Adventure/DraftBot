@@ -232,7 +232,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		log("GuildDaily of guild " + guild.name + ": got pet: " + PetEntities.getPetEmote(pet) + " " + PetEntities.getPetTypeName(pet, "en"));
 	}
 
-	await message.channel.send(embed);
+	await message.channel.send({ embeds: [embed] });
 
 	for (const member of members) {
 		const user = await client.users.fetch(member.discordUserId);

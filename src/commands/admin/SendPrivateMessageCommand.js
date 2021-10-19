@@ -21,7 +21,7 @@ const SendPrivateMessageCommand = async (message, language, args) => {
 	const user = client.users.cache.get(userId);
 
 	if (userId === undefined || args[1] === undefined) {
-		return sendErrorMessage(user, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).descError);
+		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).descError);
 	}
 	if (user === undefined) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).personNotExists);
@@ -33,9 +33,9 @@ const SendPrivateMessageCommand = async (message, language, args) => {
 
 	message.delete();
 	try {
-		await user.send(messageToSend);
+		await user.send({ content: messageToSend });
 		sendMessageAttachments(message, user);
-		return await message.channel.send(embed);
+		return await message.channel.send({ embeds: [embed] });
 	}
 	catch {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.sendPrivateMessage.getTranslation(language).errorCannotSend);

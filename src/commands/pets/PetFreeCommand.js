@@ -57,11 +57,12 @@ const PetFreeCommand = async (message, language) => {
 		confirmEmbed.setFooter(JsonReader.commands.petFree.getTranslation(language).isFeisty);
 	}
 
-	const confirmMessage = await message.channel.send(confirmEmbed);
+	const confirmMessage = await message.channel.send({ embeds: [confirmEmbed] });
 
 	const filter = (reaction, user) => (reaction.emoji.name === MENU_REACTION.ACCEPT || reaction.emoji.name === MENU_REACTION.DENY) && user.id === message.author.id;
 
-	const collector = confirmMessage.createReactionCollector(filter, {
+	const collector = confirmMessage.createReactionCollector({
+		filter,
 		time: 30000,
 		max: 1
 	});
@@ -98,7 +99,7 @@ const PetFreeCommand = async (message, language) => {
 					freedEmbed.setDescription(freedEmbed.description + "\n\n" + format(JsonReader.commands.petFree.getTranslation(language).giveMeat, {}));
 				}
 
-				return await message.channel.send(freedEmbed);
+				return await message.channel.send({ embeds: [freedEmbed] });
 			}
 		}
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petFree.getTranslation(language).canceled, true);

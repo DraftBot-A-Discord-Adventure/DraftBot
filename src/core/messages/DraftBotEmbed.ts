@@ -1,5 +1,4 @@
 import {MessageEmbed, User} from "discord.js";
-import {Constants} from "../Constants";
 
 declare const JsonReader: any;
 declare function format(s: string, replacement: any): string;
@@ -13,7 +12,8 @@ export class DraftBotEmbed extends MessageEmbed {
 	 */
 	constructor() {
 		super();
-		this.setColor(Constants.MESSAGES.COLORS.DEFAULT);
+		// Ignore this for now
+		// this.setColor(Constants.MESSAGES.COLORS.DEFAULT);
 	}
 
 	/**

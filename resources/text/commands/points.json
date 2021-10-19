@@ -1,12 +1,36 @@
 {
 	"translations": {
 		"fr": {
-			"title": "{pseudo}, vous avez changé le score d'un joueur !",
-			"desc": "{player} a maintenant {points} points"
+			"title": "{pseudo}, vous avez changé le score d'un ou plusieurs joueurs !",
+			"desc": "{player} a maintenant {points} point{points>1?s:}\n",
+			"errors": {
+				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Montant invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Mention / ID invalide en position {position} : {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID n'appartenant à personne en position {position} : {wrongText}",
+				"invalidDonationParameter": "Premier paramètre invalide\nformat : `<prefix>points <set|add> <amount> [mentions]`",
+				"tooMuchPeople": "Modification de points sur trop de personnes en même temps. Veuillez vous limiter à 50 personnes par commande."
+			},
+			"dm": {
+				"title": "{pseudo}, vos points ont été édités par un administrateur !",
+				"description": "Vous avez {pointsGained>=0?gagné:perdu} {pointsGained} point{pointsGained>1?s:}{pointsGained<-1?s:} !"
+			}
 		},
 		"en": {
-			"title": "{pseudo}, you have updated the score of a player !",
-			"desc": "{player} has {points} points"
+			"title": "{pseudo}, you changed the score of one or more players!",
+			"desc": "{player} now has {points} point{points>1?s:}\n",
+			"errors": {
+				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>points <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Invalid amount\nformat : `<prefix>points <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
+				"invalidDonationParameter": "Invalid first parameter\nformat : `<prefix>points <set|add> <amount> [mentions]`",
+				"tooMuchPeople": "Modification of the score on too much users. Please limit your command to 50 users."
+			},
+			"dm": {
+				"title": "{pseudo}, your points has been edited by an administrator!",
+				"description": "You {pointsGained>=0?won:lost} {pointsGained} point{pointsGained>1?s:}{pointsGained<-1?s:}!"
+			}
 		}
 	}
 }

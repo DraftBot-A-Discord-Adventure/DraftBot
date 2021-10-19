@@ -63,7 +63,7 @@ const FightCommand = async function(message, language, args, friendly = false) {
 		msg += "\n" + await getStatsDisplay(defender, language, friendly);
 	}
 
-	await message.channel.send(msg)
+	await message.channel.send({ content: msg })
 		.then(async function(messageFightAsk) {
 			await messageFightAsk.react(MENU_REACTION.ACCEPT);
 			await messageFightAsk.react(MENU_REACTION.DENY);
@@ -76,7 +76,7 @@ const FightCommand = async function(message, language, args, friendly = false) {
 				filter = (_, user) => user.id === attacker.discordUserId || user.id === defender.discordUserId;
 			}
 
-			const collector = messageFightAsk.createReactionCollector(filter, {time: 60000});
+			const collector = messageFightAsk.createReactionCollector({ filter, time: 60000});
 
 			collector.on("collect", async (reaction, user) => {
 				switch (reaction.emoji.name) {
@@ -216,14 +216,13 @@ async function canFight(entity, friendly) {
  */
 async function getStatsDisplay(entity, language, friendly = false) {
 	let msg = format(JsonReader.commands.fight.getTranslation(language).statsOfPlayer, {pseudo: await entity.Player.getPseudo(language)});
-	const inv = entity.Player.Inventory;
-	const w = await inv.getWeapon();
-	const a = await inv.getArmor();
-	const p = await inv.getPotion();
+	const w = await entity.Player.getMainWeaponSlot().getItem();
+	const a = await entity.Player.getMainArmorSlot().getItem();
+	const p = await entity.Player.getMainPotionSlot().getItem();
 	if (friendly) { // potion are disabled in friendly fight
 		p.power = 0;
 	}
-	const o = await inv.getActiveObject();
+	const o = await entity.Player.getMainObjectSlot().getItem();
 	const power = friendly ? await entity.getMaxCumulativeHealth() : await entity.getCumulativeHealth();
 	msg += format(JsonReader.commands.fight.getTranslation(language).summarize.stats, {
 		power: power,

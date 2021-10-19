@@ -12,11 +12,11 @@ module.exports.commandInfo = {
 const UnblockCommand = async (message, language, args) => {
 	if (args.length === 1) {
 		if (!hasBlockedPlayer(args[0])) {
-			await message.channel.send("Not blocked");
+			await message.channel.send({ content: "Not blocked" });
 			return;
 		}
 		removeBlockedPlayer(args[0]);
-		await message.channel.send("Unblocked with success");
+		await message.channel.send({ content: "Unblocked with success" });
 		const user = await client.users.fetch(args[0]);
 		const [entity] = await Entities.getOrRegister(args[0]);
 		if (entity.Player.dmNotification) {
@@ -32,7 +32,7 @@ const UnblockCommand = async (message, language, args) => {
 
 	}
 	else {
-		await message.channel.send("Usage: !unblock <discord id>");
+		await message.channel.send({ content: "Usage: !unblock <discord id>" });
 	}
 };
 

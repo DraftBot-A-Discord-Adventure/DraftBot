@@ -144,7 +144,7 @@ const GuildCommand = async (message, language, args) => {
 	// embed.addField(Text.commands.guild.star + experience + Text.commands.guild.expSeparator + experienceToLevelUp
 	//    + Text.commands.guild.guildLevel + level, Text.commands.guild.style + progressBar.createBar() + Text.commands.guild.style);
 
-	message.channel.send(embed);
+	message.channel.send({ embeds: [embed] });
 };
 
 module.exports.execute = GuildCommand;

@@ -1,12 +1,36 @@
 {
 	"translations": {
 		"fr": {
-			"title": "{pseudo}, vous avez changé le score hebdomadaire d'un joueur !",
-			"desc": "{player} a maintenant {points} points"
+			"title": "{pseudo}, vous avez changé le score hebdomadaire d'un ou plusieurs joueurs !",
+			"desc": "{player} a maintenant {pointsw} point{pointsw>1?s:} hebdomadaire{pointsw>1?s:}\n",
+			"errors": {
+				"invalidNumberOfArgs": "Nombre d'arguments invalide\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Montant invalide\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Mention / ID invalide en position {position} : {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID n'appartenant à personne en position {position} : {wrongText}",
+				"invalidDonationParameter": "Premier paramètre invalide\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"tooMuchPeople": "Modification de points hebdomadaires sur trop de personnes en même temps. Veuillez vous limiter à 50 personnes par commande."
+			},
+			"dm": {
+				"title": "{pseudo}, vos points hebdomadaires ont été édités par un administrateur !",
+				"description": "Vous avez {pointsWGained>=0?gagné:perdu} {pointsWGained} point{pointsWGained>1?s:}{pointsWGained<-1?s:} hebdomadaire{pointsWGained>1?s:}{pointsWGained<-1?s:} !"
+			}
 		},
 		"en": {
-			"title": "{pseudo}, you have updated the weekly score of a player !",
-			"desc": "{player} has {points} points"
+			"title": "{pseudo}, you changed the week score of one or more players!",
+			"desc": "{player} now has {points} week point{points>1?s:}\n",
+			"errors": {
+				"invalidNumberOfArgs": "Invalid arguments count\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"invalidAmountFormat": "Invalid amount\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"invalidIdOrMention": "Invalid mention / ID at position {position} : {wrongText}",
+				"invalidIdOrMentionDoesntExist": "Mention / ID belonging to no one at position {position} : {wrongText}",
+				"invalidDonationParameter": "Invalid first parameter\nformat : `<prefix>pointsw <set|add> <amount> [mentions]`",
+				"tooMuchPeople": "Modification of the week score on too much users. Please limit your command to 50 users."
+			},
+			"dm": {
+				"title": "{pseudo}, your week points has been edited by an administrator!",
+				"description": "You {pointsWGained>=0?won:lost} {pointsWGained} week point{pointsWGained>1?s:}{pointsWGained<-1?s:}!"
+			}
 		}
 	}
 }
