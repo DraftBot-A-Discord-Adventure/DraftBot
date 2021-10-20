@@ -37,7 +37,7 @@ module.exports = (Sequelize, DataTypes) => {
 			}
 		},
 		{
-			tableName: "MissionsSuccesses",
+			tableName: "missions_successes",
 			freezeTableName: true
 		}
 	);
@@ -67,7 +67,7 @@ module.exports = (Sequelize, DataTypes) => {
 	MissionsSuccesses.prototype.getNumberToDo = (strength, isMission) => {
 		const allStrengths = this.getAllStrengths(isMission);
 		return allStrengths[strength];
-	}
+	};
 
 	/**
 	 * get all strengths for a given missionSuccess
@@ -76,9 +76,7 @@ module.exports = (Sequelize, DataTypes) => {
 	MissionsSuccesses.prototype.getAllStrengths = (isMission) => {
 		const missionSuccessCurrent = JsonReader.missionsSuccesses.loadFile(parseInt(this.id) + ".json");
 		return isMission ? missionSuccessCurrent.isMission : missionSuccessCurrent.isSuccess;
-	}
-
-
+	};
 
 	return MissionsSuccesses;
 };

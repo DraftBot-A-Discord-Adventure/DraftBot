@@ -43,7 +43,7 @@ module.exports = (Sequelize, DataTypes) => {
 			}
 		},
 		{
-			tableName: "PlayerMissionsSuccesses",
+			tableName: "player_missions_successes",
 			freezeTableName: true
 		}
 	);
@@ -100,8 +100,8 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	PlayerMissionsSuccesses.prototype.updateMissionSuccess = (nbTimes) => {
 		this.numberDone += nbTimes;
-		this.awardMissionSuccess()
-	}
+		this.awardMissionSuccess();
+	};
 
 	/**
 	 * Test if the quest must be awarded
@@ -122,10 +122,11 @@ module.exports = (Sequelize, DataTypes) => {
 		// TODO donner la récompense
 		if (this.isMission) {
 			// TODO remplacer la mission par une mission 0
-		} else {
+		}
+		else {
 			// TODO remplacer le haut fait par sa version supérieure
 		}
-	}
+	};
 
 	return PlayerMissionsSuccesses;
 };
