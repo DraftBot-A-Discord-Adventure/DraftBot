@@ -101,7 +101,7 @@
 			],
 			"poorDontGiveMoney": [
 				"Il n'y a pas de petites économies... Vous décidez de garder votre argent.",
-				"{playerDisplay} est triste et part en pleurant !",
+				"**{pseudo}** est triste et part en pleurant !",
 				"Vous l'ignorez, du moins vous vous forcez à le faire. Vous partez et espérez que votre conscience ne viendra pas vous embêter."
 			],
 			"duplicatePotion": [
@@ -296,7 +296,7 @@
 			],
 			"poorDontGiveMoney": [
 				"There are no small economies... You decide to keep your money.",
-				"{playerDisplay} is sad and leaves crying!",
+				"**{pseudo}** is sad and leaves crying!",
 				"You ignore it, at least you force yourself to do so. You leave and hope that your conscience will not come to bother you."
 			],
 			"duplicatePotion": [
@@ -393,4 +393,4 @@
 	},
 	"rarity": 12,
 	"emote": ":speech_balloon:  "
-} 
+}
