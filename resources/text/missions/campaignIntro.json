@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Commencer la campagne"
+		},
+		"en": {
+			"desc": "Start the campaign"
+		}
+	},
+	"gems": 1,
+	"xp": 0
+}

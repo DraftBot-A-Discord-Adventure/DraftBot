@@ -1,0 +1,12 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Faire {objective} rapport{objective>1?s:}"
+		},
+		"en": {
+			"desc": "Do {objective} report{objective>1?s:}"
+		}
+	},
+	"gems": 2,
+	"xp": 20
+}

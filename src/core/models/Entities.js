@@ -91,6 +91,18 @@ module.exports = (Sequelize, DataTypes) => {
 						slot: 0,
 						itemCategory: 3
 					}
+				],
+				PlayerMissionsInfo: {
+
+				},
+				MissionSlots: [
+					{
+						missionId: "campaignIntro",
+						missionVariant: 0,
+						missionObjective: 1,
+						expiresAt: null,
+						numberDone: 0
+					}
 				]
 			}
 		},
@@ -120,6 +132,20 @@ module.exports = (Sequelize, DataTypes) => {
 					{
 						model: PlayerSmallEvents,
 						as: "PlayerSmallEvents"
+					},
+					{
+						model: MissionSlots,
+						as: "MissionSlots",
+						include: [
+							{
+								model: Missions,
+								as: "Mission"
+							}
+						]
+					},
+					{
+						model: PlayerMissionsInfo,
+						as: "MissionsInfo"
 					}]
 			}]
 	});
@@ -154,6 +180,18 @@ module.exports = (Sequelize, DataTypes) => {
 						slot: 0,
 						itemCategory: 3
 					}
+				],
+				PlayerMissionsInfo: {
+
+				},
+				MissionSlots: [
+					{
+						missionId: "campaignIntro",
+						missionVariant: 0,
+						missionObjective: 1,
+						expiresAt: null,
+						numberDone: 0
+					}
 				]
 			}
 		},
@@ -186,6 +224,20 @@ module.exports = (Sequelize, DataTypes) => {
 					{
 						model: PlayerSmallEvents,
 						as: "PlayerSmallEvents"
+					},
+					{
+						model: MissionSlots,
+						as: "MissionSlots",
+						include: [
+							{
+								model: Missions,
+								as: "Mission"
+							}
+						]
+					},
+					{
+						model: PlayerMissionsInfo,
+						as: "MissionsInfo"
 					}]
 			}],
 		order: [
@@ -227,6 +279,18 @@ module.exports = (Sequelize, DataTypes) => {
 						slot: 0,
 						itemCategory: 3
 					}
+				],
+				PlayerMissionsInfo: {
+
+				},
+				MissionSlots: [
+					{
+						missionId: "campaignIntro",
+						missionVariant: 0,
+						missionObjective: 1,
+						expiresAt: null,
+						numberDone: 0
+					}
 				]
 			}
 		},
@@ -256,6 +320,20 @@ module.exports = (Sequelize, DataTypes) => {
 					{
 						model: PlayerSmallEvents,
 						as: "PlayerSmallEvents"
+					},
+					{
+						model: MissionSlots,
+						as: "MissionSlots",
+						include: [
+							{
+								model: Missions,
+								as: "Mission"
+							}
+						]
+					},
+					{
+						model: PlayerMissionsInfo,
+						as: "MissionsInfo"
 					}]
 			}]
 	});
@@ -294,7 +372,19 @@ module.exports = (Sequelize, DataTypes) => {
 						itemCategory: 3
 					}
 				]
-			}
+			},
+			PlayerMissionsInfo: {
+
+			},
+			MissionSlots: [
+				{
+					missionId: "campaignIntro",
+					missionVariant: 0,
+					missionObjective: 1,
+					expiresAt: null,
+					numberDone: 0
+				}
+			]
 		},
 		include: [
 			{
@@ -322,6 +412,20 @@ module.exports = (Sequelize, DataTypes) => {
 					{
 						model: PlayerSmallEvents,
 						as: "PlayerSmallEvents"
+					},
+					{
+						model: MissionSlots,
+						as: "MissionSlots",
+						include: [
+							{
+								model: Missions,
+								as: "Mission"
+							}
+						]
+					},
+					{
+						model: PlayerMissionsInfo,
+						as: "MissionsInfo"
 					}]
 			}]
 	});

@@ -1,0 +1,43 @@
+import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
+
+module.exports.commandInfo = {
+	name: "debugMissions",
+	commandFormat: "",
+	messageWhenExecuted: "",
+	description: "Affiche des informations sur vos missions"
+};
+
+/**
+ * Print missions info
+ * @param {("fr"|"en")} language - Language to use in the response
+ * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {String[]} args=[] - Additional arguments sent with the command
+ * @return {String} - The successful message formatted
+ */
+const debugMissionsTestCommand = async (language, message, args) => {
+
+	const [entity] = await Entities.getOrRegister(message.author.id);
+
+	const embed = new DraftBotEmbed();
+	embed.setTitle("Debug missions");
+	embed.addField("⚙️ General", "Mission slots: " + entity.Player.MissionsInfo.slotsCount
+		+ "\nDaily mission done: " + entity.Player.MissionsInfo.dailyMissionNumberDone
+		+ "\nGems count: " + entity.Player.MissionsInfo.gems, false);
+	let missionsFieldContent = "";
+	if (entity.Player.MissionSlots.length === 0) {
+		missionsFieldContent = "Aucune mission";
+	}
+	else {
+		for (let i = 0; i < entity.Player.MissionSlots.length; ++i) {
+			missionsFieldContent += entity.Player.MissionSlots[i].Mission.descFr + " (id: " + entity.Player.MissionSlots[i].missionId +
+				")\n-> Variant: " + entity.Player.MissionSlots[i].missionVariant +
+				"\n-> Number done: " + entity.Player.MissionSlots[i].numberDone +
+				"\n-> Objective: " + entity.Player.MissionSlots[i].missionObjective +
+				"\n-> Expiration date: " + (entity.Player.MissionSlots[i].expiresAt ? new Date(entity.Player.MissionSlots[i].expiresAt).toISOString() : "Jamais") + "\n\n";
+		}
+	}
+	embed.addField("📜 Missions", missionsFieldContent);
+	message.channel.send({ embeds: [embed] });
+};
+
+module.exports.execute = debugMissionsTestCommand;
