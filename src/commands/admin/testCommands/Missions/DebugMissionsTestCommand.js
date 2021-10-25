@@ -22,7 +22,8 @@ const debugMissionsTestCommand = async (language, message, args) => {
 	embed.setTitle("Debug missions");
 	embed.addField("⚙️ General", "Mission slots: " + entity.Player.MissionsInfo.slotsCount
 		+ "\nDaily mission done: " + entity.Player.MissionsInfo.dailyMissionNumberDone
-		+ "\nGems count: " + entity.Player.MissionsInfo.gems, false);
+		+ "\nGems count: " + entity.Player.MissionsInfo.gems
+		+ "\nCampaign progression: " + entity.Player.MissionsInfo.campaignProgression, false);
 	let missionsFieldContent = "";
 	if (entity.Player.MissionSlots.length === 0) {
 		missionsFieldContent = "Aucune mission";
@@ -33,7 +34,8 @@ const debugMissionsTestCommand = async (language, message, args) => {
 				")\n-> Variant: " + entity.Player.MissionSlots[i].missionVariant +
 				"\n-> Number done: " + entity.Player.MissionSlots[i].numberDone +
 				"\n-> Objective: " + entity.Player.MissionSlots[i].missionObjective +
-				"\n-> Expiration date: " + (entity.Player.MissionSlots[i].expiresAt ? new Date(entity.Player.MissionSlots[i].expiresAt).toISOString() : "Jamais") + "\n\n";
+				"\n-> Expiration date: " + (entity.Player.MissionSlots[i].expiresAt ? new Date(entity.Player.MissionSlots[i].expiresAt).toISOString() : "Never") +
+				"\n-> Campaign only: " + entity.Player.MissionSlots[i].Mission.campaignOnly + "\n\n";
 		}
 	}
 	embed.addField("📜 Missions", missionsFieldContent);

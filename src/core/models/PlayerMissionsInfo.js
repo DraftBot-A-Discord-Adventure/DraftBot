@@ -26,6 +26,10 @@ module.exports = (Sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 				defaultValue: 1
 			},
+			campaignProgression: {
+				type: DataTypes.INTEGER,
+				defaultValue: 0
+			},
 			updatedAt: {
 				type: DataTypes.DATE,
 				defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")

@@ -20,6 +20,9 @@ module.exports = (Sequelize, DataTypes) => {
 			descEn: {
 				type: DataTypes.TEXT
 			},
+			campaignOnly: {
+				type: DataTypes.BOOLEAN
+			},
 			gems: {
 				type: DataTypes.INTEGER
 			},
