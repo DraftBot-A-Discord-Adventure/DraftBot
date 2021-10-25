@@ -14,6 +14,7 @@
 		"en": {
 			"title": "{pseudo}, command done!",
 			"desc": "{item1} and {item2} were swapped!",
+			"descAndDaily": "{item1} and {item2} has been switched! Moreover, 30 minutes were added to do your next !daily.",
 			"noItemToSwitch": "You don't have anything to equip!",
 			"canceled": "Action canceled!",
 			"hasBeenEquipped": "{item} has been equipped!",
