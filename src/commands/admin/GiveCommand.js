@@ -4,6 +4,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Translations} from "../../core/Translations";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+import {Armors} from "../../core/models/Armor";
 
 module.exports.commandInfo = {
 	name: "give",

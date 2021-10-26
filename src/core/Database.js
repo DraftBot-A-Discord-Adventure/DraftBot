@@ -27,10 +27,11 @@ class Database {
 
 		const modelsFiles = await fs.promises.readdir("dist/src/core/models");
 		for (const modelFile of modelsFiles) {
-			const modelName = modelFile.split(".")[0];
-			global[modelName] = Database.Sequelize["import"](
-				`models/${modelName}`
-			);
+			const modelSplit = modelFile.split(".");
+			const modelName = modelSplit[0];
+			if (modelSplit[1] === "js" && modelSplit.length === 2) {
+				global[modelName] = require("models/" + modelName).initModel(Database.Sequelize);
+			}
 		}
 
 		await Database.setAssociations();

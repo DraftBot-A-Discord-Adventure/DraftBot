@@ -1,4 +1,5 @@
 import {Constants} from "../Constants";
+import {Armors} from "./Armor";
 
 const moment = require("moment");
 
@@ -54,11 +55,7 @@ module.exports = (Sequelize, DataTypes) => {
 				}
 			});
 		case Constants.ITEM_CATEGORIES.ARMOR:
-			return await Armors.findOne({
-				where: {
-					id: this.itemId
-				}
-			});
+			return await Armors.getById(this.itemId);
 		case Constants.ITEM_CATEGORIES.POTION:
 			return await Potions.findOne({
 				where: {

@@ -1,5 +1,6 @@
 import {Constants} from "../../../../core/Constants";
 import * as ItemUtils from "../../../../core/utils/ItemUtils";
+import {Armors} from "../../../../core/models/Armor";
 
 module.exports.commandInfo = {
 	name: "finditem",

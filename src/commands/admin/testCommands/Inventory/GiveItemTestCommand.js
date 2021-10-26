@@ -1,4 +1,5 @@
 import {Constants} from "../../../../core/Constants";
+import {Armors} from "../../../../core/models/Armor";
 
 module.exports.commandInfo = {
 	name: "giveitem",

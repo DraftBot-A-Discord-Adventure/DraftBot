@@ -6,6 +6,7 @@ import {DraftBotValidateReactionMessage} from "../messages/DraftBotValidateReact
 import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
 import {Random} from "random-js";
+import {Armors} from "../models/Armor";
 
 declare const InventorySlots: any;
 declare const Entities: any;
@@ -14,7 +15,6 @@ declare function removeBlockedPlayer(id: string): void;
 declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any, any[]>): void;
 declare const draftbotRandom: Random;
 declare const Weapons: any;
-declare const Armors: any;
 declare const Potions: any;
 declare const Objects: any;
 
@@ -264,11 +264,7 @@ export const generateRandomItem = async function(maxRarity = 8, itemCategory: nu
 		});
 	case Constants.ITEM_CATEGORIES.ARMOR:
 		itemsIds = await Armors.getAllIdsForRarity(rarity);
-		return await Armors.findOne({
-			where: {
-				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
-			}
-		});
+		return await Armors.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case Constants.ITEM_CATEGORIES.POTION:
 		itemsIds = await Potions.getAllIdsForRarity(rarity);
 		return await Potions.findOne({
