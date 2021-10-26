@@ -30,7 +30,7 @@ class Database {
 			const modelSplit = modelFile.split(".");
 			const modelName = modelSplit[0];
 			if (modelSplit[1] === "js" && modelSplit.length === 2) {
-				global[modelName] = require("models/" + modelName).initModel(Database.Sequelize);
+				require("models/" + modelName).initModel(Database.Sequelize);
 			}
 		}
 
