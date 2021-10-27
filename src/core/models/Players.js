@@ -1,5 +1,6 @@
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Constants} from "../Constants";
+import {Classes} from "./Class";
 
 const Maps = require("../Maps");
 /**

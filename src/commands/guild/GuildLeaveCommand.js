@@ -1,3 +1,5 @@
+import {Entities} from "../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "guildleave",
 	aliases: ["gleave", "gl"],

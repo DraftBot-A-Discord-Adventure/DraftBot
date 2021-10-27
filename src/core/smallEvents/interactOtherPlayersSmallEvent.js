@@ -7,6 +7,8 @@
  * @returns {Promise<>}
  */
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {Classes} from "../models/Class";
+import {Entities} from "../models/Entity";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;

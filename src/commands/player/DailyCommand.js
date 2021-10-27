@@ -1,4 +1,5 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Entities} from "../../core/models/Entity";
 
 const Maps = require("../../core/Maps");
 

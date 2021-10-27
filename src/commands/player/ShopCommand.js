@@ -11,6 +11,8 @@ import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReacti
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {format} from "../../core/utils/StringFormatter";
+import {Potions} from "../../core/models/Potion";
+import {Entities} from "../../core/models/Entity";
 
 const Maps = require("../../core/Maps");
 
@@ -160,11 +162,7 @@ async function getDailyPotionShopItem(translationModule, discordUser, channel) {
 	const shopPotion = await Shop.findOne({
 		attributes: ["shopPotionId"]
 	});
-	const potion = await Potions.findOne({
-		where: {
-			id: shopPotion.shopPotionId
-		}
-	});
+	const potion = await Potions.getById(shopPotion.shopPotionId);
 
 	return new ShopItem(
 		potion.getEmoji(),

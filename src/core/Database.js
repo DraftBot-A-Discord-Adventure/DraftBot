@@ -1,5 +1,15 @@
 import {DraftBotBackup} from "./backup/DraftBotBackup";
 import {Constants} from "./Constants";
+import Entity from "./models/Entity";
+import Player from "./models/Player";
+import InventorySlot from "./models/InventorySlot";
+import InventoryInfo from "./models/InventoryInfo";
+import PetEntity from "./models/PetEntity";
+import PlayerSmallEvent from "./models/PlayerSmallEvent";
+import Pet from "./models/Pet";
+import MissionSlot from "./models/MissionSlot";
+import Mission from "./models/Mission";
+import PlayerMissionsInfo from "./models/PlayerMissionsInfo";
 
 const fs = require("fs");
 const path = require("path");
@@ -30,6 +40,7 @@ class Database {
 			const modelSplit = modelFile.split(".");
 			const modelName = modelSplit[0];
 			if (modelSplit[1] === "js" && modelSplit.length === 2) {
+				console.log(modelFile);
 				require("models/" + modelName).initModel(Database.Sequelize);
 			}
 		}
@@ -151,43 +162,43 @@ class Database {
 	 * @return {Promise<void>}
 	 */
 	static setAssociations() {
-		Entities.hasOne(Players, {
+		Entity.hasOne(Player, {
 			foreignKey: "entityId",
 			as: "Player"
 		});
 
-		Players.belongsTo(Entities, {
+		Player.belongsTo(Entity, {
 			foreignKey: "entityId",
 			as: "Entity"
 		});
-		Players.belongsTo(Guilds, {
+		Player.belongsTo(Guilds, {
 			foreignKey: "guildId",
 			as: "Guild"
 		});
-		Players.belongsTo(Guilds, {
+		Player.belongsTo(Guilds, {
 			foreignKey: "id",
 			targetKey: "chiefId",
 			as: "Chief"
 		});
-		Players.hasMany(InventorySlots, {
+		Player.hasMany(InventorySlot, {
 			foreignKey: "playerId",
 			as: "InventorySlots"
 		});
-		Players.hasOne(InventoryInfo, {
+		Player.hasOne(InventoryInfo, {
 			foreignKey: "playerId",
 			as: "InventoryInfo"
 		});
-		Players.hasOne(PetEntities, {
+		Player.hasOne(PetEntity, {
 			foreignKey: "id",
 			sourceKey: "petId",
 			as: "Pet"
 		});
-		Players.hasOne(MapLinks, {
+		Player.hasOne(MapLinks, {
 			foreignKey: "id",
 			sourceKey: "mapLinkId",
 			as: "MapLink"
 		});
-		Players.hasMany(PlayerSmallEvents, {
+		Player.hasMany(PlayerSmallEvent, {
 			foreignKey: "playerId",
 			as: "PlayerSmallEvents"
 		});
@@ -204,11 +215,11 @@ class Database {
 			as: "EndMap"
 		});
 
-		Guilds.hasMany(Players, {
+		Guilds.hasMany(Player, {
 			foreignKey: "guildId",
 			as: "Members"
 		});
-		Guilds.hasOne(Players, {
+		Guilds.hasOne(Player, {
 			foreignKey: "id",
 			sourceKey: "chiefId",
 			as: "Chief"
@@ -217,7 +228,7 @@ class Database {
 			foreignKey: "guildId",
 			as: "GuildPets"
 		});
-		GuildPets.hasOne(PetEntities, {
+		GuildPets.hasOne(PetEntity, {
 			foreignKey: "id",
 			sourceKey: "petEntityId",
 			as: "PetEntity"
@@ -233,24 +244,24 @@ class Database {
 			as: "Event"
 		});
 
-		PetEntities.hasOne(Pets, {
+		PetEntity.hasOne(Pet, {
 			foreignKey: "id",
 			sourceKey: "petId",
 			as: "PetModel"
 		});
 
-		Players.hasMany(MissionSlots, {
+		Player.hasMany(MissionSlot, {
 			foreignKey: "playerId",
 			as: "MissionSlots"
 		});
 
-		MissionSlots.hasOne(Missions, {
+		MissionSlot.hasOne(Mission, {
 			sourceKey: "missionId",
 			foreignKey: "id",
 			as: "Mission"
 		});
 
-		Players.hasOne(PlayerMissionsInfo, {
+		Player.hasOne(PlayerMissionsInfo, {
 			foreignKey: "playerId",
 			as: "MissionsInfo"
 		});

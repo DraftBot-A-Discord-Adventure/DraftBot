@@ -1,4 +1,5 @@
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {Entities} from "../models/Entity";
 
 const Fighter = require("./Fighter.js");
 // const Attack = require('./Attack.js');

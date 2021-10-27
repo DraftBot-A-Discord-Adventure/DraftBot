@@ -1,4 +1,5 @@
 import {DraftBotVoteMessage} from "./messages/DraftBotVoteMessage";
+import {Entities} from "./models/Entity";
 
 const DiscordBotList = require("dblapi.js");
 

@@ -1,3 +1,5 @@
+import {Entities} from "../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "shelter",
 	aliases: ["guildshelter", "pets", "animals", "gshelter", "gpets", "ganimals", "guildpets", "guildanimals", "sh"],

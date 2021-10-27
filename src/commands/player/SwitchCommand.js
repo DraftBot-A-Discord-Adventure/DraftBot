@@ -4,6 +4,7 @@ import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../../core/messages/DraftBotListChoiceMessage";
 import {Constants} from "../../core/Constants";
 import {sortPlayerItemList} from "../../core/utils/ItemUtils";
+import {Entities} from "../../core/models/Entity";
 
 const moment = require("moment");
 

@@ -1,3 +1,5 @@
+import {Entities} from "../../../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "pet",
 	commandFormat: "<id> <sex = m/f>",

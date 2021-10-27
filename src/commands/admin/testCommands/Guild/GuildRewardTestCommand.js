@@ -1,3 +1,5 @@
+import {Entities} from "../../../../core/models/Entity";
+
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
 Object.entries(REWARD_TYPES).forEach((v) => stringDesc += "\n - " + v[1]); // eslint-disable-line no-return-assign
 module.exports.commandInfo = {

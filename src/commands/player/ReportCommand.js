@@ -1,5 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {giveRandomItem} from "../../core/utils/ItemUtils";
+import {Entities} from "../../core/models/Entity";
 
 const Maps = require("../../core/Maps");
 

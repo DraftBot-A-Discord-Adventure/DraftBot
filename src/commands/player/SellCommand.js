@@ -1,4 +1,5 @@
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+import {Entities} from "../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "sell",

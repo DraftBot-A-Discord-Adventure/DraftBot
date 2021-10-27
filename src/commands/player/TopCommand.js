@@ -1,5 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 const Maps = require("../../core/Maps");
+import {Entities} from "../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "top",

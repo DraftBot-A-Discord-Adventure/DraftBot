@@ -5,10 +5,8 @@ import {Constants} from "../Constants";
 import {User} from "discord.js";
 import {DraftBotErrorEmbed} from "./DraftBotErrorEmbed";
 import {DraftBotValidateReactionMessage} from "./DraftBotValidateReactionMessage";
-
-declare function format(s: string, replacement: any): string;
-
-declare const Entities: any;
+import {Entities} from "../models/Entity";
+import {format} from "../utils/StringFormatter";
 
 /**
  * Reasons when the shop ends

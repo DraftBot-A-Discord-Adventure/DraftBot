@@ -261,21 +261,11 @@ global.progressBar = (value, maxValue) => {
 
 /**
  * Return the value of the item
- * @param {Objects|Armors|Weapons|Potions} item
+ * @param {MainItemModel} item
  * @return {Number} - The value of the item
  */
 global.getItemValue = function(item) {
-	let addedvalue;
-	if (item instanceof Potions || item instanceof Objects) {
-		addedvalue = parseInt(item.power);
-	}
-	if (item instanceof Weapons) {
-		addedvalue = parseInt(item.rawAttack);
-	}
-	if (item instanceof Armors) {
-		addedvalue = parseInt(item.rawDefense);
-	}
-	return parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedvalue;
+	return parseInt(JsonReader.values.raritiesValues[item.rarity]) + item.getItemAddedValue();
 };
 
 /**

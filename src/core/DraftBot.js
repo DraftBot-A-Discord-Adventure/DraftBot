@@ -1,5 +1,7 @@
 import {DraftBotBackup} from "./backup/DraftBotBackup";
 import {Intents} from "discord.js";
+import {Entities} from "./models/Entity";
+import Potion from "./models/Potion";
 
 const fs = require("fs");
 
@@ -95,7 +97,7 @@ class DraftBot {
 		});
 		let potion;
 
-		potion = await Potions.findAll({
+		potion = await Potion.findAll({
 			order: sequelize.literal("random()")
 		});
 		let i = 0;

@@ -1,5 +1,8 @@
 import {Constants} from "../Constants";
 import {Armors} from "./Armor";
+import {Weapons} from "./Weapon";
+import {Potions} from "./Potion";
+import {ObjectItems} from "./ObjectItem";
 
 const moment = require("moment");
 
@@ -49,25 +52,13 @@ module.exports = (Sequelize, DataTypes) => {
 	InventorySlots.prototype.getItem = async function() {
 		switch (this.itemCategory) {
 		case Constants.ITEM_CATEGORIES.WEAPON:
-			return await Weapons.findOne({
-				where: {
-					id: this.itemId
-				}
-			});
+			return await Weapons.getById(this.itemId);
 		case Constants.ITEM_CATEGORIES.ARMOR:
 			return await Armors.getById(this.itemId);
 		case Constants.ITEM_CATEGORIES.POTION:
-			return await Potions.findOne({
-				where: {
-					id: this.itemId
-				}
-			});
+			return await Potions.getById(this.itemId);
 		case Constants.ITEM_CATEGORIES.OBJECT:
-			return await Objects.findOne({
-				where: {
-					id: this.itemId
-				}
-			});
+			return await ObjectItems.getById(this.itemId);
 		default: return Promise.resolve(null);
 		}
 	};

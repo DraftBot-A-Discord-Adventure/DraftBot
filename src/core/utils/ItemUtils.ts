@@ -7,16 +7,16 @@ import {Constants} from "../Constants";
 import {format} from "./StringFormatter";
 import {Random} from "random-js";
 import {Armors} from "../models/Armor";
+import {Weapons} from "../models/Weapon";
+import {Potions} from "../models/Potion";
+import {ObjectItems} from "../models/ObjectItem";
+import {Entities} from "../models/Entity";
 
 declare const InventorySlots: any;
-declare const Entities: any;
 declare const JsonReader: any;
 declare function removeBlockedPlayer(id: string): void;
 declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any, any[]>): void;
 declare const draftbotRandom: Random;
-declare const Weapons: any;
-declare const Potions: any;
-declare const Objects: any;
 
 // eslint-disable-next-line max-params
 export const giveItemToPlayer = async function(
@@ -257,28 +257,16 @@ export const generateRandomItem = async function(maxRarity = 8, itemCategory: nu
 	switch (itemCategory) {
 	case Constants.ITEM_CATEGORIES.WEAPON:
 		itemsIds = await Weapons.getAllIdsForRarity(rarity);
-		return await Weapons.findOne({
-			where: {
-				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
-			}
-		});
+		return await Weapons.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case Constants.ITEM_CATEGORIES.ARMOR:
 		itemsIds = await Armors.getAllIdsForRarity(rarity);
 		return await Armors.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case Constants.ITEM_CATEGORIES.POTION:
 		itemsIds = await Potions.getAllIdsForRarity(rarity);
-		return await Potions.findOne({
-			where: {
-				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
-			}
-		});
+		return await Potions.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	case Constants.ITEM_CATEGORIES.OBJECT:
-		itemsIds = await Objects.getAllIdsForRarity(rarity);
-		return await Objects.findOne({
-			where: {
-				id: itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id
-			}
-		});
+		itemsIds = await ObjectItems.getAllIdsForRarity(rarity);
+		return await ObjectItems.getById(itemsIds[draftbotRandom.integer(0, itemsIds.length - 1)].id);
 	default:
 		return null;
 	}
@@ -343,14 +331,14 @@ export const generateRandomPotion = async function(potionType: number = null, ma
  * Generate a random object
  * @param {number} maxRarity
  * @param {number} objectType
- * @returns {Objects} generated object
+ * @returns {ObjectItem} generated object
  */
 export const generateRandomObject = async function(objectType: number = null, maxRarity = 8) {
 	if (objectType === null) {
 		return this.generateRandomItem(maxRarity, Constants.ITEM_CATEGORIES.OBJECT);
 	}
 	const rarity = generateRandomRarity(maxRarity);
-	return await Objects.randomItem(objectType, rarity);
+	return await ObjectItems.randomItem(objectType, rarity);
 };
 
 /**

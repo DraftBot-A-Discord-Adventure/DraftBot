@@ -2,6 +2,7 @@ import {DraftBotShopMessageBuilder, ShopItem, ShopItemCategory} from "../../core
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {Translations} from "../../core/Translations";
+import {Entities} from "../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "guildshop",
