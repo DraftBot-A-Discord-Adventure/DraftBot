@@ -76,4 +76,8 @@ export abstract class Constants {
 		DATABASE_BACKUP_INTERVAL: 12 * 60 * 60 * 1000,
 		LOCAL_SPACE_LIMIT: 500 * 1024 * 1024
 	}
+
+	static readonly REPORT = {
+		QUICK_END_EMOTE: "🔚"
+	};
 }

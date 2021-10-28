@@ -7,6 +7,8 @@
  *    The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
+import {GuildPets} from "../models/GuildPet";
+
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
 	const pet = await PetEntities.generateRandomPetEntityNotGuild();

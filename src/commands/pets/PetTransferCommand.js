@@ -1,5 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
+import {GuildPets} from "../../core/models/GuildPet";
 
 module.exports.commandInfo = {
 	name: "pettransfer",

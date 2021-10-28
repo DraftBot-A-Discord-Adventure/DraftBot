@@ -10,6 +10,11 @@ import Pet from "./models/Pet";
 import MissionSlot from "./models/MissionSlot";
 import Mission from "./models/Mission";
 import PlayerMissionsInfo from "./models/PlayerMissionsInfo";
+import EventMapLocationId from "./models/EventMapLocationId";
+import BigEvent from "./models/BigEvent";
+import Possibility from "./models/Possibility";
+import GuildPet from "./models/GuildPet";
+import MapLocation from "./models/MapLocation";
 
 const fs = require("fs");
 const path = require("path");
@@ -203,13 +208,13 @@ class Database {
 			as: "PlayerSmallEvents"
 		});
 
-		MapLinks.hasOne(MapLocations, {
+		MapLinks.hasOne(MapLocation, {
 			foreignKey: "id",
 			sourceKey: "startMap",
 			as: "StartMap"
 		});
 
-		MapLinks.hasOne(MapLocations, {
+		MapLinks.hasOne(MapLocation, {
 			foreignKey: "id",
 			sourceKey: "endMap",
 			as: "EndMap"
@@ -224,7 +229,7 @@ class Database {
 			sourceKey: "chiefId",
 			as: "Chief"
 		});
-		Guilds.hasMany(GuildPets, {
+		Guilds.hasMany(GuildPet, {
 			foreignKey: "guildId",
 			as: "GuildPets"
 		});
@@ -234,12 +239,12 @@ class Database {
 			as: "PetEntity"
 		});
 
-		Events.hasMany(Possibilities, {
+		BigEvent.hasMany(Possibility, {
 			foreignKey: "eventId",
 			as: "Possibilities"
 		});
 
-		Possibilities.belongsTo(Events, {
+		Possibility.belongsTo(BigEvent, {
 			foreignKey: "eventId",
 			as: "Event"
 		});
@@ -310,8 +315,8 @@ class Database {
 		}
 
 		// Handle special case Events & Possibilities
-		await Events.destroy({truncate: true});
-		await EventMapLocationIds.destroy({truncate: true});
+		await BigEvent.destroy({truncate: true});
+		await EventMapLocationId.destroy({truncate: true});
 		await Possibilities.destroy({truncate: true});
 
 		const files = await fs.promises.readdir("resources/text/events");
@@ -378,8 +383,8 @@ class Database {
 			}
 		}
 
-		await Events.bulkCreate(eventsContent);
-		await EventMapLocationIds.bulkCreate(eventsMapLocationsContent);
+		await BigEvent.bulkCreate(eventsContent);
+		await EventMapLocationId.bulkCreate(eventsMapLocationsContent);
 		await Possibilities.bulkCreate(possibilitiesContent);
 	}
 

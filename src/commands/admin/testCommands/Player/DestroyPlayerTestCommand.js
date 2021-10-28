@@ -1,4 +1,5 @@
-import {Entities} from "../../../../core/models/Entity";
+import InventoryInfo from "../../../../core/models/InventoryInfo";
+import Entity, {Entities} from "../../../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "destroyplayer",
@@ -31,7 +32,7 @@ const destroyPlayerTestCommand = async (language, message) => {
 			entityId: entity.id
 		}
 	});
-	Entities.destroy({
+	Entity.destroy({
 		where: {
 			id: entity.id
 		}

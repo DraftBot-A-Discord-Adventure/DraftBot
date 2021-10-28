@@ -1,3 +1,5 @@
+import {BigEvents} from "../../../../core/models/BigEvent";
+
 module.exports.commandInfo = {
 	name: "forcereport",
 	aliases: ["fr", "forcer"],
@@ -19,7 +21,7 @@ const CT = require("../../../../core/CommandsTest");
  * @return {String} - The successful message formatted
  */
 const forceReportTestCommand = async (language, message, args) => {
-	const idMaxEvents = await Events.getIdMaxEvents();
+	const idMaxEvents = await BigEvents.getIdMaxEvents();
 	if ((args[0] > idMaxEvents || args[0] <= 0) && args[0] !== "-1") {
 		throw new Error("Erreur forcereport : id invalide ! Id d'event attendu -1 ou compris entre 1 et " + idMaxEvents);
 	}

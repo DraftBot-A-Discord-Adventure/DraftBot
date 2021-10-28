@@ -1,6 +1,8 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {giveRandomItem} from "../../core/utils/ItemUtils";
 import {Entities} from "../../core/models/Entity";
+import {Events} from "../../core/models/Event";
+import BigEvent, {BigEvents} from "../../core/models/BigEvent";
 
 const Maps = require("../../core/Maps");
 
@@ -21,7 +23,7 @@ module.exports.commandInfo = {
 const ReportCommand = async (message, language, args, forceSpecificEvent = -1, forceSmallEvent = null) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
-		const event = await Events.findOne({where: {id: 0}});
+		const event = await BigEvent.findOne({where: {id: 0}});
 		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
 	}
 
@@ -81,14 +83,14 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 
 	if (forceSpecificEvent === -1) {
 		const map = await entity.Player.getDestination();
-		[event] = await Events.pickEventOnMapType(map);
+		[event] = await BigEvents.pickEventOnMapType(map);
 		if (!event) {
 			await message.channel.send({ content: "It seems that there is no event here... It's a bug, please report it to the Draftbot staff." });
 			return;
 		}
 	}
 	else {
-		event = await Events.findOne({where: {id: forceSpecificEvent}});
+		event = await BigEvent.findOne({where: {id: forceSpecificEvent}});
 	}
 	await Maps.stopTravel(entity.Player);
 	return await doEvent(message, language, event, entity, time);
