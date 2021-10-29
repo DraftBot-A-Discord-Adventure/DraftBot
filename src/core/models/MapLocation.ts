@@ -3,6 +3,7 @@ import {
 	Model,
 	DataTypes
 } from "sequelize";
+import moment = require("moment");
 
 export class MapLocation extends Model {
 	public id!: number;
@@ -35,7 +36,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	MapLocation.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

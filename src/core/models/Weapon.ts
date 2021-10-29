@@ -5,6 +5,7 @@ import {
 import fs = require("fs");
 import {Constants} from "../Constants";
 import {MainItemModel, MainItemModelAttributes} from "./MainItemModel";
+import moment = require("moment");
 
 export class Weapon extends MainItemModel {
 	categoryName = "weapons";
@@ -68,7 +69,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	Weapon.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Classes} from "../../core/models/Class";
 import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
 
 module.exports.commandInfo = {
 	name: "profile",

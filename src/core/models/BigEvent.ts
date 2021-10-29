@@ -8,6 +8,7 @@ import {Constants} from "../Constants";
 import Possibility from "./Possibility";
 import MapLocation from "./MapLocation";
 import * as fs from "fs";
+import moment = require("moment");
 
 export class BigEvent extends Model {
 	public id!: number;
@@ -95,7 +96,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	BigEvent.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

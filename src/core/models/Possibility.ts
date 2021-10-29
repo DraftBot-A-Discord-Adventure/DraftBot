@@ -3,6 +3,7 @@ import {
 	Model,
 	DataTypes
 } from "sequelize";
+import moment = require("moment");
 
 export class Possibility extends Model {
 	public possibilityKey!: string;
@@ -33,7 +34,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	Possibility.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

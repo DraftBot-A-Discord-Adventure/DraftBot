@@ -3,6 +3,8 @@ import {
 	Model,
 	DataTypes
 } from "sequelize";
+import PetEntity from "./PetEntity";
+import moment = require("moment");
 
 export class GuildPet extends Model {
 	public id!: number;
@@ -14,6 +16,9 @@ export class GuildPet extends Model {
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
+
+
+	public PetEntity: PetEntity;
 }
 
 export class GuildPets {
@@ -50,7 +55,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	GuildPet.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

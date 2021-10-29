@@ -1,3 +1,5 @@
+import {Guilds} from "../models/Guild";
+
 const doNothing = require("./doNothingSmallEvent");
 
 /**

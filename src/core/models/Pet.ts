@@ -3,6 +3,7 @@ import {
 	Model,
 	DataTypes
 } from "sequelize";
+import moment = require("moment");
 
 export class Pet extends Model {
 	public updatedAt!: Date;
@@ -31,7 +32,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	Pet.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

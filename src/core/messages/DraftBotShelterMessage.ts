@@ -4,7 +4,6 @@ import {EmbedFieldData} from "discord.js";
 declare const JsonReader: any;
 declare function format(s: string, replacement: any): string;
 declare const PetEntities: any;
-declare const Guilds: any;
 
 /**
  * Shelter embed
@@ -80,7 +79,7 @@ export class DraftBotShelterMessageBuilder {
 			}
 		}
 
-		if (Guilds.isPetShelterFull(this._guild)) {
+		if (this._guild.isPetShelterFull()) {
 			description = JsonReader.commands.guildShelter.getTranslation(this._language).warningFull;
 		}
 

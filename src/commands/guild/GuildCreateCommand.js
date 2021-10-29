@@ -15,6 +15,7 @@ module.exports.commandInfo = {
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import Guild, {Guilds} from "../../core/models/Guild";
 
 const GuildCreateCommand = async (message, language, args) => {
 	let guild;
@@ -93,7 +94,7 @@ const GuildCreateCommand = async (message, language, args) => {
 				return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildCreate.getTranslation(language).notEnoughMoney);
 			}
 
-			const newGuild = await Guilds.create({
+			const newGuild = await Guild.create({
 				name: askedName,
 				chiefId: entity.id
 			});

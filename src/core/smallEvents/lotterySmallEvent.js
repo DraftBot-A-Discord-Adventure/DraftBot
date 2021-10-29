@@ -8,6 +8,7 @@
  */
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
+import {Guilds} from "../models/Guild";
 const Maps = require("../Maps");
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {

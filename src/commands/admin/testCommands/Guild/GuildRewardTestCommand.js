@@ -1,4 +1,6 @@
 import {Entities} from "../../../../core/models/Entity";
+import Guild from "../../../../core/models/Guild";
+import {format} from "../../../../core/utils/StringFormatter";
 
 let stringDesc = "Force un gd avec une sortie donnée. Liste des sorties possibles : ";
 Object.entries(REWARD_TYPES).forEach((v) => stringDesc += "\n - " + v[1]); // eslint-disable-line no-return-assign
@@ -24,7 +26,7 @@ const guildRewardTestCommand = async (language, message, args) => {
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	const guild = await Guilds.findOne({where: {id: entity.Player.guildId}});
+	const guild = await Guild.findOne({where: {id: entity.Player.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur greward : vous n'êtes pas dans une guilde !");
 	}

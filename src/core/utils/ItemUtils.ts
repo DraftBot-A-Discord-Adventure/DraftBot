@@ -11,8 +11,8 @@ import {Weapons} from "../models/Weapon";
 import {Potions} from "../models/Potion";
 import {ObjectItems} from "../models/ObjectItem";
 import {Entities} from "../models/Entity";
+import InventorySlot from "../models/InventorySlot";
 
-declare const InventorySlots: any;
 declare const JsonReader: any;
 declare function removeBlockedPlayer(id: string): void;
 declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any, any[]>): void;
@@ -181,7 +181,7 @@ const sellOrKeepItem = async function(
 		menuEmbed.formatAuthor(tr.get("acceptedTitle"), discordUser)
 			.setDescription(item.toString(language));
 
-		await InventorySlots.update(
+		await InventorySlot.update(
 			{
 				itemId: item.id
 			},

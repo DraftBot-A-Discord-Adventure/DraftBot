@@ -9,6 +9,7 @@ import PlayerSmallEvent from "./PlayerSmallEvent";
 import MissionSlot from "./MissionSlot";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import InventoryInfo from "./InventoryInfo";
+import moment = require("moment");
 
 export class Player extends Model {
 	public readonly entityId!: number;
@@ -71,7 +72,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	Player.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

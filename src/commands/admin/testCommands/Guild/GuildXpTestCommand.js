@@ -1,4 +1,6 @@
 import {Entities} from "../../../../core/models/Entity";
+import Guild from "../../../../core/models/Guild";
+import {format} from "../../../../core/utils/StringFormatter";
 
 module.exports.commandInfo = {
 	name: "guildxp",
@@ -20,7 +22,7 @@ module.exports.commandInfo = {
  */
 const guildXpTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	const guild = await Guilds.findOne({where: {id: entity.Player.guildId}});
+	const guild = await Guild.findOne({where: {id: entity.Player.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur gxp : vous n'êtes pas dans une guilde !");
 	}

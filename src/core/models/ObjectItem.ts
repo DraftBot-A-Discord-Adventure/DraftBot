@@ -8,6 +8,7 @@ import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
 import {minutesDisplay} from "../utils/TimeUtils";
+import moment = require("moment");
 
 export class ObjectItem extends SupportItemModel {
 	categoryName = "objects";
@@ -94,7 +95,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	ObjectItem.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

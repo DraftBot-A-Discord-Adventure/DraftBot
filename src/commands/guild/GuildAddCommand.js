@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
 
 module.exports.commandInfo = {
 	name: "guildadd",

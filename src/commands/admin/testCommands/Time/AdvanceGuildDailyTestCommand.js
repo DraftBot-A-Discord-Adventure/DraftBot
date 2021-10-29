@@ -20,7 +20,7 @@ module.exports.commandInfo = {
  */
 const advanceGuildDailyTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	const guild = await Guilds.findOne({where: {id: entity.Player.guildId}});
+	const guild = await Guild.findOne({where: {id: entity.Player.guildId}});
 	if (guild === null) {
 		throw new Error("Erreur agd : vous n'êtes pas dans une guilde !");
 	}

@@ -8,6 +8,7 @@ import {SupportItemModel, SupportItemModelAttributes} from "./SupportItemModel";
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
 import ObjectItem from "./ObjectItem";
+import moment = require("moment");
 
 export class Potion extends SupportItemModel {
 	categoryName = "potions";
@@ -91,7 +92,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	Potion.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

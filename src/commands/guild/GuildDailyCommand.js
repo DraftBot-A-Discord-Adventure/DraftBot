@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 import {GuildPets} from "../../core/models/GuildPet";
+import {Guilds} from "../../core/models/Guild";
 
 const Maps = require("../../core/Maps");
 
@@ -223,7 +224,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		log("GuildDaily of guild " + guild.name + ": got alteration heal");
 	}
 
-	if (!Guilds.isPetShelterFull(guild) && draftbotRandom.realZeroToOneInclusive() <= 0.01) {
+	if (!guild.isPetShelterFull() && draftbotRandom.realZeroToOneInclusive() <= 0.01) {
 		const pet = await PetEntities.generateRandomPetEntity(guild.level);
 		await pet.save();
 		await (await GuildPets.addPet(guild.id, pet.id)).save();

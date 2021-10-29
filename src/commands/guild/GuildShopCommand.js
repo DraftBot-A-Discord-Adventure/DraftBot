@@ -3,6 +3,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {Translations} from "../../core/Translations";
 import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
 
 module.exports.commandInfo = {
 	name: "guildshop",

@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/models/Entity";
+import Guild from "../../../../core/models/Guild";
 
 module.exports.commandInfo = {
 	name: "forcejoinguild",
@@ -21,12 +22,12 @@ module.exports.commandInfo = {
 const forceJoinGuildTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
-	const guildToJoin = await Guilds.findOne({where: {id: args[0]}});
+	const guildToJoin = await Guild.findOne({where: {id: args[0]}});
 	if (guildToJoin === null) {
 		throw new Error("Erreur forcejoinguild : pas de guilde avec cet id !");
 	}
 
-	const guildToLeave = await Guilds.findOne({where: {id: entity.Player.guildId}});
+	const guildToLeave = await Guild.findOne({where: {id: entity.Player.guildId}});
 	if (guildToLeave !== null && guildToLeave !== undefined) {
 		if (guildToJoin.id === guildToLeave.id) {
 			throw new Error("Erreur forcejoinguild : vous êtes déjà dans la guilde donnée !");
@@ -37,7 +38,7 @@ const forceJoinGuildTestCommand = async (language, message, args) => {
 	}
 	if (guildToLeave && guildToLeave.chiefId === entity.Player.id) {
 		// the chief is leaving : destroy the guild
-		await Guilds.destroy({
+		await Guild.destroy({
 			where: {
 				id: guildToLeave.id
 			}

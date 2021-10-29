@@ -108,7 +108,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	InventoryInfo.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

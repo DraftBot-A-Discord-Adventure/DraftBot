@@ -14,6 +14,7 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 import {DraftBotShelterMessageBuilder} from "../../core/messages/DraftBotShelterMessage";
+import {Guilds} from "../../core/models/Guild";
 
 const GuildShelterCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);

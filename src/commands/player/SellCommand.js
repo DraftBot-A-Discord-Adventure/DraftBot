@@ -19,6 +19,7 @@ import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {sortPlayerItemList} from "../../core/utils/ItemUtils";
+import InventorySlot from "../../core/models/InventorySlot";
 
 const SellCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
@@ -63,7 +64,7 @@ const SellCommand = async (message, language) => {
 		if (validateMessage.isValidated()) {
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
 			const money = item.value;
-			await InventorySlots.destroy({
+			await InventorySlot.destroy({
 				where: {
 					playerId: entity.Player.id,
 					slot: item.slot,

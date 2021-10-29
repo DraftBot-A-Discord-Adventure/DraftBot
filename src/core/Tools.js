@@ -2,6 +2,7 @@ import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {format} from "./utils/StringFormatter";
 import * as ItemUtils from "../core/utils/ItemUtils";
+import {Guilds} from "./models/Guild";
 
 global.draftbotRandom = new (require("random-js")).Random();
 

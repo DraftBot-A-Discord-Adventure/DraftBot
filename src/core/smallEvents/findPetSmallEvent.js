@@ -8,6 +8,8 @@
  * @returns {Promise<>}
  */
 import {GuildPets} from "../models/GuildPet";
+import {PetEntities} from "../models/PetEntity";
+import {Guilds} from "../models/Guild";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
@@ -26,7 +28,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
 	const base = JsonReader.smallEvents.findPet.emote + " "
 		+ translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)];
-	const noRoomInGuild = guild === null ? true : await Guilds.isPetShelterFull(guild);
+	const noRoomInGuild = guild === null ? true : guild.isPetShelterFull();
 	const seEmbedPetObtention = seEmbed;
 	const trad = JsonReader.smallEvents.findPet.getTranslation(language);
 

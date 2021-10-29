@@ -4,6 +4,7 @@ import {
 	DataTypes
 } from "sequelize";
 import {Translations} from "../Translations";
+import moment = require("moment");
 
 export class Class extends Model {
 	public readonly id!: number;
@@ -154,7 +155,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	Class.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

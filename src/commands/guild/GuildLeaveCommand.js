@@ -15,6 +15,7 @@ module.exports.commandInfo = {
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import Guild, {Guilds} from "../../core/models/Guild";
 
 const GuildLeaveCommand = async (message, language) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -73,7 +74,7 @@ const GuildLeaveCommand = async (message, language) => {
 						pet.PetEntity.destroy();
 						pet.destroy();
 					}
-					await Guilds.destroy({
+					await Guild.destroy({
 						where: {
 							id: guild.id
 						}

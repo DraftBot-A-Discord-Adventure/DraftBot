@@ -1,6 +1,6 @@
 import {DraftBotBackup} from "./backup/DraftBotBackup";
 import {Intents} from "discord.js";
-import {Entities} from "./models/Entity";
+import Entity, {Entities} from "./models/Entity";
 import Potion from "./models/Potion";
 
 const fs = require("fs");
@@ -146,7 +146,7 @@ class DraftBot {
 	 * @return {Promise<void>}
 	 */
 	static async topWeekEnd() {
-		const winner = await Entities.findOne({
+		const winner = await Entity.findOne({
 			defaults: {
 				Player: {
 					Inventory: {}

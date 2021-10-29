@@ -16,6 +16,7 @@ module.exports.commandInfo = {
  */
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Guilds} from "../../core/models/Guild";
 
 const GuildKickCommand = async (message, language, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);

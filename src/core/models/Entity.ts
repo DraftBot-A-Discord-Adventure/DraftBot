@@ -19,6 +19,7 @@ import Armor from "./Armor";
 import Weapon from "./Weapon";
 import Potion from "./Potion";
 import ObjectItem from "./ObjectItem";
+import moment = require("moment");
 
 export class Entity extends Model {
 	public readonly id!: number;
@@ -351,7 +352,7 @@ export function initModel(sequelize: Sequelize) {
 	});
 
 	Entity.beforeSave(instance => {
-		instance.updatedAt = require("moment")().format("YYYY-MM-DD HH:mm:ss");
+		instance.updatedAt = moment().toDate();
 	});
 }
 

@@ -1,5 +1,6 @@
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {Entities} from "./models/Entity";
+import {Guilds} from "./models/Guild";
 
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");

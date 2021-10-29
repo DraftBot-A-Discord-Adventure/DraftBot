@@ -1,5 +1,8 @@
 import {Entities} from "../../../../core/models/Entity";
 import {GuildPets} from "../../../../core/models/GuildPet";
+import {PetEntities} from "../../../../core/models/PetEntity";
+import {Guilds} from "../../../../core/models/Guild";
+import {format} from "../../../../core/utils/StringFormatter";
 
 module.exports.commandInfo = {
 	name: "guildpet",
@@ -29,7 +32,7 @@ const guildPetTestCommand = async (language, message, args) => {
 		throw new Error("Erreur guildpet : Vous n'avez pas de guilde !");
 	}
 
-	if (Guilds.isPetShelterFull(guild)) {
+	if (guild.isPetShelterFull()) {
 		throw new Error("Erreur guildpet : Plus de place dans le shelter !");
 	}
 
