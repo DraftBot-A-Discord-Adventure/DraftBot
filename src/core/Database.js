@@ -550,7 +550,7 @@ class Database {
 
 	static async verifyMaps() {
 		const dict = {};
-		for (const map of await MapLocations.findAll()) {
+		for (const map of await MapLocation.findAll()) {
 			dict[map.id] = map;
 		}
 		const keys = Object.keys(dict);

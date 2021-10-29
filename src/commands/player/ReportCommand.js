@@ -3,6 +3,8 @@ import {giveRandomItem} from "../../core/utils/ItemUtils";
 import {Entities} from "../../core/models/Entity";
 import {Events} from "../../core/models/Event";
 import BigEvent, {BigEvents} from "../../core/models/BigEvent";
+import {MapLinks} from "../../core/models/MapLink";
+import {MapLocations} from "../../core/models/MapLocation";
 
 const Maps = require("../../core/Maps");
 

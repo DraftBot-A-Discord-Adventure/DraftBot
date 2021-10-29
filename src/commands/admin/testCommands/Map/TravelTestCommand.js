@@ -1,4 +1,6 @@
 import {Entities} from "../../../../core/models/Entity";
+import {MapLocations} from "../../../../core/models/MapLocation";
+import {MapLinks} from "../../../../core/models/MapLink";
 
 module.exports.commandInfo = {
 	name: "travel",

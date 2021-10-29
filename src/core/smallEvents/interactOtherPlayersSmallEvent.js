@@ -10,6 +10,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Classes} from "../models/Class";
 import {Entities} from "../models/Entity";
 import {Guilds} from "../models/Guild";
+import {MapLocations} from "../models/MapLocation";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;

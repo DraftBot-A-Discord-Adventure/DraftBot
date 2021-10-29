@@ -1,3 +1,6 @@
+import {MapLinks} from "./models/MapLink";
+import {MapLocations} from "./models/MapLocation";
+
 class Maps {
 
 	/**

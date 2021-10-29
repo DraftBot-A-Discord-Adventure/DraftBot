@@ -1,5 +1,6 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 import {Entities} from "../../../../core/models/Entity";
+import {MapLocations} from "../../../../core/models/MapLocation";
 
 module.exports.commandInfo = {
 	name: "mapinfo",

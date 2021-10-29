@@ -1,3 +1,5 @@
+import {MapLinks} from "../../core/models/MapLink";
+
 const Maps = require("../../core/Maps");
 import {Entities} from "../../core/models/Entity";
 
