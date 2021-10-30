@@ -3,6 +3,7 @@ import {GuildPets} from "../../../../core/models/GuildPet";
 import {PetEntities} from "../../../../core/models/PetEntity";
 import {Guilds} from "../../../../core/models/Guild";
 import {format} from "../../../../core/utils/StringFormatter";
+import {Pets} from "../../../../core/models/Pet";
 
 module.exports.commandInfo = {
 	name: "guildpet",
@@ -53,7 +54,7 @@ const guildPetTestCommand = async (language, message, args) => {
 	const newPet = guild.GuildPets[guild.GuildPets.length - 1];
 	return format(
 		module.exports.commandInfo.messageWhenExecuted, {
-			petString: await PetEntities.getPetDisplay(newPet.PetEntity, language)
+			petString: await newPet.PetEntity.getPetDisplay(language)
 		}
 	);
 };

@@ -24,7 +24,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		guild = null;
 	}
 
-	const petLine = await PetEntities.displayName(pet, language);
+	const petLine = await pet.displayName(language);
 	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
 	const base = JsonReader.smallEvents.findPet.emote + " "
 		+ translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)];
@@ -56,8 +56,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		generateRoomEmbed(seEmbed, base, trad, petLine, pet, true);
 		message.channel.send({ embeds: [seEmbed] });
 		seEmbedPetObtention.setDescription(format(trad.petObtentionGuild, {
-			emote: PetEntities.getPetEmote(pet),
-			pet: PetEntities.getPetTypeName(pet, language)
+			emote: pet.getPetEmote(),
+			pet: pet.getPetTypeName(language)
 		}));
 		await message.channel.send({ embeds: [seEmbedPetObtention] });
 	}
@@ -69,8 +69,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		generateRoomEmbed(seEmbed, base, trad, petLine, pet, false);
 		message.channel.send({ embeds: [seEmbed] });
 		seEmbedPetObtention.setDescription(format(trad.petObtentionPlayer, {
-			emote: PetEntities.getPetEmote(pet),
-			pet: PetEntities.getPetTypeName(pet, language)
+			emote: pet.getPetEmote(),
+			pet: pet.getPetTypeName(language)
 		}));
 		await message.channel.send({ embeds: [seEmbedPetObtention] });
 	}

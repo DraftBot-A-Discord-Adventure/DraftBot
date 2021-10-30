@@ -135,9 +135,9 @@ const ProfileCommand = async (message, language, args) => {
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).pet.fieldName,
 				value: format(JsonReader.commands.profile.getTranslation(language).pet.fieldValue, {
-					rarity: Pets.getRarityDisplay(pet.PetModel),
-					emote: PetEntities.getPetEmote(pet),
-					nickname: pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)
+					rarity: pet.PetModel.getRarityDisplay(),
+					emote: pet.getPetEmote(),
+					nickname: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
 				}),
 				inline: false
 			});

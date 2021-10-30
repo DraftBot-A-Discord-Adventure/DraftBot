@@ -48,7 +48,7 @@ const PetFeedCommand = async (message, language) => {
 			message.channel,
 			language,
 			format(tr.getTranslation(language).notHungry, {
-				petnick: await PetEntities.displayName(authorPet, language)
+				petnick: await authorPet.displayName(language)
 			})
 		);
 	}
@@ -140,7 +140,7 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 		.formatAuthor(tr.getTranslation(language).feedEmbedTitle2, message.author);
 	feedEmbed.setDescription(
 		format(tr.getTranslation(language).feedEmbedDescription2, {
-			petnick: await PetEntities.displayName(authorPet, language)
+			petnick: await authorPet.displayName(language)
 		})
 	);
 	feedEmbed.setFooter(tr.getTranslation(language).feedEmbedFooter);
@@ -190,19 +190,13 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 		const feedSuccessEmbed = new DraftBotEmbed();
 		if (language === LANGUAGE.FRENCH) {
 			feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
-				petnick: await PetEntities.displayName(
-					authorPet,
-					language
-				),
+				petnick: await authorPet.displayName(language),
 				typeSuffix: authorPet.sex === PETS.FEMALE ? "se" : "x"
 			});
 		}
 		else {
 			feedSuccessEmbed.description = format(tr.getTranslation(language).description["1"], {
-				petnick: await PetEntities.displayName(
-					authorPet,
-					language
-				)
+				petnick: await authorPet.displayName(language)
 			});
 		}
 		return message.channel.send({ embeds: [feedSuccessEmbed] });
@@ -248,7 +242,7 @@ async function feedPet(message, language, entity, pet, item) {
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
-						petnick: await PetEntities.displayName(pet, language),
+						petnick: await pet.displayName(language),
 						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
@@ -256,7 +250,7 @@ async function feedPet(message, language, entity, pet, item) {
 			else {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
-						petnick: await PetEntities.displayName(pet, language)
+						petnick: await pet.displayName(language)
 					})
 				);
 			}
@@ -265,7 +259,7 @@ async function feedPet(message, language, entity, pet, item) {
 			guild[item.type]--;
 			successEmbed.setDescription(
 				format(tr.getTranslation(language).description["0"], {
-					petnick: await PetEntities.displayName(pet, language)
+					petnick: await pet.displayName(language)
 				})
 			);
 		}
@@ -281,7 +275,7 @@ async function feedPet(message, language, entity, pet, item) {
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["1"], {
-						petnick: await PetEntities.displayName(pet, language),
+						petnick: await pet.displayName(language),
 						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
@@ -289,7 +283,7 @@ async function feedPet(message, language, entity, pet, item) {
 			else {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["1"], {
-						petnick: await PetEntities.displayName(pet, language)
+						petnick: await pet.displayName(language)
 					})
 				);
 			}
@@ -299,7 +293,7 @@ async function feedPet(message, language, entity, pet, item) {
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
-						petnick: await PetEntities.displayName(pet, language),
+						petnick: pet.displayName(language),
 						typeSuffix: pet.sex === PETS.FEMALE ? "se" : "x"
 					})
 				);
@@ -307,7 +301,7 @@ async function feedPet(message, language, entity, pet, item) {
 			else {
 				successEmbed.setDescription(
 					format(tr.getTranslation(language).description["2"], {
-						petnick: await PetEntities.displayName(pet, language)
+						petnick: await pet.displayName(language)
 					})
 				);
 			}
@@ -315,7 +309,7 @@ async function feedPet(message, language, entity, pet, item) {
 		case "ultimateFood":
 			successEmbed.setDescription(
 				format(tr.getTranslation(language).description["3"], {
-					petnick: await PetEntities.displayName(pet, language)
+					petnick: await pet.displayName(language)
 				})
 			);
 			break;

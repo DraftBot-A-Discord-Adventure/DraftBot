@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 import {GuildPets} from "../../core/models/GuildPet";
 import {Guilds} from "../../core/models/Guild";
+import {PetEntities} from "../../core/models/PetEntity";
 
 const Maps = require("../../core/Maps");
 
@@ -229,10 +230,10 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		await pet.save();
 		await (await GuildPets.addPet(guild.id, pet.id)).save();
 		embed.setDescription(embed.description + "\n\n" + format(JsonReader.commands.guildDaily.getTranslation(language).pet, {
-			emote: PetEntities.getPetEmote(pet),
-			pet: PetEntities.getPetTypeName(pet, language)
+			emote: pet.getPetEmote(),
+			pet: pet.getPetTypeName(language)
 		}));
-		log("GuildDaily of guild " + guild.name + ": got pet: " + PetEntities.getPetEmote(pet) + " " + PetEntities.getPetTypeName(pet, "en"));
+		log("GuildDaily of guild " + guild.name + ": got pet: " + pet.getPetEmote() + " " + pet.getPetTypeName("en"));
 	}
 
 	await message.channel.send({ embeds: [embed] });

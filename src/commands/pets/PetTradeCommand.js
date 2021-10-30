@@ -95,10 +95,10 @@ const PetTradeCommand = async (message, language) => {
 		.setFooter(JsonReader.commands.petTrade.getTranslation(language).warningTradeReset)
 		.addField(format(JsonReader.commands.petTrade.getTranslation(language).petOfTrader, {
 			trader: await trader1.Player.getPseudo(language)
-		}), await PetEntities.getPetDisplay(pet1, language), true)
+		}), await pet1.getPetDisplay(language), true)
 		.addField(format(JsonReader.commands.petTrade.getTranslation(language).petOfTrader, {
 			trader: await trader2.Player.getPseudo(language)
-		}), await PetEntities.getPetDisplay(pet2, language), true)
+		}), await pet2.getPetDisplay(language), true)
 		.send(message.channel);
 
 	addBlockedPlayer(trader1.discordUserId, "petTrade", tradeMessage.collector);

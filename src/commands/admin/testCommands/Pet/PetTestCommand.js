@@ -1,4 +1,6 @@
 import {Entities} from "../../../../core/models/Entity";
+import {PetEntities} from "../../../../core/models/PetEntity";
+import {Pets} from "../../../../core/models/Pet";
 
 module.exports.commandInfo = {
 	name: "pet",
@@ -44,7 +46,7 @@ const petTestCommand = async (language, message, args) => {
 	[entity] = await Entities.getOrRegister(message.author.id); // recall needed to refresh the pet
 	return format(
 		module.exports.commandInfo.messageWhenExecuted, {
-			petString: await PetEntities.getPetDisplay(await entity.Player.Pet, language)
+			petString: await entity.Player.Pet.getPetDisplay(language)
 		}
 	);
 };

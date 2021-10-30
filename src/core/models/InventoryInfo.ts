@@ -9,7 +9,7 @@ import {Constants} from "../Constants";
 export class InventoryInfo extends Model {
 	public playerId!: number;
 
-	public lastDailyAt!: Date;
+	public lastDailyAt: Date;
 
 	public weaponSlots!: number;
 

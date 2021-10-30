@@ -49,7 +49,7 @@ const PetFreeCommand = async (message, language) => {
 	}
 
 	const confirmEmbed = new DraftBotEmbed();
-	const petField = PetEntities.getPetEmote(pPet) + " " + (pPet.nickname ? pPet.nickname : PetEntities.getPetTypeName(pPet, language));
+	const petField = pPet.getPetEmote() + " " + (pPet.nickname ? pPet.nickname : pPet.getPetTypeName(language));
 	confirmEmbed.formatAuthor(JsonReader.commands.petFree.getTranslation(language).successTitle, message.author);
 	confirmEmbed.setDescription(format(JsonReader.commands.petFree.getTranslation(language).confirmDesc, {
 		pet: petField

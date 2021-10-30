@@ -80,4 +80,20 @@ export abstract class Constants {
 	static readonly REPORT = {
 		QUICK_END_EMOTE: "🔚"
 	};
+
+	static readonly PETS = {
+		IS_FOOD: 1,
+		MALE: "m",
+		FEMALE: "f",
+		FREE_COOLDOWN: 60 * 60 * 1000, // 1 hour
+		BREED_COOLDOWN: 60 * 60 * 1000, // 1 hour
+		MAX_LOVE_POINTS: 100,
+		BASE_LOVE: 10,
+		GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT: 20,
+		LOVE_LEVELS: [5, 20, 50],
+		SELL: {
+			MIN: 100,
+			MAX: 50000
+		}
+	};
 }

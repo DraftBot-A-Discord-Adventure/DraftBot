@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/models/Entity";
+import {PetEntities} from "../../../../core/models/PetEntity";
 
 module.exports.commandInfo = {
 	name: "petlovepoints",
@@ -32,7 +33,7 @@ const petLovePointsTestCommand = async (language, message, args) => {
 	return format(
 		module.exports.commandInfo.messageWhenExecuted, {
 			love: args[0],
-			loveLevel: PetEntities.getLoveLevel(pet, language)
+			loveLevel: pet.getLoveLevel(language)
 		}
 	);
 };

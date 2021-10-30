@@ -82,9 +82,9 @@ const PetSellCommand = async (message, language, args) => {
 	fields.push({
 		name: translations.petFieldName,
 		value: format(JsonReader.commands.profile.getTranslation(language).pet.fieldValue, {
-			rarity: Pets.getRarityDisplay(pet.PetModel),
-			emote: PetEntities.getPetEmote(pet),
-			nickname: pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)
+			rarity: pet.PetModel.getRarityDisplay(),
+			emote: pet.getPetEmote(),
+			nickname: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
 		}),
 		inline: false
 	});
@@ -177,8 +177,8 @@ async function petSell(message, language, entity, user, pet, petCost) {
 		.formatAuthor(translations.confirmEmbed.author, user)
 		.setDescription(
 			format(translations.confirmEmbed.description, {
-				emote: await PetEntities.getPetEmote(pet),
-				pet: await pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language),
+				emote: await pet.getPetEmote(),
+				pet: await pet.nickname ? pet.nickname : pet.getPetTypeName(language),
 				price: petCost
 			})
 		);
@@ -249,8 +249,8 @@ async function petSell(message, language, entity, user, pet, petCost) {
 				.formatAuthor(translations.addPetEmbed.author, user);
 			addPetEmbed.setDescription(
 				format(translations.addPetEmbed.description, {
-					emote: await PetEntities.getPetEmote(pet),
-					pet: pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)
+					emote: await pet.getPetEmote(),
+					pet: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
 				})
 			);
 			await message.channel.send({ embeds: [guildXpEmbed] });

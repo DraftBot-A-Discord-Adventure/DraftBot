@@ -33,7 +33,7 @@ const MyPetCommand = async (message, language, args) => {
 				user.displayAvatarURL()
 			)
 			.setDescription(
-				await PetEntities.getPetDisplay(authorPet, language)
+				await authorPet.getPetDisplay(language)
 			)] });
 	}
 

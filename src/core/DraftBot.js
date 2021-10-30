@@ -2,6 +2,7 @@ import {DraftBotBackup} from "./backup/DraftBotBackup";
 import {Intents} from "discord.js";
 import Entity, {Entities} from "./models/Entity";
 import Potion from "./models/Potion";
+import PetEntity from "./models/PetEntity";
 
 const fs = require("fs");
 
@@ -124,7 +125,7 @@ class DraftBot {
 		const sequelize = require("sequelize");
 		if (draftbotRandom.bool()) {
 			console.log("INFO: All pets lost 4 loves point");
-			await PetEntities.update(
+			await PetEntity.update(
 				{
 					lovePoints: sequelize.literal(
 						"CASE WHEN lovePoints - 1 < 0 THEN 0 ELSE lovePoints - 4 END"
