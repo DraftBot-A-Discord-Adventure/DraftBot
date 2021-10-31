@@ -173,4 +173,11 @@ export abstract class Constants {
 		CONFOUNDED: ":confounded:",
 		SCARED: ":scream:"
 	};
+
+	static readonly MISSION = {
+		DAILY_MIN_DIFFICULTY: 1,
+		DAILY_MAX_DIFFICULTY: 3,
+		MIN_DIFFICULTY: 1,
+		MAX_DIFFICULTY: 10
+	}
 }

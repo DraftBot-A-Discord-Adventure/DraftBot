@@ -4,6 +4,7 @@ import {
 	DataTypes
 } from "sequelize";
 import moment = require("moment");
+import {datesAreOnSameDay} from "../utils/TimeUtils";
 
 export class PlayerMissionsInfo extends Model {
 	public readonly playerId!: number;
@@ -12,6 +13,8 @@ export class PlayerMissionsInfo extends Model {
 
 	public dailyMissionNumberDone!: number;
 
+	public lastDailyMissionCompleted!: Date;
+
 	public slotsCount!: number;
 
 	public campaignProgression!: number;
@@ -19,6 +22,11 @@ export class PlayerMissionsInfo extends Model {
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
+
+
+	public hasCompletedDailyMission(): boolean {
+		return this.lastDailyMissionCompleted && datesAreOnSameDay(this.lastDailyMissionCompleted, new Date());
+	}
 }
 
 export function initModel(sequelize: Sequelize) {
@@ -34,6 +42,10 @@ export function initModel(sequelize: Sequelize) {
 		dailyMissionNumberDone: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0
+		},
+		lastDailyMissionCompleted: {
+			type: DataTypes.DATE,
+			defaultValue: null
 		},
 		slotsCount: {
 			type: DataTypes.INTEGER,

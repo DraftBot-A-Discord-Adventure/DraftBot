@@ -4,6 +4,7 @@ import {
 	DataTypes
 } from "sequelize";
 import moment = require("moment");
+import {format} from "../utils/StringFormatter";
 
 export class Mission extends Model {
 	public readonly id!: string;
@@ -18,9 +19,46 @@ export class Mission extends Model {
 
 	public readonly xp!: number;
 
+	public readonly baseDifficulty!: number;
+
+	public readonly baseDuration!: number;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
+
+
+	public objectiveForDifficulty(difficulty: number): number {
+		return difficulty * this.baseDifficulty;
+	}
+
+	public durationForDifficulty(difficulty: number): number {
+		return difficulty * this.baseDuration;
+	}
+
+	public formatDescription(objective: number, language: string): string {
+		return format(language === "fr" ? this.descFr : this.descEn, {
+			objective
+		});
+	}
+}
+
+export class Missions {
+	static async getRandomMission(): Promise<Mission> {
+		return await Mission.findOne({
+			where: {
+				campaignOnly: false
+			}
+		});
+	}
+
+	static async getById(missionId: string): Promise<Mission> {
+		return await Mission.findOne({
+			where: {
+				id: missionId
+			}
+		});
+	}
 }
 
 export function initModel(sequelize: Sequelize) {
@@ -42,6 +80,12 @@ export function initModel(sequelize: Sequelize) {
 			type: DataTypes.INTEGER
 		},
 		xp: {
+			type: DataTypes.INTEGER
+		},
+		baseDifficulty: {
+			type: DataTypes.INTEGER
+		},
+		baseDuration: {
 			type: DataTypes.INTEGER
 		},
 		updatedAt: {

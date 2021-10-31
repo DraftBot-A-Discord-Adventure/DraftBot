@@ -438,6 +438,10 @@ export class Player extends Model {
 		const speedItemValue = playerClass.getSpeedValue(this.level);
 		return [attackItemValue, defenseItemValue, speedItemValue];
 	}
+
+	public hasEmptyMissionSlot(): boolean {
+		return this.MissionSlots.filter(slot => !slot.isCampaign()).length < this.MissionsInfo.slotsCount;
+	}
 }
 
 export class Players {

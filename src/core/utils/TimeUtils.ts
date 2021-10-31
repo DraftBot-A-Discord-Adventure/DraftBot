@@ -25,3 +25,8 @@ export const hoursToMilliseconds = (hours: number) => hours * 3600000;
 export const hoursToMinutes = (hours: number) => hours * 60;
 
 export const millisecondsToHours = (milliseconds: number) => milliseconds / 3600000;
+
+export const datesAreOnSameDay = (first: Date, second: Date) =>
+	first.getFullYear() === second.getFullYear() &&
+	first.getMonth() === second.getMonth() &&
+	first.getDate() === second.getDate();

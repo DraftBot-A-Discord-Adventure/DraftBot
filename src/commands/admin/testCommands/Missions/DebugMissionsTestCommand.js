@@ -23,6 +23,7 @@ const debugMissionsTestCommand = async (language, message, args) => {
 	embed.setTitle("Debug missions");
 	embed.addField("⚙️ General", "Mission slots: " + entity.Player.MissionsInfo.slotsCount
 		+ "\nDaily mission done: " + entity.Player.MissionsInfo.dailyMissionNumberDone
+		+ "\nLast daily mission done: " + entity.Player.MissionsInfo.lastDailyMissionCompleted
 		+ "\nGems count: " + entity.Player.MissionsInfo.gems
 		+ "\nCampaign progression: " + entity.Player.MissionsInfo.campaignProgression, false);
 	let missionsFieldContent = "";
@@ -31,7 +32,8 @@ const debugMissionsTestCommand = async (language, message, args) => {
 	}
 	else {
 		for (let i = 0; i < entity.Player.MissionSlots.length; ++i) {
-			missionsFieldContent += entity.Player.MissionSlots[i].Mission.descFr + " (id: " + entity.Player.MissionSlots[i].missionId +
+			missionsFieldContent += entity.Player.MissionSlots[i].Mission.formatDescription(entity.Player.MissionSlots[i].missionObjective, language) +
+					" (id: " + entity.Player.MissionSlots[i].missionId +
 				")\n-> Variant: " + entity.Player.MissionSlots[i].missionVariant +
 				"\n-> Number done: " + entity.Player.MissionSlots[i].numberDone +
 				"\n-> Objective: " + entity.Player.MissionSlots[i].missionObjective +

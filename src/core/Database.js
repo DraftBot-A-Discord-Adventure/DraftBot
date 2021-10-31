@@ -17,12 +17,12 @@ import GuildPet from "./models/GuildPet";
 import MapLocation from "./models/MapLocation";
 import Guild from "./models/Guild";
 import MapLink from "./models/MapLink";
-import Model from "sequelize";
 import Armor from "./models/Armor";
 import Weapon from "./models/Weapon";
 import ObjectItem from "./models/ObjectItem";
 import Potion from "./models/Potion";
 import Class from "./models/Class";
+import DailyMission from "./models/DailyMission";
 
 const fs = require("fs");
 const path = require("path");
@@ -306,6 +306,12 @@ class Database {
 		Player.hasOne(PlayerMissionsInfo, {
 			foreignKey: "playerId",
 			as: "MissionsInfo"
+		});
+
+		DailyMission.hasOne(Mission, {
+			sourceKey: "missionId",
+			foreignKey: "id",
+			as: "Mission"
 		});
 	}
 

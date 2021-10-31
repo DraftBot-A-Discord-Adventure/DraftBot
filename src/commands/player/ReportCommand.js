@@ -9,6 +9,7 @@ import {MapLocations} from "../../core/models/MapLocation";
 import {Maps} from "../../core/Maps";
 import {PlayerSmallEvents} from "../../core/models/PlayerSmallEvent";
 import Possibility from "../../core/models/Possibility";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "report",
@@ -431,8 +432,10 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		await chooseDestination(entity, message, language, pDataValues.restrictedMaps);
 	}
 
-	entity.save();
-	player.save();
+	await MissionsController.update(entity.Player, message.channel, language, "doReports");
+
+	await entity.save();
+	await player.save();
 
 	return resultMsg;
 };

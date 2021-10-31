@@ -9,7 +9,7 @@ import moment = require("moment");
 export class MissionSlot extends Model {
 	public readonly playerId!: number;
 
-	public missionId!: number;
+	public missionId!: string;
 
 	public missionVariant!: number;
 
@@ -25,10 +25,15 @@ export class MissionSlot extends Model {
 
 
 	public Mission: Mission;
-}
 
-export class MissionSlots {
 
+	public isCompleted(): boolean {
+		return this.numberDone >= this.missionObjective;
+	}
+
+	public isCampaign(): boolean {
+		return this.expiresAt === null;
+	}
 }
 
 export function initModel(sequelize: Sequelize) {
@@ -58,7 +63,8 @@ export function initModel(sequelize: Sequelize) {
 		},
 		createdAt: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: require("moment")().format("YYYY-MM-DD HH:mm:ss"),
+			primaryKey: true
 		}
 	}, {
 		sequelize,

@@ -9,5 +9,7 @@
 	},
 	"campaignOnly": false,
 	"gems": 2,
-	"xp": 20
+	"xp": 20,
+	"baseDifficulty": 1,
+	"baseDuration": 24
 }
