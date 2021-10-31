@@ -306,12 +306,18 @@ export class Player extends Model {
 		if (this.effect === Constants.EFFECT.SMILEY) {
 			return true;
 		}
+		if (!this.effectEndDate) {
+			return true;
+		}
 		return this.effectEndDate.getTime() < Date.now();
 	}
 
 	public effectRemainingTime(): number {
 		let remainingTime = 0;
 		if (Data.getModule("models.players").exists("effectMalus." + this.effect) || this.effect === Constants.EFFECT.OCCUPIED) {
+			if (!this.effectEndDate) {
+				return 0;
+			}
 			remainingTime = this.effectEndDate.getTime() - Date.now();
 		}
 		if (remainingTime < 0) {

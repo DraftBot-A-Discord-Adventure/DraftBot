@@ -5,6 +5,7 @@ import {ChoiceItem, DraftBotListChoiceMessage} from "../../core/messages/DraftBo
 import {Constants} from "../../core/Constants";
 import {sortPlayerItemList} from "../../core/utils/ItemUtils";
 import {Entities} from "../../core/models/Entity";
+import InventorySlot from "../../core/models/InventorySlot";
 
 const moment = require("moment");
 
@@ -66,7 +67,7 @@ const SwitchCommand = async (message, language) => {
 		const otherItemInstance = await otherItem.getItem();
 		await Promise.all([
 			otherItem.itemId === 0 ?
-				InventorySlots.destroy({
+				InventorySlot.destroy({
 					where: {
 						playerId: entity.Player.id,
 						itemCategory: item.item.itemCategory,
@@ -74,7 +75,7 @@ const SwitchCommand = async (message, language) => {
 					}
 				})
 				:
-				InventorySlots.update({
+				InventorySlot.update({
 					itemId: otherItem.itemId
 				}, {
 					where: {
@@ -83,7 +84,7 @@ const SwitchCommand = async (message, language) => {
 						slot: item.item.slot
 					}
 				}),
-			InventorySlots.update({
+			InventorySlot.update({
 				itemId: item.item.itemId
 			}, {
 				where: {

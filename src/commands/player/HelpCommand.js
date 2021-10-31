@@ -12,6 +12,7 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Servers} from "../../core/models/Server";
 
 const HelpCommand = async (message, language, args) => {
 	let helpMessage;

@@ -54,13 +54,16 @@ export const SupportItemModelAttributes = {
 		autoIncrement: true
 	},
 	rarity: {
-		type: DataTypes.INTEGER
+		type: DataTypes.INTEGER,
+		defaultValue: 0
 	},
 	power: {
-		type: DataTypes.INTEGER
+		type: DataTypes.INTEGER,
+		defaultValue: 0
 	},
 	nature: {
-		type: DataTypes.INTEGER
+		type: DataTypes.INTEGER,
+		defaultValue: 0
 	},
 	fr: {
 		type: DataTypes.TEXT

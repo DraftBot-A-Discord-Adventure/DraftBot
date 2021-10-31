@@ -15,6 +15,14 @@ import BigEvent from "./models/BigEvent";
 import Possibility from "./models/Possibility";
 import GuildPet from "./models/GuildPet";
 import MapLocation from "./models/MapLocation";
+import Guild from "./models/Guild";
+import MapLink from "./models/MapLink";
+import Model from "sequelize";
+import Armor from "./models/Armor";
+import Weapon from "./models/Weapon";
+import ObjectItem from "./models/ObjectItem";
+import Potion from "./models/Potion";
+import Class from "./models/Class";
 
 const fs = require("fs");
 const path = require("path");
@@ -45,22 +53,51 @@ class Database {
 			const modelSplit = modelFile.split(".");
 			const modelName = modelSplit[0];
 			if (modelSplit[1] === "js" && modelSplit.length === 2) {
-				console.log(modelFile);
-				require("models/" + modelName).initModel(Database.Sequelize);
+				const model = require("models/" + modelName);
+				if (model.initModel) {
+					model.initModel(Database.Sequelize);
+				}
 			}
 		}
 
 		await Database.setAssociations();
 		await Database.populateJsonFilesTables([
-			"Armors",
-			"Weapons",
-			"Objects",
-			"Potions",
-			"Classes",
-			"Pets",
-			"MapLinks",
-			"MapLocations",
-			"Missions"
+			{
+				model: Armor,
+				folder: "armors"
+			},
+			{
+				model: Weapon,
+				folder: "weapons"
+			},
+			{
+				model: ObjectItem,
+				folder: "objects"
+			},
+			{
+				model: Potion,
+				folder: "potions"
+			},
+			{
+				model: Class,
+				folder: "classes"
+			},
+			{
+				model: Pet,
+				folder: "pets"
+			},
+			{
+				model: MapLink,
+				folder: "maplinks"
+			},
+			{
+				model: MapLocation,
+				folder: "maplocations"
+			},
+			{
+				model: Mission,
+				folder: "missions"
+			}
 		]);
 		await Database.verifyMaps();
 		await Database.setEverybodyAsUnOccupied();
@@ -176,11 +213,11 @@ class Database {
 			foreignKey: "entityId",
 			as: "Entity"
 		});
-		Player.belongsTo(Guilds, {
+		Player.belongsTo(Guild, {
 			foreignKey: "guildId",
 			as: "Guild"
 		});
-		Player.belongsTo(Guilds, {
+		Player.belongsTo(Guild, {
 			foreignKey: "id",
 			targetKey: "chiefId",
 			as: "Chief"
@@ -198,7 +235,7 @@ class Database {
 			sourceKey: "petId",
 			as: "Pet"
 		});
-		Player.hasOne(MapLinks, {
+		Player.hasOne(MapLink, {
 			foreignKey: "id",
 			sourceKey: "mapLinkId",
 			as: "MapLink"
@@ -208,32 +245,32 @@ class Database {
 			as: "PlayerSmallEvents"
 		});
 
-		MapLinks.hasOne(MapLocation, {
+		MapLink.hasOne(MapLocation, {
 			foreignKey: "id",
 			sourceKey: "startMap",
 			as: "StartMap"
 		});
 
-		MapLinks.hasOne(MapLocation, {
+		MapLink.hasOne(MapLocation, {
 			foreignKey: "id",
 			sourceKey: "endMap",
 			as: "EndMap"
 		});
 
-		Guilds.hasMany(Player, {
+		Guild.hasMany(Player, {
 			foreignKey: "guildId",
 			as: "Members"
 		});
-		Guilds.hasOne(Player, {
+		Guild.hasOne(Player, {
 			foreignKey: "id",
 			sourceKey: "chiefId",
 			as: "Chief"
 		});
-		Guilds.hasMany(GuildPet, {
+		Guild.hasMany(GuildPet, {
 			foreignKey: "guildId",
 			as: "GuildPets"
 		});
-		GuildPets.hasOne(PetEntity, {
+		GuildPet.hasOne(PetEntity, {
 			foreignKey: "id",
 			sourceKey: "petEntityId",
 			as: "PetEntity"
@@ -273,21 +310,21 @@ class Database {
 	}
 
 	/**
-	 * @param {String[]} folders
+	 * @param {{ model: Model, folder: string }[]} models
 	 * @return {Promise<void>}
 	 */
-	static async populateJsonFilesTables(folders) {
-		for (const folder of folders) {
-			await global[folder].destroy({truncate: true});
+	static async populateJsonFilesTables(models) {
+		for (const model of models) {
+			await model.model.destroy({truncate: true});
 
 			const files = await fs.promises.readdir(
-				`resources/text/${folder.toLowerCase()}`
+				`resources/text/${model.folder.toLowerCase()}`
 			);
 
 			const filesContent = [];
 			for (const file of files) {
 				const fileName = file.split(".")[0];
-				const fileContent = require(`resources/text/${folder.toLowerCase()}/${file}`);
+				const fileContent = require(`resources/text/${model.folder.toLowerCase()}/${file}`);
 				fileContent.id = fileName;
 				if (fileContent.translations) {
 					if (
@@ -311,13 +348,13 @@ class Database {
 				filesContent.push(fileContent);
 			}
 
-			await global[folder].bulkCreate(filesContent);
+			await model.model.bulkCreate(filesContent);
 		}
 
 		// Handle special case Events & Possibilities
 		await BigEvent.destroy({truncate: true});
 		await EventMapLocationId.destroy({truncate: true});
-		await Possibilities.destroy({truncate: true});
+		await Possibility.destroy({truncate: true});
 
 		const files = await fs.promises.readdir("resources/text/events");
 		const eventsContent = [];
@@ -385,7 +422,7 @@ class Database {
 
 		await BigEvent.bulkCreate(eventsContent);
 		await EventMapLocationId.bulkCreate(eventsMapLocationsContent);
-		await Possibilities.bulkCreate(possibilitiesContent);
+		await Possibility.bulkCreate(possibilitiesContent);
 	}
 
 	static sendEventLoadError(event, message) {
@@ -584,7 +621,7 @@ class Database {
 	 * @return {Promise<void>}
 	 */
 	static setEverybodyAsUnOccupied() {
-		Entities.update(
+		Entity.update(
 			{
 				effect: EFFECT.SMILEY
 			},
@@ -593,7 +630,7 @@ class Database {
 					effect: EFFECT.AWAITING_ANSWER
 				}
 			}
-		);
+		).then();
 	}
 
 	static replaceWarningLogger() {

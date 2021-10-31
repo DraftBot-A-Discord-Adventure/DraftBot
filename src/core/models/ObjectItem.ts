@@ -18,27 +18,27 @@ export class ObjectItem extends SupportItemModel {
 	}
 
 	getNatureTranslation(language: string, maxStatsValue: number): string {
-		const tr = Translations.getModule("objects", language);
+		const tr = Translations.getModule("items", language);
 		if (this.nature === Constants.ITEM_NATURE.TIME_SPEEDUP) {
 			return format(
-				tr.getFromArray("natures", this.nature),
+				tr.getFromArray("objects.natures", this.nature),
 				{power: minutesDisplay(this.power * 60)});
 		}
 		if (this.nature === Constants.ITEM_NATURE.SPEED) {
 			if (isNaN(maxStatsValue)) {
 				maxStatsValue = Infinity;
 			}
-			const speedDisplay = maxStatsValue > this.power / 2 ? this.power : format(Translations.getModule("items", language).get("nerfDisplay"),
+			const speedDisplay = maxStatsValue > this.power / 2 ? this.power : format(tr.get("nerfDisplay"),
 				{
 					old: this.power,
 					max: Math.round(maxStatsValue + this.power / 2)
 				});
 			return format(
-				tr.getFromArray("natures", this.nature),
+				tr.getFromArray("objects.natures", this.nature),
 				{power: speedDisplay});
 		}
 		return format(
-			tr.getFromArray("natures", this.nature),
+			tr.getFromArray("objects.natures", this.nature),
 			{power: this.power});
 	}
 

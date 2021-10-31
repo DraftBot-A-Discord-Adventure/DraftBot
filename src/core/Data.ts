@@ -23,19 +23,23 @@ export class DataModule {
 		return lastObject;
 	}
 
-	private getDataObject(path: string): unknown {
+	private getDataObject(path: string, warn = true): unknown {
 		if (!this._moduleDataObject) {
-			console.warn("Trying to use an invalid data module: " + this._module);
+			if (warn) {
+				console.warn("Trying to use an invalid data module: " + this._module);
+			}
 			return null;
 		}
 		const dataPath = path.split(".");
 		let lastObject = this._moduleDataObject;
-		for (const path of dataPath) {
-			if (!(path in lastObject)) {
-				console.warn("Trying to use an invalid data: " + path + " in module " + this._module);
+		for (const pathSplit of dataPath) {
+			if (!(pathSplit in lastObject)) {
+				if (warn) {
+					console.warn("Trying to use an invalid data: " + path + " in module " + this._module);
+				}
 				return null;
 			}
-			lastObject = lastObject[path];
+			lastObject = lastObject[pathSplit];
 		}
 		return lastObject;
 	}
@@ -65,7 +69,8 @@ export class DataModule {
 	}
 
 	public exists(path: string): boolean {
-		return this.getDataObject(path) !== null && this.getDataObject(path) !== undefined;
+		const dataObj = this.getDataObject(path, false);
+		return dataObj !== null && dataObj !== undefined;
 	}
 }
 

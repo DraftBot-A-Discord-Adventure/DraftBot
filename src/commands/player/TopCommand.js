@@ -1,6 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Maps} from "../../core/Maps";
-import {Entities} from "../../core/models/Entity";
+import Entity, {Entities} from "../../core/models/Entity";
 import Player, {Players} from "../../core/models/Player";
 
 module.exports.commandInfo = {
@@ -41,7 +41,7 @@ const TopCommand = async function(message, language, args) {
 
 		rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
 
-		const numberOfPlayer = await Entities.count({
+		const numberOfPlayer = await Entity.count({
 			defaults: {
 				Player: {
 					Inventory: {}
@@ -61,7 +61,7 @@ const TopCommand = async function(message, language, args) {
 			}]
 		});
 
-		const allEntities = await Entities.findAll({
+		const allEntities = await Entity.findAll({
 			defaults: {
 				Player: {
 					Inventory: {}
@@ -106,7 +106,7 @@ const TopCommand = async function(message, language, args) {
 				}
 			}
 		});
-		const allEntities = await Entities.findAll({
+		const allEntities = await Entity.findAll({
 			defaults: {
 				Player: {
 					Inventory: {}
@@ -148,7 +148,7 @@ const TopCommand = async function(message, language, args) {
 			}
 		});
 
-		const allEntities = await Entities.findAll({
+		const allEntities = await Entity.findAll({
 			defaults: {
 				Player: {
 					Inventory: {}

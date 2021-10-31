@@ -52,7 +52,7 @@ export class Class extends Model {
 	}
 
 	public getDescription(language: string): string {
-		return Translations.getModule("class", language).getFromArray("description", this.id);
+		return Translations.getModule("commands.class", language).get("description." + this.id);
 	}
 
 	public getAttackValue(level: number): number {
@@ -85,8 +85,8 @@ export class Classes {
 		}));
 	}
 
-	static getByGroupId(groupId: number): Promise<Class | null> {
-		return Promise.resolve(Class.findOne({
+	static getByGroupId(groupId: number): Promise<Class[]> {
+		return Promise.resolve(Class.findAll({
 			where: {
 				classgroup: groupId
 			}

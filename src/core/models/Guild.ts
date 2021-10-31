@@ -186,7 +186,7 @@ export class Guilds {
 }
 
 export function initModel(sequelize: Sequelize) {
-	const guildsData = Data.getModule("guilds");
+	const guildsData = Data.getModule("models.guilds");
 
 	Guild.init({
 		id: {

@@ -2,6 +2,7 @@ import {MapLinks} from "../../core/models/MapLink";
 
 import {Maps} from "../../core/Maps";
 import {Entities} from "../../core/models/Entity";
+import {PlayerSmallEvents} from "../../core/models/PlayerSmallEvent";
 
 module.exports.commandInfo = {
 	name: "respawn",

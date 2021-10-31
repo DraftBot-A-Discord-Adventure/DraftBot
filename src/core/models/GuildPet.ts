@@ -22,8 +22,8 @@ export class GuildPet extends Model {
 }
 
 export class GuildPets {
-	static addPet(guildId: number, petEntityId: number): void {
-		GuildPet.build({guildId: guildId, petEntityId: petEntityId});
+	static addPet(guildId: number, petEntityId: number): GuildPet {
+		return GuildPet.build({guildId: guildId, petEntityId: petEntityId});
 	}
 }
 

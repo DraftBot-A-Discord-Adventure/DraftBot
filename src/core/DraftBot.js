@@ -211,7 +211,7 @@ class DraftBot {
 
 	static async fightPowerRegenerationLoop() {
 		const sequelize = require("sequelize");
-		await Entities.update(
+		await Entity.update(
 			{
 				fightPointsLost: sequelize.literal(
 					`CASE WHEN fightPointsLost - ${FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${FIGHT.POINTS_REGEN_AMOUNT} END`

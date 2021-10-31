@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/models/Entity";
+import Guild from "../../../../core/models/Guild";
 
 module.exports.commandInfo = {
 	name: "advanceguilddaily",

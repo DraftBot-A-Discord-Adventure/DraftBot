@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {Entities} from "./models/Entity";
 import {Guilds} from "./models/Guild";
+import Server from "./models/Server";
 
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
@@ -92,7 +93,7 @@ class Command {
 	static async handleMessage(message) {
 
 		// server check :
-		const [server] = await Servers.findOrCreate({
+		const [server] = await Server.findOrCreate({
 			where: {
 				discordGuildId: message.guild.id
 			}

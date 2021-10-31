@@ -15,6 +15,7 @@ import {Potions} from "../../core/models/Potion";
 import {Entities} from "../../core/models/Entity";
 
 import {Maps} from "../../core/Maps";
+import Shop from "../../core/models/Shop";
 
 module.exports.commandInfo = {
 	name: "shop",

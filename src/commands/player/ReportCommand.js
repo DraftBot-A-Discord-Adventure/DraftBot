@@ -7,6 +7,8 @@ import {MapLinks} from "../../core/models/MapLink";
 import {MapLocations} from "../../core/models/MapLocation";
 
 import {Maps} from "../../core/Maps";
+import {PlayerSmallEvents} from "../../core/models/PlayerSmallEvent";
+import Possibility from "../../core/models/Possibility";
 
 module.exports.commandInfo = {
 	name: "report",
@@ -272,7 +274,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 		if (reaction.emoji.name === REPORT.QUICK_END_EMOTE){
 			return;
 		}
-		const possibility = await Possibilities.findAll({
+		const possibility = await Possibility.findAll({
 			where: {
 				eventId: event.id,
 				possibilityKey: reaction.emoji.name
@@ -283,7 +285,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 
 	collector.on("end", async (collected) => {
 		if (!collected.first() || collected.firstKey() === REPORT.QUICK_END_EMOTE) {
-			const possibility = await Possibilities.findAll({
+			const possibility = await Possibility.findAll({
 				where: {
 					eventId: event.id,
 					possibilityKey: "end"

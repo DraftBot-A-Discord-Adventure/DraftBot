@@ -26,7 +26,7 @@ const GuildElderCommand = async (message, language, args) => {
 
 	guild = await Guilds.getById(entity.Player.guildId);
 	try {
-		[elderEntity] = await Entities.getByArgs(args, message);
+		elderEntity = message.mentions.users.last() ? await Entities.getByDiscordUserId(message.mentions.users.last().id) : null;
 	}
 	catch (error) {
 		elderEntity = null;

@@ -1,3 +1,5 @@
+import {Servers} from "./core/models/Server";
+
 require("colors");
 require("./core/Constant");
 require("./core/MessageError");
@@ -6,7 +8,16 @@ const Draftbot = require("./core/DraftBot");
 
 process.on("unhandledRejection", function(err) {
 	console.log(err.stack);
-	process.exit(1);
+	// todo handle better
+	// process.exit(1);
+
+	/* client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID)
+		.channels
+		.fetch(JsonReader.app.CONSOLE_CHANNEL_ID).then(channel => {
+			channel.send({
+				content: ":x: Une erreur est survenue:\n```\n" + err.stack + "\n```"
+			});
+		});*/
 });
 
 (async (Drafbot) => {

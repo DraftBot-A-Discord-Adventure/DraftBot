@@ -24,7 +24,7 @@ export abstract class MainItemModel extends GenericItemModel {
 		const name = this.getName(language);
 		return {
 			name: tr.get(this.categoryName + ".fieldName"),
-			value: this.id === 0 ? name : tr.format(this.categoryName + ".fieldName", {
+			value: this.id === 0 ? name : tr.format(this.categoryName + ".fieldValue", {
 				name,
 				rarity: this.getRarityTranslation(language),
 				values: this.getValues(language, maxStatsValue)
@@ -35,7 +35,10 @@ export abstract class MainItemModel extends GenericItemModel {
 
 	public toString(language: string) {
 		const tr = Translations.getModule("items", language);
-		return this.id === 0 ? language === "fr" ? this.fr : this.en : tr.format(
+		if (this.id === 0) {
+			return this.getName(language);
+		}
+		return tr.format(
 			this.categoryName + ".fieldValue", {
 				name: this.getName(language),
 				rarity: this.getRarityTranslation(language),
@@ -96,25 +99,32 @@ export const MainItemModelAttributes = {
 		autoIncrement: true
 	},
 	rarity: {
-		type: DataTypes.INTEGER
+		type: DataTypes.INTEGER,
+		defaultValue: 0
 	},
 	rawAttack: {
-		type: DataTypes.INTEGER
+		type: DataTypes.INTEGER,
+		defaultValue: 0
 	},
 	rawDefense: {
-		type: DataTypes.INTEGER
+		type: DataTypes.INTEGER,
+		defaultValue: 0
 	},
 	rawSpeed: {
-		type: DataTypes.INTEGER
+		type: DataTypes.INTEGER,
+		defaultValue: 0
 	},
 	attack: {
-		type: DataTypes.INTEGER
+		type: DataTypes.INTEGER,
+		defaultValue: 0
 	},
 	defense: {
-		type: DataTypes.INTEGER
+		type: DataTypes.INTEGER,
+		defaultValue: 0
 	},
 	speed: {
-		type: DataTypes.INTEGER
+		type: DataTypes.INTEGER,
+		defaultValue: 0
 	},
 	fr: {
 		type: DataTypes.TEXT

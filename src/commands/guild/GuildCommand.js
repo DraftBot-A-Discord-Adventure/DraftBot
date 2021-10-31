@@ -1,7 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
-import {Players} from "../../core/models/Player";
+import Player, {Players} from "../../core/models/Player";
 
 module.exports.commandInfo = {
 	name: "guild",
@@ -60,7 +60,7 @@ const GuildCommand = async (message, language, args) => {
 	}
 	const members = await Entities.getByGuild(guild.id);
 
-	const chief = await Players.findOne({where: {id: guild.chiefId}});
+	const chief = await Player.findOne({where: {id: guild.chiefId}});
 
 	let membersInfos = "";
 

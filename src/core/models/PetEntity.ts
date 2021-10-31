@@ -67,33 +67,33 @@ export class PetEntity extends Model {
 		const translations = Translations.getModule("models.pets", language);
 		let loveLevel;
 		if (this.lovePoints <= Constants.PETS.LOVE_LEVELS[0]) {
-			loveLevel = language === "fr" ? format(translations.getFromArray("loveLevels", 0), {
+			loveLevel = language === "fr" ? format(translations.get("loveLevels.0"), {
 				typeSuffix: this.sex === Constants.PETS.FEMALE ? "se" : "x"
-			}) : translations.getFromArray("loveLevels", 0);
+			}) : translations.get("loveLevels.0");
 		}
 		else if (this.lovePoints > Constants.PETS.LOVE_LEVELS[0] && this.lovePoints <= Constants.PETS.LOVE_LEVELS[1]) {
-			loveLevel = translations.getFromArray("loveLevels", 1);
+			loveLevel = translations.get("loveLevels.1");
 		}
 		else if (
 			this.lovePoints > Constants.PETS.LOVE_LEVELS[1] &&
 			this.lovePoints <= Constants.PETS.LOVE_LEVELS[2]
 		) {
-			loveLevel = language === "fr" ? format(translations.getFromArray("loveLevels", 2), {
+			loveLevel = language === "fr" ? format(translations.get("loveLevels.2"), {
 				typeSuffix: this.sex === Constants.PETS.FEMALE ? "ve" : "f"
-			}) : translations.getFromArray("loveLevels", 2);
+			}) : translations.get("loveLevels.2");
 		}
 		else if (
 			this.lovePoints > Constants.PETS.LOVE_LEVELS[2] &&
 			this.lovePoints < Constants.PETS.MAX_LOVE_POINTS
 		) {
-			loveLevel = language === "fr" ? format(translations.getFromArray("loveLevels", 3), {
+			loveLevel = language === "fr" ? format(translations.get("loveLevels.3"), {
 				typeSuffix: this.sex === Constants.PETS.FEMALE ? "ée" : "é"
-			}) : translations.getFromArray("loveLevels", 3);
+			}) : translations.get("loveLevels.3");
 		}
 		else if (this.lovePoints === Constants.PETS.MAX_LOVE_POINTS) {
-			loveLevel = language === "fr" ? format(translations.getFromArray("loveLevels", 4), {
+			loveLevel = language === "fr" ? format(translations.get("loveLevels.4"), {
 				typeSuffix: this.sex === Constants.PETS.FEMALE ? "ée" : "é"
-			}) : translations.getFromArray("loveLevels", 4);
+			}) : translations.get("loveLevels.4");
 		}
 		return loveLevel;
 	}

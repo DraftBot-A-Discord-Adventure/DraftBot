@@ -51,6 +51,7 @@
 	"money": 0,
 	"badges": null,
 	"guildId": null,
+	"effect": ":baby:",
 	"effectMalus": {
 		":smiley:": 0,
 		":sick:": 21600000,

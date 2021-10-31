@@ -33,7 +33,7 @@ const forceJoinGuildTestCommand = async (language, message, args) => {
 			throw new Error("Erreur forcejoinguild : vous êtes déjà dans la guilde donnée !");
 		}
 	}
-	if ((await Entities.getByGuild(guild.id)).length === GUILD.MAX_GUILD_MEMBER) {
+	if ((await Entities.getByGuild(guildToJoin.id)).length === GUILD.MAX_GUILD_MEMBER) {
 		throw new Error("Erreur forcejoinguild : nombre de joueurs maximum dans cette guilde atteint !");
 	}
 	if (guildToLeave && guildToLeave.chiefId === entity.Player.id) {
