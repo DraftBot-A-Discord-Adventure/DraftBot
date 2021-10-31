@@ -6,7 +6,7 @@ import {
 import moment = require("moment");
 
 export class PlayerMissionsInfo extends Model {
-	public playerId!: number;
+	public readonly playerId!: number;
 
 	public gems!: number;
 

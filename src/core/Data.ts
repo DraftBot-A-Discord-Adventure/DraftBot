@@ -63,6 +63,10 @@ export class DataModule {
 	public getBooleanFromArray(path: string, index: number): boolean {
 		return (<boolean[]> this.getDataObject(path))[index];
 	}
+
+	public exists(path: string): boolean {
+		return this.getDataObject(path) !== null && this.getDataObject(path) !== undefined;
+	}
 }
 
 export class Data {

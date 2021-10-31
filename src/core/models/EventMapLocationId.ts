@@ -6,9 +6,9 @@ import {
 import moment = require("moment");
 
 export class EventMapLocationId extends Model {
-	public eventId!: number;
+	public readonly eventId!: number;
 
-	public mapLocationId!: number;
+	public readonly mapLocationId!: number;
 
 	public updatedAt!: Date;
 

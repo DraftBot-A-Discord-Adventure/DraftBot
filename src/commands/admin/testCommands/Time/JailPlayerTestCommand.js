@@ -11,7 +11,7 @@ module.exports.commandInfo = {
 	description: "Enferme le joueur donné"
 };
 
-const Maps = require("../../../../core/Maps");
+import {Maps} from "../../../../core/Maps";
 
 /**
  * Jail the given player

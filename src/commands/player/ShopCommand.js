@@ -14,7 +14,7 @@ import {format} from "../../core/utils/StringFormatter";
 import {Potions} from "../../core/models/Potion";
 import {Entities} from "../../core/models/Entity";
 
-const Maps = require("../../core/Maps");
+import {Maps} from "../../core/Maps";
 
 module.exports.commandInfo = {
 	name: "shop",

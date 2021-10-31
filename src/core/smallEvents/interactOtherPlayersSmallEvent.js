@@ -11,6 +11,7 @@ import {Classes} from "../models/Class";
 import {Entities} from "../models/Entity";
 import {Guilds} from "../models/Guild";
 import {MapLocations} from "../models/MapLocation";
+import {Players} from "../models/Player";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;

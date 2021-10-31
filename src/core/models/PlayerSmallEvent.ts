@@ -6,13 +6,25 @@ import {
 import moment = require("moment");
 
 export class PlayerSmallEvent extends Model {
+	public time!: number;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
 }
 
 export class PlayerSmallEvents {
-
+	static getLast(playerSmallEvents: PlayerSmallEvent[]): PlayerSmallEvent {
+		let mostRecent = null;
+		for (const i of playerSmallEvents) {
+			if (mostRecent === null) {
+				mostRecent = i;
+			} else if (i.time >= mostRecent.time) {
+				mostRecent = i;
+			}
+		}
+		return mostRecent;
+	}
 }
 
 export function initModel(sequelize: Sequelize) {

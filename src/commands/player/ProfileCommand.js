@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Classes} from "../../core/models/Class";
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
+import Player, {Players} from "../../core/models/Player";
 
 module.exports.commandInfo = {
 	name: "profile",
@@ -52,7 +53,7 @@ const ProfileCommand = async (message, language, args) => {
 			value: format(JsonReader.commands.profile.getTranslation(
 				language).classement.fieldValue, {
 				rank: (await Players.getById(entity.Player.id))[0].rank,
-				numberOfPlayer: await Players.count({
+				numberOfPlayer: await Player.count({
 					where: {
 						score: {
 							[require("sequelize/lib/operators").gt]: 100

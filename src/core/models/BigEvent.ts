@@ -11,13 +11,13 @@ import * as fs from "fs";
 import moment = require("moment");
 
 export class BigEvent extends Model {
-	public id!: number;
+	public readonly id!: number;
 
-	public fr!: string;
+	public readonly fr!: string;
 
-	public en!: string;
+	public readonly en!: string;
 
-	public restrictedMaps: string;
+	public readonly restrictedMaps: string;
 
 	public updatedAt!: Date;
 

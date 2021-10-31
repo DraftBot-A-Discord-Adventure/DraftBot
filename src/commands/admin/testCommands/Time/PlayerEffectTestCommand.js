@@ -11,7 +11,7 @@ module.exports.commandInfo = {
 	description: "Mets l'effet donné à votre joueur"
 };
 
-const Maps = require("../../../../core/Maps");
+import {Maps} from "../../../../core/Maps";
 
 /**
  * Set the effect of the player

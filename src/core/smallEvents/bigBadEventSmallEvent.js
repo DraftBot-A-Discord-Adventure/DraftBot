@@ -1,4 +1,4 @@
-const Maps = require("../Maps");
+import {Maps} from "../Maps";
 /**
  * Main function of small event
  * @param {module:"discord.js".Message} message

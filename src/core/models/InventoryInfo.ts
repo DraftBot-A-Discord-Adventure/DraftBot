@@ -7,7 +7,7 @@ import moment = require("moment");
 import {Constants} from "../Constants";
 
 export class InventoryInfo extends Model {
-	public playerId!: number;
+	public readonly playerId!: number;
 
 	public lastDailyAt: Date;
 

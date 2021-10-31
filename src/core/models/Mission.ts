@@ -6,17 +6,17 @@ import {
 import moment = require("moment");
 
 export class Mission extends Model {
-	public id!: string;
+	public readonly id!: string;
 
-	public descFr!: string;
+	public readonly descFr!: string;
 
-	public descEn!: string;
+	public readonly descEn!: string;
 
-	public campaignOnly!: boolean;
+	public readonly campaignOnly!: boolean;
 
-	public gems!: number;
+	public readonly gems!: number;
 
-	public xp!: number;
+	public readonly xp!: number;
 
 	public updatedAt!: Date;
 

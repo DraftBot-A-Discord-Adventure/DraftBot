@@ -14,7 +14,7 @@ module.exports.commandInfo = {
 	description: "Vous téléporte sur un chemin donné"
 };
 
-const Maps = require("../../../../core/Maps");
+import {Maps} from "../../../../core/Maps";
 
 /**
  * Teleport you on a given path

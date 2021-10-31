@@ -12,7 +12,7 @@ import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
 
 export class PetEntity extends Model {
-	public id!: number;
+	public readonly id!: number;
 
 	public petId!: number;
 

@@ -8,7 +8,7 @@ module.exports.commandInfo = {
 	description: "Réinitialise le parcours que vous effectuez"
 };
 
-const Maps = require("../../../../core/Maps");
+import {Maps} from "../../../../core/Maps";
 
 /**
  * Reset your current travel

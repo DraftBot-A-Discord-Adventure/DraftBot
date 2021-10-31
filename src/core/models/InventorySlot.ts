@@ -11,7 +11,7 @@ import {Potions} from "./Potion";
 import {ObjectItems} from "./ObjectItem";
 
 export class InventorySlot extends Model {
-	public playerId!: number;
+	public readonly playerId!: number;
 
 	public slot!: number;
 

@@ -7,7 +7,7 @@ import PetEntity from "./PetEntity";
 import moment = require("moment");
 
 export class GuildPet extends Model {
-	public id!: number;
+	public readonly id!: number;
 
 	public guildId!: number;
 

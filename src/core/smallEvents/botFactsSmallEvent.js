@@ -9,6 +9,7 @@
 import {Classes} from "../models/Class";
 import {Guilds} from "../models/Guild";
 import {PetEntities} from "../models/PetEntity";
+import {Players} from "../models/Player";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationBF = JsonReader.smallEvents.botFacts.getTranslation(language);

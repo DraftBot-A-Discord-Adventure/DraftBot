@@ -11,7 +11,7 @@ module.exports.commandInfo = {
 	description: "Avance votre voyage d'une durée en minutes donnée"
 };
 
-const Maps = require("../../../../core/Maps");
+import {Maps} from "../../../../core/Maps";
 
 /**
  * Quick travel your travel of a given time

@@ -1,6 +1,6 @@
 import {MapLinks} from "../../core/models/MapLink";
 
-const Maps = require("../../core/Maps");
+import {Maps} from "../../core/Maps";
 import {Entities} from "../../core/models/Entity";
 
 module.exports.commandInfo = {

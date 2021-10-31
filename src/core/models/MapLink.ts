@@ -7,13 +7,13 @@ import moment = require("moment");
 import {RandomUtils} from "../utils/RandomUtils";
 
 export class MapLink extends Model {
-	public id!: number;
+	public readonly id!: number;
 
-	public startMap!: number;
+	public readonly startMap!: number;
 
-	public endMap!: number;
+	public readonly endMap!: number;
 
-	public tripDuration!: number;
+	public readonly tripDuration!: number;
 
 	public updatedAt!: Date;
 

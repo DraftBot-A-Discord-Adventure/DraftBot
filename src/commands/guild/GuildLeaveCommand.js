@@ -16,6 +16,7 @@ module.exports.commandInfo = {
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import Guild, {Guilds} from "../../core/models/Guild";
+import Player from "../../core/models/Player";
 
 const GuildLeaveCommand = async (message, language) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -62,7 +63,7 @@ const GuildLeaveCommand = async (message, language) => {
 						" has been destroyed"
 					);
 					// the chief is leaving : destroy the guild
-					await Players.update(
+					await Player.update(
 						{guildId: null},
 						{
 							where: {

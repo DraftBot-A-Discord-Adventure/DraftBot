@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-const Maps = require("../../core/Maps");
+import {Maps} from "../../core/Maps";
 import {Entities} from "../../core/models/Entity";
+import Player, {Players} from "../../core/models/Player";
 
 module.exports.commandInfo = {
 	name: "top",
@@ -50,7 +51,7 @@ const TopCommand = async function(message, language, args) {
 				discordUserId: listId
 			},
 			include: [{
-				model: Players,
+				model: Player,
 				as: "Player",
 				where: {
 					score: {
@@ -70,7 +71,7 @@ const TopCommand = async function(message, language, args) {
 				discordUserId: listId
 			},
 			include: [{
-				model: Players,
+				model: Player,
 				as: "Player",
 				where: {
 					score: {
@@ -79,8 +80,8 @@ const TopCommand = async function(message, language, args) {
 				}
 			}],
 			order: [
-				[{model: Players, as: "Player"}, "score", "DESC"],
-				[{model: Players, as: "Player"}, "level", "DESC"]
+				[{model: Player, as: "Player"}, "score", "DESC"],
+				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
 			limit: 15,
 			offset: (page - 1) * 15
@@ -98,7 +99,7 @@ const TopCommand = async function(message, language, args) {
 
 		// rank of the user
 		const rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].weeklyRank;
-		const numberOfPlayer = await Players.count({
+		const numberOfPlayer = await Player.count({
 			where: {
 				weeklyScore: {
 					[require("sequelize/lib/operators").gt]: 100
@@ -112,7 +113,7 @@ const TopCommand = async function(message, language, args) {
 				}
 			},
 			include: [{
-				model: Players,
+				model: Player,
 				as: "Player",
 				where: {
 					weeklyScore: {
@@ -121,8 +122,8 @@ const TopCommand = async function(message, language, args) {
 				}
 			}],
 			order: [
-				[{model: Players, as: "Player"}, "weeklyScore", "DESC"],
-				[{model: Players, as: "Player"}, "level", "DESC"]
+				[{model: Player, as: "Player"}, "weeklyScore", "DESC"],
+				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
 			limit: 15,
 			offset: (page - 1) * 15
@@ -139,7 +140,7 @@ const TopCommand = async function(message, language, args) {
 		}
 		const rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].rank;
 
-		const numberOfPlayer = await Players.count({
+		const numberOfPlayer = await Player.count({
 			where: {
 				score: {
 					[require("sequelize/lib/operators").gt]: 100
@@ -154,7 +155,7 @@ const TopCommand = async function(message, language, args) {
 				}
 			},
 			include: [{
-				model: Players,
+				model: Player,
 				as: "Player",
 				where: {
 					score: {
@@ -163,8 +164,8 @@ const TopCommand = async function(message, language, args) {
 				}
 			}],
 			order: [
-				[{model: Players, as: "Player"}, "score", "DESC"],
-				[{model: Players, as: "Player"}, "level", "DESC"]
+				[{model: Player, as: "Player"}, "score", "DESC"],
+				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
 			limit: 15,
 			offset: (page - 1) * 15

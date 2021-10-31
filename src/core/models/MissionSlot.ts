@@ -7,7 +7,7 @@ import Mission from "./Mission";
 import moment = require("moment");
 
 export class MissionSlot extends Model {
-	public playerId!: number;
+	public readonly playerId!: number;
 
 	public missionId!: number;
 

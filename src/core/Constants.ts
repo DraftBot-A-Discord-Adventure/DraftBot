@@ -78,6 +78,11 @@ export abstract class Constants {
 	}
 
 	static readonly REPORT = {
+		TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000, // 2 hours
+		BONUS_POINT_TIME_DIVIDER: 6,
+		POINTS_BY_SMALL_EVENT: 50,
+		PATH_SQUARE_COUNT: 16,
+		TIME_BETWEEN_MINI_EVENTS: 10 * 60 * 1000, // 10 minutes
 		QUICK_END_EMOTE: "🔚"
 	};
 
@@ -95,5 +100,77 @@ export abstract class Constants {
 			MIN: 100,
 			MAX: 50000
 		}
+	};
+
+	static readonly CLASS = {
+		REQUIRED_LEVEL: 4,
+		PRICE: 5000,
+		GROUP1LEVEL: 16,
+		GROUP2LEVEL: 32,
+		GROUP3LEVEL: 48
+	}
+
+	static readonly FIGHT = {
+		MAX_SPEED_IMPROVEMENT: 30,
+		MAX_TURNS: 25,
+		REQUIRED_LEVEL: 8,
+		POINTS_REGEN_MINUTES: 15,
+		POINTS_REGEN_AMOUNT: 50,
+		ACTION: {
+			QUICK_ATTACK: 0,
+			SIMPLE_ATTACK: 1,
+			POWERFUL_ATTACK: 2,
+			BULK_ATTACK: 3,
+			IMPROVE_SPEED: 4,
+			ULTIMATE_ATTACK: 5
+		}
+	}
+
+	static readonly GUILD = {
+		REQUIRED_LEVEL: 10,
+		MAX_GUILD_MEMBER: 6,
+		MAX_GUILD_NAME_SIZE: 15,
+		MIN_GUILD_NAME_SIZE: 2,
+		MIN_DESCRIPTION_LENGTH: 2,
+		MAX_DESCRIPTION_LENGTH: 140,
+		MAX_COMMON_PET_FOOD: 25,
+		MAX_HERBIVOROUS_PET_FOOD: 15,
+		MAX_CARNIVOROUS_PET_FOOD: 15,
+		MAX_ULTIMATE_PET_FOOD: 5
+	}
+
+	static readonly EFFECT = {
+		EMOJIS: {
+			":baby:": "👶",
+			":smiley:": "😃",
+			":clock10:": "🕙", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
+			":skull:": "💀",
+			":sleeping:": "😴",
+			":zany_face:": "🤪",
+			":cold_face:": "🥶",
+			":head_bandage:": "🤕",
+			":sick:": "🤢",
+			":lock:": "🔒",
+			":dizzy_face:": "😵",
+			":clock2:": "🕑",
+			":drooling_face:": "🤤",
+			":confounded:": "😖",
+			":scream:": "😱"
+		},
+		BABY: ":baby:",
+		SMILEY: ":smiley:",
+		AWAITING_ANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
+		DEAD: ":skull:",
+		SLEEPING: ":sleeping:",
+		DRUNK: ":zany_face:",
+		FROZEN: ":cold_face:",
+		HURT: ":head_bandage:",
+		SICK: ":sick:",
+		LOCKED: ":lock:",
+		INJURED: ":dizzy_face:",
+		OCCUPIED: ":clock2:",
+		STARVING: ":drooling_face:",
+		CONFOUNDED: ":confounded:",
+		SCARED: ":scream:"
 	};
 }

@@ -8,21 +8,21 @@ import {Translations} from "../Translations";
 import {readdir} from "fs/promises";
 
 export class MapLocation extends Model {
-	public id!: number;
+	public readonly id!: number;
 
-	public type!: string;
+	public readonly type!: string;
 
-	public nameFr!: string;
+	public readonly nameFr!: string;
 
-	public nameEn!: string;
+	public readonly nameEn!: string;
 
-	public descFr!: string;
+	public readonly descFr!: string;
 
-	public descEn!: string;
+	public readonly descEn!: string;
 
-	public particleFr!: string;
+	public readonly particleFr!: string;
 
-	public particleEn!: string;
+	public readonly particleEn!: string;
 
 	public updatedAt!: Date;
 

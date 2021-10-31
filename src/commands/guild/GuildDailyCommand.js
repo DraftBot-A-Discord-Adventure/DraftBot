@@ -4,7 +4,7 @@ import {GuildPets} from "../../core/models/GuildPet";
 import {Guilds} from "../../core/models/Guild";
 import {PetEntities} from "../../core/models/PetEntity";
 
-const Maps = require("../../core/Maps");
+import {Maps} from "../../core/Maps";
 
 module.exports.commandInfo = {
 	name: "guilddaily",

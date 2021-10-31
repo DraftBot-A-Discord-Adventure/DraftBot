@@ -13,13 +13,13 @@ import {Translations} from "../Translations";
 import moment = require("moment");
 
 export class Guild extends Model {
-	public id!: number;
+	public readonly id!: number;
 
 	public name!: string;
 
 	public guildDescription!: string;
 
-	public score: number;
+	public score!: number;
 
 	public level!: number;
 

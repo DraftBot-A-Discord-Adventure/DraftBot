@@ -15,3 +15,13 @@ export const minutesDisplay = function(minutes: number): string {
 
 	return display;
 };
+
+export const millisecondsToMinutes = (milliseconds: number) => Math.round(milliseconds / 60000);
+
+export const minutesToMilliseconds = (minutes: number) => minutes * 60000;
+
+export const hoursToMilliseconds = (hours: number) => hours * 3600000;
+
+export const hoursToMinutes = (hours: number) => hours * 60;
+
+export const millisecondsToHours = (milliseconds: number) => milliseconds / 3600000;

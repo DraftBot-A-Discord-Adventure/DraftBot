@@ -8,23 +8,23 @@ import {Data} from "../Data";
 import * as fs from "fs";
 
 export class Pet extends Model {
-	public id!: number;
+	public readonly id!: number;
 
-	public rarity!: number;
+	public readonly rarity!: number;
 
-	public maleNameFr!: string;
+	public readonly maleNameFr!: string;
 
-	public maleNameEn!: string;
+	public readonly maleNameEn!: string;
 
-	public femaleNameFr!: string;
+	public readonly femaleNameFr!: string;
 
-	public femaleNameEn!: string;
+	public readonly femaleNameEn!: string;
 
-	public emoteMale!: string;
+	public readonly emoteMale!: string;
 
-	public emoteFemale!: string;
+	public readonly emoteFemale!: string;
 
-	public diet: string;
+	public readonly diet: string;
 
 	public updatedAt!: Date;
 

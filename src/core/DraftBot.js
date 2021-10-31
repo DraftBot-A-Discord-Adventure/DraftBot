@@ -3,6 +3,7 @@ import {Intents} from "discord.js";
 import Entity, {Entities} from "./models/Entity";
 import Potion from "./models/Potion";
 import PetEntity from "./models/PetEntity";
+import Player from "./models/Player";
 
 const fs = require("fs");
 
@@ -155,7 +156,7 @@ class DraftBot {
 			},
 			include: [
 				{
-					model: Players,
+					model: Player,
 					as: "Player",
 					where: {
 						weeklyScore: {
@@ -165,8 +166,8 @@ class DraftBot {
 				}
 			],
 			order: [
-				[{model: Players, as: "Player"}, "weeklyScore", "DESC"],
-				[{model: Players, as: "Player"}, "level", "DESC"]
+				[{model: Player, as: "Player"}, "weeklyScore", "DESC"],
+				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
 			limit: 1
 		});
@@ -203,7 +204,7 @@ class DraftBot {
 			winner.Player.addBadge("🎗️");
 			winner.Player.save();
 		}
-		Players.update({weeklyScore: 0}, {where: {}});
+		await Player.update({weeklyScore: 0}, {where: {}});
 		console.log("# WARNING # Weekly leaderboard has been reset !");
 		DraftBot.programTopWeekTimeout();
 	}
