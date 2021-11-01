@@ -27,6 +27,12 @@ export class PlayerMissionsInfo extends Model {
 	public hasCompletedDailyMission(): boolean {
 		return this.lastDailyMissionCompleted && datesAreOnSameDay(this.lastDailyMissionCompleted, new Date());
 	}
+
+	public isCampaignCompleted(): boolean {
+		// todo
+		// return this.campaignProgression;
+		return false;
+	}
 }
 
 export function initModel(sequelize: Sequelize) {

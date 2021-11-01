@@ -22,9 +22,9 @@ class Command {
 		Command.commands = new Collection();
 		Command.players = new Map();
 
-		const categories = await readdir("src/commands");
+		const categories = await readdir("dist/src/commands");
 		categories.forEach(category => {
-			const commandsFiles = readdirSync(`src/commands/${category}`).filter(command => command.endsWith(".js"));
+			const commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
 				const command = require(`../commands/${category}/${commandFile}`);
 				Command.commands.set(command.commandInfo.name, command);

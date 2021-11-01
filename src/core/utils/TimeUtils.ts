@@ -30,3 +30,7 @@ export const datesAreOnSameDay = (first: Date, second: Date) =>
 	first.getFullYear() === second.getFullYear() &&
 	first.getMonth() === second.getMonth() &&
 	first.getDate() === second.getDate();
+
+export const finishInTimeDisplay = (finishDate: Date) => {
+	return "<t:" + Math.floor(finishDate.getTime() / 1000) + ":R>";
+};

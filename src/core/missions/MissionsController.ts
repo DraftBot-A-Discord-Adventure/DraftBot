@@ -20,20 +20,29 @@ export class MissionsController {
 		let updated = false;
 		const completedMission = [];
 		for (const mission of player.MissionSlots) {
-			if (mission.missionId === missionId && mission.missionVariant === variant) {
+			if (mission.missionId === missionId && mission.missionVariant === variant && !mission.hasExpired()) {
 				updated = true;
 				mission.numberDone += count;
+				if (mission.numberDone > mission.missionObjective) {
+					mission.numberDone = mission.missionObjective;
+				}
 				await mission.save();
 				if (mission.isCompleted()) {
 					completedMission.push(mission);
 				}
 			}
 		}
-		await MissionsController.completeMissionSlots(player, channel, language, completedMission);
+		if (completedMission.length > 0) {
+			await MissionsController.completeMissionSlots(player, channel, language, completedMission);
+		}
 		if (!player.MissionsInfo.hasCompletedDailyMission()) {
 			const dailyMission = await DailyMissions.getOrGenerate();
 			if (dailyMission.variant === variant) {
+				updated = true;
 				player.MissionsInfo.dailyMissionNumberDone += count;
+				if (player.MissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
+					player.MissionsInfo.dailyMissionNumberDone = dailyMission.objective;
+				}
 				if (player.MissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
 					await MissionsController.completeDailyMission(player, channel, language, dailyMission);
 				}

@@ -52,9 +52,9 @@ export class DailyMissions {
 				Constants.MISSION.DAILY_MAX_DIFFICULTY
 			)
 		);
-		let dailyMission = await DailyMissions.queryDailyMission();
+		const dailyMission = await DailyMissions.queryDailyMission();
 		if (!dailyMission) {
-			dailyMission = await DailyMission.create({
+			await DailyMission.create({
 				missionId: prop.mission.id,
 				objective: prop.objective,
 				variant: prop.variant
@@ -66,7 +66,7 @@ export class DailyMissions {
 			dailyMission.variant = prop.variant;
 			await dailyMission.save();
 		}
-		return dailyMission;
+		return await this.queryDailyMission();
 	}
 }
 
