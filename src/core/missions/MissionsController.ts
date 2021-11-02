@@ -35,19 +35,19 @@ export class MissionsController {
 		if (completedMission.length > 0) {
 			await MissionsController.completeMissionSlots(player, channel, language, completedMission);
 		}
-		if (!player.MissionsInfo.hasCompletedDailyMission()) {
+		if (!player.PlayerMissionsInfo.hasCompletedDailyMission()) {
 			const dailyMission = await DailyMissions.getOrGenerate();
 			if (dailyMission.variant === variant) {
 				updated = true;
-				player.MissionsInfo.dailyMissionNumberDone += count;
-				if (player.MissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
-					player.MissionsInfo.dailyMissionNumberDone = dailyMission.objective;
+				player.PlayerMissionsInfo.dailyMissionNumberDone += count;
+				if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
+					player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
 				}
-				if (player.MissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
+				if (player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
 					await MissionsController.completeDailyMission(player, channel, language, dailyMission);
 				}
 				else {
-					await player.MissionsInfo.save();
+					await player.PlayerMissionsInfo.save();
 				}
 			}
 		}
@@ -64,7 +64,7 @@ export class MissionsController {
 			xpWon += rewards.xp;
 			gemsWon += rewards.gems;
 			if (missionSlot.isCampaign()) {
-				player.MissionsInfo.campaignProgression++;
+				player.PlayerMissionsInfo.campaignProgression++;
 			}
 			desc += "- " + missionSlot.Mission.formatDescription(missionSlot.missionObjective, language) + "\n";
 		}
@@ -76,12 +76,12 @@ export class MissionsController {
 			]
 		}).then();
 
-		player.MissionsInfo.gems += gemsWon;
+		player.PlayerMissionsInfo.gems += gemsWon;
 		player.experience += xpWon;
 		for (const missionSlot of missionSlots) {
 			await missionSlot.destroy();
 		}
-		await player.MissionsInfo.save();
+		await player.PlayerMissionsInfo.save();
 		await player.save();
 	}
 
@@ -101,10 +101,10 @@ export class MissionsController {
 			]
 		}).then();
 
-		player.MissionsInfo.gems += rewards.gems;
-		player.MissionsInfo.lastDailyMissionCompleted = new Date();
+		player.PlayerMissionsInfo.gems += rewards.gems;
+		player.PlayerMissionsInfo.lastDailyMissionCompleted = new Date();
 		player.experience += rewards.xp;
-		await player.MissionsInfo.save();
+		await player.PlayerMissionsInfo.save();
 		await player.save();
 	}
 

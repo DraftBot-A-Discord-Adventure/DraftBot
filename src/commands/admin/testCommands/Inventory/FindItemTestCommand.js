@@ -52,13 +52,7 @@ const findItemTestCommand = async (language, message, args) => {
 		throw Error("Aucun objet n'existe dans cette catégorie avec cet id");
 	}
 
-	await ItemUtils.giveItemToPlayer(
-		entity,
-		item,
-		language,
-		message.author,
-		message.channel
-	);
+	await ItemUtils.giveItemToPlayer(entity, item, language, message.author, message.channel);
 
 	return module.exports.commandInfo.messageWhenExecuted;
 };

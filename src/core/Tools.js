@@ -125,15 +125,7 @@ global.sendSimpleMessage = (user, channel, title, message) => channel.send({ emb
  * @returns {Promise<*>}
  */
 global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplierActual = 1) => { // eslint-disable-line max-params
-	await ItemUtils.giveItemToPlayer(
-		entity,
-		item,
-		language,
-		discordUser,
-		channel,
-		resaleMultiplierNew,
-		resaleMultiplierActual
-	);
+	await ItemUtils.giveItemToPlayer(entity, item, language, discordUser, channel, resaleMultiplierNew, resaleMultiplierActual);
 };
 
 /**

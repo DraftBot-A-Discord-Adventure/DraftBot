@@ -82,7 +82,7 @@ export class Player extends Model {
 
 	public MissionSlots: MissionSlot[];
 
-	public MissionsInfo: PlayerMissionsInfo;
+	public PlayerMissionsInfo: PlayerMissionsInfo;
 
 	public getEntity: () => Entity;
 
@@ -440,7 +440,7 @@ export class Player extends Model {
 	}
 
 	public hasEmptyMissionSlot(): boolean {
-		return this.MissionSlots.filter(slot => !slot.isCampaign()).length < this.MissionsInfo.slotsCount;
+		return this.MissionSlots.filter(slot => !slot.isCampaign()).length < this.PlayerMissionsInfo.slotsCount;
 	}
 }
 

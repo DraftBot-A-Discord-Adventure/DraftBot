@@ -180,4 +180,8 @@ export abstract class Constants {
 		MIN_DIFFICULTY: 1,
 		MAX_DIFFICULTY: 10
 	}
+
+	static readonly MISSION_SHOP = {
+		RATIO_MONEY_GEMS: 1000
+	}
 }

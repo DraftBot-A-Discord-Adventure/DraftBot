@@ -62,6 +62,7 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 	 * @param getUserMoney
 	 * @param removeUserMoney
 	 * @param shopEndCallback
+	 * @param translationPosition
 	 */
 	// eslint-disable-next-line max-params
 	constructor(
@@ -72,9 +73,10 @@ export class DraftBotShopMessage extends DraftBotReactionMessage {
 		currentMoney: number,
 		getUserMoney: (userId: string) => Promise<number>,
 		removeUserMoney: (userId: string, amount: number) => Promise<void>,
-		shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void
+		shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void,
+		translationPosition: string
 	) {
-		const translationModule = Translations.getModule("commands.shop", language);
+		const translationModule = Translations.getModule(translationPosition, language);
 		const reactions: DraftBotReaction[] = [];
 		const shopItems: ShopItem[] = [];
 		const shopItemReactions: string[] = [];
@@ -292,6 +294,8 @@ export class DraftBotShopMessageBuilder {
 
 	private _noShoppingCart = false;
 
+	private _translationPosition = "commands.shop";
+
 	/**
 	 * Default constructor
 	 * @param user The user of the shop
@@ -325,6 +329,11 @@ export class DraftBotShopMessageBuilder {
 	 */
 	noShoppingCart(): DraftBotShopMessageBuilder {
 		this._noShoppingCart = true;
+		return this;
+	}
+
+	setTranslationPosition(position: string): DraftBotShopMessageBuilder {
+		this._translationPosition = position;
 		return this;
 	}
 
@@ -371,7 +380,8 @@ export class DraftBotShopMessageBuilder {
 			await this._getUserMoney(this._user.id),
 			this._getUserMoney,
 			this._removeUserMoney,
-			this._shopEndCallback
+			this._shopEndCallback,
+			this._translationPosition
 		);
 	}
 }
@@ -416,7 +426,7 @@ export class ShopItem {
 	}
 
 	get name(): string {
-		return this._name;
+		return this._name
 	}
 
 	get price(): number {

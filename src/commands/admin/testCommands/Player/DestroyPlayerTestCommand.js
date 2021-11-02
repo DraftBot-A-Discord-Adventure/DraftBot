@@ -2,6 +2,8 @@ import InventoryInfo from "../../../../core/models/InventoryInfo";
 import Entity, {Entities} from "../../../../core/models/Entity";
 import InventorySlot from "../../../../core/models/InventorySlot";
 import Player from "../../../../core/models/Player";
+import MissionSlot from "../../../../core/models/MissionSlot";
+import PlayerMissionsInfo from "../../../../core/models/PlayerMissionsInfo";
 
 module.exports.commandInfo = {
 	name: "destroyplayer",
@@ -19,6 +21,16 @@ module.exports.commandInfo = {
  */
 const destroyPlayerTestCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
+	await MissionSlot.destroy({
+		where: {
+			playerId: entity.Player.id
+		}
+	});
+	await PlayerMissionsInfo.destroy({
+		where: {
+			playerId: entity.Player.id
+		}
+	});
 	await InventorySlot.destroy({
 		where: {
 			playerId: entity.Player.id

@@ -12,9 +12,9 @@ export class DraftBotMissionsMessage extends DraftBotEmbed {
 			pseudo
 		}));
 		let desc;
-		if (!player.MissionsInfo.isCampaignCompleted()) {
+		if (!player.PlayerMissionsInfo.isCampaignCompleted()) {
 			desc = tr.format("campaign", {
-				current: player.MissionsInfo.campaignProgression,
+				current: player.PlayerMissionsInfo.campaignProgression,
 				max: 0
 			});
 		}
@@ -30,7 +30,7 @@ export class DraftBotMissionsMessage extends DraftBotEmbed {
 				tr,
 				dailyMission.Mission.formatDescription(dailyMission.objective, language),
 				tomorrow,
-				player.MissionsInfo.dailyMissionNumberDone,
+				player.PlayerMissionsInfo.dailyMissionNumberDone,
 				dailyMission.objective
 			)
 			+ "\n\n";

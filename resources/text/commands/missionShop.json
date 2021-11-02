@@ -2,40 +2,42 @@
 	"translations": {
 		"fr": {
 			"title": "Magasin des Missions",
-			"itemsTitle": "Je mets quoi en titre ici du coup ?",
+			"resTitle": "Ressources",
+			"utilTitle": "Utilitaires",
+			"presTitle": "Prestiges",
 			"display": "{emote} **{name}** | `{price}💎`",
 			"success": "{pseudo}, transaction réussie !",
 			"items": {
 				"skipMapMission": {
-					"emote": "⬜",
+					"emote": "1️⃣",
 					"name": "Passe-mission",
 					"price": 1,
 					"info": "Vous permet de passer une mission obtenue sur la carte, cependant, vous n'obtiendrez aucune récompense.",
 					"give": "{pseudo}, vous avez décidé de passer une mission :"
 				},
 				"money": {
-					"emote": "⬜",
+					"emote": "\uD83D\uDCB0",
 					"name": "Argent du roi",
 					"price": 1,
 					"info": "Vous donne MONTANT A FIXER :moneybag:.",
 					"give": "{pseudo}, vous avez reçu MONTANT A FIXER:moneybag:."
 				},
 				"valuableItem": {
-					"emote": "⬜",
+					"emote": "3️⃣",
 					"name": "Trésor du roi",
 					"price": 1,
 					"info": "Vous octroie un objet de valeur provenant de la salle aux trésors du roi.",
 					"give": "{pseudo}, vous obtenez un(e) nouvel(le) {type} :"
 				},
 				"1000Points": {
-					"emote": "⬜",
+					"emote": "\uD83C\uDFC5",
 					"name": "Ferveur du roi",
 					"price": 1,
-					"info": "Vous octroie 1000 points, possède un cooldown d'une semaine.",
+					"info": "Vous octroie 1000 points. Ne peut être utilisé qu'une fois par semaine.",
 					"give": "{pseudo}, vous avez décidé de passer une mission :"
 				},
 				"lovePointsValue": {
-					"emote": "⬜",
+					"emote": "\uD83E\uDDD1\u200D⚕️",
 					"name": "Vétérinaire de la cour",
 					"price": 1,
 					"info": "Vous renseigne sur l'amour exact de votre pet sur vous.",
@@ -52,7 +54,7 @@
 			"confirm": "{pseudo}, vous avez sélectionné le produit suivant :",
 			"moneyQuantity": "Vous avez `{money}💎`.",
 			"error": {
-				"cannotBuy": "Vous n'avez pas assez d'argent pour acheter cet objet ! Il vous manque `{missingMoney}💎`.",
+				"cannotBuy": "Vous n'avez pas assez de gemmes pour acheter cet objet ! Il vous manque `{missingMoney}💎`.",
 				"canceledPurchase": "Transaction annulée!",
 				"alreadyHasItem": "Vous possédez déjà cet objet.",
 				"leaveShop": "Vous avez quitté le magasin."

@@ -3,6 +3,7 @@ import {Entities} from "../../../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "debugMissions",
+	aliases :["debugm", "debm"],
 	commandFormat: "",
 	messageWhenExecuted: "",
 	description: "Affiche des informations sur vos missions"
@@ -21,11 +22,11 @@ const debugMissionsTestCommand = async (language, message, args) => {
 
 	const embed = new DraftBotEmbed();
 	embed.setTitle("Debug missions");
-	embed.addField("⚙️ General", "Mission slots: " + entity.Player.MissionsInfo.slotsCount
-		+ "\nDaily mission done: " + entity.Player.MissionsInfo.dailyMissionNumberDone
-		+ "\nLast daily mission done: " + entity.Player.MissionsInfo.lastDailyMissionCompleted
-		+ "\nGems count: " + entity.Player.MissionsInfo.gems
-		+ "\nCampaign progression: " + entity.Player.MissionsInfo.campaignProgression, false);
+	embed.addField("⚙️ General", "Mission slots: " + entity.Player.PlayerMissionsInfo.slotsCount
+		+ "\nDaily mission done: " + entity.Player.PlayerMissionsInfo.dailyMissionNumberDone
+		+ "\nLast daily mission done: " + entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted
+		+ "\nGems count: " + entity.Player.PlayerMissionsInfo.gems
+		+ "\nCampaign progression: " + entity.Player.PlayerMissionsInfo.campaignProgression, false);
 	let missionsFieldContent = "";
 	if (entity.Player.MissionSlots.length === 0) {
 		missionsFieldContent = "Aucune mission";

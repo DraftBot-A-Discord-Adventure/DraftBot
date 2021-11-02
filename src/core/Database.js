@@ -305,7 +305,7 @@ class Database {
 
 		Player.hasOne(PlayerMissionsInfo, {
 			foreignKey: "playerId",
-			as: "MissionsInfo"
+			as: "PlayerMissionsInfo"
 		});
 
 		DailyMission.hasOne(Mission, {

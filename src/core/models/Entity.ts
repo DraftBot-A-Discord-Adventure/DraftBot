@@ -192,7 +192,7 @@ export class Entities {
 		},
 		{
 			model: PlayerMissionsInfo,
-			as: "MissionsInfo"
+			as: "PlayerMissionsInfo"
 		}];
 
 	static getOrRegister(discordUserId: string): Promise<[Entity, boolean] | null> {
