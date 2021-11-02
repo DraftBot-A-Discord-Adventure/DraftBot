@@ -279,28 +279,30 @@ export const generateRandomItem = async function(maxRarity = Constants.RARITY.MY
  * @return {Number} generated rarity
  */
 export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL): number {
-	const randomValue = draftbotRandom.integer(0, JsonReader.values.raritiesGenerator.maxValue -
-		(maxRarity === Constants.RARITY.MYTHICAL ? 0 : JsonReader.values.raritiesGenerator.maxValue - JsonReader.values.raritiesGenerator[maxRarity - 1]));
+	const randomValue = draftbotRandom.integer(
+		1 + (minRarity === Constants.RARITY.COMMON ? -1 : parseInt(JsonReader.values.raritiesGenerator[minRarity-2],10)),
+		parseInt(JsonReader.values.raritiesGenerator.maxValue,10) - (maxRarity === Constants.RARITY.MYTHICAL ? 0 : parseInt(JsonReader.values.raritiesGenerator.maxValue,10) - parseInt(JsonReader.values.raritiesGenerator[maxRarity - 1],10))
+	);
 
-	if (randomValue <= JsonReader.values.raritiesGenerator["0"] && minRarity <= Constants.RARITY.COMMON) {
+	if (randomValue <= JsonReader.values.raritiesGenerator["0"]) {
 		return Constants.RARITY.COMMON;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["1"] && minRarity <= Constants.RARITY.UNCOMMON) {
+	else if (randomValue <= JsonReader.values.raritiesGenerator["1"]) {
 		return Constants.RARITY.UNCOMMON;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["2"] && minRarity <= Constants.RARITY.EXOTIC) {
+	else if (randomValue <= JsonReader.values.raritiesGenerator["2"]) {
 		return Constants.RARITY.EXOTIC;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["3"] && minRarity <= Constants.RARITY.RARE) {
+	else if (randomValue <= JsonReader.values.raritiesGenerator["3"]) {
 		return Constants.RARITY.RARE;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["4"] && minRarity <= Constants.RARITY.SPECIAL) {
+	else if (randomValue <= JsonReader.values.raritiesGenerator["4"]) {
 		return Constants.RARITY.SPECIAL;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["5"] && minRarity <= Constants.RARITY.EPIC) {
+	else if (randomValue <= JsonReader.values.raritiesGenerator["5"]) {
 		return Constants.RARITY.EPIC;
 	}
-	else if (randomValue <= JsonReader.values.raritiesGenerator["6"] && minRarity <= Constants.RARITY.LEGENDARY) {
+	else if (randomValue <= JsonReader.values.raritiesGenerator["6"]) {
 		return Constants.RARITY.LEGENDARY;
 	}
 	return Constants.RARITY.MYTHICAL;
