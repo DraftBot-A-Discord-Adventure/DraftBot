@@ -33,6 +33,10 @@ export class PlayerMissionsInfo extends Model {
 		// return this.campaignProgression;
 		return false;
 	}
+
+	public addGems(amount: number) {
+		this.gems += amount;
+	}
 }
 
 export function initModel(sequelize: Sequelize) {
