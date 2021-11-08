@@ -62,7 +62,10 @@ export class DraftBotMissionsMessage extends DraftBotEmbed {
 	}
 
 	private static generateDisplayProgression(current: number, objective: number): string {
-		const progression = current / objective;
+		let progression = current / objective;
+		if (progression > 1) {
+			progression = 1;
+		}
 		const squareToDisplay = Math.floor(progression * 10);
 		return "[" + "■".repeat(squareToDisplay) + "□".repeat(10 - squareToDisplay) + "]";
 	}

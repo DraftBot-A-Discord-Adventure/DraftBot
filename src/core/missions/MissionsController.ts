@@ -117,6 +117,16 @@ export class MissionsController {
 
 	public static async generateRandomMissionProperties(difficulty: number): Promise<{ mission: Mission, objective: number, variant: number }> {
 		const mission = await Missions.getRandomMission();
+		return this.generateMissionProperties(mission.id, difficulty, mission);
+	}
+
+	public static async generateMissionProperties(missionId: string, difficulty: number, mission: Mission = null): Promise<{ mission: Mission, objective: number, variant: number } | null> {
+		if (!mission) {
+			mission = await Missions.getById(missionId);
+			if (!mission) {
+				return null;
+			}
+		}
 		return {
 			mission: mission,
 			objective: mission.baseDifficulty * difficulty,
@@ -124,18 +134,23 @@ export class MissionsController {
 		};
 	}
 
-	public static async addRandomMissionToPlayer(player: Player, difficulty = -1): Promise<MissionSlot> {
-		if (difficulty === -1) {
-			difficulty = RandomUtils.draftbotRandom.integer(Constants.MISSION.MIN_DIFFICULTY, Constants.MISSION.MAX_DIFFICULTY);
-		}
-		const prop = await this.generateRandomMissionProperties(difficulty);
+	public static async addMissionToPlayer(playerId: number, missionId: string, difficulty: number, mission: Mission = null): Promise<MissionSlot> {
+		const prop = await this.generateMissionProperties(missionId, difficulty, mission);
 		return await MissionSlot.create({
-			playerId: player.id,
+			playerId: playerId,
 			missionId: prop.mission.id,
 			missionVariant: prop.variant,
 			missionObjective: prop.mission.objectiveForDifficulty(difficulty),
 			expiresAt: new Date(Date.now() + hoursToMilliseconds(prop.mission.durationForDifficulty(difficulty))),
 			numberDone: 0
 		});
+	}
+
+	public static async addRandomMissionToPlayer(player: Player, difficulty = -1): Promise<MissionSlot> {
+		if (difficulty === -1) {
+			difficulty = RandomUtils.draftbotRandom.integer(Constants.MISSION.MIN_DIFFICULTY, Constants.MISSION.MAX_DIFFICULTY);
+		}
+		const mission = await Missions.getRandomMission();
+		return await MissionsController.addMissionToPlayer(player.id, mission.id, difficulty, mission);
 	}
 }
