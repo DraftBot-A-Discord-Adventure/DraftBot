@@ -11,6 +11,8 @@ export class PlayerMissionsInfo extends Model {
 
 	public gems!: number;
 
+	public hasBoughtPointsThisWeek!: boolean;
+
 	public dailyMissionNumberDone!: number;
 
 	public lastDailyMissionCompleted!: Date;
@@ -37,6 +39,13 @@ export class PlayerMissionsInfo extends Model {
 	public addGems(amount: number) {
 		this.gems += amount;
 	}
+
+	static async resetShopBuyout() {
+		await PlayerMissionsInfo.update(
+			{
+				hasBoughtPointsThisWeek: false
+			},{where:{}})
+	}
 }
 
 export function initModel(sequelize: Sequelize) {
@@ -48,6 +57,10 @@ export function initModel(sequelize: Sequelize) {
 		gems: {
 			type: DataTypes.INTEGER,
 			defaultValue: 0
+		},
+		hasBoughtPointsThisWeek: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
 		},
 		dailyMissionNumberDone: {
 			type: DataTypes.INTEGER,

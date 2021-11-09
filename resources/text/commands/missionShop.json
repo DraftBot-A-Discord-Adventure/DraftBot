@@ -9,21 +9,25 @@
 			"success": "{pseudo}, transaction réussie !",
 			"items": {
 				"skipMapMission": {
-					"emote": "1️⃣",
+					"emote": "\uD83E\uDDFE",
 					"name": "Passe-mission",
 					"price": 1,
 					"info": "Vous permet de passer une mission obtenue sur la carte, cependant, vous n'obtiendrez aucune récompense.",
-					"give": "{pseudo}, vous avez décidé de passer une mission :"
+					"giveTitle": "{pseudo}, vous avez décidé de passer une mission",
+					"giveDesc": "Choisissez la mission à passer :",
+					"successTitle": "{pseudo}, vous avez passé une mission !",
+					"successDescription": "Vous avez passé la mission n°{num} : {missionInfo}"
 				},
 				"money": {
 					"emote": "\uD83D\uDCB0",
 					"name": "Argent du roi",
 					"price": 1,
-					"info": "Vous donne MONTANT A FIXER :moneybag:.",
-					"give": "{pseudo}, vous avez reçu MONTANT A FIXER:moneybag:."
+					"info": "Vous octroie `{amount} :moneybag:`.",
+					"giveTitle": "{pseudo}, achat effectué !",
+					"giveDescription": "Vous avez reçu `{amount} :moneybag:`."
 				},
 				"valuableItem": {
-					"emote": "3️⃣",
+					"emote": "✨",
 					"name": "Trésor du roi",
 					"price": 1,
 					"info": "Vous octroie un objet de valeur provenant de la salle aux trésors du roi.",
@@ -34,7 +38,8 @@
 					"name": "Ferveur du roi",
 					"price": 1,
 					"info": "Vous octroie 1000 points. Ne peut être utilisé qu'une fois par semaine.",
-					"give": "{pseudo}, vous avez décidé de passer une mission :"
+					"giveTitle": "{pseudo}, achat effectué !",
+					"giveDescription": "Vous avez reçu 1000 :medal:. A la semaine prochaine pour une nouvelle ferveur !"
 				},
 				"lovePointsValue": {
 					"emote": "\uD83E\uDDD1\u200D⚕️",
@@ -57,7 +62,9 @@
 				"cannotBuy": "Vous n'avez pas assez de gemmes pour acheter cet objet ! Il vous manque `{missingMoney}💎`.",
 				"canceledPurchase": "Transaction annulée!",
 				"alreadyHasItem": "Vous possédez déjà cet objet.",
-				"leaveShop": "Vous avez quitté le magasin."
+				"leaveShop": "Vous avez quitté le magasin.",
+				"remainingCooldown": "Vous avez déjà acheté des points cette semaine, revenez la semaine prochaine pour en acheter !",
+				"noMissionToSkip": "Vous n'avez aucune mission à passer !"
 			}
 		},
 		"en": {

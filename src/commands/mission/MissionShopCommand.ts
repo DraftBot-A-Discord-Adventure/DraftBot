@@ -11,14 +11,21 @@ import {Entities} from "../../core/models/Entity";
 
 import {Collector, Message, TextBasedChannels, User} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
+import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
+import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
+
 declare function removeBlockedPlayer(id: string): void;
+
 declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any, any[]>): void;
-declare function sendBlockedError(user: User, channel: TextBasedChannels, language: string) : boolean;
-declare function sendErrorMessage(user: User, channel: TextBasedChannels, language: string, reason: string) : boolean;
+
+declare function sendBlockedError(user: User, channel: TextBasedChannels, language: string): boolean;
+
+declare function sendErrorMessage(user: User, channel: TextBasedChannels, language: string, reason: string): boolean;
 
 module.exports.commandInfo = {
 	name: "missionshop",
-	aliases: ["ms","mshop"],
+	aliases: ["ms", "mshop"],
 	disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED]
 };
 
@@ -76,59 +83,117 @@ const MissionShopCommand = async (message: Message, language: string) => {
 };
 
 
-let getUserGems = async (userId: string) : Promise<number> =>	{
+let getUserGems = async (userId: string): Promise<number> => {
 	let user = (await Entities.getOrRegister(userId))[0].Player;
 	return user.PlayerMissionsInfo.gems;
 }
 
-async function removeUserMoney(userId: string,amount: number) : Promise<void> {
+async function removeUserMoney(userId: string, amount: number): Promise<void> {
 	const player = (await Entities.getByDiscordUserId(userId)).Player;
 	player.PlayerMissionsInfo.addGems(-amount);
-	await player.save();
+	await player.PlayerMissionsInfo.save();
 }
 
 function shopEndCallback(shopMessage: DraftBotShopMessage) {
 	removeBlockedPlayer(shopMessage.user.id);
 }
 
-function getItemShopItem(name: string, translationModule: TranslationModule, buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>) : ShopItem {
+function getItemShopItem(name: string, translationModule: TranslationModule, buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>): ShopItem {
 	return new ShopItem(
 		translationModule.get("items." + name + ".emote"),
 		translationModule.get("items." + name + ".name"),
 		parseInt(translationModule.get("items." + name + ".price")),
-		translationModule.get("items." + name + ".info"),
+		translationModule.format("items." + name + ".info",
+			{amount: Constants.MISSION_SHOP.RATIO_MONEY_GEMS}
+		),
 		buyCallback
 	);
 }
 
-function getSkipMapMissionShopItem(translationModule: TranslationModule) : ShopItem {
+function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopItem {
 	return getItemShopItem(
 		"skipMapMission",
 		translationModule,
 		async (message) => {
-			// TODO
-			return true;
+			const [entity] = await Entities.getOrRegister(message.user.id);
+			const allMissions = await entity.Player.MissionSlots.filter(slot => !slot.isCampaign());
+			if (!allMissions.length) {
+				await sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.noMissionToSkip"));
+				return false;
+			}
+			let chooseMission = new DraftBotReactionMessageBuilder()
+				.allowUser(message.user)
+				.endCallback(async (missionMessaege) => {
+					const reaction = missionMessaege.getFirstReaction();
+					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
+						removeBlockedPlayer(message.user.id);
+						await message.sentMessage.channel.send({
+							embeds: [new DraftBotErrorEmbed(
+								message.user,
+								message.language,
+								translationModule.get("error.canceledPurchase")
+							)]
+						});
+						return false;
+					}
+					for (let i = 0; i < allMissions.length; ++i) {
+						if (reaction.emoji.name === Constants.REACTIONS.NUMBERS[i + 1]) {
+							entity.Player.PlayerMissionsInfo.addGems(-parseInt(translationModule.get("items.skipMapMission.price"), 10));
+							await entity.Player.PlayerMissionsInfo.save();
+							await message.sentMessage.channel.send({
+								embeds: [
+									new DraftBotEmbed()
+										.formatAuthor(translationModule.get("items.skipMapMission.successTitle"), message.user)
+										.setDescription(translationModule.format("items.skipMapMission.successDescription", {
+											num: i + 1,
+											missionInfo: allMissions[i].Mission.formatDescription(allMissions[i].missionObjective, message.language)
+										}))
+								]
+							});
+							await allMissions[i].destroy();
+							break;
+						}
+					}
+					removeBlockedPlayer(message.user.id);
+				});
+			let desc = "";
+			for (let i = 0; i < allMissions.length; ++i) {
+				chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.NUMBERS[i + 1]));
+				desc += Constants.REACTIONS.NUMBERS[i + 1] + " " + allMissions[i].Mission.formatDescription(allMissions[i].missionObjective, message.language) + "\n";
+			}
+			chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
+			const chooseMissionBuilt = chooseMission.build();
+			chooseMissionBuilt.formatAuthor(translationModule.get("items.skipMapMission.giveTitle"), message.user);
+			chooseMissionBuilt.setDescription(translationModule.get("items.skipMapMission.giveDesc") + "\n\n" + desc);
+			await chooseMissionBuilt.send(message.sentMessage.channel);
+			addBlockedPlayer(entity.discordUserId, "missionShop", chooseMissionBuilt.collector);
+			return false;
 		});
 }
 
-function getMoneyShopItem(translationModule: TranslationModule) : ShopItem {
+function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 	return getItemShopItem(
 		"money",
 		translationModule,
 		async (message) => {
-			// TODO sent message réponse
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			entity.Player.addMoney(Constants.MISSION_SHOP.RATIO_MONEY_GEMS);
+			await message.sentMessage.channel.send(
+				{
+					embeds: [new DraftBotEmbed()
+						.formatAuthor(translationModule.get("items.money.giveTitle"), message.user)
+						.setDescription(translationModule.format("items.money.giveDescription", {amount: Constants.MISSION_SHOP.RATIO_MONEY_GEMS})
+						)]
+				})
 			return true;
 		});
 }
 
-function getValuableItemShopItem(translationModule: TranslationModule) : ShopItem {
+function getValuableItemShopItem(translationModule: TranslationModule): ShopItem {
 	return getItemShopItem(
 		"valuableItem",
 		translationModule,
 		async (message) => {
-			// TODO sent message réponse
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const item = await generateRandomItem(Constants.RARITY.MYTHICAL, null, Constants.RARITY.SPECIAL);
 			console.log(item.rarity);
@@ -137,23 +202,33 @@ function getValuableItemShopItem(translationModule: TranslationModule) : ShopIte
 		});
 }
 
-function getAThousandPointsShopItem(translationModule: TranslationModule) : ShopItem {
+function getAThousandPointsShopItem(translationModule: TranslationModule): ShopItem {
 	return getItemShopItem(
 		"1000Points",
 		translationModule,
 		async (message) => {
-			// TODO check cooldown 1 semaine
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			entity.Player.addScore(1000)
-			entity.Player.addWeeklyScore(1000)
-			await entity.Player.save()
-			// TODO sent message réponse
-			// TODO set cooldown
+			if (entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek) {
+				await sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.remainingCooldown"));
+				return false;
+			}
+			entity.Player.addScore(1000);
+			entity.Player.addWeeklyScore(1000);
+			await entity.Player.save();
+			await message.sentMessage.channel.send(
+				{
+					embeds: [new DraftBotEmbed()
+						.formatAuthor(translationModule.get("items.1000Points.giveTitle"), message.user)
+						.setDescription(translationModule.get("items.1000Points.giveDescription")
+						)]
+				})
+			entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek = true;
+			await entity.Player.PlayerMissionsInfo.save();
 			return true;
 		});
 }
 
-function getValueLovePointsPetShopItem(translationModule: TranslationModule) : ShopItem {
+function getValueLovePointsPetShopItem(translationModule: TranslationModule): ShopItem {
 	return getItemShopItem(
 		"lovePointsValue",
 		translationModule,
@@ -165,7 +240,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule) : S
 		});
 }
 
-function getBadgeShopItem(translationModule: TranslationModule) : ShopItem {
+function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
 	return getItemShopItem(
 		"badge",
 		translationModule,
@@ -177,10 +252,12 @@ function getBadgeShopItem(translationModule: TranslationModule) : ShopItem {
 			}
 			entity.Player.addBadge("💍");
 			await entity.Player.save();
-			await message.sentMessage.channel.send({ embeds: [new DraftBotEmbed()
-				.formatAuthor(translationModule.get("items.badge.give"), message.user)
-				.setDescription("💍 " + translationModule.get("items.badge.name"))
-			] });
+			await message.sentMessage.channel.send({
+				embeds: [new DraftBotEmbed()
+					.formatAuthor(translationModule.get("items.badge.give"), message.user)
+					.setDescription("💍 " + translationModule.get("items.badge.name"))
+				]
+			});
 			return true;
 		}
 	);

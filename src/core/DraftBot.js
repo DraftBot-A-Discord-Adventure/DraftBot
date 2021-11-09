@@ -4,6 +4,7 @@ import Entity, {Entities} from "./models/Entity";
 import Potion from "./models/Potion";
 import PetEntity from "./models/PetEntity";
 import Player from "./models/Player";
+import PlayerMissionsInfo from "./models/PlayerMissionsInfo";
 
 const fs = require("fs");
 
@@ -206,6 +207,8 @@ class DraftBot {
 		}
 		await Player.update({weeklyScore: 0}, {where: {}});
 		console.log("# WARNING # Weekly leaderboard has been reset !");
+		await PlayerMissionsInfo.resetShopBuyout();
+		console.log("All players can now buy again points from the mission shop !");
 		DraftBot.programTopWeekTimeout();
 	}
 
