@@ -513,6 +513,8 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 					.setDescription(JsonReader.smallEvents[event].emote + " ");
 
 				await smallEventFile.executeSmallEvent(message, language, entity, seEmbed);
+
+				await MissionsController.update(entity.Player, message.channel, language, "doSmallEvents");
 			}
 		}
 		catch (e) {

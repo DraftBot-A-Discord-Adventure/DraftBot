@@ -1,0 +1,15 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Faire {objective} petit événement{objective>1?s:}"
+		},
+		"en": {
+			"desc": "Do {objective} small event{objective>1?s:}"
+		}
+	},
+	"campaignOnly": false,
+	"gems": 1,
+	"xp": 10,
+	"baseDifficulty": 4,
+	"baseDuration": 12
+}
