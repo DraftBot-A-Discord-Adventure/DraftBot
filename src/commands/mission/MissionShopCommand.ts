@@ -233,9 +233,24 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 		"lovePointsValue",
 		translationModule,
 		async (message) => {
-			// TODO check si pet
-			// TODO check lp pet
-			// TODO sent message réponse avec tip
+			const [entity] = await Entities.getOrRegister(message.user.id);
+			if (entity.Player.petId === null) {
+				await sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.noPet"));
+				return false;
+			}
+			const sentenceGotten = translationModule.getRandom("items.lovePointsValue.advice."+(entity.Player.Pet.getLoveLevelNumber()))
+			await message.sentMessage.channel.send({
+				embeds: [new DraftBotEmbed()
+					.formatAuthor(translationModule.get("items.lovePointsValue.giveTitle"), message.user)
+					.setDescription(translationModule.format("items.lovePointsValue.giveDesc", {
+						pseudo: message.user.username,
+						isFemale: entity.Player.Pet.sex == "f",
+						petName: entity.Player.Pet.displayName(message.language),
+						actualLP: entity.Player.Pet.lovePoints,
+						commentOnResult: sentenceGotten
+					}))
+				]
+			});
 			return true;
 		});
 }

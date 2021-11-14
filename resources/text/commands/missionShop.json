@@ -46,7 +46,25 @@
 					"name": "Vétérinaire de la cour",
 					"price": 1,
 					"info": "Vous renseigne sur l'amour exact de votre pet sur vous.",
-					"give": "Le vétérinaire s'approche de vous. Il examine votre animal, puis dit : \"{pseudo}, votre ch(isFemale?ère:er) {petName} est actuellement à **{actualLP} / 100** points d'amour. {commentOnResult}"
+					"giveTitle": "{pseudo}, achat effectué !",
+					"giveDesc": "Le vétérinaire s'approche de vous. Il examine votre animal, puis dit : \"{pseudo}, votre ch{isFemale?ère:er} **{petName}** est actuellement à **{actualLP} / 100** point{actualLP>1?s:} d'amour. {commentOnResult}\"",
+					"advice": {
+						"1": [
+							"TEST FIELLEUX"
+						],
+						"2": [
+							"TEST SAUVAGE"
+						],
+						"3": [
+							"TEST CRAINTIF"
+						],
+						"4": [
+							"TEST APPRIVOISE"
+						],
+						"5": [
+							"TEST DRESSE"
+						]
+					}
 				},
 				"badge": {
 					"emote": "\uD83D\uDC8D",
@@ -64,7 +82,8 @@
 				"alreadyHasItem": "Vous possédez déjà cet objet.",
 				"leaveShop": "Vous avez quitté le magasin.",
 				"remainingCooldown": "Vous avez déjà acheté des points cette semaine, revenez la semaine prochaine pour en acheter !",
-				"noMissionToSkip": "Vous n'avez aucune mission à passer !"
+				"noMissionToSkip": "Vous n'avez aucune mission à passer !",
+				"noPet": "Vous n'avez aucun animal sur vous, nous ne pouvons prodiguer un diagnostique sur un animal fantôme !"
 			}
 		},
 		"en": {
