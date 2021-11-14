@@ -1,7 +1,7 @@
 {
 	"translations": {
-		"fr": ":crossed_swords: **Double dagues**",
-		"en": ":crossed_swords: **Double daggers**"
+		"fr": ":crossed_swords: **Paire de dagues**",
+		"en": ":crossed_swords: **Pair of daggers**"
 	},
 	"rarity": 4,
 	"rawAttack": 10,
