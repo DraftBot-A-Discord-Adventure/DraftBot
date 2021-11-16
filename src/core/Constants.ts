@@ -174,13 +174,6 @@ export abstract class Constants {
 		SCARED: ":scream:"
 	};
 
-	static readonly MISSION = {
-		DAILY_MIN_DIFFICULTY: 1,
-		DAILY_MAX_DIFFICULTY: 3,
-		MIN_DIFFICULTY: 1,
-		MAX_DIFFICULTY: 10
-	}
-
 	static readonly MISSION_SHOP = {
 		RATIO_MONEY_GEMS: 1000
 	}

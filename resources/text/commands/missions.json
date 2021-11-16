@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"title": "Mission de {pseudo}",
+			"title": "Missions de {pseudo}",
 			"campaign": "\uD83D\uDCD6 **Campagne ({current}/{max})**",
 			"finishedCampaign": "\uD83D\uDCD6 **Campagne terminée**",
 			"daily": "\uD83D\uDCC5 **Mission quotidienne**",

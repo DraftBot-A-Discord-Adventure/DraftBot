@@ -7,9 +7,5 @@
 			"desc": "Start the campaign"
 		}
 	},
-	"campaignOnly": true,
-	"gems": 1,
-	"xp": 0,
-	"baseDifficulty": 1,
-	"baseDuration": null
+	"campaignOnly": true
 }

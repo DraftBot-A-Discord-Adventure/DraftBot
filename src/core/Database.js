@@ -93,10 +93,6 @@ class Database {
 			{
 				model: MapLocation,
 				folder: "maplocations"
-			},
-			{
-				model: Mission,
-				folder: "missions"
 			}
 		]);
 		await Database.verifyMaps();
@@ -361,6 +357,23 @@ class Database {
 		await BigEvent.destroy({truncate: true});
 		await EventMapLocationId.destroy({truncate: true});
 		await Possibility.destroy({truncate: true});
+		await Mission.destroy({truncate: true});
+
+		const missionFiles = await fs.promises.readdir("resources/text/missions");
+		const missions = [];
+		for (const file of missionFiles) {
+			const fileName = file.split(".")[0];
+			const fileContent = require(`resources/text/missions/${file}`);
+			fileContent.id = fileName;
+			fileContent.descEn = fileContent.translations.en.desc;
+			fileContent.descFr = fileContent.translations.fr.desc;
+			fileContent.canBeDaily = fileContent.campaignOnly ? false : fileContent.dailyIndexes.length !== 0;
+			fileContent.canBeEasy = fileContent.campaignOnly ? false : fileContent.difficulties.easy.length !== 0;
+			fileContent.canBeMedium = fileContent.campaignOnly ? false : fileContent.difficulties.medium.length !== 0;
+			fileContent.canBeHard = fileContent.campaignOnly ? false : fileContent.difficulties.hard.length !== 0;
+			missions.push(fileContent);
+		}
+		await Mission.bulkCreate(missions);
 
 		const files = await fs.promises.readdir("resources/text/events");
 		const eventsContent = [];

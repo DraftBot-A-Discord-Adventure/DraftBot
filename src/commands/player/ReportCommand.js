@@ -514,7 +514,7 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 
 				await smallEventFile.executeSmallEvent(message, language, entity, seEmbed);
 
-				await MissionsController.update(entity.Player, message.channel, language, "doSmallEvents");
+				await MissionsController.update(entity.Player, message.channel, language, "doReports");
 			}
 		}
 		catch (e) {

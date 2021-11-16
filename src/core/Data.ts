@@ -1,3 +1,5 @@
+import {RandomUtils} from "./utils/RandomUtils";
+
 declare const JsonReader: any;
 
 const dataModulesCache: Record<string, DataModule> = {};
@@ -71,6 +73,14 @@ export class DataModule {
 	public exists(path: string): boolean {
 		const dataObj = this.getDataObject(path, false);
 		return dataObj !== null && dataObj !== undefined;
+	}
+
+	public getRandomNumberFromArray(path: string): number {
+		const dataObj = this.getDataObject(path, false);
+		if (!dataObj) {
+			return 0;
+		}
+		return RandomUtils.draftbotRandom.pick(<number[]> dataObj);
 	}
 }
 

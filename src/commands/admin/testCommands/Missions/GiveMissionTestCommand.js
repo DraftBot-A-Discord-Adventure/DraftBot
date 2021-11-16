@@ -2,6 +2,7 @@ const {format} = require("../../../../core/utils/StringFormatter");
 const {Constants} = require("../../../../core/Constants");
 const {MissionsController} = require("../../../../core/missions/MissionsController");
 const {Entities} = require("../../../../core/models/Entity");
+const {MissionDifficulty} = require("../../../../core/missions/MissionDifficulty");
 module.exports.commandInfo = {
 	name: "giveMission",
 	aliases: ["gm"],
@@ -32,12 +33,13 @@ const giveMissionTestCommand = async (language, message, args) => {
 		throw new Error("Cette mission n'est disponible que pour la campagne !");
 	}
 
-	const difficulty = parseInt(args[1], 10);
-	if (isNaN(difficulty) || difficulty < Constants.MISSION.MIN_DIFFICULTY || difficulty > Constants.MISSION.MAX_DIFFICULTY) {
-		throw new Error("Difficulté incorrecte, elle doit être entre " + Constants.MISSION.MIN_DIFFICULTY + " et " + Constants.MISSION.MAX_DIFFICULTY);
+	const difficulty = args[1];
+	if (!difficulty || difficulty !== "e" && difficulty !== "m" && difficulty !== "h") {
+		throw new Error("Difficulté incorrecte, elle doit être easy (e), medium (m) ou hard (h)");
 	}
 
-	const missionSlot = await MissionsController.addMissionToPlayer(entity.Player.id, missionId, difficulty);
+	const missionSlot = await MissionsController.addMissionToPlayer(entity.Player.id, missionId,
+		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD);
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		desc: (await missionSlot.getMission()).formatDescription(missionSlot.missionObjective, language),

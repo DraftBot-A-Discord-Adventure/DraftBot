@@ -1,14 +1,9 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, Sequelize} from "sequelize";
 import {datesAreOnSameDay} from "../utils/TimeUtils";
 import {MissionsController} from "../missions/MissionsController";
-import {RandomUtils} from "../utils/RandomUtils";
-import {Constants} from "../Constants";
 import Mission from "./Mission";
+import moment = require("moment");
+import {Data} from "../Data";
 
 export class DailyMission extends Model {
 	public missionId!: string;
@@ -16,6 +11,10 @@ export class DailyMission extends Model {
 	public objective!: number;
 
 	public variant!: number;
+
+	public gemsToWin!: number;
+
+	public xpToWin!: number;
 
 	public updatedAt!: Date;
 
@@ -46,24 +45,24 @@ export class DailyMissions {
 	}
 
 	static async regenerateDailyMission(): Promise<DailyMission> {
-		const prop = await MissionsController.generateRandomMissionProperties(
-			RandomUtils.draftbotRandom.integer(
-				Constants.MISSION.DAILY_MIN_DIFFICULTY,
-				Constants.MISSION.DAILY_MAX_DIFFICULTY
-			)
-		);
+		const prop = await MissionsController.generateRandomDailyMissionProperties();
 		const dailyMission = await DailyMissions.queryDailyMission();
+		const missionData = Data.getModule("missions." + prop.mission.id);
 		if (!dailyMission) {
 			await DailyMission.create({
 				missionId: prop.mission.id,
-				objective: prop.objective,
-				variant: prop.variant
+				objective: missionData.getNumberFromArray("objectives", prop.index),
+				variant: prop.variant,
+				gemsToWin: missionData.getNumberFromArray("gems", prop.index),
+				xpToWin: missionData.getNumberFromArray("xp", prop.index)
 			});
 		}
 		else {
 			dailyMission.missionId = prop.mission.id;
-			dailyMission.objective = prop.objective;
+			dailyMission.objective = missionData.getNumberFromArray("objectives", prop.index);
 			dailyMission.variant = prop.variant;
+			dailyMission.gemsToWin = missionData.getNumberFromArray("gems", prop.index);
+			dailyMission.xpToWin = missionData.getNumberFromArray("xp", prop.index);
 			await dailyMission.save();
 		}
 		return await this.queryDailyMission();
@@ -80,6 +79,12 @@ export function initModel(sequelize: Sequelize) {
 			type: DataTypes.INTEGER
 		},
 		variant: {
+			type: DataTypes.INTEGER
+		},
+		gemsToWin: {
+			type: DataTypes.INTEGER
+		},
+		xpToWin: {
 			type: DataTypes.INTEGER
 		},
 		updatedAt: {

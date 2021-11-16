@@ -5,36 +5,29 @@ import {
 } from "sequelize";
 import moment = require("moment");
 import {format} from "../utils/StringFormatter";
+import {MissionDifficulty} from "../missions/MissionDifficulty";
 
 export class Mission extends Model {
-	public readonly id!: string;
+	public id!: string;
 
-	public readonly descFr!: string;
+	public descFr!: string;
 
-	public readonly descEn!: string;
+	public descEn!: string;
 
-	public readonly campaignOnly!: boolean;
+	public campaignOnly!: boolean;
 
-	public readonly gems!: number;
+	public canBeDaily!: boolean;
 
-	public readonly xp!: number;
+	public canBeEasy!: boolean;
 
-	public readonly baseDifficulty!: number;
+	public canBeMedium!: boolean;
 
-	public readonly baseDuration!: number;
+	public canBeHard!: boolean;
 
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
 
-
-	public objectiveForDifficulty(difficulty: number): number {
-		return difficulty * this.baseDifficulty;
-	}
-
-	public durationForDifficulty(difficulty: number): number {
-		return difficulty * this.baseDuration;
-	}
 
 	public formatDescription(objective: number, language: string): string {
 		return format(language === "fr" ? this.descFr : this.descEn, {
@@ -44,10 +37,39 @@ export class Mission extends Model {
 }
 
 export class Missions {
-	static async getRandomMission(): Promise<Mission> {
+	static async getRandomMission(difficulty: MissionDifficulty): Promise<Mission> {
+		switch (difficulty) {
+		case MissionDifficulty.EASY:
+			return await Mission.findOne({
+				where: {
+					campaignOnly: false,
+					canBeEasy: true
+				}
+			});
+		case MissionDifficulty.MEDIUM:
+			return await Mission.findOne({
+				where: {
+					campaignOnly: false,
+					canBeMedium: true
+				}
+			});
+		case MissionDifficulty.HARD:
+			return await Mission.findOne({
+				where: {
+					campaignOnly: false,
+					canBeHard: true
+				}
+			});
+		default:
+			return null;
+		}
+	}
+
+	static async getRandomDailyMission(): Promise<Mission> {
 		return await Mission.findOne({
 			where: {
-				campaignOnly: false
+				campaignOnly: false,
+				canBeDaily: true
 			}
 		});
 	}
@@ -76,16 +98,16 @@ export function initModel(sequelize: Sequelize) {
 		campaignOnly: {
 			type: DataTypes.BOOLEAN
 		},
-		gems: {
+		canBeDaily: {
+			type: DataTypes.BOOLEAN
+		},
+		canBeEasy: {
 			type: DataTypes.INTEGER
 		},
-		xp: {
+		canBeMedium: {
 			type: DataTypes.INTEGER
 		},
-		baseDifficulty: {
-			type: DataTypes.INTEGER
-		},
-		baseDuration: {
+		canBeHard: {
 			type: DataTypes.INTEGER
 		},
 		updatedAt: {

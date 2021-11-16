@@ -1,16 +1,16 @@
-import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
 import {Entities} from "../../../../core/models/Entity";
 import {MissionsController} from "../../../../core/missions/MissionsController";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Missions} from "../../../../core/models/Mission";
 import {Constants} from "../../../../core/Constants";
+import {MissionDifficulty} from "../../../../core/missions/MissionDifficulty";
 
 export const commandInfo = {
 	name: "giveRandomMission",
 	aliases: ["grm"],
 	commandFormat: "<difficulty>",
 	typeWaited: {
-		difficulty: typeVariable.INTEGER
+		difficulty: typeVariable.STRING
 	},
 	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
 	description: "Donne une mission aléatoire"
@@ -22,11 +22,12 @@ const giveRandomMissionTestCommand = async (language, message, args) => {
 	if (!entity.Player.hasEmptyMissionSlot()) {
 		throw new Error("Les slots de mission du joueur sont tous pleins");
 	}
-	const difficulty = parseInt(args[0]);
-	if (isNaN(difficulty) || difficulty < Constants.MISSION.MIN_DIFFICULTY || difficulty > Constants.MISSION.MAX_DIFFICULTY) {
-		throw new Error("Difficulté incorrecte, elle doit être entre " + Constants.MISSION.MIN_DIFFICULTY + " et " + Constants.MISSION.MAX_DIFFICULTY);
+	const difficulty = args[0];
+	if (!difficulty || difficulty !== "e" && difficulty !== "m" && difficulty !== "h") {
+		throw new Error("Difficulté incorrecte, elle doit être easy (e), medium (m) ou hard (h)");
 	}
-	const missionSlot = await MissionsController.addRandomMissionToPlayer(entity.Player, difficulty);
+	const missionSlot = await MissionsController.addRandomMissionToPlayer(entity.Player,
+		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD);
 	const mission = await Missions.getById(missionSlot.missionId);
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
