@@ -16,11 +16,10 @@ export class MissionsController {
 			return false;
 		}
 
-		const variant = missionInterface.paramsToVariant(params);
 		let updated = false;
 		const completedMission = [];
 		for (const mission of player.MissionSlots) {
-			if (mission.missionId === missionId && mission.missionVariant === variant && !mission.hasExpired()) {
+			if (mission.missionId === missionId && missionInterface.areParamsMatchingVariant(mission.missionVariant, params) && !mission.hasExpired()) {
 				updated = true;
 				mission.numberDone += count;
 				if (mission.numberDone > mission.missionObjective) {
@@ -37,7 +36,7 @@ export class MissionsController {
 		}
 		if (!player.PlayerMissionsInfo.hasCompletedDailyMission()) {
 			const dailyMission = await DailyMissions.getOrGenerate();
-			if (dailyMission.variant === variant) {
+			if (missionInterface.areParamsMatchingVariant(dailyMission.variant, params)) {
 				updated = true;
 				player.PlayerMissionsInfo.dailyMissionNumberDone += count;
 				if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
@@ -65,7 +64,7 @@ export class MissionsController {
 			if (missionSlot.isCampaign()) {
 				player.PlayerMissionsInfo.campaignProgression++;
 			}
-			desc += "- " + missionSlot.Mission.formatDescription(missionSlot.missionObjective, language) + "\n";
+			desc += "- " + missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language) + "\n";
 		}
 		channel.send({
 			embeds: [
@@ -95,7 +94,7 @@ export class MissionsController {
 				new DraftBotEmbed()
 					.setTitle("Mission")
 					.setDescription(await player.getPseudo(language) + " completed the daily mission:\n"
-						+ dailyMission.Mission.formatDescription(dailyMission.objective, language) + "\n\n**xp Won:** " + xpWon + "\n**gems Won:** " + gemsWon)
+						+ dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language) + "\n\n**xp Won:** " + xpWon + "\n**gems Won:** " + gemsWon)
 			]
 		}).then();
 
@@ -156,7 +155,7 @@ export class MissionsController {
 		return {
 			mission: mission,
 			index,
-			variant: (<IMission>(require("./interfaces/" + mission.id).missionInterface)).generateRandomVariant()
+			variant: (<IMission>(require("./interfaces/" + mission.id).missionInterface)).generateRandomVariant(difficulty)
 		};
 	}
 
@@ -178,5 +177,9 @@ export class MissionsController {
 	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty): Promise<MissionSlot> {
 		const mission = await Missions.getRandomMission(difficulty);
 		return await MissionsController.addMissionToPlayer(player.id, mission.id, difficulty, mission);
+	}
+
+	public static getVariantFormatText(missionId: string, variant: number) {
+		return (<IMission>(require("./interfaces/" + missionId).missionInterface)).getVariantFormatVariable(variant);
 	}
 }

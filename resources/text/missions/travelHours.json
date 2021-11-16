@@ -1,0 +1,45 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Faire {objective} voyage{objective>1?s:} de plus de {variantText} heures"
+		},
+		"en": {
+			"desc": "Do {objective} travel{objective>1?s:} of more than {variantText} hours"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0
+		],
+		"medium": [
+			1
+		],
+		"hard": [
+			2
+		]
+	},
+	"objectives": [
+		1,
+		1,
+		1
+	],
+	"gems": [
+		1,
+		3,
+		10
+	],
+	"xp": [
+		10,
+		30,
+		100
+	],
+	"expirations": [
+		24,
+		72,
+		120
+	],
+	"dailyIndexes": [
+		0
+	]
+}

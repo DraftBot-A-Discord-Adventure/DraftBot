@@ -1,5 +1,9 @@
-export type IMission = {
-	paramsToVariant(params: { [key: string]: any }): number;
+import {MissionDifficulty} from "./MissionDifficulty";
 
-	generateRandomVariant(): number;
+export type IMission = {
+	generateRandomVariant(difficulty: MissionDifficulty): number;
+
+	areParamsMatchingVariant(variant: number, params: { [key: string]: any }): boolean;
+
+	getVariantFormatVariable(variant: number): string;
 }

@@ -6,6 +6,7 @@ import {
 import moment = require("moment");
 import {format} from "../utils/StringFormatter";
 import {MissionDifficulty} from "../missions/MissionDifficulty";
+import {MissionsController} from "../missions/MissionsController";
 
 export class Mission extends Model {
 	public id!: string;
@@ -29,9 +30,10 @@ export class Mission extends Model {
 	public createdAt!: Date;
 
 
-	public formatDescription(objective: number, language: string): string {
+	public formatDescription(objective: number, variant: number, language: string): string {
 		return format(language === "fr" ? this.descFr : this.descEn, {
-			objective
+			objective,
+			variantText: MissionsController.getVariantFormatText(this.id, variant)
 		});
 	}
 }

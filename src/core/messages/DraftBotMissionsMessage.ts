@@ -28,7 +28,7 @@ export class DraftBotMissionsMessage extends DraftBotEmbed {
 			+ "\n"
 			+ DraftBotMissionsMessage.getMissionDisplay(
 				tr,
-				dailyMission.Mission.formatDescription(dailyMission.objective, language),
+				dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language),
 				tomorrow,
 				player.PlayerMissionsInfo.dailyMissionNumberDone,
 				dailyMission.objective
@@ -41,7 +41,7 @@ export class DraftBotMissionsMessage extends DraftBotEmbed {
 			for (const missionSlot of player.MissionSlots.filter(slot => !slot.isCampaign())) {
 				desc += DraftBotMissionsMessage.getMissionDisplay(
 					tr,
-					missionSlot.Mission.formatDescription(missionSlot.missionObjective, language),
+					missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language),
 					missionSlot.expiresAt,
 					missionSlot.numberDone,
 					missionSlot.missionObjective

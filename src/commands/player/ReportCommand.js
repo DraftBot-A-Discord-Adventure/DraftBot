@@ -171,6 +171,10 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @returns {Promise<void>}
  */
 const chooseDestination = async function(entity, message, language, restrictedMapType) {
+	await MissionsController.update(entity.Player, message.channel, language, "travelHours", 1, {
+		travelTime: await entity.Player.getCurrentTripDuration()
+	});
+
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restrictedMapType);
 

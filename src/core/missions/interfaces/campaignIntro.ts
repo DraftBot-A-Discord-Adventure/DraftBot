@@ -1,7 +1,15 @@
 import {IMission} from "../IMission";
 
 export const missionInterface: IMission = {
-	generateRandomVariant: () => 0,
+	areParamsMatchingVariant(): boolean {
+		return false;
+	},
 
-	paramsToVariant: () => 0
+	getVariantFormatVariable(): string {
+		return "";
+	},
+
+	generateRandomVariant(): number {
+		return 0;
+	}
 };

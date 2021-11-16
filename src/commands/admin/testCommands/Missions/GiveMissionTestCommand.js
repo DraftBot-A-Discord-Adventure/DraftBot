@@ -1,5 +1,4 @@
 const {format} = require("../../../../core/utils/StringFormatter");
-const {Constants} = require("../../../../core/Constants");
 const {MissionsController} = require("../../../../core/missions/MissionsController");
 const {Entities} = require("../../../../core/models/Entity");
 const {MissionDifficulty} = require("../../../../core/missions/MissionDifficulty");
@@ -9,7 +8,7 @@ module.exports.commandInfo = {
 	commandFormat: "<mission id> <difficulty>",
 	typeWaited: {
 		"mission id": typeVariable.STRING,
-		"difficulty": typeVariable.INTEGER
+		"difficulty": typeVariable.STRING
 	},
 	messageWhenExecuted: "Vous avez reçu la mission suivante:\n**Description :** {desc}\n**Objectif :** {objective}",
 	description: "Permet de se donner une mission spécifique"
@@ -42,7 +41,7 @@ const giveMissionTestCommand = async (language, message, args) => {
 		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD);
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
-		desc: (await missionSlot.getMission()).formatDescription(missionSlot.missionObjective, language),
+		desc: (await missionSlot.getMission()).formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language),
 		objective: missionSlot.missionObjective
 	});
 };

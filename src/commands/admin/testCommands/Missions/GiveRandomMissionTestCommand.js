@@ -31,7 +31,7 @@ const giveRandomMissionTestCommand = async (language, message, args) => {
 	const mission = await Missions.getById(missionSlot.missionId);
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
-		desc: mission.formatDescription(missionSlot.missionObjective, language),
+		desc: mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language),
 		objective: missionSlot.missionObjective
 	});
 };
