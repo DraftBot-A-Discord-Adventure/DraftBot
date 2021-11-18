@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariant(): boolean {
-		return false;
+		return true;
 	},
 
 	getVariantFormatVariable(): string {

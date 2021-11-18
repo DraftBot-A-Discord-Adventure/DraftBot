@@ -30,7 +30,8 @@ class DraftBot {
 				"resources/text/smallEventsIntros.json",
 				"resources/text/values.json",
 				"resources/text/items.json",
-				"resources/text/food.json"
+				"resources/text/food.json",
+				"resources/text/campaign.json"
 			]
 		});
 		await DraftBotBackup.init();

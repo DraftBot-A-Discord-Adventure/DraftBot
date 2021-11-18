@@ -1,0 +1,18 @@
+{
+	"missions": [
+		{
+			"missionId": "campaignIntro",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 10,
+			"xpToWin": 100
+		},
+		{
+			"missionId": "doReports",
+			"missionVariant": 0,
+			"missionObjective": 5,
+			"gemsToWin": 5,
+			"xpToWin": 50
+		}
+	]
+}

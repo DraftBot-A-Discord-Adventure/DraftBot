@@ -3,6 +3,7 @@ import {Message} from "discord.js";
 import {Entities} from "../../core/models/Entity";
 import {DraftBotMissionsMessage} from "../../core/messages/DraftBotMissionsMessage";
 import {DailyMissions} from "../../core/models/DailyMission";
+import {Campaign} from "../../core/missions/Campaign";
 
 export const commandInfo = {
 	name: "missions",
@@ -17,6 +18,8 @@ const MissionsCommand = async (message: Message, language: string, args: string[
 	}
 
 	const dailyMission = await DailyMissions.getOrGenerate();
+	await Campaign.updatePlayerCampaign(entity.Player);
+	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	message.channel.send({ embeds: [
 		await new DraftBotMissionsMessage(
 			entity.Player,

@@ -6,7 +6,7 @@
 			"finishedCampaign": "\uD83D\uDCD6 **Campagne terminée**",
 			"daily": "\uD83D\uDCC5 **Mission quotidienne**",
 			"currentMissions": "\uD83D\uDCDC **Missions actuelles**",
-			"missionDisplay": "{description} (expire {timeBeforeExpiration})\n{progressionDisplay} {current}/{objective}"
+			"missionDisplay": "{description} {campaign?:(expire }{campaign?:{timeBeforeExpiration}}{campaign?:)}\n{progressionDisplay} {current}/{objective}"
 		},
 		"en": {
 

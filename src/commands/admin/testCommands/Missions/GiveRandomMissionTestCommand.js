@@ -2,7 +2,6 @@ import {Entities} from "../../../../core/models/Entity";
 import {MissionsController} from "../../../../core/missions/MissionsController";
 import {format} from "../../../../core/utils/StringFormatter";
 import {Missions} from "../../../../core/models/Mission";
-import {Constants} from "../../../../core/Constants";
 import {MissionDifficulty} from "../../../../core/missions/MissionDifficulty";
 
 export const commandInfo = {

@@ -82,6 +82,14 @@ export class DataModule {
 		}
 		return RandomUtils.draftbotRandom.pick(<number[]> dataObj);
 	}
+
+	public getListSize(path: string): number {
+		return (<unknown[]> this.getDataObject(path)).length;
+	}
+
+	public getObjectFromArray(path: string, index: number): { [key: string]: any } {
+		return (<{ [key: string]: any }[]> this.getDataObject(path))[index];
+	}
 }
 
 export class Data {

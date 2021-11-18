@@ -30,12 +30,6 @@ export class PlayerMissionsInfo extends Model {
 		return this.lastDailyMissionCompleted && datesAreOnSameDay(this.lastDailyMissionCompleted, new Date());
 	}
 
-	public isCampaignCompleted(): boolean {
-		// todo
-		// return this.campaignProgression;
-		return false;
-	}
-
 	public addGems(amount: number) {
 		this.gems += amount;
 	}
@@ -44,7 +38,7 @@ export class PlayerMissionsInfo extends Model {
 		await PlayerMissionsInfo.update(
 			{
 				hasBoughtPointsThisWeek: false
-			},{where:{}})
+			},{where: {}});
 	}
 }
 

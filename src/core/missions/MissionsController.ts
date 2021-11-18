@@ -8,9 +8,11 @@ import {hoursToMilliseconds} from "../utils/TimeUtils";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {MissionDifficulty} from "./MissionDifficulty";
 import {Data} from "../Data";
+import {Campaign} from "./Campaign";
 
 export class MissionsController {
 	static async update(player: Player, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}): Promise<boolean> {
+		await Campaign.updatePlayerCampaign(player);
 		const missionInterface: IMission | null = <IMission>(require("./interfaces/" + missionId).missionInterface);
 		if (!missionInterface) {
 			return false;
@@ -19,7 +21,7 @@ export class MissionsController {
 		let updated = false;
 		const completedMission = [];
 		for (const mission of player.MissionSlots) {
-			if (mission.missionId === missionId && missionInterface.areParamsMatchingVariant(mission.missionVariant, params) && !mission.hasExpired()) {
+			if (mission.missionId === missionId && missionInterface.areParamsMatchingVariant(mission.missionVariant, params) && !mission.hasExpired() && !mission.isCompleted()) {
 				updated = true;
 				mission.numberDone += count;
 				if (mission.numberDone > mission.missionObjective) {
@@ -28,6 +30,9 @@ export class MissionsController {
 				await mission.save();
 				if (mission.isCompleted()) {
 					completedMission.push(mission);
+					if (mission.isCampaign()) {
+						await Campaign.updatePlayerCampaign(player);
+					}
 				}
 			}
 		}
@@ -36,6 +41,9 @@ export class MissionsController {
 		}
 		if (!player.PlayerMissionsInfo.hasCompletedDailyMission()) {
 			const dailyMission = await DailyMissions.getOrGenerate();
+			if (dailyMission.missionId !== missionId) {
+				return;
+			}
 			if (missionInterface.areParamsMatchingVariant(dailyMission.variant, params)) {
 				updated = true;
 				player.PlayerMissionsInfo.dailyMissionNumberDone += count;
@@ -62,7 +70,7 @@ export class MissionsController {
 			xpWon += missionSlot.xpToWin;
 			gemsWon += missionSlot.gemsToWin;
 			if (missionSlot.isCampaign()) {
-				player.PlayerMissionsInfo.campaignProgression++;
+				await Campaign.updatePlayerCampaign(player);
 			}
 			desc += "- " + missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language) + "\n";
 		}
@@ -77,7 +85,9 @@ export class MissionsController {
 		player.PlayerMissionsInfo.gems += gemsWon;
 		player.experience += xpWon;
 		for (const missionSlot of missionSlots) {
-			await missionSlot.destroy();
+			if (!missionSlot.isCampaign()) {
+				await missionSlot.destroy();
+			}
 		}
 		await player.PlayerMissionsInfo.save();
 		await player.save();
@@ -103,11 +113,6 @@ export class MissionsController {
 		player.experience += xpWon;
 		await player.PlayerMissionsInfo.save();
 		await player.save();
-	}
-
-	public static async generateRandomMissionProperties(difficulty: MissionDifficulty): Promise<{ mission: Mission, index: number, variant: number }> {
-		const mission = await Missions.getRandomMission(difficulty);
-		return this.generateMissionProperties(mission.id, difficulty, mission);
 	}
 
 	public static async generateRandomDailyMissionProperties(): Promise<{ mission: Mission, index: number, variant: number }> {

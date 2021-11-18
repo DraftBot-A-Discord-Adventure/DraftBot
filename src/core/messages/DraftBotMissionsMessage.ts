@@ -3,6 +3,7 @@ import Player from "../models/Player";
 import DailyMission from "../models/DailyMission";
 import {TranslationModule, Translations} from "../Translations";
 import {finishInTimeDisplay} from "../utils/TimeUtils";
+import {Campaign} from "../missions/Campaign";
 
 export class DraftBotMissionsMessage extends DraftBotEmbed {
 	constructor(player: Player, dailyMission: DailyMission, pseudo: string, language: string) {
@@ -12,11 +13,18 @@ export class DraftBotMissionsMessage extends DraftBotEmbed {
 			pseudo
 		}));
 		let desc;
-		if (!player.PlayerMissionsInfo.isCampaignCompleted()) {
+		const [campaign] = player.MissionSlots.filter(m => m.isCampaign());
+		if (!campaign.isCompleted()) {
 			desc = tr.format("campaign", {
 				current: player.PlayerMissionsInfo.campaignProgression,
-				max: 0
-			});
+				max: Campaign.getMaxCampaignNumber()
+			}) + "\n" + DraftBotMissionsMessage.getMissionDisplay(
+				tr,
+				campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language),
+				null,
+				campaign.numberDone,
+				campaign.missionObjective
+			);
 		}
 		else {
 			desc = "\n" + tr.get("finishedCampaign");
@@ -54,7 +62,8 @@ export class DraftBotMissionsMessage extends DraftBotEmbed {
 	private static getMissionDisplay(tr: TranslationModule, description: string, expirationDate: Date, current: number, objective: number): string {
 		return tr.format("missionDisplay", {
 			description,
-			timeBeforeExpiration: finishInTimeDisplay(expirationDate),
+			campaign: expirationDate === null,
+			timeBeforeExpiration: expirationDate ? finishInTimeDisplay(expirationDate) : null,
 			progressionDisplay: DraftBotMissionsMessage.generateDisplayProgression(current, objective),
 			current,
 			objective
