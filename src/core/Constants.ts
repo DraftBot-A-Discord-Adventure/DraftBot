@@ -177,4 +177,9 @@ export abstract class Constants {
 	static readonly MISSION_SHOP = {
 		RATIO_MONEY_GEMS: 1000
 	}
+
+	static readonly BEGINNING = {
+		START_MAP_LINK: 83,
+		LAST_MAP_LINK: 77
+	}
 }

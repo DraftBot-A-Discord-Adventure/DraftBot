@@ -10,6 +10,8 @@ import {Maps} from "../../core/Maps";
 import {PlayerSmallEvents} from "../../core/models/PlayerSmallEvent";
 import Possibility from "../../core/models/Possibility";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {Constants} from "../../core/Constants";
+import {hoursToMilliseconds} from "../../core/utils/TimeUtils";
 
 module.exports.commandInfo = {
 	name: "report",
@@ -28,8 +30,10 @@ module.exports.commandInfo = {
 const ReportCommand = async (message, language, args, forceSpecificEvent = -1, forceSmallEvent = null) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	if (entity.Player.score === 0 && entity.Player.effect === EFFECT.BABY) {
-		const event = await BigEvent.findOne({where: {id: 0}});
-		return await doEvent(message, language, event, entity, REPORT.TIME_BETWEEN_BIG_EVENTS / 1000 / 60, 100);
+		entity.Player.mapLinkId = Constants.BEGINNING.START_MAP_LINK;
+		entity.Player.startTravelDate = new Date(Date.now() - hoursToMilliseconds((await MapLinks.getById(entity.Player.mapLinkId)).tripDuration));
+		entity.Player.effect = Constants.EFFECT.SMILEY;
+		await entity.Player.save();
 	}
 
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -182,7 +186,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 		return log(message.author + " hasn't any destination map (current map: " + await entity.Player.getDestinationId() + ", restrictedMapType: " + restrictedMapType + ")");
 	}
 
-	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3)) {
+	if (destinationMaps.length === 1 || (draftbotRandom.bool(1, 3) && entity.Player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)) {
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[0]);
 		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);
@@ -243,12 +247,23 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 	const mapInstance = await MapLocations.getById(map);
 	const destinationEmbed = new DraftBotEmbed();
 	destinationEmbed.formatAuthor(tr.destinationTitle, message.author);
-	destinationEmbed.setDescription(format(tr.choseMap, {
-		mapPrefix: typeTr.types[mapInstance.type].prefix,
-		mapName: mapInstance.getDisplayName(language),
-		mapType: typeTr.types[mapInstance.type].name.toLowerCase(),
-		time: await entity.Player.getCurrentTripDuration()
-	}));
+	const tripDuration = await entity.Player.getCurrentTripDuration();
+	if (tripDuration < 1) {
+		destinationEmbed.setDescription(format(tr.choseMapMinutes, {
+			mapPrefix: typeTr.types[mapInstance.type].prefix,
+			mapName: mapInstance.getDisplayName(language),
+			mapType: typeTr.types[mapInstance.type].name.toLowerCase(),
+			time: Math.round(tripDuration * 60)
+		}));
+	}
+	else {
+		destinationEmbed.setDescription(format(tr.choseMap, {
+			mapPrefix: typeTr.types[mapInstance.type].prefix,
+			mapName: mapInstance.getDisplayName(language),
+			mapType: typeTr.types[mapInstance.type].name.toLowerCase(),
+			time: tripDuration
+		}));
+	}
 	await message.channel.send({ embeds: [destinationEmbed] });
 };
 

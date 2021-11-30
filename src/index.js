@@ -8,6 +8,7 @@ const Draftbot = require("./core/DraftBot");
 
 process.on("unhandledRejection", function(err) {
 	console.log(err.stack);
+	// console.log(err);
 	// todo handle better
 	// process.exit(1);
 

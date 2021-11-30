@@ -1,0 +1,67 @@
+{
+	"map_location_ids": [
+		28
+	],
+	"translations": {
+		"fr": "🏰 Après avoir marché un bon moment, vous arrivez devant les imposantes portes du château du Roi. Vous n'êtes pas le seul à venir ici dans le but d'obtenir la main de la princesse. Après un moment d'attente, un homme ouvre les portes et vous adresse la parole :\n\n\"Bienvenue aventuriers ! Le roi espère que vous serez dignes de gagner la main de sa fille ! Suivez-moi dans la salle de reception ! N'oubliez pas, vous pouvez utiliser `report` pour suivre l'avancée de votre voyage et accéder à la salle de reception !\"\n",
+		"en": "🏰 "
+	},
+	"possibilities": {
+		"🚶": {
+			"translations": {
+				"fr": "Le suivre de bon pas",
+				"en": ""
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous suivez le groupe et vous en profitez pour discuter avec les autres personnes venues également pour la main de la princesse.",
+						"en": ""
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"👀": {
+			"translations": {
+				"fr": "Observer les alentours",
+				"en": ""
+			},
+			"issues": [
+				{
+					"translations": {
+						"fr": "Vous regardez avec admiration les grandes murailles du château. Après quelques secondes, vous voyez que le groupe est déjà parti. Vous courez afin de ne pas le perdre.",
+						"en": ""
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		},
+		"end": {
+			"issues": [
+				{
+					"translations": {
+						"fr": "Après ces mots, vous vous perdez dans vos pensées. Après quelques secondes, vous voyez que le groupe est déjà parti. Vous courez afin de ne pas le perdre.",
+						"en": ""
+					},
+					"lostTime": 0,
+					"health": 0,
+					"effect": ":smiley:",
+					"experience": 0,
+					"money": 0,
+					"item": false
+				}
+			]
+		}
+	}
+}

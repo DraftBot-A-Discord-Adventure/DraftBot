@@ -41,6 +41,16 @@ const destroyPlayerTestCommand = async (language, message) => {
 			playerId: entity.Player.id
 		}
 	});
+	await MissionSlot.destroy({
+		where: {
+			playerId: entity.Player.id
+		}
+	});
+	await PlayerMissionsInfo.destroy({
+		where: {
+			playerId: entity.Player.id
+		}
+	});
 	await Player.destroy({
 		where: {
 			entityId: entity.id

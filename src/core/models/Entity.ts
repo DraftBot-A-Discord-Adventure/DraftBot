@@ -151,7 +151,9 @@ export class Entities {
 					missionVariant: 0,
 					missionObjective: 1,
 					expiresAt: <Date>null,
-					numberDone: 0
+					numberDone: 0,
+					gemsToWin: 10,
+					xpToWin: 10
 				}
 			]
 		}
