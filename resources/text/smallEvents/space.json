@@ -79,7 +79,7 @@
 					"la prochaine pleine lune est dans {days} jour(s)",
 					"la pleine lune brillera dans {days} jour(s)",
 					"nous apercevrons la pleine lune dans {days} jour(s)",
-					"dans {days} jours(s) on pourra observer la pleine lune"
+					"dans {days} jour(s) on pourra observer la pleine lune"
 				],
 				"nextPartialLunarEclipse": [
 					"la prochaine éclipse lunaire partielle est dans {days} jour(s)",
