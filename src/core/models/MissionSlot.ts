@@ -46,11 +46,30 @@ export class MissionSlot extends Model {
 	}
 }
 
+export class MissionSlots {
+	static getById(id: number) {
+		return Promise.resolve(MissionSlot.findOne(
+			{
+				where: {
+					id
+				},
+				include: [
+					{
+						model: Mission,
+						as: "Mission"
+					}
+				]
+			}
+		));
+	}
+}
+
 export function initModel(sequelize: Sequelize) {
 	MissionSlot.init({
 		id: {
 			type: DataTypes.INTEGER,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		playerId: {
 			type: DataTypes.INTEGER
@@ -65,10 +84,12 @@ export function initModel(sequelize: Sequelize) {
 			type: DataTypes.INTEGER
 		},
 		expiresAt: {
-			type: DataTypes.DATE
+			type: DataTypes.DATE,
+			defaultValue: null
 		},
 		numberDone: {
-			type: DataTypes.INTEGER
+			type: DataTypes.INTEGER,
+			defaultValue: 0
 		},
 		gemsToWin: {
 			type: DataTypes.INTEGER

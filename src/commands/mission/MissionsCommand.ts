@@ -1,9 +1,10 @@
 import {Constants} from "../../core/Constants";
-import {Message} from "discord.js";
+import {Message, TextChannel} from "discord.js";
 import {Entities} from "../../core/models/Entity";
 import {DraftBotMissionsMessage} from "../../core/messages/DraftBotMissionsMessage";
 import {DailyMissions} from "../../core/models/DailyMission";
 import {Campaign} from "../../core/missions/Campaign";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 export const commandInfo = {
 	name: "missions",
@@ -15,6 +16,10 @@ const MissionsCommand = async (message: Message, language: string, args: string[
 	let [entity] = await Entities.getByArgs(args, message);
 	if (!entity) {
 		[entity] = await Entities.getOrRegister(message.author.id);
+	}
+
+	if (await MissionsController.update(entity.Player, <TextChannel> message.channel, language, "commandMission")) {
+		entity = await Entities.getById(entity.id);
 	}
 
 	const dailyMission = await DailyMissions.getOrGenerate();

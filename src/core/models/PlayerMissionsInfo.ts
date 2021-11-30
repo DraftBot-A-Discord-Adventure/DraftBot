@@ -70,7 +70,7 @@ export function initModel(sequelize: Sequelize) {
 		},
 		campaignProgression: {
 			type: DataTypes.INTEGER,
-			defaultValue: 0
+			defaultValue: 1
 		},
 		updatedAt: {
 			type: DataTypes.DATE,

@@ -11,12 +11,18 @@ import {Data} from "../Data";
 import {Campaign} from "./Campaign";
 
 export class MissionsController {
+	static getMissionInterface(missionId: string): IMission {
+		try {
+			return <IMission>(require("./interfaces/" + missionId).missionInterface);
+		}
+		catch {
+			return require("./DefaultInterface").missionInterface;
+		}
+	}
+
 	static async update(player: Player, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}): Promise<boolean> {
 		await Campaign.updatePlayerCampaign(player);
-		const missionInterface: IMission | null = <IMission>(require("./interfaces/" + missionId).missionInterface);
-		if (!missionInterface) {
-			return false;
-		}
+		const missionInterface = this.getMissionInterface(missionId);
 
 		let updated = false;
 		const completedMission = [];
@@ -41,20 +47,19 @@ export class MissionsController {
 		}
 		if (!player.PlayerMissionsInfo.hasCompletedDailyMission()) {
 			const dailyMission = await DailyMissions.getOrGenerate();
-			if (dailyMission.missionId !== missionId) {
-				return;
-			}
-			if (missionInterface.areParamsMatchingVariant(dailyMission.variant, params)) {
-				updated = true;
-				player.PlayerMissionsInfo.dailyMissionNumberDone += count;
-				if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
-					player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
-				}
-				if (player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
-					await MissionsController.completeDailyMission(player, channel, language, dailyMission);
-				}
-				else {
-					await player.PlayerMissionsInfo.save();
+			if (dailyMission.missionId === missionId) {
+				if (missionInterface.areParamsMatchingVariant(dailyMission.variant, params)) {
+					updated = true;
+					player.PlayerMissionsInfo.dailyMissionNumberDone += count;
+					if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
+						player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
+					}
+					if (player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
+						await MissionsController.completeDailyMission(player, channel, language, dailyMission);
+					}
+					else {
+						await player.PlayerMissionsInfo.save();
+					}
 				}
 			}
 		}
@@ -160,7 +165,7 @@ export class MissionsController {
 		return {
 			mission: mission,
 			index,
-			variant: (<IMission>(require("./interfaces/" + mission.id).missionInterface)).generateRandomVariant(difficulty)
+			variant: this.getMissionInterface(mission.id).generateRandomVariant(difficulty)
 		};
 	}
 
@@ -185,6 +190,6 @@ export class MissionsController {
 	}
 
 	public static getVariantFormatText(missionId: string, variant: number) {
-		return (<IMission>(require("./interfaces/" + missionId).missionInterface)).getVariantFormatVariable(variant);
+		return this.getMissionInterface(missionId).getVariantFormatVariable(variant);
 	}
 }

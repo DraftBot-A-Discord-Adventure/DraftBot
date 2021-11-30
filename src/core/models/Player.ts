@@ -625,8 +625,7 @@ export function initModel(sequelize: Sequelize) {
 		},
 		effectEndDate: {
 			type: DataTypes.DATE,
-			defaultValue: require("moment")()
-				.format("YYYY-MM-DD HH:mm:ss")
+			defaultValue: new Date()
 		},
 		effectDuration: {
 			type: DataTypes.INTEGER,

@@ -40,6 +40,8 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
 		return;
 	}
 
+	await MissionsController.update(entity.Player, message.channel, language, "commandReport");
+
 	if (!entity.Player.currentEffectFinished()) {
 		return await sendTravelPath(entity, message, language, entity.Player.effect);
 	}

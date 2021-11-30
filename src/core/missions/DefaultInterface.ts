@@ -1,4 +1,4 @@
-import {IMission} from "../IMission";
+import {IMission} from "./IMission";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariant(): boolean {

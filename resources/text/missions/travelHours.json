@@ -1,10 +1,10 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Faire {objective} voyage{objective>1?s:} de plus de {variantText} heures"
+			"desc": "Faire {objective} voyage{objective>1?s:} de plus de {variantText} heure{variantText>1:s}"
 		},
 		"en": {
-			"desc": "Do {objective} travel{objective>1?s:} of more than {variantText} hours"
+			"desc": "Do {objective} travel{objective>1?s:} of more than {variantText} hour{variantText>1:s}"
 		}
 	},
 	"campaignOnly": false,

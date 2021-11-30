@@ -1,5 +1,6 @@
 import {Data, DataModule} from "../Data";
 import Player from "../models/Player";
+import MissionSlot, {MissionSlots} from "../models/MissionSlot";
 
 export class Campaign {
 	private static maxCampaignCache = -1;
@@ -26,6 +27,13 @@ export class Campaign {
 
 	static async updatePlayerCampaign(player: Player): Promise<void> {
 		const [campaign] = player.MissionSlots.filter(m => m.isCampaign());
+		if (!campaign) {
+			const campaignJson = require("../../../../resources/text/campaign.json").missions[0];
+			campaignJson.playerId = player.id;
+			const slot = await MissionSlot.create(campaignJson);
+			player.MissionSlots.push(await MissionSlots.getById(slot.id));
+			return;
+		}
 		if (!campaign || !this.hasNextCampaign(player.PlayerMissionsInfo.campaignProgression) && campaign.isCompleted()) {
 			return;
 		}

@@ -1,18 +1,39 @@
 {
 	"missions": [
 		{
-			"missionId": "campaignIntro",
+			"missionId": "commandMission",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 10,
-			"xpToWin": 100
+			"gemsToWin": 2,
+			"xpToWin": 2
 		},
 		{
-			"missionId": "doReports",
+			"missionId": "commandReport",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "findOrBuyItem",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "travelHours",
+			"missionVariant": 1,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "reachLevel",
 			"missionVariant": 0,
 			"missionObjective": 5,
-			"gemsToWin": 5,
-			"xpToWin": 50
+			"gemsToWin": 2,
+			"xpToWin": 2
 		}
 	]
 }
