@@ -3,19 +3,19 @@
 		28
 	],
 	"translations": {
-		"fr": "🏰 Après avoir marché un bon moment, vous arrivez devant les imposantes portes du château du Roi. Vous n'êtes pas le seul à venir ici dans le but d'obtenir la main de la princesse. Après un moment d'attente, un homme ouvre les portes et vous adresse la parole :\n\n\"Bienvenue aventuriers ! Le roi espère que vous serez dignes de gagner la main de sa fille ! Suivez-moi dans la salle de reception ! N'oubliez pas, vous pouvez utiliser `report` pour suivre l'avancée de votre voyage et accéder à la salle de reception !\"\n",
+		"fr": "<:draftbot:529305485963427840> **Bonjour et bienvenue sur DraftBot !** \uD83D\uDC51 Le roi est à la recherche d'un noble chevalier pour marier sa fille et vous avez choisi de participer au concours de sélection ! Venant d'arriver à l'entrée du chateau après un long voyage, vous signalez votre présence aux gardes de l'entrée. Vous êtes invité à rentrer et rencontrez rapidement une jeune femme qui semble vouloir vous accueillir.",
 		"en": "🏰 "
 	},
 	"possibilities": {
 		"🚶": {
 			"translations": {
-				"fr": "Le suivre de bon pas",
+				"fr": "Suivre votre guide",
 				"en": ""
 			},
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous suivez le groupe et vous en profitez pour discuter avec les autres personnes venues également pour la main de la princesse.",
+						"fr": "La jeune femme se présente et enchaîne rapidement sur des premiers conseils que vous écoutez avec attention, vous apprenez que la commande `report` vous permet d'obtenir toutes les informations à propos de votre voyage.",
 						"en": ""
 					},
 					"lostTime": 0,
@@ -35,7 +35,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous regardez avec admiration les grandes murailles du château. Après quelques secondes, vous voyez que le groupe est déjà parti. Vous courez afin de ne pas le perdre.",
+						"fr": "Vous admirez les immenses murailles du château. Après quelques instants, la jeune femme arrive finalement à votre hauteur et vous transmet quelques conseils. Vous apprenez notamment que la commande `report` vous permet d'obtenir toutes les informations à propos de votre voyage.",
 						"en": ""
 					},
 					"lostTime": 0,
@@ -51,7 +51,7 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Après ces mots, vous vous perdez dans vos pensées. Après quelques secondes, vous voyez que le groupe est déjà parti. Vous courez afin de ne pas le perdre.",
+						"fr": "Vous restez sans réagir à l'invitation du garde. Après quelques instants, la jeune femme arrive finalement à votre hauteur et vous transmet quelques conseils. Vous apprenez notamment que la commande `report` vous permet d'obtenir toutes les informations à propos de votre voyage.",
 						"en": ""
 					},
 					"lostTime": 0,
