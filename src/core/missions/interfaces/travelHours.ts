@@ -16,5 +16,7 @@ export const missionInterface: IMission = {
 
 	areParamsMatchingVariant: (variant: number, params: { [key: string]: any }) => params.travelTime >= variant,
 
-	getVariantFormatVariable: (variant: number) => variant.toString()
+	getVariantFormatVariable: (variant: number) => variant.toString(),
+
+	initialNumberDone: () => 0
 };

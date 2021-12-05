@@ -1,4 +1,5 @@
 import {MissionDifficulty} from "./MissionDifficulty";
+import Player from "../models/Player";
 
 export type IMission = {
 	generateRandomVariant(difficulty: MissionDifficulty): number;
@@ -6,4 +7,6 @@ export type IMission = {
 	areParamsMatchingVariant(variant: number, params: { [key: string]: any }): boolean;
 
 	getVariantFormatVariable(variant: number): string;
+
+	initialNumberDone(player: Player, variant: number): number;
 }

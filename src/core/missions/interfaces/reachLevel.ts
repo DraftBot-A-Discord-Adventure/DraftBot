@@ -1,4 +1,5 @@
-import {IMission} from "./IMission";
+import {IMission} from "../IMission";
+import Player from "../../models/Player";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariant(): boolean {
@@ -13,7 +14,7 @@ export const missionInterface: IMission = {
 		return 0;
 	},
 
-	initialNumberDone(): number {
-		return 0;
+	initialNumberDone(player: Player): number {
+		return player.level;
 	}
 };

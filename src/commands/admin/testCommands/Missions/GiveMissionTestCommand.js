@@ -37,7 +37,7 @@ const giveMissionTestCommand = async (language, message, args) => {
 		throw new Error("Difficulté incorrecte, elle doit être easy (e), medium (m) ou hard (h)");
 	}
 
-	const missionSlot = await MissionsController.addMissionToPlayer(entity.Player.id, missionId,
+	const missionSlot = await MissionsController.addMissionToPlayer(entity.Player, missionId,
 		difficulty === "e" ? MissionDifficulty.EASY : difficulty === "m" ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD);
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {

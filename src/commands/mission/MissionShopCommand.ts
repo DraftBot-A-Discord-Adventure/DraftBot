@@ -9,7 +9,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
 import {Entities} from "../../core/models/Entity";
 
-import {Collector, Message, TextBasedChannels, User} from "discord.js";
+import {Collector, Message, TextBasedChannels, TextChannel, User} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
@@ -197,7 +197,7 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const item = await generateRandomItem(Constants.RARITY.MYTHICAL, null, Constants.RARITY.SPECIAL);
 			console.log(item.rarity);
-			await giveItemToPlayer(entity, item, message.language, message.user, message.sentMessage.channel);
+			await giveItemToPlayer(entity, item, message.language, message.user, <TextChannel> message.sentMessage.channel);
 			return true;
 		});
 }

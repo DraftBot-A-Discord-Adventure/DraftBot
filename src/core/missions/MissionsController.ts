@@ -21,7 +21,7 @@ export class MissionsController {
 	}
 
 	static async update(player: Player, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}): Promise<boolean> {
-		await Campaign.updatePlayerCampaign(player);
+		await Campaign.updatePlayerCampaign(player, channel, language);
 		const missionInterface = this.getMissionInterface(missionId);
 
 		let updated = false;
@@ -36,9 +36,6 @@ export class MissionsController {
 				await mission.save();
 				if (mission.isCompleted()) {
 					completedMission.push(mission);
-					if (mission.isCampaign()) {
-						await Campaign.updatePlayerCampaign(player);
-					}
 				}
 			}
 		}
@@ -74,9 +71,6 @@ export class MissionsController {
 		for (const missionSlot of missionSlots) {
 			xpWon += missionSlot.xpToWin;
 			gemsWon += missionSlot.gemsToWin;
-			if (missionSlot.isCampaign()) {
-				await Campaign.updatePlayerCampaign(player);
-			}
 			desc += "- " + missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language) + "\n";
 		}
 		channel.send({
@@ -89,13 +83,18 @@ export class MissionsController {
 
 		player.PlayerMissionsInfo.gems += gemsWon;
 		player.experience += xpWon;
+
+		await player.PlayerMissionsInfo.save();
+		await player.save();
+
 		for (const missionSlot of missionSlots) {
 			if (!missionSlot.isCampaign()) {
 				await missionSlot.destroy();
 			}
+			else {
+				await Campaign.updatePlayerCampaign(player, channel, language);
+			}
 		}
-		await player.PlayerMissionsInfo.save();
-		await player.save();
 	}
 
 	public static async completeDailyMission(player: Player, channel: TextChannel, language: string, dailyMission: DailyMission = null) {
@@ -169,16 +168,16 @@ export class MissionsController {
 		};
 	}
 
-	public static async addMissionToPlayer(playerId: number, missionId: string, difficulty: MissionDifficulty, mission: Mission = null): Promise<MissionSlot> {
+	public static async addMissionToPlayer(player: Player, missionId: string, difficulty: MissionDifficulty, mission: Mission = null): Promise<MissionSlot> {
 		const prop = await this.generateMissionProperties(missionId, difficulty, mission);
 		const missionData = Data.getModule("missions." + missionId);
 		return await MissionSlot.create({
-			playerId: playerId,
+			playerId: player.id,
 			missionId: prop.mission.id,
 			missionVariant: prop.variant,
 			missionObjective: missionData.getNumberFromArray("objectives", prop.index),
 			expiresAt: new Date(Date.now() + hoursToMilliseconds(missionData.getNumberFromArray("expirations", prop.index))),
-			numberDone: 0,
+			numberDone: this.getMissionInterface(missionId).initialNumberDone(player, prop.variant),
 			gemsToWin: missionData.getNumberFromArray("gems", prop.index),
 			xpToWin: missionData.getNumberFromArray("xp", prop.index)
 		});
@@ -186,7 +185,7 @@ export class MissionsController {
 
 	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty): Promise<MissionSlot> {
 		const mission = await Missions.getRandomMission(difficulty);
-		return await MissionsController.addMissionToPlayer(player.id, mission.id, difficulty, mission);
+		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
 	}
 
 	public static getVariantFormatText(missionId: string, variant: number) {

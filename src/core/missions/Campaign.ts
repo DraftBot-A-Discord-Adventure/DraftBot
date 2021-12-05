@@ -1,6 +1,8 @@
 import {Data, DataModule} from "../Data";
 import Player from "../models/Player";
 import MissionSlot, {MissionSlots} from "../models/MissionSlot";
+import {MissionsController} from "./MissionsController";
+import {TextChannel} from "discord.js";
 
 export class Campaign {
 	private static maxCampaignCache = -1;
@@ -25,7 +27,7 @@ export class Campaign {
 		return campaignIndex < this.getMaxCampaignNumber();
 	}
 
-	static async updatePlayerCampaign(player: Player): Promise<void> {
+	static async updatePlayerCampaign(player: Player, channel: TextChannel, language: string): Promise<void> {
 		const [campaign] = player.MissionSlots.filter(m => m.isCampaign());
 		if (!campaign) {
 			const campaignJson = require("../../../../resources/text/campaign.json").missions[0];
@@ -44,11 +46,14 @@ export class Campaign {
 		campaign.missionVariant = prop.missionVariant;
 		campaign.gemsToWin = prop.gemsToWin;
 		campaign.xpToWin = prop.xpToWin;
-		campaign.numberDone = 0;
+		campaign.numberDone = MissionsController.getMissionInterface(prop.missionId).initialNumberDone(player, prop.missionVariant);
 		campaign.missionId = prop.missionId;
 		campaign.missionObjective = prop.missionObjective;
 		player.PlayerMissionsInfo.campaignProgression++;
 		await campaign.save();
 		await player.PlayerMissionsInfo.save();
+		if (campaign.numberDone >= campaign.missionObjective) {
+			await MissionsController.completeMissionSlots(player, channel, language, [await MissionSlots.getById(campaign.id)]);
+		}
 	}
 }

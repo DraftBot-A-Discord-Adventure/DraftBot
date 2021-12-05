@@ -23,7 +23,7 @@ const MissionsCommand = async (message: Message, language: string, args: string[
 	}
 
 	const dailyMission = await DailyMissions.getOrGenerate();
-	await Campaign.updatePlayerCampaign(entity.Player);
+	await Campaign.updatePlayerCampaign(entity.Player, <TextChannel> message.channel, language);
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	message.channel.send({ embeds: [
 		await new DraftBotMissionsMessage(

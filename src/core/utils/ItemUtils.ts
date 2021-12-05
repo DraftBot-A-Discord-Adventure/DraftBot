@@ -1,4 +1,4 @@
-import {Collector, TextBasedChannels, User} from "discord.js";
+import {Collector, TextBasedChannels, TextChannel, User} from "discord.js";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Translations} from "../Translations";
 import {ChoiceItem, DraftBotListChoiceMessage} from "../messages/DraftBotListChoiceMessage";
@@ -12,6 +12,7 @@ import Potion, {Potions} from "../models/Potion";
 import ObjectItem, {ObjectItems} from "../models/ObjectItem";
 import Entity, {Entities} from "../models/Entity";
 import InventorySlot from "../models/InventorySlot";
+import {MissionsController} from "../missions/MissionsController";
 
 declare const JsonReader: any;
 declare function removeBlockedPlayer(id: string): void;
@@ -19,14 +20,14 @@ declare function addBlockedPlayer(id: string, reason: string, collector: Collect
 declare const draftbotRandom: Random;
 
 // eslint-disable-next-line max-params
-export const giveItemToPlayer = async function (
+export const giveItemToPlayer = async function(
 	entity: Entity,
 	item: Weapon | ObjectItem | Armor | Potion,
 	language: string,
 	discordUser: User,
-	channel: TextBasedChannels,
-	resaleMultiplierNew: number = 1,
-	resaleMultiplierActual: number = 1
+	channel: TextChannel,
+	resaleMultiplierNew = 1,
+	resaleMultiplierActual = 1
 ): Promise<void> {
 	const resaleMultiplier = resaleMultiplierNew;
 	const tr = Translations.getModule("commands.inventory", language);
@@ -37,6 +38,7 @@ export const giveItemToPlayer = async function (
 	] });
 
 	if (await entity.Player.giveItem(item) === true) {
+		await MissionsController.update(entity.Player, channel, language, "findOrBuyItem");
 		return;
 	}
 
@@ -166,7 +168,7 @@ const sellOrKeepItem = async function(
 	entity: any,
 	keepOriginal: boolean,
 	discordUser: User,
-	channel: TextBasedChannels,
+	channel: TextChannel,
 	language: string,
 	item: Weapon | Armor | Potion | ObjectItem,
 	itemToReplace: any,
@@ -216,7 +218,7 @@ const sellOrKeepItem = async function(
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
 	entity.Player.addMoney(money);
 	await entity.Player.save();
-	return await channel.send({ embeds: [
+	await channel.send({ embeds: [
 		new DraftBotEmbed()
 			.formatAuthor(
 				autoSell ? JsonReader.commands.sell.getTranslation(language).soldMessageAlreadyOwnTitle
@@ -231,6 +233,7 @@ const sellOrKeepItem = async function(
 				)
 			)
 	] });
+	await MissionsController.update(entity.Player, channel, language, "findOrBuyItem");
 };
 
 export const getItemValue = function(item: any) {
@@ -280,8 +283,10 @@ export const generateRandomItem = async function(maxRarity = Constants.RARITY.MY
  */
 export const generateRandomRarity = function(minRarity = Constants.RARITY.COMMON, maxRarity = Constants.RARITY.MYTHICAL): number {
 	const randomValue = draftbotRandom.integer(
-		1 + (minRarity === Constants.RARITY.COMMON ? -1 : parseInt(JsonReader.values.raritiesGenerator[minRarity-2],10)),
-		parseInt(JsonReader.values.raritiesGenerator.maxValue,10) - (maxRarity === Constants.RARITY.MYTHICAL ? 0 : parseInt(JsonReader.values.raritiesGenerator.maxValue,10) - parseInt(JsonReader.values.raritiesGenerator[maxRarity - 1],10))
+		1 + (minRarity === Constants.RARITY.COMMON ? -1 : parseInt(JsonReader.values.raritiesGenerator[minRarity - 2],10)),
+		parseInt(JsonReader.values.raritiesGenerator.maxValue,10)
+			- (maxRarity === Constants.RARITY.MYTHICAL ? 0 : parseInt(JsonReader.values.raritiesGenerator.maxValue,10)
+			- parseInt(JsonReader.values.raritiesGenerator[maxRarity - 1],10))
 	);
 
 	if (randomValue <= JsonReader.values.raritiesGenerator["0"]) {
@@ -352,7 +357,7 @@ export const generateRandomObject = async function(objectType: number = null, mi
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Entities} entity
  */
-export const giveRandomItem = async function(discordUser: User, channel: TextBasedChannels, language: string, entity: any) {
+export const giveRandomItem = async function(discordUser: User, channel: TextChannel, language: string, entity: any) {
 	const item = await generateRandomItem();
 	return await giveItemToPlayer(entity, item, language, discordUser, channel);
 };
