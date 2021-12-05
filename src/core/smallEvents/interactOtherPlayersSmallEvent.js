@@ -182,9 +182,9 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const poorEmbed = new DraftBotEmbed()
 				.formatAuthor(JsonReader.commands.report.getTranslation(language).journal, message.author);
 			if (reaction.first() && reaction.first().emoji.name === COIN_EMOTE) {
-				otherEntity.Player.money += 1;
+				otherEntity.Player.addMoney(1, message.channel, language);
 				await otherEntity.Player.save();
-				entity.Player.money -= 1;
+				entity.Player.addMoney(-1, message.channel, language);
 				await entity.Player.save();
 				poorEmbed.setDescription(format(tr.poorGiveMoney[randInt(0, tr.poorGiveMoney.length)], {
 					pseudo: await otherEntity.Player.getPseudo(language)

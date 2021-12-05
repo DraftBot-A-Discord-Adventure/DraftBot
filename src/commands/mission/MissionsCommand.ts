@@ -8,7 +8,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
 
 export const commandInfo = {
 	name: "missions",
-	aliases: ["mission"],
+	aliases: ["m", "mission"],
 	disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
 };
 

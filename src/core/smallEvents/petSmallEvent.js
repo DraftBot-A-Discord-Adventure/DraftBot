@@ -27,7 +27,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	switch (interaction) {
 	case "money":
 		amount = randInt(20, 70);
-		entity.Player.money += amount;
+		entity.Player.addMoney(amount, message.channel, language);
 		await entity.Player.save();
 		break;
 	case "gainLife":
@@ -84,7 +84,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "loseMoney":
 		amount = randInt(20, 70);
-		entity.Player.money -= amount;
+		entity.Player.addMoney(-amount, message.channel, language);
 		entity.Player.save();
 		break;
 	case "loseTime":

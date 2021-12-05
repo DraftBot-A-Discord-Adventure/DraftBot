@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 
 import {Maps} from "../../core/Maps";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "drink",
@@ -31,28 +32,29 @@ const DrinkCommand = async (message, language) => {
 		}
 		else {
 			await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).noActiveObjectdescription);
+			return;
 		}
-		return;
 	}
-	if (potion.nature === NATURE.HEALTH) {
+	else if (potion.nature === NATURE.HEALTH) {
 		embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, {value: potion.power}));
 		await entity.addHealth(potion.power);
 		await entity.Player.drinkPotion();
 	}
-	if (potion.nature === NATURE.SPEED || potion.nature === NATURE.DEFENSE || potion.nature === NATURE.ATTACK) { // Those objects are active only during fights
+	else if (potion.nature === NATURE.SPEED || potion.nature === NATURE.DEFENSE || potion.nature === NATURE.ATTACK) { // Those objects are active only during fights
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectIsActiveDuringFights);
 	}
-	if (potion.nature === NATURE.HOSPITAL) {
+	else if (potion.nature === NATURE.HOSPITAL) {
 		embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, {value: potion.power}));
 		Maps.advanceTime(entity.Player, potion.power * 60);
 		entity.Player.save();
 		await entity.Player.drinkPotion();
 	}
-	if (potion.nature === NATURE.MONEY) {
+	else if (potion.nature === NATURE.MONEY) {
 		embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).moneyBonus, {value: potion.power}));
-		entity.Player.addMoney(potion.power);
+		entity.Player.addMoney(potion.power, message.channel, language);
 		await entity.Player.drinkPotion();
 	}
+	await MissionsController.update(entity.Player, message.channel, language, "drinkPotion");
 
 	await Promise.all([
 		entity.save(),

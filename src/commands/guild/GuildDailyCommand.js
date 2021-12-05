@@ -107,7 +107,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 			JsonReader.commands.guildDaily.maximalMoney + guild.level * 4);
 		for (const i in members) {
 			if (Object.prototype.hasOwnProperty.call(members, i)) {
-				members[i].Player.addMoney(moneyWon);
+				members[i].Player.addMoney(moneyWon, message.channel, language);
 				await members[i].Player.save();
 			}
 		}
@@ -135,7 +135,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		const moneyWon = JsonReader.commands.guildDaily.fixedMoney;
 		for (const i in members) {
 			if (Object.prototype.hasOwnProperty.call(members, i)) {
-				members[i].Player.addMoney(moneyWon);
+				members[i].Player.addMoney(moneyWon, message.channel, language);
 				await members[i].Player.save();
 			}
 		}

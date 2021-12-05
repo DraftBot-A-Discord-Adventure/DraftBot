@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Classes} from "../../core/models/Class";
 import {Entities} from "../../core/models/Entity";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "class",
@@ -65,7 +66,7 @@ const ClassCommand = async (message, language) => {
 			return;
 		}
 
-		const selectedClass = await Classes.getByEmojy(reaction.first().emoji.name);
+		const selectedClass = await Classes.getByEmoji(reaction.first().emoji.name);
 		confirmPurchase(message, language, selectedClass, entity);
 	});
 
@@ -127,7 +128,8 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 				const newClass = await Classes.getById(entity.Player.class);
 				await entity.setHealth(Math.round(
 					entity.health / await playerClass.getMaxHealthValue(entity.Player.level) * await newClass.getMaxHealthValue(entity.Player.level)));
-				entity.Player.addMoney(-selectedClass.price);
+				entity.Player.addMoney(-selectedClass.price, message.channel, language);
+				await MissionsController.update(entity.Player, message.channel, language, "chooseClass");
 				await Promise.all([
 					entity.save(),
 					entity.Player.save()

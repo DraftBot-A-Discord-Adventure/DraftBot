@@ -216,7 +216,7 @@ const sellOrKeepItem = async function(
 		return;
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
-	entity.Player.addMoney(money);
+	entity.Player.addMoney(money, channel, language);
 	await entity.Player.save();
 	await channel.send({ embeds: [
 		new DraftBotEmbed()

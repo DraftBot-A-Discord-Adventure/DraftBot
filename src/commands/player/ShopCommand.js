@@ -16,6 +16,7 @@ import {Entities} from "../../core/models/Entity";
 
 import {Maps} from "../../core/Maps";
 import Shop from "../../core/models/Shop";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "shop",
@@ -112,6 +113,7 @@ function getHealAlterationShopItem(translationModule) {
 				await Maps.removeEffect(entity.Player);
 				await entity.Player.save();
 			}
+			await MissionsController.update(entity.Player, message.sentMessage.channel, translationModule.language, "recoverAlteration");
 			await message.sentMessage.channel.send({ embeds: [new DraftBotEmbed()
 				.formatAuthor(translationModule.get("success"), message.user)
 				.setDescription(translationModule.get("permanentItems.healAlterations.give"))] });
@@ -215,7 +217,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 					[entity] = await Entities.getOrRegister(shopMessage.user.id);
 					for (let i = 0; i < Constants.REACTIONS.ITEM_CATEGORIES.length; ++i) {
 						if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
-							entity.Player.addMoney(-price);
+							entity.Player.addMoney(-price, shopMessage.sentMessage.channel, translationModule.language);
 							await entity.Player.save();
 							entity.Player.InventoryInfo.addSlotForCategory(i);
 							await entity.Player.InventoryInfo.save();

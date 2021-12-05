@@ -23,6 +23,7 @@ import {Maps} from "../Maps";
 import {DraftBotPrivateMessage} from "../messages/DraftBotPrivateMessage";
 import {minutesToMilliseconds} from "../utils/TimeUtils";
 import {GenericItemModel} from "./GenericItemModel";
+import {MissionsController} from "../missions/MissionsController";
 
 declare const client: Client;
 
@@ -153,8 +154,11 @@ export class Player extends Model {
 		}
 	}
 
-	public addMoney(money: number): void {
+	public addMoney(money: number, channel: TextChannel, language: string): void {
 		this.money += money;
+		if (this.money > 0) {
+			MissionsController.update(this, channel, language, "earnMoney", money).then();
+		}
 		this.setMoney(this.money);
 	}
 
@@ -249,6 +253,7 @@ export class Player extends Model {
 		const xpNeeded = this.getExperienceNeededToLevelUp();
 
 		this.level++;
+		await MissionsController.update(entity.Player, channel, language, "reachLevel");
 
 		const bonuses = await this.getLvlUpReward(language, entity);
 

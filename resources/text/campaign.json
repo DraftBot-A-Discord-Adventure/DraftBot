@@ -34,6 +34,41 @@
 			"missionObjective": 5,
 			"gemsToWin": 2,
 			"xpToWin": 2
+		},
+		{
+			"missionId": "earnMoney",
+			"missionVariant": 0,
+			"missionObjective": 250,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "chooseClass",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "travelHours",
+			"missionVariant": 3,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "drinkPotion",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "recoverAlteration",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
 		}
 	]
 }

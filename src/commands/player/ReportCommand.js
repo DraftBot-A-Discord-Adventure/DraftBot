@@ -46,6 +46,10 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
 		return await sendTravelPath(entity, message, language, entity.Player.effect);
 	}
 
+	if (entity.Player.effect !== Constants.EFFECT.SMILEY && entity.Player.currentEffectFinished()) {
+		await MissionsController.update(entity.Player, message.channel, language, "recoverAlteration");
+	}
+
 	if (entity.Player.mapLinkId === null) {
 		return await Maps.startTravel(entity.player, await MapLinks.getRandomLink(), message.createdAt.getTime());
 	}
@@ -409,7 +413,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
 	player.addScore(scoreChange);
 	player.addWeeklyScore(scoreChange);
-	player.addMoney(moneyChange);
+	player.addMoney(moneyChange, message.channel, language);
 	player.experience += possibility.experience;
 
 	if (pDataValues.nextEvent !== undefined) {

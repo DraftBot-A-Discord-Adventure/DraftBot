@@ -177,7 +177,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			entity.Player.addMoney(Constants.MISSION_SHOP.RATIO_MONEY_GEMS);
+			entity.Player.addMoney(Constants.MISSION_SHOP.RATIO_MONEY_GEMS, <TextChannel> message.sentMessage.channel, translationModule.language);
 			await message.sentMessage.channel.send(
 				{
 					embeds: [new DraftBotEmbed()

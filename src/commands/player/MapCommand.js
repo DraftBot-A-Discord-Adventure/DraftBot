@@ -5,7 +5,7 @@ import {Maps} from "../../core/Maps";
 
 module.exports.commandInfo = {
 	name: "map",
-	aliases: ["m", "world"],
+	aliases: ["world"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 

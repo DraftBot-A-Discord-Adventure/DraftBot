@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Se remettre de {objective} altération{objective>1?s:} d'état"
+		},
+		"en": {
+			"desc": "Recover from {objective} alteration{objective>1?s:}"
+		}
+	},
+	"campaignOnly": true
+}
