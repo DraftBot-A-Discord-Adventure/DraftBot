@@ -69,6 +69,34 @@
 			"missionObjective": 1,
 			"gemsToWin": 2,
 			"xpToWin": 2
+		},
+		{
+			"missionId": "reachLevel",
+			"missionVariant": 0,
+			"missionObjective": 8,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "anyFight",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "reachScore",
+			"missionVariant": 0,
+			"missionObjective": 10000,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "reachLevel",
+			"missionVariant": 0,
+			"missionObjective": 10,
+			"gemsToWin": 2,
+			"xpToWin": 2
 		}
 	]
 }

@@ -58,7 +58,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "points":
 		amount = randInt(20, 70);
-		entity.Player.score += amount;
+		entity.Player.addScore(amount, message.channel, language);
 		await entity.Player.save();
 		break;
 	case "badge":

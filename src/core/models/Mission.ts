@@ -33,7 +33,8 @@ export class Mission extends Model {
 	public formatDescription(objective: number, variant: number, language: string): string {
 		return format(language === "fr" ? this.descFr : this.descEn, {
 			objective,
-			variantText: MissionsController.getVariantFormatText(this.id, variant)
+			variantText: MissionsController.getVariantFormatText(this.id, variant),
+			variant
 		});
 	}
 }

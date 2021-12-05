@@ -212,8 +212,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 				sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.remainingCooldown"));
 				return false;
 			}
-			entity.Player.addScore(1000);
-			entity.Player.addWeeklyScore(1000);
+			entity.Player.addScore(1000, <TextChannel> message.sentMessage.channel, translationModule.language);
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{

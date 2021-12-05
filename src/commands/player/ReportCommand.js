@@ -411,8 +411,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
 	await entity.addHealth(pDataValues.health);
 
-	player.addScore(scoreChange);
-	player.addWeeklyScore(scoreChange);
+	player.addScore(scoreChange, message.channel, language);
 	player.addMoney(moneyChange, message.channel, language);
 	player.experience += possibility.experience;
 

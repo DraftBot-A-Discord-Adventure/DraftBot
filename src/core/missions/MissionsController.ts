@@ -20,7 +20,7 @@ export class MissionsController {
 		}
 	}
 
-	static async update(player: Player, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}): Promise<boolean> {
+	static async update(player: Player, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<boolean> {
 		await Campaign.updatePlayerCampaign(player, channel, language);
 		const missionInterface = this.getMissionInterface(missionId);
 
@@ -29,7 +29,12 @@ export class MissionsController {
 		for (const mission of player.MissionSlots) {
 			if (mission.missionId === missionId && missionInterface.areParamsMatchingVariant(mission.missionVariant, params) && !mission.hasExpired() && !mission.isCompleted()) {
 				updated = true;
-				mission.numberDone += count;
+				if (set) {
+					mission.numberDone = count;
+				}
+				else {
+					mission.numberDone += count;
+				}
 				if (mission.numberDone > mission.missionObjective) {
 					mission.numberDone = mission.missionObjective;
 				}

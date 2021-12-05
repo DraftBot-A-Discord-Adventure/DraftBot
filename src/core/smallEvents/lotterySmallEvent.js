@@ -62,7 +62,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				await guild.save();
 				break;
 			case rewardType[3]:
-				player.addScore(SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff);
+				player.addScore(SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff, message.channel, language);
 				player.save();
 				break;
 			default:
