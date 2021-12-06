@@ -29,7 +29,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		await removeBlockedPlayer(entity.discordUserId);
 
 		if (!collected.first()) {
-			seEmbed.setDescription(JsonReader.smallEvents.lottery.emote + " " + translationLottery.get("intro"));
+			seEmbed.setDescription(JsonReader.smallEvents.lottery.emote + " " + translationLottery.get("end"));
 			return await message.channel.send({embeds: [seEmbed]});
 		}
 		if (player.money < 175 && emojiLottery[2]) {
@@ -49,7 +49,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const coeff = JsonReader.smallEvents.lottery.coeff[collected.first().emoji.name];
 			switch (reward) {
 			case rewardType[0]:
-				player.experience += SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff;
+				player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,entity,message,language);
 				player.save();
 				break;
 			case rewardType[1]:
@@ -57,7 +57,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				player.save();
 				break;
 			case rewardType[2]:
-				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff);
+				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff,message,language);
 				await guild.save();
 				break;
 			case rewardType[3]:

@@ -316,7 +316,19 @@ module.exports = (Sequelize, DataTypes) => {
 	Players.prototype.needLevelUp = function() {
 		return this.experience >= this.getExperienceNeededToLevelUp();
 	};
-
+	/**
+	 * Add xp to player and level up if needed
+	 * @param {number} xpWon Xp won by player
+	 * @param {Entities} entity
+	 * @param {Message} message
+	 * @param {"fr"|"en"} language
+	 */
+	Players.prototype.addExperience = async function(xpWon,entity,message,language) {
+		this.experience += xpWon;
+		while (this.needLevelUp()) {
+			await this.levelUpIfNeeded(entity, message.channel, language);
+		}
+	};
 	/**
 	 * @return {Number} get the id of the classgroup
 	 */
@@ -368,7 +380,7 @@ module.exports = (Sequelize, DataTypes) => {
 	/**
 	 * Checks if the player need to level up and levels up him.
 	 * @param {Entities} entity
-	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
+	 * @param {TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
 	 */
 	Players.prototype.levelUpIfNeeded = async function(entity, channel, language) {
