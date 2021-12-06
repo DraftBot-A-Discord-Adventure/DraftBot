@@ -46,7 +46,7 @@ export class Campaign {
 		campaign.missionVariant = prop.missionVariant;
 		campaign.gemsToWin = prop.gemsToWin;
 		campaign.xpToWin = prop.xpToWin;
-		campaign.numberDone = MissionsController.getMissionInterface(prop.missionId).initialNumberDone(player, prop.missionVariant);
+		campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId).initialNumberDone(player, prop.missionVariant);
 		campaign.missionId = prop.missionId;
 		campaign.missionObjective = prop.missionObjective;
 		player.PlayerMissionsInfo.campaignProgression++;

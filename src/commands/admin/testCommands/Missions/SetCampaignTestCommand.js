@@ -27,7 +27,7 @@ const setCampaignTestCommand = async (language, message, args) => {
 	campaign.missionId = campaignMission.missionId;
 	campaign.missionObjective = campaignMission.missionObjective;
 	campaign.missionVariant = campaignMission.missionVariant;
-	campaign.numberDone = MissionsController.getMissionInterface(campaign.missionId).initialNumberDone(entity.Player, campaign.missionVariant);
+	campaign.numberDone = await MissionsController.getMissionInterface(campaign.missionId).initialNumberDone(entity.Player, campaign.missionVariant);
 	campaign.xpToWin = campaignMission.xpToWin;
 	campaign.gemsToWin = campaignMission.gemsToWin;
 	await campaign.save();

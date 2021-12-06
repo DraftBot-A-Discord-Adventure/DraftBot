@@ -130,22 +130,22 @@ export class DraftBotInventoryEmbedBuilder {
 			this._user,
 			this._language,
 			await Promise.all(weapons.map(async function(item) {
-				const newItem = await item.getItem();
+				const newItem: any = await item.getItem();
 				newItem.slot = item.slot;
 				return newItem;
 			})),
 			await Promise.all(armors.map(async function(item) {
-				const newItem = await item.getItem();
+				const newItem: any = await item.getItem();
 				newItem.slot = item.slot;
 				return newItem;
 			})),
 			await Promise.all(potions.map(async function(item) {
-				const newItem = await item.getItem();
+				const newItem: any = await item.getItem();
 				newItem.slot = item.slot;
 				return newItem;
 			})),
 			await Promise.all(objects.map(async function(item) {
-				const newItem = await item.getItem();
+				const newItem: any = await item.getItem();
 				newItem.slot = item.slot;
 				return newItem;
 			})),

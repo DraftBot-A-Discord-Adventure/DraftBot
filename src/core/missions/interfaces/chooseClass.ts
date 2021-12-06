@@ -14,7 +14,7 @@ export const missionInterface: IMission = {
 		return 0;
 	},
 
-	initialNumberDone(player: Player): number {
-		return player.class !== 0 ? 1 : 0;
+	initialNumberDone(player: Player): Promise<number> {
+		return Promise.resolve(player.class !== 0 ? 1 : 0);
 	}
 };

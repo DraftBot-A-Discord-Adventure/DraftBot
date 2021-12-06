@@ -182,7 +182,7 @@ export class MissionsController {
 			missionVariant: prop.variant,
 			missionObjective: missionData.getNumberFromArray("objectives", prop.index),
 			expiresAt: new Date(Date.now() + hoursToMilliseconds(missionData.getNumberFromArray("expirations", prop.index))),
-			numberDone: this.getMissionInterface(missionId).initialNumberDone(player, prop.variant),
+			numberDone: await this.getMissionInterface(missionId).initialNumberDone(player, prop.variant),
 			gemsToWin: missionData.getNumberFromArray("gems", prop.index),
 			xpToWin: missionData.getNumberFromArray("xp", prop.index)
 		});
@@ -193,7 +193,7 @@ export class MissionsController {
 		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
 	}
 
-	public static getVariantFormatText(missionId: string, variant: number) {
-		return this.getMissionInterface(missionId).getVariantFormatVariable(variant);
+	public static getVariantFormatText(missionId: string, variant: number, language: string) {
+		return this.getMissionInterface(missionId).getVariantFormatVariable(variant, language);
 	}
 }

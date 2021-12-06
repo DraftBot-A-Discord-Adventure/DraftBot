@@ -9,6 +9,7 @@ import {Weapons} from "./Weapon";
 import {Armors} from "./Armor";
 import {Potions} from "./Potion";
 import {ObjectItems} from "./ObjectItem";
+import {GenericItemModel} from "./GenericItemModel";
 
 export class InventorySlot extends Model {
 	public readonly playerId!: number;
@@ -24,7 +25,7 @@ export class InventorySlot extends Model {
 	public createdAt!: Date;
 
 
-	async getItem() {
+	async getItem(): Promise<GenericItemModel> {
 		switch (this.itemCategory) {
 		case Constants.ITEM_CATEGORIES.WEAPON:
 			return await Weapons.getById(this.itemId);
