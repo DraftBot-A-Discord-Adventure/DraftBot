@@ -155,11 +155,17 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
+	 * Add xp to a guild and level up if needed
 	 * @param {Number} experience
+	 * @param {"fr"|"en"} language
+	 * @param {Message} message
 	 */
-	Guilds.prototype.addExperience = function(experience) {
+	Guilds.prototype.addExperience = async function(experience,message,language) {
 		this.experience += experience;
 		this.setExperience(this.experience);
+		while (this.needLevelUp()) {
+			await this.levelUpIfNeeded(message.channel, language);
+		}
 	};
 
 	/**
@@ -182,8 +188,8 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	/**
-	 * Checks if the player need to level up and levels up him.
-	 * @param {module:"discord.js".TextChannel} channel The channel in which the level up message will be sent
+	 * Checks if the guild need to level up and levels up it.
+	 * @param {TextChannel} channel The channel in which the level up message will be sent
 	 * @param {"fr"|"en"} language
 	 */
 	Guilds.prototype.levelUpIfNeeded = function(channel, language) {
