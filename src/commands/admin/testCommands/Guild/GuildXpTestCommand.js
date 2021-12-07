@@ -31,10 +31,7 @@ const guildXpTestCommand = async (language, message, args) => {
 	if (guild.level >= 100) {
 		throw new Error("Erreur gxp : la guilde est déjà niveau max !");
 	}
-	guild.experience = parseInt(args[0],10);
-	while (guild.needLevelUp()) {
-		await guild.levelUpIfNeeded(message.channel, language);
-	}
+	guild.addExperience(parseInt(args[0],10),message,language);
 	guild.save();
 	return format(module.exports.commandInfo.messageWhenExecuted, {experience: args[0]});
 };
