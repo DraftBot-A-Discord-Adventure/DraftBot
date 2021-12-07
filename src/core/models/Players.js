@@ -301,12 +301,24 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Players.prototype.setPseudo = async function(language) {
 		const entity = await this.getEntity();
-		if (entity.discordUserId !== undefined &&
-			client.users.cache.get(entity.discordUserId) !== undefined) {
-			this.pseudo = client.users.cache.get(entity.discordUserId).username;
-		}
-		else {
-			this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
+		if (entity.discordUserId !== undefined) {
+			const pseudo = (await client.shard.broadcastEval((client, context) => {
+				const user = client.users.cache.get(context.discordId);
+				if (user) {
+					return user.username;
+				}
+				return null;
+			}, {
+				context: {
+					discordId: entity.discordUserId
+				}
+			})).filter(p => p);
+			if (pseudo.length > 0) {
+				this.pseudo = pseudo[0];
+			}
+			else {
+				this.pseudo = JsonReader.models.players.getTranslation(language).pseudo;
+			}
 		}
 	};
 
