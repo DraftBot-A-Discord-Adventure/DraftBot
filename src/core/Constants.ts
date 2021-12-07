@@ -76,4 +76,85 @@ export abstract class Constants {
 		DATABASE_BACKUP_INTERVAL: 12 * 60 * 60 * 1000,
 		LOCAL_SPACE_LIMIT: 500 * 1024 * 1024
 	}
+
+	static readonly FIGHT = {
+		MAX_SPEED_IMPROVEMENT: 30,
+		MAX_TURNS: 25,
+		REQUIRED_LEVEL: 8,
+		POINTS_REGEN_MINUTES: 15,
+		POINTS_REGEN_AMOUNT: 50,
+		ACTION: {
+			QUICK_ATTACK: 0,
+			SIMPLE_ATTACK: 1,
+			POWERFUL_ATTACK: 2,
+			BULK_ATTACK: 3,
+			IMPROVE_SPEED: 4,
+			ULTIMATE_ATTACK: 5
+		}
+	};
+
+	static readonly NATURE = {
+		NONE: 0,
+		HEALTH: 1,
+		SPEED: 2,
+		ATTACK: 3,
+		DEFENSE: 4,
+		HOSPITAL: 5,
+		MONEY: 6
+	}
+
+	static readonly PETS = {
+		IS_FOOD: 1,
+		MALE: "m",
+		FEMALE: "f",
+		FREE_COOLDOWN: 60 * 60 * 1000, // 1 hour
+		BREED_COOLDOWN: 60 * 60 * 1000, // 1 hour
+		MAX_LOVE_POINTS: 100,
+		BASE_LOVE: 10,
+		GUILD_LEVEL_USED_FOR_NO_GUILD_LOOT: 20,
+		LOVE_LEVELS: [5, 20, 50],
+		SELL: {
+			MIN: 100,
+			MAX: 50000
+		}
+	}
+
+	static readonly LOGS = {
+		LOG_COUNT_LINE_LIMIT: 50000
+	}
+
+	static readonly EFFECT = {
+		EMOJIS: {
+			":baby:": "👶",
+			":smiley:": "😃",
+			":clock10:": "🕙", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
+			":skull:": "💀",
+			":sleeping:": "😴",
+			":zany_face:": "🤪",
+			":cold_face:": "🥶",
+			":head_bandage:": "🤕",
+			":sick:": "🤢",
+			":lock:": "🔒",
+			":dizzy_face:": "😵",
+			":clock2:": "🕑",
+			":drooling_face:": "🤤",
+			":confounded:": "😖",
+			":scream:": "😱"
+		},
+		BABY: ":baby:",
+		SMILEY: ":smiley:",
+		AWAITING_ANSWER: ":clock10:", // may be deleted : is used to avoir interaction when the bot is awaiting an answer
+		DEAD: ":skull:",
+		SLEEPING: ":sleeping:",
+		DRUNK: ":zany_face:",
+		FROZEN: ":cold_face:",
+		HURT: ":head_bandage:",
+		SICK: ":sick:",
+		LOCKED: ":lock:",
+		INJURED: ":dizzy_face:",
+		OCCUPIED: ":clock2:",
+		STARVING: ":drooling_face:",
+		CONFOUNDED: ":confounded:",
+		SCARED: ":scream:"
+	};
 }
