@@ -4,7 +4,7 @@ const Maps = require("../../core/Maps");
 
 module.exports.commandInfo = {
 	name: "daily",
-	aliases: ["da"],
+	aliases: ["d", "da"],
 	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
 };
 
