@@ -84,7 +84,8 @@ const main = async function() {
 				Intents.FLAGS.DIRECT_MESSAGE_REACTIONS // We maybe need to receive direct messages reaction
 				// Intents.FLAGS.DIRECT_MESSAGE_TYPING We don't need to know this
 			],
-			allowedMentions: { parse: ["users", "roles"] }
+			allowedMentions: { parse: ["users", "roles"] },
+			partials: ["MESSAGE", "CHANNEL"]
 		}
 	);
 
