@@ -1,4 +1,5 @@
 import {ShardingManager} from "discord.js";
+import {loadConfig} from "./core/bot/DraftBotConfig";
 
 process.on("unhandledRejection", function(err: Error) {
 	console.log(err.stack);
@@ -7,7 +8,9 @@ process.on("unhandledRejection", function(err: Error) {
 
 const main = function() {
 	const shardingManager = new ShardingManager("./dist/src/core/bot/index.js", {
-		totalShards: 3
+		totalShards: "auto",
+		// Needed as in auto mode it has to make a request to know the needed number of shards
+		token: loadConfig().DISCORD_CLIENT_TOKEN
 	});
 	shardingManager.on("shardCreate", shard => {
 		shard.on("ready", () => {
@@ -16,7 +19,7 @@ const main = function() {
 		});
 	});
 	shardingManager.spawn({
-		amount: 3
+		amount: "auto"
 	}).then();
 };
 
