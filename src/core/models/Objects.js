@@ -112,7 +112,7 @@ module.exports = (Sequelize, DataTypes) => {
 			return format(
 				JsonReader.items.getTranslation(language).objects.natures[this.nature],{
 					power: this.power,
-					powerInMinutes: this.power*60
+					powerInMinutes: this.power * 60
 				});
 		}
 		if (this.nature === NATURE.SPEED) {
