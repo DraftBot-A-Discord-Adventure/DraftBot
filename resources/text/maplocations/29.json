@@ -1,9 +1,9 @@
 {
 	"type": "castle_throne",
-	"nameFr": "Salle de reception du château",
-	"nameEn": "Castle's reception room",
-	"particleFr": "vers",
-	"particleEn": "of",
-	"descFr": "La salle de reception du château du Roi",
+	"nameFr": "Salle de reception",
+	"nameEn": "Reception room",
+	"particleFr": "vers la",
+	"particleEn": "of the",
+	"descFr": "Immense salle ornée de nombreuses oeuvres d'art",
 	"descEn": "The reception room of the King's castle"
 }
