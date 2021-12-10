@@ -110,8 +110,10 @@ module.exports = (Sequelize, DataTypes) => {
 	Objects.prototype.getNatureTranslation = function(language, maxStatsValue) {
 		if (this.nature === NATURE.HOSPITAL) {
 			return format(
-				JsonReader.items.getTranslation(language).objects.natures[this.nature],
-				{power: this.power});
+				JsonReader.items.getTranslation(language).objects.natures[this.nature],{
+					power: this.power,
+					powerInMinutes: this.power*60
+				});
 		}
 		if (this.nature === NATURE.SPEED) {
 			if (isNaN(maxStatsValue)) {

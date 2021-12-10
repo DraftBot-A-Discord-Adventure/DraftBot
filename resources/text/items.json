@@ -35,7 +35,7 @@
 					":rocket: Vitesse + {power} pendant les combats",
 					":crossed_swords: Attaque + {power} pendant les combats",
 					":shield: Défense + {power} pendant les combats",
-					":clock1030: Avance le temps plus rapidement pendant {power} heure{power>1?s:} chaque jour",
+					":clock1030: Avance le temps plus rapidement pendant {power>=1?{power}:{powerInMinutes}} {power>=1?heure:minute}{power>1?s:}{power<1?s:} chaque jour",
 					":moneybag: Argent + {power} par jour"
 				]
 			},
