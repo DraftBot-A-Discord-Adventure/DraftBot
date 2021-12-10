@@ -18,5 +18,5 @@ export const missionInterface: IMission = {
 
 	getVariantFormatVariable: (variant: number) => variant.toString(),
 
-	initialNumberDone: () => 0
+	initialNumberDone: () => Promise.resolve(0)
 };

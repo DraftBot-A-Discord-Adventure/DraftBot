@@ -13,6 +13,7 @@ import ObjectItem, {ObjectItems} from "../models/ObjectItem";
 import Entity, {Entities} from "../models/Entity";
 import InventorySlot from "../models/InventorySlot";
 import {MissionsController} from "../missions/MissionsController";
+import {GenericItemModel} from "../models/GenericItemModel";
 
 declare const JsonReader: any;
 declare function removeBlockedPlayer(id: string): void;
@@ -65,7 +66,7 @@ export const giveItemToPlayer = async function(
 			items.sort((a: any, b: any) => (a.slot > b.slot ? 1 : b.slot > a.slot ? -1 : 0));
 			for (const item of items) {
 				choiceList.push(new ChoiceItem(
-					(await item.getItem()).toString(language),
+					(await item.getItem()).toString(language, -1),
 					item
 				));
 			}
@@ -165,14 +166,14 @@ export const giveItemToPlayer = async function(
 
 // eslint-disable-next-line max-params
 const sellOrKeepItem = async function(
-	entity: any,
+	entity: Entity,
 	keepOriginal: boolean,
 	discordUser: User,
 	channel: TextChannel,
 	language: string,
-	item: Weapon | Armor | Potion | ObjectItem,
-	itemToReplace: any,
-	itemToReplaceInstance: any,
+	item: GenericItemModel,
+	itemToReplace: InventorySlot,
+	itemToReplaceInstance: GenericItemModel,
 	resaleMultiplier: number,
 	resaleMultiplierActual: number,
 	autoSell: boolean
@@ -181,7 +182,7 @@ const sellOrKeepItem = async function(
 	if (!keepOriginal) {
 		const menuEmbed = new DraftBotEmbed();
 		menuEmbed.formatAuthor(tr.get("acceptedTitle"), discordUser)
-			.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, Infinity) : item.toString(language));
+			.setDescription(item instanceof ObjectItem || item instanceof Potion ? item.toString(language, Infinity) : item.toString(language, -1));
 
 		await InventorySlot.update(
 			{
@@ -234,6 +235,11 @@ const sellOrKeepItem = async function(
 			)
 	] });
 	await MissionsController.update(entity.Player, channel, language, "findOrBuyItem");
+	if (!keepOriginal && entity.Player.MissionSlots.filter(m => m.missionId === "haveItemRarity").length !== 0) {
+		await MissionsController.update(entity.Player, channel, language, "haveItemRarity", 1, {
+			rarity: itemToReplaceInstance.rarity
+		});
+	}
 };
 
 export const getItemValue = function(item: any) {
@@ -392,4 +398,13 @@ export const sortPlayerItemList = async function(items: any[]): Promise<any[]> {
 	return itemInstances.map(function(e) {
 		return e[0];
 	});
+};
+
+export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: number): Promise<boolean> {
+	for (const slot of slots) {
+		if ((await slot.getItem()).rarity > rarity) {
+			return true;
+		}
+	}
+	return false;
 };

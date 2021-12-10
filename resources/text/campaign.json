@@ -97,6 +97,13 @@
 			"missionObjective": 10,
 			"gemsToWin": 2,
 			"xpToWin": 2
+		},
+		{
+			"missionId": "haveItemRarity",
+			"missionVariant": 3,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
 		}
 	]
 }

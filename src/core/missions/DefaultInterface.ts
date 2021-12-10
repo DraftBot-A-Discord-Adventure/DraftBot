@@ -13,7 +13,7 @@ export const missionInterface: IMission = {
 		return 0;
 	},
 
-	initialNumberDone(): number {
-		return 0;
+	initialNumberDone(): Promise<number> {
+		return Promise.resolve(0);
 	}
 };
