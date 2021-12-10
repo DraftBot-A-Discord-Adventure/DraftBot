@@ -3,7 +3,7 @@ import {loadConfig} from "./core/bot/DraftBotConfig";
 
 process.on("unhandledRejection", function(err: Error) {
 	console.log(err.stack);
-	process.exit(1);
+	// process.exit(1);
 });
 
 const main = function() {

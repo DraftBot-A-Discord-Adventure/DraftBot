@@ -1,4 +1,4 @@
-const {draftBotInstance} = require("../../../../core/bot");
+const {DraftBot} = require("../../../../core/bot/DraftBot");
 module.exports.commandInfo = {
 	name: "dailytimeout",
 	commandFormat: "",
@@ -11,7 +11,7 @@ module.exports.commandInfo = {
  * @return {String} - The successful message formatted
  */
 const dailyTimeoutTestCommand = () => {
-	draftBotInstance.dailyTimeout();
+	DraftBot.dailyTimeout();
 
 	return module.exports.commandInfo.messageWhenExecuted;
 };

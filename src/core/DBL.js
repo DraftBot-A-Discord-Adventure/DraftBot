@@ -45,8 +45,9 @@ class DBL {
 				let member;
 				if ((member = await guild.members.fetch(context.user)) !== undefined) {
 					try {
-						await member.roles.add(context.config.DBL_VOTE_ROLE);
-						await DBL.programDBLRoleRemoval(context.user);
+						const roleToAdd = await guild.roles.fetch(context.config.DBL_VOTE_ROLE);
+						await member.roles.add(roleToAdd);
+						await require("core/DBL").programDBLRoleRemoval(context.user);
 					}
 					catch (e) {
 						console.log(e);
@@ -114,5 +115,6 @@ module.exports = {
 	startDBLWebhook: DBL.startDBLWebhook,
 	verifyDBLRoles: DBL.verifyDBLRoles,
 	userDBLVote: DBL.userDBLVote,
-	getTimeBeforeDBLRoleRemove: DBL.getTimeBeforeDBLRoleRemove
+	getTimeBeforeDBLRoleRemove: DBL.getTimeBeforeDBLRoleRemove,
+	programDBLRoleRemoval: DBL.programDBLRoleRemoval
 };
