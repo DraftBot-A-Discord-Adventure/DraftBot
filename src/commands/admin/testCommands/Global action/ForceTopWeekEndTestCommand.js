@@ -1,3 +1,4 @@
+const {DraftBot} = require("../../../../core/bot/DraftBot");
 module.exports.commandInfo = {
 	name: "forcetopweekend",
 	aliases: ["forcetwe"],
@@ -6,14 +7,12 @@ module.exports.commandInfo = {
 	description: "Effectue une fin de topweek (action hebdomadaire qui réinitialise le topweek, et qui annonce le gagnant de la semaine)"
 };
 
-const DB = require("../../../../core/DraftBot");
-
 /**
  * Force a topweek end event
  * @return {String} - The successful message formatted
  */
 const forceTopWeekEndTestCommand = async () => {
-	await DB.twe();
+	await DraftBot.topWeekEnd();
 
 	return module.exports.commandInfo.messageWhenExecuted;
 };

@@ -51,7 +51,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Au cours de votre traversée, une planche tombe, heureusement, vous réussissez à vous accrocher à une autre planche, elle plus solide. Après quelques minutes à vous remettre de vos émotions, vous continuez votre route.",
+						"fr": "Au cours de votre traversée, une planche tombe, heureusement, vous réussissez à vous accrocher à une planche plus solide. Après quelques minutes à vous remettre de vos émotions, vous continuez votre route.",
 						"en": "While crossing, a plank snaps out from under you. Fortunately, you manage to hang on to another, more reliable board. After a few minutes spent recovering your emotions, you continue on your way."
 					},
 					"lostTime": 15,

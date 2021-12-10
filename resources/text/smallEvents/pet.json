@@ -3,25 +3,25 @@
 		"fr": {
 			"money": [
 				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort **{amount}** :moneybag:, que vous gardez pour la suite de votre aventure.",
-				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir **{amount}** :moneybag: !",
+				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fut pas votre surprise après l'avoir vu en sortir **{amount}** :moneybag: !",
 				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec **{amount}** :moneybag: vous remplit de joie !",
-				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec une bourse de {amount} :moneybag: !",
+				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fut pas votre surprise en {determinant} voyant ressortir avec une bourse de {amount} :moneybag: !",
 				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une bourse. Il semblerait bien qu'{nominative} l'ait volée à un marchand. Vous décidez de partir avec vos **{amount}** :moneybag: avant qu'il ne s'en aperçoive."
 			],
 			"item": [
 				"Vous voyez **{pet}** fouiller dans des hautes herbes. {nominativeShift} en ressort un **objet**, que vous pouvez éventuellement garder pour la suite de votre aventure.",
-				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir un **objet** !",
+				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fut pas votre surprise après l'avoir vu en sortir un **objet** !",
 				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et {determinant} voir revenir avec un **objet** vous remplit de joie !",
-				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec un **objet** !",
+				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fut pas votre surprise en {determinant} voyant ressortir avec un **objet** !",
 				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec un **objet**. Il semblerait bien qu'{nominative} l'ait volé à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
 			],
 			"gainLife": [
 				"Avoir **{pet}** à vos côtés vous rend heureux. Cela vous fait remonter votre moral et vous gagnez **{amount}** :heart:.",
 				"Sur le bord de la route, **{pet}** se précipite sur de la nourriture qui semble être en bon état. {nominative} vous la ramène, et vous la mangez avant qu'elle ne se déteriore. Vous gagnez **{amount}** :heart:.",
-				"Après être parti quelques instants, **{pet}** revient avec une potion presque vide. Vous la buvez avant qu'elle ne soit perdue. Vous gagnez ainsi **{amount}** :heart:."
+				"Après être parti{feminine} quelques instants, **{pet}** revient avec une potion presque vide. Vous la buvez avant qu'elle ne soit perdue. Vous gagnez ainsi **{amount}** :heart:."
 			],
 			"gainLove": [
-				"**{pet}** est heureux de vous avoir en sa compagnie. {nominativeShift} gagne en amour et vous devient plus fidèle.",
+				"**{pet}** est heureu{petFemale?se:x} de vous avoir en sa compagnie. {nominativeShift} gagne en amour et vous devient plus fidèle.",
 				"Après avoir marché longuement, vous décidez de prendre soin de votre **{pet}** en {determinant} caressant. Ce moment passé avec {accusative} a renforcé vos liens.",
 				"Après être parti{feminine} quelques instants, **{pet}** revient avec de la nourriture trouvée plus loin. Vous décidez de la lui donner avant qu'elle ne soit perdue. {nominativeShift} vous aime ainsi davantage.",
 				"**{pet}** semble avoir déclenché les hostilités avec un{randomAnimalFeminine} **{randomAnimal}** sauvage ! Vous décidez de {determinant} défendre vaillamment. {nominativeShift} vous aime davantage et vous devient plus fidèle.",
@@ -29,14 +29,14 @@
 			],
 			"food": [
 				"Le flair de **{pet}** vous a permis de trouver une {food}. Vous rangez cette nourriture et continuez votre route.",
-				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fût pas votre surprise après l'avoir vu en sortir une {food} !",
+				"**{pet}** regarde avec insistance le sol et se décide d'y creuser un trou. Quelle ne fut pas votre surprise après l'avoir vu en sortir une {food} !",
 				"**{pet}** renifle avec insistance en direction d'un buisson. Vous décidez d'y jeter un oeil et vous {determinant} voyez revenir avec une {food} dans la bouche !",
-				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fût pas votre surprise en {determinant} voyant ressortir avec une {food} !",
-				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une {food}. Il semblerait bien qu'{nominative} l'ai volée à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
+				"Vous voyez tout à coup **{pet}** sauter dans l'eau. Quelle ne fut pas votre surprise en {determinant} voyant ressortir avec une {food} !",
+				"Après avoir fait une petite pause sur votre trajet, vous voyez revenir **{pet}** avec une {food}. Il semblerait bien qu'{nominative} l'ait volée à un marchand. Vous décidez de partir avant qu'il ne s'en aperçoive."
 			],
 			"gainTime": [
 				"**{pet}** est en forme. Vous montez sur son dos quelques minutes et vous gagnez **{amount} min** :clock2:.",
-				"Dans un virage, **{pet}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagnez **{amount} min** :clock2:.",
+				"Dans un virage, **{pet}** se met tout à coup à courir. Vous finissez traîné au bout de sa laisse mais vous avez gagné **{amount} min** :clock2:.",
 				"**{pet}** semble être pressé{feminine}, malgré cela, vous arrivez à {determinant} suivre tant bien que mal. Grâce à {accusative} vous gagnez **{amount} min** :clock2:.",
 				"Le flair de **{pet}** vous a permis de trouver un raccourci. Grâce à {accusative} vous avez gagné **{amount} min** :clock2:.",
 				"Défendre **{pet}** contre un{randomAnimalFeminine} **{randomAnimal}** sauvage n'a pas été une mince affaire et cette fois, vous avez trouvé plus fort que vous. Vous décidez de prendre la fuite et de courir à toute vitesse. Grâce à cette mésaventure vous gagnez **{amount} min** :clock2: sur votre trajet."
