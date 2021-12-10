@@ -1,3 +1,4 @@
+const {draftBotInstance, shardId} = require("../../core/bot");
 module.exports.commandInfo = {
 	name: "ping",
 	aliases: ["mention"]
@@ -12,8 +13,15 @@ module.exports.commandInfo = {
 const PingCommand = (message, language) => {
 	message.channel.send({ content: JsonReader.commands.ping.getTranslation(language).create })
 		.then((msg) => {
-			msg.edit({ content: format(JsonReader.commands.ping.getTranslation(language).edit,
-				{timeElasped: msg.createdTimestamp - message.createdTimestamp}) });
+			msg.edit({
+				content: format(JsonReader.commands.ping.getTranslation(language).edit,
+					{
+						latency: msg.createdTimestamp - message.createdTimestamp,
+						apiLatency: draftBotInstance.client.ws.ping,
+						shardId: shardId,
+						totalShards: draftBotInstance.client.shard.count - 1
+					})
+			});
 		});
 };
 
