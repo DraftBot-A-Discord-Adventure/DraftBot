@@ -73,7 +73,7 @@
 					":rocket: Speed + {power} during the next fight",
 					":crossed_swords: Attack + {power} during the next fight",
 					":shield: Defense + {power} during the next fight",
-					":clock1030: Speeds up time for {power} hour{power>1?s:}",
+					":clock1030: Speeds up time for {power>=1?{power}:{powerInMinutes}} {power>=1?hour:minute}{power>1?s:}{power<1?s:}",
 					":moneybag: Money + {power}"
 				]
 			},
