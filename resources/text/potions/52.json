@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🥫 **Jus de kiwi**",
-		"en": "🥫 ️**Kiwi juice**"
+		"fr": "**Jus de kiwi**",
+		"en": "**Kiwi juice**"
 	},
+	"emote": "🥫",
 	"rarity": 7,
 	"power": 256,
 	"nature": 4,

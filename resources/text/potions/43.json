@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🥤 **Larmes de l'adversaire**",
-		"en": "🥤**Opponent's tears**"
+		"fr": "**Larmes de l'adversaire**",
+		"en": "**Opponent's tears**"
 	},
+	"emote": "🥤",
 	"rarity": 2,
 	"power": 20,
 	"nature": 3,

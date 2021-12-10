@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "⛽ **Kyurburant**",
-		"en": "⛽ **Kyufuel**"
+		"fr": "**Kyurburant**",
+		"en": "**Kyufuel**"
 	},
+	"emote": "⛽",
 	"rarity": 5,
 	"power": 2,
 	"nature": 5,

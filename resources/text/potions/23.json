@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:LovePotion:548221051063107594> **Potion de soin ultime**",
-		"en": "<:LovePotion:548221051063107594> **Ultimate healing potion**"
+		"fr": "**Potion de soin ultime**",
+		"en": "**Ultimate healing potion**"
 	},
+	"emote": "<:LovePotion:548221051063107594>",
+	"fallbackEmote": "❤️",
 	"rarity": 7,
 	"power": 215,
 	"nature": 1,

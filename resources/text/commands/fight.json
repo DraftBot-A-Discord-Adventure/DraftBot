@@ -22,7 +22,7 @@
 				"elo": "\n- **Elo de la partie**: `{elo}`\n- **Points gagnés/perdus**: `{points}`",
 				"fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {pseudo}\n- **Vie finale**: {health}/{maxHealth} :zap:",
 				"attacksField": "\n- **Attaques**:",
-				"attackStats": "\n      - {emote} {success}/{total} réussie(s), {damage} de dégâts en moyenne"
+				"attackStats": "\n      - {emote} {success}/{total} réussie{total>1?s:), {damage} de dégâts en moyenne"
 			},
 			"error": {
 				"spamCanceled": "Votre combat a été annulé. Merci de ne pas spam la réaction de votre demande de combat.",

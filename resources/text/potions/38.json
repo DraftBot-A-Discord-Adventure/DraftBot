@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🍶 **Saké**",
-		"en": "🍶 **Sake**"
+		"fr": "**Saké**",
+		"en": "**Sake**"
 	},
+	"emote": "🍶",
 	"rarity": 6,
 	"power": 4,
 	"nature": 5,

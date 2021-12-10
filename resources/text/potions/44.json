@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🐺 **Potion de sang de loup**",
-		"en": "🐺 **Potion of wolf blood**"
+		"fr": "**Potion de sang de loup**",
+		"en": "**Potion of wolf blood**"
 	},
+	"emote": "🐺",
 	"rarity": 6,
 	"power": 178,
 	"nature": 3,

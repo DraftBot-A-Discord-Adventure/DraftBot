@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:Potion:548219908736155658> **Super Potion**",
-		"en": "<:Potion:548219908736155658> **Super potion**"
+		"fr": "**Super Potion**",
+		"en": "**Super potion**"
 	},
+	"emote": "<:Potion:548219908736155658>",
+	"fallbackEmote": "🍷",
 	"rarity": 6,
 	"power": 190,
 	"nature": 4,

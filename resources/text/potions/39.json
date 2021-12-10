@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🧉 **Maté**",
-		"en": "🧉 **Mate**"
+		"fr": "**Maté**",
+		"en": "**Mate**"
 	},
+	"emote": "🧉",
 	"rarity": 6,
 	"power": 7,
 	"nature": 5,

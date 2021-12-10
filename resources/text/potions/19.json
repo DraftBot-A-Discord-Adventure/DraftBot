@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:PurplePotion:548221048768954418> **Potion de force**",
-		"en": "<:PurplePotion:548221048768954418> **Strength potion**"
+		"fr": "**Potion de force**",
+		"en": "**Strength potion**"
 	},
+	"emote": "<:PurplePotion:548221048768954418>",
+	"fallbackEmote": "🍸",
 	"rarity": 3,
 	"power": 45,
 	"nature": 3,

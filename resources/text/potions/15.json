@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:DarkPotion:548221047187439710> **Potion magique**",
-		"en": "<:DarkPotion:548221047187439710> **Magic potion**"
+		"fr": "**Potion magique**",
+		"en": "**Magic potion**"
 	},
+	"emote": "<:DarkPotion:548221047187439710>",
+	"fallbackEmote": "⚗",
 	"rarity": 5,
 	"power": 135,
 	"nature": 3,

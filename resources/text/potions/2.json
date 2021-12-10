@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:Potion:548219908736155658> **Potion simple**",
-		"en": "<:Potion:548219908736155658> **Simple potion**"
+		"fr": "**Potion simple**",
+		"en": "**Simple potion**"
 	},
+	"emote": "<:Potion:548219908736155658>",
+	"fallbackEmote": "🍷",
 	"rarity": 3,
 	"power": 17,
 	"nature": 1,

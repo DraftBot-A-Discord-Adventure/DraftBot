@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🥃 **Alcool**",
-		"en": "🥃 **Alcohol**"
+		"fr": "**Alcool**",
+		"en": "**Alcohol**"
 	},
+	"emote": "🥃",
 	"rarity": 1,
 	"power": 5,
 	"nature": 3,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🔋 ️**Jus de batterie**",
-		"en": "🔋 ️**Battery oil**"
+		"fr": "**Jus de batterie**",
+		"en": "**Battery oil**"
 	},
+	"emote": "🔋",
 	"rarity": 6,
 	"power": 212,
 	"nature": 2,

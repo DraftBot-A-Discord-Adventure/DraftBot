@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:Potion:548219908736155658> **Grande Potion**",
-		"en": "<:Potion:548219908736155658> **Large potion**"
+		"fr": "**Grande Potion**",
+		"en": "**Large potion**"
 	},
+	"emote": "<:Potion:548219908736155658>",
+	"fallbackEmote": "🍷",
 	"rarity": 7,
 	"power": 255,
 	"nature": 2,

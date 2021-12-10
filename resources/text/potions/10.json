@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:BubblePurplePotion:548221045266579465> **Potion violette**",
-		"en": "<:BubblePurplePotion:548221045266579465> **Violet potion**"
+		"fr": "**Potion violette**",
+		"en": "**Violet potion**"
 	},
+	"emote": "<:BubblePurplePotion:548221045266579465>",
+	"fallbackEmote": "🍇",
 	"rarity": 7,
 	"power": 12,
 	"nature": 5,

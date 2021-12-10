@@ -1,8 +1,10 @@
 {
 	"translations": {
-		"fr": "<:PurplePotion:548221048768954418> **Potion secouée**",
-		"en": "<:PurplePotion:548221048768954418> **Shaken potion**"
+		"fr": "**Potion secouée**",
+		"en": "**Shaken potion**"
 	},
+	"emote": "<:PurplePotion:548221048768954418>",
+	"fallbackEmote": "🍸",
 	"rarity": 2,
 	"power": 25,
 	"nature": 2,

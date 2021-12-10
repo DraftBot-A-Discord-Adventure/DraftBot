@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🥤 **Glaçons fondus**",
-		"en": "🥤  **Melted ice cubes**"
+		"fr": "**Glaçons fondus**",
+		"en": "**Melted ice cubes**"
 	},
+	"emote": "🥤",
 	"rarity": 5,
 	"power": 3,
 	"nature": 5,

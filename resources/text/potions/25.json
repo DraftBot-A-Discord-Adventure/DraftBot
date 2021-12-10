@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🍹 **Boisson tropicale**",
-		"en": "🍹 **Tropical drink**"
+		"fr": "**Boisson tropicale**",
+		"en": "**Tropical drink**"
 	},
+	"emote": "🍹",
 	"rarity": 1,
 	"power": 8,
 	"nature": 2,

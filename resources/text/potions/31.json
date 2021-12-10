@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🥘 **Soupe de grand mère**",
-		"en": "🥘 **Grandma's soup**"
+		"fr": "**Soupe de grand mère**",
+		"en": "**Grandma's soup**"
 	},
+	"emote": "🥘",
 	"rarity": 2,
 	"power": 10,
 	"nature": 1,

@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🍵 **Thé**",
-		"en": "🍵 **Tea**"
+		"fr": "**Thé**",
+		"en": "**Tea**"
 	},
+	"emote": "🍵",
 	"rarity": 1,
 	"power": 1,
 	"nature": 2,

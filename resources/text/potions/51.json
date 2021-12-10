@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🥫 **Épinards**",
-		"en": "🥫 ️**Spinach**"
+		"fr": "**Épinards**",
+		"en": "**Spinach**"
 	},
+	"emote": "🥫",
 	"rarity": 8,
 	"power": 261,
 	"nature": 4,

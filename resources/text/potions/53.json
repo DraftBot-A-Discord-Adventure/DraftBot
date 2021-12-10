@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🥫 **Jus de banane**",
-		"en": "🥫 ️**Banana juice**"
+		"fr": "**Jus de banane**",
+		"en": "**Banana juice**"
 	},
+	"emote": "🥫",
 	"rarity": 2,
 	"power": 35,
 	"nature": 4,

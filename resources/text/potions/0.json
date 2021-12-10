@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "⬛  **Pas de potion**",
-		"en": "⬛ **No potion**"
+		"fr": "**Pas de potion**",
+		"en": "**No potion**"
 	},
+	"emote": "⬛",
 	"rarity": 0,
 	"power": 1,
 	"nature": 0,

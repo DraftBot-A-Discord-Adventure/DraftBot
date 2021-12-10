@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "☕ **Café**",
-		"en": "☕ **Coffee**"
+		"fr": "**Café**",
+		"en": "**Coffee**"
 	},
+	"emote": "☕",
 	"rarity": 1,
 	"power": 2,
 	"nature": 2,

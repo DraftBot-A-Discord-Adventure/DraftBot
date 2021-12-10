@@ -1,11 +1,12 @@
 {
-	"translations": {
-		"fr": "🍾 **Champagne sabré**",
-		"en": "🍾 **Sabered champagne**"
+    "translations": {
+    	"fr": "Champagne sabré",
+        "en": "Sabered champagne"     
 	},
-	"rarity": 6,
-	"power": 6,
-	"nature": 5,
-	"frenchMasculine": 1,
-	"frenchPlural": 0
+    "emote": "🍾",
+    "rarity": 6,
+    "power": 6,
+    "nature": 5,
+    "frenchMasculine": 1,
+    "frenchPlural": 0 
 }

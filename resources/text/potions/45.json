@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🌱 **Breuvage à base de coca**",
-		"en": "🌱 **Erythroxylum coca mixture**"
+		"fr": "**Breuvage à base de coca**",
+		"en": "**Erythroxylum coca mixture**"
 	},
+	"emote": "🌱",
 	"rarity": 4,
 	"power": 1,
 	"nature": 5,

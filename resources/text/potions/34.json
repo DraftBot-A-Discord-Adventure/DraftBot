@@ -1,8 +1,9 @@
 {
 	"translations": {
-		"fr": "🐣 **Essence de volaille n°5**",
-		"en": "🐣 **Fowl essence n°5**"
+		"fr": "**Essence de volaille n°5**",
+		"en": "**Fowl essence n°5**"
 	},
+	"emote": "🐣",
 	"rarity": 8,
 	"power": 270,
 	"nature": 1,
