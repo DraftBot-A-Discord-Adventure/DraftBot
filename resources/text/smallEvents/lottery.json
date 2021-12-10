@@ -43,7 +43,7 @@
 			"poor": "You try to fool the man's attention and bet a large sum. Unfortunately for you, the merchant doubts your good faith, unable to prove that you have the money, you are rejected without mercy.",
 			"rewardTypeText": {
 				"xp": " You won {xpWon}:star:.",
-				"money": " You {negativeMoney?lost:won} {moneyWon} :{negativeMoney?money_with_wings:moneybag}: !",
+				"money": " You {negativeMoney?lost:won} {money} :{negativeMoney?money_with_wings:moneybag}: !",
 				"guildXp": " Your guild won {guildXpWon}:star:.",
 				"points": " You won {pointsWon}:medal:."
 			}
