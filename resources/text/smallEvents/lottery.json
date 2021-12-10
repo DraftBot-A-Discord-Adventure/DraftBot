@@ -18,9 +18,9 @@
 			"poor": "Vous tentez de vous jouer de l'attention de l'homme et misez une somme importante. Malheureusement pour vous, le commerçant doute de votre bonne foi, incapable d'attester de quelconque richesse, vous êtes rejeté sans ménagement.",
 			"end": "Sans prêter plus d'attention à l'individu, vous continuez votre route.",
 			"rewardTypeText": {
-				"xp": " Vous avez gagné {xpWon} :star:.",
-				"money": " Vous avez {negativeMoney?perdu:gagné} {money} :{negativeMoney?money_with_wings:moneybag}: !",
-				"guildXp": " Votre guilde gagne {guildXpWon} :star:.",
+				"xp": " Vous avez gagné **{xpWon} :star:**.",
+				"money": " Vous avez {negativeMoney?perdu:gagné} **{money} :{negativeMoney?money_with_wings:moneybag}: !**",
+				"guildXp": " Votre guilde gagne **{guildXpWon} :star:**.",
 				"points": " Vous avez gagné {pointsWon} :medal:."
 			}
 		},
