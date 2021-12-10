@@ -85,26 +85,26 @@ export class DraftBot {
 		const millisTill = getNextSundayMidnight().getTime() - Date.now();
 		if (millisTill === 0) {
 			// Case at 0:00:00
-			setTimeout(this.programTopWeekTimeout, 10000);
+			setTimeout(DraftBot.programTopWeekTimeout, 10000);
 			return;
 		}
-		setTimeout(this.topWeekEnd, millisTill);
+		setTimeout(DraftBot.topWeekEnd, millisTill);
 	}
 
 	static programDailyTimeout() {
 		const millisTill = getNextDay2AM().getTime() - Date.now();
 		if (millisTill === 0) {
 			// Case at 2:00:00
-			setTimeout(this.programDailyTimeout, 10000);
+			setTimeout(DraftBot.programDailyTimeout, 10000);
 			return;
 		}
-		setTimeout(this.dailyTimeout, millisTill);
+		setTimeout(DraftBot.dailyTimeout, millisTill);
 	}
 
 	static dailyTimeout() {
-		this.randomPotion();
-		this.randomLovePointsLoose();
-		this.programDailyTimeout();
+		DraftBot.randomPotion();
+		DraftBot.randomLovePointsLoose();
+		DraftBot.programDailyTimeout();
 	}
 
 	static async randomPotion() {
@@ -220,7 +220,7 @@ export class DraftBot {
 		}
 		Players.update({weeklyScore: 0}, {where: {}});
 		console.log("# WARNING # Weekly leaderboard has been reset !");
-		this.programTopWeekTimeout();
+		DraftBot.programTopWeekTimeout();
 	}
 
 	static async fightPowerRegenerationLoop() {
@@ -234,7 +234,7 @@ export class DraftBot {
 			{where: {fightPointsLost: {[sequelize.Op.not]: 0}}}
 		);
 		setTimeout(
-			this.fightPowerRegenerationLoop,
+			DraftBot.fightPowerRegenerationLoop,
 			Constants.FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
 		);
 	}

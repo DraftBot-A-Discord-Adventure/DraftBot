@@ -21,7 +21,7 @@ export const botConfig = loadConfig();
 
 process.on("unhandledRejection", function(err: Error) {
 	console.log(err.stack);
-	process.exit(1);
+	// process.exit(1);
 });
 
 process.on("message", async (message: any) => {
