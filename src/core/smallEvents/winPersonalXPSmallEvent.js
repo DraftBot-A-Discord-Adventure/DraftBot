@@ -23,10 +23,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 					xp: xpWon
 				})
 		);
-	entity.Player.experience += xpWon;
-	while (entity.Player.needLevelUp()) {
-		await entity.Player.levelUpIfNeeded(entity, message.channel, language);
-	}
+	entity.Player.addExperience(xpWon,entity,message,language);
 	await entity.Player.save();
 	await entity.save();
 	await message.channel.send({ embeds: [seEmbed] });
