@@ -96,7 +96,8 @@ const SwitchCommand = async (message, language) => {
 		let desc;
 		if (otherItem.itemId === 0) {
 			desc = tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
-				item: item.shortName
+				item: item.shortName,
+				frenchMasculine: item.FrenchMasculine
 			});
 		}
 		else {
