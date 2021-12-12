@@ -69,10 +69,8 @@ function getGuildXPShopItem(guildShopTranslations) {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(entity.Player.guildId);
 			const xpToAdd = randInt(50, 450);
-			guild.addExperience(xpToAdd);
-			while (guild.needLevelUp()) {
-				await guild.levelUpIfNeeded(message.sentMessage.channel, message.language);
-			}
+			await guild.addExperience(xpToAdd, message.sentMessage, message.language);
+
 			await guild.save();
 			await message.sentMessage.channel.send({ embeds: [
 				new DraftBotEmbed()

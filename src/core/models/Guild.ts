@@ -8,7 +8,7 @@ import GuildPet from "./GuildPet";
 import PetEntity from "./PetEntity";
 import Pet from "./Pet";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
-import {TextChannel} from "discord.js";
+import {Message, TextChannel} from "discord.js";
 import {Translations} from "../Translations";
 import moment = require("moment");
 
@@ -71,9 +71,12 @@ export class Guild extends Model {
 		}
 	}
 
-	public addExperience(experience: number): void {
+	public async addExperience(experience: number, message: Message, language: string) {
 		this.experience += experience;
 		this.setExperience(this.experience);
+		while (this.needLevelUp()) {
+			await this.levelUpIfNeeded(<TextChannel> message.channel, language);
+		}
 	}
 
 	public needLevelUp(): boolean {

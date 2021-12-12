@@ -79,7 +79,8 @@ const SellCommand = async (message, language) => {
 					.formatAuthor(tr.get("potionDestroyedTitle"), message.author)
 					.setDescription(
 						tr.format("potionDestroyedMessage", {
-							item: item.name
+							item: item.name,
+							frenchMasculine: item.frenchMasculine
 						})
 					)] });
 			}

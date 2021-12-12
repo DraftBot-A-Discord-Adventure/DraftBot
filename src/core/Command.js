@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {Entities} from "./models/Entity";
 import {Guilds} from "./models/Guild";
 import Server from "./models/Server";
+import {botConfig, draftBotClient} from "./bot";
 
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
@@ -164,25 +165,39 @@ class Command {
 	 * @param {module:"discord.js".Message} message - Message from the discord user
 	 */
 	static async handlePrivateMessage(message) {
-		const mainServer = client.guilds.cache.get(
-			JsonReader.app.MAIN_SERVER_ID
-		);
-		const dmChannel = mainServer.channels.cache.get(
-			JsonReader.app.SUPPORT_CHANNEL_ID
-		);
-		if (message.attachments.size > 0) {
-			await sendMessageAttachments(message, dmChannel);
-		}
-		let icon = "";
 		const [entity] = await Entities.getOrRegister(message.author.id);
+		let icon = "";
 		if (!entity.Player.dmNotification) {
 			icon = JsonReader.bot.dm.alertIcon;
 		}
-		dmChannel.send({ content: format(JsonReader.bot.dm.supportAlert, {
-			username: message.author.username,
-			alertIcon: icon,
-			id: message.author.id
-		}) + message.content });
+		await draftBotClient.shard.broadcastEval((client, context) => {
+			const mainServer = client.guilds.cache.get(context.mainServerId);
+			if (mainServer) {
+				const dmChannel = mainServer.channels.cache.get(context.dmChannelId);
+				if (context.attachments.length > 0) {
+					for (const attachment of context.attachments) {
+						dmChannel.send({
+							files: [{
+								attachment: attachment.url,
+								name: attachment.filename
+							}]
+						});
+					}
+				}
+				dmChannel.send({ content: context.supportAlert });
+			}
+		}, {
+			context: {
+				mainServerId: botConfig.MAIN_SERVER_ID,
+				dmChannelId: botConfig.SUPPORT_CHANNEL_ID,
+				attachments: Array.from(message.attachments.values()),
+				supportAlert: format(JsonReader.bot.dm.supportAlert, {
+					username: message.author.username,
+					alertIcon: icon,
+					id: message.author.id
+				}) + message.content
+			}
+		});
 
 		const msg = await sendSimpleMessage(
 			message.author,

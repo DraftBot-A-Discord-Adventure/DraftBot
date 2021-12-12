@@ -16,6 +16,7 @@ import {Players} from "../models/Player";
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;
 	const playersOnMap = await MapLocations.getPlayersOnMap(await entity.Player.getDestinationId(), await entity.Player.getPreviousMapId(), entity.Player.id);
+	// We don't query other shards, it's not optimized
 	for (let i = 0; i < playersOnMap.length; ++i) {
 		if (client.users.cache.has(playersOnMap[i].discordUserId)) {
 			selectedPlayer = playersOnMap[i];

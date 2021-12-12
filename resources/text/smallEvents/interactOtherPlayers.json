@@ -36,7 +36,7 @@
 			"beginner": [
 				"Il y a un début à tout ! Vous faites la connaissance de {playerDisplay} qui débute dans son aventure dédiée à la princesse.",
 				"Un passant passe à côté de vous, vous le reconnaissez rapidement c'est {playerDisplay} un petit nouveau, mais agréable et sympathique !",
-				"Vous faites une pause de 5 min pour vous changer les idées. Pour cela, vous entraînez {playerDisplay}, qui vient de commencer le jeu."
+				"Vous faites une pause de 5 minutes pour vous changer les idées. Pour cela, vous entraînez {playerDisplay}, qui vient de commencer le jeu."
 			],
 			"advanced": [
 				"Les cheveux gris de {playerDisplay} témoignent de l'expérience qu'il a accumulée. Il est en effet niveau **{level}** ! Vous continuez ensuite votre route.",
@@ -96,7 +96,7 @@
 			],
 			"poorGiveMoney": [
 				"Vous vous sentez bien après avoir fait ce geste humanitaire.",
-				"C'est en faisant le bien que celui-ci se répand a dit un jour un prêtre que vous avez recontré ! Vous lui donnez une pièce, et il vous fait un sourire avant de continuer son chemin !",
+				"C'est en faisant le bien que celui-ci se répand a dit un jour un prêtre que vous avez rencontré ! Vous lui donnez une pièce, et il vous fait un sourire avant de continuer son chemin !",
 				"Voici une bonne action de votre part ! Il repart avec une pièce en plus et donc la possibilité de vivre un peu plus longtemps..."
 			],
 			"poorDontGiveMoney": [

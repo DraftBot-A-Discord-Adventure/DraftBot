@@ -179,6 +179,7 @@ const sellOrKeepItem = async function(
 	autoSell: boolean
 ) {
 	const tr = Translations.getModule("commands.inventory", language);
+	entity = await Entities.getById(entity.id);
 	if (!keepOriginal) {
 		const menuEmbed = new DraftBotEmbed();
 		menuEmbed.formatAuthor(tr.get("acceptedTitle"), discordUser)
@@ -209,7 +210,8 @@ const sellOrKeepItem = async function(
 				.setDescription(
 					format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
 						{
-							item: item.getName(language)
+							item: item.getName(language),
+							frenchMasculine: item.frenchMasculine
 						}
 					)
 				)] }

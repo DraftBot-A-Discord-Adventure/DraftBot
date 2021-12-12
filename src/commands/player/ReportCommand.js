@@ -411,9 +411,9 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
 	await entity.addHealth(pDataValues.health);
 
-	player.addScore(scoreChange, message.channel, language);
-	player.addMoney(moneyChange, message.channel, language);
-	player.experience += possibility.experience;
+	await player.addScore(scoreChange, message.channel, language);
+	await player.addMoney(moneyChange, message.channel, language);
+	await player.addExperience(possibility.experience, entity, message, language);
 
 	if (pDataValues.nextEvent !== undefined) {
 		player.nextEvent = pDataValues.nextEvent;
@@ -447,10 +447,6 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 
 	const resultMsg = await message.channel.send({ content: result });
-
-	while (player.needLevelUp()) {
-		await player.levelUpIfNeeded(entity, message.channel, language);
-	}
 
 	if (!await player.killIfNeeded(entity, message.channel, language)) {
 		await chooseDestination(entity, message, language, pDataValues.restrictedMaps);

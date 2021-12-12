@@ -147,7 +147,8 @@ global.destroyPotionMessage = async (channel, language, discordUser, item, isAut
 			.setDescription(
 				format(JsonReader.commands.sell.getTranslation(language).potionDestroyedMessage,
 					{
-						item: item.getName(language)
+						item: item.getName(language),
+						frenchMasculine: item.frenchMasculine
 					}
 				)
 			)

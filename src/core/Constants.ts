@@ -27,28 +27,28 @@ export abstract class Constants {
 			"⚗️",
 			"🧸"
 		]
-	}
+	};
 
 	static readonly MESSAGES = {
 		COLLECTOR_TIME: 120000,
 		COLORS: {
 			DEFAULT: "NOT_QUITE_BLACK"
 		}
-	}
+	};
 
 	static readonly TOPGG = {
 		BADGE: "🗳️",
 		BADGE_DURATION: 12,
 		ROLE_DURATION: 24,
 		DBL_SERVER_COUNT_UPDATE_TIME: 1800000
-	}
+	};
 
 	static readonly ITEM_CATEGORIES = {
 		WEAPON: 0,
 		ARMOR: 1,
 		POTION: 2,
 		OBJECT: 3
-	}
+	};
 
 	static readonly RARITY = {
 		BASIC: 0,
@@ -60,7 +60,7 @@ export abstract class Constants {
 		EPIC: 6,
 		LEGENDARY: 7,
 		MYTHICAL: 8
-	}
+	};
 
 	static readonly ITEM_NATURE = {
 		NO_EFFECT: 0,
@@ -70,7 +70,7 @@ export abstract class Constants {
 		DEFENSE: 4,
 		TIME_SPEEDUP: 5,
 		MONEY: 6
-	}
+	};
 
 	static readonly BACKUP = {
 		DATABASE_BACKUP_INTERVAL: 12 * 60 * 60 * 1000,
@@ -137,6 +137,20 @@ export abstract class Constants {
 		MAX_HERBIVOROUS_PET_FOOD: 15,
 		MAX_CARNIVOROUS_PET_FOOD: 15,
 		MAX_ULTIMATE_PET_FOOD: 5
+	};
+
+	static readonly NATURE = {
+		NONE: 0,
+		HEALTH: 1,
+		SPEED: 2,
+		ATTACK: 3,
+		DEFENSE: 4,
+		HOSPITAL: 5,
+		MONEY: 6
+	}
+
+	static readonly LOGS = {
+		LOG_COUNT_LINE_LIMIT: 50000
 	}
 
 	static readonly EFFECT = {

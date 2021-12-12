@@ -72,10 +72,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 			JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
 		for (const i in members) {
 			if (Object.prototype.hasOwnProperty.call(members, i)) {
-				members[i].Player.experience += xpWon;
-				while (members[i].Player.needLevelUp()) {
-					await members[i].Player.levelUpIfNeeded(members[i], message.channel, language);
-				}
+				await members[i].Player.addExperience(xpWon, entity, message, language);
 				await members[i].Player.save();
 				await members[i].save();
 			}
@@ -90,10 +87,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		const xpGuildWon = randInt(
 			JsonReader.commands.guildDaily.minimalXp + guild.level,
 			JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
-		guild.experience += xpGuildWon;
-		while (guild.needLevelUp()) {
-			await guild.levelUpIfNeeded(message.channel, language);
-		}
+		await guild.addExperience(xpGuildWon, message, language);
 		await guild.save();
 		embed.setDescription(format(translations.guildXP, {
 			xp: xpGuildWon

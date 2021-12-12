@@ -22,7 +22,10 @@ export class ObjectItem extends SupportItemModel {
 		if (this.nature === Constants.ITEM_NATURE.TIME_SPEEDUP) {
 			return format(
 				tr.getFromArray("objects.natures", this.nature),
-				{power: minutesDisplay(this.power * 60)});
+				{
+					power: minutesDisplay(this.power * 60),
+					powerInMinutes: this.power * 60
+				});
 		}
 		if (this.nature === Constants.ITEM_NATURE.SPEED) {
 			if (isNaN(maxStatsValue)) {

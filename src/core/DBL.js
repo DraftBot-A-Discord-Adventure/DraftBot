@@ -1,5 +1,5 @@
-import {DraftBotVoteMessage} from "./messages/DraftBotVoteMessage";
 import {Entities} from "./models/Entity";
+import {botConfig, draftBotClient} from "./bot";
 
 const DiscordBotList = require("dblapi.js");
 
@@ -26,7 +26,7 @@ class DBL {
 			console.log(`DBL Error: ${e}`);
 		});
 		this.dbl.on("posted", () => {
-			console.log("Successfully posted " + client.guilds.cache.size + " servers to DBL");
+			console.log("Successfully posted servers to DBL");
 		});
 
 	}
@@ -40,22 +40,34 @@ class DBL {
 		const [voter] = await Entities.getOrRegister(user);
 		voter.Player.topggVoteAt = new Date();
 		voter.Player.save();
-		const guild = await client.guilds.cache.get(JsonReader.app.MAIN_SERVER_ID);
-		let member;
-		if ((member = await guild.members.fetch(user)) !== undefined) {
-			try {
-				await member.roles.add(JsonReader.app.DBL_VOTE_ROLE);
-				await DBL.programDBLRoleRemoval(user);
+		await draftBotClient.shard.broadcastEval(async (client, context) => {
+			const guild = await client.guilds.cache.get(context.config.MAIN_SERVER_ID);
+			if (guild) {
+				let member;
+				if ((member = await guild.members.fetch(context.user)) !== undefined) {
+					try {
+						const roleToAdd = await guild.roles.fetch(context.config.DBL_VOTE_ROLE);
+						await member.roles.add(roleToAdd);
+						await require("core/DBL").programDBLRoleRemoval(context.user);
+					}
+					catch (e) {
+						console.log(e);
+					}
+				}
+				const dUser = await client.users.fetch(context.user);
+				if (dUser === undefined || dUser === null) {
+					return;
+				}
+				(await guild.channels.cache.get(context.config.DBL_LOGS_CHANNEL)).send({embeds: [
+					new (require("core/messages/DraftBotVoteMessage").DraftBotVoteMessage)(dUser, await guild.roles.fetch(context.config.DBL_VOTE_ROLE))
+				]});
 			}
-			catch (e) {
-				console.log(e);
+		}, {
+			context: {
+				config: botConfig,
+				user
 			}
-		}
-		const dUser = await client.users.fetch(user);
-		if (dUser === undefined || dUser === null) {
-			return;
-		}
-		(await guild.channels.cache.get(JsonReader.app.DBL_LOGS_CHANNEL)).send({ embeds: [new DraftBotVoteMessage(dUser, await guild.roles.fetch(JsonReader.app.DBL_VOTE_ROLE))] });
+		});
 	}
 
 	/**
@@ -104,5 +116,6 @@ module.exports = {
 	startDBLWebhook: DBL.startDBLWebhook,
 	verifyDBLRoles: DBL.verifyDBLRoles,
 	userDBLVote: DBL.userDBLVote,
-	getTimeBeforeDBLRoleRemove: DBL.getTimeBeforeDBLRoleRemove
+	getTimeBeforeDBLRoleRemove: DBL.getTimeBeforeDBLRoleRemove,
+	programDBLRoleRemoval: DBL.programDBLRoleRemoval
 };

@@ -36,7 +36,7 @@ class Database {
 	/**
 	 * @return {Promise<void>}
 	 */
-	static async init() {
+	static async init(isMainShard) {
 		Database.replaceWarningLogger();
 
 		Database.Sequelize = new Sequelize({
@@ -45,8 +45,9 @@ class Database {
 			logging: false
 		});
 
-		await Database.migrate();
-
+		if (isMainShard) {
+			await Database.migrate();
+		}
 
 		const modelsFiles = await fs.promises.readdir("dist/src/core/models");
 		for (const modelFile of modelsFiles) {
@@ -61,44 +62,46 @@ class Database {
 		}
 
 		await Database.setAssociations();
-		await Database.populateJsonFilesTables([
-			{
-				model: Armor,
-				folder: "armors"
-			},
-			{
-				model: Weapon,
-				folder: "weapons"
-			},
-			{
-				model: ObjectItem,
-				folder: "objects"
-			},
-			{
-				model: Potion,
-				folder: "potions"
-			},
-			{
-				model: Class,
-				folder: "classes"
-			},
-			{
-				model: Pet,
-				folder: "pets"
-			},
-			{
-				model: MapLink,
-				folder: "maplinks"
-			},
-			{
-				model: MapLocation,
-				folder: "maplocations"
-			}
-		]);
-		await Database.verifyMaps();
-		await Database.setEverybodyAsUnOccupied();
-		await Database.updatePlayersRandomMap();
-		DraftBotBackup.backupFiles(["database/database.sqlite"], Constants.BACKUP.DATABASE_BACKUP_INTERVAL, "database");
+		if (isMainShard) {
+			await Database.populateJsonFilesTables([
+				{
+					model: Armor,
+					folder: "armors"
+				},
+				{
+					model: Weapon,
+					folder: "weapons"
+				},
+				{
+					model: ObjectItem,
+					folder: "objects"
+				},
+				{
+					model: Potion,
+					folder: "potions"
+				},
+				{
+					model: Class,
+					folder: "classes"
+				},
+				{
+					model: Pet,
+					folder: "pets"
+				},
+				{
+					model: MapLink,
+					folder: "maplinks"
+				},
+				{
+					model: MapLocation,
+					folder: "maplocations"
+				}
+			]);
+			await Database.verifyMaps();
+			await Database.setEverybodyAsUnOccupied();
+			await Database.updatePlayersRandomMap();
+			DraftBotBackup.backupFiles(["database/database.sqlite"], Constants.BACKUP.DATABASE_BACKUP_INTERVAL, "database");
+		}
 	}
 
 	/**

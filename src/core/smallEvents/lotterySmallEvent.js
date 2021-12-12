@@ -30,7 +30,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		await removeBlockedPlayer(entity.discordUserId);
 
 		if (!collected.first()) {
-			seEmbed.setDescription(JsonReader.smallEvents.lottery.emote + " " + translationLottery.get("intro"));
+			seEmbed.setDescription(JsonReader.smallEvents.lottery.emote + " " + translationLottery.get("end"));
 			return await message.channel.send({embeds: [seEmbed]});
 		}
 		if (player.money < 175 && emojiLottery[2]) {
@@ -50,20 +50,20 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const coeff = JsonReader.smallEvents.lottery.coeff[collected.first().emoji.name];
 			switch (reward) {
 			case rewardType[0]:
-				player.experience += SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff;
-				player.save();
+				await player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, message, language);
+				await player.save();
 				break;
 			case rewardType[1]:
 				player.addMoney(SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, message.channel, language);
-				player.save();
+				await player.save();
 				break;
 			case rewardType[2]:
-				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff);
+				await guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, message, language);
 				await guild.save();
 				break;
 			case rewardType[3]:
 				player.addScore(SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff, message.channel, language);
-				player.save();
+				await player.save();
 				break;
 			default:
 				throw new Error("lottery reward type not found");

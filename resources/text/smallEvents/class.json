@@ -40,7 +40,7 @@
 					"des villageois vous abordent et vous tendent un objet en reconnaissance d'un récent fait d'arme, vous les remerciez briévement et continuez votre périple.",
 					"vous croisez un groupe d'enfants jouant à se poursuivre. L'un d'eux vous bouscule et se met à pleurer, ses parents s'approchent et implorent votre pardon, vous leurs accordez et ceux-ci vous font don d'un objet pouvant vous être utile.",
 					"une charrette vous empêche de continuer, intrigué et désireux de poursuivre votre chemin, vous vous approchez du propriétaire, qui, d'abord odieux, vous dit de dégager et prendre une autre route, énervé, vous le menacez de votre arme. Cela a pour effet de le calmer instantanément. Il vous offre un objet et vous demande de patienter le temps de déplacer son chargement.",
-					"vous apercevez une foule de personnes réunies. Voulant voir ce qui se trame, vous écartez une dizaine de personnes d'une main et vous découvrez un objet ensanglanté *sinon pourquoi la foule autour ne l'aurait pas touché*. Vous repartez comme si de rien n'était avec l’objet en votre possession."
+					"vous apercevez une foule de personnes réunies. Voulant voir ce qui se trame, vous écartez une dizaine de personnes d'une main et vous découvrez un objet ensanglanté, sans quoi la foule autour ne l'aurait déjà touché. Vous repartez comme si de rien n'était avec l’objet en votre possession."
 				],
 				"winMoney": [
 					"vous marchez sur une petite butte et remarquez que votre bruit de pas sonne étrangement. Vous fouillez le sol et découvrez un coffre rempli d'or. Vous obtenez **{money} :moneybag:**.",

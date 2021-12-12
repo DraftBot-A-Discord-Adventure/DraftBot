@@ -76,22 +76,22 @@
 					"le ciel parcimonieux laisse entrevoir {moonPhase}"
 				],
 				"nextFullMoon": [
-					"la prochaine pleine lune est dans {days} jour(s)",
-					"la pleine lune brillera dans {days} jour(s)",
-					"nous apercevrons la pleine lune dans {days} jour(s)",
-					"dans {days} jours(s) on pourra observer la pleine lune"
+					"la prochaine pleine lune est dans {days} jour{days>1?s:}",
+					"la pleine lune brillera dans {days} jour{days>1?s:}",
+					"nous apercevrons la pleine lune dans {days} jour{days>1?s:}",
+					"dans {days} jour{days>1?s:} on pourra observer la pleine lune"
 				],
 				"nextPartialLunarEclipse": [
-					"la prochaine éclipse lunaire partielle est dans {days} jour(s)",
-					"dans {days} jour(s) on pourra apercevoir une éclipse de lune partielle",
-					"dans les {days} jour(s) qui viennent vous aurez la chance d'assister à une éclipse lunaire partielle",
-					"le temps avant d'apercevoir la prochaine éclipse de lune partielle est de {days} jour(s)"
+					"la prochaine éclipse lunaire partielle est dans {days} jour{days>1?s:}",
+					"dans {days} jour{days>1?s:} on pourra apercevoir une éclipse de lune partielle",
+					"dans les {days} jour{days>1?s:} qui viennent vous aurez la chance d'assister à une éclipse lunaire partielle",
+					"le temps avant d'apercevoir la prochaine éclipse de lune partielle est de {days} jour{days>1?s:}"
 				],
 				"nextTotalLunarEclipse": [
-					"la prochaine éclipse lunaire totale est dans {days} jour(s)",
-					"d'ici {days} jour(s) vous apercevrez une éclipse lunaire complète",
-					"dans les {days} jour(s) qui viennent vous aurez la chance d'assister à une éclipse lunaire totale",
-					"si vous observez le ciel dans {days} jour(s) vous pourrez contempler une éclipse lunaire totale"
+					"la prochaine éclipse lunaire totale est dans {days} jour{days>1?s:}",
+					"d'ici {days} jour{days>1?s:} vous apercevrez une éclipse lunaire complète",
+					"dans les {days} jour{days>1?s:} qui viennent vous aurez la chance d'assister à une éclipse lunaire totale",
+					"si vous observez le ciel dans {days} jour{days>1?s:} vous pourrez contempler une éclipse lunaire totale"
 				]
 			},
 			"moonPhases": [
@@ -192,21 +192,21 @@
 					"the parsimonious sky gives a glimpse of {moonPhase}"
 				],
 				"nextFullMoon": [
-					"the next full moon is in {days} day(s)",
-					"the full moon will shine in {days} day(s)",
-					"we will see the full moon in {days} day(s)",
-					"in {days} day(s) we will be able to observe the full moon"
+					"the next full moon is in {days} day{days>1?s:}",
+					"the full moon will shine in {days} day{days>1?s:}",
+					"we will see the full moon in {days} day{days>1?s:}",
+					"in {days} day{days>1?s:} we will be able to observe the full moon"
 				],
 				"nextPartialLunarEclipse": [
-					"the next partial lunar eclipse is in {days} day(s)",
-					"in {days} day(s) we will be able to see a partial lunar eclipse",
-					"in the coming {days} day(s) you will have the chance to witness a partial lunar eclipse",
-					"the time before seeing the next partial lunar eclipse is {days} day(s)"
+					"the next partial lunar eclipse is in {days} day{days>1?s:}",
+					"in {days} day{days>1?s:} we will be able to see a partial lunar eclipse",
+					"in the coming {days} day{days>1?s:} you will have the chance to witness a partial lunar eclipse",
+					"the time before seeing the next partial lunar eclipse is {days} day{days>1?s:}"
 				],
 				"nextTotalLunarEclipse": [
-					"the next total lunar eclipse is in {days} day(s)",
+					"the next total lunar eclipse is in {days} day{days>1?s:}",
 					"within {days} you will see a complete lunar eclipse",
-					"in the next {days} day(s) you will have the chance to witness a total lunar eclipse",
+					"in the next {days} day{days>1?s:} you will have the chance to witness a total lunar eclipse",
 					"if you observe the sky in {days} you will be able to contemplate a total lunar eclipse"
 				]
 			},

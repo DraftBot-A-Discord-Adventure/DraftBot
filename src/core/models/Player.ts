@@ -18,7 +18,7 @@ import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import Entity from "./Entity";
 import {Translations} from "../Translations";
-import {Client, TextChannel} from "discord.js";
+import {Client, Message, TextChannel} from "discord.js";
 import {Maps} from "../Maps";
 import {DraftBotPrivateMessage} from "../messages/DraftBotPrivateMessage";
 import {minutesToMilliseconds} from "../utils/TimeUtils";
@@ -448,6 +448,13 @@ export class Player extends Model {
 
 	public hasEmptyMissionSlot(): boolean {
 		return this.MissionSlots.filter(slot => !slot.isCampaign()).length < this.PlayerMissionsInfo.slotsCount;
+	}
+
+	public async addExperience(xpWon: number, entity: Entity, message: Message, language: string) {
+		this.experience += xpWon;
+		while (this.needLevelUp()) {
+			await this.levelUpIfNeeded(entity, <TextChannel> message.channel, language);
+		}
 	}
 }
 
