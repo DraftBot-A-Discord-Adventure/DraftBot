@@ -239,7 +239,7 @@ const sellOrKeepItem = async function(
 	await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
 	if (!keepOriginal && entity.Player.MissionSlots.filter(m => m.missionId === "haveItemRarity").length !== 0) {
 		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
-			rarity: itemToReplaceInstance.rarity
+			rarity: item.rarity
 		});
 	}
 };
