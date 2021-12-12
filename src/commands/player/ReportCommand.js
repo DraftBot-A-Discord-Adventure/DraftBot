@@ -40,14 +40,14 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
 		return;
 	}
 
-	await MissionsController.update(entity.Player, message.channel, language, "commandReport");
+	await MissionsController.update(entity.discordUserId, message.channel, language, "commandReport");
 
 	if (!entity.Player.currentEffectFinished()) {
 		return await sendTravelPath(entity, message, language, entity.Player.effect);
 	}
 
 	if (entity.Player.effect !== Constants.EFFECT.SMILEY && entity.Player.currentEffectFinished()) {
-		await MissionsController.update(entity.Player, message.channel, language, "recoverAlteration");
+		await MissionsController.update(entity.discordUserId, message.channel, language, "recoverAlteration");
 	}
 
 	if (entity.Player.mapLinkId === null) {
@@ -181,7 +181,7 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @returns {Promise<void>}
  */
 const chooseDestination = async function(entity, message, language, restrictedMapType) {
-	await MissionsController.update(entity.Player, message.channel, language, "travelHours", 1, {
+	await MissionsController.update(entity.discordUserId, message.channel, language, "travelHours", 1, {
 		travelTime: await entity.Player.getCurrentTripDuration()
 	});
 
@@ -411,8 +411,8 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
 	await entity.addHealth(pDataValues.health);
 
-	await player.addScore(scoreChange, message.channel, language);
-	await player.addMoney(moneyChange, message.channel, language);
+	await player.addScore(entity, scoreChange, message.channel, language);
+	await player.addMoney(entity, moneyChange, message.channel, language);
 	await player.addExperience(possibility.experience, entity, message, language);
 
 	if (pDataValues.nextEvent !== undefined) {
@@ -452,7 +452,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		await chooseDestination(entity, message, language, pDataValues.restrictedMaps);
 	}
 
-	await MissionsController.update(entity.Player, message.channel, language, "doReports");
+	await MissionsController.update(entity.discordUserId, message.channel, language, "doReports");
 
 	await entity.save();
 	await player.save();
@@ -534,7 +534,7 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 
 				await smallEventFile.executeSmallEvent(message, language, entity, seEmbed);
 
-				await MissionsController.update(entity.Player, message.channel, language, "doReports");
+				await MissionsController.update(entity.discordUserId, message.channel, language, "doReports");
 			}
 		}
 		catch (e) {

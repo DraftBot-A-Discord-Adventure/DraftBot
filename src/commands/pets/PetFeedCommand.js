@@ -180,7 +180,7 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 				tr.getTranslation(language).noMoney
 			);
 		}
-		entity.Player.addMoney(-20, message.channel, language);
+		entity.Player.addMoney(entity, -20, message.channel, language);
 		authorPet.hungrySince = Date();
 		authorPet.lovePoints += JsonReader.food.commonFood.effect;
 		await Promise.all([

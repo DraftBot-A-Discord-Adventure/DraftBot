@@ -78,7 +78,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_CLASS, SMALL_EVENT.MAXIMUM_MONEY_WON_CLASS);
 			seEmbed.setDescription(base + format(trans.basic.winMoney[draftbotRandom.integer(0, trans.basic.winMoney.length - 1)], {money: moneyWon}));
 			await message.channel.send({ embeds: [seEmbed] });
-			await entity.Player.addMoney(moneyWon, message.channel, language);
+			await entity.Player.addMoney(entity, moneyWon, message.channel, language);
 		}
 	}
 	else if (JsonReader.smallEvents.class.otherEligible.includes(classId)) {

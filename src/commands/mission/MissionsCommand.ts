@@ -18,7 +18,7 @@ const MissionsCommand = async (message: Message, language: string, args: string[
 		[entity] = await Entities.getOrRegister(message.author.id);
 	}
 
-	if (await MissionsController.update(entity.Player, <TextChannel> message.channel, language, "commandMission")) {
+	if (await MissionsController.update(entity.discordUserId, <TextChannel> message.channel, language, "commandMission")) {
 		entity = await Entities.getById(entity.id);
 	}
 

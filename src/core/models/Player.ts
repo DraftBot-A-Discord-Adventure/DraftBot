@@ -140,14 +140,14 @@ export class Player extends Model {
 		return Math.round(data.getNumber("xp.player.baseValue") * Math.pow(data.getNumber("xp.player.coeff"), this.level + 1)) - data.getNumber("xp.player.minus");
 	}
 
-	public addScore(score: number, channel: TextChannel, language: string): void {
+	public addScore(entity: Entity, score: number, channel: TextChannel, language: string): void {
 		this.score += score;
-		this.setScore(this.score, channel, language);
+		this.setScore(entity, this.score, channel, language);
 		this.addWeeklyScore(score);
 	}
 
-	public setScore(score: number, channel: TextChannel, language: string): void {
-		MissionsController.update(this, channel, language, "reachScore", score, null, true).then();
+	public setScore(entity: Entity, score: number, channel: TextChannel, language: string): void {
+		MissionsController.update(entity.discordUserId, channel, language, "reachScore", score, null, true).then();
 		if (score > 0) {
 			this.score = score;
 		}
@@ -156,10 +156,10 @@ export class Player extends Model {
 		}
 	}
 
-	public addMoney(money: number, channel: TextChannel, language: string): void {
+	public addMoney(entity: Entity, money: number, channel: TextChannel, language: string): void {
 		this.money += money;
 		if (this.money > 0) {
-			MissionsController.update(this, channel, language, "earnMoney", money).then();
+			MissionsController.update(entity.discordUserId, channel, language, "earnMoney", money).then();
 		}
 		this.setMoney(this.money);
 	}
@@ -255,7 +255,7 @@ export class Player extends Model {
 		const xpNeeded = this.getExperienceNeededToLevelUp();
 
 		this.level++;
-		await MissionsController.update(entity.Player, channel, language, "reachLevel", this.level, null, true);
+		await MissionsController.update(entity.discordUserId, channel, language, "reachLevel", this.level, null, true);
 
 		const bonuses = await this.getLvlUpReward(language, entity);
 

@@ -39,7 +39,7 @@ export const giveItemToPlayer = async function(
 	] });
 
 	if (await entity.Player.giveItem(item) === true) {
-		await MissionsController.update(entity.Player, channel, language, "findOrBuyItem");
+		await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
 		return;
 	}
 
@@ -219,7 +219,7 @@ const sellOrKeepItem = async function(
 		return;
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
-	entity.Player.addMoney(money, channel, language);
+	entity.Player.addMoney(entity, money, channel, language);
 	await entity.Player.save();
 	await channel.send({ embeds: [
 		new DraftBotEmbed()
@@ -236,9 +236,9 @@ const sellOrKeepItem = async function(
 				)
 			)
 	] });
-	await MissionsController.update(entity.Player, channel, language, "findOrBuyItem");
+	await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
 	if (!keepOriginal && entity.Player.MissionSlots.filter(m => m.missionId === "haveItemRarity").length !== 0) {
-		await MissionsController.update(entity.Player, channel, language, "haveItemRarity", 1, {
+		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
 			rarity: itemToReplaceInstance.rarity
 		});
 	}

@@ -71,7 +71,7 @@ const SellCommand = async (message, language) => {
 					itemCategory: item.itemCategory
 				}
 			});
-			entity.Player.addMoney(money, message.channel, language);
+			entity.Player.addMoney(entity, money, message.channel, language);
 			await entity.Player.save();
 			log(entity.discordUserId + " sold his item " + item.name + " (money: " + money + ")");
 			if (money === 0) {

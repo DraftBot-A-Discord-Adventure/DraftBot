@@ -454,9 +454,9 @@ class Fight {
 
 		// give and remove points if the fight is not a draw
 		if (loser !== null && loser.power !== winner.power) {
-			loser.entity.Player.addScore(-this.points, this.message.channel, this.language);
+			loser.entity.Player.addScore(loser.entity, -this.points, this.message.channel, this.language);
 			loser.entity.Player.save();
-			winner.entity.Player.addScore(this.points, this.message.channel, this.language);
+			winner.entity.Player.addScore(winner.entity, this.points, this.message.channel, this.language);
 			winner.entity.Player.save();
 		}
 
@@ -485,15 +485,15 @@ class Fight {
 		this.outroFight();
 		this.turn = -1;
 		if (this.friendly) {
-			await MissionsController.update(winner.entity.Player, this.message.channel, this.language, "friendlyFight");
-			await MissionsController.update(loser.entity.Player, this.message.channel, this.language, "friendlyFight");
+			await MissionsController.update(winner.entity.discordUserId, this.message.channel, this.language, "friendlyFight");
+			await MissionsController.update(loser.entity.discordUserId, this.message.channel, this.language, "friendlyFight");
 		}
 		else {
-			await MissionsController.update(winner.entity.Player, this.message.channel, this.language, "rankedFight");
-			await MissionsController.update(loser.entity.Player, this.message.channel, this.language, "rankedFight");
+			await MissionsController.update(winner.entity.discordUserId, this.message.channel, this.language, "rankedFight");
+			await MissionsController.update(loser.entity.discordUserId, this.message.channel, this.language, "rankedFight");
 		}
-		await MissionsController.update(winner.entity.Player, this.message.channel, this.language, "anyFight");
-		await MissionsController.update(loser.entity.Player, this.message.channel, this.language, "anyFight");
+		await MissionsController.update(winner.entity.discordUserId, this.message.channel, this.language, "anyFight");
+		await MissionsController.update(loser.entity.discordUserId, this.message.channel, this.language, "anyFight");
 	}
 
 	/**

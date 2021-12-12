@@ -19,7 +19,7 @@ module.exports.commandInfo = {
  */
 const addMoneyTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	entity.Player.addMoney(parseInt(args[0]), message.channel, language);
+	entity.Player.addMoney(entity, parseInt(args[0]), message.channel, language);
 	entity.Player.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {money: entity.Player.money});

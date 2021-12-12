@@ -284,9 +284,9 @@ export class DraftBotShopMessageBuilder {
 	private _getUserMoney: (userId: string) => Promise<number> = async (userId) => (await Entities.getOrRegister(userId))[0].Player.money;
 
 	private _removeUserMoney: (userId: string, amount: number) => Promise<void> = async (userId, amount) => {
-		const player = (await Entities.getOrRegister(userId))[0].Player;
-		player.addMoney(-amount, null, ""); // It is negative so we don't care about the channel and language
-		await player.save();
+		const [entity] = await Entities.getOrRegister(userId);
+		entity.Player.addMoney(entity, -amount, null, ""); // It is negative so we don't care about the channel and language
+		await entity.Player.save();
 	};
 
 	private _shopEndCallback: (message: DraftBotShopMessage, reason: ShopEndReason) => void = () => { /* do nothing */

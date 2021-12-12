@@ -22,7 +22,7 @@ const updateMissionsTestCommand = async (language, message, args) => {
 		throw new Error("mission id inconnu");
 	}
 	const count = parseInt(args[1]);
-	await MissionsController.update(entity.Player, message.channel, language, args[0], count);
+	await MissionsController.update(entity.discordUserId, message.channel, language, args[0], count);
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		missionId: args[0],

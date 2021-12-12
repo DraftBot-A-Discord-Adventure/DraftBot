@@ -87,7 +87,7 @@ const DailyCommand = async (message, language) => {
 		embed.setDescription(
 			format(JsonReader.commands.daily.getTranslation(language).moneyBonus, {value: activeObject.power})
 		);
-		entity.Player.addMoney(activeObject.power, message.channel, language);
+		entity.Player.addMoney(entity, activeObject.power, message.channel, language);
 		entity.Player.InventoryInfo.updateLastDailyAt();
 	}
 

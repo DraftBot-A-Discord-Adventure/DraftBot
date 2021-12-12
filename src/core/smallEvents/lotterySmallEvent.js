@@ -54,7 +54,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				await player.save();
 				break;
 			case rewardType[1]:
-				player.addMoney(SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, message.channel, language);
+				player.addMoney(entity, SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, message.channel, language);
 				await player.save();
 				break;
 			case rewardType[2]:
@@ -62,7 +62,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				await guild.save();
 				break;
 			case rewardType[3]:
-				player.addScore(SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff, message.channel, language);
+				player.addScore(entity, SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff, message.channel, language);
 				await player.save();
 				break;
 			default:
@@ -81,7 +81,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		}
 		// eslint-disable-next-line no-dupe-else-if
 		else if (malus && draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name])) {
-			player.addMoney(-175, message.channel, language);
+			player.addMoney(entity, -175, message.channel, language);
 			player.save();
 			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,2), {
 				lostTime: JsonReader.smallEvents.lottery.lostTime

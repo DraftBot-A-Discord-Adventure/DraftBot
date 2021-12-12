@@ -51,10 +51,10 @@ const DrinkCommand = async (message, language) => {
 	}
 	else if (potion.nature === NATURE.MONEY) {
 		embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).moneyBonus, {value: potion.power}));
-		entity.Player.addMoney(potion.power, message.channel, language);
+		entity.Player.addMoney(entity, potion.power, message.channel, language);
 		await entity.Player.drinkPotion();
 	}
-	await MissionsController.update(entity.Player, message.channel, language, "drinkPotion");
+	await MissionsController.update(entity.discordUserId, message.channel, language, "drinkPotion");
 
 	await Promise.all([
 		entity.save(),

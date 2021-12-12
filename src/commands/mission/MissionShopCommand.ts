@@ -177,7 +177,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			entity.Player.addMoney(Constants.MISSION_SHOP.RATIO_MONEY_GEMS, <TextChannel> message.sentMessage.channel, translationModule.language);
+			entity.Player.addMoney(entity, Constants.MISSION_SHOP.RATIO_MONEY_GEMS, <TextChannel> message.sentMessage.channel, translationModule.language);
 			await message.sentMessage.channel.send(
 				{
 					embeds: [new DraftBotEmbed()
@@ -212,7 +212,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 				sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.remainingCooldown"));
 				return false;
 			}
-			entity.Player.addScore(1000, <TextChannel> message.sentMessage.channel, translationModule.language);
+			entity.Player.addScore(entity, 1000, <TextChannel> message.sentMessage.channel, translationModule.language);
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{

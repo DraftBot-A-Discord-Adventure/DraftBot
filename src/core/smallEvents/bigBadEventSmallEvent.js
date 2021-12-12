@@ -27,7 +27,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	default:
 		moneyLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_LOST_BIG, SMALL_EVENT.MAXIMUM_MONEY_LOST_BIG);
 		seEmbed.setDescription(base + format(transBBE.moneyLoss.stories[randInt(0, transBBE.moneyLoss.stories.length)], {moneyLost: moneyLoss}));
-		entity.Player.addMoney(-moneyLoss, message.channel, language);
+		entity.Player.addMoney(entity, -moneyLoss, message.channel, language);
 		break;
 	}
 	await message.channel.send({ embeds: [seEmbed] });

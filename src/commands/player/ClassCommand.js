@@ -128,8 +128,8 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 				const newClass = await Classes.getById(entity.Player.class);
 				await entity.setHealth(Math.round(
 					entity.health / await playerClass.getMaxHealthValue(entity.Player.level) * await newClass.getMaxHealthValue(entity.Player.level)));
-				entity.Player.addMoney(-selectedClass.price, message.channel, language);
-				await MissionsController.update(entity.Player, message.channel, language, "chooseClass");
+				entity.Player.addMoney(entity, -selectedClass.price, message.channel, language);
+				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClass");
 				await Promise.all([
 					entity.save(),
 					entity.Player.save()

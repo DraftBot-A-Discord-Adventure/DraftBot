@@ -9,6 +9,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {MissionDifficulty} from "./MissionDifficulty";
 import {Data} from "../Data";
 import {Campaign} from "./Campaign";
+import {Entities} from "../models/Entity";
 
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
@@ -20,13 +21,15 @@ export class MissionsController {
 		}
 	}
 
-	static async update(player: Player, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<boolean> {
-		await Campaign.updatePlayerCampaign(player, channel, language);
+	// eslint-disable-next-line max-params
+	static async update(discordUserId: string, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<boolean> {
+		const [entity] = await Entities.getOrRegister(discordUserId);
+		await Campaign.updatePlayerCampaign(entity.Player, channel, language);
 		const missionInterface = this.getMissionInterface(missionId);
 
 		let updated = false;
 		const completedMission = [];
-		for (const mission of player.MissionSlots) {
+		for (const mission of entity.Player.MissionSlots) {
 			if (mission.missionId === missionId && missionInterface.areParamsMatchingVariant(mission.missionVariant, params) && !mission.hasExpired() && !mission.isCompleted()) {
 				updated = true;
 				if (set) {
@@ -45,22 +48,22 @@ export class MissionsController {
 			}
 		}
 		if (completedMission.length > 0) {
-			await MissionsController.completeMissionSlots(player, channel, language, completedMission);
+			await MissionsController.completeMissionSlots(entity.Player, channel, language, completedMission);
 		}
-		if (!player.PlayerMissionsInfo.hasCompletedDailyMission()) {
+		if (!entity.Player.PlayerMissionsInfo.hasCompletedDailyMission()) {
 			const dailyMission = await DailyMissions.getOrGenerate();
 			if (dailyMission.missionId === missionId) {
 				if (missionInterface.areParamsMatchingVariant(dailyMission.variant, params)) {
 					updated = true;
-					player.PlayerMissionsInfo.dailyMissionNumberDone += count;
-					if (player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
-						player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
+					entity.Player.PlayerMissionsInfo.dailyMissionNumberDone += count;
+					if (entity.Player.PlayerMissionsInfo.dailyMissionNumberDone > dailyMission.objective) {
+						entity.Player.PlayerMissionsInfo.dailyMissionNumberDone = dailyMission.objective;
 					}
-					if (player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
-						await MissionsController.completeDailyMission(player, channel, language, dailyMission);
+					if (entity.Player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
+						await MissionsController.completeDailyMission(entity.Player, channel, language, dailyMission);
 					}
 					else {
-						await player.PlayerMissionsInfo.save();
+						await entity.Player.PlayerMissionsInfo.save();
 					}
 				}
 			}
