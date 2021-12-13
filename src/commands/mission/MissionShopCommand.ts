@@ -9,19 +9,18 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
 import {Entities} from "../../core/models/Entity";
 
-import {Collector, Message, TextBasedChannels, TextChannel, User} from "discord.js";
+import {Collector, Message, TextChannel, User} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 declare function removeBlockedPlayer(id: string): void;
 
 declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any, any[]>): void;
 
-declare function sendBlockedError(user: User, channel: TextBasedChannels, language: string): boolean;
-
-declare function sendErrorMessage(user: User, channel: TextBasedChannels, language: string, reason: string): boolean;
+declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
 
 module.exports.commandInfo = {
 	name: "missionshop",
@@ -36,7 +35,7 @@ module.exports.commandInfo = {
  */
 const MissionShopCommand = async (message: Message, language: string) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (sendBlockedError(message.author, message.channel, language)) {
+	if (await sendBlockedError(message.author, <TextChannel> message.channel, language)) {
 		return;
 	}
 
@@ -118,7 +117,11 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const allMissions = entity.Player.MissionSlots.filter(slot => !slot.isCampaign());
 			if (!allMissions.length) {
-				sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.noMissionToSkip"));
+				message.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
+					message.user,
+					message.language,
+					translationModule.get("error.noMissionToSkip")
+				)] });
 				return false;
 			}
 			const chooseMission = new DraftBotReactionMessageBuilder()
@@ -155,6 +158,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 						}
 					}
 					removeBlockedPlayer(message.user.id);
+					await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
 				});
 			let desc = "";
 			for (let i = 0; i < allMissions.length; ++i) {
@@ -185,6 +189,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 						.setDescription(translationModule.format("items.money.giveDescription", {amount: Constants.MISSION_SHOP.RATIO_MONEY_GEMS})
 						)]
 				});
+			await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -198,6 +203,7 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 			const item = await generateRandomItem(Constants.RARITY.MYTHICAL, null, Constants.RARITY.SPECIAL);
 			console.log(item.rarity);
 			await giveItemToPlayer(entity, item, message.language, message.user, <TextChannel> message.sentMessage.channel);
+			await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -209,7 +215,11 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek) {
-				sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.remainingCooldown"));
+				message.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
+					message.user,
+					message.language,
+					translationModule.get("error.remainingCooldown")
+				)] });
 				return false;
 			}
 			entity.Player.addScore(entity, 1000, <TextChannel> message.sentMessage.channel, translationModule.language);
@@ -223,6 +233,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 				});
 			entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek = true;
 			await entity.Player.PlayerMissionsInfo.save();
+			await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -234,7 +245,11 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.petId === null) {
-				sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.noPet"));
+				message.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
+					message.user,
+					message.language,
+					translationModule.get("error.noPet")
+				)] });
 				return false;
 			}
 			const sentenceGotten = translationModule.getRandom("items.lovePointsValue.advice." + entity.Player.Pet.getLoveLevelNumber());
@@ -250,6 +265,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 					}))
 				]
 			});
+			await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -261,7 +277,11 @@ function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.hasBadge("💍")) {
-				sendErrorMessage(message.user, message.sentMessage.channel, message.language, translationModule.get("error.alreadyHasItem"));
+				message.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
+					message.user,
+					message.language,
+					translationModule.get("error.alreadyHasItem")
+				)] });
 				return false;
 			}
 			entity.Player.addBadge("💍");
@@ -272,6 +292,7 @@ function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
 					.setDescription("💍 " + translationModule.get("items.badge.name"))
 				]
 			});
+			await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		}
 	);

@@ -16,6 +16,7 @@ module.exports.commandInfo = {
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import Guild, {Guilds} from "../../core/models/Guild";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 const GuildCreateCommand = async (message, language, args) => {
 	let guild;
@@ -107,6 +108,8 @@ const GuildCreateCommand = async (message, language, args) => {
 				entity.save(),
 				entity.Player.save()
 			]);
+
+			await MissionsController.update(entity.discordUserId, message.channel, language, "joinGuild");
 
 			return message.channel.send({ embeds: [new DraftBotEmbed()
 				.formatAuthor(JsonReader.commands.guildCreate.getTranslation(language).createTitle, message.author)

@@ -5,6 +5,7 @@ import {Guilds} from "../../core/models/Guild";
 import {PetEntities} from "../../core/models/PetEntity";
 
 import {Maps} from "../../core/Maps";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "guilddaily",
@@ -234,6 +235,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 
 	for (const member of members) {
 		const user = await client.users.fetch(member.discordUserId);
+		await MissionsController.update(member.discordUserId, message.channel, language, "guildDaily");
 		if (member.Player.dmNotification && member.discordUserId !== message.author.id) {
 			sendDirectMessage(
 				user,

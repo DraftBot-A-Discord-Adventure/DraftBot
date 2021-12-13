@@ -44,7 +44,7 @@ export class DraftBot {
 		this.handleLogs();
 
 		await require("../JsonReader").init({
-			folders: ["resources/text/commands", "resources/text/models", "resources/text/smallEvents"],
+			folders: ["resources/text/commands", "resources/text/models", "resources/text/smallEvents", "resources/text/missions"],
 			files: [
 				"config/app.json",
 				"draftbot/package.json",

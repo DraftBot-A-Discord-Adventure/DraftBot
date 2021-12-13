@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Dépenser des gemmes dans le magasin des missions"
+		},
+		"en": {
+			"desc": "Spend gems in the missions shop"
+		}
+	},
+	"campaignOnly": true
+}

@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "guildadd",
@@ -60,11 +61,11 @@ const GuildAddCommand = async (message, language, args) => {
 	}
 
 	if (
-		await sendBlockedError(
+		sendBlockedError(
 			message.mentions.users.last(),
 			message.channel,
 			language
-		)
+		) === true
 	) {
 		return;
 	}
@@ -110,7 +111,7 @@ const GuildAddCommand = async (message, language, args) => {
 				guild = null;
 			}
 			if (guild === null) {
-				// guild is destroy
+				// guild is destroyed
 				return sendErrorMessage(
 					message.mentions.users.last(),
 					message.channel,
@@ -126,6 +127,8 @@ const GuildAddCommand = async (message, language, args) => {
 				invitedEntity.save(),
 				invitedEntity.Player.save()
 			]);
+
+			await MissionsController.update(invitedEntity.discordUserId, message.channel, language, "joinGuild");
 
 			return message.channel.send({ embeds: [
 				new DraftBotEmbed()

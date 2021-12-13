@@ -104,6 +104,41 @@
 			"missionObjective": 1,
 			"gemsToWin": 2,
 			"xpToWin": 2
+		},
+		{
+			"missionId": "spendGems",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "earnMoney",
+			"missionVariant": 0,
+			"missionObjective": 3000,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "joinGuild",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "guildDaily",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "reachLevel",
+			"missionVariant": 0,
+			"missionObjective": 15,
+			"gemsToWin": 2,
+			"xpToWin": 2
 		}
 	]
 }

@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Rejoindre ou créer une guilde"
+		},
+		"en": {
+			"desc": "Join or create a guild"
+		}
+	},
+	"campaignOnly": true
+}
