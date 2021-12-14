@@ -94,6 +94,7 @@ const SwitchCommand = async (message, language) => {
 			entity.Player.InventoryInfo.save()
 		]);
 		let desc;
+		const [server] = await Servers.getOrRegister(message.guild.id);
 		if (otherItem.itemId === 0) {
 			desc = tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
 				item: item.shortName,
@@ -103,7 +104,8 @@ const SwitchCommand = async (message, language) => {
 		else {
 			desc = tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
 				item1: item.shortName,
-				item2: otherItemInstance.getName(language)
+				item2: otherItemInstance.getName(language),
+				prefix: server.prefix
 			});
 		}
 		return message.channel.send({ embeds: [new DraftBotEmbed()

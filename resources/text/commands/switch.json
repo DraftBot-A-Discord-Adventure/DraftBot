@@ -3,22 +3,22 @@
 		"fr": {
 			"title": "{pseudo}, commande effectuée !",
 			"desc": "{item1} et {item2} ont été échangés !",
-			"descAndDaily": "{item1} et {item2} ont été échangés ! De plus, 30 minutes ont été ajoutées pour faire votre prochain !daily.",
+			"descAndDaily": "{item1} et {item2} ont été échangés ! De plus, 30 minutes ont été ajoutées pour faire votre prochain `{prefix}daily`.",
 			"noItemToSwitch": "Vous n'avez aucun équipement à équiper !",
 			"canceled": "Action annulée !",
 			"hasBeenEquipped": "{item} a été équipé{frenchMasculine?:e} !",
-			"hasBeenEquippedAndDaily": "{item} a été équipé ! De plus, 30 minutes ont été ajoutées pour faire votre prochain !daily.",
+			"hasBeenEquippedAndDaily": "{item} a été équipé ! De plus, 30 minutes ont été ajoutées pour faire votre prochain `{prefix}daily`.",
 			"switchTitle": "{pseudo}, équipement d'un objet",
 			"switchIndication": "Choisissez un objet à équiper dans la liste ci-dessous :"
 		},
 		"en": {
 			"title": "{pseudo}, command done!",
 			"desc": "{item1} and {item2} were swapped!",
-			"descAndDaily": "{item1} and {item2} has been switched! Moreover, 30 minutes were added to do your next !daily.",
+			"descAndDaily": "{item1} and {item2} has been switched! Moreover, 30 minutes were added to do your next `{prefix}daily`.",
 			"noItemToSwitch": "You don't have anything to equip!",
 			"canceled": "Action canceled!",
 			"hasBeenEquipped": "{item} has been equipped!",
-			"hasBeenEquippedAndDaily": "{item} has been equipped! Moreover, 30 minutes were added to do your next !daily.",
+			"hasBeenEquippedAndDaily": "{item} has been equipped! Moreover, 30 minutes were added to do your next `{prefix}daily`.",
 			"switchTitle": "{pseudo}, item equip",
 			"switchIndication": "Choose an item to equip in the following list:"
 		}
