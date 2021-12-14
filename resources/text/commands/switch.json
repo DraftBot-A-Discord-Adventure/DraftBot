@@ -7,7 +7,7 @@
 			"noItemToSwitch": "Vous n'avez aucun équipement à équiper !",
 			"canceled": "Action annulée !",
 			"hasBeenEquipped": "{item} a été équipé{frenchMasculine?:e} !",
-			"hasBeenEquippedAndDaily": "{item} a été équipé ! De plus, 30 minutes ont été ajoutées pour faire votre prochain `{prefix}daily`.",
+			"hasBeenEquippedAndDaily": "{item} a été équipé{frenchMasculine?:e} ! De plus, 30 minutes ont été ajoutées pour faire votre prochain `{prefix}daily`.",
 			"switchTitle": "{pseudo}, équipement d'un objet",
 			"switchIndication": "Choisissez un objet à équiper dans la liste ci-dessous :"
 		},
