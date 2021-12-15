@@ -184,6 +184,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	await MissionsController.update(entity.discordUserId, message.channel, language, "travelHours", 1, {
 		travelTime: await entity.Player.getCurrentTripDuration()
 	});
+	await MissionsController.update(entity.discordUserId, message.channel, language, "goToPlace", 1, { mapId: (await MapLinks.getById(entity.Player.mapLinkId)).endMap });
 
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restrictedMapType);

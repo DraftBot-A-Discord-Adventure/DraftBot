@@ -6,7 +6,7 @@ export type IMission = {
 
 	areParamsMatchingVariant(variant: number, params: { [key: string]: any }): boolean;
 
-	getVariantFormatVariable(variant: number, language: string): string;
+	getVariantFormatVariable(variant: number, language: string): Promise<string>;
 
 	initialNumberDone(player: Player, variant: number): Promise<number>;
 }

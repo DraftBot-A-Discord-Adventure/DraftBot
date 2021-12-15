@@ -452,6 +452,9 @@ export class Player extends Model {
 
 	public async addExperience(xpWon: number, entity: Entity, message: Message, language: string) {
 		this.experience += xpWon;
+		if (xpWon > 0) {
+			await MissionsController.update(entity.discordUserId, <TextChannel> message.channel, language, "earnXP", xpWon);
+		}
 		while (this.needLevelUp()) {
 			await this.levelUpIfNeeded(entity, <TextChannel> message.channel, language);
 		}

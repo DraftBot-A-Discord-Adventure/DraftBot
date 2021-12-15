@@ -139,6 +139,41 @@
 			"missionObjective": 15,
 			"gemsToWin": 2,
 			"xpToWin": 2
+		},
+		{
+			"missionId": "goToPlace",
+			"missionVariant": 15,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "rankedFight",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "chooseClassTier",
+			"missionVariant": 1,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "havePet",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "earnXP",
+			"missionVariant": 0,
+			"missionObjective": 1000,
+			"gemsToWin": 2,
+			"xpToWin": 2
 		}
 	]
 }

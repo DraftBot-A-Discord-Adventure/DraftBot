@@ -15,6 +15,6 @@ export const missionInterface: IMission = {
 	},
 
 	initialNumberDone(player: Player): Promise<number> {
-		return Promise.resolve(player.level);
+		return Promise.resolve(player.petId ? 1 : 0);
 	}
 };

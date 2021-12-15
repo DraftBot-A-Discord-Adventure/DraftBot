@@ -1,10 +1,9 @@
 import {Constants} from "../../core/Constants";
 import {Message, TextChannel} from "discord.js";
 import {Entities} from "../../core/models/Entity";
-import {DraftBotMissionsMessage} from "../../core/messages/DraftBotMissionsMessage";
-import {DailyMissions} from "../../core/models/DailyMission";
 import {Campaign} from "../../core/missions/Campaign";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissionsMessage";
 
 export const commandInfo = {
 	name: "missions",
@@ -22,16 +21,14 @@ const MissionsCommand = async (message: Message, language: string, args: string[
 		entity = await Entities.getById(entity.id);
 	}
 
-	const dailyMission = await DailyMissions.getOrGenerate();
 	await Campaign.updatePlayerCampaign(entity.Player, <TextChannel> message.channel, language);
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	message.channel.send({ embeds: [
-		await new DraftBotMissionsMessage(
+		await new DraftBotMissionsMessageBuilder(
 			entity.Player,
-			dailyMission,
-			await entity.Player.getPseudo(language),
+			message.author,
 			language
-		)
+		).build()
 	]});
 };
 

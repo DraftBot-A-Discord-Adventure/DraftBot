@@ -10,6 +10,7 @@
 import {GuildPets} from "../models/GuildPet";
 import {PetEntities} from "../models/PetEntity";
 import {Guilds} from "../models/Guild";
+import {MissionsController} from "../missions/MissionsController";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
@@ -73,6 +74,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			pet: pet.getPetTypeName(language)
 		}));
 		await message.channel.send({ embeds: [seEmbedPetObtention] });
+		await MissionsController.update(entity.discordUserId, message.channel, language, "havePet");
 	}
 	log(entity.discordUserId + " got find pet event.");
 };

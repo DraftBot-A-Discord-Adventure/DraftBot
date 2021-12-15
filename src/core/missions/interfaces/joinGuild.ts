@@ -6,7 +6,7 @@ export const missionInterface: IMission = {
 
 	areParamsMatchingVariant: () => true,
 
-	getVariantFormatVariable: () => "",
+	getVariantFormatVariable: () => Promise.resolve(""),
 
 	initialNumberDone: (player: Player) => Promise.resolve(player.guildId ? 1 : 0)
 };

@@ -30,10 +30,10 @@ export class Mission extends Model {
 	public createdAt!: Date;
 
 
-	public formatDescription(objective: number, variant: number, language: string): string {
+	public async formatDescription(objective: number, variant: number, language: string): Promise<string> {
 		return format(language === "fr" ? this.descFr : this.descEn, {
 			objective,
-			variantText: MissionsController.getVariantFormatText(this.id, variant, language),
+			variantText: await MissionsController.getVariantFormatText(this.id, variant, language),
 			variant
 		});
 	}

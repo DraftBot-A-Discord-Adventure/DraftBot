@@ -33,7 +33,7 @@ const debugMissionsTestCommand = async (language, message, args) => {
 	}
 	else {
 		for (let i = 0; i < entity.Player.MissionSlots.length; ++i) {
-			missionsFieldContent += entity.Player.MissionSlots[i].Mission.formatDescription(entity.Player.MissionSlots[i].missionObjective, entity.Player.MissionSlots[i].missionVariant, language) +
+			missionsFieldContent += await entity.Player.MissionSlots[i].Mission.formatDescription(entity.Player.MissionSlots[i].missionObjective, entity.Player.MissionSlots[i].missionVariant, language) +
 					" (id: " + entity.Player.MissionSlots[i].missionId +
 				")\n-> Variant: " + entity.Player.MissionSlots[i].missionVariant +
 				"\n-> Number done: " + entity.Player.MissionSlots[i].numberDone +

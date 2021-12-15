@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Avoir une classe de niveau {variantText} ou plus"
+		},
+		"en": {
+			"desc": "Get a class of tier {variantText} or more"
+		}
+	},
+	"campaignOnly": true
+}

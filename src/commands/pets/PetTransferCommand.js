@@ -3,6 +3,7 @@ import {Entities} from "../../core/models/Entity";
 import {GuildPets} from "../../core/models/GuildPet";
 import {Guilds} from "../../core/models/Guild";
 import {Servers} from "../../core/models/Server";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "pettransfer",
@@ -107,7 +108,8 @@ const PetTransferCommand = async function(message, language, args) {
 			pet: swPetEntity.getPetEmote() + " " + (swPetEntity.nickname ? swPetEntity.nickname : swPetEntity.getPetTypeName(language))
 		}));
 	}
-	return message.channel.send({ embeds: [confirmEmbed] });
+	await message.channel.send({ embeds: [confirmEmbed] });
+	await MissionsController.update(entity.discordUserId, message.channel, language, "havePet");
 };
 
 module.exports.execute = PetTransferCommand;

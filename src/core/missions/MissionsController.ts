@@ -79,7 +79,7 @@ export class MissionsController {
 		for (const missionSlot of missionSlots) {
 			xpWon += missionSlot.xpToWin;
 			gemsWon += missionSlot.gemsToWin;
-			desc += "- " + missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language) + "\n";
+			desc += "- " + await missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language) + "\n";
 		}
 		channel.send({
 			embeds: [
@@ -116,7 +116,7 @@ export class MissionsController {
 				new DraftBotEmbed()
 					.setTitle("Mission")
 					.setDescription(await player.getPseudo(language) + " completed the daily mission:\n"
-						+ dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language) + "\n\n**xp Won:** " + xpWon + "\n**gems Won:** " + gemsWon)
+						+ await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language) + "\n\n**xp Won:** " + xpWon + "\n**gems Won:** " + gemsWon)
 			]
 		}).then();
 
@@ -196,7 +196,7 @@ export class MissionsController {
 		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
 	}
 
-	public static getVariantFormatText(missionId: string, variant: number, language: string) {
-		return this.getMissionInterface(missionId).getVariantFormatVariable(variant, language);
+	public static async getVariantFormatText(missionId: string, variant: number, language: string) {
+		return await this.getMissionInterface(missionId).getVariantFormatVariable(variant, language);
 	}
 }

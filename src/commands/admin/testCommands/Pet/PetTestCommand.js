@@ -1,6 +1,7 @@
 import {Entities} from "../../../../core/models/Entity";
 import {PetEntities} from "../../../../core/models/PetEntity";
 import {Pets} from "../../../../core/models/Pet";
+import {MissionsController} from "../../../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "pet",
@@ -42,6 +43,7 @@ const petTestCommand = async (language, message, args) => {
 	await pet.save();
 	entity.Player.petId = pet.id;
 	await entity.Player.save();
+	await MissionsController.update(entity.discordUserId, message.channel, language, "havePet");
 
 	[entity] = await Entities.getOrRegister(message.author.id); // recall needed to refresh the pet
 	return format(

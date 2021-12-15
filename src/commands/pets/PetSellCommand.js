@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "petsell",
@@ -252,7 +253,8 @@ async function petSell(message, language, entity, user, pet, petCost) {
 				})
 			);
 			await message.channel.send({ embeds: [guildXpEmbed] });
-			return message.channel.send({ embeds: [addPetEmbed] });
+			await message.channel.send({ embeds: [addPetEmbed] });
+			await MissionsController.update(buyer.discordUserId, message.channel, language, "havePet");
 		}
 	});
 	await Promise.all([confirmMessage.react(MENU_REACTION.ACCEPT), confirmMessage.react(MENU_REACTION.DENY)]);

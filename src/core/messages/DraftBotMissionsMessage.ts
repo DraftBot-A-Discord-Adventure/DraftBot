@@ -1,26 +1,36 @@
 import {DraftBotEmbed} from "./DraftBotEmbed";
 import Player from "../models/Player";
-import DailyMission from "../models/DailyMission";
+import {DailyMissions} from "../models/DailyMission";
 import {TranslationModule, Translations} from "../Translations";
 import {finishInTimeDisplay} from "../utils/TimeUtils";
 import {Campaign} from "../missions/Campaign";
+import {User} from "discord.js";
 
-export class DraftBotMissionsMessage extends DraftBotEmbed {
-	constructor(player: Player, dailyMission: DailyMission, pseudo: string, language: string) {
-		super();
-		const tr = Translations.getModule("commands.missions", language);
-		this.setTitle(tr.format("title", {
-			pseudo
-		}));
+export class DraftBotMissionsMessageBuilder {
+	private _player: Player;
+
+	private readonly _user: User;
+
+	private readonly _language: string;
+
+	constructor(player: Player, user: User, language: string) {
+		this._player = player;
+		this._user = user;
+		this._language = language;
+	}
+
+	public async build(): Promise<DraftBotEmbed> {
+		const tr = Translations.getModule("commands.missions", this._language);
 		let desc;
-		const [campaign] = player.MissionSlots.filter(m => m.isCampaign());
+		const dailyMission = await DailyMissions.getOrGenerate();
+		const [campaign] = this._player.MissionSlots.filter(m => m.isCampaign());
 		if (!campaign.isCompleted()) {
 			desc = tr.format("campaign", {
-				current: player.PlayerMissionsInfo.campaignProgression,
+				current: this._player.PlayerMissionsInfo.campaignProgression,
 				max: Campaign.getMaxCampaignNumber()
-			}) + "\n" + DraftBotMissionsMessage.getMissionDisplay(
+			}) + "\n" + DraftBotMissionsMessageBuilder.getMissionDisplay(
 				tr,
-				campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language),
+				await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, this._language),
 				null,
 				campaign.numberDone,
 				campaign.missionObjective
@@ -34,29 +44,35 @@ export class DraftBotMissionsMessage extends DraftBotEmbed {
 		tomorrow.setHours(0, 0, 0, 0);
 		desc += "\n\n" + tr.get("daily")
 			+ "\n"
-			+ DraftBotMissionsMessage.getMissionDisplay(
+			+ DraftBotMissionsMessageBuilder.getMissionDisplay(
 				tr,
-				dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language),
+				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, this._language),
 				tomorrow,
-				player.PlayerMissionsInfo.dailyMissionNumberDone,
+				this._player.PlayerMissionsInfo.dailyMissionNumberDone,
 				dailyMission.objective
 			)
 			+ "\n\n";
 
-		const currentMissions = player.MissionSlots.filter(slot => slot.expiresAt !== null);
+		const currentMissions = this._player.MissionSlots.filter(slot => slot.expiresAt !== null);
 		if (currentMissions) {
 			desc += tr.get("currentMissions") + "\n";
-			for (const missionSlot of player.MissionSlots.filter(slot => !slot.isCampaign())) {
-				desc += DraftBotMissionsMessage.getMissionDisplay(
+			for (const missionSlot of this._player.MissionSlots.filter(slot => !slot.isCampaign())) {
+				desc += DraftBotMissionsMessageBuilder.getMissionDisplay(
 					tr,
-					missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, language),
+					await missionSlot.Mission.formatDescription(missionSlot.missionObjective, missionSlot.missionVariant, this._language),
 					missionSlot.expiresAt,
 					missionSlot.numberDone,
 					missionSlot.missionObjective
 				) + "\n\n";
 			}
 		}
-		this.setDescription(desc);
+		const msg = new DraftBotEmbed();
+		msg.formatAuthor(tr.get("title"), this._user);
+		msg.setTitle(tr.format("title", {
+			pseudo: await this._player.getPseudo(this._language)
+		}));
+		msg.setDescription(desc);
+		return msg;
 	}
 
 	private static getMissionDisplay(tr: TranslationModule, description: string, expirationDate: Date, current: number, objective: number): string {
@@ -64,7 +80,7 @@ export class DraftBotMissionsMessage extends DraftBotEmbed {
 			description,
 			campaign: expirationDate === null,
 			timeBeforeExpiration: expirationDate ? finishInTimeDisplay(expirationDate) : null,
-			progressionDisplay: DraftBotMissionsMessage.generateDisplayProgression(current, objective),
+			progressionDisplay: DraftBotMissionsMessageBuilder.generateDisplayProgression(current, objective),
 			current,
 			objective
 		});

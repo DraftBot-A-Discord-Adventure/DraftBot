@@ -6,8 +6,8 @@ export const missionInterface: IMission = {
 		return true;
 	},
 
-	getVariantFormatVariable(): string {
-		return "";
+	getVariantFormatVariable(): Promise<string> {
+		return Promise.resolve("");
 	},
 
 	generateRandomVariant(): number {
