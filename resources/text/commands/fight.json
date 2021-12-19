@@ -7,7 +7,7 @@
 			"intro": ":crossed_swords: | **Un combat est lancé entre {player1} et {player2} !**",
 			"turnIndicationsTitle": "C'est au tour de {pseudo} de jouer ⚔️",
 			"turnIndicationsDescription": "Choisissez une action",
-			"statsOfPlayer": "Statistiques de **{pseudo}**: ",
+			"statsOfPlayer": "Statistiques de **{pseudo}** : ",
 			"summarize": {
 				"title": "Résumé du combat",
 				"intro": ":crossed_swords: | **Etat actuel du combat**\n\n",

@@ -8,7 +8,7 @@
 			"soldMessage": "Vous avez vendu {item} pour **{money}** :moneybag: !",
 			"soldMessageTitle": "{pseudo}, vous avez vendu un équipement.",
 			"potionDestroyedTitle": "Vous avez détruit une potion.",
-			"potionDestroyedMessage": "{item} a été versé(e) dans un évier.",
+			"potionDestroyedMessage": "{item} a été versé{frenchMasculine?:e} dans un évier.",
 			"soldMessageAlreadyOwnTitle": "{pseudo}, vous avez reçu un équipement que vous possédiez déjà.",
 			"titleChoiceEmbed": "{pseudo}, vente d'objet",
 			"sellField": "{name} | {value} {moneyIcon}",

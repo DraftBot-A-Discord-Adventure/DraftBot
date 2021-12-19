@@ -18,9 +18,9 @@
 						"fr": "Vous partez explorer sa grotte votre torche à la main. Malheureusement, il s’avère que la jeune femme avait la peste et qu’à son contact vous l’avez attrapée.",
 						"en": "You go to explore the cave with your torch in hand. Unfortunately, it turns out the young woman has the plague. She touches you, you're now infected."
 					},
-					"lostTime": 120,
-					"health": -100,
-					"effect": ":clock2:",
+					"lostTime": 0,
+					"health": -70,
+					"effect": ":sick:",
 					"experience": 0,
 					"money": 0,
 					"item": false

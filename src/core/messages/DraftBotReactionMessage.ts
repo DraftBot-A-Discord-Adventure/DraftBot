@@ -10,6 +10,7 @@ import {
 import { DraftBotReaction } from "./DraftBotReaction";
 import {Constants} from "../Constants";
 import {DraftBotEmbed} from "./DraftBotEmbed";
+import {draftBotClient} from "../bot";
 
 /**
  * Error thrown if the message has not been sent before
@@ -135,7 +136,22 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 			}
 		});
 		for (const reaction of this._reactions) {
-			await this._sentMessage.react(reaction.emote);
+			try {
+				await this._sentMessage.react(reaction.emote);
+			}
+			catch {
+				const emoji = (await draftBotClient.shard.broadcastEval((client, context) => {
+					const emoji: any = client.emojis.cache.get(context.emote);
+					if (emoji) {
+						return emoji;
+					}
+				}, {
+					context: {
+						emote: reaction.emote
+					}
+				})).filter(e => e)[0];
+				await this._sentMessage.react(emoji.identifier);
+			}
 		}
 		return this._sentMessage;
 	}
