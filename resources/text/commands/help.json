@@ -310,7 +310,7 @@
 				"rules": {
 					"emote":":placard:",
 					"usage": "rules",
-					"category": "player",
+					"category": "util",
 					"description": "Indique les principales règles à respecter."
 				}
 			}
@@ -625,7 +625,7 @@
 				"rules": {
 					"emote":":placard:",
 					"usage": "rules",
-					"category": "player",
+					"category": "util",
 					"description": "Indicates the main rules to follow."
 				}
 			}
