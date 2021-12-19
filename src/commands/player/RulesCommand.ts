@@ -18,7 +18,7 @@ const RulesCommand = async (message: Message, language: string) => {
 				name: rules.getFromArray("fieldNames", i),
 				value: rules.getFromArray("fieldValues", i)
 			}
-		)
+		);
 	}
 	await message.channel.send({ embeds: [rulesEmbed] });
 };
