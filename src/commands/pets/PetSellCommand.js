@@ -13,6 +13,10 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const PetSellCommand = async (message, language, args) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const fields = [];
 	let guild;
