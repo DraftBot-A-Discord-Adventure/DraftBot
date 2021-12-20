@@ -75,7 +75,8 @@
 				"unlock": "Libération de quelqu'un",
 				"chooseDestination": "Choix de la destination",
 				"lottery": "Mini-évent lotterie",
-				"switch": "Échange d'équipement"
+				"switch": "Échange d'équipement",
+				"merchant": "Marchand"
 			}
 		},
 		"en": {
@@ -153,7 +154,8 @@
 				"unlock": "Releasing someone",
 				"chooseDestination": "Choose the destination",
 				"switch": "Equipment switch",
-				"lottery": "Lottery small event"
+				"lottery": "Lottery small event",
+				"merchant": "Merchant"
 			}
 		}
 	}
