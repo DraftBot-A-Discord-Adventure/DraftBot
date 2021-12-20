@@ -14,6 +14,10 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotTradeMessage} from "../../core/messages/DraftBotTradeMessage";
 
 const PetTradeCommand = async (message, language) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
 	if (message.mentions.users.size === 0) {
