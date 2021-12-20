@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Avoir {objective} potions en même temps"
+		},
+		"en": {
+			"desc": "Have {objective} potions at the same time"
+		}
+	},
+	"campaignOnly": true
+}
