@@ -82,6 +82,14 @@ export class TranslationModule {
 	getRandom(translation: string): string {
 		return draftbotRandom.pick(<string[]> this.getTranslationObject(translation));
 	}
+
+	getArrayLength(translation: string): number {
+		const array = this.getTranslationObject(translation);
+		if (array && Array.isArray(array)) {
+			return (<any[]> array).length;
+		}
+		return -1;
+	}
 }
 
 export class Translations {
