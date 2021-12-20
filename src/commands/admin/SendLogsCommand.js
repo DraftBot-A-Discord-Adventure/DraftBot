@@ -40,7 +40,6 @@ const SendLogsCommand = async (message, language, args) => {
 				}
 			});
 			if (msg !== "```") {
-				console.log(msg);
 				message.author.send({ content: msg + "```" });
 			}
 		});
