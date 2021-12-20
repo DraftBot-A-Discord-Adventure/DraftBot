@@ -119,7 +119,7 @@ module.exports = (Sequelize, DataTypes) => {
 			if (isNaN(maxStatsValue)) {
 				maxStatsValue = Infinity;
 			}
-			const speedDisplay = maxStatsValue > this.power / 2 ? this.power : format(JsonReader.items.getTranslation(language).nerfDisplay,
+			const speedDisplay = maxStatsValue >= this.power / 2 ? this.power : format(JsonReader.items.getTranslation(language).nerfDisplay,
 				{
 					old: this.power,
 					max: Math.round(maxStatsValue + this.power / 2)
