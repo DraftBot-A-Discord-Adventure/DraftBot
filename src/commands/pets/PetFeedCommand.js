@@ -182,6 +182,9 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 		entity.Player.money -= 20;
 		authorPet.hungrySince = Date();
 		authorPet.lovePoints += JsonReader.food.commonFood.effect;
+		if (authorPet.lovePoints > PETS.MAX_LOVE_POINTS) {
+			authorPet.lovePoints = PETS.MAX_LOVE_POINTS;
+		}
 		await Promise.all([
 			authorPet.save(),
 			entity.Player.save()
