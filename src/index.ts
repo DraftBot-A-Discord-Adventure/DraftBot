@@ -6,9 +6,11 @@ process.on("unhandledRejection", function(err: Error) {
 	// process.exit(1);
 });
 
+const shardCount = "auto";
+
 const main = function() {
 	const shardingManager = new ShardingManager("./dist/src/core/bot/index.js", {
-		totalShards: "auto",
+		totalShards: shardCount,
 		// Needed as in auto mode it has to make a request to know the needed number of shards
 		token: loadConfig().DISCORD_CLIENT_TOKEN
 	});
@@ -19,7 +21,7 @@ const main = function() {
 		});
 	});
 	shardingManager.spawn({
-		amount: "auto"
+		amount: shardCount
 	}).then();
 };
 
