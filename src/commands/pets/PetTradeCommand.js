@@ -101,10 +101,10 @@ const PetTradeCommand = async (message, language) => {
 		.addField(format(JsonReader.commands.petTrade.getTranslation(language).petOfTrader, {
 			trader: await trader2.Player.getPseudo(language)
 		}), await PetEntities.getPetDisplay(pet2, language), true)
-		.send(message.channel);
-
-	addBlockedPlayer(trader1.discordUserId, "petTrade", tradeMessage.collector);
-	addBlockedPlayer(trader2.discordUserId, "petTrade", tradeMessage.collector);
+		.send(message.channel, (collector) => {
+			addBlockedPlayer(trader1.discordUserId, "petTrade", collector);
+			addBlockedPlayer(trader2.discordUserId, "petTrade", collector);
+		});
 };
 
 module.exports.execute = PetTradeCommand;
