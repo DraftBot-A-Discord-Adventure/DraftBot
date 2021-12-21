@@ -33,9 +33,9 @@ class CommandsTest {
 	 */
 	static async init() {
 		CommandsTest.testCommandsArray = new Collection();
-		CommandsTest.testCommType = await readdir("src/commands/admin/testCommands");
+		CommandsTest.testCommType = await readdir("dist/src/commands/admin/testCommands");
 		CommandsTest.testCommType.forEach(type => {
-			const commandsFiles = readdirSync(`src/commands/admin/testCommands/${type}`).filter(command => command.endsWith(".js"));
+			const commandsFiles = readdirSync(`dist/src/commands/admin/testCommands/${type}`).filter(command => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
 				const testCommand = require(`../commands/admin/testCommands/${type}/${commandFile}`);
 				testCommand.commandInfo.category = type;

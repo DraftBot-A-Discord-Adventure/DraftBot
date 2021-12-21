@@ -306,6 +306,12 @@
 					"usage": "map",
 					"category": "player",
 					"description": "Affiche des informations sur votre destination, ainsi que la carte."
+				},
+				"rules": {
+					"emote":":placard:",
+					"usage": "rules",
+					"category": "util",
+					"description": "Indique les principales règles à respecter."
 				}
 			}
 		},
@@ -615,6 +621,12 @@
 					"usage": "map",
 					"category": "player",
 					"description": "Display information about your destination, and also the map."
+				},
+				"rules": {
+					"emote":":placard:",
+					"usage": "rules",
+					"category": "util",
+					"description": "Indicates the main rules to follow."
 				}
 			}
 		}
