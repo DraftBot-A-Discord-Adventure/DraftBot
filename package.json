@@ -12,7 +12,7 @@
 	},
 	"scripts": {
 		"start": "tsc && node dist/src/index.js",
-		"postinstall": "link-module-alias",
+		"postinstall": "tsc && link-module-alias",
 		"test": "tsc && jest dist/test",
 		"eslint": "eslint src test",
 		"eslintFix": "eslint src test --fix",
