@@ -157,4 +157,25 @@ export abstract class Constants {
 		CONFOUNDED: ":confounded:",
 		SCARED: ":scream:"
 	};
+
+	static readonly GUILD = {
+		REQUIRED_LEVEL: 10,
+		MAX_GUILD_MEMBER: 6,
+		MAX_GUILD_NAME_SIZE: 15,
+		MIN_GUILD_NAME_SIZE: 2,
+		MIN_DESCRIPTION_LENGTH: 2,
+		MAX_DESCRIPTION_LENGTH: 140,
+		MAX_COMMON_PET_FOOD: 25,
+		MAX_HERBIVOROUS_PET_FOOD: 15,
+		MAX_CARNIVOROUS_PET_FOOD: 15,
+		MAX_ULTIMATE_PET_FOOD: 5,
+		MAX_LEVEL: 100
+	};
+
+	static readonly LOTTERY_REWARD_TYPES = {
+		XP: "xp",
+		MONEY: "money",
+		GUILD_XP: "guildXp",
+		POINTS: "points"
+	}
 }

@@ -121,7 +121,7 @@ const GuildCommand = async (message, language, args) => {
 		}),
 		membersInfos
 	);
-	if (guild.level < 100) {
+	if (!guild.isAtMaxLevel()) {
 		embed.addField(
 			format(
 				JsonReader.commands.guild.getTranslation(language).experience,

@@ -12,7 +12,7 @@ const doNothing = require("./doNothingSmallEvent");
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
 	const g = await Guilds.getById(entity.Player.guildId);
-	if (g === null) {
+	if (g === null || g.isAtMaxLevel()) {
 		return await doNothing.executeSmallEvent(message, language, entity, seEmbed);
 	}
 	const xpWon = draftbotRandom.integer(
