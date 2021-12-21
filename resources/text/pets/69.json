@@ -1,0 +1,16 @@
+{
+  "translations": {
+    "fr": {
+      "maleName": "Bonhomme de neige",
+      "femaleName": "Dame de neige"
+    },
+    "en": {
+      "maleName": "Snowman",
+      "femaleName": "Snowwoman"
+    }
+  },
+  "emoteMale": "☃️",
+  "emoteFemale": "☃️",
+  "rarity": 4,
+  "diet": "herbivorous"
+}
