@@ -18,6 +18,7 @@ const TopCommand = async function(message, language, args) {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	let rankCurrentPlayer = 0;
+	let scoreTooLow = 0;
 
 	let page = parseInt(args[args.length - 1]);
 	if (page < 1) {
@@ -26,18 +27,14 @@ const TopCommand = async function(message, language, args) {
 	if (isNaN(page)) {
 		page = 1;
 	}
+	if (entity.Player.score <= 100) {
+		scoreTooLow = 1;
+	}
 
 	// top of the serv
 	if (args[0] === "serv" || args[0] === "s") {
-
-		if (entity.Player.score <= 100) {
-			return await errorScoreTooLow(message, language);
-		}
-
 		// get all discordID on the server
 		const listId = Array.from((await message.guild.members.fetch()).keys());
-
-		rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
 
 		const numberOfPlayer = await Entities.count({
 			defaults: {
@@ -85,16 +82,15 @@ const TopCommand = async function(message, language, args) {
 			offset: (page - 1) * 15
 		});
 
-		await displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).server, page);
+		if (scoreTooLow === 0) {
+			rankCurrentPlayer = (await Entities.getServerRank(message.author.id, listId))[0].rank;
+		}
+
+		await displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).server, page, scoreTooLow);
 	}
 
 	// top general of the week
 	else if (args[0] === "week" || args[0] === "w") {
-
-		if (entity.Player.weeklyScore <= 100) {
-			return await errorScoreTooLow(message, language);
-		}
-
 		// rank of the user
 		const rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].weeklyRank;
 		const numberOfPlayer = await Players.count({
@@ -127,15 +123,12 @@ const TopCommand = async function(message, language, args) {
 			offset: (page - 1) * 15
 		});
 
-		await displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).generalWeek, page);
+		await displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).generalWeek, page, scoreTooLow);
 	}
 
 	// top general by a page number
 	else {
 		// rank of the user
-		if (entity.Player.score <= 100) {
-			return await errorScoreTooLow(message, language);
-		}
 		const rankCurrentPlayer = (await Players.getById(entity.Player.id))[0].rank;
 
 		const numberOfPlayer = await Players.count({
@@ -169,19 +162,9 @@ const TopCommand = async function(message, language, args) {
 			offset: (page - 1) * 15
 		});
 
-		await displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).general, page);
+		await displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, JsonReader.commands.topCommand.getTranslation(language).general, page, scoreTooLow);
 	}
 };
-
-/**
- * Send an error message saying that the score is too low
- * @param {module:"discord.js".Message} message
- * @param {"fr"|"en"} language
- * @return {Promise<Message>}
- */
-async function errorScoreTooLow(message, language) {
-	return await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.topCommand.getTranslation(language).lowScore);
-}
 
 /**
  * Sends a message with the top
@@ -193,10 +176,11 @@ async function errorScoreTooLow(message, language) {
  * @param {Number} rankCurrentPlayer
  * @param {string} topTitle
  * @param {Number} page
+ * @param {*} scoreTooLow
  * @return {Promise<Message>}
  */
 
-async function displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, topTitle, page) { // eslint-disable-line max-params
+async function displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, topTitle, page, scoreTooLow) { // eslint-disable-line max-params
 	const embedError = new DraftBotEmbed();
 	const embed = new DraftBotEmbed();
 	const actualPlayer = message.author.username;
@@ -309,9 +293,17 @@ async function displayTop(message, language, numberOfPlayer, allEntities, rankCu
 	else {
 		badge = ":black_circle:";
 	}
-
+	// test if the user has 100 points
+	if (scoreTooLow === 1) {
+		embed.addField(JsonReader.commands.topCommand.getTranslation(language).yourRanking, format(JsonReader.commands.topCommand.getTranslation(language).lowScore, {
+			badge: badge,
+			pseudo: actualPlayer,
+			totalPlayer: numberOfPlayer,
+			pageMax: pageMax
+		}));
+	}
 	// test if user is in the current page displayed to indicate(or not) the page where he can find himself
-	if ((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer !== 1) {
+	else if ((rankCurrentPlayer > fin || rankCurrentPlayer < debut) && rankCurrentPlayer !== 1) {
 		embed.addField(JsonReader.commands.topCommand.getTranslation(language).yourRanking, format(JsonReader.commands.topCommand.getTranslation(language).end1, {
 			badge: badge,
 			pseudo: actualPlayer,
