@@ -9,7 +9,7 @@
 			"petFieldName": "Familier vendu :",
 			"sellMessage": {
 				"title": "Vente en cours !",
-				"description": "{author} souhaite vendre un pet pour `{price}💰` !",
+				"description": "{author} souhaite vendre un pet pour `{price}💰` !{guildMaxLevel?\n\n⚠️ Votre guilde est au niveau maximal, vous ne recevrez pas d'expérience !:}",
 				"footer": "Pour plus d'informations à propos des ventes de familiers, utilisez la commande help petsell."
 			},
 			"confirmEmbed": {
@@ -39,7 +39,7 @@
 			"petFieldName": "Pet sold:",
 			"sellMessage": {
 				"title": "Ongoing sale!",
-				"description": "{author} wants to sell a pet for `{price}💰`!",
+				"description": "{author} wants to sell a pet for `{price}💰`!{guildMaxLevel?\n\n⚠️ Your guild is at the maximum level, you will not receive any experience!:}",
 				"footer": "For more details about pet sales, use help petsell."
 			},
 			"confirmEmbed": {

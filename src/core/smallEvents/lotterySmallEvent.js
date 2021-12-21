@@ -8,6 +8,7 @@
  */
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
+import {Constants} from "../Constants";
 const Maps = require("../Maps");
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
@@ -37,30 +38,33 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			return await message.channel.send({embeds: [seEmbed]});
 		}
 		const malus = emojiLottery[2] === collected.first().emoji.name;
-		const rewardType = JsonReader.smallEvents.lottery.rewardType;
+		let rewardType = JsonReader.smallEvents.lottery.rewardType;
+		const guild = await Guilds.getById(entity.Player.guildId);
+		if (guild.isAtMaxLevel()) {
+			rewardType = rewardType.filter(r => r !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP);
+		}
 		let sentenceReward;
 		if (emojiLottery[0] !== collected.first().emoji.name) {
 			await Maps.applyEffect(player,":clock2:",JsonReader.smallEvents.lottery.lostTime);
 		}
-		const guild = await Guilds.getById(entity.Player.guildId);
 		const reward = draftbotRandom.pick(rewardType);
-		if (draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name]) && (guild || reward !== rewardType[2])) {
+		if (draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name]) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {
 			log(entity.discordUserId + " got " + reward + " in smallEvent lottery");
 			const coeff = JsonReader.smallEvents.lottery.coeff[collected.first().emoji.name];
 			switch (reward) {
-			case rewardType[0]:
+			case Constants.LOTTERY_REWARD_TYPES.XP:
 				player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,entity,message,language);
 				player.save();
 				break;
-			case rewardType[1]:
+			case Constants.LOTTERY_REWARD_TYPES.MONEY:
 				player.addMoney(SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff);
 				player.save();
 				break;
-			case rewardType[2]:
+			case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
 				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff,message,language);
 				await guild.save();
 				break;
-			case rewardType[3]:
+			case Constants.LOTTERY_REWARD_TYPES.POINTS:
 				player.addScore(SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff);
 				player.save();
 				break;
