@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"fr": {
+			"maleName": "Canard écarlate",
+			"femaleName": "Cane écarlate"
+		},
+		"en": {
+			"maleName": "Drake from Duck city",
+			"femaleName": "Duck from Duck city"
+		}
+	},
+	"emoteMale": "\uD83E\uDD86",
+	"emoteFemale": "\uD83E\uDD86",
+	"rarity": 5,
+	"diet": "herbivorous"
+}
