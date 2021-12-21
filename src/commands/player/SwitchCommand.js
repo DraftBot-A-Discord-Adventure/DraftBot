@@ -122,8 +122,7 @@ const SwitchCommand = async (message, language) => {
 	})
 		.formatAuthor(tr.get("switchTitle"), message.author);
 	choiceMessage.setDescription(tr.get("switchIndication") + "\n\n" + choiceMessage.description);
-	choiceMessage.send(message.channel);
-	addBlockedPlayer(entity.discordUserId, "switch", choiceMessage.collector);
+	choiceMessage.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "switch", collector));
 };
 
 module.exports.execute = SwitchCommand;

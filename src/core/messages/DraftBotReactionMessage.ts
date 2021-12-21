@@ -100,8 +100,9 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 	/**
 	 * Send the message to a channel
 	 * @param channel
+	 * @param collectorCallback The callback called when the collector is initialized. Often used to block the player
 	 */
-	async send(channel: TextChannel | DMChannel | NewsChannel | TextBasedChannels): Promise<Message> {
+	async send(channel: TextChannel | DMChannel | NewsChannel | TextBasedChannels, collectorCallback: (collector: ReactionCollector) => void = null): Promise<Message> {
 		this._sentMessage = await channel.send({ embeds: [this] });
 		const collectorFilter = (reaction: MessageReaction, user: User) =>
 			!user.bot &&
@@ -113,6 +114,9 @@ export class DraftBotReactionMessage extends DraftBotEmbed {
 			max: this._maxReactions,
 			dispose: true
 		});
+		if (collectorCallback) {
+			collectorCallback(this._collector);
+		}
 		this._collector.on("collect", (reaction, user) => {
 			const reactionName = this._reactionsNames.indexOf(reaction.emoji.id) !== -1 ? reaction.emoji.id : reaction.emoji.name;
 			const callback = this._reactions[this._reactionsNames.indexOf(reactionName)].callback;
