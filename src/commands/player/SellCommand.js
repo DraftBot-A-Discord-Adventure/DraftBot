@@ -110,8 +110,7 @@ const SellCommand = async (message, language) => {
 					item: item.name
 				}));
 		}
-		validationMessage.send(message.channel);
-		addBlockedPlayer(entity.discordUserId, "sell", validationMessage.collector);
+		validationMessage.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "sell", collector));
 	}, async (endMessage) => {
 		if (endMessage.isCanceled()) {
 			removeBlockedPlayer(entity.discordUserId);
@@ -120,9 +119,7 @@ const SellCommand = async (message, language) => {
 	})
 		.formatAuthor(tr.get("titleChoiceEmbed"), message.author);
 	choiceMessage.setDescription(tr.get("sellIndication") + "\n\n" + choiceMessage.description);
-	choiceMessage.send(message.channel);
-
-	addBlockedPlayer(entity.discordUserId, "sell", choiceMessage.collector);
+	choiceMessage.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "sell", collector));
 };
 
 module.exports.execute = SellCommand;

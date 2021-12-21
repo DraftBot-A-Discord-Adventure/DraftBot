@@ -48,9 +48,7 @@ const GuildShopCommand = async (message, language) => {
 		))
 		.endCallback(shopEndCallback)
 		.build())
-		.send(message.channel);
-
-	addBlockedPlayer(message.author.id, "guildShop", shopMessage.collector);
+		.send(message.channel, (collector) => addBlockedPlayer(message.author.id, "guildShop", collector));
 };
 
 function shopEndCallback(shopMessage) {

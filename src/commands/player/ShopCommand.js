@@ -65,9 +65,7 @@ const ShopCommand = async (message, language) => {
 		.addCategory(inventoryCategory)
 		.endCallback(shopEndCallback)
 		.build())
-		.send(message.channel);
-
-	addBlockedPlayer(entity.discordUserId, "shop", shopMessage.collector);
+		.send(message.channel, (collector) => addBlockedPlayer(message.author.id, "shop", collector));
 };
 
 function shopEndCallback(shopMessage) {
@@ -242,8 +240,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 			chooseSlot = chooseSlot.build();
 			chooseSlot.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
 			chooseSlot.setDescription(translationModule.get("chooseSlotIndication") + "\n\n" + desc);
-			chooseSlot.send(shopMessage.sentMessage.channel);
-			addBlockedPlayer(entity.discordUserId, "shop", chooseSlot.collector);
+			chooseSlot.send(shopMessage.sentMessage.channel, (collector) => addBlockedPlayer(entity.discordUserId, "shop", collector));
 			Promise.resolve(false);
 		}
 	);
