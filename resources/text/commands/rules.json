@@ -3,24 +3,16 @@
         "fr": {
             "title": "Règles principales",
             "fieldNames": [
-                "règle 1",
-                "règle 2"
             ],
             "fieldValues": [
-                "règle 1",
-                "règle 2"
             ],
             "footer": "Ces règles ne sont pas absolues. L'équipe du bot vous avertira si vous faites quelque chose de mal, alors n'essayez pas de jouer sur les mots !"
         },
         "en": {
             "title": "Main rules",
             "fieldNames": [
-                "rule 1",
-                "rule 2"
             ],
             "fieldValues": [
-                "rule 1",
-                "rule 2"
             ],
             "footer": "These rules are not absolute. The bot team will warn you if you do something wrong, so don't try to play with words!"
         }
