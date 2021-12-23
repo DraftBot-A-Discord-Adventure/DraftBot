@@ -65,8 +65,7 @@ module.exports = (Sequelize, DataTypes) => {
 	Events.pickEventOnMapType = async function(map) {
 		const query = `SELECT * FROM events LEFT JOIN event_map_location_ids eml ON events.id = eml.eventId WHERE events.id > 0 AND events.id < 9999 AND (
 				(events.restrictedMaps IS NOT NULL AND events.restrictedMaps LIKE :mapType) OR
-				(events.restrictedMaps IS NULL AND ((eml.mapLocationId IS NOT NULL AND eml.mapLocationId = :mapId) OR
-				                                     (SELECT COUNT(*) FROM event_map_location_ids WHERE event_map_location_ids.mapLocationId = eml.mapLocationId) = 0))) ORDER BY RANDOM() LIMIT 1;`;
+				(events.restrictedMaps IS NULL AND ((eml.mapLocationId IS NOT NULL AND eml.mapLocationId = :mapId)))) ORDER BY RANDOM() LIMIT 1;`;
 		return await Sequelize.query(query, {
 			model: Events,
 			replacements: {
