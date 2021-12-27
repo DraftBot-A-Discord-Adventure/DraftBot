@@ -2,11 +2,11 @@
 	"translations": {
 		"fr": {
 			"create": ":ping_pong: Pong",
-			"edit": ":ping_pong: Pong | {timeElasped} ms"
+			"edit": ":ping_pong: Pong\n\n**Latence:** {latency} ms\n**Latence API:** {apiLatency} ms\n**Numéro du shard:** {shardId}/{totalShards}"
 		},
 		"en": {
 			"create": ":ping_pong: Pong",
-			"edit": ":ping_pong: Pong | {timeElasped} ms"
+			"edit": ":ping_pong: Pong\n\n**Latency:** {latency} ms\n**API latency:** {apiLatency} ms\n**Shard id:** {shardId}/{totalShards}"
 		}
 	}
 }

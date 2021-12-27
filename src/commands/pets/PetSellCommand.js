@@ -220,10 +220,8 @@ async function petSell(message, language, entity, user, pet, petCost) {
 			const MIN_XP = Math.floor(petCost / (1000 / 50));
 			const MAX_XP = Math.floor(petCost / (1000 / 450));
 			const toAdd = Math.floor(randInt(MIN_XP, MAX_XP));
-			guild.addExperience(toAdd); // Add xp
-			while (guild.needLevelUp()) {
-				await guild.levelUpIfNeeded(message.channel, language);
-			}
+			guild.addExperience(toAdd,message,language); // Add xp
+
 			await guild.save();
 			buyer.Player.petId = pet.id;
 			buyer.Player.money -= petCost;
