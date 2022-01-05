@@ -144,7 +144,7 @@ class Fight {
 		}
 		else {
 			msg += format(JsonReader.commands.fight.getTranslation(this.language).end.drawElo, {
-				elo: this.elo,
+				elo: this.elo
 			});
 		}
 		for (let i = 0; i < this.fighters.length; ++i) {
