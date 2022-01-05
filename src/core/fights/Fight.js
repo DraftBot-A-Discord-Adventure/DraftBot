@@ -136,10 +136,15 @@ class Fight {
 			maxTurn: FIGHT.MAX_TURNS,
 			time: minutesToString(millisecondsToMinutes(new Date().getTime() - this.message.createdTimestamp))
 		});
-		if (this.elo !== 0) {
-			msg += format(JsonReader.commands.fight.getTranslation(this.language).end.elo, {
+		if (loser !== null && loser.power !== winner.power && this.elo !== 0) {
+			msg += format(JsonReader.commands.fight.getTranslation(this.language).end.winElo, {
 				elo: this.elo,
 				points: this.points
+			});
+		}
+		else {
+			msg += format(JsonReader.commands.fight.getTranslation(this.language).end.drawElo, {
+				elo: this.elo,
 			});
 		}
 		for (let i = 0; i < this.fighters.length; ++i) {
