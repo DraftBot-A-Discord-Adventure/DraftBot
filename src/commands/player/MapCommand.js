@@ -20,7 +20,7 @@ const MapCommand = async (message, language) => {
 
 	const mapEmbed = new DraftBotEmbed()
 		.setImage(
-			JsonReader.commands.map.URL
+			await JsonReader.commands.map.URL
 		)
 		.formatAuthor(JsonReader.commands.map.getTranslation(language).text, message.author);
 
