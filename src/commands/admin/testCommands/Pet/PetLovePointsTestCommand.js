@@ -28,8 +28,8 @@ const petLovePointsTestCommand = async (language, message, args) => {
 	if (args[0] < 0 || args[0] > 100) {
 		throw new Error("Erreur petlp : lovePoints invalide ! Fourchette de lovePoints comprise entre 0 et 100.");
 	}
-	pet.lovePoints = parseInt(args[0],10);
-	pet.save();
+	await pet.changeLovePoints(parseInt(args[0], 10), message.author.id, message.channel, language);
+	await pet.save();
 	return format(
 		module.exports.commandInfo.messageWhenExecuted, {
 			love: args[0],

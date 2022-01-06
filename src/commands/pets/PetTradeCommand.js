@@ -14,6 +14,7 @@ module.exports.commandInfo = {
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotTradeMessage} from "../../core/messages/DraftBotTradeMessage";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 const PetTradeCommand = async (message, language) => {
 	let [trader1] = await Entities.getOrRegister(message.author.id);
@@ -41,7 +42,7 @@ const PetTradeCommand = async (message, language) => {
 	if (!pet2) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).noPetOther);
 	}
-	if (pet1.lovePoints < PETS.LOVE_LEVELS[0] || pet2.lovePoints < PETS.LOVE_LEVELS[0]) {
+	if (pet1.isFeisty() || pet2.isFeisty()) {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.myPet.getTranslation(language).isFeisty);
 	}
 
@@ -64,6 +65,8 @@ const PetTradeCommand = async (message, language) => {
 			.formatAuthor(JsonReader.commands.petTrade.getTranslation(language).tradeTitle, message.author)
 			.setDescription(JsonReader.commands.petTrade.getTranslation(language).tradeSuccess)
 		] });
+		await MissionsController.update(trader1.discordUserId, message.channel, language, "tamedPet", 1, { loveLevel: pet2.getLoveLevelNumber() });
+		await MissionsController.update(trader2.discordUserId, message.channel, language, "tamedPet", 1, { loveLevel: pet1.getLoveLevelNumber() });
 	};
 
 	const tradeRefusedCallback = async (tradeMessage) => {

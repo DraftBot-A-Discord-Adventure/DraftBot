@@ -181,6 +181,20 @@
 			"missionObjective": 5,
 			"gemsToWin": 2,
 			"xpToWin": 2
+		},
+		{
+			"missionId": "tamedPet",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "earnPoints",
+			"missionVariant": 0,
+			"missionObjective": 7500,
+			"gemsToWin": 2,
+			"xpToWin": 2
 		}
 	]
 }

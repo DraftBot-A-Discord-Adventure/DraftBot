@@ -129,6 +129,7 @@ const GuildAddCommand = async (message, language, args) => {
 			]);
 
 			await MissionsController.update(invitedEntity.discordUserId, message.channel, language, "joinGuild");
+			await MissionsController.update(invitedEntity.discordUserId, message.channel, language, "guildLevel", guild.level, null, true);
 
 			return message.channel.send({ embeds: [
 				new DraftBotEmbed()

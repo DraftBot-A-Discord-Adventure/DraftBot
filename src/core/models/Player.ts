@@ -142,6 +142,7 @@ export class Player extends Model {
 
 	public addScore(entity: Entity, score: number, channel: TextChannel, language: string): void {
 		this.score += score;
+		MissionsController.update(entity.discordUserId, channel, language, "earnPoints", score).then();
 		this.setScore(entity, this.score, channel, language);
 		this.addWeeklyScore(score);
 	}

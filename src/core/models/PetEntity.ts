@@ -10,6 +10,8 @@ import {RandomUtils} from "../utils/RandomUtils";
 import {Data} from "../Data";
 import {format} from "../utils/StringFormatter";
 import {Translations} from "../Translations";
+import {TextChannel} from "discord.js";
+import {MissionsController} from "../missions/MissionsController";
 
 export class PetEntity extends Model {
 	public readonly id!: number;
@@ -116,6 +118,21 @@ export class PetEntity extends Model {
 			+ " "
 			+ Data.getModule("models.pets").getString(sex + "Emote");
 	}
+
+	public async changeLovePoints(amount: number, discordId: string, channel: TextChannel, language: string): Promise<void> {
+		this.lovePoints += amount;
+		if (this.lovePoints >= Constants.PETS.MAX_LOVE_POINTS) {
+			this.lovePoints = Constants.PETS.MAX_LOVE_POINTS;
+		}
+		else if (this.lovePoints < 0) {
+			this.lovePoints = 0;
+		}
+		await MissionsController.update(discordId, channel, language, "tamedPet", 1, {loveLevel: this.getLoveLevelNumber()});
+	}
+
+	public isFeisty(): boolean {
+		return this.getLoveLevelNumber() === 0;
+	}
 }
 
 export class PetEntities {
@@ -178,8 +195,8 @@ export class PetEntities {
 
 	static async getNbTrainedPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM pet_entities
-		               WHERE lovePoints = 100`;
+					   FROM pet_entities
+					   WHERE lovePoints = 100`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];
@@ -187,8 +204,8 @@ export class PetEntities {
 
 	static async getNbFeistyPets(): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM pet_entities
-		               WHERE lovePoints <= :feistyLvl`;
+					   FROM pet_entities
+					   WHERE lovePoints <= :feistyLvl`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT,
 			replacements: {
@@ -199,8 +216,8 @@ export class PetEntities {
 
 	static async getNbPetsGivenSex(sex: string): Promise<number> {
 		const query = `SELECT COUNT(*) as count
-		               FROM pet_entities
-		               WHERE sex = :sex`;
+					   FROM pet_entities
+					   WHERE sex = :sex`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT,
 			replacements: {
@@ -211,7 +228,7 @@ export class PetEntities {
 
 	static async getNbPets() {
 		const query = `SELECT COUNT(*) as count
-		               FROM pet_entities`;
+					   FROM pet_entities`;
 		return (<{ count: number }[]>(await PetEntity.sequelize.query(query, {
 			type: QueryTypes.SELECT
 		})))[0]["count"];

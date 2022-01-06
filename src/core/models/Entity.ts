@@ -151,44 +151,6 @@ export class Entities {
 		}
 	}
 
-	private static entityPlayerIncludes = [
-		{
-			model: InventorySlot,
-			as: "InventorySlots"
-		},
-		{
-			model: InventoryInfo,
-			as: "InventoryInfo"
-		},
-		{
-			model: PetEntity,
-			as: "Pet",
-			include: [
-				{
-					model: Pet,
-					as: "PetModel"
-				}
-			]
-		},
-		{
-			model: PlayerSmallEvent,
-			as: "PlayerSmallEvents"
-		},
-		{
-			model: MissionSlot,
-			as: "MissionSlots",
-			include: [
-				{
-					model: Mission,
-					as: "Mission"
-				}
-			]
-		},
-		{
-			model: PlayerMissionsInfo,
-			as: "PlayerMissionsInfo"
-		}];
-
 	static getOrRegister(discordUserId: string): Promise<[Entity, boolean] | null> {
 		return Promise.resolve(Entity.findOrCreate(
 			{
@@ -200,7 +162,43 @@ export class Entities {
 					{
 						model: Player,
 						as: "Player",
-						include: this.entityPlayerIncludes
+						include: [
+							{
+								model: InventorySlot,
+								as: "InventorySlots"
+							},
+							{
+								model: InventoryInfo,
+								as: "InventoryInfo"
+							},
+							{
+								model: PetEntity,
+								as: "Pet",
+								include: [
+									{
+										model: Pet,
+										as: "PetModel"
+									}
+								]
+							},
+							{
+								model: PlayerSmallEvent,
+								as: "PlayerSmallEvents"
+							},
+							{
+								model: MissionSlot,
+								as: "MissionSlots",
+								include: [
+									{
+										model: Mission,
+										as: "Mission"
+									}
+								]
+							},
+							{
+								model: PlayerMissionsInfo,
+								as: "PlayerMissionsInfo"
+							}]
 					}
 				]
 			}
@@ -217,7 +215,43 @@ export class Entities {
 						where: {
 							guildId: guildId
 						},
-						include: this.entityPlayerIncludes
+						include: [
+							{
+								model: InventorySlot,
+								as: "InventorySlots"
+							},
+							{
+								model: InventoryInfo,
+								as: "InventoryInfo"
+							},
+							{
+								model: PetEntity,
+								as: "Pet",
+								include: [
+									{
+										model: Pet,
+										as: "PetModel"
+									}
+								]
+							},
+							{
+								model: PlayerSmallEvent,
+								as: "PlayerSmallEvents"
+							},
+							{
+								model: MissionSlot,
+								as: "MissionSlots",
+								include: [
+									{
+										model: Mission,
+										as: "Mission"
+									}
+								]
+							},
+							{
+								model: PlayerMissionsInfo,
+								as: "PlayerMissionsInfo"
+							}]
 					}
 				],
 				order: [
@@ -238,7 +272,43 @@ export class Entities {
 					{
 						model: Player,
 						as: "Player",
-						include: this.entityPlayerIncludes
+						include: [
+							{
+								model: InventorySlot,
+								as: "InventorySlots"
+							},
+							{
+								model: InventoryInfo,
+								as: "InventoryInfo"
+							},
+							{
+								model: PetEntity,
+								as: "Pet",
+								include: [
+									{
+										model: Pet,
+										as: "PetModel"
+									}
+								]
+							},
+							{
+								model: PlayerSmallEvent,
+								as: "PlayerSmallEvents"
+							},
+							{
+								model: MissionSlot,
+								as: "MissionSlots",
+								include: [
+									{
+										model: Mission,
+										as: "Mission"
+									}
+								]
+							},
+							{
+								model: PlayerMissionsInfo,
+								as: "PlayerMissionsInfo"
+							}]
 					}
 				]
 			}
@@ -255,7 +325,43 @@ export class Entities {
 					{
 						model: Player,
 						as: "Player",
-						include: this.entityPlayerIncludes
+						include: [
+							{
+								model: InventorySlot,
+								as: "InventorySlots"
+							},
+							{
+								model: InventoryInfo,
+								as: "InventoryInfo"
+							},
+							{
+								model: PetEntity,
+								as: "Pet",
+								include: [
+									{
+										model: Pet,
+										as: "PetModel"
+									}
+								]
+							},
+							{
+								model: PlayerSmallEvent,
+								as: "PlayerSmallEvents"
+							},
+							{
+								model: MissionSlot,
+								as: "MissionSlots",
+								include: [
+									{
+										model: Mission,
+										as: "Mission"
+									}
+								]
+							},
+							{
+								model: PlayerMissionsInfo,
+								as: "PlayerMissionsInfo"
+							}]
 					}
 				]
 			}

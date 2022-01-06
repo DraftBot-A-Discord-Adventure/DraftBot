@@ -11,6 +11,8 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Message, TextChannel} from "discord.js";
 import {Translations} from "../Translations";
 import moment = require("moment");
+import {MissionsController} from "../missions/MissionsController";
+import {Entities} from "./Entity";
 
 export class Guild extends Model {
 	public readonly id!: number;
@@ -83,7 +85,7 @@ export class Guild extends Model {
 		return this.experience >= this.getExperienceNeededToLevelUp();
 	}
 
-	public levelUpIfNeeded(channel: TextChannel, language: string): void {
+	public async levelUpIfNeeded(channel: TextChannel, language: string): Promise<void> {
 		if (!this.needLevelUp()) {
 			return;
 		}
@@ -101,10 +103,13 @@ export class Guild extends Model {
 					level: this.level
 				})
 			);
-		channel.send({ embeds: [embed] });
+		await channel.send({embeds: [embed]});
+		for (const member of await Entities.getByGuild(this.id)) {
+			await MissionsController.update(member.discordUserId, channel, language, "guildLevel", this.level, null, true);
+		}
 
 		if (this.needLevelUp()) {
-			this.levelUpIfNeeded(channel, language);
+			await this.levelUpIfNeeded(channel, language);
 		}
 	}
 

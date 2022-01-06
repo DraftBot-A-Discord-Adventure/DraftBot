@@ -37,10 +37,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "gainLove":
 		amount = randInt(1, 3);
-		pet.lovePoints += amount;
-		if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
-			pet.lovePoints = PETS.MAX_LOVE_POINTS;
-		}
+		await pet.changeLovePoints(amount, entity.discordUserId, message.channel, language);
 		await pet.save();
 		break;
 	case "food":
@@ -99,10 +96,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "loseLove":
 		amount = randInt(1, 3);
-		pet.lovePoints -= amount;
-		if (pet.lovePoints < 0) {
-			pet.lovePoints = 0;
-		}
+		await pet.changeLovePoints(-amount, entity.discordUserId, message.channel, language);
 		await pet.save();
 		break;
 	default:
@@ -165,7 +159,7 @@ const generatePetEmbed = async function(language, interaction, seEmbed, pet, amo
  * @returns {string|null} - une interaction aléatoire
  */
 const pickRandomInteraction = function(petEntity) {
-	const section = petEntity.lovePoints <= PETS.LOVE_LEVELS[0] ? JsonReader.smallEvents.pet.rarities.feisty : JsonReader.smallEvents.pet.rarities.normal;
+	const section = petEntity.isFeisty() ? JsonReader.smallEvents.pet.rarities.feisty : JsonReader.smallEvents.pet.rarities.normal;
 	const level = petEntity.PetModel.rarity + (petEntity.getLoveLevelNumber() === 5 ? 1 : 0);
 
 	let total = 0;

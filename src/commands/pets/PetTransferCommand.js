@@ -44,7 +44,7 @@ const PetTransferCommand = async function(message, language, args) {
 				cmdShelter: "shelter"
 			}));
 		}
-		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+		if (pPet.isFeisty()) {
 			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
 		}
 		if (guildPetCount >= JsonReader.models.pets.slots) {
@@ -85,7 +85,7 @@ const PetTransferCommand = async function(message, language, args) {
 	const swPetEntity = swPet.PetEntity;
 
 	if (pPet) {
-		if (pPet.lovePoints < PETS.LOVE_LEVELS[0]) {
+		if (pPet.isFeisty()) {
 			return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTransfer.getTranslation(language).isFeisty);
 		}
 		swPet.petEntityId = pPet.id;
@@ -110,6 +110,7 @@ const PetTransferCommand = async function(message, language, args) {
 	}
 	await message.channel.send({ embeds: [confirmEmbed] });
 	await MissionsController.update(entity.discordUserId, message.channel, language, "havePet");
+	await MissionsController.update(entity.discordUserId, message.channel, language, "tamedPet", 1, { loveLevel: swPetEntity.getLoveLevelNumber() });
 };
 
 module.exports.execute = PetTransferCommand;

@@ -110,6 +110,7 @@ const GuildCreateCommand = async (message, language, args) => {
 			]);
 
 			await MissionsController.update(entity.discordUserId, message.channel, language, "joinGuild");
+			await MissionsController.update(entity.discordUserId, message.channel, language, "guildLevel", newGuild.level, null, true);
 
 			return message.channel.send({ embeds: [new DraftBotEmbed()
 				.formatAuthor(JsonReader.commands.guildCreate.getTranslation(language).createTitle, message.author)

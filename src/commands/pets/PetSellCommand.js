@@ -59,7 +59,7 @@ const PetSellCommand = async (message, language, args) => {
 		);
 	}
 
-	if (pet.lovePoints < PETS.LOVE_LEVELS[0]) {
+	if (pet.isFeisty()) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,

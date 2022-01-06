@@ -182,7 +182,7 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 		}
 		entity.Player.addMoney(entity, -20, message.channel, language);
 		authorPet.hungrySince = Date();
-		authorPet.lovePoints += JsonReader.food.commonFood.effect;
+		await authorPet.changeLovePoints(JsonReader.food.commonFood.effect, entity.discordUserId, message.channel, language);
 		await Promise.all([
 			authorPet.save(),
 			entity.Player.save()
@@ -234,10 +234,7 @@ async function feedPet(message, language, entity, pet, item) {
 		(item.type === "herbivorousFood" || item.type === "carnivorousFood")
 	) {
 		if (item.type.includes(pet.PetModel.diet)) {
-			pet.lovePoints += item.effect;
-			if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
-				pet.lovePoints = PETS.MAX_LOVE_POINTS;
-			}
+			await pet.changeLovePoints(item.effect, entity.discordUserId, message.channel, language);
 			guild[item.type]--;
 			if (language === LANGUAGE.FRENCH) {
 				successEmbed.setDescription(
@@ -265,10 +262,7 @@ async function feedPet(message, language, entity, pet, item) {
 		}
 	}
 	else {
-		pet.lovePoints += item.effect;
-		if (pet.lovePoints > PETS.MAX_LOVE_POINTS) {
-			pet.lovePoints = PETS.MAX_LOVE_POINTS;
-		}
+		await pet.changeLovePoints(item.effect, entity.discordUserId, message.channel, language);
 		guild[item.type]--;
 		switch (item.type) {
 		case "commonFood":
