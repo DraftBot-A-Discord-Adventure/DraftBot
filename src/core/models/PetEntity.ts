@@ -128,6 +128,7 @@ export class PetEntity extends Model {
 			this.lovePoints = 0;
 		}
 		await MissionsController.update(discordId, channel, language, "tamedPet", 1, {loveLevel: this.getLoveLevelNumber()});
+		await MissionsController.update(discordId, channel, language, "trainedPet", 1, {loveLevel: this.getLoveLevelNumber()});
 	}
 
 	public isFeisty(): boolean {

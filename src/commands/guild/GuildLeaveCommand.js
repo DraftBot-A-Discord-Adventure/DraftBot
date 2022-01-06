@@ -17,6 +17,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import Guild, {Guilds} from "../../core/models/Guild";
 import Player from "../../core/models/Player";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 const GuildLeaveCommand = async (message, language) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -93,6 +94,7 @@ const GuildLeaveCommand = async (message, language) => {
 				message.author.displayAvatarURL()
 			);
 			embed.setDescription(JsonReader.commands.guildLeave.getTranslation(language).leavingSuccess);
+			await MissionsController.update(entity.discordUserId, message.channel, language, "guildLevel", 0, null, true);
 			return message.channel.send({ embeds: [embed] });
 		}
 

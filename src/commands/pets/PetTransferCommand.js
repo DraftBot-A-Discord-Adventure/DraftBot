@@ -111,6 +111,7 @@ const PetTransferCommand = async function(message, language, args) {
 	await message.channel.send({ embeds: [confirmEmbed] });
 	await MissionsController.update(entity.discordUserId, message.channel, language, "havePet");
 	await MissionsController.update(entity.discordUserId, message.channel, language, "tamedPet", 1, { loveLevel: swPetEntity.getLoveLevelNumber() });
+	await MissionsController.update(entity.discordUserId, message.channel, language, "trainedPet", 1, { loveLevel: swPetEntity.getLoveLevelNumber() });
 };
 
 module.exports.execute = PetTransferCommand;

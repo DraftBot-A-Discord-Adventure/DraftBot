@@ -3,7 +3,7 @@ import Player from "../../models/Player";
 
 export const missionInterface: IMission = {
 	areParamsMatchingVariant(variant: number, params: { [key: string]: any }): boolean {
-		return params.loveLevel >= 4;
+		return params.loveLevel >= 5;
 	},
 
 	getVariantFormatVariable(): Promise<string> {
@@ -15,6 +15,6 @@ export const missionInterface: IMission = {
 	},
 
 	initialNumberDone(player: Player): Promise<number> {
-		return Promise.resolve(player.Pet ? player.Pet.getLoveLevelNumber() >= 4 ? 1 : 0 : 0);
+		return Promise.resolve(player.Pet ? player.Pet.getLoveLevelNumber() >= 5 ? 1 : 0 : 0);
 	}
 };

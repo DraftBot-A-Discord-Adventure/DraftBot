@@ -17,6 +17,7 @@ module.exports.commandInfo = {
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Guilds} from "../../core/models/Guild";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 const GuildKickCommand = async (message, language, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
@@ -113,6 +114,7 @@ const GuildKickCommand = async (message, language, args) => {
 			embed.setDescription(
 				JsonReader.commands.guildKick.getTranslation(language).kickSuccess
 			);
+			await MissionsController.update(kickedEntity.discordUserId, message.channel, language, "guildLevel", 0, null, true);
 			return message.channel.send({ embeds: [embed] });
 		}
 

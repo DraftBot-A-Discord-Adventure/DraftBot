@@ -195,6 +195,55 @@
 			"missionObjective": 7500,
 			"gemsToWin": 2,
 			"xpToWin": 2
+		},
+		{
+			"missionId": "fightAttacks",
+			"missionVariant": 0,
+			"missionObjective": 0,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "havePotions",
+			"missionVariant": 0,
+			"missionObjective": 0,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "travelHours",
+			"missionVariant": 6,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "trainedPet",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "commandMission",
+			"missionVariant": 0,
+			"missionObjective": 0,
+			"gemsToWin": 0,
+			"xpToWin": 0
+		},
+		{
+			"missionId": "guildDaily",
+			"missionVariant": 0,
+			"missionObjective": 2,
+			"gemsToWin": 2,
+			"xpToWin": 2
+		},
+		{
+			"missionId": "reachLevel",
+			"missionVariant": 0,
+			"missionObjective": 25,
+			"gemsToWin": 2,
+			"xpToWin": 2
 		}
 	]
 }

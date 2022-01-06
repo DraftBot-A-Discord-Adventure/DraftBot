@@ -67,6 +67,8 @@ const PetTradeCommand = async (message, language) => {
 		] });
 		await MissionsController.update(trader1.discordUserId, message.channel, language, "tamedPet", 1, { loveLevel: pet2.getLoveLevelNumber() });
 		await MissionsController.update(trader2.discordUserId, message.channel, language, "tamedPet", 1, { loveLevel: pet1.getLoveLevelNumber() });
+		await MissionsController.update(trader1.discordUserId, message.channel, language, "trainedPet", 1, { loveLevel: pet2.getLoveLevelNumber() });
+		await MissionsController.update(trader2.discordUserId, message.channel, language, "trainedPet", 1, { loveLevel: pet1.getLoveLevelNumber() });
 	};
 
 	const tradeRefusedCallback = async (tradeMessage) => {
