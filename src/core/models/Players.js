@@ -225,7 +225,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @return {Number} Return the experience needed to level up.
 	 */
 	Players.prototype.getExperienceNeededToLevelUp = function() {
-		return Math.round(JsonReader.values.xp.player.baseValue * Math.pow(JsonReader.values.xp.player.coeff, this.level + 1)) - JsonReader.values.xp.player.minus;
+		return Math.round(JsonReader.values.xp.baseValue * Math.pow(JsonReader.values.xp.coeff, this.level + 1)) - JsonReader.values.xp.minus;
 	};
 
 	/**
