@@ -6,7 +6,7 @@ import {DraftBotConfig} from "./DraftBotConfig";
 import {Constants} from "../Constants";
 import {Client, TextChannel} from "discord.js";
 import {DraftBotBackup} from "../backup/DraftBotBackup";
-import {Translations} from "../Translations";
+import {checkMissingTranslations, Translations} from "../Translations";
 import * as fs from "fs";
 import {botConfig, draftBotClient, shardId} from "./index";
 import Shop from "../models/Shop";
@@ -74,6 +74,7 @@ export class DraftBot {
 				DraftBot.fightPowerRegenerationLoop,
 				Constants.FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
 			);
+			checkMissingTranslations();
 		}
 	}
 
