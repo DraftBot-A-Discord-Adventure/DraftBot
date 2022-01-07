@@ -464,7 +464,7 @@ module.exports = (Sequelize, DataTypes) => {
 	};
 
 	Players.prototype.isInactive = function() {
-		return this.startTravelDate.getTime() + minutesToMilliseconds(120) + JsonReader.commands.topCommand.fifth10days < Date.now();
+		return this.startTravelDate.getTime() + minutesToMilliseconds(120) + JsonReader.commands.top.fifth10days < Date.now();
 	};
 
 	/**

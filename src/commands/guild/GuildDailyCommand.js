@@ -159,7 +159,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		for (const i in members) {
 			if (Object.prototype.hasOwnProperty.call(members, i)) {
 				if (members[i].Player.effect !== EFFECT.DEAD) {
-					await members[i].addHealth(members[i].maxHealth);
+					await members[i].setHealth(await members[i].getMaxHealth());
 				}
 				await members[i].save();
 			}
