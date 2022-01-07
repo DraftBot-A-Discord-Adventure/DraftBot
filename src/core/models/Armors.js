@@ -177,7 +177,7 @@ module.exports = (Sequelize, DataTypes) => {
 			if (isNaN(maxStatsValue)) {
 				maxStatsValue = Infinity;
 			}
-			const defenseDisplay = maxStatsValue > this.getDefense() ? this.getDefense() : format(JsonReader.items.getTranslation(language).nerfDisplay,
+			const defenseDisplay = maxStatsValue >= this.getDefense() ? this.getDefense() : format(JsonReader.items.getTranslation(language).nerfDisplay,
 				{
 					old: this.getDefense(),
 					max: maxStatsValue
