@@ -24,8 +24,8 @@
 					"experience": 350,
 					"money": -300,
 					"item": false,
-					"missionTags": [
-						"hasGruffo"
+					"tags": [
+						"meetGruffo"
 					]
 				},
 				{
@@ -38,7 +38,10 @@
 					"effect": ":smiley:",
 					"experience": 150,
 					"money": 0,
-					"item": false
+					"item": false,
+					"tags": [
+						"meetGruffo"
+					]
 				},
 				{
 					"translations": {
@@ -50,7 +53,10 @@
 					"effect": ":smiley:",
 					"experience": 350,
 					"money": 0,
-					"item": false
+					"item": false,
+					"tags": [
+						"meetGruffo"
+					]
 				},
 				{
 					"translations": {
@@ -62,7 +68,10 @@
 					"effect": ":confounded:",
 					"experience": 10,
 					"money": 0,
-					"item": false
+					"item": false,
+					"tags": [
+						"meetGruffo"
+					]
 				}
 			]
 		},

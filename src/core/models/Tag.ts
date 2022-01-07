@@ -1,11 +1,7 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes
-} from "sequelize";
+import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import moment = require("moment");
 
-export class MissionTag extends Model {
+export class Tag extends Model {
 	public readonly id!: number;
 
 	public textTag!: string;
@@ -19,8 +15,23 @@ export class MissionTag extends Model {
 	public createdAt!: Date;
 }
 
+export class Tags {
+	static findTagsFromObject(idObject: number, model: string) : Promise<Tag[]> {
+		const query = `SELECT * FROM tags 
+					   		WHERE idObject = :idObject
+					   		AND typeObject = :typeObject`;
+		return Tag.sequelize.query(query, {
+			replacements: {
+				idObject: idObject,
+				typeObject: model
+			},
+			type: QueryTypes.SELECT
+		});
+	}
+}
+
 export function initModel(sequelize: Sequelize) {
-	MissionTag.init({
+	Tag.init({
 		id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -45,13 +56,13 @@ export function initModel(sequelize: Sequelize) {
 		}
 	}, {
 		sequelize,
-		tableName: "mission_tags",
+		tableName: "tags",
 		freezeTableName: true
 	});
 
-	MissionTag.beforeSave(instance => {
+	Tag.beforeSave(instance => {
 		instance.updatedAt = moment().toDate();
 	});
 }
 
-export default MissionTag;
+export default Tag;

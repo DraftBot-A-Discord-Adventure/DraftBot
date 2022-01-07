@@ -23,7 +23,7 @@ import ObjectItem from "./models/ObjectItem";
 import Potion from "./models/Potion";
 import Class from "./models/Class";
 import DailyMission from "./models/DailyMission";
-import MissionTag from "./models/MissionTag";
+import Tag from "./models/Tag";
 
 const fs = require("fs");
 const path = require("path");
@@ -321,6 +321,8 @@ class Database {
 	 */
 	static async populateJsonFilesTables(models) {
 
+		await Tag.destroy({truncate: true});
+
 		const tagsToInsert = [];
 		for (const model of models) {
 			await model.model.destroy({truncate: true});
@@ -353,17 +355,18 @@ class Database {
 						}
 					}
 				}
-				if (fileContent.missionTags) {
-					// If theres missionTags, populate them into the database
-					for (let i = 0; i < fileContent.missionTags.length; i++) {
-						const missionTagContent = {
-							textTag: fileContent.missionTags[i],
+				if (fileContent.tags) {
+					// If theres tags, populate them into the database
+					for (let i = 0; i < fileContent.tags.length; i++) {
+						const tagContent = {
+							textTag: fileContent.tags[i],
 							idObject: fileContent.id,
-							typeObject: model.folder.toLowerCase()
+							// eslint-disable-next-line no-prototype-builtins
+							typeObject: model.model.hasOwnProperty("name") ? model.model.name : "ERRORNONAME"
 						};
-						tagsToInsert.push(missionTagContent);
+						tagsToInsert.push(tagContent);
 					}
-					delete fileContent["missionTags"];
+					delete fileContent["tags"];
 				}
 				filesContent.push(fileContent);
 			}
@@ -429,6 +432,18 @@ class Database {
 					});
 				}
 			}
+			if (fileContent.tags) {
+				// If theres tags, populate them into the database
+				for (let i = 0; i < fileContent.tags.length; i++) {
+					const tagContent = {
+						textTag: fileContent.tags[i],
+						idObject: fileContent.id,
+						typeObject: BigEvent.name
+					};
+					tagsToInsert.push(tagContent);
+				}
+				delete fileContent["tags"];
+			}
 			eventsContent.push(fileContent);
 
 			for (const possibilityKey of Object.keys(
@@ -452,17 +467,17 @@ class Database {
 						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
 						restrictedMaps: possibility.restrictedMaps
 					};
-					if (possibility.missionTags) {
-						// If theres missionTags, populate them into the database
-						for (let i = 0; i < possibility.missionTags.length; i++) {
-							const missionTagContent = {
-								textTag: possibility.missionTags[i],
+					if (possibility.tags) {
+						// If theres tags, populate them into the database
+						for (let i = 0; i < possibility.tags.length; i++) {
+							const tagContent = {
+								textTag: possibility.tags[i],
 								idObject: possibilitiesContent.length + 1,
-								typeObject: "possibility"
+								typeObject: Possibility.name
 							};
-							tagsToInsert.push(missionTagContent);
+							tagsToInsert.push(tagContent);
 						}
-						delete possibility["missionTags"];
+						delete possibility["tags"];
 					}
 					possibilitiesContent.push(possibilityContent);
 				}
@@ -472,7 +487,7 @@ class Database {
 		await BigEvent.bulkCreate(eventsContent);
 		await EventMapLocationId.bulkCreate(eventsMapLocationsContent);
 		await Possibility.bulkCreate(possibilitiesContent);
-		await MissionTag.bulkCreate(tagsToInsert);
+		await Tag.bulkCreate(tagsToInsert);
 	}
 
 	static sendEventLoadError(event, message) {

@@ -2,7 +2,8 @@
 	"map_location_ids": [
 		  1
 	  ],
-	  "translations": {
+	"tags": ["meetGruffo"],
+	"translations": {
 		  "fr": "⚗️ Vous approchez la Plage Sentinelle, l'air frais emplit vos poumons et l'odeur iodée de la mer atteint vos narines. À mesure que vous avancez, le vent marin se renforce et le bruit des mouettes se fait entendre. Le soleil commence cependant à se coucher, vous devez trouver un endroit sûr pour la nuit. Quelques pas de plus vous permettent de discerner une tente plantée en haut d'une dune. En y entrant, un homme s'appelant Gruffo vous explique être un alchimiste à la recherche d'un cobaye pour tester ses nouvelles substances, en échange d'une somme d'argent conséquente.",
 		  "en": "⚗️ You approach Sentinel Beach, the fresh air fills your lungs and the salty smell of the sea reaches your nostrils. As you go forward, the sea wind strengthens and the sound of seagulls can be heard. The sun is starting to set, you need to find a safe place for the night. A few more steps allow you to discern a tent pitched at the top of a dune. Upon entering, a man called Gruffo explains to you that he is an alchemist looking for a guinea pig to test his new substances, in exchange for a substantial sum of money."
 	  },
@@ -185,7 +186,7 @@
 		  },
 		  "end": {
 			"issues": [
-		  
+
 			  {
 				  "translations": {
 					  "fr": "💥 Vous finissez par accepter l'offre alléchante de Gruffo. Celui-ci vous demande de patienter un peu, le temps qu'il vous apporte votre décoction. Alors que vous êtes en train d'étudier attentivement un alambic, un coup puissant s'abat sur votre joli crâne.",

@@ -225,11 +225,11 @@
 			"xpToWin": 2
 		},
 		{
-			"missionId": "commandMission",
+			"missionId": "meetGruffo",
 			"missionVariant": 0,
-			"missionObjective": 0,
-			"gemsToWin": 0,
-			"xpToWin": 0
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
 		},
 		{
 			"missionId": "guildDaily",

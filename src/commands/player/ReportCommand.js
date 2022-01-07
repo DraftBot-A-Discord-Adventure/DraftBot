@@ -12,6 +12,7 @@ import Possibility from "../../core/models/Possibility";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {Constants} from "../../core/Constants";
 import {hoursToMilliseconds} from "../../core/utils/TimeUtils";
+import {Tags} from "../../core/models/Tag";
 
 module.exports.commandInfo = {
 	name: "report",
@@ -455,7 +456,12 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 
 	await MissionsController.update(entity.discordUserId, message.channel, language, "doReports");
-
+	const tagsToVerify = (await Tags.findTagsFromObject(pDataValues.id, Possibility.name)).concat(await Tags.findTagsFromObject(pDataValues.eventId, BigEvent.name));
+	if (tagsToVerify) {
+		for (let i = 0; i < tagsToVerify.length; i++) {
+			await MissionsController.update(entity.discordUserId, message.channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
+		}
+	}
 	await entity.save();
 	await player.save();
 
