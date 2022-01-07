@@ -3,6 +3,8 @@ import {Entities} from "../../core/models/Entity";
 
 import {Maps} from "../../core/Maps";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {Tags} from "../../core/models/Tag";
+import Potion from "../../core/models/Potion";
 
 module.exports.commandInfo = {
 	name: "drink",
@@ -55,7 +57,12 @@ const DrinkCommand = async (message, language) => {
 		await entity.Player.drinkPotion();
 	}
 	await MissionsController.update(entity.discordUserId, message.channel, language, "drinkPotion");
-
+	const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
+	if (tagsToVerify) {
+		for (let i = 0; i < tagsToVerify.length; i++) {
+			await MissionsController.update(entity.discordUserId, message.channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
+		}
+	}
 	await Promise.all([
 		entity.save(),
 		entity.Player.save()

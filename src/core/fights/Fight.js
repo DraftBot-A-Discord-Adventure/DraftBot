@@ -76,7 +76,7 @@ class Fight {
 		// load player stats
 		for (let i = 0; i < this.fighters.length; i++) {
 			await this.fighters[i].calculateStats();
-			await this.fighters[i].consumePotionIfNeeded();
+			await this.fighters[i].consumePotionIfNeeded(this.message, this.language);
 			global.addBlockedPlayer(this.fighters[i].entity.discordUserId, "fight");
 		}
 

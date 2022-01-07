@@ -244,6 +244,13 @@
 			"missionObjective": 25,
 			"gemsToWin": 2,
 			"xpToWin": 2
+		},
+		{
+			"missionId": "drinkAlcohol",
+			"missionVariant": 0,
+			"missionObjective": 1,
+			"gemsToWin": 2,
+			"xpToWin": 2
 		}
 	]
 }

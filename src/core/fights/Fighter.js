@@ -1,3 +1,7 @@
+import {Tags} from "../models/Tag";
+import Potion from "../models/Potion";
+import {MissionsController} from "../missions/MissionsController";
+
 /**
  * @param entity
  * @param {boolean} friendly
@@ -41,10 +45,16 @@ class Fighter {
 	/**
 	 * Drink the potion if it is a fight potion
 	 */
-	async consumePotionIfNeeded() {
+	async consumePotionIfNeeded(message, language) {
 		if (!this.friendly) {
 			if ((await this.entity.Player.getMainPotionSlot().getItem()).isFightPotion()) {
 				await this.entity.Player.drinkPotion();
+				const tagsToVerify = await Tags.findTagsFromObject((await this.entity.Player.getMainPotionSlot().getItem()).id, Potion.name);
+				if (tagsToVerify) {
+					for (let i = 0; i < tagsToVerify.length; i++) {
+						await MissionsController.update(this.entity.discordUserId, message.channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
+					}
+				}
 			}
 		}
 	}
