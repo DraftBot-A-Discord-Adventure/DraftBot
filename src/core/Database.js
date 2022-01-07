@@ -23,6 +23,7 @@ import ObjectItem from "./models/ObjectItem";
 import Potion from "./models/Potion";
 import Class from "./models/Class";
 import DailyMission from "./models/DailyMission";
+import MissionTag from "./models/MissionTag";
 
 const fs = require("fs");
 const path = require("path");
@@ -319,6 +320,8 @@ class Database {
 	 * @return {Promise<void>}
 	 */
 	static async populateJsonFilesTables(models) {
+
+		const tagsToInsert = [];
 		for (const model of models) {
 			await model.model.destroy({truncate: true});
 
@@ -349,6 +352,18 @@ class Database {
 								fileContent.translations.fr[key];
 						}
 					}
+				}
+				if (fileContent.missionTags) {
+					// If theres missionTags, populate them into the database
+					for (let i = 0; i < fileContent.missionTags.length; i++) {
+						const missionTagContent = {
+							textTag: fileContent.missionTags[i],
+							idObject: fileContent.id,
+							typeObject: model.folder.toLowerCase()
+						};
+						tagsToInsert.push(missionTagContent);
+					}
+					delete fileContent["missionTags"];
 				}
 				filesContent.push(fileContent);
 			}
@@ -437,6 +452,18 @@ class Database {
 						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
 						restrictedMaps: possibility.restrictedMaps
 					};
+					if (possibility.missionTags) {
+						// If theres missionTags, populate them into the database
+						for (let i = 0; i < possibility.missionTags.length; i++) {
+							const missionTagContent = {
+								textTag: possibility.missionTags[i],
+								idObject: possibilitiesContent.length + 1,
+								typeObject: "possibility"
+							};
+							tagsToInsert.push(missionTagContent);
+						}
+						delete possibility["missionTags"];
+					}
 					possibilitiesContent.push(possibilityContent);
 				}
 			}
@@ -445,6 +472,7 @@ class Database {
 		await BigEvent.bulkCreate(eventsContent);
 		await EventMapLocationId.bulkCreate(eventsMapLocationsContent);
 		await Possibility.bulkCreate(possibilitiesContent);
+		await MissionTag.bulkCreate(tagsToInsert);
 	}
 
 	static sendEventLoadError(event, message) {
