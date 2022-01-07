@@ -113,8 +113,7 @@ export const giveItemToPlayer = async function(
 				tr.get("chooseItemToReplaceTitle"),
 				discordUser
 			);
-			choiceMessage.send(channel);
-			addBlockedPlayer(discordUser.id, "acceptItem", choiceMessage.collector);
+			choiceMessage.send(channel, (collector) => addBlockedPlayer(discordUser.id, "acceptItem", collector));
 			return;
 		}
 	}
@@ -160,8 +159,7 @@ export const giveItemToPlayer = async function(
 		.setDescription(tr.format("randomItemDesc", {
 			actualItem: itemToReplaceInstance.toString(language)
 		})) as DraftBotValidateReactionMessage;
-	await validateSell.send(channel);
-	addBlockedPlayer(discordUser.id, "acceptItem", validateSell.collector);
+	await validateSell.send(channel, (collector) => addBlockedPlayer(discordUser.id, "acceptItem", collector));
 };
 
 // eslint-disable-next-line max-params

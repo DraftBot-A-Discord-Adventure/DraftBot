@@ -96,15 +96,19 @@ const SwitchCommand = async (message, language) => {
 			entity.Player.InventoryInfo.save()
 		]);
 		let desc;
+		const [server] = await Servers.getOrRegister(message.guild.id);
 		if (otherItem.itemId === 0) {
 			desc = tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "hasBeenEquippedAndDaily" : "hasBeenEquipped", {
-				item: item.shortName
+				item: item.shortName,
+				frenchMasculine: item.FrenchMasculine,
+				prefix: server.prefix
 			});
 		}
 		else {
 			desc = tr.format(item.item.itemCategory === Constants.ITEM_CATEGORIES.OBJECT ? "descAndDaily" : "desc", {
 				item1: item.shortName,
-				item2: otherItemInstance.getName(language)
+				item2: otherItemInstance.getName(language),
+				prefix: server.prefix
 			});
 		}
 		return message.channel.send({ embeds: [new DraftBotEmbed()
@@ -120,8 +124,7 @@ const SwitchCommand = async (message, language) => {
 	})
 		.formatAuthor(tr.get("switchTitle"), message.author);
 	choiceMessage.setDescription(tr.get("switchIndication") + "\n\n" + choiceMessage.description);
-	choiceMessage.send(message.channel);
-	addBlockedPlayer(entity.discordUserId, "switch", choiceMessage.collector);
+	choiceMessage.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "switch", collector));
 };
 
 module.exports.execute = SwitchCommand;

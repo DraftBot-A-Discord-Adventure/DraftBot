@@ -32,7 +32,7 @@ const guildXpTestCommand = async (language, message, args) => {
 	if (args[0] > 3 * guild.getExperienceNeededToLevelUp()) {
 		throw new Error("Erreur gxp : expérience donnée trop élevée : montant autorisé entre 0 et " + 3 * guild.getExperienceNeededToLevelUp());
 	}
-	if (guild.level >= 100) {
+	if (guild.isAtMaxLevel()) {
 		throw new Error("Erreur gxp : la guilde est déjà niveau max !");
 	}
 	await guild.addExperience(parseInt(args[0], 10), message, language);

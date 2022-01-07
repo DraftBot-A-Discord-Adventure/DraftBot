@@ -16,11 +16,12 @@ module.exports.commandInfo = {
  * @param {("fr"|"en")} language - Language to use in the response
  */
 const PetFeedCommand = async (message, language) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
-	let guild;
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
+
+	const [entity] = await Entities.getOrRegister(message.author.id);
+	let guild;
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);
 	}

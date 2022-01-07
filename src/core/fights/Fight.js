@@ -396,7 +396,7 @@ class Fight {
 		const messages = await this.message.channel.messages.fetch({limit: 1});
 		if (this.lastSummary !== undefined && messages.first().createdTimestamp !== this.lastSummary.createdTimestamp) {
 			for (let i = 0; i < this.actionMessages.length; ++i) {
-				const content = this.actionMessages[i].content;
+				const content = (await this.message.channel.messages.fetch(this.actionMessages[i].id)).content;
 				await this.actionMessages[i].delete();
 				this.actionMessages[i] = await this.message.channel.send({content: content});
 			}

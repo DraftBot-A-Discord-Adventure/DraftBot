@@ -17,6 +17,10 @@ import {DraftBotTradeMessage} from "../../core/messages/DraftBotTradeMessage";
 import {MissionsController} from "../../core/missions/MissionsController";
 
 const PetTradeCommand = async (message, language) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
 	let [trader1] = await Entities.getOrRegister(message.author.id);
 
 	if (message.mentions.users.size === 0) {
@@ -100,14 +104,14 @@ const PetTradeCommand = async (message, language) => {
 		.setFooter(JsonReader.commands.petTrade.getTranslation(language).warningTradeReset)
 		.addField(format(JsonReader.commands.petTrade.getTranslation(language).petOfTrader, {
 			trader: await trader1.Player.getPseudo(language)
-		}), await pet1.getPetDisplay(language), true)
+		}), pet1.getPetDisplay(language), true)
 		.addField(format(JsonReader.commands.petTrade.getTranslation(language).petOfTrader, {
 			trader: await trader2.Player.getPseudo(language)
-		}), await pet2.getPetDisplay(language), true)
-		.send(message.channel);
-
-	addBlockedPlayer(trader1.discordUserId, "petTrade", tradeMessage.collector);
-	addBlockedPlayer(trader2.discordUserId, "petTrade", tradeMessage.collector);
+		}), pet2.getPetDisplay(language), true)
+		.send(message.channel, (collector) => {
+			addBlockedPlayer(trader1.discordUserId, "petTrade", collector);
+			addBlockedPlayer(trader2.discordUserId, "petTrade", collector);
+		});
 };
 
 module.exports.execute = PetTradeCommand;

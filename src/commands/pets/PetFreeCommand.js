@@ -15,11 +15,12 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const PetFreeCommand = async (message, language) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
-	let guild;
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
+
+	const [entity] = await Entities.getOrRegister(message.author.id);
+	let guild;
 	// search for a user's guild
 	try {
 		guild = await Guilds.getById(entity.Player.guildId);

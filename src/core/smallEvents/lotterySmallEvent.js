@@ -10,6 +10,7 @@ import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
 import {Guilds} from "../models/Guild";
 import {Maps} from "../Maps";
+import {Constants} from "../Constants";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationLottery = Translations.getModule("smallEvents.lottery", language);
@@ -38,32 +39,35 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			return await message.channel.send({embeds: [seEmbed]});
 		}
 		const malus = emojiLottery[2] === collected.first().emoji.name;
-		const rewardType = JsonReader.smallEvents.lottery.rewardType;
+		let rewardType = JsonReader.smallEvents.lottery.rewardType;
+		const guild = await Guilds.getById(entity.Player.guildId);
+		if (guild.isAtMaxLevel()) {
+			rewardType = rewardType.filter(r => r !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP);
+		}
 		let sentenceReward;
 		if (emojiLottery[0] !== collected.first().emoji.name) {
 			await Maps.applyEffect(player,":clock2:",JsonReader.smallEvents.lottery.lostTime);
 		}
-		const guild = await Guilds.getById(entity.Player.guildId);
 		const reward = draftbotRandom.pick(rewardType);
-		if (draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name]) && (guild || reward !== rewardType[2])) {
+		if (draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name]) && (guild || reward !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP)) {
 			log(entity.discordUserId + " got " + reward + " in smallEvent lottery");
 			const coeff = JsonReader.smallEvents.lottery.coeff[collected.first().emoji.name];
 			switch (reward) {
-			case rewardType[0]:
-				await player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, message, language);
-				await player.save();
+			case Constants.LOTTERY_REWARD_TYPES.XP:
+				player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,entity,message,language);
+				player.save();
 				break;
-			case rewardType[1]:
-				player.addMoney(entity, SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, message.channel, language);
-				await player.save();
+			case Constants.LOTTERY_REWARD_TYPES.MONEY:
+				player.addMoney(entity, SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff);
+				player.save();
 				break;
-			case rewardType[2]:
-				await guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, message, language);
+			case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
+				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff,message,language);
 				await guild.save();
 				break;
-			case rewardType[3]:
-				player.addScore(entity, SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff, message.channel, language);
-				await player.save();
+			case Constants.LOTTERY_REWARD_TYPES.POINTS:
+				player.addScore(entity, SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff);
+				player.save();
 				break;
 			default:
 				throw new Error("lottery reward type not found");

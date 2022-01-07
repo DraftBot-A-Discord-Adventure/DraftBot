@@ -13,6 +13,7 @@ import {Translations} from "../Translations";
 import moment = require("moment");
 import {MissionsController} from "../missions/MissionsController";
 import {Entities} from "./Entity";
+import {Constants} from "../Constants";
 
 export class Guild extends Model {
 	public readonly id!: number;
@@ -74,6 +75,16 @@ export class Guild extends Model {
 	}
 
 	public async addExperience(experience: number, message: Message, language: string) {
+		if (this.isAtMaxLevel()) {
+			return;
+		}
+		// We assume that you cannot go the level 98 to 100 with 1 xp addition
+		if (this.level === Constants.GUILD.MAX_LEVEL - 1) {
+			const xpNeededToLevelUp = this.getExperienceNeededToLevelUp();
+			if (this.experience + experience > xpNeededToLevelUp) {
+				experience = xpNeededToLevelUp - this.experience;
+			}
+		}
 		this.experience += experience;
 		this.setExperience(this.experience);
 		while (this.needLevelUp()) {
@@ -126,6 +137,10 @@ export class Guild extends Model {
 			return true;
 		}
 		return this.GuildPets.length >= Data.getModule("models.pets").getNumber("slots");
+	}
+
+	public isAtMaxLevel(): boolean {
+		return this.level >= Constants.GUILD.MAX_LEVEL;
 	}
 }
 

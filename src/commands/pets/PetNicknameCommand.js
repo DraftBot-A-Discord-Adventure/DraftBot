@@ -15,6 +15,10 @@ module.exports.commandInfo = {
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 
 const PetNicknameCommand = async (message, language, args) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const pet = entity.Player.Pet;

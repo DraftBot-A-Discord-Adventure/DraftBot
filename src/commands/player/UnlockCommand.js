@@ -62,7 +62,7 @@ const UnlockCommand = async (message, language, args) => {
 	collector.on("end", async (reaction) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (reaction.first()) { // a reaction exist
-			[entity] = await Entities.getOrRegister(message.mentions.users.first().id); // released entity
+			[entity] = await Entities.getOrRegister(lockedEntity.discordUserId); // released entity
 			const [player] = await Entities.getOrRegister(message.author.id); // message author
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				await Maps.removeEffect(entity.Player);

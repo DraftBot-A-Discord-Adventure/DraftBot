@@ -76,7 +76,8 @@
 				"chooseDestination": "Choix de la destination",
 				"lottery": "Mini-évent lotterie",
 				"switch": "Échange d'équipement",
-				"missionShop": "Magasin des missions"
+				"missionShop": "Magasin des missions",
+				"merchant": "Marchand"
 			}
 		},
 		"en": {
@@ -154,7 +155,9 @@
 				"unlock": "Releasing someone",
 				"chooseDestination": "Choose the destination",
 				"switch": "Equipment switch",
-				"lottery": "Lottery small event"
+				"lottery": "Lottery small event",
+				"missionShop": "Missions shop",
+				"merchant": "Merchant"
 			}
 		}
 	}

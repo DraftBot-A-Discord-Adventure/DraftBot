@@ -73,7 +73,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 			JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
 		for (const i in members) {
 			if (Object.prototype.hasOwnProperty.call(members, i)) {
-				await members[i].Player.addExperience(xpWon, entity, message, language);
+				members[i].Player.addExperience(xpWon, members[i], message, language);
 				await members[i].Player.save();
 				await members[i].save();
 			}

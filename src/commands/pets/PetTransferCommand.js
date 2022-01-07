@@ -18,6 +18,10 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const PetTransferCommand = async function(message, language, args) {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const pPet = entity.Player.Pet;
 

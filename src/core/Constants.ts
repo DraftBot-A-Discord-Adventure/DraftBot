@@ -136,7 +136,8 @@ export abstract class Constants {
 		MAX_COMMON_PET_FOOD: 25,
 		MAX_HERBIVOROUS_PET_FOOD: 15,
 		MAX_CARNIVOROUS_PET_FOOD: 15,
-		MAX_ULTIMATE_PET_FOOD: 5
+		MAX_ULTIMATE_PET_FOOD: 5,
+		MAX_LEVEL: 100
 	};
 
 	static readonly NATURE = {
@@ -190,10 +191,17 @@ export abstract class Constants {
 
 	static readonly MISSION_SHOP = {
 		RATIO_MONEY_GEMS: 1000
-	}
+	};
 
 	static readonly BEGINNING = {
 		START_MAP_LINK: 83,
 		LAST_MAP_LINK: 77
-	}
+	};
+
+	static readonly LOTTERY_REWARD_TYPES = {
+		XP: "xp",
+		MONEY: "money",
+		GUILD_XP: "guildXp",
+		POINTS: "points"
+	};
 }

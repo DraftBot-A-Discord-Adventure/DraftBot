@@ -21,7 +21,7 @@
 				"xp": " Vous avez gagné **{xpWon} :star:**.",
 				"money": " Vous avez {negativeMoney?perdu:gagné} **{money} :{negativeMoney?money_with_wings:moneybag}: !**",
 				"guildXp": " Votre guilde gagne **{guildXpWon} :star:**.",
-				"points": " Vous avez gagné {pointsWon} :medal:."
+				"points": " Vous avez gagné **{pointsWon} :medal:**."
 			}
 		},
 		"en": {
@@ -44,8 +44,8 @@
 			"rewardTypeText": {
 				"xp": " You won {xpWon}:star:.",
 				"money": " You {negativeMoney?lost:won} {money} :{negativeMoney?money_with_wings:moneybag}: !",
-				"guildXp": " Your guild won {guildXpWon}:star:.",
-				"points": " You won {pointsWon}:medal:."
+				"guildXp": " Your guild won {guildXpWon} :star:.",
+				"points": " You won **{pointsWon} :medal:**."
 			}
 		}
 	},

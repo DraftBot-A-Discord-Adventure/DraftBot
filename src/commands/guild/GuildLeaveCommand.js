@@ -137,12 +137,12 @@ const GuildLeaveCommand = async (message, language) => {
 		);
 	}
 
-	const sentMessage = confirmationEmbed.send(message.channel);
-
-	await addBlockedPlayer(entity.discordUserId, "guildLeave", sentMessage.collector);
-	if (elder) {
-		addBlockedPlayer(elder.discordUserId, "chiefGuildLeave", sentMessage.collector);
-	}
+	await confirmationEmbed.send(message.channel, (collector) => {
+		addBlockedPlayer(entity.discordUserId, "guildLeave", collector);
+		if (elder) {
+			addBlockedPlayer(elder.discordUserId, "chiefGuildLeave", collector);
+		}
+	});
 };
 
 module.exports.execute = GuildLeaveCommand;

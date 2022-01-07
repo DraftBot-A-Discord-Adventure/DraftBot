@@ -254,42 +254,44 @@ export class DraftBot {
 		const now = Date.now();
 		const originalConsoleLog = console.log;
 
-		/* Create log folder and remove old logs (> 7 days) */
-		if (!fs.existsSync("logs")) {
-			fs.mkdirSync("logs");
-		}
-		else {
-			fs.readdir("logs", function(err, files) {
-				if (err) {
-					return;
-				}
-				files.forEach(function(file) {
-					const parts = file.split("-");
-					if (parts.length === 5) {
-						if (
-							now -
-							new Date(
-								parseInt(parts[1]),
-								parseInt(parts[2]) - 1,
-								parseInt(parts[3])
-							).getTime() >
-							7 * 24 * 60 * 60 * 1000
-						) {
-							// 7 days
-							fs.unlink("logs/" + file, function(err: Error) {
-								if (err !== undefined && err !== null) {
-									originalConsoleError(
-										"Error while deleting logs/" +
-										file +
-										": " +
-										err
-									);
-								}
-							});
-						}
+		if (this.isMainShard) {
+			/* Create log folder and remove old logs (> 7 days) */
+			if (!fs.existsSync("logs")) {
+				fs.mkdirSync("logs");
+			}
+			else {
+				fs.readdir("logs", function(err, files) {
+					if (err) {
+						return;
 					}
+					files.forEach(function(file) {
+						const parts = file.split("-");
+						if (parts.length >= 5) {
+							if (
+								now -
+								new Date(
+									parseInt(parts[1]),
+									parseInt(parts[2]) - 1,
+									parseInt(parts[3])
+								).getTime() >
+								7 * 24 * 60 * 60 * 1000
+							) {
+								// 7 days
+								fs.unlink("logs/" + file, function(err: Error) {
+									if (err !== undefined && err !== null) {
+										originalConsoleError(
+											"Error while deleting logs/" +
+											file +
+											": " +
+											err
+										);
+									}
+								});
+							}
+						}
+					});
 				});
-			});
+			}
 		}
 
 		this.updateGlobalLogsFile(new Date());

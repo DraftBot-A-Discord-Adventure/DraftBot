@@ -151,9 +151,10 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 		else if (entity.Player.PlayerSmallEvents.length !== 0) {
 			// the first mini event of the travel is calculated differently
 			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
+			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.getTime() ? lastMiniEvent.time : entity.Player.effectEndDate.getTime();
 			travelEmbed.addField(tr.travellingTitle, format(tr.travellingDescription, {
 				smallEventEmoji: JsonReader.smallEvents[lastMiniEvent.eventType].emote,
-				time: parseTimeDifference(lastMiniEvent.time + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
+				time: parseTimeDifference(lastTime + REPORT.TIME_BETWEEN_MINI_EVENTS, Date.now(), language)
 			}), false);
 		}
 		else {
@@ -473,7 +474,8 @@ const doPossibility = async (message, language, possibility, entity, time, force
 const needSmallEvent = function(entity) {
 	if (entity.Player.PlayerSmallEvents.length !== 0) {
 		const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
-		return Date.now() >= lastMiniEvent.time + REPORT.TIME_BETWEEN_MINI_EVENTS;
+		const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.getTime() ? lastMiniEvent.time : entity.Player.effectEndDate.getTime();
+		return Date.now() >= lastTime + REPORT.TIME_BETWEEN_MINI_EVENTS;
 	}
 	return Date.now() >= entity.Player.startTravelDate.valueOf() + REPORT.TIME_BETWEEN_MINI_EVENTS;
 };
@@ -547,7 +549,7 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 	}
 
 	// Save
-	PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, message.createdTimestamp)
+	PlayerSmallEvents.createPlayerSmallEvent(entity.Player.id, event, Date.now())
 		.save();
 };
 

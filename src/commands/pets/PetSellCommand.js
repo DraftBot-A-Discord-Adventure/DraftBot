@@ -16,6 +16,10 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const PetSellCommand = async (message, language, args) => {
+	if (await sendBlockedError(message.author, message.channel, language)) {
+		return;
+	}
+
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const fields = [];
 	let guild;
@@ -96,7 +100,8 @@ const PetSellCommand = async (message, language, args) => {
 			.setDescription(
 				format(translations.sellMessage.description, {
 					author: message.author.username,
-					price: petCost
+					price: petCost,
+					guildMaxLevel: guild.isAtMaxLevel()
 				})
 			)
 			.addFields(fields)
@@ -233,17 +238,20 @@ async function petSell(message, language, entity, user, pet, petCost) {
 			await entity.Player.save();
 			pet.lovePoints = PETS.BASE_LOVE;
 			await pet.save();
-			const guildXpEmbed = new DraftBotEmbed();
-			guildXpEmbed.setTitle(
-				format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
-					guildName: guild.name
-				})
-			);
-			guildXpEmbed.setDescription(
-				format(JsonReader.commands.guildDaily.getTranslation(language).guildXP, {
-					xp: toAdd
-				})
-			);
+			if (!guild.isAtMaxLevel()) {
+				const guildXpEmbed = new DraftBotEmbed();
+				guildXpEmbed.setTitle(
+					format(JsonReader.commands.guildDaily.getTranslation(language).rewardTitle, {
+						guildName: guild.name
+					})
+				);
+				guildXpEmbed.setDescription(
+					format(JsonReader.commands.guildDaily.getTranslation(language).guildXP, {
+						xp: toAdd
+					})
+				);
+				message.channel.send({ embeds: [guildXpEmbed] }).then();
+			}
 			const addPetEmbed = new DraftBotEmbed()
 				.formatAuthor(translations.addPetEmbed.author, user);
 			addPetEmbed.setDescription(
@@ -252,7 +260,6 @@ async function petSell(message, language, entity, user, pet, petCost) {
 					pet: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
 				})
 			);
-			await message.channel.send({ embeds: [guildXpEmbed] });
 			await message.channel.send({ embeds: [addPetEmbed] });
 			await MissionsController.update(buyer.discordUserId, message.channel, language, "havePet");
 		}
