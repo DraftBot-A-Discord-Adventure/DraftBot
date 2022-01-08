@@ -65,7 +65,7 @@ const DrinkCommand = async (message, language, args) => {
 		}
 		removeBlockedPlayer(entity.discordUserId);
 		return sendErrorMessage(message.author, message.channel, language, tr.get("drinkCanceled"));
-	}
+	};
 
 	if (args[0] === "force" || args[0] === "f") {
 		drinkPotion(null, potion);
