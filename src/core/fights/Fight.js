@@ -164,6 +164,7 @@ class Fight {
 							total: attacksListElement.total,
 							damage: attacksListElement.success !== 0 ? Math.round(attacksListElement.damage / attacksListElement.success * 10) / 10 : 0
 						});
+						await MissionsController.update(fighter.entity.discordUserId, this.message.channel, this.language, "fightAttacks", attacksListElement.total, {attackType: attacksListElement.actionNumber});
 					}
 				}
 			}
@@ -629,7 +630,8 @@ class Fight {
 			attacker.attacksList[actionName] = {
 				success: 0,
 				total: 0,
-				damage: 0
+				damage: 0,
+				actionNumber: action
 			};
 		}
 		const stats = attacker.attacksList[actionName];

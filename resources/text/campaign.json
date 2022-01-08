@@ -199,7 +199,7 @@
 		{
 			"missionId": "fightAttacks",
 			"missionVariant": 0,
-			"missionObjective": 0,
+			"missionObjective": 5,
 			"gemsToWin": 2,
 			"xpToWin": 2
 		},

@@ -6,7 +6,7 @@ export const missionInterface: IMission = {
 		return variant === params.mapId;
 	},
 
-	async getVariantFormatVariable(variant: number, language: string): Promise<string> {
+	async getVariantFormatVariable(variant: number, objective: number, language: string): Promise<string> {
 		return (await MapLocations.getById(variant)).getDisplayName(language);
 	},
 

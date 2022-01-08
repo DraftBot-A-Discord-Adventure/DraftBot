@@ -8,7 +8,7 @@ export const missionInterface: IMission = {
 
 	areParamsMatchingVariant: (variant: number, params: { [key: string]: any }) => params.rarity >= variant,
 
-	getVariantFormatVariable: (variant: number, language: string) => Promise.resolve(Translations.getModule("items", language).getFromArray("rarities", variant)),
+	getVariantFormatVariable: (variant: number, objective: number, language: string) => Promise.resolve(Translations.getModule("items", language).getFromArray("rarities", variant)),
 
 	async initialNumberDone(player: Player, variant: number) {
 		return await haveRarityOrMore(player.InventorySlots, variant) ? 1 : 0;

@@ -196,7 +196,7 @@ export class MissionsController {
 		return await MissionsController.addMissionToPlayer(player, mission.id, difficulty, mission);
 	}
 
-	public static async getVariantFormatText(missionId: string, variant: number, language: string) {
-		return await this.getMissionInterface(missionId).getVariantFormatVariable(variant, language);
+	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: string) {
+		return await this.getMissionInterface(missionId).getVariantFormatVariable(variant, objective, language);
 	}
 }
