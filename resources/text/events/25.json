@@ -119,8 +119,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "👀 Vous restez regarder les soldats pendant une quinzaine de minutes puis continuez votre route.",
-						"en": "👀 You stay and watch the soldiers for about fifteen minutes, then continue on your way."
+						"fr": "👀 Ayant jeté un rapide coup d'oeil aux soldats occupés par leurs fouilles vous décidez de reprendre votre route.",
+						"en": "👀 Having cast a quick glance at the soldiers occupied by their excavations, you decide to resume your journey."
 					},
 					"lostTime": 0,
 					"health": 0,
