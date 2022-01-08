@@ -39,8 +39,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise",
-						"en": "You look for a body of water in vain.... Because of this fatigue, you fall ill"
+						"fr": "Vous cherchez un point d'eau en vain... A cause de cette fatigue, vous faites un malaise.",
+						"en": "You look for a body of water in vain.... Because of this fatigue, you fall ill."
 					},
 					"lostTime": 0,
 					"health": -10,
@@ -91,8 +91,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous vous reposez, cependant, le sol est très inconfortable",
-						"en": "You rest, however, the floor is very uncomfortable"
+						"fr": "Vous vous reposez, cependant, le sol est très inconfortable.",
+						"en": "You rest, however, the floor is very uncomfortable."
 					},
 					"lostTime": 180,
 					"health": 0,
@@ -103,8 +103,8 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous vous reposez, après votre bonne sieste, vous repartez plus motivé que jamais",
-						"en": "After your rest, you leave feeling more motivated than ever"
+						"fr": "Vous vous reposez, après votre bonne sieste, vous repartez plus motivé que jamais.",
+						"en": "After your rest, you leave feeling more motivated than ever."
 					},
 					"lostTime": 90,
 					"health": 1,
@@ -120,7 +120,7 @@
 				{
 					"translations": {
 						"fr": "👀 Vous restez à votre place, en plein soleil pendant une quinzaine de minutes, puis vous écroulez.",
-						"en": "👀 You stay where you belong in full sunlight for about 15 minutes, then collapse"
+						"en": "👀 You stay where you belong in full sunlight for about 15 minutes, then collapse."
 					},
 					"lostTime": 0,
 					"health": -20,
@@ -131,8 +131,8 @@
 				},
 				{
 					"translations": {
-						"fr": "🚶 Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps",
-						"en": "🚶 You decide to use your reserves, and continue your journey to not waste time"
+						"fr": "🚶 Vous décidez de puiser dans vos réserves, et continuez votre route pour ne pas perdre de temps.",
+						"en": "🚶 You decide to use your reserves, and continue your journey to not waste time."
 					},
 					"lostTime": 0,
 					"health": 0,

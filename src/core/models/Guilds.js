@@ -1,11 +1,11 @@
 /**
- * @typedef {import('sequelize').Sequelize} Sequelize
- * @typedef {import('sequelize/types')} DataTypes
- *
- * @param {Sequelize} Sequelize
- * @param {DataTypes} DataTypes
- * @returns
- */
+* @typedef {import('sequelize').Sequelize} Sequelize
+* @typedef {import('sequelize/types')} DataTypes
+*
+* @param {Sequelize} Sequelize
+* @param {DataTypes} DataTypes
+* @returns
+*/
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Constants} from "../Constants";
 
@@ -265,7 +265,7 @@ module.exports = (Sequelize, DataTypes) => {
 	 */
 	Guilds.getGuildLevelMean = async () => {
 		const query = `SELECT AVG(level)
-		               FROM Guilds`;
+						FROM Guilds`;
 		return Math.round(
 			(await Sequelize.query(query, {
 				type: Sequelize.QueryTypes.SELECT

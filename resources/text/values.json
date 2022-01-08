@@ -52,15 +52,8 @@
 		"minimalLevel": "8"
 	},
 	"xp": {
-		"player": {
-			"baseValue": 325,
-			"coeff": 1.041,
-			"minus": 188
-		},
-		"guild": {
-			"baseValue": 300,
-			"coeff": 1.035,
-			"minus": 170
-		}
+		"baseValue": 325,
+		"coeff": 1.041,
+		"minus": 188
 	}
 }

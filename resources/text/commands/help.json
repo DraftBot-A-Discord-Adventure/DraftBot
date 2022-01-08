@@ -263,7 +263,7 @@
 					"emote": ":dollar:",
 					"usage": "petsell <price>",
 					"category": "pet",
-					"description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix du vente doit être être supérieur à `100💰` et inférieur à `10000💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
+					"description": "Permet de vendre un familier. Les conditions suivantes s'appliquent : \n - le prix du vente doit être être supérieur à `{option1}💰` et inférieur à `{option2}💰`. \n- Le vendeur ne gagnera pas d'argent lors de la transaction, mais de l'expérience de guilde. \n- Le vendeur et l'acheteur ne peuvent pas faire partie de la même guilde."
 				},
 				"classstats": {
 					"emote": ":bookmark:",
@@ -554,7 +554,7 @@
 					"emote": ":dollar:",
 					"usage": "petsell <price>",
 					"category": "pet",
-					"description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `100💰` and lower than `10000💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
+					"description": "Allows to sell a pet. The following conditions apply: \n - The selling price must be higher than `{option1}💰` and lower than `{option2}💰`. \n- The seller will not earn money for the transaction, but guild experience. \n- The seller and the buyer cannot be part of the same guild."
 				},
 				"shelter": {
 					"emote": ":park:",
