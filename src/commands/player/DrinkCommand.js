@@ -62,23 +62,23 @@ const DrinkCommand = async (message, language, args) => {
 			]);
 			log(entity.discordUserId + " drank " + potion.en);
 			return await message.channel.send({ embeds: [embed] });
-		};
+		}
 		removeBlockedPlayer(entity.discordUserId);
 		return sendErrorMessage(message.author, message.channel, language, tr.get("drinkCanceled"));
 	}
-	
+
 	if (args[0] === "force" || args[0] === "f") {
-		drinkPotion(null, potion)
+		drinkPotion(null, potion);
 	}
 	else {
 	const validationMessage = await new DraftBotValidateReactionMessage(message.author, (msg) => drinkPotion(msg, potion))
-		.formatAuthor(tr.get("confirmationTitle"), message.author)
-		.setDescription(tr.format("confirmation", {
-			potion: potion[language],
-			effect: potion.getNatureTranslation(language)
-		}))
-		.setFooter(tr.get("confirmationFooter"))
-		.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "drink", collector));
+			.formatAuthor(tr.get("confirmationTitle"), message.author)
+			.setDescription(tr.format("confirmation", {
+				potion: potion[language],
+				effect: potion.getNatureTranslation(language)
+			}))
+			.setFooter(tr.get("confirmationFooter"))
+			.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "drink", collector));
 	}
 }
 
