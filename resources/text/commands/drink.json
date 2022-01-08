@@ -6,9 +6,12 @@
 			"noDrinkError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
 			"noActiveObjectdescription": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
 			"drinkSuccess": "{pseudo}, vous buvez le breuvage que vous transportiez !",
+			"drinkCanceled": "Vous n'avez pas bu votre potion !",
 			"healthBonus": "❤️ Vie gagnée : {value} !",
 			"moneyBonus": "💰 Argent gagné : {value} !",
-			"hospitalBonus": "🕥 Vous avez avancé de {value} heure{value>1?s:} !"
+			"hospitalBonus": "🕥 Vous avez avancé de {value} heure{value>1?s:} !",
+			"confirmationTitle": "{pseudo}, confirmation :",
+			"confirmation": "Êtes-vous sûr de vouloir boire votre {potion} ?\n"
 		},
 		"en": {
 			"objectDoNothingError": "You consumed the beverage you carried... But it has no effect !",
