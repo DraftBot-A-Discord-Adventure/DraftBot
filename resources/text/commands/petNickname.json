@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"invalidName": "Les règles pour le nom d'un familier sont les suivantes:",
-			"successTitle": "{pseudo}, changement du nom de le familier",
+			"successTitle": "{pseudo}, changement du nom du familier",
 			"success": "Nom du familier changé en **{name}** !",
 			"successNoName": "Votre familier n'a désormais plus de nom !"
 		},

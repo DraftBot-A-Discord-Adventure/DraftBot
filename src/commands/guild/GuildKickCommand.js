@@ -127,9 +127,7 @@ const GuildKickCommand = async (message, language, args) => {
 			guildName: guild.name,
 			kickedPseudo: await kickedEntity.Player.getPseudo(language)
 		}))
-		.send(message.channel);
-
-	addBlockedPlayer(entity.discordUserId, "guildKick", choiceEmbed.collector);
+		.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "guildKick", collector));
 };
 
 module.exports.execute = GuildKickCommand;

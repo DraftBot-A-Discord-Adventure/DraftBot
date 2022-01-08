@@ -26,31 +26,31 @@ const GuildShopCommand = async (message, language) => {
 	const carnivorousFoodRemainingSlots = Math.max(GUILD.MAX_CARNIVOROUS_PET_FOOD - guild.carnivorousFood, 1);
 	const ultimateFoodRemainingSlots = Math.max(GUILD.MAX_ULTIMATE_PET_FOOD - guild.ultimateFood, 1);
 
-	const shopMessage = (await new DraftBotShopMessageBuilder(
+	const shopMessage = new DraftBotShopMessageBuilder(
 		message.author,
 		guildShopTranslations.get("title"),
 		language
-	)
-		.addCategory(new ShopItemCategory(
+	);
+	if (!guild.isAtMaxLevel()) {
+		shopMessage.addCategory(new ShopItemCategory(
 			[
 				getGuildXPShopItem(guildShopTranslations)
 			],
 			guildShopTranslations.get("xpItem")
-		))
-		.addCategory(new ShopItemCategory(
-			[
-				getFoodShopItem(guildShopTranslations, "commonFood", language, [1, Math.min(5, commonFoodRemainingSlots), Math.min(10, commonFoodRemainingSlots)]),
-				getFoodShopItem(guildShopTranslations, "herbivorousFood", language, [1, Math.min(5, herbivorousFoodRemainingSlots), Math.min(10, herbivorousFoodRemainingSlots)]),
-				getFoodShopItem(guildShopTranslations, "carnivorousFood", language, [1, Math.min(5, carnivorousFoodRemainingSlots), Math.min(10, carnivorousFoodRemainingSlots)]),
-				getFoodShopItem(guildShopTranslations, "ultimateFood", language, [1, Math.min(5, ultimateFoodRemainingSlots)])
-			],
-			guildShopTranslations.get("foodItem")
-		))
+		));
+	}
+	await (await shopMessage.addCategory(new ShopItemCategory(
+		[
+			getFoodShopItem(guildShopTranslations, "commonFood", language, [1, Math.min(5, commonFoodRemainingSlots), Math.min(10, commonFoodRemainingSlots)]),
+			getFoodShopItem(guildShopTranslations, "herbivorousFood", language, [1, Math.min(5, herbivorousFoodRemainingSlots), Math.min(10, herbivorousFoodRemainingSlots)]),
+			getFoodShopItem(guildShopTranslations, "carnivorousFood", language, [1, Math.min(5, carnivorousFoodRemainingSlots), Math.min(10, carnivorousFoodRemainingSlots)]),
+			getFoodShopItem(guildShopTranslations, "ultimateFood", language, [1, Math.min(5, ultimateFoodRemainingSlots)])
+		],
+		guildShopTranslations.get("foodItem")
+	))
 		.endCallback(shopEndCallback)
 		.build())
-		.send(message.channel);
-
-	addBlockedPlayer(message.author.id, "guildShop", shopMessage.collector);
+		.send(message.channel, (collector) => addBlockedPlayer(message.author.id, "guildShop", collector));
 };
 
 function shopEndCallback(shopMessage) {

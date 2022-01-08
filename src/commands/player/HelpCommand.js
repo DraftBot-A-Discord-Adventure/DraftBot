@@ -1,3 +1,5 @@
+import {isOnMainServer} from "../../core/utils/ShardUtils";
+
 module.exports.commandInfo = {
 	name: "help",
 	aliases: ["h"]
@@ -125,13 +127,7 @@ const HelpCommand = async (message, language, args) => {
 	}
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (
-		client.guilds.cache
-			.get(JsonReader.app.MAIN_SERVER_ID)
-			.members.cache.find(
-				(val) =>
-					val.id === message.author.id) === undefined && entity.Player.dmNotification
-	) {
+	if (!await isOnMainServer(entity.discordUserId) && entity.Player.dmNotification) {
 		await sendDirectMessage(message.author, JsonReader.commands.help.getTranslation(language).mp.title,
 			JsonReader.commands.help.getTranslation(language).mp.description, JsonReader.bot.embed.default, language);
 	}

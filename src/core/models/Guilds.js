@@ -7,6 +7,7 @@
  * @returns
  */
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {Constants} from "../Constants";
 
 module.exports = (Sequelize, DataTypes) => {
 	const Guilds = Sequelize.define(
@@ -161,6 +162,16 @@ module.exports = (Sequelize, DataTypes) => {
 	 * @param {Message} message
 	 */
 	Guilds.prototype.addExperience = async function(experience,message,language) {
+		if (this.isAtMaxLevel()) {
+			return;
+		}
+		// We assume that you cannot go the level 98 to 100 with 1 xp addition
+		if (this.level === Constants.GUILD.MAX_LEVEL - 1) {
+			const xpNeededToLevelUp = this.getExperienceNeededToLevelUp();
+			if (this.experience + experience > xpNeededToLevelUp) {
+				experience = xpNeededToLevelUp - this.experience;
+			}
+		}
 		this.experience += experience;
 		this.setExperience(this.experience);
 		while (this.needLevelUp()) {
@@ -239,6 +250,10 @@ module.exports = (Sequelize, DataTypes) => {
 
 	Guilds.prototype.getChiefId = function() {
 		return this.chiefId;
+	};
+
+	Guilds.prototype.isAtMaxLevel = function() {
+		return this.level >= Constants.GUILD.MAX_LEVEL;
 	};
 
 	// ---------------------------------------------------------------------------------------------------------------------
