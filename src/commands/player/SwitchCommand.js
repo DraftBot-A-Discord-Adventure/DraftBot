@@ -6,6 +6,7 @@ import {Constants} from "../../core/Constants";
 import {sortPlayerItemList} from "../../core/utils/ItemUtils";
 import {Entities} from "../../core/models/Entity";
 import InventorySlot from "../../core/models/InventorySlot";
+import {Servers} from "../../core/models/Server";
 
 const moment = require("moment");
 

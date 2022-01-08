@@ -5,6 +5,7 @@ import {Maps} from "../../core/Maps";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {Tags} from "../../core/models/Tag";
 import Potion from "../../core/models/Potion";
+import {countNbOfPotions} from "../../core/utils/ItemUtils";
 
 module.exports.commandInfo = {
 	name: "drink",
@@ -18,7 +19,7 @@ module.exports.commandInfo = {
  * @param {("fr"|"en")} language - Language to use in the response
  */
 const DrinkCommand = async (message, language) => {
-	const [entity] = await Entities.getOrRegister(message.author.id);
+	let [entity] = await Entities.getOrRegister(message.author.id);
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
@@ -68,6 +69,8 @@ const DrinkCommand = async (message, language) => {
 		entity.Player.save()
 	]);
 	log(entity.discordUserId + " drank " + potion.en);
+	[entity] = await Entities.getOrRegister(entity.discordUserId);
+	await MissionsController.update(entity.discordUserId, message.channel, language, "havePotions",countNbOfPotions(entity.Player),null,true);
 	return await message.channel.send({ embeds: [embed] });
 };
 

@@ -206,7 +206,7 @@
 		{
 			"missionId": "havePotions",
 			"missionVariant": 0,
-			"missionObjective": 0,
+			"missionObjective": 2,
 			"gemsToWin": 2,
 			"xpToWin": 2
 		},

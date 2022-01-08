@@ -18,8 +18,9 @@ import {Constants} from "../../core/Constants";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {sortPlayerItemList} from "../../core/utils/ItemUtils";
+import {countNbOfPotions, sortPlayerItemList} from "../../core/utils/ItemUtils";
 import InventorySlot from "../../core/models/InventorySlot";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 const SellCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
@@ -73,6 +74,8 @@ const SellCommand = async (message, language) => {
 			});
 			entity.Player.addMoney(entity, money, message.channel, language);
 			await entity.Player.save();
+			[entity] = await Entities.getOrRegister(entity.discordUserId);
+			await MissionsController.update(entity.discordUserId, message.channel, language, "havePotions",countNbOfPotions(entity.Player),null,true);
 			log(entity.discordUserId + " sold his item " + item.name + " (money: " + money + ")");
 			if (money === 0) {
 				return await message.channel.send({ embeds: [new DraftBotEmbed()

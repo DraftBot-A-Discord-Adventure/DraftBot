@@ -14,6 +14,7 @@ import Entity, {Entities} from "../models/Entity";
 import InventorySlot from "../models/InventorySlot";
 import {MissionsController} from "../missions/MissionsController";
 import {GenericItemModel} from "../models/GenericItemModel";
+import Player from "../models/Player";
 
 declare const JsonReader: any;
 declare function removeBlockedPlayer(id: string): void;
@@ -40,6 +41,8 @@ export const giveItemToPlayer = async function(
 
 	if (await entity.Player.giveItem(item) === true) {
 		await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
+		const entityForMC = (await Entities.getOrRegister(entity.discordUserId))[0];
+		await MissionsController.update(entityForMC.discordUserId, channel, language, "havePotions", countNbOfPotions(entityForMC.Player), null, true);
 		return;
 	}
 
@@ -235,6 +238,8 @@ const sellOrKeepItem = async function(
 			)
 	] });
 	await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
+	[entity] = await Entities.getOrRegister(entity.discordUserId);
+	await MissionsController.update(entity.discordUserId, channel, language, "havePotions", countNbOfPotions(entity.Player),null,true);
 	if (!keepOriginal && entity.Player.MissionSlots.filter(m => m.missionId === "haveItemRarity").length !== 0) {
 		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
 			rarity: item.rarity
@@ -407,4 +412,12 @@ export const haveRarityOrMore = async function(slots: InventorySlot[], rarity: n
 		}
 	}
 	return false;
+};
+
+export const countNbOfPotions = function(player: Player): number {
+	let nbPotions = player.getMainPotionSlot().itemId === 0 ? -1 : 0;
+	for (const slot of player.InventorySlots) {
+		nbPotions += slot.isPotion() ? 1 : 0;
+	}
+	return nbPotions;
 };
