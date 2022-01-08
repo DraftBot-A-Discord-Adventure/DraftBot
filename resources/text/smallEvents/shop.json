@@ -22,7 +22,7 @@
 			"end": "\n\n{item} | `{price}\uD83D\uDCB0`\n\n**Type :** {type}",
 			"types": [
 				"Arme",
-				"Armure",
+				"Armure/Bouclier",
 				"Potion",
 				"Objet"
 			],
@@ -80,7 +80,7 @@
 			"end": "\n\n{item} | `{price}\uD83D\uDCB0`\n\n**Type:** {type}",
 			"types": [
 				"Weapon",
-				"Armor",
+				"Armor/Shield",
 				"Potion",
 				"Item"
 			],
