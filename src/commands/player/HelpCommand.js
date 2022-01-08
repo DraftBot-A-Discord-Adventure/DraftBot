@@ -103,8 +103,8 @@ const HelpCommand = async (message, language, args) => {
 		}
 		helpMessage = new DraftBotEmbed()
 			.setDescription(format(commandInfos.description, {
-				option1 : option1,
-				option2 : option2
+				option1: option1,
+				option2: option2
 			}))
 			.setTitle(
 				format(
