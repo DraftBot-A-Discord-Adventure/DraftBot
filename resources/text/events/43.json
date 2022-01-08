@@ -205,7 +205,7 @@
 					"lostTime": 10,
 					"health": -5,
 					"effect": ":clock2:",
-					"experience": 25,
+					"experience": 0,
 					"money": 0,
 					"item": false
 				}
