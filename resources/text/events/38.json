@@ -151,8 +151,8 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "🚶 Vous ignorez complètement le marchand et reprenez votre route.",
-						"en": "🚶 You completely ignore the merchant and go your way."
+						"fr": "🚶 Ne souhaitant pas faire affaire avec lui, vous le dépassez en lui adressant un simple signe de tête mais celui-ci vous retient pour faire la promotion de chacun de ses articles. Comme vous ne voulez pas froisser le marchand, vous attendez que celui-ci ait terminé pour lui annoncer gentiment mais fermement que vous ne comptez rien acheter.",
+						"en": "🚶 Not wishing to do business with him, you overtake him by giving him a simple nod but he retains you to promote each of his articles. Since you don't want to offend the merchant, you wait until the merchant has finished to tell him gently but firmly that you are not planning to buy anything."
 					},
 					"lostTime": 10,
 					"health": 0,
