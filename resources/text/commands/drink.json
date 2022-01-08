@@ -6,9 +6,13 @@
 			"noDrinkError": "{pseudo}, hmmm... Cela n'a pas fonctionné !",
 			"noActiveObjectdescription": "Vous n'avez malheureusement rien à boire dans votre inventaire !",
 			"drinkSuccess": "{pseudo}, vous buvez le breuvage que vous transportiez !",
+			"drinkCanceled": "Vous n'avez pas bu votre potion !",
 			"healthBonus": "❤️ Vie gagnée : {value} !",
 			"moneyBonus": "💰 Argent gagné : {value} !",
-			"hospitalBonus": "🕥 Vous avez avancé de {value} heure{value>1?s:} !"
+			"hospitalBonus": "🕥 Vous avez avancé de {value} heure{value>1?s:} !",
+			"confirmationTitle": "{pseudo}, confirmation :",
+			"confirmation": "Êtes-vous sûr de vouloir boire votre {potion} ({effect}) ?",
+			"confirmationFooter": "Il est possible d'éviter cette étape en utilisant drinkforce au lieu de drink !"
 		},
 		"en": {
 			"objectDoNothingError": "You consumed the beverage you carried... But it has no effect !",
@@ -18,7 +22,10 @@
 			"drinkSuccess": "{pseudo}, you have received your drink reward!",
 			"healthBonus": "❤️ HP recovered : {value}!",
 			"moneyBonus": "💰 Money Earned: {value}!",
-			"hospitalBonus": "🕥 You leapt forward {value} hour{value>1?s:}."
+			"hospitalBonus": "🕥 You leapt forward {value} hour{value>1?s:}.",
+			"confirmationTitle": "{pseudo}, confirmation :",
+			"confirmation": "Are you sure you want to drink your {potion} ({effect})?",
+			"confirmationFooter": "It is possible to avoid this step by using drinkforce instead of drink!"
 		}
 	}
 }
