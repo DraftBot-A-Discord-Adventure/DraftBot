@@ -401,12 +401,10 @@ module.exports = (Sequelize, DataTypes) => {
 		}
 
 		const xpNeeded = this.getExperienceNeededToLevelUp();
-
+		this.experience -= xpNeeded;
 		this.level++;
-
 		const bonuses = await this.getLvlUpReward(language, entity);
 
-		this.experience -= xpNeeded;
 		let msg = format(JsonReader.models.players.getTranslation(language).levelUp.mainMessage, {
 			mention: entity.getMention(),
 			level: this.level
