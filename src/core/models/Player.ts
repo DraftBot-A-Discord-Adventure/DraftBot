@@ -159,7 +159,7 @@ export class Player extends Model {
 
 	public addMoney(entity: Entity, money: number, channel: TextChannel, language: string): void {
 		this.money += money;
-		if (this.money > 0) {
+		if (money > 0) {
 			MissionsController.update(entity.discordUserId, channel, language, "earnMoney", money).then();
 		}
 		this.setMoney(this.money);

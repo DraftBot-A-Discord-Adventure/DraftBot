@@ -17,11 +17,10 @@ const MissionsCommand = async (message: Message, language: string, args: string[
 		[entity] = await Entities.getOrRegister(message.author.id);
 	}
 
-	if (await MissionsController.update(entity.discordUserId, <TextChannel> message.channel, language, "commandMission")) {
-		entity = await Entities.getById(entity.id);
-	}
+	await MissionsController.update(entity.discordUserId, <TextChannel> message.channel, language, "commandMission");
+	entity = await Entities.getById(entity.id);
 
-	await Campaign.updatePlayerCampaign(entity.Player, <TextChannel> message.channel, language);
+	await Campaign.updateCampaignAndSendMessage(entity.Player, <TextChannel> message.channel, language);
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	message.channel.send({ embeds: [
 		await new DraftBotMissionsMessageBuilder(

@@ -3,6 +3,8 @@ import Player from "../models/Player";
 import MissionSlot, {MissionSlots} from "../models/MissionSlot";
 import {MissionsController} from "./MissionsController";
 import {TextChannel} from "discord.js";
+import {CompletedMission, CompletedMissionType} from "./CompletedMission";
+import {Missions} from "../models/Mission";
 
 export class Campaign {
 	private static maxCampaignCache = -1;
@@ -27,7 +29,39 @@ export class Campaign {
 		return campaignIndex < this.getMaxCampaignNumber();
 	}
 
-	static async updatePlayerCampaign(player: Player, channel: TextChannel, language: string): Promise<void> {
+	public static async completeCampaignRecursively(player: Player, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
+		const completedMissions: CompletedMission[] = [];
+		while (campaign.isCompleted()) {
+			completedMissions.push(
+				new CompletedMission(
+					campaign.xpToWin,
+					campaign.gemsToWin,
+					await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language),
+					CompletedMissionType.CAMPAIGN)
+			);
+			if (this.hasNextCampaign(player.PlayerMissionsInfo.campaignProgression)) {
+				const prop = Campaign.getDataModule().getObjectFromArray("missions", player.PlayerMissionsInfo.campaignProgression);
+				campaign.missionVariant = prop.missionVariant;
+				campaign.gemsToWin = prop.gemsToWin;
+				campaign.xpToWin = prop.xpToWin;
+				campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId).initialNumberDone(player, prop.missionVariant);
+				campaign.missionId = prop.missionId;
+				campaign.missionObjective = prop.missionObjective;
+				player.PlayerMissionsInfo.campaignProgression++;
+				campaign.Mission = await Missions.getById(campaign.missionId);
+			}
+			else {
+				break;
+			}
+		}
+		if (completedMissions.length !== 0) {
+			await campaign.save();
+			await player.PlayerMissionsInfo.save();
+		}
+		return completedMissions;
+	}
+
+	public static async updatePlayerCampaign(player: Player, language: string): Promise<CompletedMission[]> {
 		const [campaign] = player.MissionSlots.filter(m => m.isCampaign());
 		if (!campaign) {
 			const campaignJson = require("../../../../resources/text/campaign.json").missions[0];
@@ -36,24 +70,14 @@ export class Campaign {
 			player.MissionSlots.push(await MissionSlots.getById(slot.id));
 			return;
 		}
-		if (!campaign || !this.hasNextCampaign(player.PlayerMissionsInfo.campaignProgression) && campaign.isCompleted()) {
-			return;
-		}
-		if (!campaign.isCompleted()) {
-			return;
-		}
-		const prop = Campaign.getDataModule().getObjectFromArray("missions", player.PlayerMissionsInfo.campaignProgression);
-		campaign.missionVariant = prop.missionVariant;
-		campaign.gemsToWin = prop.gemsToWin;
-		campaign.xpToWin = prop.xpToWin;
-		campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId).initialNumberDone(player, prop.missionVariant);
-		campaign.missionId = prop.missionId;
-		campaign.missionObjective = prop.missionObjective;
-		player.PlayerMissionsInfo.campaignProgression++;
-		await campaign.save();
-		await player.PlayerMissionsInfo.save();
-		if (campaign.numberDone >= campaign.missionObjective) {
-			await MissionsController.completeMissionSlots(player, channel, language, [await MissionSlots.getById(campaign.id)]);
+		return await this.completeCampaignRecursively(player, campaign, language);
+	}
+
+	public static async updateCampaignAndSendMessage(player: Player, channel: TextChannel, language: string) {
+		const completedMissions = await MissionsController.completeAndUpdateMissions(player, false, language);
+		if (completedMissions.length !== 0) {
+			await MissionsController.updatePlayerStats(player, completedMissions);
+			await MissionsController.sendCompletedMissions(player, completedMissions, channel, language);
 		}
 	}
 }
