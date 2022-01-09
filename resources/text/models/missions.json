@@ -1,0 +1,17 @@
+{
+	"translations" : {
+		"fr": {
+			"completedTitle": "{pseudo}, vo{missionCount>1?s:tre} mission{missionCount>1?s:} complétée{missionCount>1?s:}",
+			"campaign": "\uD83D\uDCD6 **Mission{missionCount>1?s:} de campagne**",
+			"daily": "\uD83D\uDCC5 **Mission quotidienne**",
+			"sideMissions": "\uD83D\uDCDC **Mission{missionCount>1?s:} secondaire{missionCount>1?s:}**",
+			"gemsDisplay": "+{gems} \uD83D\uDC8E",
+			"xpDisplay": "+{xp} ⭐",
+			"totalRewards": "\uD83E\uDDFE Total des récompenses",
+			"totalDisplay": "Gemmes gagnées : {gems} \uD83D\uDC8E\nExpérience gagnée : {xp} ⭐"
+		},
+		"en": {
+			"completedTitle": "{pseudo}, your completed mission{missionCount>1?s:}"
+		}
+	}
+}

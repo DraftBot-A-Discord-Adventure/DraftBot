@@ -11,6 +11,8 @@ import {Data} from "../Data";
 import {Campaign} from "./Campaign";
 import {Entities} from "../models/Entity";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
+import {DraftBotCompletedMissions} from "../messages/DraftBotCompletedMissions";
+import {draftBotClient} from "../bot";
 
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
@@ -29,7 +31,7 @@ export class MissionsController {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, completedDaily, language);
 		if (completedMissions.length !== 0) {
 			await MissionsController.updatePlayerStats(entity.Player, completedMissions);
-			await MissionsController.sendCompletedMissions(entity.Player, completedMissions, channel, language);
+			await MissionsController.sendCompletedMissions(discordUserId, entity.Player, completedMissions, channel, language);
 		}
 	}
 
@@ -104,20 +106,10 @@ export class MissionsController {
 		return completedMissions;
 	}
 
-	static async sendCompletedMissions(player: Player, completedMissions: CompletedMission[], channel: TextChannel, language: string) {
-		let desc = "";
-		let xpWon = 0;
-		let gemsWon = 0;
-		for (const completedMission of completedMissions) {
-			xpWon += completedMission.xpToWin;
-			gemsWon += completedMission.gemsToWin;
-			desc += "- " + completedMission.desc + "\n";
-		}
+	static async sendCompletedMissions(discordUserId: string, player: Player, completedMissions: CompletedMission[], channel: TextChannel, language: string) {
 		await channel.send({
 			embeds: [
-				new DraftBotEmbed()
-					.setTitle("Mission")
-					.setDescription(await player.getPseudo(language) + " completed the following mission(s):\n" + desc + "\n**xp Won:** " + xpWon + "\n**gems Won:** " + gemsWon)
+				new DraftBotCompletedMissions(draftBotClient.users.cache.get(discordUserId), completedMissions, language)
 			]
 		});
 	}

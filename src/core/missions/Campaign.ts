@@ -73,11 +73,11 @@ export class Campaign {
 		return await this.completeCampaignRecursively(player, campaign, language);
 	}
 
-	public static async updateCampaignAndSendMessage(player: Player, channel: TextChannel, language: string) {
+	public static async updateCampaignAndSendMessage(discordUserId: string, player: Player, channel: TextChannel, language: string) {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(player, false, language);
 		if (completedMissions.length !== 0) {
 			await MissionsController.updatePlayerStats(player, completedMissions);
-			await MissionsController.sendCompletedMissions(player, completedMissions, channel, language);
+			await MissionsController.sendCompletedMissions(discordUserId, player, completedMissions, channel, language);
 		}
 	}
 }
