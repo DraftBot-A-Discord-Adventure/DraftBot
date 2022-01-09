@@ -68,7 +68,7 @@ export class Campaign {
 			campaignJson.playerId = player.id;
 			const slot = await MissionSlot.create(campaignJson);
 			player.MissionSlots.push(await MissionSlots.getById(slot.id));
-			return;
+			return this.updatePlayerCampaign(player, language);
 		}
 		return await this.completeCampaignRecursively(player, campaign, language);
 	}

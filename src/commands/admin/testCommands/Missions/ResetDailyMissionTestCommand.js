@@ -1,9 +1,10 @@
 const {Entities} = require("../../../../core/models/Entity");
 module.exports.commandInfo = {
-	name: "clearMissions",
+	name: "resetDailyMission",
 	commandFormat: "",
-	messageWhenExecuted: "Toutes vos missions ont été supprimée !",
-	description: "Permet de supprimer toutes ses missions"
+	aliases: ["rdm"],
+	messageWhenExecuted: "Votre mission quotidienne a été réinitiliasée !",
+	description: "Permet de réinitialiser la mission quootidienne"
 };
 
 /**
@@ -13,16 +14,12 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const clearMissionsTestCommand = async (language, message, args) => {
+const resetDailyMissionTextCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-
-	for (const missionSlot of entity.Player.MissionSlots) {
-		if (!missionSlot.isCampaign()) {
-			await missionSlot.destroy();
-		}
-	}
-
+	entity.Player.PlayerMissionsInfo.dailyMissionNumberDone = 0;
+	entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted = 0;
+	await entity.Player.PlayerMissionsInfo.save();
 	return module.exports.commandInfo.messageWhenExecuted;
 };
 
-module.exports.execute = clearMissionsTestCommand;
+module.exports.execute = resetDailyMissionTextCommand;
