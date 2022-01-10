@@ -144,7 +144,7 @@ class Fight {
 				points: this.points
 			});
 		}
-		else {
+		else if (this.elo !== 0) {
 			msg += format(JsonReader.commands.fight.getTranslation(this.language).end.drawElo, {
 				elo: this.elo
 			});
