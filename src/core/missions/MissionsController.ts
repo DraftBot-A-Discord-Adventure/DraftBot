@@ -1,6 +1,6 @@
 import Player from "../models/Player";
 import {IMission} from "./IMission";
-import {TextChannel} from "discord.js";
+import {TextChannel, User} from "discord.js";
 import MissionSlot from "../models/MissionSlot";
 import {DailyMissions} from "../models/DailyMission";
 import Mission, {Missions} from "../models/Mission";
@@ -13,6 +13,7 @@ import {Entities} from "../models/Entity";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {DraftBotCompletedMissions} from "../messages/DraftBotCompletedMissions";
 import {draftBotClient} from "../bot";
+import {Translations} from "../Translations";
 
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
@@ -27,6 +28,7 @@ export class MissionsController {
 	// eslint-disable-next-line max-params
 	static async update(discordUserId: string, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<void> {
 		const [entity] = await Entities.getOrRegister(discordUserId);
+		await MissionsController.handleExpiredMissions(entity.Player, draftBotClient.users.cache.get(discordUserId), channel, language);
 		const completedDaily = await MissionsController.updateMissionsCounts(entity.Player, missionId, count, params, set);
 		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, completedDaily, language);
 		if (completedMissions.length !== 0) {
@@ -121,6 +123,45 @@ export class MissionsController {
 		}
 		await player.PlayerMissionsInfo.save();
 		await player.save();
+	}
+
+	static async handleExpiredMissions(player: Player, user: User, channel: TextChannel, language: string) {
+		const expiredMissions: MissionSlot[] = [];
+		for (const mission of player.MissionSlots) {
+			if (mission.hasExpired()) {
+				expiredMissions.push(mission);
+				await mission.destroy();
+			}
+		}
+		if (expiredMissions.length === 0) {
+			return;
+		}
+		player.MissionSlots = player.MissionSlots.filter(missionSlot => !missionSlot.hasExpired());
+		const tr = Translations.getModule("models.missions", language);
+		let missionsExpiredDesc = "";
+		for (const mission of expiredMissions) {
+			missionsExpiredDesc += "- " + await mission.Mission.formatDescription(
+				mission.missionObjective, mission.missionVariant, language) + " (" + mission.numberDone + "/" + mission.missionObjective + ")\n";
+		}
+		await channel.send({
+			embeds: [
+				new DraftBotEmbed()
+					.setAuthor(tr.format(
+						"missionsExpiredTitle",
+						{
+							missionsCount: expiredMissions.length,
+							pseudo: user.username
+						}
+					), user.displayAvatarURL())
+					.setDescription(tr.format(
+						"missionsExpiredDesc",
+						{
+							missionsCount: expiredMissions.length,
+							missionsExpired: missionsExpiredDesc
+						}
+					))
+			]
+		});
 	}
 
 	public static async generateRandomDailyMissionProperties(): Promise<{ mission: Mission, index: number, variant: number }> {

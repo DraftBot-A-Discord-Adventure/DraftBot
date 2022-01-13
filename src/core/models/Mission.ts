@@ -47,21 +47,24 @@ export class Missions {
 				where: {
 					campaignOnly: false,
 					canBeEasy: true
-				}
+				},
+				order: [Sequelize.fn("RANDOM")]
 			});
 		case MissionDifficulty.MEDIUM:
 			return await Mission.findOne({
 				where: {
 					campaignOnly: false,
 					canBeMedium: true
-				}
+				},
+				order: [Sequelize.fn("RANDOM")]
 			});
 		case MissionDifficulty.HARD:
 			return await Mission.findOne({
 				where: {
 					campaignOnly: false,
 					canBeHard: true
-				}
+				},
+				order: [Sequelize.fn("RANDOM")]
 			});
 		default:
 			return null;

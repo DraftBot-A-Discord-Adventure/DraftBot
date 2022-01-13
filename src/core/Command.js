@@ -128,8 +128,8 @@ class Command {
 		}
 
 		// otherwise continue
-
-		if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
+		const serverPrefixEquals = server.prefix === Command.getUsedPrefix(message, server.prefix);
+		if (serverPrefixEquals || Command.getUsedPrefix(message, "sudo /usr/sbin/") === "sudo /usr/sbin/") {
 
 			// check maintenance mode
 			if (
@@ -143,7 +143,7 @@ class Command {
 						.setErrorColor()
 				] });
 			}
-			await Command.launchCommand(language, server.prefix, message);
+			await Command.launchCommand(language, serverPrefixEquals ? server.prefix : "sudo /usr/sbin/", message);
 		}
 		else if (
 			Command.getUsedPrefix(
