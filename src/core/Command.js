@@ -47,13 +47,11 @@ class Command {
 	 * @param {String} id
 	 */
 	static async hasBlockedPlayer(id) {
-		const response = (await draftBotClient.shard.broadcastEval((client, context) => {
-			return _hasBlockedPlayer(context.id);
-		}, {
+		const response = await draftBotClient.shard.broadcastEval((client, context) => _hasBlockedPlayer(context.id), {
 			context: {
 				id
 			}
-		}));
+		});
 		return response.includes(true);
 	}
 
@@ -72,13 +70,11 @@ class Command {
 	 * @return {{context: string, time: number}}
 	 */
 	static async getBlockedPlayer(id) {
-		let response = (await draftBotClient.shard.broadcastEval((client, context) => {
-			return _getBlockedPlayer(context.id);
-		}, {
+		let response = await draftBotClient.shard.broadcastEval((client, context) => _getBlockedPlayer(context.id), {
 			context: {
 				id
 			}
-		}));
+		});
 		response = response.filter(r => r);
 		if (response.length === 0) {
 			return null;
