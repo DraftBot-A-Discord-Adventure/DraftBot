@@ -11,7 +11,7 @@ module.exports.commandInfo = {
  */
 const UnblockCommand = async (message, language, args) => {
 	if (args.length === 1) {
-		if (!hasBlockedPlayer(args[0])) {
+		if (!await hasBlockedPlayer(args[0])) {
 			await message.channel.send({ content: "Not blocked" });
 			return;
 		}

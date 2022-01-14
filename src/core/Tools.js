@@ -287,9 +287,9 @@ global.getItemValue = function(item) {
  * @returns {boolean}
  */
 global.sendBlockedError = async function(user, channel, language) {
-	if (hasBlockedPlayer(user.id)) {
+	if (await hasBlockedPlayer(user.id)) {
 		await sendErrorMessage(user, channel, language, format(JsonReader.error.getTranslation(language).playerBlocked, {
-			context: JsonReader.error.getTranslation(language).blockedContext[getBlockedPlayer(user.id).context]
+			context: JsonReader.error.getTranslation(language).blockedContext[(await getBlockedPlayer(user.id)).context]
 		}));
 		return true;
 	}
