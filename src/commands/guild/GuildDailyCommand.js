@@ -41,7 +41,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 	const members = await Entities.getByGuild(guild.id);
 
 	for (const i in members) {
-		if (hasBlockedPlayer(members[i].discordUserId) && getBlockedPlayer(members[i].discordUserId).context === "fight") {
+		if (await hasBlockedPlayer(members[i].discordUserId) && (await getBlockedPlayer(members[i].discordUserId)).context === "fight") {
 			continue;
 		}
 		if (await sendBlockedError(await client.users.fetch(members[i].discordUserId), message.channel, language)) {
