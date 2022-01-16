@@ -59,9 +59,9 @@ export class Guild extends Model {
 		const data = Data.getModule("values");
 		return (
 			Math.round(
-				data.getNumber("xp.player.baseValue") *
-				Math.pow(data.getNumber("xp.player.coeff"), this.level + 1)
-			) - data.getNumber("xp.player.minus")
+				data.getNumber("xp.baseValue") *
+				Math.pow(data.getNumber("xp.coeff"), this.level + 1)
+			) - data.getNumber("xp.minus")
 		);
 	}
 

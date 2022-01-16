@@ -137,7 +137,7 @@ export class Player extends Model {
 
 	public getExperienceNeededToLevelUp(): number {
 		const data = Data.getModule("values");
-		return Math.round(data.getNumber("xp.player.baseValue") * Math.pow(data.getNumber("xp.player.coeff"), this.level + 1)) - data.getNumber("xp.player.minus");
+		return Math.round(data.getNumber("xp.baseValue") * Math.pow(data.getNumber("xp.coeff"), this.level + 1)) - data.getNumber("xp.minus");
 	}
 
 	public addScore(entity: Entity, score: number, channel: TextChannel, language: string): void {
@@ -254,13 +254,11 @@ export class Player extends Model {
 		}
 
 		const xpNeeded = this.getExperienceNeededToLevelUp();
-
+		this.experience -= xpNeeded;
 		this.level++;
 		await MissionsController.update(entity.discordUserId, channel, language, "reachLevel", this.level, null, true);
-
 		const bonuses = await this.getLvlUpReward(language, entity);
 
-		this.experience -= xpNeeded;
 		let msg = Translations.getModule("models.players", language).format("levelUp.mainMessage", {
 			mention: entity.getMention(),
 			level: this.level
@@ -304,7 +302,7 @@ export class Player extends Model {
 	}
 
 	public isInactive(): boolean {
-		return this.startTravelDate.getTime() + minutesToMilliseconds(120) + Data.getModule("commands.topCommand").getNumber("fifth10days") < Date.now();
+		return this.startTravelDate.getTime() + minutesToMilliseconds(120) + Data.getModule("commands.top").getNumber("fifth10days") < Date.now();
 	}
 
 	public currentEffectFinished(): boolean {

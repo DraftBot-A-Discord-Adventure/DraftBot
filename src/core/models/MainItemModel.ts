@@ -64,7 +64,7 @@ export abstract class MainItemModel extends GenericItemModel {
 			if (isNaN(maxStatsValue) || !maxStatsValue) {
 				maxStatsValue = Infinity;
 			}
-			const defenseDisplay = maxStatsValue > this.getDefense() ? this.getDefense() : tr.format("nerfDisplay",
+			const defenseDisplay = maxStatsValue >= this.getDefense() ? this.getDefense() : tr.format("nerfDisplay",
 				{
 					old: this.getDefense(),
 					max: maxStatsValue

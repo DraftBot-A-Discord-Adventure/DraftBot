@@ -9,7 +9,6 @@ const {readdirSync} = require("fs");
 
 const {Collection} = require("discord.js");
 
-
 /**
  * @class
  */
@@ -50,14 +49,22 @@ class Command {
 	 * check if a player is blocked
 	 * @param {String} id
 	 */
-	static hasBlockedPlayer(id) {
+	static async hasBlockedPlayer(id) {
+		const response = await draftBotClient.shard.broadcastEval((client, context) => _hasBlockedPlayer(context.id), {
+			context: {
+				id
+			}
+		});
+		return response.includes(true);
+	}
+
+	static _hasBlockedPlayer(id) {
 		if (Object.keys(Command.players).includes(id)) {
 			return !(
 				Command.players[id].collector &&
 				Command.players[id].collector.ended
 			);
 		}
-		return false;
 	}
 
 	/**
@@ -65,7 +72,20 @@ class Command {
 	 * @param {String} id
 	 * @return {{context: string, time: number}}
 	 */
-	static getBlockedPlayer(id) {
+	static async getBlockedPlayer(id) {
+		let response = await draftBotClient.shard.broadcastEval((client, context) => _getBlockedPlayer(context.id), {
+			context: {
+				id
+			}
+		});
+		response = response.filter(r => r);
+		if (response.length === 0) {
+			return null;
+		}
+		return response[0];
+	}
+
+	static _getBlockedPlayer(id) {
 		return Command.players[id];
 	}
 
@@ -439,6 +459,10 @@ global
 	.getBlockedPlayer = Command.getBlockedPlayer;
 global
 	.hasBlockedPlayer = Command.hasBlockedPlayer;
+global
+	._hasBlockedPlayer = Command._hasBlockedPlayer;
+global
+	._getBlockedPlayer = Command._getBlockedPlayer;
 global
 	.addBlockedPlayer = Command.addBlockedPlayer;
 global

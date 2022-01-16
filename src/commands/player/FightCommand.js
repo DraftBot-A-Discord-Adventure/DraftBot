@@ -199,7 +199,7 @@ async function canFight(entity, friendly) {
 	if (!entity.Player.currentEffectFinished() && !friendly) {
 		return FIGHT_ERROR.DISALLOWED_EFFECT;
 	}
-	if (global.hasBlockedPlayer(entity.discordUserId)) {
+	if (await global.hasBlockedPlayer(entity.discordUserId)) {
 		return FIGHT_ERROR.OCCUPIED;
 	}
 	if (await entity.getCumulativeHealth() === 0 && !friendly) {

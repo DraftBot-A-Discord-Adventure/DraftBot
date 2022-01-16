@@ -31,7 +31,7 @@ export class ObjectItem extends SupportItemModel {
 			if (isNaN(maxStatsValue)) {
 				maxStatsValue = Infinity;
 			}
-			const speedDisplay = maxStatsValue > this.power / 2 ? this.power : format(tr.get("nerfDisplay"),
+			const speedDisplay = maxStatsValue >= this.power / 2 ? this.power : format(tr.get("nerfDisplay"),
 				{
 					old: this.power,
 					max: Math.round(maxStatsValue + this.power / 2)

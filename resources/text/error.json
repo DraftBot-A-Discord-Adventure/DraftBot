@@ -77,7 +77,8 @@
 				"lottery": "Mini-évent lotterie",
 				"switch": "Échange d'équipement",
 				"missionShop": "Magasin des missions",
-				"merchant": "Marchand"
+				"merchant": "Marchand",
+				"drink": "Choix de boire une potion ou non"
 			}
 		},
 		"en": {
@@ -157,7 +158,8 @@
 				"switch": "Equipment switch",
 				"lottery": "Lottery small event",
 				"missionShop": "Missions shop",
-				"merchant": "Merchant"
+				"merchant": "Merchant",
+				"drink": "Choice to drink a potion or not"
 			}
 		}
 	}

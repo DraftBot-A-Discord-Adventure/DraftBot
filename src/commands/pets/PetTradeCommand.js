@@ -61,8 +61,14 @@ const PetTradeCommand = async (message, language) => {
 		trader1.Player.save();
 		trader2.Player.petId = pet1.id;
 		trader2.Player.save();
-		pet1.lovePoints = PETS.BASE_LOVE;
-		pet2.lovePoints = PETS.BASE_LOVE;
+		pet1.lovePoints -= pet1.PetModel.rarity * 5;
+		pet2.lovePoints -= pet2.PetModel.rarity * 5;
+		if (pet1.lovePoints < PETS.BASE_LOVE ) {
+			pet1.lovePoints = PETS.BASE_LOVE;
+		}
+		if (pet2.lovePoints < PETS.BASE_LOVE ) {
+			pet2.lovePoints = PETS.BASE_LOVE;
+		}
 		pet1.save();
 		pet2.save();
 		await message.channel.send({ embeds: [new DraftBotEmbed()

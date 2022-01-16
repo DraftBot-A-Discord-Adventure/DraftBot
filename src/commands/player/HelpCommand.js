@@ -91,6 +91,7 @@ const HelpCommand = async (message, language, args) => {
 	}
 	else {
 		const command = getCommand(args[0]) || getCommandFromAlias(args[0]);
+		let option1, option2;
 		if (!command) {
 			getCommand("help").execute(message, language, []);
 			return;
@@ -98,8 +99,15 @@ const HelpCommand = async (message, language, args) => {
 		const commandInfos = JsonReader.commands.help.getTranslation(language).commands[
 			command.commandInfo.name
 		];
+		if (command === getCommand("petsell")) {
+			option1 = PETS.SELL.MIN;
+			option2 = PETS.SELL.MAX;
+		}
 		helpMessage = new DraftBotEmbed()
-			.setDescription(commandInfos.description)
+			.setDescription(format(commandInfos.description, {
+				option1: option1,
+				option2: option2
+			}))
 			.setTitle(
 				format(
 					JsonReader.commands.help.getTranslation(language).commandEmbedTitle,
