@@ -487,11 +487,6 @@ const needSmallEvent = function(entity) {
 };
 
 /**
- * @type {Number} a cache variable for small events total rarity (for the random max)
- */
-let totalSmallEventsRarity = null;
-
-/**
  * Executes a small event
  * @param {module:"discord.js".Message} message
  * @param {"fr"|"en"} language
@@ -506,18 +501,25 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 	if (forced === null) {
 		const smallEvents = JsonReader.smallEvents;
 		const keys = Object.keys(smallEvents);
-		if (totalSmallEventsRarity === null) {
-			totalSmallEventsRarity = 0;
-			for (let i = 0; i < keys.length; ++i) {
+		let totalSmallEventsRarity = 0;
+		const updatedKeys = [];
+		for (let i = 0; i < keys.length; ++i) {
+			const file = require(require.resolve("../../core/smallEvents/" + keys[i] + "SmallEvent.js"));
+			if (!file.smallEvent || !file.smallEvent.canBeExecuted) {
+				await message.channel.send({ content: keys[i] + " doesn't contain a canBeExecuted function" });
+				return;
+			}
+			if (await file.smallEvent.canBeExecuted(entity)) {
+				updatedKeys.push(keys[i]);
 				totalSmallEventsRarity += smallEvents[keys[i]].rarity;
 			}
 		}
 		const randomNb = randInt(1, totalSmallEventsRarity);
 		let cumul = 0;
-		for (let i = 0; i < keys.length; ++i) {
-			cumul += smallEvents[keys[i]].rarity;
+		for (let i = 0; i < updatedKeys.length; ++i) {
+			cumul += smallEvents[updatedKeys[i]].rarity;
 			if (cumul >= randomNb) {
-				event = keys[i];
+				event = updatedKeys[i];
 				break;
 			}
 		}
@@ -532,7 +534,7 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 		const smallEventModule = require.resolve("../../core/smallEvents/" + filename);
 		try {
 			const smallEventFile = require(smallEventModule);
-			if (!smallEventFile.executeSmallEvent) {
+			if (!smallEventFile.smallEvent.executeSmallEvent) {
 				await message.channel.send({ content: filename + " doesn't contain an executeSmallEvent function" });
 			}
 			else {
@@ -541,7 +543,7 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 					.formatAuthor(JsonReader.commands.report.getTranslation(language).journal, message.author)
 					.setDescription(JsonReader.smallEvents[event].emote + " ");
 
-				await smallEventFile.executeSmallEvent(message, language, entity, seEmbed);
+				await smallEventFile.smallEvent.executeSmallEvent(message, language, entity, seEmbed);
 
 				await MissionsController.update(entity.discordUserId, message.channel, language, "doReports");
 			}

@@ -17,8 +17,6 @@ export class PlayerMissionsInfo extends Model {
 
 	public lastDailyMissionCompleted!: Date;
 
-	public slotsCount!: number;
-
 	public campaignProgression!: number;
 
 	public updatedAt!: Date;
@@ -63,10 +61,6 @@ export function initModel(sequelize: Sequelize) {
 		lastDailyMissionCompleted: {
 			type: DataTypes.DATE,
 			defaultValue: null
-		},
-		slotsCount: {
-			type: DataTypes.INTEGER,
-			defaultValue: 1
 		},
 		campaignProgression: {
 			type: DataTypes.INTEGER,

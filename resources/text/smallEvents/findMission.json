@@ -1,0 +1,22 @@
+{
+	"translations": {
+		"fr": {
+			"intrigue": [
+				"un coursier arrive vers vous essoufflé. Il vous tend une lettre de la part du roi qui vous demande d'effectuer la mission suivante :",
+				"vous trouvez un tableau de missions. Vous les épluchez une par une, et parmi celles-ci, vous en trouvez une qui vous plaît :",
+				"vous décidez de vous fixer un nouvel objectif afin de progresser par rapport aux autres aventuriers :",
+				"un pigeon voyageur vole droit vers vous. Sur sa patte droite, vous trouvez une missive écrite en lettres d'or qui décrit une mission forte intéressante :",
+				"un inconnu vous interpelle et vous lance un défi :",
+				"un passant devant vous laisse tomber une feuille de mission. La mission indiquée étant très intéressante, vous décidez de la faire :",
+				"vous passez devant une cabane qui a l'air abandonnée et fouillez dans le tas de papier devant la porte. Vous y découvrez une proposition de mission. Vous prenez votre courage à deux mains et foncez la réaliser :",
+				"le vent fait voler un parchemin jusque sur votre visage. Coupé dans votre voyage, vous décidez de le lire. Une fois votre surprise passée, vous décidez de réaliser la mission inscrite sur la feuille :",
+				"un vieil aventurier raconte ses histoires à qui veut l'entendre. Vous vous arrêtez alors pour l'écouter un peu. Quelques instants plus tard, il vous remarque et demande si vous pouvez terminer une mission pour lui. Vous avez pitié de lui et acceptez :"
+			]
+		},
+		"en": {
+
+		}
+	},
+	"rarity": 12,
+	"emote": ":scroll: "
+}

@@ -22,7 +22,7 @@ const debugMissionsTestCommand = async (language, message, args) => {
 
 	const embed = new DraftBotEmbed();
 	embed.setTitle("Debug missions");
-	embed.addField("⚙️ General", "Mission slots: " + entity.Player.PlayerMissionsInfo.slotsCount
+	embed.addField("⚙️ General", "Mission slots: " + entity.Player.getMissionSlots()
 		+ "\nDaily mission done: " + entity.Player.PlayerMissionsInfo.dailyMissionNumberDone
 		+ "\nLast daily mission done: " + entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted
 		+ "\nGems count: " + entity.Player.PlayerMissionsInfo.gems

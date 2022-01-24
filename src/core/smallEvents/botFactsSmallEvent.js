@@ -99,7 +99,9 @@ const getNbPlayersWithGivenClass = async (language) => {
 	return [nbPlayersWithThisClass + sentence, classToCheck[language]];
 };
 
-
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

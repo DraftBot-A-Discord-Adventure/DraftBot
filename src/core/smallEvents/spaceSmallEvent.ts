@@ -13,60 +13,64 @@ import {Random} from "random-js";
 import {TranslationModule, Translations} from "../Translations";
 import {performance} from "perf_hooks";
 import {MoonPhase, NextLunarEclipse, SearchLunarEclipse, SearchMoonQuarter} from "../utils/astronomy";
+import {SmallEvent} from "./SmallEvent";
 
 declare const draftbotRandom: Random;
 declare const JsonReader: any;
 declare function format(s: string, replacement: any): string;
 
-const executeSmallEvent = async function(message: Message, language: string, entity: any, seEmbed: MessageEmbed) {
-	let keysList = Object.keys(JsonReader.smallEvents.space.getTranslation(language).specific);
-	if ((await nextFullMoon()).days === 0) {
-		keysList = keysList.filter(e => e !== "nextFullMoon");
-	}
-
-	const translationModule = Translations.getModule("smallEvents.space", language);
-	const name = translationModule.getRandom("names");
-	const seIntro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
-	const intro = format(translationModule.getRandom("intro"), {name});
-	const searchAction = translationModule.getRandom("searchAction");
-	const search = translationModule.getRandom("search");
-	const actionIntro = translationModule.getRandom("actionIntro");
-	const action = translationModule.getRandom("action");
-	const outro = translationModule.getRandom("outro");
-
-	const baseDescription = seEmbed.description;
-	const messageBefore = format(translationModule.get("before_search_format"), {
-		seIntro, intro, searchAction, search
-	});
-	seEmbed.setDescription(baseDescription + messageBefore);
-	message.channel.send({ embeds: [seEmbed] }).then(async (sentMessage) => {
-		const waitTime = 5000;
-		const t0 = performance.now();
-		if (JsonReader.app.NASA_API_KEY === "" || (await SpaceUtils.getNeoWSFeed(JsonReader.app.NASA_API_KEY)).length < 2) {
-			keysList = keysList.filter(e => e !== "neoWS");
+export const smallEvent: SmallEvent = {
+	async executeSmallEvent(message: Message, language: string, entity: any, seEmbed: MessageEmbed) {
+		let keysList = Object.keys(JsonReader.smallEvents.space.getTranslation(language).specific);
+		if ((await nextFullMoon()).days === 0) {
+			keysList = keysList.filter(e => e !== "nextFullMoon");
 		}
-		const specificEvent = draftbotRandom.pick(keysList);
-		eval(`${specificEvent}(translationModule)`).then((replacements: Record<string, unknown>) => {
-			const specific = format(translationModule.getRandom("specific." + specificEvent), replacements);
-			const t1 = performance.now();
-			const timeLeft = waitTime - (t1 - t0);
-			const messageAfter = format(translationModule.get("after_search_format"), {
-				seIntro, intro, searchAction, search, actionIntro, action, outro, specific
-			});
-			const callBack = async () => {
-				seEmbed.setDescription(baseDescription + messageAfter);
-				await sentMessage.edit({ embeds: [seEmbed] });
-			};
-			if (timeLeft <= 0) {
-				callBack().then();
-			}
-			else {
-				setTimeout(async function() {
-					await callBack();
-				}, timeLeft);
-			}
+
+		const translationModule = Translations.getModule("smallEvents.space", language);
+		const name = translationModule.getRandom("names");
+		const seIntro = Translations.getModule("smallEventsIntros", language).getRandom("intro");
+		const intro = format(translationModule.getRandom("intro"), {name});
+		const searchAction = translationModule.getRandom("searchAction");
+		const search = translationModule.getRandom("search");
+		const actionIntro = translationModule.getRandom("actionIntro");
+		const action = translationModule.getRandom("action");
+		const outro = translationModule.getRandom("outro");
+
+		const baseDescription = seEmbed.description;
+		const messageBefore = format(translationModule.get("before_search_format"), {
+			seIntro, intro, searchAction, search
 		});
-	});
+		seEmbed.setDescription(baseDescription + messageBefore);
+		message.channel.send({embeds: [seEmbed]}).then(async (sentMessage) => {
+			const waitTime = 5000;
+			const t0 = performance.now();
+			if (JsonReader.app.NASA_API_KEY === "" || (await SpaceUtils.getNeoWSFeed(JsonReader.app.NASA_API_KEY)).length < 2) {
+				keysList = keysList.filter(e => e !== "neoWS");
+			}
+			const specificEvent = draftbotRandom.pick(keysList);
+			eval(`${specificEvent}(translationModule)`).then((replacements: Record<string, unknown>) => {
+				const specific = format(translationModule.getRandom("specific." + specificEvent), replacements);
+				const t1 = performance.now();
+				const timeLeft = waitTime - (t1 - t0);
+				const messageAfter = format(translationModule.get("after_search_format"), {
+					seIntro, intro, searchAction, search, actionIntro, action, outro, specific
+				});
+				const callBack = async () => {
+					seEmbed.setDescription(baseDescription + messageAfter);
+					await sentMessage.edit({embeds: [seEmbed]});
+				};
+				if (timeLeft <= 0) {
+					callBack().then();
+				} else {
+					setTimeout(async function() {
+						await callBack();
+					}, timeLeft);
+				}
+			});
+		});
+	},
+
+	canBeExecuted: () => Promise.resolve(true)
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -138,7 +142,3 @@ function nextTotalLunarEclipse(): Promise<Record<string, unknown>> {
 		days: Math.floor((eclipse.peak.date.getTime() - new Date().getTime()) / (1000 * 3600 * 24))
 	});
 }
-
-module.exports = {
-	executeSmallEvent: executeSmallEvent
-};

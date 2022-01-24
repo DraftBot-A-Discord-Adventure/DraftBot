@@ -204,4 +204,47 @@ export abstract class Constants {
 		GUILD_XP: "guildXp",
 		POINTS: "points"
 	};
+
+	static readonly MISSIONS = {
+		SLOT_3_LEVEL: 50,
+		SLOT_2_LEVEL: 25,
+		SLOTS_LEVEL_PROBABILITIES: [
+			{
+				LEVEL: 0,
+				EASY: 1,
+				MEDIUM: 0,
+				HARD: 0
+			},
+			{
+				LEVEL: 10,
+				EASY: 0.75,
+				MEDIUM: 0.25,
+				HARD: 0
+			},
+			{
+				LEVEL: 20,
+				EASY: 0.4,
+				MEDIUM: 0.6,
+				HARD: 0
+			},
+			{
+				LEVEL: 40,
+				EASY: 0.25,
+				MEDIUM: 0.65,
+				HARD: 0.1
+			},
+			{
+				LEVEL: 50,
+				EASY: 0.2,
+				MEDIUM: 0.55,
+				HARD: 0.25
+			},
+			{
+				LEVEL: 60,
+				EASY: 0.1,
+				MEDIUM: 0.4,
+				HARD: 0.5
+			}
+		]
+	}
 }

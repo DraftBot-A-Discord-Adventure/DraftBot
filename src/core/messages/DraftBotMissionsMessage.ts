@@ -68,9 +68,6 @@ export class DraftBotMissionsMessageBuilder {
 		}
 		const msg = new DraftBotEmbed();
 		msg.formatAuthor(tr.get("title"), this._user);
-		msg.setTitle(tr.format("title", {
-			pseudo: await this._player.getPseudo(this._language)
-		}));
 		msg.setDescription(desc);
 		return msg;
 	}

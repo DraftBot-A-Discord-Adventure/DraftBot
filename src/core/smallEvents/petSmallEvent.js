@@ -201,5 +201,8 @@ const pickRandomInteraction = function(petEntity) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

@@ -446,7 +446,7 @@ export class Player extends Model {
 	}
 
 	public hasEmptyMissionSlot(): boolean {
-		return this.MissionSlots.filter(slot => !slot.isCampaign()).length < this.PlayerMissionsInfo.slotsCount;
+		return this.MissionSlots.filter(slot => !slot.isCampaign()).length < this.getMissionSlots();
 	}
 
 	public async addExperience(xpWon: number, entity: Entity, message: Message, language: string) {
@@ -457,6 +457,10 @@ export class Player extends Model {
 		while (this.needLevelUp()) {
 			await this.levelUpIfNeeded(entity, <TextChannel> message.channel, language);
 		}
+	}
+
+	public getMissionSlots(): number {
+		return this.level >= Constants.MISSIONS.SLOT_3_LEVEL ? 3 : this.level >= Constants.MISSIONS.SLOT_2_LEVEL ? 2 : 1;
 	}
 }
 

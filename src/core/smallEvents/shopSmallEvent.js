@@ -64,5 +64,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

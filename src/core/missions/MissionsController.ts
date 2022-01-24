@@ -1,7 +1,7 @@
 import Player from "../models/Player";
 import {IMission} from "./IMission";
 import {TextChannel, User} from "discord.js";
-import MissionSlot from "../models/MissionSlot";
+import MissionSlot, {MissionSlots} from "../models/MissionSlot";
 import {DailyMissions} from "../models/DailyMission";
 import Mission, {Missions} from "../models/Mission";
 import {hoursToMilliseconds} from "../utils/TimeUtils";
@@ -14,6 +14,8 @@ import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {DraftBotCompletedMissions} from "../messages/DraftBotCompletedMissions";
 import {draftBotClient} from "../bot";
 import {Translations} from "../Translations";
+import {Constants} from "../Constants";
+import {RandomUtils} from "../utils/RandomUtils";
 
 export class MissionsController {
 	static getMissionInterface(missionId: string): IMission {
@@ -216,7 +218,7 @@ export class MissionsController {
 	public static async addMissionToPlayer(player: Player, missionId: string, difficulty: MissionDifficulty, mission: Mission = null): Promise<MissionSlot> {
 		const prop = await this.generateMissionProperties(missionId, difficulty, mission);
 		const missionData = Data.getModule("missions." + missionId);
-		return await MissionSlot.create({
+		const missionSlot = await MissionSlot.create({
 			playerId: player.id,
 			missionId: prop.mission.id,
 			missionVariant: prop.variant,
@@ -226,6 +228,7 @@ export class MissionsController {
 			gemsToWin: missionData.getNumberFromArray("gems", prop.index),
 			xpToWin: missionData.getNumberFromArray("xp", prop.index)
 		});
+		return await MissionSlots.getById(missionSlot.id);
 	}
 
 	public static async addRandomMissionToPlayer(player: Player, difficulty: MissionDifficulty): Promise<MissionSlot> {
@@ -235,5 +238,15 @@ export class MissionsController {
 
 	public static async getVariantFormatText(missionId: string, variant: number, objective: number, language: string) {
 		return await this.getMissionInterface(missionId).getVariantFormatVariable(variant, objective, language);
+	}
+
+	public static getRandomDifficulty(player: Player): MissionDifficulty {
+		for (let i = Constants.MISSIONS.SLOTS_LEVEL_PROBABILITIES.length - 1; i >= 0; i--) {
+			const probability = Constants.MISSIONS.SLOTS_LEVEL_PROBABILITIES[i];
+			if (player.level >= probability.LEVEL) {
+				const randomNumber = RandomUtils.draftbotRandom.realZeroToOneInclusive();
+				return randomNumber < probability.EASY ? MissionDifficulty.EASY : randomNumber < probability.MEDIUM + probability.EASY ? MissionDifficulty.MEDIUM : MissionDifficulty.HARD;
+			}
+		}
 	}
 }
