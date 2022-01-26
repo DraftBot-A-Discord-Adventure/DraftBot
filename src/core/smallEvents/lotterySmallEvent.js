@@ -40,8 +40,14 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		}
 		const malus = emojiLottery[2] === collected.first().emoji.name;
 		let rewardType = JsonReader.smallEvents.lottery.rewardType;
-		const guild = await Guilds.getById(entity.Player.guildId);
-		if (guild.isAtMaxLevel()) {
+		let guild;
+		try {
+			guild = await Guilds.getById(entity.Player.guildId);
+		}
+		catch {
+			guild = null;
+		}
+		if (guild === null || guild.isAtMaxLevel()) {
 			rewardType = rewardType.filter(r => r !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP);
 		}
 		let sentenceReward;
@@ -54,7 +60,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const coeff = JsonReader.smallEvents.lottery.coeff[collected.first().emoji.name];
 			switch (reward) {
 			case Constants.LOTTERY_REWARD_TYPES.XP:
-				player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,entity,message,language);
+				player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, message, language);
 				player.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.MONEY:
@@ -62,7 +68,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				player.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
-				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff,message,language);
+				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, message, language);
 				await guild.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.POINTS:
