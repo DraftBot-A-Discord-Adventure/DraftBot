@@ -47,7 +47,10 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		catch {
 			guild = null;
 		}
-		if (guild === null || guild.isAtMaxLevel()) {
+		if (guild === null) {
+			rewardType = rewardType.filter(r => r !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP);
+		}
+		else if (guild.isAtMaxLevel()) {
 			rewardType = rewardType.filter(r => r !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP);
 		}
 		let sentenceReward;
