@@ -21,7 +21,7 @@
 				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours** : {turn}/{maxTurn}\n- **Temps de combat** : {time}",
 				"winElo": "\n- **Elo de la partie** : `{elo}`\n- **Points gagnés/perdus** : `{points}`",
 				"drawElo": "\n- **Elo de la partie** : `{elo}`",
-				"fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {pseudo}\n- **Vie finale** : {health}/{maxHealth} :zap:",
+				"fighterStats": "\n\n:bust_in_silhouette : | Statistiques de {pseudo}\n- **Vie finale** : {health}/{maxHealth} :zap:",
 				"attacksField": "\n- **Attaques** :",
 				"attackStats": "\n      - {emote} {success}/{total} réussie(s), {damage} de dégâts en moyenne"
 			},
@@ -172,7 +172,8 @@
 				"draw": ":newspaper: |** {player1} finished their match against {player2} on a draw!**\n\n",
 				"win": ":newspaper: |** {winner} wins the match against {loser}**\n\n",
 				"gameStats": ":bar_chart: | Fight stats\n- **Turns**: {turn}/{maxTurn}\n- **Fight time**: {time}",
-				"elo": "\n- **Elo**: `{elo}`\n- **Points won/lost**: `{points}`",
+				"winElo": "\n- **Elo**: `{elo}`\n- **Points won/lost**: `{points}`",
+				"drawElo": "\n- **Elo**: `{elo}`",
 				"fighterStats": "\n\n:bust_in_silhouette: | Stats of {pseudo}\n- **Final health**: {health}/{maxHealth} :zap:",
 				"attacksField": "\n- **Attacks**:",
 				"attackStats": "\n      - {emote} {success}/{total} successful, average of {damage} damage"
