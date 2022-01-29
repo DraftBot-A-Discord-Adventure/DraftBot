@@ -126,7 +126,7 @@ function getRegenShopItem(translationModule) {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			await entity.setHealth(await entity.getMaxHealth());
+			await entity.setHealth(await entity.getMaxHealth(), message.sentMessage.channel, translationModule.language);
 			await entity.save();
 			await message.sentMessage.channel.send({ embeds: [
 				new DraftBotEmbed()

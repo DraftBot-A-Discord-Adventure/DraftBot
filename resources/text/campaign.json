@@ -251,6 +251,13 @@
 			"missionObjective": 1,
 			"gemsToWin": 2,
 			"xpToWin": 2
+		},
+		{
+			"missionId": "earnLifePoints",
+			"missionVariant": 0,
+			"missionObjective": 40,
+			"gemsToWin": 2,
+			"xpToWin": 2
 		}
 	]
 }

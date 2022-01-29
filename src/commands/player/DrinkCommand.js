@@ -49,7 +49,7 @@ const DrinkCommand = async (message, language, args) => {
 			}
 			else if (potion.nature === NATURE.HEALTH) {
 				embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, {value: potion.power}));
-				await entity.addHealth(potion.power);
+				await entity.addHealth(potion.power, message.channel, language);
 				await entity.Player.drinkPotion();
 			}
 			else if (potion.nature === NATURE.SPEED || potion.nature === NATURE.DEFENSE || potion.nature === NATURE.ATTACK) { // Those objects are active only during fights

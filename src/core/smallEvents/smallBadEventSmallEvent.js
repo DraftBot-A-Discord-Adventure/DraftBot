@@ -27,7 +27,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				], {lifeLoss: lifeLoss}
 			)
 		);
-		await entity.addHealth(-lifeLoss);
+		await entity.addHealth(-lifeLoss, message.channel, language);
 		break;
 	case 1:
 		time = draftbotRandom.integer(SMALL_EVENT.MINIMUM_TIME_LOST_SMALL,

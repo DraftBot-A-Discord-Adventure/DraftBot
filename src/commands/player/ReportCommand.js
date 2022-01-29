@@ -412,7 +412,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		});
 	}
 
-	await entity.addHealth(pDataValues.health);
+	await entity.addHealth(pDataValues.health, message.channel, language);
 
 	await player.addScore(entity, scoreChange, message.channel, language);
 	await player.addMoney(entity, moneyChange, message.channel, language);
@@ -437,7 +437,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 
 	if (pDataValues.oneshot === true) {
-		entity.setHealth(0);
+		entity.setHealth(0, message.channel, language);
 	}
 
 	if (pDataValues.eventId === 0) {

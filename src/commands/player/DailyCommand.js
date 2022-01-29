@@ -57,7 +57,7 @@ const DailyCommand = async (message, language) => {
 		embed.setDescription(
 			format(JsonReader.commands.daily.getTranslation(language).healthDaily, {value: activeObject.power})
 		);
-		await entity.addHealth(activeObject.power);
+		await entity.addHealth(activeObject.power, message.channel, language);
 		entity.Player.InventoryInfo.updateLastDailyAt();
 	}
 	if (

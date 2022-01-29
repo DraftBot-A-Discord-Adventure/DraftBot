@@ -13,13 +13,14 @@ import MissionSlot from "./MissionSlot";
 import Mission from "./Mission";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import Player, {Players} from "./Player";
-import {Message} from "discord.js";
+import {Message, TextChannel} from "discord.js";
 import {Classes} from "./Class";
 import Armor from "./Armor";
 import Weapon from "./Weapon";
 import Potion from "./Potion";
 import ObjectItem from "./ObjectItem";
 import moment = require("moment");
+import {MissionsController} from "../missions/MissionsController";
 
 export class Entity extends Model {
 	public readonly id!: number;
@@ -96,12 +97,19 @@ export class Entity extends Model {
 		return playerClass.getMaxCumulativeHealthValue(this.Player.level);
 	}
 
-	public async addHealth(health: number) {
+	public async addHealth(health: number, channel: TextChannel, language: string) {
 		this.health += health;
-		await this.setHealth(this.health);
+		if (health > 0) {
+			MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", health).then();
+		}
+		await this.setHealth(this.health, channel, language);
 	}
 
-	public async setHealth(health: number) {
+	public async setHealth(health: number, channel: TextChannel, language: string) {
+		const difference = health - this.health;
+		if (difference > 0) {
+			MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", difference).then();
+		}
 		if (health < 0) {
 			this.health = 0;
 		}

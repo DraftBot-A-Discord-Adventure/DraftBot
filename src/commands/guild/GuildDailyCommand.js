@@ -164,7 +164,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		for (const i in members) {
 			if (Object.prototype.hasOwnProperty.call(members, i)) {
 				if (members[i].Player.effect !== EFFECT.DEAD) {
-					await members[i].setHealth(await members[i].getMaxHealth());
+					await members[i].setHealth(await members[i].getMaxHealth(), message.channel, language);
 				}
 				await members[i].save();
 			}
@@ -190,7 +190,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		for (const i in members) {
 			if (Object.prototype.hasOwnProperty.call(members, i)) {
 				if (members[i].Player.effect !== EFFECT.DEAD) {
-					await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier));
+					await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier), message.channel, language);
 				}
 				await members[i].save();
 			}
@@ -205,7 +205,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 		for (const i in members) {
 			if (Object.prototype.hasOwnProperty.call(members, i)) {
 				if (members[i].Player.currentEffectFinished()) {
-					await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier));
+					await members[i].addHealth(Math.round(guild.level / JsonReader.commands.guildDaily.levelMultiplier), message.channel, language);
 					await members[i].save();
 				}
 				else if (members[i].Player.effect !== EFFECT.DEAD && members[i].Player.effect !== EFFECT.LOCKED) {

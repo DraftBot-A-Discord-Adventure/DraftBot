@@ -1,0 +1,51 @@
+
+{
+	"translations": {
+		"fr": {
+			"desc": "Gagner {objective} point{objective>1?s:} de vie"
+		},
+		"en": {
+			"desc": "Earn {objective} life point{objective>1?s:}"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0,
+			1
+		],
+		"medium": [
+			2
+		],
+		"hard": [
+			3
+		]
+	},
+	"objectives": [
+		5,
+		10,
+		15,
+		30
+	],
+	"gems": [
+		1,
+		2,
+		4,
+		10
+	],
+	"xp": [
+		10,
+		20,
+		40,
+		100
+	],
+	"expirations": [
+		24,
+		36,
+		48,
+		72
+	],
+	"dailyIndexes": [
+		1
+	]
+}

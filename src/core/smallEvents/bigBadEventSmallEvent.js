@@ -17,7 +17,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	case 0:
 		lifeLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_LOST_BIG, SMALL_EVENT.MAXIMUM_HEALTH_LOST_BIG);
 		seEmbed.setDescription(base + format(transBBE.lifeLoss.stories[randInt(0, transBBE.lifeLoss.stories.length)], {lifeLoss: lifeLoss}));
-		await entity.addHealth(-lifeLoss);
+		await entity.addHealth(-lifeLoss, message.channel, language);
 		break;
 	case 1:
 		seFallen = transBBE.alteration.stories[randInt(0, transBBE.alteration.stories.length)];

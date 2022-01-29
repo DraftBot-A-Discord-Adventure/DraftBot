@@ -93,7 +93,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const healthWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_WON_CLASS, SMALL_EVENT.MAXIMUM_HEALTH_WON_CLASS);
 			seEmbed.setDescription(base + format(trans.other.winHealth[draftbotRandom.integer(0, trans.other.winHealth.length - 1)], {health: healthWon}));
 			await message.channel.send({ embeds: [seEmbed] });
-			await entity.addHealth(healthWon);
+			await entity.addHealth(healthWon, message.channel, language);
 		}
 	}
 	else {

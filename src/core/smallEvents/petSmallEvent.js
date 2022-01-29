@@ -32,7 +32,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "gainLife":
 		amount = randInt(1, 5);
-		await entity.addHealth(amount);
+		await entity.addHealth(amount, message.channel, language);
 		await entity.save();
 		break;
 	case "gainLove":
@@ -76,7 +76,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "loseLife":
 		amount = randInt(1, 5);
-		await entity.addHealth(-amount);
+		await entity.addHealth(-amount, message.channel, language);
 		await entity.save();
 		break;
 	case "loseMoney":
