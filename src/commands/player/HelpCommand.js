@@ -8,7 +8,7 @@ module.exports.commandInfo = {
 
 /**
  * Displays commands of the bot for a player, if arg match one command explain that command
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  */
@@ -19,7 +19,6 @@ const HelpCommand = async (message, language, args) => {
 	let helpMessage;
 
 	const [server] = await Servers.getOrRegister(message.guild.id);
-
 	if (!args.length) {
 		helpMessage = new DraftBotEmbed();
 		const commandsList = Object.entries(
@@ -41,6 +40,13 @@ const HelpCommand = async (message, language, args) => {
 			Object.fromEntries(
 				commandsList.filter(
 					(command) => command[1].category === CATEGORY.PLAYER
+				)
+			)
+		);
+		const missionCommands = Object.keys(
+			Object.fromEntries(
+				commandsList.filter(
+					(command) => command[1].category === CATEGORY.MISSION
 				)
 			)
 		);
@@ -72,6 +78,10 @@ const HelpCommand = async (message, language, args) => {
 			{
 				name: JsonReader.commands.help.getTranslation(language).playerCommands,
 				value: `${playerCommands.join(" • ")}`
+			},
+			{
+				name: JsonReader.commands.help.getTranslation(language).missionCommands,
+				value: `${missionCommands.join(" • ")}`
 			},
 			{
 				name: JsonReader.commands.help.getTranslation(language).guildCommands,
