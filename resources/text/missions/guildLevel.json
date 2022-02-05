@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Étre dans une guilde niveau {objective} ou plus"
+			"desc": "Être dans une guilde niveau {objective} ou plus"
 		},
 		"en": {
 			"desc": "Be in a guild level {objective} or more"

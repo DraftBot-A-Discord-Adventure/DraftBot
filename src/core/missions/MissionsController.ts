@@ -90,7 +90,7 @@ export class MissionsController {
 				completedMissions.push(
 					new CompletedMission(
 						mission.xpToWin,
-						mission.gemsToWin,
+						0, // Don't win gems in secondary missions
 						await mission.Mission.formatDescription(mission.missionObjective, mission.missionVariant, language),
 						CompletedMissionType.NORMAL
 					)
