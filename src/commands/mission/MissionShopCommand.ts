@@ -24,7 +24,7 @@ declare function sendBlockedError(user: User, channel: TextChannel, language: st
 
 module.exports.commandInfo = {
 	name: "missionshop",
-	aliases: ["ms", "mshop"],
+	aliases: ["ms", "mshop", "questshop", "missionsshop", "questsshop", "qs", "qshop"],
 	disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD, Constants.EFFECT.LOCKED]
 };
 
@@ -35,7 +35,7 @@ module.exports.commandInfo = {
  */
 const MissionShopCommand = async (message: Message, language: string) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	if (await sendBlockedError(message.author, <TextChannel> message.channel, language)) {
+	if (await sendBlockedError(message.author, <TextChannel>message.channel, language)) {
 		return;
 	}
 
@@ -117,11 +117,13 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const allMissions = entity.Player.MissionSlots.filter(slot => !slot.isCampaign());
 			if (!allMissions.length) {
-				message.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
-					message.user,
-					message.language,
-					translationModule.get("error.noMissionToSkip")
-				)] });
+				message.sentMessage.channel.send({
+					embeds: [new DraftBotErrorEmbed(
+						message.user,
+						message.language,
+						translationModule.get("error.noMissionToSkip")
+					)]
+				});
 				return false;
 			}
 			const chooseMission = new DraftBotReactionMessageBuilder()
@@ -158,12 +160,13 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 						}
 					}
 					removeBlockedPlayer(message.user.id);
-					await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
+					await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
 				});
 			let desc = "";
 			for (let i = 0; i < allMissions.length; ++i) {
 				chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.NUMBERS[i + 1]));
-				desc += Constants.REACTIONS.NUMBERS[i + 1] + " " + await allMissions[i].Mission.formatDescription(allMissions[i].missionObjective, allMissions[i].missionVariant, message.language) + "\n";
+				desc += Constants.REACTIONS.NUMBERS[i + 1] + " "
+                    + await allMissions[i].Mission.formatDescription(allMissions[i].missionObjective, allMissions[i].missionVariant, message.language) + "\n";
 			}
 			chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
 			const chooseMissionBuilt = chooseMission.build();
@@ -181,7 +184,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			entity.Player.addMoney(entity, Constants.MISSION_SHOP.RATIO_MONEY_GEMS, <TextChannel> message.sentMessage.channel, translationModule.language);
+			entity.Player.addMoney(entity, Constants.MISSION_SHOP.RATIO_MONEY_GEMS, <TextChannel>message.sentMessage.channel, translationModule.language);
 			await message.sentMessage.channel.send(
 				{
 					embeds: [new DraftBotEmbed()
@@ -189,7 +192,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 						.setDescription(translationModule.format("items.money.giveDescription", {amount: Constants.MISSION_SHOP.RATIO_MONEY_GEMS})
 						)]
 				});
-			await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -202,8 +205,8 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const item = await generateRandomItem(Constants.RARITY.MYTHICAL, null, Constants.RARITY.SPECIAL);
 			console.log(item.rarity);
-			await giveItemToPlayer(entity, item, message.language, message.user, <TextChannel> message.sentMessage.channel);
-			await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
+			await giveItemToPlayer(entity, item, message.language, message.user, <TextChannel>message.sentMessage.channel);
+			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -215,14 +218,16 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek) {
-				message.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
-					message.user,
-					message.language,
-					translationModule.get("error.remainingCooldown")
-				)] });
+				message.sentMessage.channel.send({
+					embeds: [new DraftBotErrorEmbed(
+						message.user,
+						message.language,
+						translationModule.get("error.remainingCooldown")
+					)]
+				});
 				return false;
 			}
-			entity.Player.addScore(entity, 1000, <TextChannel> message.sentMessage.channel, translationModule.language);
+			entity.Player.addScore(entity, 1000, <TextChannel>message.sentMessage.channel, translationModule.language);
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{
@@ -233,7 +238,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 				});
 			entity.Player.PlayerMissionsInfo.hasBoughtPointsThisWeek = true;
 			await entity.Player.PlayerMissionsInfo.save();
-			await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -245,11 +250,13 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.petId === null) {
-				message.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
-					message.user,
-					message.language,
-					translationModule.get("error.noPet")
-				)] });
+				message.sentMessage.channel.send({
+					embeds: [new DraftBotErrorEmbed(
+						message.user,
+						message.language,
+						translationModule.get("error.noPet")
+					)]
+				});
 				return false;
 			}
 			const sentenceGotten = translationModule.getRandom("items.lovePointsValue.advice." + entity.Player.Pet.getLoveLevelNumber());
@@ -265,7 +272,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 					}))
 				]
 			});
-			await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		});
 }
@@ -277,11 +284,13 @@ function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			if (entity.Player.hasBadge("💍")) {
-				message.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
-					message.user,
-					message.language,
-					translationModule.get("error.alreadyHasItem")
-				)] });
+				message.sentMessage.channel.send({
+					embeds: [new DraftBotErrorEmbed(
+						message.user,
+						message.language,
+						translationModule.get("error.alreadyHasItem")
+					)]
+				});
 				return false;
 			}
 			entity.Player.addBadge("💍");
@@ -292,7 +301,7 @@ function getBadgeShopItem(translationModule: TranslationModule): ShopItem {
 					.setDescription("💍 " + translationModule.get("items.badge.name"))
 				]
 			});
-			await MissionsController.update(message.user.id, <TextChannel> message.sentMessage.channel, message.language, "spendGems");
+			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
 			return true;
 		}
 	);

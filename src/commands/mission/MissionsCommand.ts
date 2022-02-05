@@ -7,7 +7,7 @@ import {DraftBotMissionsMessageBuilder} from "../../core/messages/DraftBotMissio
 
 export const commandInfo = {
 	name: "missions",
-	aliases: ["m", "mission"],
+	aliases: ["m", "mission", "quests", "quest","q"],
 	disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
 };
 
