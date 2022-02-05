@@ -11,7 +11,7 @@
 				"skipMapMission": {
 					"emote": "\uD83E\uDDFE",
 					"name": "Passe-mission",
-					"price": 1,
+					"price": 10,
 					"info": "Vous permet de passer une mission obtenue sur la carte, cependant, vous n'obtiendrez aucune récompense.",
 					"giveTitle": "{pseudo}, vous avez décidé de passer une mission",
 					"giveDesc": "Choisissez la mission à passer :",
@@ -21,7 +21,7 @@
 				"money": {
 					"emote": "\uD83D\uDCB0",
 					"name": "Argent du roi",
-					"price": 1,
+					"price": 50,
 					"info": "Vous octroie `{amount} :moneybag:`.",
 					"giveTitle": "{pseudo}, achat effectué !",
 					"giveDescription": "Vous avez reçu `{amount} :moneybag:`."
@@ -29,14 +29,14 @@
 				"valuableItem": {
 					"emote": "✨",
 					"name": "Trésor du roi",
-					"price": 1,
+					"price": 30,
 					"info": "Vous octroie un objet de valeur provenant de la salle aux trésors du roi.",
 					"give": "{pseudo}, vous obtenez un(e) nouvel(le) {type} :"
 				},
 				"1000Points": {
 					"emote": "\uD83C\uDFC5",
 					"name": "Ferveur du roi",
-					"price": 1,
+					"price": 5,
 					"info": "Vous octroie 1000 points. Ne peut être utilisé qu'une fois par semaine.",
 					"giveTitle": "{pseudo}, achat effectué !",
 					"giveDescription": "Vous avez reçu 1000 :medal:. A la semaine prochaine pour une nouvelle ferveur !"
@@ -44,7 +44,7 @@
 				"lovePointsValue": {
 					"emote": "\uD83E\uDDD1\u200D⚕️",
 					"name": "Vétérinaire de la cour",
-					"price": 1,
+					"price": 5,
 					"info": "Vous renseigne sur l'amour exact de votre pet sur vous.",
 					"giveTitle": "{pseudo}, achat effectué !",
 					"giveDesc": "Le vétérinaire s'approche de vous. Il examine votre animal, puis dit : \"{pseudo}, votre ch{isFemale?ère:er} **{petName}** est actuellement à **{actualLP} / 100** point{actualLP>1?s:} d'amour. {commentOnResult}\"",
