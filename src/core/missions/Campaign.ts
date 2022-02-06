@@ -61,23 +61,23 @@ export class Campaign {
 		return completedMissions;
 	}
 
-	public static async updatePlayerCampaign(player: Player, language: string): Promise<CompletedMission[]> {
+	public static async updatePlayerCampaign(completedCampaign: boolean, player: Player, language: string): Promise<CompletedMission[]> {
 		const [campaign] = player.MissionSlots.filter(m => m.isCampaign());
 		if (!campaign) {
 			const campaignJson = require("../../../../resources/text/campaign.json").missions[0];
 			campaignJson.playerId = player.id;
 			const slot = await MissionSlot.create(campaignJson);
 			player.MissionSlots.push(await MissionSlots.getById(slot.id));
-			return this.updatePlayerCampaign(player, language);
+			return this.updatePlayerCampaign(completedCampaign, player, language);
 		}
-		if (!campaign.isCompleted()) {
+		if (completedCampaign || Campaign.hasNextCampaign(player.PlayerMissionsInfo.campaignProgression)) {
 			return await this.completeCampaignMissions(player, campaign, language);
 		}
 		return [];
 	}
 
 	public static async updateCampaignAndSendMessage(discordUserId: string, player: Player, channel: TextChannel, language: string) {
-		const completedMissions = await MissionsController.completeAndUpdateMissions(player, false, language);
+		const completedMissions = await MissionsController.completeAndUpdateMissions(player, false, false, language);
 		if (completedMissions.length !== 0) {
 			await MissionsController.updatePlayerStats(player, completedMissions);
 			await MissionsController.sendCompletedMissions(discordUserId, player, completedMissions, channel, language);

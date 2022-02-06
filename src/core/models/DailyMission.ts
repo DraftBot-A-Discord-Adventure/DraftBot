@@ -4,8 +4,11 @@ import {MissionsController} from "../missions/MissionsController";
 import Mission from "./Mission";
 import moment = require("moment");
 import {Data} from "../Data";
+import PlayerMissionsInfo from "./PlayerMissionsInfo";
 
 export class DailyMission extends Model {
+	public readonly id!: number;
+
 	public missionId!: string;
 
 	public objective!: number;
@@ -39,6 +42,9 @@ export class DailyMissions {
 	static async getOrGenerate(): Promise<DailyMission> {
 		let dailyMission = await DailyMissions.queryDailyMission();
 		if (!dailyMission || !datesAreOnSameDay(dailyMission.updatedAt, new Date())) {
+			await PlayerMissionsInfo.update({
+				dailyMissionNumberDone: 0
+			}, { where: {} });
 			dailyMission = await DailyMissions.regenerateDailyMission();
 		}
 		return dailyMission;
@@ -50,6 +56,7 @@ export class DailyMissions {
 		const missionData = Data.getModule("missions." + prop.mission.id);
 		if (!dailyMission) {
 			await DailyMission.create({
+				id: 0,
 				missionId: prop.mission.id,
 				objective: missionData.getNumberFromArray("objectives", prop.index),
 				variant: prop.variant,
@@ -63,6 +70,7 @@ export class DailyMissions {
 			dailyMission.variant = prop.variant;
 			dailyMission.gemsToWin = missionData.getNumberFromArray("gems", prop.index);
 			dailyMission.xpToWin = missionData.getNumberFromArray("xp", prop.index);
+			dailyMission.updatedAt = new Date();
 			await dailyMission.save();
 		}
 		return await this.queryDailyMission();
@@ -71,9 +79,12 @@ export class DailyMissions {
 
 export function initModel(sequelize: Sequelize) {
 	DailyMission.init({
-		missionId: {
-			type: DataTypes.TEXT,
+		id: {
+			type: DataTypes.INTEGER,
 			primaryKey: true
+		},
+		missionId: {
+			type: DataTypes.TEXT
 		},
 		objective: {
 			type: DataTypes.INTEGER

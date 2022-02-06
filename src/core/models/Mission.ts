@@ -76,7 +76,8 @@ export class Missions {
 			where: {
 				campaignOnly: false,
 				canBeDaily: true
-			}
+			},
+			order: [Sequelize.fn("RANDOM")]
 		});
 	}
 

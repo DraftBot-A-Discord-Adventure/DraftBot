@@ -31,8 +31,8 @@ export class MissionsController {
 	static async update(discordUserId: string, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<void> {
 		const [entity] = await Entities.getOrRegister(discordUserId);
 		await MissionsController.handleExpiredMissions(entity.Player, draftBotClient.users.cache.get(discordUserId), channel, language);
-		const completedDaily = await MissionsController.updateMissionsCounts(entity.Player, missionId, count, params, set);
-		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, completedDaily, language);
+		const [completedDaily, completedCampaign] = await MissionsController.updateMissionsCounts(entity.Player, missionId, count, params, set);
+		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, completedDaily, completedCampaign, language);
 		if (completedMissions.length !== 0) {
 			await MissionsController.updatePlayerStats(entity.Player, completedMissions);
 			await MissionsController.sendCompletedMissions(discordUserId, entity.Player, completedMissions, channel, language);
@@ -48,8 +48,9 @@ export class MissionsController {
 	 * @private
 	 * @return true if the daily mission is finished and needs to be said to the player
 	 */
-	private static async updateMissionsCounts(player: Player, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<boolean> {
+	private static async updateMissionsCounts(player: Player, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<boolean[]> {
 		const missionInterface = this.getMissionInterface(missionId);
+		let completedCampaign = false;
 		for (const mission of player.MissionSlots) {
 			if (mission.missionId === missionId && missionInterface.areParamsMatchingVariant(mission.missionVariant, params) && !mission.hasExpired() && !mission.isCompleted()) {
 				if (set) {
@@ -60,6 +61,9 @@ export class MissionsController {
 				}
 				if (mission.numberDone > mission.missionObjective) {
 					mission.numberDone = mission.missionObjective;
+				}
+				if (mission.isCampaign() && mission.isCompleted()) {
+					completedCampaign = true;
 				}
 				await mission.save();
 			}
@@ -75,17 +79,17 @@ export class MissionsController {
 					await player.PlayerMissionsInfo.save();
 					if (player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
 						player.PlayerMissionsInfo.lastDailyMissionCompleted = new Date();
-						return true;
+						return [true, completedCampaign];
 					}
 				}
 			}
 		}
-		return false;
+		return [false, completedCampaign];
 	}
 
-	static async completeAndUpdateMissions(player: Player, completedDailyMission: boolean, language: string): Promise<CompletedMission[]> {
+	static async completeAndUpdateMissions(player: Player, completedDailyMission: boolean, completedCampaign: boolean, language: string): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
-		completedMissions.push(...await Campaign.updatePlayerCampaign(player, language));
+		completedMissions.push(...await Campaign.updatePlayerCampaign(completedCampaign, player, language));
 		for (const mission of player.MissionSlots) {
 			if (mission.isCompleted() && !mission.isCampaign()) {
 				completedMissions.push(
