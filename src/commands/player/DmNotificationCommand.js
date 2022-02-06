@@ -1,5 +1,6 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "dmnotification",
@@ -27,7 +28,7 @@ const DmNotificationCommand = async (message, language) => {
 	const dmNotificationEmbed = new DraftBotEmbed()
 		.setDescription(
 			format(translations.normal, {
-				pseudo: message.author.username,
+				pseudo: escapeUsername(message.author.username),
 				notifOnVerif: isDmNotificationOn ? translations.open : translations.closed
 			})
 		)

@@ -152,7 +152,7 @@ export class MissionsController {
 						"missionsExpiredTitle",
 						{
 							missionsCount: expiredMissions.length,
-							pseudo: user.username
+							pseudo: await player.getPseudo(language)
 						}
 					), user.displayAvatarURL())
 					.setDescription(tr.format(

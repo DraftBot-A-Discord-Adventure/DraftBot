@@ -6,6 +6,7 @@ import {PetEntities} from "../../core/models/PetEntity";
 
 import {Maps} from "../../core/Maps";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "guilddaily",
@@ -244,7 +245,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 					JsonReader.commands.guildDaily.getTranslation(language).dmNotification.description,
 					{
 						serveur: message.guild.name,
-						pseudo: message.author.username
+						pseudo: escapeUsername(message.author.username)
 					}
 				) + embed.description,
 				JsonReader.bot.embed.default,

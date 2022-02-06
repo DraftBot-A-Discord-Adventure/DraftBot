@@ -3,6 +3,7 @@ import {MapLinks} from "../../core/models/MapLink";
 import {Maps} from "../../core/Maps";
 import {Entities} from "../../core/models/Entity";
 import {PlayerSmallEvents} from "../../core/models/PlayerSmallEvent";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "respawn",
@@ -22,7 +23,7 @@ const RespawnCommand = async (message, language) => {
 		return;
 	}
 	if (entity.Player.effect !== EFFECT.DEAD) {
-		await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.respawn.getTranslation(language).alive, {pseudo: message.author.username}));
+		await sendErrorMessage(message.author, message.channel, language, format(JsonReader.commands.respawn.getTranslation(language).alive, {pseudo: await entity.Player.getPseudo(language)}));
 	}
 	else {
 		const lostScore = Math.round(entity.Player.score * JsonReader.commands.respawn.score_remove_during_respawn);
@@ -44,10 +45,12 @@ const RespawnCommand = async (message, language) => {
 
 		await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 
-		await message.channel.send({ content: format(JsonReader.commands.respawn.getTranslation(language).respawn, {
-			pseudo: message.author.username,
-			lostScore: lostScore
-		})});
+		await message.channel.send({
+			content: format(JsonReader.commands.respawn.getTranslation(language).respawn, {
+				pseudo: escapeUsername(message.author.username),
+				lostScore: lostScore
+			})
+		});
 
 		log(message.author.id + " respawned (" + lostScore + " points lost)");
 	}

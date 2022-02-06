@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Maps} from "../../core/Maps";
 import Entity, {Entities} from "../../core/models/Entity";
 import Player, {Players} from "../../core/models/Player";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "top",
@@ -187,7 +188,7 @@ const TopCommand = async function(message, language, args) {
 async function displayTop(message, language, numberOfPlayer, allEntities, rankCurrentPlayer, topTitle, page, scoreTooLow) { // eslint-disable-line max-params
 	const embedError = new DraftBotEmbed();
 	const embed = new DraftBotEmbed();
-	const actualPlayer = message.author.username;
+	const actualPlayer = escapeUsername(message.author.username);
 	let pageMax = Math.ceil(numberOfPlayer / 15);
 	if (pageMax < 1) {
 		pageMax = 1;

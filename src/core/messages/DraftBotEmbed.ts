@@ -1,4 +1,5 @@
 import {MessageEmbed, User} from "discord.js";
+import {escapeUsername} from "../utils/StringUtils";
 
 declare const JsonReader: any;
 declare function format(s: string, replacement: any): string;
@@ -24,7 +25,7 @@ export class DraftBotEmbed extends MessageEmbed {
 	 */
 	formatAuthor(title: string, user: User): DraftBotEmbed {
 		this.setAuthor(format(title, {
-			pseudo: user.username
+			pseudo: escapeUsername(user.username)
 		}), user.displayAvatarURL());
 		return this;
 	}

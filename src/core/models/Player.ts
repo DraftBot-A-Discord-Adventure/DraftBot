@@ -24,6 +24,7 @@ import {DraftBotPrivateMessage} from "../messages/DraftBotPrivateMessage";
 import {minutesToMilliseconds} from "../utils/TimeUtils";
 import {GenericItemModel} from "./GenericItemModel";
 import {MissionsController} from "../missions/MissionsController";
+import {escapeUsername} from "../utils/StringUtils";
 
 declare const client: Client;
 
@@ -195,9 +196,13 @@ export class Player extends Model {
 
 	public async setPseudo(language: string): Promise<void> {
 		const entity = await this.getEntity();
-		if (entity.discordUserId !== undefined &&
-			client.users.cache.get(entity.discordUserId) !== undefined) {
-			this.pseudo = client.users.cache.get(entity.discordUserId).username;
+		if (entity.discordUserId !== undefined) {
+			if (client.users.cache.get(entity.discordUserId) !== undefined) {
+				this.pseudo = escapeUsername(client.users.cache.get(entity.discordUserId).username);
+			}
+			else {
+				this.pseudo = Translations.getModule("models.players", language).get("pseudo");
+			}
 		}
 		else {
 			this.pseudo = Translations.getModule("models.players", language).get("pseudo");

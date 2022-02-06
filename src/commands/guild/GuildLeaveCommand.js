@@ -18,6 +18,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import Guild, {Guilds} from "../../core/models/Guild";
 import Player from "../../core/models/Player";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 const GuildLeaveCommand = async (message, language) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -88,7 +89,7 @@ const GuildLeaveCommand = async (message, language) => {
 
 			embed.setAuthor(
 				format(JsonReader.commands.guildLeave.getTranslation(language).successTitle, {
-					pseudo: message.author.username,
+					pseudo: escapeUsername(message.author.username),
 					guildName: guild.name
 				}),
 				message.author.displayAvatarURL()

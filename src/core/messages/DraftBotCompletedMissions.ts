@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "./DraftBotEmbed";
 import {User} from "discord.js";
 import {TranslationModule, Translations} from "../Translations";
 import {CompletedMission, CompletedMissionType} from "../missions/CompletedMission";
+import {escapeUsername} from "../utils/StringUtils";
 
 export class DraftBotCompletedMissions extends DraftBotEmbed {
 	constructor(user: User, completedMissions: CompletedMission[], language: string) {
@@ -9,7 +10,7 @@ export class DraftBotCompletedMissions extends DraftBotEmbed {
 		const tr = Translations.getModule("models.missions", language);
 		this.setAuthor(tr.format("completedTitle", {
 			missionCount: completedMissions.length,
-			pseudo: user.username
+			pseudo: escapeUsername(user.username)
 		}), user.displayAvatarURL());
 		let sideMissions = "";
 		let dailyMission = "";

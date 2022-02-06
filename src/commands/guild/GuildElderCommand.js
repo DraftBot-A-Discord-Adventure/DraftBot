@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "guildelder",
@@ -85,7 +86,7 @@ const GuildElderCommand = async (message, language, args) => {
 		format(
 			JsonReader.commands.guildElder.getTranslation(language).elderAddTitle,
 			{
-				pseudo: message.author.username
+				pseudo: escapeUsername(message.author.username)
 			}
 		),
 		message.author.displayAvatarURL()
@@ -166,7 +167,7 @@ const GuildElderCommand = async (message, language, args) => {
 						JsonReader.commands.guildElder.getTranslation(language)
 							.successElderAddTitle,
 						{
-							pseudo: message.mentions.users.last().username,
+							pseudo: escapeUsername(message.mentions.users.last().username),
 							guildName: guild.name
 						}
 					),

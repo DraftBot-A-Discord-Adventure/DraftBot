@@ -3,6 +3,7 @@ import {Entities} from "./models/Entity";
 import {Guilds} from "./models/Guild";
 import Server from "./models/Server";
 import {botConfig, draftBotClient} from "./bot";
+import {escapeUsername} from "./utils/StringUtils";
 
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
@@ -212,7 +213,7 @@ class Command {
 				dmChannelId: botConfig.SUPPORT_CHANNEL_ID,
 				attachments: Array.from(message.attachments.values()),
 				supportAlert: format(JsonReader.bot.dm.supportAlert, {
-					username: message.author.username,
+					username: escapeUsername(message.author.username),
 					alertIcon: icon,
 					id: message.author.id
 				}) + message.content
@@ -244,7 +245,7 @@ class Command {
 				message.channel,
 				format(
 					JsonReader.bot.getTranslation(language).dmHelpMessageTitle,
-					{pseudo: message.author.username}
+					{pseudo: escapeUsername(message.author.username)}
 				),
 				JsonReader.bot.getTranslation(language).dmHelpMessage
 			);

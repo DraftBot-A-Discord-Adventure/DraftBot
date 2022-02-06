@@ -15,6 +15,7 @@ import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReacti
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 declare function removeBlockedPlayer(id: string): void;
 
@@ -264,7 +265,7 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("items.lovePointsValue.giveTitle"), message.user)
 					.setDescription(translationModule.format("items.lovePointsValue.giveDesc", {
-						pseudo: message.user.username,
+						pseudo: escapeUsername(message.user.username),
 						isFemale: entity.Player.Pet.sex === "f",
 						petName: entity.Player.Pet.displayName(message.language),
 						actualLP: entity.Player.Pet.lovePoints,

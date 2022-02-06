@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "petsell",
@@ -99,7 +100,7 @@ const PetSellCommand = async (message, language, args) => {
 			.setTitle(translations.sellMessage.title)
 			.setDescription(
 				format(translations.sellMessage.description, {
-					author: message.author.username,
+					author: escapeUsername(message.author.username),
 					price: petCost,
 					guildMaxLevel: guild.isAtMaxLevel()
 				})

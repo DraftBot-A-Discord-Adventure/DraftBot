@@ -3,6 +3,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "guildadd",
@@ -134,7 +135,7 @@ const GuildAddCommand = async (message, language, args) => {
 			return message.channel.send({ embeds: [
 				new DraftBotEmbed()
 					.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
-						pseudo: message.mentions.users.last().username,
+						pseudo: escapeUsername(message.mentions.users.last().username),
 						guildName: guild.name
 					}),
 					message.mentions.users.last().displayAvatarURL())
