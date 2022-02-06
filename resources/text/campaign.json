@@ -4,260 +4,260 @@
 			"missionId": "commandMission",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 10
 		},
 		{
 			"missionId": "commandReport",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 20
 		},
 		{
 			"missionId": "findOrBuyItem",
 			"missionVariant": 0,
 			"missionObjective": 1,
 			"gemsToWin": 2,
-			"xpToWin": 2
+			"xpToWin": 20
 		},
 		{
 			"missionId": "travelHours",
 			"missionVariant": 1,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 25
 		},
 		{
 			"missionId": "reachLevel",
 			"missionVariant": 0,
 			"missionObjective": 5,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 50
 		},
 		{
 			"missionId": "earnMoney",
 			"missionVariant": 0,
 			"missionObjective": 250,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 25
 		},
 		{
 			"missionId": "chooseClass",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 3,
+			"xpToWin": 100
 		},
 		{
 			"missionId": "travelHours",
 			"missionVariant": 3,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 75
 		},
 		{
 			"missionId": "drinkPotion",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 25
 		},
 		{
 			"missionId": "recoverAlteration",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 25
 		},
 		{
 			"missionId": "reachLevel",
 			"missionVariant": 0,
 			"missionObjective": 8,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 50
 		},
 		{
 			"missionId": "anyFight",
 			"missionVariant": 0,
 			"missionObjective": 1,
 			"gemsToWin": 2,
-			"xpToWin": 2
+			"xpToWin": 50
 		},
 		{
 			"missionId": "reachScore",
 			"missionVariant": 0,
 			"missionObjective": 10000,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 3,
+			"xpToWin": 200
 		},
 		{
 			"missionId": "reachLevel",
 			"missionVariant": 0,
 			"missionObjective": 10,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 50
 		},
 		{
 			"missionId": "haveItemRarity",
 			"missionVariant": 3,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 25
 		},
 		{
 			"missionId": "spendGems",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 25
 		},
 		{
 			"missionId": "earnMoney",
 			"missionVariant": 0,
 			"missionObjective": 3000,
 			"gemsToWin": 2,
-			"xpToWin": 2
+			"xpToWin": 50
 		},
 		{
 			"missionId": "joinGuild",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 150
 		},
 		{
 			"missionId": "guildDaily",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 75
 		},
 		{
 			"missionId": "reachLevel",
 			"missionVariant": 0,
 			"missionObjective": 15,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 50
 		},
 		{
 			"missionId": "goToPlace",
 			"missionVariant": 15,
 			"missionObjective": 1,
 			"gemsToWin": 2,
-			"xpToWin": 2
+			"xpToWin": 200
 		},
 		{
 			"missionId": "rankedFight",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 4,
+			"xpToWin": 250
 		},
 		{
 			"missionId": "chooseClassTier",
 			"missionVariant": 1,
 			"missionObjective": 1,
 			"gemsToWin": 2,
-			"xpToWin": 2
+			"xpToWin": 200
 		},
 		{
 			"missionId": "havePet",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 100
 		},
 		{
 			"missionId": "earnXP",
 			"missionVariant": 0,
 			"missionObjective": 1000,
 			"gemsToWin": 2,
-			"xpToWin": 2
+			"xpToWin": 50
 		},
 		{
 			"missionId": "guildLevel",
 			"missionVariant": 0,
 			"missionObjective": 5,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 25
 		},
 		{
 			"missionId": "tamedPet",
 			"missionVariant": 0,
 			"missionObjective": 1,
 			"gemsToWin": 2,
-			"xpToWin": 2
+			"xpToWin": 125
 		},
 		{
 			"missionId": "earnPoints",
 			"missionVariant": 0,
 			"missionObjective": 7500,
 			"gemsToWin": 2,
-			"xpToWin": 2
+			"xpToWin": 250
 		},
 		{
 			"missionId": "fightAttacks",
 			"missionVariant": 0,
 			"missionObjective": 5,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 100
 		},
 		{
 			"missionId": "havePotions",
 			"missionVariant": 0,
 			"missionObjective": 2,
 			"gemsToWin": 2,
-			"xpToWin": 2
+			"xpToWin": 50
 		},
 		{
 			"missionId": "travelHours",
 			"missionVariant": 6,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 100
 		},
 		{
 			"missionId": "trainedPet",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 3,
+			"xpToWin": 200
 		},
 		{
 			"missionId": "meetGruffo",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 25
 		},
 		{
 			"missionId": "guildDaily",
 			"missionVariant": 0,
 			"missionObjective": 2,
 			"gemsToWin": 2,
-			"xpToWin": 2
+			"xpToWin": 50
 		},
 		{
 			"missionId": "reachLevel",
 			"missionVariant": 0,
 			"missionObjective": 25,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 50
 		},
 		{
 			"missionId": "drinkAlcohol",
 			"missionVariant": 0,
 			"missionObjective": 1,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 25
 		},
 		{
 			"missionId": "earnLifePoints",
 			"missionVariant": 0,
 			"missionObjective": 40,
-			"gemsToWin": 2,
-			"xpToWin": 2
+			"gemsToWin": 1,
+			"xpToWin": 50
 		}
 	]
 }
