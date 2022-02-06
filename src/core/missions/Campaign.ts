@@ -29,7 +29,7 @@ export class Campaign {
 		return campaignIndex < this.getMaxCampaignNumber();
 	}
 
-	public static async completeCampaignRecursively(player: Player, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
+	public static async completeCampaignMissions(player: Player, campaign: MissionSlot, language: string): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
 		while (campaign.isCompleted()) {
 			completedMissions.push(
@@ -70,7 +70,10 @@ export class Campaign {
 			player.MissionSlots.push(await MissionSlots.getById(slot.id));
 			return this.updatePlayerCampaign(player, language);
 		}
-		return await this.completeCampaignRecursively(player, campaign, language);
+		if (!campaign.isCompleted()) {
+			return await this.completeCampaignMissions(player, campaign, language);
+		}
+		return [];
 	}
 
 	public static async updateCampaignAndSendMessage(discordUserId: string, player: Player, channel: TextChannel, language: string) {
