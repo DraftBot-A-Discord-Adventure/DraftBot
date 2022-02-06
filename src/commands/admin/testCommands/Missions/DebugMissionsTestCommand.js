@@ -3,7 +3,7 @@ import {Entities} from "../../../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "debugMissions",
-	aliases :["debugm", "debm"],
+	aliases: ["debugm", "debm"],
 	commandFormat: "",
 	messageWhenExecuted: "",
 	description: "Affiche des informations sur vos missions"

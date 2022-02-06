@@ -63,7 +63,8 @@ export class InventoryInfo extends Model {
 	}
 
 	public editDailyCooldown(hours: number) {
-		this.lastDailyAt = moment(this.lastDailyAt).add(hours, "h").toDate(); // eslint-disable-line new-cap
+		this.lastDailyAt = moment(this.lastDailyAt).add(hours, "h")
+			.toDate(); // eslint-disable-line new-cap
 	}
 }
 

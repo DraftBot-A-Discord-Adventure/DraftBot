@@ -61,7 +61,8 @@ export const smallEvent: SmallEvent = {
 				};
 				if (timeLeft <= 0) {
 					callBack().then();
-				} else {
+				}
+				else {
 					setTimeout(async function() {
 						await callBack();
 					}, timeLeft);

@@ -195,7 +195,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 		return log(message.author + " hasn't any destination map (current map: " + await entity.Player.getDestinationId() + ", restrictedMapType: " + restrictedMapType + ")");
 	}
 
-	if (destinationMaps.length === 1 || (draftbotRandom.bool(1, 3) && entity.Player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK)) {
+	if (destinationMaps.length === 1 || draftbotRandom.bool(1, 3) && entity.Player.mapLinkId !== Constants.BEGINNING.LAST_MAP_LINK) {
 		const newLink = await MapLinks.getLinkByLocations(await entity.Player.getDestinationId(), destinationMaps[0]);
 		await Maps.startTravel(entity.Player, newLink, message.createdAt.getTime());
 		return await destinationChoseMessage(entity, destinationMaps[0], message, language);

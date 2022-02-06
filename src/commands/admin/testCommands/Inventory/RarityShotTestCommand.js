@@ -25,37 +25,37 @@ const RarityShotTestCommand = async (language, message, args) => {
 	if (args[0] < 0) {
 		throw new Error("Erreur rarityshot : nbTirages négatif !");
 	}
-	if (args[1]>args[2]) {
+	if (args[1] > args[2]) {
 		throw new Error("Erreur rarityshot : borne min inférieure à borne max !");
 	}
-	if (args[1]>8 || args[1]<1) {
+	if (args[1] > 8 || args[1] < 1) {
 		throw new Error("Erreur rarityshot : borne min hors valeur (valeurs autorisées : 1 à 8) !");
 	}
-	if (args[2]>8 || args[2]<1) {
+	if (args[2] > 8 || args[2] < 1) {
 		throw new Error("Erreur rarityshot : borne max hors valeur (valeurs autorisées : 1 à 8) !");
 	}
-	let tab = [0,0,0,0,0,0,0,0]
+	const tab = [0,0,0,0,0,0,0,0];
 	for (let i = 0; i < parseInt(args[0],10); i++) {
-		tab[generateRandomRarity(parseInt(args[1],10),parseInt(args[2],10))-1]++;
+		tab[generateRandomRarity(parseInt(args[1],10),parseInt(args[2],10)) - 1]++;
 	}
 	return format(module.exports.commandInfo.messageWhenExecuted, {
 		nbTirages: args[0],
 		common: tab[0],
-		commonPercent: Math.round((tab[0]/parseInt(args[0],10))*10000)/100,
+		commonPercent: Math.round(tab[0] / parseInt(args[0],10) * 10000) / 100,
 		uncommon: tab[1],
-		uncommonPercent: Math.round((tab[1]/parseInt(args[0],10))*10000)/100,
+		uncommonPercent: Math.round(tab[1] / parseInt(args[0],10) * 10000) / 100,
 		exotic: tab[2],
-		exoticPercent: Math.round((tab[2]/parseInt(args[0],10))*10000)/100,
+		exoticPercent: Math.round(tab[2] / parseInt(args[0],10) * 10000) / 100,
 		rare: tab[3],
-		rarePercent: Math.round((tab[3]/parseInt(args[0],10))*10000)/100,
+		rarePercent: Math.round(tab[3] / parseInt(args[0],10) * 10000) / 100,
 		special: tab[4],
-		specialPercent: Math.round((tab[4]/parseInt(args[0],10))*10000)/100,
+		specialPercent: Math.round(tab[4] / parseInt(args[0],10) * 10000) / 100,
 		epic: tab[5],
-		epicPercent: Math.round((tab[5]/parseInt(args[0],10))*10000)/100,
+		epicPercent: Math.round(tab[5] / parseInt(args[0],10) * 10000) / 100,
 		legendary: tab[6],
-		legendaryPercent: Math.round((tab[6]/parseInt(args[0],10))*10000)/100,
+		legendaryPercent: Math.round(tab[6] / parseInt(args[0],10) * 10000) / 100,
 		mythic: tab[7],
-		mythicPercent: Math.round((tab[7]/parseInt(args[0],10))*10000)/100
+		mythicPercent: Math.round(tab[7] / parseInt(args[0],10) * 10000) / 100
 	});
 };
 

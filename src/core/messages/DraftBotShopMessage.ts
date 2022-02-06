@@ -426,7 +426,7 @@ export class ShopItem {
 	}
 
 	get name(): string {
-		return this._name
+		return this._name;
 	}
 
 	get price(): number {

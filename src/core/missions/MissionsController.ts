@@ -74,6 +74,7 @@ export class MissionsController {
 					}
 					await player.PlayerMissionsInfo.save();
 					if (player.PlayerMissionsInfo.dailyMissionNumberDone >= dailyMission.objective) {
+						player.PlayerMissionsInfo.lastDailyMissionCompleted = new Date();
 						return true;
 					}
 				}

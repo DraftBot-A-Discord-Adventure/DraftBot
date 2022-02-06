@@ -2,7 +2,7 @@ import {DraftBotEmbed} from "./DraftBotEmbed";
 import Player from "../models/Player";
 import {DailyMissions} from "../models/DailyMission";
 import {TranslationModule, Translations} from "../Translations";
-import {finishInTimeDisplay} from "../utils/TimeUtils";
+import {finishInTimeDisplay, getTomorrowMidnight} from "../utils/TimeUtils";
 import {Campaign} from "../missions/Campaign";
 import {User} from "discord.js";
 
@@ -39,23 +39,26 @@ export class DraftBotMissionsMessageBuilder {
 		else {
 			desc = "\n" + tr.get("finishedCampaign");
 		}
-		const tomorrow = new Date();
-		tomorrow.setDate(tomorrow.getDate() + 1);
-		tomorrow.setHours(0, 0, 0, 0);
-		desc += "\n\n" + tr.get("daily")
-			+ "\n"
-			+ DraftBotMissionsMessageBuilder.getMissionDisplay(
+		const tomorrow = getTomorrowMidnight();
+		desc += "\n\n" + tr.get("daily") + "\n";
+		if (this._player.PlayerMissionsInfo.hasCompletedDailyMission()) {
+			desc += tr.format("dailyFinished", {time: finishInTimeDisplay(tomorrow)});
+		}
+		else {
+			desc += DraftBotMissionsMessageBuilder.getMissionDisplay(
 				tr,
 				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, this._language),
 				tomorrow,
 				this._player.PlayerMissionsInfo.dailyMissionNumberDone,
 				dailyMission.objective
-			)
-			+ "\n\n";
-
-		const currentMissions = this._player.MissionSlots.filter(slot => slot.expiresAt !== null);
-		if (currentMissions) {
-			desc += tr.get("currentMissions") + "\n";
+			);
+		}
+		const currentMissions = this._player.MissionSlots.filter(slot => !slot.isCampaign());
+		desc += "\n\n" + tr.get("currentMissions") + "\n";
+		if (currentMissions.length === 0) {
+			desc += tr.get("noCurrentMissionsDescription");
+		}
+		else {
 			for (const missionSlot of this._player.MissionSlots.filter(slot => !slot.isCampaign())) {
 				desc += DraftBotMissionsMessageBuilder.getMissionDisplay(
 					tr,
