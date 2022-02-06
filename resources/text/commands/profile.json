@@ -8,7 +8,11 @@
 			},
 			"statistique": {
 				"fieldName": "Statistiques :",
-				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :zap: {cumulativeHealth} / {cumulativeMaxHealth}"
+				"fieldValue": ":zap: {cumulativeHealth} / {cumulativeMaxHealth} | :dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed}"
+			},
+			"mission": {
+				"fieldName": "Missions :",
+				"fieldValue": ":gem: {gems} | :book: {campaign}% "
 			},
 			"classement": {
 				"fieldName": "Classement et Score :",
@@ -68,39 +72,43 @@
 		"en": {
 			"title": "{effect} | {pseudo} | Level {level}",
 			"information": {
-				"fieldName": "Information :",
+				"fieldName": "Information:",
 				"fieldValue": ":heart: {health}/{maxHealth} | :star: {experience}/{experienceNeededToLevelUp} | :moneybag: {money}"
 			},
 			"statistique": {
-				"fieldName": "Stats :",
-				"fieldValue": ":dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed} | :zap: {cumulativeHealth} / {cumulativeMaxHealth}"
+				"fieldName": "Stats:",
+				"fieldValue": ":zap: {cumulativeHealth} / {cumulativeMaxHealth} | :dagger: {cumulativeAttack} | :shield: {cumulativeDefense} | :rocket: {cumulativeSpeed}"
+			},
+			"mission": {
+				"fieldName": "Missions:",
+				"fieldValue": ":gem: {gems}| :date: {daily} | :book: {campaign}% "
 			},
 			"classement": {
-				"fieldName": "Ranking and score :",
+				"fieldName": "Ranking and score:",
 				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}"
 			},
 			"timeLeft": {
-				"fieldName": "Time left :",
+				"fieldName": "Time left:",
 				"fieldValue": "{effect} {timeLeft}"
 			},
 			"noTimeLeft": {
-				"fieldName": "Temps restant :",
+				"fieldName": "Temps restant:",
 				"fieldValue": ":hospital: You can continue playing now"
 			},
 			"guild": {
-				"fieldName": "Guild :",
+				"fieldName": "Guild:",
 				"fieldValue": ":stadium: {guild}"
 			},
 			"playerClass": {
-				"fieldName": "Class :",
+				"fieldName": "Class:",
 				"fieldValue": "{class}"
 			},
 			"pet": {
-				"fieldName": "Pet :",
+				"fieldName": "Pet:",
 				"fieldValue": "Rarity: {rarity}\n{emote} {nickname}"
 			},
 			"map": {
-				"fieldName": "Destination :",
+				"fieldName": "Destination:",
 				"fieldValue": "{mapEmote} {mapName}"
 			},
 			"badges": {
