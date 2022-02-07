@@ -45,7 +45,7 @@ export const giveItemToPlayer = async function(
 		await MissionsController.update(entityForMC.discordUserId, channel, language, "havePotions", countNbOfPotions(entityForMC.Player), null, true);
 		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
 			rarity: item.rarity
-		});
+		}, true);
 		return;
 	}
 
@@ -244,10 +244,10 @@ const sellOrKeepItem = async function(
 	await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
 	[entity] = await Entities.getOrRegister(entity.discordUserId);
 	await MissionsController.update(entity.discordUserId, channel, language, "havePotions", countNbOfPotions(entity.Player),null,true);
-	if (!keepOriginal && entity.Player.MissionSlots.filter(m => m.missionId === "haveItemRarity").length !== 0) {
+	if (!keepOriginal) {
 		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
 			rarity: item.rarity
-		});
+		}, true);
 	}
 };
 
