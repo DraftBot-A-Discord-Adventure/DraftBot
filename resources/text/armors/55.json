@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": "🤡 **Autodérision**",
+		"en": "🤡 **Self-mockery**"
+	},
+	"rarity": 4,
+	"rawDefense": 9,
+	"attack": -30,
+	"frenchMasculine": 0,
+	"frenchPlural": 0
+}
