@@ -28,6 +28,7 @@ const ProfileCommand = async (message, language, args) => {
 	const a = await entity.Player.getMainArmorSlot().getItem();
 	const p = await entity.Player.getMainPotionSlot().getItem();
 	const o = await entity.Player.getMainObjectSlot().getItem();
+	const [mc] = entity.Player.MissionSlots.filter(m => m.isCampaign());
 	const fields = [
 		{
 			name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
@@ -53,7 +54,11 @@ const ProfileCommand = async (message, language, args) => {
 			name: JsonReader.commands.profile.getTranslation(language).mission.fieldName,
 			value: format(JsonReader.commands.profile.getTranslation(language).mission.fieldValue, {
 				gems: entity.Player.PlayerMissionsInfo.gems,
-				campaign: Math.round((entity.Player.PlayerMissionsInfo.campaignProgression - 1) / Campaign.getMaxCampaignNumber() * 100)
+				campaign: Math.round(
+					(entity.Player.PlayerMissionsInfo.campaignProgression === Campaign.getMaxCampaignNumber() && mc.isCompleted()
+						? entity.Player.PlayerMissionsInfo.campaignProgression
+						: entity.Player.PlayerMissionsInfo.campaignProgression - 1
+					) / Campaign.getMaxCampaignNumber() * 100)
 			}
 			),
 			inline: false
