@@ -43,6 +43,9 @@ export const giveItemToPlayer = async function(
 		await MissionsController.update(entity.discordUserId, channel, language, "findOrBuyItem");
 		const entityForMC = (await Entities.getOrRegister(entity.discordUserId))[0];
 		await MissionsController.update(entityForMC.discordUserId, channel, language, "havePotions", countNbOfPotions(entityForMC.Player), null, true);
+		await MissionsController.update(entity.discordUserId, channel, language, "haveItemRarity", 1, {
+			rarity: item.rarity
+		});
 		return;
 	}
 
@@ -221,6 +224,7 @@ const sellOrKeepItem = async function(
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
 	entity.Player.addMoney(entity, money, channel, language);
+	await MissionsController.update(entity.discordUserId, channel, language, "sellItemWithGivenCost",1,{itemCost: money});
 	await entity.Player.save();
 	await channel.send({ embeds: [
 		new DraftBotEmbed()

@@ -75,6 +75,7 @@ const SellCommand = async (message, language) => {
 			entity.Player.addMoney(entity, money, message.channel, language);
 			await entity.Player.save();
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
+			await MissionsController.update(entity.discordUserId, message.channel, language, "sellItemWithGivenCost",1,{itemCost: money});
 			await MissionsController.update(entity.discordUserId, message.channel, language, "havePotions",countNbOfPotions(entity.Player),null,true);
 			log(entity.discordUserId + " sold his item " + item.name + " (money: " + money + ")");
 			if (money === 0) {

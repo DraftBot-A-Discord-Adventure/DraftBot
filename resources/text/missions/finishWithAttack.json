@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Utiliser {objective} fois l'{variantText} pour achever votre adversaire"
+		},
+		"en": {
+			"desc": "Use {objective} times the {variantText} to finish your opponent"
+		}
+	},
+	"campaignOnly": true
+}

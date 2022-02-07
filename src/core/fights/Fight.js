@@ -652,6 +652,9 @@ class Fight {
 		else {
 			far.damage = 0;
 		}
+		if (defender.power === 0) {
+			await MissionsController.update(attacker.entity.discordUserId, this.message.channel, this.language, "finishWithAttack", 1, {attackType: action});
+		}
 		await this.sendActionMessage(action, far);
 		await this.nextTurn();
 	}
