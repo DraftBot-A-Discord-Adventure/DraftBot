@@ -480,27 +480,27 @@ class Fight {
 			setTimeout(() => this.lastSummary.delete(), 5000);
 		}
 		if (winner !== null) {
-			log("Fight ended; winner: " + winner.entity.discordUserId + " (" + winner.power + "/" + winner.initialPower
-				+ "); loser: " + loser.entity.discordUserId + " (" + loser.power + "/" + loser.initialPower
-				+ "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
+			log("Fight ended; winner: " + winner.entity.discordUserId + " (" + winner.power + "/" + winner.initialPower +
+				"); loser: " + loser.entity.discordUserId + " (" + loser.power + "/" + loser.initialPower +
+				"); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
 		}
 		else {
-			log("Fight ended; egality: " + this.fighters[0].entity.discordUserId + " (" + this.fighters[0].power + "/" + this.fighters[0].initialPower
-				+ "); loser: " + this.fighters[1].entity.discordUserId + " (" + this.fighters[1].power + "/" + this.fighters[1].initialPower
-				+ "); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
+			log("Fight ended; egality: " + this.fighters[0].entity.discordUserId + " (" + this.fighters[0].power + "/" + this.fighters[0].initialPower +
+				"); loser: " + this.fighters[1].entity.discordUserId + " (" + this.fighters[1].power + "/" + this.fighters[1].initialPower +
+				"); turns: " + this.turn + "; points won/lost: " + this.points + "; ended by time off: " + this.endedByTime);
 		}
 		this.outroFight();
 		this.turn = -1;
 		if (this.friendly) {
-			await MissionsController.update(winner.entity.discordUserId, this.message.channel, this.language, "friendlyFight");
-			await MissionsController.update(loser.entity.discordUserId, this.message.channel, this.language, "friendlyFight");
+			await MissionsController.update(this.fighters[0].entity.discordUserId, this.message.channel, this.language, "friendlyFight");
+			await MissionsController.update(this.fighters[1].entity.discordUserId, this.message.channel, this.language, "friendlyFight");
 		}
 		else {
-			await MissionsController.update(winner.entity.discordUserId, this.message.channel, this.language, "rankedFight");
-			await MissionsController.update(loser.entity.discordUserId, this.message.channel, this.language, "rankedFight");
+			await MissionsController.update(this.fighters[0].entity.discordUserId, this.message.channel, this.language, "rankedFight");
+			await MissionsController.update(this.fighters[1].entity.discordUserId, this.message.channel, this.language, "rankedFight");
 		}
-		await MissionsController.update(winner.entity.discordUserId, this.message.channel, this.language, "anyFight");
-		await MissionsController.update(loser.entity.discordUserId, this.message.channel, this.language, "anyFight");
+		await MissionsController.update(this.fighters[0].entity.discordUserId, this.message.channel, this.language, "anyFight");
+		await MissionsController.update(this.fighters[1].entity.discordUserId, this.message.channel, this.language, "anyFight");
 	}
 
 	/**
