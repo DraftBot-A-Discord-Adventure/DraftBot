@@ -1,5 +1,9 @@
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
+import {Entities} from "./models/Entity";
+import {Guilds} from "./models/Guild";
+import Server from "./models/Server";
 import {botConfig, draftBotClient} from "./bot";
+import {escapeUsername} from "./utils/StringUtils";
 
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
@@ -19,9 +23,9 @@ class Command {
 		Command.commands = new Collection();
 		Command.players = new Map();
 
-		const categories = await readdir("src/commands");
+		const categories = await readdir("dist/src/commands");
 		categories.forEach(category => {
-			const commandsFiles = readdirSync(`src/commands/${category}`).filter(command => command.endsWith(".js"));
+			const commandsFiles = readdirSync(`dist/src/commands/${category}`).filter(command => command.endsWith(".js"));
 			for (const commandFile of commandsFiles) {
 				const command = require(`../commands/${category}/${commandFile}`);
 				Command.commands.set(command.commandInfo.name, command);
@@ -111,7 +115,7 @@ class Command {
 	static async handleMessage(message) {
 
 		// server check :
-		const [server] = await Servers.findOrCreate({
+		const [server] = await Server.findOrCreate({
 			where: {
 				discordGuildId: message.guild.id
 			}
@@ -145,8 +149,8 @@ class Command {
 		}
 
 		// otherwise continue
-
-		if (server.prefix === Command.getUsedPrefix(message, server.prefix)) {
+		const serverPrefixEquals = server.prefix === Command.getUsedPrefix(message, server.prefix);
+		if (serverPrefixEquals || Command.getUsedPrefix(message, "sudo /usr/sbin/") === "sudo /usr/sbin/") {
 
 			// check maintenance mode
 			if (
@@ -160,7 +164,7 @@ class Command {
 						.setErrorColor()
 				] });
 			}
-			await Command.launchCommand(language, server.prefix, message);
+			await Command.launchCommand(language, serverPrefixEquals ? server.prefix : "sudo /usr/sbin/", message);
 		}
 		else if (
 			Command.getUsedPrefix(
@@ -187,7 +191,7 @@ class Command {
 		if (!entity.Player.dmNotification) {
 			icon = JsonReader.bot.dm.alertIcon;
 		}
-		await draftBotClient.shard.broadcastEval(async (client, context) => {
+		await draftBotClient.shard.broadcastEval((client, context) => {
 			const mainServer = client.guilds.cache.get(context.mainServerId);
 			if (mainServer) {
 				const dmChannel = mainServer.channels.cache.get(context.dmChannelId);
@@ -209,7 +213,7 @@ class Command {
 				dmChannelId: botConfig.SUPPORT_CHANNEL_ID,
 				attachments: Array.from(message.attachments.values()),
 				supportAlert: format(JsonReader.bot.dm.supportAlert, {
-					username: message.author.username,
+					username: escapeUsername(message.author.username),
 					alertIcon: icon,
 					id: message.author.id
 				}) + message.content
@@ -241,7 +245,7 @@ class Command {
 				message.channel,
 				format(
 					JsonReader.bot.getTranslation(language).dmHelpMessageTitle,
-					{pseudo: message.author.username}
+					{pseudo: escapeUsername(message.author.username)}
 				),
 				JsonReader.bot.getTranslation(language).dmHelpMessage
 			);

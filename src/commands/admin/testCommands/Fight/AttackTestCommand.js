@@ -1,3 +1,5 @@
+import {Entities} from "../../../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "attack",
 	commandFormat: "<attack>",

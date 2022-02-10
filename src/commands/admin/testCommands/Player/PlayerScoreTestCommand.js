@@ -1,3 +1,5 @@
+import {Entities} from "../../../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "playerscore",
 	aliases: ["score"],
@@ -21,7 +23,7 @@ const playerScoreTestCommand = async (language, message, args) => {
 	if (args[0] < 100) {
 		throw new Error("Erreur score : score donné inférieur à 100 interdit !");
 	}
-	entity.Player.score = parseInt(args[0],10);
+	entity.Player.setScore(entity, parseInt(args[0],10), message.channel, language);
 	entity.Player.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {score: entity.Player.score});

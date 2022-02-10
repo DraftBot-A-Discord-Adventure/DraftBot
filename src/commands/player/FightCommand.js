@@ -1,4 +1,5 @@
 const Fight = require("../../core/fights/Fight");
+import {Entities} from "../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "fight",

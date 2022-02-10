@@ -1,10 +1,17 @@
+import Potion from "../models/Potion";
+import PetEntity from "../models/PetEntity";
+import Player from "../models/Player";
+import PlayerMissionsInfo from "../models/PlayerMissionsInfo";
 import {DraftBotConfig} from "./DraftBotConfig";
 import {Constants} from "../Constants";
 import {Client, TextChannel} from "discord.js";
 import {DraftBotBackup} from "../backup/DraftBotBackup";
-import {TranslationModule, Translations} from "../Translations";
+import {checkMissingTranslations, Translations} from "../Translations";
 import * as fs from "fs";
 import {botConfig, draftBotClient, shardId} from "./index";
+import Shop from "../models/Shop";
+import {RandomUtils} from "../utils/RandomUtils";
+import Entity from "../models/Entity";
 
 require("colors");
 require("../Constant");
@@ -15,18 +22,6 @@ require("../Tools");
 declare const getNextSundayMidnight: () => Date;
 // TODO refactor when TimeUtils will be merged
 declare const getNextDay2AM: () => Date;
-// TODO refactor when new models will be merged
-declare const Shop: any;
-// TODO refactor when new models will be merged
-declare const Potions: any;
-// TODO refactor when new random will be merged
-declare const draftbotRandom: any;
-// TODO refactor when new models will be merged
-declare const PetEntities: any;
-// TODO refactor when new models will be merged
-declare const Entities: any;
-// TODO refactor when new models will be merged
-declare const Players: any;
 
 export class DraftBot {
 	private config: DraftBotConfig;
@@ -49,7 +44,7 @@ export class DraftBot {
 		this.handleLogs();
 
 		await require("../JsonReader").init({
-			folders: ["resources/text/commands", "resources/text/models", "resources/text/smallEvents"],
+			folders: ["resources/text/commands", "resources/text/models", "resources/text/smallEvents", "resources/text/missions"],
 			files: [
 				"config/app.json",
 				"draftbot/package.json",
@@ -60,7 +55,8 @@ export class DraftBot {
 				"resources/text/smallEventsIntros.json",
 				"resources/text/values.json",
 				"resources/text/items.json",
-				"resources/text/food.json"
+				"resources/text/food.json",
+				"resources/text/campaign.json"
 			]
 		});
 		await require("../Database").init(this.isMainShard);
@@ -78,6 +74,7 @@ export class DraftBot {
 				DraftBot.fightPowerRegenerationLoop,
 				Constants.FIGHT.POINTS_REGEN_MINUTES * 60 * 1000
 			);
+			checkMissingTranslations();
 		}
 	}
 
@@ -115,7 +112,7 @@ export class DraftBot {
 		});
 		let potion;
 
-		potion = await Potions.findAll({
+		potion = await Potion.findAll({
 			order: sequelize.literal("random()")
 		});
 		let i = 0;
@@ -140,9 +137,9 @@ export class DraftBot {
 
 	static async randomLovePointsLoose() {
 		const sequelize = require("sequelize");
-		if (draftbotRandom.bool()) {
+		if (RandomUtils.draftbotRandom.bool()) {
 			console.log("INFO: All pets lost 4 loves point");
-			await PetEntities.update(
+			await PetEntity.update(
 				{
 					lovePoints: sequelize.literal(
 						"CASE WHEN lovePoints - 1 < 0 THEN 0 ELSE lovePoints - 4 END"
@@ -160,15 +157,10 @@ export class DraftBot {
 	}
 
 	static async topWeekEnd() {
-		const winner = await Entities.findOne({
-			defaults: {
-				Player: {
-					Inventory: {}
-				}
-			},
+		const winner = await Entity.findOne({
 			include: [
 				{
-					model: Players,
+					model: Player,
 					as: "Player",
 					where: {
 						weeklyScore: {
@@ -178,8 +170,8 @@ export class DraftBot {
 				}
 			],
 			order: [
-				[{model: Players, as: "Player"}, "weeklyScore", "DESC"],
-				[{model: Players, as: "Player"}, "level", "DESC"]
+				[{model: Player, as: "Player"}, "weeklyScore", "DESC"],
+				[{model: Player, as: "Player"}, "level", "DESC"]
 			],
 			limit: 1
 		});
@@ -218,14 +210,16 @@ export class DraftBot {
 			winner.Player.addBadge("🎗️");
 			winner.Player.save();
 		}
-		Players.update({weeklyScore: 0}, {where: {}});
+		await Player.update({weeklyScore: 0}, {where: {}});
 		console.log("# WARNING # Weekly leaderboard has been reset !");
+		await PlayerMissionsInfo.resetShopBuyout();
+		console.log("All players can now buy again points from the mission shop !");
 		DraftBot.programTopWeekTimeout();
 	}
 
 	static async fightPowerRegenerationLoop() {
 		const sequelize = require("sequelize");
-		await Entities.update(
+		await Entity.update(
 			{
 				fightPointsLost: sequelize.literal(
 					`CASE WHEN fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} < 0 THEN 0 ELSE fightPointsLost - ${Constants.FIGHT.POINTS_REGEN_AMOUNT} END`

@@ -6,6 +6,11 @@
  * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
+import {Classes} from "../models/Class";
+import {Guilds} from "../models/Guild";
+import {PetEntities} from "../models/PetEntity";
+import {Players} from "../models/Player";
+
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationBF = JsonReader.smallEvents.botFacts.getTranslation(language);
 	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
@@ -94,7 +99,9 @@ const getNbPlayersWithGivenClass = async (language) => {
 	return [nbPlayersWithThisClass + sentence, classToCheck[language]];
 };
 
-
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

@@ -18,11 +18,11 @@
 			"end": {
 				"draw": ":newspaper: |** {player1} et {player2} terminent leur combat sur une égalité !**\n\n",
 				"win": ":newspaper: |** {winner} remporte le match contre {loser}**\n\n",
-				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours**: {turn}/{maxTurn}\n- **Temps de combat**: {time}",
-				"winElo": "\n- **Elo de la partie**: `{elo}`\n- **Points gagnés/perdus**: `{points}`",
-				"drawElo": "\n- **Elo de la partie**: `{elo}`",
-				"fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {pseudo}\n- **Vie finale**: {health}/{maxHealth} :zap:",
-				"attacksField": "\n- **Attaques**:",
+				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours** : {turn}/{maxTurn}\n- **Temps de combat** : {time}",
+				"winElo": "\n- **Elo de la partie** : `{elo}`\n- **Points gagnés/perdus** : `{points}`",
+				"drawElo": "\n- **Elo de la partie** : `{elo}`",
+				"fighterStats": "\n\n:bust_in_silhouette : | Statistiques de {pseudo}\n- **Vie finale** : {health}/{maxHealth} :zap:",
+				"attacksField": "\n- **Attaques** :",
 				"attackStats": "\n      - {emote} {success}/{total} réussie(s), {damage} de dégâts en moyenne"
 			},
 			"error": {
@@ -57,6 +57,7 @@
 				"attacks": {
 					"quick": {
 						"name": "attaque rapide",
+						"namePlural": "attaques rapides",
 						"emote": ":dagger:",
 						"end": {
 							"succeed": "",
@@ -66,6 +67,7 @@
 					},
 					"simple": {
 						"name": "attaque simple",
+						"namePlural": "attaques simples",
 						"emote": ":crossed_swords:",
 						"end": {
 							"succeed": "",
@@ -75,6 +77,7 @@
 					},
 					"powerful": {
 						"name": "attaque puissante",
+						"namePlural": "attaques puissantes",
 						"emote": ":axe:",
 						"end": {
 							"succeed": " `Vitesse réduite de 25 %`",
@@ -84,6 +87,7 @@
 					},
 					"ultimate": {
 						"name": "attaque ultime",
+						"namePlural": "attaques ultimes",
 						"emote": ":bomb:",
 						"end": {
 							"succeed": "",
@@ -93,6 +97,7 @@
 					},
 					"bulk": {
 						"name": "attaque bélier",
+						"namePlural": "attaques béliers",
 						"emote": ":firecracker:",
 						"end": {
 							"succeed": " `Dégâts subis: {ownDamages}`",
@@ -167,7 +172,8 @@
 				"draw": ":newspaper: |** {player1} finished their match against {player2} on a draw!**\n\n",
 				"win": ":newspaper: |** {winner} wins the match against {loser}**\n\n",
 				"gameStats": ":bar_chart: | Fight stats\n- **Turns**: {turn}/{maxTurn}\n- **Fight time**: {time}",
-				"elo": "\n- **Elo**: `{elo}`\n- **Points won/lost**: `{points}`",
+				"winElo": "\n- **Elo**: `{elo}`\n- **Points won/lost**: `{points}`",
+				"drawElo": "\n- **Elo**: `{elo}`",
 				"fighterStats": "\n\n:bust_in_silhouette: | Stats of {pseudo}\n- **Final health**: {health}/{maxHealth} :zap:",
 				"attacksField": "\n- **Attacks**:",
 				"attackStats": "\n      - {emote} {success}/{total} successful, average of {damage} damage"
@@ -204,6 +210,7 @@
 				"attacks": {
 					"quick": {
 						"name": "quick attack",
+						"namePlural": "quick attacks",
 						"emote": ":dagger:",
 						"end": {
 							"succeed": "",
@@ -213,6 +220,7 @@
 					},
 					"simple": {
 						"name": "basic attack",
+						"namePlural": "basic attacks",
 						"emote": ":crossed_swords:",
 						"end": {
 							"succeed": "",
@@ -222,6 +230,7 @@
 					},
 					"powerful": {
 						"name": "powerful attack",
+						"namePlural": "powerful attacks",
 						"emote": ":axe:",
 						"end": {
 							"succeed": " `Speed reduced by 25 %`",
@@ -231,6 +240,7 @@
 					},
 					"ultimate": {
 						"name": "supreme attack",
+						"namePlural": "supreme attacks",
 						"emote": ":bomb:",
 						"end": {
 							"succeed": "",
@@ -239,7 +249,8 @@
 						}
 					},
 					"bulk": {
-						"name": "attaque bélier",
+						"name": "bulk attack",
+						"namePlural": "bulk attacks",
 						"emote": ":firecracker:",
 						"end": {
 							"succeed": " `Damage received: {ownDamages}`",

@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Avoir un familier avec soi"
+		},
+		"en": {
+			"desc": "Have a pet with you"
+		}
+	},
+	"campaignOnly": true
+}

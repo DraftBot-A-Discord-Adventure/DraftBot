@@ -125,6 +125,7 @@ global.CATEGORY = {
 	SERVER: "server",
 	UTIL: "util",
 	PLAYER: "player",
+	MISSION: "mission",
 	GUILD: "guild",
 	PET: "pet"
 };

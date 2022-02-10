@@ -2,6 +2,7 @@ import {DraftBotErrorEmbed} from "./messages/DraftBotErrorEmbed";
 import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {format} from "./utils/StringFormatter";
 import * as ItemUtils from "../core/utils/ItemUtils";
+import {Guilds} from "./models/Guild";
 
 global.draftbotRandom = new (require("random-js")).Random();
 
@@ -124,15 +125,7 @@ global.sendSimpleMessage = (user, channel, title, message) => channel.send({ emb
  * @returns {Promise<*>}
  */
 global.giveItem = async (entity, item, language, discordUser, channel, resaleMultiplierNew = 1, resaleMultiplierActual = 1) => { // eslint-disable-line max-params
-	await ItemUtils.giveItemToPlayer(
-		entity,
-		item,
-		language,
-		discordUser,
-		channel,
-		resaleMultiplierNew,
-		resaleMultiplierActual
-	);
+	await ItemUtils.giveItemToPlayer(entity, item, language, discordUser, channel, resaleMultiplierNew, resaleMultiplierActual);
 };
 
 /**
@@ -262,21 +255,11 @@ global.progressBar = (value, maxValue) => {
 
 /**
  * Return the value of the item
- * @param {Objects|Armors|Weapons|Potions} item
+ * @param {MainItemModel} item
  * @return {Number} - The value of the item
  */
 global.getItemValue = function(item) {
-	let addedvalue;
-	if (item instanceof Potions || item instanceof Objects) {
-		addedvalue = parseInt(item.power);
-	}
-	if (item instanceof Weapons) {
-		addedvalue = parseInt(item.rawAttack);
-	}
-	if (item instanceof Armors) {
-		addedvalue = parseInt(item.rawDefense);
-	}
-	return parseInt(JsonReader.values.raritiesValues[item.rarity]) + addedvalue;
+	return parseInt(JsonReader.values.raritiesValues[item.rarity]) + item.getItemAddedValue();
 };
 
 /**

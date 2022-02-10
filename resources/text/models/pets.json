@@ -6,7 +6,6 @@
 	"rarityEmote": "⭐",
 	"nicknameMinLength": 3,
 	"nicknameMaxLength": 16,
-	"hungrySince": null,
 	"translations": {
 		"fr": {
 			"female": "Femelle",

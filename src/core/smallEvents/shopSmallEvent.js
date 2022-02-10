@@ -49,10 +49,9 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 							{missingMoney: price - entity.Player.money})
 					);
 				}
-				await giveItemToPlayer(entity, randomItem, language,
-					message.author, message.channel, SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
+				await giveItemToPlayer(entity, randomItem, language, message.author, message.channel, SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
 				log(entity.discordUserId + " bought an item in a mini shop for " + price);
-				entity.Player.addMoney(-price);
+				entity.Player.addMoney(entity, -price, message.channel, language);
 				await entity.Player.save();
 				return;
 			}
@@ -65,5 +64,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

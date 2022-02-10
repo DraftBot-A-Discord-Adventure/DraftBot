@@ -1,3 +1,5 @@
+import {escapeUsername} from "../../core/utils/StringUtils";
+
 module.exports.commandInfo = {
 	name: "sendprivatemessage",
 	aliases: ["dm"],
@@ -16,7 +18,7 @@ const SendPrivateMessageCommand = async (message, language, args) => {
 	const userId = args[0];
 	const messageToSend = args.join(" ").replace(userId, "") +
 		format(JsonReader.commands.sendPrivateMessage.getTranslation(language).signature, {
-			username: message.author.username
+			username: escapeUsername(message.author.username)
 		});
 	const user = client.users.cache.get(userId);
 

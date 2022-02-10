@@ -1,4 +1,5 @@
 import {Constants} from "../../../../core/Constants";
+import {Entities} from "../../../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "slots",

@@ -1,4 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Classes} from "../../core/models/Class";
+import {Entities} from "../../core/models/Entity";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 module.exports.commandInfo = {
 	name: "class",
@@ -63,7 +66,7 @@ const ClassCommand = async (message, language) => {
 			return;
 		}
 
-		const selectedClass = await Classes.getByEmojy(reaction.first().emoji.name);
+		const selectedClass = await Classes.getByEmoji(reaction.first().emoji.name);
 		confirmPurchase(message, language, selectedClass, entity);
 	});
 
@@ -124,8 +127,11 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 				entity.Player.class = selectedClass.id;
 				const newClass = await Classes.getById(entity.Player.class);
 				await entity.setHealth(Math.round(
-					entity.health / await playerClass.getMaxHealthValue(entity.Player.level) * await newClass.getMaxHealthValue(entity.Player.level)));
-				entity.Player.addMoney(-selectedClass.price);
+					entity.health / await playerClass.getMaxHealthValue(entity.Player.level) * await newClass.getMaxHealthValue(entity.Player.level)
+				), message.channel, language);
+				entity.Player.addMoney(entity, -selectedClass.price, message.channel, language);
+				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClass");
+				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClassTier", 1, { tier: selectedClass.classgroup });
 				await Promise.all([
 					entity.save(),
 					entity.Player.save()

@@ -1,3 +1,7 @@
+import {Entities} from "../../../../core/models/Entity";
+import {MapLocations} from "../../../../core/models/MapLocation";
+import {MapLinks} from "../../../../core/models/MapLink";
+
 module.exports.commandInfo = {
 	name: "travel",
 	aliases: ["tp"],
@@ -10,7 +14,7 @@ module.exports.commandInfo = {
 	description: "Vous téléporte sur un chemin donné"
 };
 
-const Maps = require("../../../../core/Maps");
+import {Maps} from "../../../../core/Maps";
 
 /**
  * Teleport you on a given path

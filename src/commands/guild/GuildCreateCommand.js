@@ -1,3 +1,5 @@
+import {Entities} from "../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "guildcreate",
 	aliases: ["gcreate", "gc"],
@@ -13,6 +15,8 @@ module.exports.commandInfo = {
  */
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import Guild, {Guilds} from "../../core/models/Guild";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 const GuildCreateCommand = async (message, language, args) => {
 	let guild;
@@ -91,21 +95,22 @@ const GuildCreateCommand = async (message, language, args) => {
 				return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildCreate.getTranslation(language).notEnoughMoney);
 			}
 
-			const newGuild = await Guilds.create({
+			const newGuild = await Guild.create({
 				name: askedName,
 				chiefId: entity.id
 			});
 
 			entity.Player.guildId = newGuild.id;
-			entity.Player.addMoney(
-				-JsonReader.commands.guildCreate.guildCreationPrice
-			);
+			entity.Player.addMoney(entity, -JsonReader.commands.guildCreate.guildCreationPrice, message.channel, language);
 			newGuild.updateLastDailyAt();
 			await Promise.all([
 				newGuild.save(),
 				entity.save(),
 				entity.Player.save()
 			]);
+
+			await MissionsController.update(entity.discordUserId, message.channel, language, "joinGuild");
+			await MissionsController.update(entity.discordUserId, message.channel, language, "guildLevel", newGuild.level, null, true);
 
 			return message.channel.send({ embeds: [new DraftBotEmbed()
 				.formatAuthor(JsonReader.commands.guildCreate.getTranslation(language).createTitle, message.author)

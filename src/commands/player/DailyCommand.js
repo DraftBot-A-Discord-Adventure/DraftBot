@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Entities} from "../../core/models/Entity";
 
-const Maps = require("../../core/Maps");
+import {Maps} from "../../core/Maps";
 
 module.exports.commandInfo = {
 	name: "daily",
@@ -56,7 +57,7 @@ const DailyCommand = async (message, language) => {
 		embed.setDescription(
 			format(JsonReader.commands.daily.getTranslation(language).healthDaily, {value: activeObject.power})
 		);
-		await entity.addHealth(activeObject.power);
+		await entity.addHealth(activeObject.power, message.channel, language);
 		entity.Player.InventoryInfo.updateLastDailyAt();
 	}
 	if (
@@ -86,7 +87,7 @@ const DailyCommand = async (message, language) => {
 		embed.setDescription(
 			format(JsonReader.commands.daily.getTranslation(language).moneyBonus, {value: activeObject.power})
 		);
-		entity.Player.addMoney(activeObject.power);
+		entity.Player.addMoney(entity, activeObject.power, message.channel, language);
 		entity.Player.InventoryInfo.updateLastDailyAt();
 	}
 

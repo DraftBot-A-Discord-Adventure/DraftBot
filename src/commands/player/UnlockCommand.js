@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Entities} from "../../core/models/Entity";
 
-const Maps = require("../../core/Maps");
+import {Maps} from "../../core/Maps";
 
 module.exports.commandInfo = {
 	name: "unlock",
@@ -65,7 +66,7 @@ const UnlockCommand = async (message, language, args) => {
 			const [player] = await Entities.getOrRegister(message.author.id); // message author
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				await Maps.removeEffect(entity.Player);
-				player.Player.addMoney(-UNLOCK.PRICE_FOR_UNLOCK); // Remove money
+				player.Player.addMoney(player, -UNLOCK.PRICE_FOR_UNLOCK, message.channel, language); // Remove money
 				await Promise.all([
 					entity.save(),
 					entity.Player.save(),

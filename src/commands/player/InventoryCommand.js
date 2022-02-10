@@ -1,4 +1,5 @@
 import {DraftBotInventoryEmbedBuilder} from "../../core/messages/DraftBotInventoryEmbed";
+import {Entities} from "../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "inventory",

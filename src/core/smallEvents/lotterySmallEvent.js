@@ -8,8 +8,9 @@
  */
 import {Translations} from "../Translations";
 import {format} from "../utils/StringFormatter";
+import {Guilds} from "../models/Guild";
+import {Maps} from "../Maps";
 import {Constants} from "../Constants";
-const Maps = require("../Maps");
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationLottery = Translations.getModule("smallEvents.lottery", language);
@@ -39,8 +40,14 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		}
 		const malus = emojiLottery[2] === collected.first().emoji.name;
 		let rewardType = JsonReader.smallEvents.lottery.rewardType;
-		const guild = await Guilds.getById(entity.Player.guildId);
-		if (guild.isAtMaxLevel()) {
+		let guild;
+		try {
+			guild = await Guilds.getById(entity.Player.guildId);
+		}
+		catch {
+			guild = null;
+		}
+		if (guild === null || guild.isAtMaxLevel()) {
 			rewardType = rewardType.filter(r => r !== Constants.LOTTERY_REWARD_TYPES.GUILD_XP);
 		}
 		let sentenceReward;
@@ -53,19 +60,19 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const coeff = JsonReader.smallEvents.lottery.coeff[collected.first().emoji.name];
 			switch (reward) {
 			case Constants.LOTTERY_REWARD_TYPES.XP:
-				player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff,entity,message,language);
+				player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, message, language);
 				player.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.MONEY:
-				player.addMoney(SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff);
+				player.addMoney(entity, SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff);
 				player.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
-				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff,message,language);
+				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, message, language);
 				await guild.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.POINTS:
-				player.addScore(SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff);
+				player.addScore(entity, SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff);
 				player.save();
 				break;
 			default:
@@ -84,7 +91,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		}
 		// eslint-disable-next-line no-dupe-else-if
 		else if (malus && draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name])) {
-			player.addMoney(-175);
+			player.addMoney(entity, -175, message.channel, language);
 			player.save();
 			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,2), {
 				lostTime: JsonReader.smallEvents.lottery.lostTime
@@ -115,5 +122,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

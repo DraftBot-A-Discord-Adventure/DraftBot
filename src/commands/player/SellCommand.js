@@ -1,4 +1,5 @@
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
+import {Entities} from "../../core/models/Entity";
 
 module.exports.commandInfo = {
 	name: "sell",
@@ -17,7 +18,9 @@ import {Constants} from "../../core/Constants";
 import {Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {sortPlayerItemList} from "../../core/utils/ItemUtils";
+import {countNbOfPotions, sortPlayerItemList} from "../../core/utils/ItemUtils";
+import InventorySlot from "../../core/models/InventorySlot";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 const SellCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
@@ -62,15 +65,18 @@ const SellCommand = async (message, language) => {
 		if (validateMessage.isValidated()) {
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
 			const money = item.value;
-			await InventorySlots.destroy({
+			await InventorySlot.destroy({
 				where: {
 					playerId: entity.Player.id,
 					slot: item.slot,
 					itemCategory: item.itemCategory
 				}
 			});
-			entity.Player.money += money;
+			entity.Player.addMoney(entity, money, message.channel, language);
 			await entity.Player.save();
+			[entity] = await Entities.getOrRegister(entity.discordUserId);
+			await MissionsController.update(entity.discordUserId, message.channel, language, "sellItemWithGivenCost",1,{itemCost: money});
+			await MissionsController.update(entity.discordUserId, message.channel, language, "havePotions",countNbOfPotions(entity.Player),null,true);
 			log(entity.discordUserId + " sold his item " + item.name + " (money: " + money + ")");
 			if (money === 0) {
 				return await message.channel.send({ embeds: [new DraftBotEmbed()

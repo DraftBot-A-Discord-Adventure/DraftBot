@@ -1,5 +1,29 @@
 import {DraftBotBackup} from "./backup/DraftBotBackup";
 import {Constants} from "./Constants";
+import Entity from "./models/Entity";
+import Player from "./models/Player";
+import InventorySlot from "./models/InventorySlot";
+import InventoryInfo from "./models/InventoryInfo";
+import PetEntity from "./models/PetEntity";
+import PlayerSmallEvent from "./models/PlayerSmallEvent";
+import Pet from "./models/Pet";
+import MissionSlot from "./models/MissionSlot";
+import Mission from "./models/Mission";
+import PlayerMissionsInfo from "./models/PlayerMissionsInfo";
+import EventMapLocationId from "./models/EventMapLocationId";
+import BigEvent from "./models/BigEvent";
+import Possibility from "./models/Possibility";
+import GuildPet from "./models/GuildPet";
+import MapLocation from "./models/MapLocation";
+import Guild from "./models/Guild";
+import MapLink from "./models/MapLink";
+import Armor from "./models/Armor";
+import Weapon from "./models/Weapon";
+import ObjectItem from "./models/ObjectItem";
+import Potion from "./models/Potion";
+import Class from "./models/Class";
+import DailyMission from "./models/DailyMission";
+import Tag from "./models/Tag";
 
 const fs = require("fs");
 const path = require("path");
@@ -28,23 +52,51 @@ class Database {
 
 		const modelsFiles = await fs.promises.readdir("dist/src/core/models");
 		for (const modelFile of modelsFiles) {
-			const modelName = modelFile.split(".")[0];
-			global[modelName] = Database.Sequelize["import"](
-				`models/${modelName}`
-			);
+			const modelSplit = modelFile.split(".");
+			const modelName = modelSplit[0];
+			if (modelSplit[1] === "js" && modelSplit.length === 2) {
+				const model = require("models/" + modelName);
+				if (model.initModel) {
+					model.initModel(Database.Sequelize);
+				}
+			}
 		}
 
 		await Database.setAssociations();
 		if (isMainShard) {
 			await Database.populateJsonFilesTables([
-				"Armors",
-				"Weapons",
-				"Objects",
-				"Potions",
-				"Classes",
-				"Pets",
-				"MapLinks",
-				"MapLocations"
+				{
+					model: Armor,
+					folder: "armors"
+				},
+				{
+					model: Weapon,
+					folder: "weapons"
+				},
+				{
+					model: ObjectItem,
+					folder: "objects"
+				},
+				{
+					model: Potion,
+					folder: "potions"
+				},
+				{
+					model: Class,
+					folder: "classes"
+				},
+				{
+					model: Pet,
+					folder: "pets"
+				},
+				{
+					model: MapLink,
+					folder: "maplinks"
+				},
+				{
+					model: MapLocation,
+					folder: "maplocations"
+				}
 			]);
 			await Database.verifyMaps();
 			await Database.setEverybodyAsUnOccupied();
@@ -152,111 +204,137 @@ class Database {
 	 * @return {Promise<void>}
 	 */
 	static setAssociations() {
-		Entities.hasOne(Players, {
+		Entity.hasOne(Player, {
 			foreignKey: "entityId",
 			as: "Player"
 		});
 
-		Players.belongsTo(Entities, {
+		Player.belongsTo(Entity, {
 			foreignKey: "entityId",
 			as: "Entity"
 		});
-		Players.belongsTo(Guilds, {
+		Player.belongsTo(Guild, {
 			foreignKey: "guildId",
 			as: "Guild"
 		});
-		Players.belongsTo(Guilds, {
+		Player.belongsTo(Guild, {
 			foreignKey: "id",
 			targetKey: "chiefId",
 			as: "Chief"
 		});
-		Players.hasMany(InventorySlots, {
+		Player.hasMany(InventorySlot, {
 			foreignKey: "playerId",
 			as: "InventorySlots"
 		});
-		Players.hasOne(InventoryInfo, {
+		Player.hasOne(InventoryInfo, {
 			foreignKey: "playerId",
 			as: "InventoryInfo"
 		});
-		Players.hasOne(PetEntities, {
+		Player.hasOne(PetEntity, {
 			foreignKey: "id",
 			sourceKey: "petId",
 			as: "Pet"
 		});
-		Players.hasOne(MapLinks, {
+		Player.hasOne(MapLink, {
 			foreignKey: "id",
 			sourceKey: "mapLinkId",
 			as: "MapLink"
 		});
-		Players.hasMany(PlayerSmallEvents, {
+		Player.hasMany(PlayerSmallEvent, {
 			foreignKey: "playerId",
 			as: "PlayerSmallEvents"
 		});
 
-		MapLinks.hasOne(MapLocations, {
+		MapLink.hasOne(MapLocation, {
 			foreignKey: "id",
 			sourceKey: "startMap",
 			as: "StartMap"
 		});
 
-		MapLinks.hasOne(MapLocations, {
+		MapLink.hasOne(MapLocation, {
 			foreignKey: "id",
 			sourceKey: "endMap",
 			as: "EndMap"
 		});
 
-		Guilds.hasMany(Players, {
+		Guild.hasMany(Player, {
 			foreignKey: "guildId",
 			as: "Members"
 		});
-		Guilds.hasOne(Players, {
+		Guild.hasOne(Player, {
 			foreignKey: "id",
 			sourceKey: "chiefId",
 			as: "Chief"
 		});
-		Guilds.hasMany(GuildPets, {
+		Guild.hasMany(GuildPet, {
 			foreignKey: "guildId",
 			as: "GuildPets"
 		});
-		GuildPets.hasOne(PetEntities, {
+		GuildPet.hasOne(PetEntity, {
 			foreignKey: "id",
 			sourceKey: "petEntityId",
 			as: "PetEntity"
 		});
 
-		Events.hasMany(Possibilities, {
+		BigEvent.hasMany(Possibility, {
 			foreignKey: "eventId",
 			as: "Possibilities"
 		});
 
-		Possibilities.belongsTo(Events, {
+		Possibility.belongsTo(BigEvent, {
 			foreignKey: "eventId",
 			as: "Event"
 		});
 
-		PetEntities.hasOne(Pets, {
+		PetEntity.hasOne(Pet, {
 			foreignKey: "id",
 			sourceKey: "petId",
 			as: "PetModel"
 		});
+
+		Player.hasMany(MissionSlot, {
+			foreignKey: "playerId",
+			as: "MissionSlots"
+		});
+
+		MissionSlot.hasOne(Mission, {
+			sourceKey: "missionId",
+			foreignKey: "id",
+			as: "Mission"
+		});
+
+		Player.hasOne(PlayerMissionsInfo, {
+			foreignKey: "playerId",
+			as: "PlayerMissionsInfo"
+		});
+
+		DailyMission.hasOne(Mission, {
+			sourceKey: "missionId",
+			foreignKey: "id",
+			as: "Mission"
+		});
 	}
 
 	/**
-	 * @param {String[]} folders
+	 * @param {{ model: Model, folder: string }[]} models
 	 * @return {Promise<void>}
 	 */
-	static async populateJsonFilesTables(folders) {
-		for (const folder of folders) {
-			await global[folder].destroy({truncate: true});
+	static async populateJsonFilesTables(models) {
+
+		await Tag.destroy({truncate: true});
+
+		const tagsToInsert = [];
+		for (const model of models) {
+			await model.model.destroy({truncate: true});
 
 			const files = await fs.promises.readdir(
-				`resources/text/${folder.toLowerCase()}`
+				`resources/text/${model.folder.toLowerCase()}`
 			);
 
 			const filesContent = [];
 			for (const file of files) {
 				const fileName = file.split(".")[0];
-				const fileContent = require(`resources/text/${folder.toLowerCase()}/${file}`);
+				const fileContent = require(`resources/text/${model.folder.toLowerCase()}/${file}`);
 				fileContent.id = fileName;
 				if (fileContent.translations) {
 					if (
@@ -277,16 +355,46 @@ class Database {
 						}
 					}
 				}
+				if (fileContent.tags) {
+					// If theres tags, populate them into the database
+					for (let i = 0; i < fileContent.tags.length; i++) {
+						const tagContent = {
+							textTag: fileContent.tags[i],
+							idObject: fileContent.id,
+							// eslint-disable-next-line no-prototype-builtins
+							typeObject: model.model.hasOwnProperty("name") ? model.model.name : "ERRORNONAME"
+						};
+						tagsToInsert.push(tagContent);
+					}
+					delete fileContent["tags"];
+				}
 				filesContent.push(fileContent);
 			}
 
-			await global[folder].bulkCreate(filesContent);
+			await model.model.bulkCreate(filesContent);
 		}
 
 		// Handle special case Events & Possibilities
-		await Events.destroy({truncate: true});
-		await EventMapLocationIds.destroy({truncate: true});
-		await Possibilities.destroy({truncate: true});
+		await BigEvent.destroy({truncate: true});
+		await EventMapLocationId.destroy({truncate: true});
+		await Possibility.destroy({truncate: true});
+		await Mission.destroy({truncate: true});
+
+		const missionFiles = await fs.promises.readdir("resources/text/missions");
+		const missions = [];
+		for (const file of missionFiles) {
+			const fileName = file.split(".")[0];
+			const fileContent = require(`resources/text/missions/${file}`);
+			fileContent.id = fileName;
+			fileContent.descEn = fileContent.translations.en.desc;
+			fileContent.descFr = fileContent.translations.fr.desc;
+			fileContent.canBeDaily = fileContent.campaignOnly ? false : fileContent.dailyIndexes.length !== 0;
+			fileContent.canBeEasy = fileContent.campaignOnly ? false : fileContent.difficulties.easy.length !== 0;
+			fileContent.canBeMedium = fileContent.campaignOnly ? false : fileContent.difficulties.medium.length !== 0;
+			fileContent.canBeHard = fileContent.campaignOnly ? false : fileContent.difficulties.hard.length !== 0;
+			missions.push(fileContent);
+		}
+		await Mission.bulkCreate(missions);
 
 		const files = await fs.promises.readdir("resources/text/events");
 		const eventsContent = [];
@@ -324,6 +432,18 @@ class Database {
 					});
 				}
 			}
+			if (fileContent.tags) {
+				// If theres tags, populate them into the database
+				for (let i = 0; i < fileContent.tags.length; i++) {
+					const tagContent = {
+						textTag: fileContent.tags[i],
+						idObject: fileContent.id,
+						typeObject: BigEvent.name
+					};
+					tagsToInsert.push(tagContent);
+				}
+				delete fileContent["tags"];
+			}
 			eventsContent.push(fileContent);
 
 			for (const possibilityKey of Object.keys(
@@ -347,14 +467,27 @@ class Database {
 						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
 						restrictedMaps: possibility.restrictedMaps
 					};
+					if (possibility.tags) {
+						// If theres tags, populate them into the database
+						for (let i = 0; i < possibility.tags.length; i++) {
+							const tagContent = {
+								textTag: possibility.tags[i],
+								idObject: possibilitiesContent.length + 1,
+								typeObject: Possibility.name
+							};
+							tagsToInsert.push(tagContent);
+						}
+						delete possibility["tags"];
+					}
 					possibilitiesContent.push(possibilityContent);
 				}
 			}
 		}
 
-		await Events.bulkCreate(eventsContent);
-		await EventMapLocationIds.bulkCreate(eventsMapLocationsContent);
-		await Possibilities.bulkCreate(possibilitiesContent);
+		await BigEvent.bulkCreate(eventsContent);
+		await EventMapLocationId.bulkCreate(eventsMapLocationsContent);
+		await Possibility.bulkCreate(possibilitiesContent);
+		await Tag.bulkCreate(tagsToInsert);
 	}
 
 	static sendEventLoadError(event, message) {
@@ -519,7 +652,7 @@ class Database {
 
 	static async verifyMaps() {
 		const dict = {};
-		for (const map of await MapLocations.findAll()) {
+		for (const map of await MapLocation.findAll()) {
 			dict[map.id] = map;
 		}
 		const keys = Object.keys(dict);
@@ -553,7 +686,7 @@ class Database {
 	 * @return {Promise<void>}
 	 */
 	static setEverybodyAsUnOccupied() {
-		Entities.update(
+		Entity.update(
 			{
 				effect: EFFECT.SMILEY
 			},
@@ -562,7 +695,7 @@ class Database {
 					effect: EFFECT.AWAITING_ANSWER
 				}
 			}
-		);
+		).then();
 	}
 
 	static replaceWarningLogger() {

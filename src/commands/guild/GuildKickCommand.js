@@ -1,3 +1,5 @@
+import {Entities} from "../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "guildkick",
 	aliases: ["gkick", "gk"],
@@ -14,6 +16,8 @@ module.exports.commandInfo = {
  */
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Guilds} from "../../core/models/Guild";
+import {MissionsController} from "../../core/missions/MissionsController";
 
 const GuildKickCommand = async (message, language, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
@@ -110,6 +114,7 @@ const GuildKickCommand = async (message, language, args) => {
 			embed.setDescription(
 				JsonReader.commands.guildKick.getTranslation(language).kickSuccess
 			);
+			await MissionsController.update(kickedEntity.discordUserId, message.channel, language, "guildLevel", 0, null, true);
 			return message.channel.send({ embeds: [embed] });
 		}
 
@@ -118,7 +123,7 @@ const GuildKickCommand = async (message, language, args) => {
 			format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {kickedPseudo: await kickedEntity.Player.getPseudo(language)}), true);
 	};
 
-	const choiceEmbed = new DraftBotValidateReactionMessage(
+	await new DraftBotValidateReactionMessage(
 		message.author,
 		endCallback
 	)

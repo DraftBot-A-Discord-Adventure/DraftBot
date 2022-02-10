@@ -2,11 +2,10 @@ import {DraftBot} from "./DraftBot";
 import {Client, Guild, Intents, Message, TextChannel} from "discord.js";
 import {loadConfig} from "./DraftBotConfig";
 import {format} from "../utils/StringFormatter";
+import {Servers} from "../models/Server";
 
 // TODO changed when Data.ts will be merged
 declare const JsonReader: any;
-// TODO change when new models
-declare const Servers: any;
 // TODO change
 declare const getValidationInfos: any;
 // TODO change

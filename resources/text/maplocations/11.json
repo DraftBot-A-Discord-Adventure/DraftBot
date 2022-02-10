@@ -1,9 +1,9 @@
 {
 	"type": "ro",
-	"nameFr": "Le Grand Axe",
-	"nameEn": "The Great Road",
-	"particleFr": "vers",
-	"particleEn": "of",
+	"nameFr": "Grand Axe",
+	"nameEn": "Great Road",
+	"particleFr": "vers le",
+	"particleEn": "of the",
 	"descFr": "Dernière vraie route qui permet encore de contourner le Mont Célestrum par le nord, le grand axe est encore très utilisée aujourd’hui, principalement par les brigands.",
 	"descEn": "True last road which still allows to go around the Mount Celestrum from the north, the Great Road is still widely used, but mainly by brigands."
 }

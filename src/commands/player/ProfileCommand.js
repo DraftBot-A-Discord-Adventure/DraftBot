@@ -1,4 +1,9 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Classes} from "../../core/models/Class";
+import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
+import Player, {Players} from "../../core/models/Player";
+import {Campaign} from "../../core/missions/Campaign";
 
 module.exports.commandInfo = {
 	name: "profile",
@@ -23,6 +28,7 @@ const ProfileCommand = async (message, language, args) => {
 	const a = await entity.Player.getMainArmorSlot().getItem();
 	const p = await entity.Player.getMainPotionSlot().getItem();
 	const o = await entity.Player.getMainObjectSlot().getItem();
+	const [mc] = entity.Player.MissionSlots.filter(m => m.isCampaign());
 	const fields = [
 		{
 			name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
@@ -45,21 +51,36 @@ const ProfileCommand = async (message, language, args) => {
 			})
 		},
 		{
+			name: JsonReader.commands.profile.getTranslation(language).mission.fieldName,
+			value: format(JsonReader.commands.profile.getTranslation(language).mission.fieldValue, {
+				gems: entity.Player.PlayerMissionsInfo.gems,
+				campaign: Math.round(
+					(entity.Player.PlayerMissionsInfo.campaignProgression === Campaign.getMaxCampaignNumber() && mc.isCompleted()
+						? entity.Player.PlayerMissionsInfo.campaignProgression
+						: entity.Player.PlayerMissionsInfo.campaignProgression - 1
+					) / Campaign.getMaxCampaignNumber() * 100)
+			}
+			),
+			inline: false
+		},
+		{
 			name: JsonReader.commands.profile.getTranslation(language).classement.fieldName,
-			value: format(JsonReader.commands.profile.getTranslation(
-				language).classement.fieldValue, {
-				rank: (await Players.getById(entity.Player.id))[0].rank,
-				numberOfPlayer: await Players.count({
-					where: {
-						score: {
-							[require("sequelize/lib/operators").gt]: 100
-						}
-					}
-				}),
-				score: entity.Player.score
-			})
+			value:
+					format(JsonReader.commands.profile.getTranslation(
+						language).classement.fieldValue, {
+						rank: (await Players.getById(entity.Player.id))[0].rank,
+						numberOfPlayer: await Player.count({
+							where: {
+								score: {
+									[require("sequelize/lib/operators").gt]: 100
+								}
+							}
+						}),
+						score: entity.Player.score
+					})
 		}
-	];
+	]
+	;
 
 	if (!entity.Player.checkEffect()) {
 		if (message.createdAt.getTime() >= entity.Player.effectEndDate) {
@@ -132,9 +153,9 @@ const ProfileCommand = async (message, language, args) => {
 			fields.push({
 				name: JsonReader.commands.profile.getTranslation(language).pet.fieldName,
 				value: format(JsonReader.commands.profile.getTranslation(language).pet.fieldValue, {
-					rarity: Pets.getRarityDisplay(pet.PetModel),
-					emote: PetEntities.getPetEmote(pet),
-					nickname: pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)
+					rarity: pet.PetModel.getRarityDisplay(),
+					emote: pet.getPetEmote(),
+					nickname: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
 				}),
 				inline: false
 			});
@@ -143,16 +164,17 @@ const ProfileCommand = async (message, language, args) => {
 	catch (error) {
 		console.log(error);
 	}
-
-	const msg = await message.channel.send({ embeds: [
-		new DraftBotEmbed()
-			.setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
-				effect: titleEffect,
-				pseudo: await entity.Player.getPseudo(language),
-				level: entity.Player.level
-			}))
-			.addFields(fields)
-	] });
+	const msg = await message.channel.send({
+		embeds: [
+			new DraftBotEmbed()
+				.setTitle(format(JsonReader.commands.profile.getTranslation(language).title, {
+					effect: titleEffect,
+					pseudo: await entity.Player.getPseudo(language),
+					level: entity.Player.level
+				}))
+				.addFields(fields)
+		]
+	});
 
 	const filterConfirm = (reaction) => reaction.me && !reaction.users.cache.last().bot;
 
@@ -163,7 +185,7 @@ const ProfileCommand = async (message, language, args) => {
 	});
 
 	collector.on("collect", (reaction) => {
-		message.channel.send({ content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name] }).then((msg) => {
+		message.channel.send({content: JsonReader.commands.profile.getTranslation(language).badges[reaction.emoji.name]}).then((msg) => {
 			setTimeout(() => msg.delete(), JsonReader.commands.profile.badgeDescriptionTimeout);
 		});
 	});

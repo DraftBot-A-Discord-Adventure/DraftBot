@@ -77,31 +77,14 @@ export abstract class Constants {
 		LOCAL_SPACE_LIMIT: 500 * 1024 * 1024
 	}
 
-	static readonly FIGHT = {
-		MAX_SPEED_IMPROVEMENT: 30,
-		MAX_TURNS: 25,
-		REQUIRED_LEVEL: 8,
-		POINTS_REGEN_MINUTES: 15,
-		POINTS_REGEN_AMOUNT: 50,
-		ACTION: {
-			QUICK_ATTACK: 0,
-			SIMPLE_ATTACK: 1,
-			POWERFUL_ATTACK: 2,
-			BULK_ATTACK: 3,
-			IMPROVE_SPEED: 4,
-			ULTIMATE_ATTACK: 5
-		}
+	static readonly REPORT = {
+		TIME_BETWEEN_BIG_EVENTS: 2 * 60 * 60 * 1000, // 2 hours
+		BONUS_POINT_TIME_DIVIDER: 6,
+		POINTS_BY_SMALL_EVENT: 50,
+		PATH_SQUARE_COUNT: 16,
+		TIME_BETWEEN_MINI_EVENTS: 10 * 60 * 1000, // 10 minutes
+		QUICK_END_EMOTE: "🔚"
 	};
-
-	static readonly NATURE = {
-		NONE: 0,
-		HEALTH: 1,
-		SPEED: 2,
-		ATTACK: 3,
-		DEFENSE: 4,
-		HOSPITAL: 5,
-		MONEY: 6
-	}
 
 	static readonly PETS = {
 		IS_FOOD: 1,
@@ -117,6 +100,54 @@ export abstract class Constants {
 			MIN: 100,
 			MAX: 50000
 		}
+	};
+
+	static readonly CLASS = {
+		REQUIRED_LEVEL: 4,
+		PRICE: 5000,
+		GROUP1LEVEL: 16,
+		GROUP2LEVEL: 32,
+		GROUP3LEVEL: 48
+	}
+
+	static readonly FIGHT = {
+		MAX_SPEED_IMPROVEMENT: 30,
+		MAX_TURNS: 25,
+		REQUIRED_LEVEL: 8,
+		POINTS_REGEN_MINUTES: 15,
+		POINTS_REGEN_AMOUNT: 50,
+		ACTION: {
+			QUICK_ATTACK: 0,
+			SIMPLE_ATTACK: 1,
+			POWERFUL_ATTACK: 2,
+			BULK_ATTACK: 3,
+			IMPROVE_SPEED: 4,
+			ULTIMATE_ATTACK: 5
+		}
+	}
+
+	static readonly GUILD = {
+		REQUIRED_LEVEL: 10,
+		MAX_GUILD_MEMBER: 6,
+		MAX_GUILD_NAME_SIZE: 15,
+		MIN_GUILD_NAME_SIZE: 2,
+		MIN_DESCRIPTION_LENGTH: 2,
+		MAX_DESCRIPTION_LENGTH: 140,
+		MAX_COMMON_PET_FOOD: 25,
+		MAX_HERBIVOROUS_PET_FOOD: 15,
+		MAX_CARNIVOROUS_PET_FOOD: 15,
+		MAX_ULTIMATE_PET_FOOD: 5,
+		MAX_LEVEL: 100
+	};
+
+	static readonly NATURE = {
+		NONE: 0,
+		HEALTH: 1,
+		SPEED: 2,
+		ATTACK: 3,
+		DEFENSE: 4,
+		HOSPITAL: 5,
+		MONEY: 6
 	}
 
 	static readonly LOGS = {
@@ -158,18 +189,13 @@ export abstract class Constants {
 		SCARED: ":scream:"
 	};
 
-	static readonly GUILD = {
-		REQUIRED_LEVEL: 10,
-		MAX_GUILD_MEMBER: 6,
-		MAX_GUILD_NAME_SIZE: 15,
-		MIN_GUILD_NAME_SIZE: 2,
-		MIN_DESCRIPTION_LENGTH: 2,
-		MAX_DESCRIPTION_LENGTH: 140,
-		MAX_COMMON_PET_FOOD: 25,
-		MAX_HERBIVOROUS_PET_FOOD: 15,
-		MAX_CARNIVOROUS_PET_FOOD: 15,
-		MAX_ULTIMATE_PET_FOOD: 5,
-		MAX_LEVEL: 100
+	static readonly MISSION_SHOP = {
+		RATIO_MONEY_GEMS: 1000
+	};
+
+	static readonly BEGINNING = {
+		START_MAP_LINK: 83,
+		LAST_MAP_LINK: 77
 	};
 
 	static readonly LOTTERY_REWARD_TYPES = {
@@ -177,5 +203,48 @@ export abstract class Constants {
 		MONEY: "money",
 		GUILD_XP: "guildXp",
 		POINTS: "points"
+	};
+
+	static readonly MISSIONS = {
+		SLOT_3_LEVEL: 50,
+		SLOT_2_LEVEL: 25,
+		SLOTS_LEVEL_PROBABILITIES: [
+			{
+				LEVEL: 0,
+				EASY: 1,
+				MEDIUM: 0,
+				HARD: 0
+			},
+			{
+				LEVEL: 10,
+				EASY: 0.75,
+				MEDIUM: 0.25,
+				HARD: 0
+			},
+			{
+				LEVEL: 20,
+				EASY: 0.4,
+				MEDIUM: 0.6,
+				HARD: 0
+			},
+			{
+				LEVEL: 40,
+				EASY: 0.25,
+				MEDIUM: 0.65,
+				HARD: 0.1
+			},
+			{
+				LEVEL: 50,
+				EASY: 0.2,
+				MEDIUM: 0.55,
+				HARD: 0.25
+			},
+			{
+				LEVEL: 60,
+				EASY: 0.1,
+				MEDIUM: 0.4,
+				HARD: 0.5
+			}
+		]
 	}
 }

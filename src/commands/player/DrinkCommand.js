@@ -1,77 +1,94 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
-import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
-import {Translations} from "../../core/Translations";
+import {Entities} from "../../core/models/Entity";
 
-const Maps = require("../../core/Maps");
+import {Maps} from "../../core/Maps";
+import {MissionsController} from "../../core/missions/MissionsController";
+import {Tags} from "../../core/models/Tag";
+import Potion from "../../core/models/Potion";
+import {countNbOfPotions} from "../../core/utils/ItemUtils";
+import {Constants} from "../../core/Constants";
+import {Translations} from "../../core/Translations";
+import {Data} from "../../core/Data";
+import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 
 module.exports.commandInfo = {
 	name: "drink",
 	aliases: ["dr","glouglou"],
-	disallowEffects: [EFFECT.BABY, EFFECT.DEAD]
+	disallowEffects: [Constants.EFFECT.BABY, Constants.EFFECT.DEAD]
 };
 
-/**
- * Allow to use the potion if the player has one in the dedicated slot of his inventory
- * @param {module:"discord.js".Message} message - Message from the discord server
- * @param {("fr"|"en")} language - Language to use in the response
- */
 const DrinkCommand = async (message, language, args) => {
 	const tr = Translations.getModule("commands.drink", language);
-	const [entity] = await Entities.getOrRegister(message.author.id);
+	let [entity] = await Entities.getOrRegister(message.author.id);
 	if (await sendBlockedError(message.author, message.channel, language)) {
 		return;
 	}
-
 	const potion = await entity.Player.getMainPotionSlot().getItem();
 	const embed = new DraftBotEmbed()
 		.formatAuthor(tr.get("drinkSuccess"), message.author);
 
-	if (potion.nature === NATURE.NONE && potion.id === Translations.getModule("models.inventories", language).get("potionId")) {
+	if (potion.id === Data.getModule("models.inventories").getNumber("potionId")) {
 		return sendErrorMessage(message.author, message.channel, language, tr.get("noActiveObjectdescription"));
 	}
 	if (potion.nature === NATURE.SPEED || potion.nature === NATURE.DEFENSE || potion.nature === NATURE.ATTACK) { // Those objects are active only during fights
 		return sendErrorMessage(message.author, message.channel, language, tr.get("objectIsActiveDuringFights"));
 	}
+
 	const drinkPotion = async (validateMessage, potion) => {
 		removeBlockedPlayer(entity.discordUserId);
 		if (args[0] === "force" || args[0] === "f" || validateMessage.isValidated()) {
 			if (potion.nature === NATURE.NONE) {
-				await entity.Player.drinkPotion();
-				return sendErrorMessage(message.author, message.channel, language, tr.get("objectDoNothingError"));
+				if (potion.id !== JsonReader.models.inventories.potionId) {
+					await entity.Player.drinkPotion();
+					await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).objectDoNothingError);
+				}
+				else {
+					await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.drink.getTranslation(language).noActiveObjectdescription);
+					return;
+				}
 			}
-			if (potion.nature === NATURE.HEALTH) {
-				embed.setDescription(format(tr.get("healthBonus"), {value: potion.power}));
-				await entity.addHealth(potion.power);
+			else if (potion.nature === NATURE.HEALTH) {
+				embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).healthBonus, {value: potion.power}));
+				await entity.addHealth(potion.power, message.channel, language);
 				await entity.Player.drinkPotion();
 			}
-			if (potion.nature === NATURE.HOSPITAL) {
-				embed.setDescription(format(tr.get("hospitalBonus"), {value: potion.power}));
+			else if (potion.nature === NATURE.SPEED || potion.nature === NATURE.DEFENSE || potion.nature === NATURE.ATTACK) { // Those objects are active only during fights
+				return sendErrorMessage(message.author, message.channel, language, tr.get("objectIsActiveDuringFights"));
+			}
+			else if (potion.nature === NATURE.HOSPITAL) {
+				embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, {value: potion.power}));
 				Maps.advanceTime(entity.Player, potion.power * 60);
 				entity.Player.save();
 				await entity.Player.drinkPotion();
 			}
-			if (potion.nature === NATURE.MONEY) {
-				embed.setDescription(format(tr.get("moneyBonus"), {value: potion.power}));
-				entity.Player.addMoney(potion.power);
+			else if (potion.nature === NATURE.MONEY) {
+				embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).moneyBonus, {value: potion.power}));
+				entity.Player.addMoney(entity, potion.power, message.channel, language);
 				await entity.Player.drinkPotion();
 			}
-
+			await MissionsController.update(entity.discordUserId, message.channel, language, "drinkPotion");
+			const tagsToVerify = await Tags.findTagsFromObject(potion.id, Potion.name);
+			if (tagsToVerify) {
+				for (let i = 0; i < tagsToVerify.length; i++) {
+					await MissionsController.update(entity.discordUserId, message.channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
+				}
+			}
 			await Promise.all([
 				entity.save(),
 				entity.Player.save()
 			]);
 			log(entity.discordUserId + " drank " + potion.en);
+			[entity] = await Entities.getOrRegister(entity.discordUserId);
+			await MissionsController.update(entity.discordUserId, message.channel, language, "havePotions", countNbOfPotions(entity.Player),null,true);
 			return await message.channel.send({ embeds: [embed] });
 		}
-		removeBlockedPlayer(entity.discordUserId);
-		return sendErrorMessage(message.author, message.channel, language, tr.get("drinkCanceled"));
 	};
 
 	if (args[0] === "force" || args[0] === "f") {
-		drinkPotion(null, potion);
+		await drinkPotion(null, potion);
 	}
 	else {
-	const validationMessage = await new DraftBotValidateReactionMessage(message.author, (msg) => drinkPotion(msg, potion))
+		await new DraftBotValidateReactionMessage(message.author, (msg) => drinkPotion(msg, potion))
 			.formatAuthor(tr.get("confirmationTitle"), message.author)
 			.setDescription(tr.format("confirmation", {
 				potion: potion[language],
@@ -80,6 +97,6 @@ const DrinkCommand = async (message, language, args) => {
 			.setFooter(tr.get("confirmationFooter"))
 			.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "drink", collector));
 	}
-}
+};
 
 module.exports.execute = DrinkCommand;

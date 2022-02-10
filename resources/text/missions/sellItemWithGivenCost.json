@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Vendre {objective} équipement{objective>1?s:} pour plus de {variantText} :moneybag:"
+		},
+		"en": {
+			"desc": "Sell {objective} item{objective>1?s:} for more than {variantText} :moneybag:"
+		}
+	},
+	"campaignOnly": true
+}

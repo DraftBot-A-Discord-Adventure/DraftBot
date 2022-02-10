@@ -1,0 +1,21 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Faire {objective} rapport{objective>1?s:}"
+		},
+		"en": {
+			"desc": "Do {objective} report{objective>1?s:}"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [0, 1],
+		"medium": [2, 3],
+		"hard": [4, 5]
+	},
+	"objectives": [3, 10, 15, 20, 25, 30],
+	"gems": [1, 3, 5, 7, 10, 12],
+	"xp": [10, 20, 50, 70, 120, 150],
+	"expirations": [12, 30, 50, 60, 85, 96],
+	"dailyIndexes": [0, 1]
+}

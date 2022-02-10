@@ -7,6 +7,11 @@
  * @returns {Promise<>}
  */
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
+import {Classes} from "../models/Class";
+import {Entities} from "../models/Entity";
+import {Guilds} from "../models/Guild";
+import {MapLocations} from "../models/MapLocation";
+import {Players} from "../models/Player";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;
@@ -153,8 +158,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		class: (await Classes.getById(otherEntity.Player.class))[language],
 		advice: JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length)],
 		petName: otherEntity.Player.Pet
-			? PetEntities.getPetEmote(otherEntity.Player.Pet) + " "
-			+ (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : PetEntities.getPetTypeName(otherEntity.Player.Pet, language))
+			? otherEntity.Player.Pet.getPetEmote() + " "
+			+ (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : otherEntity.Player.Pet.getPetTypeName(language))
 			: "",
 		guildName: guild ? guild.name : "",
 		item: item ? item[language] : "",
@@ -178,9 +183,9 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const poorEmbed = new DraftBotEmbed()
 				.formatAuthor(JsonReader.commands.report.getTranslation(language).journal, message.author);
 			if (reaction.first() && reaction.first().emoji.name === COIN_EMOTE) {
-				otherEntity.Player.money += 1;
+				otherEntity.Player.addMoney(otherEntity, 1, message.channel, language);
 				await otherEntity.Player.save();
-				entity.Player.money -= 1;
+				entity.Player.addMoney(entity, -1, message.channel, language);
 				await entity.Player.save();
 				poorEmbed.setDescription(format(tr.poorGiveMoney[randInt(0, tr.poorGiveMoney.length)], {
 					pseudo: await otherEntity.Player.getPseudo(language)
@@ -204,5 +209,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

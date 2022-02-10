@@ -1,4 +1,4 @@
-const Maps = require("../Maps");
+import {Maps} from "../Maps";
 /**
  * Main function of small event
  * @param {module:"discord.js".Message} message
@@ -17,7 +17,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	case 0:
 		lifeLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_HEALTH_LOST_BIG, SMALL_EVENT.MAXIMUM_HEALTH_LOST_BIG);
 		seEmbed.setDescription(base + format(transBBE.lifeLoss.stories[randInt(0, transBBE.lifeLoss.stories.length)], {lifeLoss: lifeLoss}));
-		await entity.addHealth(-lifeLoss);
+		await entity.addHealth(-lifeLoss, message.channel, language);
 		break;
 	case 1:
 		seFallen = transBBE.alteration.stories[randInt(0, transBBE.alteration.stories.length)];
@@ -27,7 +27,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	default:
 		moneyLoss = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_LOST_BIG, SMALL_EVENT.MAXIMUM_MONEY_LOST_BIG);
 		seEmbed.setDescription(base + format(transBBE.moneyLoss.stories[randInt(0, transBBE.moneyLoss.stories.length)], {moneyLost: moneyLoss}));
-		entity.Player.addMoney(-moneyLoss);
+		entity.Player.addMoney(entity, -moneyLoss, message.channel, language);
 		break;
 	}
 	await message.channel.send({ embeds: [seEmbed] });
@@ -38,5 +38,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 };
 
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

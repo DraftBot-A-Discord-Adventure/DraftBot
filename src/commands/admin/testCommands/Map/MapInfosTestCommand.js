@@ -1,4 +1,6 @@
 import {DraftBotEmbed} from "../../../../core/messages/DraftBotEmbed";
+import {Entities} from "../../../../core/models/Entity";
+import {MapLocations} from "../../../../core/models/MapLocation";
 
 module.exports.commandInfo = {
 	name: "mapinfo",
@@ -6,7 +8,7 @@ module.exports.commandInfo = {
 	description: "Donne des informations pratiques sur la map sur laquelle vous êtes"
 };
 
-const Maps = require("../../../../core/Maps");
+import {Maps} from "../../../../core/Maps";
 
 /**
  * Give you informations about the map you are on

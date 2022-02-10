@@ -2,6 +2,8 @@ import {DraftBotShopMessageBuilder, ShopItem, ShopItemCategory} from "../../core
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {Translations} from "../../core/Translations";
+import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
 
 module.exports.commandInfo = {
 	name: "guildshop",
@@ -67,7 +69,7 @@ function getGuildXPShopItem(guildShopTranslations) {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const guild = await Guilds.getById(entity.Player.guildId);
 			const xpToAdd = randInt(50, 450);
-			guild.addExperience(xpToAdd,message.sentMessage,message.language);
+			await guild.addExperience(xpToAdd, message.sentMessage, message.language);
 
 			await guild.save();
 			await message.sentMessage.channel.send({ embeds: [

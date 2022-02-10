@@ -1,5 +1,9 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
+import {MissionsController} from "../../core/missions/MissionsController";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "guildadd",
@@ -108,7 +112,7 @@ const GuildAddCommand = async (message, language, args) => {
 				guild = null;
 			}
 			if (guild === null) {
-				// guild is destroy
+				// guild is destroyed
 				return sendErrorMessage(
 					message.mentions.users.last(),
 					message.channel,
@@ -125,15 +129,20 @@ const GuildAddCommand = async (message, language, args) => {
 				invitedEntity.Player.save()
 			]);
 
-			return message.channel.send({ embeds: [
-				new DraftBotEmbed()
-					.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
-						pseudo: message.mentions.users.last().username,
-						guildName: guild.name
-					}),
-					message.mentions.users.last().displayAvatarURL())
-					.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess)
-			] });
+			await MissionsController.update(invitedEntity.discordUserId, message.channel, language, "joinGuild");
+			await MissionsController.update(invitedEntity.discordUserId, message.channel, language, "guildLevel", guild.level, null, true);
+
+			return message.channel.send({
+				embeds: [
+					new DraftBotEmbed()
+						.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
+							pseudo: escapeUsername(message.mentions.users.last().username),
+							guildName: guild.name
+						}),
+						message.mentions.users.last().displayAvatarURL())
+						.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess)
+				]
+			});
 		}
 
 		// Cancel the creation

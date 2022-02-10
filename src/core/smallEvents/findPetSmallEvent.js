@@ -7,6 +7,11 @@
  *    The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
+import {GuildPets} from "../models/GuildPet";
+import {PetEntities} from "../models/PetEntity";
+import {Guilds} from "../models/Guild";
+import {MissionsController} from "../missions/MissionsController";
+
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 
 	const pet = await PetEntities.generateRandomPetEntityNotGuild();
@@ -20,11 +25,11 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		guild = null;
 	}
 
-	const petLine = await PetEntities.displayName(pet, language);
+	const petLine = await pet.displayName(language);
 	const translationIntroSE = JsonReader.smallEventsIntros.getTranslation(language);
 	const base = JsonReader.smallEvents.findPet.emote + " "
 		+ translationIntroSE.intro[randInt(0, translationIntroSE.intro.length)];
-	const noRoomInGuild = guild === null ? true : await Guilds.isPetShelterFull(guild);
+	const noRoomInGuild = guild === null ? true : guild.isPetShelterFull();
 	const seEmbedPetObtention = seEmbed;
 	const trad = JsonReader.smallEvents.findPet.getTranslation(language);
 
@@ -52,8 +57,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		generateRoomEmbed(seEmbed, base, trad, petLine, pet, true);
 		message.channel.send({ embeds: [seEmbed] });
 		seEmbedPetObtention.setDescription(format(trad.petObtentionGuild, {
-			emote: PetEntities.getPetEmote(pet),
-			pet: PetEntities.getPetTypeName(pet, language)
+			emote: pet.getPetEmote(),
+			pet: pet.getPetTypeName(language)
 		}));
 		await message.channel.send({ embeds: [seEmbedPetObtention] });
 	}
@@ -65,10 +70,11 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		generateRoomEmbed(seEmbed, base, trad, petLine, pet, false);
 		message.channel.send({ embeds: [seEmbed] });
 		seEmbedPetObtention.setDescription(format(trad.petObtentionPlayer, {
-			emote: PetEntities.getPetEmote(pet),
-			pet: PetEntities.getPetTypeName(pet, language)
+			emote: pet.getPetEmote(),
+			pet: pet.getPetTypeName(language)
 		}));
 		await message.channel.send({ embeds: [seEmbedPetObtention] });
+		await MissionsController.update(entity.discordUserId, message.channel, language, "havePet");
 	}
 	log(entity.discordUserId + " got find pet event.");
 };
@@ -130,7 +136,9 @@ const generateRoomEmbed = function(seEmbed, base, trad, petLine, pet, inguild) {
 			}));
 };
 
-
 module.exports = {
-	executeSmallEvent: executeSmallEvent
+	smallEvent: {
+		executeSmallEvent: executeSmallEvent,
+		canBeExecuted: () => Promise.resolve(true)
+	}
 };

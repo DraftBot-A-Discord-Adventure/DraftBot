@@ -1,0 +1,45 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Faire {objective} combat{objective>1?s:} classé{objective>1?s:}"
+		},
+		"en": {
+			"desc": "Do {objective} ranked fight{objective>1?s:}"
+		}
+	},
+	"campaignOnly": false,
+	"difficulties": {
+		"easy": [
+			0
+		],
+		"medium": [
+			1
+		],
+		"hard": [
+			2
+		]
+	},
+	"objectives": [
+		1,
+		2,
+		3
+	],
+	"gems": [
+		6,
+		15,
+		22
+	],
+	"xp": [
+		100,
+		200,
+		300
+	],
+	"expirations": [
+		24,
+		48,
+		72
+	],
+	"dailyIndexes": [
+		0
+	]
+}

@@ -1,3 +1,5 @@
+import {Entities} from "../../../../core/models/Entity";
+
 module.exports.commandInfo = {
 	name: "removeplayereffect",
 	aliases: ["rmeffect"],
@@ -5,7 +7,7 @@ module.exports.commandInfo = {
 	description: "Enlève votre effet actuel"
 };
 
-const Maps = require("../../../../core/Maps");
+import {Maps} from "../../../../core/Maps";
 
 /**
  * Remove the effect of your player

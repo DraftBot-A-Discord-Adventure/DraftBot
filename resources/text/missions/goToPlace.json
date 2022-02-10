@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Aller à cet endroit : {variantText}"
+		},
+		"en": {
+			"desc": "Go to this place: {variantText}"
+		}
+	},
+	"campaignOnly": true
+}

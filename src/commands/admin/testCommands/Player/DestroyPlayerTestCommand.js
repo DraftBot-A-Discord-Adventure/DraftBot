@@ -1,3 +1,10 @@
+import InventoryInfo from "../../../../core/models/InventoryInfo";
+import Entity, {Entities} from "../../../../core/models/Entity";
+import InventorySlot from "../../../../core/models/InventorySlot";
+import Player from "../../../../core/models/Player";
+import MissionSlot from "../../../../core/models/MissionSlot";
+import PlayerMissionsInfo from "../../../../core/models/PlayerMissionsInfo";
+
 module.exports.commandInfo = {
 	name: "destroyplayer",
 	aliases: ["destroy"],
@@ -14,22 +21,42 @@ module.exports.commandInfo = {
  */
 const destroyPlayerTestCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
-	InventorySlots.destroy({
+	await MissionSlot.destroy({
 		where: {
 			playerId: entity.Player.id
 		}
 	});
-	InventoryInfo.destroy({
+	await PlayerMissionsInfo.destroy({
 		where: {
 			playerId: entity.Player.id
 		}
 	});
-	Players.destroy({
+	await InventorySlot.destroy({
+		where: {
+			playerId: entity.Player.id
+		}
+	});
+	await InventoryInfo.destroy({
+		where: {
+			playerId: entity.Player.id
+		}
+	});
+	await MissionSlot.destroy({
+		where: {
+			playerId: entity.Player.id
+		}
+	});
+	await PlayerMissionsInfo.destroy({
+		where: {
+			playerId: entity.Player.id
+		}
+	});
+	await Player.destroy({
 		where: {
 			entityId: entity.id
 		}
 	});
-	Entities.destroy({
+	await Entity.destroy({
 		where: {
 			id: entity.id
 		}

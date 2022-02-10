@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": {
+			"desc": "Avoir un familier apprivoisé ou dressé"
+		},
+		"en": {
+			"desc": "Have a tamed or trained pet"
+		}
+	},
+	"campaignOnly": true
+}

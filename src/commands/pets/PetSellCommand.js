@@ -1,4 +1,8 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
+import {Entities} from "../../core/models/Entity";
+import {Guilds} from "../../core/models/Guild";
+import {MissionsController} from "../../core/missions/MissionsController";
+import {escapeUsername} from "../../core/utils/StringUtils";
 
 module.exports.commandInfo = {
 	name: "petsell",
@@ -60,7 +64,7 @@ const PetSellCommand = async (message, language, args) => {
 		);
 	}
 
-	if (pet.lovePoints < PETS.LOVE_LEVELS[0]) {
+	if (pet.isFeisty()) {
 		return sendErrorMessage(
 			message.author,
 			message.channel,
@@ -84,9 +88,9 @@ const PetSellCommand = async (message, language, args) => {
 	fields.push({
 		name: translations.petFieldName,
 		value: format(JsonReader.commands.profile.getTranslation(language).pet.fieldValue, {
-			rarity: Pets.getRarityDisplay(pet.PetModel),
-			emote: PetEntities.getPetEmote(pet),
-			nickname: pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)
+			rarity: pet.PetModel.getRarityDisplay(),
+			emote: pet.getPetEmote(),
+			nickname: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
 		}),
 		inline: false
 	});
@@ -96,7 +100,7 @@ const PetSellCommand = async (message, language, args) => {
 			.setTitle(translations.sellMessage.title)
 			.setDescription(
 				format(translations.sellMessage.description, {
-					author: message.author.username,
+					author: escapeUsername(message.author.username),
 					price: petCost,
 					guildMaxLevel: guild.isAtMaxLevel()
 				})
@@ -180,8 +184,8 @@ async function petSell(message, language, entity, user, pet, petCost) {
 		.formatAuthor(translations.confirmEmbed.author, user)
 		.setDescription(
 			format(translations.confirmEmbed.description, {
-				emote: await PetEntities.getPetEmote(pet),
-				pet: await pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language),
+				emote: await pet.getPetEmote(),
+				pet: await pet.nickname ? pet.nickname : pet.getPetTypeName(language),
 				price: petCost
 			})
 		);
@@ -225,11 +229,11 @@ async function petSell(message, language, entity, user, pet, petCost) {
 			const MIN_XP = Math.floor(petCost / (1000 / 50));
 			const MAX_XP = Math.floor(petCost / (1000 / 450));
 			const toAdd = Math.floor(randInt(MIN_XP, MAX_XP));
-			guild.addExperience(toAdd,message,language); // Add xp
+			await guild.addExperience(toAdd, message, language);
 
 			await guild.save();
 			buyer.Player.petId = pet.id;
-			buyer.Player.money -= petCost;
+			buyer.Player.addMoney(buyer, -petCost, message.channel, language);
 			await buyer.Player.save();
 			entity.Player.petId = null;
 			await entity.Player.save();
@@ -253,11 +257,12 @@ async function petSell(message, language, entity, user, pet, petCost) {
 				.formatAuthor(translations.addPetEmbed.author, user);
 			addPetEmbed.setDescription(
 				format(translations.addPetEmbed.description, {
-					emote: await PetEntities.getPetEmote(pet),
-					pet: pet.nickname ? pet.nickname : PetEntities.getPetTypeName(pet, language)
+					emote: await pet.getPetEmote(),
+					pet: pet.nickname ? pet.nickname : pet.getPetTypeName(language)
 				})
 			);
-			return message.channel.send({ embeds: [addPetEmbed] });
+			await message.channel.send({ embeds: [addPetEmbed] });
+			await MissionsController.update(buyer.discordUserId, message.channel, language, "havePet");
 		}
 	});
 	await Promise.all([confirmMessage.react(MENU_REACTION.ACCEPT), confirmMessage.react(MENU_REACTION.DENY)]);
