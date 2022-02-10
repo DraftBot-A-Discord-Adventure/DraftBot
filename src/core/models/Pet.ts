@@ -49,8 +49,9 @@ export class Pets {
 
 	static getMaxId(): Promise<number> {
 		return new Promise((resolve, reject) => {
-			fs.readdir("resources/text/pets/", (err, files) =>
-				err ? reject(err) : resolve(files.length - 1)
+			fs.readdir("resources/text/pets/", (err, files) => {
+				err ? reject(err) : resolve(files.length - 1);
+			}
 			);
 		});
 	}

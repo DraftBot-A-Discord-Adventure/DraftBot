@@ -34,8 +34,9 @@ export class Armor extends MainItemModel {
 export class Armors {
 	static getMaxId(): Promise<number> {
 		return new Promise((resolve, reject) => {
-			fs.readdir("resources/text/armors/", (err, files) =>
-				err ? reject(err) : resolve(files.length - 1)
+			fs.readdir("resources/text/armors/", (err, files) => {
+				err ? reject(err) : resolve(files.length - 1);
+			}
 			);
 		});
 	}

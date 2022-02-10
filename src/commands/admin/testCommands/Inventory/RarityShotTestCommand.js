@@ -10,7 +10,10 @@ module.exports.commandInfo = {
 		rarityMin: typeVariable.INTEGER,
 		rarityMax: typeVariable.INTEGER
 	},
-	messageWhenExecuted: "Vous avez tiré {nbTirages} objets, vous avez obtenu {common} communs ({commonPercent}%), {uncommon} peu communs ({uncommonPercent}%), {exotic} exotiques ({exoticPercent}%), {rare} rares ({rarePercent}%), {special} spéciaux ({specialPercent}%), {epic} épiques ({epicPercent}%), {legendary} légendaires ({legendaryPercent}%) et {mythic} mythiques ({mythicPercent}%)",
+	messageWhenExecuted: "Vous avez tiré {nbTirages} objets, vous avez obtenu {common} communs ({commonPercent}%)," +
+		" {uncommon} peu communs ({uncommonPercent}%), {exotic} exotiques ({exoticPercent}%)," +
+		" {rare} rares ({rarePercent}%), {special} spéciaux ({specialPercent}%), {epic} épiques ({epicPercent}%)," +
+		" {legendary} légendaires ({legendaryPercent}%) et {mythic} mythiques ({mythicPercent}%)",
 	description: "Fait nbTirages tirages de rareté d'objets entre les raretés rarityMin et rarityMax."
 };
 
@@ -21,7 +24,7 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const RarityShotTestCommand = async (language, message, args) => {
+const RarityShotTestCommand = (language, message, args) => {
 	if (args[0] < 0) {
 		throw new Error("Erreur rarityshot : nbTirages négatif !");
 	}

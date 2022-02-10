@@ -27,7 +27,17 @@ export class MissionsController {
 		}
 	}
 
-	// eslint-disable-next-line max-params
+
+	/**
+	 * update all the mission of the user
+	 * @param discordUserId
+	 * @param channel
+	 * @param language
+	 * @param missionId
+	 * @param count
+	 * @param params
+	 * @param set
+	 */// eslint-disable-next-line max-params
 	static async update(discordUserId: string, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<void> {
 		const [entity] = await Entities.getOrRegister(discordUserId);
 		await MissionsController.handleExpiredMissions(entity.Player, draftBotClient.users.cache.get(discordUserId), channel, language);
@@ -40,6 +50,7 @@ export class MissionsController {
 	}
 
 	/**
+	 * update the counts of the different mission the user has
 	 * @param player
 	 * @param missionId
 	 * @param count
@@ -51,23 +62,7 @@ export class MissionsController {
 	private static async updateMissionsCounts(player: Player, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<boolean[]> {
 		const missionInterface = this.getMissionInterface(missionId);
 		let completedCampaign = false;
-		for (const mission of player.MissionSlots) {
-			if (mission.missionId === missionId && missionInterface.areParamsMatchingVariant(mission.missionVariant, params) && !mission.hasExpired() && !mission.isCompleted()) {
-				if (set) {
-					mission.numberDone = count;
-				}
-				else {
-					mission.numberDone += count;
-				}
-				if (mission.numberDone > mission.missionObjective) {
-					mission.numberDone = mission.missionObjective;
-				}
-				if (mission.isCampaign() && mission.isCompleted()) {
-					completedCampaign = true;
-				}
-				await mission.save();
-			}
-		}
+		completedCampaign = await this.checkMissionSlots(player, missionId, missionInterface, params, set, count, completedCampaign);
 		if (!player.PlayerMissionsInfo.hasCompletedDailyMission()) {
 			const dailyMission = await DailyMissions.getOrGenerate();
 			if (dailyMission.missionId === missionId) {
@@ -87,6 +82,46 @@ export class MissionsController {
 		return [false, completedCampaign];
 	}
 
+
+	/**
+	 * updates the missions located in the mission slots of the player
+	 * @param player
+	 * @param missionId
+	 * @param missionInterface
+	 * @param params
+	 * @param set
+	 * @param count
+	 * @param completedCampaign
+	 * @private
+	 */// eslint-disable-next-line max-params
+	private static async checkMissionSlots(player: Player, missionId: string, missionInterface: IMission, params: { [p: string]: any }, set: boolean, count: number, completedCampaign: boolean) {
+		for (const mission of player.MissionSlots) {
+			if (mission.missionId === missionId && missionInterface.areParamsMatchingVariant(mission.missionVariant, params) && !mission.hasExpired() && !mission.isCompleted()) {
+				if (set) {
+					mission.numberDone = count;
+				}
+				else {
+					mission.numberDone += count;
+				}
+				if (mission.numberDone > mission.missionObjective) {
+					mission.numberDone = mission.missionObjective;
+				}
+				if (mission.isCampaign() && mission.isCompleted()) {
+					completedCampaign = true;
+				}
+				await mission.save();
+			}
+		}
+		return completedCampaign;
+	}
+
+	/**
+	 * complete and update mission of a user
+	 * @param player
+	 * @param completedDailyMission
+	 * @param completedCampaign
+	 * @param language
+	 */
 	static async completeAndUpdateMissions(player: Player, completedDailyMission: boolean, completedCampaign: boolean, language: string): Promise<CompletedMission[]> {
 		const completedMissions: CompletedMission[] = [];
 		completedMissions.push(...await Campaign.updatePlayerCampaign(completedCampaign, player, language));

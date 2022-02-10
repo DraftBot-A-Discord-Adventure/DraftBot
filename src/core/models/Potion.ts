@@ -47,8 +47,9 @@ export class Potion extends SupportItemModel {
 export class Potions {
 	static getMaxId(): Promise<number> {
 		return new Promise((resolve, reject) => {
-			fs.readdir("resources/text/potions/", (err, files) =>
-				err ? reject(err) : resolve(files.length - 1)
+			fs.readdir("resources/text/potions/", (err, files) => {
+				err ? reject(err) : resolve(files.length - 1);
+			}
 			);
 		});
 	}

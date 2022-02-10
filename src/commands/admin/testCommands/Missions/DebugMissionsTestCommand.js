@@ -12,29 +12,29 @@ module.exports.commandInfo = {
 /**
  * Print missions info
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
- * @param {String[]} args=[] - Additional arguments sent with the command
+ * @param {Message} message - Message from the discord server
  * @return {String} - The successful message formatted
  */
-const debugMissionsTestCommand = async (language, message, args) => {
+const debugMissionsTestCommand = async (language, message) => {
 
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const embed = new DraftBotEmbed();
 	embed.setTitle("Debug missions");
-	embed.addField("⚙️ General", "Mission slots: " + entity.Player.getMissionSlots()
-		+ "\nDaily mission done: " + entity.Player.PlayerMissionsInfo.dailyMissionNumberDone
-		+ "\nLast daily mission done: " + entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted
-		+ "\nGems count: " + entity.Player.PlayerMissionsInfo.gems
-		+ "\nCampaign progression: " + entity.Player.PlayerMissionsInfo.campaignProgression, false);
+	embed.addField("⚙️ General", "\nDaily mission done: " + "Mission slots: " + entity.Player.getMissionSlots() +
+		entity.Player.PlayerMissionsInfo.dailyMissionNumberDone +
+		"\nLast daily mission done: " + entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted +
+		"\nGems count: " + entity.Player.PlayerMissionsInfo.gems +
+		"\nCampaign progression: " + entity.Player.PlayerMissionsInfo.campaignProgression, false);
 	let missionsFieldContent = "";
 	if (entity.Player.MissionSlots.length === 0) {
 		missionsFieldContent = "Aucune mission";
 	}
 	else {
 		for (let i = 0; i < entity.Player.MissionSlots.length; ++i) {
-			missionsFieldContent += await entity.Player.MissionSlots[i].Mission.formatDescription(entity.Player.MissionSlots[i].missionObjective, entity.Player.MissionSlots[i].missionVariant, language) +
-					" (id: " + entity.Player.MissionSlots[i].missionId +
+			missionsFieldContent += await entity.Player.MissionSlots[i].Mission.formatDescription(entity.Player.MissionSlots[i].missionObjective,
+				entity.Player.MissionSlots[i].missionVariant, language) +
+				" (id: " + entity.Player.MissionSlots[i].missionId +
 				")\n-> Variant: " + entity.Player.MissionSlots[i].missionVariant +
 				"\n-> Number done: " + entity.Player.MissionSlots[i].numberDone +
 				"\n-> Objective: " + entity.Player.MissionSlots[i].missionObjective +
@@ -43,7 +43,7 @@ const debugMissionsTestCommand = async (language, message, args) => {
 		}
 	}
 	embed.addField("📜 Missions", missionsFieldContent);
-	message.channel.send({ embeds: [embed] });
+	message.channel.send({embeds: [embed]});
 };
 
 module.exports.execute = debugMissionsTestCommand;

@@ -14,7 +14,7 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const resetDailyMissionTextCommand = async (language, message, args) => {
+const resetDailyMissionTextCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	entity.Player.PlayerMissionsInfo.dailyMissionNumberDone = 0;
 	entity.Player.PlayerMissionsInfo.lastDailyMissionCompleted = 0;

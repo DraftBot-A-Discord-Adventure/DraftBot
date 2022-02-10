@@ -59,7 +59,7 @@ const ShopCommand = async (message, language) => {
 		shopTranslations.get("inventoryCategory")
 	);
 
-	const shopMessage = (await new DraftBotShopMessageBuilder(
+	await (await new DraftBotShopMessageBuilder(
 		message.author,
 		shopTranslations.get("title"),
 		language

@@ -1,5 +1,4 @@
 import {Entities} from "../../../../core/models/Entity";
-import {PetEntities} from "../../../../core/models/PetEntity";
 
 module.exports.commandInfo = {
 	name: "petlovepoints",

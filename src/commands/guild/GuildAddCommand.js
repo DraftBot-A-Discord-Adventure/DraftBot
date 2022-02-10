@@ -62,11 +62,11 @@ const GuildAddCommand = async (message, language, args) => {
 	}
 
 	if (
-		sendBlockedError(
+		await sendBlockedError(
 			message.mentions.users.last(),
 			message.channel,
 			language
-		) === true
+		)
 	) {
 		return;
 	}
@@ -132,15 +132,17 @@ const GuildAddCommand = async (message, language, args) => {
 			await MissionsController.update(invitedEntity.discordUserId, message.channel, language, "joinGuild");
 			await MissionsController.update(invitedEntity.discordUserId, message.channel, language, "guildLevel", guild.level, null, true);
 
-			return message.channel.send({ embeds: [
-				new DraftBotEmbed()
-					.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
-						pseudo: escapeUsername(message.mentions.users.last().username),
-						guildName: guild.name
-					}),
-					message.mentions.users.last().displayAvatarURL())
-					.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess)
-			] });
+			return message.channel.send({
+				embeds: [
+					new DraftBotEmbed()
+						.setAuthor(format(JsonReader.commands.guildAdd.getTranslation(language).successTitle, {
+							pseudo: escapeUsername(message.mentions.users.last().username),
+							guildName: guild.name
+						}),
+						message.mentions.users.last().displayAvatarURL())
+						.setDescription(JsonReader.commands.guildAdd.getTranslation(language).invitationSuccess)
+				]
+			});
 		}
 
 		// Cancel the creation

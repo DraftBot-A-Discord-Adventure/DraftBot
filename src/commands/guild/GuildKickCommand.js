@@ -123,7 +123,7 @@ const GuildKickCommand = async (message, language, args) => {
 			format(JsonReader.commands.guildKick.getTranslation(language).kickCancelled, {kickedPseudo: await kickedEntity.Player.getPseudo(language)}), true);
 	};
 
-	const choiceEmbed = new DraftBotValidateReactionMessage(
+	await new DraftBotValidateReactionMessage(
 		message.author,
 		endCallback
 	)

@@ -95,7 +95,7 @@ const PetTradeCommand = async (message, language) => {
 		await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.petTrade.getTranslation(language).tradeCanceledTime, true);
 	};
 
-	const tradeMessage = new DraftBotTradeMessage(
+	await new DraftBotTradeMessage(
 		message.author,
 		message.mentions.users.first(),
 		tradeSuccessCallback,

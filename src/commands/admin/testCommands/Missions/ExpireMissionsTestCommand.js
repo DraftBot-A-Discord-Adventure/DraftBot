@@ -14,7 +14,7 @@ module.exports.commandInfo = {
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
-const expireMissionsTestCommand = async (language, message, args) => {
+const expireMissionsTestCommand = async (language, message) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	for (const mission of entity.Player.MissionSlots) {
 		if (!mission.isCampaign()) {

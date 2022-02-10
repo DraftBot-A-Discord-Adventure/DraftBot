@@ -58,8 +58,9 @@ export class BigEvents {
 
 	static getIdMaxEvents() {
 		return new Promise((resolve, reject) => {
-			fs.readdir("resources/text/events/", (err, files) =>
-				err ? reject(err) : resolve(files.length - 1)
+			fs.readdir("resources/text/events/", (err, files) => {
+				err ? reject(err) : resolve(files.length - 1);
+			}
 			);
 		});
 	}

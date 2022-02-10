@@ -53,8 +53,9 @@ export class ObjectItem extends SupportItemModel {
 export class ObjectItems {
 	static getMaxId(): Promise<number> {
 		return new Promise((resolve, reject) => {
-			fs.readdir("resources/text/objects/", (err, files) =>
-				err ? reject(err) : resolve(files.length - 1)
+			fs.readdir("resources/text/objects/", (err, files) => {
+				err ? reject(err) : resolve(files.length - 1);
+			}
 			);
 		});
 	}
