@@ -34,7 +34,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			seEmbed.setDescription(JsonReader.smallEvents.lottery.emote + " " + translationLottery.get("end"));
 			return await message.channel.send({embeds: [seEmbed]});
 		}
-		if (player.money < 175 && emojiLottery[2]) {
+		if (player.money < 175 && collected.first().emoji.name === emojiLottery[2]) {
 			seEmbed.setDescription(collected.first().emoji.name + " " + translationLottery.get("poor"));
 			return await message.channel.send({embeds: [seEmbed]});
 		}
