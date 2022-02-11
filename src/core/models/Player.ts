@@ -248,6 +248,9 @@ export class Player extends Model {
 		if (this.level === Constants.CLASS.GROUP3LEVEL) {
 			bonuses.push(tr.get("levelUp.classTierfour"));
 		}
+		if (this.level === Constants.MISSIONS.SLOT_2_LEVEL || this.level === Constants.MISSIONS.SLOT_3_LEVEL) {
+			bonuses.push(tr.get("levelUp.newMissionSlot"));
+		}
 
 		bonuses.push(tr.get("levelUp.noBonuses"));
 		return bonuses;
