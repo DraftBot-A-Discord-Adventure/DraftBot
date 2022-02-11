@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Faire {objective} combat{objective>1?s:} classé{objective>1?s:}"
+			"desc": "Réaliser {objective} combat{objective>1?s:} classé{objective>1?s:}"
 		},
 		"en": {
 			"desc": "Do {objective} ranked fight{objective>1?s:}"

@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Faire {objective} combat{objective>1?s:} amica{objective>1?ux:l}"
+			"desc": "Réaliser {objective} combat{objective>1?s:} amica{objective>1?ux:l}"
 		},
 		"en": {
 			"desc": "Do {objective} friendly fight{objective>1?s:}"

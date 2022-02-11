@@ -264,21 +264,21 @@
 			"missionVariant": 4,
 			"missionObjective": 1,
 			"gemsToWin": 1,
-			"xpToWin": 1
+			"xpToWin": 50
 		},
 		{
 			"missionId": "finishWithAttack",
 			"missionVariant": 5,
 			"missionObjective": 1,
-			"gemsToWin": 1,
-			"xpToWin": 1
+			"gemsToWin": 4,
+			"xpToWin": 200
 		},
 		{
 			"missionId": "sellItemWithGivenCost",
 			"missionVariant": 150,
 			"missionObjective": 1,
-			"gemsToWin": 1,
-			"xpToWin": 1
+			"gemsToWin": 2,
+			"xpToWin": 100
 		}
 	]
 }
