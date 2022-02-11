@@ -11,6 +11,7 @@
 				"classTiertwo": ":bookmark: | Classes de palier 2 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
 				"classTierthree": ":bookmark: | Classes de palier 3 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
 				"classTierfour": ":bookmark: | Classes de palier 4 débloquées ! Pour plus d'informations sur les classes, utilisez la commande `help class`.",
+				"newMissionSlot": ":scroll: | Nouvel emplacement de mission débloqué ! Pour plus d'informations sur vos missions, utilisez la commande `help mission`.",
 				"noBonuses": ":arrow_up: | Statistiques améliorées."
 			},
 			"ko": ":skull: | **{pseudo}** a été mis K.O !",
@@ -32,12 +33,13 @@
 				"classTiertwo": ":bookmark: | Tier 2 classes unlocked! For more information about guilds, please use the `help class` command.",
 				"classTierthree": ":bookmark: | Tier 3 classes unlocked! For more information about guilds, please use the `help class` command.",
 				"classTierfour": ":bookmark: | Tier 4 classes unlocked! For more information about guilds, please use the `help class` command.",
+				"newMissionSlot": ":scroll: | New mission slot unlocked! For more information about missions, please use the `help mission` command.",
 				"noBonuses": ":arrow_up: | Stats upgraded."
 			},
 			"ko": ":skull: | **{pseudo}** has been KO'd!",
 			"koPM": {
 				"title" : "Hey fighter!",
-				"description" : "Looks like you have been KO'd... :skull:\nBut thanks to our advanced tech, we were able to modify past events so you avoided that painful death! :tada:\nSadly, it was very pricy, and your total score was impacted by it...\n\nTo play again, use `respawn`"
+				"description" : "Looks like you have been KO'd... :skull:\nBut thanks to our advanced tech, we were able to modify past events so you avoided that painful death! :tada:\nSadly, it was very pricey, and your total score was impacted by it...\n\nTo play again, use `respawn`"
 			},
 			"dmDisabledFooter" : "Your private messages are locked, or you have disabled bot's private messages with dmnotification. If you wish to enable them use the dmnotification command, and unlock dm messages in your user settings",
 			"dmEnabledFooter" : "This message is sent to you via the notification system by private messages. If you no longer wish to receive private messages from this bot, please use the command dmnotification (commands do not work in private messages)"

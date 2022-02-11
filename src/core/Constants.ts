@@ -206,7 +206,7 @@ export abstract class Constants {
 	};
 
 	static readonly MISSIONS = {
-		SLOT_3_LEVEL: 50,
+		SLOT_3_LEVEL: 55,
 		SLOT_2_LEVEL: 25,
 		SLOTS_LEVEL_PROBABILITIES: [
 			{
