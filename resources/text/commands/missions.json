@@ -6,7 +6,7 @@
 			"finishedCampaign": "\uD83D\uDCD6 **Campagne terminée**",
 			"daily": "\uD83D\uDCC5 **Mission quotidienne**",
 			"dailyFinished": "Vous avez complété la mission du jour ! Revenez {time}.",
-			"currentMissions": "\uD83D\uDCDC **Missions secondaires**",
+			"currentMissions": "\uD83D\uDCDC **Missions secondaires ({amountOfMissions}/{slots})**",
 			"noCurrentMissionsDescription": "Vous pouvez occasionnellement trouver des missions supplémentaires à réaliser en demandant un rapport.",
 			"missionDisplay": "{description} {campaign?:(expire }{campaign?:{timeBeforeExpiration}}{campaign?:)}\n{progressionDisplay} {current}/{objective}"
 		},

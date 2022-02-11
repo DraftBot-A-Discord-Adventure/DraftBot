@@ -275,7 +275,7 @@ export class Player extends Model {
 			msg += bonuses[i] + "\n";
 		}
 		msg += bonuses[bonuses.length - 1];
-		await channel.send({ content: msg });
+		await channel.send({content: msg});
 
 		if (this.needLevelUp()) {
 			return this.levelUpIfNeeded(entity, channel, language);
@@ -296,15 +296,17 @@ export class Player extends Model {
 		// log("This user is dead : " + entity.discordUserId);
 		await Maps.applyEffect(entity.Player, Constants.EFFECT.DEAD);
 		const tr = Translations.getModule("models.players", language);
-		await channel.send({ content: tr.format("ko", { pseudo: await this.getPseudo(language) })});
+		await channel.send({content: tr.format("ko", {pseudo: await this.getPseudo(language)})});
 
 		const guildMember = await channel.guild.members.fetch(entity.discordUserId);
 		const user = guildMember.user;
-		this.dmNotification ? user.send({ embeds: [new DraftBotPrivateMessage(user, tr.get("koPM.title"), tr.get("koPM.description"), language)] })
-			: channel.send({ embeds: [new DraftBotEmbed()
-				.setDescription(tr.get("koPM.description"))
-				.setTitle(tr.get("koPM.title"))
-				.setFooter(tr.get("dmDisabledFooter"))] });
+		this.dmNotification ? user.send({embeds: [new DraftBotPrivateMessage(user, tr.get("koPM.title"), tr.get("koPM.description"), language)]})
+			: channel.send({
+				embeds: [new DraftBotEmbed()
+					.setDescription(tr.get("koPM.description"))
+					.setTitle(tr.get("koPM.title"))
+					.setFooter(tr.get("dmDisabledFooter"))]
+			});
 
 		return true;
 	}
@@ -453,20 +455,33 @@ export class Player extends Model {
 		return [attackItemValue, defenseItemValue, speedItemValue];
 	}
 
+	/**
+	 * check if a player has an empty mission slot
+	 */
 	public hasEmptyMissionSlot(): boolean {
 		return this.MissionSlots.filter(slot => !slot.isCampaign()).length < this.getMissionSlots();
 	}
 
+	/**
+	 * give experience to a player
+	 * @param xpWon
+	 * @param entity
+	 * @param message
+	 * @param language
+	 */
 	public async addExperience(xpWon: number, entity: Entity, message: Message, language: string) {
 		this.experience += xpWon;
 		if (xpWon > 0) {
-			await MissionsController.update(entity.discordUserId, <TextChannel> message.channel, language, "earnXP", xpWon);
+			await MissionsController.update(entity.discordUserId, <TextChannel>message.channel, language, "earnXP", xpWon);
 		}
 		while (this.needLevelUp()) {
-			await this.levelUpIfNeeded(entity, <TextChannel> message.channel, language);
+			await this.levelUpIfNeeded(entity, <TextChannel>message.channel, language);
 		}
 	}
 
+	/**
+	 * get the amount of secondary mission a player can have at maximum
+	 */
 	public getMissionSlots(): number {
 		return this.level >= Constants.MISSIONS.SLOT_3_LEVEL ? 3 : this.level >= Constants.MISSIONS.SLOT_2_LEVEL ? 2 : 1;
 	}

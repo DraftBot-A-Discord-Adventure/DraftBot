@@ -54,7 +54,8 @@ export class DraftBotMissionsMessageBuilder {
 			);
 		}
 		const currentMissions = this._player.MissionSlots.filter(slot => !slot.isCampaign());
-		desc += "\n\n" + tr.get("currentMissions") + "\n";
+
+		desc += "\n\n" + tr.format("currentMissions",{slots: this._player.getMissionSlots() , amountOfMissions: currentMissions.length}) + "\n";
 		if (currentMissions.length === 0) {
 			desc += tr.get("noCurrentMissionsDescription");
 		}
