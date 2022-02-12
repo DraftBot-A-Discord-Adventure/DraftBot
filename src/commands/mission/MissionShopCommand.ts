@@ -191,7 +191,9 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
  * Calculate the amount of money the player will have if he buys some with gems
  */
 function calculateGemsToMoneyRatio() {
-	const frac = (x: number) => x >= 0 ? x % 1 : 1 + x % 1;
+	const frac = function(x: number) {
+		return x >= 0 ? x % 1 : 1 + x % 1;
+	};
 	return Constants.MISSION_SHOP.BASE_RATIO +
 		Math.round(Constants.MISSION_SHOP.RANGE_MISSION_MONEY * 2 *
 			frac(100 * Math.sin(100000 * (getDayNumber() % Constants.MISSION_SHOP.SEED_RANGE) + 1)) -

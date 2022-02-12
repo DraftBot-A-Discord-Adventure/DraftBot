@@ -22,9 +22,9 @@
 					"emote": "\uD83D\uDCB0",
 					"name": "Argent du roi",
 					"price": 50,
-					"info": "Vous octroie `{amount} :moneybag:`.",
+					"info": "D'après les cours du jour de la gemme et après déduction de la taxe du roi, vous recevrez `{amount}` :moneybag:.",
 					"giveTitle": "{pseudo}, achat effectué !",
-					"giveDescription": "Vous avez reçu `{amount} :moneybag:`."
+					"giveDescription": "Vous avez reçu `{amount}` :moneybag:."
 				},
 				"valuableItem": {
 					"emote": "✨",
