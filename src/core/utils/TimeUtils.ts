@@ -26,6 +26,8 @@ export const getTomorrowMidnight = function() {
 	return tomorrow;
 };
 
+export const getDayNumber = () => Math.floor(new Date().getTime() / 8.64e7);
+
 export const millisecondsToMinutes = (milliseconds: number) => Math.round(milliseconds / 60000);
 
 export const minutesToMilliseconds = (minutes: number) => minutes * 60000;

@@ -8,7 +8,6 @@ import {TranslationModule, Translations} from "../../core/Translations";
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Constants} from "../../core/Constants";
 import {Entities} from "../../core/models/Entity";
-
 import {Collector, Message, TextChannel, User} from "discord.js";
 import {generateRandomItem, giveItemToPlayer} from "../../core/utils/ItemUtils";
 import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReactionMessage";
@@ -16,6 +15,7 @@ import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {escapeUsername} from "../../core/utils/StringUtils";
+import {getDayNumber} from "../../core/utils/TimeUtils";
 
 declare function removeBlockedPlayer(id: string): void;
 
@@ -74,7 +74,7 @@ const MissionShopCommand = async (message: Message, language: string) => {
 		.addCategory(presCategory)
 		.endCallback(shopEndCallback)
 		.setGetUserMoney(getUserGems)
-		.setRemoveUserMoney(removeUserMoney)
+		.setRemoveUserMoney(removeUserGems)
 		.setTranslationPosition("commands.missionShop")
 		.build();
 
@@ -82,13 +82,21 @@ const MissionShopCommand = async (message: Message, language: string) => {
 	await shopMessage.send(message.channel);
 };
 
-
+/**
+ * get the amount of gems a user has
+ * @param userId
+ */
 const getUserGems = async (userId: string): Promise<number> => {
 	const user = (await Entities.getOrRegister(userId))[0].Player;
 	return user.PlayerMissionsInfo.gems;
 };
 
-async function removeUserMoney(userId: string, amount: number): Promise<void> {
+/**
+ * allow a user to pay
+ * @param userId
+ * @param amount
+ */
+async function removeUserGems(userId: string, amount: number): Promise<void> {
 	const player = (await Entities.getByDiscordUserId(userId)).Player;
 	player.PlayerMissionsInfo.addGems(-amount);
 	await player.PlayerMissionsInfo.save();
@@ -104,7 +112,7 @@ function getItemShopItem(name: string, translationModule: TranslationModule, buy
 		translationModule.get("items." + name + ".name"),
 		parseInt(translationModule.get("items." + name + ".price")),
 		translationModule.format("items." + name + ".info",
-			{amount: Constants.MISSION_SHOP.RATIO_MONEY_GEMS}
+			{amount: calculateGemsToMoneyRatio()}
 		),
 		buyCallback
 	);
@@ -167,7 +175,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 			for (let i = 0; i < allMissions.length; ++i) {
 				chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.NUMBERS[i + 1]));
 				desc += Constants.REACTIONS.NUMBERS[i + 1] + " "
-                    + await allMissions[i].Mission.formatDescription(allMissions[i].missionObjective, allMissions[i].missionVariant, message.language) + "\n";
+					+ await allMissions[i].Mission.formatDescription(allMissions[i].missionObjective, allMissions[i].missionVariant, message.language) + "\n";
 			}
 			chooseMission.addReaction(new DraftBotReaction(Constants.REACTIONS.REFUSE_REACTION));
 			const chooseMissionBuilt = chooseMission.build();
@@ -179,18 +187,29 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 		});
 }
 
+/**
+ * Calculate the amount of money the player will have if he buys some with gems
+ */
+function calculateGemsToMoneyRatio() {
+	const frac = (x: number) => x >= 0 ? x % 1 : 1 + x % 1;
+	return Constants.MISSION_SHOP.BASE_RATIO +
+		Math.round(Constants.MISSION_SHOP.RANGE_MISSION_MONEY * 2 *
+			frac(100 * Math.sin(100000 * (getDayNumber() % Constants.MISSION_SHOP.SEED_RANGE) + 1)) -
+			Constants.MISSION_SHOP.RANGE_MISSION_MONEY);
+}
+
 function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 	return getItemShopItem(
 		"money",
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			entity.Player.addMoney(entity, Constants.MISSION_SHOP.RATIO_MONEY_GEMS, <TextChannel>message.sentMessage.channel, translationModule.language);
+			entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), <TextChannel>message.sentMessage.channel, translationModule.language);
 			await message.sentMessage.channel.send(
 				{
 					embeds: [new DraftBotEmbed()
 						.formatAuthor(translationModule.get("items.money.giveTitle"), message.user)
-						.setDescription(translationModule.format("items.money.giveDescription", {amount: Constants.MISSION_SHOP.RATIO_MONEY_GEMS})
+						.setDescription(translationModule.format("items.money.giveDescription", {amount: calculateGemsToMoneyRatio()})
 						)]
 				});
 			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");

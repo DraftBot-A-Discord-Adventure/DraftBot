@@ -190,7 +190,9 @@ export abstract class Constants {
 	};
 
 	static readonly MISSION_SHOP = {
-		RATIO_MONEY_GEMS: 1000
+		RANGE_MISSION_MONEY: 300,
+		BASE_RATIO: 2500,
+		SEED_RANGE: 1000
 	};
 
 	static readonly BEGINNING = {
