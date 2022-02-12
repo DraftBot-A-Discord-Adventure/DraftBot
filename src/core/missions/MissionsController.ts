@@ -131,6 +131,7 @@ export class MissionsController {
 					new CompletedMission(
 						mission.xpToWin,
 						0, // Don't win gems in secondary missions
+						mission.moneyToWin,
 						await mission.Mission.formatDescription(mission.missionObjective, mission.missionVariant, language),
 						CompletedMissionType.NORMAL
 					)
@@ -143,6 +144,7 @@ export class MissionsController {
 			completedMissions.push(new CompletedMission(
 				dailyMission.xpToWin,
 				dailyMission.gemsToWin,
+				dailyMission.moneyToWin,
 				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language),
 				CompletedMissionType.DAILY
 			));

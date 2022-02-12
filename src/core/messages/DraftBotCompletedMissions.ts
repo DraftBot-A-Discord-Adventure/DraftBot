@@ -54,10 +54,26 @@ export class DraftBotCompletedMissions extends DraftBotEmbed {
 	}
 
 	private static getMissionDisplay(tr: TranslationModule, completedMission: CompletedMission): string {
-		return "• " + completedMission.desc + " (" + tr.format("gemsDisplay", {
-			gems: completedMission.gemsToWin
-		}) + ", " + tr.format("xpDisplay", {
-			xp: completedMission.xpToWin
-		}) + ")\n";
+		const missionDisplay = "• " + completedMission.desc;
+		const rewardDisplays = [];
+		if (completedMission.gemsToWin > 0) {
+			rewardDisplays.push(tr.format("gemsDisplay", {
+				gems: completedMission.gemsToWin
+			}));
+		}
+		if (completedMission.moneyToWin > 0) {
+			rewardDisplays.push(tr.format("moneyDisplay", {
+				money: completedMission.moneyToWin
+			}));
+		}
+		if (completedMission.xpToWin > 0) {
+			rewardDisplays.push(tr.format("xpDisplay", {
+				xp: completedMission.xpToWin
+			}));
+		}
+		if (rewardDisplays.length === 0){
+			return missionDisplay;
+		}
+		return missionDisplay + " (" + rewardDisplays.join(", ") + ")";
 	}
 }
