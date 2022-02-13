@@ -36,6 +36,7 @@ export class Campaign {
 				new CompletedMission(
 					campaign.xpToWin,
 					campaign.gemsToWin,
+					campaign.moneyToWin,
 					await campaign.Mission.formatDescription(campaign.missionObjective, campaign.missionVariant, language),
 					CompletedMissionType.CAMPAIGN)
 			);
@@ -47,6 +48,7 @@ export class Campaign {
 				campaign.numberDone = await MissionsController.getMissionInterface(prop.missionId).initialNumberDone(player, prop.missionVariant);
 				campaign.missionId = prop.missionId;
 				campaign.missionObjective = prop.missionObjective;
+				campaign.moneyToWin = prop.moneyToWin;
 				player.PlayerMissionsInfo.campaignProgression++;
 				campaign.Mission = await Missions.getById(campaign.missionId);
 			}
@@ -79,7 +81,7 @@ export class Campaign {
 	public static async updateCampaignAndSendMessage(discordUserId: string, player: Player, channel: TextChannel, language: string) {
 		const completedMissions = await MissionsController.completeAndUpdateMissions(player, false, false, language);
 		if (completedMissions.length !== 0) {
-			await MissionsController.updatePlayerStats(player, completedMissions);
+			await MissionsController.updatePlayerStats(player, completedMissions, channel, language);
 			await MissionsController.sendCompletedMissions(discordUserId, player, completedMissions, channel, language);
 		}
 	}
