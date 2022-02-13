@@ -1,6 +1,5 @@
 import {Guilds} from "../models/Guild";
-
-const doNothing = require("./doNothingSmallEvent");
+import {smallEvent as doNothing} from "./doNothingSmallEvent";
 
 /**
  * Main function of small event

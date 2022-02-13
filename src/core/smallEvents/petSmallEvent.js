@@ -1,8 +1,8 @@
 import {giveRandomItem} from "../utils/ItemUtils";
 import {PetEntities} from "../models/PetEntity";
+import {smallEvent as doNothing} from "./doNothingSmallEvent";
 
 const BADGE = "💞";
-const doNothing = require("./doNothingSmallEvent");
 
 /**
  * Main function of small event
