@@ -247,6 +247,7 @@ export abstract class Constants {
 				MEDIUM: 0.4,
 				HARD: 0.5
 			}
-		]
+		],
+		DAILY_MISSION_MONEY_PENALITY: 2
 	}
 }

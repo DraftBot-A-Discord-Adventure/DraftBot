@@ -144,7 +144,7 @@ export class MissionsController {
 			completedMissions.push(new CompletedMission(
 				dailyMission.xpToWin,
 				dailyMission.gemsToWin,
-				dailyMission.moneyToWin,
+				Math.round(dailyMission.moneyToWin / Constants.MISSIONS.DAILY_MISSION_MONEY_PENALITY), // daily missions gives less money than secondary missions
 				await dailyMission.Mission.formatDescription(dailyMission.objective, dailyMission.variant, language),
 				CompletedMissionType.DAILY
 			));
