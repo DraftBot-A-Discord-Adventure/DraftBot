@@ -25,6 +25,8 @@ export class MissionSlot extends Model {
 
 	public xpToWin!: number;
 
+	public moneyToWin!: number;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -95,6 +97,9 @@ export function initModel(sequelize: Sequelize) {
 			type: DataTypes.INTEGER
 		},
 		xpToWin: {
+			type: DataTypes.INTEGER
+		},
+		moneyToWin: {
 			type: DataTypes.INTEGER
 		},
 		updatedAt: {

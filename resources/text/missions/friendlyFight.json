@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Faire {objective} combat{objective>1?s:} amica{objective>1?ux:l}"
+			"desc": "Réaliser {objective} combat{objective>1?s:} amica{objective>1?ux:l}"
 		},
 		"en": {
 			"desc": "Do {objective} friendly fight{objective>1?s:}"
@@ -26,13 +26,18 @@
 	],
 	"gems": [
 		2,
-		5,
-		8
+		0,
+		0
 	],
 	"xp": [
 		100,
-		200,
-		300
+		125,
+		150
+	],
+	"money": [
+		50,
+		75,
+		125
 	],
 	"expirations": [
 		12,

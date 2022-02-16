@@ -39,8 +39,9 @@ const ProfileCommand = async (message, language, args) => {
 				experienceNeededToLevelUp: entity.Player.getExperienceNeededToLevelUp(),
 				money: entity.Player.money
 			})
-		},
-		{
+		}];
+	if (entity.Player.level >= CLASS.REQUIRED_LEVEL) {
+		fields.push({
 			name: JsonReader.commands.profile.getTranslation(language).statistique.fieldName,
 			value: format(JsonReader.commands.profile.getTranslation(language).statistique.fieldValue, {
 				cumulativeAttack: await entity.getCumulativeAttack(w, a, p, o),
@@ -49,38 +50,39 @@ const ProfileCommand = async (message, language, args) => {
 				cumulativeHealth: await entity.getCumulativeHealth(),
 				cumulativeMaxHealth: await entity.getMaxCumulativeHealth()
 			})
-		},
+		});
+	}
+	fields.push(
 		{
 			name: JsonReader.commands.profile.getTranslation(language).mission.fieldName,
 			value: format(JsonReader.commands.profile.getTranslation(language).mission.fieldValue, {
 				gems: entity.Player.PlayerMissionsInfo.gems,
 				campaign: Math.round(
-					(entity.Player.PlayerMissionsInfo.campaignProgression === Campaign.getMaxCampaignNumber() && mc.isCompleted()
-						? entity.Player.PlayerMissionsInfo.campaignProgression
+					(entity.Player.PlayerMissionsInfo.campaignProgression ===
+							Campaign.getMaxCampaignNumber() && mc.isCompleted() ? entity.Player.PlayerMissionsInfo.campaignProgression
 						: entity.Player.PlayerMissionsInfo.campaignProgression - 1
 					) / Campaign.getMaxCampaignNumber() * 100)
 			}
 			),
 			inline: false
-		},
+		});
+	fields.push(
 		{
 			name: JsonReader.commands.profile.getTranslation(language).classement.fieldName,
 			value:
-					format(JsonReader.commands.profile.getTranslation(
-						language).classement.fieldValue, {
-						rank: (await Players.getById(entity.Player.id))[0].rank,
-						numberOfPlayer: await Player.count({
-							where: {
-								score: {
-									[require("sequelize/lib/operators").gt]: 100
-								}
+				format(JsonReader.commands.profile.getTranslation(
+					language).classement.fieldValue, {
+					rank: (await Players.getById(entity.Player.id))[0].rank,
+					numberOfPlayer: await Player.count({
+						where: {
+							score: {
+								[require("sequelize/lib/operators").gt]: 100
 							}
-						}),
-						score: entity.Player.score
-					})
-		}
-	]
-	;
+						}
+					}),
+					score: entity.Player.score
+				})
+		});
 
 	if (!entity.Player.checkEffect()) {
 		if (message.createdAt.getTime() >= entity.Player.effectEndDate) {
