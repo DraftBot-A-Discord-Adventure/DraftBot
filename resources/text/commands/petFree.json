@@ -2,7 +2,7 @@
 	"translations": {
 		"fr": {
 			"successTitle": "{pseudo}, libération d'un familier",
-			"confirmDesc": ":warning: Êtes vous sur de vouloir libérer **{pet}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
+			"confirmDesc": ":warning: Êtes-vous sur de vouloir libérer **{pet}** ? Il n'est pas possible d'annuler une fois l'action effectuée.",
 			"canceled": "Le familier n'a pas été libéré.",
 			"petFreed": "Adieu **{pet}**...",
 			"cooldown": "Vous ne pouvez libérer un familier que toutes les heures. Vous pourrez en libérer un autre dans {time}.",
