@@ -194,7 +194,7 @@ class Command {
 		await draftBotClient.shard.broadcastEval((client, context) => {
 			const mainServer = client.guilds.cache.get(context.mainServerId);
 			if (mainServer) {
-				const dmChannel = mainServer.channels.cache.get(context.dmChannelId);
+				const dmChannel = client.users.cache.get(context.dmChannelId);
 				if (context.attachments.length > 0) {
 					for (const attachment of context.attachments) {
 						dmChannel.send({

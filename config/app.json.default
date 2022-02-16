@@ -1,13 +1,13 @@
 {
   "//DISCORD_CLIENT_TOKEN": "Put your token here",
   "DISCORD_CLIENT_TOKEN": "",
-  
+
   "//BOT_OWNER_ID": "The bot will use this to check if you can use admins commands",
   "BOT_OWNER_ID": "",
-  
+
   "//BADGE_MANAGER_ROLE": "Put ids of the persons that will be able to manage badges separated by a comma",
   "BADGE_MANAGER_ROLE": "",
-  
+
   "//SUPPORT_ROLE": "Put ids of the persons that will be able to send dms with the bot separated by a comma",
   "SUPPORT_ROLE": "",
 
@@ -16,25 +16,25 @@
 
   "//CONTRIBUTORS_CHANNEL": "Put id of the contributors channel",
   "CONTRIBUTORS_CHANNEL": "",
-  
+
   "//BOT_OWNER_PREFIX": "The prefix only the bot owner can use",
   "BOT_OWNER_PREFIX": "",
-  
+
   "//MAIN_SERVER_ID": "Put id of the discord server where the support will be done",
   "MAIN_SERVER_ID": "",
-  
+
   "//CONSOLE_CHANNEL_ID": "Put id of the channel where the main status messages from the bot will be sent",
   "CONSOLE_CHANNEL_ID": "",
-  
+
   "//FRENCH_ANNOUNCEMENT_CHANNEL_ID": "Put id of the channel where important public announcement will be sent in french",
   "FRENCH_ANNOUNCEMENT_CHANNEL_ID": "",
-  
+
   "//ENGLISH_ANNOUNCEMENT_CHANNEL_ID": "Put id of the channel where important public announcement will be sent in english",
   "ENGLISH_ANNOUNCEMENT_CHANNEL_ID": "",
-  
-  "//SUPPORT_CHANNEL_ID": "Put id of the channel where bot's received dms will be sent",
+
+  "//SUPPORT_CHANNEL_ID": "Put id of user where bot's received dms will be sent",
   "SUPPORT_CHANNEL_ID": "",
-  
+
   "//ENGLISH_CHANNEL_ID": "Put id of a channel where the bot will always speak in english put 0 here to disable the feature",
   "ENGLISH_CHANNEL_ID": "",
 
@@ -52,7 +52,7 @@
 
   "//DBL_TOKEN": "Put the DBL server token",
   "DBL_TOKEN": "",
-  
+
   "//MODE_MAINTENANCE": "Boolean to tell if the bot is under maintenance or not",
   "MODE_MAINTENANCE": false,
 
@@ -67,8 +67,8 @@
 
   "//DROPBOX_TOKEN": "Ths dropbox token used to backup the database",
   "DROPBOX_TOKEN": "",
-  
+
    "//TEST_MODE": "Boolean to tell if the bot is under test mode",
   "TEST_MODE": false
 }
- 
+
