@@ -4,10 +4,17 @@
 	"maleEmote": "♂️",
 	"femaleEmote": "♀️",
 	"rarityEmote": "⭐",
+
 	"nicknameMinLength": 3,
 	"nicknameMaxLength": 16,
 	"translations": {
 		"fr": {
+			"hungry" : "\uD83E\uDD24 affamé",
+			"diet" : {
+				"diet_null" : "\uD83E\uDD6A Omnivore",
+				"diet_herbivorous" : "\uD83E\uDD6C Herbivore",
+				"diet_carnivorous" : "\uD83E\uDD69 Carnivore"
+			},
 			"female": "Femelle",
 			"male": "Mâle",
 			"noNickname": "Aucun surnom",
@@ -20,6 +27,12 @@
 			}
 		},
 		"en": {
+			"hungry" : "\uD83E\uDD24 hungry",
+			"diet" : {
+				"diet_null" : "\uD83E\uDD6A Omnivorous",
+				"diet_herbivorous" : "\uD83E\uDD6C Herbivorous",
+				"diet_carnivorous" : "\uD83E\uDD69 Carnivorous"
+			},
 			"female": "Female",
 			"male": "Male",
 			"noNickname": "No nickname",

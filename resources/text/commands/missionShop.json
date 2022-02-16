@@ -45,30 +45,39 @@
 					"emote": "\uD83E\uDDD1\u200D⚕️",
 					"name": "Vétérinaire de la cour",
 					"price": 5,
-					"info": "Vous renseigne sur l'amour exact de votre pet sur vous.",
+					"info": "Obtenir des informations détaillées sur votre familier.",
 					"giveTitle": "{pseudo}, achat effectué !",
-					"giveDesc": "Le vétérinaire s'approche de vous. Il examine votre animal, puis dit : \"{pseudo}, votre ch{isFemale?ère:er} **{petName}** est actuellement à **{actualLP} / 100** point{actualLP>1?s:} d'amour. {commentOnResult}\"",
+					"giveDesc": "Après un long moment passé à étudier l'état de santé de votre animal, vous finissez par recevoir le rapport du vétérinaire :\n\n**{petName}** {commentOnResult}\n\uD83D\uDC96 **Score d'amour** : {actualLP} / 100\n\uD83C\uDF7D️ **Régime alimentaire** : {regime}\n\uD83D\uDD59 **Prochaine faim** : {nextFeed}",
 					"advice": {
 						"1": [
-							"TEST FIELLEUX"
+							"semble vous detester. Faites attention, ou vous pourriez être victime d'un mauvais coup lors de vos aventures !",
+							"semble ne vraiment pas vous apprécier. Vu comment vous vous occupez de votre familier, ce n'est pas une surprise !",
+							"semble être dans un profond mal-être. Vous devriez essayer de nourrir votre familier."
 						],
 						"2": [
-							"TEST SAUVAGE"
+							"semble encore sauvage. Occupez vous de votre familier afin de gagner sa confiance !",
+							"semble ne pas vous apprécier. Si vous ne vous occupez pas de votre familier, vous n'obtiendrez jamais son amour !",
+							"ne semble pas heureux. Vous devriez essayer de nourrir votre familier."
 						],
 						"3": [
-							"TEST CRAINTIF"
+							"semble encore un peu craintif. Occupez vous de votre familier afin de gagner toute sa confiance !",
+							"semble toujours se méfier de vous. Continuez de vous occuper de votre familier afin d'obtenir son amour !",
+							"semble commencer à se faire à vous. Essayez d'être régulier pour nourrir votre familier."
 						],
 						"4": [
-							"TEST APPRIVOISE"
+							"semble vous apprécier. Continuez à vous occupez vous de votre familier afin de gagner toute sa confiance !",
+							"semble vous faire confiance. Si vous continuez sur cette voie, vous obtiendrez rapidement toute l'amour de votre familier !",
+							"semble s'être fait à vous. N'arrêttez pas d'être régulier pour nourrir votre familier."
 						],
 						"5": [
-							"TEST DRESSE"
+							"semble vous apprécier totalement. Vous n'avez même plus besoin de vous occuper de votre familier pour qu'il continue à vous aimer !",
+							"semble partager un lien fort avec vous. Votre lien est imperturbable, tant que vous n'êtes pas séparés, vous continuerez de profiter de l'amour de votre familier !"
 						]
 					}
 				},
 				"badge": {
 					"emote": "\uD83D\uDC8D",
-					"name": "Badge \"QuestMaster\"",
+					"name": "Badge \"Maître des quêtes\"",
 					"price": 150,
 					"info": "Vous recevrez le badge dans les heures qui suivront le paiement. Pour plus d'informations sur les badges utilisez la commande `help badges`.",
 					"give": "{pseudo}, vous avez reçu un nouveau badge :"
