@@ -5,5 +5,8 @@
 	"particleFr": "vers les",
 	"particleEn": "of the",
 	"descFr": "Une vaste plaine paisible et agricole.",
-	"descEn": "A vast and peaceful plain, for agricultural purposes."
+	"descEn": "A vast and peaceful plain, for agricultural purposes.",
+	"tags": [
+		"detALa"
+	]
 }

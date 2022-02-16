@@ -1,11 +1,8 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes, QueryTypes
-} from "sequelize";
-import moment = require("moment");
+import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {Translations} from "../Translations";
 import {readdir} from "fs/promises";
+import {Tags} from "./Tag";
+import moment = require("moment");
 
 export class MapLocation extends Model {
 	public readonly id!: number;
@@ -42,6 +39,25 @@ export class MapLocation extends Model {
 
 	public getDescription(language: string): string {
 		return language === "fr" ? this.descFr : this.descEn;
+	}
+
+	public async getDeterminant(language: string): Promise<string> {
+		if (language === "en") {
+			return "";
+		}
+		const tags = await Tags.findTagsFromObject(this.id, "MapLocation");
+		for (let i = 0; i < tags.length; i++) {
+			if (tags[i].textTag === "detA") {
+				return "à";
+			}
+			if (tags[i].textTag === "detAu") {
+				return "au";
+			}
+			if (tags[i].textTag === "detALa") {
+				return "à la";
+			}
+		}
+		return "";
 	}
 
 	public async playersCount(originId: number): Promise<number> {
