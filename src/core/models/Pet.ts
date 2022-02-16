@@ -30,7 +30,6 @@ export class Pet extends Model {
 
 	public createdAt!: Date;
 
-
 	public getRarityDisplay(): string {
 		return Data.getModule("models.pets")
 			.getString("rarityEmote")

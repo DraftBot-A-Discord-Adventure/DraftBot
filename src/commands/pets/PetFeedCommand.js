@@ -39,10 +39,7 @@ const PetFeedCommand = async (message, language) => {
 			tr.getTranslation(language).noPet
 		);
 	}
-
-	const cooldownTime =
-		PETS.BREED_COOLDOWN * authorPet.PetModel.rarity -
-		(new Date().getTime() - authorPet.hungrySince);
+	const cooldownTime = entity.Player.Pet.getFeedCooldown();
 	if (cooldownTime > 0) {
 		return sendErrorMessage(
 			message.author,
