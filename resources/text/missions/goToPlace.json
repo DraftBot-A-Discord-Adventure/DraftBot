@@ -1,7 +1,7 @@
 {
 	"translations": {
 		"fr": {
-			"desc": "Voyager jusque : {variantText}"
+			"desc": "Voyager jusqu'{variantText}"
 		},
 		"en": {
 			"desc": "Go to this place: {variantText}"

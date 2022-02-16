@@ -5,5 +5,8 @@
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "Une paisible ville au bord de la Plage Sentinelle.",
-	"descEn": "A peaceful town on the verge of the Sentinel Beach."
+	"descEn": "A peaceful town on the verge of the Sentinel Beach.",
+	"tags": [
+		"detA"
+	]
 }

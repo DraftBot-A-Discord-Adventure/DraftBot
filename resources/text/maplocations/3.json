@@ -5,5 +5,8 @@
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "Grande plaine de l'ouest de la contrée bordée d'une grande forêt et traversée par une grande route.",
-	"descEn": "Huge plain in the West of the region bordered by a large forest and crossed by a large road."
+	"descEn": "Huge plain in the West of the region bordered by a large forest and crossed by a large road.",
+	"tags": [
+		"detA"
+	]
 }

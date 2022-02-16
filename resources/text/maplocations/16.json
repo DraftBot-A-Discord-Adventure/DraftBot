@@ -5,5 +5,8 @@
 	"particleFr": "vers le",
 	"particleEn": "of",
 	"descFr": "Petit chemin dangereux bordant la rivière Vacarme. Attention à ne pas tomber.",
-	"descEn": "Small and dangerous path bordering the Vacarme river. Be careful not to fall off."
+	"descEn": "Small and dangerous path bordering the Vacarme river. Be careful not to fall off.",
+	"tags": [
+		"detAu"
+	]
 }

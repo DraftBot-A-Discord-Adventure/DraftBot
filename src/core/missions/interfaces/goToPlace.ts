@@ -7,7 +7,8 @@ export const missionInterface: IMission = {
 	},
 
 	async getVariantFormatVariable(variant: number, objective: number, language: string): Promise<string> {
-		return (await MapLocations.getById(variant)).getDisplayName(language);
+		const map = await MapLocations.getById(variant);
+		return await map.getDeterminant(language) + " " + map.getDisplayName(language);
 	},
 
 	generateRandomVariant(): number {

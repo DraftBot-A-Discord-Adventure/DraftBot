@@ -5,5 +5,8 @@
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "Un village paisible réputé pour son auberge accueillante.",
-	"descEn": "A peaceful village known for its welcoming inn."
+	"descEn": "A peaceful village known for its welcoming inn.",
+	"tags": [
+		"detA"
+	]
 }

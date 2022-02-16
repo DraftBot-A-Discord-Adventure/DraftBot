@@ -5,5 +5,8 @@
 	"particleFr": "vers la",
 	"particleEn": "of",
 	"descFr": "Une forêt au bord du Mont Célestrum.",
-	"descEn": "A forest on the verge of the Mount Celestrum"
+	"descEn": "A forest on the verge of the Mount Celestrum",
+	"tags": [
+		"detALa"
+	]
 }
