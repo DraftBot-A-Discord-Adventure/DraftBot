@@ -4,7 +4,7 @@ module.exports.commandInfo = {
 	name: "addgem",
 	commandFormat: "<gem>",
 	typeWaited: {
-		money: typeVariable.INTEGER
+		gem: typeVariable.INTEGER
 	},
 	messageWhenExecuted: "Vous avez maintenant {gem} :gem: !",
 	description: "Ajoute la valeur donnée de gemmes à votre joueur"

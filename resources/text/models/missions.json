@@ -8,7 +8,6 @@
 			"gemsDisplay": "+{gems} \uD83D\uDC8E",
 			"moneyDisplay": "+{money} \uD83D\uDCB0",
 			"xpDisplay": "+{xp} ⭐",
-			"moneyDisplay": "+{money} \uD83D\uDCB0",
 			"totalRewards": "\uD83E\uDDFE Total des récompenses",
 			"totalDisplay": "Gemmes gagnées : {gems} \uD83D\uDC8E\nExpérience gagnée : {xp} ⭐",
 			"missionsExpiredTitle": "{pseudo}, {missionsCount>1?des missions ont:une mission a} expiré",

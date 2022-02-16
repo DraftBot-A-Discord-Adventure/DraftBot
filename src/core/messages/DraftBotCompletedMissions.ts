@@ -74,6 +74,6 @@ export class DraftBotCompletedMissions extends DraftBotEmbed {
 		if (rewardDisplays.length === 0){
 			return missionDisplay;
 		}
-		return missionDisplay + " (" + rewardDisplays.join(", ") + ")";
+		return missionDisplay + " (" + rewardDisplays.join(", ") + ")\n";
 	}
 }
