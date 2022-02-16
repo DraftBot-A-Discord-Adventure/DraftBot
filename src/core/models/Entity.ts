@@ -1,8 +1,4 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes, QueryTypes
-} from "sequelize";
+import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {Data} from "../Data";
 import InventorySlot from "./InventorySlot";
 import InventoryInfo from "./InventoryInfo";
@@ -19,8 +15,8 @@ import Armor from "./Armor";
 import Weapon from "./Weapon";
 import Potion from "./Potion";
 import ObjectItem from "./ObjectItem";
-import moment = require("moment");
 import {MissionsController} from "../missions/MissionsController";
+import moment = require("moment");
 
 export class Entity extends Model {
 	public readonly id!: number;
@@ -105,9 +101,9 @@ export class Entity extends Model {
 		await this.setHealth(this.health, channel, language);
 	}
 
-	public async setHealth(health: number, channel: TextChannel, language: string) {
+	public async setHealth(health: number, channel: TextChannel, language: string, shouldPokeMission = true) {
 		const difference = health - this.health;
-		if (difference > 0) {
+		if (difference > 0 && shouldPokeMission) {
 			MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", difference).then();
 		}
 		if (health < 0) {
