@@ -11,8 +11,8 @@ export const missionInterface: IMission = {
 		return Promise.resolve(Translations.getModule("commands.fight", language).get("actions.attacks." + actionToName(variant) + (objective > 1 ? ".namePlural" : ".name")));
 	},
 
-	generateRandomVariant(): number {
-		return 0;
+	generateRandomVariant(): Promise<number> {
+		return Promise.resolve(0);
 	},
 
 	initialNumberDone(): Promise<number> {
