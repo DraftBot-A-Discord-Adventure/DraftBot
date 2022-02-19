@@ -100,7 +100,7 @@ export class Entity extends Model {
 	public async setHealth(health: number, channel: TextChannel, language: string, shouldPokeMission = true) {
 		const difference = (health > await this.getMaxHealth() ? await this.getMaxHealth() : health < 0 ? 0 : health) - this.health;
 		if (difference > 0 && shouldPokeMission) {
-			MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", difference).then();
+			await MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", difference);
 		}
 		if (health < 0) {
 			this.health = 0;

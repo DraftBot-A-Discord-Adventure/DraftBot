@@ -27,7 +27,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	switch (interaction) {
 	case "money":
 		amount = randInt(20, 70);
-		entity.Player.addMoney(entity, amount, message.channel, language);
+		await entity.Player.addMoney(entity, amount, message.channel, language);
 		await entity.Player.save();
 		break;
 	case "gainLife":
@@ -55,7 +55,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "points":
 		amount = randInt(20, 70);
-		entity.Player.addScore(entity, amount, message.channel, language);
+		await entity.Player.addScore(entity, amount, message.channel, language);
 		await entity.Player.save();
 		break;
 	case "badge":
@@ -81,7 +81,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		break;
 	case "loseMoney":
 		amount = randInt(20, 70);
-		entity.Player.addMoney(entity, -amount, message.channel, language);
+		await entity.Player.addMoney(entity, -amount, message.channel, language);
 		entity.Player.save();
 		break;
 	case "loseTime":

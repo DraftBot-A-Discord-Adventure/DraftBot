@@ -178,7 +178,7 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 				tr.getTranslation(language).noMoney
 			);
 		}
-		entity.Player.addMoney(entity, -20, message.channel, language);
+		await entity.Player.addMoney(entity, -20, message.channel, language);
 		authorPet.hungrySince = Date();
 		await authorPet.changeLovePoints(JsonReader.food.commonFood.effect, entity.discordUserId, message.channel, language);
 		await Promise.all([

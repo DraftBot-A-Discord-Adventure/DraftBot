@@ -233,7 +233,7 @@ async function petSell(message, language, entity, user, pet, petCost) {
 
 			await guild.save();
 			buyer.Player.petId = pet.id;
-			buyer.Player.addMoney(buyer, -petCost, message.channel, language);
+			await buyer.Player.addMoney(buyer, -petCost, message.channel, language);
 			await buyer.Player.save();
 			entity.Player.petId = null;
 			await entity.Player.save();

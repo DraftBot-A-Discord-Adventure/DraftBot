@@ -28,7 +28,7 @@ const RespawnCommand = async (message, language) => {
 	else {
 		const lostScore = Math.round(entity.Player.score * JsonReader.commands.respawn.score_remove_during_respawn);
 		entity.health = await entity.getMaxHealth();
-		entity.Player.addScore(entity, -lostScore, message.channel, language);
+		await entity.Player.addScore(entity, -lostScore, message.channel, language);
 
 		await Promise.all([
 			entity.save(),
