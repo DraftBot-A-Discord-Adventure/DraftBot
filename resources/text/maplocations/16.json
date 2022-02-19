@@ -8,5 +8,6 @@
 	"descEn": "Small and dangerous path bordering the Vacarme river. Be careful not to fall off.",
 	"tags": [
 		"detAu"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

@@ -8,5 +8,6 @@
 	"descEn": "A vast and peaceful plain, for agricultural purposes.",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : false
 }

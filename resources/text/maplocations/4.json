@@ -8,5 +8,6 @@
 	"descEn": "Huge forest at the South of the Cradle. It is said that many travelers got lost there.",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

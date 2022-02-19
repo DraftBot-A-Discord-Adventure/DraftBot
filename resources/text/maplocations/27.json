@@ -8,5 +8,6 @@
 	"descEn": "A forest on the verge of the Mount Celestrum",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

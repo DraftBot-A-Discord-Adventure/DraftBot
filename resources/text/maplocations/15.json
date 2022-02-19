@@ -8,5 +8,6 @@
 	"descEn": "Mount Celestrum is the dominant mountain in the region. Several kilometers high, Celestrum is visible to all. It is said to be named after the ancient goddess. In addition, only one person managed to climb to the top. The only thing that is remembered is these initials : M-B.",
 	"tags": [
 		"detAu"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

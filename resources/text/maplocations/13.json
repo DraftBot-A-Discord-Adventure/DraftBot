@@ -8,5 +8,6 @@
 	"descEn": "A difficult course. Muddy and wet, the Marshy Road connects the Extent to the Crab River.",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

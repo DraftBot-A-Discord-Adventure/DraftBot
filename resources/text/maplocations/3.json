@@ -8,5 +8,6 @@
 	"descEn": "Huge plain in the West of the region bordered by a large forest and crossed by a large road.",
 	"tags": [
 		"detA"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

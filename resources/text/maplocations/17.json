@@ -8,5 +8,6 @@
 	"descEn": "Warm village bordering the Kings' Valley. It is a welcoming oasis for transit travelers.",
 	"tags": [
 		"detAu"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

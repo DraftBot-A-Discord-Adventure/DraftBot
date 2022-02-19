@@ -8,5 +8,6 @@
 	"descEn": "A peaceful village known for its welcoming inn.",
 	"tags": [
 		"detA"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

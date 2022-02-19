@@ -11,8 +11,8 @@ export const missionInterface: IMission = {
 		return await map.getDeterminant(language) + " " + map.getDisplayName(language);
 	},
 
-	generateRandomVariant(): Promise<number> {
-		return Promise.resolve(0);
+	async generateRandomVariant(): Promise<number> {
+		return Promise.resolve((await MapLocations.getRandomGotoableMap()).id);
 	},
 
 	initialNumberDone(): Promise<number> {
