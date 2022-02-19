@@ -13,7 +13,7 @@ import {Constants} from "../Constants";
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const randomItem = await generateRandomItem(RARITY.SPECIAL);
 	let price = getItemValue(randomItem);
-	price = Math.round(randInt(1, 10) === 10 ? price * 5 : price * 0.6);
+	price *= Math.round(randInt(1, 10) === 10 ? 5 : 0.6);
 	const gender = randInt(0, 1);
 	const translationShop = JsonReader.smallEvents.shop.getTranslation(language);
 	seEmbed.setDescription(seEmbed.description
