@@ -39,6 +39,11 @@ export class MissionsController {
 	 * @param set
 	 */// eslint-disable-next-line max-params
 	static async update(discordUserId: string, channel: TextChannel, language: string, missionId: string, count = 1, params: { [key: string]: any } = {}, set = false): Promise<void> {
+		if (!discordUserId) {
+			console.error("Cannot update mission because discordUserId is not defined");
+			console.error("Data: discordUserId = " + discordUserId + "; channel = " + channel + "; missionId = " + missionId + "; count = " + count + "; params = " + params);
+			return;
+		}
 		const [entity] = await Entities.getOrRegister(discordUserId);
 		await MissionsController.handleExpiredMissions(entity.Player, draftBotClient.users.cache.get(discordUserId), channel, language);
 		const [completedDaily, completedCampaign] = await MissionsController.updateMissionsCounts(entity.Player, missionId, count, params, set);

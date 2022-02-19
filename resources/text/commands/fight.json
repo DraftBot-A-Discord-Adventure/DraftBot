@@ -21,7 +21,7 @@
 				"gameStats": ":bar_chart: | Statistiques du combat\n- **Tours** : {turn}/{maxTurn}\n- **Temps de combat** : {time}",
 				"winElo": "\n- **Elo de la partie** : `{elo}`\n- **Points gagnés/perdus** : `{points}`",
 				"drawElo": "\n- **Elo de la partie** : `{elo}`",
-				"fighterStats": "\n\n:bust_in_silhouette : | Statistiques de {pseudo}\n- **Vie finale** : {health}/{maxHealth} :zap:",
+				"fighterStats": "\n\n:bust_in_silhouette: | Statistiques de {pseudo}\n- **Vie finale** : {health}/{maxHealth} :zap:",
 				"attacksField": "\n- **Attaques** :",
 				"attackStats": "\n      - {emote} {success}/{total} réussie(s), {damage} de dégâts en moyenne"
 			},
