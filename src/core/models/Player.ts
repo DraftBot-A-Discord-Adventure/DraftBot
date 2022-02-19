@@ -141,15 +141,15 @@ export class Player extends Model {
 		return Math.round(data.getNumber("xp.baseValue") * Math.pow(data.getNumber("xp.coeff"), this.level + 1)) - data.getNumber("xp.minus");
 	}
 
-	public addScore(entity: Entity, score: number, channel: TextChannel, language: string): void {
+	public async addScore(entity: Entity, score: number, channel: TextChannel, language: string): Promise<void> {
 		this.score += score;
-		MissionsController.update(entity.discordUserId, channel, language, "earnPoints", score).then();
-		this.setScore(entity, this.score, channel, language);
+		await MissionsController.update(entity.discordUserId, channel, language, "earnPoints", score);
+		await this.setScore(entity, this.score, channel, language);
 		this.addWeeklyScore(score);
 	}
 
-	public setScore(entity: Entity, score: number, channel: TextChannel, language: string): void {
-		MissionsController.update(entity.discordUserId, channel, language, "reachScore", score, null, true).then();
+	public async setScore(entity: Entity, score: number, channel: TextChannel, language: string): Promise<void> {
+		await MissionsController.update(entity.discordUserId, channel, language, "reachScore", score, null, true);
 		if (score > 0) {
 			this.score = score;
 		}
@@ -158,10 +158,10 @@ export class Player extends Model {
 		}
 	}
 
-	public addMoney(entity: Entity, money: number, channel: TextChannel, language: string): void {
+	public async addMoney(entity: Entity, money: number, channel: TextChannel, language: string): Promise<void> {
 		this.money += money;
 		if (money > 0) {
-			MissionsController.update(entity.discordUserId, channel, language, "earnMoney", money).then();
+			await MissionsController.update(entity.discordUserId, channel, language, "earnMoney", money);
 		}
 		this.setMoney(this.money);
 	}

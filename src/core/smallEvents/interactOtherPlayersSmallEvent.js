@@ -174,9 +174,9 @@ function coinWasSent(reaction, COIN_EMOTE) {
 }
 
 async function sendACoin(otherEntity, message, language, entity) {
-	otherEntity.Player.addMoney(otherEntity, 1, message.channel, language);
+	await otherEntity.Player.addMoney(otherEntity, 1, message.channel, language);
 	await otherEntity.Player.save();
-	entity.Player.addMoney(entity, -1, message.channel, language);
+	await entity.Player.addMoney(entity, -1, message.channel, language);
 	await entity.Player.save();
 }
 

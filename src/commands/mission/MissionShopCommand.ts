@@ -205,7 +205,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), <TextChannel>message.sentMessage.channel, translationModule.language);
+			await entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), <TextChannel>message.sentMessage.channel, translationModule.language);
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{
@@ -249,7 +249,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 				});
 				return false;
 			}
-			entity.Player.addScore(entity, 1000, <TextChannel>message.sentMessage.channel, translationModule.language);
+			await entity.Player.addScore(entity, 1000, <TextChannel>message.sentMessage.channel, translationModule.language);
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{

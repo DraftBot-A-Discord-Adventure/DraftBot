@@ -101,7 +101,7 @@ const GuildCreateCommand = async (message, language, args) => {
 			});
 
 			entity.Player.guildId = newGuild.id;
-			entity.Player.addMoney(entity, -JsonReader.commands.guildCreate.guildCreationPrice, message.channel, language);
+			await entity.Player.addMoney(entity, -JsonReader.commands.guildCreate.guildCreationPrice, message.channel, language);
 			newGuild.updateLastDailyAt();
 			await Promise.all([
 				newGuild.save(),

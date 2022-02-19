@@ -72,7 +72,7 @@ const SellCommand = async (message, language) => {
 					itemCategory: item.itemCategory
 				}
 			});
-			entity.Player.addMoney(entity, money, message.channel, language);
+			await entity.Player.addMoney(entity, money, message.channel, language);
 			await entity.Player.save();
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
 			await MissionsController.update(entity.discordUserId, message.channel, language, "sellItemWithGivenCost",1,{itemCost: money});

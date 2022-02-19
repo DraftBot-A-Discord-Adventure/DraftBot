@@ -9,7 +9,7 @@ import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {MissionDifficulty} from "./MissionDifficulty";
 import {Data} from "../Data";
 import {Campaign} from "./Campaign";
-import {Entities} from "../models/Entity";
+import {Entities, Entity} from "../models/Entity";
 import {CompletedMission, CompletedMissionType} from "./CompletedMission";
 import {DraftBotCompletedMissions} from "../messages/DraftBotCompletedMissions";
 import {draftBotClient} from "../bot";
@@ -49,7 +49,7 @@ export class MissionsController {
 		const [completedDaily, completedCampaign] = await MissionsController.updateMissionsCounts(entity.Player, missionId, count, params, set);
 		const completedMissions = await MissionsController.completeAndUpdateMissions(entity.Player, completedDaily, completedCampaign, language);
 		if (completedMissions.length !== 0) {
-			await MissionsController.updatePlayerStats(entity.Player, completedMissions, channel, language);
+			await MissionsController.updatePlayerStats(entity, completedMissions, channel, language);
 			await MissionsController.sendCompletedMissions(discordUserId, entity.Player, completedMissions, channel, language);
 		}
 	}
@@ -165,14 +165,14 @@ export class MissionsController {
 		});
 	}
 
-	static async updatePlayerStats(player: Player, completedMissions: CompletedMission[], channel: TextChannel, language: string) {
+	static async updatePlayerStats(entity: Entity, completedMissions: CompletedMission[], channel: TextChannel, language: string) {
 		for (const completedMission of completedMissions) {
-			player.PlayerMissionsInfo.gems += completedMission.gemsToWin;
-			player.experience += completedMission.xpToWin;
-			player.addMoney(player.getEntity(), completedMission.moneyToWin, channel, language);
+			entity.Player.PlayerMissionsInfo.gems += completedMission.gemsToWin;
+			entity.Player.experience += completedMission.xpToWin;
+			await entity.Player.addMoney(entity, completedMission.moneyToWin, channel, language);
 		}
-		await player.PlayerMissionsInfo.save();
-		await player.save();
+		await entity.Player.PlayerMissionsInfo.save();
+		await entity.Player.save();
 	}
 
 	static async handleExpiredMissions(player: Player, user: User, channel: TextChannel, language: string) {

@@ -30,7 +30,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	else {
 		// money win
 		const moneyWon = draftbotRandom.integer(SMALL_EVENT.MINIMUM_MONEY_WON_VOTE, SMALL_EVENT.MAXIMUM_MONEY_WON_VOTE);
-		entity.Player.addMoney(entity, moneyWon, message.channel, language);
+		await entity.Player.addMoney(entity, moneyWon, message.channel, language);
 		seEmbed.setDescription(base + format(trans.moneyWin, {money: moneyWon}) + "\n\n" + trans.thanksFooter);
 		await message.channel.send({ embeds: [seEmbed] });
 	}
