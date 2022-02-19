@@ -8,5 +8,6 @@
 	"descEn": "A peaceful town on the verge of the Sentinel Beach.",
 	"tags": [
 		"detA"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

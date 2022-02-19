@@ -8,5 +8,6 @@
 	"descEn": "A way named after its furrow within the abundant nature at the South of the Oldster's forest.",
 	"tags": [
 		"detAu"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

@@ -8,5 +8,6 @@
 	"descEn": "A major crossroad that links main paths to the West of Mount Celestrum.",
 	"tags": [
 		"detAu"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

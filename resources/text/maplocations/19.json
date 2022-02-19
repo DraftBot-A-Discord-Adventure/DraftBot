@@ -8,5 +8,6 @@
 	"descEn": "Beach created by the strong winds from the Kings' Valley. The Dune protects the Backwoods Plains from heat and gathers water from the Vacarme river.",
 	"tags": [
 		"detA"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

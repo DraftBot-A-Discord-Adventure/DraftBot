@@ -8,5 +8,6 @@
 	"descEn": "A road, very popular with the villagers. Lots of small sellers settle there for a day for making a huge market together.",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

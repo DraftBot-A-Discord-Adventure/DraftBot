@@ -21,6 +21,8 @@ export class MapLocation extends Model {
 
 	public readonly particleEn!: string;
 
+	public readonly canBeGoToPlaceMissionDestination!: boolean;
+
 	public updatedAt!: Date;
 
 	public createdAt!: Date;
@@ -75,6 +77,10 @@ export class MapLocation extends Model {
 export class MapLocations {
 	static async getById(id: number): Promise<MapLocation> {
 		return await MapLocation.findOne({where: {id: id}});
+	}
+
+	static async getRandomGotoableMap(): Promise<MapLocation> {
+		return await MapLocation.findOne({ order: [Sequelize.fn("RANDOM")], where: {canBeGoToPlaceMissionDestination: true}});
 	}
 
 	static async getMapConnected(mapId: number, blacklistId: number, mapTypes: string = null): Promise<{ id: number }[]> {
@@ -155,6 +161,9 @@ export function initModel(sequelize: Sequelize) {
 		},
 		particleEn: {
 			type: DataTypes.TEXT
+		},
+		canBeGoToPlaceMissionDestination: {
+			type: DataTypes.BOOLEAN
 		},
 		updatedAt: {
 			type: DataTypes.DATE,
