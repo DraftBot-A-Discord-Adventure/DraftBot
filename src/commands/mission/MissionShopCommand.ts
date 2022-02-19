@@ -14,8 +14,7 @@ import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReacti
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {escapeUsername} from "../../core/utils/StringUtils";
-import {finishInTimeDisplay, getDayNumber} from "../../core/utils/TimeUtils";
+import {getDayNumber} from "../../core/utils/TimeUtils";
 
 declare function removeBlockedPlayer(id: string): void;
 
@@ -207,6 +206,7 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), <TextChannel>message.sentMessage.channel, translationModule.language);
+			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{
 					embeds: [new DraftBotEmbed()
