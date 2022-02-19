@@ -11,10 +11,17 @@ import {Classes} from "../models/Class";
 import {Entities} from "../models/Entity";
 import {Guilds} from "../models/Guild";
 import {MapLocations} from "../models/MapLocation";
-import {Players} from "../models/Player";
+import Player, {Players} from "../models/Player";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	let selectedPlayer = null;
+	const numberOfPlayers = await Player.count({
+		where: {
+			score: {
+				[require("sequelize/lib/operators").gt]: 100
+			}
+		}
+	});
 	const playersOnMap = await MapLocations.getPlayersOnMap(await entity.Player.getDestinationId(), await entity.Player.getPreviousMapId(), entity.Player.id);
 	// We don't query other shards, it's not optimized
 	for (let i = 0; i < playersOnMap.length; ++i) {
@@ -27,7 +34,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const tr = JsonReader.smallEvents.interactOtherPlayers.getTranslation(language);
 	if (!selectedPlayer) {
 		seEmbed.setDescription(seEmbed.description + tr.no_one[randInt(0, tr.no_one.length)]);
-		return await message.channel.send({ embeds: [seEmbed] });
+		return await message.channel.send({embeds: [seEmbed]});
 	}
 	const [otherEntity] = await Entities.getOrRegister(selectedPlayer.discordUserId);
 	const cList = [];
@@ -78,7 +85,10 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	else if (healthPercentage === 1.0) {
 		cList.push("fullHP");
 	}
-	if (otherPlayer.rank < player.rank) {
+	if (otherPlayer.rank >= numberOfPlayers) {
+		cList.push("unranked");
+	}
+	else if (otherPlayer.rank < player.rank) {
 		cList.push("lowerRankThanHim");
 	}
 	else if (otherPlayer.rank > player.rank) {
@@ -152,7 +162,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	seEmbed.setDescription(seEmbed.description + format(tr[characteristic][randInt(0, tr[characteristic].length)], {
 		playerDisplay: format(tr.playerDisplay, {
 			pseudo: await otherEntity.Player.getPseudo(language),
-			rank: (await Players.getById(otherEntity.Player.id))[0].rank
+			rank: (await Players.getById(otherEntity.Player.id))[0].rank > numberOfPlayers ? JsonReader.commands.profile.getTranslation(
+				language).ranking.unranked : (await Players.getById(otherEntity.Player.id))[0].rank
 		}),
 		level: otherEntity.Player.level,
 		class: (await Classes.getById(otherEntity.Player.class))[language],
@@ -166,7 +177,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		pluralItem: item ? item.frenchPlural === 1 ? "s" : "" : "",
 		prefixItem: prefixItem
 	}));
-	const msg = await message.channel.send({ embeds: [seEmbed] });
+	const msg = await message.channel.send({embeds: [seEmbed]});
 
 	const COIN_EMOTE = "🪙";
 	const collector = msg.createReactionCollector({
@@ -196,7 +207,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 					pseudo: await otherEntity.Player.getPseudo(language)
 				}));
 			}
-			await message.channel.send({ embeds: [poorEmbed] });
+			await message.channel.send({embeds: [poorEmbed]});
 		});
 		await msg.react(COIN_EMOTE);
 		await msg.react(MENU_REACTION.DENY);

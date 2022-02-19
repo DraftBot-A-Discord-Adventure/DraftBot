@@ -73,6 +73,10 @@
 				"Sur votre route, vous croisez {playerDisplay} qui semble en forme. En effet, il a toute sa vie !",
 				"Vous manquez de peu de finir par terre car {playerDisplay} est passé en courant près de vous ! Il est très énergique car sa vie est à son maximum."
 			],
+			"unranked": [
+				"Vous croisez {playerDisplay}, un joueur qui ne semble pas être classé... Vous repartez en vous demandant ce qui lui a pris de venir ici pour abandonner aussi vite.",
+				"En marchant, vous rencontrez {playerDisplay}, ce joueur ne semble pas bien s'en sortir dans la competition. Vous repartez après lui avoir expliqué les bases du jeu."
+			],
 			"lowerRankThanHim": [
 				"Vous croisez {playerDisplay}, un joueur ayant plus de réputation que vous... Mais n'abandonnez pas ! Vous pourrez peut-être le rattraper un jour.",
 				"En marchant vous trébuchez et tombez, {playerDisplay} se moque de vous, en effet il est mieux classé que vous !",
