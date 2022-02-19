@@ -14,9 +14,10 @@
 				"fieldName": "Missions :",
 				"fieldValue": ":gem: {gems} | :book: {campaign}% "
 			},
-			"classement": {
+			"ranking": {
 				"fieldName": "Classement et Score :",
-				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}"
+				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}",
+				"unranked" : "Non classé"
 			},
 			"timeLeft": {
 				"fieldName": "Temps restant :",

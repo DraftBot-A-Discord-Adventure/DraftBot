@@ -29,6 +29,14 @@ const ProfileCommand = async (message, language, args) => {
 	const p = await entity.Player.getMainPotionSlot().getItem();
 	const o = await entity.Player.getMainObjectSlot().getItem();
 	const [mc] = entity.Player.MissionSlots.filter(m => m.isCampaign());
+	const numberOfPlayers = await Player.count({
+		where: {
+			score: {
+				[require("sequelize/lib/operators").gt]: 100
+			}
+		}
+	});
+	const rank = (await Players.getById(entity.Player.id))[0].rank;
 	const fields = [
 		{
 			name: JsonReader.commands.profile.getTranslation(language).information.fieldName,
@@ -68,18 +76,13 @@ const ProfileCommand = async (message, language, args) => {
 		});
 	fields.push(
 		{
-			name: JsonReader.commands.profile.getTranslation(language).classement.fieldName,
+			name: JsonReader.commands.profile.getTranslation(language).ranking.fieldName,
 			value:
 				format(JsonReader.commands.profile.getTranslation(
-					language).classement.fieldValue, {
-					rank: (await Players.getById(entity.Player.id))[0].rank,
-					numberOfPlayer: await Player.count({
-						where: {
-							score: {
-								[require("sequelize/lib/operators").gt]: 100
-							}
-						}
-					}),
+					language).ranking.fieldValue, {
+					rank: rank > numberOfPlayers ? JsonReader.commands.profile.getTranslation(
+						language).ranking.unranked : rank,
+					numberOfPlayer: numberOfPlayers,
 					score: entity.Player.score
 				})
 		});
