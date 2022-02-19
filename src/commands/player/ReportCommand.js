@@ -78,6 +78,10 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
  * @returns {Promise<void>}
  */
 const doRandomBigEvent = async function(message, language, entity, forceSpecificEvent) {
+	await MissionsController.update(entity.discordUserId, message.channel, language, "travelHours", 1, {
+		travelTime: await entity.Player.getCurrentTripDuration()
+	});
+	await MissionsController.update(entity.discordUserId, message.channel, language, "goToPlace", 1, {mapId: (await MapLinks.getById(entity.Player.mapLinkId)).endMap});
 	let time;
 	if (forceSpecificEvent === -1) {
 		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.startTravelDate);
@@ -185,11 +189,6 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @returns {Promise<void>}
  */
 const chooseDestination = async function(entity, message, language, restrictedMapType) {
-	await MissionsController.update(entity.discordUserId, message.channel, language, "travelHours", 1, {
-		travelTime: await entity.Player.getCurrentTripDuration()
-	});
-	await MissionsController.update(entity.discordUserId, message.channel, language, "goToPlace", 1, {mapId: (await MapLinks.getById(entity.Player.mapLinkId)).endMap});
-
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restrictedMapType);
 
