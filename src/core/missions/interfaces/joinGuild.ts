@@ -2,7 +2,7 @@ import {IMission} from "../IMission";
 import Player from "../../models/Player";
 
 export const missionInterface: IMission = {
-	generateRandomVariant: () => 0,
+	generateRandomVariant: () => Promise.resolve(0),
 
 	areParamsMatchingVariant: () => true,
 

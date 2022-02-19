@@ -9,8 +9,8 @@ export const missionInterface: IMission = {
 		return Promise.resolve("");
 	},
 
-	generateRandomVariant(): number {
-		return 0;
+	generateRandomVariant(): Promise<number> {
+		return Promise.resolve(0);
 	},
 
 	initialNumberDone(): Promise<number> {

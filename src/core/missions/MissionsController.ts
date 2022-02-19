@@ -259,7 +259,7 @@ export class MissionsController {
 		return {
 			mission: mission,
 			index,
-			variant: this.getMissionInterface(mission.id).generateRandomVariant(difficulty)
+			variant: await this.getMissionInterface(mission.id).generateRandomVariant(difficulty)
 		};
 	}
 
