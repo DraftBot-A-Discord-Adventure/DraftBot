@@ -610,7 +610,7 @@ class Fight {
 					player: await attacker.entity.Player.getPseudo(this.language)
 				}));
 				attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 1);
-				attacker.defense = Math.round(attacker.defense * 0.60);
+				attacker.defense = Math.round(attacker.defense * 0.6);
 				await this.nextTurn();
 				return;
 			}
