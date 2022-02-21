@@ -1,8 +1,8 @@
 import {IMission} from "../IMission";
 
 export const missionInterface: IMission = {
-	generateRandomVariant(): number {
-		return 0;
+	generateRandomVariant(): Promise<number> {
+		return Promise.resolve(0);
 	},
 
 	areParamsMatchingVariant: (variant: number, params: { [key: string]: any }) => params.itemCost >= variant,

@@ -14,7 +14,6 @@ import {DraftBotReactionMessageBuilder} from "../../core/messages/DraftBotReacti
 import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {MissionsController} from "../../core/missions/MissionsController";
-import {escapeUsername} from "../../core/utils/StringUtils";
 import {getDayNumber} from "../../core/utils/TimeUtils";
 
 declare function removeBlockedPlayer(id: string): void;
@@ -206,7 +205,8 @@ function getMoneyShopItem(translationModule: TranslationModule): ShopItem {
 		translationModule,
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
-			entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), <TextChannel>message.sentMessage.channel, translationModule.language);
+			await entity.Player.addMoney(entity, calculateGemsToMoneyRatio(), <TextChannel>message.sentMessage.channel, translationModule.language);
+			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{
 					embeds: [new DraftBotEmbed()
@@ -249,7 +249,7 @@ function getAThousandPointsShopItem(translationModule: TranslationModule): ShopI
 				});
 				return false;
 			}
-			entity.Player.addScore(entity, 1000, <TextChannel>message.sentMessage.channel, translationModule.language);
+			await entity.Player.addScore(entity, 1000, <TextChannel>message.sentMessage.channel, translationModule.language);
 			await entity.Player.save();
 			await message.sentMessage.channel.send(
 				{
@@ -286,10 +286,10 @@ function getValueLovePointsPetShopItem(translationModule: TranslationModule): Sh
 				embeds: [new DraftBotEmbed()
 					.formatAuthor(translationModule.get("items.lovePointsValue.giveTitle"), message.user)
 					.setDescription(translationModule.format("items.lovePointsValue.giveDesc", {
-						pseudo: escapeUsername(message.user.username),
-						isFemale: entity.Player.Pet.sex === "f",
 						petName: entity.Player.Pet.displayName(message.language),
 						actualLP: entity.Player.Pet.lovePoints,
+						regime: entity.Player.Pet.getDietDisplay(message.language),
+						nextFeed: entity.Player.Pet.getFeedCooldownDisplay(message.language),
 						commentOnResult: sentenceGotten
 					}))
 				]

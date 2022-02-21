@@ -8,5 +8,6 @@
 	"descEn": "Ill-famed forest near Claire De Ville. Howling Woods has a bad reputation. Hideout of many bandits and outlaws, it owes its name mainly from its doubtful practices, hundreds of years ago.",
 	"tags": [
 		"detAu"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

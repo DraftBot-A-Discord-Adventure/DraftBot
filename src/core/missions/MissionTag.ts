@@ -17,8 +17,8 @@ export class MissionTag implements IMission {
 		return false;
 	}
 
-	generateRandomVariant(): number {
-		return 0;
+	generateRandomVariant(): Promise<number> {
+		return Promise.resolve(0);
 	}
 
 	getVariantFormatVariable(): Promise<string> {

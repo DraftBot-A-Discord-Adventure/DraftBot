@@ -1,8 +1,4 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes, QueryTypes
-} from "sequelize";
+import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import {Data} from "../Data";
 import InventorySlot from "./InventorySlot";
 import InventoryInfo from "./InventoryInfo";
@@ -19,8 +15,8 @@ import Armor from "./Armor";
 import Weapon from "./Weapon";
 import Potion from "./Potion";
 import ObjectItem from "./ObjectItem";
-import moment = require("moment");
 import {MissionsController} from "../missions/MissionsController";
+import moment = require("moment");
 
 export class Entity extends Model {
 	public readonly id!: number;
@@ -50,7 +46,7 @@ export class Entity extends Model {
 	public async getCumulativeAttack(weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const attackItemValue = weapon.getAttack() > playerClass.getAttackValue(this.Player.level)
-			? playerClass.getAttackValue(this.Player.level)	: weapon.getAttack();
+			? playerClass.getAttackValue(this.Player.level) : weapon.getAttack();
 		const attack = playerClass.getAttackValue(this.Player.level) + object.getAttack() + attackItemValue + armor.getAttack() +
 			potion.getAttack();
 		return attack > 0 ? attack : 0;
@@ -59,7 +55,7 @@ export class Entity extends Model {
 	public async getCumulativeDefense(weapon: Weapon, armor: Armor, potion: Potion, object: ObjectItem) {
 		const playerClass = await Classes.getById(this.Player.class);
 		const defenseItemValue = armor.getDefense() > playerClass.getDefenseValue(this.Player.level)
-			? playerClass.getDefenseValue(this.Player.level) : armor.getDefense() ;
+			? playerClass.getDefenseValue(this.Player.level) : armor.getDefense();
 		const defense = playerClass.getDefenseValue(this.Player.level) + weapon.getDefense() + object.getDefense() + defenseItemValue +
 			potion.getDefense();
 		return defense > 0 ? defense : 0;
@@ -98,17 +94,13 @@ export class Entity extends Model {
 	}
 
 	public async addHealth(health: number, channel: TextChannel, language: string) {
-		this.health += health;
-		if (health > 0) {
-			MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", health).then();
-		}
-		await this.setHealth(this.health, channel, language);
+		await this.setHealth(this.health + health, channel, language);
 	}
 
-	public async setHealth(health: number, channel: TextChannel, language: string) {
-		const difference = health - this.health;
-		if (difference > 0) {
-			MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", difference).then();
+	public async setHealth(health: number, channel: TextChannel, language: string, shouldPokeMission = true) {
+		const difference = (health > await this.getMaxHealth() ? await this.getMaxHealth() : health < 0 ? 0 : health) - this.health;
+		if (difference > 0 && shouldPokeMission) {
+			await MissionsController.update(this.discordUserId, channel, language, "earnLifePoints", difference);
 		}
 		if (health < 0) {
 			this.health = 0;

@@ -8,5 +8,6 @@
 	"descEn": "Formerly important trade route connecting the Cradle and Ville Forte, only old chipped pavement remains of the Main Road.",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

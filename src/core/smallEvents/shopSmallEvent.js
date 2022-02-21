@@ -13,7 +13,7 @@ import {Constants} from "../Constants";
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const randomItem = await generateRandomItem(RARITY.SPECIAL);
 	let price = getItemValue(randomItem);
-	price = Math.round(randInt(1, 10) === 10 ? price * 5 : price *= 0.6);
+	price *= Math.round(randInt(1, 10) === 10 ? 5 : 0.6);
 	const gender = randInt(0, 1);
 	const translationShop = JsonReader.smallEvents.shop.getTranslation(language);
 	seEmbed.setDescription(seEmbed.description
@@ -51,7 +51,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				}
 				await giveItemToPlayer(entity, randomItem, language, message.author, message.channel, SMALL_EVENT.SHOP_RESALE_MULTIPLIER, 1);
 				log(entity.discordUserId + " bought an item in a mini shop for " + price);
-				entity.Player.addMoney(entity, -price, message.channel, language);
+				await entity.Player.addMoney(entity, -price, message.channel, language);
 				await entity.Player.save();
 				return;
 			}

@@ -11,31 +11,9 @@ import {Classes} from "../models/Class";
 import {Entities} from "../models/Entity";
 import {Guilds} from "../models/Guild";
 import {MapLocations} from "../models/MapLocation";
-import {Players} from "../models/Player";
+import Player, {Players} from "../models/Player";
 
-const executeSmallEvent = async function(message, language, entity, seEmbed) {
-	let selectedPlayer = null;
-	const playersOnMap = await MapLocations.getPlayersOnMap(await entity.Player.getDestinationId(), await entity.Player.getPreviousMapId(), entity.Player.id);
-	// We don't query other shards, it's not optimized
-	for (let i = 0; i < playersOnMap.length; ++i) {
-		if (client.users.cache.has(playersOnMap[i].discordUserId)) {
-			selectedPlayer = playersOnMap[i];
-			break;
-		}
-	}
-
-	const tr = JsonReader.smallEvents.interactOtherPlayers.getTranslation(language);
-	if (!selectedPlayer) {
-		seEmbed.setDescription(seEmbed.description + tr.no_one[randInt(0, tr.no_one.length)]);
-		return await message.channel.send({ embeds: [seEmbed] });
-	}
-	const [otherEntity] = await Entities.getOrRegister(selectedPlayer.discordUserId);
-	const cList = [];
-
-	const player = (await Players.getById(entity.Player.id))[0];
-	const otherPlayer = (await Players.getById(otherEntity.Player.id))[0];
-	let item = null;
-	let guild = null;
+function checkTop(otherPlayer, cList) {
 	if (otherPlayer.rank === 1) {
 		cList.push("top1");
 	}
@@ -48,6 +26,9 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	else if (otherPlayer.rank <= 100) {
 		cList.push("top100");
 	}
+}
+
+function checkBadges(otherEntity, cList) {
 	if (otherEntity.Player.badges) {
 		if (otherEntity.Player.badges.includes("💎")) {
 			cList.push("powerfulGuild");
@@ -56,21 +37,36 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			cList.push("staffMember");
 		}
 	}
+}
+
+function checkLevel(otherEntity, cList) {
 	if (otherEntity.Player.level < 10) {
 		cList.push("beginner");
 	}
 	else if (otherEntity.Player.level >= 50) {
 		cList.push("advanced");
 	}
+}
+
+function checkClass(otherEntity, entity, cList) {
 	if (otherEntity.Player.class && otherEntity.Player.class === entity.Player.class) {
 		cList.push("sameClass");
 	}
+}
+
+function checkGuild(otherEntity, entity, cList) {
 	if (otherEntity.Player.guildId && otherEntity.Player.guildId === entity.Player.guildId) {
 		cList.push("sameGuild");
 	}
+}
+
+function checkTopWeek(otherPlayer, cList) {
 	if (otherPlayer.weeklyRank <= 5) {
 		cList.push("topWeek");
 	}
+}
+
+async function checkHealth(otherEntity, cList) {
 	const healthPercentage = otherEntity.health / await otherEntity.getMaxHealth();
 	if (healthPercentage < 0.2) {
 		cList.push("lowHP");
@@ -78,21 +74,36 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	else if (healthPercentage === 1.0) {
 		cList.push("fullHP");
 	}
-	if (otherPlayer.rank < player.rank) {
+}
+
+function checkRanking(otherPlayer, numberOfPlayers, cList, player) {
+	if (otherPlayer.rank >= numberOfPlayers) {
+		cList.push("unranked");
+	}
+	else if (otherPlayer.rank < player.rank) {
 		cList.push("lowerRankThanHim");
 	}
 	else if (otherPlayer.rank > player.rank) {
 		cList.push("betterRankThanHim");
 	}
+}
+
+function checkMoney(otherEntity, cList, entity) {
 	if (otherEntity.Player.money > 20000) {
 		cList.push("rich");
 	}
 	else if (entity.Player.money > 0 && otherEntity.Player.money < 200) {
 		cList.push("poor");
 	}
+}
+
+function checkPet(otherEntity, cList) {
 	if (otherEntity.Player.petId) {
 		cList.push("pet");
 	}
+}
+
+async function checkGuildResponsabilities(otherEntity, guild, cList) {
 	if (otherEntity.Player.guildId) {
 		guild = await Guilds.getById(otherEntity.Player.guildId);
 		if (guild.chiefId === otherEntity.Player.id) {
@@ -102,10 +113,16 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			cList.push("guildElder");
 		}
 	}
-	cList.push("class");
+	return guild;
+}
+
+function checkEffects(otherEntity, tr, cList) {
 	if (!otherEntity.Player.checkEffect() && tr[otherEntity.Player.effect]) {
 		cList.push(otherEntity.Player.effect);
 	}
+}
+
+function checkInventory(otherEntity, cList) {
 	if (otherEntity.Player.getMainWeaponSlot().itemId !== JsonReader.models.inventories.weaponId) {
 		cList.push("weapon");
 	}
@@ -118,7 +135,87 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	if (otherEntity.Player.getMainPotionSlot().itemId !== JsonReader.models.inventories.objectId) {
 		cList.push("object");
 	}
+}
 
+/**
+ * Select a random player on the same path
+ * @param playersOnMap
+ * @param selectedPlayer
+ * @returns {Player}
+ */
+function selectAPlayer(playersOnMap, selectedPlayer) {
+	// We don't query other shards, it's not optimized
+	for (let i = 0; i < playersOnMap.length; ++i) {
+		if (client.users.cache.has(playersOnMap[i].discordUserId)) {
+			selectedPlayer = playersOnMap[i];
+			break;
+		}
+	}
+	return selectedPlayer;
+}
+
+async function getPlayerDisplay(tr, otherEntity, language, numberOfPlayers) {
+	return format(tr.playerDisplay, {
+		pseudo: await otherEntity.Player.getPseudo(language),
+		rank: (await Players.getById(otherEntity.Player.id))[0].rank > numberOfPlayers ? JsonReader.commands.profile.getTranslation(
+			language).ranking.unranked : (await Players.getById(otherEntity.Player.id))[0].rank
+	});
+}
+
+function getPetName(otherEntity, language) {
+	return otherEntity.Player.Pet
+		? otherEntity.Player.Pet.getPetEmote() + " "
+		+ (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : otherEntity.Player.Pet.getPetTypeName(language))
+		: "";
+}
+
+function coinWasSent(reaction, COIN_EMOTE) {
+	return reaction.first() && reaction.first().emoji.name === COIN_EMOTE;
+}
+
+async function sendACoin(otherEntity, message, language, entity) {
+	await otherEntity.Player.addMoney(otherEntity, 1, message.channel, language);
+	await otherEntity.Player.save();
+	await entity.Player.addMoney(entity, -1, message.channel, language);
+	await entity.Player.save();
+}
+
+const executeSmallEvent = async function(message, language, entity, seEmbed) {
+	let selectedPlayer = null;
+	const numberOfPlayers = await Player.count({
+		where: {
+			score: {
+				[require("sequelize/lib/operators").gt]: 100
+			}
+		}
+	});
+	const playersOnMap = await MapLocations.getPlayersOnMap(await entity.Player.getDestinationId(), await entity.Player.getPreviousMapId(), entity.Player.id);
+	const tr = JsonReader.smallEvents.interactOtherPlayers.getTranslation(language);
+	selectedPlayer = selectAPlayer(playersOnMap, selectedPlayer);
+	if (!selectedPlayer) {
+		seEmbed.setDescription(seEmbed.description + tr.no_one[randInt(0, tr.no_one.length)]);
+		return await message.channel.send({embeds: [seEmbed]});
+	}
+	const [otherEntity] = await Entities.getOrRegister(selectedPlayer.discordUserId);
+	const cList = [];
+	const player = (await Players.getById(entity.Player.id))[0];
+	const otherPlayer = (await Players.getById(otherEntity.Player.id))[0];
+	let guild = null;
+	checkTop(otherPlayer, cList);
+	checkBadges(otherEntity, cList);
+	checkLevel(otherEntity, cList);
+	checkClass(otherEntity, entity, cList);
+	checkGuild(otherEntity, entity, cList);
+	checkTopWeek(otherPlayer, cList);
+	await checkHealth(otherEntity, cList);
+	checkRanking(otherPlayer, numberOfPlayers, cList, player);
+	checkMoney(otherEntity, cList, entity);
+	checkPet(otherEntity, cList);
+	guild = await checkGuildResponsabilities(otherEntity, guild, cList);
+	cList.push("class");
+	checkEffects(otherEntity, tr, cList);
+	checkInventory(otherEntity, cList);
+	let item = null;
 	const characteristic = cList[randInt(0, cList.length)];
 	switch (characteristic) {
 	case "weapon":
@@ -150,24 +247,17 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	}
 
 	seEmbed.setDescription(seEmbed.description + format(tr[characteristic][randInt(0, tr[characteristic].length)], {
-		playerDisplay: format(tr.playerDisplay, {
-			pseudo: await otherEntity.Player.getPseudo(language),
-			rank: (await Players.getById(otherEntity.Player.id))[0].rank
-		}),
+		playerDisplay: await getPlayerDisplay(tr, otherEntity, language, numberOfPlayers),
 		level: otherEntity.Player.level,
 		class: (await Classes.getById(otherEntity.Player.class))[language],
 		advice: JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length)],
-		petName: otherEntity.Player.Pet
-			? otherEntity.Player.Pet.getPetEmote() + " "
-			+ (otherEntity.Player.Pet.nickname ? otherEntity.Player.Pet.nickname : otherEntity.Player.Pet.getPetTypeName(language))
-			: "",
+		petName: getPetName(otherEntity, language),
 		guildName: guild ? guild.name : "",
 		item: item ? item[language] : "",
 		pluralItem: item ? item.frenchPlural === 1 ? "s" : "" : "",
 		prefixItem: prefixItem
 	}));
-	const msg = await message.channel.send({ embeds: [seEmbed] });
-
+	const msg = await message.channel.send({embeds: [seEmbed]});
 	const COIN_EMOTE = "🪙";
 	const collector = msg.createReactionCollector({
 		filter: (reaction, user) => [COIN_EMOTE, MENU_REACTION.DENY].indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id,
@@ -182,11 +272,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		collector.on("end", async (reaction) => {
 			const poorEmbed = new DraftBotEmbed()
 				.formatAuthor(JsonReader.commands.report.getTranslation(language).journal, message.author);
-			if (reaction.first() && reaction.first().emoji.name === COIN_EMOTE) {
-				otherEntity.Player.addMoney(otherEntity, 1, message.channel, language);
-				await otherEntity.Player.save();
-				entity.Player.addMoney(entity, -1, message.channel, language);
-				await entity.Player.save();
+			if (coinWasSent(reaction, COIN_EMOTE)) {
+				await sendACoin(otherEntity, message, language, entity);
 				poorEmbed.setDescription(format(tr.poorGiveMoney[randInt(0, tr.poorGiveMoney.length)], {
 					pseudo: await otherEntity.Player.getPseudo(language)
 				}));
@@ -196,7 +283,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 					pseudo: await otherEntity.Player.getPseudo(language)
 				}));
 			}
-			await message.channel.send({ embeds: [poorEmbed] });
+			await message.channel.send({embeds: [poorEmbed]});
 		});
 		await msg.react(COIN_EMOTE);
 		await msg.react(MENU_REACTION.DENY);

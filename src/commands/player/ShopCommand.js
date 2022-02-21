@@ -215,7 +215,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 					[entity] = await Entities.getOrRegister(shopMessage.user.id);
 					for (let i = 0; i < Constants.REACTIONS.ITEM_CATEGORIES.length; ++i) {
 						if (reaction.emoji.name === Constants.REACTIONS.ITEM_CATEGORIES[i]) {
-							entity.Player.addMoney(entity, -price, shopMessage.sentMessage.channel, translationModule.language);
+							await entity.Player.addMoney(entity, -price, shopMessage.sentMessage.channel, translationModule.language);
 							await entity.Player.save();
 							entity.Player.InventoryInfo.addSlotForCategory(i);
 							await entity.Player.InventoryInfo.save();

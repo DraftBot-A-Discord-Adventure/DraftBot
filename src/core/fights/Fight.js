@@ -461,9 +461,9 @@ class Fight {
 
 		// give and remove points if the fight is not a draw
 		if (loser !== null && loser.power !== winner.power) {
-			loser.entity.Player.addScore(loser.entity, -this.points, this.message.channel, this.language);
+			await loser.entity.Player.addScore(loser.entity, -this.points, this.message.channel, this.language);
 			loser.entity.Player.save();
-			winner.entity.Player.addScore(winner.entity, this.points, this.message.channel, this.language);
+			await winner.entity.Player.addScore(winner.entity, this.points, this.message.channel, this.language);
 			winner.entity.Player.save();
 		}
 
@@ -610,7 +610,7 @@ class Fight {
 					player: await attacker.entity.Player.getPseudo(this.language)
 				}));
 				attacker.chargeAction(FIGHT.ACTION.ULTIMATE_ATTACK, 1);
-				attacker.defense = Math.round(attacker.defense * 0.60);
+				attacker.defense = Math.round(attacker.defense * 0.6);
 				await this.nextTurn();
 				return;
 			}

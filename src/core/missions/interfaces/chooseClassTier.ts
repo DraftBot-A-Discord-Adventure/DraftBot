@@ -11,8 +11,8 @@ export const missionInterface: IMission = {
 		return Promise.resolve((variant + 1).toString());
 	},
 
-	generateRandomVariant(): number {
-		return 0;
+	generateRandomVariant(): Promise<number> {
+		return Promise.resolve(0);
 	},
 
 	async initialNumberDone(player: Player, variant: number): Promise<number> {

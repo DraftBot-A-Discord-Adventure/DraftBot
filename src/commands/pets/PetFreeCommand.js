@@ -77,7 +77,7 @@ const PetFreeCommand = async (message, language) => {
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				if (pPet.isFeisty()) {
-					entity.Player.addMoney(entity, -PETFREE.FREE_FEISTY_COST, message.channel, language);
+					await entity.Player.addMoney(entity, -PETFREE.FREE_FEISTY_COST, message.channel, language);
 				}
 				pPet.destroy();
 				entity.Player.petId = null;

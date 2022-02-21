@@ -8,5 +8,6 @@
 	"descEn": "A large sandy beach on the edge of the town.",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

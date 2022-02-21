@@ -8,5 +8,6 @@
 	"descEn": "This river owes its name to the noise produced by its strong current which took the lives of many villagers.",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

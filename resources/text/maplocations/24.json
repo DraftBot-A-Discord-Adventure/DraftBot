@@ -8,5 +8,6 @@
 	"descEn": "A very stiff road that leads to Claire De Ville. Everything depends on which way you're following it.",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

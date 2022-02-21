@@ -34,7 +34,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			seEmbed.setDescription(JsonReader.smallEvents.lottery.emote + " " + translationLottery.get("end"));
 			return await message.channel.send({embeds: [seEmbed]});
 		}
-		if (player.money < 175 && emojiLottery[2]) {
+		if (player.money < 175 && collected.first().emoji.name === emojiLottery[2]) {
 			seEmbed.setDescription(collected.first().emoji.name + " " + translationLottery.get("poor"));
 			return await message.channel.send({embeds: [seEmbed]});
 		}
@@ -64,7 +64,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				player.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.MONEY:
-				player.addMoney(entity, SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff);
+				await player.addMoney(entity, SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff);
 				player.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
@@ -72,7 +72,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				await guild.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.POINTS:
-				player.addScore(entity, SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff);
+				await player.addScore(entity, SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff);
 				player.save();
 				break;
 			default:
@@ -91,7 +91,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		}
 		// eslint-disable-next-line no-dupe-else-if
 		else if (malus && draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name])) {
-			player.addMoney(entity, -175, message.channel, language);
+			await player.addMoney(entity, -175, message.channel, language);
 			player.save();
 			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,2), {
 				lostTime: JsonReader.smallEvents.lottery.lostTime

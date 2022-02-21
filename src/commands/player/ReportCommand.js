@@ -78,6 +78,10 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
  * @returns {Promise<void>}
  */
 const doRandomBigEvent = async function(message, language, entity, forceSpecificEvent) {
+	await MissionsController.update(entity.discordUserId, message.channel, language, "travelHours", 1, {
+		travelTime: await entity.Player.getCurrentTripDuration()
+	});
+	await MissionsController.update(entity.discordUserId, message.channel, language, "goToPlace", 1, {mapId: (await MapLinks.getById(entity.Player.mapLinkId)).endMap});
 	let time;
 	if (forceSpecificEvent === -1) {
 		time = millisecondsToMinutes(message.createdAt.getTime() - entity.Player.startTravelDate);
@@ -100,7 +104,7 @@ const doRandomBigEvent = async function(message, language, entity, forceSpecific
 		const map = await entity.Player.getDestination();
 		[event] = await BigEvents.pickEventOnMapType(map);
 		if (!event) {
-			await message.channel.send({ content: "It seems that there is no event here... It's a bug, please report it to the Draftbot staff." });
+			await message.channel.send({content: "It seems that there is no event here... It's a bug, please report it to the Draftbot staff."});
 			return;
 		}
 	}
@@ -140,14 +144,17 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 		travelEmbed.addField(errorMessageObject.title, errorMessageObject.description, false);
 	}
 	else {
-		const milisecondsBeforeSmallEvent = entity.Player.PlayerSmallEvents.length !== 0 ?
-			PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents).time + REPORT.TIME_BETWEEN_MINI_EVENTS - Date.now() : 0;
+		let milisecondsBeforeSmallEvent = 0;
+		if (entity.Player.PlayerSmallEvents.length !== 0) {
+			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
+			const lastTime = lastMiniEvent.time > entity.Player.effectEndDate.getTime() ? lastMiniEvent.time : entity.Player.effectEndDate.getTime();
+			milisecondsBeforeSmallEvent = lastTime + REPORT.TIME_BETWEEN_MINI_EVENTS - Date.now();
+		}
 		const milisecondsBeforeBigEvent = hoursToMilliseconds(await entity.Player.getCurrentTripDuration()) - Maps.getTravellingTime(entity.Player);
 		if (milisecondsBeforeSmallEvent >= milisecondsBeforeBigEvent) {
 			// if there is no small event before the big event, do not display anything
 			travelEmbed.addField(tr.travellingTitle, tr.travellingDescriptionEndTravel, false);
 		}
-
 		else if (entity.Player.PlayerSmallEvents.length !== 0) {
 			// the first mini event of the travel is calculated differently
 			const lastMiniEvent = PlayerSmallEvents.getLast(entity.Player.PlayerSmallEvents);
@@ -167,7 +174,7 @@ const sendTravelPath = async function(entity, message, language, effect = null) 
 	travelEmbed.addField(tr.collectedPointsTitle, "🏅 " + await PlayerSmallEvents.calculateCurrentScore(entity.Player), true);
 
 	travelEmbed.addField(tr.adviceTitle, JsonReader.advices.getTranslation(language).advices[randInt(0, JsonReader.advices.getTranslation(language).advices.length - 1)], true);
-	return await message.channel.send({ embeds: [travelEmbed] });
+	return await message.channel.send({embeds: [travelEmbed]});
 };
 
 
@@ -182,11 +189,6 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
  * @returns {Promise<void>}
  */
 const chooseDestination = async function(entity, message, language, restrictedMapType) {
-	await MissionsController.update(entity.discordUserId, message.channel, language, "travelHours", 1, {
-		travelTime: await entity.Player.getCurrentTripDuration()
-	});
-	await MissionsController.update(entity.discordUserId, message.channel, language, "goToPlace", 1, { mapId: (await MapLinks.getById(entity.Player.mapLinkId)).endMap });
-
 	await PlayerSmallEvents.removeSmallEventsOfPlayer(entity.Player.id);
 	const destinationMaps = await Maps.getNextPlayerAvailableMaps(entity.Player, restrictedMapType);
 
@@ -212,7 +214,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 	}
 	chooseDestinationEmbed.setDescription(desc);
 
-	const sentMessage = await message.channel.send({ embeds: [chooseDestinationEmbed] });
+	const sentMessage = await message.channel.send({embeds: [chooseDestinationEmbed]});
 
 	const collector = sentMessage.createReactionCollector({
 		filter: (reaction, user) => destinationChoiceEmotes.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id,
@@ -272,7 +274,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 			time: tripDuration
 		}));
 	}
-	await message.channel.send({ embeds: [destinationEmbed] });
+	await message.channel.send({embeds: [destinationEmbed]});
 };
 
 /**
@@ -285,10 +287,12 @@ const destinationChoseMessage = async function(entity, map, message, language) {
  * @return {Promise<void>}
  */
 const doEvent = async (message, language, event, entity, time, forcePoints = 0) => {
-	const eventDisplayed = await message.channel.send({ content: format(JsonReader.commands.report.getTranslation(language).doEvent, {
-		pseudo: message.author,
-		event: event[language]
-	})});
+	const eventDisplayed = await message.channel.send({
+		content: format(JsonReader.commands.report.getTranslation(language).doEvent, {
+			pseudo: message.author,
+			event: event[language]
+		})
+	});
 	const reactions = await event.getReactions();
 	const collector = eventDisplayed.createReactionCollector({
 		filter: (reaction, user) => reactions.indexOf(reaction.emoji.name) !== -1 && user.id === message.author.id,
@@ -299,7 +303,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 
 	collector.on("collect", async (reaction) => {
 		collector.stop();
-		if (reaction.emoji.name === REPORT.QUICK_END_EMOTE){
+		if (reaction.emoji.name === REPORT.QUICK_END_EMOTE) {
 			return;
 		}
 		const possibility = await Possibility.findAll({
@@ -346,13 +350,15 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	if (possibility.length === 1) { // Don't do anything if the player ends the first report
 		if (possibility[0].dataValues.eventId === 0 && possibility[0].dataValues.possibilityKey === "end") {
 			removeBlockedPlayer(entity.discordUserId);
-			return await message.channel.send({ content: format(JsonReader.commands.report.getTranslation(language).doPossibility, {
-				pseudo: message.author,
-				result: "",
-				event: possibility[0].dataValues[language],
-				emoji: "",
-				alte: ""
-			})});
+			return await message.channel.send({
+				content: format(JsonReader.commands.report.getTranslation(language).doPossibility, {
+					pseudo: message.author,
+					result: "",
+					event: possibility[0].dataValues[language],
+					emoji: "",
+					alte: ""
+				})
+			});
 		}
 	}
 
@@ -448,7 +454,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		}
 	}
 
-	const resultMsg = await message.channel.send({ content: result });
+	const resultMsg = await message.channel.send({content: result});
 
 	if (!await player.killIfNeeded(entity, message.channel, language)) {
 		await chooseDestination(entity, message, language, pDataValues.restrictedMaps);
@@ -505,7 +511,7 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 		for (let i = 0; i < keys.length; ++i) {
 			const file = require(require.resolve("../../core/smallEvents/" + keys[i] + "SmallEvent.js"));
 			if (!file.smallEvent || !file.smallEvent.canBeExecuted) {
-				await message.channel.send({ content: keys[i] + " doesn't contain a canBeExecuted function" });
+				await message.channel.send({content: keys[i] + " doesn't contain a canBeExecuted function"});
 				return;
 			}
 			if (await file.smallEvent.canBeExecuted(entity)) {
@@ -534,7 +540,7 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 		try {
 			const smallEventFile = require(smallEventModule);
 			if (!smallEventFile.smallEvent.executeSmallEvent) {
-				await message.channel.send({ content: filename + " doesn't contain an executeSmallEvent function" });
+				await message.channel.send({content: filename + " doesn't contain an executeSmallEvent function"});
 			}
 			else {
 				// Create a template embed
@@ -552,7 +558,7 @@ const executeSmallEvent = async (message, language, entity, forced) => {
 		}
 	}
 	catch (e) {
-		await message.channel.send({ content: filename + " doesn't exist" });
+		await message.channel.send({content: filename + " doesn't exist"});
 	}
 
 	// Save

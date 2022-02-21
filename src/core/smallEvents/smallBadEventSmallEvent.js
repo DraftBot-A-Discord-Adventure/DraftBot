@@ -49,7 +49,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 				translationSBE.moneyLoss.stories[
 					randInt(0, translationSBE.moneyLoss.stories.length)
 				], {moneyLost: moneyLoss}));
-		entity.Player.addMoney(entity, -moneyLoss, message.channel, language);
+		await entity.Player.addMoney(entity, -moneyLoss, message.channel, language);
 		break;
 	}
 	await message.channel.send({ embeds: [seEmbed] });

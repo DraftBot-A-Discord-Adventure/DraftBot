@@ -39,10 +39,7 @@ const PetFeedCommand = async (message, language) => {
 			tr.getTranslation(language).noPet
 		);
 	}
-
-	const cooldownTime =
-		PETS.BREED_COOLDOWN * authorPet.PetModel.rarity -
-		(new Date().getTime() - authorPet.hungrySince);
+	const cooldownTime = entity.Player.Pet.getFeedCooldown();
 	if (cooldownTime > 0) {
 		return sendErrorMessage(
 			message.author,
@@ -181,7 +178,7 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 				tr.getTranslation(language).noMoney
 			);
 		}
-		entity.Player.addMoney(entity, -20, message.channel, language);
+		await entity.Player.addMoney(entity, -20, message.channel, language);
 		authorPet.hungrySince = Date();
 		await authorPet.changeLovePoints(JsonReader.food.commonFood.effect, entity.discordUserId, message.channel, language);
 		await Promise.all([

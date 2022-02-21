@@ -12,9 +12,8 @@ module.exports.commandInfo = {
 
 /**
  * Select a class
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const ClassCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id); // Loading player
@@ -67,7 +66,7 @@ const ClassCommand = async (message, language) => {
 		}
 
 		const selectedClass = await Classes.getByEmoji(reaction.first().emoji.name);
-		confirmPurchase(message, language, selectedClass, entity);
+		await confirmPurchase(message, language, selectedClass, entity);
 	});
 
 	// Adding reactions
@@ -123,13 +122,13 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 				if (selectedClass.id === playerClass.id) {
 					return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.sameClass);
 				}
-				reaction.first().message.delete();
+				await reaction.first().message.delete();
 				entity.Player.class = selectedClass.id;
 				const newClass = await Classes.getById(entity.Player.class);
 				await entity.setHealth(Math.round(
-					entity.health / await playerClass.getMaxHealthValue(entity.Player.level) * await newClass.getMaxHealthValue(entity.Player.level)
-				), message.channel, language);
-				entity.Player.addMoney(entity, -selectedClass.price, message.channel, language);
+					entity.health / playerClass.getMaxHealthValue(entity.Player.level) * newClass.getMaxHealthValue(entity.Player.level)
+				), message.channel, language, false);
+				await entity.Player.addMoney(entity, -selectedClass.price, message.channel, language);
 				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClass");
 				await MissionsController.update(entity.discordUserId, message.channel, language, "chooseClassTier", 1, { tier: selectedClass.classgroup });
 				await Promise.all([

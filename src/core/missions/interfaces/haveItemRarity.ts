@@ -4,7 +4,7 @@ import {haveRarityOrMore} from "../../utils/ItemUtils";
 import Player from "../../models/Player";
 
 export const missionInterface: IMission = {
-	generateRandomVariant: () => 0,
+	generateRandomVariant: () => Promise.resolve(0),
 
 	areParamsMatchingVariant: (variant: number, params: { [key: string]: any }) => params.rarity >= variant,
 

@@ -8,5 +8,6 @@
 	"descEn": "A small road that takes you to the countryside from Mergagnan and vice versa.",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

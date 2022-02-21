@@ -8,5 +8,6 @@
 	"descEn": "Hot sandy desert named in honor of the region's ancient kings.",
 	"tags": [
 		"detALa"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }

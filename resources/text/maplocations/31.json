@@ -5,5 +5,6 @@
 	"particleFr": "vers",
 	"particleEn": "of",
 	"descFr": "La calèche du château du Roi",
-	"descEn": "The carriage of the King's castle"
+	"descEn": "The carriage of the King's castle",
+	"canBeGoToPlaceMissionDestination" : false
 }

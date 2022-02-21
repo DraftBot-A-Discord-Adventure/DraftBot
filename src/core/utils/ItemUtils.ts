@@ -224,7 +224,7 @@ const sellOrKeepItem = async function(
 		return;
 	}
 	const money = Math.round(getItemValue(item) * resaleMultiplier);
-	entity.Player.addMoney(entity, money, channel, language);
+	await entity.Player.addMoney(entity, money, channel, language);
 	await MissionsController.update(entity.discordUserId, channel, language, "sellItemWithGivenCost",1,{itemCost: money});
 	await entity.Player.save();
 	await channel.send({ embeds: [

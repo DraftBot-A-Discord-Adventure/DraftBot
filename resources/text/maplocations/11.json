@@ -8,5 +8,6 @@
 	"descEn": "True last road which still allows to go around the Mount Celestrum from the north, the Great Road is still widely used, but mainly by brigands.",
 	"tags": [
 		"detAu"
-	]
+	],
+	"canBeGoToPlaceMissionDestination" : true
 }
