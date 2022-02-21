@@ -2,6 +2,8 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 
 import {Maps} from "../../core/Maps";
+import MapLocation from "../../core/models/MapLocation";
+import player, {Player} from "../../core/models/Player";
 
 module.exports.commandInfo = {
 	name: "map",
@@ -20,13 +22,15 @@ const MapCommand = async (message, language) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 
 	const mapEmbed = new DraftBotEmbed()
-		.setImage(
-			JsonReader.commands.map.URL
-		)
 		.formatAuthor(JsonReader.commands.map.getTranslation(language).text, message.author);
 
 	if (Maps.isTravelling(entity.Player)) {
 		const destMap = await entity.Player.getDestination();
+		let strMapLink = await getStrMapWithCursor(entity.Player);
+		console.log(strMapLink);
+		mapEmbed.setImage(
+			format(JsonReader.commands.map.URL_WITH_CURSOR,{mapLink: strMapLink})
+		);
 		mapEmbed.setDescription(format(
 			JsonReader.commands.map.getTranslation(language).descText, {
 				direction: await destMap.getDisplayName(language),
@@ -34,9 +38,30 @@ const MapCommand = async (message, language) => {
 				particle: await destMap.getParticleName(language)
 			}));
 	}
+	else{
+		mapEmbed.setImage(
+			format(JsonReader.commands.map.URL)
+		);
+		mapEmbed.setDescription(format(
+			JsonReader.commands.map.getTranslation(language).descTextReached, {
+				direction: await destMap.getDisplayName(language)
+			}));
+	}
 	await message.channel.send({ embeds: [mapEmbed] });
 
 	log("Player " + message.author + " asked the map");
 };
 
+async function getStrMapWithCursor(player){
+	const destMap = await player.getDestination();
+	const depMap = await player.getPreviousMap();
+	let strMapLink = "";
+	if(destMap.id < depMap.id){
+		strMapLink = ""+destMap.id+"_"+depMap.id+"_" ;
+	}
+	else{
+		strMapLink = ""+depMap.id+"_"+destMap.id+"_" ;
+	}
+	return strMapLink ;
+}
 module.exports.execute = MapCommand;
