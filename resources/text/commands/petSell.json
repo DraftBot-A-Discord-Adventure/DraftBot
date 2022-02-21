@@ -21,7 +21,7 @@
 				"description": "{emote} **{pet}** vous suit désormais. Occupez vous en bien !"
 			},
 			"noMoney": "Vous n'avez pas assez d'argent pour effectuer cette transaction.",
-			"sellCancelled": "La vente à été annulée !",
+			"sellCancelled": "La vente a été annulée !",
 			"havePet": "Vous avez déja un familier dans votre inventaire.",
 			"errors": {
 				"canSellYourself": "Il est impossible de se vendre un familier à soi-même !",

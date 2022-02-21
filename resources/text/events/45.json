@@ -171,7 +171,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous continuez votre route, quelques minutes plus tard, vous vous sentez plus léger.",
+						"fr": "Vous continuez votre route. Quelques minutes plus tard, vous vous rendez compte que vous avez pris le mauvais chemin. Dans votre précipitation pour rattraper le temps perdu, vous trébuchez contre une pierre et vos affaires s'éparpillent.",
 						"en": "You continue on your way, but a few minutes later notice your pockets are lighter than before..."
 					},
 					"lostTime": 15,
