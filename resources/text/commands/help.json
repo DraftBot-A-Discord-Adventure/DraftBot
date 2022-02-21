@@ -174,7 +174,8 @@
 					"emote": ":incoming_envelope:",
 					"usage": "guildadd [mention]",
 					"category": "guild",
-					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef de guilde."
+					"description": "Permet d'ajouter un utilisateur à une guilde, nécessite d'être chef ou aîné de guilde."
+					
 				},
 				"guilddesc": {
 					"emote": ":writing_hand:",
