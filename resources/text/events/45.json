@@ -39,7 +39,7 @@
 				},
 				{
 					"translations": {
-						"fr": "Vous décidez d'aller au sanctuaire tout seul. Sur votre route, vous trouvez un objet qui pourrait vous être utile. Arrivé sur les lieux, ils se révèlent être une grotte. Vous décidez de ne pas aller plus loin.",
+						"fr": "Vous décidez d'aller au sanctuaire tout seul. Sur votre route, vous trouvez un objet qui pourrait vous être utile. Arrivé sur les lieux, vous découvrez que le sanctuaire se révèle être une grotte. Vous décidez de ne pas aller plus loin.",
 						"en": "You decide to go to the shrine on your own. On your way, you find an object which may be useful. When you reach the shrine, it appears to be a dark cave. With no light source, you decide not to go any further."
 					},
 					"lostTime": 75,
