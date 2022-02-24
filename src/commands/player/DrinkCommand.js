@@ -58,7 +58,7 @@ const DrinkCommand = async (message, language, args) => {
 			else if (potion.nature === NATURE.HOSPITAL) {
 				embed.setDescription(format(JsonReader.commands.drink.getTranslation(language).hospitalBonus, {value: potion.power}));
 				Maps.advanceTime(entity.Player, potion.power * 60);
-				entity.Player.save();
+				await entity.Player.save();
 				await entity.Player.drinkPotion();
 			}
 			else if (potion.nature === NATURE.MONEY) {

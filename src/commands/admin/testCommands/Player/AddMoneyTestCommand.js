@@ -13,14 +13,14 @@ module.exports.commandInfo = {
 /**
  * Add money to the player
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {Message} message - Message from the discord server
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @return {String} - The successful message formatted
  */
 const addMoneyTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	await entity.Player.addMoney(entity, parseInt(args[0]), message.channel, language);
-	entity.Player.save();
+	await entity.Player.save();
 
 	return format(module.exports.commandInfo.messageWhenExecuted, {money: entity.Player.money});
 };
