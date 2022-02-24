@@ -1,9 +1,9 @@
 /**
  * Main function of small event
- * @param {module:"discord.js".Message} message
+ * @param {Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
- * @param {module:"discord.js".MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
+ * @param {MessageEmbed} seEmbed - The template embed to send. The description already contains the emote so you have to get it and add your text
  * @returns {Promise<>}
  */
 import {Translations} from "../Translations";
@@ -60,26 +60,25 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 			const coeff = JsonReader.smallEvents.lottery.coeff[collected.first().emoji.name];
 			switch (reward) {
 			case Constants.LOTTERY_REWARD_TYPES.XP:
-				player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, message, language);
-				player.save();
+				await player.addExperience(SMALL_EVENT.LOTTERY_REWARDS.EXPERIENCE * coeff, entity, message.channel, language);
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.MONEY:
-				await player.addMoney(entity, SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff);
-				player.save();
+				await player.addMoney(entity, SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff, message.channel, language);
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.GUILD_XP:
-				guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, message, language);
+				await guild.addExperience(SMALL_EVENT.LOTTERY_REWARDS.GUILD_EXPERIENCE * coeff, message, language);
 				await guild.save();
 				break;
 			case Constants.LOTTERY_REWARD_TYPES.POINTS:
-				await player.addScore(entity, SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff);
-				player.save();
+				await player.addScore(entity, SMALL_EVENT.LOTTERY_REWARDS.POINTS * coeff, message.channel, language);
 				break;
 			default:
 				throw new Error("lottery reward type not found");
 			}
+			await player.save();
+			await entity.save();
 			const money = SMALL_EVENT.LOTTERY_REWARDS.MONEY * coeff;
-			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,0), {
+			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 0), {
 				lostTime: JsonReader.smallEvents.lottery.lostTime
 			}) + format(translationLottery.get("rewardTypeText." + reward), {
 				money: Math.abs(money),
@@ -92,8 +91,8 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		// eslint-disable-next-line no-dupe-else-if
 		else if (malus && draftbotRandom.bool(JsonReader.smallEvents.lottery.successRate[collected.first().emoji.name])) {
 			await player.addMoney(entity, -175, message.channel, language);
-			player.save();
-			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name,2), {
+			await player.save();
+			sentenceReward = format(translationLottery.getFromArray(collected.first().emoji.name, 2), {
 				lostTime: JsonReader.smallEvents.lottery.lostTime
 			}) + format(translationLottery.get("rewardTypeText.money"), {
 				negativeMoney: true,

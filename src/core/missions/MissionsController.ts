@@ -168,7 +168,7 @@ export class MissionsController {
 	static async updatePlayerStats(entity: Entity, completedMissions: CompletedMission[], channel: TextChannel, language: string) {
 		for (const completedMission of completedMissions) {
 			entity.Player.PlayerMissionsInfo.gems += completedMission.gemsToWin;
-			entity.Player.experience += completedMission.xpToWin;
+			await entity.Player.addExperience(completedMission.xpToWin, entity, channel, language);
 			await entity.Player.addMoney(entity, completedMission.moneyToWin, channel, language);
 		}
 		await entity.Player.PlayerMissionsInfo.save();
