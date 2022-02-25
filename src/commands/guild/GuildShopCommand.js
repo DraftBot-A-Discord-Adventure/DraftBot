@@ -4,6 +4,7 @@ import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {Translations} from "../../core/Translations";
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "guildshop",
@@ -52,11 +53,11 @@ const GuildShopCommand = async (message, language) => {
 	))
 		.endCallback(shopEndCallback)
 		.build())
-		.send(message.channel, (collector) => addBlockedPlayer(message.author.id, "guildShop", collector));
+		.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(message.author.id, "guildShop", collector));
 };
 
 function shopEndCallback(shopMessage) {
-	removeBlockedPlayer(shopMessage.user.id);
+	BlockingUtils.unblockPlayer(shopMessage.user.id);
 }
 
 function getGuildXPShopItem(guildShopTranslations) {

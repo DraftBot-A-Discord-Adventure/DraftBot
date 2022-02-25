@@ -7,6 +7,7 @@ import {sortPlayerItemList} from "../../core/utils/ItemUtils";
 import {Entities} from "../../core/models/Entity";
 import InventorySlot from "../../core/models/InventorySlot";
 import {Servers} from "../../core/models/Server";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 const moment = require("moment");
 
@@ -118,14 +119,14 @@ const SwitchCommand = async (message, language) => {
 		] });
 	},
 	async (endMessage) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (endMessage.isCanceled()) {
 			await sendErrorMessage(message.author, message.channel, language, tr.get("canceled"), true);
 		}
 	})
 		.formatAuthor(tr.get("switchTitle"), message.author);
 	choiceMessage.setDescription(tr.get("switchIndication") + "\n\n" + choiceMessage.description);
-	choiceMessage.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "switch", collector));
+	choiceMessage.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "switch", collector));
 };
 
 module.exports.execute = SwitchCommand;

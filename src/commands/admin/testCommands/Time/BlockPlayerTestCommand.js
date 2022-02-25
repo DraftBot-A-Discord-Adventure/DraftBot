@@ -1,4 +1,5 @@
 import {Entities} from "../../../../core/models/Entity";
+import {BlockingUtils} from "../../../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "blockplayer",
@@ -34,7 +35,7 @@ const blockPlayerTestCommand = async (language, message, args) => {
 	collector.on("end", () => {
 	});
 	/* eslint-enable @typescript-eslint/no-empty-function */
-	addBlockedPlayer(entity.discordUserId, "test", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "test", collector);
 	return format(module.exports.commandInfo.messageWhenExecuted, {time: sec});
 };
 

@@ -17,6 +17,7 @@ import {Entities} from "../../core/models/Entity";
 import {Maps} from "../../core/Maps";
 import Shop from "../../core/models/Shop";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "shop",
@@ -69,11 +70,11 @@ const ShopCommand = async (message, language) => {
 		.addCategory(inventoryCategory)
 		.endCallback(shopEndCallback)
 		.build())
-		.send(message.channel, (collector) => addBlockedPlayer(message.author.id, "shop", collector));
+		.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(message.author.id, "shop", collector));
 };
 
 function shopEndCallback(shopMessage) {
-	removeBlockedPlayer(shopMessage.user.id);
+	BlockingUtils.unblockPlayer(shopMessage.user.id);
 }
 
 function getPermanentItemShopItem(name, translationModule, buyCallback) {
@@ -204,7 +205,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 				.endCallback(async (chooseSlotMessage) => {
 					const reaction = chooseSlotMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
-						removeBlockedPlayer(shopMessage.user.id);
+						BlockingUtils.unblockPlayer(shopMessage.user.id);
 						await shopMessage.sentMessage.channel.send({ embeds: [new DraftBotErrorEmbed(
 							shopMessage.user,
 							shopMessage.language,
@@ -227,7 +228,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 							break;
 						}
 					}
-					removeBlockedPlayer(shopMessage.user.id);
+					BlockingUtils.unblockPlayer(shopMessage.user.id);
 				});
 			let desc = "";
 			for (const category of availableCategories) {
@@ -241,7 +242,7 @@ function getSlotExtensionShopItem(translationModule, entity) {
 			chooseSlot = chooseSlot.build();
 			chooseSlot.formatAuthor(translationModule.get("chooseSlotTitle"), shopMessage.user);
 			chooseSlot.setDescription(translationModule.get("chooseSlotIndication") + "\n\n" + desc);
-			chooseSlot.send(shopMessage.sentMessage.channel, (collector) => addBlockedPlayer(entity.discordUserId, "shop", collector));
+			chooseSlot.send(shopMessage.sentMessage.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "shop", collector));
 			Promise.resolve(false);
 		}
 	);

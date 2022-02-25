@@ -3,6 +3,7 @@ import {Client, Guild, Intents, Message, TextChannel} from "discord.js";
 import {loadConfig} from "./DraftBotConfig";
 import {format} from "../utils/StringFormatter";
 import {Servers} from "../models/Server";
+import {IPCClient} from "./ipc/IPCClient";
 
 // TODO changed when Data.ts will be merged
 declare const JsonReader: any;
@@ -30,6 +31,7 @@ process.on("message", async (message: any) => {
 
 	if (message.type === "shardId") {
 		shardId = message.data.shardId;
+		IPCClient.connectToIPCServer(shardId);
 		const mainShard = shardId === 0;
 		const draftBot = new DraftBot(draftBotClient, botConfig, mainShard);
 		draftBotInstance = draftBot;

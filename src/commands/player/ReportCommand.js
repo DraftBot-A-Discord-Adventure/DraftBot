@@ -12,6 +12,7 @@ import {MissionsController} from "../../core/missions/MissionsController";
 import {Constants} from "../../core/Constants";
 import {hoursToMilliseconds} from "../../core/utils/TimeUtils";
 import {Tags} from "../../core/models/Tag";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "report",
@@ -232,7 +233,7 @@ const chooseDestination = async function(entity, message, language, restrictedMa
 		await destinationChoseMessage(entity, mapId, message, language);
 	});
 
-	await addBlockedPlayer(entity.discordUserId, "chooseDestination", collector);
+	await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "chooseDestination", collector);
 	for (let i = 0; i < destinationMaps.length; ++i) {
 		try {
 			await sentMessage.react(destinationChoiceEmotes[i]);
@@ -299,7 +300,7 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 		time: COLLECTOR_TIME
 	});
 
-	await addBlockedPlayer(entity.discordUserId, "report", collector);
+	await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "report", collector);
 
 	collector.on("collect", async (reaction) => {
 		collector.stop();
@@ -349,7 +350,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
 	if (possibility.length === 1) { // Don't do anything if the player ends the first report
 		if (possibility[0].dataValues.eventId === 0 && possibility[0].dataValues.possibilityKey === "end") {
-			removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			return await message.channel.send({
 				content: format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 					pseudo: message.author,
@@ -438,7 +439,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 		await giveRandomItem((await message.guild.members.fetch(entity.discordUserId)).user, message.channel, language, entity);
 	}
 	else {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 	}
 
 	if (pDataValues.oneshot === true) {

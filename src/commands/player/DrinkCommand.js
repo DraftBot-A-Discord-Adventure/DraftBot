@@ -10,6 +10,7 @@ import {Constants} from "../../core/Constants";
 import {Translations} from "../../core/Translations";
 import {Data} from "../../core/Data";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "drink",
@@ -35,7 +36,7 @@ const DrinkCommand = async (message, language, args) => {
 	}
 
 	const drinkPotion = async (validateMessage, potion) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (args[0] === "force" || args[0] === "f" || validateMessage.isValidated()) {
 			if (potion.nature === NATURE.NONE) {
 				if (potion.id !== JsonReader.models.inventories.potionId) {
@@ -95,7 +96,7 @@ const DrinkCommand = async (message, language, args) => {
 				effect: potion.getNatureTranslation(language)
 			}))
 			.setFooter(tr.get("confirmationFooter"))
-			.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "drink", collector));
+			.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "drink", collector));
 	}
 };
 

@@ -9,6 +9,7 @@
  */
 import {generateRandomItem, giveItemToPlayer} from "../utils/ItemUtils";
 import {Constants} from "../Constants";
+import {BlockingUtils} from "../utils/BlockingUtils";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const randomItem = await generateRandomItem(RARITY.SPECIAL);
@@ -32,7 +33,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 		reaction.emoji.name === MENU_REACTION.DENY) && user.id === entity.discordUserId;
 
 	const collector = msg.createReactionCollector({filter: filterConfirm, time: COLLECTOR_TIME, max: 1});
-	addBlockedPlayer(entity.discordUserId, "merchant", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "merchant", collector);
 
 	await Promise.all([
 		msg.react(MENU_REACTION.ACCEPT),
@@ -40,7 +41,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	]);
 
 	collector.on("end", async (reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				if (entity.Player.money < price) {

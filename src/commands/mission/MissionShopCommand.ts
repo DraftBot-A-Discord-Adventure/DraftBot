@@ -15,10 +15,7 @@ import {DraftBotErrorEmbed} from "../../core/messages/DraftBotErrorEmbed";
 import {DraftBotReaction} from "../../core/messages/DraftBotReaction";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {getDayNumber} from "../../core/utils/TimeUtils";
-
-declare function removeBlockedPlayer(id: string): void;
-
-declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any, any[]>): void;
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 declare function sendBlockedError(user: User, channel: TextChannel, language: string): Promise<boolean>;
 
@@ -77,7 +74,7 @@ const MissionShopCommand = async (message: Message, language: string) => {
 		.setTranslationPosition("commands.missionShop")
 		.build();
 
-	addBlockedPlayer(entity.discordUserId, "missionShop", shopMessage.collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "missionShop", shopMessage.collector);
 	await shopMessage.send(message.channel);
 };
 
@@ -102,7 +99,7 @@ async function removeUserGems(userId: string, amount: number): Promise<void> {
 }
 
 function shopEndCallback(shopMessage: DraftBotShopMessage) {
-	removeBlockedPlayer(shopMessage.user.id);
+	BlockingUtils.unblockPlayer(shopMessage.user.id);
 }
 
 function getItemShopItem(name: string, translationModule: TranslationModule, buyCallback: (message: DraftBotShopMessage, amount: number) => Promise<boolean>): ShopItem {
@@ -139,7 +136,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 				.endCallback(async (missionMessage) => {
 					const reaction = missionMessage.getFirstReaction();
 					if (!reaction || reaction.emoji.name === Constants.REACTIONS.REFUSE_REACTION) {
-						removeBlockedPlayer(message.user.id);
+						BlockingUtils.unblockPlayer(message.user.id);
 						await message.sentMessage.channel.send({
 							embeds: [new DraftBotErrorEmbed(
 								message.user,
@@ -167,7 +164,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 							break;
 						}
 					}
-					removeBlockedPlayer(message.user.id);
+					BlockingUtils.unblockPlayer(message.user.id);
 					await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
 				});
 			let desc = "";
@@ -181,7 +178,7 @@ function getSkipMapMissionShopItem(translationModule: TranslationModule): ShopIt
 			chooseMissionBuilt.formatAuthor(translationModule.get("items.skipMapMission.giveTitle"), message.user);
 			chooseMissionBuilt.setDescription(translationModule.get("items.skipMapMission.giveDesc") + "\n\n" + desc);
 			await chooseMissionBuilt.send(message.sentMessage.channel);
-			addBlockedPlayer(entity.discordUserId, "missionShop", chooseMissionBuilt.collector);
+			BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "missionShop", chooseMissionBuilt.collector);
 			return false;
 		});
 }

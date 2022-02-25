@@ -4,6 +4,7 @@ import {Guilds} from "./models/Guild";
 import Server from "./models/Server";
 import {botConfig, draftBotClient} from "./bot";
 import {escapeUsername} from "./utils/StringUtils";
+import {BlockingUtils} from "./utils/BlockingUtils";
 
 const {readdir} = require("fs/promises");
 const {readdirSync} = require("fs");
@@ -21,7 +22,6 @@ class Command {
 	 */
 	static async init() {
 		Command.commands = new Collection();
-		Command.players = new Map();
 
 		const categories = await readdir("dist/src/commands");
 		categories.forEach(category => {
@@ -44,68 +44,6 @@ class Command {
 
 	static getCommandFromAlias(alias) {
 		return Command.commands.find(cmd => cmd.commandInfo.aliases && cmd.commandInfo.aliases.includes(alias));
-	}
-
-	/**
-	 * check if a player is blocked
-	 * @param {String} id
-	 */
-	static async hasBlockedPlayer(id) {
-		const response = await draftBotClient.shard.broadcastEval((client, context) => _hasBlockedPlayer(context.id), {
-			context: {
-				id
-			}
-		});
-		return response.includes(true);
-	}
-
-	static _hasBlockedPlayer(id) {
-		if (Object.keys(Command.players).includes(id)) {
-			return !(
-				Command.players[id].collector &&
-				Command.players[id].collector.ended
-			);
-		}
-	}
-
-	/**
-	 * get the reason why a player is blocked and the time he is blocked for
-	 * @param {String} id
-	 * @return {{context: string, time: number}}
-	 */
-	static async getBlockedPlayer(id) {
-		let response = await draftBotClient.shard.broadcastEval((client, context) => _getBlockedPlayer(context.id), {
-			context: {
-				id
-			}
-		});
-		response = response.filter(r => r);
-		if (response.length === 0) {
-			return null;
-		}
-		return response[0];
-	}
-
-	static _getBlockedPlayer(id) {
-		return Command.players[id];
-	}
-
-	/**
-	 * block a player
-	 * @param {String} id
-	 * @param {String} context
-	 * @param {module:"discord.js".ReactionCollector} collector
-	 */
-	static addBlockedPlayer(id, context, collector = null) {
-		Command.players[id] = {context: context, collector: collector};
-	}
-
-	/**
-	 * unblock a player
-	 * @param {String} id
-	 */
-	static removeBlockedPlayer(id) {
-		delete Command.players[id];
 	}
 
 	/**
@@ -418,28 +356,19 @@ class Command {
 			}
 		}
 
-		if (!Command.players.has(command.name)) {
-			Command.players.set(command.name, new Map());
+		if (!Command.commands.has(command.name)) {
+			Command.commands.set(command.name, new Map());
 		}
 
-		const now = Date.now();
-		const timestamps = Command.players.get(command.name);
-		const cooldownAmount = 1000;
-
-		if (timestamps.has(message.author.id)) {
-			const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-
-			if (now < expirationTime) {
-				return sendErrorMessage(
-					message.author,
-					message.channel,
-					language,
-					JsonReader.error.getTranslation(language).blockedContext["cooldown"]);
-			}
+		if (await BlockingUtils.isPlayerSpamming(message.author.id)) {
+			return sendErrorMessage(
+				message.author,
+				message.channel,
+				language,
+				JsonReader.error.getTranslation(language).blockedContext["cooldown"]);
 		}
 
-		timestamps.set(message.author.id, now);
-		setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+		BlockingUtils.spamBlockPlayer(message.author.id);
 
 		log(message.author.id + " executed in server " + message.guild.id + ": " + message.content.substr(1));
 		await command.execute(message, language, args);
@@ -456,18 +385,6 @@ module
 
 global
 	.getCommand = Command.getCommand;
-global
-	.getBlockedPlayer = Command.getBlockedPlayer;
-global
-	.hasBlockedPlayer = Command.hasBlockedPlayer;
-global
-	._hasBlockedPlayer = Command._hasBlockedPlayer;
-global
-	._getBlockedPlayer = Command._getBlockedPlayer;
-global
-	.addBlockedPlayer = Command.addBlockedPlayer;
-global
-	.removeBlockedPlayer = Command.removeBlockedPlayer;
 global
 	.handleMessage = Command.handleMessage;
 global

@@ -21,6 +21,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {countNbOfPotions, sortPlayerItemList} from "../../core/utils/ItemUtils";
 import InventorySlot from "../../core/models/InventorySlot";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 const SellCommand = async (message, language) => {
 	let [entity] = await Entities.getOrRegister(message.author.id);
@@ -61,7 +62,7 @@ const SellCommand = async (message, language) => {
 	}
 
 	const sellEnd = async (validateMessage, item) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (validateMessage.isValidated()) {
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
 			const money = item.value;
@@ -116,16 +117,16 @@ const SellCommand = async (message, language) => {
 					item: item.name
 				}));
 		}
-		validationMessage.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "sell", collector));
+		validationMessage.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "sell", collector));
 	}, async (endMessage) => {
 		if (endMessage.isCanceled()) {
-			removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			await sendErrorMessage(message.author, message.channel, language, tr.get("sellCanceled"), true);
 		}
 	})
 		.formatAuthor(tr.get("titleChoiceEmbed"), message.author);
 	choiceMessage.setDescription(tr.get("sellIndication") + "\n\n" + choiceMessage.description);
-	choiceMessage.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "sell", collector));
+	choiceMessage.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "sell", collector));
 };
 
 module.exports.execute = SellCommand;
