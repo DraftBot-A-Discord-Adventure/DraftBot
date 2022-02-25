@@ -3,7 +3,7 @@ import {IPCClient} from "../bot/ipc/IPCClient";
 
 export class BlockingUtils {
 	static blockPlayer(discordId: string, reason: string, maxTime = 0): void {
-		IPCClient.IPCBlockPlayer(discordId, reason, maxTime);
+		IPCClient.ipcBlockPlayer(discordId, reason, maxTime);
 	}
 
 	static blockPlayerWithCollector(discordId: string, reason: string, collector: ReactionCollector): void {
@@ -11,18 +11,18 @@ export class BlockingUtils {
 	}
 
 	static unblockPlayer(discordId: string): void {
-		IPCClient.IPCUnblockPlayer(discordId);
+		IPCClient.ipcUnblockPlayer(discordId);
 	}
 
 	static async getPlayerBlockingReason(discordId: string): Promise<string | null> {
-		return await IPCClient.IPCGetBlockedPlayerReason(discordId);
+		return await IPCClient.ipcGetBlockedPlayerReason(discordId);
 	}
 
 	static spamBlockPlayer(discordId: string): void {
-		IPCClient.IPCSpamBlockPlayer(discordId);
+		IPCClient.ipcSpamBlockPlayer(discordId);
 	}
 
 	static async isPlayerSpamming(discordId: string): Promise<boolean> {
-		return await IPCClient.IPCIsPlayerSpamming(discordId);
+		return await IPCClient.ipcIsPlayerSpamming(discordId);
 	}
 }

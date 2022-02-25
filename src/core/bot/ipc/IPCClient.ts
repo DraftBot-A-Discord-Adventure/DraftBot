@@ -66,15 +66,15 @@ export class IPCClient {
 		});
 	}
 
-	static IPCBlockPlayer(discordId: string, reason: string, time = 0) {
+	static ipcBlockPlayer(discordId: string, reason: string, time = 0) {
 		ipc.of.draftbot.emit("block", {discordId, reason, time});
 	}
 
-	static IPCUnblockPlayer(discordId: string) {
+	static ipcUnblockPlayer(discordId: string) {
 		ipc.of.draftbot.emit("unblock", {discordId});
 	}
 
-	static IPCGetBlockedPlayerReason(discordId: string): Promise<string> {
+	static ipcGetBlockedPlayerReason(discordId: string): Promise<string> {
 		return new Promise(resolve => {
 			blockCallbacks.set(requestCount, (reason) => resolve(reason));
 			ipc.of.draftbot.emit("isBlocked", {packet: requestCount, discordId});
@@ -82,11 +82,11 @@ export class IPCClient {
 		});
 	}
 
-	static IPCSpamBlockPlayer(discordId: string) {
+	static ipcSpamBlockPlayer(discordId: string) {
 		ipc.of.draftbot.emit("spam", {discordId});
 	}
 
-	static IPCIsPlayerSpamming(discordId: string): Promise<boolean> {
+	static ipcIsPlayerSpamming(discordId: string): Promise<boolean> {
 		return new Promise(resolve => {
 			spamCallbacks.set(requestCount, (spamming) => resolve(spamming));
 			ipc.of.draftbot.emit("isSpamming", {packet: requestCount, discordId});
