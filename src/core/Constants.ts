@@ -277,6 +277,9 @@ export abstract class Constants {
 			MONEY: 50,
 			GUILD_EXPERIENCE: 70,
 			POINTS: 35
-		}
+		},
+		MINIMUM_MONEY_WON_LEVEL: 20,
+		BASE_TIME_LOST_LEVEL: 5,
+		BASE_HEALTH_LOST_LEVEL: 5
 	}
 }
