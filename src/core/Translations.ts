@@ -82,6 +82,19 @@ export class TranslationModule {
 	getRandom(translation: string): string {
 		return draftbotRandom.pick(<string[]> this.getTranslationObject(translation));
 	}
+
+	getObjectSize(translation: string): number {
+		const object = this.getTranslationObject(translation);
+		if (typeof object === "object") {
+			return Object.keys(object).length;
+		}
+		console.warn("Trying to use an invalid translation object: " + translation + " in module " + this._module);
+		return 0;
+	}
+
+	public getObject(path: string): any[] {
+		return <any[]> this.getTranslationObject(path);
+	}
 }
 
 export class Translations {
