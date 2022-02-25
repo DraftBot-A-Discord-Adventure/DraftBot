@@ -35,12 +35,12 @@ export const smallEvent: SmallEvent = {
 			case "life":
 				return {
 					type: malus,
-					option: Math.round(entity.Player.level / 6) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_LEVEL + RandomUtils.draftbotRandom.integer(-3, 3)
+					option: Math.round(entity.Player.level / 6) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-3, 3)
 				};
 			case "time":
 				return {
 					type: malus,
-					option: Math.round(entity.Player.level / 3) + Constants.SMALL_EVENT.BASE_TIME_LOST_LEVEL + RandomUtils.draftbotRandom.integer(-10, 10)
+					option: Math.round(entity.Player.level / 3) + Constants.SMALL_EVENT.BASE_TIME_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-10, 10)
 				};
 			case "nothing":
 				return {
@@ -49,7 +49,7 @@ export const smallEvent: SmallEvent = {
 			case "end":
 				return {
 					type: malus,
-					option: Math.round(entity.Player.level / 2) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_LEVEL + RandomUtils.draftbotRandom.integer(-5, 5)
+					option: Math.round(entity.Player.level / 2) + Constants.SMALL_EVENT.BASE_HEALTH_LOST_GOBLETS_GAME + RandomUtils.draftbotRandom.integer(-5, 5)
 				};
 			default:
 			}

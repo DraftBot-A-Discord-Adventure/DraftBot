@@ -93,7 +93,7 @@ export const smallEvent: SmallEvent = {
 			}
 			return {
 				type: "money",
-				option: Constants.SMALL_EVENT.MINIMUM_MONEY_WON_LEVEL + entity.Player.level
+				option: Constants.SMALL_EVENT.MINIMUM_MONEY_WON_ULTIMATE_FOOD_MERCHANT + entity.Player.level
 			};
 		}
 		function generateEmbed(reward: any) {
