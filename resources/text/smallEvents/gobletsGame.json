@@ -1,0 +1,83 @@
+{
+    "translations": {
+        "fr": {
+            "intro": {
+                "intrigue": [
+                    "vous croisez un homme qui vous paraît suspect. En effet, celui-ci s’approche de vous, et vous pousse sans ménagement vers une table, sur laquelle sont posés trois mystérieux gobelets. Celui-ci vous propose un jeu : vous devez tirer un gobelet au hasard, et recevoir la récompense, quelle qu’elle soit. Le temps d'observer les objets disposés sur cette table, il se glisse dans votre dos puis ne semble pas vouloir vous laisser partir. Pour vous sortir de cette situation, vous décidez de jouer à son jeu. Il vous faut donc choisir en choisir un.\n\n"
+                ],
+                "goblets": [
+                    {
+                        "desc": "Celui en métal, semblant très ancien, gravé d'une tête de dragon\n",
+                        "name": "en métal",
+                        "emoji": "🐲"
+                    },
+                    {
+                        "desc": "Le plus grand des trois, d'une matière que vous parvenez pas à identifiez\n",
+                        "name": "le plus grand",
+                        "emoji": "🪣"
+                    },
+                    {
+                        "desc": "Le dernier, taillé dans un bois bleu, et d'une scintillance telle qu'il paraît enchanté",
+                        "name": "scintillant",
+                        "emoji": "✨"
+                    }
+                ]
+            },
+            "results": {
+                "life": [
+                    "Vous soulevez doucement le gobelet {goblet} quand vous remarquez qu’il n’y a rien dessous. Déçu, et mauvais perdant, vous donnez une gifle aux deux autres gobelets qui volent dans les airs. Remarquant qu’il n’y avait rien non plus dans les autres gobelets, vous voulez vous venger de cet arnaqueur mais celui-ci vous donner un grand coup de poing avant de prendre ses jambes à son cou. Vous perdez **{amount}💔**."
+                ],
+                "time": [
+                    "Vous soulevez doucement le gobelet {goblet} quand vous remarquez qu’il y a une pièce dessous. Malheureusement, l’homme, profitant de votre extase, s’empare de la pièce et s’en va en courant. Vous vous lancez alors à sa poursuite, mais n’arrivez malheureusement pas à le rattraper ; et vous perdez **{amount}🕑** à cause de ce détour."
+                ],
+                "nothing": [
+                    "Vous soulevez doucement le gobelet {goblet} quand vous remarquez qu’il n’y a rien dessous. Déçu, vous repartez tristement en vous disant que vous aurez peut-être plus de chance une autre fois."
+                ],
+                "end": [
+                    "Devant votre manque de réaction, l’homme a la mauvaise idée d’essayer de vous voler. Remarquant qu’il essaie habilement de vider vos poches, vous le menacez sauvagement. Pris de peur, il vous donne un coup de poing qui vous met à terre, avant de s’enfuir. Vous perdez **{amount}💔**."
+                ]
+            }
+        },
+        "en": {
+            "intro": {
+                "intrigue": [
+                    "you meet a man who seems suspicious about you. Indeed, he approaches and pushes you unceremoniously towards a table on which are placed three mysterious cups. This one offers you to play a game: you must draw a cup randomly, and receive the reward, whatever it is. Whereas you were observing the objects on the table, he slips behind you and doesn't seem to want to let you go. To get out of this situation, you must play his game. Which cup are you taking ?\n\n"
+                ],
+                "goblets": [
+                    {
+                        "desc": "The metal one, looking very old, engraved with a dragon's head\n",
+                        "name": "metal",
+                        "emoji": "🐲"
+                    },
+                    {
+                        "desc": "The biggest of the three, made of a material you can't identify\n",
+                        "name": "biggest",
+                        "emoji": "🪣"
+                    },
+                    {
+                        "desc": "The last one, carved in blue wood, and so sparkling that it seems enchanted",
+                        "name": "sparkling",
+                        "emoji": "✨"
+                    }
+                ]
+            },
+            "results": {
+                "life": [
+                    "You gently lift the {goblet} goblet and notice the nothing underneath. Disappointed, and a sore loser, you get the two other goblets flying around. Noticing that there was nothing in the other cups either, you clam revenge on this scammer but this one gives you a big punch before fleeing. You lose **{amount}💔**."
+                ],
+                "time": [
+                    "You gently lift the {goblet} goblet and notice a coin underneath. Unfortunately, the man, taking advantage of your thinking, grabs the coin and runs away. You hurl after him, but unfortunately do not manage to catch up that guy; and you lose **{amount}🕑** because of this detour."
+                ],
+                "nothing": [
+                    "You slowly lift the {goblet} goblet and notice the nothing underneath. Disappointed, you leave sadly. Who knows, you might have better luck next time."
+                ],
+                "end": [
+                    "Facing your lack of reaction, the man tries to rob you. Noticing that he is cleverly trying to empty your pockets, you savagely threaten him. Fearing for his life, he gives you a punch that knocks you down, before fleeing. You lose **{amount}💔**."
+                ]
+            }
+        }
+    },
+    "malusTypes": ["life", "time", "nothing"],
+    "rarity": 1,
+	"emote": ":milk:️"
+}

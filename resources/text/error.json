@@ -78,7 +78,8 @@
 				"switch": "Échange d'équipement",
 				"missionShop": "Magasin des missions",
 				"merchant": "Marchand",
-				"drink": "Choix de boire une potion ou non"
+				"drink": "Choix de boire une potion ou non",
+				"levelBad": "Choix d'un goblet"
 			}
 		},
 		"en": {
@@ -159,7 +160,8 @@
 				"lottery": "Lottery small event",
 				"missionShop": "Missions shop",
 				"merchant": "Merchant",
-				"drink": "Choice to drink a potion or not"
+				"drink": "Choice to drink a potion or not",
+				"levelBad": "Choice of a goblet"
 			}
 		}
 	}
