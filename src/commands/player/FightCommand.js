@@ -1,3 +1,5 @@
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
+
 const Fight = require("../../core/fights/Fight");
 import {Entities} from "../../core/models/Entity";
 
@@ -44,7 +46,7 @@ const FightCommand = async function(message, language, args, friendly = false) {
 	let msg;
 	let spamCount = 0;
 	const spammers = [];
-	await global.addBlockedPlayer(attacker.discordUserId, "fight");
+	BlockingUtils.blockPlayer(attacker.discordUserId, "fight");
 
 	if (defender === null) {
 		msg = format(JsonReader.commands.fight.getTranslation(language).wantsToFightAnyone, {
@@ -129,7 +131,7 @@ const FightCommand = async function(message, language, args, friendly = false) {
 
 			collector.on("end", async function() {
 				if (fightInstance === undefined) {
-					global.removeBlockedPlayer(attacker.discordUserId);
+					BlockingUtils.unblockPlayer(attacker.discordUserId);
 					if (defender === null) {
 						await sendErrorMessage(message.author, message.channel, language, JsonReader.commands.fight.getTranslation(language).error.noOneAvailable);
 					}
@@ -138,7 +140,7 @@ const FightCommand = async function(message, language, args, friendly = false) {
 					}
 				}
 				if (fightInstance === null) {
-					global.removeBlockedPlayer(attacker.discordUserId);
+					BlockingUtils.unblockPlayer(attacker.discordUserId);
 				}
 			});
 		});
@@ -199,7 +201,7 @@ async function canFight(entity, friendly) {
 	if (!entity.Player.currentEffectFinished() && !friendly) {
 		return FIGHT_ERROR.DISALLOWED_EFFECT;
 	}
-	if (await global.hasBlockedPlayer(entity.discordUserId)) {
+	if (await BlockingUtils.getPlayerBlockingReason(entity.discordUserId) !== null) {
 		return FIGHT_ERROR.OCCUPIED;
 	}
 	if (await entity.getCumulativeHealth() === 0 && !friendly) {

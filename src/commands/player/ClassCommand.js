@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Classes} from "../../core/models/Class";
 import {Entities} from "../../core/models/Entity";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "class",
@@ -51,16 +52,16 @@ const ClassCommand = async (message, language) => {
 
 	const collector = classMessage.createReactionCollector({ filter: filterConfirm, time: COLLECTOR_TIME, max: 1 });
 
-	addBlockedPlayer(entity.discordUserId, "class", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "class", collector);
 
 	// Fetch the choice from the user
 	collector.on("end", async (reaction) => {
 		if (!reaction.first()) { // the user is afk
-			removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			return;
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.DENY) {
-			removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			sendErrorMessage(message.author, message.channel, language, JsonReader.commands.class.getTranslation(language).error.leaveClass, true);
 			return;
 		}
@@ -108,7 +109,7 @@ async function confirmPurchase(message, language, selectedClass, entity) {
 
 	collector.on("end", async (reaction) => {
 		const playerClass = await Classes.getById(entity.Player.class);
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
 				if (!canBuy(selectedClass.price, entity.Player)) {

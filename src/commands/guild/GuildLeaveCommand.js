@@ -19,6 +19,7 @@ import Guild, {Guilds} from "../../core/models/Guild";
 import Player from "../../core/models/Player";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {escapeUsername} from "../../core/utils/StringUtils";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 const GuildLeaveCommand = async (message, language) => {
 	if (await sendBlockedError(message.author, message.channel, language)) {
@@ -34,9 +35,9 @@ const GuildLeaveCommand = async (message, language) => {
 
 	const endCallback = async (validationMessage) => {
 		const embed = new DraftBotEmbed();
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (elder) {
-			removeBlockedPlayer(elder.discordUserId);
+			BlockingUtils.unblockPlayer(elder.discordUserId);
 		}
 		if (validationMessage.isValidated()) {
 			entity.Player.guildId = null;
@@ -139,9 +140,9 @@ const GuildLeaveCommand = async (message, language) => {
 	}
 
 	await confirmationEmbed.send(message.channel, (collector) => {
-		addBlockedPlayer(entity.discordUserId, "guildLeave", collector);
+		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildLeave", collector);
 		if (elder) {
-			addBlockedPlayer(elder.discordUserId, "chiefGuildLeave", collector);
+			BlockingUtils.blockPlayerWithCollector(elder.discordUserId, "chiefGuildLeave", collector);
 		}
 	});
 };

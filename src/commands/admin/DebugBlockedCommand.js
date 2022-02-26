@@ -1,3 +1,4 @@
+const {BlockingUtils} = require("../../core/utils/BlockingUtils");
 module.exports.commandInfo = {
 	name: "debugblocked",
 	aliases: [],
@@ -12,11 +13,12 @@ module.exports.commandInfo = {
  */
 const DebugBlockedCommand = async (message, language, args) => {
 	if (args.length === 1) {
-		if (!await hasBlockedPlayer(args[0])) {
+		const blockingReason = await BlockingUtils.getPlayerBlockingReason(args[0]);
+		if (blockingReason === null) {
 			await message.channel.send({ content: "Not blocked" });
 			return;
 		}
-		await message.channel.send({ content: (await getBlockedPlayer(args[0])).context });
+		await message.channel.send({ content: blockingReason });
 	}
 };
 

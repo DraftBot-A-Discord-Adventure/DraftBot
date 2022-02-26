@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 const tr = JsonReader.commands.petFeed;
 module.exports.commandInfo = {
@@ -91,7 +92,7 @@ async function guildUserFeedPet(language, message, entity, authorPet) {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUserId, "petFeed");
+	BlockingUtils.blockPlayer(entity.discordUserId, "petFeed");
 
 	// Fetch the choice from the user
 	collector.on("end", (reaction) => {
@@ -99,7 +100,7 @@ async function guildUserFeedPet(language, message, entity, authorPet) {
 			!reaction.first() ||
 			reaction.first().emoji.name === MENU_REACTION.DENY
 		) {
-			removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			return sendErrorMessage(
 				message.author,
 				message.channel,
@@ -111,7 +112,7 @@ async function guildUserFeedPet(language, message, entity, authorPet) {
 
 		if (foodItems.has(reaction.first().emoji.name)) {
 			const item = foodItems.get(reaction.first().emoji.name);
-			removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			feedPet(message, language, entity, authorPet, item);
 		}
 	});
@@ -153,11 +154,11 @@ async function withoutGuildPetFeed(language, message, authorPet, entity) {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUserId, "petFeed");
+	BlockingUtils.blockPlayer(entity.discordUserId, "petFeed");
 
 	// Fetch the choice from the user
 	collector.on("end", async (reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (
 			!reaction.first() ||
 			reaction.first().emoji.name === MENU_REACTION.DENY

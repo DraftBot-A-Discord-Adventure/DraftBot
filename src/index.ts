@@ -1,5 +1,6 @@
 import {ShardingManager} from "discord.js";
 import {loadConfig} from "./core/bot/DraftBotConfig";
+import {startIPCServer} from "./core/bot/ipc/IPCServer";
 
 process.on("unhandledRejection", function(err: Error) {
 	console.log(err.stack);
@@ -9,6 +10,8 @@ process.on("unhandledRejection", function(err: Error) {
 const shardCount = "auto";
 
 const main = function() {
+	startIPCServer();
+
 	const shardingManager = new ShardingManager("./dist/src/core/bot/index.js", {
 		totalShards: shardCount,
 		// Needed as in auto mode it has to make a request to know the needed number of shards

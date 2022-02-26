@@ -16,10 +16,9 @@ import InventorySlot from "../models/InventorySlot";
 import {MissionsController} from "../missions/MissionsController";
 import {GenericItemModel} from "../models/GenericItemModel";
 import Player from "../models/Player";
+import {BlockingUtils} from "./BlockingUtils";
 
 declare const JsonReader: any;
-declare function removeBlockedPlayer(id: string): void;
-declare function addBlockedPlayer(id: string, reason: string, collector: Collector<any, any, any[]>): void;
 declare const draftbotRandom: Random;
 
 // eslint-disable-next-line max-params
@@ -82,7 +81,7 @@ export const giveItemToPlayer = async function(
 				discordUser.id,
 				async (replacedItem: any) => {
 					[entity] = await Entities.getOrRegister(entity.discordUserId);
-					removeBlockedPlayer(discordUser.id);
+					BlockingUtils.unblockPlayer(discordUser.id);
 					await sellOrKeepItem(
 						entity,
 						false,
@@ -98,7 +97,7 @@ export const giveItemToPlayer = async function(
 					);
 				},
 				async (endMessage: DraftBotListChoiceMessage) => {
-					removeBlockedPlayer(discordUser.id);
+					BlockingUtils.unblockPlayer(discordUser.id);
 					if (endMessage.isCanceled()) {
 						await sellOrKeepItem(
 							entity,
@@ -120,7 +119,7 @@ export const giveItemToPlayer = async function(
 				tr.get("chooseItemToReplaceTitle"),
 				discordUser
 			);
-			choiceMessage.send(channel, (collector) => addBlockedPlayer(discordUser.id, "acceptItem", collector));
+			choiceMessage.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, "acceptItem", collector));
 			return;
 		}
 	}
@@ -146,7 +145,7 @@ export const giveItemToPlayer = async function(
 		discordUser,
 		async (msg: DraftBotValidateReactionMessage) => {
 			[entity] = await Entities.getOrRegister(entity.discordUserId);
-			removeBlockedPlayer(discordUser.id);
+			BlockingUtils.unblockPlayer(discordUser.id);
 			await sellOrKeepItem(
 				entity,
 				!msg.isValidated(),
@@ -166,7 +165,7 @@ export const giveItemToPlayer = async function(
 		.setDescription(tr.format("randomItemDesc", {
 			actualItem: itemToReplaceInstance.toString(language)
 		})) as DraftBotValidateReactionMessage;
-	await validateSell.send(channel, (collector) => addBlockedPlayer(discordUser.id, "acceptItem", collector));
+	await validateSell.send(channel, (collector) => BlockingUtils.blockPlayerWithCollector(discordUser.id, "acceptItem", collector));
 };
 
 // eslint-disable-next-line max-params

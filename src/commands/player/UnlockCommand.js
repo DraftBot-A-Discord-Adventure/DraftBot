@@ -2,6 +2,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 
 import {Maps} from "../../core/Maps";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "unlock",
@@ -57,10 +58,10 @@ const UnlockCommand = async (message, language, args) => {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUserId, "unlock", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "unlock", collector);
 
 	collector.on("end", async (reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (reaction.first()) { // a reaction exist
 			[entity] = await Entities.getOrRegister(lockedEntity.discordUserId); // released entity
 			const [player] = await Entities.getOrRegister(message.author.id); // message author

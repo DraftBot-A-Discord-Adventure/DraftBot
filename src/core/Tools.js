@@ -3,6 +3,7 @@ import {DraftBotEmbed} from "./messages/DraftBotEmbed";
 import {format} from "./utils/StringFormatter";
 import * as ItemUtils from "../core/utils/ItemUtils";
 import {Guilds} from "./models/Guild";
+import {BlockingUtils} from "./utils/BlockingUtils";
 
 global.draftbotRandom = new (require("random-js")).Random();
 
@@ -270,9 +271,10 @@ global.getItemValue = function(item) {
  * @returns {boolean}
  */
 global.sendBlockedError = async function(user, channel, language) {
-	if (await hasBlockedPlayer(user.id)) {
+	const blockingReason = await BlockingUtils.getPlayerBlockingReason(user.id);
+	if (blockingReason !== null) {
 		await sendErrorMessage(user, channel, language, format(JsonReader.error.getTranslation(language).playerBlocked, {
-			context: JsonReader.error.getTranslation(language).blockedContext[(await getBlockedPlayer(user.id)).context]
+			context: JsonReader.error.getTranslation(language).blockedContext[blockingReason]
 		}));
 		return true;
 	}

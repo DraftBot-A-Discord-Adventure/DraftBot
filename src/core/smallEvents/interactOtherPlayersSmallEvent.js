@@ -12,6 +12,7 @@ import {Entities} from "../models/Entity";
 import {Guilds} from "../models/Guild";
 import {MapLocations} from "../models/MapLocation";
 import Player, {Players} from "../models/Player";
+import {BlockingUtils} from "../utils/BlockingUtils";
 
 function checkTop(otherPlayer, cList) {
 	if (otherPlayer.rank === 1) {
@@ -265,7 +266,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	});
 	switch (characteristic) {
 	case "poor":
-		addBlockedPlayer(entity.discordUserId, "report", collector);
+		BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "report", collector);
 		collector.on("collect", () => {
 			collector.stop();
 		});

@@ -18,6 +18,7 @@ import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValid
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Guilds} from "../../core/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 const GuildKickCommand = async (message, language, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
@@ -74,7 +75,7 @@ const GuildKickCommand = async (message, language, args) => {
 	}
 
 	const endCallback = async (validateMessage) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (validateMessage.isValidated()) {
 			try {
 				[kickedEntity] = await Entities.getByArgs(args, message);
@@ -132,7 +133,7 @@ const GuildKickCommand = async (message, language, args) => {
 			guildName: guild.name,
 			kickedPseudo: await kickedEntity.Player.getPseudo(language)
 		}))
-		.send(message.channel, (collector) => addBlockedPlayer(entity.discordUserId, "guildKick", collector));
+		.send(message.channel, (collector) => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildKick", collector));
 };
 
 module.exports.execute = GuildKickCommand;

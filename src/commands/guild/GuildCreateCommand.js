@@ -17,6 +17,7 @@ import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {DraftBotValidateReactionMessage} from "../../core/messages/DraftBotValidateReactionMessage";
 import Guild, {Guilds} from "../../core/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 const GuildCreateCommand = async (message, language, args) => {
 	let guild;
@@ -76,7 +77,7 @@ const GuildCreateCommand = async (message, language, args) => {
 	}
 
 	const endCallback = async (validateMessage) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (validateMessage.isValidated()) {
 			try {
 				guild = await Guilds.getByName(args.join(" "));
@@ -121,7 +122,7 @@ const GuildCreateCommand = async (message, language, args) => {
 		return sendErrorMessage(message.author, message.channel, language, JsonReader.commands.guildCreate.getTranslation(language).creationCancelled, true);
 	};
 
-	addBlockedPlayer(entity.discordUserId, "guildCreate");
+	BlockingUtils.blockPlayer(entity.discordUserId, "guildCreate");
 
 	new DraftBotValidateReactionMessage(
 		message.author,

@@ -7,6 +7,7 @@ import {PetEntities} from "../../core/models/PetEntity";
 import {Maps} from "../../core/Maps";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {escapeUsername} from "../../core/utils/StringUtils";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "guilddaily",
@@ -47,7 +48,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 	const members = await Entities.getByGuild(guild.id);
 
 	for (const i in members) {
-		if (await hasBlockedPlayer(members[i].discordUserId) && (await getBlockedPlayer(members[i].discordUserId)).context === "fight") {
+		if (await BlockingUtils.getPlayerBlockingReason(members[i].discordUserId) === "fight") {
 			continue;
 		}
 		if (await sendBlockedError(await client.users.fetch(members[i].discordUserId), message.channel, language)) {

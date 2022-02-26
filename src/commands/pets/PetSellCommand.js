@@ -3,6 +3,7 @@ import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
 import {MissionsController} from "../../core/missions/MissionsController";
 import {escapeUsername} from "../../core/utils/StringUtils";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "petsell",
@@ -116,7 +117,7 @@ const PetSellCommand = async (message, language, args) => {
 		time: COLLECTOR_TIME
 	});
 
-	addBlockedPlayer(entity.discordUserId, "petSell", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "petSell", collector);
 
 	let spamCount = 0;
 	const spammers = [];
@@ -163,13 +164,13 @@ const PetSellCommand = async (message, language, args) => {
 
 	collector.on("end", function() {
 		if (sellInstance === undefined) {
-			global.removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 			if (buyer === null) {
 				sendErrorMessage(message.author, message.channel, language, translations.errors.noOneAvailable);
 			}
 		}
 		if (sellInstance === null) {
-			global.removeBlockedPlayer(entity.discordUserId);
+			BlockingUtils.unblockPlayer(entity.discordUserId);
 		}
 	});
 
@@ -200,15 +201,15 @@ async function petSell(message, language, entity, user, pet, petCost) {
 		max: 1
 	});
 
-	addBlockedPlayer(buyer.discordUserId, "petSellConfirm", confirmCollector);
+	BlockingUtils.blockPlayerWithCollector(buyer.discordUserId, "petSellConfirm", confirmCollector);
 
 	confirmCollector.on("end", async (reaction) => {
 		if (!reaction.first() || reaction.first().emoji.name === MENU_REACTION.DENY) {
-			removeBlockedPlayer(buyer.discordUserId);
+			BlockingUtils.unblockPlayer(buyer.discordUserId);
 			return sendErrorMessage(user, message.channel, language, translations.sellCancelled, true);
 		}
 		if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
-			removeBlockedPlayer(buyer.discordUserId);
+			BlockingUtils.unblockPlayer(buyer.discordUserId);
 			let buyerGuild;
 			try {
 				buyerGuild = await Guilds.getById(buyer.Player.guildId);

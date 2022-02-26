@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Entities} from "../models/Entity";
 import {MissionsController} from "../missions/MissionsController";
+import {BlockingUtils} from "../utils/BlockingUtils";
 
 const Fighter = require("./Fighter.js");
 // const Attack = require('./Attack.js');
@@ -77,7 +78,7 @@ class Fight {
 		for (let i = 0; i < this.fighters.length; i++) {
 			await this.fighters[i].calculateStats();
 			await this.fighters[i].consumePotionIfNeeded(this.message, this.language);
-			global.addBlockedPlayer(this.fighters[i].entity.discordUserId, "fight");
+			BlockingUtils.blockPlayer(this.fighters[i].entity.discordUserId, "fight");
 		}
 
 		// the player with the highest speed start the fight
@@ -474,7 +475,7 @@ class Fight {
 			}
 		}
 		for (let i = 0; i < this.fighters.length; i++) {
-			global.removeBlockedPlayer(this.fighters[i].entity.discordUserId);
+			BlockingUtils.unblockPlayer(this.fighters[i].entity.discordUserId);
 		}
 		if (this.lastSummary !== undefined) {
 			setTimeout(() => this.lastSummary.delete(), 5000);

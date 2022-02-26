@@ -11,6 +11,7 @@ import {format} from "../utils/StringFormatter";
 import {Guilds} from "../models/Guild";
 import {Maps} from "../Maps";
 import {Constants} from "../Constants";
+import {BlockingUtils} from "../utils/BlockingUtils";
 
 const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	const translationLottery = Translations.getModule("smallEvents.lottery", language);
@@ -28,7 +29,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	});
 
 	collectorLottery.on("end", async (collected) => {
-		await removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 
 		if (!collected.first()) {
 			seEmbed.setDescription(JsonReader.smallEvents.lottery.emote + " " + translationLottery.get("end"));
@@ -109,7 +110,7 @@ const executeSmallEvent = async function(message, language, entity, seEmbed) {
 	});
 
 
-	await addBlockedPlayer(entity.discordUserId, "lottery", collectorLottery);
+	await BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "lottery", collectorLottery);
 	for (let i = 0; i < emojiLottery.length; ++i) {
 		try {
 			await lotteryIntro.react(emojiLottery[i]);

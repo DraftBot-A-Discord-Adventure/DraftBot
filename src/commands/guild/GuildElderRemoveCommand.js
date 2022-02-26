@@ -1,6 +1,7 @@
 import {DraftBotEmbed} from "../../core/messages/DraftBotEmbed";
 import {Entities} from "../../core/models/Entity";
 import {Guilds} from "../../core/models/Guild";
+import {BlockingUtils} from "../../core/utils/BlockingUtils";
 
 module.exports.commandInfo = {
 	name: "guildelderremove",
@@ -56,10 +57,10 @@ const GuildElderRemoveCommand = async (message, language) => {
 		max: 1
 	});
 
-	addBlockedPlayer(entity.discordUserId, "guildElderRemove", collector);
+	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "guildElderRemove", collector);
 
 	collector.on("end", async (reaction) => {
-		removeBlockedPlayer(entity.discordUserId);
+		BlockingUtils.unblockPlayer(entity.discordUserId);
 		if (reaction.first()) {
 			// a reaction exist
 			if (reaction.first().emoji.name === MENU_REACTION.ACCEPT) {
