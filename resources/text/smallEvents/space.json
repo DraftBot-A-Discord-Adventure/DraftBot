@@ -11,7 +11,7 @@
 				"vous êtes interpelé par un homme disant s'appeler **{name}**",
 				"un oracle du nom de **{name}** vous apostrophe",
 				"un étranger prétendant s'appeler **{name}** vous demande d'approcher",
-				"un homme surgit de nulle part court vers vous et se présente sous le nom de **{name}**",
+				"un homme surgissant de nulle part court vers vous et se présente sous le nom de **{name}**",
 				"un inconnu suspect vous demande d'approcher, il vous dit s'appeler **{name}**"
 			],
 			"searchAction": [
