@@ -11,6 +11,14 @@
 			"missionDisplay": "{description} {campaign?:(expire }{campaign?:{timeBeforeExpiration}}{campaign?:)}\n{progressionDisplay} {current}/{objective}"
 		},
 		"en": {
+			"title": "Missions of {pseudo}",
+			"campaign": "\uD83D\uDCD6 **Campaign ({current}/{max})**",
+			"finishedCampaign": "\uD83D\uDCD6 **Campaign finished**",
+			"daily": "\uD83D\uDCC5 **Daily Mission**",
+			"dailyFinished": "You have completed today's mission! Come back {time}.",
+			"currentMissions": "\uD83D\uDCDC **Secondary missions ({amountOfMissions}/{slots})**",
+			"noCurrentMissionsDescription": "You can occasionally find additional missions to complete by requesting a report.",
+			"missionDisplay": "{description} {campaign?:(expire }{campaign?:{timeBeforeExpiration}}{campaign?:)}\n{progressionDisplay} {current}/{objective}"
 		}
 	}
 }

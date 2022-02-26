@@ -14,7 +14,17 @@
 			"missionsExpiredDesc": "\uD83D\uDCE4 **{missionsCount>1?Les missions suivantes ont:La mission suivante a} expiré :**\n{missionsExpired}"
 		},
 		"en": {
-			"completedTitle": "{pseudo}, your completed mission{missionCount>1?s:}"
+			"completedTitle": "{pseudo}, your completed mission{missionCount>1?s:}",
+			"campaign": "\uD83D\uDCD6 **Campaign Mission{missionCount>1?s:}",
+			"daily": "\uD83D\uDCC5 **Daily Mission**",
+			"sideMissions": "\uD83D\uDCDC **Secondary Mission{missionCount>1?s:}{missionCount>1?s:}**",
+			"gemsDisplay": "+{gems} \uD83D\uDC8E",
+			"moneyDisplay": "+{money} \uD83D\uDCB0",
+			"xpDisplay": "+{xp} ⭐",
+			"totalRewards":"\uD83E\uDDFE Total Rewards",
+			"totalDisplay": "Gems earned: {gems} \uD83D\uDC8E\nExperience earned: {xp} ⭐",
+			"missionsExpiredTitle": "{pseudo}, {missionsCount>1?Multiple missions have:a mission has} expired",
+			"missionsExpiredDesc":"\uD83D\uDCE4 **{missionsCount>1?The following missions have:The following mission has} expired:**\n{missionsExpired}"
 		}
 	}
 }

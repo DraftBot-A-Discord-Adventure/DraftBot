@@ -20,6 +20,7 @@
 			"noDrinkError": "{pseudo}, hmmm... It didn't work!",
 			"noActiveObjectdescription": "Unfortunately, you don’t have anything to drink in your inventory!",
 			"drinkSuccess": "{pseudo}, you have received your drink reward!",
+			"drinkCanceled": "You haven't drunk your potion!",
 			"healthBonus": "❤️ HP recovered : {value}!",
 			"moneyBonus": "💰 Money Earned: {value}!",
 			"hospitalBonus": "🕥 You leapt forward {value} hour{value>1?s:}.",

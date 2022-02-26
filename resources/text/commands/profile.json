@@ -40,7 +40,8 @@
 				"fieldValue": "Rareté: {rarity}\n{emote} {nickname}"
 			},
 			"map": {
-				"fieldName": "Destination :"
+				"fieldName": "Destination :",
+				"fieldValue": "{mapEmote} {mapName}"
 			},
 			"badges": {
 				"🏆": ":trophy:  `Meilleur joueur au moment du reset de la 1.0`",
@@ -84,9 +85,10 @@
 				"fieldName": "Missions:",
 				"fieldValue": ":gem: {gems}| :date: {daily} | :book: {campaign}% "
 			},
-			"classement": {
+			"ranking": {
 				"fieldName": "Ranking and score:",
-				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}"
+				"fieldValue": ":trophy: {rank}/{numberOfPlayer} | :medal: {score}",
+				"unranked": "Unranked"
 			},
 			"timeLeft": {
 				"fieldName": "Time left:",
