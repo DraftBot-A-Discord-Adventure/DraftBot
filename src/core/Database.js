@@ -322,80 +322,23 @@ class Database {
 	static async populateJsonFilesTables(models) {
 
 		await Tag.destroy({truncate: true});
-
 		const tagsToInsert = [];
-		for (const model of models) {
-			await model.model.destroy({truncate: true});
 
-			const files = await fs.promises.readdir(
-				`resources/text/${model.folder.toLowerCase()}`
-			);
+		await this.populateClassicModels(models, tagsToInsert);
 
-			const filesContent = [];
-			for (const file of files) {
-				const fileName = file.split(".")[0];
-				const fileContent = require(`resources/text/${model.folder.toLowerCase()}/${file}`);
-				fileContent.id = fileName;
-				if (fileContent.translations) {
-					if (
-						fileContent.translations.en &&
-						typeof fileContent.translations.fr === "string"
-					) {
-						fileContent.fr = fileContent.translations.fr;
-						fileContent.en = fileContent.translations.en;
-					}
-					else {
-						const keys = Object.keys(fileContent.translations.en);
-						for (let i = 0; i < keys.length; ++i) {
-							const key = keys[i];
-							fileContent[key + "En"] =
-								fileContent.translations.en[key];
-							fileContent[key + "Fr"] =
-								fileContent.translations.fr[key];
-						}
-					}
-				}
-				if (fileContent.tags) {
-					// If theres tags, populate them into the database
-					for (let i = 0; i < fileContent.tags.length; i++) {
-						const tagContent = {
-							textTag: fileContent.tags[i],
-							idObject: fileContent.id,
-							// eslint-disable-next-line no-prototype-builtins
-							typeObject: model.model.hasOwnProperty("name") ? model.model.name : "ERRORNONAME"
-						};
-						tagsToInsert.push(tagContent);
-					}
-					delete fileContent["tags"];
-				}
-				filesContent.push(fileContent);
-			}
-
-			await model.model.bulkCreate(filesContent);
-		}
+		// Handle special case Missions
+		await Mission.destroy({truncate: true});
+		await this.populateMissionModel();
 
 		// Handle special case Events & Possibilities
 		await BigEvent.destroy({truncate: true});
 		await EventMapLocationId.destroy({truncate: true});
 		await Possibility.destroy({truncate: true});
-		await Mission.destroy({truncate: true});
+		await this.populateEventRelatedModels(tagsToInsert);
+		await Tag.bulkCreate(tagsToInsert);
+	}
 
-		const missionFiles = await fs.promises.readdir("resources/text/missions");
-		const missions = [];
-		for (const file of missionFiles) {
-			const fileName = file.split(".")[0];
-			const fileContent = require(`resources/text/missions/${file}`);
-			fileContent.id = fileName;
-			fileContent.descEn = fileContent.translations.en.desc;
-			fileContent.descFr = fileContent.translations.fr.desc;
-			fileContent.canBeDaily = fileContent.campaignOnly ? false : fileContent.dailyIndexes.length !== 0;
-			fileContent.canBeEasy = fileContent.campaignOnly ? false : fileContent.difficulties.easy.length !== 0;
-			fileContent.canBeMedium = fileContent.campaignOnly ? false : fileContent.difficulties.medium.length !== 0;
-			fileContent.canBeHard = fileContent.campaignOnly ? false : fileContent.difficulties.hard.length !== 0;
-			missions.push(fileContent);
-		}
-		await Mission.bulkCreate(missions);
-
+	static async populateEventRelatedModels(tagsToInsert) {
 		const files = await fs.promises.readdir("resources/text/events");
 		const eventsContent = [];
 		const eventsMapLocationsContent = [];
@@ -487,7 +430,76 @@ class Database {
 		await BigEvent.bulkCreate(eventsContent);
 		await EventMapLocationId.bulkCreate(eventsMapLocationsContent);
 		await Possibility.bulkCreate(possibilitiesContent);
-		await Tag.bulkCreate(tagsToInsert);
+	}
+
+	static async populateMissionModel() {
+		const missionFiles = await fs.promises.readdir("resources/text/missions");
+		const missions = [];
+		for (const file of missionFiles) {
+			const fileName = file.split(".")[0];
+			const fileContent = require(`resources/text/missions/${file}`);
+			fileContent.id = fileName;
+			fileContent.descEn = fileContent.translations.en.desc;
+			fileContent.descFr = fileContent.translations.fr.desc;
+			fileContent.canBeDaily = fileContent.campaignOnly ? false : fileContent.dailyIndexes.length !== 0;
+			fileContent.canBeEasy = fileContent.campaignOnly ? false : fileContent.difficulties.easy.length !== 0;
+			fileContent.canBeMedium = fileContent.campaignOnly ? false : fileContent.difficulties.medium.length !== 0;
+			fileContent.canBeHard = fileContent.campaignOnly ? false : fileContent.difficulties.hard.length !== 0;
+			missions.push(fileContent);
+		}
+		await Mission.bulkCreate(missions);
+	}
+
+	static async populateClassicModels(models, tagsToInsert) {
+		for (const model of models) {
+			await model.model.destroy({truncate: true});
+
+			const files = await fs.promises.readdir(
+				`resources/text/${model.folder.toLowerCase()}`
+			);
+
+			const filesContent = [];
+			for (const file of files) {
+				const fileName = file.split(".")[0];
+				const fileContent = require(`resources/text/${model.folder.toLowerCase()}/${file}`);
+				fileContent.id = fileName;
+				if (fileContent.translations) {
+					if (
+						fileContent.translations.en &&
+						typeof fileContent.translations.fr === "string"
+					) {
+						fileContent.fr = fileContent.translations.fr;
+						fileContent.en = fileContent.translations.en;
+					}
+					else {
+						const keys = Object.keys(fileContent.translations.en);
+						for (let i = 0; i < keys.length; ++i) {
+							const key = keys[i];
+							fileContent[key + "En"] =
+								fileContent.translations.en[key];
+							fileContent[key + "Fr"] =
+								fileContent.translations.fr[key];
+						}
+					}
+				}
+				if (fileContent.tags) {
+					// If theres tags, populate them into the database
+					for (let i = 0; i < fileContent.tags.length; i++) {
+						const tagContent = {
+							textTag: fileContent.tags[i],
+							idObject: fileContent.id,
+							// eslint-disable-next-line no-prototype-builtins
+							typeObject: model.model.hasOwnProperty("name") ? model.model.name : "ERRORNONAME"
+						};
+						tagsToInsert.push(tagContent);
+					}
+					delete fileContent["tags"];
+				}
+				filesContent.push(fileContent);
+			}
+
+			await model.model.bulkCreate(filesContent);
+		}
 	}
 
 	static sendEventLoadError(event, message) {

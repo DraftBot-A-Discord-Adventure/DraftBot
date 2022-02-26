@@ -21,7 +21,7 @@ const setCampaignTestCommand = async (language, message, args) => {
 	const [entity] = await Entities.getOrRegister(message.author.id);
 	const progression = parseInt(args[0]);
 	const [campaign] = entity.Player.MissionSlots.filter(m => m.isCampaign());
-	const campaignMission = require("../../../../../resources/text/campaign.json").missions[progression - 1];
+	const campaignMission = require("../../../../../../resources/text/campaign.json").missions[progression - 1];
 
 	entity.Player.PlayerMissionsInfo.campaignProgression = progression;
 	campaign.missionId = campaignMission.missionId;
