@@ -1,0 +1,11 @@
+{
+	"translations": {
+		"fr": ":screwdriver: **Tournevis sonique**",
+		"en": ":screwdriver: **Sonic screwdriver**"
+	},
+	"rarity": 6,
+	"rawAttack": 3,
+    "speed": 35,
+	"frenchMasculine": 1,
+	"frenchPlural": 0
+}
