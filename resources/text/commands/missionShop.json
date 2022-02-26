@@ -172,7 +172,7 @@
 				},
 				"badge": {
 					"emote":"\uD83D\uDC8D",
-					"name": "Master of \"Quests Badge\"",
+					"name": "\"Master of Quests\" Badge",
 					"price": 150,
 					"info": "You will receive the badge within hours of payment. For more information about the badges use the `help badges` command.",
 					"give": "{pseudo}, you have received a new badge:"

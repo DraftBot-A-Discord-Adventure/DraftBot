@@ -83,7 +83,7 @@
 			},
 			"mission": {
 				"fieldName": "Missions:",
-				"fieldValue": ":gem: {gems}| :date: {daily} | :book: {campaign}% "
+				"fieldValue": ":gem: {gems} | :book: {campaign}% "
 			},
 			"ranking": {
 				"fieldName": "Ranking and score:",

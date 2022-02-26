@@ -222,7 +222,6 @@ function getValuableItemShopItem(translationModule: TranslationModule): ShopItem
 		async (message) => {
 			const [entity] = await Entities.getOrRegister(message.user.id);
 			const item = await generateRandomItem(Constants.RARITY.MYTHICAL, null, Constants.RARITY.SPECIAL);
-			console.log(item.rarity);
 			await giveItemToPlayer(entity, item, message.language, message.user, <TextChannel>message.sentMessage.channel);
 			await MissionsController.update(message.user.id, <TextChannel>message.sentMessage.channel, message.language, "spendGems");
 			return true;

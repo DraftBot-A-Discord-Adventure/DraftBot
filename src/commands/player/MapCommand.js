@@ -25,7 +25,6 @@ const MapCommand = async (message, language) => {
 	if (Maps.isTravelling(entity.Player)) {
 		const destMap = await entity.Player.getDestination();
 		const strMapLink = await getStrMapWithCursor(entity.Player);
-		console.log(strMapLink);
 		mapEmbed.setImage(
 			format(JsonReader.commands.map.URL_WITH_CURSOR,{mapLink: strMapLink})
 		);
