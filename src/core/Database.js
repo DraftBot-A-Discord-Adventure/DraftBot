@@ -41,9 +41,7 @@ class Database {
 		Database.replaceWarningLogger();
 
 		Database.Sequelize = new Sequelize({
-			dialect: "sqlite",
-			storage: "database/database.sqlite",
-			logging: false
+			dialect: "sqlite", storage: "database/database.sqlite", logging: false
 		});
 
 		if (isMainShard) {
@@ -64,40 +62,23 @@ class Database {
 
 		await Database.setAssociations();
 		if (isMainShard) {
-			await Database.populateJsonFilesTables([
-				{
-					model: Armor,
-					folder: "armors"
-				},
-				{
-					model: Weapon,
-					folder: "weapons"
-				},
-				{
-					model: ObjectItem,
-					folder: "objects"
-				},
-				{
-					model: Potion,
-					folder: "potions"
-				},
-				{
-					model: Class,
-					folder: "classes"
-				},
-				{
-					model: Pet,
-					folder: "pets"
-				},
-				{
-					model: MapLink,
-					folder: "maplinks"
-				},
-				{
-					model: MapLocation,
-					folder: "maplocations"
-				}
-			]);
+			await Database.populateJsonFilesTables([{
+				model: Armor, folder: "armors"
+			}, {
+				model: Weapon, folder: "weapons"
+			}, {
+				model: ObjectItem, folder: "objects"
+			}, {
+				model: Potion, folder: "potions"
+			}, {
+				model: Class, folder: "classes"
+			}, {
+				model: Pet, folder: "pets"
+			}, {
+				model: MapLink, folder: "maplinks"
+			}, {
+				model: MapLocation, folder: "maplocations"
+			}]);
 			await Database.verifyMaps();
 			await Database.setEverybodyAsUnOccupied();
 			await Database.updatePlayersRandomMap();
@@ -117,51 +98,39 @@ class Database {
 				if (err) {
 					return reject(err);
 				}
-				resolve(
-					files
-						.map((x) => x.match(/^(\d+).(.*?)\.sql$/))
-						.filter((x) => x !== null)
-						.map((x) => ({
-							id: Number(x[1]),
-							name: x[2],
-							filename: x[0]
-						}))
-						.sort((a, b) => Math.sign(a.id - b.id))
-				);
+				resolve(files
+					.map((x) => x.match(/^(\d+).(.*?)\.sql$/))
+					.filter((x) => x !== null)
+					.map((x) => ({
+						id: Number(x[1]), name: x[2], filename: x[0]
+					}))
+					.sort((a, b) => Math.sign(a.id - b.id)));
 			});
 		});
 		if (!migrations.length) {
 			throw new Error(`No migration files found in '${location}'.`);
 		}
-		await Promise.all(
-			migrations.map(
-				(migration) =>
-					new Promise((resolve, reject) => {
-						const filename = path.join(
-							location,
-							migration.filename
-						);
-						fs.readFile(filename, "utf-8", (err, data) => {
-							if (err) {
-								return reject(err);
-							}
-							const [up, down] = data.split(/^--\s+?down\b/im);
-							if (!down) {
-								const message = `The ${migration.filename} file does not contain '-- Down' separator.`;
-								return reject(new Error(message));
-							}
-							/* eslint-disable no-param-reassign */
-							migration.up = up.replace(/^-- .*?$/gm, "")
-								.trim(); // Remove comments
-							migration.up = migration.up.replace(/\r\n/g, "\n"); // Replace CRLF with LF (in the case both are present)
-							migration.up = migration.up.replace(/\n/g, "\r\n"); // Replace LF with CRLF
-							migration.down = down.trim(); // and trim whitespaces
-							/* eslint-enable no-param-reassign */
-							resolve();
-						});
-					})
-			)
-		);
+		await Promise.all(migrations.map((migration) => new Promise((resolve, reject) => {
+			const filename = path.join(location, migration.filename);
+			fs.readFile(filename, "utf-8", (err, data) => {
+				if (err) {
+					return reject(err);
+				}
+				const [up, down] = data.split(/^--\s+?down\b/im);
+				if (!down) {
+					const message = `The ${migration.filename} file does not contain '-- Down' separator.`;
+					return reject(new Error(message));
+				}
+				/* eslint-disable no-param-reassign */
+				migration.up = up.replace(/^-- .*?$/gm, "")
+					.trim(); // Remove comments
+				migration.up = migration.up.replace(/\r\n/g, "\n"); // Replace CRLF with LF (in the case both are present)
+				migration.up = migration.up.replace(/\n/g, "\r\n"); // Replace LF with CRLF
+				migration.down = down.trim(); // and trim whitespaces
+				/* eslint-enable no-param-reassign */
+				resolve();
+			});
+		})));
 		await Database.Sequelize.query(`CREATE TABLE IF NOT EXISTS "${table}"
                                         (
                                             id   INTEGER PRIMARY KEY,
@@ -169,11 +138,9 @@ class Database {
                                             up   TEXT NOT NULL,
                                             down TEXT NOT NULL
                                         )`);
-		const dbMigrations = await Database.Sequelize.query(
-			`SELECT id, name, up, down
+		const dbMigrations = await Database.Sequelize.query(`SELECT id, name, up, down
              FROM "${table}"
-             ORDER BY id ASC`
-		);
+             ORDER BY id ASC`);
 
 		const lastMigrationId = dbMigrations[0].length ? dbMigrations[0][dbMigrations[0].length - 1].id : 0;
 		for (const migration of migrations) {
@@ -186,10 +153,8 @@ class Database {
 							Database.Sequelize.query(entry);
 						}
 					}
-					await Database.Sequelize.query(
-						`INSERT INTO "${table}" (id, name, up, down)
-                         VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`
-					);
+					await Database.Sequelize.query(`INSERT INTO "${table}" (id, name, up, down)
+                         VALUES ("${migration.id}", "${migration.name}", "${migration.up}", "${migration.down}")`);
 					await Database.Sequelize.query("COMMIT");
 				}
 				catch (err) {
@@ -205,113 +170,81 @@ class Database {
 	 */
 	static setAssociations() {
 		Entity.hasOne(Player, {
-			foreignKey: "entityId",
-			as: "Player"
+			foreignKey: "entityId", as: "Player"
 		});
 
 		Player.belongsTo(Entity, {
-			foreignKey: "entityId",
-			as: "Entity"
+			foreignKey: "entityId", as: "Entity"
 		});
 		Player.belongsTo(Guild, {
-			foreignKey: "guildId",
-			as: "Guild"
+			foreignKey: "guildId", as: "Guild"
 		});
 		Player.belongsTo(Guild, {
-			foreignKey: "id",
-			targetKey: "chiefId",
-			as: "Chief"
+			foreignKey: "id", targetKey: "chiefId", as: "Chief"
 		});
 		Player.hasMany(InventorySlot, {
-			foreignKey: "playerId",
-			as: "InventorySlots"
+			foreignKey: "playerId", as: "InventorySlots"
 		});
 		Player.hasOne(InventoryInfo, {
-			foreignKey: "playerId",
-			as: "InventoryInfo"
+			foreignKey: "playerId", as: "InventoryInfo"
 		});
 		Player.hasOne(PetEntity, {
-			foreignKey: "id",
-			sourceKey: "petId",
-			as: "Pet"
+			foreignKey: "id", sourceKey: "petId", as: "Pet"
 		});
 		Player.hasOne(MapLink, {
-			foreignKey: "id",
-			sourceKey: "mapLinkId",
-			as: "MapLink"
+			foreignKey: "id", sourceKey: "mapLinkId", as: "MapLink"
 		});
 		Player.hasMany(PlayerSmallEvent, {
-			foreignKey: "playerId",
-			as: "PlayerSmallEvents"
+			foreignKey: "playerId", as: "PlayerSmallEvents"
 		});
 
 		MapLink.hasOne(MapLocation, {
-			foreignKey: "id",
-			sourceKey: "startMap",
-			as: "StartMap"
+			foreignKey: "id", sourceKey: "startMap", as: "StartMap"
 		});
 
 		MapLink.hasOne(MapLocation, {
-			foreignKey: "id",
-			sourceKey: "endMap",
-			as: "EndMap"
+			foreignKey: "id", sourceKey: "endMap", as: "EndMap"
 		});
 
 		Guild.hasMany(Player, {
-			foreignKey: "guildId",
-			as: "Members"
+			foreignKey: "guildId", as: "Members"
 		});
 		Guild.hasOne(Player, {
-			foreignKey: "id",
-			sourceKey: "chiefId",
-			as: "Chief"
+			foreignKey: "id", sourceKey: "chiefId", as: "Chief"
 		});
 		Guild.hasMany(GuildPet, {
-			foreignKey: "guildId",
-			as: "GuildPets"
+			foreignKey: "guildId", as: "GuildPets"
 		});
 		GuildPet.hasOne(PetEntity, {
-			foreignKey: "id",
-			sourceKey: "petEntityId",
-			as: "PetEntity"
+			foreignKey: "id", sourceKey: "petEntityId", as: "PetEntity"
 		});
 
 		BigEvent.hasMany(Possibility, {
-			foreignKey: "eventId",
-			as: "Possibilities"
+			foreignKey: "eventId", as: "Possibilities"
 		});
 
 		Possibility.belongsTo(BigEvent, {
-			foreignKey: "eventId",
-			as: "Event"
+			foreignKey: "eventId", as: "Event"
 		});
 
 		PetEntity.hasOne(Pet, {
-			foreignKey: "id",
-			sourceKey: "petId",
-			as: "PetModel"
+			foreignKey: "id", sourceKey: "petId", as: "PetModel"
 		});
 
 		Player.hasMany(MissionSlot, {
-			foreignKey: "playerId",
-			as: "MissionSlots"
+			foreignKey: "playerId", as: "MissionSlots"
 		});
 
 		MissionSlot.hasOne(Mission, {
-			sourceKey: "missionId",
-			foreignKey: "id",
-			as: "Mission"
+			sourceKey: "missionId", foreignKey: "id", as: "Mission"
 		});
 
 		Player.hasOne(PlayerMissionsInfo, {
-			foreignKey: "playerId",
-			as: "PlayerMissionsInfo"
+			foreignKey: "playerId", as: "PlayerMissionsInfo"
 		});
 
 		DailyMission.hasOne(Mission, {
-			sourceKey: "missionId",
-			foreignKey: "id",
-			as: "Mission"
+			sourceKey: "missionId", foreignKey: "id", as: "Mission"
 		});
 	}
 
@@ -353,83 +286,80 @@ class Database {
 				continue;
 			}
 
-			if (fileContent.map_location_ids) {
-				for (const mapLocationsId of fileContent.map_location_ids) {
-					eventsMapLocationsContent.push({
-						eventId: fileContent.id,
-						mapLocationId: mapLocationsId
-					});
-				}
-			}
-			fileContent.fr = fileContent.translations.fr + "\n\n";
-			fileContent.en = fileContent.translations.en + "\n\n";
-			for (const possibilityKey of Object.keys(fileContent.possibilities)) {
-				if (possibilityKey !== "end") {
-					fileContent.fr += format(JsonReader.commands.report.getTranslation("fr").doChoice, {
-						emoji: possibilityKey,
-						choiceText: fileContent.possibilities[possibilityKey].translations.fr
-					});
-					fileContent.en += format(JsonReader.commands.report.getTranslation("en").doChoice, {
-						emoji: possibilityKey,
-						choiceText: fileContent.possibilities[possibilityKey].translations.en
-					});
-				}
-			}
-			if (fileContent.tags) {
-				// If theres tags, populate them into the database
-				for (let i = 0; i < fileContent.tags.length; i++) {
-					const tagContent = {
-						textTag: fileContent.tags[i],
-						idObject: fileContent.id,
-						typeObject: BigEvent.name
-					};
-					tagsToInsert.push(tagContent);
-				}
-				delete fileContent["tags"];
-			}
-			eventsContent.push(fileContent);
-
-			for (const possibilityKey of Object.keys(
-				fileContent.possibilities
-			)) {
-				for (const possibility of fileContent.possibilities[
-					possibilityKey
-				].issues) {
-					const possibilityContent = {
-						possibilityKey: possibilityKey,
-						lostTime: possibility.lostTime,
-						health: possibility.health,
-						oneshot: possibility.oneshot,
-						effect: possibility.effect,
-						experience: possibility.experience,
-						money: possibility.money,
-						item: possibility.item,
-						fr: possibility.translations.fr,
-						en: possibility.translations.en,
-						eventId: fileName,
-						nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
-						restrictedMaps: possibility.restrictedMaps
-					};
-					if (possibility.tags) {
-						// If theres tags, populate them into the database
-						for (let i = 0; i < possibility.tags.length; i++) {
-							const tagContent = {
-								textTag: possibility.tags[i],
-								idObject: possibilitiesContent.length + 1,
-								typeObject: Possibility.name
-							};
-							tagsToInsert.push(tagContent);
-						}
-						delete possibility["tags"];
-					}
-					possibilitiesContent.push(possibilityContent);
-				}
-			}
+			this.populateEventModel(fileContent, eventsMapLocationsContent, tagsToInsert, eventsContent);
+			this.populatePossibilityModel(fileContent, fileName, possibilitiesContent, tagsToInsert);
 		}
 
 		await BigEvent.bulkCreate(eventsContent);
 		await EventMapLocationId.bulkCreate(eventsMapLocationsContent);
 		await Possibility.bulkCreate(possibilitiesContent);
+	}
+
+	static populateEventModel(fileContent, eventsMapLocationsContent, tagsToInsert, eventsContent) {
+		if (fileContent.map_location_ids) {
+			for (const mapLocationsId of fileContent.map_location_ids) {
+				eventsMapLocationsContent.push({
+					eventId: fileContent.id, mapLocationId: mapLocationsId
+				});
+			}
+		}
+		fileContent.fr = fileContent.translations.fr + "\n\n";
+		fileContent.en = fileContent.translations.en + "\n\n";
+		for (const possibilityKey of Object.keys(fileContent.possibilities)) {
+			if (possibilityKey !== "end") {
+				fileContent.fr += format(JsonReader.commands.report.getTranslation("fr").doChoice, {
+					emoji: possibilityKey, choiceText: fileContent.possibilities[possibilityKey].translations.fr
+				});
+				fileContent.en += format(JsonReader.commands.report.getTranslation("en").doChoice, {
+					emoji: possibilityKey, choiceText: fileContent.possibilities[possibilityKey].translations.en
+				});
+			}
+		}
+		if (fileContent.tags) {
+			// If theres tags, populate them into the database
+			for (let i = 0; i < fileContent.tags.length; i++) {
+				const tagContent = {
+					textTag: fileContent.tags[i], idObject: fileContent.id, typeObject: BigEvent.name
+				};
+				tagsToInsert.push(tagContent);
+			}
+			delete fileContent["tags"];
+		}
+		eventsContent.push(fileContent);
+		return {mapLocationsId, possibilityKey, i};
+	}
+
+	static populatePossibilityModel(fileContent, fileName, possibilitiesContent, tagsToInsert) {
+		for (const possibilityKey of Object.keys(fileContent.possibilities)) {
+			for (const possibility of fileContent.possibilities[possibilityKey].issues) {
+				const possibilityContent = {
+					possibilityKey: possibilityKey,
+					lostTime: possibility.lostTime,
+					health: possibility.health,
+					oneshot: possibility.oneshot,
+					effect: possibility.effect,
+					experience: possibility.experience,
+					money: possibility.money,
+					item: possibility.item,
+					fr: possibility.translations.fr,
+					en: possibility.translations.en,
+					eventId: fileName,
+					nextEvent: possibility.nextEvent ? possibility.nextEvent : null,
+					restrictedMaps: possibility.restrictedMaps
+				};
+				if (possibility.tags) {
+					// If theres tags, populate them into the database
+					for (let i = 0; i < possibility.tags.length; i++) {
+						const tagContent = {
+							textTag: possibility.tags[i], idObject: possibilitiesContent.length + 1, typeObject: Possibility.name
+						};
+						tagsToInsert.push(tagContent);
+					}
+					delete possibility["tags"];
+				}
+				possibilitiesContent.push(possibilityContent);
+			}
+		}
 	}
 
 	static async populateMissionModel() {
@@ -454,9 +384,7 @@ class Database {
 		for (const model of models) {
 			await model.model.destroy({truncate: true});
 
-			const files = await fs.promises.readdir(
-				`resources/text/${model.folder.toLowerCase()}`
-			);
+			const files = await fs.promises.readdir(`resources/text/${model.folder.toLowerCase()}`);
 
 			const filesContent = [];
 			for (const file of files) {
@@ -464,10 +392,7 @@ class Database {
 				const fileContent = require(`resources/text/${model.folder.toLowerCase()}/${file}`);
 				fileContent.id = fileName;
 				if (fileContent.translations) {
-					if (
-						fileContent.translations.en &&
-						typeof fileContent.translations.fr === "string"
-					) {
+					if (fileContent.translations.en && typeof fileContent.translations.fr === "string") {
 						fileContent.fr = fileContent.translations.fr;
 						fileContent.en = fileContent.translations.en;
 					}
@@ -475,10 +400,8 @@ class Database {
 						const keys = Object.keys(fileContent.translations.en);
 						for (let i = 0; i < keys.length; ++i) {
 							const key = keys[i];
-							fileContent[key + "En"] =
-								fileContent.translations.en[key];
-							fileContent[key + "Fr"] =
-								fileContent.translations.fr[key];
+							fileContent[key + "En"] = fileContent.translations.en[key];
+							fileContent[key + "Fr"] = fileContent.translations.fr[key];
 						}
 					}
 				}
@@ -486,9 +409,7 @@ class Database {
 					// If theres tags, populate them into the database
 					for (let i = 0; i < fileContent.tags.length; i++) {
 						const tagContent = {
-							textTag: fileContent.tags[i],
-							idObject: fileContent.id,
-							// eslint-disable-next-line no-prototype-builtins
+							textTag: fileContent.tags[i], idObject: fileContent.id, // eslint-disable-next-line no-prototype-builtins
 							typeObject: model.model.hasOwnProperty("name") ? model.model.name : "ERRORNONAME"
 						};
 						tagsToInsert.push(tagContent);
@@ -506,6 +427,7 @@ class Database {
 		console.warn("Error while loading event " + event.id + ": " + message);
 	}
 
+	// TODO : A refactor quand passage en ts
 	static isEventValid(event) {
 		const eventFields = ["translations", "possibilities"];
 		for (let i = 0; i < eventFields.length; ++i) {
@@ -534,36 +456,19 @@ class Database {
 		}
 		let endPresent = false;
 		const effects = JsonReader.models.players.effectMalus;
-		const issuesFields = [
-			"lostTime",
-			"health",
-			"effect",
-			"experience",
-			"money",
-			"item",
-			"translations"
-		];
-		const possibilityFields = [
-			"translations",
-			"issues"
-		];
+		const issuesFields = ["lostTime", "health", "effect", "experience", "money", "item", "translations"];
+		const possibilityFields = ["translations", "issues"];
 		for (const possibilityKey of Object.keys(event.possibilities)) {
 			if (possibilityKey === "end") {
 				endPresent = true;
 				if (Object.keys(event.possibilities[possibilityKey])
 					.includes(possibilityFields[0])) {
-					Database.sendEventLoadError(event,
-						"Key present in possibility " +
-						possibilityKey +
-						": ");
+					Database.sendEventLoadError(event, "Key present in possibility " + possibilityKey + ": ");
 					return false;
 				}
 				if (!Object.keys(event.possibilities[possibilityKey])
 					.includes(possibilityFields[1])) {
-					Database.sendEventLoadError(event,
-						"Key missing in possibility " +
-						possibilityKey +
-						": ");
+					Database.sendEventLoadError(event, "Key missing in possibility " + possibilityKey + ": ");
 					return false;
 				}
 			}
@@ -571,27 +476,16 @@ class Database {
 				for (let i = 0; i < possibilityFields.length; ++i) {
 					if (!Object.keys(event.possibilities[possibilityKey])
 						.includes(possibilityFields[i])) {
-						Database.sendEventLoadError(event,
-							"Key missing in possibility " +
-							possibilityKey +
-							": ");
+						Database.sendEventLoadError(event, "Key missing in possibility " + possibilityKey + ": ");
 						return false;
 					}
 				}
 				if (event.possibilities[possibilityKey].translations.fr === undefined) {
-					Database.sendEventLoadError(
-						event,
-						"French translation missing in possibility " +
-						possibilityKey
-					);
+					Database.sendEventLoadError(event, "French translation missing in possibility " + possibilityKey);
 					return false;
 				}
 				if (event.possibilities[possibilityKey].translations.en === undefined) {
-					Database.sendEventLoadError(
-						event,
-						"English translation missing in possibility " +
-						possibilityKey
-					);
+					Database.sendEventLoadError(event, "English translation missing in possibility " + possibilityKey);
 					return false;
 				}
 			}
@@ -599,46 +493,20 @@ class Database {
 				for (let i = 0; i < issuesFields.length; ++i) {
 					if (!Object.keys(issue)
 						.includes(issuesFields[i])) {
-						Database.sendEventLoadError(
-							event,
-							"Key missing in possibility " +
-							possibilityKey + " " +
-							": " +
-							issuesFields[i]
-						);
+						Database.sendEventLoadError(event, "Key missing in possibility " + possibilityKey + " " + ": " + issuesFields[i]);
 						return false;
 					}
 				}
 				if (issue.lostTime < 0) {
-					Database.sendEventLoadError(
-						event,
-						"Lost time must be positive in issue " +
-						possibilityKey + " "
-					);
+					Database.sendEventLoadError(event, "Lost time must be positive in issue " + possibilityKey + " ");
 					return false;
 				}
-				if (
-					issue.lostTime > 0 &&
-					issue.effect !== EFFECT.OCCUPIED
-				) {
-					Database.sendEventLoadError(
-						event,
-						"Time lost and no clock2 effect in issue " +
-						possibilityKey + " "
-					);
+				if (issue.lostTime > 0 && issue.effect !== EFFECT.OCCUPIED) {
+					Database.sendEventLoadError(event, "Time lost and no clock2 effect in issue " + possibilityKey + " ");
 					return false;
 				}
-				if (
-					effects[issue.effect] === null ||
-					effects[issue.effect] === undefined
-				) {
-					Database.sendEventLoadError(
-						event,
-						"Unknown effect \"" +
-						issue.effect +
-						"\" in issue " +
-						possibilityKey + " "
-					);
+				if (effects[issue.effect] === null || effects[issue.effect] === undefined) {
+					Database.sendEventLoadError(event, "Unknown effect \"" + issue.effect + "\" in issue " + possibilityKey + " ");
 					return false;
 				}
 				if (issue.restricted_map !== undefined) {
@@ -653,10 +521,7 @@ class Database {
 			}
 		}
 		if (!endPresent) {
-			Database.sendEventLoadError(
-				event,
-				"End possibility is not present"
-			);
+			Database.sendEventLoadError(event, "End possibility is not present");
 			return false;
 		}
 		return true;
@@ -698,24 +563,18 @@ class Database {
 	 * @return {Promise<void>}
 	 */
 	static setEverybodyAsUnOccupied() {
-		Entity.update(
-			{
-				effect: EFFECT.SMILEY
-			},
-			{
-				where: {
-					effect: EFFECT.AWAITING_ANSWER
-				}
+		Entity.update({
+			effect: EFFECT.SMILEY
+		}, {
+			where: {
+				effect: EFFECT.AWAITING_ANSWER
 			}
-		).then();
+		}).then();
 	}
 
 	static replaceWarningLogger() {
 		sequelizeLogger.logger.warn = function(message) {
-			if (
-				message ===
-				"Unknown attributes (Player) passed to defaults option of findOrCreate"
-			) {
+			if (message === "Unknown attributes (Player) passed to defaults option of findOrCreate") {
 				return;
 			}
 			console.warn(`(sequelize) Warning: ${message}`);
