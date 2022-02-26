@@ -43,9 +43,7 @@ class Command {
 	}
 
 	static getCommandFromAlias(alias) {
-		return Command.commands.find(cmd => {
-			cmd.commandInfo.aliases ? cmd.commandInfo.aliases.includes(alias) : false;
-		});
+		return Command.commands.find(cmd => cmd.commandInfo.aliases && cmd.commandInfo.aliases.includes(alias));
 	}
 
 	/**
@@ -358,10 +356,6 @@ class Command {
 						.notAuthorizedError
 				);
 			}
-		}
-
-		if (!Command.commands.has(command.name)) {
-			Command.commands.set(command.name, new Map());
 		}
 
 		if (await BlockingUtils.isPlayerSpamming(message.author.id)) {
