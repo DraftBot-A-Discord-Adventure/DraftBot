@@ -368,20 +368,11 @@ function createPossibilityMessage(language, scoreChange, moneyChange, pDataValue
 
 	emojiEnd = pDataValues.oneshot === true ? " " + EFFECT.DEAD + " " : emojiEnd;
 
-	if (possibility.dataValues.possibilityKey === "end") {
-		return format(JsonReader.commands.report.getTranslation(language).doPossibility, {
-			pseudo: message.author,
-			result: result,
-			event: possibility[language],
-			emoji: "",
-			alte: emojiEnd
-		});
-	}
 	return format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 		pseudo: message.author,
 		result: result,
 		event: possibility[language],
-		emoji: possibility.dataValues.possibilityKey + " ",
+		emoji: possibility.dataValues.possibilityKey === "end" ?? possibility.dataValues.possibilityKey + " ",
 		alte: emojiEnd
 	});
 
