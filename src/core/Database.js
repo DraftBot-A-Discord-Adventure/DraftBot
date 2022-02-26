@@ -326,7 +326,6 @@ class Database {
 			delete fileContent["tags"];
 		}
 		eventsContent.push(fileContent);
-		return {mapLocationsId, possibilityKey, i};
 	}
 
 	static populatePossibilityModel(fileContent, fileName, possibilitiesContent, tagsToInsert) {
