@@ -19,7 +19,7 @@ module.exports.commandInfo = {
 
 /**
  * Allow to claim a daily guild reward
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {string|String} forcedReward
@@ -75,7 +75,7 @@ const GuildDailyCommand = async (message, language, args, forcedReward) => {
 			JsonReader.commands.guildDaily.maximalXp + guild.level * 2);
 		for (const i in members) {
 			if (Object.prototype.hasOwnProperty.call(members, i)) {
-				members[i].Player.addExperience(xpWon, members[i], message, language);
+				await members[i].Player.addExperience(xpWon, members[i], message.channel, language);
 				await members[i].Player.save();
 				await members[i].save();
 			}

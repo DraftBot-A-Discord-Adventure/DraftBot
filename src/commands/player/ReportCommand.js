@@ -22,7 +22,7 @@ module.exports.commandInfo = {
 
 /**
  * Allow the user to learn more about what is going on with his character
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {String[]} args=[] - Additional arguments sent with the command
  * @param {Number} forceSpecificEvent - For testing purpose
@@ -72,7 +72,7 @@ const ReportCommand = async (message, language, args, forceSpecificEvent = -1, f
 
 /**
  * Picks a random event (or the forced one) and executes it
- * @param {module:"discord.js".Message} message
+ * @param {Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
  * @param {Number} forceSpecificEvent
@@ -128,7 +128,7 @@ const needBigEvent = async function(entity) {
 /**
  * Sends an embed with the travel path and an advice
  * @param {Entities} entity
- * @param {module:"discord.js".Message} message
+ * @param {Message} message
  * @param {"fr"|"en"} language
  * @param {string|String} effect
  * @returns {Promise<Message>}
@@ -184,7 +184,7 @@ const destinationChoiceEmotes = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣",
 /**
  * Executes the choice of the next destination
  * @param {Entities} entity
- * @param {module:"discord.js".Message} message
+ * @param {Message} message
  * @param {"fr"|"en"} language
  * @param {string|String} restrictedMapType
  * @returns {Promise<void>}
@@ -279,7 +279,7 @@ const destinationChoseMessage = async function(entity, map, message, language) {
 };
 
 /**
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Events} event
  * @param {Entities} entity
@@ -336,9 +336,9 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 };
 
 /**
- * @param {module:"discord.js".Message} message - Message from the discord server
+ * @param {Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {Possibilities} possibility
+ * @param {Possibility} possibility
  * @param {Entities} entity
  * @param {Number} time
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
@@ -422,7 +422,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 
 	await player.addScore(entity, scoreChange, message.channel, language);
 	await player.addMoney(entity, moneyChange, message.channel, language);
-	await player.addExperience(possibility.experience, entity, message, language);
+	await player.addExperience(possibility.experience, entity, message.channel, language);
 
 	if (pDataValues.nextEvent !== undefined) {
 		player.nextEvent = pDataValues.nextEvent;
@@ -494,7 +494,7 @@ const needSmallEvent = function(entity) {
 
 /**
  * Executes a small event
- * @param {module:"discord.js".Message} message
+ * @param {Message} message
  * @param {"fr"|"en"} language
  * @param {Entities} entity
  * @param {Boolean} forced

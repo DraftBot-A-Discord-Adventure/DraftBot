@@ -1,15 +1,10 @@
-import {
-	Sequelize,
-	Model,
-	DataTypes, QueryTypes
-} from "sequelize";
+import {DataTypes, Model, QueryTypes, Sequelize} from "sequelize";
 import InventorySlot from "./InventorySlot";
 import PetEntity from "./PetEntity";
 import PlayerSmallEvent from "./PlayerSmallEvent";
 import MissionSlot from "./MissionSlot";
 import PlayerMissionsInfo from "./PlayerMissionsInfo";
 import InventoryInfo from "./InventoryInfo";
-import moment = require("moment");
 import {Data} from "../Data";
 import {DraftBotEmbed} from "../messages/DraftBotEmbed";
 import {Constants} from "../Constants";
@@ -18,13 +13,14 @@ import MapLocation, {MapLocations} from "./MapLocation";
 import {MapLinks} from "./MapLink";
 import Entity from "./Entity";
 import {Translations} from "../Translations";
-import {Client, Message, TextChannel} from "discord.js";
+import {Client, TextChannel} from "discord.js";
 import {Maps} from "../Maps";
 import {DraftBotPrivateMessage} from "../messages/DraftBotPrivateMessage";
 import {minutesToMilliseconds} from "../utils/TimeUtils";
 import {GenericItemModel} from "./GenericItemModel";
 import {MissionsController} from "../missions/MissionsController";
 import {escapeUsername} from "../utils/StringUtils";
+import moment = require("moment");
 
 declare const client: Client;
 
@@ -466,16 +462,16 @@ export class Player extends Model {
 	 * give experience to a player
 	 * @param xpWon
 	 * @param entity
-	 * @param message
+	 * @param channel
 	 * @param language
 	 */
-	public async addExperience(xpWon: number, entity: Entity, message: Message, language: string) {
+	public async addExperience(xpWon: number, entity: Entity, channel: TextChannel, language: string) {
 		this.experience += xpWon;
 		if (xpWon > 0) {
-			await MissionsController.update(entity.discordUserId, <TextChannel>message.channel, language, "earnXP", xpWon);
+			await MissionsController.update(entity.discordUserId, channel, language, "earnXP", xpWon);
 		}
 		while (this.needLevelUp()) {
-			await this.levelUpIfNeeded(entity, <TextChannel>message.channel, language);
+			await this.levelUpIfNeeded(entity, channel, language);
 		}
 	}
 
