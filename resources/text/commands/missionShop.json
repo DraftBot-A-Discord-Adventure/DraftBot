@@ -4,7 +4,7 @@
 			"title": "Magasin des Missions",
 			"resTitle": "Ressources",
 			"utilTitle": "Utilitaires",
-			"presTitle": "Prestiges",
+			"presTitle": "Prestige",
 			"display": "{emote} **{name}** | `{price}💎`",
 			"success": "{pseudo}, transaction réussie !",
 			"items": {
@@ -96,86 +96,99 @@
 			}
 		},
 		"en": {
-			"title": "Shop Overlay:",
-			"dailyItem": "Today's potion",
-			"permanentItem": "Permanent sales",
+			"title": "Missions Shop",
+			"resTitle": "Resources",
+			"utilTitle": "Utilities",
+			"presTitle": "Prestige",
 			"display": "{emote} **{name}** | `{price}💎`",
-			"success": "{pseudo}, transaction success!",
-			"permanentItems": {
-				"randomItem": {
-					"emote": "❓",
-					"name": "A random item",
-					"price": 350,
-					"info": "You will recieve a random item (Weapon / Armor / Misc or Potion) among all those existing in the game.",
-					"give": "{pseudo}, you received a new {type}:"
+			"success": "{pseudo}, successful transaction !",
+			"items": {
+				"skipMapMission": {
+					"emote": "\uD83E\uDDFE",
+					"name": "Mission skipper",
+					"price": 10,
+					"info": "Allows you to skip a mission obtained on the map, however, you will not get any reward.",
+					"giveTitle": "{pseudo}, you have decided to skip a mission",
+					"giveDesc": "Choose the mission to skip:",
+					"successTitle": "{pseudo}, you have skipped a mission!",
+					"successDescription": "You have skipped mission #{num}: {missionInfo}"
 				},
-				"healAlterations": {
-					"emote": "\uD83C\uDFE5",
-					"name": "Heal alterations",
-					"price": 500,
-					"info": "Your status will be reset and you will be back on your road immediately.",
-					"give": ":hospital: Your status has been reset."
+				"money": {
+					"emote": "\uD83D\uDCB0",
+					"name": "King's Money",
+					"price": 50,
+					"info": "Based on the current gem prices and after deducting the king's tax, you will receive `{amount}` :moneybag:.",
+					"giveTitle": "{pseudo}, purchase made!",
+					"giveDescription": "You have received `{amount}` :moneybag:."
 				},
-				"regen": {
-					"emote": "\uD83D\uDC97",
-					"name": "Complete health regeneration",
-					"price": 3000,
-					"info": "You will be fully healed but your status will stay unchanged.",
-					"give": ":heartpulse: You have been completely healed."
+				"valuableItem": {
+					"emote":"✨",
+					"name": "King's Treasure",
+					"price": 30,
+					"info": "Grants you a valuable item from the king's treasure room.",
+					"give":"{pseudo}, you get a new {type}:"
+				},
+				"1000Points": {
+					"emote": "\uD83C\uDFC5",
+					"name": "King's Fervor",
+					"price": 5,
+					"info": "Grants you 1000 points. Can only be used once a week.",
+					"giveTitle": "{pseudo}, purchase made!",
+					"giveDescription": "You have received 1000 :medal:. See you next week for a new fervor!"
+				},
+				"lovePointsValue": {
+					"emote": "\uD83E\uDDD1\u200D⚕️",
+					"name": "King's court vet",
+					"price": 5,
+					"info": "Get detailed information about your pet.",
+					"giveTitle": "{pseudo}, purchase made!",
+					"giveDesc": "After a long time spent studying your pet's health condition, you finally get the vet's report:\n\n**{petName}** {commentOnResult}\n\uD83D\uDC96 **Love score**: {actualLP} / 100\n\uD83C\uDF7D️ **Food diet**: {regime}\n\uD83D\uDD59 **Next hunger**: {nextFeed}",
+					"advice": {
+						"1": [
+							"seems to hate you. Be careful, or you might get a bad rap on your adventures!",
+							"seems to really dislike you. Considering how you take care of your pet, it's not a surprise!",
+							"seems to be in deep trouble. You should try feeding your pet."
+						],
+						"2": [
+							"still looks wild. Take care of your pet to gain its trust!",
+							"seems not to like you. If you don't take care of your pet, you'll never get its love!",
+							"doesn't seem happy. You should try to feed your pet."
+						],
+						"3": [
+							"still seems a bit fearful. Take care of your pet so that you can gain its full trust!",
+							"still seems to be wary of you. Continue to take care of your pet in order to get its love!",
+							"seems to be getting used to you. Try to be regular in feeding your pet."
+						],
+						"4": [
+							"seems to like you. Continue to take care of your pet to gain its full trust!",
+							"seems to trust you. If you continue on this path, you will soon get all the love from your pet!",
+							"seems to have grown on you. Don't stop being regular to feed your pet."
+						],
+						"5": [
+							"Seems to like you completely. You don't even have to take care of your pet anymore to keep it loving you!",
+							"seems to share a strong bond with you. Your bond is unbreakable, so long as you are not separated, you will continue to enjoy your pet's love!"
+						]
+					}
 				},
 				"badge": {
-					"emote": "\uD83E\uDD11",
-					"name": "\"MoneyMouth\" Badge",
-					"price": 25000,
-					"info": "You will receive the badge in the hours following your payment. For more information on badges, use the command `help badges`",
-					"give": "{pseudo}, you received a new badge:"
-				},
-				"guildXp": {
-					"emote": "⭐",
-					"name": "Some xp for your guild",
-					"price": 1000,
-					"info": "You will receive a random amount (between 50 and 450) of guild xp.",
-					"give": "Your guild has received {experience} ⭐."
+					"emote":"\uD83D\uDC8D",
+					"name": "\"Master of Quests\" Badge",
+					"price": 150,
+					"info": "You will receive the badge within hours of payment. For more information about the badges use the `help badges` command.",
+					"give": "{pseudo}, you have received a new badge:"
 				}
 			},
-			"confirm": "{pseudo}, you have selected this product:",
+			"confirm": "{pseudo}, you have selected the following product:",
 			"moneyQuantity": "You have `{money}💎`.",
 			"error": {
-				"nothingToHeal": "You're not under status alterations.",
-				"cannotBuy": "You don't have enough money to buy this! You need `{missingMoney}💎` more.",
+				"cannotBuy": "You don't have enough gems to buy this item! You are missing `{missingMoney}💎`.",
 				"canceledPurchase": "Transaction canceled!",
-				"alreadyHasItem": "You already have the \"MoneyMouth\" badge. You can only buy it once.",
-				"leaveShop": "You left the shop."
-			},
-			"potion": {
-				"info": "You will receive a potion and have to choose to keep it or not. If you already have the same potion, it will be destroyed without refund!",
-				"give": "{pseudo}, you received a new potion:"
-			},
-			"multipleChoice": {
-				"warning": "Choose the amount to buy. By clicking on the reactions you confirm the transaction !",
-				"display": "{emote} **{name}**",
-				"priceDisplay": " | `{price}\uD83D\uDCB0`"
-			},
-			"slotsExtension": "Slots extension",
-			"inventoryCategory": "Inventory",
-			"slotsExtensionInfo": "You will choose an inventory category to add a slot to",
-			"chooseSlotTitle": "{pseudo}, new inventory slot",
-			"chooseSlotIndication": "Choose a new inventory slot category or cancel:",
-			"slotCategories": [
-				"**Weapon** ({available}/{limit} still left)",
-				"**Armor** ({available}/{limit} still left)",
-				"**Potion** ({available}/{limit} still left)",
-				"**Item** ({available}/{limit} still left)"
-			],
-			"slotGive": "You got a new inventory slot!"
+				"alreadyHasItem": "You already own this item.",
+				"leaveShop": "You have left the store.",
+				"remainingCooldown": "You already bought points this week, come back next week to buy more!",
+				"noMissionToSkip": "You don't have any missions to pass!",
+				"noPet": "You don't have any animals on you, we cannot provide a diagnosis on a ghost animal!"
+			}
 		}
-	},
-	"prices": {
-		"priceItem": 350,
-		"priceStatus": 500,
-		"priceHeal": 3000,
-		"priceBadge": 25000,
-		"priceGuildXp": 1000,
-		"addedValue": 200
 	}
 }

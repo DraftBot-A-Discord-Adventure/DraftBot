@@ -50,16 +50,16 @@ class Fighter {
 	async consumePotionIfNeeded(message, language) {
 		if (!this.friendly) {
 			if ((await this.entity.Player.getMainPotionSlot().getItem()).isFightPotion()) {
-				await this.entity.Player.drinkPotion();
-				await MissionsController.update(this.entity.discordUserId, message.channel, language, "drinkPotion");
-				[this.entity] = await Entities.getOrRegister(this.entity.discordUserId);
-				await MissionsController.update(this.entity.discordUserId, message.channel, language, "havePotions", countNbOfPotions(this.entity.Player),null,true);
 				const tagsToVerify = await Tags.findTagsFromObject((await this.entity.Player.getMainPotionSlot().getItem()).id, Potion.name);
 				if (tagsToVerify) {
 					for (let i = 0; i < tagsToVerify.length; i++) {
 						await MissionsController.update(this.entity.discordUserId, message.channel, language, tagsToVerify[i].textTag, 1, {tags: tagsToVerify});
 					}
 				}
+				await this.entity.Player.drinkPotion();
+				await MissionsController.update(this.entity.discordUserId, message.channel, language, "drinkPotion");
+				[this.entity] = await Entities.getOrRegister(this.entity.discordUserId);
+				await MissionsController.update(this.entity.discordUserId, message.channel, language, "havePotions", countNbOfPotions(this.entity.Player),null,true);
 			}
 		}
 	}

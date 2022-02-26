@@ -272,6 +272,10 @@
 				"On your way, you meet {playerDisplay} who seems in good shape. Indeed, he has all his life!",
 				"You almost end up on the ground because {playerDisplay} ran by you! He is very energetic because his life is at its maximum."
 			],
+			"unranked": [
+				"You pass by {playerDisplay}, a player who doesn't seem to be ranked... You walk away wondering what possessed him to come here to give up so quickly.",
+				"While walking, you meet {playerDisplay}, this player doesn't seem to be doing well in the competition. You leave after explaining the basics of the game to him."
+			],
 			"lowerRankThanHim": [
 				"You come across {playerDisplay}, a player with more reputation than you... But don't give up! You might be able to reach him some day.",
 				"While walking you stumble and fall, {playerDisplay} laughs at you, indeed he is better ranked than you!",

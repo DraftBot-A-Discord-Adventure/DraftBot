@@ -14,7 +14,17 @@
 			]
 		},
 		"en": {
-
+			"intrigue": [
+				"a messenger arrives at you out of breath. He hands you a letter from the king asking you to perform the following mission:",
+				"you find a board of missions. You go through them one by one, and among them, you find one you like:",
+				"you decide to set a new goal in order to progress compared to the other adventurers:",
+				"a carrier pigeon flies straight towards you. On its right leg, you find a letter written in gold letters that describes a very interesting mission:",
+				"a stranger calls out to you and challenges you:",
+				"a passer-by in front of you drops a mission sheet. The mission indicated is very interesting, so you decide to do it:",
+				"You pass by an abandoned-looking shack and look through the pile of paper in front of the door. You discover a mission proposal. You take your courage in both hands and go for it:",
+				"the wind blows a parchment in your face. Cut off from your journey, you decide to read it. Once your surprise is over, you decide to carry out the mission written on the sheet:",
+				"an old adventurer tells his stories to anyone who will listen. You stop to listen to him for a while. A few moments later, he notices you and asks if you can complete a mission for him. Taken with pity, you accept:"
+			]
 		}
 	},
 	"rarity": 6,
