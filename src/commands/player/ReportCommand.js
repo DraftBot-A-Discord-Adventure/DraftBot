@@ -336,6 +336,46 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 };
 
 /**
+ * Returns the score / message part of the possibility message
+ * @param moneyChange
+ * @param result
+ * @param language
+ * @returns {*}
+ */
+function resultAfterMoneyChanges(moneyChange, result, language) {
+	if (moneyChange !== 0) {
+		result += moneyChange >= 0
+			? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange})
+			: format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
+	}
+	return result;
+}
+
+function resultAfterExperienceGain(pDataValues, result, language) {
+	if (pDataValues.experience > 0) {
+		result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
+	}
+	return result;
+}
+
+function resultAfterHealthVariation(pDataValues, result, language) {
+	if (pDataValues.health < 0) {
+		result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: -pDataValues.health});
+	}
+	else if (pDataValues.health > 0) {
+		result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
+	}
+	return result;
+}
+
+function resultAfterTimeVariation(pDataValues, result, language) {
+	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
+		result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime)});
+	}
+	return result;
+}
+
+/**
  * Creates the possibility string returned by doPossibility
  * @param language
  * @param scoreChange
@@ -348,26 +388,10 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 function createPossibilityMessage(language, scoreChange, moneyChange, pDataValues, possibility, message) {
 	let result = format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
 
-	if (moneyChange !== 0) {
-		result += moneyChange >= 0
-			? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange})
-			: format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
-	}
-
-	if (pDataValues.experience > 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
-	}
-
-	if (pDataValues.health < 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: -pDataValues.health});
-	}
-	else if (pDataValues.health > 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
-	}
-
-	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
-		result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime)});
-	}
+	result = resultAfterMoneyChanges(moneyChange, result, language);
+	result = resultAfterExperienceGain(pDataValues, result, language);
+	result = resultAfterHealthVariation(pDataValues, result, language);
+	result = resultAfterTimeVariation(pDataValues, result, language);
 
 	const emojiEnd = pDataValues.oneshot === true ? " " + EFFECT.DEAD + " " : pDataValues.effect !== EFFECT.SMILEY && pDataValues.effect !== EFFECT.OCCUPIED ? " " + pDataValues.effect : "";
 
