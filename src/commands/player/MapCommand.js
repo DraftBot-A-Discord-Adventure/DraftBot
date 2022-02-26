@@ -13,7 +13,6 @@ module.exports.commandInfo = {
  * Show the map of DraftBot world
  * @param {module:"discord.js".Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
- * @param {String[]} args=[] - Additional arguments sent with the command
  */
 const MapCommand = async (message, language) => {
 
@@ -52,7 +51,7 @@ const MapCommand = async (message, language) => {
 async function getStrMapWithCursor(player){
 	const destMap = await player.getDestination();
 	const depMap = await player.getPreviousMap();
-	let strMapLink = "";
+	let strMapLink;
 	if (destMap.id < depMap.id){
 		strMapLink = "" + destMap.id + "_" + depMap.id + "_" ;
 	}
