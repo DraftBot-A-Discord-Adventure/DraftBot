@@ -43,7 +43,9 @@ class Command {
 	}
 
 	static getCommandFromAlias(alias) {
-		return Command.commands.find(cmd => cmd.commandInfo.aliases && cmd.commandInfo.aliases.includes(alias));
+		return Command.commands.find(cmd => {
+			cmd.commandInfo.aliases ? cmd.commandInfo.aliases.includes(alias) : false;
+		});
 	}
 
 	/**
@@ -95,12 +97,14 @@ class Command {
 				message.author.id !== JsonReader.app.BOT_OWNER_ID &&
 				JsonReader.app.MODE_MAINTENANCE
 			) {
-				return message.channel.send({ embeds: [
-					new DraftBotEmbed()
-						.setDescription(JsonReader.bot.getTranslation(language).maintenance)
-						.setTitle(":x: **Maintenance**")
-						.setErrorColor()
-				] });
+				return message.channel.send({
+					embeds: [
+						new DraftBotEmbed()
+							.setDescription(JsonReader.bot.getTranslation(language).maintenance)
+							.setTitle(":x: **Maintenance**")
+							.setErrorColor()
+					]
+				});
 			}
 			await Command.launchCommand(language, serverPrefixEquals ? server.prefix : "sudo /usr/sbin/", message);
 		}
@@ -143,7 +147,7 @@ class Command {
 						});
 					}
 				}
-				dmChannel.send({ content: context.supportAlert });
+				dmChannel.send({content: context.supportAlert});
 			}
 		}, {
 			context: {
