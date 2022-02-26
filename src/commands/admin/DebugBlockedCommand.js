@@ -13,8 +13,8 @@ module.exports.commandInfo = {
  */
 const DebugBlockedCommand = async (message, language, args) => {
 	if (args.length === 1) {
-		const blockingReason = BlockingUtils.getPlayerBlockingReason(args[0]);
-		if (await blockingReason === null) {
+		const blockingReason = await BlockingUtils.getPlayerBlockingReason(args[0]);
+		if (blockingReason === null) {
 			await message.channel.send({ content: "Not blocked" });
 			return;
 		}
