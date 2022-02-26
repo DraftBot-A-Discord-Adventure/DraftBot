@@ -62,7 +62,7 @@ export const startIPCServer = () => {
 					let response = false;
 					if (spamPlayerLimitTimestamp) {
 						if (spamPlayerLimitTimestamp < Date.now()) {
-							blockedPlayers.delete(data.discordId);
+							spamPlayers.delete(data.discordId);
 						}
 						else {
 							response = true;
