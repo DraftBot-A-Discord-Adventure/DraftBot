@@ -335,9 +335,18 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 	}
 };
 
+/**
+ * Creates the possibility string returned by doPossibility
+ * @param language
+ * @param scoreChange
+ * @param moneyChange
+ * @param pDataValues
+ * @param possibility
+ * @param message
+ * @returns {String}
+ */
 function createPossibilityMessage(language, scoreChange, moneyChange, pDataValues, possibility, message) {
-	let result = "";
-	result += format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
+	let result = format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
 	if (moneyChange !== 0) {
 		result += moneyChange >= 0
 			? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange})
@@ -349,7 +358,7 @@ function createPossibilityMessage(language, scoreChange, moneyChange, pDataValue
 	if (pDataValues.health < 0) {
 		result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: -pDataValues.health});
 	}
-	if (pDataValues.health > 0) {
+	else if (pDataValues.health > 0) {
 		result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
 	}
 	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
