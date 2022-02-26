@@ -356,10 +356,6 @@ class Command {
 			}
 		}
 
-		if (!Command.commands.has(command.name)) {
-			Command.commands.set(command.name, new Map());
-		}
-
 		if (await BlockingUtils.isPlayerSpamming(message.author.id)) {
 			return sendErrorMessage(
 				message.author,
