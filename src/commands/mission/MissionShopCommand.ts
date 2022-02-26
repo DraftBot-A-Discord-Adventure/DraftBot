@@ -74,8 +74,7 @@ const MissionShopCommand = async (message: Message, language: string) => {
 		.setTranslationPosition("commands.missionShop")
 		.build();
 
-	BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "missionShop", shopMessage.collector);
-	await shopMessage.send(message.channel);
+	await shopMessage.send(message.channel, collector => BlockingUtils.blockPlayerWithCollector(entity.discordUserId, "missionShop", collector));
 };
 
 /**
