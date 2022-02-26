@@ -347,32 +347,35 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
  */
 function createPossibilityMessage(language, scoreChange, moneyChange, pDataValues, possibility, message) {
 	let result = format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
+
 	if (moneyChange !== 0) {
 		result += moneyChange >= 0
 			? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange})
 			: format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
 	}
+
 	if (pDataValues.experience > 0) {
 		result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
 	}
+
 	if (pDataValues.health < 0) {
 		result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: -pDataValues.health});
 	}
 	else if (pDataValues.health > 0) {
 		result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
 	}
+
 	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
 		result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime)});
 	}
-	let emojiEnd = pDataValues.effect !== EFFECT.SMILEY && pDataValues.effect !== EFFECT.OCCUPIED ? " " + pDataValues.effect : "";
 
-	emojiEnd = pDataValues.oneshot === true ? " " + EFFECT.DEAD + " " : emojiEnd;
+	const emojiEnd = pDataValues.oneshot === true ? " " + EFFECT.DEAD + " " : pDataValues.effect !== EFFECT.SMILEY && pDataValues.effect !== EFFECT.OCCUPIED ? " " + pDataValues.effect : "";
 
 	return format(JsonReader.commands.report.getTranslation(language).doPossibility, {
 		pseudo: message.author,
 		result: result,
 		event: possibility[language],
-		emoji: possibility.dataValues.possibilityKey === "end" ?? possibility.dataValues.possibilityKey + " ",
+		emoji: possibility.dataValues.possibilityKey === "end" ? "" : possibility.dataValues.possibilityKey + " ",
 		alte: emojiEnd
 	});
 
