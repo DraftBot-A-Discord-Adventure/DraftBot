@@ -3,66 +3,26 @@
 		29
 	],
 	"translations": {
-		"fr": "🪑 Vous arrivez dans la salle de réception. Au fond de celle-ci, vous apercevez le Roi qui se lève de son throne afin de parler à l'assemblée :\n\n\"Bienvenue à tous dans mon château. Vous êtes ici pour prétendre à la main de ma fille, or il vous faudra prouver votre valeur. Pour cela, vous pourrez accumuler des points qui estimeront votre réputation. De plus, un sujet vous distribuera une liste de missions (commande `missions`) que vous pourrez compléter. Enfin, un autre sujet viendra vous chercher un par un pour aller à la forge, afin que vous ayez un objet pour bien commencer votre aventure.\"\n\nLe Roi quitte ensuite la pièce sous les regards de tous les participants.\n",
+		"fr": "🪑 Vous êtes amené dans la grande salle de réception du chateau où vous rencontrez rapidement le roi. On vous explique la nature du concours qui consiste à récolter un grand nombre de points dans l'objectif de dominer les classements. En plus d'une agréable prime de départ, vous recevez un bel ouvrage censé vous guider lors de votre aventure. Vous ouvrez le livre (https://guide.draftbot.com) et consultez rapidement les premières pages...",
 		"en": "🪑 "
 	},
 	"possibilities": {
-		"🕐": {
+		"\uD83D\uDCD6": {
 			"translations": {
-				"fr": "Attendre votre tour pour la forge",
+				"fr": "Débuter votre aventure",
 				"en": ""
 			},
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous n'attendez pas plus de quelques secondes. Vous êtes en effet dans les premiers à être escorté vers la forge.",
+						"fr": "Une fois votre lecture terminée, vous êtes reconduit à l'entrée. On vous transmet également quelques informations à propos de quelques missions supplémentaires confiées par le roi pour faciliter votre quête (commande `mission`) et on vous propose un transport vers le chef-lieux de votre choix.",
 						"en": ""
 					},
 					"lostTime": 0,
 					"health": 0,
 					"effect": ":smiley:",
 					"experience": 0,
-					"money": 0,
-					"item": false
-				}
-			]
-		},
-		"🔥": {
-			"translations": {
-				"fr": "Vous réchauffer près la grande cheminée",
-				"en": ""
-			},
-			"issues": [
-				{
-					"translations": {
-						"fr": "La chaleur de la cheminée vous réchauffe immédiatement. Après quelques dizaines de minutes, un sujet vous interpelle afin d'aller à la forge.",
-						"en": ""
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
-					"item": false
-				}
-			]
-		},
-		"💂": {
-			"translations": {
-				"fr": "Discuter avec un garde",
-				"en": ""
-			},
-			"issues": [
-				{
-					"translations": {
-						"fr": "Vous tentez de parler au garde qui reste stoïque. Quelques instants plus tard, un sujet vient vous chercher pour aller à la forge.",
-						"en": ""
-					},
-					"lostTime": 0,
-					"health": 0,
-					"effect": ":smiley:",
-					"experience": 0,
-					"money": 0,
+					"money": 150,
 					"item": false
 				}
 			]
@@ -71,14 +31,14 @@
 			"issues": [
 				{
 					"translations": {
-						"fr": "Vous attendez deux minutes, immobile, qu'un sujet vienne vous chercher pour aller vers la forge.",
+						"fr": "Vous écoutez patiemment le roi avant d'être reconduit à l'entrée. On vous transmet également quelques informations à propos de quelques missions supplémentaires confiées par le roi pour faciliter votre quête (commande `mission`) et on vous propose un transport vers le chef-lieux de votre choix.",
 						"en": ""
 					},
 					"lostTime": 0,
 					"health": 0,
 					"effect": ":smiley:",
 					"experience": 0,
-					"money": 0,
+					"money": 150,
 					"item": false
 				}
 			]
