@@ -335,11 +335,54 @@ const doEvent = async (message, language, event, entity, time, forcePoints = 0) 
 	}
 };
 
+function createPossibilityMessage(language, scoreChange, moneyChange, pDataValues, possibility, message) {
+	let result = "";
+	result += format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
+	if (moneyChange !== 0) {
+		result += moneyChange >= 0
+			? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange})
+			: format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
+	}
+	if (pDataValues.experience > 0) {
+		result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
+	}
+	if (pDataValues.health < 0) {
+		result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: -pDataValues.health});
+	}
+	if (pDataValues.health > 0) {
+		result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
+	}
+	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
+		result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime)});
+	}
+	let emojiEnd = pDataValues.effect !== EFFECT.SMILEY && pDataValues.effect !== EFFECT.OCCUPIED ? " " + pDataValues.effect : "";
+
+	emojiEnd = pDataValues.oneshot === true ? " " + EFFECT.DEAD + " " : emojiEnd;
+
+	if (possibility.dataValues.possibilityKey === "end") {
+		return format(JsonReader.commands.report.getTranslation(language).doPossibility, {
+			pseudo: message.author,
+			result: result,
+			event: possibility[language],
+			emoji: "",
+			alte: emojiEnd
+		});
+	}
+	return format(JsonReader.commands.report.getTranslation(language).doPossibility, {
+		pseudo: message.author,
+		result: result,
+		event: possibility[language],
+		emoji: possibility.dataValues.possibilityKey + " ",
+		alte: emojiEnd
+	});
+
+}
+
 /**
  * @param {Message} message - Message from the discord server
  * @param {("fr"|"en")} language - Language to use in the response
  * @param {Possibility} possibility
- * @param {Entities} entity
+ * @param {Entity} entity
  * @param {Number} time
  * @param {Number} forcePoints Force a certain number of points to be given instead of random
  * @return {Promise<Message>}
@@ -376,47 +419,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	if (pDataValues.money < 0 && moneyChange > 0) {
 		moneyChange = Math.round(pDataValues.money / 2);
 	}
-	let result = "";
-	result += format(JsonReader.commands.report.getTranslation(language).points, {score: scoreChange});
-	if (moneyChange !== 0) {
-		result += moneyChange >= 0
-			? format(JsonReader.commands.report.getTranslation(language).money, {money: moneyChange})
-			: format(JsonReader.commands.report.getTranslation(language).moneyLoose, {money: -moneyChange});
-	}
-	if (pDataValues.experience > 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).experience, {experience: pDataValues.experience});
-	}
-	if (pDataValues.health < 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).healthLoose, {health: -pDataValues.health});
-	}
-	if (pDataValues.health > 0) {
-		result += format(JsonReader.commands.report.getTranslation(language).health, {health: pDataValues.health});
-	}
-	if (pDataValues.lostTime > 0 && pDataValues.effect === ":clock2:") {
-		result += format(JsonReader.commands.report.getTranslation(language).timeLost, {timeLost: minutesToString(pDataValues.lostTime)});
-	}
-	let emojiEnd = pDataValues.effect !== EFFECT.SMILEY && pDataValues.effect !== EFFECT.OCCUPIED ? " " + pDataValues.effect : "";
-
-	emojiEnd = pDataValues.oneshot === true ? " " + EFFECT.DEAD + " " : emojiEnd;
-
-	if (possibility.dataValues.possibilityKey === "end") {
-		result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
-			pseudo: message.author,
-			result: result,
-			event: possibility[language],
-			emoji: "",
-			alte: emojiEnd
-		});
-	}
-	else {
-		result = format(JsonReader.commands.report.getTranslation(language).doPossibility, {
-			pseudo: message.author,
-			result: result,
-			event: possibility[language],
-			emoji: possibility.dataValues.possibilityKey + " ",
-			alte: emojiEnd
-		});
-	}
+	const result = createPossibilityMessage(language, scoreChange, moneyChange, pDataValues, possibility, message);
 
 	await entity.addHealth(pDataValues.health, message.channel, language);
 
@@ -443,7 +446,7 @@ const doPossibility = async (message, language, possibility, entity, time, force
 	}
 
 	if (pDataValues.oneshot === true) {
-		entity.setHealth(0, message.channel, language);
+		await entity.setHealth(0, message.channel, language);
 	}
 
 	if (pDataValues.eventId === 0) {
